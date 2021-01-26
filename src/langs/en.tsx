@@ -1,0 +1,29 @@
+import React from 'react';
+
+export const EN = {
+	$$settings: {
+		code: 'en',
+		fallback: ''
+	},
+	ERROR: {
+		UNPREDICTED: 'Unpredicted error occurred, contact administrator for more information.'
+	},
+	ALERT: {
+		BUTTON: 'Got It',
+		NOT_IMPLEMENT: 'Not implemented yet.'
+	},
+	DIALOG: {
+		BUTTON_YES: 'Yes',
+		BUTTON_NO: 'No'
+	},
+	LOGIN: {
+		PRODUCT_TITLE: <>Indexical Metrics <span>&</span> Measure Advisory</>,
+		MORNING: 'Good morning !',
+		AFTERNOON: 'Good afternoon !',
+		EVENING: 'Good evening !',
+		BUTTON: 'Go !',
+		NAME_EMPTY: 'Please tell me who you are, my friend.',
+		CREDENTIAL_EMPTY: 'Credential is required to enjoy the journey.',
+		FAIL: 'Name or credential cannot be identified now.'
+	}
+};
