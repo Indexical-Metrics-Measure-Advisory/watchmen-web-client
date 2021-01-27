@@ -1,10 +1,36 @@
 export enum FactorType {
 	SEQUENCE = 'sequence',
+
 	NUMBER = 'number',
+	UNSIGNED = 'unsigned',              // 0 & positive
+
 	TEXT = 'text',
-	DATETIME = 'datetime',
+
+	DATETIME = 'datetime',              // YYYY-MM-DD HH:mm:ss
+	DATE = 'date',                      // YYYY-MM-DD
+	TIME = 'time',                      // HH:mm:ss
+	YEAR = 'year',                      // 4 digits
+	HALF_YEAR = 'half-year',            // 1: first half, 2: second half
+	QUARTER = 'quarter',                // 1 - 4
+	SEASON = 'season',                  // 1: spring, 2: summer, 3: autumn, 4: winter
+	MONTH = 'month',                    // 1 - 12
+	HALF_MONTH = 'half-month',          // 1: first half, 2: second half
+	TEN_DAYS = 'ten-days',              // 1, 2, 3
+	WEEK_OF_YEAR = 'week-of-year',      // 1 - 53
+	WEEK_OF_MONTH = 'week-of-month',    // 1 - 6
+	HALF_WEEK = 'half-week',            // 1: first half, 2: second half
+	DAY = 'day',                        // 1 - 31, according to month/year
+	DAY_KIND = 'day-kind',              // 1: workday, 2: weekend, 3: holiday
+	HOUR = 'hour',                      // 0 - 23
+	HOUR_KIND = 'hour-kind',            // 1: work time, 2: off hours, 3: sleeping time
+	MINUTE = 'minute',                  // 0 - 59
+	SECOND = 'second',                  // 0 - 59
+	AM_PM = 'am-pm',                    // 0, 1
+
 	BOOLEAN = 'boolean',
+
 	ENUM = 'enum',
+
 	OBJECT = 'object',
 	ARRAY = 'array',
 }

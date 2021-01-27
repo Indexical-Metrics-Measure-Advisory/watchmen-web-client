@@ -1,16 +1,16 @@
 import React, { isValidElement, useEffect, useState } from 'react';
 import { useEventBus } from '../events/event-bus';
 import { EventTypes } from '../events/types';
-import { Zh } from './zh';
-import { EN } from './en';
+import { En } from './en';
 import { LanguageObjectType } from './types';
+import { Zh } from './zh';
 
-type EnType = typeof EN;
+type EnType = typeof En;
 const LANGUAGES = {
-	[EN.$$settings.code]: EN,
+	[En.$$settings.code]: En,
 	[Zh.$$settings.code]: Zh as EnType
 };
-let currentLanguage = EN;
+let currentLanguage = En;
 
 export const Languages = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
 	const { children } = props;
@@ -19,7 +19,7 @@ export const Languages = (props: { children?: ((props: any) => React.ReactNode) 
 	useEffect(() => {
 		const onLangChange = (lang: string) => {
 			const [ language, country, variant ] = lang.split(/[-_.]/).map(x => (x || '').toLowerCase());
-			currentLanguage = LANGUAGES[`${language}_${country}_${variant}`] || LANGUAGES[`${language}_${country}`] || LANGUAGES[language] || EN;
+			currentLanguage = LANGUAGES[`${language}_${country}_${variant}`] || LANGUAGES[`${language}_${country}`] || LANGUAGES[language] || En;
 			fire(EventTypes.LANGUAGE_CHANGED, currentLanguage);
 		};
 		on(EventTypes.CHANGE_LANGUAGE, onLangChange);
@@ -35,7 +35,6 @@ const LangLabel = (props: { labelKey: string }) => {
 	const { labelKey } = props;
 
 	const { on, off } = useEventBus();
-	const [ keys ] = useState<Array<string>>(labelKey.split('.'));
 	const [ lang, setLang ] = useState<LanguageObjectType>(currentLanguage);
 	useEffect(() => {
 		const onLangChanged = (lang: LanguageObjectType) => setLang(lang);
@@ -45,10 +44,11 @@ const LangLabel = (props: { labelKey: string }) => {
 		};
 	}, [ on, off ]);
 
+	const keys = labelKey.split('.');
 	let value = keys.reduce((from: any, key) => from ? from[key] : undefined, lang);
 	// call fallback when label not found
 	while (value === (void 0)) {
-		const fallback = (lang as typeof EN).$$settings.fallback;
+		const fallback = (lang as typeof En).$$settings.fallback;
 		if (!fallback) {
 			break;
 		}
@@ -75,9 +75,13 @@ const KeyProxy = new Proxy<any>(TARGET, {
 		if (prop === '$$typeof') {
 			return obj[prop];
 		}
-		return proxyValue((EN as any)[prop], prop);
+		return proxyValue((En as any)[prop], prop);
 	}
 });
 
+export const SupportedLanguages = Object.keys(LANGUAGES)
+	.map(code => ({ code, name: LANGUAGES[code].$$settings.name }))
+	.sort((n1, n2) => n1.name.toLowerCase().localeCompare(n2.name.toLowerCase()));
+export const getCurrentLanguageCode = () => currentLanguage.$$settings.code;
 export const Lang: LanguageObjectType = KeyProxy;
 

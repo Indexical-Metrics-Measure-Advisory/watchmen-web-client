@@ -1,7 +1,7 @@
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { ForwardedRef, forwardRef } from 'react';
 import styled from 'styled-components';
+import { ICON_LOADING } from './constants';
 import { ButtonProps } from './types';
 
 const AButton = styled.button`
@@ -80,11 +80,11 @@ const AButton = styled.button`
 
 export const Button = forwardRef((props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
 	const { children, ink, ...rest } = props;
-	return <AButton data-ink={ink} {...rest} ref={ref}>{children}</AButton>;
+	return <AButton {...rest} data-ink={ink} ref={ref}>{children}</AButton>;
 });
 
 export const RoundDwarfButton = styled(Button)`
-	height : var(--button-height-in-form);
+	height        : var(--button-height-in-form);
 	border-radius : calc(var(--button-height-in-form) / 2);
 	> svg {
 		font-size : 0.8em;
@@ -134,7 +134,7 @@ export const LoadingButton = forwardRef((props: ButtonProps & { spin?: boolean }
 	const { children, spin, ...rest } = props;
 
 	return <Button {...rest} ref={ref}>
-		<SpinIcon icon={faSpinner} spin={spin}/>
+		<SpinIcon icon={ICON_LOADING} spin={spin}/>
 		{children}
 	</Button>;
 });

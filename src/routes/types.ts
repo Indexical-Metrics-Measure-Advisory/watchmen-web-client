@@ -10,5 +10,16 @@ export enum Router {
 	ADMIN_USERS = '/admin/users',
 	ADMIN_TASKS = '/admin/tasks',
 
-	CONSOLE = '/console'
+	CONSOLE = '/console',
+	CONSOLE_HOME = '/console/home',
+	CONSOLE_DASHBOARDS = '/console/dashboard',
+	CONSOLE_CONNECTED_SPACE = '/console/space/connected/:connectId',
+	CONSOLE_CONNECTED_SPACE_OVERALL = '/console/space/connected/:connectId/overall',
+	CONSOLE_CONNECTED_SPACE_RESOURCES = '/console/space/connected/:connectId/resources',
+	CONSOLE_CONNECTED_SPACE_GROUP = '/console/space/connected/:connectId/group/:groupId',
+	CONSOLE_CONNECTED_SPACE_SUBJECT = '/console/space/connected/:connectId/subject/:subjectId',
+	CONSOLE_NOTIFICATION = '/console/notification',
+	CONSOLE_MAIL = '/console/mail',
+	CONSOLE_TIMELINE = '/console/timeline',
+	CONSOLE_SETTINGS = '/console/settings'
 }

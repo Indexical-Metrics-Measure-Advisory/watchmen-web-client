@@ -1,6 +1,6 @@
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect } from 'react';
+import { ICON_DELETE } from '../../../../basic-widgets/constants';
 import { useForceUpdate } from '../../../../basic-widgets/utils';
 import { QueryTupleForHolder, TupleHolder } from '../../../../services/tuples/tuple-types';
 import { useTupleEventBus } from '../tuple-event-bus';
@@ -50,7 +50,7 @@ export const TupleItemExists = <TH extends TupleHolder, QTH extends QueryTupleFo
 			return <TupleItemPickerPickedItem key={holdId}>
 				<TupleItemPickerPickedItemLabel>{holdName}</TupleItemPickerPickedItemLabel>
 				<TupleItemPickerPickedItemIcon onClick={onRemoveHold(holdId)}>
-					<FontAwesomeIcon icon={faTimes}/>
+					<FontAwesomeIcon icon={ICON_DELETE}/>
 				</TupleItemPickerPickedItemIcon>
 			</TupleItemPickerPickedItem>;
 		})}

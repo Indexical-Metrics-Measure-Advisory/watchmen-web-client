@@ -101,7 +101,9 @@ export const Tooltip = () => {
 		show: ({ target, text, ...rest }: TooltipParam) => {
 			setContent({ tooltip: text, rect: { ...rest, trigger: target.getBoundingClientRect() } });
 		},
-		hide: () => setContent(createInvisibleContent())
+		hide: () => {
+			setContent(createInvisibleContent())
+		}
 	});
 	useEffect(() => {
 		on(EventTypes.SHOW_TOOLTIP, functions.show);

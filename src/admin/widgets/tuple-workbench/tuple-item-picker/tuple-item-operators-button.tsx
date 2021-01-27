@@ -1,5 +1,5 @@
-import { faBan, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
 import React, { RefObject, useEffect, useState } from 'react';
+import { ICON_ADD, ICON_DISCARD, ICON_EDIT } from '../../../../basic-widgets/constants';
 import { ButtonInk } from '../../../../basic-widgets/types';
 import { TupleHolder } from '../../../../services/tuples/tuple-types';
 import { useTupleItemPickerEventBus } from './tuple-item-picker-event-bus';
@@ -45,7 +45,7 @@ export const TupleItemOperatorsButton = <TH extends TupleHolder>(props: {
 	const hasItems = isHolding(holder);
 
 	return <TupleItemPickerButton asClose={onSearch} ink={ButtonInk.PRIMARY} onClick={onStartClicked}>
-		<TupleItemPickerButtonIcon icon={onSearch ? faBan : (hasItems ? faEdit : faPlus)}
+		<TupleItemPickerButtonIcon icon={onSearch ? ICON_DISCARD : (hasItems ? ICON_EDIT : ICON_ADD)}
 		                           data-standalone={!onSearch}/>
 		<TupleItemPickerButtonLabel visible={!onSearch}>{actionLabel}</TupleItemPickerButtonLabel>
 	</TupleItemPickerButton>;

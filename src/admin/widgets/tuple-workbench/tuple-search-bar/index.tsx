@@ -1,6 +1,6 @@
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
+import { ICON_SEARCH } from '../../../../basic-widgets/constants';
 import { useEventBus } from '../../../../events/event-bus';
 import { EventTypes } from '../../../../events/types';
 import { useTupleEventBus } from '../tuple-event-bus';
@@ -58,7 +58,7 @@ export const TupleSearchBar = (props: {
 
 	return <TupleSearchBarContainer noIndent={!canCreate}>
 		<TupleSearchButton search={onSearch} noIndent={!canCreate} onClick={onSearchClicked}>
-			<FontAwesomeIcon icon={faSearch}/>
+			<FontAwesomeIcon icon={ICON_SEARCH}/>
 		</TupleSearchButton>
 		<TupleSearchInput search={onSearch} placeholder={placeholder}
 		                  value={searchText} onChange={onSearchChanged}

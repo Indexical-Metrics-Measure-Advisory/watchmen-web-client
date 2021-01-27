@@ -44,7 +44,6 @@ export interface DropdownOption {
 }
 
 export type DropdownProps = {
-	className?: string;
 	options: Array<DropdownOption>;
 	onChange: (option: DropdownOption) => (void | { active: boolean });
 	value?: any;

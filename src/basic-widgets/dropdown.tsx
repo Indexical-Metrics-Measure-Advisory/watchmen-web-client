@@ -112,7 +112,7 @@ const getPosition = (container: HTMLDivElement) => {
 };
 
 export const Dropdown = (props: DropdownProps) => {
-	const { className, options = [], onChange, value, please = '', ...rest } = props;
+	const { options = [], onChange, value, please = '', ...rest } = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [ state, setState ] = useState<State>({
@@ -175,10 +175,9 @@ export const Dropdown = (props: DropdownProps) => {
 		label = selection ? asLabel(selection) : please;
 	}
 
-	return <DropdownContainer className={className}
+	return <DropdownContainer {...rest}
 	                          active={state.active}
 	                          atBottom={state.atBottom}
-	                          {...rest}
 	                          ref={containerRef}
 	                          role='input' tabIndex={0}
 	                          onClick={onClicked} onBlur={onBlurred}>

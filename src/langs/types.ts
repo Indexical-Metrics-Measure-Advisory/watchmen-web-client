@@ -1,4 +1,4 @@
-import { EN } from './en';
+import { En } from './en';
 
 type DeepReadonly<T> =
 	T extends (infer R)[] ? DeepReadonlyArray<R> :
@@ -13,4 +13,4 @@ type DeepReadonlyObject<T> = {
 	readonly [P in keyof T]: DeepReadonly<T[P]>;
 };
 
-export type LanguageObjectType = DeepReadonly<Omit<typeof EN, '$$settings'>>;
+export type LanguageObjectType = DeepReadonly<Omit<typeof En, '$$settings'>>;

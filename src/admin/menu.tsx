@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { matchPath, useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import {
+	ICON_CONSOLE,
 	ICON_PIPELINE,
 	ICON_REPORT,
 	ICON_SPACE,
@@ -88,6 +89,8 @@ export const AdminMenu = () => {
 		              visible={false}/>
 		<SideMenuPlaceholder/>
 		<SideMenuSeparator width={menuWidth}/>
+		<SideMenuItem icon={ICON_CONSOLE} label={'Switch to Console'} showTooltip={showTooltip}
+		              onClick={onMenuClicked(Router.CONSOLE)}/>
 		<SideMenuUser name={account.name}/>
 		<SideMenuResizeHandle width={menuWidth} onResize={onResize}/>
 	</AdminMenuContainer>;

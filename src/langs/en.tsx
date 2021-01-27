@@ -1,8 +1,9 @@
 import React from 'react';
 
-export const EN = {
+export const En = {
 	$$settings: {
 		code: 'en',
+		name: 'English',
 		fallback: ''
 	},
 	ERROR: {
@@ -25,5 +26,23 @@ export const EN = {
 		NAME_EMPTY: 'Please tell me who you are, my friend.',
 		CREDENTIAL_EMPTY: 'Credential is required to enjoy the journey.',
 		FAIL: 'Name or credential cannot be identified now.'
+	},
+	CONSOLE: {
+		MENU: {
+			TITLE: 'Watchmen Console',
+			HOME: 'Home',
+			DASHBOARDS: 'Dashboards',
+			FAVORITE: 'Show Favorites',
+			NOTIFICATIONS: 'Notifications',
+			MAILS: 'Inbox',
+			TIMELINE: 'Show Timeline',
+			CONNECT_SPACE: 'Connect Space',
+			SETTINGS: 'Settings',
+			TO_ADMIN: 'Switch to Admin'
+		},
+		SETTINGS: {
+			TITLE: 'Settings',
+			LANGUAGE: 'Language'
+		}
 	}
 };

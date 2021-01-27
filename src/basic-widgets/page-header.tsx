@@ -1,7 +1,7 @@
-import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
+import { ICON_SETTINGS } from './constants';
 import { TooltipButton } from './tooltip-button';
 import { TooltipAlignment } from './types';
 
@@ -49,7 +49,7 @@ export const PageHeader = (props: { title: string; onSettingsClicked?: () => voi
 		{onSettingsClicked
 			? <SettingsButton tooltip={{ label: 'Settings', alignment: TooltipAlignment.CENTER }}
 			                  onClick={onSettingsClicked}>
-				<FontAwesomeIcon icon={faCog}/>
+				<FontAwesomeIcon icon={ICON_SETTINGS}/>
 			</SettingsButton>
 			: null}
 	</PageHeaderContainer>;

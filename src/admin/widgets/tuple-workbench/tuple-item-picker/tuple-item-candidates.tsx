@@ -1,7 +1,6 @@
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { RefObject, useEffect, useState } from 'react';
-import { BASE_HEIGHT } from '../../../../basic-widgets/constants';
+import { BASE_HEIGHT, ICON_LOADING } from '../../../../basic-widgets/constants';
 import { QueryTupleForHolder } from '../../../../services/tuples/tuple-types';
 import { useTupleEventBus } from '../tuple-event-bus';
 import { TupleEventTypes, TupleState } from '../tuple-event-bus-types';
@@ -132,7 +131,7 @@ export const TupleItemCandidates = <QTH extends QueryTupleForHolder>(props: {
 		case searchState.state === PickerSearchState.SEARCHING:
 			// in searching
 			dropdownContent = <TupleItemPickerDropdownReminder>
-				<FontAwesomeIcon icon={faSpinner} spin={true}/>
+				<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>
 				<span>Searching...</span>
 			</TupleItemPickerDropdownReminder>;
 			break;

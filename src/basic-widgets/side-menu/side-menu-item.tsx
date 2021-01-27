@@ -6,7 +6,7 @@ import { TOOLTIP_CARET_OFFSET } from '../constants';
 import { useTooltip } from '../tooltip';
 import { TooltipAlignment } from '../types';
 
-const SideMenuItemContainer = styled.div.attrs({ 'data-widget': 'side-menu-item-container' })`
+export const SideMenuItemContainer = styled.div.attrs({ 'data-widget': 'side-menu-item-container' })`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : var(--side-menu-icon-size) 1fr;
@@ -20,7 +20,7 @@ const SideMenuItemContainer = styled.div.attrs({ 'data-widget': 'side-menu-item-
 		color : var(--primary-color);
 	}
 `;
-const SideMenuItemIcon = styled.div.attrs<{ active: boolean }>(({ active }) => {
+export const SideMenuItemIcon = styled.div.attrs<{ active: boolean }>(({ active }) => {
 	return {
 		'data-widget': 'side-menu-item-icon',
 		style: {
@@ -40,7 +40,7 @@ const SideMenuItemIcon = styled.div.attrs<{ active: boolean }>(({ active }) => {
 	border-radius   : var(--border-radius);
 	transition      : color 300ms ease-in-out, background-color 300ms ease-in-out;
 `;
-const SideMenuItemLabel = styled.div.attrs({ 'data-widget': 'side-menu-item-label' })`
+export const SideMenuItemLabel = styled.div.attrs({ 'data-widget': 'side-menu-item-label' })`
 	position      : relative;
 	flex-grow     : 1;
 	font-variant  : petite-caps;
@@ -58,7 +58,7 @@ export const SideMenuItem = (props: {
 	onClick?: (rect: DOMRect) => void;
 	visible?: boolean;
 }) => {
-	const { icon, label, showTooltip, active = false, onClick, visible = true } = props;
+	const { icon, label, showTooltip, active = false, onClick, visible = true, ...rest } = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
 
@@ -79,7 +79,7 @@ export const SideMenuItem = (props: {
 		onClick && onClick(containerRef.current!.getBoundingClientRect());
 	};
 
-	return <SideMenuItemContainer onClick={onClicked} {...tooltip} ref={containerRef}>
+	return <SideMenuItemContainer {...rest} onClick={onClicked} {...tooltip} ref={containerRef}>
 		<SideMenuItemIcon active={active}>
 			<FontAwesomeIcon icon={icon}/>
 		</SideMenuItemIcon>

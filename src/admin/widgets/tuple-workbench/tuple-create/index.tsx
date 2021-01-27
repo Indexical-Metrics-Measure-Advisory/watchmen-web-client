@@ -1,6 +1,6 @@
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { ICON_ADD } from '../../../../basic-widgets/constants';
 import { useEventBus } from '../../../../events/event-bus';
 import { EventTypes } from '../../../../events/types';
 import { useTupleEventBus } from '../tuple-event-bus';
@@ -37,7 +37,7 @@ export const TupleCreate = (props: {
 	};
 
 	return <TupleCreateButton onClick={onCreateClicked}>
-		<FontAwesomeIcon icon={faPlus}/>
+		<FontAwesomeIcon icon={ICON_ADD}/>
 		<span>{label}</span>
 	</TupleCreateButton>;
 };

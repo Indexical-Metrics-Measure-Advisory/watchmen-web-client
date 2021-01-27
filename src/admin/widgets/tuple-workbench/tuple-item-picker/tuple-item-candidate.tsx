@@ -1,5 +1,5 @@
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
+import { ICON_SELECTED } from '../../../../basic-widgets/constants';
 import { useForceUpdate } from '../../../../basic-widgets/utils';
 import { QueryTupleForHolder } from '../../../../services/tuples/tuple-types';
 import { TupleItemPickerDropdownCandidate, TupleItemPickerDropdownCandidateIcon } from './widgets';
@@ -26,7 +26,7 @@ export const TupleItemCandidate = <QTH extends QueryTupleForHolder>(props: {
 	};
 
 	return <TupleItemPickerDropdownCandidate onClick={onClicked}>
-		<TupleItemPickerDropdownCandidateIcon icon={faCheck} data-checked={picked}/>
+		<TupleItemPickerDropdownCandidateIcon icon={ICON_SELECTED} data-checked={picked}/>
 		<span>{getNameOfCandidate(candidate)}</span>
 	</TupleItemPickerDropdownCandidate>;
 };
