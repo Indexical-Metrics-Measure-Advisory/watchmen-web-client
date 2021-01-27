@@ -45,8 +45,10 @@ export const En = {
 			LANGUAGE: 'Language'
 		},
 		FAVORITE: {
-			FLOAT_TITLE: 'My Favorite',
-			NO_DATA: 'No favorite items.'
+			TITLE: 'My Favorite',
+			NO_DATA: 'No favorite items.',
+			PIN: 'Pin',
+			UNPIN: 'Unpin'
 		}
 	}
 };

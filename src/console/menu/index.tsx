@@ -24,6 +24,8 @@ import { SideMenuUser } from '../../basic-widgets/side-menu/side-menu-user';
 import { Lang } from '../../langs';
 import { Router } from '../../routes/types';
 import { findAccount, isAdmin } from '../../services/account';
+import { useConsoleEventBus } from '../console-event-bus';
+import { ConsoleEventTypes } from '../console-event-bus-types';
 import { FavoriteMenu } from './side-menu-favorite';
 import { SideMenuSpaces } from './side-menu-spaces';
 
@@ -49,17 +51,21 @@ const ConsoleMenuContainer = styled.div.attrs<{ width: number }>(({ width }) => 
 export const ConsoleMenu = () => {
 	const history = useHistory();
 	const location = useLocation();
+	const { fire } = useConsoleEventBus();
 	const [ menuWidth, setMenuWidth ] = useState(SIDE_MENU_MIN_WIDTH);
 
 	const onResize = (newWidth: number) => {
-		setMenuWidth(Math.min(Math.max(newWidth, SIDE_MENU_MIN_WIDTH), SIDE_MENU_MAX_WIDTH));
+		const width = Math.min(Math.max(newWidth, SIDE_MENU_MIN_WIDTH), SIDE_MENU_MAX_WIDTH);
+		setMenuWidth(width);
+		fire(ConsoleEventTypes.SIDE_MENU_RESIZED, width);
 	};
 	const onMenuClicked = (path: string) => () => {
 		if (!matchPath(location.pathname, path)) {
 			history.push(path);
 		}
 	};
-	const onSpaceConnectClicked = () => {
+	const onConnectSpaceClicked = () => {
+		// TODO on connect space clicked
 	};
 
 	const account = findAccount() || { name: MOCK_ACCOUNT_NAME };
@@ -94,7 +100,7 @@ export const ConsoleMenu = () => {
 		<SideMenuSeparator width={menuWidth}/>
 		<SideMenuSpaces showTooltip={showTooltip}/>
 		<SideMenuConnectSpace icon={ICON_ADD} label={Lang.CONSOLE.MENU.CONNECT_SPACE} showTooltip={showTooltip}
-		                      onClick={onSpaceConnectClicked}/>
+		                      onClick={onConnectSpaceClicked}/>
 		<SideMenuPlaceholder/>
 		<SideMenuSeparator width={menuWidth}/>
 		<SideMenuItem icon={ICON_SETTINGS} label={Lang.CONSOLE.MENU.SETTINGS} showTooltip={showTooltip}

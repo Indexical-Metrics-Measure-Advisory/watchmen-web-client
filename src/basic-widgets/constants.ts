@@ -19,7 +19,7 @@ import {
 	faStar,
 	faTachometerAlt,
 	faTags,
-	faTasks,
+	faTasks, faThumbtack,
 	faTimes,
 	faTools,
 	faUser,
@@ -31,6 +31,7 @@ export const TOOLTIP_Z_INDEX = 10000;
 export const DIALOG_Z_INDEX = 99999;
 export const ALERT_Z_INDEX = 99999;
 export const FAVORITE_Z_INDEX = 1500;
+export const PIN_FAVORITE_Z_INDEX = 1499;
 export const DROPDOWN_Z_INDEX = 999;
 export const SIDE_MENU_RESIZE_HANDLE_Z_INDEX = 500;
 
@@ -81,6 +82,7 @@ export const ICON_SETTINGS = faCog;
 export const ICON_SEARCH = faSearch;
 export const ICON_SELECTED = faCheck;
 export const ICON_LOADING = faSpinner;
+export const ICON_PIN = faThumbtack;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

@@ -3,6 +3,7 @@ import { ConsoleSettings } from '../../services/console/settings-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes, FavoriteState } from '../console-event-bus-types';
 import { FloatFavorite } from './float-favorite';
+import { PinFavorite } from './pin-favorite';
 
 interface State {
 	state: FavoriteState;
@@ -60,5 +61,6 @@ export const Favorite = () => {
 
 	return <>
 		<FloatFavorite {...state}/>
+		<PinFavorite state={state.state}/>
 	</>;
 };

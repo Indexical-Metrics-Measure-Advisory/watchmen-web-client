@@ -10,6 +10,8 @@ export enum ConsoleEventTypes {
 	DO_LOAD_SETTINGS = 'do-load-settings',
 	SETTINGS_LOADED = 'settings-loaded',
 
+	SIDE_MENU_RESIZED = 'side-menu-resized',
+
 	SHOW_FAVORITE = 'show-favorite',
 	PIN_FAVORITE = 'pin-favorite',
 	UNPIN_FAVORITE = 'unpin-favorite',
@@ -27,6 +29,11 @@ export interface ConsoleEventBus {
 	fire(type: ConsoleEventTypes.SETTINGS_LOADED, settings: ConsoleSettings): this;
 	on(type: ConsoleEventTypes.SETTINGS_LOADED, listener: (settings: ConsoleSettings) => void): this;
 	off(type: ConsoleEventTypes.SETTINGS_LOADED, listener: (settings: ConsoleSettings) => void): this;
+
+	// side menu resize
+	fire(type: ConsoleEventTypes.SIDE_MENU_RESIZED, width: number): this;
+	on(type: ConsoleEventTypes.SIDE_MENU_RESIZED, listener: (width: number) => void): this;
+	off(type: ConsoleEventTypes.SIDE_MENU_RESIZED, listener: (width: number) => void): this;
 
 	// favorite
 	fire(type: ConsoleEventTypes.SHOW_FAVORITE, position: { top: number, left: number }): this;
