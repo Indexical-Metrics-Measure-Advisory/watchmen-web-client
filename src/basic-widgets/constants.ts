@@ -49,6 +49,8 @@ export const SIDE_MENU_RESIZE_HANDLE_WIDTH = 6;
 export const TOOLTIP_MAX_WIDTH = 300;
 export const TOOLTIP_CARET_OFFSET = 6;
 
+export const PIN_FAVORITE_HEIGHT = 'calc(var(--height) * 1.2 + 1px)';
+
 // business related
 export const TUPLE_SEARCH_PAGE_SIZE = 9;
 

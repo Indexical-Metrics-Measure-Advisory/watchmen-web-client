@@ -3,7 +3,7 @@ import {
 	BASE_MARGIN,
 	BORDER_WIDTH, BUTTON_HEIGHT_IN_FORM,
 	BUTTON_INDENT,
-	INPUT_INDENT,
+	INPUT_INDENT, PIN_FAVORITE_HEIGHT,
 	SIDE_MENU_MIN_WIDTH
 } from '../basic-widgets/constants';
 
@@ -65,6 +65,9 @@ const DefaultTheme = {
 	scrollbarBgColor: 'rgba(229,229,229,0.5)',
 	scrollbarThumbBgColor: 'var(--primary-color)',
 	scrollbarBorderColor: 'transparent',
+
+	// pin favorite
+	pinFavoriteHeight: PIN_FAVORITE_HEIGHT,
 
 	// row
 	height: BASE_HEIGHT,

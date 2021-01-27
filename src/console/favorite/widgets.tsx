@@ -100,7 +100,7 @@ export const PinFavoriteContainer = styled.div.attrs<{ visible: boolean, left: n
 	return {
 		'data-widget': 'pin-favorite',
 		style: {
-			top: visible ? 0 : `calc((var(--height) * 1.2 + 1px) * -1)`,
+			top: visible ? 0 : 'calc(var(--pin-favorite-height) * -1)',
 			left,
 			width: `calc(100vw - ${left}px)`,
 			opacity: visible ? 1 : (void 0)
@@ -110,7 +110,7 @@ export const PinFavoriteContainer = styled.div.attrs<{ visible: boolean, left: n
 	display               : grid;
 	position              : fixed;
 	grid-template-columns : auto 1fr auto;
-	grid-template-rows    : calc(var(--height) * 1.2 + 1px);
+	grid-template-rows    : var(--pin-favorite-height);
 	justify-items         : stretch;
 	opacity               : 0;
 	transition            : top 300ms ease-in-out, opacity 300ms ease-in-out;
