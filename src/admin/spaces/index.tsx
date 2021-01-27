@@ -5,6 +5,7 @@ import { QuerySpace } from '../../services/tuples/query-space-types';
 import { fetchSpace, listSpaces, saveSpace } from '../../services/tuples/space';
 import { Space } from '../../services/tuples/space-types';
 import { generateUuid } from '../../services/tuples/utils';
+import { getCurrentTime } from '../../services/utils';
 import { TupleWorkbench } from '../widgets/tuple-workbench';
 import { TupleEventBusProvider, useTupleEventBus } from '../widgets/tuple-workbench/tuple-event-bus';
 import { TupleEventTypes } from '../widgets/tuple-workbench/tuple-event-bus-types';
@@ -12,7 +13,11 @@ import { renderCard } from './card';
 import { renderEditor } from './editor';
 
 const createSpace = (): Space => {
-	return { spaceId: generateUuid(), name: '', topicIds: [], userGroupIds: [] };
+	return {
+		spaceId: generateUuid(), name: '', topicIds: [], userGroupIds: [],
+		createTime: getCurrentTime(),
+		lastModifyTime: getCurrentTime()
+	};
 };
 
 const fetchSpaceAndCodes = async (querySpace: QuerySpace) => {

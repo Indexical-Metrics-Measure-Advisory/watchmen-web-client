@@ -2,6 +2,7 @@ import { DataPage } from '../../query/data-page';
 import { QueryTopic, QueryTopicForHolder } from '../../tuples/query-topic-types';
 import { Topic, TopicType } from '../../tuples/topic-types';
 import { isFakedUuid } from '../../tuples/utils';
+import { getCurrentTime } from '../../utils';
 import { DemoTopics } from './mock-data-topics';
 
 export const listMockTopics = async (options: {
@@ -29,10 +30,17 @@ export const fetchMockTopic = async (topicId: string): Promise<{ topic: Topic }>
 	// eslint-disable-next-line
 	const found = DemoTopics.find(({ topicId: id }) => id == topicId);
 	if (found) {
-		const { topicId, name, type, description, factors } = found;
-		topic = { topicId, name, type, description, factors };
+		const { topicId, name, type, description, factors, createTime, lastModifyTime } = found;
+		topic = { topicId, name, type, description, factors, createTime, lastModifyTime };
 	} else {
-		topic = { topicId, name: 'Mock Topic', type: TopicType.DISTINCT, factors: [] };
+		topic = {
+			topicId,
+			name: 'Mock Topic',
+			type: TopicType.DISTINCT,
+			factors: [],
+			createTime: getCurrentTime(),
+			lastModifyTime: getCurrentTime()
+		};
 	}
 	return { topic };
 };
@@ -54,7 +62,7 @@ export const listMockTopicsForHolder = async (search: string): Promise<Array<Que
 				[
 					{ topicId: '3', name: 'Participant' },
 					{ topicId: '2', name: 'Policy' },
-					{ topicId: '1', name: 'Quotation' },
+					{ topicId: '1', name: 'Quotation' }
 				].filter((x) => x.name.toUpperCase().includes(search.toUpperCase()))
 			);
 		}, 500);

@@ -5,8 +5,14 @@ export enum FactorType {
 	UNSIGNED = 'unsigned',              // 0 & positive
 
 	TEXT = 'text',
+	ADDRESS = 'address',
+	EMAIL = 'email',
+	PHONE = 'phone',
+	MOBILE = 'mobile',
+	FAX = 'fax',
 
 	DATETIME = 'datetime',              // YYYY-MM-DD HH:mm:ss
+	DATE_OF_BIRTH = 'date-of-birth',    // YYYY-MM-DD
 	DATE = 'date',                      // YYYY-MM-DD
 	TIME = 'time',                      // HH:mm:ss
 	YEAR = 'year',                      // 4 digits

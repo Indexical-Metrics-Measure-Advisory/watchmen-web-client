@@ -79,14 +79,17 @@ export const saveUser = async (user: User): Promise<void> => {
 		});
 		const data = await response.json();
 		user.userId = data.userId;
+		user.lastModifyTime = data.lastModifyTime;
 	} else {
-		await fetch(`${getServiceHost()}update/user?user_id=${user.userId}`, {
+		const response = await fetch(`${getServiceHost()}update/user?user_id=${user.userId}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(transformToServer(user))
 		});
+		const data = await response.json();
+		user.lastModifyTime = data.lastModifyTime;
 	}
 };
 

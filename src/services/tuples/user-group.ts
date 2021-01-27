@@ -96,14 +96,17 @@ export const saveUserGroup = async (userGroup: UserGroup): Promise<void> => {
 
 		const data = await response.json();
 		userGroup.userGroupId = data.userGroupId;
+		userGroup.lastModifyTime = data.lastModifyTime;
 	} else {
-		await fetch(`${getServiceHost()}update/user_group?user_group_id=${userGroup.userGroupId}`, {
+		const response = await fetch(`${getServiceHost()}update/user_group?user_group_id=${userGroup.userGroupId}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(userGroup)
 		});
+		const data = await response.json();
+		userGroup.lastModifyTime = data.lastModifyTime;
 	}
 };
 

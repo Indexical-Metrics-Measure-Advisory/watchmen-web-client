@@ -4,6 +4,7 @@ import { QueryTopicForHolder } from '../../tuples/query-topic-types';
 import { QueryUserGroupForHolder } from '../../tuples/query-user-group-types';
 import { Space } from '../../tuples/space-types';
 import { isFakedUuid } from '../../tuples/utils';
+import { getCurrentTime } from '../../utils';
 
 export const listMockSpaces = async (options: {
 	search: string;
@@ -42,7 +43,9 @@ export const fetchMockSpace = async (spaceId: string): Promise<{ space: Space; g
 			name: 'Quotation & Policy',
 			description: 'All Sales Data',
 			topicIds: [ '1', '2' ],
-			userGroupIds: []
+			userGroupIds: [],
+			createTime: getCurrentTime(),
+			lastModifyTime: getCurrentTime()
 		},
 		groups: [ { userGroupId: '1', name: 'Oklahoma' } ],
 		topics: [

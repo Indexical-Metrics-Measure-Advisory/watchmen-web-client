@@ -103,14 +103,17 @@ export const saveSpace = async (space: Space): Promise<void> => {
 
 		const data = await response.json();
 		space.spaceId = data.spaceId;
+		space.lastModifyTime = data.lastModifyTime;
 	} else {
-		await fetch(`${getServiceHost()}update/space?space_id=${space.spaceId}`, {
+		const response = await fetch(`${getServiceHost()}update/space?space_id=${space.spaceId}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(transformToServer(space))
 		});
+		const data = await response.json();
+		space.lastModifyTime = data.lastModifyTime;
 	}
 };
 

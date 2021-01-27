@@ -5,6 +5,7 @@ import { QueryReport } from '../../services/tuples/query-report-types';
 import { listReports } from '../../services/tuples/report';
 import { Report } from '../../services/tuples/report-types';
 import { generateUuid } from '../../services/tuples/utils';
+import { getCurrentTime } from '../../services/utils';
 import { TupleWorkbench } from '../widgets/tuple-workbench';
 import { TupleEventBusProvider, useTupleEventBus } from '../widgets/tuple-workbench/tuple-event-bus';
 import { TupleEventTypes } from '../widgets/tuple-workbench/tuple-event-bus-types';
@@ -12,7 +13,13 @@ import { renderCard } from './card';
 import { renderEditor } from './editor';
 
 const createReport = (): Report => {
-	return { reportId: generateUuid(), name: '', predefined: true };
+	return {
+		reportId: generateUuid(),
+		name: '',
+		predefined: true,
+		createTime: getCurrentTime(),
+		lastModifyTime: getCurrentTime()
+	};
 };
 
 const getKeyOfReport = (report: QueryReport) => report.reportId;
@@ -25,7 +32,11 @@ const AdminReports = () => {
 		};
 		const onDoEditReport = async (queryReport: QueryReport) => {
 			const { reportId, name, description, predefined } = queryReport;
-			const report: Report = { reportId, name, description, predefined };
+			const report: Report = {
+				reportId, name, description, predefined,
+				createTime: getCurrentTime(),
+				lastModifyTime: getCurrentTime()
+			};
 			fire(TupleEventTypes.TUPLE_LOADED, report);
 		};
 		const onDoSearchReport = async (searchText: string, pageNumber: number) => {

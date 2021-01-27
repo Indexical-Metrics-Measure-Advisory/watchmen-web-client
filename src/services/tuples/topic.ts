@@ -57,14 +57,17 @@ export const saveTopic = async (topic: Topic): Promise<void> => {
 
 		const data = await response.json();
 		topic.topicId = data.topicId;
+		topic.lastModifyTime = data.lastModifyTime;
 	} else {
-		await fetch(`${getServiceHost()}update/topic?topic_id=${topic.topicId}`, {
+		const response = await fetch(`${getServiceHost()}update/topic?topic_id=${topic.topicId}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(topic)
 		});
+		const data = await response.json();
+		topic.lastModifyTime = data.lastModifyTime;
 	}
 };
 

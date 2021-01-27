@@ -5,6 +5,7 @@ import { QueryTopic } from '../../services/tuples/query-topic-types';
 import { fetchTopic, listTopics, saveTopic } from '../../services/tuples/topic';
 import { Topic, TopicType } from '../../services/tuples/topic-types';
 import { generateUuid } from '../../services/tuples/utils';
+import { getCurrentTime } from '../../services/utils';
 import { TupleWorkbench } from '../widgets/tuple-workbench';
 import { TupleEventBusProvider, useTupleEventBus } from '../widgets/tuple-workbench/tuple-event-bus';
 import { TupleEventTypes } from '../widgets/tuple-workbench/tuple-event-bus-types';
@@ -12,7 +13,11 @@ import { renderCard } from './card';
 import { renderEditor } from './editor';
 
 const createTopic = (): Topic => {
-	return { topicId: generateUuid(), name: '', type: TopicType.DISTINCT, factors: [] };
+	return {
+		topicId: generateUuid(), name: '', type: TopicType.DISTINCT, factors: [],
+		createTime: getCurrentTime(),
+		lastModifyTime: getCurrentTime()
+	};
 };
 
 const fetchTopicAndCodes = async (queryTopic: QueryTopic) => {

@@ -5,6 +5,7 @@ import { QueryUserGroup } from '../../services/tuples/query-user-group-types';
 import { fetchUserGroup, listUserGroups, saveUserGroup } from '../../services/tuples/user-group';
 import { UserGroup } from '../../services/tuples/user-group-types';
 import { generateUuid } from '../../services/tuples/utils';
+import { getCurrentTime } from '../../services/utils';
 import { TupleWorkbench } from '../widgets/tuple-workbench';
 import { TupleEventBusProvider, useTupleEventBus } from '../widgets/tuple-workbench/tuple-event-bus';
 import { TupleEventTypes } from '../widgets/tuple-workbench/tuple-event-bus-types';
@@ -12,7 +13,11 @@ import { renderCard } from './card';
 import { renderEditor } from './editor';
 
 const createUserGroup = (): UserGroup => {
-	return { userGroupId: generateUuid(), name: '', spaceIds: [], userIds: [] };
+	return {
+		userGroupId: generateUuid(), name: '', spaceIds: [], userIds: [],
+		createTime: getCurrentTime(),
+		lastModifyTime: getCurrentTime()
+	};
 };
 
 const fetchUserGroupAndCodes = async (queryUserGroup: QueryUserGroup) => {

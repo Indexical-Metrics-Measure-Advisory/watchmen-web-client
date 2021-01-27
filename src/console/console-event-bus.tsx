@@ -14,6 +14,10 @@ export const ConsoleEventBusProvider = (props: { children?: ((props: any) => Rea
 			emitter.emit(type, ...data);
 			return bus;
 		},
+		once: (type: string, listener: (...data: any) => void): ConsoleEventBus => {
+			emitter.once(type, listener);
+			return bus;
+		},
 		on: (type: string, listener: (...data: any) => void): ConsoleEventBus => {
 			emitter.on(type, listener);
 			return bus;

@@ -5,6 +5,7 @@ import { QueryUser } from '../../services/tuples/query-user-types';
 import { fetchUser, listUsers, saveUser } from '../../services/tuples/user';
 import { User } from '../../services/tuples/user-types';
 import { generateUuid } from '../../services/tuples/utils';
+import { getCurrentTime } from '../../services/utils';
 import { TupleWorkbench } from '../widgets/tuple-workbench';
 import { TupleEventBusProvider, useTupleEventBus } from '../widgets/tuple-workbench/tuple-event-bus';
 import { TupleEventTypes } from '../widgets/tuple-workbench/tuple-event-bus-types';
@@ -12,7 +13,11 @@ import { renderCard } from './card';
 import { renderEditor } from './editor';
 
 const createUser = (): User => {
-	return { userId: generateUuid(), name: '', nickName: '', userGroupIds: [] };
+	return {
+		userId: generateUuid(), name: '', nickName: '', userGroupIds: [],
+		createTime: getCurrentTime(),
+		lastModifyTime: getCurrentTime()
+	};
 };
 
 const fetchUserAndCodes = async (queryUser: QueryUser) => {
