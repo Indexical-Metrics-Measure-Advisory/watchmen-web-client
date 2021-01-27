@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import { fetchConsoleSettingsData } from '../services/console';
+import { fetchConsoleSettingsData } from '../services/console/settings';
 import { useConsoleEventBus } from './console-event-bus';
 import { ConsoleEventTypes } from './console-event-bus-types';
 

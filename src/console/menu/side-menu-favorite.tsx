@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { ICON_FAVORITE, TOOLTIP_CARET_OFFSET } from '../../basic-widgets/constants';
 import {
@@ -10,6 +10,9 @@ import {
 import { useTooltip } from '../../basic-widgets/tooltip';
 import { TooltipAlignment } from '../../basic-widgets/types';
 import { Lang } from '../../langs';
+import { ConsoleSettings } from '../../services/console/settings-types';
+import { useConsoleEventBus } from '../console-event-bus';
+import { ConsoleEventTypes, FavoriteState } from '../console-event-bus-types';
 
 const FavoriteIcon = styled(SideMenuItemIcon).attrs<{ active: boolean }>(({ active }) => {
 	return {
@@ -25,8 +28,24 @@ export const FavoriteMenu = (props: {
 }) => {
 	const { showTooltip } = props;
 
+	const { once, on, off, fire } = useConsoleEventBus();
 	const containerRef = useRef<HTMLDivElement>(null);
+	const iconRef = useRef<HTMLDivElement>(null);
 	const [ active, setActive ] = useState(false);
+	useEffect(() => {
+		const onSettingsLoaded = (({ favorite }: ConsoleSettings) => {
+			if (favorite.pin) {
+				setActive(true);
+			}
+		});
+		const onHideFavorite = () => setActive(false);
+		on(ConsoleEventTypes.SETTINGS_LOADED, onSettingsLoaded);
+		on(ConsoleEventTypes.HIDE_FAVORITE, onHideFavorite);
+		return () => {
+			off(ConsoleEventTypes.SETTINGS_LOADED, onSettingsLoaded);
+			off(ConsoleEventTypes.HIDE_FAVORITE, onHideFavorite);
+		};
+	}, [ on, off ]);
 
 	const label = Lang.CONSOLE.MENU.FAVORITE;
 	const tooltip = useTooltip<HTMLDivElement>({
@@ -39,11 +58,23 @@ export const FavoriteMenu = (props: {
 	});
 
 	const onFavoriteClicked = () => {
-		setActive(!active);
+		once(ConsoleEventTypes.REPLY_FAVORITE_STATE, (state: FavoriteState) => {
+			switch (state) {
+				case FavoriteState.HIDDEN:
+					const { top, left, width, height } = iconRef.current!.getBoundingClientRect();
+					setActive(true);
+					fire(ConsoleEventTypes.SHOW_FAVORITE, { top: top + height / 2, left: left + width });
+					break;
+				case FavoriteState.SHOWN:
+				// already show, do nothing
+				case FavoriteState.PIN:
+				// already pin, do nothing
+			}
+		}).fire(ConsoleEventTypes.ASK_FAVORITE_STATE);
 	};
 
 	return <SideMenuItemContainer onClick={onFavoriteClicked} {...tooltip} ref={containerRef}>
-		<FavoriteIcon active={active}>
+		<FavoriteIcon active={active} ref={iconRef}>
 			<FontAwesomeIcon icon={ICON_FAVORITE}/>
 		</FavoriteIcon>
 		<SideMenuItemLabel>{label}</SideMenuItemLabel>

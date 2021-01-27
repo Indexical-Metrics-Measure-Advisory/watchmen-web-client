@@ -12,6 +12,7 @@ export enum ConsoleEventTypes {
 
 	SHOW_FAVORITE = 'show-favorite',
 	PIN_FAVORITE = 'pin-favorite',
+	UNPIN_FAVORITE = 'unpin-favorite',
 	HIDE_FAVORITE = 'hide-favorite',
 	ASK_FAVORITE_STATE = 'ask-favorite-state',
 	REPLY_FAVORITE_STATE = 'reply-favorite-state'
@@ -28,13 +29,17 @@ export interface ConsoleEventBus {
 	off(type: ConsoleEventTypes.SETTINGS_LOADED, listener: (settings: ConsoleSettings) => void): this;
 
 	// favorite
-	fire(type: ConsoleEventTypes.SHOW_FAVORITE): this;
-	on(type: ConsoleEventTypes.SHOW_FAVORITE, listener: () => void): this;
-	off(type: ConsoleEventTypes.SHOW_FAVORITE, listener: () => void): this;
+	fire(type: ConsoleEventTypes.SHOW_FAVORITE, position: { top: number, left: number }): this;
+	on(type: ConsoleEventTypes.SHOW_FAVORITE, listener: (position: { top: number, left: number }) => void): this;
+	off(type: ConsoleEventTypes.SHOW_FAVORITE, listener: (position: { top: number, left: number }) => void): this;
 
 	fire(type: ConsoleEventTypes.PIN_FAVORITE): this;
 	on(type: ConsoleEventTypes.PIN_FAVORITE, listener: () => void): this;
 	off(type: ConsoleEventTypes.PIN_FAVORITE, listener: () => void): this;
+
+	fire(type: ConsoleEventTypes.UNPIN_FAVORITE): this;
+	on(type: ConsoleEventTypes.UNPIN_FAVORITE, listener: () => void): this;
+	off(type: ConsoleEventTypes.UNPIN_FAVORITE, listener: () => void): this;
 
 	fire(type: ConsoleEventTypes.HIDE_FAVORITE): this;
 	on(type: ConsoleEventTypes.HIDE_FAVORITE, listener: () => void): this;

@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { Router } from '../routes/types';
 import { ConsoleEventBusProvider } from './console-event-bus';
+import { Favorite } from './favorite';
 import { ConsoleMenu } from './menu';
 import { SettingsLoader } from './settings-loader';
 
@@ -22,23 +23,22 @@ const ConsoleIndex = () => {
 	return <ConsoleEventBusProvider>
 		<ConsoleContainer>
 			<ConsoleMenu/>
-			{/*<Favorite/>*/}
 			<main data-widget='console-main'>
 				<Switch>
-			{/*		<Route path={Router.CONSOLE_HOME}><Home/></Route>*/}
-			{/*		<Route path={Router.CONSOLE_CONNECTED_SPACE}><ConnectedSpace/></Route>*/}
-			{/*		<Route path={Router.CONSOLE_DASHBOARDS}><Dashboards/></Route>*/}
-			{/*		<Route path={Router.CONSOLE_SPACES}><AvailableSpaces/></Route>*/}
-			{/*		<Route path={Router.CONSOLE_INBOX}><Inbox/></Route>*/}
-			{/*		<Route path={Router.CONSOLE_NOTIFICATION}><Notification/></Route>*/}
-			{/*		<Route path={Router.CONSOLE_TIMELINE}><Timeline/></Route>*/}
+					{/*		<Route path={Router.CONSOLE_HOME}><Home/></Route>*/}
+					{/*		<Route path={Router.CONSOLE_CONNECTED_SPACE}><ConnectedSpace/></Route>*/}
+					{/*		<Route path={Router.CONSOLE_DASHBOARDS}><Dashboards/></Route>*/}
+					{/*		<Route path={Router.CONSOLE_SPACES}><AvailableSpaces/></Route>*/}
+					{/*		<Route path={Router.CONSOLE_INBOX}><Inbox/></Route>*/}
+					{/*		<Route path={Router.CONSOLE_NOTIFICATION}><Notification/></Route>*/}
+					{/*		<Route path={Router.CONSOLE_TIMELINE}><Timeline/></Route>*/}
 					<Route path={Router.CONSOLE_SETTINGS}><ConsoleSettings/></Route>
-			{/*		<Route path='*'>*/}
-			{/*			<Redirect to={Router.CONSOLE_HOME}/>*/}
-			{/*		</Route>*/}
+					{/*		<Route path='*'>*/}
+					{/*			<Redirect to={Router.CONSOLE_HOME}/>*/}
+					{/*		</Route>*/}
 				</Switch>
 			</main>
-			{/*<Messenger/>*/}
+			<Favorite/>
 			<SettingsLoader/>
 		</ConsoleContainer>
 	</ConsoleEventBusProvider>;

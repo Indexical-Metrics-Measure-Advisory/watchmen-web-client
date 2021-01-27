@@ -30,6 +30,7 @@ import {
 export const TOOLTIP_Z_INDEX = 10000;
 export const DIALOG_Z_INDEX = 99999;
 export const ALERT_Z_INDEX = 99999;
+export const FAVORITE_Z_INDEX = 1500;
 export const DROPDOWN_Z_INDEX = 999;
 export const SIDE_MENU_RESIZE_HANDLE_Z_INDEX = 500;
 

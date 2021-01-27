@@ -43,6 +43,10 @@ export const En = {
 		SETTINGS: {
 			TITLE: 'Settings',
 			LANGUAGE: 'Language'
+		},
+		FAVORITE: {
+			FLOAT_TITLE: 'My Favorite',
+			NO_DATA: 'No favorite items.'
 		}
 	}
 };
