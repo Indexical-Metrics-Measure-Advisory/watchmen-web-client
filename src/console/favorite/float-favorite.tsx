@@ -4,16 +4,17 @@ import { ICON_PIN } from '../../basic-widgets/constants';
 import { TooltipAlignment } from '../../basic-widgets/types';
 import { useCollapseFixedThing } from '../../basic-widgets/utils';
 import { Lang } from '../../langs';
+import { saveFavorite } from '../../services/console/favorite';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes, FavoriteState } from '../console-event-bus-types';
 import { useFavoriteState } from './use-favorite-state';
 import {
 	FavoriteItemIcon,
 	FavoriteItemLabel,
+	FavoriteNoData,
 	FloatFavoriteBody,
 	FloatFavoriteContainer,
 	FloatFavoriteItem,
-	FavoriteNoData,
 	FloatFavoritePinButton,
 	FloatFavoriteTitle
 } from './widgets';
@@ -27,10 +28,17 @@ export const FloatFavorite = (props: {
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const { fire } = useConsoleEventBus();
-	const { items, onItemClicked } = useFavoriteState();
+	const { items, onItemClicked, data } = useFavoriteState();
 	useCollapseFixedThing({ containerRef, hide: () => fire(ConsoleEventTypes.HIDE_FAVORITE) });
 
-	const onPinClicked = () => fire(ConsoleEventTypes.PIN_FAVORITE);
+	const onPinClicked = async () => {
+		fire(ConsoleEventTypes.PIN_FAVORITE);
+		await saveFavorite({
+			pin: true,
+			connectedSpaceIds: data.connectedSpaceIds || [],
+			dashboardIds: data.dashboardIds || []
+		});
+	};
 
 	const visible = state === FavoriteState.SHOWN;
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { SIDE_MENU_MIN_WIDTH } from '../../basic-widgets/constants';
 import { Lang } from '../../langs';
+import { saveFavorite } from '../../services/console/favorite';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes, FavoriteState } from '../console-event-bus-types';
 import { useFavoriteState } from './use-favorite-state';
@@ -21,8 +22,8 @@ export const PinFavorite = (props: {
 	const { state } = props;
 
 	const { on, off, fire } = useConsoleEventBus();
-	const { items, onItemClicked } = useFavoriteState();
 	const [ menuWidth, setMenuWidth ] = useState(SIDE_MENU_MIN_WIDTH);
+	const { items, onItemClicked, data } = useFavoriteState();
 	useEffect(() => {
 		const onSideMenuResized = (width: number) => {
 			setMenuWidth(width);
@@ -33,7 +34,14 @@ export const PinFavorite = (props: {
 		};
 	}, [ on, off ]);
 
-	const onUnpinClicked = () => fire(ConsoleEventTypes.UNPIN_FAVORITE);
+	const onUnpinClicked = async () => {
+		fire(ConsoleEventTypes.UNPIN_FAVORITE);
+		await saveFavorite({
+			pin: false,
+			connectedSpaceIds: data.connectedSpaceIds || [],
+			dashboardIds: data.dashboardIds || []
+		});
+	};
 
 	const visible = state === FavoriteState.PIN;
 

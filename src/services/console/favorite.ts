@@ -10,3 +10,7 @@ export const fetchFavorite = async (): Promise<Favorite> => {
 		return fetchMockFavorite();
 	}
 };
+
+export const saveFavorite = async (favorite: Favorite): Promise<void> => {
+	// TODO use real api
+};

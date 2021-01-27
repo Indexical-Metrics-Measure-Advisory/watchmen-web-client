@@ -70,5 +70,5 @@ export const useFavoriteState = () => {
 
 	const items = buildFavoriteItems(data);
 
-	return { items, onItemClicked };
+	return { items, onItemClicked, data };
 };
