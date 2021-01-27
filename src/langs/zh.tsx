@@ -43,7 +43,9 @@ export const Zh = {
 		},
 		FAVORITE: {
 			TITLE: '我的收藏',
-			NO_DATA: '目前没有被收藏的内容.'
+			NO_DATA: '目前没有被收藏的内容.',
+			PIN: '锁定',
+			UNPIN: '解锁'
 		}
 	}
 

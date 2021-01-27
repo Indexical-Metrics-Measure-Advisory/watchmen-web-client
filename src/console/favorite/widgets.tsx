@@ -115,6 +115,12 @@ export const PinFavoriteContainer = styled.div.attrs<{ visible: boolean, left: n
 	opacity               : 0;
 	transition            : top 300ms ease-in-out, opacity 300ms ease-in-out;
 	z-index               : ${PIN_FAVORITE_Z_INDEX};
+	&:hover {
+		div[data-scrollable] {
+			opacity        : 0.9;
+			pointer-events : auto;
+		}
+	}
 	&:after {
 		content          : '';
 		display          : block;
@@ -130,6 +136,8 @@ export const PinFavoriteContainer = styled.div.attrs<{ visible: boolean, left: n
 export const PinFavoriteTitle = styled.div.attrs({ 'data-widget': 'pin-favorite-title' })`
 	display          : flex;
 	position         : relative;
+	grid-row         : 1;
+	grid-column      : 1;
 	align-items      : center;
 	font-size        : 1.2em;
 	font-weight      : var(--font-demi-bold);
@@ -138,11 +146,10 @@ export const PinFavoriteTitle = styled.div.attrs({ 'data-widget': 'pin-favorite-
 	color            : var(--invert-color);
 	background-color : var(--primary-color);
 `;
-export const PinFavoriteBody = styled.div.attrs({
-	'data-widget': 'pin-favorite-body'
-})`
+export const PinFavoriteBody = styled.div.attrs({ 'data-widget': 'pin-favorite-body' })`
 	display          : flex;
 	position         : relative;
+	grid-column      : 2;
 	flex-wrap        : nowrap;
 	align-items      : center;
 	overflow-x       : hidden;
@@ -151,10 +158,41 @@ export const PinFavoriteBody = styled.div.attrs({
 	margin           : 0 calc(var(--margin) / -2);
 	z-index          : 1;
 `;
+export const PinFavoriteScrollButton = styled.div.attrs<{ left: boolean, scrollable: boolean }>(
+	({ left, scrollable }) => {
+		return {
+			'data-widget': 'pin-favorite-body-scroll-button',
+			'data-scrollable': scrollable ? '' : (void 0),
+			style: {
+				left: left ? 'calc(100% - var(--margin) / 2 + 2px)' : (void 0),
+				right: left ? (void 0) : 'calc(100% - var(--margin) / 2 + 2px)',
+				borderRadius: left
+					? 'calc((var(--pin-favorite-height) - 4px) / 2) calc(var(--border-radius) * 2) calc(var(--border-radius) * 2) calc((var(--pin-favorite-height) - 4px) / 2)'
+					: 'calc(var(--border-radius) * 2) calc((var(--pin-favorite-height) - 4px) / 2) calc((var(--pin-favorite-height) - 4px) / 2) calc(var(--border-radius) * 2)'
+			}
+		};
+	})<{ left: boolean, scrollable: boolean }>`
+	display          : flex;
+	position         : absolute;
+	align-items      : center;
+	justify-content  : center;
+	font-size        : 1.3em;
+	top              : 2px;
+	width            : var(--height);
+	height           : calc(var(--pin-favorite-height) - 4px);
+	background-color : var(--primary-color);
+	color            : var(--invert-color);
+	opacity          : 0;
+	pointer-events   : none;
+	cursor           : pointer;
+	transition       : opacity 300ms ease-in-out;
+	z-index          : 1;
+`;
 export const PinFavoriteItem = styled.div.attrs({ 'data-widget': 'pin-favorite-item' })`
 	display          : flex;
 	position         : relative;
 	align-items      : center;
+	max-width        : 250px;
 	min-height       : var(--height);
 	height           : var(--height);
 	padding          : 0 calc(var(--margin) / 2);
@@ -167,6 +205,12 @@ export const PinFavoriteItem = styled.div.attrs({ 'data-widget': 'pin-favorite-i
 	&:hover {
 		background-color : var(--hover-color);
 	}
+`;
+// avoid the last item adsorbs to unpin button
+export const PinFavoriteItemTail = styled.div.attrs({ 'data-widget': 'pin-favorite-item-tail' })`
+	display   : block;
+	min-width : calc(var(--margin) / 2);
+	height    : var(--height);
 `;
 export const UnpinFavoriteButton = styled.div.attrs({ 'data-widget': 'pin-favorite-unpin-button' })`
 	display          : flex;
