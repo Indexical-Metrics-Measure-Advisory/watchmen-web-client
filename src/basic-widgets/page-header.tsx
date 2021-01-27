@@ -5,9 +5,11 @@ import { ICON_SETTINGS } from './constants';
 import { TooltipButton } from './tooltip-button';
 import { TooltipAlignment } from './types';
 
+// height might changed by language switching, fix it.
 const PageHeaderContainer = styled.div.attrs({ 'data-widget': 'page-header' })`
 	display     : flex;
 	align-items : baseline;
+	height      : 57px;
 `;
 const PageTitle = styled.div.attrs({ 'data-widget': 'page-header-title' })`
 	font-family : var(--title-font-family);

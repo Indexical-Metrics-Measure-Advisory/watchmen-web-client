@@ -40,6 +40,10 @@ export const Zh = {
 		SETTINGS: {
 			TITLE: '设置',
 			LANGUAGE: '语言'
+		},
+		FAVORITE: {
+			FLOAT_TITLE: '我的收藏',
+			NO_DATA: '目前没有被收藏的内容.'
 		}
 	}
 

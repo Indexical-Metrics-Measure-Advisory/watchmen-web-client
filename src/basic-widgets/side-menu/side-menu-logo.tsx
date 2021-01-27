@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Logo } from '../logo';
 
+// height might changed by language switching, fix it.
 const SideMenuLogoContainer = styled.div.attrs({ 'data-widget': 'side-menu-logo' })`
 	display               : grid;
 	position              : relative;
