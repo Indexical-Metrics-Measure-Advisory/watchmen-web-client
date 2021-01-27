@@ -59,16 +59,11 @@ export const FavoriteMenu = (props: {
 
 	const onFavoriteClicked = () => {
 		once(ConsoleEventTypes.REPLY_FAVORITE_STATE, (state: FavoriteState) => {
-			switch (state) {
-				case FavoriteState.HIDDEN:
-					const { top, left, width, height } = iconRef.current!.getBoundingClientRect();
-					setActive(true);
-					fire(ConsoleEventTypes.SHOW_FAVORITE, { top: top + height / 2, left: left + width });
-					break;
-				case FavoriteState.SHOWN:
-				// already show, do nothing
-				case FavoriteState.PIN:
-				// already pin, do nothing
+			// only response for show favorite, otherwise keep it
+			if (state === FavoriteState.HIDDEN) {
+				const { top, left, width, height } = iconRef.current!.getBoundingClientRect();
+				setActive(true);
+				fire(ConsoleEventTypes.SHOW_FAVORITE, { top: top + height / 2, left: left + width });
 			}
 		}).fire(ConsoleEventTypes.ASK_FAVORITE_STATE);
 	};
