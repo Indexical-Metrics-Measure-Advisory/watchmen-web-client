@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 import { FAVORITE_Z_INDEX } from '../../basic-widgets/constants';
 
@@ -21,7 +22,8 @@ export const FloatFavoriteContainer = styled.div.attrs<{ visible: boolean, top: 
 	z-index          : ${FAVORITE_Z_INDEX};
 	overflow         : hidden;
 	box-shadow       : var(--hover-shadow);
-	min-width        : 400px;
+	min-width        : 300px;
+	max-width        : 400px;
 	pointer-events   : none;
 	opacity          : 0;
 	transform-origin : 15% top;
@@ -65,10 +67,15 @@ export const FloatFavoriteItem = styled.div.attrs({ 'data-widget': 'float-favori
 	&:hover {
 		background-color : var(--hover-color);
 	}
-	> svg {
-		min-width    : 16px;
-		margin-right : calc(var(--margin) / 4);
-	}
+`;
+export const FloatFavoriteItemIcon = styled(FontAwesomeIcon).attrs({ 'data-widget': 'float-favorite-item-icon' })`
+	min-width    : 16px;
+	margin-right : calc(var(--margin) / 4);
+`;
+export const FloatFavoriteItemLabel = styled.span.attrs({ 'data-widget': 'float-favorite-item-label' })`
+	white-space   : nowrap;
+	overflow      : hidden;
+	text-overflow : ellipsis;
 `;
 export const FloatFavoriteNoData = styled.div.attrs({ 'data-widget': 'float-favorite-no-data' })`
 	display      : flex;

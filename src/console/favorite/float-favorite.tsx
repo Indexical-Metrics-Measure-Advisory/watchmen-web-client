@@ -13,7 +13,7 @@ import { ConsoleEventTypes, FavoriteState } from '../console-event-bus-types';
 import {
 	FloatFavoriteBody,
 	FloatFavoriteContainer,
-	FloatFavoriteItem,
+	FloatFavoriteItem, FloatFavoriteItemIcon, FloatFavoriteItemLabel,
 	FloatFavoriteNoData,
 	FloatFavoriteTitle
 } from './widgets';
@@ -108,8 +108,8 @@ export const FloatFavorite = (props: {
 				? items.map(({ id, name, icon, type }) => {
 					return <FloatFavoriteItem key={`${type}-${id}`}
 					                          onClick={onItemClicked(id, type)}>
-						<FontAwesomeIcon icon={icon}/>
-						<span>{name}</span>
+						<FloatFavoriteItemIcon icon={icon}/>
+						<FloatFavoriteItemLabel>{name}</FloatFavoriteItemLabel>
 					</FloatFavoriteItem>;
 				})
 				: <FloatFavoriteNoData>{Lang.CONSOLE.FAVORITE.NO_DATA}</FloatFavoriteNoData>
