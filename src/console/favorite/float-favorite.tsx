@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { ICON_CONNECTED_SPACE, ICON_DASHBOARD } from '../../basic-widgets/constants';
 import { useCollapseFixedThing } from '../../basic-widgets/utils';
 import { Lang } from '../../langs';
+import { isConnectedSpaceOpened, isDashboardOpened, toConnectedSpace, toDashboard } from '../../routes/utils';
 import { ConnectedSpace } from '../../services/console/connected-space-types';
 import { Dashboard } from '../../services/console/dashboard-types';
 import { ConsoleSettings } from '../../services/console/settings-types';
@@ -37,6 +39,7 @@ export const FloatFavorite = (props: {
 }) => {
 	const { state, top, left } = props;
 
+	const history = useHistory();
 	const { on, off, fire } = useConsoleEventBus();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [ data, setData ] = useState<StateData>({
@@ -56,6 +59,19 @@ export const FloatFavorite = (props: {
 		};
 	}, [ on, off ]);
 	useCollapseFixedThing({ containerRef, hide: () => fire(ConsoleEventTypes.HIDE_FAVORITE) });
+
+	const onItemClicked = (id: string, type: 'dashboard' | 'connected-space') => () => {
+		if (type === 'dashboard') {
+			if (!isDashboardOpened(id)) {
+				history.push(toDashboard(id));
+			}
+		} else if (type === 'connected-space') {
+			if (!isConnectedSpaceOpened(id)) {
+				history.push(toConnectedSpace(id));
+			}
+		}
+		fire(ConsoleEventTypes.HIDE_FAVORITE);
+	};
 
 	const items = [
 		...data.connectedSpaceIds.map(connectedSpaceId => {
@@ -90,7 +106,8 @@ export const FloatFavorite = (props: {
 		<FloatFavoriteBody>
 			{items.length !== 0
 				? items.map(({ id, name, icon, type }) => {
-					return <FloatFavoriteItem key={`${type}-${id}`}>
+					return <FloatFavoriteItem key={`${type}-${id}`}
+					                          onClick={onItemClicked(id, type)}>
 						<FontAwesomeIcon icon={icon}/>
 						<span>{name}</span>
 					</FloatFavoriteItem>;

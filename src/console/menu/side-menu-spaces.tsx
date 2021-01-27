@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { ICON_SPACE } from '../../basic-widgets/constants';
 import { SideMenuItem } from '../../basic-widgets/side-menu/side-menu-item';
-import { Router } from '../../routes/types';
 import { isConnectedSpaceOpened, toConnectedSpace } from '../../routes/utils';
 import { ConnectedSpace } from '../../services/console/connected-space-types';
 import { ConsoleSettings } from '../../services/console/settings-types';
@@ -25,7 +24,7 @@ const SideMenuSpacesContainer = styled.div.attrs({
 	}
 `;
 const SpaceMenu = styled(SideMenuItem)`
-	direction: ltr;
+	direction : ltr;
 `;
 
 export const SideMenuSpaces = (props: { showTooltip: boolean }) => {
@@ -49,7 +48,7 @@ export const SideMenuSpaces = (props: { showTooltip: boolean }) => {
 			return;
 		}
 
-		history.push(toConnectedSpace(Router.CONSOLE_CONNECTED_SPACE, space.connectId));
+		history.push(toConnectedSpace(space.connectId));
 	};
 
 	return <SideMenuSpacesContainer>
