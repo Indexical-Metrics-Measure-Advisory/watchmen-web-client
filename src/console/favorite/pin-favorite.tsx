@@ -137,6 +137,7 @@ export const PinFavorite = (props: {
 	};
 
 	const visible = state === FavoriteState.PIN;
+
 	return <PinFavoriteContainer visible={visible} left={menuWidth - 1}>
 		<PinFavoriteBody ref={bodyRef}>
 			{items.length !== 0

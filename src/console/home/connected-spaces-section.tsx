@@ -3,6 +3,12 @@ import React, { useState } from 'react';
 import { ICON_ADD, ICON_SORT } from '../../basic-widgets/constants';
 import { ButtonInk } from '../../basic-widgets/types';
 import { Lang } from '../../langs';
+import { ConnectedSpace } from '../../services/console/connected-space-types';
+import { ConsoleSettings } from '../../services/console/settings-types';
+import { useConsoleEventBus } from '../console-event-bus';
+import { ConsoleEventTypes } from '../console-event-bus-types';
+import { useConsoleSettings } from '../data-initializer';
+import { ConnectedSpaceCard } from './connected-space-card';
 import { SortType } from './types';
 import {
 	HeaderButton,
@@ -14,7 +20,21 @@ import {
 } from './widgets';
 
 export const ConnectedSpacesSection = () => {
+	const { once } = useConsoleEventBus();
 	const [ sortType, setSortType ] = useState<SortType>(SortType.BY_VISIT_TIME);
+	const [ connectedSpaces, setConnectedSpaces ] = useState<Array<ConnectedSpace>>([]);
+	useConsoleSettings({
+		onSettingsLoaded: (({ connectedSpaces }: ConsoleSettings) => {
+			setConnectedSpaces(connectedSpaces);
+		}),
+		onSettingsInitialized: () => {
+			once(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (newConnectedSpaces) => {
+				if (newConnectedSpaces !== connectedSpaces) {
+					setConnectedSpaces(newConnectedSpaces);
+				}
+			}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
+		}
+	});
 
 	const onSortClicked = () => {
 		setSortType(sortType === SortType.BY_NAME ? SortType.BY_VISIT_TIME : SortType.BY_NAME);
@@ -35,7 +55,9 @@ export const ConnectedSpacesSection = () => {
 			</HomeSectionHeaderOperators>
 		</HomeSectionHeader>
 		<HomeSectionBody>
-			{}
+			{connectedSpaces.map(connectedSpace => {
+				return <ConnectedSpaceCard connectedSpace={connectedSpace} key={connectedSpace.connectId}/>;
+			})}
 		</HomeSectionBody>
 	</HomeSection>;
 };

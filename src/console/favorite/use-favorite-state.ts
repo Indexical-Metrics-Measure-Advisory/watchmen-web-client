@@ -122,7 +122,6 @@ export const useFavoriteState = () => {
 		}).fire(ConsoleEventTypes.ASK_FAVORITE_STATE);
 	};
 
-	console.log(data.dashboardIds, data.connectedSpaceIds);
 	const items = buildFavoriteItems(data);
 
 	return { items, onItemClicked, onItemRemoveClicked, data };

@@ -7,7 +7,7 @@ import { ConsoleEventBusProvider, useConsoleEventBus } from './console-event-bus
 import { ConsoleEventTypes } from './console-event-bus-types';
 import { Favorite } from './favorite';
 import { ConsoleMenu } from './menu';
-import { SettingsLoader } from './settings-loader';
+import { SettingsHolder } from './settings-holder';
 
 const ConsoleHome = lazy(() => import(/* webpackChunkName: "console-home" */ './home'));
 const ConsoleSettingsPage = lazy(() => import(/* webpackChunkName: "console-settings" */ './settings'));
@@ -71,7 +71,7 @@ const ConsoleMain = () => {
 			</Switch>
 		</ConsoleMainContainer>
 		<Favorite/>
-		<SettingsLoader/>
+		<SettingsHolder/>
 	</ConsoleContainer>;
 };
 const ConsoleIndex = () => {

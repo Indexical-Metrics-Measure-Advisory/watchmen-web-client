@@ -1,3 +1,4 @@
+import { ConnectedSpace } from '../services/console/connected-space-types';
 import { ConsoleSettings } from '../services/console/settings-types';
 
 export enum FavoriteState {
@@ -7,8 +8,9 @@ export enum FavoriteState {
 }
 
 export enum ConsoleEventTypes {
-	DO_LOAD_SETTINGS = 'do-load-settings',
 	SETTINGS_LOADED = 'settings-loaded',
+	ASK_SETTINGS_LOADED = 'ask-settings-loaded',
+	REPLY_SETTINGS_LOADED = 'reply-settings-loaded',
 
 	SIDE_MENU_RESIZED = 'side-menu-resized',
 
@@ -20,18 +22,25 @@ export enum ConsoleEventTypes {
 	REPLY_FAVORITE_STATE = 'reply-favorite-state',
 
 	DASHBOARD_REMOVED_FROM_FAVORITE = 'dashboard-removed-from-favorite',
-	CONNECTED_SPACE_REMOVED_FROM_FAVORITE = 'connected-space-removed-from-favorite'
+	CONNECTED_SPACE_REMOVED_FROM_FAVORITE = 'connected-space-removed-from-favorite',
+
+	ASK_CONNECTED_SPACES = 'ask-connected-spaces',
+	REPLY_CONNECTED_SPACES = 'reply-connected-spaces'
 }
 
 export interface ConsoleEventBus {
 	// settings load
-	fire(type: ConsoleEventTypes.DO_LOAD_SETTINGS): this;
-	on(type: ConsoleEventTypes.DO_LOAD_SETTINGS, listener: () => void): this;
-	off(type: ConsoleEventTypes.DO_LOAD_SETTINGS, listener: () => void): this;
-
 	fire(type: ConsoleEventTypes.SETTINGS_LOADED, settings: ConsoleSettings): this;
 	on(type: ConsoleEventTypes.SETTINGS_LOADED, listener: (settings: ConsoleSettings) => void): this;
 	off(type: ConsoleEventTypes.SETTINGS_LOADED, listener: (settings: ConsoleSettings) => void): this;
+
+	fire(type: ConsoleEventTypes.ASK_SETTINGS_LOADED): this;
+	on(type: ConsoleEventTypes.ASK_SETTINGS_LOADED, listener: () => void): this;
+	off(type: ConsoleEventTypes.ASK_SETTINGS_LOADED, listener: () => void): this;
+
+	fire(type: ConsoleEventTypes.REPLY_SETTINGS_LOADED, initialized: boolean): this;
+	once(type: ConsoleEventTypes.REPLY_SETTINGS_LOADED, listener: (initialized: boolean) => void): this;
+	off(type: ConsoleEventTypes.REPLY_SETTINGS_LOADED, listener: (initialized: boolean) => void): this;
 
 	// side menu resize
 	fire(type: ConsoleEventTypes.SIDE_MENU_RESIZED, width: number): this;
@@ -70,4 +79,12 @@ export interface ConsoleEventBus {
 	fire(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, connectedSpaceId: string): this;
 	on(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, listener: (connectedSpaceId: string) => void): this;
 	off(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, listener: (connectedSpaceId: string) => void): this;
+
+	fire(type: ConsoleEventTypes.ASK_CONNECTED_SPACES): this;
+	on(type: ConsoleEventTypes.ASK_CONNECTED_SPACES, listener: () => void): this;
+	off(type: ConsoleEventTypes.ASK_CONNECTED_SPACES, listener: () => void): this;
+
+	fire(type: ConsoleEventTypes.REPLY_CONNECTED_SPACES, connectedSpaces: Array<ConnectedSpace>): this;
+	once(type: ConsoleEventTypes.REPLY_CONNECTED_SPACES, listener: (connectedSpaces: Array<ConnectedSpace>) => void): this;
+	off(type: ConsoleEventTypes.REPLY_CONNECTED_SPACES, listener: (connectedSpaces: Array<ConnectedSpace>) => void): this;
 }

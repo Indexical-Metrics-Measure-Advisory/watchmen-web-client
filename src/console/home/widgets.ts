@@ -57,3 +57,6 @@ export const HomeSectionBody = styled.div.attrs({ 'data-widget': 'console-home-s
 	border-radius         : calc(var(--margin) / 2);
 	transition            : all 300ms ease-in-out;
 `;
+
+export const ConnectedSpaceCardContainer = styled.div.attrs({ 'data-widget': 'connected-space-card' })`
+`;
