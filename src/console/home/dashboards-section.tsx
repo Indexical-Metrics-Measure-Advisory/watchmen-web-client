@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
-import { ICON_ADD, ICON_SORT } from '../../basic-widgets/constants';
+import { ICON_ADD, ICON_CUT, ICON_SORT } from '../../basic-widgets/constants';
 import { ButtonInk } from '../../basic-widgets/types';
 import { Lang } from '../../langs';
 import { Dashboard } from '../../services/console/dashboard-types';
@@ -9,7 +9,7 @@ import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
 import { useConsoleSettings } from '../data-initializer';
 import { DashboardCard } from './dashboard-card';
-import { SortType } from './types';
+import { SortType, ViewType } from './types';
 import {
 	HeaderButton,
 	HomeSection,
@@ -22,6 +22,7 @@ import {
 export const DashboardsSection = () => {
 	const { once } = useConsoleEventBus();
 	const [ sortType, setSortType ] = useState<SortType>(SortType.BY_VISIT_TIME);
+	const [ viewType, setViewType ] = useState<ViewType>(ViewType.TOP_6);
 	const [ dashboards, setDashboards ] = useState<Array<Dashboard>>([]);
 	useConsoleSettings({
 		onSettingsLoaded: (({ dashboards }: ConsoleSettings) => {
@@ -36,8 +37,14 @@ export const DashboardsSection = () => {
 		}
 	});
 
+	const onCreateDashboardClicked = () => {
+		// TODO create dashboard
+	}
 	const onSortClicked = () => {
 		setSortType(sortType === SortType.BY_NAME ? SortType.BY_VISIT_TIME : SortType.BY_NAME);
+	};
+	const onViewClicked = () => {
+		setViewType(viewType === ViewType.TOP_6 ? ViewType.ALL : ViewType.TOP_6);
 	};
 
 	let sortedDashboards;
@@ -55,13 +62,17 @@ export const DashboardsSection = () => {
 		<HomeSectionHeader>
 			<HomeSectionTitle>{Lang.CONSOLE.HOME.DASHBOARD_TITLE}</HomeSectionTitle>
 			<HomeSectionHeaderOperators>
-				<HeaderButton ink={ButtonInk.PRIMARY}>
+				<HeaderButton ink={ButtonInk.PRIMARY} onClick={onCreateDashboardClicked}>
 					<FontAwesomeIcon icon={ICON_ADD}/>
 					<span>{Lang.CONSOLE.HOME.CREATE_DASHBOARD_BUTTON}</span>
 				</HeaderButton>
 				<HeaderButton ink={ButtonInk.PRIMARY} onClick={onSortClicked}>
 					<FontAwesomeIcon icon={ICON_SORT}/>
 					<span>{sortType === SortType.BY_NAME ? Lang.CONSOLE.HOME.SORT_BY_VISIT_TIME : Lang.CONSOLE.HOME.SORT_BY_NAME}</span>
+				</HeaderButton>
+				<HeaderButton ink={ButtonInk.PRIMARY} onClick={onViewClicked}>
+					<FontAwesomeIcon icon={ICON_CUT}/>
+					<span>{viewType === ViewType.ALL ? Lang.CONSOLE.HOME.VIEW_TOP_6 : Lang.CONSOLE.HOME.VIEW_ALL}</span>
 				</HeaderButton>
 			</HomeSectionHeaderOperators>
 		</HomeSectionHeader>

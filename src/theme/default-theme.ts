@@ -63,7 +63,7 @@ const DefaultTheme = {
 
 	// scroll
 	scrollbarBgColor: 'rgba(229,229,229,0.5)',
-	scrollbarThumbBgColor: 'var(--primary-color)',
+	scrollbarThumbBgColor: 'var(--warn-color)',
 	scrollbarBorderColor: 'transparent',
 
 	// pin favorite

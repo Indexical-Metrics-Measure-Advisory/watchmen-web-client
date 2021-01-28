@@ -6,7 +6,7 @@ export const HomeSection = styled.div.attrs({ 'data-widget': 'console-home-secti
 	position       : relative;
 	flex-direction : column;
 	&:not(:last-child) {
-		margin-bottom: var(--margin);
+		margin-bottom : var(--margin);
 	}
 `;
 export const HomeSectionHeader = styled.div.attrs({ 'data-widget': 'console-home-section-header' })`
@@ -52,7 +52,6 @@ export const HomeSectionBody = styled.div.attrs({ 'data-widget': 'console-home-s
 	display               : grid;
 	position              : relative;
 	grid-template-columns : repeat(3, minmax(0, 1fr));
-	grid-column-gap       : var(--margin);
 	grid-gap              : calc(var(--margin) / 2);
 	background-color      : var(--bg-color);
 	border-radius         : calc(var(--margin) / 2);

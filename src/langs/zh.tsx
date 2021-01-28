@@ -45,7 +45,15 @@ export const Zh = {
 			REMOVE: '取消收藏'
 		},
 		HOME: {
-			TITLE: '首页'
+			TITLE: '首页',
+			SORT_BY_NAME: '按名称排序',
+			SORT_BY_VISIT_TIME: '按访问时间排序',
+			VIEW_TOP_6: '仅显示6个',
+			VIEW_ALL: '全部显示',
+			CONNECTED_SPACE_TITLE: '已联接的工作空间',
+			CREATE_CONNECTED_SPACE_BUTTON: '联接工作空间',
+			DASHBOARD_TITLE: '仪表盘',
+			CREATE_DASHBOARD_BUTTON: '创建新仪表盘'
 		},
 		SETTINGS: {
 			TITLE: '设置',

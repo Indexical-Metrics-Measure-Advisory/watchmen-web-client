@@ -6,7 +6,9 @@ import {
 	faChartBar,
 	faCheck,
 	faCog,
-	faComments, faDiceD20,
+	faComments,
+	faCut,
+	faDiceD20,
 	faEdit,
 	faGlobe,
 	faHome,
@@ -14,12 +16,14 @@ import {
 	faLink,
 	faList,
 	faPlus,
-	faSearch, faSortAmountDown,
+	faSearch,
+	faSortAmountDown,
 	faSpinner,
 	faStar,
 	faTachometerAlt,
 	faTags,
-	faTasks, faThumbtack,
+	faTasks,
+	faThumbtack,
 	faTimes,
 	faTools,
 	faUser,
@@ -88,6 +92,7 @@ export const ICON_SELECTED = faCheck;
 export const ICON_LOADING = faSpinner;
 export const ICON_PIN = faThumbtack;
 export const ICON_SORT = faSortAmountDown;
+export const ICON_CUT = faCut;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

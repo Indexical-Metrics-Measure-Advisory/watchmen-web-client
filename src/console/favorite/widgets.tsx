@@ -203,7 +203,7 @@ export const PinFavoriteScrollButton = styled.div.attrs<{ left: boolean, scrolla
 	top              : 2px;
 	width            : var(--height);
 	height           : calc(var(--pin-favorite-height) - 4px);
-	background-color : var(--primary-color);
+	background-color : var(--scrollbar-thumb-bg-color);
 	color            : var(--invert-color);
 	opacity          : 0;
 	pointer-events   : none;
