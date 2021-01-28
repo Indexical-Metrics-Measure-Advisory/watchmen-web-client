@@ -83,7 +83,12 @@ export const FloatFavoriteItem = styled.div.attrs({ 'data-widget': 'float-favori
 			width          : calc(var(--height) * 0.8);
 			opacity        : 1;
 			pointer-events : auto;
-			transition     : opacity 300ms ease-in-out 500ms, width 300ms ease-in-out 500ms;
+			transition     : opacity 300ms ease-in-out 500ms, width 300ms ease-in-out 500ms, color 300ms ease-in-out, background-color 300ms ease-in-out, box-shadow 300ms ease-in-out;
+			&:hover {
+				color            : var(--invert-color);
+				background-color : var(--danger-color);
+				box-shadow       : var(--danger-hover-shadow);
+			}
 		}
 	}
 `;
@@ -220,30 +225,35 @@ export const PinFavoriteItem = styled.div.attrs({ 'data-widget': 'pin-favorite-i
 	background-color : var(--bg-color);
 	font-variant     : petite-caps;
 	cursor           : pointer;
-	overflow-x       : hidden;
 	&:hover {
 		background-color : var(--hover-color);
 		> button[data-widget="pin-favorite-item-remove-button"] {
-			right          : 0;
-			box-shadow     : var(--primary-hover-shadow);
+			left           : 0;
 			opacity        : 1;
 			pointer-events : auto;
-			transition     : opacity 300ms ease-in-out 500ms, right 300ms ease-in-out 500ms, box-shadow 1ms linear 500ms;
+			transition     : opacity 300ms ease-in-out 500ms, left 300ms ease-in-out 500ms, color 300ms ease-in-out, background-color 300ms ease-in-out, box-shadow 300ms ease-in-out;
+			&:hover {
+				color            : var(--invert-color);
+				background-color : var(--danger-color);
+				box-shadow       : var(--danger-hover-shadow);
+			}
 		}
 	}
 `;
 export const PinFavoriteItemRemoveButton = styled(Button).attrs({ 'data-widget': 'pin-favorite-item-remove-button' })`
 	position         : absolute;
 	top              : 0;
-	right            : calc(var(--height) * -1 + 2px);
+	left             : calc(var(--height) * -1 + 2px);
 	width            : calc(var(--height) - 2px);
 	height           : calc(var(--height) - 2px);
 	padding          : 0;
-	background-color : var(--border-color);
+	background-color : var(--bg-color);
+	box-shadow       : var(--primary-hover-color);
 	border-radius    : 100%;
 	overflow-x       : hidden;
+	opacity          : 0;
 	pointer-events   : none;
-	transition       : opacity 300ms ease-in-out, right 300ms ease-in-out, box-shadow 1ms linear 300ms;
+	transition       : opacity 300ms ease-in-out, left 300ms ease-in-out, color 300ms ease-in-out, background-color 300ms ease-in-out, box-shadow 300ms ease-in-out;
 `;
 // avoid the last item adsorbs to unpin button
 export const PinFavoriteItemTail = styled.div.attrs({ 'data-widget': 'pin-favorite-item-tail' })`
