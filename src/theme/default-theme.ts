@@ -4,7 +4,7 @@ import {
 	BORDER_WIDTH, BUTTON_HEIGHT_IN_FORM,
 	BUTTON_INDENT,
 	INPUT_INDENT, PIN_FAVORITE_HEIGHT,
-	SIDE_MENU_MIN_WIDTH
+	SIDE_MENU_MIN_WIDTH, TOGGLE_HEIGHT
 } from '../basic-widgets/constants';
 
 const DefaultTheme = {
@@ -79,6 +79,13 @@ const DefaultTheme = {
 	buttonIndent: BUTTON_INDENT,
 	buttonIconGap: 8,
 	buttonHeightInForm: BUTTON_HEIGHT_IN_FORM,
+
+	// toggle
+	toggleHeight: TOGGLE_HEIGHT,
+	togglePositiveSliderColor: 'var(--bg-color)',
+	toggleNegativeSliderColor: 'var(--bg-color)',
+	togglePositiveBgColor: 'var(--primary-color)',
+	toggleNegativeBgColor: 'var(--border-color)',
 
 	// side menu
 	sideMenuMinWidth: SIDE_MENU_MIN_WIDTH,

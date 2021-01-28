@@ -82,7 +82,12 @@ export const Button = forwardRef((props: ButtonProps, ref: ForwardedRef<HTMLButt
 	const { children, ink, ...rest } = props;
 	return <AButton {...rest} data-ink={ink} ref={ref}>{children}</AButton>;
 });
-
+export const DwarfButton = styled(Button)`
+	height        : var(--button-height-in-form);
+	> svg {
+		font-size : 0.8em;
+	}
+`;
 export const RoundDwarfButton = styled(Button)`
 	height        : var(--button-height-in-form);
 	border-radius : calc(var(--button-height-in-form) / 2);
@@ -113,6 +118,12 @@ export const CarveButton = styled(Button)`
 			width  : 200%;
 			height : 200%;
 		}
+	}
+`;
+export const DwarfCarveButton = styled(CarveButton)`
+	height        : var(--button-height-in-form);
+	> svg {
+		font-size : 0.8em;
 	}
 `;
 

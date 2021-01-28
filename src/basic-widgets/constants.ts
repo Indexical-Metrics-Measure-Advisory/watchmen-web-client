@@ -14,7 +14,7 @@ import {
 	faLink,
 	faList,
 	faPlus,
-	faSearch,
+	faSearch, faSortAmountDown,
 	faSpinner,
 	faStar,
 	faTachometerAlt,
@@ -40,6 +40,7 @@ export const BASE_HEIGHT = 28;
 export const INPUT_INDENT = 10;
 export const BUTTON_INDENT = 16;
 export const BUTTON_HEIGHT_IN_FORM = 22;
+export const TOGGLE_HEIGHT = 22;
 export const BORDER_WIDTH = 1;
 
 export const SIDE_MENU_MIN_WIDTH = 51;
@@ -85,6 +86,7 @@ export const ICON_SEARCH = faSearch;
 export const ICON_SELECTED = faCheck;
 export const ICON_LOADING = faSpinner;
 export const ICON_PIN = faThumbtack;
+export const ICON_SORT = faSortAmountDown;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

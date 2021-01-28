@@ -37,17 +37,19 @@ export const Zh = {
 			SETTINGS: '设置',
 			TO_ADMIN: '转到管理台'
 		},
-		SETTINGS: {
-			TITLE: '设置',
-			LANGUAGE: '语言'
-		},
 		FAVORITE: {
 			TITLE: '我的收藏',
 			NO_DATA: '目前没有被收藏的内容.',
 			PIN: '锁定',
 			UNPIN: '解锁',
 			REMOVE: '取消收藏'
+		},
+		HOME: {
+			TITLE: '首页'
+		},
+		SETTINGS: {
+			TITLE: '设置',
+			LANGUAGE: '语言'
 		}
 	}
-
 };

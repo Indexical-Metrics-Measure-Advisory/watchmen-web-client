@@ -1,5 +1,5 @@
 import React, { lazy, useEffect, useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { Router } from '../routes/types';
 import { ConsoleSettings } from '../services/console/settings-types';
@@ -9,6 +9,7 @@ import { Favorite } from './favorite';
 import { ConsoleMenu } from './menu';
 import { SettingsLoader } from './settings-loader';
 
+const ConsoleHome = lazy(() => import(/* webpackChunkName: "console-home" */ './home'));
 const ConsoleSettingsPage = lazy(() => import(/* webpackChunkName: "console-settings" */ './settings'));
 
 const ConsoleContainer = styled.div.attrs({ 'data-widget': 'console' })`
@@ -56,7 +57,7 @@ const ConsoleMain = () => {
 		<ConsoleMenu/>
 		<ConsoleMainContainer favorite={favorite}>
 			<Switch>
-				{/*		<Route path={Router.CONSOLE_HOME}><Home/></Route>*/}
+				<Route path={Router.CONSOLE_HOME}><ConsoleHome/></Route>
 				{/*		<Route path={Router.CONSOLE_CONNECTED_SPACE}><ConnectedSpace/></Route>*/}
 				{/*		<Route path={Router.CONSOLE_DASHBOARDS}><Dashboards/></Route>*/}
 				{/*		<Route path={Router.CONSOLE_SPACES}><AvailableSpaces/></Route>*/}
@@ -64,9 +65,9 @@ const ConsoleMain = () => {
 				{/*		<Route path={Router.CONSOLE_NOTIFICATION}><Notification/></Route>*/}
 				{/*		<Route path={Router.CONSOLE_TIMELINE}><Timeline/></Route>*/}
 				<Route path={Router.CONSOLE_SETTINGS}><ConsoleSettingsPage/></Route>
-				{/*		<Route path='*'>*/}
-				{/*			<Redirect to={Router.CONSOLE_HOME}/>*/}
-				{/*		</Route>*/}
+				<Route path='*'>
+					<Redirect to={Router.CONSOLE_HOME}/>
+				</Route>
 			</Switch>
 		</ConsoleMainContainer>
 		<Favorite/>

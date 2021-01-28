@@ -40,16 +40,23 @@ export const En = {
 			SETTINGS: 'Settings',
 			TO_ADMIN: 'Switch to Admin'
 		},
-		SETTINGS: {
-			TITLE: 'Settings',
-			LANGUAGE: 'Language'
-		},
 		FAVORITE: {
 			TITLE: 'My Favorite',
 			NO_DATA: 'No favorite items.',
 			PIN: 'Pin',
 			UNPIN: 'Unpin',
 			REMOVE: 'Remove from Favorite'
+		},
+		HOME: {
+			TITLE: 'Home',
+			CONNECTED_SPACE_TITLE: 'Connected Spaces',
+			SORT_BY_NAME: 'Sort by Name',
+			SORT_BY_VISIT_TIME: ' Sort by Visit Time',
+			CREATE_CONNECTED_SPACE_BUTTON: 'Connect Space'
+		},
+		SETTINGS: {
+			TITLE: 'Settings',
+			LANGUAGE: 'Language'
 		}
 	}
 };
