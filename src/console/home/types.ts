@@ -4,6 +4,6 @@ export enum SortType {
 }
 
 export enum ViewType {
-	TOP_6 = 'top-6',
+	COLLAPSE = 'collapse',
 	ALL = 'all'
 }

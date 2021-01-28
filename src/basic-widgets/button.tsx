@@ -24,53 +24,46 @@ const AButton = styled.button`
 	&[data-ink=primary] {
 		color            : var(--invert-color);
 		background-color : var(--primary-color);
-		&:hover,
-		&:focus {
+		&:hover {
 			box-shadow : var(--primary-hover-shadow);
 		}
 	}
 	&[data-ink=danger] {
 		color            : var(--invert-color);
 		background-color : var(--danger-color);
-		&:hover,
-		&:focus {
+		&:hover {
 			box-shadow : var(--danger-hover-shadow);
 		}
 	}
 	&[data-ink=success] {
 		color            : var(--invert-color);
 		background-color : var(--success-color);
-		&:hover,
-		&:focus {
+		&:hover {
 			box-shadow : var(--success-hover-shadow);
 		}
 	}
 	&[data-ink=warn] {
 		color            : var(--invert-color);
 		background-color : var(--warn-color);
-		&:hover,
-		&:focus {
+		&:hover {
 			box-shadow : var(--warn-hover-shadow);
 		}
 	}
 	&[data-ink=info] {
 		color            : var(--invert-color);
 		background-color : var(--info-color);
-		&:hover,
-		&:focus {
+		&:hover {
 			box-shadow : var(--info-hover-shadow);
 		}
 	}
 	&[data-ink=waive] {
 		color            : var(--invert-color);
 		background-color : var(--waive-color);
-		&:hover,
-		&:focus {
+		&:hover {
 			box-shadow : var(--waive-hover-shadow);
 		}
 	}
-	&:hover,
-	&:focus {
+	&:hover {
 		box-shadow : var(--hover-shadow);
 	}
 	> svg:first-child:not(:last-child) {
@@ -83,7 +76,7 @@ export const Button = forwardRef((props: ButtonProps, ref: ForwardedRef<HTMLButt
 	return <AButton {...rest} data-ink={ink} ref={ref}>{children}</AButton>;
 });
 export const DwarfButton = styled(Button)`
-	height        : var(--button-height-in-form);
+	height : var(--button-height-in-form);
 	> svg {
 		font-size : 0.8em;
 	}
@@ -121,7 +114,7 @@ export const CarveButton = styled(Button)`
 	}
 `;
 export const DwarfCarveButton = styled(CarveButton)`
-	height        : var(--button-height-in-form);
+	height : var(--button-height-in-form);
 	> svg {
 		font-size : 0.8em;
 	}

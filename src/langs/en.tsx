@@ -51,7 +51,7 @@ export const En = {
 			TITLE: 'Home',
 			SORT_BY_NAME: 'Sort by Name',
 			SORT_BY_VISIT_TIME: 'Sort by Visit Time',
-			VIEW_TOP_6: 'View Top 6',
+			VIEW_COLLAPSE: 'Collapse',
 			VIEW_ALL: 'View All',
 			CONNECTED_SPACE_TITLE: 'Connected Spaces',
 			CREATE_CONNECTED_SPACE_BUTTON: 'Connect Space',

@@ -7,9 +7,10 @@ import {
 	faCheck,
 	faCog,
 	faComments,
-	faCut,
+	faCompress,
 	faDiceD20,
 	faEdit,
+	faExpand,
 	faGlobe,
 	faHome,
 	faInbox,
@@ -92,7 +93,8 @@ export const ICON_SELECTED = faCheck;
 export const ICON_LOADING = faSpinner;
 export const ICON_PIN = faThumbtack;
 export const ICON_SORT = faSortAmountDown;
-export const ICON_CUT = faCut;
+export const ICON_COLLAPSE_PANEL = faCompress;
+export const ICON_EXPAND_PANEL = faExpand;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

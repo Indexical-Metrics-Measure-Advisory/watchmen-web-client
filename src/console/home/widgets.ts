@@ -6,7 +6,7 @@ export const HomeSection = styled.div.attrs({ 'data-widget': 'console-home-secti
 	position       : relative;
 	flex-direction : column;
 	&:not(:last-child) {
-		margin-bottom : var(--margin);
+		padding-bottom : var(--margin);
 	}
 `;
 export const HomeSectionHeader = styled.div.attrs({ 'data-widget': 'console-home-section-header' })`
@@ -48,13 +48,24 @@ export const HeaderButton = styled(DwarfButton).attrs({ 'data-widget': 'console-
 		border-bottom-right-radius : 0;
 	}
 `;
-export const HomeSectionBody = styled.div.attrs({ 'data-widget': 'console-home-section-body' })`
+export const HomeSectionBody = styled.div.attrs<{ collapse: boolean, maxHeight?: number }>(
+	({ collapse, maxHeight }) => {
+		return {
+			'data-widget': 'console-home-section-body',
+			style: {
+				maxHeight: collapse ? 0 : (maxHeight || 2000),
+				padding: collapse ? '0 calc(var(--margin) / 2)' : (void 0)
+			}
+		};
+	})<{ collapse: boolean, maxHeight?: number }>`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : repeat(3, minmax(0, 1fr));
 	grid-gap              : calc(var(--margin) / 2);
-	background-color      : var(--bg-color);
+	margin                : calc(var(--margin) / -2);
+	padding               : calc(var(--margin) / 2);
 	border-radius         : calc(var(--margin) / 2);
+	overflow              : hidden;
 	transition            : all 300ms ease-in-out;
 `;
 

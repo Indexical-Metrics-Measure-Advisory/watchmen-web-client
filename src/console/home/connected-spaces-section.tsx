@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
-import { ICON_ADD, ICON_CUT, ICON_SORT } from '../../basic-widgets/constants';
+import React, { useRef, useState } from 'react';
+import { ICON_ADD, ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL, ICON_SORT } from '../../basic-widgets/constants';
 import { ButtonInk } from '../../basic-widgets/types';
 import { Lang } from '../../langs';
 import { ConnectedSpace } from '../../services/console/connected-space-types';
@@ -10,6 +10,7 @@ import { ConsoleEventTypes } from '../console-event-bus-types';
 import { useConsoleSettings } from '../data-initializer';
 import { ConnectedSpaceCard } from './connected-space-card';
 import { SortType, ViewType } from './types';
+import { useMaxHeight } from './use-max-height';
 import {
 	HeaderButton,
 	HomeSection,
@@ -21,8 +22,9 @@ import {
 
 export const ConnectedSpacesSection = () => {
 	const { once } = useConsoleEventBus();
+	const bodyRef = useRef<HTMLDivElement>(null);
 	const [ sortType, setSortType ] = useState<SortType>(SortType.BY_VISIT_TIME);
-	const [ viewType, setViewType ] = useState<ViewType>(ViewType.TOP_6);
+	const [ viewType, setViewType ] = useState<ViewType>(ViewType.ALL);
 	const [ connectedSpaces, setConnectedSpaces ] = useState<Array<ConnectedSpace>>([]);
 	useConsoleSettings({
 		onSettingsLoaded: (({ connectedSpaces }: ConsoleSettings) => {
@@ -36,15 +38,16 @@ export const ConnectedSpacesSection = () => {
 			}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
 		}
 	});
+	const maxHeight = useMaxHeight(bodyRef);
 
 	const onConnectSpaceClicked = () => {
 		// TODO connect space
-	}
+	};
 	const onSortClicked = () => {
 		setSortType(sortType === SortType.BY_NAME ? SortType.BY_VISIT_TIME : SortType.BY_NAME);
 	};
 	const onViewClicked = () => {
-		setViewType(viewType === ViewType.TOP_6 ? ViewType.ALL : ViewType.TOP_6);
+		setViewType(viewType === ViewType.COLLAPSE ? ViewType.ALL : ViewType.COLLAPSE);
 	};
 
 	let sortedConnectedSpaces;
@@ -56,11 +59,6 @@ export const ConnectedSpacesSection = () => {
 		sortedConnectedSpaces = connectedSpaces.sort((cs1, cs2) => {
 			return cs1.name.toLowerCase().localeCompare(cs2.name.toLowerCase());
 		});
-	}
-
-	if (viewType === ViewType.TOP_6) {
-		sortedConnectedSpaces = [ ...sortedConnectedSpaces ];
-		sortedConnectedSpaces.length = Math.min(6, sortedConnectedSpaces.length);
 	}
 
 	return <HomeSection>
@@ -76,12 +74,12 @@ export const ConnectedSpacesSection = () => {
 					<span>{sortType === SortType.BY_NAME ? Lang.CONSOLE.HOME.SORT_BY_VISIT_TIME : Lang.CONSOLE.HOME.SORT_BY_NAME}</span>
 				</HeaderButton>
 				<HeaderButton ink={ButtonInk.PRIMARY} onClick={onViewClicked}>
-					<FontAwesomeIcon icon={ICON_CUT}/>
-					<span>{viewType === ViewType.ALL ? Lang.CONSOLE.HOME.VIEW_TOP_6 : Lang.CONSOLE.HOME.VIEW_ALL}</span>
+					<FontAwesomeIcon icon={viewType === ViewType.ALL ? ICON_COLLAPSE_PANEL : ICON_EXPAND_PANEL}/>
+					<span>{viewType === ViewType.ALL ? Lang.CONSOLE.HOME.VIEW_COLLAPSE : Lang.CONSOLE.HOME.VIEW_ALL}</span>
 				</HeaderButton>
 			</HomeSectionHeaderOperators>
 		</HomeSectionHeader>
-		<HomeSectionBody>
+		<HomeSectionBody collapse={viewType !== ViewType.ALL} maxHeight={maxHeight} ref={bodyRef}>
 			{sortedConnectedSpaces.map(connectedSpace => {
 				return <ConnectedSpaceCard connectedSpace={connectedSpace} key={connectedSpace.connectId}/>;
 			})}
