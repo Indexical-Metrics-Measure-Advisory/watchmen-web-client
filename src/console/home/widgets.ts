@@ -5,6 +5,9 @@ export const HomeSection = styled.div.attrs({ 'data-widget': 'console-home-secti
 	display        : flex;
 	position       : relative;
 	flex-direction : column;
+	&:not(:last-child) {
+		margin-bottom: var(--margin);
+	}
 `;
 export const HomeSectionHeader = styled.div.attrs({ 'data-widget': 'console-home-section-header' })`
 	display         : flex;
@@ -52,11 +55,32 @@ export const HomeSectionBody = styled.div.attrs({ 'data-widget': 'console-home-s
 	grid-column-gap       : var(--margin);
 	grid-gap              : calc(var(--margin) / 2);
 	background-color      : var(--bg-color);
-	overflow              : hidden;
-	padding               : calc(var(--margin) / 2);
 	border-radius         : calc(var(--margin) / 2);
 	transition            : all 300ms ease-in-out;
 `;
 
 export const ConnectedSpaceCardContainer = styled.div.attrs({ 'data-widget': 'connected-space-card' })`
+	display               : grid;
+	grid-template-columns : var(--height) 1fr;
+	grid-row-gap          : calc(var(--margin) / 2);
+	align-items           : center;
+	padding               : calc(var(--margin) / 2) var(--margin);
+	border-radius         : calc(var(--border-radius) * 2);
+	box-shadow            : var(--shadow);
+	cursor                : pointer;
+	&:hover {
+		box-shadow : var(--hover-shadow);
+	}
+`;
+export const ConnectedSpaceLastVisit = styled.div.attrs({ 'data-widget': 'connected-space-card-last-visit' })`
+	font-variant : petite-caps;
+	//transform        : scale(0.8);
+	//transform-origin : left;
+	opacity      : 0.7;
+`;
+export const ConnectedSpaceName = styled.div.attrs({ 'data-widget': 'connected-space-card-name' })`
+	grid-column : span 2;
+	font-size   : 1.8em;
+	font-weight : var(--font-demi-bold);
+	font-family : var(--title-font-family);
 `;

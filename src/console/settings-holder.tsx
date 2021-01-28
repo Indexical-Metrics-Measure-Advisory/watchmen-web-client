@@ -27,24 +27,31 @@ export const SettingsHolder = () => {
 				fire(ConsoleEventTypes.SETTINGS_LOADED, settings);
 			})();
 		}
-
+	}, [ fire, holdSettings.initialized ]);
+	useEffect(() => {
 		const onAskSettingsLoaded = () => {
 			fire(ConsoleEventTypes.REPLY_SETTINGS_LOADED, holdSettings.initialized);
 		};
 		const onAskConnectedSpaces = () => {
 			fire(ConsoleEventTypes.REPLY_CONNECTED_SPACES, holdSettings.connectedSpaces);
 		};
+		const onAskDashboards = () => {
+			fire(ConsoleEventTypes.REPLY_DASHBOARDS, holdSettings.dashboards);
+		};
 
 		on(ConsoleEventTypes.ASK_SETTINGS_LOADED, onAskSettingsLoaded);
 		on(ConsoleEventTypes.ASK_CONNECTED_SPACES, onAskConnectedSpaces);
+		on(ConsoleEventTypes.ASK_DASHBOARDS, onAskDashboards);
 		return () => {
 			off(ConsoleEventTypes.ASK_SETTINGS_LOADED, onAskSettingsLoaded);
 			off(ConsoleEventTypes.ASK_CONNECTED_SPACES, onAskConnectedSpaces);
+			off(ConsoleEventTypes.ASK_DASHBOARDS, onAskDashboards);
 		};
 	}, [
 		on, off, fire,
 		holdSettings.initialized,
-		holdSettings.connectedSpaces
+		holdSettings.connectedSpaces,
+		holdSettings.dashboards
 	]);
 
 	return <Fragment/>;

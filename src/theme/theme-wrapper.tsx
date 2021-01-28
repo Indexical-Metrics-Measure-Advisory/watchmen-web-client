@@ -72,6 +72,7 @@ const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
 		font-family : var(--code-font-family);
 	}
 
+	main[data-v-scroll],
 	div[data-v-scroll],
 	div[data-h-scroll],
 	textarea[data-v-scroll],
@@ -94,6 +95,7 @@ const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
 			height : 4px;
 		}
 	}
+	main[data-v-scroll],
 	div[data-v-scroll],
 	textarea[data-v-scroll] {
 		&::-webkit-scrollbar {

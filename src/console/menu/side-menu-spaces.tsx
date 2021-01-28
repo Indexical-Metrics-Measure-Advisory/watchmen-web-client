@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { ICON_SPACE } from '../../basic-widgets/constants';
+import { ICON_CONNECTED_SPACE } from '../../basic-widgets/constants';
 import { SideMenuItem } from '../../basic-widgets/side-menu/side-menu-item';
 import { isConnectedSpaceOpened, toConnectedSpace } from '../../routes/utils';
 import { ConnectedSpace } from '../../services/console/connected-space-types';
@@ -15,7 +15,7 @@ const SideMenuSpacesContainer = styled.div.attrs({
 })`
 	display        : flex;
 	flex-direction : column;
-	max-height     : calc(var(--side-menu-icon-size) * 5);
+	max-height     : calc(var(--side-menu-icon-size) * 8);
 	overflow-y     : scroll;
 	overflow-x     : hidden;
 	direction      : rtl;
@@ -55,7 +55,7 @@ export const SideMenuSpaces = (props: { showTooltip: boolean }) => {
 		{spaces
 			.sort((s1, s2) => s1.name.toLowerCase().localeCompare(s2.name.toLowerCase()))
 			.map(space => {
-				return <SpaceMenu icon={ICON_SPACE} label={space.name} showTooltip={showTooltip}
+				return <SpaceMenu icon={ICON_CONNECTED_SPACE} label={space.name} showTooltip={showTooltip}
 				                  onClick={onSpaceClicked(space)}
 				                  key={space.connectId}/>;
 			})}

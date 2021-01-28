@@ -49,10 +49,12 @@ export const En = {
 		},
 		HOME: {
 			TITLE: 'Home',
-			CONNECTED_SPACE_TITLE: 'Connected Spaces',
 			SORT_BY_NAME: 'Sort by Name',
 			SORT_BY_VISIT_TIME: ' Sort by Visit Time',
-			CREATE_CONNECTED_SPACE_BUTTON: 'Connect Space'
+			CONNECTED_SPACE_TITLE: 'Connected Spaces',
+			CREATE_CONNECTED_SPACE_BUTTON: 'Connect Space',
+			DASHBOARD_TITLE: 'Dashboards',
+			CREATE_DASHBOARD_BUTTON: 'Create Dashboard'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',

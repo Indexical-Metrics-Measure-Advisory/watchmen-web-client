@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { ICON_CONNECTED_SPACE, ICON_REPORT, ICON_TOPIC, ICON_USER_GROUP } from '../../basic-widgets/constants';
+import { ICON_CONNECTION, ICON_REPORT, ICON_TOPIC, ICON_USER_GROUP } from '../../basic-widgets/constants';
 import { TooltipAlignment } from '../../basic-widgets/types';
 import { QuerySpace } from '../../services/tuples/query-space-types';
 import {
@@ -37,7 +37,7 @@ const SpaceCard = (props: { space: QuerySpace }) => {
 				<span>{space.groupCount}</span>
 			</TupleCardStatisticsItem>
 			<TupleCardStatisticsItem tooltip={{ label: 'Connections Count', alignment: TooltipAlignment.CENTER }}>
-				<FontAwesomeIcon icon={ICON_CONNECTED_SPACE}/>
+				<FontAwesomeIcon icon={ICON_CONNECTION}/>
 				<span>{space.connectionCount}</span>
 			</TupleCardStatisticsItem>
 		</TupleCardStatistics>

@@ -1,4 +1,5 @@
 import { ConnectedSpace } from '../services/console/connected-space-types';
+import { Dashboard } from '../services/console/dashboard-types';
 import { ConsoleSettings } from '../services/console/settings-types';
 
 export enum FavoriteState {
@@ -25,7 +26,10 @@ export enum ConsoleEventTypes {
 	CONNECTED_SPACE_REMOVED_FROM_FAVORITE = 'connected-space-removed-from-favorite',
 
 	ASK_CONNECTED_SPACES = 'ask-connected-spaces',
-	REPLY_CONNECTED_SPACES = 'reply-connected-spaces'
+	REPLY_CONNECTED_SPACES = 'reply-connected-spaces',
+
+	ASK_DASHBOARDS = 'ask-dashboards',
+	REPLY_DASHBOARDS = 'reply-dashboards'
 }
 
 export interface ConsoleEventBus {
@@ -87,4 +91,12 @@ export interface ConsoleEventBus {
 	fire(type: ConsoleEventTypes.REPLY_CONNECTED_SPACES, connectedSpaces: Array<ConnectedSpace>): this;
 	once(type: ConsoleEventTypes.REPLY_CONNECTED_SPACES, listener: (connectedSpaces: Array<ConnectedSpace>) => void): this;
 	off(type: ConsoleEventTypes.REPLY_CONNECTED_SPACES, listener: (connectedSpaces: Array<ConnectedSpace>) => void): this;
+
+	fire(type: ConsoleEventTypes.ASK_DASHBOARDS): this;
+	on(type: ConsoleEventTypes.ASK_DASHBOARDS, listener: () => void): this;
+	off(type: ConsoleEventTypes.ASK_DASHBOARDS, listener: () => void): this;
+
+	fire(type: ConsoleEventTypes.REPLY_DASHBOARDS, dashboards: Array<Dashboard>): this;
+	once(type: ConsoleEventTypes.REPLY_DASHBOARDS, listener: (dashboards: Array<Dashboard>) => void): this;
+	off(type: ConsoleEventTypes.REPLY_DASHBOARDS, listener: (dashboards: Array<Dashboard>) => void): this;
 }

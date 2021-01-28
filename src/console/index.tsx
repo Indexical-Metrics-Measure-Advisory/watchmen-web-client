@@ -18,6 +18,7 @@ const ConsoleContainer = styled.div.attrs({ 'data-widget': 'console' })`
 const ConsoleMainContainer = styled.main.attrs<{ favorite: boolean }>(({ favorite }) => {
 	return {
 		'data-widget': 'console-main',
+		'data-v-scroll': '',
 		style: {
 			marginTop: favorite ? 'var(--pin-favorite-height)' : (void 0),
 			height: favorite ? 'calc(100vh - var(--pin-favorite-height)' : (void 0)
