@@ -48,7 +48,8 @@ export const En = {
 			TITLE: 'My Favorite',
 			NO_DATA: 'No favorite items.',
 			PIN: 'Pin',
-			UNPIN: 'Unpin'
+			UNPIN: 'Unpin',
+			REMOVE: 'Remove from Favorite'
 		}
 	}
 };

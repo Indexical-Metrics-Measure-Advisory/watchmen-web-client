@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useRef } from 'react';
-import { ICON_PIN } from '../../basic-widgets/constants';
+import { ICON_DELETE, ICON_PIN } from '../../basic-widgets/constants';
 import { TooltipAlignment } from '../../basic-widgets/types';
 import { useCollapseFixedThing } from '../../basic-widgets/utils';
 import { Lang } from '../../langs';
@@ -15,6 +15,7 @@ import {
 	FloatFavoriteBody,
 	FloatFavoriteContainer,
 	FloatFavoriteItem,
+	FloatFavoriteItemRemoveButton,
 	FloatFavoritePinButton,
 	FloatFavoriteTitle
 } from './widgets';
@@ -28,7 +29,7 @@ export const FloatFavorite = (props: {
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const { fire } = useConsoleEventBus();
-	const { items, onItemClicked, data } = useFavoriteState();
+	const { items, onItemClicked, onItemRemoveClicked, data } = useFavoriteState();
 	useCollapseFixedThing({ containerRef, hide: () => fire(ConsoleEventTypes.HIDE_FAVORITE) });
 
 	const onPinClicked = async () => {
@@ -57,6 +58,9 @@ export const FloatFavorite = (props: {
 					                          onClick={onItemClicked(id, type)}>
 						<FavoriteItemIcon icon={icon}/>
 						<FavoriteItemLabel>{name}</FavoriteItemLabel>
+						<FloatFavoriteItemRemoveButton onClick={onItemRemoveClicked(id, type)}>
+							<FontAwesomeIcon icon={ICON_DELETE}/>
+						</FloatFavoriteItemRemoveButton>
 					</FloatFavoriteItem>;
 				})
 				: <FavoriteNoData>{Lang.CONSOLE.FAVORITE.NO_DATA}</FavoriteNoData>

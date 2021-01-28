@@ -17,7 +17,10 @@ export enum ConsoleEventTypes {
 	UNPIN_FAVORITE = 'unpin-favorite',
 	HIDE_FAVORITE = 'hide-favorite',
 	ASK_FAVORITE_STATE = 'ask-favorite-state',
-	REPLY_FAVORITE_STATE = 'reply-favorite-state'
+	REPLY_FAVORITE_STATE = 'reply-favorite-state',
+
+	DASHBOARD_REMOVED_FROM_FAVORITE = 'dashboard-removed-from-favorite',
+	CONNECTED_SPACE_REMOVED_FROM_FAVORITE = 'connected-space-removed-from-favorite'
 }
 
 export interface ConsoleEventBus {
@@ -59,4 +62,12 @@ export interface ConsoleEventBus {
 	fire(type: ConsoleEventTypes.REPLY_FAVORITE_STATE, state: FavoriteState): this;
 	once(type: ConsoleEventTypes.REPLY_FAVORITE_STATE, listener: (state: FavoriteState) => void): this;
 	off(type: ConsoleEventTypes.REPLY_FAVORITE_STATE, listener: (state: FavoriteState) => void): this;
+
+	fire(type: ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, dashboardId: string): this;
+	on(type: ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, listener: (dashboardId: string) => void): this;
+	off(type: ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, listener: (dashboardId: string) => void): this;
+
+	fire(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, connectedSpaceId: string): this;
+	on(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, listener: (connectedSpaceId: string) => void): this;
+	off(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, listener: (connectedSpaceId: string) => void): this;
 }

@@ -1,7 +1,7 @@
 import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { MouseEvent, RefObject, useEffect, useRef, useState } from 'react';
-import { BASE_MARGIN, SIDE_MENU_MIN_WIDTH } from '../../basic-widgets/constants';
+import { BASE_MARGIN, ICON_DELETE, SIDE_MENU_MIN_WIDTH } from '../../basic-widgets/constants';
 import { Lang } from '../../langs';
 import { saveFavorite } from '../../services/console/favorite';
 import { useConsoleEventBus } from '../console-event-bus';
@@ -14,6 +14,7 @@ import {
 	PinFavoriteBody,
 	PinFavoriteContainer,
 	PinFavoriteItem,
+	PinFavoriteItemRemoveButton,
 	PinFavoriteItemTail,
 	PinFavoriteScrollButton,
 	PinFavoriteTitle,
@@ -52,7 +53,7 @@ export const PinFavorite = (props: {
 		reachLeft: true,
 		reachRight: true
 	});
-	const { items, onItemClicked, data } = useFavoriteState();
+	const { items, onItemClicked, onItemRemoveClicked, data } = useFavoriteState();
 	useEffect(() => {
 		const onSideMenuResized = (width: number) => {
 			setMenuWidth(width);
@@ -145,6 +146,9 @@ export const PinFavorite = (props: {
 						                        onClick={onItemClicked(id, type)}>
 							<FavoriteItemIcon icon={icon}/>
 							<FavoriteItemLabel>{name}</FavoriteItemLabel>
+							<PinFavoriteItemRemoveButton onClick={onItemRemoveClicked(id, type)}>
+								<FontAwesomeIcon icon={ICON_DELETE}/>
+							</PinFavoriteItemRemoveButton>
 						</PinFavoriteItem>;
 					})}
 					<PinFavoriteItemTail/>

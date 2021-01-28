@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
+import { Button } from '../../basic-widgets/button';
 import { FAVORITE_Z_INDEX, PIN_FAVORITE_Z_INDEX } from '../../basic-widgets/constants';
 import { TooltipButton } from '../../basic-widgets/tooltip-button';
 
@@ -77,6 +78,13 @@ export const FloatFavoriteItem = styled.div.attrs({ 'data-widget': 'float-favori
 	cursor       : pointer;
 	&:hover {
 		background-color : var(--hover-color);
+		> button[data-widget="float-favorite-item-remove-button"] {
+			right          : calc(var(--margin) / 4);
+			width          : calc(var(--height) * 0.8);
+			opacity        : 1;
+			pointer-events : auto;
+			transition     : opacity 300ms ease-in-out 500ms, width 300ms ease-in-out 500ms;
+		}
 	}
 `;
 export const FavoriteItemIcon = styled(FontAwesomeIcon).attrs({ 'data-widget': 'favorite-item-icon' })`
@@ -87,6 +95,16 @@ export const FavoriteItemLabel = styled.span.attrs({ 'data-widget': 'favorite-it
 	white-space   : nowrap;
 	overflow      : hidden;
 	text-overflow : ellipsis;
+`;
+export const FloatFavoriteItemRemoveButton = styled(Button).attrs({ 'data-widget': 'float-favorite-item-remove-button' })`
+	position       : absolute;
+	right          : 0;
+	width          : 0;
+	height         : calc(var(--height) * 0.8);
+	padding        : 0;
+	overflow-x     : hidden;
+	pointer-events : none;
+	transition     : opacity 300ms ease-in-out, width 300ms ease-in-out;
 `;
 export const FavoriteNoData = styled.div.attrs({ 'data-widget': 'float-favorite-no-data' })`
 	display      : flex;
@@ -202,9 +220,30 @@ export const PinFavoriteItem = styled.div.attrs({ 'data-widget': 'pin-favorite-i
 	background-color : var(--bg-color);
 	font-variant     : petite-caps;
 	cursor           : pointer;
+	overflow-x       : hidden;
 	&:hover {
 		background-color : var(--hover-color);
+		> button[data-widget="pin-favorite-item-remove-button"] {
+			right          : 0;
+			box-shadow     : var(--primary-hover-shadow);
+			opacity        : 1;
+			pointer-events : auto;
+			transition     : opacity 300ms ease-in-out 500ms, right 300ms ease-in-out 500ms, box-shadow 1ms linear 500ms;
+		}
 	}
+`;
+export const PinFavoriteItemRemoveButton = styled(Button).attrs({ 'data-widget': 'pin-favorite-item-remove-button' })`
+	position         : absolute;
+	top              : 0;
+	right            : calc(var(--height) * -1 + 2px);
+	width            : calc(var(--height) - 2px);
+	height           : calc(var(--height) - 2px);
+	padding          : 0;
+	background-color : var(--border-color);
+	border-radius    : 100%;
+	overflow-x       : hidden;
+	pointer-events   : none;
+	transition       : opacity 300ms ease-in-out, right 300ms ease-in-out, box-shadow 1ms linear 300ms;
 `;
 // avoid the last item adsorbs to unpin button
 export const PinFavoriteItemTail = styled.div.attrs({ 'data-widget': 'pin-favorite-item-tail' })`
