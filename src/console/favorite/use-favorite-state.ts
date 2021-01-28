@@ -2,9 +2,10 @@ import { MouseEvent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ICON_CONNECTED_SPACE, ICON_DASHBOARD } from '../../basic-widgets/constants';
 import { isConnectedSpaceOpened, isDashboardOpened, toConnectedSpace, toDashboard } from '../../routes/utils';
+import { saveFavorite } from '../../services/console/favorite';
 import { ConsoleSettings } from '../../services/console/settings-types';
 import { useConsoleEventBus } from '../console-event-bus';
-import { ConsoleEventTypes } from '../console-event-bus-types';
+import { ConsoleEventTypes, FavoriteState } from '../console-event-bus-types';
 import { RenderItem, StateData } from './types';
 
 const buildFavoriteItems = (data: StateData) => {
@@ -37,7 +38,7 @@ const buildFavoriteItems = (data: StateData) => {
 
 export const useFavoriteState = () => {
 	const history = useHistory();
-	const { on, off, fire } = useConsoleEventBus();
+	const { once, on, off, fire } = useConsoleEventBus();
 	const [ data, setData ] = useState<StateData>({
 		connectedSpaces: [],
 		dashboards: [],
@@ -99,21 +100,29 @@ export const useFavoriteState = () => {
 	const onItemRemoveClicked = (id: string, type: 'dashboard' | 'connected-space') => (event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
+		let dashboardIds = data.dashboardIds;
+		let connectedSpaceIds = data.connectedSpaceIds;
 		if (type === 'dashboard') {
 			// eslint-disable-next-line
-			setData({ ...data, dashboardIds: data.dashboardIds.filter(dashboardId => dashboardId != id) });
+			dashboardIds = dashboardIds.filter(dashboardId => dashboardId != id);
+			setData({ ...data, dashboardIds });
 			fire(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, id);
 		} else if (type === 'connected-space') {
-			setData({
-				...data,
-				// eslint-disable-next-line
-				connectedSpaceIds: data.connectedSpaceIds.filter(connectedSpaceId => connectedSpaceId != id)
-			});
+			// eslint-disable-next-line
+			connectedSpaceIds = connectedSpaceIds.filter(connectedSpaceId => connectedSpaceId != id);
+			setData({ ...data, connectedSpaceIds });
 			fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, id);
 		}
+		once(ConsoleEventTypes.REPLY_FAVORITE_STATE, async (state: FavoriteState) => {
+			await saveFavorite({
+				pin: state === FavoriteState.PIN,
+				connectedSpaceIds: connectedSpaceIds || [],
+				dashboardIds: dashboardIds || []
+			});
+		}).fire(ConsoleEventTypes.ASK_FAVORITE_STATE);
 	};
 
-	console.log(data.dashboardIds, data.connectedSpaceIds)
+	console.log(data.dashboardIds, data.connectedSpaceIds);
 	const items = buildFavoriteItems(data);
 
 	return { items, onItemClicked, onItemRemoveClicked, data };
