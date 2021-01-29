@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useEventBus } from '../events/event-bus';
 import { EventTypes } from '../events/types';
-import { AlertContainer, AlertDialog, WaitRemoteDataBody, WaitRemoveDataDialog } from './widgets';
+import { AlertContainer, WaitRemoteDataBody, WaitRemoveDataDialog } from './widgets';
 
 interface WaitRemoteDataState {
 	visible: boolean;

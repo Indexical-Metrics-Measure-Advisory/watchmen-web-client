@@ -1,3 +1,4 @@
+import { Favorite } from '../services/console/favorite-types';
 import { LastSnapshot } from '../services/console/last-snapshot-types';
 import { ConsoleSettings } from '../services/console/settings-types';
 import { ConnectedSpace } from '../services/tuples/connected-space-types';
@@ -28,6 +29,9 @@ export enum ConsoleEventTypes {
 
 	ASK_LAST_SNAPSHOT = 'ask-last-snapshot',
 	REPLY_LAST_SNAPSHOT = 'replay-last-snapshot',
+
+	ASK_FAVORITE = 'ask-favorite',
+	REPLY_FAVORITE = 'reply-favorite',
 
 	ASK_CONNECTED_SPACES = 'ask-connected-spaces',
 	REPLY_CONNECTED_SPACES = 'reply-connected-spaces',
@@ -95,6 +99,14 @@ export interface ConsoleEventBus {
 	fire(type: ConsoleEventTypes.REPLY_LAST_SNAPSHOT, lastSnapshot: LastSnapshot): this;
 	once(type: ConsoleEventTypes.REPLY_LAST_SNAPSHOT, listener: (lastSnapshot: LastSnapshot) => void): this;
 	off(type: ConsoleEventTypes.REPLY_LAST_SNAPSHOT, listener: (lastSnapshot: LastSnapshot) => void): this;
+
+	fire(type: ConsoleEventTypes.ASK_FAVORITE): this;
+	on(type: ConsoleEventTypes.ASK_FAVORITE, listener: () => void): this;
+	off(type: ConsoleEventTypes.ASK_FAVORITE, listener: () => void): this;
+
+	fire(type: ConsoleEventTypes.REPLY_FAVORITE, favorite: Favorite): this;
+	once(type: ConsoleEventTypes.REPLY_FAVORITE, listener: (favorite: Favorite) => void): this;
+	off(type: ConsoleEventTypes.REPLY_FAVORITE, listener: (favorite: Favorite) => void): this;
 
 	fire(type: ConsoleEventTypes.ASK_CONNECTED_SPACES): this;
 	on(type: ConsoleEventTypes.ASK_CONNECTED_SPACES, listener: () => void): this;

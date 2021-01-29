@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { ConsoleSettings } from '../../services/console/settings-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes, FavoriteState } from '../console-event-bus-types';
 import { FloatFavorite } from './float-favorite';
@@ -15,11 +14,6 @@ export const Favorite = () => {
 	const { on, off, fire } = useConsoleEventBus();
 	const [ state, setState ] = useState<State>({ state: FavoriteState.HIDDEN, top: 0, left: 0 });
 	useEffect(() => {
-		const onSettingsLoaded = (({ lastSnapshot: { favoritePin } }: ConsoleSettings) => {
-			if (favoritePin) {
-				setState({ ...state, state: FavoriteState.PIN });
-			}
-		});
 		const onAskFavoriteState = () => {
 			fire(ConsoleEventTypes.REPLY_FAVORITE_STATE, state.state);
 		};
@@ -43,14 +37,12 @@ export const Favorite = () => {
 				setState({ ...state, state: FavoriteState.HIDDEN });
 			}
 		};
-		on(ConsoleEventTypes.SETTINGS_LOADED, onSettingsLoaded);
 		on(ConsoleEventTypes.ASK_FAVORITE_STATE, onAskFavoriteState);
 		on(ConsoleEventTypes.SHOW_FAVORITE, onShowFavorite);
 		on(ConsoleEventTypes.HIDE_FAVORITE, onHideFavorite);
 		on(ConsoleEventTypes.PIN_FAVORITE, onPinFavorite);
 		on(ConsoleEventTypes.UNPIN_FAVORITE, onUnpinFavorite);
 		return () => {
-			off(ConsoleEventTypes.SETTINGS_LOADED, onSettingsLoaded);
 			off(ConsoleEventTypes.ASK_FAVORITE_STATE, onAskFavoriteState);
 			off(ConsoleEventTypes.SHOW_FAVORITE, onShowFavorite);
 			off(ConsoleEventTypes.HIDE_FAVORITE, onHideFavorite);

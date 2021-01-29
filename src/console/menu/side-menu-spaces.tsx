@@ -5,7 +5,6 @@ import { ICON_CONNECTED_SPACE } from '../../basic-widgets/constants';
 import { SideMenuItem } from '../../basic-widgets/side-menu/side-menu-item';
 import { isConnectedSpaceOpened, toConnectedSpace } from '../../routes/utils';
 import { ConnectedSpace } from '../../services/tuples/connected-space-types';
-import { ConsoleSettings } from '../../services/console/settings-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
 
@@ -31,17 +30,13 @@ export const SideMenuSpaces = (props: { showTooltip: boolean }) => {
 	const { showTooltip } = props;
 
 	const history = useHistory();
-	const { on, off } = useConsoleEventBus();
+	const { once } = useConsoleEventBus();
 	const [ spaces, setSpaces ] = useState<Array<ConnectedSpace>>([]);
 	useEffect(() => {
-		const onSettingsLoaded = ({ connectedSpaces }: ConsoleSettings) => {
+		once(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
 			setSpaces(connectedSpaces || []);
-		};
-		on(ConsoleEventTypes.SETTINGS_LOADED, onSettingsLoaded);
-		return () => {
-			off(ConsoleEventTypes.SETTINGS_LOADED, onSettingsLoaded);
-		};
-	}, [ on, off ]);
+		}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
+	}, [ once ]);
 
 	const onSpaceClicked = (space: ConnectedSpace) => () => {
 		if (isConnectedSpaceOpened(space.connectId)) {

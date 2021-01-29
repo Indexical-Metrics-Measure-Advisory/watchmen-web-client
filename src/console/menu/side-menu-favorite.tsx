@@ -10,7 +10,7 @@ import {
 import { useTooltip } from '../../basic-widgets/tooltip';
 import { TooltipAlignment } from '../../basic-widgets/types';
 import { Lang } from '../../langs';
-import { ConsoleSettings } from '../../services/console/settings-types';
+import { LastSnapshot } from '../../services/console/last-snapshot-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes, FavoriteState } from '../console-event-bus-types';
 
@@ -33,19 +33,17 @@ export const FavoriteMenu = (props: {
 	const iconRef = useRef<HTMLDivElement>(null);
 	const [ active, setActive ] = useState(false);
 	useEffect(() => {
-		const onSettingsLoaded = (({ lastSnapshot: { favoritePin } }: ConsoleSettings) => {
-			if (favoritePin) {
-				setActive(true);
-			}
-		});
 		const onHideFavorite = () => setActive(false);
-		on(ConsoleEventTypes.SETTINGS_LOADED, onSettingsLoaded);
 		on(ConsoleEventTypes.HIDE_FAVORITE, onHideFavorite);
 		return () => {
-			off(ConsoleEventTypes.SETTINGS_LOADED, onSettingsLoaded);
 			off(ConsoleEventTypes.HIDE_FAVORITE, onHideFavorite);
 		};
 	}, [ on, off ]);
+	useEffect(() => {
+		once(ConsoleEventTypes.REPLY_LAST_SNAPSHOT, ({ favoritePin }: LastSnapshot) => {
+			favoritePin && setActive(favoritePin);
+		}).fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT);
+	}, [ once ]);
 
 	const label = Lang.CONSOLE.MENU.FAVORITE;
 	const tooltip = useTooltip<HTMLDivElement>({

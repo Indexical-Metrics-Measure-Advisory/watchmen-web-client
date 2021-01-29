@@ -3,7 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { ICON_CONNECTED_SPACE, ICON_DASHBOARD } from '../../basic-widgets/constants';
 import { isConnectedSpaceOpened, isDashboardOpened, toConnectedSpace, toDashboard } from '../../routes/utils';
 import { saveFavorite } from '../../services/console/favorite';
-import { ConsoleSettings } from '../../services/console/settings-types';
+import { Favorite } from '../../services/console/favorite-types';
+import { ConnectedSpace } from '../../services/tuples/connected-space-types';
+import { Dashboard } from '../../services/tuples/dashboard-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
 import { RenderItem, StateData } from './types';
@@ -38,7 +40,7 @@ const buildFavoriteItems = (data: StateData) => {
 
 export const useFavoriteState = () => {
 	const history = useHistory();
-	const { on, off, fire } = useConsoleEventBus();
+	const { once, on, off, fire } = useConsoleEventBus();
 	const [ data, setData ] = useState<StateData>({
 		connectedSpaces: [],
 		dashboards: [],
@@ -46,10 +48,6 @@ export const useFavoriteState = () => {
 		dashboardIds: []
 	});
 	useEffect(() => {
-		const onSettingsLoaded = (({ connectedSpaces, dashboards, favorite }: ConsoleSettings) => {
-			const { connectedSpaceIds, dashboardIds } = favorite;
-			setData({ connectedSpaces, dashboards, connectedSpaceIds, dashboardIds });
-		});
 		const onDashboardRemovedFromFavorite = (dashboardId: string) => {
 			// when event was fired by myself, dashboard already removed
 			// eslint-disable-next-line
@@ -75,15 +73,22 @@ export const useFavoriteState = () => {
 				});
 			}
 		};
-		on(ConsoleEventTypes.SETTINGS_LOADED, onSettingsLoaded);
 		on(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, onDashboardRemovedFromFavorite);
 		on(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, onConnectedSpaceRemovedFromFavorite);
 		return () => {
-			off(ConsoleEventTypes.SETTINGS_LOADED, onSettingsLoaded);
 			off(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, onDashboardRemovedFromFavorite);
 			off(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, onConnectedSpaceRemovedFromFavorite);
 		};
 	}, [ on, off, data.dashboardIds, data.connectedSpaceIds ]);
+	useEffect(() => {
+		once(ConsoleEventTypes.REPLY_FAVORITE, ({ dashboardIds, connectedSpaceIds }: Favorite) => {
+			once(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
+				once(ConsoleEventTypes.REPLY_DASHBOARDS, (dashboards: Array<Dashboard>) => {
+					setData({ connectedSpaces, dashboards, connectedSpaceIds, dashboardIds });
+				}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
+			}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
+		}).fire(ConsoleEventTypes.ASK_FAVORITE);
+	}, [ once ]);
 
 	const onItemClicked = (id: string, type: 'dashboard' | 'connected-space') => () => {
 		if (type === 'dashboard') {

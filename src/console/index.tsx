@@ -5,6 +5,7 @@ import { Router } from '../routes/types';
 import { ConsoleSettings } from '../services/console/settings-types';
 import { ConsoleEventBusProvider, useConsoleEventBus } from './console-event-bus';
 import { ConsoleEventTypes } from './console-event-bus-types';
+import { ConsoleLoading } from './console-loading';
 import { Favorite } from './favorite';
 import { ConsoleMenu } from './menu';
 import { SettingsHolder } from './settings-holder';
@@ -33,29 +34,22 @@ const ConsoleMainContainer = styled.main.attrs<{ favorite: boolean }>(({ favorit
 	transition : margin-top 300ms ease-in-out, height 300ms ease-in-out;
 `;
 
-const ConsoleMain = () => {
+const ConsoleRouter = () => {
 	const { on, off } = useConsoleEventBus();
 	const [ favorite, setFavorite ] = useState(false);
 	useEffect(() => {
-		const onSettingsLoaded = (({ lastSnapshot: { favoritePin } }: ConsoleSettings) => {
-			if (favoritePin) {
-				setFavorite(true);
-			}
-		});
 		const onFavoritePin = () => setFavorite(true);
 		const onFavoriteUnpin = () => setFavorite(false);
 
-		on(ConsoleEventTypes.SETTINGS_LOADED, onSettingsLoaded);
 		on(ConsoleEventTypes.PIN_FAVORITE, onFavoritePin);
 		on(ConsoleEventTypes.UNPIN_FAVORITE, onFavoriteUnpin);
 		return () => {
-			off(ConsoleEventTypes.SETTINGS_LOADED, onSettingsLoaded);
 			off(ConsoleEventTypes.PIN_FAVORITE, onFavoritePin);
 			off(ConsoleEventTypes.UNPIN_FAVORITE, onFavoriteUnpin);
 		};
 	});
 
-	return <ConsoleContainer>
+	return <>
 		<ConsoleMenu/>
 		<ConsoleMainContainer favorite={favorite}>
 			<Switch>
@@ -73,6 +67,23 @@ const ConsoleMain = () => {
 			</Switch>
 		</ConsoleMainContainer>
 		<Favorite/>
+	</>;
+};
+const ConsoleMain = () => {
+	const { on, off } = useConsoleEventBus();
+	const [ initialized, setInitialized ] = useState(false);
+	useEffect(() => {
+		const onSettingsLoaded = (settings: ConsoleSettings) => {
+			setInitialized(true);
+		};
+		on(ConsoleEventTypes.SETTINGS_LOADED, onSettingsLoaded);
+		return () => {
+			off(ConsoleEventTypes.SETTINGS_LOADED, onSettingsLoaded);
+		};
+	}, [ on, off ]);
+
+	return <ConsoleContainer>
+		{initialized ? <ConsoleRouter/> : <ConsoleLoading/>}
 		<SettingsHolder/>
 	</ConsoleContainer>;
 };

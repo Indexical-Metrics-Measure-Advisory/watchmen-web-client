@@ -1,13 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ICON_ADD, ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL, ICON_SORT } from '../../basic-widgets/constants';
 import { ButtonInk } from '../../basic-widgets/types';
 import { Lang } from '../../langs';
 import { Dashboard } from '../../services/tuples/dashboard-types';
-import { ConsoleSettings } from '../../services/console/settings-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
-import { useConsoleSettings } from '../data-initializer';
 import { DashboardCard } from './dashboard-card';
 import { SortType, ViewType } from './types';
 import { useMaxHeight } from './use-max-height';
@@ -26,23 +24,18 @@ export const DashboardsSection = () => {
 	const [ sortType, setSortType ] = useState<SortType>(SortType.BY_VISIT_TIME);
 	const [ viewType, setViewType ] = useState<ViewType>(ViewType.ALL);
 	const [ dashboards, setDashboards ] = useState<Array<Dashboard>>([]);
-	useConsoleSettings({
-		onSettingsLoaded: (({ dashboards }: ConsoleSettings) => {
-			setDashboards(dashboards);
-		}),
-		onSettingsInitialized: () => {
-			once(ConsoleEventTypes.REPLY_DASHBOARDS, (newDashboards) => {
-				if (newDashboards !== dashboards) {
-					setDashboards(newDashboards);
-				}
-			}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
-		}
-	});
+	useEffect(() => {
+		once(ConsoleEventTypes.REPLY_DASHBOARDS, (newDashboards) => {
+			if (newDashboards !== dashboards) {
+				setDashboards(newDashboards);
+			}
+		}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
+	}, [ dashboards, once ]);
 	const maxHeight = useMaxHeight(bodyRef);
 
 	const onCreateDashboardClicked = () => {
 		// TODO create dashboard
-	}
+	};
 	const onSortClicked = () => {
 		setSortType(sortType === SortType.BY_NAME ? SortType.BY_VISIT_TIME : SortType.BY_NAME);
 	};

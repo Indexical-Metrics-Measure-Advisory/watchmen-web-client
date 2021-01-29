@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { matchPath, useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { AlertLabel } from '../../alert/widgets';
 import {
 	ICON_ADD,
 	ICON_ADMIN,
@@ -22,8 +21,6 @@ import { SideMenuPlaceholder } from '../../basic-widgets/side-menu/side-menu-pla
 import { SideMenuResizeHandle } from '../../basic-widgets/side-menu/side-menu-resize-handle';
 import { SideMenuSeparator } from '../../basic-widgets/side-menu/side-menu-separator';
 import { SideMenuUser } from '../../basic-widgets/side-menu/side-menu-user';
-import { useEventBus } from '../../events/event-bus';
-import { EventTypes } from '../../events/types';
 import { Lang } from '../../langs';
 import { Router } from '../../routes/types';
 import { toDashboard } from '../../routes/utils';
@@ -60,7 +57,6 @@ const ConsoleMenuContainer = styled.div.attrs<{ width: number }>(({ width }) => 
 export const ConsoleMenu = () => {
 	const history = useHistory();
 	const location = useLocation();
-	const { once: onceGlobal, fire: fireGlobal } = useEventBus();
 	const { once, fire } = useConsoleEventBus();
 	const [ menuWidth, setMenuWidth ] = useState(SIDE_MENU_MIN_WIDTH);
 
@@ -74,27 +70,7 @@ export const ConsoleMenu = () => {
 			history.push(path);
 		}
 	};
-	const onReplySettingsLoaded = (next: () => void) => (initialized: boolean) => {
-		if (!initialized) {
-			onceGlobal(EventTypes.REPLY_WAITING_DATA, next);
-			const poller = async (): Promise<void> => {
-				const poll = (resolve: () => void) => {
-					once(ConsoleEventTypes.REPLY_SETTINGS_LOADED, (initialized) => {
-						if (!initialized) {
-							setTimeout(() => poll(resolve), 1000);
-						} else {
-							resolve();
-						}
-					}).fire(ConsoleEventTypes.ASK_SETTINGS_LOADED);
-				};
-				return new Promise(resolve => poll(resolve));
-			};
-			fireGlobal(EventTypes.SHOW_WAITING, poller, <AlertLabel>{Lang.CONSOLE.WAIT_SETTINGS_DATA}</AlertLabel>);
-		} else {
-			next();
-		}
-	};
-	const doOpenDashboard = () => {
+	const onDashboardClicked = () => {
 		once(ConsoleEventTypes.REPLY_DASHBOARDS, (dashboards: Array<Dashboard>) => {
 			const allDashboardIds = [ ...dashboards ].map(dashboard => dashboard.dashboardId);
 			once(ConsoleEventTypes.REPLY_LAST_SNAPSHOT, async ({ lastDashboardId }: LastSnapshot) => {
@@ -117,10 +93,6 @@ export const ConsoleMenu = () => {
 				}
 			}).fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT);
 		}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
-	};
-	const onDashboardClicked = () => {
-		once(ConsoleEventTypes.REPLY_SETTINGS_LOADED, onReplySettingsLoaded(doOpenDashboard));
-		fire(ConsoleEventTypes.ASK_SETTINGS_LOADED);
 	};
 	const onConnectSpaceClicked = () => {
 		// TODO on connect space clicked

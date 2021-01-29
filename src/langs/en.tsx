@@ -34,7 +34,7 @@ export const En = {
 		FAIL: 'Name or credential cannot be identified now.'
 	},
 	CONSOLE: {
-		WAIT_SETTINGS_DATA: 'Loading personal data...',
+		LOADING: 'Loading Personal Data...',
 		MENU: {
 			TITLE: 'Watchmen Console',
 			HOME: 'Home',
