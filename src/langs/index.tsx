@@ -1,4 +1,5 @@
 import React, { isValidElement, useEffect, useState } from 'react';
+import { useForceUpdate } from '../basic-widgets/utils';
 import { useEventBus } from '../events/event-bus';
 import { EventTypes } from '../events/types';
 import { En } from './en';
@@ -82,10 +83,23 @@ const KeyProxy = new Proxy<any>(TARGET, {
 		return proxyValue((En as any)[prop], prop);
 	}
 });
+export const useLanguage = () => {
+	const { on, off } = useEventBus();
+	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		on(EventTypes.LANGUAGE_CHANGED, forceUpdate);
+		return () => {
+			off(EventTypes.LANGUAGE_CHANGED, forceUpdate);
+		};
+	}, [ on, off, forceUpdate ]);
+
+	return currentLanguage;
+};
 
 export const SupportedLanguages = Object.keys(LANGUAGES)
 	.map(code => ({ code, name: LANGUAGES[code].$$settings.name }))
 	.sort((n1, n2) => n1.name.toLowerCase().localeCompare(n2.name.toLowerCase()));
 export const getCurrentLanguageCode = () => currentLanguage.$$settings.code;
+export const getCurrentLanguage = () => currentLanguage;
 export const Lang: LanguageObjectType = KeyProxy;
 

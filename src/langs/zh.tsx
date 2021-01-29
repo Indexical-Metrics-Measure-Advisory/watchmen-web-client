@@ -8,7 +8,12 @@ export const Zh = {
 	// anything must be string, should be placed here.
 	// such as input tooltip(string property), tuple name(not for react component)
 	PLAIN: {
-		NEW_DASHBOARD_NAME: '仪表盘'
+		NEW_DASHBOARD_NAME: '仪表盘',
+		SHARE: '分享',
+		ADD_REPORT: '添加图表',
+		ADD_DASHBOARD: '创建新仪表盘',
+		SWITCH_DASHBOARD: '切换仪表盘',
+		DELETE_ME: '删除'
 	},
 	ERROR: {
 		UNPREDICTED: '发生不可预测的错误, 请联系管理员以获取帮助.'

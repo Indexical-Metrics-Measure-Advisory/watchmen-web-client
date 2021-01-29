@@ -10,7 +10,12 @@ export const En = {
 	// anything must be string, should be placed here.
 	// such as input tooltip(string property), tuple name(not for react component)
 	PLAIN: {
-		NEW_DASHBOARD_NAME: 'Dashboard'
+		NEW_DASHBOARD_NAME: 'Dashboard',
+		SHARE: 'Share',
+		ADD_REPORT: 'Add Report',
+		ADD_DASHBOARD: 'Add Dashboard',
+		SWITCH_DASHBOARD: 'Switch Dashboard',
+		DELETE_ME: 'Delete Me'
 	},
 	ERROR: {
 		UNPREDICTED: 'Unpredicted error occurred, contact administrator for more information.'
