@@ -42,7 +42,7 @@ export const SettingsHolder = () => {
 				fire(ConsoleEventTypes.SETTINGS_LOADED, settings);
 			})();
 		}
-	}, [ fire, holdSettings.initialized ]);
+	}, [ fire, fireGlobal, holdSettings.initialized ]);
 	useEffect(() => {
 		const onAskSettingsLoaded = () => {
 			fire(ConsoleEventTypes.REPLY_SETTINGS_LOADED, holdSettings.initialized);
@@ -85,7 +85,10 @@ export const SettingsHolder = () => {
 	useEffect(() => {
 		const onDashboardCreated = (dashboard: Dashboard) => {
 			// refresh is unnecessary
-			setHoldSettings({ ...holdSettings, dashboards: [ ...holdSettings.dashboards, dashboard ] });
+			setHoldSettings(holdSettings => ({
+				...holdSettings,
+				dashboards: [ ...holdSettings.dashboards, dashboard ]
+			}));
 		};
 		on(ConsoleEventTypes.DASHBOARD_CREATED, onDashboardCreated);
 		return () => {

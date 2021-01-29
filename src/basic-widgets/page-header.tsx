@@ -8,12 +8,12 @@ import { TooltipAlignment } from './types';
 // height might changed by language switching, fix it.
 export const PageHeaderContainer = styled.div.attrs({ 'data-widget': 'page-header' })`
 	display     : flex;
-	align-items : baseline;
+	align-items : center;
 	height      : 57px;
 `;
 export const PageTitle = styled.div.attrs({ 'data-widget': 'page-header-title' })`
 	font-family : var(--title-font-family);
-	font-size   : 3.5em;
+	font-size   : 3em;
 `;
 const SettingsButton = styled(TooltipButton).attrs({ 'data-widget': 'page-header-settings' })`
 	margin-left : calc(var(--margin) / 2);
@@ -57,9 +57,16 @@ export const PageHeader = (props: { title: string; onSettingsClicked?: () => voi
 	</PageHeaderContainer>;
 };
 
+export const PageHeaderHolderContainer = styled.div.attrs({ 'data-widget': 'page-header' })`
+	display       : flex;
+	align-items   : center;
+	height        : 57px;
+	border-bottom : var(--border);
+`;
+
 export const PageHeaderHolder = (props: { children: ((props: any) => React.ReactNode) | React.ReactNode }) => {
 	const { children } = props;
-	return <PageHeaderContainer>
+	return <PageHeaderHolderContainer>
 		{children}
-	</PageHeaderContainer>;
+	</PageHeaderHolderContainer>;
 };

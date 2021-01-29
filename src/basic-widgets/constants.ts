@@ -4,6 +4,7 @@ import {
 	faBell,
 	faChalkboard,
 	faChartBar,
+	faChartPie,
 	faCheck,
 	faCog,
 	faComments,
@@ -16,8 +17,8 @@ import {
 	faInbox,
 	faLink,
 	faList,
-	faPlus,
-	faSearch,
+	faPlus, faRandom,
+	faSearch, faShare,
 	faSortAmountDown,
 	faSpinner,
 	faStar,
@@ -27,6 +28,7 @@ import {
 	faThumbtack,
 	faTimes,
 	faTools,
+	faTrashAlt,
 	faUser,
 	faUsers,
 	faWaveSquare
@@ -74,6 +76,7 @@ export const ICON_TOPIC = faTags;
 export const ICON_FACTOR = faList;
 export const ICON_REPORT = faChartBar;
 export const ICON_PIPELINE = faWaveSquare;
+export const ICON_CHART = faChartPie;
 
 export const ICON_DASHBOARD = faTachometerAlt;
 export const ICON_FAVORITE = faStar;
@@ -87,6 +90,7 @@ export const ICON_ADD = faPlus;
 export const ICON_EDIT = faEdit;
 export const ICON_DISCARD = faBan;
 export const ICON_DELETE = faTimes;
+export const ICON_THROW_AWAY = faTrashAlt;
 export const ICON_SETTINGS = faCog;
 export const ICON_SEARCH = faSearch;
 export const ICON_SELECTED = faCheck;
@@ -95,6 +99,8 @@ export const ICON_PIN = faThumbtack;
 export const ICON_SORT = faSortAmountDown;
 export const ICON_COLLAPSE_PANEL = faCompress;
 export const ICON_EXPAND_PANEL = faExpand;
+export const ICON_SHARE = faShare;
+export const ICON_SWITCH = faRandom;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';
