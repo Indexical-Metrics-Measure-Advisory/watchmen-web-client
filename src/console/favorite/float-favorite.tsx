@@ -30,7 +30,13 @@ export const FloatFavorite = (props: {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const { fire } = useConsoleEventBus();
 	const { items, onItemClicked, onItemRemoveClicked } = useFavoriteState();
-	useCollapseFixedThing({ containerRef, hide: () => fire(ConsoleEventTypes.HIDE_FAVORITE) });
+	useCollapseFixedThing({
+		containerRef, hide: () => {
+			if (state === FavoriteState.SHOWN) {
+				fire(ConsoleEventTypes.HIDE_FAVORITE);
+			}
+		}
+	});
 
 	const onPinClicked = async () => {
 		fire(ConsoleEventTypes.PIN_FAVORITE);

@@ -1,18 +1,17 @@
-import React, { lazy, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { Router } from '../routes/types';
-import { ConsoleSettings } from '../services/console/settings-types';
+import { LastSnapshot } from '../services/console/last-snapshot-types';
 import { ConsoleEventBusProvider, useConsoleEventBus } from './console-event-bus';
 import { ConsoleEventTypes } from './console-event-bus-types';
 import { ConsoleLoading } from './console-loading';
+import ConsoleDashboard from './dashboard';
 import { Favorite } from './favorite';
+import ConsoleHome from './home';
 import { ConsoleMenu } from './menu';
+import ConsoleSettings from './settings';
 import { SettingsHolder } from './settings-holder';
-
-const ConsoleHome = lazy(() => import(/* webpackChunkName: "console-home" */ './home'));
-const ConsoleSettingsPage = lazy(() => import(/* webpackChunkName: "console-settings" */ './settings'));
-const ConsoleDashboard = lazy(() => import(/* webpackChunkName: "console-dashboard" */ './dashboard'));
 
 const ConsoleContainer = styled.div.attrs({ 'data-widget': 'console' })`
 	display : flex;
@@ -35,7 +34,7 @@ const ConsoleMainContainer = styled.main.attrs<{ favorite: boolean }>(({ favorit
 `;
 
 const ConsoleRouter = () => {
-	const { on, off } = useConsoleEventBus();
+	const { once, on, off } = useConsoleEventBus();
 	const [ favorite, setFavorite ] = useState(false);
 	useEffect(() => {
 		const onFavoritePin = () => setFavorite(true);
@@ -47,7 +46,14 @@ const ConsoleRouter = () => {
 			off(ConsoleEventTypes.PIN_FAVORITE, onFavoritePin);
 			off(ConsoleEventTypes.UNPIN_FAVORITE, onFavoriteUnpin);
 		};
-	});
+	}, [ on, off ]);
+	useEffect(() => {
+		once(ConsoleEventTypes.REPLY_LAST_SNAPSHOT, ({ favoritePin }: LastSnapshot) => {
+			if (favoritePin) {
+				setFavorite(true);
+			}
+		}).fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT);
+	}, [ once ]);
 
 	return <>
 		<ConsoleMenu/>
@@ -60,7 +66,7 @@ const ConsoleRouter = () => {
 				{/*		<Route path={Router.CONSOLE_INBOX}><Inbox/></Route>*/}
 				{/*		<Route path={Router.CONSOLE_NOTIFICATION}><Notification/></Route>*/}
 				{/*		<Route path={Router.CONSOLE_TIMELINE}><Timeline/></Route>*/}
-				<Route path={Router.CONSOLE_SETTINGS}><ConsoleSettingsPage/></Route>
+				<Route path={Router.CONSOLE_SETTINGS}><ConsoleSettings/></Route>
 				<Route path='*'>
 					<Redirect to={Router.CONSOLE_HOME}/>
 				</Route>
@@ -73,8 +79,14 @@ const ConsoleMain = () => {
 	const { on, off } = useConsoleEventBus();
 	const [ initialized, setInitialized ] = useState(false);
 	useEffect(() => {
-		const onSettingsLoaded = (settings: ConsoleSettings) => {
-			setInitialized(true);
+		const startTime = new Date().getTime();
+		const onSettingsLoaded = () => {
+			const endTime = new Date().getTime();
+			if (endTime - startTime < 3000) {
+				setTimeout(() => setInitialized(true), (3000 - (endTime - startTime)));
+			} else {
+				setInitialized(true);
+			}
 		};
 		on(ConsoleEventTypes.SETTINGS_LOADED, onSettingsLoaded);
 		return () => {

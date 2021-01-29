@@ -52,7 +52,6 @@ export interface ConsoleEventBus {
 
 	fire(type: ConsoleEventTypes.REPLY_SETTINGS_LOADED, initialized: boolean): this;
 	once(type: ConsoleEventTypes.REPLY_SETTINGS_LOADED, listener: (initialized: boolean) => void): this;
-	off(type: ConsoleEventTypes.REPLY_SETTINGS_LOADED, listener: (initialized: boolean) => void): this;
 
 	// side menu resize
 	fire(type: ConsoleEventTypes.SIDE_MENU_RESIZED, width: number): this;
@@ -82,7 +81,6 @@ export interface ConsoleEventBus {
 
 	fire(type: ConsoleEventTypes.REPLY_FAVORITE_STATE, state: FavoriteState): this;
 	once(type: ConsoleEventTypes.REPLY_FAVORITE_STATE, listener: (state: FavoriteState) => void): this;
-	off(type: ConsoleEventTypes.REPLY_FAVORITE_STATE, listener: (state: FavoriteState) => void): this;
 
 	fire(type: ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, dashboardId: string): this;
 	on(type: ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, listener: (dashboardId: string) => void): this;
@@ -98,7 +96,6 @@ export interface ConsoleEventBus {
 
 	fire(type: ConsoleEventTypes.REPLY_LAST_SNAPSHOT, lastSnapshot: LastSnapshot): this;
 	once(type: ConsoleEventTypes.REPLY_LAST_SNAPSHOT, listener: (lastSnapshot: LastSnapshot) => void): this;
-	off(type: ConsoleEventTypes.REPLY_LAST_SNAPSHOT, listener: (lastSnapshot: LastSnapshot) => void): this;
 
 	fire(type: ConsoleEventTypes.ASK_FAVORITE): this;
 	on(type: ConsoleEventTypes.ASK_FAVORITE, listener: () => void): this;
@@ -106,7 +103,6 @@ export interface ConsoleEventBus {
 
 	fire(type: ConsoleEventTypes.REPLY_FAVORITE, favorite: Favorite): this;
 	once(type: ConsoleEventTypes.REPLY_FAVORITE, listener: (favorite: Favorite) => void): this;
-	off(type: ConsoleEventTypes.REPLY_FAVORITE, listener: (favorite: Favorite) => void): this;
 
 	fire(type: ConsoleEventTypes.ASK_CONNECTED_SPACES): this;
 	on(type: ConsoleEventTypes.ASK_CONNECTED_SPACES, listener: () => void): this;
@@ -114,7 +110,6 @@ export interface ConsoleEventBus {
 
 	fire(type: ConsoleEventTypes.REPLY_CONNECTED_SPACES, connectedSpaces: Array<ConnectedSpace>): this;
 	once(type: ConsoleEventTypes.REPLY_CONNECTED_SPACES, listener: (connectedSpaces: Array<ConnectedSpace>) => void): this;
-	off(type: ConsoleEventTypes.REPLY_CONNECTED_SPACES, listener: (connectedSpaces: Array<ConnectedSpace>) => void): this;
 
 	fire(type: ConsoleEventTypes.ASK_DASHBOARDS): this;
 	on(type: ConsoleEventTypes.ASK_DASHBOARDS, listener: () => void): this;
@@ -122,5 +117,4 @@ export interface ConsoleEventBus {
 
 	fire(type: ConsoleEventTypes.REPLY_DASHBOARDS, dashboards: Array<Dashboard>): this;
 	once(type: ConsoleEventTypes.REPLY_DASHBOARDS, listener: (dashboards: Array<Dashboard>) => void): this;
-	off(type: ConsoleEventTypes.REPLY_DASHBOARDS, listener: (dashboards: Array<Dashboard>) => void): this;
 }

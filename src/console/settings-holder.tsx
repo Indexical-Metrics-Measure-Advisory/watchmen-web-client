@@ -31,10 +31,8 @@ export const SettingsHolder = () => {
 		if (!holdSettings.initialized) {
 			(async () => {
 				const settings = await fetchConsoleSettingsData();
-				setTimeout(() => {
-					setHoldSettings({ initialized: true, ...settings });
-					fire(ConsoleEventTypes.SETTINGS_LOADED, settings);
-				}, 10000);
+				setHoldSettings({ initialized: true, ...settings });
+				fire(ConsoleEventTypes.SETTINGS_LOADED, settings);
 			})();
 		}
 	}, [ fire, holdSettings.initialized ]);

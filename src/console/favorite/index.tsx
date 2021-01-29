@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { LastSnapshot } from '../../services/console/last-snapshot-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes, FavoriteState } from '../console-event-bus-types';
 import { FloatFavorite } from './float-favorite';
@@ -11,7 +12,7 @@ interface State {
 }
 
 export const Favorite = () => {
-	const { on, off, fire } = useConsoleEventBus();
+	const { once, on, off, fire } = useConsoleEventBus();
 	const [ state, setState ] = useState<State>({ state: FavoriteState.HIDDEN, top: 0, left: 0 });
 	useEffect(() => {
 		const onAskFavoriteState = () => {
@@ -50,6 +51,13 @@ export const Favorite = () => {
 			off(ConsoleEventTypes.UNPIN_FAVORITE, onUnpinFavorite);
 		};
 	}, [ on, off, fire, state ]);
+	useEffect(() => {
+		once(ConsoleEventTypes.REPLY_LAST_SNAPSHOT, ({ favoritePin }: LastSnapshot) => {
+			if (favoritePin) {
+				setState(state => ({ ...state, state: FavoriteState.PIN }));
+			}
+		}).fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT);
+	}, [ once ]);
 
 	return <>
 		<FloatFavorite {...state}/>
