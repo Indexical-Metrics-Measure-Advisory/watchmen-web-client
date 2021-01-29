@@ -40,12 +40,12 @@ const ConsoleDashboardIndex = () => {
 	}
 
 	const onNameChange = (name: string) => {
-		dashboard.name = name || dashboard.name;
+		dashboard.name = name;
 	}
 
 	return <FullWidthPage>
 		<PageHeaderHolder>
-			<PageTitleEditor title={dashboard.name} onComplete={onNameChange}/>
+			<PageTitleEditor title={dashboard.name} onChange={onNameChange}/>
 			<HeaderButtons/>
 		</PageHeaderHolder>
 		<VerticalMarginOneUnit/>
