@@ -5,7 +5,7 @@ import { isConnectedSpaceOpened, isDashboardOpened, toConnectedSpace, toDashboar
 import { saveFavorite } from '../../services/console/favorite';
 import { ConsoleSettings } from '../../services/console/settings-types';
 import { useConsoleEventBus } from '../console-event-bus';
-import { ConsoleEventTypes, FavoriteState } from '../console-event-bus-types';
+import { ConsoleEventTypes } from '../console-event-bus-types';
 import { RenderItem, StateData } from './types';
 
 const buildFavoriteItems = (data: StateData) => {
@@ -38,7 +38,7 @@ const buildFavoriteItems = (data: StateData) => {
 
 export const useFavoriteState = () => {
 	const history = useHistory();
-	const { once, on, off, fire } = useConsoleEventBus();
+	const { on, off, fire } = useConsoleEventBus();
 	const [ data, setData ] = useState<StateData>({
 		connectedSpaces: [],
 		dashboards: [],
@@ -97,7 +97,7 @@ export const useFavoriteState = () => {
 		}
 		fire(ConsoleEventTypes.HIDE_FAVORITE);
 	};
-	const onItemRemoveClicked = (id: string, type: 'dashboard' | 'connected-space') => (event: MouseEvent<HTMLButtonElement>) => {
+	const onItemRemoveClicked = (id: string, type: 'dashboard' | 'connected-space') => async (event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
 		let dashboardIds = data.dashboardIds;
@@ -113,12 +113,10 @@ export const useFavoriteState = () => {
 			setData({ ...data, connectedSpaceIds });
 			fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, id);
 		}
-		once(ConsoleEventTypes.REPLY_FAVORITE_STATE, async (state: FavoriteState) => {
-			await saveFavorite({
-				connectedSpaceIds: connectedSpaceIds || [],
-				dashboardIds: dashboardIds || []
-			});
-		}).fire(ConsoleEventTypes.ASK_FAVORITE_STATE);
+		await saveFavorite({
+			connectedSpaceIds: connectedSpaceIds || [],
+			dashboardIds: dashboardIds || []
+		});
 	};
 
 	const items = buildFavoriteItems(data);
