@@ -12,7 +12,7 @@ interface AlertState {
 }
 
 export const Alert = () => {
-	const { on, off } = useEventBus();
+	const { on, off, fire } = useEventBus();
 	const [ alert, setAlert ] = useState<AlertState>({ visible: false });
 	const [ functions ] = useState({
 		show: (content?: ((props: any) => React.ReactNode) | React.ReactNode) => {
@@ -30,6 +30,7 @@ export const Alert = () => {
 			document.body.style.paddingRight = '';
 			document.body.style.overflowY = '';
 			setAlert({ visible: false, content: alert.content });
+			fire(EventTypes.ALERT_HIDDEN);
 		}
 	});
 	useEffect(() => {

@@ -8,6 +8,7 @@ export enum EventTypes {
 
 	SHOW_ALERT = 'show-alert',
 	HIDE_ALERT = 'hide-alert',
+	ALERT_HIDDEN = 'alert-hidden',
 	SHOW_NOT_IMPLEMENT = 'show-not-implement',
 	SHOW_WAITING = 'show-waiting',
 	REPLY_WAITING_DATA = 'reply-waiting-data',
@@ -55,6 +56,9 @@ export interface EventBus {
 	fire(type: EventTypes.HIDE_ALERT): this;
 	on(type: EventTypes.HIDE_ALERT, listener: () => void): this;
 	off(type: EventTypes.HIDE_ALERT, listener: () => void): this;
+
+	fire(type: EventTypes.ALERT_HIDDEN): this;
+	once(type: EventTypes.ALERT_HIDDEN, listener: () => void): this;
 
 	fire(type: EventTypes.SHOW_NOT_IMPLEMENT): this;
 	on(type: EventTypes.SHOW_NOT_IMPLEMENT, listener: () => void): this;

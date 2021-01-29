@@ -35,6 +35,9 @@ export const En = {
 	},
 	CONSOLE: {
 		LOADING: 'Loading Personal Data...',
+		ERROR: {
+			DASHBOARD_NOT_FOUND: 'Given dashboard not found.'
+		},
 		MENU: {
 			TITLE: 'Watchmen Console',
 			HOME: 'Home',
