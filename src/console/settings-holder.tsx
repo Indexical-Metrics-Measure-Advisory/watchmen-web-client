@@ -1,6 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
+import { useEventBus } from '../events/event-bus';
+import { EventTypes } from '../events/types';
 import { fetchConsoleSettingsData } from '../services/console/settings';
 import { ConsoleSettings } from '../services/console/settings-types';
+import { Dashboard } from '../services/tuples/dashboard-types';
 import { useConsoleEventBus } from './console-event-bus';
 import { ConsoleEventTypes } from './console-event-bus-types';
 
@@ -9,6 +12,7 @@ interface HoldSettings extends ConsoleSettings {
 }
 
 export const SettingsHolder = () => {
+	const { fire: fireGlobal } = useEventBus();
 	const { on, off, fire } = useConsoleEventBus();
 	const [ holdSettings, setHoldSettings ] = useState<HoldSettings>({
 		initialized: false,
@@ -32,6 +36,9 @@ export const SettingsHolder = () => {
 			(async () => {
 				const settings = await fetchConsoleSettingsData();
 				setHoldSettings({ initialized: true, ...settings });
+				if (settings.lastSnapshot && settings.lastSnapshot.language) {
+					fireGlobal(EventTypes.CHANGE_LANGUAGE, settings.lastSnapshot.language);
+				}
 				fire(ConsoleEventTypes.SETTINGS_LOADED, settings);
 			})();
 		}
@@ -75,6 +82,16 @@ export const SettingsHolder = () => {
 		holdSettings.lastSnapshot, holdSettings.favorite,
 		holdSettings.connectedSpaces, holdSettings.dashboards
 	]);
+	useEffect(() => {
+		const onDashboardCreated = (dashboard: Dashboard) => {
+			// refresh is unnecessary
+			setHoldSettings({ ...holdSettings, dashboards: [ ...holdSettings.dashboards, dashboard ] });
+		};
+		on(ConsoleEventTypes.DASHBOARD_CREATED, onDashboardCreated);
+		return () => {
+			off(ConsoleEventTypes.DASHBOARD_CREATED, onDashboardCreated);
+		};
+	}, [ on, off ]);
 
 	return <Fragment/>;
 };

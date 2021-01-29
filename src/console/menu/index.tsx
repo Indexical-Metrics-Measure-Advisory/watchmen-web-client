@@ -87,9 +87,10 @@ export const ConsoleMenu = () => {
 					await saveLastSnapshot({ lastDashboardId: firstDashboardId });
 				} else {
 					// no dashboards created
-					const newDashboard = createDashboard();
-					await saveDashboard(newDashboard);
-					history.push(toDashboard(newDashboard.dashboardId));
+					const dashboard = createDashboard();
+					await saveDashboard(dashboard);
+					fire(ConsoleEventTypes.DASHBOARD_CREATED, dashboard);
+					history.push(toDashboard(dashboard.dashboardId));
 				}
 			}).fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT);
 		}).fire(ConsoleEventTypes.ASK_DASHBOARDS);

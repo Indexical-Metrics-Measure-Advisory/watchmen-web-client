@@ -56,3 +56,10 @@ export const PageHeader = (props: { title: string; onSettingsClicked?: () => voi
 			: null}
 	</PageHeaderContainer>;
 };
+
+export const PageHeaderHolder = (props: { children: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+	const { children } = props;
+	return <PageHeaderContainer>
+		{children}
+	</PageHeaderContainer>;
+};

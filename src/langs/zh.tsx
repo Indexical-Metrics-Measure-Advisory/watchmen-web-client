@@ -31,6 +31,10 @@ export const Zh = {
 		FAIL: '用户名或者密码未能验证通过.'
 	},
 	CONSOLE: {
+		LOADING: '努力加载个人数据...',
+		ERROR: {
+			DASHBOARD_NOT_FOUND: '未找到指定的仪表盘数据.'
+		},
 		MENU: {
 			TITLE: 'Watchmen操作台',
 			HOME: '首页',

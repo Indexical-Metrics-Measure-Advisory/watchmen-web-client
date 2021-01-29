@@ -24,9 +24,13 @@ export enum ConsoleEventTypes {
 	ASK_FAVORITE_STATE = 'ask-favorite-state',
 	REPLY_FAVORITE_STATE = 'reply-favorite-state',
 
+	// data changing
 	DASHBOARD_REMOVED_FROM_FAVORITE = 'dashboard-removed-from-favorite',
 	CONNECTED_SPACE_REMOVED_FROM_FAVORITE = 'connected-space-removed-from-favorite',
 
+	DASHBOARD_CREATED = 'dashboard-created',
+
+	// ask data
 	ASK_LAST_SNAPSHOT = 'ask-last-snapshot',
 	REPLY_LAST_SNAPSHOT = 'replay-last-snapshot',
 
@@ -89,6 +93,10 @@ export interface ConsoleEventBus {
 	fire(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, connectedSpaceId: string): this;
 	on(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, listener: (connectedSpaceId: string) => void): this;
 	off(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, listener: (connectedSpaceId: string) => void): this;
+
+	fire(type: ConsoleEventTypes.DASHBOARD_CREATED, dashboard: Dashboard): this;
+	on(type: ConsoleEventTypes.DASHBOARD_CREATED, listener: (dashboard: Dashboard) => void): this;
+	off(type: ConsoleEventTypes.DASHBOARD_CREATED, listener: (dashboard: Dashboard) => void): this;
 
 	fire(type: ConsoleEventTypes.ASK_LAST_SNAPSHOT): this;
 	on(type: ConsoleEventTypes.ASK_LAST_SNAPSHOT, listener: () => void): this;

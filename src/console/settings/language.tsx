@@ -10,6 +10,7 @@ import { useForceUpdate } from '../../basic-widgets/utils';
 import { useEventBus } from '../../events/event-bus';
 import { EventTypes } from '../../events/types';
 import { getCurrentLanguageCode, Lang, SupportedLanguages } from '../../langs';
+import { saveLastSnapshot } from '../../services/console/last-snapshot';
 
 
 export const LanguageSettings = () => {
@@ -20,6 +21,9 @@ export const LanguageSettings = () => {
 		const { value: code } = option;
 		fire(EventTypes.CHANGE_LANGUAGE, code);
 		forceUpdate();
+		(async () => {
+			await saveLastSnapshot({ language: code });
+		})();
 	};
 
 	const options = SupportedLanguages.map(({ code, name }) => ({ value: code, label: name }));

@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { AlertLabel } from '../../alert/widgets';
 import { VerticalMarginOneUnit } from '../../basic-widgets/margin';
 import { FullWidthPage } from '../../basic-widgets/page';
-import { PageHeaderContainer, PageTitle } from '../../basic-widgets/page-header';
+import { PageHeaderHolder, PageTitle } from '../../basic-widgets/page-header';
 import { useEventBus } from '../../events/event-bus';
 import { EventTypes } from '../../events/types';
 import { Lang } from '../../langs';
@@ -21,6 +21,7 @@ const ConsoleDashboardIndex = () => {
 	const [ dashboard, setDashboard ] = useState<Dashboard | null>(null);
 	useEffect(() => {
 		once(ConsoleEventTypes.REPLY_DASHBOARDS, (dashboards: Array<Dashboard>) => {
+			// eslint-disable-next-line
 			const dashboard = dashboards.find(dashboard => dashboard.dashboardId == dashboardId);
 			if (dashboard) {
 				setDashboard(dashboard);
@@ -30,16 +31,16 @@ const ConsoleDashboardIndex = () => {
 				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.CONSOLE.ERROR.DASHBOARD_NOT_FOUND}</AlertLabel>);
 			}
 		}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
-	}, [ once ]);
+	}, [ once, onceGlobal, history, dashboardId ]);
 
 	if (!dashboard) {
 		return null;
 	}
 
 	return <FullWidthPage>
-		<PageHeaderContainer>
+		<PageHeaderHolder>
 			<PageTitle>{dashboard.name}</PageTitle>
-		</PageHeaderContainer>
+		</PageHeaderHolder>
 		<VerticalMarginOneUnit/>
 	</FullWidthPage>;
 };

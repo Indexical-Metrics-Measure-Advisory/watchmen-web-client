@@ -1,11 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { ICON_ADD, ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL, ICON_SORT } from '../../basic-widgets/constants';
 import { ButtonInk } from '../../basic-widgets/types';
 import { Lang } from '../../langs';
+import { toDashboard } from '../../routes/utils';
+import { saveDashboard } from '../../services/tuples/dashboard';
 import { Dashboard } from '../../services/tuples/dashboard-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
+import { createDashboard } from '../utils/tuples';
 import { DashboardCard } from './dashboard-card';
 import { SortType, ViewType } from './types';
 import { useMaxHeight } from './use-max-height';
@@ -19,7 +23,8 @@ import {
 } from './widgets';
 
 export const DashboardsSection = () => {
-	const { once } = useConsoleEventBus();
+	const history = useHistory();
+	const { once, fire } = useConsoleEventBus();
 	const bodyRef = useRef<HTMLDivElement>(null);
 	const [ sortType, setSortType ] = useState<SortType>(SortType.BY_VISIT_TIME);
 	const [ viewType, setViewType ] = useState<ViewType>(ViewType.ALL);
@@ -33,8 +38,11 @@ export const DashboardsSection = () => {
 	}, [ dashboards, once ]);
 	const maxHeight = useMaxHeight(bodyRef);
 
-	const onCreateDashboardClicked = () => {
-		// TODO create dashboard
+	const onCreateDashboardClicked = async () => {
+		const dashboard = createDashboard();
+		await saveDashboard(dashboard);
+		fire(ConsoleEventTypes.DASHBOARD_CREATED, dashboard);
+		history.push(toDashboard(dashboard.dashboardId));
 	};
 	const onSortClicked = () => {
 		setSortType(sortType === SortType.BY_NAME ? SortType.BY_VISIT_TIME : SortType.BY_NAME);

@@ -15,5 +15,5 @@ export const FullWidthPage = styled.div.attrs({ 'data-widget': 'full-width-page'
 	display        : flex;
 	position       : relative;
 	flex-direction : column;
-	margin         : var(--margin) auto;
+	margin-bottom  : var(--margin);
 `;
