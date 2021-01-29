@@ -5,6 +5,7 @@ import { VerticalMarginOneUnit } from '../../basic-widgets/margin';
 import { FullWidthPage } from '../../basic-widgets/page';
 import { PageHeaderHolder } from '../../basic-widgets/page-header';
 import { PageTitleEditor } from '../../basic-widgets/page-title-editor';
+import { useForceUpdate } from '../../basic-widgets/utils';
 import { useEventBus } from '../../events/event-bus';
 import { EventTypes } from '../../events/types';
 import { Lang } from '../../langs';
@@ -14,6 +15,18 @@ import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
 import { HeaderButtons } from './header-buttons';
 
+const DashboardName = (props: { dashboard: Dashboard }) => {
+	const { dashboard } = props;
+
+	const forceUpdate = useForceUpdate();
+
+	const onNameChange = (name: string) => {
+		dashboard.name = name;
+		forceUpdate();
+	};
+
+	return <PageTitleEditor title={dashboard.name} onChange={onNameChange}/>;
+};
 const ConsoleDashboardIndex = () => {
 	const { dashboardId } = useParams<{ dashboardId: string }>();
 
@@ -39,13 +52,9 @@ const ConsoleDashboardIndex = () => {
 		return null;
 	}
 
-	const onNameChange = (name: string) => {
-		dashboard.name = name;
-	}
-
 	return <FullWidthPage>
 		<PageHeaderHolder>
-			<PageTitleEditor title={dashboard.name} onChange={onNameChange}/>
+			<DashboardName dashboard={dashboard}/>
 			<HeaderButtons/>
 		</PageHeaderHolder>
 		<VerticalMarginOneUnit/>
