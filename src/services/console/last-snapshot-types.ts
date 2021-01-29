@@ -1,5 +1,5 @@
 export interface LastSnapshot {
-	language: string;
+	language?: string;
 	lastDashboardId?: string;
-	favoritePin: boolean;
+	favoritePin?: boolean;
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { matchPath, useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { AlertLabel } from '../../alert/widgets';
 import {
 	ICON_ADD,
 	ICON_ADMIN,
@@ -21,11 +22,19 @@ import { SideMenuPlaceholder } from '../../basic-widgets/side-menu/side-menu-pla
 import { SideMenuResizeHandle } from '../../basic-widgets/side-menu/side-menu-resize-handle';
 import { SideMenuSeparator } from '../../basic-widgets/side-menu/side-menu-separator';
 import { SideMenuUser } from '../../basic-widgets/side-menu/side-menu-user';
+import { useEventBus } from '../../events/event-bus';
+import { EventTypes } from '../../events/types';
 import { Lang } from '../../langs';
 import { Router } from '../../routes/types';
+import { toDashboard } from '../../routes/utils';
 import { findAccount, isAdmin } from '../../services/account';
+import { saveLastSnapshot } from '../../services/console/last-snapshot';
+import { LastSnapshot } from '../../services/console/last-snapshot-types';
+import { saveDashboard } from '../../services/tuples/dashboard';
+import { Dashboard } from '../../services/tuples/dashboard-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
+import { createDashboard } from '../utils/tuples';
 import { FavoriteMenu } from './side-menu-favorite';
 import { SideMenuSpaces } from './side-menu-spaces';
 
@@ -51,7 +60,8 @@ const ConsoleMenuContainer = styled.div.attrs<{ width: number }>(({ width }) => 
 export const ConsoleMenu = () => {
 	const history = useHistory();
 	const location = useLocation();
-	const { fire } = useConsoleEventBus();
+	const { once: onceGlobal, fire: fireGlobal } = useEventBus();
+	const { once, fire } = useConsoleEventBus();
 	const [ menuWidth, setMenuWidth ] = useState(SIDE_MENU_MIN_WIDTH);
 
 	const onResize = (newWidth: number) => {
@@ -64,9 +74,54 @@ export const ConsoleMenu = () => {
 			history.push(path);
 		}
 	};
+	const onReplySettingsLoaded = (next: () => void) => (initialized: boolean) => {
+		if (!initialized) {
+			onceGlobal(EventTypes.REPLY_WAITING_DATA, next);
+			const poller = async (): Promise<void> => {
+				const poll = (resolve: () => void) => {
+					once(ConsoleEventTypes.REPLY_SETTINGS_LOADED, (initialized) => {
+						if (!initialized) {
+							setTimeout(() => poll(resolve), 1000);
+						} else {
+							resolve();
+						}
+					}).fire(ConsoleEventTypes.ASK_SETTINGS_LOADED);
+				};
+				return new Promise(resolve => poll(resolve));
+			};
+			fireGlobal(EventTypes.SHOW_WAITING, poller, <AlertLabel>{Lang.CONSOLE.WAIT_SETTINGS_DATA}</AlertLabel>);
+		} else {
+			next();
+		}
+	};
+	const doOpenDashboard = () => {
+		once(ConsoleEventTypes.REPLY_DASHBOARDS, (dashboards: Array<Dashboard>) => {
+			const allDashboardIds = [ ...dashboards ].map(dashboard => dashboard.dashboardId);
+			once(ConsoleEventTypes.REPLY_LAST_SNAPSHOT, async ({ lastDashboardId }: LastSnapshot) => {
+				// eslint-disable-next-line
+				if (lastDashboardId && allDashboardIds.some(id => id == lastDashboardId)) {
+					// exists and found in list
+					history.push(toDashboard(lastDashboardId));
+				} else if (dashboards && dashboards.length > 0) {
+					// pick the latest visited one
+					const { dashboardId: firstDashboardId } = [ ...dashboards ].sort((d1, d2) => {
+						return (d2.lastVisitTime || '').localeCompare((d1.lastVisitTime || ''));
+					})[0];
+					history.push(toDashboard(firstDashboardId));
+					await saveLastSnapshot({ lastDashboardId: firstDashboardId });
+				} else {
+					// no dashboards created
+					const newDashboard = createDashboard();
+					await saveDashboard(newDashboard);
+					history.push(toDashboard(newDashboard.dashboardId));
+				}
+			}).fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT);
+		}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
+	};
 	const onDashboardClicked = () => {
-
-	}
+		once(ConsoleEventTypes.REPLY_SETTINGS_LOADED, onReplySettingsLoaded(doOpenDashboard));
+		fire(ConsoleEventTypes.ASK_SETTINGS_LOADED);
+	};
 	const onConnectSpaceClicked = () => {
 		// TODO on connect space clicked
 	};

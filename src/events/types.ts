@@ -9,6 +9,8 @@ export enum EventTypes {
 	SHOW_ALERT = 'show-alert',
 	HIDE_ALERT = 'hide-alert',
 	SHOW_NOT_IMPLEMENT = 'show-not-implement',
+	SHOW_WAITING = 'show-waiting',
+	REPLY_WAITING_DATA = 'reply-waiting-data',
 
 	SHOW_TOOLTIP = 'show-tooltip',
 	HIDE_TOOLTIP = 'hide-tooltip',
@@ -49,13 +51,21 @@ export interface EventBus {
 	fire(type: EventTypes.SHOW_ALERT, content?: ReactContent): this;
 	on(type: EventTypes.SHOW_ALERT, listener: (content?: ReactContent) => void): this;
 	off(type: EventTypes.SHOW_ALERT, listener: (content?: ReactContent) => void): this;
-	fire(type: EventTypes.SHOW_NOT_IMPLEMENT): this;
-	on(type: EventTypes.SHOW_NOT_IMPLEMENT, listener: () => void): this;
-	off(type: EventTypes.SHOW_NOT_IMPLEMENT, listener: () => void): this;
 
 	fire(type: EventTypes.HIDE_ALERT): this;
 	on(type: EventTypes.HIDE_ALERT, listener: () => void): this;
 	off(type: EventTypes.HIDE_ALERT, listener: () => void): this;
+
+	fire(type: EventTypes.SHOW_NOT_IMPLEMENT): this;
+	on(type: EventTypes.SHOW_NOT_IMPLEMENT, listener: () => void): this;
+	off(type: EventTypes.SHOW_NOT_IMPLEMENT, listener: () => void): this;
+
+	fire(type: EventTypes.SHOW_WAITING, request: () => Promise<void>, content?: ReactContent): this;
+	on(type: EventTypes.SHOW_WAITING, listener: (request: () => Promise<void>, content?: ReactContent) => void): this;
+	off(type: EventTypes.SHOW_WAITING, listener: (request: () => Promise<void>, content?: ReactContent) => void): this;
+
+	fire(type: EventTypes.REPLY_WAITING_DATA, data: any): this;
+	once(type: EventTypes.REPLY_WAITING_DATA, listener: (data: any) => void): this;
 
 	// tooltip
 	fire(type: EventTypes.SHOW_TOOLTIP, tooltip: TooltipParam): this;

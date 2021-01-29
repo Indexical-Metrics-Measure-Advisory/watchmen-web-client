@@ -1,5 +1,5 @@
 import { findToken } from '../account';
-import { fetchMockConnectedSpaces } from '../mock/console/mock-connected-space';
+import { fetchMockConnectedSpaces } from '../mock/tuples/mock-connected-space';
 import { getServiceHost, isMockService } from '../utils';
 import { ConnectedSpace } from './connected-space-types';
 

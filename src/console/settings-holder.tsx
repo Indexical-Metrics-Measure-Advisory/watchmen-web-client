@@ -28,14 +28,19 @@ export const SettingsHolder = () => {
 			(async () => {
 				const settings = await fetchConsoleSettingsData();
 				const { favorite, ...rest } = settings;
-				setHoldSettings({ initialized: true, ...rest });
-				fire(ConsoleEventTypes.SETTINGS_LOADED, settings);
+				setTimeout(() => {
+					setHoldSettings({ initialized: true, ...rest });
+					fire(ConsoleEventTypes.SETTINGS_LOADED, settings);
+				}, 10000);
 			})();
 		}
 	}, [ fire, holdSettings.initialized ]);
 	useEffect(() => {
 		const onAskSettingsLoaded = () => {
 			fire(ConsoleEventTypes.REPLY_SETTINGS_LOADED, holdSettings.initialized);
+		};
+		const onAskLastSnapshot = () => {
+			fire(ConsoleEventTypes.REPLY_LAST_SNAPSHOT, holdSettings.lastSnapshot);
 		};
 		const onAskConnectedSpaces = () => {
 			fire(ConsoleEventTypes.REPLY_CONNECTED_SPACES, holdSettings.connectedSpaces);
@@ -45,18 +50,20 @@ export const SettingsHolder = () => {
 		};
 
 		on(ConsoleEventTypes.ASK_SETTINGS_LOADED, onAskSettingsLoaded);
+		on(ConsoleEventTypes.ASK_LAST_SNAPSHOT, onAskLastSnapshot);
 		on(ConsoleEventTypes.ASK_CONNECTED_SPACES, onAskConnectedSpaces);
 		on(ConsoleEventTypes.ASK_DASHBOARDS, onAskDashboards);
 		return () => {
 			off(ConsoleEventTypes.ASK_SETTINGS_LOADED, onAskSettingsLoaded);
+			off(ConsoleEventTypes.ASK_LAST_SNAPSHOT, onAskLastSnapshot);
 			off(ConsoleEventTypes.ASK_CONNECTED_SPACES, onAskConnectedSpaces);
 			off(ConsoleEventTypes.ASK_DASHBOARDS, onAskDashboards);
 		};
 	}, [
 		on, off, fire,
 		holdSettings.initialized,
-		holdSettings.connectedSpaces,
-		holdSettings.dashboards
+		holdSettings.lastSnapshot,
+		holdSettings.connectedSpaces, holdSettings.dashboards
 	]);
 
 	return <Fragment/>;

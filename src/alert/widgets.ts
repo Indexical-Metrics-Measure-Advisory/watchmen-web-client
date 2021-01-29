@@ -52,3 +52,9 @@ export const AlertFooter = styled.div.attrs({ 'data-widget': 'alert-footer' })`
 export const AlertLabel = styled.span.attrs({ 'data-widget': 'alert-label' })`
 	font-variant : petite-caps;
 `;
+export const WaitRemoveDataDialog = styled(AlertDialog)`
+	padding : calc(var(--margin) / 2) var(--margin);
+`;
+export const WaitRemoteDataBody = styled(AlertBody)`
+	min-height : unset;
+`;

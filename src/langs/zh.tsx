@@ -4,6 +4,12 @@ export const Zh = {
 		name: '汉语',
 		fallback: 'en'
 	},
+	// fix key, anything under PLAIN will not be proxy to other type
+	// anything must be string, should be placed here.
+	// such as input tooltip(string property), tuple name(not for react component)
+	PLAIN: {
+		NEW_DASHBOARD_NAME: '仪表盘'
+	},
 	ERROR: {
 		UNPREDICTED: '发生不可预测的错误, 请联系管理员以获取帮助.'
 	},

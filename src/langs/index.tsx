@@ -58,6 +58,7 @@ const LangLabel = (props: { labelKey: string }) => {
 	return <>{value}</>;
 };
 
+const PLAIN_PREFIX = 'PLAIN.'
 const TARGET = {};
 const proxyValue = (value: any, name: string): any => {
 	if (typeof value === 'object' && !isValidElement(value)) {
@@ -66,6 +67,8 @@ const proxyValue = (value: any, name: string): any => {
 				return proxyValue(obj[prop], `${name}.${prop}`);
 			}
 		});
+	} else if (name.startsWith(PLAIN_PREFIX)) {
+		return value;
 	} else {
 		return <LangLabel labelKey={name}/>;
 	}

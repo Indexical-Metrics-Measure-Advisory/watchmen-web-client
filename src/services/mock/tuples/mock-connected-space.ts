@@ -1,4 +1,4 @@
-import { ConnectedSpace } from '../../console/connected-space-types';
+import { ConnectedSpace } from '../../tuples/connected-space-types';
 import { getCurrentTime } from '../../utils';
 
 export const fetchMockConnectedSpaces = async (): Promise<Array<ConnectedSpace>> => {

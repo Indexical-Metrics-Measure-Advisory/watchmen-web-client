@@ -1,4 +1,5 @@
 import { v4 } from 'uuid';
+import { Dashboard } from './dashboard-types';
 import { Report } from './report-types';
 import { Space } from './space-types';
 import { Topic } from './topic-types';
@@ -23,6 +24,9 @@ const isUserGroup = (tuple: Tuple): tuple is UserGroup => {
 const isUser = (tuple: Tuple): tuple is User => {
 	return !!(tuple as any).userId;
 };
+const isDashboard = (tuple: Tuple): tuple is Dashboard => {
+	return !!(tuple as any).dashboardId;
+};
 
 export const generateUuid = (): string => `${FAKE_ID_PREFIX}${v4()}`;
 export const isFakedUuid = (tuple: Tuple): boolean => {
@@ -36,6 +40,8 @@ export const isFakedUuid = (tuple: Tuple): boolean => {
 		return tuple.userGroupId.startsWith(FAKE_ID_PREFIX);
 	} else if (isUser(tuple)) {
 		return tuple.userId.startsWith(FAKE_ID_PREFIX);
+	} else if (isDashboard(tuple)) {
+		return tuple.dashboardId.startsWith(FAKE_ID_PREFIX);
 	}
 
 	console.groupCollapsed('Unsupported tuple type');

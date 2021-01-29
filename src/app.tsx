@@ -6,6 +6,7 @@ import WeekOfYear from 'dayjs/plugin/weekOfYear';
 import React from 'react';
 import { Alert } from './alert';
 import { NotImplement } from './alert/not-implement';
+import { WaitRemoteData } from './alert/wait-remote-data';
 import { Tooltip } from './basic-widgets/tooltip';
 import { Dialog } from './dialog';
 import { YesNoDialog } from './dialog/yes-no-dialog';
@@ -27,6 +28,7 @@ const app = () => {
 		<Routes/>
 		<Alert/>
 		<NotImplement/>
+		<WaitRemoteData/>
 		<Dialog/>
 		<YesNoDialog/>
 		<Tooltip/>

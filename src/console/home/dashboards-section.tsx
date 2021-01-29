@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { ICON_ADD, ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL, ICON_SORT } from '../../basic-widgets/constants';
 import { ButtonInk } from '../../basic-widgets/types';
 import { Lang } from '../../langs';
-import { Dashboard } from '../../services/console/dashboard-types';
+import { Dashboard } from '../../services/tuples/dashboard-types';
 import { ConsoleSettings } from '../../services/console/settings-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';

@@ -1,9 +1,9 @@
-export interface Subject {
+import { Tuple } from './tuple-types';
+
+export interface Subject extends Tuple{
 	subjectId: string;
 	name: string;
 	lastVisitTime: string;
-	createTime: string;
-	lastModifyTime: string;
 	// dataset?: {
 	// 	filters?: Array<ConsoleSpaceSubjectDataSetFilter>;
 	// 	columns?: Array<ConsoleSpaceSubjectDataSetColumn>;

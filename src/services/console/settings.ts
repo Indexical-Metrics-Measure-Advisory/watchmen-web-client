@@ -1,7 +1,7 @@
 import { fetchAvailableSpaces } from './available-space';
 import { fetchAvailableTopics } from './available-topic';
-import { fetchConnectedSpaces } from './connected-space';
-import { fetchDashboards } from './dashboard';
+import { fetchConnectedSpaces } from '../tuples/connected-space';
+import { fetchDashboards } from '../tuples/dashboard';
 import { fetchFavorite } from './favorite';
 import { fetchLastSnapshot } from './last-snapshot';
 import { ConsoleSettings } from './settings-types';

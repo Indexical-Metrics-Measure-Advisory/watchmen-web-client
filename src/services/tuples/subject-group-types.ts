@@ -1,9 +1,8 @@
+import { Tuple } from './tuple-types';
 import { Subject } from './subject-types';
 
-export interface Group {
+export interface SubjectGroup extends Tuple {
 	groupId: string;
 	name: string;
 	subjects: Array<Subject>;
-	createTime: string;
-	lastModifyTime: string;
 }

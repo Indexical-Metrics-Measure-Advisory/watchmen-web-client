@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { ICON_DASHBOARD } from '../../basic-widgets/constants';
-import { Dashboard } from '../../services/console/dashboard-types';
+import { Dashboard } from '../../services/tuples/dashboard-types';
 import { ConnectedSpaceCardContainer, ConnectedSpaceLastVisit, ConnectedSpaceName } from './widgets';
 
 export const DashboardCard = (props: {

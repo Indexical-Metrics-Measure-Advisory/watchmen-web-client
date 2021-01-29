@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { ICON_CONNECTED_SPACE } from '../../basic-widgets/constants';
 import { SideMenuItem } from '../../basic-widgets/side-menu/side-menu-item';
 import { isConnectedSpaceOpened, toConnectedSpace } from '../../routes/utils';
-import { ConnectedSpace } from '../../services/console/connected-space-types';
+import { ConnectedSpace } from '../../services/tuples/connected-space-types';
 import { ConsoleSettings } from '../../services/console/settings-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';

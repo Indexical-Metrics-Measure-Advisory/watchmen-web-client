@@ -6,6 +6,12 @@ export const En = {
 		name: 'English',
 		fallback: ''
 	},
+	// fix key, anything under PLAIN will not be proxy to other type
+	// anything must be string, should be placed here.
+	// such as input tooltip(string property), tuple name(not for react component)
+	PLAIN: {
+		NEW_DASHBOARD_NAME: 'Dashboard'
+	},
 	ERROR: {
 		UNPREDICTED: 'Unpredicted error occurred, contact administrator for more information.'
 	},
@@ -28,6 +34,7 @@ export const En = {
 		FAIL: 'Name or credential cannot be identified now.'
 	},
 	CONSOLE: {
+		WAIT_SETTINGS_DATA: 'Loading personal data...',
 		MENU: {
 			TITLE: 'Watchmen Console',
 			HOME: 'Home',

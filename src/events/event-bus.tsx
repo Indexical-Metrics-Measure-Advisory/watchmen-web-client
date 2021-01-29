@@ -14,6 +14,10 @@ export const EventBusProvider = (props: { children?: ((props: any) => React.Reac
 			emitter.emit(type, ...data);
 			return bus;
 		},
+		once: (type: string, listener: (...data: any) => void): EventBus => {
+			emitter.once(type, listener);
+			return bus;
+		},
 		on: (type: string, listener: (...data: any) => void): EventBus => {
 			emitter.on(type, listener);
 			return bus;
@@ -22,10 +26,6 @@ export const EventBusProvider = (props: { children?: ((props: any) => React.Reac
 			emitter.off(type, listener);
 			return bus;
 		}
-		// once: (type: string, listener: (...data: any) => void): EventBus => {
-		// 	emitter.once(type, listener);
-		// 	return bus;
-		// }
 	});
 
 	return <Context.Provider value={bus}>

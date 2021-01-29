@@ -1,7 +1,5 @@
+import { ACCOUNT_KEY_IN_SESSION, ACCOUNT_TOKEN } from '../session-constants';
 import { SessionAccount } from './types';
-
-const ACCOUNT_KEY_IN_SESSION = 'IMMA-ACCOUNT';
-const ACCOUNT_TOKEN = 'IMMA-ACCOUNT-TOKEN';
 
 export const saveAccountIntoSession = ({ name, admin }: SessionAccount) => {
 	sessionStorage.setItem(ACCOUNT_KEY_IN_SESSION, btoa(JSON.stringify({ name, admin })));
