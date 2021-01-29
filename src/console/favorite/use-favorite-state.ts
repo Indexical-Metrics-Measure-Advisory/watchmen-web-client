@@ -115,7 +115,6 @@ export const useFavoriteState = () => {
 		}
 		once(ConsoleEventTypes.REPLY_FAVORITE_STATE, async (state: FavoriteState) => {
 			await saveFavorite({
-				pin: state === FavoriteState.PIN,
 				connectedSpaceIds: connectedSpaceIds || [],
 				dashboardIds: dashboardIds || []
 			});

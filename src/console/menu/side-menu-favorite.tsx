@@ -33,8 +33,8 @@ export const FavoriteMenu = (props: {
 	const iconRef = useRef<HTMLDivElement>(null);
 	const [ active, setActive ] = useState(false);
 	useEffect(() => {
-		const onSettingsLoaded = (({ favorite }: ConsoleSettings) => {
-			if (favorite.pin) {
+		const onSettingsLoaded = (({ lastSnapshot: { favoritePin } }: ConsoleSettings) => {
+			if (favoritePin) {
 				setActive(true);
 			}
 		});

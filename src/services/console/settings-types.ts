@@ -3,6 +3,7 @@ import { Topic } from '../tuples/topic-types';
 import { ConnectedSpace } from './connected-space-types';
 import { Dashboard } from './dashboard-types';
 import { Favorite } from './favorite-types';
+import { LastSnapshot } from './last-snapshot-types';
 
 export type AvailableSpaceInConsole = Pick<Space, 'spaceId' | 'name' | 'description' | 'topicIds'>;
 
@@ -12,4 +13,6 @@ export interface ConsoleSettings {
 	availableTopics: Array<Topic>;
 	dashboards: Array<Dashboard>;
 	favorite: Favorite;
+
+	lastSnapshot: LastSnapshot
 }

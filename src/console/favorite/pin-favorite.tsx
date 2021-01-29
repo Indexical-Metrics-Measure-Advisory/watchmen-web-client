@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { MouseEvent, RefObject, useEffect, useRef, useState } from 'react';
 import { BASE_MARGIN, ICON_DELETE, SIDE_MENU_MIN_WIDTH } from '../../basic-widgets/constants';
 import { Lang } from '../../langs';
-import { saveFavorite } from '../../services/console/favorite';
+import { saveLastSnapshot } from '../../services/console/last-snapshot';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes, FavoriteState } from '../console-event-bus-types';
 import { useFavoriteState } from './use-favorite-state';
@@ -53,7 +53,7 @@ export const PinFavorite = (props: {
 		reachLeft: true,
 		reachRight: true
 	});
-	const { items, onItemClicked, onItemRemoveClicked, data } = useFavoriteState();
+	const { items, onItemClicked, onItemRemoveClicked } = useFavoriteState();
 	useEffect(() => {
 		const onSideMenuResized = (width: number) => {
 			setMenuWidth(width);
@@ -69,11 +69,7 @@ export const PinFavorite = (props: {
 
 	const onUnpinClicked = async () => {
 		fire(ConsoleEventTypes.UNPIN_FAVORITE);
-		await saveFavorite({
-			pin: false,
-			connectedSpaceIds: data.connectedSpaceIds || [],
-			dashboardIds: data.dashboardIds || []
-		});
+		await saveLastSnapshot({ favoritePin: false });
 	};
 	const onScrollToLeftClicked = (event: MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();

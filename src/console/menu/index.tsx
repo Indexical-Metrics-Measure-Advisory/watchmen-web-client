@@ -64,6 +64,9 @@ export const ConsoleMenu = () => {
 			history.push(path);
 		}
 	};
+	const onDashboardClicked = () => {
+
+	}
 	const onConnectSpaceClicked = () => {
 		// TODO on connect space clicked
 	};
@@ -77,8 +80,8 @@ export const ConsoleMenu = () => {
 		              active={!!matchPath(location.pathname, Router.CONSOLE_HOME)}
 		              onClick={onMenuClicked(Router.CONSOLE_HOME)}/>
 		<SideMenuItem icon={ICON_DASHBOARD} label={Lang.CONSOLE.MENU.DASHBOARDS} showTooltip={showTooltip}
-		              active={!!matchPath(location.pathname, Router.CONSOLE_DASHBOARDS)}
-		              onClick={onMenuClicked(Router.CONSOLE_DASHBOARDS)}/>
+		              active={!!matchPath(location.pathname, Router.CONSOLE_DASHBOARD)}
+		              onClick={onDashboardClicked}/>
 		<FavoriteMenu showTooltip={showTooltip}/>
 		{/* TODO hide message menus */}
 		<SideMenuSeparator width={menuWidth} visible={false}/>

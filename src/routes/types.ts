@@ -12,7 +12,6 @@ export enum Router {
 
 	CONSOLE = '/console',
 	CONSOLE_HOME = '/console/home',
-	CONSOLE_DASHBOARDS = '/console/dashboard',
 	CONSOLE_DASHBOARD = '/console/dashboard/:dashboardId',
 	CONSOLE_CONNECTED_SPACE = '/console/space/connected/:connectId',
 	CONSOLE_CONNECTED_SPACE_OVERALL = '/console/space/connected/:connectId/overall',

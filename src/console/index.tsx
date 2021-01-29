@@ -11,6 +11,7 @@ import { SettingsHolder } from './settings-holder';
 
 const ConsoleHome = lazy(() => import(/* webpackChunkName: "console-home" */ './home'));
 const ConsoleSettingsPage = lazy(() => import(/* webpackChunkName: "console-settings" */ './settings'));
+const ConsoleDashboard = lazy(() => import(/* webpackChunkName: "console-dashboard" */ './dashboard'));
 
 const ConsoleContainer = styled.div.attrs({ 'data-widget': 'console' })`
 	display : flex;
@@ -36,8 +37,8 @@ const ConsoleMain = () => {
 	const { on, off } = useConsoleEventBus();
 	const [ favorite, setFavorite ] = useState(false);
 	useEffect(() => {
-		const onSettingsLoaded = (({ favorite: { pin } }: ConsoleSettings) => {
-			if (pin) {
+		const onSettingsLoaded = (({ lastSnapshot: { favoritePin } }: ConsoleSettings) => {
+			if (favoritePin) {
 				setFavorite(true);
 			}
 		});
@@ -60,7 +61,7 @@ const ConsoleMain = () => {
 			<Switch>
 				<Route path={Router.CONSOLE_HOME}><ConsoleHome/></Route>
 				{/*		<Route path={Router.CONSOLE_CONNECTED_SPACE}><ConnectedSpace/></Route>*/}
-				{/*		<Route path={Router.CONSOLE_DASHBOARDS}><Dashboards/></Route>*/}
+				<Route path={Router.CONSOLE_DASHBOARD}><ConsoleDashboard/></Route>
 				{/*		<Route path={Router.CONSOLE_SPACES}><AvailableSpaces/></Route>*/}
 				{/*		<Route path={Router.CONSOLE_INBOX}><Inbox/></Route>*/}
 				{/*		<Route path={Router.CONSOLE_NOTIFICATION}><Notification/></Route>*/}

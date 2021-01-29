@@ -15,7 +15,12 @@ export const SettingsHolder = () => {
 		connectedSpaces: [],
 		availableSpaces: [],
 		availableTopics: [],
-		dashboards: []
+		dashboards: [],
+
+		lastSnapshot: {
+			favoritePin: false,
+			language: 'en'
+		}
 	});
 
 	useEffect(() => {

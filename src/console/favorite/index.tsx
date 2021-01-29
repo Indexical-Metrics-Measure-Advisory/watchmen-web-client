@@ -15,8 +15,8 @@ export const Favorite = () => {
 	const { on, off, fire } = useConsoleEventBus();
 	const [ state, setState ] = useState<State>({ state: FavoriteState.HIDDEN, top: 0, left: 0 });
 	useEffect(() => {
-		const onSettingsLoaded = (({ favorite }: ConsoleSettings) => {
-			if (favorite.pin) {
+		const onSettingsLoaded = (({ lastSnapshot: { favoritePin } }: ConsoleSettings) => {
+			if (favoritePin) {
 				setState({ ...state, state: FavoriteState.PIN });
 			}
 		});

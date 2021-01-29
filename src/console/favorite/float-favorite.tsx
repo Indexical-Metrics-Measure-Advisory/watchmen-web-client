@@ -4,7 +4,7 @@ import { ICON_DELETE, ICON_PIN } from '../../basic-widgets/constants';
 import { TooltipAlignment } from '../../basic-widgets/types';
 import { useCollapseFixedThing } from '../../basic-widgets/utils';
 import { Lang } from '../../langs';
-import { saveFavorite } from '../../services/console/favorite';
+import { saveLastSnapshot } from '../../services/console/last-snapshot';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes, FavoriteState } from '../console-event-bus-types';
 import { useFavoriteState } from './use-favorite-state';
@@ -29,16 +29,12 @@ export const FloatFavorite = (props: {
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const { fire } = useConsoleEventBus();
-	const { items, onItemClicked, onItemRemoveClicked, data } = useFavoriteState();
+	const { items, onItemClicked, onItemRemoveClicked } = useFavoriteState();
 	useCollapseFixedThing({ containerRef, hide: () => fire(ConsoleEventTypes.HIDE_FAVORITE) });
 
 	const onPinClicked = async () => {
 		fire(ConsoleEventTypes.PIN_FAVORITE);
-		await saveFavorite({
-			pin: true,
-			connectedSpaceIds: data.connectedSpaceIds || [],
-			dashboardIds: data.dashboardIds || []
-		});
+		await saveLastSnapshot({ favoritePin: true });
 	};
 
 	const visible = state === FavoriteState.SHOWN;
