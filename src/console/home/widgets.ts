@@ -78,6 +78,7 @@ export const ConnectedSpaceCardContainer = styled.div.attrs({ 'data-widget': 'co
 	border-radius         : calc(var(--border-radius) * 2);
 	box-shadow            : var(--shadow);
 	cursor                : pointer;
+	transition            : box-shadow 300ms ease-in-out;
 	&:hover {
 		box-shadow : var(--hover-shadow);
 	}
