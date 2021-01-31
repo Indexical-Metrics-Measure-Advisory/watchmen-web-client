@@ -33,10 +33,12 @@ export const FavoriteMenu = (props: {
 	const iconRef = useRef<HTMLDivElement>(null);
 	const [ active, setActive ] = useState(false);
 	useEffect(() => {
-		const onHideFavorite = () => setActive(false);
-		on(ConsoleEventTypes.HIDE_FAVORITE, onHideFavorite);
+		const onDeactivateFavorite = () => setActive(false);
+		on(ConsoleEventTypes.HIDE_FAVORITE, onDeactivateFavorite);
+		on(ConsoleEventTypes.UNPIN_FAVORITE, onDeactivateFavorite);
 		return () => {
-			off(ConsoleEventTypes.HIDE_FAVORITE, onHideFavorite);
+			off(ConsoleEventTypes.HIDE_FAVORITE, onDeactivateFavorite);
+			off(ConsoleEventTypes.UNPIN_FAVORITE, onDeactivateFavorite);
 		};
 	}, [ on, off ]);
 	useEffect(() => {

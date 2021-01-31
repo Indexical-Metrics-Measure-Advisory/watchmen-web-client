@@ -14,26 +14,37 @@ import ConsoleSettings from './settings';
 import { SettingsHolder } from './settings-holder';
 
 const ConsoleContainer = styled.div.attrs({ 'data-widget': 'console' })`
-	display : flex;
+	display    : flex;
+	height     : 100vh;
+	max-height : 100vh;
 `;
-const ConsoleMainContainer = styled.main.attrs<{ favorite: boolean }>(({ favorite }) => {
+const ConsoleWorkbench = styled.div.attrs({ 'data-widget': 'console-workbench' })`
+	flex-grow      : 1;
+	display        : flex;
+	flex-direction : column;
+	height         : 100vh;
+	min-height     : 100vh;
+`;
+const ConsoleFavoritePinHolder = styled.div.attrs<{ favorite: boolean }>(({ favorite }) => {
 	return {
-		'data-widget': 'console-main',
-		'data-v-scroll': '',
 		style: {
-			marginTop: favorite ? 'var(--pin-favorite-height)' : (void 0),
-			height: favorite ? 'calc(100vh - var(--pin-favorite-height)' : (void 0)
+			height: favorite ? 'var(--pin-favorite-height)' : 0,
+			minHeight: favorite ? 'var(--pin-favorite-height)' : 0
 		}
 	};
 })<{ favorite: boolean }>`
+	transition : min-height 300ms ease-in-out, height 300ms ease-in-out;
+`;
+const ConsoleMainContainer = styled.main.attrs({
+	'data-widget': 'console-main',
+	'data-v-scroll': ''
+})`
 	flex-grow  : 1;
 	display    : flex;
-	height     : 100vh;
 	overflow-y : auto;
-	transition : margin-top 300ms ease-in-out, height 300ms ease-in-out;
 `;
 
-const ConsoleRouter = () => {
+const ConsoleFavoritePlaceholder = () => {
 	const { once, on, off } = useConsoleEventBus();
 	const [ favorite, setFavorite ] = useState(false);
 	useEffect(() => {
@@ -55,23 +66,30 @@ const ConsoleRouter = () => {
 		}).fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT);
 	}, [ once ]);
 
+	return <ConsoleFavoritePinHolder favorite={favorite}/>;
+};
+
+const ConsoleRouter = () => {
 	return <>
 		<ConsoleMenu/>
-		<ConsoleMainContainer favorite={favorite}>
-			<Switch>
-				<Route path={Router.CONSOLE_HOME}><ConsoleHome/></Route>
-				{/*		<Route path={Router.CONSOLE_CONNECTED_SPACE}><ConnectedSpace/></Route>*/}
-				<Route path={Router.CONSOLE_DASHBOARD}><ConsoleDashboard/></Route>
-				{/*		<Route path={Router.CONSOLE_SPACES}><AvailableSpaces/></Route>*/}
-				{/*		<Route path={Router.CONSOLE_INBOX}><Inbox/></Route>*/}
-				{/*		<Route path={Router.CONSOLE_NOTIFICATION}><Notification/></Route>*/}
-				{/*		<Route path={Router.CONSOLE_TIMELINE}><Timeline/></Route>*/}
-				<Route path={Router.CONSOLE_SETTINGS}><ConsoleSettings/></Route>
-				<Route path='*'>
-					<Redirect to={Router.CONSOLE_HOME}/>
-				</Route>
-			</Switch>
-		</ConsoleMainContainer>
+		<ConsoleWorkbench>
+			<ConsoleFavoritePlaceholder/>
+			<ConsoleMainContainer>
+				<Switch>
+					<Route path={Router.CONSOLE_HOME}><ConsoleHome/></Route>
+					{/*		<Route path={Router.CONSOLE_CONNECTED_SPACE}><ConnectedSpace/></Route>*/}
+					<Route path={Router.CONSOLE_DASHBOARD}><ConsoleDashboard/></Route>
+					{/*		<Route path={Router.CONSOLE_SPACES}><AvailableSpaces/></Route>*/}
+					{/*		<Route path={Router.CONSOLE_INBOX}><Inbox/></Route>*/}
+					{/*		<Route path={Router.CONSOLE_NOTIFICATION}><Notification/></Route>*/}
+					{/*		<Route path={Router.CONSOLE_TIMELINE}><Timeline/></Route>*/}
+					<Route path={Router.CONSOLE_SETTINGS}><ConsoleSettings/></Route>
+					<Route path='*'>
+						<Redirect to={Router.CONSOLE_HOME}/>
+					</Route>
+				</Switch>
+			</ConsoleMainContainer>
+		</ConsoleWorkbench>
 		<Favorite/>
 	</>;
 };
