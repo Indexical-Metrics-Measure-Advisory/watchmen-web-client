@@ -6,6 +6,7 @@ import { Lang } from '../../langs';
 import { ConnectedSpace } from '../../services/tuples/connected-space-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
+import { useConnectSpace } from '../widgets/use-connect-space';
 import { ConnectedSpaceCard } from './connected-space-card';
 import { SortType, ViewType } from './types';
 import { useMaxHeight } from './use-max-height';
@@ -33,9 +34,7 @@ export const ConnectedSpacesSection = () => {
 	}, [ once, connectedSpaces ]);
 	const maxHeight = useMaxHeight(bodyRef);
 
-	const onConnectSpaceClicked = () => {
-		// TODO connect space
-	};
+	const onConnectSpaceClicked = useConnectSpace();
 	const onSortClicked = () => {
 		setSortType(sortType === SortType.BY_NAME ? SortType.BY_VISIT_TIME : SortType.BY_NAME);
 	};

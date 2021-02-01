@@ -32,12 +32,16 @@ const isConnectedSpace = (tuple: Tuple): tuple is ConnectedSpace => {
 	return !!(tuple as any).connectId;
 };
 
-export const generateUuid = (): string => `${FAKE_ID_PREFIX}${v4()}`;
+export const generateUuid = (): string => `${FAKE_ID_PREFIX}${v4().replace(/-/g, '')}`;
 export const isFakedUuid = (tuple: Tuple): boolean => {
 	if (isTopic(tuple)) {
 		return tuple.topicId.startsWith(FAKE_ID_PREFIX);
 	} else if (isReport(tuple)) {
 		return tuple.reportId.startsWith(FAKE_ID_PREFIX);
+	} else if (isConnectedSpace(tuple)) {
+		// connected space check must before space check
+		// since "spaceId" also exists in connected space object
+		return tuple.connectId.startsWith(FAKE_ID_PREFIX);
 	} else if (isSpace(tuple)) {
 		return tuple.spaceId.startsWith(FAKE_ID_PREFIX);
 	} else if (isUserGroup(tuple)) {
@@ -46,8 +50,6 @@ export const isFakedUuid = (tuple: Tuple): boolean => {
 		return tuple.userId.startsWith(FAKE_ID_PREFIX);
 	} else if (isDashboard(tuple)) {
 		return tuple.dashboardId.startsWith(FAKE_ID_PREFIX);
-	} else if (isConnectedSpace(tuple)) {
-		return tuple.connectId.startsWith(FAKE_ID_PREFIX);
 	}
 
 	console.groupCollapsed('Unsupported tuple type');
