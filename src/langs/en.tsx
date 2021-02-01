@@ -101,7 +101,9 @@ export const En = {
 			DELETE_ME: 'Delete Me',
 			ADD_INTO_FAVORITE: 'Add into Favorite',
 			REMOVE_FROM_FAVORITE: 'Remove from Favorite',
-			DELETE_DIALOG_LABEL: 'Are you sure to delete connected space? Please note that deletion cannot be recovered.'
+			DELETE_DIALOG_LABEL: 'Are you sure to delete connected space? Please note that deletion cannot be recovered.',
+			NO_MORE_CONNECTED_SPACE: 'No more connected space exists.',
+			SWITCH_DIALOG_LABEL: 'Please select connected space'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',

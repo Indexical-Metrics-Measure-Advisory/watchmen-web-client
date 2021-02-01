@@ -67,7 +67,7 @@ const ConsoleConnectedSpaceIndex = () => {
 					// switch to another one
 					history.replace(toConnectedSpace(connectedSpace.connectId));
 				} else {
-					// no dashboard, to home
+					// no connected space, to home
 					history.replace(Router.CONSOLE_HOME);
 				}
 			}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);

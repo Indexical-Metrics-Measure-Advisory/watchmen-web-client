@@ -1,5 +1,4 @@
 import { ConnectedSpace } from '../../tuples/connected-space-types';
-import { Dashboard } from '../../tuples/dashboard-types';
 import { getCurrentTime } from '../../utils';
 
 export const fetchMockConnectedSpaces = async (): Promise<Array<ConnectedSpace>> => {

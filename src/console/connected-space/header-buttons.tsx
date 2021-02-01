@@ -4,8 +4,7 @@ import {
 	ICON_CONNECTED_SPACE_CATALOG,
 	ICON_CONNECTED_SPACE_RESOURCES,
 	ICON_CONNECTION,
-	ICON_SUBJECT,
-	ICON_SWITCH
+	ICON_SUBJECT
 } from '../../basic-widgets/constants';
 import {
 	PageHeaderButton,
@@ -16,6 +15,7 @@ import { Lang } from '../../langs';
 import { ConnectedSpace } from '../../services/tuples/connected-space-types';
 import { HeaderDeleteMeButton } from './header-delete-me-buttton';
 import { HeaderFavoriteButton } from './header-favorite-button';
+import { HeaderSwitchConnectedSpaceButton } from './header-switch-connected-space-button';
 
 export const HeaderButtons = (props: { connectedSpace: ConnectedSpace }) => {
 	const { connectedSpace } = props;
@@ -47,10 +47,7 @@ export const HeaderButtons = (props: { connectedSpace: ConnectedSpace }) => {
 		<PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.ADD_CONNECTED_SPACE} onClick={onConnectSpaceClicked}>
 			<FontAwesomeIcon icon={ICON_CONNECTION}/>
 		</PageHeaderButton>
-		<PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.SWITCH_CONNECTED_SPACE}
-		                  onClick={onSwitchConnectedSpaceClicked}>
-			<FontAwesomeIcon icon={ICON_SWITCH}/>
-		</PageHeaderButton>
+		<HeaderSwitchConnectedSpaceButton connectedSpace={connectedSpace}/>
 		<PageHeaderButtonSeparator/>
 		<HeaderDeleteMeButton connectedSpace={connectedSpace}/>
 	</PageHeaderButtons>;
