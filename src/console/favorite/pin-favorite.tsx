@@ -63,13 +63,13 @@ export const PinFavorite = (props: {
 			off(ConsoleEventTypes.SIDE_MENU_RESIZED, onSideMenuResized);
 		};
 	}, [ on, off ]);
-	useEffect(() => {
-		computeScrollable(bodyRef, setScrollState);
-	}, [ state ]);
 
 	const onUnpinClicked = async () => {
 		fire(ConsoleEventTypes.UNPIN_FAVORITE);
 		await saveLastSnapshot({ favoritePin: false });
+	};
+	const onMouseEnter = () => {
+		computeScrollable(bodyRef, setScrollState);
 	};
 	const onScrollToLeftClicked = (event: MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
@@ -135,7 +135,7 @@ export const PinFavorite = (props: {
 	const visible = state === FavoriteState.PIN;
 
 	return <PinFavoriteContainer visible={visible} left={menuWidth - 1}>
-		<PinFavoriteBody ref={bodyRef}>
+		<PinFavoriteBody onMouseEnter={onMouseEnter} ref={bodyRef}>
 			{items.length !== 0
 				? <>
 					{items.map(({ id, name, icon, type }) => {
