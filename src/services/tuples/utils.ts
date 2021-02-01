@@ -1,4 +1,5 @@
 import { v4 } from 'uuid';
+import { ConnectedSpace } from './connected-space-types';
 import { Dashboard } from './dashboard-types';
 import { Report } from './report-types';
 import { Space } from './space-types';
@@ -27,6 +28,9 @@ const isUser = (tuple: Tuple): tuple is User => {
 const isDashboard = (tuple: Tuple): tuple is Dashboard => {
 	return !!(tuple as any).dashboardId;
 };
+const isConnectedSpace = (tuple: Tuple): tuple is ConnectedSpace => {
+	return !!(tuple as any).connectId;
+};
 
 export const generateUuid = (): string => `${FAKE_ID_PREFIX}${v4()}`;
 export const isFakedUuid = (tuple: Tuple): boolean => {
@@ -42,6 +46,8 @@ export const isFakedUuid = (tuple: Tuple): boolean => {
 		return tuple.userId.startsWith(FAKE_ID_PREFIX);
 	} else if (isDashboard(tuple)) {
 		return tuple.dashboardId.startsWith(FAKE_ID_PREFIX);
+	} else if (isConnectedSpace(tuple)) {
+		return tuple.connectId.startsWith(FAKE_ID_PREFIX);
 	}
 
 	console.groupCollapsed('Unsupported tuple type');

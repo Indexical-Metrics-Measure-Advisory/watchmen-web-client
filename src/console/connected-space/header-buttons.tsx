@@ -3,7 +3,6 @@ import React from 'react';
 import {
 	ICON_CONNECTED_SPACE_CATALOG,
 	ICON_CONNECTED_SPACE_RESOURCES,
-	ICON_CONNECTION,
 	ICON_SUBJECT
 } from '../../basic-widgets/constants';
 import {
@@ -13,6 +12,7 @@ import {
 } from '../../basic-widgets/page-header-buttons';
 import { Lang } from '../../langs';
 import { ConnectedSpace } from '../../services/tuples/connected-space-types';
+import { HeaderCreateConnectedSpaceButton } from './header-create-connected-space-button';
 import { HeaderDeleteMeButton } from './header-delete-me-buttton';
 import { HeaderFavoriteButton } from './header-favorite-button';
 import { HeaderSwitchConnectedSpaceButton } from './header-switch-connected-space-button';
@@ -25,10 +25,6 @@ export const HeaderButtons = (props: { connectedSpace: ConnectedSpace }) => {
 	const onResourcesClicked = () => {
 	};
 	const onAddSubjectClicked = () => {
-	};
-	const onConnectSpaceClicked = () => {
-	};
-	const onSwitchConnectedSpaceClicked = () => {
 	};
 
 	return <PageHeaderButtons>
@@ -44,9 +40,7 @@ export const HeaderButtons = (props: { connectedSpace: ConnectedSpace }) => {
 		<PageHeaderButtonSeparator/>
 		<HeaderFavoriteButton connectedSpace={connectedSpace}/>
 		<PageHeaderButtonSeparator/>
-		<PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.ADD_CONNECTED_SPACE} onClick={onConnectSpaceClicked}>
-			<FontAwesomeIcon icon={ICON_CONNECTION}/>
-		</PageHeaderButton>
+		<HeaderCreateConnectedSpaceButton/>
 		<HeaderSwitchConnectedSpaceButton connectedSpace={connectedSpace}/>
 		<PageHeaderButtonSeparator/>
 		<HeaderDeleteMeButton connectedSpace={connectedSpace}/>

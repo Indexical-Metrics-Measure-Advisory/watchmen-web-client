@@ -25,6 +25,9 @@ export const useReplier = (options: {
 		const onAskDashboards = () => {
 			fire(ConsoleEventTypes.REPLY_DASHBOARDS, holdSettings.dashboards);
 		};
+		const onAskAvailableSpaces = () => {
+			fire(ConsoleEventTypes.REPLY_AVAILABLE_SPACES, holdSettings.availableSpaces);
+		}
 
 		on(ConsoleEventTypes.ASK_SETTINGS_LOADED, onAskSettingsLoaded);
 
@@ -33,6 +36,7 @@ export const useReplier = (options: {
 
 		on(ConsoleEventTypes.ASK_CONNECTED_SPACES, onAskConnectedSpaces);
 		on(ConsoleEventTypes.ASK_DASHBOARDS, onAskDashboards);
+		on(ConsoleEventTypes.ASK_AVAILABLE_SPACES, onAskAvailableSpaces);
 		return () => {
 			off(ConsoleEventTypes.ASK_SETTINGS_LOADED, onAskSettingsLoaded);
 
@@ -41,11 +45,13 @@ export const useReplier = (options: {
 
 			off(ConsoleEventTypes.ASK_CONNECTED_SPACES, onAskConnectedSpaces);
 			off(ConsoleEventTypes.ASK_DASHBOARDS, onAskDashboards);
+			off(ConsoleEventTypes.ASK_AVAILABLE_SPACES, onAskAvailableSpaces);
 		};
 	}, [
 		on, off, fire,
 		holdSettings.initialized,
 		holdSettings.lastSnapshot, holdSettings.favorite,
-		holdSettings.connectedSpaces, holdSettings.dashboards
+		holdSettings.connectedSpaces, holdSettings.dashboards,
+		holdSettings.availableSpaces
 	]);
 };

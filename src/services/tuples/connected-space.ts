@@ -1,7 +1,12 @@
 import { findToken } from '../account';
-import { deleteMockConnectedSpace, fetchMockConnectedSpaces } from '../mock/tuples/mock-connected-space';
+import {
+	deleteMockConnectedSpace,
+	fetchMockConnectedSpaces,
+	saveMockConnectedSpace
+} from '../mock/tuples/mock-connected-space';
 import { getServiceHost, isMockService } from '../utils';
 import { ConnectedSpace } from './connected-space-types';
+import { isFakedUuid } from './utils';
 
 export const fetchConnectedSpaces = async (): Promise<Array<ConnectedSpace>> => {
 	if (isMockService()) {
@@ -16,6 +21,39 @@ export const fetchConnectedSpaces = async (): Promise<Array<ConnectedSpace>> => 
 			}
 		});
 		return await response.json();
+	}
+};
+
+export const saveConnectedSpace = async (connectedSpace: ConnectedSpace): Promise<void> => {
+	if (isMockService()) {
+		return saveMockConnectedSpace(connectedSpace);
+	} else if (isFakedUuid(connectedSpace)) {
+		const token = findToken();
+		const response = await fetch(`${getServiceHost()}space/connect?space_id=${connectedSpace.spaceId}&name=${connectedSpace.name}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
+			}
+		});
+
+		const data = await response.json();
+		connectedSpace.connectId = data.connectId;
+		connectedSpace.lastModifyTime = data.lastModifyTime;
+	} else {
+		// TODO use real api
+		// const token = findToken();
+		// const response = await fetch(`${getServiceHost()}space/save`, {
+		// 	method: 'POST',
+		// 	headers: {
+		// 		'Content-Type': 'application/json',
+		// 		Authorization: 'Bearer ' + token
+		// 	},
+		// 	body: JSON.stringify(connectedSpace)
+		// });
+
+		// const data = await response.json();
+		// connectedSpace.lastModifyTime = data.lastModifyTime;
 	}
 };
 

@@ -1,6 +1,6 @@
 import { Favorite } from '../services/console/favorite-types';
 import { LastSnapshot } from '../services/console/last-snapshot-types';
-import { ConsoleSettings } from '../services/console/settings-types';
+import { AvailableSpaceInConsole, ConsoleSettings } from '../services/console/settings-types';
 import { ConnectedSpace } from '../services/tuples/connected-space-types';
 import { Dashboard } from '../services/tuples/dashboard-types';
 
@@ -47,7 +47,10 @@ export enum ConsoleEventTypes {
 	REPLY_CONNECTED_SPACES = 'reply-connected-spaces',
 
 	ASK_DASHBOARDS = 'ask-dashboards',
-	REPLY_DASHBOARDS = 'reply-dashboards'
+	REPLY_DASHBOARDS = 'reply-dashboards',
+
+	ASK_AVAILABLE_SPACES = 'ask-available-spaces',
+	REPLY_AVAILABLE_SPACES = 'reply-available-spaces',
 }
 
 export interface ConsoleEventBus {
@@ -154,4 +157,11 @@ export interface ConsoleEventBus {
 
 	fire(type: ConsoleEventTypes.REPLY_DASHBOARDS, dashboards: Array<Dashboard>): this;
 	once(type: ConsoleEventTypes.REPLY_DASHBOARDS, listener: (dashboards: Array<Dashboard>) => void): this;
+
+	fire(type: ConsoleEventTypes.ASK_AVAILABLE_SPACES): this;
+	on(type: ConsoleEventTypes.ASK_AVAILABLE_SPACES, listener: () => void): this;
+	off(type: ConsoleEventTypes.ASK_AVAILABLE_SPACES, listener: () => void): this;
+
+	fire(type: ConsoleEventTypes.REPLY_AVAILABLE_SPACES, availableSpaces: Array<AvailableSpaceInConsole>): this;
+	once(type: ConsoleEventTypes.REPLY_AVAILABLE_SPACES, listener: (availableSpaces: Array<AvailableSpaceInConsole>) => void): this;
 }

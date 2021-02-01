@@ -8,7 +8,8 @@ export const Zh = {
 	// anything must be string, should be placed here.
 	// such as input tooltip(string property), tuple name(not for react component)
 	PLAIN: {
-		NEW_DASHBOARD_NAME: '仪表盘'
+		NEW_DASHBOARD_NAME: '仪表盘',
+		NEW_CONNECTED_SPACE_NAME: '工作空间'
 	},
 	ERROR: {
 		UNPREDICTED: '发生不可预测的错误, 请联系管理员以获取帮助.'
@@ -100,7 +101,9 @@ export const Zh = {
 			REMOVE_FROM_FAVORITE: '取消收藏',
 			DELETE_DIALOG_LABEL: '确认要删除已联接的工作空间吗? 请注意删除动作不能被恢复.',
 			NO_MORE_CONNECTED_SPACE: '没有更多已联接的工作空间.',
-			SWITCH_DIALOG_LABEL: '请选择已联接的工作空间'
+			SWITCH_DIALOG_LABEL: '请选择已联接的工作空间',
+			CREATE_DIALOG_LABEL: '请选择工作空间进行联接',
+			NO_MORE_SPACE: '没有工作空间可以被联接, 请联系您的系统管理员以获取更多信息.'
 		},
 		SETTINGS: {
 			TITLE: '设置',

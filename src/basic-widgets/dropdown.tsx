@@ -185,7 +185,10 @@ export const Dropdown = (props: DropdownProps) => {
 		<Caret icon={faCaretDown}/>
 		<Options {...state}>
 			{options.map(option => {
-				return <Option key={`${option.value}`} onClick={onOptionClicked(option)}>
+				const { label, key } = option;
+				const asLabel = typeof label === 'function' ? label : (() => label);
+				const asKey = typeof key === 'function' ? key : (() => key != null ? key : option.value);
+				return <Option key={`${asKey(option)}`} onClick={onOptionClicked(option)}>
 					{asLabel(option)}
 				</Option>;
 			})}

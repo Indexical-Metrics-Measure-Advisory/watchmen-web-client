@@ -30,13 +30,27 @@ export const SideMenuSpaces = (props: { showTooltip: boolean }) => {
 	const { showTooltip } = props;
 
 	const history = useHistory();
-	const { once } = useConsoleEventBus();
+	const { once, on, off } = useConsoleEventBus();
 	const [ spaces, setSpaces ] = useState<Array<ConnectedSpace>>([]);
 	useEffect(() => {
 		once(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
 			setSpaces(connectedSpaces || []);
 		}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
 	}, [ once ]);
+	useEffect(() => {
+		const onConnectedSpaceCreated = (connectedSpace: ConnectedSpace) => {
+			setSpaces(spaces => Array.from(new Set([ ...spaces, connectedSpace ])));
+		};
+		const onConnectedSpaceRemoved = (connectedSpace: ConnectedSpace) => {
+			setSpaces(spaces => spaces.filter(space => space !== connectedSpace));
+		};
+		on(ConsoleEventTypes.CONNECTED_SPACE_CREATED, onConnectedSpaceCreated);
+		on(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, onConnectedSpaceRemoved);
+		return () => {
+			off(ConsoleEventTypes.CONNECTED_SPACE_CREATED, onConnectedSpaceCreated);
+			off(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, onConnectedSpaceRemoved);
+		};
+	}, [ on, off ]);
 
 	const onSpaceClicked = (space: ConnectedSpace) => () => {
 		if (isConnectedSpaceOpened(space.connectId)) {

@@ -10,7 +10,8 @@ export const En = {
 	// anything must be string, should be placed here.
 	// such as input tooltip(string property), tuple name(not for react component)
 	PLAIN: {
-		NEW_DASHBOARD_NAME: 'Dashboard'
+		NEW_DASHBOARD_NAME: 'Dashboard',
+		NEW_CONNECTED_SPACE_NAME: 'Connected Space'
 	},
 	ERROR: {
 		UNPREDICTED: 'Unpredicted error occurred, contact administrator for more information.'
@@ -103,7 +104,9 @@ export const En = {
 			REMOVE_FROM_FAVORITE: 'Remove from Favorite',
 			DELETE_DIALOG_LABEL: 'Are you sure to delete connected space? Please note that deletion cannot be recovered.',
 			NO_MORE_CONNECTED_SPACE: 'No more connected space exists.',
-			SWITCH_DIALOG_LABEL: 'Please select connected space'
+			SWITCH_DIALOG_LABEL: 'Please select connected space',
+			CREATE_DIALOG_LABEL: 'Please select available space',
+			NO_MORE_SPACE: 'No space exists, contact your administrator for more information.'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',

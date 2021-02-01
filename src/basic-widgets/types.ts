@@ -38,9 +38,13 @@ export type ButtonProps =
 
 export type LogoProps = Omit<SVGProps<SVGSVGElement>, 'ref' | 'xmlns' | 'version' | 'width' | 'height' | 'viewBox'>;
 
+/**
+ * property "key" is optional, it is required when "value" is object or something else which cannot use as identity.
+ */
 export interface DropdownOption {
 	value: any;
 	label: string | ((value: DropdownOption) => ReactNode);
+	key?: string | ((value: DropdownOption) => string);
 }
 
 export type DropdownProps = {
