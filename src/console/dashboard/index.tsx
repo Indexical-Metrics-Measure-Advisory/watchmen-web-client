@@ -56,7 +56,7 @@ const ConsoleDashboardIndex = () => {
 	return <FullWidthPage>
 		<PageHeaderHolder>
 			<DashboardName dashboard={dashboard}/>
-			<HeaderButtons/>
+			<HeaderButtons dashboard={dashboard}/>
 		</PageHeaderHolder>
 		<VerticalMarginOneUnit/>
 	</FullWidthPage>;

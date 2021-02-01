@@ -47,6 +47,7 @@ export const DialogBody = styled.div.attrs({ 'data-widget': 'dialog-body' })`
 
 export const DialogFooter = styled.div.attrs({ 'data-widget': 'dialog-footer' })`
 	display         : flex;
+	align-items     : center;
 	justify-content : flex-end;
 	> button {
 		:not(:last-child) {
@@ -56,5 +57,5 @@ export const DialogFooter = styled.div.attrs({ 'data-widget': 'dialog-footer' })
 `;
 export const DialogLabel = styled.span.attrs({ 'data-widget': 'dialog-label' })`
 	font-variant : petite-caps;
-	line-height: var(--line-height);
+	line-height  : var(--line-height);
 `;

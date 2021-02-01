@@ -49,7 +49,6 @@ export const useFavoriteState = () => {
 	});
 	useEffect(() => {
 		const onDashboardRemovedFromFavorite = (dashboardId: string) => {
-			// when event was fired by myself, dashboard already removed
 			// eslint-disable-next-line
 			const exists = data.dashboardIds.some(id => id == dashboardId);
 			if (exists) {
@@ -60,7 +59,6 @@ export const useFavoriteState = () => {
 			}
 		};
 		const onConnectedSpaceRemovedFromFavorite = (connectedSpaceId: string) => {
-			// when event was fired by myself, connected space already removed
 			// eslint-disable-next-line
 			const exists = data.connectedSpaceIds.some(id => id == connectedSpaceId);
 			if (exists) {
@@ -108,14 +106,8 @@ export const useFavoriteState = () => {
 		let dashboardIds = data.dashboardIds;
 		let connectedSpaceIds = data.connectedSpaceIds;
 		if (type === 'dashboard') {
-			// eslint-disable-next-line
-			dashboardIds = dashboardIds.filter(dashboardId => dashboardId != id);
-			setData({ ...data, dashboardIds });
 			fire(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, id);
 		} else if (type === 'connected-space') {
-			// eslint-disable-next-line
-			connectedSpaceIds = connectedSpaceIds.filter(connectedSpaceId => connectedSpaceId != id);
-			setData({ ...data, connectedSpaceIds });
 			fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, id);
 		}
 		await saveFavorite({

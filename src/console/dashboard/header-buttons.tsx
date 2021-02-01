@@ -14,15 +14,23 @@ import {
 	PageHeaderButtons,
 	PageHeaderButtonSeparator
 } from '../../basic-widgets/page-header-buttons';
+import { useEventBus } from '../../events/event-bus';
+import { EventTypes } from '../../events/types';
 import { Lang } from '../../langs';
 import { toDashboard } from '../../routes/utils';
 import { saveDashboard } from '../../services/tuples/dashboard';
+import { Dashboard } from '../../services/tuples/dashboard-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
 import { createDashboard } from '../utils/tuples';
+import { DashboardDelete } from './dashboard-delete';
+import { DashboardShare } from './dashboard-share';
 
-export const HeaderButtons = () => {
+export const HeaderButtons = (props: { dashboard: Dashboard }) => {
+	const { dashboard } = props;
+
 	const history = useHistory();
+	const { fire: fireGlobal } = useEventBus();
 	const { fire } = useConsoleEventBus();
 
 	const onAddReportClicked = () => {
@@ -38,13 +46,13 @@ export const HeaderButtons = () => {
 		// TODO switch dashboard
 	};
 	const onShareClicked = () => {
-		// TODO share dashboard
+		fireGlobal(EventTypes.SHOW_DIALOG, <DashboardShare dashboard={dashboard}/>);
 	};
 	const onPrintClicked = () => {
 		// TODO print dashboard
 	};
 	const onDeleteClicked = () => {
-		// TODO delete dashboard
+		fireGlobal(EventTypes.SHOW_DIALOG, <DashboardDelete dashboard={dashboard}/>);
 	};
 
 	return <PageHeaderButtons>

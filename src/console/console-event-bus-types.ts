@@ -29,6 +29,10 @@ export enum ConsoleEventTypes {
 	CONNECTED_SPACE_REMOVED_FROM_FAVORITE = 'connected-space-removed-from-favorite',
 
 	DASHBOARD_CREATED = 'dashboard-created',
+	DASHBOARD_REMOVED = 'dashboard-removed',
+
+	CONNECTED_SPACE_CREATED = 'connected-space-created',
+	CONNECTED_SPACE_REMOVED = 'connected-space-removed',
 
 	// ask data
 	ASK_LAST_SNAPSHOT = 'ask-last-snapshot',
@@ -94,10 +98,25 @@ export interface ConsoleEventBus {
 	on(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, listener: (connectedSpaceId: string) => void): this;
 	off(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, listener: (connectedSpaceId: string) => void): this;
 
+	// dashboard
 	fire(type: ConsoleEventTypes.DASHBOARD_CREATED, dashboard: Dashboard): this;
 	on(type: ConsoleEventTypes.DASHBOARD_CREATED, listener: (dashboard: Dashboard) => void): this;
 	off(type: ConsoleEventTypes.DASHBOARD_CREATED, listener: (dashboard: Dashboard) => void): this;
 
+	fire(type: ConsoleEventTypes.DASHBOARD_REMOVED, dashboard: Dashboard): this;
+	on(type: ConsoleEventTypes.DASHBOARD_REMOVED, listener: (dashboard: Dashboard) => void): this;
+	off(type: ConsoleEventTypes.DASHBOARD_REMOVED, listener: (dashboard: Dashboard) => void): this;
+
+	// connected space
+	fire(type: ConsoleEventTypes.CONNECTED_SPACE_CREATED, connectedSpace: ConnectedSpace): this;
+	on(type: ConsoleEventTypes.CONNECTED_SPACE_CREATED, listener: (connectedSpace: ConnectedSpace) => void): this;
+	off(type: ConsoleEventTypes.CONNECTED_SPACE_CREATED, listener: (connectedSpace: ConnectedSpace) => void): this;
+
+	fire(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED, connectedSpace: ConnectedSpace): this;
+	on(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED, listener: (connectedSpace: ConnectedSpace) => void): this;
+	off(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED, listener: (connectedSpace: ConnectedSpace) => void): this;
+
+	// ask state or data
 	fire(type: ConsoleEventTypes.ASK_LAST_SNAPSHOT): this;
 	on(type: ConsoleEventTypes.ASK_LAST_SNAPSHOT, listener: () => void): this;
 	off(type: ConsoleEventTypes.ASK_LAST_SNAPSHOT, listener: () => void): this;

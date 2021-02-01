@@ -65,7 +65,7 @@ export const PinFavorite = (props: {
 	}, [ on, off ]);
 	useEffect(() => {
 		computeScrollable(bodyRef, setScrollState);
-	}, [ state ]);
+	}, [ state, items ]);
 
 	const onUnpinClicked = async () => {
 		fire(ConsoleEventTypes.UNPIN_FAVORITE);
