@@ -11,7 +11,9 @@ export const En = {
 	// such as input tooltip(string property), tuple name(not for react component)
 	PLAIN: {
 		NEW_DASHBOARD_NAME: 'Dashboard',
-		NEW_CONNECTED_SPACE_NAME: 'Connected Space'
+		DEFAULT_DASHBOARD_NAME: 'Dashboard',
+		NEW_CONNECTED_SPACE_NAME: 'Connected Space',
+		DEFAULT_CONNECTED_SPACE_NAME: 'Connected Space'
 	},
 	ERROR: {
 		UNPREDICTED: 'Unpredicted error occurred, contact administrator for more information.'

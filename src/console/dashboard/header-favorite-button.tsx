@@ -26,9 +26,9 @@ export const HeaderFavoriteButton = (props: { dashboard: Dashboard }) => {
 		once(ConsoleEventTypes.REPLY_FAVORITE, ({ dashboardIds }: Favorite) => {
 			// eslint-disable-next-line
 			const found = dashboardIds.find(dashboardId => dashboardId == dashboard.dashboardId);
-			if (found && !favorite) {
+			if (found) {
 				setFavorite(true);
-			} else if (!found && favorite) {
+			} else if (!found) {
 				setFavorite(false);
 			}
 		}).fire(ConsoleEventTypes.ASK_FAVORITE);

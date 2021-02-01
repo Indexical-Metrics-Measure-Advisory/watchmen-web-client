@@ -118,6 +118,12 @@ export const saveMockConnectedSpace = async (connectedSpace: ConnectedSpace): Pr
 	});
 };
 
+export const renameMockConnectedSpace = async (connectedSpace: ConnectedSpace): Promise<void> => {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve(), 500);
+	});
+};
+
 export const deleteMockConnectedSpace = async (connectedSpace: ConnectedSpace): Promise<void> => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve(), 500);

@@ -1,5 +1,10 @@
 import { findToken } from '../account';
-import { deleteMockDashboard, fetchMockDashboards, saveMockDashboard } from '../mock/tuples/mock-dashboard';
+import {
+	deleteMockDashboard,
+	fetchMockDashboards,
+	renameMockDashboard,
+	saveMockDashboard
+} from '../mock/tuples/mock-dashboard';
 import { getServiceHost, isMockService } from '../utils';
 import { Dashboard } from './dashboard-types';
 import { isFakedUuid } from './utils';
@@ -50,6 +55,21 @@ export const saveDashboard = async (dashboard: Dashboard): Promise<void> => {
 
 		const data = await response.json();
 		dashboard.lastModifyTime = data.lastModifyTime;
+	}
+};
+
+export const renameDashboard = async (dashboard: Dashboard): Promise<void> => {
+	if (isMockService()) {
+		return renameMockDashboard(dashboard);
+	} else {
+		const token = findToken();
+		await fetch(`${getServiceHost()}dashboard/rename?dashboard_id=${dashboard.dashboardId}&name=${dashboard.name}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
+			}
+		});
 	}
 };
 

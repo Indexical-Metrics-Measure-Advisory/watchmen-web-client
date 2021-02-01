@@ -26,9 +26,9 @@ export const HeaderFavoriteButton = (props: { connectedSpace: ConnectedSpace }) 
 		once(ConsoleEventTypes.REPLY_FAVORITE, ({ connectedSpaceIds }: Favorite) => {
 			// eslint-disable-next-line
 			const found = connectedSpaceIds.find(connectedSpaceId => connectedSpaceId == connectedSpace.connectId);
-			if (found && !favorite) {
+			if (found) {
 				setFavorite(true);
-			} else if (!found && favorite) {
+			} else if (!found) {
 				setFavorite(false);
 			}
 		}).fire(ConsoleEventTypes.ASK_FAVORITE);
