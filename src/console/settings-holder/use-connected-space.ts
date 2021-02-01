@@ -28,6 +28,15 @@ export const useConnectedSpace = (options: {
 				}
 			}));
 		};
+		const onConnectedSpaceAddedIntoFavorite = (connectedSpaceId: string) => {
+			setHoldSettings(holdSettings => ({
+				...holdSettings,
+				favorite: {
+					...holdSettings.favorite,
+					connectedSpaceIds: Array.from(new Set<string>([ ...holdSettings.favorite.connectedSpaceIds, connectedSpaceId ]))
+				}
+			}));
+		};
 		const onConnectedSpaceRemovedFromFavorite = (connectedSpaceId: string) => {
 			setHoldSettings(holdSettings => ({
 				...holdSettings,
@@ -41,10 +50,12 @@ export const useConnectedSpace = (options: {
 
 		on(ConsoleEventTypes.CONNECTED_SPACE_CREATED, onConnectedSpaceCreated);
 		on(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, onConnectedSpaceRemoved);
+		on(ConsoleEventTypes.CONNECTED_SPACE_ADDED_INTO_FAVORITE, onConnectedSpaceAddedIntoFavorite);
 		on(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, onConnectedSpaceRemovedFromFavorite);
 		return () => {
 			off(ConsoleEventTypes.CONNECTED_SPACE_CREATED, onConnectedSpaceCreated);
 			off(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, onConnectedSpaceRemoved);
+			off(ConsoleEventTypes.CONNECTED_SPACE_ADDED_INTO_FAVORITE, onConnectedSpaceAddedIntoFavorite);
 			off(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, onConnectedSpaceRemovedFromFavorite);
 		};
 	}, [ on, off, fire, setHoldSettings ]);

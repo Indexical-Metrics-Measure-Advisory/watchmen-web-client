@@ -48,15 +48,45 @@ export const useFavoriteState = () => {
 		dashboardIds: []
 	});
 	useEffect(() => {
+		const onDashboardAddedIntoFavorite = (dashboardId: string) => {
+			// eslint-disable-next-line
+			const exists = data.dashboardIds.some(id => id == dashboardId);
+			if (!exists) {
+				setData(data => {
+					return { ...data, dashboardIds: Array.from(new Set([ ...data.dashboardIds, dashboardId ])) };
+				});
+			}
+		};
 		const onDashboardRemovedFromFavorite = (dashboardId: string) => {
 			// eslint-disable-next-line
 			const exists = data.dashboardIds.some(id => id == dashboardId);
 			if (exists) {
 				setData(data => {
-					// eslint-disable-next-line
-					return { ...data, dashboardIds: data.dashboardIds.filter(id => id != dashboardId) };
+					return {
+						...data,
+						// eslint-disable-next-line
+						dashboardIds: data.dashboardIds.filter(id => id != dashboardId)
+					};
 				});
 			}
+		};
+
+		on(ConsoleEventTypes.DASHBOARD_ADDED_INTO_FAVORITE, onDashboardAddedIntoFavorite);
+		on(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, onDashboardRemovedFromFavorite);
+		return () => {
+			on(ConsoleEventTypes.DASHBOARD_ADDED_INTO_FAVORITE, onDashboardAddedIntoFavorite);
+			off(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, onDashboardRemovedFromFavorite);
+		};
+	}, [ on, off, data.dashboardIds ]);
+
+	useEffect(() => {
+		const onConnectedSpaceAddedIntoFavorite = (connectedSpaceId: string) => {
+			setData(data => {
+				return {
+					...data,
+					connectedSpaceIds: Array.from(new Set([ ...data.connectedSpaceIds, connectedSpaceId ]))
+				};
+			});
 		};
 		const onConnectedSpaceRemovedFromFavorite = (connectedSpaceId: string) => {
 			// eslint-disable-next-line
@@ -71,13 +101,15 @@ export const useFavoriteState = () => {
 				});
 			}
 		};
-		on(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, onDashboardRemovedFromFavorite);
+
+		on(ConsoleEventTypes.CONNECTED_SPACE_ADDED_INTO_FAVORITE, onConnectedSpaceAddedIntoFavorite);
 		on(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, onConnectedSpaceRemovedFromFavorite);
 		return () => {
-			off(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, onDashboardRemovedFromFavorite);
+			on(ConsoleEventTypes.CONNECTED_SPACE_ADDED_INTO_FAVORITE, onConnectedSpaceAddedIntoFavorite);
 			off(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, onConnectedSpaceRemovedFromFavorite);
 		};
-	}, [ on, off, data.dashboardIds, data.connectedSpaceIds ]);
+	}, [ on, off, data.connectedSpaceIds ]);
+
 	useEffect(() => {
 		once(ConsoleEventTypes.REPLY_FAVORITE, ({ dashboardIds, connectedSpaceIds }: Favorite) => {
 			once(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
@@ -106,8 +138,12 @@ export const useFavoriteState = () => {
 		let dashboardIds = data.dashboardIds;
 		let connectedSpaceIds = data.connectedSpaceIds;
 		if (type === 'dashboard') {
+			// eslint-disable-next-line
+			dashboardIds = dashboardIds.filter(dashboardId => id != dashboardId);
 			fire(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, id);
 		} else if (type === 'connected-space') {
+			// eslint-disable-next-line
+			connectedSpaceIds = connectedSpaceIds.filter(connectedSpaceId => id != connectedSpaceId);
 			fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, id);
 		}
 		await saveFavorite({

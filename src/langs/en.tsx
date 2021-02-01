@@ -79,6 +79,8 @@ export const En = {
 		DASHBOARD: {
 			SHARE: 'Share',
 			PRINT: 'Print',
+			ADD_INTO_FAVORITE: 'Add into Favorite',
+			REMOVE_FROM_FAVORITE: 'Remove from Favorite',
 			ADD_REPORT: 'Add Report',
 			ADD_DASHBOARD: 'Add Dashboard',
 			SWITCH_DASHBOARD: 'Switch Dashboard',

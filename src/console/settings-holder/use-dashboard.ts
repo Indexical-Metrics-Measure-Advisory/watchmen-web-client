@@ -28,6 +28,15 @@ export const useDashboard = (options: {
 				}
 			}));
 		};
+		const onDashboardAddedIntoFavorite = (dashboardId: string) => {
+			setHoldSettings(holdSettings => ({
+				...holdSettings,
+				favorite: {
+					...holdSettings.favorite,
+					dashboardIds: Array.from(new Set<string>([ ...holdSettings.favorite.dashboardIds, dashboardId ]))
+				}
+			}));
+		};
 		const onDashboardRemovedFromFavorite = (dashboardId: string) => {
 			setHoldSettings(holdSettings => ({
 				...holdSettings,
@@ -41,10 +50,12 @@ export const useDashboard = (options: {
 
 		on(ConsoleEventTypes.DASHBOARD_CREATED, onDashboardCreated);
 		on(ConsoleEventTypes.DASHBOARD_REMOVED, onDashboardRemoved);
+		on(ConsoleEventTypes.DASHBOARD_ADDED_INTO_FAVORITE, onDashboardAddedIntoFavorite);
 		on(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, onDashboardRemovedFromFavorite);
 		return () => {
 			off(ConsoleEventTypes.DASHBOARD_CREATED, onDashboardCreated);
 			off(ConsoleEventTypes.DASHBOARD_REMOVED, onDashboardRemoved);
+			off(ConsoleEventTypes.DASHBOARD_ADDED_INTO_FAVORITE, onDashboardAddedIntoFavorite);
 			off(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, onDashboardRemovedFromFavorite);
 		};
 	}, [ on, off, fire, setHoldSettings ]);

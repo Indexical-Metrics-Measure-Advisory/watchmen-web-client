@@ -27,6 +27,7 @@ import { createDashboard } from '../utils/tuples';
 import { DashboardDelete } from './dashboard-delete';
 import { DashboardShare } from './dashboard-share';
 import { DashboardSwitch } from './dashboard-switch';
+import { HeaderFavoriteButton } from './header-favorite-button';
 
 export const HeaderButtons = (props: { dashboard: Dashboard }) => {
 	const { dashboard } = props;
@@ -78,17 +79,19 @@ export const HeaderButtons = (props: { dashboard: Dashboard }) => {
 			<FontAwesomeIcon icon={ICON_REPORT}/>
 		</PageHeaderButton>
 		<PageHeaderButtonSeparator/>
-		<PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.ADD_DASHBOARD} onClick={onCreateDashboardClicked}>
-			<FontAwesomeIcon icon={ICON_DASHBOARD}/>
-		</PageHeaderButton>
-		<PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.SWITCH_DASHBOARD} onClick={onSwitchDashboardClicked}>
-			<FontAwesomeIcon icon={ICON_SWITCH}/>
-		</PageHeaderButton>
+		<HeaderFavoriteButton dashboardId={dashboard.dashboardId}/>
 		<PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.SHARE} onClick={onShareClicked}>
 			<FontAwesomeIcon icon={ICON_SHARE}/>
 		</PageHeaderButton>
 		<PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.PRINT} onClick={onPrintClicked}>
 			<FontAwesomeIcon icon={ICON_PRINT}/>
+		</PageHeaderButton>
+		<PageHeaderButtonSeparator/>
+		<PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.ADD_DASHBOARD} onClick={onCreateDashboardClicked}>
+			<FontAwesomeIcon icon={ICON_DASHBOARD}/>
+		</PageHeaderButton>
+		<PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.SWITCH_DASHBOARD} onClick={onSwitchDashboardClicked}>
+			<FontAwesomeIcon icon={ICON_SWITCH}/>
 		</PageHeaderButton>
 		<PageHeaderButtonSeparator/>
 		<PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.DELETE_ME} onClick={onDeleteClicked}>
