@@ -24,3 +24,9 @@ export const saveMockDashboard = async (dashboard: Dashboard): Promise<void> => 
 		setTimeout(() => resolve(), 500);
 	});
 };
+
+export const deleteMockDashboard = async (dashboard: Dashboard): Promise<void> => {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve(), 500);
+	});
+};

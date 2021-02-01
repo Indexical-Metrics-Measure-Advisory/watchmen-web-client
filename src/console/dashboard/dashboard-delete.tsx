@@ -6,6 +6,7 @@ import { DialogBody, DialogFooter, DialogLabel } from '../../dialog/widgets';
 import { useEventBus } from '../../events/event-bus';
 import { EventTypes } from '../../events/types';
 import { Lang } from '../../langs';
+import { deleteDashboard } from '../../services/tuples/dashboard';
 import { Dashboard } from '../../services/tuples/dashboard-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
@@ -20,14 +21,14 @@ const NameUrl = styled.div`
 	line-height : calc(var(--line-height) * 2);
 `;
 
-export const DashboardDelete = (props: { dashboard: Dashboard }) => {
-	const { dashboard } = props;
+export const DashboardDelete = (props: { dashboard: Dashboard, onRemoved: () => void }) => {
+	const { dashboard, onRemoved } = props;
 
 	const { fire: fireGlobal } = useEventBus();
-	const { fire } = useConsoleEventBus();
 
 	const onDeleteClicked = async () => {
-		fire(ConsoleEventTypes.DASHBOARD_REMOVED, dashboard);
+		await deleteDashboard(dashboard);
+		onRemoved();
 		fireGlobal(EventTypes.HIDE_DIALOG);
 	};
 	const onCancelClicked = () => {

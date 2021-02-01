@@ -51,8 +51,10 @@ export const HeaderButtons = (props: { dashboard: Dashboard }) => {
 	const onPrintClicked = () => {
 		// TODO print dashboard
 	};
+	const onDeleted = () => fire(ConsoleEventTypes.DASHBOARD_REMOVED, dashboard);
 	const onDeleteClicked = () => {
-		fireGlobal(EventTypes.SHOW_DIALOG, <DashboardDelete dashboard={dashboard}/>);
+		fireGlobal(EventTypes.SHOW_DIALOG,
+			<DashboardDelete dashboard={dashboard} onRemoved={onDeleted}/>);
 	};
 
 	return <PageHeaderButtons>
