@@ -4,8 +4,6 @@ import { AlertLabel } from '../../alert/widgets';
 import { VerticalMarginOneUnit } from '../../basic-widgets/margin';
 import { FullWidthPage } from '../../basic-widgets/page';
 import { PageHeaderHolder } from '../../basic-widgets/page-header';
-import { PageTitleEditor } from '../../basic-widgets/page-title-editor';
-import { useForceUpdate } from '../../basic-widgets/utils';
 import { useEventBus } from '../../events/event-bus';
 import { EventTypes } from '../../events/types';
 import { Lang } from '../../langs';
@@ -15,20 +13,7 @@ import { ConnectedSpace } from '../../services/tuples/connected-space-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
 import { HeaderButtons } from './header-buttons';
-
-const ConnectedSpaceName = (props: { connectedSpace: ConnectedSpace }) => {
-	const { connectedSpace } = props;
-
-	const forceUpdate = useForceUpdate();
-
-	const onNameChange = (name: string) => {
-		connectedSpace.name = name;
-		// TODO fire save connected space
-		forceUpdate();
-	};
-
-	return <PageTitleEditor title={connectedSpace.name} onChange={onNameChange}/>;
-};
+import { HeaderNameEditor } from './header-name-editor';
 
 const ConsoleConnectedSpaceIndex = () => {
 	const { connectId: connectedSpaceId } = useParams<{ connectId: string }>();
@@ -84,7 +69,7 @@ const ConsoleConnectedSpaceIndex = () => {
 
 	return <FullWidthPage>
 		<PageHeaderHolder>
-			<ConnectedSpaceName connectedSpace={connectedSpace}/>
+			<HeaderNameEditor connectedSpace={connectedSpace}/>
 			<HeaderButtons connectedSpace={connectedSpace}/>
 		</PageHeaderHolder>
 		<VerticalMarginOneUnit/>
