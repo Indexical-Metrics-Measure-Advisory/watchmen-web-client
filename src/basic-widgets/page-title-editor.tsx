@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import { Input } from './input';
 
 const Container = styled.div.attrs({ 'data-widget': 'page-title-editor' })`
-	display     : flex;
-	position    : relative;
-	min-width   : 150px;
-	margin-left : var(--input-indent);
-	transition  : all 300ms ease-in-out;
+	display      : flex;
+	position     : relative;
+	min-width    : 150px;
+	padding-left : var(--input-indent);
+	transition   : all 300ms ease-in-out;
 	&:focus-within {
 		flex-grow : 1;
 	}

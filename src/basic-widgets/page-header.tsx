@@ -58,7 +58,8 @@ export const PageHeader = (props: { title: string; onSettingsClicked?: () => voi
 };
 
 export const PageHeaderHolderContainer = styled.div.attrs({ 'data-widget': 'page-header' })`
-	display       : flex;
+	display       : grid;
+	grid-template-columns: auto 1fr;
 	align-items   : center;
 	height        : 57px;
 	border-bottom : var(--border);

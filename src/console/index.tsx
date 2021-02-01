@@ -19,15 +19,16 @@ const ConsoleContainer = styled.div.attrs({ 'data-widget': 'console' })`
 	height     : 100vh;
 	max-height : 100vh;
 `;
-const ConsoleWorkbench = styled.div.attrs({ 'data-widget': 'console-workbench' })`
+const ConsoleMain = styled.main.attrs({ 'data-widget': 'console-main' })`
 	flex-grow      : 1;
 	display        : flex;
 	flex-direction : column;
 	height         : 100vh;
 	min-height     : 100vh;
 `;
-const ConsoleFavoritePinHolder = styled.div.attrs<{ favorite: boolean }>(({ favorite }) => {
+const ConsolePinFavoritePlaceholder = styled.div.attrs<{ favorite: boolean }>(({ favorite }) => {
 	return {
+		'data-widget': 'console-workbench-pin-favorite-placeholder',
 		style: {
 			height: favorite ? 'var(--pin-favorite-height)' : 0,
 			minHeight: favorite ? 'var(--pin-favorite-height)' : 0
@@ -36,8 +37,8 @@ const ConsoleFavoritePinHolder = styled.div.attrs<{ favorite: boolean }>(({ favo
 })<{ favorite: boolean }>`
 	transition : min-height 300ms ease-in-out, height 300ms ease-in-out;
 `;
-const ConsoleMainContainer = styled.main.attrs({
-	'data-widget': 'console-main',
+const ConsoleWorkbench = styled.div.attrs({
+	'data-widget': 'console-workbench',
 	'data-v-scroll': ''
 })`
 	flex-grow  : 1;
@@ -67,15 +68,15 @@ const ConsoleFavoritePlaceholder = () => {
 		}).fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT);
 	}, [ once ]);
 
-	return <ConsoleFavoritePinHolder favorite={favorite}/>;
+	return <ConsolePinFavoritePlaceholder favorite={favorite}/>;
 };
 
 const ConsoleRouter = () => {
 	return <>
 		<ConsoleMenu/>
-		<ConsoleWorkbench>
+		<ConsoleMain>
 			<ConsoleFavoritePlaceholder/>
-			<ConsoleMainContainer>
+			<ConsoleWorkbench>
 				<Switch>
 					<Route path={Router.CONSOLE_HOME}><ConsoleHome/></Route>
 					<Route path={Router.CONSOLE_CONNECTED_SPACE}><ConsoleConnectedSpace/></Route>
@@ -89,12 +90,12 @@ const ConsoleRouter = () => {
 						<Redirect to={Router.CONSOLE_HOME}/>
 					</Route>
 				</Switch>
-			</ConsoleMainContainer>
-		</ConsoleWorkbench>
+			</ConsoleWorkbench>
+		</ConsoleMain>
 		<Favorite/>
 	</>;
 };
-const ConsoleMain = () => {
+const ConsoleContainerDelegate = () => {
 	const { on, off } = useConsoleEventBus();
 	const [ initialized, setInitialized ] = useState(false);
 	useEffect(() => {
@@ -120,7 +121,7 @@ const ConsoleMain = () => {
 };
 const ConsoleIndex = () => {
 	return <ConsoleEventBusProvider>
-		<ConsoleMain/>
+		<ConsoleContainerDelegate/>
 	</ConsoleEventBusProvider>;
 };
 

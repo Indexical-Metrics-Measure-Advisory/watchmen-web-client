@@ -40,6 +40,9 @@ const AdminMenuContainer = styled.div.attrs<{ width: number }>(({ width }) => {
 	border-right     : var(--border);
 	background-color : var(--invert-color);
 	overflow         : hidden;
+	+ main {
+		max-width : ${({ width }) => `calc(100vw - ${width}px)`};
+	}
 `;
 
 export const AdminMenu = () => {
