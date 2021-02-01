@@ -5,7 +5,6 @@ import {
 	ICON_CONNECTED_SPACE_RESOURCES,
 	ICON_CONNECTION,
 	ICON_SUBJECT,
-	ICON_SUBJECT_GROUP,
 	ICON_SWITCH,
 	ICON_THROW_AWAY
 } from '../../basic-widgets/constants';
@@ -15,13 +14,15 @@ import {
 	PageHeaderButtonSeparator
 } from '../../basic-widgets/page-header-buttons';
 import { Lang } from '../../langs';
+import { ConnectedSpace } from '../../services/tuples/connected-space-types';
+import { HeaderFavoriteButton } from './header-favorite-button';
 
-export const HeaderButtons = () => {
+export const HeaderButtons = (props: { connectedSpace: ConnectedSpace }) => {
+	const { connectedSpace } = props;
+
 	const onCatalogClicked = () => {
 	};
 	const onResourcesClicked = () => {
-	};
-	const onAddGroupClicked = () => {
 	};
 	const onAddSubjectClicked = () => {
 	};
@@ -39,17 +40,17 @@ export const HeaderButtons = () => {
 		<PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.RESOURCES} onClick={onResourcesClicked}>
 			<FontAwesomeIcon icon={ICON_CONNECTED_SPACE_RESOURCES}/>
 		</PageHeaderButton>
-		<PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.ADD_GROUP} onClick={onAddGroupClicked}>
-			<FontAwesomeIcon icon={ICON_SUBJECT_GROUP}/>
-		</PageHeaderButton>
 		<PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.ADD_SUBJECT} onClick={onAddSubjectClicked}>
 			<FontAwesomeIcon icon={ICON_SUBJECT}/>
 		</PageHeaderButton>
 		<PageHeaderButtonSeparator/>
+		<HeaderFavoriteButton connectedSpace={connectedSpace}/>
+		<PageHeaderButtonSeparator/>
 		<PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.ADD_CONNECTED_SPACE} onClick={onConnectSpaceClicked}>
 			<FontAwesomeIcon icon={ICON_CONNECTION}/>
 		</PageHeaderButton>
-		<PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.SWITCH_CONNECTED_SPACE} onClick={onSwitchConnectedSpaceClicked}>
+		<PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.SWITCH_CONNECTED_SPACE}
+		                  onClick={onSwitchConnectedSpaceClicked}>
 			<FontAwesomeIcon icon={ICON_SWITCH}/>
 		</PageHeaderButton>
 		<PageHeaderButtonSeparator/>

@@ -76,6 +76,8 @@ export const Zh = {
 		DASHBOARD: {
 			SHARE: '分享',
 			PRINT: '打印',
+			ADD_INTO_FAVORITE: '收藏',
+			REMOVE_FROM_FAVORITE: '取消收藏',
 			ADD_REPORT: '添加图表',
 			ADD_DASHBOARD: '创建新仪表盘',
 			SWITCH_DASHBOARD: '切换仪表盘',
@@ -93,7 +95,9 @@ export const Zh = {
 			ADD_SUBJECT: '添加主题',
 			ADD_CONNECTED_SPACE: '联接工作空间',
 			SWITCH_CONNECTED_SPACE: '切换已联接的工作空间',
-			DELETE_ME: '删除'
+			DELETE_ME: '删除',
+			ADD_INTO_FAVORITE: '收藏',
+			REMOVE_FROM_FAVORITE: '取消收藏'
 		},
 		SETTINGS: {
 			TITLE: '设置',

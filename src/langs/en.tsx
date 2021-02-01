@@ -98,7 +98,9 @@ export const En = {
 			ADD_SUBJECT: 'Add Subject',
 			ADD_CONNECTED_SPACE: 'Connect Space',
 			SWITCH_CONNECTED_SPACE: 'Switch Connected Space',
-			DELETE_ME: 'Delete Me'
+			DELETE_ME: 'Delete Me',
+			ADD_INTO_FAVORITE: 'Add into Favorite',
+			REMOVE_FROM_FAVORITE: 'Remove from Favorite'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',

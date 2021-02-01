@@ -15,7 +15,6 @@ import {
 	faGlobe,
 	faHome,
 	faInbox,
-	faLayerGroup,
 	faLink,
 	faList,
 	faPlus,
@@ -78,7 +77,6 @@ export const ICON_USER = faUser;
 export const ICON_SPACE = faGlobe;
 export const ICON_CONNECTION = faLink;
 export const ICON_CONNECTED_SPACE = faDiceD20;
-export const ICON_SUBJECT_GROUP = faLayerGroup;
 export const ICON_SUBJECT = faTable;
 export const ICON_TOPIC = faTags;
 export const ICON_FACTOR = faList;

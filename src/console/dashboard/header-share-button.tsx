@@ -1,6 +1,9 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '../../basic-widgets/button';
+import { ICON_SHARE } from '../../basic-widgets/constants';
+import { PageHeaderButton } from '../../basic-widgets/page-header-buttons';
 import { ButtonInk } from '../../basic-widgets/types';
 import { DialogBody, DialogFooter, DialogLabel } from '../../dialog/widgets';
 import { useEventBus } from '../../events/event-bus';
@@ -66,4 +69,18 @@ export const DashboardShare = (props: { dashboard: Dashboard }) => {
 			<Button ink={ButtonInk.PRIMARY} onClick={onCloseClicked}>{Lang.ACTIONS.CLOSE}</Button>
 		</DialogFooter>
 	</>;
+};
+
+export const HeaderShareButton = (props: { dashboard: Dashboard }) => {
+	const { dashboard } = props;
+
+	const { fire } = useEventBus();
+
+	const onShareClicked = () => {
+		fire(EventTypes.SHOW_DIALOG, <DashboardShare dashboard={dashboard}/>);
+	};
+
+	return <PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.SHARE} onClick={onShareClicked}>
+		<FontAwesomeIcon icon={ICON_SHARE}/>
+	</PageHeaderButton>;
 };

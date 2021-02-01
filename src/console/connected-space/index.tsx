@@ -56,7 +56,7 @@ const ConsoleConnectedSpaceIndex = () => {
 	return <FullWidthPage>
 		<PageHeaderHolder>
 			<ConnectedSpaceName connectedSpace={connectedSpace}/>
-			<HeaderButtons/>
+			<HeaderButtons connectedSpace={connectedSpace}/>
 		</PageHeaderHolder>
 		<VerticalMarginOneUnit/>
 	</FullWidthPage>;
