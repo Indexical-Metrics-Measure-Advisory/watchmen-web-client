@@ -27,7 +27,8 @@ export const En = {
 		COPY: 'Copy',
 		CLOSE: 'Close',
 		CANCEL: 'Cancel',
-		DELETE: 'Delete'
+		DELETE: 'Delete',
+		CONFIRM: 'Confirm'
 	},
 	LOGIN: {
 		PRODUCT_TITLE: <>Indexical Metrics <span>&</span> Measure Advisory</>,
@@ -82,9 +83,11 @@ export const En = {
 			ADD_DASHBOARD: 'Add Dashboard',
 			SWITCH_DASHBOARD: 'Switch Dashboard',
 			DELETE_ME: 'Delete Me',
-			SHARE_DIALOG_LABEL: 'Copy following url, and share to where you want:',
+			SHARE_DIALOG_LABEL: 'Copy following url, and share to where you want.',
 			URL_COPIED: 'URL copied.',
-			DELETE_DIALOG_LABEL: 'Are you sure to delete dashboard? Please note that deletion cannot be recovered.'
+			DELETE_DIALOG_LABEL: 'Are you sure to delete dashboard? Please note that deletion cannot be recovered.',
+			NO_MORE_DASHBOARD: 'No more dashboard exists.',
+			SWITCH_DIALOG_LABEL: 'Please select dashboard'
 		},
 		CONNECTED_SPACE: {
 			CATALOG: 'Catalog',

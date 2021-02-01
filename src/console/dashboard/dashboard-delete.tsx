@@ -8,8 +8,6 @@ import { EventTypes } from '../../events/types';
 import { Lang } from '../../langs';
 import { deleteDashboard } from '../../services/tuples/dashboard';
 import { Dashboard } from '../../services/tuples/dashboard-types';
-import { useConsoleEventBus } from '../console-event-bus';
-import { ConsoleEventTypes } from '../console-event-bus-types';
 
 const ShareDialogBody = styled(DialogBody)`
 	flex-direction : column;

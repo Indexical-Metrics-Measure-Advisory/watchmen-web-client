@@ -60,6 +60,7 @@ const ConsoleDashboardIndex = () => {
 				// eslint-disable-next-line
 				const dashboard = dashboards.sort((d1, d2) => {
 					return d1.name.toLowerCase().localeCompare(d2.name.toLowerCase());
+					// eslint-disable-next-line
 				}).find(dashboard => dashboard.dashboardId != dashboardId);
 				if (dashboard) {
 					// switch to another one
@@ -74,7 +75,7 @@ const ConsoleDashboardIndex = () => {
 		return () => {
 			off(ConsoleEventTypes.DASHBOARD_REMOVED, onDashboardRemoved);
 		};
-	}, [ on, off, dashboardId ]);
+	}, [ once, on, off, history, dashboardId ]);
 
 	if (!dashboard) {
 		return null;

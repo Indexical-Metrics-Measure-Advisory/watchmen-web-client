@@ -25,7 +25,8 @@ export const Zh = {
 		COPY: '复制',
 		CLOSE: '关闭',
 		CANCEL: '取消',
-		DELETE: '删除'
+		DELETE: '删除',
+		CONFIRM: '确认'
 	},
 	LOGIN: {
 		MORNING: '早上好 !',
@@ -79,9 +80,11 @@ export const Zh = {
 			ADD_DASHBOARD: '创建新仪表盘',
 			SWITCH_DASHBOARD: '切换仪表盘',
 			DELETE_ME: '删除',
-			SHARE_DIALOG_LABEL: '复制下面的链接, 然后分享:',
+			SHARE_DIALOG_LABEL: '复制下面的链接, 然后分享.',
 			URL_COPIED: '链接已复制至剪贴板.',
-			DELETE_DIALOG_LABEL: '确认要删除仪表盘吗? 请注意删除动作不能被恢复.'
+			DELETE_DIALOG_LABEL: '确认要删除仪表盘吗? 请注意删除动作不能被恢复.',
+			NO_MORE_DASHBOARD: '没有更多仪表盘.',
+			SWITCH_DIALOG_LABEL: '请选择仪表盘'
 		},
 		CONNECTED_SPACE: {
 			CATALOG: '目录',

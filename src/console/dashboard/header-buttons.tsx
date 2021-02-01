@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { AlertLabel } from '../../alert/widgets';
 import {
 	ICON_DASHBOARD,
 	ICON_PRINT,
@@ -25,13 +26,14 @@ import { ConsoleEventTypes } from '../console-event-bus-types';
 import { createDashboard } from '../utils/tuples';
 import { DashboardDelete } from './dashboard-delete';
 import { DashboardShare } from './dashboard-share';
+import { DashboardSwitch } from './dashboard-switch';
 
 export const HeaderButtons = (props: { dashboard: Dashboard }) => {
 	const { dashboard } = props;
 
 	const history = useHistory();
 	const { fire: fireGlobal } = useEventBus();
-	const { fire } = useConsoleEventBus();
+	const { once, fire } = useConsoleEventBus();
 
 	const onAddReportClicked = () => {
 		// TODO add report into dashboard
@@ -42,8 +44,22 @@ export const HeaderButtons = (props: { dashboard: Dashboard }) => {
 		fire(ConsoleEventTypes.DASHBOARD_CREATED, dashboard);
 		history.push(toDashboard(dashboard.dashboardId));
 	};
+	const onSwitchTo = (dashboard: Dashboard) => {
+		history.push(toDashboard(dashboard.dashboardId));
+	};
 	const onSwitchDashboardClicked = () => {
-		// TODO switch dashboard
+		once(ConsoleEventTypes.REPLY_DASHBOARDS, (dashboards: Array<Dashboard>) => {
+			// eslint-disable-next-line
+			const candidates = dashboards.sort((d1, d2) => {
+				return d1.name.toLowerCase().localeCompare(d2.name.toLowerCase());
+			}).filter(exists => exists !== dashboard);
+			if (candidates.length === 0) {
+				// no other
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.CONSOLE.DASHBOARD.NO_MORE_DASHBOARD}</AlertLabel>);
+			} else {
+				fireGlobal(EventTypes.SHOW_DIALOG, <DashboardSwitch dashboards={candidates} switchTo={onSwitchTo}/>);
+			}
+		}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
 	};
 	const onShareClicked = () => {
 		fireGlobal(EventTypes.SHOW_DIALOG, <DashboardShare dashboard={dashboard}/>);

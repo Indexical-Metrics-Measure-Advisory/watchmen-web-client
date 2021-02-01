@@ -186,7 +186,7 @@ export const Dropdown = (props: DropdownProps) => {
 		<Options {...state}>
 			{options.map(option => {
 				return <Option key={`${option.value}`} onClick={onOptionClicked(option)}>
-					{option.label}
+					{asLabel(option)}
 				</Option>;
 			})}
 		</Options>
