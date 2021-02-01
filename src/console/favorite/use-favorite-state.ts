@@ -1,6 +1,7 @@
 import { MouseEvent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ICON_CONNECTED_SPACE, ICON_DASHBOARD } from '../../basic-widgets/constants';
+import { useForceUpdate } from '../../basic-widgets/utils';
 import { isConnectedSpaceOpened, isDashboardOpened, toConnectedSpace, toDashboard } from '../../routes/utils';
 import { saveFavorite } from '../../services/console/favorite';
 import { Favorite } from '../../services/console/favorite-types';
@@ -49,36 +50,24 @@ export const useFavoriteState = () => {
 	});
 	useEffect(() => {
 		const onDashboardAddedIntoFavorite = (dashboardId: string) => {
-			// eslint-disable-next-line
-			const exists = data.dashboardIds.some(id => id == dashboardId);
-			if (!exists) {
-				setData(data => {
-					return { ...data, dashboardIds: Array.from(new Set([ ...data.dashboardIds, dashboardId ])) };
-				});
-			}
+			setData(data => {
+				return { ...data, dashboardIds: Array.from(new Set([ ...data.dashboardIds, dashboardId ])) };
+			});
 		};
 		const onDashboardRemovedFromFavorite = (dashboardId: string) => {
-			// eslint-disable-next-line
-			const exists = data.dashboardIds.some(id => id == dashboardId);
-			if (exists) {
-				setData(data => {
-					return {
-						...data,
-						// eslint-disable-next-line
-						dashboardIds: data.dashboardIds.filter(id => id != dashboardId)
-					};
-				});
-			}
+			setData(data => {
+				// eslint-disable-next-line
+				return { ...data, dashboardIds: data.dashboardIds.filter(id => id != dashboardId) };
+			});
 		};
 
 		on(ConsoleEventTypes.DASHBOARD_ADDED_INTO_FAVORITE, onDashboardAddedIntoFavorite);
 		on(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, onDashboardRemovedFromFavorite);
 		return () => {
-			on(ConsoleEventTypes.DASHBOARD_ADDED_INTO_FAVORITE, onDashboardAddedIntoFavorite);
+			off(ConsoleEventTypes.DASHBOARD_ADDED_INTO_FAVORITE, onDashboardAddedIntoFavorite);
 			off(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, onDashboardRemovedFromFavorite);
 		};
-	}, [ on, off, data.dashboardIds ]);
-
+	}, [ on, off ]);
 	useEffect(() => {
 		const onConnectedSpaceAddedIntoFavorite = (connectedSpaceId: string) => {
 			setData(data => {
@@ -89,27 +78,61 @@ export const useFavoriteState = () => {
 			});
 		};
 		const onConnectedSpaceRemovedFromFavorite = (connectedSpaceId: string) => {
-			// eslint-disable-next-line
-			const exists = data.connectedSpaceIds.some(id => id == connectedSpaceId);
-			if (exists) {
-				setData(data => {
-					return {
-						...data,
-						// eslint-disable-next-line
-						connectedSpaceIds: data.connectedSpaceIds.filter(id => id != connectedSpaceId)
-					};
-				});
-			}
+			setData(data => {
+				return {
+					...data,
+					// eslint-disable-next-line
+					connectedSpaceIds: data.connectedSpaceIds.filter(id => id != connectedSpaceId)
+				};
+			});
 		};
 
 		on(ConsoleEventTypes.CONNECTED_SPACE_ADDED_INTO_FAVORITE, onConnectedSpaceAddedIntoFavorite);
 		on(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, onConnectedSpaceRemovedFromFavorite);
 		return () => {
-			on(ConsoleEventTypes.CONNECTED_SPACE_ADDED_INTO_FAVORITE, onConnectedSpaceAddedIntoFavorite);
+			off(ConsoleEventTypes.CONNECTED_SPACE_ADDED_INTO_FAVORITE, onConnectedSpaceAddedIntoFavorite);
 			off(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, onConnectedSpaceRemovedFromFavorite);
 		};
-	}, [ on, off, data.connectedSpaceIds ]);
-
+	}, [ on, off ]);
+	useEffect(() => {
+		const onDashboardCreated = (dashboard: Dashboard) => {
+			setData(data => {
+				return { ...data, dashboards: Array.from(new Set([ ...data.dashboards, dashboard ])) };
+			});
+		};
+		const onDashboardRemoved = (dashboard: Dashboard) => {
+			setData(data => {
+				return { ...data, dashboards: data.dashboards.filter(exists => exists !== dashboard) };
+			});
+		};
+		on(ConsoleEventTypes.DASHBOARD_CREATED, onDashboardCreated);
+		on(ConsoleEventTypes.DASHBOARD_REMOVED, onDashboardRemoved);
+		return () => {
+			off(ConsoleEventTypes.DASHBOARD_CREATED, onDashboardCreated);
+			off(ConsoleEventTypes.DASHBOARD_REMOVED, onDashboardRemoved);
+		};
+	}, [ on, off ]);
+	useEffect(() => {
+		const onConnectedSpaceCreated = (connectedSpace: ConnectedSpace) => {
+			setData(data => {
+				return { ...data, connectedSpaces: Array.from(new Set([ ...data.connectedSpaces, connectedSpace ])) };
+			});
+		};
+		const onConnectedSpaceRemoved = (connectedSpace: ConnectedSpace) => {
+			setData(data => {
+				return {
+					...data,
+					connectedSpaces: data.connectedSpaces.filter(exists => exists !== connectedSpace)
+				};
+			});
+		};
+		on(ConsoleEventTypes.CONNECTED_SPACE_CREATED, onConnectedSpaceCreated);
+		on(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, onConnectedSpaceRemoved);
+		return () => {
+			off(ConsoleEventTypes.CONNECTED_SPACE_CREATED, onConnectedSpaceCreated);
+			off(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, onConnectedSpaceRemoved);
+		};
+	}, [ on, off ]);
 	useEffect(() => {
 		once(ConsoleEventTypes.REPLY_FAVORITE, ({ dashboardIds, connectedSpaceIds }: Favorite) => {
 			once(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
@@ -119,6 +142,27 @@ export const useFavoriteState = () => {
 			}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
 		}).fire(ConsoleEventTypes.ASK_FAVORITE);
 	}, [ once ]);
+	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		const onDashboardRenamed = (dashboard: Dashboard) => {
+			// eslint-disable-next-line
+			if (data.dashboardIds.some(dashboardId => dashboardId == dashboard.dashboardId)) {
+				forceUpdate();
+			}
+		};
+		const onConnectedSpaceRenamed = (connectedSpace: ConnectedSpace) => {
+			// eslint-disable-next-line
+			if (data.connectedSpaceIds.some(connectedSpaceId => connectedSpaceId == connectedSpace.connectId)) {
+				forceUpdate();
+			}
+		};
+		on(ConsoleEventTypes.DASHBOARD_RENAMED, onDashboardRenamed);
+		on(ConsoleEventTypes.CONNECTED_SPACE_RENAMED, onConnectedSpaceRenamed);
+		return () => {
+			off(ConsoleEventTypes.DASHBOARD_RENAMED, onDashboardRenamed);
+			off(ConsoleEventTypes.CONNECTED_SPACE_RENAMED, onConnectedSpaceRenamed);
+		};
+	}, [ on, off, data.dashboardIds, data.connectedSpaceIds, forceUpdate ]);
 
 	const onItemClicked = (id: string, type: 'dashboard' | 'connected-space') => () => {
 		if (type === 'dashboard') {

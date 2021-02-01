@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { ICON_CONNECTED_SPACE } from '../../basic-widgets/constants';
 import { SideMenuItem } from '../../basic-widgets/side-menu/side-menu-item';
+import { useForceUpdate } from '../../basic-widgets/utils';
 import { isConnectedSpaceOpened, toConnectedSpace } from '../../routes/utils';
 import { ConnectedSpace } from '../../services/tuples/connected-space-types';
 import { useConsoleEventBus } from '../console-event-bus';
@@ -32,6 +33,7 @@ export const SideMenuSpaces = (props: { showTooltip: boolean }) => {
 	const history = useHistory();
 	const { once, on, off } = useConsoleEventBus();
 	const [ spaces, setSpaces ] = useState<Array<ConnectedSpace>>([]);
+	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		once(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
 			setSpaces(connectedSpaces || []);
@@ -41,16 +43,21 @@ export const SideMenuSpaces = (props: { showTooltip: boolean }) => {
 		const onConnectedSpaceCreated = (connectedSpace: ConnectedSpace) => {
 			setSpaces(spaces => Array.from(new Set([ ...spaces, connectedSpace ])));
 		};
+		const onConnectedSpaceRenamed = (connectedSpace: ConnectedSpace) => {
+			forceUpdate();
+		}
 		const onConnectedSpaceRemoved = (connectedSpace: ConnectedSpace) => {
 			setSpaces(spaces => spaces.filter(space => space !== connectedSpace));
 		};
 		on(ConsoleEventTypes.CONNECTED_SPACE_CREATED, onConnectedSpaceCreated);
+		on(ConsoleEventTypes.CONNECTED_SPACE_RENAMED, onConnectedSpaceRenamed);
 		on(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, onConnectedSpaceRemoved);
 		return () => {
 			off(ConsoleEventTypes.CONNECTED_SPACE_CREATED, onConnectedSpaceCreated);
+			off(ConsoleEventTypes.CONNECTED_SPACE_RENAMED, onConnectedSpaceRenamed);
 			off(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, onConnectedSpaceRemoved);
 		};
-	}, [ on, off ]);
+	}, [ on, off, forceUpdate ]);
 
 	const onSpaceClicked = (space: ConnectedSpace) => () => {
 		if (isConnectedSpaceOpened(space.connectId)) {

@@ -32,6 +32,7 @@ import { Dashboard } from '../../services/tuples/dashboard-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
 import { createDashboard } from '../utils/tuples';
+import { useConnectSpace } from '../widgets/use-connect-space';
 import { FavoriteMenu } from './side-menu-favorite';
 import { SideMenuSpaces } from './side-menu-spaces';
 
@@ -59,6 +60,7 @@ export const ConsoleMenu = () => {
 	const location = useLocation();
 	const { once, fire } = useConsoleEventBus();
 	const [ menuWidth, setMenuWidth ] = useState(SIDE_MENU_MIN_WIDTH);
+	const onConnectSpaceClicked = useConnectSpace();
 
 	const onResize = (newWidth: number) => {
 		const width = Math.min(Math.max(newWidth, SIDE_MENU_MIN_WIDTH), SIDE_MENU_MAX_WIDTH);
@@ -94,9 +96,6 @@ export const ConsoleMenu = () => {
 				}
 			}).fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT);
 		}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
-	};
-	const onConnectSpaceClicked = () => {
-		// TODO on connect space clicked
 	};
 
 	const account = findAccount() || { name: MOCK_ACCOUNT_NAME };
