@@ -97,7 +97,8 @@ export const Zh = {
 			SWITCH_CONNECTED_SPACE: '切换已联接的工作空间',
 			DELETE_ME: '删除',
 			ADD_INTO_FAVORITE: '收藏',
-			REMOVE_FROM_FAVORITE: '取消收藏'
+			REMOVE_FROM_FAVORITE: '取消收藏',
+			DELETE_DIALOG_LABEL: '确认要删除已联接的工作空间吗? 请注意删除动作不能被恢复.'
 		},
 		SETTINGS: {
 			TITLE: '设置',

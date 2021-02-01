@@ -25,7 +25,7 @@ const DashboardDropdown = styled(Dropdown)`
 	margin-top : calc(var(--margin) / 4);
 `;
 
-export const DashboardSwitch = (props: { dashboards: Array<Dashboard>, switchTo: (dashboard: Dashboard) => void }) => {
+const DashboardSwitch = (props: { dashboards: Array<Dashboard>, switchTo: (dashboard: Dashboard) => void }) => {
 	const { dashboards, switchTo } = props;
 
 	const { fire } = useEventBus();

@@ -100,7 +100,8 @@ export const En = {
 			SWITCH_CONNECTED_SPACE: 'Switch Connected Space',
 			DELETE_ME: 'Delete Me',
 			ADD_INTO_FAVORITE: 'Add into Favorite',
-			REMOVE_FROM_FAVORITE: 'Remove from Favorite'
+			REMOVE_FROM_FAVORITE: 'Remove from Favorite',
+			DELETE_DIALOG_LABEL: 'Are you sure to delete connected space? Please note that deletion cannot be recovered.'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',

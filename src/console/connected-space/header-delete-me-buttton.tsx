@@ -9,8 +9,8 @@ import { DialogBody, DialogFooter, DialogLabel } from '../../dialog/widgets';
 import { useEventBus } from '../../events/event-bus';
 import { EventTypes } from '../../events/types';
 import { Lang } from '../../langs';
-import { deleteDashboard } from '../../services/tuples/dashboard';
-import { Dashboard } from '../../services/tuples/dashboard-types';
+import { deleteConnectedSpace } from '../../services/tuples/connected-space';
+import { ConnectedSpace } from '../../services/tuples/connected-space-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
 
@@ -24,24 +24,24 @@ const NameUrl = styled.div`
 	line-height : calc(var(--line-height) * 2);
 `;
 
-const DashboardDelete = (props: { dashboard: Dashboard, onRemoved: () => void }) => {
-	const { dashboard, onRemoved } = props;
+const ConnectedSpaceDelete = (props: { connectedSpace: ConnectedSpace, onRemoved: () => void }) => {
+	const { connectedSpace, onRemoved } = props;
 
-	const { fire: fireGlobal } = useEventBus();
+	const { fire } = useEventBus();
 
 	const onDeleteClicked = async () => {
-		await deleteDashboard(dashboard);
+		await deleteConnectedSpace(connectedSpace);
 		onRemoved();
-		fireGlobal(EventTypes.HIDE_DIALOG);
+		fire(EventTypes.HIDE_DIALOG);
 	};
 	const onCancelClicked = () => {
-		fireGlobal(EventTypes.HIDE_DIALOG);
+		fire(EventTypes.HIDE_DIALOG);
 	};
 
 	return <>
 		<ShareDialogBody>
-			<DialogLabel>{Lang.CONSOLE.DASHBOARD.DELETE_DIALOG_LABEL}</DialogLabel>
-			<NameUrl>{dashboard.name}</NameUrl>
+			<DialogLabel>{Lang.CONSOLE.CONNECTED_SPACE.DELETE_DIALOG_LABEL}</DialogLabel>
+			<NameUrl>{connectedSpace.name}</NameUrl>
 		</ShareDialogBody>
 		<DialogFooter>
 			<Button ink={ButtonInk.DANGER} onClick={onDeleteClicked}>{Lang.ACTIONS.DELETE}</Button>
@@ -50,21 +50,21 @@ const DashboardDelete = (props: { dashboard: Dashboard, onRemoved: () => void })
 	</>;
 };
 
-export const HeaderDeleteMeButton = (props: { dashboard: Dashboard }) => {
-	const { dashboard } = props;
+export const HeaderDeleteMeButton = (props: { connectedSpace: ConnectedSpace }) => {
+	const { connectedSpace } = props;
 	const { fire: fireGlobal } = useEventBus();
 	const { fire } = useConsoleEventBus();
 
 	const onDeleted = async () => {
-		fire(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, dashboard.dashboardId);
-		fire(ConsoleEventTypes.DASHBOARD_REMOVED, dashboard);
+		fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, connectedSpace.connectId);
+		fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, connectedSpace);
 	};
 	const onDeleteClicked = () => {
 		fireGlobal(EventTypes.SHOW_DIALOG,
-			<DashboardDelete dashboard={dashboard} onRemoved={onDeleted}/>);
+			<ConnectedSpaceDelete connectedSpace={connectedSpace} onRemoved={onDeleted}/>);
 	};
 
-	return <PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.DELETE_ME} onClick={onDeleteClicked}>
+	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.DELETE_ME} onClick={onDeleteClicked}>
 		<FontAwesomeIcon icon={ICON_THROW_AWAY}/>
 	</PageHeaderButton>;
 };

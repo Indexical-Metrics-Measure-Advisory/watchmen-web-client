@@ -36,7 +36,7 @@ const CopiedLabel = styled(DialogLabel).attrs<{ visible: boolean }>(({ visible }
 	transition  : opacity 300ms ease-in-out 3s;
 `;
 
-export const DashboardShare = (props: { dashboard: Dashboard }) => {
+const DashboardShare = (props: { dashboard: Dashboard }) => {
 	const { dashboard } = props;
 
 	const { fire } = useEventBus();

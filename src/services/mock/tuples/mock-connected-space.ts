@@ -1,4 +1,5 @@
 import { ConnectedSpace } from '../../tuples/connected-space-types';
+import { Dashboard } from '../../tuples/dashboard-types';
 import { getCurrentTime } from '../../utils';
 
 export const fetchMockConnectedSpaces = async (): Promise<Array<ConnectedSpace>> => {
@@ -105,4 +106,10 @@ export const fetchMockConnectedSpaces = async (): Promise<Array<ConnectedSpace>>
 			lastModifyTime: getCurrentTime()
 		}
 	];
+};
+
+export const deleteMockConnectedSpace= async (connectedSpace: ConnectedSpace): Promise<void> => {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve(), 500);
+	});
 };

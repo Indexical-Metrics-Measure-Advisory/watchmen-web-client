@@ -29,6 +29,7 @@ const DashboardName = (props: { dashboard: Dashboard }) => {
 
 	return <PageTitleEditor title={dashboard.name} onChange={onNameChange}/>;
 };
+
 const ConsoleDashboardIndex = () => {
 	const { dashboardId } = useParams<{ dashboardId: string }>();
 
