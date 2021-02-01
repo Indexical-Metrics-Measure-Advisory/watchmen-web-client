@@ -8,12 +8,7 @@ export const Zh = {
 	// anything must be string, should be placed here.
 	// such as input tooltip(string property), tuple name(not for react component)
 	PLAIN: {
-		NEW_DASHBOARD_NAME: '仪表盘',
-		SHARE: '分享',
-		ADD_REPORT: '添加图表',
-		ADD_DASHBOARD: '创建新仪表盘',
-		SWITCH_DASHBOARD: '切换仪表盘',
-		DELETE_ME: '删除'
+		NEW_DASHBOARD_NAME: '仪表盘'
 	},
 	ERROR: {
 		UNPREDICTED: '发生不可预测的错误, 请联系管理员以获取帮助.'
@@ -38,7 +33,8 @@ export const Zh = {
 	CONSOLE: {
 		LOADING: '努力加载个人数据...',
 		ERROR: {
-			DASHBOARD_NOT_FOUND: '未找到指定的仪表盘数据.'
+			DASHBOARD_NOT_FOUND: '未找到指定的仪表盘数据.',
+			CONNECTED_SPACE_NOT_FOUND: '未找到指定的已联接工作空间.'
 		},
 		MENU: {
 			TITLE: 'Watchmen操作台',
@@ -69,6 +65,23 @@ export const Zh = {
 			CREATE_CONNECTED_SPACE_BUTTON: '联接工作空间',
 			DASHBOARD_TITLE: '仪表盘',
 			CREATE_DASHBOARD_BUTTON: '创建新仪表盘'
+		},
+		DASHBOARD: {
+			SHARE: '分享',
+			PRINT: '打印',
+			ADD_REPORT: '添加图表',
+			ADD_DASHBOARD: '创建新仪表盘',
+			SWITCH_DASHBOARD: '切换仪表盘',
+			DELETE_ME: '删除'
+		},
+		CONNECTED_SPACE: {
+			CATALOG: '目录',
+			RESOURCES: '可用资源',
+			ADD_GROUP: '添加分组',
+			ADD_SUBJECT: '添加主题',
+			ADD_CONNECTED_SPACE: '联接工作空间',
+			SWITCH_CONNECTED_SPACE: '切换已联接的工作空间',
+			DELETE_ME: '删除'
 		},
 		SETTINGS: {
 			TITLE: '设置',

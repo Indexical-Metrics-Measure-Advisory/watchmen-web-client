@@ -1,4 +1,4 @@
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCaretLeft, faCaretRight, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { MouseEvent, RefObject, useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -36,14 +36,15 @@ const TooltipContainer = styled.div //
 			 },
 			 visible
 		 }) => {
-			const { y = 0, x = 0, width = 0 } = trigger;
+			const { y = 0, x = 0, width = 0, height = 0 } = trigger;
 			return {
 				'data-widget': 'tooltip',
 				style: {
 					minWidth: minWidth,
 					maxWidth: maxWidth || TOOLTIP_MAX_WIDTH,
 					bottom: (visible && position === TooltipPosition.TOP) ? `calc(100vh + ${TOOLTIP_CARET_OFFSET}px - ${y + offsetY}px)` : (void 0),
-					left: alignment === TooltipAlignment.LEFT ? (x + offsetX) : (alignment === TooltipAlignment.CENTER ? (x + width / 2) : (void 0)),
+					top: (visible && position === TooltipPosition.BOTTOM) ? `calc(${y + height + offsetY + TOOLTIP_CARET_OFFSET}px)` : (void 0),
+					left: alignment === TooltipAlignment.LEFT ? (x + offsetX) : (alignment === TooltipAlignment.CENTER ? (x + offsetX + width / 2) : (void 0)),
 					right: alignment === TooltipAlignment.RIGHT ? `calc(100vw - ${x + width + offsetX}px)` : (void 0),
 					transform: `scale(0.91666667) ${alignment === TooltipAlignment.CENTER ? 'translateX(-50%)' : ''}`,
 					transformOrigin: alignment === TooltipAlignment.LEFT ? 'bottom left' : (alignment === TooltipAlignment.RIGHT ? 'bottom right' : 'bottom left'),
@@ -68,14 +69,16 @@ const TooltipContainer = styled.div //
 `;
 
 const Caret = styled(FontAwesomeIcon)
-	.attrs<{ rect: ComputedTooltipRect }>(({ rect: { alignment } }) => {
+	.attrs<{ rect: ComputedTooltipRect }>(({ rect: { alignment, position = TooltipPosition.TOP } }) => {
 		return {
 			'data-widget': 'tooltip-caret',
 			// to avoid output this property to dom node
 			rect: (void 0),
 			style: {
 				left: alignment === TooltipAlignment.LEFT ? 16 : (alignment === TooltipAlignment.CENTER ? 'calc(50% - 4px)' : (void 0)),
-				right: alignment === TooltipAlignment.RIGHT ? 16 : (void 0)
+				right: alignment === TooltipAlignment.RIGHT ? 16 : (void 0),
+				top: position === TooltipPosition.TOP ? `calc(100% - ${TOOLTIP_CARET_OFFSET}px)` : (void 0),
+				bottom: position === TooltipPosition.BOTTOM ? `calc(100% - ${TOOLTIP_CARET_OFFSET}px)` : (void 0)
 			}
 		};
 	})<{ rect: ComputedTooltipRect }>`
@@ -83,7 +86,6 @@ const Caret = styled(FontAwesomeIcon)
 	position  : absolute;
 	color     : var(--tooltip-bg-color);
 	font-size : 1.2em;
-	top       : calc(100% - ${TOOLTIP_CARET_OFFSET}px);
 `;
 
 const createInvisibleContent = (): TooltipContent => {
@@ -102,7 +104,7 @@ export const Tooltip = () => {
 			setContent({ tooltip: text, rect: { ...rest, trigger: target.getBoundingClientRect() } });
 		},
 		hide: () => {
-			setContent(createInvisibleContent())
+			setContent(createInvisibleContent());
 		}
 	});
 	useEffect(() => {
@@ -114,9 +116,26 @@ export const Tooltip = () => {
 		};
 	}, [ functions, on, off ]);
 
+	const position = content?.rect?.position;
+	let icon = faCaretDown;
+	switch (position) {
+		case TooltipPosition.TOP:
+			icon = faCaretDown;
+			break;
+		case TooltipPosition.BOTTOM:
+			icon = faCaretUp;
+			break;
+		case TooltipPosition.LEFT:
+			icon = faCaretRight;
+			break;
+		case TooltipPosition.RIGHT:
+			icon = faCaretLeft;
+			break;
+	}
+
 	return <TooltipContainer visible={content != null} rect={content.rect}>
 		<span>{content.tooltip}</span>
-		<Caret icon={faCaretDown} rect={content?.rect}/>
+		<Caret icon={icon} rect={content?.rect}/>
 	</TooltipContainer>;
 };
 

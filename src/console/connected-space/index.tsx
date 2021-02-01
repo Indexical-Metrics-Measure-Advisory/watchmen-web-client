@@ -10,56 +10,56 @@ import { useEventBus } from '../../events/event-bus';
 import { EventTypes } from '../../events/types';
 import { Lang } from '../../langs';
 import { Router } from '../../routes/types';
-import { Dashboard } from '../../services/tuples/dashboard-types';
+import { ConnectedSpace } from '../../services/tuples/connected-space-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
 import { HeaderButtons } from './header-buttons';
 
-const DashboardName = (props: { dashboard: Dashboard }) => {
-	const { dashboard } = props;
+const ConnectedSpaceName = (props: { connectedSpace: ConnectedSpace }) => {
+	const { connectedSpace } = props;
 
 	const forceUpdate = useForceUpdate();
 
 	const onNameChange = (name: string) => {
-		dashboard.name = name;
-		// TODO fire save dashboard
+		connectedSpace.name = name;
+		// TODO fire save connected space
 		forceUpdate();
 	};
 
-	return <PageTitleEditor title={dashboard.name} onChange={onNameChange}/>;
+	return <PageTitleEditor title={connectedSpace.name} onChange={onNameChange}/>;
 };
-const ConsoleDashboardIndex = () => {
-	const { dashboardId } = useParams<{ dashboardId: string }>();
+const ConsoleConnectedSpaceIndex = () => {
+	const { connectId } = useParams<{ connectId: string }>();
 
 	const history = useHistory();
 	const { once: onceGlobal } = useEventBus();
 	const { once } = useConsoleEventBus();
-	const [ dashboard, setDashboard ] = useState<Dashboard | null>(null);
+	const [ connectedSpace, setConnectedSpace ] = useState<ConnectedSpace | null>(null);
 	useEffect(() => {
-		once(ConsoleEventTypes.REPLY_DASHBOARDS, (dashboards: Array<Dashboard>) => {
+		once(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
 			// eslint-disable-next-line
-			const dashboard = dashboards.find(dashboard => dashboard.dashboardId == dashboardId);
-			if (dashboard) {
-				setDashboard(dashboard);
+			const connectedSpace = connectedSpaces.find(connectedSpace => connectedSpace.connectId == connectId);
+			if (connectedSpace) {
+				setConnectedSpace(connectedSpace);
 			} else {
 				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
 					history.replace(Router.CONSOLE);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.CONSOLE.ERROR.DASHBOARD_NOT_FOUND}</AlertLabel>);
+				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.CONSOLE.ERROR.CONNECTED_SPACE_NOT_FOUND}</AlertLabel>);
 			}
-		}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
-	}, [ once, onceGlobal, history, dashboardId ]);
+		}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
+	}, [ once, onceGlobal, history, connectId ]);
 
-	if (!dashboard) {
+	if (!connectedSpace) {
 		return null;
 	}
 
 	return <FullWidthPage>
 		<PageHeaderHolder>
-			<DashboardName dashboard={dashboard}/>
+			<ConnectedSpaceName connectedSpace={connectedSpace}/>
 			<HeaderButtons/>
 		</PageHeaderHolder>
 		<VerticalMarginOneUnit/>
 	</FullWidthPage>;
 };
 
-export default ConsoleDashboardIndex;
+export default ConsoleConnectedSpaceIndex;

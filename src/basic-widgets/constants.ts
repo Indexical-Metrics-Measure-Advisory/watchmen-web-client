@@ -4,24 +4,30 @@ import {
 	faBell,
 	faChalkboard,
 	faChartBar,
-	faChartPie,
 	faCheck,
 	faCog,
 	faComments,
 	faCompress,
 	faDiceD20,
+	faDrawPolygon,
 	faEdit,
 	faExpand,
 	faGlobe,
 	faHome,
 	faInbox,
+	faLayerGroup,
 	faLink,
 	faList,
-	faPlus, faRandom,
-	faSearch, faShare,
+	faPlus,
+	faPrint,
+	faRandom,
+	faRoad,
+	faSearch,
+	faShare,
 	faSortAmountDown,
 	faSpinner,
 	faStar,
+	faTable,
 	faTachometerAlt,
 	faTags,
 	faTasks,
@@ -72,11 +78,12 @@ export const ICON_USER = faUser;
 export const ICON_SPACE = faGlobe;
 export const ICON_CONNECTION = faLink;
 export const ICON_CONNECTED_SPACE = faDiceD20;
+export const ICON_SUBJECT_GROUP = faLayerGroup;
+export const ICON_SUBJECT = faTable;
 export const ICON_TOPIC = faTags;
 export const ICON_FACTOR = faList;
 export const ICON_REPORT = faChartBar;
 export const ICON_PIPELINE = faWaveSquare;
-export const ICON_CHART = faChartPie;
 
 export const ICON_DASHBOARD = faTachometerAlt;
 export const ICON_FAVORITE = faStar;
@@ -101,6 +108,9 @@ export const ICON_COLLAPSE_PANEL = faCompress;
 export const ICON_EXPAND_PANEL = faExpand;
 export const ICON_SHARE = faShare;
 export const ICON_SWITCH = faRandom;
+export const ICON_PRINT = faPrint;
+export const ICON_CONNECTED_SPACE_CATALOG = faRoad;
+export const ICON_CONNECTED_SPACE_RESOURCES = faDrawPolygon;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

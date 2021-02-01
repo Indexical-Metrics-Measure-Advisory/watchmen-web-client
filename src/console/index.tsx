@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { Router } from '../routes/types';
 import { LastSnapshot } from '../services/console/last-snapshot-types';
+import ConsoleConnectedSpace from './connected-space';
 import { ConsoleEventBusProvider, useConsoleEventBus } from './console-event-bus';
 import { ConsoleEventTypes } from './console-event-bus-types';
 import { ConsoleLoading } from './console-loading';
@@ -77,7 +78,7 @@ const ConsoleRouter = () => {
 			<ConsoleMainContainer>
 				<Switch>
 					<Route path={Router.CONSOLE_HOME}><ConsoleHome/></Route>
-					{/*		<Route path={Router.CONSOLE_CONNECTED_SPACE}><ConnectedSpace/></Route>*/}
+					<Route path={Router.CONSOLE_CONNECTED_SPACE}><ConsoleConnectedSpace/></Route>
 					<Route path={Router.CONSOLE_DASHBOARD}><ConsoleDashboard/></Route>
 					{/*		<Route path={Router.CONSOLE_SPACES}><AvailableSpaces/></Route>*/}
 					{/*		<Route path={Router.CONSOLE_INBOX}><Inbox/></Route>*/}

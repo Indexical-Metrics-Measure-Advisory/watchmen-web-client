@@ -10,12 +10,7 @@ export const En = {
 	// anything must be string, should be placed here.
 	// such as input tooltip(string property), tuple name(not for react component)
 	PLAIN: {
-		NEW_DASHBOARD_NAME: 'Dashboard',
-		SHARE: 'Share',
-		ADD_REPORT: 'Add Report',
-		ADD_DASHBOARD: 'Add Dashboard',
-		SWITCH_DASHBOARD: 'Switch Dashboard',
-		DELETE_ME: 'Delete Me'
+		NEW_DASHBOARD_NAME: 'Dashboard'
 	},
 	ERROR: {
 		UNPREDICTED: 'Unpredicted error occurred, contact administrator for more information.'
@@ -41,7 +36,8 @@ export const En = {
 	CONSOLE: {
 		LOADING: 'Loading Personal Data...',
 		ERROR: {
-			DASHBOARD_NOT_FOUND: 'Given dashboard not found.'
+			DASHBOARD_NOT_FOUND: 'Given dashboard not found.',
+			CONNECTED_SPACE_NOT_FOUND: 'Given connected space not found.'
 		},
 		MENU: {
 			TITLE: 'Watchmen Console',
@@ -72,6 +68,23 @@ export const En = {
 			CREATE_CONNECTED_SPACE_BUTTON: 'Connect Space',
 			DASHBOARD_TITLE: 'Dashboards',
 			CREATE_DASHBOARD_BUTTON: 'Create Dashboard'
+		},
+		DASHBOARD: {
+			SHARE: 'Share',
+			PRINT: 'Print',
+			ADD_REPORT: 'Add Report',
+			ADD_DASHBOARD: 'Add Dashboard',
+			SWITCH_DASHBOARD: 'Switch Dashboard',
+			DELETE_ME: 'Delete Me'
+		},
+		CONNECTED_SPACE: {
+			CATALOG: 'Catalog',
+			RESOURCES: 'Available Resources',
+			ADD_GROUP: 'Add Group',
+			ADD_SUBJECT: 'Add Subject',
+			ADD_CONNECTED_SPACE: 'Connect Space',
+			SWITCH_CONNECTED_SPACE: 'Switch Connected Space',
+			DELETE_ME: 'Delete Me'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',
