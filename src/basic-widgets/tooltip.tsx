@@ -149,6 +149,12 @@ export const useTooltip = <T extends HTMLElement>(options: TooltipRect & {
 	const { use = true, tooltip, target, ...rect } = options;
 
 	const { fire } = useEventBus();
+	useEffect(() => {
+		return () => {
+			// hide anyway when unmount
+			fire(EventTypes.HIDE_TOOLTIP);
+		};
+	});
 
 	if (!use) {
 		return { onMouseEnter: NOOP, onMouseLeave: NOOP };
