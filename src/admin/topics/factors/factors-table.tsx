@@ -10,6 +10,7 @@ export const FactorsTable = (props: { topic: Topic }) => {
 
 	return <FactorsTableContainer>
 		<FactorsTableHeader>
+			<FactorsTableHeaderCell>#</FactorsTableHeaderCell>
 			<FactorsTableHeaderCell>Name</FactorsTableHeaderCell>
 			<FactorsTableHeaderCell>Label</FactorsTableHeaderCell>
 			<FactorsTableHeaderCell>Type</FactorsTableHeaderCell>
