@@ -53,6 +53,7 @@ export enum FactorType {
 	OCCUPATION = 'occupation',
 	DATE_OF_BIRTH = 'date-of-birth',    // YYYY-MM-DD
 	AGE = 'age',
+	ID_NO = 'id-no',
 	RELIGION = 'religion',
 	NATIONALITY = 'nationality',
 

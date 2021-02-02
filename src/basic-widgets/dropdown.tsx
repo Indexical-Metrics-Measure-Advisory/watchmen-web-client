@@ -69,6 +69,7 @@ const Options = styled.div.attrs<State>(
 	({ active, atBottom, top, left, height, minWidth }) => {
 		return {
 			'data-widget': 'dropdown-options-container',
+			'data-v-scroll': '',
 			style: {
 				opacity: active ? 1 : (void 0),
 				pointerEvents: active ? 'auto' : (void 0),
@@ -115,6 +116,7 @@ export const Dropdown = (props: DropdownProps) => {
 	const { options = [], onChange, value, please = '', ...rest } = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
+	const optionsRef = useRef<HTMLDivElement>(null);
 	const [ state, setState ] = useState<State>({
 		active: false,
 		atBottom: true,
@@ -126,8 +128,8 @@ export const Dropdown = (props: DropdownProps) => {
 	});
 
 	useEffect(() => {
-		const onScroll = () => {
-			if (!state.active) {
+		const onScroll = (event: Event) => {
+			if (!state.active || event.target === optionsRef.current) {
 				return;
 			}
 			const { top, left, width, height } = getPosition(containerRef.current!);
@@ -181,7 +183,7 @@ export const Dropdown = (props: DropdownProps) => {
 	                          onClick={onClicked} onBlur={onBlurred}>
 		<Label>{label}</Label>
 		<Caret icon={faCaretDown}/>
-		<Options {...state}>
+		<Options {...state} ref={optionsRef}>
 			{options.map(option => {
 				const { label, key } = option;
 				const asLabel = typeof label === 'function' ? label : (() => label);

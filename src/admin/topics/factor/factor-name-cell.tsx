@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForceUpdate } from '../../../basic-widgets/utils';
 import { Factor, FactorType } from '../../../services/tuples/factor-types';
 import { Topic } from '../../../services/tuples/topic-types';
@@ -25,8 +25,14 @@ const findParentFactor = (topic: Topic, factor: Factor): Factor | undefined => {
 export const FactorNameCell = (props: { topic: Topic, factor: Factor }) => {
 	const { topic, factor } = props;
 
-	const { fire } = useTopicEventBus();
+	const { on, off, fire } = useTopicEventBus();
 	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		on(TopicEventTypes.FACTOR_TYPE_CHANGED, forceUpdate);
+		return () => {
+			off(TopicEventTypes.FACTOR_TYPE_CHANGED, forceUpdate);
+		};
+	}, [ on, off, forceUpdate ]);
 
 	const onFactorNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;
