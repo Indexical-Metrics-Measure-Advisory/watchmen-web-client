@@ -10,6 +10,10 @@ import { User } from './user-types';
 
 const FAKE_ID_PREFIX = 'f-';
 
+export const removeFakeIdPrefix = (id: string) => {
+	return id.startsWith(FAKE_ID_PREFIX) ? id.substr(2) : id;
+};
+
 const isTopic = (tuple: Tuple): tuple is Topic => {
 	return !!(tuple as any).topicId;
 };

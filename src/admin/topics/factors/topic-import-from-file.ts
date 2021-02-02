@@ -1,5 +1,6 @@
 import parseCSV from 'csv-parse';
 import { Factor, FactorType } from '../../../services/tuples/factor-types';
+import { createFactor, createTopic } from '../utils';
 
 const asFactors = async (data: any): Promise<Array<Factor>> => {
 	if (data == null || !Array.isArray(data) || data.length === 0) {
@@ -7,13 +8,16 @@ const asFactors = async (data: any): Promise<Array<Factor>> => {
 		throw new Error('Parsed data is not an array.');
 	}
 
+	const mockTopic = createTopic();
 	const columnMap: Map<string, Factor> = new Map();
 	return data.reduce<Array<Factor>>((columns, row) => {
 		Object.keys(row)
 			.forEach(name => {
 				let factor = columnMap.get(name);
 				if (!factor) {
-					factor = { name } as Factor;
+					factor = createFactor(mockTopic);
+					mockTopic.factors.push(factor);
+					factor.name = name;
 					columnMap.set(name, factor);
 					columns.push(factor);
 				}

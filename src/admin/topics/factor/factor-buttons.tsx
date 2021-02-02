@@ -2,11 +2,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { ICON_DELETE, ICON_ROW_PREPEND } from '../../../basic-widgets/constants';
 import { ButtonInk, TooltipAlignment } from '../../../basic-widgets/types';
-import { Factor, FactorType } from '../../../services/tuples/factor-types';
+import { Factor } from '../../../services/tuples/factor-types';
 import { Topic } from '../../../services/tuples/topic-types';
-import { generateUuid } from '../../../services/tuples/utils';
 import { useTopicEventBus } from '../topic-event-bus';
 import { TopicEventTypes } from '../topic-event-bus-types';
+import { createFactor } from '../utils';
 import { FactorButton, FactorButtonsContainer } from './widgets';
 
 export const FactorButtons = (props: { topic: Topic, factor: Factor }) => {
@@ -20,7 +20,7 @@ export const FactorButtons = (props: { topic: Topic, factor: Factor }) => {
 	};
 	const onInsertBeforeClicked = () => {
 		const index = topic.factors.indexOf(factor);
-		const newFactor = { factorId: generateUuid(), name: '', label: '', type: FactorType.TEXT };
+		const newFactor = createFactor(topic);
 		topic.factors.splice(index, 0, newFactor);
 		fire(TopicEventTypes.FACTOR_ADDED, newFactor);
 	};

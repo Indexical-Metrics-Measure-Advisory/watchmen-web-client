@@ -3,22 +3,13 @@ import TopicBackground from '../../assets/topic-background.png';
 import { TUPLE_SEARCH_PAGE_SIZE } from '../../basic-widgets/constants';
 import { QueryTopic } from '../../services/tuples/query-topic-types';
 import { fetchTopic, listTopics, saveTopic } from '../../services/tuples/topic';
-import { Topic, TopicType } from '../../services/tuples/topic-types';
-import { generateUuid } from '../../services/tuples/utils';
-import { getCurrentTime } from '../../services/utils';
+import { Topic } from '../../services/tuples/topic-types';
 import { TupleWorkbench } from '../widgets/tuple-workbench';
 import { TupleEventBusProvider, useTupleEventBus } from '../widgets/tuple-workbench/tuple-event-bus';
 import { TupleEventTypes } from '../widgets/tuple-workbench/tuple-event-bus-types';
 import { renderCard } from './card';
 import { renderEditor } from './editor';
-
-const createTopic = (): Topic => {
-	return {
-		topicId: generateUuid(), name: '', type: TopicType.DISTINCT, factors: [],
-		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
-	};
-};
+import { createTopic } from './utils';
 
 const fetchTopicAndCodes = async (queryTopic: QueryTopic) => {
 	const { topic } = await fetchTopic(queryTopic.topicId);
@@ -60,7 +51,8 @@ const AdminTopics = () => {
 	return <TupleWorkbench title='Topics'
 	                       createButtonLabel='Create Topic' canCreate={true}
 	                       searchPlaceholder='Search by topic name, factor name, description, etc.'
-	                       tupleLabel='Topic' tupleImage={TopicBackground} tupleImagePosition='left 80px' renderEditor={renderEditor}
+	                       tupleLabel='Topic' tupleImage={TopicBackground} tupleImagePosition='left 80px'
+	                       renderEditor={renderEditor}
 	                       renderCard={renderCard} getKeyOfTuple={getKeyOfTopic}
 	/>;
 };

@@ -76,4 +76,6 @@ export interface Factor {
 	label: string;
 	defaultValue?: string;
 	description?: string;
+	createTime: string;
+	lastModifyTime: string;
 }
