@@ -47,7 +47,7 @@ export const Avatar = (props: { name: string, showTooltip?: boolean }) => {
 
 	const containerRef = useRef<HTMLDivElement>(null);
 
-	const tooltip = useTooltip({
+	const tooltip = useTooltip<HTMLDivElement>({
 		use: showTooltip,
 		tooltip: name,
 		target: containerRef

@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { ICON_DELETE, ICON_ROW_PREPEND } from '../../../basic-widgets/constants';
+import { ICON_DELETE, ICON_ROW_PREPEND_ON_RIGHT } from '../../../basic-widgets/constants';
 import { ButtonInk, TooltipAlignment } from '../../../basic-widgets/types';
 import { Factor } from '../../../services/tuples/factor-types';
 import { Topic } from '../../../services/tuples/topic-types';
@@ -25,16 +25,16 @@ export const FactorButtons = (props: { topic: Topic, factor: Factor }) => {
 		fire(TopicEventTypes.FACTOR_ADDED, newFactor);
 	};
 
-	return <FactorButtonsContainer index={topic.factors.indexOf(factor)}>
+	return <FactorButtonsContainer>
+		<FactorButton tooltip={{ label: 'Prepend Factor', alignment: TooltipAlignment.CENTER }}
+		              ink={ButtonInk.PRIMARY}
+		              onClick={onInsertBeforeClicked}>
+			<FontAwesomeIcon icon={ICON_ROW_PREPEND_ON_RIGHT} rotation={270}/>
+		</FactorButton>
 		<FactorButton tooltip={{ label: 'Delete Factor', alignment: TooltipAlignment.CENTER }}
 		              ink={ButtonInk.DANGER}
 		              onClick={onFactorDeleteClicked}>
 			<FontAwesomeIcon icon={ICON_DELETE}/>
-		</FactorButton>
-		<FactorButton tooltip={{ label: 'Prepend Factor', alignment: TooltipAlignment.CENTER }}
-		              ink={ButtonInk.PRIMARY}
-		              onClick={onInsertBeforeClicked}>
-			<FontAwesomeIcon icon={ICON_ROW_PREPEND} rotation={270}/>
 		</FactorButton>
 	</FactorButtonsContainer>;
 

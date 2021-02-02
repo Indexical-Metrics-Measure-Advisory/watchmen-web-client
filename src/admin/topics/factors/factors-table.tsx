@@ -15,6 +15,7 @@ export const FactorsTable = (props: { topic: Topic }) => {
 			<FactorsTableHeaderCell>Label</FactorsTableHeaderCell>
 			<FactorsTableHeaderCell>Type</FactorsTableHeaderCell>
 			<FactorsTableHeaderCell>Default Value</FactorsTableHeaderCell>
+			<FactorsTableHeaderCell/>
 		</FactorsTableHeader>
 		<FactorsTableBody topic={topic}/>
 		<FactorsTableFooter>

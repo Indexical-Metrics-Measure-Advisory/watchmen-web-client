@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { TooltipButton } from '../../../basic-widgets/tooltip-button';
 import { TuplePropertyDropdown, TuplePropertyInput } from '../../widgets/tuple-workbench/tuple-editor';
-import { FACTORS_TABLE_ROW_HEIGHT, FACTORS_TABLE_ROW_OUTDENT } from '../factors/widgets';
+import { FACTORS_TABLE_ROW_HEIGHT } from '../factors/widgets';
 
 export const FactorCell = styled.div`
 	display     : flex;
@@ -23,38 +23,45 @@ export const FactorSerialCellContainer = styled(FactorCell).attrs({ 'data-widget
 	font-variant : petite-caps;
 	font-weight  : var(--fond-bold);
 	padding      : 0 2px;
-	&:hover + div + div + div + div + div[data-widget="factor-buttons"] {
+	&:hover + div + div + div + div + div[data-widget="factor-buttons"] > button {
 		opacity        : 1;
 		pointer-events : auto;
 	}
 `;
 
 export const FactorNameCellContainer = styled(FactorCell).attrs({ 'data-widget': 'factor-name-cell' })`
-	&:hover + div + div + div + div[data-widget="factor-buttons"] {
+	// 4px fill gap caused by vertical scroll
+	margin-right : -4px;
+	&:hover + div + div + div + div[data-widget="factor-buttons"] > button {
 		opacity        : 1;
 		pointer-events : auto;
 	}
 `;
 export const FactorLabelCellContainer = styled(FactorCell).attrs({ 'data-widget': 'factor-label-cell' })`
-	&:hover + div + div + div[data-widget="factor-buttons"] {
+	// 4px fill gap caused by vertical scroll
+	margin-left : 4px;
+	margin-right : -4px;
+	&:hover + div + div + div[data-widget="factor-buttons"] > button {
 		opacity        : 1;
 		pointer-events : auto;
 	}
 `;
 export const FactorTypeCellContainer = styled(FactorCell).attrs({ 'data-widget': 'factor-type-cell' })`
-	&:hover + div + div[data-widget="factor-buttons"] {
+	// 4px fill gap caused by vertical scroll
+	margin-left : 4px;
+	margin-right : -4px;
+	&:hover + div + div[data-widget="factor-buttons"] > button {
 		opacity        : 1;
 		pointer-events : auto;
 	}
 `;
 export const FactorDefaultValueCellContainer = styled(FactorCell).attrs({ 'data-widget': 'factor-default-value-cell' })`
+	// 4px fill gap caused by vertical scroll
+	margin-left : 4px;
 	margin-right : -4px;
-	&:hover + div[data-widget="factor-buttons"] {
+	&:hover + div[data-widget="factor-buttons"] > button {
 		opacity        : 1;
 		pointer-events : auto;
-	}
-	> input {
-		margin-right : 0;
 	}
 `;
 
@@ -98,52 +105,22 @@ export const IncorrectFactorType = styled.span`
 	text-decoration : line-through;
 `;
 
-export const FactorButtonsContainer = styled.div.attrs<{index:number}>(({index}) => {
-	return {
-		'data-widget': 'factor-buttons',
-		style: {
-			top: index * FACTORS_TABLE_ROW_HEIGHT
-		}
-	}
-})<{index:number}>`
-	display         : flex;
-	position        : absolute;
-	align-items     : center;
-	justify-content : flex-end;
-	left            : 0;
-	width           : ${FACTORS_TABLE_ROW_OUTDENT}px;
-	height          : ${FACTORS_TABLE_ROW_HEIGHT}px;
-	padding         : 0 calc(var(--margin) / 4);
-	opacity         : 0;
-	pointer-events  : none;
-	transition      : all 300ms ease-in-out;
-	&:hover {
+export const FactorButtonsContainer = styled(FactorCell).attrs({ 'data-widget': 'factor-buttons' })`
+	// 4px fill gap caused by vertical scroll
+	margin-left : 4px;
+	margin-right : -4px;
+	&:hover > button {
 		opacity        : 1;
 		pointer-events : auto;
 	}
-	//button {
-	//	width: 24px;
-	//	height: 24px;
-	//	font-size: 1em;
-	//	color: var(--invert-color);
-	//	border-radius: 12px;
-	//	&:before {
-	//		border-radius: 12px;
-	//	}
-	//	&:first-child {
-	//		background-color: var(--console-danger-color);
-	//		margin-right: calc(var(--margin) / 8);
-	//	}
-	//	&:last-child {
-	//		background-color: var(--console-primary-color);
-	//	}
-	//}
 `;
 export const FactorButton = styled(TooltipButton).attrs({ 'data-widget': 'factor-button' })`
-	width         : 24px;
-	height        : 24px;
-	padding       : 0;
-	border-radius : 100%;
+	width          : 24px;
+	height         : 24px;
+	padding        : 0;
+	border-radius  : 100%;
+	opacity        : 0;
+	pointer-events : none;
 	&:not(:first-child) {
 		margin-left : calc(var(--margin) / 4);
 	}

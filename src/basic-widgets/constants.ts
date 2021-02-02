@@ -14,7 +14,8 @@ import {
 	faExpand,
 	faGlobe,
 	faHome,
-	faInbox, faLevelDownAlt,
+	faInbox,
+	faLevelUpAlt,
 	faLink,
 	faList,
 	faPlus,
@@ -111,7 +112,7 @@ export const ICON_PRINT = faPrint;
 export const ICON_CONNECTED_SPACE_CATALOG = faRoad;
 export const ICON_CONNECTED_SPACE_RESOURCES = faDrawPolygon;
 export const ICON_UPLOAD = faUpload;
-export const ICON_ROW_PREPEND = faLevelDownAlt;
+export const ICON_ROW_PREPEND_ON_RIGHT = faLevelUpAlt;
 // export const ICON_COLLAPSE_CONTENT = faCompressArrowsAlt;
 // export const ICON_EXPAND_CONTENT = faExpandArrowsAlt;
 
