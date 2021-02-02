@@ -20,7 +20,6 @@ export enum TupleEventTypes {
 	CHANGE_TUPLE_STATE = 'change-tuple-state',
 	ASK_TUPLE_STATE = 'ask-tuple-state',
 	REPLY_TUPLE_STATE = 'replay-tuple-state',
-	CHANGE_TUPLE_IMAGE_POSITION = 'change-tuple-image-position',
 
 	DO_SAVE_TUPLE = 'do-save-tuple',
 	TUPLE_SAVED = 'tuple-saved',
@@ -61,10 +60,6 @@ export interface TupleEventBus {
 	fire(type: TupleEventTypes.TUPLE_EDIT_DONE): this;
 	on(type: TupleEventTypes.TUPLE_EDIT_DONE, listener: () => void): this;
 	off(type: TupleEventTypes.TUPLE_EDIT_DONE, listener: () => void): this;
-
-	fire(type: TupleEventTypes.CHANGE_TUPLE_IMAGE_POSITION, position: string): this;
-	on(type: TupleEventTypes.CHANGE_TUPLE_IMAGE_POSITION, listener: (position: string) => void): this;
-	off(type: TupleEventTypes.CHANGE_TUPLE_IMAGE_POSITION, listener: (position: string) => void): this;
 
 	fire<T extends Tuple>(type: TupleEventTypes.DO_SAVE_TUPLE, tuple: T): this;
 	on<T extends Tuple>(type: TupleEventTypes.DO_SAVE_TUPLE, listener: (tuple: T) => void): this;

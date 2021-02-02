@@ -1,10 +1,13 @@
 import {
 	BASE_HEIGHT,
 	BASE_MARGIN,
-	BORDER_WIDTH, BUTTON_HEIGHT_IN_FORM,
+	BORDER_WIDTH,
+	BUTTON_HEIGHT_IN_FORM,
 	BUTTON_INDENT,
-	INPUT_INDENT, PIN_FAVORITE_HEIGHT,
-	SIDE_MENU_MIN_WIDTH, TOGGLE_HEIGHT
+	INPUT_INDENT,
+	PIN_FAVORITE_HEIGHT,
+	SIDE_MENU_MIN_WIDTH,
+	TOGGLE_HEIGHT
 } from '../basic-widgets/constants';
 
 const DefaultTheme = {
@@ -50,7 +53,7 @@ const DefaultTheme = {
 
 	// border
 	borderStyle: 'solid',
-	borderColor: '#D3DCE6',
+	borderColor: 'rgb(210, 220, 230)',
 	borderWidth: BORDER_WIDTH,
 	border: `var(--border-width) var(--border-style) var(--border-color)`,
 	borderRadius: 4,
@@ -98,7 +101,10 @@ const DefaultTheme = {
 
 	// tooltip
 	tooltipBgColor: '#333333',
-	tooltipMinHeight: 20
+	tooltipMinHeight: 20,
+
+	// grid
+	gridRibBgColor: 'rgb(243,243,243)'
 };
 
 export default DefaultTheme;

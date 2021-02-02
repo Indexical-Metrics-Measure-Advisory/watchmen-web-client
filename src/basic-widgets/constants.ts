@@ -34,6 +34,7 @@ import {
 	faTimes,
 	faTools,
 	faTrashAlt,
+	faUpload,
 	faUser,
 	faUsers,
 	faWaveSquare
@@ -109,6 +110,9 @@ export const ICON_SWITCH = faRandom;
 export const ICON_PRINT = faPrint;
 export const ICON_CONNECTED_SPACE_CATALOG = faRoad;
 export const ICON_CONNECTED_SPACE_RESOURCES = faDrawPolygon;
+export const ICON_UPLOAD = faUpload;
+// export const ICON_COLLAPSE_CONTENT = faCompressArrowsAlt;
+// export const ICON_EXPAND_CONTENT = faExpandArrowsAlt;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

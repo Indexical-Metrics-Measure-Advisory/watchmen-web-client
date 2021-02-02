@@ -19,6 +19,9 @@ export const TupleEventBusProvider = (props: { children?: ((props: any) => React
 			return bus;
 		},
 		on: (type: string, listener: (...data: any) => void): TupleEventBus => {
+			if (emitter.rawListeners(type).includes(listener)) {
+				console.error(`Listener on [${type}] was added into tuple event bus, check it.`);
+			}
 			emitter.on(type, listener);
 			return bus;
 		},

@@ -138,9 +138,7 @@ export const Dropdown = (props: DropdownProps) => {
 		return () => {
 			window.removeEventListener('scroll', onScroll, true);
 		};
-		// listen scroll anyway
-		// eslint-disable-next-line
-	}, []);
+	}, [ state, options.length ]);
 
 	const onClicked = () => {
 		const { top, left, width, height } = getPosition(containerRef.current!);
@@ -175,11 +173,11 @@ export const Dropdown = (props: DropdownProps) => {
 		label = selection ? asLabel(selection) : please;
 	}
 
-	return <DropdownContainer {...rest}
-	                          active={state.active}
+	return <DropdownContainer active={state.active}
 	                          atBottom={state.atBottom}
 	                          ref={containerRef}
 	                          role='input' tabIndex={0}
+	                          {...rest}
 	                          onClick={onClicked} onBlur={onBlurred}>
 		<Label>{label}</Label>
 		<Caret icon={faCaretDown}/>

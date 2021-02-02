@@ -12,18 +12,19 @@ const AdminUsers = lazy(() => import(/* webpackChunkName: "admin-users" */ './us
 
 const AdminContainer = styled.div.attrs({ 'data-widget': 'admin' })`
 	display : flex;
-	> main {
-		flex-grow  : 1;
-		display    : flex;
-		height     : 100vh;
-		overflow-y : scroll;
-	}
+`;
+const AdminMain = styled.main.attrs({ 'data-widget': 'admin-main', 'data-v-scroll': '' })`
+	flex-grow  : 1;
+	display    : flex;
+	height     : 100vh;
+	min-height : 100vh;
+	overflow-y : scroll;
 `;
 
 const AdminIndex = () => {
 	return <AdminContainer>
 		<AdminMenu/>
-		<main data-widget='admin-main'>
+		<AdminMain>
 			<Switch>
 				<Route path={Router.ADMIN_TOPICS}><AdminTopics/></Route>
 				<Route path={Router.ADMIN_REPORTS}><AdminReports/></Route>
@@ -36,7 +37,7 @@ const AdminIndex = () => {
 					<Redirect to={Router.ADMIN_TOPICS}/>
 				</Route>
 			</Switch>
-		</main>
+		</AdminMain>
 	</AdminContainer>;
 };
 

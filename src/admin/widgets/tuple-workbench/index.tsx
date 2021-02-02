@@ -20,6 +20,7 @@ export const TupleWorkbench = <T extends Tuple, QT extends QueryTuple, HBT exten
 	// for edit
 	tupleLabel: string;
 	tupleImage: string;
+	tupleImagePosition?: string;
 	canEdit?: boolean;
 	renderEditor: (tuple: T, codes?: HBT) => ReactNode;
 }) => {
@@ -27,7 +28,7 @@ export const TupleWorkbench = <T extends Tuple, QT extends QueryTuple, HBT exten
 		title,
 		createButtonLabel, canCreate, searchPlaceholder,
 		renderCard, getKeyOfTuple,
-		tupleLabel, tupleImage, canEdit = true, renderEditor
+		tupleLabel, tupleImage, tupleImagePosition, canEdit = true, renderEditor
 	} = props;
 
 	return <FixWidthPage>
@@ -35,6 +36,7 @@ export const TupleWorkbench = <T extends Tuple, QT extends QueryTuple, HBT exten
 		<TupleWorkbenchHeader createButtonLabel={createButtonLabel} canCreate={canCreate}
 		                      searchPlaceholder={searchPlaceholder}/>
 		<TupleSearch renderCard={renderCard} getKeyOfTuple={getKeyOfTuple}/>
-		<TupleEdit tupleLabel={tupleLabel} tupleImage={tupleImage} canEdit={canEdit} renderEditor={renderEditor}/>
+		<TupleEdit tupleLabel={tupleLabel} tupleImage={tupleImage} tupleImagePosition={tupleImagePosition}
+		           canEdit={canEdit} renderEditor={renderEditor}/>
 	</FixWidthPage>;
 };

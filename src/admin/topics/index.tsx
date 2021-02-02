@@ -60,7 +60,7 @@ const AdminTopics = () => {
 	return <TupleWorkbench title='Topics'
 	                       createButtonLabel='Create Topic' canCreate={true}
 	                       searchPlaceholder='Search by topic name, factor name, description, etc.'
-	                       tupleLabel='Topic' tupleImage={TopicBackground} renderEditor={renderEditor}
+	                       tupleLabel='Topic' tupleImage={TopicBackground} tupleImagePosition='left 80px' renderEditor={renderEditor}
 	                       renderCard={renderCard} getKeyOfTuple={getKeyOfTopic}
 	/>;
 };

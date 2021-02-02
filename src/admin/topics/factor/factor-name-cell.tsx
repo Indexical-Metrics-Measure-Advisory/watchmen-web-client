@@ -1,0 +1,57 @@
+import React from 'react';
+import { useForceUpdate } from '../../../basic-widgets/utils';
+import { Factor, FactorType } from '../../../services/tuples/factor-types';
+import { Topic } from '../../../services/tuples/topic-types';
+import { useTopicEventBus } from '../topic-event-bus';
+import { TopicEventTypes } from '../topic-event-bus-types';
+import { FactorNameCellContainer, FactorPropInput } from './widgets';
+
+const findParentFactor = (topic: Topic, factor: Factor): Factor | undefined => {
+	const factorIndex = topic.factors.indexOf(factor);
+	if (factorIndex === 0) {
+		return (void 0);
+	}
+
+	for (let index = factorIndex - 1; index >= 0; index--) {
+		const f = topic.factors[index];
+		if (f.type === FactorType.OBJECT || f.type === FactorType.ARRAY) {
+			return f;
+		}
+	}
+
+	return (void 0);
+};
+
+export const FactorNameCell = (props: { topic: Topic, factor: Factor }) => {
+	const { topic, factor } = props;
+
+	const { fire } = useTopicEventBus();
+	const forceUpdate = useForceUpdate();
+
+	const onFactorNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const { value } = event.target;
+		if (value === factor.name) {
+			return;
+		}
+		if (value === '.') {
+			const parent = findParentFactor(topic, factor);
+			if (parent) {
+				const { name = '' } = parent;
+				factor.name = name.endsWith('.') ? name : `${name}.`;
+			} else {
+				factor.name = value;
+			}
+		} else {
+			factor.name = value;
+		}
+		forceUpdate();
+		fire(TopicEventTypes.FACTOR_NAME_CHANGED, factor);
+	};
+
+	const namePlaceholder = findParentFactor(topic, factor) ? 'Dot to append into nested' : (void 0);
+
+	return <FactorNameCellContainer>
+		<FactorPropInput value={factor.name || ''} onChange={onFactorNameChange}
+		                 placeholder={namePlaceholder}/>
+	</FactorNameCellContainer>;
+};

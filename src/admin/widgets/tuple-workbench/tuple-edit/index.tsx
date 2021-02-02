@@ -19,10 +19,11 @@ interface State<T, HBT> {
 export const TupleEdit = <T extends Tuple, HBT extends HoldByTuple>(props: {
 	tupleLabel: string;
 	tupleImage: string;
+	tupleImagePosition?: string;
 	canEdit: boolean;
 	renderEditor: (tuple: T, codes?: HBT) => ReactNode;
 }) => {
-	const { tupleLabel, tupleImage, canEdit, renderEditor } = props;
+	const { tupleLabel, tupleImage, tupleImagePosition, canEdit, renderEditor } = props;
 
 	const { fire: fireGlobal } = useEventBus();
 	const { once, on, off, fire } = useTupleEventBus();
@@ -92,7 +93,7 @@ export const TupleEdit = <T extends Tuple, HBT extends HoldByTuple>(props: {
 	const title = onEditing ? `An Exists ${tupleLabel}` : `A New ${tupleLabel}`;
 
 	return <TupleEditContainer visible={!!state.tuple}>
-		<TupleBackgroundImage tupleImage={tupleImage}/>
+		<TupleBackgroundImage tupleImage={tupleImage} tupleImagePosition={tupleImagePosition}/>
 		<TupleEditBody>
 			<TupleEditTitle>{title}</TupleEditTitle>
 			{state.tuple ? renderEditor(state.tuple, state.codes) : null}

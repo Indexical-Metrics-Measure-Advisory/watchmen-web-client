@@ -10,9 +10,10 @@ import {
 } from '../widgets/tuple-workbench/tuple-editor';
 import { useTupleEventBus } from '../widgets/tuple-workbench/tuple-event-bus';
 import { TupleEventTypes, TupleState } from '../widgets/tuple-workbench/tuple-event-bus-types';
+import { Factors } from './factors';
+import { TopicEventBusProvider } from './topic-event-bus';
 
 const TopicTypeOptions: Array<DropdownOption> = [
-	{ value: TopicType.NOT_DEFINED, label: 'Undefined' },
 	{ value: TopicType.RAW, label: 'Raw' },
 	{ value: TopicType.DISTINCT, label: 'Distinct' },
 	{ value: TopicType.AGGREGATE, label: 'Aggregate' },
@@ -40,8 +41,7 @@ const TopicEditor = (props: { topic: Topic }) => {
 		forceUpdate();
 	};
 
-	// TODO factors edit in topic
-	return <>
+	return <TopicEventBusProvider>
 		<TuplePropertyLabel>Topic Name:</TuplePropertyLabel>
 		<TuplePropertyInput value={topic.name || ''} onChange={onPropChange('name')}/>
 		<TuplePropertyLabel>Topic Type:</TuplePropertyLabel>
@@ -49,8 +49,8 @@ const TopicEditor = (props: { topic: Topic }) => {
 		<TuplePropertyLabel>Description:</TuplePropertyLabel>
 		<TuplePropertyInputLines value={topic.description || ''} onChange={onPropChange('description')}/>
 		<TuplePropertyLabel>Factors:</TuplePropertyLabel>
-		{/*<Factors topic={topic} onDataChanged={onChange}/>*/}
-	</>;
+		<Factors topic={topic}/>
+	</TopicEventBusProvider>;
 };
 export const renderEditor = (topic: Topic) => {
 	return <TopicEditor topic={topic}/>;

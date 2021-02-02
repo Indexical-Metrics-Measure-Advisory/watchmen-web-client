@@ -25,6 +25,9 @@ const AnInput = styled.input.attrs<{ autoSelect: boolean }>(({ autoSelect, onFoc
 	outline          : none;
 	font-family      : var(--font-family);
 	font-size        : var(--font-size);
+	white-space      : nowrap;
+	overflow         : hidden;
+	text-overflow    : ellipsis;
 	transition       : all 300ms ease-in-out;
 `;
 

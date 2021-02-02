@@ -73,5 +73,6 @@ export interface Factor {
 	name: string;
 	type: FactorType;
 	label: string;
+	defaultValue?: string;
 	description?: string;
 }

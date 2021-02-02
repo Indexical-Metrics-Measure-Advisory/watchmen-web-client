@@ -15,6 +15,9 @@ export const TupleItemPickerEventBusProvider = (props: { children?: ((props: any
 			return bus;
 		},
 		on: (type: string, listener: (...data: any) => void): TupleItemPickerEventBus => {
+			if (emitter.rawListeners(type).includes(listener)) {
+				console.error(`Listener on [${type}] was added into tuple item picker event bus, check it.`);
+			}
 			emitter.on(type, listener);
 			return bus;
 		},

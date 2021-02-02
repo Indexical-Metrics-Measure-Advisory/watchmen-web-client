@@ -19,6 +19,9 @@ export const EventBusProvider = (props: { children?: ((props: any) => React.Reac
 			return bus;
 		},
 		on: (type: string, listener: (...data: any) => void): EventBus => {
+			if (emitter.rawListeners(type).includes(listener)) {
+				console.error(`Listener on [${type}] was added into event bus, check it.`);
+			}
 			emitter.on(type, listener);
 			return bus;
 		},

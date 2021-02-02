@@ -1,0 +1,11 @@
+[
+	{
+		"textFactor": "hello world"
+	},
+	{
+		"numberFactor": 10000
+	},
+	{
+		"booleanFactor": true
+	}
+]
