@@ -5,14 +5,29 @@ export enum FactorType {
 	UNSIGNED = 'unsigned',              // 0 & positive
 
 	TEXT = 'text',
+
+	// address
 	ADDRESS = 'address',
+	CONTINENT = 'continent',
+	REGION = 'region',
+	COUNTRY = 'country',
+	PROVINCE = 'province',
+	CITY = 'city',
+	DISTRICT = 'district',
+	ROAD = 'road',
+	COMMUNITY = 'community',
+	FLOOR = 'floor',
+	RESIDENCE_TYPE = 'residence-type',
+	RESIDENTIAL_AREA = 'residential-area',
+
+	// contact electronic
 	EMAIL = 'email',
 	PHONE = 'phone',
 	MOBILE = 'mobile',
 	FAX = 'fax',
 
+	// date time related
 	DATETIME = 'datetime',              // YYYY-MM-DD HH:mm:ss
-	DATE_OF_BIRTH = 'date-of-birth',    // YYYY-MM-DD
 	DATE = 'date',                      // YYYY-MM-DD
 	TIME = 'time',                      // HH:mm:ss
 	YEAR = 'year',                      // 4 digits
@@ -32,6 +47,18 @@ export enum FactorType {
 	MINUTE = 'minute',                  // 0 - 59
 	SECOND = 'second',                  // 0 - 59
 	AM_PM = 'am-pm',                    // 0, 1
+
+	// individual
+	GENDER = 'gender',
+	OCCUPATION = 'occupation',
+	DATE_OF_BIRTH = 'date-of-birth',    // YYYY-MM-DD
+	AGE = 'age',
+	RELIGION = 'religion',
+	NATIONALITY = 'nationality',
+
+	// organization
+	TRADE = 'trade',
+	SCALE = 'scale',
 
 	BOOLEAN = 'boolean',
 
