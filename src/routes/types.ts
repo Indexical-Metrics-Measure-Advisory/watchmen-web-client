@@ -16,7 +16,6 @@ export enum Router {
 	CONSOLE_CONNECTED_SPACE = '/console/space/connected/:connectId',
 	CONSOLE_CONNECTED_SPACE_OVERALL = '/console/space/connected/:connectId/overall',
 	CONSOLE_CONNECTED_SPACE_RESOURCES = '/console/space/connected/:connectId/resources',
-	CONSOLE_CONNECTED_SPACE_GROUP = '/console/space/connected/:connectId/group/:groupId',
 	CONSOLE_CONNECTED_SPACE_SUBJECT = '/console/space/connected/:connectId/subject/:subjectId',
 	CONSOLE_NOTIFICATION = '/console/notification',
 	CONSOLE_MAIL = '/console/mail',

@@ -81,7 +81,6 @@ const ConsoleRouter = () => {
 					<Route path={Router.CONSOLE_HOME}><ConsoleHome/></Route>
 					<Route path={Router.CONSOLE_CONNECTED_SPACE}><ConsoleConnectedSpace/></Route>
 					<Route path={Router.CONSOLE_DASHBOARD}><ConsoleDashboard/></Route>
-					{/*		<Route path={Router.CONSOLE_SPACES}><AvailableSpaces/></Route>*/}
 					{/*		<Route path={Router.CONSOLE_INBOX}><Inbox/></Route>*/}
 					{/*		<Route path={Router.CONSOLE_NOTIFICATION}><Notification/></Route>*/}
 					{/*		<Route path={Router.CONSOLE_TIMELINE}><Timeline/></Route>*/}
