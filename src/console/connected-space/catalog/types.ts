@@ -1,3 +1,4 @@
+import { Subject } from '../../../services/tuples/subject-types';
 import { Topic } from '../../../services/tuples/topic-types';
 
 export enum GraphicsRole {
@@ -7,6 +8,10 @@ export enum GraphicsRole {
 	TOPIC_RELATION = 'topic-relation',
 	TOPIC_RELATION_LINK = 'topic-relation-link',
 	TOPIC_SELECTION = 'topic-selection',
+
+	SUBJECT = 'subject',
+	SUBJECT_FRAME = 'subject-frame',
+	SUBJECT_NAME = 'subject-name'
 }
 
 export interface GraphicsPosition {
@@ -19,26 +24,34 @@ export interface GraphicsSize {
 	height: number;
 }
 
-export interface TopicCoordinate extends GraphicsPosition {
+export interface BlockCoordinate extends GraphicsPosition {
 }
 
-export interface TopicFrame extends GraphicsPosition, GraphicsSize {
+export interface BlockFrame extends GraphicsPosition, GraphicsSize {
 }
 
-export interface TopicName extends GraphicsPosition {
+export interface BlockName extends GraphicsPosition {
 }
 
-export interface TopicGraphics {
-	topic: Topic;
+export interface FrameGraphics {
 	rect: {
-		coordinate: TopicCoordinate;
-		frame: TopicFrame;
-		name: TopicName
+		coordinate: BlockCoordinate;
+		frame: BlockFrame;
+		name: BlockName
 	}
+}
+
+export interface TopicGraphics extends FrameGraphics {
+	topic: Topic;
+}
+
+export interface SubjectGraphics extends FrameGraphics {
+	subject: Subject,
 }
 
 export interface ConnectedSpaceGraphics {
 	topics: Array<TopicGraphics>;
+	subjects: Array<SubjectGraphics>;
 	// topicRelations: Array<TopicRelationGraphics>;
 	// topicSelection: TopicSelectionGraphics
 }

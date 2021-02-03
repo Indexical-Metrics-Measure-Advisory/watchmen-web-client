@@ -15,6 +15,7 @@ export const CatalogSvgContainer = styled.div.attrs({
 })`
 	display   : block;
 	flex-grow : 1;
+	overflow  : scroll;
 `;
 export const CatalogSvg = styled.svg.attrs({ 'data-widget': 'connected-space-catalog-svg' })`
 	display    : block;

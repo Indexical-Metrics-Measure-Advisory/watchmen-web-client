@@ -3,12 +3,12 @@ import { useForceUpdate } from '../../../../basic-widgets/utils';
 import { findSvgRoot } from '../../../utils/in-svg';
 import { useCatalogEventBus } from '../catalog-event-bus';
 import { CatalogEventTypes } from '../catalog-event-bus-types';
-import { GraphicsRole, TopicGraphics } from '../types';
-import { TopicBlock, TopicContainer, TopicNameText } from './widgets';
+import { GraphicsRole, SubjectGraphics } from '../types';
+import { SubjectBlock, SubjectContainer, SubjectNameText } from './widgets';
 
-export const TopicRect = (props: { topic: TopicGraphics }) => {
-	const { topic: topicGraphics } = props;
-	const { topic, rect } = topicGraphics;
+export const SubjectRect = (props: { subject: SubjectGraphics }) => {
+	const { subject: subjectGraphics } = props;
+	const { subject, rect } = subjectGraphics;
 	const { coordinate, frame: frameRect, name: namePos } = rect;
 
 	const { fire } = useCatalogEventBus();
@@ -22,7 +22,7 @@ export const TopicRect = (props: { topic: TopicGraphics }) => {
 			const onMove = ({ clientX: x, clientY: y }: MouseEvent) => {
 				rect.coordinate = { x: x - offsetX, y: y - offsetY };
 				forceUpdate();
-				fire(CatalogEventTypes.TOPIC_MOVED, topic);
+				fire(CatalogEventTypes.SUBJECT_MOVED, subject);
 			};
 			const root = findSvgRoot(event.target as SVGGraphicsElement);
 			const onEnd = () => {
@@ -38,14 +38,14 @@ export const TopicRect = (props: { topic: TopicGraphics }) => {
 		}
 	};
 
-	return <TopicContainer onMouseDown={onMouseDown} coordinate={coordinate}
-	                       data-topic-id={topic.topicId}
-	                       data-role={GraphicsRole.TOPIC}>
-		<TopicBlock frame={frameRect} dnd={dnd}
-		            data-topic-id={topic.topicId}
-		            data-role={GraphicsRole.TOPIC_FRAME}/>
-		<TopicNameText pos={namePos} dnd={dnd} data-role={GraphicsRole.TOPIC_NAME}>
-			{topic.name}
-		</TopicNameText>
-	</TopicContainer>;
+	return <SubjectContainer onMouseDown={onMouseDown} coordinate={coordinate}
+	                         data-subject-id={subject.subjectId}
+	                         data-role={GraphicsRole.SUBJECT}>
+		<SubjectBlock frame={frameRect} dnd={dnd}
+		              data-subject-id={subject.subjectId}
+		              data-role={GraphicsRole.SUBJECT_FRAME}/>
+		<SubjectNameText pos={namePos} dnd={dnd} data-role={GraphicsRole.SUBJECT_NAME}>
+			{subject.name}
+		</SubjectNameText>
+	</SubjectContainer>;
 };
