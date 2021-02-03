@@ -7,8 +7,8 @@ export const BLOCK_FULL_PADDING_HORIZONTAL = BLOCK_PADDING_HORIZONTAL * 2;
 export const BLOCK_NAME_OFFSET_Y = 6.2;
 export const BLOCK_GAP_HORIZONTAL = 32 * 10;
 export const BLOCK_GAP_VERTICAL = 32;
-export const BLOCK_TOP_INIT = 32;
-export const BLOCK_LEFT_INIT = 32;
+export const BLOCK_MARGIN_HORIZONTAL = 32;
+export const BLOCK_MARGIN_VERTICAL = 32;
 
 export const SELECTION_GAP = 6;
 export const SELECTION_FULL_GAP = SELECTION_GAP * 2;

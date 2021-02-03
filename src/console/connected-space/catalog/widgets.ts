@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { GraphicsSize } from './types';
 
 export const CatalogContainer = styled.div.attrs({ 'data-widget': 'connected-space-catalog' })`
 	display          : flex;
@@ -19,19 +18,14 @@ export const CatalogSvgContainer = styled.div.attrs({
 	flex-grow : 1;
 	overflow  : scroll;
 `;
-export const CatalogSvgWrapper = styled.div.attrs<Partial<GraphicsSize>>(
-	({ width, height }) => {
-		return {
-			'data-widget': 'connected-space-catalog-svg-wrapper',
-			style: { width, height }
-		};
-	})<Partial<GraphicsSize>>`
-	display    : flex;
-	position   : relative;
+export const CatalogSvg = styled.svg.attrs({ 'data-widget': 'connected-space-catalog-svg' })`
+	display    : block;
 	min-width  : 100%;
 	min-height : 100%;
 `;
-export const CatalogSvg = styled.svg.attrs({ 'data-widget': 'connected-space-catalog-svg' })`
-	display   : block;
-	flex-grow : 1;
+export const CatalogSvgRelationsAnimationContainer = styled.div.attrs({ 'data-widget': 'connected-space-catalog-relations-animation' })`
+	display  : flex;
+	position : absolute;
+	top      : 0;
+	left     : 0;
 `;

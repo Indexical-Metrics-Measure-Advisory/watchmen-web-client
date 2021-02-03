@@ -6,9 +6,9 @@ import {
 	BLOCK_GAP_HORIZONTAL,
 	BLOCK_GAP_VERTICAL,
 	BLOCK_HEIGHT_MIN,
-	BLOCK_LEFT_INIT,
+	BLOCK_MARGIN_HORIZONTAL,
 	BLOCK_NAME_OFFSET_Y,
-	BLOCK_TOP_INIT,
+	BLOCK_MARGIN_VERTICAL,
 	BLOCK_WIDTH_MIN,
 	SELECTION_FULL_GAP,
 	SELECTION_GAP
@@ -103,17 +103,17 @@ const computeTopicsGraphics = (graphics: ConnectedSpaceGraphics, svg: SVGSVGElem
 	Array.from(topicMap.values())
 		.sort((t1, t2) => t1.topic.name.toLowerCase().localeCompare(t2.topic.name.toLowerCase()))
 		.reduce((top, topicGraphics) => {
-			topicGraphics.rect.coordinate = { x: BLOCK_LEFT_INIT, y: top };
+			topicGraphics.rect.coordinate = { x: BLOCK_MARGIN_HORIZONTAL, y: top };
 			top += topicGraphics.rect.frame.height + BLOCK_GAP_VERTICAL;
 			return top;
-		}, BLOCK_TOP_INIT);
+		}, BLOCK_MARGIN_VERTICAL);
 	return topicMap;
 };
 
 const computeSubjectGraphics = (graphics: ConnectedSpaceGraphics, svg: SVGSVGElement) => {
 	const leftX = graphics.topics.reduce((right, topicGraphics) => {
 		return Math.max(right, topicGraphics.rect.frame.x + topicGraphics.rect.frame.width);
-	}, BLOCK_LEFT_INIT) + BLOCK_GAP_HORIZONTAL;
+	}, BLOCK_MARGIN_HORIZONTAL) + BLOCK_GAP_HORIZONTAL;
 
 	// compute subject size
 	const subjectMap: Map<string, SubjectGraphics> = asSubjectGraphicsMap(graphics);
@@ -131,7 +131,7 @@ const computeSubjectGraphics = (graphics: ConnectedSpaceGraphics, svg: SVGSVGEle
 			subjectGraphics.rect.coordinate = { x: leftX, y: top };
 			top += subjectGraphics.rect.frame.height + BLOCK_GAP_VERTICAL;
 			return top;
-		}, BLOCK_TOP_INIT);
+		}, BLOCK_MARGIN_VERTICAL);
 	return subjectMap;
 };
 
@@ -152,8 +152,8 @@ export const computeGraphics = (options: {
 		(size, frameGraphics) => {
 			const { coordinate: { x, y }, frame: { width, height } } = frameGraphics.rect;
 			return { width: Math.max(size.width, x + width), height: Math.max(size.height, y + height) };
-		}, { width: svgWidth - BLOCK_LEFT_INIT, height: svgHeight - BLOCK_TOP_INIT });
-	return { width: width + BLOCK_LEFT_INIT, height: height + BLOCK_TOP_INIT };
+		}, { width: svgWidth - BLOCK_MARGIN_HORIZONTAL, height: svgHeight - BLOCK_MARGIN_VERTICAL });
+	return { width: width + BLOCK_MARGIN_HORIZONTAL, height: height + BLOCK_MARGIN_VERTICAL };
 };
 
 export const computeTopicSelection = (options: { topicId: string; graphics: ConnectedSpaceGraphics }) => {
