@@ -14,6 +14,7 @@ import { ConsoleEventTypes } from '../../console-event-bus-types';
 import { CatalogEventBusProvider, useCatalogEventBus } from './catalog-event-bus';
 import { CatalogEventTypes } from './catalog-event-bus-types';
 import { asSubjectGraphicsMap, asTopicGraphicsMap, computeGraphics, createInitGraphics } from './graphics-utils';
+import { BlockRelations } from './relation/block-relations';
 import { BlockSelection } from './selection';
 import { SubjectRect } from './subject/subject-rect';
 import { TopicRect } from './topic/topic-rect';
@@ -130,6 +131,7 @@ const CatalogFrame = (props: { connectedSpace: ConnectedSpace }) => {
 	return <CatalogContainer>
 		<CatalogSvgContainer ref={svgContainerRef}>
 			<CatalogSvg onMouseDown={onSvgMouseDown} {...svgSize} ref={svgRef}>
+				<BlockRelations graphics={data.graphics}/>
 				{data.topics.map(topic => {
 					const topicGraphics = topicGraphicsMap.get(topic.topicId)!;
 					return <TopicRect topic={topicGraphics} key={topic.topicId}/>;

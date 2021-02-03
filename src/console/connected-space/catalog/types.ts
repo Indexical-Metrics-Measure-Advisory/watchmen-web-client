@@ -5,13 +5,15 @@ export enum GraphicsRole {
 	TOPIC = 'topic',
 	TOPIC_FRAME = 'topic-frame',
 	TOPIC_NAME = 'topic-name',
-	TOPIC_RELATION = 'topic-relation',
-	TOPIC_RELATION_LINK = 'topic-relation-link',
-	TOPIC_SELECTION = 'topic-selection',
 
 	SUBJECT = 'subject',
 	SUBJECT_FRAME = 'subject-frame',
-	SUBJECT_NAME = 'subject-name'
+	SUBJECT_NAME = 'subject-name',
+
+	BLOCK_SELECTION = 'block-selection',
+
+	SUBJECT_TOPIC_RELATION = 'subject-topic-relation',
+	SUBJECT_TOPIC_RELATION_LINK = 'subject-topic-relation-link'
 }
 
 export interface GraphicsPosition {
@@ -52,6 +54,8 @@ export interface SubjectGraphics extends FrameGraphics {
 export interface ConnectedSpaceGraphics {
 	topics: Array<TopicGraphics>;
 	subjects: Array<SubjectGraphics>;
-	// topicRelations: Array<TopicRelationGraphics>;
-	// topicSelection: TopicSelectionGraphics
+}
+
+export interface RelationCurvePoints {
+	drawn: string;
 }

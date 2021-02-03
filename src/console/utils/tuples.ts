@@ -35,6 +35,11 @@ export const createSubject = (name?: string): Subject => {
 	return {
 		subjectId,
 		name: name || `${getCurrentLanguage().PLAIN.NEW_SUBJECT_NAME} ${btoa(subjectId).substr(0, 12)}`,
+		dataset: {
+			filters: [],
+			columns: [],
+			joins: []
+		},
 		lastVisitTime: getCurrentTime(),
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()

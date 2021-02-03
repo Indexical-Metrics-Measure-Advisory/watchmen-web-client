@@ -21,20 +21,22 @@ export const fetchMockConnectedSpaces = async (): Promise<Array<ConnectedSpace>>
 				{
 					subjectId: '1',
 					name: 'Premium Summary',
-					// dataset: {
-					// 	columns: [
-					// 		{ topicId: '1', factorId: '102' },
-					// 		{ topicId: '1', factorId: '103' },
-					// 		{ topicId: '1', factorId: '106' },
-					// 		{ topicId: '2', factorId: '204' },
-					// 		{ topicId: '2', factorId: '205' },
-					// 		{ topicId: '2', factorId: '207' },
-					// 		{ topicId: '3', factorId: '304' },
-					// 		{ topicId: '3', factorId: '305' },
-					// 		{ topicId: '3', factorId: '306' },
-					// 		{ topicId: '3', factorId: '307' }
-					// 	]
-					// },
+					dataset: {
+						filters: [],
+						columns: [
+							{ topicId: '1', factorId: '102' },
+							{ topicId: '1', factorId: '103' },
+							{ topicId: '1', factorId: '106' },
+							{ topicId: '2', factorId: '204' },
+							{ topicId: '2', factorId: '205' },
+							{ topicId: '2', factorId: '207' },
+							{ topicId: '3', factorId: '304' },
+							{ topicId: '3', factorId: '305' },
+							{ topicId: '3', factorId: '306' },
+							{ topicId: '3', factorId: '307' }
+						],
+						joins: []
+					},
 					lastVisitTime: '2020/11/12 20:20:01',
 					createTime: getCurrentTime(),
 					lastModifyTime: getCurrentTime()
@@ -42,6 +44,11 @@ export const fetchMockConnectedSpaces = async (): Promise<Array<ConnectedSpace>>
 				{
 					subjectId: '2',
 					name: 'District Summary',
+					dataset: {
+						filters: [],
+						columns: [],
+						joins: []
+					},
 					lastVisitTime: '2020/11/02 20:25:01',
 					createTime: getCurrentTime(),
 					lastModifyTime: getCurrentTime()

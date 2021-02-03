@@ -78,7 +78,7 @@ export const BlockSelection = (props: { graphics: ConnectedSpaceGraphics }) => {
 		};
 	}, [ on, off, graphics, selection.topic, selection.subject ]);
 
-	return <Container data-role={GraphicsRole.TOPIC_SELECTION} visible={selection.visible}>
+	return <Container data-role={GraphicsRole.BLOCK_SELECTION} visible={selection.visible}>
 		<Rect rect={selection.rect}/>
 	</Container>;
 
