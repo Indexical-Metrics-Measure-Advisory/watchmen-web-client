@@ -9,7 +9,7 @@ export const SubjectBlock = styled.rect.attrs<{ frame: BlockFrame, dnd: boolean 
 	({ frame: { x, y, width, height }, dnd }) => {
 		return { x, y, width, height, rx: 6, ry: 6, cursor: dnd ? 'move' : 'pointer' };
 	})<{ frame: BlockFrame, dnd: boolean }>`
-	stroke       : var(--primary-color);
+	stroke       : var(--warn-color);
 	stroke-width : 2px;
 	fill         : var(--invert-color);
 `;
