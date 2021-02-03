@@ -20,7 +20,7 @@ import { BlockSelection } from './selection';
 import { SubjectRect } from './subject/subject-rect';
 import { TopicRect } from './topic/topic-rect';
 import { ConnectedSpaceGraphics, GraphicsRole, GraphicsSize, SubjectGraphics, TopicGraphics } from './types';
-import { CatalogContainer, CatalogSvg, CatalogSvgContainer } from './widgets';
+import { CatalogContainer, CatalogSvg, CatalogSvgContainer, CatalogSvgWrapper } from './widgets';
 
 interface CatalogData {
 	initialized: boolean;
@@ -131,19 +131,21 @@ const CatalogFrame = (props: { connectedSpace: ConnectedSpace }) => {
 
 	return <CatalogContainer>
 		<CatalogSvgContainer ref={svgContainerRef}>
-			<CatalogSvg onMouseDown={onSvgMouseDown} {...svgSize} ref={svgRef}>
-				<BlockRelations graphics={data.graphics}/>
-				{data.topics.map(topic => {
-					const topicGraphics = topicGraphicsMap.get(topic.topicId)!;
-					return <TopicRect topic={topicGraphics} key={topic.topicId}/>;
-				})}
-				{connectedSpace.subjects.map(subject => {
-					const subjectGraphics = subjectGraphicsMap.get(subject.subjectId)!;
-					return <SubjectRect subject={subjectGraphics} key={subject.subjectId}/>;
-				})}
-				<BlockSelection graphics={data.graphics}/>
-			</CatalogSvg>
-			<BlockRelationsAnimation graphics={data.graphics}/>;
+			<CatalogSvgWrapper {...svgSize}>
+				<CatalogSvg onMouseDown={onSvgMouseDown} ref={svgRef}>
+					<BlockRelations graphics={data.graphics}/>
+					{data.topics.map(topic => {
+						const topicGraphics = topicGraphicsMap.get(topic.topicId)!;
+						return <TopicRect topic={topicGraphics} key={topic.topicId}/>;
+					})}
+					{connectedSpace.subjects.map(subject => {
+						const subjectGraphics = subjectGraphicsMap.get(subject.subjectId)!;
+						return <SubjectRect subject={subjectGraphics} key={subject.subjectId}/>;
+					})}
+					<BlockSelection graphics={data.graphics}/>
+				</CatalogSvg>
+				<BlockRelationsAnimation graphics={data.graphics}/>
+			</CatalogSvgWrapper>
 		</CatalogSvgContainer>
 	</CatalogContainer>;
 };
