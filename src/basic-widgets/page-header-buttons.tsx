@@ -4,6 +4,7 @@ import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { Button } from './button';
 import { TOOLTIP_Z_INDEX } from './constants';
+import { ButtonInk } from './types';
 
 const PageHeaderButtonsContainer = styled.div.attrs({ 'data-widget': 'page-header-buttons' })`
 	display     : flex;
@@ -36,6 +37,9 @@ const PageHeaderBtn = styled(Button).attrs({ 'data-widget': 'page-header-button'
 			opacity : 1;
 		}
 	}
+	&[data-ink=primary]:hover {
+		color         : var(--invert-color);
+	}
 `;
 
 const PageHeaderButtonTooltip = styled.div.attrs({ 'data-widget': 'page-header-button-tooltip' })`
@@ -60,16 +64,21 @@ const PageHeaderButtonTooltip = styled.div.attrs({ 'data-widget': 'page-header-b
 	z-index          : ${TOOLTIP_Z_INDEX};
 `;
 const PageHeaderButtonTooltipCaret = styled(FontAwesomeIcon).attrs({ 'data-widget': 'page-header-button-tooltip-caret' })`
-	display   : block;
-	position  : absolute;
-	color     : var(--tooltip-bg-color);
-	top       : calc(100% - 6px);
-	opacity   : 0;
+	display  : block;
+	position : absolute;
+	color    : var(--tooltip-bg-color);
+	top      : calc(100% - 6px);
+	opacity  : 0;
 `;
-export const PageHeaderButton = (props: { tooltip: string, onClick: () => void, children?: ((props: any) => ReactNode) | ReactNode }) => {
-	const { tooltip, onClick, children, ...rest } = props;
+export const PageHeaderButton = (props: {
+	tooltip: string,
+	ink?: ButtonInk;
+	onClick: () => void,
+	children?: ((props: any) => ReactNode) | ReactNode
+}) => {
+	const { tooltip, ink, onClick, children, ...rest } = props;
 
-	return <PageHeaderBtn {...rest} onClick={onClick}>
+	return <PageHeaderBtn {...rest} ink={ink} onClick={onClick}>
 		<PageHeaderButtonTooltip>
 			{tooltip}
 		</PageHeaderButtonTooltip>

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button } from '../../../../basic-widgets/button';
 
 export const TopicNavigatorContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
 	return {
@@ -18,13 +19,21 @@ export const TopicNavigatorContainer = styled.div.attrs<{ visible: boolean }>(({
 	transition       : margin-right 300ms ease-in-out;
 `;
 
-export const TopicNavigatorHeader = styled.div`
+export const TopicNavigatorHeader = styled.div.attrs({ 'data-widget': 'topic-navigator-header' })`
 	display         : flex;
 	height          : var(--header-height);
 	align-items     : center;
 	justify-content : space-between;
-	padding         : 0 calc(var(--margin) / 2);
+	padding         : 0 calc(var(--margin) / 4) 0 calc(var(--margin) / 2);
 	border-bottom   : var(--border);
 	font-family     : var(--title-font-family);
 	font-size       : 1.2em;
+`;
+export const TopicNavigatorHeaderTitle = styled.div.attrs({ 'data-widget': 'topic-navigator-header-title' })`
+	flex-grow: 1;
+`;
+export const TopicNavigatorHeaderCloseButton = styled(Button).attrs({ 'data-widget': 'topic-navigator-header-close' })`
+	padding: 0;
+	width: var(--height);
+	height: var(--height);
 `;
