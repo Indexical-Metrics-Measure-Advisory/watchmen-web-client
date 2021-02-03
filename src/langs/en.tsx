@@ -13,7 +13,8 @@ export const En = {
 		NEW_DASHBOARD_NAME: 'Dashboard',
 		DEFAULT_DASHBOARD_NAME: 'Dashboard',
 		NEW_CONNECTED_SPACE_NAME: 'Connected Space',
-		DEFAULT_CONNECTED_SPACE_NAME: 'Connected Space'
+		DEFAULT_CONNECTED_SPACE_NAME: 'Connected Space',
+		NEW_SUBJECT_NAME: 'Subject'
 	},
 	ERROR: {
 		UNPREDICTED: 'Unpredicted error occurred, contact administrator for more information.'

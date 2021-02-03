@@ -1,14 +1,13 @@
-import React, { lazy } from 'react';
+import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { Router } from '../routes/types';
 import { AdminMenu } from './menu';
-
-const AdminTopics = lazy(() => import(/* webpackChunkName: "admin-topics" */ './topics'));
-const AdminReports = lazy(() => import(/* webpackChunkName: "admin-reports" */ './reports'));
-const AdminSpaces = lazy(() => import(/* webpackChunkName: "admin-spaces" */ './spaces'));
-const AdminUserGroups = lazy(() => import(/* webpackChunkName: "admin-user-groups" */ './user-groups'));
-const AdminUsers = lazy(() => import(/* webpackChunkName: "admin-users" */ './users'));
+import AdminReports from './reports';
+import AdminSpaces from './spaces';
+import AdminTopics from './topics';
+import AdminUserGroups from './user-groups';
+import AdminUsers from './users';
 
 const AdminContainer = styled.div.attrs({ 'data-widget': 'admin' })`
 	display : flex;

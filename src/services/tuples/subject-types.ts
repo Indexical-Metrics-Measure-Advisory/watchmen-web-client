@@ -1,6 +1,6 @@
 import { Tuple } from './tuple-types';
 
-export interface Subject extends Tuple{
+export interface Subject extends Tuple {
 	subjectId: string;
 	name: string;
 	lastVisitTime: string;

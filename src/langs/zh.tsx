@@ -11,7 +11,8 @@ export const Zh = {
 		NEW_DASHBOARD_NAME: '仪表盘',
 		DEFAULT_DASHBOARD_NAME: '仪表盘',
 		NEW_CONNECTED_SPACE_NAME: '工作空间',
-		DEFAULT_CONNECTED_SPACE_NAME: '工作空间'
+		DEFAULT_CONNECTED_SPACE_NAME: '工作空间',
+		NEW_SUBJECT_NAME: '主题'
 	},
 	ERROR: {
 		UNPREDICTED: '发生不可预测的错误, 请联系管理员以获取帮助.'

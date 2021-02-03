@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { AlertLabel } from '../../alert/widgets';
-import { VerticalMarginOneUnit } from '../../basic-widgets/margin';
 import { FullWidthPage } from '../../basic-widgets/page';
 import { PageHeaderHolder } from '../../basic-widgets/page-header';
 import { useEventBus } from '../../events/event-bus';
@@ -12,8 +11,10 @@ import { toConnectedSpace } from '../../routes/utils';
 import { ConnectedSpace } from '../../services/tuples/connected-space-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
-import { HeaderButtons } from './header-buttons';
-import { HeaderNameEditor } from './header-name-editor';
+import { BodyRouter } from './body-router';
+import { ConnectedSpaceEventBusProvider } from './connected-space-event-bus';
+import { HeaderButtons } from './header/header-buttons';
+import { HeaderNameEditor } from './header/header-name-editor';
 
 const ConsoleConnectedSpaceIndex = () => {
 	const { connectId: connectedSpaceId } = useParams<{ connectId: string }>();
@@ -67,13 +68,15 @@ const ConsoleConnectedSpaceIndex = () => {
 		return null;
 	}
 
-	return <FullWidthPage>
-		<PageHeaderHolder>
-			<HeaderNameEditor connectedSpace={connectedSpace}/>
-			<HeaderButtons connectedSpace={connectedSpace}/>
-		</PageHeaderHolder>
-		<VerticalMarginOneUnit/>
-	</FullWidthPage>;
+	return <ConnectedSpaceEventBusProvider>
+		<FullWidthPage>
+			<PageHeaderHolder>
+				<HeaderNameEditor connectedSpace={connectedSpace}/>
+				<HeaderButtons connectedSpace={connectedSpace}/>
+			</PageHeaderHolder>
+			<BodyRouter connectedSpace={connectedSpace}/>
+		</FullWidthPage>
+	</ConnectedSpaceEventBusProvider>;
 };
 
 export default ConsoleConnectedSpaceIndex;

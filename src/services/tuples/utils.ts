@@ -3,6 +3,7 @@ import { ConnectedSpace } from './connected-space-types';
 import { Dashboard } from './dashboard-types';
 import { Report } from './report-types';
 import { Space } from './space-types';
+import { Subject } from './subject-types';
 import { Topic } from './topic-types';
 import { Tuple } from './tuple-types';
 import { UserGroup } from './user-group-types';
@@ -35,6 +36,9 @@ const isDashboard = (tuple: Tuple): tuple is Dashboard => {
 const isConnectedSpace = (tuple: Tuple): tuple is ConnectedSpace => {
 	return !!(tuple as any).connectId;
 };
+const isSubject = (tuple: Tuple): tuple is Subject => {
+	return !!(tuple as any).subjectId;
+};
 
 export const generateUuid = (): string => `${FAKE_ID_PREFIX}${v4().replace(/-/g, '')}`;
 export const isFakedUuid = (tuple: Tuple): boolean => {
@@ -54,6 +58,8 @@ export const isFakedUuid = (tuple: Tuple): boolean => {
 		return tuple.userId.startsWith(FAKE_ID_PREFIX);
 	} else if (isDashboard(tuple)) {
 		return tuple.dashboardId.startsWith(FAKE_ID_PREFIX);
+	} else if (isSubject(tuple)) {
+		return tuple.subjectId.startsWith(FAKE_ID_PREFIX);
 	}
 
 	console.groupCollapsed('Unsupported tuple type');
