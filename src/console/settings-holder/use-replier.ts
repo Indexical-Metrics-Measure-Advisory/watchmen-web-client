@@ -27,7 +27,10 @@ export const useReplier = (options: {
 		};
 		const onAskAvailableSpaces = () => {
 			fire(ConsoleEventTypes.REPLY_AVAILABLE_SPACES, holdSettings.availableSpaces);
-		}
+		};
+		const onAskAvailableTopics = () => {
+			fire(ConsoleEventTypes.REPLY_AVAILABLE_TOPICS, holdSettings.availableTopics);
+		};
 
 		on(ConsoleEventTypes.ASK_SETTINGS_LOADED, onAskSettingsLoaded);
 
@@ -37,6 +40,7 @@ export const useReplier = (options: {
 		on(ConsoleEventTypes.ASK_CONNECTED_SPACES, onAskConnectedSpaces);
 		on(ConsoleEventTypes.ASK_DASHBOARDS, onAskDashboards);
 		on(ConsoleEventTypes.ASK_AVAILABLE_SPACES, onAskAvailableSpaces);
+		on(ConsoleEventTypes.ASK_AVAILABLE_TOPICS, onAskAvailableTopics);
 		return () => {
 			off(ConsoleEventTypes.ASK_SETTINGS_LOADED, onAskSettingsLoaded);
 
@@ -46,12 +50,14 @@ export const useReplier = (options: {
 			off(ConsoleEventTypes.ASK_CONNECTED_SPACES, onAskConnectedSpaces);
 			off(ConsoleEventTypes.ASK_DASHBOARDS, onAskDashboards);
 			off(ConsoleEventTypes.ASK_AVAILABLE_SPACES, onAskAvailableSpaces);
+			off(ConsoleEventTypes.ASK_AVAILABLE_TOPICS, onAskAvailableTopics);
 		};
 	}, [
 		on, off, fire,
 		holdSettings.initialized,
 		holdSettings.lastSnapshot, holdSettings.favorite,
 		holdSettings.connectedSpaces, holdSettings.dashboards,
-		holdSettings.availableSpaces
+		holdSettings.availableSpaces,
+		holdSettings.availableTopics
 	]);
 };

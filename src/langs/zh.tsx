@@ -106,7 +106,10 @@ export const Zh = {
 			NO_MORE_CONNECTED_SPACE: '没有更多已联接的工作空间.',
 			SWITCH_DIALOG_LABEL: '请选择已联接的工作空间',
 			CREATE_DIALOG_LABEL: '请选择工作空间进行联接',
-			NO_MORE_SPACE: '没有工作空间可以被联接, 请联系您的系统管理员以获取更多信息.'
+			NO_MORE_SPACE: '没有工作空间可以被联接, 请联系您的系统管理员以获取更多信息.',
+			SPACE_NOT_FOUND: '需要的工作空间定义没有找到, 请联系您的系统管理员以获取更多信息.',
+			TOPICS_NOT_FOUND: '需要的数据集定义没有找到, 请联系您的系统管理员以获取更多信息.',
+			TOPICS_COUNT_MISMATCH: '需要的数据集定义个数无法匹配, 请联系您的系统管理员以获取更多信息.'
 		},
 		SETTINGS: {
 			TITLE: '设置',

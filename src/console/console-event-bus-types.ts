@@ -3,6 +3,7 @@ import { LastSnapshot } from '../services/console/last-snapshot-types';
 import { AvailableSpaceInConsole, ConsoleSettings } from '../services/console/settings-types';
 import { ConnectedSpace } from '../services/tuples/connected-space-types';
 import { Dashboard } from '../services/tuples/dashboard-types';
+import { Topic } from '../services/tuples/topic-types';
 
 export enum FavoriteState {
 	HIDDEN = 'hidden',
@@ -53,6 +54,9 @@ export enum ConsoleEventTypes {
 
 	ASK_AVAILABLE_SPACES = 'ask-available-spaces',
 	REPLY_AVAILABLE_SPACES = 'reply-available-spaces',
+
+	ASK_AVAILABLE_TOPICS = 'ask-available-topics',
+	REPLY_AVAILABLE_TOPICS = 'reply-available-topics',
 }
 
 export interface ConsoleEventBus {
@@ -174,4 +178,11 @@ export interface ConsoleEventBus {
 
 	fire(type: ConsoleEventTypes.REPLY_AVAILABLE_SPACES, availableSpaces: Array<AvailableSpaceInConsole>): this;
 	once(type: ConsoleEventTypes.REPLY_AVAILABLE_SPACES, listener: (availableSpaces: Array<AvailableSpaceInConsole>) => void): this;
+
+	fire(type: ConsoleEventTypes.ASK_AVAILABLE_TOPICS): this;
+	on(type: ConsoleEventTypes.ASK_AVAILABLE_TOPICS, listener: () => void): this;
+	off(type: ConsoleEventTypes.ASK_AVAILABLE_TOPICS, listener: () => void): this;
+
+	fire(type: ConsoleEventTypes.REPLY_AVAILABLE_TOPICS, availableTopics: Array<Topic>): this;
+	once(type: ConsoleEventTypes.REPLY_AVAILABLE_TOPICS, listener: (availableTopics: Array<Topic>) => void): this;
 }

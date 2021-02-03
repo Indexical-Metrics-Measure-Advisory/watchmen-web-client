@@ -109,7 +109,10 @@ export const En = {
 			NO_MORE_CONNECTED_SPACE: 'No more connected space exists.',
 			SWITCH_DIALOG_LABEL: 'Please select connected space',
 			CREATE_DIALOG_LABEL: 'Please select available space',
-			NO_MORE_SPACE: 'No space exists, contact your administrator for more information.'
+			NO_MORE_SPACE: 'No space exists, contact your administrator for more information.',
+			SPACE_NOT_FOUND: 'Space definition not found, contact your administrator for more information.',
+			TOPICS_NOT_FOUND: 'Topics definition not found, contact your administrator for more information.',
+			TOPICS_COUNT_MISMATCH: 'Topics count mismatch, contact your administrator for more information.'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',
