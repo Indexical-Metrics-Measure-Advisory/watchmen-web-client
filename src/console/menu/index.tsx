@@ -55,6 +55,9 @@ const ConsoleMenuContainer = styled.div.attrs<{ width: number }>(({ width }) => 
 	overflow         : hidden;
 	+ main {
 		max-width : ${({ width }) => `calc(100vw - ${width}px)`};
+		div[data-widget="full-width-page"] {
+			max-width : ${({ width }) => `calc(100vw - ${width}px)`};
+		}
 	}
 `;
 
