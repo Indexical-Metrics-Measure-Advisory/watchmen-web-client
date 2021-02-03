@@ -1,9 +1,9 @@
 import { computeRelatedTopicIds } from '../data-utils';
 import { asTopicGraphicsMap } from '../graphics-utils';
 import { ConnectedSpaceGraphics } from '../types';
-import { SubjectTopicSelection } from './subject-topic-relation';
+import { SubjectTopicRelationAnimation } from './subject-topic-relation-animation';
 
-export const BlockRelations = (props: { graphics: ConnectedSpaceGraphics }) => {
+export const BlockRelationsAnimation = (props: { graphics: ConnectedSpaceGraphics }) => {
 	const { graphics } = props;
 
 	const { subjects: subjectGraphics } = graphics;
@@ -18,9 +18,9 @@ export const BlockRelations = (props: { graphics: ConnectedSpaceGraphics }) => {
 				if (!topic) {
 					return null;
 				}
-				return <SubjectTopicSelection graphics={graphics}
-				                              topic={topic} subject={subject}
-				                              key={`${topic.topicId}-${subject.subjectId}`}/>;
+				return <SubjectTopicRelationAnimation graphics={graphics}
+				                                      topic={topic} subject={subject}
+				                                      key={`${topic.topicId}-${subject.subjectId}`}/>;
 			});
 		}).flat().filter(x => !!x)}
 	</>;

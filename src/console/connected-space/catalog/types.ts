@@ -13,7 +13,8 @@ export enum GraphicsRole {
 	BLOCK_SELECTION = 'block-selection',
 
 	SUBJECT_TOPIC_RELATION = 'subject-topic-relation',
-	SUBJECT_TOPIC_RELATION_LINK = 'subject-topic-relation-link'
+	SUBJECT_TOPIC_RELATION_LINK = 'subject-topic-relation-link',
+	SUBJECT_TOPIC_RELATION_ANIMATION = 'subject-topic-relation-animation'
 }
 
 export interface GraphicsPosition {

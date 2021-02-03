@@ -15,6 +15,7 @@ import { CatalogEventBusProvider, useCatalogEventBus } from './catalog-event-bus
 import { CatalogEventTypes } from './catalog-event-bus-types';
 import { asSubjectGraphicsMap, asTopicGraphicsMap, computeGraphics, createInitGraphics } from './graphics-utils';
 import { BlockRelations } from './relation/block-relations';
+import { BlockRelationsAnimation } from './relation/block-relations-animation';
 import { BlockSelection } from './selection';
 import { SubjectRect } from './subject/subject-rect';
 import { TopicRect } from './topic/topic-rect';
@@ -142,6 +143,7 @@ const CatalogFrame = (props: { connectedSpace: ConnectedSpace }) => {
 				})}
 				<BlockSelection graphics={data.graphics}/>
 			</CatalogSvg>
+			<BlockRelationsAnimation graphics={data.graphics}/>;
 		</CatalogSvgContainer>
 	</CatalogContainer>;
 };

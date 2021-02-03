@@ -11,25 +11,21 @@ import { Curve } from './widgets';
 export const SubjectTopicSelection = (props: { graphics: ConnectedSpaceGraphics, topic: Topic, subject: Subject }) => {
 	const { graphics, topic, subject } = props;
 
-	const { on, off, fire } = useCatalogEventBus();
+	const { on, off } = useCatalogEventBus();
 	const containerRef = useRef<SVGGElement>(null);
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
-		const repaint = () => {
-			forceUpdate();
-			// fire.topicRelationTransformed(relationGraphics);
-		};
 		const onTopicMoved = (movedTopic: Topic) => {
 			if (movedTopic !== topic) {
 				return;
 			}
-			repaint();
+			forceUpdate();
 		};
 		const onSubjectMoved = (movedSubject: Subject) => {
 			if (movedSubject !== subject) {
 				return;
 			}
-			repaint();
+			forceUpdate();
 		};
 
 		on(CatalogEventTypes.TOPIC_MOVED, onTopicMoved);
@@ -38,7 +34,7 @@ export const SubjectTopicSelection = (props: { graphics: ConnectedSpaceGraphics,
 			off(CatalogEventTypes.TOPIC_MOVED, onTopicMoved);
 			off(CatalogEventTypes.SUBJECT_MOVED, onSubjectMoved);
 		};
-	}, [ on, off, subject, topic, forceUpdate ]);
+	}, [ on, off, topic, subject, forceUpdate ]);
 
 	const source = graphics.subjects.find(subjectGraphics => subjectGraphics.subject === subject);
 	const target = graphics.topics.find(topicGraphics => topicGraphics.topic === topic);
