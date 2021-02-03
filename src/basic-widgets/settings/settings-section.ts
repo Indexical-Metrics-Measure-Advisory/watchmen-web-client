@@ -14,12 +14,12 @@ export const SettingsSection = styled.div.attrs({ 'data-widget': 'settings-secti
 `;
 
 export const SettingsSectionTitle = styled.div.attrs({ 'data-widget': 'settings-section-title' })`
-	display     : flex;
-	position    : relative;
-	align-items : center;
-	font-family : var(--title-font-family);
-	font-size   : 1.5em;
-	margin-bottom: calc(var(--margin) / 2);
+	display       : flex;
+	position      : relative;
+	align-items   : center;
+	font-family   : var(--title-font-family);
+	font-size     : 1.5em;
+	margin-bottom : calc(var(--margin) / 2);
 	&:before {
 		content                    : '';
 		display                    : block;
@@ -39,7 +39,7 @@ export const SettingsSectionTitle = styled.div.attrs({ 'data-widget': 'settings-
 `;
 
 export const SettingsSectionBody = styled.div.attrs({ 'data-widget': 'settings-section-body' })`
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-auto-rows: minmax(40px, auto);
+	display               : grid;
+	grid-template-columns : 1fr;
+	grid-auto-rows        : minmax(var(--grid-tall-row-height), auto);
 `;

@@ -12,7 +12,7 @@ export const TupleItemPickerContainer = styled.div.attrs<{ 'data-widget'?: strin
 })`
 	display               : grid;
 	grid-template-columns : 1fr;
-	grid-template-rows    : 40px 1fr;
+	grid-template-rows    : var(--grid-tall-row-height) 1fr;
 	position              : relative;
 	align-self            : center;
 	align-items           : center;
@@ -126,7 +126,7 @@ export const TupleItemPickerDropdownReminder = styled.div.attrs({ 'data-widget':
 	height      : var(--height);
 	padding     : 0 var(--input-indent);
 	> svg {
-		margin-right: calc(var(--margin) / 4);
+		margin-right : calc(var(--margin) / 4);
 	}
 `;
 export const TupleItemPickerDropdownCandidate = styled.div.attrs({ 'data-widget': 'tuple-property-item-picker-picked-dropdown-candidate' })`
@@ -156,7 +156,7 @@ export const TupleItemPickerPickedItems = styled.div.attrs({ 'data-widget': 'tup
 	flex-wrap      : wrap;
 	margin-top     : -2px;
 	margin-left    : calc(var(--margin) / -4);
-	padding-bottom : calc((40px - var(--button-height-in-form)) / 2);
+	padding-bottom : calc((var(--grid-tall-row-height) - var(--button-height-in-form)) / 2);
 	&:empty {
 		padding-bottom : 0;
 	}

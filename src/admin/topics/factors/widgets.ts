@@ -1,19 +1,20 @@
 import styled from 'styled-components';
 import { RoundDwarfButton } from '../../../basic-widgets/button';
+import { GRID_ROW_HEIGHT, HEADER_HEIGHT } from '../../../basic-widgets/constants';
 
 export const FactorsTableButton = styled(RoundDwarfButton).attrs({ 'data-widget': 'factors-table-button' })`
 	align-self   : center;
 	justify-self : flex-start;
 `;
 
-const FACTORS_TABLE_HEADER_HEIGHT = 32;
-export const FACTORS_TABLE_ROW_HEIGHT = 36;
+const FACTORS_TABLE_HEADER_HEIGHT = HEADER_HEIGHT;
+export const FACTORS_TABLE_ROW_HEIGHT = GRID_ROW_HEIGHT;
 const FACTORS_TABLE_SERIAL_COLUMN_WIDTH = 32;
 const FACTORS_TABLE_LABEL_COLUMN_WIDTH = 200;
 const FACTORS_TABLE_TYPE_COLUMN_WIDTH = 230;
 const FACTORS_TABLE_DEFAULT_COLUMN_WIDTH = 150;
 const FACTORS_TABLE_BUTTONS_COLUMN_WIDTH = 60;
-const FACTORS_TABLE_FOOTER_HEIGHT = 40;
+const FACTORS_TABLE_FOOTER_HEIGHT = HEADER_HEIGHT;
 
 const GRID_COLUMNS = [
 	FACTORS_TABLE_SERIAL_COLUMN_WIDTH,
@@ -36,8 +37,8 @@ export const FactorsTableContainer = styled.div.attrs({ 'data-widget': 'factors-
 export const FactorsTableHeader = styled.div.attrs({ 'data-widget': 'factors-table-header' })`
 	display               : grid;
 	grid-template-columns : ${GRID_COLUMNS};
-	margin: 0 calc(var(--margin) / -2);
-	padding: 0 calc(var(--margin) / 2);
+	margin                : 0 calc(var(--margin) / -2);
+	padding               : 0 calc(var(--margin) / 2);
 `;
 export const FactorsTableHeaderCell = styled.div.attrs({ 'data-widget': 'factors-table-header-cell' })`
 	display       : flex;

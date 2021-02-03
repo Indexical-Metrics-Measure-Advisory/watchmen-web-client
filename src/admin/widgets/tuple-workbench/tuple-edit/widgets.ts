@@ -38,7 +38,7 @@ export const TupleEditBody = styled.div.attrs({ 'data-widget': 'tuple-edit-body'
 	position              : relative;
 	grid-template-columns : 150px 1fr;
 	grid-column-gap       : var(--margin);
-	grid-auto-rows        : minmax(40px, auto);
+	grid-auto-rows        : minmax(var(--grid-tall-row-height), auto);
 	grid-row-gap          : calc(var(--margin) / 4);
 	align-items           : start;
 	align-content         : start;

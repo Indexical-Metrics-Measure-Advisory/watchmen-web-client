@@ -9,7 +9,7 @@ export const TuplePropertyLabel = styled.div.attrs({ 'data-widget': 'tuple-prope
 	align-items  : center;
 	font-variant : petite-caps;
 	font-weight  : var(--font-demi-bold);
-	height       : 40px;
+	height       : var(--grid-tall-row-height);
 `;
 export const TuplePropertyInput = styled(Input).attrs({ 'data-widget': 'tuple-property-input' })`
 	align-self : center;
@@ -18,6 +18,6 @@ export const TuplePropertyDropdown = styled(Dropdown).attrs({ 'data-widget': 'tu
 	align-self : center;
 `;
 export const TuplePropertyInputLines = styled(InputLines).attrs({ 'data-widget': 'tuple-property-input-lines' })`
-	margin : calc((40px - var(--height)) / 2) 0;
+	margin : calc((var(--grid-tall-row-height) - var(--height)) / 2) 0;
 `;
 

@@ -4,6 +4,9 @@ import {
 	BORDER_WIDTH,
 	BUTTON_HEIGHT_IN_FORM,
 	BUTTON_INDENT,
+	GRID_ROW_HEIGHT,
+	GRID_TALL_ROW_HEIGHT,
+	HEADER_HEIGHT,
 	INPUT_INDENT,
 	PIN_FAVORITE_HEIGHT,
 	SIDE_MENU_MIN_WIDTH,
@@ -72,8 +75,9 @@ const DefaultTheme = {
 	// pin favorite
 	pinFavoriteHeight: PIN_FAVORITE_HEIGHT,
 
-	// row
+	// standard
 	height: BASE_HEIGHT,
+	headerHeight: HEADER_HEIGHT,
 
 	// input
 	inputIndent: INPUT_INDENT,
@@ -104,7 +108,9 @@ const DefaultTheme = {
 	tooltipMinHeight: 20,
 
 	// grid
-	gridRibBgColor: 'rgb(243,243,243)'
+	gridRowHeight: GRID_ROW_HEIGHT,
+	gridRibBgColor: 'rgb(243,243,243)',
+	gridTallRowHeight: GRID_TALL_ROW_HEIGHT
 };
 
 export default DefaultTheme;

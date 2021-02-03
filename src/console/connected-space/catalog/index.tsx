@@ -14,6 +14,7 @@ import { ConsoleEventTypes } from '../../console-event-bus-types';
 import { CatalogEventBusProvider, useCatalogEventBus } from './catalog-event-bus';
 import { CatalogEventTypes } from './catalog-event-bus-types';
 import { asSubjectGraphicsMap, asTopicGraphicsMap, computeGraphics, createInitGraphics } from './graphics-utils';
+import { TopicNavigator } from './navigator/topic-navigator';
 import { BlockRelations } from './relation/block-relations';
 import { BlockRelationsAnimation } from './relation/block-relations-animation';
 import { BlockSelection } from './selection';
@@ -147,6 +148,7 @@ const CatalogFrame = (props: { connectedSpace: ConnectedSpace }) => {
 				<BlockRelationsAnimation graphics={data.graphics}/>
 			</CatalogSvgRelationsAnimationContainer>
 		</CatalogSvgContainer>
+		<TopicNavigator/>
 	</CatalogContainer>;
 };
 
