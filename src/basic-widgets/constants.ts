@@ -50,6 +50,7 @@ export const SIDE_MENU_RESIZE_HANDLE_Z_INDEX = 500;
 
 export const BASE_MARGIN = 32;
 export const BASE_HEIGHT = 28;
+export const BASE_TALL_HEIGHT = 32;
 export const INPUT_INDENT = 10;
 export const BUTTON_INDENT = 16;
 export const BUTTON_HEIGHT_IN_FORM = 22;

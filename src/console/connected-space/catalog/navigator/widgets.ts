@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from '../../../../basic-widgets/button';
+import { TooltipButton } from '../../../../basic-widgets/tooltip-button';
 
 export const NavigatorContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
 	return {
@@ -21,6 +21,7 @@ export const NavigatorContainer = styled.div.attrs<{ visible: boolean }>(({ visi
 
 export const NavigatorHeader = styled.div.attrs({ 'data-widget': 'connected-space-navigator-header' })`
 	display         : flex;
+	min-height      : var(--header-height);
 	height          : var(--header-height);
 	align-items     : center;
 	justify-content : space-between;
@@ -30,10 +31,10 @@ export const NavigatorHeader = styled.div.attrs({ 'data-widget': 'connected-spac
 	font-size       : 1.2em;
 `;
 export const NavigatorHeaderTitle = styled.div.attrs({ 'data-widget': 'connected-space-navigator-header-title' })`
-	flex-grow: 1;
+	flex-grow : 1;
 `;
-export const NavigatorHeaderCloseButton = styled(Button).attrs({ 'data-widget': 'connected-space-navigator-header-close' })`
-	padding: 0;
-	width: var(--height);
-	height: var(--height);
+export const NavigatorHeaderButton = styled(TooltipButton).attrs({ 'data-widget': 'connected-space-navigator-header-button' })`
+	padding : 0;
+	width   : var(--height);
+	height  : var(--height);
 `;

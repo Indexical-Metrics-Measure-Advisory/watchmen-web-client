@@ -15,7 +15,7 @@ export const removeFakeIdPrefix = (id: string) => {
 	return id.startsWith(FAKE_ID_PREFIX) ? id.substr(2) : id;
 };
 
-const isTopic = (tuple: Tuple): tuple is Topic => {
+export const isTopic = (tuple: Tuple): tuple is Topic => {
 	return !!(tuple as any).topicId;
 };
 const isReport = (tuple: Tuple): tuple is Report => {
@@ -36,7 +36,7 @@ const isDashboard = (tuple: Tuple): tuple is Dashboard => {
 const isConnectedSpace = (tuple: Tuple): tuple is ConnectedSpace => {
 	return !!(tuple as any).connectId;
 };
-const isSubject = (tuple: Tuple): tuple is Subject => {
+export const isSubject = (tuple: Tuple): tuple is Subject => {
 	return !!(tuple as any).subjectId;
 };
 

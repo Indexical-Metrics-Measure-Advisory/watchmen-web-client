@@ -1,6 +1,6 @@
 import {
 	BASE_HEIGHT,
-	BASE_MARGIN,
+	BASE_MARGIN, BASE_TALL_HEIGHT,
 	BORDER_WIDTH,
 	BUTTON_HEIGHT_IN_FORM,
 	BUTTON_INDENT,
@@ -77,6 +77,7 @@ const DefaultTheme = {
 
 	// standard
 	height: BASE_HEIGHT,
+	tallHeight: BASE_TALL_HEIGHT,
 	headerHeight: HEADER_HEIGHT,
 
 	// input
