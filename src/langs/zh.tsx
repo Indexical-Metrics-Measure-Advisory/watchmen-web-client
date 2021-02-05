@@ -111,7 +111,11 @@ export const Zh = {
 			SPACE_NOT_FOUND: '需要的工作空间定义没有找到, 请联系您的系统管理员以获取更多信息.',
 			TOPICS_NOT_FOUND: '需要的数据集定义没有找到, 请联系您的系统管理员以获取更多信息.',
 			TOPICS_COUNT_MISMATCH: '需要的数据集定义个数无法匹配, 请联系您的系统管理员以获取更多信息.',
-			TOPIC_WITH_NO_FACTOR: '没有定义数据因子, 请联系您的系统管理员以获取更多信息.'
+			TOPIC_WITH_NO_FACTOR: '没有定义数据因子, 请联系您的系统管理员以获取更多信息.',
+			DELETE_SUBJECT_DIALOG_LABEL: '确认要删除主题吗? 请注意删除动作不能被恢复.',
+			SWITCH_SUBJECT: '切换主题',
+			SWITCH_SUBJECT_DIALOG_LABEL: '请选择主题',
+			NO_MORE_SUBJECT: '没有更多主题.'
 		},
 		SETTINGS: {
 			TITLE: '设置',

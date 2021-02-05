@@ -1,12 +1,12 @@
 import React from 'react';
-import { PageTitleEditor } from '../../../basic-widgets/page-title-editor';
-import { useForceUpdate } from '../../../basic-widgets/utils';
-import { useLanguage } from '../../../langs';
-import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
-import { renameSubject } from '../../../services/tuples/subject';
-import { Subject } from '../../../services/tuples/subject-types';
-import { useSubjectEventBus } from '../subject-view/subject-event-bus';
-import { SubjectEventTypes } from '../subject-view/subject-event-bus-types';
+import { PageTitleEditor } from '../../../../basic-widgets/page-title-editor';
+import { useForceUpdate } from '../../../../basic-widgets/utils';
+import { useLanguage } from '../../../../langs';
+import { ConnectedSpace } from '../../../../services/tuples/connected-space-types';
+import { renameSubject } from '../../../../services/tuples/subject';
+import { Subject } from '../../../../services/tuples/subject-types';
+import { useSubjectEventBus } from '../subject-event-bus';
+import { SubjectEventTypes } from '../subject-event-bus-types';
 
 export const HeaderSubjectNameEditor = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const { subject } = props;

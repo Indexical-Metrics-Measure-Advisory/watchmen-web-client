@@ -1,14 +1,14 @@
 import React from 'react';
-import { PageHeaderButtons, PageHeaderButtonSeparator } from '../../../basic-widgets/page-header-buttons';
-import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
+import { PageHeaderButtons, PageHeaderButtonSeparator } from '../../../../basic-widgets/page-header-buttons';
+import { ConnectedSpace } from '../../../../services/tuples/connected-space-types';
 import { HeaderAddSubjectButton } from './header-add-subject-button';
-import { HeaderCatalogButton } from './header-catalog-button';
+import { HeaderCatalogButton } from '../../header/header-catalog-button';
 import { HeaderCreateConnectedSpaceButton } from './header-create-connected-space-button';
-import { HeaderDeleteMeButton } from './header-delete-me-buttton';
+import { HeaderDeleteConnectedSpaceButton } from './header-delete-connected-space-buttton';
 import { HeaderFavoriteButton } from './header-favorite-button';
 import { HeaderSwitchConnectedSpaceButton } from './header-switch-connected-space-button';
 
-export const HeaderButtons = (props: { connectedSpace: ConnectedSpace }) => {
+export const CatalogHeaderButtons = (props: { connectedSpace: ConnectedSpace }) => {
 	const { connectedSpace } = props;
 
 	return <PageHeaderButtons>
@@ -20,6 +20,6 @@ export const HeaderButtons = (props: { connectedSpace: ConnectedSpace }) => {
 		<HeaderCreateConnectedSpaceButton/>
 		<HeaderSwitchConnectedSpaceButton connectedSpace={connectedSpace}/>
 		<PageHeaderButtonSeparator/>
-		<HeaderDeleteMeButton connectedSpace={connectedSpace}/>
+		<HeaderDeleteConnectedSpaceButton connectedSpace={connectedSpace}/>
 	</PageHeaderButtons>;
 };

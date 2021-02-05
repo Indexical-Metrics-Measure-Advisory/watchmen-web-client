@@ -1,5 +1,5 @@
 import { findToken } from '../account';
-import { renameMockSubject, saveMockSubject } from '../mock/tuples/mock-subject';
+import { deleteMockSubject, renameMockSubject, saveMockSubject } from '../mock/tuples/mock-subject';
 import { getServiceHost, isMockService } from '../utils';
 import { Subject } from './subject-types';
 import { isFakedUuid } from './utils';
@@ -51,5 +51,20 @@ export const renameSubject = async (subject: Subject): Promise<void> => {
 		// 		Authorization: 'Bearer ' + token
 		// 	}
 		// });
+	}
+};
+
+export const deleteSubject = async (subject: Subject): Promise<void> => {
+	if (isMockService()) {
+		return deleteMockSubject(subject);
+	} else {
+		const token = findToken();
+		await fetch(`${getServiceHost()}console_space/subject/delete?subject_id=${subject.subjectId}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
+			}
+		});
 	}
 };

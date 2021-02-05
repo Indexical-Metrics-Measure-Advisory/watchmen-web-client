@@ -13,10 +13,10 @@ import { ConnectedSpace, ConnectedSpaceGraphics } from '../../../services/tuples
 import { Topic } from '../../../services/tuples/topic-types';
 import { useConsoleEventBus } from '../../console-event-bus';
 import { ConsoleEventTypes } from '../../console-event-bus-types';
-import { HeaderButtons } from '../header/header-buttons';
-import { HeaderConnectedSpaceNameEditor } from '../header/header-connected-space-name-editor';
+import { HeaderConnectedSpaceNameEditor } from './header/header-connected-space-name-editor';
 import { CatalogEventBusProvider, useCatalogEventBus } from './catalog-event-bus';
 import { CatalogEventTypes } from './catalog-event-bus-types';
+import { CatalogHeaderButtons } from './header/catalog-header-buttons';
 import { GraphicsSave } from './graphics-save';
 import { asSubjectGraphicsMap, asTopicGraphicsMap, computeGraphics, createInitGraphics } from './graphics-utils';
 import { Navigator } from './navigator';
@@ -166,7 +166,7 @@ const CatalogFrame = (props: { connectedSpace: ConnectedSpace }) => {
 				<BlockRelationsAnimation graphics={data.graphics}/>
 			</CatalogSvgRelationsAnimationContainer>
 		</CatalogSvgContainer>
-		<Navigator/>
+		<Navigator connectedSpace={connectedSpace}/>
 		<GraphicsSave connectedSpace={connectedSpace} graphics={data.graphics}/>
 	</CatalogContainer>;
 };
@@ -177,7 +177,7 @@ export const Catalog = (props: { connectedSpace: ConnectedSpace }) => {
 	return <CatalogEventBusProvider>
 		<PageHeaderHolder>
 			<HeaderConnectedSpaceNameEditor connectedSpace={connectedSpace}/>
-			<HeaderButtons connectedSpace={connectedSpace}/>
+			<CatalogHeaderButtons connectedSpace={connectedSpace}/>
 		</PageHeaderHolder>
 		<CatalogFrame connectedSpace={connectedSpace}/>
 	</CatalogEventBusProvider>;

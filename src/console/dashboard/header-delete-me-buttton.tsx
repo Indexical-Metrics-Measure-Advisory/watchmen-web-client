@@ -14,7 +14,7 @@ import { Dashboard } from '../../services/tuples/dashboard-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
 
-const ShareDialogBody = styled(DialogBody)`
+const DeleteDialogBody = styled(DialogBody)`
 	flex-direction : column;
 	margin-bottom  : var(--margin);
 `;
@@ -39,10 +39,10 @@ const DashboardDelete = (props: { dashboard: Dashboard, onRemoved: () => void })
 	};
 
 	return <>
-		<ShareDialogBody>
+		<DeleteDialogBody>
 			<DialogLabel>{Lang.CONSOLE.DASHBOARD.DELETE_DIALOG_LABEL}</DialogLabel>
 			<NameUrl>{dashboard.name}</NameUrl>
-		</ShareDialogBody>
+		</DeleteDialogBody>
 		<DialogFooter>
 			<Button ink={ButtonInk.DANGER} onClick={onDeleteClicked}>{Lang.ACTIONS.DELETE}</Button>
 			<Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>{Lang.ACTIONS.CANCEL}</Button>

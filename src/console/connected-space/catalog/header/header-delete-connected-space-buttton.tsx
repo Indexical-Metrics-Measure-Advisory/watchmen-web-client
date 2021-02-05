@@ -1,20 +1,20 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
-import { Button } from '../../../basic-widgets/button';
-import { ICON_THROW_AWAY } from '../../../basic-widgets/constants';
-import { PageHeaderButton } from '../../../basic-widgets/page-header-buttons';
-import { ButtonInk } from '../../../basic-widgets/types';
-import { DialogBody, DialogFooter, DialogLabel } from '../../../dialog/widgets';
-import { useEventBus } from '../../../events/event-bus';
-import { EventTypes } from '../../../events/types';
-import { Lang } from '../../../langs';
-import { deleteConnectedSpace } from '../../../services/tuples/connected-space';
-import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
-import { useConsoleEventBus } from '../../console-event-bus';
-import { ConsoleEventTypes } from '../../console-event-bus-types';
+import { Button } from '../../../../basic-widgets/button';
+import { ICON_THROW_AWAY } from '../../../../basic-widgets/constants';
+import { PageHeaderButton } from '../../../../basic-widgets/page-header-buttons';
+import { ButtonInk } from '../../../../basic-widgets/types';
+import { DialogBody, DialogFooter, DialogLabel } from '../../../../dialog/widgets';
+import { useEventBus } from '../../../../events/event-bus';
+import { EventTypes } from '../../../../events/types';
+import { Lang } from '../../../../langs';
+import { deleteConnectedSpace } from '../../../../services/tuples/connected-space';
+import { ConnectedSpace } from '../../../../services/tuples/connected-space-types';
+import { useConsoleEventBus } from '../../../console-event-bus';
+import { ConsoleEventTypes } from '../../../console-event-bus-types';
 
-const ShareDialogBody = styled(DialogBody)`
+const DeleteDialogBody = styled(DialogBody)`
 	flex-direction : column;
 	margin-bottom  : var(--margin);
 `;
@@ -39,10 +39,10 @@ const ConnectedSpaceDelete = (props: { connectedSpace: ConnectedSpace, onRemoved
 	};
 
 	return <>
-		<ShareDialogBody>
+		<DeleteDialogBody>
 			<DialogLabel>{Lang.CONSOLE.CONNECTED_SPACE.DELETE_DIALOG_LABEL}</DialogLabel>
 			<NameUrl>{connectedSpace.name}</NameUrl>
-		</ShareDialogBody>
+		</DeleteDialogBody>
 		<DialogFooter>
 			<Button ink={ButtonInk.DANGER} onClick={onDeleteClicked}>{Lang.ACTIONS.DELETE}</Button>
 			<Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>{Lang.ACTIONS.CANCEL}</Button>
@@ -50,7 +50,7 @@ const ConnectedSpaceDelete = (props: { connectedSpace: ConnectedSpace, onRemoved
 	</>;
 };
 
-export const HeaderDeleteMeButton = (props: { connectedSpace: ConnectedSpace }) => {
+export const HeaderDeleteConnectedSpaceButton = (props: { connectedSpace: ConnectedSpace }) => {
 	const { connectedSpace } = props;
 	const { fire: fireGlobal } = useEventBus();
 	const { fire } = useConsoleEventBus();

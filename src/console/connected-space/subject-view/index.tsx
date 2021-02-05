@@ -8,8 +8,8 @@ import { Lang } from '../../../langs';
 import { toConnectedSpace } from '../../../routes/utils';
 import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
 import { Subject } from '../../../services/tuples/subject-types';
-import { HeaderButtons } from '../header/header-buttons';
-import { HeaderSubjectNameEditor } from '../header/header-subject-name-editor';
+import { HeaderSubjectNameEditor } from './header/header-subject-name-editor';
+import { SubjectHeaderButtons } from './header/subject-header-buttons';
 import { SubjectEventBusProvider } from './subject-event-bus';
 import { SubjectViewContainer } from './widgets';
 
@@ -48,7 +48,7 @@ export const SubjectView = (props: { connectedSpace: ConnectedSpace }) => {
 	return <SubjectEventBusProvider>
 		<PageHeaderHolder>
 			<HeaderSubjectNameEditor connectedSpace={connectedSpace} subject={subject}/>
-			<HeaderButtons connectedSpace={connectedSpace}/>
+			<SubjectHeaderButtons connectedSpace={connectedSpace} subject={subject}/>
 		</PageHeaderHolder>
 		<SubjectViewFrame connectedSpace={connectedSpace}/>
 	</SubjectEventBusProvider>;

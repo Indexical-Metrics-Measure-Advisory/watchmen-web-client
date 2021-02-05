@@ -2,22 +2,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { AlertLabel } from '../../../alert/widgets';
-import { Button } from '../../../basic-widgets/button';
-import { ICON_SWITCH } from '../../../basic-widgets/constants';
-import { Dropdown } from '../../../basic-widgets/dropdown';
-import { PageHeaderButton } from '../../../basic-widgets/page-header-buttons';
-import { ButtonInk, DropdownOption } from '../../../basic-widgets/types';
-import { DialogBody, DialogFooter, DialogLabel } from '../../../dialog/widgets';
-import { useEventBus } from '../../../events/event-bus';
-import { EventTypes } from '../../../events/types';
-import { Lang } from '../../../langs';
-import { toConnectedSpace } from '../../../routes/utils';
-import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
-import { useConsoleEventBus } from '../../console-event-bus';
-import { ConsoleEventTypes } from '../../console-event-bus-types';
+import { AlertLabel } from '../../../../alert/widgets';
+import { Button } from '../../../../basic-widgets/button';
+import { ICON_SWITCH } from '../../../../basic-widgets/constants';
+import { Dropdown } from '../../../../basic-widgets/dropdown';
+import { PageHeaderButton } from '../../../../basic-widgets/page-header-buttons';
+import { ButtonInk, DropdownOption } from '../../../../basic-widgets/types';
+import { DialogBody, DialogFooter, DialogLabel } from '../../../../dialog/widgets';
+import { useEventBus } from '../../../../events/event-bus';
+import { EventTypes } from '../../../../events/types';
+import { Lang } from '../../../../langs';
+import { toConnectedSpace } from '../../../../routes/utils';
+import { ConnectedSpace } from '../../../../services/tuples/connected-space-types';
+import { useConsoleEventBus } from '../../../console-event-bus';
+import { ConsoleEventTypes } from '../../../console-event-bus-types';
 
-const ShareDialogBody = styled(DialogBody)`
+const SwitchDialogBody = styled(DialogBody)`
 	flex-direction : column;
 	margin-bottom  : var(--margin);
 `;
@@ -51,10 +51,10 @@ const ConnectedSpaceSwitch = (props: { connectedSpaces: Array<ConnectedSpace>, s
 	});
 
 	return <>
-		<ShareDialogBody>
+		<SwitchDialogBody>
 			<DialogLabel>{Lang.CONSOLE.CONNECTED_SPACE.SWITCH_DIALOG_LABEL}</DialogLabel>
 			<ConnectedSpaceDropdown value={selection} options={options} onChange={onChange}/>
-		</ShareDialogBody>
+		</SwitchDialogBody>
 		<DialogFooter>
 			<Button ink={ButtonInk.PRIMARY} onClick={onConfirmClicked}>{Lang.ACTIONS.CONFIRM}</Button>
 			<Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>{Lang.ACTIONS.CANCEL}</Button>

@@ -1,6 +1,7 @@
 import { findToken } from '../account';
 import {
-	deleteMockConnectedSpace, fetchMockConnectedSpaceGraphics,
+	deleteMockConnectedSpace,
+	fetchMockConnectedSpaceGraphics,
 	fetchMockConnectedSpaces,
 	renameMockConnectedSpace,
 	saveMockConnectedSpace,
@@ -26,14 +27,14 @@ export const fetchConnectedSpaces = async (): Promise<Array<ConnectedSpace>> => 
 	}
 };
 
-export const fetchConnectedSpaceGraphics = async () : Promise<Array<ConnectedSpaceGraphics>> => {
+export const fetchConnectedSpaceGraphics = async (): Promise<Array<ConnectedSpaceGraphics>> => {
 	if (isMockService()) {
 		return fetchMockConnectedSpaceGraphics();
 	} else {
 		// TODO use real api
 		return [];
 	}
-}
+};
 
 export const saveConnectedSpace = async (connectedSpace: ConnectedSpace): Promise<void> => {
 	if (isMockService()) {

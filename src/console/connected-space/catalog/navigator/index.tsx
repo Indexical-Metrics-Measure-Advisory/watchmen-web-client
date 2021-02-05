@@ -1,8 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { ICON_CLOSE, ICON_SUBJECT } from '../../../../basic-widgets/constants';
 import { TooltipAlignment } from '../../../../basic-widgets/types';
 import { Lang } from '../../../../langs';
+import { toSubject } from '../../../../routes/utils';
+import { ConnectedSpace } from '../../../../services/tuples/connected-space-types';
 import { Subject } from '../../../../services/tuples/subject-types';
 import { Topic } from '../../../../services/tuples/topic-types';
 import { Tuple } from '../../../../services/tuples/tuple-types';
@@ -12,7 +15,10 @@ import { CatalogEventTypes } from '../catalog-event-bus-types';
 import { TopicBody } from './topic-body';
 import { NavigatorContainer, NavigatorHeader, NavigatorHeaderButton, NavigatorHeaderTitle } from './widgets';
 
-export const Navigator = () => {
+export const Navigator = (props: { connectedSpace: ConnectedSpace }) => {
+	const { connectedSpace } = props;
+
+	const history = useHistory();
 	const { on, off } = useCatalogEventBus();
 	const [ visible, setVisible ] = useState(false);
 	const [ tuple, setTuple ] = useState<Tuple | null>(null);
@@ -35,7 +41,9 @@ export const Navigator = () => {
 	}, [ on, off ]);
 
 	const onOpenSubjectClicked = () => {
-
+		if (tuple && isSubject(tuple)) {
+			history.push(toSubject(connectedSpace.connectId, tuple.subjectId));
+		}
 	};
 	const onCloseClicked = () => {
 		setVisible(false);
@@ -53,7 +61,8 @@ export const Navigator = () => {
 		<NavigatorHeader>
 			<NavigatorHeaderTitle>{name}</NavigatorHeaderTitle>
 			{tuple != null && isSubject(tuple)
-				? <NavigatorHeaderButton tooltip={{ label: Lang.CONSOLE.CONNECTED_SPACE.OPEN_SUBJECT, alignment: TooltipAlignment.RIGHT }}
+				? <NavigatorHeaderButton
+					tooltip={{ label: Lang.CONSOLE.CONNECTED_SPACE.OPEN_SUBJECT, alignment: TooltipAlignment.RIGHT }}
 					onClick={onOpenSubjectClicked}>
 					<FontAwesomeIcon icon={ICON_SUBJECT}/>
 				</NavigatorHeaderButton>

@@ -114,7 +114,11 @@ export const En = {
 			SPACE_NOT_FOUND: 'Space definition not found, contact your administrator for more information.',
 			TOPICS_NOT_FOUND: 'Topics definition not found, contact your administrator for more information.',
 			TOPICS_COUNT_MISMATCH: 'Topics count mismatch, contact your administrator for more information.',
-			TOPIC_WITH_NO_FACTOR: 'No factor defined, contact your administrator for more information.'
+			TOPIC_WITH_NO_FACTOR: 'No factor defined, contact your administrator for more information.',
+			DELETE_SUBJECT_DIALOG_LABEL: 'Are you sure to delete subject? Please note that deletion cannot be recovered.',
+			SWITCH_SUBJECT: 'Switch Subject',
+			SWITCH_SUBJECT_DIALOG_LABEL: 'Please select subject',
+			NO_MORE_SUBJECT: 'No more subject exists.'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',

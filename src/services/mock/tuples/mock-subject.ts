@@ -16,3 +16,9 @@ export const renameMockSubject = async (subject: Subject): Promise<void> => {
 		setTimeout(() => resolve(), 500);
 	});
 };
+
+export const deleteMockSubject = async (subject: Subject): Promise<void> => {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve(), 500);
+	});
+}
