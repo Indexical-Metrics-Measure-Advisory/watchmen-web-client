@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '../../../../basic-widgets/button';
 import { ICON_THROW_AWAY } from '../../../../basic-widgets/constants';
@@ -9,6 +10,7 @@ import { DialogBody, DialogFooter, DialogLabel } from '../../../../dialog/widget
 import { useEventBus } from '../../../../events/event-bus';
 import { EventTypes } from '../../../../events/types';
 import { Lang } from '../../../../langs';
+import { toConnectedSpace } from '../../../../routes/utils';
 import { ConnectedSpace } from '../../../../services/tuples/connected-space-types';
 import { deleteSubject } from '../../../../services/tuples/subject';
 import { Subject } from '../../../../services/tuples/subject-types';
@@ -53,6 +55,8 @@ const SubjectDelete = (props: { subject: Subject, onRemoved: () => void }) => {
 
 export const HeaderDeleteSubjectButton = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const { connectedSpace, subject } = props;
+
+	const history = useHistory();
 	const { fire: fireGlobal } = useEventBus();
 	const { fire } = useConnectedSpaceEventBus();
 
@@ -62,6 +66,8 @@ export const HeaderDeleteSubjectButton = (props: { connectedSpace: ConnectedSpac
 			connectedSpace.subjects.splice(index, 1);
 		}
 		fire(ConnectedSpaceEventTypes.SUBJECT_REMOVED, subject);
+		// back to catalog
+		history.replace(toConnectedSpace(connectedSpace.connectId));
 	};
 	const onDeleteClicked = () => {
 		fireGlobal(EventTypes.SHOW_DIALOG,
