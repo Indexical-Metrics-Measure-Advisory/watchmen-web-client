@@ -14,7 +14,8 @@ export const En = {
 		DEFAULT_DASHBOARD_NAME: 'Dashboard',
 		NEW_CONNECTED_SPACE_NAME: 'Connected Space',
 		DEFAULT_CONNECTED_SPACE_NAME: 'Connected Space',
-		NEW_SUBJECT_NAME: 'Subject'
+		NEW_SUBJECT_NAME: 'Subject',
+		DEFAULT_SUBJECT_NAME: 'Subject'
 	},
 	ERROR: {
 		UNPREDICTED: 'Unpredicted error occurred, contact administrator for more information.'
@@ -48,7 +49,8 @@ export const En = {
 		LOADING: 'Loading Personal Data...',
 		ERROR: {
 			DASHBOARD_NOT_FOUND: 'Given dashboard not found.',
-			CONNECTED_SPACE_NOT_FOUND: 'Given connected space not found.'
+			CONNECTED_SPACE_NOT_FOUND: 'Given connected space not found.',
+			SUBJECT_NOT_FOUND: 'Given subject not found.'
 		},
 		MENU: {
 			TITLE: 'Watchmen Console',

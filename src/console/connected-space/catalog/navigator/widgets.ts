@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { Button } from '../../../../basic-widgets/button';
 
-export const TopicNavigatorContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
+export const NavigatorContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
 	return {
-		'data-widget': 'topic-navigator',
+		'data-widget': 'connected-space-navigator',
 		style: {
 			marginRight: visible ? 0 : -300
 		}
@@ -19,7 +19,7 @@ export const TopicNavigatorContainer = styled.div.attrs<{ visible: boolean }>(({
 	transition       : margin-right 300ms ease-in-out;
 `;
 
-export const TopicNavigatorHeader = styled.div.attrs({ 'data-widget': 'topic-navigator-header' })`
+export const NavigatorHeader = styled.div.attrs({ 'data-widget': 'connected-space-navigator-header' })`
 	display         : flex;
 	height          : var(--header-height);
 	align-items     : center;
@@ -29,10 +29,10 @@ export const TopicNavigatorHeader = styled.div.attrs({ 'data-widget': 'topic-nav
 	font-family     : var(--title-font-family);
 	font-size       : 1.2em;
 `;
-export const TopicNavigatorHeaderTitle = styled.div.attrs({ 'data-widget': 'topic-navigator-header-title' })`
+export const NavigatorHeaderTitle = styled.div.attrs({ 'data-widget': 'connected-space-navigator-header-title' })`
 	flex-grow: 1;
 `;
-export const TopicNavigatorHeaderCloseButton = styled(Button).attrs({ 'data-widget': 'topic-navigator-header-close' })`
+export const NavigatorHeaderCloseButton = styled(Button).attrs({ 'data-widget': 'connected-space-navigator-header-close' })`
 	padding: 0;
 	width: var(--height);
 	height: var(--height);

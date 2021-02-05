@@ -12,7 +12,8 @@ export const Zh = {
 		DEFAULT_DASHBOARD_NAME: '仪表盘',
 		NEW_CONNECTED_SPACE_NAME: '工作空间',
 		DEFAULT_CONNECTED_SPACE_NAME: '工作空间',
-		NEW_SUBJECT_NAME: '主题'
+		NEW_SUBJECT_NAME: '主题',
+		DEFAULT_SUBJECT_NAME: '主题'
 	},
 	ERROR: {
 		UNPREDICTED: '发生不可预测的错误, 请联系管理员以获取帮助.'
@@ -45,7 +46,8 @@ export const Zh = {
 		LOADING: '努力加载个人数据...',
 		ERROR: {
 			DASHBOARD_NOT_FOUND: '未找到指定的仪表盘数据.',
-			CONNECTED_SPACE_NOT_FOUND: '未找到指定的已联接工作空间.'
+			CONNECTED_SPACE_NOT_FOUND: '未找到指定的已联接工作空间.',
+			SUBJECT_NOT_FOUND: '未找到指定的主题.'
 		},
 		MENU: {
 			TITLE: 'Watchmen操作台',

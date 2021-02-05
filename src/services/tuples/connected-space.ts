@@ -73,7 +73,6 @@ export const renameConnectedSpace = async (connectedSpace: ConnectedSpace): Prom
 	}
 };
 
-
 export const deleteConnectedSpace = async (connectedSpace: ConnectedSpace): Promise<void> => {
 	if (isMockService()) {
 		return deleteMockConnectedSpace(connectedSpace);

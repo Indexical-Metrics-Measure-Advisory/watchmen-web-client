@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AlertLabel } from '../../../alert/widgets';
+import { PageHeaderHolder } from '../../../basic-widgets/page-header';
 import { useForceUpdate } from '../../../basic-widgets/utils';
 import { useEventBus } from '../../../events/event-bus';
 import { EventTypes } from '../../../events/types';
@@ -11,10 +12,12 @@ import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
 import { Topic } from '../../../services/tuples/topic-types';
 import { useConsoleEventBus } from '../../console-event-bus';
 import { ConsoleEventTypes } from '../../console-event-bus-types';
+import { HeaderButtons } from '../header/header-buttons';
+import { HeaderConnectedSpaceNameEditor } from '../header/header-connected-space-name-editor';
 import { CatalogEventBusProvider, useCatalogEventBus } from './catalog-event-bus';
 import { CatalogEventTypes } from './catalog-event-bus-types';
 import { asSubjectGraphicsMap, asTopicGraphicsMap, computeGraphics, createInitGraphics } from './graphics-utils';
-import { TopicNavigator } from './navigator/topic-navigator';
+import { Navigator } from './navigator';
 import { BlockRelations } from './relation/block-relations';
 import { BlockRelationsAnimation } from './relation/block-relations-animation';
 import { BlockSelection } from './selection';
@@ -148,7 +151,7 @@ const CatalogFrame = (props: { connectedSpace: ConnectedSpace }) => {
 				<BlockRelationsAnimation graphics={data.graphics}/>
 			</CatalogSvgRelationsAnimationContainer>
 		</CatalogSvgContainer>
-		<TopicNavigator/>
+		<Navigator/>
 	</CatalogContainer>;
 };
 
@@ -156,6 +159,10 @@ export const Catalog = (props: { connectedSpace: ConnectedSpace }) => {
 	const { connectedSpace } = props;
 
 	return <CatalogEventBusProvider>
+		<PageHeaderHolder>
+			<HeaderConnectedSpaceNameEditor connectedSpace={connectedSpace}/>
+			<HeaderButtons connectedSpace={connectedSpace}/>
+		</PageHeaderHolder>
 		<CatalogFrame connectedSpace={connectedSpace}/>
 	</CatalogEventBusProvider>;
 };

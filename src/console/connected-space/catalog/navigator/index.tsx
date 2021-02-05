@@ -5,13 +5,13 @@ import { Topic } from '../../../../services/tuples/topic-types';
 import { useCatalogEventBus } from '../catalog-event-bus';
 import { CatalogEventTypes } from '../catalog-event-bus-types';
 import {
-	TopicNavigatorContainer,
-	TopicNavigatorHeader,
-	TopicNavigatorHeaderCloseButton,
-	TopicNavigatorHeaderTitle
+	NavigatorContainer,
+	NavigatorHeader,
+	NavigatorHeaderCloseButton,
+	NavigatorHeaderTitle
 } from './widgets';
 
-export const TopicNavigator = () => {
+export const Navigator = () => {
 	const { on, off } = useCatalogEventBus();
 	const [ visible, setVisible ] = useState(false);
 	const [ topic, setTopic ] = useState<Topic | null>(null);
@@ -31,13 +31,13 @@ export const TopicNavigator = () => {
 		setVisible(false);
 	}
 
-	return <TopicNavigatorContainer visible={visible}>
-		<TopicNavigatorHeader>
-			<TopicNavigatorHeaderTitle>{topic?.name}</TopicNavigatorHeaderTitle>
-			<TopicNavigatorHeaderCloseButton onClick={onCloseClicked}>
+	return <NavigatorContainer visible={visible}>
+		<NavigatorHeader>
+			<NavigatorHeaderTitle>{topic?.name}</NavigatorHeaderTitle>
+			<NavigatorHeaderCloseButton onClick={onCloseClicked}>
 				<FontAwesomeIcon icon={ICON_CLOSE}/>
-			</TopicNavigatorHeaderCloseButton>
-		</TopicNavigatorHeader>
+			</NavigatorHeaderCloseButton>
+		</NavigatorHeader>
 		{/*<TopicBody>*/}
 		{/*	{*/}
 		{/*		topic*/}
@@ -49,5 +49,5 @@ export const TopicNavigator = () => {
 		{/*			: <NoData>No Data</NoData>*/}
 		{/*	}*/}
 		{/*</TopicBody>*/}
-	</TopicNavigatorContainer>;
+	</NavigatorContainer>;
 };

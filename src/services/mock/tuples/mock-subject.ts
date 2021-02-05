@@ -10,3 +10,9 @@ export const saveMockSubject = async (subject: Subject): Promise<void> => {
 		setTimeout(() => resolve(), 500);
 	});
 };
+
+export const renameMockSubject = async (subject: Subject): Promise<void> => {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve(), 500);
+	});
+};

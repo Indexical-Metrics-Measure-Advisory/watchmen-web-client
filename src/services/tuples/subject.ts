@@ -1,5 +1,5 @@
 import { findToken } from '../account';
-import { saveMockSubject } from '../mock/tuples/mock-subject';
+import { renameMockSubject, saveMockSubject } from '../mock/tuples/mock-subject';
 import { getServiceHost, isMockService } from '../utils';
 import { Subject } from './subject-types';
 import { isFakedUuid } from './utils';
@@ -35,5 +35,21 @@ export const saveSubject = async (subject: Subject, connectedSpaceId: string): P
 
 		const data = await response.json();
 		subject.lastModifyTime = data.lastModifyTime;
+	}
+};
+
+export const renameSubject = async (subject: Subject): Promise<void> => {
+	if (isMockService()) {
+		return renameMockSubject(subject);
+	} else {
+		// TODO use real api
+		// const token = findToken();
+		// await fetch(`${getServiceHost()}subject/rename?subject_id=${subject.subjectId}&name=${subject.name}`, {
+		// 	method: 'GET',
+		// 	headers: {
+		// 		'Content-Type': 'application/json',
+		// 		Authorization: 'Bearer ' + token
+		// 	}
+		// });
 	}
 };

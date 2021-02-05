@@ -7,7 +7,7 @@ import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
 import { useConsoleEventBus } from '../../console-event-bus';
 import { ConsoleEventTypes } from '../../console-event-bus-types';
 
-export const HeaderNameEditor = (props: { connectedSpace: ConnectedSpace }) => {
+export const HeaderConnectedSpaceNameEditor = (props: { connectedSpace: ConnectedSpace }) => {
 	const { connectedSpace } = props;
 
 	const language = useLanguage();

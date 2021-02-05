@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { AlertLabel } from '../../alert/widgets';
 import { FullWidthPage } from '../../basic-widgets/page';
-import { PageHeaderHolder } from '../../basic-widgets/page-header';
 import { useEventBus } from '../../events/event-bus';
 import { EventTypes } from '../../events/types';
 import { Lang } from '../../langs';
@@ -13,8 +12,6 @@ import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
 import { BodyRouter } from './body-router';
 import { ConnectedSpaceEventBusProvider } from './connected-space-event-bus';
-import { HeaderButtons } from './header/header-buttons';
-import { HeaderNameEditor } from './header/header-name-editor';
 
 const ConsoleConnectedSpaceIndex = () => {
 	const { connectId: connectedSpaceId } = useParams<{ connectId: string }>();
@@ -24,6 +21,7 @@ const ConsoleConnectedSpaceIndex = () => {
 	const { once, on, off } = useConsoleEventBus();
 	const [ connectedSpace, setConnectedSpace ] = useState<ConnectedSpace | null>(null);
 	useEffect(() => {
+		console.log('x')
 		once(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
 			// eslint-disable-next-line
 			const connectedSpace = connectedSpaces.find(connectedSpace => connectedSpace.connectId == connectedSpaceId);
@@ -70,10 +68,6 @@ const ConsoleConnectedSpaceIndex = () => {
 
 	return <ConnectedSpaceEventBusProvider>
 		<FullWidthPage>
-			<PageHeaderHolder>
-				<HeaderNameEditor connectedSpace={connectedSpace}/>
-				<HeaderButtons connectedSpace={connectedSpace}/>
-			</PageHeaderHolder>
 			<BodyRouter connectedSpace={connectedSpace}/>
 		</FullWidthPage>
 	</ConnectedSpaceEventBusProvider>;
