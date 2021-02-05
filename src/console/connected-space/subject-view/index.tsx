@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { AlertLabel } from '../../../alert/widgets';
-import { PageHeaderHolder } from '../../../basic-widgets/page-header';
 import { useEventBus } from '../../../events/event-bus';
 import { EventTypes } from '../../../events/types';
 import { Lang } from '../../../langs';
 import { toConnectedSpace } from '../../../routes/utils';
 import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
 import { Subject } from '../../../services/tuples/subject-types';
-import { HeaderSubjectNameEditor } from './header/header-subject-name-editor';
-import { SubjectHeaderButtons } from './header/subject-header-buttons';
+import { SubjectHeader } from './header';
 import { SubjectEventBusProvider } from './subject-event-bus';
-import { SubjectViewContainer } from './widgets';
+import { SubjectContainer } from './widgets';
 
-const SubjectViewFrame = (props: { connectedSpace: ConnectedSpace }) => {
-	const { connectedSpace } = props;
+const SubjectBody = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
+	return <SubjectContainer>
 
-	return <SubjectViewContainer>
-
-	</SubjectViewContainer>;
+	</SubjectContainer>;
 };
 
 export const SubjectView = (props: { connectedSpace: ConnectedSpace }) => {
@@ -46,10 +42,7 @@ export const SubjectView = (props: { connectedSpace: ConnectedSpace }) => {
 	}
 
 	return <SubjectEventBusProvider>
-		<PageHeaderHolder>
-			<HeaderSubjectNameEditor connectedSpace={connectedSpace} subject={subject}/>
-			<SubjectHeaderButtons connectedSpace={connectedSpace} subject={subject}/>
-		</PageHeaderHolder>
-		<SubjectViewFrame connectedSpace={connectedSpace}/>
+		<SubjectHeader connectedSpace={connectedSpace} subject={subject}/>
+		<SubjectBody connectedSpace={connectedSpace} subject={subject}/>
 	</SubjectEventBusProvider>;
 };

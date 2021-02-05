@@ -58,11 +58,11 @@ export const PageHeader = (props: { title: string; onSettingsClicked?: () => voi
 };
 
 export const PageHeaderHolderContainer = styled.div.attrs({ 'data-widget': 'page-header' })`
-	display       : grid;
-	grid-template-columns: auto 1fr;
-	align-items   : center;
-	height        : 57px;
-	border-bottom : var(--border);
+	display               : grid;
+	grid-template-columns : auto 1fr;
+	align-items           : center;
+	height                : 57px;
+	border-bottom         : var(--border);
 `;
 
 export const PageHeaderHolder = (props: { children: ((props: any) => React.ReactNode) | React.ReactNode }) => {

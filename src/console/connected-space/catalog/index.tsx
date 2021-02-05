@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AlertLabel } from '../../../alert/widgets';
-import { PageHeaderHolder } from '../../../basic-widgets/page-header';
 import { useForceUpdate } from '../../../basic-widgets/utils';
 import { useEventBus } from '../../../events/event-bus';
 import { EventTypes } from '../../../events/types';
@@ -13,12 +12,11 @@ import { ConnectedSpace, ConnectedSpaceGraphics } from '../../../services/tuples
 import { Topic } from '../../../services/tuples/topic-types';
 import { useConsoleEventBus } from '../../console-event-bus';
 import { ConsoleEventTypes } from '../../console-event-bus-types';
-import { HeaderConnectedSpaceNameEditor } from './header/header-connected-space-name-editor';
 import { CatalogEventBusProvider, useCatalogEventBus } from './catalog-event-bus';
 import { CatalogEventTypes } from './catalog-event-bus-types';
-import { CatalogHeaderButtons } from './header/catalog-header-buttons';
 import { GraphicsSave } from './graphics-save';
 import { asSubjectGraphicsMap, asTopicGraphicsMap, computeGraphics, createInitGraphics } from './graphics-utils';
+import { CatalogHeader } from './header';
 import { Navigator } from './navigator';
 import { BlockRelations } from './relation/block-relations';
 import { BlockRelationsAnimation } from './relation/block-relations-animation';
@@ -40,7 +38,7 @@ interface CatalogData {
 	graphics?: AssembledConnectedSpaceGraphics
 }
 
-const CatalogFrame = (props: { connectedSpace: ConnectedSpace }) => {
+const CatalogBody = (props: { connectedSpace: ConnectedSpace }) => {
 	const { connectedSpace } = props;
 
 	const svgContainerRef = useRef<HTMLDivElement>(null);
@@ -175,10 +173,7 @@ export const Catalog = (props: { connectedSpace: ConnectedSpace }) => {
 	const { connectedSpace } = props;
 
 	return <CatalogEventBusProvider>
-		<PageHeaderHolder>
-			<HeaderConnectedSpaceNameEditor connectedSpace={connectedSpace}/>
-			<CatalogHeaderButtons connectedSpace={connectedSpace}/>
-		</PageHeaderHolder>
-		<CatalogFrame connectedSpace={connectedSpace}/>
+		<CatalogHeader connectedSpace={connectedSpace}/>
+		<CatalogBody connectedSpace={connectedSpace}/>
 	</CatalogEventBusProvider>;
 };

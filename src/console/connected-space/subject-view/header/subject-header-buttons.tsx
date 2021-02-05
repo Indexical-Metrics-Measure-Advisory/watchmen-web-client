@@ -14,6 +14,7 @@ export const SubjectHeaderButtons = (props: { connectedSpace: ConnectedSpace, su
 	return <PageHeaderButtons>
 		<HeaderCatalogButton connectedSpace={connectedSpace}/>
 		<HeaderAddSubjectButton connectedSpace={connectedSpace}/>
+		<PageHeaderButtonSeparator/>
 		<HeaderAddReportButton connectedSpace={connectedSpace} subject={subject}/>
 		<PageHeaderButtonSeparator/>
 		<HeaderSwitchSubjectButton connectedSpace={connectedSpace} subject={subject}/>

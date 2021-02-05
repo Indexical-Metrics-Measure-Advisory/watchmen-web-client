@@ -61,6 +61,7 @@ export const HeaderDeleteSubjectButton = (props: { connectedSpace: ConnectedSpac
 	const { fire } = useConnectedSpaceEventBus();
 
 	const onDeleted = async () => {
+		// eslint-disable-next-line
 		const index = connectedSpace.subjects.findIndex(s => s.subjectId == subject.subjectId);
 		if (index !== -1) {
 			connectedSpace.subjects.splice(index, 1);
