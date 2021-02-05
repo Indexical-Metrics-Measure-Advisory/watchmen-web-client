@@ -21,7 +21,6 @@ const ConsoleConnectedSpaceIndex = () => {
 	const { once, on, off } = useConsoleEventBus();
 	const [ connectedSpace, setConnectedSpace ] = useState<ConnectedSpace | null>(null);
 	useEffect(() => {
-		console.log('x')
 		once(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
 			// eslint-disable-next-line
 			const connectedSpace = connectedSpaces.find(connectedSpace => connectedSpace.connectId == connectedSpaceId);

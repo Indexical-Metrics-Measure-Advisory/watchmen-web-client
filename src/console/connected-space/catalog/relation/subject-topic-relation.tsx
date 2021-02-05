@@ -5,10 +5,10 @@ import { Topic } from '../../../../services/tuples/topic-types';
 import { useCatalogEventBus } from '../catalog-event-bus';
 import { CatalogEventTypes } from '../catalog-event-bus-types';
 import { computeRelationPoints } from '../graphics-utils';
-import { ConnectedSpaceGraphics, GraphicsRole } from '../types';
+import { AssembledConnectedSpaceGraphics, GraphicsRole } from '../types';
 import { Curve } from './widgets';
 
-export const SubjectTopicSelection = (props: { graphics: ConnectedSpaceGraphics, topic: Topic, subject: Subject }) => {
+export const SubjectTopicSelection = (props: { graphics: AssembledConnectedSpaceGraphics, topic: Topic, subject: Subject }) => {
 	const { graphics, topic, subject } = props;
 
 	const { on, off } = useCatalogEventBus();

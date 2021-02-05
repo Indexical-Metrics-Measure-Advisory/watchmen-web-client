@@ -1,12 +1,13 @@
 import { findToken } from '../account';
 import {
-	deleteMockConnectedSpace,
+	deleteMockConnectedSpace, fetchMockConnectedSpaceGraphics,
 	fetchMockConnectedSpaces,
 	renameMockConnectedSpace,
-	saveMockConnectedSpace
+	saveMockConnectedSpace,
+	saveMockConnectedSpaceGraphics
 } from '../mock/tuples/mock-connected-space';
 import { getServiceHost, isMockService } from '../utils';
-import { ConnectedSpace } from './connected-space-types';
+import { ConnectedSpace, ConnectedSpaceGraphics } from './connected-space-types';
 import { isFakedUuid } from './utils';
 
 export const fetchConnectedSpaces = async (): Promise<Array<ConnectedSpace>> => {
@@ -24,6 +25,15 @@ export const fetchConnectedSpaces = async (): Promise<Array<ConnectedSpace>> => 
 		return await response.json();
 	}
 };
+
+export const fetchConnectedSpaceGraphics = async () : Promise<Array<ConnectedSpaceGraphics>> => {
+	if (isMockService()) {
+		return fetchMockConnectedSpaceGraphics();
+	} else {
+		// TODO use real api
+		return [];
+	}
+}
 
 export const saveConnectedSpace = async (connectedSpace: ConnectedSpace): Promise<void> => {
 	if (isMockService()) {
@@ -85,5 +95,13 @@ export const deleteConnectedSpace = async (connectedSpace: ConnectedSpace): Prom
 				Authorization: 'Bearer ' + token
 			}
 		});
+	}
+};
+
+export const saveConnectedSpaceGraphics = async (connectedSpace: ConnectedSpace, graphics: ConnectedSpaceGraphics): Promise<void> => {
+	if (isMockService()) {
+		return saveMockConnectedSpaceGraphics(connectedSpace, graphics);
+	} else {
+		// TODO use real api
 	}
 };

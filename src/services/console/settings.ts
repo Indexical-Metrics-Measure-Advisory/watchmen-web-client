@@ -1,18 +1,20 @@
+import { fetchConnectedSpaceGraphics, fetchConnectedSpaces } from '../tuples/connected-space';
+import { fetchDashboards } from '../tuples/dashboard';
 import { fetchAvailableSpaces } from './available-space';
 import { fetchAvailableTopics } from './available-topic';
-import { fetchConnectedSpaces } from '../tuples/connected-space';
-import { fetchDashboards } from '../tuples/dashboard';
 import { fetchFavorite } from './favorite';
 import { fetchLastSnapshot } from './last-snapshot';
 import { ConsoleSettings } from './settings-types';
 
 export const fetchConsoleSettingsData = async (): Promise<ConsoleSettings> => {
 	const [
-		connectedSpaces, dashboards,
+		connectedSpaces, connectedSpaceGraphics, dashboards,
 		availableSpaces,
 		favorite, lastSnapshot
 	] = await Promise.all([
-		fetchConnectedSpaces(), fetchDashboards(),
+		fetchConnectedSpaces(),
+		fetchConnectedSpaceGraphics(),
+		fetchDashboards(),
 		fetchAvailableSpaces(),
 		fetchFavorite(), fetchLastSnapshot()
 	]);
@@ -21,7 +23,7 @@ export const fetchConsoleSettingsData = async (): Promise<ConsoleSettings> => {
 	const availableTopics = await fetchAvailableTopics(topicIds);
 
 	return {
-		connectedSpaces, dashboards,
+		connectedSpaces, connectedSpaceGraphics, dashboards,
 		availableSpaces, availableTopics,
 		favorite, lastSnapshot
 	};

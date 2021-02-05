@@ -3,10 +3,10 @@ import { useForceUpdate } from '../../../../basic-widgets/utils';
 import { findSvgRoot } from '../../../utils/in-svg';
 import { useCatalogEventBus } from '../catalog-event-bus';
 import { CatalogEventTypes } from '../catalog-event-bus-types';
-import { GraphicsRole, SubjectGraphics } from '../types';
+import { GraphicsRole, AssembledSubjectGraphics } from '../types';
 import { SubjectBlock, SubjectContainer, SubjectNameText } from './widgets';
 
-export const SubjectRect = (props: { subject: SubjectGraphics }) => {
+export const SubjectRect = (props: { subject: AssembledSubjectGraphics }) => {
 	const { subject: subjectGraphics } = props;
 	const { subject, rect } = subjectGraphics;
 	const { coordinate, frame: frameRect, name: namePos } = rect;

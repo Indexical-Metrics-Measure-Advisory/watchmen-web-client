@@ -8,7 +8,8 @@ import { EventTypes } from '../../../events/types';
 import { Lang } from '../../../langs';
 import { Router } from '../../../routes/types';
 import { AvailableSpaceInConsole } from '../../../services/console/settings-types';
-import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
+import { GraphicsSize } from '../../../services/graphics/graphics-types';
+import { ConnectedSpace, ConnectedSpaceGraphics } from '../../../services/tuples/connected-space-types';
 import { Topic } from '../../../services/tuples/topic-types';
 import { useConsoleEventBus } from '../../console-event-bus';
 import { ConsoleEventTypes } from '../../console-event-bus-types';
@@ -16,6 +17,7 @@ import { HeaderButtons } from '../header/header-buttons';
 import { HeaderConnectedSpaceNameEditor } from '../header/header-connected-space-name-editor';
 import { CatalogEventBusProvider, useCatalogEventBus } from './catalog-event-bus';
 import { CatalogEventTypes } from './catalog-event-bus-types';
+import { GraphicsSave } from './graphics-save';
 import { asSubjectGraphicsMap, asTopicGraphicsMap, computeGraphics, createInitGraphics } from './graphics-utils';
 import { Navigator } from './navigator';
 import { BlockRelations } from './relation/block-relations';
@@ -23,14 +25,19 @@ import { BlockRelationsAnimation } from './relation/block-relations-animation';
 import { BlockSelection } from './selection';
 import { SubjectRect } from './subject/subject-rect';
 import { TopicRect } from './topic/topic-rect';
-import { ConnectedSpaceGraphics, GraphicsRole, GraphicsSize, SubjectGraphics, TopicGraphics } from './types';
+import {
+	AssembledConnectedSpaceGraphics,
+	AssembledSubjectGraphics,
+	AssembledTopicGraphics,
+	GraphicsRole
+} from './types';
 import { CatalogContainer, CatalogSvg, CatalogSvgContainer, CatalogSvgRelationsAnimationContainer } from './widgets';
 
 interface CatalogData {
 	initialized: boolean;
 	space?: AvailableSpaceInConsole;
 	topics: Array<Topic>;
-	graphics?: ConnectedSpaceGraphics
+	graphics?: AssembledConnectedSpaceGraphics
 }
 
 const CatalogFrame = (props: { connectedSpace: ConnectedSpace }) => {
@@ -72,12 +79,20 @@ const CatalogFrame = (props: { connectedSpace: ConnectedSpace }) => {
 						}).fire(EventTypes.SHOW_ALERT,
 							<AlertLabel>{Lang.CONSOLE.CONNECTED_SPACE.TOPICS_COUNT_MISMATCH}</AlertLabel>);
 					} else {
-						setData({
-							initialized: true,
-							space,
-							topics,
-							graphics: createInitGraphics({ topics, subjects: connectedSpace.subjects })
-						});
+						onceConsole(ConsoleEventTypes.REPLY_CONNECTED_SPACE_GRAPHICS, (graphics: Array<ConnectedSpaceGraphics>) => {
+							// eslint-disable-next-line
+							const thisGraphics = graphics.find(graphics => graphics.connectId == connectedSpace.connectId);
+							setData({
+								initialized: true,
+								space,
+								topics,
+								graphics: createInitGraphics({
+									topics,
+									subjects: connectedSpace.subjects,
+									graphics: thisGraphics
+								})
+							});
+						}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACE_GRAPHICS);
 					}
 				}).fire(ConsoleEventTypes.ASK_AVAILABLE_TOPICS);
 			}
@@ -130,8 +145,8 @@ const CatalogFrame = (props: { connectedSpace: ConnectedSpace }) => {
 		}
 	};
 
-	const topicGraphicsMap: Map<string, TopicGraphics> = asTopicGraphicsMap(data.graphics);
-	const subjectGraphicsMap: Map<string, SubjectGraphics> = asSubjectGraphicsMap(data.graphics);
+	const topicGraphicsMap: Map<string, AssembledTopicGraphics> = asTopicGraphicsMap(data.graphics);
+	const subjectGraphicsMap: Map<string, AssembledSubjectGraphics> = asSubjectGraphicsMap(data.graphics);
 
 	return <CatalogContainer>
 		<CatalogSvgContainer ref={svgContainerRef}>
@@ -152,6 +167,7 @@ const CatalogFrame = (props: { connectedSpace: ConnectedSpace }) => {
 			</CatalogSvgRelationsAnimationContainer>
 		</CatalogSvgContainer>
 		<Navigator/>
+		<GraphicsSave connectedSpace={connectedSpace} graphics={data.graphics}/>
 	</CatalogContainer>;
 };
 

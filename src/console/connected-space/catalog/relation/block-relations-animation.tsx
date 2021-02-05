@@ -1,9 +1,9 @@
 import { computeRelatedTopicIds } from '../data-utils';
 import { asTopicGraphicsMap } from '../graphics-utils';
-import { ConnectedSpaceGraphics } from '../types';
+import { AssembledConnectedSpaceGraphics } from '../types';
 import { SubjectTopicRelationAnimation } from './subject-topic-relation-animation';
 
-export const BlockRelationsAnimation = (props: { graphics: ConnectedSpaceGraphics }) => {
+export const BlockRelationsAnimation = (props: { graphics: AssembledConnectedSpaceGraphics }) => {
 	const { graphics } = props;
 
 	const { subjects: subjectGraphics } = graphics;

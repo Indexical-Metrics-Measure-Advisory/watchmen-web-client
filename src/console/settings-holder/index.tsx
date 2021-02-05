@@ -15,6 +15,7 @@ export const SettingsHolder = () => {
 	const [ holdSettings, setHoldSettings ] = useState<HoldSettings>({
 		initialized: false,
 		connectedSpaces: [],
+		connectedSpaceGraphics: [],
 		availableSpaces: [],
 		availableTopics: [],
 		dashboards: [],

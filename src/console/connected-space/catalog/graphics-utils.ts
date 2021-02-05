@@ -1,3 +1,12 @@
+import { BlockFrame } from '../../../services/graphics/graphics-types';
+import {
+	ConnectedSpace,
+	ConnectedSpaceBlockGraphics,
+	ConnectedSpaceBlockGraphicsRect,
+	ConnectedSpaceGraphics,
+	SubjectGraphics,
+	TopicGraphics
+} from '../../../services/tuples/connected-space-types';
 import { Subject } from '../../../services/tuples/subject-types';
 import { Topic } from '../../../services/tuples/topic-types';
 import {
@@ -7,31 +16,67 @@ import {
 	BLOCK_GAP_VERTICAL,
 	BLOCK_HEIGHT_MIN,
 	BLOCK_MARGIN_HORIZONTAL,
-	BLOCK_NAME_OFFSET_Y,
 	BLOCK_MARGIN_VERTICAL,
+	BLOCK_NAME_OFFSET_Y,
 	BLOCK_WIDTH_MIN,
 	SELECTION_FULL_GAP,
 	SELECTION_GAP
 } from './constants';
 import {
-	BlockFrame,
-	ConnectedSpaceGraphics,
-	FrameGraphics,
+	AssembledConnectedSpaceGraphics,
+	AssembledSubjectGraphics,
+	AssembledTopicGraphics,
 	GraphicsRole,
-	RelationCurvePoints,
-	SubjectGraphics,
-	TopicGraphics
+	RelationCurvePoints
 } from './types';
+
+const dependRectData = (rect: ConnectedSpaceBlockGraphicsRect): ConnectedSpaceBlockGraphicsRect => {
+	const {
+		coordinate: { x: coordinateX = 0, y: coordinateY = 0 } = { x: 0, y: 0 },
+		frame: {
+			x: frameX = 0,
+			y: frameY = 0,
+			width: frameWidth = BLOCK_WIDTH_MIN,
+			height: frameHeight = BLOCK_HEIGHT_MIN
+		} = { x: 0, y: 0, width: BLOCK_WIDTH_MIN, height: BLOCK_HEIGHT_MIN },
+		name: { x: nameX = BLOCK_WIDTH_MIN / 2, y: nameY = BLOCK_HEIGHT_MIN / 2 } = {
+			x: BLOCK_WIDTH_MIN / 2,
+			y: BLOCK_HEIGHT_MIN / 2
+		}
+	} = rect;
+	return {
+		coordinate: { x: coordinateX, y: coordinateY },
+		frame: { x: frameX, y: frameY, width: frameWidth, height: frameHeight },
+		name: { x: nameX, y: nameY }
+	};
+};
 
 export const createInitGraphics = (options: {
 	topics: Array<Topic>;
 	subjects: Array<Subject>;
-}): ConnectedSpaceGraphics => {
-	const { topics, subjects } = options;
+	graphics?: ConnectedSpaceGraphics
+}): AssembledConnectedSpaceGraphics => {
+	const {
+		topics, subjects,
+		graphics: { topics: topicGraphics = [], subjects: subjectGraphics = [] } = { topics: [], subjects: [] }
+	} = options;
+
+	const topicGraphicsMap: Map<string, TopicGraphics> = topicGraphics.reduce((map, topic) => {
+		map.set(topic.topicId, topic);
+		return map;
+	}, new Map<string, TopicGraphics>());
+	const subjectGraphicsMap: Map<string, SubjectGraphics> = subjectGraphics.reduce((map, subject) => {
+		map.set(subject.subjectId, subject);
+		return map;
+	}, new Map<string, SubjectGraphics>());
 
 	return {
 		topics: topics.map(topic => {
-			return {
+			const graphics = topicGraphicsMap.get(topic.topicId);
+			return graphics && graphics.rect ? {
+				topic,
+				rect: dependRectData(JSON.parse(JSON.stringify(graphics.rect)))
+			} : {
 				topic,
 				rect: {
 					coordinate: { x: 0, y: 0 },
@@ -41,7 +86,11 @@ export const createInitGraphics = (options: {
 			};
 		}),
 		subjects: subjects.map(subject => {
-			return {
+			const graphics = subjectGraphicsMap.get(subject.subjectId);
+			return graphics && graphics.rect ? {
+				subject,
+				rect: dependRectData(JSON.parse(JSON.stringify(graphics.rect)))
+			} : {
 				subject,
 				rect: {
 					coordinate: { x: 0, y: 0 },
@@ -50,31 +99,21 @@ export const createInitGraphics = (options: {
 				}
 			};
 		})
-		// topicRelations: topicRelations.map(relation => {
-		// 	return {
-		// 		relation,
-		// 		points: { drawn: 'M0,0 L0,0' }
-		// 	};
-		// }),
-		// topicSelection: {
-		// 	visible: false,
-		// 	rect: { x: 0, y: 0, width: 0, height: 0 }
-		// }
 	};
 };
 
-export const asTopicGraphicsMap = (graphics: ConnectedSpaceGraphics) => {
+export const asTopicGraphicsMap = (graphics: AssembledConnectedSpaceGraphics) => {
 	return graphics.topics.reduce((map, topicGraphics) => {
 		map.set(topicGraphics.topic.topicId, topicGraphics);
 		return map;
-	}, new Map<string, TopicGraphics>());
+	}, new Map<string, AssembledTopicGraphics>());
 };
 
-export const asSubjectGraphicsMap = (graphics: ConnectedSpaceGraphics) => {
+export const asSubjectGraphicsMap = (graphics: AssembledConnectedSpaceGraphics) => {
 	return graphics.subjects.reduce((map, subjectGraphics) => {
 		map.set(subjectGraphics.subject.subjectId, subjectGraphics);
 		return map;
-	}, new Map<string, SubjectGraphics>());
+	}, new Map<string, AssembledSubjectGraphics>());
 };
 
 /** topic frame size */
@@ -89,9 +128,9 @@ export const computeBlockNamePosition = (frame: BlockFrame) => {
 	return { x: frame.width / 2, y: frame.height / 2 + BLOCK_NAME_OFFSET_Y };
 };
 
-const computeTopicsGraphics = (graphics: ConnectedSpaceGraphics, svg: SVGSVGElement) => {
+const computeTopicsGraphics = (graphics: AssembledConnectedSpaceGraphics, svg: SVGSVGElement) => {
 	// compute topic size
-	const topicMap: Map<string, TopicGraphics> = asTopicGraphicsMap(graphics);
+	const topicMap: Map<string, AssembledTopicGraphics> = asTopicGraphicsMap(graphics);
 	Array.from(svg.querySelectorAll(`g[data-role=${GraphicsRole.TOPIC}]`)).forEach(topicRect => {
 		const topicId = topicRect.getAttribute('data-topic-id')!;
 		const name = topicRect.querySelector(`text[data-role='${GraphicsRole.TOPIC_NAME}']`)! as SVGTextElement;
@@ -110,13 +149,13 @@ const computeTopicsGraphics = (graphics: ConnectedSpaceGraphics, svg: SVGSVGElem
 	return topicMap;
 };
 
-const computeSubjectGraphics = (graphics: ConnectedSpaceGraphics, svg: SVGSVGElement) => {
+const computeSubjectGraphics = (graphics: AssembledConnectedSpaceGraphics, svg: SVGSVGElement) => {
 	const leftX = graphics.topics.reduce((right, topicGraphics) => {
 		return Math.max(right, topicGraphics.rect.frame.x + topicGraphics.rect.frame.width);
 	}, BLOCK_MARGIN_HORIZONTAL) + BLOCK_GAP_HORIZONTAL;
 
 	// compute subject size
-	const subjectMap: Map<string, SubjectGraphics> = asSubjectGraphicsMap(graphics);
+	const subjectMap: Map<string, AssembledSubjectGraphics> = asSubjectGraphicsMap(graphics);
 	Array.from(svg.querySelectorAll(`g[data-role=${GraphicsRole.SUBJECT}]`)).forEach(subjectRect => {
 		const subjectId = subjectRect.getAttribute('data-subject-id')!;
 		const name = subjectRect.querySelector(`text[data-role='${GraphicsRole.SUBJECT_NAME}']`)! as SVGTextElement;
@@ -136,7 +175,7 @@ const computeSubjectGraphics = (graphics: ConnectedSpaceGraphics, svg: SVGSVGEle
 };
 
 export const computeGraphics = (options: {
-	graphics: ConnectedSpaceGraphics;
+	graphics: AssembledConnectedSpaceGraphics;
 	svg: SVGSVGElement;
 }) => {
 	const { graphics, svg } = options;
@@ -156,7 +195,7 @@ export const computeGraphics = (options: {
 	return { width: width + BLOCK_MARGIN_HORIZONTAL, height: height + BLOCK_MARGIN_VERTICAL };
 };
 
-export const computeTopicSelection = (options: { topicId: string; graphics: ConnectedSpaceGraphics }) => {
+export const computeTopicSelection = (options: { topicId: string; graphics: AssembledConnectedSpaceGraphics }) => {
 	const { graphics, topicId } = options;
 
 	// eslint-disable-next-line
@@ -169,7 +208,7 @@ export const computeTopicSelection = (options: { topicId: string; graphics: Conn
 	};
 };
 
-export const computeSubjectSelection = (options: { subjectId: string; graphics: ConnectedSpaceGraphics }) => {
+export const computeSubjectSelection = (options: { subjectId: string; graphics: AssembledConnectedSpaceGraphics }) => {
 	const { graphics, subjectId } = options;
 
 	// eslint-disable-next-line
@@ -182,7 +221,7 @@ export const computeSubjectSelection = (options: { subjectId: string; graphics: 
 	};
 };
 
-const computeFramePoints = (frameGraphics: FrameGraphics) => {
+const computeFramePoints = (frameGraphics: ConnectedSpaceBlockGraphics) => {
 	const { rect: { coordinate, frame } } = frameGraphics;
 	return {
 		top: { x: coordinate.x + frame.x + frame.width / 2, y: coordinate.y + frame.y },
@@ -192,7 +231,7 @@ const computeFramePoints = (frameGraphics: FrameGraphics) => {
 	};
 };
 
-export const computeRelationPoints = (options: { source: FrameGraphics; target: FrameGraphics; }): RelationCurvePoints => {
+export const computeRelationPoints = (options: { source: ConnectedSpaceBlockGraphics; target: ConnectedSpaceBlockGraphics; }): RelationCurvePoints => {
 	const { source, target } = options;
 
 	// to find the start and end point position
@@ -325,4 +364,22 @@ export const computeRelationPoints = (options: { source: FrameGraphics; target: 
 			break;
 	}
 	return { drawn };
+};
+
+export const transformGraphicsToSave = (connectedSpace: ConnectedSpace, graphics: AssembledConnectedSpaceGraphics): ConnectedSpaceGraphics => {
+	return {
+		connectId: connectedSpace.connectId,
+		topics: graphics.topics.map(graphics => {
+			return {
+				topicId: graphics.topic.topicId,
+				rect: JSON.parse(JSON.stringify(graphics.rect))
+			};
+		}),
+		subjects: graphics.subjects.map(graphics => {
+			return {
+				subjectId: graphics.subject.subjectId,
+				rect: JSON.parse(JSON.stringify(graphics.rect))
+			};
+		})
+	};
 };

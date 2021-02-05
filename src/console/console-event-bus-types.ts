@@ -1,7 +1,7 @@
 import { Favorite } from '../services/console/favorite-types';
 import { LastSnapshot } from '../services/console/last-snapshot-types';
 import { AvailableSpaceInConsole, ConsoleSettings } from '../services/console/settings-types';
-import { ConnectedSpace } from '../services/tuples/connected-space-types';
+import { ConnectedSpace, ConnectedSpaceGraphics } from '../services/tuples/connected-space-types';
 import { Dashboard } from '../services/tuples/dashboard-types';
 import { Topic } from '../services/tuples/topic-types';
 
@@ -39,6 +39,8 @@ export enum ConsoleEventTypes {
 	CONNECTED_SPACE_RENAMED = 'connected-space-renamed',
 	CONNECTED_SPACE_REMOVED = 'connected-space-removed',
 
+	CONNECTED_SPACE_GRAPHICS_CHANGED = 'connected-space-graphics-changed',
+
 	// ask data
 	ASK_LAST_SNAPSHOT = 'ask-last-snapshot',
 	REPLY_LAST_SNAPSHOT = 'replay-last-snapshot',
@@ -48,6 +50,9 @@ export enum ConsoleEventTypes {
 
 	ASK_CONNECTED_SPACES = 'ask-connected-spaces',
 	REPLY_CONNECTED_SPACES = 'reply-connected-spaces',
+
+	ASK_CONNECTED_SPACE_GRAPHICS = 'ask-connected-space-graphics',
+	REPLY_CONNECTED_SPACE_GRAPHICS = 'reply-connected-space-graphics',
 
 	ASK_DASHBOARDS = 'ask-dashboards',
 	REPLY_DASHBOARDS = 'reply-dashboards',
@@ -143,6 +148,10 @@ export interface ConsoleEventBus {
 	on(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED, listener: (connectedSpace: ConnectedSpace) => void): this;
 	off(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED, listener: (connectedSpace: ConnectedSpace) => void): this;
 
+	fire(type: ConsoleEventTypes.CONNECTED_SPACE_GRAPHICS_CHANGED, graphics: ConnectedSpaceGraphics): this;
+	on(type: ConsoleEventTypes.CONNECTED_SPACE_GRAPHICS_CHANGED, listener: (graphics: ConnectedSpaceGraphics) => void): this;
+	off(type: ConsoleEventTypes.CONNECTED_SPACE_GRAPHICS_CHANGED, listener: (graphics: ConnectedSpaceGraphics) => void): this;
+
 	// ask state or data
 	fire(type: ConsoleEventTypes.ASK_LAST_SNAPSHOT): this;
 	on(type: ConsoleEventTypes.ASK_LAST_SNAPSHOT, listener: () => void): this;
@@ -164,6 +173,13 @@ export interface ConsoleEventBus {
 
 	fire(type: ConsoleEventTypes.REPLY_CONNECTED_SPACES, connectedSpaces: Array<ConnectedSpace>): this;
 	once(type: ConsoleEventTypes.REPLY_CONNECTED_SPACES, listener: (connectedSpaces: Array<ConnectedSpace>) => void): this;
+
+	fire(type: ConsoleEventTypes.ASK_CONNECTED_SPACE_GRAPHICS): this;
+	on(type: ConsoleEventTypes.ASK_CONNECTED_SPACE_GRAPHICS, listener: () => void): this;
+	off(type: ConsoleEventTypes.ASK_CONNECTED_SPACE_GRAPHICS, listener: () => void): this;
+
+	fire(type: ConsoleEventTypes.REPLY_CONNECTED_SPACE_GRAPHICS, connectedSpaceGraphics: Array<ConnectedSpaceGraphics>): this;
+	once(type: ConsoleEventTypes.REPLY_CONNECTED_SPACE_GRAPHICS, listener: (connectedSpaceGraphics: Array<ConnectedSpaceGraphics>) => void): this;
 
 	fire(type: ConsoleEventTypes.ASK_DASHBOARDS): this;
 	on(type: ConsoleEventTypes.ASK_DASHBOARDS, listener: () => void): this;

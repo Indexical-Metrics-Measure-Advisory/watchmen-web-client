@@ -1,4 +1,4 @@
-import { ConnectedSpace } from '../../tuples/connected-space-types';
+import { ConnectedSpace, ConnectedSpaceGraphics } from '../../tuples/connected-space-types';
 import { isFakedUuid } from '../../tuples/utils';
 import { getCurrentTime } from '../../utils';
 
@@ -115,6 +115,12 @@ export const fetchMockConnectedSpaces = async (): Promise<Array<ConnectedSpace>>
 	];
 };
 
+export const fetchMockConnectedSpaceGraphics = async (): Promise<Array<ConnectedSpaceGraphics>> => {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve([]), 500);
+	});
+};
+
 let newConnectedSpaceId = 10000;
 export const saveMockConnectedSpace = async (connectedSpace: ConnectedSpace): Promise<void> => {
 	return new Promise((resolve) => {
@@ -132,6 +138,12 @@ export const renameMockConnectedSpace = async (connectedSpace: ConnectedSpace): 
 };
 
 export const deleteMockConnectedSpace = async (connectedSpace: ConnectedSpace): Promise<void> => {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve(), 500);
+	});
+};
+
+export const saveMockConnectedSpaceGraphics = async (connectedSpace: ConnectedSpace, graphics: ConnectedSpaceGraphics): Promise<void> => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve(), 500);
 	});

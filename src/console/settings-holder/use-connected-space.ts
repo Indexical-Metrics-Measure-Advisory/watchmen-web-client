@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
-import { ConnectedSpace } from '../../services/tuples/connected-space-types';
+import { ConnectedSpace, ConnectedSpaceGraphics } from '../../services/tuples/connected-space-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
 import { HoldSettings } from './types';
@@ -14,13 +14,20 @@ export const useConnectedSpace = (options: {
 			// refresh is unnecessary
 			setHoldSettings(holdSettings => ({
 				...holdSettings,
-				connectedSpaces: [ ...holdSettings.connectedSpaces, connectedSpace ]
+				connectedSpaces: [ ...holdSettings.connectedSpaces, connectedSpace ],
+				connectedSpaceGraphics: [ ...holdSettings.connectedSpaceGraphics, {
+					connectId: connectedSpace.connectId,
+					topics: [],
+					subjects: []
+				} ]
 			}));
 		};
 		const onConnectedSpaceRemoved = (connectedSpace: ConnectedSpace) => {
 			setHoldSettings(holdSettings => ({
 				...holdSettings,
 				connectedSpaces: holdSettings.connectedSpaces.filter(exists => exists !== connectedSpace),
+				// eslint-disable-next-line
+				connectedSpaceGraphics: holdSettings.connectedSpaceGraphics.filter(exists => exists.connectId != connectedSpace.connectId),
 				favorite: {
 					...holdSettings.favorite,
 					// eslint-disable-next-line
@@ -47,16 +54,29 @@ export const useConnectedSpace = (options: {
 				}
 			}));
 		};
+		const onConnectedSpaceGraphicsChanged = (graphics: ConnectedSpaceGraphics) => {
+			setHoldSettings(holdSettings => {
+				return {
+					...holdSettings,
+					// eslint-disable-next-line
+					connectedSpaceGraphics: [ ...holdSettings.connectedSpaceGraphics.filter(g => g.connectId != graphics.connectId), graphics ]
+				};
+			});
+		};
 
 		on(ConsoleEventTypes.CONNECTED_SPACE_CREATED, onConnectedSpaceCreated);
 		on(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, onConnectedSpaceRemoved);
 		on(ConsoleEventTypes.CONNECTED_SPACE_ADDED_INTO_FAVORITE, onConnectedSpaceAddedIntoFavorite);
 		on(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, onConnectedSpaceRemovedFromFavorite);
+
+		on(ConsoleEventTypes.CONNECTED_SPACE_GRAPHICS_CHANGED, onConnectedSpaceGraphicsChanged);
 		return () => {
 			off(ConsoleEventTypes.CONNECTED_SPACE_CREATED, onConnectedSpaceCreated);
 			off(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, onConnectedSpaceRemoved);
 			off(ConsoleEventTypes.CONNECTED_SPACE_ADDED_INTO_FAVORITE, onConnectedSpaceAddedIntoFavorite);
 			off(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, onConnectedSpaceRemovedFromFavorite);
+
+			off(ConsoleEventTypes.CONNECTED_SPACE_GRAPHICS_CHANGED, onConnectedSpaceGraphicsChanged);
 		};
 	}, [ on, off, fire, setHoldSettings ]);
 };
