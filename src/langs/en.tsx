@@ -99,6 +99,7 @@ export const En = {
 		},
 		CONNECTED_SPACE: {
 			CATALOG: 'Catalog',
+			ADD_REPORT: 'Add Report',
 			ADD_SUBJECT: 'Add Subject',
 			OPEN_SUBJECT: 'Open Subject',
 			ADD_CONNECTED_SPACE: 'Connect Space',
