@@ -3,7 +3,7 @@ import { useForceUpdate } from '../../../../basic-widgets/utils';
 import { findSvgRoot } from '../../../utils/in-svg';
 import { useCatalogEventBus } from '../catalog-event-bus';
 import { CatalogEventTypes } from '../catalog-event-bus-types';
-import { GraphicsRole, AssembledSubjectGraphics } from '../types';
+import { AssembledSubjectGraphics, GraphicsRole } from '../types';
 import { SubjectBlock, SubjectContainer, SubjectNameText } from './widgets';
 
 export const SubjectRect = (props: { subject: AssembledSubjectGraphics }) => {

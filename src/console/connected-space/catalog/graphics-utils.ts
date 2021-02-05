@@ -140,6 +140,7 @@ const computeTopicsGraphics = (graphics: AssembledConnectedSpaceGraphics, svg: S
 		rect.name = computeBlockNamePosition(rect.frame);
 	});
 	Array.from(topicMap.values())
+		.filter(graphics => graphics.rect.coordinate.x === 0)
 		.sort((t1, t2) => t1.topic.name.toLowerCase().localeCompare(t2.topic.name.toLowerCase()))
 		.reduce((top, topicGraphics) => {
 			topicGraphics.rect.coordinate = { x: BLOCK_MARGIN_HORIZONTAL, y: top };
@@ -165,6 +166,7 @@ const computeSubjectGraphics = (graphics: AssembledConnectedSpaceGraphics, svg: 
 		rect.name = computeBlockNamePosition(rect.frame);
 	});
 	Array.from(subjectMap.values())
+		.filter(graphics => graphics.rect.coordinate.x === 0)
 		.sort((t1, t2) => t1.subject.name.toLowerCase().localeCompare(t2.subject.name.toLowerCase()))
 		.reduce((top, subjectGraphics) => {
 			subjectGraphics.rect.coordinate = { x: leftX, y: top };
@@ -181,11 +183,6 @@ export const computeGraphics = (options: {
 	const { graphics, svg } = options;
 	computeTopicsGraphics(graphics, svg);
 	computeSubjectGraphics(graphics, svg);
-	// compute topic relations
-	// graphics.topicRelations.forEach(relation => {
-	// 	const { relation: { sourceTopicId, targetTopicId } } = relation;
-	// 	relation.points = computeTopicRelationPoints({ graphics, sourceTopicId, targetTopicId });
-	// });
 	const { width: svgWidth, height: svgHeight } = svg.getBoundingClientRect();
 	const { width, height } = [ ...graphics.topics, ...graphics.subjects ].reduce<{ width: number, height: number }>(
 		(size, frameGraphics) => {

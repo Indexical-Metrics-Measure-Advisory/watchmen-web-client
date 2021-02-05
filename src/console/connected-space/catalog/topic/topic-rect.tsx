@@ -3,7 +3,7 @@ import { useForceUpdate } from '../../../../basic-widgets/utils';
 import { findSvgRoot } from '../../../utils/in-svg';
 import { useCatalogEventBus } from '../catalog-event-bus';
 import { CatalogEventTypes } from '../catalog-event-bus-types';
-import { GraphicsRole, AssembledTopicGraphics } from '../types';
+import { AssembledTopicGraphics, GraphicsRole } from '../types';
 import { TopicBlock, TopicContainer, TopicNameText } from './widgets';
 
 export const TopicRect = (props: { topic: AssembledTopicGraphics }) => {
