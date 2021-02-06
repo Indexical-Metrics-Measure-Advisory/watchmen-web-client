@@ -10,6 +10,7 @@ import { SubjectDefData, SubjectDefEventTypes } from '../subject-def-event-bus-t
 import { DefHeaderCell, DefHeaderIndex, DefHeaderLabel, DefHeaderNextButton } from './widgets';
 
 export const HeaderCell = (props: {
+	active: boolean;
 	activeIndex: number;
 	label: string;
 	onClick: (activeIndex: number) => void;

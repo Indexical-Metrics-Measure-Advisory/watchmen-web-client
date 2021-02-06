@@ -4,7 +4,7 @@ import { COLLAPSE_WIDTH, computeColumnWidths } from '../widgets';
 
 export const SubjectDefHeader = styled.div.attrs<{ activeIndex: number }>(({ activeIndex }) => {
 	return {
-		'data-widget': 'connected-space-subject-def-header',
+		'data-widget': 'subject-def-header',
 		style: {
 			gridTemplateColumns: computeColumnWidths(activeIndex)
 		}
@@ -15,7 +15,6 @@ export const SubjectDefHeader = styled.div.attrs<{ activeIndex: number }>(({ act
 	position              : relative;
 	height                : var(--grid-row-height);
 	min-height            : var(--grid-row-height);
-	border-bottom         : var(--border);
 	transition            : all 300ms ease-in-out;
 `;
 export const DefHeaderCell = styled.div.attrs({ 'data-widget': 'subject-def-header-cell' })`
@@ -28,6 +27,7 @@ export const DefHeaderCell = styled.div.attrs({ 'data-widget': 'subject-def-head
 	text-overflow : clip;
 	padding-right : var(--input-indent);
 	border-right  : var(--border);
+	border-bottom : var(--border);
 	cursor        : pointer;
 	&:last-child {
 		border-right : 0;
@@ -45,6 +45,7 @@ export const DefHeaderIndex = styled.span.attrs({ 'data-widget': 'subject-def-he
 `;
 export const DefHeaderLabel = styled.span.attrs({ 'data-widget': 'subject-def-header-label' })`
 	display     : flex;
+	position    : relative;
 	align-items : center;
 	flex-grow   : 1;
 `;

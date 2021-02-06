@@ -14,16 +14,17 @@ export const Header = (props: { activeIndex: number, changeActiveIndex: (activeI
 	};
 
 	return <SubjectDefHeader activeIndex={activeIndex}>
-		<HeaderCell activeIndex={1} label={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_PICK_TOPICS}
+		<HeaderCell active={activeIndex === 1} activeIndex={1} label={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_PICK_TOPICS}
 		            onClick={onChangeActiveIndex}
 		            checkPickedTopicBeforeActive={false} checkPickedTopicBeforeNext={true}/>
-		<HeaderCell activeIndex={2} label={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_DEFINE_COLUMNS}
+		<HeaderCell active={activeIndex === 2} activeIndex={2}
+		            label={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_DEFINE_COLUMNS}
 		            onClick={onChangeActiveIndex}/>
-		<HeaderCell activeIndex={3} label={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_FILTER_DATA}
+		<HeaderCell active={activeIndex === 3} activeIndex={3} label={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_FILTER_DATA}
 		            onClick={onChangeActiveIndex}/>
-		<HeaderCell activeIndex={4} label={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_SET_JOINS}
+		<HeaderCell active={activeIndex === 4} activeIndex={4} label={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_SET_JOINS}
 		            onClick={onChangeActiveIndex}/>
-		<HeaderCell activeIndex={5} label={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_DEF_OVERVIEW}
+		<HeaderCell active={activeIndex === 5} activeIndex={5} label={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_DEF_OVERVIEW}
 		            onClick={onChangeActiveIndex} next={false}/>
 	</SubjectDefHeader>;
 };

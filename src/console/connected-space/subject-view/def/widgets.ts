@@ -26,7 +26,7 @@ export const SubjectDefContainer = styled.div.attrs({ 'data-widget': 'subject-de
 
 export const SubjectDefBody = styled.div.attrs<{ activeIndex: number }>(({ activeIndex }) => {
 	return {
-		'data-widget': 'connected-space-subject-def-body',
+		'data-widget': 'subject-def-body',
 		style: {
 			gridTemplateColumns: computeColumnWidths(activeIndex)
 		}
@@ -38,4 +38,26 @@ export const SubjectDefBody = styled.div.attrs<{ activeIndex: number }>(({ activ
 	max-height            : calc(100% - var(--grid-row-height));
 	grid-template-columns : 1fr repeat(4, ${COLLAPSE_WIDTH}px);
 	transition            : all 300ms ease-in-out;
+`;
+export const SubjectDefBodyCover = styled.div.attrs<{ active: boolean }>(({ active }) => {
+	return {
+		'data-widget': 'subject-def-body-cover',
+		style: { display: active ? 'none' : (void 0) }
+	};
+})<{ active: boolean }>`
+	display          : block;
+	position         : absolute;
+	top              : 0;
+	left             : 0;
+	width            : 100%;
+	height           : 100%;
+	padding-top      : calc(var(--margin) / 2);
+	background-color : var(--bg-color);
+	opacity          : 0.9;
+	font-family      : var(--title-font-family);
+	font-size        : 1.1em;
+	writing-mode     : vertical-lr;
+	line-height      : ${COLLAPSE_WIDTH}px;
+	user-select      : none;
+	z-index          : 1;
 `;

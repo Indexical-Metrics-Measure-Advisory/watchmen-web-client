@@ -12,6 +12,7 @@ export const PickTopicsContainer = styled.div.attrs<{ active: boolean }>(({ acti
 	};
 }) <{ active: boolean }>`
 	display               : grid;
+	position              : relative;
 	grid-template-columns : 1fr 1fr 1fr;
 	grid-column-gap       : var(--margin);
 	grid-row-gap          : calc(var(--margin));
@@ -63,18 +64,4 @@ export const AvailableTopicBottomGap = styled.div.attrs({ 'data-widget': 'subjec
 	height      : var(--margin);
 	margin-top  : calc(var(--margin) * -1);
 	grid-column : span 3;
-`;
-export const AvailableTopicCover = styled.div.attrs<{ active: boolean }>(({ active }) => {
-	return {
-		'data-widget': 'subject-def-pick-topics-cover',
-		style: { display: active ? 'none' : (void 0) }
-	};
-})<{ active: boolean }>`
-	display  : block;
-	position : absolute;
-	top      : 0;
-	left     : 0;
-	width    : 100%;
-	height   : 100%;
-	z-index  : 1;
 `;
