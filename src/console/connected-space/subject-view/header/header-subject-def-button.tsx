@@ -15,7 +15,7 @@ export const HeaderSubjectDefButton = (props: { connectedSpace: ConnectedSpace, 
 
 	const history = useHistory();
 
-	const onCatalogClicked = () => {
+	const onDefClicked = () => {
 		if (isSubjectDefNow()) {
 			return;
 		}
@@ -24,7 +24,7 @@ export const HeaderSubjectDefButton = (props: { connectedSpace: ConnectedSpace, 
 
 	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_DEF}
 	                         ink={isSubjectDefNow() ? ButtonInk.PRIMARY : (void 0)}
-	                         onClick={onCatalogClicked}>
+	                         onClick={onDefClicked}>
 		<FontAwesomeIcon icon={ICON_SUBJECT_DEF}/>
 	</PageHeaderButton>;
 };

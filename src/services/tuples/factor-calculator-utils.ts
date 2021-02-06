@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import {
 	ComputedParameter,
 	ConstantParameter,
@@ -11,6 +12,108 @@ import { FactorType } from './factor-types';
 export const isTopicFactorParameter = (param: Parameter): param is TopicFactorParameter => !!(param as any).topicId;
 export const isConstantParameter = (param: Parameter): param is ConstantParameter => !!(param as any).value;
 export const isComputedParameter = (param: Parameter): param is ComputedParameter => !!(param as any).type;
+
+export const isParameterType = (parameterType: ParameterType | FactorType): parameterType is ParameterType => {
+	return parameterType.startsWith('pt-');
+};
+export const isFactorType = (parameterType: ParameterType | FactorType): parameterType is FactorType => {
+	return !parameterType.startsWith('pt-');
+};
+
+export const isConstantValueTypeMatched = (value: string, type: ParameterType | FactorType): boolean => {
+	switch (type) {
+		// always matched
+		case ParameterType.ANY:
+		case ParameterType.TEXT:
+		case FactorType.TEXT:
+		case FactorType.ADDRESS:
+		case FactorType.DISTRICT:
+		case FactorType.ROAD:
+		case FactorType.COMMUNITY:
+		case FactorType.EMAIL:
+		case FactorType.PHONE:
+		case FactorType.MOBILE:
+		case FactorType.FAX:
+		case FactorType.ID_NO:
+			return true;
+
+		// always mismatched
+		case ParameterType.ARRAY:
+		case FactorType.OBJECT:
+		case FactorType.ARRAY:
+		case FactorType.SEQUENCE:
+			// sequence factor never occurs in any expression/filter
+			return false;
+
+		// enum
+		case ParameterType.ENUM:
+		case FactorType.ENUM:
+		case FactorType.CONTINENT:
+		case FactorType.REGION:
+		case FactorType.COUNTRY:
+		case FactorType.PROVINCE:
+		case FactorType.CITY:
+		case FactorType.RESIDENCE_TYPE:
+		case FactorType.HALF_YEAR:
+		case FactorType.QUARTER:
+		case FactorType.SEASON:
+		case FactorType.HALF_MONTH:
+		case FactorType.TEN_DAYS:
+		case FactorType.WEEK_OF_YEAR:
+		case FactorType.WEEK_OF_MONTH:
+		case FactorType.HALF_WEEK:
+		case FactorType.DAY_OF_WEEK:
+		case FactorType.DAY_KIND:
+		case FactorType.HOUR_KIND:
+		case FactorType.AM_PM:
+		case FactorType.GENDER:
+		case FactorType.OCCUPATION:
+		case FactorType.RELIGION:
+		case FactorType.NATIONALITY:
+		case FactorType.BIZ_TRADE:
+			return false;
+
+		// numeric
+		case ParameterType.NUMBER:
+		case FactorType.NUMBER:
+		case FactorType.FLOOR:
+			return /^-?\d+(\.\d+)?$/.test(value);
+		case FactorType.UNSIGNED:
+		case FactorType.AGE:
+		case FactorType.RESIDENTIAL_AREA:
+		case FactorType.BIZ_SCALE:
+			return /^\d+(\.\d+)?$/.test(value);
+
+		case FactorType.YEAR:
+			return /^\d{4}$/.test(value);
+		case FactorType.MONTH:
+			return /^(10|11|12|0?[1-9])$/.test(value);
+		case FactorType.DAY:
+			return /^([0-2]?[1-9]|10|20|30|31)$/.test(value);
+		case FactorType.HOUR:
+			return /^([0-1]?[1-9]|10|20|21|22|23)$/.test(value);
+		case FactorType.MINUTE:
+		case FactorType.SECOND:
+			return /^[0-5]?[0-9]$/.test(value);
+
+		// datetime
+		case ParameterType.DATE:
+		case FactorType.DATE:
+		case FactorType.DATE_OF_BIRTH:
+			return !!value && !!dayjs(value, [ 'YYYY/MM/DD', 'YYYY-MM-DD' ], true);
+		case ParameterType.TIME:
+		case FactorType.TIME:
+			return !!value && !!dayjs(value, 'HH:mm:ss', true);
+		case ParameterType.DATETIME:
+		case FactorType.DATETIME:
+			return !!value && !!dayjs(value, [ 'YYYY/MM/DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss' ], true);
+
+		// boolean
+		case ParameterType.BOOLEAN:
+		case FactorType.BOOLEAN:
+			return [ 'true', 'false' ].includes(value.toLowerCase());
+	}
+};
 
 export const ParameterAndFactorTypeMapping: { [key in ParameterType]: (factorType: FactorType) => boolean } = {
 	[ParameterType.ANY]: () => true,

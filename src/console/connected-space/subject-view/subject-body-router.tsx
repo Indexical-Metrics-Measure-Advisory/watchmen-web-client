@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Router } from '../../../routes/types';
 import { toSubjectDef, toSubjectReport } from '../../../routes/utils';
 import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
 import { Subject } from '../../../services/tuples/subject-types';
-import { isDefValid } from './data-validator';
+import { useSubjectValid } from './data-validator';
 import { SubjectDataSet } from './dataset';
 import { SubjectDef } from './def';
 import { SubjectReport } from './report';
+
+const RouteAnything = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
+	const { connectedSpace, subject } = props;
+
+	const [ checked, setChecked ] = useState<{ valid: boolean, subject?: Subject }>({ valid: false });
+	useSubjectValid({ connectedSpace, subject, setValid: setChecked });
+
+	if (!checked.subject || checked.subject !== subject) {
+		return null;
+	}
+
+	if (checked.valid) {
+		return <Redirect to={toSubjectReport(connectedSpace.connectId, subject.subjectId)}/>;
+	} else {
+		return <Redirect to={toSubjectDef(connectedSpace.connectId, subject.subjectId)}/>;
+	}
+};
 
 export const SubjectBodyRouter = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const { connectedSpace, subject } = props;
@@ -23,9 +40,7 @@ export const SubjectBodyRouter = (props: { connectedSpace: ConnectedSpace, subje
 			<SubjectDef connectedSpace={connectedSpace} subject={subject}/>
 		</Route>
 		<Route path='*'>
-			{isDefValid(subject)
-				? <Redirect to={toSubjectReport(connectedSpace.connectId, subject.subjectId)}/>
-				: <Redirect to={toSubjectDef(connectedSpace.connectId, subject.subjectId)}/>}
+			<RouteAnything connectedSpace={connectedSpace} subject={subject}/>
 		</Route>
 	</Switch>;
 };
