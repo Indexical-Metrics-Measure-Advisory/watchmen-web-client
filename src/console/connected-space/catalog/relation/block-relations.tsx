@@ -1,4 +1,4 @@
-import { computeRelatedTopicIds } from '../data-utils';
+import { computeRelatedTopicIds } from '../../subject-data-utils';
 import { asTopicGraphicsMap } from '../graphics-utils';
 import { AssembledConnectedSpaceGraphics } from '../types';
 import { SubjectTopicSelection } from './subject-topic-relation';

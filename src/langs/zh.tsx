@@ -123,7 +123,12 @@ export const Zh = {
 			DELETE_SUBJECT_DIALOG_LABEL: '确认要删除主题吗? 请注意删除动作不能被恢复.',
 			SWITCH_SUBJECT: '切换主题',
 			SWITCH_SUBJECT_DIALOG_LABEL: '请选择主题',
-			NO_MORE_SUBJECT: '没有更多主题.'
+			NO_MORE_SUBJECT: '没有更多主题.',
+			SUBJECT_PICK_TOPICS: '选择数据集',
+			SUBJECT_DEFINE_COLUMNS: '定义数据列',
+			SUBJECT_FILTER_DATA: '数据过滤',
+			SUBJECT_SET_JOINS: '设置数据集关联',
+			SUBJECT_DEF_OVERVIEW: '总览'
 		},
 		SETTINGS: {
 			TITLE: '设置',

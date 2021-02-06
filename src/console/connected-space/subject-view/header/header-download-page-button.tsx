@@ -9,6 +9,7 @@ import { Subject } from '../../../../services/tuples/subject-types';
 export const HeaderDownloadPageButton = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const onDownloadClicked = () => {
 		// TODO print subject current page
+		// download(data);
 	};
 
 	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.DOWNLOAD_PAGE} onClick={onDownloadClicked}>

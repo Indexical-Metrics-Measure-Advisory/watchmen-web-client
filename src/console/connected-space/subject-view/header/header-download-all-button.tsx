@@ -7,8 +7,10 @@ import { ConnectedSpace } from '../../../../services/tuples/connected-space-type
 import { Subject } from '../../../../services/tuples/subject-types';
 
 export const HeaderDownloadAllButton = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
-	const onDownloadClicked = () => {
+	const onDownloadClicked = async () => {
 		// TODO print subject all pages
+		// const data = await fetchSubjectData({subjectId: subject.subjectId, pageNumber: 1, pageSize: 50000});
+		// download(data);
 	};
 
 	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.DOWNLOAD_ALL} onClick={onDownloadClicked}>

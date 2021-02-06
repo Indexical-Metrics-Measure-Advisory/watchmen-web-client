@@ -1,7 +1,7 @@
 import { Subject } from '../../../services/tuples/subject-types';
 
 export enum SubjectEventTypes {
-	SUBJECT_RENAMED = 'subject-renamed'
+	SUBJECT_RENAMED = 'subject-renamed',
 }
 
 export interface SubjectEventBus {

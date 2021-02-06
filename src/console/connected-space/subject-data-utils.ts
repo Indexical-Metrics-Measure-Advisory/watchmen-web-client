@@ -1,16 +1,16 @@
-import { Computed } from '../../../services/tuples/factor-calculator-types';
+import { Computed } from '../../services/tuples/factor-calculator-types';
 import {
 	isComputedParameter,
 	isConstantParameter,
 	isTopicFactorParameter
-} from '../../../services/tuples/factor-calculator-utils';
+} from '../../services/tuples/factor-calculator-utils';
 import {
 	SubjectDataSet,
 	SubjectDataSetColumn,
 	SubjectDataSetFilter,
 	SubjectDataSetJoin
-} from '../../../services/tuples/subject-types';
-import { isExpressionFilter, isJointFilter } from '../../../services/tuples/subject-utils';
+} from '../../services/tuples/subject-types';
+import { isExpressionFilter, isJointFilter } from '../../services/tuples/subject-utils';
 
 const computeRelatedTopicIdsByFilter = (filter: SubjectDataSetFilter): Array<string> => {
 	if (isJointFilter(filter)) {

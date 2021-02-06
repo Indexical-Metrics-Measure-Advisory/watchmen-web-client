@@ -126,7 +126,12 @@ export const En = {
 			DELETE_SUBJECT_DIALOG_LABEL: 'Are you sure to delete subject? Please note that deletion cannot be recovered.',
 			SWITCH_SUBJECT: 'Switch Subject',
 			SWITCH_SUBJECT_DIALOG_LABEL: 'Please select subject',
-			NO_MORE_SUBJECT: 'No more subject exists.'
+			NO_MORE_SUBJECT: 'No more subject exists.',
+			SUBJECT_PICK_TOPICS: 'Pick Topics',
+			SUBJECT_DEFINE_COLUMNS: 'Define Columns',
+			SUBJECT_FILTER_DATA: 'Filter Data',
+			SUBJECT_SET_JOINS: 'Set Joins',
+			SUBJECT_DEF_OVERVIEW: 'Overview'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',
