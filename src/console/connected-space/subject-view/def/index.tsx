@@ -22,8 +22,8 @@ export const SubjectDefWrapper = (props: { connectedSpace: ConnectedSpace, subje
 		<Header activeIndex={activeIndex} changeActiveIndex={onActiveIndexChange}/>
 		<SubjectDefBody activeIndex={activeIndex}>
 			<PickTopics connectedSpace={connectedSpace} subject={subject} active={activeIndex === 1}/>
-			<Filters connectedSpace={connectedSpace} subject={subject} active={activeIndex === 2}/>
-			<Columns connectedSpace={connectedSpace} subject={subject} active={activeIndex === 3}/>
+			<Columns connectedSpace={connectedSpace} subject={subject} active={activeIndex === 2}/>
+			<Filters connectedSpace={connectedSpace} subject={subject} active={activeIndex === 3}/>
 			<Joins connectedSpace={connectedSpace} subject={subject} active={activeIndex === 4}/>
 			<Overview connectedSpace={connectedSpace} subject={subject} active={activeIndex === 5}/>
 		</SubjectDefBody>
