@@ -119,11 +119,12 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
 		return false;
 	}
 
-	// TODO validate subject definition
+	// validate subject definition
 	const { columns } = dataset;
 	if (!columns || columns.length === 0) {
 		return false;
 	}
+	// TODO validate filters/joins
 	return !columns.some(column => !isComputedValid(column, topics).pass);
 };
 
