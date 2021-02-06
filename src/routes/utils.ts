@@ -14,6 +14,9 @@ export const toSubject = (connectedSpaceId: string, subjectId: string) => {
 export const toSubjectDef = (connectedSpaceId: string, subjectId: string) => {
 	return Router.CONSOLE_CONNECTED_SPACE_SUBJECT_DEF.replace(':connectId', connectedSpaceId).replace(':subjectId', subjectId);
 };
+export const toSubjectData = (connectedSpaceId: string, subjectId: string) => {
+	return Router.CONSOLE_CONNECTED_SPACE_SUBJECT_DATA.replace(':connectId', connectedSpaceId).replace(':subjectId', subjectId);
+};
 export const toSubjectReport = (connectedSpaceId: string, subjectId: string) => {
 	return Router.CONSOLE_CONNECTED_SPACE_SUBJECT_REPORT.replace(':connectId', connectedSpaceId).replace(':subjectId', subjectId);
 };

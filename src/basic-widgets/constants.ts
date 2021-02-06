@@ -1,14 +1,17 @@
 // the most important thing is keep z-index always be correct
+import { faBuffer } from '@fortawesome/free-brands-svg-icons';
 import {
+	faArrowAltCircleDown,
 	faBan,
 	faBell,
 	faChalkboard,
 	faChartBar,
+	faChartPie,
 	faCheck,
+	faCloudDownloadAlt,
 	faCog,
 	faComments,
 	faCompress,
-	faDatabase,
 	faDiceD20,
 	faDrawPolygon,
 	faEdit,
@@ -31,6 +34,7 @@ import {
 	faTachometerAlt,
 	faTags,
 	faTasks,
+	faTh,
 	faThumbtack,
 	faTimes,
 	faTools,
@@ -88,7 +92,6 @@ export const ICON_TOPIC = faTags;
 export const ICON_FACTOR = faList;
 export const ICON_REPORT = faChartBar;
 export const ICON_PIPELINE = faWaveSquare;
-export const ICON_SUBJECT_DEF = faDatabase;
 
 export const ICON_DASHBOARD = faTachometerAlt;
 export const ICON_FAVORITE = faStar;
@@ -115,9 +118,14 @@ export const ICON_SHARE = faShare;
 export const ICON_SWITCH = faRandom;
 export const ICON_PRINT = faPrint;
 export const ICON_CONNECTED_SPACE_CATALOG = faDrawPolygon;
+export const ICON_SUBJECT_DEF = faBuffer;
+export const ICON_SUBJECT_DATA = faTh;
+export const ICON_SUBJECT_REPORT = faChartPie;
 export const ICON_UPLOAD = faUpload;
 export const ICON_ROW_PREPEND_ON_RIGHT = faLevelUpAlt;
 export const ICON_CLOSE = faTimes;
+export const ICON_DOWNLOAD_PAGE = faArrowAltCircleDown;
+export const ICON_DOWNLOAD = faCloudDownloadAlt;
 // export const ICON_COLLAPSE_CONTENT = faCompressArrowsAlt;
 // export const ICON_EXPAND_CONTENT = faExpandArrowsAlt;
 

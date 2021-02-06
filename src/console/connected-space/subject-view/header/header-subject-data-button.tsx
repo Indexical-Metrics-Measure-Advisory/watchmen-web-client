@@ -1,30 +1,30 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { ICON_SUBJECT_DEF } from '../../../../basic-widgets/constants';
+import { ICON_SUBJECT_DATA } from '../../../../basic-widgets/constants';
 import { PageHeaderButton } from '../../../../basic-widgets/page-header-buttons';
 import { ButtonInk } from '../../../../basic-widgets/types';
 import { Lang } from '../../../../langs';
-import { toSubjectDef } from '../../../../routes/utils';
+import { toSubjectData } from '../../../../routes/utils';
 import { ConnectedSpace } from '../../../../services/tuples/connected-space-types';
 import { Subject } from '../../../../services/tuples/subject-types';
-import { isSubjectDefNow } from './utils';
+import { isSubjectDataNow } from './utils';
 
-export const HeaderSubjectDefButton = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
+export const HeaderSubjectDataButton = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const { connectedSpace, subject } = props;
 
 	const history = useHistory();
 
 	const onCatalogClicked = () => {
-		if (isSubjectDefNow()) {
+		if (isSubjectDataNow()) {
 			return;
 		}
-		history.push(toSubjectDef(connectedSpace.connectId, subject.subjectId));
+		history.push(toSubjectData(connectedSpace.connectId, subject.subjectId));
 	};
 
-	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_DEF}
-	                         ink={isSubjectDefNow() ? ButtonInk.PRIMARY : (void 0)}
+	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_DATA}
+	                         ink={isSubjectDataNow() ? ButtonInk.PRIMARY : (void 0)}
 	                         onClick={onCatalogClicked}>
-		<FontAwesomeIcon icon={ICON_SUBJECT_DEF}/>
+		<FontAwesomeIcon icon={ICON_SUBJECT_DATA}/>
 	</PageHeaderButton>;
 };
