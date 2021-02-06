@@ -3,7 +3,6 @@ import { PageHeaderButtons, PageHeaderButtonSeparator } from '../../../../basic-
 import { ConnectedSpace } from '../../../../services/tuples/connected-space-types';
 import { Subject } from '../../../../services/tuples/subject-types';
 import { HeaderCatalogButton } from '../../header/header-catalog-button';
-import { isDefValid } from '../data-validator';
 import { HeaderAddReportButton } from './header-add-report-button';
 import { HeaderDeleteSubjectButton } from './header-delete-subject-buttton';
 import { HeaderDownloadAllButton } from './header-download-all-button';
@@ -19,14 +18,12 @@ import { isSubjectDataNow, isSubjectReportNow } from './utils';
 export const SubjectHeaderButtons = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const { connectedSpace, subject } = props;
 
-	const subjectDefValid = isDefValid(subject);
-
 	return <PageHeaderButtons>
 		<HeaderCatalogButton connectedSpace={connectedSpace}/>
 		<PageHeaderButtonSeparator/>
 		<HeaderSubjectDefButton connectedSpace={connectedSpace} subject={subject}/>
-		{subjectDefValid ? <HeaderSubjectDataButton connectedSpace={connectedSpace} subject={subject}/> : null}
-		{subjectDefValid ? <HeaderSubjectReportButton connectedSpace={connectedSpace} subject={subject}/> : null}
+		<HeaderSubjectDataButton connectedSpace={connectedSpace} subject={subject}/>
+		<HeaderSubjectReportButton connectedSpace={connectedSpace} subject={subject}/>
 		{isSubjectDataNow()
 			? <Fragment>
 				<PageHeaderButtonSeparator/>
