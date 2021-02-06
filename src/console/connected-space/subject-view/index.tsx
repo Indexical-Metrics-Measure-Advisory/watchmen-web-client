@@ -8,14 +8,8 @@ import { toConnectedSpace } from '../../../routes/utils';
 import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
 import { Subject } from '../../../services/tuples/subject-types';
 import { SubjectHeader } from './header';
+import { SubjectBodyRouter } from './subject-body-router';
 import { SubjectEventBusProvider } from './subject-event-bus';
-import { SubjectContainer } from './widgets';
-
-const SubjectBody = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
-	return <SubjectContainer>
-
-	</SubjectContainer>;
-};
 
 export const SubjectView = (props: { connectedSpace: ConnectedSpace }) => {
 	const { connectedSpace } = props;
@@ -43,6 +37,6 @@ export const SubjectView = (props: { connectedSpace: ConnectedSpace }) => {
 
 	return <SubjectEventBusProvider>
 		<SubjectHeader connectedSpace={connectedSpace} subject={subject}/>
-		<SubjectBody connectedSpace={connectedSpace} subject={subject}/>
+		<SubjectBodyRouter connectedSpace={connectedSpace} subject={subject}/>
 	</SubjectEventBusProvider>;
 };

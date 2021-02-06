@@ -1,4 +1,5 @@
 import { ConnectedSpace, ConnectedSpaceGraphics } from '../../tuples/connected-space-types';
+import { ParameterCalculatorType } from '../../tuples/factor-calculator-types';
 import { isFakedUuid } from '../../tuples/utils';
 import { getCurrentTime } from '../../utils';
 
@@ -24,16 +25,16 @@ export const fetchMockConnectedSpaces = async (): Promise<Array<ConnectedSpace>>
 					dataset: {
 						filters: [],
 						columns: [
-							{ topicId: '1', factorId: '102' },
-							{ topicId: '1', factorId: '103' },
-							{ topicId: '1', factorId: '106' },
-							{ topicId: '2', factorId: '204' },
-							{ topicId: '2', factorId: '205' },
-							{ topicId: '2', factorId: '207' },
-							{ topicId: '3', factorId: '304' },
-							{ topicId: '3', factorId: '305' },
-							{ topicId: '3', factorId: '306' },
-							{ topicId: '3', factorId: '307' }
+							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '1', factorId: '102' } ] },
+							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '1', factorId: '103' } ] },
+							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '1', factorId: '106' } ] },
+							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '2', factorId: '204' } ] },
+							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '2', factorId: '205' } ] },
+							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '2', factorId: '207' } ] },
+							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '3', factorId: '304' } ] },
+							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '3', factorId: '305' } ] },
+							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '3', factorId: '306' } ] },
+							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '3', factorId: '307' } ] }
 						],
 						joins: []
 					},

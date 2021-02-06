@@ -48,6 +48,7 @@ const Labels: { [key in FactorType]: string } = {
 	[FactorType.WEEK_OF_MONTH]: Lang.FACTOR.WEEK_OF_MONTH,
 	[FactorType.HALF_WEEK]: Lang.FACTOR.HALF_WEEK,
 	[FactorType.DAY]: Lang.FACTOR.DAY,
+	[FactorType.DAY_OF_WEEK]: Lang.FACTOR.DAY_OF_WEEK,
 	[FactorType.DAY_KIND]: Lang.FACTOR.DAY_KIND,
 	[FactorType.HOUR]: Lang.FACTOR.HOUR,
 	[FactorType.HOUR_KIND]: Lang.FACTOR.HOUR_KIND,
@@ -63,8 +64,8 @@ const Labels: { [key in FactorType]: string } = {
 	[FactorType.RELIGION]: Lang.FACTOR.RELIGION,
 	[FactorType.NATIONALITY]: Lang.FACTOR.NATIONALITY,
 
-	[FactorType.TRADE]: Lang.FACTOR.TRADE,
-	[FactorType.SCALE]: Lang.FACTOR.SCALE,
+	[FactorType.BIZ_TRADE]: Lang.FACTOR.TRADE,
+	[FactorType.BIZ_SCALE]: Lang.FACTOR.SCALE,
 
 	[FactorType.BOOLEAN]: Lang.FACTOR.BOOLEAN,
 

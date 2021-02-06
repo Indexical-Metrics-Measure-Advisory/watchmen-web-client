@@ -10,7 +10,7 @@ import { toConnectedSpace } from '../../routes/utils';
 import { ConnectedSpace } from '../../services/tuples/connected-space-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
-import { BodyRouter } from './body-router';
+import { PageRouter } from './page-router';
 import { ConnectedSpaceEventBusProvider } from './connected-space-event-bus';
 
 const ConsoleConnectedSpaceIndex = () => {
@@ -67,7 +67,7 @@ const ConsoleConnectedSpaceIndex = () => {
 
 	return <ConnectedSpaceEventBusProvider>
 		<FullWidthPage>
-			<BodyRouter connectedSpace={connectedSpace}/>
+			<PageRouter connectedSpace={connectedSpace}/>
 		</FullWidthPage>
 	</ConnectedSpaceEventBusProvider>;
 };

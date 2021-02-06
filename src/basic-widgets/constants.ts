@@ -8,6 +8,7 @@ import {
 	faCog,
 	faComments,
 	faCompress,
+	faDatabase,
 	faDiceD20,
 	faDrawPolygon,
 	faEdit,
@@ -87,6 +88,7 @@ export const ICON_TOPIC = faTags;
 export const ICON_FACTOR = faList;
 export const ICON_REPORT = faChartBar;
 export const ICON_PIPELINE = faWaveSquare;
+export const ICON_SUBJECT_DEF = faDatabase;
 
 export const ICON_DASHBOARD = faTachometerAlt;
 export const ICON_FAVORITE = faStar;

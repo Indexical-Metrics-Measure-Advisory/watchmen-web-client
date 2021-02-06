@@ -1,5 +1,12 @@
+import { Computed } from './factor-calculator-types';
 import { Tuple } from './tuple-types';
 
+/** column */
+export interface SubjectDataSetColumn extends Computed {
+	alias?: string;
+}
+
+/** filter */
 export interface SubjectDataSetFilter {
 }
 
@@ -24,42 +31,15 @@ export enum FilterExpressionOperator {
 	MORE_EQUALS = 'more-equals',
 	IN = 'in',
 	NOT_IN = 'not-in',
-	// for date time
-	YEAR_OF = 'year-of',
-	HALF_YEAR_OF = 'half-year-of',
-	QUARTER_OF = 'quarter-of',
-	MONTH_OF = 'month-of',
-	WEEK_OF_YEAR = 'week-of-year',
-	WEEK_OF_MONTH = 'week-of-month',
-	WEEKDAYS = 'weekdays',
-	TILL_NOW = 'till-now',
 }
 
 export interface SubjectDataSetFilterExpression extends SubjectDataSetFilter {
-	topicId: string;
-	factorId: string;
+	left: Computed;
 	operator: FilterExpressionOperator;
-	value?: string;
+	right: Computed;
 }
 
-export enum ColumnExpressionOperator {
-	NONE = 'none',
-	ADD = 'add',
-	SUBTRACT = 'subtract',
-	MULTIPLY = 'multiply',
-	DIVIDE = 'divide',
-	MODULUS = 'modulus',
-}
-
-export interface SubjectDataSetColumn {
-	topicId?: string;
-	factorId?: string;
-	operator?: ColumnExpressionOperator;
-	secondaryTopicId?: string;
-	secondaryFactorId?: string;
-	alias?: string;
-}
-
+/** topic join */
 export enum TopicJoinType {
 	LEFT = 'left',
 	RIGHT = 'right',
@@ -67,15 +47,15 @@ export enum TopicJoinType {
 }
 
 export interface SubjectDataSetJoin {
-	topicId?: string;
-	factorId?: string;
-	secondaryTopicId?: string;
-	secondaryFactorId?: string;
+	topicId: string;
+	factorId: string;
+	secondaryTopicId: string;
+	secondaryFactorId: string;
 	type: TopicJoinType;
 }
 
 export interface SubjectDataSet {
-	filters: Array<SubjectDataSetFilter>;
+	filters: Array<SubjectDataSetFilterJoint>;
 	columns: Array<SubjectDataSetColumn>;
 	joins: Array<SubjectDataSetJoin>;
 }

@@ -99,6 +99,7 @@ export const En = {
 		},
 		CONNECTED_SPACE: {
 			CATALOG: 'Catalog',
+			SUBJECT_DEF: 'Subject Definition',
 			ADD_REPORT: 'Add Report',
 			ADD_SUBJECT: 'Add Subject',
 			OPEN_SUBJECT: 'Open Subject',
@@ -161,6 +162,7 @@ export const En = {
 		WEEK_OF_MONTH: 'Week of Month',
 		HALF_WEEK: '1st/2nd Half Week',
 		DAY: 'Day of Month',
+		DAY_OF_WEEK: 'Day of Week',
 		DAY_KIND: 'Workday/Weekday/Holiday',
 		HOUR: 'Hour',
 		HOUR_KIND: 'Work Time/Off Hours/Sleep Time',

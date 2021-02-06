@@ -96,6 +96,7 @@ export const Zh = {
 		},
 		CONNECTED_SPACE: {
 			CATALOG: '目录',
+			SUBJECT_DEF: '设置主题',
 			ADD_REPORT: '添加图表',
 			ADD_SUBJECT: '添加主题',
 			OPEN_SUBJECT: '打开主题',
@@ -158,6 +159,7 @@ export const Zh = {
 		WEEK_OF_MONTH: '周(按月度)',
 		HALF_WEEK: '上半周/下半周',
 		DAY: '天(按月度)',
+		DAY_OF_WEEK: '天(按周)',
 		DAY_KIND: '工作日/周末/假日',
 		HOUR: '小时',
 		HOUR_KIND: '工作时间/业余时间/休息时间',

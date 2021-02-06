@@ -8,44 +8,6 @@ import { useTopicEventBus } from '../topic-event-bus';
 import { TopicEventTypes } from '../topic-event-bus-types';
 import { FactorPropDropdown, FactorTypeCellContainer, IncorrectFactorType } from './widgets';
 
-// const prepareFactorPainting = (topic: Topic, factor: Factor) => {
-// 	const { type: topicType } = topic;
-// 	if (topicType !== TopicType.RAW) {
-// 		// nested factor type is not allowed, unless it is a raw topic
-// 		const { type: factorType } = factor;
-// 		if (factorType === FactorType.OBJECT) {
-// 			return {
-// 				pass: false,
-// 				typeOptions: FactorTypeOptions.filter(({ value }) => value !== FactorType.ARRAY)
-// 					.map(option => {
-// 						return option.value !== FactorType.OBJECT ? option : {
-// 							value: FactorType.OBJECT,
-// 							label: <IncorrectFactorType>Nested Object</IncorrectFactorType>
-// 						};
-// 					})
-// 			};
-// 		} else if (factorType === FactorType.ARRAY) {
-// 			return {
-// 				pass: false,
-// 				typeOptions: FactorTypeOptions.filter(({ value }) => value !== FactorType.OBJECT)
-// 					.map(option => {
-// 						return option.value !== FactorType.ARRAY ? option : {
-// 							value: FactorType.ARRAY,
-// 							label: <IncorrectFactorType>Nested Array</IncorrectFactorType>
-// 						};
-// 					})
-// 			};
-// 		} else {
-// 			return {
-// 				pass: true,
-// 				typeOptions: FactorTypeOptions.filter(({ value }) => value !== FactorType.ARRAY && value !== FactorType.OBJECT)
-// 			};
-// 		}
-// 	} else {
-// 		return { pass: true, typeOptions: FactorTypeOptions };
-// 	}
-// };
-
 const AllTypeOptions: { [key in FactorType]: { label: string, order: number } } = {
 	[FactorType.SEQUENCE]: { label: En.FACTOR.SEQUENCE, order: 99999 },
 
@@ -86,12 +48,13 @@ const AllTypeOptions: { [key in FactorType]: { label: string, order: number } } 
 	[FactorType.WEEK_OF_MONTH]: { label: En.FACTOR.WEEK_OF_MONTH, order: 10412 },
 	[FactorType.HALF_WEEK]: { label: En.FACTOR.HALF_WEEK, order: 10413 },
 	[FactorType.DAY]: { label: En.FACTOR.DAY, order: 10414 },
-	[FactorType.DAY_KIND]: { label: En.FACTOR.DAY_KIND, order: 10415 },
-	[FactorType.HOUR]: { label: En.FACTOR.HOUR, order: 10416 },
-	[FactorType.HOUR_KIND]: { label: En.FACTOR.HOUR_KIND, order: 10417 },
-	[FactorType.MINUTE]: { label: En.FACTOR.MINUTE, order: 10418 },
-	[FactorType.SECOND]: { label: En.FACTOR.SECOND, order: 10419 },
-	[FactorType.AM_PM]: { label: En.FACTOR.AM_PM, order: 10420 },
+	[FactorType.DAY_OF_WEEK]: { label: En.FACTOR.DAY_OF_WEEK, order: 10415 },
+	[FactorType.DAY_KIND]: { label: En.FACTOR.DAY_KIND, order: 10416 },
+	[FactorType.HOUR]: { label: En.FACTOR.HOUR, order: 10417 },
+	[FactorType.HOUR_KIND]: { label: En.FACTOR.HOUR_KIND, order: 10418 },
+	[FactorType.MINUTE]: { label: En.FACTOR.MINUTE, order: 10419 },
+	[FactorType.SECOND]: { label: En.FACTOR.SECOND, order: 10420 },
+	[FactorType.AM_PM]: { label: En.FACTOR.AM_PM, order: 104201 },
 
 	[FactorType.GENDER]: { label: En.FACTOR.GENDER, order: 10501 },
 	[FactorType.OCCUPATION]: { label: En.FACTOR.OCCUPATION, order: 10502 },
@@ -101,8 +64,8 @@ const AllTypeOptions: { [key in FactorType]: { label: string, order: number } } 
 	[FactorType.RELIGION]: { label: En.FACTOR.RELIGION, order: 10506 },
 	[FactorType.NATIONALITY]: { label: En.FACTOR.NATIONALITY, order: 10507 },
 
-	[FactorType.TRADE]: { label: En.FACTOR.TRADE, order: 10601 },
-	[FactorType.SCALE]: { label: En.FACTOR.SCALE, order: 10602 },
+	[FactorType.BIZ_TRADE]: { label: En.FACTOR.TRADE, order: 10601 },
+	[FactorType.BIZ_SCALE]: { label: En.FACTOR.SCALE, order: 10602 },
 
 	[FactorType.BOOLEAN]: { label: En.FACTOR.BOOLEAN, order: 10701 },
 

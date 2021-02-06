@@ -6,7 +6,7 @@ import { ConnectedSpace } from '../../services/tuples/connected-space-types';
 import { Catalog } from './catalog';
 import { SubjectView } from './subject-view';
 
-export const BodyRouter = (props: { connectedSpace: ConnectedSpace }) => {
+export const PageRouter = (props: { connectedSpace: ConnectedSpace }) => {
 	const { connectedSpace } = props;
 
 	return <Switch>
