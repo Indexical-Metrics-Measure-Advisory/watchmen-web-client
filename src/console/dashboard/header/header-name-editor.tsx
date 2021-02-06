@@ -1,11 +1,11 @@
 import React from 'react';
-import { PageTitleEditor } from '../../basic-widgets/page-title-editor';
-import { useForceUpdate } from '../../basic-widgets/utils';
-import { useLanguage } from '../../langs';
-import { renameDashboard } from '../../services/tuples/dashboard';
-import { Dashboard } from '../../services/tuples/dashboard-types';
-import { useConsoleEventBus } from '../console-event-bus';
-import { ConsoleEventTypes } from '../console-event-bus-types';
+import { PageTitleEditor } from '../../../basic-widgets/page-title-editor';
+import { useForceUpdate } from '../../../basic-widgets/utils';
+import { useLanguage } from '../../../langs';
+import { renameDashboard } from '../../../services/tuples/dashboard';
+import { Dashboard } from '../../../services/tuples/dashboard-types';
+import { useConsoleEventBus } from '../../console-event-bus';
+import { ConsoleEventTypes } from '../../console-event-bus-types';
 
 export const HeaderNameEditor = (props: { dashboard: Dashboard }) => {
 	const { dashboard } = props;

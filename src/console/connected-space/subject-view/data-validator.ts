@@ -6,8 +6,11 @@ export const isDefValid = (subject: Subject) => {
 		return false;
 	}
 
-	const { filters, columns, joins } = dataset;
+	// TODO validate subject definition
+	const { columns } = dataset;
 	if (!columns || columns.length === 0) {
 		return false;
 	}
+
+	return true;
 };

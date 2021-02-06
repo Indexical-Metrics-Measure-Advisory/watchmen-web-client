@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { ICON_PRINT } from '../../basic-widgets/constants';
-import { PageHeaderButton } from '../../basic-widgets/page-header-buttons';
-import { Lang } from '../../langs';
+import { ICON_PRINT } from '../../../basic-widgets/constants';
+import { PageHeaderButton } from '../../../basic-widgets/page-header-buttons';
+import { Lang } from '../../../langs';
 
 export const HeaderPrintButton = () => {
 	const onPrintClicked = () => {

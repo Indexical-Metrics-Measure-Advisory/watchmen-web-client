@@ -10,7 +10,13 @@ export const toConnectedSpace = (connectedSpaceId: string) => Router.CONSOLE_CON
 export const toConnectedSpaceCatalog = (connectedSpaceId: string) => Router.CONSOLE_CONNECTED_SPACE_CATALOG.replace(':connectId', connectedSpaceId);
 export const toSubject = (connectedSpaceId: string, subjectId: string) => {
 	return Router.CONSOLE_CONNECTED_SPACE_SUBJECT.replace(':connectId', connectedSpaceId).replace(':subjectId', subjectId);
-}
+};
+export const toSubjectDef = (connectedSpaceId: string, subjectId: string) => {
+	return Router.CONSOLE_CONNECTED_SPACE_SUBJECT_DEF.replace(':connectId', connectedSpaceId).replace(':subjectId', subjectId);
+};
+export const toSubjectReport = (connectedSpaceId: string, subjectId: string) => {
+	return Router.CONSOLE_CONNECTED_SPACE_SUBJECT_REPORT.replace(':connectId', connectedSpaceId).replace(':subjectId', subjectId);
+};
 
 export const isDashboardOpened = (dashboardId: string): boolean => {
 	const match = matchPath<{ dashboardId: string }>(window.location.pathname, Router.CONSOLE_DASHBOARD);

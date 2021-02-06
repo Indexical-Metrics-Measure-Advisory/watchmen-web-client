@@ -97,6 +97,7 @@ export const Zh = {
 		CONNECTED_SPACE: {
 			CATALOG: '目录',
 			SUBJECT_DEF: '设置主题',
+			PRINT: '打印',
 			ADD_REPORT: '添加图表',
 			ADD_SUBJECT: '添加主题',
 			OPEN_SUBJECT: '打开主题',

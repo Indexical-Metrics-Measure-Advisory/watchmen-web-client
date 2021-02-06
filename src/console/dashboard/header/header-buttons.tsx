@@ -1,6 +1,6 @@
 import React from 'react';
-import { PageHeaderButtons, PageHeaderButtonSeparator } from '../../basic-widgets/page-header-buttons';
-import { Dashboard } from '../../services/tuples/dashboard-types';
+import { PageHeaderButtons, PageHeaderButtonSeparator } from '../../../basic-widgets/page-header-buttons';
+import { Dashboard } from '../../../services/tuples/dashboard-types';
 import { HeaderAddReportButton } from './header-add-report-button';
 import { HeaderCreateDashboardButton } from './header-create-dashboard-button';
 import { HeaderDeleteMeButton } from './header-delete-me-buttton';

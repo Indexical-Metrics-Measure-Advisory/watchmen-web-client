@@ -6,7 +6,7 @@ import { PageHeaderButton } from '../../../../basic-widgets/page-header-buttons'
 import { ButtonInk } from '../../../../basic-widgets/types';
 import { Lang } from '../../../../langs';
 import { Router } from '../../../../routes/types';
-import { toSubject } from '../../../../routes/utils';
+import { toSubjectDef } from '../../../../routes/utils';
 import { ConnectedSpace } from '../../../../services/tuples/connected-space-types';
 import { Subject } from '../../../../services/tuples/subject-types';
 
@@ -21,10 +21,10 @@ export const HeaderSubjectDefButton = (props: { connectedSpace: ConnectedSpace, 
 		if (isSubjectDefNow()) {
 			return;
 		}
-		history.push(toSubject(connectedSpace.connectId, subject.subjectId));
+		history.push(toSubjectDef(connectedSpace.connectId, subject.subjectId));
 	};
 
-	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.CATALOG}
+	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_DEF}
 	                         ink={isSubjectDefNow() ? ButtonInk.PRIMARY : (void 0)}
 	                         onClick={onCatalogClicked}>
 		<FontAwesomeIcon icon={ICON_SUBJECT_DEF}/>

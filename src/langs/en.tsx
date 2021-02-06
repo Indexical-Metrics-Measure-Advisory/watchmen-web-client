@@ -100,6 +100,7 @@ export const En = {
 		CONNECTED_SPACE: {
 			CATALOG: 'Catalog',
 			SUBJECT_DEF: 'Subject Definition',
+			PRINT: 'Print',
 			ADD_REPORT: 'Add Report',
 			ADD_SUBJECT: 'Add Subject',
 			OPEN_SUBJECT: 'Open Subject',
