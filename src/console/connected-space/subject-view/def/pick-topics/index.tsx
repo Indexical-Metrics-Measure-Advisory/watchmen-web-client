@@ -5,7 +5,7 @@ import { Topic } from '../../../../../services/tuples/topic-types';
 import { useSubjectDefEventBus } from '../subject-def-event-bus';
 import { SubjectDefData, SubjectDefEventTypes } from '../subject-def-event-bus-types';
 import { AvailableTopic } from './available-topic';
-import { PickTopicsContainer } from './widgets';
+import { AvailableTopicBottomGap, AvailableTopicCover, PickTopicsContainer } from './widgets';
 
 export const PickTopics = (props: {
 	connectedSpace: ConnectedSpace;
@@ -45,5 +45,7 @@ export const PickTopics = (props: {
 		}).map(topic => {
 			return <AvailableTopic topic={topic} picked={data.pickedTopics.includes(topic)} key={topic.topicId}/>;
 		})}
+		<AvailableTopicBottomGap/>
+		<AvailableTopicCover active={active}/>
 	</PickTopicsContainer>;
 };

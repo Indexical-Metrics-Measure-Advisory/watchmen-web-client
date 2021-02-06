@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ConnectedSpace } from '../../../../services/tuples/connected-space-types';
 import { Subject } from '../../../../services/tuples/subject-types';
 import { SubjectDefDataHolder } from './def-data';
-import { DefHeader } from './def-header';
+import { Header } from './header';
 import { PickTopics } from './pick-topics';
 import { SubjectDefEventBusProvider } from './subject-def-event-bus';
 import { SubjectDefBody, SubjectDefContainer } from './widgets';
@@ -15,7 +15,7 @@ export const SubjectDefWrapper = (props: { connectedSpace: ConnectedSpace, subje
 	const onActiveIndexChange = (activeIndex: number) => setActiveIndex(activeIndex);
 
 	return <SubjectDefContainer>
-		<DefHeader activeIndex={activeIndex} changeActiveIndex={onActiveIndexChange}/>
+		<Header activeIndex={activeIndex} changeActiveIndex={onActiveIndexChange}/>
 		<SubjectDefBody activeIndex={activeIndex}>
 			<PickTopics connectedSpace={connectedSpace} subject={subject} active={activeIndex === 1}/>
 		</SubjectDefBody>

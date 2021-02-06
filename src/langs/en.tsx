@@ -131,7 +131,8 @@ export const En = {
 			SUBJECT_DEFINE_COLUMNS: 'Define Columns',
 			SUBJECT_FILTER_DATA: 'Filter Data',
 			SUBJECT_SET_JOINS: 'Set Joins',
-			SUBJECT_DEF_OVERVIEW: 'Overview'
+			SUBJECT_DEF_OVERVIEW: 'Overview',
+			NO_PICKED_TOPIC_FOR_SUBJECT: 'No topic picked.'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',

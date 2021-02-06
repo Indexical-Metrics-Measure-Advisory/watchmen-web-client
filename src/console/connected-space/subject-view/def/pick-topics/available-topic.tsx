@@ -18,7 +18,7 @@ export const AvailableTopic = (props: { topic: Topic, picked: boolean }) => {
 	};
 
 	return <AvailableTopicCard onClick={onCardClicked}>
-		<TopicName>{topic.name}</TopicName>
+		<TopicName data-picked={picked}>{topic.name}</TopicName>
 		<TopicPicked icon={ICON_SELECTED} data-picked={picked}/>
 	</AvailableTopicCard>;
 };

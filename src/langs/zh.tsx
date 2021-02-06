@@ -128,7 +128,8 @@ export const Zh = {
 			SUBJECT_DEFINE_COLUMNS: '定义数据列',
 			SUBJECT_FILTER_DATA: '数据过滤',
 			SUBJECT_SET_JOINS: '设置数据集关联',
-			SUBJECT_DEF_OVERVIEW: '总览'
+			SUBJECT_DEF_OVERVIEW: '总览',
+			NO_PICKED_TOPIC_FOR_SUBJECT: '还没有选择数据集.'
 		},
 		SETTINGS: {
 			TITLE: '设置',

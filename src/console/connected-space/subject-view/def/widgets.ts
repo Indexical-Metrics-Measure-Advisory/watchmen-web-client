@@ -17,12 +17,11 @@ const computeColumnWidths = (activeIndex: number) => {
 };
 
 export const SubjectDefContainer = styled.div.attrs({ 'data-widget': 'subject-def' })`
-	display               : grid;
-	grid-template-columns : 1fr;
-	grid-template-rows    : var(--grid-row-height) 1fr;
-	position              : relative;
-	flex-grow             : 1;
-	overflow              : hidden;
+	display        : flex;
+	position       : relative;
+	flex-direction : column;
+	flex-grow      : 1;
+	overflow       : hidden;
 `;
 
 export const SubjectDefHeader = styled.div.attrs<{ activeIndex: number }>(({ activeIndex }) => {
@@ -76,7 +75,9 @@ export const SubjectDefBody = styled.div.attrs<{ activeIndex: number }>(({ activ
 	};
 })<{ activeIndex: number }>`
 	display               : grid;
-	grid-template-columns : 1fr repeat(4, ${COLLAPSE_WIDTH}px);
 	position              : relative;
+	flex-grow             : 1;
+	max-height            : calc(100% - var(--grid-row-height));
+	grid-template-columns : 1fr repeat(4, ${COLLAPSE_WIDTH}px);
 	transition            : all 300ms ease-in-out;
 `;

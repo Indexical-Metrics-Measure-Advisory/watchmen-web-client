@@ -6,7 +6,8 @@ export const PickTopicsContainer = styled.div.attrs<{ active: boolean }>(({ acti
 		'data-widget': 'subject-def-pick-topics',
 		'data-v-scroll': '',
 		style: {
-			paddingRight: active ? (void 0) : 0
+			paddingRight: active ? (void 0) : 0,
+			overflowY: active ? (void 0) : 'hidden'
 		}
 	};
 }) <{ active: boolean }>`
@@ -15,8 +16,9 @@ export const PickTopicsContainer = styled.div.attrs<{ active: boolean }>(({ acti
 	grid-column-gap       : var(--margin);
 	grid-row-gap          : calc(var(--margin));
 	align-content         : start;
-	padding               : var(--margin);
+	padding               : var(--margin) var(--margin) 0 var(--margin);
 	overflow-y            : auto;
+	overflow-x            : hidden;
 	border-right          : var(--border);
 `;
 export const AvailableTopicCard = styled.div.attrs({ 'data-widget': 'subject-def-available-topic' })`
@@ -31,12 +33,20 @@ export const AvailableTopicCard = styled.div.attrs({ 'data-widget': 'subject-def
 		box-shadow : var(--hover-shadow);
 	}
 `;
-export const TopicName = styled.div.attrs({ 'data-widget': 'subject-def-available-topic-name' })`
+export const TopicName = styled.div.attrs<{ 'data-picked': boolean }>(({ 'data-picked': picked }) => {
+	return {
+		'data-widget': 'subject-def-available-topic-name',
+		style: {
+			color: picked ? 'var(--primary-color)' : (void 0)
+		}
+	};
+})<{ 'data-picked': boolean }>`
 	display     : flex;
 	flex-grow   : 1;
 	align-items : center;
 	font-family : var(--title-font-family);
 	font-size   : 1.6em;
+	transition  : color 300ms ease-in-out;
 `;
 export const TopicPicked = styled(FontAwesomeIcon).attrs<{ 'data-picked': boolean }>(({ 'data-picked': picked }) => {
 	return {
@@ -48,4 +58,23 @@ export const TopicPicked = styled(FontAwesomeIcon).attrs<{ 'data-picked': boolea
 })<{ 'data-picked': boolean }>`
 	font-size  : 2em;
 	transition : color 300ms ease-in-out, opacity 300ms ease-in-out;
+`;
+export const AvailableTopicBottomGap = styled.div.attrs({ 'data-widget': 'subject-def-pick-topics-bottom-gap' })`
+	height      : var(--margin);
+	margin-top  : calc(var(--margin) * -1);
+	grid-column : span 3;
+`;
+export const AvailableTopicCover = styled.div.attrs<{ active: boolean }>(({ active }) => {
+	return {
+		'data-widget': 'subject-def-pick-topics-cover',
+		style: { display: active ? 'none' : (void 0) }
+	};
+})<{ active: boolean }>`
+	display  : block;
+	position : absolute;
+	top      : 0;
+	left     : 0;
+	width    : 100%;
+	height   : 100%;
+	z-index  : 1;
 `;
