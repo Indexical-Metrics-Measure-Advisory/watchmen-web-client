@@ -33,7 +33,8 @@ export const En = {
 		CLOSE: 'Close',
 		CANCEL: 'Cancel',
 		DELETE: 'Delete',
-		CONFIRM: 'Confirm'
+		CONFIRM: 'Confirm',
+		NEXT: 'Next'
 	},
 	LOGIN: {
 		PRODUCT_TITLE: <>Indexical Metrics <span>&</span> Measure Advisory</>,

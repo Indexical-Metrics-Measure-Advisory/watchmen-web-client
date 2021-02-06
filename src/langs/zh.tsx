@@ -31,7 +31,8 @@ export const Zh = {
 		CLOSE: '关闭',
 		CANCEL: '取消',
 		DELETE: '删除',
-		CONFIRM: '确认'
+		CONFIRM: '确认',
+		NEXT: '下一步'
 	},
 	LOGIN: {
 		MORNING: '早上好 !',

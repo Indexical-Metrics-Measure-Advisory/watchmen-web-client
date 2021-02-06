@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-const COLLAPSE_WIDTH = 40;
-const computeColumnWidths = (activeIndex: number) => {
+export const COLLAPSE_WIDTH = 40;
+export const computeColumnWidths = (activeIndex: number) => {
 	switch (activeIndex) {
 		case 1:
 			return `1fr repeat(4, ${COLLAPSE_WIDTH}px)`;
@@ -22,48 +22,6 @@ export const SubjectDefContainer = styled.div.attrs({ 'data-widget': 'subject-de
 	flex-direction : column;
 	flex-grow      : 1;
 	overflow       : hidden;
-`;
-
-export const SubjectDefHeader = styled.div.attrs<{ activeIndex: number }>(({ activeIndex }) => {
-	return {
-		'data-widget': 'connected-space-subject-def-header',
-		style: {
-			gridTemplateColumns: computeColumnWidths(activeIndex)
-		}
-	};
-})<{ activeIndex: number }>`
-	display               : grid;
-	grid-template-columns : 1fr repeat(4, ${COLLAPSE_WIDTH}px);
-	position              : relative;
-	height                : var(--grid-row-height);
-	min-height            : var(--grid-row-height);
-	border-bottom         : var(--border);
-	transition            : all 300ms ease-in-out;
-`;
-export const DefHeaderCell = styled.div.attrs({ 'data-widget': 'subject-def-header-cell' })`
-	display       : flex;
-	position      : relative;
-	align-items   : center;
-	font-family   : var(--title-font-family);
-	white-space   : nowrap;
-	overflow      : hidden;
-	text-overflow : clip;
-	padding-right : var(--input-indent);
-	border-right  : var(--border);
-	cursor        : pointer;
-	&:last-child {
-		border-right : 0;
-	}
-`;
-export const DefHeaderIndex = styled.span.attrs({ 'data-widget': 'subject-def-header-index' })`
-	display          : flex;
-	justify-content  : center;
-	font-variant     : petite-caps;
-	background-color : var(--border-color);
-	width            : 20px;
-	padding          : 2px calc(var(--margin) / 4);
-	margin           : 0 var(--input-indent);
-	border-radius    : 50%;
 `;
 
 export const SubjectDefBody = styled.div.attrs<{ activeIndex: number }>(({ activeIndex }) => {
