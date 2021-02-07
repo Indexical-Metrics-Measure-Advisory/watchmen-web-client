@@ -1,8 +1,9 @@
-import { Computed } from './factor-calculator-types';
+import { Parameter } from './factor-calculator-types';
 import { Tuple } from './tuple-types';
 
 /** column */
-export interface SubjectDataSetColumn extends Computed {
+export interface SubjectDataSetColumn {
+	parameter: Parameter;
 	alias?: string;
 }
 
@@ -34,9 +35,9 @@ export enum FilterExpressionOperator {
 }
 
 export interface SubjectDataSetFilterExpression extends SubjectDataSetFilter {
-	left: Computed;
+	left: Parameter;
 	operator: FilterExpressionOperator;
-	right: Computed;
+	right: Parameter;
 }
 
 /** topic join */

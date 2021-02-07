@@ -61,3 +61,27 @@ export const SubjectDefBodyCover = styled.div.attrs<{ active: boolean }>(({ acti
 	user-select      : none;
 	z-index          : 1;
 `;
+export const SubjectDefNoData = styled.div.attrs<{ active: boolean, visible: boolean }>(({ active, visible }) => {
+	return {
+		'data-widget': 'subject-def-body-no-data',
+		style: {
+			display: active && visible ? (void 0) : 'none'
+		}
+	};
+})<{ active: boolean, visible: boolean }>`
+	display         : flex;
+	position        : absolute;
+	align-items     : center;
+	justify-content : center;
+	top             : 0;
+	left            : 0;
+	width           : 100%;
+	height          : 100%;
+	font-family     : var(--title-font-family);
+	font-size       : 2em;
+	opacity         : 0.7;
+`;
+export const SubjectDefNoDataCreateButton = styled.span.attrs({ 'data-widget': 'subject-def-body-no-data-create' })`
+	text-decoration : underline;
+	cursor          : pointer;
+`;

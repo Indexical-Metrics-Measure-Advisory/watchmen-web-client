@@ -133,7 +133,10 @@ export const En = {
 			SUBJECT_FILTER_DATA: 'Filter Data',
 			SUBJECT_SET_JOINS: 'Set Joins',
 			SUBJECT_DEF_OVERVIEW: 'Overview',
-			NO_PICKED_TOPIC_FOR_SUBJECT: 'No topic picked.'
+			NO_PICKED_TOPIC_FOR_SUBJECT: 'No topic picked.',
+			NO_DATASET_COLUMN_FOR_SUBJECT: 'No columns defined, do you want ',
+			CREATE_DATASET_COLUMN_WHEN_NONE: 'create one',
+			NO_DATASET_COLUMN_FOR_SUBJECT_2: '?'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',
@@ -195,5 +198,11 @@ export const En = {
 		ENUM: 'Enumeration',
 		OBJECT: 'Object',
 		ARRAY: 'Array'
+	},
+	PARAM: {
+		FROM: 'From',
+		FROM_TOPIC: 'Topic',
+		FROM_CONSTANT: 'Constant',
+		FROM_COMPUTED: 'Compute'
 	}
 };

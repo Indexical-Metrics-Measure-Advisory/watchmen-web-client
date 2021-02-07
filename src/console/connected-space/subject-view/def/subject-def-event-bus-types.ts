@@ -1,3 +1,4 @@
+import { SubjectDataSetColumn } from '../../../../services/tuples/subject-types';
 import { Topic } from '../../../../services/tuples/topic-types';
 
 export interface SubjectDefData {
@@ -12,7 +13,10 @@ export enum SubjectDefEventTypes {
 	TOPIC_UNPICKED = 'topic-unpicked',
 
 	ASK_PICKED_TOPICS = 'ask-picked-topics',
-	REPLY_PICKED_TOPICS = 'reply-picked-topics'
+	REPLY_PICKED_TOPICS = 'reply-picked-topics',
+
+	DATASET_COLUMN_ADDED = 'dataset-column-added',
+	DATASET_COLUMN_REMOVED = 'dataset-column-removed'
 }
 
 export interface SubjectDefEventBus {
@@ -34,4 +38,12 @@ export interface SubjectDefEventBus {
 
 	fire(type: SubjectDefEventTypes.REPLY_PICKED_TOPICS, topics: Array<Topic>): this;
 	once(type: SubjectDefEventTypes.REPLY_PICKED_TOPICS, listener: (topics: Array<Topic>) => void): this;
+
+	fire(type: SubjectDefEventTypes.DATASET_COLUMN_ADDED, column: SubjectDataSetColumn): this;
+	on(type: SubjectDefEventTypes.DATASET_COLUMN_ADDED, listener: (column: SubjectDataSetColumn) => void): this;
+	off(type: SubjectDefEventTypes.DATASET_COLUMN_ADDED, listener: (column: SubjectDataSetColumn) => void): this;
+
+	fire(type: SubjectDefEventTypes.DATASET_COLUMN_REMOVED, column: SubjectDataSetColumn): this;
+	on(type: SubjectDefEventTypes.DATASET_COLUMN_REMOVED, listener: (column: SubjectDataSetColumn) => void): this;
+	off(type: SubjectDefEventTypes.DATASET_COLUMN_REMOVED, listener: (column: SubjectDataSetColumn) => void): this;
 }

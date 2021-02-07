@@ -130,7 +130,10 @@ export const Zh = {
 			SUBJECT_FILTER_DATA: '数据过滤',
 			SUBJECT_SET_JOINS: '设置数据集关联',
 			SUBJECT_DEF_OVERVIEW: '总览',
-			NO_PICKED_TOPIC_FOR_SUBJECT: '还没有选择数据集.'
+			NO_PICKED_TOPIC_FOR_SUBJECT: '还没有选择数据集.',
+			NO_DATASET_COLUMN_FOR_SUBJECT: '尚未定义数据列, 现在就',
+			CREATE_DATASET_COLUMN_WHEN_NONE: '开始',
+			NO_DATASET_COLUMN_FOR_SUBJECT_2: '吗?'
 		},
 		SETTINGS: {
 			TITLE: '设置',
@@ -192,5 +195,11 @@ export const Zh = {
 		ENUM: '枚举',
 		OBJECT: '子对象',
 		ARRAY: '子对象数组'
+	},
+	PARAM: {
+		FROM: '来源',
+		FROM_TOPIC: '数据集',
+		FROM_CONSTANT: '常量值',
+		FROM_COMPUTED: '计算值'
 	}
 };

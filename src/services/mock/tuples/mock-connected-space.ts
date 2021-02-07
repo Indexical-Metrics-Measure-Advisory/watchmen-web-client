@@ -1,5 +1,5 @@
 import { ConnectedSpace, ConnectedSpaceGraphics } from '../../tuples/connected-space-types';
-import { ParameterCalculatorType } from '../../tuples/factor-calculator-types';
+import { ParameterFrom, TopicFactorParameter } from '../../tuples/factor-calculator-types';
 import { isFakedUuid } from '../../tuples/utils';
 import { getCurrentTime } from '../../utils';
 
@@ -25,16 +25,76 @@ export const fetchMockConnectedSpaces = async (): Promise<Array<ConnectedSpace>>
 					dataset: {
 						filters: [],
 						columns: [
-							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '1', factorId: '102' } ] },
-							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '1', factorId: '103' } ] },
-							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '1', factorId: '106' } ] },
-							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '2', factorId: '204' } ] },
-							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '2', factorId: '205' } ] },
-							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '2', factorId: '207' } ] },
-							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '3', factorId: '304' } ] },
-							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '3', factorId: '305' } ] },
-							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '3', factorId: '306' } ] },
-							{ type: ParameterCalculatorType.NONE, parameters: [ { topicId: '3', factorId: '307' } ] }
+							{
+								parameter: {
+									from: ParameterFrom.TOPIC,
+									topicId: '1',
+									factorId: '102'
+								} as TopicFactorParameter
+							},
+							{
+								parameter: {
+									from: ParameterFrom.TOPIC,
+									topicId: '1',
+									factorId: '103'
+								} as TopicFactorParameter
+							},
+							{
+								parameter: {
+									from: ParameterFrom.TOPIC,
+									topicId: '1',
+									factorId: '106'
+								} as TopicFactorParameter
+							},
+							{
+								parameter: {
+									from: ParameterFrom.TOPIC,
+									topicId: '2',
+									factorId: '204'
+								} as TopicFactorParameter
+							},
+							{
+								parameter: {
+									from: ParameterFrom.TOPIC,
+									topicId: '2',
+									factorId: '205'
+								} as TopicFactorParameter
+							},
+							{
+								parameter: {
+									from: ParameterFrom.TOPIC,
+									topicId: '2',
+									factorId: '207'
+								} as TopicFactorParameter
+							},
+							{
+								parameter: {
+									from: ParameterFrom.TOPIC,
+									topicId: '3',
+									factorId: '304'
+								} as TopicFactorParameter
+							},
+							{
+								parameter: {
+									from: ParameterFrom.TOPIC,
+									topicId: '3',
+									factorId: '305'
+								} as TopicFactorParameter
+							},
+							{
+								parameter: {
+									from: ParameterFrom.TOPIC,
+									topicId: '3',
+									factorId: '306'
+								} as TopicFactorParameter
+							},
+							{
+								parameter: {
+									from: ParameterFrom.TOPIC,
+									topicId: '3',
+									factorId: '307'
+								} as TopicFactorParameter
+							}
 						],
 						joins: []
 					},

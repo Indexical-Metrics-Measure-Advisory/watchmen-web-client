@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 import { AvailableSpaceInConsole } from '../../../services/console/settings-types';
 import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
-import { Computed, ParameterType } from '../../../services/tuples/factor-calculator-types';
+import {
+	Computed,
+	Parameter,
+	ParameterCalculatorType,
+	ParameterType
+} from '../../../services/tuples/factor-calculator-types';
 import {
 	isComputedParameter,
 	isConstantParameter,
@@ -21,12 +26,12 @@ import { ConsoleEventTypes } from '../../console-event-bus-types';
 import { useSubjectEventBus } from './subject-event-bus';
 import { SubjectEventTypes } from './subject-event-bus-types';
 
-export interface ComputedValid {
+export interface Validation {
 	pass: boolean;
 	resultType?: FactorType;
 }
 
-export const isComputedValid = ({ type, parameters }: Computed, topics: Array<Topic>): ComputedValid => {
+export const isComputedValid = ({ type, parameters }: Computed, topics: Array<Topic>): Validation => {
 	if (!type) {
 		// type must exists
 		return { pass: false };
@@ -113,6 +118,13 @@ export const isComputedValid = ({ type, parameters }: Computed, topics: Array<To
 	return { pass: !hasInvalidParameter, resultType: availableParameterTypes[0].resultType };
 };
 
+export const isParameterValid = (parameter: Parameter, topics: Array<Topic>): Validation => {
+	if (!parameter) {
+		return { pass: false };
+	}
+	return isComputedValid({ type: ParameterCalculatorType.NONE, parameters: [ parameter ] }, topics);
+};
+
 export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
 	const { dataset } = subject;
 	if (!dataset) {
@@ -125,7 +137,7 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
 		return false;
 	}
 	// TODO validate filters/joins
-	return !columns.some(column => !isComputedValid(column, topics).pass);
+	return !columns.some(({ parameter }) => !isParameterValid(parameter, topics).pass);
 };
 
 export const useSubjectValid = (options: {

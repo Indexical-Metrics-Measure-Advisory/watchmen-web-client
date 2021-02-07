@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Topic } from '../../../../services/tuples/topic-types';
-import { useSubjectDefEventBus } from './subject-def-event-bus';
-import { SubjectDefData, SubjectDefEventTypes } from './subject-def-event-bus-types';
+import { Topic } from '../../../../../services/tuples/topic-types';
+import { useSubjectDefEventBus } from '../subject-def-event-bus';
+import { SubjectDefData, SubjectDefEventTypes } from '../subject-def-event-bus-types';
 
 export const useTopicData = () => {
 	const { on, off } = useSubjectDefEventBus();

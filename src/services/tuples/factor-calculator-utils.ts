@@ -4,14 +4,15 @@ import {
 	ConstantParameter,
 	Parameter,
 	ParameterCalculatorType,
+	ParameterFrom,
 	ParameterType,
 	TopicFactorParameter
 } from './factor-calculator-types';
 import { FactorType } from './factor-types';
 
-export const isTopicFactorParameter = (param: Parameter): param is TopicFactorParameter => !!(param as any).topicId;
-export const isConstantParameter = (param: Parameter): param is ConstantParameter => !!(param as any).value;
-export const isComputedParameter = (param: Parameter): param is ComputedParameter => !!(param as any).type;
+export const isTopicFactorParameter = (param: Parameter): param is TopicFactorParameter => param.from === ParameterFrom.TOPIC;
+export const isConstantParameter = (param: Parameter): param is ConstantParameter => param.from === ParameterFrom.CONSTANT;
+export const isComputedParameter = (param: Parameter): param is ComputedParameter => param.from === ParameterFrom.COMPUTED;
 
 export const isParameterType = (parameterType: ParameterType | FactorType): parameterType is ParameterType => {
 	return parameterType.startsWith('pt-');
@@ -171,7 +172,9 @@ export interface ParameterCalculatorDef {
 	/**
 	 * how many parameters this calculator accepted
 	 */
-	parameterCount: number;
+	parameterCount?: number;
+	minParameterCount?: number;
+	maxParameterCount?: number;
 	/**
 	 * supported types
 	 */
@@ -184,7 +187,7 @@ export const ParameterCalculatorDefsMap: { [key in ParameterCalculatorType]: Par
 		supports: [ { parameterTypes: [ ParameterType.ANY ] } ]
 	},
 	[ParameterCalculatorType.ADD]: {
-		name: ParameterCalculatorType.ADD, parameterCount: 2,
+		name: ParameterCalculatorType.ADD, minParameterCount: 2,
 		supports: [ {
 			parameterTypes: [ ParameterType.NUMBER, ParameterType.NUMBER ],
 			resultType: FactorType.NUMBER
@@ -194,28 +197,28 @@ export const ParameterCalculatorDefsMap: { [key in ParameterCalculatorType]: Par
 		} ]
 	},
 	[ParameterCalculatorType.SUBTRACT]: {
-		name: ParameterCalculatorType.SUBTRACT, parameterCount: 2,
+		name: ParameterCalculatorType.SUBTRACT, minParameterCount: 2,
 		supports: [ {
 			parameterTypes: [ ParameterType.NUMBER, ParameterType.NUMBER ],
 			resultType: FactorType.NUMBER
 		} ]
 	},
 	[ParameterCalculatorType.MULTIPLY]: {
-		name: ParameterCalculatorType.MULTIPLY, parameterCount: 2,
+		name: ParameterCalculatorType.MULTIPLY, minParameterCount: 2,
 		supports: [ {
 			parameterTypes: [ ParameterType.NUMBER, ParameterType.NUMBER ],
 			resultType: FactorType.NUMBER
 		} ]
 	},
 	[ParameterCalculatorType.DIVIDE]: {
-		name: ParameterCalculatorType.DIVIDE, parameterCount: 2,
+		name: ParameterCalculatorType.DIVIDE, minParameterCount: 2,
 		supports: [ {
 			parameterTypes: [ ParameterType.NUMBER, ParameterType.NUMBER ],
 			resultType: FactorType.NUMBER
 		} ]
 	},
 	[ParameterCalculatorType.MODULUS]: {
-		name: ParameterCalculatorType.MODULUS, parameterCount: 2,
+		name: ParameterCalculatorType.MODULUS, minParameterCount: 2,
 		supports: [ {
 			parameterTypes: [ ParameterType.NUMBER, ParameterType.NUMBER ],
 			resultType: FactorType.NUMBER

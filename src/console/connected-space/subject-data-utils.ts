@@ -1,4 +1,4 @@
-import { Computed } from '../../services/tuples/factor-calculator-types';
+import { Computed, Parameter } from '../../services/tuples/factor-calculator-types';
 import {
 	isComputedParameter,
 	isConstantParameter,
@@ -12,17 +12,6 @@ import {
 } from '../../services/tuples/subject-types';
 import { isExpressionFilter, isJointFilter } from '../../services/tuples/subject-utils';
 
-const computeRelatedTopicIdsByFilter = (filter: SubjectDataSetFilter): Array<string> => {
-	if (isJointFilter(filter)) {
-		const topicIds = filter.filters.map(filter => computeRelatedTopicIdsByFilter(filter)).flat().filter(x => !!x);
-		return Array.from(new Set(topicIds));
-	} else if (isExpressionFilter(filter)) {
-		const topicIds = [ ...computeRelatedTopicIdsByComputed(filter.left), ...computeRelatedTopicIdsByComputed(filter.right) ];
-		return Array.from(new Set(topicIds));
-	} else {
-		return [];
-	}
-};
 const computeRelatedTopicIdsByComputed = (computed: Computed): Array<string> => {
 	const topicIds: Array<string> = computed.parameters.reduce<Array<string>>((topicIds, param) => {
 		if (isTopicFactorParameter(param)) {
@@ -36,12 +25,42 @@ const computeRelatedTopicIdsByComputed = (computed: Computed): Array<string> => 
 	}, []).filter(topicId => !!topicId);
 	return Array.from(new Set(topicIds));
 };
-const computeRelatedTopicIdsByColumn = (column: SubjectDataSetColumn): Array<string> => {
-	return computeRelatedTopicIdsByComputed(column);
+
+const computeTopicIdsByParameter = (parameter?: Parameter): Array<string> => {
+	if (!parameter) {
+		return [];
+	}
+	if (isTopicFactorParameter(parameter)) {
+		return parameter.topicId ? [ parameter.topicId ] : [];
+	} else if (isConstantParameter(parameter)) {
+		return [];
+	} else if (isComputedParameter(parameter)) {
+		return computeRelatedTopicIdsByComputed(parameter);
+	} else {
+		return [];
+	}
 };
+
+const computeRelatedTopicIdsByFilter = (filter: SubjectDataSetFilter): Array<string> => {
+	if (isJointFilter(filter)) {
+		const topicIds = filter.filters.map(filter => computeRelatedTopicIdsByFilter(filter)).flat().filter(x => !!x);
+		return Array.from(new Set(topicIds));
+	} else if (isExpressionFilter(filter)) {
+		const topicIds = [ ...computeTopicIdsByParameter(filter.left), ...computeTopicIdsByParameter(filter.right) ];
+		return Array.from(new Set(topicIds));
+	} else {
+		return [];
+	}
+};
+
+const computeRelatedTopicIdsByColumn = (column: SubjectDataSetColumn): Array<string> => {
+	return computeTopicIdsByParameter(column.parameter);
+};
+
 const computeRelatedTopicIdsByJoin = (join: SubjectDataSetJoin): Array<string> => {
 	return [ join.topicId, join.secondaryTopicId ].filter(x => !!x);
 };
+
 export const computeRelatedTopicIds = (dataset: SubjectDataSet): Array<string> => {
 	const { filters, columns, joins } = dataset;
 

@@ -12,6 +12,7 @@ import {
 	faCog,
 	faComments,
 	faCompress,
+	faCompressArrowsAlt,
 	faDiceD20,
 	faDrawPolygon,
 	faEdit,
@@ -126,7 +127,7 @@ export const ICON_ROW_PREPEND_ON_RIGHT = faLevelUpAlt;
 export const ICON_CLOSE = faTimes;
 export const ICON_DOWNLOAD_PAGE = faArrowAltCircleDown;
 export const ICON_DOWNLOAD = faCloudDownloadAlt;
-// export const ICON_COLLAPSE_CONTENT = faCompressArrowsAlt;
+export const ICON_COLLAPSE_CONTENT = faCompressArrowsAlt;
 // export const ICON_EXPAND_CONTENT = faExpandArrowsAlt;
 
 // mock data

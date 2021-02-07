@@ -2,7 +2,7 @@ import React from 'react';
 import { Lang } from '../../../../../langs';
 import { ConnectedSpace } from '../../../../../services/tuples/connected-space-types';
 import { Subject } from '../../../../../services/tuples/subject-types';
-import { useTopicData } from '../use-topic-data';
+import { useTopicData } from '../data/use-topic-data';
 import { SubjectDefBodyCover } from '../widgets';
 import { AvailableTopic } from './available-topic';
 import { AvailableTopicBottomGap, PickTopicsContainer } from './widgets';
