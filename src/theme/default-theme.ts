@@ -7,7 +7,7 @@ import {
 	GRID_ROW_HEIGHT,
 	GRID_TALL_ROW_HEIGHT,
 	HEADER_HEIGHT,
-	INPUT_INDENT,
+	INPUT_INDENT, PARAM_HEIGHT,
 	PIN_FAVORITE_HEIGHT,
 	SIDE_MENU_MIN_WIDTH,
 	TOGGLE_HEIGHT
@@ -111,7 +111,10 @@ const DefaultTheme = {
 	// grid
 	gridRowHeight: GRID_ROW_HEIGHT,
 	gridRibBgColor: 'rgb(243,243,243)',
-	gridTallRowHeight: GRID_TALL_ROW_HEIGHT
+	gridTallRowHeight: GRID_TALL_ROW_HEIGHT,
+
+	// parameter
+	paramHeight: PARAM_HEIGHT
 };
 
 export default DefaultTheme;

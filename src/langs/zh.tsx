@@ -13,7 +13,8 @@ export const Zh = {
 		NEW_CONNECTED_SPACE_NAME: '工作空间',
 		DEFAULT_CONNECTED_SPACE_NAME: '工作空间',
 		NEW_SUBJECT_NAME: '主题',
-		DEFAULT_SUBJECT_NAME: '主题'
+		DEFAULT_SUBJECT_NAME: '主题',
+		CONSTANT_INPUT_PLACEHOLDER: '请填写常量值...'
 	},
 	ERROR: {
 		UNPREDICTED: '发生不可预测的错误, 请联系管理员以获取帮助.'
@@ -133,7 +134,8 @@ export const Zh = {
 			NO_PICKED_TOPIC_FOR_SUBJECT: '还没有选择数据集.',
 			NO_DATASET_COLUMN_FOR_SUBJECT: '尚未定义数据列, 现在就',
 			CREATE_DATASET_COLUMN_WHEN_NONE: '开始',
-			NO_DATASET_COLUMN_FOR_SUBJECT_2: '吗?'
+			NO_DATASET_COLUMN_FOR_SUBJECT_2: '吗?',
+			ALIAS: '别名'
 		},
 		SETTINGS: {
 			TITLE: '设置',

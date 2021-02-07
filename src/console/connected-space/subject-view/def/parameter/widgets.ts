@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Input } from '../../../../../basic-widgets/input';
 
 export const ParameterTypeEditContainer = styled.div.attrs({ 'data-widget': 'parameter-type-edit' })`
 	display          : flex;
@@ -6,12 +7,12 @@ export const ParameterTypeEditContainer = styled.div.attrs({ 'data-widget': 'par
 	align-items      : center;
 	align-self       : center;
 	justify-self     : start;
-	height           : var(--button-height-in-form);
+	height           : var(--param-height);
 	background-color : var(--primary-color);
 	color            : var(--invert-color);
 	border           : var(--border);
 	border-color     : var(--primary-color);
-	border-radius    : calc(var(--button-height-in-form) / 2);
+	border-radius    : calc(var(--param-height) / 2);
 	padding          : 0 calc(var(--margin) / 4);
 	cursor           : pointer;
 	outline          : none;
@@ -61,5 +62,13 @@ export const ParameterTypeIcon = styled.div.attrs({ 'data-widget': 'parameter-ty
 	padding     : 0 calc(var(--margin) / 4);
 	> svg {
 		font-size : 0.8em;
+	}
+`;
+export const ConstantInput = styled(Input).attrs({ 'data-widget': 'parameter-constant-value' })`
+	height : var(--param-height);
+	&:hover {
+		z-index      : 1;
+		border-color : transparent;
+		box-shadow   : var(--primary-hover-shadow);
 	}
 `;

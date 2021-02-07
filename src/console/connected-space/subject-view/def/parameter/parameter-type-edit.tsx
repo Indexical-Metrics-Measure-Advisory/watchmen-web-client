@@ -8,7 +8,7 @@ import { ParameterEventTypes } from './parameter-event-bus-types';
 import { ParameterTypeEditContainer, ParameterTypeFromLabel, ParameterTypeIcon, ParameterTypeLabel } from './widgets';
 
 export const ParameterTypeEdit = (props: { parameter: Parameter }) => {
-	const { parameter } = props;
+	const { parameter, ...rest } = props;
 
 	const { fire } = useParameterEventBus();
 	const [ editing, setEditing ] = useState(false);
@@ -33,7 +33,7 @@ export const ParameterTypeEdit = (props: { parameter: Parameter }) => {
 		setEditing(!editing);
 	};
 
-	return <ParameterTypeEditContainer onClick={onStartEditing} tabIndex={0} onBlur={onBlur}>
+	return <ParameterTypeEditContainer onClick={onStartEditing} tabIndex={0} onBlur={onBlur} {...rest}>
 		<ParameterTypeFromLabel>{Lang.PARAM.FROM}</ParameterTypeFromLabel>
 		<ParameterTypeLabel active={parameter.from === ParameterFrom.TOPIC} edit={editing}
 		                    onClick={onFromChange(ParameterFrom.TOPIC)}>

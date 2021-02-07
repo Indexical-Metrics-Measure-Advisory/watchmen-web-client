@@ -6,7 +6,7 @@ import { useTopicData } from '../data/use-topic-data';
 import { SubjectDefBodyCover } from '../widgets';
 import { ColumnsEdit } from './columns-edit';
 import { NoColumn } from './no-column';
-import { ColumnsContainer } from './widgets';
+import { ColumnsBottomGap, ColumnsContainer } from './widgets';
 
 export const Columns = (props: {
 	connectedSpace: ConnectedSpace;
@@ -20,6 +20,7 @@ export const Columns = (props: {
 	return <ColumnsContainer active={active}>
 		<NoColumn subject={subject} active={active}/>
 		<ColumnsEdit subject={subject} availableTopics={availableTopics} pickedTopics={pickedTopics}/>
+		<ColumnsBottomGap/>
 		<SubjectDefBodyCover active={active}>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_DEFINE_COLUMNS}</SubjectDefBodyCover>
 	</ColumnsContainer>;
 };

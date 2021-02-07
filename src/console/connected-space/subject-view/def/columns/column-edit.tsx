@@ -2,8 +2,14 @@ import React from 'react';
 import { Subject, SubjectDataSetColumn } from '../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
 import { ParameterEventBusProvider } from '../parameter/parameter-event-bus';
-import { ParameterTypeEdit } from '../parameter/parameter-type-edit';
-import { ColumnEditContainer, ColumnIndex } from './widgets';
+import { AliasEditor } from './alias-edit';
+import {
+	ColumnEditContainer,
+	ColumnEditWrapper,
+	ColumnIndex,
+	ConstantValueEditor,
+	ParameterTypeEditor
+} from './widgets';
 
 export const ColumnEdit = (props: {
 	subject: Subject;
@@ -18,7 +24,11 @@ export const ColumnEdit = (props: {
 	return <ParameterEventBusProvider>
 		<ColumnEditContainer>
 			<ColumnIndex>{index}</ColumnIndex>
-			<ParameterTypeEdit parameter={column.parameter}/>
+			<ColumnEditWrapper>
+				<ParameterTypeEditor parameter={column.parameter}/>
+				<ConstantValueEditor parameter={column.parameter}/>
+				<AliasEditor column={column}/>
+			</ColumnEditWrapper>
 		</ColumnEditContainer>
 	</ParameterEventBusProvider>;
 };

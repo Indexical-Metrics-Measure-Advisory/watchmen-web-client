@@ -15,7 +15,8 @@ export const En = {
 		NEW_CONNECTED_SPACE_NAME: 'Connected Space',
 		DEFAULT_CONNECTED_SPACE_NAME: 'Connected Space',
 		NEW_SUBJECT_NAME: 'Subject',
-		DEFAULT_SUBJECT_NAME: 'Subject'
+		DEFAULT_SUBJECT_NAME: 'Subject',
+		CONSTANT_INPUT_PLACEHOLDER: 'Constant value please...'
 	},
 	ERROR: {
 		UNPREDICTED: 'Unpredicted error occurred, contact administrator for more information.'
@@ -136,7 +137,8 @@ export const En = {
 			NO_PICKED_TOPIC_FOR_SUBJECT: 'No topic picked.',
 			NO_DATASET_COLUMN_FOR_SUBJECT: 'No columns defined, do you want ',
 			CREATE_DATASET_COLUMN_WHEN_NONE: 'create one',
-			NO_DATASET_COLUMN_FOR_SUBJECT_2: '?'
+			NO_DATASET_COLUMN_FOR_SUBJECT_2: '?',
+			ALIAS: 'As'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',
