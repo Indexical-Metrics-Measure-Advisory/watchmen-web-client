@@ -7,21 +7,20 @@ import { Subject, SubjectDataSetColumn } from '../../../../../services/tuples/su
 import { Topic } from '../../../../../services/tuples/topic-types';
 import { ParameterEventBusProvider, useParameterEventBus } from '../parameter/parameter-event-bus';
 import { ParameterEventTypes } from '../parameter/parameter-event-bus-types';
+import {
+	ComputedEditor,
+	ConstantValueEditor,
+	DeleteMeButton,
+	ParameterTypeEditor,
+	TopicFactorEditor
+} from '../parameter/widgets';
 import { useSubjectDefEventBus } from '../subject-def-event-bus';
 import { SubjectDefEventTypes } from '../subject-def-event-bus-types';
 import { AliasEditor } from './alias-edit';
 import { Column2DefEventBridge } from './column-2-def-event-bridge';
 import { ColumnEventBusProvider } from './column-event-bus';
 import { Parameter2ColumnEventBridge } from './parameter-2-column-event-bridge';
-import {
-	ColumnEditContainer,
-	ColumnEditWrapper,
-	ColumnIndex,
-	ConstantValueEditor,
-	DeleteColumnButton,
-	ParameterTypeEditor,
-	TopicFactorEditor
-} from './widgets';
+import { ColumnEditContainer, ColumnEditWrapper, ColumnIndex } from './widgets';
 
 export const ColumnEditor = (props: {
 	subject: Subject;
@@ -52,12 +51,14 @@ export const ColumnEditor = (props: {
 	return <ColumnEditWrapper shorten={column.parameter.from === ParameterFrom.COMPUTED}>
 		<ParameterTypeEditor parameter={column.parameter}/>
 		<ConstantValueEditor parameter={column.parameter}/>
-		<TopicFactorEditor parameter={column.parameter} availableTopics={availableTopics}
-		                   pickedTopics={pickedTopics}/>
+		<TopicFactorEditor parameter={column.parameter}
+		                   availableTopics={availableTopics} pickedTopics={pickedTopics}/>
 		<AliasEditor column={column}/>
-		<DeleteColumnButton onClick={onDeleteClicked}>
+		<DeleteMeButton onClick={onDeleteClicked}>
 			<FontAwesomeIcon icon={ICON_DELETE}/>
-		</DeleteColumnButton>
+		</DeleteMeButton>
+		<ComputedEditor parameter={column.parameter}
+		                availableTopics={availableTopics} pickedTopics={pickedTopics}/>
 	</ColumnEditWrapper>;
 };
 

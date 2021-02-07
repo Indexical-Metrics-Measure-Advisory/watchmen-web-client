@@ -40,7 +40,7 @@ export enum FactorType {
 	WEEK_OF_YEAR = 'week-of-year',      // 1 - 53
 	WEEK_OF_MONTH = 'week-of-month',    // 1 - 6
 	HALF_WEEK = 'half-week',            // 1: first half, 2: second half
-	DAY = 'day',                        // 1 - 31, according to month/year
+	DAY_OF_MONTH = 'day-of-month',      // 1 - 31, according to month/year
 	DAY_OF_WEEK = 'day-of-week',        // 1 - 7
 	DAY_KIND = 'day-kind',              // 1: workday, 2: weekend, 3: holiday
 	HOUR = 'hour',                      // 0 - 23

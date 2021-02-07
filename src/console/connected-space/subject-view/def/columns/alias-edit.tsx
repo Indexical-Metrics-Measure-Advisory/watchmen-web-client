@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect } from 'react';
+import React, { ChangeEvent, useEffect, useRef } from 'react';
 import { useForceUpdate } from '../../../../../basic-widgets/utils';
 import { Lang } from '../../../../../langs';
 import { Parameter } from '../../../../../services/tuples/factor-calculator-types';
@@ -19,6 +19,7 @@ const rebuildName = (name: string) => {
 export const AliasEditor = (props: { column: SubjectDataSetColumn }) => {
 	const { column } = props;
 
+	const inputRef = useRef<HTMLInputElement>(null);
 	const { fire: fireColumn } = useColumnEventBus();
 	const { on, off } = useParameterEventBus();
 	const forceUpdate = useForceUpdate();
@@ -36,6 +37,9 @@ export const AliasEditor = (props: { column: SubjectDataSetColumn }) => {
 		};
 	}, [ on, off, fireColumn, forceUpdate, column ]);
 
+	const onLabelClicked = () => {
+		inputRef.current?.focus();
+	};
 	const onAliasChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;
 		if (value === column.alias) {
@@ -48,7 +52,7 @@ export const AliasEditor = (props: { column: SubjectDataSetColumn }) => {
 	};
 
 	return <AliasEdit>
-		<AliasLabel>{Lang.CONSOLE.CONNECTED_SPACE.ALIAS}</AliasLabel>
-		<AliasEditInput value={column.alias || ''} onChange={onAliasChange}/>
+		<AliasLabel onClick={onLabelClicked}>{Lang.CONSOLE.CONNECTED_SPACE.ALIAS}</AliasLabel>
+		<AliasEditInput value={column.alias || ''} onChange={onAliasChange} ref={inputRef}/>
 	</AliasEdit>;
 };

@@ -148,6 +148,12 @@ export const En = {
 			LANGUAGE: 'Language'
 		}
 	},
+	PARAM: {
+		FROM: 'From',
+		FROM_TOPIC: 'Topic',
+		FROM_CONSTANT: 'Constant',
+		FROM_COMPUTED: 'Compute'
+	},
 	FACTOR: {
 		SEQUENCE: 'Sequence',
 		NUMBER: 'Numeric',
@@ -182,7 +188,7 @@ export const En = {
 		WEEK_OF_YEAR: 'Week of Year',
 		WEEK_OF_MONTH: 'Week of Month',
 		HALF_WEEK: '1st/2nd Half Week',
-		DAY: 'Day of Month',
+		DAY_OF_MONTH: 'Day of Month',
 		DAY_OF_WEEK: 'Day of Week',
 		DAY_KIND: 'Workday/Weekday/Holiday',
 		HOUR: 'Hour',
@@ -204,10 +210,20 @@ export const En = {
 		OBJECT: 'Object',
 		ARRAY: 'Array'
 	},
-	PARAM: {
-		FROM: 'From',
-		FROM_TOPIC: 'Topic',
-		FROM_CONSTANT: 'Constant',
-		FROM_COMPUTED: 'Compute'
+	PARAMETER: {
+		NONE: 'As is',
+		ADD: 'Add',
+		SUBTRACT: 'Subtract',
+		MULTIPLY: 'Multiply',
+		DIVIDE: 'Divide',
+		MODULUS: 'Modulus',
+		YEAR_OF: 'Year of',
+		HALF_YEAR_OF: 'Half Year of',
+		QUARTER_OF: 'Quarter of',
+		MONTH_OF: 'Month of',
+		WEEK_OF_YEAR: 'Week of Year',
+		WEEK_OF_MONTH: 'Week of Month',
+		DAY_OF_MONTH: 'Day of Month',
+		DAY_OF_WEEK: 'Day of Week'
 	}
 };

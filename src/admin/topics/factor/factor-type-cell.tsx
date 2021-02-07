@@ -47,7 +47,7 @@ const AllTypeOptions: { [key in FactorType]: { label: string, order: number } } 
 	[FactorType.WEEK_OF_YEAR]: { label: En.FACTOR.WEEK_OF_YEAR, order: 10411 },
 	[FactorType.WEEK_OF_MONTH]: { label: En.FACTOR.WEEK_OF_MONTH, order: 10412 },
 	[FactorType.HALF_WEEK]: { label: En.FACTOR.HALF_WEEK, order: 10413 },
-	[FactorType.DAY]: { label: En.FACTOR.DAY, order: 10414 },
+	[FactorType.DAY_OF_MONTH]: { label: En.FACTOR.DAY_OF_MONTH, order: 10414 },
 	[FactorType.DAY_OF_WEEK]: { label: En.FACTOR.DAY_OF_WEEK, order: 10415 },
 	[FactorType.DAY_KIND]: { label: En.FACTOR.DAY_KIND, order: 10416 },
 	[FactorType.HOUR]: { label: En.FACTOR.HOUR, order: 10417 },

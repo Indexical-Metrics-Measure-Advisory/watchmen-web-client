@@ -2,10 +2,45 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { MouseEvent, useState } from 'react';
 import { ICON_COLLAPSE_CONTENT, ICON_EDIT } from '../../../../../basic-widgets/constants';
 import { Lang } from '../../../../../langs';
-import { Parameter, ParameterFrom } from '../../../../../services/tuples/factor-calculator-types';
+import {
+	Parameter,
+	ParameterCalculatorType,
+	ParameterFrom
+} from '../../../../../services/tuples/factor-calculator-types';
+import {
+	isComputedParameter,
+	isConstantParameter,
+	isTopicFactorParameter
+} from '../../../../../services/tuples/factor-calculator-utils';
+import { createTopicFactorParameter } from '../data-utils';
 import { useParameterEventBus } from './parameter-event-bus';
 import { ParameterEventTypes } from './parameter-event-bus-types';
 import { ParameterTypeEditContainer, ParameterTypeFromLabel, ParameterTypeIcon, ParameterTypeLabel } from './widgets';
+
+const initParameter = (parameter: Parameter) => {
+	if (isTopicFactorParameter(parameter)) {
+		const old = parameter as any;
+		delete old.value;
+		delete old.type;
+		delete old.parameters;
+		old.topicId = old.topicId || '';
+		old.factorId = old.factorId || '';
+	} else if (isConstantParameter(parameter)) {
+		const old = parameter as any;
+		delete old.topicId;
+		delete old.factorId;
+		delete old.type;
+		delete old.parameters;
+		old.value = old.value || '';
+	} else if (isComputedParameter(parameter)) {
+		const old = parameter as any;
+		delete old.topicId;
+		delete old.factorId;
+		delete old.value;
+		old.type = old.type || ParameterCalculatorType.ADD;
+		old.parameters = old.parameters || [ createTopicFactorParameter(), createTopicFactorParameter() ];
+	}
+};
 
 export const ParameterTypeEdit = (props: { parameter: Parameter }) => {
 	const { parameter, ...rest } = props;
@@ -23,6 +58,7 @@ export const ParameterTypeEdit = (props: { parameter: Parameter }) => {
 			setEditing(!editing);
 		} else {
 			parameter.from = from;
+			initParameter(parameter);
 			setEditing(false);
 			fire(ParameterEventTypes.FROM_CHANGED, parameter);
 		}

@@ -89,7 +89,7 @@ export const isConstantValueTypeMatched = (value: string, type: ParameterType | 
 			return /^\d{4}$/.test(value);
 		case FactorType.MONTH:
 			return /^(10|11|12|0?[1-9])$/.test(value);
-		case FactorType.DAY:
+		case FactorType.DAY_OF_MONTH:
 			return /^([0-2]?[1-9]|10|20|30|31)$/.test(value);
 		case FactorType.HOUR:
 			return /^([0-1]?[1-9]|10|20|21|22|23)$/.test(value);
@@ -287,8 +287,18 @@ export const ParameterCalculatorDefsMap: { [key in ParameterCalculatorType]: Par
 			resultType: FactorType.WEEK_OF_MONTH
 		} ]
 	},
-	[ParameterCalculatorType.WEEKDAYS]: {
-		name: ParameterCalculatorType.WEEKDAYS, parameterCount: 1,
+	[ParameterCalculatorType.DAY_OF_MONTH]: {
+		name: ParameterCalculatorType.DAY_OF_WEEK, parameterCount: 1,
+		supports: [ {
+			parameterTypes: [ ParameterType.DATE ],
+			resultType: FactorType.DAY_OF_MONTH
+		}, {
+			parameterTypes: [ ParameterType.DATETIME ],
+			resultType: FactorType.DAY_OF_MONTH
+		} ]
+	},
+	[ParameterCalculatorType.DAY_OF_WEEK]: {
+		name: ParameterCalculatorType.DAY_OF_WEEK, parameterCount: 1,
 		supports: [ {
 			parameterTypes: [ ParameterType.DATE ],
 			resultType: FactorType.DAY_OF_WEEK

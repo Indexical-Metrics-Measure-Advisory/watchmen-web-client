@@ -47,7 +47,7 @@ const Labels: { [key in FactorType]: string } = {
 	[FactorType.WEEK_OF_YEAR]: Lang.FACTOR.WEEK_OF_YEAR,
 	[FactorType.WEEK_OF_MONTH]: Lang.FACTOR.WEEK_OF_MONTH,
 	[FactorType.HALF_WEEK]: Lang.FACTOR.HALF_WEEK,
-	[FactorType.DAY]: Lang.FACTOR.DAY,
+	[FactorType.DAY_OF_MONTH]: Lang.FACTOR.DAY_OF_MONTH,
 	[FactorType.DAY_OF_WEEK]: Lang.FACTOR.DAY_OF_WEEK,
 	[FactorType.DAY_KIND]: Lang.FACTOR.DAY_KIND,
 	[FactorType.HOUR]: Lang.FACTOR.HOUR,

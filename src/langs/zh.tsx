@@ -145,6 +145,12 @@ export const Zh = {
 			LANGUAGE: '语言'
 		}
 	},
+	PARAM: {
+		FROM: '来源',
+		FROM_TOPIC: '数据集',
+		FROM_CONSTANT: '常量值',
+		FROM_COMPUTED: '计算值'
+	},
 	FACTOR: {
 		SEQUENCE: '序列号',
 		NUMBER: '数字',
@@ -179,7 +185,7 @@ export const Zh = {
 		WEEK_OF_YEAR: '周(按年度)',
 		WEEK_OF_MONTH: '周(按月度)',
 		HALF_WEEK: '上半周/下半周',
-		DAY: '天(按月度)',
+		DAY_OF_MONTH: '天(按月度)',
 		DAY_OF_WEEK: '天(按周)',
 		DAY_KIND: '工作日/周末/假日',
 		HOUR: '小时',
@@ -201,10 +207,20 @@ export const Zh = {
 		OBJECT: '子对象',
 		ARRAY: '子对象数组'
 	},
-	PARAM: {
-		FROM: '来源',
-		FROM_TOPIC: '数据集',
-		FROM_CONSTANT: '常量值',
-		FROM_COMPUTED: '计算值'
+	PARAMETER: {
+		NONE: 'As is',
+		ADD: '加',
+		SUBTRACT: '减',
+		MULTIPLY: '乘',
+		DIVIDE: '除',
+		MODULUS: '模除',
+		YEAR_OF: '年',
+		HALF_YEAR_OF: '上下半年',
+		QUARTER_OF: '季度',
+		MONTH_OF: '月',
+		WEEK_OF_YEAR: '周(按年度)',
+		WEEK_OF_MONTH: '周(按月度)',
+		DAY_OF_MONTH: '天(按月度)',
+		DAY_OF_WEEK: '天(按周)'
 	}
 };

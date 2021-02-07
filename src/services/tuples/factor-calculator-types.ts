@@ -33,7 +33,8 @@ export enum ParameterCalculatorType {
 	MONTH_OF = 'month-of',
 	WEEK_OF_YEAR = 'week-of-year',
 	WEEK_OF_MONTH = 'week-of-month',
-	WEEKDAYS = 'weekdays'
+	DAY_OF_MONTH = 'day-of-month',
+	DAY_OF_WEEK = 'weekdays'
 }
 
 export interface TopicFactorParameter extends Parameter {

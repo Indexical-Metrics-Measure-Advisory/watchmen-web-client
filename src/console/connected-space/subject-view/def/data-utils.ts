@@ -1,6 +1,9 @@
 import { ParameterFrom, TopicFactorParameter } from '../../../../services/tuples/factor-calculator-types';
 import { Subject, SubjectDataSetColumn } from '../../../../services/tuples/subject-types';
 
+export const createTopicFactorParameter = (): TopicFactorParameter => {
+	return { from: ParameterFrom.TOPIC, topicId: '', factorId: '' };
+};
 export const createSubjectDataSetColumn = (subject: Subject): SubjectDataSetColumn => {
 	const { columns } = subject.dataset;
 	const existsNames = columns.map(column => (column.alias || '').trim().toLowerCase()).filter(x => !!x);
@@ -12,6 +15,6 @@ export const createSubjectDataSetColumn = (subject: Subject): SubjectDataSetColu
 
 	return {
 		alias: newName,
-		parameter: { from: ParameterFrom.TOPIC, topicId: '', factorId: '' } as TopicFactorParameter
+		parameter: createTopicFactorParameter()
 	};
 };
