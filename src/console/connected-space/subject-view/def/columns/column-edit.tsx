@@ -1,4 +1,6 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { ICON_DELETE } from '../../../../../basic-widgets/constants';
 import { Subject, SubjectDataSetColumn } from '../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
 import { ParameterEventBusProvider } from '../parameter/parameter-event-bus';
@@ -8,7 +10,9 @@ import {
 	ColumnEditWrapper,
 	ColumnIndex,
 	ConstantValueEditor,
-	ParameterTypeEditor
+	DeleteColumnButton,
+	ParameterTypeEditor,
+	TopicFactorEditor
 } from './widgets';
 
 export const ColumnEdit = (props: {
@@ -27,7 +31,12 @@ export const ColumnEdit = (props: {
 			<ColumnEditWrapper>
 				<ParameterTypeEditor parameter={column.parameter}/>
 				<ConstantValueEditor parameter={column.parameter}/>
+				<TopicFactorEditor parameter={column.parameter} availableTopics={availableTopics}
+				                   pickedTopics={pickedTopics}/>
 				<AliasEditor column={column}/>
+				<DeleteColumnButton>
+					<FontAwesomeIcon icon={ICON_DELETE}/>
+				</DeleteColumnButton>
 			</ColumnEditWrapper>
 		</ColumnEditContainer>
 	</ParameterEventBusProvider>;

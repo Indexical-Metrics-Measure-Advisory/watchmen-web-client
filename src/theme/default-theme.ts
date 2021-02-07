@@ -1,13 +1,15 @@
 import {
 	BASE_HEIGHT,
-	BASE_MARGIN, BASE_TALL_HEIGHT,
+	BASE_MARGIN,
+	BASE_TALL_HEIGHT,
 	BORDER_WIDTH,
 	BUTTON_HEIGHT_IN_FORM,
 	BUTTON_INDENT,
 	GRID_ROW_HEIGHT,
 	GRID_TALL_ROW_HEIGHT,
 	HEADER_HEIGHT,
-	INPUT_INDENT, PARAM_HEIGHT,
+	INPUT_INDENT,
+	PARAM_HEIGHT,
 	PIN_FAVORITE_HEIGHT,
 	SIDE_MENU_MIN_WIDTH,
 	TOGGLE_HEIGHT
@@ -114,7 +116,22 @@ const DefaultTheme = {
 	gridTallRowHeight: GRID_TALL_ROW_HEIGHT,
 
 	// parameter
-	paramHeight: PARAM_HEIGHT
+	paramHeight: PARAM_HEIGHT,
+	paramBorder: '0 0 0 1px var(--border-color)',
+	paramTopBorder: '0 -1px 0 var(--border-color)',
+	paramRightBorder: '1px 0 0 var(--border-color)',
+	paramBottomBorder: '0 1px 0 var(--border-color)',
+	paramLeftBorder: '-1px 0 0 var(--border-color)',
+	paramPrimaryBorder: '0 0 0 1px var(--primary-color)',
+	paramPrimaryTopBorder: '0 -1px 0 var(--primary-color)',
+	paramPrimaryRightBorder: '1px 0 0 var(--primary-color)',
+	paramPrimaryBottomBorder: '0 1px 0 var(--primary-color)',
+	paramPrimaryLeftBorder: '-1px 0 0 var(--primary-color)',
+	paramDangerBorder: '0 0 0 1px var(--danger-color)',
+	paramDangerTopBorder: '0 -1px 0 var(--danger-color)',
+	paramDangerRightBorder: '1px 0 0 var(--danger-color)',
+	paramDangerBottomBorder: '0 1px 0 var(--danger-color)',
+	paramDangerLeftBorder: '-1px 0 0 var(--danger-color)'
 };
 
 export default DefaultTheme;

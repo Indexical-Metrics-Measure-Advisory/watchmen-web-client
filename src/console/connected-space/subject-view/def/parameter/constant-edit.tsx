@@ -10,7 +10,7 @@ import { ConstantInput } from './widgets';
 export const ConstantEdit = (props: { parameter: Parameter }) => {
 	const { parameter, ...rest } = props;
 
-	const { on, off } = useParameterEventBus();
+	const { on, off, fire } = useParameterEventBus();
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		on(ParameterEventTypes.FROM_CHANGED, forceUpdate);
@@ -30,6 +30,7 @@ export const ConstantEdit = (props: { parameter: Parameter }) => {
 		}
 		parameter.value = value;
 		forceUpdate();
+		fire(ParameterEventTypes.CONSTANT_VALUE_CHANGED, parameter);
 	};
 
 	return <ConstantInput placeholder={Lang.PLAIN.CONSTANT_INPUT_PLACEHOLDER}

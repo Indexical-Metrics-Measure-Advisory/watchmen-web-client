@@ -65,7 +65,7 @@ export const BORDER_WIDTH = 1;
 export const HEADER_HEIGHT = 40;
 export const GRID_ROW_HEIGHT = 36;
 export const GRID_TALL_ROW_HEIGHT = 40;
-export const PARAM_HEIGHT = 24;
+export const PARAM_HEIGHT = 22;
 
 export const SIDE_MENU_MIN_WIDTH = 51;
 export const SIDE_MENU_MAX_WIDTH = 321;

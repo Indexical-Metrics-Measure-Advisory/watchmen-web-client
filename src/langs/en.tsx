@@ -16,7 +16,9 @@ export const En = {
 		DEFAULT_CONNECTED_SPACE_NAME: 'Connected Space',
 		NEW_SUBJECT_NAME: 'Subject',
 		DEFAULT_SUBJECT_NAME: 'Subject',
-		CONSTANT_INPUT_PLACEHOLDER: 'Constant value please...'
+		CONSTANT_INPUT_PLACEHOLDER: 'Constant value please...',
+		UNKNOWN_TOPIC_NAME: 'Unknown Topic',
+		UNKNOWN_FACTOR_NAME: 'Unknown Factor'
 	},
 	ERROR: {
 		UNPREDICTED: 'Unpredicted error occurred, contact administrator for more information.'
