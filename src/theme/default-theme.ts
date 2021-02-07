@@ -117,21 +117,24 @@ const DefaultTheme = {
 
 	// parameter
 	paramHeight: PARAM_HEIGHT,
+	paramBgColor: 'var(--border-color)',
 	paramBorder: '0 0 0 1px var(--border-color)',
 	paramTopBorder: '0 -1px 0 var(--border-color)',
 	paramRightBorder: '1px 0 0 var(--border-color)',
 	paramBottomBorder: '0 1px 0 var(--border-color)',
 	paramLeftBorder: '-1px 0 0 var(--border-color)',
-	paramPrimaryBorder: '0 0 0 1px var(--primary-color)',
-	paramPrimaryTopBorder: '0 -1px 0 var(--primary-color)',
-	paramPrimaryRightBorder: '1px 0 0 var(--primary-color)',
-	paramPrimaryBottomBorder: '0 1px 0 var(--primary-color)',
-	paramPrimaryLeftBorder: '-1px 0 0 var(--primary-color)',
-	paramDangerBorder: '0 0 0 1px var(--danger-color)',
-	paramDangerTopBorder: '0 -1px 0 var(--danger-color)',
-	paramDangerRightBorder: '1px 0 0 var(--danger-color)',
-	paramDangerBottomBorder: '0 1px 0 var(--danger-color)',
-	paramDangerLeftBorder: '-1px 0 0 var(--danger-color)'
+	paramPrimaryColor: 'rgba(94, 119, 171)',
+	paramPrimaryBorder: '0 0 0 1px var(--param-primary-color)',
+	paramPrimaryTopBorder: '0 -1px 0 var(--param-primary-color)',
+	paramPrimaryRightBorder: '1px 0 0 var(--param-primary-color)',
+	paramPrimaryBottomBorder: '0 1px 0 var(--param-primary-color)',
+	paramPrimaryLeftBorder: '-1px 0 0 var(--param-primary-color)',
+	paramDangerColor: 'rgba(222, 89, 99, 0.3)',
+	paramDangerBorder: '0 0 0 1px var(--param-danger-color)',
+	paramDangerTopBorder: '0 -1px 0 var(--param-danger-color)',
+	paramDangerRightBorder: '1px 0 0 var(--param-danger-color)',
+	paramDangerBottomBorder: '0 1px 0 var(--param-danger-color)',
+	paramDangerLeftBorder: '-1px 0 0 var(--param-danger-color)'
 };
 
 export default DefaultTheme;

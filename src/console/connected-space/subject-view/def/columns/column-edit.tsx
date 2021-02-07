@@ -5,15 +5,15 @@ import { useForceUpdate } from '../../../../../basic-widgets/utils';
 import { ParameterFrom } from '../../../../../services/tuples/factor-calculator-types';
 import { Subject, SubjectDataSetColumn } from '../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
-import { ParameterEventBusProvider, useParameterEventBus } from '../parameter/parameter-event-bus';
-import { ParameterEventTypes } from '../parameter/parameter-event-bus-types';
 import {
 	ComputedEditor,
 	ConstantValueEditor,
 	DeleteMeButton,
 	ParameterTypeEditor,
 	TopicFactorEditor
-} from '../parameter/widgets';
+} from '../parameter/composite-widgets';
+import { ParameterEventBusProvider, useParameterEventBus } from '../parameter/parameter-event-bus';
+import { ParameterEventTypes } from '../parameter/parameter-event-bus-types';
 import { useSubjectDefEventBus } from '../subject-def-event-bus';
 import { SubjectDefEventTypes } from '../subject-def-event-bus-types';
 import { AliasEditor } from './alias-edit';

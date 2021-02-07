@@ -81,10 +81,11 @@ export const AliasLabel = styled.div.attrs({ 'data-widget': 'subject-def-column-
 	align-items      : center;
 	align-self       : stretch;
 	justify-self     : stretch;
-	background-color : var(--primary-color);
-	color            : var(--invert-color);
+	background-color : var(--param-bg-color);
+	font-variant     : petite-caps;
+	font-weight      : var(--font-bold);
 	padding          : 0 calc(var(--margin) / 4);
-	box-shadow       : var(--param-primary-top-border), var(--param-primary-bottom-border);
+	box-shadow       : var(--param-top-border), var(--param-bottom-border);
 	cursor           : pointer;
 `;
 export const AliasEditInput = styled(Input).attrs({ 'data-widget': 'subject-def-column-alias-edit-input' })`
@@ -92,9 +93,10 @@ export const AliasEditInput = styled(Input).attrs({ 'data-widget': 'subject-def-
 	height        : var(--param-height);
 	border        : 0;
 	border-radius : 0;
-	box-shadow    : var(--param-primary-top-border), var(--param-primary-bottom-border);
+	box-shadow    : var(--param-top-border), var(--param-bottom-border);
 	&:hover {
-		z-index    : 1;
-		box-shadow : var(--param-primary-border), var(--primary-hover-shadow);
+		z-index          : 1;
+		background-color : var(--bg-color);
+		box-shadow       : var(--primary-hover-shadow);
 	}
 `;

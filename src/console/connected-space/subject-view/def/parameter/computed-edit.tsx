@@ -6,19 +6,17 @@ import { useForceUpdate } from '../../../../../basic-widgets/utils';
 import { Parameter, ParameterFrom } from '../../../../../services/tuples/factor-calculator-types';
 import { isComputedParameter } from '../../../../../services/tuples/factor-calculator-utils';
 import { Topic } from '../../../../../services/tuples/topic-types';
-import { ParameterCalculatorTypeEdit } from './parameter-calculator-type';
-import { useParameterEventBus } from './parameter-event-bus';
-import { ParameterEventTypes } from './parameter-event-bus-types';
 import {
-	ComputedEditBody,
-	ComputedEditContainer,
 	ComputedEditor,
 	ConstantValueEditor,
 	DeleteMeButton,
-	ParameterContainer,
 	ParameterTypeEditor,
 	TopicFactorEditor
-} from './widgets';
+} from './composite-widgets';
+import { ParameterCalculatorTypeEdit } from './parameter-calculator-type';
+import { useParameterEventBus } from './parameter-event-bus';
+import { ParameterEventTypes } from './parameter-event-bus-types';
+import { ComputedEditBody, ComputedEditContainer, ParameterContainer } from './widgets';
 
 export const ComputedEdit = (props: {
 	availableTopics: Array<Topic>;
