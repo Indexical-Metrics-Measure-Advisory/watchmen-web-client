@@ -3,6 +3,11 @@ import { Factor } from '../../../../../services/tuples/factor-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
 
 export enum ParameterEventTypes {
+	/**
+	 * any change will lead this event. no fire explicitly
+	 */
+	PARAM_CHANGED = 'param-changed',
+
 	FROM_CHANGED = 'from-changed',
 
 	CONSTANT_VALUE_CHANGED = 'constant-value-changed',
@@ -12,6 +17,9 @@ export enum ParameterEventTypes {
 }
 
 export interface ParameterEventBus {
+	on(type: ParameterEventTypes.PARAM_CHANGED, listener: () => void): this;
+	off(type: ParameterEventTypes.PARAM_CHANGED, listener: () => void): this;
+
 	fire(type: ParameterEventTypes.FROM_CHANGED, parameter: Parameter): this;
 	on(type: ParameterEventTypes.FROM_CHANGED, listener: (parameter: Parameter) => void): this;
 	off(type: ParameterEventTypes.FROM_CHANGED, listener: (parameter: Parameter) => void): this;

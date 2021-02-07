@@ -1,6 +1,6 @@
 import EventEmitter from 'events';
 import React, { useContext, useState } from 'react';
-import { ParameterEventBus } from './parameter-event-bus-types';
+import { ParameterEventBus, ParameterEventTypes } from './parameter-event-bus-types';
 
 const Context = React.createContext<ParameterEventBus>({} as ParameterEventBus);
 Context.displayName = 'ParameterEventBus';
@@ -12,6 +12,7 @@ export const ParameterEventBusProvider = (props: { children?: ((props: any) => R
 	const [ bus ] = useState<ParameterEventBus>({
 		fire: (type: string, ...data: any): ParameterEventBus => {
 			emitter.emit(type, ...data);
+			emitter.emit(ParameterEventTypes.PARAM_CHANGED);
 			return bus;
 		},
 		on: (type: string, listener: (...data: any) => void): ParameterEventBus => {

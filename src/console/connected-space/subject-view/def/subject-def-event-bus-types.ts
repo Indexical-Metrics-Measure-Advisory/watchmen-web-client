@@ -16,7 +16,8 @@ export enum SubjectDefEventTypes {
 	REPLY_PICKED_TOPICS = 'reply-picked-topics',
 
 	DATASET_COLUMN_ADDED = 'dataset-column-added',
-	DATASET_COLUMN_REMOVED = 'dataset-column-removed'
+	DATASET_COLUMN_REMOVED = 'dataset-column-removed',
+	DATASET_COLUMN_CHANGED = 'dataset-column-changed'
 }
 
 export interface SubjectDefEventBus {
@@ -46,4 +47,8 @@ export interface SubjectDefEventBus {
 	fire(type: SubjectDefEventTypes.DATASET_COLUMN_REMOVED, column: SubjectDataSetColumn): this;
 	on(type: SubjectDefEventTypes.DATASET_COLUMN_REMOVED, listener: (column: SubjectDataSetColumn) => void): this;
 	off(type: SubjectDefEventTypes.DATASET_COLUMN_REMOVED, listener: (column: SubjectDataSetColumn) => void): this;
+
+	fire(type: SubjectDefEventTypes.DATASET_COLUMN_CHANGED, column: SubjectDataSetColumn): this;
+	on(type: SubjectDefEventTypes.DATASET_COLUMN_CHANGED, listener: (column: SubjectDataSetColumn) => void): this;
+	off(type: SubjectDefEventTypes.DATASET_COLUMN_CHANGED, listener: (column: SubjectDataSetColumn) => void): this;
 }

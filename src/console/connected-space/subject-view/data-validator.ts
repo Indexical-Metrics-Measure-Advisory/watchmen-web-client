@@ -38,7 +38,15 @@ export const isComputedValid = ({ type, parameters }: Computed, topics: Array<To
 	}
 	const calculatorDef = ParameterCalculatorDefsMap[type];
 	// no calculator
-	if (parameters.length !== calculatorDef.parameterCount) {
+	if (calculatorDef.parameterCount && parameters.length !== calculatorDef.parameterCount) {
+		// parameters length mismatch
+		return { pass: false };
+	}
+	if (calculatorDef.minParameterCount && parameters.length < calculatorDef.minParameterCount) {
+		// parameters length mismatch
+		return { pass: false };
+	}
+	if (calculatorDef.maxParameterCount && parameters.length > calculatorDef.maxParameterCount) {
 		// parameters length mismatch
 		return { pass: false };
 	}
