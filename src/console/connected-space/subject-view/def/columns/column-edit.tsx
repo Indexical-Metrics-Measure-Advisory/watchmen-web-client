@@ -1,9 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ICON_DELETE } from '../../../../../basic-widgets/constants';
+import { useForceUpdate } from '../../../../../basic-widgets/utils';
+import { ParameterFrom } from '../../../../../services/tuples/factor-calculator-types';
 import { Subject, SubjectDataSetColumn } from '../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
-import { ParameterEventBusProvider } from '../parameter/parameter-event-bus';
+import { ParameterEventBusProvider, useParameterEventBus } from '../parameter/parameter-event-bus';
+import { ParameterEventTypes } from '../parameter/parameter-event-bus-types';
 import { useSubjectDefEventBus } from '../subject-def-event-bus';
 import { SubjectDefEventTypes } from '../subject-def-event-bus-types';
 import { AliasEditor } from './alias-edit';
@@ -18,6 +21,44 @@ import {
 	TopicFactorEditor
 } from './widgets';
 
+export const ColumnEditor = (props: {
+	subject: Subject;
+	column: SubjectDataSetColumn;
+	availableTopics: Array<Topic>;
+	pickedTopics: Array<Topic>;
+}) => {
+	const { subject, column, availableTopics, pickedTopics } = props;
+
+	const { fire: fireDef } = useSubjectDefEventBus();
+	const { on, off } = useParameterEventBus();
+	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		on(ParameterEventTypes.FROM_CHANGED, forceUpdate);
+		return () => {
+			off(ParameterEventTypes.FROM_CHANGED, forceUpdate);
+		};
+	}, [ on, off, forceUpdate ]);
+
+	const onDeleteClicked = () => {
+		const index = subject.dataset.columns.indexOf(column);
+		if (index !== -1) {
+			subject.dataset.columns.splice(index, 1);
+			fireDef(SubjectDefEventTypes.DATASET_COLUMN_REMOVED, column);
+		}
+	};
+
+	return <ColumnEditWrapper shorten={column.parameter.from === ParameterFrom.COMPUTED}>
+		<ParameterTypeEditor parameter={column.parameter}/>
+		<ConstantValueEditor parameter={column.parameter}/>
+		<TopicFactorEditor parameter={column.parameter} availableTopics={availableTopics}
+		                   pickedTopics={pickedTopics}/>
+		<AliasEditor column={column}/>
+		<DeleteColumnButton onClick={onDeleteClicked}>
+			<FontAwesomeIcon icon={ICON_DELETE}/>
+		</DeleteColumnButton>
+	</ColumnEditWrapper>;
+};
+
 export const ColumnEdit = (props: {
 	subject: Subject;
 	column: SubjectDataSetColumn;
@@ -26,31 +67,14 @@ export const ColumnEdit = (props: {
 }) => {
 	const { subject, column, availableTopics, pickedTopics } = props;
 
-	const {fire: fireDef} = useSubjectDefEventBus();
-	const onDeleteClicked = () => {
-		const index = subject.dataset.columns.indexOf(column);
-		if (index !== -1) {
-			subject.dataset.columns.splice(index, 1);
-			fireDef(SubjectDefEventTypes.DATASET_COLUMN_REMOVED, column);
-		}
-	}
-
 	const index = subject.dataset.columns.indexOf(column) + 1;
 
 	return <ColumnEventBusProvider>
 		<ParameterEventBusProvider>
 			<ColumnEditContainer>
 				<ColumnIndex>{index}</ColumnIndex>
-				<ColumnEditWrapper>
-					<ParameterTypeEditor parameter={column.parameter}/>
-					<ConstantValueEditor parameter={column.parameter}/>
-					<TopicFactorEditor parameter={column.parameter} availableTopics={availableTopics}
-					                   pickedTopics={pickedTopics}/>
-					<AliasEditor column={column}/>
-					<DeleteColumnButton onClick={onDeleteClicked}>
-						<FontAwesomeIcon icon={ICON_DELETE}/>
-					</DeleteColumnButton>
-				</ColumnEditWrapper>
+				<ColumnEditor subject={subject} column={column}
+				              availableTopics={availableTopics} pickedTopics={pickedTopics}/>
 			</ColumnEditContainer>
 		</ParameterEventBusProvider>
 	</ColumnEventBusProvider>;

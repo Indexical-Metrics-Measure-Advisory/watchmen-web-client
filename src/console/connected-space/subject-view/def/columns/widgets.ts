@@ -52,7 +52,14 @@ export const ColumnIndex = styled.span.attrs({ 'data-widget': 'subject-def-colum
 	font-variant : petite-caps;
 	font-weight  : var(--font-bold);
 `;
-export const ColumnEditWrapper = styled.div.attrs({ 'data-widget': 'subject-def-column-edit-wrapper' })`
+export const ColumnEditWrapper = styled.div.attrs<{ shorten: boolean }>(({ shorten }) => {
+	return {
+		'data-widget': 'subject-def-column-edit-wrapper',
+		style: {
+			gridTemplateColumns: shorten ? 'auto auto auto 1fr' : (void 0)
+		}
+	};
+})<{ shorten: boolean }>`
 	display               : grid;
 	grid-template-columns : auto 1fr auto auto;
 	position              : relative;
@@ -129,23 +136,23 @@ export const AliasEditInput = styled(Input).attrs({ 'data-widget': 'subject-def-
 		box-shadow   : var(--primary-hover-shadow);
 	}
 `;
-export const DeleteColumnButton = styled.div.attrs({'data-widget': 'subject-def-column-delete'})`
-	display      : flex;
-	position     : relative;
-	align-self   : stretch;
-	align-items  : center;
-	height       : var(--param-height);
-	padding : 0 calc(var(--margin) / 4);
-	border-top-right-radius: calc(var(--param-height) / 2);
-	border-bottom-right-radius: calc(var(--param-height) / 2);
-	background-color: var(--danger-color);
-	color: var(--invert-color);
-	box-shadow: var(--param-danger-border);
-	cursor: pointer;
+export const DeleteColumnButton = styled.div.attrs({ 'data-widget': 'subject-def-column-delete' })`
+	display                    : flex;
+	position                   : relative;
+	align-self                 : stretch;
+	align-items                : center;
+	height                     : var(--param-height);
+	padding                    : 0 calc(var(--margin) / 4);
+	border-top-right-radius    : calc(var(--param-height) / 2);
+	border-bottom-right-radius : calc(var(--param-height) / 2);
+	background-color           : var(--danger-color);
+	color                      : var(--invert-color);
+	box-shadow                 : var(--param-danger-border);
+	cursor                     : pointer;
 	&:hover {
-		box-shadow: var(--param-danger-border), var(--danger-hover-shadow);
+		box-shadow : var(--param-danger-border), var(--danger-hover-shadow);
 	}
 	> svg {
 		font-size : 0.8em;
 	}
-`
+`;

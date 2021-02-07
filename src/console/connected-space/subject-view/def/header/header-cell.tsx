@@ -71,7 +71,7 @@ export const HeaderCell = (props: {
 		<DefHeaderLabel>{label}</DefHeaderLabel>
 		{children}
 		{next
-			? <DefHeaderNextButton ink={ButtonInk.SUCCESS} onClick={onNextClicked}>
+			? <DefHeaderNextButton ink={ButtonInk.PRIMARY} onClick={onNextClicked}>
 				<span>{Lang.ACTIONS.NEXT}</span>
 			</DefHeaderNextButton>
 			: null}
