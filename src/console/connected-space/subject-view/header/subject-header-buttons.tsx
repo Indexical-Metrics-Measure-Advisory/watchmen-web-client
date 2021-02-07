@@ -9,9 +9,8 @@ import { HeaderDownloadAllButton } from './header-download-all-button';
 import { HeaderDownloadPageButton } from './header-download-page-button';
 import { HeaderPrintButton } from './header-print-button';
 import { HeaderShareButton } from './header-share-button';
-import { HeaderSubjectDataButton } from './header-subject-data-button';
 import { HeaderSubjectDefButton } from './header-subject-def-button';
-import { HeaderSubjectReportButton } from './header-subject-report-button';
+import { HeaderSubjectDefValidButtons } from './header-subject-def-valid-buttons';
 import { HeaderSwitchSubjectButton } from './header-switch-subject-button';
 import { isSubjectDataNow, isSubjectReportNow } from './utils';
 
@@ -22,8 +21,7 @@ export const SubjectHeaderButtons = (props: { connectedSpace: ConnectedSpace, su
 		<HeaderCatalogButton connectedSpace={connectedSpace}/>
 		<PageHeaderButtonSeparator/>
 		<HeaderSubjectDefButton connectedSpace={connectedSpace} subject={subject}/>
-		<HeaderSubjectDataButton connectedSpace={connectedSpace} subject={subject}/>
-		<HeaderSubjectReportButton connectedSpace={connectedSpace} subject={subject}/>
+		<HeaderSubjectDefValidButtons connectedSpace={connectedSpace} subject={subject}/>
 		{isSubjectDataNow()
 			? <Fragment>
 				<PageHeaderButtonSeparator/>
