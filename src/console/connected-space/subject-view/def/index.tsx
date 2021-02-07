@@ -3,6 +3,7 @@ import { ConnectedSpace } from '../../../../services/tuples/connected-space-type
 import { Subject } from '../../../../services/tuples/subject-types';
 import { Columns } from './columns';
 import { SubjectDefDataHolder } from './def-data';
+import { SubjectDefSaver } from './def-data/def-saver';
 import { Filters } from './filters';
 import { Header } from './header';
 import { Joins } from './joins';
@@ -35,6 +36,7 @@ export const SubjectDef = (props: { connectedSpace: ConnectedSpace, subject: Sub
 	const { connectedSpace, subject } = props;
 
 	return <SubjectDefEventBusProvider>
+		<SubjectDefSaver connectedSpace={connectedSpace} subject={subject}/>
 		<SubjectDefWrapper connectedSpace={connectedSpace} subject={subject}/>
 	</SubjectDefEventBusProvider>;
 };
