@@ -133,23 +133,35 @@ export const ComputedEditContainer = styled.div.attrs({ 'data-widget': 'paramete
 	min-height            : var(--param-height);
 `;
 export const ParameterCalculatorTypeContainer = styled.div.attrs({ 'data-widget': 'parameter-computed-type' })`
-	display       : flex;
-	position      : relative;
-	align-items   : center;
-	align-self    : start;
-	justify-self  : start;
-	height        : var(--param-height);
-	color         : var(--primary-color);
-	border-radius : calc(var(--param-height) / 2);
-	padding       : 0 calc(var(--margin) / 2);
-	margin-right  : calc(var(--margin) / 2);
-	cursor        : pointer;
-	outline       : none;
-	box-shadow    : var(--param-border);
-	transition    : box-shadow 300ms ease-in-out;
+	display          : flex;
+	position         : relative;
+	align-items      : center;
+	align-self       : start;
+	justify-self     : start;
+	height           : var(--param-height);
+	color            : var(--primary-color);
+	background-color : var(--bg-color);
+	border-radius    : calc(var(--param-height) / 2);
+	padding          : 0 calc(var(--margin) / 2);
+	margin-right     : calc(var(--margin) / 2);
+	cursor           : pointer;
+	outline          : none;
+	box-shadow       : var(--param-border);
+	transition       : box-shadow 300ms ease-in-out;
 	&:hover {
 		z-index    : 1;
 		box-shadow : var(--primary-hover-shadow);
+	}
+	&:before {
+		content    : '';
+		display    : block;
+		position   : absolute;
+		bottom     : calc(100% + 1px);
+		left       : 50%;
+		width      : 1px;
+		height     : calc(var(--margin) / 4);
+		box-shadow : var(--param-left-border);
+		z-index    : -1;
 	}
 `;
 export const ParameterCalculatorTypeLabel = styled.div.attrs({ 'data-widget': 'parameter-computed-type-label' })`
@@ -179,7 +191,7 @@ export const ComputedEditBody = styled.div.attrs({ 'data-widget': 'parameter-com
 `;
 export const ParameterContainer = styled.div.attrs<{ shorten: boolean }>(({ shorten }) => {
 	return {
-		'data-widget': 'subject-def-column-edit-wrapper',
+		'data-widget': 'parameters',
 		style: {
 			gridTemplateColumns: shorten ? 'auto auto auto 1fr' : (void 0)
 		}
@@ -191,9 +203,35 @@ export const ParameterContainer = styled.div.attrs<{ shorten: boolean }>(({ shor
 	position              : relative;
 	align-self            : stretch;
 	justify-self          : stretch;
-	//&:first-child > div[data-widget="parameter-type-edit"] {
-	//	border-radius : 0;
-	//}
+	&:before {
+		content                   : '';
+		display                   : block;
+		position                  : absolute;
+		top                       : calc((var(--margin) / 4 + var(--param-height) / 2) * -1);
+		right                     : 100%;
+		width                     : calc(var(--margin) / 4);
+		height                    : calc(var(--margin) / 4 + var(--param-height));
+		z-index                   : -1;
+		border-bottom-left-radius : 2px;
+		box-shadow                : var(--param-left-border), var(--param-bottom-border);
+	}
+	&:first-child:before {
+		top           : calc(var(--param-height) / 2 - 1px);
+		border-radius : 0;
+		width         : calc(var(--margin) / 2);
+		height        : 1px;
+	}
+	&:not(:last-child):after {
+		content    : '';
+		display    : block;
+		position   : absolute;
+		top        : calc(var(--param-height) / 2);
+		right      : 100%;
+		width      : calc(var(--margin) / 4);
+		height     : calc(100% - var(--param-height) / 2);
+		z-index    : -1;
+		box-shadow : var(--param-left-border);
+	}
 	> div[data-widget="parameter-type-edit"] {
 		border-top-right-radius    : 0;
 		border-bottom-right-radius : 0;

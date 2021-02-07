@@ -21,6 +21,11 @@ export const ParameterTypeEditor = styled(ParameterTypeEdit)`
 `;
 export const ConstantValueEditor = styled(ConstantEdit)`
 	border-radius : 0;
+	box-shadow : var(--param-top-border), var(--param-bottom-border);
+	// redefine since box-shadow overridden
+	&:hover {
+		box-shadow       : var(--primary-hover-shadow);
+	}
 `;
 export const TopicFactorEditor = styled(TopicFactorEdit)`
 	> div[data-widget=dropdown] {
@@ -32,7 +37,7 @@ export const TopicFactorEditor = styled(TopicFactorEdit)`
 			border-radius : 0;
 			box-shadow    : var(--param-top-border), var(--param-left-border), var(--param-bottom-border);
 		}
-		// redefine since box-shadow override by first-child/last-child
+		// redefine since box-shadow overridden by first-child/last-child
 		&:hover,
 		&:focus {
 			z-index    : 1;
@@ -49,7 +54,7 @@ export const DeleteMeButton = styled.div.attrs({ 'data-widget': 'delete-me-butto
 	padding                    : 0 calc(var(--margin) / 4);
 	border-top-right-radius    : calc(var(--param-height) / 2);
 	border-bottom-right-radius : calc(var(--param-height) / 2);
-	color                      : var(--primary-color);
+	color                      : var(--param-bg-color);
 	box-shadow                 : var(--param-border);
 	cursor                     : pointer;
 	transition                 : color 300ms ease-in-out, box-shadow 300ms ease-in-out;
@@ -63,5 +68,4 @@ export const DeleteMeButton = styled.div.attrs({ 'data-widget': 'delete-me-butto
 `;
 export const ComputedEditor = styled(ComputedEdit)`
 	grid-column  : span 4;
-	padding-left : calc(var(--margin) / 2);
 `;
