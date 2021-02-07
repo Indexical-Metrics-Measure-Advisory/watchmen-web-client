@@ -31,7 +31,7 @@ export const fetchConnectedSpaceGraphics = async (): Promise<Array<ConnectedSpac
 	if (isMockService()) {
 		return fetchMockConnectedSpaceGraphics();
 	} else {
-		// TODO use real api
+		// REMOTE use real api
 		return [];
 	}
 };
@@ -53,7 +53,7 @@ export const saveConnectedSpace = async (connectedSpace: ConnectedSpace): Promis
 		connectedSpace.connectId = data.connectId;
 		connectedSpace.lastModifyTime = data.lastModifyTime;
 	} else {
-		// TODO use real api
+		// REMOTE use real api
 		// const token = findToken();
 		// const response = await fetch(`${getServiceHost()}space/save`, {
 		// 	method: 'POST',
@@ -103,6 +103,6 @@ export const saveConnectedSpaceGraphics = async (connectedSpace: ConnectedSpace,
 	if (isMockService()) {
 		return saveMockConnectedSpaceGraphics(connectedSpace, graphics);
 	} else {
-		// TODO use real api
+		// REMOTE use real api
 	}
 };

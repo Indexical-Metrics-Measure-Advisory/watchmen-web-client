@@ -6,7 +6,7 @@ export const fetchAvailableTopics = async (topicIds: Array<string>): Promise<Arr
 	if (isMockService()) {
 		return fetchMockAvailableTopics();
 	} else {
-		// TODO use real api
+		// REMOTE use real api
 		return fetchMockAvailableTopics();
 	}
 };

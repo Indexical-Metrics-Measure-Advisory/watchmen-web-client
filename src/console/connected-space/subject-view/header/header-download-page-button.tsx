@@ -8,7 +8,7 @@ import { Subject } from '../../../../services/tuples/subject-types';
 
 export const HeaderDownloadPageButton = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const onDownloadClicked = () => {
-		// TODO print subject current page
+		// TODO download subject current page
 		// download(data);
 	};
 

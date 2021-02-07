@@ -13,7 +13,7 @@ export const listReports = async (options: {
 	if (isMockService()) {
 		return listMockReports(options);
 	} else {
-		// TODO use real api
+		// REMOTE use real api
 		return listMockReports(options);
 	}
 };

@@ -6,11 +6,11 @@ export const fetchFavorite = async (): Promise<Favorite> => {
 	if (isMockService()) {
 		return fetchMockFavorite();
 	} else {
-		// TODO use real api
+		// REMOTE use real api
 		return fetchMockFavorite();
 	}
 };
 
 export const saveFavorite = async (favorite: Favorite): Promise<void> => {
-	// TODO use real api
+	// REMOTE use real api
 };

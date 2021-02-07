@@ -3,7 +3,6 @@ import { PageTitleEditor } from '../../../../basic-widgets/page-title-editor';
 import { useForceUpdate } from '../../../../basic-widgets/utils';
 import { useLanguage } from '../../../../langs';
 import { ConnectedSpace } from '../../../../services/tuples/connected-space-types';
-import { renameSubject } from '../../../../services/tuples/subject';
 import { Subject } from '../../../../services/tuples/subject-types';
 import { useSubjectEventBus } from '../subject-event-bus';
 import { SubjectEventTypes } from '../subject-event-bus-types';
@@ -24,7 +23,6 @@ export const HeaderSubjectNameEditor = (props: { connectedSpace: ConnectedSpace,
 		subject.name = name.trim() || language.PLAIN.DEFAULT_SUBJECT_NAME;
 		forceUpdate();
 		fire(SubjectEventTypes.SUBJECT_RENAMED, subject);
-		await renameSubject(subject);
 	};
 
 	return <PageTitleEditor title={subject.name}

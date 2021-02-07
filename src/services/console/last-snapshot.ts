@@ -34,7 +34,7 @@ export const fetchLastSnapshot = async (): Promise<LastSnapshot> => {
 			return fromMock;
 		}
 	} else {
-		// TODO use real api
+		// REMOTE use real api
 		return fetchMockLastSnapshot();
 	}
 };
@@ -46,5 +46,5 @@ export const saveLastSnapshot = async (snapshot: Partial<LastSnapshot>): Promise
 	} else {
 		saveLastSnapshotToSession({ ...snapshot });
 	}
-	// TODO use real api
+	// REMOTE use real api
 };

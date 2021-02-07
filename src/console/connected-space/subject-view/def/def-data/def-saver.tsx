@@ -14,7 +14,6 @@ export const SubjectDefSaver = (props: { connectedSpace: ConnectedSpace, subject
 	useEffect(() => {
 		const onChanged = () => {
 			fireSubject(SubjectEventTypes.SUBJECT_DEF_CHANGED, subject);
-			// TODO save subject definition data
 		};
 		on(SubjectDefEventTypes.DATASET_COLUMN_ADDED, onChanged);
 		on(SubjectDefEventTypes.DATASET_COLUMN_REMOVED, onChanged);

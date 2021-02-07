@@ -7,6 +7,7 @@ import { Lang } from '../../../langs';
 import { toConnectedSpace } from '../../../routes/utils';
 import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
 import { Subject } from '../../../services/tuples/subject-types';
+import { SubjectDataSaver } from './data-saver';
 import { SubjectHeader } from './header';
 import { SubjectBodyRouter } from './subject-body-router';
 import { SubjectEventBusProvider } from './subject-event-bus';
@@ -36,6 +37,7 @@ export const SubjectView = (props: { connectedSpace: ConnectedSpace }) => {
 	}
 
 	return <SubjectEventBusProvider>
+		<SubjectDataSaver connectedSpace={connectedSpace} subject={subject}/>
 		<SubjectHeader connectedSpace={connectedSpace} subject={subject}/>
 		<SubjectBodyRouter connectedSpace={connectedSpace} subject={subject}/>
 	</SubjectEventBusProvider>;

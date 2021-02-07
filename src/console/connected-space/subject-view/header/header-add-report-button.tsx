@@ -8,7 +8,7 @@ import { Subject } from '../../../../services/tuples/subject-types';
 
 export const HeaderAddReportButton = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const onAddReportClicked = async () => {
-		// TODO add report into dashboard
+		// TODO add report into subject
 	};
 
 	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.ADD_REPORT} onClick={onAddReportClicked}>

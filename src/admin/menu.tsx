@@ -86,9 +86,9 @@ export const AdminMenu = () => {
 		<SideMenuItem icon={ICON_USER} label='Users' showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_USERS)}
 		              onClick={onMenuClicked(Router.ADMIN_USERS)}/>
-		{/* TODO hide task menu */}
+		{/* FEAT hide task menu */}
 		<SideMenuSeparator width={menuWidth} visible={false}/>
-		{/* TODO hide task menu */}
+		{/* FEAT hide task menu */}
 		<SideMenuItem icon={ICON_TASK} label='Tasks' showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_TASKS)}
 		              onClick={onMenuClicked(Router.ADMIN_TASKS)}

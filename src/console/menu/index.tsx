@@ -116,19 +116,19 @@ export const ConsoleMenu = () => {
 		              active={!!matchPath(location.pathname, Router.CONSOLE_DASHBOARD)}
 		              onClick={onDashboardClicked}/>
 		<FavoriteMenu showTooltip={showTooltip}/>
-		{/* TODO hide message menus */}
+		{/* FEAT hide message menus */}
 		<SideMenuSeparator width={menuWidth} visible={false}/>
-		{/* TODO hide notification menu */}
+		{/* FEAT hide notification menu */}
 		<SideMenuItem icon={ICON_NOTIFICATION} label={Lang.CONSOLE.MENU.NOTIFICATIONS} showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.CONSOLE_NOTIFICATION)}
 		              onClick={onMenuClicked(Router.CONSOLE_NOTIFICATION)}
 		              visible={false}/>
-		{/* TODO hide mail menu */}
+		{/* FEAT hide mail menu */}
 		<SideMenuItem icon={ICON_MAIL} label={Lang.CONSOLE.MENU.MAILS} showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.CONSOLE_MAIL)}
 		              onClick={onMenuClicked(Router.CONSOLE_MAIL)}
 		              visible={false}/>
-		{/* TODO hide timeline menu */}
+		{/* FEAT hide timeline menu */}
 		<SideMenuItem icon={ICON_TIMELINE} label={Lang.CONSOLE.MENU.TIMELINE} showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.CONSOLE_TIMELINE)}
 		              onClick={onMenuClicked(Router.CONSOLE_TIMELINE)}
