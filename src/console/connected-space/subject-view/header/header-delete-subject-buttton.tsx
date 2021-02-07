@@ -43,7 +43,7 @@ const SubjectDelete = (props: { subject: Subject, onRemoved: () => void }) => {
 
 	return <>
 		<DeleteDialogBody>
-			<DialogLabel>{Lang.CONSOLE.CONNECTED_SPACE.DELETE_DIALOG_LABEL}</DialogLabel>
+			<DialogLabel>{Lang.CONSOLE.CONNECTED_SPACE.DELETE_SUBJECT_DIALOG_LABEL}</DialogLabel>
 			<NameUrl>{subject.name}</NameUrl>
 		</DeleteDialogBody>
 		<DialogFooter>

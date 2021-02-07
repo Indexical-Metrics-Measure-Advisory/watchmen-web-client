@@ -1,16 +1,34 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
+import { ButtonInk } from '../../../../../basic-widgets/types';
 import { Lang } from '../../../../../langs';
+import { Subject } from '../../../../../services/tuples/subject-types';
+import { createSubjectDataSetColumn } from '../data-utils';
+import { useSubjectDefEventBus } from '../subject-def-event-bus';
+import { SubjectDefEventTypes } from '../subject-def-event-bus-types';
 import { HeaderCell } from './header-cell';
-import { SubjectDefHeader } from './widgets';
+import { DefHeaderButton, SubjectDefHeader } from './widgets';
 
-export const Header = (props: { activeIndex: number, changeActiveIndex: (activeIndex: number) => void }) => {
-	const { activeIndex, changeActiveIndex } = props;
+export const Header = (props: {
+	subject: Subject;
+	activeIndex: number;
+	changeActiveIndex: (activeIndex: number) => void;
+}) => {
+	const { subject, activeIndex, changeActiveIndex } = props;
+
+	const { fire } = useSubjectDefEventBus();
 
 	const onChangeActiveIndex = (nextActiveIndex: number) => {
 		if (nextActiveIndex === activeIndex) {
 			return;
 		}
 		changeActiveIndex(nextActiveIndex);
+	};
+	const onAddColumnClicked = (event: MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+		event.stopPropagation();
+		const column = createSubjectDataSetColumn(subject);
+		subject.dataset.columns.push(column);
+		fire(SubjectDefEventTypes.DATASET_COLUMN_ADDED, column);
 	};
 
 	return <SubjectDefHeader activeIndex={activeIndex}>
@@ -19,7 +37,11 @@ export const Header = (props: { activeIndex: number, changeActiveIndex: (activeI
 		            checkPickedTopicBeforeActive={false} checkPickedTopicBeforeNext={true}/>
 		<HeaderCell active={activeIndex === 2} activeIndex={2}
 		            label={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_DEFINE_COLUMNS}
-		            onClick={onChangeActiveIndex}/>
+		            onClick={onChangeActiveIndex}>
+			<DefHeaderButton ink={ButtonInk.PRIMARY} onClick={onAddColumnClicked}>
+				<span>{Lang.CONSOLE.CONNECTED_SPACE.ADD_SUBJECT_COLUMN}</span>
+			</DefHeaderButton>
+		</HeaderCell>
 		<HeaderCell active={activeIndex === 3} activeIndex={3} label={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_FILTER_DATA}
 		            onClick={onChangeActiveIndex}/>
 		<HeaderCell active={activeIndex === 4} activeIndex={4} label={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_SET_JOINS}

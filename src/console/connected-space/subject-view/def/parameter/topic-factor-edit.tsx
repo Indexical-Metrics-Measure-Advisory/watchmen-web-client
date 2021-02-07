@@ -63,7 +63,7 @@ export const TopicFactorEdit = (props: {
 		parameter.topicId = selectedTopic.topicId;
 		parameter.factorId = '';
 		forceUpdate();
-		fire(ParameterEventTypes.TOPIC_CHANGED, parameter);
+		fire(ParameterEventTypes.TOPIC_CHANGED, parameter, selectedTopic);
 	};
 	const onFactorChange = ({ value }: DropdownOption) => {
 		const selectedFactor = value as Factor;
@@ -72,27 +72,28 @@ export const TopicFactorEdit = (props: {
 		}
 		parameter.factorId = selectedFactor.factorId;
 		forceUpdate();
-		fire(ParameterEventTypes.FACTOR_CHANGED, parameter);
+		fire(ParameterEventTypes.FACTOR_CHANGED, parameter, selectedFactor);
 	};
 
-	// eslint-disable-next-line
-	let selectedTopic = pickedTopics.find(topic => topic.topicId == topicId);
-	let extraTopic: Topic | null = null;
-	if (!selectedTopic) {
-		// try to find topic from available topics
-		// create an unknown one when not found
+	let selectedTopic: Topic | null = null, extraTopic: Topic | null = null;
+	if (topicId) {
 		// eslint-disable-next-line
-		extraTopic = availableTopics.find(topic => topic.topicId == topicId)
-			|| createUnknownTopic(topicId);
-		selectedTopic = extraTopic;
+		selectedTopic = pickedTopics.find(topic => topic.topicId == topicId) || null;
+		if (!selectedTopic) {
+			// try to find topic from available topics
+			// create an unknown one when not found
+			// eslint-disable-next-line
+			extraTopic = availableTopics.find(topic => topic.topicId == topicId)
+				|| createUnknownTopic(topicId);
+			selectedTopic = extraTopic;
+		}
 	}
-	let extraFactor: Factor | null = null;
-	let selectedFactor = null;
+	let selectedFactor: Factor | null = null, extraFactor: Factor | null = null;
 	if (factorId) {
 		if (selectedTopic) {
 			// find factor in selected topic
 			// eslint-disable-next-line
-			selectedFactor = selectedTopic.factors.find(factor => factor.factorId == factorId);
+			selectedFactor = selectedTopic.factors.find(factor => factor.factorId == factorId) || null;
 		}
 		if (!selectedFactor) {
 			extraFactor = createUnknownFactor(factorId);
@@ -115,7 +116,7 @@ export const TopicFactorEdit = (props: {
 				key: topic.topicId
 			} as DropdownOption;
 		});
-	const factorOptions = ([ ...selectedTopic.factors, extraFactor ].filter(x => !!x) as Array<Factor>)
+	const factorOptions = ([ ...(selectedTopic?.factors || []), extraFactor ].filter(x => !!x) as Array<Factor>)
 		.sort((f1, f2) => (f1.label || f1.name).toLowerCase().localeCompare((f2.label || f2.name).toLowerCase()))
 		.map(factor => {
 			return {

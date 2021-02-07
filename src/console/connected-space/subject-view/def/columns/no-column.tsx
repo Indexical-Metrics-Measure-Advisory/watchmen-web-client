@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Lang } from '../../../../../langs';
-import { ParameterFrom, TopicFactorParameter } from '../../../../../services/tuples/factor-calculator-types';
-import { Subject, SubjectDataSetColumn } from '../../../../../services/tuples/subject-types';
+import { Subject } from '../../../../../services/tuples/subject-types';
+import { createSubjectDataSetColumn } from '../data-utils';
 import { useDataVisible } from '../data/use-data-visible';
 import { useSubjectDefEventBus } from '../subject-def-event-bus';
 import { SubjectDefEventTypes } from '../subject-def-event-bus-types';
@@ -15,9 +15,7 @@ export const NoColumn = (props: { subject: Subject, active: boolean }) => {
 	const visible = useDataVisible(isVisible);
 
 	const onAddClicked = () => {
-		const column: SubjectDataSetColumn = {
-			parameter: { from: ParameterFrom.TOPIC, topicId: '', factorId: '' } as TopicFactorParameter
-		};
+		const column = createSubjectDataSetColumn(subject);
 		subject.dataset.columns.push(column);
 		fire(SubjectDefEventTypes.DATASET_COLUMN_ADDED, column);
 	};

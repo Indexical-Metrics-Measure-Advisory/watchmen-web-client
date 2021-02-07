@@ -137,7 +137,8 @@ export const Zh = {
 			NO_DATASET_COLUMN_FOR_SUBJECT: '尚未定义数据列, 现在就',
 			CREATE_DATASET_COLUMN_WHEN_NONE: '开始',
 			NO_DATASET_COLUMN_FOR_SUBJECT_2: '吗?',
-			ALIAS: '别名'
+			ALIAS: '别名',
+			ADD_SUBJECT_COLUMN: '添加数据列'
 		},
 		SETTINGS: {
 			TITLE: '设置',

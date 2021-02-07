@@ -51,3 +51,6 @@ export const DefHeaderLabel = styled.span.attrs({ 'data-widget': 'subject-def-he
 `;
 export const DefHeaderNextButton = styled(DwarfButton).attrs({ 'data-widget': 'subject-def-header-button' })`
 `;
+export const DefHeaderButton = styled(DwarfButton).attrs({ 'data-widget': 'subject-def-header-button' })`
+	margin-right : calc(var(--margin) / 4);
+`;

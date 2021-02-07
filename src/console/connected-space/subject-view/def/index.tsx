@@ -19,7 +19,7 @@ export const SubjectDefWrapper = (props: { connectedSpace: ConnectedSpace, subje
 	const onActiveIndexChange = (activeIndex: number) => setActiveIndex(activeIndex);
 
 	return <SubjectDefContainer>
-		<Header activeIndex={activeIndex} changeActiveIndex={onActiveIndexChange}/>
+		<Header subject={subject} activeIndex={activeIndex} changeActiveIndex={onActiveIndexChange}/>
 		<SubjectDefBody activeIndex={activeIndex}>
 			<PickTopics connectedSpace={connectedSpace} subject={subject} active={activeIndex === 1}/>
 			<Columns connectedSpace={connectedSpace} subject={subject} active={activeIndex === 2}/>

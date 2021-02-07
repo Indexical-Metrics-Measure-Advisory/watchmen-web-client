@@ -140,7 +140,8 @@ export const En = {
 			NO_DATASET_COLUMN_FOR_SUBJECT: 'No columns defined, do you want ',
 			CREATE_DATASET_COLUMN_WHEN_NONE: 'create one',
 			NO_DATASET_COLUMN_FOR_SUBJECT_2: '?',
-			ALIAS: 'As'
+			ALIAS: 'As',
+			ADD_SUBJECT_COLUMN: 'Add Column'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',

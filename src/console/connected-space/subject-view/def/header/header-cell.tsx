@@ -17,11 +17,13 @@ export const HeaderCell = (props: {
 	checkPickedTopicBeforeActive?: boolean;
 	next?: boolean;
 	checkPickedTopicBeforeNext?: boolean;
+	children?: ((props: any) => React.ReactNode) | React.ReactNode;
 }) => {
 	const {
 		activeIndex, label, onClick,
 		checkPickedTopicBeforeActive = true,
-		next = true, checkPickedTopicBeforeNext = false
+		next = true, checkPickedTopicBeforeNext = false,
+		children
 	} = props;
 
 	const { fire: fireGlobal } = useEventBus();
@@ -67,8 +69,9 @@ export const HeaderCell = (props: {
 	return <DefHeaderCell onClick={onClicked}>
 		<DefHeaderIndex>{activeIndex}</DefHeaderIndex>
 		<DefHeaderLabel>{label}</DefHeaderLabel>
+		{children}
 		{next
-			? <DefHeaderNextButton ink={ButtonInk.PRIMARY} onClick={onNextClicked}>
+			? <DefHeaderNextButton ink={ButtonInk.SUCCESS} onClick={onNextClicked}>
 				<span>{Lang.ACTIONS.NEXT}</span>
 			</DefHeaderNextButton>
 			: null}
