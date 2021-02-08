@@ -93,7 +93,7 @@ export const AliasEditInput = styled(Input).attrs({ 'data-widget': 'subject-def-
 	height        : var(--param-height);
 	border        : 0;
 	border-radius : 0;
-	box-shadow    : var(--param-top-border), var(--param-bottom-border);
+	box-shadow    : var(--param-top-border), var(--param-bottom-border), var(--param-left-border);
 	&:hover {
 		z-index          : 1;
 		background-color : var(--bg-color);

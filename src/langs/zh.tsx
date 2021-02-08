@@ -138,7 +138,10 @@ export const Zh = {
 			CREATE_DATASET_COLUMN_WHEN_NONE: '开始',
 			NO_DATASET_COLUMN_FOR_SUBJECT_2: '吗?',
 			ALIAS: '列名',
-			ADD_SUBJECT_COLUMN: '添加数据列'
+			ADD_SUBJECT_COLUMN: '添加数据列',
+			CAN_NOT_DELETE_CHILD_FROM_COMPUTED: '已达到计算函数要求的最少参数个数, 因此不能删除本参数.',
+			CAN_NOT_ADD_CHILD_INTO_COMPUTED: '已达到计算函数要求的最多参数个数, 因此不能添加更多参数.',
+			ADD_COMPUTE_PARAMETER: '添加计算参数'
 		},
 		SETTINGS: {
 			TITLE: '设置',
