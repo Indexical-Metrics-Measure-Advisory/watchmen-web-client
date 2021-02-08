@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSubjectDefEventBus } from '../subject-def-event-bus';
 import { SubjectDefEventTypes } from '../subject-def-event-bus-types';
 
-export const useDataVisible = (isVisible: () => boolean) => {
+export const useColumnsDataVisible = (isVisible: () => boolean) => {
 	const { on, off } = useSubjectDefEventBus();
 	const [ visible, setVisible ] = useState(isVisible());
 	useEffect(() => {

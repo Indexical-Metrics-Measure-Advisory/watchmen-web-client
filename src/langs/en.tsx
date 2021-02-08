@@ -144,7 +144,11 @@ export const En = {
 			ADD_SUBJECT_COLUMN: 'Add Column',
 			CAN_NOT_DELETE_CHILD_FROM_COMPUTED: 'Cannot delete this because of reach minimum parameter(s).',
 			CAN_NOT_ADD_CHILD_INTO_COMPUTED: 'Cannot add more because of reach maximum parameter(s).',
-			ADD_COMPUTE_PARAMETER: 'Add Parameter'
+			ADD_COMPUTE_PARAMETER: 'Add Parameter',
+			NO_DATASET_FILTER_FOR_SUBJECT: 'No filter defined, do you want ',
+			CREATE_DATASET_FILTER_WHEN_NONE: 'create one',
+			NO_DATASET_FILTER_FOR_SUBJECT_2: '?',
+			ADD_SUBJECT_SUB_FILTER: 'Add Sub Filter'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',
@@ -228,5 +232,9 @@ export const En = {
 		WEEK_OF_MONTH: 'Week of Month',
 		DAY_OF_MONTH: 'Day of Month',
 		DAY_OF_WEEK: 'Day of Week'
+	},
+	JOINT: {
+		AND: 'And',
+		OR: 'OR'
 	}
 };

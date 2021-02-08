@@ -11,5 +11,8 @@ export const OverviewContainer = styled.div.attrs<{ active: boolean }>(({ active
 }) <{ active: boolean }>`
 	display      : flex;
 	position     : relative;
+	flex-direction : column;
+	overflow-y     : auto;
+	overflow-x     : hidden;
 	border-right : var(--border);
 `;

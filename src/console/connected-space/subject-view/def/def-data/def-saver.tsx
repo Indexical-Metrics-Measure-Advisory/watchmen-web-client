@@ -11,6 +11,8 @@ export const SubjectDefSaver = (props: { connectedSpace: ConnectedSpace, subject
 
 	const { fire: fireSubject } = useSubjectEventBus();
 	const { on, off } = useSubjectDefEventBus();
+
+	// delegate columns/filters/joins changes to subject definition
 	useEffect(() => {
 		const onChanged = () => {
 			fireSubject(SubjectEventTypes.SUBJECT_DEF_CHANGED, subject);
@@ -18,12 +20,20 @@ export const SubjectDefSaver = (props: { connectedSpace: ConnectedSpace, subject
 		on(SubjectDefEventTypes.DATASET_COLUMN_ADDED, onChanged);
 		on(SubjectDefEventTypes.DATASET_COLUMN_REMOVED, onChanged);
 		on(SubjectDefEventTypes.DATASET_COLUMN_CHANGED, onChanged);
+
+		on(SubjectDefEventTypes.DATASET_FILTER_ADDED, onChanged);
+		on(SubjectDefEventTypes.DATASET_FILTER_REMOVED, onChanged);
+		on(SubjectDefEventTypes.DATASET_FILTER_CHANGED, onChanged);
 		return () => {
 			off(SubjectDefEventTypes.DATASET_COLUMN_ADDED, onChanged);
 			off(SubjectDefEventTypes.DATASET_COLUMN_REMOVED, onChanged);
 			off(SubjectDefEventTypes.DATASET_COLUMN_CHANGED, onChanged);
+
+			off(SubjectDefEventTypes.DATASET_FILTER_ADDED, onChanged);
+			off(SubjectDefEventTypes.DATASET_FILTER_REMOVED, onChanged);
+			off(SubjectDefEventTypes.DATASET_FILTER_CHANGED, onChanged);
 		};
-	}, [ on, off,fireSubject, subject ]);
+	}, [ on, off, fireSubject, subject ]);
 
 	return <Fragment/>;
 };

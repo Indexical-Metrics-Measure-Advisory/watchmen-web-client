@@ -65,7 +65,7 @@ export const computeRelatedTopicIds = (dataset: SubjectDataSet): Array<string> =
 	const { filters, columns, joins } = dataset;
 
 	return Array.from(new Set([
-		...filters.map(filter => computeRelatedTopicIdsByFilter(filter)).flat(),
+		...computeRelatedTopicIdsByFilter(filters).flat(),
 		...columns.map(column => computeRelatedTopicIdsByColumn(column)).flat(),
 		...joins.map(join => computeRelatedTopicIdsByJoin(join)).flat()
 	]));

@@ -117,7 +117,7 @@ export const SubParameterEditContainer = styled.div.attrs<{ shorten: boolean }>(
 		z-index    : -1;
 		box-shadow : var(--param-left-border);
 	}
-	> div[data-widget="parameter-type-edit"] {
+	> div[data-widget="parameter-from-edit"] {
 		border-top-right-radius    : 0;
 		border-bottom-right-radius : 0;
 	}

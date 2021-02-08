@@ -1,5 +1,6 @@
 import { ConnectedSpace, ConnectedSpaceGraphics } from '../../tuples/connected-space-types';
 import { ParameterFrom, TopicFactorParameter } from '../../tuples/factor-calculator-types';
+import { FilterJointType } from '../../tuples/subject-types';
 import { isFakedUuid } from '../../tuples/utils';
 import { getCurrentTime } from '../../utils';
 
@@ -23,7 +24,7 @@ export const fetchMockConnectedSpaces = async (): Promise<Array<ConnectedSpace>>
 					subjectId: '1',
 					name: 'Premium Summary',
 					dataset: {
-						filters: [],
+						filters: { jointType: FilterJointType.AND, filters: [] },
 						columns: [
 							{
 								parameter: {
@@ -106,7 +107,7 @@ export const fetchMockConnectedSpaces = async (): Promise<Array<ConnectedSpace>>
 					subjectId: '2',
 					name: 'District Summary',
 					dataset: {
-						filters: [],
+						filters: { jointType: FilterJointType.AND, filters: [] },
 						columns: [],
 						joins: []
 					},

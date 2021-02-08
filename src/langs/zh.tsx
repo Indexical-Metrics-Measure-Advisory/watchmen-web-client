@@ -141,7 +141,11 @@ export const Zh = {
 			ADD_SUBJECT_COLUMN: '添加数据列',
 			CAN_NOT_DELETE_CHILD_FROM_COMPUTED: '已达到计算函数要求的最少参数个数, 因此不能删除本参数.',
 			CAN_NOT_ADD_CHILD_INTO_COMPUTED: '已达到计算函数要求的最多参数个数, 因此不能添加更多参数.',
-			ADD_COMPUTE_PARAMETER: '添加计算参数'
+			ADD_COMPUTE_PARAMETER: '添加计算参数',
+			NO_DATASET_FILTER_FOR_SUBJECT: '尚未定义数据过滤条件, 现在就',
+			CREATE_DATASET_FILTER_WHEN_NONE: '开始',
+			NO_DATASET_FILTER_FOR_SUBJECT_2: '吗?',
+			ADD_SUBJECT_SUB_FILTER: '添加过滤条件'
 		},
 		SETTINGS: {
 			TITLE: '设置',
@@ -225,5 +229,9 @@ export const Zh = {
 		WEEK_OF_MONTH: '周(按月度)',
 		DAY_OF_MONTH: '天(按月度)',
 		DAY_OF_WEEK: '天(按周)'
+	},
+	JOINT: {
+		AND: '与',
+		OR: '或'
 	}
 };

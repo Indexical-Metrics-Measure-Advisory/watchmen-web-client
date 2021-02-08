@@ -3,7 +3,7 @@ import { v4 } from 'uuid';
 import { useForceUpdate } from '../../../../../basic-widgets/utils';
 import { Subject } from '../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
-import { useDataVisible } from '../data/use-data-visible';
+import { useColumnsDataVisible } from '../data/use-columns-data-visible';
 import { useSubjectDefEventBus } from '../subject-def-event-bus';
 import { SubjectDefEventTypes } from '../subject-def-event-bus-types';
 import { ColumnEdit } from './column-edit';
@@ -27,7 +27,7 @@ export const ColumnsEdit = (props: {
 		};
 	}, [ on, off, forceUpdate ]);
 	const [ isVisible ] = useState(() => () => subject.dataset.columns.length !== 0);
-	const visible = useDataVisible(isVisible);
+	const visible = useColumnsDataVisible(isVisible);
 
 	return <ColumnsEditContainer visible={visible}>
 		{subject.dataset.columns.map(column => {

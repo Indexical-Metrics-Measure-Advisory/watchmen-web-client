@@ -1,4 +1,8 @@
-import { SubjectDataSetColumn } from '../../../../services/tuples/subject-types';
+import {
+	SubjectDataSetColumn,
+	SubjectDataSetFilter,
+	SubjectDataSetFilterJoint
+} from '../../../../services/tuples/subject-types';
 import { Topic } from '../../../../services/tuples/topic-types';
 
 export interface SubjectDefData {
@@ -17,7 +21,11 @@ export enum SubjectDefEventTypes {
 
 	DATASET_COLUMN_ADDED = 'dataset-column-added',
 	DATASET_COLUMN_REMOVED = 'dataset-column-removed',
-	DATASET_COLUMN_CHANGED = 'dataset-column-changed'
+	DATASET_COLUMN_CHANGED = 'dataset-column-changed',
+
+	DATASET_FILTER_ADDED = 'dataset-filter-added',
+	DATASET_FILTER_REMOVED = 'dataset-filter-removed',
+	DATASET_FILTER_CHANGED = 'dataset-filter-changed'
 }
 
 export interface SubjectDefEventBus {
@@ -51,4 +59,16 @@ export interface SubjectDefEventBus {
 	fire(type: SubjectDefEventTypes.DATASET_COLUMN_CHANGED, column: SubjectDataSetColumn): this;
 	on(type: SubjectDefEventTypes.DATASET_COLUMN_CHANGED, listener: (column: SubjectDataSetColumn) => void): this;
 	off(type: SubjectDefEventTypes.DATASET_COLUMN_CHANGED, listener: (column: SubjectDataSetColumn) => void): this;
+
+	fire(type: SubjectDefEventTypes.DATASET_FILTER_ADDED, filter: SubjectDataSetFilter, parent: SubjectDataSetFilterJoint): this;
+	on(type: SubjectDefEventTypes.DATASET_FILTER_ADDED, listener: (filter: SubjectDataSetFilter, parent: SubjectDataSetFilterJoint) => void): this;
+	off(type: SubjectDefEventTypes.DATASET_FILTER_ADDED, listener: (filter: SubjectDataSetFilter, parent: SubjectDataSetFilterJoint) => void): this;
+
+	fire(type: SubjectDefEventTypes.DATASET_FILTER_REMOVED, filter: SubjectDataSetFilter, parent: SubjectDataSetFilterJoint): this;
+	on(type: SubjectDefEventTypes.DATASET_FILTER_REMOVED, listener: (filter: SubjectDataSetFilter, parent: SubjectDataSetFilterJoint) => void): this;
+	off(type: SubjectDefEventTypes.DATASET_FILTER_REMOVED, listener: (filter: SubjectDataSetFilter, parent: SubjectDataSetFilterJoint) => void): this;
+
+	fire(type: SubjectDefEventTypes.DATASET_FILTER_CHANGED, filter: SubjectDataSetFilter): this;
+	on(type: SubjectDefEventTypes.DATASET_FILTER_CHANGED, listener: (filter: SubjectDataSetFilter) => void): this;
+	off(type: SubjectDefEventTypes.DATASET_FILTER_CHANGED, listener: (filter: SubjectDataSetFilter) => void): this;
 }

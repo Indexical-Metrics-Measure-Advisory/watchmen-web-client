@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ParameterFromEditContainer = styled.div.attrs({ 'data-widget': 'parameter-type-edit' })`
+export const ParameterFromEditContainer = styled.div.attrs({ 'data-widget': 'parameter-from-edit' })`
 	display          : flex;
 	position         : relative;
 	align-items      : center;
@@ -18,7 +18,7 @@ export const ParameterFromEditContainer = styled.div.attrs({ 'data-widget': 'par
 		box-shadow : var(--param-border), var(--primary-hover-shadow);
 	}
 `;
-export const ParameterFromLabel = styled.div.attrs({ 'data-widget': 'parameter-type-edit-from-label' })`
+export const ParameterFromLabel = styled.div.attrs({ 'data-widget': 'parameter-from-label' })`
 	display      : flex;
 	position     : relative;
 	align-self   : stretch;
@@ -29,7 +29,7 @@ export const ParameterFromLabel = styled.div.attrs({ 'data-widget': 'parameter-t
 `;
 export const ParameterTypeButton = styled.div.attrs<{ active: boolean, edit: boolean }>(({ active, edit }) => {
 	return {
-		'data-widget': 'parameter-type-edit-label',
+		'data-widget': 'parameter-from-button',
 		style: {
 			backgroundColor: active ? (void 0) : 'var(--bg-color)',
 			color: active ? (void 0) : 'var(--font-color)',
@@ -53,7 +53,7 @@ export const ParameterTypeButton = styled.div.attrs<{ active: boolean, edit: boo
 		box-shadow : var(--primary-hover-shadow);
 	}
 `;
-export const ParameterFromIcon = styled.div.attrs({ 'data-widget': 'parameter-type-edit-icon' })`
+export const ParameterFromIcon = styled.div.attrs({ 'data-widget': 'parameter-from-icon' })`
 	display      : flex;
 	position     : relative;
 	align-self   : stretch;

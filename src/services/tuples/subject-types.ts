@@ -56,7 +56,7 @@ export interface SubjectDataSetJoin {
 }
 
 export interface SubjectDataSet {
-	filters: Array<SubjectDataSetFilterJoint>;
+	filters: SubjectDataSetFilterJoint;
 	columns: Array<SubjectDataSetColumn>;
 	joins: Array<SubjectDataSetJoin>;
 }

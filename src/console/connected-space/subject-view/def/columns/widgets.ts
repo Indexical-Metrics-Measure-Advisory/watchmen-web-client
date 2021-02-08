@@ -63,7 +63,7 @@ export const ColumnEditWrapper = styled.div.attrs<{ shorten: boolean }>(({ short
 	position              : relative;
 	align-self            : stretch;
 	justify-self          : stretch;
-	> div[data-widget="parameter-type-edit"] {
+	> div[data-widget="parameter-from-edit"] {
 		border-top-right-radius    : 0;
 		border-bottom-right-radius : 0;
 	}
