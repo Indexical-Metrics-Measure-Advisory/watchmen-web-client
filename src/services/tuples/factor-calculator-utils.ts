@@ -3,7 +3,7 @@ import {
 	ComputedParameter,
 	ConstantParameter,
 	Parameter,
-	ParameterCalculatorType,
+	ParameterComputeType,
 	ParameterFrom,
 	ParameterType,
 	TopicFactorParameter
@@ -168,7 +168,7 @@ export interface ParameterCalculatorDef {
 	/**
 	 * calculator name
 	 */
-	name: ParameterCalculatorType;
+	name: ParameterComputeType;
 	/**
 	 * how many parameters this calculator accepted
 	 */
@@ -181,13 +181,13 @@ export interface ParameterCalculatorDef {
 	supports: Array<ParameterCalculatorSupporting>;
 }
 
-export const ParameterCalculatorDefsMap: { [key in ParameterCalculatorType]: ParameterCalculatorDef } = {
-	[ParameterCalculatorType.NONE]: {
-		name: ParameterCalculatorType.NONE, parameterCount: 1,
+export const ParameterCalculatorDefsMap: { [key in ParameterComputeType]: ParameterCalculatorDef } = {
+	[ParameterComputeType.NONE]: {
+		name: ParameterComputeType.NONE, parameterCount: 1,
 		supports: [ { parameterTypes: [ ParameterType.ANY ] } ]
 	},
-	[ParameterCalculatorType.ADD]: {
-		name: ParameterCalculatorType.ADD, minParameterCount: 2,
+	[ParameterComputeType.ADD]: {
+		name: ParameterComputeType.ADD, minParameterCount: 2,
 		supports: [ {
 			parameterTypes: [ ParameterType.NUMBER, ParameterType.NUMBER ],
 			resultType: FactorType.NUMBER
@@ -196,36 +196,36 @@ export const ParameterCalculatorDefsMap: { [key in ParameterCalculatorType]: Par
 			resultType: FactorType.TEXT
 		} ]
 	},
-	[ParameterCalculatorType.SUBTRACT]: {
-		name: ParameterCalculatorType.SUBTRACT, minParameterCount: 2,
+	[ParameterComputeType.SUBTRACT]: {
+		name: ParameterComputeType.SUBTRACT, minParameterCount: 2,
 		supports: [ {
 			parameterTypes: [ ParameterType.NUMBER, ParameterType.NUMBER ],
 			resultType: FactorType.NUMBER
 		} ]
 	},
-	[ParameterCalculatorType.MULTIPLY]: {
-		name: ParameterCalculatorType.MULTIPLY, minParameterCount: 2,
+	[ParameterComputeType.MULTIPLY]: {
+		name: ParameterComputeType.MULTIPLY, minParameterCount: 2,
 		supports: [ {
 			parameterTypes: [ ParameterType.NUMBER, ParameterType.NUMBER ],
 			resultType: FactorType.NUMBER
 		} ]
 	},
-	[ParameterCalculatorType.DIVIDE]: {
-		name: ParameterCalculatorType.DIVIDE, minParameterCount: 2,
+	[ParameterComputeType.DIVIDE]: {
+		name: ParameterComputeType.DIVIDE, minParameterCount: 2,
 		supports: [ {
 			parameterTypes: [ ParameterType.NUMBER, ParameterType.NUMBER ],
 			resultType: FactorType.NUMBER
 		} ]
 	},
-	[ParameterCalculatorType.MODULUS]: {
-		name: ParameterCalculatorType.MODULUS, minParameterCount: 2,
+	[ParameterComputeType.MODULUS]: {
+		name: ParameterComputeType.MODULUS, minParameterCount: 2,
 		supports: [ {
 			parameterTypes: [ ParameterType.NUMBER, ParameterType.NUMBER ],
 			resultType: FactorType.NUMBER
 		} ]
 	},
-	[ParameterCalculatorType.YEAR_OF]: {
-		name: ParameterCalculatorType.YEAR_OF, parameterCount: 1,
+	[ParameterComputeType.YEAR_OF]: {
+		name: ParameterComputeType.YEAR_OF, parameterCount: 1,
 		supports: [ {
 			parameterTypes: [ ParameterType.DATE ],
 			resultType: FactorType.YEAR
@@ -234,8 +234,8 @@ export const ParameterCalculatorDefsMap: { [key in ParameterCalculatorType]: Par
 			resultType: FactorType.YEAR
 		} ]
 	},
-	[ParameterCalculatorType.HALF_YEAR_OF]: {
-		name: ParameterCalculatorType.HALF_YEAR_OF, parameterCount: 1,
+	[ParameterComputeType.HALF_YEAR_OF]: {
+		name: ParameterComputeType.HALF_YEAR_OF, parameterCount: 1,
 		supports: [ {
 			parameterTypes: [ ParameterType.DATE ],
 			resultType: FactorType.HALF_YEAR
@@ -244,8 +244,8 @@ export const ParameterCalculatorDefsMap: { [key in ParameterCalculatorType]: Par
 			resultType: FactorType.HALF_YEAR
 		} ]
 	},
-	[ParameterCalculatorType.QUARTER_OF]: {
-		name: ParameterCalculatorType.QUARTER_OF, parameterCount: 1,
+	[ParameterComputeType.QUARTER_OF]: {
+		name: ParameterComputeType.QUARTER_OF, parameterCount: 1,
 		supports: [ {
 			parameterTypes: [ ParameterType.DATE ],
 			resultType: FactorType.QUARTER
@@ -257,8 +257,8 @@ export const ParameterCalculatorDefsMap: { [key in ParameterCalculatorType]: Par
 			resultType: FactorType.QUARTER
 		} ]
 	},
-	[ParameterCalculatorType.MONTH_OF]: {
-		name: ParameterCalculatorType.MONTH_OF, parameterCount: 1,
+	[ParameterComputeType.MONTH_OF]: {
+		name: ParameterComputeType.MONTH_OF, parameterCount: 1,
 		supports: [ {
 			parameterTypes: [ ParameterType.DATE ],
 			resultType: FactorType.MONTH
@@ -267,8 +267,8 @@ export const ParameterCalculatorDefsMap: { [key in ParameterCalculatorType]: Par
 			resultType: FactorType.MONTH
 		} ]
 	},
-	[ParameterCalculatorType.WEEK_OF_YEAR]: {
-		name: ParameterCalculatorType.WEEK_OF_YEAR, parameterCount: 1,
+	[ParameterComputeType.WEEK_OF_YEAR]: {
+		name: ParameterComputeType.WEEK_OF_YEAR, parameterCount: 1,
 		supports: [ {
 			parameterTypes: [ ParameterType.DATE ],
 			resultType: FactorType.WEEK_OF_YEAR
@@ -277,8 +277,8 @@ export const ParameterCalculatorDefsMap: { [key in ParameterCalculatorType]: Par
 			resultType: FactorType.WEEK_OF_YEAR
 		} ]
 	},
-	[ParameterCalculatorType.WEEK_OF_MONTH]: {
-		name: ParameterCalculatorType.WEEK_OF_MONTH, parameterCount: 1,
+	[ParameterComputeType.WEEK_OF_MONTH]: {
+		name: ParameterComputeType.WEEK_OF_MONTH, parameterCount: 1,
 		supports: [ {
 			parameterTypes: [ ParameterType.DATE ],
 			resultType: FactorType.WEEK_OF_MONTH
@@ -287,8 +287,8 @@ export const ParameterCalculatorDefsMap: { [key in ParameterCalculatorType]: Par
 			resultType: FactorType.WEEK_OF_MONTH
 		} ]
 	},
-	[ParameterCalculatorType.DAY_OF_MONTH]: {
-		name: ParameterCalculatorType.DAY_OF_WEEK, parameterCount: 1,
+	[ParameterComputeType.DAY_OF_MONTH]: {
+		name: ParameterComputeType.DAY_OF_WEEK, parameterCount: 1,
 		supports: [ {
 			parameterTypes: [ ParameterType.DATE ],
 			resultType: FactorType.DAY_OF_MONTH
@@ -297,8 +297,8 @@ export const ParameterCalculatorDefsMap: { [key in ParameterCalculatorType]: Par
 			resultType: FactorType.DAY_OF_MONTH
 		} ]
 	},
-	[ParameterCalculatorType.DAY_OF_WEEK]: {
-		name: ParameterCalculatorType.DAY_OF_WEEK, parameterCount: 1,
+	[ParameterComputeType.DAY_OF_WEEK]: {
+		name: ParameterComputeType.DAY_OF_WEEK, parameterCount: 1,
 		supports: [ {
 			parameterTypes: [ ParameterType.DATE ],
 			resultType: FactorType.DAY_OF_WEEK

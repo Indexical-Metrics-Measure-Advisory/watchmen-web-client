@@ -13,7 +13,9 @@ export enum ParameterEventTypes {
 	CONSTANT_VALUE_CHANGED = 'constant-value-changed',
 
 	TOPIC_CHANGED = 'topic-changed',
-	FACTOR_CHANGED = 'factor-changed'
+	FACTOR_CHANGED = 'factor-changed',
+
+	COMPUTE_TYPE_CHANGED = 'compute-type-changed'
 }
 
 export interface ParameterEventBus {

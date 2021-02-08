@@ -20,7 +20,7 @@ export interface Parameter {
 	from: ParameterFrom;
 }
 
-export enum ParameterCalculatorType {
+export enum ParameterComputeType {
 	NONE = 'none',
 	ADD = 'add',
 	SUBTRACT = 'subtract',
@@ -49,7 +49,7 @@ export interface ConstantParameter extends Parameter {
 }
 
 export interface Computed {
-	type: ParameterCalculatorType;
+	type: ParameterComputeType;
 	parameters: Array<Parameter>;
 }
 

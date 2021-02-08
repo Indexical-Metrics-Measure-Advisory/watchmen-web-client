@@ -13,7 +13,7 @@ import {
 	ParameterTypeEditor,
 	TopicFactorEditor
 } from './composite-widgets';
-import { ParameterCalculatorTypeEdit } from './parameter-calculator-type';
+import { ParameterComputeTypeEdit } from './parameter-compute-type-edit';
 import { useParameterEventBus } from './parameter-event-bus';
 import { ParameterEventTypes } from './parameter-event-bus-types';
 import { ComputedEditBody, ComputedEditContainer, ParameterContainer } from './widgets';
@@ -41,8 +41,12 @@ export const ComputedEdit = (props: {
 	const onDeleteClicked = () => {
 	};
 
+	//TODO
+	// 1. add parameter
+	// 2. delete parameter
+	// 3. event propagate hierarchically
 	return <ComputedEditContainer {...rest}>
-		<ParameterCalculatorTypeEdit parameter={parameter}/>
+		<ParameterComputeTypeEdit parameter={parameter}/>
 		<ComputedEditBody>
 			{parameter.parameters.map(sub => {
 				return <ParameterContainer shorten={sub.from === ParameterFrom.COMPUTED} key={v4()}>

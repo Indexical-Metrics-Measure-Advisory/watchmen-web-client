@@ -48,6 +48,7 @@ export const ColumnEditor = (props: {
 		}
 	};
 
+	// computed parameter collapse/expand
 	return <ColumnEditWrapper shorten={column.parameter.from === ParameterFrom.COMPUTED}>
 		<ParameterTypeEditor parameter={column.parameter}/>
 		<ConstantValueEditor parameter={column.parameter}/>

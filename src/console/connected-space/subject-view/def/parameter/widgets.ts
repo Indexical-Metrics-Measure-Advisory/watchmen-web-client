@@ -132,7 +132,7 @@ export const ComputedEditContainer = styled.div.attrs({ 'data-widget': 'paramete
 	align-items           : center;
 	min-height            : var(--param-height);
 `;
-export const ParameterCalculatorTypeContainer = styled.div.attrs({ 'data-widget': 'parameter-computed-type' })`
+export const ParameterComputeTypeContainer = styled.div.attrs({ 'data-widget': 'parameter-computed-type' })`
 	display          : flex;
 	position         : relative;
 	align-items      : center;
@@ -164,10 +164,10 @@ export const ParameterCalculatorTypeContainer = styled.div.attrs({ 'data-widget'
 		z-index    : -1;
 	}
 `;
-export const ParameterCalculatorTypeLabel = styled.div.attrs({ 'data-widget': 'parameter-computed-type-label' })`
+export const ParameterComputeTypeLabel = styled.div.attrs({ 'data-widget': 'parameter-computed-type-label' })`
 	font-variant : petite-caps;
 `;
-export const ParameterCalculatorTypeIcon = styled.div.attrs({ 'data-widget': 'parameter-computed-type-icon' })`
+export const ParameterComputeTypeIcon = styled.div.attrs({ 'data-widget': 'parameter-computed-type-icon' })`
 	display      : flex;
 	position     : relative;
 	align-self   : stretch;

@@ -4,7 +4,7 @@ import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
 import {
 	Computed,
 	Parameter,
-	ParameterCalculatorType,
+	ParameterComputeType,
 	ParameterType
 } from '../../../services/tuples/factor-calculator-types';
 import {
@@ -130,7 +130,7 @@ export const isParameterValid = (parameter: Parameter, topics: Array<Topic>): Va
 	if (!parameter) {
 		return { pass: false };
 	}
-	return isComputedValid({ type: ParameterCalculatorType.NONE, parameters: [ parameter ] }, topics);
+	return isComputedValid({ type: ParameterComputeType.NONE, parameters: [ parameter ] }, topics);
 };
 
 export const isDefValid = (subject: Subject, topics: Array<Topic>) => {

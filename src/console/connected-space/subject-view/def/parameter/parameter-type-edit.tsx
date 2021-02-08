@@ -4,7 +4,7 @@ import { ICON_COLLAPSE_CONTENT, ICON_EDIT } from '../../../../../basic-widgets/c
 import { Lang } from '../../../../../langs';
 import {
 	Parameter,
-	ParameterCalculatorType,
+	ParameterComputeType,
 	ParameterFrom
 } from '../../../../../services/tuples/factor-calculator-types';
 import {
@@ -37,7 +37,7 @@ const initParameter = (parameter: Parameter) => {
 		delete old.topicId;
 		delete old.factorId;
 		delete old.value;
-		old.type = old.type || ParameterCalculatorType.ADD;
+		old.type = old.type || ParameterComputeType.ADD;
 		old.parameters = old.parameters || [ createTopicFactorParameter(), createTopicFactorParameter() ];
 	}
 };
