@@ -12,5 +12,3 @@ export const BLOCK_MARGIN_VERTICAL = 32;
 
 export const SELECTION_GAP = 6;
 export const SELECTION_FULL_GAP = SELECTION_GAP * 2;
-
-export const SAVE_TIMEOUT = 30000;

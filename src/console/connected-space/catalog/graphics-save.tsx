@@ -3,15 +3,14 @@ import { saveConnectedSpaceGraphics } from '../../../services/tuples/connected-s
 import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
 import { useConsoleEventBus } from '../../console-event-bus';
 import { ConsoleEventTypes } from '../../console-event-bus-types';
+import { SAVE_TIMEOUT } from '../constants';
 import { useCatalogEventBus } from './catalog-event-bus';
 import { CatalogEventTypes } from './catalog-event-bus-types';
-import { SAVE_TIMEOUT } from './constants';
 import { transformGraphicsToSave } from './graphics-utils';
 import { AssembledConnectedSpaceGraphics } from './types';
 
 interface SaveState {
 	timeoutHandle?: number;
-	save?: () => void;
 	connectedSpace: ConnectedSpace;
 	assembledGraphics?: AssembledConnectedSpaceGraphics
 }
@@ -34,14 +33,12 @@ export const GraphicsSave = (props: {
 				if (state.timeoutHandle) {
 					clearTimeout(state.timeoutHandle);
 				}
-				const save = async () => {
-					setState({ connectedSpace, assembledGraphics });
-					await saveConnectedSpaceGraphics(connectedSpace, graphics);
-				};
 				setState({
 					connectedSpace, assembledGraphics,
-					timeoutHandle: window.setTimeout(save, SAVE_TIMEOUT),
-					save
+					timeoutHandle: window.setTimeout(async () => {
+						setState({ connectedSpace, assembledGraphics });
+						await saveConnectedSpaceGraphics(connectedSpace, graphics);
+					}, SAVE_TIMEOUT)
 				});
 			}
 		};
@@ -53,15 +50,18 @@ export const GraphicsSave = (props: {
 		};
 	}, [ on, off, fireConsole, connectedSpace, assembledGraphics, state ]);
 	useEffect(() => {
-		if (connectedSpace !== state.connectedSpace || assembledGraphics !== state.assembledGraphics) {
-			if (state.timeoutHandle) {
-				clearTimeout(state.timeoutHandle);
-				state.save && state.save();
-			}
+		if (state.assembledGraphics && assembledGraphics !== state.assembledGraphics && state.timeoutHandle) {
+			// there is a save in queue
+			// clear queue
+			clearTimeout(state.timeoutHandle);
+			// save immediately
+			const connectedSpace = state.connectedSpace;
+			const graphics = transformGraphicsToSave(connectedSpace, state.assembledGraphics);
+			(async () => await saveConnectedSpaceGraphics(connectedSpace, graphics))();
 			// reset state
 			setState({ connectedSpace, assembledGraphics });
 		}
-	}, [ connectedSpace, assembledGraphics, state ]);
+	}, [ connectedSpace, assembledGraphics, state.assembledGraphics, state.connectedSpace, state.timeoutHandle ]);
 
 	return <Fragment/>;
 };
