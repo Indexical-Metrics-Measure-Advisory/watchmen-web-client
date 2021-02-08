@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const FilterJointContainer = styled.div.attrs({ 'data-widget': 'filter-joint-edit' })`
 	display               : grid;
-	grid-template-columns : auto auto auto 1fr;
+	grid-template-columns : auto auto auto auto 1fr;
 	grid-row-gap          : calc(var(--margin) / 4);
 `;
 export const FilterJointTypeEditContainer = styled.div.attrs({ 'data-widget': 'filter-joint-type-edit' })`
@@ -69,39 +69,6 @@ export const AddSubFilterIcon = styled.div.attrs<{ singleton: boolean }>(({ sing
 		}
 	};
 })<{ singleton: boolean }>`
-	display                   : flex;
-	position                  : relative;
-	align-items               : center;
-	padding                   : 0 calc(var(--margin) / 2);
-	margin-left               : calc(var(--margin) / 2);
-	height                    : var(--param-height);
-	border-top-left-radius    : calc(var(--param-height) / 2);
-	border-bottom-left-radius : calc(var(--param-height) / 2);
-	background-color          : var(--param-bg-color);
-	font-variant              : petite-caps;
-	cursor                    : pointer;
-	box-shadow                : var(--param-border);
-	transition                : box-shadow 300ms ease-in-out;
-	&:before {
-		content          : '';
-		display          : block;
-		position         : absolute;
-		right            : 100%;
-		top              : 50%;
-		height           : 1px;
-		width            : calc(var(--margin) / 2);
-		background-color : var(--param-bg-color);
-	}
-	&:hover {
-		z-index    : 1;
-		box-shadow : var(--param-border), var(--primary-hover-shadow);
-	}
-	> svg {
-		font-size    : 0.8em;
-		margin-right : calc(var(--margin) / 4);
-	}
-`;
-export const RemoveJointTypeIcon = styled.div.attrs({ 'data-widget': 'filter-joint-type-remove-icon' })`
 	display                    : flex;
 	position                   : relative;
 	align-items                : center;
@@ -115,11 +82,55 @@ export const RemoveJointTypeIcon = styled.div.attrs({ 'data-widget': 'filter-joi
 	transition                 : box-shadow 300ms ease-in-out;
 	&:hover {
 		z-index          : 1;
-		color            : var(--danger-color);
 		background-color : var(--bg-color);
-		box-shadow       : var(--danger-hover-shadow);
+		box-shadow       : var(--primary-hover-shadow);
 	}
 	> svg {
-		font-size : 0.8em;
+		font-size    : 0.8em;
+		margin-right : calc(var(--margin) / 4);
+	}
+`;
+export const FirstAddSubFilterIcon = styled(AddSubFilterIcon)`
+	border-radius : calc(var(--param-height) / 2) 0 0 calc(var(--param-height) / 2);
+	margin-left   : calc(var(--margin) / 2);
+	box-shadow    : var(--param-top-border), var(--param-left-border), var(--param-bottom-border);
+	&:before {
+		content          : '';
+		display          : block;
+		position         : absolute;
+		left             : calc(var(--margin) / -2 - 1px);
+		top              : 50%;
+		height           : 1px;
+		width            : calc(var(--margin) / 2);
+		background-color : var(--param-bg-color);
+	}
+`;
+export const NonTopJointFilterContainer = styled.div.attrs({ 'data-widget': 'non-top-filter-joint' })`
+	display     : block;
+	position    : relative;
+	grid-column : span 5;
+	margin-left : var(--margin);
+	&:before {
+		content                   : '';
+		display                   : block;
+		position                  : absolute;
+		top                       : calc((var(--margin) / 4 + var(--param-height) / 2 + 3px) * -1);
+		right                     : 100%;
+		width                     : calc(var(--margin) / 4);
+		height                    : calc(var(--margin) / 4 + var(--param-height) + 3px);
+		z-index                   : -1;
+		border-bottom-left-radius : 2px;
+		box-shadow                : var(--param-left-border), var(--param-bottom-border);
+	}
+	&:not(:last-child):after {
+		content    : '';
+		display    : block;
+		position   : absolute;
+		top        : calc(var(--param-height) / 2 - 3px);
+		right      : 100%;
+		width      : calc(var(--margin) / 4);
+		height     : calc(100% - var(--param-height) / 2 - 3px);
+		z-index    : -1;
+		box-shadow : var(--param-left-border);
 	}
 `;

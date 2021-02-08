@@ -1,14 +1,13 @@
-import {
-	SubjectDataSetFilter,
-	SubjectDataSetFilterExpression,
-	SubjectDataSetFilterJoint
-} from '../../../../../services/tuples/subject-types';
+import { SubjectDataSetFilter, SubjectDataSetFilterJoint } from '../../../../../services/tuples/subject-types';
 
 export enum FilterEventTypes {
 	JOINT_TYPE_CHANGED = 'joint-type-changed',
 	FILTER_ADDED = 'expression-added',
 	FILTER_REMOVED = 'expression-removed',
-	EXPRESSION_CONTENT_CHANGED = 'expression-content-changed'
+
+	// when filter is expression, any content change
+	// when filter is joint, any change on sub filters
+	CONTENT_CHANGED = 'expression-content-changed'
 }
 
 export interface FilterEventBus {
@@ -24,7 +23,7 @@ export interface FilterEventBus {
 	on(type: FilterEventTypes.FILTER_REMOVED, listener: (filter: SubjectDataSetFilter) => void): this;
 	off(type: FilterEventTypes.FILTER_REMOVED, listener: (filter: SubjectDataSetFilter) => void): this;
 
-	fire(type: FilterEventTypes.EXPRESSION_CONTENT_CHANGED, expression: SubjectDataSetFilterExpression): this;
-	on(type: FilterEventTypes.EXPRESSION_CONTENT_CHANGED, listener: (expression: SubjectDataSetFilterExpression) => void): this;
-	off(type: FilterEventTypes.EXPRESSION_CONTENT_CHANGED, listener: (expression: SubjectDataSetFilterExpression) => void): this;
+	fire(type: FilterEventTypes.CONTENT_CHANGED, filter: SubjectDataSetFilter): this;
+	on(type: FilterEventTypes.CONTENT_CHANGED, listener: (filter: SubjectDataSetFilter) => void): this;
+	off(type: FilterEventTypes.CONTENT_CHANGED, listener: (filter: SubjectDataSetFilter) => void): this;
 }

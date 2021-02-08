@@ -38,13 +38,19 @@ export const createSubjectDataSetTopFilter = (subject: Subject): SubjectDataSetF
 	return {
 		jointType: FilterJointType.AND,
 		filters: []
-	}
-}
+	};
+};
 export const createSubjectDataSetFilter = (subject: Subject): SubjectDataSetFilterExpression => {
 	return {
 		left: createTopicFactorParameter(),
 		operator: FilterExpressionOperator.EQUALS,
 		right: createConstantParameter()
+	};
+};
+export const createSubjectDataSetJoint = (subject: Subject, parentJointType: FilterJointType): SubjectDataSetFilterJoint => {
+	return {
+		jointType: parentJointType === FilterJointType.AND ? FilterJointType.OR : FilterJointType.AND,
+		filters: [ createSubjectDataSetFilter(subject) ]
 	};
 };
 

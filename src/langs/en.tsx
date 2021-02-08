@@ -148,7 +148,8 @@ export const En = {
 			NO_DATASET_FILTER_FOR_SUBJECT: 'No filter defined, do you want ',
 			CREATE_DATASET_FILTER_WHEN_NONE: 'create one',
 			NO_DATASET_FILTER_FOR_SUBJECT_2: '?',
-			ADD_SUBJECT_SUB_FILTER: 'Add Sub Filter'
+			ADD_SUBJECT_SUB_EXPRESSION_FILTER: 'Add Sub Expression',
+			ADD_SUBJECT_SUB_JOINT_FILTER: 'Add Sub Joint'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',
@@ -236,5 +237,21 @@ export const En = {
 	JOINT: {
 		AND: 'And',
 		OR: 'OR'
+	},
+	FILTER: {
+		EXPRESSION: {
+			OPERATOR: {
+				EMPTY: 'Is Empty',
+				NOT_EMPTY: 'Has Value',
+				EQUALS: 'Equals',
+				NOT_EQUALS: 'Not Equals',
+				LESS: 'Less than',
+				LESS_EQUALS: 'Less than or Equals',
+				MORE: 'Greater than',
+				MORE_EQUALS: 'Greater than or Equals',
+				IN: 'In',
+				NOT_IN: 'Not In',
+			}
+		}
 	}
 };

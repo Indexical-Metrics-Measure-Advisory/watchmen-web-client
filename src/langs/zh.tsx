@@ -145,7 +145,8 @@ export const Zh = {
 			NO_DATASET_FILTER_FOR_SUBJECT: '尚未定义数据过滤条件, 现在就',
 			CREATE_DATASET_FILTER_WHEN_NONE: '开始',
 			NO_DATASET_FILTER_FOR_SUBJECT_2: '吗?',
-			ADD_SUBJECT_SUB_FILTER: '添加过滤条件'
+			ADD_SUBJECT_SUB_EXPRESSION_FILTER: '添加过滤条件',
+			ADD_SUBJECT_SUB_JOINT_FILTER: '添加子联合条件'
 		},
 		SETTINGS: {
 			TITLE: '设置',
@@ -233,5 +234,21 @@ export const Zh = {
 	JOINT: {
 		AND: '与',
 		OR: '或'
+	},
+	FILTER: {
+		EXPRESSION: {
+			OPERATOR: {
+				EMPTY: '为空',
+				NOT_EMPTY: '不为空',
+				EQUALS: '等于',
+				NOT_EQUALS: '不等于',
+				LESS: '小于',
+				LESS_EQUALS: '小于等于',
+				MORE: '大于',
+				MORE_EQUALS: '大于等于',
+				IN: '在集合内',
+				NOT_IN: '不在集合内'
+			}
+		}
 	}
 };

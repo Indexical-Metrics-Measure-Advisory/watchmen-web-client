@@ -1,11 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { MouseEvent, useState } from 'react';
-import { ICON_ADD, ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EDIT } from '../../../../../../basic-widgets/constants';
+import { ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EDIT } from '../../../../../../basic-widgets/constants';
+import { useForceUpdate } from '../../../../../../basic-widgets/utils';
 import { Lang } from '../../../../../../langs';
 import { FilterJointType, Subject, SubjectDataSetFilterJoint } from '../../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../../services/tuples/topic-types';
+import { createSubjectDataSetFilter, createSubjectDataSetJoint } from '../../data-utils';
 import { useFilterEventBus } from '../filter-event-bus';
 import { FilterEventTypes } from '../filter-event-bus-types';
+import { RemoveFilterIcon } from '../widgets';
 import { SubFilters } from './sub-filters';
 import {
 	AddSubFilterIcon,
@@ -13,20 +16,31 @@ import {
 	FilterJointTypeButton,
 	FilterJointTypeEditContainer,
 	FilterJointTypeIcon,
-	RemoveJointTypeIcon
+	FirstAddSubFilterIcon
 } from './widgets';
 
 export const JointEdit = (props: {
 	subject: Subject;
+	/**
+	 * if parent joint exists, means current joint is not in top level.
+	 * otherwise, current is top level, which means cannot be removed.
+	 */
+	parentJoint?: SubjectDataSetFilterJoint;
+	onRemoveMe?: () => void;
 	joint: SubjectDataSetFilterJoint;
 	availableTopics: Array<Topic>;
 	pickedTopics: Array<Topic>;
-	removable: boolean;
 }) => {
-	const { subject, joint, availableTopics, pickedTopics, removable } = props;
+	const {
+		subject,
+		parentJoint, onRemoveMe,
+		joint,
+		availableTopics, pickedTopics
+	} = props;
 
 	const { fire } = useFilterEventBus();
 	const [ editing, setEditing ] = useState(false);
+	const forceUpdate = useForceUpdate();
 
 	const onStartEditing = () => setEditing(true);
 	const onBlur = () => setEditing(false);
@@ -47,16 +61,38 @@ export const JointEdit = (props: {
 		event.stopPropagation();
 		setEditing(!editing);
 	};
-	const onAddClicked = (event: MouseEvent<HTMLDivElement>) => {
+	const onAddSubExpressionClicked = (event: MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
-		// TODO
+		const newFilter = createSubjectDataSetFilter(subject);
+		joint.filters.push(newFilter);
+		fire(FilterEventTypes.FILTER_ADDED, newFilter);
+		forceUpdate();
+	};
+	const onAddSubJointClicked = (event: MouseEvent<HTMLDivElement>) => {
+		event.preventDefault();
+		event.stopPropagation();
+		const newJoint = createSubjectDataSetJoint(subject, joint.jointType);
+		joint.filters.push(newJoint);
+		fire(FilterEventTypes.FILTER_ADDED, newJoint);
+		forceUpdate();
 	};
 	const onRemoveClicked = (event: MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
-		// TODO
+		if (!parentJoint) {
+			// no parent, current is top level, do nothing
+			return;
+		}
+
+		const index = parentJoint.filters.indexOf(joint);
+		if (index !== -1) {
+			parentJoint.filters.splice(index, 1);
+			onRemoveMe && onRemoveMe();
+		}
 	};
+
+	const removable = !!parentJoint;
 
 	return <FilterJointContainer>
 		<FilterJointTypeEditContainer onClick={onStartEditing} tabIndex={0} onBlur={onBlur}>
@@ -73,15 +109,19 @@ export const JointEdit = (props: {
 			</FilterJointTypeIcon>
 
 		</FilterJointTypeEditContainer>
-		<AddSubFilterIcon singleton={!removable} onClick={onAddClicked}>
-			<FontAwesomeIcon icon={ICON_ADD}/>
-			<span>{Lang.CONSOLE.CONNECTED_SPACE.ADD_SUBJECT_SUB_FILTER}</span>
+		<FirstAddSubFilterIcon singleton={false} onClick={onAddSubExpressionClicked}>
+			<span>{Lang.CONSOLE.CONNECTED_SPACE.ADD_SUBJECT_SUB_EXPRESSION_FILTER}</span>
+		</FirstAddSubFilterIcon>
+		<AddSubFilterIcon singleton={!removable} onClick={onAddSubJointClicked}>
+			<span>{Lang.CONSOLE.CONNECTED_SPACE.ADD_SUBJECT_SUB_JOINT_FILTER}</span>
 		</AddSubFilterIcon>
 		{removable
-			? <RemoveJointTypeIcon onClick={onRemoveClicked}>
+			? <RemoveFilterIcon onClick={onRemoveClicked}>
 				<FontAwesomeIcon icon={ICON_DELETE}/>
-			</RemoveJointTypeIcon>
+			</RemoveFilterIcon>
 			: null}
-		<SubFilters subject={subject} joint={joint} availableTopics={availableTopics} pickedTopics={pickedTopics}/>
+		<SubFilters subject={subject}
+		            joint={joint}
+		            availableTopics={availableTopics} pickedTopics={pickedTopics}/>
 	</FilterJointContainer>;
 };

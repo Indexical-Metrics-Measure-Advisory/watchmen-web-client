@@ -18,6 +18,7 @@ const TopFilter = (props: {
 	const { fire: fireDef } = useSubjectDefEventBus();
 	const { on, off } = useFilterEventBus();
 	useEffect(() => {
+		// catch event from the top level joint
 		// delegate to subject definition
 		const onJointChanged = () => {
 			fireDef(SubjectDefEventTypes.DATASET_FILTER_CHANGED, joint);
@@ -35,17 +36,17 @@ const TopFilter = (props: {
 		on(FilterEventTypes.JOINT_TYPE_CHANGED, onJointChanged);
 		on(FilterEventTypes.FILTER_ADDED, onFilterAdded);
 		on(FilterEventTypes.FILTER_REMOVED, onFilterRemoved);
-		on(FilterEventTypes.EXPRESSION_CONTENT_CHANGED, onExpressionChanged);
+		on(FilterEventTypes.CONTENT_CHANGED, onExpressionChanged);
 		return () => {
 			off(FilterEventTypes.JOINT_TYPE_CHANGED, onJointChanged);
 			off(FilterEventTypes.FILTER_ADDED, onFilterAdded);
 			off(FilterEventTypes.FILTER_REMOVED, onFilterRemoved);
-			off(FilterEventTypes.EXPRESSION_CONTENT_CHANGED, onExpressionChanged);
+			off(FilterEventTypes.CONTENT_CHANGED, onExpressionChanged);
 		};
 	}, [ on, off, fireDef, joint ]);
 
-	return <JointEdit subject={subject} joint={joint} availableTopics={availableTopics} pickedTopics={pickedTopics}
-	                  removable={false}/>;
+	return <JointEdit subject={subject} joint={joint}
+	                  availableTopics={availableTopics} pickedTopics={pickedTopics}/>;
 };
 
 export const TopFilterEdit = (props: {
