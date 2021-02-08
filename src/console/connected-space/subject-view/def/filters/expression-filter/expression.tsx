@@ -5,12 +5,11 @@ import { Subject, SubjectDataSetFilterExpression } from '../../../../../../servi
 import { Topic } from '../../../../../../services/tuples/topic-types';
 import { ComputedEditor } from '../../parameter/computed';
 import { ConstantValueEditor } from '../../parameter/constant';
-import { ParameterFromEditor } from '../../parameter/param-from';
 import { ParameterEventBusProvider, useParameterEventBus } from '../../parameter/parameter-event-bus';
 import { ParameterEventTypes } from '../../parameter/parameter-event-bus-types';
 import { TopicFactorEditor } from '../../parameter/topic-factor';
 import { Parameter2FilterEventBridge } from '../parameter-2-filter-event-bridge';
-import { ExpressionSide } from './widgets';
+import { ExpressionSide, ParameterFromEditorForExpression } from './widgets';
 
 export const ExpressionBody = (props: {
 	subject: Subject;
@@ -35,7 +34,8 @@ export const ExpressionBody = (props: {
 	}, [ on, off, forceUpdate ]);
 
 	return <ExpressionSide shorten={parameter.from === ParameterFrom.COMPUTED}>
-		<ParameterFromEditor parameter={parameter}/>
+		<ParameterFromEditorForExpression shorten={parameter.from === ParameterFrom.COMPUTED}
+		                                  parameter={parameter}/>
 		<ConstantValueEditor parameter={parameter}/>
 		<TopicFactorEditor parameter={parameter}
 		                   availableTopics={availableTopics} pickedTopics={pickedTopics}/>

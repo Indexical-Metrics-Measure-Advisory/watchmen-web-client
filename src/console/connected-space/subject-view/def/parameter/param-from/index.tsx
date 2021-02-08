@@ -93,16 +93,4 @@ export const ParameterFromEdit = (props: { parameter: Parameter }) => {
 export const ParameterFromEditor = styled(ParameterFromEdit)`
 	border-top-right-radius    : 0;
 	border-bottom-right-radius : 0;
-	// TODO
-	& + div[data-widget="subject-def-column-alias-edit"]:before {
-		content          : '';
-		display          : block;
-		position         : absolute;
-		top              : 30%;
-		left             : 0;
-		width            : 1px;
-		height           : 40%;
-		background-color : var(--bg-color);
-		opacity          : 0.5;
-	}
 `;

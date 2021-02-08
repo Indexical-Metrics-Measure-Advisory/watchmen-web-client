@@ -36,6 +36,7 @@ export const SubjectDataSaver = (props: { connectedSpace: ConnectedSpace, subjec
 		}
 
 		const onSubjectDefChanged = (subject: Subject) => {
+			// console.warn('Subject definition changed.', subject);
 			if (state.timeoutHandle) {
 				clearTimeout(state.timeoutHandle);
 			}

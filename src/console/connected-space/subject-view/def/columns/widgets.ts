@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Input } from '../../../../../basic-widgets/input';
+import { ParameterFromEditor } from '../parameter/param-from';
 
 export const ColumnsContainer = styled.div.attrs<{ active: boolean }>(({ active }) => {
 	return {
@@ -100,3 +101,16 @@ export const AliasEditInput = styled(Input).attrs({ 'data-widget': 'subject-def-
 		box-shadow       : var(--primary-hover-shadow);
 	}
 `;
+export const ParameterFromEditorForColumn = styled(ParameterFromEditor)`
+	& + div[data-widget="subject-def-column-alias-edit"]:before {
+		content          : '';
+		display          : block;
+		position         : absolute;
+		top              : 30%;
+		left             : 0;
+		width            : 1px;
+		height           : 40%;
+		background-color : var(--bg-color);
+		opacity          : 0.5;
+	}
+`
