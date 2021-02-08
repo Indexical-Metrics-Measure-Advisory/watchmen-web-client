@@ -1,12 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { MouseEvent, useRef, useState } from 'react';
-import { ICON_EDIT } from '../../../../../basic-widgets/constants';
-import { useCollapseFixedThing } from '../../../../../basic-widgets/utils';
-import { Lang } from '../../../../../langs';
-import { ComputedParameter, ParameterComputeType } from '../../../../../services/tuples/factor-calculator-types';
-import { defendParameters } from '../data-utils';
-import { useParameterEventBus } from './parameter-event-bus';
-import { ParameterEventTypes } from './parameter-event-bus-types';
+import { ICON_EDIT } from '../../../../../../basic-widgets/constants';
+import { useCollapseFixedThing } from '../../../../../../basic-widgets/utils';
+import { Lang } from '../../../../../../langs';
+import { ComputedParameter, ParameterComputeType } from '../../../../../../services/tuples/factor-calculator-types';
+import { defendParameters } from '../../data-utils';
+import { useParameterEventBus } from '../parameter-event-bus';
+import { ParameterEventTypes } from '../parameter-event-bus-types';
 import {
 	PARAMETER_TYPE_DROPDOWN_HEIGHT,
 	ParameterComputeTypeContainer,

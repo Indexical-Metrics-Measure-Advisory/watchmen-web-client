@@ -1,10 +1,11 @@
 import React, { ChangeEvent, useEffect } from 'react';
-import { useForceUpdate } from '../../../../../basic-widgets/utils';
-import { Lang } from '../../../../../langs';
-import { Parameter } from '../../../../../services/tuples/factor-calculator-types';
-import { isConstantParameter } from '../../../../../services/tuples/factor-calculator-utils';
-import { useParameterEventBus } from './parameter-event-bus';
-import { ParameterEventTypes } from './parameter-event-bus-types';
+import styled from 'styled-components';
+import { useForceUpdate } from '../../../../../../basic-widgets/utils';
+import { Lang } from '../../../../../../langs';
+import { Parameter } from '../../../../../../services/tuples/factor-calculator-types';
+import { isConstantParameter } from '../../../../../../services/tuples/factor-calculator-utils';
+import { useParameterEventBus } from '../parameter-event-bus';
+import { ParameterEventTypes } from '../parameter-event-bus-types';
 import { ConstantInput } from './widgets';
 
 export const ConstantEdit = (props: { parameter: Parameter }) => {
@@ -37,3 +38,12 @@ export const ConstantEdit = (props: { parameter: Parameter }) => {
 	                      value={parameter.value || ''} onChange={onValueChange}
 	                      {...rest}/>;
 };
+
+export const ConstantValueEditor = styled(ConstantEdit)`
+	border-radius : 0;
+	box-shadow : var(--param-top-border), var(--param-bottom-border);
+	// redefine since box-shadow overridden
+	&:hover {
+		box-shadow       : var(--primary-hover-shadow);
+	}
+`;

@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import { DropdownOption } from '../../../../../basic-widgets/types';
-import { useForceUpdate } from '../../../../../basic-widgets/utils';
-import { Lang } from '../../../../../langs';
-import { Parameter } from '../../../../../services/tuples/factor-calculator-types';
-import { isTopicFactorParameter } from '../../../../../services/tuples/factor-calculator-utils';
-import { Factor, FactorType } from '../../../../../services/tuples/factor-types';
-import { Topic, TopicType } from '../../../../../services/tuples/topic-types';
-import { getCurrentTime } from '../../../../../services/utils';
-import { useParameterEventBus } from './parameter-event-bus';
-import { ParameterEventTypes } from './parameter-event-bus-types';
+import styled from 'styled-components';
+import { DropdownOption } from '../../../../../../basic-widgets/types';
+import { useForceUpdate } from '../../../../../../basic-widgets/utils';
+import { Lang } from '../../../../../../langs';
+import { Parameter } from '../../../../../../services/tuples/factor-calculator-types';
+import { isTopicFactorParameter } from '../../../../../../services/tuples/factor-calculator-utils';
+import { Factor, FactorType } from '../../../../../../services/tuples/factor-types';
+import { Topic, TopicType } from '../../../../../../services/tuples/topic-types';
+import { getCurrentTime } from '../../../../../../services/utils';
+import { useParameterEventBus } from '../parameter-event-bus';
+import { ParameterEventTypes } from '../parameter-event-bus-types';
 import { FactorDropdown, IncorrectOptionLabel, TopicDropdown, TopicFactorEditContainer } from './widgets';
 
 const createUnknownTopic = (topicId: string): Topic => {
@@ -137,3 +138,22 @@ export const TopicFactorEdit = (props: {
 		<FactorDropdown value={selectedFactor} options={factorOptions} onChange={onFactorChange}/>
 	</TopicFactorEditContainer>;
 };
+
+export const TopicFactorEditor = styled(TopicFactorEdit)`
+	> div[data-widget=dropdown] {
+		&:first-child {
+			border-radius : 0;
+			box-shadow    : var(--param-top-border), var(--param-bottom-border);
+		}
+		&:last-child {
+			border-radius : 0;
+			box-shadow    : var(--param-top-border), var(--param-left-border), var(--param-bottom-border);
+		}
+		// redefine since box-shadow overridden by first-child/last-child
+		&:hover,
+		&:focus {
+			z-index    : 1;
+			box-shadow : var(--primary-hover-shadow);
+		}
+	}
+`;

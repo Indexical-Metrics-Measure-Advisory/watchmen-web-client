@@ -5,15 +5,13 @@ import { useForceUpdate } from '../../../../../basic-widgets/utils';
 import { ParameterFrom } from '../../../../../services/tuples/factor-calculator-types';
 import { Subject, SubjectDataSetColumn } from '../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
-import {
-	ComputedEditor,
-	ConstantValueEditor,
-	DeleteMeButton,
-	ParameterTypeEditor,
-	TopicFactorEditor
-} from '../parameter/composite-widgets';
+import { ComputedEditor } from '../parameter/computed';
+import { ConstantValueEditor } from '../parameter/constant';
+import { ParameterFromEditor } from '../parameter/param-from';
 import { ParameterEventBusProvider, useParameterEventBus } from '../parameter/parameter-event-bus';
 import { ParameterEventTypes } from '../parameter/parameter-event-bus-types';
+import { TopicFactorEditor } from '../parameter/topic-factor';
+import { DeleteMeButton } from '../parameter/widgets';
 import { useSubjectDefEventBus } from '../subject-def-event-bus';
 import { SubjectDefEventTypes } from '../subject-def-event-bus-types';
 import { AliasEditor } from './alias-edit';
@@ -50,7 +48,7 @@ export const ColumnEditor = (props: {
 
 	// computed parameter collapse/expand
 	return <ColumnEditWrapper shorten={column.parameter.from === ParameterFrom.COMPUTED}>
-		<ParameterTypeEditor parameter={column.parameter}/>
+		<ParameterFromEditor parameter={column.parameter}/>
 		<ConstantValueEditor parameter={column.parameter}/>
 		<TopicFactorEditor parameter={column.parameter}
 		                   availableTopics={availableTopics} pickedTopics={pickedTopics}/>
