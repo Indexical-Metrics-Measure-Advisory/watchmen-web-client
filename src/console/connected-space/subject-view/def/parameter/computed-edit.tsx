@@ -8,12 +8,9 @@ import { useEventBus } from '../../../../../events/event-bus';
 import { EventTypes } from '../../../../../events/types';
 import { Lang } from '../../../../../langs';
 import { ComputedParameter, Parameter, ParameterFrom } from '../../../../../services/tuples/factor-calculator-types';
-import {
-	isComputedParameter,
-	ParameterCalculatorDefsMap
-} from '../../../../../services/tuples/factor-calculator-utils';
+import { isComputedParameter } from '../../../../../services/tuples/factor-calculator-utils';
 import { Topic } from '../../../../../services/tuples/topic-types';
-import { createTopicFactorParameter } from '../data-utils';
+import { canAddMoreParameter, canDeleteAnyParameter, createTopicFactorParameter } from '../data-utils';
 import {
 	ComputedEditor,
 	ConstantValueEditor,
@@ -49,7 +46,7 @@ const ParameterEventBridge = (props: { notifyChangeToParent: () => void }) => {
 	return <></>;
 };
 
-const ParameterEdit = (props: {
+const ParameterEditContent = (props: {
 	availableTopics: Array<Topic>;
 	pickedTopics: Array<Topic>;
 	parentParameter: ComputedParameter;
@@ -63,21 +60,10 @@ const ParameterEdit = (props: {
 	} = props;
 
 	const { fire: fireGlobal } = useEventBus();
-	const { on, off } = useParameterEventBus();
-	const forceUpdate = useForceUpdate();
-	useEffect(() => {
-		on(ParameterEventTypes.FROM_CHANGED, forceUpdate);
-		return () => {
-			off(ParameterEventTypes.FROM_CHANGED, forceUpdate);
-		};
-	}, [ on, off, forceUpdate ]);
 
 	const onDeleteClicked = () => {
-		const computeType = parentParameter.type;
-		const calculatorDef = ParameterCalculatorDefsMap[computeType];
-		const minParamCount = calculatorDef.minParameterCount || calculatorDef.parameterCount || 1;
-		const currentCount = parentParameter.parameters.length;
-		if (currentCount <= minParamCount) {
+		const canDelete = canDeleteAnyParameter(parentParameter);
+		if (!canDelete) {
 			fireGlobal(EventTypes.SHOW_ALERT,
 				<AlertLabel>{Lang.CONSOLE.CONNECTED_SPACE.CAN_NOT_DELETE_CHILD_FROM_COMPUTED}</AlertLabel>);
 		} else {
@@ -89,8 +75,7 @@ const ParameterEdit = (props: {
 		}
 	};
 
-	return <ParameterEditContainer shorten={parameter.from === ParameterFrom.COMPUTED}>
-		<ParameterTypeEditor parameter={parameter}/>
+	return <>
 		<ConstantValueEditor parameter={parameter}/>
 		<TopicFactorEditor parameter={parameter}
 		                   availableTopics={availableTopics} pickedTopics={pickedTopics}/>
@@ -98,15 +83,37 @@ const ParameterEdit = (props: {
 			<FontAwesomeIcon icon={ICON_DELETE}/>
 		</DeleteMeButton>
 		<ComputedEditor parameter={parameter} availableTopics={availableTopics} pickedTopics={pickedTopics}/>
-	</ParameterEditContainer>;
-};
+	</>;
 
-const canAddMoreParameter = (parent: ComputedParameter) => {
-	const computeType = parent.type;
-	const calculatorDef = ParameterCalculatorDefsMap[computeType];
-	const maxParamCount = calculatorDef.maxParameterCount || calculatorDef.parameterCount || Infinity;
-	const currentCount = parent.parameters.length;
-	return currentCount < maxParamCount;
+};
+const ParameterEdit = (props: {
+	availableTopics: Array<Topic>;
+	pickedTopics: Array<Topic>;
+	parentParameter: ComputedParameter;
+	parameter: Parameter;
+	onDeleted: () => void;
+}) => {
+	const {
+		availableTopics, pickedTopics,
+		parameter, parentParameter,
+		onDeleted
+	} = props;
+
+	const { on, off } = useParameterEventBus();
+	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		on(ParameterEventTypes.FROM_CHANGED, forceUpdate);
+		return () => {
+			off(ParameterEventTypes.FROM_CHANGED, forceUpdate);
+		};
+	}, [ on, off, forceUpdate ]);
+
+	return <ParameterEditContainer shorten={parameter.from === ParameterFrom.COMPUTED}>
+		<ParameterTypeEditor parameter={parameter}/>
+		<ParameterEditContent parameter={parameter} parentParameter={parentParameter}
+		                      availableTopics={availableTopics} pickedTopics={pickedTopics}
+		                      onDeleted={onDeleted}/>
+	</ParameterEditContainer>;
 };
 
 const ParameterAdd = (props: {
@@ -153,9 +160,11 @@ const ComputedEditBody = (props: {
 	const { on, off, fire } = useParameterEventBus();
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
+		on(ParameterEventTypes.COMPUTE_TYPE_CHANGED, forceUpdate);
 		on(ParameterEventTypes.COMPUTE_PARAMETER_ADDED, forceUpdate);
 		on(ParameterEventTypes.COMPUTE_PARAMETER_REMOVED, forceUpdate);
 		return () => {
+			off(ParameterEventTypes.COMPUTE_TYPE_CHANGED, forceUpdate);
 			off(ParameterEventTypes.COMPUTE_PARAMETER_ADDED, forceUpdate);
 			off(ParameterEventTypes.COMPUTE_PARAMETER_REMOVED, forceUpdate);
 		};
