@@ -50,7 +50,7 @@ export const ParameterTypeButton = styled.div.attrs<{ active: boolean, edit: boo
 	box-shadow    : var(--param-left-border);
 	&:hover {
 		z-index    : 1;
-		box-shadow : var(--primary-hover-shadow);
+		box-shadow : var(--param-border), var(--primary-hover-shadow);
 	}
 `;
 export const ParameterFromIcon = styled.div.attrs({ 'data-widget': 'parameter-from-icon' })`
