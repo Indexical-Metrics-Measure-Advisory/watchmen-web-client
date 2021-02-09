@@ -39,8 +39,9 @@ const FilterJoint = (props: {
 	joint: SubjectDataSetFilterJoint;
 	availableTopicsMap: Map<string, Topic>;
 	pickedTopicsMap: Map<string, Topic>;
+	indent: number;
 }) => {
-	const { subject, joint: { jointType, filters }, availableTopicsMap, pickedTopicsMap } = props;
+	const { subject, joint: { jointType, filters }, availableTopicsMap, pickedTopicsMap, indent } = props;
 
 	return <>
 		{filters.length === 0
@@ -51,10 +52,11 @@ const FilterJoint = (props: {
 						? <NewLine/>
 						: null}
 					{filterIndex !== 0
-						? (jointType === FilterJointType.OR ? <JointOr/> : <JointAnd/>)
+						? (jointType === FilterJointType.OR ? <JointOr indent={indent}/> : <JointAnd indent={indent}/>)
 						: null}
 					<Filter subject={subject} filter={filter}
-					        availableTopicsMap={availableTopicsMap} pickedTopicsMap={pickedTopicsMap}/>
+					        availableTopicsMap={availableTopicsMap} pickedTopicsMap={pickedTopicsMap}
+					        indent={indent + 1}/>
 				</Fragment>;
 			})}
 	</>;
@@ -65,14 +67,16 @@ const Filter = (props: {
 	filter: SubjectDataSetFilter;
 	availableTopicsMap: Map<string, Topic>;
 	pickedTopicsMap: Map<string, Topic>;
+	indent: number;
 }) => {
-	const { subject, filter, availableTopicsMap, pickedTopicsMap } = props;
+	const { subject, filter, availableTopicsMap, pickedTopicsMap, indent } = props;
 
 	if (isJointFilter(filter)) {
 		return <>
 			<BracketNode>(</BracketNode>
 			<FilterJoint subject={subject} joint={filter}
-			             availableTopicsMap={availableTopicsMap} pickedTopicsMap={pickedTopicsMap}/>
+			             availableTopicsMap={availableTopicsMap} pickedTopicsMap={pickedTopicsMap}
+			             indent={indent}/>
 			<BracketNode>)</BracketNode>
 		</>;
 	} else if (isExpressionFilter(filter)) {
@@ -103,7 +107,8 @@ export const Where = (props: {
 	return <PartContent>
 		{hasFilter
 			? <FilterJoint subject={subject} joint={subject.dataset.filters}
-			               availableTopicsMap={availableTopicsMap} pickedTopicsMap={pickedTopicsMap}/>
+			               availableTopicsMap={availableTopicsMap} pickedTopicsMap={pickedTopicsMap}
+			               indent={0}/>
 			: <EmptyPart>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_NO_WHERE}</EmptyPart>}
 	</PartContent>;
 };

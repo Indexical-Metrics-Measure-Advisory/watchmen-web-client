@@ -45,8 +45,8 @@ export const On = () => <OnNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_ON}</
 export const Equals = () => <EqualsNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_EQUALS}</EqualsNode>;
 export const NewLine = () => <NewLineNode/>;
 export const JoinAnd = () => <JoinAndNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_AND}</JoinAndNode>;
-export const JointAnd = () => <JointAndNode>{Lang.JOINT.AND}</JointAndNode>;
-export const JointOr = () => <JointOrNode>{Lang.JOINT.OR}</JointOrNode>;
+export const JointAnd = (props: {indent:number}) => <JointAndNode indent={props.indent}>{Lang.JOINT.AND}</JointAndNode>;
+export const JointOr = (props: {indent:number}) => <JointOrNode indent={props.indent}>{Lang.JOINT.OR}</JointOrNode>;
 const Dot = () => <DotNode>.</DotNode>;
 export const As = () => <AsNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_COLUMN_AS}</AsNode>;
 
