@@ -171,7 +171,8 @@ export const En = {
 			SUBJECT_COLUMN_AS: 'As',
 			SUBJECT_NO_ALIAS: '?',
 			SUBJECT_FILTER_JOINT_NO_STATEMENT: 'No Statement in Joint',
-			SUBJECT_UNKNOWN_FILTER: 'Unknown Filter'
+			SUBJECT_UNKNOWN_FILTER: 'Unknown Filter',
+			NO_DATASET_COLUMN: 'No column defined.'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',

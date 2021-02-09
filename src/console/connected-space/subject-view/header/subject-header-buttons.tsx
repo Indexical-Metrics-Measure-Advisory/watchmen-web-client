@@ -5,14 +5,12 @@ import { Subject } from '../../../../services/tuples/subject-types';
 import { HeaderCatalogButton } from '../../header/header-catalog-button';
 import { HeaderAddReportButton } from './header-add-report-button';
 import { HeaderDeleteSubjectButton } from './header-delete-subject-buttton';
-import { HeaderDownloadAllButton } from './header-download-all-button';
-import { HeaderDownloadPageButton } from './header-download-page-button';
 import { HeaderPrintButton } from './header-print-button';
 import { HeaderShareButton } from './header-share-button';
 import { HeaderSubjectDefButton } from './header-subject-def-button';
 import { HeaderSubjectDefValidButtons } from './header-subject-def-valid-buttons';
 import { HeaderSwitchSubjectButton } from './header-switch-subject-button';
-import { isSubjectDataNow, isSubjectReportNow } from './utils';
+import { isSubjectReportNow } from './utils';
 
 export const SubjectHeaderButtons = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const { connectedSpace, subject } = props;
@@ -22,14 +20,6 @@ export const SubjectHeaderButtons = (props: { connectedSpace: ConnectedSpace, su
 		<PageHeaderButtonSeparator/>
 		<HeaderSubjectDefButton connectedSpace={connectedSpace} subject={subject}/>
 		<HeaderSubjectDefValidButtons connectedSpace={connectedSpace} subject={subject}/>
-		{isSubjectDataNow()
-			? <Fragment>
-				<PageHeaderButtonSeparator/>
-				<HeaderDownloadPageButton connectedSpace={connectedSpace} subject={subject}/>
-				<HeaderDownloadAllButton connectedSpace={connectedSpace} subject={subject}/>
-			</Fragment>
-			: null
-		}
 		{isSubjectReportNow()
 			? <Fragment>
 				<PageHeaderButtonSeparator/>

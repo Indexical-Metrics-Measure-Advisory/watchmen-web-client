@@ -168,7 +168,8 @@ export const Zh = {
 			// SUBJECT_COLUMN_AS: '作为',
 			// SUBJECT_NO_ALIAS: '?',
 			// SUBJECT_FILTER_JOINT_NO_STATEMENT: '没有联合条件',
-			// SUBJECT_UNKNOWN_FILTER: '未知过滤条件'
+			// SUBJECT_UNKNOWN_FILTER: '未知过滤条件',
+			NO_DATASET_COLUMN: '尚未定义数据列.'
 		},
 		SETTINGS: {
 			TITLE: '设置',

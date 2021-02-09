@@ -20,7 +20,7 @@ export const SubjectDefEventBusProvider = (props: { children?: ((props: any) => 
 		},
 		on: (type: string, listener: (...data: any) => void): SubjectDefEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
-				console.error(`Listener on [${type}] was added into subject event bus, check it.`);
+				console.error(`Listener on [${type}] was added into subject definition event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
