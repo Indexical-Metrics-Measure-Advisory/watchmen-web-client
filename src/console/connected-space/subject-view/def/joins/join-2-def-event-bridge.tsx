@@ -12,7 +12,6 @@ export const Join2DefEventBridge = (props: { subject: Subject, join: SubjectData
 	const { on, off } = useJoinEventBus();
 	useEffect(() => {
 		const onChanged = (join: SubjectDataSetJoin) => {
-			console.log(join);
 			fireDef(SubjectDefEventTypes.DATASET_JOIN_CHANGED, join);
 		};
 		on(JoinEventTypes.JOIN_TYPE_CHANGED, onChanged);

@@ -58,7 +58,6 @@ export const JoinTopicFactorEdit = (props: {
 		topicId: first ? join.topicId : join.secondaryTopicId,
 		factorId: first ? join.factorId : join.secondaryFactorId
 	};
-	console.log(first, parameter);
 
 	return <JoinTopicFactorEditContainer>
 		<TopicFactorEditor parameter={parameter}

@@ -1,15 +1,19 @@
 import React from 'react';
+import { v4 } from 'uuid';
 import { Lang } from '../../../../../langs';
 import { Factor } from '../../../../../services/tuples/factor-types';
 import { Subject, TopicJoinType } from '../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
 import {
+	AndNode,
+	CommaNode,
 	DotNode,
 	EqualsNode,
 	ExoticNode,
 	FactorNode,
 	JoinNode,
 	NamePair,
+	NewLineNode,
 	OnNode,
 	TopicNode,
 	UnknownNode
@@ -126,7 +130,7 @@ const TopicName = (props: { topic: Topic | null, picked: boolean }) => {
 	} else if (topic && !picked) {
 		return <ExoticNode><TopicNode>{topic.name}</TopicNode></ExoticNode>;
 	} else {
-		return <UnknownNode><TopicNode>?</TopicNode></UnknownNode>;
+		return <TopicNode><UnknownNode>?</UnknownNode></TopicNode>;
 	}
 };
 const FactorName = (props: { topic: Topic | null, picked: boolean, factor: Factor | null }) => {
@@ -137,22 +141,17 @@ const FactorName = (props: { topic: Topic | null, picked: boolean, factor: Facto
 		<Dot/>
 		{factor
 			? <FactorNode>{factor.label || factor.name}</FactorNode>
-			: <UnknownNode><FactorNode>?</FactorNode></UnknownNode>}
+			: <FactorNode><UnknownNode>?</UnknownNode></FactorNode>}
 	</NamePair>;
 };
 
-const Join = (props: { type: TopicJoinType }) => {
-	return <JoinNode>{JoinLabels[props.type || TopicJoinType.INNER]}</JoinNode>;
-};
-const Dot = () => {
-	return <DotNode>.</DotNode>;
-};
-const On = () => {
-	return <OnNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_ON}</OnNode>;
-};
-const Equals = () => {
-	return <EqualsNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_EQUALS}</EqualsNode>;
-};
+const Join = (props: { type: TopicJoinType }) => <JoinNode>{JoinLabels[props.type || TopicJoinType.INNER]}</JoinNode>;
+const Dot = () => <DotNode>.</DotNode>;
+const Comma = () => <CommaNode>,</CommaNode>;
+const On = () => <OnNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_ON}</OnNode>;
+const Equals = () => <EqualsNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_EQUALS}</EqualsNode>;
+const NewLine = () => <NewLineNode/>;
+const And = () => <AndNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_AND}</AndNode>;
 
 export const From = (props: {
 	subject: Subject;
@@ -177,7 +176,7 @@ export const From = (props: {
 		return map;
 	}, new Map<string, Topic>());
 	const joins = beautifyJoins({ subject, pickedTopicsMap, availableTopicsMap });
-	const levels: Array<Topic | null> = [];
+	const levels: Array<Topic | TopicJoinType | null> = [];
 
 	return <PartContent>
 		{hasJoin
@@ -189,14 +188,46 @@ export const From = (props: {
 					second: { topic: topic2 = null, topicPicked: picked2, factor: factor2 = null }
 				} = join;
 				if (levels.length === 0) {
-					levels.push(topic);
-					nodes.push(<TopicName topic={topic} picked={picked}/>);
-					nodes.push(<Join type={joinType}/>);
-					nodes.push(<TopicName topic={topic2} picked={picked2}/>);
-					nodes.push(<On/>);
-					nodes.push(<FactorName topic={topic} picked={picked} factor={factor}/>);
-					nodes.push(<Equals/>);
-					nodes.push(<FactorName topic={topic2} picked={picked} factor={factor2}/>);
+					levels.push(topic, joinType, topic2);
+					nodes.push(<TopicName topic={topic} picked={picked} key={v4()}/>);
+					nodes.push(<Join type={joinType} key={v4()}/>);
+					nodes.push(<TopicName topic={topic2} picked={picked2} key={v4()}/>);
+					nodes.push(<On key={v4()}/>);
+					nodes.push(<FactorName topic={topic} picked={picked} factor={factor} key={v4()}/>);
+					nodes.push(<Equals key={v4()}/>);
+					nodes.push(<FactorName topic={topic2} picked={picked} factor={factor2} key={v4()}/>);
+				} else if (levels.length === 3) {
+					if (topic === levels[0]) {
+						if (topic2 === levels[2] && joinType === levels[1]) {
+							nodes.push(<NewLine key={v4()}/>);
+							nodes.push(<And key={v4()}/>);
+							nodes.push(<FactorName topic={topic} picked={picked} factor={factor} key={v4()}/>);
+							nodes.push(<Equals key={v4()}/>);
+							nodes.push(<FactorName topic={topic2} picked={picked} factor={factor2} key={v4()}/>);
+						} else {
+							levels[1] = joinType;
+							levels[2] = topic2;
+							nodes.push(<NewLine key={v4()}/>);
+							nodes.push(<Join type={joinType} key={v4()}/>);
+							nodes.push(<TopicName topic={topic2} picked={picked2} key={v4()}/>);
+							nodes.push(<On key={v4()}/>);
+							nodes.push(<FactorName topic={topic} picked={picked} factor={factor} key={v4()}/>);
+							nodes.push(<Equals key={v4()}/>);
+							nodes.push(<FactorName topic={topic2} picked={picked} factor={factor2} key={v4()}/>);
+						}
+					} else {
+						levels.length = 0;
+						levels.push(topic, joinType, topic2);
+						nodes.push(<Comma key={v4()}/>);
+						nodes.push(<NewLine key={v4()}/>);
+						nodes.push(<TopicName topic={topic} picked={picked} key={v4()}/>);
+						nodes.push(<Join type={joinType} key={v4()}/>);
+						nodes.push(<TopicName topic={topic2} picked={picked2} key={v4()}/>);
+						nodes.push(<On key={v4()}/>);
+						nodes.push(<FactorName topic={topic} picked={picked} factor={factor} key={v4()}/>);
+						nodes.push(<Equals key={v4()}/>);
+						nodes.push(<FactorName topic={topic2} picked={picked} factor={factor2} key={v4()}/>);
+					}
 				}
 				return nodes;
 			}).flat()
