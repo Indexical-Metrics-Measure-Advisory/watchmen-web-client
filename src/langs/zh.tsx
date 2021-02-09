@@ -150,7 +150,19 @@ export const Zh = {
 			NO_DATASET_JOIN_FOR_SUBJECT: '尚未定义数据集关联关系, 现在就',
 			CREATE_DATASET_JOIN_WHEN_NONE: '开始',
 			NO_DATASET_JOIN_FOR_SUBJECT_2: '吗?',
-			ADD_SUBJECT_JOIN: '添加数据集关联'
+			ADD_SUBJECT_JOIN: '添加数据集关联',
+			SUBJECT_SELECT: '选取数据列:',
+			SUBJECT_NO_SELECT: '尚未定义数据列.',
+			SUBJECT_FROM: '选自:',
+			SUBJECT_NO_FROM: '尚未定义数据集关联关系.',
+			SUBJECT_JOIN_INNER: '连接到',
+			SUBJECT_JOIN_LEFT: '左连接到',
+			SUBJECT_JOIN_RIGHT: '右连接到',
+			SUBJECT_JOIN_ON: '使用',
+			SUBJECT_JOIN_EQUALS: '等于',
+			SUBJECT_JOIN_AND: '并且',
+			SUBJECT_WHERE: '按以下条件:',
+			SUBJECT_NO_WHERE: '尚未定义数据过滤条件.'
 		},
 		SETTINGS: {
 			TITLE: '设置',

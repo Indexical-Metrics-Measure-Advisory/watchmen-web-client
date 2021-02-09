@@ -4,6 +4,7 @@ import { DROPDOWN_Z_INDEX } from '../../../../../basic-widgets/constants';
 export const JoinsContainer = styled.div.attrs<{ active: boolean }>(({ active }) => {
 	return {
 		'data-widget': 'subject-def-joins',
+		'data-v-scroll': '',
 		style: {
 			paddingRight: active ? (void 0) : 0,
 			overflowY: active ? (void 0) : 'hidden'

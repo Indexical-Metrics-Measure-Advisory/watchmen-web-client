@@ -39,10 +39,10 @@ export const JoinTopicFactorEdit = (props: {
 		const onFactorChanged = (parameter: Parameter) => {
 			if (first) {
 				join.factorId = (parameter as TopicFactorParameter).factorId;
-				fireJoin(JoinEventTypes.FIRST_TOPIC_CHANGED, join);
+				fireJoin(JoinEventTypes.FIRST_FACTOR_CHANGED, join);
 			} else {
 				join.secondaryFactorId = (parameter as TopicFactorParameter).factorId;
-				fireJoin(JoinEventTypes.SECOND_TOPIC_CHANGED, join);
+				fireJoin(JoinEventTypes.SECOND_FACTOR_CHANGED, join);
 			}
 		};
 		on(ParameterEventTypes.TOPIC_CHANGED, onTopicChanged);
@@ -58,6 +58,8 @@ export const JoinTopicFactorEdit = (props: {
 		topicId: first ? join.topicId : join.secondaryTopicId,
 		factorId: first ? join.factorId : join.secondaryFactorId
 	};
+	console.log(first, parameter);
+
 	return <JoinTopicFactorEditContainer>
 		<TopicFactorEditor parameter={parameter}
 		                   availableTopics={availableTopics} pickedTopics={pickedTopics}/>

@@ -26,7 +26,9 @@ export const JoinEdit = (props: {
 			<ParameterEventBusProvider>
 				<JoinTopicFactorEdit subject={subject} join={join} first={true}
 				                     availableTopics={availableTopics} pickedTopics={pickedTopics}/>
-				<JoinTypeEdit join={join}/>
+			</ParameterEventBusProvider>
+			<JoinTypeEdit join={join}/>
+			<ParameterEventBusProvider>
 				<JoinTopicFactorEdit subject={subject} join={join} first={false}
 				                     availableTopics={availableTopics} pickedTopics={pickedTopics}/>
 			</ParameterEventBusProvider>
