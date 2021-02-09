@@ -1,7 +1,7 @@
 import {
 	SubjectDataSetColumn,
 	SubjectDataSetFilter,
-	SubjectDataSetFilterJoint
+	SubjectDataSetJoin
 } from '../../../../services/tuples/subject-types';
 import { Topic } from '../../../../services/tuples/topic-types';
 
@@ -25,7 +25,11 @@ export enum SubjectDefEventTypes {
 
 	DATASET_FILTER_ADDED = 'dataset-filter-added',
 	DATASET_FILTER_REMOVED = 'dataset-filter-removed',
-	DATASET_FILTER_CHANGED = 'dataset-filter-changed'
+	DATASET_FILTER_CHANGED = 'dataset-filter-changed',
+
+	DATASET_JOIN_ADDED = 'dataset-join-added',
+	DATASET_JOIN_REMOVED = 'dataset-join-removed',
+	DATASET_JOIN_CHANGED = 'dataset-join-changed'
 }
 
 export interface SubjectDefEventBus {
@@ -60,15 +64,27 @@ export interface SubjectDefEventBus {
 	on(type: SubjectDefEventTypes.DATASET_COLUMN_CHANGED, listener: (column: SubjectDataSetColumn) => void): this;
 	off(type: SubjectDefEventTypes.DATASET_COLUMN_CHANGED, listener: (column: SubjectDataSetColumn) => void): this;
 
-	fire(type: SubjectDefEventTypes.DATASET_FILTER_ADDED, filter: SubjectDataSetFilter, parent: SubjectDataSetFilterJoint): this;
-	on(type: SubjectDefEventTypes.DATASET_FILTER_ADDED, listener: (filter: SubjectDataSetFilter, parent: SubjectDataSetFilterJoint) => void): this;
-	off(type: SubjectDefEventTypes.DATASET_FILTER_ADDED, listener: (filter: SubjectDataSetFilter, parent: SubjectDataSetFilterJoint) => void): this;
+	fire(type: SubjectDefEventTypes.DATASET_FILTER_ADDED, filter: SubjectDataSetFilter): this;
+	on(type: SubjectDefEventTypes.DATASET_FILTER_ADDED, listener: (filter: SubjectDataSetFilter) => void): this;
+	off(type: SubjectDefEventTypes.DATASET_FILTER_ADDED, listener: (filter: SubjectDataSetFilter) => void): this;
 
-	fire(type: SubjectDefEventTypes.DATASET_FILTER_REMOVED, filter: SubjectDataSetFilter, parent: SubjectDataSetFilterJoint): this;
-	on(type: SubjectDefEventTypes.DATASET_FILTER_REMOVED, listener: (filter: SubjectDataSetFilter, parent: SubjectDataSetFilterJoint) => void): this;
-	off(type: SubjectDefEventTypes.DATASET_FILTER_REMOVED, listener: (filter: SubjectDataSetFilter, parent: SubjectDataSetFilterJoint) => void): this;
+	fire(type: SubjectDefEventTypes.DATASET_FILTER_REMOVED, filter: SubjectDataSetFilter): this;
+	on(type: SubjectDefEventTypes.DATASET_FILTER_REMOVED, listener: (filter: SubjectDataSetFilter) => void): this;
+	off(type: SubjectDefEventTypes.DATASET_FILTER_REMOVED, listener: (filter: SubjectDataSetFilter) => void): this;
 
 	fire(type: SubjectDefEventTypes.DATASET_FILTER_CHANGED, filter: SubjectDataSetFilter): this;
 	on(type: SubjectDefEventTypes.DATASET_FILTER_CHANGED, listener: (filter: SubjectDataSetFilter) => void): this;
 	off(type: SubjectDefEventTypes.DATASET_FILTER_CHANGED, listener: (filter: SubjectDataSetFilter) => void): this;
+
+	fire(type: SubjectDefEventTypes.DATASET_JOIN_ADDED, join: SubjectDataSetJoin): this;
+	on(type: SubjectDefEventTypes.DATASET_JOIN_ADDED, listener: (join: SubjectDataSetJoin) => void): this;
+	off(type: SubjectDefEventTypes.DATASET_JOIN_ADDED, listener: (join: SubjectDataSetJoin) => void): this;
+
+	fire(type: SubjectDefEventTypes.DATASET_JOIN_REMOVED, join: SubjectDataSetJoin): this;
+	on(type: SubjectDefEventTypes.DATASET_JOIN_REMOVED, listener: (join: SubjectDataSetJoin) => void): this;
+	off(type: SubjectDefEventTypes.DATASET_JOIN_REMOVED, listener: (join: SubjectDataSetJoin) => void): this;
+
+	fire(type: SubjectDefEventTypes.DATASET_JOIN_CHANGED, join: SubjectDataSetJoin): this;
+	on(type: SubjectDefEventTypes.DATASET_JOIN_CHANGED, listener: (join: SubjectDataSetJoin) => void): this;
+	off(type: SubjectDefEventTypes.DATASET_JOIN_CHANGED, listener: (join: SubjectDataSetJoin) => void): this;
 }

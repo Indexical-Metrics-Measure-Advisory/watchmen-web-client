@@ -149,7 +149,11 @@ export const En = {
 			CREATE_DATASET_FILTER_WHEN_NONE: 'create one',
 			NO_DATASET_FILTER_FOR_SUBJECT_2: '?',
 			ADD_SUBJECT_SUB_EXPRESSION_FILTER: 'Add Sub Expression',
-			ADD_SUBJECT_SUB_JOINT_FILTER: 'Add Sub Joint'
+			ADD_SUBJECT_SUB_JOINT_FILTER: 'Add Sub Joint',
+			NO_DATASET_JOIN_FOR_SUBJECT: 'No join defined, do you want ',
+			CREATE_DATASET_JOIN_WHEN_NONE: 'create one',
+			NO_DATASET_JOIN_FOR_SUBJECT_2: '?',
+			ADD_SUBJECT_JOIN: 'Add Join'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',
@@ -238,6 +242,11 @@ export const En = {
 		AND: 'And',
 		OR: 'OR'
 	},
+	JOIN: {
+		INNER: 'Exactly Match',
+		LEFT: 'Left Side Prioritized',
+		RIGHT: 'Right Side Prioritized'
+	},
 	FILTER: {
 		EXPRESSION: {
 			OPERATOR: {
@@ -250,7 +259,7 @@ export const En = {
 				MORE: 'Greater than',
 				MORE_EQUALS: 'Greater than or Equals',
 				IN: 'In',
-				NOT_IN: 'Not In',
+				NOT_IN: 'Not In'
 			}
 		}
 	}

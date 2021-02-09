@@ -11,7 +11,9 @@ import {
 	Subject,
 	SubjectDataSetColumn,
 	SubjectDataSetFilterExpression,
-	SubjectDataSetFilterJoint
+	SubjectDataSetFilterJoint,
+	SubjectDataSetJoin,
+	TopicJoinType
 } from '../../../../services/tuples/subject-types';
 
 export const createTopicFactorParameter = (): TopicFactorParameter => {
@@ -51,6 +53,15 @@ export const createSubjectDataSetJoint = (subject: Subject, parentJointType: Fil
 	return {
 		jointType: parentJointType === FilterJointType.AND ? FilterJointType.OR : FilterJointType.AND,
 		filters: [ createSubjectDataSetFilter(subject) ]
+	};
+};
+export const createSubjectDataSetJoin = (subject: Subject): SubjectDataSetJoin => {
+	return {
+		topicId: '',
+		factorId: '',
+		secondaryTopicId: '',
+		secondaryFactorId: '',
+		type: TopicJoinType.INNER
 	};
 };
 

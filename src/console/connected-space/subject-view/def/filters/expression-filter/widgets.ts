@@ -111,7 +111,8 @@ export const ExpressionSide = styled.div.attrs<{ shorten: boolean }>(({ shorten 
 		box-shadow                 : var(--param-border);
 		border-top-right-radius    : calc(var(--param-height) / 2);
 		border-bottom-right-radius : calc(var(--param-height) / 2);
-		&:hover {
+		&:hover,
+		&:focus {
 			box-shadow : var(--primary-hover-shadow);
 		}
 	}

@@ -2,7 +2,7 @@ import React, { MouseEvent } from 'react';
 import { ButtonInk } from '../../../../../basic-widgets/types';
 import { Lang } from '../../../../../langs';
 import { Subject } from '../../../../../services/tuples/subject-types';
-import { createSubjectDataSetColumn } from '../data-utils';
+import { createSubjectDataSetColumn, createSubjectDataSetJoin } from '../data-utils';
 import { useSubjectDefEventBus } from '../subject-def-event-bus';
 import { SubjectDefEventTypes } from '../subject-def-event-bus-types';
 import { HeaderCell } from './header-cell';
@@ -30,6 +30,13 @@ export const Header = (props: {
 		subject.dataset.columns.push(column);
 		fire(SubjectDefEventTypes.DATASET_COLUMN_ADDED, column);
 	};
+	const onAddJoinClicked = (event: MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+		event.stopPropagation();
+		const join = createSubjectDataSetJoin(subject);
+		subject.dataset.joins.push(join);
+		fire(SubjectDefEventTypes.DATASET_JOIN_ADDED, join);
+	};
 
 	return <SubjectDefHeader activeIndex={activeIndex}>
 		<HeaderCell active={activeIndex === 1} activeIndex={1} label={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_PICK_TOPICS}
@@ -45,7 +52,11 @@ export const Header = (props: {
 		<HeaderCell active={activeIndex === 3} activeIndex={3} label={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_FILTER_DATA}
 		            onClick={onChangeActiveIndex}/>
 		<HeaderCell active={activeIndex === 4} activeIndex={4} label={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_SET_JOINS}
-		            onClick={onChangeActiveIndex}/>
+		            onClick={onChangeActiveIndex}>
+			<DefHeaderButton ink={ButtonInk.PRIMARY} onClick={onAddJoinClicked}>
+				<span>{Lang.CONSOLE.CONNECTED_SPACE.ADD_SUBJECT_JOIN}</span>
+			</DefHeaderButton>
+		</HeaderCell>
 		<HeaderCell active={activeIndex === 5} activeIndex={5} label={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_DEF_OVERVIEW}
 		            onClick={onChangeActiveIndex} next={false}/>
 	</SubjectDefHeader>;

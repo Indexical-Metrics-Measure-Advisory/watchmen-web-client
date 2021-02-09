@@ -19,7 +19,7 @@ export const NoFilter = (props: { subject: Subject, active: boolean }) => {
 	const onAddClicked = () => {
 		const filter = createSubjectDataSetFilter(subject);
 		subject.dataset.filters.filters.push(filter);
-		fire(SubjectDefEventTypes.DATASET_FILTER_ADDED, filter, subject.dataset.filters);
+		fire(SubjectDefEventTypes.DATASET_FILTER_ADDED, filter);
 	};
 
 	return <SubjectDefNoData active={active} visible={visible}>

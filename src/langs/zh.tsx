@@ -146,7 +146,11 @@ export const Zh = {
 			CREATE_DATASET_FILTER_WHEN_NONE: '开始',
 			NO_DATASET_FILTER_FOR_SUBJECT_2: '吗?',
 			ADD_SUBJECT_SUB_EXPRESSION_FILTER: '添加过滤条件',
-			ADD_SUBJECT_SUB_JOINT_FILTER: '添加子联合条件'
+			ADD_SUBJECT_SUB_JOINT_FILTER: '添加子联合条件',
+			NO_DATASET_JOIN_FOR_SUBJECT: '尚未定义数据集关联关系, 现在就',
+			CREATE_DATASET_JOIN_WHEN_NONE: '开始',
+			NO_DATASET_JOIN_FOR_SUBJECT_2: '吗?',
+			ADD_SUBJECT_JOIN: '添加数据集关联'
 		},
 		SETTINGS: {
 			TITLE: '设置',
@@ -234,6 +238,11 @@ export const Zh = {
 	JOINT: {
 		AND: '与',
 		OR: '或'
+	},
+	JOIN: {
+		INNER: '精确匹配',
+		LEFT: '左侧优先',
+		RIGHT: '右侧优先'
 	},
 	FILTER: {
 		EXPRESSION: {

@@ -24,6 +24,10 @@ export const SubjectDefSaver = (props: { connectedSpace: ConnectedSpace, subject
 		on(SubjectDefEventTypes.DATASET_FILTER_ADDED, onChanged);
 		on(SubjectDefEventTypes.DATASET_FILTER_REMOVED, onChanged);
 		on(SubjectDefEventTypes.DATASET_FILTER_CHANGED, onChanged);
+
+		on(SubjectDefEventTypes.DATASET_JOIN_ADDED, onChanged);
+		on(SubjectDefEventTypes.DATASET_JOIN_REMOVED, onChanged);
+		on(SubjectDefEventTypes.DATASET_JOIN_CHANGED, onChanged);
 		return () => {
 			off(SubjectDefEventTypes.DATASET_COLUMN_ADDED, onChanged);
 			off(SubjectDefEventTypes.DATASET_COLUMN_REMOVED, onChanged);
@@ -32,6 +36,10 @@ export const SubjectDefSaver = (props: { connectedSpace: ConnectedSpace, subject
 			off(SubjectDefEventTypes.DATASET_FILTER_ADDED, onChanged);
 			off(SubjectDefEventTypes.DATASET_FILTER_REMOVED, onChanged);
 			off(SubjectDefEventTypes.DATASET_FILTER_CHANGED, onChanged);
+
+			off(SubjectDefEventTypes.DATASET_JOIN_ADDED, onChanged);
+			off(SubjectDefEventTypes.DATASET_JOIN_REMOVED, onChanged);
+			off(SubjectDefEventTypes.DATASET_JOIN_CHANGED, onChanged);
 		};
 	}, [ on, off, fireSubject, subject ]);
 

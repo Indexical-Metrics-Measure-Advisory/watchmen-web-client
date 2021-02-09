@@ -27,10 +27,10 @@ const TopFilter = (props: {
 			fireDef(SubjectDefEventTypes.DATASET_FILTER_CHANGED, joint);
 		};
 		const onFilterAdded = (subFilter: SubjectDataSetFilter) => {
-			fireDef(SubjectDefEventTypes.DATASET_FILTER_ADDED, subFilter, joint);
+			fireDef(SubjectDefEventTypes.DATASET_FILTER_ADDED, subFilter);
 		};
 		const onFilterRemoved = (subFilter: SubjectDataSetFilter) => {
-			fireDef(SubjectDefEventTypes.DATASET_FILTER_REMOVED, subFilter, joint);
+			fireDef(SubjectDefEventTypes.DATASET_FILTER_REMOVED, subFilter);
 		};
 
 		on(FilterEventTypes.JOINT_TYPE_CHANGED, onJointChanged);

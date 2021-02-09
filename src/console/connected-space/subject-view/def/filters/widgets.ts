@@ -65,6 +65,6 @@ export const RemoveFilterIcon = styled.div.attrs({ 'data-widget': 'filter-remove
 		box-shadow       : var(--danger-hover-shadow);
 	}
 	> svg {
-		font-size : 0.9em;
+		font-size : 0.8em;
 	}
 `;
