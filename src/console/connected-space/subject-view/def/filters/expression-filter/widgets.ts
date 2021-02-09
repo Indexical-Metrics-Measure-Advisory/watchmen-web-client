@@ -93,28 +93,8 @@ export const ExpressionSide = styled.div.attrs<{ shorten: boolean }>(({ shorten 
 		box-shadow : var(--param-left-border);
 	}
 	> div[data-widget="parameter-from-edit"] {
-		//border-top-right-radius    : 0;
-		//border-bottom-right-radius : 0;
-		//&:nth-last-child(2) {
-		//	border-radius: calc(var(--param-height) / 2);
-		//}
-	}
-	> input[data-widget="parameter-constant-input"] {
-		box-shadow                 : var(--param-top-border), var(--param-right-border), var(--param-bottom-border);
-		border-top-right-radius    : calc(var(--param-height) / 2);
-		border-bottom-right-radius : calc(var(--param-height) / 2);
-		&:hover {
-			box-shadow : var(--primary-hover-shadow);
-		}
-	}
-	> div[data-widget="parameter-topic-factor-edit"] > div[data-widget="dropdown"]:last-child {
-		box-shadow                 : var(--param-border);
-		border-top-right-radius    : calc(var(--param-height) / 2);
-		border-bottom-right-radius : calc(var(--param-height) / 2);
-		&:hover,
-		&:focus {
-			box-shadow : var(--primary-hover-shadow);
-		}
+		border-top-right-radius    : 0;
+		border-bottom-right-radius : 0;
 	}
 `;
 
