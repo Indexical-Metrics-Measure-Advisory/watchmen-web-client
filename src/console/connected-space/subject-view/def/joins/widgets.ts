@@ -193,7 +193,7 @@ export const RemoveJoinIcon = styled.div.attrs({ 'data-widget': 'join-remove-ico
 		z-index          : 1;
 		color            : var(--danger-color);
 		background-color : var(--bg-color);
-		box-shadow       : var(--danger-hover-shadow);
+		box-shadow       : var(--param-danger-border), var(--danger-hover-shadow);
 	}
 	> svg {
 		font-size : 0.8em;

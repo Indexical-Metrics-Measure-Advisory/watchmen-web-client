@@ -40,10 +40,10 @@ export const ConstantEdit = (props: { parameter: Parameter }) => {
 };
 
 export const ConstantValueEditor = styled(ConstantEdit)`
-	border-radius : 0;
-	box-shadow : var(--param-top-border), var(--param-bottom-border);
+	border-radius : 0 calc(var(--param-height) / 2) calc(var(--param-height) / 2) 0;
+	box-shadow    : var(--param-top-border), var(--param-right-border), var(--param-bottom-border);
 	// redefine since box-shadow overridden
 	&:hover {
-		box-shadow       : var(--primary-hover-shadow);
+		box-shadow : var(--primary-hover-shadow);
 	}
 `;

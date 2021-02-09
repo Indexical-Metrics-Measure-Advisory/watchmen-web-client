@@ -146,8 +146,8 @@ export const TopicFactorEditor = styled(TopicFactorEdit)`
 			box-shadow    : var(--param-top-border), var(--param-bottom-border);
 		}
 		&:last-child {
-			border-radius : 0;
-			box-shadow    : var(--param-top-border), var(--param-left-border), var(--param-bottom-border);
+			border-radius : 0 calc(var(--param-height) / 2) calc(var(--param-height) / 2) 0;
+			box-shadow    : var(--param-border);
 		}
 		// redefine since box-shadow overridden by first-child/last-child
 		&:hover,

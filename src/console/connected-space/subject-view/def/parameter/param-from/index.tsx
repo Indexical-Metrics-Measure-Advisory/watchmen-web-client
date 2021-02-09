@@ -90,7 +90,12 @@ export const ParameterFromEdit = (props: { parameter: Parameter }) => {
 	</ParameterFromEditContainer>;
 };
 
-export const ParameterFromEditor = styled(ParameterFromEdit)`
-	border-top-right-radius    : 0;
-	border-bottom-right-radius : 0;
+export const ParameterFromEditor = styled(ParameterFromEdit).attrs<{ shorten: boolean }>(({ shorten }) => {
+	return {
+		style: {
+			borderTopRightRadius: shorten ? 'calc(var(--param-height) / 2)' : (void 0),
+			borderBottomRightRadius: shorten ? 'calc(var(--param-height) / 2)' : (void 0)
+		}
+	};
+})<{ shorten: boolean }>`
 `;

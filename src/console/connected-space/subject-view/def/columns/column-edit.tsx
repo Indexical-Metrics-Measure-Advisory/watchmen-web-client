@@ -7,6 +7,7 @@ import { Subject, SubjectDataSetColumn } from '../../../../../services/tuples/su
 import { Topic } from '../../../../../services/tuples/topic-types';
 import { ComputedEditor } from '../parameter/computed';
 import { ConstantValueEditor } from '../parameter/constant';
+import { ParameterFromEditor } from '../parameter/param-from';
 import { ParameterEventBusProvider, useParameterEventBus } from '../parameter/parameter-event-bus';
 import { ParameterEventTypes } from '../parameter/parameter-event-bus-types';
 import { TopicFactorEditor } from '../parameter/topic-factor';
@@ -17,7 +18,7 @@ import { AliasEditor } from './alias-edit';
 import { Column2DefEventBridge } from './column-2-def-event-bridge';
 import { ColumnEventBusProvider } from './column-event-bus';
 import { Parameter2ColumnEventBridge } from './parameter-2-column-event-bridge';
-import { ColumnEditContainer, ColumnEditWrapper, ColumnIndex, ParameterFromEditorForColumn } from './widgets';
+import { ColumnEditContainer, ColumnEditWrapper, ColumnIndex } from './widgets';
 
 export const ColumnEditor = (props: {
 	subject: Subject;
@@ -47,7 +48,8 @@ export const ColumnEditor = (props: {
 
 	// computed parameter collapse/expand
 	return <ColumnEditWrapper shorten={column.parameter.from === ParameterFrom.COMPUTED}>
-		<ParameterFromEditorForColumn parameter={column.parameter}/>
+		<ParameterFromEditor shorten={column.parameter.from === ParameterFrom.COMPUTED}
+		                     parameter={column.parameter}/>
 		<ConstantValueEditor parameter={column.parameter}/>
 		<TopicFactorEditor parameter={column.parameter}
 		                   availableTopics={availableTopics} pickedTopics={pickedTopics}/>

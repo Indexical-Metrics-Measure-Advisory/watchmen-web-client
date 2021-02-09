@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { useForceUpdate } from '../../../../../../basic-widgets/utils';
 import { ComputedParameter, Parameter, ParameterFrom } from '../../../../../../services/tuples/factor-calculator-types';
 import { Topic } from '../../../../../../services/tuples/topic-types';
-import { SubParameterEditBody } from './sub-parameter-edit-body';
-import { SubParameterEditContainer } from './widgets';
 import { ParameterFromEditor } from '../param-from';
 import { useParameterEventBus } from '../parameter-event-bus';
 import { ParameterEventTypes } from '../parameter-event-bus-types';
+import { SubParameterEditBody } from './sub-parameter-edit-body';
+import { SubParameterEditContainer } from './widgets';
 
 export const SubParameterEdit = (props: {
 	availableTopics: Array<Topic>;
@@ -31,7 +31,8 @@ export const SubParameterEdit = (props: {
 	}, [ on, off, forceUpdate ]);
 
 	return <SubParameterEditContainer shorten={parameter.from === ParameterFrom.COMPUTED}>
-		<ParameterFromEditor parameter={parameter}/>
+		<ParameterFromEditor shorten={parameter.from === ParameterFrom.COMPUTED}
+		                     parameter={parameter}/>
 		<SubParameterEditBody parameter={parameter} parentParameter={parentParameter}
 		                      availableTopics={availableTopics} pickedTopics={pickedTopics}
 		                      onDeleted={onDeleted}/>

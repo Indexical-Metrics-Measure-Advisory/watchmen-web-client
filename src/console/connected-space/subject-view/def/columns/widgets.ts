@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Input } from '../../../../../basic-widgets/input';
-import { ParameterFromEditor } from '../parameter/param-from';
 
 export const ColumnsContainer = styled.div.attrs<{ active: boolean }>(({ active }) => {
 	return {
@@ -76,6 +75,17 @@ export const AliasEdit = styled.div.attrs({ 'data-widget': 'subject-def-column-a
 	align-self   : stretch;
 	justify-self : stretch;
 	height       : var(--param-height);
+	margin-left  : calc(var(--margin) / 2);
+	&:before {
+		content          : '';
+		display          : block;
+		position         : absolute;
+		left             : calc(var(--margin) / -2);
+		top              : 50%;
+		height           : 1px;
+		width            : calc(var(--margin) / 2);
+		background-color : var(--param-bg-color);
+	}
 `;
 export const AliasLabel = styled.div.attrs({ 'data-widget': 'subject-def-column-alias-edit-label' })`
 	display          : flex;
@@ -86,6 +96,7 @@ export const AliasLabel = styled.div.attrs({ 'data-widget': 'subject-def-column-
 	font-variant     : petite-caps;
 	font-weight      : var(--font-bold);
 	padding          : 0 calc(var(--margin) / 4);
+	border-radius    : calc(var(--param-height) / 2) 0 0 calc(var(--param-height) / 2);
 	box-shadow       : var(--param-top-border), var(--param-bottom-border);
 	cursor           : pointer;
 `;
@@ -93,24 +104,11 @@ export const AliasEditInput = styled(Input).attrs({ 'data-widget': 'subject-def-
 	width         : 200px;
 	height        : var(--param-height);
 	border        : 0;
-	border-radius : 0;
-	box-shadow    : var(--param-top-border), var(--param-bottom-border), var(--param-left-border);
+	border-radius : 0 calc(var(--param-height) / 2) calc(var(--param-height) / 2) 0;
+	box-shadow    : var(--param-border);
 	&:hover {
 		z-index          : 1;
 		background-color : var(--bg-color);
 		box-shadow       : var(--primary-hover-shadow);
 	}
 `;
-export const ParameterFromEditorForColumn = styled(ParameterFromEditor)`
-	& + div[data-widget="subject-def-column-alias-edit"]:before {
-		content          : '';
-		display          : block;
-		position         : absolute;
-		top              : 30%;
-		left             : 0;
-		width            : 1px;
-		height           : 40%;
-		background-color : var(--bg-color);
-		opacity          : 0.5;
-	}
-`
