@@ -1,8 +1,87 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { v4 } from 'uuid';
 import { Lang } from '../../../../../langs';
-import { Subject } from '../../../../../services/tuples/subject-types';
+import {
+	FilterJointType,
+	Subject,
+	SubjectDataSetFilter,
+	SubjectDataSetFilterExpression,
+	SubjectDataSetFilterJoint
+} from '../../../../../services/tuples/subject-types';
+import { isExpressionFilter, isJointFilter } from '../../../../../services/tuples/subject-utils';
 import { Topic } from '../../../../../services/tuples/topic-types';
+import { FilterExpressionOperatorLabels } from '../filters/constants';
+import { JointAnd, JointOr, NewLine, NoStatement, ParameterLine, UnknownFilter } from './literal';
+import { buildTopicsMap, fromParameter } from './literal-utils';
+import { BracketNode, FilterExpressionOperatorNode } from './literal-widgets';
 import { EmptyPart, PartContent } from './widgets';
+
+const FilterExpression = (props: {
+	subject: Subject;
+	expression: SubjectDataSetFilterExpression;
+	availableTopicsMap: Map<string, Topic>;
+	pickedTopicsMap: Map<string, Topic>;
+}) => {
+	const { expression: { left, operator, right }, availableTopicsMap, pickedTopicsMap } = props;
+
+	const buildLeft = fromParameter({ parameter: left, availableTopicsMap, pickedTopicsMap });
+	const buildRight = fromParameter({ parameter: right, availableTopicsMap, pickedTopicsMap });
+
+	return <>
+		<ParameterLine pretty={buildLeft}/>
+		<FilterExpressionOperatorNode>{FilterExpressionOperatorLabels[operator]}</FilterExpressionOperatorNode>
+		<ParameterLine pretty={buildRight}/>
+	</>;
+};
+
+const FilterJoint = (props: {
+	subject: Subject;
+	joint: SubjectDataSetFilterJoint;
+	availableTopicsMap: Map<string, Topic>;
+	pickedTopicsMap: Map<string, Topic>;
+}) => {
+	const { subject, joint: { jointType, filters }, availableTopicsMap, pickedTopicsMap } = props;
+
+	return <>
+		{filters.length === 0
+			? <NoStatement/>
+			: filters.map((filter, filterIndex) => {
+				return <Fragment key={v4()}>
+					{filterIndex !== 0
+						? <NewLine/>
+						: null}
+					{filterIndex !== 0
+						? (jointType === FilterJointType.OR ? <JointOr/> : <JointAnd/>)
+						: null}
+					<Filter subject={subject} filter={filter}
+					        availableTopicsMap={availableTopicsMap} pickedTopicsMap={pickedTopicsMap}/>
+				</Fragment>;
+			})}
+	</>;
+};
+
+const Filter = (props: {
+	subject: Subject;
+	filter: SubjectDataSetFilter;
+	availableTopicsMap: Map<string, Topic>;
+	pickedTopicsMap: Map<string, Topic>;
+}) => {
+	const { subject, filter, availableTopicsMap, pickedTopicsMap } = props;
+
+	if (isJointFilter(filter)) {
+		return <>
+			<BracketNode>(</BracketNode>
+			<FilterJoint subject={subject} joint={filter}
+			             availableTopicsMap={availableTopicsMap} pickedTopicsMap={pickedTopicsMap}/>
+			<BracketNode>)</BracketNode>
+		</>;
+	} else if (isExpressionFilter(filter)) {
+		return <FilterExpression subject={subject} expression={filter}
+		                         availableTopicsMap={availableTopicsMap} pickedTopicsMap={pickedTopicsMap}/>;
+	} else {
+		return <UnknownFilter/>;
+	}
+};
 
 export const Where = (props: {
 	subject: Subject;
@@ -19,12 +98,12 @@ export const Where = (props: {
 	const hasFilter = subject.dataset.filters
 		&& subject.dataset.filters.filters
 		&& subject.dataset.filters.filters.length !== 0;
+	const { availableTopicsMap, pickedTopicsMap } = buildTopicsMap({ availableTopics, pickedTopics });
 
 	return <PartContent>
 		{hasFilter
-			? subject.dataset.filters.filters.map(filter => {
-
-			})
+			? <FilterJoint subject={subject} joint={subject.dataset.filters}
+			               availableTopicsMap={availableTopicsMap} pickedTopicsMap={pickedTopicsMap}/>
 			: <EmptyPart>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_NO_WHERE}</EmptyPart>}
 	</PartContent>;
 };

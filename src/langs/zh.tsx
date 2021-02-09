@@ -166,7 +166,9 @@ export const Zh = {
 			SUBJECT_UNKNOWN_PARAMETER: '未知参数',
 			SUBJECT_EMPTY_CONSTANT: '空值',
 			SUBJECT_COLUMN_AS: '作为',
-			SUBJECT_NO_ALIAS: '?'
+			SUBJECT_NO_ALIAS: '?',
+			SUBJECT_FILTER_JOINT_NO_STATEMENT: '没有联合条件',
+			SUBJECT_UNKNOWN_FILTER: '未知过滤条件'
 		},
 		SETTINGS: {
 			TITLE: '设置',

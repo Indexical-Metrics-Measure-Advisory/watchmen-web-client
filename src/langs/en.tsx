@@ -169,7 +169,9 @@ export const En = {
 			SUBJECT_UNKNOWN_PARAMETER: 'Unknown Parameter',
 			SUBJECT_EMPTY_CONSTANT: 'Empty Constant Value',
 			SUBJECT_COLUMN_AS: 'As',
-			SUBJECT_NO_ALIAS: '?'
+			SUBJECT_NO_ALIAS: '?',
+			SUBJECT_FILTER_JOINT_NO_STATEMENT: 'No Statement in Joint',
+			SUBJECT_UNKNOWN_FILTER: 'Unknown Filter'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',

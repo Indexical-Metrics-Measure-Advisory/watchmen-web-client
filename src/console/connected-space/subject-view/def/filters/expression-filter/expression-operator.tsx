@@ -2,11 +2,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { MouseEvent, useRef, useState } from 'react';
 import { ICON_EDIT } from '../../../../../../basic-widgets/constants';
 import { useCollapseFixedThing } from '../../../../../../basic-widgets/utils';
-import { Lang } from '../../../../../../langs';
 import {
 	FilterExpressionOperator,
 	SubjectDataSetFilterExpression
 } from '../../../../../../services/tuples/subject-types';
+import { FilterExpressionOperatorLabels } from '../constants';
 import { useFilterEventBus } from '../filter-event-bus';
 import { FilterEventTypes } from '../filter-event-bus-types';
 import {
@@ -17,19 +17,6 @@ import {
 	ExpressionOperatorLabel,
 	ExpressionOperatorOption
 } from './widgets';
-
-const Labels: { [key in FilterExpressionOperator]: string } = {
-	[FilterExpressionOperator.EMPTY]: Lang.FILTER.EXPRESSION.OPERATOR.EMPTY,
-	[FilterExpressionOperator.NOT_EMPTY]: Lang.FILTER.EXPRESSION.OPERATOR.NOT_EMPTY,
-	[FilterExpressionOperator.EQUALS]: Lang.FILTER.EXPRESSION.OPERATOR.EQUALS,
-	[FilterExpressionOperator.NOT_EQUALS]: Lang.FILTER.EXPRESSION.OPERATOR.NOT_EQUALS,
-	[FilterExpressionOperator.LESS]: Lang.FILTER.EXPRESSION.OPERATOR.LESS,
-	[FilterExpressionOperator.LESS_EQUALS]: Lang.FILTER.EXPRESSION.OPERATOR.LESS_EQUALS,
-	[FilterExpressionOperator.MORE]: Lang.FILTER.EXPRESSION.OPERATOR.MORE,
-	[FilterExpressionOperator.MORE_EQUALS]: Lang.FILTER.EXPRESSION.OPERATOR.MORE_EQUALS,
-	[FilterExpressionOperator.IN]: Lang.FILTER.EXPRESSION.OPERATOR.IN,
-	[FilterExpressionOperator.NOT_IN]: Lang.FILTER.EXPRESSION.OPERATOR.NOT_IN
-};
 
 const AvailableOperators = [
 	FilterExpressionOperator.EMPTY,
@@ -86,7 +73,7 @@ export const ExpressionOperator = (props: { filter: SubjectDataSetFilterExpressi
 	};
 
 	return <ExpressionOperatorContainer onClick={onStartClicked} ref={containerRef}>
-		<ExpressionOperatorLabel>{Labels[filter.operator]}</ExpressionOperatorLabel>
+		<ExpressionOperatorLabel>{FilterExpressionOperatorLabels[filter.operator]}</ExpressionOperatorLabel>
 		<ExpressionOperatorIcon>
 			<FontAwesomeIcon icon={ICON_EDIT}/>
 		</ExpressionOperatorIcon>
@@ -95,7 +82,7 @@ export const ExpressionOperator = (props: { filter: SubjectDataSetFilterExpressi
 				return <ExpressionOperatorOption selected={operator === filter.operator}
 				                                 onClick={onOperatorClick(operator)}
 				                                 key={operator}>
-					{Labels[operator]}
+					{FilterExpressionOperatorLabels[operator]}
 				</ExpressionOperatorOption>;
 			})}
 		</ExpressionOperatorDropdown>

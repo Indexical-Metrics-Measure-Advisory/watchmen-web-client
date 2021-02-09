@@ -9,7 +9,6 @@ import { ParameterComputeTypeLabels } from '../parameter/constants';
 import { PrettyComputed, PrettyConstant, PrettyFactor } from './literal-types';
 import {
 	AliasNode,
-	AndNode,
 	AsNode,
 	BracketNode,
 	CommaNode,
@@ -19,11 +18,16 @@ import {
 	EqualsNode,
 	ExoticNode,
 	FactorNode,
+	JoinAndNode,
 	JoinNode,
+	JointAndNode,
+	JointOrNode,
 	NamePair,
 	NewLineNode,
+	NoStatementNode,
 	OnNode,
 	TopicNode,
+	UnknownFilterNode,
 	UnknownNode,
 	UnknownParameterNode
 } from './literal-widgets';
@@ -40,7 +44,9 @@ export const Comma = () => <CommaNode>,</CommaNode>;
 export const On = () => <OnNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_ON}</OnNode>;
 export const Equals = () => <EqualsNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_EQUALS}</EqualsNode>;
 export const NewLine = () => <NewLineNode/>;
-export const JoinAnd = () => <AndNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_AND}</AndNode>;
+export const JoinAnd = () => <JoinAndNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_AND}</JoinAndNode>;
+export const JointAnd = () => <JointAndNode>{Lang.JOINT.AND}</JointAndNode>;
+export const JointOr = () => <JointOrNode>{Lang.JOINT.OR}</JointOrNode>;
 const Dot = () => <DotNode>.</DotNode>;
 export const As = () => <AsNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_COLUMN_AS}</AsNode>;
 
@@ -131,3 +137,7 @@ export const ParameterLine = (props: { pretty: PrettyConstant | PrettyFactor | P
 		return null;
 	}
 };
+export const NoStatement = () =>
+	<NoStatementNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_FILTER_JOINT_NO_STATEMENT}</NoStatementNode>;
+export const UnknownFilter = () =>
+	<UnknownFilterNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_UNKNOWN_FILTER}</UnknownFilterNode>;

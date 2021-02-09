@@ -23,13 +23,31 @@ export const AsNode = styled.span.attrs({ 'data-widget': 'as' })`
 	padding        : 0 calc(var(--margin) / 4);
 	color          : var(--info-color);
 `;
-export const AndNode = styled.span.attrs({ 'data-widget': 'and' })`
+export const JoinAndNode = styled.span.attrs({ 'data-widget': 'join-and' })`
 	line-height    : var(--line-height);
 	font-variant   : petite-caps;
 	font-weight    : var(--font-demi-bold);
 	text-transform : capitalize;
 	padding        : 0 calc(var(--margin) / 4);
 	margin-left    : calc(var(--margin) * 4);
+	color          : var(--info-color);
+`;
+export const JointAndNode = styled.span.attrs({ 'data-widget': 'joint-and' })`
+	line-height    : var(--line-height);
+	font-variant   : petite-caps;
+	font-weight    : var(--font-demi-bold);
+	text-transform : capitalize;
+	padding        : 0 calc(var(--margin) / 4);
+	margin-left    : calc(var(--margin) / 2);
+	color          : var(--info-color);
+`;
+export const JointOrNode = styled.span.attrs({ 'data-widget': 'joint-or' })`
+	line-height    : var(--line-height);
+	font-variant   : petite-caps;
+	font-weight    : var(--font-demi-bold);
+	text-transform : capitalize;
+	padding        : 0 calc(var(--margin) / 4);
+	margin-left    : calc(var(--margin) / 2);
 	color          : var(--info-color);
 `;
 export const NewLineNode = styled.br.attrs({ 'data-widget': 'new-line' })`
@@ -77,6 +95,20 @@ export const UnknownParameterNode = styled.span.attrs({ 'data-widget': 'unknown-
 	transform        : scale(1.2);
 	transform-origin : bottom;
 `;
+export const UnknownFilterNode = styled.span.attrs({ 'data-widget': 'unknown-filter' })`
+	font-variant     : petite-caps;
+	font-weight      : var(--font-boldest);
+	color            : var(--danger-color);
+	transform        : scale(1.2);
+	transform-origin : bottom;
+`;
+export const NoStatementNode = styled.span.attrs({ 'data-widget': 'no-statement' })`
+	font-variant     : petite-caps;
+	font-weight      : var(--font-boldest);
+	color            : var(--danger-color);
+	transform        : scale(1.2);
+	transform-origin : bottom;
+`;
 export const ComputeStatementTypeNode = styled.span.attrs({ 'data-widget': 'compute' })`
 	line-height    : var(--line-height);
 	font-variant   : petite-caps;
@@ -103,4 +135,12 @@ export const UnknownNode = styled.span.attrs({ 'data-widget': 'unknown' })`
 	color            : var(--danger-color);
 	transform        : scale(1.2);
 	transform-origin : bottom;
+`;
+export const FilterExpressionOperatorNode = styled.span.attrs({ 'data-widget': 'filter-expression-operator' })`
+	line-height    : var(--line-height);
+	font-variant   : petite-caps;
+	font-weight    : var(--font-demi-bold);
+	text-transform : capitalize;
+	padding        : 0 calc(var(--margin) / 4);
+	color          : var(--info-color);
 `;
