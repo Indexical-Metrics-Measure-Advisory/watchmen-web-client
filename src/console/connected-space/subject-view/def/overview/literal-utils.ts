@@ -1,5 +1,18 @@
+import {
+	ComputedParameter,
+	ConstantParameter,
+	Parameter,
+	ParameterFrom,
+	TopicFactorParameter
+} from '../../../../../services/tuples/factor-calculator-types';
+import {
+	isComputedParameter,
+	isConstantParameter,
+	isTopicFactorParameter
+} from '../../../../../services/tuples/factor-calculator-utils';
 import { Factor } from '../../../../../services/tuples/factor-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
+import { PrettyComputed, PrettyConstant, PrettyFactor } from './literal-types';
 
 export const buildTopicsMap = (options: {
 	availableTopics: Array<Topic>;
@@ -40,4 +53,60 @@ export const findTopicAndFactor = (options: {
 		factor = topic.factors.find(factor => factor.factorId == factorId);
 	}
 	return { topic, topicPicked, factor };
+};
+
+export const fromTopicFactorParameter = (options: {
+	parameter: TopicFactorParameter;
+	availableTopicsMap: Map<string, Topic>;
+	pickedTopicsMap: Map<string, Topic>;
+}): PrettyFactor => {
+	const { parameter: { topicId, factorId }, availableTopicsMap, pickedTopicsMap } = options;
+
+	return {
+		is: ParameterFrom.TOPIC,
+		topicId,
+		factorId,
+		data: findTopicAndFactor({
+			topicId: topicId,
+			factorId: factorId,
+			pickedTopicsMap,
+			availableTopicsMap
+		})
+	};
+};
+export const fromConstantParameter = (options: { parameter: ConstantParameter }): PrettyConstant => {
+	const { parameter: { value } } = options;
+	return { is: ParameterFrom.CONSTANT, value, data: value };
+};
+export const fromComputedParameter = (options: {
+	parameter: ComputedParameter;
+	availableTopicsMap: Map<string, Topic>;
+	pickedTopicsMap: Map<string, Topic>;
+}): PrettyComputed => {
+	const { parameter: { type, parameters }, availableTopicsMap, pickedTopicsMap } = options;
+	return {
+		is: ParameterFrom.COMPUTED,
+		type,
+		data: parameters.map(parameter => fromParameter({
+			parameter,
+			availableTopicsMap,
+			pickedTopicsMap
+		}))
+	};
+};
+export const fromParameter = (options: {
+	parameter: Parameter;
+	availableTopicsMap: Map<string, Topic>;
+	pickedTopicsMap: Map<string, Topic>;
+}) => {
+	const { parameter, availableTopicsMap, pickedTopicsMap } = options;
+	if (isTopicFactorParameter(parameter)) {
+		return fromTopicFactorParameter({ parameter, availableTopicsMap, pickedTopicsMap });
+	} else if (isConstantParameter(parameter)) {
+		return fromConstantParameter({ parameter });
+	} else if (isComputedParameter(parameter)) {
+		return fromComputedParameter({ parameter, availableTopicsMap, pickedTopicsMap });
+	} else {
+		return null;
+	}
 };

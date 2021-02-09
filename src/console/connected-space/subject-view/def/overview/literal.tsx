@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { v4 } from 'uuid';
 import { Lang } from '../../../../../langs';
-import { ParameterComputeType } from '../../../../../services/tuples/factor-calculator-types';
+import { ParameterComputeType, ParameterFrom } from '../../../../../services/tuples/factor-calculator-types';
 import { Factor } from '../../../../../services/tuples/factor-types';
 import { TopicJoinType } from '../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
 import { ParameterComputeTypeLabels } from '../parameter/constants';
+import { PrettyComputed, PrettyConstant, PrettyFactor } from './literal-types';
 import {
+	AliasNode,
 	AndNode,
 	AsNode,
 	BracketNode,
@@ -22,8 +25,7 @@ import {
 	OnNode,
 	TopicNode,
 	UnknownNode,
-	UnknownParameterNode,
-	AliasNode
+	UnknownParameterNode
 } from './literal-widgets';
 
 export const JoinLabels: { [key in TopicJoinType]: string } = {
@@ -67,8 +69,8 @@ export const FactorName = (props: { topic: Topic | null, picked: boolean, factor
 export const ConstantValue = (props: { value: string }) => {
 	const { value } = props;
 	return value
-		?<ConstantNode>"{value}"</ConstantNode>
-		:<ConstantNode><UnknownNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_EMPTY_CONSTANT}</UnknownNode></ConstantNode>
+		? <ConstantNode>"{value}"</ConstantNode>
+		: <ConstantNode><UnknownNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_EMPTY_CONSTANT}</UnknownNode></ConstantNode>;
 };
 export const UnknownParameter = () =>
 	<UnknownParameterNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_UNKNOWN_PARAMETER}</UnknownParameterNode>;
@@ -90,4 +92,42 @@ export const Alias = (props: { name?: string }) => {
 			: <AliasNode><UnknownNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_NO_ALIAS}</UnknownNode></AliasNode>
 		}
 	</>;
+};
+export const TopicFactorLine = (props: { pretty: PrettyFactor }) => {
+	const { pretty: { data: { topic = null, topicPicked, factor = null } } } = props;
+	return <FactorName topic={topic} picked={topicPicked} factor={factor}/>;
+};
+export const ConstantLine = (props: { pretty: PrettyConstant }) => {
+	const { pretty: { data: value } } = props;
+	return <ConstantValue value={value}/>;
+};
+export const ComputedLine = (props: { pretty: PrettyComputed }) => {
+	const { pretty: { type, data } } = props;
+
+	return <ComputeStatement type={type}>
+		{data.map((parameter, parameterIndex, all) => {
+			return <Fragment key={v4()}>
+				<ParameterLine pretty={parameter}/>
+				{parameterIndex === all.length - 1 ? null : <Comma/>}
+			</Fragment>;
+		})}
+	</ComputeStatement>;
+};
+export const ParameterLine = (props: { pretty: PrettyConstant | PrettyFactor | PrettyComputed | null }) => {
+	const { pretty } = props;
+	if (pretty == null) {
+		return <UnknownParameter/>;
+	}
+
+	const { is } = pretty;
+	if (is === ParameterFrom.TOPIC) {
+		return <TopicFactorLine pretty={pretty as PrettyFactor}/>;
+	} else if (is === ParameterFrom.CONSTANT) {
+		return <ConstantLine pretty={pretty as PrettyConstant}/>;
+	} else if (is === ParameterFrom.COMPUTED) {
+		return <ComputedLine pretty={pretty as PrettyComputed}/>;
+	} else {
+		// never occurs
+		return null;
+	}
 };
