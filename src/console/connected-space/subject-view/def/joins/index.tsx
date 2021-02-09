@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Lang } from '../../../../../langs';
 import { ConnectedSpace } from '../../../../../services/tuples/connected-space-types';
 import { Subject } from '../../../../../services/tuples/subject-types';
@@ -15,9 +15,15 @@ export const Joins = (props: {
 }) => {
 	const { subject, active } = props;
 
+	const containerRef = useRef<HTMLDivElement>(null);
 	const { availableTopics, pickedTopics } = useTopicData();
+	useEffect(() => {
+		if (!active && containerRef.current) {
+			containerRef.current.scrollTop = 0;
+		}
+	}, [ active ]);
 
-	return <JoinsContainer active={active}>
+	return <JoinsContainer active={active} ref={containerRef}>
 		<NoJoin subject={subject} active={active}/>
 		<JoinsEdit subject={subject} availableTopics={availableTopics} pickedTopics={pickedTopics}/>
 		<JoinsBottomGap/>

@@ -1,54 +1,31 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { v4 } from 'uuid';
 import { Lang } from '../../../../../langs';
 import { Factor } from '../../../../../services/tuples/factor-types';
-import { Subject, TopicJoinType } from '../../../../../services/tuples/subject-types';
+import { Subject, SubjectDataSetJoin, TopicJoinType } from '../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
-import {
-	AndNode,
-	CommaNode,
-	DotNode,
-	EqualsNode,
-	ExoticNode,
-	FactorNode,
-	JoinNode,
-	NamePair,
-	NewLineNode,
-	OnNode,
-	TopicNode,
-	UnknownNode
-} from './from-widgets';
+import { Comma, Equals, FactorName, Join, JoinAnd, NewLine, On, TopicName } from './literal';
+import { buildTopicsMap, findTopicAndFactor } from './literal-utils';
 import { EmptyPart, PartContent } from './widgets';
 
-const findTopicAndFactor = (options: {
-	topicId: string;
-	factorId: string;
-	availableTopicsMap: Map<string, Topic>;
-	pickedTopicsMap: Map<string, Topic>;
-}): { topic?: Topic, topicPicked: boolean, factor?: Factor } => {
-	const { topicId, factorId, availableTopicsMap, pickedTopicsMap } = options;
-
-	let topic, topicPicked = false, factor;
-	if (topicId) {
-		topic = pickedTopicsMap.get(topicId);
+interface PrettyJoin extends SubjectDataSetJoin {
+	first: {
+		topic?: Topic;
+		topicPicked: boolean;
+		factor?: Factor;
+	},
+	second: {
+		topic?: Topic;
+		topicPicked: boolean;
+		factor?: Factor;
 	}
-	if (topic) {
-		topicPicked = true;
-	} else {
-		topic = availableTopicsMap.get(topicId);
-	}
-	if (factorId && topic) {
-		// eslint-disable-next-line
-		factor = topic.factors.find(factor => factor.factorId == factorId);
-	}
-	return { topic, topicPicked, factor };
-};
+}
 
 const beautifyJoins = (options: {
 	subject: Subject;
 	availableTopicsMap: Map<string, Topic>;
 	pickedTopicsMap: Map<string, Topic>;
-}) => {
+}): Array<PrettyJoin> => {
 	const { subject, availableTopicsMap, pickedTopicsMap } = options;
 
 	return [ ...subject.dataset.joins ]
@@ -116,42 +93,40 @@ const beautifyJoins = (options: {
 		});
 };
 
-const JoinLabels: { [key in TopicJoinType]: string } = {
-	[TopicJoinType.INNER]: Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_INNER,
-	[TopicJoinType.LEFT]: Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_LEFT,
-	[TopicJoinType.RIGHT]: Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_RIGHT
+const renderFromAnd = (join: PrettyJoin): Array<ReactNode> => {
+	const {
+		first: { topic = null, topicPicked: picked, factor = null },
+		second: { topic: topic2 = null, topicPicked: picked2, factor: factor2 = null }
+	} = join;
+	return [
+		<JoinAnd key={v4()}/>,
+		<FactorName topic={topic} picked={picked} factor={factor} key={v4()}/>,
+		<Equals key={v4()}/>,
+		<FactorName topic={topic2} picked={picked2} factor={factor2} key={v4()}/>
+	];
 };
-
-const TopicName = (props: { topic: Topic | null, picked: boolean }) => {
-	const { topic, picked } = props;
-
-	if (topic && picked) {
-		return <TopicNode>{topic.name}</TopicNode>;
-	} else if (topic && !picked) {
-		return <ExoticNode><TopicNode>{topic.name}</TopicNode></ExoticNode>;
-	} else {
-		return <TopicNode><UnknownNode>?</UnknownNode></TopicNode>;
-	}
+const renderFromJoin = (join: PrettyJoin): Array<ReactNode> => {
+	const {
+		first: { topic = null, topicPicked: picked, factor = null },
+		type: joinType,
+		second: { topic: topic2 = null, topicPicked: picked2, factor: factor2 = null }
+	} = join;
+	return [
+		<Join type={joinType} key={v4()}/>,
+		<TopicName topic={topic2} picked={picked2} key={v4()}/>,
+		<On key={v4()}/>,
+		<FactorName topic={topic} picked={picked} factor={factor} key={v4()}/>,
+		<Equals key={v4()}/>,
+		<FactorName topic={topic2} picked={picked2} factor={factor2} key={v4()}/>
+	];
 };
-const FactorName = (props: { topic: Topic | null, picked: boolean, factor: Factor | null }) => {
-	const { topic, picked, factor } = props;
-
-	return <NamePair>
-		<TopicName topic={topic} picked={picked}/>
-		<Dot/>
-		{factor
-			? <FactorNode>{factor.label || factor.name}</FactorNode>
-			: <FactorNode><UnknownNode>?</UnknownNode></FactorNode>}
-	</NamePair>;
+const renderAll = (join: PrettyJoin): Array<ReactNode> => {
+	const { first: { topic = null, topicPicked: picked } } = join;
+	return [
+		<TopicName topic={topic} picked={picked} key={v4()}/>,
+		...renderFromJoin(join)
+	];
 };
-
-const Join = (props: { type: TopicJoinType }) => <JoinNode>{JoinLabels[props.type || TopicJoinType.INNER]}</JoinNode>;
-const Dot = () => <DotNode>.</DotNode>;
-const Comma = () => <CommaNode>,</CommaNode>;
-const On = () => <OnNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_ON}</OnNode>;
-const Equals = () => <EqualsNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_EQUALS}</EqualsNode>;
-const NewLine = () => <NewLineNode/>;
-const And = () => <AndNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_AND}</AndNode>;
 
 export const From = (props: {
 	subject: Subject;
@@ -167,14 +142,7 @@ export const From = (props: {
 
 	const hasJoin = subject.dataset.joins && subject.dataset.joins.length !== 0;
 
-	const availableTopicsMap: Map<string, Topic> = availableTopics.reduce((map, topic) => {
-		map.set(topic.topicId, topic);
-		return map;
-	}, new Map<string, Topic>());
-	const pickedTopicsMap: Map<string, Topic> = pickedTopics.reduce((map, topic) => {
-		map.set(topic.topicId, topic);
-		return map;
-	}, new Map<string, Topic>());
+	const { availableTopicsMap, pickedTopicsMap } = buildTopicsMap({ availableTopics, pickedTopics });
 	const joins = beautifyJoins({ subject, pickedTopicsMap, availableTopicsMap });
 	const levels: Array<Topic | TopicJoinType | null> = [];
 
@@ -182,51 +150,27 @@ export const From = (props: {
 		{hasJoin
 			? joins.map(join => {
 				const nodes = [];
-				const {
-					first: { topic = null, topicPicked: picked, factor = null },
-					type: joinType,
-					second: { topic: topic2 = null, topicPicked: picked2, factor: factor2 = null }
-				} = join;
+				const { first: { topic = null }, type: joinType, second: { topic: topic2 = null } } = join;
 				if (levels.length === 0) {
 					levels.push(topic, joinType, topic2);
-					nodes.push(<TopicName topic={topic} picked={picked} key={v4()}/>);
-					nodes.push(<Join type={joinType} key={v4()}/>);
-					nodes.push(<TopicName topic={topic2} picked={picked2} key={v4()}/>);
-					nodes.push(<On key={v4()}/>);
-					nodes.push(<FactorName topic={topic} picked={picked} factor={factor} key={v4()}/>);
-					nodes.push(<Equals key={v4()}/>);
-					nodes.push(<FactorName topic={topic2} picked={picked} factor={factor2} key={v4()}/>);
+					nodes.push(...renderAll(join));
 				} else if (levels.length === 3) {
 					if (topic === levels[0]) {
 						if (topic2 === levels[2] && joinType === levels[1]) {
 							nodes.push(<NewLine key={v4()}/>);
-							nodes.push(<And key={v4()}/>);
-							nodes.push(<FactorName topic={topic} picked={picked} factor={factor} key={v4()}/>);
-							nodes.push(<Equals key={v4()}/>);
-							nodes.push(<FactorName topic={topic2} picked={picked} factor={factor2} key={v4()}/>);
+							nodes.push(...renderFromAnd(join));
 						} else {
 							levels[1] = joinType;
 							levels[2] = topic2;
 							nodes.push(<NewLine key={v4()}/>);
-							nodes.push(<Join type={joinType} key={v4()}/>);
-							nodes.push(<TopicName topic={topic2} picked={picked2} key={v4()}/>);
-							nodes.push(<On key={v4()}/>);
-							nodes.push(<FactorName topic={topic} picked={picked} factor={factor} key={v4()}/>);
-							nodes.push(<Equals key={v4()}/>);
-							nodes.push(<FactorName topic={topic2} picked={picked} factor={factor2} key={v4()}/>);
+							nodes.push(...renderFromJoin(join));
 						}
 					} else {
 						levels.length = 0;
 						levels.push(topic, joinType, topic2);
 						nodes.push(<Comma key={v4()}/>);
 						nodes.push(<NewLine key={v4()}/>);
-						nodes.push(<TopicName topic={topic} picked={picked} key={v4()}/>);
-						nodes.push(<Join type={joinType} key={v4()}/>);
-						nodes.push(<TopicName topic={topic2} picked={picked2} key={v4()}/>);
-						nodes.push(<On key={v4()}/>);
-						nodes.push(<FactorName topic={topic} picked={picked} factor={factor} key={v4()}/>);
-						nodes.push(<Equals key={v4()}/>);
-						nodes.push(<FactorName topic={topic2} picked={picked} factor={factor2} key={v4()}/>);
+						nodes.push(...renderAll(join));
 					}
 				}
 				return nodes;

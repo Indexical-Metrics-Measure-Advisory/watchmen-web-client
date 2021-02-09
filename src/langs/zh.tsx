@@ -162,7 +162,11 @@ export const Zh = {
 			SUBJECT_JOIN_EQUALS: '等于',
 			SUBJECT_JOIN_AND: '并且',
 			SUBJECT_WHERE: '按以下条件:',
-			SUBJECT_NO_WHERE: '尚未定义数据过滤条件.'
+			SUBJECT_NO_WHERE: '尚未定义数据过滤条件.',
+			SUBJECT_UNKNOWN_PARAMETER: '未知参数',
+			SUBJECT_EMPTY_CONSTANT: '空值',
+			SUBJECT_COLUMN_AS: '作为',
+			SUBJECT_NO_ALIAS: '?'
 		},
 		SETTINGS: {
 			TITLE: '设置',

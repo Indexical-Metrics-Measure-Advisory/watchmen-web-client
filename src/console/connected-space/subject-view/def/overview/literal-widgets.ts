@@ -4,9 +4,18 @@ export const DotNode = styled.span.attrs({ 'data-widget': 'dot' })`
 	line-height : var(--line-height);
 `;
 export const CommaNode = styled.span.attrs({ 'data-widget': 'comma' })`
-	line-height : var(--line-height);
+	line-height   : var(--line-height);
+	padding-right : calc(var(--margin) / 4);
 `;
 export const OnNode = styled.span.attrs({ 'data-widget': 'on' })`
+	line-height    : var(--line-height);
+	font-variant   : petite-caps;
+	font-weight    : var(--font-demi-bold);
+	text-transform : capitalize;
+	padding        : 0 calc(var(--margin) / 4);
+	color          : var(--info-color);
+`;
+export const AsNode = styled.span.attrs({ 'data-widget': 'as' })`
 	line-height    : var(--line-height);
 	font-variant   : petite-caps;
 	font-weight    : var(--font-demi-bold);
@@ -44,7 +53,6 @@ export const EqualsNode = styled.span.attrs({ 'data-widget': 'equals' })`
 	padding        : 0 calc(var(--margin) / 4);
 	color          : var(--info-color);
 `;
-
 export const TopicNode = styled.span.attrs({ 'data-widget': 'topic-name' })`
 	line-height : var(--line-height);
 	font-weight : var(--font-demi-bold);
@@ -54,6 +62,36 @@ export const FactorNode = styled.span.attrs({ 'data-widget': 'factor-name' })`
 	font-weight : var(--font-demi-bold);
 `;
 export const NamePair = styled.span.attrs({ 'data-widget': 'name-pair' })`
+`;
+export const AliasNode = styled.span.attrs({ 'data-widget': 'alias-name' })`
+	line-height : var(--line-height);
+	font-weight : var(--font-demi-bold);
+`;
+export const ConstantNode = styled.span.attrs({ 'data-widget': 'constant' })`
+	color : var(--primary-color);
+`;
+export const UnknownParameterNode = styled.span.attrs({ 'data-widget': 'unknown-parameter' })`
+	font-variant     : petite-caps;
+	font-weight      : var(--font-boldest);
+	color            : var(--danger-color);
+	transform        : scale(1.2);
+	transform-origin : bottom;
+`;
+export const ComputeStatementTypeNode = styled.span.attrs({ 'data-widget': 'compute' })`
+	line-height    : var(--line-height);
+	font-variant   : petite-caps;
+	font-weight    : var(--font-demi-bold);
+	text-transform : capitalize;
+	padding        : 0 calc(var(--margin) / 4);
+	color          : var(--info-color);
+`;
+export const BracketNode = styled.span.attrs({ 'data-widget': 'bracket' })`
+	line-height    : var(--line-height);
+	font-variant   : petite-caps;
+	font-weight    : var(--font-demi-bold);
+	text-transform : capitalize;
+	padding        : 0 calc(var(--margin) / 8);
+	color          : var(--info-color);
 `;
 export const ExoticNode = styled.span.attrs({ 'data-widget': 'exotic' })`
 	text-decoration : line-through;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Lang } from '../../../../../langs';
 import { ConnectedSpace } from '../../../../../services/tuples/connected-space-types';
 import { Subject } from '../../../../../services/tuples/subject-types';
@@ -14,13 +14,19 @@ export const PickTopics = (props: {
 }) => {
 	const { active } = props;
 
-	const data = useTopicData();
+	const containerRef = useRef<HTMLDivElement>(null);
+	const { availableTopics, pickedTopics } = useTopicData();
+	useEffect(() => {
+		if (!active && containerRef.current) {
+			containerRef.current.scrollTop = 0;
+		}
+	}, [ active ]);
 
-	return <PickTopicsContainer active={active}>
-		{data.availableTopics.sort((t1, t2) => {
+	return <PickTopicsContainer active={active} ref={containerRef}>
+		{availableTopics.sort((t1, t2) => {
 			return t1.name.toLowerCase().localeCompare(t2.name.toLowerCase());
 		}).map(topic => {
-			return <AvailableTopic topic={topic} picked={data.pickedTopics.includes(topic)} key={topic.topicId}/>;
+			return <AvailableTopic topic={topic} picked={pickedTopics.includes(topic)} key={topic.topicId}/>;
 		})}
 		<AvailableTopicBottomGap/>
 		<SubjectDefBodyCover active={active}>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_PICK_TOPICS}</SubjectDefBodyCover>

@@ -2,9 +2,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { MouseEvent, useRef, useState } from 'react';
 import { ICON_EDIT } from '../../../../../../basic-widgets/constants';
 import { useCollapseFixedThing } from '../../../../../../basic-widgets/utils';
-import { Lang } from '../../../../../../langs';
 import { ComputedParameter, ParameterComputeType } from '../../../../../../services/tuples/factor-calculator-types';
 import { defendParameters } from '../../data-utils';
+import { ParameterComputeTypeLabels } from '../constants';
 import { useParameterEventBus } from '../parameter-event-bus';
 import { ParameterEventTypes } from '../parameter-event-bus-types';
 import {
@@ -15,23 +15,6 @@ import {
 	ParameterComputeTypeLabel,
 	ParameterComputeTypeOption
 } from './widgets';
-
-const Labels: { [key in ParameterComputeType]: string } = {
-	[ParameterComputeType.NONE]: Lang.PARAMETER.NONE,
-	[ParameterComputeType.ADD]: Lang.PARAMETER.ADD,
-	[ParameterComputeType.SUBTRACT]: Lang.PARAMETER.SUBTRACT,
-	[ParameterComputeType.MULTIPLY]: Lang.PARAMETER.MULTIPLY,
-	[ParameterComputeType.DIVIDE]: Lang.PARAMETER.DIVIDE,
-	[ParameterComputeType.MODULUS]: Lang.PARAMETER.MODULUS,
-	[ParameterComputeType.YEAR_OF]: Lang.PARAMETER.YEAR_OF,
-	[ParameterComputeType.HALF_YEAR_OF]: Lang.PARAMETER.HALF_YEAR_OF,
-	[ParameterComputeType.QUARTER_OF]: Lang.PARAMETER.QUARTER_OF,
-	[ParameterComputeType.MONTH_OF]: Lang.PARAMETER.MONTH_OF,
-	[ParameterComputeType.WEEK_OF_YEAR]: Lang.PARAMETER.WEEK_OF_YEAR,
-	[ParameterComputeType.WEEK_OF_MONTH]: Lang.PARAMETER.WEEK_OF_MONTH,
-	[ParameterComputeType.DAY_OF_MONTH]: Lang.PARAMETER.DAY_OF_MONTH,
-	[ParameterComputeType.DAY_OF_WEEK]: Lang.PARAMETER.DAY_OF_WEEK
-};
 
 const AvailableComputeTypes = [
 	ParameterComputeType.ADD,
@@ -92,7 +75,7 @@ export const ParameterComputeTypeEdit = (props: { parameter: ComputedParameter }
 	};
 
 	return <ParameterComputeTypeContainer onClick={onTypeClicked} ref={containerRef}>
-		<ParameterComputeTypeLabel>{Labels[parameter.type]}</ParameterComputeTypeLabel>
+		<ParameterComputeTypeLabel>{ParameterComputeTypeLabels[parameter.type]}</ParameterComputeTypeLabel>
 		<ParameterComputeTypeIcon>
 			<FontAwesomeIcon icon={ICON_EDIT}/>
 		</ParameterComputeTypeIcon>
@@ -101,7 +84,7 @@ export const ParameterComputeTypeEdit = (props: { parameter: ComputedParameter }
 				return <ParameterComputeTypeOption selected={computeType === parameter.type}
 				                                   onClick={onComputeTypeClick(computeType)}
 				                                   key={computeType}>
-					{Labels[computeType]}
+					{ParameterComputeTypeLabels[computeType]}
 				</ParameterComputeTypeOption>;
 			})}
 		</ParameterComputeTypeDropdown>

@@ -166,6 +166,10 @@ export const En = {
 			SUBJECT_JOIN_AND: 'And',
 			SUBJECT_WHERE: 'Where',
 			SUBJECT_NO_WHERE: 'No filter defined.',
+			SUBJECT_UNKNOWN_PARAMETER: 'Unknown Parameter',
+			SUBJECT_EMPTY_CONSTANT: 'Empty Constant Value',
+			SUBJECT_COLUMN_AS: 'As',
+			SUBJECT_NO_ALIAS: '?'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',
