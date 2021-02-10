@@ -6,7 +6,8 @@ export enum SubjectDataSetEventTypes {
 	ASK_COLUMN_DEFS = 'ask-column-defs',
 	REPLY_COLUMN_DEFS = 'reply-column-defs',
 
-	PAGE_LOADED = 'page-loaded'
+	PAGE_LOADED = 'page-loaded',
+	PAGE_CHANGE = 'page-change'
 }
 
 export interface SubjectDataSetEventBus {
@@ -24,4 +25,8 @@ export interface SubjectDataSetEventBus {
 	fire(type: SubjectDataSetEventTypes.PAGE_LOADED, page: SubjectDataPage, columnDefs: ColumnDefs): this;
 	on(type: SubjectDataSetEventTypes.PAGE_LOADED, listener: (page: SubjectDataPage, columnDefs: ColumnDefs) => void): this;
 	off(type: SubjectDataSetEventTypes.PAGE_LOADED, listener: (page: SubjectDataPage, columnDefs: ColumnDefs) => void): this;
+
+	fire(type: SubjectDataSetEventTypes.PAGE_CHANGE, pageNumber: number, columnDefs: ColumnDefs): this;
+	on(type: SubjectDataSetEventTypes.PAGE_CHANGE, listener: (pageNumber: number, columnDefs: ColumnDefs) => void): this;
+	off(type: SubjectDataSetEventTypes.PAGE_CHANGE, listener: (pageNumber: number, columnDefs: ColumnDefs) => void): this;
 }

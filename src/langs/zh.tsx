@@ -35,7 +35,11 @@ export const Zh = {
 		CANCEL: '取消',
 		DELETE: '删除',
 		CONFIRM: '确认',
-		NEXT: '下一步'
+		NEXT: '下一步',
+		SORT_ASC: '正序',
+		SORT_DESC: '倒序',
+		PREVIOUS_PAGE: '上一页',
+		NEXT_PAGE: '下一页'
 	},
 	LOGIN: {
 		MORNING: '早上好 !',
@@ -105,7 +109,7 @@ export const Zh = {
 			SUBJECT_REPORT: '图表',
 			SHARE: '分享',
 			PRINT: '打印',
-			DOWNLOAD_PAGE: '下载当前页数据',
+			DOWNLOAD_PAGE: '下载本页数据',
 			DOWNLOAD_ALL: '下载所有数据',
 			ADD_REPORT: '添加图表',
 			ADD_SUBJECT: '添加主题',
@@ -169,7 +173,10 @@ export const Zh = {
 			// SUBJECT_NO_ALIAS: '?',
 			// SUBJECT_FILTER_JOINT_NO_STATEMENT: '没有联合条件',
 			// SUBJECT_UNKNOWN_FILTER: '未知过滤条件',
-			NO_DATASET_COLUMN: '尚未定义数据列.'
+			NO_DATASET_COLUMN: '尚未定义数据列.',
+			UNFIX_COLUMN: '解锁本列以及之后已锁定列',
+			FIX_COLUMN: '锁定至本列',
+			COMPRESS_COLUMNS: '全部缩小列宽'
 		},
 		SETTINGS: {
 			TITLE: '设置',
@@ -278,5 +285,11 @@ export const Zh = {
 				NOT_IN: '不在集合内'
 			}
 		}
+	},
+	PAGINATION: {
+		TOTAL: '共',
+		ROWS: '行数据',
+		OF_PAGES: '/',
+		PAGES: '页'
 	}
 };

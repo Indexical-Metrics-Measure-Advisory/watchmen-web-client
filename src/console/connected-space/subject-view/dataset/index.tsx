@@ -3,7 +3,7 @@ import { ConnectedSpace } from '../../../../services/tuples/connected-space-type
 import { Subject } from '../../../../services/tuples/subject-types';
 import { DataLoading } from './data/data-loading';
 import { TopicsHolder } from './data/topics-holder';
-import { DataSet } from './dataset';
+import { Grid } from './grid';
 import { NoColumn } from './no-column';
 import { SubjectDataSetEventBusProvider } from './subject-dataset-event-bus';
 import { SubjectDataSetContainer } from './widgets';
@@ -13,7 +13,7 @@ export const SubjectDataSet = (props: { connectedSpace: ConnectedSpace, subject:
 
 	return <SubjectDataSetEventBusProvider>
 		<SubjectDataSetContainer>
-			<DataSet connectedSpace={connectedSpace} subject={subject}/>
+			<Grid connectedSpace={connectedSpace} subject={subject}/>
 			<NoColumn subject={subject}/>
 			<DataLoading subject={subject}/>
 			<TopicsHolder connectedSpace={connectedSpace} subject={subject}/>

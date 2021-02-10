@@ -5,9 +5,11 @@ import { useSubjectDataSetEventBus } from '../subject-dataset-event-bus';
 import { SubjectDataSetEventTypes } from '../subject-dataset-event-bus-types';
 import { ColumnDefs, DataSetState, SubjectDataPage } from '../types';
 import { SubjectDataSetGridContainer } from '../widgets';
-import { DataSetHeader } from './header/dataset-header';
+import { GridWrapper } from './body';
+import { GridEventBusProvider } from './body/grid-event-bus';
+import { GridHeader } from './header';
 
-export const DataSet = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
+export const Grid = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const { subject } = props;
 	const hasColumns = subject.dataset.columns.length !== 0;
 
@@ -40,10 +42,10 @@ export const DataSet = (props: { connectedSpace: ConnectedSpace, subject: Subjec
 		return null;
 	}
 
-	return <SubjectDataSetGridContainer>
-		<DataSetHeader subject={subject} data={data}/>
-		{/*<DataSetTableWrapper space={space} subject={subject}*/}
-		{/*                     columnDefs={columnDefs}*/}
-		{/*                     data={data}/>*/}
-	</SubjectDataSetGridContainer>;
+	return <GridEventBusProvider>
+		<SubjectDataSetGridContainer>
+			<GridHeader subject={subject} data={data}/>
+			<GridWrapper subject={subject} data={data}/>
+		</SubjectDataSetGridContainer>
+	</GridEventBusProvider>;
 };

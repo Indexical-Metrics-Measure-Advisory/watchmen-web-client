@@ -26,12 +26,15 @@ import {
 	faLevelUpAlt,
 	faLink,
 	faList,
+	faLock,
+	faLockOpen,
 	faPlus,
 	faPrint,
 	faRandom,
 	faSearch,
 	faShare,
 	faSortAmountDown,
+	faSortAmountUpAlt,
 	faSpinner,
 	faStar,
 	faTable,
@@ -136,6 +139,10 @@ export const ICON_COLLAPSE_CONTENT = faCompressArrowsAlt;
 export const ICON_PREVIOUS_PAGE = faAngleLeft;
 export const ICON_NEXT_PAGE = faAngleRight;
 export const ICON_COMPRESS_COLUMNS = faCompressAlt;
+export const ICON_FIX_COLUMN = faLock;
+export const ICON_UNFIX_COLUMN = faLockOpen;
+export const ICON_SORT_ASC = faSortAmountUpAlt;
+export const ICON_SORT_DESC = faSortAmountDown;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

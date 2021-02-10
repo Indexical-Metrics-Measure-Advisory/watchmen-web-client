@@ -37,7 +37,11 @@ export const En = {
 		CANCEL: 'Cancel',
 		DELETE: 'Delete',
 		CONFIRM: 'Confirm',
-		NEXT: 'Next'
+		NEXT: 'Next',
+		SORT_ASC: 'Sort Ascending',
+		SORT_DESC: 'Sort Descending',
+		PREVIOUS_PAGE: 'Previous Page',
+		NEXT_PAGE: 'Next Page'
 	},
 	LOGIN: {
 		PRODUCT_TITLE: <>Indexical Metrics <span>&</span> Measure Advisory</>,
@@ -108,7 +112,7 @@ export const En = {
 			SUBJECT_REPORT: 'Report',
 			SHARE: 'Share',
 			PRINT: 'Print',
-			DOWNLOAD_PAGE: 'Download Current Page',
+			DOWNLOAD_PAGE: 'Download This Page',
 			DOWNLOAD_ALL: 'Download All',
 			ADD_REPORT: 'Add Report',
 			ADD_SUBJECT: 'Add Subject',
@@ -172,7 +176,10 @@ export const En = {
 			SUBJECT_NO_ALIAS: '?',
 			SUBJECT_FILTER_JOINT_NO_STATEMENT: 'No Statement in Joint',
 			SUBJECT_UNKNOWN_FILTER: 'Unknown Filter',
-			NO_DATASET_COLUMN: 'No column defined.'
+			NO_DATASET_COLUMN: 'No column defined.',
+			UNFIX_COLUMN: 'Unfix Me and Follows',
+			FIX_COLUMN: 'Fix Columns to Here',
+			COMPRESS_COLUMNS: 'Compress Columns'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',
@@ -281,5 +288,11 @@ export const En = {
 				NOT_IN: 'Not In'
 			}
 		}
+	},
+	PAGINATION: {
+		TOTAL: '',
+		ROWS: 'Row(s) Total',
+		OF_PAGES: 'of',
+		PAGES: 'Pages'
 	}
 };
