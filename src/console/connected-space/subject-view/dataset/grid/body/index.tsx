@@ -207,10 +207,10 @@ export const GridWrapper = (props: {
 	const { columnDefs } = data;
 
 	const { once, on, off, fire } = useGridEventBus();
-	const wrapperRef = useRef<HTMLDivElement>(null);
-	const fixTableRef = useRef<HTMLDivElement>(null);
-	const dataTableRef = useRef<HTMLDivElement>(null);
-	const selectionRef = useRef<SelectionRef>(null);
+	const wrapperRef = useRef<HTMLDivElement | null>(null);
+	const fixTableRef = useRef<HTMLDivElement | null>(null);
+	const dataTableRef = useRef<HTMLDivElement | null>(null);
+	const selectionRef = useRef<SelectionRef | null>(null);
 	const [ rowNoColumnWidth ] = useState(ROW_NO_WIDTH);
 	const [ behavior, setBehavior ] = useState<Behavior>(Behavior.NONE);
 	const [ pickedColumn, setPickedColumn ] = useState<PickedColumn | null>(null);
@@ -525,7 +525,7 @@ export const GridWrapper = (props: {
 			repaintWhenDragging({
 				mouseClientX, sourceTable, sourceColumns, targetTable, targetColumns, pickedColumn: pickedColumn.column
 			});
-		});
+		}).fire(GridEventTypes.ASK_DRAG_COLUMN_VISIBLE);
 	};
 
 	const onMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {

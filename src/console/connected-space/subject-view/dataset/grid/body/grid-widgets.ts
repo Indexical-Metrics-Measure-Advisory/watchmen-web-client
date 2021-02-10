@@ -56,6 +56,11 @@ export const GridContainer = styled.div
 	&:nth-child(2) {
 		flex-grow : 1;
 		overflow  : auto;
+		&::-webkit-scrollbar {
+			//FIXME don't know why, but seems 4px doesn't work
+			// scroll bar is out of viewport, seems there is always 4px outside.
+			width : 8px;
+		}
 	}
 	&[data-scrollable=false]:nth-child(2) {
 		overflow : hidden;
