@@ -19,6 +19,7 @@ export interface Pipeline extends Tuple {
 	conditional: boolean;
 	on?: ParameterJoint;
 	stages: Array<PipelineStage>;
+	enabled: boolean;
 }
 
 export interface PipelineBlockGraphicsRect {

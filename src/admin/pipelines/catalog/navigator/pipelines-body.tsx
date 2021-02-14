@@ -1,6 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useHistory } from 'react-router-dom';
 import { ICON_PIPELINE } from '../../../../basic-widgets/constants';
 import { TooltipAlignment } from '../../../../basic-widgets/types';
+import { toPipeline } from '../../../../routes/utils';
 import { isWriteTopicAction } from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import { Pipeline } from '../../../../services/tuples/pipeline-types';
 import { Topic } from '../../../../services/tuples/topic-types';
@@ -49,6 +51,8 @@ export const PipelinesBody = (props: {
 }) => {
 	const { pipelines: allPipelines, topics, topic, incoming, visible } = props;
 
+	const history = useHistory();
+
 	const topicsMap: Map<string, Topic> = topics.reduce((map, topic) => {
 		map.set(topic.topicId, topic);
 		return map;
@@ -75,6 +79,10 @@ export const PipelinesBody = (props: {
 		pipelines = allPipelines.filter(pipeline => pipeline.topicId == topic.topicId).map(assemblePipeline(topicsMap));
 	}
 
+	const onPipelineClicked = (pipeline: Pipeline) => () => {
+		history.push(toPipeline(pipeline.pipelineId));
+	};
+
 	return <PipelinesBodyContainer visible={visible}>
 		{pipelines.length === 0
 			? <NoPipelines>{incoming ? 'No incoming pipeline.' : 'No outgoing pipeline.'}</NoPipelines>
@@ -83,7 +91,8 @@ export const PipelinesBody = (props: {
 					<PipelineName>
 						<PipelineNameLabel>{pipeline.name || 'Noname Pipeline'}</PipelineNameLabel>
 					</PipelineName>
-					<PipelineButton tooltip={{ label: 'Open Pipeline', alignment: TooltipAlignment.RIGHT, offsetX: 6 }}>
+					<PipelineButton tooltip={{ label: 'Open Pipeline', alignment: TooltipAlignment.RIGHT, offsetX: 6 }}
+					                onClick={onPipelineClicked(pipeline)}>
 						<FontAwesomeIcon icon={ICON_PIPELINE}/>
 					</PipelineButton>
 					<PipelineDirection rows={incoming ? 1 : to.length}>{incoming ? 'From' : 'To'}</PipelineDirection>

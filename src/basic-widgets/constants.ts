@@ -10,6 +10,7 @@ import {
 	faChartBar,
 	faChartPie,
 	faCheck,
+	faCheckSquare,
 	faCloudDownloadAlt,
 	faCog,
 	faComments,
@@ -31,6 +32,7 @@ import {
 	faPlus,
 	faPrint,
 	faRandom,
+	faSave,
 	faSearch,
 	faShare,
 	faSortAmountDown,
@@ -44,6 +46,7 @@ import {
 	faTh,
 	faThumbtack,
 	faTimes,
+	faTimesCircle,
 	faTools,
 	faTrashAlt,
 	faUpload,
@@ -134,6 +137,7 @@ export const ICON_ROW_PREPEND_ON_RIGHT = faLevelUpAlt;
 export const ICON_CLOSE = faTimes;
 export const ICON_DOWNLOAD_PAGE = faArrowAltCircleDown;
 export const ICON_DOWNLOAD = faCloudDownloadAlt;
+export const ICON_PIPELINES_CATALOG = faWaveSquare;
 export const ICON_COLLAPSE_CONTENT = faCompressArrowsAlt;
 // export const ICON_EXPAND_CONTENT = faExpandArrowsAlt;
 export const ICON_PREVIOUS_PAGE = faAngleLeft;
@@ -143,6 +147,9 @@ export const ICON_FIX_COLUMN = faLock;
 export const ICON_UNFIX_COLUMN = faLockOpen;
 export const ICON_SORT_ASC = faSortAmountUpAlt;
 export const ICON_SORT_DESC = faSortAmountDown;
+export const ICON_SAVE = faSave;
+export const ICON_DISABLE = faTimesCircle;
+export const ICON_ENABLE = faCheckSquare;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

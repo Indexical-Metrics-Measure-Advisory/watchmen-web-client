@@ -27,3 +27,5 @@ export const isDashboardOpened = (dashboardId: string): boolean => {
 	return !!match && match.params.dashboardId == dashboardId;
 };
 export const toDashboard = (dashboardId: string) => Router.CONSOLE_DASHBOARD.replace(':dashboardId', dashboardId);
+
+export const toPipeline = (pipelineId: string) => Router.ADMIN_PIPELINE.replace(':pipelineId', pipelineId);

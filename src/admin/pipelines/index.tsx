@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { FullWidthPage } from '../../basic-widgets/page';
 import { Router } from '../../routes/types';
 import { PipelinesCatalog } from './catalog';
+import { PipelineWorkbench } from './pipeline';
 import { PipelinesEventBusProvider, usePipelinesEventBus } from './pipelines-event-bus';
 import { PipelinesEventTypes } from './pipelines-event-bus-types';
 import { PipelinesLoading } from './pipelines-loading';
@@ -11,10 +12,10 @@ import { AdminMain } from './widgets';
 
 const PipelinesRouter = () => {
 	return <Switch>
-		<Route path={Router.ADMIN_PIPELINES}><PipelinesCatalog/></Route>
-		{/*<Route path={Router.CONSOLE_CONNECTED_SPACE}><ConsoleConnectedSpace/></Route>*/}
+		<Route path={Router.ADMIN_PIPELINE_CATALOG}><PipelinesCatalog/></Route>
+		<Route path={Router.ADMIN_PIPELINE}><PipelineWorkbench/></Route>
 		<Route path='*'>
-			<Redirect to={Router.ADMIN_PIPELINES}/>
+			<Redirect to={Router.ADMIN_PIPELINE_CATALOG}/>
 		</Route>
 	</Switch>;
 };
