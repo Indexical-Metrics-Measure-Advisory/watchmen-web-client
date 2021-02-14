@@ -1,13 +1,19 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ICON_PIPELINE } from '../../../../basic-widgets/constants';
+import { TooltipAlignment } from '../../../../basic-widgets/types';
 import { isWriteTopicAction } from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import { Pipeline } from '../../../../services/tuples/pipeline-types';
 import { Topic } from '../../../../services/tuples/topic-types';
 import {
 	NoPipelines,
+	PipelineButton,
 	PipelineDirection,
 	PipelineName,
+	PipelineNameLabel,
 	PipelineRowContainer,
 	PipelinesBodyContainer,
-	TopicSmall
+	PipelineTopic,
+	PipelineTopicLabel
 } from './pipelines-widgets';
 
 interface AssembledPipeline {
@@ -74,12 +80,21 @@ export const PipelinesBody = (props: {
 			? <NoPipelines>{incoming ? 'No incoming pipeline.' : 'No outgoing pipeline.'}</NoPipelines>
 			: pipelines.map(({ pipeline, from, to }) => {
 				return <PipelineRowContainer key={pipeline.pipelineId}>
-					<PipelineName>{pipeline.name || 'Noname Pipeline'}</PipelineName>
+					<PipelineName>
+						<PipelineNameLabel>{pipeline.name || 'Noname Pipeline'}</PipelineNameLabel>
+					</PipelineName>
+					<PipelineButton tooltip={{ label: 'Open Pipeline', alignment: TooltipAlignment.RIGHT, offsetX: 6 }}>
+						<FontAwesomeIcon icon={ICON_PIPELINE}/>
+					</PipelineButton>
 					<PipelineDirection rows={incoming ? 1 : to.length}>{incoming ? 'From' : 'To'}</PipelineDirection>
 					{incoming
-						? <TopicSmall>{from.name}</TopicSmall>
+						? <PipelineTopic>
+							<PipelineTopicLabel>{from.name}</PipelineTopicLabel>
+						</PipelineTopic>
 						: to.map(topic => {
-							return <TopicSmall key={topic.topicId}>{topic.name}</TopicSmall>;
+							return <PipelineTopic key={topic.topicId}>
+								<PipelineTopicLabel>{topic.name}</PipelineTopicLabel>
+							</PipelineTopic>;
 						})}
 
 				</PipelineRowContainer>;

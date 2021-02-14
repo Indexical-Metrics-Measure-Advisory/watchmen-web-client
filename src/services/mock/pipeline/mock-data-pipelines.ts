@@ -13,7 +13,11 @@ import {
 	WriteTopicActionType
 } from '../../tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import { CopyToMemoryAction } from '../../tuples/pipeline-stage-unit-action/system-actions-types';
-import { MergeRowAction, WriteFactorAction } from '../../tuples/pipeline-stage-unit-action/write-topic-actions-types';
+import {
+	AggregateArithmetic,
+	MergeRowAction,
+	WriteFactorAction
+} from '../../tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import { Pipeline, PipelineTriggerType } from '../../tuples/pipeline-types';
 import { getCurrentTime } from '../../utils';
 
@@ -74,10 +78,13 @@ const MatchIssueWeekOfYear: ParameterJoint = {
 const WriteWeeklyPremium: MergeRowAction = {
 	type: WriteTopicActionType.INSERT_OR_MERGE_ROW, topicId: '5',
 	mapping: [
-		{ factorId: '501', from: { from: ParameterFrom.CONSTANT, value: 'IssueYear' } as ConstantParameter },
-		{ factorId: '502', from: { from: ParameterFrom.CONSTANT, value: 'IssueWeekOfYear' } as ConstantParameter },
-		// TODO SUM
-		{ factorId: '503', from: { from: ParameterFrom.TOPIC, topicId: '2', factorId: '207' } as TopicFactorParameter }
+		{ factorId: '501', source: { from: ParameterFrom.CONSTANT, value: 'IssueYear' } as ConstantParameter },
+		{ factorId: '502', source: { from: ParameterFrom.CONSTANT, value: 'IssueWeekOfYear' } as ConstantParameter },
+		{
+			factorId: '503',
+			source: { from: ParameterFrom.TOPIC, topicId: '2', factorId: '207' } as TopicFactorParameter,
+			arithmetic: AggregateArithmetic.SUM
+		}
 	],
 	by: MatchIssueWeekOfYear
 };
@@ -106,10 +113,13 @@ const MatchIssueMonthOfYear: ParameterJoint = {
 const WriteMonthlyPremium: MergeRowAction = {
 	type: WriteTopicActionType.INSERT_OR_MERGE_ROW, topicId: '6',
 	mapping: [
-		{ factorId: '601', from: { from: ParameterFrom.CONSTANT, value: 'IssueYear' } as ConstantParameter },
-		{ factorId: '602', from: { from: ParameterFrom.CONSTANT, value: 'IssueMonthOfYear' } as ConstantParameter },
-		// TODO SUM
-		{ factorId: '603', from: { from: ParameterFrom.TOPIC, topicId: '2', factorId: '207' } as TopicFactorParameter }
+		{ factorId: '601', source: { from: ParameterFrom.CONSTANT, value: 'IssueYear' } as ConstantParameter },
+		{ factorId: '602', source: { from: ParameterFrom.CONSTANT, value: 'IssueMonthOfYear' } as ConstantParameter },
+		{
+			factorId: '603',
+			source: { from: ParameterFrom.TOPIC, topicId: '2', factorId: '207' } as TopicFactorParameter,
+			arithmetic: AggregateArithmetic.SUM
+		}
 	],
 	by: MatchIssueMonthOfYear
 };

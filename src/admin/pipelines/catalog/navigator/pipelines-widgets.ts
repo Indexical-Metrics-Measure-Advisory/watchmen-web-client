@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { TooltipButton } from '../../../../basic-widgets/tooltip-button';
 
 export const PipelinesBodyContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
 	return {
@@ -43,19 +44,32 @@ export const PipelineName = styled.div.attrs({ 'data-widget': 'pipelines-navigat
 	align-items : center;
 	min-height  : var(--tall-height);
 	padding     : 0 calc(var(--margin) / 2);
-	grid-column : 1 / span 3;
+	grid-column : 1 / span 2;
 	&:after {
 		content          : '';
 		display          : block;
 		position         : absolute;
 		top              : 100%;
 		left             : calc(var(--margin) / 2);
-		width            : calc(100% - var(--margin));
+		width            : calc(100% - var(--margin) / 2 + 24px);
 		height           : 1px;
 		background-color : var(--border-color);
 		opacity          : 0.5;
 		z-index          : 1;
 	}
+`;
+export const PipelineNameLabel = styled.span.attrs({ 'data-widget': 'pipelines-navigator-pipeline-name-label' })`
+	white-space   : nowrap;
+	overflow      : hidden;
+	text-overflow : ellipsis;
+`;
+export const PipelineButton = styled(TooltipButton)`
+	padding      : 0;
+	margin-right : calc(var(--margin) / 2);
+	height       : 24px;
+	width        : 24px;
+	align-self   : center;
+	margin-left  : calc(var(--margin) / -2);
 `;
 export const PipelineDirection = styled.div.attrs<{ rows: number }>(({ rows }) => {
 	return {
@@ -73,13 +87,13 @@ export const PipelineDirection = styled.div.attrs<{ rows: number }>(({ rows }) =
 	font-variant : petite-caps;
 	opacity      : 0.7;
 `;
-export const TopicSmall = styled.div.attrs({ 'data-widget': 'pipelines-navigator-pipeline-topic' })`
+export const PipelineTopic = styled.div.attrs({ 'data-widget': 'pipelines-navigator-pipeline-topic' })`
 	display      : flex;
 	position     : relative;
 	grid-column  : 2 / span 2;
 	align-items  : center;
 	height       : var(--height);
-	padding-left : calc(var(--margin) / 2);
+	padding      : 0 calc(var(--margin) / 2);
 	font-variant : petite-caps;
 	opacity      : 0.7;
 	&:before {
@@ -94,6 +108,11 @@ export const TopicSmall = styled.div.attrs({ 'data-widget': 'pipelines-navigator
 		opacity          : 0.5;
 		z-index          : 1;
 	}
+`;
+export const PipelineTopicLabel = styled.span.attrs({ 'data-widget': 'pipelines-navigator-pipeline-topic-label' })`
+	white-space   : nowrap;
+	overflow      : hidden;
+	text-overflow : ellipsis;
 `;
 export const NoPipelines = styled.div.attrs({ 'data-widget': 'pipelines-navigator-no-pipelines' })`
 	display      : flex;

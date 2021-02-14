@@ -7,9 +7,27 @@ import {
 	WriteTopicActionType
 } from './pipeline-stage-unit-action-types';
 
+export enum NumericArithmetic {
+	PERCENTAGE = 'percentage',
+	ABSOLUTE_VALUE = 'abs',
+	LOGARITHM = 'log',
+}
+
+export enum AggregateArithmetic {
+	COUNT = 'count',
+	SUM = 'sum',
+	AVG = 'avg',
+	MAX = 'max',
+	MIN = 'min',
+	MEDIAN = 'med'
+}
+
+export type ValueArithmetic = NumericArithmetic | AggregateArithmetic;
+
 export interface MappingFactor {
-	from: Parameter;
+	source: Parameter;
 	factorId: string;
+	arithmetic?: ValueArithmetic;
 }
 
 export interface MappingRow {
@@ -31,4 +49,5 @@ export interface MergeRowAction extends WriteTopicAction, MappingRow, FindBy {
 export interface WriteFactorAction extends ToFactor, WriteTopicAction, FindBy {
 	type: WriteTopicActionType.WRITE_FACTOR;
 	source: Parameter;
+	arithmetic?: ValueArithmetic;
 }
