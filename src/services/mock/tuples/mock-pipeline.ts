@@ -5,3 +5,9 @@ export const fetchMockPipelinesGraphics = async (): Promise<PipelinesGraphics> =
 		setTimeout(() => resolve({ topics: [] }), 500);
 	});
 };
+
+export const saveMockPipelinesGraphics = async (graphics: PipelinesGraphics): Promise<void> => {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve(), 500);
+	});
+};

@@ -7,6 +7,7 @@ import { usePipelinesEventBus } from '../pipelines-event-bus';
 import { PipelinesEventTypes } from '../pipelines-event-bus-types';
 import { useCatalogEventBus } from './catalog-event-bus';
 import { CatalogEventTypes } from './catalog-event-bus-types';
+import { GraphicsSave } from './graphics-save';
 import { asTopicGraphicsMap, computeGraphics, createInitGraphics } from './graphics-utils';
 import { BlockRelations } from './relation/block-relations';
 import { BlockRelationsAnimation } from './relation/block-relations-animation';
@@ -102,6 +103,6 @@ export const CatalogBody = () => {
 			</BodySvgRelationsAnimationContainer>
 		</BodySvgContainer>
 		{/*<Navigator connectedSpace={connectedSpace}/>*/}
-		{/*<GraphicsSave connectedSpace={connectedSpace} graphics={data.graphics}/>*/}
+		<GraphicsSave graphics={data.graphics}/>
 	</BodyContainer>;
 };
