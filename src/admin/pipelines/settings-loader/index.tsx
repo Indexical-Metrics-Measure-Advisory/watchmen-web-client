@@ -10,7 +10,8 @@ export const SettingsHolder = () => {
 	const [ holdSettings, setHoldSettings ] = useState<HoldSettings>({
 		initialized: false,
 		pipelines: [],
-		topics: []
+		topics: [],
+		graphics: { topics: [] }
 	});
 
 	useEffect(() => {

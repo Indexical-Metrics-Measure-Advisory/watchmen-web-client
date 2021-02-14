@@ -24,20 +24,19 @@ const AdminMain = styled.main.attrs({ 'data-widget': 'admin-main', 'data-v-scrol
 const AdminIndex = () => {
 	return <AdminContainer>
 		<AdminMenu/>
-		<AdminMain>
-			<Switch>
-				<Route path={Router.ADMIN_TOPICS}><AdminTopics/></Route>
-				<Route path={Router.ADMIN_REPORTS}><AdminReports/></Route>
-				<Route path={Router.ADMIN_SPACES}><AdminSpaces/></Route>
-				<Route path={Router.ADMIN_PIPELINES}><AdminPipelines/></Route>
-				<Route path={Router.ADMIN_USER_GROUPS}><AdminUserGroups/></Route>
-				<Route path={Router.ADMIN_USERS}><AdminUsers/></Route>
-				{/*		<Route path={Path.ADMIN_TASKS}><Tasks/></Route>*/}
-				<Route path='*'>
-					<Redirect to={Router.ADMIN_TOPICS}/>
-				</Route>
-			</Switch>
-		</AdminMain>
+
+		<Switch>
+			<Route path={Router.ADMIN_TOPICS}><AdminMain><AdminTopics/></AdminMain></Route>
+			<Route path={Router.ADMIN_REPORTS}><AdminMain><AdminReports/></AdminMain></Route>
+			<Route path={Router.ADMIN_SPACES}><AdminMain><AdminSpaces/></AdminMain></Route>
+			<Route path={Router.ADMIN_PIPELINES}><AdminPipelines/></Route>
+			<Route path={Router.ADMIN_USER_GROUPS}><AdminMain><AdminUserGroups/></AdminMain></Route>
+			<Route path={Router.ADMIN_USERS}><AdminMain><AdminUsers/></AdminMain></Route>
+			{/*		<Route path={Path.ADMIN_TASKS}><Tasks/></Route>*/}
+			<Route path='*'>
+				<Redirect to={Router.ADMIN_TOPICS}/>
+			</Route>
+		</Switch>
 	</AdminContainer>;
 };
 

@@ -134,7 +134,15 @@ const DefaultTheme = {
 	paramDangerTopBorder: '0 -1px 0 var(--param-danger-color)',
 	paramDangerRightBorder: '1px 0 0 var(--param-danger-color)',
 	paramDangerBottomBorder: '0 1px 0 var(--param-danger-color)',
-	paramDangerLeftBorder: '-1px 0 0 var(--param-danger-color)'
+	paramDangerLeftBorder: '-1px 0 0 var(--param-danger-color)',
+
+	// topic color
+	rawTopicColor: 'var(--waive-color)',
+	distinctTopicColor: 'var(--primary-color)',
+	systemTopicColor: 'var(--danger-color)',
+	aggregateTopicColor: 'var(--info-color)',
+	timeTopicColor: 'var(--success-color)',
+	ratioTopicColor: 'var(--warn-color)'
 };
 
 export default DefaultTheme;

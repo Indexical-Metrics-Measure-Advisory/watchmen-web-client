@@ -1,5 +1,5 @@
 import { PipelinesSettings } from '../../services/pipeline/settings-types';
-import { Pipeline } from '../../services/tuples/pipeline-types';
+import { Pipeline, PipelinesGraphics } from '../../services/tuples/pipeline-types';
 import { Topic } from '../../services/tuples/topic-types';
 
 export enum PipelinesEventTypes {
@@ -10,7 +10,10 @@ export enum PipelinesEventTypes {
 	REPLY_PIPELINES = 'reply-pipelines',
 
 	ASK_TOPICS = 'ask-topics',
-	REPLY_TOPICS = 'reply-topics'
+	REPLY_TOPICS = 'reply-topics',
+
+	ASK_GRAPHICS = 'ask-graphics',
+	REPLY_GRAPHICS = 'reply-graphics'
 }
 
 export interface PipelinesEventBus {
@@ -33,4 +36,11 @@ export interface PipelinesEventBus {
 
 	fire(type: PipelinesEventTypes.REPLY_TOPICS, topics: Array<Topic>): this;
 	once(type: PipelinesEventTypes.REPLY_TOPICS, listener: (topics: Array<Topic>) => void): this;
+
+	fire(type: PipelinesEventTypes.ASK_GRAPHICS): this;
+	on(type: PipelinesEventTypes.ASK_GRAPHICS, listener: () => void): this;
+	off(type: PipelinesEventTypes.ASK_GRAPHICS, listener: () => void): this;
+
+	fire(type: PipelinesEventTypes.REPLY_GRAPHICS, graphics: PipelinesGraphics): this;
+	once(type: PipelinesEventTypes.REPLY_GRAPHICS, listener: (graphics: PipelinesGraphics) => void): this;
 }

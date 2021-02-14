@@ -8,7 +8,7 @@ import { computeRelationPoints } from '../graphics-utils';
 import { AssembledConnectedSpaceGraphics, GraphicsRole } from '../types';
 import { Curve } from './widgets';
 
-export const SubjectTopicSelection = (props: { graphics: AssembledConnectedSpaceGraphics, topic: Topic, subject: Subject }) => {
+export const SubjectTopicRelation = (props: { graphics: AssembledConnectedSpaceGraphics, topic: Topic, subject: Subject }) => {
 	const { graphics, topic, subject } = props;
 
 	const { on, off } = useCatalogEventBus();

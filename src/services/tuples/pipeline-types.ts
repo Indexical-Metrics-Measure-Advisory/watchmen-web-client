@@ -1,3 +1,4 @@
+import { BlockCoordinate, BlockFrame, BlockName } from '../graphics/graphics-types';
 import { ParameterJoint } from './factor-calculator-types';
 import { PipelineStage } from './pipeline-stage-types';
 import { Tuple } from './tuple-types';
@@ -18,4 +19,22 @@ export interface Pipeline extends Tuple {
 	conditional: boolean;
 	on?: ParameterJoint;
 	stages: Array<PipelineStage>;
+}
+
+export interface PipelineBlockGraphicsRect {
+	coordinate: BlockCoordinate;
+	frame: BlockFrame;
+	name: BlockName
+}
+
+export interface PipelineBlockGraphics {
+	rect: PipelineBlockGraphicsRect
+}
+
+export interface TopicGraphics extends PipelineBlockGraphics {
+	topicId: string;
+}
+
+export interface PipelinesGraphics {
+	topics: Array<TopicGraphics>;
 }

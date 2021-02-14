@@ -7,6 +7,7 @@ import { PipelinesEventBusProvider, usePipelinesEventBus } from './pipelines-eve
 import { PipelinesEventTypes } from './pipelines-event-bus-types';
 import { PipelinesLoading } from './pipelines-loading';
 import { SettingsHolder } from './settings-loader';
+import { AdminMain } from './widgets';
 
 const PipelinesRouter = () => {
 	return <Switch>
@@ -37,10 +38,12 @@ const PipelinesContainerDelegate = () => {
 		};
 	}, [ on, off ]);
 
-	return <FullWidthPage>
-		{initialized ? <PipelinesRouter/> : <PipelinesLoading/>}
-		<SettingsHolder/>
-	</FullWidthPage>;
+	return <AdminMain>
+		<FullWidthPage>
+			{initialized ? <PipelinesRouter/> : <PipelinesLoading/>}
+			<SettingsHolder/>
+		</FullWidthPage>
+	</AdminMain>;
 };
 
 const AdminPipelinesIndex = () => {
