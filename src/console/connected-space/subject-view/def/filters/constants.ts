@@ -1,15 +1,15 @@
 import { Lang } from '../../../../../langs';
-import { FilterExpressionOperator } from '../../../../../services/tuples/subject-types';
+import { ParameterExpressionOperator } from '../../../../../services/tuples/factor-calculator-types';
 
-export const FilterExpressionOperatorLabels: { [key in FilterExpressionOperator]: string } = {
-	[FilterExpressionOperator.EMPTY]: Lang.FILTER.EXPRESSION.OPERATOR.EMPTY,
-	[FilterExpressionOperator.NOT_EMPTY]: Lang.FILTER.EXPRESSION.OPERATOR.NOT_EMPTY,
-	[FilterExpressionOperator.EQUALS]: Lang.FILTER.EXPRESSION.OPERATOR.EQUALS,
-	[FilterExpressionOperator.NOT_EQUALS]: Lang.FILTER.EXPRESSION.OPERATOR.NOT_EQUALS,
-	[FilterExpressionOperator.LESS]: Lang.FILTER.EXPRESSION.OPERATOR.LESS,
-	[FilterExpressionOperator.LESS_EQUALS]: Lang.FILTER.EXPRESSION.OPERATOR.LESS_EQUALS,
-	[FilterExpressionOperator.MORE]: Lang.FILTER.EXPRESSION.OPERATOR.MORE,
-	[FilterExpressionOperator.MORE_EQUALS]: Lang.FILTER.EXPRESSION.OPERATOR.MORE_EQUALS,
-	[FilterExpressionOperator.IN]: Lang.FILTER.EXPRESSION.OPERATOR.IN,
-	[FilterExpressionOperator.NOT_IN]: Lang.FILTER.EXPRESSION.OPERATOR.NOT_IN
+export const FilterExpressionOperatorLabels: { [key in ParameterExpressionOperator]: string } = {
+	[ParameterExpressionOperator.EMPTY]: Lang.PARAMETER.EXPRESSION_OPERATOR.EMPTY,
+	[ParameterExpressionOperator.NOT_EMPTY]: Lang.PARAMETER.EXPRESSION_OPERATOR.NOT_EMPTY,
+	[ParameterExpressionOperator.EQUALS]: Lang.PARAMETER.EXPRESSION_OPERATOR.EQUALS,
+	[ParameterExpressionOperator.NOT_EQUALS]: Lang.PARAMETER.EXPRESSION_OPERATOR.NOT_EQUALS,
+	[ParameterExpressionOperator.LESS]: Lang.PARAMETER.EXPRESSION_OPERATOR.LESS,
+	[ParameterExpressionOperator.LESS_EQUALS]: Lang.PARAMETER.EXPRESSION_OPERATOR.LESS_EQUALS,
+	[ParameterExpressionOperator.MORE]: Lang.PARAMETER.EXPRESSION_OPERATOR.MORE,
+	[ParameterExpressionOperator.MORE_EQUALS]: Lang.PARAMETER.EXPRESSION_OPERATOR.MORE_EQUALS,
+	[ParameterExpressionOperator.IN]: Lang.PARAMETER.EXPRESSION_OPERATOR.IN,
+	[ParameterExpressionOperator.NOT_IN]: Lang.PARAMETER.EXPRESSION_OPERATOR.NOT_IN
 };

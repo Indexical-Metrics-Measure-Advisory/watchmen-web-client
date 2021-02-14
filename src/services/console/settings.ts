@@ -19,9 +19,11 @@ export const fetchConsoleSettingsData = async (): Promise<ConsoleSettings> => {
 		fetchFavorite(), fetchLastSnapshot()
 	]);
 
+	// @ts-ignore
 	const topicIds = availableSpaces.reduce<Array<string>>((topicIds, space) => ([ ...topicIds, ...space.topicIds ]), []);
 	const availableTopics = await fetchAvailableTopics(topicIds);
 
+	// @ts-ignore
 	return {
 		connectedSpaces, connectedSpaceGraphics, dashboards,
 		availableSpaces, availableTopics,

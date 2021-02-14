@@ -56,3 +56,35 @@ export interface Computed {
 export interface ComputedParameter extends Computed, Parameter {
 	from: ParameterFrom.COMPUTED;
 }
+
+export enum ParameterExpressionOperator {
+	EMPTY = 'empty',
+	NOT_EMPTY = 'not-empty',
+	EQUALS = 'equals',
+	NOT_EQUALS = 'not-equals',
+	LESS = 'less',
+	LESS_EQUALS = 'less-equals',
+	MORE = 'more',
+	MORE_EQUALS = 'more-equals',
+	IN = 'in',
+	NOT_IN = 'not-in',
+}
+
+export interface ParameterCondition {
+}
+
+export interface ParameterExpression extends ParameterCondition {
+	left: Parameter;
+	operator: ParameterExpressionOperator;
+	right: Parameter;
+}
+
+export enum ParameterJointType {
+	AND = 'and',
+	OR = 'or',
+}
+
+export interface ParameterJoint extends ParameterCondition {
+	jointType: ParameterJointType;
+	filters: Array<ParameterCondition>;
+}

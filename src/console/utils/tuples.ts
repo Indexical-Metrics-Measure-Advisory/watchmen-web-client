@@ -1,7 +1,8 @@
 import { getCurrentLanguage } from '../../langs';
 import { ConnectedSpace } from '../../services/tuples/connected-space-types';
 import { Dashboard } from '../../services/tuples/dashboard-types';
-import { FilterJointType, Subject } from '../../services/tuples/subject-types';
+import { ParameterJointType } from '../../services/tuples/factor-calculator-types';
+import { Subject } from '../../services/tuples/subject-types';
 import { generateUuid } from '../../services/tuples/utils';
 import { getCurrentTime } from '../../services/utils';
 
@@ -36,7 +37,7 @@ export const createSubject = (name?: string): Subject => {
 		subjectId,
 		name: name || `${getCurrentLanguage().PLAIN.NEW_SUBJECT_NAME} ${btoa(subjectId).substr(0, 12)}`,
 		dataset: {
-			filters: { jointType: FilterJointType.AND, filters: [] },
+			filters: { jointType: ParameterJointType.AND, filters: [] },
 			columns: [],
 			joins: []
 		},

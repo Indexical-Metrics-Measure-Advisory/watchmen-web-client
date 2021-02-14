@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { MouseEvent } from 'react';
 import { ICON_DELETE } from '../../../../../../basic-widgets/constants';
+import { Lang } from '../../../../../../langs';
 import {
 	Subject,
 	SubjectDataSetFilterExpression,
@@ -42,7 +43,7 @@ export const ExpressionFilterEdit = (props: {
 
 	return <FilterEventBusProvider>
 		<ExpressionFilterContainer>
-			<ExpressionLeadLabel>Expression</ExpressionLeadLabel>
+			<ExpressionLeadLabel>{Lang.PARAMETER.EXPRESSION}</ExpressionLeadLabel>
 			<RemoveFilterIcon onClick={onRemoveClicked}>
 				<FontAwesomeIcon icon={ICON_DELETE}/>
 			</RemoveFilterIcon>

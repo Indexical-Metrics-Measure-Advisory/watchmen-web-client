@@ -1,4 +1,9 @@
-import { Parameter } from './factor-calculator-types';
+import {
+	Parameter,
+	ParameterCondition,
+	ParameterExpression,
+	ParameterJoint
+} from './factor-calculator-types';
 import { Tuple } from './tuple-types';
 
 /** column */
@@ -8,36 +13,14 @@ export interface SubjectDataSetColumn {
 }
 
 /** filter */
-export interface SubjectDataSetFilter {
+export interface SubjectDataSetFilter extends ParameterCondition {
 }
 
-export enum FilterJointType {
-	AND = 'and',
-	OR = 'or',
-}
-
-export interface SubjectDataSetFilterJoint extends SubjectDataSetFilter {
-	jointType: FilterJointType;
+export interface SubjectDataSetFilterJoint extends SubjectDataSetFilter, ParameterJoint {
 	filters: Array<SubjectDataSetFilter>;
 }
 
-export enum FilterExpressionOperator {
-	EMPTY = 'empty',
-	NOT_EMPTY = 'not-empty',
-	EQUALS = 'equals',
-	NOT_EQUALS = 'not-equals',
-	LESS = 'less',
-	LESS_EQUALS = 'less-equals',
-	MORE = 'more',
-	MORE_EQUALS = 'more-equals',
-	IN = 'in',
-	NOT_IN = 'not-in',
-}
-
-export interface SubjectDataSetFilterExpression extends SubjectDataSetFilter {
-	left: Parameter;
-	operator: FilterExpressionOperator;
-	right: Parameter;
+export interface SubjectDataSetFilterExpression extends SubjectDataSetFilter, ParameterExpression {
 }
 
 /** topic join */

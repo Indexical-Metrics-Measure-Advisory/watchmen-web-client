@@ -19,7 +19,7 @@ export enum TupleEventTypes {
 	TUPLE_EDIT_DONE = 'tuple-edit-done',
 	CHANGE_TUPLE_STATE = 'change-tuple-state',
 	ASK_TUPLE_STATE = 'ask-tuple-state',
-	REPLY_TUPLE_STATE = 'replay-tuple-state',
+	REPLY_TUPLE_STATE = 'reply-tuple-state',
 
 	DO_SAVE_TUPLE = 'do-save-tuple',
 	TUPLE_SAVED = 'tuple-saved',

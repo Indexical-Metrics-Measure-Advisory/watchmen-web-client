@@ -3,7 +3,7 @@ import { QueryTopic, QueryTopicForHolder } from '../../tuples/query-topic-types'
 import { Topic, TopicType } from '../../tuples/topic-types';
 import { isFakedUuid } from '../../tuples/utils';
 import { getCurrentTime } from '../../utils';
-import { DemoTopics } from './mock-data-topics';
+import { DemoQueryTopics, DemoTopics } from './mock-data-topics';
 
 export const listMockTopics = async (options: {
 	search: string;
@@ -14,8 +14,8 @@ export const listMockTopics = async (options: {
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve({
-				data: DemoTopics,
-				itemCount: DemoTopics.length,
+				data: DemoQueryTopics,
+				itemCount: DemoQueryTopics.length,
 				pageNumber,
 				pageSize,
 				pageCount: 3

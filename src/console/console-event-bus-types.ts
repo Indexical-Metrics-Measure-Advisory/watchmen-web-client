@@ -43,7 +43,7 @@ export enum ConsoleEventTypes {
 
 	// ask data
 	ASK_LAST_SNAPSHOT = 'ask-last-snapshot',
-	REPLY_LAST_SNAPSHOT = 'replay-last-snapshot',
+	REPLY_LAST_SNAPSHOT = 'reply-last-snapshot',
 
 	ASK_FAVORITE = 'ask-favorite',
 	REPLY_FAVORITE = 'reply-favorite',

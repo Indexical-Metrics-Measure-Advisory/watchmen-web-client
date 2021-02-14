@@ -3,7 +3,8 @@ import React, { MouseEvent, useState } from 'react';
 import { ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EDIT } from '../../../../../../basic-widgets/constants';
 import { useForceUpdate } from '../../../../../../basic-widgets/utils';
 import { Lang } from '../../../../../../langs';
-import { FilterJointType, Subject, SubjectDataSetFilterJoint } from '../../../../../../services/tuples/subject-types';
+import { ParameterJointType } from '../../../../../../services/tuples/factor-calculator-types';
+import { Subject, SubjectDataSetFilterJoint } from '../../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../../services/tuples/topic-types';
 import { createSubjectDataSetFilter, createSubjectDataSetJoint } from '../../data-utils';
 import { useFilterEventBus } from '../filter-event-bus';
@@ -44,7 +45,7 @@ export const JointEdit = (props: {
 
 	const onStartEditing = () => setEditing(true);
 	const onBlur = () => setEditing(false);
-	const onJointChange = (jointType: FilterJointType) => (event: MouseEvent<HTMLDivElement>) => {
+	const onJointChange = (jointType: ParameterJointType) => (event: MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
 		if (jointType === joint.jointType) {
@@ -96,12 +97,12 @@ export const JointEdit = (props: {
 
 	return <FilterJointContainer>
 		<FilterJointTypeEditContainer onClick={onStartEditing} tabIndex={0} onBlur={onBlur}>
-			<FilterJointTypeButton active={joint.jointType === FilterJointType.AND} edit={editing}
-			                       onClick={onJointChange(FilterJointType.AND)}>
+			<FilterJointTypeButton active={joint.jointType === ParameterJointType.AND} edit={editing}
+			                       onClick={onJointChange(ParameterJointType.AND)}>
 				{Lang.JOINT.AND}
 			</FilterJointTypeButton>
-			<FilterJointTypeButton active={joint.jointType === FilterJointType.OR} edit={editing}
-			                       onClick={onJointChange(FilterJointType.OR)}>
+			<FilterJointTypeButton active={joint.jointType === ParameterJointType.OR} edit={editing}
+			                       onClick={onJointChange(ParameterJointType.OR)}>
 				{Lang.JOINT.OR}
 			</FilterJointTypeButton>
 			<FilterJointTypeIcon onClick={onIconClicked}>

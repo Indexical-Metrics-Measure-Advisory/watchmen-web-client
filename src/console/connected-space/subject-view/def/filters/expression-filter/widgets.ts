@@ -45,13 +45,13 @@ export const ExpressionLeadLabel = styled.div.attrs({ 'data-widget': 'expression
 	background-color : var(--param-bg-color);
 	border-radius    : calc(var(--param-height) / 2);
 	padding          : 0 calc(var(--margin) / 2);
-	cursor           : pointer;
+	cursor           : default;
 	outline          : none;
 	box-shadow       : var(--param-border);
-	transition       : box-shadow 300ms ease-in-out;
-	&:hover {
-		box-shadow : var(--param-border), var(--primary-hover-shadow);
-	}
+	//transition       : box-shadow 300ms ease-in-out;
+	//&:hover {
+	//	box-shadow : var(--param-border), var(--primary-hover-shadow);
+	//}
 `;
 export const ExpressionSide = styled.div.attrs<{ shorten: boolean }>(({ shorten }) => {
 	return {

@@ -249,20 +249,35 @@ export const En = {
 		ARRAY: 'Array'
 	},
 	PARAMETER: {
-		NONE: 'As is',
-		ADD: 'Add',
-		SUBTRACT: 'Subtract',
-		MULTIPLY: 'Multiply',
-		DIVIDE: 'Divide',
-		MODULUS: 'Modulus',
-		YEAR_OF: 'Year of',
-		HALF_YEAR_OF: 'Half Year of',
-		QUARTER_OF: 'Quarter of',
-		MONTH_OF: 'Month of',
-		WEEK_OF_YEAR: 'Week of Year',
-		WEEK_OF_MONTH: 'Week of Month',
-		DAY_OF_MONTH: 'Day of Month',
-		DAY_OF_WEEK: 'Day of Week'
+		EXPRESSION: 'Expression',
+		COMPUTE_TYPE: {
+			NONE: 'As is',
+			ADD: 'Add',
+			SUBTRACT: 'Subtract',
+			MULTIPLY: 'Multiply',
+			DIVIDE: 'Divide',
+			MODULUS: 'Modulus',
+			YEAR_OF: 'Year of',
+			HALF_YEAR_OF: 'Half Year of',
+			QUARTER_OF: 'Quarter of',
+			MONTH_OF: 'Month of',
+			WEEK_OF_YEAR: 'Week of Year',
+			WEEK_OF_MONTH: 'Week of Month',
+			DAY_OF_MONTH: 'Day of Month',
+			DAY_OF_WEEK: 'Day of Week',
+		},
+		EXPRESSION_OPERATOR: {
+			EMPTY: 'Is Empty',
+			NOT_EMPTY: 'Has Value',
+			EQUALS: 'Equals',
+			NOT_EQUALS: 'Not Equals',
+			LESS: 'Less than',
+			LESS_EQUALS: 'Less than or Equals',
+			MORE: 'Greater than',
+			MORE_EQUALS: 'Greater than or Equals',
+			IN: 'In',
+			NOT_IN: 'Not In'
+		}
 	},
 	JOINT: {
 		AND: 'And',
@@ -272,22 +287,6 @@ export const En = {
 		INNER: 'Exactly Match',
 		LEFT: 'Left Side Prioritized',
 		RIGHT: 'Right Side Prioritized'
-	},
-	FILTER: {
-		EXPRESSION: {
-			OPERATOR: {
-				EMPTY: 'Is Empty',
-				NOT_EMPTY: 'Has Value',
-				EQUALS: 'Equals',
-				NOT_EQUALS: 'Not Equals',
-				LESS: 'Less than',
-				LESS_EQUALS: 'Less than or Equals',
-				MORE: 'Greater than',
-				MORE_EQUALS: 'Greater than or Equals',
-				IN: 'In',
-				NOT_IN: 'Not In'
-			}
-		}
 	},
 	PAGINATION: {
 		TOTAL: '',

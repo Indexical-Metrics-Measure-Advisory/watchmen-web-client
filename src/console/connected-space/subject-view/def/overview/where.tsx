@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { v4 } from 'uuid';
 import { Lang } from '../../../../../langs';
+import { ParameterJointType } from '../../../../../services/tuples/factor-calculator-types';
 import {
-	FilterJointType,
 	Subject,
 	SubjectDataSetFilter,
 	SubjectDataSetFilterExpression,
@@ -52,7 +52,7 @@ const FilterJoint = (props: {
 						? <NewLine/>
 						: null}
 					{filterIndex !== 0
-						? (jointType === FilterJointType.OR ? <JointOr indent={indent}/> : <JointAnd indent={indent}/>)
+						? (jointType === ParameterJointType.OR ? <JointOr indent={indent}/> : <JointAnd indent={indent}/>)
 						: null}
 					<Filter subject={subject} filter={filter}
 					        availableTopicsMap={availableTopicsMap} pickedTopicsMap={pickedTopicsMap}

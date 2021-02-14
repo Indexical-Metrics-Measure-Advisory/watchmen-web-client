@@ -1,13 +1,13 @@
 import {
 	ComputedParameter,
 	ConstantParameter,
+	ParameterExpressionOperator,
 	ParameterFrom,
+	ParameterJointType,
 	TopicFactorParameter
 } from '../../../../services/tuples/factor-calculator-types';
 import { ParameterCalculatorDefsMap } from '../../../../services/tuples/factor-calculator-utils';
 import {
-	FilterExpressionOperator,
-	FilterJointType,
 	Subject,
 	SubjectDataSetColumn,
 	SubjectDataSetFilterExpression,
@@ -38,20 +38,20 @@ export const createSubjectDataSetColumn = (subject: Subject): SubjectDataSetColu
 };
 export const createSubjectDataSetTopFilter = (subject: Subject): SubjectDataSetFilterJoint => {
 	return {
-		jointType: FilterJointType.AND,
+		jointType: ParameterJointType.AND,
 		filters: []
 	};
 };
 export const createSubjectDataSetFilter = (subject: Subject): SubjectDataSetFilterExpression => {
 	return {
 		left: createTopicFactorParameter(),
-		operator: FilterExpressionOperator.EQUALS,
+		operator: ParameterExpressionOperator.EQUALS,
 		right: createConstantParameter()
 	};
 };
-export const createSubjectDataSetJoint = (subject: Subject, parentJointType: FilterJointType): SubjectDataSetFilterJoint => {
+export const createSubjectDataSetJoint = (subject: Subject, parentJointType: ParameterJointType): SubjectDataSetFilterJoint => {
 	return {
-		jointType: parentJointType === FilterJointType.AND ? FilterJointType.OR : FilterJointType.AND,
+		jointType: parentJointType === ParameterJointType.AND ? ParameterJointType.OR : ParameterJointType.AND,
 		filters: [ createSubjectDataSetFilter(subject) ]
 	};
 };

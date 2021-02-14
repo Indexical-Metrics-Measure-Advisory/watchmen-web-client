@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const Zh = {
 	$$settings: {
 		code: 'zh',
@@ -42,6 +44,7 @@ export const Zh = {
 		NEXT_PAGE: '下一页'
 	},
 	LOGIN: {
+		PRODUCT_TITLE: <>Indexical Metrics <span>&</span> Measure Advisory</>,
 		MORNING: '早上好 !',
 		AFTERNOON: '中午好 !',
 		EVENING: '晚上好 !',
@@ -157,22 +160,22 @@ export const Zh = {
 			ADD_SUBJECT_JOIN: '添加数据集关联',
 			SUBJECT_SELECT: '选取数据列:',
 			SUBJECT_NO_SELECT: '尚未定义数据列.',
-			// SUBJECT_FROM: '选自:',
-			// SUBJECT_NO_FROM: '尚未定义数据集关联关系.',
-			// SUBJECT_JOIN_INNER: '连接到',
-			// SUBJECT_JOIN_LEFT: '左连接到',
-			// SUBJECT_JOIN_RIGHT: '右连接到',
-			// SUBJECT_JOIN_ON: '使用',
-			// SUBJECT_JOIN_EQUALS: '等于',
-			// SUBJECT_JOIN_AND: '并且',
-			// SUBJECT_WHERE: '按以下条件:',
-			// SUBJECT_NO_WHERE: '尚未定义数据过滤条件.',
-			// SUBJECT_UNKNOWN_PARAMETER: '未知参数',
-			// SUBJECT_EMPTY_CONSTANT: '空值',
-			// SUBJECT_COLUMN_AS: '作为',
-			// SUBJECT_NO_ALIAS: '?',
-			// SUBJECT_FILTER_JOINT_NO_STATEMENT: '没有联合条件',
-			// SUBJECT_UNKNOWN_FILTER: '未知过滤条件',
+			SUBJECT_FROM: 'From',
+			SUBJECT_NO_FROM: 'No join defined.',
+			SUBJECT_JOIN_INNER: 'Inner Join',
+			SUBJECT_JOIN_LEFT: 'Left Join',
+			SUBJECT_JOIN_RIGHT: 'Right Join',
+			SUBJECT_JOIN_ON: 'On',
+			SUBJECT_JOIN_EQUALS: '=',
+			SUBJECT_JOIN_AND: 'And',
+			SUBJECT_WHERE: 'Where',
+			SUBJECT_NO_WHERE: 'No filter defined.',
+			SUBJECT_UNKNOWN_PARAMETER: 'Unknown Parameter',
+			SUBJECT_EMPTY_CONSTANT: 'Empty Constant Value',
+			SUBJECT_COLUMN_AS: 'As',
+			SUBJECT_NO_ALIAS: '?',
+			SUBJECT_FILTER_JOINT_NO_STATEMENT: 'No Statement in Joint',
+			SUBJECT_UNKNOWN_FILTER: 'Unknown Filter',
 			NO_DATASET_COLUMN: '尚未定义数据列.',
 			UNFIX_COLUMN: '解锁本列以及之后已锁定列',
 			FIX_COLUMN: '锁定至本列',
@@ -246,20 +249,35 @@ export const Zh = {
 		ARRAY: '子对象数组'
 	},
 	PARAMETER: {
-		NONE: 'As is',
-		ADD: '加',
-		SUBTRACT: '减',
-		MULTIPLY: '乘',
-		DIVIDE: '除',
-		MODULUS: '模除',
-		YEAR_OF: '年',
-		HALF_YEAR_OF: '上下半年',
-		QUARTER_OF: '季度',
-		MONTH_OF: '月',
-		WEEK_OF_YEAR: '周(按年度)',
-		WEEK_OF_MONTH: '周(按月度)',
-		DAY_OF_MONTH: '天(按月度)',
-		DAY_OF_WEEK: '天(按周)'
+		EXPRESSION: '表达式',
+		COMPUTE_TYPE: {
+			NONE: 'As is',
+			ADD: '加',
+			SUBTRACT: '减',
+			MULTIPLY: '乘',
+			DIVIDE: '除',
+			MODULUS: '模除',
+			YEAR_OF: '年',
+			HALF_YEAR_OF: '上下半年',
+			QUARTER_OF: '季度',
+			MONTH_OF: '月',
+			WEEK_OF_YEAR: '周(按年度)',
+			WEEK_OF_MONTH: '周(按月度)',
+			DAY_OF_MONTH: '天(按月度)',
+			DAY_OF_WEEK: '天(按周)'
+		},
+		EXPRESSION_OPERATOR: {
+			EMPTY: '为空',
+			NOT_EMPTY: '不为空',
+			EQUALS: '等于',
+			NOT_EQUALS: '不等于',
+			LESS: '小于',
+			LESS_EQUALS: '小于等于',
+			MORE: '大于',
+			MORE_EQUALS: '大于等于',
+			IN: '在集合内',
+			NOT_IN: '不在集合内'
+		}
 	},
 	JOINT: {
 		AND: '与',
@@ -269,22 +287,6 @@ export const Zh = {
 		INNER: '精确匹配',
 		LEFT: '左侧优先',
 		RIGHT: '右侧优先'
-	},
-	FILTER: {
-		EXPRESSION: {
-			OPERATOR: {
-				EMPTY: '为空',
-				NOT_EMPTY: '不为空',
-				EQUALS: '等于',
-				NOT_EQUALS: '不等于',
-				LESS: '小于',
-				LESS_EQUALS: '小于等于',
-				MORE: '大于',
-				MORE_EQUALS: '大于等于',
-				IN: '在集合内',
-				NOT_IN: '不在集合内'
-			}
-		}
 	},
 	PAGINATION: {
 		TOTAL: '共',

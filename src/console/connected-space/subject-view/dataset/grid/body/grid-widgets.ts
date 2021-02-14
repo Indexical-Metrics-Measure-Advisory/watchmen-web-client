@@ -14,7 +14,7 @@ export const GridContainer = styled.div
 			const fixTableWidth = columns.reduce((width, column) => width + column.width, 0);
 			return {
 				'data-widget': 'subject-dataset-grid',
-				// 'data-v-scroll': '',
+				'data-v-scroll': '',
 				'data-h-scroll': '',
 				style: {
 					minWidth: autoFill ? (void 0) : fixTableWidth
@@ -56,11 +56,6 @@ export const GridContainer = styled.div
 	&:nth-child(2) {
 		flex-grow : 1;
 		overflow  : auto;
-		&::-webkit-scrollbar {
-			//FIXME don't know why, but seems 4px doesn't work
-			// scroll bar is out of viewport, seems there is always 4px outside.
-			width : 8px;
-		}
 	}
 	&[data-scrollable=false]:nth-child(2) {
 		overflow : hidden;

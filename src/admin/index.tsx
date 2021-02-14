@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { Router } from '../routes/types';
 import { AdminMenu } from './menu';
+import AdminPipelines from './pipelines';
 import AdminReports from './reports';
 import AdminSpaces from './spaces';
 import AdminTopics from './topics';
@@ -28,7 +29,7 @@ const AdminIndex = () => {
 				<Route path={Router.ADMIN_TOPICS}><AdminTopics/></Route>
 				<Route path={Router.ADMIN_REPORTS}><AdminReports/></Route>
 				<Route path={Router.ADMIN_SPACES}><AdminSpaces/></Route>
-				{/*		<Route path={Path.ADMIN_PIPELINE}><Pipeline/></Route>*/}
+				<Route path={Router.ADMIN_PIPELINES}><AdminPipelines/></Route>
 				<Route path={Router.ADMIN_USER_GROUPS}><AdminUserGroups/></Route>
 				<Route path={Router.ADMIN_USERS}><AdminUsers/></Route>
 				{/*		<Route path={Path.ADMIN_TASKS}><Tasks/></Route>*/}
