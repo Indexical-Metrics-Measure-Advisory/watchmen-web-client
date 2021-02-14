@@ -9,6 +9,7 @@ import { useCatalogEventBus } from './catalog-event-bus';
 import { CatalogEventTypes } from './catalog-event-bus-types';
 import { GraphicsSave } from './graphics-save';
 import { asTopicGraphicsMap, computeGraphics, createInitGraphics } from './graphics-utils';
+import { Navigator } from './navigator';
 import { BlockRelations } from './relation/block-relations';
 import { BlockRelationsAnimation } from './relation/block-relations-animation';
 import { BlockSelection } from './selection';
@@ -102,7 +103,7 @@ export const CatalogBody = () => {
 				<BlockRelationsAnimation graphics={data.graphics} pipelines={data.pipelines}/>
 			</BodySvgRelationsAnimationContainer>
 		</BodySvgContainer>
-		{/*<Navigator connectedSpace={connectedSpace}/>*/}
+		<Navigator/>
 		<GraphicsSave graphics={data.graphics}/>
 	</BodyContainer>;
 };

@@ -92,7 +92,7 @@ const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
 	div[data-h-scroll],
 	textarea[data-h-scroll] {
 		&::-webkit-scrollbar {
-			height : 4px;
+			height : 8px;
 		}
 	}
 	main[data-v-scroll],

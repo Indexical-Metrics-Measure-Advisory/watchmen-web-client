@@ -46,6 +46,6 @@ export const PipelinesLoading = () => {
 		<Icon>
 			<Logo/>
 		</Icon>
-		<Label>Loading pipelines data...</Label>
+		<Label>Loading Pipelines Data...</Label>
 	</Container>;
 };

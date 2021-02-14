@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { Lang } from '../../langs';
-import { Factor, FactorType } from '../../services/tuples/factor-types';
+import { Lang } from '../langs';
+import { Factor, FactorType } from '../services/tuples/factor-types';
 
 const FactorTypeContainer = styled.span.attrs({ 'data-widget': 'factor-type' })`
 	display     : flex;
