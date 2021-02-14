@@ -103,7 +103,7 @@ export const CatalogBody = () => {
 				<BlockRelationsAnimation graphics={data.graphics} pipelines={data.pipelines}/>
 			</BodySvgRelationsAnimationContainer>
 		</BodySvgContainer>
-		<Navigator/>
+		<Navigator pipelines={data.pipelines} topics={data.topics}/>
 		<GraphicsSave graphics={data.graphics}/>
 	</BodyContainer>;
 };

@@ -1,15 +1,21 @@
 import styled from 'styled-components';
 import { FactorTypeLabel } from '../../../../basic-widgets/factor-type-label';
 
-export const TopicBodyContainer = styled.div.attrs({
-	'data-widget': 'pipelines-navigator-topic',
-	'data-v-scroll': ''
-})`
+export const TopicBodyContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
+	return {
+		'data-widget': 'pipelines-navigator-topic',
+		'data-v-scroll': '',
+		style: {
+			height: visible ? (void 0) : 0,
+			flexGrow: visible ? 1 : 0,
+			borderBottom: visible ? 'var(--border)' : 0
+		}
+	};
+})<{ visible: boolean }>`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : 1fr;
 	grid-auto-rows        : var(--tall-height);
-	flex-grow             : 1;
 	overflow-y            : auto;
 `;
 export const FactorRowContainer = styled.div.attrs({ 'data-widget': 'pipelines-navigator-topic-factor' })`
@@ -44,7 +50,6 @@ export const FactorTypeSmall = styled(FactorTypeLabel)`
 	transform-origin : left;
 	margin-left      : calc(var(--margin) / 2);
 `;
-
 export const NoFactor = styled.div.attrs({ 'data-widget': 'pipelines-navigator-topic-no-factor' })`
 	display      : flex;
 	align-items  : center;

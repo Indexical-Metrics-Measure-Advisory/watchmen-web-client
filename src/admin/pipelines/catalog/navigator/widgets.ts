@@ -5,15 +5,15 @@ export const NavigatorContainer = styled.div.attrs<{ visible: boolean }>(({ visi
 	return {
 		'data-widget': 'pipelines-navigator',
 		style: {
-			marginRight: visible ? 0 : -300
+			marginRight: visible ? 0 : -400
 		}
 	};
 })<{ visible: boolean }>`
 	display          : flex;
 	flex-direction   : column;
 	position         : relative;
-	width            : 300px;
-	min-width        : 300px;
+	width            : 400px;
+	min-width        : 400px;
 	background-color : var(--bg-color);
 	overflow         : hidden;
 	transition       : margin-right 300ms ease-in-out;
@@ -29,6 +29,7 @@ export const NavigatorHeader = styled.div.attrs({ 'data-widget': 'pipelines-navi
 	border-bottom   : var(--border);
 	font-family     : var(--title-font-family);
 	font-size       : 1.2em;
+	cursor          : pointer;
 `;
 export const NavigatorHeaderTitle = styled.div.attrs({ 'data-widget': 'pipelines-navigator-header-title' })`
 	flex-grow : 1;

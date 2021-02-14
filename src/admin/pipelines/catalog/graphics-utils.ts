@@ -1,4 +1,3 @@
-import { BLOCK_GAP_HORIZONTAL } from '../../../console/connected-space/catalog/constants';
 import { BlockFrame } from '../../../services/graphics/graphics-types';
 import {
 	PipelineBlockGraphics,
@@ -9,7 +8,7 @@ import {
 import { Topic, TopicType } from '../../../services/tuples/topic-types';
 import {
 	BLOCK_FULL_PADDING_HORIZONTAL,
-	BLOCK_FULL_PADDING_VERTICAL,
+	BLOCK_FULL_PADDING_VERTICAL, BLOCK_GAP_HORIZONTAL,
 	BLOCK_GAP_VERTICAL,
 	BLOCK_HEIGHT_MIN,
 	BLOCK_MARGIN_HORIZONTAL,
