@@ -13,7 +13,7 @@ export interface AlarmAction extends PipelineStageUnitAction {
 	conditional: boolean;
 	on?: ParameterJoint;
 	severity: AlarmActionSeverity;
-	message?: string;
+	message: string;
 }
 
 /** copy something to memory variable */

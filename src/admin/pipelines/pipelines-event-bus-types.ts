@@ -5,6 +5,8 @@ import { Topic } from '../../services/tuples/topic-types';
 export enum PipelinesEventTypes {
 	SETTINGS_LOADED = 'settings-loaded',
 
+	PIPELINE_ADDED = 'pipeline-added',
+
 	// ask data
 	ASK_PIPELINES = 'ask-pipelines',
 	REPLY_PIPELINES = 'reply-pipelines',
@@ -21,6 +23,10 @@ export interface PipelinesEventBus {
 	fire(type: PipelinesEventTypes.SETTINGS_LOADED, settings: PipelinesSettings): this;
 	on(type: PipelinesEventTypes.SETTINGS_LOADED, listener: (settings: PipelinesSettings) => void): this;
 	off(type: PipelinesEventTypes.SETTINGS_LOADED, listener: (settings: PipelinesSettings) => void): this;
+
+	fire(type: PipelinesEventTypes.PIPELINE_ADDED, pipeline: Pipeline): this;
+	on(type: PipelinesEventTypes.PIPELINE_ADDED, listener: (pipeline: Pipeline) => void): this;
+	off(type: PipelinesEventTypes.PIPELINE_ADDED, listener: (pipeline: Pipeline) => void): this;
 
 	// ask state or data
 	fire(type: PipelinesEventTypes.ASK_PIPELINES): this;

@@ -46,7 +46,11 @@ export const isPipeline = (tuple: Tuple): tuple is Pipeline => {
 
 export const generateUuid = (): string => `${FAKE_ID_PREFIX}${v4().replace(/-/g, '')}`;
 export const isFakedUuid = (tuple: Tuple): boolean => {
-	if (isTopic(tuple)) {
+	if (isPipeline(tuple)) {
+		// pipeline check must before topic check
+		// since "topicId" also exists in pipeline object
+		return tuple.pipelineId.startsWith(FAKE_ID_PREFIX);
+	} else if (isTopic(tuple)) {
 		return tuple.topicId.startsWith(FAKE_ID_PREFIX);
 	} else if (isReport(tuple)) {
 		return tuple.reportId.startsWith(FAKE_ID_PREFIX);
@@ -64,8 +68,6 @@ export const isFakedUuid = (tuple: Tuple): boolean => {
 		return tuple.dashboardId.startsWith(FAKE_ID_PREFIX);
 	} else if (isSubject(tuple)) {
 		return tuple.subjectId.startsWith(FAKE_ID_PREFIX);
-	} else if (isPipeline(tuple)) {
-		return tuple.pipelineId.startsWith(FAKE_ID_PREFIX);
 	}
 
 	console.groupCollapsed('Unsupported tuple type');
