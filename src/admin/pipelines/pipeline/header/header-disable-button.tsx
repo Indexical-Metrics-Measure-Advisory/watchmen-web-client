@@ -9,7 +9,7 @@ import { PipelineEventTypes } from '../pipeline-event-bus-types';
 export const HeaderDisableButton = (props: { pipeline: Pipeline }) => {
 	const { pipeline } = props;
 
-	const {fire} = usePipelineEventBus();
+	const { fire } = usePipelineEventBus();
 
 	const onClicked = () => {
 		pipeline.enabled = false;

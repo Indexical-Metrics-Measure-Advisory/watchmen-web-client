@@ -9,8 +9,9 @@ import { Pipeline } from '../../../services/tuples/pipeline-types';
 import { Topic } from '../../../services/tuples/topic-types';
 import { usePipelinesEventBus } from '../pipelines-event-bus';
 import { PipelinesEventTypes } from '../pipelines-event-bus-types';
+import { PipelineBody } from './body';
 import { PipelineDataSaver } from './data-saver';
-import { PipelineNameEditor } from './header';
+import { PipelineHeader } from './header';
 import { PipelineEventBusProvider } from './pipeline-event-bus';
 
 interface WorkbenchData {
@@ -49,7 +50,8 @@ export const PipelineWorkbench = () => {
 	return <PipelineEventBusProvider>
 		<PipelineDataSaver/>
 		<FullWidthPage>
-			<PipelineNameEditor pipeline={data.pipeline}/>
+			<PipelineHeader pipeline={data.pipeline}/>
+			<PipelineBody pipeline={data.pipeline} topics={data.topics}/>
 		</FullWidthPage>
 	</PipelineEventBusProvider>;
 

@@ -7,7 +7,7 @@ import { PipelineEventTypes } from '../pipeline-event-bus-types';
 import { PipelineHeaderButtons } from './pipeline-header-buttons';
 import { PageHeaderHolder } from './widgets';
 
-export const PipelineNameEditor = (props: { pipeline: Pipeline }) => {
+export const PipelineHeader = (props: { pipeline: Pipeline }) => {
 	const { pipeline } = props;
 
 	const { fire } = usePipelineEventBus();

@@ -5,7 +5,7 @@ import { usePipelineEventBus } from '../pipeline-event-bus';
 import { PipelineEventTypes } from '../pipeline-event-bus-types';
 
 export const PipelineDataSaver = () => {
-	const { on, off } = usePipelineEventBus();
+	const { on, off, fire } = usePipelineEventBus();
 	useEffect(() => {
 		const onSavePipeline = async (pipeline: Pipeline) => {
 			await savePipeline(pipeline);
@@ -15,6 +15,7 @@ export const PipelineDataSaver = () => {
 		};
 		const onTogglePipelineEnabled = async (pipeline: Pipeline) => {
 			await togglePipelineEnabled(pipeline.pipelineId, pipeline.enabled);
+			fire(PipelineEventTypes.PIPELINE_ENABLED_TOGGLED, pipeline);
 		};
 		on(PipelineEventTypes.SAVE_PIPELINE, onSavePipeline);
 		on(PipelineEventTypes.RENAME_PIPELINE, onRenamePipeline);
@@ -24,7 +25,7 @@ export const PipelineDataSaver = () => {
 			off(PipelineEventTypes.RENAME_PIPELINE, onRenamePipeline);
 			off(PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, onTogglePipelineEnabled);
 		};
-	}, [ on, off ]);
+	}, [ on, off, fire ]);
 
 	return <Fragment/>;
 };
