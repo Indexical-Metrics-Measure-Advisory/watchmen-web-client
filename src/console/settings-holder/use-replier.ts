@@ -24,7 +24,7 @@ export const useReplier = (options: {
 		};
 		const onAskConnectedSpaceGraphics = () => {
 			fire(ConsoleEventTypes.REPLY_CONNECTED_SPACE_GRAPHICS, holdSettings.connectedSpaceGraphics);
-		}
+		};
 		const onAskDashboards = () => {
 			fire(ConsoleEventTypes.REPLY_DASHBOARDS, holdSettings.dashboards);
 		};

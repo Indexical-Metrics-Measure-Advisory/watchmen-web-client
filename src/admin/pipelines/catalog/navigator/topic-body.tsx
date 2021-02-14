@@ -3,7 +3,7 @@ import { Topic } from '../../../../services/tuples/topic-types';
 import { FactorRow } from './factor-row';
 import { NoFactor, TopicBodyContainer } from './topic-widgets';
 
-export const TopicBody = (props: { topic: Topic, visible:boolean }) => {
+export const TopicBody = (props: { topic: Topic, visible: boolean }) => {
 	const { topic, visible } = props;
 
 	const factors = topic.factors;

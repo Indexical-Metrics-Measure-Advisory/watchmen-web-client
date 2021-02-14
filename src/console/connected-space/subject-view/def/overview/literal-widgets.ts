@@ -32,12 +32,12 @@ export const JoinAndNode = styled.span.attrs({ 'data-widget': 'join-and' })`
 	margin-left    : calc(var(--margin) * 4);
 	color          : var(--info-color);
 `;
-export const JointAndNode = styled.span.attrs<{indent:number}>(({indent}) => {
+export const JointAndNode = styled.span.attrs<{ indent: number }>(({ indent }) => {
 	return {
 		'data-widget': 'joint-and',
-		style: {marginLeft: `calc(var(--margin) / 2 * ${indent + 1})`}
-	}
-})<{indent:number}>`
+		style: { marginLeft: `calc(var(--margin) / 2 * ${indent + 1})` }
+	};
+})<{ indent: number }>`
 	line-height    : var(--line-height);
 	font-variant   : petite-caps;
 	font-weight    : var(--font-demi-bold);
@@ -46,12 +46,12 @@ export const JointAndNode = styled.span.attrs<{indent:number}>(({indent}) => {
 	margin-left    : calc(var(--margin) / 2);
 	color          : var(--info-color);
 `;
-export const JointOrNode = styled.span.attrs<{indent:number}>(({indent}) => {
+export const JointOrNode = styled.span.attrs<{ indent: number }>(({ indent }) => {
 	return {
 		'data-widget': 'joint-or',
-		style: {marginLeft: `calc(var(--margin) / 2 * ${indent + 1})`}
-	}
-})<{indent:number}>`
+		style: { marginLeft: `calc(var(--margin) / 2 * ${indent + 1})` }
+	};
+})<{ indent: number }>`
 	line-height    : var(--line-height);
 	font-variant   : petite-caps;
 	font-weight    : var(--font-demi-bold);

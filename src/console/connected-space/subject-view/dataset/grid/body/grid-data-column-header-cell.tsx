@@ -9,7 +9,7 @@ import {
 import { TooltipAlignment } from '../../../../../../basic-widgets/types';
 import { Lang } from '../../../../../../langs';
 import { DataColumnDef } from '../../types';
-import { GridHeaderCell, GridHeaderCellButtons, GridHeaderCellButton } from './grid-widgets';
+import { GridHeaderCell, GridHeaderCellButton, GridHeaderCellButtons } from './grid-widgets';
 
 export const GridDatColumnHeaderCell = (props: {
 	column: DataColumnDef;
@@ -39,21 +39,29 @@ export const GridDatColumnHeaderCell = (props: {
 	                       ref={cellRef}>
 		<span>{column.name}</span>
 		<GridHeaderCellButtons>
-			<GridHeaderCellButton tooltip={{ label: Lang.ACTIONS.SORT_ASC, alignment: TooltipAlignment.RIGHT, offsetX: 6 }}
-			                      onClick={sortColumnAsc}>
+			<GridHeaderCellButton
+				tooltip={{ label: Lang.ACTIONS.SORT_ASC, alignment: TooltipAlignment.RIGHT, offsetX: 6 }}
+				onClick={sortColumnAsc}>
 				<FontAwesomeIcon icon={ICON_SORT_ASC}/>
 			</GridHeaderCellButton>
-			<GridHeaderCellButton tooltip={{ label: Lang.ACTIONS.SORT_DESC, alignment: TooltipAlignment.RIGHT, offsetX: 6 }}
-			                      onClick={sortColumnDesc}>
+			<GridHeaderCellButton
+				tooltip={{ label: Lang.ACTIONS.SORT_DESC, alignment: TooltipAlignment.RIGHT, offsetX: 6 }}
+				onClick={sortColumnDesc}>
 				<FontAwesomeIcon icon={ICON_SORT_DESC}/>
 			</GridHeaderCellButton>
 			{isFixTable
-				? <GridHeaderCellButton tooltip={{ label: Lang.CONSOLE.CONNECTED_SPACE.UNFIX_COLUMN, alignment: TooltipAlignment.RIGHT, offsetX: 6 }}
-				                        onClick={unfixColumn}>
+				? <GridHeaderCellButton tooltip={{
+					label: Lang.CONSOLE.CONNECTED_SPACE.UNFIX_COLUMN,
+					alignment: TooltipAlignment.RIGHT,
+					offsetX: 6
+				}} onClick={unfixColumn}>
 					<FontAwesomeIcon icon={ICON_UNFIX_COLUMN}/>
 				</GridHeaderCellButton>
-				: <GridHeaderCellButton tooltip={{ label: Lang.CONSOLE.CONNECTED_SPACE.FIX_COLUMN, alignment: TooltipAlignment.RIGHT, offsetX: 6 }}
-				                        onClick={fixColumn}>
+				: <GridHeaderCellButton tooltip={{
+					label: Lang.CONSOLE.CONNECTED_SPACE.FIX_COLUMN,
+					alignment: TooltipAlignment.RIGHT,
+					offsetX: 6
+				}} onClick={fixColumn}>
 					<FontAwesomeIcon icon={ICON_FIX_COLUMN}/>
 				</GridHeaderCellButton>}
 		</GridHeaderCellButtons>

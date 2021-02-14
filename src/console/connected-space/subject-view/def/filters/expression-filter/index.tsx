@@ -10,10 +10,10 @@ import {
 import { Topic } from '../../../../../../services/tuples/topic-types';
 import { FilterEventBusProvider } from '../filter-event-bus';
 import { HierarchicalFilterEventBridge } from '../hierarchical-filter-event-bridge';
+import { RemoveFilterIcon } from '../widgets';
 import { Expression } from './expression';
 import { ExpressionOperator } from './expression-operator';
 import { ExpressionFilterContainer, ExpressionLeadLabel } from './widgets';
-import { RemoveFilterIcon } from '../widgets';
 
 export const ExpressionFilterEdit = (props: {
 	subject: Subject;

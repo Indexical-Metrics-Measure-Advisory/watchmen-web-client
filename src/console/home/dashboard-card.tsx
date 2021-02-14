@@ -15,7 +15,7 @@ export const DashboardCard = (props: {
 
 	const onDashboardClicked = () => {
 		history.push(toDashboard(dashboard.dashboardId));
-	}
+	};
 
 	return <ConnectedSpaceCardContainer onClick={onDashboardClicked}>
 		<FontAwesomeIcon icon={ICON_DASHBOARD}/>

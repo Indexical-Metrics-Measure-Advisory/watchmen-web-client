@@ -76,10 +76,10 @@ export const listTopicsForHolder = async (search: string): Promise<Array<QueryTo
 		return listMockTopicsForHolder(search);
 	} else {
 		const response = await fetch(`${getServiceHost()}query/topic/space?query_name=${search}`, {
-			method: "GET",
+			method: 'GET',
 			headers: {
-				"Content-Type": "application/json",
-			},
+				'Content-Type': 'application/json'
+			}
 		});
 
 		return await response.json();

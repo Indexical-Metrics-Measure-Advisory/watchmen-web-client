@@ -5,10 +5,10 @@ import { TuplePropertyInput } from '../../widgets/tuple-workbench/tuple-editor';
 import { useTopicEventBus } from '../topic-event-bus';
 import { TopicEventTypes } from '../topic-event-bus-types';
 
-export const TopicNameInput = (props: {topic: Topic}) => {
+export const TopicNameInput = (props: { topic: Topic }) => {
 	const { topic } = props;
 
-	const {fire} = useTopicEventBus();
+	const { fire } = useTopicEventBus();
 	const forceUpdate = useForceUpdate();
 	const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (topic.name !== event.target.value) {
@@ -19,4 +19,4 @@ export const TopicNameInput = (props: {topic: Topic}) => {
 	};
 
 	return <TuplePropertyInput value={topic.name || ''} onChange={onNameChange}/>;
-}
+};

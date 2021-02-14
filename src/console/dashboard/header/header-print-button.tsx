@@ -12,4 +12,4 @@ export const HeaderPrintButton = () => {
 	return <PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.PRINT} onClick={onPrintClicked}>
 		<FontAwesomeIcon icon={ICON_PRINT}/>
 	</PageHeaderButton>;
-}
+};

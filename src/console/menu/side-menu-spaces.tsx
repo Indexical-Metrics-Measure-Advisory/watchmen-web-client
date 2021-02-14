@@ -45,7 +45,7 @@ export const SideMenuSpaces = (props: { showTooltip: boolean }) => {
 		};
 		const onConnectedSpaceRenamed = (connectedSpace: ConnectedSpace) => {
 			forceUpdate();
-		}
+		};
 		const onConnectedSpaceRemoved = (connectedSpace: ConnectedSpace) => {
 			setSpaces(spaces => spaces.filter(space => space !== connectedSpace));
 		};

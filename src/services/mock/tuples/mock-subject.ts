@@ -21,4 +21,4 @@ export const deleteMockSubject = async (subject: Subject): Promise<void> => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve(), 500);
 	});
-}
+};

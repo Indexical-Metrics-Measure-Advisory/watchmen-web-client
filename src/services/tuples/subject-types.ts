@@ -1,9 +1,4 @@
-import {
-	Parameter,
-	ParameterCondition,
-	ParameterExpression,
-	ParameterJoint
-} from './factor-calculator-types';
+import { Parameter, ParameterCondition, ParameterExpression, ParameterJoint } from './factor-calculator-types';
 import { Tuple } from './tuple-types';
 
 /** column */

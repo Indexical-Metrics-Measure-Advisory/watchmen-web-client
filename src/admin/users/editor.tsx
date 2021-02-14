@@ -12,7 +12,7 @@ const UserEditor = (props: { user: User, codes?: HoldByUser }) => {
 	const {
 		user,
 		codes: {
-			groups = [] as Array<QueryUserGroupForHolder>,
+			groups = [] as Array<QueryUserGroupForHolder>
 		} = {}
 	} = props;
 
@@ -32,9 +32,9 @@ const UserEditor = (props: { user: User, codes?: HoldByUser }) => {
 
 	return <>
 		<TuplePropertyLabel>User Name:</TuplePropertyLabel>
-		<TuplePropertyInput value={user.name || ''} onChange={onPropChange( 'name')}/>
+		<TuplePropertyInput value={user.name || ''} onChange={onPropChange('name')}/>
 		<TuplePropertyLabel>Nick Name:</TuplePropertyLabel>
-		<TuplePropertyInput value={user.nickName || ''} onChange={onPropChange( 'nickName')}/>
+		<TuplePropertyInput value={user.nickName || ''} onChange={onPropChange('nickName')}/>
 		<TuplePropertyLabel>Groups:</TuplePropertyLabel>
 		<UserGroupPicker label='Join Group' user={user} codes={groups}/>
 	</>;

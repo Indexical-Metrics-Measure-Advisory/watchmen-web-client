@@ -14,4 +14,4 @@ export const HeaderPrintButton = (props: { connectedSpace: ConnectedSpace, subje
 	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.PRINT} onClick={onPrintClicked}>
 		<FontAwesomeIcon icon={ICON_PRINT}/>
 	</PageHeaderButton>;
-}
+};

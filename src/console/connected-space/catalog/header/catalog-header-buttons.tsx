@@ -1,8 +1,8 @@
 import React from 'react';
 import { PageHeaderButtons, PageHeaderButtonSeparator } from '../../../../basic-widgets/page-header-buttons';
 import { ConnectedSpace } from '../../../../services/tuples/connected-space-types';
-import { HeaderAddSubjectButton } from './header-add-subject-button';
 import { HeaderCatalogButton } from '../../header/header-catalog-button';
+import { HeaderAddSubjectButton } from './header-add-subject-button';
 import { HeaderCreateConnectedSpaceButton } from './header-create-connected-space-button';
 import { HeaderDeleteConnectedSpaceButton } from './header-delete-connected-space-buttton';
 import { HeaderFavoriteButton } from './header-favorite-button';

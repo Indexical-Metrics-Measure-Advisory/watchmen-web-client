@@ -52,7 +52,9 @@ const FilterJoint = (props: {
 						? <NewLine/>
 						: null}
 					{filterIndex !== 0
-						? (jointType === ParameterJointType.OR ? <JointOr indent={indent}/> : <JointAnd indent={indent}/>)
+						? (jointType === ParameterJointType.OR
+							? <JointOr indent={indent}/>
+							: <JointAnd indent={indent}/>)
 						: null}
 					<Filter subject={subject} filter={filter}
 					        availableTopicsMap={availableTopicsMap} pickedTopicsMap={pickedTopicsMap}

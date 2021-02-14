@@ -10,8 +10,8 @@ import { toConnectedSpace } from '../../routes/utils';
 import { ConnectedSpace } from '../../services/tuples/connected-space-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
-import { PageRouter } from './page-router';
 import { ConnectedSpaceEventBusProvider } from './connected-space-event-bus';
+import { PageRouter } from './page-router';
 
 const ConsoleConnectedSpaceIndex = () => {
 	const { connectId: connectedSpaceId } = useParams<{ connectId: string }>();

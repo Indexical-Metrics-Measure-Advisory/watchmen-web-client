@@ -18,5 +18,5 @@ export const HeaderSubjectDefValidButtons = (props: { connectedSpace: ConnectedS
 	return <>
 		<HeaderSubjectDataButton connectedSpace={connectedSpace} subject={subject}/>
 		<HeaderSubjectReportButton connectedSpace={connectedSpace} subject={subject}/>
-	</>
-}
+	</>;
+};

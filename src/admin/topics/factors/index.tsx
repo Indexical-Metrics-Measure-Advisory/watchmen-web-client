@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Topic } from '../../../services/tuples/topic-types';
-import { FactorsTable } from './factors-table';
 import { FactorsButton } from './factors-button';
+import { FactorsTable } from './factors-table';
 
 export const Factors = (props: { topic: Topic }) => {
 	const { topic } = props;

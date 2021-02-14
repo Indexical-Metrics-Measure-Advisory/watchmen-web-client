@@ -16,10 +16,10 @@ import { TupleEventTypes } from '../widgets/tuple-workbench/tuple-event-bus-type
 
 const Title = styled(TupleCardTitle)`
 	justify-content: space-between;
-`
+`;
 const UserAvatar = styled(Avatar)`
 	font-size: calc(1.3 * var(--font-size));
-`
+`;
 
 const UserCard = (props: { user: QueryUser }) => {
 	const { user } = props;
