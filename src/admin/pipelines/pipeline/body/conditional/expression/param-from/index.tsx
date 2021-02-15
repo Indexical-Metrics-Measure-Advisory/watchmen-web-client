@@ -11,7 +11,7 @@ import {
 	isConstantParameter,
 	isTopicFactorParameter
 } from '../../../../../../../services/tuples/factor-calculator-utils';
-import { createTopicFactorParameter } from '../data-utils';
+import { createTopicFactorParameter } from '../../data-utils';
 import { useParameterEventBus } from '../parameter/parameter-event-bus';
 import { ParameterEventTypes } from '../parameter/parameter-event-bus-types';
 import { ParameterFromEditContainer, ParameterFromIcon, ParameterTypeButton } from './widgets';

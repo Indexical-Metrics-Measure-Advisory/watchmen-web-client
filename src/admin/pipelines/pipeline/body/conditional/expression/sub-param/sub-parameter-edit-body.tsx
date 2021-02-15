@@ -6,10 +6,10 @@ import { useEventBus } from '../../../../../../../events/event-bus';
 import { EventTypes } from '../../../../../../../events/types';
 import { ComputedParameter, Parameter } from '../../../../../../../services/tuples/factor-calculator-types';
 import { Topic } from '../../../../../../../services/tuples/topic-types';
+import { canDeleteAnyParameter } from '../../data-utils';
 import { RemoveMeButton } from '../../widgets';
 import { ComputedEditor } from '../compute';
 import { ConstantEditor } from '../constant';
-import { canDeleteAnyParameter } from '../data-utils';
 import { TopicFactorEditor } from '../topic-factor';
 
 export const SubParameterEditBody = (props: {

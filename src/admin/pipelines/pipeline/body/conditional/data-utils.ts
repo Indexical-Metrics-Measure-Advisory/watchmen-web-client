@@ -1,4 +1,3 @@
-import { createTopicFactorParameter } from '../../../../../console/connected-space/subject-view/def/data-utils';
 import {
 	ComputedParameter,
 	ConstantParameter,
@@ -19,18 +18,40 @@ export const isExpressionParameter = (condition: ParameterCondition): condition 
 	return !isJointParameter(condition);
 };
 
+export const createTopicFactorParameter = (): TopicFactorParameter => {
+	return { from: ParameterFrom.TOPIC, topicId: '', factorId: '' };
+};
+export const createConstantParameter = (): ConstantParameter => {
+	return { from: ParameterFrom.CONSTANT, value: '' };
+};
+
 export const createExpressionParameter = (): ParameterExpression => {
 	return {
-		left: { from: ParameterFrom.TOPIC, topicId: '', factorId: '' } as TopicFactorParameter,
+		left: createTopicFactorParameter(),
 		operator: ParameterExpressionOperator.EQUALS,
-		right: { from: ParameterFrom.CONSTANT, value: '' } as ConstantParameter
+		right: createConstantParameter()
 	};
 };
 export const createJointParameter = (jointType: ParameterJointType): ParameterJoint => {
 	return {
 		jointType: jointType || ParameterJointType.AND,
 		filters: [ createExpressionParameter() ]
-	}
+	};
+};
+
+export const canDeleteAnyParameter = (parent: ComputedParameter) => {
+	const computeType = parent.type;
+	const calculatorDef = ParameterCalculatorDefsMap[computeType];
+	const minParamCount = calculatorDef.minParameterCount || calculatorDef.parameterCount || 1;
+	const currentCount = parent.parameters.length;
+	return currentCount > minParamCount;
+};
+export const canAddMoreParameter = (parent: ComputedParameter) => {
+	const computeType = parent.type;
+	const calculatorDef = ParameterCalculatorDefsMap[computeType];
+	const maxParamCount = calculatorDef.maxParameterCount || calculatorDef.parameterCount || Infinity;
+	const currentCount = parent.parameters.length;
+	return currentCount < maxParamCount;
 };
 
 export const defendParameters = (parent: ComputedParameter) => {
