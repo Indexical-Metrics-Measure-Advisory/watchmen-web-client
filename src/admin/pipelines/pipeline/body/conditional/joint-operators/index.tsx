@@ -1,4 +1,6 @@
-import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useEffect, useState } from 'react';
+import { ICON_ADD } from '../../../../../../basic-widgets/constants';
 import { ParameterJoint, ParameterJointType } from '../../../../../../services/tuples/factor-calculator-types';
 import { createExpressionParameter, createJointParameter } from '../data-utils';
 import { useJointEventBus } from '../event-bus/joint-event-bus';
@@ -12,7 +14,22 @@ export const JointOperators = (props: { joint: ParameterJoint }) => {
 		joint.filters = [];
 	}
 
-	const { fire } = useJointEventBus();
+	const { on, off, fire } = useJointEventBus();
+	const [ expanded, setExpanded ] = useState(true);
+	useEffect(() => {
+		const onExpandContent = () => setExpanded(true);
+		const onCollapseContent = () => setExpanded(false);
+		on(JointEventTypes.EXPAND_CONTENT, onExpandContent);
+		on(JointEventTypes.COLLAPSE_CONTENT, onCollapseContent);
+		return () => {
+			off(JointEventTypes.EXPAND_CONTENT, onExpandContent);
+			off(JointEventTypes.COLLAPSE_CONTENT, onCollapseContent);
+		};
+	}, [ on, off ]);
+
+	if (!expanded) {
+		return null;
+	}
 
 	const onAddExpressionClicked = () => {
 		const expression = createExpressionParameter();
@@ -24,8 +41,15 @@ export const JointOperators = (props: { joint: ParameterJoint }) => {
 		joint.filters.push(subJoint);
 		fire(JointEventTypes.SUB_JOINT_ADDED, subJoint, joint);
 	};
+
 	return <JointOperatorsContainer>
-		<JointOperator onClick={onAddExpressionClicked}>Add Sub Expression</JointOperator>
-		<JointOperator onClick={onAddSubJointClicked}>Add Sub Joint</JointOperator>
+		<JointOperator onClick={onAddExpressionClicked}>
+			<FontAwesomeIcon icon={ICON_ADD}/>
+			<span>Add Sub Expression</span>
+		</JointOperator>
+		<JointOperator onClick={onAddSubJointClicked}>
+			<FontAwesomeIcon icon={ICON_ADD}/>
+			<span>Add Sub Joint</span>
+		</JointOperator>
 	</JointOperatorsContainer>;
 };

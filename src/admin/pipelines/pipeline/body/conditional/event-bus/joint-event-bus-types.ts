@@ -7,7 +7,12 @@ export enum JointEventTypes {
 	SUB_JOINT_ADDED = 'sub-joint-added',
 
 	SUB_EXPRESSION_REMOVED = 'sub-expression-removed',
-	SUB_JOINT_REMOVED = 'sub-joint-removed'
+	SUB_JOINT_REMOVED = 'sub-joint-removed',
+
+	EXPRESSION_CONTENT_CHANGED = 'expression-content-changed',
+
+	EXPAND_CONTENT = 'expand-content',
+	COLLAPSE_CONTENT = 'collapse-content'
 }
 
 export interface JointEventBus {
@@ -30,4 +35,16 @@ export interface JointEventBus {
 	fire(type: JointEventTypes.SUB_JOINT_REMOVED, joint: ParameterJoint, parent: ParameterJoint): this;
 	on(type: JointEventTypes.SUB_JOINT_REMOVED, listener: (joint: ParameterJoint, parent: ParameterJoint) => void): this;
 	off(type: JointEventTypes.SUB_JOINT_REMOVED, listener: (joint: ParameterJoint, parent: ParameterJoint) => void): this;
+
+	fire(type: JointEventTypes.EXPRESSION_CONTENT_CHANGED, expression: ParameterExpression, parent: ParameterJoint): this;
+	on(type: JointEventTypes.EXPRESSION_CONTENT_CHANGED, listener: (expression: ParameterExpression, parent: ParameterJoint) => void): this;
+	off(type: JointEventTypes.EXPRESSION_CONTENT_CHANGED, listener: (expression: ParameterExpression, parent: ParameterJoint) => void): this;
+
+	fire(type: JointEventTypes.EXPAND_CONTENT): this;
+	on(type: JointEventTypes.EXPAND_CONTENT, listener: () => void): this;
+	off(type: JointEventTypes.EXPAND_CONTENT, listener: () => void): this;
+
+	fire(type: JointEventTypes.COLLAPSE_CONTENT): this;
+	on(type: JointEventTypes.COLLAPSE_CONTENT, listener: () => void): this;
+	off(type: JointEventTypes.COLLAPSE_CONTENT, listener: () => void): this;
 }

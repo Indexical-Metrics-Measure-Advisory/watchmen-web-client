@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
+export const TopTypeWrapper = styled.div.attrs({ 'data-widget': 'conditional-top-type-wrapper' })`
+	display : flex;
+`;
 export const TopTypeContainer = styled.div.attrs({ 'data-widget': 'conditional-top-type' })`
 	display          : flex;
 	align-items      : center;

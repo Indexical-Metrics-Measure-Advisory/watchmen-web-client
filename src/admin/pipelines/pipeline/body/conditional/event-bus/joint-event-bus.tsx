@@ -16,7 +16,7 @@ export const JointEventBusProvider = (props: { children?: ((props: any) => React
 		},
 		on: (type: string, listener: (...data: any) => void): JointEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
-				console.error(`Listener on [${type}] was added into Joint event bus, check it.`);
+				console.error(`Listener on [${type}] was added into joint event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;

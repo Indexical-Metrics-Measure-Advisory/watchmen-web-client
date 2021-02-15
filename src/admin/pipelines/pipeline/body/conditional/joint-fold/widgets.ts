@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const JointOperatorsContainer = styled.div.attrs({ 'data-widget': 'joint-operators' })`
+export const JointFoldContainer = styled.div.attrs({ 'data-widget': 'joint-fold' })`
 	display       : flex;
 	position      : relative;
 	align-items   : center;
@@ -8,7 +8,7 @@ export const JointOperatorsContainer = styled.div.attrs({ 'data-widget': 'joint-
 	justify-self  : start;
 	font-variant  : petite-caps;
 	height        : var(--param-height);
-	margin-left   : var(--margin);
+	margin-left   : calc(var(--margin) / 2);
 	border-radius : calc(var(--param-height) / 2);
 	cursor        : pointer;
 	outline       : none;
@@ -19,7 +19,7 @@ export const JointOperatorsContainer = styled.div.attrs({ 'data-widget': 'joint-
 		bottom                    : 50%;
 		left                      : calc(var(--margin) / -2);
 		width                     : calc(var(--margin) / 2);
-		height                    : calc(100% + 2px);
+		height                    : 1px;
 		background-color          : transparent;
 		border-left               : var(--border);
 		border-bottom             : var(--border);
@@ -27,14 +27,15 @@ export const JointOperatorsContainer = styled.div.attrs({ 'data-widget': 'joint-
 		z-index                   : -1;
 	}
 `;
-export const JointOperator = styled.div.attrs({ 'data-widget': 'joint-operator' })`
-	display     : flex;
-	position    : relative;
-	align-items : center;
-	height      : var(--param-height);
-	padding     : 0 calc(var(--margin) / 2);
-	opacity     : 0.7;
-	transition  : box-shadow 300ms ease-in-out, color 300ms ease-in-out, opacity 300ms ease-in-out;
+export const JointFoldOperator = styled.div.attrs({ 'data-widget': 'joint-fold-operator' })`
+	display       : flex;
+	position      : relative;
+	align-items   : center;
+	height        : var(--param-height);
+	padding       : 0 calc(var(--margin) / 2);
+	box-shadow    : var(--param-border);
+	opacity       : 0.7;
+	transition    : box-shadow 300ms ease-in-out, color 300ms ease-in-out, opacity 300ms ease-in-out;
 	&:first-child {
 		box-shadow                : var(--param-top-border), var(--param-left-border), var(--param-bottom-border);
 		border-top-left-radius    : calc(var(--param-height) / 2);

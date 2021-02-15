@@ -10,8 +10,10 @@ export const Conditional2ParentBridge = (props: {
 	const { on, off } = useConditionalEventBus();
 	useEffect(() => {
 		on(ConditionalEventTypes.TOP_TYPE_CHANGED, onChange);
+		on(ConditionalEventTypes.CONTENT_CHANGED, onChange);
 		return () => {
 			off(ConditionalEventTypes.TOP_TYPE_CHANGED, onChange);
+			off(ConditionalEventTypes.CONTENT_CHANGED, onChange);
 		};
 	}, [ on, off, onChange ]);
 

@@ -5,7 +5,8 @@ import { ParameterJointType } from '../../../../../../services/tuples/factor-cal
 import { Conditional } from '../../../../../../services/tuples/pipeline-super-types';
 import { useConditionalEventBus } from '../conditional-event-bus';
 import { ConditionalEventTypes } from '../conditional-event-bus-types';
-import { TopTypeButton, TopTypeContainer, TopTypeOption } from './top-type-widgets';
+import { JointFold } from '../joint-fold';
+import { TopTypeButton, TopTypeContainer, TopTypeOption, TopTypeWrapper } from './top-type-widgets';
 
 type TopTypeCandidate = ParameterJointType.AND | ParameterJointType.OR | 'anyway';
 const OptionsLabel = {
@@ -75,20 +76,23 @@ export const TopType = (props: {
 
 	const candidates: Array<TopTypeCandidate> = [ 'anyway', ParameterJointType.AND, ParameterJointType.OR ].filter(candidate => candidate !== type) as Array<TopTypeCandidate>;
 
-	return <TopTypeContainer tabIndex={0} onClick={onExpandedClicked} onBlur={onBlur}>
-		<TopTypeOption active={true} expanded={expanded}
-		               onClick={onTopTypeClicked(type)}>
-			{OptionsLabel[type]}
-		</TopTypeOption>
-		{candidates.map(candidate => {
-			return <TopTypeOption active={false} expanded={expanded}
-			                      onClick={onTopTypeClicked(candidate)}
-			                      key={candidate}>
-				{OptionsLabel[candidate]}
-			</TopTypeOption>;
-		})}
-		<TopTypeButton data-expanded={expanded} onClick={onIconClicked}>
-			<FontAwesomeIcon icon={expanded ? ICON_COLLAPSE_CONTENT : ICON_EDIT}/>
-		</TopTypeButton>
-	</TopTypeContainer>;
+	return <TopTypeWrapper>
+		<TopTypeContainer tabIndex={0} onClick={onExpandedClicked} onBlur={onBlur}>
+			<TopTypeOption active={true} expanded={expanded}
+			               onClick={onTopTypeClicked(type)}>
+				{OptionsLabel[type]}
+			</TopTypeOption>
+			{candidates.map(candidate => {
+				return <TopTypeOption active={false} expanded={expanded}
+				                      onClick={onTopTypeClicked(candidate)}
+				                      key={candidate}>
+					{OptionsLabel[candidate]}
+				</TopTypeOption>;
+			})}
+			<TopTypeButton data-expanded={expanded} onClick={onIconClicked}>
+				<FontAwesomeIcon icon={expanded ? ICON_COLLAPSE_CONTENT : ICON_EDIT}/>
+			</TopTypeButton>
+		</TopTypeContainer>
+		{type !== 'anyway' ? <JointFold/> : null}
+	</TopTypeWrapper>;
 };

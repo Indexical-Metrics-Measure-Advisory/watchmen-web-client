@@ -3,10 +3,8 @@ import { useForceUpdate } from '../../../../../../basic-widgets/utils';
 import { Conditional } from '../../../../../../services/tuples/pipeline-super-types';
 import { useConditionalEventBus } from '../conditional-event-bus';
 import { ConditionalEventTypes } from '../conditional-event-bus-types';
-import { JointEventBusProvider } from '../event-bus/joint-event-bus';
 import { JointElements } from '../joint-elements';
 import { JointOperators } from '../joint-operators';
-import { JointContainer } from './widgets';
 
 export const TopJoint = (props: { conditional: Conditional }) => {
 	const { conditional } = props;
@@ -24,10 +22,8 @@ export const TopJoint = (props: { conditional: Conditional }) => {
 		return null;
 	}
 
-	return <JointEventBusProvider>
-		<JointContainer>
-			<JointElements joint={conditional.on}/>
-			<JointOperators joint={conditional.on}/>
-		</JointContainer>
-	</JointEventBusProvider>;
+	return <>
+		<JointElements joint={conditional.on}/>
+		<JointOperators joint={conditional.on}/>
+	</>;
 };
