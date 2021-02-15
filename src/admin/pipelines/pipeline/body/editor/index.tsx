@@ -1,9 +1,8 @@
 import React from 'react';
-import { v4 } from 'uuid';
 import { Pipeline } from '../../../../../services/tuples/pipeline-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
 import { PipelinePart } from '../pipeline-part';
-import { StageEditor } from '../stage';
+import { Stages } from './stages';
 import { PipelineEditor } from './widgets';
 
 export const Editor = (props: {
@@ -22,9 +21,6 @@ export const Editor = (props: {
 
 	return <PipelineEditor>
 		<PipelinePart pipeline={pipeline} topic={topic}/>
-		{pipeline.stages.map(stage => {
-			return <StageEditor pipeline={pipeline} stage={stage} topic={topic}
-			                    key={v4()}/>;
-		})}
+		<Stages pipeline={pipeline} topics={topics} topic={topic}/>
 	</PipelineEditor>;
 };

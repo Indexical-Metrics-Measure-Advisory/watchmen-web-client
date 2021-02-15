@@ -129,7 +129,7 @@ const DefaultTheme = {
 	paramPrimaryRightBorder: '1px 0 0 var(--param-primary-color)',
 	paramPrimaryBottomBorder: '0 1px 0 var(--param-primary-color)',
 	paramPrimaryLeftBorder: '-1px 0 0 var(--param-primary-color)',
-	paramDangerColor: 'rgba(222, 89, 99, 0.3)',
+	paramDangerColor: 'rgba(222, 89, 99)',
 	paramDangerBorder: '0 0 0 1px var(--param-danger-color)',
 	paramDangerTopBorder: '0 -1px 0 var(--param-danger-color)',
 	paramDangerRightBorder: '1px 0 0 var(--param-danger-color)',

@@ -40,11 +40,31 @@ export const StageNameInput = styled(Input)`
 `;
 export const StageHeaderButtons = styled.div.attrs({ 'data-widget': 'stage-header-buttons' })`
 	display               : grid;
-	grid-template-columns : repeat(2, auto);
+	grid-template-columns : repeat(3, auto);
 	grid-column-gap       : calc(var(--margin) / 4);
 	justify-self          : end;
 `;
 export const HeaderButton = styled(Button)`
 	height        : var(--param-height);
 	border-radius : calc(var(--param-height) / 2);
+	border        : 0;
+	&:not([data-ink]) {
+		box-shadow : var(--param-border);
+		&:hover {
+			box-shadow: var(--hover-shadow);
+		}
+	}
+	&[data-ink=primary] {
+		&:hover {
+			box-shadow: var(--primary-hover-shadow);
+		}
+	}
+	&[data-ink=danger] {
+		&:hover {
+			box-shadow: var(--param-danger-border), var(--danger-hover-shadow);
+		}
+	}
+	> svg {
+		font-size: 0.8em;
+	}
 `;

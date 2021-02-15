@@ -9,7 +9,7 @@ export const StageContainer = styled.div.attrs({ 'data-widget': 'stage' })`
 	grid-row-gap          : ${GRID_ROW_GAP};
 	grid-auto-rows        : minmax(var(--height), auto);
 	margin-top            : calc(var(--margin) / 4);
-	padding               : calc(var(--margin) / 4) 0;
+	padding-top           : calc(var(--margin) / 4);
 	&:before {
 		content          : '';
 		display          : block;

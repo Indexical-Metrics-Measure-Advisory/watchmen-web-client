@@ -2,6 +2,7 @@ import React from 'react';
 import { PipelineStage } from '../../../../../services/tuples/pipeline-stage-types';
 import { Pipeline } from '../../../../../services/tuples/pipeline-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
+import { StageBody } from './body';
 import { StageHeader } from './header';
 import { Prerequisite } from './prerequisite';
 import { StageEventBusProvider } from './stage-event-bus';
@@ -17,7 +18,9 @@ export const StageEditor = (props: {
 	return <StageEventBusProvider>
 		<StageContainer>
 			<StageHeader pipeline={pipeline} stage={stage}/>
-			<Prerequisite stage={stage} topic={topic}/>
+			<StageBody>
+				<Prerequisite stage={stage} topic={topic}/>
+			</StageBody>
 		</StageContainer>
 	</StageEventBusProvider>;
 };

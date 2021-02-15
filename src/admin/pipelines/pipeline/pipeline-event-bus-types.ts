@@ -1,3 +1,4 @@
+import { PipelineStage } from '../../../services/tuples/pipeline-stage-types';
 import { Pipeline } from '../../../services/tuples/pipeline-types';
 
 export enum PipelineEventTypes {
@@ -9,7 +10,10 @@ export enum PipelineEventTypes {
 
 	TRIGGER_TYPE_CHANGED = 'trigger-type-changed',
 	// condition on pipeline changed
-	CONDITION_CHANGED = 'condition-changed'
+	CONDITION_CHANGED = 'condition-changed',
+
+	STAGE_ADDED = 'stage-added',
+	STAGE_REMOVED = 'stage-removed'
 }
 
 export interface PipelineEventBus {
@@ -36,4 +40,12 @@ export interface PipelineEventBus {
 	fire(type: PipelineEventTypes.CONDITION_CHANGED, pipeline: Pipeline): this;
 	on(type: PipelineEventTypes.CONDITION_CHANGED, listener: (pipeline: Pipeline) => void): this;
 	off(type: PipelineEventTypes.CONDITION_CHANGED, listener: (pipeline: Pipeline) => void): this;
+
+	fire(type: PipelineEventTypes.STAGE_ADDED, stage: PipelineStage, pipeline: Pipeline): this;
+	on(type: PipelineEventTypes.STAGE_ADDED, listener: (stage: PipelineStage, pipeline: Pipeline) => void): this;
+	off(type: PipelineEventTypes.STAGE_ADDED, listener: (stage: PipelineStage, pipeline: Pipeline) => void): this;
+
+	fire(type: PipelineEventTypes.STAGE_REMOVED, stage: PipelineStage, pipeline: Pipeline): this;
+	on(type: PipelineEventTypes.STAGE_REMOVED, listener: (stage: PipelineStage, pipeline: Pipeline) => void): this;
+	off(type: PipelineEventTypes.STAGE_REMOVED, listener: (stage: PipelineStage, pipeline: Pipeline) => void): this;
 }

@@ -35,6 +35,7 @@ export const ParameterTypeButton = styled.div.attrs<{ active: boolean, edit: boo
 	font-weight  : var(--font-demi-bold);
 	height       : var(--param-height);
 	padding      : 0 calc(var(--margin) / 2);
+	white-space  : nowrap;
 	transition   : color 300ms ease-in-out;
 	&:hover {
 		color : ${({ active }) => active ? (void 0) : 'var(--warn-color)'};
