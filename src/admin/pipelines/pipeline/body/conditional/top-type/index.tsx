@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { MouseEvent, useState } from 'react';
-import { ICON_COLLAPSE_CONTENT, ICON_EDIT } from '../../../../../basic-widgets/constants';
-import { ParameterJointType } from '../../../../../services/tuples/factor-calculator-types';
-import { Conditional } from '../../../../../services/tuples/pipeline-super-types';
-import { useConditionalEventBus } from './conditional-event-bus';
-import { ConditionalEventTypes } from './conditional-event-bus-types';
+import { ICON_COLLAPSE_CONTENT, ICON_EDIT } from '../../../../../../basic-widgets/constants';
+import { ParameterJointType } from '../../../../../../services/tuples/factor-calculator-types';
+import { Conditional } from '../../../../../../services/tuples/pipeline-super-types';
+import { useConditionalEventBus } from '../conditional-event-bus';
+import { ConditionalEventTypes } from '../conditional-event-bus-types';
 import { TopTypeButton, TopTypeContainer, TopTypeOption } from './top-type-widgets';
 
 type TopTypeCandidate = ParameterJointType.AND | ParameterJointType.OR | 'anyway';
