@@ -13,6 +13,7 @@ import { useExpressionEventBus } from '../event-bus/expression-event-bus';
 import { ExpressionEventTypes } from '../event-bus/expression-event-bus-types';
 import { RemoveMeButton } from '../widgets';
 import { ExpressionSide } from './expression-side';
+import { ExpressionOperator } from './operator';
 import { Parameter2ExpressionBridge } from './parameter-2-expression-bridge';
 import { ParameterEventBusProvider } from './parameter/parameter-event-bus';
 import { ExpressionContainer, ExpressionHeader, ExpressionLeadLabel } from './widgets';
@@ -52,6 +53,7 @@ export const Expression = (props: { expression: ParameterExpression, topics: Arr
 			<Parameter2ExpressionBridge onChange={onLeftParameterChanged}/>
 			<ExpressionSide parameter={expression.left} topics={topics}/>
 		</ParameterEventBusProvider>
+		<ExpressionOperator expression={expression}/>
 		<ParameterEventBusProvider>
 			<Parameter2ExpressionBridge onChange={onRightParameterChanged}/>
 			<ExpressionSide parameter={expression.right} topics={topics}/>
