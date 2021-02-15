@@ -3,6 +3,8 @@ import React, { MouseEvent, useState } from 'react';
 import { ICON_COLLAPSE_CONTENT, ICON_EDIT } from '../../../../../basic-widgets/constants';
 import { ParameterJointType } from '../../../../../services/tuples/factor-calculator-types';
 import { Conditional } from '../../../../../services/tuples/pipeline-super-types';
+import { useConditionalEventBus } from './conditional-event-bus';
+import { ConditionalEventTypes } from './conditional-event-bus-types';
 import { TopTypeButton, TopTypeContainer, TopTypeOption } from './top-type-widgets';
 
 type TopTypeCandidate = ParameterJointType.AND | ParameterJointType.OR | 'anyway';
@@ -38,6 +40,7 @@ export const TopType = (props: {
 }) => {
 	const { conditional } = props;
 
+	const { fire } = useConditionalEventBus();
 	const [ expanded, setExpanded ] = useState(false);
 
 	defendConditional(conditional);
@@ -56,11 +59,12 @@ export const TopType = (props: {
 			conditional.conditional = false;
 			delete conditional.on;
 			setExpanded(false);
-			// fire(PipelineEventTypes.TRIGGER_TYPE_CHANGED, pipeline);
+			fire(ConditionalEventTypes.TOP_TYPE_CHANGED, conditional);
 		} else {
 			conditional.conditional = true;
 			defectConditionOn(conditional, newType);
 			setExpanded(false);
+			fire(ConditionalEventTypes.TOP_TYPE_CHANGED, conditional);
 		}
 	};
 	const onIconClicked = (event: MouseEvent<HTMLDivElement>) => {

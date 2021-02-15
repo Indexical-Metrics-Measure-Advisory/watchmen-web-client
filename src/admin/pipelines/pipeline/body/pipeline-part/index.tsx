@@ -1,6 +1,8 @@
 import React from 'react';
 import { Pipeline } from '../../../../../services/tuples/pipeline-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
+import { usePipelineEventBus } from '../../pipeline-event-bus';
+import { PipelineEventTypes } from '../../pipeline-event-bus-types';
 import { ConditionalEditor } from '../conditional';
 import { LeadLabel } from '../widgets';
 import { TriggerOnButton } from './trigger-on-button';
@@ -12,6 +14,8 @@ export const PipelinePart = (props: {
 }) => {
 	const { pipeline, topics } = props;
 
+	const { fire } = usePipelineEventBus();
+
 	const { topicId } = pipeline;
 	// eslint-disable-next-line
 	const topic = topics.find(topic => topic.topicId == topicId);
@@ -20,12 +24,16 @@ export const PipelinePart = (props: {
 		return null;
 	}
 
+	const onConditionTypeChange = () => {
+		fire(PipelineEventTypes.CONDITION_CHANGED, pipeline);
+	};
+
 	return <PipelinePartContainer>
 		<LeadLabel>On Topic:</LeadLabel>
 		<TopicName>{topic.name}</TopicName>
 		<LeadLabel>Trigger On:</LeadLabel>
 		<TriggerOnButton pipeline={pipeline}/>
 		<LeadLabel>Prerequisite:</LeadLabel>
-		<ConditionalEditor conditional={pipeline}/>
+		<ConditionalEditor conditional={pipeline} onChange={onConditionTypeChange}/>
 	</PipelinePartContainer>;
 };

@@ -7,7 +7,9 @@ export enum PipelineEventTypes {
 
 	PIPELINE_ENABLED_TOGGLED = 'pipeline-enabled-toggled',
 
-	TRIGGER_TYPE_CHANGED = 'trigger-type-changed'
+	TRIGGER_TYPE_CHANGED = 'trigger-type-changed',
+	// condition on pipeline changed
+	CONDITION_CHANGED = 'condition-changed'
 }
 
 export interface PipelineEventBus {
@@ -30,4 +32,8 @@ export interface PipelineEventBus {
 	fire(type: PipelineEventTypes.TRIGGER_TYPE_CHANGED, pipeline: Pipeline): this;
 	on(type: PipelineEventTypes.TRIGGER_TYPE_CHANGED, listener: (pipeline: Pipeline) => void): this;
 	off(type: PipelineEventTypes.TRIGGER_TYPE_CHANGED, listener: (pipeline: Pipeline) => void): this;
+
+	fire(type: PipelineEventTypes.CONDITION_CHANGED, pipeline: Pipeline): this;
+	on(type: PipelineEventTypes.CONDITION_CHANGED, listener: (pipeline: Pipeline) => void): this;
+	off(type: PipelineEventTypes.CONDITION_CHANGED, listener: (pipeline: Pipeline) => void): this;
 }
