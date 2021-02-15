@@ -33,19 +33,10 @@ export const JointFoldOperator = styled.div.attrs({ 'data-widget': 'joint-fold-o
 	align-items   : center;
 	height        : var(--param-height);
 	padding       : 0 calc(var(--margin) / 2);
+	border-radius : calc(var(--param-height) / 2);
 	box-shadow    : var(--param-border);
 	opacity       : 0.7;
 	transition    : box-shadow 300ms ease-in-out, color 300ms ease-in-out, opacity 300ms ease-in-out;
-	&:first-child {
-		box-shadow                : var(--param-top-border), var(--param-left-border), var(--param-bottom-border);
-		border-top-left-radius    : calc(var(--param-height) / 2);
-		border-bottom-left-radius : calc(var(--param-height) / 2);
-	}
-	&:not(:first-child) {
-		box-shadow                 : var(--param-border);
-		border-top-right-radius    : calc(var(--param-height) / 2);
-		border-bottom-right-radius : calc(var(--param-height) / 2);
-	}
 	&:hover {
 		z-index    : 1;
 		color      : var(--warn-color);

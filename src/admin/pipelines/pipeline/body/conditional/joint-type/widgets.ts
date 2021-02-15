@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
-export const TopTypeContainer = styled.div.attrs({ 'data-widget': 'conditional-top-type' })`
+export const JointTypeContainer = styled.div.attrs({ 'data-widget': 'joint-type' })`
 	display          : flex;
+	position         : relative;
 	align-items      : center;
 	align-self       : center;
 	justify-self     : start;
@@ -12,16 +13,26 @@ export const TopTypeContainer = styled.div.attrs({ 'data-widget': 'conditional-t
 	border-radius    : calc(var(--param-height) / 2);
 	box-shadow       : var(--param-border);
 	cursor           : pointer;
-	overflow         : hidden;
 	outline          : none;
 	transition       : box-shadow 300ms ease-in-out;
 	&:hover {
 		box-shadow : var(--primary-hover-shadow);
 	}
+	&:before {
+		content          : '';
+		display          : block;
+		position         : absolute;
+		bottom           : 50%;
+		left             : calc(var(--margin) / -2);
+		width            : calc(var(--margin) / 2);
+		height           : 1px;
+		background-color : var(--border-color);
+		z-index          : -1;
+	}
 `;
-export const TopTypeOption = styled.div.attrs<{ active: boolean, expanded: boolean }>(({ active, expanded }) => {
+export const JointTypeOption = styled.div.attrs<{ active: boolean, expanded: boolean }>(({ active, expanded }) => {
 	return {
-		'data-widget': 'conditional-top-type-option',
+		'data-widget': 'joint-type-option',
 		style: {
 			display: (expanded || active) ? (void 0) : 'none',
 			backgroundColor: active ? (void 0) : 'var(--bg-color)',
@@ -40,7 +51,7 @@ export const TopTypeOption = styled.div.attrs<{ active: boolean, expanded: boole
 		color : ${({ active }) => active ? (void 0) : 'var(--warn-color)'};
 	}
 `;
-export const TopTypeButton = styled.div.attrs({ 'data-widget': 'conditional-top-type-button' })`
+export const JointTypeButton = styled.div.attrs({ 'data-widget': 'joint-type-button' })`
 	display         : flex;
 	position        : relative;
 	align-items     : center;

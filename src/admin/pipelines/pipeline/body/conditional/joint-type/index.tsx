@@ -1,11 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { MouseEvent, useState } from 'react';
-import { ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EDIT } from '../../../../../../basic-widgets/constants';
+import { ICON_COLLAPSE_CONTENT, ICON_EDIT } from '../../../../../../basic-widgets/constants';
 import { ParameterJoint, ParameterJointType } from '../../../../../../services/tuples/factor-calculator-types';
 import { useJointEventBus } from '../event-bus/joint-event-bus';
 import { JointEventTypes } from '../event-bus/joint-event-bus-types';
-import { JointFold } from '../joint-fold';
-import { JointTypeButton, JointTypeContainer, JointTypeOption, JointTypeWrapper, RemoveJointButton } from './widgets';
+import { JointTypeButton, JointTypeContainer, JointTypeOption } from './widgets';
 
 const OptionsLabel: { [key in ParameterJointType]: string } = {
 	[ParameterJointType.AND]: 'And',
@@ -21,8 +20,8 @@ const defendJoint = (joint: ParameterJoint) => {
 	}
 };
 
-export const JointType = (props: { joint: ParameterJoint, removeMe: () => void }) => {
-	const { joint, removeMe } = props;
+export const JointType = (props: { joint: ParameterJoint }) => {
+	const { joint } = props;
 
 	const [ expanded, setExpanded ] = useState(false);
 
@@ -50,12 +49,9 @@ export const JointType = (props: { joint: ParameterJoint, removeMe: () => void }
 		event.stopPropagation();
 		setExpanded(!expanded);
 	};
-	const onRemoveClicked = () => removeMe();
-
 	const candidates = [ ParameterJointType.AND, ParameterJointType.OR ].filter(candidate => candidate !== jointType);
 
-	return <JointTypeWrapper>
-		<JointTypeContainer tabIndex={0} onClick={onExpandedClicked} onBlur={onBlur}>
+	return <JointTypeContainer tabIndex={0} onClick={onExpandedClicked} onBlur={onBlur}>
 			<JointTypeOption active={true} expanded={expanded}
 			                 onClick={onJointTypeClicked(jointType)}>
 				{OptionsLabel[jointType]}
@@ -70,10 +66,5 @@ export const JointType = (props: { joint: ParameterJoint, removeMe: () => void }
 			<JointTypeButton data-expanded={expanded} onClick={onIconClicked}>
 				<FontAwesomeIcon icon={expanded ? ICON_COLLAPSE_CONTENT : ICON_EDIT}/>
 			</JointTypeButton>
-		</JointTypeContainer>
-		<JointFold/>
-		<RemoveJointButton onClick={onRemoveClicked}>
-			<FontAwesomeIcon icon={ICON_DELETE}/>
-		</RemoveJointButton>
-	</JointTypeWrapper>;
+		</JointTypeContainer>;
 };

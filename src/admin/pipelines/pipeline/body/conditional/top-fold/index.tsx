@@ -3,11 +3,9 @@ import { useForceUpdate } from '../../../../../../basic-widgets/utils';
 import { Conditional } from '../../../../../../services/tuples/pipeline-super-types';
 import { useConditionalEventBus } from '../conditional-event-bus';
 import { ConditionalEventTypes } from '../conditional-event-bus-types';
-import { JointBody } from '../joint-body';
-import { JointElements } from '../joint-elements';
-import { JointOperators } from '../joint-operators';
+import { JointFold } from '../joint-fold';
 
-export const TopJoint = (props: { conditional: Conditional }) => {
+export const TopFold = (props: { conditional: Conditional }) => {
 	const { conditional } = props;
 
 	const { on, off } = useConditionalEventBus();
@@ -23,8 +21,5 @@ export const TopJoint = (props: { conditional: Conditional }) => {
 		return null;
 	}
 
-	return <JointBody>
-		<JointElements joint={conditional.on}/>
-		<JointOperators joint={conditional.on}/>
-	</JointBody>;
+	return <JointFold/>;
 };

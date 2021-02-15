@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { v4 } from 'uuid';
 import { useForceUpdate } from '../../../../../../basic-widgets/utils';
 import { ParameterCondition, ParameterJoint } from '../../../../../../services/tuples/factor-calculator-types';
@@ -16,7 +16,6 @@ export const JointElements = (props: { joint: ParameterJoint }) => {
 	}
 
 	const { on, off, fire } = useJointEventBus();
-	const [ expanded, setExpanded ] = useState(true);
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		on(JointEventTypes.SUB_EXPRESSION_ADDED, forceUpdate);
@@ -30,18 +29,8 @@ export const JointElements = (props: { joint: ParameterJoint }) => {
 			off(JointEventTypes.SUB_JOINT_REMOVED, forceUpdate);
 		};
 	}, [ on, off, forceUpdate ]);
-	useEffect(() => {
-		const onExpandContent = () => setExpanded(true);
-		const onCollapseContent = () => setExpanded(false);
-		on(JointEventTypes.EXPAND_CONTENT, onExpandContent);
-		on(JointEventTypes.COLLAPSE_CONTENT, onCollapseContent);
-		return () => {
-			off(JointEventTypes.EXPAND_CONTENT, onExpandContent);
-			off(JointEventTypes.COLLAPSE_CONTENT, onCollapseContent);
-		};
-	}, [ on, off ]);
 
-	if (joint.filters.length === 0 || !expanded) {
+	if (joint.filters.length === 0) {
 		return null;
 	}
 

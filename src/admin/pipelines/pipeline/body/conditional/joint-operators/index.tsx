@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ICON_ADD } from '../../../../../../basic-widgets/constants';
 import { ParameterJoint, ParameterJointType } from '../../../../../../services/tuples/factor-calculator-types';
 import { createExpressionParameter, createJointParameter } from '../data-utils';
@@ -14,22 +14,7 @@ export const JointOperators = (props: { joint: ParameterJoint }) => {
 		joint.filters = [];
 	}
 
-	const { on, off, fire } = useJointEventBus();
-	const [ expanded, setExpanded ] = useState(true);
-	useEffect(() => {
-		const onExpandContent = () => setExpanded(true);
-		const onCollapseContent = () => setExpanded(false);
-		on(JointEventTypes.EXPAND_CONTENT, onExpandContent);
-		on(JointEventTypes.COLLAPSE_CONTENT, onCollapseContent);
-		return () => {
-			off(JointEventTypes.EXPAND_CONTENT, onExpandContent);
-			off(JointEventTypes.COLLAPSE_CONTENT, onCollapseContent);
-		};
-	}, [ on, off ]);
-
-	if (!expanded) {
-		return null;
-	}
+	const { fire } = useJointEventBus();
 
 	const onAddExpressionClicked = () => {
 		const expression = createExpressionParameter();
