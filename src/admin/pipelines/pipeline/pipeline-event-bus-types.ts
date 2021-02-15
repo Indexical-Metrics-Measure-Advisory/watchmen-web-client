@@ -5,7 +5,9 @@ export enum PipelineEventTypes {
 	SAVE_PIPELINE = 'save-pipeline',
 	TOGGLE_PIPELINE_ENABLED = 'toggle-pipeline-enabled',
 
-	PIPELINE_ENABLED_TOGGLED = 'pipeline-enabled-toggled'
+	PIPELINE_ENABLED_TOGGLED = 'pipeline-enabled-toggled',
+
+	TRIGGER_TYPE_CHANGED = 'trigger-type-changed'
 }
 
 export interface PipelineEventBus {
@@ -24,4 +26,8 @@ export interface PipelineEventBus {
 	fire(type: PipelineEventTypes.PIPELINE_ENABLED_TOGGLED, pipeline: Pipeline): this;
 	on(type: PipelineEventTypes.PIPELINE_ENABLED_TOGGLED, listener: (pipeline: Pipeline) => void): this;
 	off(type: PipelineEventTypes.PIPELINE_ENABLED_TOGGLED, listener: (pipeline: Pipeline) => void): this;
+
+	fire(type: PipelineEventTypes.TRIGGER_TYPE_CHANGED, pipeline: Pipeline): this;
+	on(type: PipelineEventTypes.TRIGGER_TYPE_CHANGED, listener: (pipeline: Pipeline) => void): this;
+	off(type: PipelineEventTypes.TRIGGER_TYPE_CHANGED, listener: (pipeline: Pipeline) => void): this;
 }
