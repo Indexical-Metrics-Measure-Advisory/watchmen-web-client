@@ -1,6 +1,6 @@
 import { BlockCoordinate, BlockFrame, BlockName } from '../graphics/graphics-types';
-import { ParameterJoint } from './factor-calculator-types';
 import { PipelineStage } from './pipeline-stage-types';
+import { Conditional } from './pipeline-super-types';
 import { Tuple } from './tuple-types';
 
 export enum PipelineTriggerType {
@@ -11,13 +11,11 @@ export enum PipelineTriggerType {
 	DELETE = 'delete',
 }
 
-export interface Pipeline extends Tuple {
+export interface Pipeline extends Tuple, Conditional {
 	pipelineId: string;
 	topicId: string;
 	name: string;
 	type: PipelineTriggerType;
-	conditional: boolean;
-	on?: ParameterJoint;
 	stages: Array<PipelineStage>;
 	enabled: boolean;
 }

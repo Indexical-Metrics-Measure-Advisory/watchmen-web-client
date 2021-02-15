@@ -6,6 +6,7 @@ export const PipelinePartContainer = styled.div.attrs({ 'data-widget': 'pipeline
 	grid-template-columns : ${GRID_COLUMNS};
 	grid-column-gap       : ${GRID_COLUMN_GAP};
 	grid-row-gap          : ${GRID_ROW_GAP};
+	grid-auto-rows        : minmax(var(--height), auto);
 `;
 export const TopicName = styled.div.attrs({ 'data-widget': 'pipeline-topic-name' })`
 	display          : flex;

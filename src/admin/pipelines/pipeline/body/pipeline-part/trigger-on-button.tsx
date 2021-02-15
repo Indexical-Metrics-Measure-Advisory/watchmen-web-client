@@ -59,5 +59,4 @@ export const TriggerOnButton = (props: { pipeline: Pipeline }) => {
 			<FontAwesomeIcon icon={expanded ? ICON_COLLAPSE_CONTENT : ICON_EDIT}/>
 		</TriggerButton>
 	</TriggerContainer>;
-
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Pipeline } from '../../../../../services/tuples/pipeline-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
+import { ConditionalEditor } from '../conditional';
 import { LeadLabel } from '../widgets';
 import { TriggerOnButton } from './trigger-on-button';
 import { PipelinePartContainer, TopicName } from './widgets';
@@ -24,5 +25,7 @@ export const PipelinePart = (props: {
 		<TopicName>{topic.name}</TopicName>
 		<LeadLabel>Trigger On:</LeadLabel>
 		<TriggerOnButton pipeline={pipeline}/>
+		<LeadLabel>Prerequisite:</LeadLabel>
+		<ConditionalEditor conditional={pipeline}/>
 	</PipelinePartContainer>;
 };

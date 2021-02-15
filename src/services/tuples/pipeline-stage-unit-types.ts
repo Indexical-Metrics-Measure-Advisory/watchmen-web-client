@@ -1,8 +1,6 @@
-import { ParameterJoint } from './factor-calculator-types';
 import { PipelineStageUnitAction } from './pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import { Conditional } from './pipeline-super-types';
 
-export interface PipelineStageUnit {
-	conditional: boolean;
-	on?: ParameterJoint;
+export interface PipelineStageUnit extends Conditional {
 	do: Array<PipelineStageUnitAction>;
 }
