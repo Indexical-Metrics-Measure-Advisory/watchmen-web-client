@@ -46,6 +46,7 @@ export const ExpressionSideContainer = styled.div.attrs({ 'data-widget': 'expres
 	position              : relative;
 	grid-template-columns : auto 1fr;
 	grid-auto-rows        : minmax(var(--height), auto);
+	grid-row-gap          : ${GRID_ROW_GAP};
 	&:before {
 		content       : '';
 		display       : block;

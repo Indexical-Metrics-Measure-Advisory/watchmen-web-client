@@ -11,9 +11,9 @@ import {
 	isConstantParameter,
 	isTopicFactorParameter
 } from '../../../../../../../services/tuples/factor-calculator-utils';
+import { createTopicFactorParameter } from '../data-utils';
 import { useParameterEventBus } from '../parameter/parameter-event-bus';
 import { ParameterEventTypes } from '../parameter/parameter-event-bus-types';
-import { createTopicFactorParameter } from './utils';
 import { ParameterFromEditContainer, ParameterFromIcon, ParameterTypeButton } from './widgets';
 
 const OptionsLabel: { [key in ParameterFrom]: string } = {

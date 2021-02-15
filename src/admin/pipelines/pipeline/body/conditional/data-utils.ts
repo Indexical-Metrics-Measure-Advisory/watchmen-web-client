@@ -1,4 +1,6 @@
+import { createTopicFactorParameter } from '../../../../../console/connected-space/subject-view/def/data-utils';
 import {
+	ComputedParameter,
 	ConstantParameter,
 	ParameterCondition,
 	ParameterExpression,
@@ -8,6 +10,7 @@ import {
 	ParameterJointType,
 	TopicFactorParameter
 } from '../../../../../services/tuples/factor-calculator-types';
+import { ParameterCalculatorDefsMap } from '../../../../../services/tuples/factor-calculator-utils';
 
 export const isJointParameter = (condition: ParameterCondition): condition is ParameterJoint => {
 	return !!(condition as any).jointType;
@@ -27,5 +30,20 @@ export const createJointParameter = (jointType: ParameterJointType): ParameterJo
 	return {
 		jointType: jointType || ParameterJointType.AND,
 		filters: [ createExpressionParameter() ]
+	}
+};
+
+export const defendParameters = (parent: ComputedParameter) => {
+	const { type: computeType } = parent;
+	const calculatorDef = ParameterCalculatorDefsMap[computeType];
+	const maxParamCount = calculatorDef.maxParameterCount || calculatorDef.parameterCount || Infinity;
+	if (parent.parameters.length > maxParamCount) {
+		parent.parameters.length = maxParamCount;
+	}
+	const minParamCount = calculatorDef.minParameterCount || calculatorDef.parameterCount || 1;
+	if (parent.parameters.length < minParamCount) {
+		new Array(minParamCount - parent.parameters.length).fill(1).forEach(() => {
+			parent.parameters.push(createTopicFactorParameter());
+		});
 	}
 };

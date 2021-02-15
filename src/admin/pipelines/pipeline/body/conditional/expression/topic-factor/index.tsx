@@ -31,7 +31,7 @@ const createUnknownFactor = (factorId: string): Factor => {
 	};
 };
 
-export const TopicFactor = (props: { parameter: Parameter; topics: Array<Topic> }) => {
+export const TopicFactorEditor = (props: { parameter: Parameter; topics: Array<Topic> }) => {
 	const { parameter, topics } = props;
 
 	const { on, off, fire } = useParameterEventBus();

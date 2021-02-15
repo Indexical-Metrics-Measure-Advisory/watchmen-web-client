@@ -1,8 +1,10 @@
 import React from 'react';
 import { Parameter } from '../../../../../../services/tuples/factor-calculator-types';
 import { Topic } from '../../../../../../services/tuples/topic-types';
+import { ComputedEditor } from './compute';
+import { ConstantEditor } from './constant';
 import { ParameterFromEditor } from './param-from';
-import { TopicFactor } from './topic-factor';
+import { TopicFactorEditor } from './topic-factor';
 import { ExpressionSideContainer } from './widgets';
 
 export const ExpressionSide = (props: { parameter: Parameter, topics: Array<Topic> }) => {
@@ -10,6 +12,8 @@ export const ExpressionSide = (props: { parameter: Parameter, topics: Array<Topi
 
 	return <ExpressionSideContainer>
 		<ParameterFromEditor parameter={parameter}/>
-		<TopicFactor parameter={parameter} topics={topics}/>
+		<TopicFactorEditor parameter={parameter} topics={topics}/>
+		<ConstantEditor parameter={parameter}/>
+		<ComputedEditor parameter={parameter} topics={topics}/>
 	</ExpressionSideContainer>;
 };

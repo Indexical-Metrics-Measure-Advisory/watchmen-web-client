@@ -1,18 +1,18 @@
 import styled from 'styled-components';
-import { DROPDOWN_Z_INDEX } from '../../../../../../basic-widgets/constants';
+import { DROPDOWN_Z_INDEX } from '../../../../../../../basic-widgets/constants';
 
 export const ParameterComputeTypeContainer = styled.div.attrs({ 'data-widget': 'parameter-computed-type' })`
 	display          : flex;
 	position         : relative;
-	align-items      : center;
 	align-self       : start;
+	align-items      : center;
 	justify-self     : start;
 	height           : var(--param-height);
-	color            : var(--primary-color);
 	background-color : var(--bg-color);
 	border-radius    : calc(var(--param-height) / 2);
 	padding          : 0 calc(var(--margin) / 2);
-	margin-right     : calc(var(--margin) / 2);
+	margin-top       : calc((var(--height) - var(--param-height)) / 2);
+	margin-right     : var(--margin);
 	cursor           : pointer;
 	outline          : none;
 	box-shadow       : var(--param-border);
@@ -28,7 +28,7 @@ export const ParameterComputeTypeContainer = styled.div.attrs({ 'data-widget': '
 		bottom     : calc(100% + 1px);
 		left       : 50%;
 		width      : 1px;
-		height     : calc(var(--margin) / 4);
+		height     : calc(var(--margin) / 2);
 		box-shadow : var(--param-left-border);
 		z-index    : -1;
 	}
