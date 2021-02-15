@@ -4,7 +4,6 @@ export const PipelineBodyContainer = styled.div.attrs({ 'data-widget': 'pipeline
 	display   : flex;
 	position  : relative;
 	flex-grow : 1;
-	padding   : calc(var(--margin) / 2) var(--margin);
 `;
 export const LeadLabel = styled.div.attrs({ 'data-widget': 'pipeline-editor-lead-label' })`
 	display         : flex;

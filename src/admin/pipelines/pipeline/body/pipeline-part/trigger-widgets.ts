@@ -16,7 +16,7 @@ export const TriggerContainer = styled.div.attrs({ 'data-widget': 'pipeline-trig
 	outline          : none;
 	transition       : box-shadow 300ms ease-in-out;
 	&:hover {
-		box-shadow : var(--hover-shadow);
+		box-shadow : var(--primary-hover-shadow);
 	}
 `;
 export const TriggerOn = styled.div.attrs<{ active: boolean, expanded: boolean }>(({ active, expanded }) => {
