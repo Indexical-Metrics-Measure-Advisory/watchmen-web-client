@@ -48,10 +48,6 @@ export const ExpressionLeadLabel = styled.div.attrs({ 'data-widget': 'expression
 	cursor           : default;
 	outline          : none;
 	box-shadow       : var(--param-border);
-	//transition       : box-shadow 300ms ease-in-out;
-	//&:hover {
-	//	box-shadow : var(--param-border), var(--primary-hover-shadow);
-	//}
 `;
 export const ExpressionSide = styled.div.attrs<{ shorten: boolean }>(({ shorten }) => {
 	return {

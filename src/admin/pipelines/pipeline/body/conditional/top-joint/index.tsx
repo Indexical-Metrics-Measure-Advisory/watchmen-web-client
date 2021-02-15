@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { useForceUpdate } from '../../../../../../basic-widgets/utils';
 import { Conditional } from '../../../../../../services/tuples/pipeline-super-types';
+import { Topic } from '../../../../../../services/tuples/topic-types';
 import { useConditionalEventBus } from '../conditional-event-bus';
 import { ConditionalEventTypes } from '../conditional-event-bus-types';
 import { JointBody } from '../joint-body';
 import { JointElements } from '../joint-elements';
 import { JointOperators } from '../joint-operators';
 
-export const TopJoint = (props: { conditional: Conditional }) => {
-	const { conditional } = props;
+export const TopJoint = (props: { conditional: Conditional, topics: Array<Topic> }) => {
+	const { conditional, topics } = props;
 
 	const { on, off } = useConditionalEventBus();
 	const forceUpdate = useForceUpdate();
@@ -24,7 +25,7 @@ export const TopJoint = (props: { conditional: Conditional }) => {
 	}
 
 	return <JointBody>
-		<JointElements joint={conditional.on}/>
+		<JointElements joint={conditional.on} topics={topics}/>
 		<JointOperators joint={conditional.on}/>
 	</JointBody>;
 };

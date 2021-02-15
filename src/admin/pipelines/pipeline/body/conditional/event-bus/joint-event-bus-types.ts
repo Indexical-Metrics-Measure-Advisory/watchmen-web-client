@@ -1,4 +1,8 @@
-import { ParameterExpression, ParameterJoint } from '../../../../../../services/tuples/factor-calculator-types';
+import {
+	ParameterCondition,
+	ParameterExpression,
+	ParameterJoint
+} from '../../../../../../services/tuples/factor-calculator-types';
 
 export enum JointEventTypes {
 	JOINT_TYPE_CHANGED = 'joint-type-changed',
@@ -36,9 +40,9 @@ export interface JointEventBus {
 	on(type: JointEventTypes.SUB_JOINT_REMOVED, listener: (joint: ParameterJoint, parent: ParameterJoint) => void): this;
 	off(type: JointEventTypes.SUB_JOINT_REMOVED, listener: (joint: ParameterJoint, parent: ParameterJoint) => void): this;
 
-	fire(type: JointEventTypes.EXPRESSION_CONTENT_CHANGED, expression: ParameterExpression, parent: ParameterJoint): this;
-	on(type: JointEventTypes.EXPRESSION_CONTENT_CHANGED, listener: (expression: ParameterExpression, parent: ParameterJoint) => void): this;
-	off(type: JointEventTypes.EXPRESSION_CONTENT_CHANGED, listener: (expression: ParameterExpression, parent: ParameterJoint) => void): this;
+	fire(type: JointEventTypes.EXPRESSION_CONTENT_CHANGED, condition: ParameterCondition, parent: ParameterJoint): this;
+	on(type: JointEventTypes.EXPRESSION_CONTENT_CHANGED, listener: (condition: ParameterCondition, parent: ParameterJoint) => void): this;
+	off(type: JointEventTypes.EXPRESSION_CONTENT_CHANGED, listener: (condition: ParameterCondition, parent: ParameterJoint) => void): this;
 
 	fire(type: JointEventTypes.EXPAND_CONTENT): this;
 	on(type: JointEventTypes.EXPAND_CONTENT, listener: () => void): this;

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useJointEventBus } from '../event-bus/joint-event-bus';
 import { JointEventTypes } from '../event-bus/joint-event-bus-types';
 import { JointBodyContainer } from './widgets';

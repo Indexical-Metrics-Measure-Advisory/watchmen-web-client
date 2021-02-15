@@ -62,7 +62,7 @@ const Label = styled.span.attrs({ 'data-widget': 'dropdown-label' })`
 `;
 const Caret = styled(FontAwesomeIcon).attrs({ 'data-widget': 'dropdown-caret' })`
 	opacity     : 0;
-	margin-left : var(--letter-gap);
+	margin-left : calc(var(--margin) / 4);
 	transition  : all 300ms ease-in-out;
 `;
 const Options = styled.div.attrs<State>(
@@ -73,8 +73,8 @@ const Options = styled.div.attrs<State>(
 			style: {
 				opacity: active ? 1 : (void 0),
 				pointerEvents: active ? 'auto' : (void 0),
-				top: atBottom ? (top + height - 1) : (void 0),
-				bottom: atBottom ? (void 0) : `calc(100vh - ${top + 1}px)`,
+				top: atBottom ? (top + height) : (void 0),
+				bottom: atBottom ? (void 0) : `calc(100vh - ${top}px)`,
 				left,
 				minWidth,
 				borderTopLeftRadius: atBottom ? 0 : 'var(--border-radius)',

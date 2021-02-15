@@ -52,19 +52,19 @@ export const JointType = (props: { joint: ParameterJoint }) => {
 	const candidates = [ ParameterJointType.AND, ParameterJointType.OR ].filter(candidate => candidate !== jointType);
 
 	return <JointTypeContainer tabIndex={0} onClick={onExpandedClicked} onBlur={onBlur}>
-			<JointTypeOption active={true} expanded={expanded}
-			                 onClick={onJointTypeClicked(jointType)}>
-				{OptionsLabel[jointType]}
-			</JointTypeOption>
-			{candidates.map(candidate => {
-				return <JointTypeOption active={false} expanded={expanded}
-				                        onClick={onJointTypeClicked(candidate)}
-				                        key={candidate}>
-					{OptionsLabel[candidate]}
-				</JointTypeOption>;
-			})}
-			<JointTypeButton data-expanded={expanded} onClick={onIconClicked}>
-				<FontAwesomeIcon icon={expanded ? ICON_COLLAPSE_CONTENT : ICON_EDIT}/>
-			</JointTypeButton>
-		</JointTypeContainer>;
+		<JointTypeOption active={true} expanded={expanded}
+		                 onClick={onJointTypeClicked(jointType)}>
+			{OptionsLabel[jointType]}
+		</JointTypeOption>
+		{candidates.map(candidate => {
+			return <JointTypeOption active={false} expanded={expanded}
+			                        onClick={onJointTypeClicked(candidate)}
+			                        key={candidate}>
+				{OptionsLabel[candidate]}
+			</JointTypeOption>;
+		})}
+		<JointTypeButton data-expanded={expanded} onClick={onIconClicked}>
+			<FontAwesomeIcon icon={expanded ? ICON_COLLAPSE_CONTENT : ICON_EDIT}/>
+		</JointTypeButton>
+	</JointTypeContainer>;
 };

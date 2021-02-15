@@ -2,14 +2,15 @@ import React, { useEffect } from 'react';
 import { v4 } from 'uuid';
 import { useForceUpdate } from '../../../../../../basic-widgets/utils';
 import { ParameterCondition, ParameterJoint } from '../../../../../../services/tuples/factor-calculator-types';
+import { Topic } from '../../../../../../services/tuples/topic-types';
 import { Condition } from '../condition';
 import { isExpressionParameter, isJointParameter } from '../data-utils';
 import { useJointEventBus } from '../event-bus/joint-event-bus';
 import { JointEventTypes } from '../event-bus/joint-event-bus-types';
 import { JointElementsContainer } from './widgets';
 
-export const JointElements = (props: { joint: ParameterJoint }) => {
-	const { joint } = props;
+export const JointElements = (props: { joint: ParameterJoint, topics: Array<Topic> }) => {
+	const { joint, topics } = props;
 
 	if (!joint.filters) {
 		joint.filters = [];
@@ -45,10 +46,15 @@ export const JointElements = (props: { joint: ParameterJoint }) => {
 			}
 		}
 	};
+	const onConditionChange = (condition: ParameterCondition) => () => {
+		fire(JointEventTypes.EXPRESSION_CONTENT_CHANGED, condition, joint);
+	};
 
 	return <JointElementsContainer>
 		{joint.filters.map(filter => {
-			return <Condition condition={filter} removeMe={onConditionRemove(filter)}
+			return <Condition condition={filter} topics={topics}
+			                  removeMe={onConditionRemove(filter)}
+			                  onChange={onConditionChange(filter)}
 			                  key={v4()}/>;
 		})}
 	</JointElementsContainer>;

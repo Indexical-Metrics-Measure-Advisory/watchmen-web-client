@@ -5,6 +5,7 @@ export const JointElementsContainer = styled.div.attrs({ 'data-widget': 'joint-e
 	display               : grid;
 	position              : relative;
 	grid-template-columns : 1fr;
+	grid-row-gap          : ${GRID_ROW_GAP};
 	grid-auto-rows        : minmax(var(--height), auto);
 	margin-left           : var(--margin);
 	&:before {
