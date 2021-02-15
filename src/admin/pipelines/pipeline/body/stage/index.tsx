@@ -11,9 +11,10 @@ import { StageContainer } from './widgets';
 export const StageEditor = (props: {
 	pipeline: Pipeline;
 	stage: PipelineStage;
+	topics: Array<Topic>;
 	topic: Topic;
 }) => {
-	const { pipeline, stage, topic } = props;
+	const { pipeline, stage, topics, topic } = props;
 
 	return <StageEventBusProvider>
 		<StageContainer>

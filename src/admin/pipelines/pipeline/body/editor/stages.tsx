@@ -12,7 +12,7 @@ export const Stages = (props: {
 	topics: Array<Topic>;
 	topic: Topic;
 }) => {
-	const { pipeline, topic } = props;
+	const { pipeline, topics, topic } = props;
 
 	const { on, off } = usePipelineEventBus();
 	const forceUpdate = useForceUpdate();
@@ -27,7 +27,8 @@ export const Stages = (props: {
 
 	return <>
 		{pipeline.stages.map(stage => {
-			return <StageEditor pipeline={pipeline} stage={stage} topic={topic}
+			return <StageEditor pipeline={pipeline} stage={stage}
+			                    topics={topics} topic={topic}
 			                    key={v4()}/>;
 		})}
 	</>;
