@@ -10,19 +10,11 @@ import { PipelinePartContainer, TopicName } from './widgets';
 
 export const PipelinePart = (props: {
 	pipeline: Pipeline;
-	topics: Array<Topic>;
+	topic: Topic;
 }) => {
-	const { pipeline, topics } = props;
+	const { pipeline, topic } = props;
 
 	const { fire } = usePipelineEventBus();
-
-	const { topicId } = pipeline;
-	// eslint-disable-next-line
-	const topic = topics.find(topic => topic.topicId == topicId);
-
-	if (!topic) {
-		return null;
-	}
 
 	const onConditionTypeChange = () => {
 		fire(PipelineEventTypes.CONDITION_CHANGED, pipeline);

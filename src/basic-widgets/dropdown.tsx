@@ -59,6 +59,9 @@ const Label = styled.span.attrs({ 'data-widget': 'dropdown-label' })`
 	white-space   : nowrap;
 	text-overflow : ellipsis;
 	overflow-x    : hidden;
+	&[data-please=true] {
+		opacity : 0.7;
+	}
 `;
 const Caret = styled(FontAwesomeIcon).attrs({ 'data-widget': 'dropdown-caret' })`
 	opacity     : 0;
@@ -168,10 +171,11 @@ export const Dropdown = (props: DropdownProps) => {
 		}
 	};
 	let label;
+	let selection = null;
 	if (value == null) {
 		label = please;
 	} else {
-		const selection = options.find(option => option.value === value);
+		selection = options.find(option => option.value === value);
 		label = selection ? asLabel(selection) : please;
 	}
 
@@ -181,7 +185,7 @@ export const Dropdown = (props: DropdownProps) => {
 	                          role='input' tabIndex={0}
 	                          {...rest}
 	                          onClick={onClicked} onBlur={onBlurred}>
-		<Label>{label}</Label>
+		<Label data-please={!selection}>{label}</Label>
 		<Caret icon={faCaretDown}/>
 		<Options {...state} ref={optionsRef}>
 			{options.map(option => {

@@ -20,6 +20,7 @@ const AButton = styled.button`
 	border-radius    : var(--border-radius);
 	outline          : none;
 	cursor           : pointer;
+	white-space      : nowrap;
 	transition       : all 300ms ease-in-out;
 	&[data-ink=primary] {
 		color            : var(--invert-color);
