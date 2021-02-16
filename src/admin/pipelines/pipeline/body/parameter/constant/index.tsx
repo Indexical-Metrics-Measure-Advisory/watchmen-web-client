@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect } from 'react';
-import { useForceUpdate } from '../../../../../../../basic-widgets/utils';
-import { Parameter } from '../../../../../../../services/tuples/factor-calculator-types';
-import { isConstantParameter } from '../../../../../../../services/tuples/factor-calculator-utils';
+import { useForceUpdate } from '../../../../../../basic-widgets/utils';
+import { Parameter } from '../../../../../../services/tuples/factor-calculator-types';
+import { isConstantParameter } from '../../../../../../services/tuples/factor-calculator-utils';
 import { useParameterEventBus } from '../parameter/parameter-event-bus';
 import { ParameterEventTypes } from '../parameter/parameter-event-bus-types';
 import { ConstantInput, ConstantContainer } from './widgets';

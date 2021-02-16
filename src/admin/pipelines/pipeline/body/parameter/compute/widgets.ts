@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { GRID_ROW_GAP } from '../../../constants';
+import { GRID_ROW_GAP } from '../../constants';
 
 export const ComputedEditContainer = styled.div.attrs({ 'data-widget': 'parameter-computed-edit' })`
 	grid-column           : 1 / span 2;

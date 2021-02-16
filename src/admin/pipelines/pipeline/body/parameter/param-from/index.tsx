@@ -1,17 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { MouseEvent, useState } from 'react';
-import { ICON_COLLAPSE_CONTENT, ICON_EDIT } from '../../../../../../../basic-widgets/constants';
+import { ICON_COLLAPSE_CONTENT, ICON_EDIT } from '../../../../../../basic-widgets/constants';
 import {
 	Parameter,
 	ParameterComputeType,
 	ParameterFrom
-} from '../../../../../../../services/tuples/factor-calculator-types';
+} from '../../../../../../services/tuples/factor-calculator-types';
 import {
 	isComputedParameter,
 	isConstantParameter,
 	isTopicFactorParameter
-} from '../../../../../../../services/tuples/factor-calculator-utils';
-import { createTopicFactorParameter } from '../../../../../data-utils';
+} from '../../../../../../services/tuples/factor-calculator-utils';
+import { createTopicFactorParameter } from '../../../../data-utils';
 import { useParameterEventBus } from '../parameter/parameter-event-bus';
 import { ParameterEventTypes } from '../parameter/parameter-event-bus-types';
 import { ParameterFromEditContainer, ParameterFromIcon, ParameterTypeButton } from './widgets';

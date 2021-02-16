@@ -1,12 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { AlertLabel } from '../../../../../../../alert/widgets';
-import { ICON_ADD } from '../../../../../../../basic-widgets/constants';
-import { useEventBus } from '../../../../../../../events/event-bus';
-import { EventTypes } from '../../../../../../../events/types';
-import { ComputedParameter, Parameter } from '../../../../../../../services/tuples/factor-calculator-types';
-import { canAddMoreParameter } from '../../../../../../../services/tuples/factor-calculator-utils';
-import { createTopicFactorParameter } from '../../../../../data-utils';
+import { AlertLabel } from '../../../../../../alert/widgets';
+import { ICON_ADD } from '../../../../../../basic-widgets/constants';
+import { useEventBus } from '../../../../../../events/event-bus';
+import { EventTypes } from '../../../../../../events/types';
+import { ComputedParameter, Parameter } from '../../../../../../services/tuples/factor-calculator-types';
+import { canAddMoreParameter } from '../../../../../../services/tuples/factor-calculator-utils';
+import { createTopicFactorParameter } from '../../../../data-utils';
 import { ParameterAddButton, ParameterAddContainer } from './widgets';
 
 export const SubParameterAdd = (props: {

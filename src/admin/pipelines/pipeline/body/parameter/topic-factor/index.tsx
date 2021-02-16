@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { DropdownOption } from '../../../../../../../basic-widgets/types';
-import { useForceUpdate } from '../../../../../../../basic-widgets/utils';
-import { Parameter } from '../../../../../../../services/tuples/factor-calculator-types';
-import { isTopicFactorParameter } from '../../../../../../../services/tuples/factor-calculator-utils';
-import { Factor, FactorType } from '../../../../../../../services/tuples/factor-types';
-import { Topic, TopicType } from '../../../../../../../services/tuples/topic-types';
-import { getCurrentTime } from '../../../../../../../services/utils';
+import { DropdownOption } from '../../../../../../basic-widgets/types';
+import { useForceUpdate } from '../../../../../../basic-widgets/utils';
+import { Parameter } from '../../../../../../services/tuples/factor-calculator-types';
+import { isTopicFactorParameter } from '../../../../../../services/tuples/factor-calculator-utils';
+import { Factor, FactorType } from '../../../../../../services/tuples/factor-types';
+import { Topic, TopicType } from '../../../../../../services/tuples/topic-types';
+import { getCurrentTime } from '../../../../../../services/utils';
 import { useParameterEventBus } from '../parameter/parameter-event-bus';
 import { ParameterEventTypes } from '../parameter/parameter-event-bus-types';
 import { FactorDropdown, IncorrectOptionLabel, TopicDropdown, TopicFactorEditContainer } from './widgets';

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Parameter } from '../../../../../../services/tuples/factor-calculator-types';
 import { Topic } from '../../../../../../services/tuples/topic-types';
-import { ComputedEditor } from './compute';
-import { ConstantEditor } from './constant';
-import { ParameterFromEditor } from './param-from';
-import { TopicFactorEditor } from './topic-factor';
+import { ComputedEditor } from '../../parameter/compute';
+import { ConstantEditor } from '../../parameter/constant';
+import { ParameterFromEditor } from '../../parameter/param-from';
+import { TopicFactorEditor } from '../../parameter/topic-factor';
 import { ExpressionSideContainer } from './widgets';
 
 export const ExpressionSide = (props: { parameter: Parameter, topics: Array<Topic> }) => {

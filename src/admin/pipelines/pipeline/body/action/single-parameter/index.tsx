@@ -2,11 +2,11 @@ import React from 'react';
 import { Parameter } from '../../../../../../services/tuples/factor-calculator-types';
 import { PipelineStageUnitAction } from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import { Topic } from '../../../../../../services/tuples/topic-types';
-import { ComputedEditor } from '../../conditional/expression/compute';
-import { ConstantEditor } from '../../conditional/expression/constant';
-import { ParameterFromEditor } from '../../conditional/expression/param-from';
-import { ParameterEventBusProvider } from '../../conditional/expression/parameter/parameter-event-bus';
-import { TopicFactorEditor } from '../../conditional/expression/topic-factor';
+import { ComputedEditor } from '../../parameter/compute';
+import { ConstantEditor } from '../../parameter/constant';
+import { ParameterFromEditor } from '../../parameter/param-from';
+import { ParameterEventBusProvider } from '../../parameter/parameter/parameter-event-bus';
+import { TopicFactorEditor } from '../../parameter/topic-factor';
 import { Parameter2ActionBridge } from './parameter-2-action-bridge';
 import { SingleParameterContainer } from './widgets';
 

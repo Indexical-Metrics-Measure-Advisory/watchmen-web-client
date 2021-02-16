@@ -15,7 +15,7 @@ import { RemoveMeButton } from '../widgets';
 import { ExpressionSide } from './expression-side';
 import { ExpressionOperator } from './operator';
 import { Parameter2ExpressionBridge } from './parameter-2-expression-bridge';
-import { ParameterEventBusProvider } from './parameter/parameter-event-bus';
+import { ParameterEventBusProvider } from '../../parameter/parameter/parameter-event-bus';
 import { ExpressionContainer, ExpressionHeader, ExpressionLeadLabel } from './widgets';
 
 const defendExpression = (expression: ParameterExpression) => {

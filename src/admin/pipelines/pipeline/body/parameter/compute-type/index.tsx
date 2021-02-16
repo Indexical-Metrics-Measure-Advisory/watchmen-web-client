@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { MouseEvent, useRef, useState } from 'react';
-import { ICON_EDIT } from '../../../../../../../basic-widgets/constants';
-import { useCollapseFixedThing } from '../../../../../../../basic-widgets/utils';
-import { ComputedParameter, ParameterComputeType } from '../../../../../../../services/tuples/factor-calculator-types';
-import { defendComputedParameter } from '../../../../../data-utils';
+import { ICON_EDIT } from '../../../../../../basic-widgets/constants';
+import { useCollapseFixedThing } from '../../../../../../basic-widgets/utils';
+import { ComputedParameter, ParameterComputeType } from '../../../../../../services/tuples/factor-calculator-types';
+import { defendComputedParameter } from '../../../../data-utils';
 import { useParameterEventBus } from '../parameter/parameter-event-bus';
 import { ParameterEventTypes } from '../parameter/parameter-event-bus-types';
 import {
