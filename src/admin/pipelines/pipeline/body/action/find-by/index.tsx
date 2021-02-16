@@ -24,6 +24,7 @@ export const FindByCondition = (props: { action: FindBy & (FromTopic | ToTopic),
 	}, [ on, off ]);
 
 	const onConditionTypeChange = () => {
+		console.log(action);
 		fire(ActionEventTypes.ACTION_CONTENT_CHANGED, action);
 	};
 	const conditional: Conditional = { conditional: true, on: action.by };
