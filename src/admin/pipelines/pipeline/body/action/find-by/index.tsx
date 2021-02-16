@@ -21,15 +21,15 @@ export const FindByCondition = (props: { action: FindBy & (FromTopic | ToTopic),
 		return () => {
 			off(ActionEventTypes.TOPIC_CHANGED, forceUpdate);
 		};
-	}, [ on, off ]);
+	}, [ on, off, forceUpdate ]);
 
 	const onConditionTypeChange = () => {
-		console.log(action);
 		fire(ActionEventTypes.ACTION_CONTENT_CHANGED, action);
 	};
 	const conditional: Conditional = { conditional: true, on: action.by };
 	const availableTopics = [ topic ];
 	if (action.topicId) {
+		// eslint-disable-next-line
 		const anotherTopic = topics.find(topic => topic.topicId == action.topicId);
 		if (anotherTopic) {
 			availableTopics.push(anotherTopic);

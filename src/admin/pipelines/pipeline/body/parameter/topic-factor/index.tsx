@@ -76,6 +76,7 @@ export const TopicFactorEditor = (props: { parameter: Parameter; topics: Array<T
 		selectedTopic = topics.find(topic => topic.topicId == topicId) || null;
 		if (!selectedTopic) {
 			extraTopic = createUnknownTopic(topicId);
+			selectedTopic = extraTopic;
 		}
 	}
 	let selectedFactor: Factor | null = null, extraFactor: Factor | null = null;
@@ -87,6 +88,7 @@ export const TopicFactorEditor = (props: { parameter: Parameter; topics: Array<T
 		}
 		if (!selectedFactor) {
 			extraFactor = createUnknownFactor(factorId);
+			selectedFactor = extraFactor;
 		}
 	}
 
