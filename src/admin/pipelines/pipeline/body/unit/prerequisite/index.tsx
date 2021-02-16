@@ -5,7 +5,7 @@ import { ConditionalEditor } from '../../conditional';
 import { useUnitEventBus } from '../unit-event-bus';
 import { UnitEventTypes } from '../unit-event-bus-types';
 
-export const Prerequisite = (props: {
+export const UnitPrerequisite = (props: {
 	unit: PipelineStageUnit;
 	topic: Topic;
 }) => {

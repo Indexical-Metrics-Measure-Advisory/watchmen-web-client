@@ -18,7 +18,7 @@ import { createUnit } from '../../../../data-utils';
 import { useStageEventBus } from '../../stage/stage-event-bus';
 import { StageEventTypes } from '../../stage/stage-event-bus-types';
 import { HeaderButton, HeaderButtons, LeadLabel } from '../../widgets';
-import { Prerequisite } from '../prerequisite';
+import { UnitPrerequisite } from '../prerequisite';
 import { useUnitEventBus } from '../unit-event-bus';
 import { UnitEventTypes } from '../unit-event-bus-types';
 import { UnitHeaderContainer } from './widgets';
@@ -68,7 +68,7 @@ export const UnitHeader = (props: {
 
 	return <UnitHeaderContainer>
 		<LeadLabel>Unit #{stageIndex}.{unitIndex}:</LeadLabel>
-		<Prerequisite unit={unit} topic={topic}/>
+		<UnitPrerequisite unit={unit} topic={topic}/>
 		<HeaderButtons>
 			{expanded
 				? <HeaderButton ink={ButtonInk.PRIMARY} onClick={onCollapseClicked}>

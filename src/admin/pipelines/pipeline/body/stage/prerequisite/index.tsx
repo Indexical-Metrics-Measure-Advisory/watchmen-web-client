@@ -6,7 +6,7 @@ import { LeadLabel } from '../../widgets';
 import { useStageEventBus } from '../stage-event-bus';
 import { StageEventTypes } from '../stage-event-bus-types';
 
-export const Prerequisite = (props: {
+export const StagePrerequisite = (props: {
 	stage: PipelineStage;
 	topic: Topic;
 }) => {
