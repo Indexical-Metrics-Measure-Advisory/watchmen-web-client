@@ -8,6 +8,7 @@ export const PipelineBodyContainer = styled.div.attrs({ 'data-widget': 'pipeline
 `;
 export const LeadLabel = styled.div.attrs({ 'data-widget': 'pipeline-editor-lead-label' })`
 	display         : flex;
+	position        : relative;
 	align-items     : center;
 	justify-content : flex-end;
 	height          : var(--height);

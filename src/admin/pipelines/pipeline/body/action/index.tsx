@@ -5,6 +5,7 @@ import { PipelineStageUnit } from '../../../../../services/tuples/pipeline-stage
 import { Pipeline } from '../../../../../services/tuples/pipeline-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
 import { ActionTypeEditor } from './action-type';
+import { ActionBody } from './body';
 import { ActionContainer, ActionLeadLabel } from './widgets';
 
 export const ActionEditor = (props: {
@@ -18,11 +19,8 @@ export const ActionEditor = (props: {
 	const { pipeline, stage, unit, action, topics, topic } = props;
 
 	return <ActionContainer>
-		<ActionLeadLabel>-</ActionLeadLabel>
+		<ActionLeadLabel/>
 		<ActionTypeEditor action={action}/>
-		{/*<UnitHeader pipeline={pipeline} stage={stage} unit={unit} topic={topic}/>*/}
-		{/*<UnitBody>*/}
-		{/*	<Actions pipeline={pipeline} stage={stage} unit={unit} topics={topics} topic={topic}/>*/}
-		{/*</UnitBody>*/}
+		<ActionBody pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
 	</ActionContainer>;
 };

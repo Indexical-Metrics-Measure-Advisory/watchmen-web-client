@@ -2,7 +2,7 @@ import { PipelineStageUnitAction } from '../../../../../services/tuples/pipeline
 
 export enum ActionEventTypes {
 	ACTION_TYPE_CHANGED = 'action-type-changed',
-	ACTION_CONTENT_CHANGED = 'action-content-changed',
+	ACTION_CONTENT_CHANGED = 'action-content-changed'
 }
 
 export interface ActionEventBus {

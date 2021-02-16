@@ -1,4 +1,5 @@
-import { Parameter, ParameterJoint } from '../factor-calculator-types';
+import { Parameter } from '../factor-calculator-types';
+import { Conditional } from '../pipeline-super-types';
 import { MemoryWriter, PipelineStageUnitAction, SystemActionType } from './pipeline-stage-unit-action-types';
 
 export enum AlarmActionSeverity {
@@ -8,10 +9,8 @@ export enum AlarmActionSeverity {
 	CRITICAL = 'critical',
 }
 
-export interface AlarmAction extends PipelineStageUnitAction {
+export interface AlarmAction extends PipelineStageUnitAction, Conditional {
 	type: SystemActionType.ALARM;
-	conditional: boolean;
-	on?: ParameterJoint;
 	severity: AlarmActionSeverity;
 	message: string;
 }
