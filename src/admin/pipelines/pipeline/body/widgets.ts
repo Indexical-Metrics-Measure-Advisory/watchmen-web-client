@@ -26,14 +26,14 @@ export const FooterLeadLabel = styled(LeadLabel)`
 export const HeaderButtons = styled.div.attrs({ 'data-widget': 'header-buttons' })`
 	display               : grid;
 	position              : absolute;
-	grid-template-columns : repeat(3, auto);
+	grid-template-columns : repeat(10, auto);
 	right                 : 0;
 	top                   : calc((var(--height) - var(--param-height)) / 2);
 `;
 export const FooterButtons = styled.div.attrs({ 'data-widget': 'footer-buttons' })`
 	display               : grid;
 	position              : absolute;
-	grid-template-columns : repeat(3, auto);
+	grid-template-columns : repeat(10, auto);
 	right                 : 0;
 	top                   : calc((var(--height) - var(--param-height)) / 2);
 `;

@@ -21,9 +21,11 @@ export const Stages = (props: {
 	useEffect(() => {
 		on(PipelineEventTypes.STAGE_ADDED, forceUpdate);
 		on(PipelineEventTypes.STAGE_REMOVED, forceUpdate);
+		on(PipelineEventTypes.STAGE_SORTED, forceUpdate);
 		return () => {
 			off(PipelineEventTypes.STAGE_ADDED, forceUpdate);
 			off(PipelineEventTypes.STAGE_REMOVED, forceUpdate);
+			off(PipelineEventTypes.STAGE_SORTED, forceUpdate);
 		};
 	}, [ on, off, forceUpdate ]);
 

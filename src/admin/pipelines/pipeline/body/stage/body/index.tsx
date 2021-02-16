@@ -1,23 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useStageEventBus } from '../stage-event-bus';
-import { StageEventTypes } from '../stage-event-bus-types';
+import React from 'react';
+import { useExpanded } from '../stage-effect/use-expanded';
 import { StageBodyContainer } from './widgets';
 
 export const StageBody = (props: { children: ((props: any) => React.ReactNode) | React.ReactNode }) => {
 	const { children } = props;
 
-	const { on, off } = useStageEventBus();
-	const [ expanded, setExpanded ] = useState(true);
-	useEffect(() => {
-		const onExpandContent = () => setExpanded(true);
-		const onCollapseContent = () => setExpanded(false);
-		on(StageEventTypes.EXPAND_CONTENT, onExpandContent);
-		on(StageEventTypes.COLLAPSE_CONTENT, onCollapseContent);
-		return () => {
-			off(StageEventTypes.EXPAND_CONTENT, onExpandContent);
-			off(StageEventTypes.COLLAPSE_CONTENT, onCollapseContent);
-		};
-	}, [ on, off ]);
+	const expanded = useExpanded();
 
 	return <StageBodyContainer expanded={expanded}>
 		{children}

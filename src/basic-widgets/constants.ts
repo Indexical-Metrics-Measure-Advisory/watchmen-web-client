@@ -4,6 +4,8 @@ import {
 	faAngleLeft,
 	faAngleRight,
 	faArrowAltCircleDown,
+	faArrowDown,
+	faArrowUp,
 	faBan,
 	faBell,
 	faChalkboard,
@@ -150,6 +152,8 @@ export const ICON_SORT_DESC = faSortAmountDown;
 export const ICON_SAVE = faSave;
 export const ICON_DISABLE = faTimesCircle;
 export const ICON_ENABLE = faCheckSquare;
+export const ICON_MOVE_DOWN = faArrowDown;
+export const ICON_MOVE_UP = faArrowUp;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

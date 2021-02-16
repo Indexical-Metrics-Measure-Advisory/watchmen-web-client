@@ -23,17 +23,17 @@ export const StageContainer = styled.div.attrs({ 'data-widget': 'stage' })`
 		border-top-color : var(--primary-color);
 		opacity          : 0.3;
 	}
-	> div[data-widget="stage-header"] > div[data-widget="header-buttons"],
-	> div[data-widget="stage-body"] > div[data-widget="stage-footer"] > div[data-widget="footer-buttons"] {
-		pointer-events : none;
-		transform      : translateX(calc(100% + var(--margin) / 2));
-		transition     : transform 300ms ease-in-out;
-	}
-	&:hover {
-		> div[data-widget="stage-header"] > div[data-widget="header-buttons"],
-		> div[data-widget="stage-body"] > div[data-widget="stage-footer"] > div[data-widget="footer-buttons"] {
-			transform      : translateX(0);
-			pointer-events : auto;
-		}
-	}
+	//> div[data-widget="stage-header"] > div[data-widget="header-buttons"],
+	//> div[data-widget="stage-body"] > div[data-widget="stage-footer"] > div[data-widget="footer-buttons"] {
+	//	pointer-events : none;
+	//	transform      : translateX(calc(100% + var(--margin) / 2));
+	//	transition     : transform 300ms ease-in-out;
+	//}
+	//&:hover {
+	//	> div[data-widget="stage-header"] > div[data-widget="header-buttons"],
+	//	> div[data-widget="stage-body"] > div[data-widget="stage-footer"] > div[data-widget="footer-buttons"] {
+	//		transform      : translateX(0);
+	//		pointer-events : auto;
+	//	}
+	//}
 `;
