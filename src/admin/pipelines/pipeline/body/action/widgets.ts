@@ -12,7 +12,7 @@ export const ActionContainer = styled.div.attrs({ 'data-widget': 'action' })`
 	grid-auto-rows        : minmax(var(--height), auto);
 	margin-top            : calc(var(--margin) / 8);
 	padding               : calc(var(--margin) / 4);
-	border-radius         : calc(var(--border-radius) * 3);
+	border-radius         : var(--param-height);
 	&:first-child {
 		margin-top : 0;
 	}
@@ -26,7 +26,7 @@ export const ActionContainer = styled.div.attrs({ 'data-widget': 'action' })`
 		height           : 100%;
 		background-color : var(--primary-color);
 		opacity          : 0.05;
-		border-radius    : calc(var(--border-radius) * 3);
+		border-radius    : var(--param-height);
 	}
 	> div[data-widget="header-buttons"] {
 		top   : calc((var(--margin) / 2 + var(--height) - var(--param-height)) / 2);
@@ -40,5 +40,5 @@ export const ActionLeadLabelThin = styled(LeadLabel)`
 	font-weight : normal;
 `;
 export const ActionFooterLeadLabel = styled(FooterLeadLabel)`
-	grid-column: 1 / span 2;
-`
+	grid-column : 1 / span 2;
+`;

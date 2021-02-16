@@ -15,8 +15,8 @@ export const StageContainer = styled.div.attrs({ 'data-widget': 'stage' })`
 		display          : block;
 		position         : absolute;
 		top              : 0;
-		left             : calc(var(--margin) / -2);
-		width            : calc(100% + var(--margin));
+		left             : 0;
+		width            : 100%;
 		height           : 1px;
 		border-top       : var(--border);
 		border-top-style : dashed;

@@ -20,7 +20,7 @@ export const UnitContainer = styled.div.attrs({ 'data-widget': 'unit' })`
 		width            : 100%;
 		height           : 100%;
 		background-color : var(--primary-color);
-		border-radius    : calc(var(--border-radius) * 3);
+		border-radius    : var(--param-height);
 		opacity          : 0.05;
 		z-index          : -1;
 	}

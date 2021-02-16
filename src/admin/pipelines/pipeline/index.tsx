@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { AlertLabel } from '../../../alert/widgets';
-import { FullWidthPage } from '../../../basic-widgets/page';
 import { useEventBus } from '../../../events/event-bus';
 import { EventTypes } from '../../../events/types';
 import { Router } from '../../../routes/types';
@@ -49,10 +48,8 @@ export const PipelineWorkbench = () => {
 
 	return <PipelineEventBusProvider>
 		<PipelineDataSaver/>
-		<FullWidthPage>
-			<PipelineHeader pipeline={data.pipeline}/>
-			<PipelineBody pipeline={data.pipeline} topics={data.topics}/>
-		</FullWidthPage>
+		<PipelineHeader pipeline={data.pipeline}/>
+		<PipelineBody pipeline={data.pipeline} topics={data.topics}/>
 	</PipelineEventBusProvider>;
 
 };
