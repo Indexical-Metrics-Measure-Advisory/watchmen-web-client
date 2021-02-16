@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import { AlertLabel } from '../../../../../../alert/widgets';
 import {
 	ICON_ADD,
@@ -8,7 +8,6 @@ import {
 	ICON_EXPAND_PANEL
 } from '../../../../../../basic-widgets/constants';
 import { ButtonInk } from '../../../../../../basic-widgets/types';
-import { useForceUpdate } from '../../../../../../basic-widgets/utils';
 import { useEventBus } from '../../../../../../events/event-bus';
 import { EventTypes } from '../../../../../../events/types';
 import { PipelineStage } from '../../../../../../services/tuples/pipeline-stage-types';
@@ -16,12 +15,12 @@ import { Pipeline } from '../../../../../../services/tuples/pipeline-types';
 import { createStage } from '../../../../data-utils';
 import { usePipelineEventBus } from '../../../pipeline-event-bus';
 import { PipelineEventTypes } from '../../../pipeline-event-bus-types';
-import { HeaderButton, HeaderButtons, LeadLabel } from '../../widgets';
+import { FooterButtons, FooterLeadLabel, HeaderButton } from '../../widgets';
 import { useStageEventBus } from '../stage-event-bus';
 import { StageEventTypes } from '../stage-event-bus-types';
-import { StageHeaderContainer, StageNameEditor, StageNameInput, StageNameLabel } from './widgets';
+import { StageFooterContainer } from './widgets';
 
-export const StageHeader = (props: {
+export const StageFooter = (props: {
 	pipeline: Pipeline;
 	stage: PipelineStage;
 }) => {
@@ -31,17 +30,6 @@ export const StageHeader = (props: {
 	const { fire: firePipeline } = usePipelineEventBus();
 	const { fire } = useStageEventBus();
 	const [ expanded, setExpanded ] = useState(true);
-	const forceUpdate = useForceUpdate();
-	const onStageNameChanged = (event: ChangeEvent<HTMLInputElement>) => {
-		const { value } = event.target;
-		if (value === stage.name) {
-			return;
-		}
-
-		stage.name = value;
-		forceUpdate();
-		fire(StageEventTypes.RENAME_STAGE, stage);
-	};
 	const onCollapseClicked = () => {
 		setExpanded(false);
 		fire(StageEventTypes.COLLAPSE_CONTENT);
@@ -50,11 +38,11 @@ export const StageHeader = (props: {
 		setExpanded(true);
 		fire(StageEventTypes.EXPAND_CONTENT);
 	};
-	const onPrependClicked = () => {
-		const previousStage = createStage();
+	const onAppendClicked = () => {
+		const nextStage = createStage();
 		const index = pipeline.stages.indexOf(stage);
-		pipeline.stages.splice(index, 0, previousStage);
-		firePipeline(PipelineEventTypes.STAGE_ADDED, previousStage, pipeline);
+		pipeline.stages.splice(index + 1, 0, nextStage);
+		firePipeline(PipelineEventTypes.STAGE_ADDED, nextStage, pipeline);
 	};
 	const onDeleteClicked = () => {
 		if (pipeline.stages.length === 1) {
@@ -73,14 +61,9 @@ export const StageHeader = (props: {
 
 	const index = pipeline.stages.indexOf(stage) + 1;
 
-	return <StageHeaderContainer>
-		<LeadLabel>Stage #{index}:</LeadLabel>
-		<StageNameEditor>
-			<StageNameLabel>{stage.name || 'Noname'}</StageNameLabel>
-			<StageNameInput value={stage.name || ''} onChange={onStageNameChanged}
-			                placeholder='Noname'/>
-		</StageNameEditor>
-		<HeaderButtons>
+	return <StageFooterContainer>
+		<FooterLeadLabel>End of Stage #{index}</FooterLeadLabel>
+		<FooterButtons>
 			{expanded
 				? <HeaderButton ink={ButtonInk.PRIMARY} onClick={onCollapseClicked}>
 					<FontAwesomeIcon icon={ICON_COLLAPSE_PANEL}/>
@@ -93,9 +76,9 @@ export const StageHeader = (props: {
 					<FontAwesomeIcon icon={ICON_EXPAND_PANEL}/>
 					<span>Expand Stage</span>
 				</HeaderButton>}
-			<HeaderButton ink={ButtonInk.PRIMARY} onClick={onPrependClicked}>
+			<HeaderButton ink={ButtonInk.PRIMARY} onClick={onAppendClicked}>
 				<FontAwesomeIcon icon={ICON_ADD}/>
-				<span>Prepend Stage</span>
+				<span>Append Stage</span>
 			</HeaderButton>
 			{pipeline.stages.length !== 1
 				? <HeaderButton ink={ButtonInk.DANGER} onClick={onDeleteClicked}>
@@ -103,6 +86,6 @@ export const StageHeader = (props: {
 					<span>Delete This Stage</span>
 				</HeaderButton>
 				: null}
-		</HeaderButtons>
-	</StageHeaderContainer>;
+		</FooterButtons>
+	</StageFooterContainer>;
 };

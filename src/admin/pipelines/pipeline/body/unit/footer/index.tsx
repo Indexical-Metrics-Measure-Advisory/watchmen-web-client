@@ -13,23 +13,20 @@ import { EventTypes } from '../../../../../../events/types';
 import { PipelineStage } from '../../../../../../services/tuples/pipeline-stage-types';
 import { PipelineStageUnit } from '../../../../../../services/tuples/pipeline-stage-unit-types';
 import { Pipeline } from '../../../../../../services/tuples/pipeline-types';
-import { Topic } from '../../../../../../services/tuples/topic-types';
 import { createUnit } from '../../../../data-utils';
 import { useStageEventBus } from '../../stage/stage-event-bus';
 import { StageEventTypes } from '../../stage/stage-event-bus-types';
-import { HeaderButton, HeaderButtons, LeadLabel } from '../../widgets';
-import { UnitPrerequisite } from '../prerequisite';
+import { FooterButtons, FooterLeadLabel, HeaderButton } from '../../widgets';
 import { useUnitEventBus } from '../unit-event-bus';
 import { UnitEventTypes } from '../unit-event-bus-types';
-import { UnitHeaderContainer } from './widgets';
+import { UnitFooterContainer } from './widgets';
 
-export const UnitHeader = (props: {
+export const UnitFooter = (props: {
 	pipeline: Pipeline;
 	stage: PipelineStage;
 	unit: PipelineStageUnit;
-	topic: Topic;
 }) => {
-	const { pipeline, stage, unit, topic } = props;
+	const { pipeline, stage, unit } = props;
 
 	const { fire: fireGlobal } = useEventBus();
 	const { fire: fireStage } = useStageEventBus();
@@ -43,11 +40,11 @@ export const UnitHeader = (props: {
 		setExpanded(true);
 		fire(UnitEventTypes.EXPAND_CONTENT);
 	};
-	const onPrependClicked = () => {
-		const previousUnit = createUnit();
+	const onAppendClicked = () => {
+		const nextUnit = createUnit();
 		const index = stage.units.indexOf(unit);
-		stage.units.splice(index, 0, previousUnit);
-		fireStage(StageEventTypes.UNIT_ADDED, previousUnit, stage);
+		stage.units.splice(index + 1, 0, nextUnit);
+		fireStage(StageEventTypes.UNIT_ADDED, nextUnit, stage);
 	};
 	const onDeleteClicked = () => {
 		if (stage.units.length === 1) {
@@ -67,10 +64,9 @@ export const UnitHeader = (props: {
 	const stageIndex = pipeline.stages.indexOf(stage) + 1;
 	const unitIndex = stage.units.indexOf(unit) + 1;
 
-	return <UnitHeaderContainer>
-		<LeadLabel>Unit #{stageIndex}.{unitIndex}:</LeadLabel>
-		<UnitPrerequisite unit={unit} topic={topic}/>
-		<HeaderButtons>
+	return <UnitFooterContainer>
+		<FooterLeadLabel>End of Unit #{stageIndex}.{unitIndex}</FooterLeadLabel>
+		<FooterButtons>
 			{expanded
 				? <HeaderButton ink={ButtonInk.PRIMARY} onClick={onCollapseClicked}>
 					<FontAwesomeIcon icon={ICON_COLLAPSE_PANEL}/>
@@ -83,9 +79,9 @@ export const UnitHeader = (props: {
 					<FontAwesomeIcon icon={ICON_EXPAND_PANEL}/>
 					<span>Expand Unit</span>
 				</HeaderButton>}
-			<HeaderButton ink={ButtonInk.PRIMARY} onClick={onPrependClicked}>
+			<HeaderButton ink={ButtonInk.PRIMARY} onClick={onAppendClicked}>
 				<FontAwesomeIcon icon={ICON_ADD}/>
-				<span>Prepend Unit</span>
+				<span>Append Unit</span>
 			</HeaderButton>
 			{stage.units.length !== 1
 				? <HeaderButton ink={ButtonInk.DANGER} onClick={onDeleteClicked}>
@@ -93,6 +89,6 @@ export const UnitHeader = (props: {
 					<span>Delete This Unit</span>
 				</HeaderButton>
 				: null}
-		</HeaderButtons>
-	</UnitHeaderContainer>;
+		</FooterButtons>
+	</UnitFooterContainer>;
 };

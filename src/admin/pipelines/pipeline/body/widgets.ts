@@ -16,14 +16,25 @@ export const LeadLabel = styled.div.attrs({ 'data-widget': 'pipeline-editor-lead
 	font-weight     : var(--font-demi-bold);
 	cursor          : default;
 `;
+export const FooterLeadLabel = styled(LeadLabel)`
+	flex-grow       : 1;
+	margin-right    : var(--margin);
+	justify-content : center;
+	opacity         : 0.5;
+`;
 export const HeaderButtons = styled.div.attrs({ 'data-widget': 'header-buttons' })`
 	display               : grid;
 	position              : absolute;
 	grid-template-columns : repeat(3, auto);
-	//grid-column-gap       : calc(var(--margin) / 4);
-	justify-self          : end;
 	right                 : 0;
-	top                   : calc(var(--margin) / -4 + var(--param-height) / -2);
+	top                   : calc((var(--height) - var(--param-height)) / 2);
+`;
+export const FooterButtons = styled.div.attrs({ 'data-widget': 'footer-buttons' })`
+	display               : grid;
+	position              : absolute;
+	grid-template-columns : repeat(3, auto);
+	right                 : 0;
+	top                   : calc((var(--height) - var(--param-height)) / 2);
 `;
 export const HeaderButton = styled(Button)`
 	height        : var(--param-height);

@@ -8,4 +8,5 @@ export const UnitHeaderContainer = styled.div.attrs({ 'data-widget': 'unit-heade
 	grid-template-columns : ${GRID_COLUMNS};
 	grid-column-gap       : ${GRID_COLUMN_GAP};
 	align-items           : center;
+	overflow              : hidden;
 `;

@@ -5,6 +5,7 @@ import { Pipeline } from '../../../../../services/tuples/pipeline-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
 import { Actions } from './actions';
 import { UnitBody } from './body';
+import { UnitFooter } from './footer';
 import { UnitHeader } from './header';
 import { UnitContainer } from './widgets';
 
@@ -21,6 +22,7 @@ export const UnitEditor = (props: {
 		<UnitHeader pipeline={pipeline} stage={stage} unit={unit} topic={topic}/>
 		<UnitBody>
 			<Actions pipeline={pipeline} stage={stage} unit={unit} topics={topics} topic={topic}/>
+			<UnitFooter pipeline={pipeline} stage={stage} unit={unit}/>
 		</UnitBody>
 	</UnitContainer>;
 };

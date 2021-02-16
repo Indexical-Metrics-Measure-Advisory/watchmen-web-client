@@ -9,6 +9,7 @@ export const StageHeaderContainer = styled.div.attrs({ 'data-widget': 'stage-hea
 	grid-template-columns : ${GRID_STAGE_HEADER};
 	grid-column-gap       : ${GRID_COLUMN_GAP};
 	align-items           : center;
+	overflow              : hidden;
 `;
 export const StageNameEditor = styled.div.attrs({ 'data-widget': 'stage-name' })`
 	display     : flex;
