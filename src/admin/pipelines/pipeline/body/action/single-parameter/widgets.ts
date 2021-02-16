@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { GRID_ROW_GAP } from '../../constants';
 
-export const SingleParameterContainer = styled.div.attrs({ 'data-widget': 'expression-side' })`
+export const SingleParameterContainer = styled.div.attrs({ 'data-widget': 'single-parameter' })`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : auto 1fr;
@@ -9,18 +9,5 @@ export const SingleParameterContainer = styled.div.attrs({ 'data-widget': 'expre
 	grid-row-gap          : ${GRID_ROW_GAP};
 	&:last-child:before {
 		border-bottom-left-radius : var(--border-radius);
-	}
-	&:not(:last-child) {
-		:after {
-			content          : '';
-			display          : block;
-			position         : absolute;
-			top              : calc(var(--height) / 2);
-			left             : calc(var(--margin) / -2);
-			width            : 1px;
-			height           : calc(100% - var(--height) / 2);
-			background-color : var(--border-color);
-			z-index          : -1;
-		}
 	}
 `;

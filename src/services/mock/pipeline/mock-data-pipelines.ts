@@ -24,6 +24,7 @@ import { getCurrentTime } from '../../utils';
 const WriteRawQuotationPremiumToPolicy: WriteFactorAction = {
 	type: WriteTopicActionType.WRITE_FACTOR, topicId: '2', factorId: '207',
 	source: { from: ParameterFrom.TOPIC, topicId: '4', factorId: '413' } as TopicFactorParameter,
+	arithmetic: AggregateArithmetic.SUM,
 	by: {
 		jointType: ParameterJointType.AND,
 		filters: [ {
@@ -36,6 +37,7 @@ const WriteRawQuotationPremiumToPolicy: WriteFactorAction = {
 const WriteRawEndorsementPremiumToPolicy: WriteFactorAction = {
 	type: WriteTopicActionType.WRITE_FACTOR, topicId: '2', factorId: '207',
 	source: { from: ParameterFrom.TOPIC, topicId: '7', factorId: '706' } as TopicFactorParameter,
+	arithmetic: AggregateArithmetic.SUM,
 	by: {
 		jointType: ParameterJointType.AND,
 		filters: [ {
@@ -78,8 +80,8 @@ const MatchIssueWeekOfYear: ParameterJoint = {
 const WriteWeeklyPremium: MergeRowAction = {
 	type: WriteTopicActionType.INSERT_OR_MERGE_ROW, topicId: '5',
 	mapping: [
-		{ factorId: '501', source: { from: ParameterFrom.CONSTANT, value: 'IssueYear' } as ConstantParameter },
-		{ factorId: '502', source: { from: ParameterFrom.CONSTANT, value: 'IssueWeekOfYear' } as ConstantParameter },
+		{ factorId: '501', source: { from: ParameterFrom.CONSTANT, value: 'IssueYear' } as ConstantParameter, arithmetic: AggregateArithmetic.NONE },
+		{ factorId: '502', source: { from: ParameterFrom.CONSTANT, value: 'IssueWeekOfYear' } as ConstantParameter, arithmetic: AggregateArithmetic.NONE },
 		{
 			factorId: '503',
 			source: { from: ParameterFrom.TOPIC, topicId: '2', factorId: '207' } as TopicFactorParameter,
@@ -113,8 +115,8 @@ const MatchIssueMonthOfYear: ParameterJoint = {
 const WriteMonthlyPremium: MergeRowAction = {
 	type: WriteTopicActionType.INSERT_OR_MERGE_ROW, topicId: '6',
 	mapping: [
-		{ factorId: '601', source: { from: ParameterFrom.CONSTANT, value: 'IssueYear' } as ConstantParameter },
-		{ factorId: '602', source: { from: ParameterFrom.CONSTANT, value: 'IssueMonthOfYear' } as ConstantParameter },
+		{ factorId: '601', source: { from: ParameterFrom.CONSTANT, value: 'IssueYear' } as ConstantParameter, arithmetic: AggregateArithmetic.NONE },
+		{ factorId: '602', source: { from: ParameterFrom.CONSTANT, value: 'IssueMonthOfYear' } as ConstantParameter, arithmetic: AggregateArithmetic.NONE },
 		{
 			factorId: '603',
 			source: { from: ParameterFrom.TOPIC, topicId: '2', factorId: '207' } as TopicFactorParameter,

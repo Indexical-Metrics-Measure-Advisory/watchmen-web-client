@@ -30,7 +30,7 @@ export const ReadRow = (props: {
 	return <>
 		<ActionLeadLabelThin>Variable Name:</ActionLeadLabelThin>
 		<VariableName action={action}/>
-		<ActionLeadLabelThin>Topic:</ActionLeadLabelThin>
+		<ActionLeadLabelThin>Source Topic:</ActionLeadLabelThin>
 		<TopicPicker action={action} topics={topics}/>
 		<ActionLeadLabelThin>By:</ActionLeadLabelThin>
 		<FindByCondition action={action} topics={topics} topic={topic}/>

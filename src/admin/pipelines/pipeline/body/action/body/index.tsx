@@ -9,6 +9,7 @@ import { CopyToMemory } from '../copy-to-memory';
 import { ReadFactor } from '../read-factor';
 import { ReadRow } from '../read-row';
 import { TopicRowExists } from '../topic-row-exists';
+import { WriteFactor } from '../write-factor';
 import { ActionBodyContainer } from './widgets';
 
 export const ActionBody = (props: {
@@ -27,5 +28,6 @@ export const ActionBody = (props: {
 		<TopicRowExists pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
 		<ReadRow pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
 		<ReadFactor pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
+		<WriteFactor pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
 	</ActionBodyContainer>;
 };

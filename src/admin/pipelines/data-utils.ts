@@ -48,6 +48,7 @@ import {
 	CopyToMemoryAction
 } from '../../services/tuples/pipeline-stage-unit-action/system-actions-types';
 import {
+	AggregateArithmetic,
 	InsertRowAction,
 	MappingFactor,
 	MappingRow,
@@ -137,7 +138,7 @@ export const defendFindBy = (findBy: FindBy) => {
 	}
 };
 export const createMapping = (): MappingFactor => {
-	return { factorId: '', source: createConstantParameter() };
+	return { factorId: '', source: createConstantParameter(), arithmetic: AggregateArithmetic.NONE };
 };
 export const defendMappingRow = (row: MappingRow) => {
 	if (!row.mapping) {
@@ -190,6 +191,7 @@ export const defendReadRowAction = (action: ReadRowAction) => {
 export const defendWriteFactorAction = (action: WriteFactorAction) => {
 	defendFactor(action);
 	action.source = action.source || { from: ParameterFrom.CONSTANT, value: '' } as ConstantParameter;
+	action.arithmetic = action.arithmetic || AggregateArithmetic.NONE;
 	defendFindBy(action);
 };
 export const defendMergeRowAction = (action: MergeRowAction) => {
