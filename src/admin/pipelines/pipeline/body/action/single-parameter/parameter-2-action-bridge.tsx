@@ -18,7 +18,7 @@ export const Parameter2ActionBridge = (props: { action: PipelineStageUnitAction 
 		return () => {
 			off(ParameterEventTypes.PARAM_CHANGED, onParamChanged);
 		};
-	}, [ on, off, action ]);
+	}, [ on, off, fireAction, action ]);
 
 	return <></>;
 };

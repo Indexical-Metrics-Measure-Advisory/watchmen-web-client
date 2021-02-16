@@ -7,18 +7,6 @@ export const SingleParameterContainer = styled.div.attrs({ 'data-widget': 'expre
 	grid-template-columns : auto 1fr;
 	grid-auto-rows        : minmax(var(--height), auto);
 	grid-row-gap          : ${GRID_ROW_GAP};
-	&:before {
-		content       : '';
-		display       : block;
-		position      : absolute;
-		top           : calc(var(--height) / -2);
-		left          : calc(var(--margin) / -2);
-		width         : calc(var(--margin) / 2);
-		height        : var(--height);
-		border-left   : var(--border);
-		border-bottom : var(--border);
-		z-index       : -1;
-	}
 	&:last-child:before {
 		border-bottom-left-radius : var(--border-radius);
 	}
