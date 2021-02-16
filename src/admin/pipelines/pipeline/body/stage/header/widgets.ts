@@ -10,6 +10,12 @@ export const StageHeaderContainer = styled.div.attrs({ 'data-widget': 'stage-hea
 	grid-column-gap       : ${GRID_COLUMN_GAP};
 	align-items           : center;
 	overflow              : hidden;
+	margin                : calc(var(--margin) / -4) calc(var(--margin) / -2);
+	padding               : calc(var(--margin) / 4) calc(var(--margin) / 2);
+	> div[data-widget="header-buttons"] {
+		top   : calc((var(--margin) / 2 + var(--height) - var(--param-height)) / 2);
+		right : calc(var(--margin) / 2);
+	}
 `;
 export const StageNameEditor = styled.div.attrs({ 'data-widget': 'stage-name' })`
 	display     : flex;

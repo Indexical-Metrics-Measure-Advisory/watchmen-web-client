@@ -9,7 +9,7 @@ export const UnitContainer = styled.div.attrs({ 'data-widget': 'unit' })`
 	grid-column-gap       : ${GRID_COLUMN_GAP};
 	grid-row-gap          : ${GRID_ROW_GAP};
 	grid-auto-rows        : minmax(var(--height), auto);
-	margin                : calc(var(--margin) / 4) calc(var(--margin) / -2) 0 calc(var(--margin) / -2);
+	margin                : 0 calc(var(--margin) / -2) 0 calc(var(--margin) / -2);
 	padding               : calc(var(--margin) / 4) calc(var(--margin) / 2);
 	&:before {
 		content          : '';
@@ -25,7 +25,7 @@ export const UnitContainer = styled.div.attrs({ 'data-widget': 'unit' })`
 		z-index          : -1;
 	}
 	+ div[data-widget=unit] {
-		margin-top : calc(var(--margin) / 2);
+		//margin-top : calc(var(--margin) / 2);
 	}
 	> div[data-widget="unit-header"] > div[data-widget="header-buttons"],
 	> div[data-widget="unit-body"] > div[data-widget="unit-footer"] > div[data-widget="footer-buttons"] {
