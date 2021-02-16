@@ -6,6 +6,8 @@ import { Pipeline } from '../../../../../../services/tuples/pipeline-types';
 import { Topic } from '../../../../../../services/tuples/topic-types';
 import { Alarm } from '../alarm';
 import { CopyToMemory } from '../copy-to-memory';
+import { InsertRow } from '../insert-row';
+import { MergeRow } from '../merge-row';
 import { ReadFactor } from '../read-factor';
 import { ReadRow } from '../read-row';
 import { TopicRowExists } from '../topic-row-exists';
@@ -29,5 +31,7 @@ export const ActionBody = (props: {
 		<ReadRow pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
 		<ReadFactor pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
 		<WriteFactor pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
+		<InsertRow pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
+		<MergeRow pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
 	</ActionBodyContainer>;
 };

@@ -26,7 +26,7 @@ export interface MappingFactor extends AggregateArithmeticHolder {
 	factorId: string;
 }
 
-export interface MappingRow {
+export interface MappingRow extends PipelineStageUnitAction {
 	mapping: Array<MappingFactor>;
 }
 
