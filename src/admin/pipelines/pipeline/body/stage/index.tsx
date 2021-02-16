@@ -5,7 +5,7 @@ import { Topic } from '../../../../../services/tuples/topic-types';
 import { StageBody } from './body';
 import { StageHeader } from './header';
 import { Prerequisite } from './prerequisite';
-import { StageEventBusProvider } from './stage-event-bus';
+import { Units } from './units';
 import { StageContainer } from './widgets';
 
 export const StageEditor = (props: {
@@ -16,12 +16,11 @@ export const StageEditor = (props: {
 }) => {
 	const { pipeline, stage, topics, topic } = props;
 
-	return <StageEventBusProvider>
-		<StageContainer>
-			<StageHeader pipeline={pipeline} stage={stage}/>
-			<StageBody>
-				<Prerequisite stage={stage} topic={topic}/>
-			</StageBody>
-		</StageContainer>
-	</StageEventBusProvider>;
+	return <StageContainer>
+		<StageHeader pipeline={pipeline} stage={stage}/>
+		<StageBody>
+			<Prerequisite stage={stage} topic={topic}/>
+			<Units pipeline={pipeline} stage={stage} topics={topics} topic={topic}/>
+		</StageBody>
+	</StageContainer>;
 };

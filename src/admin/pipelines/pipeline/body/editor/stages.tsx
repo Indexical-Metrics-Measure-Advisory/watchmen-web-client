@@ -6,6 +6,8 @@ import { Topic } from '../../../../../services/tuples/topic-types';
 import { usePipelineEventBus } from '../../pipeline-event-bus';
 import { PipelineEventTypes } from '../../pipeline-event-bus-types';
 import { StageEditor } from '../stage';
+import { StageEventBusProvider } from '../stage/stage-event-bus';
+import { Stage2PipelineBridge } from './stage-2-pipeline-bridge';
 
 export const Stages = (props: {
 	pipeline: Pipeline;
@@ -27,9 +29,11 @@ export const Stages = (props: {
 
 	return <>
 		{pipeline.stages.map(stage => {
-			return <StageEditor pipeline={pipeline} stage={stage}
-			                    topics={topics} topic={topic}
-			                    key={v4()}/>;
+			return <StageEventBusProvider key={v4()}>
+				<Stage2PipelineBridge pipeline={pipeline} stage={stage}/>
+				<StageEditor pipeline={pipeline} stage={stage}
+				             topics={topics} topic={topic}/>
+			</StageEventBusProvider>;
 		})}
 	</>;
 };

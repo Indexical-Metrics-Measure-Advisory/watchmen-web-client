@@ -13,7 +13,9 @@ export enum PipelineEventTypes {
 	CONDITION_CHANGED = 'condition-changed',
 
 	STAGE_ADDED = 'stage-added',
-	STAGE_REMOVED = 'stage-removed'
+	STAGE_REMOVED = 'stage-removed',
+	STAGE_CHANGED = 'stage-changed',
+	STAGE_SORTED = 'stage-sorted'
 }
 
 export interface PipelineEventBus {
@@ -48,4 +50,12 @@ export interface PipelineEventBus {
 	fire(type: PipelineEventTypes.STAGE_REMOVED, stage: PipelineStage, pipeline: Pipeline): this;
 	on(type: PipelineEventTypes.STAGE_REMOVED, listener: (stage: PipelineStage, pipeline: Pipeline) => void): this;
 	off(type: PipelineEventTypes.STAGE_REMOVED, listener: (stage: PipelineStage, pipeline: Pipeline) => void): this;
+
+	fire(type: PipelineEventTypes.STAGE_CHANGED, stage: PipelineStage, pipeline: Pipeline): this;
+	on(type: PipelineEventTypes.STAGE_CHANGED, listener: (stage: PipelineStage, pipeline: Pipeline) => void): this;
+	off(type: PipelineEventTypes.STAGE_CHANGED, listener: (stage: PipelineStage, pipeline: Pipeline) => void): this;
+
+	fire(type: PipelineEventTypes.STAGE_SORTED, pipeline: Pipeline): this;
+	on(type: PipelineEventTypes.STAGE_SORTED, listener: (pipeline: Pipeline) => void): this;
+	off(type: PipelineEventTypes.STAGE_SORTED, listener: (pipeline: Pipeline) => void): this;
 }

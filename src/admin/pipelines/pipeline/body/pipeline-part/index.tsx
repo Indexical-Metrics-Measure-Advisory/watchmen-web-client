@@ -25,7 +25,7 @@ export const PipelinePart = (props: {
 		<TopicName>{topic.name}</TopicName>
 		<LeadLabel>Trigger On:</LeadLabel>
 		<TriggerOnButton pipeline={pipeline}/>
-		<LeadLabel>Prerequisite:</LeadLabel>
+		<LeadLabel>Pipeline Prerequisite:</LeadLabel>
 		<ConditionalEditor conditional={pipeline} topics={[ topic ]} onChange={onConditionTypeChange}/>
 	</PipelinePartContainer>;
 };

@@ -19,7 +19,7 @@ export const Prerequisite = (props: {
 	};
 
 	return <>
-		<LeadLabel>Prerequisite:</LeadLabel>
+		<LeadLabel>Stage Prerequisite:</LeadLabel>
 		<ConditionalEditor conditional={stage} topics={[ topic ]} onChange={onConditionTypeChange}/>
 	</>;
 };

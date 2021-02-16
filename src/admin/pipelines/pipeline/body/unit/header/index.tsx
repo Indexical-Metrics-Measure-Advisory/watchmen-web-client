@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import { AlertLabel } from '../../../../../../alert/widgets';
 import {
 	ICON_ADD,
@@ -8,100 +8,90 @@ import {
 	ICON_EXPAND_PANEL
 } from '../../../../../../basic-widgets/constants';
 import { ButtonInk } from '../../../../../../basic-widgets/types';
-import { useForceUpdate } from '../../../../../../basic-widgets/utils';
 import { useEventBus } from '../../../../../../events/event-bus';
 import { EventTypes } from '../../../../../../events/types';
 import { PipelineStage } from '../../../../../../services/tuples/pipeline-stage-types';
+import { PipelineStageUnit } from '../../../../../../services/tuples/pipeline-stage-unit-types';
 import { Pipeline } from '../../../../../../services/tuples/pipeline-types';
-import { createStage } from '../../../../data-utils';
-import { usePipelineEventBus } from '../../../pipeline-event-bus';
-import { PipelineEventTypes } from '../../../pipeline-event-bus-types';
+import { Topic } from '../../../../../../services/tuples/topic-types';
+import { createUnit } from '../../../../data-utils';
+import { useStageEventBus } from '../../stage/stage-event-bus';
+import { StageEventTypes } from '../../stage/stage-event-bus-types';
 import { HeaderButton, HeaderButtons, LeadLabel } from '../../widgets';
-import { useStageEventBus } from '../stage-event-bus';
-import { StageEventTypes } from '../stage-event-bus-types';
-import { StageHeaderContainer, StageNameEditor, StageNameInput, StageNameLabel } from './widgets';
+import { Prerequisite } from '../prerequisite';
+import { useUnitEventBus } from '../unit-event-bus';
+import { UnitEventTypes } from '../unit-event-bus-types';
+import { UnitHeaderContainer } from './widgets';
 
-export const StageHeader = (props: {
+export const UnitHeader = (props: {
 	pipeline: Pipeline;
 	stage: PipelineStage;
+	unit: PipelineStageUnit;
+	topic: Topic;
 }) => {
-	const { pipeline, stage } = props;
+	const { pipeline, stage, unit, topic } = props;
 
 	const { fire: fireGlobal } = useEventBus();
-	const { fire: firePipeline } = usePipelineEventBus();
-	const { fire } = useStageEventBus();
+	const { fire: fireStage } = useStageEventBus();
+	const { fire } = useUnitEventBus();
 	const [ expanded, setExpanded ] = useState(true);
-	const forceUpdate = useForceUpdate();
-	const onStageNameChanged = (event: ChangeEvent<HTMLInputElement>) => {
-		const { value } = event.target;
-		if (value === stage.name) {
-			return;
-		}
-
-		stage.name = value;
-		forceUpdate();
-		fire(StageEventTypes.RENAME_STAGE, stage);
-	};
 	const onCollapseClicked = () => {
 		setExpanded(false);
-		fire(StageEventTypes.COLLAPSE_CONTENT);
+		fire(UnitEventTypes.COLLAPSE_CONTENT);
 	};
 	const onExpandClicked = () => {
 		setExpanded(true);
-		fire(StageEventTypes.EXPAND_CONTENT);
+		fire(UnitEventTypes.EXPAND_CONTENT);
 	};
 	const onPrependClicked = () => {
-		const stage = createStage();
-		pipeline.stages.unshift(stage);
-		firePipeline(PipelineEventTypes.STAGE_ADDED, stage, pipeline);
+		const unit = createUnit();
+		stage.units.push(unit);
+		fireStage(StageEventTypes.UNIT_ADDED, unit, stage);
 	};
 	const onDeleteClicked = () => {
 		if (pipeline.stages.length === 1) {
 			fireGlobal(EventTypes.SHOW_ALERT,
 				<AlertLabel>
-					Cannot delete because of at lease one stage in pipeline.
+					Cannot delete because of at lease one unit in stage.
 				</AlertLabel>);
 		} else {
 			const index = pipeline.stages.indexOf(stage);
 			if (index !== -1) {
 				pipeline.stages.splice(index, 1);
-				firePipeline(PipelineEventTypes.STAGE_REMOVED, stage, pipeline);
+				fireStage(StageEventTypes.UNIT_REMOVED, unit, stage);
 			}
 		}
 	};
 
-	const index = pipeline.stages.indexOf(stage) + 1;
+	const stageIndex = pipeline.stages.indexOf(stage) + 1;
+	const unitIndex = stage.units.indexOf(unit) + 1;
 
-	return <StageHeaderContainer>
-		<LeadLabel>Stage #{index}:</LeadLabel>
-		<StageNameEditor>
-			<StageNameLabel>{stage.name || 'Noname'}</StageNameLabel>
-			<StageNameInput value={stage.name || ''} onChange={onStageNameChanged}
-			                placeholder='Noname'/>
-		</StageNameEditor>
+	return <UnitHeaderContainer>
+		<LeadLabel>Unit #{stageIndex}.{unitIndex}:</LeadLabel>
+		<Prerequisite unit={unit} topic={topic}/>
 		<HeaderButtons>
 			{expanded
 				? <HeaderButton ink={ButtonInk.PRIMARY} onClick={onCollapseClicked}>
 					<FontAwesomeIcon icon={ICON_COLLAPSE_PANEL}/>
-					<span>Collapse Stage</span>
+					<span>Collapse Unit</span>
 				</HeaderButton>
 				: null}
 			{expanded
 				? null
 				: <HeaderButton ink={ButtonInk.PRIMARY} onClick={onExpandClicked}>
 					<FontAwesomeIcon icon={ICON_EXPAND_PANEL}/>
-					<span>Expand Stage</span>
+					<span>Expand Unit</span>
 				</HeaderButton>}
 			<HeaderButton ink={ButtonInk.PRIMARY} onClick={onPrependClicked}>
 				<FontAwesomeIcon icon={ICON_ADD}/>
-				<span>Prepend Stage</span>
+				<span>Prepend Unit</span>
 			</HeaderButton>
-			{pipeline.stages.length !== 1
+			{stage.units.length !== 1
 				? <HeaderButton ink={ButtonInk.DANGER} onClick={onDeleteClicked}>
 					<FontAwesomeIcon icon={ICON_DELETE}/>
-					<span>Delete This Stage</span>
+					<span>Delete This Unit</span>
 				</HeaderButton>
 				: null}
 		</HeaderButtons>
-	</StageHeaderContainer>;
+	</UnitHeaderContainer>;
 };
