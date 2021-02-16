@@ -6,6 +6,8 @@ import { Pipeline } from '../../../../../../services/tuples/pipeline-types';
 import { Topic } from '../../../../../../services/tuples/topic-types';
 import { Alarm } from '../alarm';
 import { CopyToMemory } from '../copy-to-memory';
+import { ReadFactor } from '../read-factor';
+import { ReadRow } from '../read-row';
 import { TopicRowExists } from '../topic-row-exists';
 import { ActionBodyContainer } from './widgets';
 
@@ -23,5 +25,7 @@ export const ActionBody = (props: {
 		<Alarm pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
 		<CopyToMemory pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
 		<TopicRowExists pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
+		<ReadRow pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
+		<ReadFactor pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
 	</ActionBodyContainer>;
 };

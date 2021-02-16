@@ -12,6 +12,7 @@ export const ActionContainer = styled.div.attrs({ 'data-widget': 'action' })`
 	grid-auto-rows        : minmax(var(--height), auto);
 `;
 export const ActionLeadLabel = styled(LeadLabel)`
+	font-weight : var(--font-boldest);
 `;
 export const ActionLeadLabelThin = styled(LeadLabel)`
 	font-weight : normal;

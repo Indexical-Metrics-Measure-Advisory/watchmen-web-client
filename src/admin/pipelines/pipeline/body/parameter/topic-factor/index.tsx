@@ -59,6 +59,7 @@ export const TopicFactorEditor = (props: { parameter: Parameter; topics: Array<T
 		parameter.factorId = '';
 		forceUpdate();
 		fire(ParameterEventTypes.TOPIC_CHANGED, parameter, selectedTopic);
+		fire(ParameterEventTypes.FACTOR_CHANGED, parameter);
 	};
 	const onFactorChange = ({ value }: DropdownOption) => {
 		const selectedFactor = value as Factor;

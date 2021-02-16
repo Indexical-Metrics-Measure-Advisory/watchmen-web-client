@@ -31,7 +31,7 @@ export const FindByCondition = (props: { action: FindBy & (FromTopic | ToTopic),
 	if (action.topicId) {
 		// eslint-disable-next-line
 		const anotherTopic = topics.find(topic => topic.topicId == action.topicId);
-		if (anotherTopic) {
+		if (anotherTopic && anotherTopic !== topic) {
 			availableTopics.push(anotherTopic);
 		}
 		availableTopics.sort((t1, t2) => {
