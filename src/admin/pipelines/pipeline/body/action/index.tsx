@@ -6,7 +6,8 @@ import { Pipeline } from '../../../../../services/tuples/pipeline-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
 import { ActionTypeEditor } from './action-type';
 import { ActionBody } from './body';
-import { ActionContainer, ActionLeadLabel } from './widgets';
+import { Operators } from './operators';
+import { ActionContainer, ActionFooterLeadLabel, ActionLeadLabel } from './widgets';
 
 export const ActionEditor = (props: {
 	pipeline: Pipeline;
@@ -23,8 +24,10 @@ export const ActionEditor = (props: {
 	const actionIndex = unit.do.indexOf(action) + 1;
 
 	return <ActionContainer>
+		<Operators action={action} unit={unit}/>
 		<ActionLeadLabel>#{stageIndex}.{unitIndex}.{actionIndex}:</ActionLeadLabel>
 		<ActionTypeEditor action={action}/>
 		<ActionBody pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
+		<ActionFooterLeadLabel>End of Action #{stageIndex}.{unitIndex}.{actionIndex}</ActionFooterLeadLabel>
 	</ActionContainer>;
 };

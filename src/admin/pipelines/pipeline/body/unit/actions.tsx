@@ -25,9 +25,11 @@ export const Actions = (props: {
 	useEffect(() => {
 		on(UnitEventTypes.ACTION_ADDED, forceUpdate);
 		on(UnitEventTypes.ACTION_REMOVED, forceUpdate);
+		on(UnitEventTypes.ACTION_SORTED, forceUpdate);
 		return () => {
 			off(UnitEventTypes.ACTION_ADDED, forceUpdate);
 			off(UnitEventTypes.ACTION_REMOVED, forceUpdate);
+			off(UnitEventTypes.ACTION_SORTED, forceUpdate);
 		};
 	}, [ on, off, forceUpdate ]);
 

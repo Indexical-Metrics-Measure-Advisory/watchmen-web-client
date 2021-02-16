@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import { Button } from '../../../../basic-widgets/button';
 
 export const PipelineBodyContainer = styled.div.attrs({ 'data-widget': 'pipeline-body' })`
-	display   : flex;
-	position  : relative;
-	flex-grow : 1;
+	display        : flex;
+	flex-direction : column;
+	position       : relative;
+	flex-grow      : 1;
 `;
 export const LeadLabel = styled.div.attrs({ 'data-widget': 'pipeline-editor-lead-label' })`
 	display         : flex;
@@ -19,7 +20,6 @@ export const LeadLabel = styled.div.attrs({ 'data-widget': 'pipeline-editor-lead
 `;
 export const FooterLeadLabel = styled(LeadLabel)`
 	flex-grow       : 1;
-	margin-right    : var(--margin);
 	justify-content : center;
 	opacity         : 0.5;
 `;
@@ -81,5 +81,26 @@ export const HeaderButton = styled(Button)`
 	}
 	> svg {
 		font-size : 0.8em;
+	}
+`;
+export const PipelineFooterLeadLabel = styled(LeadLabel)`
+	display         : flex;
+	align-self      : stretch;
+	align-items     : center;
+	justify-content : center;
+	margin          : calc(var(--margin) / 4) calc(var(--margin) / -2) 0;
+	border-radius   : var(--param-height);
+	min-height      : calc(var(--param-height) * 2);
+	overflow        : hidden;
+	&:before {
+		content          : '';
+		display          : block;
+		position         : absolute;
+		top              : 0;
+		left             : 0;
+		width            : 100%;
+		height           : 100%;
+		background-color : var(--danger-color);
+		opacity          : 0.2;
 	}
 `;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { GRID_ACTION_COLUMNS, GRID_COLUMN_GAP, GRID_ROW_GAP } from '../constants';
-import { LeadLabel } from '../widgets';
+import { FooterLeadLabel, LeadLabel } from '../widgets';
 
 export const ActionContainer = styled.div.attrs({ 'data-widget': 'action' })`
 	grid-column           : 1 / span 2;
@@ -28,6 +28,10 @@ export const ActionContainer = styled.div.attrs({ 'data-widget': 'action' })`
 		opacity          : 0.05;
 		border-radius    : calc(var(--border-radius) * 3);
 	}
+	> div[data-widget="header-buttons"] {
+		top   : calc((var(--margin) / 2 + var(--height) - var(--param-height)) / 2);
+		right : calc(var(--margin) / 2);
+	}
 `;
 export const ActionLeadLabel = styled(LeadLabel)`
 	font-weight : var(--font-boldest);
@@ -35,3 +39,6 @@ export const ActionLeadLabel = styled(LeadLabel)`
 export const ActionLeadLabelThin = styled(LeadLabel)`
 	font-weight : normal;
 `;
+export const ActionFooterLeadLabel = styled(FooterLeadLabel)`
+	grid-column: 1 / span 2;
+`

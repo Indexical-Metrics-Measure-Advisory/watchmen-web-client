@@ -2,6 +2,7 @@ import React from 'react';
 import { Pipeline } from '../../../../../services/tuples/pipeline-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
 import { PipelinePart } from '../pipeline-part';
+import { PipelineFooterLeadLabel } from '../widgets';
 import { Stages } from './stages';
 import { PipelineEditor } from './widgets';
 
@@ -22,5 +23,6 @@ export const Editor = (props: {
 	return <PipelineEditor>
 		<PipelinePart pipeline={pipeline} topic={topic}/>
 		<Stages pipeline={pipeline} topics={topics} topic={topic}/>
+		<PipelineFooterLeadLabel>End of Pipeline</PipelineFooterLeadLabel>
 	</PipelineEditor>;
 };
