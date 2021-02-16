@@ -38,8 +38,8 @@ const defendConditional = (conditional: Conditional) => {
 	}
 };
 
-export const TopType = (props: { conditional: Conditional }) => {
-	const { conditional } = props;
+export const TopType = (props: { conditional: Conditional, force: boolean }) => {
+	const { conditional, force } = props;
 
 	const { fire: fireConditional } = useConditionalEventBus();
 	const { fire } = useJointEventBus();
@@ -77,7 +77,10 @@ export const TopType = (props: { conditional: Conditional }) => {
 		setExpanded(!expanded);
 	};
 
-	const candidates: Array<TopTypeCandidate> = [ 'anyway', ParameterJointType.AND, ParameterJointType.OR ].filter(candidate => candidate !== type) as Array<TopTypeCandidate>;
+	const candidates: Array<TopTypeCandidate> = [
+		force ? '' : 'anyway', ParameterJointType.AND, ParameterJointType.OR
+	].filter(candidate => candidate !== type)
+		.filter(x => !!x) as Array<TopTypeCandidate>;
 
 	return <TopTypeContainer tabIndex={0} onClick={onExpandedClicked} onBlur={onBlur}>
 		<TopTypeOption active={true} expanded={expanded}

@@ -28,7 +28,7 @@ export interface MemoryWriter extends PipelineStageUnitAction {
 	variableName: string;
 }
 
-export interface FromTopic {
+export interface FromTopic extends PipelineStageUnitAction {
 	topicId: string;
 }
 
@@ -36,7 +36,7 @@ export interface FromFactor extends FromTopic {
 	factorId: string;
 }
 
-export interface ToTopic {
+export interface ToTopic extends PipelineStageUnitAction {
 	topicId: string;
 }
 
@@ -44,6 +44,6 @@ export interface ToFactor extends ToTopic {
 	factorId: string;
 }
 
-export interface FindBy {
+export interface FindBy extends PipelineStageUnitAction {
 	by: ParameterJoint;
 }

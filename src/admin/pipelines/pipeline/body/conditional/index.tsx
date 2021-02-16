@@ -13,9 +13,11 @@ import { ConditionalContainer, ConditionalHeader } from './widgets';
 export const ConditionalEditor = (props: {
 	conditional: Conditional;
 	topics: Array<Topic>;
+	// true means force have conditional, default is false
+	force?: boolean;
 	onChange: () => void;
 }) => {
-	const { conditional, topics, onChange } = props;
+	const { conditional, topics, onChange, force = false } = props;
 
 	return <ConditionalEventBusProvider>
 		<Conditional2ParentBridge onChange={onChange}/>
@@ -23,7 +25,7 @@ export const ConditionalEditor = (props: {
 			<TopJoint2ConditionalBridge conditional={conditional}/>
 			<ConditionalContainer>
 				<ConditionalHeader>
-					<TopType conditional={conditional}/>
+					<TopType conditional={conditional} force={force}/>
 					<TopFold conditional={conditional}/>
 				</ConditionalHeader>
 				<TopJoint conditional={conditional} topics={topics}/>

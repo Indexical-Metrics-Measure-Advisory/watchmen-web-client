@@ -18,8 +18,12 @@ export const ActionEditor = (props: {
 }) => {
 	const { pipeline, stage, unit, action, topics, topic } = props;
 
+	const stageIndex = pipeline.stages.indexOf(stage) + 1;
+	const unitIndex = stage.units.indexOf(unit) + 1;
+	const actionIndex = unit.do.indexOf(action) + 1;
+
 	return <ActionContainer>
-		<ActionLeadLabel/>
+		<ActionLeadLabel>#{stageIndex}.{unitIndex}.{actionIndex}:</ActionLeadLabel>
 		<ActionTypeEditor action={action}/>
 		<ActionBody pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
 	</ActionContainer>;
