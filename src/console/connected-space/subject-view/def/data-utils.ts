@@ -1,6 +1,6 @@
 import {
 	ComputedParameter,
-	ConstantParameter,
+	ConstantParameter, ParameterComputeType,
 	ParameterExpressionOperator,
 	ParameterFrom,
 	ParameterJointType,
@@ -65,33 +65,17 @@ export const createSubjectDataSetJoin = (subject: Subject): SubjectDataSetJoin =
 	};
 };
 
-export const canDeleteAnyParameter = (parent: ComputedParameter) => {
-	const computeType = parent.type;
-	const calculatorDef = ParameterCalculatorDefsMap[computeType];
-	const minParamCount = calculatorDef.minParameterCount || calculatorDef.parameterCount || 1;
-	const currentCount = parent.parameters.length;
-	return currentCount > minParamCount;
-};
-
-export const canAddMoreParameter = (parent: ComputedParameter) => {
-	const computeType = parent.type;
-	const calculatorDef = ParameterCalculatorDefsMap[computeType];
+export const defendComputedParameter = (parameter: ComputedParameter) => {
+	parameter.type = parameter.type || ParameterComputeType.ADD;
+	const calculatorDef = ParameterCalculatorDefsMap[parameter.type];
 	const maxParamCount = calculatorDef.maxParameterCount || calculatorDef.parameterCount || Infinity;
-	const currentCount = parent.parameters.length;
-	return currentCount < maxParamCount;
-};
-
-export const defendParameters = (parent: ComputedParameter) => {
-	const { type: computeType } = parent;
-	const calculatorDef = ParameterCalculatorDefsMap[computeType];
-	const maxParamCount = calculatorDef.maxParameterCount || calculatorDef.parameterCount || Infinity;
-	if (parent.parameters.length > maxParamCount) {
-		parent.parameters.length = maxParamCount;
+	if (parameter.parameters.length > maxParamCount) {
+		parameter.parameters.length = maxParamCount;
 	}
 	const minParamCount = calculatorDef.minParameterCount || calculatorDef.parameterCount || 1;
-	if (parent.parameters.length < minParamCount) {
-		new Array(minParamCount - parent.parameters.length).fill(1).forEach(() => {
-			parent.parameters.push(createTopicFactorParameter());
+	if (parameter.parameters.length < minParamCount) {
+		new Array(minParamCount - parameter.parameters.length).fill(1).forEach(() => {
+			parameter.parameters.push(createTopicFactorParameter());
 		});
 	}
 };

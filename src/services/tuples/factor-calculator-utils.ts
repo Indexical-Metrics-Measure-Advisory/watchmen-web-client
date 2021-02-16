@@ -4,7 +4,10 @@ import {
 	ConstantParameter,
 	Parameter,
 	ParameterComputeType,
+	ParameterCondition,
+	ParameterExpression,
 	ParameterFrom,
+	ParameterJoint,
 	ParameterType,
 	TopicFactorParameter
 } from './factor-calculator-types';
@@ -13,6 +16,13 @@ import { FactorType } from './factor-types';
 export const isTopicFactorParameter = (param: Parameter): param is TopicFactorParameter => param.from === ParameterFrom.TOPIC;
 export const isConstantParameter = (param: Parameter): param is ConstantParameter => param.from === ParameterFrom.CONSTANT;
 export const isComputedParameter = (param: Parameter): param is ComputedParameter => param.from === ParameterFrom.COMPUTED;
+
+export const isJointParameter = (condition: ParameterCondition): condition is ParameterJoint => {
+	return !!(condition as any).jointType;
+};
+export const isExpressionParameter = (condition: ParameterCondition): condition is ParameterExpression => {
+	return !isJointParameter(condition);
+};
 
 export const isParameterType = (parameterType: ParameterType | FactorType): parameterType is ParameterType => {
 	return parameterType.startsWith('pt-');
@@ -307,4 +317,20 @@ export const ParameterCalculatorDefsMap: { [key in ParameterComputeType]: Parame
 			resultType: FactorType.DAY_OF_WEEK
 		} ]
 	}
+};
+
+export const canAddMoreParameter = (parent: ComputedParameter) => {
+	const computeType = parent.type;
+	const calculatorDef = ParameterCalculatorDefsMap[computeType];
+	const maxParamCount = calculatorDef.maxParameterCount || calculatorDef.parameterCount || Infinity;
+	const currentCount = parent.parameters.length;
+	return currentCount < maxParamCount;
+};
+
+export const canDeleteAnyParameter = (parent: ComputedParameter) => {
+	const computeType = parent.type;
+	const calculatorDef = ParameterCalculatorDefsMap[computeType];
+	const minParamCount = calculatorDef.minParameterCount || calculatorDef.parameterCount || 1;
+	const currentCount = parent.parameters.length;
+	return currentCount > minParamCount;
 };

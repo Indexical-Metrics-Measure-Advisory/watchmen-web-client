@@ -3,7 +3,7 @@ import React, { MouseEvent, useRef, useState } from 'react';
 import { ICON_EDIT } from '../../../../../../../basic-widgets/constants';
 import { useCollapseFixedThing } from '../../../../../../../basic-widgets/utils';
 import { ComputedParameter, ParameterComputeType } from '../../../../../../../services/tuples/factor-calculator-types';
-import { defendParameters } from '../../data-utils';
+import { defendComputedParameter } from '../../../../../data-utils';
 import { useParameterEventBus } from '../parameter/parameter-event-bus';
 import { ParameterEventTypes } from '../parameter/parameter-event-bus-types';
 import {
@@ -85,7 +85,7 @@ export const ParameterComputeTypeEditor = (props: { parameter: ComputedParameter
 			return;
 		} else {
 			parameter.type = computeType;
-			defendParameters(parameter);
+			defendComputedParameter(parameter);
 			fire(ParameterEventTypes.COMPUTE_TYPE_CHANGED, parameter);
 			setState({ visible: false, top: 0, left: 0 });
 		}

@@ -1,6 +1,6 @@
 import { ParameterCondition } from '../../../../../../services/tuples/factor-calculator-types';
+import { isExpressionParameter, isJointParameter } from '../../../../../../services/tuples/factor-calculator-utils';
 import { Topic } from '../../../../../../services/tuples/topic-types';
-import { isExpressionParameter, isJointParameter } from '../data-utils';
 import { ExpressionEventBusProvider } from '../event-bus/expression-event-bus';
 import { JointEventBusProvider } from '../event-bus/joint-event-bus';
 import { Expression } from '../expression';

@@ -3,9 +3,9 @@ import React, { MouseEvent, useState } from 'react';
 import { ICON_COLLAPSE_CONTENT, ICON_EDIT } from '../../../../../../basic-widgets/constants';
 import { ParameterJointType } from '../../../../../../services/tuples/factor-calculator-types';
 import { Conditional } from '../../../../../../services/tuples/pipeline-super-types';
+import { createTopicEqualsConstantParameter } from '../../../../data-utils';
 import { useConditionalEventBus } from '../conditional-event-bus';
 import { ConditionalEventTypes } from '../conditional-event-bus-types';
-import { createExpressionParameter } from '../data-utils';
 import { useJointEventBus } from '../event-bus/joint-event-bus';
 import { JointEventTypes } from '../event-bus/joint-event-bus-types';
 import { TopTypeButton, TopTypeContainer, TopTypeOption } from './top-type-widgets';
@@ -65,7 +65,7 @@ export const TopType = (props: { conditional: Conditional }) => {
 		} else {
 			conditional.conditional = true;
 			defectConditionOn(conditional, newType);
-			conditional.on?.filters.push(createExpressionParameter());
+			conditional.on?.filters.push(createTopicEqualsConstantParameter());
 			setExpanded(false);
 			fireConditional(ConditionalEventTypes.TOP_TYPE_CHANGED, conditional);
 			fire(JointEventTypes.JOINT_TYPE_CHANGED, conditional.on!);

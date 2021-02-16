@@ -27,7 +27,7 @@ export const useCollapseFixedThing = (options: {
 	hide: () => void;
 	events?: Array<'scroll' | 'focus' | 'click'>
 }) => {
-	const { containerRef, hide, events = [ 'focus', 'click' ] } = options;
+	const { containerRef, hide, events = [ 'scroll', 'focus', 'click' ] } = options;
 
 	useEffect(() => {
 		const collapse = (event: Event) => {
