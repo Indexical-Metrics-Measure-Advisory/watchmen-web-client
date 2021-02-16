@@ -7,13 +7,14 @@ export const TopicFinderContainer = styled.div.attrs({ 'data-widget': 'topic-fin
 	grid-template-columns : auto 1fr;
 `;
 export const TopicDropdown = styled(Dropdown)`
-	align-self    : center;
-	justify-self  : start;
-	height        : var(--param-height);
-	padding       : 0 calc(var(--margin) / 2);
-	border        : 0;
-	border-radius : calc(var(--param-height) / 2);
-	box-shadow    : var(--param-border);
+	align-self       : center;
+	justify-self     : start;
+	height           : var(--param-height);
+	padding          : 0 calc(var(--margin) / 2);
+	background-color : var(--bg-color);
+	border           : 0;
+	border-radius    : calc(var(--param-height) / 2);
+	box-shadow       : var(--param-border);
 	&:hover,
 	&:focus {
 		z-index    : 1;

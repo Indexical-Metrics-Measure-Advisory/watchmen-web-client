@@ -26,7 +26,7 @@ const DefaultTheme = {
 	fontDemiBold: 500,
 	fontBold: 600,
 	fontBoldest: 900,
-	placeholderColor: 'rgb(185, 185, 185)',
+	placeholderColor: 'rgb(102,102,102,0.7)',
 
 	// color
 	primaryColor: 'rgb(94, 119, 171)',

@@ -36,4 +36,7 @@ export const StageContainer = styled.div.attrs({ 'data-widget': 'stage' })`
 	//		pointer-events : auto;
 	//	}
 	//}
+	input[data-widget="parameter-constant-input"] {
+		background-color: var(--bg-color);
+	}
 `;
