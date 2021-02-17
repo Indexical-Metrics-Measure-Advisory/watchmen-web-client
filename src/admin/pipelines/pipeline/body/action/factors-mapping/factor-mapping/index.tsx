@@ -1,17 +1,18 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { ICON_DELETE } from '../../../../../../../basic-widgets/constants';
 import {
 	MappingFactor,
 	MappingRow,
 	WriteTopicAction
 } from '../../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import { Topic } from '../../../../../../../services/tuples/topic-types';
-import { LeadLabel } from '../../../widgets';
-import { useActionEventBus } from '../../action-event-bus';
-import { ActionEventTypes } from '../../action-event-bus-types';
 import { AggregateArithmeticEditor } from '../../aggregate-arithmetic';
 import { FactorPicker } from '../../factor-picker';
 import { SingleParameter } from '../../single-parameter';
-import { FactorMappingContainer } from './widgets';
+import { useFactorsMappingEventBus } from '../factors-mapping-event-bus';
+import { FactorsMappingEventTypes } from '../factors-mapping-event-bus-types';
+import { FactorMappingContainer, FactorMappingLeadLabel, RemoveMeButton } from './widgets';
 
 export const FactorMapping = (props: {
 	action: WriteTopicAction & MappingRow;
@@ -21,18 +22,28 @@ export const FactorMapping = (props: {
 }) => {
 	const { action, mapping, source, target } = props;
 
-	const { fire } = useActionEventBus();
+	const { fire } = useFactorsMappingEventBus();
 
 	const onArithmeticChanged = () => {
-		fire(ActionEventTypes.ACTION_CONTENT_CHANGED, action);
+		fire(FactorsMappingEventTypes.MAPPING_CHANGED, mapping);
+	};
+	const onRemoveClicked = () => {
+		const index = action.mapping.indexOf(mapping);
+		if (index !== -1) {
+			action.mapping.splice(index, 1);
+			fire(FactorsMappingEventTypes.MAPPING_REMOVED, mapping);
+		}
 	};
 
+	const mappingIndex = action.mapping.indexOf(mapping) + 1;
+
 	return <FactorMappingContainer>
-		<LeadLabel>Value From:</LeadLabel>
+		<FactorMappingLeadLabel>#{mappingIndex}</FactorMappingLeadLabel>
 		<SingleParameter action={action} parameter={mapping.source} topics={[ source ]}/>
-		<LeadLabel>Write As:</LeadLabel>
 		<AggregateArithmeticEditor holder={mapping} onChange={onArithmeticChanged}/>
-		<LeadLabel>Write To:</LeadLabel>
 		<FactorPicker holder={mapping} topic={target}/>
+		<RemoveMeButton onClick={onRemoveClicked}>
+			<FontAwesomeIcon icon={ICON_DELETE}/>
+		</RemoveMeButton>
 	</FactorMappingContainer>;
 };

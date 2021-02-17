@@ -77,7 +77,7 @@ export const SubParameterEditContainer = styled.div.attrs<{ shorten: boolean }>(
 		content    : '';
 		display    : block;
 		position   : absolute;
-		bottom     : calc(var(--height) / 2 + 2px);
+		top        : calc(var(--height) / -2 - 2px);
 		right      : 100%;
 		width      : calc(var(--margin) / 2);
 		height     : calc(var(--margin) / 4 + var(--param-height));

@@ -9,4 +9,5 @@ export const ActionBodyContainer = styled.div.attrs({ 'data-widget': 'action-bod
 	grid-column-gap       : ${GRID_COLUMN_GAP};
 	grid-row-gap          : ${GRID_ROW_GAP};
 	grid-auto-rows        : minmax(var(--height), auto);
+	padding-right         : calc(var(--margin) / 4);
 `;

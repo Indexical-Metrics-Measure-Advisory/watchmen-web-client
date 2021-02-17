@@ -13,6 +13,8 @@ import {
 import {
 	isComputedParameter,
 	isConstantParameter,
+	isExpressionParameter,
+	isJointParameter,
 	isTopicFactorParameter,
 	ParameterCalculatorDefsMap
 } from '../../services/tuples/factor-calculator-utils';
@@ -57,7 +59,6 @@ import {
 } from '../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import { PipelineStageUnit } from '../../services/tuples/pipeline-stage-unit-types';
 import { Pipeline, PipelineTriggerType } from '../../services/tuples/pipeline-types';
-import { isExpressionFilter, isJointFilter } from '../../services/tuples/subject-utils';
 import { generateUuid } from '../../services/tuples/utils';
 import { getCurrentTime } from '../../services/utils';
 
@@ -107,9 +108,9 @@ export const defendJoint = (joint: ParameterJoint) => {
 		joint.filters.push(createTopicEqualsConstantParameter());
 	}
 	const availableFilters = joint.filters.filter(x => !!x).map(filter => {
-		if (isJointFilter(filter)) {
+		if (isJointParameter(filter)) {
 			defendJoint(filter);
-		} else if (isExpressionFilter(filter)) {
+		} else if (isExpressionParameter(filter)) {
 			filter.left = filter.left || createTopicFactorParameter();
 			defendParameter(filter.left);
 			filter.operator = filter.operator || ParameterExpressionOperator.EQUALS;

@@ -23,7 +23,7 @@ export const PipelineDsl = (props: { pipeline: Pipeline, topics: Array<Topic> })
 		return () => {
 			off(PipelineEventTypes.SHOW_DSL, onShowDsl);
 		};
-	}, [ on, off ]);
+	}, [ on, off, pipeline ]);
 
 	const onCloseClicked = () => {
 		setVisible(false);

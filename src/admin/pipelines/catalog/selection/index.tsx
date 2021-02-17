@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { GraphicsPosition, GraphicsSize } from '../../../../services/graphics/graphics-types';
-import { Subject } from '../../../../services/tuples/subject-types';
 import { Topic } from '../../../../services/tuples/topic-types';
 import { useCatalogEventBus } from '../catalog-event-bus';
 import { CatalogEventTypes } from '../catalog-event-bus-types';
@@ -11,7 +10,6 @@ import { Container, Rect } from './widgets';
 interface SelectionState {
 	visible: boolean;
 	topic?: Topic;
-	subject?: Subject;
 	rect: GraphicsPosition & GraphicsSize
 }
 
@@ -56,7 +54,7 @@ export const BlockSelection = (props: { graphics: AssembledPipelinesGraphics }) 
 
 			off(CatalogEventTypes.TOPIC_MOVED, onTopicMoved);
 		};
-	}, [ on, off, graphics, selection.topic, selection.subject ]);
+	}, [ on, off, graphics, selection.topic ]);
 
 	return <Container data-role={GraphicsRole.BLOCK_SELECTION} visible={selection.visible}>
 		<Rect rect={selection.rect}/>
