@@ -4,13 +4,15 @@ import { Button } from '../../../../../basic-widgets/button';
 export const DslContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
 	return {
 		'data-widget': 'pipeline-dsl',
+		'data-v-scroll': '',
 		style: {
 			top: visible ? 0 : (void 0),
 			height: visible ? '100%' : (void 0)
 		}
 	};
 })<{ visible: boolean }>`
-	display          : block;
+	display          : flex;
+	flex-direction   : column;
 	position         : absolute;
 	top              : 100%;
 	left             : 0;
@@ -18,18 +20,19 @@ export const DslContainer = styled.div.attrs<{ visible: boolean }>(({ visible })
 	height           : 0;
 	background-color : var(--bg-color);
 	padding          : calc(var(--margin) / 2) var(--margin);
-	overflow         : hidden;
+	overflow         : auto;
 	z-index          : 1;
 	transition       : top 300ms ease-in-out, height 300ms ease-in-out;
 `;
 export const CloseButton = styled(Button)`
 	display       : block;
-	position      : absolute;
-	top           : calc(var(--margin) / 2);
-	right         : calc(var(--margin) / 2);
+	position      : sticky;
+	top           : 0;
 	height        : 40px;
+	min-height    : 40px;
 	width         : 40px;
 	padding       : 0;
+	margin-left   : calc(100% - var(--margin) / 4 * 3);
 	border-radius : 100%;
 	box-shadow    : var(--hover-shadow);
 	&:hover {
@@ -39,4 +42,9 @@ export const CloseButton = styled(Button)`
 	> svg {
 		font-size : 1.5em;
 	}
+`;
+export const DslBottomGap = styled.div.attrs({ 'data-widget': 'dsl-bottom-gap' })`
+	width      : 100%;
+	height     : var(--margin);
+	min-height : var(--margin);
 `;

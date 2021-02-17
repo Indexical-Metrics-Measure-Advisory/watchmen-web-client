@@ -1,0 +1,27 @@
+import React from 'react';
+import { PipelineStage } from '../../../../../services/tuples/pipeline-stage-types';
+import { PipelineStageUnitAction } from '../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import { PipelineStageUnit } from '../../../../../services/tuples/pipeline-stage-unit-types';
+import { Pipeline } from '../../../../../services/tuples/pipeline-types';
+import { Topic } from '../../../../../services/tuples/topic-types';
+import { Alarm } from './actions/alarm';
+import { CopyToMemory } from './actions/copy-to-memory';
+import { PropName, PropNameInListFirst, ActionType } from './dsl-widgets';
+
+export const ActionPart = (props: {
+	pipeline: Pipeline;
+	stage: PipelineStage;
+	unit: PipelineStageUnit;
+	action: PipelineStageUnitAction;
+	topicsMap: Map<string, Topic>
+}) => {
+	const { action, topicsMap } = props;
+
+	return <>
+		<PropNameInListFirst indent={5}>action</PropNameInListFirst>
+		<PropName indent={7}>type</PropName>
+		<ActionType>{action.type}</ActionType>
+		<Alarm action={action} topicsMap={topicsMap}/>
+		<CopyToMemory action={action} topicsMap={topicsMap}/>
+	</>;
+};
