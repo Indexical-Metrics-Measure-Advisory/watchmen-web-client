@@ -25,7 +25,7 @@ import {
 	faExpand,
 	faGlobe,
 	faHome,
-	faInbox,
+	faInbox, faLevelDownAlt,
 	faLevelUpAlt,
 	faLink,
 	faList,
@@ -155,6 +155,8 @@ export const ICON_ENABLE = faCheckSquare;
 export const ICON_MOVE_DOWN = faArrowDown;
 export const ICON_MOVE_UP = faArrowUp;
 export const ICON_DSL = faCode;
+export const ICON_PREPEND = faLevelUpAlt;
+export const ICON_APPEND = faLevelDownAlt;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

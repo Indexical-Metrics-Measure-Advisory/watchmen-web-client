@@ -1,7 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { AlertLabel } from '../../../../../../alert/widgets';
-import { ICON_ADD, ICON_DELETE, ICON_MOVE_DOWN, ICON_MOVE_UP } from '../../../../../../basic-widgets/constants';
+import {
+	ICON_APPEND,
+	ICON_DELETE,
+	ICON_MOVE_DOWN,
+	ICON_MOVE_UP,
+	ICON_PREPEND
+} from '../../../../../../basic-widgets/constants';
 import { ButtonInk } from '../../../../../../basic-widgets/types';
 import { useEventBus } from '../../../../../../events/event-bus';
 import { EventTypes } from '../../../../../../events/types';
@@ -72,13 +78,13 @@ export const Operators = (props: { unit: PipelineStageUnit, action: PipelineStag
 				<span>Down</span>
 			</HeaderButton>
 			: null}
-		<HeaderButton ink={ButtonInk.PRIMARY} onClick={onAppendClicked}>
-			<FontAwesomeIcon icon={ICON_ADD}/>
-			<span>Append</span>
-		</HeaderButton>
 		<HeaderButton ink={ButtonInk.PRIMARY} onClick={onPrependClicked}>
-			<FontAwesomeIcon icon={ICON_ADD}/>
+			<FontAwesomeIcon icon={ICON_PREPEND} rotation={270} transform={{ y: 2 }}/>
 			<span>Prepend</span>
+		</HeaderButton>
+		<HeaderButton ink={ButtonInk.PRIMARY} onClick={onAppendClicked}>
+			<FontAwesomeIcon icon={ICON_APPEND} rotation={90} transform={{ y: 2 }}/>
+			<span>Append</span>
 		</HeaderButton>
 		{unit.do.length !== 1
 			? <HeaderButton ink={ButtonInk.DANGER} onClick={onDeleteClicked}>
