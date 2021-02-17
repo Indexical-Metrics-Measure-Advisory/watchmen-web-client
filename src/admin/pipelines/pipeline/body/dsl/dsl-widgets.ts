@@ -98,7 +98,7 @@ export const VariableName = styled(PropValue).attrs({ 'data-widget': 'dsl-topic-
 	text-decoration : underline;
 	&:empty {
 		:after {
-			content : 'Topic?';
+			content : 'Variable?';
 		}
 	}
 `;

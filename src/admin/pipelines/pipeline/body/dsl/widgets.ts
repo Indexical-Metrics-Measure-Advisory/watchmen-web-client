@@ -35,6 +35,7 @@ export const CloseButton = styled(Button)`
 	margin-left   : calc(100% - var(--margin) / 4 * 3);
 	border-radius : 100%;
 	box-shadow    : var(--hover-shadow);
+	z-index       : 1;
 	&:hover {
 		color      : var(--primary-color);
 		box-shadow : var(--primary-hover-shadow);

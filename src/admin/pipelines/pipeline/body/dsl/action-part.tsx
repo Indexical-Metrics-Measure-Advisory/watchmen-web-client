@@ -6,7 +6,10 @@ import { Pipeline } from '../../../../../services/tuples/pipeline-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
 import { Alarm } from './actions/alarm';
 import { CopyToMemory } from './actions/copy-to-memory';
-import { PropName, PropNameInListFirst, ActionType } from './dsl-widgets';
+import { ReadFactor } from './actions/read-factor';
+import { ReadRow } from './actions/read-row';
+import { RowExists } from './actions/row-exists';
+import { ActionType, PropName, PropNameInListFirst } from './dsl-widgets';
 
 export const ActionPart = (props: {
 	pipeline: Pipeline;
@@ -23,5 +26,8 @@ export const ActionPart = (props: {
 		<ActionType>{action.type}</ActionType>
 		<Alarm action={action} topicsMap={topicsMap}/>
 		<CopyToMemory action={action} topicsMap={topicsMap}/>
+		<ReadFactor action={action} topicsMap={topicsMap}/>
+		<ReadRow action={action} topicsMap={topicsMap}/>
+		<RowExists action={action} topicsMap={topicsMap}/>
 	</>;
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Parameter } from '../../../../../../services/tuples/factor-calculator-types';
 import { Topic } from '../../../../../../services/tuples/topic-types';
-import { ParamFrom, PropName, PropNameInListFirst } from '../dsl-widgets';
+import { ParamFrom, PropName } from '../dsl-widgets';
 import { ComputeParameterLine } from './compute-parameter';
 import { ConstantParameterLine } from './constant-parameter';
 import { TopicFactorParameterLine } from './topic-factor-parameter';
@@ -16,11 +16,13 @@ export const ParameterLines = (props: {
 
 	return <>
 		{inList
-			? <PropNameInListFirst indent={indent}>from</PropNameInListFirst>
-			: <PropName indent={indent}>from</PropName>}
-		<ParamFrom>{parameter.from}</ParamFrom>
-		<ComputeParameterLine parameter={parameter} topicsMap={topicsMap} indent={indent + 1}/>
-		<TopicFactorParameterLine parameter={parameter} topicsMap={topicsMap} indent={indent + 1}/>
-		<ConstantParameterLine parameter={parameter} indent={indent + 1}/>
+			? null
+			: <>
+				<PropName indent={indent}>parameter-type</PropName>
+				<ParamFrom>{parameter.from}</ParamFrom>
+			</>}
+		<ComputeParameterLine parameter={parameter} topicsMap={topicsMap} inList={inList} indent={indent}/>
+		<TopicFactorParameterLine parameter={parameter} topicsMap={topicsMap} inList={inList} indent={indent}/>
+		<ConstantParameterLine parameter={parameter} inList={inList} indent={indent}/>
 	</>;
 };

@@ -3,15 +3,15 @@ import { Parameter } from '../../../../../../services/tuples/factor-calculator-t
 import { isConstantParameter } from '../../../../../../services/tuples/factor-calculator-utils';
 import { PropName, PropValue } from '../dsl-widgets';
 
-export const ConstantParameterLine = (props: { parameter: Parameter, indent: number }) => {
-	const { parameter, indent } = props;
+export const ConstantParameterLine = (props: { parameter: Parameter, inList: boolean, indent: number }) => {
+	const { parameter, inList, indent } = props;
 
 	if (!isConstantParameter(parameter)) {
 		return null;
 	}
 
 	return <>
-		<PropName indent={indent + 1}>value</PropName>
+		{inList ? null : <PropName indent={indent}>value</PropName>}
 		<PropValue>{parameter.value}</PropValue>
 	</>;
 };

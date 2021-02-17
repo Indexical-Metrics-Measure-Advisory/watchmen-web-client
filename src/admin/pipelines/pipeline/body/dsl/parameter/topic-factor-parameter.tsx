@@ -2,10 +2,10 @@ import React from 'react';
 import { Parameter } from '../../../../../../services/tuples/factor-calculator-types';
 import { isTopicFactorParameter } from '../../../../../../services/tuples/factor-calculator-utils';
 import { Topic } from '../../../../../../services/tuples/topic-types';
-import { FactorName, PropName, TopicName } from '../dsl-widgets';
+import { FactorName, PropName, PropValue, TopicName } from '../dsl-widgets';
 
-export const TopicFactorParameterLine = (props: { parameter: Parameter, topicsMap: Map<string, Topic>, indent: number }) => {
-	const { parameter, topicsMap, indent } = props;
+export const TopicFactorParameterLine = (props: { parameter: Parameter, topicsMap: Map<string, Topic>, inList: boolean, indent: number }) => {
+	const { parameter, topicsMap, inList, indent } = props;
 
 	if (!isTopicFactorParameter(parameter)) {
 		return null;
@@ -22,9 +22,9 @@ export const TopicFactorParameterLine = (props: { parameter: Parameter, topicsMa
 	}
 
 	return <>
-		<PropName indent={indent + 1}>topic</PropName>
+		{inList ? null : <PropName indent={indent}>topic-factor</PropName>}
 		<TopicName>{topic?.name}</TopicName>
-		<PropName indent={indent + 1}>factor</PropName>
+		<PropValue>.</PropValue>
 		<FactorName>{factor?.name}</FactorName>
 	</>;
 };
