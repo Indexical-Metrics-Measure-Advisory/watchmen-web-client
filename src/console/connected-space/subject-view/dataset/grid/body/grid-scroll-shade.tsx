@@ -25,6 +25,7 @@ export const GridScrollShade = (props: {
 		const { scrollTop, scrollLeft } = dataTable;
 		verticalScrollRef.current.scrollTop = scrollTop;
 		horizontalScrollRef.current.scrollLeft = scrollLeft;
+		// do not use dependencies here
 	});
 
 	if (!wrapper || !dataTable) {

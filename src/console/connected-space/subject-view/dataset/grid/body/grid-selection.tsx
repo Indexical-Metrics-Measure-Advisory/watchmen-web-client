@@ -226,7 +226,9 @@ const useSelection = (options: {
 			}
 			if (rowIndex !== -1 || columnIndex !== -1) {
 				setTimeout(() => {
-					setSelection({ ...selection, rowTop, rowHeight, columnLeft, columnWidth });
+					setSelection(selection => {
+						return { ...selection, rowTop, rowHeight, columnLeft, columnWidth };
+					});
 					rowSelectionRef.current && (rowSelectionRef.current.style.transition = '');
 					columnSelectionRef.current && (columnSelectionRef.current.style.transition = '');
 				}, 5);
@@ -241,6 +243,7 @@ const useSelection = (options: {
 			dataTable?.removeEventListener('scroll', repaintSelection);
 			off(GridEventTypes.REPAINT_SELECTION, repaintSelection);
 		};
+		// do not use dependencies here
 	});
 
 	return { selection, select };
@@ -316,6 +319,7 @@ export const GridSelection = forwardRef((props: {
 			off(GridEventTypes.SELECTION_CHANGED, select);
 			off(GridEventTypes.FIX_COLUMN_CHANGED, onFixColumnChange);
 		};
+		// do not use dependencies here
 	});
 
 	return <Fragment>

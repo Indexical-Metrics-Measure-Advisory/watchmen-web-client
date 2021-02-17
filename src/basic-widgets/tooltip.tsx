@@ -154,6 +154,7 @@ export const useTooltip = <T extends HTMLElement>(options: TooltipRect & {
 			// hide anyway when unmount
 			fire(EventTypes.HIDE_TOOLTIP);
 		};
+		// do not use dependencies here
 	});
 
 	if (!use) {
