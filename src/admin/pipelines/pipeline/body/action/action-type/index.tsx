@@ -22,18 +22,6 @@ import {
 	ActionTypeOptions
 } from './widgets';
 
-// const AvailableActionTypes = [
-// 	SystemActionType.ALARM,
-// 	SystemActionType.COPY_TO_MEMORY,
-// 	ReadTopicActionType.EXISTS,
-// 	ReadTopicActionType.READ_FACTOR,
-// 	ReadTopicActionType.READ_ROW,
-// 	WriteTopicActionType.WRITE_FACTOR,
-// 	WriteTopicActionType.INSERT_OR_MERGE_ROW,
-// 	WriteTopicActionType.MERGE_ROW,
-// 	WriteTopicActionType.INSERT_ROW
-// ];
-
 const ActionTypeLabels: { [key in PipelineStageUnitActionType]: string } = {
 	[SystemActionType.ALARM]: 'Alarm',
 	[SystemActionType.COPY_TO_MEMORY]: 'Copy to Variable',
