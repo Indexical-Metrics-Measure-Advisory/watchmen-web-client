@@ -139,7 +139,7 @@ export const defendFindBy = (findBy: FindBy) => {
 	}
 };
 export const createMapping = (): MappingFactor => {
-	return { factorId: '', source: createConstantParameter(), arithmetic: AggregateArithmetic.NONE };
+	return { factorId: '', source: createTopicFactorParameter(), arithmetic: AggregateArithmetic.NONE };
 };
 export const defendMappingRow = (row: MappingRow) => {
 	if (!row.mapping) {
