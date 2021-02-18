@@ -1,5 +1,5 @@
 import { ChartDef } from '../../services/tuples/chart-def/chart-def-types';
-import { ChartDataSet } from '../../services/tuples/chart-types';
+import { ChartDataSet, ChartType } from '../../services/tuples/chart-types';
 import { Report, ReportIndicatorArithmetic } from '../../services/tuples/report-types';
 import { createNumberFormat } from './number-format';
 import { ChartUtils } from './types';
@@ -49,6 +49,10 @@ export abstract class DefaultChartUtils implements ChartUtils {
 
 	protected get def(): ChartDef {
 		return this._def;
+	}
+
+	getType(): ChartType {
+		return this.def.type;
 	}
 
 	canAppendDimensions(report: Report): boolean {

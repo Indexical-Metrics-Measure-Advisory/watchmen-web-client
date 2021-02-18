@@ -1,9 +1,14 @@
 import { BASE_COLORS_24 } from '../../basic-widgets/colors';
+import { BAR } from '../../services/tuples/chart-def/chart-bar';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils } from './default-chart-utils';
 
 export class BarChartUtils extends DefaultChartUtils {
+	protected constructor() {
+		super(BAR);
+	}
+
 	buildOptions(report: Report, dataset: ChartDataSet): echarts.EChartOption | echarts.EChartsResponsiveOption {
 		const { indicators } = report;
 
