@@ -4,7 +4,7 @@ import { Parameter } from '../../../../../../services/tuples/factor-calculator-t
 import { isConstantParameter } from '../../../../../../services/tuples/factor-calculator-utils';
 import { useParameterEventBus } from '../parameter/parameter-event-bus';
 import { ParameterEventTypes } from '../parameter/parameter-event-bus-types';
-import { ConstantInput, ConstantContainer } from './widgets';
+import { ConstantContainer, ConstantInput } from './widgets';
 
 export const ConstantEditor = (props: { parameter: Parameter }) => {
 	const { parameter } = props;
@@ -34,6 +34,6 @@ export const ConstantEditor = (props: { parameter: Parameter }) => {
 
 	return <ConstantContainer>
 		<ConstantInput placeholder='Constant value...'
-	                      value={parameter.value || ''} onChange={onValueChange}/>
+		               value={parameter.value || ''} onChange={onValueChange}/>
 	</ConstantContainer>;
 };

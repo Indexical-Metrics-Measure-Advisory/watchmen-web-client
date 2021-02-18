@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { ICON_ADD } from '../../../../../../basic-widgets/constants';
 import { ParameterJoint, ParameterJointType } from '../../../../../../services/tuples/factor-calculator-types';
-import { createTopicEqualsConstantParameter, createJointParameter } from '../../../../data-utils';
+import { createJointParameter, createTopicEqualsConstantParameter } from '../../../../data-utils';
 import { useJointEventBus } from '../event-bus/joint-event-bus';
 import { JointEventTypes } from '../event-bus/joint-event-bus-types';
 import { JointOperator, JointOperatorsContainer } from './widgets';

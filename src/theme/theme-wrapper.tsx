@@ -10,6 +10,21 @@ const shouldIgnorePixel = (key: string) => [ 'fontDemiBold', 'fontBold', 'fontBo
 const convertToCssVariableName = (key: string) => {
 	return '--' + key.split('').map(ch => (ch >= 'A' && ch <= 'Z') ? `-${ch.toLowerCase()}` : ch).join('');
 };
+const writeThemeProperty = (theme: Theme) => {
+	return Object.keys(theme).map(key => {
+		const name = convertToCssVariableName(key);
+		const value = (theme as any)[key];
+		if (typeof value === 'number') {
+			if (shouldIgnorePixel(key)) {
+				return `${name}: ${value};`;
+			} else {
+				return `${name}: ${value}px;`;
+			}
+		} else {
+			return `${name}: ${value};`;
+		}
+	});
+};
 const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
 	*, *:before, *:after {
 		margin     : 0;
@@ -18,19 +33,7 @@ const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
 	}
 
 	html {
-		${({ theme }) => Object.keys(theme).map(key => {
-			const name = convertToCssVariableName(key);
-			const value = (theme as any)[key];
-			if (typeof value === 'number') {
-				if (shouldIgnorePixel(key)) {
-					return `${name}: ${value};`;
-				} else {
-					return `${name}: ${value}px;`;
-				}
-			} else {
-				return `${name}: ${value};`;
-			}
-		})}
+		${({ theme }) => writeThemeProperty(theme)}
 		width : 100%;
 		//&::-webkit-scrollbar {
 		//	background-color: var(--scrollbar-background-color);

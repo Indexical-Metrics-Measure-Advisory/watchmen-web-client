@@ -8,7 +8,7 @@ import { PipelineEventTypes } from '../pipeline-event-bus-types';
 
 export const HeaderDslButton = (props: { pipeline: Pipeline }) => {
 	const { pipeline } = props;
-	
+
 	const { fire } = usePipelineEventBus();
 
 	const onDslClicked = () => {

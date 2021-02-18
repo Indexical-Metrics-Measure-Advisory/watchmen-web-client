@@ -19,16 +19,17 @@ export const AggregateArithmeticContainer = styled.div.attrs({ 'data-widget': 'a
 		box-shadow : var(--primary-hover-shadow);
 	}
 `;
-export const AggregateArithmeticOption = styled.div.attrs<{ active: boolean, expanded: boolean }>(({ active, expanded }) => {
-	return {
-		'data-widget': 'aggregate-arithmetic-option',
-		style: {
-			display: (expanded || active) ? (void 0) : 'none',
-			backgroundColor: active ? (void 0) : 'var(--bg-color)',
-			boxShadow: active ? (void 0) : 'var(--param-left-border)'
-		}
-	};
-})<{ active: boolean, expanded: boolean }>`
+export const AggregateArithmeticOption = styled.div.attrs<{ active: boolean, expanded: boolean }>(
+	({ active, expanded }) => {
+		return {
+			'data-widget': 'aggregate-arithmetic-option',
+			style: {
+				display: (expanded || active) ? (void 0) : 'none',
+				backgroundColor: active ? (void 0) : 'var(--bg-color)',
+				boxShadow: active ? (void 0) : 'var(--param-left-border)'
+			}
+		};
+	})<{ active: boolean, expanded: boolean }>`
 	display      : flex;
 	align-items  : center;
 	font-variant : petite-caps;

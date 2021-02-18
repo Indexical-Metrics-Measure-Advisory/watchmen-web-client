@@ -1,6 +1,7 @@
 import {
 	ComputedParameter,
-	ConstantParameter, ParameterComputeType,
+	ConstantParameter,
+	ParameterComputeType,
 	ParameterExpressionOperator,
 	ParameterFrom,
 	ParameterJointType,

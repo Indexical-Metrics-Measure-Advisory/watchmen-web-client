@@ -3,7 +3,7 @@ import { PipelineStageUnitAction } from '../../../../../../services/tuples/pipel
 import { isWriteFactorAction } from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import { AggregateArithmetic } from '../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import { Topic } from '../../../../../../services/tuples/topic-types';
-import { FactorName, PropName, PropValue, TopicName, AggregateArithmeticValue } from '../dsl-widgets';
+import { AggregateArithmeticValue, FactorName, PropName, PropValue, TopicName } from '../dsl-widgets';
 import { JointLine } from '../joint/joint';
 import { ParameterLines } from '../parameter';
 

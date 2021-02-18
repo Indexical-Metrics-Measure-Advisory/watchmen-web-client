@@ -24,7 +24,7 @@ export const WriteFactor = (props: {
 }) => {
 	const { action, topics, topic } = props;
 
-	const {fire} = useActionEventBus();
+	const { fire } = useActionEventBus();
 	useActionType(action);
 
 	if (!isWriteFactorAction(action)) {
@@ -33,7 +33,7 @@ export const WriteFactor = (props: {
 
 	const onArithmeticChanged = () => {
 		fire(ActionEventTypes.ACTION_CONTENT_CHANGED, action);
-	}
+	};
 
 	return <>
 		<ActionLeadLabelThin>Value From:</ActionLeadLabelThin>

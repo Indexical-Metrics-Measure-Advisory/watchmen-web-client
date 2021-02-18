@@ -9,13 +9,13 @@ import {
 	TopicFactorParameter
 } from '../../../../../../services/tuples/factor-calculator-types';
 import { Topic } from '../../../../../../services/tuples/topic-types';
+import { ParameterEventBusProvider } from '../../parameter/parameter/parameter-event-bus';
 import { useExpressionEventBus } from '../event-bus/expression-event-bus';
 import { ExpressionEventTypes } from '../event-bus/expression-event-bus-types';
 import { RemoveMeButton } from '../widgets';
 import { ExpressionSide } from './expression-side';
 import { ExpressionOperator } from './operator';
 import { Parameter2ExpressionBridge } from './parameter-2-expression-bridge';
-import { ParameterEventBusProvider } from '../../parameter/parameter/parameter-event-bus';
 import { ExpressionContainer, ExpressionHeader, ExpressionLeadLabel } from './widgets';
 
 const defendExpression = (expression: ParameterExpression) => {

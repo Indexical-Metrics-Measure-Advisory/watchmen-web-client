@@ -80,8 +80,16 @@ const MatchIssueWeekOfYear: ParameterJoint = {
 const WriteWeeklyPremium: MergeRowAction = {
 	type: WriteTopicActionType.INSERT_OR_MERGE_ROW, topicId: '5',
 	mapping: [
-		{ factorId: '501', source: { from: ParameterFrom.CONSTANT, value: 'IssueYear' } as ConstantParameter, arithmetic: AggregateArithmetic.NONE },
-		{ factorId: '502', source: { from: ParameterFrom.CONSTANT, value: 'IssueWeekOfYear' } as ConstantParameter, arithmetic: AggregateArithmetic.NONE },
+		{
+			factorId: '501',
+			source: { from: ParameterFrom.CONSTANT, value: 'IssueYear' } as ConstantParameter,
+			arithmetic: AggregateArithmetic.NONE
+		},
+		{
+			factorId: '502',
+			source: { from: ParameterFrom.CONSTANT, value: 'IssueWeekOfYear' } as ConstantParameter,
+			arithmetic: AggregateArithmetic.NONE
+		},
 		{
 			factorId: '503',
 			source: { from: ParameterFrom.TOPIC, topicId: '2', factorId: '207' } as TopicFactorParameter,
@@ -115,8 +123,16 @@ const MatchIssueMonthOfYear: ParameterJoint = {
 const WriteMonthlyPremium: MergeRowAction = {
 	type: WriteTopicActionType.INSERT_OR_MERGE_ROW, topicId: '6',
 	mapping: [
-		{ factorId: '601', source: { from: ParameterFrom.CONSTANT, value: 'IssueYear' } as ConstantParameter, arithmetic: AggregateArithmetic.NONE },
-		{ factorId: '602', source: { from: ParameterFrom.CONSTANT, value: 'IssueMonthOfYear' } as ConstantParameter, arithmetic: AggregateArithmetic.NONE },
+		{
+			factorId: '601',
+			source: { from: ParameterFrom.CONSTANT, value: 'IssueYear' } as ConstantParameter,
+			arithmetic: AggregateArithmetic.NONE
+		},
+		{
+			factorId: '602',
+			source: { from: ParameterFrom.CONSTANT, value: 'IssueMonthOfYear' } as ConstantParameter,
+			arithmetic: AggregateArithmetic.NONE
+		},
 		{
 			factorId: '603',
 			source: { from: ParameterFrom.TOPIC, topicId: '2', factorId: '207' } as TopicFactorParameter,
