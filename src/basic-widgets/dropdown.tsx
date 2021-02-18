@@ -1,9 +1,9 @@
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { KeyboardEvent, MouseEvent, ReactNode, useEffect, useRef, useState } from 'react';
+import React, { KeyboardEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { BASE_HEIGHT, DROPDOWN_Z_INDEX } from './constants';
-import { DropdownOption, DropdownProps } from './types';
+import { DropdownOption, DropdownOptionLabel, DropdownProps } from './types';
 
 interface State {
 	active: boolean;
@@ -230,7 +230,10 @@ export const Dropdown = (props: DropdownProps) => {
 		if (typeof label === 'string') {
 			return label;
 		} else {
-			const display = label(option);
+			const display: DropdownOptionLabel = label(option);
+			// don't know why, webstorm consider "display" cannot have type "string",
+			// but obviously it has
+			// noinspection SuspiciousTypeOfGuard
 			if (typeof display === 'string') {
 				return display;
 			} else {
@@ -246,7 +249,7 @@ export const Dropdown = (props: DropdownProps) => {
 		selection = options.find(option => option.value === value);
 		label = selection ? asLabel(selection) : please;
 	}
-	const directFromLabel = (option: DropdownOption): { node: ReactNode, label: string } => {
+	const directFromLabel = (option: DropdownOption): DropdownOptionLabel => {
 		return {
 			node: option.label,
 			label: option.label as string
