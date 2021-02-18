@@ -46,6 +46,7 @@ export const PipelineDsl = (props: { pipeline: Pipeline, topics: Array<Topic> })
 			<StagesPart pipeline={pipeline} topicsMap={topicsMap}/>
 			<EmptyLine/>
 			<LineComment>End of Pipeline Definition</LineComment>
+			<EmptyLine/>
 		</Dsl>
 		<DslBottomGap/>
 	</DslContainer>;

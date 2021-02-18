@@ -25,17 +25,18 @@ export const DslContainer = styled.div.attrs<{ visible: boolean }>(({ visible })
 	transition       : top 300ms ease-in-out, height 300ms ease-in-out;
 `;
 export const CloseButton = styled(Button)`
-	display       : block;
-	position      : sticky;
-	top           : 0;
-	height        : 40px;
-	min-height    : 40px;
-	width         : 40px;
-	padding       : 0;
-	margin-left   : calc(100% - var(--margin) / 4 * 3);
-	border-radius : 100%;
-	box-shadow    : var(--hover-shadow);
-	z-index       : 1;
+	display          : block;
+	position         : sticky;
+	top              : 0;
+	height           : 40px;
+	min-height       : 40px;
+	width            : 40px;
+	padding          : 0;
+	margin-left      : calc(100% - var(--margin) * 1.25);
+	background-color : var(--bg-color);
+	border-radius    : 100%;
+	box-shadow       : var(--hover-shadow);
+	z-index          : 1;
 	&:hover {
 		color      : var(--primary-color);
 		box-shadow : var(--primary-hover-shadow);

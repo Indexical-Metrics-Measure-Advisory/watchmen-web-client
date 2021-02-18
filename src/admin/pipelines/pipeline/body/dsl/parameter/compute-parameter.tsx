@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { v4 } from 'uuid';
 import { Parameter } from '../../../../../../services/tuples/factor-calculator-types';
 import { isComputedParameter } from '../../../../../../services/tuples/factor-calculator-utils';
 import { Topic } from '../../../../../../services/tuples/topic-types';
@@ -16,7 +17,7 @@ export const ComputeParameterLine = (props: { parameter: Parameter, topicsMap: M
 		{inList ? null : <PropName indent={indent}>func</PropName>}
 		<ComputeType>{parameter.type}(</ComputeType>
 		{parameter.parameters.map((sub, subIndex) => {
-			return <>
+			return <Fragment key={v4()}>
 				{subIndex !== 0
 					? <>
 						<PropValue>,</PropValue>
@@ -26,7 +27,7 @@ export const ComputeParameterLine = (props: { parameter: Parameter, topicsMap: M
 				<ParameterLines parameter={sub} topicsMap={topicsMap}
 				                inList={true}
 				                indent={indent + 1}/>
-			</>;
+			</Fragment>;
 		})}
 		<ComputeType>)</ComputeType>
 	</>;

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { v4 } from 'uuid';
 import { Factor } from '../../../../../../services/tuples/factor-types';
 import { PipelineStageUnitAction } from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import { isInsertRowAction } from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
@@ -35,8 +36,8 @@ export const InsertRow = (props: { action: PipelineStageUnitAction, topicsMap: M
 				// eslint-disable-next-line
 				factor = topic.factors.find(factor => factor.factorId == mapping.factorId);
 			}
-			return <>
-				<PropNameInListFirst indent={8}>source</PropNameInListFirst>
+			return <Fragment key={v4()}>
+				<PropNameInListFirst indent={8}>- source</PropNameInListFirst>
 				<ParameterLines parameter={mapping.source} topicsMap={topicsMap} indent={10}/>
 				{mapping.arithmetic !== AggregateArithmetic.NONE
 					? <>
@@ -48,7 +49,7 @@ export const InsertRow = (props: { action: PipelineStageUnitAction, topicsMap: M
 				<TopicName>{topic?.name}</TopicName>
 				<PropValue>.</PropValue>
 				<FactorName>{factor?.name}</FactorName>
-			</>;
+			</Fragment>;
 		})}
 	</>;
 };

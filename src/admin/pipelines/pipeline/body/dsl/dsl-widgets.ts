@@ -1,18 +1,46 @@
 import styled from 'styled-components';
 
 export const Dsl = styled.code.attrs({ 'data-widget': 'dsl' })`
-	display     : block;
-	position    : relative;
-	line-height : 2em;
-	margin-top  : -40px;
+	display       : block;
+	position      : relative;
+	line-height   : 2em;
+	margin-top    : -40px;
+	counter-reset : section;
+	padding-top   : calc(var(--margin) / 2);
+	padding-left  : calc(var(--margin) * 3);
+	border        : var(--border);
+	border-radius : var(--param-height);
+	&:before {
+		content          : '';
+		display          : block;
+		position         : absolute;
+		top              : 0;
+		left             : 0;
+		width            : calc(var(--margin) * 2.5);
+		height           : 100%;
+		background-color : var(--border-color);
+		border-radius    : calc(var(--param-height) - 1px) 0 0 calc(var(--param-height) - 1px);
+		opacity          : 0.2;
+		z-index          : -1;
+	}
 `;
 export const EmptyLine = styled.span.attrs({ 'data-widget': 'dsl-empty-line' })`
 	display     : block;
+	position    : relative;
 	float       : left;
 	clear       : both;
 	font-weight : 600;
-	opacity     : 0;
 	height      : 2em;
+	&:before {
+		content           : counter(section);
+		counter-increment : section;
+		display           : block;
+		position          : absolute;
+		top               : 0;
+		right             : calc(100% - var(--margin) * -1);
+		color             : var(--info-color);
+		opacity           : 0.7;
+	}
 `;
 export const Whitespace = styled.span.attrs({ 'data-widget': 'dsl-whitespace' })`
 	display     : block;
@@ -25,15 +53,25 @@ export const Whitespace = styled.span.attrs({ 'data-widget': 'dsl-whitespace' })
 export const LineComment = styled.span.attrs<{ indent?: number }>(({ indent = 0 }) => {
 	return {
 		'data-widget': 'dsl-line-comment',
-		style: { marginLeft: indent * 16 }
+		style: { paddingLeft: indent * 16 }
 	};
 })<{ indent?: number }>`
 	display      : block;
+	position     : relative;
 	float        : left;
 	clear        : both;
 	font-weight  : 600;
 	font-variant : petite-caps;
-	opacity      : 0.7;
+	&:after {
+		content           : counter(section);
+		counter-increment : section;
+		display           : block;
+		position          : absolute;
+		top               : 0;
+		right             : calc(100% - var(--margin) * -1);
+		color             : var(--info-color);
+		opacity           : 0.7;
+	}
 	&:before {
 		content      : '#';
 		margin-right : 2px;
@@ -42,24 +80,31 @@ export const LineComment = styled.span.attrs<{ indent?: number }>(({ indent = 0 
 export const PropName = styled.span.attrs<{ indent?: number }>(({ indent = 0 }) => {
 	return {
 		'data-widget': 'dsl-prop-name',
-		style: { marginLeft: indent * 16 }
+		style: { paddingLeft: indent * 16 }
 	};
 })<{ indent?: number }>`
 	display      : block;
+	position     : relative;
 	float        : left;
 	clear        : both;
 	color        : var(--info-color);
 	font-weight  : var(--font-bold);
 	margin-right : calc(var(--margin) / 4);
+	&:before {
+		content           : counter(section);
+		counter-increment : section;
+		display           : block;
+		position          : absolute;
+		top               : 0;
+		right             : calc(100% - var(--margin) * -1);
+		color             : var(--info-color);
+		opacity           : 0.7;
+	}
 	&:after {
 		content : ':';
 	}
 `;
-export const PropNameInListFirst = styled(PropName)`
-	&:before {
-		content : '- ';
-	}
-`;
+export const PropNameInListFirst = styled(PropName)``;
 export const PropValue = styled.span.attrs<{ 'data-widget'?: string }>(({ 'data-widget': widget }) => {
 	return { 'data-widget': widget || 'dsl-prop-value' };
 })`
@@ -123,7 +168,7 @@ export const ActionType = styled(EnumValue).attrs({ 'data-widget': 'dsl-action-t
 export const ParamFrom = styled(EnumValue).attrs({ 'data-widget': 'dsl-parameter-from' })``;
 export const ComputeType = styled(EnumValue).attrs({ 'data-widget': 'dsl-compute-type' })``;
 export const ExpressionOperator = styled(EnumValue).attrs({ 'data-widget': 'dsl-expression-operator' })`
-	text-transform  : uppercase;
+	text-transform : uppercase;
 `;
 export const ConjunctionWord = styled(EnumValue).attrs({ 'data-widget': 'dsl-conjunction-word' })`
 	color       : var(--info-color);

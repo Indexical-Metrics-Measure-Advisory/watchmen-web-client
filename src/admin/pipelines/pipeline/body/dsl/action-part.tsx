@@ -24,7 +24,7 @@ export const ActionPart = (props: {
 	const { action, topicsMap } = props;
 
 	return <>
-		<PropNameInListFirst indent={5}>action</PropNameInListFirst>
+		<PropNameInListFirst indent={5}>- action</PropNameInListFirst>
 		<PropName indent={7}>type</PropName>
 		<ActionType>{action.type}</ActionType>
 		<Alarm action={action} topicsMap={topicsMap}/>
