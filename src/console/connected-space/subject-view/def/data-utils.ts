@@ -3,7 +3,7 @@ import {
 	ConstantParameter,
 	ParameterComputeType,
 	ParameterExpressionOperator,
-	ParameterFrom,
+	ParameterKind,
 	ParameterJointType,
 	TopicFactorParameter
 } from '../../../../services/tuples/factor-calculator-types';
@@ -18,10 +18,10 @@ import {
 } from '../../../../services/tuples/subject-types';
 
 export const createTopicFactorParameter = (): TopicFactorParameter => {
-	return { from: ParameterFrom.TOPIC, topicId: '', factorId: '' };
+	return { kind: ParameterKind.TOPIC, topicId: '', factorId: '' };
 };
 export const createConstantParameter = (): ConstantParameter => {
-	return { from: ParameterFrom.CONSTANT, value: '' };
+	return { kind: ParameterKind.CONSTANT, value: '' };
 };
 export const createSubjectDataSetColumn = (subject: Subject): SubjectDataSetColumn => {
 	const { columns } = subject.dataset;

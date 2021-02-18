@@ -2,7 +2,7 @@ import {
 	ComputedParameter,
 	ConstantParameter,
 	Parameter,
-	ParameterFrom,
+	ParameterKind,
 	TopicFactorParameter
 } from '../../../../../services/tuples/factor-calculator-types';
 import {
@@ -63,7 +63,7 @@ export const fromTopicFactorParameter = (options: {
 	const { parameter: { topicId, factorId }, availableTopicsMap, pickedTopicsMap } = options;
 
 	return {
-		is: ParameterFrom.TOPIC,
+		is: ParameterKind.TOPIC,
 		topicId,
 		factorId,
 		data: findTopicAndFactor({
@@ -76,7 +76,7 @@ export const fromTopicFactorParameter = (options: {
 };
 export const fromConstantParameter = (options: { parameter: ConstantParameter }): PrettyConstant => {
 	const { parameter: { value } } = options;
-	return { is: ParameterFrom.CONSTANT, value, data: value };
+	return { is: ParameterKind.CONSTANT, value, data: value };
 };
 export const fromComputedParameter = (options: {
 	parameter: ComputedParameter;
@@ -85,7 +85,7 @@ export const fromComputedParameter = (options: {
 }): PrettyComputed => {
 	const { parameter: { type, parameters }, availableTopicsMap, pickedTopicsMap } = options;
 	return {
-		is: ParameterFrom.COMPUTED,
+		is: ParameterKind.COMPUTED,
 		type,
 		data: parameters.map(parameter => fromParameter({
 			parameter,

@@ -6,7 +6,7 @@ import { Lang } from '../../../../../../langs';
 import {
 	Parameter,
 	ParameterComputeType,
-	ParameterFrom
+	ParameterKind
 } from '../../../../../../services/tuples/factor-calculator-types';
 import {
 	isComputedParameter,
@@ -51,14 +51,14 @@ export const ParameterFromEdit = (props: { parameter: Parameter }) => {
 
 	const onStartEditing = () => setEditing(true);
 	const onBlur = () => setEditing(false);
-	const onFromChange = (from: ParameterFrom) => (event: MouseEvent<HTMLDivElement>) => {
+	const onFromChange = (from: ParameterKind) => (event: MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
-		if (from === parameter.from) {
+		if (from === parameter.kind) {
 			// do nothing, discard or start editing
 			setEditing(!editing);
 		} else {
-			parameter.from = from;
+			parameter.kind = from;
 			initParameter(parameter);
 			setEditing(false);
 			fire(ParameterEventTypes.FROM_CHANGED, parameter);
@@ -72,16 +72,16 @@ export const ParameterFromEdit = (props: { parameter: Parameter }) => {
 
 	return <ParameterFromEditContainer onClick={onStartEditing} tabIndex={0} onBlur={onBlur} {...rest}>
 		<ParameterFromLabel>{Lang.PARAM.FROM}</ParameterFromLabel>
-		<ParameterTypeButton active={parameter.from === ParameterFrom.TOPIC} edit={editing}
-		                     onClick={onFromChange(ParameterFrom.TOPIC)}>
+		<ParameterTypeButton active={parameter.kind === ParameterKind.TOPIC} edit={editing}
+		                     onClick={onFromChange(ParameterKind.TOPIC)}>
 			{Lang.PARAM.FROM_TOPIC}
 		</ParameterTypeButton>
-		<ParameterTypeButton active={parameter.from === ParameterFrom.CONSTANT} edit={editing}
-		                     onClick={onFromChange(ParameterFrom.CONSTANT)}>
+		<ParameterTypeButton active={parameter.kind === ParameterKind.CONSTANT} edit={editing}
+		                     onClick={onFromChange(ParameterKind.CONSTANT)}>
 			{Lang.PARAM.FROM_CONSTANT}
 		</ParameterTypeButton>
-		<ParameterTypeButton active={parameter.from === ParameterFrom.COMPUTED} edit={editing}
-		                     onClick={onFromChange(ParameterFrom.COMPUTED)}>
+		<ParameterTypeButton active={parameter.kind === ParameterKind.COMPUTED} edit={editing}
+		                     onClick={onFromChange(ParameterKind.COMPUTED)}>
 			{Lang.PARAM.FROM_COMPUTED}
 		</ParameterTypeButton>
 		<ParameterFromIcon onClick={onIconClicked}>

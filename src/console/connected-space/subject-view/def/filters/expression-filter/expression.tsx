@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useForceUpdate } from '../../../../../../basic-widgets/utils';
-import { Parameter, ParameterFrom } from '../../../../../../services/tuples/factor-calculator-types';
+import { Parameter, ParameterKind } from '../../../../../../services/tuples/factor-calculator-types';
 import { Subject, SubjectDataSetFilterExpression } from '../../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../../services/tuples/topic-types';
 import { ComputedEditor } from '../../parameter/computed';
@@ -33,8 +33,8 @@ export const ExpressionBody = (props: {
 		};
 	}, [ on, off, forceUpdate ]);
 
-	return <ExpressionSide shorten={parameter.from === ParameterFrom.COMPUTED}>
-		<ParameterFromEditorForExpression shorten={parameter.from === ParameterFrom.COMPUTED}
+	return <ExpressionSide shorten={parameter.kind === ParameterKind.COMPUTED}>
+		<ParameterFromEditorForExpression shorten={parameter.kind === ParameterKind.COMPUTED}
 		                                  parameter={parameter}/>
 		<ConstantValueEditor parameter={parameter}/>
 		<TopicFactorEditor parameter={parameter}

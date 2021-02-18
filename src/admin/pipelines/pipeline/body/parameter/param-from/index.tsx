@@ -4,7 +4,7 @@ import { ICON_COLLAPSE_CONTENT, ICON_EDIT } from '../../../../../../basic-widget
 import {
 	Parameter,
 	ParameterComputeType,
-	ParameterFrom
+	ParameterKind
 } from '../../../../../../services/tuples/factor-calculator-types';
 import {
 	isComputedParameter,
@@ -16,10 +16,10 @@ import { useParameterEventBus } from '../parameter/parameter-event-bus';
 import { ParameterEventTypes } from '../parameter/parameter-event-bus-types';
 import { ParameterFromEditContainer, ParameterFromIcon, ParameterTypeButton } from './widgets';
 
-const OptionsLabel: { [key in ParameterFrom]: string } = {
-	[ParameterFrom.TOPIC]: 'Topic',
-	[ParameterFrom.CONSTANT]: 'Constant',
-	[ParameterFrom.COMPUTED]: 'Compute'
+const OptionsLabel: { [key in ParameterKind]: string } = {
+	[ParameterKind.TOPIC]: 'Topic',
+	[ParameterKind.CONSTANT]: 'Constant',
+	[ParameterKind.COMPUTED]: 'Compute'
 };
 
 const initParameter = (parameter: Parameter) => {
@@ -55,14 +55,14 @@ export const ParameterFromEditor = (props: { parameter: Parameter }) => {
 
 	const onStartEditing = () => setEditing(true);
 	const onBlur = () => setEditing(false);
-	const onFromChange = (from: ParameterFrom) => (event: MouseEvent<HTMLDivElement>) => {
+	const onFromChange = (from: ParameterKind) => (event: MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
-		if (from === parameter.from) {
+		if (from === parameter.kind) {
 			// do nothing, discard or start editing
 			setEditing(!editing);
 		} else {
-			parameter.from = from;
+			parameter.kind = from;
 			initParameter(parameter);
 			setEditing(false);
 			fire(ParameterEventTypes.FROM_CHANGED, parameter);
@@ -74,12 +74,12 @@ export const ParameterFromEditor = (props: { parameter: Parameter }) => {
 		setEditing(!editing);
 	};
 
-	const candidates = [ ParameterFrom.TOPIC, ParameterFrom.CONSTANT, ParameterFrom.COMPUTED ].filter(candidate => candidate !== parameter.from);
+	const candidates = [ ParameterKind.TOPIC, ParameterKind.CONSTANT, ParameterKind.COMPUTED ].filter(candidate => candidate !== parameter.kind);
 
 	return <ParameterFromEditContainer onClick={onStartEditing} tabIndex={0} onBlur={onBlur}>
 		<ParameterTypeButton active={true} edit={editing}
-		                     onClick={onFromChange(parameter.from)}>
-			From {OptionsLabel[parameter.from]}
+		                     onClick={onFromChange(parameter.kind)}>
+			From {OptionsLabel[parameter.kind]}
 		</ParameterTypeButton>
 		{candidates.map(candidate => {
 			return <ParameterTypeButton active={false} edit={editing}

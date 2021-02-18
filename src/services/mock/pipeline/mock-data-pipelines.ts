@@ -3,7 +3,7 @@ import {
 	ConstantParameter,
 	ParameterComputeType,
 	ParameterExpressionOperator,
-	ParameterFrom,
+	ParameterKind,
 	ParameterJoint,
 	ParameterJointType,
 	TopicFactorParameter
@@ -23,27 +23,27 @@ import { getCurrentTime } from '../../utils';
 
 const WriteRawQuotationPremiumToPolicy: WriteFactorAction = {
 	type: WriteTopicActionType.WRITE_FACTOR, topicId: '2', factorId: '207',
-	source: { from: ParameterFrom.TOPIC, topicId: '4', factorId: '413' } as TopicFactorParameter,
+	source: { kind: ParameterKind.TOPIC, topicId: '4', factorId: '413' } as TopicFactorParameter,
 	arithmetic: AggregateArithmetic.SUM,
 	by: {
 		jointType: ParameterJointType.AND,
 		filters: [ {
-			left: { from: ParameterFrom.TOPIC, topicId: '2', factorId: '202' },
+			left: { kind: ParameterKind.TOPIC, topicId: '2', factorId: '202' },
 			operator: ParameterExpressionOperator.EQUALS,
-			right: { from: ParameterFrom.TOPIC, topicId: '4', factorId: '402' }
+			right: { kind: ParameterKind.TOPIC, topicId: '4', factorId: '402' }
 		} ]
 	}
 };
 const WriteRawEndorsementPremiumToPolicy: WriteFactorAction = {
 	type: WriteTopicActionType.WRITE_FACTOR, topicId: '2', factorId: '207',
-	source: { from: ParameterFrom.TOPIC, topicId: '7', factorId: '706' } as TopicFactorParameter,
+	source: { kind: ParameterKind.TOPIC, topicId: '7', factorId: '706' } as TopicFactorParameter,
 	arithmetic: AggregateArithmetic.SUM,
 	by: {
 		jointType: ParameterJointType.AND,
 		filters: [ {
-			left: { from: ParameterFrom.TOPIC, topicId: '2', factorId: '204' },
+			left: { kind: ParameterKind.TOPIC, topicId: '2', factorId: '204' },
 			operator: ParameterExpressionOperator.EQUALS,
-			right: { from: ParameterFrom.TOPIC, topicId: '7', factorId: '704' }
+			right: { kind: ParameterKind.TOPIC, topicId: '7', factorId: '704' }
 		} ]
 	}
 };
@@ -51,30 +51,30 @@ const AsIssueYear: CopyToMemoryAction = {
 	type: SystemActionType.COPY_TO_MEMORY,
 	variableName: 'IssueYear',
 	source: {
-		from: ParameterFrom.COMPUTED,
+		kind: ParameterKind.COMPUTED,
 		type: ParameterComputeType.YEAR_OF,
-		parameters: [ { from: ParameterFrom.TOPIC, topicId: '2', factorId: '205' } as TopicFactorParameter ]
+		parameters: [ { kind: ParameterKind.TOPIC, topicId: '2', factorId: '205' } as TopicFactorParameter ]
 	} as ComputedParameter
 };
 const AsIssueWeekOfYear: CopyToMemoryAction = {
 	type: SystemActionType.COPY_TO_MEMORY,
 	variableName: 'IssueWeekOfYear',
 	source: {
-		from: ParameterFrom.COMPUTED,
+		kind: ParameterKind.COMPUTED,
 		type: ParameterComputeType.WEEK_OF_YEAR,
-		parameters: [ { from: ParameterFrom.TOPIC, topicId: '2', factorId: '205' } as TopicFactorParameter ]
+		parameters: [ { kind: ParameterKind.TOPIC, topicId: '2', factorId: '205' } as TopicFactorParameter ]
 	} as ComputedParameter
 };
 const MatchIssueWeekOfYear: ParameterJoint = {
 	jointType: ParameterJointType.AND,
 	filters: [ {
-		left: { from: ParameterFrom.TOPIC, topicId: '5', factorId: '501' },
+		left: { kind: ParameterKind.TOPIC, topicId: '5', factorId: '501' },
 		operator: ParameterExpressionOperator.EQUALS,
-		right: { from: ParameterFrom.CONSTANT, value: 'IssueYear' } as ConstantParameter
+		right: { kind: ParameterKind.CONSTANT, value: 'IssueYear' } as ConstantParameter
 	}, {
-		left: { from: ParameterFrom.TOPIC, topicId: '5', factorId: '502' },
+		left: { kind: ParameterKind.TOPIC, topicId: '5', factorId: '502' },
 		operator: ParameterExpressionOperator.EQUALS,
-		right: { from: ParameterFrom.CONSTANT, value: 'IssueWeekOfYear' } as ConstantParameter
+		right: { kind: ParameterKind.CONSTANT, value: 'IssueWeekOfYear' } as ConstantParameter
 	} ]
 };
 const WriteWeeklyPremium: MergeRowAction = {
@@ -82,17 +82,17 @@ const WriteWeeklyPremium: MergeRowAction = {
 	mapping: [
 		{
 			factorId: '501',
-			source: { from: ParameterFrom.CONSTANT, value: 'IssueYear' } as ConstantParameter,
+			source: { kind: ParameterKind.CONSTANT, value: 'IssueYear' } as ConstantParameter,
 			arithmetic: AggregateArithmetic.NONE
 		},
 		{
 			factorId: '502',
-			source: { from: ParameterFrom.CONSTANT, value: 'IssueWeekOfYear' } as ConstantParameter,
+			source: { kind: ParameterKind.CONSTANT, value: 'IssueWeekOfYear' } as ConstantParameter,
 			arithmetic: AggregateArithmetic.NONE
 		},
 		{
 			factorId: '503',
-			source: { from: ParameterFrom.TOPIC, topicId: '2', factorId: '207' } as TopicFactorParameter,
+			source: { kind: ParameterKind.TOPIC, topicId: '2', factorId: '207' } as TopicFactorParameter,
 			arithmetic: AggregateArithmetic.SUM
 		}
 	],
@@ -103,21 +103,21 @@ const AsIssueMonthOfYear: CopyToMemoryAction = {
 	type: SystemActionType.COPY_TO_MEMORY,
 	variableName: 'IssueMonthOfYear',
 	source: {
-		from: ParameterFrom.COMPUTED,
+		kind: ParameterKind.COMPUTED,
 		type: ParameterComputeType.MONTH_OF,
-		parameters: [ { from: ParameterFrom.TOPIC, topicId: '2', factorId: '205' } as TopicFactorParameter ]
+		parameters: [ { kind: ParameterKind.TOPIC, topicId: '2', factorId: '205' } as TopicFactorParameter ]
 	} as ComputedParameter
 };
 const MatchIssueMonthOfYear: ParameterJoint = {
 	jointType: ParameterJointType.AND,
 	filters: [ {
-		left: { from: ParameterFrom.TOPIC, topicId: '6', factorId: '601' },
+		left: { kind: ParameterKind.TOPIC, topicId: '6', factorId: '601' },
 		operator: ParameterExpressionOperator.EQUALS,
-		right: { from: ParameterFrom.CONSTANT, value: 'IssueYear' } as ConstantParameter
+		right: { kind: ParameterKind.CONSTANT, value: 'IssueYear' } as ConstantParameter
 	}, {
-		left: { from: ParameterFrom.TOPIC, topicId: '6', factorId: '602' },
+		left: { kind: ParameterKind.TOPIC, topicId: '6', factorId: '602' },
 		operator: ParameterExpressionOperator.EQUALS,
-		right: { from: ParameterFrom.CONSTANT, value: 'IssueMonthOfYear' } as ConstantParameter
+		right: { kind: ParameterKind.CONSTANT, value: 'IssueMonthOfYear' } as ConstantParameter
 	} ]
 };
 const WriteMonthlyPremium: MergeRowAction = {
@@ -125,17 +125,17 @@ const WriteMonthlyPremium: MergeRowAction = {
 	mapping: [
 		{
 			factorId: '601',
-			source: { from: ParameterFrom.CONSTANT, value: 'IssueYear' } as ConstantParameter,
+			source: { kind: ParameterKind.CONSTANT, value: 'IssueYear' } as ConstantParameter,
 			arithmetic: AggregateArithmetic.NONE
 		},
 		{
 			factorId: '602',
-			source: { from: ParameterFrom.CONSTANT, value: 'IssueMonthOfYear' } as ConstantParameter,
+			source: { kind: ParameterKind.CONSTANT, value: 'IssueMonthOfYear' } as ConstantParameter,
 			arithmetic: AggregateArithmetic.NONE
 		},
 		{
 			factorId: '603',
-			source: { from: ParameterFrom.TOPIC, topicId: '2', factorId: '207' } as TopicFactorParameter,
+			source: { kind: ParameterKind.TOPIC, topicId: '2', factorId: '207' } as TopicFactorParameter,
 			arithmetic: AggregateArithmetic.SUM
 		}
 	],
@@ -155,9 +155,9 @@ export const DemoPipelines: Array<Pipeline> = [
 						on: {
 							jointType: ParameterJointType.AND,
 							filters: [ {
-								left: { from: ParameterFrom.TOPIC, topicId: '4', factorId: '405' },
+								left: { kind: ParameterKind.TOPIC, topicId: '4', factorId: '405' },
 								operator: ParameterExpressionOperator.NOT_EMPTY,
-								right: { from: ParameterFrom.CONSTANT, value: '' }
+								right: { kind: ParameterKind.CONSTANT, value: '' }
 							} ]
 						},
 						do: [ WriteRawQuotationPremiumToPolicy ]

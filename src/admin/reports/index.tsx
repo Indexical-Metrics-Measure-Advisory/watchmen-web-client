@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import ReportBackground from '../../assets/report-background.png';
 import { TUPLE_SEARCH_PAGE_SIZE } from '../../basic-widgets/constants';
+import { ChartType, PredefinedChartColorSeries } from '../../services/tuples/chart-types';
 import { QueryReport } from '../../services/tuples/query-report-types';
 import { listReports } from '../../services/tuples/report';
 import { Report } from '../../services/tuples/report-types';
@@ -16,7 +17,10 @@ const createReport = (): Report => {
 	return {
 		reportId: generateUuid(),
 		name: '',
-		predefined: true,
+		indicators: [],
+		dimensions: [],
+		rect: { x: 0, y: 0, width: 0, height: 0 },
+		chart: { type: ChartType.BAR, settings: { colorSeries: PredefinedChartColorSeries.REGULAR } },
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()
 	};
@@ -31,11 +35,10 @@ const AdminReports = () => {
 			fire(TupleEventTypes.TUPLE_CREATED, createReport());
 		};
 		const onDoEditReport = async (queryReport: QueryReport) => {
-			const { reportId, name, description, predefined } = queryReport;
+			const { reportId, name, description } = queryReport;
 			const report: Report = {
-				reportId, name, description, predefined,
-				createTime: getCurrentTime(),
-				lastModifyTime: getCurrentTime()
+				...createReport(),
+				reportId, name, description
 			};
 			fire(TupleEventTypes.TUPLE_LOADED, report);
 		};

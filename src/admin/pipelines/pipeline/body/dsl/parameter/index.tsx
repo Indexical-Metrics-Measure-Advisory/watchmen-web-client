@@ -19,7 +19,7 @@ export const ParameterLines = (props: {
 			? null
 			: <>
 				<PropName indent={indent}>parameter-type</PropName>
-				<ParamFrom>{parameter.from}</ParamFrom>
+				<ParamFrom>{parameter.kind}</ParamFrom>
 			</>}
 		<ComputeParameterLine parameter={parameter} topicsMap={topicsMap} inList={inList} indent={indent}/>
 		<TopicFactorParameterLine parameter={parameter} topicsMap={topicsMap} inList={inList} indent={indent}/>

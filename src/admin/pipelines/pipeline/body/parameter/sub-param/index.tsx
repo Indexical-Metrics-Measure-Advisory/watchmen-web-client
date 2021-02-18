@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useForceUpdate } from '../../../../../../basic-widgets/utils';
-import { ComputedParameter, Parameter, ParameterFrom } from '../../../../../../services/tuples/factor-calculator-types';
+import { ComputedParameter, Parameter, ParameterKind } from '../../../../../../services/tuples/factor-calculator-types';
 import { Topic } from '../../../../../../services/tuples/topic-types';
 import { ParameterFromEditor } from '../param-from';
 import { useParameterEventBus } from '../parameter/parameter-event-bus';
@@ -29,7 +29,7 @@ export const SubParameterEditor = (props: {
 		};
 	}, [ on, off, forceUpdate ]);
 
-	return <SubParameterEditContainer shorten={parameter.from === ParameterFrom.COMPUTED}>
+	return <SubParameterEditContainer shorten={parameter.kind === ParameterKind.COMPUTED}>
 		<ParameterFromEditor parameter={parameter}/>
 		<SubParameterEditBody parameter={parameter} parentParameter={parentParameter}
 		                      topics={topics}

@@ -1,5 +1,5 @@
 import { ConnectedSpace } from '../../tuples/connected-space-types';
-import { ParameterFrom, ParameterJointType, TopicFactorParameter } from '../../tuples/factor-calculator-types';
+import { ParameterKind, ParameterJointType, TopicFactorParameter } from '../../tuples/factor-calculator-types';
 import { getCurrentTime } from '../../utils';
 
 export const DemoConnectedSpaces: Array<ConnectedSpace> = [
@@ -25,70 +25,70 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 					columns: [
 						{
 							parameter: {
-								from: ParameterFrom.TOPIC,
+								kind: ParameterKind.TOPIC,
 								topicId: '1',
 								factorId: '102'
 							} as TopicFactorParameter
 						},
 						{
 							parameter: {
-								from: ParameterFrom.TOPIC,
+								kind: ParameterKind.TOPIC,
 								topicId: '1',
 								factorId: '103'
 							} as TopicFactorParameter
 						},
 						{
 							parameter: {
-								from: ParameterFrom.TOPIC,
+								kind: ParameterKind.TOPIC,
 								topicId: '1',
 								factorId: '106'
 							} as TopicFactorParameter
 						},
 						{
 							parameter: {
-								from: ParameterFrom.TOPIC,
+								kind: ParameterKind.TOPIC,
 								topicId: '2',
 								factorId: '204'
 							} as TopicFactorParameter
 						},
 						{
 							parameter: {
-								from: ParameterFrom.TOPIC,
+								kind: ParameterKind.TOPIC,
 								topicId: '2',
 								factorId: '205'
 							} as TopicFactorParameter
 						},
 						{
 							parameter: {
-								from: ParameterFrom.TOPIC,
+								kind: ParameterKind.TOPIC,
 								topicId: '2',
 								factorId: '207'
 							} as TopicFactorParameter
 						},
 						{
 							parameter: {
-								from: ParameterFrom.TOPIC,
+								kind: ParameterKind.TOPIC,
 								topicId: '3',
 								factorId: '304'
 							} as TopicFactorParameter
 						},
 						{
 							parameter: {
-								from: ParameterFrom.TOPIC,
+								kind: ParameterKind.TOPIC,
 								topicId: '3',
 								factorId: '305'
 							} as TopicFactorParameter
 						},
 						{
 							parameter: {
-								from: ParameterFrom.TOPIC,
+								kind: ParameterKind.TOPIC,
 								topicId: '3',
 								factorId: '306'
 							} as TopicFactorParameter
 						},
 						{
 							parameter: {
-								from: ParameterFrom.TOPIC,
+								kind: ParameterKind.TOPIC,
 								topicId: '3',
 								factorId: '307'
 							} as TopicFactorParameter

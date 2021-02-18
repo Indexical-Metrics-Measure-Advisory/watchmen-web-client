@@ -10,14 +10,14 @@ export enum ParameterType {
 	ARRAY = 'pt-array'
 }
 
-export enum ParameterFrom {
+export enum ParameterKind {
 	TOPIC = 'topic',
 	CONSTANT = 'constant',
 	COMPUTED = 'computed'
 }
 
 export interface Parameter {
-	from: ParameterFrom;
+	kind: ParameterKind;
 }
 
 export enum ParameterComputeType {
@@ -38,13 +38,13 @@ export enum ParameterComputeType {
 }
 
 export interface TopicFactorParameter extends Parameter {
-	from: ParameterFrom.TOPIC;
+	kind: ParameterKind.TOPIC;
 	topicId: string;
 	factorId: string;
 }
 
 export interface ConstantParameter extends Parameter {
-	from: ParameterFrom.CONSTANT;
+	kind: ParameterKind.CONSTANT;
 	value: string;
 }
 
@@ -54,7 +54,7 @@ export interface Computed {
 }
 
 export interface ComputedParameter extends Computed, Parameter {
-	from: ParameterFrom.COMPUTED;
+	kind: ParameterKind.COMPUTED;
 }
 
 export enum ParameterExpressionOperator {

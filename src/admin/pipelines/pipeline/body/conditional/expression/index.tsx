@@ -5,7 +5,7 @@ import {
 	ConstantParameter,
 	ParameterExpression,
 	ParameterExpressionOperator,
-	ParameterFrom,
+	ParameterKind,
 	TopicFactorParameter
 } from '../../../../../../services/tuples/factor-calculator-types';
 import { Topic } from '../../../../../../services/tuples/topic-types';
@@ -20,13 +20,13 @@ import { ExpressionContainer, ExpressionHeader, ExpressionLeadLabel } from './wi
 
 const defendExpression = (expression: ParameterExpression) => {
 	if (!expression.left) {
-		expression.left = { from: ParameterFrom.TOPIC, topicId: '', factorId: '' } as TopicFactorParameter;
+		expression.left = { kind: ParameterKind.TOPIC, topicId: '', factorId: '' } as TopicFactorParameter;
 	}
 	if (!expression.operator) {
 		expression.operator = ParameterExpressionOperator.EQUALS;
 	}
 	if (!expression.right) {
-		expression.right = { from: ParameterFrom.CONSTANT, value: '' } as ConstantParameter;
+		expression.right = { kind: ParameterKind.CONSTANT, value: '' } as ConstantParameter;
 	}
 };
 
