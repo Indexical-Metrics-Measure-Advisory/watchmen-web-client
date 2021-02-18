@@ -1,5 +1,5 @@
-import { Pipeline, PipelinesGraphics } from '../../tuples/pipeline-types';
-import { isFakedUuid } from '../../tuples/utils';
+import { Pipeline, PipelinesGraphics } from "../../tuples/pipeline-types";
+import { isFakedUuid } from "../../tuples/utils";
 
 export const fetchMockPipelinesGraphics = async (): Promise<PipelinesGraphics> => {
 	return new Promise((resolve) => {
