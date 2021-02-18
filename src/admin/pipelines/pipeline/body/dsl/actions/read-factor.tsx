@@ -30,6 +30,6 @@ export const ReadFactor = (props: { action: PipelineStageUnitAction, topicsMap: 
 		<PropValue>.</PropValue>
 		<FactorName>{factor?.name}</FactorName>
 		<PropName indent={7}>by</PropName>
-		<JointLine joint={action.by} topicsMap={topicsMap}/>
+		<JointLine joint={action.by} topicsMap={topicsMap} indent={7}/>
 	</>;
 };

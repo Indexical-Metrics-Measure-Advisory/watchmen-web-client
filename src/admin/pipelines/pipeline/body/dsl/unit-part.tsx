@@ -12,7 +12,7 @@ export const UnitPart = (props: { pipeline: Pipeline, stage: PipelineStage, unit
 
 	return <>
 		<PropNameInListFirst indent={2}>unit</PropNameInListFirst>
-		<ConditionalLine conditional={stage} topicsMap={topicsMap} indent={4}/>
+		<ConditionalLine conditional={unit} topicsMap={topicsMap} indent={4}/>
 		<ActionsPart pipeline={pipeline} stage={stage} unit={unit} topicsMap={topicsMap}/>
 	</>;
 };

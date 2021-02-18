@@ -24,6 +24,6 @@ export const RowExists = (props: { action: PipelineStageUnitAction, topicsMap: M
 		<PropName indent={7}>source</PropName>
 		<TopicName>{topic?.name}</TopicName>
 		<PropName indent={7}>by</PropName>
-		<JointLine joint={action.by} topicsMap={topicsMap}/>
+		<JointLine joint={action.by} topicsMap={topicsMap} indent={7}/>
 	</>;
 };

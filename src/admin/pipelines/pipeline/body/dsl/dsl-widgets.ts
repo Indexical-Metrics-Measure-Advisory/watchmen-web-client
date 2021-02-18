@@ -14,6 +14,14 @@ export const EmptyLine = styled.span.attrs({ 'data-widget': 'dsl-empty-line' })`
 	opacity     : 0;
 	height      : 2em;
 `;
+export const Whitespace = styled.span.attrs({ 'data-widget': 'dsl-whitespace' })`
+	display     : block;
+	float       : left;
+	font-weight : 600;
+	opacity     : 0;
+	height      : 2em;
+	width       : 8px;
+`;
 export const LineComment = styled.span.attrs<{ indent?: number }>(({ indent = 0 }) => {
 	return {
 		'data-widget': 'dsl-line-comment',
@@ -114,3 +122,15 @@ export const TriggerOn = styled(EnumValue).attrs({ 'data-widget': 'dsl-trigger-o
 export const ActionType = styled(EnumValue).attrs({ 'data-widget': 'dsl-action-type' })``;
 export const ParamFrom = styled(EnumValue).attrs({ 'data-widget': 'dsl-parameter-from' })``;
 export const ComputeType = styled(EnumValue).attrs({ 'data-widget': 'dsl-compute-type' })``;
+export const ExpressionOperator = styled(EnumValue).attrs({ 'data-widget': 'dsl-expression-operator' })`
+	text-transform  : uppercase;
+`;
+export const ConjunctionWord = styled(EnumValue).attrs({ 'data-widget': 'dsl-expression-operator' })`
+	color       : var(--info-color);
+	font-weight : var(--font-boldest);
+`;
+export const Bracket = styled(EnumValue).attrs({ 'data-widget': 'dsl-bracket' })`
+	color       : var(--danger-color);
+	font-weight : var(--font-boldest);
+`;
+export const JointContainer = styled.div.attrs({ 'data-widget': 'dsl-joint' })``;

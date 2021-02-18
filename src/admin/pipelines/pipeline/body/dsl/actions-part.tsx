@@ -18,7 +18,7 @@ export const ActionsPart = (props: { pipeline: Pipeline, stage: PipelineStage, u
 		{
 			unit.do.map((action, actionIndex) => {
 				return <Fragment key={v4()}>
-					<LineComment indent={5}>Action {stageIndex}.{unitIndex}.{actionIndex}</LineComment>
+					<LineComment indent={5}>Action {stageIndex}.{unitIndex}.{actionIndex + 1}</LineComment>
 					<ActionPart pipeline={pipeline} stage={stage} unit={unit} action={action} topicsMap={topicsMap}/>
 				</Fragment>;
 			})

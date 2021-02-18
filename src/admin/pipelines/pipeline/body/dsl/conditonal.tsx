@@ -15,7 +15,7 @@ export const ConditionalLine = (props: { conditional: Conditional, topicsMap: Ma
 	} else {
 		return <>
 			<PropName indent={indent}>conditional</PropName>
-			<JointLine joint={conditional.on} topicsMap={topicsMap}/>
+			<JointLine joint={conditional.on} topicsMap={topicsMap} indent={indent}/>
 		</>;
 	}
 };
