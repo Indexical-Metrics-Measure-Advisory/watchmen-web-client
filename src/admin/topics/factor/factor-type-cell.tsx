@@ -83,11 +83,11 @@ const AllTypeOptionsForDropdown = Object.keys(AllTypeOptions).map(key => {
 const NonRawOptions = AllTypeOptionsForDropdown.filter(option => option.value !== FactorType.OBJECT && option.value !== FactorType.ARRAY);
 const IncorrectObjectOptions = [ ...NonRawOptions, {
 	value: FactorType.OBJECT,
-	label: () => <IncorrectFactorType>Object</IncorrectFactorType>
+	label: () => ({ node: <IncorrectFactorType>Object</IncorrectFactorType>, label: 'Object' })
 } ];
 const IncorrectArrayOptions = [ ...NonRawOptions, {
 	value: FactorType.ARRAY,
-	label: () => <IncorrectFactorType>Array</IncorrectFactorType>
+	label: () => ({ node: <IncorrectFactorType>Array</IncorrectFactorType>, label: 'Array' })
 } ];
 
 const buildTypeOptions = (topic: Topic, factor: Factor) => {

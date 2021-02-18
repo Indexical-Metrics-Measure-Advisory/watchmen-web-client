@@ -43,7 +43,7 @@ export type LogoProps = Omit<SVGProps<SVGSVGElement>, 'ref' | 'xmlns' | 'version
  */
 export interface DropdownOption {
 	value: any;
-	label: string | ((value: DropdownOption) => ReactNode);
+	label: string | ((value: DropdownOption) => string | { node: ReactNode, label: string });
 	key?: string | ((value: DropdownOption) => string);
 }
 

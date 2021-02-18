@@ -57,7 +57,10 @@ export const FactorPicker = (props: { holder: FromFactor | ToFactor | { factorId
 				value: factor,
 				label: ({ value }) => {
 					if (value === extraFactor) {
-						return <IncorrectOptionLabel>{value.label || value.name}</IncorrectOptionLabel>;
+						return {
+							node: <IncorrectOptionLabel>{value.label || value.name}</IncorrectOptionLabel>,
+							label: value.label || value.name
+						};
 					} else {
 						return value.label || value.name;
 					}

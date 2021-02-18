@@ -48,7 +48,10 @@ const AvailableSpacesSelector = (props: { spaces: Array<AvailableSpaceInConsole>
 	const options = spaces.map(space => {
 		return {
 			value: space,
-			label: (option: DropdownOption) => (option.value as AvailableSpaceInConsole).name,
+			label: (option: DropdownOption) => ({
+				node: (option.value as AvailableSpaceInConsole).name,
+				label: (option.value as AvailableSpaceInConsole).name
+			}),
 			key: (option: DropdownOption) => (option.value as AvailableSpaceInConsole).spaceId
 		};
 	});

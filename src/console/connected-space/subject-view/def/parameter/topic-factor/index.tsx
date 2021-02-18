@@ -109,7 +109,7 @@ export const TopicFactorEdit = (props: {
 				value: topic,
 				label: ({ value }) => {
 					if (value === extraTopic) {
-						return <IncorrectOptionLabel>{value.name}</IncorrectOptionLabel>;
+						return { node: <IncorrectOptionLabel>{value.name}</IncorrectOptionLabel>, label: value.name };
 					} else {
 						return value.name;
 					}
@@ -124,7 +124,10 @@ export const TopicFactorEdit = (props: {
 				value: factor,
 				label: ({ value }) => {
 					if (selectedTopic === extraTopic || value === extraFactor) {
-						return <IncorrectOptionLabel>{value.label || value.name}</IncorrectOptionLabel>;
+						return {
+							node: <IncorrectOptionLabel>{value.label || value.name}</IncorrectOptionLabel>,
+							label: value.label || value.name
+						};
 					} else {
 						return value.label || value.name;
 					}
@@ -152,7 +155,7 @@ export const TopicFactorEditor = styled(TopicFactorEdit)`
 		// redefine since box-shadow overridden by first-child/last-child
 		&:hover,
 		&:focus {
-			z-index    : 1;
+			z-index : 1;
 			box-shadow : var(--primary-hover-shadow);
 		}
 	}

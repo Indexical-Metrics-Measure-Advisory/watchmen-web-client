@@ -58,7 +58,7 @@ export const TopicPicker = (props: { action: FromTopic | ToTopic, topics: Array<
 				value: topic,
 				label: ({ value }) => {
 					if (value === extraTopic) {
-						return <IncorrectOptionLabel>{value.name}</IncorrectOptionLabel>;
+						return { node: <IncorrectOptionLabel>{value.name}</IncorrectOptionLabel>, label: value.name };
 					} else {
 						return value.name;
 					}

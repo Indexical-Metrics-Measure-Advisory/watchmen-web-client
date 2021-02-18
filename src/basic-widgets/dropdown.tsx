@@ -1,6 +1,6 @@
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { MouseEvent, useEffect, useRef, useState } from 'react';
+import React, { KeyboardEvent, MouseEvent, ReactNode, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { BASE_HEIGHT, DROPDOWN_Z_INDEX } from './constants';
 import { DropdownOption, DropdownProps } from './types';
@@ -97,6 +97,47 @@ const Options = styled.div.attrs<State>(
 	opacity          : 0;
 	pointer-events   : none;
 `;
+const OptionFilter = styled.div.attrs<State>(({ active, atBottom, top, left, height }) => {
+	return {
+		'data-widget': 'dropdown-option-filter',
+		style: {
+			opacity: active ? 1 : 0,
+			top: atBottom ? (top + height - 10) : (void 0),
+			bottom: atBottom ? (void 0) : `calc(100vh - ${top}px - 10px)`,
+			left: left - 10
+		}
+	};
+})<State>`
+	display        : flex;
+	align-items    : center;
+	position       : fixed;
+	line-height    : 20px;
+	height         : 20px;
+	padding        : 0 var(--input-indent);
+	border-radius  : var(--border-radius);
+	overflow       : hidden;
+	white-space    : nowrap;
+	text-overflow  : ellipsis;
+	pointer-events : none;
+	z-index        : ${DROPDOWN_Z_INDEX + 1};
+	&:before {
+		content          : '';
+		display          : block;
+		position         : absolute;
+		top              : 0;
+		left             : 0;
+		width            : 100%;
+		height           : 100%;
+		background-color : var(--warn-color);
+		border-radius    : var(--border-radius);
+		opacity          : 0.7;
+		z-index          : -1;
+	}
+	> span:first-child {
+		font-weight  : var(--font-demi-bold);
+		margin-right : 4px;
+	}
+`;
 const Option = styled.span.attrs({ 'data-widget': 'dropdown-option' })`
 	display       : flex;
 	align-items   : center;
@@ -129,6 +170,7 @@ export const Dropdown = (props: DropdownProps) => {
 		height: 0,
 		minWidth: 0
 	});
+	const [ filter, setFilter ] = useState('');
 
 	useEffect(() => {
 		const onScroll = (event: Event) => {
@@ -150,15 +192,36 @@ export const Dropdown = (props: DropdownProps) => {
 		const bottom = atBottom(top, height, options.length);
 		setState({ active: true, atBottom: bottom, top, left, width, height, minWidth: width });
 	};
-	const onBlurred = () => setState({ ...state, active: false });
+	const onBlurred = () => {
+		setState({ ...state, active: false });
+		setFilter('');
+	};
+	const onKeyUp = (event: KeyboardEvent<HTMLDivElement>) => {
+		if (!state.active) {
+			return;
+		}
+		const { key } = event;
+		if (key === 'Escape') {
+			setFilter('');
+		} else if (key === 'Backspace') {
+			setFilter(filter.substr(0, filter.length - 1));
+		} else if (key.length === 1) {
+			setFilter(filter + key);
+		}
+		// ignore other keys
+	};
 	const onOptionClicked = (option: DropdownOption) => (event: MouseEvent<HTMLSpanElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
 		const ret = onChange(option);
 		if (!ret) {
 			setState({ ...state, active: false });
+			setFilter('');
 		} else {
 			setState({ ...state, active: ret.active });
+			if (!ret.active) {
+				setFilter('');
+			}
 		}
 	};
 
@@ -167,7 +230,12 @@ export const Dropdown = (props: DropdownProps) => {
 		if (typeof label === 'string') {
 			return label;
 		} else {
-			return label(option);
+			const display = label(option);
+			if (typeof display === 'string') {
+				return display;
+			} else {
+				return display.node;
+			}
 		}
 	};
 	let label;
@@ -178,22 +246,40 @@ export const Dropdown = (props: DropdownProps) => {
 		selection = options.find(option => option.value === value);
 		label = selection ? asLabel(selection) : please;
 	}
+	const directFromLabel = (option: DropdownOption): { node: ReactNode, label: string } => {
+		return {
+			node: option.label,
+			label: option.label as string
+		};
+	};
 
 	return <DropdownContainer active={state.active}
 	                          atBottom={state.atBottom}
 	                          ref={containerRef}
 	                          role='input' tabIndex={0}
 	                          {...rest}
+	                          onKeyUp={onKeyUp}
 	                          onClick={onClicked} onBlur={onBlurred}>
 		<Label data-please={!selection}>{label}</Label>
 		<Caret icon={faCaretDown}/>
 		<Options {...state} ref={optionsRef}>
+			<OptionFilter {...{ ...state, active: !!filter }}>
+				<span>?:</span>
+				<span>{filter}</span>
+			</OptionFilter>
 			{options.map(option => {
 				const { label, key } = option;
-				const asLabel = typeof label === 'function' ? label : (() => label);
+				const asLabel = typeof label === 'function' ? label : directFromLabel;
+				const computed = asLabel(option);
+				const display = typeof computed === 'string' ? computed : computed.node;
+				const compare = typeof computed === 'string' ? computed : computed.label;
+				if (filter && compare.toLowerCase().indexOf(filter.toLowerCase()) === -1) {
+					return null;
+				}
+
 				const asKey = typeof key === 'function' ? key : (() => key != null ? key : option.value);
 				return <Option key={`${asKey(option)}`} onClick={onOptionClicked(option)}>
-					{asLabel(option)}
+					{display}
 				</Option>;
 			})}
 		</Options>

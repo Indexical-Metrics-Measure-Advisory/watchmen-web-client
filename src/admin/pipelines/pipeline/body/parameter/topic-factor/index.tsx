@@ -100,7 +100,7 @@ export const TopicFactorEditor = (props: { parameter: Parameter; topics: Array<T
 				value: topic,
 				label: ({ value }) => {
 					if (value === extraTopic) {
-						return <IncorrectOptionLabel>{value.name}</IncorrectOptionLabel>;
+						return { node: <IncorrectOptionLabel>{value.name}</IncorrectOptionLabel>, label: value.name };
 					} else {
 						return value.name;
 					}
@@ -115,7 +115,10 @@ export const TopicFactorEditor = (props: { parameter: Parameter; topics: Array<T
 				value: factor,
 				label: ({ value }) => {
 					if (selectedTopic === extraTopic || value === extraFactor) {
-						return <IncorrectOptionLabel>{value.label || value.name}</IncorrectOptionLabel>;
+						return {
+							node: <IncorrectOptionLabel>{value.label || value.name}</IncorrectOptionLabel>,
+							label: value.label || value.name
+						};
 					} else {
 						return value.label || value.name;
 					}
