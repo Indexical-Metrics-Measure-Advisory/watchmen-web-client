@@ -2,7 +2,7 @@ import React from 'react';
 import { Parameter } from '../../../../../../services/tuples/factor-calculator-types';
 import { isComputedParameter } from '../../../../../../services/tuples/factor-calculator-utils';
 import { Topic } from '../../../../../../services/tuples/topic-types';
-import { ComputeType, PropName, PropValue } from '../dsl-widgets';
+import { ComputeType, PropName, PropValue, Whitespace } from '../dsl-widgets';
 import { ParameterLines } from './index';
 
 export const ComputeParameterLine = (props: { parameter: Parameter, topicsMap: Map<string, Topic>, inList: boolean, indent: number }) => {
@@ -17,7 +17,12 @@ export const ComputeParameterLine = (props: { parameter: Parameter, topicsMap: M
 		<ComputeType>{parameter.type}(</ComputeType>
 		{parameter.parameters.map((sub, subIndex) => {
 			return <>
-				{subIndex !== 0 ? <PropValue>, </PropValue> : null}
+				{subIndex !== 0
+					? <>
+						<PropValue>,</PropValue>
+						<Whitespace/>
+					</>
+					: null}
 				<ParameterLines parameter={sub} topicsMap={topicsMap}
 				                inList={true}
 				                indent={indent + 1}/>

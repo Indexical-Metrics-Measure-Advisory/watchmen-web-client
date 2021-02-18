@@ -86,7 +86,7 @@ export const TopicName = styled(PropValue).attrs({ 'data-widget': 'dsl-topic-nam
 	text-decoration : underline;
 	&:empty {
 		:after {
-			content : 'Topic?';
+			content : 'topic?';
 		}
 	}
 `;
@@ -106,7 +106,7 @@ export const VariableName = styled(PropValue).attrs({ 'data-widget': 'dsl-topic-
 	text-decoration : underline;
 	&:empty {
 		:after {
-			content : 'Variable?';
+			content : 'variable?';
 		}
 	}
 `;
@@ -125,8 +125,11 @@ export const ComputeType = styled(EnumValue).attrs({ 'data-widget': 'dsl-compute
 export const ExpressionOperator = styled(EnumValue).attrs({ 'data-widget': 'dsl-expression-operator' })`
 	text-transform  : uppercase;
 `;
-export const ConjunctionWord = styled(EnumValue).attrs({ 'data-widget': 'dsl-expression-operator' })`
+export const ConjunctionWord = styled(EnumValue).attrs({ 'data-widget': 'dsl-conjunction-word' })`
 	color       : var(--info-color);
+	font-weight : var(--font-boldest);
+`;
+export const AggregateArithmeticValue = styled(EnumValue).attrs({ 'data-widget': 'dsl-aggregate-arithmetic' })`
 	font-weight : var(--font-boldest);
 `;
 export const Bracket = styled(EnumValue).attrs({ 'data-widget': 'dsl-bracket' })`

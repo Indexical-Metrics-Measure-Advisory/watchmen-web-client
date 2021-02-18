@@ -6,9 +6,12 @@ import { Pipeline } from '../../../../../services/tuples/pipeline-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
 import { Alarm } from './actions/alarm';
 import { CopyToMemory } from './actions/copy-to-memory';
+import { InsertRow } from './actions/insert-row';
+import { MergeRow } from './actions/merge-row';
 import { ReadFactor } from './actions/read-factor';
 import { ReadRow } from './actions/read-row';
 import { RowExists } from './actions/row-exists';
+import { WriteFactor } from './actions/write-factor';
 import { ActionType, PropName, PropNameInListFirst } from './dsl-widgets';
 
 export const ActionPart = (props: {
@@ -29,5 +32,8 @@ export const ActionPart = (props: {
 		<ReadFactor action={action} topicsMap={topicsMap}/>
 		<ReadRow action={action} topicsMap={topicsMap}/>
 		<RowExists action={action} topicsMap={topicsMap}/>
+		<WriteFactor action={action} topicsMap={topicsMap}/>
+		<InsertRow action={action} topicsMap={topicsMap}/>
+		<MergeRow action={action} topicsMap={topicsMap}/>
 	</>;
 };
