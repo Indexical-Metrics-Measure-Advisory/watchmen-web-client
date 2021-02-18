@@ -1,21 +1,21 @@
-import { ParameterJoint } from '../factor-calculator-types';
+import { ParameterJoint } from "../factor-calculator-types";
 
 export enum SystemActionType {
-	ALARM = 'alarm',
-	COPY_TO_MEMORY = 'copy-to-memory',
+	ALARM = "alarm",
+	COPY_TO_MEMORY = "copy-to-memory",
 }
 
 export enum ReadTopicActionType {
-	READ_ROW = 'read-row',
-	READ_FACTOR = 'read-factor',
-	EXISTS = 'exists',
+	READ_ROW = "read-row",
+	READ_FACTOR = "read-factor",
+	EXISTS = "exists",
 }
 
 export enum WriteTopicActionType {
-	MERGE_ROW = 'merge-row',
-	INSERT_ROW = 'insert-row',
-	INSERT_OR_MERGE_ROW = 'insert-or-merge-row',
-	WRITE_FACTOR = 'write-factor',
+	MERGE_ROW = "merge-row",
+	INSERT_ROW = "insert-row",
+	INSERT_OR_MERGE_ROW = "insert-or-merge-row",
+	WRITE_FACTOR = "write-factor",
 }
 
 export type PipelineStageUnitActionType = WriteTopicActionType | ReadTopicActionType | SystemActionType;
