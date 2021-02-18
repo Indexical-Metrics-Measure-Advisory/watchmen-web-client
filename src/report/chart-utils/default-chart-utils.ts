@@ -1,8 +1,15 @@
 import { ChartDef } from '../../services/tuples/chart-def/chart-def-types';
-import { ChartDataSet, ChartType } from '../../services/tuples/chart-types';
+import { ChartDataSet, ChartDataSetRows, ChartType } from '../../services/tuples/chart-types';
 import { Report, ReportIndicatorArithmetic } from '../../services/tuples/report-types';
+import { getDimensionColumnIndexOffset } from './dimension-utils';
 import { createNumberFormat } from './number-format';
-import { ChartUtils } from './types';
+import { buildTreeData } from './tree-data-builder';
+import { ChartOptions, ChartUtils } from './types';
+
+export interface Legend {
+	name: string;
+	rows: ChartDataSetRows
+}
 
 export type ReportValidator = (report: Report, def: ChartDef) => ReportValidationSuccess | ReportValidationFailure;
 
@@ -79,7 +86,7 @@ export abstract class DefaultChartUtils implements ChartUtils {
 		return currentCount > minIndicatorCount;
 	}
 
-	abstract buildOptions(report: Report, dataset: ChartDataSet): echarts.EChartOption | echarts.EChartsResponsiveOption;
+	abstract buildOptions(report: Report, dataset: ChartDataSet): ChartOptions;
 
 	protected defendIndicatorCount(report: Report): void {
 		// make indicators not null
@@ -145,6 +152,50 @@ export abstract class DefaultChartUtils implements ChartUtils {
 		return validationResult.pass || validationResult.error;
 	}
 
+	buildLegends(report: Report, dataset: ChartDataSet): Array<Legend> {
+		const { dimensions } = report;
+
+		const dimensionColumnIndexOffset = this.getDimensionColumnIndexOffset(report);
+
+		if (dimensions.length === 1) {
+			// only one dimension, use as xAxis. legend is not needed.
+			// still build as legend for later logic
+			return [ {
+				name: dimensions[0].column,
+				rows: dataset.data
+			} ];
+		} else {
+			// multiple dimensions, first as legends, second as xAxis
+			const legendMap = new Map<string, number>();
+			return dataset.data.reduce<Array<Legend>>((legends, row) => {
+				// values of first dimension as legends
+				const dimensionValue = `${row[dimensionColumnIndexOffset]}`;
+				const legendIndex = legendMap.get(dimensionValue);
+				if (legendIndex == null) {
+					legends.push({ name: dimensionValue, rows: [ row ] });
+					legendMap.set(dimensionValue, legends.length - 1);
+				} else {
+					legends[legendIndex].rows.push(row);
+				}
+				return legends;
+			}, []);
+		}
+	}
+
+	findColumnExtremum(dataset: ChartDataSet, columnIndex: number): { min: number, max: number } {
+		return dataset.data.reduce((extremum, row) => {
+			// must be number, otherwise throw exception
+			const value = (row[columnIndex] || 0) as number;
+			if (value > extremum.max) {
+				extremum.max = value;
+			}
+			if (value < extremum.min) {
+				extremum.min = value;
+			}
+			return extremum;
+		}, { max: -Infinity, min: Infinity });
+	};
+
 	protected formatNumber(value: any, decimal: number = 0): any {
 		if (typeof value === 'number') {
 			return createNumberFormat(decimal)(value);
@@ -157,7 +208,7 @@ export abstract class DefaultChartUtils implements ChartUtils {
 	 * get dimension column index offset from starting
 	 */
 	protected getDimensionColumnIndexOffset(report: Report) {
-		return report.indicators.length || 0;
+		return getDimensionColumnIndexOffset(report);
 	};
 
 	protected buildDescartesByDimensions(report: Report, dataset: ChartDataSet) {
@@ -170,4 +221,8 @@ export abstract class DefaultChartUtils implements ChartUtils {
 			return { value: dimensionIndexes.map(index => row[index]).join(','), row };
 		});
 	};
+
+	protected buildTreeData(report: Report, dataset: ChartDataSet) {
+		return buildTreeData(report, dataset);
+	}
 }

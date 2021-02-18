@@ -1,13 +1,13 @@
 import { BASE_COLORS_24 } from '../../basic-widgets/colors';
-import { BAR } from '../../services/tuples/chart-def/chart-bar';
+import { LINE } from '../../services/tuples/chart-def/chart-line';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils } from './default-chart-utils';
 import { ChartOptions } from './types';
 
-export class ChartBarUtils extends DefaultChartUtils {
+export class ChartLineUtils extends DefaultChartUtils {
 	constructor() {
-		super(BAR);
+		super(LINE);
 	}
 
 	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
@@ -34,7 +34,7 @@ export class ChartBarUtils extends DefaultChartUtils {
 			series: legends.map(({ label, index: indicatorIndex }) => {
 				return {
 					name: label,
-					type: 'bar',
+					type: 'line',
 					barGap: 0,
 					label: {
 						show: true,
