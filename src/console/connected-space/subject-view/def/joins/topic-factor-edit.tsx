@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useForceUpdate } from '../../../../../basic-widgets/utils';
-import { Parameter, ParameterFrom, TopicFactorParameter } from '../../../../../services/tuples/factor-calculator-types';
+import { Parameter, ParameterKind, TopicFactorParameter } from '../../../../../services/tuples/factor-calculator-types';
 import { Subject, SubjectDataSetJoin } from '../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
 import { useParameterEventBus } from '../parameter/parameter-event-bus';
@@ -54,7 +54,7 @@ export const JoinTopicFactorEdit = (props: {
 	}, [ fireJoin, on, off, forceUpdate, join, first ]);
 
 	const parameter = {
-		from: ParameterFrom.TOPIC,
+		kind: ParameterKind.TOPIC,
 		topicId: first ? join.topicId : join.secondaryTopicId,
 		factorId: first ? join.factorId : join.secondaryFactorId
 	};

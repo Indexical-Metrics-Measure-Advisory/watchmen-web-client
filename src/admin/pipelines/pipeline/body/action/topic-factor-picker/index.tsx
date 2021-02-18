@@ -1,5 +1,5 @@
 import React from 'react';
-import { ParameterFrom } from '../../../../../../services/tuples/factor-calculator-types';
+import { ParameterKind } from '../../../../../../services/tuples/factor-calculator-types';
 import {
 	FromFactor,
 	ToFactor
@@ -14,7 +14,7 @@ export const TopicFactorPicker = (props: { action: FromFactor | ToFactor, topics
 	const { action, topics } = props;
 	const { topicId, factorId } = action;
 
-	const parameter = { from: ParameterFrom.TOPIC, topicId, factorId };
+	const parameter = { kind: ParameterKind.TOPIC, topicId, factorId };
 
 	return <ParameterEventBusProvider>
 		<Parameter2ActionBridge action={action}/>

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { BaseColors24 } from './colors';
+import { BASE_COLORS_24 } from './colors';
 import { useTooltip } from './tooltip';
 
 const AvatarContainer = styled.div.attrs<{ color: string }>(({ color }) => {
@@ -63,7 +63,7 @@ export const Avatar = (props: { name: string, showTooltip?: boolean }) => {
 		}
 	}
 
-	const color = BaseColors24[(first.charCodeAt(0) + (second || ' ').charCodeAt(0)) % BaseColors24.length];
+	const color = BASE_COLORS_24[(first.charCodeAt(0) + (second || ' ').charCodeAt(0)) % BASE_COLORS_24.length];
 
 	return <AvatarContainer {...rest} color={color} {...tooltip} ref={containerRef}>
 		<FirstChar singleCharacter={!second}>{first}</FirstChar>

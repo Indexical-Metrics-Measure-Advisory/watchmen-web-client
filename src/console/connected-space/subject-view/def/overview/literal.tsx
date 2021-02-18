@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { v4 } from 'uuid';
 import { Lang } from '../../../../../langs';
-import { ParameterComputeType, ParameterFrom } from '../../../../../services/tuples/factor-calculator-types';
+import { ParameterComputeType, ParameterKind } from '../../../../../services/tuples/factor-calculator-types';
 import { Factor } from '../../../../../services/tuples/factor-types';
 import { TopicJoinType } from '../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
@@ -127,11 +127,11 @@ export const ParameterLine = (props: { pretty: PrettyConstant | PrettyFactor | P
 	}
 
 	const { is } = pretty;
-	if (is === ParameterFrom.TOPIC) {
+	if (is === ParameterKind.TOPIC) {
 		return <TopicFactorLine pretty={pretty as PrettyFactor}/>;
-	} else if (is === ParameterFrom.CONSTANT) {
+	} else if (is === ParameterKind.CONSTANT) {
 		return <ConstantLine pretty={pretty as PrettyConstant}/>;
-	} else if (is === ParameterFrom.COMPUTED) {
+	} else if (is === ParameterKind.COMPUTED) {
 		return <ComputedLine pretty={pretty as PrettyComputed}/>;
 	} else {
 		// never occurs

@@ -1,4 +1,5 @@
 import { Parameter, ParameterCondition, ParameterExpression, ParameterJoint } from './factor-calculator-types';
+import { Report } from './report-types';
 import { Tuple } from './tuple-types';
 
 /** column */
@@ -42,7 +43,7 @@ export interface SubjectDataSet {
 export interface Subject extends Tuple {
 	subjectId: string;
 	name: string;
+	reports?: Array<Report>;
 	dataset: SubjectDataSet;
 	lastVisitTime: string;
-	// graphics?: Array<SubjectChart>;
 }

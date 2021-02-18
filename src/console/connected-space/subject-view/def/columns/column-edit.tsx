@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect } from 'react';
 import { ICON_DELETE } from '../../../../../basic-widgets/constants';
 import { useForceUpdate } from '../../../../../basic-widgets/utils';
-import { ParameterFrom } from '../../../../../services/tuples/factor-calculator-types';
+import { ParameterKind } from '../../../../../services/tuples/factor-calculator-types';
 import { Subject, SubjectDataSetColumn } from '../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
 import { ComputedEditor } from '../parameter/computed';
@@ -47,8 +47,8 @@ export const ColumnEditor = (props: {
 	};
 
 	// computed parameter collapse/expand
-	return <ColumnEditWrapper shorten={column.parameter.from === ParameterFrom.COMPUTED}>
-		<ParameterFromEditor shorten={column.parameter.from === ParameterFrom.COMPUTED}
+	return <ColumnEditWrapper shorten={column.parameter.kind === ParameterKind.COMPUTED}>
+		<ParameterFromEditor shorten={column.parameter.kind === ParameterKind.COMPUTED}
 		                     parameter={column.parameter}/>
 		<ConstantValueEditor parameter={column.parameter}/>
 		<TopicFactorEditor parameter={column.parameter}

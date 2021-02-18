@@ -5,7 +5,7 @@ import {
 	ParameterComputeType,
 	ParameterExpression,
 	ParameterExpressionOperator,
-	ParameterFrom,
+	ParameterKind,
 	ParameterJoint,
 	ParameterJointType,
 	TopicFactorParameter
@@ -191,7 +191,7 @@ export const defendReadRowAction = (action: ReadRowAction) => {
 };
 export const defendWriteFactorAction = (action: WriteFactorAction) => {
 	defendFactor(action);
-	action.source = action.source || { from: ParameterFrom.CONSTANT, value: '' } as ConstantParameter;
+	action.source = action.source || { kind: ParameterKind.CONSTANT, value: '' } as ConstantParameter;
 	action.arithmetic = action.arithmetic || AggregateArithmetic.NONE;
 	defendFindBy(action);
 };
@@ -223,10 +223,10 @@ export const defendAction = (action: PipelineStageUnitAction) => {
 };
 
 export const createTopicFactorParameter = (): TopicFactorParameter => {
-	return { from: ParameterFrom.TOPIC, topicId: '', factorId: '' };
+	return { kind: ParameterKind.TOPIC, topicId: '', factorId: '' };
 };
 export const createConstantParameter = (): ConstantParameter => {
-	return { from: ParameterFrom.CONSTANT, value: '' };
+	return { kind: ParameterKind.CONSTANT, value: '' };
 };
 
 export const createTopicEqualsConstantParameter = (): ParameterExpression => {
@@ -244,7 +244,7 @@ export const createJointParameter = (jointType?: ParameterJointType): ParameterJ
 };
 
 export const defendParameter = (parameter: Parameter) => {
-	parameter.from = parameter.from || ParameterFrom.TOPIC;
+	parameter.kind = parameter.kind || ParameterKind.TOPIC;
 	if (isTopicFactorParameter(parameter)) {
 		parameter.topicId = parameter.topicId || '';
 		parameter.factorId = parameter.factorId || '';

@@ -16,7 +16,6 @@ export const listMockReports = async (options: {
 						reportId: '1',
 						name: 'Premium on State',
 						description: 'Annual premium summary group by state.',
-						predefined: true,
 						topicCount: 2,
 						groupCount: 1,
 						spaceCount: 2

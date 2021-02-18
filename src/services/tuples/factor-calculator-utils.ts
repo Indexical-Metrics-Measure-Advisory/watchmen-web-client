@@ -6,16 +6,16 @@ import {
 	ParameterComputeType,
 	ParameterCondition,
 	ParameterExpression,
-	ParameterFrom,
+	ParameterKind,
 	ParameterJoint,
 	ParameterType,
 	TopicFactorParameter
 } from './factor-calculator-types';
 import { FactorType } from './factor-types';
 
-export const isTopicFactorParameter = (param: Parameter): param is TopicFactorParameter => param.from === ParameterFrom.TOPIC;
-export const isConstantParameter = (param: Parameter): param is ConstantParameter => param.from === ParameterFrom.CONSTANT;
-export const isComputedParameter = (param: Parameter): param is ComputedParameter => param.from === ParameterFrom.COMPUTED;
+export const isTopicFactorParameter = (param: Parameter): param is TopicFactorParameter => param.kind === ParameterKind.TOPIC;
+export const isConstantParameter = (param: Parameter): param is ConstantParameter => param.kind === ParameterKind.CONSTANT;
+export const isComputedParameter = (param: Parameter): param is ComputedParameter => param.kind === ParameterKind.COMPUTED;
 
 export const isJointParameter = (condition: ParameterCondition): condition is ParameterJoint => {
 	return !!(condition as any).jointType;
