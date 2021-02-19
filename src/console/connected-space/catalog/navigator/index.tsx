@@ -12,6 +12,7 @@ import { Tuple } from '../../../../services/tuples/tuple-types';
 import { isSubject, isTopic } from '../../../../services/tuples/utils';
 import { useCatalogEventBus } from '../catalog-event-bus';
 import { CatalogEventTypes } from '../catalog-event-bus-types';
+import { SubjectBody } from './subject-body';
 import { TopicBody } from './topic-body';
 import { NavigatorContainer, NavigatorHeader, NavigatorHeaderButton, NavigatorHeaderTitle } from './widgets';
 
@@ -74,6 +75,9 @@ export const Navigator = (props: { connectedSpace: ConnectedSpace }) => {
 		</NavigatorHeader>
 		{tuple != null && isTopic(tuple)
 			? <TopicBody topic={tuple}/>
+			: null}
+		{tuple != null && isSubject(tuple)
+			? <SubjectBody connectedSpace={connectedSpace} subject={tuple}/>
 			: null}
 	</NavigatorContainer>;
 };
