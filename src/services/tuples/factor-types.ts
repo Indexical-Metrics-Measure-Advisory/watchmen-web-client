@@ -47,7 +47,7 @@ export enum FactorType {
 	HOUR_KIND = 'hour-kind',            // 1: work time, 2: off hours, 3: sleeping time
 	MINUTE = 'minute',                  // 0 - 59
 	SECOND = 'second',                  // 0 - 59
-	AM_PM = 'am-pm',                    // 0, 1
+	AM_PM = 'am-pm',                    // 1, 2
 
 	// individual
 	GENDER = 'gender',

@@ -1,5 +1,7 @@
 import { DataPage } from '../../query/data-page';
 import { QueryReport } from '../../tuples/query-report-types';
+import { Report } from '../../tuples/report-types';
+import { isFakedUuid } from '../../tuples/utils';
 
 export const listMockReports = async (options: {
 	search: string;
@@ -27,5 +29,15 @@ export const listMockReports = async (options: {
 				pageCount: 1
 			});
 		}, 1000);
+	});
+};
+
+let newReportId = 10000;
+export const saveMockReport = async (report: Report): Promise<void> => {
+	return new Promise((resolve) => {
+		if (isFakedUuid(report)) {
+			report.reportId = `${newReportId++}`;
+		}
+		setTimeout(() => resolve(), 500);
 	});
 };

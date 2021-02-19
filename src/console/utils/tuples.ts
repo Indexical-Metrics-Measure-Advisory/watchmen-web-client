@@ -1,7 +1,9 @@
 import { getCurrentLanguage } from '../../langs';
+import { ChartType } from '../../services/tuples/chart-types';
 import { ConnectedSpace } from '../../services/tuples/connected-space-types';
 import { Dashboard } from '../../services/tuples/dashboard-types';
 import { ParameterJointType } from '../../services/tuples/factor-calculator-types';
+import { Report } from '../../services/tuples/report-types';
 import { Subject } from '../../services/tuples/subject-types';
 import { generateUuid } from '../../services/tuples/utils';
 import { getCurrentTime } from '../../services/utils';
@@ -41,6 +43,21 @@ export const createSubject = (name?: string): Subject => {
 			columns: [],
 			joins: []
 		},
+		lastVisitTime: getCurrentTime(),
+		createTime: getCurrentTime(),
+		lastModifyTime: getCurrentTime()
+	};
+};
+
+export const createReport = (name?: string): Report => {
+	const reportId = generateUuid();
+	return {
+		reportId,
+		name: name || `${getCurrentLanguage().PLAIN.NEW_REPORT_NAME} ${btoa(reportId).substr(0, 12)}`,
+		indicators: [],
+		dimensions: [],
+		rect: { x: 0, y: 0, width: 480, height: 300 },
+		chart: { type: ChartType.COUNT },
 		lastVisitTime: getCurrentTime(),
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()

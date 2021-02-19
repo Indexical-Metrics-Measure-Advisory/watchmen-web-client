@@ -28,5 +28,6 @@ export interface Report extends Tuple {
 	dimensions: Array<ReportDimension>;
 	description?: string;
 	rect: GraphicsPosition & GraphicsSize;
-	chart: Chart
+	chart: Chart;
+	lastVisitTime: string;
 }

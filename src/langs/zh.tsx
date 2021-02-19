@@ -16,6 +16,7 @@ export const Zh = {
 		DEFAULT_CONNECTED_SPACE_NAME: '工作空间',
 		NEW_SUBJECT_NAME: '主题',
 		DEFAULT_SUBJECT_NAME: '主题',
+		NEW_REPORT_NAME: '图表',
 		CONSTANT_INPUT_PLACEHOLDER: '请填写常量值...',
 		UNKNOWN_TOPIC_NAME: '未知数据集',
 		UNKNOWN_FACTOR_NAME: '未知数据因子'
