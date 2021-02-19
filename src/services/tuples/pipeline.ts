@@ -1,21 +1,32 @@
-import { findToken } from '../account';
+import { findToken } from "../account";
 import {
 	fetchMockPipelinesGraphics,
 	renameMockPipeline,
 	saveMockPipeline,
 	saveMockPipelinesGraphics,
-	toggleMockPipelineEnabled
-} from '../mock/tuples/mock-pipeline';
-import { getServiceHost, isMockService } from '../utils';
-import { Pipeline, PipelinesGraphics } from './pipeline-types';
-import { isFakedUuid } from './utils';
+	toggleMockPipelineEnabled,
+} from "../mock/tuples/mock-pipeline";
+import { getServiceHost, isMockService } from "../utils";
+import { Pipeline, PipelinesGraphics } from "./pipeline-types";
+import { isFakedUuid } from "./utils";
 
 export const fetchPipelinesGraphics = async (): Promise<PipelinesGraphics> => {
 	if (isMockService()) {
 		return fetchMockPipelinesGraphics();
 	} else {
 		// REMOTE use real api
-		return { topics: [] };
+		const token = findToken();
+		const response = await fetch(`${getServiceHost()}pipeline/graphics/me`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
+			},
+			// body: JSON.stringify(graphics),
+		});
+
+		const data = await response.json();
+		return data;
 	}
 };
 
@@ -24,6 +35,18 @@ export const savePipelinesGraphics = async (graphics: PipelinesGraphics): Promis
 		return saveMockPipelinesGraphics(graphics);
 	} else {
 		// REMOTE use real api
+		const token = findToken();
+		await fetch(`${getServiceHost()}pipeline/graphics`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
+			},
+			body: JSON.stringify(graphics),
+		});
+
+		// const data = await response.json();
+		// return data;
 	}
 };
 
@@ -33,12 +56,12 @@ export const savePipeline = async (pipeline: Pipeline): Promise<void> => {
 	} else if (isFakedUuid(pipeline)) {
 		const token = findToken();
 		const response = await fetch(`${getServiceHost()}pipeline`, {
-			method: 'POST',
+			method: "POST",
 			headers: {
-				'Content-Type': 'application/json',
-				Authorization: 'Bearer ' + token
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
 			},
-			body: JSON.stringify(pipeline)
+			body: JSON.stringify(pipeline),
 		});
 
 		const data = await response.json();
@@ -47,12 +70,12 @@ export const savePipeline = async (pipeline: Pipeline): Promise<void> => {
 	} else {
 		const token = findToken();
 		const response = await fetch(`${getServiceHost()}pipeline`, {
-			method: 'POST',
+			method: "POST",
 			headers: {
-				'Content-Type': 'application/json',
-				Authorization: 'Bearer ' + token
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
 			},
-			body: JSON.stringify(pipeline)
+			body: JSON.stringify(pipeline),
 		});
 
 		const data = await response.json();
