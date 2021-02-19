@@ -97,6 +97,13 @@ export const togglePipelineEnabled = async (pipelineId: string, enabled: boolean
 		return toggleMockPipelineEnabled(pipelineId, enabled);
 	} else {
 		// REMOTE use real api
-		return toggleMockPipelineEnabled(pipelineId, enabled);
+		const token = findToken();
+		await fetch(`${getServiceHost()}pipeline/enabled?pipeline_id=${pipelineId}&enabled=${enabled}`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
+			},
+		});
 	}
 };
