@@ -181,12 +181,7 @@ export const Zh = {
 			UNFIX_COLUMN: '解锁本列以及之后已锁定列',
 			FIX_COLUMN: '锁定至本列',
 			COMPRESS_COLUMNS: '全部缩小列宽',
-			NO_REPORT: '尚未定义图表.',
-			CHART: {
-				SECTION_TITLE_SIZE: '尺寸',
-				WIDTH: '宽度',
-				HEIGHT: '高度'
-			}
+			NO_REPORT: '尚未定义图表.'
 		},
 		SETTINGS: {
 			TITLE: '设置',
@@ -300,5 +295,11 @@ export const Zh = {
 		ROWS: '行数据',
 		OF_PAGES: '/',
 		PAGES: '页'
+	},
+	CHART: {
+		SECTION_TITLE_SIZE: '尺寸',
+		WIDTH: '宽度',
+		HEIGHT: '高度',
+		PIXEL: '像素'
 	}
 };

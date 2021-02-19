@@ -181,12 +181,7 @@ export const En = {
 			UNFIX_COLUMN: 'Unfix Me and Follows',
 			FIX_COLUMN: 'Fix Columns to Here',
 			COMPRESS_COLUMNS: 'Compress Columns',
-			NO_REPORT: 'No report defined.',
-			CHART: {
-				SECTION_TITLE_SIZE: 'Size',
-				WIDTH: 'Width',
-				HEIGHT: 'Height'
-			}
+			NO_REPORT: 'No report defined.'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',
@@ -300,5 +295,11 @@ export const En = {
 		ROWS: 'Row(s) Total',
 		OF_PAGES: 'of',
 		PAGES: 'Pages'
+	},
+	CHART: {
+		SECTION_TITLE_SIZE: 'Size',
+		WIDTH: 'Width',
+		HEIGHT: 'Height',
+		PIXEL: 'PX'
 	}
 };

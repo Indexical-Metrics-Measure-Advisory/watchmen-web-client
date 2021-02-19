@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Chart } from '../../../../../report';
 import { useReportEventBus } from '../../../../../report/report-event-bus';
 import { ReportEventTypes } from '../../../../../report/report-event-bus-types';
 import { ConnectedSpace } from '../../../../../services/tuples/connected-space-types';
 import { Report } from '../../../../../services/tuples/report-types';
 import { Subject } from '../../../../../services/tuples/subject-types';
+import { ChartPart } from './chart-part';
+import { ReportEditEventBusProvider } from './report-edit-event-bus';
 import { ReportSettings } from './settings';
-import { ChartWrapper, EditChartContainer, EditorContainer } from './widgets';
+import { EditorContainer } from './widgets';
 
 export const ReportEditor = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const { connectedSpace, subject } = props;
@@ -37,12 +38,10 @@ export const ReportEditor = (props: { connectedSpace: ConnectedSpace, subject: S
 		return null;
 	}
 
-	return <EditorContainer>
-		<EditChartContainer>
-			<ChartWrapper rect={report.rect}>
-				<Chart report={report} fixed={true} editable={false} removable={false}/>
-			</ChartWrapper>
-		</EditChartContainer>
-		<ReportSettings connectedSpace={connectedSpace} subject={subject} report={report}/>
-	</EditorContainer>;
+	return <ReportEditEventBusProvider>
+		<EditorContainer>
+			<ChartPart report={report}/>
+			<ReportSettings connectedSpace={connectedSpace} subject={subject} report={report}/>
+		</EditorContainer>
+	</ReportEditEventBusProvider>;
 };
