@@ -8,26 +8,24 @@ export const SectionContainer = styled.div.attrs<{ expanded: boolean }>(({ expan
 	grid-column   : 1 / span 2;
 	align-items   : center;
 	font-variant  : petite-caps;
-	padding       : 0 calc(var(--margin) / 2) 0 var(--margin);
-	height        : calc(var(--height) + 1px);
+	font-weight   : var(--font-demi-bold);
+	font-size     : 1.1em;
+	padding       : 0 calc(var(--margin) / 2);
+	height        : calc(var(--height) * 1.1);
 	border-bottom : var(--border);
 	cursor        : pointer;
-	&:before {
-		content          : '';
-		display          : ${({ expanded }) => expanded ? 'block' : 'none'};
-		position         : absolute;
-		top              : calc(var(--height) / 2 + 5px);
-		left             : calc(var(--margin) / 2 - 0.5px);
-		width            : 1px;
-		height           : calc(var(--height) / 2 - 5px);
-		background-color : var(--border-color);
-		z-index          : -1;
-	}
-	> svg {
-		display   : block;
-		position  : absolute;
-		left      : 0;
-		min-width : var(--margin);
-		opacity   : 0.5;
-	}
+`;
+
+export const PropName = styled.div.attrs({ 'data-widget': 'chart-settings-prop-name' })`
+	display       : flex;
+	position      : relative;
+	align-items   : center;
+	height        : calc(var(--height) + 1px);
+	border-right  : var(--border);
+	border-bottom : var(--border);
+	padding       : 0 calc(var(--margin) / 2);
+`;
+export const PropValue = styled.div.attrs({ 'data-widget': 'chart-settings-prop-value' })`
+	height        : calc(var(--height) + 1px);
+	border-bottom : var(--border);
 `;

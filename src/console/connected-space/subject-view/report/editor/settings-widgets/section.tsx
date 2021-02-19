@@ -1,6 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
-import { ICON_TREE_NODE_COLLAPSED, ICON_TREE_NODE_EXPANDED } from '../../../../../../basic-widgets/constants';
 import { SectionContainer } from './widgets';
 
 export const Section = (props: {
@@ -17,9 +15,8 @@ export const Section = (props: {
 
 	return <>
 		<SectionContainer expanded={expanded} onClick={onSectionClicked}>
-			<FontAwesomeIcon icon={expanded ? ICON_TREE_NODE_EXPANDED : ICON_TREE_NODE_COLLAPSED}/>
 			<span>{title}</span>
 		</SectionContainer>
-		{children}
+		{expanded ? children : null}
 	</>;
 };

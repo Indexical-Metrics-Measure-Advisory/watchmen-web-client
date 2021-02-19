@@ -8,15 +8,15 @@ export const SettingsContainer = styled.div.attrs({ 'data-widget': 'report-edito
 	border-left    : var(--border);
 `;
 export const SettingsHeader = styled.div.attrs({ 'data-widget': 'report-editor-settings-header' })`
-	display         : flex;
-	min-height      : var(--header-height);
-	height          : var(--header-height);
-	align-items     : center;
-	justify-content : space-between;
-	padding         : 0 calc(var(--margin) / 4) 0 calc(var(--margin) / 2);
-	border-bottom   : var(--border);
-	font-family     : var(--title-font-family);
-	font-size       : 1.2em;
+	display             : flex;
+	min-height          : var(--header-height);
+	height              : var(--header-height);
+	align-items         : center;
+	justify-content     : space-between;
+	padding             : 0 calc(var(--margin) / 4) 0 calc(var(--margin) / 2);
+	border-bottom       : var(--border);
+	font-family         : var(--title-font-family);
+	font-size           : 1.2em;
 `;
 export const SettingsHeaderTitle = styled.div.attrs({ 'data-widget': 'report-editor-settings-header-title' })`
 	flex-grow : 1;
@@ -29,5 +29,5 @@ export const SettingsHeaderButton = styled(TooltipButton).attrs({ 'data-widget':
 export const SettingsBody = styled.div.attrs({ 'data-widget': 'report-editor-settings-body' })`
 	display               : grid;
 	position              : relative;
-	grid-template-columns : auto 1fr;
+	grid-template-columns : 30% 70%;
 `;
