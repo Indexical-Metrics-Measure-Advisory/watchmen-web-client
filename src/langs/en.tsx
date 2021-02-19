@@ -19,7 +19,8 @@ export const En = {
 		NEW_REPORT_NAME: 'Chart',
 		CONSTANT_INPUT_PLACEHOLDER: 'Constant value please...',
 		UNKNOWN_TOPIC_NAME: 'Unknown Topic',
-		UNKNOWN_FACTOR_NAME: 'Unknown Factor'
+		UNKNOWN_FACTOR_NAME: 'Unknown Factor',
+		REPORT_DESCRIPTION_PLACEHOLDER: 'Description here...'
 	},
 	ERROR: {
 		UNPREDICTED: 'Unpredicted error occurred, contact administrator for more information.'
@@ -298,6 +299,8 @@ export const En = {
 	},
 	CHART: {
 		SECTION_TITLE_SIZE: 'Size',
+		NAME: 'Name',
+		DESCRIPTION: 'Description',
 		WIDTH: 'Width',
 		HEIGHT: 'Height',
 		PIXEL: 'PX'

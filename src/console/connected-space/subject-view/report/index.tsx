@@ -32,7 +32,7 @@ export const SubjectReports = (props: { connectedSpace: ConnectedSpace, subject:
 					                      key={report.reportId}/>;
 				})
 				: <NoReport/>}
+			<ReportEditor connectedSpace={connectedSpace} subject={subject}/>
 		</SubjectReportContainer>
-		<ReportEditor connectedSpace={connectedSpace} subject={subject}/>
 	</ReportEventBusProvider>;
 };

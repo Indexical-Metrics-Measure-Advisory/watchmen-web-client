@@ -16,7 +16,7 @@ export const ChartPart = (props: { report: Report }) => {
 		return () => {
 			off(ReportEditEventTypes.SIZE_CHANGED, forceUpdate);
 		};
-	}, [ on, off ]);
+	}, [ on, off, forceUpdate ]);
 
 	return <EditChartContainer>
 		<ChartWrapper rect={report.rect}>

@@ -19,7 +19,8 @@ export const Zh = {
 		NEW_REPORT_NAME: '图表',
 		CONSTANT_INPUT_PLACEHOLDER: '请填写常量值...',
 		UNKNOWN_TOPIC_NAME: '未知数据集',
-		UNKNOWN_FACTOR_NAME: '未知数据因子'
+		UNKNOWN_FACTOR_NAME: '未知数据因子',
+		REPORT_DESCRIPTION_PLACEHOLDER: '请填写...'
 	},
 	ERROR: {
 		UNPREDICTED: '发生不可预测的错误, 请联系管理员以获取帮助.'
@@ -298,6 +299,8 @@ export const Zh = {
 	},
 	CHART: {
 		SECTION_TITLE_SIZE: '尺寸',
+		NAME: '名称',
+		DESCRIPTION: '描述',
 		WIDTH: '宽度',
 		HEIGHT: '高度',
 		PIXEL: '像素'

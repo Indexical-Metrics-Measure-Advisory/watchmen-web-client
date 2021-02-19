@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Input } from '../../../../../../basic-widgets/input';
+import { InputLines } from '../../../../../../basic-widgets/input-lines';
 
 export const SectionContainer = styled.div.attrs<{ expanded: boolean }>(({ expanded }) => {
 	return { 'data-widget': 'chart-settings-section' };
@@ -15,8 +16,25 @@ export const SectionContainer = styled.div.attrs<{ expanded: boolean }>(({ expan
 	height        : calc(var(--height) * 1.1);
 	border-bottom : var(--border);
 	cursor        : pointer;
+	&:before {
+		content          : '';
+		display          : block;
+		position         : absolute;
+		top              : 0;
+		left             : 0;
+		width            : 100%;
+		height           : 100%;
+		background-color : var(--primary-color);
+		opacity          : 0.05;
+		z-index          : -1;
+	}
+	> span:first-child {
+		flex-grow : 1;
+	}
+	> svg {
+		font-size : 0.8em;
+	}
 `;
-
 export const PropName = styled.div.attrs({ 'data-widget': 'chart-settings-prop-name' })`
 	display       : flex;
 	position      : relative;
@@ -30,6 +48,13 @@ export const PropValue = styled.div.attrs({ 'data-widget': 'chart-settings-prop-
 	display       : flex;
 	align-items   : center;
 	height        : calc(var(--height) + 1px);
+	border-bottom : var(--border);
+`;
+export const PropExclusiveValue = styled.div.attrs({ 'data-widget': 'chart-settings-prop-exclusive-value' })`
+	grid-column   : 1 / span 2;
+	display       : flex;
+	align-items   : center;
+	//height        : calc(var(--height) + 1px);
 	border-bottom : var(--border);
 `;
 export const PropValueUnit = styled.div.attrs({ 'data-widget': 'chart-settings-prop-value-unit' })`
@@ -60,4 +85,12 @@ export const PropValueInput = styled(Input)`
 	width         : 0;
 	border        : 0;
 	border-radius : 0;;
+`;
+export const PropValueInputLines = styled(InputLines)`
+	flex-grow     : 1;
+	width         : 0;
+	border        : 0;
+	border-radius : 0;
+	padding-left  : calc(var(--margin) / 2);
+	padding-right : calc(var(--margin) / 2);
 `;

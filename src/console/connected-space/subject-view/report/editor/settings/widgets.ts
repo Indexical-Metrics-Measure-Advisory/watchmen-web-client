@@ -26,8 +26,3 @@ export const SettingsHeaderButton = styled(TooltipButton).attrs({ 'data-widget':
 	width   : var(--height);
 	height  : var(--height);
 `;
-export const SettingsBody = styled.div.attrs({ 'data-widget': 'report-editor-settings-body' })`
-	display               : grid;
-	position              : relative;
-	grid-template-columns : 30% 70%;
-`;
