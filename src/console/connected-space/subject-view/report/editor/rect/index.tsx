@@ -7,10 +7,10 @@ import { PropName, PropValue } from '../settings-widgets/widgets';
 export const RectSection = (props: { report: Report }) => {
 	const { report } = props;
 
-	return <Section title={Lang.CONSOLE.CONNECTED_SPACE.CHART_SECTION_TITLE_SIZE}>
-		<PropName>Width</PropName>
+	return <Section title={Lang.CONSOLE.CONNECTED_SPACE.CHART.SECTION_TITLE_SIZE}>
+		<PropName>{Lang.CONSOLE.CONNECTED_SPACE.CHART.WIDTH}</PropName>
 		<PropValue></PropValue>
-		<PropName>Height</PropName>
+		<PropName>{Lang.CONSOLE.CONNECTED_SPACE.CHART.HEIGHT}</PropName>
 		<PropValue></PropValue>
 	</Section>;
 };

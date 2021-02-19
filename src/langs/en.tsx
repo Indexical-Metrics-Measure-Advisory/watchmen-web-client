@@ -182,7 +182,11 @@ export const En = {
 			FIX_COLUMN: 'Fix Columns to Here',
 			COMPRESS_COLUMNS: 'Compress Columns',
 			NO_REPORT: 'No report defined.',
-			CHART_SECTION_TITLE_SIZE: 'Size'
+			CHART: {
+				SECTION_TITLE_SIZE: 'Size',
+				WIDTH: 'Width',
+				HEIGHT: 'Height'
+			}
 		},
 		SETTINGS: {
 			TITLE: 'Settings',

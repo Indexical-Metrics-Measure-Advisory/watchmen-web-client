@@ -182,7 +182,11 @@ export const Zh = {
 			FIX_COLUMN: '锁定至本列',
 			COMPRESS_COLUMNS: '全部缩小列宽',
 			NO_REPORT: '尚未定义图表.',
-			CHART_SECTION_TITLE_SIZE: '尺寸'
+			CHART: {
+				SECTION_TITLE_SIZE: '尺寸',
+				WIDTH: '宽度',
+				HEIGHT: '高度'
+			}
 		},
 		SETTINGS: {
 			TITLE: '设置',
