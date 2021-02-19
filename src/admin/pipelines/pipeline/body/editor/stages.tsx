@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { v4 } from 'uuid';
 import { useForceUpdate } from '../../../../../basic-widgets/utils';
 import { Pipeline } from '../../../../../services/tuples/pipeline-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
+import { generateUuid } from '../../../../../services/tuples/utils';
 import { usePipelineEventBus } from '../../pipeline-event-bus';
 import { PipelineEventTypes } from '../../pipeline-event-bus-types';
 import { StageEditor } from '../stage';
@@ -31,7 +31,10 @@ export const Stages = (props: {
 
 	return <>
 		{pipeline.stages.map(stage => {
-			return <StageEventBusProvider key={v4()}>
+			if (!stage.stageId) {
+				stage.stageId = generateUuid();
+			}
+			return <StageEventBusProvider key={stage.stageId}>
 				<Stage2PipelineBridge pipeline={pipeline} stage={stage}/>
 				<StageEditor pipeline={pipeline} stage={stage}
 				             topics={topics} topic={topic}/>

@@ -21,6 +21,7 @@ export enum WriteTopicActionType {
 export type PipelineStageUnitActionType = WriteTopicActionType | ReadTopicActionType | SystemActionType;
 
 export interface PipelineStageUnitAction {
+	actionId: string;
 	type: PipelineStageUnitActionType;
 }
 

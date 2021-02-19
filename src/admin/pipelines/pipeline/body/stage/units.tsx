@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { v4 } from 'uuid';
 import { useForceUpdate } from '../../../../../basic-widgets/utils';
 import { PipelineStage } from '../../../../../services/tuples/pipeline-stage-types';
 import { Pipeline } from '../../../../../services/tuples/pipeline-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
+import { generateUuid } from '../../../../../services/tuples/utils';
 import { UnitEditor } from '../unit';
 import { UnitEventBusProvider } from '../unit/unit-event-bus';
 import { useStageEventBus } from './stage-event-bus';
@@ -31,7 +31,10 @@ export const Units = (props: {
 
 	return <>
 		{stage.units.map(unit => {
-			return <UnitEventBusProvider key={v4()}>
+			if (!unit.unitId) {
+				unit.unitId = generateUuid();
+			}
+			return <UnitEventBusProvider key={unit.unitId}>
 				<Unit2StageBridge stage={stage} unit={unit}/>
 				<UnitEditor pipeline={pipeline} stage={stage} unit={unit}
 				            topics={topics} topic={topic}/>

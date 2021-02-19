@@ -5,9 +5,9 @@ import {
 	ParameterComputeType,
 	ParameterExpression,
 	ParameterExpressionOperator,
-	ParameterKind,
 	ParameterJoint,
 	ParameterJointType,
+	ParameterKind,
 	TopicFactorParameter
 } from '../../services/tuples/factor-calculator-types';
 import {
@@ -64,6 +64,7 @@ import { getCurrentTime } from '../../services/utils';
 
 export const createAction = (): AlarmAction => {
 	return {
+		actionId: generateUuid(),
 		type: SystemActionType.ALARM,
 		conditional: false,
 		severity: AlarmActionSeverity.MEDIUM,
@@ -72,12 +73,14 @@ export const createAction = (): AlarmAction => {
 };
 export const createUnit = (): PipelineStageUnit => {
 	return {
+		unitId: generateUuid(),
 		conditional: false,
 		do: [ createAction() ]
 	};
 };
 export const createStage = (): PipelineStage => {
 	return {
+		stageId: generateUuid(),
 		name: 'Noname Stage',
 		conditional: false,
 		units: [ createUnit() ]
@@ -139,7 +142,11 @@ export const defendFindBy = (findBy: FindBy) => {
 	}
 };
 export const createMapping = (): MappingFactor => {
-	return { factorId: '', source: createTopicFactorParameter(), arithmetic: AggregateArithmetic.NONE };
+	return {
+		factorId: '',
+		source: createTopicFactorParameter(),
+		arithmetic: AggregateArithmetic.NONE
+	};
 };
 export const defendMappingRow = (row: MappingRow) => {
 	if (!row.mapping) {

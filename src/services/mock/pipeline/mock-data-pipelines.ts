@@ -3,9 +3,9 @@ import {
 	ConstantParameter,
 	ParameterComputeType,
 	ParameterExpressionOperator,
-	ParameterKind,
 	ParameterJoint,
 	ParameterJointType,
+	ParameterKind,
 	TopicFactorParameter
 } from '../../tuples/factor-calculator-types';
 import {
@@ -19,9 +19,11 @@ import {
 	WriteFactorAction
 } from '../../tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import { Pipeline, PipelineTriggerType } from '../../tuples/pipeline-types';
+import { generateUuid } from '../../tuples/utils';
 import { getCurrentTime } from '../../utils';
 
 const WriteRawQuotationPremiumToPolicy: WriteFactorAction = {
+	actionId: generateUuid(),
 	type: WriteTopicActionType.WRITE_FACTOR, topicId: '2', factorId: '207',
 	source: { kind: ParameterKind.TOPIC, topicId: '4', factorId: '413' } as TopicFactorParameter,
 	arithmetic: AggregateArithmetic.SUM,
@@ -35,6 +37,7 @@ const WriteRawQuotationPremiumToPolicy: WriteFactorAction = {
 	}
 };
 const WriteRawEndorsementPremiumToPolicy: WriteFactorAction = {
+	actionId: generateUuid(),
 	type: WriteTopicActionType.WRITE_FACTOR, topicId: '2', factorId: '207',
 	source: { kind: ParameterKind.TOPIC, topicId: '7', factorId: '706' } as TopicFactorParameter,
 	arithmetic: AggregateArithmetic.SUM,
@@ -48,6 +51,7 @@ const WriteRawEndorsementPremiumToPolicy: WriteFactorAction = {
 	}
 };
 const AsIssueYear: CopyToMemoryAction = {
+	actionId: generateUuid(),
 	type: SystemActionType.COPY_TO_MEMORY,
 	variableName: 'IssueYear',
 	source: {
@@ -57,6 +61,7 @@ const AsIssueYear: CopyToMemoryAction = {
 	} as ComputedParameter
 };
 const AsIssueWeekOfYear: CopyToMemoryAction = {
+	actionId: generateUuid(),
 	type: SystemActionType.COPY_TO_MEMORY,
 	variableName: 'IssueWeekOfYear',
 	source: {
@@ -78,6 +83,7 @@ const MatchIssueWeekOfYear: ParameterJoint = {
 	} ]
 };
 const WriteWeeklyPremium: MergeRowAction = {
+	actionId: generateUuid(),
 	type: WriteTopicActionType.INSERT_OR_MERGE_ROW, topicId: '5',
 	mapping: [
 		{
@@ -100,6 +106,7 @@ const WriteWeeklyPremium: MergeRowAction = {
 };
 
 const AsIssueMonthOfYear: CopyToMemoryAction = {
+	actionId: generateUuid(),
 	type: SystemActionType.COPY_TO_MEMORY,
 	variableName: 'IssueMonthOfYear',
 	source: {
@@ -121,6 +128,7 @@ const MatchIssueMonthOfYear: ParameterJoint = {
 	} ]
 };
 const WriteMonthlyPremium: MergeRowAction = {
+	actionId: generateUuid(),
 	type: WriteTopicActionType.INSERT_OR_MERGE_ROW, topicId: '6',
 	mapping: [
 		{
@@ -148,9 +156,11 @@ export const DemoPipelines: Array<Pipeline> = [
 		name: 'Write Premium from Quotation to Policy',
 		stages: [
 			{
+				stageId: generateUuid(),
 				name: '', conditional: false,
 				units: [
 					{
+						unitId: generateUuid(),
 						conditional: true,
 						on: {
 							jointType: ParameterJointType.AND,
@@ -174,9 +184,11 @@ export const DemoPipelines: Array<Pipeline> = [
 		name: 'Write Premium from Endorsement to Policy',
 		stages: [
 			{
+				stageId: generateUuid(),
 				name: '', conditional: false,
 				units: [
 					{
+						unitId: generateUuid(),
 						conditional: false, do: [ WriteRawEndorsementPremiumToPolicy ]
 					}
 				]
@@ -191,8 +203,13 @@ export const DemoPipelines: Array<Pipeline> = [
 		name: '',
 		stages: [
 			{
+				stageId: generateUuid(),
 				name: '', conditional: false,
-				units: [ { conditional: false, do: [ AsIssueYear, AsIssueWeekOfYear, WriteWeeklyPremium ] } ]
+				units: [ {
+					unitId: generateUuid(),
+					conditional: false,
+					do: [ AsIssueYear, AsIssueWeekOfYear, WriteWeeklyPremium ]
+				} ]
 			}
 		],
 		createTime: getCurrentTime(),
@@ -204,8 +221,13 @@ export const DemoPipelines: Array<Pipeline> = [
 		name: '',
 		stages: [
 			{
+				stageId: generateUuid(),
 				name: '', conditional: false,
-				units: [ { conditional: false, do: [ AsIssueYear, AsIssueMonthOfYear, WriteMonthlyPremium ] } ]
+				units: [ {
+					unitId: generateUuid(),
+					conditional: false,
+					do: [ AsIssueYear, AsIssueMonthOfYear, WriteMonthlyPremium ]
+				} ]
 			}
 		],
 		createTime: getCurrentTime(),
