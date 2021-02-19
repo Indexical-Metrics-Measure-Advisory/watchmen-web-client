@@ -4,6 +4,8 @@ import { ICON_LOADING } from '../../basic-widgets/constants';
 import { fetchChartData } from '../../services/console/report';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { Report } from '../../services/tuples/report-types';
+import { useReportEventBus } from '../report-event-bus';
+import { ReportEventTypes } from '../report-event-bus-types';
 import { ChartDiagram } from './chart-diagram';
 import { DiagramContainer, DiagramLoading } from './widgets';
 
@@ -14,17 +16,34 @@ interface DiagramState {
 
 export const Diagram = (props: { report: Report }) => {
 	const { report } = props;
-	const { reportId, chart: { type: chartType } } = report;
 
+	const { on, off } = useReportEventBus();
 	const [ state, setState ] = useState<DiagramState>({ loaded: false });
 	useEffect(() => {
 		if (!state.loaded) {
 			(async () => {
-				const dataset = await fetchChartData(reportId, chartType);
+				const dataset = await fetchChartData(report.reportId, report.chart.type);
 				setState({ loaded: true, dataset });
 			})();
 		}
-	}, [ chartType, reportId, state.loaded ]);
+		const onEditCompleted = (completedReport: Report) => {
+			if (report !== completedReport) {
+				return;
+			}
+			setState({ loaded: false });
+			(async () => {
+				const dataset = await fetchChartData(report.reportId, report.chart.type);
+				setState({ loaded: true, dataset });
+			})();
+		};
+		on(ReportEventTypes.EDIT_COMPLETED, onEditCompleted);
+		return () => {
+			off(ReportEventTypes.EDIT_COMPLETED, onEditCompleted);
+		};
+	}, [
+		on, off,
+		report, state.loaded
+	]);
 
 	return <DiagramContainer>
 		{state.loaded

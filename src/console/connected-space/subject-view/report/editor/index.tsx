@@ -20,11 +20,18 @@ export const ReportEditor = (props: { connectedSpace: ConnectedSpace, subject: S
 			}
 			setReport(report);
 		};
+		const onEditCompleted = (completedReport: Report) => {
+			if (report === completedReport) {
+				setReport(null);
+			}
+		};
 		on(ReportEventTypes.DO_EDIT, onEdit);
+		on(ReportEventTypes.EDIT_COMPLETED, onEditCompleted);
 		return () => {
 			off(ReportEventTypes.DO_EDIT, onEdit);
+			off(ReportEventTypes.EDIT_COMPLETED, onEditCompleted);
 		};
-	}, [ on, off, subject.reports ]);
+	}, [ on, off, subject.reports, report ]);
 
 	if (!report) {
 		return null;
