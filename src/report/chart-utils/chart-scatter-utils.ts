@@ -83,6 +83,6 @@ export class ChartScatterUtils extends DefaultChartUtils {
 						return null;
 				}
 			}).filter(x => !x) as Array<EChartOption.VisualMap>
-		};
+		} as EChartOption;
 	}
 }

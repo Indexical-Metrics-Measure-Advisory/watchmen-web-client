@@ -19,6 +19,7 @@ export const ChartContainer = styled.div.attrs<{ rect: ReportRect }>(({ rect }) 
 })<{ rect: ReportRect }>`
 	display       : block;
 	border-radius : var(--border-radius);
+	overflow      : hidden;
 	transition    : all 300ms ease-in-out;
 	&:hover {
 		box-shadow : var(--hover-shadow);

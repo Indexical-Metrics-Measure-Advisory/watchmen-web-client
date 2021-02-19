@@ -246,9 +246,9 @@ export const Container = (props: {
 	};
 
 	return <ChartContainer rect={report.rect} ref={containerRef}>
+		{children}
 		<ChartDragHandle onMouseDown={onMouseDown} onMouseUp={onMouseUp}
 		                 onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}>
-			{children}
 			<ChartDragHandlePart data-position={DragType.RESIZE_TOP}/>
 			<ChartDragHandlePart data-position={DragType.RESIZE_LEFT}/>
 			<ChartDragHandlePart data-position={DragType.RESIZE_RIGHT}/>

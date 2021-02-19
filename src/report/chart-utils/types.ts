@@ -1,9 +1,8 @@
 import { EChartOption, EChartsResponsiveOption } from 'echarts';
-import { ReactNode } from 'react';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { Report } from '../../services/tuples/report-types';
 
-export type ChartOptions = EChartOption | EChartsResponsiveOption | ReactNode;
+export type ChartOptions = EChartOption | EChartsResponsiveOption | JSX.Element;
 
 export interface ChartUtils {
 	canAppendDimensions: (report: Report) => boolean;
