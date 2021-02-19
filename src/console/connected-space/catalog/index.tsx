@@ -95,7 +95,7 @@ const CatalogBody = (props: { connectedSpace: ConnectedSpace }) => {
 				}).fire(ConsoleEventTypes.ASK_AVAILABLE_TOPICS);
 			}
 		}).fire(ConsoleEventTypes.ASK_AVAILABLE_SPACES);
-	}, [ connectedSpace.connectId, connectedSpace.subjects, history, onceGlobal, onceConsole ]);
+	}, [ connectedSpace.spaceId, connectedSpace.connectId, connectedSpace.subjects, history, onceGlobal, onceConsole ]);
 	useEffect(() => {
 		if (data.graphics && svgContainerRef.current && svgRef.current) {
 			const { width, height } = computeGraphics({ graphics: data.graphics, svg: svgRef.current });

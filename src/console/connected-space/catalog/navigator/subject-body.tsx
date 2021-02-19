@@ -53,7 +53,7 @@ export const SubjectBody = (props: { connectedSpace: ConnectedSpace, subject: Su
 				}).fire(ConsoleEventTypes.ASK_AVAILABLE_TOPICS);
 			}
 		}).fire(ConsoleEventTypes.ASK_AVAILABLE_SPACES);
-	}, [ connectedSpace.connectId, connectedSpace.subjects, history, onceGlobal, onceConsole ]);
+	}, [ connectedSpace.spaceId, connectedSpace.subjects, history, onceGlobal, onceConsole ]);
 
 	if (topics.length === 0) {
 
