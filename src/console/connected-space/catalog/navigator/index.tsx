@@ -63,12 +63,12 @@ export const Navigator = (props: { connectedSpace: ConnectedSpace }) => {
 			<NavigatorHeaderTitle>{name}</NavigatorHeaderTitle>
 			{tuple != null && isSubject(tuple)
 				? <NavigatorHeaderButton
-					tooltip={{ label: Lang.CONSOLE.CONNECTED_SPACE.OPEN_SUBJECT, alignment: TooltipAlignment.RIGHT }}
+					tooltip={{ label: Lang.CONSOLE.CONNECTED_SPACE.OPEN_SUBJECT, alignment: TooltipAlignment.RIGHT, offsetX: 4 }}
 					onClick={onOpenSubjectClicked}>
 					<FontAwesomeIcon icon={ICON_SUBJECT}/>
 				</NavigatorHeaderButton>
 				: null}
-			<NavigatorHeaderButton tooltip={{ label: Lang.ACTIONS.CLOSE, alignment: TooltipAlignment.RIGHT }}
+			<NavigatorHeaderButton tooltip={{ label: Lang.ACTIONS.CLOSE, alignment: TooltipAlignment.RIGHT, offsetX: 4 }}
 			                       onClick={onCloseClicked}>
 				<FontAwesomeIcon icon={ICON_CLOSE}/>
 			</NavigatorHeaderButton>

@@ -20,7 +20,7 @@ export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject:
 	return <SettingsContainer>
 		<SettingsHeader>
 			<SettingsHeaderTitle>{report.name || 'Report Edit'}</SettingsHeaderTitle>
-			<SettingsHeaderButton tooltip={{ label: Lang.ACTIONS.CLOSE, alignment: TooltipAlignment.RIGHT }}
+			<SettingsHeaderButton tooltip={{ label: Lang.ACTIONS.CLOSE, alignment: TooltipAlignment.RIGHT, offsetX: 4 }}
 			                      onClick={onCloseClicked}>
 				<FontAwesomeIcon icon={ICON_CLOSE}/>
 			</SettingsHeaderButton>
