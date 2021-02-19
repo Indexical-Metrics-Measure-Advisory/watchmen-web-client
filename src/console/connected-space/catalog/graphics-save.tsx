@@ -50,18 +50,5 @@ export const GraphicsSave = (props: {
 		};
 	}, [ on, off, fireConsole, connectedSpace, assembledGraphics, state ]);
 
-	// only save when unmount
-	useEffect(() => {
-		return () => {
-			if (connectedSpace && assembledGraphics) {
-				// save immediately
-				const graphics = transformGraphicsToSave(connectedSpace, assembledGraphics);
-				(async () => await saveConnectedSpaceGraphics(connectedSpace, graphics))();
-				// reset state
-				setState({ connectedSpace, assembledGraphics });
-			}
-		};
-	}, [ connectedSpace, assembledGraphics ]);
-
 	return <Fragment/>;
 };

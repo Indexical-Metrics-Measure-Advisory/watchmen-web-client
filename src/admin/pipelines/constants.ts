@@ -1,1 +1,1 @@
-export const SAVE_TIMEOUT = 30000;
+export const SAVE_TIMEOUT = 10000;
