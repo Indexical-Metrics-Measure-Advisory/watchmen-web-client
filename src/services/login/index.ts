@@ -3,6 +3,14 @@ import { mockLogin } from "../mock/mock-login";
 import { getServiceHost, isMockService } from "../utils";
 import { Account, LoginResponse } from "./types";
 
+const is_admin = (login_result: any) => {
+	if (login_result.role === "admin") {
+		return true;
+	} else {
+		return false;
+	}
+};
+
 export const login = async (account: Account): Promise<LoginResponse> => {
 	if (isMockService()) {
 		return mockLogin(account);
@@ -22,6 +30,7 @@ export const login = async (account: Account): Promise<LoginResponse> => {
 
 		const result = await response.json();
 		saveTokenIntoSession(result.access_token);
-		return { pass: true, admin: result.admin || false };
+
+		return { pass: true, admin: is_admin(result) };
 	}
 };
