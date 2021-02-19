@@ -6,7 +6,7 @@ import { ConnectedSpace } from '../../../../../services/tuples/connected-space-t
 import { Report } from '../../../../../services/tuples/report-types';
 import { Subject } from '../../../../../services/tuples/subject-types';
 import { ReportSettings } from './settings';
-import { EditorContainer } from './widgets';
+import { ChartWrapper, EditChartContainer, EditorContainer } from './widgets';
 
 export const ReportEditor = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const { connectedSpace, subject } = props;
@@ -38,7 +38,11 @@ export const ReportEditor = (props: { connectedSpace: ConnectedSpace, subject: S
 	}
 
 	return <EditorContainer>
-		<Chart report={report} fixed={true} editable={false} removable={false}/>
+		<EditChartContainer>
+			<ChartWrapper rect={report.rect}>
+				<Chart report={report} fixed={true} editable={false} removable={false}/>
+			</ChartWrapper>
+		</EditChartContainer>
 		<ReportSettings connectedSpace={connectedSpace} subject={subject} report={report}/>
 	</EditorContainer>;
 };

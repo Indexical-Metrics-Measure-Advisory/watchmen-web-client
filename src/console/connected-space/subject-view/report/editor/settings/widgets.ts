@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import { TooltipButton } from '../../../../../../basic-widgets/tooltip-button';
 
 export const SettingsContainer = styled.div.attrs({ 'data-widget': 'report-editor-settings' })`
-	display     : grid;
-	position    : relative;
-	border-left : var(--border);
+	display        : flex;
+	flex-direction : column;
+	position       : relative;
+	border-left    : var(--border);
 `;
 export const SettingsHeader = styled.div.attrs({ 'data-widget': 'report-editor-settings-header' })`
 	display         : flex;
@@ -24,4 +25,9 @@ export const SettingsHeaderButton = styled(TooltipButton).attrs({ 'data-widget':
 	padding : 0;
 	width   : var(--height);
 	height  : var(--height);
+`;
+export const SettingsBody = styled.div.attrs({ 'data-widget': 'report-editor-settings-body' })`
+	display               : grid;
+	position              : relative;
+	grid-template-columns : auto 1fr;
 `;

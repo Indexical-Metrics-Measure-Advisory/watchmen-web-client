@@ -8,7 +8,8 @@ import { ReportEventTypes } from '../../../../../../report/report-event-bus-type
 import { ConnectedSpace } from '../../../../../../services/tuples/connected-space-types';
 import { Report } from '../../../../../../services/tuples/report-types';
 import { Subject } from '../../../../../../services/tuples/subject-types';
-import { SettingsContainer, SettingsHeader, SettingsHeaderButton, SettingsHeaderTitle } from './widgets';
+import { RectSection } from '../rect';
+import { SettingsBody, SettingsContainer, SettingsHeader, SettingsHeaderButton, SettingsHeaderTitle } from './widgets';
 
 export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
 	const { connectedSpace, subject, report } = props;
@@ -25,5 +26,8 @@ export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject:
 				<FontAwesomeIcon icon={ICON_CLOSE}/>
 			</SettingsHeaderButton>
 		</SettingsHeader>
+		<SettingsBody>
+			<RectSection report={report}/>
+		</SettingsBody>
 	</SettingsContainer>;
 };

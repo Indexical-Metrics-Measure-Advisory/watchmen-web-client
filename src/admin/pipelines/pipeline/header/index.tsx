@@ -16,7 +16,7 @@ export const PipelineHeader = (props: { pipeline: Pipeline }) => {
 	const onNameChange = async (name: string) => {
 		pipeline.name = name;
 		forceUpdate();
-		fire(PipelineEventTypes.RENAME_PIPELINE, pipeline);
+		// fire(PipelineEventTypes.RENAME_PIPELINE, pipeline);
 	};
 	const onNameChangeComplete = async (name: string) => {
 		pipeline.name = name.trim() || 'Noname';

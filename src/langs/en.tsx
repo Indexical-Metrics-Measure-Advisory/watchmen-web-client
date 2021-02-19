@@ -181,7 +181,8 @@ export const En = {
 			UNFIX_COLUMN: 'Unfix Me and Follows',
 			FIX_COLUMN: 'Fix Columns to Here',
 			COMPRESS_COLUMNS: 'Compress Columns',
-			NO_REPORT: 'No report defined.'
+			NO_REPORT: 'No report defined.',
+			CHART_SECTION_TITLE_SIZE: 'Size'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',
