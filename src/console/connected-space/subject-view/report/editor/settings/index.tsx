@@ -7,13 +7,14 @@ import {
 } from '../../../../../../basic-widgets/constants';
 import { TooltipAlignment } from '../../../../../../basic-widgets/types';
 import { Lang } from '../../../../../../langs';
-import { useReportEventBus } from '../../../../../../report/report-event-bus';
-import { ReportEventTypes } from '../../../../../../report/report-event-bus-types';
 import { ConnectedSpace } from '../../../../../../services/tuples/connected-space-types';
 import { Report } from '../../../../../../services/tuples/report-types';
 import { Subject } from '../../../../../../services/tuples/subject-types';
+import { useReportEditEventBus } from '../report-edit-event-bus';
+import { ReportEditEventTypes } from '../report-edit-event-bus-types';
 import { SettingsBody } from '../settings-body';
 import { ResizeHandleAlignment, SettingsResizeHandle } from './settings-resize-handle';
+import { SettingsSaver } from './settings-saver';
 import { SettingsContainer, SettingsHeader, SettingsHeaderButton, SettingsHeaderTitle } from './widgets';
 
 interface ResizeHandleState {
@@ -24,7 +25,7 @@ interface ResizeHandleState {
 export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
 	const { report } = props;
 
-	const { fire } = useReportEventBus();
+	const { fire } = useReportEditEventBus();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [ resizeState, setResizeState ] = useState<ResizeHandleState>({ top: 0, width: CHART_SETTINGS_MIN_WIDTH });
 	useEffect(() => {
@@ -34,7 +35,7 @@ export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject:
 		}
 	}, []);
 
-	const onCloseClicked = () => fire(ReportEventTypes.EDIT_COMPLETED, report);
+	const onCloseClicked = () => fire(ReportEditEventTypes.EDIT_COMPLETED, report);
 	const onResize = (width: number) => {
 		setResizeState({
 			...resizeState,
@@ -56,5 +57,6 @@ export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject:
 		</SettingsContainer>
 		<SettingsResizeHandle top={resizeState.top} width={resizeState.width} onResize={onResize}
 		                      alignment={ResizeHandleAlignment.RIGHT}/>
+		<SettingsSaver report={report}/>
 	</>;
 };

@@ -26,8 +26,8 @@ export const Diagram = (props: { report: Report }) => {
 				setState({ loaded: true, dataset });
 			})();
 		}
-		const onEditCompleted = (completedReport: Report) => {
-			if (report !== completedReport) {
+		const onEditCompleted = (completedReport: Report, changed: boolean) => {
+			if (report !== completedReport || !changed) {
 				return;
 			}
 			setState({ loaded: false });
