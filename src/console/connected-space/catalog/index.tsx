@@ -53,7 +53,7 @@ const CatalogBody = (props: { connectedSpace: ConnectedSpace }) => {
 	useEffect(() => {
 		onceConsole(ConsoleEventTypes.REPLY_AVAILABLE_SPACES, (availableSpaces: Array<AvailableSpaceInConsole>) => {
 			// eslint-disable-next-line
-			const space = availableSpaces.find(space => space.spaceId == connectedSpace.connectId);
+			const space = availableSpaces.find(space => space.spaceId == connectedSpace.spaceId);
 			if (!space) {
 				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
 					history.replace(Router.CONSOLE);
