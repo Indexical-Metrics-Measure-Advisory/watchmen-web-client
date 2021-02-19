@@ -68,6 +68,7 @@ export const PIN_FAVORITE_Z_INDEX = 1499;
 export const DROPDOWN_Z_INDEX = 999;
 export const SIDE_MENU_RESIZE_HANDLE_Z_INDEX = 500;
 export const CHART_DRAG_Z_INDEX = 1000;
+export const CHART_SETTINGS_RESIZE_HANDLE_Z_INDEX = 500;
 
 export const BASE_MARGIN = 32;
 export const BASE_HEIGHT = 28;
@@ -90,6 +91,10 @@ export const TOOLTIP_MAX_WIDTH = 300;
 export const TOOLTIP_CARET_OFFSET = 6;
 
 export const PIN_FAVORITE_HEIGHT = 'calc(var(--height) * 1.2 + 1px)';
+
+export const CHART_SETTINGS_MIN_WIDTH = 300;
+export const CHART_SETTINGS_MAX_WIDTH = 800;
+export const CHART_SETTINGS_RESIZE_HANDLE_WIDTH = 6;
 
 // business related
 export const TUPLE_SEARCH_PAGE_SIZE = 9;

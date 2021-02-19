@@ -6,6 +6,6 @@ export const EditorContainer = styled.div.attrs({ 'data-widget': 'report-editor'
 	top                   : 0;
 	width                 : 100%;
 	height                : 100%;
-	grid-template-columns : 1fr 400px;
+	grid-template-columns : 1fr auto;
 	background-color      : var(--bg-color);
 `;
