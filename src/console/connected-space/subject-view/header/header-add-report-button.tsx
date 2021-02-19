@@ -4,7 +4,7 @@ import { ICON_REPORT } from '../../../../basic-widgets/constants';
 import { PageHeaderButton } from '../../../../basic-widgets/page-header-buttons';
 import { Lang } from '../../../../langs';
 import { ConnectedSpace } from '../../../../services/tuples/connected-space-types';
-import { saveReport } from '../../../../services/tuples/report';
+import { saveNewReport } from '../../../../services/tuples/report';
 import { Subject } from '../../../../services/tuples/subject-types';
 import { createReport } from '../../../utils/tuples';
 import { useSubjectEventBus } from '../subject-event-bus';
@@ -17,7 +17,7 @@ export const HeaderAddReportButton = (props: { connectedSpace: ConnectedSpace, s
 
 	const onAddReportClicked = async () => {
 		const report = createReport();
-		await saveReport(report);
+		await saveNewReport(report, subject.subjectId);
 		if (!subject.reports) {
 			subject.reports = [];
 		}

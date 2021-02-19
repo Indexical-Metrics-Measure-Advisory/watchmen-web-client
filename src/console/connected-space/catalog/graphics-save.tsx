@@ -49,19 +49,19 @@ export const GraphicsSave = (props: {
 			off(CatalogEventTypes.SUBJECT_MOVED, onGraphicsChange);
 		};
 	}, [ on, off, fireConsole, connectedSpace, assembledGraphics, state ]);
+
+	// only save when unmount
 	useEffect(() => {
-		if (state.assembledGraphics && assembledGraphics !== state.assembledGraphics && state.timeoutHandle) {
-			// there is a save in queue
-			// clear queue
-			clearTimeout(state.timeoutHandle);
-			// save immediately
-			const connectedSpace = state.connectedSpace;
-			const graphics = transformGraphicsToSave(connectedSpace, state.assembledGraphics);
-			(async () => await saveConnectedSpaceGraphics(connectedSpace, graphics))();
-			// reset state
-			setState({ connectedSpace, assembledGraphics });
-		}
-	}, [ connectedSpace, assembledGraphics, state.assembledGraphics, state.connectedSpace, state.timeoutHandle ]);
+		return () => {
+			if (connectedSpace && assembledGraphics) {
+				// save immediately
+				const graphics = transformGraphicsToSave(connectedSpace, assembledGraphics);
+				(async () => await saveConnectedSpaceGraphics(connectedSpace, graphics))();
+				// reset state
+				setState({ connectedSpace, assembledGraphics });
+			}
+		};
+	}, [ connectedSpace, assembledGraphics ]);
 
 	return <Fragment/>;
 };

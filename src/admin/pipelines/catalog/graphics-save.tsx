@@ -38,18 +38,16 @@ export const GraphicsSave = (props: { graphics?: AssembledPipelinesGraphics }) =
 			off(CatalogEventTypes.TOPIC_MOVED, onGraphicsChange);
 		};
 	}, [ on, off, assembledGraphics, state ]);
+	// only save when unmount
 	useEffect(() => {
 		return () => {
-			if (state.timeoutHandle && state.assembledGraphics) {
-				// there is a save in queue
-				// clear queue
-				clearTimeout(state.timeoutHandle);
+			if (assembledGraphics) {
 				// save immediately
-				const graphics = transformGraphicsToSave(state.assembledGraphics);
+				const graphics = transformGraphicsToSave(assembledGraphics);
 				(async () => await savePipelinesGraphics(graphics))();
 			}
 		};
-	}, [ state.assembledGraphics, state.timeoutHandle ]);
+	}, [ assembledGraphics ]);
 
 	return <Fragment/>;
 };
