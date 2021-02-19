@@ -1,5 +1,6 @@
 import { ConnectedSpace } from '../../tuples/connected-space-types';
 import { ParameterKind, ParameterJointType, TopicFactorParameter } from '../../tuples/factor-calculator-types';
+import { generateUuid } from '../../tuples/utils';
 import { getCurrentTime } from '../../utils';
 
 export const DemoConnectedSpaces: Array<ConnectedSpace> = [
@@ -24,6 +25,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 					filters: { jointType: ParameterJointType.AND, filters: [] },
 					columns: [
 						{
+							columnId: generateUuid(),
 							parameter: {
 								kind: ParameterKind.TOPIC,
 								topicId: '1',
@@ -31,6 +33,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 							} as TopicFactorParameter
 						},
 						{
+							columnId: generateUuid(),
 							parameter: {
 								kind: ParameterKind.TOPIC,
 								topicId: '1',
@@ -38,6 +41,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 							} as TopicFactorParameter
 						},
 						{
+							columnId: generateUuid(),
 							parameter: {
 								kind: ParameterKind.TOPIC,
 								topicId: '1',
@@ -45,6 +49,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 							} as TopicFactorParameter
 						},
 						{
+							columnId: generateUuid(),
 							parameter: {
 								kind: ParameterKind.TOPIC,
 								topicId: '2',
@@ -52,6 +57,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 							} as TopicFactorParameter
 						},
 						{
+							columnId: generateUuid(),
 							parameter: {
 								kind: ParameterKind.TOPIC,
 								topicId: '2',
@@ -59,6 +65,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 							} as TopicFactorParameter
 						},
 						{
+							columnId: generateUuid(),
 							parameter: {
 								kind: ParameterKind.TOPIC,
 								topicId: '2',
@@ -66,6 +73,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 							} as TopicFactorParameter
 						},
 						{
+							columnId: generateUuid(),
 							parameter: {
 								kind: ParameterKind.TOPIC,
 								topicId: '3',
@@ -73,6 +81,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 							} as TopicFactorParameter
 						},
 						{
+							columnId: generateUuid(),
 							parameter: {
 								kind: ParameterKind.TOPIC,
 								topicId: '3',
@@ -80,6 +89,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 							} as TopicFactorParameter
 						},
 						{
+							columnId: generateUuid(),
 							parameter: {
 								kind: ParameterKind.TOPIC,
 								topicId: '3',
@@ -87,6 +97,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 							} as TopicFactorParameter
 						},
 						{
+							columnId: generateUuid(),
 							parameter: {
 								kind: ParameterKind.TOPIC,
 								topicId: '3',

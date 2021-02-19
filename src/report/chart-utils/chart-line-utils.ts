@@ -14,7 +14,7 @@ export class ChartLineUtils extends DefaultChartUtils {
 		const { indicators } = report;
 
 		const legends = indicators.map((indicator, indicatorIndex) => {
-			return { label: indicator.column, indicator, index: indicatorIndex };
+			return { label: indicator.name, indicator, index: indicatorIndex };
 		});
 		const groups = this.buildDescartesByDimensions(report, dataset);
 

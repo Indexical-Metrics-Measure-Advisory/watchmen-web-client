@@ -4,6 +4,7 @@ import { Tuple } from './tuple-types';
 
 /** column */
 export interface SubjectDataSetColumn {
+	columnId: string;
 	parameter: Parameter;
 	alias?: string;
 }

@@ -23,7 +23,7 @@ export class ChartDoughnutUtils extends DefaultChartUtils {
 			},
 			legend: { data: groups.map(({ value }) => value) },
 			series: [ {
-				name: indicator.column,
+				name: indicator.name,
 				type: 'pie',
 				radius: [ '30%', '70%' ],
 				center: [ '50%', '50%' ],

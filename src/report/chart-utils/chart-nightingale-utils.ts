@@ -23,7 +23,7 @@ export class ChartNightingaleUtils extends DefaultChartUtils {
 			},
 			legend: { data: groups.map(({ value }) => value) },
 			series: [ {
-				name: indicator.column,
+				name: indicator.name,
 				type: 'pie',
 				roseType: 'area',
 				center: [ '50%', '50%' ],

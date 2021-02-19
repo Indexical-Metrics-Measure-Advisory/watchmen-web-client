@@ -3,8 +3,8 @@ import {
 	ConstantParameter,
 	ParameterComputeType,
 	ParameterExpressionOperator,
-	ParameterKind,
 	ParameterJointType,
+	ParameterKind,
 	TopicFactorParameter
 } from '../../../../services/tuples/factor-calculator-types';
 import { ParameterCalculatorDefsMap } from '../../../../services/tuples/factor-calculator-utils';
@@ -16,6 +16,7 @@ import {
 	SubjectDataSetJoin,
 	TopicJoinType
 } from '../../../../services/tuples/subject-types';
+import { generateUuid } from '../../../../services/tuples/utils';
 
 export const createTopicFactorParameter = (): TopicFactorParameter => {
 	return { kind: ParameterKind.TOPIC, topicId: '', factorId: '' };
@@ -31,8 +32,14 @@ export const createSubjectDataSetColumn = (subject: Subject): SubjectDataSetColu
 	while (existsNames.includes(newName.toLowerCase())) {
 		newName = `Column${count++}`;
 	}
+	let columnId = generateUuid();
+	const existsColumnIds = columns.map(column => column.columnId);
+	while (existsColumnIds.includes(columnId)) {
+		columnId = generateUuid();
+	}
 
 	return {
+		columnId,
 		alias: newName,
 		parameter: createTopicFactorParameter()
 	};

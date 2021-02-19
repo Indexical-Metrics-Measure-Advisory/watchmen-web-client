@@ -27,11 +27,11 @@ export class ChartScatterUtils extends DefaultChartUtils {
 			xAxis: {
 				type: 'category',
 				// use last dimension as xAxis
-				name: dimensions[dimensions.length - 1].column
+				name: dimensions[dimensions.length - 1].name
 			},
 			yAxis: {
 				type: 'value',
-				name: indicators[0].column
+				name: indicators[0].name
 			},
 			series: legends.map(({ name, rows }) => {
 				return {

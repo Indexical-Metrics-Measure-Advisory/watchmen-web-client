@@ -96,7 +96,7 @@ export abstract class DefaultChartUtils implements ChartUtils {
 		// make indicators fulfill the minimum count
 		new Array(Math.max((this.def.minIndicatorCount || 1) - report.indicators.length, 0))
 			.fill(1)
-			.forEach(() => report.indicators.push({ column: '', arithmetic: ReportIndicatorArithmetic.NONE }));
+			.forEach(() => report.indicators.push({ name: '', arithmetic: ReportIndicatorArithmetic.NONE }));
 		// make indicators fulfill the maximum count
 		const maxIndicatorCount = (this.def.maxIndicatorCount || 1);
 		if (report.indicators.length > maxIndicatorCount) {
@@ -112,7 +112,7 @@ export abstract class DefaultChartUtils implements ChartUtils {
 		// make dimensions fulfill the minimum count
 		new Array(Math.max((this.def.minDimensionCount || 1) - report.dimensions.length, 0))
 			.fill(1)
-			.forEach(() => report.dimensions.push({ column: '' }));
+			.forEach(() => report.dimensions.push({ name: '' }));
 		// make dimensions fulfill the maximum count
 		const maxDimensionCount = (this.def.maxDimensionCount || 1);
 		if (report.dimensions.length > maxDimensionCount) {
@@ -161,7 +161,7 @@ export abstract class DefaultChartUtils implements ChartUtils {
 			// only one dimension, use as xAxis. legend is not needed.
 			// still build as legend for later logic
 			return [ {
-				name: dimensions[0].column,
+				name: dimensions[0].name,
 				rows: dataset.data
 			} ];
 		} else {

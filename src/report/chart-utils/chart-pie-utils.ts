@@ -23,7 +23,7 @@ export class ChartPieUtils extends DefaultChartUtils {
 			},
 			legend: { data: groups.map(({ value }) => value) },
 			series: [ {
-				name: indicator.column,
+				name: indicator.name,
 				type: 'pie',
 				center: [ '50%', '50%' ],
 				data: groups.map(({ value, row }) => {
