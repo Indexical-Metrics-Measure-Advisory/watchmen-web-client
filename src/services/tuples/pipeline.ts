@@ -88,7 +88,14 @@ export const renamePipeline = async (pipelineId: string, name: string): Promise<
 		return renameMockPipeline(pipelineId, name);
 	} else {
 		// REMOTE use real api
-		return renameMockPipeline(pipelineId, name);
+		const token = findToken();
+		await fetch(`${getServiceHost()}pipeline/rename?pipeline_id=${pipelineId}&name=${name}`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
+			},
+		});
 	}
 };
 
