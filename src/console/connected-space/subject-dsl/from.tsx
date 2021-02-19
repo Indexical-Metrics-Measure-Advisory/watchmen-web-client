@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
 import { v4 } from 'uuid';
-import { Lang } from '../../../../../langs';
-import { Factor } from '../../../../../services/tuples/factor-types';
-import { Subject, SubjectDataSetJoin, TopicJoinType } from '../../../../../services/tuples/subject-types';
-import { Topic } from '../../../../../services/tuples/topic-types';
+import { Lang } from '../../../langs';
+import { Factor } from '../../../services/tuples/factor-types';
+import { Subject, SubjectDataSetJoin, TopicJoinType } from '../../../services/tuples/subject-types';
+import { Topic } from '../../../services/tuples/topic-types';
 import { Comma, Equals, FactorName, Join, JoinAnd, NewLine, On, TopicName } from './literal';
 import { buildTopicsMap, findTopicAndFactor } from './literal-utils';
 import { EmptyPart, PartContent } from './widgets';
@@ -132,13 +132,8 @@ export const From = (props: {
 	subject: Subject;
 	availableTopics: Array<Topic>;
 	pickedTopics: Array<Topic>;
-	active: boolean;
 }) => {
-	const { subject, availableTopics, pickedTopics, active } = props;
-
-	if (!active) {
-		return null;
-	}
+	const { subject, availableTopics, pickedTopics } = props;
 
 	const hasJoin = subject.dataset.joins && subject.dataset.joins.length !== 0;
 

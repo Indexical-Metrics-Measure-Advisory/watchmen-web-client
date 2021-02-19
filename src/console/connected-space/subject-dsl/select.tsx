@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { v4 } from 'uuid';
-import { Lang } from '../../../../../langs';
-import { Subject, SubjectDataSetColumn } from '../../../../../services/tuples/subject-types';
-import { Topic } from '../../../../../services/tuples/topic-types';
+import { Lang } from '../../../langs';
+import { Subject, SubjectDataSetColumn } from '../../../services/tuples/subject-types';
+import { Topic } from '../../../services/tuples/topic-types';
 import { Alias, Comma, NewLine, ParameterLine } from './literal';
 import { PrettyComputed, PrettyConstant, PrettyFactor } from './literal-types';
 import { buildTopicsMap, fromParameter } from './literal-utils';
@@ -31,13 +31,8 @@ export const Select = (props: {
 	subject: Subject;
 	availableTopics: Array<Topic>;
 	pickedTopics: Array<Topic>;
-	active: boolean;
 }) => {
-	const { subject, availableTopics, pickedTopics, active } = props;
-
-	if (!active) {
-		return null;
-	}
+	const { subject, availableTopics, pickedTopics } = props;
 
 	const hasSelect = subject.dataset.columns && subject.dataset.columns.length !== 0;
 	const { availableTopicsMap, pickedTopicsMap } = buildTopicsMap({ availableTopics, pickedTopics });

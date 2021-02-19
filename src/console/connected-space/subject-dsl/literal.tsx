@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import { v4 } from 'uuid';
-import { Lang } from '../../../../../langs';
-import { ParameterComputeType, ParameterKind } from '../../../../../services/tuples/factor-calculator-types';
-import { Factor } from '../../../../../services/tuples/factor-types';
-import { TopicJoinType } from '../../../../../services/tuples/subject-types';
-import { Topic } from '../../../../../services/tuples/topic-types';
-import { ParameterComputeTypeLabels } from '../parameter/constants';
+import { Lang } from '../../../langs';
+import { ParameterComputeType, ParameterKind } from '../../../services/tuples/factor-calculator-types';
+import { Factor } from '../../../services/tuples/factor-types';
+import { TopicJoinType } from '../../../services/tuples/subject-types';
+import { Topic } from '../../../services/tuples/topic-types';
+import { ParameterComputeTypeLabels } from '../subject-view/def/parameter/constants';
 import { PrettyComputed, PrettyConstant, PrettyFactor } from './literal-types';
 import {
 	AliasNode,
