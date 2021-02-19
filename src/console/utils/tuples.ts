@@ -56,7 +56,7 @@ export const createReport = (name?: string): Report => {
 		name: name || `${getCurrentLanguage().PLAIN.NEW_REPORT_NAME} ${btoa(reportId).substr(0, 12)}`,
 		indicators: [],
 		dimensions: [],
-		rect: { x: 0, y: 0, width: 480, height: 300 },
+		rect: { x: 32, y: 32, width: 480, height: 300 },
 		chart: { type: ChartType.COUNT },
 		lastVisitTime: getCurrentTime(),
 		createTime: getCurrentTime(),

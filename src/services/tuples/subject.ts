@@ -5,8 +5,12 @@ import { Subject } from './subject-types';
 import { isFakedUuid } from './utils';
 
 export const saveSubject = async (subject: Subject, connectedSpaceId: string): Promise<void> => {
+	// remove reports when save subject
+	// reports will save by itself, independent
+	const { reports, ...rest } = subject;
+
 	if (isMockService()) {
-		return saveMockSubject(subject);
+		return saveMockSubject(rest);
 	} else if (isFakedUuid(subject)) {
 		const token = findToken();
 		const response = await fetch(`${getServiceHost()}console_space/subject?connect_id=${connectedSpaceId}`, {
@@ -15,7 +19,7 @@ export const saveSubject = async (subject: Subject, connectedSpaceId: string): P
 					'Content-Type': 'application/json',
 					Authorization: 'Bearer ' + token
 				},
-				body: JSON.stringify(subject)
+				body: JSON.stringify(rest)
 			}
 		);
 
@@ -30,7 +34,7 @@ export const saveSubject = async (subject: Subject, connectedSpaceId: string): P
 				'Content-Type': 'application/json',
 				Authorization: 'Bearer ' + token
 			},
-			body: JSON.stringify(subject)
+			body: JSON.stringify(rest)
 		});
 
 		const data = await response.json();

@@ -21,13 +21,15 @@ export interface ReportDimension {
 	name: string;
 }
 
+export type ReportRect = GraphicsPosition & GraphicsSize;
+
 export interface Report extends Tuple {
 	reportId: string;
 	name: string;
 	indicators: Array<ReportIndicator>;
 	dimensions: Array<ReportDimension>;
 	description?: string;
-	rect: GraphicsPosition & GraphicsSize;
+	rect: ReportRect;
 	chart: Chart;
 	lastVisitTime: string;
 }

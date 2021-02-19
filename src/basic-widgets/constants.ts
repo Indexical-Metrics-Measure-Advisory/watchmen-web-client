@@ -66,6 +66,7 @@ export const FAVORITE_Z_INDEX = 1500;
 export const PIN_FAVORITE_Z_INDEX = 1499;
 export const DROPDOWN_Z_INDEX = 999;
 export const SIDE_MENU_RESIZE_HANDLE_Z_INDEX = 500;
+export const CHART_DRAG_Z_INDEX = 1000;
 
 export const BASE_MARGIN = 32;
 export const BASE_HEIGHT = 28;

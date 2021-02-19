@@ -180,7 +180,8 @@ export const Zh = {
 			NO_DATASET_COLUMN: '尚未定义数据列.',
 			UNFIX_COLUMN: '解锁本列以及之后已锁定列',
 			FIX_COLUMN: '锁定至本列',
-			COMPRESS_COLUMNS: '全部缩小列宽'
+			COMPRESS_COLUMNS: '全部缩小列宽',
+			NO_REPORT: '尚未定义图表.'
 		},
 		SETTINGS: {
 			TITLE: '设置',

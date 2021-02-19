@@ -180,7 +180,8 @@ export const En = {
 			NO_DATASET_COLUMN: 'No column defined.',
 			UNFIX_COLUMN: 'Unfix Me and Follows',
 			FIX_COLUMN: 'Fix Columns to Here',
-			COMPRESS_COLUMNS: 'Compress Columns'
+			COMPRESS_COLUMNS: 'Compress Columns',
+			NO_REPORT: 'No report defined.'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',

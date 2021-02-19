@@ -7,7 +7,7 @@ import { Subject } from '../../../services/tuples/subject-types';
 import { useSubjectValid } from './data-validator';
 import { SubjectDataSet } from './dataset';
 import { SubjectDef } from './def';
-import { SubjectReport } from './report';
+import { SubjectReports } from './report';
 
 const RouteAnything = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const { connectedSpace, subject } = props;
@@ -31,7 +31,7 @@ export const SubjectBodyRouter = (props: { connectedSpace: ConnectedSpace, subje
 
 	return <Switch>
 		<Route path={Router.CONSOLE_CONNECTED_SPACE_SUBJECT_REPORT}>
-			<SubjectReport connectedSpace={connectedSpace} subject={subject}/>
+			<SubjectReports connectedSpace={connectedSpace} subject={subject}/>
 		</Route>
 		<Route path={Router.CONSOLE_CONNECTED_SPACE_SUBJECT_DATA}>
 			<SubjectDataSet connectedSpace={connectedSpace} subject={subject}/>
