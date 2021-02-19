@@ -25,6 +25,7 @@ import {
 	faEdit,
 	faExpand,
 	faGlobe,
+	faGripVertical,
 	faHome,
 	faInbox,
 	faLevelDownAlt,
@@ -160,6 +161,7 @@ export const ICON_MOVE_UP = faArrowUp;
 export const ICON_DSL = faCode;
 export const ICON_PREPEND = faLevelUpAlt;
 export const ICON_APPEND = faLevelDownAlt;
+export const ICON_DRAG_HANDLE = faGripVertical;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

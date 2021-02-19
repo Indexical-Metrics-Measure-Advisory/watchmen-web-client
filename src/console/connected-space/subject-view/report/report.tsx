@@ -11,5 +11,5 @@ export const SubjectReport = (props: {
 }) => {
 	const { report } = props;
 
-	return <Chart report={report}/>;
+	return <Chart report={report} fixed={false} editable={true} removable={true}/>;
 };

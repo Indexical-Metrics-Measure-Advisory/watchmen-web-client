@@ -19,7 +19,9 @@ const ShareDialogBody = styled(DialogBody)`
 const ShareUrl = styled.div`
 	color       : var(--info-color);
 	font-weight : var(--font-bold);
-	line-height : calc(var(--line-height) * 2);
+	padding-top : calc(var(--margin) / 2);
+	word-break  : break-all;
+	line-height : var(--line-height);
 `;
 const CopiedLabel = styled(DialogLabel).attrs<{ visible: boolean }>(({ visible }) => {
 	return {

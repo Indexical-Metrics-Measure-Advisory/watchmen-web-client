@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { useForceUpdate } from '../../../../basic-widgets/utils';
+import { ReportEventBusProvider } from '../../../../report/report-event-bus';
 import { ConnectedSpace } from '../../../../services/tuples/connected-space-types';
 import { Subject } from '../../../../services/tuples/subject-types';
 import { useSubjectEventBus } from '../subject-event-bus';
 import { SubjectEventTypes } from '../subject-event-bus-types';
+import { ReportEditor } from './editor';
 import { NoReport } from './no-report';
 import { SubjectReport } from './report';
 import { SubjectReportContainer } from './widgets';
@@ -22,12 +24,15 @@ export const SubjectReports = (props: { connectedSpace: ConnectedSpace, subject:
 
 	const hasReport = subject.reports && subject.reports.length !== 0;
 
-	return <SubjectReportContainer>
-		{hasReport
-			? subject.reports?.map(report => {
-				return <SubjectReport connectedSpace={connectedSpace} subject={subject} report={report}
-				                      key={report.reportId}/>;
-			})
-			: <NoReport/>}
-	</SubjectReportContainer>;
+	return <ReportEventBusProvider>
+		<SubjectReportContainer>
+			{hasReport
+				? subject.reports?.map(report => {
+					return <SubjectReport connectedSpace={connectedSpace} subject={subject} report={report}
+					                      key={report.reportId}/>;
+				})
+				: <NoReport/>}
+			<ReportEditor connectedSpace={connectedSpace} subject={subject}/>
+		</SubjectReportContainer>
+	</ReportEventBusProvider>;
 };

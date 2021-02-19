@@ -13,7 +13,7 @@ export const EChartDiagram = (props: { options: EChartOption | EChartsResponsive
 		const chartInstance = echarts.init(rootRef.current!);
 		chartInstance.setOption(options, true);
 		forceUpdate();
-	}, [ options ]);
+	}, [ options, forceUpdate ]);
 
 	return <EChartDiagramContainer ref={rootRef}>
 

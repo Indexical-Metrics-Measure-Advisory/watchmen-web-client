@@ -1,11 +1,13 @@
-import { faGripVertical } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useRef, useState } from 'react';
+import { ICON_DELETE, ICON_DRAG_HANDLE, ICON_SETTINGS } from '../basic-widgets/constants';
 import { saveReport } from '../services/tuples/report';
 import { Report } from '../services/tuples/report-types';
 import { CHART_MIN_HEIGHT, CHART_MIN_WIDTH } from './constants';
+import { useReportEventBus } from './report-event-bus';
+import { ReportEventTypes } from './report-event-bus-types';
 import { DragType } from './types';
-import { ChartContainer, ChartDragHandle, ChartDragHandlePart } from './widgets';
+import { ChartButton, ChartButtons, ChartContainer, ChartDragHandle, ChartDragHandlePart } from './widgets';
 
 interface DragState {
 	top: number;
@@ -103,12 +105,16 @@ const resizeFromRight = (left: number, width: number, clientX: number, startX: n
 
 export const Container = (props: {
 	report: Report;
+	fixed: boolean;
+	editable: boolean;
+	removable: boolean;
 	children: ((props: any) => React.ReactNode) | React.ReactNode
 }) => {
-	const { report, children } = props;
+	const { report, fixed, editable, removable, children } = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const dndRef = useRef<HTMLDivElement>(null);
+	const { fire } = useReportEventBus();
 	const [ dragState, setDragState ] = useState<DragState>({
 		top: 0,
 		left: 0,
@@ -244,23 +250,43 @@ export const Container = (props: {
 			}
 		}
 	};
+	const onEditClicked = () => fire(ReportEventTypes.DO_EDIT, report);
+	const onRemoveClicked = () => fire(ReportEventTypes.DO_DELETE, report);
 
-	return <ChartContainer rect={report.rect} ref={containerRef}>
+	return <ChartContainer rect={report.rect} fixed={fixed} ref={containerRef}>
 		{children}
-		<ChartDragHandle onMouseDown={onMouseDown} onMouseUp={onMouseUp}
-		                 onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}>
-			<ChartDragHandlePart data-position={DragType.RESIZE_TOP}/>
-			<ChartDragHandlePart data-position={DragType.RESIZE_LEFT}/>
-			<ChartDragHandlePart data-position={DragType.RESIZE_RIGHT}/>
-			<ChartDragHandlePart data-position={DragType.RESIZE_BOTTOM}/>
-			<ChartDragHandlePart data-position={DragType.RESIZE_TOP_LEFT}/>
-			<ChartDragHandlePart data-position={DragType.RESIZE_TOP_RIGHT}/>
-			<ChartDragHandlePart data-position={DragType.RESIZE_BOTTOM_LEFT}/>
-			<ChartDragHandlePart data-position={DragType.RESIZE_BOTTOM_RIGHT}/>
-			<ChartDragHandlePart data-part-type='dragging' data-position={dragState.type}/>
-			<ChartDragHandlePart data-position={DragType.DND} ref={dndRef}>
-				<FontAwesomeIcon icon={faGripVertical}/>
-			</ChartDragHandlePart>
-		</ChartDragHandle>
+		{
+			fixed
+				? null
+				: <ChartDragHandle onMouseDown={onMouseDown} onMouseUp={onMouseUp}
+				                   onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}>
+					<ChartDragHandlePart data-position={DragType.RESIZE_TOP}/>
+					<ChartDragHandlePart data-position={DragType.RESIZE_LEFT}/>
+					<ChartDragHandlePart data-position={DragType.RESIZE_RIGHT}/>
+					<ChartDragHandlePart data-position={DragType.RESIZE_BOTTOM}/>
+					<ChartDragHandlePart data-position={DragType.RESIZE_TOP_LEFT}/>
+					<ChartDragHandlePart data-position={DragType.RESIZE_TOP_RIGHT}/>
+					<ChartDragHandlePart data-position={DragType.RESIZE_BOTTOM_LEFT}/>
+					<ChartDragHandlePart data-position={DragType.RESIZE_BOTTOM_RIGHT}/>
+					<ChartDragHandlePart data-part-type='dragging' data-position={dragState.type}/>
+					<ChartDragHandlePart data-position={DragType.DND} ref={dndRef}>
+						<FontAwesomeIcon icon={ICON_DRAG_HANDLE}/>
+					</ChartDragHandlePart>
+					{editable || removable
+						? <ChartButtons>
+							{editable
+								? <ChartButton onClick={onEditClicked}>
+									<FontAwesomeIcon icon={ICON_SETTINGS}/>
+								</ChartButton>
+								: null}
+							{removable
+								? <ChartButton onClick={onRemoveClicked}>
+									<FontAwesomeIcon icon={ICON_DELETE}/>
+								</ChartButton>
+								: null}
+						</ChartButtons>
+						: null}
+				</ChartDragHandle>
+		}
 	</ChartContainer>;
 };
