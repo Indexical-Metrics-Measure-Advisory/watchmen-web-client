@@ -2,7 +2,7 @@ import { BlockCoordinate, BlockFrame, BlockName } from "../graphics/graphics-typ
 import { Subject } from "./subject-types";
 import { Tuple } from "./tuple-types";
 
-export interface ConnectedSpace extends Tuple {
+export interface 	ConnectedSpace extends Tuple {
 	connectId: string;
 	name: string;
 	spaceId: string;
