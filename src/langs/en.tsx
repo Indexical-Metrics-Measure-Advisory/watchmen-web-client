@@ -299,10 +299,17 @@ export const En = {
 	},
 	CHART: {
 		SECTION_TITLE_SIZE: 'Size',
+		SECTION_TITLE_BASIC_STYLE: 'Basic Style',
 		NAME: 'Name',
 		DESCRIPTION: 'Description',
 		WIDTH: 'Width',
 		HEIGHT: 'Height',
-		PIXEL: 'PX'
+		PIXEL: 'PX',
+		COLOR: 'Font Color',
+		BACKGROUND_COLOR: 'Background Color',
+		BORDER: 'Border',
+		BORDER_COLOR: 'Border Color',
+		BORDER_WIDTH: 'Border Width',
+		BORDER_RADIUS: 'Border Radius'
 	}
 };

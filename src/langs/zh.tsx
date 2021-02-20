@@ -299,10 +299,17 @@ export const Zh = {
 	},
 	CHART: {
 		SECTION_TITLE_SIZE: '尺寸',
+		SECTION_TITLE_BASIC_STYLE: '基本样式',
 		NAME: '名称',
 		DESCRIPTION: '描述',
 		WIDTH: '宽度',
 		HEIGHT: '高度',
-		PIXEL: '像素'
+		PIXEL: '像素',
+		COLOR: '文本色',
+		BACKGROUND_COLOR: '背景色',
+		BORDER: '边框',
+		BORDER_COLOR: '边框色',
+		BORDER_WIDTH: '边框宽度',
+		BORDER_RADIUS: '圆弧边框半径'
 	}
 };

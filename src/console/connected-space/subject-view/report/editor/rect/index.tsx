@@ -18,7 +18,7 @@ export const RectSection = (props: { report: Report }) => {
 	};
 	const onPropBlur = (prop: 'width' | 'height') => () => {
 		const value = delegate[prop];
-		if (/^\d{1,4}$/.test(value)) {
+		if (/^\d{1,4}$/.test(value) && (value as unknown as number) > 0) {
 			rect[prop] = parseInt(value);
 			setDelegate({ ...delegate, [prop]: `${rect[prop]}` });
 			fire(ReportEditEventTypes.SIZE_CHANGED, report);
@@ -31,13 +31,15 @@ export const RectSection = (props: { report: Report }) => {
 		<PropName>{Lang.CHART.WIDTH}</PropName>
 		<PropValue>
 			<PropValueInput value={delegate.width}
-			                onChange={onPropChange('width')} onBlur={onPropBlur('width')}/>
+			                onChange={onPropChange('width')} onBlur={onPropBlur('width')}
+			                placeholder='1 - 9999'/>
 			<PropValueUnit>{Lang.CHART.PIXEL}</PropValueUnit>
 		</PropValue>
 		<PropName>{Lang.CHART.HEIGHT}</PropName>
 		<PropValue>
 			<PropValueInput value={delegate.height}
-			                onChange={onPropChange('height')} onBlur={onPropBlur('height')}/>
+			                onChange={onPropChange('height')} onBlur={onPropBlur('height')}
+			                placeholder='1 - 9999'/>
 			<PropValueUnit>{Lang.CHART.PIXEL}</PropValueUnit>
 		</PropValue>
 	</Section>;

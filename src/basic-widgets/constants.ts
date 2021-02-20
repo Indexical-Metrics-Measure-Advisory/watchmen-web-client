@@ -92,7 +92,7 @@ export const TOOLTIP_CARET_OFFSET = 6;
 
 export const PIN_FAVORITE_HEIGHT = 'calc(var(--height) * 1.2 + 1px)';
 
-export const CHART_SETTINGS_MIN_WIDTH = 300;
+export const CHART_SETTINGS_MIN_WIDTH = 350;
 export const CHART_SETTINGS_MAX_WIDTH = 800;
 export const CHART_SETTINGS_RESIZE_HANDLE_WIDTH = 6;
 

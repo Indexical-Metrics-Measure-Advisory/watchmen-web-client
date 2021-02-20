@@ -43,6 +43,9 @@ export const PropName = styled.div.attrs({ 'data-widget': 'chart-settings-prop-n
 	border-right  : var(--border);
 	border-bottom : var(--border);
 	padding       : 0 calc(var(--margin) / 2);
+	white-space   : nowrap;
+	overflow      : hidden;
+	text-overflow : ellipsis;
 `;
 export const PropValue = styled.div.attrs({ 'data-widget': 'chart-settings-prop-value' })`
 	display       : flex;

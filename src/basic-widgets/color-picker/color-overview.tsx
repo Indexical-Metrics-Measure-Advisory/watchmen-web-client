@@ -1,0 +1,64 @@
+import React, { MouseEvent, useEffect, useRef, useState } from 'react';
+import { useColorPickerEventBus } from './color-picker-event-bus';
+import { ColorPickerEventTypes } from './color-picker-event-bus-types';
+import { IndicatorState } from './types';
+import { ColorIndicator, ColorOverviewContainer } from './widgets';
+
+export const ColorOverview = () => {
+	const { on, off, fire } = useColorPickerEventBus();
+	const containerRef = useRef<HTMLDivElement>(null);
+	const indicatorRef = useRef<HTMLDivElement>(null);
+	const [ color, setColor ] = useState('');
+	const [ dragging, setDragging ] = useState(false);
+	const [ indicator, setIndicator ] = useState<IndicatorState>({ x: -6, y: -6 });
+	useEffect(() => {
+		const onHueChanged = (hue: number) => {
+			setColor(`hsl(${hue * 360}, 100%, 50%)`);
+		};
+		on(ColorPickerEventTypes.HUE_CHANGED, onHueChanged);
+		return () => {
+			off(ColorPickerEventTypes.HUE_CHANGED, onHueChanged);
+		};
+	}, [ on, off ]);
+
+	const computeIndicator = (clientX: number, clientY: number) => {
+		if (!containerRef.current || !indicatorRef.current) {
+			return;
+		}
+		const { top, left, width, height } = containerRef.current.getBoundingClientRect();
+		const x = clientX - left;
+		const y = clientY - top;
+		indicatorRef.current.style.transform = `translate(${x}px, ${y}px)`;
+
+		const saturation = x / width;
+		const brightness = 1 - y / height;
+		fire(ColorPickerEventTypes.SATURATION_AND_BRIGHTNESS_CHANGED, saturation, brightness);
+	};
+	const onMouseDown = (event: MouseEvent<HTMLDivElement>) => {
+		setDragging(true);
+		computeIndicator(event.clientX, event.clientY);
+	};
+	const onRelease = () => {
+		setDragging(false);
+		const transform = indicatorRef.current?.style.transform;
+		if (transform) {
+			const [ xPart, yPart ] = transform.split(',');
+			const x = parseInt(xPart.replace('translate(', '').replace('px', ''));
+			const y = parseInt(yPart.trim().replace('px', ''));
+			setIndicator({ x, y });
+		}
+	};
+	const onMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+		if (!dragging) {
+			return;
+		}
+		computeIndicator(event.clientX, event.clientY);
+	};
+
+	return <ColorOverviewContainer onMouseDown={onMouseDown} onMouseUp={onRelease} onMouseLeave={onRelease}
+	                               onMouseMove={onMouseMove}
+	                               color={color}
+	                               ref={containerRef}>
+		<ColorIndicator {...indicator} ref={indicatorRef}/>
+	</ColorOverviewContainer>;
+};
