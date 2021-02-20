@@ -23,7 +23,7 @@ export const BasicStylesSection = (props: { report: Report }) => {
 	return <Section title={Lang.CHART.SECTION_TITLE_BASIC_STYLE}>
 		<PropName>{Lang.CHART.COLOR}</PropName>
 		<PropValue>
-			<ChartColorPicker color={settings?.color || ''} onChange={onColorChange('color')}/>
+			<ChartColorPicker color={settings?.color || 'red'} onChange={onColorChange('color')}/>
 		</PropValue>
 		<PropName>{Lang.CHART.BACKGROUND_COLOR}</PropName>
 		<PropValue>

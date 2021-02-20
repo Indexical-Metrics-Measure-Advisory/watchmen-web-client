@@ -35,10 +35,12 @@ export const ColorBar = styled.div.attrs<{ color: string }>(({ color }) => {
 		style: { backgroundColor: color }
 	};
 })<{ color: string }>`
-	display      : block;
-	flex-grow    : 1;
-	align-self   : stretch;
-	justify-self : stretch;
+	display       : block;
+	flex-grow     : 1;
+	align-self    : center;
+	justify-self  : stretch;
+	height        : 50%;
+	border-radius : calc(var(--border-radius) * 2);
 `;
 export const ColorDropdownContainer = styled.div.attrs<State>(
 	({ active, atBottom, top, left, height }) => {
