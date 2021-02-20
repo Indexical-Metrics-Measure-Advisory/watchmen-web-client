@@ -6,8 +6,8 @@ import {
 	ParameterComputeType,
 	ParameterCondition,
 	ParameterExpression,
-	ParameterKind,
 	ParameterJoint,
+	ParameterKind,
 	ParameterType,
 	TopicFactorParameter
 } from './factor-calculator-types';

@@ -1,8 +1,8 @@
-import { findToken } from "../account";
-import { deleteMockSubject, renameMockSubject, saveMockSubject } from "../mock/tuples/mock-subject";
-import { getServiceHost, isMockService } from "../utils";
-import { Subject } from "./subject-types";
-import { isFakedUuid } from "./utils";
+import { findToken } from '../account';
+import { deleteMockSubject, renameMockSubject, saveMockSubject } from '../mock/tuples/mock-subject';
+import { getServiceHost, isMockService } from '../utils';
+import { Subject } from './subject-types';
+import { isFakedUuid } from './utils';
 
 export const saveSubject = async (subject: Subject, connectedSpaceId: string): Promise<void> => {
 	// remove reports when save subject
@@ -14,12 +14,12 @@ export const saveSubject = async (subject: Subject, connectedSpaceId: string): P
 	} else if (isFakedUuid(subject)) {
 		const token = findToken();
 		const response = await fetch(`${getServiceHost()}console_space/subject?connect_id=${connectedSpaceId}`, {
-			method: "POST",
+			method: 'POST',
 			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
 			},
-			body: JSON.stringify(rest),
+			body: JSON.stringify(rest)
 		});
 
 		const data = await response.json();
@@ -28,12 +28,12 @@ export const saveSubject = async (subject: Subject, connectedSpaceId: string): P
 	} else {
 		const token = findToken();
 		const response = await fetch(`${getServiceHost()}console_space/subject/save`, {
-			method: "POST",
+			method: 'POST',
 			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
 			},
-			body: JSON.stringify(rest),
+			body: JSON.stringify(rest)
 		});
 
 		const data = await response.json();
@@ -48,11 +48,11 @@ export const renameSubject = async (subject: Subject): Promise<void> => {
 		// REMOTE use real api
 		const token = findToken();
 		await fetch(`${getServiceHost()}subject/rename?subject_id=${subject.subjectId}&name=${subject.name}`, {
-			method: "GET",
+			method: 'GET',
 			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
+			}
 		});
 	}
 };
@@ -63,11 +63,11 @@ export const deleteSubject = async (subject: Subject): Promise<void> => {
 	} else {
 		const token = findToken();
 		await fetch(`${getServiceHost()}console_space/subject/delete?subject_id=${subject.subjectId}`, {
-			method: "GET",
+			method: 'GET',
 			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
+			}
 		});
 	}
 };

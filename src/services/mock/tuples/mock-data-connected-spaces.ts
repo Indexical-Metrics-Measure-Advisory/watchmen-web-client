@@ -1,5 +1,5 @@
 import { ConnectedSpace } from '../../tuples/connected-space-types';
-import { ParameterKind, ParameterJointType, TopicFactorParameter } from '../../tuples/factor-calculator-types';
+import { ParameterJointType, ParameterKind, TopicFactorParameter } from '../../tuples/factor-calculator-types';
 import { generateUuid } from '../../tuples/utils';
 import { getCurrentTime } from '../../utils';
 

@@ -1,14 +1,14 @@
-import { findToken } from "../account";
+import { findToken } from '../account';
 import {
 	fetchMockPipelinesGraphics,
 	renameMockPipeline,
 	saveMockPipeline,
 	saveMockPipelinesGraphics,
-	toggleMockPipelineEnabled,
-} from "../mock/tuples/mock-pipeline";
-import { getServiceHost, isMockService } from "../utils";
-import { Pipeline, PipelinesGraphics } from "./pipeline-types";
-import { isFakedUuid } from "./utils";
+	toggleMockPipelineEnabled
+} from '../mock/tuples/mock-pipeline';
+import { getServiceHost, isMockService } from '../utils';
+import { Pipeline, PipelinesGraphics } from './pipeline-types';
+import { isFakedUuid } from './utils';
 
 export const fetchPipelinesGraphics = async (): Promise<PipelinesGraphics> => {
 	if (isMockService()) {
@@ -17,11 +17,11 @@ export const fetchPipelinesGraphics = async (): Promise<PipelinesGraphics> => {
 		// REMOTE use real api
 		const token = findToken();
 		const response = await fetch(`${getServiceHost()}pipeline/graphics/me`, {
-			method: "GET",
+			method: 'GET',
 			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
+			}
 			// body: JSON.stringify(graphics),
 		});
 
@@ -37,12 +37,12 @@ export const savePipelinesGraphics = async (graphics: PipelinesGraphics): Promis
 		// REMOTE use real api
 		const token = findToken();
 		await fetch(`${getServiceHost()}pipeline/graphics`, {
-			method: "POST",
+			method: 'POST',
 			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
 			},
-			body: JSON.stringify(graphics),
+			body: JSON.stringify(graphics)
 		});
 
 		// const data = await response.json();
@@ -56,12 +56,12 @@ export const savePipeline = async (pipeline: Pipeline): Promise<void> => {
 	} else if (isFakedUuid(pipeline)) {
 		const token = findToken();
 		const response = await fetch(`${getServiceHost()}pipeline`, {
-			method: "POST",
+			method: 'POST',
 			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
 			},
-			body: JSON.stringify(pipeline),
+			body: JSON.stringify(pipeline)
 		});
 
 		const data = await response.json();
@@ -70,12 +70,12 @@ export const savePipeline = async (pipeline: Pipeline): Promise<void> => {
 	} else {
 		const token = findToken();
 		const response = await fetch(`${getServiceHost()}pipeline`, {
-			method: "POST",
+			method: 'POST',
 			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
 			},
-			body: JSON.stringify(pipeline),
+			body: JSON.stringify(pipeline)
 		});
 
 		const data = await response.json();
@@ -90,11 +90,11 @@ export const renamePipeline = async (pipelineId: string, name: string): Promise<
 		// REMOTE use real api
 		const token = findToken();
 		await fetch(`${getServiceHost()}pipeline/rename?pipeline_id=${pipelineId}&name=${name}`, {
-			method: "GET",
+			method: 'GET',
 			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
+			}
 		});
 	}
 };
@@ -106,11 +106,11 @@ export const togglePipelineEnabled = async (pipelineId: string, enabled: boolean
 		// REMOTE use real api
 		const token = findToken();
 		await fetch(`${getServiceHost()}pipeline/enabled?pipeline_id=${pipelineId}&enabled=${enabled}`, {
-			method: "GET",
+			method: 'GET',
 			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
+			}
 		});
 	}
 };

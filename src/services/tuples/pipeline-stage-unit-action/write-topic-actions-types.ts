@@ -1,20 +1,20 @@
-import { Parameter } from "../factor-calculator-types";
+import { Parameter } from '../factor-calculator-types';
 import {
 	FindBy,
 	PipelineStageUnitAction,
 	ToFactor,
 	ToTopic,
-	WriteTopicActionType,
-} from "./pipeline-stage-unit-action-types";
+	WriteTopicActionType
+} from './pipeline-stage-unit-action-types';
 
 export enum AggregateArithmetic {
-	NONE = "none",
-	COUNT = "count",
-	SUM = "sum",
-	AVG = "avg",
-	MAX = "max",
-	MIN = "min",
-	MEDIAN = "med",
+	NONE = 'none',
+	COUNT = 'count',
+	SUM = 'sum',
+	AVG = 'avg',
+	MAX = 'max',
+	MIN = 'min',
+	MEDIAN = 'med',
 }
 
 export interface AggregateArithmeticHolder {

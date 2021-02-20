@@ -1,7 +1,7 @@
-import { findToken } from "../account";
-import { fetchMockAllPipelines } from "../mock/pipeline/mock-all-pipelines";
-import { Pipeline } from "../tuples/pipeline-types";
-import { getServiceHost, isMockService } from "../utils";
+import { findToken } from '../account';
+import { fetchMockAllPipelines } from '../mock/pipeline/mock-all-pipelines';
+import { Pipeline } from '../tuples/pipeline-types';
+import { getServiceHost, isMockService } from '../utils';
 
 export const fetchAllPipelines = async (): Promise<Array<Pipeline>> => {
 	if (isMockService()) {
@@ -11,11 +11,11 @@ export const fetchAllPipelines = async (): Promise<Array<Pipeline>> => {
 		// return fetchMockAllPipelines();
 		const token = findToken();
 		const response = await fetch(`${getServiceHost()}pipeline/all`, {
-			method: "GET",
+			method: 'GET',
 			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
+			}
 		});
 
 		const result = await response.json();

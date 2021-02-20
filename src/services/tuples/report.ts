@@ -22,7 +22,7 @@ export const listReports = async (options: {
 
 export const saveNewReport = async (report: Report, subjectId: string): Promise<void> => {
 	return saveMockReport(report);
-}
+};
 
 export const saveReport = async (report: Report): Promise<void> => {
 	if (isMockService()) {

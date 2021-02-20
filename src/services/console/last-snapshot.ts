@@ -1,8 +1,8 @@
-import { findAccount } from "../account";
-import { fetchMockLastSnapshot } from "../mock/console/mock-last-snapshot";
-import { LAST_SNAPSHOT_TOKEN } from "../session-constants";
-import { isMockService } from "../utils";
-import { LastSnapshot } from "./last-snapshot-types";
+import { findAccount } from '../account';
+import { fetchMockLastSnapshot } from '../mock/console/mock-last-snapshot';
+import { LAST_SNAPSHOT_TOKEN } from '../session-constants';
+import { isMockService } from '../utils';
+import { LastSnapshot } from './last-snapshot-types';
 
 const fetchLastSnapshotFromSession = (): LastSnapshot | undefined => {
 	const account = findAccount();
