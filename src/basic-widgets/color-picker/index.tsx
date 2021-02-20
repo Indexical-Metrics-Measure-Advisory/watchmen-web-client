@@ -5,11 +5,10 @@ import { State } from './types';
 import { atBottom, getPosition } from './utils';
 import { ColorBar, ColorPickerContainer } from './widgets';
 
-export const ColorPicker = (props: {}) => {
-	const { ...rest } = props;
+export const ColorPicker = (props: { color: string, onChange: (color: string) => void }) => {
+	const { color = '', onChange, ...rest } = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
-	const [ color, setColor ] = useState('');
 	const [ state, setState ] = useState<State>({
 		active: false,
 		atBottom: true,
@@ -19,7 +18,7 @@ export const ColorPicker = (props: {}) => {
 		height: 0
 	});
 	useEffect(() => {
-		const onScroll = (event: Event) => {
+		const onScroll = () => {
 			if (!state.active) {
 				return;
 			}

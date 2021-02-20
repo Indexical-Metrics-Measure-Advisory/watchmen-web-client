@@ -18,7 +18,7 @@ export const ColorResultRgba = () => {
 	}, [ on, off ]);
 
 	return <ColorResult>
-		<span>RGBA:</span>
+		<span>RGBa:</span>
 		<span>{color.toUpperCase()}</span>
 	</ColorResult>;
 };

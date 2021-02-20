@@ -113,11 +113,11 @@ export const ColorPreviewContainer = styled.div.attrs<{ color: string }>(({ colo
 		}
 	};
 })<{ color: string }>`
-	grid-row         : 2 / span 2;
-	align-self       : center;
-	height           : var(--margin);
-	border-radius    : 100%;
-	border           : 1px solid #EEEEEE;
+	grid-row      : 2 / span 2;
+	align-self    : center;
+	height        : var(--margin);
+	border-radius : 100%;
+	border        : 1px solid #EEEEEE;
 	//background-color : rgba(255, 0, 0, 0.5);
 	//background       : darkgreen;
 	//background       : linear-gradient(45deg, rgba(0, 0, 0, .25) 25%, transparent 0, transparent 75%, rgba(0, 0, 0, .25) 0) 0 0 / 12px 12px, linear-gradient(45deg, rgba(0, 0, 0, .25) 25%, transparent 0, transparent 75%, rgba(0, 0, 0, .25) 0) 6px 6px / 12px 12px;
@@ -173,5 +173,6 @@ export const ColorResult = styled.h5.attrs({ 'data-widget': 'color-picker-result
 		font-family  : var(--title-font-family);
 		font-weight  : var(--font-demi-bold);
 		margin-right : calc(var(--margin) / 4);
+		min-width    : var(--margin);
 	}
 `;
