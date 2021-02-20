@@ -1,8 +1,8 @@
-import { BlockCoordinate, BlockFrame, BlockName } from '../graphics/graphics-types';
-import { Subject } from './subject-types';
-import { Tuple } from './tuple-types';
+import { BlockCoordinate, BlockFrame, BlockName } from "../graphics/graphics-types";
+import { Subject } from "./subject-types";
+import { Tuple } from "./tuple-types";
 
-export interface ConnectedSpace extends Tuple {
+export interface 	ConnectedSpace extends Tuple {
 	connectId: string;
 	name: string;
 	spaceId: string;
@@ -13,11 +13,11 @@ export interface ConnectedSpace extends Tuple {
 export interface ConnectedSpaceBlockGraphicsRect {
 	coordinate: BlockCoordinate;
 	frame: BlockFrame;
-	name: BlockName
+	name: BlockName;
 }
 
 export interface ConnectedSpaceBlockGraphics {
-	rect: ConnectedSpaceBlockGraphicsRect
+	rect: ConnectedSpaceBlockGraphicsRect;
 }
 
 export interface TopicGraphics extends ConnectedSpaceBlockGraphics {
