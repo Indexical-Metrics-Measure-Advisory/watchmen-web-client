@@ -14,6 +14,7 @@ export const SettingsContainer = styled.div.attrs<{ width?: number }>(({ width }
 	border-left    : var(--border);
 	min-width      : ${CHART_SETTINGS_MIN_WIDTH}px;
 	max-width      : ${CHART_SETTINGS_MAX_WIDTH}px;
+	height: 100%;
 `;
 export const SettingsHeader = styled.div.attrs({ 'data-widget': 'report-editor-settings-header' })`
 	display         : flex;

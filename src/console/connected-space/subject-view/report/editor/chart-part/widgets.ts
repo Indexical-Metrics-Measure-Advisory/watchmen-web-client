@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR } from '../../../../../../admin/pipelines/pipeline/header/widgets';
 import { ReportRect } from '../../../../../../services/tuples/report-types';
 
 export const EditChartContainer = styled.div.attrs({
@@ -11,6 +12,7 @@ export const EditChartContainer = styled.div.attrs({
 	align-items     : center;
 	justify-content : center;
 	overflow        : auto;
+	max-height      : ${BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR};
 `;
 export const ChartWrapper = styled.div.attrs<{ rect: ReportRect }>(({ rect: { width, height } }) => {
 	return {

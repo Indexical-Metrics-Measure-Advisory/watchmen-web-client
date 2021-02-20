@@ -2,9 +2,7 @@ import styled from 'styled-components';
 import { Input } from '../../../../../../basic-widgets/input';
 import { InputLines } from '../../../../../../basic-widgets/input-lines';
 
-export const SectionContainer = styled.div.attrs<{ expanded: boolean }>(({ expanded }) => {
-	return { 'data-widget': 'chart-settings-section' };
-})<{ expanded: boolean }>`
+export const SectionContainer = styled.div.attrs<{ expanded: boolean }>({ 'data-widget': 'chart-settings-section' })<{ expanded: boolean }>`
 	display       : flex;
 	position      : relative;
 	grid-column   : 1 / span 2;
@@ -57,8 +55,10 @@ export const PropExclusiveValue = styled.div.attrs({ 'data-widget': 'chart-setti
 	grid-column   : 1 / span 2;
 	display       : flex;
 	align-items   : center;
-	//height        : calc(var(--height) + 1px);
 	border-bottom : var(--border);
+	&:last-child {
+		border-bottom : 0;
+	}
 `;
 export const PropValueUnit = styled.div.attrs({ 'data-widget': 'chart-settings-prop-value-unit' })`
 	display          : flex;
