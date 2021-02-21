@@ -19,6 +19,10 @@ const atBottom = (top: number, height: number, itemCount: number) => {
 	return top + height + Math.min(itemCount, 8) * BASE_HEIGHT + 2 < window.innerHeight;
 };
 
+const isJSXElement = (label: any): label is JSX.Element => {
+	return !!(label as any).$$typeof;
+};
+
 const DropdownContainer = styled.div.attrs<{ 'data-widget'?: string, active: boolean, atBottom: boolean }>(
 	({ 'data-widget': widget, active, atBottom }) => {
 		return {
@@ -229,6 +233,8 @@ export const Dropdown = (props: DropdownProps) => {
 		const { label } = option;
 		if (typeof label === 'string') {
 			return label;
+		} else if (isJSXElement(label)) {
+			return label;
 		} else {
 			const display: DropdownOptionLabel = label(option);
 			// don't know why, webstorm consider "display" cannot have type "string",
@@ -275,7 +281,9 @@ export const Dropdown = (props: DropdownProps) => {
 				const asLabel = typeof label === 'function' ? label : directFromLabel;
 				const computed = asLabel(option);
 				const display = typeof computed === 'string' ? computed : computed.node;
-				const compare = typeof computed === 'string' ? computed : computed.label;
+				// label still might be a JSX element, because of i18n delegate logic
+				// in case of this, this option will be filtered no matter what filter text is given
+				const compare = typeof computed === 'string' ? computed : (typeof computed.label === 'string' ? computed.label : '');
 				if (filter && compare.toLowerCase().indexOf(filter.toLowerCase()) === -1) {
 					return null;
 				}

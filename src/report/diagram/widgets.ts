@@ -1,6 +1,19 @@
 import styled from 'styled-components';
+import { ChartSettings } from '../../services/tuples/chart-types';
 
-export const DiagramContainer = styled.div.attrs({ 'data-widget': 'chart-diagram' })`
+export const DiagramContainer = styled.div.attrs<{ settings?: ChartSettings }>(({ settings = {} }) => {
+	return {
+		'data-widget': 'chart-diagram',
+		style: {
+			color: settings?.color,
+			backgroundColor: settings?.backgroundColor,
+			borderStyle: settings?.borderStyle,
+			borderWidth: settings?.borderWidth,
+			borderColor: settings?.borderColor,
+			borderRadius: settings?.borderRadius
+		}
+	};
+})<{ settings?: ChartSettings }>`
 	display  : block;
 	position : relative;
 	width    : 100%;

@@ -45,7 +45,9 @@ export const Diagram = (props: { report: Report }) => {
 		report, state.loaded
 	]);
 
-	return <DiagramContainer>
+	const { chart: { settings } } = report;
+
+	return <DiagramContainer settings={settings}>
 		{state.loaded
 			? <ChartDiagram report={report} dataset={state.dataset!}/>
 			: <DiagramLoading>

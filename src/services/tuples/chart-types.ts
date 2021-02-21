@@ -4,7 +4,7 @@ export enum PredefinedChartColorSeries {
 	LIGHT = 'light'
 }
 
-export enum ChartBorder {
+export enum ChartBorderStyle {
 	NONE = 'none',
 	SOLID = 'solid',
 	DOTTED = 'dotted',
@@ -38,7 +38,7 @@ export enum ChartTextDecoration {
 export interface ChartSettings {
 	color?: string;
 	backgroundColor?: string;
-	border?: ChartBorder;
+	borderStyle?: ChartBorderStyle;
 	borderColor?: string;
 	borderWidth?: number;
 	borderRadius?: number;

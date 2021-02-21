@@ -13,8 +13,10 @@ export const ChartPart = (props: { report: Report }) => {
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		on(ReportEditEventTypes.SIZE_CHANGED, forceUpdate);
+		on(ReportEditEventTypes.BASIC_STYLE_CHANGED, forceUpdate);
 		return () => {
 			off(ReportEditEventTypes.SIZE_CHANGED, forceUpdate);
+			off(ReportEditEventTypes.BASIC_STYLE_CHANGED, forceUpdate);
 		};
 	}, [ on, off, forceUpdate ]);
 
