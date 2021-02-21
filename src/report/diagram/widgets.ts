@@ -5,12 +5,12 @@ export const DiagramContainer = styled.div.attrs<{ settings?: ChartSettings }>((
 	return {
 		'data-widget': 'chart-diagram',
 		style: {
-			color: settings?.color,
-			backgroundColor: settings?.backgroundColor,
-			borderStyle: settings?.borderStyle,
-			borderWidth: settings?.borderWidth,
-			borderColor: settings?.borderColor,
-			borderRadius: settings?.borderRadius
+			color: settings?.color || 'var(--font-color)',
+			backgroundColor: settings?.backgroundColor || 'var(--bg-color)',
+			borderStyle: settings?.borderStyle || 'none',
+			borderWidth: settings?.borderWidth || 0,
+			borderColor: settings?.borderColor || 'var(--border-color)',
+			borderRadius: settings?.borderRadius || 0
 		}
 	};
 })<{ settings?: ChartSettings }>`
