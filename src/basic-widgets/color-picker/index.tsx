@@ -49,7 +49,7 @@ export const ColorPicker = (props: { color: string, onChange: (color: string) =>
 		                      {...rest}
 		                      onClick={onClicked} onBlur={onBlurred}>
 			<ColorBar color={color}/>
-			<ColorDropdown state={state}/>
+			<ColorDropdown state={state} color={color}/>
 		</ColorPickerContainer>
 	</ColorPickerEventBusProvider>;
 };

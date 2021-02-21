@@ -90,7 +90,6 @@ export const ColorOverviewContainer = styled.div.attrs<{ color: string }>(({ col
 	margin       : 4px calc(var(--margin) / -2 + 6px) calc(var(--margin) / 4) calc(var(--margin) / -2 + 4px);
 	cursor       : crosshair;
 	overflow     : hidden;
-	//background       : darkred;
 	background   : linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), linear-gradient(to left, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1));
 `;
 export const ColorIndicator = styled.div.attrs<IndicatorState>(({ x, y }) => {
@@ -120,9 +119,6 @@ export const ColorPreviewContainer = styled.div.attrs<{ color: string }>(({ colo
 	height        : var(--margin);
 	border-radius : 100%;
 	border        : 1px solid #EEEEEE;
-	//background-color : rgba(255, 0, 0, 0.5);
-	//background       : darkgreen;
-	//background       : linear-gradient(45deg, rgba(0, 0, 0, .25) 25%, transparent 0, transparent 75%, rgba(0, 0, 0, .25) 0) 0 0 / 12px 12px, linear-gradient(45deg, rgba(0, 0, 0, .25) 25%, transparent 0, transparent 75%, rgba(0, 0, 0, .25) 0) 6px 6px / 12px 12px;
 `;
 const ColorPaletteContainer = styled.div.attrs({ 'data-widget': 'color-picker-palette' })`
 	position      : relative;
