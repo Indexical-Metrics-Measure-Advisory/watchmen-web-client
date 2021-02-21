@@ -10,7 +10,6 @@ import { ColorValue } from '../settings-widgets/color-value';
 import { DropdownValue } from '../settings-widgets/dropdown-value';
 import { NumberValue } from '../settings-widgets/number-value';
 import { Section } from '../settings-widgets/section';
-import { TextValue } from '../settings-widgets/text-value';
 
 const BorderStyleOptions: Array<DropdownOption> = [
 	{ value: ChartBorderStyle.NONE, label: Lang.CHART.BORDER_STYLE_NONE },
@@ -39,13 +38,6 @@ export const BasicStylesSection = (props: { report: Report }) => {
 
 	const { fire } = useReportEditEventBus();
 
-	const onFontFamilyChange = (value: string) => {
-		if (!report.chart.settings) {
-			report.chart.settings = {};
-		}
-		report.chart.settings.fontFamily = value;
-		fire(ReportEditEventTypes.BASIC_STYLE_CHANGED, report);
-	};
 	const onColorChange = (prop: 'fontColor' | 'backgroundColor' | 'borderColor') => (color?: string) => {
 		if (!report.chart.settings) {
 			report.chart.settings = {};
@@ -69,7 +61,7 @@ export const BasicStylesSection = (props: { report: Report }) => {
 		fire(ReportEditEventTypes.BASIC_STYLE_CHANGED, report);
 		return numberValue;
 	};
-	const onDropdownValueChange = (prop: 'borderStyle' | 'fontStyle' | 'fontWeight') => (option: DropdownOption) => {
+	const onDropdownValueChange = (prop: 'borderStyle' | 'fontFamily' | 'fontStyle' | 'fontWeight') => (option: DropdownOption) => {
 		const { value } = option;
 		if (!report.chart.settings) {
 			report.chart.settings = {};
@@ -79,9 +71,31 @@ export const BasicStylesSection = (props: { report: Report }) => {
 	};
 
 	const theme = getCurrentTheme();
+	const FontFamilyOptions = theme.fontFamily.split(',')
+		.filter(x => !!x)
+		.map(font => ({ name: font, label: font.trim() }))
+		.map(({ name, label }) => {
+			label = label.startsWith('\'') ? label.substr(1) : label;
+			label = label.endsWith('\'') ? label.substr(0, label.length - 1) : label;
+			label = label.replace(/-/g, ' ').trim();
+			return { name, label };
+		})
+		.map(({ name, label }) => {
+			return {
+				value: name,
+				label: () => {
+					return {
+						node: <span style={{ textTransform: 'capitalize' }}>{label}</span>,
+						label
+					};
+				}
+			};
+		});
+
 	return <Section title={Lang.CHART.SECTION_TITLE_BASIC_STYLE}>
-		<TextValue label={Lang.CHART.FONT_FAMILY}
-		           value={report.chart.settings?.fontFamily} onValueChange={onFontFamilyChange}/>
+		<DropdownValue label={Lang.CHART.FONT_FAMILY} options={FontFamilyOptions}
+		               value={report.chart.settings?.fontFamily}
+		               onValueChange={onDropdownValueChange('fontFamily')}/>
 		<ColorValue label={Lang.CHART.FONT_COLOR}
 		            value={report.chart.settings?.fontColor} defaultValue={theme.fontColor}
 		            onValueChange={onColorChange('fontColor')}/>

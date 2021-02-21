@@ -27,7 +27,7 @@ export const DiagramLoading = styled.div.attrs({ 'data-widget': 'chart-diagram-l
 	display         : flex;
 	align-items     : center;
 	justify-content : center;
-	font-size       : 8em;
+	font-size       : 112px;
 	height          : 100%;
 	opacity         : 0.1;
 `;
