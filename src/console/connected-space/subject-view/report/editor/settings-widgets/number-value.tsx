@@ -32,7 +32,13 @@ export const NumberValue = (props: {
 		const { value } = event.target;
 		setDelegate({ value });
 	};
-	const onPropBlur = () => {
+	const onKeyPressed = async (event: React.KeyboardEvent<HTMLInputElement>) => {
+		if (event.key !== 'Enter') {
+			return;
+		}
+		onConfirm();
+	};
+	const onConfirm = () => {
 		const { value: newValue } = delegate;
 		if (validate(newValue)) {
 			const value = onValueChange(newValue);
@@ -47,7 +53,7 @@ export const NumberValue = (props: {
 		<PropName>{label}</PropName>
 		<PropValue>
 			<PropValueInput value={delegate.value}
-			                onChange={onPropChange} onBlur={onPropBlur}
+			                onChange={onPropChange} onKeyPress={onKeyPressed} onBlur={onConfirm}
 			                placeholder={placeholder}/>
 			{unitLabel ? <PropValueUnit>{unitLabel}</PropValueUnit> : null}
 		</PropValue>
