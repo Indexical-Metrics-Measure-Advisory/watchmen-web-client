@@ -19,7 +19,6 @@ const useDragging = (options: {
 		}
 		const { left, width } = containerRef.current.getBoundingClientRect();
 		const x = Math.min(Math.max(clientX - left, 0), PALETTE_WIDTH);
-		indicatorRef.current.style.transform = `translateX(${x}px)`;
 		onChange(x, width);
 	};
 	const onMouseDown = (event: MouseEvent<HTMLDivElement>) => {
@@ -42,18 +41,34 @@ const useDragging = (options: {
 	};
 	return {
 		onMouseDown, onMouseMove, onRelease,
-		indicatorX
+		setIndicatorX, indicatorX
 	};
 };
 
 export const ColorPaletteHue = () => {
-	const { fire } = useColorPickerEventBus();
+	const { on, off, fire } = useColorPickerEventBus();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const indicatorRef = useRef<HTMLDivElement>(null);
 	const onChange = (x: number, width: number) => {
 		fire(ColorPickerEventTypes.HUE_CHANGED, 1 - x / width);
 	};
-	const { onMouseDown, onRelease, onMouseMove, indicatorX } = useDragging({ containerRef, indicatorRef, onChange });
+	const { onMouseDown, onRelease, onMouseMove, setIndicatorX, indicatorX } = useDragging({
+		containerRef,
+		indicatorRef,
+		onChange
+	});
+	useEffect(() => {
+		const onHueChanged = (hue: number) => {
+			if (containerRef.current) {
+				const { width } = containerRef.current.getBoundingClientRect();
+				setIndicatorX((1 - hue) * width);
+			}
+		};
+		on(ColorPickerEventTypes.HUE_CHANGED, onHueChanged);
+		return () => {
+			off(ColorPickerEventTypes.HUE_CHANGED, onHueChanged);
+		};
+	}, [ on, off, setIndicatorX ]);
 
 	return <HueColorPalette onMouseDown={onMouseDown} onMouseUp={onRelease} onMouseLeave={onRelease}
 	                        onMouseMove={onMouseMove}
@@ -66,17 +81,33 @@ export const ColorPaletteAlpha = () => {
 	const { on, off, fire } = useColorPickerEventBus();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const indicatorRef = useRef<HTMLDivElement>(null);
-	const [hex, setHex] = useState('');
+	const [ hex, setHex ] = useState('');
 	const onChange = (x: number, width: number) => {
 		fire(ColorPickerEventTypes.ALPHA_CHANGED, x / width);
 	};
-	const { onMouseDown, onRelease, onMouseMove, indicatorX } = useDragging({ containerRef, indicatorRef, onChange });
+	const { onMouseDown, onRelease, onMouseMove, setIndicatorX, indicatorX } = useDragging({
+		containerRef,
+		indicatorRef,
+		onChange
+	});
 	useEffect(() => {
 		on(ColorPickerEventTypes.RGB_CHANGED, setHex);
 		return () => {
 			off(ColorPickerEventTypes.RGB_CHANGED, setHex);
 		};
 	}, [ on, off ]);
+	useEffect(() => {
+		const onAlphaChanged = (alpha: number) => {
+			if (containerRef.current) {
+				const { width } = containerRef.current.getBoundingClientRect();
+				setIndicatorX(alpha * width);
+			}
+		};
+		on(ColorPickerEventTypes.ALPHA_CHANGED, onAlphaChanged);
+		return () => {
+			off(ColorPickerEventTypes.ALPHA_CHANGED, onAlphaChanged);
+		};
+	}, [ on, off, setIndicatorX ]);
 
 	return <AlphaColorPalette onMouseDown={onMouseDown} onMouseUp={onRelease} onMouseLeave={onRelease}
 	                          onMouseMove={onMouseMove}

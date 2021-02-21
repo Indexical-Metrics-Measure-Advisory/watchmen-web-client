@@ -15,9 +15,18 @@ export const ColorOverview = () => {
 		const onHueChanged = (hue: number) => {
 			setColor(`hsl(${hue * 360}, 100%, 50%)`);
 		};
+		const onSaturationAndBrightnessChanged = (saturation: number, brightness: number) => {
+			if (containerRef.current) {
+				const { width, height } = containerRef.current.getBoundingClientRect();
+				setIndicator(() => ({ x: saturation * width, y: (1 - brightness) * height }));
+			}
+		};
+
 		on(ColorPickerEventTypes.HUE_CHANGED, onHueChanged);
+		on(ColorPickerEventTypes.SATURATION_AND_BRIGHTNESS_CHANGED, onSaturationAndBrightnessChanged);
 		return () => {
 			off(ColorPickerEventTypes.HUE_CHANGED, onHueChanged);
+			off(ColorPickerEventTypes.SATURATION_AND_BRIGHTNESS_CHANGED, onSaturationAndBrightnessChanged);
 		};
 	}, [ on, off ]);
 

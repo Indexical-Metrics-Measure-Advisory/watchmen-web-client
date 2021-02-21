@@ -1,3 +1,4 @@
+import Color from 'color';
 import { useEffect, useState } from 'react';
 import { useColorPickerEventBus } from './color-picker-event-bus';
 import { ColorPickerEventTypes } from './color-picker-event-bus-types';
@@ -10,7 +11,9 @@ interface CalculateFactors {
 	brightness?: number;
 }
 
-export const ColorCalculator = () => {
+export const ColorCalculator = (props: { color: string }) => {
+	const { color } = props;
+
 	const { on, off, fire } = useColorPickerEventBus();
 	const [ factors, setFactors ] = useState<CalculateFactors>({});
 	useEffect(() => {
@@ -43,6 +46,21 @@ export const ColorCalculator = () => {
 			fire(ColorPickerEventTypes.RGBA_CHANGED, rgba.red, rgba.green, rgba.blue, rgba.alpha);
 		}
 	}, [ factors, fire ]);
+	useEffect(() => {
+		const computedColor = Color(color);
+		const factors = {
+			alpha: computedColor.alpha(),
+			hue: computedColor.hue() / 360,
+			saturation: computedColor.saturationv() / 100,
+			brightness: computedColor.value() / 100
+		};
+		// will lead rgb & rgba changed event
+		setFactors(factors);
+		// fire hue changed event manually
+		fire(ColorPickerEventTypes.HUE_CHANGED, factors.hue);
+		fire(ColorPickerEventTypes.ALPHA_CHANGED, factors.alpha);
+		fire(ColorPickerEventTypes.SATURATION_AND_BRIGHTNESS_CHANGED, factors.saturation, factors.brightness);
+	}, [ color, fire ]);
 
 	return <></>;
 };

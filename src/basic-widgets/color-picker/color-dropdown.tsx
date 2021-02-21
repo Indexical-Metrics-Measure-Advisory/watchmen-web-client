@@ -8,8 +8,8 @@ import { ColorResultRgba } from './color-result-rgba';
 import { State } from './types';
 import { ColorDropdownContainer } from './widgets';
 
-export const ColorDropdown = (props: { state: State }) => {
-	const { state } = props;
+export const ColorDropdown = (props: { state: State, color: string }) => {
+	const { state, color } = props;
 
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -20,6 +20,6 @@ export const ColorDropdown = (props: { state: State }) => {
 		<ColorPaletteAlpha/>
 		<ColorResultHex/>
 		<ColorResultRgba/>
-		<ColorCalculator/>
+		<ColorCalculator color={color}/>
 	</ColorDropdownContainer>;
 };
