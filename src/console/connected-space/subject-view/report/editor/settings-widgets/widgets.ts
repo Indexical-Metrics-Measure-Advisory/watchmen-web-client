@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Dropdown } from '../../../../../../basic-widgets/dropdown';
 import { Input } from '../../../../../../basic-widgets/input';
 import { InputLines } from '../../../../../../basic-widgets/input-lines';
 
@@ -96,4 +97,10 @@ export const PropValueInputLines = styled(InputLines)`
 	border-radius : 0;
 	padding-left  : calc(var(--margin) / 2);
 	padding-right : calc(var(--margin) / 2);
+`;
+export const PropValueDropdown = styled(Dropdown)`
+	flex-grow     : 1;
+	width         : 0;
+	border        : 0;
+	border-radius : 0;;
 `;

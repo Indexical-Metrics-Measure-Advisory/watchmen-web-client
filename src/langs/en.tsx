@@ -308,6 +308,10 @@ export const En = {
 		COLOR: 'Font Color',
 		BACKGROUND_COLOR: 'Background Color',
 		BORDER: 'Border',
+		BORDER_NONE: 'None',
+		BORDER_SOLID: 'Solid',
+		BORDER_DASHED: 'Dashed',
+		BORDER_DOTTED: 'Dotted',
 		BORDER_COLOR: 'Border Color',
 		BORDER_WIDTH: 'Border Width',
 		BORDER_RADIUS: 'Border Radius'
