@@ -27,11 +27,6 @@ const useDragging = (options: {
 	};
 	const onRelease = () => {
 		setDragging(false);
-		const transform = indicatorRef.current?.style.transform;
-		if (transform) {
-			const x = parseInt(transform.replace('translateX(', '').replace('px)', ''));
-			setIndicatorX(Math.min(Math.max(x, 0), PALETTE_WIDTH));
-		}
 	};
 	const onMouseMove = (event: MouseEvent<HTMLDivElement>) => {
 		if (!dragging) {

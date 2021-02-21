@@ -37,8 +37,6 @@ export const ColorOverview = () => {
 		const { top, left, width, height } = containerRef.current.getBoundingClientRect();
 		const x = clientX - left;
 		const y = clientY - top;
-		indicatorRef.current.style.transform = `translate(${x}px, ${y}px)`;
-
 		const saturation = x / width;
 		const brightness = 1 - y / height;
 		fire(ColorPickerEventTypes.SATURATION_AND_BRIGHTNESS_CHANGED, saturation, brightness);
@@ -49,13 +47,6 @@ export const ColorOverview = () => {
 	};
 	const onRelease = () => {
 		setDragging(false);
-		const transform = indicatorRef.current?.style.transform;
-		if (transform) {
-			const [ xPart, yPart ] = transform.split(',');
-			const x = parseInt(xPart.replace('translate(', '').replace('px', ''));
-			const y = parseInt(yPart.trim().replace('px', ''));
-			setIndicator({ x, y });
-		}
 	};
 	const onMouseMove = (event: MouseEvent<HTMLDivElement>) => {
 		if (!dragging) {
