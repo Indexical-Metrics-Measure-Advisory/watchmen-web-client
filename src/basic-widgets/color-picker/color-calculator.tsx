@@ -62,5 +62,25 @@ export const ColorCalculator = (props: { color: string }) => {
 		fire(ColorPickerEventTypes.SATURATION_AND_BRIGHTNESS_CHANGED, factors.saturation, factors.brightness);
 	}, [ color, fire ]);
 
+	useEffect(() => {
+		const onAskColor = () => {
+			const { alpha, brightness, hue, saturation } = factors;
+			if (typeof alpha !== 'undefined' && typeof brightness !== 'undefined' && typeof hue !== 'undefined' && typeof saturation !== 'undefined') {
+				const hsl = hsb2hsl(hue, saturation, brightness);
+				const rgb = hsl2rgb(hsl.hue, hsl.saturation, hsl.lightness);
+				const hex = rgb2hex(rgb.red, rgb.green, rgb.blue);
+				const rgba = { ...hex2rgb(hex), alpha };
+				fire(ColorPickerEventTypes.REPLY_COLOR, `rgba(${rgba.red}, ${rgba.green}, ${rgba.blue}, ${alpha})`);
+			} else {
+				// cannot build color
+				fire(ColorPickerEventTypes.REPLY_COLOR);
+			}
+		};
+		on(ColorPickerEventTypes.ASK_COLOR, onAskColor);
+		return () => {
+			off(ColorPickerEventTypes.ASK_COLOR, onAskColor);
+		};
+	}, [ on, off, fire, factors ]);
+
 	return <></>;
 };

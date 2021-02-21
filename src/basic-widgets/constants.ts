@@ -127,6 +127,7 @@ export const ICON_ADD = faPlus;
 export const ICON_EDIT = faEdit;
 export const ICON_DISCARD = faBan;
 export const ICON_DELETE = faTimes;
+export const ICON_CONFIRM = faCheck;
 export const ICON_THROW_AWAY = faTrashAlt;
 export const ICON_SETTINGS = faCog;
 export const ICON_SEARCH = faSearch;

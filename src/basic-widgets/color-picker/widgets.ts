@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { DROPDOWN_Z_INDEX } from '../constants';
+import { ButtonInk } from '../types';
 import { PALETTE_WIDTH } from './constants';
 import { IndicatorState, State } from './types';
 
@@ -161,9 +162,6 @@ export const ColorResult = styled.h5.attrs({ 'data-widget': 'color-picker-result
 	align-items : center;
 	font-weight : normal;
 	grid-column : 1 / span 2;
-	&:last-child {
-		margin-bottom : calc(var(--margin) / 4);
-	}
 	&:not(:last-child) {
 		margin-top : calc(var(--margin) / 4);
 	}
@@ -172,5 +170,34 @@ export const ColorResult = styled.h5.attrs({ 'data-widget': 'color-picker-result
 		font-weight  : var(--font-demi-bold);
 		margin-right : calc(var(--margin) / 4);
 		min-width    : var(--margin);
+	}
+`;
+export const ColorButtons = styled.div.attrs({ 'data-widget': 'color-picker-buttons' })`
+	display         : flex;
+	justify-content : flex-end;
+	grid-column     : 1 / span 2;
+	margin-right    : calc(var(--margin) / -4);
+	margin-bottom   : calc(var(--margin) / 8);
+`;
+export const ColorConfirmButton = styled.div.attrs<{ ink: ButtonInk }>(({ ink }) => {
+	return {
+		'data-widget': 'color-picker-button',
+		style: {
+			backgroundColor: ink === ButtonInk.PRIMARY ? 'var(--primary-color)' : 'var(--danger-color)'
+		}
+	};
+})<{ ink: ButtonInk }>`
+	display       : flex;
+	align-items   : center;
+	height        : var(--button-height-in-form);
+	padding       : 0 calc(var(--margin) / 2);
+	margin-left   : calc(var(--margin) / 4);
+	border-radius : var(--border-radius);
+	color         : var(--invert-color);
+	font-variant  : petite-caps;
+	cursor        : pointer;
+	transition    : box-shadow 300ms ease-in-out;
+	&:hover {
+		box-shadow : ${({ ink }) => ink === ButtonInk.PRIMARY ? 'var(--primary-hover-shadow)' : 'var(--danger-hover-shadow)'};
 	}
 `;

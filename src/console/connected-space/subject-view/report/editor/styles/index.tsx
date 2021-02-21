@@ -15,11 +15,15 @@ export const BasicStylesSection = (props: { report: Report }) => {
 
 	const { fire } = useReportEditEventBus();
 	const forceUpdate = useForceUpdate();
-	const onColorChange = (prop: 'color' | 'backgroundColor' | 'borderColor') => (color: string) => {
+	const onColorChange = (prop: 'color' | 'backgroundColor' | 'borderColor') => (color?: string) => {
 		if (!report.chart.settings) {
 			report.chart.settings = {};
 		}
-		report.chart.settings[prop] = color;
+		if (!color) {
+			delete report.chart.settings[prop];
+		} else {
+			report.chart.settings[prop] = color;
+		}
 		fire(ReportEditEventTypes.BASIC_STYLE_CHANGED, report);
 		forceUpdate();
 	};

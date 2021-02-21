@@ -5,7 +5,7 @@ import { State } from './types';
 import { atBottom, getPosition } from './utils';
 import { ColorBar, ColorPickerContainer } from './widgets';
 
-export const ColorPicker = (props: { color: string, onChange: (color: string) => void }) => {
+export const ColorPicker = (props: { color: string, onChange: (color?: string) => void }) => {
 	const { color = '', onChange, ...rest } = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -37,8 +37,11 @@ export const ColorPicker = (props: { color: string, onChange: (color: string) =>
 		const bottom = atBottom(top, height);
 		setState({ active: true, atBottom: bottom, top, left, width, height });
 	};
-	const onBlurred = () => {
+	const onBlurred = () => setState({ ...state, active: false });
+	const onDiscard = () => setState({ ...state, active: false });
+	const onSelected = (color?: string) => {
 		setState({ ...state, active: false });
+		onChange(color);
 	};
 
 	return <ColorPickerEventBusProvider>
@@ -49,7 +52,8 @@ export const ColorPicker = (props: { color: string, onChange: (color: string) =>
 		                      {...rest}
 		                      onClick={onClicked} onBlur={onBlurred}>
 			<ColorBar color={color}/>
-			<ColorDropdown state={state} color={color}/>
+			<ColorDropdown state={state} color={color}
+			               onDiscard={onDiscard} onSelected={onSelected}/>
 		</ColorPickerContainer>
 	</ColorPickerEventBusProvider>;
 };

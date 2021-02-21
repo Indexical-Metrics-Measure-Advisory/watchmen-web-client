@@ -14,6 +14,10 @@ export const ColorPickerEventBusProvider = (props: { children?: ((props: any) =>
 			emitter.emit(type, ...data);
 			return bus;
 		},
+		once: (type: string, listener: (...data: any) => void): ColorPickerEventBus => {
+			emitter.once(type, listener);
+			return bus;
+		},
 		on: (type: string, listener: (...data: any) => void): ColorPickerEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into color-picker event bus, check it.`);

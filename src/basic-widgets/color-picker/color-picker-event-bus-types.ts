@@ -4,7 +4,10 @@ export enum ColorPickerEventTypes {
 	SATURATION_AND_BRIGHTNESS_CHANGED = 'saturation-and-brightness-changed',
 
 	RGB_CHANGED = 'rgb-changed',
-	RGBA_CHANGED = 'rgba-changed'
+	RGBA_CHANGED = 'rgba-changed',
+
+	ASK_COLOR = 'ask-color',
+	REPLY_COLOR = 'reply-color'
 }
 
 export interface ColorPickerEventBus {
@@ -27,4 +30,11 @@ export interface ColorPickerEventBus {
 	fire(type: ColorPickerEventTypes.RGBA_CHANGED, red: number, green: number, blue: number, alpha: number): this;
 	on(type: ColorPickerEventTypes.RGBA_CHANGED, listener: (red: number, green: number, blue: number, alpha: number) => void): this;
 	off(type: ColorPickerEventTypes.RGBA_CHANGED, listener: (red: number, green: number, blue: number, alpha: number) => void): this;
+
+	fire(type: ColorPickerEventTypes.ASK_COLOR): this;
+	on(type: ColorPickerEventTypes.ASK_COLOR, listener: () => void): this;
+	off(type: ColorPickerEventTypes.ASK_COLOR, listener: () => void): this;
+
+	fire(type: ColorPickerEventTypes.REPLY_COLOR, color?: string): this;
+	once(type: ColorPickerEventTypes.REPLY_COLOR, listener: (color?: string) => void): this;
 }
