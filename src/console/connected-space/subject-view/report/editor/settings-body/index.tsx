@@ -13,8 +13,8 @@ export const SettingsBody = (props: { report: Report }) => {
 	return <SettingsBodyContainer>
 		<NamePropEditor report={report}/>
 		<RectSection report={report}/>
-		<BasicStylesSection report={report}/>
 		<ChartCountSettings report={report}/>
+		<BasicStylesSection report={report}/>
 		<DescriptionPropEditor report={report}/>
 	</SettingsBodyContainer>;
 };

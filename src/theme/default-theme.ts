@@ -4,7 +4,7 @@ import {
 	BASE_TALL_HEIGHT,
 	BORDER_WIDTH,
 	BUTTON_HEIGHT_IN_FORM,
-	BUTTON_INDENT,
+	BUTTON_INDENT, CHECKBOX_SIZE,
 	GRID_ROW_HEIGHT,
 	GRID_TALL_ROW_HEIGHT,
 	HEADER_HEIGHT,
@@ -90,6 +90,9 @@ const DefaultTheme = {
 	buttonIndent: BUTTON_INDENT,
 	buttonIconGap: 8,
 	buttonHeightInForm: BUTTON_HEIGHT_IN_FORM,
+
+	// checkbox
+	checkboxSize: CHECKBOX_SIZE,
 
 	// toggle
 	toggleHeight: TOGGLE_HEIGHT,

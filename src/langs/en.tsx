@@ -330,6 +330,9 @@ export const En = {
 		BORDER_COLOR: 'Border Color',
 		BORDER_WIDTH: 'Border Width',
 		BORDER_RADIUS: 'Border Radius',
-		SECTION_TITLE_COUNT_CHART: 'Count Chart Style'
+		SECTION_TITLE_COUNT_CHART: 'Count Chart Style',
+		COUNT: {
+			FORMAT_USING_GROUP: 'Using Group'
+		}
 	}
 };

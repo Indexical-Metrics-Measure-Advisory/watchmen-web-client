@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { CheckBox } from '../../../../../../basic-widgets/checkbox';
 import { Dropdown } from '../../../../../../basic-widgets/dropdown';
 import { Input } from '../../../../../../basic-widgets/input';
 import { InputLines } from '../../../../../../basic-widgets/input-lines';
@@ -103,4 +104,10 @@ export const PropValueDropdown = styled(Dropdown)`
 	width         : 0;
 	border        : 0;
 	border-radius : 0;;
+`;
+export const PropValueCheckBox = styled(CheckBox)`
+	margin-left   : var(--input-indent);
+	height        : 18px;
+	width         : 18px;
+	border-radius : 2px;
 `;

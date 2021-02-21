@@ -330,6 +330,9 @@ export const Zh = {
 		BORDER_COLOR: '边框色',
 		BORDER_WIDTH: '边框宽度',
 		BORDER_RADIUS: '圆弧边框半径',
-		SECTION_TITLE_COUNT_CHART: '特有样式'
+		SECTION_TITLE_COUNT_CHART: '特有样式',
+		COUNT: {
+			FORMAT_USING_GROUP: '千分位'
+		}
 	}
 };

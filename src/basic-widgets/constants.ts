@@ -76,6 +76,7 @@ export const BASE_TALL_HEIGHT = 32;
 export const INPUT_INDENT = 10;
 export const BUTTON_INDENT = 16;
 export const BUTTON_HEIGHT_IN_FORM = 22;
+export const CHECKBOX_SIZE = 22;
 export const TOGGLE_HEIGHT = 22;
 export const BORDER_WIDTH = 1;
 export const HEADER_HEIGHT = 40;
@@ -168,6 +169,8 @@ export const ICON_DSL = faCode;
 export const ICON_PREPEND = faLevelUpAlt;
 export const ICON_APPEND = faLevelDownAlt;
 export const ICON_DRAG_HANDLE = faGripVertical;
+export const ICON_CHECK = faCheck;
+export const ICON_UNCHECK = faTimes;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

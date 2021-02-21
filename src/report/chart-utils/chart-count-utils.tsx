@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COUNT } from '../../services/tuples/chart-def/chart-count';
+import { COUNT, CountChartSettings } from '../../services/tuples/chart-def/chart-count';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils } from './default-chart-utils';
@@ -20,8 +20,20 @@ export class ChartCountUtils extends DefaultChartUtils {
 	}
 
 	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
+		let value: string | number = (dataset.data[0][0] as number | null | undefined) || 0;
+		if (isNaN(value)) {
+			value = 0;
+		}
+
+		const { chart: { settings } } = report;
+		const { formatUseGrouping } = (settings || {}) as CountChartSettings;
+
+		if (formatUseGrouping) {
+			value = new Intl.NumberFormat(undefined, { useGrouping: true }).format(value);
+		}
+
 		return <CountContainer>
-			{dataset.data[0][0]}
+			{value}
 		</CountContainer>;
 	}
 }
