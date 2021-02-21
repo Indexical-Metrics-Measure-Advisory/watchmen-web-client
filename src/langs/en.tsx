@@ -305,15 +305,17 @@ export const En = {
 		WIDTH: 'Width',
 		HEIGHT: 'Height',
 		PIXEL: 'PX',
-		COLOR: 'Font Color',
+		FONT_FAMILY: 'Font',
+		FONT_COLOR: 'Font Color',
 		BACKGROUND_COLOR: 'Background Color',
-		BORDER: 'Border',
+		BORDER_STYLE: 'Border Style',
 		BORDER_NONE: 'None',
 		BORDER_SOLID: 'Solid',
 		BORDER_DASHED: 'Dashed',
 		BORDER_DOTTED: 'Dotted',
 		BORDER_COLOR: 'Border Color',
 		BORDER_WIDTH: 'Border Width',
-		BORDER_RADIUS: 'Border Radius'
+		BORDER_RADIUS: 'Border Radius',
+		SECTION_TITLE_COUNT_CHART: 'Count Chart Style'
 	}
 };

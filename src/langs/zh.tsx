@@ -305,15 +305,17 @@ export const Zh = {
 		WIDTH: '宽度',
 		HEIGHT: '高度',
 		PIXEL: '像素',
-		COLOR: '文本色',
+		FONT_FAMILY: '字体',
+		FONT_COLOR: '文本色',
 		BACKGROUND_COLOR: '背景色',
-		BORDER: '边框',
+		BORDER_STYLE: '边框样式',
 		BORDER_NONE: '无',
 		BORDER_SOLID: '实线',
 		BORDER_DASHED: '短划线',
 		BORDER_DOTTED: '点线',
 		BORDER_COLOR: '边框色',
 		BORDER_WIDTH: '边框宽度',
-		BORDER_RADIUS: '圆弧边框半径'
+		BORDER_RADIUS: '圆弧边框半径',
+		SECTION_TITLE_COUNT_CHART: '特有样式'
 	}
 };

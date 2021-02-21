@@ -5,7 +5,7 @@ export const DiagramContainer = styled.div.attrs<{ settings?: ChartSettings }>((
 	return {
 		'data-widget': 'chart-diagram',
 		style: {
-			color: settings?.color || 'var(--font-color)',
+			color: settings?.fontColor || 'var(--font-color)',
 			backgroundColor: settings?.backgroundColor || 'var(--bg-color)',
 			borderStyle: settings?.borderStyle || 'none',
 			borderWidth: settings?.borderWidth || 0,

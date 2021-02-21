@@ -1,46 +1,34 @@
-import React, { ChangeEvent, useState } from 'react';
+import React from 'react';
 import { Lang } from '../../../../../../langs';
 import { Report } from '../../../../../../services/tuples/report-types';
 import { useReportEditEventBus } from '../report-edit-event-bus';
 import { ReportEditEventTypes } from '../report-edit-event-bus-types';
+import { NumberValue } from '../settings-widgets/number-value';
 import { Section } from '../settings-widgets/section';
-import { PropName, PropValue, PropValueInput, PropValueUnit } from '../settings-widgets/widgets';
 
 export const RectSection = (props: { report: Report }) => {
 	const { report } = props;
 	const { rect } = report;
 
 	const { fire } = useReportEditEventBus();
-	const [ delegate, setDelegate ] = useState({ width: `${rect.width}`, height: `${rect.height}` });
-	const onPropChange = (prop: 'width' | 'height') => (event: ChangeEvent<HTMLInputElement>) => {
-		const { value } = event.target;
-		setDelegate({ ...delegate, [prop]: value });
+	const validateNumber = (value: string) => {
+		return /^\d{1,4}$/.test(value);
 	};
-	const onPropBlur = (prop: 'width' | 'height') => () => {
-		const value = delegate[prop];
-		if (/^\d{1,4}$/.test(value) && (value as unknown as number) > 0) {
-			rect[prop] = parseInt(value);
-			setDelegate({ ...delegate, [prop]: `${rect[prop]}` });
-			fire(ReportEditEventTypes.SIZE_CHANGED, report);
-		} else {
-			setDelegate({ ...delegate, [prop]: `${rect[prop]}` });
-		}
+	const onValueChange = (prop: 'width' | 'height') => (value: string) => {
+		const numberValue = parseInt(value);
+		rect[prop] = numberValue;
+		fire(ReportEditEventTypes.SIZE_CHANGED, report);
+		return numberValue;
 	};
 
 	return <Section title={Lang.CHART.SECTION_TITLE_SIZE}>
-		<PropName>{Lang.CHART.WIDTH}</PropName>
-		<PropValue>
-			<PropValueInput value={delegate.width}
-			                onChange={onPropChange('width')} onBlur={onPropBlur('width')}
-			                placeholder='1 - 9999'/>
-			<PropValueUnit>{Lang.CHART.PIXEL}</PropValueUnit>
-		</PropValue>
-		<PropName>{Lang.CHART.HEIGHT}</PropName>
-		<PropValue>
-			<PropValueInput value={delegate.height}
-			                onChange={onPropChange('height')} onBlur={onPropBlur('height')}
-			                placeholder='1 - 9999'/>
-			<PropValueUnit>{Lang.CHART.PIXEL}</PropValueUnit>
-		</PropValue>
+		<NumberValue label={Lang.CHART.WIDTH}
+		             value={rect.width}
+		             placeholder={'1 - 9999'}
+		             validate={validateNumber} onValueChange={onValueChange('width')}/>
+		<NumberValue label={Lang.CHART.HEIGHT}
+		             value={rect.height}
+		             placeholder={'1 - 9999'}
+		             validate={validateNumber} onValueChange={onValueChange('height')}/>
 	</Section>;
 };

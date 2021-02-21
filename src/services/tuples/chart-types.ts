@@ -36,12 +36,19 @@ export enum ChartTextDecoration {
 }
 
 export interface ChartSettings {
-	color?: string;
+	fontFamily?: string;
+	fontColor?: string;
+	fontSize?: number;
+	fontStyle?: ChartFontStyle;
+	fontWeight?: ChartFontWeight;
+
 	backgroundColor?: string;
+
 	borderStyle?: ChartBorderStyle;
 	borderColor?: string;
 	borderWidth?: number;
 	borderRadius?: number;
+
 	colorSeries?: PredefinedChartColorSeries;
 }
 
