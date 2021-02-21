@@ -12,6 +12,7 @@ export const SettingsSaver = (props: { report: Report }) => {
 	const { fire: fireReport } = useReportEventBus();
 	const { on, off } = useReportEditEventBus();
 	const [ changed, setChanged ] = useState(false);
+	const [ shouldReloadData ] = useState(false);
 	useEffect(() => {
 		const onChanged = (changedReport: Report) => {
 			if (changedReport !== report) {
@@ -21,6 +22,9 @@ export const SettingsSaver = (props: { report: Report }) => {
 		};
 		const onEditCompleted = (completedReport: Report) => {
 			if (completedReport !== report || !changed) {
+				return;
+			}
+			if (!shouldReloadData) {
 				fireReport(ReportEventTypes.EDIT_COMPLETED, report, false);
 			} else {
 				(async () => {
@@ -33,6 +37,9 @@ export const SettingsSaver = (props: { report: Report }) => {
 		on(ReportEditEventTypes.NAME_CHANGED, onChanged);
 		on(ReportEditEventTypes.DESCRIPTION_CHANGED, onChanged);
 
+		on(ReportEditEventTypes.BASIC_STYLE_CHANGED, onChanged);
+		on(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, onChanged);
+
 		on(ReportEditEventTypes.EDIT_COMPLETED, onEditCompleted);
 
 		return () => {
@@ -40,9 +47,12 @@ export const SettingsSaver = (props: { report: Report }) => {
 			off(ReportEditEventTypes.NAME_CHANGED, onChanged);
 			off(ReportEditEventTypes.DESCRIPTION_CHANGED, onChanged);
 
+			off(ReportEditEventTypes.BASIC_STYLE_CHANGED, onChanged);
+			off(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, onChanged);
+
 			off(ReportEditEventTypes.EDIT_COMPLETED, onEditCompleted);
 		};
-	}, [ on, off, fireReport, report, changed ]);
+	}, [ on, off, fireReport, report, changed, shouldReloadData ]);
 
 	return <></>;
 };

@@ -29,6 +29,7 @@ export const DiagramLoading = styled.div.attrs({ 'data-widget': 'chart-diagram-l
 	justify-content : center;
 	font-size       : 112px;
 	height          : 100%;
+	color           : var(--font-color);
 	opacity         : 0.1;
 `;
 export const EChartDiagramContainer = styled.div.attrs({ 'data-widget': 'echart-diagram' })`

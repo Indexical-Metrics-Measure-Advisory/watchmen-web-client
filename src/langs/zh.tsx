@@ -332,7 +332,12 @@ export const Zh = {
 		BORDER_RADIUS: '圆弧边框半径',
 		SECTION_TITLE_COUNT_CHART: '特有样式',
 		COUNT: {
-			FORMAT_USING_GROUP: '千分位'
+			FORMAT_USING_GROUP: '千分位',
+			TEXT_DECORATION: '文本样式',
+			TEXT_DECORATION_NONE: '无',
+			TEXT_DECORATION_UNDERLINE: '下划线',
+			TEXT_DECORATION_OVERLINE: '上划线',
+			TEXT_DECORATION_LINE_THROUGH: '中划线'
 		}
 	}
 };

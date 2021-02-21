@@ -1,9 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useRef, useState } from 'react';
-import { ICON_DELETE, ICON_DRAG_HANDLE, ICON_SETTINGS } from '../basic-widgets/constants';
+import React, { useEffect, useRef, useState } from 'react';
+import { ICON_DELETE, ICON_DRAG_HANDLE, ICON_LOADING, ICON_SETTINGS } from '../basic-widgets/constants';
+import { useForceUpdate } from '../basic-widgets/utils';
+import { fetchChartData } from '../services/console/report';
+import { ChartDataSet } from '../services/tuples/chart-types';
 import { saveReport } from '../services/tuples/report';
 import { Report } from '../services/tuples/report-types';
 import { CHART_MIN_HEIGHT, CHART_MIN_WIDTH } from './constants';
+import { Diagram } from './diagram';
+import { DiagramLoading } from './diagram/widgets';
 import { useReportEventBus } from './report-event-bus';
 import { ReportEventTypes } from './report-event-bus-types';
 import { DragType } from './types';
@@ -17,6 +22,10 @@ interface DragState {
 	type: DragType;
 	startX: number;
 	startY: number;
+}
+interface DiagramState {
+	loaded: boolean;
+	dataset?: ChartDataSet;
 }
 
 const resizeFromTop = (top: number, height: number, clientY: number, startY: number) => {
@@ -108,13 +117,12 @@ export const Container = (props: {
 	fixed: boolean;
 	editable: boolean;
 	removable: boolean;
-	children: ((props: any) => React.ReactNode) | React.ReactNode
 }) => {
-	const { report, fixed, editable, removable, children } = props;
+	const { report, fixed, editable, removable } = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const dndRef = useRef<HTMLDivElement>(null);
-	const { fire } = useReportEventBus();
+	const { fire, on, off } = useReportEventBus();
 	const [ dragState, setDragState ] = useState<DragState>({
 		top: 0,
 		left: 0,
@@ -124,6 +132,37 @@ export const Container = (props: {
 		startX: 0,
 		startY: 0
 	});
+	const [ diagramState, setDiagramState ] = useState<DiagramState>({ loaded: false });
+	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		if (!diagramState.loaded) {
+			(async () => {
+				const dataset = await fetchChartData(report.reportId, report.chart.type);
+				setDiagramState({ loaded: true, dataset });
+			})();
+		}
+		const onEditCompleted = (completedReport: Report, shouldReloadData: boolean) => {
+			if (report !== completedReport) {
+				return;
+			}
+			if (shouldReloadData) {
+				setDiagramState({ loaded: false });
+				(async () => {
+					const dataset = await fetchChartData(report.reportId, report.chart.type);
+					setDiagramState({ loaded: true, dataset });
+				})();
+			} else {
+				forceUpdate();
+			}
+		};
+		on(ReportEventTypes.EDIT_COMPLETED, onEditCompleted);
+		return () => {
+			off(ReportEventTypes.EDIT_COMPLETED, onEditCompleted);
+		};
+	}, [
+		on, off, forceUpdate,
+		report, diagramState.loaded
+	]);
 
 	const onMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
 		const { current: container } = containerRef;
@@ -254,7 +293,11 @@ export const Container = (props: {
 	const onRemoveClicked = () => fire(ReportEventTypes.DO_DELETE, report);
 
 	return <ChartContainer rect={report.rect} fixed={fixed} ref={containerRef}>
-		{children}
+		{diagramState.loaded
+			? <Diagram report={report} dataset={diagramState.dataset!}/>
+			: <DiagramLoading>
+				<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>
+			</DiagramLoading>}
 		{
 			fixed
 				? null

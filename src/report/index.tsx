@@ -1,7 +1,6 @@
 import React from 'react';
 import { Report } from '../services/tuples/report-types';
 import { Container } from './container';
-import { Diagram } from './diagram';
 
 export const Chart = (props: {
 	report: Report;
@@ -11,7 +10,5 @@ export const Chart = (props: {
 }) => {
 	const { report, fixed, editable, removable } = props;
 
-	return <Container report={report} fixed={fixed} editable={editable} removable={removable}>
-		<Diagram report={report}/>
-	</Container>;
+	return <Container report={report} fixed={fixed} editable={editable} removable={removable}/>
 };

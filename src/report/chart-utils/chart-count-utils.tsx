@@ -26,14 +26,14 @@ export class ChartCountUtils extends DefaultChartUtils {
 		}
 
 		const { chart: { settings } } = report;
-		const { formatUseGrouping } = (settings || {}) as CountChartSettings;
+		const { formatUseGrouping, textDecoration } = (settings || {}) as CountChartSettings;
 
 		if (formatUseGrouping) {
 			value = new Intl.NumberFormat(undefined, { useGrouping: true }).format(value);
 		}
 
 		return <CountContainer>
-			{value}
+			<span style={{ textDecoration }}>{value}</span>
 		</CountContainer>;
 	}
 }
