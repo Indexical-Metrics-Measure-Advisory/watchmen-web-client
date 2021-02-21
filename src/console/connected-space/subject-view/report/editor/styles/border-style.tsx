@@ -27,10 +27,10 @@ export const BorderStyle = (props: { report: Report }) => {
 	};
 
 	const options: Array<DropdownOption> = [
-		{ value: ChartBorder.NONE, label: Lang.CHART.BORDER_NONE },
-		{ value: ChartBorder.SOLID, label: Lang.CHART.BORDER_SOLID },
-		{ value: ChartBorder.DOTTED, label: Lang.CHART.BORDER_DOTTED },
-		{ value: ChartBorder.DASHED, label: Lang.CHART.BORDER_DASHED }
+		{ value: ChartBorder.NONE, label: () => ({ node: Lang.CHART.BORDER_NONE, label: '' }) },
+		{ value: ChartBorder.SOLID, label: () => ({ node: Lang.CHART.BORDER_SOLID, label: '' }) },
+		{ value: ChartBorder.DOTTED, label: () => ({ node: Lang.CHART.BORDER_DOTTED, label: '' }) },
+		{ value: ChartBorder.DASHED, label: () => ({ node: Lang.CHART.BORDER_DASHED, label: '' }) }
 	];
 
 	return <>

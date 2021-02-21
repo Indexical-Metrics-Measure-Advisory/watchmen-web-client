@@ -2,7 +2,6 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { KeyboardEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { ChartOptions } from '../report/chart-utils/types';
 import { BASE_HEIGHT, DROPDOWN_Z_INDEX } from './constants';
 import { DropdownOption, DropdownOptionLabel, DropdownProps } from './types';
 
@@ -18,10 +17,6 @@ interface State {
 
 const atBottom = (top: number, height: number, itemCount: number) => {
 	return top + height + Math.min(itemCount, 8) * BASE_HEIGHT + 2 < window.innerHeight;
-};
-
-const isJSXElement = (options: ChartOptions): options is JSX.Element => {
-	return !!(options as any).$$typeof;
 };
 
 const DropdownContainer = styled.div.attrs<{ 'data-widget'?: string, active: boolean, atBottom: boolean }>(
@@ -233,8 +228,6 @@ export const Dropdown = (props: DropdownProps) => {
 	const asLabel = (option: DropdownOption) => {
 		const { label } = option;
 		if (typeof label === 'string') {
-			return label;
-		} else if (isJSXElement(label as any)) {
 			return label;
 		} else {
 			const display: DropdownOptionLabel = label(option);
