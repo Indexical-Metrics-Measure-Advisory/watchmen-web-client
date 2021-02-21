@@ -85,7 +85,7 @@ export const BasicStylesSection = (props: { report: Report }) => {
 		<ColorValue label={Lang.CHART.FONT_COLOR}
 		            value={report.chart.settings?.fontColor} defaultValue={theme.fontColor}
 		            onValueChange={onColorChange('fontColor')}/>
-		<NumberValue label={Lang.CHART.FONT_SIZE}
+		<NumberValue label={Lang.CHART.FONT_SIZE} unitLabel={Lang.CHART.PIXEL}
 		             value={report.chart.settings?.fontSize} defaultValue={theme.fontSize}
 		             validate={validateNumber(3)}
 		             onValueChange={onNumberChange('fontSize')}/>
@@ -103,7 +103,7 @@ export const BasicStylesSection = (props: { report: Report }) => {
 		<DropdownValue label={Lang.CHART.BORDER_STYLE} options={BorderStyleOptions}
 		               value={report.chart.settings?.borderStyle} defaultValue={ChartBorderStyle.NONE}
 		               onValueChange={onDropdownValueChange('borderStyle')}/>
-		<NumberValue label={Lang.CHART.BORDER_WIDTH}
+		<NumberValue label={Lang.CHART.BORDER_WIDTH} unitLabel={Lang.CHART.PIXEL}
 		             value={report.chart.settings?.borderWidth} defaultValue={0}
 		             placeholder={'0 - 999'}
 		             validate={validateNumber(3)}
@@ -111,7 +111,7 @@ export const BasicStylesSection = (props: { report: Report }) => {
 		<ColorValue label={Lang.CHART.BORDER_COLOR}
 		            value={report.chart.settings?.borderColor} defaultValue={theme.borderColor}
 		            onValueChange={onColorChange('borderColor')}/>
-		<NumberValue label={Lang.CHART.BORDER_RADIUS}
+		<NumberValue label={Lang.CHART.BORDER_RADIUS} unitLabel={Lang.CHART.PIXEL}
 		             value={report.chart.settings?.borderRadius} defaultValue={0}
 		             placeholder={'0 - 9999'}
 		             validate={validateNumber(4)}

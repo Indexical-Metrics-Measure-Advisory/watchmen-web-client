@@ -1,5 +1,4 @@
-import React, { ChangeEvent } from 'react';
-import { useForceUpdate } from '../../../../../../basic-widgets/utils';
+import React, { ChangeEvent, useState } from 'react';
 import { PropName, PropValue, PropValueInput } from './widgets';
 
 export const TextValue = (props: {
@@ -7,26 +6,35 @@ export const TextValue = (props: {
 	placeholder?: string;
 	value?: string;
 	defaultValue?: string;
+	validate?: (value: string) => boolean;
 	onValueChange: (value: string) => void;
 }) => {
 	const {
 		label, placeholder,
-		value, defaultValue, onValueChange
+		value, defaultValue, validate, onValueChange
 	} = props;
 
-	const forceUpdate = useForceUpdate();
-
+	const [ delegate, setDelegate ] = useState<{ value: string }>({ value: value || defaultValue || '' });
 	const onPropChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;
-		onValueChange(value);
-		forceUpdate();
+		setDelegate({ value });
+	};
+	const onPropBlur = () => {
+		const { value: newValue } = delegate;
+		if (!validate || validate(newValue)) {
+			onValueChange(newValue);
+			setDelegate({ value: newValue || defaultValue || '' });
+		} else {
+			// reset to original value
+			setDelegate({ value: value || defaultValue || '' });
+		}
 	};
 
 	return <>
 		<PropName>{label}</PropName>
 		<PropValue>
-			<PropValueInput value={value || defaultValue}
-			                onChange={onPropChange}
+			<PropValueInput value={delegate.value}
+			                onChange={onPropChange} onBlur={onPropBlur}
 			                placeholder={placeholder}/>
 		</PropValue>
 	</>;

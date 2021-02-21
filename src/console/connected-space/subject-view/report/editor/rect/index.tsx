@@ -22,11 +22,11 @@ export const RectSection = (props: { report: Report }) => {
 	};
 
 	return <Section title={Lang.CHART.SECTION_TITLE_SIZE}>
-		<NumberValue label={Lang.CHART.WIDTH}
+		<NumberValue label={Lang.CHART.WIDTH} unitLabel={Lang.CHART.PIXEL}
 		             value={rect.width}
 		             placeholder={'1 - 9999'}
 		             validate={validateNumber} onValueChange={onValueChange('width')}/>
-		<NumberValue label={Lang.CHART.HEIGHT}
+		<NumberValue label={Lang.CHART.HEIGHT} unitLabel={Lang.CHART.PIXEL}
 		             value={rect.height}
 		             placeholder={'1 - 9999'}
 		             validate={validateNumber} onValueChange={onValueChange('height')}/>
