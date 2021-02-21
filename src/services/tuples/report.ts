@@ -1,4 +1,4 @@
-import { listMockReports, saveMockReport } from '../mock/tuples/mock-report';
+import { deleteMockReport, listMockReports, saveMockReport } from '../mock/tuples/mock-report';
 import { DataPage } from '../query/data-page';
 import { isMockService } from '../utils';
 import { QueryReport } from './query-report-types';
@@ -59,5 +59,22 @@ export const saveReport = async (report: Report): Promise<void> => {
 		//
 		// const data = await response.json();
 		// report.lastModifyTime = data.lastModifyTime;
+	}
+};
+
+export const deleteReport = async (report: Report): Promise<void> => {
+	if (isMockService()) {
+		return deleteMockReport(report);
+	} else {
+		// REMOTE use real api
+		return deleteMockReport(report);
+		// const token = findToken();
+		// await fetch(`${getServiceHost()}console_space/subject/delete?subject_id=${subject.subjectId}`, {
+		// 	method: 'GET',
+		// 	headers: {
+		// 		'Content-Type': 'application/json',
+		// 		Authorization: 'Bearer ' + token
+		// 	}
+		// });
 	}
 };

@@ -21,16 +21,20 @@ export const SettingsSaver = (props: { report: Report }) => {
 			setChanged(true);
 		};
 		const onEditCompleted = (completedReport: Report) => {
-			if (completedReport !== report || !changed) {
+			if (completedReport !== report) {
 				return;
 			}
-			if (!shouldReloadData) {
-				fireReport(ReportEventTypes.EDIT_COMPLETED, report, false);
+			if (!changed) {
+				fireReport(ReportEventTypes.EDIT_COMPLETED, report, false, false);
 			} else {
-				(async () => {
-					await saveReport(report);
-					fireReport(ReportEventTypes.EDIT_COMPLETED, report, true);
-				})();
+				if (!shouldReloadData) {
+					fireReport(ReportEventTypes.EDIT_COMPLETED, report, true, false);
+				} else {
+					(async () => {
+						await saveReport(report);
+						fireReport(ReportEventTypes.EDIT_COMPLETED, report, true, true);
+					})();
+				}
 			}
 		};
 		on(ReportEditEventTypes.SIZE_CHANGED, onChanged);

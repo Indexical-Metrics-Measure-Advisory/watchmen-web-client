@@ -182,7 +182,8 @@ export const Zh = {
 			UNFIX_COLUMN: '解锁本列以及之后已锁定列',
 			FIX_COLUMN: '锁定至本列',
 			COMPRESS_COLUMNS: '全部缩小列宽',
-			NO_REPORT: '尚未定义图表.'
+			NO_REPORT: '尚未定义图表.',
+			DELETE_REPORT_DIALOG_LABEL: '确认要删除图表吗? 请注意删除动作不能被恢复.'
 		},
 		SETTINGS: {
 			TITLE: '设置',

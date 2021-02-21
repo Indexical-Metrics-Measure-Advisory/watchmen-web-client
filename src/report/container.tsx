@@ -23,6 +23,7 @@ interface DragState {
 	startX: number;
 	startY: number;
 }
+
 interface DiagramState {
 	loaded: boolean;
 	dataset?: ChartDataSet;
@@ -141,8 +142,8 @@ export const Container = (props: {
 				setDiagramState({ loaded: true, dataset });
 			})();
 		}
-		const onEditCompleted = (completedReport: Report, shouldReloadData: boolean) => {
-			if (report !== completedReport) {
+		const onEditCompleted = (completedReport: Report, changed: boolean, shouldReloadData: boolean) => {
+			if (report !== completedReport && !changed) {
 				return;
 			}
 			if (shouldReloadData) {

@@ -41,3 +41,9 @@ export const saveMockReport = async (report: Report): Promise<void> => {
 		setTimeout(() => resolve(), 500);
 	});
 };
+
+export const deleteMockReport = async (report: Report): Promise<void> => {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve(), 500);
+	});
+};

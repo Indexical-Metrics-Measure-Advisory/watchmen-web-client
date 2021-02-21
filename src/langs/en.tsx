@@ -182,7 +182,8 @@ export const En = {
 			UNFIX_COLUMN: 'Unfix Me and Follows',
 			FIX_COLUMN: 'Fix Columns to Here',
 			COMPRESS_COLUMNS: 'Compress Columns',
-			NO_REPORT: 'No report defined.'
+			NO_REPORT: 'No report defined.',
+			DELETE_REPORT_DIALOG_LABEL: 'Are you sure to delete report? Please note that deletion cannot be recovered.'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',

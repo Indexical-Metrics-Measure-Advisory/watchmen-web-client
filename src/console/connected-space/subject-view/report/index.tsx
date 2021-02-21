@@ -8,6 +8,7 @@ import { SubjectEventTypes } from '../subject-event-bus-types';
 import { ReportEditor } from './editor';
 import { NoReport } from './no-report';
 import { SubjectReport } from './report';
+import { ReportRemover } from './report-remover';
 import { SubjectReportContainer } from './widgets';
 
 export const SubjectReports = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
@@ -17,8 +18,10 @@ export const SubjectReports = (props: { connectedSpace: ConnectedSpace, subject:
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		on(SubjectEventTypes.REPORT_ADDED, forceUpdate);
+		on(SubjectEventTypes.REPORT_REMOVED, forceUpdate);
 		return () => {
 			off(SubjectEventTypes.REPORT_ADDED, forceUpdate);
+			off(SubjectEventTypes.REPORT_REMOVED, forceUpdate);
 		};
 	}, [ on, off, forceUpdate ]);
 
@@ -34,5 +37,6 @@ export const SubjectReports = (props: { connectedSpace: ConnectedSpace, subject:
 				: <NoReport/>}
 		</SubjectReportContainer>
 		<ReportEditor connectedSpace={connectedSpace} subject={subject}/>
+		<ReportRemover connectedSpace={connectedSpace} subject={subject}/>
 	</ReportEventBusProvider>;
 };

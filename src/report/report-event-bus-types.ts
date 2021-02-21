@@ -17,9 +17,9 @@ export interface ReportEventBus {
 	on(type: ReportEventTypes.SIZE_CHANGED, listener: (report: Report) => void): this;
 	off(type: ReportEventTypes.SIZE_CHANGED, listener: (report: Report) => void): this;
 
-	fire(type: ReportEventTypes.EDIT_COMPLETED, report: Report, shouldReloadData: boolean): this;
-	on(type: ReportEventTypes.EDIT_COMPLETED, listener: (report: Report, shouldReloadData: boolean) => void): this;
-	off(type: ReportEventTypes.EDIT_COMPLETED, listener: (report: Report, shouldReloadData: boolean) => void): this;
+	fire(type: ReportEventTypes.EDIT_COMPLETED, report: Report, changed: boolean, shouldReloadData: boolean): this;
+	on(type: ReportEventTypes.EDIT_COMPLETED, listener: (report: Report, changed: boolean, shouldReloadData: boolean) => void): this;
+	off(type: ReportEventTypes.EDIT_COMPLETED, listener: (report: Report, changed: boolean, shouldReloadData: boolean) => void): this;
 
 	fire(type: ReportEventTypes.DO_DELETE, report: Report): this;
 	on(type: ReportEventTypes.DO_DELETE, listener: (report: Report) => void): this;
