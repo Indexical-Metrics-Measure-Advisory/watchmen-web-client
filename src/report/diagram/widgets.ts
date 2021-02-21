@@ -6,6 +6,10 @@ export const DiagramContainer = styled.div.attrs<{ settings?: ChartSettings }>((
 		'data-widget': 'chart-diagram',
 		style: {
 			color: settings?.fontColor || 'var(--font-color)',
+			fontFamily: settings?.fontFamily || 'var(--font-family)',
+			fontSize: settings?.fontSize || 'var(--font-size)',
+			fontWeight: settings?.fontWeight || 'var(--font-normal)',
+			fontStyle: settings?.fontStyle || (void 0),
 			backgroundColor: settings?.backgroundColor || 'var(--bg-color)',
 			borderStyle: settings?.borderStyle || 'none',
 			borderWidth: settings?.borderWidth || 0,

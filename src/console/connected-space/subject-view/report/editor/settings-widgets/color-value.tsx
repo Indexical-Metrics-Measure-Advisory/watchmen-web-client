@@ -1,5 +1,4 @@
-import React from 'react';
-import { useForceUpdate } from '../../../../../../basic-widgets/utils';
+import React, { useState } from 'react';
 import { ChartColorPicker } from '../styles/widgets';
 import { PropName, PropValue } from './widgets';
 
@@ -9,15 +8,13 @@ export const ColorValue = (props: {
 	defaultValue?: string;
 	onValueChange: (value?: string) => void;
 }) => {
-	const {  label, value, defaultValue = 'rgba(0,0,0,1)', onValueChange } = props;
+	const { label, value, defaultValue = 'rgba(0,0,0,1)', onValueChange } = props;
 
-	const forceUpdate = useForceUpdate();
+	const [ color, setColor ] = useState(value || defaultValue);
 	const onColorChange = (color?: string) => {
 		onValueChange(color);
-		forceUpdate();
+		setColor(color || defaultValue);
 	};
-
-	const color = value || defaultValue;
 
 	return <>
 		<PropName>{label}</PropName>

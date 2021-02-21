@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DropdownOption } from '../../../../../../basic-widgets/types';
-import { useForceUpdate } from '../../../../../../basic-widgets/utils';
 import { PropName, PropValue, PropValueDropdown } from './widgets';
 
 export const DropdownValue = (props: {
@@ -16,17 +15,17 @@ export const DropdownValue = (props: {
 		value, defaultValue, onValueChange
 	} = props;
 
-	const forceUpdate = useForceUpdate();
+	const [ selection, setSelection ] = useState(value || defaultValue);
 
 	const onPropChange = (option: DropdownOption) => {
 		onValueChange(option);
-		forceUpdate();
+		setSelection(option.value);
 	};
 
 	return <>
 		<PropName>{label}</PropName>
 		<PropValue>
-			<PropValueDropdown value={value || defaultValue} options={options}
+			<PropValueDropdown value={selection} options={options}
 			                   onChange={onPropChange}
 			                   please={placeholder}/>
 		</PropValue>

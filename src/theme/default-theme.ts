@@ -23,6 +23,7 @@ const DefaultTheme = {
 	codeFontFamily: 'source-code-pro, Menlo, Monaco, Consolas, \'Courier New\', monospace',
 	fontSize: 12,
 	lineHeight: 20,
+	fontNormal: 400,
 	fontDemiBold: 500,
 	fontBold: 600,
 	fontBoldest: 900,

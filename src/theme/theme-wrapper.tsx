@@ -113,14 +113,18 @@ const THEMES: { [key in string]: Theme } = {
 	light: DefaultTheme
 };
 
+let currentTheme = DefaultTheme;
+export const getCurrentTheme = () => currentTheme;
+
 export const ThemeWrapper = () => {
-	const [ theme, setTheme ] = React.useState(DefaultTheme);
+	const [ theme, setTheme ] = React.useState(currentTheme);
 
 	const { on, off } = useEventBus();
 	useEffect(() => {
 		const onThemeChange = (themeName: string) => {
 			const theme = THEMES[themeName];
 			if (theme) {
+				currentTheme = theme;
 				setTheme(theme);
 			} else {
 				console.warn(`Theme[${themeName}] is not supported yet.`);
