@@ -43,7 +43,7 @@ export const En = {
 		SORT_ASC: 'Sort Ascending',
 		SORT_DESC: 'Sort Descending',
 		PREVIOUS_PAGE: 'Previous Page',
-		NEXT_PAGE: 'Next Page'
+		NEXT_PAGE: 'Next Page',
 	},
 	LOGIN: {
 		PRODUCT_TITLE: <>Indexical Metrics <span>&</span> Measure Advisory</>,
@@ -183,7 +183,9 @@ export const En = {
 			FIX_COLUMN: 'Fix Columns to Here',
 			COMPRESS_COLUMNS: 'Compress Columns',
 			NO_REPORT: 'No report defined.',
-			DELETE_REPORT_DIALOG_LABEL: 'Are you sure to delete report? Please note that deletion cannot be recovered.'
+			DELETE_REPORT_DIALOG_LABEL: 'Are you sure to delete report? Please note that deletion cannot be recovered.',
+			COLLAPSE_REPORT_SETTINGS_SECTIONS: 'Collapse All Sections',
+			EXPAND_REPORT_SETTINGS_SECTIONS: 'Expand All Sections'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',

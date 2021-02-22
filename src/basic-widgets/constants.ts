@@ -24,6 +24,7 @@ import {
 	faDrawPolygon,
 	faEdit,
 	faExpand,
+	faExpandArrowsAlt,
 	faGlobe,
 	faGripVertical,
 	faHome,
@@ -152,7 +153,7 @@ export const ICON_DOWNLOAD_PAGE = faArrowAltCircleDown;
 export const ICON_DOWNLOAD = faCloudDownloadAlt;
 export const ICON_PIPELINES_CATALOG = faWaveSquare;
 export const ICON_COLLAPSE_CONTENT = faCompressArrowsAlt;
-// export const ICON_EXPAND_CONTENT = faExpandArrowsAlt;
+export const ICON_EXPAND_CONTENT = faExpandArrowsAlt;
 export const ICON_PREVIOUS_PAGE = faAngleLeft;
 export const ICON_NEXT_PAGE = faAngleRight;
 export const ICON_COMPRESS_COLUMNS = faCompressAlt;

@@ -15,7 +15,9 @@ export enum ReportEditEventTypes {
 	DIMENSION_ADDED = 'dimension-added',
 	DIMENSION_REMOVED = 'dimension-removed',
 
-	EDIT_COMPLETED = 'edit-completed'
+	EDIT_COMPLETED = 'edit-completed',
+	EXPAND_ALL_SECTIONS = 'expand-all-sections',
+	COLLAPSE_ALL_SECTIONS = 'collapse-all-sections'
 }
 
 export interface ReportEditEventBus {
@@ -62,4 +64,12 @@ export interface ReportEditEventBus {
 	fire(type: ReportEditEventTypes.EDIT_COMPLETED, report: Report): this;
 	on(type: ReportEditEventTypes.EDIT_COMPLETED, listener: (report: Report) => void): this;
 	off(type: ReportEditEventTypes.EDIT_COMPLETED, listener: (report: Report) => void): this;
+
+	fire(type: ReportEditEventTypes.EXPAND_ALL_SECTIONS, report: Report): this;
+	on(type: ReportEditEventTypes.EXPAND_ALL_SECTIONS, listener: (report: Report) => void): this;
+	off(type: ReportEditEventTypes.EXPAND_ALL_SECTIONS, listener: (report: Report) => void): this;
+
+	fire(type: ReportEditEventTypes.COLLAPSE_ALL_SECTIONS, report: Report): this;
+	on(type: ReportEditEventTypes.COLLAPSE_ALL_SECTIONS, listener: (report: Report) => void): this;
+	off(type: ReportEditEventTypes.COLLAPSE_ALL_SECTIONS, listener: (report: Report) => void): this;
 }

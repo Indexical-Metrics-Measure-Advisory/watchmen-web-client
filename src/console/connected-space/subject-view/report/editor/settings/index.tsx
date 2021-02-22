@@ -3,7 +3,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
 	CHART_SETTINGS_MAX_WIDTH,
 	CHART_SETTINGS_MIN_WIDTH,
-	ICON_CLOSE
+	ICON_CLOSE,
+	ICON_COLLAPSE_CONTENT,
+	ICON_EXPAND_CONTENT
 } from '../../../../../../basic-widgets/constants';
 import { TooltipAlignment } from '../../../../../../basic-widgets/types';
 import { Lang } from '../../../../../../langs';
@@ -35,6 +37,8 @@ export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject:
 		}
 	}, []);
 
+	const onExpandAllClicked = () => fire(ReportEditEventTypes.EXPAND_ALL_SECTIONS, report);
+	const onCollapseAllClicked = () => fire(ReportEditEventTypes.COLLAPSE_ALL_SECTIONS, report);
 	const onCloseClicked = () => fire(ReportEditEventTypes.EDIT_COMPLETED, report);
 	const onResize = (width: number) => {
 		setResizeState({
@@ -47,6 +51,24 @@ export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject:
 		<SettingsContainer width={resizeState.width} ref={containerRef}>
 			<SettingsHeader>
 				<SettingsHeaderTitle>{report.name || 'Report Edit'}</SettingsHeaderTitle>
+				<SettingsHeaderButton
+					tooltip={{
+						label: Lang.CONSOLE.CONNECTED_SPACE.EXPAND_REPORT_SETTINGS_SECTIONS,
+						alignment: TooltipAlignment.RIGHT,
+						offsetX: 4
+					}}
+					onClick={onExpandAllClicked}>
+					<FontAwesomeIcon icon={ICON_EXPAND_CONTENT}/>
+				</SettingsHeaderButton>
+				<SettingsHeaderButton
+					tooltip={{
+						label: Lang.CONSOLE.CONNECTED_SPACE.COLLAPSE_REPORT_SETTINGS_SECTIONS,
+						alignment: TooltipAlignment.RIGHT,
+						offsetX: 4
+					}}
+					onClick={onCollapseAllClicked}>
+					<FontAwesomeIcon icon={ICON_COLLAPSE_CONTENT}/>
+				</SettingsHeaderButton>
 				<SettingsHeaderButton
 					tooltip={{ label: Lang.ACTIONS.CLOSE, alignment: TooltipAlignment.RIGHT, offsetX: 4 }}
 					onClick={onCloseClicked}>
