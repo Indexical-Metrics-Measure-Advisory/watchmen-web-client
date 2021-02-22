@@ -25,7 +25,16 @@ export interface EChartsPositionHolder {
 	position?: EChartsPosition;
 }
 
-export interface EChartsTitleText extends EChartsFontHolder {
+export interface EChartsSize {
+	width?: number;
+	height?: number;
+}
+
+export interface EChartsSizeHolder {
+	size?: EChartsSize;
+}
+
+export interface EChartsTitleText extends EChartsFontHolder, EChartsSizeHolder {
 	text?: string;
 	align?: 'auto' | 'left' | 'right' | 'center';
 	verticalAlign?: 'auto' | 'top' | 'bottom' | 'middle';

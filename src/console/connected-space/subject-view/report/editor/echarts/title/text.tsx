@@ -67,13 +67,13 @@ export const EChartsTitleTextSettings = (props: { report: Report, chart: EChart 
 			            prop: EChartTitlePropNames.TEXT_BACKGROUND_COLOR,
 			            done: onValueChange
 		            })}/>
-		<BorderSettings report={report} chart={chart}
-		                getHolder={getTitleHolder}
-		                propNames={propNames.border}
-		                onValueChange={onValueChange}/>
 		<PositionSettings report={report} chart={chart}
 		                  getHolder={getTitleHolder}
 		                  propNames={propNames.position}
 		                  onValueChange={onValueChange}/>
+		<BorderSettings report={report} chart={chart}
+		                getHolder={getTitleHolder}
+		                propNames={propNames.border}
+		                onValueChange={onValueChange}/>
 	</Section>;
 };

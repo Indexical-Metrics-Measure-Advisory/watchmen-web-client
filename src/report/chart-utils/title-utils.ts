@@ -15,7 +15,9 @@ export const buildEChartTitle = (chart: EChart): TitleComponentOption | undefine
 			fontStyle: title.text?.font?.style,
 			fontWeight: title.text?.font?.weight as any,
 			fontFamily: title.text?.font?.family,
-			fontSize: title.text?.font?.size
+			fontSize: title.text?.font?.size,
+			width: title.text?.size?.width,
+			height: title.text?.size?.height
 		},
 		subtext: title.subtext?.text,
 		subtextStyle: {
@@ -24,6 +26,8 @@ export const buildEChartTitle = (chart: EChart): TitleComponentOption | undefine
 			fontWeight: title.subtext?.font?.weight as any,
 			fontFamily: title.subtext?.font?.family,
 			fontSize: title.subtext?.font?.size,
+			width: title.subtext?.size?.width,
+			height: title.subtext?.size?.height
 		},
 		borderColor: title.border?.color,
 		borderWidth: title.border?.width,
