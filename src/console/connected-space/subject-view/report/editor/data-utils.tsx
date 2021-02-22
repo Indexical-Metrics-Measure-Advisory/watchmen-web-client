@@ -144,6 +144,8 @@ export enum EChartTitlePropNames {
 
 	TEXT_ALIGN = 'title.align',
 	TEXT_VERTICAL_ALIGN = 'title.verticalAlign',
+	ITEM_GAP = 'title.itemGap',
+	PADDING = 'title.padding',
 }
 
 export type TextPropNames =
@@ -170,7 +172,9 @@ export type NumberPropNames =
 	| EChartTitlePropNames.POSITION_TOP
 	| EChartTitlePropNames.POSITION_RIGHT
 	| EChartTitlePropNames.POSITION_LEFT
-	| EChartTitlePropNames.POSITION_BOTTOM;
+	| EChartTitlePropNames.POSITION_BOTTOM
+	| EChartTitlePropNames.ITEM_GAP
+	| EChartTitlePropNames.PADDING;
 
 export type DropdownPropNames =
 	BasicStylePropNames.BORDER_STYLE

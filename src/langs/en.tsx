@@ -348,6 +348,8 @@ export const En = {
 		VERTICAL_ALIGNMENT_TOP: 'Top',
 		VERTICAL_ALIGNMENT_MIDDLE: 'Middle',
 		VERTICAL_ALIGNMENT_BOTTOM: 'Bottom',
+		TITLE_TEXT_ITEM_GAP: 'Gap of Titles',
+		PADDING: 'Padding',
 		SECTION_TITLE_COUNT_CHART: 'Count Chart Style',
 		SECTION_TITLE_PIE_CHART: 'Pie Chart Style',
 		SECTION_TITLE_ECHART_TITLE: 'Title',

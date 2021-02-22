@@ -2,10 +2,17 @@ import React from 'react';
 import { Lang } from '../../../../../../../langs';
 import { EChart } from '../../../../../../../services/tuples/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
-import { EChartTitlePropNames, onColorChange, onTextValueChange } from '../../data-utils';
+import {
+	EChartTitlePropNames,
+	onColorChange,
+	onNumberChange,
+	onTextValueChange,
+	validateNumber
+} from '../../data-utils';
 import { useReportEditEventBus } from '../../report-edit-event-bus';
 import { ReportEditEventTypes } from '../../report-edit-event-bus-types';
 import { ColorValue } from '../../settings-widgets/color-value';
+import { NumberValue } from '../../settings-widgets/number-value';
 import { Section } from '../../settings-widgets/section';
 import { TextValue } from '../../settings-widgets/text-value';
 import { AlignmentSettings, SettingsAlignmentPropNames } from '../alignment';
@@ -22,8 +29,9 @@ export const EChartsTitleTextSettings = (props: { report: Report, chart: EChart 
 		fire(ReportEditEventTypes.ECHART_TITLE_CHANGED, report);
 	};
 
-	const text = chart.settings?.title?.text;
-	const getTitleHolder = () => chart.settings?.title;
+	const title = chart.settings?.title;
+	const text = title?.text;
+	const getTitleHolder = () => title;
 	const getTextHolder = () => text;
 	const propNames = {
 		font: {
@@ -84,5 +92,23 @@ export const EChartsTitleTextSettings = (props: { report: Report, chart: EChart 
 		                getHolder={getTitleHolder}
 		                propNames={propNames.border}
 		                onValueChange={onValueChange}/>
+		<NumberValue label={Lang.CHART.TITLE_TEXT_ITEM_GAP} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 999'}
+		             value={title?.itemGap} defaultValue={0}
+		             validate={validateNumber(3)}
+		             onValueChange={onNumberChange({
+			             report,
+			             chart,
+			             prop: EChartTitlePropNames.ITEM_GAP,
+			             done: onValueChange
+		             })}/>
+		<NumberValue label={Lang.CHART.PADDING} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 9999'}
+		             value={title?.padding} defaultValue={0}
+		             validate={validateNumber(4)}
+		             onValueChange={onNumberChange({
+			             report,
+			             chart,
+			             prop: EChartTitlePropNames.PADDING,
+			             done: onValueChange
+		             })}/>
 	</Section>;
 };
