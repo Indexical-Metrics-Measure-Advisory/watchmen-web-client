@@ -36,7 +36,7 @@ export const EChartsTitleSubtextSettings = (props: { report: Report, chart: ECha
 		           onValueChange={onTextValueChange({
 			           report,
 			           chart,
-			           prop: EChartTitlePropNames.TEXT,
+			           prop: EChartTitlePropNames.SUBTEXT,
 			           done: onValueChange
 		           })}/>
 		<FontSettings report={report} chart={chart}

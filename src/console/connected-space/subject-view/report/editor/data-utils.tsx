@@ -114,6 +114,7 @@ export enum EChartTitlePropNames {
 	TEXT_BORDER_COLOR = 'title.text.border.color',
 	TEXT_BORDER_STYLE = 'title.text.border.style',
 	TEXT_BORDER_RADIUS = 'title.text.border.radius',
+	TEXT_BACKGROUND_COLOR = 'title.backgroundColor',
 
 	SUBTEXT = 'title.subtext.text',
 	SUBTEXT_FONT_FAMILY = 'title.subtext.font.family',
@@ -121,10 +122,11 @@ export enum EChartTitlePropNames {
 	SUBTEXT_FONT_SIZE = 'title.subtext.font.size',
 	SUBTEXT_FONT_STYLE = 'title.subtext.font.style',
 	SUBTEXT_FONT_WEIGHT = 'title.subtext.font.weight',
-	SUBTEXT_BORDER_WIDTH = 'title.subtext.border.width',
-	SUBTEXT_BORDER_COLOR = 'title.subtext.border.color',
-	SUBTEXT_BORDER_STYLE = 'title.subtext.border.style',
-	SUBTEXT_BORDER_RADIUS = 'title.subtext.border.radius',
+
+	POSITION_TOP = 'title.position.top',
+	POSITION_RIGHT = 'title.position.right',
+	POSITION_LEFT = 'title.position.left',
+	POSITION_BOTTOM = 'title.position.bottom',
 }
 
 export type TextPropNames =
@@ -137,8 +139,8 @@ export type ColorPropNames =
 	| CountChartStylePropNames.TEXT_FONT_COLOR
 	| EChartTitlePropNames.TEXT_FONT_COLOR
 	| EChartTitlePropNames.TEXT_BORDER_COLOR
-	| EChartTitlePropNames.SUBTEXT_FONT_COLOR
-	| EChartTitlePropNames.SUBTEXT_BORDER_COLOR;
+	| EChartTitlePropNames.TEXT_BACKGROUND_COLOR
+	| EChartTitlePropNames.SUBTEXT_FONT_COLOR;
 
 export type NumberPropNames =
 	BasicStylePropNames.BORDER_WIDTH
@@ -148,8 +150,10 @@ export type NumberPropNames =
 	| EChartTitlePropNames.TEXT_BORDER_WIDTH
 	| EChartTitlePropNames.TEXT_BORDER_RADIUS
 	| EChartTitlePropNames.SUBTEXT_FONT_SIZE
-	| EChartTitlePropNames.SUBTEXT_BORDER_WIDTH
-	| EChartTitlePropNames.SUBTEXT_BORDER_RADIUS;
+	| EChartTitlePropNames.POSITION_TOP
+	| EChartTitlePropNames.POSITION_RIGHT
+	| EChartTitlePropNames.POSITION_LEFT
+	| EChartTitlePropNames.POSITION_BOTTOM;
 
 export type DropdownPropNames =
 	BasicStylePropNames.BORDER_STYLE
@@ -163,8 +167,7 @@ export type DropdownPropNames =
 	| EChartTitlePropNames.TEXT_BORDER_STYLE
 	| EChartTitlePropNames.SUBTEXT_FONT_FAMILY
 	| EChartTitlePropNames.SUBTEXT_FONT_STYLE
-	| EChartTitlePropNames.SUBTEXT_FONT_WEIGHT
-	| EChartTitlePropNames.SUBTEXT_BORDER_STYLE;
+	| EChartTitlePropNames.SUBTEXT_FONT_WEIGHT;
 
 export type BooleanPropNames = CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING;
 
@@ -195,11 +198,11 @@ export const onNumberChange = (options: {
 	report: Report;
 	chart: Chart;
 	prop: NumberPropNames;
-	done: (report: Report, chart: Chart, prop: string, value: number) => void;
-}) => (value: string) => {
+	done: (report: Report, chart: Chart, prop: string, value?: number) => void;
+}) => (value?: string) => {
 	const { report, chart, prop, done } = options;
-	const numberValue = parseInt(value);
-	assignValue(chart, prop, numberValue, false);
+	const numberValue = value ? parseInt(value) : (void 0);
+	assignValue(chart, prop, numberValue, true);
 	done(report, chart, prop, numberValue);
 	return numberValue;
 };

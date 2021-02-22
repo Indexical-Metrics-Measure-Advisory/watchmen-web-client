@@ -1,6 +1,5 @@
 import React from 'react';
 import { Lang } from '../../../../../../../langs';
-import { ChartBorderStyle } from '../../../../../../../services/tuples/chart-types';
 import { EChart, EChartsFontHolder } from '../../../../../../../services/tuples/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import { getCurrentTheme } from '../../../../../../../theme/theme-wrapper';
@@ -60,7 +59,7 @@ export const FontSettings = (props: {
 			               done: onValueChange
 		               })}/>
 		<ColorValue label={Lang.CHART.FONT_COLOR}
-		            value={text?.font?.color} defaultValue={theme.fontColor}
+		            value={text?.font?.color}
 		            onValueChange={onColorChange({
 			            report,
 			            chart,
@@ -68,7 +67,7 @@ export const FontSettings = (props: {
 			            done: onValueChange
 		            })}/>
 		<NumberValue label={Lang.CHART.FONT_SIZE} unitLabel={Lang.CHART.PIXEL}
-		             value={text?.font?.size} defaultValue={theme.fontSize}
+		             value={text?.font?.size}
 		             validate={validateNumber(3)}
 		             onValueChange={onNumberChange({
 			             report,
@@ -77,7 +76,7 @@ export const FontSettings = (props: {
 			             done: onValueChange
 		             })}/>
 		<DropdownValue label={Lang.CHART.FONT_STYLE} options={FontStyleOptions}
-		               value={text?.font?.style} defaultValue={ChartBorderStyle.NONE}
+		               value={text?.font?.style}
 		               onValueChange={onDropdownValueChange({
 			               report,
 			               chart,
@@ -85,7 +84,7 @@ export const FontSettings = (props: {
 			               done: onValueChange
 		               })}/>
 		<DropdownValue label={Lang.CHART.FONT_WEIGHT} options={FontWeightOptions}
-		               value={text?.font?.weight} defaultValue={`${theme.fontNormal}`}
+		               value={text?.font?.weight}
 		               onValueChange={onDropdownValueChange({
 			               report,
 			               chart,

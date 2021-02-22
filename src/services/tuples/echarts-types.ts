@@ -14,27 +14,30 @@ export interface EChartsBorderHolder {
 	border?: EChartsBorder;
 }
 
-export interface EChartsTitleText extends EChartsFontHolder {
-	text?: string;
-	align?: 'auto' | 'left' | 'right' | 'center';
-	verticalAlign?: 'auto' | 'top' | 'bottom' | 'middle';
-}
-
-export interface EChartsTitlePosition {
+export interface EChartsPosition {
 	top?: number;
 	right?: number;
 	left?: number;
 	bottom?: number;
 }
 
-export interface EChartsTitle {
+export interface EChartsPositionHolder {
+	position?: EChartsPosition;
+}
+
+export interface EChartsTitleText extends EChartsFontHolder {
+	text?: string;
+	align?: 'auto' | 'left' | 'right' | 'center';
+	verticalAlign?: 'auto' | 'top' | 'bottom' | 'middle';
+}
+
+export interface EChartsTitle extends EChartsPositionHolder {
 	text?: EChartsTitleText & EChartsBorderHolder;
 	subtext?: EChartsTitleText;
 	backgroundColor?: string;
 	padding?: number;
 	/** gap with sub title */
 	gap?: number;
-	position?: EChartsTitlePosition;
 }
 
 export interface EChartsSettings extends ChartSettings {

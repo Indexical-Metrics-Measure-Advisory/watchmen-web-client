@@ -8,7 +8,7 @@ export const ColorValue = (props: {
 	defaultValue?: string;
 	onValueChange: (value?: string) => void;
 }) => {
-	const { label, value, defaultValue = 'rgba(0,0,0,1)', onValueChange } = props;
+	const { label, value, defaultValue = 'rgba(255,255,255,0)', onValueChange } = props;
 
 	const [ color, setColor ] = useState(value || defaultValue);
 	const onColorChange = (color?: string) => {

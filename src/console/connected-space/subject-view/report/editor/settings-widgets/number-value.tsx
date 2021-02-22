@@ -20,7 +20,7 @@ export const NumberValue = (props: {
 	value?: number;
 	defaultValue?: number;
 	validate: (value: string) => boolean;
-	onValueChange: (value: string) => number;
+	onValueChange: (value?: string) => number | undefined;
 }) => {
 	const {
 		label, unitLabel, placeholder,
@@ -40,7 +40,7 @@ export const NumberValue = (props: {
 	};
 	const onConfirm = () => {
 		const { value: newValue } = delegate;
-		if (validate(newValue)) {
+		if (newValue.trim().length === 0 || validate(newValue)) {
 			const value = onValueChange(newValue);
 			setDelegate({ value: asString(value, defaultValue) });
 		} else {
