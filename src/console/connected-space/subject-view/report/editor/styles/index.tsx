@@ -67,9 +67,6 @@ export const BasicStylesSection = (props: { report: Report }) => {
 	const { fire } = useReportEditEventBus();
 
 	const onColorChange = (prop: 'font.color' | 'backgroundColor' | 'border.color') => (color?: string) => {
-		if (!report.chart.settings) {
-			report.chart.settings = {};
-		}
 		assignValue(chart, prop, color, true);
 		fire(ReportEditEventTypes.BASIC_STYLE_CHANGED, report);
 	};
@@ -77,9 +74,6 @@ export const BasicStylesSection = (props: { report: Report }) => {
 		return new RegExp(`^\\d{1,${fractionDigits}}$`).test(value);
 	};
 	const onNumberChange = (prop: 'border.width' | 'border.radius' | 'font.size') => (value: string) => {
-		if (!report.chart.settings) {
-			report.chart.settings = {};
-		}
 		const numberValue = parseInt(value);
 		assignValue(chart, prop, numberValue, false);
 		fire(ReportEditEventTypes.BASIC_STYLE_CHANGED, report);
@@ -87,10 +81,6 @@ export const BasicStylesSection = (props: { report: Report }) => {
 	};
 	const onDropdownValueChange = (prop: 'border.style' | 'font.family' | 'font.style' | 'font.weight') => (option: DropdownOption) => {
 		const { value } = option;
-		if (!report.chart.settings) {
-			report.chart.settings = {};
-		}
-
 		assignValue(chart, prop, value, false);
 		fire(ReportEditEventTypes.BASIC_STYLE_CHANGED, report);
 	};

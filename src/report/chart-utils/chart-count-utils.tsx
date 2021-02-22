@@ -34,7 +34,7 @@ export class ChartCountUtils extends DefaultChartUtils {
 		}
 
 		const { chart: { settings } } = report;
-		const { text: { formatUseGrouping, textDecoration } = {} } = (settings || {}) as CountChartSettings;
+		const { countText: { formatUseGrouping, textDecoration } = {} } = (settings || {}) as CountChartSettings;
 
 		if (formatUseGrouping) {
 			value = new Intl.NumberFormat(undefined, { useGrouping: true }).format(value);

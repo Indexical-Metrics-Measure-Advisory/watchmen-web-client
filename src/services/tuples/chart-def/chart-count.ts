@@ -9,12 +9,14 @@ export const COUNT: ChartDef = {
 	maxIndicatorCount: 0
 };
 
+export interface CountChartSettingsText {
+	/** number format grouping */
+	formatUseGrouping?: boolean;
+	textDecoration?: ChartTextDecoration;
+}
+
 export interface CountChartSettings extends ChartSettings {
-	text?: {
-		/** number format grouping */
-		formatUseGrouping?: boolean;
-		textDecoration?: ChartTextDecoration;
-	}
+	countText?: CountChartSettingsText
 }
 
 export interface CountChart extends Chart {
