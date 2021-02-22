@@ -3,6 +3,7 @@ import { Lang } from '../../../../../../langs';
 import { isPieChart } from '../../../../../../services/tuples/chart-utils';
 import { Report } from '../../../../../../services/tuples/report-types';
 import { useReportEditEventBus } from '../report-edit-event-bus';
+import { useChartType } from '../settings-effect/use-chart-type';
 import { Section } from '../settings-widgets/section';
 
 export const ChartPieSettings = (props: { report: Report }) => {
@@ -10,11 +11,11 @@ export const ChartPieSettings = (props: { report: Report }) => {
 	const { chart } = report;
 
 	const { fire } = useReportEditEventBus();
+	useChartType({ report });
 
 	if (!isPieChart(chart)) {
 		return null;
 	}
-
 
 	return <Section title={Lang.CHART.SECTION_TITLE_PIE_CHART}>
 	</Section>;

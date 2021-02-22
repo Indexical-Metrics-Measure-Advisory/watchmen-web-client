@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { v4 } from 'uuid';
 import { useForceUpdate } from '../../../../../../basic-widgets/utils';
 import { Lang } from '../../../../../../langs';
@@ -7,6 +7,7 @@ import { Report, ReportDimension } from '../../../../../../services/tuples/repor
 import { Subject } from '../../../../../../services/tuples/subject-types';
 import { useReportEditEventBus } from '../report-edit-event-bus';
 import { ReportEditEventTypes } from '../report-edit-event-bus-types';
+import { useChartType } from '../settings-effect/use-chart-type';
 import { Section } from '../settings-widgets/section';
 import { DimensionEditor } from './dimension';
 
@@ -14,20 +15,9 @@ export const DimensionsSection = (props: { subject: Subject, report: Report }) =
 	const { subject, report } = props;
 	const { chart: { type } } = report;
 
-	const { on, off, fire } = useReportEditEventBus();
+	const { fire } = useReportEditEventBus();
 	const forceUpdate = useForceUpdate();
-	useEffect(() => {
-		const onChartTypeChanged = (changedReport: Report) => {
-			if (changedReport !== report) {
-				return;
-			}
-			forceUpdate();
-		};
-		on(ReportEditEventTypes.CHART_TYPE_CHANGED, onChartTypeChanged);
-		return () => {
-			off(ReportEditEventTypes.CHART_TYPE_CHANGED, onChartTypeChanged);
-		};
-	}, [ on, off, forceUpdate, report ]);
+	useChartType({ report });
 
 	const onDelete = (dimension: ReportDimension) => {
 		const index = report.dimensions.indexOf(dimension);

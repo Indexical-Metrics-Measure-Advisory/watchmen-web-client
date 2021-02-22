@@ -6,6 +6,7 @@ import { isCountChart } from '../../../../../../services/tuples/chart-utils';
 import { Report } from '../../../../../../services/tuples/report-types';
 import { useReportEditEventBus } from '../report-edit-event-bus';
 import { ReportEditEventTypes } from '../report-edit-event-bus-types';
+import { useChartType } from '../settings-effect/use-chart-type';
 import { BooleanValue } from '../settings-widgets/boolean-value';
 import { DropdownValue } from '../settings-widgets/dropdown-value';
 import { Section } from '../settings-widgets/section';
@@ -22,6 +23,7 @@ export const ChartCountSettings = (props: { report: Report }) => {
 	const { chart } = report;
 
 	const { fire } = useReportEditEventBus();
+	useChartType({ report });
 
 	if (!isCountChart(chart)) {
 		return null;
