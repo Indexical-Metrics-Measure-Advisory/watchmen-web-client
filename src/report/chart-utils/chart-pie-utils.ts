@@ -30,6 +30,7 @@ export class ChartPieUtils extends DefaultChartUtils {
 				name: indicator.name,
 				type: 'pie',
 				center: [ '50%', '50%' ],
+				label: { formatter: '{b}: {c}, {d}%' },
 				data: groups.map(({ value, row }) => {
 					return {
 						name: value,
