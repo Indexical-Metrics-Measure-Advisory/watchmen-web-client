@@ -34,14 +34,28 @@ export class ChartCountUtils extends DefaultChartUtils {
 		}
 
 		const { chart: { settings } } = report;
-		const { countText: { formatUseGrouping, textDecoration } = {} } = (settings || {}) as CountChartSettings;
+		const {
+			countText: {
+				font = {},
+				formatUseGrouping,
+				textDecoration
+			} = {}
+		} = (settings || {}) as CountChartSettings;
+		const { family: fontFamily, style: fontStyle, color, weight: fontWeight, size: fontSize } = font;
 
 		if (formatUseGrouping) {
 			value = new Intl.NumberFormat(undefined, { useGrouping: true }).format(value);
 		}
 
 		return <CountContainer>
-			<span style={{ textDecoration }}>{value}</span>
+			<span style={{
+				textDecoration,
+				fontFamily,
+				fontStyle,
+				color,
+				fontWeight: fontWeight as any,
+				fontSize
+			}}>{value}</span>
 		</CountContainer>;
 	}
 }
