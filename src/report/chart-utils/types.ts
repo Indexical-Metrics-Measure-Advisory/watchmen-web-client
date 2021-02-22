@@ -5,6 +5,8 @@ import { Report } from '../../services/tuples/report-types';
 export type ChartOptions = EChartOption | EChartsResponsiveOption | JSX.Element;
 
 export interface ChartUtils {
+	shouldHasDimension: () => boolean;
+	shouldHasIndicator: () => boolean;
 	canAppendDimensions: (report: Report) => boolean;
 	canReduceIndicators: (report: Report) => boolean;
 	canAppendIndicators: (report: Report) => boolean;

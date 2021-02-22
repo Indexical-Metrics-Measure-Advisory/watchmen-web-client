@@ -301,6 +301,7 @@ export const En = {
 	CHART: {
 		SECTION_TITLE_SIZE: 'Size',
 		SECTION_TITLE_BASIC_STYLE: 'Basic Style',
+		SECTION_TITLE_DIMENSIONS: 'Dimensions',
 		NAME: 'Name',
 		DESCRIPTION: 'Description',
 		WIDTH: 'Width',
@@ -332,6 +333,24 @@ export const En = {
 		BORDER_WIDTH: 'Border Width',
 		BORDER_RADIUS: 'Border Radius',
 		SECTION_TITLE_COUNT_CHART: 'Count Chart Style',
+		SECTION_TITLE_PIE_CHART: 'Pie Chart Style',
+		NONAME_COLUMN: 'Noname Column',
+		UNKNOWN_COLUMN_NAME: 'Unknown Column',
+		PLEASE_SELECT_DIMENSION: 'Please select...',
+		TYPE: 'Type',
+		TYPES: {
+			COUNT: 'Count',
+			BAR: 'Bar',
+			LINE: 'Line',
+			SCATTER: 'Scatter',
+			PIE: 'Pie',
+			DOUGHNUT: 'Doughnut',
+			NIGHTINGALE: 'Nightingale',
+			SUNBURST: 'Sunburst',
+			TREE: 'Tree',
+			TREEMAP: 'Treemap',
+			MAP: 'Map'
+		},
 		COUNT: {
 			FORMAT_USING_GROUP: 'Using Group',
 			TEXT_DECORATION: 'Text Decoration',

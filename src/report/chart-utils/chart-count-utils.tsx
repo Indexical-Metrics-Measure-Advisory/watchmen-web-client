@@ -19,6 +19,14 @@ export class ChartCountUtils extends DefaultChartUtils {
 		super(COUNT);
 	}
 
+	shouldHasDimension(): boolean {
+		return false;
+	}
+
+	shouldHasIndicator(): boolean {
+		return false;
+	}
+
 	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
 		let value: string | number = (dataset.data[0][0] as number | null | undefined) || 0;
 		if (isNaN(value)) {

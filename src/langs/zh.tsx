@@ -301,6 +301,7 @@ export const Zh = {
 	CHART: {
 		SECTION_TITLE_SIZE: '尺寸',
 		SECTION_TITLE_BASIC_STYLE: '基本样式',
+		SECTION_TITLE_DIMENSIONS: '统计维度',
 		NAME: '名称',
 		DESCRIPTION: '描述',
 		WIDTH: '宽度',
@@ -332,6 +333,24 @@ export const Zh = {
 		BORDER_WIDTH: '边框宽度',
 		BORDER_RADIUS: '圆弧边框半径',
 		SECTION_TITLE_COUNT_CHART: '特有样式',
+		SECTION_TITLE_PIE_CHART: '特有样式',
+		NONAME_COLUMN: '未命名列',
+		UNKNOWN_COLUMN_NAME: '未知列',
+		PLEASE_SELECT_DIMENSION: '请选择...',
+		TYPE: '图表种类',
+		TYPES: {
+			COUNT: '数量统计',
+			BAR: '柱状图',
+			LINE: '折线图',
+			SCATTER: '散点图',
+			PIE: '饼图',
+			DOUGHNUT: '环形图',
+			NIGHTINGALE: '南丁格尔玫瑰',
+			SUNBURST: '旭日图',
+			TREE: '树图',
+			TREEMAP: '矩形树图',
+			MAP: '地图'
+		},
 		COUNT: {
 			FORMAT_USING_GROUP: '千分位',
 			TEXT_DECORATION: '文本样式',

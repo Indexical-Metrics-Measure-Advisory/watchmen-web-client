@@ -13,11 +13,13 @@ export enum ReportIndicatorArithmetic {
 }
 
 export interface ReportIndicator {
+	columnId: string;
 	name: string;
 	arithmetic: ReportIndicatorArithmetic;
 }
 
 export interface ReportDimension {
+	columnId: string;
 	name: string;
 }
 

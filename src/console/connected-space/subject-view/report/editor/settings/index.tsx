@@ -23,7 +23,7 @@ interface ResizeHandleState {
 }
 
 export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
-	const { report } = props;
+	const { subject, report } = props;
 
 	const { fire } = useReportEditEventBus();
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -53,7 +53,7 @@ export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject:
 					<FontAwesomeIcon icon={ICON_CLOSE}/>
 				</SettingsHeaderButton>
 			</SettingsHeader>
-			<SettingsBody report={report}/>
+			<SettingsBody subject={subject} report={report}/>
 		</SettingsContainer>
 		<SettingsResizeHandle top={resizeState.top} width={resizeState.width} onResize={onResize}
 		                      alignment={ResizeHandleAlignment.RIGHT}/>

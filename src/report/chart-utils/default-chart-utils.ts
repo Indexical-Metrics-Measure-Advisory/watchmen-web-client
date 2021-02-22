@@ -27,20 +27,22 @@ export const createValidationFailure = (message: string) => ({ pass: false, erro
 
 export const DEFAULT_INDICATOR_COUNT_VALIDATOR: ReportValidator = (report: Report, def: ChartDef) => {
 	const count = report.indicators?.length || 0;
-	if (count > (def.maxIndicatorCount || 1)) {
+	const { minIndicatorCount = 1, maxIndicatorCount = 1 } = def;
+	if (count > maxIndicatorCount) {
 		return createValidationFailure('Too many indicators exits.');
 	}
-	if (count < (def.minIndicatorCount || 1)) {
+	if (count < minIndicatorCount) {
 		return createValidationFailure('Do not have enough indicator(s).');
 	}
 	return VALIDATION_SUCCESS;
 };
 export const DEFAULT_DIMENSION_COUNT_VALIDATOR: ReportValidator = (report: Report, def: ChartDef) => {
 	const count = report.dimensions?.length || 0;
-	if (count > (def.maxDimensionCount || 1)) {
+	const { minDimensionCount = 1, maxDimensionCount = 1 } = def;
+	if (count > maxDimensionCount) {
 		return createValidationFailure('Too many dimensions exits.');
 	}
-	if (count < (def.minDimensionCount || 1)) {
+	if (count < minDimensionCount) {
 		return createValidationFailure('Do not have enough dimension(s).');
 	}
 	return VALIDATION_SUCCESS;
@@ -60,6 +62,14 @@ export abstract class DefaultChartUtils implements ChartUtils {
 
 	getType(): ChartType {
 		return this.def.type;
+	}
+
+	shouldHasDimension(): boolean {
+		return true;
+	}
+
+	shouldHasIndicator(): boolean {
+		return true;
 	}
 
 	canAppendDimensions(report: Report): boolean {
@@ -94,14 +104,19 @@ export abstract class DefaultChartUtils implements ChartUtils {
 			report.indicators = [];
 		}
 		// make indicators fulfill the minimum count
-		new Array(Math.max((this.def.minIndicatorCount || 1) - report.indicators.length, 0))
+		const { minIndicatorCount = 1 } = this.def;
+		new Array(Math.max(minIndicatorCount - report.indicators.length, 0))
 			.fill(1)
-			.forEach(() => report.indicators.push({ name: '', arithmetic: ReportIndicatorArithmetic.NONE }));
+			.forEach(() => report.indicators.push({
+				columnId: '',
+				name: '',
+				arithmetic: ReportIndicatorArithmetic.NONE
+			}));
 		// make indicators fulfill the maximum count
-		const maxIndicatorCount = (this.def.maxIndicatorCount || 1);
-		if (report.indicators.length > maxIndicatorCount) {
-			report.indicators.length = maxIndicatorCount;
-		}
+		// const { maxIndicatorCount = 1 } = this.def;
+		// if (report.indicators.length > maxIndicatorCount) {
+		// 	report.indicators.length = maxIndicatorCount;
+		// }
 	}
 
 	protected defendDimensionCount(report: Report): void {
@@ -110,14 +125,15 @@ export abstract class DefaultChartUtils implements ChartUtils {
 			report.dimensions = [];
 		}
 		// make dimensions fulfill the minimum count
-		new Array(Math.max((this.def.minDimensionCount || 1) - report.dimensions.length, 0))
+		const { minDimensionCount = 1 } = this.def;
+		new Array(Math.max(minDimensionCount - report.dimensions.length, 0))
 			.fill(1)
-			.forEach(() => report.dimensions.push({ name: '' }));
+			.forEach(() => report.dimensions.push({ columnId: '', name: '' }));
 		// make dimensions fulfill the maximum count
-		const maxDimensionCount = (this.def.maxDimensionCount || 1);
-		if (report.dimensions.length > maxDimensionCount) {
-			report.dimensions.length = maxDimensionCount;
-		}
+		// const { maxDimensionCount = 1 } = this.def;
+		// if (report.dimensions.length > maxDimensionCount) {
+		// 	report.dimensions.length = maxDimensionCount;
+		// }
 	}
 
 	defend(report: Report): void {
