@@ -110,11 +110,6 @@ export enum EChartTitlePropNames {
 	TEXT_FONT_SIZE = 'title.text.font.size',
 	TEXT_FONT_STYLE = 'title.text.font.style',
 	TEXT_FONT_WEIGHT = 'title.text.font.weight',
-	TEXT_BORDER_WIDTH = 'title.text.border.width',
-	TEXT_BORDER_COLOR = 'title.text.border.color',
-	TEXT_BORDER_STYLE = 'title.text.border.style',
-	TEXT_BORDER_RADIUS = 'title.text.border.radius',
-	TEXT_BACKGROUND_COLOR = 'title.backgroundColor',
 
 	SUBTEXT = 'title.subtext.text',
 	SUBTEXT_FONT_FAMILY = 'title.subtext.font.family',
@@ -122,6 +117,12 @@ export enum EChartTitlePropNames {
 	SUBTEXT_FONT_SIZE = 'title.subtext.font.size',
 	SUBTEXT_FONT_STYLE = 'title.subtext.font.style',
 	SUBTEXT_FONT_WEIGHT = 'title.subtext.font.weight',
+
+	TEXT_BORDER_WIDTH = 'title.border.width',
+	TEXT_BORDER_COLOR = 'title.border.color',
+	TEXT_BORDER_STYLE = 'title.border.style',
+	TEXT_BORDER_RADIUS = 'title.border.radius',
+	TEXT_BACKGROUND_COLOR = 'title.backgroundColor',
 
 	POSITION_TOP = 'title.position.top',
 	POSITION_RIGHT = 'title.position.right',

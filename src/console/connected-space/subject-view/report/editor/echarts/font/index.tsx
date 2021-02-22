@@ -47,11 +47,11 @@ export const FontSettings = (props: {
 	const theme = getCurrentTheme();
 	const FontFamilyOptions = createFontFamilyOptions(theme);
 
-	const text = getHolder(chart);
+	const holder = getHolder(chart);
 
 	return <>
 		<DropdownValue label={Lang.CHART.FONT_FAMILY} options={FontFamilyOptions}
-		               value={text?.font?.family}
+		               value={holder?.font?.family}
 		               onValueChange={onDropdownValueChange({
 			               report,
 			               chart,
@@ -59,7 +59,7 @@ export const FontSettings = (props: {
 			               done: onValueChange
 		               })}/>
 		<ColorValue label={Lang.CHART.FONT_COLOR}
-		            value={text?.font?.color}
+		            value={holder?.font?.color}
 		            onValueChange={onColorChange({
 			            report,
 			            chart,
@@ -67,7 +67,7 @@ export const FontSettings = (props: {
 			            done: onValueChange
 		            })}/>
 		<NumberValue label={Lang.CHART.FONT_SIZE} unitLabel={Lang.CHART.PIXEL}
-		             value={text?.font?.size}
+		             value={holder?.font?.size}
 		             validate={validateNumber(3)}
 		             onValueChange={onNumberChange({
 			             report,
@@ -76,7 +76,7 @@ export const FontSettings = (props: {
 			             done: onValueChange
 		             })}/>
 		<DropdownValue label={Lang.CHART.FONT_STYLE} options={FontStyleOptions}
-		               value={text?.font?.style}
+		               value={holder?.font?.style}
 		               onValueChange={onDropdownValueChange({
 			               report,
 			               chart,
@@ -84,7 +84,7 @@ export const FontSettings = (props: {
 			               done: onValueChange
 		               })}/>
 		<DropdownValue label={Lang.CHART.FONT_WEIGHT} options={FontWeightOptions}
-		               value={text?.font?.weight}
+		               value={holder?.font?.weight}
 		               onValueChange={onDropdownValueChange({
 			               report,
 			               chart,

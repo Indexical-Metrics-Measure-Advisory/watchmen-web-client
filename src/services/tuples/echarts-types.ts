@@ -31,13 +31,13 @@ export interface EChartsTitleText extends EChartsFontHolder {
 	verticalAlign?: 'auto' | 'top' | 'bottom' | 'middle';
 }
 
-export interface EChartsTitle extends EChartsPositionHolder {
-	text?: EChartsTitleText & EChartsBorderHolder;
+export interface EChartsTitle extends EChartsBorderHolder, EChartsPositionHolder {
+	text?: EChartsTitleText;
 	subtext?: EChartsTitleText;
 	backgroundColor?: string;
 	padding?: number;
 	/** gap with sub title */
-	gap?: number;
+	itemGap?: number;
 }
 
 export interface EChartsSettings extends ChartSettings {

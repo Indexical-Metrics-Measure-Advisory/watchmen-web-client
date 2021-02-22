@@ -40,11 +40,11 @@ export const BorderSettings = (props: {
 		onValueChange
 	} = props;
 
-	const text = getHolder(chart);
+	const holder = getHolder(chart);
 
 	return <>
 		<NumberValue label={Lang.CHART.BORDER_WIDTH} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 999'}
-		             value={text?.border?.width} defaultValue={0}
+		             value={holder?.border?.width} defaultValue={0}
 		             validate={validateNumber(3)}
 		             onValueChange={onNumberChange({
 			             report,
@@ -53,7 +53,7 @@ export const BorderSettings = (props: {
 			             done: onValueChange
 		             })}/>
 		<ColorValue label={Lang.CHART.BORDER_COLOR}
-		            value={text?.border?.color}
+		            value={holder?.border?.color}
 		            onValueChange={onColorChange({
 			            report,
 			            chart,
@@ -61,7 +61,7 @@ export const BorderSettings = (props: {
 			            done: onValueChange
 		            })}/>
 		<DropdownValue label={Lang.CHART.BORDER_STYLE}
-		               value={text?.border?.style} defaultValue={ChartBorderStyle.NONE}
+		               value={holder?.border?.style} defaultValue={ChartBorderStyle.NONE}
 		               options={BorderStyleOptions}
 		               onValueChange={onDropdownValueChange({
 			               report,
@@ -70,7 +70,7 @@ export const BorderSettings = (props: {
 			               done: onValueChange
 		               })}/>
 		<NumberValue label={Lang.CHART.BORDER_RADIUS} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 9999'}
-		             value={text?.border?.radius} defaultValue={0}
+		             value={holder?.border?.radius} defaultValue={0}
 		             validate={validateNumber(4)}
 		             onValueChange={onNumberChange({
 			             report,

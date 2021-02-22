@@ -68,7 +68,7 @@ export const EChartsTitleTextSettings = (props: { report: Report, chart: EChart 
 			            done: onValueChange
 		            })}/>
 		<BorderSettings report={report} chart={chart}
-		                getHolder={getTextHolder}
+		                getHolder={getTitleHolder}
 		                propNames={propNames.border}
 		                onValueChange={onValueChange}/>
 		<PositionSettings report={report} chart={chart}

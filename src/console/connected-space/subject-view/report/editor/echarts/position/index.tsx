@@ -30,25 +30,24 @@ export const PositionSettings = (props: {
 		onValueChange
 	} = props;
 
-	const text = getHolder(chart);
+	const holder = getHolder(chart);
 
 	const editors = [
-		{ label: Lang.CHART.POSITION_TOP, name: posTopPropName },
-		{ label: Lang.CHART.POSITION_RIGHT, name: posRightPropName },
-		{ label: Lang.CHART.POSITION_LEFT, name: posLeftPropName },
-		{ label: Lang.CHART.POSITION_BOTTOM, name: posBottomPropName }
+		{ label: Lang.CHART.POSITION_TOP, name: posTopPropName, value: holder?.position?.top },
+		{ label: Lang.CHART.POSITION_LEFT, name: posLeftPropName, value: holder?.position?.left },
+		{ label: Lang.CHART.POSITION_RIGHT, name: posRightPropName, value: holder?.position?.right },
+		{ label: Lang.CHART.POSITION_BOTTOM, name: posBottomPropName, value: holder?.position?.bottom }
 	];
 
 	return <>
-		{editors.map(({ name, label }) => {
+		{editors.map(({ name, label, value }) => {
 			return <NumberValue label={label} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 9999'}
-			                    value={text?.position?.top}
+			                    value={value}
 			                    validate={validateNumber(4)}
 			                    onValueChange={onNumberChange({
 				                    report,
 				                    chart,
 				                    prop: name,
-
 				                    done: onValueChange
 			                    })}
 			                    key={name}/>;
