@@ -1,8 +1,8 @@
-import { EChartOption, EChartsResponsiveOption } from 'echarts';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { Report } from '../../services/tuples/report-types';
 
-export type ChartOptions = EChartOption | EChartsResponsiveOption | JSX.Element;
+export type ChartEChartOptions = any;
+export type ChartOptions = ChartEChartOptions | JSX.Element;
 
 export interface ChartUtils {
 	shouldHasDimension: () => boolean;

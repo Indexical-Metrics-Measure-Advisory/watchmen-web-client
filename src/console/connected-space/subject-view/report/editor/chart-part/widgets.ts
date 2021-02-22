@@ -17,7 +17,9 @@ export const EditChartContainer = styled.div.attrs({
 export const ChartWrapper = styled.div.attrs<{ rect: ReportRect }>(({ rect: { width, height } }) => {
 	return {
 		'data-widget': 'report-chart-wrapper',
-		style: { width: width + 2, height: height + 2 }
+		// even border is applied, still use original width and height
+		// since echarts detect size including border width.
+		style: { width, height }
 	};
 })<{ rect: ReportRect }>`
 	display       : block;
