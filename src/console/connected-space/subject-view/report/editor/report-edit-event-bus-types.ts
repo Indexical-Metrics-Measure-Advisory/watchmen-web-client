@@ -8,6 +8,8 @@ export enum ReportEditEventTypes {
 
 	CHART_COUNT_STYLE_CHANGED = 'chart-count-style-changed',
 
+	ECHART_TITLE_CHANGED = 'echart-title-changed',
+
 	CHART_TYPE_CHANGED = 'chart-type-changed',
 	DIMENSION_CHANGED = 'dimension-changed',
 	DIMENSION_ADDED = 'dimension-added',
@@ -36,6 +38,10 @@ export interface ReportEditEventBus {
 	fire(type: ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, report: Report): this;
 	on(type: ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, listener: (report: Report) => void): this;
 	off(type: ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, listener: (report: Report) => void): this;
+
+	fire(type: ReportEditEventTypes.ECHART_TITLE_CHANGED, report: Report): this;
+	on(type: ReportEditEventTypes.ECHART_TITLE_CHANGED, listener: (report: Report) => void): this;
+	off(type: ReportEditEventTypes.ECHART_TITLE_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.CHART_TYPE_CHANGED, report: Report): this;
 	on(type: ReportEditEventTypes.CHART_TYPE_CHANGED, listener: (report: Report) => void): this;

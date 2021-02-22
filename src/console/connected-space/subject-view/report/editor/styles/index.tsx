@@ -1,11 +1,11 @@
 import React from 'react';
-import { DropdownOption } from '../../../../../../basic-widgets/types';
 import { Lang } from '../../../../../../langs';
 import { ChartBorderStyle } from '../../../../../../services/tuples/chart-types';
 import { Report } from '../../../../../../services/tuples/report-types';
 import { getCurrentTheme } from '../../../../../../theme/theme-wrapper';
 import {
 	BasicStylePropNames,
+	BorderStyleOptions,
 	onColorChange,
 	onDropdownValueChange,
 	onNumberChange,
@@ -17,13 +17,6 @@ import { ColorValue } from '../settings-widgets/color-value';
 import { DropdownValue } from '../settings-widgets/dropdown-value';
 import { NumberValue } from '../settings-widgets/number-value';
 import { Section } from '../settings-widgets/section';
-
-const BorderStyleOptions: Array<DropdownOption> = [
-	{ value: ChartBorderStyle.NONE, label: Lang.CHART.BORDER_STYLE_NONE },
-	{ value: ChartBorderStyle.SOLID, label: Lang.CHART.BORDER_STYLE_SOLID },
-	{ value: ChartBorderStyle.DOTTED, label: Lang.CHART.BORDER_STYLE_DOTTED },
-	{ value: ChartBorderStyle.DASHED, label: Lang.CHART.BORDER_STYLE_DASHED }
-];
 
 export const BasicStylesSection = (props: { report: Report }) => {
 	const { report } = props;

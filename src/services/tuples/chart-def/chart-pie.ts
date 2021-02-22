@@ -1,5 +1,5 @@
-import { Chart, ChartType } from '../chart-types';
-import { EChartsSettings } from '../echarts-types';
+import { ChartType } from '../chart-types';
+import { EChart, EChartsSettings } from '../echarts-types';
 import { ChartDef } from './chart-def-types';
 
 export const PIE: ChartDef = {
@@ -12,7 +12,7 @@ export const PIE: ChartDef = {
 export interface PieChartSettings extends EChartsSettings {
 }
 
-export interface PieChart extends Chart {
+export interface PieChart extends EChart {
 	type: ChartType.PIE;
 	settings?: PieChartSettings;
 }

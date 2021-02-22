@@ -334,6 +334,8 @@ export const En = {
 		BORDER_RADIUS: 'Border Radius',
 		SECTION_TITLE_COUNT_CHART: 'Count Chart Style',
 		SECTION_TITLE_PIE_CHART: 'Pie Chart Style',
+		SECTION_TITLE_ECHART_TITLE: 'Title',
+		SECTION_TITLE_ECHART_SUBTITLE: 'Subtitle',
 		NONAME_COLUMN: 'Noname Column',
 		UNKNOWN_COLUMN_NAME: 'Unknown Column',
 		PLEASE_SELECT_DIMENSION: 'Please select...',
@@ -358,6 +360,9 @@ export const En = {
 			TEXT_DECORATION_UNDERLINE: 'Underline',
 			TEXT_DECORATION_OVERLINE: 'Overline',
 			TEXT_DECORATION_LINE_THROUGH: 'Line Through'
+		},
+		ECHART: {
+			TEXT: 'Text'
 		}
 	}
 };

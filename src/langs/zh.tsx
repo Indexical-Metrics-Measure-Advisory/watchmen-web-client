@@ -334,6 +334,8 @@ export const Zh = {
 		BORDER_RADIUS: '圆弧边框半径',
 		SECTION_TITLE_COUNT_CHART: '特有样式',
 		SECTION_TITLE_PIE_CHART: '特有样式',
+		SECTION_TITLE_ECHART_TITLE: '标题',
+		SECTION_TITLE_ECHART_SUBTITLE: '副标题',
 		NONAME_COLUMN: '未命名列',
 		UNKNOWN_COLUMN_NAME: '未知列',
 		PLEASE_SELECT_DIMENSION: '请选择...',
@@ -358,6 +360,9 @@ export const Zh = {
 			TEXT_DECORATION_UNDERLINE: '下划线',
 			TEXT_DECORATION_OVERLINE: '上划线',
 			TEXT_DECORATION_LINE_THROUGH: '中划线'
+		},
+		ECHART: {
+			TEXT: '文本'
 		}
 	}
 };

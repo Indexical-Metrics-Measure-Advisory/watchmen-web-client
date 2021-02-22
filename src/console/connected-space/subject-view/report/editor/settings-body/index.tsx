@@ -3,6 +3,7 @@ import { Report } from '../../../../../../services/tuples/report-types';
 import { Subject } from '../../../../../../services/tuples/subject-types';
 import { ChartCountSettings } from '../chart-count-settings';
 import { DimensionsSection } from '../dimensions';
+import { EChartsTitleSettings } from '../echarts/title';
 import { RectSection } from '../rect';
 import { BasicStylesSection } from '../styles';
 import { ChartTypeEditor } from './chart-type';
@@ -19,6 +20,7 @@ export const SettingsBody = (props: { subject: Subject, report: Report }) => {
 		<DimensionsSection subject={subject} report={report}/>
 		<RectSection report={report}/>
 		<ChartCountSettings report={report}/>
+		<EChartsTitleSettings report={report}/>
 		<BasicStylesSection report={report}/>
 		<DescriptionPropEditor report={report}/>
 	</SettingsBodyContainer>;
