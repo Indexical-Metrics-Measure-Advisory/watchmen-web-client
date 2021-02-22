@@ -15,7 +15,7 @@ const TextDecorationOptions: Array<DropdownOption> = [
 	{ value: ChartTextDecoration.NONE, label: Lang.CHART.COUNT.TEXT_DECORATION_NONE },
 	{ value: ChartTextDecoration.UNDERLINE, label: Lang.CHART.COUNT.TEXT_DECORATION_UNDERLINE },
 	{ value: ChartTextDecoration.LINE_THROUGH, label: Lang.CHART.COUNT.TEXT_DECORATION_LINE_THROUGH },
-	{ value: ChartTextDecoration.OVERLINE, label: Lang.CHART.COUNT.TEXT_DECORATION_OVERLINE },
+	{ value: ChartTextDecoration.OVERLINE, label: Lang.CHART.COUNT.TEXT_DECORATION_OVERLINE }
 ];
 
 export const ChartCountSettings = (props: { report: Report }) => {
@@ -33,24 +33,30 @@ export const ChartCountSettings = (props: { report: Report }) => {
 		if (!chart.settings) {
 			chart.settings = {};
 		}
-		chart.settings.formatUseGrouping = value;
+		if (!chart.settings.text) {
+			chart.settings.text = {};
+		}
+		chart.settings.text.formatUseGrouping = value;
 		fire(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, report);
 	};
-	const onDropdownValueChange =  (option: DropdownOption) => {
+	const onDropdownValueChange = (option: DropdownOption) => {
 		const { value } = option;
 		if (!chart.settings) {
 			chart.settings = {};
 		}
-		chart.settings.textDecoration = value;
+		if (!chart.settings.text) {
+			chart.settings.text = {};
+		}
+		chart.settings.text.textDecoration = value;
 		fire(ReportEditEventTypes.BASIC_STYLE_CHANGED, report);
 	};
 
 	return <Section title={Lang.CHART.SECTION_TITLE_COUNT_CHART}>
 		<BooleanValue label={Lang.CHART.COUNT.FORMAT_USING_GROUP}
-		              value={chart.settings?.formatUseGrouping} defaultValue={false}
+		              value={chart.settings?.text?.formatUseGrouping} defaultValue={false}
 		              onValueChange={onBooleanChange}/>
 		<DropdownValue label={Lang.CHART.COUNT.TEXT_DECORATION} options={TextDecorationOptions}
-		               value={chart.settings?.textDecoration} defaultValue={ChartTextDecoration.NONE}
+		               value={chart.settings?.text?.textDecoration} defaultValue={ChartTextDecoration.NONE}
 		               onValueChange={onDropdownValueChange}/>
 	</Section>;
 };

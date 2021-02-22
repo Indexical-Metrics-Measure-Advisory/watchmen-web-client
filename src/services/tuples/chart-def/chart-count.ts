@@ -10,9 +10,11 @@ export const COUNT: ChartDef = {
 };
 
 export interface CountChartSettings extends ChartSettings {
-	/** number format grouping */
-	formatUseGrouping?: boolean;
-	textDecoration?: ChartTextDecoration;
+	text?: {
+		/** number format grouping */
+		formatUseGrouping?: boolean;
+		textDecoration?: ChartTextDecoration;
+	}
 }
 
 export interface CountChart extends Chart {

@@ -1,7 +1,12 @@
 import React from 'react';
 import { DropdownOption } from '../../../../../../basic-widgets/types';
 import { Lang } from '../../../../../../langs';
-import { ChartBorderStyle, ChartFontStyle, ChartFontWeight } from '../../../../../../services/tuples/chart-types';
+import {
+	Chart,
+	ChartBorderStyle,
+	ChartFontStyle,
+	ChartFontWeight
+} from '../../../../../../services/tuples/chart-types';
 import { Report } from '../../../../../../services/tuples/report-types';
 import { getCurrentTheme } from '../../../../../../theme/theme-wrapper';
 import { useReportEditEventBus } from '../report-edit-event-bus';
@@ -33,40 +38,60 @@ const FontWeightOptions: Array<DropdownOption> = [
 	{ value: ChartFontWeight.W900, label: Lang.CHART.FONT_WEIGHT_900 }
 ];
 
+const assignValue = (chart: Chart, propNames: string, value: any, removePropOnNoValue: boolean) => {
+	if (!chart.settings) {
+		chart.settings = {};
+	}
+
+	const names = propNames.split('.');
+	let holder = chart.settings as any;
+	for (let index = 0, count = names.length - 1; index < count; index++) {
+		const parent = holder;
+		holder = parent[names[index]];
+		if (!holder) {
+			holder = {};
+			parent[names[index]] = holder;
+		}
+	}
+	if (value == null && removePropOnNoValue) {
+		delete holder[names[names.length - 1]];
+	} else {
+		holder[names[names.length - 1]] = value;
+	}
+};
+
 export const BasicStylesSection = (props: { report: Report }) => {
 	const { report } = props;
+	const { chart } = report;
 
 	const { fire } = useReportEditEventBus();
 
-	const onColorChange = (prop: 'fontColor' | 'backgroundColor' | 'borderColor') => (color?: string) => {
+	const onColorChange = (prop: 'font.color' | 'backgroundColor' | 'border.color') => (color?: string) => {
 		if (!report.chart.settings) {
 			report.chart.settings = {};
 		}
-		if (!color) {
-			delete report.chart.settings[prop];
-		} else {
-			report.chart.settings[prop] = color;
-		}
+		assignValue(chart, prop, color, true);
 		fire(ReportEditEventTypes.BASIC_STYLE_CHANGED, report);
 	};
 	const validateNumber = (fractionDigits: number) => (value: string) => {
 		return new RegExp(`^\\d{1,${fractionDigits}}$`).test(value);
 	};
-	const onNumberChange = (prop: 'borderWidth' | 'borderRadius' | 'fontSize') => (value: string) => {
+	const onNumberChange = (prop: 'border.width' | 'border.radius' | 'font.size') => (value: string) => {
 		if (!report.chart.settings) {
 			report.chart.settings = {};
 		}
 		const numberValue = parseInt(value);
-		report.chart.settings[prop] = numberValue;
+		assignValue(chart, prop, numberValue, false);
 		fire(ReportEditEventTypes.BASIC_STYLE_CHANGED, report);
 		return numberValue;
 	};
-	const onDropdownValueChange = (prop: 'borderStyle' | 'fontFamily' | 'fontStyle' | 'fontWeight') => (option: DropdownOption) => {
+	const onDropdownValueChange = (prop: 'border.style' | 'font.family' | 'font.style' | 'font.weight') => (option: DropdownOption) => {
 		const { value } = option;
 		if (!report.chart.settings) {
 			report.chart.settings = {};
 		}
-		report.chart.settings[prop] = value;
+
+		assignValue(chart, prop, value, false);
 		fire(ReportEditEventTypes.BASIC_STYLE_CHANGED, report);
 	};
 
@@ -94,41 +119,41 @@ export const BasicStylesSection = (props: { report: Report }) => {
 
 	return <Section title={Lang.CHART.SECTION_TITLE_BASIC_STYLE}>
 		<DropdownValue label={Lang.CHART.FONT_FAMILY} options={FontFamilyOptions}
-		               value={report.chart.settings?.fontFamily}
-		               onValueChange={onDropdownValueChange('fontFamily')}/>
+		               value={report.chart.settings?.font?.family}
+		               onValueChange={onDropdownValueChange('font.family')}/>
 		<ColorValue label={Lang.CHART.FONT_COLOR}
-		            value={report.chart.settings?.fontColor} defaultValue={theme.fontColor}
-		            onValueChange={onColorChange('fontColor')}/>
+		            value={report.chart.settings?.font?.color} defaultValue={theme.fontColor}
+		            onValueChange={onColorChange('font.color')}/>
 		<NumberValue label={Lang.CHART.FONT_SIZE} unitLabel={Lang.CHART.PIXEL}
-		             value={report.chart.settings?.fontSize} defaultValue={theme.fontSize}
+		             value={report.chart.settings?.font?.size} defaultValue={theme.fontSize}
 		             validate={validateNumber(3)}
-		             onValueChange={onNumberChange('fontSize')}/>
+		             onValueChange={onNumberChange('font.size')}/>
 		<DropdownValue label={Lang.CHART.FONT_STYLE} options={FontStyleOptions}
-		               value={report.chart.settings?.fontStyle} defaultValue={ChartBorderStyle.NONE}
-		               onValueChange={onDropdownValueChange('fontStyle')}/>
+		               value={report.chart.settings?.font?.style} defaultValue={ChartBorderStyle.NONE}
+		               onValueChange={onDropdownValueChange('font.style')}/>
 		<DropdownValue label={Lang.CHART.FONT_WEIGHT} options={FontWeightOptions}
-		               value={report.chart.settings?.fontWeight} defaultValue={`${theme.fontNormal}`}
-		               onValueChange={onDropdownValueChange('fontWeight')}/>
+		               value={report.chart.settings?.font?.weight} defaultValue={`${theme.fontNormal}`}
+		               onValueChange={onDropdownValueChange('font.weight')}/>
 
 		<ColorValue label={Lang.CHART.BACKGROUND_COLOR}
 		            value={report.chart.settings?.backgroundColor} defaultValue={theme.bgColor}
 		            onValueChange={onColorChange('backgroundColor')}/>
 
 		<DropdownValue label={Lang.CHART.BORDER_STYLE} options={BorderStyleOptions}
-		               value={report.chart.settings?.borderStyle} defaultValue={ChartBorderStyle.NONE}
-		               onValueChange={onDropdownValueChange('borderStyle')}/>
+		               value={report.chart.settings?.border?.style} defaultValue={ChartBorderStyle.NONE}
+		               onValueChange={onDropdownValueChange('border.style')}/>
 		<NumberValue label={Lang.CHART.BORDER_WIDTH} unitLabel={Lang.CHART.PIXEL}
-		             value={report.chart.settings?.borderWidth} defaultValue={0}
+		             value={report.chart.settings?.border?.width} defaultValue={0}
 		             placeholder={'0 - 999'}
 		             validate={validateNumber(3)}
-		             onValueChange={onNumberChange('borderWidth')}/>
+		             onValueChange={onNumberChange('border.width')}/>
 		<ColorValue label={Lang.CHART.BORDER_COLOR}
-		            value={report.chart.settings?.borderColor} defaultValue={theme.borderColor}
-		            onValueChange={onColorChange('borderColor')}/>
+		            value={report.chart.settings?.border?.color} defaultValue={theme.borderColor}
+		            onValueChange={onColorChange('border.color')}/>
 		<NumberValue label={Lang.CHART.BORDER_RADIUS} unitLabel={Lang.CHART.PIXEL}
-		             value={report.chart.settings?.borderRadius} defaultValue={0}
+		             value={report.chart.settings?.border?.radius} defaultValue={0}
 		             placeholder={'0 - 9999'}
 		             validate={validateNumber(4)}
-		             onValueChange={onNumberChange('borderRadius')}/>
+		             onValueChange={onNumberChange('border.radius')}/>
 	</Section>;
 };

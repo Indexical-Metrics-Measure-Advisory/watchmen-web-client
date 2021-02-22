@@ -28,6 +28,21 @@ export enum ChartFontWeight {
 	W900 = '900'
 }
 
+export interface ChartFont {
+	family?: string;
+	size?: number;
+	color?: string;
+	style?: ChartFontStyle;
+	weight?: ChartFontWeight;
+}
+
+export interface ChartBorder {
+	color?: string;
+	style?: ChartBorderStyle;
+	width?: number;
+	radius?: number;
+}
+
 export enum ChartTextDecoration {
 	NONE = 'none',
 	UNDERLINE = 'underline',
@@ -36,18 +51,9 @@ export enum ChartTextDecoration {
 }
 
 export interface ChartSettings {
-	fontFamily?: string;
-	fontColor?: string;
-	fontSize?: number;
-	fontStyle?: ChartFontStyle;
-	fontWeight?: ChartFontWeight;
-
+	font?: ChartFont;
+	border?: ChartBorder;
 	backgroundColor?: string;
-
-	borderStyle?: ChartBorderStyle;
-	borderColor?: string;
-	borderWidth?: number;
-	borderRadius?: number;
 
 	colorSeries?: PredefinedChartColorSeries;
 }
