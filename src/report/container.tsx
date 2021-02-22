@@ -117,9 +117,10 @@ export const Container = (props: {
 	report: Report;
 	fixed: boolean;
 	editable: boolean;
+	editing: boolean;
 	removable: boolean;
 }) => {
-	const { report, fixed, editable, removable } = props;
+	const { report, fixed, editable, editing, removable } = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const dndRef = useRef<HTMLDivElement>(null);
@@ -147,22 +148,30 @@ export const Container = (props: {
 				return;
 			}
 			if (shouldReloadData) {
+				// state change will lead data reload, see codes above.
 				setDiagramState({ loaded: false });
-				(async () => {
-					const dataset = await fetchChartData(report.reportId, report.chart.type);
-					setDiagramState({ loaded: true, dataset });
-				})();
+				// (async () => {
+				// 	const dataset = await fetchChartData(report.reportId, report.chart.type);
+				// 	setDiagramState({ loaded: true, dataset });
+				// })();
 			} else {
 				forceUpdate();
 			}
 		};
+		const onDoReloadDataOnEditing = () => {
+			if (editing) {
+				setDiagramState({ loaded: false });
+			}
+		};
 		on(ReportEventTypes.EDIT_COMPLETED, onEditCompleted);
+		on(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onDoReloadDataOnEditing);
 		return () => {
 			off(ReportEventTypes.EDIT_COMPLETED, onEditCompleted);
+			off(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onDoReloadDataOnEditing);
 		};
 	}, [
 		on, off, forceUpdate,
-		report, diagramState.loaded
+		report, diagramState.loaded, editing
 	]);
 
 	const onMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {

@@ -6,35 +6,39 @@ import { Report } from '../../../../../../services/tuples/report-types';
 import { useReportEditEventBus } from '../report-edit-event-bus';
 import { ReportEditEventTypes } from '../report-edit-event-bus-types';
 
+interface SaveState {
+	styleChanged: boolean;
+	structureChanged: boolean;
+}
+
 export const SettingsSaver = (props: { report: Report }) => {
 	const { report } = props;
 
 	const { fire: fireReport } = useReportEventBus();
 	const { on, off } = useReportEditEventBus();
-	const [ changed, setChanged ] = useState(false);
-	const [ shouldReloadData, setShouldReloadData ] = useState(false);
+	const [ changed, setChanged ] = useState<SaveState>({ styleChanged: false, structureChanged: false });
 	useEffect(() => {
 		const onChanged = (changedReport: Report) => {
 			if (changedReport !== report) {
 				return;
 			}
-			setChanged(true);
+			setChanged({ ...changed, styleChanged: true });
 		};
 		const onStructureChanged = (changedReport: Report) => {
 			if (changedReport !== report) {
 				return;
 			}
-			setShouldReloadData(true);
-			setChanged(true);
+			fireReport(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, report);
+			setChanged({ ...changed, structureChanged: true });
 		};
 		const onEditCompleted = (completedReport: Report) => {
 			if (completedReport !== report) {
 				return;
 			}
-			if (!changed) {
+			if (!changed.styleChanged && !changed.structureChanged) {
 				// nothing changed
 				fireReport(ReportEventTypes.EDIT_COMPLETED, report, false, false);
-			} else if (!shouldReloadData) {
+			} else if (!changed.structureChanged) {
 				// style changed, structure kept
 				fireReport(ReportEventTypes.EDIT_COMPLETED, report, true, false);
 			} else {
@@ -54,6 +58,8 @@ export const SettingsSaver = (props: { report: Report }) => {
 
 		on(ReportEditEventTypes.CHART_TYPE_CHANGED, onStructureChanged);
 		on(ReportEditEventTypes.DIMENSION_CHANGED, onStructureChanged);
+		on(ReportEditEventTypes.DIMENSION_ADDED, onStructureChanged);
+		on(ReportEditEventTypes.DIMENSION_REMOVED, onStructureChanged);
 
 		on(ReportEditEventTypes.EDIT_COMPLETED, onEditCompleted);
 
@@ -67,10 +73,12 @@ export const SettingsSaver = (props: { report: Report }) => {
 
 			off(ReportEditEventTypes.CHART_TYPE_CHANGED, onStructureChanged);
 			off(ReportEditEventTypes.DIMENSION_CHANGED, onStructureChanged);
+			off(ReportEditEventTypes.DIMENSION_ADDED, onStructureChanged);
+			off(ReportEditEventTypes.DIMENSION_REMOVED, onStructureChanged);
 
 			off(ReportEditEventTypes.EDIT_COMPLETED, onEditCompleted);
 		};
-	}, [ on, off, fireReport, report, changed, shouldReloadData ]);
+	}, [ on, off, fireReport, report, changed ]);
 
 	return <></>;
 };

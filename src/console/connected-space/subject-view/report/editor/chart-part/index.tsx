@@ -15,16 +15,27 @@ export const ChartPart = (props: { report: Report }) => {
 		on(ReportEditEventTypes.SIZE_CHANGED, forceUpdate);
 		on(ReportEditEventTypes.BASIC_STYLE_CHANGED, forceUpdate);
 		on(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, forceUpdate);
+
+		on(ReportEditEventTypes.CHART_TYPE_CHANGED, forceUpdate);
+		on(ReportEditEventTypes.DIMENSION_CHANGED, forceUpdate);
+		on(ReportEditEventTypes.DIMENSION_ADDED, forceUpdate);
+		on(ReportEditEventTypes.DIMENSION_REMOVED, forceUpdate);
 		return () => {
 			off(ReportEditEventTypes.SIZE_CHANGED, forceUpdate);
 			off(ReportEditEventTypes.BASIC_STYLE_CHANGED, forceUpdate);
 			off(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, forceUpdate);
+
+			off(ReportEditEventTypes.CHART_TYPE_CHANGED, forceUpdate);
+			off(ReportEditEventTypes.DIMENSION_CHANGED, forceUpdate);
+			off(ReportEditEventTypes.DIMENSION_ADDED, forceUpdate);
+			off(ReportEditEventTypes.DIMENSION_REMOVED, forceUpdate);
 		};
 	}, [ on, off, forceUpdate ]);
 
 	return <EditChartContainer>
 		<ChartWrapper rect={report.rect}>
-			<Chart report={report} fixed={true} editable={false} removable={false}/>
+			<Chart report={report} fixed={true} editable={false} removable={false}
+			       editing={true}/>
 		</ChartWrapper>
 	</EditChartContainer>;
 

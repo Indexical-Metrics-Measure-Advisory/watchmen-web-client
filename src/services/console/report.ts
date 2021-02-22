@@ -1,5 +1,5 @@
 import { findToken } from '../account';
-import { fetchMockChartData, fetchMockCountChartData } from '../mock/console/mock-report';
+import { fetchMockChartData, fetchMockCountChartData, fetchMockPieChartData } from '../mock/console/mock-report';
 import { ChartDataSet, ChartType } from '../tuples/chart-types';
 import { getServiceHost, isMockService } from '../utils';
 
@@ -7,6 +7,8 @@ export const fetchChartData = async (reportId: string, type: ChartType): Promise
 	if (isMockService()) {
 		if (type === ChartType.COUNT) {
 			return fetchMockCountChartData(reportId);
+		} else if (type === ChartType.PIE) {
+			return fetchMockPieChartData(reportId);
 		} else {
 			return fetchMockChartData(reportId);
 		}
