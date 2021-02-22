@@ -1,4 +1,4 @@
-import { Chart, ChartSettings, ChartTextDecoration, ChartType } from '../chart-types';
+import { Chart, ChartFont, ChartSettings, ChartTextDecoration, ChartType } from '../chart-types';
 import { ChartDef } from './chart-def-types';
 
 export const COUNT: ChartDef = {
@@ -10,6 +10,7 @@ export const COUNT: ChartDef = {
 };
 
 export interface CountChartSettingsText {
+	font?: ChartFont;
 	/** number format grouping */
 	formatUseGrouping?: boolean;
 	textDecoration?: ChartTextDecoration;

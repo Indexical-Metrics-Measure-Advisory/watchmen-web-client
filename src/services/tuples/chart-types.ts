@@ -51,7 +51,6 @@ export enum ChartTextDecoration {
 }
 
 export interface ChartSettings {
-	font?: ChartFont;
 	border?: ChartBorder;
 	backgroundColor?: string;
 
