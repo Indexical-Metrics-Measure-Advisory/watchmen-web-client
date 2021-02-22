@@ -12,7 +12,7 @@ export const Section = (props: {
 	const { title, children } = props;
 
 	const { on, off } = useReportEditEventBus();
-	const [ expanded, setExpanded ] = useState(true);
+	const [ expanded, setExpanded ] = useState(false);
 	useEffect(() => {
 		const onExpand = () => setExpanded(true);
 		const onCollapse = () => setExpanded(false);
