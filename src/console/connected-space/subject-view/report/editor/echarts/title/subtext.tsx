@@ -8,7 +8,6 @@ import { ReportEditEventTypes } from '../../report-edit-event-bus-types';
 import { Section } from '../../settings-widgets/section';
 import { TextValue } from '../../settings-widgets/text-value';
 import { FontSettings, SettingsFontPropNames } from '../font';
-import { SettingsSizePropNames } from '../size';
 
 export const EChartsTitleSubtextSettings = (props: { report: Report, chart: EChart }) => {
 	const { report, chart } = props;
@@ -28,11 +27,7 @@ export const EChartsTitleSubtextSettings = (props: { report: Report, chart: ECha
 			weight: EChartTitlePropNames.SUBTEXT_FONT_WEIGHT,
 			color: EChartTitlePropNames.SUBTEXT_FONT_COLOR,
 			style: EChartTitlePropNames.SUBTEXT_FONT_STYLE
-		} as SettingsFontPropNames,
-		size: {
-			width: EChartTitlePropNames.SUBTEXT_SIZE_WIDTH,
-			height: EChartTitlePropNames.SUBTEXT_SIZE_HEIGHT
-		} as SettingsSizePropNames
+		} as SettingsFontPropNames
 	};
 
 	return <Section title={Lang.CHART.SECTION_TITLE_ECHART_SUBTITLE}>

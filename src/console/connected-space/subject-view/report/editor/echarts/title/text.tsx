@@ -8,6 +8,7 @@ import { ReportEditEventTypes } from '../../report-edit-event-bus-types';
 import { ColorValue } from '../../settings-widgets/color-value';
 import { Section } from '../../settings-widgets/section';
 import { TextValue } from '../../settings-widgets/text-value';
+import { AlignmentSettings, SettingsAlignmentPropNames } from '../alignment';
 import { BorderSettings, SettingsBorderPropNames } from '../border';
 import { FontSettings, SettingsFontPropNames } from '../font';
 import { PositionSettings, SettingsPositionPropNames } from '../position';
@@ -43,7 +44,11 @@ export const EChartsTitleTextSettings = (props: { report: Report, chart: EChart 
 			right: EChartTitlePropNames.POSITION_RIGHT,
 			left: EChartTitlePropNames.POSITION_LEFT,
 			bottom: EChartTitlePropNames.POSITION_BOTTOM
-		} as SettingsPositionPropNames
+		} as SettingsPositionPropNames,
+		alignment: {
+			align: EChartTitlePropNames.TEXT_ALIGN,
+			verticalAlign: EChartTitlePropNames.TEXT_VERTICAL_ALIGN
+		} as SettingsAlignmentPropNames
 	};
 
 	return <Section title={Lang.CHART.SECTION_TITLE_ECHART_TITLE}>
@@ -71,6 +76,10 @@ export const EChartsTitleTextSettings = (props: { report: Report, chart: EChart 
 		                  getHolder={getTitleHolder}
 		                  propNames={propNames.position}
 		                  onValueChange={onValueChange}/>
+		<AlignmentSettings report={report} chart={chart}
+		                   getHolder={getTitleHolder}
+		                   propNames={propNames.alignment}
+		                   onValueChange={onValueChange}/>
 		<BorderSettings report={report} chart={chart}
 		                getHolder={getTitleHolder}
 		                propNames={propNames.border}

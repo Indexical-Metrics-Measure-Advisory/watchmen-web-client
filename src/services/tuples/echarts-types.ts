@@ -34,13 +34,20 @@ export interface EChartsSizeHolder {
 	size?: EChartsSize;
 }
 
-export interface EChartsTitleText extends EChartsFontHolder, EChartsSizeHolder {
-	text?: string;
-	align?: 'auto' | 'left' | 'right' | 'center';
-	verticalAlign?: 'auto' | 'top' | 'bottom' | 'middle';
+export enum EChartAlignment { AUTO = 'auto', LEFT = 'left', RIGHT = 'right', CENTER = 'center'}
+
+export enum EChartVerticalAlignment { AUTO = 'auto', TOP = 'top', BOTTOM = 'bottom', MIDDLE = 'middle'}
+
+export interface EChartAlign {
+	align?: EChartAlignment;
+	verticalAlign?: EChartVerticalAlignment;
 }
 
-export interface EChartsTitle extends EChartsBorderHolder, EChartsPositionHolder {
+export interface EChartsTitleText extends EChartsFontHolder {
+	text?: string;
+}
+
+export interface EChartsTitle extends EChartsBorderHolder, EChartsPositionHolder, EChartAlign {
 	text?: EChartsTitleText;
 	subtext?: EChartsTitleText;
 	backgroundColor?: string;

@@ -8,6 +8,7 @@ import {
 	ChartFontWeight,
 	ChartTextDecoration
 } from '../../../../../services/tuples/chart-types';
+import { EChartAlignment, EChartVerticalAlignment } from '../../../../../services/tuples/echarts-types';
 import { Report } from '../../../../../services/tuples/report-types';
 import { Theme } from '../../../../../theme/types';
 
@@ -84,6 +85,18 @@ export const BorderStyleOptions: Array<DropdownOption> = [
 	{ value: ChartBorderStyle.DASHED, label: Lang.CHART.BORDER_STYLE_DASHED }
 ];
 
+export const AlignmentOptions: Array<DropdownOption> = [
+	{ value: EChartAlignment.AUTO, label: Lang.CHART.ALIGNMENT_AUTO },
+	{ value: EChartAlignment.LEFT, label: Lang.CHART.ALIGNMENT_LEFT },
+	{ value: EChartAlignment.CENTER, label: Lang.CHART.ALIGNMENT_CENTER },
+	{ value: EChartAlignment.RIGHT, label: Lang.CHART.ALIGNMENT_RIGHT }
+];
+export const VerticalAlignmentOptions: Array<DropdownOption> = [
+	{ value: EChartVerticalAlignment.AUTO, label: Lang.CHART.VERTICAL_ALIGNMENT_AUTO },
+	{ value: EChartVerticalAlignment.TOP, label: Lang.CHART.VERTICAL_ALIGNMENT_TOP },
+	{ value: EChartVerticalAlignment.MIDDLE, label: Lang.CHART.VERTICAL_ALIGNMENT_MIDDLE },
+	{ value: EChartVerticalAlignment.BOTTOM, label: Lang.CHART.VERTICAL_ALIGNMENT_BOTTOM }
+];
 
 export enum BasicStylePropNames {
 	BACKGROUND_COLOR = 'backgroundColor',
@@ -128,6 +141,9 @@ export enum EChartTitlePropNames {
 	POSITION_RIGHT = 'title.position.right',
 	POSITION_LEFT = 'title.position.left',
 	POSITION_BOTTOM = 'title.position.bottom',
+
+	TEXT_ALIGN = 'title.align',
+	TEXT_VERTICAL_ALIGN = 'title.verticalAlign',
 }
 
 export type TextPropNames =
@@ -168,7 +184,9 @@ export type DropdownPropNames =
 	| EChartTitlePropNames.TEXT_BORDER_STYLE
 	| EChartTitlePropNames.SUBTEXT_FONT_FAMILY
 	| EChartTitlePropNames.SUBTEXT_FONT_STYLE
-	| EChartTitlePropNames.SUBTEXT_FONT_WEIGHT;
+	| EChartTitlePropNames.SUBTEXT_FONT_WEIGHT
+	| EChartTitlePropNames.TEXT_ALIGN
+	| EChartTitlePropNames.TEXT_VERTICAL_ALIGN;
 
 export type BooleanPropNames = CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING;
 
