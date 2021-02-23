@@ -38,9 +38,10 @@ export const DeleteMeContainer = styled.div.attrs({ 'data-widget': 'report-dimen
 	height      : var(--height);
 `;
 export const DeleteMeButton = styled(Button)`
-	height  : var(--button-height-in-form);
-	width   : var(--button-height-in-form);
-	padding : 0;
+	height     : var(--button-height-in-form);
+	width      : var(--button-height-in-form);
+	padding    : 0;
+	box-shadow : var(--param-border);
 	&:hover {
 		color      : var(--danger-color);
 		box-shadow : var(--param-danger-border), var(--danger-hover-shadow);

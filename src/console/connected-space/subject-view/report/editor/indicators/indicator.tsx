@@ -8,17 +8,18 @@ import { useEventBus } from '../../../../../../events/event-bus';
 import { EventTypes } from '../../../../../../events/types';
 import { Lang } from '../../../../../../langs';
 import { ChartHelper } from '../../../../../../report/chart-utils';
-import { Report, ReportIndicator } from '../../../../../../services/tuples/report-types';
+import { Report, ReportIndicator, ReportIndicatorArithmetic } from '../../../../../../services/tuples/report-types';
 import { Subject } from '../../../../../../services/tuples/subject-types';
 import { useReportEditEventBus } from '../report-edit-event-bus';
 import { ReportEditEventTypes } from '../report-edit-event-bus-types';
-import { PropValue, PropValueDropdown } from '../settings-widgets/widgets';
+import { PropValueDropdown } from '../settings-widgets/widgets';
 import {
 	DeleteMeButton,
 	DeleteMeContainer,
 	IncorrectOptionLabel,
 	IndicatorContainer,
-	IndicatorIndexLabel
+	IndicatorIndexLabel,
+	IndicatorPropValue
 } from './widgets';
 
 export const IndicatorEditor = (props: {
@@ -40,6 +41,12 @@ export const IndicatorEditor = (props: {
 		fire(ReportEditEventTypes.INDICATOR_CHANGED, report, indicator);
 		forceUpdate();
 	};
+	const onArithmeticChange = (option: DropdownOption) => {
+		const { value } = option;
+		indicator.arithmetic = value;
+		fire(ReportEditEventTypes.INDICATOR_CHANGED, report, indicator);
+		forceUpdate();
+	};
 	const onDeleteClicked = () => {
 		const canDelete = ChartHelper[chartType].canReduceIndicators(report);
 		if (!canDelete) {
@@ -51,7 +58,7 @@ export const IndicatorEditor = (props: {
 	};
 
 	const index = report.indicators.indexOf(indicator) + 1;
-	const { columnId } = indicator;
+	const { columnId, arithmetic } = indicator;
 	const indicatorOptions: Array<DropdownOption> = subject.dataset.columns.map((column, columnIndex) => {
 		return {
 			value: column.columnId,
@@ -77,14 +84,24 @@ export const IndicatorEditor = (props: {
 			}
 		});
 	}
+	const arithmeticOptions: Array<DropdownOption> = [
+		{ value: ReportIndicatorArithmetic.NONE, label: Lang.CHART.ARITHMETIC_NONE },
+		{ value: ReportIndicatorArithmetic.SUMMARY, label: Lang.CHART.ARITHMETIC_SUMMARY },
+		{ value: ReportIndicatorArithmetic.AVERAGE, label: Lang.CHART.ARITHMETIC_AVERAGE },
+		{ value: ReportIndicatorArithmetic.COUNT, label: Lang.CHART.ARITHMETIC_COUNT },
+		{ value: ReportIndicatorArithmetic.MAXIMUM, label: Lang.CHART.ARITHMETIC_MAX },
+		{ value: ReportIndicatorArithmetic.MINIMUM, label: Lang.CHART.ARITHMETIC_MIN }
+	];
 
 	return <IndicatorContainer>
 		<IndicatorIndexLabel>{index}</IndicatorIndexLabel>
-		<PropValue>
+		<IndicatorPropValue>
 			<PropValueDropdown value={columnId} options={indicatorOptions}
 			                   onChange={onColumnChange}
 			                   please={Lang.CHART.PLEASE_SELECT_INDICATOR}/>
-		</PropValue>
+			<PropValueDropdown value={arithmetic || ReportIndicatorArithmetic.NONE} options={arithmeticOptions}
+			                   onChange={onArithmeticChange}/>
+		</IndicatorPropValue>
 		<DeleteMeContainer>
 			<DeleteMeButton onClick={onDeleteClicked}>
 				<FontAwesomeIcon icon={ICON_DELETE}/>

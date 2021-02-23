@@ -28,6 +28,13 @@ export const IndicatorIndexLabel = styled.div.attrs({ 'data-widget': 'report-ind
 	overflow        : hidden;
 	text-overflow   : ellipsis;
 `;
+export const IndicatorPropValue = styled(PropValue)`
+	display               : grid;
+	grid-template-columns : 1fr 80px;
+	> div[data-widget="dropdown"] {
+		width : unset;
+	}
+`;
 export const IncorrectOptionLabel = styled.span.attrs({ 'data-widget': 'incorrect-option' })`
 	color           : var(--danger-color);
 	text-decoration : line-through;
@@ -38,9 +45,10 @@ export const DeleteMeContainer = styled.div.attrs({ 'data-widget': 'report-indic
 	height      : var(--height);
 `;
 export const DeleteMeButton = styled(Button)`
-	height  : var(--button-height-in-form);
-	width   : var(--button-height-in-form);
-	padding : 0;
+	height     : var(--button-height-in-form);
+	width      : var(--button-height-in-form);
+	padding    : 0;
+	box-shadow : var(--param-border);
 	&:hover {
 		color      : var(--danger-color);
 		box-shadow : var(--param-danger-border), var(--danger-hover-shadow);

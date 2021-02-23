@@ -367,6 +367,12 @@ export const En = {
 		ADD_INDICATOR: 'Add Indicator',
 		PLEASE_SELECT_DIMENSION: 'Please select...',
 		PLEASE_SELECT_INDICATOR: 'Please select...',
+		ARITHMETIC_NONE: 'As Is',
+		ARITHMETIC_SUMMARY: 'Sum',
+		ARITHMETIC_AVERAGE: 'Avg',
+		ARITHMETIC_COUNT: 'Count',
+		ARITHMETIC_MAX: 'Max',
+		ARITHMETIC_MIN: 'Min',
 		TYPE: 'Type',
 		TYPES: {
 			COUNT: 'Count',
