@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { PropName, PropValue, PropValueInput } from './widgets';
 
 export const TextValue = (props: {
@@ -14,10 +14,17 @@ export const TextValue = (props: {
 		value, defaultValue, validate, onValueChange
 	} = props;
 
-	const [ delegate, setDelegate ] = useState<{ value: string }>({ value: value || defaultValue || '' });
+	const [ delegate, setDelegate ] = useState<{ value: string, previousValidValue: string }>({
+		value: value || defaultValue || '',
+		previousValidValue: value || defaultValue || ''
+	});
+	useEffect(() => {
+		setDelegate({ value: value || defaultValue || '', previousValidValue: value || defaultValue || '' });
+	}, [ value ]);
+
 	const onPropChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;
-		setDelegate({ value });
+		setDelegate({ ...delegate, value });
 	};
 	const onKeyPressed = async (event: React.KeyboardEvent<HTMLInputElement>) => {
 		if (event.key !== 'Enter') {
@@ -29,10 +36,10 @@ export const TextValue = (props: {
 		const { value: newValue } = delegate;
 		if (!validate || validate(newValue)) {
 			onValueChange(newValue);
-			setDelegate({ value: newValue || defaultValue || '' });
+			setDelegate({ value: newValue || defaultValue || '', previousValidValue: newValue || defaultValue || '' });
 		} else {
 			// reset to original value
-			setDelegate({ value: value || defaultValue || '' });
+			setDelegate({ ...delegate, value: delegate.previousValidValue });
 		}
 	};
 
