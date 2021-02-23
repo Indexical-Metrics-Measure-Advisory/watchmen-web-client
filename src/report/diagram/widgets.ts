@@ -17,6 +17,7 @@ export const DiagramContainer = styled.div.attrs<{ settings?: ChartSettings }>((
 	position : relative;
 	width    : 100%;
 	height   : 100%;
+	overflow : hidden;
 `;
 export const DiagramLoading = styled.div.attrs({ 'data-widget': 'chart-diagram-loading' })`
 	display         : flex;

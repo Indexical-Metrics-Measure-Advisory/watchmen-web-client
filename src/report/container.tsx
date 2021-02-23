@@ -312,7 +312,8 @@ export const Container = (props: {
 			fixed
 				? null
 				: <ChartDragHandle onMouseDown={onMouseDown} onMouseUp={onMouseUp}
-				                   onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}>
+				                   onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}
+				                   dragging={dragState.type !== DragType.NONE}>
 					<ChartDragHandlePart data-position={DragType.RESIZE_TOP}/>
 					<ChartDragHandlePart data-position={DragType.RESIZE_LEFT}/>
 					<ChartDragHandlePart data-position={DragType.RESIZE_RIGHT}/>

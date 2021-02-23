@@ -1,6 +1,6 @@
 import { EChartOption } from 'echarts';
 import * as echarts from 'echarts/core';
-import { BASE_COLORS_24 } from '../../basic-widgets/colors';
+import { BASE_COLORS_24, BASE_COLORS_6 } from '../../basic-widgets/colors';
 import { MAP } from '../../services/tuples/chart-def/chart-map';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { EChart } from '../../services/tuples/echarts-types';
@@ -10,7 +10,7 @@ import japanJson from './map-geo-data/jp-all.geo.json';
 import { buildEChartTitle } from './title-utils';
 import { ChartOptions } from './types';
 
-console.log(japanJson.features.map(feature => ({ name: feature.properties.name, type: feature.properties.type })));
+// console.log(JSON.stringify(japanJson.features.map(feature => feature.properties.name).filter(x => !!x)));
 echarts.registerMap('Japan', japanJson as any, {
 	// Alaska: {              // 把阿拉斯加移到美国主大陆左下方
 	// 	left: -131,
@@ -40,20 +40,32 @@ export class ChartMapUtils extends DefaultChartUtils {
 		return {
 			color: BASE_COLORS_24,
 			title: buildEChartTitle(chart as EChart),
+			tooltip: {
+				trigger: 'item',
+				formatter: (params) => {
+					const param = params as EChartOption.Tooltip.Format;
+					let value = new Intl.NumberFormat(undefined, {
+						maximumFractionDigits: 2,
+						useGrouping: true
+					}).format(param.value as number);
+					return `${param.name}: ${value}`;
+				}
+			} as EChartOption.Tooltip,
 			visualMap: {
 				left: 'right',
-				min: 500000,
-				max: 38000000,
+				min: 0,
+				max: 1000,
 				inRange: {
-					color: [ '#313695', '#4575B4', '#74ADD1', '#ABD9E9', '#E0F3F8', '#FFFFBF', '#FEE090', '#FDAE61', '#F46D43', '#D73027', '#A50026' ]
+					color: BASE_COLORS_6
 				},
-				text: [ 'High', 'Low' ],
+				// text: [ 'High', 'Low' ],
 				calculable: true
 			} as EChartOption.VisualMap,
 			series: [ {
 				type: 'map',
 				roam: true,
 				map: 'Japan',
+				label: { show: true },
 				data: dataset.data.map(row => {
 					return {
 						// value of dimension as name

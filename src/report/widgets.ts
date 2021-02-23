@@ -22,9 +22,22 @@ export const ChartContainer = styled.div.attrs<{ rect: ReportRect, fixed: boolea
 	transition    : all 300ms ease-in-out;
 	&:hover {
 		box-shadow : ${({ fixed }) => fixed ? 'none' : 'var(--hover-shadow)'};
+		> div[data-widget="chart-drag-handle"] {
+			> div[data-position=${DragType.DND}]:not([data-part-type=dragging]) {
+				opacity : 1;
+			}
+			> div[data-widget="chart-buttons"] {
+				opacity : 1;
+			}
+		}
 	}
 `;
-export const ChartDragHandle = styled.div.attrs({ 'data-widget': 'chart-drag-handle' })`
+export const ChartDragHandle = styled.div.attrs<{ dragging: boolean }>(({ dragging }) => {
+	return {
+		'data-widget': 'chart-drag-handle',
+		style: { clipPath: dragging ? (void 0) : 'polygon(0% 0%, 0% 100%, 6px 100%, 6px 40px, 100px 40px, 100px 6px, calc(100% - 6px) 6px, calc(100% - 6px) calc(100% - 6px), 6px calc(100% - 6px), 6px 100%, 100% 100%, 100% 0%)' }
+	};
+})<{ dragging: boolean }>`
 	display        : flex;
 	flex-direction : column;
 	position       : absolute;
@@ -32,14 +45,6 @@ export const ChartDragHandle = styled.div.attrs({ 'data-widget': 'chart-drag-han
 	left           : -3px;
 	width          : calc(100% + 6px);
 	height         : calc(100% + 6px);
-	&:hover {
-		> div[data-position=${DragType.DND}]:not([data-part-type=dragging]) {
-			opacity : 1;
-		}
-		> div[data-widget="chart-buttons"] {
-			opacity : 1;
-		}
-	}
 `;
 export const ChartDragHandlePart = styled.div.attrs({ 'data-widget': 'chart-drag-handle-part' })`
 	display  : block;
