@@ -155,6 +155,9 @@ export const PinFavoriteContainer = styled.div.attrs<{ visible: boolean, left: n
 		opacity          : 0.3;
 		z-index          : 2;
 	}
+	@media print {
+		display : none;
+	}
 `;
 export const PinFavoriteTitle = styled.div.attrs({ 'data-widget': 'pin-favorite-title' })`
 	display          : flex;

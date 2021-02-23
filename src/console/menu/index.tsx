@@ -60,7 +60,13 @@ const ConsoleMenuContainer = styled.div.attrs<{ width: number }>(({ width }) => 
 		}
 	}
 	@media print {
-		display: none;
+		display : none;
+		+ main {
+			max-width : unset;
+			div[data-widget="full-width-page"] {
+				max-width : unset;
+			}
+		}
 	}
 `;
 
