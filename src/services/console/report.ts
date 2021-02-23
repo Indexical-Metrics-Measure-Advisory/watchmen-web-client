@@ -4,7 +4,7 @@ import {
 	fetchMockChartData,
 	fetchMockCountChartData,
 	fetchMockDoughnutChartData,
-	fetchMockLineChartData,
+	fetchMockLineChartData, fetchMockMapChartData,
 	fetchMockNightingaleChartData,
 	fetchMockPieChartData,
 	fetchMockScatterChartData,
@@ -37,6 +37,8 @@ export const fetchChartData = async (reportId: string, type: ChartType): Promise
 			return fetchMockTreeChartData(reportId);
 		} else if (type === ChartType.TREEMAP) {
 			return fetchMockTreemapChartData(reportId);
+		} else if (type === ChartType.MAP) {
+			return fetchMockMapChartData(reportId);
 		} else {
 			return fetchMockChartData(reportId);
 		}

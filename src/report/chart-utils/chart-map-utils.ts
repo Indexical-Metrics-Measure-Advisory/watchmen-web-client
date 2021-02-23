@@ -1,12 +1,33 @@
 import { EChartOption } from 'echarts';
+import * as echarts from 'echarts/core';
 import { BASE_COLORS_24 } from '../../basic-widgets/colors';
 import { MAP } from '../../services/tuples/chart-def/chart-map';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { EChart } from '../../services/tuples/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils } from './default-chart-utils';
+import japanJson from './map-geo-data/jp-all.geo.json';
 import { buildEChartTitle } from './title-utils';
 import { ChartOptions } from './types';
+
+console.log(japanJson.features.map(feature => ({ name: feature.properties.name, type: feature.properties.type })));
+echarts.registerMap('Japan', japanJson as any, {
+	// Alaska: {              // 把阿拉斯加移到美国主大陆左下方
+	// 	left: -131,
+	// 	top: 25,
+	// 	width: 15
+	// },
+	// Hawaii: {
+	// 	left: -110,        // 夏威夷
+	// 	top: 28,
+	// 	width: 5
+	// },
+	// 'Puerto Rico': {       // 波多黎各
+	// 	left: -76,
+	// 	top: 26,
+	// 	width: 2
+	// }
+});
 
 export class ChartMapUtils extends DefaultChartUtils {
 	constructor() {
@@ -15,78 +36,33 @@ export class ChartMapUtils extends DefaultChartUtils {
 
 	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
 		const { chart } = report;
-		const { dimensions, indicators } = report;
-
-		const dimensionColumnIndexOffset = this.getDimensionColumnIndexOffset(report);
-		const legends = this.buildLegends(report, dataset);
 
 		return {
 			color: BASE_COLORS_24,
 			title: buildEChartTitle(chart as EChart),
-			tooltip: {
-				trigger: 'item'
-			},
-			// legend only available on multiple dimensions defined
-			legend: legends.length > 1 ? { data: legends.map(({ name }) => name) } : (void 0),
-			xAxis: {
-				type: 'category',
-				// use last dimension as xAxis
-				name: dimensions[dimensions.length - 1].name
-			},
-			yAxis: {
-				type: 'value',
-				name: indicators[0].name
-			},
-			series: legends.map(({ name, rows }) => {
-				return {
-					name,
-					type: 'scatter',
-					data: rows.map(row => {
-						return [
-							// value of last dimension as xAxis value
-							row[dimensions.length - 1 + dimensionColumnIndexOffset],
-							// value of first indicator as yAxis value
-							// and rest values according to indicators order
-							...indicators.map((indicator, index) => row[index])
-						];
-					})
-				};
-			}),
-			// visual map only available on multiple indicators defined
-			visualMap: indicators.length === 1 ? (void 0) : indicators.map((indicator, index) => {
-				switch (index) {
-					case 0:
-						// first indicator is used as yAxis, ignore
-						return null;
-					case 1:
-						// use size to identify difference
-						return {
-							show: false,
-							// index of per data row, first is xAxis(dimension), second is yAxis(first indicator)
-							dimension: 2,
-							// column index of second indicator is 1
-							...this.findColumnExtremum(dataset, 1),
-							inRange: {
-								symbolSize: [ 10, 50 ]
-							}
-						};
-					case 2:
-						// use opacity to identify difference
-						return {
-							show: false,
-							// index of per data row, first is xAxis(dimension), second is yAxis(first indicator)
-							dimension: 2,
-							// column index of third indicator is 2
-							...this.findColumnExtremum(dataset, 2),
-							inRange: {
-								colorAlpha: [ 0.4, 1 ]
-							}
-						};
-					default:
-						// more indicators are not supported yet
-						return null;
-				}
-			}).filter(x => !x) as Array<EChartOption.VisualMap>
+			visualMap: {
+				left: 'right',
+				min: 500000,
+				max: 38000000,
+				inRange: {
+					color: [ '#313695', '#4575B4', '#74ADD1', '#ABD9E9', '#E0F3F8', '#FFFFBF', '#FEE090', '#FDAE61', '#F46D43', '#D73027', '#A50026' ]
+				},
+				text: [ 'High', 'Low' ],
+				calculable: true
+			} as EChartOption.VisualMap,
+			series: [ {
+				type: 'map',
+				roam: true,
+				map: 'Japan',
+				data: dataset.data.map(row => {
+					return {
+						// value of dimension as name
+						name: row[1],
+						// value of indicator as value
+						value: row[0]
+					};
+				})
+			} ]
 		} as EChartOption;
 	}
 }

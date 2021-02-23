@@ -12,9 +12,12 @@ import {
 import {
 	AxisPointerComponent,
 	DataZoomComponent,
+	GeoComponent,
 	GridComponent,
 	TitleComponent,
-	TooltipComponent
+	ToolboxComponent,
+	TooltipComponent,
+	VisualMapComponent
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import { EChartsType } from 'echarts/core';
@@ -24,7 +27,7 @@ import { ChartEChartOptions } from '../chart-utils/types';
 import { EChartDiagramContainer } from './widgets';
 
 echarts.use([
-	TitleComponent, TooltipComponent, GridComponent, AxisPointerComponent, DataZoomComponent,
+	TitleComponent, TooltipComponent, GridComponent, AxisPointerComponent, DataZoomComponent, GeoComponent, VisualMapComponent, ToolboxComponent,
 	BarChart, LineChart, LinesChart, PieChart, ScatterChart, SunburstChart, TreeChart, TreemapChart, MapChart,
 	CanvasRenderer
 ]);
