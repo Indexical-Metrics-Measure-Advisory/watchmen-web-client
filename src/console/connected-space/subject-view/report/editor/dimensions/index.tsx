@@ -47,7 +47,7 @@ export const DimensionsSection = (props: { subject: Subject, report: Report }) =
 		const chartUtils = ChartHelper[type];
 		if (!chartUtils.canAppendDimensions(report)) {
 			fireGlobal(EventTypes.SHOW_ALERT,
-				<AlertLabel>{Lang.CONSOLE.CONNECTED_SPACE.CAN_NOT_ADD_DIMENSION}</AlertLabel>);
+				<AlertLabel>{Lang.CHART.CAN_NOT_ADD_DIMENSION}</AlertLabel>);
 		} else {
 			const dimension: ReportDimension = { columnId: '', name: '' };
 			report.dimensions.push(dimension);
@@ -80,7 +80,7 @@ export const DimensionsSection = (props: { subject: Subject, report: Report }) =
 			? <AddDimensionContainer>
 				<AddDimensionButton ink={ButtonInk.PRIMARY} onClick={onAddDimensionClicked}>
 					<FontAwesomeIcon icon={ICON_ADD}/>
-					<span>{Lang.CONSOLE.CONNECTED_SPACE.ADD_DIMENSION}</span>
+					<span>{Lang.CHART.ADD_DIMENSION}</span>
 				</AddDimensionButton>
 			</AddDimensionContainer>
 			: null}

@@ -4,6 +4,7 @@ import { Subject } from '../../../../../../services/tuples/subject-types';
 import { ChartCountSettings } from '../chart-count-settings';
 import { DimensionsSection } from '../dimensions';
 import { EChartsTitleSettings } from '../echarts/title';
+import { IndicatorsSection } from '../indicators';
 import { RectSection } from '../rect';
 import { BasicStylesSection } from '../styles';
 import { ChartTypeEditor } from './chart-type';
@@ -17,6 +18,7 @@ export const SettingsBody = (props: { subject: Subject, report: Report }) => {
 	return <SettingsBodyContainer>
 		<NamePropEditor report={report}/>
 		<ChartTypeEditor report={report}/>
+		<IndicatorsSection subject={subject} report={report}/>
 		<DimensionsSection subject={subject} report={report}/>
 		<RectSection report={report}/>
 		<ChartCountSettings report={report}/>

@@ -8,7 +8,7 @@ import { useEventBus } from '../../../../../../events/event-bus';
 import { EventTypes } from '../../../../../../events/types';
 import { Lang } from '../../../../../../langs';
 import { ChartHelper } from '../../../../../../report/chart-utils';
-import { Report, ReportDimension } from '../../../../../../services/tuples/report-types';
+import { Report, ReportIndicator } from '../../../../../../services/tuples/report-types';
 import { Subject } from '../../../../../../services/tuples/subject-types';
 import { useReportEditEventBus } from '../report-edit-event-bus';
 import { ReportEditEventTypes } from '../report-edit-event-bus-types';
@@ -16,18 +16,18 @@ import { PropValue, PropValueDropdown } from '../settings-widgets/widgets';
 import {
 	DeleteMeButton,
 	DeleteMeContainer,
-	DimensionContainer,
-	DimensionIndexLabel,
-	IncorrectOptionLabel
+	IncorrectOptionLabel,
+	IndicatorContainer,
+	IndicatorIndexLabel
 } from './widgets';
 
-export const DimensionEditor = (props: {
+export const IndicatorEditor = (props: {
 	subject: Subject;
 	report: Report;
-	dimension: ReportDimension;
-	onDelete: (dimension: ReportDimension) => void;
+	indicator: ReportIndicator;
+	onDelete: (indicator: ReportIndicator) => void;
 }) => {
-	const { subject, report, dimension, onDelete } = props;
+	const { subject, report, indicator, onDelete } = props;
 	const { chart: { type: chartType } } = report;
 
 	const { fire: fireGlobal } = useEventBus();
@@ -36,23 +36,23 @@ export const DimensionEditor = (props: {
 
 	const onColumnChange = (option: DropdownOption) => {
 		const { value } = option;
-		dimension.columnId = value;
-		fire(ReportEditEventTypes.DIMENSION_CHANGED, report, dimension);
+		indicator.columnId = value;
+		fire(ReportEditEventTypes.INDICATOR_CHANGED, report, indicator);
 		forceUpdate();
 	};
 	const onDeleteClicked = () => {
-		const canDelete = ChartHelper[chartType].canReduceDimensions(report);
+		const canDelete = ChartHelper[chartType].canReduceIndicators(report);
 		if (!canDelete) {
 			fireGlobal(EventTypes.SHOW_ALERT,
-				<AlertLabel>{Lang.CHART.CAN_NOT_DELETE_DIMENSION}</AlertLabel>);
+				<AlertLabel>{Lang.CHART.CAN_NOT_DELETE_INDICATOR}</AlertLabel>);
 		} else {
-			onDelete(dimension);
+			onDelete(indicator);
 		}
 	};
 
-	const index = report.dimensions.indexOf(dimension) + 1;
-	const { columnId } = dimension;
-	const dimensionOptions: Array<DropdownOption> = subject.dataset.columns.map((column, columnIndex) => {
+	const index = report.indicators.indexOf(indicator) + 1;
+	const { columnId } = indicator;
+	const indicatorOptions: Array<DropdownOption> = subject.dataset.columns.map((column, columnIndex) => {
 		return {
 			value: column.columnId,
 			label: () => {
@@ -68,7 +68,7 @@ export const DimensionEditor = (props: {
 	// eslint-disable-next-line
 	const selectionExists = !columnId || subject.dataset.columns.some(column => column.columnId == columnId);
 	if (!selectionExists) {
-		dimensionOptions.push({
+		indicatorOptions.push({
 			value: columnId, label: () => {
 				return {
 					node: <IncorrectOptionLabel>{Lang.CHART.UNKNOWN_COLUMN_NAME}</IncorrectOptionLabel>,
@@ -78,17 +78,17 @@ export const DimensionEditor = (props: {
 		});
 	}
 
-	return <DimensionContainer>
-		<DimensionIndexLabel>{index}</DimensionIndexLabel>
+	return <IndicatorContainer>
+		<IndicatorIndexLabel>{index}</IndicatorIndexLabel>
 		<PropValue>
-			<PropValueDropdown value={columnId} options={dimensionOptions}
+			<PropValueDropdown value={columnId} options={indicatorOptions}
 			                   onChange={onColumnChange}
-			                   please={Lang.CHART.PLEASE_SELECT_DIMENSION}/>
+			                   please={Lang.CHART.PLEASE_SELECT_INDICATOR}/>
 		</PropValue>
 		<DeleteMeContainer>
 			<DeleteMeButton onClick={onDeleteClicked}>
 				<FontAwesomeIcon icon={ICON_DELETE}/>
 			</DeleteMeButton>
 		</DeleteMeContainer>
-	</DimensionContainer>;
+	</IndicatorContainer>;
 };

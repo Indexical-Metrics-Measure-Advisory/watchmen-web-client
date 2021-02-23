@@ -1,4 +1,4 @@
-import { Report, ReportDimension } from '../../../../../services/tuples/report-types';
+import { Report, ReportDimension, ReportIndicator } from '../../../../../services/tuples/report-types';
 
 export enum ReportEditEventTypes {
 	NAME_CHANGED = 'name-changed',
@@ -14,6 +14,9 @@ export enum ReportEditEventTypes {
 	DIMENSION_CHANGED = 'dimension-changed',
 	DIMENSION_ADDED = 'dimension-added',
 	DIMENSION_REMOVED = 'dimension-removed',
+	INDICATOR_CHANGED = 'indicator-changed',
+	INDICATOR_ADDED = 'indicator-added',
+	INDICATOR_REMOVED = 'indicator-removed',
 
 	EDIT_COMPLETED = 'edit-completed',
 	EXPAND_ALL_SECTIONS = 'expand-all-sections',
@@ -60,6 +63,18 @@ export interface ReportEditEventBus {
 	fire(type: ReportEditEventTypes.DIMENSION_REMOVED, report: Report, dimension: ReportDimension): this;
 	on(type: ReportEditEventTypes.DIMENSION_REMOVED, listener: (report: Report, dimension: ReportDimension) => void): this;
 	off(type: ReportEditEventTypes.DIMENSION_REMOVED, listener: (report: Report, dimension: ReportDimension) => void): this;
+
+	fire(type: ReportEditEventTypes.INDICATOR_CHANGED, report: Report, indicator: ReportIndicator): this;
+	on(type: ReportEditEventTypes.INDICATOR_CHANGED, listener: (report: Report, indicator: ReportIndicator) => void): this;
+	off(type: ReportEditEventTypes.INDICATOR_CHANGED, listener: (report: Report, indicator: ReportIndicator) => void): this;
+
+	fire(type: ReportEditEventTypes.INDICATOR_ADDED, report: Report, indicator: ReportIndicator): this;
+	on(type: ReportEditEventTypes.INDICATOR_ADDED, listener: (report: Report, indicator: ReportIndicator) => void): this;
+	off(type: ReportEditEventTypes.INDICATOR_ADDED, listener: (report: Report, indicator: ReportIndicator) => void): this;
+
+	fire(type: ReportEditEventTypes.INDICATOR_REMOVED, report: Report, indicator: ReportIndicator): this;
+	on(type: ReportEditEventTypes.INDICATOR_REMOVED, listener: (report: Report, indicator: ReportIndicator) => void): this;
+	off(type: ReportEditEventTypes.INDICATOR_REMOVED, listener: (report: Report, indicator: ReportIndicator) => void): this;
 
 	fire(type: ReportEditEventTypes.EDIT_COMPLETED, report: Report): this;
 	on(type: ReportEditEventTypes.EDIT_COMPLETED, listener: (report: Report) => void): this;
