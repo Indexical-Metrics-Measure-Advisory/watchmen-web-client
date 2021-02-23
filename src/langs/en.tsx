@@ -16,7 +16,7 @@ export const En = {
 		DEFAULT_CONNECTED_SPACE_NAME: 'Connected Space',
 		NEW_SUBJECT_NAME: 'Subject',
 		DEFAULT_SUBJECT_NAME: 'Subject',
-		NEW_REPORT_NAME: 'Chart',
+		NEW_REPORT_NAME: 'Report',
 		CONSTANT_INPUT_PLACEHOLDER: 'Constant value please...',
 		UNKNOWN_TOPIC_NAME: 'Unknown Topic',
 		UNKNOWN_FACTOR_NAME: 'Unknown Factor',
