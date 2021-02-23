@@ -6,7 +6,11 @@ import {
 	fetchMockDoughnutChartData,
 	fetchMockLineChartData,
 	fetchMockNightingaleChartData,
-	fetchMockPieChartData
+	fetchMockPieChartData,
+	fetchMockScatterChartData,
+	fetchMockSunburstChartData,
+	fetchMockTreeChartData,
+	fetchMockTreemapChartData
 } from '../mock/console/mock-report';
 import { ChartDataSet, ChartType } from '../tuples/chart-types';
 import { getServiceHost, isMockService } from '../utils';
@@ -25,6 +29,14 @@ export const fetchChartData = async (reportId: string, type: ChartType): Promise
 			return fetchMockBarChartData(reportId);
 		} else if (type === ChartType.LINE) {
 			return fetchMockLineChartData(reportId);
+		} else if (type === ChartType.SCATTER) {
+			return fetchMockScatterChartData(reportId);
+		} else if (type === ChartType.SUNBURST) {
+			return fetchMockSunburstChartData(reportId);
+		} else if (type === ChartType.TREE) {
+			return fetchMockTreeChartData(reportId);
+		} else if (type === ChartType.TREEMAP) {
+			return fetchMockTreemapChartData(reportId);
 		} else {
 			return fetchMockChartData(reportId);
 		}
