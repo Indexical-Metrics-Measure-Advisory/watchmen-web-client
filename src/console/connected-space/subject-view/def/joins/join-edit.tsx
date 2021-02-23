@@ -4,6 +4,8 @@ import { ICON_DELETE } from '../../../../../basic-widgets/constants';
 import { Subject, SubjectDataSetJoin } from '../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
 import { ParameterEventBusProvider } from '../parameter/parameter-event-bus';
+import { useSubjectDefEventBus } from '../subject-def-event-bus';
+import { SubjectDefEventTypes } from '../subject-def-event-bus-types';
 import { Join2DefEventBridge } from './join-2-def-event-bridge';
 import { JoinEventBusProvider } from './join-event-bus';
 import { JoinTypeEdit } from './join-type-edit';
@@ -17,6 +19,16 @@ export const JoinEdit = (props: {
 	pickedTopics: Array<Topic>;
 }) => {
 	const { subject, join, availableTopics, pickedTopics } = props;
+
+	const { fire } = useSubjectDefEventBus();
+
+	const onRemoveClicked = () => {
+		const index = subject.dataset.joins.indexOf(join);
+		if (index !== -1) {
+			subject.dataset.joins.splice(index, 1);
+			fire(SubjectDefEventTypes.DATASET_JOIN_REMOVED, join);
+		}
+	};
 
 	const index = subject.dataset.joins.indexOf(join) + 1;
 
@@ -32,7 +44,7 @@ export const JoinEdit = (props: {
 				<JoinTopicFactorEdit subject={subject} join={join} first={false}
 				                     availableTopics={availableTopics} pickedTopics={pickedTopics}/>
 			</ParameterEventBusProvider>
-			<RemoveJoinIcon>
+			<RemoveJoinIcon onClick={onRemoveClicked}>
 				<FontAwesomeIcon icon={ICON_DELETE}/>
 			</RemoveJoinIcon>
 		</JoinEditContainer>
