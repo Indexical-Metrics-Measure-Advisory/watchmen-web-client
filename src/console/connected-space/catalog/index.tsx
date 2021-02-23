@@ -15,16 +15,24 @@ import { ConsoleEventTypes } from '../../console-event-bus-types';
 import { CatalogEventBusProvider, useCatalogEventBus } from './catalog-event-bus';
 import { CatalogEventTypes } from './catalog-event-bus-types';
 import { GraphicsSave } from './graphics-save';
-import { asSubjectGraphicsMap, asTopicGraphicsMap, computeGraphics, createInitGraphics } from './graphics-utils';
+import {
+	asReportGraphicsMap,
+	asSubjectGraphicsMap,
+	asTopicGraphicsMap,
+	computeGraphics,
+	createInitGraphics
+} from './graphics-utils';
 import { CatalogHeader } from './header';
 import { Navigator } from './navigator';
 import { BlockRelations } from './relation/block-relations';
 import { BlockRelationsAnimation } from './relation/block-relations-animation';
+import { ReportRect } from './report/report-rect';
 import { BlockSelection } from './selection';
 import { SubjectRect } from './subject/subject-rect';
 import { TopicRect } from './topic/topic-rect';
 import {
 	AssembledConnectedSpaceGraphics,
+	AssembledReportGraphics,
 	AssembledSubjectGraphics,
 	AssembledTopicGraphics,
 	GraphicsRole
@@ -137,6 +145,12 @@ const CatalogBody = (props: { connectedSpace: ConnectedSpace }) => {
 				const subjectId = subjectRect.getAttribute('data-subject-id')!;
 				fire(CatalogEventTypes.SUBJECT_SELECTED, subjectGraphicsMap.get(subjectId)!.subject);
 				break;
+			case GraphicsRole.REPORT_FRAME:
+			case GraphicsRole.REPORT_NAME:
+				const reportRect = element.parentElement! as unknown as SVGGElement;
+				const reportId = reportRect.getAttribute('data-report-id')!;
+				fire(CatalogEventTypes.REPORT_SELECTED, reportGraphicsMap.get(reportId)!.report);
+				break;
 			default:
 				clearSelection();
 				break;
@@ -145,6 +159,7 @@ const CatalogBody = (props: { connectedSpace: ConnectedSpace }) => {
 
 	const topicGraphicsMap: Map<string, AssembledTopicGraphics> = asTopicGraphicsMap(data.graphics);
 	const subjectGraphicsMap: Map<string, AssembledSubjectGraphics> = asSubjectGraphicsMap(data.graphics);
+	const reportGraphicsMap: Map<string, AssembledReportGraphics> = asReportGraphicsMap(data.graphics);
 
 	return <CatalogContainer>
 		<CatalogSvgContainer ref={svgContainerRef}>
@@ -158,6 +173,14 @@ const CatalogBody = (props: { connectedSpace: ConnectedSpace }) => {
 					const subjectGraphics = subjectGraphicsMap.get(subject.subjectId)!;
 					return <SubjectRect subject={subjectGraphics} key={subject.subjectId}/>;
 				})}
+				{connectedSpace.subjects.map(subject => subject.reports)
+					.filter(x => !!x).flat().map(report => {
+						if (!report) {
+							return null;
+						}
+						const reportGraphics = reportGraphicsMap.get(report.reportId)!;
+						return <ReportRect report={reportGraphics} key={report.reportId}/>;
+					})}
 				<BlockSelection graphics={data.graphics}/>
 			</CatalogSvg>
 			<CatalogSvgRelationsAnimationContainer>

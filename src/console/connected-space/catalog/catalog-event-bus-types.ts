@@ -1,13 +1,16 @@
+import { Report } from '../../../services/tuples/report-types';
 import { Subject } from '../../../services/tuples/subject-types';
 import { Topic } from '../../../services/tuples/topic-types';
 
 export enum CatalogEventTypes {
 	TOPIC_SELECTED = 'topic-selected',
 	SUBJECT_SELECTED = 'subject-selected',
+	REPORT_SELECTED = 'report-selected',
 	CLEAR_SELECTION = 'clear-selection',
 
 	TOPIC_MOVED = 'topic-moved',
 	SUBJECT_MOVED = 'subject-moved',
+	REPORT_MOVED = 'report-moved'
 }
 
 export interface CatalogEventBus {
@@ -18,6 +21,10 @@ export interface CatalogEventBus {
 	fire(type: CatalogEventTypes.SUBJECT_SELECTED, subject: Subject): this;
 	on(type: CatalogEventTypes.SUBJECT_SELECTED, listener: (subject: Subject) => void): this;
 	off(type: CatalogEventTypes.SUBJECT_SELECTED, listener: (subject: Subject) => void): this;
+
+	fire(type: CatalogEventTypes.REPORT_SELECTED, report: Report): this;
+	on(type: CatalogEventTypes.REPORT_SELECTED, listener: (report: Report) => void): this;
+	off(type: CatalogEventTypes.REPORT_SELECTED, listener: (report: Report) => void): this;
 
 	fire(type: CatalogEventTypes.CLEAR_SELECTION): this;
 	on(type: CatalogEventTypes.CLEAR_SELECTION, listener: () => void): this;
@@ -30,4 +37,8 @@ export interface CatalogEventBus {
 	fire(type: CatalogEventTypes.SUBJECT_MOVED, subject: Subject): this;
 	on(type: CatalogEventTypes.SUBJECT_MOVED, listener: (subject: Subject) => void): this;
 	off(type: CatalogEventTypes.SUBJECT_MOVED, listener: (subject: Subject) => void): this;
+
+	fire(type: CatalogEventTypes.REPORT_MOVED, report: Report): this;
+	on(type: CatalogEventTypes.REPORT_MOVED, listener: (report: Report) => void): this;
+	off(type: CatalogEventTypes.REPORT_MOVED, listener: (report: Report) => void): this;
 }

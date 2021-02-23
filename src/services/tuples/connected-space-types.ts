@@ -28,8 +28,13 @@ export interface SubjectGraphics extends ConnectedSpaceBlockGraphics {
 	subjectId: string;
 }
 
+export interface ReportGraphics extends ConnectedSpaceBlockGraphics {
+	reportId: string;
+}
+
 export interface ConnectedSpaceGraphics {
 	connectId: string;
 	topics: Array<TopicGraphics>;
 	subjects: Array<SubjectGraphics>;
+	reports: Array<ReportGraphics>;
 }

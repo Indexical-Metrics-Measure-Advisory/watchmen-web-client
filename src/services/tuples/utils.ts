@@ -19,7 +19,7 @@ export const removeFakeIdPrefix = (id: string) => {
 export const isTopic = (tuple: Tuple): tuple is Topic => {
 	return !!(tuple as any).topicId;
 };
-const isReport = (tuple: Tuple): tuple is Report => {
+export const isReport = (tuple: Tuple): tuple is Report => {
 	return !!(tuple as any).reportId;
 };
 const isSpace = (tuple: Tuple): tuple is Space => {

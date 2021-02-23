@@ -44,9 +44,11 @@ export const GraphicsSave = (props: {
 		};
 		on(CatalogEventTypes.TOPIC_MOVED, onGraphicsChange);
 		on(CatalogEventTypes.SUBJECT_MOVED, onGraphicsChange);
+		on(CatalogEventTypes.REPORT_MOVED, onGraphicsChange);
 		return () => {
 			off(CatalogEventTypes.TOPIC_MOVED, onGraphicsChange);
 			off(CatalogEventTypes.SUBJECT_MOVED, onGraphicsChange);
+			off(CatalogEventTypes.REPORT_MOVED, onGraphicsChange);
 		};
 	}, [ on, off, fireConsole, connectedSpace, assembledGraphics, state ]);
 

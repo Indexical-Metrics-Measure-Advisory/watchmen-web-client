@@ -1,4 +1,5 @@
 import { ConnectedSpaceBlockGraphics } from '../../../services/tuples/connected-space-types';
+import { Report } from '../../../services/tuples/report-types';
 import { Subject } from '../../../services/tuples/subject-types';
 import { Topic } from '../../../services/tuples/topic-types';
 
@@ -11,11 +12,19 @@ export enum GraphicsRole {
 	SUBJECT_FRAME = 'subject-frame',
 	SUBJECT_NAME = 'subject-name',
 
+	REPORT = 'report',
+	REPORT_FRAME = 'report-frame',
+	REPORT_NAME = 'report-name',
+
 	BLOCK_SELECTION = 'block-selection',
 
 	SUBJECT_TOPIC_RELATION = 'subject-topic-relation',
 	SUBJECT_TOPIC_RELATION_LINK = 'subject-topic-relation-link',
-	SUBJECT_TOPIC_RELATION_ANIMATION = 'subject-topic-relation-animation'
+	SUBJECT_TOPIC_RELATION_ANIMATION = 'subject-topic-relation-animation',
+
+	REPORT_SUBJECT_RELATION = 'report-subject-relation',
+	REPORT_SUBJECT_RELATION_LINK = 'report-subject-relation-link',
+	REPORT_SUBJECT_RELATION_ANIMATION = 'report-subject-relation-animation'
 }
 
 export interface AssembledTopicGraphics extends ConnectedSpaceBlockGraphics {
@@ -26,9 +35,14 @@ export interface AssembledSubjectGraphics extends ConnectedSpaceBlockGraphics {
 	subject: Subject,
 }
 
+export interface AssembledReportGraphics extends ConnectedSpaceBlockGraphics {
+	report: Report;
+}
+
 export interface AssembledConnectedSpaceGraphics {
 	topics: Array<AssembledTopicGraphics>;
 	subjects: Array<AssembledSubjectGraphics>;
+	reports: Array<AssembledReportGraphics>;
 }
 
 export interface RelationCurvePoints {

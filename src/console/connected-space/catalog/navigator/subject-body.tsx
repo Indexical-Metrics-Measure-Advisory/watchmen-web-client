@@ -55,10 +55,6 @@ export const SubjectBody = (props: { connectedSpace: ConnectedSpace, subject: Su
 		}).fire(ConsoleEventTypes.ASK_AVAILABLE_SPACES);
 	}, [ connectedSpace.spaceId, connectedSpace.subjects, history, onceGlobal, onceConsole ]);
 
-	if (topics.length === 0) {
-
-	}
-
 	return <SubjectBodyContainer>
 		<SubjectDsl subject={subject} availableTopics={topics} pickedTopics={topics} visible={true}/>
 		<BottomGap/>

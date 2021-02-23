@@ -4,9 +4,11 @@ import {
 	ConnectedSpaceBlockGraphics,
 	ConnectedSpaceBlockGraphicsRect,
 	ConnectedSpaceGraphics,
+	ReportGraphics,
 	SubjectGraphics,
 	TopicGraphics
 } from '../../../services/tuples/connected-space-types';
+import { Report } from '../../../services/tuples/report-types';
 import { Subject } from '../../../services/tuples/subject-types';
 import { Topic } from '../../../services/tuples/topic-types';
 import {
@@ -24,13 +26,14 @@ import {
 } from './constants';
 import {
 	AssembledConnectedSpaceGraphics,
+	AssembledReportGraphics,
 	AssembledSubjectGraphics,
 	AssembledTopicGraphics,
 	GraphicsRole,
 	RelationCurvePoints
 } from './types';
 
-const dependRectData = (rect: ConnectedSpaceBlockGraphicsRect): ConnectedSpaceBlockGraphicsRect => {
+const cloneRectData = (rect: ConnectedSpaceBlockGraphicsRect): ConnectedSpaceBlockGraphicsRect => {
 	const {
 		coordinate: { x: coordinateX = 0, y: coordinateY = 0 } = { x: 0, y: 0 },
 		frame: {
@@ -58,7 +61,11 @@ export const createInitGraphics = (options: {
 }): AssembledConnectedSpaceGraphics => {
 	const {
 		topics, subjects,
-		graphics: { topics: topicGraphics = [], subjects: subjectGraphics = [] } = { topics: [], subjects: [] }
+		graphics: {
+			topics: topicGraphics = [],
+			subjects: subjectGraphics = [],
+			reports: reportGraphics = []
+		} = { topics: [], subjects: [], reports: [] }
 	} = options;
 
 	const topicGraphicsMap: Map<string, TopicGraphics> = topicGraphics.reduce((map, topic) => {
@@ -69,13 +76,17 @@ export const createInitGraphics = (options: {
 		map.set(subject.subjectId, subject);
 		return map;
 	}, new Map<string, SubjectGraphics>());
+	const reportGraphicsMap: Map<string, ReportGraphics> = reportGraphics.reduce((map, report) => {
+		map.set(report.reportId, report);
+		return map;
+	}, new Map<string, ReportGraphics>());
 
 	return {
 		topics: topics.map(topic => {
 			const graphics = topicGraphicsMap.get(topic.topicId);
 			return graphics && graphics.rect ? {
 				topic,
-				rect: dependRectData(JSON.parse(JSON.stringify(graphics.rect)))
+				rect: cloneRectData(graphics.rect)
 			} : {
 				topic,
 				rect: {
@@ -89,9 +100,23 @@ export const createInitGraphics = (options: {
 			const graphics = subjectGraphicsMap.get(subject.subjectId);
 			return graphics && graphics.rect ? {
 				subject,
-				rect: dependRectData(JSON.parse(JSON.stringify(graphics.rect)))
+				rect: cloneRectData(graphics.rect)
 			} : {
 				subject,
+				rect: {
+					coordinate: { x: 0, y: 0 },
+					frame: { x: 0, y: 0, width: BLOCK_WIDTH_MIN, height: BLOCK_HEIGHT_MIN },
+					name: { x: BLOCK_WIDTH_MIN / 2, y: BLOCK_HEIGHT_MIN / 2 }
+				}
+			};
+		}),
+		reports: (subjects.map(subject => subject.reports).filter(x => !!x).flat() as Array<Report>).map(report => {
+			const graphics = reportGraphicsMap.get(report.reportId);
+			return graphics && graphics.rect ? {
+				report,
+				rect: cloneRectData(JSON.parse(JSON.stringify(graphics.rect)))
+			} : {
+				report,
 				rect: {
 					coordinate: { x: 0, y: 0 },
 					frame: { x: 0, y: 0, width: BLOCK_WIDTH_MIN, height: BLOCK_HEIGHT_MIN },
@@ -114,6 +139,13 @@ export const asSubjectGraphicsMap = (graphics: AssembledConnectedSpaceGraphics) 
 		map.set(subjectGraphics.subject.subjectId, subjectGraphics);
 		return map;
 	}, new Map<string, AssembledSubjectGraphics>());
+};
+
+export const asReportGraphicsMap = (graphics: AssembledConnectedSpaceGraphics) => {
+	return graphics.reports.reduce((map, reportGraphics) => {
+		map.set(reportGraphics.report.reportId, reportGraphics);
+		return map;
+	}, new Map<string, AssembledReportGraphics>());
 };
 
 /** topic frame size */
@@ -176,15 +208,49 @@ const computeSubjectGraphics = (graphics: AssembledConnectedSpaceGraphics, svg: 
 	return subjectMap;
 };
 
+const computeReportGraphics = (graphics: AssembledConnectedSpaceGraphics, svg: SVGSVGElement) => {
+	const leftX = [ ...graphics.topics, ...graphics.subjects ].reduce((right, elementGraphics) => {
+		return Math.max(right, elementGraphics.rect.frame.x + elementGraphics.rect.frame.width);
+	}, BLOCK_MARGIN_HORIZONTAL) + BLOCK_GAP_HORIZONTAL * 2.5;
+
+	// compute subject size
+	const reportMap: Map<string, AssembledReportGraphics> = asReportGraphicsMap(graphics);
+	Array.from(svg.querySelectorAll(`g[data-role=${GraphicsRole.REPORT}]`)).forEach(reportRect => {
+		const reportId = reportRect.getAttribute('data-report-id')!;
+		const name = reportRect.querySelector(`text[data-role='${GraphicsRole.REPORT_NAME}']`)! as SVGTextElement;
+		const nameRect = name.getBBox();
+		const rect = reportMap.get(reportId)!.rect;
+		rect.frame = { ...rect.frame, ...computeBlockFrameSize(nameRect) };
+		rect.name = computeBlockNamePosition(rect.frame);
+	});
+	Array.from(reportMap.values())
+		.filter(graphics => graphics.rect.coordinate.x === 0)
+		.sort((t1, t2) => t1.report.name.toLowerCase().localeCompare(t2.report.name.toLowerCase()))
+		.reduce((top, reportGraphics) => {
+			reportGraphics.rect.coordinate = { x: leftX, y: top };
+			top += reportGraphics.rect.frame.height + BLOCK_GAP_VERTICAL;
+			return top;
+		}, BLOCK_MARGIN_VERTICAL);
+	return reportMap;
+};
+
 export const computeGraphics = (options: {
 	graphics: AssembledConnectedSpaceGraphics;
 	svg: SVGSVGElement;
 }) => {
 	const { graphics, svg } = options;
+
+	// compute element graphics
 	computeTopicsGraphics(graphics, svg);
 	computeSubjectGraphics(graphics, svg);
+	computeReportGraphics(graphics, svg);
+
+	// compute svg size
 	const { width: svgWidth, height: svgHeight } = svg.getBoundingClientRect();
-	const { width, height } = [ ...graphics.topics, ...graphics.subjects ].reduce<{ width: number, height: number }>(
+	const {
+		width,
+		height
+	} = [ ...graphics.topics, ...graphics.subjects, ...graphics.reports ].reduce<{ width: number, height: number }>(
 		(size, frameGraphics) => {
 			const { coordinate: { x, y }, frame: { width, height } } = frameGraphics.rect;
 			return { width: Math.max(size.width, x + width), height: Math.max(size.height, y + height) };
@@ -215,6 +281,19 @@ export const computeSubjectSelection = (options: { subjectId: string; graphics: 
 		y: subjectGraphics.rect.coordinate.y - SELECTION_GAP,
 		width: subjectGraphics.rect.frame.width + SELECTION_FULL_GAP,
 		height: subjectGraphics.rect.frame.height + SELECTION_FULL_GAP
+	};
+};
+
+export const computeReportSelection = (options: { reportId: string; graphics: AssembledConnectedSpaceGraphics }) => {
+	const { graphics, reportId } = options;
+
+	// eslint-disable-next-line
+	const reportGraphics = graphics.reports.find(({ report }) => report.reportId == reportId)!;
+	return {
+		x: reportGraphics.rect.coordinate.x - SELECTION_GAP,
+		y: reportGraphics.rect.coordinate.y - SELECTION_GAP,
+		width: reportGraphics.rect.frame.width + SELECTION_FULL_GAP,
+		height: reportGraphics.rect.frame.height + SELECTION_FULL_GAP
 	};
 };
 
@@ -375,6 +454,12 @@ export const transformGraphicsToSave = (connectedSpace: ConnectedSpace, graphics
 		subjects: graphics.subjects.map(graphics => {
 			return {
 				subjectId: graphics.subject.subjectId,
+				rect: JSON.parse(JSON.stringify(graphics.rect))
+			};
+		}),
+		reports: graphics.reports.map(graphics => {
+			return {
+				reportId: graphics.report.reportId,
 				rect: JSON.parse(JSON.stringify(graphics.rect))
 			};
 		})

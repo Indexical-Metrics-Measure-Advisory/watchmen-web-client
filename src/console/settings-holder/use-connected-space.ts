@@ -18,7 +18,8 @@ export const useConnectedSpace = (options: {
 				connectedSpaceGraphics: [ ...holdSettings.connectedSpaceGraphics, {
 					connectId: connectedSpace.connectId,
 					topics: [],
-					subjects: []
+					subjects: [],
+					reports: []
 				} ]
 			}));
 		};
