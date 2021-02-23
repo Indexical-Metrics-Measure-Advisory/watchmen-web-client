@@ -7,7 +7,11 @@ export enum SubjectEventTypes {
 	SUBJECT_DEF_CHANGED = 'subject-def-changed',
 
 	REPORT_ADDED = 'report-added',
-	REPORT_REMOVED = 'report-removed'
+	REPORT_REMOVED = 'report-removed',
+
+	TOGGLE_PRINT_PAGE_SIZE = 'toggle-print-page-size',
+	ASK_SHOW_PRINT_PAGE_SIZE = 'ask-show-print-page-size',
+	REPLY_SHOW_PRINT_PAGE_SIZE = 'reply-show-print-page-size',
 }
 
 export interface SubjectEventBus {
@@ -26,4 +30,15 @@ export interface SubjectEventBus {
 	fire(type: SubjectEventTypes.REPORT_REMOVED, report: Report): this;
 	on(type: SubjectEventTypes.REPORT_REMOVED, listener: (report: Report) => void): this;
 	off(type: SubjectEventTypes.REPORT_REMOVED, listener: (report: Report) => void): this;
+
+	fire(type: SubjectEventTypes.TOGGLE_PRINT_PAGE_SIZE, visible: boolean): this;
+	on(type: SubjectEventTypes.TOGGLE_PRINT_PAGE_SIZE, listener: (visible: boolean) => void): this;
+	off(type: SubjectEventTypes.TOGGLE_PRINT_PAGE_SIZE, listener: (visible: boolean) => void): this;
+
+	fire(type: SubjectEventTypes.ASK_SHOW_PRINT_PAGE_SIZE): this;
+	on(type: SubjectEventTypes.ASK_SHOW_PRINT_PAGE_SIZE, listener: () => void): this;
+	off(type: SubjectEventTypes.ASK_SHOW_PRINT_PAGE_SIZE, listener: () => void): this;
+
+	fire(type: SubjectEventTypes.REPLY_SHOW_PRINT_PAGE_SIZE, visible: boolean): this;
+	once(type: SubjectEventTypes.REPLY_SHOW_PRINT_PAGE_SIZE, listener: (visible: boolean) => void): this;
 }

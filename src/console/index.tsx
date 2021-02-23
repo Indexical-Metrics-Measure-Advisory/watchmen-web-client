@@ -18,6 +18,10 @@ const ConsoleContainer = styled.div.attrs({ 'data-widget': 'console' })`
 	display    : flex;
 	height     : 100vh;
 	max-height : 100vh;
+	@media print {
+		height: unset;
+		max-height: unset;
+	}
 `;
 const ConsoleMain = styled.main.attrs({ 'data-widget': 'console-main' })`
 	flex-grow      : 1;
@@ -25,6 +29,9 @@ const ConsoleMain = styled.main.attrs({ 'data-widget': 'console-main' })`
 	flex-direction : column;
 	height         : 100vh;
 	min-height     : 100vh;
+	@media print {
+		height: unset;
+	}
 `;
 const ConsolePinFavoritePlaceholder = styled.div.attrs<{ favorite: boolean }>(({ favorite }) => {
 	return {
@@ -44,6 +51,9 @@ const ConsoleWorkbench = styled.div.attrs({
 	flex-grow  : 1;
 	display    : flex;
 	overflow-y : auto;
+	@media print {
+		overflow-y: unset;
+	}
 `;
 
 const ConsoleFavoritePlaceholder = () => {

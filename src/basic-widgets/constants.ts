@@ -44,7 +44,7 @@ import {
 	faSortAmountDown,
 	faSortAmountUpAlt,
 	faSpinner,
-	faStar,
+	faStar, faStickyNote,
 	faTable,
 	faTachometerAlt,
 	faTags,
@@ -142,6 +142,7 @@ export const ICON_EXPAND_PANEL = faExpand;
 export const ICON_SHARE = faShare;
 export const ICON_SWITCH = faRandom;
 export const ICON_PRINT = faPrint;
+export const ICON_PAGE_SIZE = faStickyNote;
 export const ICON_CONNECTED_SPACE_CATALOG = faDrawPolygon;
 export const ICON_SUBJECT_DEF = faBuffer;
 export const ICON_SUBJECT_DATA = faTh;

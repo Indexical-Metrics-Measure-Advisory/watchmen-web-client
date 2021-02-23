@@ -7,6 +7,7 @@ import { useSubjectEventBus } from '../subject-event-bus';
 import { SubjectEventTypes } from '../subject-event-bus-types';
 import { ReportEditor } from './editor';
 import { NoReport } from './no-report';
+import { PagePrintSize } from './page-print-size';
 import { SubjectReport } from './report';
 import { ReportRemover } from './report-remover';
 import { SubjectReportContainer } from './widgets';
@@ -35,6 +36,7 @@ export const SubjectReports = (props: { connectedSpace: ConnectedSpace, subject:
 					                      key={report.reportId}/>;
 				})
 				: <NoReport/>}
+			<PagePrintSize subject={subject}/>
 		</SubjectReportContainer>
 		<ReportEditor connectedSpace={connectedSpace} subject={subject}/>
 		<ReportRemover connectedSpace={connectedSpace} subject={subject}/>

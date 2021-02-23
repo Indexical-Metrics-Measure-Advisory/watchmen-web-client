@@ -8,7 +8,7 @@ import { Subject } from '../../../../services/tuples/subject-types';
 
 export const HeaderPrintButton = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const onPrintClicked = () => {
-		// TODO print subject report
+		window.print();
 	};
 
 	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.PRINT} onClick={onPrintClicked}>

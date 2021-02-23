@@ -14,6 +14,10 @@ export const SubjectEventBusProvider = (props: { children?: ((props: any) => Rea
 			emitter.emit(type, ...data);
 			return bus;
 		},
+		once: (type: string, listener: (...data: any) => void): SubjectEventBus => {
+			emitter.once(type, listener);
+			return bus;
+		},
 		on: (type: string, listener: (...data: any) => void): SubjectEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into subject event bus, check it.`);

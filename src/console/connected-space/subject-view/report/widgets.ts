@@ -9,6 +9,9 @@ export const SubjectReportContainer = styled.div.attrs({
 	display   : block;
 	position  : relative;
 	overflow  : auto;
+	@media print {
+		overflow : unset;
+	}
 `;
 export const SubjectNoReport = styled.div.attrs({ 'data-widget': 'reports-no-reports' })`
 	display         : flex;

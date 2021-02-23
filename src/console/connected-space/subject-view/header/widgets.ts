@@ -3,6 +3,9 @@ import { PageHeaderHolderContainer } from '../../../../basic-widgets/page-header
 
 export const PageHeaderHolder = styled(PageHeaderHolderContainer)`
 	grid-template-columns : auto auto 1fr;
+	@media print {
+		display: none;
+	}
 `;
 export const ConnectedSpaceNameLabel = styled.div.attrs({ 'data-widget': 'page-header-connected-space-label' })`
 	padding-left  : calc(var(--input-indent) + var(--margin) / 2);

@@ -7,6 +7,7 @@ import { HeaderAddReportButton } from './header-add-report-button';
 import { HeaderDeleteSubjectButton } from './header-delete-subject-buttton';
 import { HeaderPrintButton } from './header-print-button';
 import { HeaderShareButton } from './header-share-button';
+import { HeaderShowPageButton } from './header-show-page-button';
 import { HeaderSubjectDefButton } from './header-subject-def-button';
 import { HeaderSubjectDefValidButtons } from './header-subject-def-valid-buttons';
 import { HeaderSwitchSubjectButton } from './header-switch-subject-button';
@@ -25,6 +26,7 @@ export const SubjectHeaderButtons = (props: { connectedSpace: ConnectedSpace, su
 				<PageHeaderButtonSeparator/>
 				<HeaderAddReportButton connectedSpace={connectedSpace} subject={subject}/>
 				<HeaderShareButton connectedSpace={connectedSpace} subject={subject}/>
+				<HeaderShowPageButton connectedSpace={connectedSpace} subject={subject}/>
 				<HeaderPrintButton connectedSpace={connectedSpace} subject={subject}/>
 			</Fragment>
 			: null

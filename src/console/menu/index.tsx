@@ -59,6 +59,9 @@ const ConsoleMenuContainer = styled.div.attrs<{ width: number }>(({ width }) => 
 			max-width : ${({ width }) => `calc(100vw - ${width}px)`};
 		}
 	}
+	@media print {
+		display: none;
+	}
 `;
 
 export const ConsoleMenu = () => {
