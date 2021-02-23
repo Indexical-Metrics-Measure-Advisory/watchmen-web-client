@@ -16,21 +16,15 @@ export const ChartPart = (props: { report: Report }) => {
 		on(ReportEditEventTypes.BASIC_STYLE_CHANGED, forceUpdate);
 		on(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, forceUpdate);
 		on(ReportEditEventTypes.ECHART_TITLE_CHANGED, forceUpdate);
-
-		on(ReportEditEventTypes.CHART_TYPE_CHANGED, forceUpdate);
-		on(ReportEditEventTypes.DIMENSION_CHANGED, forceUpdate);
-		on(ReportEditEventTypes.DIMENSION_ADDED, forceUpdate);
-		on(ReportEditEventTypes.DIMENSION_REMOVED, forceUpdate);
+		/**
+		 * structure change will lead reload data which handled in settings-saver,
+		 * ignore here
+		 */
 		return () => {
 			off(ReportEditEventTypes.SIZE_CHANGED, forceUpdate);
 			off(ReportEditEventTypes.BASIC_STYLE_CHANGED, forceUpdate);
 			off(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, forceUpdate);
 			off(ReportEditEventTypes.ECHART_TITLE_CHANGED, forceUpdate);
-
-			off(ReportEditEventTypes.CHART_TYPE_CHANGED, forceUpdate);
-			off(ReportEditEventTypes.DIMENSION_CHANGED, forceUpdate);
-			off(ReportEditEventTypes.DIMENSION_ADDED, forceUpdate);
-			off(ReportEditEventTypes.DIMENSION_REMOVED, forceUpdate);
 		};
 	}, [ on, off, forceUpdate ]);
 

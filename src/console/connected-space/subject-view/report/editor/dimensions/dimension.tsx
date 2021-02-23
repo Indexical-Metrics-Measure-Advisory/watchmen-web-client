@@ -1,7 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { AlertLabel } from '../../../../../../alert/widgets';
 import { ICON_DELETE } from '../../../../../../basic-widgets/constants';
 import { DropdownOption } from '../../../../../../basic-widgets/types';
+import { useForceUpdate } from '../../../../../../basic-widgets/utils';
+import { useEventBus } from '../../../../../../events/event-bus';
+import { EventTypes } from '../../../../../../events/types';
 import { Lang } from '../../../../../../langs';
 import { ChartHelper } from '../../../../../../report/chart-utils';
 import { Report, ReportDimension } from '../../../../../../services/tuples/report-types';
@@ -26,23 +30,34 @@ export const DimensionEditor = (props: {
 	const { subject, report, dimension, onDelete } = props;
 	const { chart: { type: chartType } } = report;
 
+	const { fire: fireGlobal } = useEventBus();
 	const { fire } = useReportEditEventBus();
+	const forceUpdate = useForceUpdate();
 
 	const onColumnChange = (option: DropdownOption) => {
 		const { value } = option;
 		dimension.columnId = value;
 		fire(ReportEditEventTypes.DIMENSION_CHANGED, report, dimension);
+		forceUpdate();
 	};
-	const onDeleteClicked = () => onDelete(dimension);
+	const onDeleteClicked = () => {
+		const canDelete = ChartHelper[chartType].canReduceDimensions(report);
+		if (!canDelete) {
+			fireGlobal(EventTypes.SHOW_ALERT,
+				<AlertLabel>{Lang.CONSOLE.CONNECTED_SPACE.CAN_NOT_DELETE_DIMENSION}</AlertLabel>);
+		} else {
+			onDelete(dimension);
+		}
+	};
 
 	const index = report.dimensions.indexOf(dimension) + 1;
 	const { columnId } = dimension;
-	const dimensionOptions: Array<DropdownOption> = subject.dataset.columns.map(column => {
+	const dimensionOptions: Array<DropdownOption> = subject.dataset.columns.map((column, columnIndex) => {
 		return {
 			value: column.columnId,
 			label: () => {
 				return {
-					node: column.alias || <IncorrectOptionLabel>{Lang.CHART.NONAME_COLUMN}</IncorrectOptionLabel>,
+					node: column.alias || <IncorrectOptionLabel>{Lang.CHART.NONAME_COLUMN} #{columnIndex + 1}</IncorrectOptionLabel>,
 					label: column.alias || ''
 				};
 			}
@@ -61,7 +76,6 @@ export const DimensionEditor = (props: {
 			}
 		});
 	}
-	const canDelete = ChartHelper[chartType].canReduceDimensions(report);
 
 	return <DimensionContainer>
 		<DimensionIndexLabel>{index}</DimensionIndexLabel>
@@ -70,12 +84,10 @@ export const DimensionEditor = (props: {
 			                   onChange={onColumnChange}
 			                   please={Lang.CHART.PLEASE_SELECT_DIMENSION}/>
 		</PropValue>
-		{canDelete
-			? <DeleteMeContainer>
-				<DeleteMeButton onClick={onDeleteClicked}>
-					<FontAwesomeIcon icon={ICON_DELETE}/>
-				</DeleteMeButton>
-			</DeleteMeContainer>
-			: null}
+		<DeleteMeContainer>
+			<DeleteMeButton onClick={onDeleteClicked}>
+				<FontAwesomeIcon icon={ICON_DELETE}/>
+			</DeleteMeButton>
+		</DeleteMeContainer>
 	</DimensionContainer>;
 };

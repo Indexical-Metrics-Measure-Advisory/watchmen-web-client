@@ -185,7 +185,13 @@ export const Zh = {
 			NO_REPORT: '尚未定义图表.',
 			DELETE_REPORT_DIALOG_LABEL: '确认要删除图表吗? 请注意删除动作不能被恢复.',
 			COLLAPSE_REPORT_SETTINGS_SECTIONS: '折叠所有',
-			EXPAND_REPORT_SETTINGS_SECTIONS: '展开所有'
+			EXPAND_REPORT_SETTINGS_SECTIONS: '展开所有',
+			CAN_NOT_DELETE_DIMENSION: '已达到图表要求的最少维度个数, 因此不能删除本维度.',
+			CAN_NOT_ADD_DIMENSION: '已达到图表要求的最多维度个数, 因此不能添加更多维度.',
+			CAN_NOT_DELETE_INDICATOR: '已达到图表要求的最少指标个数, 因此不能删除本指标.',
+			CAN_NOT_ADD_INDICATOR: '已达到图表要求的最多指标个数, 因此不能添加更多指标.',
+			ADD_DIMENSION: '添加维度',
+			ADD_INDICATOR: '添加指标'
 		},
 		SETTINGS: {
 			TITLE: '设置',

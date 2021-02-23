@@ -185,7 +185,13 @@ export const En = {
 			NO_REPORT: 'No report defined.',
 			DELETE_REPORT_DIALOG_LABEL: 'Are you sure to delete report? Please note that deletion cannot be recovered.',
 			COLLAPSE_REPORT_SETTINGS_SECTIONS: 'Collapse All Sections',
-			EXPAND_REPORT_SETTINGS_SECTIONS: 'Expand All Sections'
+			EXPAND_REPORT_SETTINGS_SECTIONS: 'Expand All Sections',
+			CAN_NOT_DELETE_DIMENSION: 'Cannot delete this because of reach minimum dimension(s).',
+			CAN_NOT_ADD_DIMENSION: 'Cannot add more because of reach maximum dimension(s).',
+			CAN_NOT_DELETE_INDICATOR: 'Cannot delete this because of reach minimum indicator(s).',
+			CAN_NOT_ADD_INDICATOR: 'Cannot add more because of reach maximum indicator(s).',
+			ADD_DIMENSION: 'Add Dimension',
+			ADD_INDICATOR: 'Add Indicator'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',
