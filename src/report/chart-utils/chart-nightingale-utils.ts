@@ -1,8 +1,10 @@
 import { BASE_COLORS_24 } from '../../basic-widgets/colors';
 import { NIGHTINGALE } from '../../services/tuples/chart-def/chart-nightingale';
 import { ChartDataSet } from '../../services/tuples/chart-types';
+import { EChart } from '../../services/tuples/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils } from './default-chart-utils';
+import { buildEChartTitle } from './title-utils';
 import { ChartOptions } from './types';
 
 export class ChartNightingaleUtils extends DefaultChartUtils {
@@ -11,6 +13,7 @@ export class ChartNightingaleUtils extends DefaultChartUtils {
 	}
 
 	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
+		const { chart } = report;
 		// only one indicator allowed
 		const { indicators: [ indicator ] } = report;
 
@@ -18,6 +21,7 @@ export class ChartNightingaleUtils extends DefaultChartUtils {
 
 		return {
 			color: BASE_COLORS_24,
+			title: buildEChartTitle(chart as EChart),
 			tooltip: {
 				trigger: 'item'
 			},

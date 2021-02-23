@@ -2,8 +2,10 @@ import { EChartOption } from 'echarts';
 import { BASE_COLORS_24 } from '../../basic-widgets/colors';
 import { MAP } from '../../services/tuples/chart-def/chart-map';
 import { ChartDataSet } from '../../services/tuples/chart-types';
+import { EChart } from '../../services/tuples/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils } from './default-chart-utils';
+import { buildEChartTitle } from './title-utils';
 import { ChartOptions } from './types';
 
 export class ChartMapUtils extends DefaultChartUtils {
@@ -12,6 +14,7 @@ export class ChartMapUtils extends DefaultChartUtils {
 	}
 
 	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
+		const { chart } = report;
 		const { dimensions, indicators } = report;
 
 		const dimensionColumnIndexOffset = this.getDimensionColumnIndexOffset(report);
@@ -19,6 +22,7 @@ export class ChartMapUtils extends DefaultChartUtils {
 
 		return {
 			color: BASE_COLORS_24,
+			title: buildEChartTitle(chart as EChart),
 			tooltip: {
 				trigger: 'item'
 			},

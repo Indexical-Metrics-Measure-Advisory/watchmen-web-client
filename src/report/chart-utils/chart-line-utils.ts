@@ -1,8 +1,10 @@
 import { BASE_COLORS_24 } from '../../basic-widgets/colors';
 import { LINE } from '../../services/tuples/chart-def/chart-line';
 import { ChartDataSet } from '../../services/tuples/chart-types';
+import { EChart } from '../../services/tuples/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils } from './default-chart-utils';
+import { buildEChartTitle } from './title-utils';
 import { ChartOptions } from './types';
 
 export class ChartLineUtils extends DefaultChartUtils {
@@ -11,6 +13,7 @@ export class ChartLineUtils extends DefaultChartUtils {
 	}
 
 	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
+		const { chart } = report;
 		const { indicators } = report;
 
 		const legends = indicators.map((indicator, indicatorIndex) => {
@@ -20,6 +23,7 @@ export class ChartLineUtils extends DefaultChartUtils {
 
 		return {
 			color: BASE_COLORS_24,
+			title: buildEChartTitle(chart as EChart),
 			tooltip: {
 				trigger: 'axis',
 				axisPointer: { type: 'shadow' }
