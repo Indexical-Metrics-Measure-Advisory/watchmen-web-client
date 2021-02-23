@@ -1,5 +1,13 @@
 import { findToken } from '../account';
-import { fetchMockChartData, fetchMockCountChartData, fetchMockPieChartData } from '../mock/console/mock-report';
+import {
+	fetchMockBarChartData,
+	fetchMockChartData,
+	fetchMockCountChartData,
+	fetchMockDoughnutChartData,
+	fetchMockLineChartData,
+	fetchMockNightingaleChartData,
+	fetchMockPieChartData
+} from '../mock/console/mock-report';
 import { ChartDataSet, ChartType } from '../tuples/chart-types';
 import { getServiceHost, isMockService } from '../utils';
 
@@ -9,6 +17,14 @@ export const fetchChartData = async (reportId: string, type: ChartType): Promise
 			return fetchMockCountChartData(reportId);
 		} else if (type === ChartType.PIE) {
 			return fetchMockPieChartData(reportId);
+		} else if (type === ChartType.DOUGHNUT) {
+			return fetchMockDoughnutChartData(reportId);
+		} else if (type === ChartType.NIGHTINGALE) {
+			return fetchMockNightingaleChartData(reportId);
+		} else if (type === ChartType.BAR) {
+			return fetchMockBarChartData(reportId);
+		} else if (type === ChartType.LINE) {
+			return fetchMockLineChartData(reportId);
 		} else {
 			return fetchMockChartData(reportId);
 		}

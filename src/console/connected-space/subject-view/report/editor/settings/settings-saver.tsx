@@ -60,6 +60,9 @@ export const SettingsSaver = (props: { report: Report }) => {
 		on(ReportEditEventTypes.DIMENSION_CHANGED, onStructureChanged);
 		on(ReportEditEventTypes.DIMENSION_ADDED, onStructureChanged);
 		on(ReportEditEventTypes.DIMENSION_REMOVED, onStructureChanged);
+		on(ReportEditEventTypes.INDICATOR_CHANGED, onStructureChanged);
+		on(ReportEditEventTypes.INDICATOR_ADDED, onStructureChanged);
+		on(ReportEditEventTypes.INDICATOR_REMOVED, onStructureChanged);
 
 		on(ReportEditEventTypes.EDIT_COMPLETED, onEditCompleted);
 
@@ -75,6 +78,9 @@ export const SettingsSaver = (props: { report: Report }) => {
 			off(ReportEditEventTypes.DIMENSION_CHANGED, onStructureChanged);
 			off(ReportEditEventTypes.DIMENSION_ADDED, onStructureChanged);
 			off(ReportEditEventTypes.DIMENSION_REMOVED, onStructureChanged);
+			off(ReportEditEventTypes.INDICATOR_CHANGED, onStructureChanged);
+			off(ReportEditEventTypes.INDICATOR_ADDED, onStructureChanged);
+			off(ReportEditEventTypes.INDICATOR_REMOVED, onStructureChanged);
 
 			off(ReportEditEventTypes.EDIT_COMPLETED, onEditCompleted);
 		};

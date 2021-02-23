@@ -25,6 +25,62 @@ export const fetchMockPieChartData = async (reportId: string): Promise<ChartData
 	});
 };
 
+export const fetchMockDoughnutChartData = async (reportId: string): Promise<ChartDataSet> => {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve({
+				meta: [],
+				data: [
+					[ 1234, 'hello' ],
+					[ 1324, 'world' ]
+				]
+			} as ChartDataSet),
+			500
+		);
+	});
+};
+
+export const fetchMockNightingaleChartData = async (reportId: string): Promise<ChartDataSet> => {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve({
+				meta: [],
+				data: [
+					[ 1234, 'hello' ],
+					[ 1324, 'world' ]
+				]
+			} as ChartDataSet),
+			500
+		);
+	});
+};
+
+export const fetchMockBarChartData = async (reportId: string): Promise<ChartDataSet> => {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve({
+				meta: [],
+				data: [
+					[ 1234, 'hello' ],
+					[ 1324, 'world' ]
+				]
+			} as ChartDataSet),
+			500
+		);
+	});
+};
+
+export const fetchMockLineChartData = async (reportId: string): Promise<ChartDataSet> => {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve({
+				meta: [],
+				data: [
+					[ 1234, 'hello' ],
+					[ 1324, 'world' ]
+				]
+			} as ChartDataSet),
+			500
+		);
+	});
+};
+
 export const fetchMockChartData = async (reportId: string): Promise<ChartDataSet> => {
 	return new Promise((resolve) => {
 		setTimeout(
