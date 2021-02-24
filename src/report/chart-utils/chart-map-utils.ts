@@ -10,6 +10,11 @@ import japanJson from './map-geo-data/jp-all.geo.json';
 import { buildEChartTitle } from './title-utils';
 import { ChartOptions } from './types';
 
+// interface MapCoordinate {
+// 	longitude: number;
+// 	latitude: number;
+// }
+
 // console.log(JSON.stringify(japanJson.features.map(feature => feature.properties.name).filter(x => !!x)));
 echarts.registerMap('Japan', japanJson as any, {
 	// Alaska: {              // 把阿拉斯加移到美国主大陆左下方
@@ -28,6 +33,13 @@ echarts.registerMap('Japan', japanJson as any, {
 	// 	width: 2
 	// }
 });
+// const JapanCoordinates = japanJson.features.filter(feature => !!feature.properties.name).reduce((all, feature) => {
+// 	all.set(feature.properties.name as string, {
+// 		longitude: parseFloat(feature.properties.longitude as string),
+// 		latitude: parseFloat(feature.properties.latitude as string)
+// 	});
+// 	return all;
+// }, new Map<string, MapCoordinate>());
 
 export class ChartMapUtils extends DefaultChartUtils {
 	constructor() {
@@ -61,20 +73,57 @@ export class ChartMapUtils extends DefaultChartUtils {
 				// text: [ 'High', 'Low' ],
 				calculable: true
 			} as EChartOption.VisualMap,
-			series: [ {
-				type: 'map',
-				roam: true,
-				map: 'Japan',
-				label: { show: true },
-				data: dataset.data.map(row => {
-					return {
-						// value of dimension as name
-						name: row[1],
-						// value of indicator as value
-						value: row[0]
-					};
-				})
-			} ]
+			// geo: {
+			// 	map: 'Japan',
+			// 	roam: true,
+			// 	zoom: 1
+			// },
+			series: [
+				{
+					type: 'map',
+					roam: true,
+					map: 'Japan',
+					label: { show: true },
+					data: dataset.data.map(row => {
+						return {
+							// value of dimension as name
+							name: row[1],
+							// value of indicator as value
+							value: row[0]
+						};
+					})
+				}
+				// {
+				// 	type: 'scatter',
+				// 	coordinateSystem: 'geo',
+				// 	data: dataset.data.map(row => {
+				// 		const coordinate = JapanCoordinates.get(row[1] as string)!;
+				// 		return {
+				// 			// value of dimension as name
+				// 			name: row[1],
+				// 			// value of indicator as value
+				// 			value: [ coordinate.longitude, coordinate.latitude, row[0] ]
+				// 		};
+				// 	}),
+				// 	// symbolSize: (val: Array<number>) => {
+				// 	// 	return val[2] / 100;
+				// 	// },
+				// 	symbolSize: 5,
+				// 	// encode: {
+				// 	// 	value: 2
+				// 	// },
+				// 	label: {
+				// 		formatter: '{b}',
+				// 		position: 'right',
+				// 		show: false
+				// 	},
+				// 	emphasis: {
+				// 		label: {
+				// 			show: true
+				// 		}
+				// 	}
+				// } as EChartOption.Series
+			]
 		} as EChartOption;
 	}
 }

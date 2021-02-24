@@ -20,7 +20,7 @@ export const TextValue = (props: {
 	});
 	useEffect(() => {
 		setDelegate({ value: value || defaultValue || '', previousValidValue: value || defaultValue || '' });
-	}, [ value ]);
+	}, [ value, defaultValue ]);
 
 	const onPropChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;
