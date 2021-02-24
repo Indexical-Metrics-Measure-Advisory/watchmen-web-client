@@ -40,7 +40,10 @@ export const SettingsSaver = (props: { report: Report }) => {
 				fireReport(ReportEventTypes.EDIT_COMPLETED, report, false, false);
 			} else if (!changed.structureChanged) {
 				// style changed, structure kept
-				fireReport(ReportEventTypes.EDIT_COMPLETED, report, true, false);
+				(async () => {
+					await saveReport(report);
+					fireReport(ReportEventTypes.EDIT_COMPLETED, report, true, false);
+				})();
 			} else {
 				// structure changed
 				(async () => {
