@@ -1,6 +1,7 @@
+import { findToken } from '../account';
 import { deleteMockReport, listMockReports, saveMockReport } from '../mock/tuples/mock-report';
 import { DataPage } from '../query/data-page';
-import { isMockService } from '../utils';
+import { getServiceHost, isMockService } from '../utils';
 import { QueryReport } from './query-report-types';
 import { Report } from './report-types';
 import { isFakedUuid } from './utils';
@@ -21,7 +22,21 @@ export const listReports = async (options: {
 };
 
 export const saveNewReport = async (report: Report, subjectId: string): Promise<void> => {
-	return saveMockReport(report);
+	//return saveMockReport(report);
+	const token = findToken();
+	const response = await fetch(`${getServiceHost()}console_space/subject/report/save?subject_id=${subjectId}`, {
+		 		method: 'POST',
+		 		headers: {
+		 			'Content-Type': 'application/json',
+		 			Authorization: 'Bearer ' + token
+		 		},
+		 		body: JSON.stringify(report)
+		 	}
+		 );
+		
+	const data = await response.json();
+	report.reportId = data.reportId
+	report.lastVisitTime= data.lastModifyTime
 };
 
 export const saveReport = async (report: Report): Promise<void> => {
