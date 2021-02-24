@@ -1,8 +1,16 @@
+import { ReportRect } from './report-types';
 import { Tuple } from './tuple-types';
+
+export type DashboardReportRect = ReportRect;
+
+export interface DashboardReport {
+	reportId: string;
+	rect: DashboardReportRect;
+}
 
 export interface Dashboard extends Tuple {
 	dashboardId: string;
 	name: string;
-	reportIds: Array<string>;
+	reports?: Array<DashboardReport>;
 	lastVisitTime: string;
 }

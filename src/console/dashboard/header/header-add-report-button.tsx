@@ -64,7 +64,7 @@ const ReportSelect = (props: { reports: Array<ReportCandidate>, open: (report: R
 					label: name
 				};
 			},
-			key: (option: DropdownOption) => option.value as string
+			key: (option: DropdownOption) => (option.value as ReportCandidate).reportId
 		};
 	});
 
@@ -87,15 +87,23 @@ export const HeaderAddReportButton = (props: { dashboard: Dashboard }) => {
 	const { once: onceConsole } = useConsoleEventBus();
 	const { fire } = useDashboardEventBus();
 	const addReport = (report: Report) => {
-		if (!dashboard.reportIds) {
-			dashboard.reportIds = [];
+		if (!dashboard.reports) {
+			dashboard.reports = [];
 		}
-		dashboard.reportIds.push(report.reportId);
+		dashboard.reports.push({
+			reportId: report.reportId,
+			rect: {
+				x: 32,
+				y: 32,
+				width: report.rect.width,
+				height: report.rect.height
+			}
+		});
 		fire(DashboardEventTypes.REPORT_ADDED, report);
 	};
 	const onAddReportClicked = () => {
 		onceConsole(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
-			const existsReportIds = dashboard.reportIds || [];
+			const existsReportIds = (dashboard.reports || []).map(report => report.reportId);
 
 			const candidates = connectedSpaces.map(connectedSpace => {
 				return (connectedSpace.subjects || []).map(subject => {

@@ -60,13 +60,13 @@ export const ReportRemover = (props: { dashboard: Dashboard }) => {
 	const { on, off } = useReportEventBus();
 	useEffect(() => {
 		const onDeleted = (report: Report) => async () => {
-			if (!dashboard.reportIds) {
+			if (!dashboard.reports) {
 				return;
 			}
 			// eslint-disable-next-line
-			const index = dashboard.reportIds.findIndex(reportId => reportId == report.reportId);
+			const index = dashboard.reports.findIndex(r => r.reportId == report.reportId);
 			if (index !== -1) {
-				dashboard.reportIds.splice(index, 1);
+				dashboard.reports.splice(index, 1);
 			}
 			fireDashboard(DashboardEventTypes.REPORT_REMOVED, report);
 		};

@@ -9,6 +9,7 @@ import { ReportEditor } from './editor';
 import { NoReport } from './no-report';
 import { PagePrintSize } from './page-print-size';
 import { SubjectReport } from './report';
+import { ReportMoveOrResizeMonitor } from './report-move-or-resize-monitor';
 import { ReportRemover } from './report-remover';
 import { SubjectReportContainer } from './widgets';
 
@@ -39,6 +40,7 @@ export const SubjectReports = (props: { connectedSpace: ConnectedSpace, subject:
 			<PagePrintSize subject={subject}/>
 		</SubjectReportContainer>
 		<ReportEditor connectedSpace={connectedSpace} subject={subject}/>
+		<ReportMoveOrResizeMonitor/>
 		<ReportRemover connectedSpace={connectedSpace} subject={subject}/>
 	</ReportEventBusProvider>;
 };

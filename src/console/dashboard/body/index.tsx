@@ -11,6 +11,7 @@ import { ConsoleEventTypes } from '../../console-event-bus-types';
 import { useDashboardEventBus } from '../dashboard-event-bus';
 import { DashboardEventTypes } from '../dashboard-event-bus-types';
 import { PagePrintSize } from './page-print-size';
+import { ReportMoveOrResizeMonitor } from './report-move-or-resize-monitor';
 import { ReportRemover } from './report-remover';
 import { DashboardBodyContainer, DashboardNoReport } from './widgets';
 
@@ -39,8 +40,16 @@ export const DashboardBody = (props: { dashboard: Dashboard }) => {
 		connectedSpace.subjects.forEach(subject => (subject.reports || []).map(report => map.set(report.reportId, report)));
 		return map;
 	}, new Map<string, Report>());
-	const reports = (dashboard.reportIds || []).map(reportId => {
-		return reportMap.get(reportId);
+	const reports = (dashboard.reports || []).map(dashboardReport => {
+		const report = reportMap.get(dashboardReport.reportId);
+		if (report != null) {
+			return {
+				...report,
+				rect: dashboardReport.rect
+			};
+		} else {
+			return null;
+		}
 	}).filter(x => !!x) as Array<Report>;
 
 	return <ReportEventBusProvider>
@@ -55,6 +64,7 @@ export const DashboardBody = (props: { dashboard: Dashboard }) => {
 				: <DashboardNoReport><span>{Lang.CONSOLE.CONNECTED_SPACE.NO_REPORT}</span></DashboardNoReport>}
 			<PagePrintSize dashboard={dashboard}/>
 		</DashboardBodyContainer>
+		<ReportMoveOrResizeMonitor dashboard={dashboard}/>
 		<ReportRemover dashboard={dashboard}/>
 	</ReportEventBusProvider>;
 };
