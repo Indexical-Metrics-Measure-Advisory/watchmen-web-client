@@ -104,8 +104,9 @@ export const Zh = {
 			SHARE_DIALOG_LABEL: '复制下面的链接, 然后分享.',
 			URL_COPIED: '链接已复制至剪贴板.',
 			DELETE_DIALOG_LABEL: '确认要删除仪表盘吗? 请注意删除动作不能被恢复.',
-			NO_MORE_DASHBOARD: '没有更多仪表盘.',
-			SWITCH_DIALOG_LABEL: '请选择仪表盘'
+			NO_MORE_DASHBOARD: '没有更多仪表盘可供选择.',
+			SWITCH_DIALOG_LABEL: '请选择仪表盘',
+			NO_MORE_REPORT: '没有更多图表可供选择.'
 		},
 		CONNECTED_SPACE: {
 			CATALOG: '目录',

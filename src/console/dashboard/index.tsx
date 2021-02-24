@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { AlertLabel } from '../../alert/widgets';
-import { VerticalMarginOneUnit } from '../../basic-widgets/margin';
 import { FullWidthPage } from '../../basic-widgets/page';
 import { useEventBus } from '../../events/event-bus';
 import { EventTypes } from '../../events/types';
@@ -11,6 +10,8 @@ import { toDashboard } from '../../routes/utils';
 import { Dashboard } from '../../services/tuples/dashboard-types';
 import { useConsoleEventBus } from '../console-event-bus';
 import { ConsoleEventTypes } from '../console-event-bus-types';
+import { DashboardBody } from './body';
+import { DashboardEventBusProvider } from './dashboard-event-bus';
 import { DashboardHeader } from './header';
 
 const ConsoleDashboardIndex = () => {
@@ -65,10 +66,13 @@ const ConsoleDashboardIndex = () => {
 		return null;
 	}
 
-	return <FullWidthPage>
-		<DashboardHeader dashboard={dashboard}/>
-		<VerticalMarginOneUnit/>
-	</FullWidthPage>;
+	return <DashboardEventBusProvider>
+		<FullWidthPage>
+			<DashboardHeader dashboard={dashboard}/>
+			{/*<VerticalMarginOneUnit/>*/}
+			<DashboardBody dashboard={dashboard}/>
+		</FullWidthPage>
+	</DashboardEventBusProvider>;
 };
 
 export default ConsoleDashboardIndex;

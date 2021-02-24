@@ -22,6 +22,7 @@ export const ChartContainer = styled.div.attrs<{ rect: ReportRect, fixed: boolea
 	transition    : all 300ms ease-in-out;
 	&:hover {
 		box-shadow : ${({ fixed }) => fixed ? 'none' : 'var(--hover-shadow)'};
+		z-index    : 1;
 		> div[data-widget="chart-drag-handle"] {
 			> div[data-position=${DragType.DND}]:not([data-part-type=dragging]) {
 				opacity : 1;
