@@ -6,7 +6,7 @@ import { Lang } from '../../../langs';
 
 export const HeaderPrintButton = () => {
 	const onPrintClicked = () => {
-		// TODO print dashboard
+		window.print();
 	};
 
 	return <PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.PRINT} onClick={onPrintClicked}>

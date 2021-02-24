@@ -33,7 +33,7 @@ export const NumberValue = (props: {
 	});
 	useEffect(() => {
 		setDelegate({ value: asString(value, defaultValue), previousValidValue: asString(value, defaultValue) });
-	}, [ value ]);
+	}, [ value, defaultValue ]);
 
 	const onPropChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;

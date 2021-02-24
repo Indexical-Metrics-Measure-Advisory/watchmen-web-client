@@ -4,7 +4,6 @@ import { ICON_DELETE, ICON_DRAG_HANDLE, ICON_LOADING, ICON_SETTINGS } from '../b
 import { useForceUpdate } from '../basic-widgets/utils';
 import { fetchChartData } from '../services/console/report';
 import { ChartDataSet } from '../services/tuples/chart-types';
-import { saveReport } from '../services/tuples/report';
 import { Report } from '../services/tuples/report-types';
 import { CHART_MIN_HEIGHT, CHART_MIN_WIDTH } from './constants';
 import { Diagram } from './diagram';
@@ -150,10 +149,6 @@ export const Container = (props: {
 			if (shouldReloadData) {
 				// state change will lead data reload, see codes above.
 				setDiagramState({ loaded: false });
-				// (async () => {
-				// 	const dataset = await fetchChartData(report.reportId, report.chart.type);
-				// 	setDiagramState({ loaded: true, dataset });
-				// })();
 			} else {
 				forceUpdate();
 			}
@@ -212,9 +207,7 @@ export const Container = (props: {
 			}
 			setDragState({ top: 0, left: 0, width: 0, height: 0, type: DragType.NONE, startX: 0, startY: 0 });
 			window.getSelection()?.removeAllRanges();
-			(async () => {
-				await saveReport(report);
-			})();
+			fire(ReportEventTypes.MOVE_OR_RESIZE_COMPLETED, report);
 		}
 	};
 	const onMouseUp = () => releaseDraggingIfCan();

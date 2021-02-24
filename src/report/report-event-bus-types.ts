@@ -7,6 +7,8 @@ export enum ReportEventTypes {
 	EDIT_COMPLETED = 'edit-completed',
 
 	DO_DELETE = 'do-delete',
+
+	MOVE_OR_RESIZE_COMPLETED = 'do-drag-completed'
 }
 
 export interface ReportEventBus {
@@ -25,4 +27,8 @@ export interface ReportEventBus {
 	fire(type: ReportEventTypes.DO_DELETE, report: Report): this;
 	on(type: ReportEventTypes.DO_DELETE, listener: (report: Report) => void): this;
 	off(type: ReportEventTypes.DO_DELETE, listener: (report: Report) => void): this;
+
+	fire(type: ReportEventTypes.MOVE_OR_RESIZE_COMPLETED, report: Report): this;
+	on(type: ReportEventTypes.MOVE_OR_RESIZE_COMPLETED, listener: (report: Report) => void): this;
+	off(type: ReportEventTypes.MOVE_OR_RESIZE_COMPLETED, listener: (report: Report) => void): this;
 }

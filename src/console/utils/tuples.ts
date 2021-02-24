@@ -13,7 +13,7 @@ export const createDashboard = (name?: string): Dashboard => {
 	return {
 		dashboardId,
 		name: name || `${getCurrentLanguage().PLAIN.NEW_DASHBOARD_NAME} ${btoa(dashboardId).substr(0, 12)}`,
-		chartIds: [],
+		reports: [],
 		lastVisitTime: getCurrentTime(),
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()

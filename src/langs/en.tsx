@@ -105,7 +105,8 @@ export const En = {
 			URL_COPIED: 'URL copied.',
 			DELETE_DIALOG_LABEL: 'Are you sure to delete dashboard? Please note that deletion cannot be recovered.',
 			NO_MORE_DASHBOARD: 'No more dashboard exists.',
-			SWITCH_DIALOG_LABEL: 'Please select dashboard'
+			SWITCH_DIALOG_LABEL: 'Please select dashboard',
+			NO_MORE_REPORT: 'No more report exists.'
 		},
 		CONNECTED_SPACE: {
 			CATALOG: 'Catalog',

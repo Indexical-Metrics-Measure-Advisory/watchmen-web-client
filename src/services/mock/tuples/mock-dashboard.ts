@@ -7,7 +7,7 @@ export const fetchMockDashboards = async (): Promise<Array<Dashboard>> => {
 		{
 			dashboardId: '1',
 			name: 'Sales Statistics',
-			chartIds: [],
+			reports: [],
 			lastVisitTime: '2020/10/20 09:36:46',
 			createTime: getCurrentTime(),
 			lastModifyTime: getCurrentTime()

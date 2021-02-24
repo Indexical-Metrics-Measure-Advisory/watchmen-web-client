@@ -12,15 +12,8 @@ import { SubjectEventTypes } from '../subject-event-bus-types';
 export const HeaderShowPageButton = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const { subject } = props;
 
-	const { on, off, fire } = useSubjectEventBus();
+	const { fire } = useSubjectEventBus();
 	const [ showPage, setShowPage ] = useState(false);
-	useEffect(() => {
-		const onAskShowPrintPageSize = () => fire(SubjectEventTypes.REPLY_SHOW_PRINT_PAGE_SIZE, showPage);
-		on(SubjectEventTypes.ASK_SHOW_PRINT_PAGE_SIZE, onAskShowPrintPageSize);
-		return () => {
-			off(SubjectEventTypes.ASK_SHOW_PRINT_PAGE_SIZE, onAskShowPrintPageSize);
-		};
-	}, [ on, off, fire, showPage ]);
 	useEffect(() => {
 		setShowPage(false);
 	}, [ subject ]);
