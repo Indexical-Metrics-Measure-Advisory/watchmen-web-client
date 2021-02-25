@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
 import { ICON_DELETE, ICON_DRAG_HANDLE, ICON_LOADING, ICON_SETTINGS } from '../basic-widgets/constants';
 import { useForceUpdate } from '../basic-widgets/utils';
-import { fetchChartData } from '../services/console/report';
+import { fetchChartData, fetchChartDataTemporary } from '../services/console/report';
 import { ChartDataSet } from '../services/tuples/chart-types';
 import { Report } from '../services/tuples/report-types';
 import { CHART_MIN_HEIGHT, CHART_MIN_WIDTH } from './constants';
@@ -23,8 +23,14 @@ interface DragState {
 	startY: number;
 }
 
+enum DiagramLoadState {
+	FALSE = 'false',
+	TRUE = 'true',
+	RELOAD = 'reload'
+}
+
 interface DiagramState {
-	loaded: boolean;
+	loaded: DiagramLoadState;
 	dataset?: ChartDataSet;
 }
 
@@ -133,13 +139,18 @@ export const Container = (props: {
 		startX: 0,
 		startY: 0
 	});
-	const [ diagramState, setDiagramState ] = useState<DiagramState>({ loaded: false });
+	const [ diagramState, setDiagramState ] = useState<DiagramState>({ loaded: DiagramLoadState.FALSE });
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
-		if (!diagramState.loaded) {
+		if (diagramState.loaded === DiagramLoadState.FALSE) {
 			(async () => {
 				const dataset = await fetchChartData(report.reportId, report.chart.type);
-				setDiagramState({ loaded: true, dataset });
+				setDiagramState({ loaded: DiagramLoadState.TRUE, dataset });
+			})();
+		} else if (diagramState.loaded === DiagramLoadState.RELOAD) {
+			(async () => {
+				const dataset = await fetchChartDataTemporary(report);
+				setDiagramState({ loaded: DiagramLoadState.TRUE, dataset });
 			})();
 		}
 		const onEditCompleted = (completedReport: Report, changed: boolean, shouldReloadData: boolean) => {
@@ -148,15 +159,16 @@ export const Container = (props: {
 			}
 			if (shouldReloadData) {
 				// state change will lead data reload, see codes above.
-				setDiagramState({ loaded: false });
+				setDiagramState({ loaded: DiagramLoadState.FALSE });
 			} else {
 				forceUpdate();
 			}
 		};
-		const onDoReloadDataOnEditing = () => {
-			if (editing) {
-				setDiagramState({ loaded: false });
+		const onDoReloadDataOnEditing = (editReport: Report) => {
+			if (report !== editReport || !editing) {
+				return;
 			}
+			setDiagramState({ loaded: DiagramLoadState.RELOAD });
 		};
 		on(ReportEventTypes.EDIT_COMPLETED, onEditCompleted);
 		on(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onDoReloadDataOnEditing);
@@ -296,7 +308,7 @@ export const Container = (props: {
 	const onRemoveClicked = () => fire(ReportEventTypes.DO_DELETE, report);
 
 	return <ChartContainer rect={report.rect} fixed={fixed} ref={containerRef}>
-		{diagramState.loaded
+		{diagramState.loaded === DiagramLoadState.TRUE
 			? <Diagram report={report} dataset={diagramState.dataset!}/>
 			: <DiagramLoading>
 				<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>

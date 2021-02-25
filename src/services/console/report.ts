@@ -4,7 +4,8 @@ import {
 	fetchMockChartData,
 	fetchMockCountChartData,
 	fetchMockDoughnutChartData,
-	fetchMockLineChartData, fetchMockMapChartData,
+	fetchMockLineChartData,
+	fetchMockMapChartData,
 	fetchMockNightingaleChartData,
 	fetchMockPieChartData,
 	fetchMockScatterChartData,
@@ -13,8 +14,17 @@ import {
 	fetchMockTreemapChartData
 } from '../mock/console/mock-report';
 import { ChartDataSet, ChartType } from '../tuples/chart-types';
+import { Report } from '../tuples/report-types';
 import { getServiceHost, isMockService } from '../utils';
 
+export const fetchChartDataTemporary = async (report: Report): Promise<ChartDataSet> => {
+	if (isMockService()) {
+		return fetchChartData(report.reportId, report.chart.type);
+	} else {
+		// REMOTE use real api
+		return fetchChartData(report.reportId, report.chart.type);
+	}
+};
 export const fetchChartData = async (reportId: string, type: ChartType): Promise<ChartDataSet> => {
 	if (isMockService()) {
 		if (type === ChartType.COUNT) {
