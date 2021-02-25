@@ -73,7 +73,7 @@ export const EChartsTitleTextSettings = (props: { report: Report, chart: EChart 
 		              propNames={propNames.font}
 		              onValueChange={onValueChange}/>
 		<ColorValue label={Lang.CHART.BACKGROUND_COLOR}
-		            value={chart.settings?.title?.backgroundColor}
+		            value={title?.backgroundColor}
 		            onValueChange={onColorChange({
 			            report,
 			            chart,

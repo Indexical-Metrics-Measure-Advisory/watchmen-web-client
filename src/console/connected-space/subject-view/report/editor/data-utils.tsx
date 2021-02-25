@@ -6,6 +6,7 @@ import {
 	EChartHorizontalAlignment,
 	EChartVerticalAlignment
 } from '../../../../../services/tuples/echarts/echarts-alignment-types';
+import { EchartsLegendOrient } from '../../../../../services/tuples/echarts/echarts-legend-types';
 import { Report } from '../../../../../services/tuples/report-types';
 import { Theme } from '../../../../../theme/types';
 
@@ -76,17 +77,21 @@ export const BorderStyleOptions: Array<DropdownOption> = [
 	{ value: ChartBorderStyle.DASHED, label: Lang.CHART.BORDER_STYLE_DASHED }
 ];
 
-export const AlignmentOptions: Array<DropdownOption> = [
-	{ value: EChartHorizontalAlignment.AUTO, label: Lang.CHART.ALIGNMENT_AUTO },
-	{ value: EChartHorizontalAlignment.LEFT, label: Lang.CHART.ALIGNMENT_LEFT },
-	{ value: EChartHorizontalAlignment.CENTER, label: Lang.CHART.ALIGNMENT_CENTER },
-	{ value: EChartHorizontalAlignment.RIGHT, label: Lang.CHART.ALIGNMENT_RIGHT }
+export const HorizontalAlignmentOptions: Array<DropdownOption> = [
+	{ value: EChartHorizontalAlignment.AUTO, label: Lang.CHART.HORIZONTAL_ALIGNMENT_AUTO },
+	{ value: EChartHorizontalAlignment.LEFT, label: Lang.CHART.HORIZONTAL_ALIGNMENT_LEFT },
+	{ value: EChartHorizontalAlignment.CENTER, label: Lang.CHART.HORIZONTAL_ALIGNMENT_CENTER },
+	{ value: EChartHorizontalAlignment.RIGHT, label: Lang.CHART.HORIZONTAL_ALIGNMENT_RIGHT }
 ];
 export const VerticalAlignmentOptions: Array<DropdownOption> = [
 	{ value: EChartVerticalAlignment.AUTO, label: Lang.CHART.VERTICAL_ALIGNMENT_AUTO },
 	{ value: EChartVerticalAlignment.TOP, label: Lang.CHART.VERTICAL_ALIGNMENT_TOP },
 	{ value: EChartVerticalAlignment.MIDDLE, label: Lang.CHART.VERTICAL_ALIGNMENT_MIDDLE },
 	{ value: EChartVerticalAlignment.BOTTOM, label: Lang.CHART.VERTICAL_ALIGNMENT_BOTTOM }
+];
+export const LegendOrientOptions: Array<DropdownOption> = [
+	{ value: EchartsLegendOrient.HORIZONTAL, label: Lang.CHART.LEGEND_ORIENT_HORIZONTAL },
+	{ value: EchartsLegendOrient.VERTICAL, label: Lang.CHART.LEGEND_ORIENT_VERTICAL },
 ];
 
 export enum BasicStylePropNames {
@@ -133,10 +138,34 @@ export enum EChartTitlePropNames {
 	POSITION_LEFT = 'title.position.left',
 	POSITION_BOTTOM = 'title.position.bottom',
 
-	TEXT_ALIGN = 'title.align',
+	TEXT_ALIGN = 'title.horizontalAlign',
 	TEXT_VERTICAL_ALIGN = 'title.verticalAlign',
 	ITEM_GAP = 'title.itemGap',
 	PADDING = 'title.padding',
+}
+
+export enum EChartLegendPropNames {
+	SHOW = 'legend.show',
+	ORIENT = 'legend.orient',
+
+	FONT_FAMILY = 'legend.font.family',
+	FONT_COLOR = 'legend.font.color',
+	FONT_SIZE = 'legend.font.size',
+	FONT_STYLE = 'legend.font.style',
+	FONT_WEIGHT = 'legend.font.weight',
+
+	BORDER_WIDTH = 'legend.border.width',
+	BORDER_COLOR = 'legend.border.color',
+	BORDER_STYLE = 'legend.border.style',
+	BORDER_RADIUS = 'legend.border.radius',
+	BACKGROUND_COLOR = 'legend.backgroundColor',
+
+	POSITION_TOP = 'legend.position.top',
+	POSITION_RIGHT = 'legend.position.right',
+	POSITION_LEFT = 'legend.position.left',
+	POSITION_BOTTOM = 'legend.position.bottom',
+
+	PADDING = 'legend.padding',
 }
 
 export type TextPropNames =
@@ -146,16 +175,24 @@ export type TextPropNames =
 export type ColorPropNames =
 	BasicStylePropNames.BACKGROUND_COLOR
 	| BasicStylePropNames.BORDER_COLOR
+
 	| CountChartStylePropNames.TEXT_FONT_COLOR
+
 	| EChartTitlePropNames.TEXT_FONT_COLOR
 	| EChartTitlePropNames.TEXT_BORDER_COLOR
 	| EChartTitlePropNames.TEXT_BACKGROUND_COLOR
-	| EChartTitlePropNames.SUBTEXT_FONT_COLOR;
+	| EChartTitlePropNames.SUBTEXT_FONT_COLOR
+
+	| EChartLegendPropNames.FONT_COLOR
+	| EChartLegendPropNames.BORDER_COLOR
+	| EChartLegendPropNames.BACKGROUND_COLOR;
 
 export type NumberPropNames =
 	BasicStylePropNames.BORDER_WIDTH
 	| BasicStylePropNames.BORDER_RADIUS
+
 	| CountChartStylePropNames.TEXT_FONT_SIZE
+
 	| EChartTitlePropNames.TEXT_FONT_SIZE
 	| EChartTitlePropNames.TEXT_BORDER_WIDTH
 	| EChartTitlePropNames.TEXT_BORDER_RADIUS
@@ -165,14 +202,25 @@ export type NumberPropNames =
 	| EChartTitlePropNames.POSITION_LEFT
 	| EChartTitlePropNames.POSITION_BOTTOM
 	| EChartTitlePropNames.ITEM_GAP
-	| EChartTitlePropNames.PADDING;
+	| EChartTitlePropNames.PADDING
+
+	| EChartLegendPropNames.BORDER_WIDTH
+	| EChartLegendPropNames.BORDER_RADIUS
+	| EChartLegendPropNames.FONT_SIZE
+	| EChartLegendPropNames.POSITION_TOP
+	| EChartLegendPropNames.POSITION_RIGHT
+	| EChartLegendPropNames.POSITION_LEFT
+	| EChartLegendPropNames.POSITION_BOTTOM
+	| EChartLegendPropNames.PADDING;
 
 export type DropdownPropNames =
 	BasicStylePropNames.BORDER_STYLE
+
 	| CountChartStylePropNames.TEXT_FONT_FAMILY
 	| CountChartStylePropNames.TEXT_FONT_STYLE
 	| CountChartStylePropNames.TEXT_FONT_WEIGHT
 	| CountChartStylePropNames.TEXT_DECORATION
+
 	| EChartTitlePropNames.TEXT_FONT_FAMILY
 	| EChartTitlePropNames.TEXT_FONT_STYLE
 	| EChartTitlePropNames.TEXT_FONT_WEIGHT
@@ -181,9 +229,18 @@ export type DropdownPropNames =
 	| EChartTitlePropNames.SUBTEXT_FONT_STYLE
 	| EChartTitlePropNames.SUBTEXT_FONT_WEIGHT
 	| EChartTitlePropNames.TEXT_ALIGN
-	| EChartTitlePropNames.TEXT_VERTICAL_ALIGN;
+	| EChartTitlePropNames.TEXT_VERTICAL_ALIGN
 
-export type BooleanPropNames = CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING;
+	| EChartLegendPropNames.ORIENT
+	| EChartLegendPropNames.BORDER_STYLE
+	| EChartLegendPropNames.FONT_FAMILY
+	| EChartLegendPropNames.FONT_STYLE
+	| EChartLegendPropNames.FONT_WEIGHT;
+
+export type BooleanPropNames =
+	CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING
+
+	| EChartLegendPropNames.SHOW;
 
 export const onTextValueChange = (options: {
 	report: Report;

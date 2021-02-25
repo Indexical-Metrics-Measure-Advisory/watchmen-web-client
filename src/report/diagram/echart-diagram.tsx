@@ -18,6 +18,7 @@ import {
 	GeoComponent,
 	GraphicComponent,
 	GridComponent,
+	LegendComponent,
 	TitleComponent,
 	ToolboxComponent,
 	TooltipComponent,
@@ -32,7 +33,7 @@ import { EChartDiagramContainer } from './widgets';
 
 echarts.use([
 	TitleComponent, TooltipComponent, GridComponent, AxisPointerComponent, DataZoomComponent,
-	GeoComponent, VisualMapComponent, ToolboxComponent, GraphicComponent,
+	GeoComponent, VisualMapComponent, ToolboxComponent, GraphicComponent, LegendComponent,
 	GraphChart, CustomChart,
 	BarChart, LineChart, LinesChart,
 	PieChart,

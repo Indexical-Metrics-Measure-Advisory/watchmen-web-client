@@ -8,7 +8,7 @@ import {
 import { EChart } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import {
-	AlignmentOptions,
+	HorizontalAlignmentOptions,
 	EChartTitlePropNames,
 	onDropdownValueChange,
 	VerticalAlignmentOptions
@@ -39,9 +39,9 @@ export const AlignmentSettings = (props: {
 	const holder = getHolder(chart);
 
 	return <>
-		<DropdownValue label={Lang.CHART.ALIGNMENT}
+		<DropdownValue label={Lang.CHART.HORIZONTAL_ALIGNMENT}
 		               value={holder?.horizontalAlign} defaultValue={EChartHorizontalAlignment.AUTO}
-		               options={AlignmentOptions}
+		               options={HorizontalAlignmentOptions}
 		               onValueChange={onDropdownValueChange({
 			               report,
 			               chart,

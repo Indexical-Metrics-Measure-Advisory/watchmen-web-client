@@ -16,6 +16,7 @@ export const ChartPart = (props: { report: Report }) => {
 		on(ReportEditEventTypes.BASIC_STYLE_CHANGED, forceUpdate);
 		on(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, forceUpdate);
 		on(ReportEditEventTypes.ECHART_TITLE_CHANGED, forceUpdate);
+		on(ReportEditEventTypes.ECHART_LEGEND_CHANGED, forceUpdate);
 		/**
 		 * structure change will lead reload data which handled in settings-saver,
 		 * ignore here
@@ -25,6 +26,7 @@ export const ChartPart = (props: { report: Report }) => {
 			off(ReportEditEventTypes.BASIC_STYLE_CHANGED, forceUpdate);
 			off(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, forceUpdate);
 			off(ReportEditEventTypes.ECHART_TITLE_CHANGED, forceUpdate);
+			off(ReportEditEventTypes.ECHART_LEGEND_CHANGED, forceUpdate);
 		};
 	}, [ on, off, forceUpdate ]);
 

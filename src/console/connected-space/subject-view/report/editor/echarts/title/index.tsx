@@ -1,5 +1,5 @@
 import React from 'react';
-import { canHoldTitle } from '../../../../../../../services/tuples/echarts/echarts-utils';
+import { canHoldTitle, isEChart } from '../../../../../../../services/tuples/echarts/echarts-utils';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import { useChartType } from '../../settings-effect/use-chart-type';
 import { EChartsTitleSubtextSettings } from './subtext';
@@ -11,7 +11,7 @@ export const EChartsTitleSettings = (props: { report: Report }) => {
 
 	useChartType({ report });
 
-	if (!canHoldTitle(chart)) {
+	if (!isEChart(chart) || !canHoldTitle(chart)) {
 		return null;
 	}
 

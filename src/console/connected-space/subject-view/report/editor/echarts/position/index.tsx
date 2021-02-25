@@ -3,14 +3,14 @@ import { Lang } from '../../../../../../../langs';
 import { EChartsPositionHolder } from '../../../../../../../services/tuples/echarts/echarts-position-types';
 import { EChart } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
-import { EChartTitlePropNames, onNumberChange, validateNumber } from '../../data-utils';
+import { EChartLegendPropNames, EChartTitlePropNames, onNumberChange, validateNumber } from '../../data-utils';
 import { NumberValue } from '../../settings-widgets/number-value';
 
 export interface SettingsPositionPropNames {
-	top: EChartTitlePropNames.POSITION_TOP;
-	right: EChartTitlePropNames.POSITION_RIGHT;
-	left: EChartTitlePropNames.POSITION_LEFT;
-	bottom: EChartTitlePropNames.POSITION_BOTTOM;
+	top: EChartTitlePropNames.POSITION_TOP | EChartLegendPropNames.POSITION_TOP;
+	right: EChartTitlePropNames.POSITION_RIGHT | EChartLegendPropNames.POSITION_RIGHT;
+	left: EChartTitlePropNames.POSITION_LEFT | EChartLegendPropNames.POSITION_LEFT;
+	bottom: EChartTitlePropNames.POSITION_BOTTOM | EChartLegendPropNames.POSITION_BOTTOM;
 }
 
 export const PositionSettings = (props: {

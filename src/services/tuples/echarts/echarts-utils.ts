@@ -1,5 +1,10 @@
 import { ChartHelper } from '../../../report/chart-utils';
 import { Chart } from '../chart-types';
+import { EChart } from './echarts-types';
+
+export const isEChart = (chart: Chart): chart is EChart => {
+	return true;
+};
 
 export const canHoldTitle = (chart: Chart): boolean => {
 	return ChartHelper[chart.type].getDef().canHoldTitle;

@@ -3,7 +3,9 @@ import { BAR } from '../../services/tuples/chart-def/chart-bar';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { EChart } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
+import { cleanUselessValues } from './data-utils';
 import { DefaultChartUtils } from './default-chart-utils';
+import { buildEChartLegend } from './legend-utils';
 import { buildEChartTitle } from './title-utils';
 import { ChartOptions } from './types';
 
@@ -17,18 +19,18 @@ export class ChartBarUtils extends DefaultChartUtils {
 		const { indicators } = report;
 
 		const legends = indicators.map((indicator, indicatorIndex) => {
-			return { label: indicator.name, indicator, index: indicatorIndex };
+			return { label: indicator.name || `Indicator ${indicatorIndex + 1}`, indicator, index: indicatorIndex };
 		});
 		const groups = this.buildDescartesByDimensions(report, dataset);
 
-		return {
+		return cleanUselessValues({
 			color: BASE_COLORS_24,
 			title: buildEChartTitle(chart as EChart),
 			tooltip: {
 				trigger: 'axis',
 				axisPointer: { type: 'shadow' }
 			},
-			legend: { data: legends.map(item => item.label) },
+			legend: buildEChartLegend(chart as EChart, legends.map(item => item.label)),
 			xAxis: [ {
 				type: 'category',
 				axisTick: { show: false },
@@ -50,6 +52,6 @@ export class ChartBarUtils extends DefaultChartUtils {
 					data: groups.map(({ row }) => this.formatNumber(row[indicatorIndex]))
 				};
 			})
-		};
+		});
 	}
 }

@@ -5,7 +5,7 @@ import { EChartsBorderHolder } from '../../../../../../../services/tuples/echart
 import { EChart } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import {
-	BorderStyleOptions,
+	BorderStyleOptions, EChartLegendPropNames,
 	EChartTitlePropNames,
 	onColorChange,
 	onDropdownValueChange,
@@ -17,10 +17,10 @@ import { DropdownValue } from '../../settings-widgets/dropdown-value';
 import { NumberValue } from '../../settings-widgets/number-value';
 
 export interface SettingsBorderPropNames {
-	width: EChartTitlePropNames.TEXT_BORDER_WIDTH;
-	color: EChartTitlePropNames.TEXT_BORDER_COLOR;
-	style: EChartTitlePropNames.TEXT_BORDER_STYLE;
-	radius: EChartTitlePropNames.TEXT_BORDER_RADIUS;
+	width: EChartTitlePropNames.TEXT_BORDER_WIDTH | EChartLegendPropNames.BORDER_WIDTH;
+	color: EChartTitlePropNames.TEXT_BORDER_COLOR | EChartLegendPropNames.BORDER_COLOR;
+	style: EChartTitlePropNames.TEXT_BORDER_STYLE | EChartLegendPropNames.BORDER_STYLE;
+	radius: EChartTitlePropNames.TEXT_BORDER_RADIUS | EChartLegendPropNames.BORDER_RADIUS;
 }
 
 export const BorderSettings = (props: {
