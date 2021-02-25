@@ -6,6 +6,7 @@ import { DimensionsSection } from '../dimensions';
 import { EChartsGridSettings } from '../echarts/grid';
 import { EChartsLegendSettings } from '../echarts/legend';
 import { EChartsTitleSettings } from '../echarts/title';
+import { EChartsXAxisSettings } from '../echarts/xaxis';
 import { IndicatorsSection } from '../indicators';
 import { RectSection } from '../rect';
 import { BasicStylesSection } from '../styles';
@@ -27,6 +28,7 @@ export const SettingsBody = (props: { subject: Subject, report: Report }) => {
 		<EChartsTitleSettings report={report}/>
 		<EChartsLegendSettings report={report}/>
 		<EChartsGridSettings report={report}/>
+		<EChartsXAxisSettings report={report}/>
 		<BasicStylesSection report={report}/>
 		<DescriptionPropEditor report={report}/>
 	</SettingsBodyContainer>;

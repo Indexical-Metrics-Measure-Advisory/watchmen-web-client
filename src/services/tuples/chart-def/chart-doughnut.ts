@@ -10,7 +10,8 @@ export const DOUGHNUT: ChartDef = {
 
 	canHoldTitle: true,
 	canHoldLegend: true,
-	canUseGrid: false
+	canUseGrid: false,
+	canUseXAxis: false
 };
 
 export interface DoughnutChartSettings extends EChartsSettings {

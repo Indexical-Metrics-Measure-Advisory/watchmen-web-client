@@ -10,7 +10,8 @@ export const NIGHTINGALE: ChartDef = {
 
 	canHoldTitle: true,
 	canHoldLegend: true,
-	canUseGrid: false
+	canUseGrid: false,
+	canUseXAxis: false
 };
 
 export interface NightingaleChartSettings extends EChartsSettings {

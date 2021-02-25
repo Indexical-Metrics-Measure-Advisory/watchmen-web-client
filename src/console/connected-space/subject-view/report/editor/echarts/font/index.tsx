@@ -8,6 +8,7 @@ import {
 	createFontFamilyOptions,
 	EChartLegendPropNames,
 	EChartTitlePropNames,
+	EChartXAxisPropNames,
 	FontStyleOptions,
 	FontWeightOptions,
 	onColorChange,
@@ -20,11 +21,26 @@ import { DropdownValue } from '../../settings-widgets/dropdown-value';
 import { NumberValue } from '../../settings-widgets/number-value';
 
 export interface SettingsFontPropNames {
-	family: EChartTitlePropNames.TEXT_FONT_FAMILY | EChartTitlePropNames.SUBTEXT_FONT_FAMILY | EChartLegendPropNames.FONT_FAMILY;
-	size: EChartTitlePropNames.TEXT_FONT_SIZE | EChartTitlePropNames.SUBTEXT_FONT_SIZE | EChartLegendPropNames.FONT_SIZE;
-	weight: EChartTitlePropNames.TEXT_FONT_WEIGHT | EChartTitlePropNames.SUBTEXT_FONT_WEIGHT | EChartLegendPropNames.FONT_WEIGHT;
-	color: EChartTitlePropNames.TEXT_FONT_COLOR | EChartTitlePropNames.SUBTEXT_FONT_COLOR | EChartLegendPropNames.FONT_COLOR;
-	style: EChartTitlePropNames.TEXT_FONT_STYLE | EChartTitlePropNames.SUBTEXT_FONT_STYLE | EChartLegendPropNames.FONT_STYLE;
+	family: EChartTitlePropNames.TEXT_FONT_FAMILY
+		| EChartTitlePropNames.SUBTEXT_FONT_FAMILY
+		| EChartLegendPropNames.FONT_FAMILY
+		| EChartXAxisPropNames.NAME_FONT_FAMILY;
+	size: EChartTitlePropNames.TEXT_FONT_SIZE
+		| EChartTitlePropNames.SUBTEXT_FONT_SIZE
+		| EChartLegendPropNames.FONT_SIZE
+		| EChartXAxisPropNames.NAME_FONT_SIZE;
+	weight: EChartTitlePropNames.TEXT_FONT_WEIGHT
+		| EChartTitlePropNames.SUBTEXT_FONT_WEIGHT
+		| EChartLegendPropNames.FONT_WEIGHT
+		| EChartXAxisPropNames.NAME_FONT_WEIGHT;
+	color: EChartTitlePropNames.TEXT_FONT_COLOR
+		| EChartTitlePropNames.SUBTEXT_FONT_COLOR
+		| EChartLegendPropNames.FONT_COLOR
+		| EChartXAxisPropNames.NAME_FONT_COLOR;
+	style: EChartTitlePropNames.TEXT_FONT_STYLE
+		| EChartTitlePropNames.SUBTEXT_FONT_STYLE
+		| EChartLegendPropNames.FONT_STYLE
+		| EChartXAxisPropNames.NAME_FONT_STYLE;
 }
 
 export const FontSettings = (props: {

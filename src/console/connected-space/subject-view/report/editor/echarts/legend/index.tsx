@@ -1,6 +1,6 @@
 import React from 'react';
 import { Lang } from '../../../../../../../langs';
-import { EchartsLegendOrient } from '../../../../../../../services/tuples/echarts/echarts-legend-types';
+import { EChartsLegendOrient } from '../../../../../../../services/tuples/echarts/echarts-legend-types';
 import { canHoldLegend, isEChart } from '../../../../../../../services/tuples/echarts/echarts-utils';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import {
@@ -73,7 +73,7 @@ export const EChartsLegendSettings = (props: { report: Report }) => {
 			              done: onValueChange
 		              })}/>
 		<DropdownValue label={Lang.CHART.LEGEND_ORIENT}
-		               value={legend?.orient} defaultValue={EchartsLegendOrient.HORIZONTAL}
+		               value={legend?.orient} defaultValue={EChartsLegendOrient.HORIZONTAL}
 		               options={LegendOrientOptions}
 		               onValueChange={onDropdownValueChange({
 			               report,

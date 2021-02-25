@@ -9,6 +9,7 @@ import {
 	EChartGridPropNames,
 	EChartLegendPropNames,
 	EChartTitlePropNames,
+	EChartXAxisPropNames,
 	onColorChange,
 	onDropdownValueChange,
 	onNumberChange,
@@ -21,15 +22,19 @@ import { NumberValue } from '../../settings-widgets/number-value';
 export interface SettingsBorderPropNames {
 	width: EChartTitlePropNames.TEXT_BORDER_WIDTH
 		| EChartLegendPropNames.BORDER_WIDTH
-		| EChartGridPropNames.BORDER_WIDTH;
+		| EChartGridPropNames.BORDER_WIDTH
+		| EChartXAxisPropNames.NAME_BORDER_WIDTH;
 	color: EChartTitlePropNames.TEXT_BORDER_COLOR
 		| EChartLegendPropNames.BORDER_COLOR
-		| EChartGridPropNames.BORDER_COLOR;
+		| EChartGridPropNames.BORDER_COLOR
+		| EChartXAxisPropNames.NAME_BORDER_COLOR;
 	style: EChartTitlePropNames.TEXT_BORDER_STYLE
 		| EChartLegendPropNames.BORDER_STYLE
-		| EChartGridPropNames.BORDER_STYLE;
+		| EChartGridPropNames.BORDER_STYLE
+		| EChartXAxisPropNames.NAME_BORDER_STYLE;
 	radius?: EChartTitlePropNames.TEXT_BORDER_RADIUS
-		| EChartLegendPropNames.BORDER_RADIUS;
+		| EChartLegendPropNames.BORDER_RADIUS
+		| EChartXAxisPropNames.NAME_BORDER_RADIUS;
 }
 
 export const BorderSettings = (props: {

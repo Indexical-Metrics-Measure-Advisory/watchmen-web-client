@@ -23,7 +23,6 @@ export const buildEChartGrid = (chart: EChart): GridComponentOption | undefined 
 		borderColor: grid.border?.color,
 		borderWidth: grid.border?.width,
 		borderType: grid.border?.style as any,
-		borderRadius: grid.border?.radius,
 		top: grid.position?.top,
 		right: grid.position?.right,
 		left: grid.position?.left,

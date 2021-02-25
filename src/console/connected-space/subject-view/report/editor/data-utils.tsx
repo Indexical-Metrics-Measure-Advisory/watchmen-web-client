@@ -3,10 +3,15 @@ import { DropdownOption } from '../../../../../basic-widgets/types';
 import { Lang } from '../../../../../langs';
 import { Chart, ChartBorderStyle, ChartFontStyle, ChartFontWeight } from '../../../../../services/tuples/chart-types';
 import {
-	EChartHorizontalAlignment,
-	EChartVerticalAlignment
+	EChartsHorizontalAlignment,
+	EChartsVerticalAlignment
 } from '../../../../../services/tuples/echarts/echarts-alignment-types';
-import { EchartsLegendOrient } from '../../../../../services/tuples/echarts/echarts-legend-types';
+import { EChartsLegendOrient } from '../../../../../services/tuples/echarts/echarts-legend-types';
+import {
+	EChartsXAxisNameLocation,
+	EChartsXAxisPosition,
+	EChartsXAxisType
+} from '../../../../../services/tuples/echarts/echarts-xaxis-types';
 import { Report } from '../../../../../services/tuples/report-types';
 import { Theme } from '../../../../../theme/types';
 
@@ -78,21 +83,36 @@ export const BorderStyleOptions: Array<DropdownOption> = [
 ];
 
 export const HorizontalAlignmentOptions: Array<DropdownOption> = [
-	{ value: EChartHorizontalAlignment.AUTO, label: Lang.CHART.HORIZONTAL_ALIGNMENT_AUTO },
-	{ value: EChartHorizontalAlignment.LEFT, label: Lang.CHART.HORIZONTAL_ALIGNMENT_LEFT },
-	{ value: EChartHorizontalAlignment.CENTER, label: Lang.CHART.HORIZONTAL_ALIGNMENT_CENTER },
-	{ value: EChartHorizontalAlignment.RIGHT, label: Lang.CHART.HORIZONTAL_ALIGNMENT_RIGHT }
+	{ value: EChartsHorizontalAlignment.AUTO, label: Lang.CHART.HORIZONTAL_ALIGNMENT_AUTO },
+	{ value: EChartsHorizontalAlignment.LEFT, label: Lang.CHART.HORIZONTAL_ALIGNMENT_LEFT },
+	{ value: EChartsHorizontalAlignment.CENTER, label: Lang.CHART.HORIZONTAL_ALIGNMENT_CENTER },
+	{ value: EChartsHorizontalAlignment.RIGHT, label: Lang.CHART.HORIZONTAL_ALIGNMENT_RIGHT }
 ];
 export const VerticalAlignmentOptions: Array<DropdownOption> = [
-	{ value: EChartVerticalAlignment.AUTO, label: Lang.CHART.VERTICAL_ALIGNMENT_AUTO },
-	{ value: EChartVerticalAlignment.TOP, label: Lang.CHART.VERTICAL_ALIGNMENT_TOP },
-	{ value: EChartVerticalAlignment.MIDDLE, label: Lang.CHART.VERTICAL_ALIGNMENT_MIDDLE },
-	{ value: EChartVerticalAlignment.BOTTOM, label: Lang.CHART.VERTICAL_ALIGNMENT_BOTTOM }
+	{ value: EChartsVerticalAlignment.AUTO, label: Lang.CHART.VERTICAL_ALIGNMENT_AUTO },
+	{ value: EChartsVerticalAlignment.TOP, label: Lang.CHART.VERTICAL_ALIGNMENT_TOP },
+	{ value: EChartsVerticalAlignment.MIDDLE, label: Lang.CHART.VERTICAL_ALIGNMENT_MIDDLE },
+	{ value: EChartsVerticalAlignment.BOTTOM, label: Lang.CHART.VERTICAL_ALIGNMENT_BOTTOM }
 ];
 export const LegendOrientOptions: Array<DropdownOption> = [
-	{ value: EchartsLegendOrient.HORIZONTAL, label: Lang.CHART.LEGEND_ORIENT_HORIZONTAL },
-	{ value: EchartsLegendOrient.VERTICAL, label: Lang.CHART.LEGEND_ORIENT_VERTICAL }
+	{ value: EChartsLegendOrient.HORIZONTAL, label: Lang.CHART.LEGEND_ORIENT_HORIZONTAL },
+	{ value: EChartsLegendOrient.VERTICAL, label: Lang.CHART.LEGEND_ORIENT_VERTICAL }
 ];
+export const XAxisPositionOptions: Array<DropdownOption> = [
+	{ value: EChartsXAxisPosition.TOP, label: Lang.CHART.POSITION_TOP },
+	{ value: EChartsXAxisPosition.BOTTOM, label: Lang.CHART.POSITION_BOTTOM }
+];
+export const XAxisNameLocationOptions: Array<DropdownOption> = [
+	{ value: EChartsXAxisNameLocation.START, label: Lang.CHART.AXIS_NAME_LOCATION_START },
+	{ value: EChartsXAxisNameLocation.CENTER, label: Lang.CHART.AXIS_NAME_LOCATION_CENTER },
+	{ value: EChartsXAxisNameLocation.END, label: Lang.CHART.AXIS_NAME_LOCATION_END }
+];
+export const AxisTypeOptions: Array<DropdownOption> = [
+	{ value: EChartsXAxisType.CATEGORY, label: Lang.CHART.AXIS_TYPE_CATEGORY },
+	{ value: EChartsXAxisType.VALUE, label: Lang.CHART.AXIS_TYPE_VALUE },
+	{ value: EChartsXAxisType.TIME, label: Lang.CHART.AXIS_TYPE_TIME }
+];
+
 
 export enum BasicStylePropNames {
 	BACKGROUND_COLOR = 'backgroundColor',
@@ -138,7 +158,7 @@ export enum EChartTitlePropNames {
 	POSITION_LEFT = 'title.position.left',
 	POSITION_BOTTOM = 'title.position.bottom',
 
-	TEXT_ALIGN = 'title.horizontalAlign',
+	TEXT_HORIZONTAL_ALIGN = 'title.horizontalAlign',
 	TEXT_VERTICAL_ALIGN = 'title.verticalAlign',
 	ITEM_GAP = 'title.itemGap',
 	PADDING = 'title.padding',
@@ -183,9 +203,40 @@ export enum EChartGridPropNames {
 	POSITION_BOTTOM = 'grid.position.bottom',
 }
 
+export enum EChartXAxisPropNames {
+	SHOW = 'xaxis.show',
+	POSITION = 'xaxis.position',
+	TYPE = 'xaxis.type',
+
+	AUTO_MIN = 'xaxis.autoMin',
+	MIN = 'xaxis.min',
+	AUTO_MAX = 'xaxis.autoMax',
+	MAX = 'xaxis.max',
+
+	NAME_TEXT = 'xaxis.name.text',
+	NAME_LOCATION = 'xaxis.name.location',
+	NAME_BACKGROUND_COLOR = 'xaxis.name.backgroundColor',
+	NAME_FONT_FAMILY = 'xaxis.name.font.family',
+	NAME_FONT_SIZE = 'xaxis.name.font.size',
+	NAME_FONT_WEIGHT = 'xaxis.name.font.weight',
+	NAME_FONT_COLOR = 'xaxis.name.font.color',
+	NAME_FONT_STYLE = 'xaxis.name.font.style',
+	NAME_BORDER_WIDTH = 'xaxis.name.border.width',
+	NAME_BORDER_STYLE = 'xaxis.name.border.style',
+	NAME_BORDER_COLOR = 'xaxis.name.border.color',
+	NAME_BORDER_RADIUS = 'xaxis.name.border.radius',
+	NAME_HORIZONTAL_ALIGN = 'xaxis.name.horizontalAlign',
+	NAME_VERTICAL_ALIGN = 'xaxis.name.verticalAlign',
+	NAME_GAP = 'xaxis.name.gap',
+	NAME_ROTATE = 'xaxis.name.rotate',
+	NAME_PADDING = 'xaxis.name.padding',
+}
+
 export type TextPropNames =
 	EChartTitlePropNames.TEXT
-	| EChartTitlePropNames.SUBTEXT;
+	| EChartTitlePropNames.SUBTEXT
+
+	| EChartXAxisPropNames.NAME_TEXT;
 
 export type ColorPropNames =
 	BasicStylePropNames.BACKGROUND_COLOR
@@ -203,7 +254,11 @@ export type ColorPropNames =
 	| EChartLegendPropNames.BACKGROUND_COLOR
 
 	| EChartGridPropNames.BORDER_COLOR
-	| EChartGridPropNames.BACKGROUND_COLOR;
+	| EChartGridPropNames.BACKGROUND_COLOR
+
+	| EChartXAxisPropNames.NAME_FONT_COLOR
+	| EChartXAxisPropNames.NAME_BORDER_COLOR
+	| EChartXAxisPropNames.NAME_BACKGROUND_COLOR;
 
 export type NumberPropNames =
 	BasicStylePropNames.BORDER_WIDTH
@@ -235,7 +290,16 @@ export type NumberPropNames =
 	| EChartGridPropNames.POSITION_TOP
 	| EChartGridPropNames.POSITION_RIGHT
 	| EChartGridPropNames.POSITION_LEFT
-	| EChartGridPropNames.POSITION_BOTTOM;
+	| EChartGridPropNames.POSITION_BOTTOM
+
+	| EChartXAxisPropNames.MIN
+	| EChartXAxisPropNames.MAX
+	| EChartXAxisPropNames.NAME_BORDER_WIDTH
+	| EChartXAxisPropNames.NAME_BORDER_RADIUS
+	| EChartXAxisPropNames.NAME_FONT_SIZE
+	| EChartXAxisPropNames.NAME_GAP
+	| EChartXAxisPropNames.NAME_ROTATE
+	| EChartXAxisPropNames.NAME_PADDING;
 
 export type DropdownPropNames =
 	BasicStylePropNames.BORDER_STYLE
@@ -252,7 +316,7 @@ export type DropdownPropNames =
 	| EChartTitlePropNames.SUBTEXT_FONT_FAMILY
 	| EChartTitlePropNames.SUBTEXT_FONT_STYLE
 	| EChartTitlePropNames.SUBTEXT_FONT_WEIGHT
-	| EChartTitlePropNames.TEXT_ALIGN
+	| EChartTitlePropNames.TEXT_HORIZONTAL_ALIGN
 	| EChartTitlePropNames.TEXT_VERTICAL_ALIGN
 
 	| EChartLegendPropNames.ORIENT
@@ -261,7 +325,17 @@ export type DropdownPropNames =
 	| EChartLegendPropNames.FONT_STYLE
 	| EChartLegendPropNames.FONT_WEIGHT
 
-	| EChartGridPropNames.BORDER_STYLE;
+	| EChartGridPropNames.BORDER_STYLE
+
+	| EChartXAxisPropNames.POSITION
+	| EChartXAxisPropNames.TYPE
+	| EChartXAxisPropNames.NAME_LOCATION
+	| EChartXAxisPropNames.NAME_FONT_FAMILY
+	| EChartXAxisPropNames.NAME_FONT_STYLE
+	| EChartXAxisPropNames.NAME_FONT_WEIGHT
+	| EChartXAxisPropNames.NAME_BORDER_STYLE
+	| EChartXAxisPropNames.NAME_HORIZONTAL_ALIGN
+	| EChartXAxisPropNames.NAME_VERTICAL_ALIGN;
 
 export type BooleanPropNames =
 	CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING
@@ -269,7 +343,11 @@ export type BooleanPropNames =
 	| EChartLegendPropNames.SHOW
 
 	| EChartGridPropNames.SHOW
-	| EChartGridPropNames.CONTAIN_LABEL;
+	| EChartGridPropNames.CONTAIN_LABEL
+
+	| EChartXAxisPropNames.SHOW
+	| EChartXAxisPropNames.AUTO_MIN
+	| EChartXAxisPropNames.AUTO_MAX;
 
 export const onTextValueChange = (options: {
 	report: Report;
@@ -293,6 +371,14 @@ export const onColorChange = (options: {
 };
 export const validateNumber = (fractionDigits: number) => (value: string) => {
 	return new RegExp(`^\\d{1,${fractionDigits}}$`).test(value);
+};
+export const isANumber = (value: string) => {
+	try {
+		parseInt(value);
+		return true;
+	} catch {
+		return false;
+	}
 };
 export const onNumberChange = (options: {
 	report: Report;

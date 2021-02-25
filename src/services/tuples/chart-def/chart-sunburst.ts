@@ -10,7 +10,8 @@ export const SUNBURST: ChartDef = {
 
 	canHoldTitle: true,
 	canHoldLegend: false,
-	canUseGrid: false
+	canUseGrid: false,
+	canUseXAxis: false
 };
 
 export interface SunburstChartSettings extends EChartsSettings {

@@ -54,7 +54,7 @@ export const EChartsTitleTextSettings = (props: { report: Report, chart: EChart 
 			bottom: EChartTitlePropNames.POSITION_BOTTOM
 		} as SettingsPositionPropNames,
 		alignment: {
-			align: EChartTitlePropNames.TEXT_ALIGN,
+			align: EChartTitlePropNames.TEXT_HORIZONTAL_ALIGN,
 			verticalAlign: EChartTitlePropNames.TEXT_VERTICAL_ALIGN
 		} as SettingsAlignmentPropNames
 	};

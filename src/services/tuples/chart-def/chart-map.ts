@@ -11,7 +11,8 @@ export const MAP: ChartDef = {
 
 	canHoldTitle: true,
 	canHoldLegend: false,
-	canUseGrid: false
+	canUseGrid: false,
+	canUseXAxis: false
 };
 
 export interface MapChartSettings extends EChartsSettings {

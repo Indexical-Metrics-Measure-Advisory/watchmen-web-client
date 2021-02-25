@@ -9,7 +9,8 @@ export const BAR: ChartDef = {
 
 	canHoldTitle: true,
 	canHoldLegend: true,
-	canUseGrid: true
+	canUseGrid: true,
+	canUseXAxis: true
 };
 
 export interface BarChartSettings extends EChartsSettings {

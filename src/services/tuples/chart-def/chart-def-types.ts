@@ -10,4 +10,5 @@ export interface ChartDef {
 	readonly canHoldTitle: boolean;
 	readonly canHoldLegend: boolean;
 	readonly canUseGrid: boolean;
+	readonly canUseXAxis: boolean;
 }

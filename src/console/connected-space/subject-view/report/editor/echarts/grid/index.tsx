@@ -24,7 +24,7 @@ export const EChartsGridSettings = (props: { report: Report }) => {
 	}
 
 	const onValueChange = () => {
-		fire(ReportEditEventTypes.ECHART_LEGEND_CHANGED, report);
+		fire(ReportEditEventTypes.ECHART_GRID_CHANGED, report);
 	};
 
 	const grid = chart.settings?.grid;

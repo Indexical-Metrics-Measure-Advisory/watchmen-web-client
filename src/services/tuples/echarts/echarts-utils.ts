@@ -15,3 +15,6 @@ export const canHoldLegend = (chart: Chart): boolean => {
 export const canUseGrid = (chart: Chart): boolean => {
 	return ChartHelper[chart.type].getDef().canUseGrid;
 };
+export const canUseXAxis = (chart: Chart): boolean => {
+	return ChartHelper[chart.type].getDef().canUseXAxis;
+};
