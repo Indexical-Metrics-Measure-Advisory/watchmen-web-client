@@ -22,21 +22,23 @@ export const listReports = async (options: {
 };
 
 export const saveNewReport = async (report: Report, subjectId: string): Promise<void> => {
-	//return saveMockReport(report);
-	const token = findToken();
-	const response = await fetch(`${getServiceHost()}console_space/subject/report/save?subject_id=${subjectId}`, {
-		 		method: 'POST',
-		 		headers: {
-		 			'Content-Type': 'application/json',
-		 			Authorization: 'Bearer ' + token
-		 		},
-		 		body: JSON.stringify(report)
-		 	}
-		 );
-		
-	const data = await response.json();
-	report.reportId = data.reportId
-	report.lastVisitTime= data.lastModifyTime
+	if (isMockService()) {
+		return saveMockReport(report);
+	} else {
+		const token = findToken();
+		const response = await fetch(`${getServiceHost()}console_space/subject/report/save?subject_id=${subjectId}`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
+			},
+			body: JSON.stringify(report)
+		}
+		);
+		const data = await response.json();
+		report.reportId = data.reportId
+		report.lastVisitTime = data.lastModifyTime
+	}
 };
 
 export const saveReport = async (report: Report): Promise<void> => {
@@ -44,36 +46,36 @@ export const saveReport = async (report: Report): Promise<void> => {
 		return saveMockReport(report);
 	} else if (isFakedUuid(report)) {
 		// REMOTE use real api
-		return saveMockReport(report);
-		// const token = findToken();
-		// const response = await fetch(`${getServiceHost()}console_space/subject?connect_id=${connectedSpaceId}`, {
-		// 		method: 'POST',
-		// 		headers: {
-		// 			'Content-Type': 'application/json',
-		// 			Authorization: 'Bearer ' + token
-		// 		},
-		// 		body: JSON.stringify(report)
-		// 	}
-		// );
-		//
-		// const data = await response.json();
-		// report.reportId = data.subjectId;
-		// report.lastModifyTime = data.lastModifyTime;
+		if (isMockService()) {
+			return saveMockReport(report);
+		} else {
+			const token = findToken();
+			const response = await fetch(`${getServiceHost()}console_space/subject/report/update`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + token
+				},
+				body: JSON.stringify(report)
+			}
+			);
+			const data = await response.json();
+			report.reportId = data.reportId;
+			report.lastModifyTime = data.lastModifyTime;
+		}
 	} else {
-		// REMOTE use real api
-		return saveMockReport(report);
-		// const token = findToken();
-		// const response = await fetch(`${getServiceHost()}console_space/subject/save`, {
-		// 	method: 'POST',
-		// 	headers: {
-		// 		'Content-Type': 'application/json',
-		// 		Authorization: 'Bearer ' + token
-		// 	},
-		// 	body: JSON.stringify(subject)
-		// });
-		//
-		// const data = await response.json();
-		// report.lastModifyTime = data.lastModifyTime;
+		const token = findToken();
+		const response = await fetch(`${getServiceHost()}console_space/subject/report/update`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
+			},
+			body: JSON.stringify(report)
+		});
+		const data = await response.json();
+		report.reportId = data.reportId;
+		report.lastModifyTime = data.lastModifyTime;
 	}
 };
 
