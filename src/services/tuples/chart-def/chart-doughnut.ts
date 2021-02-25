@@ -9,7 +9,8 @@ export const DOUGHNUT: ChartDef = {
 	maxIndicatorCount: 1,
 
 	canHoldTitle: true,
-	canHoldLegend: true
+	canHoldLegend: true,
+	canUseGrid: false
 };
 
 export interface DoughnutChartSettings extends EChartsSettings {

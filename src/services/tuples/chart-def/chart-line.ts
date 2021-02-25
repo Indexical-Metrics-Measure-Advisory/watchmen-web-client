@@ -8,7 +8,8 @@ export const LINE: ChartDef = {
 	minIndicatorCount: 1,
 
 	canHoldTitle: true,
-	canHoldLegend: true
+	canHoldLegend: true,
+	canUseGrid: true
 };
 
 export interface LineChartSettings extends EChartsSettings {

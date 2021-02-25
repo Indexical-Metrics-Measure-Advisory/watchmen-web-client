@@ -12,3 +12,6 @@ export const canHoldTitle = (chart: Chart): boolean => {
 export const canHoldLegend = (chart: Chart): boolean => {
 	return ChartHelper[chart.type].getDef().canHoldLegend;
 };
+export const canUseGrid = (chart: Chart): boolean => {
+	return ChartHelper[chart.type].getDef().canUseGrid;
+};

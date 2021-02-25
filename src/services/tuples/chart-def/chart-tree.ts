@@ -9,7 +9,8 @@ export const TREE: ChartDef = {
 	maxIndicatorCount: 1,
 
 	canHoldTitle: true,
-	canHoldLegend: false
+	canHoldLegend: false,
+	canUseGrid: false
 };
 
 export interface TreeChartSettings extends EChartsSettings {

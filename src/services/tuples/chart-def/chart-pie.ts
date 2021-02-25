@@ -9,7 +9,8 @@ export const PIE: ChartDef = {
 	maxIndicatorCount: 1,
 
 	canHoldTitle: true,
-	canHoldLegend: true
+	canHoldLegend: true,
+	canUseGrid: false
 };
 
 export interface PieChartSettings extends EChartsSettings {

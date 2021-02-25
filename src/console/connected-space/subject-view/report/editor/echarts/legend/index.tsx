@@ -66,13 +66,12 @@ export const EChartsLegendSettings = (props: { report: Report }) => {
 	return <Section title={Lang.CHART.SECTION_TITLE_ECHART_LEGEND}>
 		<BooleanValue label={Lang.CHART.SHOW}
 		              value={legend?.show} defaultValue={false}
-		              onValueChange={
-			              onBooleanChange({
-				              report,
-				              chart,
-				              prop: EChartLegendPropNames.SHOW,
-				              done: onValueChange
-			              })}/>
+		              onValueChange={onBooleanChange({
+			              report,
+			              chart,
+			              prop: EChartLegendPropNames.SHOW,
+			              done: onValueChange
+		              })}/>
 		<DropdownValue label={Lang.CHART.LEGEND_ORIENT}
 		               value={legend?.orient} defaultValue={EchartsLegendOrient.HORIZONTAL}
 		               options={LegendOrientOptions}

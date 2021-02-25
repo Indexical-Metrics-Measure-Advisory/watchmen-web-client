@@ -5,7 +5,9 @@ import { EChartsBorderHolder } from '../../../../../../../services/tuples/echart
 import { EChart } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import {
-	BorderStyleOptions, EChartLegendPropNames,
+	BorderStyleOptions,
+	EChartGridPropNames,
+	EChartLegendPropNames,
 	EChartTitlePropNames,
 	onColorChange,
 	onDropdownValueChange,
@@ -17,10 +19,17 @@ import { DropdownValue } from '../../settings-widgets/dropdown-value';
 import { NumberValue } from '../../settings-widgets/number-value';
 
 export interface SettingsBorderPropNames {
-	width: EChartTitlePropNames.TEXT_BORDER_WIDTH | EChartLegendPropNames.BORDER_WIDTH;
-	color: EChartTitlePropNames.TEXT_BORDER_COLOR | EChartLegendPropNames.BORDER_COLOR;
-	style: EChartTitlePropNames.TEXT_BORDER_STYLE | EChartLegendPropNames.BORDER_STYLE;
-	radius: EChartTitlePropNames.TEXT_BORDER_RADIUS | EChartLegendPropNames.BORDER_RADIUS;
+	width: EChartTitlePropNames.TEXT_BORDER_WIDTH
+		| EChartLegendPropNames.BORDER_WIDTH
+		| EChartGridPropNames.BORDER_WIDTH;
+	color: EChartTitlePropNames.TEXT_BORDER_COLOR
+		| EChartLegendPropNames.BORDER_COLOR
+		| EChartGridPropNames.BORDER_COLOR;
+	style: EChartTitlePropNames.TEXT_BORDER_STYLE
+		| EChartLegendPropNames.BORDER_STYLE
+		| EChartGridPropNames.BORDER_STYLE;
+	radius?: EChartTitlePropNames.TEXT_BORDER_RADIUS
+		| EChartLegendPropNames.BORDER_RADIUS;
 }
 
 export const BorderSettings = (props: {
@@ -70,14 +79,16 @@ export const BorderSettings = (props: {
 			               prop: borderStylePropName,
 			               done: onValueChange
 		               })}/>
-		<NumberValue label={Lang.CHART.BORDER_RADIUS} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 9999'}
-		             value={holder?.border?.radius} defaultValue={0}
-		             validate={validateNumber(4)}
-		             onValueChange={onNumberChange({
-			             report,
-			             chart,
-			             prop: borderRadiusPropName,
-			             done: onValueChange
-		             })}/>
+		{borderRadiusPropName
+			? <NumberValue label={Lang.CHART.BORDER_RADIUS} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 9999'}
+			               value={holder?.border?.radius} defaultValue={0}
+			               validate={validateNumber(4)}
+			               onValueChange={onNumberChange({
+				               report,
+				               chart,
+				               prop: borderRadiusPropName,
+				               done: onValueChange
+			               })}/>
+			: null}
 	</>;
 };

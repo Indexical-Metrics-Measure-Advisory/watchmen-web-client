@@ -91,7 +91,7 @@ export const VerticalAlignmentOptions: Array<DropdownOption> = [
 ];
 export const LegendOrientOptions: Array<DropdownOption> = [
 	{ value: EchartsLegendOrient.HORIZONTAL, label: Lang.CHART.LEGEND_ORIENT_HORIZONTAL },
-	{ value: EchartsLegendOrient.VERTICAL, label: Lang.CHART.LEGEND_ORIENT_VERTICAL },
+	{ value: EchartsLegendOrient.VERTICAL, label: Lang.CHART.LEGEND_ORIENT_VERTICAL }
 ];
 
 export enum BasicStylePropNames {
@@ -168,6 +168,21 @@ export enum EChartLegendPropNames {
 	PADDING = 'legend.padding',
 }
 
+export enum EChartGridPropNames {
+	SHOW = 'grid.show',
+	CONTAIN_LABEL = 'grid.containLabel',
+
+	BORDER_WIDTH = 'grid.border.width',
+	BORDER_COLOR = 'grid.border.color',
+	BORDER_STYLE = 'grid.border.style',
+	BACKGROUND_COLOR = 'grid.backgroundColor',
+
+	POSITION_TOP = 'grid.position.top',
+	POSITION_RIGHT = 'grid.position.right',
+	POSITION_LEFT = 'grid.position.left',
+	POSITION_BOTTOM = 'grid.position.bottom',
+}
+
 export type TextPropNames =
 	EChartTitlePropNames.TEXT
 	| EChartTitlePropNames.SUBTEXT;
@@ -185,7 +200,10 @@ export type ColorPropNames =
 
 	| EChartLegendPropNames.FONT_COLOR
 	| EChartLegendPropNames.BORDER_COLOR
-	| EChartLegendPropNames.BACKGROUND_COLOR;
+	| EChartLegendPropNames.BACKGROUND_COLOR
+
+	| EChartGridPropNames.BORDER_COLOR
+	| EChartGridPropNames.BACKGROUND_COLOR;
 
 export type NumberPropNames =
 	BasicStylePropNames.BORDER_WIDTH
@@ -211,7 +229,13 @@ export type NumberPropNames =
 	| EChartLegendPropNames.POSITION_RIGHT
 	| EChartLegendPropNames.POSITION_LEFT
 	| EChartLegendPropNames.POSITION_BOTTOM
-	| EChartLegendPropNames.PADDING;
+	| EChartLegendPropNames.PADDING
+
+	| EChartGridPropNames.BORDER_WIDTH
+	| EChartGridPropNames.POSITION_TOP
+	| EChartGridPropNames.POSITION_RIGHT
+	| EChartGridPropNames.POSITION_LEFT
+	| EChartGridPropNames.POSITION_BOTTOM;
 
 export type DropdownPropNames =
 	BasicStylePropNames.BORDER_STYLE
@@ -235,12 +259,17 @@ export type DropdownPropNames =
 	| EChartLegendPropNames.BORDER_STYLE
 	| EChartLegendPropNames.FONT_FAMILY
 	| EChartLegendPropNames.FONT_STYLE
-	| EChartLegendPropNames.FONT_WEIGHT;
+	| EChartLegendPropNames.FONT_WEIGHT
+
+	| EChartGridPropNames.BORDER_STYLE;
 
 export type BooleanPropNames =
 	CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING
 
-	| EChartLegendPropNames.SHOW;
+	| EChartLegendPropNames.SHOW
+
+	| EChartGridPropNames.SHOW
+	| EChartGridPropNames.CONTAIN_LABEL;
 
 export const onTextValueChange = (options: {
 	report: Report;

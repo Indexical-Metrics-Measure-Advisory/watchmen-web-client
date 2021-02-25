@@ -4,6 +4,7 @@ import { ChartDataSet } from '../../services/tuples/chart-types';
 import { EChart } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils } from './default-chart-utils';
+import { buildEChartGrid } from './grid-utils';
 import { buildEChartLegend } from './legend-utils';
 import { buildEChartTitle } from './title-utils';
 import { ChartOptions } from './types';
@@ -30,6 +31,7 @@ export class ChartLineUtils extends DefaultChartUtils {
 				axisPointer: { type: 'shadow' }
 			},
 			legend: buildEChartLegend(chart as EChart, legends.map(item => item.label)),
+			grid: buildEChartGrid(chart as EChart),
 			xAxis: [ {
 				type: 'category',
 				axisTick: { show: false },

@@ -10,7 +10,8 @@ export const SCATTER: ChartDef = {
 	maxIndicatorCount: 3,
 
 	canHoldTitle: true,
-	canHoldLegend: true
+	canHoldLegend: true,
+	canUseGrid: true
 };
 
 export interface ScatterChartSettings extends EChartsSettings {

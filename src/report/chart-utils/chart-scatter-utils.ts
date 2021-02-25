@@ -5,6 +5,7 @@ import { ChartDataSet } from '../../services/tuples/chart-types';
 import { EChart } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils, Legend } from './default-chart-utils';
+import { buildEChartGrid } from './grid-utils';
 import { buildEChartLegend } from './legend-utils';
 import { buildEChartTitle } from './title-utils';
 import { ChartOptions } from './types';
@@ -59,6 +60,7 @@ export class ChartScatterUtils extends DefaultChartUtils {
 			},
 			// legend only available on multiple dimensions defined
 			legend: legends.length > 1 ? buildEChartLegend(chart as EChart, legends.map(({ name }) => name)) : (void 0),
+			grid: buildEChartGrid(chart as EChart),
 			xAxis: {
 				type: 'category',
 				// use last dimension as xAxis
