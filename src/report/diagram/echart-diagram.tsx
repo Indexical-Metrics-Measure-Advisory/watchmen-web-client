@@ -1,6 +1,7 @@
 import {
 	BarChart,
 	CustomChart,
+	EffectScatterChart,
 	GraphChart,
 	LineChart,
 	LinesChart,
@@ -30,8 +31,14 @@ import { ChartEChartOptions } from '../chart-utils/types';
 import { EChartDiagramContainer } from './widgets';
 
 echarts.use([
-	TitleComponent, TooltipComponent, GridComponent, AxisPointerComponent, DataZoomComponent, GeoComponent, VisualMapComponent, ToolboxComponent, GraphicComponent,
-	GraphChart, CustomChart, BarChart, LineChart, LinesChart, PieChart, ScatterChart, SunburstChart, TreeChart, TreemapChart, MapChart,
+	TitleComponent, TooltipComponent, GridComponent, AxisPointerComponent, DataZoomComponent,
+	GeoComponent, VisualMapComponent, ToolboxComponent, GraphicComponent,
+	GraphChart, CustomChart,
+	BarChart, LineChart, LinesChart,
+	PieChart,
+	EffectScatterChart, ScatterChart,
+	SunburstChart, TreeChart, TreemapChart,
+	MapChart,
 	CanvasRenderer
 ]);
 

@@ -376,7 +376,7 @@ export const Zh = {
 		ARITHMETIC_MIN: '最小值',
 		TYPE: '图表种类',
 		TYPES: {
-			COUNT: '个数计数图',
+			COUNT: '数字统计图',
 			BAR: '柱状图',
 			LINE: '折线图',
 			SCATTER: '散点图',
