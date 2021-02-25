@@ -5,8 +5,8 @@ export const COUNT: ChartDef = {
 	type: ChartType.COUNT,
 	minDimensionCount: 0,
 	maxDimensionCount: 0,
-	minIndicatorCount: 0,
-	maxIndicatorCount: 0
+	minIndicatorCount: 1,
+	maxIndicatorCount: 1
 };
 
 export interface CountChartSettingsText {

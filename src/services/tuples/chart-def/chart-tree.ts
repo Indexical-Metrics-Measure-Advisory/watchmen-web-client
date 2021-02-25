@@ -1,4 +1,5 @@
 import { ChartType } from '../chart-types';
+import { EChart, EChartsSettings } from '../echarts-types';
 import { ChartDef } from './chart-def-types';
 
 export const TREE: ChartDef = {
@@ -7,3 +8,11 @@ export const TREE: ChartDef = {
 	minIndicatorCount: 1,
 	maxIndicatorCount: 1
 };
+
+export interface TreeChartSettings extends EChartsSettings {
+}
+
+export interface TreeChart extends EChart {
+	type: ChartType.TREE;
+	settings?: TreeChartSettings;
+}

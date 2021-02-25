@@ -1,4 +1,5 @@
 import { ChartType } from '../chart-types';
+import { EChart, EChartsSettings } from '../echarts-types';
 import { ChartDef } from './chart-def-types';
 
 export const SCATTER: ChartDef = {
@@ -8,3 +9,11 @@ export const SCATTER: ChartDef = {
 	minIndicatorCount: 1,
 	maxIndicatorCount: 3
 };
+
+export interface ScatterChartSettings extends EChartsSettings {
+}
+
+export interface ScatterChart extends EChart {
+	type: ChartType.SCATTER;
+	settings?: ScatterChartSettings;
+}
