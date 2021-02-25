@@ -1,14 +1,15 @@
 import { BASE_COLORS_24 } from '../../basic-widgets/colors';
 import { BAR } from '../../services/tuples/chart-def/chart-bar';
 import { ChartDataSet } from '../../services/tuples/chart-types';
-import { EChart } from '../../services/tuples/echarts/echarts-types';
+import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { cleanUselessValues } from './data-utils';
 import { DefaultChartUtils } from './default-chart-utils';
-import { buildEChartGrid } from './grid-utils';
-import { buildEChartLegend } from './legend-utils';
-import { buildEChartTitle } from './title-utils';
+import { buildEChartsGrid } from './grid-utils';
+import { buildEChartsLegend } from './legend-utils';
+import { buildEChartsTitle } from './title-utils';
 import { ChartOptions } from './types';
+import { buildEChartsXAxis } from './xaxis-utils';
 
 export class ChartBarUtils extends DefaultChartUtils {
 	constructor() {
@@ -26,18 +27,14 @@ export class ChartBarUtils extends DefaultChartUtils {
 
 		return cleanUselessValues({
 			color: BASE_COLORS_24,
-			title: buildEChartTitle(chart as EChart),
+			title: buildEChartsTitle(chart as ECharts),
 			tooltip: {
 				trigger: 'axis',
 				axisPointer: { type: 'shadow' }
 			},
-			legend: buildEChartLegend(chart as EChart, legends.map(item => item.label)),
-			grid: buildEChartGrid(chart as EChart),
-			xAxis: [ {
-				type: 'category',
-				axisTick: { show: false },
-				data: groups.map(({ value }) => value)
-			} ],
+			legend: buildEChartsLegend(chart as ECharts, legends.map(item => item.label)),
+			grid: buildEChartsGrid(chart as ECharts),
+			xAxis: [ buildEChartsXAxis(chart as ECharts, groups.map(({ value }) => value)) ],
 			yAxis: [ { type: 'value' } ],
 			series: legends.map(({ label, index: indicatorIndex }) => {
 				return {

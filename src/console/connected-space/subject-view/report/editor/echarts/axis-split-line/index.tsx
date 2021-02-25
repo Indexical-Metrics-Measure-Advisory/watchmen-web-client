@@ -6,7 +6,7 @@ import {
 	EChartsAxisSplitLineHolder,
 	EChartsAxisSplitLineStyle
 } from '../../../../../../../services/tuples/echarts/echarts-axis-split-line-types';
-import { EChart } from '../../../../../../../services/tuples/echarts/echarts-types';
+import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import {
 	AxisSplitLineStyleOptions,
@@ -32,8 +32,8 @@ export interface SettingsAxisSplitLinePropNames {
 
 export const EChartsAxisSplitLineSettings = (props: {
 	report: Report;
-	chart: EChart;
-	getHolder: (chart: EChart) => EChartsAxisSplitLineHolder | EChartsAxisMinorSplitLineHolder | undefined;
+	chart: ECharts;
+	getHolder: (chart: ECharts) => EChartsAxisSplitLineHolder | EChartsAxisMinorSplitLineHolder | undefined;
 	getSplitLine: (holder: EChartsAxisSplitLineHolder | EChartsAxisMinorSplitLineHolder | undefined) => EChartsAxisSplitLine | undefined;
 	title: string;
 	defaultShow: boolean;

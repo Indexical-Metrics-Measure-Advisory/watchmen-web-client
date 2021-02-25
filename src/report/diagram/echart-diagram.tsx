@@ -45,6 +45,7 @@ echarts.use([
 
 export const EChartDiagram = (props: { options: ChartEChartOptions }) => {
 	const { options } = props;
+	// console.log(JSON.stringify(options));
 
 	const rootRef = useRef<HTMLDivElement>(null);
 	const [ chartInstance, setChartInstance ] = useState<EChartsType | null>(null);

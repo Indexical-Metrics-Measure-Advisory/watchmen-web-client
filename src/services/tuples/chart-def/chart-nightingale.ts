@@ -1,5 +1,5 @@
 import { ChartType } from '../chart-types';
-import { EChart, EChartsSettings } from '../echarts/echarts-types';
+import { ECharts, EChartsSettings } from '../echarts/echarts-types';
 import { ChartDef } from './chart-def-types';
 
 export const NIGHTINGALE: ChartDef = {
@@ -17,7 +17,7 @@ export const NIGHTINGALE: ChartDef = {
 export interface NightingaleChartSettings extends EChartsSettings {
 }
 
-export interface NightingaleChart extends EChart {
+export interface NightingaleChart extends ECharts {
 	type: ChartType.NIGHTINGALE;
 	settings?: NightingaleChartSettings;
 }

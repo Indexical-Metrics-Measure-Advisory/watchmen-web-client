@@ -1,5 +1,5 @@
 import { ChartType } from '../chart-types';
-import { EChart, EChartsSettings } from '../echarts/echarts-types';
+import { ECharts, EChartsSettings } from '../echarts/echarts-types';
 import { ChartDef } from './chart-def-types';
 
 export const SCATTER: ChartDef = {
@@ -18,7 +18,7 @@ export const SCATTER: ChartDef = {
 export interface ScatterChartSettings extends EChartsSettings {
 }
 
-export interface ScatterChart extends EChart {
+export interface ScatterChart extends ECharts {
 	type: ChartType.SCATTER;
 	settings?: ScatterChartSettings;
 }

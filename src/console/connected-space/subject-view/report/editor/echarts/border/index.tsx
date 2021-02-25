@@ -2,7 +2,7 @@ import React from 'react';
 import { Lang } from '../../../../../../../langs';
 import { ChartBorderStyle } from '../../../../../../../services/tuples/chart-types';
 import { EChartsBorderHolder } from '../../../../../../../services/tuples/echarts/echarts-border-type';
-import { EChart } from '../../../../../../../services/tuples/echarts/echarts-types';
+import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import {
 	BorderStyleOptions,
@@ -43,8 +43,8 @@ export interface SettingsBorderPropNames {
 
 export const BorderSettings = (props: {
 	report: Report;
-	chart: EChart;
-	getHolder: (chart: EChart) => EChartsBorderHolder | undefined;
+	chart: ECharts;
+	getHolder: (chart: ECharts) => EChartsBorderHolder | undefined;
 	propNames: SettingsBorderPropNames;
 	onValueChange: () => void;
 }) => {

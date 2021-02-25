@@ -1,8 +1,8 @@
 import { TitleComponentOption } from 'echarts/components';
-import { EChart } from '../../services/tuples/echarts/echarts-types';
+import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { cleanUselessValues } from './data-utils';
 
-export const buildEChartTitle = (chart: EChart): TitleComponentOption | undefined => {
+export const buildEChartsTitle = (chart: ECharts): TitleComponentOption | undefined => {
 	let { settings } = chart;
 
 	if (!settings) {

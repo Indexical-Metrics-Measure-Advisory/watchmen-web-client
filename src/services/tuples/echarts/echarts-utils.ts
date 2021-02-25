@@ -1,8 +1,8 @@
 import { ChartHelper } from '../../../report/chart-utils';
 import { Chart } from '../chart-types';
-import { EChart } from './echarts-types';
+import { ECharts } from './echarts-types';
 
-export const isEChart = (chart: Chart): chart is EChart => {
+export const isEChart = (chart: Chart): chart is ECharts => {
 	return true;
 };
 

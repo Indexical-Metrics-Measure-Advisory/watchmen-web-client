@@ -1,5 +1,5 @@
 import { ChartType } from '../chart-types';
-import { EChart, EChartsSettings } from '../echarts/echarts-types';
+import { ECharts, EChartsSettings } from '../echarts/echarts-types';
 import { ChartDef } from './chart-def-types';
 
 export const BAR: ChartDef = {
@@ -16,7 +16,7 @@ export const BAR: ChartDef = {
 export interface BarChartSettings extends EChartsSettings {
 }
 
-export interface BarChart extends EChart {
+export interface BarChart extends ECharts {
 	type: ChartType.BAR;
 	settings?: BarChartSettings;
 }

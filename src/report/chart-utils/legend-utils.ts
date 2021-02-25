@@ -1,8 +1,8 @@
 import { LegendComponentOption } from 'echarts/components';
-import { EChart } from '../../services/tuples/echarts/echarts-types';
+import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { cleanUselessValues } from './data-utils';
 
-export const buildEChartLegend = (chart: EChart, legendNames: Array<string>): LegendComponentOption | undefined => {
+export const buildEChartsLegend = (chart: ECharts, legendNames: Array<string>): LegendComponentOption | undefined => {
 	let { settings } = chart;
 
 	if (!settings) {

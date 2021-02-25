@@ -1,7 +1,7 @@
 import React from 'react';
 import { Lang } from '../../../../../../../langs';
 import { EChartsSizeHolder } from '../../../../../../../services/tuples/echarts/echarts-size-types';
-import { EChart } from '../../../../../../../services/tuples/echarts/echarts-types';
+import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import { EChartTitlePropNames, onNumberChange, validateNumber } from '../../data-utils';
 import { NumberValue } from '../../settings-widgets/number-value';
@@ -14,8 +14,8 @@ export interface SettingsSizePropNames {
 
 export const SizeSettings = (props: {
 	report: Report;
-	chart: EChart;
-	getHolder: (chart: EChart) => EChartsSizeHolder | undefined;
+	chart: ECharts;
+	getHolder: (chart: ECharts) => EChartsSizeHolder | undefined;
 	propNames: SettingsSizePropNames;
 	onValueChange: () => void;
 }) => {

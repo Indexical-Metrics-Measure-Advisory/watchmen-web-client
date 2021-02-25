@@ -1,5 +1,5 @@
 import { ChartType } from '../chart-types';
-import { EChart, EChartsSettings } from '../echarts/echarts-types';
+import { ECharts, EChartsSettings } from '../echarts/echarts-types';
 import { ChartDef } from './chart-def-types';
 
 export const DOUGHNUT: ChartDef = {
@@ -17,7 +17,7 @@ export const DOUGHNUT: ChartDef = {
 export interface DoughnutChartSettings extends EChartsSettings {
 }
 
-export interface DoughnutChart extends EChart {
+export interface DoughnutChart extends ECharts {
 	type: ChartType.DOUGHNUT;
 	settings?: DoughnutChartSettings;
 }

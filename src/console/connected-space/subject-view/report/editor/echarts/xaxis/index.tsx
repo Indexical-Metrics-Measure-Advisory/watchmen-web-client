@@ -47,7 +47,7 @@ export const EChartsXAxisSettings = (props: { report: Report }) => {
 	return <>
 		<Section title={Lang.CHART.SECTION_TITLE_ECHART_XAXIS}>
 			<BooleanValue label={Lang.CHART.SHOW}
-			              value={xaxis?.show} defaultValue={false}
+			              value={xaxis?.show} defaultValue={true}
 			              onValueChange={onBooleanChange({
 				              report,
 				              chart,

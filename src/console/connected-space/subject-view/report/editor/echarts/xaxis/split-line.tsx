@@ -1,13 +1,13 @@
 import React from 'react';
 import { Lang } from '../../../../../../../langs';
-import { EChart } from '../../../../../../../services/tuples/echarts/echarts-types';
+import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import { EChartXAxisPropNames } from '../../data-utils';
 import { useReportEditEventBus } from '../../report-edit-event-bus';
 import { ReportEditEventTypes } from '../../report-edit-event-bus-types';
 import { EChartsAxisSplitLineSettings, SettingsAxisSplitLinePropNames } from '../axis-split-line';
 
-export const EChartsXAxisSplitLineSettings = (props: { report: Report, chart: EChart }) => {
+export const EChartsXAxisSplitLineSettings = (props: { report: Report, chart: ECharts }) => {
 	const { report, chart } = props;
 
 	const { fire } = useReportEditEventBus();

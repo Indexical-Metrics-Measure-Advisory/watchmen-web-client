@@ -1,10 +1,10 @@
 import { COUNT, CountChartSettings } from '../../services/tuples/chart-def/chart-count';
 import { ChartDataSet } from '../../services/tuples/chart-types';
-import { EChart } from '../../services/tuples/echarts/echarts-types';
+import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { cleanUselessValues } from './data-utils';
 import { DefaultChartUtils } from './default-chart-utils';
-import { buildEChartTitle } from './title-utils';
+import { buildEChartsTitle } from './title-utils';
 import { ChartOptions } from './types';
 
 export class ChartCountUtils extends DefaultChartUtils {
@@ -38,7 +38,7 @@ export class ChartCountUtils extends DefaultChartUtils {
 		const { family, size, color, weight, style } = font;
 
 		return cleanUselessValues({
-			title: buildEChartTitle(chart as EChart),
+			title: buildEChartsTitle(chart as ECharts),
 			graphic: [ {
 				type: 'text',
 				top: 'middle',

@@ -1,11 +1,11 @@
 import { BASE_COLORS_24 } from '../../basic-widgets/colors';
 import { NIGHTINGALE } from '../../services/tuples/chart-def/chart-nightingale';
 import { ChartDataSet } from '../../services/tuples/chart-types';
-import { EChart } from '../../services/tuples/echarts/echarts-types';
+import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils } from './default-chart-utils';
-import { buildEChartLegend } from './legend-utils';
-import { buildEChartTitle } from './title-utils';
+import { buildEChartsLegend } from './legend-utils';
+import { buildEChartsTitle } from './title-utils';
 import { ChartOptions } from './types';
 
 export class ChartNightingaleUtils extends DefaultChartUtils {
@@ -22,11 +22,11 @@ export class ChartNightingaleUtils extends DefaultChartUtils {
 
 		return {
 			color: BASE_COLORS_24,
-			title: buildEChartTitle(chart as EChart),
+			title: buildEChartsTitle(chart as ECharts),
 			tooltip: {
 				trigger: 'item'
 			},
-			legend: buildEChartLegend(chart as EChart, groups.map(({ value }) => value)),
+			legend: buildEChartsLegend(chart as ECharts, groups.map(({ value }) => value)),
 			series: [ {
 				name: indicator.name,
 				type: 'pie',

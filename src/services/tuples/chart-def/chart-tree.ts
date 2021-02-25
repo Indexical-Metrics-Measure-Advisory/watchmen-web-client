@@ -1,5 +1,5 @@
 import { ChartType } from '../chart-types';
-import { EChart, EChartsSettings } from '../echarts/echarts-types';
+import { ECharts, EChartsSettings } from '../echarts/echarts-types';
 import { ChartDef } from './chart-def-types';
 
 export const TREE: ChartDef = {
@@ -17,7 +17,7 @@ export const TREE: ChartDef = {
 export interface TreeChartSettings extends EChartsSettings {
 }
 
-export interface TreeChart extends EChart {
+export interface TreeChart extends ECharts {
 	type: ChartType.TREE;
 	settings?: TreeChartSettings;
 }

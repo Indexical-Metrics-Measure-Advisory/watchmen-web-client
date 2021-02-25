@@ -1,7 +1,7 @@
 import React from 'react';
 import { Lang } from '../../../../../../../langs';
 import { EChartsFontHolder } from '../../../../../../../services/tuples/echarts/echarts-font-types';
-import { EChart } from '../../../../../../../services/tuples/echarts/echarts-types';
+import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import { getCurrentTheme } from '../../../../../../../theme/theme-wrapper';
 import {
@@ -50,8 +50,8 @@ export interface SettingsFontPropNames {
 
 export const FontSettings = (props: {
 	report: Report;
-	chart: EChart;
-	getHolder: (chart: EChart) => EChartsFontHolder | undefined;
+	chart: ECharts;
+	getHolder: (chart: ECharts) => EChartsFontHolder | undefined;
 	propNames: SettingsFontPropNames;
 	onValueChange: () => void;
 }) => {

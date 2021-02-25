@@ -7,7 +7,7 @@ import { EChartsXAxisHolder } from './echarts-xaxis-types';
 export interface EChartsSettings extends ChartSettings {
 }
 
-export interface EChart extends Chart {
+export interface ECharts extends Chart {
 	type: ChartType;
 	settings?: EChartsSettings
 		& EChartsTitleHolder

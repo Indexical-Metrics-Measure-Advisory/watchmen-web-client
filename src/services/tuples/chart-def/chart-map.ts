@@ -1,5 +1,5 @@
 import { ChartType } from '../chart-types';
-import { EChart, EChartsSettings } from '../echarts/echarts-types';
+import { ECharts, EChartsSettings } from '../echarts/echarts-types';
 import { ChartDef } from './chart-def-types';
 
 export const MAP: ChartDef = {
@@ -18,7 +18,7 @@ export const MAP: ChartDef = {
 export interface MapChartSettings extends EChartsSettings {
 }
 
-export interface MapChart extends EChart {
+export interface MapChart extends ECharts {
 	type: ChartType.MAP;
 	settings?: MapChartSettings;
 }

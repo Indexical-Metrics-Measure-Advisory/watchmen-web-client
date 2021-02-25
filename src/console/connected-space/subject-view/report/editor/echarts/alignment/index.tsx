@@ -5,7 +5,7 @@ import {
 	EChartsHorizontalAlignment,
 	EChartsVerticalAlignment
 } from '../../../../../../../services/tuples/echarts/echarts-alignment-types';
-import { EChart } from '../../../../../../../services/tuples/echarts/echarts-types';
+import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import {
 	EChartTitlePropNames,
@@ -27,8 +27,8 @@ export interface SettingsAlignmentPropNames {
 
 export const AlignmentSettings = (props: {
 	report: Report;
-	chart: EChart;
-	getHolder: (chart: EChart) => EChartsAlignmentHolder | undefined;
+	chart: ECharts;
+	getHolder: (chart: ECharts) => EChartsAlignmentHolder | undefined;
 	propNames: SettingsAlignmentPropNames;
 	onValueChange: () => void;
 }) => {

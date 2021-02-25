@@ -1,6 +1,6 @@
 import React from 'react';
 import { Lang } from '../../../../../../../langs';
-import { EChart } from '../../../../../../../services/tuples/echarts/echarts-types';
+import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import { EChartTitlePropNames, onTextValueChange } from '../../data-utils';
 import { useReportEditEventBus } from '../../report-edit-event-bus';
@@ -9,7 +9,7 @@ import { Section } from '../../settings-widgets/section';
 import { TextValue } from '../../settings-widgets/text-value';
 import { FontSettings, SettingsFontPropNames } from '../font';
 
-export const EChartsTitleSubtextSettings = (props: { report: Report, chart: EChart }) => {
+export const EChartsTitleSubtextSettings = (props: { report: Report, chart: ECharts }) => {
 	const { report, chart } = props;
 
 	const { fire } = useReportEditEventBus();

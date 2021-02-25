@@ -2,12 +2,12 @@ import { EChartOption } from 'echarts';
 import { BASE_COLORS_24 } from '../../basic-widgets/colors';
 import { SCATTER } from '../../services/tuples/chart-def/chart-scatter';
 import { ChartDataSet } from '../../services/tuples/chart-types';
-import { EChart } from '../../services/tuples/echarts/echarts-types';
+import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils, Legend } from './default-chart-utils';
-import { buildEChartGrid } from './grid-utils';
-import { buildEChartLegend } from './legend-utils';
-import { buildEChartTitle } from './title-utils';
+import { buildEChartsGrid } from './grid-utils';
+import { buildEChartsLegend } from './legend-utils';
+import { buildEChartsTitle } from './title-utils';
 import { ChartOptions } from './types';
 
 export class ChartScatterUtils extends DefaultChartUtils {
@@ -54,13 +54,13 @@ export class ChartScatterUtils extends DefaultChartUtils {
 
 		return {
 			color: BASE_COLORS_24,
-			title: buildEChartTitle(chart as EChart),
+			title: buildEChartsTitle(chart as ECharts),
 			tooltip: {
 				trigger: 'item'
 			},
 			// legend only available on multiple dimensions defined
-			legend: legends.length > 1 ? buildEChartLegend(chart as EChart, legends.map(({ name }) => name)) : (void 0),
-			grid: buildEChartGrid(chart as EChart),
+			legend: legends.length > 1 ? buildEChartsLegend(chart as ECharts, legends.map(({ name }) => name)) : (void 0),
+			grid: buildEChartsGrid(chart as ECharts),
 			xAxis: {
 				type: 'category',
 				// use last dimension as xAxis

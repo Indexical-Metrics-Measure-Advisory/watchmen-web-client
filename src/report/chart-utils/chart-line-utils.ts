@@ -1,12 +1,12 @@
 import { BASE_COLORS_24 } from '../../basic-widgets/colors';
 import { LINE } from '../../services/tuples/chart-def/chart-line';
 import { ChartDataSet } from '../../services/tuples/chart-types';
-import { EChart } from '../../services/tuples/echarts/echarts-types';
+import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils } from './default-chart-utils';
-import { buildEChartGrid } from './grid-utils';
-import { buildEChartLegend } from './legend-utils';
-import { buildEChartTitle } from './title-utils';
+import { buildEChartsGrid } from './grid-utils';
+import { buildEChartsLegend } from './legend-utils';
+import { buildEChartsTitle } from './title-utils';
 import { ChartOptions } from './types';
 
 export class ChartLineUtils extends DefaultChartUtils {
@@ -25,13 +25,13 @@ export class ChartLineUtils extends DefaultChartUtils {
 
 		return {
 			color: BASE_COLORS_24,
-			title: buildEChartTitle(chart as EChart),
+			title: buildEChartsTitle(chart as ECharts),
 			tooltip: {
 				trigger: 'axis',
 				axisPointer: { type: 'shadow' }
 			},
-			legend: buildEChartLegend(chart as EChart, legends.map(item => item.label)),
-			grid: buildEChartGrid(chart as EChart),
+			legend: buildEChartsLegend(chart as ECharts, legends.map(item => item.label)),
+			grid: buildEChartsGrid(chart as ECharts),
 			xAxis: [ {
 				type: 'category',
 				axisTick: { show: false },
