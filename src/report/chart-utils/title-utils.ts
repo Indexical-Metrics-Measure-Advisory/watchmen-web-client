@@ -3,7 +3,14 @@ import { EChart } from '../../services/tuples/echarts-types';
 import { cleanUselessValues } from './data-utils';
 
 export const buildEChartTitle = (chart: EChart): TitleComponentOption | undefined => {
-	const { settings: { title } = {} } = chart;
+	let { settings } = chart;
+
+	if (!settings) {
+		settings = {};
+		chart.settings = settings;
+	}
+
+	const { title } = settings;
 
 	if (!title) {
 		return (void 0);
