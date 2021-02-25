@@ -1,5 +1,7 @@
 import {
 	BarChart,
+	CustomChart,
+	GraphChart,
 	LineChart,
 	LinesChart,
 	MapChart,
@@ -13,6 +15,7 @@ import {
 	AxisPointerComponent,
 	DataZoomComponent,
 	GeoComponent,
+	GraphicComponent,
 	GridComponent,
 	TitleComponent,
 	ToolboxComponent,
@@ -27,14 +30,13 @@ import { ChartEChartOptions } from '../chart-utils/types';
 import { EChartDiagramContainer } from './widgets';
 
 echarts.use([
-	TitleComponent, TooltipComponent, GridComponent, AxisPointerComponent, DataZoomComponent, GeoComponent, VisualMapComponent, ToolboxComponent,
-	BarChart, LineChart, LinesChart, PieChart, ScatterChart, SunburstChart, TreeChart, TreemapChart, MapChart,
+	TitleComponent, TooltipComponent, GridComponent, AxisPointerComponent, DataZoomComponent, GeoComponent, VisualMapComponent, ToolboxComponent, GraphicComponent,
+	GraphChart, CustomChart, BarChart, LineChart, LinesChart, PieChart, ScatterChart, SunburstChart, TreeChart, TreemapChart, MapChart,
 	CanvasRenderer
 ]);
 
 export const EChartDiagram = (props: { options: ChartEChartOptions }) => {
 	const { options } = props;
-	// console.log(options);
 
 	const rootRef = useRef<HTMLDivElement>(null);
 	const [ chartInstance, setChartInstance ] = useState<EChartsType | null>(null);

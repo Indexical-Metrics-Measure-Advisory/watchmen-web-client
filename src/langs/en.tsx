@@ -389,12 +389,7 @@ export const En = {
 			MAP: 'Map'
 		},
 		COUNT: {
-			FORMAT_USING_GROUP: 'Using Group',
-			TEXT_DECORATION: 'Text Decoration',
-			TEXT_DECORATION_NONE: 'None',
-			TEXT_DECORATION_UNDERLINE: 'Underline',
-			TEXT_DECORATION_OVERLINE: 'Overline',
-			TEXT_DECORATION_LINE_THROUGH: 'Line Through'
+			FORMAT_USING_GROUP: 'Using Group'
 		},
 		ECHART: {
 			TEXT: 'Text'

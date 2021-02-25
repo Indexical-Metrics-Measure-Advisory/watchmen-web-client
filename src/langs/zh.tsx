@@ -389,12 +389,7 @@ export const Zh = {
 			MAP: '地图'
 		},
 		COUNT: {
-			FORMAT_USING_GROUP: '千分位',
-			TEXT_DECORATION: '文本样式',
-			TEXT_DECORATION_NONE: '无',
-			TEXT_DECORATION_UNDERLINE: '下划线',
-			TEXT_DECORATION_OVERLINE: '上划线',
-			TEXT_DECORATION_LINE_THROUGH: '中划线'
+			FORMAT_USING_GROUP: '千分位'
 		},
 		ECHART: {
 			TEXT: '文本'

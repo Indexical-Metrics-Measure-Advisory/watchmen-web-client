@@ -8,7 +8,6 @@ export const DimensionContainer = styled.div.attrs({ 'data-widget': 'report-dime
 	position              : relative;
 	grid-column           : 1 / span 2;
 	align-items           : center;
-	font-size             : 1.1em;
 	height                : calc(var(--height) + 1px);
 	border-bottom         : var(--border);
 	> div[data-widget="chart-settings-prop-value"] {

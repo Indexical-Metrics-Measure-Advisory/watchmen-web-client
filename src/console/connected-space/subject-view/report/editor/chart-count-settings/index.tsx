@@ -1,6 +1,6 @@
 import React from 'react';
 import { Lang } from '../../../../../../langs';
-import { ChartBorderStyle, ChartTextDecoration } from '../../../../../../services/tuples/chart-types';
+import { ChartBorderStyle } from '../../../../../../services/tuples/chart-types';
 import { isCountChart } from '../../../../../../services/tuples/chart-utils';
 import { Report } from '../../../../../../services/tuples/report-types';
 import { getCurrentTheme } from '../../../../../../theme/theme-wrapper';
@@ -13,7 +13,6 @@ import {
 	onColorChange,
 	onDropdownValueChange,
 	onNumberChange,
-	TextDecorationOptions,
 	validateNumber
 } from '../data-utils';
 import { useReportEditEventBus } from '../report-edit-event-bus';
@@ -83,14 +82,6 @@ export const ChartCountSettings = (props: { report: Report }) => {
 			               report,
 			               chart,
 			               prop: CountChartStylePropNames.TEXT_FONT_WEIGHT,
-			               done: onValueChange
-		               })}/>
-		<DropdownValue label={Lang.CHART.COUNT.TEXT_DECORATION} options={TextDecorationOptions}
-		               value={chart.settings?.countText?.textDecoration} defaultValue={ChartTextDecoration.NONE}
-		               onValueChange={onDropdownValueChange({
-			               report,
-			               chart,
-			               prop: CountChartStylePropNames.TEXT_DECORATION,
 			               done: onValueChange
 		               })}/>
 		<BooleanValue label={Lang.CHART.COUNT.FORMAT_USING_GROUP}

@@ -1,13 +1,7 @@
 import React from 'react';
 import { DropdownOption } from '../../../../../basic-widgets/types';
 import { Lang } from '../../../../../langs';
-import {
-	Chart,
-	ChartBorderStyle,
-	ChartFontStyle,
-	ChartFontWeight,
-	ChartTextDecoration
-} from '../../../../../services/tuples/chart-types';
+import { Chart, ChartBorderStyle, ChartFontStyle, ChartFontWeight } from '../../../../../services/tuples/chart-types';
 import { EChartAlignment, EChartVerticalAlignment } from '../../../../../services/tuples/echarts-types';
 import { Report } from '../../../../../services/tuples/report-types';
 import { Theme } from '../../../../../theme/types';
@@ -71,12 +65,6 @@ export const createFontFamilyOptions = (theme: Theme) => {
 			};
 		});
 };
-export const TextDecorationOptions: Array<DropdownOption> = [
-	{ value: ChartTextDecoration.NONE, label: Lang.CHART.COUNT.TEXT_DECORATION_NONE },
-	{ value: ChartTextDecoration.UNDERLINE, label: Lang.CHART.COUNT.TEXT_DECORATION_UNDERLINE },
-	{ value: ChartTextDecoration.LINE_THROUGH, label: Lang.CHART.COUNT.TEXT_DECORATION_LINE_THROUGH },
-	{ value: ChartTextDecoration.OVERLINE, label: Lang.CHART.COUNT.TEXT_DECORATION_OVERLINE }
-];
 
 export const BorderStyleOptions: Array<DropdownOption> = [
 	{ value: ChartBorderStyle.NONE, label: Lang.CHART.BORDER_STYLE_NONE },
