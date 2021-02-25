@@ -194,36 +194,6 @@ export abstract class DefaultChartUtils implements ChartUtils {
 		return validationResult.pass || validationResult.error;
 	}
 
-	buildLegends(report: Report, dataset: ChartDataSet): Array<Legend> {
-		const { dimensions } = report;
-
-		const dimensionColumnIndexOffset = this.getDimensionColumnIndexOffset(report);
-
-		if (dimensions.length === 1) {
-			// only one dimension, use as xAxis. legend is not needed.
-			// still build as legend for later logic
-			return [ {
-				name: dimensions[0].name,
-				rows: dataset.data
-			} ];
-		} else {
-			// multiple dimensions, first as legends, second as xAxis
-			const legendMap = new Map<string, number>();
-			return dataset.data.reduce<Array<Legend>>((legends, row) => {
-				// values of first dimension as legends
-				const dimensionValue = `${row[dimensionColumnIndexOffset]}`;
-				const legendIndex = legendMap.get(dimensionValue);
-				if (legendIndex == null) {
-					legends.push({ name: dimensionValue, rows: [ row ] });
-					legendMap.set(dimensionValue, legends.length - 1);
-				} else {
-					legends[legendIndex].rows.push(row);
-				}
-				return legends;
-			}, []);
-		}
-	}
-
 	findColumnExtremum(dataset: ChartDataSet, columnIndex: number): { min: number, max: number } {
 		return dataset.data.reduce((extremum, row) => {
 			// must be number, otherwise throw exception
@@ -250,7 +220,8 @@ export abstract class DefaultChartUtils implements ChartUtils {
 	 * get dimension column index offset from starting
 	 */
 	protected getDimensionColumnIndexOffset(report: Report) {
-		return getDimensionColumnIndexOffset(report);
+		// there are some unnecessary indicators remained because chart type changed
+		return Math.min(getDimensionColumnIndexOffset(report), this.getMaxIndicatorCount());
 	};
 
 	protected buildDescartesByDimensions(report: Report, dataset: ChartDataSet) {

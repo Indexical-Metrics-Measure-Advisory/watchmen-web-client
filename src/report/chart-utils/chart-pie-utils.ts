@@ -4,6 +4,7 @@ import { ChartDataSet } from '../../services/tuples/chart-types';
 import { EChart } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils } from './default-chart-utils';
+import { buildEChartLegend } from './legend-utils';
 import { buildEChartTitle } from './title-utils';
 import { ChartOptions } from './types';
 
@@ -25,7 +26,7 @@ export class ChartPieUtils extends DefaultChartUtils {
 			tooltip: {
 				trigger: 'item'
 			},
-			legend: { data: groups.map(({ value }) => value) },
+			legend: buildEChartLegend(chart as EChart, groups.map(({ value }) => value)),
 			series: [ {
 				name: indicator.name,
 				type: 'pie',

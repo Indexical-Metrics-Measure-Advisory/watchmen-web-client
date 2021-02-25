@@ -86,8 +86,10 @@ export const fetchMockScatterChartData = async (reportId: string): Promise<Chart
 		setTimeout(() => resolve({
 				meta: [],
 				data: [
-					[ 1234, 'hello' ],
-					[ 1324, 'world' ]
+					[ 1234, 'hello', 'world' ],
+					[ 1324, 'goodbye', 'world' ],
+					[ 567, 'hello', 'hell' ],
+					[ 765, 'goodbye', 'hell' ]
 				]
 			} as ChartDataSet),
 			500

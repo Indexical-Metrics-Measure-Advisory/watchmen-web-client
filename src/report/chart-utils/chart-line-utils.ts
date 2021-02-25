@@ -4,6 +4,7 @@ import { ChartDataSet } from '../../services/tuples/chart-types';
 import { EChart } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils } from './default-chart-utils';
+import { buildEChartLegend } from './legend-utils';
 import { buildEChartTitle } from './title-utils';
 import { ChartOptions } from './types';
 
@@ -17,7 +18,7 @@ export class ChartLineUtils extends DefaultChartUtils {
 		const { indicators } = report;
 
 		const legends = indicators.map((indicator, indicatorIndex) => {
-			return { label: indicator.name, indicator, index: indicatorIndex };
+			return { label: indicator.name || `Indicator ${indicatorIndex + 1}`, indicator, index: indicatorIndex };
 		});
 		const groups = this.buildDescartesByDimensions(report, dataset);
 
@@ -28,7 +29,7 @@ export class ChartLineUtils extends DefaultChartUtils {
 				trigger: 'axis',
 				axisPointer: { type: 'shadow' }
 			},
-			legend: { data: legends.map(item => item.label) },
+			legend: buildEChartLegend(chart as EChart, legends.map(item => item.label)),
 			xAxis: [ {
 				type: 'category',
 				axisTick: { show: false },

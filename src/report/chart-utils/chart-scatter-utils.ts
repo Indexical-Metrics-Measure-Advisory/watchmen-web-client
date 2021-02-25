@@ -4,13 +4,44 @@ import { SCATTER } from '../../services/tuples/chart-def/chart-scatter';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { EChart } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
-import { DefaultChartUtils } from './default-chart-utils';
+import { DefaultChartUtils, Legend } from './default-chart-utils';
+import { buildEChartLegend } from './legend-utils';
 import { buildEChartTitle } from './title-utils';
 import { ChartOptions } from './types';
 
 export class ChartScatterUtils extends DefaultChartUtils {
 	constructor() {
 		super(SCATTER);
+	}
+
+	buildLegends(report: Report, dataset: ChartDataSet): Array<Legend> {
+		const { dimensions } = report;
+
+		const dimensionColumnIndexOffset = this.getDimensionColumnIndexOffset(report);
+
+		if (dimensions.length === 1) {
+			// only one dimension, use as xAxis. legend is not needed.
+			// still build as legend for later logic
+			return [ {
+				name: dimensions[0].name,
+				rows: dataset.data
+			} ];
+		} else {
+			// multiple dimensions, first as legends, second as xAxis
+			const legendMap = new Map<string, number>();
+			return dataset.data.reduce<Array<Legend>>((legends, row) => {
+				// values of first dimension as legends
+				const dimensionValue = `${row[dimensionColumnIndexOffset]}`;
+				const legendIndex = legendMap.get(dimensionValue);
+				if (legendIndex == null) {
+					legends.push({ name: dimensionValue, rows: [ row ] });
+					legendMap.set(dimensionValue, legends.length - 1);
+				} else {
+					legends[legendIndex].rows.push(row);
+				}
+				return legends;
+			}, []);
+		}
 	}
 
 	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
@@ -27,7 +58,7 @@ export class ChartScatterUtils extends DefaultChartUtils {
 				trigger: 'item'
 			},
 			// legend only available on multiple dimensions defined
-			legend: legends.length > 1 ? { data: legends.map(({ name }) => name) } : (void 0),
+			legend: legends.length > 1 ? buildEChartLegend(chart as EChart, legends.map(({ name }) => name)) : (void 0),
 			xAxis: {
 				type: 'category',
 				// use last dimension as xAxis
