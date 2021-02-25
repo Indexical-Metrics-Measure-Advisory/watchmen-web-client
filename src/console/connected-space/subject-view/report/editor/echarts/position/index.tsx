@@ -1,6 +1,7 @@
 import React from 'react';
 import { Lang } from '../../../../../../../langs';
-import { EChart, EChartsPositionHolder } from '../../../../../../../services/tuples/echarts-types';
+import { EChartsPositionHolder } from '../../../../../../../services/tuples/echarts/echarts-position-types';
+import { EChart } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import { EChartTitlePropNames, onNumberChange, validateNumber } from '../../data-utils';
 import { NumberValue } from '../../settings-widgets/number-value';

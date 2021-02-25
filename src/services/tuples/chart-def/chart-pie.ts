@@ -1,5 +1,5 @@
 import { ChartType } from '../chart-types';
-import { EChart, EChartsSettings } from '../echarts-types';
+import { EChart, EChartsSettings } from '../echarts/echarts-types';
 import { ChartDef } from './chart-def-types';
 
 export const PIE: ChartDef = {

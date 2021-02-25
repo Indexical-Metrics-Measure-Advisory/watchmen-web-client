@@ -3,7 +3,7 @@ import * as echarts from 'echarts/core';
 import { BASE_COLORS_24, BASE_COLORS_6 } from '../../basic-widgets/colors';
 import { MAP } from '../../services/tuples/chart-def/chart-map';
 import { ChartDataSet } from '../../services/tuples/chart-types';
-import { EChart } from '../../services/tuples/echarts-types';
+import { EChart } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils } from './default-chart-utils';
 import japanJson from './map-geo-data/gadm36_JPN_1.json';

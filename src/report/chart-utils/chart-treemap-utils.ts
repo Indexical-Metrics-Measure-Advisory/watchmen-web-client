@@ -1,7 +1,7 @@
 import { BASE_COLORS_24 } from '../../basic-widgets/colors';
 import { TREEMAP } from '../../services/tuples/chart-def/chart-treemap';
 import { ChartDataSet } from '../../services/tuples/chart-types';
-import { EChart } from '../../services/tuples/echarts-types';
+import { EChart } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils } from './default-chart-utils';
 import { buildEChartTitle } from './title-utils';

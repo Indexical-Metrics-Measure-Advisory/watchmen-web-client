@@ -1,11 +1,12 @@
 import React from 'react';
 import { Lang } from '../../../../../../../langs';
 import {
-	EChart,
-	EChartAlign,
-	EChartAlignment,
+	EChartAlignment, EChartHorizontalAlignment,
 	EChartVerticalAlignment
-} from '../../../../../../../services/tuples/echarts-types';
+} from '../../../../../../../services/tuples/echarts/echarts-alignment-types';
+import {
+	EChart,
+} from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import {
 	AlignmentOptions,
@@ -23,7 +24,7 @@ export interface SettingsAlignmentPropNames {
 export const AlignmentSettings = (props: {
 	report: Report;
 	chart: EChart;
-	getHolder: (chart: EChart) => EChartAlign | undefined;
+	getHolder: (chart: EChart) => EChartAlignment | undefined;
 	propNames: SettingsAlignmentPropNames;
 	onValueChange: () => void;
 }) => {
@@ -40,7 +41,7 @@ export const AlignmentSettings = (props: {
 
 	return <>
 		<DropdownValue label={Lang.CHART.ALIGNMENT}
-		               value={holder?.align} defaultValue={EChartAlignment.AUTO}
+		               value={holder?.align} defaultValue={EChartHorizontalAlignment.AUTO}
 		               options={AlignmentOptions}
 		               onValueChange={onDropdownValueChange({
 			               report,

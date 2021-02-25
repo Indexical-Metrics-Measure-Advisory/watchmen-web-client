@@ -1,7 +1,8 @@
 import React from 'react';
 import { Lang } from '../../../../../../../langs';
 import { ChartBorderStyle } from '../../../../../../../services/tuples/chart-types';
-import { EChart, EChartsBorderHolder } from '../../../../../../../services/tuples/echarts-types';
+import { EChartsBorderHolder } from '../../../../../../../services/tuples/echarts/echarts-border-type';
+import { EChart } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import {
 	BorderStyleOptions,

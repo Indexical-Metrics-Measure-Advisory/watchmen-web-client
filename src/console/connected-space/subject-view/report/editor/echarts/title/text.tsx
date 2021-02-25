@@ -1,6 +1,6 @@
 import React from 'react';
 import { Lang } from '../../../../../../../langs';
-import { EChart } from '../../../../../../../services/tuples/echarts-types';
+import { EChart } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import {
 	EChartTitlePropNames,

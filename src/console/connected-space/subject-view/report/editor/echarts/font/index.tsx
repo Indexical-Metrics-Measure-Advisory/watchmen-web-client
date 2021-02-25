@@ -1,6 +1,7 @@
 import React from 'react';
 import { Lang } from '../../../../../../../langs';
-import { EChart, EChartsFontHolder } from '../../../../../../../services/tuples/echarts-types';
+import { EChartsFontHolder } from '../../../../../../../services/tuples/echarts/echarts-font-types';
+import { EChart } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import { getCurrentTheme } from '../../../../../../../theme/theme-wrapper';
 import {

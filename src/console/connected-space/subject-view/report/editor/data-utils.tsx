@@ -2,7 +2,10 @@ import React from 'react';
 import { DropdownOption } from '../../../../../basic-widgets/types';
 import { Lang } from '../../../../../langs';
 import { Chart, ChartBorderStyle, ChartFontStyle, ChartFontWeight } from '../../../../../services/tuples/chart-types';
-import { EChartAlignment, EChartVerticalAlignment } from '../../../../../services/tuples/echarts-types';
+import {
+	EChartHorizontalAlignment,
+	EChartVerticalAlignment
+} from '../../../../../services/tuples/echarts/echarts-alignment-types';
 import { Report } from '../../../../../services/tuples/report-types';
 import { Theme } from '../../../../../theme/types';
 
@@ -74,10 +77,10 @@ export const BorderStyleOptions: Array<DropdownOption> = [
 ];
 
 export const AlignmentOptions: Array<DropdownOption> = [
-	{ value: EChartAlignment.AUTO, label: Lang.CHART.ALIGNMENT_AUTO },
-	{ value: EChartAlignment.LEFT, label: Lang.CHART.ALIGNMENT_LEFT },
-	{ value: EChartAlignment.CENTER, label: Lang.CHART.ALIGNMENT_CENTER },
-	{ value: EChartAlignment.RIGHT, label: Lang.CHART.ALIGNMENT_RIGHT }
+	{ value: EChartHorizontalAlignment.AUTO, label: Lang.CHART.ALIGNMENT_AUTO },
+	{ value: EChartHorizontalAlignment.LEFT, label: Lang.CHART.ALIGNMENT_LEFT },
+	{ value: EChartHorizontalAlignment.CENTER, label: Lang.CHART.ALIGNMENT_CENTER },
+	{ value: EChartHorizontalAlignment.RIGHT, label: Lang.CHART.ALIGNMENT_RIGHT }
 ];
 export const VerticalAlignmentOptions: Array<DropdownOption> = [
 	{ value: EChartVerticalAlignment.AUTO, label: Lang.CHART.VERTICAL_ALIGNMENT_AUTO },

@@ -1,5 +1,5 @@
 import { Chart, ChartFont, ChartType } from '../chart-types';
-import { EChartsSettings } from '../echarts-types';
+import { EChartsSettings } from '../echarts/echarts-types';
 import { ChartDef } from './chart-def-types';
 
 export const COUNT: ChartDef = {
