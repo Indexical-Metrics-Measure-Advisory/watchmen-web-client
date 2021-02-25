@@ -1,5 +1,4 @@
 import { ChartType } from '../chart-types';
-import { EChartsLegendHolder } from '../echarts/echarts-legend-types';
 import { EChart, EChartsSettings } from '../echarts/echarts-types';
 import { ChartDef } from './chart-def-types';
 
@@ -11,7 +10,7 @@ export const SCATTER: ChartDef = {
 	maxIndicatorCount: 3
 };
 
-export interface ScatterChartSettings extends EChartsSettings, EChartsLegendHolder {
+export interface ScatterChartSettings extends EChartsSettings {
 }
 
 export interface ScatterChart extends EChart {

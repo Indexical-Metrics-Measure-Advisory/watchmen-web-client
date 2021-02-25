@@ -1,5 +1,5 @@
 import React from 'react';
-import { isEChart } from '../../../../../../../services/tuples/echarts/echarts-utils';
+import { canHoldLegend } from '../../../../../../../services/tuples/echarts/echarts-utils';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import { useChartType } from '../../settings-effect/use-chart-type';
 
@@ -9,7 +9,7 @@ export const EChartsLegendSettings = (props: { report: Report }) => {
 
 	useChartType({ report });
 
-	if (!isEChart(chart)) {
+	if (!canHoldLegend(chart)) {
 		return null;
 	}
 
