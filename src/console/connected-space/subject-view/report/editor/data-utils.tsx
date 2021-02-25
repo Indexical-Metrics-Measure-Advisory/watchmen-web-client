@@ -6,6 +6,7 @@ import {
 	EChartsHorizontalAlignment,
 	EChartsVerticalAlignment
 } from '../../../../../services/tuples/echarts/echarts-alignment-types';
+import { EChartsAxisSplitLineStyle } from '../../../../../services/tuples/echarts/echarts-axis-split-line-types';
 import { EChartsLegendOrient } from '../../../../../services/tuples/echarts/echarts-legend-types';
 import {
 	EChartsXAxisNameLocation,
@@ -112,7 +113,11 @@ export const AxisTypeOptions: Array<DropdownOption> = [
 	{ value: EChartsXAxisType.VALUE, label: Lang.CHART.AXIS_TYPE_VALUE },
 	{ value: EChartsXAxisType.TIME, label: Lang.CHART.AXIS_TYPE_TIME }
 ];
-
+export const AxisSplitLineStyleOptions: Array<DropdownOption> = [
+	{ value: EChartsAxisSplitLineStyle.SOLID, label: Lang.CHART.BORDER_STYLE_SOLID },
+	{ value: EChartsAxisSplitLineStyle.DASHED, label: Lang.CHART.BORDER_STYLE_DASHED },
+	{ value: EChartsAxisSplitLineStyle.DOTTED, label: Lang.CHART.BORDER_STYLE_DOTTED }
+];
 
 export enum BasicStylePropNames {
 	BACKGROUND_COLOR = 'backgroundColor',
@@ -230,6 +235,34 @@ export enum EChartXAxisPropNames {
 	NAME_GAP = 'xaxis.name.gap',
 	NAME_ROTATE = 'xaxis.name.rotate',
 	NAME_PADDING = 'xaxis.name.padding',
+
+	LABEL_SHOW = 'xaxis.label.show',
+	LABEL_INSIDE = 'xaxis.label.inside',
+	LABEL_BACKGROUND_COLOR = 'xaxis.label.backgroundColor',
+	LABEL_FONT_FAMILY = 'xaxis.label.font.family',
+	LABEL_FONT_SIZE = 'xaxis.label.font.size',
+	LABEL_FONT_WEIGHT = 'xaxis.label.font.weight',
+	LABEL_FONT_COLOR = 'xaxis.label.font.color',
+	LABEL_FONT_STYLE = 'xaxis.label.font.style',
+	LABEL_BORDER_WIDTH = 'xaxis.label.border.width',
+	LABEL_BORDER_STYLE = 'xaxis.label.border.style',
+	LABEL_BORDER_COLOR = 'xaxis.label.border.color',
+	LABEL_BORDER_RADIUS = 'xaxis.label.border.radius',
+	LABEL_HORIZONTAL_ALIGN = 'xaxis.label.horizontalAlign',
+	LABEL_VERTICAL_ALIGN = 'xaxis.label.verticalAlign',
+	LABEL_GAP = 'xaxis.label.gap',
+	LABEL_ROTATE = 'xaxis.label.rotate',
+	LABEL_PADDING = 'xaxis.label.padding',
+
+	SPLIT_LINE_SHOW = 'xaxis.splitLine.show',
+	SPLIT_LINE_COLOR = 'xaxis.splitLine.color',
+	SPLIT_LINE_WIDTH = 'xaxis.splitLine.width',
+	SPLIT_LINE_STYLE = 'xaxis.splitLine.style',
+
+	MINOR_SPLIT_LINE_SHOW = 'xaxis.minorSplitLine.show',
+	MINOR_SPLIT_LINE_COLOR = 'xaxis.minorSplitLine.color',
+	MINOR_SPLIT_LINE_WIDTH = 'xaxis.minorSplitLine.width',
+	MINOR_SPLIT_LINE_STYLE = 'xaxis.minorSplitLine.style',
 }
 
 export type TextPropNames =
@@ -258,7 +291,12 @@ export type ColorPropNames =
 
 	| EChartXAxisPropNames.NAME_FONT_COLOR
 	| EChartXAxisPropNames.NAME_BORDER_COLOR
-	| EChartXAxisPropNames.NAME_BACKGROUND_COLOR;
+	| EChartXAxisPropNames.NAME_BACKGROUND_COLOR
+	| EChartXAxisPropNames.LABEL_FONT_COLOR
+	| EChartXAxisPropNames.LABEL_BORDER_COLOR
+	| EChartXAxisPropNames.LABEL_BACKGROUND_COLOR
+	| EChartXAxisPropNames.SPLIT_LINE_COLOR
+	| EChartXAxisPropNames.MINOR_SPLIT_LINE_COLOR;
 
 export type NumberPropNames =
 	BasicStylePropNames.BORDER_WIDTH
@@ -299,7 +337,15 @@ export type NumberPropNames =
 	| EChartXAxisPropNames.NAME_FONT_SIZE
 	| EChartXAxisPropNames.NAME_GAP
 	| EChartXAxisPropNames.NAME_ROTATE
-	| EChartXAxisPropNames.NAME_PADDING;
+	| EChartXAxisPropNames.NAME_PADDING
+	| EChartXAxisPropNames.LABEL_BORDER_WIDTH
+	| EChartXAxisPropNames.LABEL_BORDER_RADIUS
+	| EChartXAxisPropNames.LABEL_FONT_SIZE
+	| EChartXAxisPropNames.LABEL_GAP
+	| EChartXAxisPropNames.LABEL_ROTATE
+	| EChartXAxisPropNames.LABEL_PADDING
+	| EChartXAxisPropNames.SPLIT_LINE_WIDTH
+	| EChartXAxisPropNames.MINOR_SPLIT_LINE_WIDTH;
 
 export type DropdownPropNames =
 	BasicStylePropNames.BORDER_STYLE
@@ -335,7 +381,15 @@ export type DropdownPropNames =
 	| EChartXAxisPropNames.NAME_FONT_WEIGHT
 	| EChartXAxisPropNames.NAME_BORDER_STYLE
 	| EChartXAxisPropNames.NAME_HORIZONTAL_ALIGN
-	| EChartXAxisPropNames.NAME_VERTICAL_ALIGN;
+	| EChartXAxisPropNames.NAME_VERTICAL_ALIGN
+	| EChartXAxisPropNames.LABEL_FONT_FAMILY
+	| EChartXAxisPropNames.LABEL_FONT_STYLE
+	| EChartXAxisPropNames.LABEL_FONT_WEIGHT
+	| EChartXAxisPropNames.LABEL_BORDER_STYLE
+	| EChartXAxisPropNames.LABEL_HORIZONTAL_ALIGN
+	| EChartXAxisPropNames.LABEL_VERTICAL_ALIGN
+	| EChartXAxisPropNames.SPLIT_LINE_STYLE
+	| EChartXAxisPropNames.MINOR_SPLIT_LINE_STYLE;
 
 export type BooleanPropNames =
 	CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING
@@ -347,7 +401,11 @@ export type BooleanPropNames =
 
 	| EChartXAxisPropNames.SHOW
 	| EChartXAxisPropNames.AUTO_MIN
-	| EChartXAxisPropNames.AUTO_MAX;
+	| EChartXAxisPropNames.AUTO_MAX
+	| EChartXAxisPropNames.LABEL_SHOW
+	| EChartXAxisPropNames.LABEL_INSIDE
+	| EChartXAxisPropNames.SPLIT_LINE_SHOW
+	| EChartXAxisPropNames.MINOR_SPLIT_LINE_SHOW;
 
 export const onTextValueChange = (options: {
 	report: Report;
@@ -379,6 +437,13 @@ export const isANumber = (value: string) => {
 	} catch {
 		return false;
 	}
+};
+export const isANumberAndInRange = (min: number, max: number) => (value: string) => {
+	if (!isANumber(value)) {
+		return false;
+	}
+	const v = parseInt(value);
+	return min <= v && v <= max;
 };
 export const onNumberChange = (options: {
 	report: Report;

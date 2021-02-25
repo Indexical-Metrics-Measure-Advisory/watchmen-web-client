@@ -22,7 +22,10 @@ import { BooleanValue } from '../../settings-widgets/boolean-value';
 import { DropdownValue } from '../../settings-widgets/dropdown-value';
 import { NumberValue } from '../../settings-widgets/number-value';
 import { Section } from '../../settings-widgets/section';
+import { EChartsXAxisLabelSettings } from './label';
+import { EChartsXAxisMinorSplitLineSettings } from './minor-split-line';
 import { EChartsXAxisNameSettings } from './name';
+import { EChartsXAxisSplitLineSettings } from './split-line';
 
 export const EChartsXAxisSettings = (props: { report: Report }) => {
 	const { report } = props;
@@ -107,11 +110,8 @@ export const EChartsXAxisSettings = (props: { report: Report }) => {
 			             })}/>
 		</Section>
 		<EChartsXAxisNameSettings report={report} chart={chart}/>
-		<Section title={Lang.CHART.SECTION_TITLE_ECHART_XAXIS_LABEL}>
-		</Section>
-		<Section title={Lang.CHART.SECTION_TITLE_ECHART_XAXIS_LINE}>
-		</Section>
-		<Section title={Lang.CHART.SECTION_TITLE_ECHART_XAXIS_MINOR_LINE}>
-		</Section>
+		<EChartsXAxisLabelSettings report={report} chart={chart}/>
+		<EChartsXAxisSplitLineSettings report={report} chart={chart}/>
+		<EChartsXAxisMinorSplitLineSettings report={report} chart={chart}/>
 	</>;
 };

@@ -1,4 +1,5 @@
 import { EChartsAlignmentHolder } from './echarts-alignment-types';
+import { EChartsAxisMinorSplitLineHolder, EChartsAxisSplitLineHolder } from './echarts-axis-split-line-types';
 import { EChartsBorderHolder } from './echarts-border-type';
 import { EChartsFontHolder } from './echarts-font-types';
 
@@ -19,19 +20,6 @@ export enum EChartsXAxisNameLocation {
 	END = 'end'
 }
 
-export enum EChartsXAxisSplitLineType {
-	SOLID = 'solid',
-	DASHED = 'dashed',
-	DOTTED = 'dotted'
-}
-
-export interface EChartsXAxisSplitLine {
-	show?: boolean;
-	color?: string;
-	width?: number;
-	type?: EChartsXAxisSplitLineType;
-}
-
 export interface EChartsXAxisName extends EChartsFontHolder, EChartsBorderHolder, EChartsAlignmentHolder {
 	text?: string;
 	location?: EChartsXAxisNameLocation;
@@ -50,7 +38,7 @@ export interface EChartsXAxisLabel extends EChartsFontHolder, EChartsBorderHolde
 	padding?: number;
 }
 
-export interface EChartsXAxis {
+export interface EChartsXAxis extends EChartsAxisSplitLineHolder, EChartsAxisMinorSplitLineHolder {
 	show?: boolean;
 	position?: EChartsXAxisPosition;
 	type?: EChartsXAxisType;
@@ -60,8 +48,6 @@ export interface EChartsXAxis {
 	min?: number;
 	autoMax?: boolean;
 	max?: number;
-	splitLine?: EChartsXAxisSplitLine;
-	minorSplitLine?: EChartsXAxisSplitLine;
 }
 
 export interface EChartsXAxisHolder {
