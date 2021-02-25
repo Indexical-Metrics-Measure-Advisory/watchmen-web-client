@@ -5,6 +5,6 @@ export interface EChartsSettings extends ChartSettings, EChartsTitleHolder {
 }
 
 export interface EChart extends Chart {
-	type: Exclude<ChartType, ChartType.COUNT>;
+	type: ChartType;
 	settings?: EChartsSettings;
 }

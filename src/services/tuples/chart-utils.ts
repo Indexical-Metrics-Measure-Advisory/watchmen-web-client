@@ -10,7 +10,6 @@ import { SunburstChart } from './chart-def/chart-sunburst';
 import { TreeChart } from './chart-def/chart-tree';
 import { TreemapChart } from './chart-def/chart-treemap';
 import { Chart, ChartType } from './chart-types';
-import { EChart } from './echarts/echarts-types';
 
 export const isBarChart = (chart: Chart): chart is BarChart => {
 	return chart.type === ChartType.BAR;
@@ -44,11 +43,4 @@ export const isTreeChart = (chart: Chart): chart is TreeChart => {
 };
 export const isTreemapChart = (chart: Chart): chart is TreemapChart => {
 	return chart.type === ChartType.TREEMAP;
-};
-
-/**
- * any chart is echart now. 2020/02/25
- */
-export const isEChart = (chart: Chart): chart is EChart => {
-	return true;
 };

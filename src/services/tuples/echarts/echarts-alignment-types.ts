@@ -2,7 +2,7 @@ export enum EChartHorizontalAlignment { AUTO = 'auto', LEFT = 'left', RIGHT = 'r
 
 export enum EChartVerticalAlignment { AUTO = 'auto', TOP = 'top', BOTTOM = 'bottom', MIDDLE = 'middle'}
 
-export interface EChartAlignment {
-	align?: EChartHorizontalAlignment;
+export interface EChartAlignmentHolder {
+	horizontalAlign?: EChartHorizontalAlignment;
 	verticalAlign?: EChartVerticalAlignment;
 }

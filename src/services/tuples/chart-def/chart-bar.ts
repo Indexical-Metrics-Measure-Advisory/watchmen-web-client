@@ -1,4 +1,5 @@
 import { ChartType } from '../chart-types';
+import { EChartsLegendHolder } from '../echarts/echarts-legend-types';
 import { EChart, EChartsSettings } from '../echarts/echarts-types';
 import { ChartDef } from './chart-def-types';
 
@@ -8,7 +9,7 @@ export const BAR: ChartDef = {
 	minIndicatorCount: 1
 };
 
-export interface BarChartSettings extends EChartsSettings {
+export interface BarChartSettings extends EChartsSettings, EChartsLegendHolder {
 }
 
 export interface BarChart extends EChart {

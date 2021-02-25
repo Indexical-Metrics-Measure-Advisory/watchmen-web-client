@@ -36,7 +36,7 @@ export const buildEChartTitle = (chart: EChart): TitleComponentOption | undefine
 		backgroundColor: title.backgroundColor,
 		itemGap: title.itemGap,
 		padding: title.padding,
-		textAlign: title.align as any,
+		textAlign: title.horizontalAlign as any,
 		textVerticalAlign: title.verticalAlign as any,
 		borderColor: title.border?.color,
 		borderWidth: title.border?.width,
