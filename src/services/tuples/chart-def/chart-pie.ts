@@ -6,7 +6,10 @@ export const PIE: ChartDef = {
 	type: ChartType.PIE,
 	minDimensionCount: 1,
 	minIndicatorCount: 1,
-	maxIndicatorCount: 1
+	maxIndicatorCount: 1,
+
+	canHoldTitle: true,
+	canHoldLegend: true
 };
 
 export interface PieChartSettings extends EChartsSettings {

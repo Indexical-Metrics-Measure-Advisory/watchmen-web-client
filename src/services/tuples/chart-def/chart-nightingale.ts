@@ -6,7 +6,10 @@ export const NIGHTINGALE: ChartDef = {
 	type: ChartType.NIGHTINGALE,
 	minDimensionCount: 1,
 	minIndicatorCount: 1,
-	maxIndicatorCount: 1
+	maxIndicatorCount: 1,
+
+	canHoldTitle: true,
+	canHoldLegend: true
 };
 
 export interface NightingaleChartSettings extends EChartsSettings {

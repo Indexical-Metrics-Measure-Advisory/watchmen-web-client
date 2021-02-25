@@ -6,7 +6,10 @@ export const TREEMAP: ChartDef = {
 	type: ChartType.TREEMAP,
 	minDimensionCount: 2,
 	minIndicatorCount: 1,
-	maxIndicatorCount: 1
+	maxIndicatorCount: 1,
+
+	canHoldTitle: true,
+	canHoldLegend: false
 };
 
 export interface TreemapChartSettings extends EChartsSettings {

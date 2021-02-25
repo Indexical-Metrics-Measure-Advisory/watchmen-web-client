@@ -6,7 +6,10 @@ export const TREE: ChartDef = {
 	type: ChartType.TREE,
 	minDimensionCount: 2,
 	minIndicatorCount: 1,
-	maxIndicatorCount: 1
+	maxIndicatorCount: 1,
+
+	canHoldTitle: true,
+	canHoldLegend: false
 };
 
 export interface TreeChartSettings extends EChartsSettings {

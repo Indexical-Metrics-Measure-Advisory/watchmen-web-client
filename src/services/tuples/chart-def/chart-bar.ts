@@ -5,7 +5,10 @@ import { ChartDef } from './chart-def-types';
 export const BAR: ChartDef = {
 	type: ChartType.BAR,
 	minDimensionCount: 1,
-	minIndicatorCount: 1
+	minIndicatorCount: 1,
+
+	canHoldTitle: true,
+	canHoldLegend: true
 };
 
 export interface BarChartSettings extends EChartsSettings {

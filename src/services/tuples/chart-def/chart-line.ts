@@ -5,7 +5,10 @@ import { ChartDef } from './chart-def-types';
 export const LINE: ChartDef = {
 	type: ChartType.LINE,
 	minDimensionCount: 1,
-	minIndicatorCount: 1
+	minIndicatorCount: 1,
+
+	canHoldTitle: true,
+	canHoldLegend: true
 };
 
 export interface LineChartSettings extends EChartsSettings {

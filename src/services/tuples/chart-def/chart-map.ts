@@ -7,7 +7,10 @@ export const MAP: ChartDef = {
 	minDimensionCount: 1,
 	maxDimensionCount: 1,
 	minIndicatorCount: 1,
-	maxIndicatorCount: 1
+	maxIndicatorCount: 1,
+
+	canHoldTitle: true,
+	canHoldLegend: false
 };
 
 export interface MapChartSettings extends EChartsSettings {

@@ -1,9 +1,12 @@
 import { ChartType } from '../chart-types';
 
 export interface ChartDef {
-	type: ChartType;
-	minDimensionCount?: number;
-	maxDimensionCount?: number;
-	minIndicatorCount?: number;
-	maxIndicatorCount?: number;
+	readonly type: ChartType;
+	readonly minDimensionCount?: number;
+	readonly maxDimensionCount?: number;
+	readonly minIndicatorCount?: number;
+	readonly maxIndicatorCount?: number;
+
+	readonly canHoldTitle: boolean;
+	readonly canHoldLegend: boolean;
 }

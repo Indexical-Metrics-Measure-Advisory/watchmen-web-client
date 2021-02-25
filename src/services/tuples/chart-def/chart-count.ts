@@ -7,7 +7,10 @@ export const COUNT: ChartDef = {
 	minDimensionCount: 0,
 	maxDimensionCount: 0,
 	minIndicatorCount: 1,
-	maxIndicatorCount: 1
+	maxIndicatorCount: 1,
+
+	canHoldTitle: true,
+	canHoldLegend: false
 };
 
 export interface CountChartSettingsText {
