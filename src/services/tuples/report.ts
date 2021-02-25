@@ -27,17 +27,17 @@ export const saveNewReport = async (report: Report, subjectId: string): Promise<
 	} else {
 		const token = findToken();
 		const response = await fetch(`${getServiceHost()}console_space/subject/report/save?subject_id=${subjectId}`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: 'Bearer ' + token
-			},
-			body: JSON.stringify(report)
-		}
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + token
+				},
+				body: JSON.stringify(report)
+			}
 		);
 		const data = await response.json();
-		report.reportId = data.reportId
-		report.lastVisitTime = data.lastModifyTime
+		report.reportId = data.reportId;
+		report.lastVisitTime = data.lastModifyTime;
 	}
 };
 
@@ -51,13 +51,13 @@ export const saveReport = async (report: Report): Promise<void> => {
 		} else {
 			const token = findToken();
 			const response = await fetch(`${getServiceHost()}console_space/subject/report/update`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: 'Bearer ' + token
-				},
-				body: JSON.stringify(report)
-			}
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: 'Bearer ' + token
+					},
+					body: JSON.stringify(report)
+				}
 			);
 			const data = await response.json();
 			report.reportId = data.reportId;
