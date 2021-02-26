@@ -15,8 +15,8 @@ import { ReportMoveOrResizeMonitor } from './report-move-or-resize-monitor';
 import { ReportRemover } from './report-remover';
 import { DashboardBodyContainer, DashboardNoReport } from './widgets';
 
-export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean }) => {
-	const { dashboard, removable = true } = props;
+export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean, transient?: boolean }) => {
+	const { dashboard, removable = true, transient = false } = props;
 
 	const { once: onceConsole } = useConsoleEventBus();
 	const { on, off } = useDashboardEventBus();
@@ -64,7 +64,7 @@ export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean
 				: <DashboardNoReport><span>{Lang.CONSOLE.CONNECTED_SPACE.NO_REPORT}</span></DashboardNoReport>}
 			<PagePrintSize dashboard={dashboard}/>
 		</DashboardBodyContainer>
-		<ReportMoveOrResizeMonitor dashboard={dashboard}/>
+		{transient ? null : <ReportMoveOrResizeMonitor dashboard={dashboard}/>}
 		<ReportRemover dashboard={dashboard}/>
 	</ReportEventBusProvider>;
 };
