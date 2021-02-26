@@ -1,5 +1,6 @@
 import { CountChartStylePropNames } from '../chart-styles/count-chart-style-props';
 import { TreeChartStylePropNames } from '../chart-styles/tree-chart-style-props';
+import { TreemapChartStylePropNames } from '../chart-styles/treemap-chart-style-props';
 import { EChartsGridPropNames } from '../echart-styles/echarts-grid-props';
 import { EChartsLegendPropNames } from '../echart-styles/echarts-legend-props';
 import { EChartsTitlePropNames } from '../echart-styles/echarts-title-props';
@@ -17,6 +18,11 @@ export type NumberPropNames =
 	| TreeChartStylePropNames.POSITION_RIGHT
 	| TreeChartStylePropNames.POSITION_LEFT
 	| TreeChartStylePropNames.POSITION_BOTTOM
+
+	| TreemapChartStylePropNames.POSITION_TOP
+	| TreemapChartStylePropNames.POSITION_RIGHT
+	| TreemapChartStylePropNames.POSITION_LEFT
+	| TreemapChartStylePropNames.POSITION_BOTTOM
 
 	| EChartsTitlePropNames.TEXT_FONT_SIZE
 	| EChartsTitlePropNames.TEXT_BORDER_WIDTH

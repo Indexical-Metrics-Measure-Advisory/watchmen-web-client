@@ -28,14 +28,14 @@ export enum TreeOrient {
 	BOTTOM_TOP = 'BT'
 }
 
-export interface TreeChartSettingsGraphics {
+export interface TreeChartSettingsSeries {
 	layout?: TreeLayout;
 	orient?: TreeOrient;
 	roam?: boolean;
 }
 
 export interface TreeChartSettings extends EChartsSettings {
-	series?: TreeChartSettingsGraphics;
+	series?: TreeChartSettingsSeries;
 	grid?: EChartsGridPositionOnly;
 }
 

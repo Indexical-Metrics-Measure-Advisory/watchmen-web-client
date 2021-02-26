@@ -3,6 +3,7 @@ import { Report } from '../../../../../../services/tuples/report-types';
 import { Subject } from '../../../../../../services/tuples/subject-types';
 import { ChartCountSettings } from '../chart-count-settings';
 import { ChartTreeSettings } from '../chart-tree-settings';
+import { ChartTreemapSettings } from '../chart-treemap-settings';
 import { DimensionsSection } from '../dimensions';
 import { EChartsGridSettings } from '../echarts/grid';
 import { EChartsLegendSettings } from '../echarts/legend';
@@ -28,6 +29,7 @@ export const SettingsBody = (props: { subject: Subject, report: Report }) => {
 		<RectSection report={report}/>
 		<ChartCountSettings report={report}/>
 		<ChartTreeSettings report={report}/>
+		<ChartTreemapSettings report={report}/>
 		<EChartsTitleSettings report={report}/>
 		<EChartsLegendSettings report={report}/>
 		<EChartsGridSettings report={report}/>

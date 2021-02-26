@@ -1,5 +1,6 @@
 import { CountChartStylePropNames } from '../chart-styles/count-chart-style-props';
 import { TreeChartStylePropNames } from '../chart-styles/tree-chart-style-props';
+import { TreemapChartStylePropNames } from '../chart-styles/treemap-chart-style-props';
 import { EChartsGridPropNames } from '../echart-styles/echarts-grid-props';
 import { EChartsLegendPropNames } from '../echart-styles/echarts-legend-props';
 import { EChartsXAxisPropNames } from '../echart-styles/echarts-xaxis-props';
@@ -9,6 +10,8 @@ export type BooleanPropNames =
 	CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING
 
 	| TreeChartStylePropNames.ROAM
+
+	| TreemapChartStylePropNames.ROAM
 
 	| EChartsLegendPropNames.SHOW
 
