@@ -1,5 +1,5 @@
 import { ChartType } from '../chart-types';
-import { ECharts, EChartsSettings } from '../echarts/echarts-types';
+import { ECharts } from '../echarts/echarts-types';
 import { ChartDef } from './chart-def-types';
 import { PieChartSettings } from './chart-pie';
 

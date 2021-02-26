@@ -19,7 +19,7 @@ export class ChartNightingaleUtils extends DefaultChartUtils {
 	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
 		const { chart } = report;
 		// only one indicator allowed
-		const { indicators: [ indicator ] } = report;
+		// const { indicators: [ indicator ] } = report;
 
 		const groups = this.buildDescartesByDimensions(report, dataset);
 
