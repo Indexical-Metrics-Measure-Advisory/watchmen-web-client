@@ -5,6 +5,7 @@ import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils } from './default-chart-utils';
 import { buildEChartsLegend } from './legend-utils';
+import { buildEChartsPie } from './pie-utils';
 import { buildEChartsTitle } from './title-utils';
 import { ChartOptions } from './types';
 
@@ -16,9 +17,17 @@ export class ChartPieUtils extends DefaultChartUtils {
 	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
 		const { chart } = report;
 		// only one indicator allowed
-		const { indicators: [ indicator ] } = report;
+		// const { indicators: [ indicator ] } = report;
 
 		const groups = this.buildDescartesByDimensions(report, dataset);
+
+		const data = groups.map(({ value, row }) => {
+			return {
+				name: value,
+				value: this.formatNumber(row[0] || 0)
+			};
+		});
+		// label: { formatter: '{b}: {c}, {d}%' }
 
 		return {
 			color: BASE_COLORS_24,
@@ -27,18 +36,7 @@ export class ChartPieUtils extends DefaultChartUtils {
 				trigger: 'item'
 			},
 			legend: buildEChartsLegend(chart as ECharts, groups.map(({ value }) => value)),
-			series: [ {
-				name: indicator.name,
-				type: 'pie',
-				center: [ '50%', '50%' ],
-				label: { formatter: '{b}: {c}, {d}%' },
-				data: groups.map(({ value, row }) => {
-					return {
-						name: value,
-						value: this.formatNumber(row[0] || 0)
-					};
-				})
-			} ]
+			series: [ buildEChartsPie(chart as ECharts, data) ]
 		};
 	}
 }

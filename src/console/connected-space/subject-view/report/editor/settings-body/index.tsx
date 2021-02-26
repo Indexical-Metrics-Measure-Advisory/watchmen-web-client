@@ -2,6 +2,7 @@ import React from 'react';
 import { Report } from '../../../../../../services/tuples/report-types';
 import { Subject } from '../../../../../../services/tuples/subject-types';
 import { ChartCountSettings } from '../chart-count-settings';
+import { ChartPieSettings } from '../chart-pie-settings';
 import { ChartTreeSettings } from '../chart-tree-settings';
 import { ChartTreemapSettings } from '../chart-treemap-settings';
 import { DimensionsSection } from '../dimensions';
@@ -30,6 +31,7 @@ export const SettingsBody = (props: { subject: Subject, report: Report }) => {
 		<ChartCountSettings report={report}/>
 		<ChartTreeSettings report={report}/>
 		<ChartTreemapSettings report={report}/>
+		<ChartPieSettings report={report}/>
 		<EChartsTitleSettings report={report}/>
 		<EChartsLegendSettings report={report}/>
 		<EChartsGridSettings report={report}/>

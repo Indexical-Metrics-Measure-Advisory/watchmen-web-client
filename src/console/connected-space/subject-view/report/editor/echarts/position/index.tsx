@@ -4,6 +4,7 @@ import { EChartsPositionHolder } from '../../../../../../../services/tuples/echa
 import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import { onNumberChange, validateNumber } from '../../data-utils';
+import { PieChartStylePropNames } from '../../prop-defs/chart-styles/pie-chart-style-props';
 import { TreeChartStylePropNames } from '../../prop-defs/chart-styles/tree-chart-style-props';
 import { TreemapChartStylePropNames } from '../../prop-defs/chart-styles/treemap-chart-style-props';
 import { EChartsGridPropNames } from '../../prop-defs/echart-styles/echarts-grid-props';
@@ -16,22 +17,26 @@ export interface SettingsPositionPropNames {
 		| EChartsLegendPropNames.POSITION_TOP
 		| EChartsGridPropNames.POSITION_TOP
 		| TreeChartStylePropNames.POSITION_TOP
-		| TreemapChartStylePropNames.POSITION_TOP;
+		| TreemapChartStylePropNames.POSITION_TOP
+		| PieChartStylePropNames.POSITION_TOP;
 	right: EChartsTitlePropNames.POSITION_RIGHT
 		| EChartsLegendPropNames.POSITION_RIGHT
 		| EChartsGridPropNames.POSITION_RIGHT
 		| TreeChartStylePropNames.POSITION_RIGHT
-		| TreemapChartStylePropNames.POSITION_RIGHT;
+		| TreemapChartStylePropNames.POSITION_RIGHT
+		| PieChartStylePropNames.POSITION_RIGHT;
 	left: EChartsTitlePropNames.POSITION_LEFT
 		| EChartsLegendPropNames.POSITION_LEFT
 		| EChartsGridPropNames.POSITION_LEFT
 		| TreeChartStylePropNames.POSITION_LEFT
-		| TreemapChartStylePropNames.POSITION_LEFT;
+		| TreemapChartStylePropNames.POSITION_LEFT
+		| PieChartStylePropNames.POSITION_LEFT;
 	bottom: EChartsTitlePropNames.POSITION_BOTTOM
 		| EChartsLegendPropNames.POSITION_BOTTOM
 		| EChartsGridPropNames.POSITION_BOTTOM
 		| TreeChartStylePropNames.POSITION_BOTTOM
-		| TreemapChartStylePropNames.POSITION_BOTTOM;
+		| TreemapChartStylePropNames.POSITION_BOTTOM
+		| PieChartStylePropNames.POSITION_BOTTOM;
 }
 
 export const PositionSettings = (props: {

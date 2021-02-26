@@ -1,4 +1,5 @@
 import { CountChartStylePropNames } from '../chart-styles/count-chart-style-props';
+import { PieChartStylePropNames } from '../chart-styles/pie-chart-style-props';
 import { TreeChartStylePropNames } from '../chart-styles/tree-chart-style-props';
 import { EChartsGridPropNames } from '../echart-styles/echarts-grid-props';
 import { EChartsLegendPropNames } from '../echart-styles/echarts-legend-props';
@@ -14,9 +15,11 @@ export type DropdownPropNames =
 	| CountChartStylePropNames.TEXT_FONT_STYLE
 	| CountChartStylePropNames.TEXT_FONT_WEIGHT
 
-
 	| TreeChartStylePropNames.LAYOUT
 	| TreeChartStylePropNames.ORIENT
+
+	| PieChartStylePropNames.BORDER_STYLE
+	| PieChartStylePropNames.ROSE_TYPE
 
 	| EChartsTitlePropNames.TEXT_FONT_FAMILY
 	| EChartsTitlePropNames.TEXT_FONT_STYLE

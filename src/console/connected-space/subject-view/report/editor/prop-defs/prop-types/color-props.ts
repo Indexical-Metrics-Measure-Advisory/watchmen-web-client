@@ -1,4 +1,5 @@
 import { CountChartStylePropNames } from '../chart-styles/count-chart-style-props';
+import { PieChartStylePropNames } from '../chart-styles/pie-chart-style-props';
 import { EChartsGridPropNames } from '../echart-styles/echarts-grid-props';
 import { EChartsLegendPropNames } from '../echart-styles/echarts-legend-props';
 import { EChartsTitlePropNames } from '../echart-styles/echarts-title-props';
@@ -11,6 +12,8 @@ export type ColorPropNames =
 	| PeripheralStylePropNames.BORDER_COLOR
 
 	| CountChartStylePropNames.TEXT_FONT_COLOR
+
+	| PieChartStylePropNames.BORDER_COLOR
 
 	| EChartsTitlePropNames.TEXT_FONT_COLOR
 	| EChartsTitlePropNames.TEXT_BORDER_COLOR
