@@ -3,7 +3,9 @@ import { SUNBURST } from '../../services/tuples/chart-def/chart-sunburst';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
+import { cleanUselessValues } from './data-utils';
 import { DefaultChartUtils } from './default-chart-utils';
+import { buildEChartsPie } from './pie-utils';
 import { buildEChartsTitle } from './title-utils';
 import { ChartOptions } from './types';
 
@@ -14,17 +16,17 @@ export class ChartSunburstUtils extends DefaultChartUtils {
 
 	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
 		const { chart } = report;
-		return {
+		return cleanUselessValues({
 			color: BASE_COLORS_24,
 			title: buildEChartsTitle(chart as ECharts),
 			tooltip: {
 				trigger: 'item'
 			},
-			series: [ {
+			series: [ buildEChartsPie(chart as ECharts, this.buildTreeData(report, dataset), {
 				type: 'sunburst',
-				radius: [ '10%', '90%' ],
-				data: this.buildTreeData(report, dataset)
-			} ]
-		};
+				insideRadius: '10%',
+				outsideRadius: '90%'
+			}) ]
+		});
 	}
 }

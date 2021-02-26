@@ -2,7 +2,14 @@ import { PieChartSettings, PieRoseType } from '../../services/tuples/chart-def/c
 import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { cleanUselessValues } from './data-utils';
 
-export const buildEChartsPie = (chart: ECharts, data: any): any | undefined => {
+export const buildEChartsPie = (chart: ECharts, data: any, options: {
+	type: 'pie' | 'sunburst';
+	insideRadius: number | string;
+	outsideRadius: number | string;
+	roseType?: PieRoseType;
+}): any | undefined => {
+	const { type, insideRadius, outsideRadius, roseType } = options;
+
 	let { settings } = chart;
 
 	if (!settings) {
@@ -21,10 +28,10 @@ export const buildEChartsPie = (chart: ECharts, data: any): any | undefined => {
 	}
 
 	return cleanUselessValues({
-		type: 'pie',
+		type,
 		center: [ series.centerX || '50%', series.centerY || '50%' ],
-		radius: [ series.insideRadius || 0, series.outsideRadius || '75%' ],
-		roseType: series.roseType === PieRoseType.NONE ? false : series.roseType,
+		radius: [ series.insideRadius || insideRadius, series.outsideRadius || outsideRadius ],
+		roseType: series.roseType === PieRoseType.NONE ? (roseType || false) : series.roseType,
 		data,
 		top: grid?.position?.top,
 		right: grid?.position?.right,

@@ -3,6 +3,7 @@ import { PIE } from '../../services/tuples/chart-def/chart-pie';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
+import { cleanUselessValues } from './data-utils';
 import { DefaultChartUtils } from './default-chart-utils';
 import { buildEChartsLegend } from './legend-utils';
 import { buildEChartsPie } from './pie-utils';
@@ -29,14 +30,18 @@ export class ChartPieUtils extends DefaultChartUtils {
 		});
 		// label: { formatter: '{b}: {c}, {d}%' }
 
-		return {
+		return cleanUselessValues({
 			color: BASE_COLORS_24,
 			title: buildEChartsTitle(chart as ECharts),
 			tooltip: {
 				trigger: 'item'
 			},
 			legend: buildEChartsLegend(chart as ECharts, groups.map(({ value }) => value)),
-			series: [ buildEChartsPie(chart as ECharts, data) ]
-		};
+			series: [ buildEChartsPie(chart as ECharts, data, {
+				type: 'pie',
+				insideRadius: 0,
+				outsideRadius: '75%'
+			}) ]
+		});
 	}
 }
