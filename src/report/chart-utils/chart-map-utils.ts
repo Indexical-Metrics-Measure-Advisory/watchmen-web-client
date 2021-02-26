@@ -46,13 +46,16 @@ export class ChartMapUtils extends DefaultChartUtils {
 
 		const data = dataset.data.map(row => {
 			const coordinate = JapanCoordinates.get(row[1] as string)!;
+			if (!coordinate) {
+				return null;
+			}
 			return {
 				// value of dimension as name
 				name: row[2],
 				// value of indicator as value
 				value: [ coordinate.longitude, coordinate.latitude, row[0] ]
 			};
-		});
+		}).filter(x => !!x);
 
 		return {
 			color: BASE_COLORS_24,
