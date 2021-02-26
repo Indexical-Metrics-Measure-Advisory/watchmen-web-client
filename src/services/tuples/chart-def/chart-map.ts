@@ -4,10 +4,10 @@ import { ChartDef } from './chart-def-types';
 
 export const MAP: ChartDef = {
 	type: ChartType.MAP,
-	minDimensionCount: 1,
-	maxDimensionCount: 1,
-	minIndicatorCount: 2,
-	maxIndicatorCount: 2,
+	minDimensionCount: 2,
+	maxDimensionCount: 2,
+	minIndicatorCount: 1,
+	maxIndicatorCount: 1,
 
 	canHoldTitle: true,
 	canHoldLegend: false,
