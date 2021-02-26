@@ -1,7 +1,7 @@
 import React from 'react';
 import { Lang } from '../../../../../../langs';
 import { PieRoseType } from '../../../../../../services/tuples/chart-def/chart-pie';
-import { isPieChart } from '../../../../../../services/tuples/chart-utils';
+import { isDoughnutChart, isNightingaleChart, isPieChart } from '../../../../../../services/tuples/chart-utils';
 import { Report } from '../../../../../../services/tuples/report-types';
 import { BorderSettings, SettingsBorderPropNames } from '../echarts/border';
 import { PieSettings, SettingsPiePropNames } from '../echarts/pie';
@@ -19,7 +19,7 @@ export const ChartPieSettings = (props: { report: Report }) => {
 	const { fire } = useReportEditEventBus();
 	useChartType({ report });
 
-	if (!isPieChart(chart)) {
+	if (!isPieChart(chart) && !isDoughnutChart(chart) && !isNightingaleChart(chart)) {
 		return null;
 	}
 

@@ -1,6 +1,7 @@
 import { ChartType } from '../chart-types';
-import { ECharts, EChartsSettings } from '../echarts/echarts-types';
+import { ECharts } from '../echarts/echarts-types';
 import { ChartDef } from './chart-def-types';
+import { PieChartSettings } from './chart-pie';
 
 export const NIGHTINGALE: ChartDef = {
 	type: ChartType.NIGHTINGALE,
@@ -15,7 +16,7 @@ export const NIGHTINGALE: ChartDef = {
 	canUseYAxis: false
 };
 
-export interface NightingaleChartSettings extends EChartsSettings {
+export interface NightingaleChartSettings extends PieChartSettings {
 }
 
 export interface NightingaleChart extends ECharts {

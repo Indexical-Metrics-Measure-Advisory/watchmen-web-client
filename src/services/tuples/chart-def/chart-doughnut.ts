@@ -1,6 +1,7 @@
 import { ChartType } from '../chart-types';
-import { ECharts, EChartsSettings } from '../echarts/echarts-types';
+import { ECharts } from '../echarts/echarts-types';
 import { ChartDef } from './chart-def-types';
+import { PieChartSettings } from './chart-pie';
 
 export const DOUGHNUT: ChartDef = {
 	type: ChartType.DOUGHNUT,
@@ -15,7 +16,7 @@ export const DOUGHNUT: ChartDef = {
 	canUseYAxis: false
 };
 
-export interface DoughnutChartSettings extends EChartsSettings {
+export interface DoughnutChartSettings extends PieChartSettings {
 }
 
 export interface DoughnutChart extends ECharts {
