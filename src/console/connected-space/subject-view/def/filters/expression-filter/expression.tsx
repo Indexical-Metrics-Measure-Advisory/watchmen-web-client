@@ -17,11 +17,13 @@ export const ExpressionBody = (props: {
 	parameter: Parameter
 	availableTopics: Array<Topic>;
 	pickedTopics: Array<Topic>;
+	visible: boolean;
 }) => {
 	const {
 		subject,
 		filter, parameter,
-		availableTopics, pickedTopics
+		availableTopics, pickedTopics,
+		visible
 	} = props;
 
 	const { on, off } = useParameterEventBus();
@@ -33,7 +35,7 @@ export const ExpressionBody = (props: {
 		};
 	}, [ on, off, forceUpdate ]);
 
-	return <ExpressionSide shorten={parameter.kind === ParameterKind.COMPUTED}>
+	return <ExpressionSide shorten={parameter.kind === ParameterKind.COMPUTED} visible={visible}>
 		<ParameterFromEditorForExpression shorten={parameter.kind === ParameterKind.COMPUTED}
 		                                  parameter={parameter}/>
 		<ConstantValueEditor parameter={parameter}/>
@@ -51,6 +53,7 @@ export const Expression = (props: {
 	parameter: Parameter
 	availableTopics: Array<Topic>;
 	pickedTopics: Array<Topic>;
+	visible: boolean;
 }) => {
 	return <ParameterEventBusProvider>
 		<ExpressionBody {...props}/>

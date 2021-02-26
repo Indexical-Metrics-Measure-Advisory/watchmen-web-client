@@ -49,14 +49,15 @@ export const ExpressionLeadLabel = styled.div.attrs({ 'data-widget': 'expression
 	outline          : none;
 	box-shadow       : var(--param-border);
 `;
-export const ExpressionSide = styled.div.attrs<{ shorten: boolean }>(({ shorten }) => {
+export const ExpressionSide = styled.div.attrs<{ shorten: boolean, visible: boolean }>(({ shorten, visible }) => {
 	return {
 		'data-widget': 'expression',
 		style: {
+			display: visible ? (void 0) : 'none',
 			gridTemplateColumns: shorten ? 'auto auto 1fr' : (void 0)
 		}
 	};
-})<{ shorten: boolean }>`
+})<{ shorten: boolean, visible: boolean }>`
 	display               : grid;
 	grid-column           : span 3;
 	position              : relative;
@@ -94,7 +95,7 @@ export const ExpressionSide = styled.div.attrs<{ shorten: boolean }>(({ shorten 
 	}
 `;
 
-export const ExpressionOperatorContainer = styled.div.attrs({ 'data-widget': 'expression-operator' })`
+export const ExpressionOperatorContainer = styled.div.attrs({ 'data-widget': 'expression-operator' })<{ hasRight: boolean }>`
 	display          : flex;
 	grid-column      : span 3;
 	position         : relative;
@@ -129,7 +130,7 @@ export const ExpressionOperatorContainer = styled.div.attrs({ 'data-widget': 'ex
 	}
 	&:not(:last-child):after {
 		content    : '';
-		display    : block;
+		display    : ${({ hasRight }) => hasRight ? 'block' : 'none'};
 		position   : absolute;
 		top        : calc(var(--param-height) / 2 - 3px);
 		right      : 100%;

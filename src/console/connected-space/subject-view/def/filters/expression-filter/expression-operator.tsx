@@ -70,7 +70,10 @@ export const ExpressionOperator = (props: { filter: SubjectDataSetFilterExpressi
 		}
 	};
 
-	return <ExpressionOperatorContainer onClick={onStartClicked} ref={containerRef}>
+	const hasRight = filter.operator !== ParameterExpressionOperator.EMPTY
+		&& filter.operator !== ParameterExpressionOperator.NOT_EMPTY;
+
+	return <ExpressionOperatorContainer hasRight={hasRight} onClick={onStartClicked} ref={containerRef}>
 		<ExpressionOperatorLabel>{FilterExpressionOperatorLabels[filter.operator]}</ExpressionOperatorLabel>
 		<ExpressionOperatorIcon>
 			<FontAwesomeIcon icon={ICON_EDIT}/>

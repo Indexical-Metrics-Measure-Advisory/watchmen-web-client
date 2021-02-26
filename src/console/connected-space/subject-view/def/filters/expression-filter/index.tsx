@@ -13,6 +13,7 @@ import { HierarchicalFilterEventBridge } from '../hierarchical-filter-event-brid
 import { RemoveFilterIcon } from '../widgets';
 import { Expression } from './expression';
 import { ExpressionOperator } from './expression-operator';
+import { ExpressionRight } from './expression-right';
 import { ExpressionFilterContainer, ExpressionLeadLabel } from './widgets';
 
 export const ExpressionFilterEdit = (props: {
@@ -48,10 +49,11 @@ export const ExpressionFilterEdit = (props: {
 				<FontAwesomeIcon icon={ICON_DELETE}/>
 			</RemoveFilterIcon>
 			<Expression subject={subject} filter={filter} parameter={filter.left}
-			            availableTopics={availableTopics} pickedTopics={pickedTopics}/>
+			            availableTopics={availableTopics} pickedTopics={pickedTopics}
+			            visible={true}/>
 			<ExpressionOperator filter={filter}/>
-			<Expression subject={subject} filter={filter} parameter={filter.right}
-			            availableTopics={availableTopics} pickedTopics={pickedTopics}/>
+			<ExpressionRight subject={subject} filter={filter} parameter={filter.right}
+			                 availableTopics={availableTopics} pickedTopics={pickedTopics}/>
 		</ExpressionFilterContainer>
 		<HierarchicalFilterEventBridge notifyChangeToParent={notifyChangeToParent}/>
 	</FilterEventBusProvider>;
