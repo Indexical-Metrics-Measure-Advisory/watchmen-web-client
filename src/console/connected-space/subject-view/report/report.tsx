@@ -8,10 +8,12 @@ export const SubjectReport = (props: {
 	connectedSpace: ConnectedSpace;
 	subject: Subject;
 	report: Report;
+	editable: boolean;
+	removable: boolean;
 }) => {
-	const { report } = props;
+	const { report, editable, removable } = props;
 
 	return <Chart report={report} fixed={false}
-	              editable={true} editing={false}
-	              removable={true}/>;
+	              editable={editable} editing={false}
+	              removable={removable}/>;
 };

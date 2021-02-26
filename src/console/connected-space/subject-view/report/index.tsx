@@ -13,8 +13,14 @@ import { ReportMoveOrResizeMonitor } from './report-move-or-resize-monitor';
 import { ReportRemover } from './report-remover';
 import { SubjectReportContainer } from './widgets';
 
-export const SubjectReports = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
-	const { connectedSpace, subject } = props;
+export const SubjectReports = (props: {
+	connectedSpace: ConnectedSpace;
+	subject: Subject;
+	editable?: boolean;
+	removable?: boolean;
+	transient?: boolean;
+}) => {
+	const { connectedSpace, subject, editable = true, removable = true, transient = false } = props;
 
 	const { on, off } = useSubjectEventBus();
 	const forceUpdate = useForceUpdate();
@@ -34,13 +40,14 @@ export const SubjectReports = (props: { connectedSpace: ConnectedSpace, subject:
 			{hasReport
 				? subject.reports?.map(report => {
 					return <SubjectReport connectedSpace={connectedSpace} subject={subject} report={report}
+					                      editable={editable} removable={removable}
 					                      key={report.reportId}/>;
 				})
 				: <NoReport/>}
 			<PagePrintSize subject={subject}/>
 		</SubjectReportContainer>
-		<ReportEditor connectedSpace={connectedSpace} subject={subject}/>
-		<ReportMoveOrResizeMonitor/>
+		{transient ? null : <ReportEditor connectedSpace={connectedSpace} subject={subject}/>}
+		{transient ? null : <ReportMoveOrResizeMonitor/>}
 		<ReportRemover connectedSpace={connectedSpace} subject={subject}/>
 	</ReportEventBusProvider>;
 };
