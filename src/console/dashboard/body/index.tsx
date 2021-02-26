@@ -4,6 +4,7 @@ import { Lang } from '../../../langs';
 import { Chart } from '../../../report';
 import { ReportEventBusProvider } from '../../../report/report-event-bus';
 import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
+import { saveDashboard } from '../../../services/tuples/dashboard';
 import { Dashboard } from '../../../services/tuples/dashboard-types';
 import { Report } from '../../../services/tuples/report-types';
 import { useConsoleEventBus } from '../../console-event-bus';
@@ -28,13 +29,19 @@ export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean
 		}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
 	}, [ onceConsole ]);
 	useEffect(() => {
-		on(DashboardEventTypes.REPORT_ADDED, forceUpdate);
-		on(DashboardEventTypes.REPORT_REMOVED, forceUpdate);
-		return () => {
-			off(DashboardEventTypes.REPORT_ADDED, forceUpdate);
-			off(DashboardEventTypes.REPORT_REMOVED, forceUpdate);
+		const onReportChanged = () => {
+			(async () => {
+				await saveDashboard(dashboard);
+			})();
+			forceUpdate();
 		};
-	}, [ on, off, forceUpdate ]);
+		on(DashboardEventTypes.REPORT_ADDED, onReportChanged);
+		on(DashboardEventTypes.REPORT_REMOVED, onReportChanged);
+		return () => {
+			off(DashboardEventTypes.REPORT_ADDED, onReportChanged);
+			off(DashboardEventTypes.REPORT_REMOVED, onReportChanged);
+		};
+	}, [ on, off, forceUpdate, dashboard ]);
 
 	const reportMap = connectedSpaces.reduce((map, connectedSpace) => {
 		connectedSpace.subjects.forEach(subject => (subject.reports || []).map(report => map.set(report.reportId, report)));
