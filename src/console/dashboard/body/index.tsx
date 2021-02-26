@@ -15,8 +15,8 @@ import { ReportMoveOrResizeMonitor } from './report-move-or-resize-monitor';
 import { ReportRemover } from './report-remover';
 import { DashboardBodyContainer, DashboardNoReport } from './widgets';
 
-export const DashboardBody = (props: { dashboard: Dashboard }) => {
-	const { dashboard } = props;
+export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean }) => {
+	const { dashboard, removable = true } = props;
 
 	const { once: onceConsole } = useConsoleEventBus();
 	const { on, off } = useDashboardEventBus();
@@ -58,7 +58,7 @@ export const DashboardBody = (props: { dashboard: Dashboard }) => {
 				? reports?.map(report => {
 					return <Chart report={report} fixed={false}
 					              editable={false} editing={false}
-					              removable={true}
+					              removable={removable}
 					              key={report.reportId}/>;
 				})
 				: <DashboardNoReport><span>{Lang.CONSOLE.CONNECTED_SPACE.NO_REPORT}</span></DashboardNoReport>}

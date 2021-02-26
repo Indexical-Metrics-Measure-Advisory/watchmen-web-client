@@ -1,3 +1,4 @@
+import { ChartType } from '../tuples/chart-types';
 import { Dashboard } from '../tuples/dashboard-types';
 import { Report } from '../tuples/report-types';
 import { getCurrentTime } from '../utils';
@@ -14,12 +15,27 @@ export const fetchSharedDashboard = async (dashboardId: string): Promise<SharedD
 				dashboard: {
 					dashboardId: '1',
 					name: 'Sales Statistics',
-					reports: [],
-					lastVisitTime: '2020/10/20 09:36:46',
+					reports: [ {
+						reportId: '1',
+						rect: { x: 32, y: 32, width: 480, height: 300 }
+					} ],
+					lastVisitTime: getCurrentTime(),
 					createTime: getCurrentTime(),
 					lastModifyTime: getCurrentTime()
-				},
-				reports: []
+				} as Dashboard,
+				reports: [ {
+					reportId: '1',
+					name: '',
+					indicators: [],
+					dimensions: [],
+					rect: { x: 320, y: 320, width: 480, height: 300 },
+					chart: {
+						type: ChartType.COUNT
+					},
+					lastVisitTime: getCurrentTime(),
+					createTime: getCurrentTime(),
+					lastModifyTime: getCurrentTime()
+				} ]
 			});
 		}, 500);
 	});

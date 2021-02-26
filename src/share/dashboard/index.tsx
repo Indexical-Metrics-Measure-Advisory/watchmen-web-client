@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { ConsoleEventBusProvider } from '../../console/console-event-bus';
 import { DashboardBody } from '../../console/dashboard/body';
 import { DashboardEventBusProvider } from '../../console/dashboard/dashboard-event-bus';
 import { Lang } from '../../langs';
@@ -7,6 +8,8 @@ import { fetchSharedDashboard } from '../../services/share/dashboard';
 import { Dashboard } from '../../services/tuples/dashboard-types';
 import { Report } from '../../services/tuples/report-types';
 import { ShareNothing } from '../share-nothing';
+import { SimulateConsole } from './simulate-console';
+import { ShareDashboardContainer } from './widgets';
 
 interface ShareDashboardState {
 	initialized: boolean;
@@ -14,11 +17,13 @@ interface ShareDashboardState {
 	reports?: Array<Report>;
 }
 
-const ShareDashboard = (props: { dashboard: Dashboard, reports: Array<Report> }) => {
+const ShareDashboard = (props: { dashboard: Dashboard }) => {
 	const { dashboard } = props;
 
 	return <DashboardEventBusProvider>
-		<DashboardBody dashboard={dashboard}/>
+		<ShareDashboardContainer>
+			<DashboardBody dashboard={dashboard} removable={false}/>
+		</ShareDashboardContainer>
 	</DashboardEventBusProvider>;
 };
 
@@ -46,7 +51,10 @@ const ShareDashboardIndex = () => {
 		return <ShareNothing label={Lang.CONSOLE.ERROR.DASHBOARD_NOT_FOUND}/>;
 	}
 
-	return <ShareDashboard dashboard={state.dashboard!} reports={state.reports!}/>;
+	return <ConsoleEventBusProvider>
+		<SimulateConsole reports={state.reports!}/>
+		<ShareDashboard dashboard={state.dashboard!}/>
+	</ConsoleEventBusProvider>;
 };
 
 export default ShareDashboardIndex;

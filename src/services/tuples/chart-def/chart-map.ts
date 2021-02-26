@@ -6,8 +6,8 @@ export const MAP: ChartDef = {
 	type: ChartType.MAP,
 	minDimensionCount: 1,
 	maxDimensionCount: 1,
-	minIndicatorCount: 1,
-	maxIndicatorCount: 1,
+	minIndicatorCount: 2,
+	maxIndicatorCount: 2,
 
 	canHoldTitle: true,
 	canHoldLegend: false,
