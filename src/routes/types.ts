@@ -24,5 +24,8 @@ export enum Router {
 	CONSOLE_NOTIFICATION = '/console/notification',
 	CONSOLE_MAIL = '/console/mail',
 	CONSOLE_TIMELINE = '/console/timeline',
-	CONSOLE_SETTINGS = '/console/settings'
+	CONSOLE_SETTINGS = '/console/settings',
+
+	SHARE = '/share',
+	SHARE_DASHBOARD = '/share/dashboard/:dashboardId'
 }

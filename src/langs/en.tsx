@@ -398,7 +398,7 @@ export const En = {
 		SECTION_TITLE_COUNT_CHART: 'Count Style',
 		SECTION_TITLE_PIE_CHART: 'Pie Style',
 		SECTION_TITLE_TREE_CHART: 'Tree Style',
-		SECTION_TITLE_TREEMAP_CHART: "Treemap Style",
+		SECTION_TITLE_TREEMAP_CHART: 'Treemap Style',
 		SECTION_TITLE_ECHART_TITLE: 'Title',
 		SECTION_TITLE_ECHART_SUBTITLE: 'Subtitle',
 		SECTION_TITLE_ECHART_LEGEND: 'Legend',
@@ -451,5 +451,8 @@ export const En = {
 		ECHART: {
 			TEXT: 'Text'
 		}
+	},
+	SHARE: {
+		NOTHING: 'No content can be found, contact administrator for more information.'
 	}
 };

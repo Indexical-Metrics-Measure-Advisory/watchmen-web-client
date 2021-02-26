@@ -451,5 +451,8 @@ export const Zh = {
 		ECHART: {
 			TEXT: '文本'
 		}
+	},
+	SHARE: {
+		NOTHING: '找不到任何适合的内容, 请联系管理员以获取帮助.'
 	}
 };
