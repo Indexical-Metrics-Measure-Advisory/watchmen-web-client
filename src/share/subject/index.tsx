@@ -50,7 +50,7 @@ const ShareSubjectIndex = () => {
 					setState({ initialized: true });
 				}
 			})();
-		}, [ subjectId ]);
+		}, [ subjectId, token ]);
 
 		if (!state.initialized) {
 			return <ShareNothing label={Lang.CONSOLE.LOADING}/>;

@@ -41,7 +41,7 @@ const ShareDashboardIndex = () => {
 				setState({ initialized: true });
 			}
 		})();
-	}, [ dashboardId ]);
+	}, [ dashboardId, token ]);
 
 	if (!state.initialized) {
 		return <ShareNothing label={Lang.CONSOLE.LOADING}/>;
