@@ -4,13 +4,13 @@ import { ChartBorderStyle } from '../../../../../../services/tuples/chart-types'
 import { Report } from '../../../../../../services/tuples/report-types';
 import { getCurrentTheme } from '../../../../../../theme/theme-wrapper';
 import {
-	BasicStylePropNames,
-	BorderStyleOptions,
 	onColorChange,
 	onDropdownValueChange,
 	onNumberChange,
 	validateNumber
 } from '../data-utils';
+import { BorderStyleOptions } from '../prop-defs/dropdown-options/border-dropdown-options';
+import { PeripheralStylePropNames } from '../prop-defs/peripheral-style-props';
 import { useReportEditEventBus } from '../report-edit-event-bus';
 import { ReportEditEventTypes } from '../report-edit-event-bus-types';
 import { ColorValue } from '../settings-widgets/color-value';
@@ -34,7 +34,7 @@ export const BasicStylesSection = (props: { report: Report }) => {
 		            onValueChange={onColorChange({
 			            report,
 			            chart,
-			            prop: BasicStylePropNames.BACKGROUND_COLOR,
+			            prop: PeripheralStylePropNames.BACKGROUND_COLOR,
 			            done: onValueChange
 		            })}/>
 		<DropdownValue label={Lang.CHART.BORDER_STYLE} options={BorderStyleOptions}
@@ -42,7 +42,7 @@ export const BasicStylesSection = (props: { report: Report }) => {
 		               onValueChange={onDropdownValueChange({
 			               report,
 			               chart,
-			               prop: BasicStylePropNames.BORDER_STYLE,
+			               prop: PeripheralStylePropNames.BORDER_STYLE,
 			               done: onValueChange
 		               })}/>
 		<NumberValue label={Lang.CHART.BORDER_WIDTH} unitLabel={Lang.CHART.PIXEL}
@@ -52,7 +52,7 @@ export const BasicStylesSection = (props: { report: Report }) => {
 		             onValueChange={onNumberChange({
 			             report,
 			             chart,
-			             prop: BasicStylePropNames.BORDER_WIDTH,
+			             prop: PeripheralStylePropNames.BORDER_WIDTH,
 			             done: onValueChange
 		             })}/>
 		<ColorValue label={Lang.CHART.BORDER_COLOR}
@@ -60,7 +60,7 @@ export const BasicStylesSection = (props: { report: Report }) => {
 		            onValueChange={onColorChange({
 			            report,
 			            chart,
-			            prop: BasicStylePropNames.BORDER_COLOR,
+			            prop: PeripheralStylePropNames.BORDER_COLOR,
 			            done: onValueChange
 		            })}/>
 		<NumberValue label={Lang.CHART.BORDER_RADIUS} unitLabel={Lang.CHART.PIXEL}
@@ -70,7 +70,7 @@ export const BasicStylesSection = (props: { report: Report }) => {
 		             onValueChange={onNumberChange({
 			             report,
 			             chart,
-			             prop: BasicStylePropNames.BORDER_RADIUS,
+			             prop: PeripheralStylePropNames.BORDER_RADIUS,
 			             done: onValueChange
 		             })}/>
 	</Section>;

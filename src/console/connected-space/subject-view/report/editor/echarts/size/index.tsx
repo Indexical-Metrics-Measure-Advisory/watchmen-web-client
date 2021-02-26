@@ -3,13 +3,14 @@ import { Lang } from '../../../../../../../langs';
 import { EChartsSizeHolder } from '../../../../../../../services/tuples/echarts/echarts-size-types';
 import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
-import { EChartTitlePropNames, onNumberChange, validateNumber } from '../../data-utils';
+import { onNumberChange, validateNumber } from '../../data-utils';
+import { EChartsTitlePropNames } from '../../prop-defs/echart-styles/echarts-title-props';
 import { NumberValue } from '../../settings-widgets/number-value';
 
 // TODO position-bottom is placeholder
 export interface SettingsSizePropNames {
-	width: EChartTitlePropNames.POSITION_BOTTOM;
-	height: EChartTitlePropNames.POSITION_BOTTOM;
+	width: EChartsTitlePropNames.POSITION_BOTTOM;
+	height: EChartsTitlePropNames.POSITION_BOTTOM;
 }
 
 export const SizeSettings = (props: {

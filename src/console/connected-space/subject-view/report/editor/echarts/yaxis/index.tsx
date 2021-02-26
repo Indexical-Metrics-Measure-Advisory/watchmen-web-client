@@ -7,14 +7,13 @@ import {
 } from '../../../../../../../services/tuples/echarts/echarts-yaxis-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import {
-	AxisTypeOptions,
-	EChartYAxisPropNames,
 	isANumber,
 	onBooleanChange,
 	onDropdownValueChange,
-	onNumberChange,
-	YAxisPositionOptions
+	onNumberChange
 } from '../../data-utils';
+import { AxisTypeOptions } from '../../prop-defs/dropdown-options/axis-dropdown-options';
+import { EChartsYAxisPropNames, YAxisPositionOptions } from '../../prop-defs/echart-styles/echarts-yaxis-props';
 import { useReportEditEventBus } from '../../report-edit-event-bus';
 import { ReportEditEventTypes } from '../../report-edit-event-bus-types';
 import { useChartType } from '../../settings-effect/use-chart-type';
@@ -51,7 +50,7 @@ export const EChartsYAxisSettings = (props: { report: Report }) => {
 			              onValueChange={onBooleanChange({
 				              report,
 				              chart,
-				              prop: EChartYAxisPropNames.SHOW,
+				              prop: EChartsYAxisPropNames.SHOW,
 				              done: onValueChange
 			              })}/>
 			<DropdownValue label={Lang.CHART.POSITION}
@@ -60,7 +59,7 @@ export const EChartsYAxisSettings = (props: { report: Report }) => {
 			               onValueChange={onDropdownValueChange({
 				               report,
 				               chart,
-				               prop: EChartYAxisPropNames.POSITION,
+				               prop: EChartsYAxisPropNames.POSITION,
 				               done: onValueChange
 			               })}/>
 			<DropdownValue label={Lang.CHART.AXIS_TYPE}
@@ -69,7 +68,7 @@ export const EChartsYAxisSettings = (props: { report: Report }) => {
 			               onValueChange={onDropdownValueChange({
 				               report,
 				               chart,
-				               prop: EChartYAxisPropNames.TYPE,
+				               prop: EChartsYAxisPropNames.TYPE,
 				               done: onValueChange
 			               })}/>
 		</Section>
@@ -79,7 +78,7 @@ export const EChartsYAxisSettings = (props: { report: Report }) => {
 			              onValueChange={onBooleanChange({
 				              report,
 				              chart,
-				              prop: EChartYAxisPropNames.AUTO_MIN,
+				              prop: EChartsYAxisPropNames.AUTO_MIN,
 				              done: onValueChange
 			              })}/>
 			<NumberValue label={Lang.CHART.AXIS_MIN}
@@ -88,7 +87,7 @@ export const EChartsYAxisSettings = (props: { report: Report }) => {
 			             onValueChange={onNumberChange({
 				             report,
 				             chart,
-				             prop: EChartYAxisPropNames.MIN,
+				             prop: EChartsYAxisPropNames.MIN,
 				             done: onValueChange
 			             })}/>
 			<BooleanValue label={Lang.CHART.AXIS_AUTO_MAX}
@@ -96,7 +95,7 @@ export const EChartsYAxisSettings = (props: { report: Report }) => {
 			              onValueChange={onBooleanChange({
 				              report,
 				              chart,
-				              prop: EChartYAxisPropNames.AUTO_MAX,
+				              prop: EChartsYAxisPropNames.AUTO_MAX,
 				              done: onValueChange
 			              })}/>
 			<NumberValue label={Lang.CHART.AXIS_MAX}
@@ -105,7 +104,7 @@ export const EChartsYAxisSettings = (props: { report: Report }) => {
 			             onValueChange={onNumberChange({
 				             report,
 				             chart,
-				             prop: EChartYAxisPropNames.MAX,
+				             prop: EChartsYAxisPropNames.MAX,
 				             done: onValueChange
 			             })}/>
 		</Section>

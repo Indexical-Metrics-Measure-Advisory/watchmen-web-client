@@ -5,58 +5,66 @@ import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-ty
 import { Report } from '../../../../../../../services/tuples/report-types';
 import { getCurrentTheme } from '../../../../../../../theme/theme-wrapper';
 import {
-	createFontFamilyOptions,
-	EChartLegendPropNames,
-	EChartTitlePropNames,
-	EChartXAxisPropNames,
-	EChartYAxisPropNames,
-	FontStyleOptions,
-	FontWeightOptions,
 	onColorChange,
 	onDropdownValueChange,
 	onNumberChange,
 	validateNumber
 } from '../../data-utils';
+import { CountChartStylePropNames } from '../../prop-defs/chart-styles/count-chart-style-props';
+import {
+	createFontFamilyOptions,
+	FontStyleOptions,
+	FontWeightOptions
+} from '../../prop-defs/dropdown-options/font-dropdown-options';
+import { EChartsLegendPropNames } from '../../prop-defs/echart-styles/echarts-legend-props';
+import { EChartsTitlePropNames } from '../../prop-defs/echart-styles/echarts-title-props';
+import { EChartsXAxisPropNames } from '../../prop-defs/echart-styles/echarts-xaxis-props';
+import { EChartsYAxisPropNames } from '../../prop-defs/echart-styles/echarts-yaxis-props';
 import { ColorValue } from '../../settings-widgets/color-value';
 import { DropdownValue } from '../../settings-widgets/dropdown-value';
 import { NumberValue } from '../../settings-widgets/number-value';
 
 export interface SettingsFontPropNames {
-	family: EChartTitlePropNames.TEXT_FONT_FAMILY
-		| EChartTitlePropNames.SUBTEXT_FONT_FAMILY
-		| EChartLegendPropNames.FONT_FAMILY
-		| EChartXAxisPropNames.NAME_FONT_FAMILY
-		| EChartXAxisPropNames.LABEL_FONT_FAMILY
-		| EChartYAxisPropNames.NAME_FONT_FAMILY
-		| EChartYAxisPropNames.LABEL_FONT_FAMILY;
-	size: EChartTitlePropNames.TEXT_FONT_SIZE
-		| EChartTitlePropNames.SUBTEXT_FONT_SIZE
-		| EChartLegendPropNames.FONT_SIZE
-		| EChartXAxisPropNames.NAME_FONT_SIZE
-		| EChartXAxisPropNames.LABEL_FONT_SIZE
-		| EChartYAxisPropNames.NAME_FONT_SIZE
-		| EChartYAxisPropNames.LABEL_FONT_SIZE;
-	weight: EChartTitlePropNames.TEXT_FONT_WEIGHT
-		| EChartTitlePropNames.SUBTEXT_FONT_WEIGHT
-		| EChartLegendPropNames.FONT_WEIGHT
-		| EChartXAxisPropNames.NAME_FONT_WEIGHT
-		| EChartXAxisPropNames.LABEL_FONT_WEIGHT
-		| EChartYAxisPropNames.NAME_FONT_WEIGHT
-		| EChartYAxisPropNames.LABEL_FONT_WEIGHT;
-	color: EChartTitlePropNames.TEXT_FONT_COLOR
-		| EChartTitlePropNames.SUBTEXT_FONT_COLOR
-		| EChartLegendPropNames.FONT_COLOR
-		| EChartXAxisPropNames.NAME_FONT_COLOR
-		| EChartXAxisPropNames.LABEL_FONT_COLOR
-		| EChartYAxisPropNames.NAME_FONT_COLOR
-		| EChartYAxisPropNames.LABEL_FONT_COLOR;
-	style: EChartTitlePropNames.TEXT_FONT_STYLE
-		| EChartTitlePropNames.SUBTEXT_FONT_STYLE
-		| EChartLegendPropNames.FONT_STYLE
-		| EChartXAxisPropNames.NAME_FONT_STYLE
-		| EChartXAxisPropNames.LABEL_FONT_STYLE
-		| EChartYAxisPropNames.NAME_FONT_STYLE
-		| EChartYAxisPropNames.LABEL_FONT_STYLE;
+	family: CountChartStylePropNames.TEXT_FONT_FAMILY
+		| EChartsTitlePropNames.TEXT_FONT_FAMILY
+		| EChartsTitlePropNames.SUBTEXT_FONT_FAMILY
+		| EChartsLegendPropNames.FONT_FAMILY
+		| EChartsXAxisPropNames.NAME_FONT_FAMILY
+		| EChartsXAxisPropNames.LABEL_FONT_FAMILY
+		| EChartsYAxisPropNames.NAME_FONT_FAMILY
+		| EChartsYAxisPropNames.LABEL_FONT_FAMILY;
+	size: CountChartStylePropNames.TEXT_FONT_SIZE
+		| EChartsTitlePropNames.TEXT_FONT_SIZE
+		| EChartsTitlePropNames.SUBTEXT_FONT_SIZE
+		| EChartsLegendPropNames.FONT_SIZE
+		| EChartsXAxisPropNames.NAME_FONT_SIZE
+		| EChartsXAxisPropNames.LABEL_FONT_SIZE
+		| EChartsYAxisPropNames.NAME_FONT_SIZE
+		| EChartsYAxisPropNames.LABEL_FONT_SIZE;
+	weight: CountChartStylePropNames.TEXT_FONT_WEIGHT
+		| EChartsTitlePropNames.TEXT_FONT_WEIGHT
+		| EChartsTitlePropNames.SUBTEXT_FONT_WEIGHT
+		| EChartsLegendPropNames.FONT_WEIGHT
+		| EChartsXAxisPropNames.NAME_FONT_WEIGHT
+		| EChartsXAxisPropNames.LABEL_FONT_WEIGHT
+		| EChartsYAxisPropNames.NAME_FONT_WEIGHT
+		| EChartsYAxisPropNames.LABEL_FONT_WEIGHT;
+	color: CountChartStylePropNames.TEXT_FONT_COLOR
+		| EChartsTitlePropNames.TEXT_FONT_COLOR
+		| EChartsTitlePropNames.SUBTEXT_FONT_COLOR
+		| EChartsLegendPropNames.FONT_COLOR
+		| EChartsXAxisPropNames.NAME_FONT_COLOR
+		| EChartsXAxisPropNames.LABEL_FONT_COLOR
+		| EChartsYAxisPropNames.NAME_FONT_COLOR
+		| EChartsYAxisPropNames.LABEL_FONT_COLOR;
+	style: CountChartStylePropNames.TEXT_FONT_STYLE
+		| EChartsTitlePropNames.TEXT_FONT_STYLE
+		| EChartsTitlePropNames.SUBTEXT_FONT_STYLE
+		| EChartsLegendPropNames.FONT_STYLE
+		| EChartsXAxisPropNames.NAME_FONT_STYLE
+		| EChartsXAxisPropNames.LABEL_FONT_STYLE
+		| EChartsYAxisPropNames.NAME_FONT_STYLE
+		| EChartsYAxisPropNames.LABEL_FONT_STYLE;
 }
 
 export const FontSettings = (props: {

@@ -1,8 +1,9 @@
 import { BASE_COLORS_24 } from '../../basic-widgets/colors';
-import { TREE } from '../../services/tuples/chart-def/chart-tree';
+import { TREE, TreeChartSettings } from '../../services/tuples/chart-def/chart-tree';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
+import { cleanUselessValues } from './data-utils';
 import { DefaultChartUtils } from './default-chart-utils';
 import { buildEChartsTitle } from './title-utils';
 import { ChartOptions } from './types';
@@ -14,7 +15,10 @@ export class ChartTreeUtils extends DefaultChartUtils {
 
 	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
 		const { chart } = report;
-		return {
+		const { settings } = chart;
+		const { grid, series } = (settings || {}) as TreeChartSettings;
+
+		return cleanUselessValues({
 			color: BASE_COLORS_24,
 			title: buildEChartsTitle(chart as ECharts),
 			tooltip: {
@@ -22,10 +26,13 @@ export class ChartTreeUtils extends DefaultChartUtils {
 			},
 			series: [ {
 				type: 'tree',
-				top: '2%',
-				left: '2%',
-				bottom: '2%',
-				right: '2%',
+				layout: series?.layout,
+				orient: series?.orient,
+				roam: series?.roam,
+				top: grid?.position?.top,
+				left: grid?.position?.left,
+				bottom: grid?.position?.bottom,
+				right: grid?.position?.right,
 				symbolSize: 8,
 				label: {
 					position: 'right',
@@ -42,6 +49,6 @@ export class ChartTreeUtils extends DefaultChartUtils {
 				expandAndCollapse: true,
 				data: this.buildTreeData(report, dataset)
 			} ]
-		};
+		});
 	}
 }

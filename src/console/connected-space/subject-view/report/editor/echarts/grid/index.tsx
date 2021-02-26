@@ -2,7 +2,8 @@ import React from 'react';
 import { Lang } from '../../../../../../../langs';
 import { canUseGrid, isEChart } from '../../../../../../../services/tuples/echarts/echarts-utils';
 import { Report } from '../../../../../../../services/tuples/report-types';
-import { EChartGridPropNames, onBooleanChange, onColorChange } from '../../data-utils';
+import { onBooleanChange, onColorChange } from '../../data-utils';
+import { EChartsGridPropNames } from '../../prop-defs/echart-styles/echarts-grid-props';
 import { useReportEditEventBus } from '../../report-edit-event-bus';
 import { ReportEditEventTypes } from '../../report-edit-event-bus-types';
 import { useChartType } from '../../settings-effect/use-chart-type';
@@ -31,15 +32,15 @@ export const EChartsGridSettings = (props: { report: Report }) => {
 	const getGridHolder = () => grid;
 	const propNames = {
 		border: {
-			width: EChartGridPropNames.BORDER_WIDTH,
-			style: EChartGridPropNames.BORDER_STYLE,
-			color: EChartGridPropNames.BORDER_COLOR
+			width: EChartsGridPropNames.BORDER_WIDTH,
+			style: EChartsGridPropNames.BORDER_STYLE,
+			color: EChartsGridPropNames.BORDER_COLOR
 		} as SettingsBorderPropNames,
 		position: {
-			top: EChartGridPropNames.POSITION_TOP,
-			right: EChartGridPropNames.POSITION_RIGHT,
-			left: EChartGridPropNames.POSITION_LEFT,
-			bottom: EChartGridPropNames.POSITION_BOTTOM
+			top: EChartsGridPropNames.POSITION_TOP,
+			right: EChartsGridPropNames.POSITION_RIGHT,
+			left: EChartsGridPropNames.POSITION_LEFT,
+			bottom: EChartsGridPropNames.POSITION_BOTTOM
 		} as SettingsPositionPropNames
 	};
 
@@ -49,7 +50,7 @@ export const EChartsGridSettings = (props: { report: Report }) => {
 		              onValueChange={onBooleanChange({
 			              report,
 			              chart,
-			              prop: EChartGridPropNames.SHOW,
+			              prop: EChartsGridPropNames.SHOW,
 			              done: onValueChange
 		              })}/>
 		<BooleanValue label={Lang.CHART.GRID_CONTAIN_LABEL}
@@ -57,7 +58,7 @@ export const EChartsGridSettings = (props: { report: Report }) => {
 		              onValueChange={onBooleanChange({
 			              report,
 			              chart,
-			              prop: EChartGridPropNames.CONTAIN_LABEL,
+			              prop: EChartsGridPropNames.CONTAIN_LABEL,
 			              done: onValueChange
 		              })}/>
 		<ColorValue label={Lang.CHART.BACKGROUND_COLOR}
@@ -65,7 +66,7 @@ export const EChartsGridSettings = (props: { report: Report }) => {
 		            onValueChange={onColorChange({
 			            report,
 			            chart,
-			            prop: EChartGridPropNames.BACKGROUND_COLOR,
+			            prop: EChartsGridPropNames.BACKGROUND_COLOR,
 			            done: onValueChange
 		            })}/>
 		<PositionSettings report={report} chart={chart}

@@ -1,4 +1,5 @@
 import { ChartType } from '../chart-types';
+import { EChartsGridPositionOnly } from '../echarts/echarts-grid-types';
 import { ECharts, EChartsSettings } from '../echarts/echarts-types';
 import { ChartDef } from './chart-def-types';
 
@@ -15,7 +16,27 @@ export const TREE: ChartDef = {
 	canUseYAxis: false
 };
 
+export enum TreeLayout {
+	ORTHOGONAL = 'orthogonal',
+	RADIAL = 'radial'
+}
+
+export enum TreeOrient {
+	LEFT_RIGHT = 'LR',
+	RIGHT_LEFT = 'RL',
+	TOP_BOTTOM = 'TB',
+	BOTTOM_TOP = 'BT'
+}
+
+export interface TreeChartSettingsGraphics {
+	layout?: TreeLayout;
+	orient?: TreeOrient;
+	roam?: boolean;
+}
+
 export interface TreeChartSettings extends EChartsSettings {
+	series?: TreeChartSettingsGraphics;
+	grid?: EChartsGridPositionOnly;
 }
 
 export interface TreeChart extends ECharts {

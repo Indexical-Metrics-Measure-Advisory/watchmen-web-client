@@ -3,28 +3,30 @@ import { Lang } from '../../../../../../../langs';
 import { EChartsPositionHolder } from '../../../../../../../services/tuples/echarts/echarts-position-types';
 import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
-import {
-	EChartGridPropNames,
-	EChartLegendPropNames,
-	EChartTitlePropNames,
-	onNumberChange,
-	validateNumber
-} from '../../data-utils';
+import { onNumberChange, validateNumber } from '../../data-utils';
+import { TreeChartStylePropNames } from '../../prop-defs/chart-styles/tree-chart-style-props';
+import { EChartsGridPropNames } from '../../prop-defs/echart-styles/echarts-grid-props';
+import { EChartsLegendPropNames } from '../../prop-defs/echart-styles/echarts-legend-props';
+import { EChartsTitlePropNames } from '../../prop-defs/echart-styles/echarts-title-props';
 import { NumberValue } from '../../settings-widgets/number-value';
 
 export interface SettingsPositionPropNames {
-	top: EChartTitlePropNames.POSITION_TOP
-		| EChartLegendPropNames.POSITION_TOP
-		| EChartGridPropNames.POSITION_TOP;
-	right: EChartTitlePropNames.POSITION_RIGHT
-		| EChartLegendPropNames.POSITION_RIGHT
-		| EChartGridPropNames.POSITION_RIGHT;
-	left: EChartTitlePropNames.POSITION_LEFT
-		| EChartLegendPropNames.POSITION_LEFT
-		| EChartGridPropNames.POSITION_LEFT;
-	bottom: EChartTitlePropNames.POSITION_BOTTOM
-		| EChartLegendPropNames.POSITION_BOTTOM
-		| EChartGridPropNames.POSITION_BOTTOM;
+	top: EChartsTitlePropNames.POSITION_TOP
+		| EChartsLegendPropNames.POSITION_TOP
+		| EChartsGridPropNames.POSITION_TOP
+		| TreeChartStylePropNames.POSITION_TOP;
+	right: EChartsTitlePropNames.POSITION_RIGHT
+		| EChartsLegendPropNames.POSITION_RIGHT
+		| EChartsGridPropNames.POSITION_RIGHT
+		| TreeChartStylePropNames.POSITION_RIGHT;
+	left: EChartsTitlePropNames.POSITION_LEFT
+		| EChartsLegendPropNames.POSITION_LEFT
+		| EChartsGridPropNames.POSITION_LEFT
+		| TreeChartStylePropNames.POSITION_LEFT;
+	bottom: EChartsTitlePropNames.POSITION_BOTTOM
+		| EChartsLegendPropNames.POSITION_BOTTOM
+		| EChartsGridPropNames.POSITION_BOTTOM
+		| TreeChartStylePropNames.POSITION_BOTTOM;
 }
 
 export const PositionSettings = (props: {

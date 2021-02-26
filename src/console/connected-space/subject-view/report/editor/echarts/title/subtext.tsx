@@ -2,7 +2,8 @@ import React from 'react';
 import { Lang } from '../../../../../../../langs';
 import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
-import { EChartTitlePropNames, onTextValueChange } from '../../data-utils';
+import { onTextValueChange } from '../../data-utils';
+import { EChartsTitlePropNames } from '../../prop-defs/echart-styles/echarts-title-props';
 import { useReportEditEventBus } from '../../report-edit-event-bus';
 import { ReportEditEventTypes } from '../../report-edit-event-bus-types';
 import { Section } from '../../settings-widgets/section';
@@ -22,11 +23,11 @@ export const EChartsTitleSubtextSettings = (props: { report: Report, chart: ECha
 	const getHolder = () => text;
 	const propNames = {
 		font: {
-			family: EChartTitlePropNames.SUBTEXT_FONT_FAMILY,
-			size: EChartTitlePropNames.SUBTEXT_FONT_SIZE,
-			weight: EChartTitlePropNames.SUBTEXT_FONT_WEIGHT,
-			color: EChartTitlePropNames.SUBTEXT_FONT_COLOR,
-			style: EChartTitlePropNames.SUBTEXT_FONT_STYLE
+			family: EChartsTitlePropNames.SUBTEXT_FONT_FAMILY,
+			size: EChartsTitlePropNames.SUBTEXT_FONT_SIZE,
+			weight: EChartsTitlePropNames.SUBTEXT_FONT_WEIGHT,
+			color: EChartsTitlePropNames.SUBTEXT_FONT_COLOR,
+			style: EChartsTitlePropNames.SUBTEXT_FONT_STYLE
 		} as SettingsFontPropNames
 	};
 
@@ -36,7 +37,7 @@ export const EChartsTitleSubtextSettings = (props: { report: Report, chart: ECha
 		           onValueChange={onTextValueChange({
 			           report,
 			           chart,
-			           prop: EChartTitlePropNames.SUBTEXT,
+			           prop: EChartsTitlePropNames.SUBTEXT,
 			           done: onValueChange
 		           })}/>
 		<FontSettings report={report} chart={chart}

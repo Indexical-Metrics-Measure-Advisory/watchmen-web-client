@@ -8,26 +8,28 @@ import {
 import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import {
-	EChartTitlePropNames,
-	EChartXAxisPropNames,
-	EChartYAxisPropNames,
-	HorizontalAlignmentOptions,
-	onDropdownValueChange,
-	VerticalAlignmentOptions
+	onDropdownValueChange
 } from '../../data-utils';
+import {
+	HorizontalAlignmentOptions,
+	VerticalAlignmentOptions
+} from '../../prop-defs/dropdown-options/alignment-dropdown-options';
+import { EChartsTitlePropNames } from '../../prop-defs/echart-styles/echarts-title-props';
+import { EChartsXAxisPropNames } from '../../prop-defs/echart-styles/echarts-xaxis-props';
+import { EChartsYAxisPropNames } from '../../prop-defs/echart-styles/echarts-yaxis-props';
 import { DropdownValue } from '../../settings-widgets/dropdown-value';
 
 export interface SettingsAlignmentPropNames {
-	align: EChartTitlePropNames.TEXT_HORIZONTAL_ALIGN
-		| EChartXAxisPropNames.NAME_HORIZONTAL_ALIGN
-		| EChartXAxisPropNames.LABEL_HORIZONTAL_ALIGN
-		| EChartYAxisPropNames.NAME_HORIZONTAL_ALIGN
-		| EChartYAxisPropNames.LABEL_HORIZONTAL_ALIGN;
-	verticalAlign: EChartTitlePropNames.TEXT_VERTICAL_ALIGN
-		| EChartXAxisPropNames.NAME_VERTICAL_ALIGN
-		| EChartXAxisPropNames.LABEL_VERTICAL_ALIGN
-		| EChartYAxisPropNames.NAME_VERTICAL_ALIGN
-		| EChartYAxisPropNames.LABEL_VERTICAL_ALIGN;
+	align: EChartsTitlePropNames.TEXT_HORIZONTAL_ALIGN
+		| EChartsXAxisPropNames.NAME_HORIZONTAL_ALIGN
+		| EChartsXAxisPropNames.LABEL_HORIZONTAL_ALIGN
+		| EChartsYAxisPropNames.NAME_HORIZONTAL_ALIGN
+		| EChartsYAxisPropNames.LABEL_HORIZONTAL_ALIGN;
+	verticalAlign: EChartsTitlePropNames.TEXT_VERTICAL_ALIGN
+		| EChartsXAxisPropNames.NAME_VERTICAL_ALIGN
+		| EChartsXAxisPropNames.LABEL_VERTICAL_ALIGN
+		| EChartsYAxisPropNames.NAME_VERTICAL_ALIGN
+		| EChartsYAxisPropNames.LABEL_VERTICAL_ALIGN;
 }
 
 export const AlignmentSettings = (props: {

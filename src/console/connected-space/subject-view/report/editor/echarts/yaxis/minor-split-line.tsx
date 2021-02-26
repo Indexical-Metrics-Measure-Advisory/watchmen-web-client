@@ -2,7 +2,7 @@ import React from 'react';
 import { Lang } from '../../../../../../../langs';
 import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
-import { EChartYAxisPropNames } from '../../data-utils';
+import { EChartsYAxisPropNames } from '../../prop-defs/echart-styles/echarts-yaxis-props';
 import { useReportEditEventBus } from '../../report-edit-event-bus';
 import { ReportEditEventTypes } from '../../report-edit-event-bus-types';
 import { EChartsAxisSplitLineSettings, SettingsAxisSplitLinePropNames } from '../axis-split-line';
@@ -19,10 +19,10 @@ export const EChartsYAxisMinorSplitLineSettings = (props: { report: Report, char
 	const getHolder = () => chart.settings?.yaxis;
 	const getSplitLine = () => getHolder()?.minorSplitLine;
 	const propNames: SettingsAxisSplitLinePropNames = {
-		show: EChartYAxisPropNames.MINOR_SPLIT_LINE_SHOW,
-		color: EChartYAxisPropNames.MINOR_SPLIT_LINE_COLOR,
-		width: EChartYAxisPropNames.MINOR_SPLIT_LINE_WIDTH,
-		style: EChartYAxisPropNames.MINOR_SPLIT_LINE_STYLE
+		show: EChartsYAxisPropNames.MINOR_SPLIT_LINE_SHOW,
+		color: EChartsYAxisPropNames.MINOR_SPLIT_LINE_COLOR,
+		width: EChartsYAxisPropNames.MINOR_SPLIT_LINE_WIDTH,
+		style: EChartsYAxisPropNames.MINOR_SPLIT_LINE_STYLE
 	};
 
 	return <EChartsAxisSplitLineSettings report={report} chart={chart}

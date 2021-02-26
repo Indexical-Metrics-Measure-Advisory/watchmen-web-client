@@ -5,49 +5,49 @@ import { EChartsBorderHolder } from '../../../../../../../services/tuples/echart
 import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import {
-	BorderStyleOptions,
-	EChartGridPropNames,
-	EChartLegendPropNames,
-	EChartTitlePropNames,
-	EChartXAxisPropNames,
-	EChartYAxisPropNames,
 	onColorChange,
 	onDropdownValueChange,
 	onNumberChange,
 	validateNumber
 } from '../../data-utils';
+import { BorderStyleOptions } from '../../prop-defs/dropdown-options/border-dropdown-options';
+import { EChartsGridPropNames } from '../../prop-defs/echart-styles/echarts-grid-props';
+import { EChartsLegendPropNames } from '../../prop-defs/echart-styles/echarts-legend-props';
+import { EChartsTitlePropNames } from '../../prop-defs/echart-styles/echarts-title-props';
+import { EChartsXAxisPropNames } from '../../prop-defs/echart-styles/echarts-xaxis-props';
+import { EChartsYAxisPropNames } from '../../prop-defs/echart-styles/echarts-yaxis-props';
 import { ColorValue } from '../../settings-widgets/color-value';
 import { DropdownValue } from '../../settings-widgets/dropdown-value';
 import { NumberValue } from '../../settings-widgets/number-value';
 
 export interface SettingsBorderPropNames {
-	width: EChartTitlePropNames.TEXT_BORDER_WIDTH
-		| EChartLegendPropNames.BORDER_WIDTH
-		| EChartGridPropNames.BORDER_WIDTH
-		| EChartXAxisPropNames.NAME_BORDER_WIDTH
-		| EChartXAxisPropNames.LABEL_BORDER_WIDTH
-		| EChartYAxisPropNames.NAME_BORDER_WIDTH
-		| EChartYAxisPropNames.LABEL_BORDER_WIDTH;
-	color: EChartTitlePropNames.TEXT_BORDER_COLOR
-		| EChartLegendPropNames.BORDER_COLOR
-		| EChartGridPropNames.BORDER_COLOR
-		| EChartXAxisPropNames.NAME_BORDER_COLOR
-		| EChartXAxisPropNames.LABEL_BORDER_COLOR
-		| EChartYAxisPropNames.NAME_BORDER_COLOR
-		| EChartYAxisPropNames.LABEL_BORDER_COLOR;
-	style: EChartTitlePropNames.TEXT_BORDER_STYLE
-		| EChartLegendPropNames.BORDER_STYLE
-		| EChartGridPropNames.BORDER_STYLE
-		| EChartXAxisPropNames.NAME_BORDER_STYLE
-		| EChartXAxisPropNames.LABEL_BORDER_STYLE
-		| EChartYAxisPropNames.NAME_BORDER_STYLE
-		| EChartYAxisPropNames.LABEL_BORDER_STYLE;
-	radius?: EChartTitlePropNames.TEXT_BORDER_RADIUS
-		| EChartLegendPropNames.BORDER_RADIUS
-		| EChartXAxisPropNames.NAME_BORDER_RADIUS
-		| EChartXAxisPropNames.LABEL_BORDER_RADIUS
-		| EChartYAxisPropNames.NAME_BORDER_RADIUS
-		| EChartYAxisPropNames.LABEL_BORDER_RADIUS;
+	width: EChartsTitlePropNames.TEXT_BORDER_WIDTH
+		| EChartsLegendPropNames.BORDER_WIDTH
+		| EChartsGridPropNames.BORDER_WIDTH
+		| EChartsXAxisPropNames.NAME_BORDER_WIDTH
+		| EChartsXAxisPropNames.LABEL_BORDER_WIDTH
+		| EChartsYAxisPropNames.NAME_BORDER_WIDTH
+		| EChartsYAxisPropNames.LABEL_BORDER_WIDTH;
+	color: EChartsTitlePropNames.TEXT_BORDER_COLOR
+		| EChartsLegendPropNames.BORDER_COLOR
+		| EChartsGridPropNames.BORDER_COLOR
+		| EChartsXAxisPropNames.NAME_BORDER_COLOR
+		| EChartsXAxisPropNames.LABEL_BORDER_COLOR
+		| EChartsYAxisPropNames.NAME_BORDER_COLOR
+		| EChartsYAxisPropNames.LABEL_BORDER_COLOR;
+	style: EChartsTitlePropNames.TEXT_BORDER_STYLE
+		| EChartsLegendPropNames.BORDER_STYLE
+		| EChartsGridPropNames.BORDER_STYLE
+		| EChartsXAxisPropNames.NAME_BORDER_STYLE
+		| EChartsXAxisPropNames.LABEL_BORDER_STYLE
+		| EChartsYAxisPropNames.NAME_BORDER_STYLE
+		| EChartsYAxisPropNames.LABEL_BORDER_STYLE;
+	radius?: EChartsTitlePropNames.TEXT_BORDER_RADIUS
+		| EChartsLegendPropNames.BORDER_RADIUS
+		| EChartsXAxisPropNames.NAME_BORDER_RADIUS
+		| EChartsXAxisPropNames.LABEL_BORDER_RADIUS
+		| EChartsYAxisPropNames.NAME_BORDER_RADIUS
+		| EChartsYAxisPropNames.LABEL_BORDER_RADIUS;
 }
 
 export const BorderSettings = (props: {

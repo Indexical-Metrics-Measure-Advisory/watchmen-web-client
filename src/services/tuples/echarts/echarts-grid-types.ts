@@ -7,6 +7,10 @@ export interface EChartsGrid extends EChartsBorderHolderNoRadius, EChartsPositio
 	backgroundColor?: string;
 }
 
+export interface EChartsGridPositionOnly extends EChartsPositionHolder {
+
+}
+
 export interface EChartsGridHolder {
 	grid?: EChartsGrid;
 }

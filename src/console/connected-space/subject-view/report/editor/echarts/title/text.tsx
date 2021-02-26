@@ -3,12 +3,12 @@ import { Lang } from '../../../../../../../langs';
 import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import {
-	EChartTitlePropNames,
 	onColorChange,
 	onNumberChange,
 	onTextValueChange,
 	validateNumber
 } from '../../data-utils';
+import { EChartsTitlePropNames } from '../../prop-defs/echart-styles/echarts-title-props';
 import { useReportEditEventBus } from '../../report-edit-event-bus';
 import { ReportEditEventTypes } from '../../report-edit-event-bus-types';
 import { ColorValue } from '../../settings-widgets/color-value';
@@ -35,27 +35,27 @@ export const EChartsTitleTextSettings = (props: { report: Report, chart: ECharts
 	const getTextHolder = () => text;
 	const propNames = {
 		font: {
-			family: EChartTitlePropNames.TEXT_FONT_FAMILY,
-			size: EChartTitlePropNames.TEXT_FONT_SIZE,
-			weight: EChartTitlePropNames.TEXT_FONT_WEIGHT,
-			color: EChartTitlePropNames.TEXT_FONT_COLOR,
-			style: EChartTitlePropNames.TEXT_FONT_STYLE
+			family: EChartsTitlePropNames.TEXT_FONT_FAMILY,
+			size: EChartsTitlePropNames.TEXT_FONT_SIZE,
+			weight: EChartsTitlePropNames.TEXT_FONT_WEIGHT,
+			color: EChartsTitlePropNames.TEXT_FONT_COLOR,
+			style: EChartsTitlePropNames.TEXT_FONT_STYLE
 		} as SettingsFontPropNames,
 		border: {
-			width: EChartTitlePropNames.TEXT_BORDER_WIDTH,
-			style: EChartTitlePropNames.TEXT_BORDER_STYLE,
-			color: EChartTitlePropNames.TEXT_BORDER_COLOR,
-			radius: EChartTitlePropNames.TEXT_BORDER_RADIUS
+			width: EChartsTitlePropNames.TEXT_BORDER_WIDTH,
+			style: EChartsTitlePropNames.TEXT_BORDER_STYLE,
+			color: EChartsTitlePropNames.TEXT_BORDER_COLOR,
+			radius: EChartsTitlePropNames.TEXT_BORDER_RADIUS
 		} as SettingsBorderPropNames,
 		position: {
-			top: EChartTitlePropNames.POSITION_TOP,
-			right: EChartTitlePropNames.POSITION_RIGHT,
-			left: EChartTitlePropNames.POSITION_LEFT,
-			bottom: EChartTitlePropNames.POSITION_BOTTOM
+			top: EChartsTitlePropNames.POSITION_TOP,
+			right: EChartsTitlePropNames.POSITION_RIGHT,
+			left: EChartsTitlePropNames.POSITION_LEFT,
+			bottom: EChartsTitlePropNames.POSITION_BOTTOM
 		} as SettingsPositionPropNames,
 		alignment: {
-			align: EChartTitlePropNames.TEXT_HORIZONTAL_ALIGN,
-			verticalAlign: EChartTitlePropNames.TEXT_VERTICAL_ALIGN
+			align: EChartsTitlePropNames.TEXT_HORIZONTAL_ALIGN,
+			verticalAlign: EChartsTitlePropNames.TEXT_VERTICAL_ALIGN
 		} as SettingsAlignmentPropNames
 	};
 
@@ -65,7 +65,7 @@ export const EChartsTitleTextSettings = (props: { report: Report, chart: ECharts
 		           onValueChange={onTextValueChange({
 			           report,
 			           chart,
-			           prop: EChartTitlePropNames.TEXT,
+			           prop: EChartsTitlePropNames.TEXT,
 			           done: onValueChange
 		           })}/>
 		<FontSettings report={report} chart={chart}
@@ -77,7 +77,7 @@ export const EChartsTitleTextSettings = (props: { report: Report, chart: ECharts
 		            onValueChange={onColorChange({
 			            report,
 			            chart,
-			            prop: EChartTitlePropNames.TEXT_BACKGROUND_COLOR,
+			            prop: EChartsTitlePropNames.TEXT_BACKGROUND_COLOR,
 			            done: onValueChange
 		            })}/>
 		<PositionSettings report={report} chart={chart}
@@ -98,7 +98,7 @@ export const EChartsTitleTextSettings = (props: { report: Report, chart: ECharts
 		             onValueChange={onNumberChange({
 			             report,
 			             chart,
-			             prop: EChartTitlePropNames.ITEM_GAP,
+			             prop: EChartsTitlePropNames.ITEM_GAP,
 			             done: onValueChange
 		             })}/>
 		<NumberValue label={Lang.CHART.PADDING} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 9999'}
@@ -107,7 +107,7 @@ export const EChartsTitleTextSettings = (props: { report: Report, chart: ECharts
 		             onValueChange={onNumberChange({
 			             report,
 			             chart,
-			             prop: EChartTitlePropNames.PADDING,
+			             prop: EChartsTitlePropNames.PADDING,
 			             done: onValueChange
 		             })}/>
 	</Section>;

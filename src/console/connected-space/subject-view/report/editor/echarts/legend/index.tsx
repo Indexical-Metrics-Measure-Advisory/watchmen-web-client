@@ -4,14 +4,13 @@ import { EChartsLegendOrient } from '../../../../../../../services/tuples/echart
 import { canHoldLegend, isEChart } from '../../../../../../../services/tuples/echarts/echarts-utils';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import {
-	EChartLegendPropNames,
-	LegendOrientOptions,
 	onBooleanChange,
 	onColorChange,
 	onDropdownValueChange,
 	onNumberChange,
 	validateNumber
 } from '../../data-utils';
+import { EChartsLegendPropNames, LegendOrientOptions } from '../../prop-defs/echart-styles/echarts-legend-props';
 import { useReportEditEventBus } from '../../report-edit-event-bus';
 import { ReportEditEventTypes } from '../../report-edit-event-bus-types';
 import { useChartType } from '../../settings-effect/use-chart-type';
@@ -43,23 +42,23 @@ export const EChartsLegendSettings = (props: { report: Report }) => {
 	const getLegendHolder = () => legend;
 	const propNames = {
 		font: {
-			family: EChartLegendPropNames.FONT_FAMILY,
-			size: EChartLegendPropNames.FONT_SIZE,
-			weight: EChartLegendPropNames.FONT_WEIGHT,
-			color: EChartLegendPropNames.FONT_COLOR,
-			style: EChartLegendPropNames.FONT_STYLE
+			family: EChartsLegendPropNames.FONT_FAMILY,
+			size: EChartsLegendPropNames.FONT_SIZE,
+			weight: EChartsLegendPropNames.FONT_WEIGHT,
+			color: EChartsLegendPropNames.FONT_COLOR,
+			style: EChartsLegendPropNames.FONT_STYLE
 		} as SettingsFontPropNames,
 		border: {
-			width: EChartLegendPropNames.BORDER_WIDTH,
-			style: EChartLegendPropNames.BORDER_STYLE,
-			color: EChartLegendPropNames.BORDER_COLOR,
-			radius: EChartLegendPropNames.BORDER_RADIUS
+			width: EChartsLegendPropNames.BORDER_WIDTH,
+			style: EChartsLegendPropNames.BORDER_STYLE,
+			color: EChartsLegendPropNames.BORDER_COLOR,
+			radius: EChartsLegendPropNames.BORDER_RADIUS
 		} as SettingsBorderPropNames,
 		position: {
-			top: EChartLegendPropNames.POSITION_TOP,
-			right: EChartLegendPropNames.POSITION_RIGHT,
-			left: EChartLegendPropNames.POSITION_LEFT,
-			bottom: EChartLegendPropNames.POSITION_BOTTOM
+			top: EChartsLegendPropNames.POSITION_TOP,
+			right: EChartsLegendPropNames.POSITION_RIGHT,
+			left: EChartsLegendPropNames.POSITION_LEFT,
+			bottom: EChartsLegendPropNames.POSITION_BOTTOM
 		} as SettingsPositionPropNames
 	};
 
@@ -69,7 +68,7 @@ export const EChartsLegendSettings = (props: { report: Report }) => {
 		              onValueChange={onBooleanChange({
 			              report,
 			              chart,
-			              prop: EChartLegendPropNames.SHOW,
+			              prop: EChartsLegendPropNames.SHOW,
 			              done: onValueChange
 		              })}/>
 		<DropdownValue label={Lang.CHART.LEGEND_ORIENT}
@@ -78,7 +77,7 @@ export const EChartsLegendSettings = (props: { report: Report }) => {
 		               onValueChange={onDropdownValueChange({
 			               report,
 			               chart,
-			               prop: EChartLegendPropNames.ORIENT,
+			               prop: EChartsLegendPropNames.ORIENT,
 			               done: onValueChange
 		               })}/>
 		<FontSettings report={report} chart={chart}
@@ -90,7 +89,7 @@ export const EChartsLegendSettings = (props: { report: Report }) => {
 		            onValueChange={onColorChange({
 			            report,
 			            chart,
-			            prop: EChartLegendPropNames.BACKGROUND_COLOR,
+			            prop: EChartsLegendPropNames.BACKGROUND_COLOR,
 			            done: onValueChange
 		            })}/>
 		<PositionSettings report={report} chart={chart}
@@ -107,7 +106,7 @@ export const EChartsLegendSettings = (props: { report: Report }) => {
 		             onValueChange={onNumberChange({
 			             report,
 			             chart,
-			             prop: EChartLegendPropNames.PADDING,
+			             prop: EChartsLegendPropNames.PADDING,
 			             done: onValueChange
 		             })}/>
 	</Section>;

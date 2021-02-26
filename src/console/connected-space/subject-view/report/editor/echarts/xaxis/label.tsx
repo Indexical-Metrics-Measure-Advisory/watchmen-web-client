@@ -3,13 +3,13 @@ import { Lang } from '../../../../../../../langs';
 import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import {
-	EChartXAxisPropNames,
 	isANumberAndInRange,
 	onBooleanChange,
 	onColorChange,
 	onNumberChange,
 	validateNumber
 } from '../../data-utils';
+import { EChartsXAxisPropNames } from '../../prop-defs/echart-styles/echarts-xaxis-props';
 import { useReportEditEventBus } from '../../report-edit-event-bus';
 import { ReportEditEventTypes } from '../../report-edit-event-bus-types';
 import { BooleanValue } from '../../settings-widgets/boolean-value';
@@ -34,21 +34,21 @@ export const EChartsXAxisLabelSettings = (props: { report: Report, chart: EChart
 	const getNameHolder = () => label;
 	const propNames = {
 		font: {
-			family: EChartXAxisPropNames.LABEL_FONT_FAMILY,
-			size: EChartXAxisPropNames.LABEL_FONT_SIZE,
-			weight: EChartXAxisPropNames.LABEL_FONT_WEIGHT,
-			color: EChartXAxisPropNames.LABEL_FONT_COLOR,
-			style: EChartXAxisPropNames.LABEL_FONT_STYLE
+			family: EChartsXAxisPropNames.LABEL_FONT_FAMILY,
+			size: EChartsXAxisPropNames.LABEL_FONT_SIZE,
+			weight: EChartsXAxisPropNames.LABEL_FONT_WEIGHT,
+			color: EChartsXAxisPropNames.LABEL_FONT_COLOR,
+			style: EChartsXAxisPropNames.LABEL_FONT_STYLE
 		} as SettingsFontPropNames,
 		border: {
-			width: EChartXAxisPropNames.LABEL_BORDER_WIDTH,
-			style: EChartXAxisPropNames.LABEL_BORDER_STYLE,
-			color: EChartXAxisPropNames.LABEL_BORDER_COLOR,
-			radius: EChartXAxisPropNames.LABEL_BORDER_RADIUS
+			width: EChartsXAxisPropNames.LABEL_BORDER_WIDTH,
+			style: EChartsXAxisPropNames.LABEL_BORDER_STYLE,
+			color: EChartsXAxisPropNames.LABEL_BORDER_COLOR,
+			radius: EChartsXAxisPropNames.LABEL_BORDER_RADIUS
 		} as SettingsBorderPropNames,
 		alignment: {
-			align: EChartXAxisPropNames.LABEL_HORIZONTAL_ALIGN,
-			verticalAlign: EChartXAxisPropNames.LABEL_VERTICAL_ALIGN
+			align: EChartsXAxisPropNames.LABEL_HORIZONTAL_ALIGN,
+			verticalAlign: EChartsXAxisPropNames.LABEL_VERTICAL_ALIGN
 		} as SettingsAlignmentPropNames
 	};
 
@@ -58,7 +58,7 @@ export const EChartsXAxisLabelSettings = (props: { report: Report, chart: EChart
 		              onValueChange={onBooleanChange({
 			              report,
 			              chart,
-			              prop: EChartXAxisPropNames.LABEL_SHOW,
+			              prop: EChartsXAxisPropNames.LABEL_SHOW,
 			              done: onValueChange
 		              })}/>
 		<BooleanValue label={Lang.CHART.AXIS_LABEL_INSIDE}
@@ -66,7 +66,7 @@ export const EChartsXAxisLabelSettings = (props: { report: Report, chart: EChart
 		              onValueChange={onBooleanChange({
 			              report,
 			              chart,
-			              prop: EChartXAxisPropNames.LABEL_INSIDE,
+			              prop: EChartsXAxisPropNames.LABEL_INSIDE,
 			              done: onValueChange
 		              })}/>
 		<FontSettings report={report} chart={chart}
@@ -78,7 +78,7 @@ export const EChartsXAxisLabelSettings = (props: { report: Report, chart: EChart
 		            onValueChange={onColorChange({
 			            report,
 			            chart,
-			            prop: EChartXAxisPropNames.LABEL_BACKGROUND_COLOR,
+			            prop: EChartsXAxisPropNames.LABEL_BACKGROUND_COLOR,
 			            done: onValueChange
 		            })}/>
 		<AlignmentSettings report={report} chart={chart}
@@ -95,7 +95,7 @@ export const EChartsXAxisLabelSettings = (props: { report: Report, chart: EChart
 		             onValueChange={onNumberChange({
 			             report,
 			             chart,
-			             prop: EChartXAxisPropNames.LABEL_GAP,
+			             prop: EChartsXAxisPropNames.LABEL_GAP,
 			             done: onValueChange
 		             })}/>
 		<NumberValue label={Lang.CHART.AXIS_NAME_ROTATE} unitLabel={Lang.CHART.DEGREE} placeholder={'-90 - 90'}
@@ -104,7 +104,7 @@ export const EChartsXAxisLabelSettings = (props: { report: Report, chart: EChart
 		             onValueChange={onNumberChange({
 			             report,
 			             chart,
-			             prop: EChartXAxisPropNames.LABEL_ROTATE,
+			             prop: EChartsXAxisPropNames.LABEL_ROTATE,
 			             done: onValueChange
 		             })}/>
 		<NumberValue label={Lang.CHART.PADDING} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 9999'}
@@ -113,7 +113,7 @@ export const EChartsXAxisLabelSettings = (props: { report: Report, chart: EChart
 		             onValueChange={onNumberChange({
 			             report,
 			             chart,
-			             prop: EChartXAxisPropNames.LABEL_PADDING,
+			             prop: EChartsXAxisPropNames.LABEL_PADDING,
 			             done: onValueChange
 		             })}/>
 	</Section>;
