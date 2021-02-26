@@ -84,7 +84,10 @@ export const ExpressionOperator = (props: { expression: ParameterExpression }) =
 		}
 	};
 
-	return <ExpressionOperatorContainer onClick={onStartClicked} ref={containerRef}>
+	const hasRight = expression.operator !== ParameterExpressionOperator.EMPTY
+		&& expression.operator !== ParameterExpressionOperator.NOT_EMPTY;
+
+	return <ExpressionOperatorContainer hasRight={hasRight} onClick={onStartClicked} ref={containerRef}>
 		<ExpressionOperatorLabel>{FilterExpressionOperatorLabels[expression.operator]}</ExpressionOperatorLabel>
 		<ExpressionOperatorIcon>
 			<FontAwesomeIcon icon={ICON_EDIT}/>

@@ -41,7 +41,12 @@ export const ExpressionLeadLabel = styled.div.attrs({ 'data-widget': 'expression
 	outline          : none;
 	box-shadow       : var(--param-border);
 `;
-export const ExpressionSideContainer = styled.div.attrs({ 'data-widget': 'expression-side' })`
+export const ExpressionSideContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
+	return {
+		'data-widget': 'expression-side',
+		style: { display: visible ? (void 0) : 'none' }
+	};
+})<{ visible: boolean }>`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : auto 1fr;

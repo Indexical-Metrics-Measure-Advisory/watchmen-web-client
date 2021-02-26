@@ -16,6 +16,7 @@ import { RemoveMeButton } from '../widgets';
 import { ExpressionSide } from './expression-side';
 import { ExpressionOperator } from './operator';
 import { Parameter2ExpressionBridge } from './parameter-2-expression-bridge';
+import { RightPart } from './right';
 import { ExpressionContainer, ExpressionHeader, ExpressionLeadLabel } from './widgets';
 
 const defendExpression = (expression: ParameterExpression) => {
@@ -35,11 +36,9 @@ export const Expression = (props: { expression: ParameterExpression, topics: Arr
 	defendExpression(expression);
 
 	const { fire } = useExpressionEventBus();
+
 	const onLeftParameterChanged = () => {
 		fire(ExpressionEventTypes.LEFT_CHANGED, expression);
-	};
-	const onRightParameterChanged = () => {
-		fire(ExpressionEventTypes.RIGHT_CHANGED, expression);
 	};
 
 	return <ExpressionContainer>
@@ -54,9 +53,6 @@ export const Expression = (props: { expression: ParameterExpression, topics: Arr
 			<ExpressionSide parameter={expression.left} topics={topics}/>
 		</ParameterEventBusProvider>
 		<ExpressionOperator expression={expression}/>
-		<ParameterEventBusProvider>
-			<Parameter2ExpressionBridge onChange={onRightParameterChanged}/>
-			<ExpressionSide parameter={expression.right} topics={topics}/>
-		</ParameterEventBusProvider>
+		<RightPart expression={expression} topics={topics}/>
 	</ExpressionContainer>;
 };

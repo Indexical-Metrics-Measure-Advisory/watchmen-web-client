@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { DROPDOWN_Z_INDEX } from '../../../../../../../basic-widgets/constants';
 
-export const ExpressionOperatorContainer = styled.div.attrs({ 'data-widget': 'expression-operator' })`
+export const ExpressionOperatorContainer = styled.div.attrs({ 'data-widget': 'expression-operator' })<{ hasRight: boolean }>`
 	display          : flex;
 	position         : relative;
 	align-self       : center;
@@ -25,19 +25,20 @@ export const ExpressionOperatorContainer = styled.div.attrs({ 'data-widget': 'ex
 		}
 	}
 	&:before {
-		content    : '';
-		display    : block;
-		position   : absolute;
-		top        : calc((var(--margin) / 4 + var(--param-height) / 2 + 3px) * -1);
-		right      : 100%;
-		width      : calc(var(--margin) / 2 - 1px);
-		height     : calc(var(--margin) / 4 + var(--param-height) + 3px);
-		z-index    : -1;
-		box-shadow : var(--param-left-border), var(--param-bottom-border);
+		content                   : '';
+		display                   : block;
+		position                  : absolute;
+		top                       : calc((var(--margin) / 4 + var(--param-height) / 2 + 3px) * -1);
+		right                     : 100%;
+		width                     : calc(var(--margin) / 2 - 1px);
+		height                    : calc(var(--margin) / 4 + var(--param-height) + 3px);
+		border-bottom-left-radius : ${({ hasRight }) => hasRight ? (void 0) : 'var(--border-radius)'};;
+		z-index                   : -1;
+		box-shadow                : var(--param-left-border), var(--param-bottom-border);
 	}
 	&:not(:last-child):after {
 		content          : '';
-		display          : block;
+		display          : ${({ hasRight }) => hasRight ? 'block' : 'none'};
 		position         : absolute;
 		top              : calc(var(--param-height) / 2 - 3px);
 		left             : calc(var(--margin) / -2);
