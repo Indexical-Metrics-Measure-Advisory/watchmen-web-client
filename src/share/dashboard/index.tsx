@@ -28,13 +28,13 @@ const ShareDashboard = (props: { dashboard: Dashboard }) => {
 };
 
 const ShareDashboardIndex = () => {
-	const { dashboardId } = useParams<{ dashboardId: string }>();
+	const { dashboardId, token } = useParams<{ dashboardId: string, token: string }>();
 
 	const [ state, setState ] = useState<ShareDashboardState>({ initialized: false });
 	useEffect(() => {
 		(async () => {
 			try {
-				const { dashboard, reports } = await fetchSharedDashboard(dashboardId);
+				const { dashboard, reports } = await fetchSharedDashboard(dashboardId, token);
 				setState({ initialized: true, dashboard, reports });
 			} catch (e) {
 				console.error(e);

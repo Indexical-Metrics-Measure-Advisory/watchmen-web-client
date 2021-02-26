@@ -27,6 +27,6 @@ export enum Router {
 	CONSOLE_SETTINGS = '/console/settings',
 
 	SHARE = '/share',
-	SHARE_DASHBOARD = '/share/dashboard/:dashboardId',
-	SHARE_SUBJECT = '/share/subject/:subjectId'
+	SHARE_DASHBOARD = '/share/dashboard/:dashboardId/:token',
+	SHARE_SUBJECT = '/share/subject/:subjectId/:token'
 }

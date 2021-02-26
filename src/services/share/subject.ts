@@ -7,7 +7,7 @@ export interface SharedSubject {
 	subject: Subject;
 }
 
-export const fetchSharedSubject = async (subjectId: string): Promise<SharedSubject> => {
+export const fetchSharedSubject = async (subjectId: string, token: string): Promise<SharedSubject> => {
 	return new Promise(resolve => {
 		setTimeout(() => {
 			resolve({

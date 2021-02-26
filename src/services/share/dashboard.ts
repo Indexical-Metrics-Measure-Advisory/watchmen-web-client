@@ -8,7 +8,7 @@ export interface SharedDashboard {
 	reports: Array<Report>;
 }
 
-export const fetchSharedDashboard = async (dashboardId: string): Promise<SharedDashboard> => {
+export const fetchSharedDashboard = async (dashboardId: string, token: string): Promise<SharedDashboard> => {
 	return new Promise(resolve => {
 		setTimeout(() => {
 			resolve({

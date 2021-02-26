@@ -37,13 +37,13 @@ const ShareSubject = (props: { subject: Subject }) => {
 };
 
 const ShareSubjectIndex = () => {
-		const { subjectId } = useParams<{ subjectId: string }>();
+		const { subjectId, token } = useParams<{ subjectId: string, token: string }>();
 
 		const [ state, setState ] = useState<ShareSubjectState>({ initialized: false });
 		useEffect(() => {
 			(async () => {
 				try {
-					const { subject } = await fetchSharedSubject(subjectId);
+					const { subject } = await fetchSharedSubject(subjectId, token);
 					setState({ initialized: true, subject });
 				} catch (e) {
 					console.error(e);
