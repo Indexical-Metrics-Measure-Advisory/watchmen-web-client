@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const En = {
+export const Jp = {
 	$$settings: {
 		code: 'jp',
 		name: '日本語',
@@ -313,6 +313,9 @@ export const En = {
 		WIDTH: '幅',
 		HEIGHT: '高さ',
 		PIXEL: 'PX',
+		DEGREE: 'DEG', // NEW
+		LINE_COLOR: 'Line Color', // NEW
+		LINE_STYLE: 'Line Style', // NEW
 		FONT_FAMILY: '字体',
 		FONT_COLOR: 'フォントの色',
 		FONT_SIZE: 'フォントのサイズ',
@@ -338,6 +341,7 @@ export const En = {
 		BORDER_COLOR: 'ボーダー色',
 		BORDER_WIDTH: 'ボーダー幅',
 		BORDER_RADIUS: 'ボーダー半径',
+		POSITION: 'Position',  // NEW
 		POSITION_TOP: '上側',
 		POSITION_RIGHT: '右側',
 		POSITION_LEFT: '左側',
@@ -354,10 +358,63 @@ export const En = {
 		VERTICAL_ALIGNMENT_BOTTOM: '下揃え',
 		TITLE_TEXT_ITEM_GAP: 'タイトルの間隔',
 		PADDING: '余白',
+		SHOW: 'Show',  // NEW
+		LEGEND_ORIENT: 'Orient',  // NEW
+		LEGEND_ORIENT_HORIZONTAL: 'Horizontal',  // NEW
+		LEGEND_ORIENT_VERTICAL: 'Vertical',  // NEW
+		GRID_CONTAIN_LABEL: 'Contain Label',  // NEW
+		AXIS_TYPE: 'Axis Type',  // NEW
+		AXIS_TYPE_CATEGORY: 'Category',  // NEW
+		AXIS_TYPE_VALUE: 'Value',  // NEW
+		AXIS_TYPE_TIME: 'Time',  // NEW
+		AXIS_AUTO_MIN: 'Min Auto',  // NEW
+		AXIS_MIN: 'Min',  // NEW
+		AXIS_AUTO_MAX: 'Max Auto',  // NEW
+		AXIS_MAX: 'Max',  // NEW
+		AXIS_NAME_LOCATION: 'Location',  // NEW
+		AXIS_NAME_LOCATION_START: 'Start',  // NEW
+		AXIS_NAME_LOCATION_CENTER: 'Center',  // NEW
+		AXIS_NAME_LOCATION_END: 'End',  // NEW
+		AXIS_NAME_GAP: 'Gap',  // NEW
+		AXIS_NAME_ROTATE: 'Rotate',  // NEW
+		AXIS_LABEL_INSIDE: 'Inside',  // NEW
+		ROAM: 'Roam',  // NEW
+		TREE_LAYOUT: 'Layout',  // NEW
+		TREE_LAYOUT_ORTHOGONAL: 'Orthogonal',  // NEW
+		TREE_LAYOUT_RADIAL: 'Radial',  // NEW
+		TREE_ORIENT: 'Orient',  // NEW
+		TREE_ORIENT_LEFT_RIGHT: 'Left to Right',  // NEW
+		TREE_ORIENT_RIGHT_LEFT: 'Right to Left',  // NEW
+		TREE_ORIENT_TOP_BOTTOM: 'Top to Bottom',  // NEW
+		TREE_ORIENT_BOTTOM_TOP: 'Bottom to Top',  // NEW
+		PIE_CENTER_X: 'Center X',  // NEW
+		PIE_CENTER_Y: 'Center Y',  // NEW
+		PIE_INSIDE_RADIUS: 'Inside Radius',  // NEW
+		PIE_OUTSIDE_RADIUS: 'Outside Radius',  // NEW
+		PIE_ROSE_TYPE: 'Rose Type',  // NEW
+		PIE_ROSE_TYPE_NONE: 'None',  // NEW
+		PIE_ROSE_TYPE_RADIUS: 'By Radius',  // NEW
+		PIE_ROSE_TYPE_AREA: 'By Area',  // NEW
 		SECTION_TITLE_COUNT_CHART: '特定スタイル',
 		SECTION_TITLE_PIE_CHART: '特定スタイル',
+		SECTION_TITLE_TREE_CHART: 'Tree Style',  // NEW
+		SECTION_TITLE_TREEMAP_CHART: 'Treemap Style',  // NEW
 		SECTION_TITLE_ECHART_TITLE: 'タイトル',
 		SECTION_TITLE_ECHART_SUBTITLE: 'サブタイトル',
+		SECTION_TITLE_ECHART_LEGEND: 'Legend',  // NEW
+		SECTION_TITLE_ECHART_GRID: 'Grid',  // NEW
+		SECTION_TITLE_ECHART_XAXIS: 'X-Axis',  // NEW
+		SECTION_TITLE_ECHART_XAXIS_RANGE: 'X-Axis Range',  // NEW
+		SECTION_TITLE_ECHART_XAXIS_NAME: 'X-Axis Name',  // NEW
+		SECTION_TITLE_ECHART_XAXIS_LABEL: 'X-Axis Label',  // NEW
+		SECTION_TITLE_ECHART_XAXIS_LINE: 'X-Axis Split Line',  // NEW
+		SECTION_TITLE_ECHART_XAXIS_MINOR_LINE: 'X-Axis Minor Split Line',  // NEW
+		SECTION_TITLE_ECHART_YAXIS: 'Y-Axis',  // NEW
+		SECTION_TITLE_ECHART_YAXIS_RANGE: 'Y-Axis Range',  // NEW
+		SECTION_TITLE_ECHART_YAXIS_NAME: 'Y-Axis Name',  // NEW
+		SECTION_TITLE_ECHART_YAXIS_LABEL: 'Y-Axis Label',  // NEW
+		SECTION_TITLE_ECHART_YAXIS_LINE: 'Y-Axis Split Line',  // NEW
+		SECTION_TITLE_ECHART_YAXIS_MINOR_LINE: 'Y-Axis Minor Split Line',  // NEW
 		NONAME_COLUMN: 'ノーネームカラム',
 		UNKNOWN_COLUMN_NAME: '不明なカラム',
 		CAN_NOT_DELETE_DIMENSION: 'ディメンションの最小限に達したため、削除できません。',
@@ -394,5 +451,8 @@ export const En = {
 		ECHART: {
 			TEXT: 'テキスト'
 		}
+	},
+	SHARE: {
+		NOTHING: 'No content can be found, contact administrator for more information.' // NEW
 	}
 };

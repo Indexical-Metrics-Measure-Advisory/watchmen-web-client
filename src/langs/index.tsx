@@ -3,13 +3,15 @@ import { useForceUpdate } from '../basic-widgets/utils';
 import { useEventBus } from '../events/event-bus';
 import { EventTypes } from '../events/types';
 import { En } from './en';
+import { Jp } from './jp';
 import { LanguageObjectType } from './types';
 import { Zh } from './zh';
 
 type EnType = typeof En;
 const LANGUAGES = {
 	[En.$$settings.code]: En,
-	[Zh.$$settings.code]: Zh as EnType
+	[Zh.$$settings.code]: Zh as EnType,
+	[Jp.$$settings.code]: Jp as unknown as EnType
 };
 let currentLanguage = En;
 
