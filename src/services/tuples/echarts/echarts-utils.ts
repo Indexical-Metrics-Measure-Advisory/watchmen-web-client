@@ -18,3 +18,6 @@ export const canUseGrid = (chart: Chart): boolean => {
 export const canUseXAxis = (chart: Chart): boolean => {
 	return ChartHelper[chart.type].getDef().canUseXAxis;
 };
+export const canUseYAxis = (chart: Chart): boolean => {
+	return ChartHelper[chart.type].getDef().canUseYAxis;
+}

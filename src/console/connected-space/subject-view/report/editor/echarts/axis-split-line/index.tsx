@@ -11,6 +11,7 @@ import { Report } from '../../../../../../../services/tuples/report-types';
 import {
 	AxisSplitLineStyleOptions,
 	EChartXAxisPropNames,
+	EChartYAxisPropNames,
 	onBooleanChange,
 	onColorChange,
 	onDropdownValueChange,
@@ -24,10 +25,22 @@ import { NumberValue } from '../../settings-widgets/number-value';
 import { Section } from '../../settings-widgets/section';
 
 export interface SettingsAxisSplitLinePropNames {
-	show: EChartXAxisPropNames.SPLIT_LINE_SHOW | EChartXAxisPropNames.MINOR_SPLIT_LINE_SHOW,
-	color: EChartXAxisPropNames.SPLIT_LINE_COLOR | EChartXAxisPropNames.MINOR_SPLIT_LINE_COLOR,
-	width: EChartXAxisPropNames.SPLIT_LINE_WIDTH | EChartXAxisPropNames.MINOR_SPLIT_LINE_WIDTH,
-	style: EChartXAxisPropNames.SPLIT_LINE_STYLE | EChartXAxisPropNames.MINOR_SPLIT_LINE_STYLE
+	show: EChartXAxisPropNames.SPLIT_LINE_SHOW
+		| EChartXAxisPropNames.MINOR_SPLIT_LINE_SHOW
+		| EChartYAxisPropNames.SPLIT_LINE_SHOW
+		| EChartYAxisPropNames.MINOR_SPLIT_LINE_SHOW,
+	color: EChartXAxisPropNames.SPLIT_LINE_COLOR
+		| EChartXAxisPropNames.MINOR_SPLIT_LINE_COLOR
+		| EChartYAxisPropNames.SPLIT_LINE_COLOR
+		| EChartYAxisPropNames.MINOR_SPLIT_LINE_COLOR,
+	width: EChartXAxisPropNames.SPLIT_LINE_WIDTH
+		| EChartXAxisPropNames.MINOR_SPLIT_LINE_WIDTH
+		| EChartYAxisPropNames.SPLIT_LINE_WIDTH
+		| EChartYAxisPropNames.MINOR_SPLIT_LINE_WIDTH,
+	style: EChartXAxisPropNames.SPLIT_LINE_STYLE
+		| EChartXAxisPropNames.MINOR_SPLIT_LINE_STYLE
+		| EChartYAxisPropNames.SPLIT_LINE_STYLE
+		| EChartYAxisPropNames.MINOR_SPLIT_LINE_STYLE
 }
 
 export const EChartsAxisSplitLineSettings = (props: {

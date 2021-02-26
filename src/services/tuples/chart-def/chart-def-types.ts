@@ -11,4 +11,5 @@ export interface ChartDef {
 	readonly canHoldLegend: boolean;
 	readonly canUseGrid: boolean;
 	readonly canUseXAxis: boolean;
+	readonly canUseYAxis: boolean;
 }

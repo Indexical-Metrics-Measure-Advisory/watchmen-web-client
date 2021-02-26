@@ -12,7 +12,8 @@ export const COUNT: ChartDef = {
 	canHoldTitle: true,
 	canHoldLegend: false,
 	canUseGrid: false,
-	canUseXAxis: false
+	canUseXAxis: false,
+	canUseYAxis: false
 };
 
 export interface CountChartSettingsText {

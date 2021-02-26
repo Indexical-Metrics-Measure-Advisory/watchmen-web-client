@@ -9,6 +9,8 @@ import { buildEChartsGrid } from './grid-utils';
 import { buildEChartsLegend } from './legend-utils';
 import { buildEChartsTitle } from './title-utils';
 import { ChartOptions } from './types';
+import { buildEChartsXAxis } from './xaxis-utils';
+import { buildEChartsYAxis } from './yaxis-utils';
 
 export class ChartScatterUtils extends DefaultChartUtils {
 	constructor() {
@@ -61,15 +63,8 @@ export class ChartScatterUtils extends DefaultChartUtils {
 			// legend only available on multiple dimensions defined
 			legend: legends.length > 1 ? buildEChartsLegend(chart as ECharts, legends.map(({ name }) => name)) : (void 0),
 			grid: buildEChartsGrid(chart as ECharts),
-			xAxis: {
-				type: 'category',
-				// use last dimension as xAxis
-				name: dimensions[dimensions.length - 1].name
-			},
-			yAxis: {
-				type: 'value',
-				name: indicators[0].name
-			},
+			xAxis: [ buildEChartsXAxis(chart as ECharts, [ dimensions[dimensions.length - 1].name ]) ],
+			yAxis: [ buildEChartsYAxis(chart as ECharts) ],
 			series: legends.map(({ name, rows }) => {
 				return {
 					name,

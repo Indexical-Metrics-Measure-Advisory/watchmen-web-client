@@ -10,6 +10,7 @@ import { buildEChartsLegend } from './legend-utils';
 import { buildEChartsTitle } from './title-utils';
 import { ChartOptions } from './types';
 import { buildEChartsXAxis } from './xaxis-utils';
+import { buildEChartsYAxis } from './yaxis-utils';
 
 export class ChartBarUtils extends DefaultChartUtils {
 	constructor() {
@@ -35,7 +36,7 @@ export class ChartBarUtils extends DefaultChartUtils {
 			legend: buildEChartsLegend(chart as ECharts, legends.map(item => item.label)),
 			grid: buildEChartsGrid(chart as ECharts),
 			xAxis: [ buildEChartsXAxis(chart as ECharts, groups.map(({ value }) => value)) ],
-			yAxis: [ { type: 'value' } ],
+			yAxis: [ buildEChartsYAxis(chart as ECharts) ],
 			series: legends.map(({ label, index: indicatorIndex }) => {
 				return {
 					name: label,

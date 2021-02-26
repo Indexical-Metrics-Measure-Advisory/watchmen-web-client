@@ -11,7 +11,8 @@ export const TREEMAP: ChartDef = {
 	canHoldTitle: true,
 	canHoldLegend: false,
 	canUseGrid: false,
-	canUseXAxis: false
+	canUseXAxis: false,
+	canUseYAxis: false
 };
 
 export interface TreemapChartSettings extends EChartsSettings {

@@ -13,6 +13,10 @@ import {
 	EChartsXAxisPosition,
 	EChartsXAxisType
 } from '../../../../../services/tuples/echarts/echarts-xaxis-types';
+import {
+	EChartsYAxisNameLocation,
+	EChartsYAxisPosition
+} from '../../../../../services/tuples/echarts/echarts-yaxis-types';
 import { Report } from '../../../../../services/tuples/report-types';
 import { Theme } from '../../../../../theme/types';
 
@@ -107,6 +111,15 @@ export const XAxisNameLocationOptions: Array<DropdownOption> = [
 	{ value: EChartsXAxisNameLocation.START, label: Lang.CHART.AXIS_NAME_LOCATION_START },
 	{ value: EChartsXAxisNameLocation.CENTER, label: Lang.CHART.AXIS_NAME_LOCATION_CENTER },
 	{ value: EChartsXAxisNameLocation.END, label: Lang.CHART.AXIS_NAME_LOCATION_END }
+];
+export const YAxisPositionOptions: Array<DropdownOption> = [
+	{ value: EChartsYAxisPosition.LEFT, label: Lang.CHART.POSITION_LEFT },
+	{ value: EChartsYAxisPosition.RIGHT, label: Lang.CHART.POSITION_RIGHT }
+];
+export const YAxisNameLocationOptions: Array<DropdownOption> = [
+	{ value: EChartsYAxisNameLocation.START, label: Lang.CHART.AXIS_NAME_LOCATION_START },
+	{ value: EChartsYAxisNameLocation.MIDDLE, label: Lang.CHART.AXIS_NAME_LOCATION_CENTER },
+	{ value: EChartsYAxisNameLocation.END, label: Lang.CHART.AXIS_NAME_LOCATION_END }
 ];
 export const AxisTypeOptions: Array<DropdownOption> = [
 	{ value: EChartsXAxisType.CATEGORY, label: Lang.CHART.AXIS_TYPE_CATEGORY },
@@ -265,11 +278,70 @@ export enum EChartXAxisPropNames {
 	MINOR_SPLIT_LINE_STYLE = 'xaxis.minorSplitLine.style',
 }
 
+export enum EChartYAxisPropNames {
+	SHOW = 'yaxis.show',
+	POSITION = 'yaxis.position',
+	TYPE = 'yaxis.type',
+
+	AUTO_MIN = 'yaxis.autoMin',
+	MIN = 'yaxis.min',
+	AUTO_MAX = 'yaxis.autoMax',
+	MAX = 'yaxis.max',
+
+	NAME_TEXT = 'yaxis.name.text',
+	NAME_LOCATION = 'yaxis.name.location',
+	NAME_BACKGROUND_COLOR = 'yaxis.name.backgroundColor',
+	NAME_FONT_FAMILY = 'yaxis.name.font.family',
+	NAME_FONT_SIZE = 'yaxis.name.font.size',
+	NAME_FONT_WEIGHT = 'yaxis.name.font.weight',
+	NAME_FONT_COLOR = 'yaxis.name.font.color',
+	NAME_FONT_STYLE = 'yaxis.name.font.style',
+	NAME_BORDER_WIDTH = 'yaxis.name.border.width',
+	NAME_BORDER_STYLE = 'yaxis.name.border.style',
+	NAME_BORDER_COLOR = 'yaxis.name.border.color',
+	NAME_BORDER_RADIUS = 'yaxis.name.border.radius',
+	NAME_HORIZONTAL_ALIGN = 'yaxis.name.horizontalAlign',
+	NAME_VERTICAL_ALIGN = 'yaxis.name.verticalAlign',
+	NAME_GAP = 'yaxis.name.gap',
+	NAME_ROTATE = 'yaxis.name.rotate',
+	NAME_PADDING = 'yaxis.name.padding',
+
+	LABEL_SHOW = 'yaxis.label.show',
+	LABEL_INSIDE = 'yaxis.label.inside',
+	LABEL_BACKGROUND_COLOR = 'yaxis.label.backgroundColor',
+	LABEL_FONT_FAMILY = 'yaxis.label.font.family',
+	LABEL_FONT_SIZE = 'yaxis.label.font.size',
+	LABEL_FONT_WEIGHT = 'yaxis.label.font.weight',
+	LABEL_FONT_COLOR = 'yaxis.label.font.color',
+	LABEL_FONT_STYLE = 'yaxis.label.font.style',
+	LABEL_BORDER_WIDTH = 'yaxis.label.border.width',
+	LABEL_BORDER_STYLE = 'yaxis.label.border.style',
+	LABEL_BORDER_COLOR = 'yaxis.label.border.color',
+	LABEL_BORDER_RADIUS = 'yaxis.label.border.radius',
+	LABEL_HORIZONTAL_ALIGN = 'yaxis.label.horizontalAlign',
+	LABEL_VERTICAL_ALIGN = 'yaxis.label.verticalAlign',
+	LABEL_GAP = 'yaxis.label.gap',
+	LABEL_ROTATE = 'yaxis.label.rotate',
+	LABEL_PADDING = 'yaxis.label.padding',
+
+	SPLIT_LINE_SHOW = 'yaxis.splitLine.show',
+	SPLIT_LINE_COLOR = 'yaxis.splitLine.color',
+	SPLIT_LINE_WIDTH = 'yaxis.splitLine.width',
+	SPLIT_LINE_STYLE = 'yaxis.splitLine.style',
+
+	MINOR_SPLIT_LINE_SHOW = 'yaxis.minorSplitLine.show',
+	MINOR_SPLIT_LINE_COLOR = 'yaxis.minorSplitLine.color',
+	MINOR_SPLIT_LINE_WIDTH = 'yaxis.minorSplitLine.width',
+	MINOR_SPLIT_LINE_STYLE = 'yaxis.minorSplitLine.style',
+}
+
 export type TextPropNames =
 	EChartTitlePropNames.TEXT
 	| EChartTitlePropNames.SUBTEXT
 
-	| EChartXAxisPropNames.NAME_TEXT;
+	| EChartXAxisPropNames.NAME_TEXT
+
+	| EChartYAxisPropNames.NAME_TEXT;
 
 export type ColorPropNames =
 	BasicStylePropNames.BACKGROUND_COLOR
@@ -296,7 +368,16 @@ export type ColorPropNames =
 	| EChartXAxisPropNames.LABEL_BORDER_COLOR
 	| EChartXAxisPropNames.LABEL_BACKGROUND_COLOR
 	| EChartXAxisPropNames.SPLIT_LINE_COLOR
-	| EChartXAxisPropNames.MINOR_SPLIT_LINE_COLOR;
+	| EChartXAxisPropNames.MINOR_SPLIT_LINE_COLOR
+
+	| EChartYAxisPropNames.NAME_FONT_COLOR
+	| EChartYAxisPropNames.NAME_BORDER_COLOR
+	| EChartYAxisPropNames.NAME_BACKGROUND_COLOR
+	| EChartYAxisPropNames.LABEL_FONT_COLOR
+	| EChartYAxisPropNames.LABEL_BORDER_COLOR
+	| EChartYAxisPropNames.LABEL_BACKGROUND_COLOR
+	| EChartYAxisPropNames.SPLIT_LINE_COLOR
+	| EChartYAxisPropNames.MINOR_SPLIT_LINE_COLOR;
 
 export type NumberPropNames =
 	BasicStylePropNames.BORDER_WIDTH
@@ -345,7 +426,24 @@ export type NumberPropNames =
 	| EChartXAxisPropNames.LABEL_ROTATE
 	| EChartXAxisPropNames.LABEL_PADDING
 	| EChartXAxisPropNames.SPLIT_LINE_WIDTH
-	| EChartXAxisPropNames.MINOR_SPLIT_LINE_WIDTH;
+	| EChartXAxisPropNames.MINOR_SPLIT_LINE_WIDTH
+
+	| EChartYAxisPropNames.MIN
+	| EChartYAxisPropNames.MAX
+	| EChartYAxisPropNames.NAME_BORDER_WIDTH
+	| EChartYAxisPropNames.NAME_BORDER_RADIUS
+	| EChartYAxisPropNames.NAME_FONT_SIZE
+	| EChartYAxisPropNames.NAME_GAP
+	| EChartYAxisPropNames.NAME_ROTATE
+	| EChartYAxisPropNames.NAME_PADDING
+	| EChartYAxisPropNames.LABEL_BORDER_WIDTH
+	| EChartYAxisPropNames.LABEL_BORDER_RADIUS
+	| EChartYAxisPropNames.LABEL_FONT_SIZE
+	| EChartYAxisPropNames.LABEL_GAP
+	| EChartYAxisPropNames.LABEL_ROTATE
+	| EChartYAxisPropNames.LABEL_PADDING
+	| EChartYAxisPropNames.SPLIT_LINE_WIDTH
+	| EChartYAxisPropNames.MINOR_SPLIT_LINE_WIDTH;
 
 export type DropdownPropNames =
 	BasicStylePropNames.BORDER_STYLE
@@ -389,7 +487,25 @@ export type DropdownPropNames =
 	| EChartXAxisPropNames.LABEL_HORIZONTAL_ALIGN
 	| EChartXAxisPropNames.LABEL_VERTICAL_ALIGN
 	| EChartXAxisPropNames.SPLIT_LINE_STYLE
-	| EChartXAxisPropNames.MINOR_SPLIT_LINE_STYLE;
+	| EChartXAxisPropNames.MINOR_SPLIT_LINE_STYLE
+
+	| EChartYAxisPropNames.POSITION
+	| EChartYAxisPropNames.TYPE
+	| EChartYAxisPropNames.NAME_LOCATION
+	| EChartYAxisPropNames.NAME_FONT_FAMILY
+	| EChartYAxisPropNames.NAME_FONT_STYLE
+	| EChartYAxisPropNames.NAME_FONT_WEIGHT
+	| EChartYAxisPropNames.NAME_BORDER_STYLE
+	| EChartYAxisPropNames.NAME_HORIZONTAL_ALIGN
+	| EChartYAxisPropNames.NAME_VERTICAL_ALIGN
+	| EChartYAxisPropNames.LABEL_FONT_FAMILY
+	| EChartYAxisPropNames.LABEL_FONT_STYLE
+	| EChartYAxisPropNames.LABEL_FONT_WEIGHT
+	| EChartYAxisPropNames.LABEL_BORDER_STYLE
+	| EChartYAxisPropNames.LABEL_HORIZONTAL_ALIGN
+	| EChartYAxisPropNames.LABEL_VERTICAL_ALIGN
+	| EChartYAxisPropNames.SPLIT_LINE_STYLE
+	| EChartYAxisPropNames.MINOR_SPLIT_LINE_STYLE;
 
 export type BooleanPropNames =
 	CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING
@@ -405,7 +521,15 @@ export type BooleanPropNames =
 	| EChartXAxisPropNames.LABEL_SHOW
 	| EChartXAxisPropNames.LABEL_INSIDE
 	| EChartXAxisPropNames.SPLIT_LINE_SHOW
-	| EChartXAxisPropNames.MINOR_SPLIT_LINE_SHOW;
+	| EChartXAxisPropNames.MINOR_SPLIT_LINE_SHOW
+
+	| EChartYAxisPropNames.SHOW
+	| EChartYAxisPropNames.AUTO_MIN
+	| EChartYAxisPropNames.AUTO_MAX
+	| EChartYAxisPropNames.LABEL_SHOW
+	| EChartYAxisPropNames.LABEL_INSIDE
+	| EChartYAxisPropNames.SPLIT_LINE_SHOW
+	| EChartYAxisPropNames.MINOR_SPLIT_LINE_SHOW;
 
 export const onTextValueChange = (options: {
 	report: Report;

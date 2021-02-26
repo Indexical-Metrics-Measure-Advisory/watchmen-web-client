@@ -10,7 +10,8 @@ export const LINE: ChartDef = {
 	canHoldTitle: true,
 	canHoldLegend: true,
 	canUseGrid: true,
-	canUseXAxis: true
+	canUseXAxis: true,
+	canUseYAxis: true
 };
 
 export interface LineChartSettings extends EChartsSettings {

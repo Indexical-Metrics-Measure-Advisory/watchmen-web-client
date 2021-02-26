@@ -11,7 +11,8 @@ export const PIE: ChartDef = {
 	canHoldTitle: true,
 	canHoldLegend: true,
 	canUseGrid: false,
-	canUseXAxis: false
+	canUseXAxis: false,
+	canUseYAxis: false
 };
 
 export interface PieChartSettings extends EChartsSettings {

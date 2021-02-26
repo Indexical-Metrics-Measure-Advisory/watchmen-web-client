@@ -10,6 +10,7 @@ import { Report } from '../../../../../../../services/tuples/report-types';
 import {
 	EChartTitlePropNames,
 	EChartXAxisPropNames,
+	EChartYAxisPropNames,
 	HorizontalAlignmentOptions,
 	onDropdownValueChange,
 	VerticalAlignmentOptions
@@ -19,10 +20,14 @@ import { DropdownValue } from '../../settings-widgets/dropdown-value';
 export interface SettingsAlignmentPropNames {
 	align: EChartTitlePropNames.TEXT_HORIZONTAL_ALIGN
 		| EChartXAxisPropNames.NAME_HORIZONTAL_ALIGN
-		| EChartXAxisPropNames.LABEL_HORIZONTAL_ALIGN;
+		| EChartXAxisPropNames.LABEL_HORIZONTAL_ALIGN
+		| EChartYAxisPropNames.NAME_HORIZONTAL_ALIGN
+		| EChartYAxisPropNames.LABEL_HORIZONTAL_ALIGN;
 	verticalAlign: EChartTitlePropNames.TEXT_VERTICAL_ALIGN
 		| EChartXAxisPropNames.NAME_VERTICAL_ALIGN
-		| EChartXAxisPropNames.LABEL_VERTICAL_ALIGN;
+		| EChartXAxisPropNames.LABEL_VERTICAL_ALIGN
+		| EChartYAxisPropNames.NAME_VERTICAL_ALIGN
+		| EChartYAxisPropNames.LABEL_VERTICAL_ALIGN;
 }
 
 export const AlignmentSettings = (props: {
