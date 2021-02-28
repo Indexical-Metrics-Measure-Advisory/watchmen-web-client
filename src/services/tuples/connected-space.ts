@@ -1,15 +1,15 @@
-import { findToken } from '../account';
+import { findToken } from "../account";
 import {
 	deleteMockConnectedSpace,
 	fetchMockConnectedSpaceGraphics,
 	fetchMockConnectedSpaces,
 	renameMockConnectedSpace,
 	saveMockConnectedSpace,
-	saveMockConnectedSpaceGraphics
-} from '../mock/tuples/mock-connected-space';
-import { getServiceHost, isMockService } from '../utils';
-import { ConnectedSpace, ConnectedSpaceGraphics } from './connected-space-types';
-import { isFakedUuid } from './utils';
+	saveMockConnectedSpaceGraphics,
+} from "../mock/tuples/mock-connected-space";
+import { getServiceHost, isMockService } from "../utils";
+import { ConnectedSpace, ConnectedSpaceGraphics } from "./connected-space-types";
+import { isFakedUuid } from "./utils";
 
 export const fetchConnectedSpaces = async (): Promise<Array<ConnectedSpace>> => {
 	if (isMockService()) {
@@ -17,11 +17,11 @@ export const fetchConnectedSpaces = async (): Promise<Array<ConnectedSpace>> => 
 	} else {
 		const token = findToken();
 		const response = await fetch(`${getServiceHost()}console_space/connected/me`, {
-			method: 'GET',
+			method: "GET",
 			headers: {
-				'Content-Type': 'application/json',
-				Authorization: 'Bearer ' + token
-			}
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
+			},
 		});
 		return await response.json();
 	}
@@ -31,8 +31,16 @@ export const fetchConnectedSpaceGraphics = async (): Promise<Array<ConnectedSpac
 	if (isMockService()) {
 		return fetchMockConnectedSpaceGraphics();
 	} else {
+		const token = findToken();
 		// REMOTE use real api
-		return [];
+		const response = await fetch(`${getServiceHost()}console_space/graphics/me`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
+			},
+		});
+		return await response.json();
 	}
 };
 
@@ -44,11 +52,11 @@ export const saveConnectedSpace = async (connectedSpace: ConnectedSpace): Promis
 		const response = await fetch(
 			`${getServiceHost()}space/connect?space_id=${connectedSpace.spaceId}&name=${connectedSpace.name}`,
 			{
-				method: 'GET',
+				method: "GET",
 				headers: {
-					'Content-Type': 'application/json',
-					Authorization: 'Bearer ' + token
-				}
+					"Content-Type": "application/json",
+					Authorization: "Bearer " + token,
+				},
 			}
 		);
 
@@ -59,12 +67,12 @@ export const saveConnectedSpace = async (connectedSpace: ConnectedSpace): Promis
 		// REMOTE use real api
 		const token = findToken();
 		const response = await fetch(`${getServiceHost()}space/save`, {
-			method: 'POST',
+			method: "POST",
 			headers: {
-				'Content-Type': 'application/json',
-				Authorization: 'Bearer ' + token
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
 			},
-			body: JSON.stringify(connectedSpace)
+			body: JSON.stringify(connectedSpace),
 		});
 
 		const data = await response.json();
@@ -82,11 +90,11 @@ export const renameConnectedSpace = async (connectedSpace: ConnectedSpace): Prom
 				connectedSpace.name
 			}`,
 			{
-				method: 'GET',
+				method: "GET",
 				headers: {
-					'Content-Type': 'application/json',
-					Authorization: 'Bearer ' + token
-				}
+					"Content-Type": "application/json",
+					Authorization: "Bearer " + token,
+				},
 			}
 		);
 	}
@@ -98,11 +106,11 @@ export const deleteConnectedSpace = async (connectedSpace: ConnectedSpace): Prom
 	} else {
 		const token = findToken();
 		await fetch(`${getServiceHost()}console_space/delete?connect_id=${connectedSpace.connectId}`, {
-			method: 'GET',
+			method: "GET",
 			headers: {
-				'Content-Type': 'application/json',
-				Authorization: 'Bearer ' + token
-			}
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
+			},
 		});
 	}
 };
@@ -114,6 +122,15 @@ export const saveConnectedSpaceGraphics = async (
 	if (isMockService()) {
 		return saveMockConnectedSpaceGraphics(connectedSpace, graphics);
 	} else {
-		// REMOTE use real api
+		graphics.connectId = connectedSpace.connectId;
+		const token = findToken();
+		await fetch(`${getServiceHost()}console_space/graphics`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
+			},
+			body: JSON.stringify(graphics),
+		});
 	}
 };
