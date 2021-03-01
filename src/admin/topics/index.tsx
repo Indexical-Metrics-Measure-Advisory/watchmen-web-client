@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
+import { AlertLabel } from '../../alert/widgets';
 import TopicBackground from '../../assets/topic-background.png';
 import { TUPLE_SEARCH_PAGE_SIZE } from '../../basic-widgets/constants';
 import { useEventBus } from '../../events/event-bus';
 import { EventTypes } from '../../events/types';
 import { DataPage } from '../../services/query/data-page';
+import { FactorType } from '../../services/tuples/factor-types';
 import { QueryTopic } from '../../services/tuples/query-topic-types';
 import { fetchTopic, listTopics, saveTopic } from '../../services/tuples/topic';
-import { Topic } from '../../services/tuples/topic-types';
+import { Topic, TopicType } from '../../services/tuples/topic-types';
 import { QueryTuple } from '../../services/tuples/tuple-types';
 import { TupleWorkbench } from '../widgets/tuple-workbench';
 import { TupleEventBusProvider, useTupleEventBus } from '../widgets/tuple-workbench/tuple-event-bus';
@@ -23,7 +25,7 @@ const fetchTopicAndCodes = async (queryTopic: QueryTopic) => {
 const getKeyOfTopic = (topic: QueryTopic) => topic.topicId;
 
 const AdminTopics = () => {
-	const { fire: fireGlobal } = useEventBus();
+	const { once: onceGlobal, fire: fireGlobal } = useEventBus();
 	const { on, off, fire } = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateTopic = () => {
@@ -40,6 +42,28 @@ const AdminTopics = () => {
 				(page: DataPage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
 		const onDoSaveTopic = async (topic: Topic) => {
+			if (!topic.name || !topic.name.trim()) {
+				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
+				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Topic name is required.</AlertLabel>);
+				return;
+			} else if (!topic.factors || topic.factors.filter(f => !!f).length === 0) {
+				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
+				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>At least one factor in topic.</AlertLabel>);
+				return;
+			} else if (topic.factors.some(f => !f.name || !f.name.trim())) {
+				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
+				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Factor name is required for each one.</AlertLabel>);
+				return;
+			} else if (topic.type !== TopicType.RAW && topic.factors.some(f => f.type === FactorType.OBJECT || f.type === FactorType.ARRAY)) {
+				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
+				}).fire(EventTypes.SHOW_ALERT,
+					<AlertLabel>Object or array factor is allowed in raw topic only.</AlertLabel>);
+				return;
+			}
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await saveTopic(topic),
 				() => fire(TupleEventTypes.TUPLE_SAVED, topic, true),
@@ -55,7 +79,7 @@ const AdminTopics = () => {
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchTopic);
 			off(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveTopic);
 		};
-	}, [ on, off, fire, fireGlobal ]);
+	}, [ on, off, fire, onceGlobal, fireGlobal ]);
 
 	return <TupleWorkbench title='Topics'
 	                       createButtonLabel='Create Topic' canCreate={true}

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { AlertLabel } from '../../alert/widgets';
 import UserGroupBackground from '../../assets/user-group-background.png';
 import { TUPLE_SEARCH_PAGE_SIZE } from '../../basic-widgets/constants';
 import { useEventBus } from '../../events/event-bus';
@@ -32,7 +33,7 @@ const fetchUserGroupAndCodes = async (queryUserGroup: QueryUserGroup) => {
 const getKeyOfUserGroup = (userGroup: QueryUserGroup) => userGroup.userGroupId;
 
 const AdminUserGroups = () => {
-	const { fire: fireGlobal } = useEventBus();
+	const { once: onceGlobal, fire: fireGlobal } = useEventBus();
 	const { on, off, fire } = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateUserGroup = () => {
@@ -49,10 +50,16 @@ const AdminUserGroups = () => {
 				(page: DataPage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
 		const onDoSaveUserGroup = async (userGroup: UserGroup) => {
-			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-				async () => await saveUserGroup(userGroup),
-				() => fire(TupleEventTypes.TUPLE_SAVED, userGroup, true),
-				() => fire(TupleEventTypes.TUPLE_SAVED, userGroup, false));
+			if (!userGroup.name || !userGroup.name.trim()) {
+				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+					fire(TupleEventTypes.TUPLE_SAVED, userGroup, false);
+				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>User group name is required.</AlertLabel>);
+			} else {
+				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+					async () => await saveUserGroup(userGroup),
+					() => fire(TupleEventTypes.TUPLE_SAVED, userGroup, true),
+					() => fire(TupleEventTypes.TUPLE_SAVED, userGroup, false));
+			}
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateUserGroup);
 		on(TupleEventTypes.DO_EDIT_TUPLE, onDoEditUserGroup);
@@ -64,7 +71,7 @@ const AdminUserGroups = () => {
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchUserGroup);
 			off(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveUserGroup);
 		};
-	}, [ on, off, fire, fireGlobal ]);
+	}, [ on, off, fire, onceGlobal, fireGlobal ]);
 
 	return <TupleWorkbench title='User Groups'
 	                       createButtonLabel='Create User Group' canCreate={true}

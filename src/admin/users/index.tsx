@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { AlertLabel } from '../../alert/widgets';
 import UserBackground from '../../assets/user-background.png';
 import { TUPLE_SEARCH_PAGE_SIZE } from '../../basic-widgets/constants';
 import { useEventBus } from '../../events/event-bus';
@@ -32,7 +33,7 @@ const fetchUserAndCodes = async (queryUser: QueryUser) => {
 const getKeyOfUser = (user: QueryUser) => user.userId;
 
 const AdminUsers = () => {
-	const { fire: fireGlobal } = useEventBus();
+	const { once: onceGlobal, fire: fireGlobal } = useEventBus();
 	const { on, off, fire } = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateUser = () => {
@@ -49,10 +50,16 @@ const AdminUsers = () => {
 				(page: DataPage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
 		const onDoSaveUser = async (user: User) => {
-			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-				async () => await saveUser(user),
-				() => fire(TupleEventTypes.TUPLE_SAVED, user, true),
-				() => fire(TupleEventTypes.TUPLE_SAVED, user, false));
+			if (!user.name || !user.name.trim()) {
+				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+					fire(TupleEventTypes.TUPLE_SAVED, user, false);
+				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>User name is required.</AlertLabel>);
+			} else {
+				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+					async () => await saveUser(user),
+					() => fire(TupleEventTypes.TUPLE_SAVED, user, true),
+					() => fire(TupleEventTypes.TUPLE_SAVED, user, false));
+			}
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateUser);
 		on(TupleEventTypes.DO_EDIT_TUPLE, onDoEditUser);
@@ -64,7 +71,7 @@ const AdminUsers = () => {
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchUser);
 			off(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveUser);
 		};
-	}, [ on, off, fire, fireGlobal ]);
+	}, [ on, off, fire, onceGlobal, fireGlobal ]);
 
 	return <TupleWorkbench title='Users'
 	                       createButtonLabel='Create User' canCreate={true}

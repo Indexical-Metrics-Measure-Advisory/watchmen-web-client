@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { AlertLabel } from '../../alert/widgets';
 import SpaceBackground from '../../assets/space-background.png';
 import { TUPLE_SEARCH_PAGE_SIZE } from '../../basic-widgets/constants';
 import { useEventBus } from '../../events/event-bus';
@@ -32,7 +33,7 @@ const fetchSpaceAndCodes = async (querySpace: QuerySpace) => {
 const getKeyOfSpace = (space: QuerySpace) => space.spaceId;
 
 const AdminSpaces = () => {
-	const { fire: fireGlobal } = useEventBus();
+	const { once: onceGlobal, fire: fireGlobal } = useEventBus();
 	const { on, off, fire } = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateSpace = () => {
@@ -49,10 +50,16 @@ const AdminSpaces = () => {
 				(page: DataPage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
 		const onDoSaveSpace = async (space: Space) => {
-			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-				async () => await saveSpace(space),
-				() => fire(TupleEventTypes.TUPLE_SAVED, space, true),
-				() => fire(TupleEventTypes.TUPLE_SAVED, space, false));
+			if (!space.name || !space.name.trim()) {
+				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+					fire(TupleEventTypes.TUPLE_SAVED, space, false);
+				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Space name is required.</AlertLabel>);
+			} else {
+				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+					async () => await saveSpace(space),
+					() => fire(TupleEventTypes.TUPLE_SAVED, space, true),
+					() => fire(TupleEventTypes.TUPLE_SAVED, space, false));
+			}
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateSpace);
 		on(TupleEventTypes.DO_EDIT_TUPLE, onDoEditSpace);
@@ -64,7 +71,7 @@ const AdminSpaces = () => {
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchSpace);
 			off(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveSpace);
 		};
-	}, [ on, off, fire, fireGlobal ]);
+	}, [ on, off, fire, onceGlobal, fireGlobal ]);
 
 	return <TupleWorkbench title='Spaces'
 	                       createButtonLabel='Create Space' canCreate={true}
