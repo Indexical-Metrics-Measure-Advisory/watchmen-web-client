@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
 import UserGroupBackground from '../../assets/user-group-background.png';
 import { TUPLE_SEARCH_PAGE_SIZE } from '../../basic-widgets/constants';
+import { useEventBus } from '../../events/event-bus';
+import { EventTypes } from '../../events/types';
+import { DataPage } from '../../services/query/data-page';
 import { QueryUserGroup } from '../../services/tuples/query-user-group-types';
+import { QueryTuple } from '../../services/tuples/tuple-types';
 import { fetchUserGroup, listUserGroups, saveUserGroup } from '../../services/tuples/user-group';
 import { UserGroup } from '../../services/tuples/user-group-types';
 import { generateUuid } from '../../services/tuples/utils';
@@ -28,22 +32,32 @@ const fetchUserGroupAndCodes = async (queryUserGroup: QueryUserGroup) => {
 const getKeyOfUserGroup = (userGroup: QueryUserGroup) => userGroup.userGroupId;
 
 const AdminUserGroups = () => {
+	const { fire: fireGlobal } = useEventBus();
 	const { on, off, fire } = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateUserGroup = () => {
 			fire(TupleEventTypes.TUPLE_CREATED, createUserGroup());
 		};
 		const onDoEditUserGroup = async (queryUserGroup: QueryUserGroup) => {
-			const { tuple, spaces, users } = await fetchUserGroupAndCodes(queryUserGroup);
-			fire(TupleEventTypes.TUPLE_LOADED, tuple, { spaces, users });
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
+				return await fetchUserGroupAndCodes(queryUserGroup);
+			}, ({ tuple, spaces, users }) => {
+				fire(TupleEventTypes.TUPLE_LOADED, tuple, { spaces, users });
+			});
 		};
 		const onDoSearchUserGroup = async (searchText: string, pageNumber: number) => {
-			const page = await listUserGroups({ search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE });
-			fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText);
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
+				return await listUserGroups({ search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE });
+			}, (page: DataPage<QueryTuple>) => {
+				fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText);
+			});
 		};
 		const onDoSaveUserGroup = async (userGroup: UserGroup) => {
-			await saveUserGroup(userGroup);
-			fire(TupleEventTypes.TUPLE_SAVED, userGroup);
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
+				await saveUserGroup(userGroup);
+			}, () => {
+				fire(TupleEventTypes.TUPLE_SAVED, userGroup);
+			});
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateUserGroup);
 		on(TupleEventTypes.DO_EDIT_TUPLE, onDoEditUserGroup);
@@ -55,7 +69,7 @@ const AdminUserGroups = () => {
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchUserGroup);
 			off(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveUserGroup);
 		};
-	}, [ on, off, fire ]);
+	}, [ on, off, fire, fireGlobal ]);
 
 	return <TupleWorkbench title='User Groups'
 	                       createButtonLabel='Create User Group' canCreate={true}

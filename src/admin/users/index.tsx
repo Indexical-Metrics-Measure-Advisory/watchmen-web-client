@@ -3,7 +3,9 @@ import UserBackground from '../../assets/user-background.png';
 import { TUPLE_SEARCH_PAGE_SIZE } from '../../basic-widgets/constants';
 import { useEventBus } from '../../events/event-bus';
 import { EventTypes } from '../../events/types';
+import { DataPage } from '../../services/query/data-page';
 import { QueryUser } from '../../services/tuples/query-user-types';
+import { QueryTuple } from '../../services/tuples/tuple-types';
 import { fetchUser, listUsers, saveUser } from '../../services/tuples/user';
 import { User } from '../../services/tuples/user-types';
 import { generateUuid } from '../../services/tuples/utils';
@@ -44,12 +46,18 @@ const AdminUsers = () => {
 			});
 		};
 		const onDoSearchUser = async (searchText: string, pageNumber: number) => {
-			const page = await listUsers({ search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE });
-			fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText);
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
+				return await listUsers({ search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE });
+			}, (page: DataPage<QueryTuple>) => {
+				fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText);
+			});
 		};
 		const onDoSaveUser = async (user: User) => {
-			await saveUser(user);
-			fire(TupleEventTypes.TUPLE_SAVED, user);
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
+				await saveUser(user);
+			}, () => {
+				fire(TupleEventTypes.TUPLE_SAVED, user);
+			});
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateUser);
 		on(TupleEventTypes.DO_EDIT_TUPLE, onDoEditUser);
@@ -61,7 +69,7 @@ const AdminUsers = () => {
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchUser);
 			off(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveUser);
 		};
-	}, [ on, off, fire ]);
+	}, [ on, off, fire, fireGlobal ]);
 
 	return <TupleWorkbench title='Users'
 	                       createButtonLabel='Create User' canCreate={true}
