@@ -1,13 +1,14 @@
-import { fetchMockSpace, listMockSpaces, listMockSpacesForHolder, saveMockSpace } from '../mock/tuples/mock-space';
-import { DataPage } from '../query/data-page';
-import { doFetch, getServiceHost, isMockService } from '../utils';
-import { QuerySpace, QuerySpaceForHolder } from './query-space-types';
-import { QueryTopicForHolder } from './query-topic-types';
-import { QueryUserGroupForHolder } from './query-user-group-types';
-import { Space } from './space-types';
-import { isFakedUuid } from './utils';
+import { findToken } from "../account";
+import { fetchMockSpace, listMockSpaces, listMockSpacesForHolder, saveMockSpace } from "../mock/tuples/mock-space";
+import { DataPage } from "../query/data-page";
+import { doFetch, getServiceHost, isMockService } from "../utils";
+import { QuerySpace, QuerySpaceForHolder } from "./query-space-types";
+import { QueryTopicForHolder } from "./query-topic-types";
+import { QueryUserGroupForHolder } from "./query-user-group-types";
+import { Space } from "./space-types";
+import { isFakedUuid } from "./utils";
 
-type SpaceOnServer = Omit<Space, 'userGroupIds'> & { groupIds: Array<string> };
+type SpaceOnServer = Omit<Space, "userGroupIds"> & { groupIds: Array<string> };
 const transformFromServer = (space: SpaceOnServer): Space => {
 	const { groupIds, ...rest } = space;
 	return { userGroupIds: groupIds, ...rest };
@@ -22,32 +23,38 @@ export const listSpaces = async (options: {
 	pageNumber?: number;
 	pageSize?: number;
 }): Promise<DataPage<QuerySpace>> => {
-	const { search = '', pageNumber = 1, pageSize = 9 } = options;
+	const { search = "", pageNumber = 1, pageSize = 9 } = options;
 
 	if (isMockService()) {
 		return listMockSpaces(options);
 	} else {
+		const token = findToken();
 		const response = await doFetch(`${getServiceHost()}space/name?query_name=${search}`, {
-			method: 'POST',
+			method: "POST",
 			headers: {
-				'Content-Type': 'application/json'
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
 			},
-			body: JSON.stringify({ pageNumber, pageSize })
+			body: JSON.stringify({ pageNumber, pageSize }),
 		});
 
 		return await response.json();
 	}
 };
 
-export const fetchSpace = async (spaceId: string): Promise<{ space: Space; groups: Array<QueryUserGroupForHolder>; topics: Array<QueryTopicForHolder> }> => {
+export const fetchSpace = async (
+	spaceId: string
+): Promise<{ space: Space; groups: Array<QueryUserGroupForHolder>; topics: Array<QueryTopicForHolder> }> => {
 	if (isMockService()) {
 		return fetchMockSpace(spaceId);
 	} else {
+		const token = findToken();
 		const response = await doFetch(`${getServiceHost()}space?space_id=${spaceId}`, {
-			method: 'GET',
+			method: "GET",
 			headers: {
-				'Content-Type': 'application/json'
-			}
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
+			},
 		});
 		const space: SpaceOnServer = await response.json();
 
@@ -55,11 +62,12 @@ export const fetchSpace = async (spaceId: string): Promise<{ space: Space; group
 			const { topicIds } = space;
 			if (topicIds && topicIds.length > 0) {
 				const response = await doFetch(`${getServiceHost()}topic/ids`, {
-					method: 'POST',
+					method: "POST",
 					headers: {
-						'Content-Type': 'application/json'
+						"Content-Type": "application/json",
+						Authorization: "Bearer " + token,
 					},
-					body: JSON.stringify(space.topicIds)
+					body: JSON.stringify(space.topicIds),
 				});
 				return await response.json();
 			} else {
@@ -70,12 +78,13 @@ export const fetchSpace = async (spaceId: string): Promise<{ space: Space; group
 			const { groupIds } = space;
 			if (groupIds && groupIds.length > 0) {
 				const response = await doFetch(`${getServiceHost()}user_groups/ids`, {
-					method: 'POST',
+					method: "POST",
 					headers: {
-						'Content-Type': 'application/json'
+						"Content-Type": "application/json",
+						Authorization: "Bearer " + token,
 						// authorization: token,
 					},
-					body: JSON.stringify(space.groupIds)
+					body: JSON.stringify(space.groupIds),
 				});
 				return await response.json();
 			} else {
@@ -83,7 +92,7 @@ export const fetchSpace = async (spaceId: string): Promise<{ space: Space; group
 			}
 		};
 
-		const [ topics, groups ] = await Promise.all([ fetchTopics(), fetchUserGroups() ]);
+		const [topics, groups] = await Promise.all([fetchTopics(), fetchUserGroups()]);
 
 		return { space: transformFromServer(space), groups, topics };
 	}
@@ -93,24 +102,28 @@ export const saveSpace = async (space: Space): Promise<void> => {
 	if (isMockService()) {
 		return saveMockSpace(space);
 	} else if (isFakedUuid(space)) {
+		const token = findToken();
 		const response = await doFetch(`${getServiceHost()}space`, {
-			method: 'POST',
+			method: "POST",
 			headers: {
-				'Content-Type': 'application/json'
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
 			},
-			body: JSON.stringify(transformToServer(space))
+			body: JSON.stringify(transformToServer(space)),
 		});
 
 		const data = await response.json();
 		space.spaceId = data.spaceId;
 		space.lastModifyTime = data.lastModifyTime;
 	} else {
+		const token = findToken();
 		const response = await doFetch(`${getServiceHost()}update/space?space_id=${space.spaceId}`, {
-			method: 'POST',
+			method: "POST",
 			headers: {
-				'Content-Type': 'application/json'
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
 			},
-			body: JSON.stringify(transformToServer(space))
+			body: JSON.stringify(transformToServer(space)),
 		});
 		const data = await response.json();
 		space.lastModifyTime = data.lastModifyTime;
@@ -121,14 +134,14 @@ export const listSpacesForHolder = async (search: string): Promise<Array<QuerySp
 	if (isMockService()) {
 		return listMockSpacesForHolder(search);
 	} else {
+		const token = findToken();
 		const response = await doFetch(`${getServiceHost()}query/space/group?query_name=${search}`, {
-			method: 'GET',
+			method: "GET",
 			headers: {
-				'Content-Type': 'application/json'
-			}
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
+			},
 		});
 		return await response.json();
 	}
 };
-
-

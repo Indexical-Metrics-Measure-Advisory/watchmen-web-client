@@ -1,48 +1,55 @@
+import { findToken } from "../account";
 import {
 	fetchMockUserGroup,
 	listMockUserGroups,
 	listMockUserGroupsForSpace,
-	saveMockUserGroup
-} from '../mock/tuples/mock-user-group';
-import { DataPage } from '../query/data-page';
-import { doFetch, getServiceHost, isMockService } from '../utils';
-import { QuerySpaceForHolder } from './query-space-types';
-import { QueryUserGroup, QueryUserGroupForHolder } from './query-user-group-types';
-import { QueryUserForHolder } from './query-user-types';
-import { UserGroup } from './user-group-types';
-import { isFakedUuid } from './utils';
+	saveMockUserGroup,
+} from "../mock/tuples/mock-user-group";
+import { DataPage } from "../query/data-page";
+import { doFetch, getServiceHost, isMockService } from "../utils";
+import { QuerySpaceForHolder } from "./query-space-types";
+import { QueryUserGroup, QueryUserGroupForHolder } from "./query-user-group-types";
+import { QueryUserForHolder } from "./query-user-types";
+import { UserGroup } from "./user-group-types";
+import { isFakedUuid } from "./utils";
 
 export const listUserGroups = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
 }): Promise<DataPage<QueryUserGroup>> => {
-	const { search = '', pageNumber = 1, pageSize = 9 } = options;
+	const { search = "", pageNumber = 1, pageSize = 9 } = options;
 
 	if (isMockService()) {
 		return listMockUserGroups(options);
 	} else {
+		const token = findToken();
 		const response = await doFetch(`${getServiceHost()}user_group/name?query_name=${search}`, {
-			method: 'POST',
+			method: "POST",
 			headers: {
-				'Content-Type': 'application/json'
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
 			},
-			body: JSON.stringify({ pageNumber, pageSize })
+			body: JSON.stringify({ pageNumber, pageSize }),
 		});
 
 		return await response.json();
 	}
 };
 
-export const fetchUserGroup = async (userGroupId: string): Promise<{ userGroup: UserGroup; users: Array<QueryUserForHolder>; spaces: Array<QuerySpaceForHolder> }> => {
+export const fetchUserGroup = async (
+	userGroupId: string
+): Promise<{ userGroup: UserGroup; users: Array<QueryUserForHolder>; spaces: Array<QuerySpaceForHolder> }> => {
 	if (isMockService()) {
 		return fetchMockUserGroup(userGroupId);
 	} else {
+		const token = findToken();
 		const response = await doFetch(`${getServiceHost()}user_group?user_group_id=${userGroupId}`, {
-			method: 'GET',
+			method: "GET",
 			headers: {
-				'Content-Type': 'application/json'
-			}
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
+			},
 		});
 		const userGroup: UserGroup = await response.json();
 
@@ -50,11 +57,12 @@ export const fetchUserGroup = async (userGroupId: string): Promise<{ userGroup: 
 			const { userIds } = userGroup;
 			if (userIds && userIds.length > 0) {
 				const response = await doFetch(`${getServiceHost()}user/ids`, {
-					method: 'POST',
+					method: "POST",
 					headers: {
-						'Content-Type': 'application/json'
+						"Content-Type": "application/json",
+						Authorization: "Bearer " + token,
 					},
-					body: JSON.stringify(userGroup.userIds)
+					body: JSON.stringify(userGroup.userIds),
 				});
 				return await response.json();
 			} else {
@@ -65,18 +73,19 @@ export const fetchUserGroup = async (userGroupId: string): Promise<{ userGroup: 
 			const { spaceIds } = userGroup;
 			if (spaceIds && spaceIds.length > 0) {
 				const response = await doFetch(`${getServiceHost()}space/ids`, {
-					method: 'POST',
+					method: "POST",
 					headers: {
-						'Content-Type': 'application/json'
+						"Content-Type": "application/json",
+						Authorization: "Bearer " + token,
 					},
-					body: JSON.stringify(userGroup.spaceIds)
+					body: JSON.stringify(userGroup.spaceIds),
 				});
 				return await response.json();
 			} else {
 				return [];
 			}
 		};
-		const [ users, spaces ] = await Promise.all([ fetchUsers(), fetchSpaces() ]);
+		const [users, spaces] = await Promise.all([fetchUsers(), fetchSpaces()]);
 
 		return { userGroup, users, spaces };
 	}
@@ -86,24 +95,28 @@ export const saveUserGroup = async (userGroup: UserGroup): Promise<void> => {
 	if (isMockService()) {
 		return saveMockUserGroup(userGroup);
 	} else if (isFakedUuid(userGroup)) {
+		const token = findToken();
 		const response = await doFetch(`${getServiceHost()}user_group`, {
-			method: 'POST',
+			method: "POST",
 			headers: {
-				'Content-Type': 'application/json'
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
 			},
-			body: JSON.stringify(userGroup)
+			body: JSON.stringify(userGroup),
 		});
 
 		const data = await response.json();
 		userGroup.userGroupId = data.userGroupId;
 		userGroup.lastModifyTime = data.lastModifyTime;
 	} else {
+		const token = findToken();
 		const response = await doFetch(`${getServiceHost()}update/user_group?user_group_id=${userGroup.userGroupId}`, {
-			method: 'POST',
+			method: "POST",
 			headers: {
-				'Content-Type': 'application/json'
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
 			},
-			body: JSON.stringify(userGroup)
+			body: JSON.stringify(userGroup),
 		});
 		const data = await response.json();
 		userGroup.lastModifyTime = data.lastModifyTime;
@@ -114,11 +127,13 @@ export const listUserGroupsForHolder = async (search: string): Promise<Array<Que
 	if (isMockService()) {
 		return listMockUserGroupsForSpace(search);
 	} else {
+		const token = findToken();
 		const response = await doFetch(`${getServiceHost()}query/user_group/space?query_name=${search}`, {
-			method: 'GET',
+			method: "GET",
 			headers: {
-				'Content-Type': 'application/json'
-			}
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
+			},
 		});
 
 		return await response.json();
