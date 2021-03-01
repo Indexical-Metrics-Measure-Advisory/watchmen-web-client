@@ -1,4 +1,5 @@
 import { CountChartStylePropNames } from '../chart-styles/count-chart-style-props';
+import { MapChartStylePropNames } from '../chart-styles/map-chart-style-props';
 import { PieChartStylePropNames } from '../chart-styles/pie-chart-style-props';
 import { TreeChartStylePropNames } from '../chart-styles/tree-chart-style-props';
 import { TreemapChartStylePropNames } from '../chart-styles/treemap-chart-style-props';
@@ -35,6 +36,11 @@ export type NumberPropNames =
 	| PieChartStylePropNames.CENTER_Y
 	| PieChartStylePropNames.INSIDE_RADIUS
 	| PieChartStylePropNames.OUTSIDE_RADIUS
+
+	| MapChartStylePropNames.POSITION_TOP
+	| MapChartStylePropNames.POSITION_RIGHT
+	| MapChartStylePropNames.POSITION_LEFT
+	| MapChartStylePropNames.POSITION_BOTTOM
 
 	| EChartsTitlePropNames.TEXT_FONT_SIZE
 	| EChartsTitlePropNames.TEXT_BORDER_WIDTH

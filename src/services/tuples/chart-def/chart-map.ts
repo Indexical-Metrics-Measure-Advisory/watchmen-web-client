@@ -1,4 +1,5 @@
 import { ChartType } from '../chart-types';
+import { EChartsGridPositionOnly } from '../echarts/echarts-grid-types';
 import { ECharts, EChartsSettings } from '../echarts/echarts-types';
 import { ChartDef } from './chart-def-types';
 
@@ -27,6 +28,7 @@ export interface MapChartSettingsSeries {
 
 export interface MapChartSettings extends EChartsSettings {
 	series?: MapChartSettingsSeries;
+	grid?: EChartsGridPositionOnly;
 }
 
 export interface MapChart extends ECharts {

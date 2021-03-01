@@ -1,11 +1,13 @@
 import { EChartOption } from 'echarts';
 import { BASE_COLORS_24, BASE_COLORS_6 } from '../../basic-widgets/colors';
-import { MAP } from '../../services/tuples/chart-def/chart-map';
+import { MAP, MapChartRegion, MapChartSettings } from '../../services/tuples/chart-def/chart-map';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils } from './default-chart-utils';
 import { JapanCoordinatesL1 } from './map-geo-data/japan-l1';
+import { MapCoordinate } from './map-geo-data/types';
+import { USACoordinatesL1 } from './map-geo-data/usa-l1';
 import { buildEChartsTitle } from './title-utils';
 import { ChartOptions } from './types';
 
@@ -17,8 +19,22 @@ export class ChartMapUtils extends DefaultChartUtils {
 	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
 		const { chart } = report;
 
+		const settings = chart.settings as MapChartSettings;
+		const region = settings.series?.region || MapChartRegion.JAPAN_L1;
+
+		let map: { name: string, map: Map<string, MapCoordinate> };
+		switch (region) {
+			case MapChartRegion.USA_L1:
+				map = USACoordinatesL1;
+				break;
+			case MapChartRegion.JAPAN_L1:
+			default:
+				map = JapanCoordinatesL1;
+				break;
+		}
+
 		const data = dataset.data.map(row => {
-			const coordinate = JapanCoordinatesL1.map.get(row[1] as string)!;
+			const coordinate = map.map.get(row[1] as string)!;
 			if (!coordinate) {
 				return null;
 			}
@@ -55,7 +71,7 @@ export class ChartMapUtils extends DefaultChartUtils {
 				calculable: true
 			} as EChartOption.VisualMap,
 			geo: {
-				map: JapanCoordinatesL1.name,
+				map: map.name,
 				roam: true,
 				zoom: 1,
 				regions: [ { name: 'Tokyo', itemStyle: { areaColor: 'red' } } ]
