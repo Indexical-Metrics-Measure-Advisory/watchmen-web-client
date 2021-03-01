@@ -36,11 +36,9 @@ export class ChartLineUtils extends DefaultChartUtils {
 			grid: buildEChartsGrid(chart as ECharts),
 			xAxis: [ buildEChartsXAxis(chart as ECharts, groups.map(({ value }) => value)) ],
 			yAxis: [ buildEChartsYAxis(chart as ECharts) ],
-			series: legends.map(({ label, index: indicatorIndex }) => {
+			series: legends.map(({ index: indicatorIndex }) => {
 				return {
-					name: label,
 					type: 'line',
-					barGap: 0,
 					label: {
 						show: true,
 						position: 'insideTop',
