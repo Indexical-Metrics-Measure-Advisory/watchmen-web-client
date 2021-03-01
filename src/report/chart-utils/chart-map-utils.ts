@@ -1,40 +1,13 @@
 import { EChartOption } from 'echarts';
-import * as echarts from 'echarts/core';
 import { BASE_COLORS_24, BASE_COLORS_6 } from '../../basic-widgets/colors';
 import { MAP } from '../../services/tuples/chart-def/chart-map';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { DefaultChartUtils } from './default-chart-utils';
-import japanJson from './map-geo-data/gadm36_JPN_1.json';
+import { JapanCoordinatesL1 } from './map-geo-data/japan-l1';
 import { buildEChartsTitle } from './title-utils';
 import { ChartOptions } from './types';
-
-interface MapCoordinate {
-	longitude: number;
-	latitude: number;
-}
-
-// console.log(JSON.stringify(japanJson.features.map(feature => feature.properties.name).filter(x => !!x)));
-echarts.registerMap('Japan', japanJson as any, {});
-// @ts-ignore
-const JapanCoordinates = japanJson.features.filter(feature => !!feature.properties.NAME_1).reduce((all, feature) => {
-	const coordinates = feature.geometry.coordinates.flat(10) as Array<number>;
-	const location = coordinates.reduce((location, coordinate, index) => {
-		if (index % 2 === 0) {
-			location.longitude += coordinate;
-		} else {
-			location.latitude += coordinate;
-		}
-		return location;
-	}, { longitude: 0, latitude: 0 });
-	// console.log(feature.properties.NAME_1, feature.properties.NL_NAME_1);
-	all.set(feature.properties.NAME_1 as string, {
-		longitude: location.longitude / coordinates.length * 2,
-		latitude: location.latitude / coordinates.length * 2
-	});
-	return all;
-}, new Map<string, MapCoordinate>());
 
 export class ChartMapUtils extends DefaultChartUtils {
 	constructor() {
@@ -45,7 +18,7 @@ export class ChartMapUtils extends DefaultChartUtils {
 		const { chart } = report;
 
 		const data = dataset.data.map(row => {
-			const coordinate = JapanCoordinates.get(row[1] as string)!;
+			const coordinate = JapanCoordinatesL1.map.get(row[1] as string)!;
 			if (!coordinate) {
 				return null;
 			}
@@ -82,45 +55,17 @@ export class ChartMapUtils extends DefaultChartUtils {
 				calculable: true
 			} as EChartOption.VisualMap,
 			geo: {
-				map: 'Japan',
+				map: JapanCoordinatesL1.name,
 				roam: true,
 				zoom: 1,
-				emphasis: {
-					itemStyle: {
-						type: 'radial',
-						x: 0.5,
-						y: 0.5,
-						r: 0.5,
-						colorStops: [ {
-							offset: 0, color: 'red' // 0% 处的颜色
-						}, {
-							offset: 1, color: 'blue' // 100% 处的颜色
-						} ],
-						global: false
-					}
-				}
+				regions: [ { name: 'Tokyo', itemStyle: { areaColor: 'red' } } ]
 			},
 			series: [
-				// {
-				// 	type: 'map',
-				// 	roam: true,
-				// 	map: 'Japan',
-				// 	label: { show: true },
-				// 	data: dataset.data.map(row => {
-				// 		return {
-				// 			// value of dimension as name
-				// 			name: row[1],
-				// 			// value of indicator as value
-				// 			value: row[0]
-				// 		};
-				// 	})
-				// }
 				{
 					type: 'scatter',
 					coordinateSystem: 'geo',
 					data,
 					symbolSize: (val: Array<number>) => {
-						// console.log(param);
 						return Math.min(Math.max(val[2] / 50, 3), 20);
 					},
 					// encode: {
@@ -130,12 +75,13 @@ export class ChartMapUtils extends DefaultChartUtils {
 						// 	formatter: '{b}: {c}',
 						// 	position: 'right',
 						show: false
-					}
+					},
 					// emphasis: {
 					// 	label: {
 					// 		show: true
 					// 	}
 					// }
+					zlevel: 2
 				} as EChartOption.Series,
 				{
 					type: 'effectScatter',
@@ -163,7 +109,7 @@ export class ChartMapUtils extends DefaultChartUtils {
 						shadowBlur: 10,
 						shadowColor: '#333333'
 					},
-					zlevel: 1
+					zlevel: 2
 				} as EChartOption.Series
 			]
 		} as EChartOption;

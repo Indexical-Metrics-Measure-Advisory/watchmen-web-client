@@ -16,7 +16,17 @@ export const MAP: ChartDef = {
 	canUseYAxis: false
 };
 
+export enum MapChartRegion {
+	JAPAN_L1 = 'japan-l1',
+	USA_L1 = 'usa-l1',
+}
+
+export interface MapChartSettingsSeries {
+	region?: MapChartRegion;
+}
+
 export interface MapChartSettings extends EChartsSettings {
+	series?: MapChartSettingsSeries;
 }
 
 export interface MapChart extends ECharts {
