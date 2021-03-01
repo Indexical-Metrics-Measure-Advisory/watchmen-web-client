@@ -15,7 +15,6 @@ import { IndicatorsSection } from '../indicators';
 import { RectSection } from '../rect';
 import { BasicStylesSection } from '../styles';
 import { ChartTypeEditor } from './chart-type';
-import { DescriptionPropEditor } from './description-prop';
 import { NamePropEditor } from './name-prop';
 import { SettingsBodyContainer } from './widgets';
 
@@ -38,6 +37,6 @@ export const SettingsBody = (props: { subject: Subject, report: Report }) => {
 		<EChartsXAxisSettings report={report}/>
 		<EChartsYAxisSettings report={report}/>
 		<BasicStylesSection report={report}/>
-		<DescriptionPropEditor report={report}/>
+		{/*<DescriptionPropEditor report={report}/>*/}
 	</SettingsBodyContainer>;
 };

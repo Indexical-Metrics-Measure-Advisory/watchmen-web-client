@@ -6,12 +6,7 @@ import {
 	EChartsXAxisType
 } from '../../../../../../../services/tuples/echarts/echarts-xaxis-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
-import {
-	isANumber,
-	onBooleanChange,
-	onDropdownValueChange,
-	onNumberChange
-} from '../../data-utils';
+import { isANumber, onBooleanChange, onDropdownValueChange, onNumberChange } from '../../data-utils';
 import { AxisTypeOptions } from '../../prop-defs/dropdown-options/axis-dropdown-options';
 import { EChartsXAxisPropNames, XAxisPositionOptions } from '../../prop-defs/echart-styles/echarts-xaxis-props';
 import { useReportEditEventBus } from '../../report-edit-event-bus';
@@ -22,7 +17,6 @@ import { DropdownValue } from '../../settings-widgets/dropdown-value';
 import { NumberValue } from '../../settings-widgets/number-value';
 import { Section } from '../../settings-widgets/section';
 import { EChartsXAxisLabelSettings } from './label';
-import { EChartsXAxisMinorSplitLineSettings } from './minor-split-line';
 import { EChartsXAxisNameSettings } from './name';
 import { EChartsXAxisSplitLineSettings } from './split-line';
 
@@ -111,6 +105,6 @@ export const EChartsXAxisSettings = (props: { report: Report }) => {
 		<EChartsXAxisNameSettings report={report} chart={chart}/>
 		<EChartsXAxisLabelSettings report={report} chart={chart}/>
 		<EChartsXAxisSplitLineSettings report={report} chart={chart}/>
-		<EChartsXAxisMinorSplitLineSettings report={report} chart={chart}/>
+		{/*<EChartsXAxisMinorSplitLineSettings report={report} chart={chart}/>*/}
 	</>;
 };
