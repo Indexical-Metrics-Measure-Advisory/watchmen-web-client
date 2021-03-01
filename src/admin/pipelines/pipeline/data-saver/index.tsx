@@ -13,8 +13,8 @@ export const PipelineDataSaver = () => {
 		const onSavePipeline = async (pipeline: Pipeline) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await savePipeline(pipeline),
-				() => {
-				});
+				() => fire(PipelineEventTypes.PIPELINE_SAVED, pipeline, true),
+				() => fire(PipelineEventTypes.PIPELINE_SAVED, pipeline, false));
 		};
 		const onRenamePipeline = async (pipeline: Pipeline) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
