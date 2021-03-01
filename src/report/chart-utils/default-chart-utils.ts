@@ -164,7 +164,9 @@ export abstract class DefaultChartUtils implements ChartUtils {
 
 	defend(report: Report): void {
 		this.defendIndicatorMinCount(report);
+		this.defendIndicatorMaxCount(report);
 		this.defendDimensionMinCount(report);
+		this.defendDimensionMaxCount(report);
 	}
 
 	protected get indicatorCountValidator(): ReportValidator {
