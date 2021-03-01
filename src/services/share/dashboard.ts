@@ -1,4 +1,5 @@
 // import { findToken } from "../account";
+import { saveTokenIntoSession } from '../account';
 import { ChartType } from "../tuples/chart-types";
 import { Dashboard } from "../tuples/dashboard-types";
 import { Report } from "../tuples/report-types";
@@ -55,6 +56,8 @@ export const fetchSharedDashboard = async (dashboardId: string, token: string): 
 			},
 			// body: JSON.stringify(pipeline),
 		});
+
+		saveTokenIntoSession(token);
 
 		return await response.json();
 	}

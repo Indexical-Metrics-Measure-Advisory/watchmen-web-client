@@ -1,4 +1,5 @@
 import subject from "../../share/subject";
+import { saveTokenIntoSession } from '../account';
 // import { findToken } from "../account";
 import { ChartType } from "../tuples/chart-types";
 import { ParameterJointType } from "../tuples/factor-calculator-types";
@@ -53,6 +54,8 @@ export const fetchSharedSubject = async (subjectId: string, token: string): Prom
 			},
 			// body: JSON.stringify(pipeline),
 		});
+
+		saveTokenIntoSession(token);
 
 		return await response.json();
 	}
