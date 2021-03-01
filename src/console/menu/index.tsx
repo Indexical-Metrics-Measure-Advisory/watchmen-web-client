@@ -21,6 +21,8 @@ import { SideMenuPlaceholder } from '../../basic-widgets/side-menu/side-menu-pla
 import { SideMenuResizeHandle } from '../../basic-widgets/side-menu/side-menu-resize-handle';
 import { SideMenuSeparator } from '../../basic-widgets/side-menu/side-menu-separator';
 import { SideMenuUser } from '../../basic-widgets/side-menu/side-menu-user';
+import { useEventBus } from '../../events/event-bus';
+import { EventTypes } from '../../events/types';
 import { Lang } from '../../langs';
 import { Router } from '../../routes/types';
 import { toDashboard } from '../../routes/utils';
@@ -73,6 +75,7 @@ const ConsoleMenuContainer = styled.div.attrs<{ width: number }>(({ width }) => 
 export const ConsoleMenu = () => {
 	const history = useHistory();
 	const location = useLocation();
+	const { fire: fireGlobal } = useEventBus();
 	const { once, fire } = useConsoleEventBus();
 	const [ menuWidth, setMenuWidth ] = useState(SIDE_MENU_MIN_WIDTH);
 	const onConnectSpaceClicked = useConnectSpace();
@@ -101,13 +104,20 @@ export const ConsoleMenu = () => {
 						return (d2.lastVisitTime || '').localeCompare((d1.lastVisitTime || ''));
 					})[0];
 					history.push(toDashboard(firstDashboardId));
-					await saveLastSnapshot({ lastDashboardId: firstDashboardId });
+					try {
+						await saveLastSnapshot({ lastDashboardId: firstDashboardId });
+					} catch (e) {
+						// ignore
+					}
 				} else {
 					// no dashboards created
 					const dashboard = createDashboard();
-					await saveDashboard(dashboard);
-					fire(ConsoleEventTypes.DASHBOARD_CREATED, dashboard);
-					history.push(toDashboard(dashboard.dashboardId));
+					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+						async () => await saveDashboard(dashboard),
+						() => {
+							fire(ConsoleEventTypes.DASHBOARD_CREATED, dashboard);
+							history.push(toDashboard(dashboard.dashboardId));
+						});
 				}
 			}).fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT);
 		}).fire(ConsoleEventTypes.ASK_DASHBOARDS);

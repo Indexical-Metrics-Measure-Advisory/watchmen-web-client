@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useEventBus } from '../../../../../../events/event-bus';
+import { EventTypes } from '../../../../../../events/types';
 import { useReportEventBus } from '../../../../../../report/report-event-bus';
 import { ReportEventTypes } from '../../../../../../report/report-event-bus-types';
 import { saveReport } from '../../../../../../services/tuples/report';
@@ -14,6 +16,7 @@ interface SaveState {
 export const SettingsSaver = (props: { report: Report }) => {
 	const { report } = props;
 
+	const { fire: fireGlobal } = useEventBus();
 	const { fire: fireReport } = useReportEventBus();
 	const { on, off } = useReportEditEventBus();
 	const [ changed, setChanged ] = useState<SaveState>({ styleChanged: false, structureChanged: false });
@@ -40,16 +43,14 @@ export const SettingsSaver = (props: { report: Report }) => {
 				fireReport(ReportEventTypes.EDIT_COMPLETED, report, false, false);
 			} else if (!changed.structureChanged) {
 				// style changed, structure kept
-				(async () => {
-					await saveReport(report);
-					fireReport(ReportEventTypes.EDIT_COMPLETED, report, true, false);
-				})();
+				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+					async () => await saveReport(report),
+					() => fireReport(ReportEventTypes.EDIT_COMPLETED, report, true, false));
 			} else {
 				// structure changed
-				(async () => {
-					await saveReport(report);
-					fireReport(ReportEventTypes.EDIT_COMPLETED, report, true, true);
-				})();
+				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+					async () => await saveReport(report),
+					() => fireReport(ReportEventTypes.EDIT_COMPLETED, report, true, true));
 			}
 		};
 		on(ReportEditEventTypes.SIZE_CHANGED, onChanged);
@@ -87,7 +88,7 @@ export const SettingsSaver = (props: { report: Report }) => {
 
 			off(ReportEditEventTypes.EDIT_COMPLETED, onEditCompleted);
 		};
-	}, [ on, off, fireReport, report, changed ]);
+	}, [ on, off, fireReport, fireGlobal, report, changed ]);
 
 	return <></>;
 };

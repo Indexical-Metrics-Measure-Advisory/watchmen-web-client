@@ -66,7 +66,12 @@ export const PinFavorite = (props: {
 
 	const onUnpinClicked = async () => {
 		fire(ConsoleEventTypes.UNPIN_FAVORITE);
-		await saveLastSnapshot({ favoritePin: false });
+		try {
+			await saveLastSnapshot({ favoritePin: false });
+		} catch (e) {
+			// ignore
+			console.info(e);
+		}
 	};
 	const onMouseEnter = () => {
 		computeScrollable(bodyRef, setScrollState);

@@ -40,7 +40,12 @@ export const FloatFavorite = (props: {
 
 	const onPinClicked = async () => {
 		fire(ConsoleEventTypes.PIN_FAVORITE);
-		await saveLastSnapshot({ favoritePin: true });
+		try {
+			await saveLastSnapshot({ favoritePin: true });
+		} catch (e) {
+			// ignore
+			console.info(e);
+		}
 	};
 
 	const visible = state === FavoriteState.SHOWN;

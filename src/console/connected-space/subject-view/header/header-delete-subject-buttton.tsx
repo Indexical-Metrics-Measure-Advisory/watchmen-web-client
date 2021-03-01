@@ -35,9 +35,9 @@ const SubjectDelete = (props: { subject: Subject, onRemoved: () => void }) => {
 	const { fire } = useEventBus();
 
 	const onDeleteClicked = async () => {
-		await deleteSubject(subject);
-		onRemoved();
-		fire(EventTypes.HIDE_DIALOG);
+		fire(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => await deleteSubject(subject),
+			() => onRemoved());
 	};
 	const onCancelClicked = () => {
 		fire(EventTypes.HIDE_DIALOG);

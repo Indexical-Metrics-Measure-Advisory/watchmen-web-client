@@ -32,9 +32,10 @@ const ConnectedSpaceDelete = (props: { connectedSpace: ConnectedSpace, onRemoved
 	const { fire } = useEventBus();
 
 	const onDeleteClicked = async () => {
-		await deleteConnectedSpace(connectedSpace);
-		onRemoved();
 		fire(EventTypes.HIDE_DIALOG);
+		fire(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => await deleteConnectedSpace(connectedSpace),
+			() => onRemoved());
 	};
 	const onCancelClicked = () => {
 		fire(EventTypes.HIDE_DIALOG);

@@ -1,4 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
+import { useEventBus } from '../../../events/event-bus';
+import { EventTypes } from '../../../events/types';
 import { fetchPipelinesSettingsData } from '../../../services/pipeline/settings';
 import { Pipeline } from '../../../services/tuples/pipeline-types';
 import { usePipelinesEventBus } from '../pipelines-event-bus';
@@ -7,6 +9,7 @@ import { HoldSettings } from './types';
 import { useReplier } from './use-replier';
 
 export const SettingsHolder = () => {
+	const { fire: fireGlobal } = useEventBus();
 	const { on, off, fire } = usePipelinesEventBus();
 	const [ holdSettings, setHoldSettings ] = useState<HoldSettings>({
 		initialized: false,
@@ -18,12 +21,15 @@ export const SettingsHolder = () => {
 	useEffect(() => {
 		if (!holdSettings.initialized) {
 			(async () => {
-				const settings = await fetchPipelinesSettingsData();
-				setHoldSettings({ initialized: true, ...settings });
-				fire(PipelinesEventTypes.SETTINGS_LOADED, settings);
+				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+					async () => await fetchPipelinesSettingsData(),
+					(settings) => {
+						setHoldSettings({ initialized: true, ...settings });
+						fire(PipelinesEventTypes.SETTINGS_LOADED, settings);
+					});
 			})();
 		}
-	}, [ fire, holdSettings.initialized ]);
+	}, [ fire, fireGlobal, holdSettings.initialized ]);
 	useEffect(() => {
 		const onPipelineAdded = (pipeline: Pipeline) => {
 			holdSettings.pipelines.push(pipeline);

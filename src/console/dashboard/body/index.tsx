@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForceUpdate } from '../../../basic-widgets/utils';
+import { useEventBus } from '../../../events/event-bus';
+import { EventTypes } from '../../../events/types';
 import { Lang } from '../../../langs';
 import { Chart } from '../../../report';
 import { ReportEventBusProvider } from '../../../report/report-event-bus';
@@ -19,6 +21,7 @@ import { DashboardBodyContainer, DashboardNoReport } from './widgets';
 export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean, transient?: boolean }) => {
 	const { dashboard, removable = true, transient = false } = props;
 
+	const { fire: fireGlobal } = useEventBus();
 	const { once: onceConsole } = useConsoleEventBus();
 	const { on, off } = useDashboardEventBus();
 	const [ connectedSpaces, setConnectedSpaces ] = useState<Array<ConnectedSpace>>([]);
@@ -30,10 +33,9 @@ export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean
 	}, [ onceConsole ]);
 	useEffect(() => {
 		const onReportChanged = () => {
-			(async () => {
-				await saveDashboard(dashboard);
-			})();
-			forceUpdate();
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await saveDashboard(dashboard),
+				() => forceUpdate());
 		};
 		on(DashboardEventTypes.REPORT_ADDED, onReportChanged);
 		on(DashboardEventTypes.REPORT_REMOVED, onReportChanged);
@@ -41,7 +43,7 @@ export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean
 			off(DashboardEventTypes.REPORT_ADDED, onReportChanged);
 			off(DashboardEventTypes.REPORT_REMOVED, onReportChanged);
 		};
-	}, [ on, off, forceUpdate, dashboard ]);
+	}, [ on, off, fireGlobal, forceUpdate, dashboard ]);
 
 	const reportMap = connectedSpaces.reduce((map, connectedSpace) => {
 		connectedSpace.subjects.forEach(subject => (subject.reports || []).map(report => map.set(report.reportId, report)));

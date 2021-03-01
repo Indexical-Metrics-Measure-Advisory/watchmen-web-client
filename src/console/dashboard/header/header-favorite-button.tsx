@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ICON_FAVORITE } from '../../../basic-widgets/constants';
 import { PageHeaderButton } from '../../../basic-widgets/page-header-buttons';
+import { useEventBus } from '../../../events/event-bus';
+import { EventTypes } from '../../../events/types';
 import { Lang } from '../../../langs';
 import { saveFavorite } from '../../../services/console/favorite';
 import { Favorite } from '../../../services/console/favorite-types';
@@ -20,6 +22,7 @@ const FavoriteIcon = styled(FontAwesomeIcon).attrs<{ 'data-favorite': boolean }>
 
 export const HeaderFavoriteButton = (props: { dashboard: Dashboard }) => {
 	const { dashboard } = props;
+	const { fire: fireGlobal } = useEventBus();
 	const { once, on, off, fire } = useConsoleEventBus();
 	const [ favorite, setFavorite ] = useState(false);
 	useEffect(() => {
@@ -57,21 +60,23 @@ export const HeaderFavoriteButton = (props: { dashboard: Dashboard }) => {
 
 	const onAddIntoFavoriteClicked = () => {
 		once(ConsoleEventTypes.REPLY_FAVORITE, async (favorite: Favorite) => {
-			await saveFavorite({
-				...favorite,
-				dashboardIds: Array.from(new Set([ ...favorite.dashboardIds, dashboard.dashboardId ]))
-			});
-			fire(ConsoleEventTypes.DASHBOARD_ADDED_INTO_FAVORITE, dashboard.dashboardId);
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await saveFavorite({
+					...favorite,
+					dashboardIds: Array.from(new Set([ ...favorite.dashboardIds, dashboard.dashboardId ]))
+				}),
+				() => fire(ConsoleEventTypes.DASHBOARD_ADDED_INTO_FAVORITE, dashboard.dashboardId));
 		}).fire(ConsoleEventTypes.ASK_FAVORITE);
 	};
 	const onRemoveFromFavoriteClicked = () => {
 		once(ConsoleEventTypes.REPLY_FAVORITE, async (favorite: Favorite) => {
-			await saveFavorite({
-				...favorite,
-				// eslint-disable-next-line
-				dashboardIds: favorite.dashboardIds.filter(dashboardId => dashboardId != dashboard.dashboardId)
-			});
-			fire(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, dashboard.dashboardId);
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await saveFavorite({
+					...favorite,
+					// eslint-disable-next-line
+					dashboardIds: favorite.dashboardIds.filter(dashboardId => dashboardId != dashboard.dashboardId)
+				}),
+				() => fire(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, dashboard.dashboardId));
 		}).fire(ConsoleEventTypes.ASK_FAVORITE);
 	};
 

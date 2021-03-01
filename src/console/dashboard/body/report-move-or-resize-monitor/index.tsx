@@ -1,20 +1,17 @@
-import { useEffect, useState } from 'react';
-import { SAVE_TIMEOUT } from '../../../../admin/pipelines/constants';
+import { useEffect } from 'react';
+import { useEventBus } from '../../../../events/event-bus';
+import { EventTypes } from '../../../../events/types';
 import { useReportEventBus } from '../../../../report/report-event-bus';
 import { ReportEventTypes } from '../../../../report/report-event-bus-types';
 import { saveDashboard } from '../../../../services/tuples/dashboard';
 import { Dashboard } from '../../../../services/tuples/dashboard-types';
 import { Report } from '../../../../services/tuples/report-types';
 
-interface SaveState {
-	timeoutHandle?: number;
-}
-
 export const ReportMoveOrResizeMonitor = (props: { dashboard: Dashboard }) => {
 	const { dashboard } = props;
 
+	const { fire: fireGlobal } = useEventBus();
 	const { on, off } = useReportEventBus();
-	const [ state, setState ] = useState<SaveState>({});
 	useEffect(() => {
 		const onMoveOrResize = async (report: Report) => {
 			// eslint-disable-next-line
@@ -27,20 +24,15 @@ export const ReportMoveOrResizeMonitor = (props: { dashboard: Dashboard }) => {
 			dashboardReport.rect.width = report.rect.width;
 			dashboardReport.rect.height = report.rect.height;
 
-			if (state.timeoutHandle) {
-				clearTimeout(state.timeoutHandle);
-			}
-			setState({
-				timeoutHandle: window.setTimeout(() => {
-					setState({});
-					(async () => await saveDashboard(dashboard))();
-				}, SAVE_TIMEOUT)
-			});
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await saveDashboard(dashboard),
+				() => {
+				});
 		};
 		on(ReportEventTypes.MOVE_OR_RESIZE_COMPLETED, onMoveOrResize);
 		return () => {
 			off(ReportEventTypes.MOVE_OR_RESIZE_COMPLETED, onMoveOrResize);
 		};
-	}, [ on, off, state.timeoutHandle, dashboard ]);
+	}, [ on, off, fireGlobal, dashboard ]);
 	return <></>;
 };

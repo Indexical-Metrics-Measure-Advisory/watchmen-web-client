@@ -9,6 +9,8 @@ import {
 	ICON_PREVIOUS_PAGE
 } from '../../../../../../basic-widgets/constants';
 import { ButtonInk, TooltipAlignment } from '../../../../../../basic-widgets/types';
+import { useEventBus } from '../../../../../../events/event-bus';
+import { EventTypes } from '../../../../../../events/types';
 import { Lang } from '../../../../../../langs';
 import { DataSetPage } from '../../../../../../services/console/dataset';
 import { fetchSubjectData } from '../../../../../../services/console/subject';
@@ -34,6 +36,7 @@ export const GridHeader = (props: {
 }) => {
 	const { subject, data } = props;
 
+	const { fire: fireGlobal } = useEventBus();
 	const { fire: fireDataSet } = useSubjectDataSetEventBus();
 	const { fire } = useGridEventBus();
 
@@ -70,12 +73,13 @@ export const GridHeader = (props: {
 		download(data);
 	};
 	const onDownloadAllClicked = async () => {
-		const data = await fetchSubjectData({
-			subjectId: subject.subjectId,
-			pageNumber: 1,
-			pageSize: MAX_SUBJECT_DATASET_SIZE
-		});
-		download(data);
+		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => await fetchSubjectData({
+				subjectId: subject.subjectId,
+				pageNumber: 1,
+				pageSize: MAX_SUBJECT_DATASET_SIZE
+			}),
+			(data) => download(data));
 	};
 
 	return <DataSetHeaderContainer>

@@ -49,8 +49,13 @@ export const TupleItemOperatorsSearch = forwardRef(<QTH extends QueryTupleForHol
 			fire(TupleItemPickerEventTypes.CHANGE_SEARCH_STATE, PickerSearchState.SEARCHING, []);
 			setSearchHandle(window.setTimeout(async () => {
 				setSearchHandle(null);
-				const candidates = await listCandidates(value.trim());
-				fire(TupleItemPickerEventTypes.CHANGE_SEARCH_STATE, PickerSearchState.DONE, candidates);
+				try {
+					const candidates = await listCandidates(value.trim());
+					fire(TupleItemPickerEventTypes.CHANGE_SEARCH_STATE, PickerSearchState.DONE, candidates);
+				} catch (e) {
+					// ignore
+					fire(TupleItemPickerEventTypes.CHANGE_SEARCH_STATE, PickerSearchState.DONE, []);
+				}
 			}, 300));
 		}
 

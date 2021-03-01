@@ -190,10 +190,15 @@ export const useFavoriteState = () => {
 			connectedSpaceIds = connectedSpaceIds.filter(connectedSpaceId => id != connectedSpaceId);
 			fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, id);
 		}
-		await saveFavorite({
-			connectedSpaceIds: connectedSpaceIds || [],
-			dashboardIds: dashboardIds || []
-		});
+		try {
+			await saveFavorite({
+				connectedSpaceIds: connectedSpaceIds || [],
+				dashboardIds: dashboardIds || []
+			});
+		} catch (e) {
+			// ignore
+			console.info(e);
+		}
 	};
 
 	const items = buildFavoriteItems(data);

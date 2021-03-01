@@ -33,9 +33,10 @@ const ReportDelete = (props: { report: Report, onRemoved: () => void }) => {
 	const { fire } = useEventBus();
 
 	const onDeleteClicked = async () => {
-		await deleteReport(report);
-		onRemoved();
 		fire(EventTypes.HIDE_DIALOG);
+		fire(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => await deleteReport(report),
+			() => onRemoved())
 	};
 	const onCancelClicked = () => {
 		fire(EventTypes.HIDE_DIALOG);

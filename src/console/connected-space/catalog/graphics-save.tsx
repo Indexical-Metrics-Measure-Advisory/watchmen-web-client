@@ -1,19 +1,14 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
+import { useEventBus } from '../../../events/event-bus';
+import { EventTypes } from '../../../events/types';
 import { saveConnectedSpaceGraphics } from '../../../services/tuples/connected-space';
 import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
 import { useConsoleEventBus } from '../../console-event-bus';
 import { ConsoleEventTypes } from '../../console-event-bus-types';
-import { SAVE_TIMEOUT } from '../constants';
 import { useCatalogEventBus } from './catalog-event-bus';
 import { CatalogEventTypes } from './catalog-event-bus-types';
 import { transformGraphicsToSave } from './graphics-utils';
 import { AssembledConnectedSpaceGraphics } from './types';
-
-interface SaveState {
-	timeoutHandle?: number;
-	connectedSpace: ConnectedSpace;
-	assembledGraphics?: AssembledConnectedSpaceGraphics
-}
 
 export const GraphicsSave = (props: {
 	connectedSpace: ConnectedSpace;
@@ -21,25 +16,19 @@ export const GraphicsSave = (props: {
 }) => {
 	const { connectedSpace, graphics: assembledGraphics } = props;
 
+	const { fire: fireGlobal } = useEventBus();
 	const { fire: fireConsole } = useConsoleEventBus();
 	const { on, off } = useCatalogEventBus();
-	const [ state, setState ] = useState<SaveState>({ connectedSpace, assembledGraphics });
 	useEffect(() => {
 		const onGraphicsChange = () => {
 			if (assembledGraphics) {
 				const graphics = transformGraphicsToSave(connectedSpace, assembledGraphics);
 				fireConsole(ConsoleEventTypes.CONNECTED_SPACE_GRAPHICS_CHANGED, graphics);
 
-				if (state.timeoutHandle) {
-					clearTimeout(state.timeoutHandle);
-				}
-				setState({
-					connectedSpace, assembledGraphics,
-					timeoutHandle: window.setTimeout(async () => {
-						setState({ connectedSpace, assembledGraphics });
-						await saveConnectedSpaceGraphics(connectedSpace, graphics);
-					}, SAVE_TIMEOUT)
-				});
+				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+					async () => await saveConnectedSpaceGraphics(connectedSpace, graphics),
+					() => {
+					});
 			}
 		};
 		on(CatalogEventTypes.TOPIC_MOVED, onGraphicsChange);
@@ -50,7 +39,7 @@ export const GraphicsSave = (props: {
 			off(CatalogEventTypes.SUBJECT_MOVED, onGraphicsChange);
 			off(CatalogEventTypes.REPORT_MOVED, onGraphicsChange);
 		};
-	}, [ on, off, fireConsole, connectedSpace, assembledGraphics, state ]);
+	}, [ on, off, fireConsole, fireGlobal, connectedSpace, assembledGraphics ]);
 
 	return <Fragment/>;
 };

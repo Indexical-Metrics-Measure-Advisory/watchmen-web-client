@@ -22,7 +22,12 @@ export const LanguageSettings = () => {
 		fire(EventTypes.CHANGE_LANGUAGE, code);
 		forceUpdate();
 		(async () => {
-			await saveLastSnapshot({ language: code });
+			try {
+				await saveLastSnapshot({ language: code });
+			} catch (e) {
+				// ignore
+				console.info(e);
+			}
 		})();
 	};
 

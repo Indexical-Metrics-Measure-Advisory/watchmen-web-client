@@ -3,6 +3,8 @@ import React, { MouseEvent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ICON_ADD, ICON_CLOSE } from '../../../../basic-widgets/constants';
 import { TooltipAlignment } from '../../../../basic-widgets/types';
+import { useEventBus } from '../../../../events/event-bus';
+import { EventTypes } from '../../../../events/types';
 import { toPipeline } from '../../../../routes/utils';
 import { savePipeline } from '../../../../services/tuples/pipeline';
 import { Pipeline } from '../../../../services/tuples/pipeline-types';
@@ -27,6 +29,7 @@ export const Navigator = (props: {
 	const { pipelines, topics } = props;
 
 	const history = useHistory();
+	const { fire: fireGlobal } = useEventBus();
 	const { fire: firePipelines } = usePipelinesEventBus();
 	const { on, off } = useCatalogEventBus();
 	const [ visible, setVisible ] = useState(false);
@@ -63,9 +66,12 @@ export const Navigator = (props: {
 		}
 
 		const pipeline = createPipeline(topic.topicId);
-		await savePipeline(pipeline);
-		firePipelines(PipelinesEventTypes.PIPELINE_ADDED, pipeline);
-		history.push(toPipeline(pipeline.pipelineId));
+		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => await savePipeline(pipeline),
+			() => {
+				firePipelines(PipelinesEventTypes.PIPELINE_ADDED, pipeline);
+				history.push(toPipeline(pipeline.pipelineId));
+			});
 	};
 
 	let name = '';

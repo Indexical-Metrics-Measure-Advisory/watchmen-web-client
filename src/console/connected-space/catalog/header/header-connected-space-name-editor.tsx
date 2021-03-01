@@ -1,6 +1,8 @@
 import React from 'react';
 import { PageTitleEditor } from '../../../../basic-widgets/page-title-editor';
 import { useForceUpdate } from '../../../../basic-widgets/utils';
+import { useEventBus } from '../../../../events/event-bus';
+import { EventTypes } from '../../../../events/types';
 import { useLanguage } from '../../../../langs';
 import { renameConnectedSpace } from '../../../../services/tuples/connected-space';
 import { ConnectedSpace } from '../../../../services/tuples/connected-space-types';
@@ -11,6 +13,7 @@ export const HeaderConnectedSpaceNameEditor = (props: { connectedSpace: Connecte
 	const { connectedSpace } = props;
 
 	const language = useLanguage();
+	const { fire: fireGlobal } = useEventBus();
 	const { fire } = useConsoleEventBus();
 	const forceUpdate = useForceUpdate();
 
@@ -23,7 +26,10 @@ export const HeaderConnectedSpaceNameEditor = (props: { connectedSpace: Connecte
 		connectedSpace.name = name.trim() || language.PLAIN.DEFAULT_CONNECTED_SPACE_NAME;
 		forceUpdate();
 		fire(ConsoleEventTypes.CONNECTED_SPACE_RENAMED, connectedSpace);
-		await renameConnectedSpace(connectedSpace);
+		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => await renameConnectedSpace(connectedSpace),
+			() => {
+			});
 	};
 
 	return <PageTitleEditor title={connectedSpace.name}

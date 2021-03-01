@@ -29,15 +29,16 @@ const NameUrl = styled.div`
 const DashboardDelete = (props: { dashboard: Dashboard, onRemoved: () => void }) => {
 	const { dashboard, onRemoved } = props;
 
-	const { fire: fireGlobal } = useEventBus();
+	const { fire } = useEventBus();
 
 	const onDeleteClicked = async () => {
-		await deleteDashboard(dashboard);
-		onRemoved();
-		fireGlobal(EventTypes.HIDE_DIALOG);
+		fire(EventTypes.HIDE_DIALOG);
+		fire(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => await deleteDashboard(dashboard),
+			() => onRemoved());
 	};
 	const onCancelClicked = () => {
-		fireGlobal(EventTypes.HIDE_DIALOG);
+		fire(EventTypes.HIDE_DIALOG);
 	};
 
 	return <>

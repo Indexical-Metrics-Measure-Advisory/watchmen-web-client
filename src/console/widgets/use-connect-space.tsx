@@ -36,10 +36,11 @@ const AvailableSpacesSelector = (props: { spaces: Array<AvailableSpaceInConsole>
 		setSelection(option.value as Space);
 	};
 	const onConfirmClicked = async () => {
-		const connectedSpace = createConnectedSpace(selection.spaceId);
-		await saveConnectedSpace(connectedSpace);
-		switchTo(connectedSpace);
 		fire(EventTypes.HIDE_DIALOG);
+		const connectedSpace = createConnectedSpace(selection.spaceId);
+		fire(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => await saveConnectedSpace(connectedSpace),
+			() => switchTo(connectedSpace));
 	};
 	const onCancelClicked = () => {
 		fire(EventTypes.HIDE_DIALOG);

@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ICON_FAVORITE } from '../../../../basic-widgets/constants';
 import { PageHeaderButton } from '../../../../basic-widgets/page-header-buttons';
+import { useEventBus } from '../../../../events/event-bus';
+import { EventTypes } from '../../../../events/types';
 import { Lang } from '../../../../langs';
 import { saveFavorite } from '../../../../services/console/favorite';
 import { Favorite } from '../../../../services/console/favorite-types';
@@ -20,6 +22,7 @@ const FavoriteIcon = styled(FontAwesomeIcon).attrs<{ 'data-favorite': boolean }>
 
 export const HeaderFavoriteButton = (props: { connectedSpace: ConnectedSpace }) => {
 	const { connectedSpace } = props;
+	const { fire: fireGlobal } = useEventBus();
 	const { once, on, off, fire } = useConsoleEventBus();
 	const [ favorite, setFavorite ] = useState(false);
 	useEffect(() => {
@@ -57,21 +60,23 @@ export const HeaderFavoriteButton = (props: { connectedSpace: ConnectedSpace }) 
 
 	const onAddIntoFavoriteClicked = () => {
 		once(ConsoleEventTypes.REPLY_FAVORITE, async (favorite: Favorite) => {
-			await saveFavorite({
-				...favorite,
-				connectedSpaceIds: Array.from(new Set([ ...favorite.connectedSpaceIds, connectedSpace.connectId ]))
-			});
-			fire(ConsoleEventTypes.CONNECTED_SPACE_ADDED_INTO_FAVORITE, connectedSpace.connectId);
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await saveFavorite({
+					...favorite,
+					connectedSpaceIds: Array.from(new Set([ ...favorite.connectedSpaceIds, connectedSpace.connectId ]))
+				}),
+				() => fire(ConsoleEventTypes.CONNECTED_SPACE_ADDED_INTO_FAVORITE, connectedSpace.connectId));
 		}).fire(ConsoleEventTypes.ASK_FAVORITE);
 	};
 	const onRemoveFromFavoriteClicked = () => {
 		once(ConsoleEventTypes.REPLY_FAVORITE, async (favorite: Favorite) => {
-			await saveFavorite({
-				...favorite,
-				// eslint-disable-next-line
-				connectedSpaceIds: favorite.connectedSpaceIds.filter(connectedSpaceId => connectedSpaceId != connectedSpace.connectId)
-			});
-			fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, connectedSpace.connectId);
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await saveFavorite({
+					...favorite,
+					// eslint-disable-next-line
+					connectedSpaceIds: favorite.connectedSpaceIds.filter(connectedSpaceId => connectedSpaceId != connectedSpace.connectId)
+				}),
+				() => fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, connectedSpace.connectId));
 		}).fire(ConsoleEventTypes.ASK_FAVORITE);
 	};
 

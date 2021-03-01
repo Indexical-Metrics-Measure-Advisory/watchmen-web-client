@@ -1,6 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { ICON_LOADING } from '../../../../../basic-widgets/constants';
+import { useEventBus } from '../../../../../events/event-bus';
+import { EventTypes } from '../../../../../events/types';
 import { fetchSubjectData } from '../../../../../services/console/subject';
 import { Subject } from '../../../../../services/tuples/subject-types';
 import { DEFAULT_SUBJECT_DATASET_PAGE_SIZE } from '../constants';
@@ -24,6 +26,7 @@ export const DataLoading = (props: { subject: Subject }) => {
 
 	const hasColumns = subject.dataset.columns.length !== 0;
 
+	const { fire: fireGlobal } = useEventBus();
 	const { on, off, fire } = useSubjectDataSetEventBus();
 	const [ visible, setVisible ] = useState(false);
 
@@ -33,18 +36,19 @@ export const DataLoading = (props: { subject: Subject }) => {
 		}
 		const onColumnDefsReady = async (columnDefs: ColumnDefs) => {
 			setVisible(true);
-			try {
-				const page = await fetchData({ subject });
-				fire(SubjectDataSetEventTypes.PAGE_LOADED, page, columnDefs);
-			} finally {
-				setVisible(false);
-			}
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await fetchData({ subject }),
+				(page) => {
+					fire(SubjectDataSetEventTypes.PAGE_LOADED, page, columnDefs);
+					setVisible(false);
+				},
+				() => setVisible(false));
 		};
 		on(SubjectDataSetEventTypes.COLUMN_DEFS_READY, onColumnDefsReady);
 		return () => {
 			off(SubjectDataSetEventTypes.COLUMN_DEFS_READY, onColumnDefsReady);
 		};
-	}, [ on, off, fire, hasColumns, subject ]);
+	}, [ on, off, fire, fireGlobal, hasColumns, subject ]);
 	useEffect(() => {
 		const onPageChange = async (pageNumber: number, columnDefs: ColumnDefs) => {
 			setVisible(true);

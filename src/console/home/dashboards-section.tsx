@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ICON_ADD, ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL, ICON_SORT } from '../../basic-widgets/constants';
 import { ButtonInk } from '../../basic-widgets/types';
+import { useEventBus } from '../../events/event-bus';
+import { EventTypes } from '../../events/types';
 import { Lang } from '../../langs';
 import { toDashboard } from '../../routes/utils';
 import { saveDashboard } from '../../services/tuples/dashboard';
@@ -24,6 +26,7 @@ import {
 
 export const DashboardsSection = () => {
 	const history = useHistory();
+	const { fire: fireGlobal } = useEventBus();
 	const { once, fire } = useConsoleEventBus();
 	const bodyRef = useRef<HTMLDivElement>(null);
 	const [ sortType, setSortType ] = useState<SortType>(SortType.BY_VISIT_TIME);
@@ -40,9 +43,12 @@ export const DashboardsSection = () => {
 
 	const onCreateDashboardClicked = async () => {
 		const dashboard = createDashboard();
-		await saveDashboard(dashboard);
-		fire(ConsoleEventTypes.DASHBOARD_CREATED, dashboard);
-		history.push(toDashboard(dashboard.dashboardId));
+		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => await saveDashboard(dashboard),
+			() => {
+				fire(ConsoleEventTypes.DASHBOARD_CREATED, dashboard);
+				history.push(toDashboard(dashboard.dashboardId));
+			});
 	};
 	const onSortClicked = () => {
 		setSortType(sortType === SortType.BY_NAME ? SortType.BY_VISIT_TIME : SortType.BY_NAME);
