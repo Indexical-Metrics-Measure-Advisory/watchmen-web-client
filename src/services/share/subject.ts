@@ -1,9 +1,8 @@
-import subject from "../../share/subject";
 import { saveTokenIntoSession } from '../account';
 // import { findToken } from "../account";
-import { ChartType } from "../tuples/chart-types";
-import { ParameterJointType } from "../tuples/factor-calculator-types";
-import { Subject } from "../tuples/subject-types";
+import { ChartType } from '../tuples/chart-types';
+import { ParameterJointType } from '../tuples/factor-calculator-types';
+import { Subject } from '../tuples/subject-types';
 import { doFetch, getCurrentTime, getServiceHost, isMockService } from '../utils';
 
 export interface SharedSubject {
