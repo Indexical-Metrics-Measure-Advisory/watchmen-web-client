@@ -1,7 +1,7 @@
 import { findToken } from '../account';
 import { fetchMockAllTopics } from '../mock/pipeline/mock-all-topics';
 import { Topic } from '../tuples/topic-types';
-import { getServiceHost, isMockService } from '../utils';
+import { doFetch, getServiceHost, isMockService } from '../utils';
 
 export const fetchAllTopics = async (): Promise<Array<Topic>> => {
 	if (isMockService()) {
@@ -9,7 +9,7 @@ export const fetchAllTopics = async (): Promise<Array<Topic>> => {
 	} else {
 		// REMOTE use real api
 		const token = findToken();
-		const response = await fetch(`${getServiceHost()}topic/all`, {
+		const response = await doFetch(`${getServiceHost()}topic/all`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -17,7 +17,6 @@ export const fetchAllTopics = async (): Promise<Array<Topic>> => {
 			}
 		});
 
-		const result = await response.json();
-		return result;
+		return await response.json();
 	}
 };

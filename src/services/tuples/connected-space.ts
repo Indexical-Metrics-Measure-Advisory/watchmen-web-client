@@ -7,7 +7,7 @@ import {
 	saveMockConnectedSpace,
 	saveMockConnectedSpaceGraphics
 } from '../mock/tuples/mock-connected-space';
-import { getServiceHost, isMockService } from '../utils';
+import { doFetch, getServiceHost, isMockService } from '../utils';
 import { ConnectedSpace, ConnectedSpaceGraphics } from './connected-space-types';
 import { isFakedUuid } from './utils';
 
@@ -16,7 +16,7 @@ export const fetchConnectedSpaces = async (): Promise<Array<ConnectedSpace>> => 
 		return fetchMockConnectedSpaces();
 	} else {
 		const token = findToken();
-		const response = await fetch(`${getServiceHost()}console_space/connected/me`, {
+		const response = await doFetch(`${getServiceHost()}console_space/connected/me`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ export const saveConnectedSpace = async (connectedSpace: ConnectedSpace): Promis
 		return saveMockConnectedSpace(connectedSpace);
 	} else if (isFakedUuid(connectedSpace)) {
 		const token = findToken();
-		const response = await fetch(
+		const response = await doFetch(
 			`${getServiceHost()}space/connect?space_id=${connectedSpace.spaceId}&name=${connectedSpace.name}`,
 			{
 				method: 'GET',
@@ -58,7 +58,7 @@ export const saveConnectedSpace = async (connectedSpace: ConnectedSpace): Promis
 	} else {
 		// REMOTE use real api
 		const token = findToken();
-		const response = await fetch(`${getServiceHost()}space/save`, {
+		const response = await doFetch(`${getServiceHost()}space/save`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ export const renameConnectedSpace = async (connectedSpace: ConnectedSpace): Prom
 		return renameMockConnectedSpace(connectedSpace);
 	} else {
 		const token = findToken();
-		await fetch(
+		await doFetch(
 			`${getServiceHost()}console_space/rename?connect_id=${connectedSpace.connectId}&name=${
 				connectedSpace.name
 			}`,
@@ -97,7 +97,7 @@ export const deleteConnectedSpace = async (connectedSpace: ConnectedSpace): Prom
 		return deleteMockConnectedSpace(connectedSpace);
 	} else {
 		const token = findToken();
-		await fetch(`${getServiceHost()}console_space/delete?connect_id=${connectedSpace.connectId}`, {
+		await doFetch(`${getServiceHost()}console_space/delete?connect_id=${connectedSpace.connectId}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',

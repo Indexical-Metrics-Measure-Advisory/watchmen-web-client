@@ -23,6 +23,8 @@ export const Zh = {
 		REPORT_DESCRIPTION_PLACEHOLDER: '请填写...'
 	},
 	ERROR: {
+		UNAUTHORIZED: '本操作需要先登录系统.',
+		ACCESS_DENIED: '没有权限进行本操作, 请联系管理员以获取帮助.',
 		UNPREDICTED: '发生不可预测的错误, 请联系管理员以获取帮助.'
 	},
 	ALERT: {

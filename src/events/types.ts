@@ -18,7 +18,9 @@ export enum EventTypes {
 
 	SHOW_DIALOG = 'show-dialog',
 	HIDE_DIALOG = 'hide-dialog',
-	SHOW_YES_NO_DIALOG = 'show-yes-no-dialog'
+	SHOW_YES_NO_DIALOG = 'show-yes-no-dialog',
+
+	INVOKE_REMOTE_REQUEST = 'invoke-remote-request'
 }
 
 export interface TooltipParam {
@@ -92,4 +94,8 @@ export interface EventBus {
 	fire(type: EventTypes.SHOW_YES_NO_DIALOG, question: string, onYes: () => void, onNo: () => void): this;
 	on(type: EventTypes.SHOW_YES_NO_DIALOG, listener: (question: string, onYes: () => void, onNo: () => void) => void): this;
 	off(type: EventTypes.SHOW_YES_NO_DIALOG, listener: (question: string, onYes: () => void, onNo: () => void) => void): this;
+
+	fire(type: EventTypes.INVOKE_REMOTE_REQUEST, request: () => Promise<any>, success: (data?: any) => void, failure?: (error?: any) => void): this;
+	on(type: EventTypes.INVOKE_REMOTE_REQUEST, listener: (request: () => Promise<any>, success: (data?: any) => void, failure?: (error?: any) => void) => void): this;
+	off(type: EventTypes.INVOKE_REMOTE_REQUEST, listener: (request: () => Promise<any>, success: (data?: any) => void, failure?: (error?: any) => void) => void): this;
 }

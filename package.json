@@ -8,6 +8,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.2",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "@nano-sql/core": "^2.3.7",
     "@types/color": "^3.0.1",
     "@types/echarts": "^4.9.3",
     "@types/jest": "^26.0.20",

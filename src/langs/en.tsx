@@ -23,6 +23,8 @@ export const En = {
 		REPORT_DESCRIPTION_PLACEHOLDER: 'Description here...'
 	},
 	ERROR: {
+		UNAUTHORIZED: 'Unauthorized now, login please.',
+		ACCESS_DENIED: 'Access denied, contact administrator for more information.',
 		UNPREDICTED: 'Unpredicted error occurred, contact administrator for more information.'
 	},
 	ALERT: {

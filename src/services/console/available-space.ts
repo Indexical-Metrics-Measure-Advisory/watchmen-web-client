@@ -1,6 +1,6 @@
 import { findToken } from '../account';
 import { fetchMockAvailableSpaces } from '../mock/console/mock-avaiable-space';
-import { getServiceHost, isMockService } from '../utils';
+import { doFetch, getServiceHost, isMockService } from '../utils';
 import { AvailableSpaceInConsole } from './settings-types';
 
 export const fetchAvailableSpaces = async (): Promise<Array<AvailableSpaceInConsole>> => {
@@ -8,7 +8,7 @@ export const fetchAvailableSpaces = async (): Promise<Array<AvailableSpaceInCons
 		return fetchMockAvailableSpaces();
 	} else {
 		const token = findToken();
-		const response = await fetch(`${getServiceHost()}space/available`, {
+		const response = await doFetch(`${getServiceHost()}space/available`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',

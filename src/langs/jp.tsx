@@ -23,6 +23,8 @@ export const Jp = {
 		REPORT_DESCRIPTION_PLACEHOLDER: '説明を入力してください...'
 	},
 	ERROR: {
+		UNAUTHORIZED: 'Unauthorized now, login please.',
+		ACCESS_DENIED: 'Access denied, contact administrator for more information.',
 		UNPREDICTED: '未知のエラーが発生しました。詳細については、管理者にお問い合わせください。'
 	},
 	ALERT: {

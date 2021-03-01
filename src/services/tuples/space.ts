@@ -1,6 +1,6 @@
 import { fetchMockSpace, listMockSpaces, listMockSpacesForHolder, saveMockSpace } from '../mock/tuples/mock-space';
 import { DataPage } from '../query/data-page';
-import { getServiceHost, isMockService } from '../utils';
+import { doFetch, getServiceHost, isMockService } from '../utils';
 import { QuerySpace, QuerySpaceForHolder } from './query-space-types';
 import { QueryTopicForHolder } from './query-topic-types';
 import { QueryUserGroupForHolder } from './query-user-group-types';
@@ -27,7 +27,7 @@ export const listSpaces = async (options: {
 	if (isMockService()) {
 		return listMockSpaces(options);
 	} else {
-		const response = await fetch(`${getServiceHost()}space/name?query_name=${search}`, {
+		const response = await doFetch(`${getServiceHost()}space/name?query_name=${search}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ export const fetchSpace = async (spaceId: string): Promise<{ space: Space; group
 	if (isMockService()) {
 		return fetchMockSpace(spaceId);
 	} else {
-		const response = await fetch(`${getServiceHost()}space?space_id=${spaceId}`, {
+		const response = await doFetch(`${getServiceHost()}space?space_id=${spaceId}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ export const fetchSpace = async (spaceId: string): Promise<{ space: Space; group
 		const fetchTopics = async (): Promise<Array<QueryTopicForHolder>> => {
 			const { topicIds } = space;
 			if (topicIds && topicIds.length > 0) {
-				const response = await fetch(`${getServiceHost()}topic/ids`, {
+				const response = await doFetch(`${getServiceHost()}topic/ids`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'
@@ -69,7 +69,7 @@ export const fetchSpace = async (spaceId: string): Promise<{ space: Space; group
 		const fetchUserGroups = async (): Promise<Array<QueryUserGroupForHolder>> => {
 			const { groupIds } = space;
 			if (groupIds && groupIds.length > 0) {
-				const response = await fetch(`${getServiceHost()}user_groups/ids`, {
+				const response = await doFetch(`${getServiceHost()}user_groups/ids`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'
@@ -93,7 +93,7 @@ export const saveSpace = async (space: Space): Promise<void> => {
 	if (isMockService()) {
 		return saveMockSpace(space);
 	} else if (isFakedUuid(space)) {
-		const response = await fetch(`${getServiceHost()}space`, {
+		const response = await doFetch(`${getServiceHost()}space`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -105,7 +105,7 @@ export const saveSpace = async (space: Space): Promise<void> => {
 		space.spaceId = data.spaceId;
 		space.lastModifyTime = data.lastModifyTime;
 	} else {
-		const response = await fetch(`${getServiceHost()}update/space?space_id=${space.spaceId}`, {
+		const response = await doFetch(`${getServiceHost()}update/space?space_id=${space.spaceId}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -121,7 +121,7 @@ export const listSpacesForHolder = async (search: string): Promise<Array<QuerySp
 	if (isMockService()) {
 		return listMockSpacesForHolder(search);
 	} else {
-		const response = await fetch(`${getServiceHost()}query/space/group?query_name=${search}`, {
+		const response = await doFetch(`${getServiceHost()}query/space/group?query_name=${search}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'

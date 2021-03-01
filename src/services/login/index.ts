@@ -1,14 +1,10 @@
 import { saveTokenIntoSession } from '../account';
 import { mockLogin } from '../mock/mock-login';
-import { getServiceHost, isMockService } from '../utils';
+import { doFetch, getServiceHost, isMockService } from '../utils';
 import { Account, LoginResponse } from './types';
 
-const is_admin = (login_result: any) => {
-	if (login_result.role === 'admin') {
-		return true;
-	} else {
-		return false;
-	}
+const isAdmin = (loginResult: any) => {
+	return loginResult.role === 'admin';
 };
 
 export const login = async (account: Account): Promise<LoginResponse> => {
@@ -16,7 +12,7 @@ export const login = async (account: Account): Promise<LoginResponse> => {
 		return mockLogin(account);
 	} else {
 		console.log(getServiceHost());
-		const response = await fetch(`${getServiceHost()}login/access-token`, {
+		const response = await doFetch(`${getServiceHost()}login/access-token`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
@@ -31,6 +27,6 @@ export const login = async (account: Account): Promise<LoginResponse> => {
 		const result = await response.json();
 		saveTokenIntoSession(result.access_token);
 
-		return { pass: true, admin: is_admin(result) };
+		return { pass: true, admin: isAdmin(result) };
 	}
 };

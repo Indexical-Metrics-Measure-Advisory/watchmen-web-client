@@ -1,6 +1,6 @@
 import { findToken } from '../account';
 import { deleteMockSubject, renameMockSubject, saveMockSubject } from '../mock/tuples/mock-subject';
-import { getServiceHost, isMockService } from '../utils';
+import { doFetch, getServiceHost, isMockService } from '../utils';
 import { Subject } from './subject-types';
 import { isFakedUuid } from './utils';
 
@@ -13,7 +13,7 @@ export const saveSubject = async (subject: Subject, connectedSpaceId: string): P
 		return saveMockSubject(rest);
 	} else if (isFakedUuid(subject)) {
 		const token = findToken();
-		const response = await fetch(`${getServiceHost()}console_space/subject?connect_id=${connectedSpaceId}`, {
+		const response = await doFetch(`${getServiceHost()}console_space/subject?connect_id=${connectedSpaceId}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export const saveSubject = async (subject: Subject, connectedSpaceId: string): P
 		subject.lastModifyTime = data.lastModifyTime;
 	} else {
 		const token = findToken();
-		const response = await fetch(`${getServiceHost()}console_space/subject/save`, {
+		const response = await doFetch(`${getServiceHost()}console_space/subject/save`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ export const renameSubject = async (subject: Subject): Promise<void> => {
 	} else {
 		// REMOTE use real api
 		const token = findToken();
-		await fetch(`${getServiceHost()}subject/rename?subject_id=${subject.subjectId}&name=${subject.name}`, {
+		await doFetch(`${getServiceHost()}subject/rename?subject_id=${subject.subjectId}&name=${subject.name}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ export const deleteSubject = async (subject: Subject): Promise<void> => {
 		return deleteMockSubject(subject);
 	} else {
 		const token = findToken();
-		await fetch(`${getServiceHost()}console_space/subject/delete?subject_id=${subject.subjectId}`, {
+		await doFetch(`${getServiceHost()}console_space/subject/delete?subject_id=${subject.subjectId}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',

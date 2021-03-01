@@ -15,14 +15,14 @@ import {
 } from "../mock/console/mock-report";
 import { ChartDataSet, ChartType } from "../tuples/chart-types";
 import { Report } from "../tuples/report-types";
-import { getServiceHost, isMockService } from "../utils";
+import { doFetch, getServiceHost, isMockService } from '../utils';
 
 export const fetchChartDataTemporary = async (report: Report): Promise<ChartDataSet> => {
 	if (isMockService()) {
 		return fetchChartData(report.reportId, report.chart.type);
 	} else {
 		const token = findToken();
-		const response = await fetch(`${getServiceHost()}console_space/dataset/chart/temporary`, {
+		const response = await doFetch(`${getServiceHost()}console_space/dataset/chart/temporary`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -66,7 +66,7 @@ export const fetchChartData = async (reportId: string, type: ChartType): Promise
 		}
 	} else {
 		const token = findToken();
-		const response = await fetch(`${getServiceHost()}console_space/dataset/chart?report_id=${reportId}`, {
+		const response = await doFetch(`${getServiceHost()}console_space/dataset/chart?report_id=${reportId}`, {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",

@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import UserBackground from '../../assets/user-background.png';
 import { TUPLE_SEARCH_PAGE_SIZE } from '../../basic-widgets/constants';
+import { useEventBus } from '../../events/event-bus';
+import { EventTypes } from '../../events/types';
 import { QueryUser } from '../../services/tuples/query-user-types';
 import { fetchUser, listUsers, saveUser } from '../../services/tuples/user';
 import { User } from '../../services/tuples/user-types';
@@ -28,14 +30,18 @@ const fetchUserAndCodes = async (queryUser: QueryUser) => {
 const getKeyOfUser = (user: QueryUser) => user.userId;
 
 const AdminUsers = () => {
+	const { fire: fireGlobal } = useEventBus();
 	const { on, off, fire } = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateUser = () => {
 			fire(TupleEventTypes.TUPLE_CREATED, createUser());
 		};
 		const onDoEditUser = async (queryUser: QueryUser) => {
-			const { tuple, groups } = await fetchUserAndCodes(queryUser);
-			fire(TupleEventTypes.TUPLE_LOADED, tuple, { groups });
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
+				return await fetchUserAndCodes(queryUser);
+			}, ({ tuple, groups }) => {
+				fire(TupleEventTypes.TUPLE_LOADED, tuple, { groups });
+			});
 		};
 		const onDoSearchUser = async (searchText: string, pageNumber: number) => {
 			const page = await listUsers({ search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE });
