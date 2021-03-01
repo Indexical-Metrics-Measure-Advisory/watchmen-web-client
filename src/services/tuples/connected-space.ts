@@ -31,8 +31,16 @@ export const fetchConnectedSpaceGraphics = async (): Promise<Array<ConnectedSpac
 	if (isMockService()) {
 		return fetchMockConnectedSpaceGraphics();
 	} else {
+		const token = findToken();
 		// REMOTE use real api
-		return [];
+		const response = await doFetch(`${getServiceHost()}console_space/graphics/me`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
+			}
+		});
+		return await response.json();
 	}
 };
 
@@ -114,6 +122,15 @@ export const saveConnectedSpaceGraphics = async (
 	if (isMockService()) {
 		return saveMockConnectedSpaceGraphics(connectedSpace, graphics);
 	} else {
-		// REMOTE use real api
+		graphics.connectId = connectedSpace.connectId;
+		const token = findToken();
+		await doFetch(`${getServiceHost()}console_space/graphics`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
+			},
+			body: JSON.stringify(graphics)
+		});
 	}
 };
