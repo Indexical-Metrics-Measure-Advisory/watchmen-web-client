@@ -33,12 +33,15 @@ export const SettingsHolder = () => {
 	useEffect(() => {
 		if (!holdSettings.initialized) {
 			(async () => {
-				const settings = await fetchConsoleSettingsData();
-				setHoldSettings({ initialized: true, ...settings });
-				if (settings.lastSnapshot && settings.lastSnapshot.language) {
-					fireGlobal(EventTypes.CHANGE_LANGUAGE, settings.lastSnapshot.language);
-				}
-				fire(ConsoleEventTypes.SETTINGS_LOADED, settings);
+				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+					async () => await fetchConsoleSettingsData(),
+					(settings) => {
+						setHoldSettings({ initialized: true, ...settings });
+						if (settings.lastSnapshot && settings.lastSnapshot.language) {
+							fireGlobal(EventTypes.CHANGE_LANGUAGE, settings.lastSnapshot.language);
+						}
+						fire(ConsoleEventTypes.SETTINGS_LOADED, settings);
+					});
 			})();
 		}
 	}, [ fire, fireGlobal, holdSettings.initialized ]);

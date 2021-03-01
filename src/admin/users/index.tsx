@@ -39,25 +39,20 @@ const AdminUsers = () => {
 			fire(TupleEventTypes.TUPLE_CREATED, createUser());
 		};
 		const onDoEditUser = async (queryUser: QueryUser) => {
-			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
-				return await fetchUserAndCodes(queryUser);
-			}, ({ tuple, groups }) => {
-				fire(TupleEventTypes.TUPLE_LOADED, tuple, { groups });
-			});
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await fetchUserAndCodes(queryUser),
+				({ tuple, groups }) => fire(TupleEventTypes.TUPLE_LOADED, tuple, { groups }));
 		};
 		const onDoSearchUser = async (searchText: string, pageNumber: number) => {
-			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
-				return await listUsers({ search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE });
-			}, (page: DataPage<QueryTuple>) => {
-				fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText);
-			});
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await listUsers({ search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE }),
+				(page: DataPage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
 		const onDoSaveUser = async (user: User) => {
-			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
-				await saveUser(user);
-			}, () => {
-				fire(TupleEventTypes.TUPLE_SAVED, user);
-			});
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await saveUser(user),
+				() => fire(TupleEventTypes.TUPLE_SAVED, user, true),
+				() => fire(TupleEventTypes.TUPLE_SAVED, user, false));
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateUser);
 		on(TupleEventTypes.DO_EDIT_TUPLE, onDoEditUser);

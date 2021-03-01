@@ -65,9 +65,9 @@ export interface TupleEventBus {
 	on<T extends Tuple>(type: TupleEventTypes.DO_SAVE_TUPLE, listener: (tuple: T) => void): this;
 	off<T extends Tuple>(type: TupleEventTypes.DO_SAVE_TUPLE, listener: (tuple: T) => void): this;
 
-	fire<T extends Tuple>(type: TupleEventTypes.TUPLE_SAVED, tuple: T): this;
-	once<T extends Tuple>(type: TupleEventTypes.TUPLE_SAVED, listener: (tuple: T) => void): this;
-	off<T extends Tuple>(type: TupleEventTypes.TUPLE_SAVED, listener: (tuple: T) => void): this;
+	fire<T extends Tuple>(type: TupleEventTypes.TUPLE_SAVED, tuple: T, saved: boolean): this;
+	once<T extends Tuple>(type: TupleEventTypes.TUPLE_SAVED, listener: (tuple: T, saved: boolean) => void): this;
+	off<T extends Tuple>(type: TupleEventTypes.TUPLE_SAVED, listener: (tuple: T, saved: boolean) => void): this;
 
 	fire(type: TupleEventTypes.DO_SEARCH_TUPLE, searchText: string, pageNumber: number): this;
 	on(type: TupleEventTypes.DO_SEARCH_TUPLE, listener: (searchText: string, pageNumber: number) => void): this;

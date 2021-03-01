@@ -58,8 +58,12 @@ export const TupleEdit = <T extends Tuple, HBT extends HoldByTuple>(props: {
 			}
 
 			fire(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.SAVING);
-			once(TupleEventTypes.TUPLE_SAVED, () => {
-				fire(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.SAVED);
+			once(TupleEventTypes.TUPLE_SAVED, (tuple: T, saved: boolean) => {
+				if (saved) {
+					fire(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.SAVED);
+				} else {
+					fire(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.CHANGED);
+				}
 			}).fire(TupleEventTypes.DO_SAVE_TUPLE, state.tuple!);
 		}).fire(TupleEventTypes.ASK_TUPLE_STATE);
 	};

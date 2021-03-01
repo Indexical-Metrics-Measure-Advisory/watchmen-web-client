@@ -1,10 +1,14 @@
 import React, { useEffect } from 'react';
 import ReportBackground from '../../assets/report-background.png';
 import { TUPLE_SEARCH_PAGE_SIZE } from '../../basic-widgets/constants';
+import { useEventBus } from '../../events/event-bus';
+import { EventTypes } from '../../events/types';
+import { DataPage } from '../../services/query/data-page';
 import { ChartType, PredefinedChartColorSeries } from '../../services/tuples/chart-types';
 import { QueryReport } from '../../services/tuples/query-report-types';
 import { listReports } from '../../services/tuples/report';
 import { Report } from '../../services/tuples/report-types';
+import { QueryTuple } from '../../services/tuples/tuple-types';
 import { generateUuid } from '../../services/tuples/utils';
 import { getCurrentTime } from '../../services/utils';
 import { TupleWorkbench } from '../widgets/tuple-workbench';
@@ -30,6 +34,7 @@ const createReport = (): Report => {
 const getKeyOfReport = (report: QueryReport) => report.reportId;
 
 const AdminReports = () => {
+	const { fire: fireGlobal } = useEventBus();
 	const { on, off, fire } = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateReport = () => {
@@ -44,8 +49,9 @@ const AdminReports = () => {
 			fire(TupleEventTypes.TUPLE_LOADED, report);
 		};
 		const onDoSearchReport = async (searchText: string, pageNumber: number) => {
-			const page = await listReports({ search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE });
-			fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText);
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await listReports({ search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE }),
+				(page: DataPage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateReport);
 		on(TupleEventTypes.DO_EDIT_TUPLE, onDoEditReport);
@@ -55,7 +61,7 @@ const AdminReports = () => {
 			off(TupleEventTypes.DO_EDIT_TUPLE, onDoEditReport);
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchReport);
 		};
-	}, [ on, off, fire ]);
+	}, [ on, off, fire, fireGlobal ]);
 
 	return <TupleWorkbench title='Reports'
 	                       canCreate={true}
