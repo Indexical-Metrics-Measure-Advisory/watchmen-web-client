@@ -32,9 +32,6 @@ export const fetchChartDataTemporary = async (report: Report): Promise<ChartData
 		});
 
 		return await response.json();
-
-		// REMOTE use real api
-		// return fetchChartData(report.reportId, report.chart.type);
 	}
 };
 export const fetchChartData = async (reportId: string, type: ChartType): Promise<ChartDataSet> => {

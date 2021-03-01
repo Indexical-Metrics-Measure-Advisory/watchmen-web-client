@@ -27,7 +27,7 @@ export const fetchSharedDashboard = async (dashboardId: string, token: string): 
 					reportId: '1',
 					name: '',
 					indicators: [],
-					dimensions: [],
+						dimensions: [],
 					rect: { x: 320, y: 320, width: 480, height: 300 },
 					chart: {
 						type: ChartType.COUNT
