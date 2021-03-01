@@ -397,6 +397,7 @@ export const Zh = {
 		PIE_ROSE_TYPE_NONE: '无',
 		PIE_ROSE_TYPE_RADIUS: '按半径',
 		PIE_ROSE_TYPE_AREA: '按面积',
+		PIE_SHOW_PERCENTAGE: '显示百分比',
 		SECTION_TITLE_COUNT_CHART: '数字统计样式',
 		SECTION_TITLE_PIE_CHART: '饼样式',
 		SECTION_TITLE_TREE_CHART: '树样式',

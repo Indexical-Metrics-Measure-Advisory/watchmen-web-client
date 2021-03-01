@@ -1,4 +1,5 @@
 import { CountChartStylePropNames } from '../chart-styles/count-chart-style-props';
+import { PieChartStylePropNames } from '../chart-styles/pie-chart-style-props';
 import { TreeChartStylePropNames } from '../chart-styles/tree-chart-style-props';
 import { TreemapChartStylePropNames } from '../chart-styles/treemap-chart-style-props';
 import { EChartsGridPropNames } from '../echart-styles/echarts-grid-props';
@@ -8,6 +9,8 @@ import { EChartsYAxisPropNames } from '../echart-styles/echarts-yaxis-props';
 
 export type BooleanPropNames =
 	CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING
+
+	| PieChartStylePropNames.SHOW_PERCENTAGE
 
 	| TreeChartStylePropNames.ROAM
 

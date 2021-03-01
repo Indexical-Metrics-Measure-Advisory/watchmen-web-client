@@ -397,6 +397,7 @@ export const Jp = {
 		PIE_ROSE_TYPE_NONE: 'なし',
 		PIE_ROSE_TYPE_RADIUS: '半径により',
 		PIE_ROSE_TYPE_AREA: '面積により',
+		PIE_SHOW_PERCENTAGE: '%表示',
 		SECTION_TITLE_COUNT_CHART: '特定スタイル',
 		SECTION_TITLE_PIE_CHART: '特定スタイル',
 		SECTION_TITLE_TREE_CHART: 'ツリースタイル',

@@ -19,6 +19,7 @@ export enum PieChartStylePropNames {
 	INSIDE_RADIUS = 'series.insideRadius',
 	OUTSIDE_RADIUS = 'series.outsideRadius',
 	ROSE_TYPE = 'series.roseType',
+	SHOW_PERCENTAGE = 'series.showPercentage',
 
 	BORDER_STYLE = 'series.border.style',
 	BORDER_WIDTH = 'series.border.width',

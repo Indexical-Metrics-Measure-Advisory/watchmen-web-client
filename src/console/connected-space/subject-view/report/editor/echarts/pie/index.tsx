@@ -4,8 +4,10 @@ import { PieChartSettingsSeries, PieRoseType } from '../../../../../../../servic
 import { ChartType } from '../../../../../../../services/tuples/chart-types';
 import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
-import { onDropdownValueChange, onNumberChange, validateNumber } from '../../data-utils';
+import { onBooleanChange, onDropdownValueChange, onNumberChange, validateNumber } from '../../data-utils';
 import { PieChartStylePropNames, PieRoseTypeOptions } from '../../prop-defs/chart-styles/pie-chart-style-props';
+import { useChartType } from '../../settings-effect/use-chart-type';
+import { BooleanValue } from '../../settings-widgets/boolean-value';
 import { DropdownValue } from '../../settings-widgets/dropdown-value';
 import { NumberValue } from '../../settings-widgets/number-value';
 
@@ -15,6 +17,7 @@ export interface SettingsPiePropNames {
 	insideRadius: PieChartStylePropNames.INSIDE_RADIUS;
 	outsideRadius: PieChartStylePropNames.OUTSIDE_RADIUS;
 	roseType: PieChartStylePropNames.ROSE_TYPE;
+	showPercentage: PieChartStylePropNames.SHOW_PERCENTAGE;
 }
 
 export const PieSettings = (props: {
@@ -32,17 +35,20 @@ export const PieSettings = (props: {
 			centerY: centerYPropName,
 			insideRadius: insideRadiusPropName,
 			outsideRadius: outsideRadiusPropName,
-			roseType: roseTypePropName
+			roseType: roseTypePropName,
+			showPercentage: showPercentagePropName
 		},
 		defaultRoseType,
 		onValueChange
 	} = props;
 
+	useChartType({ report });
+
 	const holder = getHolder(chart);
 
 	return <>
 		<NumberValue label={Lang.CHART.PIE_CENTER_X} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 9999'}
-		             value={holder?.centerX} defaultValue={0}
+		             value={holder?.centerX}
 		             validate={validateNumber(4)}
 		             onValueChange={onNumberChange({
 			             report,
@@ -51,7 +57,7 @@ export const PieSettings = (props: {
 			             done: onValueChange
 		             })}/>
 		<NumberValue label={Lang.CHART.PIE_CENTER_Y} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 9999'}
-		             value={holder?.centerY} defaultValue={0}
+		             value={holder?.centerY}
 		             validate={validateNumber(4)}
 		             onValueChange={onNumberChange({
 			             report,
@@ -60,7 +66,7 @@ export const PieSettings = (props: {
 			             done: onValueChange
 		             })}/>
 		<NumberValue label={Lang.CHART.PIE_INSIDE_RADIUS} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 9999'}
-		             value={holder?.insideRadius} defaultValue={0}
+		             value={holder?.insideRadius}
 		             validate={validateNumber(4)}
 		             onValueChange={onNumberChange({
 			             report,
@@ -69,7 +75,7 @@ export const PieSettings = (props: {
 			             done: onValueChange
 		             })}/>
 		<NumberValue label={Lang.CHART.PIE_OUTSIDE_RADIUS} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 9999'}
-		             value={holder?.insideRadius} defaultValue={0}
+		             value={holder?.insideRadius}
 		             validate={validateNumber(4)}
 		             onValueChange={onNumberChange({
 			             report,
@@ -88,5 +94,15 @@ export const PieSettings = (props: {
 				                 prop: roseTypePropName,
 				                 done: onValueChange
 			                 })}/>}
+		{chart.type === ChartType.SUNBURST
+			? null
+			: <BooleanValue label={Lang.CHART.PIE_SHOW_PERCENTAGE}
+			                value={holder?.showPercentage} defaultValue={true}
+			                onValueChange={onBooleanChange({
+				                report,
+				                chart,
+				                prop: showPercentagePropName,
+				                done: onValueChange
+			                })}/>}
 	</>;
 };

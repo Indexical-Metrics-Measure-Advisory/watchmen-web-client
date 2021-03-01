@@ -397,6 +397,7 @@ export const En = {
 		PIE_ROSE_TYPE_NONE: 'None',
 		PIE_ROSE_TYPE_RADIUS: 'By Radius',
 		PIE_ROSE_TYPE_AREA: 'By Area',
+		PIE_SHOW_PERCENTAGE: 'Show %',
 		SECTION_TITLE_COUNT_CHART: 'Count Style',
 		SECTION_TITLE_PIE_CHART: 'Pie Style',
 		SECTION_TITLE_TREE_CHART: 'Tree Style',

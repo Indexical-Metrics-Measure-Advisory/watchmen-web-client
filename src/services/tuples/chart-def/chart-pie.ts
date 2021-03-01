@@ -29,6 +29,7 @@ export interface PieChartSettingsSeries extends EChartsBorderHolder {
 	insideRadius?: number;
 	outsideRadius?: number;
 	roseType?: PieRoseType;
+	showPercentage?: boolean;
 }
 
 export interface PieChartSettings extends EChartsSettings {

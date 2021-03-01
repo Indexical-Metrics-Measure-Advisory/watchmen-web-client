@@ -1,7 +1,7 @@
 import { ChartType } from '../chart-types';
 import { ECharts } from '../echarts/echarts-types';
 import { ChartDef } from './chart-def-types';
-import { PieChartSettings } from './chart-pie';
+import { PieChartSettings, PieChartSettingsSeries } from './chart-pie';
 
 export const SUNBURST: ChartDef = {
 	type: ChartType.SUNBURST,
@@ -17,6 +17,7 @@ export const SUNBURST: ChartDef = {
 };
 
 export interface SunburstChartSettings extends PieChartSettings {
+	series?: Omit<PieChartSettingsSeries, 'roseType' | 'showPercentage'>;
 }
 
 export interface SunburstChart extends ECharts {

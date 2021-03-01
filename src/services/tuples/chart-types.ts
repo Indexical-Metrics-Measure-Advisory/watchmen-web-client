@@ -43,13 +43,6 @@ export interface ChartBorder {
 	radius?: number;
 }
 
-export enum ChartTextDecoration {
-	NONE = 'none',
-	UNDERLINE = 'underline',
-	LINE_THROUGH = 'line-through',
-	OVERLINE = 'overline'
-}
-
 export interface ChartSettings {
 	border?: ChartBorder;
 	backgroundColor?: string;

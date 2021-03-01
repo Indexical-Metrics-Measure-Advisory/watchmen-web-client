@@ -37,7 +37,8 @@ export const ChartPieSettings = (props: { report: Report }) => {
 			centerY: PieChartStylePropNames.CENTER_Y,
 			insideRadius: PieChartStylePropNames.INSIDE_RADIUS,
 			outsideRadius: PieChartStylePropNames.OUTSIDE_RADIUS,
-			roseType: PieChartStylePropNames.ROSE_TYPE
+			roseType: PieChartStylePropNames.ROSE_TYPE,
+			showPercentage: PieChartStylePropNames.SHOW_PERCENTAGE
 		} as SettingsPiePropNames,
 		position: {
 			top: PieChartStylePropNames.POSITION_TOP,
@@ -54,7 +55,7 @@ export const ChartPieSettings = (props: { report: Report }) => {
 	};
 
 	const onValueChange = () => {
-		fire(ReportEditEventTypes.CHART_TREE_STYLE_CHANGED, report);
+		fire(ReportEditEventTypes.CHART_PIE_STYLE_CHANGED, report);
 	};
 	const onGridChanged = () => {
 		fire(ReportEditEventTypes.ECHART_GRID_CHANGED, report);
