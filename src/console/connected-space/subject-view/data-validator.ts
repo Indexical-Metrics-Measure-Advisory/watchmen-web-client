@@ -17,31 +17,31 @@ import { ConsoleEventTypes } from '../../console-event-bus-types';
 import { useSubjectEventBus } from './subject-event-bus';
 import { SubjectEventTypes } from './subject-event-bus-types';
 
-const isParameterInTopicIds = (parameter: Parameter, topicIdsInJoins: Array<string>): boolean => {
+const getTopicIdsFromParameter = (parameter: Parameter): Array<string> => {
 	if (isTopicFactorParameter(parameter)) {
-		return topicIdsInJoins.includes(parameter.topicId);
+		return [ parameter.topicId ];
 	} else if (isComputedParameter(parameter)) {
 		const { parameters } = parameter;
-		return parameters.every(parameter => isParameterInTopicIds(parameter, topicIdsInJoins));
+		return parameters.map(parameter => getTopicIdsFromParameter(parameter)).flat();
 	} else {
-		return true;
+		return [];
 	}
 };
 
-const isFilterInTopicIds = (joint: SubjectDataSetFilterJoint, topicIdsInJoins: Array<string>): boolean => {
-	return joint.filters.some(filter => {
+const getTopicIdsFromFilter = (joint: SubjectDataSetFilterJoint): Array<string> => {
+	return joint.filters.map(filter => {
 		if (isJointFilter(filter)) {
-			return isFilterInTopicIds(filter, topicIdsInJoins);
+			return getTopicIdsFromFilter(filter);
 		} else if (isExpressionFilter(filter)) {
 			const { left, operator, right } = filter;
-			return isParameterInTopicIds(left, topicIdsInJoins)
+			return getTopicIdsFromParameter(left)
 				|| (operator !== ParameterExpressionOperator.EMPTY
 					&& operator !== ParameterExpressionOperator.NOT_EMPTY
-					&& isParameterInTopicIds(right, topicIdsInJoins));
+					&& getTopicIdsFromParameter(right));
 		} else {
-			return true;
+			return [];
 		}
-	});
+	}).flat();
 };
 
 export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
@@ -116,13 +116,23 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
 		topicIds.push(topicId, secondaryTopicId);
 		return topicIds;
 	}, [] as Array<string>)));
-	if (topicIdsInJoins.length !== 0) {
-		const hasColumnNotInJoinTopics = columns.some(({ parameter }) => !isParameterInTopicIds(parameter, topicIdsInJoins));
-		if (hasColumnNotInJoinTopics) {
+	const topicIdsInColumns = Array.from(new Set(columns.map(({ parameter }) => getTopicIdsFromParameter(parameter)).flat()));
+	const topicIdsInFilters = Array.from(new Set(getTopicIdsFromFilter(filters)));
+	if (topicIdsInJoins.length === 0) {
+		// no join, single source topic
+		if (topicIdsInColumns.length > 1 || topicIdsInFilters.length > 1) {
 			return false;
 		}
-		const hasFilterNotInJoinTopics = isFilterInTopicIds(filters, topicIdsInJoins);
-		if (hasFilterNotInJoinTopics) {
+		if (topicIdsInColumns.length === 1 && topicIdsInFilters.length === 1) {
+			return topicIdsInColumns[0] == topicIdsInFilters[0];
+		}
+	} else {
+		const columnTopicNotInJoin = topicIdsInColumns.some(topicId => !topicIdsInJoins.includes(topicId));
+		if (columnTopicNotInJoin) {
+			return false;
+		}
+		const filterTopicNotInJoin = topicIdsInFilters.some(topicId => !topicIdsInJoins.includes(topicId));
+		if (filterTopicNotInJoin) {
 			return false;
 		}
 	}
