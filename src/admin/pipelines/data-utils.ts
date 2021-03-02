@@ -97,6 +97,7 @@ export const createPipeline = (topicId: string, name?: string): Pipeline => {
 		conditional: false,
 		stages: [ createStage() ],
 		enabled: false,
+		validated: false,
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()
 	};

@@ -1,17 +1,20 @@
 import dayjs from 'dayjs';
 import {
+	Computed,
 	ComputedParameter,
 	ConstantParameter,
 	Parameter,
 	ParameterComputeType,
 	ParameterCondition,
 	ParameterExpression,
+	ParameterExpressionOperator,
 	ParameterJoint,
 	ParameterKind,
 	ParameterType,
 	TopicFactorParameter
 } from './factor-calculator-types';
 import { FactorType } from './factor-types';
+import { Topic } from './topic-types';
 
 export const isTopicFactorParameter = (param: Parameter): param is TopicFactorParameter => param.kind === ParameterKind.TOPIC;
 export const isConstantParameter = (param: Parameter): param is ConstantParameter => param.kind === ParameterKind.CONSTANT;
@@ -133,7 +136,8 @@ export const ParameterAndFactorTypeMapping: { [key in ParameterType]: (factorTyp
 			FactorType.NUMBER, FactorType.UNSIGNED,
 			FactorType.FLOOR, FactorType.RESIDENTIAL_AREA,
 			FactorType.AGE,
-			FactorType.BIZ_SCALE
+			FactorType.BIZ_SCALE,
+			FactorType.YEAR, FactorType.MONTH
 		].includes(factorType);
 	},
 	[ParameterType.TEXT]: (factorType: FactorType) => {
@@ -201,9 +205,6 @@ export const ParameterCalculatorDefsMap: { [key in ParameterComputeType]: Parame
 		supports: [ {
 			parameterTypes: [ ParameterType.NUMBER, ParameterType.NUMBER ],
 			resultType: FactorType.NUMBER
-		}, {
-			parameterTypes: [ ParameterType.TEXT, ParameterType.TEXT ],
-			resultType: FactorType.TEXT
 		} ]
 	},
 	[ParameterComputeType.SUBTRACT]: {
@@ -333,4 +334,145 @@ export const canDeleteAnyParameter = (parent: ComputedParameter) => {
 	const minParamCount = calculatorDef.minParameterCount || calculatorDef.parameterCount || 1;
 	const currentCount = parent.parameters.length;
 	return currentCount > minParamCount;
+};
+
+export interface Validation {
+	pass: boolean;
+	resultType?: FactorType;
+}
+
+export const isComputedValid = ({ type, parameters }: Computed, topics: Array<Topic>): Validation => {
+	if (!type) {
+		// type must exists
+		return { pass: false };
+	}
+	const calculatorDef = ParameterCalculatorDefsMap[type];
+	// no calculator
+	if (calculatorDef.parameterCount && parameters.length !== calculatorDef.parameterCount) {
+		// parameters length mismatch
+		return { pass: false };
+	}
+	if (calculatorDef.minParameterCount && parameters.length < calculatorDef.minParameterCount) {
+		// parameters length mismatch
+		return { pass: false };
+	}
+	if (calculatorDef.maxParameterCount && parameters.length > calculatorDef.maxParameterCount) {
+		// parameters length mismatch
+		return { pass: false };
+	}
+	const hasEmptyParameter = parameters.some(param => !param);
+	if (hasEmptyParameter) {
+		return { pass: false };
+	}
+	let availableParameterTypes = calculatorDef.supports;
+	const hasInvalidParameter = parameters.some((param, paramIndex) => {
+		let matched: Array<ParameterCalculatorSupporting> = [];
+		if (isConstantParameter(param)) {
+			const value = param.value;
+			// match value and type, get valid supporting
+			matched = availableParameterTypes.filter(({ parameterTypes }) => isConstantValueTypeMatched(value, parameterTypes[paramIndex]));
+		} else if (isTopicFactorParameter(param)) {
+			if (!param.topicId || !param.factorId) {
+				// no topic or no factor, failure
+				return true;
+			}
+			// test factor type and parameter type
+			// eslint-disable-next-line
+			const topic = topics.find(topic => topic.topicId == param.topicId);
+			if (!topic) {
+				// topic not found, failure
+				return true;
+			}
+			// eslint-disable-next-line
+			const factor = topic.factors.find(factor => factor.factorId == param.factorId);
+			if (!factor) {
+				// factor not found, failure
+				return true;
+			}
+			matched = availableParameterTypes.filter(({ parameterTypes }) => {
+				if (isParameterType(parameterTypes[paramIndex])) {
+					// check result type and parameter type, match use pre-definition
+					return ParameterAndFactorTypeMapping[parameterTypes[paramIndex] as ParameterType](factor.type);
+				} else if (isFactorType(parameterTypes[paramIndex])) {
+					// check result type and factor type, exactly match
+					return parameterTypes[paramIndex] === factor.type;
+				} else {
+					// never occurred
+					return false;
+				}
+			});
+		} else if (isComputedParameter(param)) {
+			// test computed parameter
+			const result = isComputedValid(param, topics);
+			if (!result.pass) {
+				// failed on computed valid check
+				return true;
+			}
+			if (!result.resultType) {
+				// return can be any, cannot check here, ignore.
+				return false;
+			}
+			matched = availableParameterTypes.filter(({ parameterTypes }) => {
+				if (isParameterType(parameterTypes[paramIndex])) {
+					// check result type and parameter type, match use pre-definition
+					return ParameterAndFactorTypeMapping[parameterTypes[paramIndex] as ParameterType](result.resultType!);
+				} else if (isFactorType(parameterTypes[paramIndex])) {
+					// check result type and factor type, exactly match
+					return parameterTypes[paramIndex] === result.resultType;
+				} else {
+					// never occurred
+					return false;
+				}
+			});
+		}
+		if (matched.length === 0) {
+			// no matched, parameter is invalid, failure
+			return true;
+		} else {
+			availableParameterTypes = matched;
+			return false;
+		}
+	});
+	return { pass: !hasInvalidParameter, resultType: availableParameterTypes[0].resultType };
+};
+
+export const isParameterValid = (parameter: Parameter, topics: Array<Topic>): Validation => {
+	if (!parameter) {
+		return { pass: false };
+	}
+	return isComputedValid({ type: ParameterComputeType.NONE, parameters: [ parameter ] }, topics);
+};
+
+export const isExpressionValid = (expression: ParameterExpression, topics: Array<Topic>): boolean => {
+	const { left, operator, right } = expression;
+
+	if (!left || !isParameterValid(left, topics)) {
+		return false;
+	}
+	if (!operator) {
+		return false;
+	}
+	return !(operator !== ParameterExpressionOperator.NOT_EMPTY
+		&& operator !== ParameterExpressionOperator.EMPTY
+		&& (!right || !isParameterValid(right, topics)));
+
+};
+
+export const isJointValid = (joint: ParameterJoint, topics: Array<Topic>): boolean => {
+	const { jointType, filters } = joint;
+	if (!jointType) {
+		return false;
+	}
+	if (!filters || filters.length === 0) {
+		return false;
+	}
+
+	return !filters.some(filter => {
+		if (isJointParameter(filter)) {
+			return !isJointValid(filter, topics);
+		} else if (isExpressionParameter(filter)) {
+			return !isExpressionValid(filter, topics);
+		}
+		return true;
+	});
 };

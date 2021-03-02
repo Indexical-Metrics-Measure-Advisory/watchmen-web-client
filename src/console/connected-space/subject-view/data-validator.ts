@@ -1,137 +1,13 @@
 import { useEffect, useState } from 'react';
 import { AvailableSpaceInConsole } from '../../../services/console/settings-types';
 import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
-import {
-	Computed,
-	Parameter,
-	ParameterComputeType,
-	ParameterType
-} from '../../../services/tuples/factor-calculator-types';
-import {
-	isComputedParameter,
-	isConstantParameter,
-	isConstantValueTypeMatched,
-	isFactorType,
-	isParameterType,
-	isTopicFactorParameter,
-	ParameterAndFactorTypeMapping,
-	ParameterCalculatorDefsMap,
-	ParameterCalculatorSupporting
-} from '../../../services/tuples/factor-calculator-utils';
-import { FactorType } from '../../../services/tuples/factor-types';
+import { isParameterValid } from '../../../services/tuples/factor-calculator-utils';
 import { Subject } from '../../../services/tuples/subject-types';
 import { Topic } from '../../../services/tuples/topic-types';
 import { useConsoleEventBus } from '../../console-event-bus';
 import { ConsoleEventTypes } from '../../console-event-bus-types';
 import { useSubjectEventBus } from './subject-event-bus';
 import { SubjectEventTypes } from './subject-event-bus-types';
-
-export interface Validation {
-	pass: boolean;
-	resultType?: FactorType;
-}
-
-export const isComputedValid = ({ type, parameters }: Computed, topics: Array<Topic>): Validation => {
-	if (!type) {
-		// type must exists
-		return { pass: false };
-	}
-	const calculatorDef = ParameterCalculatorDefsMap[type];
-	// no calculator
-	if (calculatorDef.parameterCount && parameters.length !== calculatorDef.parameterCount) {
-		// parameters length mismatch
-		return { pass: false };
-	}
-	if (calculatorDef.minParameterCount && parameters.length < calculatorDef.minParameterCount) {
-		// parameters length mismatch
-		return { pass: false };
-	}
-	if (calculatorDef.maxParameterCount && parameters.length > calculatorDef.maxParameterCount) {
-		// parameters length mismatch
-		return { pass: false };
-	}
-	const hasEmptyParameter = parameters.some(param => !param);
-	if (hasEmptyParameter) {
-		return { pass: false };
-	}
-	let availableParameterTypes = calculatorDef.supports;
-	const hasInvalidParameter = parameters.some((param, paramIndex) => {
-		let matched: Array<ParameterCalculatorSupporting> = [];
-		if (isConstantParameter(param)) {
-			const value = param.value;
-			// match value and type, get valid supporting
-			matched = availableParameterTypes.filter(({ parameterTypes }) => isConstantValueTypeMatched(value, parameterTypes[paramIndex]));
-		} else if (isTopicFactorParameter(param)) {
-			if (!param.topicId || !param.factorId) {
-				// no topic or no factor, failure
-				return true;
-			}
-			// test factor type and parameter type
-			// eslint-disable-next-line
-			const topic = topics.find(topic => topic.topicId == param.topicId);
-			if (!topic) {
-				// topic not found, failure
-				return true;
-			}
-			// eslint-disable-next-line
-			const factor = topic.factors.find(factor => factor.factorId == param.factorId);
-			if (!factor) {
-				// factor not found, failure
-				return true;
-			}
-			matched = availableParameterTypes.filter(({ parameterTypes }) => {
-				if (isParameterType(parameterTypes[paramIndex])) {
-					// check result type and parameter type, match use pre-definition
-					return ParameterAndFactorTypeMapping[parameterTypes[paramIndex] as ParameterType](factor.type);
-				} else if (isFactorType(parameterTypes[paramIndex])) {
-					// check result type and factor type, exactly match
-					return parameterTypes[paramIndex] === factor.type;
-				} else {
-					// never occurred
-					return false;
-				}
-			});
-		} else if (isComputedParameter(param)) {
-			// test computed parameter
-			const result = isComputedValid(param, topics);
-			if (!result.pass) {
-				// failed on computed valid check
-				return true;
-			}
-			if (!result.resultType) {
-				// return can be any, cannot check here, ignore.
-				return false;
-			}
-			matched = availableParameterTypes.filter(({ parameterTypes }) => {
-				if (isParameterType(parameterTypes[paramIndex])) {
-					// check result type and parameter type, match use pre-definition
-					return ParameterAndFactorTypeMapping[parameterTypes[paramIndex] as ParameterType](result.resultType!);
-				} else if (isFactorType(parameterTypes[paramIndex])) {
-					// check result type and factor type, exactly match
-					return parameterTypes[paramIndex] === result.resultType;
-				} else {
-					// never occurred
-					return false;
-				}
-			});
-		}
-		if (matched.length === 0) {
-			// no matched, parameter is invalid, failure
-			return true;
-		} else {
-			availableParameterTypes = matched;
-			return false;
-		}
-	});
-	return { pass: !hasInvalidParameter, resultType: availableParameterTypes[0].resultType };
-};
-
-export const isParameterValid = (parameter: Parameter, topics: Array<Topic>): Validation => {
-	if (!parameter) {
-		return { pass: false };
-	}
-	return isComputedValid({ type: ParameterComputeType.NONE, parameters: [ parameter ] }, topics);
-};
 
 export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
 	const { dataset } = subject;
