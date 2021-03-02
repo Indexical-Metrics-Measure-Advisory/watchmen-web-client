@@ -13,7 +13,7 @@ import { RemoteRequestContainer } from './widgets';
 export const RemoteRequest = () => {
 	const history = useHistory();
 	const { once, on, off, fire } = useEventBus();
-	const [ requestStack, setRequestStack ] = useState<Array<any>>([]);
+	const [ count, setCount ] = useState<number>(0);
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const on401 = () => {
@@ -30,14 +30,12 @@ export const RemoteRequest = () => {
 			fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.ERROR.UNPREDICTED}</AlertLabel>);
 		};
 		const onInvokeRemoteRequest = async (request: () => Promise<any>, success: (data?: any) => void, failure?: (error?: any) => void) => {
-			requestStack.push(request);
+			setCount(Math.max(count + 1, 1));
 			forceUpdate();
 			try {
 				const data = await request();
-				setRequestStack(requestStack.filter(r => r !== request));
 				success(data);
 			} catch (e) {
-				setRequestStack(requestStack.filter(r => r !== request));
 				console.error(e);
 				if (e.status === 401) {
 					on401();
@@ -50,15 +48,17 @@ export const RemoteRequest = () => {
 				if (failure) {
 					failure(e);
 				}
+			} finally {
+				setCount(Math.max(count - 1, 0));
 			}
 		};
 		on(EventTypes.INVOKE_REMOTE_REQUEST, onInvokeRemoteRequest);
 		return () => {
 			off(EventTypes.INVOKE_REMOTE_REQUEST, onInvokeRemoteRequest);
 		};
-	}, [ once, on, off, fire, history, forceUpdate, requestStack ]);
+	}, [ once, on, off, fire, history, forceUpdate, count ]);
 
-	return <RemoteRequestContainer visible={requestStack.length !== 0}>
+	return <RemoteRequestContainer visible={count > 0}>
 		<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>
 	</RemoteRequestContainer>;
 };
