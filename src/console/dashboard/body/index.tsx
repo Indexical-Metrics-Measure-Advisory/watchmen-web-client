@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { v4 } from 'uuid';
 import { useForceUpdate } from '../../../basic-widgets/utils';
 import { useEventBus } from '../../../events/event-bus';
 import { EventTypes } from '../../../events/types';
 import { Lang } from '../../../langs';
 import { Chart } from '../../../report';
+import { ParagraphPanel } from '../../../report/paragraph';
 import { ReportEventBusProvider } from '../../../report/report-event-bus';
 import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
 import { saveDashboard } from '../../../services/tuples/dashboard';
@@ -14,6 +16,8 @@ import { ConsoleEventTypes } from '../../console-event-bus-types';
 import { useDashboardEventBus } from '../dashboard-event-bus';
 import { DashboardEventTypes } from '../dashboard-event-bus-types';
 import { PagePrintSize } from './page-print-size';
+import { ParagraphMoveOrResizeMonitor } from './paragraph-move-or-resize-monitor';
+import { ParagraphRemover } from './paragraph-remover';
 import { ReportMoveOrResizeMonitor } from './report-move-or-resize-monitor';
 import { ReportRemover } from './report-remover';
 import { DashboardBodyContainer, DashboardNoReport } from './widgets';
@@ -37,11 +41,20 @@ export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean
 				async () => await saveDashboard(dashboard),
 				() => forceUpdate());
 		};
+		const onParagraphChanged = () => {
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await saveDashboard(dashboard),
+				() => forceUpdate());
+		};
 		on(DashboardEventTypes.REPORT_ADDED, onReportChanged);
 		on(DashboardEventTypes.REPORT_REMOVED, onReportChanged);
+		on(DashboardEventTypes.PARAGRAPH_ADDED, onParagraphChanged);
+		on(DashboardEventTypes.PARAGRAPH_REMOVED, onParagraphChanged);
 		return () => {
 			off(DashboardEventTypes.REPORT_ADDED, onReportChanged);
 			off(DashboardEventTypes.REPORT_REMOVED, onReportChanged);
+			off(DashboardEventTypes.PARAGRAPH_ADDED, onParagraphChanged);
+			off(DashboardEventTypes.PARAGRAPH_REMOVED, onParagraphChanged);
 		};
 	}, [ on, off, fireGlobal, forceUpdate, dashboard ]);
 
@@ -60,20 +73,34 @@ export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean
 			return null;
 		}
 	}).filter(x => !!x) as Array<Report>;
+	const paragraphs = dashboard.paragraphs || [];
 
 	return <ReportEventBusProvider>
 		<DashboardBodyContainer>
+			{reports.length !== 0 || paragraphs.length !== 0
+				? null
+				: <DashboardNoReport><span>{Lang.CONSOLE.DASHBOARD.NO_REPORT}</span></DashboardNoReport>}
 			{reports.length !== 0
-				? reports?.map(report => {
+				? reports.map(report => {
 					return <Chart report={report} fixed={false}
 					              editable={false} editing={false}
 					              removable={removable}
 					              key={report.reportId}/>;
 				})
-				: <DashboardNoReport><span>{Lang.CONSOLE.CONNECTED_SPACE.NO_REPORT}</span></DashboardNoReport>}
+				: null}
+			{paragraphs.length !== 0
+				? paragraphs.map(paragraph => {
+					return <ParagraphPanel paragraph={paragraph} fixed={false}
+					                       editable={true}
+					                       removable={removable}
+					                       key={v4()}/>;
+				})
+				: null}
 			<PagePrintSize dashboard={dashboard}/>
 		</DashboardBodyContainer>
 		{transient ? null : <ReportMoveOrResizeMonitor dashboard={dashboard}/>}
+		{transient ? null : <ParagraphMoveOrResizeMonitor dashboard={dashboard}/>}
 		<ReportRemover dashboard={dashboard}/>
+		<ParagraphRemover dashboard={dashboard}/>
 	</ReportEventBusProvider>;
 };

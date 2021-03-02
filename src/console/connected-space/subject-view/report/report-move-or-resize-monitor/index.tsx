@@ -16,9 +16,9 @@ export const ReportMoveOrResizeMonitor = () => {
 				() => {
 				});
 		};
-		on(ReportEventTypes.MOVE_OR_RESIZE_COMPLETED, onMoveOrResize);
+		on(ReportEventTypes.REPORT_MOVE_OR_RESIZE_COMPLETED, onMoveOrResize);
 		return () => {
-			off(ReportEventTypes.MOVE_OR_RESIZE_COMPLETED, onMoveOrResize);
+			off(ReportEventTypes.REPORT_MOVE_OR_RESIZE_COMPLETED, onMoveOrResize);
 		};
 	}, [ on, off, fireGlobal ]);
 	return <></>;

@@ -100,6 +100,7 @@ export const Zh = {
 			ADD_INTO_FAVORITE: '收藏',
 			REMOVE_FROM_FAVORITE: '取消收藏',
 			ADD_REPORT: '添加图表',
+			ADD_PARAGRAPH: '添加评述',
 			ADD_DASHBOARD: '创建新仪表盘',
 			SWITCH_DASHBOARD: '切换仪表盘',
 			DELETE_ME: '删除',
@@ -108,7 +109,12 @@ export const Zh = {
 			DELETE_DIALOG_LABEL: '确认要删除仪表盘吗? 请注意删除动作不能被恢复.',
 			NO_MORE_DASHBOARD: '没有更多仪表盘可供选择.',
 			SWITCH_DIALOG_LABEL: '请选择仪表盘',
-			NO_MORE_REPORT: '没有更多图表可供选择.'
+			NO_MORE_REPORT: '没有更多图表可供选择.',
+			DELETE_REPORT_DIALOG_LABEL: '确认要删除图表吗? 请注意删除动作不能被恢复.',
+			DELETE_PARAGRAPH_DIALOG_LABEL: '确认要删除评述吗? 请注意删除动作不能被恢复.',
+			NO_REPORT: '尚未定义图表.',
+			SHOW_PRINT_PAGE: '显示纸张尺寸',
+			HIDE_PRINT_PAGE: '隐藏纸张尺寸'
 		},
 		CONNECTED_SPACE: {
 			CATALOG: '目录',

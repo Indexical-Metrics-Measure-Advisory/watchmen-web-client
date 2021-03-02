@@ -100,6 +100,7 @@ export const Jp = {
 			ADD_INTO_FAVORITE: 'お気に入りに追加',
 			REMOVE_FROM_FAVORITE: 'お気に入りから削除',
 			ADD_REPORT: 'レポートを追加する',
+			ADD_PARAGRAPH: 'コメントを追加する',
 			ADD_DASHBOARD: 'ダッシュボードを追加する',
 			SWITCH_DASHBOARD: 'ダッシュボードを切り替える',
 			DELETE_ME: '削除',
@@ -108,7 +109,12 @@ export const Jp = {
 			DELETE_DIALOG_LABEL: 'ダッシュボードを削除してもよろしいですか？ 削除したものは復元できませんので、ご注意ください。',
 			NO_MORE_DASHBOARD: 'これ以上のダッシュボードは存在しません。',
 			SWITCH_DIALOG_LABEL: 'ダッシュボードを選択してください',
-			NO_MORE_REPORT: 'これ以上のレポートはありません。'
+			NO_MORE_REPORT: 'これ以上のレポートはありません。',
+			DELETE_REPORT_DIALOG_LABEL: 'レポートを削除してもよろしいですか？ 削除したものは復元できませんので、ご注意ください。',
+			DELETE_PARAGRAPH_DIALOG_LABEL: 'コメントを削除してもよろしいですか？ 削除したものは復元できませんので、ご注意ください。',
+			NO_REPORT: 'レポートは定義されていません。',
+			SHOW_PRINT_PAGE: 'ページサイズを表示する',
+			HIDE_PRINT_PAGE: 'ページサイズを非表示する'
 		},
 		CONNECTED_SPACE: {
 			CATALOG: 'カタログ',

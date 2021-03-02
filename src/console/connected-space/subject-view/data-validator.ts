@@ -1,136 +1,47 @@
 import { useEffect, useState } from 'react';
 import { AvailableSpaceInConsole } from '../../../services/console/settings-types';
 import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
-import {
-	Computed,
-	Parameter,
-	ParameterComputeType,
-	ParameterType
-} from '../../../services/tuples/factor-calculator-types';
+import { Parameter, ParameterExpressionOperator } from '../../../services/tuples/factor-calculator-types';
 import {
 	isComputedParameter,
-	isConstantParameter,
-	isConstantValueTypeMatched,
-	isFactorType,
-	isParameterType,
-	isTopicFactorParameter,
-	ParameterAndFactorTypeMapping,
-	ParameterCalculatorDefsMap,
-	ParameterCalculatorSupporting
+	isExpressionValid,
+	isJointValid,
+	isParameterValid,
+	isTopicFactorParameter
 } from '../../../services/tuples/factor-calculator-utils';
-import { FactorType } from '../../../services/tuples/factor-types';
-import { Subject } from '../../../services/tuples/subject-types';
+import { Subject, SubjectDataSetFilterJoint } from '../../../services/tuples/subject-types';
+import { isExpressionFilter, isJointFilter } from '../../../services/tuples/subject-utils';
 import { Topic } from '../../../services/tuples/topic-types';
 import { useConsoleEventBus } from '../../console-event-bus';
 import { ConsoleEventTypes } from '../../console-event-bus-types';
 import { useSubjectEventBus } from './subject-event-bus';
 import { SubjectEventTypes } from './subject-event-bus-types';
 
-export interface Validation {
-	pass: boolean;
-	resultType?: FactorType;
-}
-
-export const isComputedValid = ({ type, parameters }: Computed, topics: Array<Topic>): Validation => {
-	if (!type) {
-		// type must exists
-		return { pass: false };
+const isParameterInTopicIds = (parameter: Parameter, topicIdsInJoins: Array<string>): boolean => {
+	if (isTopicFactorParameter(parameter)) {
+		return topicIdsInJoins.includes(parameter.topicId);
+	} else if (isComputedParameter(parameter)) {
+		const { parameters } = parameter;
+		return parameters.every(parameter => isParameterInTopicIds(parameter, topicIdsInJoins));
+	} else {
+		return true;
 	}
-	const calculatorDef = ParameterCalculatorDefsMap[type];
-	// no calculator
-	if (calculatorDef.parameterCount && parameters.length !== calculatorDef.parameterCount) {
-		// parameters length mismatch
-		return { pass: false };
-	}
-	if (calculatorDef.minParameterCount && parameters.length < calculatorDef.minParameterCount) {
-		// parameters length mismatch
-		return { pass: false };
-	}
-	if (calculatorDef.maxParameterCount && parameters.length > calculatorDef.maxParameterCount) {
-		// parameters length mismatch
-		return { pass: false };
-	}
-	const hasEmptyParameter = parameters.some(param => !param);
-	if (hasEmptyParameter) {
-		return { pass: false };
-	}
-	let availableParameterTypes = calculatorDef.supports;
-	const hasInvalidParameter = parameters.some((param, paramIndex) => {
-		let matched: Array<ParameterCalculatorSupporting> = [];
-		if (isConstantParameter(param)) {
-			const value = param.value;
-			// match value and type, get valid supporting
-			matched = availableParameterTypes.filter(({ parameterTypes }) => isConstantValueTypeMatched(value, parameterTypes[paramIndex]));
-		} else if (isTopicFactorParameter(param)) {
-			if (!param.topicId || !param.factorId) {
-				// no topic or no factor, failure
-				return true;
-			}
-			// test factor type and parameter type
-			// eslint-disable-next-line
-			const topic = topics.find(topic => topic.topicId == param.topicId);
-			if (!topic) {
-				// topic not found, failure
-				return true;
-			}
-			// eslint-disable-next-line
-			const factor = topic.factors.find(factor => factor.factorId == param.factorId);
-			if (!factor) {
-				// factor not found, failure
-				return true;
-			}
-			matched = availableParameterTypes.filter(({ parameterTypes }) => {
-				if (isParameterType(parameterTypes[paramIndex])) {
-					// check result type and parameter type, match use pre-definition
-					return ParameterAndFactorTypeMapping[parameterTypes[paramIndex] as ParameterType](factor.type);
-				} else if (isFactorType(parameterTypes[paramIndex])) {
-					// check result type and factor type, exactly match
-					return parameterTypes[paramIndex] === factor.type;
-				} else {
-					// never occurred
-					return false;
-				}
-			});
-		} else if (isComputedParameter(param)) {
-			// test computed parameter
-			const result = isComputedValid(param, topics);
-			if (!result.pass) {
-				// failed on computed valid check
-				return true;
-			}
-			if (!result.resultType) {
-				// return can be any, cannot check here, ignore.
-				return false;
-			}
-			matched = availableParameterTypes.filter(({ parameterTypes }) => {
-				if (isParameterType(parameterTypes[paramIndex])) {
-					// check result type and parameter type, match use pre-definition
-					return ParameterAndFactorTypeMapping[parameterTypes[paramIndex] as ParameterType](result.resultType!);
-				} else if (isFactorType(parameterTypes[paramIndex])) {
-					// check result type and factor type, exactly match
-					return parameterTypes[paramIndex] === result.resultType;
-				} else {
-					// never occurred
-					return false;
-				}
-			});
-		}
-		if (matched.length === 0) {
-			// no matched, parameter is invalid, failure
-			return true;
-		} else {
-			availableParameterTypes = matched;
-			return false;
-		}
-	});
-	return { pass: !hasInvalidParameter, resultType: availableParameterTypes[0].resultType };
 };
 
-export const isParameterValid = (parameter: Parameter, topics: Array<Topic>): Validation => {
-	if (!parameter) {
-		return { pass: false };
-	}
-	return isComputedValid({ type: ParameterComputeType.NONE, parameters: [ parameter ] }, topics);
+const isFilterInTopicIds = (joint: SubjectDataSetFilterJoint, topicIdsInJoins: Array<string>): boolean => {
+	return joint.filters.some(filter => {
+		if (isJointFilter(filter)) {
+			return isFilterInTopicIds(filter, topicIdsInJoins);
+		} else if (isExpressionFilter(filter)) {
+			const { left, operator, right } = filter;
+			return isParameterInTopicIds(left, topicIdsInJoins)
+				|| (operator !== ParameterExpressionOperator.EMPTY
+					&& operator !== ParameterExpressionOperator.NOT_EMPTY
+					&& isParameterInTopicIds(right, topicIdsInJoins));
+		} else {
+			return true;
+		}
+	});
 };
 
 export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
@@ -144,8 +55,77 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
 	if (!columns || columns.length === 0) {
 		return false;
 	}
-	// TODO validate filters/joins
-	return !columns.some(({ parameter }) => !isParameterValid(parameter, topics).pass);
+	const hasInvalidColumn = columns.some(({ parameter, alias }) => {
+		return !alias || alias.trim().length === 0 || !isParameterValid(parameter, topics).pass;
+	});
+	if (hasInvalidColumn) {
+		return false;
+	}
+
+	const { filters } = dataset;
+	if (!filters || !filters.jointType) {
+		return false;
+	}
+	if (filters.filters.length !== 0) {
+		const hasInvalidFilter = filters.filters.some(filter => {
+			if (isJointFilter(filter)) {
+				return !isJointValid(filter, topics);
+			} else if (isExpressionFilter(filter)) {
+				return !isExpressionValid(filter, topics);
+			} else {
+				return true;
+			}
+		});
+		if (hasInvalidFilter) {
+			return false;
+		}
+	}
+
+	const { joins } = dataset;
+	const hasInvalidJoin = (joins || []).some(({ topicId, factorId, secondaryTopicId, secondaryFactorId, type }) => {
+		if (!type || !topicId || !factorId || !secondaryTopicId || !secondaryFactorId) {
+			return true;
+		}
+		// eslint-disable-next-line
+		const topic = topics.find(topic => topic.topicId == topicId);
+		if (!topic) {
+			return true;
+		}
+		// eslint-disable-next-line
+		const factor = topic.factors.find(factor => factor.factorId == factorId);
+		if (!factor) {
+			return true;
+		}
+		// eslint-disable-next-line
+		const secondaryTopic = topics.find(topic => topic.topicId == secondaryTopicId);
+		if (!secondaryTopic) {
+			return true;
+		}
+		// eslint-disable-next-line
+		const secondaryFactor = secondaryTopic.factors.find(factor => factor.factorId == secondaryFactorId);
+		if (!secondaryFactor) {
+			return true;
+		}
+
+		return false;
+	});
+	if (hasInvalidJoin) {
+		return false;
+	}
+	const topicIdsInJoins = Array.from(new Set((joins || []).reduce((topicIds, { topicId, secondaryTopicId }) => {
+		topicIds.push(topicId, secondaryTopicId);
+		return topicIds;
+	}, [] as Array<string>)));
+	const hasColumnNotInJoinTopics = columns.some(({ parameter }) => !isParameterInTopicIds(parameter, topicIdsInJoins));
+	if (hasColumnNotInJoinTopics) {
+		return false;
+	}
+	const hasFilterNotInJoinTopics = isFilterInTopicIds(filters, topicIdsInJoins);
+	if (hasFilterNotInJoinTopics) {
+		return false;
+	}
+
+	return true;
 };
 
 export const useSubjectValid = (options: {

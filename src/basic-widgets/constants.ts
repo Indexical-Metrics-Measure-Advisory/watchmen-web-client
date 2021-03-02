@@ -34,7 +34,7 @@ import {
 	faLink,
 	faList,
 	faLock,
-	faLockOpen,
+	faLockOpen, faParagraph,
 	faPlus,
 	faPrint,
 	faRandom,
@@ -116,6 +116,7 @@ export const ICON_SUBJECT = faTable;
 export const ICON_TOPIC = faTags;
 export const ICON_FACTOR = faList;
 export const ICON_REPORT = faChartBar;
+export const ICON_PARAGRAPH = faParagraph;
 export const ICON_PIPELINE = faWaveSquare;
 
 export const ICON_DASHBOARD = faTachometerAlt;

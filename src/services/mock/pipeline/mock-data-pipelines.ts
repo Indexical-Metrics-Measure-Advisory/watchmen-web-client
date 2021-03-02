@@ -152,7 +152,7 @@ const WriteMonthlyPremium: MergeRowAction = {
 export const DemoPipelines: Array<Pipeline> = [
 	{
 		pipelineId: '1', topicId: '4', type: PipelineTriggerType.INSERT,
-		conditional: false, enabled: true,
+		conditional: false, enabled: true, validated: true,
 		name: 'Write Premium from Quotation to Policy',
 		stages: [
 			{
@@ -180,7 +180,7 @@ export const DemoPipelines: Array<Pipeline> = [
 	},
 	{
 		pipelineId: '2', topicId: '7', type: PipelineTriggerType.INSERT_OR_MERGE,
-		conditional: false, enabled: true,
+		conditional: false, enabled: true, validated: true,
 		name: 'Write Premium from Endorsement to Policy',
 		stages: [
 			{
@@ -199,7 +199,7 @@ export const DemoPipelines: Array<Pipeline> = [
 	},
 	{
 		pipelineId: '3', topicId: '2', type: PipelineTriggerType.INSERT_OR_MERGE,
-		conditional: false, enabled: true,
+		conditional: false, enabled: true, validated: true,
 		name: '',
 		stages: [
 			{
@@ -217,7 +217,7 @@ export const DemoPipelines: Array<Pipeline> = [
 	},
 	{
 		pipelineId: '4', topicId: '2', type: PipelineTriggerType.INSERT_OR_MERGE,
-		conditional: false, enabled: true,
+		conditional: false, enabled: true, validated: true,
 		name: '',
 		stages: [
 			{
