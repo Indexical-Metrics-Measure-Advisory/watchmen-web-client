@@ -32,6 +32,19 @@ export const ChartContainer = styled.div.attrs<{ rect: ReportRect, fixed: boolea
 			}
 		}
 	}
+	
+	// for paragraph, markdown editor
+	> div.w-md-editor {
+		box-shadow: none;
+		margin-top: var(--margin);
+		> div.w-md-editor-toolbar {
+			border: 0;
+			border-radius: 0;
+		}
+	}
+	> div.wmde-markdown {
+		margin-top: var(--margin);
+	}
 `;
 export const ChartDragHandle = styled.div.attrs<{ dragging: boolean }>(({ dragging }) => {
 	return {

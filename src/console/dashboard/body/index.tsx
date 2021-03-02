@@ -91,7 +91,7 @@ export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean
 			{paragraphs.length !== 0
 				? paragraphs.map(paragraph => {
 					return <ParagraphPanel paragraph={paragraph} fixed={false}
-					                       editable={false} editing={false}
+					                       editable={true}
 					                       removable={removable}
 					                       key={v4()}/>;
 				})
