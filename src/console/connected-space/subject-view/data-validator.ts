@@ -135,6 +135,10 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
 		if (filterTopicNotInJoin) {
 			return false;
 		}
+		if (topicIdsInColumns.length !== topicIdsInJoins.length) {
+			// every topic in column must be declared in joins
+			return false;
+		}
 	}
 
 	return true;
