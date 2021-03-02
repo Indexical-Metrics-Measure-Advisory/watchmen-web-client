@@ -2077,7 +2077,7 @@
 
 "@uiw/react-md-editor@^2.1.10":
   version "2.1.10"
-  resolved "https://registry.npmjs.org/@uiw/react-md-editor/-/react-md-editor-2.1.10.tgz#7c48702582a9645a97557639c7ed558de0273542"
+  resolved "https://registry.yarnpkg.com/@uiw/react-md-editor/-/react-md-editor-2.1.10.tgz#7c48702582a9645a97557639c7ed558de0273542"
   integrity sha512-SOMazWl5PgbifsqJ0yf5kVWfvl09XoLDfkFPazxTUWudfriAAzgX/sDHi6omNKC7VAblDM+i2XF/dWrkGw2SEA==
   dependencies:
     "@babel/runtime" "^7.8.4"
