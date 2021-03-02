@@ -1,13 +1,48 @@
 import { useEffect, useState } from 'react';
 import { AvailableSpaceInConsole } from '../../../services/console/settings-types';
 import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
-import { isParameterValid } from '../../../services/tuples/factor-calculator-utils';
-import { Subject } from '../../../services/tuples/subject-types';
+import { Parameter, ParameterExpressionOperator } from '../../../services/tuples/factor-calculator-types';
+import {
+	isComputedParameter,
+	isExpressionValid,
+	isJointValid,
+	isParameterValid,
+	isTopicFactorParameter
+} from '../../../services/tuples/factor-calculator-utils';
+import { Subject, SubjectDataSetFilterJoint } from '../../../services/tuples/subject-types';
+import { isExpressionFilter, isJointFilter } from '../../../services/tuples/subject-utils';
 import { Topic } from '../../../services/tuples/topic-types';
 import { useConsoleEventBus } from '../../console-event-bus';
 import { ConsoleEventTypes } from '../../console-event-bus-types';
 import { useSubjectEventBus } from './subject-event-bus';
 import { SubjectEventTypes } from './subject-event-bus-types';
+
+const isParameterInTopicIds = (parameter: Parameter, topicIdsInJoins: Array<string>): boolean => {
+	if (isTopicFactorParameter(parameter)) {
+		return topicIdsInJoins.includes(parameter.topicId);
+	} else if (isComputedParameter(parameter)) {
+		const { parameters } = parameter;
+		return parameters.every(parameter => isParameterInTopicIds(parameter, topicIdsInJoins));
+	} else {
+		return true;
+	}
+};
+
+const isFilterInTopicIds = (joint: SubjectDataSetFilterJoint, topicIdsInJoins: Array<string>): boolean => {
+	return joint.filters.some(filter => {
+		if (isJointFilter(filter)) {
+			return isFilterInTopicIds(filter, topicIdsInJoins);
+		} else if (isExpressionFilter(filter)) {
+			const { left, operator, right } = filter;
+			return isParameterInTopicIds(left, topicIdsInJoins)
+				|| (operator !== ParameterExpressionOperator.EMPTY
+					&& operator !== ParameterExpressionOperator.NOT_EMPTY
+					&& isParameterInTopicIds(right, topicIdsInJoins));
+		} else {
+			return true;
+		}
+	});
+};
 
 export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
 	const { dataset } = subject;
@@ -20,8 +55,77 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
 	if (!columns || columns.length === 0) {
 		return false;
 	}
-	// TODO validate filters/joins
-	return !columns.some(({ parameter }) => !isParameterValid(parameter, topics).pass);
+	const hasInvalidColumn = columns.some(({ parameter, alias }) => {
+		return !alias || alias.trim().length === 0 || !isParameterValid(parameter, topics).pass;
+	});
+	if (hasInvalidColumn) {
+		return false;
+	}
+
+	const { filters } = dataset;
+	if (!filters || !filters.jointType) {
+		return false;
+	}
+	if (filters.filters.length !== 0) {
+		const hasInvalidFilter = filters.filters.some(filter => {
+			if (isJointFilter(filter)) {
+				return !isJointValid(filter, topics);
+			} else if (isExpressionFilter(filter)) {
+				return !isExpressionValid(filter, topics);
+			} else {
+				return true;
+			}
+		});
+		if (hasInvalidFilter) {
+			return false;
+		}
+	}
+
+	const { joins } = dataset;
+	const hasInvalidJoin = (joins || []).some(({ topicId, factorId, secondaryTopicId, secondaryFactorId, type }) => {
+		if (!type || !topicId || !factorId || !secondaryTopicId || !secondaryFactorId) {
+			return true;
+		}
+		// eslint-disable-next-line
+		const topic = topics.find(topic => topic.topicId == topicId);
+		if (!topic) {
+			return true;
+		}
+		// eslint-disable-next-line
+		const factor = topic.factors.find(factor => factor.factorId == factorId);
+		if (!factor) {
+			return true;
+		}
+		// eslint-disable-next-line
+		const secondaryTopic = topics.find(topic => topic.topicId == secondaryTopicId);
+		if (!secondaryTopic) {
+			return true;
+		}
+		// eslint-disable-next-line
+		const secondaryFactor = secondaryTopic.factors.find(factor => factor.factorId == secondaryFactorId);
+		if (!secondaryFactor) {
+			return true;
+		}
+
+		return false;
+	});
+	if (hasInvalidJoin) {
+		return false;
+	}
+	const topicIdsInJoins = Array.from(new Set((joins || []).reduce((topicIds, { topicId, secondaryTopicId }) => {
+		topicIds.push(topicId, secondaryTopicId);
+		return topicIds;
+	}, [] as Array<string>)));
+	const hasColumnNotInJoinTopics = columns.some(({ parameter }) => !isParameterInTopicIds(parameter, topicIdsInJoins));
+	if (hasColumnNotInJoinTopics) {
+		return false;
+	}
+	const hasFilterNotInJoinTopics = isFilterInTopicIds(filters, topicIdsInJoins);
+	if (hasFilterNotInJoinTopics) {
+		return false;
+	}
+
+	return true;
 };
 
 export const useSubjectValid = (options: {
