@@ -82,7 +82,7 @@ export class ChartMapUtils extends DefaultChartUtils {
 					coordinateSystem: 'geo',
 					data,
 					symbolSize: (val: Array<number>) => {
-						return Math.min(Math.max(val[2] / 50, 3), 20);
+						return Math.min(Math.max(val[2] / 50, 10), 20);
 					},
 					// encode: {
 					// 	value: 2
@@ -106,7 +106,7 @@ export class ChartMapUtils extends DefaultChartUtils {
 						return (b!.value[2] as number) - (a!.value[2] as number);
 					}).slice(0, 6),
 					symbolSize: (val: Array<number>) => {
-						return Math.min(Math.max(val[2] / 50, 3), 20);
+						return Math.min(Math.max(val[2] / 50, 10), 20);
 					},
 					// encode: {
 					// 	value: 2
