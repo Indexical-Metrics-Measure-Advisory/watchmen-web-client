@@ -46,5 +46,7 @@ export const saveLastSnapshot = async (snapshot: Partial<LastSnapshot>): Promise
 	} else {
 		saveLastSnapshotToSession({ ...snapshot });
 	}
+
+	
 	// REMOTE use real api
 };
