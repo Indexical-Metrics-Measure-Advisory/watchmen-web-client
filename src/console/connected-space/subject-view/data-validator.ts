@@ -116,13 +116,15 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
 		topicIds.push(topicId, secondaryTopicId);
 		return topicIds;
 	}, [] as Array<string>)));
-	const hasColumnNotInJoinTopics = columns.some(({ parameter }) => !isParameterInTopicIds(parameter, topicIdsInJoins));
-	if (hasColumnNotInJoinTopics) {
-		return false;
-	}
-	const hasFilterNotInJoinTopics = isFilterInTopicIds(filters, topicIdsInJoins);
-	if (hasFilterNotInJoinTopics) {
-		return false;
+	if (topicIdsInJoins.length !== 0) {
+		const hasColumnNotInJoinTopics = columns.some(({ parameter }) => !isParameterInTopicIds(parameter, topicIdsInJoins));
+		if (hasColumnNotInJoinTopics) {
+			return false;
+		}
+		const hasFilterNotInJoinTopics = isFilterInTopicIds(filters, topicIdsInJoins);
+		if (hasFilterNotInJoinTopics) {
+			return false;
+		}
 	}
 
 	return true;
