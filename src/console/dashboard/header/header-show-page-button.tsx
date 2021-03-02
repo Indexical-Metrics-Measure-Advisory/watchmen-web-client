@@ -23,7 +23,7 @@ export const HeaderShowPageButton = (props: { dashboard: Dashboard }) => {
 	};
 
 	return <PageHeaderButton
-		tooltip={showPage ? Lang.CONSOLE.CONNECTED_SPACE.HIDE_PRINT_PAGE : Lang.CONSOLE.CONNECTED_SPACE.SHOW_PRINT_PAGE}
+		tooltip={showPage ? Lang.CONSOLE.DASHBOARD.HIDE_PRINT_PAGE : Lang.CONSOLE.DASHBOARD.SHOW_PRINT_PAGE}
 		ink={showPage ? ButtonInk.PRIMARY : (void 0)}
 		onClick={onShowPageClicked}>
 		<FontAwesomeIcon icon={ICON_PAGE_SIZE}/>

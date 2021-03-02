@@ -100,6 +100,7 @@ export const En = {
 			ADD_INTO_FAVORITE: 'Add into Favorite',
 			REMOVE_FROM_FAVORITE: 'Remove from Favorite',
 			ADD_REPORT: 'Add Report',
+			ADD_PARAGRAPH: 'Add Paragraph',
 			ADD_DASHBOARD: 'Add Dashboard',
 			SWITCH_DASHBOARD: 'Switch Dashboard',
 			DELETE_ME: 'Delete Me',
@@ -108,7 +109,12 @@ export const En = {
 			DELETE_DIALOG_LABEL: 'Are you sure to delete dashboard? Please note that deletion cannot be recovered.',
 			NO_MORE_DASHBOARD: 'No more dashboard exists.',
 			SWITCH_DIALOG_LABEL: 'Please select dashboard',
-			NO_MORE_REPORT: 'No more report exists.'
+			NO_MORE_REPORT: 'No more report exists.',
+			DELETE_REPORT_DIALOG_LABEL: 'Are you sure to delete report? Please note that deletion cannot be recovered.',
+			DELETE_PARAGRAPH_DIALOG_LABEL: 'Are you sure to delete paragraph? Please note that deletion cannot be recovered.',
+			NO_REPORT: 'No report defined.',
+			SHOW_PRINT_PAGE: 'Show Page Size',
+			HIDE_PRINT_PAGE: 'Hide Page Size'
 		},
 		CONNECTED_SPACE: {
 			CATALOG: 'Catalog',

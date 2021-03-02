@@ -76,9 +76,9 @@ export const ReportRemover = (props: { connectedSpace: ConnectedSpace, subject: 
 			fireGlobal(EventTypes.SHOW_DIALOG,
 				<ReportDelete report={report} onRemoved={onDeleted(report)}/>);
 		};
-		on(ReportEventTypes.DO_DELETE, onDelete);
+		on(ReportEventTypes.DO_DELETE_REPORT, onDelete);
 		return () => {
-			off(ReportEventTypes.DO_DELETE, onDelete);
+			off(ReportEventTypes.DO_DELETE_REPORT, onDelete);
 		};
 	});
 	return <></>;

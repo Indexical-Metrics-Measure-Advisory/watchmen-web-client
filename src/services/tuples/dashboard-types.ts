@@ -1,3 +1,4 @@
+import { Paragraph } from './paragraph';
 import { ReportRect } from './report-types';
 import { Tuple } from './tuple-types';
 
@@ -12,5 +13,6 @@ export interface Dashboard extends Tuple {
 	dashboardId: string;
 	name: string;
 	reports?: Array<DashboardReport>;
+	paragraphs?: Array<Paragraph>;
 	lastVisitTime: string;
 }
