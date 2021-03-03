@@ -124,6 +124,7 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
 			return false;
 		}
 		if (topicIdsInColumns.length === 1 && topicIdsInFilters.length === 1) {
+			// eslint-disable-next-line
 			return topicIdsInColumns[0] == topicIdsInFilters[0];
 		}
 	} else {
