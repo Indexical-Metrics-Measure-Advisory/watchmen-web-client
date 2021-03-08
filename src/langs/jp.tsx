@@ -148,6 +148,7 @@ export const Jp = {
 			SWITCH_SUBJECT: '主題を切り替える',
 			SWITCH_SUBJECT_DIALOG_LABEL: '主題を選択してください',
 			NO_MORE_SUBJECT: 'これ以上の主題は存在しません。',
+			SUBJECT_DEF_INVALID: 'Something incorrect in subject definition, please correct it first.',
 			SUBJECT_PICK_TOPICS: 'トピックを選択する',
 			SUBJECT_DEFINE_COLUMNS: 'カラムを定義する',
 			SUBJECT_FILTER_DATA: 'データフィルタ',

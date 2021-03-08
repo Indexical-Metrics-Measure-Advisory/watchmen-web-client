@@ -148,6 +148,7 @@ export const En = {
 			SWITCH_SUBJECT: 'Switch Subject',
 			SWITCH_SUBJECT_DIALOG_LABEL: 'Please select subject',
 			NO_MORE_SUBJECT: 'No more subject exists.',
+			SUBJECT_DEF_INVALID: 'Something incorrect in subject definition, please correct it first.',
 			SUBJECT_PICK_TOPICS: 'Pick Topics',
 			SUBJECT_DEFINE_COLUMNS: 'Define Columns',
 			SUBJECT_FILTER_DATA: 'Filter Data',

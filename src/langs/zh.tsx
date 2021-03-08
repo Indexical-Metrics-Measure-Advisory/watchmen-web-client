@@ -148,6 +148,7 @@ export const Zh = {
 			SWITCH_SUBJECT: '切换主题',
 			SWITCH_SUBJECT_DIALOG_LABEL: '请选择主题',
 			NO_MORE_SUBJECT: '没有更多主题.',
+			SUBJECT_DEF_INVALID: '主题中包含不正确的定义数据, 请先检查定义.',
 			SUBJECT_PICK_TOPICS: '选择数据集',
 			SUBJECT_DEFINE_COLUMNS: '定义数据列',
 			SUBJECT_FILTER_DATA: '数据过滤',
