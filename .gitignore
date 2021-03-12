@@ -114,3 +114,4 @@ dist
 
 # builds
 /build
+.vscode/settings.json
