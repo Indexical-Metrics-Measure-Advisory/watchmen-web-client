@@ -23,6 +23,7 @@ const StillSaveDialog = (props: { message: string, onSave: () => void }) => {
 
 	const onConfirmClicked = async () => {
 		onSave();
+		fire(EventTypes.HIDE_DIALOG);
 	};
 	const onCancelClicked = () => {
 		fire(EventTypes.HIDE_DIALOG);
