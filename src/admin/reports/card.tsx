@@ -13,7 +13,7 @@ import {
 import { useTupleEventBus } from '../widgets/tuple-workbench/tuple-event-bus';
 import { TupleEventTypes } from '../widgets/tuple-workbench/tuple-event-bus-types';
 
-const TopicCard = (props: { report: QueryReport }) => {
+const ReportCard = (props: { report: QueryReport }) => {
 	const { report } = props;
 
 	const { fire } = useTupleEventBus();
@@ -41,5 +41,5 @@ const TopicCard = (props: { report: QueryReport }) => {
 };
 
 export const renderCard = (report: QueryReport) => {
-	return <TopicCard report={report}/>;
+	return <ReportCard report={report}/>;
 };
