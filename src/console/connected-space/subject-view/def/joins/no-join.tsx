@@ -15,7 +15,7 @@ export const NoJoin = (props: { subject: Subject, active: boolean }) => {
 	const visible = useJoinsDataVisible(isVisible);
 
 	const onAddClicked = () => {
-		const join = createSubjectDataSetJoin(subject);
+		const join = createSubjectDataSetJoin();
 		subject.dataset.joins.push(join);
 		fire(SubjectDefEventTypes.DATASET_JOIN_ADDED, join);
 	};

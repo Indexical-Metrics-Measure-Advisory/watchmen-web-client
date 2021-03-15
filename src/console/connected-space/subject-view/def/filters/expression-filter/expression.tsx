@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useForceUpdate } from '../../../../../../basic-widgets/utils';
 import { Parameter, ParameterKind } from '../../../../../../services/tuples/factor-calculator-types';
-import { Subject, SubjectDataSetFilterExpression } from '../../../../../../services/tuples/subject-types';
+import { SubjectDataSetFilterExpression } from '../../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../../services/tuples/topic-types';
 import { ComputedEditor } from '../../parameter/computed';
 import { ConstantValueEditor } from '../../parameter/constant';
@@ -12,7 +12,6 @@ import { Parameter2FilterEventBridge } from '../parameter-2-filter-event-bridge'
 import { ExpressionSide, ParameterFromEditorForExpression } from './widgets';
 
 export const ExpressionBody = (props: {
-	subject: Subject;
 	filter: SubjectDataSetFilterExpression;
 	parameter: Parameter
 	availableTopics: Array<Topic>;
@@ -20,7 +19,6 @@ export const ExpressionBody = (props: {
 	visible: boolean;
 }) => {
 	const {
-		subject,
 		filter, parameter,
 		availableTopics, pickedTopics,
 		visible
@@ -43,12 +41,11 @@ export const ExpressionBody = (props: {
 		                   availableTopics={availableTopics} pickedTopics={pickedTopics}/>
 		<ComputedEditor parameter={parameter}
 		                availableTopics={availableTopics} pickedTopics={pickedTopics}/>
-		<Parameter2FilterEventBridge subject={subject} filter={filter}/>
+		<Parameter2FilterEventBridge filter={filter}/>
 	</ExpressionSide>;
 };
 
 export const Expression = (props: {
-	subject: Subject;
 	filter: SubjectDataSetFilterExpression;
 	parameter: Parameter
 	availableTopics: Array<Topic>;

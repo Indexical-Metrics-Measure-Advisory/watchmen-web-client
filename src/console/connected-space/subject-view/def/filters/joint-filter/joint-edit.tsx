@@ -4,7 +4,7 @@ import { ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EDIT } from '../../../../../..
 import { useForceUpdate } from '../../../../../../basic-widgets/utils';
 import { Lang } from '../../../../../../langs';
 import { ParameterJointType } from '../../../../../../services/tuples/factor-calculator-types';
-import { Subject, SubjectDataSetFilterJoint } from '../../../../../../services/tuples/subject-types';
+import { SubjectDataSetFilterJoint } from '../../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../../services/tuples/topic-types';
 import { createSubjectDataSetFilter, createSubjectDataSetJoint } from '../../data-utils';
 import { useFilterEventBus } from '../filter-event-bus';
@@ -21,7 +21,6 @@ import {
 } from './widgets';
 
 export const JointEdit = (props: {
-	subject: Subject;
 	/**
 	 * if parent joint exists, means current joint is not in top level.
 	 * otherwise, current is top level, which means cannot be removed.
@@ -33,7 +32,6 @@ export const JointEdit = (props: {
 	pickedTopics: Array<Topic>;
 }) => {
 	const {
-		subject,
 		parentJoint, onRemoveMe,
 		joint,
 		availableTopics, pickedTopics
@@ -65,7 +63,7 @@ export const JointEdit = (props: {
 	const onAddSubExpressionClicked = (event: MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
-		const newFilter = createSubjectDataSetFilter(subject);
+		const newFilter = createSubjectDataSetFilter();
 		joint.filters.push(newFilter);
 		fire(FilterEventTypes.FILTER_ADDED, newFilter);
 		forceUpdate();
@@ -73,7 +71,7 @@ export const JointEdit = (props: {
 	const onAddSubJointClicked = (event: MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
-		const newJoint = createSubjectDataSetJoint(subject, joint.jointType);
+		const newJoint = createSubjectDataSetJoint(joint.jointType);
 		joint.filters.push(newJoint);
 		fire(FilterEventTypes.FILTER_ADDED, newJoint);
 		forceUpdate();
@@ -121,8 +119,7 @@ export const JointEdit = (props: {
 				<FontAwesomeIcon icon={ICON_DELETE}/>
 			</RemoveFilterIcon>
 			: null}
-		<SubFilters subject={subject}
-		            joint={joint}
+		<SubFilters joint={joint}
 		            availableTopics={availableTopics} pickedTopics={pickedTopics}/>
 	</FilterJointContainer>;
 };

@@ -32,11 +32,11 @@ export const FiltersEdit = (props: {
 	const visible = useFiltersDataVisible(isVisible);
 
 	if (!subject.dataset.filters) {
-		subject.dataset.filters = createSubjectDataSetTopFilter(subject);
+		subject.dataset.filters = createSubjectDataSetTopFilter();
 	}
 
 	return <FiltersEditContainer visible={visible}>
-		<TopFilterEdit subject={subject} filter={subject.dataset.filters}
+		<TopFilterEdit filter={subject.dataset.filters}
 		               availableTopics={availableTopics} pickedTopics={pickedTopics}/>
 	</FiltersEditContainer>;
 };

@@ -44,26 +44,26 @@ export const createSubjectDataSetColumn = (subject: Subject): SubjectDataSetColu
 		parameter: createTopicFactorParameter()
 	};
 };
-export const createSubjectDataSetTopFilter = (subject: Subject): SubjectDataSetFilterJoint => {
+export const createSubjectDataSetTopFilter = (): SubjectDataSetFilterJoint => {
 	return {
 		jointType: ParameterJointType.AND,
 		filters: []
 	};
 };
-export const createSubjectDataSetFilter = (subject: Subject): SubjectDataSetFilterExpression => {
+export const createSubjectDataSetFilter = (): SubjectDataSetFilterExpression => {
 	return {
 		left: createTopicFactorParameter(),
 		operator: ParameterExpressionOperator.EQUALS,
 		right: createConstantParameter()
 	};
 };
-export const createSubjectDataSetJoint = (subject: Subject, parentJointType: ParameterJointType): SubjectDataSetFilterJoint => {
+export const createSubjectDataSetJoint = (parentJointType: ParameterJointType): SubjectDataSetFilterJoint => {
 	return {
 		jointType: parentJointType === ParameterJointType.AND ? ParameterJointType.OR : ParameterJointType.AND,
-		filters: [ createSubjectDataSetFilter(subject) ]
+		filters: [ createSubjectDataSetFilter() ]
 	};
 };
-export const createSubjectDataSetJoin = (subject: Subject): SubjectDataSetJoin => {
+export const createSubjectDataSetJoin = (): SubjectDataSetJoin => {
 	return {
 		topicId: '',
 		factorId: '',

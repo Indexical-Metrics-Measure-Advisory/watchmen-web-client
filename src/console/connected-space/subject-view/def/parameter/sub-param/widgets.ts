@@ -90,12 +90,16 @@ export const SubParameterEditContainer = styled.div.attrs<{ shorten: boolean }>(
 		content    : '';
 		display    : block;
 		position   : absolute;
-		top        : calc(var(--param-height) / 2);
+		top        : calc(var(--param-height) / 2 - 2px);
 		right      : 100%;
 		width      : calc(var(--margin) / 4);
-		height     : calc(100% - var(--param-height) / 2);
+		height     : calc(100% - var(--param-height) / 2 + 2px);
 		z-index    : -1;
 		box-shadow : var(--param-left-border);
+	}
+	&:first-child:after {
+		top    : calc(var(--param-height) / 2);
+		height : calc(100% - var(--param-height) / 2);
 	}
 	> div[data-widget="parameter-from-edit"] {
 		border-top-right-radius    : 0;

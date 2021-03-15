@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Subject, SubjectDataSetFilter, SubjectDataSetFilterJoint } from '../../../../../services/tuples/subject-types';
+import { SubjectDataSetFilter, SubjectDataSetFilterJoint } from '../../../../../services/tuples/subject-types';
 import { Topic } from '../../../../../services/tuples/topic-types';
 import { useSubjectDefEventBus } from '../subject-def-event-bus';
 import { SubjectDefEventTypes } from '../subject-def-event-bus-types';
@@ -8,12 +8,11 @@ import { FilterEventTypes } from './filter-event-bus-types';
 import { JointEdit } from './joint-filter/joint-edit';
 
 const TopFilter = (props: {
-	subject: Subject;
 	joint: SubjectDataSetFilterJoint;
 	availableTopics: Array<Topic>;
 	pickedTopics: Array<Topic>;
 }) => {
-	const { subject, joint, availableTopics, pickedTopics } = props;
+	const { joint, availableTopics, pickedTopics } = props;
 
 	const { fire: fireDef } = useSubjectDefEventBus();
 	const { on, off } = useFilterEventBus();
@@ -45,19 +44,18 @@ const TopFilter = (props: {
 		};
 	}, [ on, off, fireDef, joint ]);
 
-	return <JointEdit subject={subject} joint={joint}
+	return <JointEdit joint={joint}
 	                  availableTopics={availableTopics} pickedTopics={pickedTopics}/>;
 };
 
 export const TopFilterEdit = (props: {
-	subject: Subject;
 	filter: SubjectDataSetFilterJoint;
 	availableTopics: Array<Topic>;
 	pickedTopics: Array<Topic>;
 }) => {
-	const { subject, filter, availableTopics, pickedTopics } = props;
+	const { filter, availableTopics, pickedTopics } = props;
 
 	return <FilterEventBusProvider>
-		<TopFilter subject={subject} joint={filter} availableTopics={availableTopics} pickedTopics={pickedTopics}/>
+		<TopFilter joint={filter} availableTopics={availableTopics} pickedTopics={pickedTopics}/>
 	</FilterEventBusProvider>;
 };

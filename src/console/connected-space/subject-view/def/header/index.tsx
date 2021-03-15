@@ -33,7 +33,7 @@ export const Header = (props: {
 	const onAddJoinClicked = (event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
-		const join = createSubjectDataSetJoin(subject);
+		const join = createSubjectDataSetJoin();
 		subject.dataset.joins.push(join);
 		fire(SubjectDefEventTypes.DATASET_JOIN_ADDED, join);
 	};

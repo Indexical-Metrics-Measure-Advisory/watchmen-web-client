@@ -105,10 +105,10 @@ export const SubParameterEditContainer = styled.div.attrs<{ shorten: boolean }>(
 		top : calc(var(--height) / 2 - 1px);
 	}
 `;
-export const SubParameterConditionContainer = styled.div.attrs({'data-widget': 'parameter-condition'})`
-	position: relative;
-	grid-column: 1 / span 3;
-`
+export const SubParameterConditionContainer = styled.div.attrs({ 'data-widget': 'parameter-condition' })`
+	position    : relative;
+	grid-column : 1 / span 3;
+`;
 export const RemoveMeButton = styled.div.attrs({ 'data-widget': 'remove-me-button' })`
 	display         : flex;
 	position        : relative;

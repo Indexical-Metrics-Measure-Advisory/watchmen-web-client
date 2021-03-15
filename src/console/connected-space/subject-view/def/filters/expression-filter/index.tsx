@@ -3,7 +3,6 @@ import React, { MouseEvent } from 'react';
 import { ICON_DELETE } from '../../../../../../basic-widgets/constants';
 import { Lang } from '../../../../../../langs';
 import {
-	Subject,
 	SubjectDataSetFilterExpression,
 	SubjectDataSetFilterJoint
 } from '../../../../../../services/tuples/subject-types';
@@ -17,7 +16,6 @@ import { ExpressionRight } from './expression-right';
 import { ExpressionFilterContainer, ExpressionLeadLabel } from './widgets';
 
 export const ExpressionFilterEdit = (props: {
-	subject: Subject;
 	parentJoint: SubjectDataSetFilterJoint;
 	onRemoveMe: () => void;
 	notifyChangeToParent: () => void;
@@ -26,7 +24,6 @@ export const ExpressionFilterEdit = (props: {
 	pickedTopics: Array<Topic>;
 }) => {
 	const {
-		subject,
 		parentJoint, onRemoveMe, notifyChangeToParent,
 		filter, availableTopics, pickedTopics
 	} = props;
@@ -48,11 +45,11 @@ export const ExpressionFilterEdit = (props: {
 			<RemoveFilterIcon onClick={onRemoveClicked}>
 				<FontAwesomeIcon icon={ICON_DELETE}/>
 			</RemoveFilterIcon>
-			<Expression subject={subject} filter={filter} parameter={filter.left}
+			<Expression filter={filter} parameter={filter.left}
 			            availableTopics={availableTopics} pickedTopics={pickedTopics}
 			            visible={true}/>
 			<ExpressionOperator filter={filter}/>
-			<ExpressionRight subject={subject} filter={filter} parameter={filter.right}
+			<ExpressionRight filter={filter} parameter={filter.right}
 			                 availableTopics={availableTopics} pickedTopics={pickedTopics}/>
 		</ExpressionFilterContainer>
 		<HierarchicalFilterEventBridge notifyChangeToParent={notifyChangeToParent}/>
