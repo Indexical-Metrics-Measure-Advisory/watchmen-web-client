@@ -282,7 +282,8 @@ export const Zh = {
 			WEEK_OF_YEAR: '周(按年度)',
 			WEEK_OF_MONTH: '周(按月度)',
 			DAY_OF_MONTH: '天(按月度)',
-			DAY_OF_WEEK: '天(按周)'
+			DAY_OF_WEEK: '天(按周)',
+			CASE_THEN: '条件转换'
 		},
 		EXPRESSION_OPERATOR: {
 			EMPTY: '为空',

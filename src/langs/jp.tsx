@@ -282,7 +282,8 @@ export const Jp = {
 			WEEK_OF_YEAR: '年の週',
 			WEEK_OF_MONTH: '月の週',
 			DAY_OF_MONTH: '月の日',
-			DAY_OF_WEEK: '週の日'
+			DAY_OF_WEEK: '週の日',
+			CASE_THEN: 'ケース'
 		},
 		EXPRESSION_OPERATOR: {
 			EMPTY: '空',

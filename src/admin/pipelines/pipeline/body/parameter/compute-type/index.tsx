@@ -28,7 +28,8 @@ const AvailableComputeTypes = [
 	ParameterComputeType.WEEK_OF_YEAR,
 	ParameterComputeType.WEEK_OF_MONTH,
 	ParameterComputeType.DAY_OF_MONTH,
-	ParameterComputeType.DAY_OF_WEEK
+	ParameterComputeType.DAY_OF_WEEK,
+	ParameterComputeType.CASE_THEN
 ];
 
 const ParameterComputeTypeLabels: { [key in ParameterComputeType]: string } = {
@@ -45,7 +46,8 @@ const ParameterComputeTypeLabels: { [key in ParameterComputeType]: string } = {
 	[ParameterComputeType.WEEK_OF_YEAR]: 'Week of Year',
 	[ParameterComputeType.WEEK_OF_MONTH]: 'Week of Month',
 	[ParameterComputeType.DAY_OF_MONTH]: 'Day of Month',
-	[ParameterComputeType.DAY_OF_WEEK]: 'Day of Week'
+	[ParameterComputeType.DAY_OF_WEEK]: 'Day of Week',
+	[ParameterComputeType.CASE_THEN]: 'Case Then'
 };
 
 

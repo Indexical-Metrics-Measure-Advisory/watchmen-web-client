@@ -15,5 +15,6 @@ export const ParameterComputeTypeLabels: { [key in ParameterComputeType]: string
 	[ParameterComputeType.WEEK_OF_YEAR]: Lang.PARAMETER.COMPUTE_TYPE.WEEK_OF_YEAR,
 	[ParameterComputeType.WEEK_OF_MONTH]: Lang.PARAMETER.COMPUTE_TYPE.WEEK_OF_MONTH,
 	[ParameterComputeType.DAY_OF_MONTH]: Lang.PARAMETER.COMPUTE_TYPE.DAY_OF_MONTH,
-	[ParameterComputeType.DAY_OF_WEEK]: Lang.PARAMETER.COMPUTE_TYPE.DAY_OF_WEEK
+	[ParameterComputeType.DAY_OF_WEEK]: Lang.PARAMETER.COMPUTE_TYPE.DAY_OF_WEEK,
+	[ParameterComputeType.CASE_THEN]: Lang.PARAMETER.COMPUTE_TYPE.CASE_THEN
 };

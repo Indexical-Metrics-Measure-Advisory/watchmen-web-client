@@ -5,6 +5,7 @@ import { Topic } from '../../../../../../services/tuples/topic-types';
 import { ParameterFromEditor } from '../param-from';
 import { useParameterEventBus } from '../parameter/parameter-event-bus';
 import { ParameterEventTypes } from '../parameter/parameter-event-bus-types';
+import { SubParameterCondition } from './sub-parameter-condition';
 import { SubParameterEditBody } from './sub-parameter-edit-body';
 import { SubParameterEditContainer } from './widgets';
 
@@ -30,6 +31,7 @@ export const SubParameterEditor = (props: {
 	}, [ on, off, forceUpdate ]);
 
 	return <SubParameterEditContainer shorten={parameter.kind === ParameterKind.COMPUTED}>
+		<SubParameterCondition parentParameter={parentParameter} parameter={parameter} topics={topics}/>
 		<ParameterFromEditor parameter={parameter}/>
 		<SubParameterEditBody parameter={parameter} parentParameter={parentParameter}
 		                      topics={topics}

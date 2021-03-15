@@ -282,7 +282,8 @@ export const En = {
 			WEEK_OF_YEAR: 'Week of Year',
 			WEEK_OF_MONTH: 'Week of Month',
 			DAY_OF_MONTH: 'Day of Month',
-			DAY_OF_WEEK: 'Day of Week'
+			DAY_OF_WEEK: 'Day of Week',
+			CASE_THEN: 'Case Then'
 		},
 		EXPRESSION_OPERATOR: {
 			EMPTY: 'Is Empty',

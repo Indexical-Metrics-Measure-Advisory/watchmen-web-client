@@ -10,6 +10,8 @@ export enum ParameterEventTypes {
 
 	FROM_CHANGED = 'from-changed',
 
+	CONDITION_CHANGED = 'condition-changed',
+
 	CONSTANT_VALUE_CHANGED = 'constant-value-changed',
 
 	TOPIC_CHANGED = 'topic-changed',
@@ -29,6 +31,10 @@ export interface ParameterEventBus {
 	fire(type: ParameterEventTypes.FROM_CHANGED, parameter: Parameter): this;
 	on(type: ParameterEventTypes.FROM_CHANGED, listener: (parameter: Parameter) => void): this;
 	off(type: ParameterEventTypes.FROM_CHANGED, listener: (parameter: Parameter) => void): this;
+
+	fire(type: ParameterEventTypes.CONDITION_CHANGED, parameter: Parameter): this;
+	on(type: ParameterEventTypes.CONDITION_CHANGED, listener: (parameter: Parameter) => void): this;
+	off(type: ParameterEventTypes.CONDITION_CHANGED, listener: (parameter: Parameter) => void): this;
 
 	fire(type: ParameterEventTypes.CONSTANT_VALUE_CHANGED, parameter: Parameter): this;
 	on(type: ParameterEventTypes.CONSTANT_VALUE_CHANGED, listener: (parameter: Parameter) => void): this;

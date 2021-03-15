@@ -317,6 +317,10 @@ export const ParameterCalculatorDefsMap: { [key in ParameterComputeType]: Parame
 			parameterTypes: [ ParameterType.DATETIME ],
 			resultType: FactorType.DAY_OF_WEEK
 		} ]
+	},
+	[ParameterComputeType.CASE_THEN]: {
+		name: ParameterComputeType.CASE_THEN, minParameterCount: 2,
+		supports: [ { parameterTypes: [ ParameterType.ANY ] } ]
 	}
 };
 
