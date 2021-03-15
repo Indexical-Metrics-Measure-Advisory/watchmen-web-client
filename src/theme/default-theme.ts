@@ -143,7 +143,6 @@ const DefaultTheme = {
 	// topic color
 	rawTopicColor: 'var(--waive-color)',
 	distinctTopicColor: 'var(--primary-color)',
-	systemTopicColor: 'var(--danger-color)',
 	aggregateTopicColor: 'var(--info-color)',
 	timeTopicColor: 'var(--success-color)',
 	ratioTopicColor: 'var(--warn-color)'

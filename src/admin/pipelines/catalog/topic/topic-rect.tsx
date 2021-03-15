@@ -41,7 +41,7 @@ export const TopicRect = (props: { topic: AssembledTopicGraphics }) => {
 	return <TopicContainer onMouseDown={onMouseDown} coordinate={coordinate}
 	                       data-topic-id={topic.topicId}
 	                       data-role={GraphicsRole.TOPIC}>
-		<TopicBlock frame={frameRect} dnd={dnd} topicType={topic.type}
+		<TopicBlock frame={frameRect} dnd={dnd} topicType={topic.type} topicKind={topic.kind}
 		            data-topic-id={topic.topicId}
 		            data-role={GraphicsRole.TOPIC_FRAME}/>
 		<TopicNameText pos={namePos} dnd={dnd} data-role={GraphicsRole.TOPIC_NAME}>

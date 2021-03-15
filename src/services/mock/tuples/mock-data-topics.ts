@@ -1,10 +1,10 @@
 import { FactorType } from '../../tuples/factor-types';
 import { QueryTopic } from '../../tuples/query-topic-types';
-import { Topic, TopicType } from '../../tuples/topic-types';
+import { Topic, TopicKind, TopicType } from '../../tuples/topic-types';
 import { getCurrentTime } from '../../utils';
 
 export const Quotation: Topic = {
-	topicId: '1', name: 'Quotation', type: TopicType.DISTINCT,
+	topicId: '1', name: 'Quotation', kind: TopicKind.SYSTEM, type: TopicType.DISTINCT,
 	factors: [
 		{
 			factorId: '101',
@@ -50,7 +50,7 @@ export const Quotation: Topic = {
 	lastModifyTime: getCurrentTime()
 };
 export const Policy: Topic = {
-	topicId: '2', name: 'Policy', type: TopicType.DISTINCT,
+	topicId: '2', name: 'Policy', kind: TopicKind.BUSINESS, type: TopicType.DISTINCT,
 	factors: [
 		{
 			factorId: '201', name: 'policyId', label: 'Policy Sequence', type: FactorType.SEQUENCE,
@@ -98,7 +98,7 @@ export const Policy: Topic = {
 	lastModifyTime: getCurrentTime()
 };
 export const Participant: Topic = {
-	topicId: '3', name: 'Participant', type: TopicType.DISTINCT,
+	topicId: '3', name: 'Participant', kind: TopicKind.BUSINESS, type: TopicType.DISTINCT,
 	description: 'Participant of quotation or policy, including policy holder, insureds, etc.',
 	factors: [
 		{
@@ -144,7 +144,7 @@ export const Participant: Topic = {
 	lastModifyTime: getCurrentTime()
 };
 export const RawQuotation: Topic = {
-	topicId: '4', name: 'Raw Quotation', type: TopicType.RAW,
+	topicId: '4', name: 'Raw Quotation', kind: TopicKind.BUSINESS, type: TopicType.RAW,
 	factors: [
 		{
 			factorId: '401', name: 'quotationId', label: 'Quotation Sequence', type: FactorType.SEQUENCE,
@@ -214,7 +214,7 @@ export const RawQuotation: Topic = {
 	lastModifyTime: getCurrentTime()
 };
 export const WeeklyPolicyPremium: Topic = {
-	topicId: '5', name: 'Weekly Policy Premium', type: TopicType.TIME,
+	topicId: '5', name: 'Weekly Policy Premium', kind: TopicKind.BUSINESS, type: TopicType.TIME,
 	factors: [
 		{
 			factorId: '501', name: 'year', label: 'Year', type: FactorType.NUMBER,
@@ -236,7 +236,7 @@ export const WeeklyPolicyPremium: Topic = {
 	lastModifyTime: getCurrentTime()
 };
 export const MonthlyPolicyPremium: Topic = {
-	topicId: '6', name: 'Monthly Policy Premium', type: TopicType.TIME,
+	topicId: '6', name: 'Monthly Policy Premium', kind: TopicKind.BUSINESS, type: TopicType.TIME,
 	factors: [
 		{
 			factorId: '601', name: 'year', label: 'Year', type: FactorType.NUMBER,
@@ -258,7 +258,7 @@ export const MonthlyPolicyPremium: Topic = {
 	lastModifyTime: getCurrentTime()
 };
 export const RawEndorsement: Topic = {
-	topicId: '7', name: 'Raw Endorsement', type: TopicType.RAW,
+	topicId: '7', name: 'Raw Endorsement', kind: TopicKind.BUSINESS, type: TopicType.RAW,
 	factors: [
 		{
 			factorId: '701', name: 'endorsementId', label: 'Endorsement Sequence', type: FactorType.SEQUENCE,
@@ -295,7 +295,7 @@ export const RawEndorsement: Topic = {
 	lastModifyTime: getCurrentTime()
 };
 export const WeeklyPolicyPremiumIncrement: Topic = {
-	topicId: '8', name: 'Weekly Policy Premium Increment', type: TopicType.RATIO,
+	topicId: '8', name: 'Weekly Policy Premium Increment', kind: TopicKind.BUSINESS, type: TopicType.RATIO,
 	factors: [
 		{
 			factorId: '801', name: 'year', label: 'Year', type: FactorType.NUMBER,

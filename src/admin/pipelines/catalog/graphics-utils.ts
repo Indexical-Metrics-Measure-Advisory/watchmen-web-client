@@ -110,7 +110,6 @@ const computeTopicsGraphics = (graphics: AssembledPipelinesGraphics, svg: SVGSVG
 	const aggregateTopics = allTopics.filter(({ topic }) => topic.type === TopicType.AGGREGATE);
 	const timeTopics = allTopics.filter(({ topic }) => topic.type === TopicType.TIME);
 	const ratioTopics = allTopics.filter(({ topic }) => topic.type === TopicType.RATIO);
-	const systemTopics = allTopics.filter(({ topic }) => topic.type === TopicType.SYSTEM);
 
 	const replace = (topics: Array<AssembledTopicGraphics>, leftX: number) => {
 		topics.filter(graphics => graphics.rect.coordinate.x === 0)
@@ -132,9 +131,6 @@ const computeTopicsGraphics = (graphics: AssembledPipelinesGraphics, svg: SVGSVG
 		return Math.max(right, topicGraphics.rect.coordinate.x + topicGraphics.rect.frame.x + topicGraphics.rect.frame.width);
 	}, 0) + BLOCK_GAP_HORIZONTAL);
 	replace(ratioTopics, [ ...rawTopics, ...distinctTopics, ...aggregateTopics, ...timeTopics ].reduce((right, topicGraphics) => {
-		return Math.max(right, topicGraphics.rect.coordinate.x + topicGraphics.rect.frame.x + topicGraphics.rect.frame.width);
-	}, 0) + BLOCK_GAP_HORIZONTAL);
-	replace(systemTopics, [ ...rawTopics, ...distinctTopics, ...aggregateTopics, ...timeTopics, ...ratioTopics ].reduce((right, topicGraphics) => {
 		return Math.max(right, topicGraphics.rect.coordinate.x + topicGraphics.rect.frame.x + topicGraphics.rect.frame.width);
 	}, 0) + BLOCK_GAP_HORIZONTAL);
 

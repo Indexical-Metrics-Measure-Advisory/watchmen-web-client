@@ -1,6 +1,6 @@
 import { DataPage } from '../../query/data-page';
 import { QueryTopic, QueryTopicForHolder } from '../../tuples/query-topic-types';
-import { Topic, TopicType } from '../../tuples/topic-types';
+import { Topic, TopicKind, TopicType } from '../../tuples/topic-types';
 import { isFakedUuid } from '../../tuples/utils';
 import { getCurrentTime } from '../../utils';
 import { DemoQueryTopics, DemoTopics } from './mock-data-topics';
@@ -30,12 +30,13 @@ export const fetchMockTopic = async (topicId: string): Promise<{ topic: Topic }>
 	// eslint-disable-next-line
 	const found = DemoTopics.find(({ topicId: id }) => id == topicId);
 	if (found) {
-		const { topicId, name, type, description, factors, createTime, lastModifyTime } = found;
-		topic = { topicId, name, type, description, factors, createTime, lastModifyTime };
+		const { topicId, name, kind, type, description, factors, createTime, lastModifyTime } = found;
+		topic = { topicId, name, kind, type, description, factors, createTime, lastModifyTime };
 	} else {
 		topic = {
 			topicId,
 			name: 'Mock Topic',
+			kind: TopicKind.BUSINESS,
 			type: TopicType.DISTINCT,
 			factors: [],
 			createTime: getCurrentTime(),

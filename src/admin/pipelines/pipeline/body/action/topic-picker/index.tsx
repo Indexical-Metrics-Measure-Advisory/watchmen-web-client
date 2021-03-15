@@ -6,7 +6,7 @@ import {
 	FromTopic,
 	ToTopic
 } from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import { Topic, TopicType } from '../../../../../../services/tuples/topic-types';
+import { Topic, TopicKind, TopicType } from '../../../../../../services/tuples/topic-types';
 import { getCurrentTime } from '../../../../../../services/utils';
 import { useActionEventBus } from '../action-event-bus';
 import { ActionEventTypes } from '../action-event-bus-types';
@@ -16,7 +16,8 @@ const createUnknownTopic = (topicId: string): Topic => {
 	return {
 		topicId,
 		name: 'Unknown Topic',
-		type: TopicType.SYSTEM,
+		kind: TopicKind.SYSTEM,
+		type: TopicType.DISTINCT,
 		factors: [] as Array<Factor>,
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()

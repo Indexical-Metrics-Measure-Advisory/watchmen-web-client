@@ -6,7 +6,7 @@ import { Lang } from '../../../../../../langs';
 import { Parameter } from '../../../../../../services/tuples/factor-calculator-types';
 import { isTopicFactorParameter } from '../../../../../../services/tuples/factor-calculator-utils';
 import { Factor, FactorType } from '../../../../../../services/tuples/factor-types';
-import { Topic, TopicType } from '../../../../../../services/tuples/topic-types';
+import { Topic, TopicKind, TopicType } from '../../../../../../services/tuples/topic-types';
 import { getCurrentTime } from '../../../../../../services/utils';
 import { useParameterEventBus } from '../parameter-event-bus';
 import { ParameterEventTypes } from '../parameter-event-bus-types';
@@ -16,7 +16,8 @@ const createUnknownTopic = (topicId: string): Topic => {
 	return {
 		topicId,
 		name: Lang.PLAIN.UNKNOWN_TOPIC_NAME,
-		type: TopicType.SYSTEM,
+		kind: TopicKind.SYSTEM,
+		type: TopicType.DISTINCT,
 		factors: [] as Array<Factor>,
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()
@@ -155,7 +156,7 @@ export const TopicFactorEditor = styled(TopicFactorEdit)`
 		// redefine since box-shadow overridden by first-child/last-child
 		&:hover,
 		&:focus {
-			z-index : 1;
+			z-index    : 1;
 			box-shadow : var(--primary-hover-shadow);
 		}
 	}

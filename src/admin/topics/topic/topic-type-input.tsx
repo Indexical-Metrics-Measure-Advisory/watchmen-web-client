@@ -12,7 +12,6 @@ const TopicTypeOptions: Array<DropdownOption> = [
 	{ value: TopicType.AGGREGATE, label: 'Aggregate' },
 	{ value: TopicType.TIME, label: 'Time' },
 	{ value: TopicType.RATIO, label: 'Ratio' },
-	{ value: TopicType.SYSTEM, label: 'System' }
 ];
 
 export const TopicTypeInput = (props: { topic: Topic }) => {

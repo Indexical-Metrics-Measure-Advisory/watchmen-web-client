@@ -4,7 +4,7 @@ import { useForceUpdate } from '../../../../../../basic-widgets/utils';
 import { Parameter } from '../../../../../../services/tuples/factor-calculator-types';
 import { isTopicFactorParameter } from '../../../../../../services/tuples/factor-calculator-utils';
 import { Factor, FactorType } from '../../../../../../services/tuples/factor-types';
-import { Topic, TopicType } from '../../../../../../services/tuples/topic-types';
+import { Topic, TopicKind, TopicType } from '../../../../../../services/tuples/topic-types';
 import { getCurrentTime } from '../../../../../../services/utils';
 import { useParameterEventBus } from '../parameter/parameter-event-bus';
 import { ParameterEventTypes } from '../parameter/parameter-event-bus-types';
@@ -14,7 +14,8 @@ const createUnknownTopic = (topicId: string): Topic => {
 	return {
 		topicId,
 		name: 'Unknown Topic',
-		type: TopicType.SYSTEM,
+		kind: TopicKind.SYSTEM,
+		type: TopicType.DISTINCT,
 		factors: [] as Array<Factor>,
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()

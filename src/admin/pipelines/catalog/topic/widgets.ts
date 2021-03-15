@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import { BlockCoordinate, BlockFrame, BlockName } from '../../../../services/graphics/graphics-types';
-import { TopicType } from '../../../../services/tuples/topic-types';
+import { TopicKind, TopicType } from '../../../../services/tuples/topic-types';
 
 const STROKES: { [key in TopicType]: string } = {
-	[TopicType.SYSTEM]: 'var(--system-topic-color)',
 	[TopicType.DISTINCT]: 'var(--distinct-topic-color)',
 	[TopicType.RAW]: 'var(--raw-topic-color)',
 	[TopicType.TIME]: 'var(--time-topic-color)',
@@ -14,16 +13,18 @@ export const TopicContainer = styled.g.attrs<{ coordinate: BlockCoordinate }>(({
 	return { transform: `translate(${x}, ${y})` };
 })<{ coordinate: BlockCoordinate }>``;
 
-export const TopicBlock = styled.rect.attrs<{ frame: BlockFrame, dnd: boolean, topicType: TopicType }>(
-	({ frame: { x, y, width, height }, dnd, topicType }) => {
+export const TopicBlock = styled.rect.attrs<{ frame: BlockFrame, dnd: boolean, topicType: TopicType, topicKind: TopicKind }>(
+	({ frame: { x, y, width, height }, dnd, topicType, topicKind }) => {
 		return {
 			x, y, width, height, rx: 6, ry: 6,
 			cursor: dnd ? 'move' : 'pointer',
 			style: {
-				stroke: STROKES[topicType]
+				stroke: STROKES[topicType],
+				strokeDasharray: topicKind === TopicKind.SYSTEM ? '4 6' : (void 0),
+				strokeLinecap: topicKind === TopicKind.SYSTEM ? 'round' : (void 0)
 			}
 		};
-	})<{ frame: BlockFrame, dnd: boolean, topicType: TopicType }>`
+	})<{ frame: BlockFrame, dnd: boolean, topicType: TopicType, topicKind: TopicKind }>`
 	stroke       : var(--primary-color);
 	stroke-width : 2px;
 	fill         : var(--invert-color);
