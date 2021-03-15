@@ -1,5 +1,6 @@
 # watchmen-web-client
-Working with watchmen server side.  
+watchman-web-client is the front-end server for the watchmen data platform. Working with watchmen server side.  
+See the <a href="https://github.com/Indexical-Metrics-Measure-Advisory/watchmen-matryoshka-doll/">watchmen-matryoshka-doll</a> for deployment instructions and end user documentation.
 
 # An event based frontend
 Includes
