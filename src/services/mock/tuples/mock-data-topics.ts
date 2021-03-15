@@ -4,7 +4,7 @@ import { Topic, TopicKind, TopicType } from '../../tuples/topic-types';
 import { getCurrentTime } from '../../utils';
 
 export const Quotation: Topic = {
-	topicId: '1', name: 'Quotation', kind: TopicKind.SYSTEM, type: TopicType.DISTINCT,
+	topicId: '1', name: 'Quotation', kind: TopicKind.BUSINESS, type: TopicType.DISTINCT,
 	factors: [
 		{
 			factorId: '101',
