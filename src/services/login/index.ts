@@ -11,7 +11,6 @@ export const login = async (account: Account): Promise<LoginResponse> => {
 	if (isMockService()) {
 		return mockLogin(account);
 	} else {
-		console.log(getServiceHost());
 		const response = await doFetch(`${getServiceHost()}login/access-token`, {
 			method: 'POST',
 			headers: {

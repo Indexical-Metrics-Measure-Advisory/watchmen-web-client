@@ -5,7 +5,7 @@ import { TUPLE_SEARCH_PAGE_SIZE } from '../../basic-widgets/constants';
 import { useEventBus } from '../../events/event-bus';
 import { EventTypes } from '../../events/types';
 import { DataPage } from '../../services/query/data-page';
-import { fetchEnum, listEnums, saveEnum } from '../../services/tuples/enum';
+import { fetchEnum, listEnums, listEnumsForHolder, saveEnum } from '../../services/tuples/enum';
 import { Enum } from '../../services/tuples/enum-types';
 import { QueryEnum } from '../../services/tuples/query-enum-types';
 import { QueryTuple } from '../../services/tuples/tuple-types';
@@ -28,7 +28,10 @@ const AdminEnums = () => {
 	const { on, off, fire } = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateEnum = () => {
-			fire(TupleEventTypes.TUPLE_CREATED, createEnum());
+			const enumeration = createEnum();
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await listEnumsForHolder(),
+				(parents) => fire(TupleEventTypes.TUPLE_CREATED, enumeration, { parents }));
 		};
 		const onDoEditEnum = async (queryEnum: QueryEnum) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,

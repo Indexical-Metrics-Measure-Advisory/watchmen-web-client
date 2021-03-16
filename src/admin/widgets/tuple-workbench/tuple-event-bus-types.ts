@@ -33,9 +33,9 @@ export interface TupleEventBus {
 	on(type: TupleEventTypes.DO_CREATE_TUPLE, listener: () => void): this;
 	off(type: TupleEventTypes.DO_CREATE_TUPLE, listener: () => void): this;
 
-	fire<T extends Tuple>(type: TupleEventTypes.TUPLE_CREATED, tuple: T): this;
-	on<T extends Tuple>(type: TupleEventTypes.TUPLE_CREATED, listener: (tuple: T) => void): this;
-	off<T extends Tuple>(type: TupleEventTypes.TUPLE_CREATED, listener: (tuple: T) => void): this;
+	fire<T extends Tuple, HBT extends HoldByTuple>(type: TupleEventTypes.TUPLE_CREATED, tuple: T, codes?: HBT): this;
+	on<T extends Tuple, HBT extends HoldByTuple>(type: TupleEventTypes.TUPLE_CREATED, listener: (tuple: T, codes?: HBT) => void): this;
+	off<T extends Tuple, HBT extends HoldByTuple>(type: TupleEventTypes.TUPLE_CREATED, listener: (tuple: T, codes?: HBT) => void): this;
 
 	fire<T extends QueryTuple>(type: TupleEventTypes.DO_EDIT_TUPLE, tuple: T): this;
 	on<T extends QueryTuple>(type: TupleEventTypes.DO_EDIT_TUPLE, listener: (tuple: T) => void): this;

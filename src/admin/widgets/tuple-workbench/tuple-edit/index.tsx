@@ -29,9 +29,9 @@ export const TupleEdit = <T extends Tuple, HBT extends HoldByTuple>(props: {
 	const { once, on, off, fire } = useTupleEventBus();
 	const [ state, setState ] = useState<State<T, HBT>>({});
 	useEffect(() => {
-		const onTupleCreated = (tuple: T) => {
+		const onTupleCreated = (tuple: T, codes?: HBT) => {
 			fire(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.NONE);
-			setState({ tuple });
+			setState({ tuple, codes });
 		};
 		const onTupleLoaded = (tuple: T, codes?: HBT) => {
 			fire(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.NONE);
