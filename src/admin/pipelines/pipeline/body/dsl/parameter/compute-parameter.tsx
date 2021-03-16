@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
 import { v4 } from 'uuid';
-import { Parameter } from '../../../../../../services/tuples/factor-calculator-types';
+import { Parameter, ParameterComputeType } from '../../../../../../services/tuples/factor-calculator-types';
 import { isComputedParameter } from '../../../../../../services/tuples/factor-calculator-utils';
 import { Topic } from '../../../../../../services/tuples/topic-types';
 import { ComputeType, PropName, PropValue, Whitespace } from '../dsl-widgets';
+import { JointLine } from '../joint/joint';
 import { ParameterLines } from './index';
 
 export const ComputeParameterLine = (props: { parameter: Parameter, topicsMap: Map<string, Topic>, inList: boolean, indent: number }) => {
@@ -11,6 +12,39 @@ export const ComputeParameterLine = (props: { parameter: Parameter, topicsMap: M
 
 	if (!isComputedParameter(parameter)) {
 		return null;
+	}
+
+	if (parameter.type === ParameterComputeType.CASE_THEN) {
+		return <>
+			{inList ? null : <PropName indent={indent}>func</PropName>}
+			<ComputeType>case(</ComputeType>
+			{parameter.parameters.map((sub, subIndex, params) => {
+				return <Fragment key={v4()}>
+					{subIndex !== 0 ? <Whitespace/> : null}
+					{sub.conditional
+						? <>
+							<ComputeType>when</ComputeType>
+							<Whitespace/>
+							<JointLine joint={sub.on} topicsMap={topicsMap} indent={indent}/>
+							<Whitespace/>
+							<ComputeType>then</ComputeType>
+							<Whitespace/>
+							<ParameterLines parameter={sub} topicsMap={topicsMap}
+							                inList={true}
+							                indent={indent + 1}/>
+						</>
+						: <>
+							<ComputeType data-incorrect={subIndex !== params.length - 1}>else</ComputeType>
+							<Whitespace/>
+							<ParameterLines parameter={sub} topicsMap={topicsMap}
+							                inList={true}
+							                indent={indent + 1}/>
+						</>}
+				</Fragment>;
+			})}
+			<Whitespace/>
+			<ComputeType>end)</ComputeType>
+		</>;
 	}
 
 	return <>

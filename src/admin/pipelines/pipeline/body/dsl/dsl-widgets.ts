@@ -124,6 +124,10 @@ export const PropValue = styled.span.attrs<{ 'data-widget'?: string }>(({ 'data-
 			border-radius    : var(--border-radius);
 		}
 	}
+	&[data-incorrect=true] {
+		font-weight      : var(--font-boldest);
+		color            : red;
+	}
 `;
 export const TopicName = styled(PropValue).attrs({ 'data-widget': 'dsl-topic-name' })`
 	color           : var(--warn-color);
