@@ -1,6 +1,7 @@
 import { v4 } from 'uuid';
 import { ConnectedSpace } from './connected-space-types';
 import { Dashboard } from './dashboard-types';
+import { Enum } from './enum-types';
 import { Pipeline } from './pipeline-types';
 import { Report } from './report-types';
 import { Space } from './space-types';
@@ -43,6 +44,9 @@ export const isSubject = (tuple: Tuple): tuple is Subject => {
 export const isPipeline = (tuple: Tuple): tuple is Pipeline => {
 	return !!(tuple as any).pipelineId;
 };
+export const isEnum = (tuple: Tuple): tuple is Enum => {
+	return !!(tuple as any).enumId;
+};
 
 export const generateUuid = (): string => `${FAKE_ID_PREFIX}${v4().replace(/-/g, '')}`;
 export const isFakedUuid = (tuple: Tuple): boolean => {
@@ -68,7 +72,10 @@ export const isFakedUuid = (tuple: Tuple): boolean => {
 		return tuple.dashboardId.startsWith(FAKE_ID_PREFIX);
 	} else if (isSubject(tuple)) {
 		return tuple.subjectId.startsWith(FAKE_ID_PREFIX);
+	} else if (isEnum(tuple)) {
+		return tuple.enumId.startsWith(FAKE_ID_PREFIX);
 	}
+
 
 	console.groupCollapsed('Unsupported tuple type');
 	console.error(tuple);

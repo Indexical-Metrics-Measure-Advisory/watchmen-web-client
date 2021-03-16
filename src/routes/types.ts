@@ -3,6 +3,7 @@ export enum Router {
 
 	ADMIN = '/admin',
 	ADMIN_TOPICS = '/admin/topics',
+	ADMIN_ENUMS = '/admin/enums',
 	ADMIN_REPORTS = '/admin/reports',
 	ADMIN_SPACES = '/admin/space',
 	ADMIN_PIPELINE = '/admin/pipeline/:pipelineId',

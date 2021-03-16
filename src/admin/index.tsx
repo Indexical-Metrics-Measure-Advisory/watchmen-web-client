@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { Router } from '../routes/types';
+import AdminEnums from './enums';
 import { AdminMenu } from './menu';
 import AdminPipelines from './pipelines';
 import AdminReports from './reports';
@@ -27,6 +28,7 @@ const AdminIndex = () => {
 
 		<Switch>
 			<Route path={Router.ADMIN_TOPICS}><AdminMain><AdminTopics/></AdminMain></Route>
+			<Route path={Router.ADMIN_ENUMS}><AdminMain><AdminEnums/></AdminMain></Route>
 			<Route path={Router.ADMIN_REPORTS}><AdminMain><AdminReports/></AdminMain></Route>
 			<Route path={Router.ADMIN_SPACES}><AdminMain><AdminSpaces/></AdminMain></Route>
 			<Route path={Router.ADMIN_PIPELINES}><AdminPipelines/></Route>

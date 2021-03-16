@@ -34,7 +34,8 @@ import {
 	faLink,
 	faList,
 	faLock,
-	faLockOpen, faParagraph,
+	faLockOpen,
+	faParagraph,
 	faPlus,
 	faPrint,
 	faRandom,
@@ -44,7 +45,9 @@ import {
 	faSortAmountDown,
 	faSortAmountUpAlt,
 	faSpinner,
-	faStar, faStickyNote,
+	faStar,
+	faStickyNote,
+	faStream,
 	faTable,
 	faTachometerAlt,
 	faTags,
@@ -115,6 +118,7 @@ export const ICON_CONNECTED_SPACE = faDiceD20;
 export const ICON_SUBJECT = faTable;
 export const ICON_TOPIC = faTags;
 export const ICON_FACTOR = faList;
+export const ICON_ENUM = faStream;
 export const ICON_REPORT = faChartBar;
 export const ICON_PARAGRAPH = faParagraph;
 export const ICON_PIPELINE = faWaveSquare;
