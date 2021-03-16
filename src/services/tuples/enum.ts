@@ -34,14 +34,19 @@ export const fetchEnum = async (enumId: string): Promise<{ enumeration: Enum; pa
 };
 
 export const saveEnum = async (enumeration: Enum): Promise<void> => {
+	const { parentEnumId, ...rest } = enumeration;
+	const toSave: Enum = rest;
+	if (parentEnumId) {
+		toSave.parentEnumId = parentEnumId;
+	}
 	if (isMockService()) {
-		return saveMockEnum(enumeration);
+		return saveMockEnum(toSave);
 	} else if (isFakedUuid(enumeration)) {
 		// REMOTE use real api
-		return saveMockEnum(enumeration);
+		return saveMockEnum(toSave);
 	} else {
 		// REMOTE use real api
-		return saveMockEnum(enumeration);
+		return saveMockEnum(toSave);
 	}
 };
 

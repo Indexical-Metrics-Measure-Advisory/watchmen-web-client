@@ -14,6 +14,9 @@ export const EnumParentInput = (props: { enumeration: Enum, parents: Array<Query
 	const forceUpdate = useForceUpdate();
 	const onTypeChange = (option: DropdownOption) => {
 		enumeration.parentEnumId = option.value as string;
+		if (!enumeration.parentEnumId) {
+			delete enumeration.parentEnumId;
+		}
 		fire(EnumEventTypes.ENUM_PARENT_CHANGED, enumeration);
 		forceUpdate();
 	};
@@ -21,6 +24,7 @@ export const EnumParentInput = (props: { enumeration: Enum, parents: Array<Query
 	const options: Array<DropdownOption> = parents.map(candidate => {
 		return { value: candidate.enumId, label: candidate.name };
 	});
+	options.unshift({ value: '', label: 'No Parent' } as DropdownOption);
 
 	return <TuplePropertyDropdown value={enumeration.parentEnumId} options={options} onChange={onTypeChange}/>;
 };
