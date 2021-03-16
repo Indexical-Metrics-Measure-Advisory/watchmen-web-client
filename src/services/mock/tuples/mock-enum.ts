@@ -26,22 +26,36 @@ export const listMockEnums = async (options: {
 };
 
 export const fetchMockEnum = async (enumId: string): Promise<{ enumeration: Enum }> => {
-	const enumeration: Enum = {
-		enumId: '1',
-		name: 'Mock State',
-		items: [
-			{ code: '001', label: 'New York' },
-			{ code: '002', label: 'Maine' },
-			{ code: '003', label: 'New Hampshire' },
-			{ code: '004', label: 'Vermont' },
-			{ code: '005', label: 'Rhode Island' },
-			{ code: '006', label: 'Connecticut' },
-			{ code: '007', label: 'Massachusetts' }
-		],
-		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
-	};
-	return { enumeration };
+	if (enumId === '1') {
+		const enumeration: Enum = {
+			enumId: '1',
+			name: 'Mock State',
+			items: [
+				{ code: '001', label: 'New York' },
+				{ code: '002', label: 'Maine' },
+				{ code: '003', label: 'New Hampshire' },
+				{ code: '004', label: 'Vermont' },
+				{ code: '005', label: 'Rhode Island' },
+				{ code: '006', label: 'Connecticut' },
+				{ code: '007', label: 'Massachusetts' }
+			],
+			createTime: getCurrentTime(),
+			lastModifyTime: getCurrentTime()
+		};
+		return { enumeration };
+	} else {
+		const enumeration: Enum = {
+			enumId: '2',
+			name: 'Mock Country',
+			items: [
+				{ code: '001', label: 'United States' },
+				{ code: '002', label: 'Japan' }
+			],
+			createTime: getCurrentTime(),
+			lastModifyTime: getCurrentTime()
+		};
+		return { enumeration };
+	}
 };
 
 let newEnumId = 10000;

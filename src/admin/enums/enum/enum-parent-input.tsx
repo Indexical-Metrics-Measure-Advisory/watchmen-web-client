@@ -12,6 +12,7 @@ export const EnumParentInput = (props: { enumeration: Enum, parents: Array<Query
 
 	const { fire } = useEnumEventBus();
 	const forceUpdate = useForceUpdate();
+
 	const onTypeChange = (option: DropdownOption) => {
 		enumeration.parentEnumId = option.value as string;
 		if (!enumeration.parentEnumId) {
