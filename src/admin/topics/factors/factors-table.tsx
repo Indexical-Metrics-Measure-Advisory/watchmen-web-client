@@ -9,14 +9,6 @@ export const FactorsTable = (props: { topic: Topic }) => {
 	const { topic } = props;
 
 	return <FactorsTableContainer>
-		{/*<FactorsTableHeader>*/}
-		{/*	<FactorsTableHeaderCell>#</FactorsTableHeaderCell>*/}
-		{/*	<FactorsTableHeaderCell>Name</FactorsTableHeaderCell>*/}
-		{/*	<FactorsTableHeaderCell>Label</FactorsTableHeaderCell>*/}
-		{/*	<FactorsTableHeaderCell>Type</FactorsTableHeaderCell>*/}
-		{/*	<FactorsTableHeaderCell>Default Value</FactorsTableHeaderCell>*/}
-		{/*	<FactorsTableHeaderCell/>*/}
-		{/*</FactorsTableHeader>*/}
 		<FactorsTableBody topic={topic}/>
 		<FactorsTableFooter>
 			<FactorAddButton topic={topic}/>

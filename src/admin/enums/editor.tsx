@@ -6,6 +6,7 @@ import { EnumEventBusProvider } from './enum-event-bus';
 import { EnumDescriptionInput } from './enum/enum-description-input';
 import { EnumNameInput } from './enum/enum-name-input';
 import { EnumParentInput } from './enum/enum-parent-input';
+import { Items } from './items';
 import { HoldByEnum } from './types';
 
 const EnumEditor = (props: {
@@ -21,6 +22,7 @@ const EnumEditor = (props: {
 		<EnumParentInput enumeration={enumeration} parents={parents}/>
 		<TuplePropertyLabel>Description:</TuplePropertyLabel>
 		<EnumDescriptionInput enumeration={enumeration}/>
+		<Items enumeration={enumeration}/>
 	</EnumEventBusProvider>;
 };
 

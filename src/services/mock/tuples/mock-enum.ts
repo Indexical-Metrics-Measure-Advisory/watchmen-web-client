@@ -14,7 +14,7 @@ export const listMockEnums = async (options: {
 		setTimeout(() => {
 			resolve({
 				data: [ {
-					enumId: '1', name: 'Mock City', topicCount: 1, enumCount: 0
+					enumId: '1', name: 'Mock State', topicCount: 1, enumCount: 0
 				} ],
 				itemCount: 1,
 				pageNumber,
@@ -28,7 +28,16 @@ export const listMockEnums = async (options: {
 export const fetchMockEnum = async (enumId: string): Promise<{ enumeration: Enum }> => {
 	const enumeration: Enum = {
 		enumId: '1',
-		name: 'Mock City',
+		name: 'Mock State',
+		items: [
+			{ code: '001', label: 'New York' },
+			{ code: '002', label: 'Maine' },
+			{ code: '003', label: 'New Hampshire' },
+			{ code: '004', label: 'Vermont' },
+			{ code: '005', label: 'Rhode Island' },
+			{ code: '006', label: 'Connecticut' },
+			{ code: '007', label: 'Massachusetts' }
+		],
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()
 	};
@@ -50,8 +59,8 @@ export const listMockEnumsForHolder = async (): Promise<Array<QueryEnumForHolder
 		setTimeout(() => {
 			resolve(
 				[
-					{ enumId: '2', name: 'Mock Province' },
-					{ enumId: '1', name: 'Mock City' }
+					{ enumId: '2', name: 'Mock Country' },
+					{ enumId: '1', name: 'Mock State' }
 				]
 			);
 		}, 500);

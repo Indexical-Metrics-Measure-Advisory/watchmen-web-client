@@ -6,6 +6,7 @@ export const createEnum = (): Enum => {
 	return {
 		enumId: generateUuid(),
 		name: '',
+		items: [],
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()
 	};
