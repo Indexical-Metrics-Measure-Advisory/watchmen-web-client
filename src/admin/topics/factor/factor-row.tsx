@@ -1,8 +1,10 @@
 import React from 'react';
 import { Factor } from '../../../services/tuples/factor-types';
+import { QueryEnumForHolder } from '../../../services/tuples/query-enum-types';
 import { Topic } from '../../../services/tuples/topic-types';
 import { FactorButtons } from './factor-buttons';
 import { FactorDefaultValueCell } from './factor-default-value-cell';
+import { FactorEnumCell } from './factor-enum-cell';
 import { FactorLabelCell } from './factor-label-cell';
 import { FactorNameCell } from './factor-name-cell';
 import { FactorTypeCell } from './factor-type-cell';
@@ -11,8 +13,9 @@ import { FactorPropLabel, FactorRowContainer } from './widgets';
 export const FactorRow = (props: {
 	topic: Topic;
 	factor: Factor;
+	enums: Array<QueryEnumForHolder>;
 }) => {
-	const { topic, factor } = props;
+	const { topic, factor, enums } = props;
 
 	return <FactorRowContainer>
 		{/*<FactorSerialCell topic={topic} factor={factor}/>*/}
@@ -22,6 +25,7 @@ export const FactorRow = (props: {
 		<FactorLabelCell factor={factor}/>
 		<FactorPropLabel>Type</FactorPropLabel>
 		<FactorTypeCell topic={topic} factor={factor}/>
+		<FactorEnumCell factor={factor} enums={enums}/>
 		<FactorPropLabel>Default Value</FactorPropLabel>
 		<FactorDefaultValueCell factor={factor}/>
 		<FactorButtons topic={topic} factor={factor}/>

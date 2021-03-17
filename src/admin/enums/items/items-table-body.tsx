@@ -33,7 +33,7 @@ export const ItemsTableBody = (props: { enumeration: Enum }) => {
 		return () => {
 			off(EnumEventTypes.ENUM_PARENT_CHANGED, onParentChanged);
 		};
-	}, [ on, off ]);
+	}, [ on, off, enumeration.parentEnumId ]);
 
 	const parentItemMap: Map<string, string> = ((parent || { items: [] }).items as Array<EnumItem>).reduce((map, item) => {
 		map.set(item.code, item.label);

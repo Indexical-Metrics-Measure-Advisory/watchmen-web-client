@@ -117,6 +117,9 @@ export const FactorTypeCell = (props: { topic: Topic, factor: Factor }) => {
 
 	const onFactorTypeChange = (option: DropdownOption) => {
 		factor.type = option.value as FactorType;
+		if (factor.type !== FactorType.ENUM) {
+			delete factor.enumId;
+		}
 		forceUpdate();
 		fire(TopicEventTypes.FACTOR_TYPE_CHANGED, factor);
 	};

@@ -73,8 +73,9 @@ export enum FactorType {
 export interface Factor {
 	factorId: string;
 	name: string;
-	type: FactorType;
 	label: string;
+	type: FactorType;
+	enumId?: string;
 	defaultValue?: string;
 	description?: string;
 	createTime: string;

@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { useForceUpdate } from '../../../basic-widgets/utils';
+import { QueryEnumForHolder } from '../../../services/tuples/query-enum-types';
 import { Topic } from '../../../services/tuples/topic-types';
 import { FactorRow } from '../factor/factor-row';
 import { useTopicEventBus } from '../topic-event-bus';
 import { TopicEventTypes } from '../topic-event-bus-types';
 import { FactorsTableBodyContainer } from './widgets';
 
-export const FactorsTableBody = (props: { topic: Topic }) => {
-	const { topic } = props;
+export const FactorsTableBody = (props: { topic: Topic, enums: Array<QueryEnumForHolder> }) => {
+	const { topic, enums } = props;
 
 	const { on, off } = useTopicEventBus();
 	const forceUpdate = useForceUpdate();
@@ -24,7 +25,8 @@ export const FactorsTableBody = (props: { topic: Topic }) => {
 
 	return <FactorsTableBodyContainer>
 		{topic.factors.map(factor => {
-			return <FactorRow topic={topic} factor={factor} key={factor.factorId}/>;
+			return <FactorRow topic={topic} factor={factor} enums={enums}
+			                  key={factor.factorId}/>;
 		})}
 	</FactorsTableBodyContainer>;
 };

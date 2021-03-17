@@ -5,6 +5,7 @@ import { TUPLE_SEARCH_PAGE_SIZE } from '../../basic-widgets/constants';
 import { useEventBus } from '../../events/event-bus';
 import { EventTypes } from '../../events/types';
 import { DataPage } from '../../services/query/data-page';
+import { listEnumsForHolder } from '../../services/tuples/enum';
 import { FactorType } from '../../services/tuples/factor-types';
 import { QueryTopic } from '../../services/tuples/query-topic-types';
 import { fetchTopic, listTopics, saveTopic } from '../../services/tuples/topic';
@@ -19,7 +20,8 @@ import { createTopic } from './utils';
 
 const fetchTopicAndCodes = async (queryTopic: QueryTopic) => {
 	const { topic } = await fetchTopic(queryTopic.topicId);
-	return { tuple: topic };
+	const enums = await listEnumsForHolder();
+	return { tuple: topic, enums };
 };
 
 const getKeyOfTopic = (topic: QueryTopic) => topic.topicId;
@@ -28,13 +30,14 @@ const AdminTopics = () => {
 	const { once: onceGlobal, fire: fireGlobal } = useEventBus();
 	const { on, off, fire } = useTupleEventBus();
 	useEffect(() => {
-		const onDoCreateTopic = () => {
-			fire(TupleEventTypes.TUPLE_CREATED, createTopic());
+		const onDoCreateTopic = async () => {
+			const enums = await listEnumsForHolder();
+			fire(TupleEventTypes.TUPLE_CREATED, createTopic(), { enums });
 		};
 		const onDoEditTopic = async (queryTopic: QueryTopic) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await fetchTopicAndCodes(queryTopic),
-				({ tuple }) => fire(TupleEventTypes.TUPLE_LOADED, tuple));
+				({ tuple, enums }) => fire(TupleEventTypes.TUPLE_LOADED, tuple, { enums }));
 		};
 		const onDoSearchTopic = async (searchText: string, pageNumber: number) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
