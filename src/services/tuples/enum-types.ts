@@ -3,6 +3,7 @@ import { Tuple } from './tuple-types';
 export interface EnumItem {
 	code: string;
 	label: string;
+	replaceCode?: string;
 	parentCode?: string;
 }
 

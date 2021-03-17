@@ -48,6 +48,7 @@ export const ItemsTableBody = (props: { enumeration: Enum }) => {
 				<ItemsTableBodyCell>{itemIndex + 1}</ItemsTableBodyCell>
 				<ItemsTableBodyCell>{item.code}</ItemsTableBodyCell>
 				<ItemsTableBodyCell>{item.label}</ItemsTableBodyCell>
+				<ItemsTableBodyCell>{item.replaceCode}</ItemsTableBodyCell>
 				<ItemsTableBodyCell>{parentLabel}</ItemsTableBodyCell>
 			</ItemsTableBodyRow>;
 		})}

@@ -1,8 +1,8 @@
-code,label,parentCode
-001,New York,001
-002,Maine,001
-003,New Hampshire,001
-004,Vermont,001
-005,Rhode Island,001
-006,Connecticut,001
-007,Massachusetts,001
+code,label,replaceCode,parentCode
+001,New York,NY,001
+002,Maine,ME,001
+003,New Hampshire,NH,001
+004,Vermont,VT,001
+005,Rhode Island,RL,001
+006,Connecticut,CT,001
+007,Massachusetts,MA,001

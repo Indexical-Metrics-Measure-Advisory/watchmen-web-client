@@ -3,7 +3,7 @@ import { HEADER_HEIGHT } from '../../../basic-widgets/constants';
 
 const FACTORS_TABLE_HEADER_HEIGHT = HEADER_HEIGHT;
 const FACTORS_TABLE_FOOTER_HEIGHT = HEADER_HEIGHT;
-const GRID_COLUMNS = '64px 150px 1fr 150px';
+const GRID_COLUMNS = '64px 150px 1fr 150px 150px';
 
 export const ItemsTableContainer = styled.div.attrs({ 'data-widget': 'enum-items-table' })`
 	grid-column    : span 2;
