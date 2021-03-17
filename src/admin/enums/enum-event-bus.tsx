@@ -20,7 +20,7 @@ export const EnumEventBusProvider = (props: { children?: ((props: any) => React.
 		},
 		on: (type: string, listener: (...data: any) => void): EnumEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
-				console.error(`Listener on [${type}] was added into topic event bus, check it.`);
+				console.error(`Listener on [${type}] was added into enum event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;

@@ -2,7 +2,7 @@ import EventEmitter from 'events';
 import React, { useContext, useState } from 'react';
 import { useTupleEventBus } from '../widgets/tuple-workbench/tuple-event-bus';
 import { TupleEventTypes, TupleState } from '../widgets/tuple-workbench/tuple-event-bus-types';
-import { TopicEventBus } from './topic-event-bus-types';
+import { TopicEventBus, TopicEventTypes } from './topic-event-bus-types';
 
 const Context = React.createContext<TopicEventBus>({} as TopicEventBus);
 Context.displayName = 'TopicEventBus';
@@ -14,7 +14,9 @@ export const TopicEventBusProvider = (props: { children?: ((props: any) => React
 	const [ emitter ] = useState(new EventEmitter().setMaxListeners(999999));
 	const [ bus ] = useState<TopicEventBus>({
 		fire: (type: string, ...data: any): TopicEventBus => {
-			fire(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.CHANGED);
+			if (type !== TopicEventTypes.FACTOR_SEARCH_TEXT_CHANGED) {
+				fire(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.CHANGED);
+			}
 			emitter.emit(type, ...data);
 			return bus;
 		},

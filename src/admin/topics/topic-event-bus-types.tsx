@@ -18,7 +18,9 @@ export enum TopicEventTypes {
 	FACTOR_INDEX_GROUP_CHANGED = 'factor-index-group-changed',
 	FACTOR_DEFAULT_VALUE_CHANGED = 'factor-default-value-changed',
 	FACTOR_DESCRIPTION_CHANGE = 'factor-description-changed',
-	FACTOR_VALUE_RULE_CHANGED = 'factor-value-rule-changed'
+	FACTOR_VALUE_RULE_CHANGED = 'factor-value-rule-changed',
+
+	FACTOR_SEARCH_TEXT_CHANGED = 'factor-search-text-changed'
 }
 
 export interface TopicEventBus {
@@ -81,4 +83,8 @@ export interface TopicEventBus {
 	fire(type: TopicEventTypes.FACTOR_VALUE_RULE_CHANGED, factor: Factor): this;
 	on(type: TopicEventTypes.FACTOR_VALUE_RULE_CHANGED, listener: (factor: Factor) => void): this;
 	off(type: TopicEventTypes.FACTOR_VALUE_RULE_CHANGED, listener: (factor: Factor) => void): this;
+
+	fire(type: TopicEventTypes.FACTOR_SEARCH_TEXT_CHANGED, topic: Topic, searchText: string): this;
+	on(type: TopicEventTypes.FACTOR_SEARCH_TEXT_CHANGED, listener: (topic: Topic, searchText: string) => void): this;
+	off(type: TopicEventTypes.FACTOR_SEARCH_TEXT_CHANGED, listener: (topic: Topic, searchText: string) => void): this;
 }
