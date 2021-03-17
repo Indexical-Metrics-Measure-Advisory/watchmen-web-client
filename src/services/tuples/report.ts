@@ -1,7 +1,7 @@
 import { findToken } from "../account";
 import { deleteMockReport, listMockReports, saveMockReport } from "../mock/tuples/mock-report";
 import { DataPage } from "../query/data-page";
-import { doFetch, getServiceHost, isMockService } from '../utils';
+import { doFetch, getServiceHost, isMockService } from "../utils";
 import { QueryReport } from "./query-report-types";
 import { Report } from "./report-types";
 import { isFakedUuid } from "./utils";
@@ -11,13 +11,22 @@ export const listReports = async (options: {
 	pageNumber?: number;
 	pageSize?: number;
 }): Promise<DataPage<QueryReport>> => {
-	// const { search = '', pageNumber = 1, pageSize = 9 } = options;
+	const { search = "", pageNumber = 1, pageSize = 9 } = options;
 
 	if (isMockService()) {
 		return listMockReports(options);
 	} else {
-		// REMOTE use real api
-		return listMockReports(options);
+		const token = findToken();
+		const response = await doFetch(`${getServiceHost()}report/name?query_name=${search}`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
+			},
+			body: JSON.stringify({ pageNumber, pageSize }),
+		});
+
+		return await response.json();
 	}
 };
 
