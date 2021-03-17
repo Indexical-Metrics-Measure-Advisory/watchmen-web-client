@@ -30,6 +30,7 @@ export const fetchMockEnum = async (enumId: string): Promise<{ enumeration: Enum
 		const enumeration: Enum = {
 			enumId: '1',
 			name: 'Mock State',
+			parentEnumId: '2',
 			items: [
 				{ code: '001', label: 'New York' },
 				{ code: '002', label: 'Maine' },

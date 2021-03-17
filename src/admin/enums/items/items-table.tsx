@@ -10,7 +10,7 @@ export const ItemsTable = (props: { enumeration: Enum }) => {
 	const { enumeration } = props;
 
 	return <ItemsTableContainer>
-		<ItemsTableHeader/>
+		<ItemsTableHeader enumeration={enumeration}/>
 		<ItemsTableBody enumeration={enumeration}/>
 		<ItemsTableFooter>
 			<ItemsImportButton enumeration={enumeration}/>

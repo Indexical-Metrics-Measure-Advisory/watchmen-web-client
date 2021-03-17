@@ -27,6 +27,6 @@ const EnumEditor = (props: {
 };
 
 export const renderEditor = (enumeration: Enum, codes?: HoldByEnum) => {
-	const parents = (codes?.parents || []).filter(parent => parent.enumId !== enumeration.parentEnumId);
+	const parents = (codes?.parents || []);
 	return <EnumEditor enumeration={enumeration} parents={parents}/>;
 };

@@ -2,7 +2,7 @@ import EventEmitter from 'events';
 import React, { useContext, useState } from 'react';
 import { useTupleEventBus } from '../widgets/tuple-workbench/tuple-event-bus';
 import { TupleEventTypes, TupleState } from '../widgets/tuple-workbench/tuple-event-bus-types';
-import { EnumEventBus } from './enum-event-bus-types';
+import { EnumEventBus, EnumEventTypes } from './enum-event-bus-types';
 
 const Context = React.createContext<EnumEventBus>({} as EnumEventBus);
 Context.displayName = 'EnumEventBus';
@@ -14,7 +14,9 @@ export const EnumEventBusProvider = (props: { children?: ((props: any) => React.
 	const [ emitter ] = useState(new EventEmitter().setMaxListeners(999999));
 	const [ bus ] = useState<EnumEventBus>({
 		fire: (type: string, ...data: any): EnumEventBus => {
-			fire(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.CHANGED);
+			if (type !== EnumEventTypes.ITEM_SEARCH_TEXT_CHANGED) {
+				fire(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.CHANGED);
+			}
 			emitter.emit(type, ...data);
 			return bus;
 		},

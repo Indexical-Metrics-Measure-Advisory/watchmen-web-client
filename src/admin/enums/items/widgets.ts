@@ -23,10 +23,24 @@ export const ItemsTableHeaderContainer = styled.div.attrs({
 	display               : grid;
 	position              : relative;
 	grid-template-columns : ${GRID_COLUMNS};
-	height                : ${FACTORS_TABLE_HEADER_HEIGHT}px;
+	grid-template-rows    : var(--height) ${FACTORS_TABLE_HEADER_HEIGHT}px;
+	align-items           : center;
 	margin                : 0 calc(var(--margin) / -2);
 	padding               : 0 calc(var(--margin) / 2);
 	border-bottom         : var(--border);
+	> svg {
+		margin-left: calc(var(--margin) / -2);
+		min-width : var(--margin);
+	}
+	> input {
+		grid-column   : 2 / span 4;
+		margin-left   : calc(-64px + var(--margin) / -2);
+		padding-left  : var(--margin);
+		border-radius : 0;
+		border        : 0;
+		border-bottom : var(--border);
+		width         : calc(100% + 64px + var(--margin));
+	}
 `;
 export const ItemsTableHeaderCell = styled.div.attrs({
 	'data-widget': 'enum-items-table-header-cell',
