@@ -1,6 +1,7 @@
 import { ChartType } from '../chart-types';
 import { ECharts, EChartsSettings } from '../echarts/echarts-types';
 import { ChartDef } from './chart-def-types';
+import { ChartTruncationHolder } from './truncation';
 
 export const BAR: ChartDef = {
 	type: ChartType.BAR,
@@ -14,7 +15,7 @@ export const BAR: ChartDef = {
 	canUseYAxis: true
 };
 
-export interface BarChartSettings extends EChartsSettings {
+export interface BarChartSettings extends ChartTruncationHolder, EChartsSettings {
 }
 
 export interface BarChart extends ECharts {

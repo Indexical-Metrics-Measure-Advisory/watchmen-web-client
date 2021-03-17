@@ -2,6 +2,7 @@ import { CountChartStylePropNames } from '../chart-styles/count-chart-style-prop
 import { MapChartStylePropNames } from '../chart-styles/map-chart-style-props';
 import { PieChartStylePropNames } from '../chart-styles/pie-chart-style-props';
 import { TreeChartStylePropNames } from '../chart-styles/tree-chart-style-props';
+import { TruncationChartStylePropNames } from '../chart-styles/truncation-chart-style-props';
 import { EChartsGridPropNames } from '../echart-styles/echarts-grid-props';
 import { EChartsLegendPropNames } from '../echart-styles/echarts-legend-props';
 import { EChartsTitlePropNames } from '../echart-styles/echarts-title-props';
@@ -76,4 +77,6 @@ export type DropdownPropNames =
 	| EChartsYAxisPropNames.LABEL_HORIZONTAL_ALIGN
 	| EChartsYAxisPropNames.LABEL_VERTICAL_ALIGN
 	| EChartsYAxisPropNames.SPLIT_LINE_STYLE
-	| EChartsYAxisPropNames.MINOR_SPLIT_LINE_STYLE;
+	| EChartsYAxisPropNames.MINOR_SPLIT_LINE_STYLE
+
+	| TruncationChartStylePropNames.TRUNCATION_TYPE;

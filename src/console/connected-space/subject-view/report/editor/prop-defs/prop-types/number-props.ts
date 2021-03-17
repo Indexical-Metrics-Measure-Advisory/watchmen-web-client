@@ -3,6 +3,7 @@ import { MapChartStylePropNames } from '../chart-styles/map-chart-style-props';
 import { PieChartStylePropNames } from '../chart-styles/pie-chart-style-props';
 import { TreeChartStylePropNames } from '../chart-styles/tree-chart-style-props';
 import { TreemapChartStylePropNames } from '../chart-styles/treemap-chart-style-props';
+import { TruncationChartStylePropNames } from '../chart-styles/truncation-chart-style-props';
 import { EChartsGridPropNames } from '../echart-styles/echarts-grid-props';
 import { EChartsLegendPropNames } from '../echart-styles/echarts-legend-props';
 import { EChartsTitlePropNames } from '../echart-styles/echarts-title-props';
@@ -100,4 +101,6 @@ export type NumberPropNames =
 	| EChartsYAxisPropNames.LABEL_ROTATE
 	| EChartsYAxisPropNames.LABEL_PADDING
 	| EChartsYAxisPropNames.SPLIT_LINE_WIDTH
-	| EChartsYAxisPropNames.MINOR_SPLIT_LINE_WIDTH;
+	| EChartsYAxisPropNames.MINOR_SPLIT_LINE_WIDTH
+
+	| TruncationChartStylePropNames.TRUNCATION_COUNT;

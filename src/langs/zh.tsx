@@ -314,6 +314,7 @@ export const Zh = {
 		PAGES: '页'
 	},
 	CHART: {
+		SETTINGS_HEADER_LABEL: '图表设置',
 		SECTION_TITLE_SIZE: '尺寸',
 		SECTION_TITLE_BASIC_STYLE: '基本样式',
 		SECTION_TITLE_DIMENSIONS: '统计维度',
@@ -409,6 +410,11 @@ export const Zh = {
 		MAP_REGION: '地区',
 		MAP_REGION_JAPAN_L1: '日本 (县)',
 		MAP_REGION_USA_L1: '美国 (州)',
+		TRUNCATION_TYPE: '类型',
+		TRUNCATION_NONE: '无',
+		TRUNCATION_TOP: '最高(大)',
+		TRUNCATION_BOTTOM: '最低(小)',
+		TRUNCATION_COUNT: '数量',
 		SECTION_TITLE_COUNT_CHART: '数字统计样式',
 		SECTION_TITLE_PIE_CHART: '饼样式',
 		SECTION_TITLE_TREE_CHART: '树样式',
@@ -430,6 +436,7 @@ export const Zh = {
 		SECTION_TITLE_ECHART_YAXIS_LABEL: '纵轴标签',
 		SECTION_TITLE_ECHART_YAXIS_LINE: '纵轴分隔线',
 		SECTION_TITLE_ECHART_YAXIS_MINOR_LINE: '横轴次级分隔线',
+		SECTION_TITLE_TRUNCATION: '数据截取',
 		NONAME_COLUMN: '未命名列',
 		UNKNOWN_COLUMN_NAME: '未知列',
 		CAN_NOT_DELETE_DIMENSION: '已达到图表要求的最少维度个数, 因此不能删除本维度.',

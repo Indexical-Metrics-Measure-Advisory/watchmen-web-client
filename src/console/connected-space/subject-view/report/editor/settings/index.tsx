@@ -50,7 +50,7 @@ export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject:
 	return <>
 		<SettingsContainer width={resizeState.width} ref={containerRef}>
 			<SettingsHeader>
-				<SettingsHeaderTitle>{report.name || 'Report Edit'}</SettingsHeaderTitle>
+				<SettingsHeaderTitle>{report.name || Lang.CHART.SETTINGS_HEADER_LABEL}</SettingsHeaderTitle>
 				<SettingsHeaderButton
 					tooltip={{
 						label: Lang.CONSOLE.CONNECTED_SPACE.EXPAND_REPORT_SETTINGS_SECTIONS,

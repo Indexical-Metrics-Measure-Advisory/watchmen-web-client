@@ -3,6 +3,7 @@ import { EChartsBorderHolder } from '../echarts/echarts-border-type';
 import { EChartsGridPositionOnly } from '../echarts/echarts-grid-types';
 import { ECharts, EChartsSettings } from '../echarts/echarts-types';
 import { ChartDef } from './chart-def-types';
+import { ChartTruncationHolder } from './truncation';
 
 export const PIE: ChartDef = {
 	type: ChartType.PIE,
@@ -32,7 +33,7 @@ export interface PieChartSettingsSeries extends EChartsBorderHolder {
 	showPercentage?: boolean;
 }
 
-export interface PieChartSettings extends EChartsSettings {
+export interface PieChartSettings extends ChartTruncationHolder, EChartsSettings {
 	series?: PieChartSettingsSeries;
 	grid?: EChartsGridPositionOnly;
 }

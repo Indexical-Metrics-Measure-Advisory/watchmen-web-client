@@ -314,6 +314,7 @@ export const En = {
 		PAGES: 'Pages'
 	},
 	CHART: {
+		SETTINGS_HEADER_LABEL: 'Report Settings',
 		SECTION_TITLE_SIZE: 'Size',
 		SECTION_TITLE_BASIC_STYLE: 'Basic Style',
 		SECTION_TITLE_DIMENSIONS: 'Dimensions',
@@ -409,6 +410,11 @@ export const En = {
 		MAP_REGION: 'Region',
 		MAP_REGION_JAPAN_L1: 'Japan (Prefecture)',
 		MAP_REGION_USA_L1: 'United States (State)',
+		TRUNCATION_TYPE: 'Type',
+		TRUNCATION_NONE: 'None',
+		TRUNCATION_TOP: 'Top',
+		TRUNCATION_BOTTOM: 'Bottom',
+		TRUNCATION_COUNT: 'Count',
 		SECTION_TITLE_COUNT_CHART: 'Count Style',
 		SECTION_TITLE_PIE_CHART: 'Pie Style',
 		SECTION_TITLE_TREE_CHART: 'Tree Style',
@@ -430,6 +436,7 @@ export const En = {
 		SECTION_TITLE_ECHART_YAXIS_LABEL: 'Y-Axis Label',
 		SECTION_TITLE_ECHART_YAXIS_LINE: 'Y-Axis Split Line',
 		SECTION_TITLE_ECHART_YAXIS_MINOR_LINE: 'Y-Axis Minor Split Line',
+		SECTION_TITLE_TRUNCATION: 'Data Truncation',
 		NONAME_COLUMN: 'Noname Column',
 		UNKNOWN_COLUMN_NAME: 'Unknown Column',
 		CAN_NOT_DELETE_DIMENSION: 'Cannot delete this because of reach minimum dimension(s).',

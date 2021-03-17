@@ -314,6 +314,7 @@ export const Jp = {
 		PAGES: 'ページ'
 	},
 	CHART: {
+		SETTINGS_HEADER_LABEL: 'Report Settings',  // new
 		SECTION_TITLE_SIZE: 'サイズ',
 		SECTION_TITLE_BASIC_STYLE: '基本スタイル',
 		SECTION_TITLE_DIMENSIONS: 'ディメンション',
@@ -409,6 +410,11 @@ export const Jp = {
 		MAP_REGION: '地域',
 		MAP_REGION_JAPAN_L1: '日本 (県/都/府)',
 		MAP_REGION_USA_L1: '米国 (州)',
+		TRUNCATION_TYPE: 'Type',  // new
+		TRUNCATION_NONE: 'None',  // new
+		TRUNCATION_TOP: 'Top',  // new
+		TRUNCATION_BOTTOM: 'Bottom',  // new
+		TRUNCATION_COUNT: 'Count',  // new
 		SECTION_TITLE_COUNT_CHART: '特定スタイル',
 		SECTION_TITLE_PIE_CHART: '特定スタイル',
 		SECTION_TITLE_TREE_CHART: 'ツリースタイル',
@@ -430,6 +436,7 @@ export const Jp = {
 		SECTION_TITLE_ECHART_YAXIS_LABEL: 'Y軸のレベル',
 		SECTION_TITLE_ECHART_YAXIS_LINE: 'Y軸の分割線',
 		SECTION_TITLE_ECHART_YAXIS_MINOR_LINE: 'Y軸のマイナー分割線',
+		SECTION_TITLE_TRUNCATION: 'Data Truncation',  // new
 		NONAME_COLUMN: 'ノーネームカラム',
 		UNKNOWN_COLUMN_NAME: '不明なカラム',
 		CAN_NOT_DELETE_DIMENSION: 'ディメンションの最小限に達したため、削除できません。',
