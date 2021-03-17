@@ -3,7 +3,7 @@ import { Lang } from '../../../../../../langs';
 import {
 	isBarChart,
 	isDoughnutChart,
-	isLineChart,
+	isLineChart, isNightingaleChart,
 	isPieChart,
 	isSunburstChart
 } from '../../../../../../services/tuples/chart-utils';
@@ -26,6 +26,7 @@ export const ChartTruncationSettings = (props: { report: Report }) => {
 		&& !isLineChart(chart)
 		&& !isPieChart(chart)
 		&& !isDoughnutChart(chart)
+		&& !isNightingaleChart(chart)
 		&& !isSunburstChart(chart)) {
 		return null;
 	}
