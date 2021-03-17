@@ -15,6 +15,7 @@ export enum TopicEventTypes {
 	FACTOR_LABEL_CHANGED = 'factor-label-changed',
 	FACTOR_TYPE_CHANGED = 'factor-type-changed',
 	FACTOR_ENUM_CHANGED = 'factor-enum-changed',
+	FACTOR_INDEX_GROUP_CHANGED = 'factor-index-group-changed',
 	FACTOR_DEFAULT_VALUE_CHANGED = 'factor-default-value-changed',
 	FACTOR_DESCRIPTION_CHANGE = 'factor-description-changed',
 	FACTOR_VALUE_RULE_CHANGED = 'factor-value-rule-changed'
@@ -64,6 +65,10 @@ export interface TopicEventBus {
 	fire(type: TopicEventTypes.FACTOR_ENUM_CHANGED, factor: Factor): this;
 	on(type: TopicEventTypes.FACTOR_ENUM_CHANGED, listener: (factor: Factor) => void): this;
 	off(type: TopicEventTypes.FACTOR_ENUM_CHANGED, listener: (factor: Factor) => void): this;
+
+	fire(type: TopicEventTypes.FACTOR_INDEX_GROUP_CHANGED, factor: Factor): this;
+	on(type: TopicEventTypes.FACTOR_INDEX_GROUP_CHANGED, listener: (factor: Factor) => void): this;
+	off(type: TopicEventTypes.FACTOR_INDEX_GROUP_CHANGED, listener: (factor: Factor) => void): this;
 
 	fire(type: TopicEventTypes.FACTOR_DEFAULT_VALUE_CHANGED, factor: Factor): this;
 	on(type: TopicEventTypes.FACTOR_DEFAULT_VALUE_CHANGED, listener: (factor: Factor) => void): this;

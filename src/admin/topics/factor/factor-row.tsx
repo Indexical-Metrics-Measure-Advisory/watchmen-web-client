@@ -5,6 +5,7 @@ import { Topic } from '../../../services/tuples/topic-types';
 import { FactorButtons } from './factor-buttons';
 import { FactorDefaultValueCell } from './factor-default-value-cell';
 import { FactorEnumCell } from './factor-enum-cell';
+import { FactorIndexGroupCell } from './factor-index-group-cell';
 import { FactorLabelCell } from './factor-label-cell';
 import { FactorNameCell } from './factor-name-cell';
 import { FactorTypeCell } from './factor-type-cell';
@@ -28,6 +29,8 @@ export const FactorRow = (props: {
 		<FactorEnumCell factor={factor} enums={enums}/>
 		<FactorPropLabel>Default Value</FactorPropLabel>
 		<FactorDefaultValueCell factor={factor}/>
+		<FactorPropLabel>Index Group</FactorPropLabel>
+		<FactorIndexGroupCell factor={factor}/>
 		<FactorButtons topic={topic} factor={factor}/>
 	</FactorRowContainer>;
 };

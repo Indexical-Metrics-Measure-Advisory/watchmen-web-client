@@ -77,6 +77,7 @@ export interface Factor {
 	type: FactorType;
 	enumId?: string;
 	defaultValue?: string;
+	indexGroup?: string;
 	description?: string;
 	createTime: string;
 	lastModifyTime: string;
