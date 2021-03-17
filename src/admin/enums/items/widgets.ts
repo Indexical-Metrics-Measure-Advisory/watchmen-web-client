@@ -29,8 +29,8 @@ export const ItemsTableHeaderContainer = styled.div.attrs({
 	padding               : 0 calc(var(--margin) / 2);
 	border-bottom         : var(--border);
 	> svg {
-		margin-left: calc(var(--margin) / -2);
-		min-width : var(--margin);
+		margin-left : calc(var(--margin) / -2);
+		min-width   : var(--margin);
 	}
 	> input {
 		grid-column   : 2 / span 4;
@@ -40,6 +40,9 @@ export const ItemsTableHeaderContainer = styled.div.attrs({
 		border        : 0;
 		border-bottom : var(--border);
 		width         : calc(100% + 64px + var(--margin));
+		&::placeholder {
+			font-variant : petite-caps;
+		}
 	}
 `;
 export const ItemsTableHeaderCell = styled.div.attrs({
@@ -78,15 +81,29 @@ export const ItemsTableBodyRow = styled.div.attrs({
 		background-color : var(--grid-rib-bg-color);
 	}
 `;
-export const ItemsTableBodyCell = styled.div.attrs({
-	'data-widget': 'enum-items-table-body-cell',
-	'data-v-scroll': ''
-})`
+export const ItemsTableBodyCell = styled.div.attrs({ 'data-widget': 'enum-items-table-body-cell' })`
 	display       : flex;
 	align-items   : center;
 	white-space   : nowrap;
 	overflow-x    : hidden;
 	text-overflow : ellipsis;
+`;
+export const ItemsTableBodyPageableContainer = styled.div.attrs({ 'data-widget': 'enum-items-table-body-pageable' })`
+	display     : flex;
+	position    : relative;
+	align-items : center;
+	height      : calc(${FACTORS_TABLE_FOOTER_HEIGHT}px * 1.5);
+	margin      : 0 calc(var(--margin) / -2);
+	> span {
+		margin-right : calc(var(--margin) / 2);
+		font-variant : petite-caps;
+	}
+	> div[data-widget=dropdown] {
+		width : 150px;
+		//border        : 0;
+		//border-bottom : var(--border);
+		//border-radius : 0;
+	}
 `;
 
 export const ItemsTableFooter = styled.div.attrs({ 'data-widget': 'enum-items-table-footer' })`

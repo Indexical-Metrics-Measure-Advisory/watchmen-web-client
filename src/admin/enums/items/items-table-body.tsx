@@ -1,17 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
+import { Dropdown } from '../../../basic-widgets/dropdown';
+import { DropdownOption } from '../../../basic-widgets/types';
 import { useForceUpdate } from '../../../basic-widgets/utils';
 import { fetchEnum } from '../../../services/tuples/enum';
 import { Enum, EnumItem } from '../../../services/tuples/enum-types';
 import { useEnumEventBus } from '../enum-event-bus';
 import { EnumEventTypes } from '../enum-event-bus-types';
-import { ItemsTableBodyCell, ItemsTableBodyContainer, ItemsTableBodyRow } from './widgets';
+import {
+	ItemsTableBodyCell,
+	ItemsTableBodyContainer,
+	ItemsTableBodyPageableContainer,
+	ItemsTableBodyRow
+} from './widgets';
+
+interface EnumItemDelegate extends EnumItem {
+	parentLabel?: string;
+	original: EnumItem
+}
+
+const PAGE_SIZE = 100;
 
 const filterBy = (
-	items: Array<EnumItem & { parentLabel?: string }>,
+	items: Array<EnumItemDelegate>,
 	text: string,
-	getValue: (item: EnumItem & { parentLabel?: string }) => string
-): Array<EnumItem & { parentLabel?: string }> => {
+	getValue: (item: EnumItemDelegate) => string
+): Array<EnumItemDelegate> => {
 	if (text.length === 0) {
 		return items;
 	}
@@ -25,7 +39,7 @@ const filterBy = (
 		}
 	});
 };
-const filterItems = (items: Array<EnumItem & { parentLabel?: string }>, search: string): Array<EnumItem & { parentLabel?: string }> => {
+const filterItems = (items: Array<EnumItemDelegate>, search: string): Array<EnumItemDelegate> => {
 	items = items || [];
 	const text = (search || '').trim();
 	switch (true) {
@@ -60,6 +74,7 @@ export const ItemsTableBody = (props: { enumeration: Enum }) => {
 	const { enumeration } = props;
 
 	const { on, off } = useEnumEventBus();
+	const [ pageNumber, setPageNumber ] = useState(1);
 	const [ searchText, setSearchText ] = useState('');
 	const [ parent, setParent ] = useState<Enum | null>(null);
 	const forceUpdate = useForceUpdate();
@@ -106,25 +121,46 @@ export const ItemsTableBody = (props: { enumeration: Enum }) => {
 		})();
 	}, [ enumeration ]);
 
+	const onPageNumberChange = (option: DropdownOption) => {
+		const { value } = option;
+		setPageNumber(value);
+	};
+
 	const parentItemMap: Map<string, string> = ((parent || { items: [] }).items as Array<EnumItem>).reduce((map, item) => {
 		map.set(item.code, item.label);
 		return map;
 	}, new Map<string, string>());
 
+	let items = filterItems((enumeration.items || []).map<EnumItemDelegate>((item: EnumItem) => {
+		return {
+			...item,
+			parentLabel: (item.parentCode && parent) ? `${item.parentCode} - ${(parentItemMap.get(item.parentCode) || '')}` : item.parentCode,
+			original: item
+		};
+	}), searchText);
+	const count = items.length;
+	// get items of current page
+	items = items.slice((pageNumber - 1) * PAGE_SIZE, pageNumber * PAGE_SIZE);
+	const pages = Math.ceil(count / PAGE_SIZE);
+	const pageOptions: Array<DropdownOption> = new Array(pages).fill(1).map((value, index) => {
+		return { value: index + 1, label: `${index + 1}` };
+	});
+
 	return <ItemsTableBodyContainer>
-		{filterItems((enumeration.items || []).map<EnumItem & { parentLabel?: string }>((item: EnumItem) => {
-			return {
-				...item,
-				parentLabel: (item.parentCode && parent) ? `${item.parentCode} - ${(parentItemMap.get(item.parentCode) || '')}` : item.parentCode
-			};
-		}), searchText).map((item, itemIndex) => {
+		{items.map(item => {
 			return <ItemsTableBodyRow key={v4()}>
-				<ItemsTableBodyCell>{itemIndex + 1}</ItemsTableBodyCell>
+				<ItemsTableBodyCell>{enumeration.items.indexOf(item.original) + 1}</ItemsTableBodyCell>
 				<ItemsTableBodyCell>{item.code}</ItemsTableBodyCell>
 				<ItemsTableBodyCell>{item.label}</ItemsTableBodyCell>
 				<ItemsTableBodyCell>{item.replaceCode}</ItemsTableBodyCell>
 				<ItemsTableBodyCell>{item.parentLabel}</ItemsTableBodyCell>
 			</ItemsTableBodyRow>;
 		})}
+		{pages > 1
+			? <ItemsTableBodyPageableContainer>
+				<span>Page: </span>
+				<Dropdown value={pageNumber} options={pageOptions} onChange={onPageNumberChange}/>
+			</ItemsTableBodyPageableContainer>
+			: null}
 	</ItemsTableBodyContainer>;
 };

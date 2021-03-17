@@ -32,6 +32,9 @@ export const FactorsTableHeaderContainer = styled.div.attrs({ 'data-widget': 'fa
 		border        : 0;
 		border-bottom : var(--border);
 		width         : 100%;
+		&::placeholder {
+			font-variant : petite-caps;
+		}
 	}
 `;
 export const FactorsTableBodyContainer = styled.div.attrs({ 'data-widget': 'factors-table-body' })`
