@@ -1,6 +1,6 @@
 import { ChartType } from '../chart-types';
 import { ECharts } from '../echarts/echarts-types';
-import { BarChartSettings } from './chart-bar';
+import { BarChartSettings, BarChartSettingsSeries } from './chart-bar';
 import { ChartDef } from './chart-def-types';
 
 export const LINE: ChartDef = {
@@ -15,7 +15,12 @@ export const LINE: ChartDef = {
 	canUseYAxis: true
 };
 
+export interface LineChartSettingsSeries extends BarChartSettingsSeries {
+	smooth?: boolean;
+}
+
 export interface LineChartSettings extends BarChartSettings {
+	series?: LineChartSettingsSeries
 }
 
 export interface LineChart extends ECharts {

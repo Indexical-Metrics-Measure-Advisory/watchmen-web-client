@@ -1,8 +1,9 @@
 import { BASE_COLORS_24 } from '../../basic-widgets/colors';
-import { LINE } from '../../services/tuples/chart-def/chart-line';
+import { LINE, LineChartSettings } from '../../services/tuples/chart-def/chart-line';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
+import { buildLabel } from './bar-utils';
 import { DefaultChartUtils } from './default-chart-utils';
 import { buildEChartsGrid } from './grid-utils';
 import { buildEChartsLegend } from './legend-utils';
@@ -39,13 +40,8 @@ export class ChartLineUtils extends DefaultChartUtils {
 			series: legends.map(({ index: indicatorIndex }) => {
 				return {
 					type: 'line',
-					label: {
-						show: true,
-						position: 'insideTop',
-						distance: 15,
-						verticalAlign: 'middle',
-						rotate: 0
-					},
+					label: buildLabel(chart),
+					smooth: (chart.settings as LineChartSettings).series?.smooth,
 					data: groups.map(({ row }) => this.formatNumber(row[indicatorIndex]))
 				};
 			})

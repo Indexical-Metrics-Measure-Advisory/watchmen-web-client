@@ -435,6 +435,7 @@ export const Zh = {
 		TRUNCATION_BOTTOM: '最低(小)',
 		TRUNCATION_COUNT: '数量',
 		BAR_TRANSFORM_AXIS: '轴互换',
+		LINE_SMOOTH: '平滑线',
 		SECTION_TITLE_COUNT_CHART: '数字统计样式',
 		SECTION_TITLE_BAR_CHART: '柱/线样式',
 		SECTION_TITLE_PIE_CHART: '饼样式',

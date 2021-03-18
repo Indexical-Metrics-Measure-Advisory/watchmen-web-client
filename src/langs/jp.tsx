@@ -435,6 +435,7 @@ export const Jp = {
 		TRUNCATION_BOTTOM: 'Bottom',  // new
 		TRUNCATION_COUNT: 'Count',  // new
 		BAR_TRANSFORM_AXIS: 'Transform Axis',  // new
+		LINE_SMOOTH: 'Smooth',  // new
 		SECTION_TITLE_COUNT_CHART: '特定スタイル',
 		SECTION_TITLE_BAR_CHART: 'バー/ラインスタイル',
 		SECTION_TITLE_PIE_CHART: 'パイスタイル',

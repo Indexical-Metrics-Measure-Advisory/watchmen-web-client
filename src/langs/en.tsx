@@ -435,6 +435,7 @@ export const En = {
 		TRUNCATION_BOTTOM: 'Bottom',
 		TRUNCATION_COUNT: 'Count',
 		BAR_TRANSFORM_AXIS: 'Transform Axis',
+		LINE_SMOOTH: 'Smooth',
 		SECTION_TITLE_COUNT_CHART: 'Count Style',
 		SECTION_TITLE_BAR_CHART: 'Bar/Line style',
 		SECTION_TITLE_PIE_CHART: 'Pie Style',

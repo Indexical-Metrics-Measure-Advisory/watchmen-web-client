@@ -30,8 +30,12 @@ export const buildLabel = (chart: ECharts) => {
 	}
 	const { label } = settings as BarChartSettings;
 
+	if (label?.show === false) {
+		return (void 0);
+	}
+
 	return cleanUselessValues({
-		show: label?.show || true,
+		show: true,
 		position: label?.position || 'insideTop',
 		align: label?.horizontalAlign,
 		verticalAlign: label?.verticalAlign || 'middle',

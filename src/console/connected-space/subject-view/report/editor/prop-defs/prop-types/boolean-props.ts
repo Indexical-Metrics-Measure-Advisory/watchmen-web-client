@@ -1,5 +1,6 @@
 import { BarChartStylePropNames } from '../chart-styles/bar-chart-style-props';
 import { CountChartStylePropNames } from '../chart-styles/count-chart-style-props';
+import { LineChartStylePropNames } from '../chart-styles/line-chart-style-props';
 import { PieChartStylePropNames } from '../chart-styles/pie-chart-style-props';
 import { TreeChartStylePropNames } from '../chart-styles/tree-chart-style-props';
 import { TreemapChartStylePropNames } from '../chart-styles/treemap-chart-style-props';
@@ -16,6 +17,8 @@ export type BooleanPropNames =
 	| BarChartStylePropNames.LABEL_FORMAT_USE_GROUPING
 	| BarChartStylePropNames.LABEL_FORMAT_USE_PERCENTAGE
 	| BarChartStylePropNames.LABEL_VALUE_AS_PERCENTAGE
+
+	| LineChartStylePropNames.SMOOTH
 
 	| PieChartStylePropNames.SHOW_PERCENTAGE
 

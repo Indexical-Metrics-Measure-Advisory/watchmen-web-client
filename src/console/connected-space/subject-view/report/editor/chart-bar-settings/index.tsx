@@ -15,7 +15,9 @@ import { AlignmentSettings, SettingsAlignmentPropNames } from '../echarts/alignm
 import { BarSettings, SettingsBarPropNames } from '../echarts/bar';
 import { BorderSettings, SettingsBorderPropNames } from '../echarts/border';
 import { FontSettings, SettingsFontPropNames } from '../echarts/font';
+import { LineSettings, SettingsLinePropNames } from '../echarts/line';
 import { BarChartStylePropNames, BarLabelPositionOptions } from '../prop-defs/chart-styles/bar-chart-style-props';
+import { LineChartStylePropNames } from '../prop-defs/chart-styles/line-chart-style-props';
 import { useReportEditEventBus } from '../report-edit-event-bus';
 import { ReportEditEventTypes } from '../report-edit-event-bus-types';
 import { useChartType } from '../settings-effect/use-chart-type';
@@ -42,8 +44,9 @@ export const ChartBarSettings = (props: { report: Report }) => {
 	const getLabelHolder = () => label;
 	const propNames = {
 		series: {
-			transformAxis: BarChartStylePropNames.TRANSFORM_AXIS
-		} as SettingsBarPropNames,
+			transformAxis: BarChartStylePropNames.TRANSFORM_AXIS,
+			smooth: LineChartStylePropNames.SMOOTH
+		} as SettingsBarPropNames & SettingsLinePropNames,
 		font: {
 			family: BarChartStylePropNames.LABEL_FONT_FAMILY,
 			size: BarChartStylePropNames.LABEL_FONT_SIZE,
@@ -72,6 +75,10 @@ export const ChartBarSettings = (props: { report: Report }) => {
 			             getHolder={getSeriesHolder}
 			             propNames={propNames.series}
 			             onValueChange={onValueChange}/>
+			<LineSettings report={report} chart={chart}
+			              getHolder={getSeriesHolder}
+			              propNames={propNames.series}
+			              onValueChange={onValueChange}/>
 			<BooleanValue label={Lang.CHART.LABEL_FORMAT_USING_GROUP}
 			              value={label?.formatUseGrouping} defaultValue={true}
 			              onValueChange={onBooleanChange({
