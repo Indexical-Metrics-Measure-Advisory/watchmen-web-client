@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { matchPath, useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import {
-	ICON_CONSOLE, ICON_ENUM,
+	ICON_CONSOLE,
+	ICON_ENUM,
+	ICON_HOME,
 	ICON_PIPELINE,
 	ICON_REPORT,
 	ICON_SPACE,
@@ -67,6 +69,9 @@ export const AdminMenu = () => {
 
 	return <AdminMenuContainer width={menuWidth}>
 		<SideMenuLogo title='Watchmen Admin'/>
+		<SideMenuItem icon={ICON_HOME} label='Topics' showTooltip={showTooltip}
+		              active={!!matchPath(location.pathname, Router.ADMIN_HOME)}
+		              onClick={onMenuClicked(Router.ADMIN_HOME)}/>
 		<SideMenuItem icon={ICON_TOPIC} label='Topics' showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_TOPICS)}
 		              onClick={onMenuClicked(Router.ADMIN_TOPICS)}/>

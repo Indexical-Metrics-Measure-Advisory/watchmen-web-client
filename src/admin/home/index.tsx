@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { ConsoleEventBusProvider } from '../../console/console-event-bus';
 import { DashboardBody } from '../../console/dashboard/body';
 import { DashboardEventBusProvider } from '../../console/dashboard/dashboard-event-bus';
-import { Router } from '../../routes/types';
 import { fetchAdminDashboard } from '../../services/admin/home';
 import { Dashboard } from '../../services/tuples/dashboard-types';
 import { Report } from '../../services/tuples/report-types';
@@ -28,26 +26,25 @@ const AdminDashboard = (props: { dashboard: Dashboard }) => {
 };
 
 const AdminHomeIndex = () => {
-	const history = useHistory();
 	const [ state, setState ] = useState<HomeState>({ initialized: false });
 	useEffect(() => {
 		(async () => {
 			try {
 				const { dashboard, reports } = await fetchAdminDashboard();
-				if (dashboard == null) {
-					history.push(Router.ADMIN_TOPICS);
-				} else {
-					setState({ initialized: true, dashboard, reports });
-				}
+				setState({ initialized: true, dashboard, reports });
 			} catch (e) {
 				console.error(e);
-				history.push(Router.ADMIN_TOPICS);
+				setState({ initialized: true });
 			}
 		})();
-	}, [ history ]);
+	}, []);
 
 	if (!state.initialized) {
 		return <AdminLoading label="Loading..."/>;
+	}
+
+	if (state.initialized && !state.dashboard) {
+		return <AdminLoading label="No dashboard defined, pick a dashboard from your spaces first."/>;
 	}
 
 	return <ConsoleEventBusProvider>
