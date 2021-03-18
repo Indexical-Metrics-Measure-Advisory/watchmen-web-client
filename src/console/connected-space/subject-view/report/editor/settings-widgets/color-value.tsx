@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { ChartColorPicker } from '../styles/widgets';
-import { PropName, PropValue } from './widgets';
+import { ChartColorPicker, PropName, PropValue } from './widgets';
 
 export const ColorValue = (props: {
 	label: string;

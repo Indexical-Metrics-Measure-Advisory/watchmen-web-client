@@ -408,6 +408,7 @@ export const Jp = {
 		LABEL_POSITION_INSIDE_BOTTOM_LEFT: 'Inside Bottom Left',  // new
 		LABEL_POSITION_INSIDE_TOP_RIGHT: 'Inside Top Right',  // new
 		LABEL_POSITION_INSIDE_BOTTOM_RIGHT: 'Inside Bottom Right',  // new
+		DECAL: 'Decal',  // new
 		ROAM: 'ローミング',
 		TREE_LAYOUT: 'レーアウト',
 		TREE_LAYOUT_ORTHOGONAL: '直交',

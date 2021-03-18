@@ -13,6 +13,7 @@ import {
 	TreemapChart
 } from 'echarts/charts';
 import {
+	AriaComponent,
 	AxisPointerComponent,
 	DataZoomComponent,
 	GeoComponent,
@@ -33,7 +34,7 @@ import { EChartDiagramContainer } from './widgets';
 
 echarts.use([
 	TitleComponent, TooltipComponent, GridComponent, AxisPointerComponent, DataZoomComponent,
-	GeoComponent, VisualMapComponent, ToolboxComponent, GraphicComponent, LegendComponent,
+	GeoComponent, VisualMapComponent, ToolboxComponent, GraphicComponent, LegendComponent, AriaComponent,
 	GraphChart, CustomChart,
 	BarChart, LineChart, LinesChart,
 	PieChart,

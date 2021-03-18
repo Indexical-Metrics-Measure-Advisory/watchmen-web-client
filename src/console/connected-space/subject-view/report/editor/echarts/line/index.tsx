@@ -1,6 +1,7 @@
 import React from 'react';
 import { Lang } from '../../../../../../../langs';
 import { LineChartSettingsSeries } from '../../../../../../../services/tuples/chart-def/chart-line';
+import { isLineChart } from '../../../../../../../services/tuples/chart-utils';
 import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import { onBooleanChange } from '../../data-utils';
@@ -28,6 +29,10 @@ export const LineSettings = (props: {
 	} = props;
 
 	useChartType({ report });
+
+	if (!isLineChart(chart)) {
+		return null;
+	}
 
 	const holder = getHolder(chart);
 

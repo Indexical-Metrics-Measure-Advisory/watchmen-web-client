@@ -3,5 +3,6 @@ export enum PeripheralStylePropNames {
 	BORDER_WIDTH = 'border.width',
 	BORDER_STYLE = 'border.style',
 	BORDER_COLOR = 'border.color',
-	BORDER_RADIUS = 'border.radius'
+	BORDER_RADIUS = 'border.radius',
+	DECAL = 'decal'
 }

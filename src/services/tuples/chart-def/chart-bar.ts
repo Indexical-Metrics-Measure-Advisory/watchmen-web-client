@@ -55,6 +55,7 @@ export interface BarChartSettingsSeries {
 export interface BarChartSettings extends ChartTruncationHolder, EChartsSettings {
 	series?: BarChartSettingsSeries;
 	label?: BarChartSettingsLabel;
+	decal?: boolean;
 }
 
 export interface BarChart extends ECharts {

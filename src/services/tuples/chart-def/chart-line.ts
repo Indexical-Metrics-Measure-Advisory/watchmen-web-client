@@ -19,7 +19,7 @@ export interface LineChartSettingsSeries extends BarChartSettingsSeries {
 	smooth?: boolean;
 }
 
-export interface LineChartSettings extends BarChartSettings {
+export interface LineChartSettings extends Omit<BarChartSettings, 'decal'> {
 	series?: LineChartSettingsSeries
 }
 

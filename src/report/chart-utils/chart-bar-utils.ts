@@ -5,6 +5,7 @@ import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { buildAxis, buildLabel } from './bar-utils';
 import { cleanUselessValues } from './data-utils';
+import { buildDecal } from './decal-utils';
 import { DefaultChartUtils } from './default-chart-utils';
 import { buildEChartsGrid } from './grid-utils';
 import { buildEChartsLegend } from './legend-utils';
@@ -52,7 +53,8 @@ export class ChartBarUtils extends DefaultChartUtils {
 						}
 					})
 				};
-			})
+			}),
+			aria: buildDecal(chart)
 		});
 	}
 }

@@ -4,6 +4,7 @@ import { ChartDataSet } from '../../services/tuples/chart-types';
 import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { cleanUselessValues } from './data-utils';
+import { buildDecal } from './decal-utils';
 import { DefaultChartUtils } from './default-chart-utils';
 import { buildEChartsLegend } from './legend-utils';
 import { buildEChartsPie } from './pie-utils';
@@ -40,7 +41,8 @@ export class ChartDoughnutUtils extends DefaultChartUtils {
 				type: 'pie',
 				insideRadius: '50%',
 				outsideRadius: '75%'
-			}) ]
+			}) ],
+			aria: buildDecal(chart)
 		});
 	}
 }

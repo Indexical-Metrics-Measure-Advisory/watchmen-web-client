@@ -408,6 +408,7 @@ export const En = {
 		LABEL_POSITION_INSIDE_BOTTOM_LEFT: 'Inside Bottom Left',
 		LABEL_POSITION_INSIDE_TOP_RIGHT: 'Inside Top Right',
 		LABEL_POSITION_INSIDE_BOTTOM_RIGHT: 'Inside Bottom Right',
+		DECAL: 'Decal',
 		ROAM: 'Roam',
 		TREE_LAYOUT: 'Layout',
 		TREE_LAYOUT_ORTHOGONAL: 'Orthogonal',

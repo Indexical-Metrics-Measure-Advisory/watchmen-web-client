@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { CheckBox } from '../../../../../../basic-widgets/checkbox';
+import { ColorPicker } from '../../../../../../basic-widgets/color-picker';
 import { Dropdown } from '../../../../../../basic-widgets/dropdown';
 import { Input } from '../../../../../../basic-widgets/input';
 import { InputLines } from '../../../../../../basic-widgets/input-lines';
@@ -118,4 +119,7 @@ export const PropValueCheckBox = styled(CheckBox)`
 	height        : 18px;
 	width         : 18px;
 	border-radius : 2px;
+`;
+export const ChartColorPicker = styled(ColorPicker)`
+	border : 0;
 `;

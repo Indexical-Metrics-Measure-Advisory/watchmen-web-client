@@ -4,6 +4,7 @@ import { ChartDataSet } from '../../services/tuples/chart-types';
 import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
 import { cleanUselessValues } from './data-utils';
+import { buildDecal } from './decal-utils';
 import { DefaultChartUtils } from './default-chart-utils';
 import { buildEChartsPie } from './pie-utils';
 import { buildEChartsTitle } from './title-utils';
@@ -26,7 +27,8 @@ export class ChartSunburstUtils extends DefaultChartUtils {
 				type: 'sunburst',
 				insideRadius: '10%',
 				outsideRadius: '90%'
-			}) ]
+			}) ],
+			aria: buildDecal(chart)
 		});
 	}
 }

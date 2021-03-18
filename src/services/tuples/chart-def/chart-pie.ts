@@ -36,6 +36,7 @@ export interface PieChartSettingsSeries extends EChartsBorderHolder {
 export interface PieChartSettings extends ChartTruncationHolder, EChartsSettings {
 	series?: PieChartSettingsSeries;
 	grid?: EChartsGridPositionOnly;
+	decal?: boolean;
 }
 
 export interface PieChart extends ECharts {

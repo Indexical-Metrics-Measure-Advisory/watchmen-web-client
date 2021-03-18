@@ -8,9 +8,11 @@ import { EChartsGridPropNames } from '../echart-styles/echarts-grid-props';
 import { EChartsLegendPropNames } from '../echart-styles/echarts-legend-props';
 import { EChartsXAxisPropNames } from '../echart-styles/echarts-xaxis-props';
 import { EChartsYAxisPropNames } from '../echart-styles/echarts-yaxis-props';
+import { PeripheralStylePropNames } from '../peripheral-style-props';
 
 export type BooleanPropNames =
-	CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING
+	PeripheralStylePropNames.DECAL
+	| CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING
 
 	| BarChartStylePropNames.TRANSFORM_AXIS
 	| BarChartStylePropNames.LABEL_SHOW

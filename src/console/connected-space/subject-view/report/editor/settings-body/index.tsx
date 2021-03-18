@@ -3,6 +3,7 @@ import { Report } from '../../../../../../services/tuples/report-types';
 import { Subject } from '../../../../../../services/tuples/subject-types';
 import { useConsoleEventBus } from '../../../../../console-event-bus';
 import { ConsoleEventTypes, FavoriteState } from '../../../../../console-event-bus-types';
+import { BasicStyleSection } from '../basic-style';
 import { ChartBarSettings } from '../chart-bar-settings';
 import { ChartCountSettings } from '../chart-count-settings';
 import { ChartMapSettings } from '../chart-map-settings';
@@ -17,7 +18,6 @@ import { EChartsTitleSettings } from '../echarts/title';
 import { EChartsXAxisSettings } from '../echarts/xaxis';
 import { EChartsYAxisSettings } from '../echarts/yaxis';
 import { IndicatorsSection } from '../indicators';
-import { RectSection } from '../rect';
 import { ChartTypeEditor } from './chart-type';
 import { NamePropEditor } from './name-prop';
 import { SettingsBodyContainer } from './widgets';
@@ -49,7 +49,7 @@ export const SettingsBody = (props: { subject: Subject, report: Report }) => {
 		<ChartTypeEditor report={report}/>
 		<IndicatorsSection subject={subject} report={report}/>
 		<DimensionsSection subject={subject} report={report}/>
-		<RectSection report={report}/>
+		<BasicStyleSection report={report}/>
 		<EChartsTitleSettings report={report}/>
 		<EChartsLegendSettings report={report}/>
 		<ChartCountSettings report={report}/>
