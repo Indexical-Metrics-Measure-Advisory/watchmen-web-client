@@ -114,7 +114,8 @@ export const Jp = {
 			DELETE_PARAGRAPH_DIALOG_LABEL: 'コメントを削除してもよろしいですか？ 削除したものは復元できませんので、ご注意ください。',
 			NO_REPORT: 'レポートは定義されていません。',
 			SHOW_PRINT_PAGE: 'ページサイズを表示する',
-			HIDE_PRINT_PAGE: 'ページサイズを非表示する'
+			HIDE_PRINT_PAGE: 'ページサイズを非表示する',
+			SET_AS_ADMIN_HOME: 'Set as Admin Home'  // new
 		},
 		CONNECTED_SPACE: {
 			CATALOG: 'カタログ',

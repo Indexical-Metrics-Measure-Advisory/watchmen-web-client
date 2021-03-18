@@ -28,7 +28,7 @@ import {
 	faGlobe,
 	faGripVertical,
 	faHome,
-	faInbox,
+	faInbox, faLaptopHouse,
 	faLevelDownAlt,
 	faLevelUpAlt,
 	faLink,
@@ -121,6 +121,7 @@ export const ICON_FACTOR = faList;
 export const ICON_ENUM = faStream;
 export const ICON_REPORT = faChartBar;
 export const ICON_PARAGRAPH = faParagraph;
+export const ICON_AS_ADMIN_HOME = faLaptopHouse;
 export const ICON_PIPELINE = faWaveSquare;
 
 export const ICON_DASHBOARD = faTachometerAlt;

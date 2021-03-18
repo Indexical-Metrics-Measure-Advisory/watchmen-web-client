@@ -7,6 +7,7 @@ import { HeaderCreateDashboardButton } from './header-create-dashboard-button';
 import { HeaderDeleteMeButton } from './header-delete-me-buttton';
 import { HeaderFavoriteButton } from './header-favorite-button';
 import { HeaderPrintButton } from './header-print-button';
+import { HeaderSetAdminHomeButton } from './header-set-admin-home-button';
 import { HeaderShareButton } from './header-share-button';
 import { HeaderShowPageButton } from './header-show-page-button';
 import { HeaderSwitchDashboardButton } from './header-switch-dashboard-button';
@@ -22,6 +23,7 @@ export const HeaderButtons = (props: { dashboard: Dashboard }) => {
 		<HeaderShareButton dashboard={dashboard}/>
 		<HeaderShowPageButton dashboard={dashboard}/>
 		<HeaderPrintButton/>
+		<HeaderSetAdminHomeButton dashboard={dashboard}/>
 		<PageHeaderButtonSeparator/>
 		<HeaderCreateDashboardButton/>
 		<HeaderSwitchDashboardButton dashboard={dashboard}/>

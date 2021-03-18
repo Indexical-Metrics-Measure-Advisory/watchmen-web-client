@@ -114,7 +114,8 @@ export const Zh = {
 			DELETE_PARAGRAPH_DIALOG_LABEL: '确认要删除评述吗? 请注意删除动作不能被恢复.',
 			NO_REPORT: '尚未定义图表.',
 			SHOW_PRINT_PAGE: '显示纸张尺寸',
-			HIDE_PRINT_PAGE: '隐藏纸张尺寸'
+			HIDE_PRINT_PAGE: '隐藏纸张尺寸',
+			SET_AS_ADMIN_HOME: '设置为管理员首页'
 		},
 		CONNECTED_SPACE: {
 			CATALOG: '目录',

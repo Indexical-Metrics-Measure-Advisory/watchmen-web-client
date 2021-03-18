@@ -114,7 +114,8 @@ export const En = {
 			DELETE_PARAGRAPH_DIALOG_LABEL: 'Are you sure to delete paragraph? Please note that deletion cannot be recovered.',
 			NO_REPORT: 'No report defined.',
 			SHOW_PRINT_PAGE: 'Show Page Size',
-			HIDE_PRINT_PAGE: 'Hide Page Size'
+			HIDE_PRINT_PAGE: 'Hide Page Size',
+			SET_AS_ADMIN_HOME: 'Set as Admin Home'
 		},
 		CONNECTED_SPACE: {
 			CATALOG: 'Catalog',
