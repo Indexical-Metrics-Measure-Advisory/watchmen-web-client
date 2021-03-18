@@ -17,7 +17,6 @@ import { EChartsXAxisSettings } from '../echarts/xaxis';
 import { EChartsYAxisSettings } from '../echarts/yaxis';
 import { IndicatorsSection } from '../indicators';
 import { RectSection } from '../rect';
-import { BasicStylesSection } from '../styles';
 import { ChartTypeEditor } from './chart-type';
 import { NamePropEditor } from './name-prop';
 import { SettingsBodyContainer } from './widgets';
@@ -43,20 +42,21 @@ export const SettingsBody = (props: { subject: Subject, report: Report }) => {
 		}
 	}, [ on, off ]);
 
+
 	return <SettingsBodyContainer favoritePin={favoritePin}>
 		<NamePropEditor report={report}/>
 		<ChartTypeEditor report={report}/>
 		<IndicatorsSection subject={subject} report={report}/>
 		<DimensionsSection subject={subject} report={report}/>
 		<RectSection report={report}/>
+		<EChartsTitleSettings report={report}/>
+		<EChartsLegendSettings report={report}/>
 		<ChartCountSettings report={report}/>
 		<ChartTruncationSettings report={report}/>
 		<ChartTreeSettings report={report}/>
 		<ChartTreemapSettings report={report}/>
 		<ChartMapSettings report={report}/>
 		<ChartPieSettings report={report}/>
-		<EChartsTitleSettings report={report}/>
-		<EChartsLegendSettings report={report}/>
 		<EChartsGridSettings report={report}/>
 		<EChartsXAxisSettings report={report}/>
 		<EChartsYAxisSettings report={report}/>
