@@ -22,7 +22,7 @@ import { BooleanValue } from '../../settings-widgets/boolean-value';
 import { ColorValue } from '../../settings-widgets/color-value';
 import { DropdownValue } from '../../settings-widgets/dropdown-value';
 import { NumberValue } from '../../settings-widgets/number-value';
-import { Section } from '../../settings-widgets/section';
+import { SecondarySection } from '../../settings-widgets/secondary-section';
 
 export interface SettingsAxisSplitLinePropNames {
 	show: EChartsXAxisPropNames.SPLIT_LINE_SHOW
@@ -58,7 +58,7 @@ export const EChartsAxisSplitLineSettings = (props: {
 	const holder = getHolder(chart);
 	const splitLine = getSplitLine(holder);
 
-	return <Section title={title}>
+	return <SecondarySection title={title}>
 		<BooleanValue label={Lang.CHART.SHOW}
 		              value={splitLine?.show} defaultValue={defaultShow}
 		              onValueChange={onBooleanChange({
@@ -93,5 +93,5 @@ export const EChartsAxisSplitLineSettings = (props: {
 			               prop: propNames.style,
 			               done: onValueChange
 		               })}/>
-	</Section>;
+	</SecondarySection>;
 };

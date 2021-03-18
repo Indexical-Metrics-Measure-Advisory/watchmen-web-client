@@ -8,6 +8,7 @@ import {
 	faArrowUp,
 	faBan,
 	faBell,
+	faCaretRight,
 	faChalkboard,
 	faChartBar,
 	faChartPie,
@@ -28,7 +29,8 @@ import {
 	faGlobe,
 	faGripVertical,
 	faHome,
-	faInbox, faLaptopHouse,
+	faInbox,
+	faLaptopHouse,
 	faLevelDownAlt,
 	faLevelUpAlt,
 	faLink,
@@ -130,6 +132,8 @@ export const ICON_TASK = faTasks;
 export const ICON_NOTIFICATION = faBell;
 export const ICON_MAIL = faInbox;
 export const ICON_TIMELINE = faComments;
+
+export const ICON_SECONDARY_SECTION = faCaretRight;
 
 // icons for doing something
 export const ICON_ADD = faPlus;

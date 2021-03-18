@@ -17,7 +17,7 @@ import { ReportEditEventTypes } from '../../report-edit-event-bus-types';
 import { ColorValue } from '../../settings-widgets/color-value';
 import { DropdownValue } from '../../settings-widgets/dropdown-value';
 import { NumberValue } from '../../settings-widgets/number-value';
-import { Section } from '../../settings-widgets/section';
+import { SecondarySection } from '../../settings-widgets/secondary-section';
 import { TextValue } from '../../settings-widgets/text-value';
 import { AlignmentSettings, SettingsAlignmentPropNames } from '../alignment';
 import { BorderSettings, SettingsBorderPropNames } from '../border';
@@ -55,7 +55,7 @@ export const EChartsYAxisNameSettings = (props: { report: Report, chart: ECharts
 		} as SettingsAlignmentPropNames
 	};
 
-	return <Section title={Lang.CHART.SECTION_TITLE_ECHART_YAXIS_NAME}>
+	return <SecondarySection title={Lang.CHART.SECTION_TITLE_ECHART_YAXIS_NAME}>
 		<TextValue label={Lang.CHART.ECHART.TEXT}
 		           value={name?.text}
 		           onValueChange={onTextValueChange({
@@ -120,5 +120,5 @@ export const EChartsYAxisNameSettings = (props: { report: Report, chart: ECharts
 			             prop: EChartsYAxisPropNames.NAME_PADDING,
 			             done: onValueChange
 		             })}/>
-	</Section>;
+	</SecondarySection>;
 };

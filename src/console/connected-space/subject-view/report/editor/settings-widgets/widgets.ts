@@ -35,6 +35,14 @@ export const SectionContainer = styled.div.attrs<{ expanded: boolean }>({ 'data-
 		font-size : 0.8em;
 	}
 `;
+export const SecondarySectionContainer = styled(SectionContainer)`
+	height : calc(var(--height) * 0.9);
+	> span:first-child > svg {
+		font-size    : 0.8em;
+		opacity      : 0.5;
+		margin-right : calc(var(--margin) / 8);
+	}
+`;
 export const PropName = styled.div.attrs({ 'data-widget': 'chart-settings-prop-name' })`
 	display       : flex;
 	position      : relative;

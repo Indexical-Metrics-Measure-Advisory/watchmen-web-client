@@ -2,20 +2,14 @@ import React from 'react';
 import { Lang } from '../../../../../../../langs';
 import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
-import {
-	isANumberAndInRange,
-	onBooleanChange,
-	onColorChange,
-	onNumberChange,
-	validateNumber
-} from '../../data-utils';
+import { isANumberAndInRange, onBooleanChange, onColorChange, onNumberChange, validateNumber } from '../../data-utils';
 import { EChartsXAxisPropNames } from '../../prop-defs/echart-styles/echarts-xaxis-props';
 import { useReportEditEventBus } from '../../report-edit-event-bus';
 import { ReportEditEventTypes } from '../../report-edit-event-bus-types';
 import { BooleanValue } from '../../settings-widgets/boolean-value';
 import { ColorValue } from '../../settings-widgets/color-value';
 import { NumberValue } from '../../settings-widgets/number-value';
-import { Section } from '../../settings-widgets/section';
+import { SecondarySection } from '../../settings-widgets/secondary-section';
 import { AlignmentSettings, SettingsAlignmentPropNames } from '../alignment';
 import { BorderSettings, SettingsBorderPropNames } from '../border';
 import { FontSettings, SettingsFontPropNames } from '../font';
@@ -52,7 +46,7 @@ export const EChartsXAxisLabelSettings = (props: { report: Report, chart: EChart
 		} as SettingsAlignmentPropNames
 	};
 
-	return <Section title={Lang.CHART.SECTION_TITLE_ECHART_XAXIS_LABEL}>
+	return <SecondarySection title={Lang.CHART.SECTION_TITLE_ECHART_XAXIS_LABEL}>
 		<BooleanValue label={Lang.CHART.SHOW}
 		              value={label?.show} defaultValue={true}
 		              onValueChange={onBooleanChange({
@@ -116,5 +110,5 @@ export const EChartsXAxisLabelSettings = (props: { report: Report, chart: EChart
 			             prop: EChartsXAxisPropNames.LABEL_PADDING,
 			             done: onValueChange
 		             })}/>
-	</Section>;
+	</SecondarySection>;
 };

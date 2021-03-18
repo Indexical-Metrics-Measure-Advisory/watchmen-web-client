@@ -15,6 +15,7 @@ import { useChartType } from '../../settings-effect/use-chart-type';
 import { BooleanValue } from '../../settings-widgets/boolean-value';
 import { DropdownValue } from '../../settings-widgets/dropdown-value';
 import { NumberValue } from '../../settings-widgets/number-value';
+import { SecondarySection } from '../../settings-widgets/secondary-section';
 import { Section } from '../../settings-widgets/section';
 import { EChartsXAxisLabelSettings } from './label';
 import { EChartsXAxisNameSettings } from './name';
@@ -65,46 +66,46 @@ export const EChartsXAxisSettings = (props: { report: Report }) => {
 				               prop: EChartsXAxisPropNames.TYPE,
 				               done: onValueChange
 			               })}/>
+			<SecondarySection title={Lang.CHART.SECTION_TITLE_ECHART_XAXIS_RANGE}>
+				<BooleanValue label={Lang.CHART.AXIS_AUTO_MIN}
+				              value={xaxis?.autoMin} defaultValue={false}
+				              onValueChange={onBooleanChange({
+					              report,
+					              chart,
+					              prop: EChartsXAxisPropNames.AUTO_MIN,
+					              done: onValueChange
+				              })}/>
+				<NumberValue label={Lang.CHART.AXIS_MIN}
+				             value={xaxis?.min}
+				             validate={isANumber}
+				             onValueChange={onNumberChange({
+					             report,
+					             chart,
+					             prop: EChartsXAxisPropNames.MIN,
+					             done: onValueChange
+				             })}/>
+				<BooleanValue label={Lang.CHART.AXIS_AUTO_MAX}
+				              value={xaxis?.autoMin} defaultValue={false}
+				              onValueChange={onBooleanChange({
+					              report,
+					              chart,
+					              prop: EChartsXAxisPropNames.AUTO_MAX,
+					              done: onValueChange
+				              })}/>
+				<NumberValue label={Lang.CHART.AXIS_MAX}
+				             value={xaxis?.min}
+				             validate={isANumber}
+				             onValueChange={onNumberChange({
+					             report,
+					             chart,
+					             prop: EChartsXAxisPropNames.MAX,
+					             done: onValueChange
+				             })}/>
+			</SecondarySection>
+			<EChartsXAxisNameSettings report={report} chart={chart}/>
+			<EChartsXAxisLabelSettings report={report} chart={chart}/>
+			<EChartsXAxisSplitLineSettings report={report} chart={chart}/>
+			{/*<EChartsXAxisMinorSplitLineSettings report={report} chart={chart}/>*/}
 		</Section>
-		<Section title={Lang.CHART.SECTION_TITLE_ECHART_XAXIS_RANGE}>
-			<BooleanValue label={Lang.CHART.AXIS_AUTO_MIN}
-			              value={xaxis?.autoMin} defaultValue={false}
-			              onValueChange={onBooleanChange({
-				              report,
-				              chart,
-				              prop: EChartsXAxisPropNames.AUTO_MIN,
-				              done: onValueChange
-			              })}/>
-			<NumberValue label={Lang.CHART.AXIS_MIN}
-			             value={xaxis?.min}
-			             validate={isANumber}
-			             onValueChange={onNumberChange({
-				             report,
-				             chart,
-				             prop: EChartsXAxisPropNames.MIN,
-				             done: onValueChange
-			             })}/>
-			<BooleanValue label={Lang.CHART.AXIS_AUTO_MAX}
-			              value={xaxis?.autoMin} defaultValue={false}
-			              onValueChange={onBooleanChange({
-				              report,
-				              chart,
-				              prop: EChartsXAxisPropNames.AUTO_MAX,
-				              done: onValueChange
-			              })}/>
-			<NumberValue label={Lang.CHART.AXIS_MAX}
-			             value={xaxis?.min}
-			             validate={isANumber}
-			             onValueChange={onNumberChange({
-				             report,
-				             chart,
-				             prop: EChartsXAxisPropNames.MAX,
-				             done: onValueChange
-			             })}/>
-		</Section>
-		<EChartsXAxisNameSettings report={report} chart={chart}/>
-		<EChartsXAxisLabelSettings report={report} chart={chart}/>
-		<EChartsXAxisSplitLineSettings report={report} chart={chart}/>
-		{/*<EChartsXAxisMinorSplitLineSettings report={report} chart={chart}/>*/}
 	</>;
 };

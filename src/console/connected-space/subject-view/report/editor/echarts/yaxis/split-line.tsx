@@ -27,7 +27,7 @@ export const EChartsYAxisSplitLineSettings = (props: { report: Report, chart: EC
 
 	return <EChartsAxisSplitLineSettings report={report} chart={chart}
 	                                     getHolder={getHolder} getSplitLine={getSplitLine}
-	                                     title={Lang.CHART.SECTION_TITLE_ECHART_XAXIS_LINE}
+	                                     title={Lang.CHART.SECTION_TITLE_ECHART_YAXIS_LINE}
 	                                     defaultShow={true}
 	                                     propNames={propNames}
 	                                     onValueChange={onValueChange}/>;
