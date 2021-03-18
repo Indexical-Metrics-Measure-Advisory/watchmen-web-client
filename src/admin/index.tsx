@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { Router } from '../routes/types';
+import { isAdmin } from '../services/account';
 import AdminEnums from './enums';
 import AdminHome from './home';
 import { AdminMenu } from './menu';
@@ -32,6 +33,10 @@ const AdminMain = styled.main.attrs<{ scrollable?: boolean }>(({ scrollable = tr
 `;
 
 const AdminIndex = () => {
+	if (!isAdmin()) {
+		return <Redirect to={Router.CONSOLE_HOME}/>;
+	}
+
 	return <AdminContainer>
 		<AdminMenu/>
 
