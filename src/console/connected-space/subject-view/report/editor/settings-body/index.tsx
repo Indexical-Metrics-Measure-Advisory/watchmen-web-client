@@ -3,6 +3,7 @@ import { Report } from '../../../../../../services/tuples/report-types';
 import { Subject } from '../../../../../../services/tuples/subject-types';
 import { useConsoleEventBus } from '../../../../../console-event-bus';
 import { ConsoleEventTypes, FavoriteState } from '../../../../../console-event-bus-types';
+import { ChartBarSettings } from '../chart-bar-settings';
 import { ChartCountSettings } from '../chart-count-settings';
 import { ChartMapSettings } from '../chart-map-settings';
 import { ChartPieSettings } from '../chart-pie-settings';
@@ -56,6 +57,7 @@ export const SettingsBody = (props: { subject: Subject, report: Report }) => {
 		<ChartTreeSettings report={report}/>
 		<ChartTreemapSettings report={report}/>
 		<ChartMapSettings report={report}/>
+		<ChartBarSettings report={report}/>
 		<ChartPieSettings report={report}/>
 		<EChartsGridSettings report={report}/>
 		<EChartsXAxisSettings report={report}/>

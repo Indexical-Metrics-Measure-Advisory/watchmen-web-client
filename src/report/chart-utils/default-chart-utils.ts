@@ -1,5 +1,5 @@
 import { ChartDef } from '../../services/tuples/chart-def/chart-def-types';
-import { ChartDataSet, ChartDataSetRows, ChartType } from '../../services/tuples/chart-types';
+import { ChartDataSet, ChartDataSetRow, ChartDataSetRows, ChartType } from '../../services/tuples/chart-types';
 import { Report, ReportIndicatorArithmetic } from '../../services/tuples/report-types';
 import { getDimensionColumnIndexOffset } from './dimension-utils';
 import { createNumberFormat } from './number-format';
@@ -226,7 +226,7 @@ export abstract class DefaultChartUtils implements ChartUtils {
 		return Math.min(getDimensionColumnIndexOffset(report), this.getMaxIndicatorCount());
 	};
 
-	protected buildDescartesByDimensions(report: Report, dataset: ChartDataSet) {
+	protected buildDescartesByDimensions(report: Report, dataset: ChartDataSet): Array<{ value: any, row: ChartDataSetRow }> {
 		const { data } = dataset;
 		const { dimensions } = report;
 

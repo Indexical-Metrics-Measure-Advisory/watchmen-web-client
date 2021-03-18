@@ -415,8 +415,10 @@ export const Jp = {
 		TRUNCATION_TOP: 'Top',  // new
 		TRUNCATION_BOTTOM: 'Bottom',  // new
 		TRUNCATION_COUNT: 'Count',  // new
+		BAR_TRANSFORM_AXIS: 'Transform Axis',  // new
 		SECTION_TITLE_COUNT_CHART: '特定スタイル',
-		SECTION_TITLE_PIE_CHART: '特定スタイル',
+		SECTION_TITLE_BAR_CHART: 'バー/ラインスタイル',
+		SECTION_TITLE_PIE_CHART: 'パイスタイル',
 		SECTION_TITLE_TREE_CHART: 'ツリースタイル',
 		SECTION_TITLE_TREEMAP_CHART: 'ツリーマップスタイル',
 		SECTION_TITLE_MAP_CHART: '地図スタイル',

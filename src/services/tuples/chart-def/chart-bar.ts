@@ -15,7 +15,12 @@ export const BAR: ChartDef = {
 	canUseYAxis: true
 };
 
+export interface BarChartSettingsSeries {
+	transformAxis?: boolean;
+}
+
 export interface BarChartSettings extends ChartTruncationHolder, EChartsSettings {
+	series?: BarChartSettingsSeries;
 }
 
 export interface BarChart extends ECharts {

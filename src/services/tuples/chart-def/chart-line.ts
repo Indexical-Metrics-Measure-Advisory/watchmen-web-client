@@ -15,7 +15,12 @@ export const LINE: ChartDef = {
 	canUseYAxis: true
 };
 
+export interface LineChartSettingsSeries {
+	transformAxis?: boolean;
+}
+
 export interface LineChartSettings extends ChartTruncationHolder, EChartsSettings {
+	series?: LineChartSettingsSeries;
 }
 
 export interface LineChart extends ECharts {

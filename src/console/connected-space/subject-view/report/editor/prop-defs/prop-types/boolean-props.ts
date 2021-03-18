@@ -1,3 +1,4 @@
+import { BarChartStylePropNames } from '../chart-styles/bar-chart-style-props';
 import { CountChartStylePropNames } from '../chart-styles/count-chart-style-props';
 import { PieChartStylePropNames } from '../chart-styles/pie-chart-style-props';
 import { TreeChartStylePropNames } from '../chart-styles/tree-chart-style-props';
@@ -9,6 +10,8 @@ import { EChartsYAxisPropNames } from '../echart-styles/echarts-yaxis-props';
 
 export type BooleanPropNames =
 	CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING
+
+	| BarChartStylePropNames.TRANSFORM_AXIS
 
 	| PieChartStylePropNames.SHOW_PERCENTAGE
 

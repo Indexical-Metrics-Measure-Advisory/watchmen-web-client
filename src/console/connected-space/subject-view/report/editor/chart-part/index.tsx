@@ -15,6 +15,7 @@ export const ChartPart = (props: { report: Report }) => {
 		on(ReportEditEventTypes.SIZE_CHANGED, forceUpdate);
 		on(ReportEditEventTypes.BASIC_STYLE_CHANGED, forceUpdate);
 		on(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, forceUpdate);
+		on(ReportEditEventTypes.CHART_BAR_STYLE_CHANGED, forceUpdate);
 		on(ReportEditEventTypes.CHART_PIE_STYLE_CHANGED, forceUpdate);
 		on(ReportEditEventTypes.CHART_TREE_STYLE_CHANGED, forceUpdate);
 		on(ReportEditEventTypes.CHART_TREEMAP_STYLE_CHANGED, forceUpdate);
@@ -32,6 +33,7 @@ export const ChartPart = (props: { report: Report }) => {
 			off(ReportEditEventTypes.SIZE_CHANGED, forceUpdate);
 			off(ReportEditEventTypes.BASIC_STYLE_CHANGED, forceUpdate);
 			off(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, forceUpdate);
+			off(ReportEditEventTypes.CHART_BAR_STYLE_CHANGED, forceUpdate);
 			off(ReportEditEventTypes.CHART_PIE_STYLE_CHANGED, forceUpdate);
 			off(ReportEditEventTypes.CHART_TREE_STYLE_CHANGED, forceUpdate);
 			off(ReportEditEventTypes.CHART_TREEMAP_STYLE_CHANGED, forceUpdate);

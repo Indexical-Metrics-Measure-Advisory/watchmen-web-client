@@ -69,7 +69,8 @@ export interface Chart {
 	settings?: ChartSettings;
 }
 
-export type ChartDataSetRows = Array<Array<string | number | boolean | null | undefined>>;
+export type ChartDataSetRow = Array<string | number | boolean | null | undefined>;
+export type ChartDataSetRows = Array<ChartDataSetRow>;
 
 export interface ChartDataSet {
 	columns?: Array<string>;

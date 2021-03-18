@@ -3,14 +3,13 @@ import { BAR } from '../../services/tuples/chart-def/chart-bar';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
+import { buildAxis } from './bar-utils';
 import { cleanUselessValues } from './data-utils';
 import { DefaultChartUtils } from './default-chart-utils';
 import { buildEChartsGrid } from './grid-utils';
 import { buildEChartsLegend } from './legend-utils';
 import { buildEChartsTitle } from './title-utils';
 import { ChartOptions } from './types';
-import { buildEChartsXAxis } from './xaxis-utils';
-import { buildEChartsYAxis } from './yaxis-utils';
 
 export class ChartBarUtils extends DefaultChartUtils {
 	constructor() {
@@ -26,6 +25,8 @@ export class ChartBarUtils extends DefaultChartUtils {
 		});
 		const groups = this.buildDescartesByDimensions(report, dataset);
 
+		const { xAxis, yAxis } = buildAxis(chart, groups);
+
 		return cleanUselessValues({
 			color: BASE_COLORS_24,
 			title: buildEChartsTitle(chart as ECharts),
@@ -35,8 +36,8 @@ export class ChartBarUtils extends DefaultChartUtils {
 			},
 			legend: buildEChartsLegend(chart as ECharts, legends.map(item => item.label)),
 			grid: buildEChartsGrid(chart as ECharts),
-			xAxis: [ buildEChartsXAxis(chart as ECharts, groups.map(({ value }) => value)) ],
-			yAxis: [ buildEChartsYAxis(chart as ECharts) ],
+			xAxis,
+			yAxis,
 			series: legends.map(({ index: indicatorIndex }) => {
 				return {
 					type: 'bar',
