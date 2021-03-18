@@ -8,6 +8,7 @@ export const fetchMockPipelinesGraphics = async (): Promise<PipelinesGraphics> =
 };
 
 export const saveMockPipelinesGraphics = async (graphics: PipelinesGraphics): Promise<void> => {
+	console.log('save mock pipeline graphics', graphics);
 	return new Promise((resolve) => {
 		setTimeout(() => resolve(), 500);
 	});
