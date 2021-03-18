@@ -69,7 +69,7 @@ export const AdminMenu = () => {
 
 	return <AdminMenuContainer width={menuWidth}>
 		<SideMenuLogo title='Watchmen Admin'/>
-		<SideMenuItem icon={ICON_HOME} label='Topics' showTooltip={showTooltip}
+		<SideMenuItem icon={ICON_HOME} label='Home' showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_HOME)}
 		              onClick={onMenuClicked(Router.ADMIN_HOME)}/>
 		<SideMenuItem icon={ICON_TOPIC} label='Topics' showTooltip={showTooltip}
