@@ -16,6 +16,7 @@ export enum ReportEditEventTypes {
 	ECHART_TITLE_CHANGED = 'echart-title-changed',
 	ECHART_LEGEND_CHANGED = 'echart-legend-changed',
 	ECHART_GRID_CHANGED = 'echart-grid-changed',
+	ECHART_LABEL_CHANGED = 'echart-label-changed',
 	ECHART_XAXIS_CHANGED = 'echart-xaxis-changed',
 	ECHART_YAXIS_CHANGED = 'echart-yaxis-changed',
 
@@ -84,6 +85,10 @@ export interface ReportEditEventBus {
 	fire(type: ReportEditEventTypes.ECHART_GRID_CHANGED, report: Report): this;
 	on(type: ReportEditEventTypes.ECHART_GRID_CHANGED, listener: (report: Report) => void): this;
 	off(type: ReportEditEventTypes.ECHART_GRID_CHANGED, listener: (report: Report) => void): this;
+
+	fire(type: ReportEditEventTypes.ECHART_LABEL_CHANGED, report: Report): this;
+	on(type: ReportEditEventTypes.ECHART_LABEL_CHANGED, listener: (report: Report) => void): this;
+	off(type: ReportEditEventTypes.ECHART_LABEL_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.ECHART_XAXIS_CHANGED, report: Report): this;
 	on(type: ReportEditEventTypes.ECHART_XAXIS_CHANGED, listener: (report: Report) => void): this;

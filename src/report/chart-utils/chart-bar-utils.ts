@@ -3,7 +3,7 @@ import { BAR } from '../../services/tuples/chart-def/chart-bar';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
-import { buildAxis } from './bar-utils';
+import { buildAxis, buildLabel } from './bar-utils';
 import { cleanUselessValues } from './data-utils';
 import { DefaultChartUtils } from './default-chart-utils';
 import { buildEChartsGrid } from './grid-utils';
@@ -41,13 +41,7 @@ export class ChartBarUtils extends DefaultChartUtils {
 			series: legends.map(({ index: indicatorIndex }) => {
 				return {
 					type: 'bar',
-					label: {
-						show: true,
-						position: 'insideTop',
-						distance: 15,
-						verticalAlign: 'middle',
-						rotate: 0
-					},
+					label: buildLabel(chart),
 					data: groups.map(({ row }) => this.formatNumber(row[indicatorIndex]))
 				};
 			})

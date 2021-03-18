@@ -41,7 +41,7 @@ export const EChartsXAxisLabelSettings = (props: { report: Report, chart: EChart
 			radius: EChartsXAxisPropNames.LABEL_BORDER_RADIUS
 		} as SettingsBorderPropNames,
 		alignment: {
-			align: EChartsXAxisPropNames.LABEL_HORIZONTAL_ALIGN,
+			horizontalAlign: EChartsXAxisPropNames.LABEL_HORIZONTAL_ALIGN,
 			verticalAlign: EChartsXAxisPropNames.LABEL_VERTICAL_ALIGN
 		} as SettingsAlignmentPropNames
 	};

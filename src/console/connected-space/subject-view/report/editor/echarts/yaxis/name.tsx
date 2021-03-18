@@ -50,7 +50,7 @@ export const EChartsYAxisNameSettings = (props: { report: Report, chart: ECharts
 			radius: EChartsYAxisPropNames.NAME_BORDER_RADIUS
 		} as SettingsBorderPropNames,
 		alignment: {
-			align: EChartsYAxisPropNames.NAME_HORIZONTAL_ALIGN,
+			horizontalAlign: EChartsYAxisPropNames.NAME_HORIZONTAL_ALIGN,
 			verticalAlign: EChartsYAxisPropNames.NAME_VERTICAL_ALIGN
 		} as SettingsAlignmentPropNames
 	};

@@ -1,3 +1,4 @@
+import { BarChartStylePropNames } from '../chart-styles/bar-chart-style-props';
 import { CountChartStylePropNames } from '../chart-styles/count-chart-style-props';
 import { MapChartStylePropNames } from '../chart-styles/map-chart-style-props';
 import { PieChartStylePropNames } from '../chart-styles/pie-chart-style-props';
@@ -16,6 +17,14 @@ export type DropdownPropNames =
 	| CountChartStylePropNames.TEXT_FONT_FAMILY
 	| CountChartStylePropNames.TEXT_FONT_STYLE
 	| CountChartStylePropNames.TEXT_FONT_WEIGHT
+
+	| BarChartStylePropNames.LABEL_FONT_FAMILY
+	| BarChartStylePropNames.LABEL_FONT_STYLE
+	| BarChartStylePropNames.LABEL_FONT_WEIGHT
+	| BarChartStylePropNames.LABEL_BORDER_STYLE
+	| BarChartStylePropNames.LABEL_POSITION
+	| BarChartStylePropNames.LABEL_HORIZONTAL_ALIGN
+	| BarChartStylePropNames.LABEL_VERTICAL_ALIGN
 
 	| TreeChartStylePropNames.LAYOUT
 	| TreeChartStylePropNames.ORIENT

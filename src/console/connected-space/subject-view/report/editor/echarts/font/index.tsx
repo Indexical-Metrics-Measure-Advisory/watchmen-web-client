@@ -4,12 +4,8 @@ import { EChartsFontHolder } from '../../../../../../../services/tuples/echarts/
 import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import { getCurrentTheme } from '../../../../../../../theme/theme-wrapper';
-import {
-	onColorChange,
-	onDropdownValueChange,
-	onNumberChange,
-	validateNumber
-} from '../../data-utils';
+import { onColorChange, onDropdownValueChange, onNumberChange, validateNumber } from '../../data-utils';
+import { BarChartStylePropNames } from '../../prop-defs/chart-styles/bar-chart-style-props';
 import { CountChartStylePropNames } from '../../prop-defs/chart-styles/count-chart-style-props';
 import {
 	createFontFamilyOptions,
@@ -26,6 +22,7 @@ import { NumberValue } from '../../settings-widgets/number-value';
 
 export interface SettingsFontPropNames {
 	family: CountChartStylePropNames.TEXT_FONT_FAMILY
+		| BarChartStylePropNames.LABEL_FONT_FAMILY
 		| EChartsTitlePropNames.TEXT_FONT_FAMILY
 		| EChartsTitlePropNames.SUBTEXT_FONT_FAMILY
 		| EChartsLegendPropNames.FONT_FAMILY
@@ -34,6 +31,7 @@ export interface SettingsFontPropNames {
 		| EChartsYAxisPropNames.NAME_FONT_FAMILY
 		| EChartsYAxisPropNames.LABEL_FONT_FAMILY;
 	size: CountChartStylePropNames.TEXT_FONT_SIZE
+		| BarChartStylePropNames.LABEL_FONT_SIZE
 		| EChartsTitlePropNames.TEXT_FONT_SIZE
 		| EChartsTitlePropNames.SUBTEXT_FONT_SIZE
 		| EChartsLegendPropNames.FONT_SIZE
@@ -42,6 +40,7 @@ export interface SettingsFontPropNames {
 		| EChartsYAxisPropNames.NAME_FONT_SIZE
 		| EChartsYAxisPropNames.LABEL_FONT_SIZE;
 	weight: CountChartStylePropNames.TEXT_FONT_WEIGHT
+		| BarChartStylePropNames.LABEL_FONT_WEIGHT
 		| EChartsTitlePropNames.TEXT_FONT_WEIGHT
 		| EChartsTitlePropNames.SUBTEXT_FONT_WEIGHT
 		| EChartsLegendPropNames.FONT_WEIGHT
@@ -50,6 +49,7 @@ export interface SettingsFontPropNames {
 		| EChartsYAxisPropNames.NAME_FONT_WEIGHT
 		| EChartsYAxisPropNames.LABEL_FONT_WEIGHT;
 	color: CountChartStylePropNames.TEXT_FONT_COLOR
+		| BarChartStylePropNames.LABEL_FONT_COLOR
 		| EChartsTitlePropNames.TEXT_FONT_COLOR
 		| EChartsTitlePropNames.SUBTEXT_FONT_COLOR
 		| EChartsLegendPropNames.FONT_COLOR
@@ -58,6 +58,7 @@ export interface SettingsFontPropNames {
 		| EChartsYAxisPropNames.NAME_FONT_COLOR
 		| EChartsYAxisPropNames.LABEL_FONT_COLOR;
 	style: CountChartStylePropNames.TEXT_FONT_STYLE
+		| BarChartStylePropNames.LABEL_FONT_STYLE
 		| EChartsTitlePropNames.TEXT_FONT_STYLE
 		| EChartsTitlePropNames.SUBTEXT_FONT_STYLE
 		| EChartsLegendPropNames.FONT_STYLE

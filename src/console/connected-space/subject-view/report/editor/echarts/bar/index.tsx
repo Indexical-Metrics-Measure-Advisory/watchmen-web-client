@@ -1,7 +1,6 @@
 import React from 'react';
 import { Lang } from '../../../../../../../langs';
 import { BarChartSettingsSeries } from '../../../../../../../services/tuples/chart-def/chart-bar';
-import { LineChartSettingsSeries } from '../../../../../../../services/tuples/chart-def/chart-line';
 import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import { onBooleanChange } from '../../data-utils';
@@ -16,7 +15,7 @@ export interface SettingsBarPropNames {
 export const BarSettings = (props: {
 	report: Report;
 	chart: ECharts;
-	getHolder: (chart: ECharts) => BarChartSettingsSeries | LineChartSettingsSeries | undefined;
+	getHolder: (chart: ECharts) => BarChartSettingsSeries | undefined;
 	propNames: SettingsBarPropNames;
 	onValueChange: () => void;
 }) => {

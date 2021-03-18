@@ -1,3 +1,4 @@
+import { BarChartStylePropNames } from '../chart-styles/bar-chart-style-props';
 import { CountChartStylePropNames } from '../chart-styles/count-chart-style-props';
 import { MapChartStylePropNames } from '../chart-styles/map-chart-style-props';
 import { PieChartStylePropNames } from '../chart-styles/pie-chart-style-props';
@@ -16,6 +17,14 @@ export type NumberPropNames =
 	| PeripheralStylePropNames.BORDER_RADIUS
 
 	| CountChartStylePropNames.TEXT_FONT_SIZE
+
+	| BarChartStylePropNames.LABEL_FONT_SIZE
+	| BarChartStylePropNames.LABEL_BORDER_WIDTH
+	| BarChartStylePropNames.LABEL_BORDER_RADIUS
+	| BarChartStylePropNames.LABEL_GAP
+	| BarChartStylePropNames.LABEL_ROTATE
+	| BarChartStylePropNames.LABEL_PADDING
+	| BarChartStylePropNames.LABEL_FRACTION_DIGITS
 
 	| TreeChartStylePropNames.POSITION_TOP
 	| TreeChartStylePropNames.POSITION_RIGHT

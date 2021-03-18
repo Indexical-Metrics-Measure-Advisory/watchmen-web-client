@@ -5,6 +5,7 @@ import { EChartsBorderHolder } from '../../../../../../../services/tuples/echart
 import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
 import { onColorChange, onDropdownValueChange, onNumberChange, validateNumber } from '../../data-utils';
+import { BarChartStylePropNames } from '../../prop-defs/chart-styles/bar-chart-style-props';
 import { PieChartStylePropNames } from '../../prop-defs/chart-styles/pie-chart-style-props';
 import { BorderStyleOptions } from '../../prop-defs/dropdown-options/border-dropdown-options';
 import { EChartsGridPropNames } from '../../prop-defs/echart-styles/echarts-grid-props';
@@ -24,7 +25,8 @@ export interface SettingsBorderPropNames {
 		| EChartsXAxisPropNames.LABEL_BORDER_WIDTH
 		| EChartsYAxisPropNames.NAME_BORDER_WIDTH
 		| EChartsYAxisPropNames.LABEL_BORDER_WIDTH
-		| PieChartStylePropNames.BORDER_WIDTH;
+		| PieChartStylePropNames.BORDER_WIDTH
+		| BarChartStylePropNames.LABEL_BORDER_WIDTH;
 	color: EChartsTitlePropNames.TEXT_BORDER_COLOR
 		| EChartsLegendPropNames.BORDER_COLOR
 		| EChartsGridPropNames.BORDER_COLOR
@@ -32,7 +34,8 @@ export interface SettingsBorderPropNames {
 		| EChartsXAxisPropNames.LABEL_BORDER_COLOR
 		| EChartsYAxisPropNames.NAME_BORDER_COLOR
 		| EChartsYAxisPropNames.LABEL_BORDER_COLOR
-		| PieChartStylePropNames.BORDER_COLOR;
+		| PieChartStylePropNames.BORDER_COLOR
+		| BarChartStylePropNames.LABEL_BORDER_COLOR;
 	style: EChartsTitlePropNames.TEXT_BORDER_STYLE
 		| EChartsLegendPropNames.BORDER_STYLE
 		| EChartsGridPropNames.BORDER_STYLE
@@ -40,14 +43,16 @@ export interface SettingsBorderPropNames {
 		| EChartsXAxisPropNames.LABEL_BORDER_STYLE
 		| EChartsYAxisPropNames.NAME_BORDER_STYLE
 		| EChartsYAxisPropNames.LABEL_BORDER_STYLE
-		| PieChartStylePropNames.BORDER_STYLE;
+		| PieChartStylePropNames.BORDER_STYLE
+		| BarChartStylePropNames.LABEL_BORDER_STYLE;
 	radius?: EChartsTitlePropNames.TEXT_BORDER_RADIUS
 		| EChartsLegendPropNames.BORDER_RADIUS
 		| EChartsXAxisPropNames.NAME_BORDER_RADIUS
 		| EChartsXAxisPropNames.LABEL_BORDER_RADIUS
 		| EChartsYAxisPropNames.NAME_BORDER_RADIUS
 		| EChartsYAxisPropNames.LABEL_BORDER_RADIUS
-		| PieChartStylePropNames.BORDER_RADIUS;
+		| PieChartStylePropNames.BORDER_RADIUS
+		| BarChartStylePropNames.LABEL_BORDER_RADIUS;
 }
 
 export const BorderSettings = (props: {

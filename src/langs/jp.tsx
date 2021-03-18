@@ -389,6 +389,25 @@ export const Jp = {
 		AXIS_NAME_GAP: '間隔',
 		AXIS_NAME_ROTATE: '回転度',
 		AXIS_LABEL_INSIDE: '内側',
+		LABEL_GAP: '間隔',
+		LABEL_ROTATE: '回転度',
+		LABEL_FORMAT_USING_GROUP: '小数第3位',
+		LABEL_FORMAT_USING_PERCENTAGE: 'Using %',  // new
+		LABEL_VALUE_AS_PERCENTAGE: 'Value as %',  // new
+		LABEL_FRACTION_DIGITS: 'Fraction Digits',  // new
+		LABEL_POSITION_TOP: '上側',  // new
+		LABEL_POSITION_LEFT: '左側',  // new
+		LABEL_POSITION_RIGHT: '右側',  // new
+		LABEL_POSITION_BOTTOM: '下側',  // new
+		LABEL_POSITION_INSIDE: 'Inside',  // new
+		LABEL_POSITION_INSIDE_LEFT: 'Inside Left',  // new
+		LABEL_POSITION_INSIDE_RIGHT: 'Inside Right',  // new
+		LABEL_POSITION_INSIDE_TOP: 'Inside Top',  // new
+		LABEL_POSITION_INSIDE_BOTTOM: 'Inside Bottom',  // new
+		LABEL_POSITION_INSIDE_TOP_LEFT: 'Inside Top Left',  // new
+		LABEL_POSITION_INSIDE_BOTTOM_LEFT: 'Inside Bottom Left',  // new
+		LABEL_POSITION_INSIDE_TOP_RIGHT: 'Inside Top Right',  // new
+		LABEL_POSITION_INSIDE_BOTTOM_RIGHT: 'Inside Bottom Right',  // new
 		ROAM: 'ローミング',
 		TREE_LAYOUT: 'レーアウト',
 		TREE_LAYOUT_ORTHOGONAL: '直交',
@@ -426,6 +445,7 @@ export const Jp = {
 		SECTION_TITLE_ECHART_SUBTITLE: 'サブタイトル',
 		SECTION_TITLE_ECHART_LEGEND: '凡例',
 		SECTION_TITLE_ECHART_GRID: 'グリッド',
+		SECTION_TITLE_ECHART_SERIES_LABEL: 'レベル',
 		SECTION_TITLE_ECHART_XAXIS: 'X軸',
 		SECTION_TITLE_ECHART_XAXIS_RANGE: 'X軸の範囲',
 		SECTION_TITLE_ECHART_XAXIS_NAME: 'X軸の名称',

@@ -25,10 +25,10 @@ export const PREDEFINED_NUMBER_FORMATS = [
 	NUMBER_FORMAT_DECIMAL_3,
 	NUMBER_FORMAT_DECIMAL_4
 ];
-export const createNumberFormat = (decimal: number) => {
-	if (decimal < 5) {
+export const createNumberFormat = (decimal: number, useGrouping: boolean = false) => {
+	if (decimal < 5 && !useGrouping) {
 		return PREDEFINED_NUMBER_FORMATS[decimal];
 	} else {
-		return new Intl.NumberFormat(undefined, { useGrouping: false, maximumFractionDigits: decimal }).format;
+		return new Intl.NumberFormat(undefined, { useGrouping, maximumFractionDigits: decimal }).format;
 	}
 };

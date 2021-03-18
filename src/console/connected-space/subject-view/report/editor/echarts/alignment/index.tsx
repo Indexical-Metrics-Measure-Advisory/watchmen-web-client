@@ -7,9 +7,8 @@ import {
 } from '../../../../../../../services/tuples/echarts/echarts-alignment-types';
 import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-types';
 import { Report } from '../../../../../../../services/tuples/report-types';
-import {
-	onDropdownValueChange
-} from '../../data-utils';
+import { onDropdownValueChange } from '../../data-utils';
+import { BarChartStylePropNames } from '../../prop-defs/chart-styles/bar-chart-style-props';
 import {
 	HorizontalAlignmentOptions,
 	VerticalAlignmentOptions
@@ -20,12 +19,15 @@ import { EChartsYAxisPropNames } from '../../prop-defs/echart-styles/echarts-yax
 import { DropdownValue } from '../../settings-widgets/dropdown-value';
 
 export interface SettingsAlignmentPropNames {
-	align: EChartsTitlePropNames.TEXT_HORIZONTAL_ALIGN
+	horizontalAlign: BarChartStylePropNames.LABEL_HORIZONTAL_ALIGN
+		| EChartsTitlePropNames.TEXT_HORIZONTAL_ALIGN
 		| EChartsXAxisPropNames.NAME_HORIZONTAL_ALIGN
 		| EChartsXAxisPropNames.LABEL_HORIZONTAL_ALIGN
 		| EChartsYAxisPropNames.NAME_HORIZONTAL_ALIGN
 		| EChartsYAxisPropNames.LABEL_HORIZONTAL_ALIGN;
-	verticalAlign: EChartsTitlePropNames.TEXT_VERTICAL_ALIGN
+
+	verticalAlign: BarChartStylePropNames.LABEL_VERTICAL_ALIGN
+		| EChartsTitlePropNames.TEXT_VERTICAL_ALIGN
 		| EChartsXAxisPropNames.NAME_VERTICAL_ALIGN
 		| EChartsXAxisPropNames.LABEL_VERTICAL_ALIGN
 		| EChartsYAxisPropNames.NAME_VERTICAL_ALIGN
@@ -42,7 +44,7 @@ export const AlignmentSettings = (props: {
 	const {
 		report, chart, getHolder,
 		propNames: {
-			align: alignPropName,
+			horizontalAlign: alignPropName,
 			verticalAlign: verticalAlignPropName
 		},
 		onValueChange

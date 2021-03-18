@@ -12,6 +12,10 @@ export type BooleanPropNames =
 	CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING
 
 	| BarChartStylePropNames.TRANSFORM_AXIS
+	| BarChartStylePropNames.LABEL_SHOW
+	| BarChartStylePropNames.LABEL_FORMAT_USE_GROUPING
+	| BarChartStylePropNames.LABEL_FORMAT_USE_PERCENTAGE
+	| BarChartStylePropNames.LABEL_VALUE_AS_PERCENTAGE
 
 	| PieChartStylePropNames.SHOW_PERCENTAGE
 
