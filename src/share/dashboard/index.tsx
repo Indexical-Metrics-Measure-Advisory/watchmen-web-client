@@ -22,7 +22,7 @@ const ShareDashboard = (props: { dashboard: Dashboard }) => {
 
 	return <DashboardEventBusProvider>
 		<ShareDashboardContainer>
-			<DashboardBody dashboard={dashboard} removable={false}/>
+			<DashboardBody dashboard={dashboard} removable={false} transient={true}/>
 		</ShareDashboardContainer>
 	</DashboardEventBusProvider>;
 };
