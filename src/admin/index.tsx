@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { Router } from '../routes/types';
 import AdminEnums from './enums';
+import AdminHome from './home';
 import { AdminMenu } from './menu';
 import AdminPipelines from './pipelines';
 import AdminReports from './reports';
@@ -14,7 +15,15 @@ import AdminUsers from './users';
 const AdminContainer = styled.div.attrs({ 'data-widget': 'admin' })`
 	display : flex;
 `;
-const AdminMain = styled.main.attrs({ 'data-widget': 'admin-main', 'data-v-scroll': '' })`
+const AdminMain = styled.main.attrs<{ scrollable?: boolean }>(({ scrollable = true }) => {
+	return {
+		'data-widget': 'admin-main',
+		'data-v-scroll': scrollable ? '' : (void 0),
+		style: {
+			overflowY: scrollable ? (void 0) : 'hidden'
+		}
+	};
+})<{ scrollable?: boolean }>`
 	flex-grow  : 1;
 	display    : flex;
 	height     : 100vh;
@@ -27,6 +36,7 @@ const AdminIndex = () => {
 		<AdminMenu/>
 
 		<Switch>
+			<Route path={Router.ADMIN_HOME}><AdminMain scrollable={false}><AdminHome/></AdminMain></Route>
 			<Route path={Router.ADMIN_TOPICS}><AdminMain><AdminTopics/></AdminMain></Route>
 			<Route path={Router.ADMIN_ENUMS}><AdminMain><AdminEnums/></AdminMain></Route>
 			<Route path={Router.ADMIN_REPORTS}><AdminMain><AdminReports/></AdminMain></Route>
@@ -36,7 +46,7 @@ const AdminIndex = () => {
 			<Route path={Router.ADMIN_USERS}><AdminMain><AdminUsers/></AdminMain></Route>
 			{/*		<Route path={Path.ADMIN_TASKS}><Tasks/></Route>*/}
 			<Route path='*'>
-				<Redirect to={Router.ADMIN_TOPICS}/>
+				<Redirect to={Router.ADMIN_HOME}/>
 			</Route>
 		</Switch>
 	</AdminContainer>;

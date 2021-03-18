@@ -2,6 +2,7 @@ export enum Router {
 	LOGIN = '/login',
 
 	ADMIN = '/admin',
+	ADMIN_HOME = '/admin/home',
 	ADMIN_TOPICS = '/admin/topics',
 	ADMIN_ENUMS = '/admin/enums',
 	ADMIN_REPORTS = '/admin/reports',
