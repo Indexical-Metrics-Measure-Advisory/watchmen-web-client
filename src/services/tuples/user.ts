@@ -90,7 +90,7 @@ export const saveUser = async (user: User): Promise<void> => {
 		user.lastModifyTime = data.lastModifyTime;
 	} else {
 		const token = findToken();
-		const response = await doFetch(`${getServiceHost()}update/user?user_id=${user.userId}`, {
+		const response = await doFetch(`${getServiceHost()}user`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

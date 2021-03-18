@@ -58,3 +58,4 @@ export const listEnumsForHolder = async (): Promise<Array<QueryEnumForHolder>> =
 		return listMockEnumsForHolder();
 	}
 };
+	
