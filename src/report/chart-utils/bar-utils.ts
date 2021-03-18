@@ -14,7 +14,6 @@ export const buildAxis = (chart: ECharts, groups: Array<{ value: any }>) => {
 	}
 
 	const { series } = settings as BarChartSettings;
-	cleanUselessValues
 	const xAxis = [ buildEChartsXAxis(chart as ECharts, groups.map(({ value }) => value)) ];
 	const yAxis = [ buildEChartsYAxis(chart as ECharts) ];
 
@@ -30,7 +29,6 @@ export const buildLabel = (chart: ECharts) => {
 		chart.settings = settings;
 	}
 	const { label } = settings as BarChartSettings;
-	console.log(label)
 
 	return cleanUselessValues({
 		show: label?.show || true,
