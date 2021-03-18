@@ -1,14 +1,20 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useEventBus } from '../../../events/event-bus';
 import { EventTypes } from '../../../events/types';
 import { saveConnectedSpaceGraphics } from '../../../services/tuples/connected-space';
 import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
 import { useConsoleEventBus } from '../../console-event-bus';
 import { ConsoleEventTypes } from '../../console-event-bus-types';
+import { SAVE_TIMEOUT } from '../constants';
 import { useCatalogEventBus } from './catalog-event-bus';
 import { CatalogEventTypes } from './catalog-event-bus-types';
 import { transformGraphicsToSave } from './graphics-utils';
 import { AssembledConnectedSpaceGraphics } from './types';
+
+interface SaveState {
+	connectSpaceId?: string;
+	handle?: number;
+}
 
 export const GraphicsSave = (props: {
 	connectedSpace: ConnectedSpace;
@@ -19,16 +25,31 @@ export const GraphicsSave = (props: {
 	const { fire: fireGlobal } = useEventBus();
 	const { fire: fireConsole } = useConsoleEventBus();
 	const { on, off } = useCatalogEventBus();
+	const [ , setState ] = useState<SaveState>({});
 	useEffect(() => {
 		const onGraphicsChange = () => {
 			if (assembledGraphics) {
 				const graphics = transformGraphicsToSave(connectedSpace, assembledGraphics);
 				fireConsole(ConsoleEventTypes.CONNECTED_SPACE_GRAPHICS_CHANGED, graphics);
 
-				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-					async () => await saveConnectedSpaceGraphics(connectedSpace, graphics),
-					() => {
-					});
+				setState(({ connectSpaceId, handle }) => {
+					// if not the same connected space, just let it be
+					// eslint-disable-next-line
+					if (connectSpaceId == connectedSpace.connectId) {
+						if (handle) {
+							clearTimeout(handle);
+						}
+					}
+					return {
+						connectSpaceId: connectedSpace.connectId,
+						handle: window.setTimeout(() => {
+							fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+								async () => await saveConnectedSpaceGraphics(connectedSpace, graphics),
+								() => {
+								});
+						}, SAVE_TIMEOUT)
+					};
+				});
 			}
 		};
 		on(CatalogEventTypes.TOPIC_MOVED, onGraphicsChange);
