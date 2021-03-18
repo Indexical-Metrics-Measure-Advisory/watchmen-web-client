@@ -32,3 +32,4 @@ export const createNumberFormat = (decimal: number, useGrouping: boolean = false
 		return new Intl.NumberFormat(undefined, { useGrouping, maximumFractionDigits: decimal }).format;
 	}
 };
+export const PREDEFINED_GROUPING_FORMATS = new Intl.NumberFormat(undefined, { useGrouping: true }).format;
