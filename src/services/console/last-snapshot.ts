@@ -1,8 +1,8 @@
-import { findAccount, findToken } from "../account";
-import { fetchMockLastSnapshot } from "../mock/console/mock-last-snapshot";
-import { LAST_SNAPSHOT_TOKEN } from "../session-constants";
-import { doFetch, getServiceHost, isMockService } from "../utils";
-import { LastSnapshot } from "./last-snapshot-types";
+import { findAccount, findToken } from '../account';
+import { fetchMockLastSnapshot } from '../mock/console/mock-last-snapshot';
+import { LAST_SNAPSHOT_TOKEN } from '../session-constants';
+import { doFetch, getServiceHost, isMockService } from '../utils';
+import { LastSnapshot } from './last-snapshot-types';
 
 const fetchLastSnapshotFromSession = (): LastSnapshot | undefined => {
 	const account = findAccount();
@@ -37,11 +37,11 @@ export const fetchLastSnapshot = async (): Promise<LastSnapshot> => {
 		// REMOTE use real api
 		const token = findToken();
 		const response = await doFetch(`${getServiceHost()}last_snapshot/me`, {
-			method: "GET",
+			method: 'GET',
 			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
+			}
 		});
 
 		return await response.json();
@@ -50,23 +50,25 @@ export const fetchLastSnapshot = async (): Promise<LastSnapshot> => {
 
 export const saveLastSnapshot = async (snapshot: Partial<LastSnapshot>): Promise<void> => {
 	const old = fetchLastSnapshotFromSession();
+	let qualifiedSnapshot;
 	if (old) {
-		saveLastSnapshotToSession({ ...old, ...snapshot });
+		qualifiedSnapshot = { ...old, ...snapshot };
 	} else {
-		saveLastSnapshotToSession({ ...snapshot });
+		qualifiedSnapshot = { ...snapshot };
 	}
+	saveLastSnapshotToSession(qualifiedSnapshot);
 
 	if (isMockService()) {
-		console.log("mock saveLastSnapshot");
+		console.log('mock saveLastSnapshot');
 	} else {
 		const token = findToken();
 		await doFetch(`${getServiceHost()}last_snapshot/save`, {
-			method: "POST",
+			method: 'POST',
 			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token
 			},
-			body: JSON.stringify(snapshot),
+			body: JSON.stringify(qualifiedSnapshot)
 		});
 	}
 
