@@ -20,7 +20,7 @@ const AdminDashboard = (props: { dashboard: Dashboard }) => {
 
 	return <DashboardEventBusProvider>
 		<AdminDashboardContainer>
-			<DashboardBody dashboard={dashboard} removable={false}/>
+			<DashboardBody dashboard={dashboard} removable={false} transient={true}/>
 		</AdminDashboardContainer>
 	</DashboardEventBusProvider>;
 };
