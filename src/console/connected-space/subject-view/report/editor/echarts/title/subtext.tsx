@@ -6,7 +6,7 @@ import { onTextValueChange } from '../../data-utils';
 import { EChartsTitlePropNames } from '../../prop-defs/echart-styles/echarts-title-props';
 import { useReportEditEventBus } from '../../report-edit-event-bus';
 import { ReportEditEventTypes } from '../../report-edit-event-bus-types';
-import { Section } from '../../settings-widgets/section';
+import { SecondarySection } from '../../settings-widgets/secondary-section';
 import { TextValue } from '../../settings-widgets/text-value';
 import { FontSettings, SettingsFontPropNames } from '../font';
 
@@ -31,7 +31,7 @@ export const EChartsTitleSubtextSettings = (props: { report: Report, chart: ECha
 		} as SettingsFontPropNames
 	};
 
-	return <Section title={Lang.CHART.SECTION_TITLE_ECHART_SUBTITLE}>
+	return <SecondarySection title={Lang.CHART.SECTION_TITLE_ECHART_SUBTITLE}>
 		<TextValue label={Lang.CHART.ECHART.TEXT}
 		           value={text?.text}
 		           onValueChange={onTextValueChange({
@@ -44,5 +44,5 @@ export const EChartsTitleSubtextSettings = (props: { report: Report, chart: ECha
 		              getHolder={getHolder}
 		              propNames={propNames.font}
 		              onValueChange={onValueChange}/>
-	</Section>;
+	</SecondarySection>;
 };

@@ -3,12 +3,7 @@ import { Lang } from '../../../../../../langs';
 import { ChartBorderStyle } from '../../../../../../services/tuples/chart-types';
 import { Report } from '../../../../../../services/tuples/report-types';
 import { getCurrentTheme } from '../../../../../../theme/theme-wrapper';
-import {
-	onColorChange,
-	onDropdownValueChange,
-	onNumberChange,
-	validateNumber
-} from '../data-utils';
+import { onColorChange, onDropdownValueChange, onNumberChange, validateNumber } from '../data-utils';
 import { BorderStyleOptions } from '../prop-defs/dropdown-options/border-dropdown-options';
 import { PeripheralStylePropNames } from '../prop-defs/peripheral-style-props';
 import { useReportEditEventBus } from '../report-edit-event-bus';
@@ -16,7 +11,6 @@ import { ReportEditEventTypes } from '../report-edit-event-bus-types';
 import { ColorValue } from '../settings-widgets/color-value';
 import { DropdownValue } from '../settings-widgets/dropdown-value';
 import { NumberValue } from '../settings-widgets/number-value';
-import { Section } from '../settings-widgets/section';
 
 export const BasicStylesSection = (props: { report: Report }) => {
 	const { report } = props;
@@ -28,7 +22,7 @@ export const BasicStylesSection = (props: { report: Report }) => {
 	};
 	const theme = getCurrentTheme();
 
-	return <Section title={Lang.CHART.SECTION_TITLE_BASIC_STYLE}>
+	return <>
 		<ColorValue label={Lang.CHART.BACKGROUND_COLOR}
 		            value={report.chart.settings?.backgroundColor} defaultValue={theme.bgColor}
 		            onValueChange={onColorChange({
@@ -73,5 +67,5 @@ export const BasicStylesSection = (props: { report: Report }) => {
 			             prop: PeripheralStylePropNames.BORDER_RADIUS,
 			             done: onValueChange
 		             })}/>
-	</Section>;
+	</>;
 };

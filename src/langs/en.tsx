@@ -316,7 +316,6 @@ export const En = {
 	},
 	CHART: {
 		SETTINGS_HEADER_LABEL: 'Report Settings',
-		SECTION_TITLE_SIZE: 'Size',
 		SECTION_TITLE_BASIC_STYLE: 'Basic Style',
 		SECTION_TITLE_DIMENSIONS: 'Dimensions',
 		SECTION_TITLE_INDICATORS: 'Indicators',

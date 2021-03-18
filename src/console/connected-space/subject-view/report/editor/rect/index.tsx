@@ -6,6 +6,7 @@ import { useReportEditEventBus } from '../report-edit-event-bus';
 import { ReportEditEventTypes } from '../report-edit-event-bus-types';
 import { NumberValue } from '../settings-widgets/number-value';
 import { Section } from '../settings-widgets/section';
+import { BasicStylesSection } from '../styles';
 
 export const RectSection = (props: { report: Report }) => {
 	const { report } = props;
@@ -27,7 +28,7 @@ export const RectSection = (props: { report: Report }) => {
 		return numberValue;
 	};
 
-	return <Section title={Lang.CHART.SECTION_TITLE_SIZE}>
+	return <Section title={Lang.CHART.SECTION_TITLE_BASIC_STYLE}>
 		<NumberValue label={Lang.CHART.WIDTH} unitLabel={Lang.CHART.PIXEL}
 		             value={rect.width}
 		             placeholder={'1 - 9999'}
@@ -36,5 +37,6 @@ export const RectSection = (props: { report: Report }) => {
 		             value={rect.height}
 		             placeholder={'1 - 9999'}
 		             validate={validateNumber} onValueChange={onValueChange('height')}/>
+		<BasicStylesSection report={report}/>
 	</Section>;
 };

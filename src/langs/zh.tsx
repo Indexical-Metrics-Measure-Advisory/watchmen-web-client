@@ -316,7 +316,6 @@ export const Zh = {
 	},
 	CHART: {
 		SETTINGS_HEADER_LABEL: '图表设置',
-		SECTION_TITLE_SIZE: '尺寸',
 		SECTION_TITLE_BASIC_STYLE: '基本样式',
 		SECTION_TITLE_DIMENSIONS: '统计维度',
 		SECTION_TITLE_INDICATORS: '统计指标',

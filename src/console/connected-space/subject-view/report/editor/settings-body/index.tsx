@@ -60,7 +60,6 @@ export const SettingsBody = (props: { subject: Subject, report: Report }) => {
 		<EChartsGridSettings report={report}/>
 		<EChartsXAxisSettings report={report}/>
 		<EChartsYAxisSettings report={report}/>
-		<BasicStylesSection report={report}/>
 		{/*<DescriptionPropEditor report={report}/>*/}
 	</SettingsBodyContainer>;
 };

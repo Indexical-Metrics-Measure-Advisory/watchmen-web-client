@@ -19,6 +19,7 @@ import { AlignmentSettings, SettingsAlignmentPropNames } from '../alignment';
 import { BorderSettings, SettingsBorderPropNames } from '../border';
 import { FontSettings, SettingsFontPropNames } from '../font';
 import { PositionSettings, SettingsPositionPropNames } from '../position';
+import { EChartsTitleSubtextSettings } from './subtext';
 
 export const EChartsTitleTextSettings = (props: { report: Report, chart: ECharts }) => {
 	const { report, chart } = props;
@@ -110,5 +111,6 @@ export const EChartsTitleTextSettings = (props: { report: Report, chart: ECharts
 			             prop: EChartsTitlePropNames.PADDING,
 			             done: onValueChange
 		             })}/>
+		<EChartsTitleSubtextSettings report={report} chart={chart}/>
 	</Section>;
 };

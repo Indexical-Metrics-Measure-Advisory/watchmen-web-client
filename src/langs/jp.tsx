@@ -316,7 +316,6 @@ export const Jp = {
 	},
 	CHART: {
 		SETTINGS_HEADER_LABEL: 'Report Settings',  // new
-		SECTION_TITLE_SIZE: 'サイズ',
 		SECTION_TITLE_BASIC_STYLE: '基本スタイル',
 		SECTION_TITLE_DIMENSIONS: 'ディメンション',
 		SECTION_TITLE_INDICATORS: '指標',
