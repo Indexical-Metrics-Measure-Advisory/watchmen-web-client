@@ -40,9 +40,9 @@ export const ItemsTableHeaderContainer = styled.div.attrs({
 		border        : 0;
 		border-bottom : var(--border);
 		width         : calc(100% + 64px + var(--margin));
-		&::placeholder {
-			font-variant : petite-caps;
-		}
+		//&::placeholder {
+		//	font-variant : petite-caps;
+		//}
 	}
 `;
 export const ItemsTableHeaderCell = styled.div.attrs({
