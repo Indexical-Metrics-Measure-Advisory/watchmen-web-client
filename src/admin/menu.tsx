@@ -5,6 +5,7 @@ import {
 	ICON_CONSOLE,
 	ICON_ENUM,
 	ICON_HOME,
+	ICON_MONITOR_LOGS,
 	ICON_PIPELINE,
 	ICON_REPORT,
 	ICON_SPACE,
@@ -94,13 +95,15 @@ export const AdminMenu = () => {
 		<SideMenuItem icon={ICON_USER} label='Users' showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_USERS)}
 		              onClick={onMenuClicked(Router.ADMIN_USERS)}/>
-		{/* FEAT hide task menu */}
-		<SideMenuSeparator width={menuWidth} visible={false}/>
+		<SideMenuSeparator width={menuWidth}/>
 		{/* FEAT hide task menu */}
 		<SideMenuItem icon={ICON_TASK} label='Tasks' showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_TASKS)}
 		              onClick={onMenuClicked(Router.ADMIN_TASKS)}
 		              visible={false}/>
+		<SideMenuItem icon={ICON_MONITOR_LOGS} label='Monitor Logs' showTooltip={showTooltip}
+		              active={!!matchPath(location.pathname, Router.ADMIN_MONITOR_LOGS)}
+		              onClick={onMenuClicked(Router.ADMIN_MONITOR_LOGS)}/>
 		<SideMenuPlaceholder/>
 		<SideMenuSeparator width={menuWidth}/>
 		<SideMenuItem icon={ICON_CONSOLE} label={'Switch to Console'} showTooltip={showTooltip}

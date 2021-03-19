@@ -1,5 +1,5 @@
 // the most important thing is keep z-index always be correct
-import { faBuffer } from '@fortawesome/free-brands-svg-icons';
+import { faBuffer, faCreativeCommonsSampling } from '@fortawesome/free-brands-svg-icons';
 import {
 	faAngleLeft,
 	faAngleRight,
@@ -132,6 +132,7 @@ export const ICON_TASK = faTasks;
 export const ICON_NOTIFICATION = faBell;
 export const ICON_MAIL = faInbox;
 export const ICON_TIMELINE = faComments;
+export const ICON_MONITOR_LOGS = faCreativeCommonsSampling;
 
 export const ICON_SECONDARY_SECTION = faCaretRight;
 

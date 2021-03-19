@@ -6,6 +6,7 @@ import { isAdmin } from '../services/account';
 import AdminEnums from './enums';
 import AdminHome from './home';
 import { AdminMenu } from './menu';
+import AdminMonitorLogs from './monitor-log';
 import AdminPipelines from './pipelines';
 import AdminReports from './reports';
 import AdminSpaces from './spaces';
@@ -49,6 +50,7 @@ const AdminIndex = () => {
 			<Route path={Router.ADMIN_PIPELINES}><AdminPipelines/></Route>
 			<Route path={Router.ADMIN_USER_GROUPS}><AdminMain><AdminUserGroups/></AdminMain></Route>
 			<Route path={Router.ADMIN_USERS}><AdminMain><AdminUsers/></AdminMain></Route>
+			<Route path={Router.ADMIN_MONITOR_LOGS}><AdminMain><AdminMonitorLogs/></AdminMain></Route>
 			{/*		<Route path={Path.ADMIN_TASKS}><Tasks/></Route>*/}
 			<Route path='*'>
 				<Redirect to={Router.ADMIN_HOME}/>

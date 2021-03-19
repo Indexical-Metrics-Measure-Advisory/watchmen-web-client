@@ -12,6 +12,7 @@ export enum Router {
 	ADMIN_PIPELINES = '/admin/pipeline',
 	ADMIN_USER_GROUPS = '/admin/user-groups',
 	ADMIN_USERS = '/admin/users',
+	ADMIN_MONITOR_LOGS = '/admin/monitor_logs',
 	ADMIN_TASKS = '/admin/tasks',
 
 	CONSOLE = '/console',
