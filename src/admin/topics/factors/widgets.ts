@@ -44,6 +44,24 @@ export const FactorsTableBodyContainer = styled.div.attrs({ 'data-widget': 'fact
 	margin         : 0 calc(var(--margin) / -2) calc(var(--margin) / 2);
 	padding        : 0 calc(var(--margin) / 2);
 `;
+export const FactorsTableBodyPageableContainer = styled.div.attrs({ 'data-widget': 'enum-items-table-body-pageable' })`
+	display     : flex;
+	position    : relative;
+	align-items : center;
+	height      : calc(${HEADER_HEIGHT}px * 1.5);
+	margin      : 0 calc(var(--margin) / -2);
+	> span {
+		margin-right : calc(var(--margin) / 2);
+		font-variant : petite-caps;
+	}
+	> div[data-widget=dropdown] {
+		width : 150px;
+		//border        : 0;
+		//border-bottom : var(--border);
+		//border-radius : 0;
+	}
+`;
+
 
 export const FactorsTableFooter = styled.div.attrs({ 'data-widget': 'factors-table-footer' })`
 	display         : flex;

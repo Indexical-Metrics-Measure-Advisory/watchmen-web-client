@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { HEADER_HEIGHT } from '../../../basic-widgets/constants';
 
-const FACTORS_TABLE_HEADER_HEIGHT = HEADER_HEIGHT;
-const FACTORS_TABLE_FOOTER_HEIGHT = HEADER_HEIGHT;
+const ITEMS_TABLE_HEADER_HEIGHT = HEADER_HEIGHT;
+const ITEMS_TABLE_FOOTER_HEIGHT = HEADER_HEIGHT;
 const GRID_COLUMNS = '64px 150px 1fr 150px 150px';
 
 export const ItemsTableContainer = styled.div.attrs({ 'data-widget': 'enum-items-table' })`
@@ -23,7 +23,7 @@ export const ItemsTableHeaderContainer = styled.div.attrs({
 	display               : grid;
 	position              : relative;
 	grid-template-columns : ${GRID_COLUMNS};
-	grid-template-rows    : var(--height) ${FACTORS_TABLE_HEADER_HEIGHT}px;
+	grid-template-rows    : var(--height) ${ITEMS_TABLE_HEADER_HEIGHT}px;
 	align-items           : center;
 	margin                : 0 calc(var(--margin) / -2);
 	padding               : 0 calc(var(--margin) / 2);
@@ -73,7 +73,7 @@ export const ItemsTableBodyRow = styled.div.attrs({
 	display               : grid;
 	position              : relative;
 	grid-template-columns : ${GRID_COLUMNS};
-	height                : calc(${FACTORS_TABLE_HEADER_HEIGHT}px * 0.8);
+	height                : calc(${ITEMS_TABLE_HEADER_HEIGHT}px * 0.8);
 	margin                : 0 calc(var(--margin) / -2);
 	padding               : 0 calc(var(--margin) / 2);
 	border-radius         : var(--border-radius);
@@ -92,7 +92,7 @@ export const ItemsTableBodyPageableContainer = styled.div.attrs({ 'data-widget':
 	display     : flex;
 	position    : relative;
 	align-items : center;
-	height      : calc(${FACTORS_TABLE_FOOTER_HEIGHT}px * 1.5);
+	height      : calc(${ITEMS_TABLE_FOOTER_HEIGHT}px * 1.5);
 	margin      : 0 calc(var(--margin) / -2);
 	> span {
 		margin-right : calc(var(--margin) / 2);
@@ -110,7 +110,7 @@ export const ItemsTableFooter = styled.div.attrs({ 'data-widget': 'enum-items-ta
 	display         : flex;
 	align-items     : center;
 	justify-content : flex-end;
-	height          : ${FACTORS_TABLE_FOOTER_HEIGHT}px;
+	height          : ${ITEMS_TABLE_FOOTER_HEIGHT}px;
 	margin-top      : var(--margin);
 	> button:not(:first-child) {
 		margin-left : calc(var(--margin) / 3);

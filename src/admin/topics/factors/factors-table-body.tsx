@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Dropdown } from '../../../basic-widgets/dropdown';
+import { DropdownOption } from '../../../basic-widgets/types';
 import { useForceUpdate } from '../../../basic-widgets/utils';
 import { Factor } from '../../../services/tuples/factor-types';
 import { QueryEnumForHolder } from '../../../services/tuples/query-enum-types';
@@ -6,7 +8,9 @@ import { Topic } from '../../../services/tuples/topic-types';
 import { FactorRow } from '../factor/factor-row';
 import { useTopicEventBus } from '../topic-event-bus';
 import { TopicEventTypes } from '../topic-event-bus-types';
-import { FactorsTableBodyContainer } from './widgets';
+import { FactorsTableBodyContainer, FactorsTableBodyPageableContainer } from './widgets';
+
+const PAGE_SIZE = 50;
 
 const filterBy = (factors: Array<Factor>, text: string, getValue: (factor: Factor) => string): Array<Factor> => {
 	if (text.length === 0) {
@@ -72,6 +76,7 @@ export const FactorsTableBody = (props: { topic: Topic, enums: Array<QueryEnumFo
 	const { topic, enums } = props;
 
 	const { on, off } = useTopicEventBus();
+	const [ pageNumber, setPageNumber ] = useState(1);
 	const [ searchText, setSearchText ] = useState('');
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
@@ -95,10 +100,30 @@ export const FactorsTableBody = (props: { topic: Topic, enums: Array<QueryEnumFo
 		};
 	}, [ on, off, forceUpdate, topic ]);
 
+	const onPageNumberChange = (option: DropdownOption) => {
+		const { value } = option;
+		setPageNumber(value);
+	};
+
+	let items = filterFactors(topic, searchText);
+	const count = items.length;
+	// get items of current page
+	items = items.slice((pageNumber - 1) * PAGE_SIZE, pageNumber * PAGE_SIZE);
+	const pages = Math.ceil(count / PAGE_SIZE);
+	const pageOptions: Array<DropdownOption> = new Array(pages).fill(1).map((value, index) => {
+		return { value: index + 1, label: `${index + 1}` };
+	});
+
 	return <FactorsTableBodyContainer>
-		{filterFactors(topic, searchText).map(factor => {
+		{items.map(factor => {
 			return <FactorRow topic={topic} factor={factor} enums={enums}
 			                  key={factor.factorId}/>;
 		})}
+		{pages > 1
+			? <FactorsTableBodyPageableContainer>
+				<span>Page: </span>
+				<Dropdown value={pageNumber} options={pageOptions} onChange={onPageNumberChange}/>
+			</FactorsTableBodyPageableContainer>
+			: null}
 	</FactorsTableBodyContainer>;
 };
