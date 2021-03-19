@@ -8,6 +8,7 @@ import { buildDecal } from './decal-utils';
 import { DefaultChartUtils } from './default-chart-utils';
 import { buildEChartsPie, buildTreeSeriesData } from './pie-utils';
 import { buildEChartsTitle } from './title-utils';
+import { buildToolbox } from './toolbox-utils';
 import { ChartOptions } from './types';
 
 export class ChartSunburstUtils extends DefaultChartUtils {
@@ -32,7 +33,8 @@ export class ChartSunburstUtils extends DefaultChartUtils {
 						outsideRadius: '90%'
 					})
 			],
-			aria: buildDecal(chart)
+			aria: buildDecal(chart),
+			toolbox: buildToolbox(chart)
 		});
 	}
 }

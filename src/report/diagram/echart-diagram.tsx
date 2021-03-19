@@ -10,11 +10,13 @@ import {
 	ScatterChart,
 	SunburstChart,
 	TreeChart,
-	TreemapChart
+	TreemapChart,
 } from 'echarts/charts';
 import {
 	AriaComponent,
 	AxisPointerComponent,
+	BrushComponent,
+	DatasetComponent,
 	DataZoomComponent,
 	GeoComponent,
 	GraphicComponent,
@@ -34,7 +36,7 @@ import { EChartDiagramContainer } from './widgets';
 
 echarts.use([
 	TitleComponent, TooltipComponent, GridComponent, AxisPointerComponent, DataZoomComponent,
-	GeoComponent, VisualMapComponent, ToolboxComponent, GraphicComponent, LegendComponent, AriaComponent,
+	GeoComponent, VisualMapComponent, ToolboxComponent, GraphicComponent, LegendComponent, AriaComponent, BrushComponent, DatasetComponent,
 	GraphChart, CustomChart,
 	BarChart, LineChart, LinesChart,
 	PieChart,

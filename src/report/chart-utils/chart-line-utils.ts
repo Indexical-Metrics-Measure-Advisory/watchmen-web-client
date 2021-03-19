@@ -8,6 +8,7 @@ import { DefaultChartUtils } from './default-chart-utils';
 import { buildEChartsGrid } from './grid-utils';
 import { buildEChartsLegend } from './legend-utils';
 import { buildEChartsTitle } from './title-utils';
+import { buildToolbox } from './toolbox-utils';
 import { ChartOptions } from './types';
 import { buildEChartsXAxis } from './xaxis-utils';
 import { buildEChartsYAxis } from './yaxis-utils';
@@ -44,7 +45,8 @@ export class ChartLineUtils extends DefaultChartUtils {
 					smooth: (chart.settings as LineChartSettings).series?.smooth,
 					data: buildSeriesData(chart, groups, indicatorIndex, this.formatNumber)
 				};
-			})
+			}),
+			toolbox: buildToolbox(chart)
 		};
 	}
 }

@@ -8,6 +8,7 @@ import { TruncationChartStylePropNames } from '../chart-styles/truncation-chart-
 import { EChartsGridPropNames } from '../echart-styles/echarts-grid-props';
 import { EChartsLegendPropNames } from '../echart-styles/echarts-legend-props';
 import { EChartsTitlePropNames } from '../echart-styles/echarts-title-props';
+import { EChartsTooltipPropNames } from '../echart-styles/echarts-tooltip-props';
 import { EChartsXAxisPropNames } from '../echart-styles/echarts-xaxis-props';
 import { EChartsYAxisPropNames } from '../echart-styles/echarts-yaxis-props';
 import { PeripheralStylePropNames } from '../peripheral-style-props';
@@ -119,4 +120,9 @@ export type NumberPropNames =
 	| EChartsYAxisPropNames.SPLIT_LINE_WIDTH
 	| EChartsYAxisPropNames.MINOR_SPLIT_LINE_WIDTH
 
-	| TruncationChartStylePropNames.TRUNCATION_COUNT;
+	| TruncationChartStylePropNames.TRUNCATION_COUNT
+
+	| EChartsTooltipPropNames.POSITION_TOP
+	| EChartsTooltipPropNames.POSITION_RIGHT
+	| EChartsTooltipPropNames.POSITION_LEFT
+	| EChartsTooltipPropNames.POSITION_BOTTOM;

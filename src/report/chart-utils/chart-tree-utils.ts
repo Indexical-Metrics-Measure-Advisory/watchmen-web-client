@@ -6,6 +6,7 @@ import { Report } from '../../services/tuples/report-types';
 import { cleanUselessValues } from './data-utils';
 import { DefaultChartUtils } from './default-chart-utils';
 import { buildEChartsTitle } from './title-utils';
+import { buildToolbox } from './toolbox-utils';
 import { ChartOptions } from './types';
 
 export class ChartTreeUtils extends DefaultChartUtils {
@@ -48,7 +49,8 @@ export class ChartTreeUtils extends DefaultChartUtils {
 				},
 				expandAndCollapse: true,
 				data: this.buildTreeData(report, dataset)
-			} ]
+			} ],
+			toolbox: buildToolbox(chart)
 		});
 	}
 }

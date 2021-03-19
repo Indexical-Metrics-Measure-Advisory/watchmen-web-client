@@ -9,6 +9,7 @@ import { DefaultChartUtils } from './default-chart-utils';
 import { buildEChartsLegend } from './legend-utils';
 import { buildEChartsPie, buildSeriesData } from './pie-utils';
 import { buildEChartsTitle } from './title-utils';
+import { buildToolbox } from './toolbox-utils';
 import { ChartOptions } from './types';
 
 export class ChartPieUtils extends DefaultChartUtils {
@@ -37,7 +38,8 @@ export class ChartPieUtils extends DefaultChartUtils {
 				insideRadius: 0,
 				outsideRadius: '75%'
 			}) ],
-			aria: buildDecal(chart)
+			aria: buildDecal(chart),
+			toolbox: buildToolbox(chart)
 		});
 	}
 }

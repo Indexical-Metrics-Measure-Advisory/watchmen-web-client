@@ -58,8 +58,8 @@ export const fetchMockBarChartData = async (reportId: string): Promise<ChartData
 		setTimeout(() => resolve({
 				meta: [],
 				data: [
-					[ 1234, 'hello' ],
-					[ 1324, 'world' ]
+					[ 1234, 5678, 'hello' ],
+					[ 1324, 6587, 'world' ]
 				]
 			} as ChartDataSet),
 			500
@@ -72,8 +72,8 @@ export const fetchMockLineChartData = async (reportId: string): Promise<ChartDat
 		setTimeout(() => resolve({
 				meta: [],
 				data: [
-					[ 1234, 'hello' ],
-					[ 1324, 'world' ]
+					[ 1234, 5678, 'hello' ],
+					[ 1324, 6587, 'world' ]
 				]
 			} as ChartDataSet),
 			500

@@ -10,6 +10,7 @@ import { DefaultChartUtils } from './default-chart-utils';
 import { buildEChartsLegend } from './legend-utils';
 import { buildEChartsPie, buildSeriesData } from './pie-utils';
 import { buildEChartsTitle } from './title-utils';
+import { buildToolbox } from './toolbox-utils';
 import { ChartOptions } from './types';
 
 export class ChartNightingaleUtils extends DefaultChartUtils {
@@ -39,7 +40,8 @@ export class ChartNightingaleUtils extends DefaultChartUtils {
 				outsideRadius: '75%',
 				roseType: PieRoseType.AREA
 			}) ],
-			aria: buildDecal(chart)
+			aria: buildDecal(chart),
+			toolbox: buildToolbox(chart)
 		});
 	}
 }

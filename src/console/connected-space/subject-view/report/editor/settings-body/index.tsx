@@ -18,6 +18,7 @@ import { EChartsTitleSettings } from '../echarts/title';
 import { EChartsXAxisSettings } from '../echarts/xaxis';
 import { EChartsYAxisSettings } from '../echarts/yaxis';
 import { IndicatorsSection } from '../indicators';
+import { ToolboxSection } from '../toolbox';
 import { ChartTypeEditor } from './chart-type';
 import { NamePropEditor } from './name-prop';
 import { SettingsBodyContainer } from './widgets';
@@ -33,14 +34,14 @@ export const SettingsBody = (props: { subject: Subject, report: Report }) => {
 		}).fire(ConsoleEventTypes.ASK_FAVORITE_STATE);
 	}, [ once ]);
 	useEffect(() => {
-		const onPinFavorite = () => setFavoritePin(true)
-		const onUnpinFavorite = () => setFavoritePin(false)
+		const onPinFavorite = () => setFavoritePin(true);
+		const onUnpinFavorite = () => setFavoritePin(false);
 		on && on(ConsoleEventTypes.PIN_FAVORITE, onPinFavorite);
 		on && on(ConsoleEventTypes.UNPIN_FAVORITE, onUnpinFavorite);
 		return () => {
 			off && off(ConsoleEventTypes.PIN_FAVORITE, onPinFavorite);
 			off && off(ConsoleEventTypes.UNPIN_FAVORITE, onUnpinFavorite);
-		}
+		};
 	}, [ on, off ]);
 
 
@@ -62,6 +63,7 @@ export const SettingsBody = (props: { subject: Subject, report: Report }) => {
 		<EChartsGridSettings report={report}/>
 		<EChartsXAxisSettings report={report}/>
 		<EChartsYAxisSettings report={report}/>
+		<ToolboxSection report={report}/>
 		{/*<DescriptionPropEditor report={report}/>*/}
 	</SettingsBodyContainer>;
 };

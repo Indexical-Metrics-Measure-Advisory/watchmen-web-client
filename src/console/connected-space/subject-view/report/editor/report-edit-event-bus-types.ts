@@ -5,6 +5,7 @@ export enum ReportEditEventTypes {
 	DESCRIPTION_CHANGED = 'description-changed',
 	SIZE_CHANGED = 'size-changed',
 	BASIC_STYLE_CHANGED = 'basic-style-changed',
+	TOOLBOX_CHANGED = 'toolbox-changed',
 
 	CHART_COUNT_STYLE_CHANGED = 'chart-count-style-changed',
 	CHART_BAR_STYLE_CHANGED = 'chart-bar-style-changed',
@@ -49,6 +50,10 @@ export interface ReportEditEventBus {
 	fire(type: ReportEditEventTypes.BASIC_STYLE_CHANGED, report: Report): this;
 	on(type: ReportEditEventTypes.BASIC_STYLE_CHANGED, listener: (report: Report) => void): this;
 	off(type: ReportEditEventTypes.BASIC_STYLE_CHANGED, listener: (report: Report) => void): this;
+
+	fire(type: ReportEditEventTypes.TOOLBOX_CHANGED, report: Report): this;
+	on(type: ReportEditEventTypes.TOOLBOX_CHANGED, listener: (report: Report) => void): this;
+	off(type: ReportEditEventTypes.TOOLBOX_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, report: Report): this;
 	on(type: ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, listener: (report: Report) => void): this;

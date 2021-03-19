@@ -11,6 +11,7 @@ import { TreemapChartStylePropNames } from '../../prop-defs/chart-styles/treemap
 import { EChartsGridPropNames } from '../../prop-defs/echart-styles/echarts-grid-props';
 import { EChartsLegendPropNames } from '../../prop-defs/echart-styles/echarts-legend-props';
 import { EChartsTitlePropNames } from '../../prop-defs/echart-styles/echarts-title-props';
+import { EChartsTooltipPropNames } from '../../prop-defs/echart-styles/echarts-tooltip-props';
 import { NumberValue } from '../../settings-widgets/number-value';
 
 export interface SettingsPositionPropNames {
@@ -20,28 +21,32 @@ export interface SettingsPositionPropNames {
 		| TreeChartStylePropNames.POSITION_TOP
 		| TreemapChartStylePropNames.POSITION_TOP
 		| PieChartStylePropNames.POSITION_TOP
-		| MapChartStylePropNames.POSITION_TOP;
+		| MapChartStylePropNames.POSITION_TOP
+		| EChartsTooltipPropNames.POSITION_TOP;
 	right: EChartsTitlePropNames.POSITION_RIGHT
 		| EChartsLegendPropNames.POSITION_RIGHT
 		| EChartsGridPropNames.POSITION_RIGHT
 		| TreeChartStylePropNames.POSITION_RIGHT
 		| TreemapChartStylePropNames.POSITION_RIGHT
 		| PieChartStylePropNames.POSITION_RIGHT
-		| MapChartStylePropNames.POSITION_RIGHT;
+		| MapChartStylePropNames.POSITION_RIGHT
+		| EChartsTooltipPropNames.POSITION_RIGHT;
 	left: EChartsTitlePropNames.POSITION_LEFT
 		| EChartsLegendPropNames.POSITION_LEFT
 		| EChartsGridPropNames.POSITION_LEFT
 		| TreeChartStylePropNames.POSITION_LEFT
 		| TreemapChartStylePropNames.POSITION_LEFT
 		| PieChartStylePropNames.POSITION_LEFT
-		| MapChartStylePropNames.POSITION_LEFT;
+		| MapChartStylePropNames.POSITION_LEFT
+		| EChartsTooltipPropNames.POSITION_LEFT;
 	bottom: EChartsTitlePropNames.POSITION_BOTTOM
 		| EChartsLegendPropNames.POSITION_BOTTOM
 		| EChartsGridPropNames.POSITION_BOTTOM
 		| TreeChartStylePropNames.POSITION_BOTTOM
 		| TreemapChartStylePropNames.POSITION_BOTTOM
 		| PieChartStylePropNames.POSITION_BOTTOM
-		| MapChartStylePropNames.POSITION_BOTTOM;
+		| MapChartStylePropNames.POSITION_BOTTOM
+		| EChartsTooltipPropNames.POSITION_BOTTOM;
 }
 
 export const PositionSettings = (props: {

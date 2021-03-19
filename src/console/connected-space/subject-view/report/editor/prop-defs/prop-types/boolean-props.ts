@@ -6,6 +6,7 @@ import { TreeChartStylePropNames } from '../chart-styles/tree-chart-style-props'
 import { TreemapChartStylePropNames } from '../chart-styles/treemap-chart-style-props';
 import { EChartsGridPropNames } from '../echart-styles/echarts-grid-props';
 import { EChartsLegendPropNames } from '../echart-styles/echarts-legend-props';
+import { EChartsTooltipPropNames } from '../echart-styles/echarts-tooltip-props';
 import { EChartsXAxisPropNames } from '../echart-styles/echarts-xaxis-props';
 import { EChartsYAxisPropNames } from '../echart-styles/echarts-yaxis-props';
 import { PeripheralStylePropNames } from '../peripheral-style-props';
@@ -51,4 +52,6 @@ export type BooleanPropNames =
 	| EChartsYAxisPropNames.LABEL_SHOW
 	| EChartsYAxisPropNames.LABEL_INSIDE
 	| EChartsYAxisPropNames.SPLIT_LINE_SHOW
-	| EChartsYAxisPropNames.MINOR_SPLIT_LINE_SHOW;
+	| EChartsYAxisPropNames.MINOR_SPLIT_LINE_SHOW
+
+	| EChartsTooltipPropNames.SHOW;

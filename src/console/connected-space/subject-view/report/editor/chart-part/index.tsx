@@ -14,6 +14,7 @@ export const ChartPart = (props: { report: Report }) => {
 	useEffect(() => {
 		on(ReportEditEventTypes.SIZE_CHANGED, forceUpdate);
 		on(ReportEditEventTypes.BASIC_STYLE_CHANGED, forceUpdate);
+		on(ReportEditEventTypes.TOOLBOX_CHANGED, forceUpdate);
 		on(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, forceUpdate);
 		on(ReportEditEventTypes.CHART_BAR_STYLE_CHANGED, forceUpdate);
 		on(ReportEditEventTypes.CHART_PIE_STYLE_CHANGED, forceUpdate);
@@ -33,6 +34,7 @@ export const ChartPart = (props: { report: Report }) => {
 		return () => {
 			off(ReportEditEventTypes.SIZE_CHANGED, forceUpdate);
 			off(ReportEditEventTypes.BASIC_STYLE_CHANGED, forceUpdate);
+			off(ReportEditEventTypes.TOOLBOX_CHANGED, forceUpdate);
 			off(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, forceUpdate);
 			off(ReportEditEventTypes.CHART_BAR_STYLE_CHANGED, forceUpdate);
 			off(ReportEditEventTypes.CHART_PIE_STYLE_CHANGED, forceUpdate);

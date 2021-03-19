@@ -408,7 +408,7 @@ export const Jp = {
 		LABEL_POSITION_INSIDE_BOTTOM_LEFT: 'Inside Bottom Left',  // new
 		LABEL_POSITION_INSIDE_TOP_RIGHT: 'Inside Top Right',  // new
 		LABEL_POSITION_INSIDE_BOTTOM_RIGHT: 'Inside Bottom Right',  // new
-		LABEL_POSITION_OUTSIDE : 'Outside',  // new
+		LABEL_POSITION_OUTSIDE: 'Outside',  // new
 		LABEL_POSITION_CENTER: 'Center',  // new
 		DECAL: 'Decal',  // new
 		ROAM: 'ローミング',
@@ -442,6 +442,9 @@ export const Jp = {
 		TRUNCATION_COUNT: 'Count',  // new
 		BAR_TRANSFORM_AXIS: 'Transform Axis',  // new
 		LINE_SMOOTH: 'Smooth',  // new
+		TOOLBOX_ORIENT: '方向',
+		TOOLBOX_ORIENT_HORIZONTAL: '水平',
+		TOOLBOX_ORIENT_VERTICAL: '垂直',
 		SECTION_TITLE_COUNT_CHART: '特定スタイル',
 		SECTION_TITLE_BAR_CHART: 'バー/ラインスタイル',
 		SECTION_TITLE_PIE_CHART: 'パイスタイル',
@@ -466,6 +469,7 @@ export const Jp = {
 		SECTION_TITLE_ECHART_YAXIS_LINE: 'Y軸の分割線',
 		SECTION_TITLE_ECHART_YAXIS_MINOR_LINE: 'Y軸のマイナー分割線',
 		SECTION_TITLE_TRUNCATION: 'Data Truncation',  // new
+		SECTION_TITLE_TOOLBOX: 'Toolbox',  // new
 		NONAME_COLUMN: 'ノーネームカラム',
 		UNKNOWN_COLUMN_NAME: '不明なカラム',
 		CAN_NOT_DELETE_DIMENSION: 'ディメンションの最小限に達したため、削除できません。',

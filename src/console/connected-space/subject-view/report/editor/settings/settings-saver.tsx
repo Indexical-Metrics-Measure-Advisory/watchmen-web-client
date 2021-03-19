@@ -21,7 +21,7 @@ export const SettingsSaver = (props: { report: Report }) => {
 	const { on, off } = useReportEditEventBus();
 	const [ changed, setChanged ] = useState<SaveState>({ styleChanged: false, structureChanged: false });
 	useEffect(() => {
-		const onChanged = (changedReport: Report) => {
+		const onStyleChanged = (changedReport: Report) => {
 			if (changedReport !== report) {
 				return;
 			}
@@ -53,12 +53,25 @@ export const SettingsSaver = (props: { report: Report }) => {
 					() => fireReport(ReportEventTypes.EDIT_COMPLETED, report, true, true));
 			}
 		};
-		on(ReportEditEventTypes.SIZE_CHANGED, onChanged);
-		on(ReportEditEventTypes.NAME_CHANGED, onChanged);
-		on(ReportEditEventTypes.DESCRIPTION_CHANGED, onChanged);
+		on(ReportEditEventTypes.SIZE_CHANGED, onStyleChanged);
+		on(ReportEditEventTypes.NAME_CHANGED, onStyleChanged);
+		on(ReportEditEventTypes.DESCRIPTION_CHANGED, onStyleChanged);
 
-		on(ReportEditEventTypes.BASIC_STYLE_CHANGED, onChanged);
-		on(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, onChanged);
+		on(ReportEditEventTypes.BASIC_STYLE_CHANGED, onStyleChanged);
+		on(ReportEditEventTypes.TOOLBOX_CHANGED, onStyleChanged);
+		on(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, onStyleChanged);
+		on(ReportEditEventTypes.CHART_BAR_STYLE_CHANGED, onStyleChanged);
+		on(ReportEditEventTypes.CHART_PIE_STYLE_CHANGED, onStyleChanged);
+		on(ReportEditEventTypes.CHART_TREE_STYLE_CHANGED, onStyleChanged);
+		on(ReportEditEventTypes.CHART_TREEMAP_STYLE_CHANGED, onStyleChanged);
+		on(ReportEditEventTypes.CHART_MAP_STYLE_CHANGED, onStyleChanged);
+
+		on(ReportEditEventTypes.ECHART_TITLE_CHANGED, onStyleChanged);
+		on(ReportEditEventTypes.ECHART_LEGEND_CHANGED, onStyleChanged);
+		on(ReportEditEventTypes.ECHART_GRID_CHANGED, onStyleChanged);
+		on(ReportEditEventTypes.ECHART_LABEL_CHANGED, onStyleChanged);
+		on(ReportEditEventTypes.ECHART_XAXIS_CHANGED, onStyleChanged);
+		on(ReportEditEventTypes.ECHART_YAXIS_CHANGED, onStyleChanged);
 
 		on(ReportEditEventTypes.CHART_TYPE_CHANGED, onStructureChanged);
 		on(ReportEditEventTypes.DIMENSION_CHANGED, onStructureChanged);
@@ -71,12 +84,25 @@ export const SettingsSaver = (props: { report: Report }) => {
 		on(ReportEditEventTypes.EDIT_COMPLETED, onEditCompleted);
 
 		return () => {
-			off(ReportEditEventTypes.SIZE_CHANGED, onChanged);
-			off(ReportEditEventTypes.NAME_CHANGED, onChanged);
-			off(ReportEditEventTypes.DESCRIPTION_CHANGED, onChanged);
+			off(ReportEditEventTypes.SIZE_CHANGED, onStyleChanged);
+			off(ReportEditEventTypes.NAME_CHANGED, onStyleChanged);
+			off(ReportEditEventTypes.DESCRIPTION_CHANGED, onStyleChanged);
 
-			off(ReportEditEventTypes.BASIC_STYLE_CHANGED, onChanged);
-			off(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, onChanged);
+			off(ReportEditEventTypes.BASIC_STYLE_CHANGED, onStyleChanged);
+			off(ReportEditEventTypes.TOOLBOX_CHANGED, onStyleChanged);
+			off(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, onStyleChanged);
+			off(ReportEditEventTypes.CHART_BAR_STYLE_CHANGED, onStyleChanged);
+			off(ReportEditEventTypes.CHART_PIE_STYLE_CHANGED, onStyleChanged);
+			off(ReportEditEventTypes.CHART_TREE_STYLE_CHANGED, onStyleChanged);
+			off(ReportEditEventTypes.CHART_TREEMAP_STYLE_CHANGED, onStyleChanged);
+			off(ReportEditEventTypes.CHART_MAP_STYLE_CHANGED, onStyleChanged);
+
+			off(ReportEditEventTypes.ECHART_TITLE_CHANGED, onStyleChanged);
+			off(ReportEditEventTypes.ECHART_LEGEND_CHANGED, onStyleChanged);
+			off(ReportEditEventTypes.ECHART_GRID_CHANGED, onStyleChanged);
+			off(ReportEditEventTypes.ECHART_LABEL_CHANGED, onStyleChanged);
+			off(ReportEditEventTypes.ECHART_XAXIS_CHANGED, onStyleChanged);
+			off(ReportEditEventTypes.ECHART_YAXIS_CHANGED, onStyleChanged);
 
 			off(ReportEditEventTypes.CHART_TYPE_CHANGED, onStructureChanged);
 			off(ReportEditEventTypes.DIMENSION_CHANGED, onStructureChanged);

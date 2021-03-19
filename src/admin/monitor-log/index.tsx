@@ -8,7 +8,7 @@ const AdminMonitorLogsIndex = () => {
 			<HeaderTitle>Monitor Logs</HeaderTitle>
 		</Header>
 		<Body>
-			
+
 		</Body>
 	</FullWidthPage>;
 };

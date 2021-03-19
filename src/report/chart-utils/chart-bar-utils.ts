@@ -10,6 +10,7 @@ import { DefaultChartUtils } from './default-chart-utils';
 import { buildEChartsGrid } from './grid-utils';
 import { buildEChartsLegend } from './legend-utils';
 import { buildEChartsTitle } from './title-utils';
+import { buildToolbox } from './toolbox-utils';
 import { ChartOptions } from './types';
 
 export class ChartBarUtils extends DefaultChartUtils {
@@ -46,7 +47,8 @@ export class ChartBarUtils extends DefaultChartUtils {
 					data: buildSeriesData(chart, groups, indicatorIndex, this.formatNumber)
 				};
 			}),
-			aria: buildDecal(chart)
+			aria: buildDecal(chart),
+			toolbox: buildToolbox(chart)
 		});
 	}
 }

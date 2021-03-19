@@ -2,6 +2,7 @@ import { Chart, ChartSettings, ChartType } from '../chart-types';
 import { EChartsGridHolder } from './echarts-grid-types';
 import { EChartsLegendHolder } from './echarts-legend-types';
 import { EChartsTitleHolder } from './echarts-title-types';
+import { EChartsToolboxHolder } from './echarts-toolbox-types';
 import { EChartsXAxisHolder } from './echarts-xaxis-types';
 import { EChartsYAxisHolder } from './echarts-yaxis-types';
 
@@ -15,5 +16,6 @@ export interface ECharts extends Chart {
 		& EChartsLegendHolder
 		& EChartsGridHolder
 		& EChartsXAxisHolder
-		& EChartsYAxisHolder;
+		& EChartsYAxisHolder
+		& EChartsToolboxHolder;
 }

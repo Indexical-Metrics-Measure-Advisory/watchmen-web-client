@@ -8,6 +8,7 @@ import { DefaultChartUtils, Legend } from './default-chart-utils';
 import { buildEChartsGrid } from './grid-utils';
 import { buildEChartsLegend } from './legend-utils';
 import { buildEChartsTitle } from './title-utils';
+import { buildToolbox } from './toolbox-utils';
 import { ChartOptions } from './types';
 import { buildEChartsXAxis } from './xaxis-utils';
 import { buildEChartsYAxis } from './yaxis-utils';
@@ -114,7 +115,8 @@ export class ChartScatterUtils extends DefaultChartUtils {
 						// more indicators are not supported yet
 						return null;
 				}
-			}).filter(x => !x) as Array<EChartOption.VisualMap>
+			}).filter(x => !x) as Array<EChartOption.VisualMap>,
+			toolbox: buildToolbox(chart)
 		} as EChartOption;
 	}
 }
