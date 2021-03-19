@@ -59,6 +59,7 @@ export const En = {
 	},
 	CONSOLE: {
 		LOADING: 'Loading Personal Data...',
+		BYE: 'Bye-bye now?',
 		ERROR: {
 			DASHBOARD_NOT_FOUND: 'Given dashboard not found.',
 			CONNECTED_SPACE_NOT_FOUND: 'Given connected space not found.',

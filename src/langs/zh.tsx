@@ -59,6 +59,7 @@ export const Zh = {
 	},
 	CONSOLE: {
 		LOADING: '努力加载个人数据...',
+		BYE: '现在退出吗?',
 		ERROR: {
 			DASHBOARD_NOT_FOUND: '未找到指定的仪表盘数据.',
 			CONNECTED_SPACE_NOT_FOUND: '未找到指定的已联接工作空间.',

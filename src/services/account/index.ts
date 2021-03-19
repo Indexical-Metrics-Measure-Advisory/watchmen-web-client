@@ -30,3 +30,7 @@ export const findToken = (): string | null => {
 export const saveTokenIntoSession = (token: string) => {
 	sessionStorage.setItem(ACCOUNT_TOKEN, token);
 };
+
+export const quit = () => {
+	sessionStorage.clear();
+};

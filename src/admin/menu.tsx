@@ -5,6 +5,7 @@ import {
 	ICON_CONSOLE,
 	ICON_ENUM,
 	ICON_HOME,
+	ICON_LOGOUT,
 	ICON_MONITOR_LOGS,
 	ICON_PIPELINE,
 	ICON_REPORT,
@@ -23,8 +24,10 @@ import { SideMenuPlaceholder } from '../basic-widgets/side-menu/side-menu-placeh
 import { SideMenuResizeHandle } from '../basic-widgets/side-menu/side-menu-resize-handle';
 import { SideMenuSeparator } from '../basic-widgets/side-menu/side-menu-separator';
 import { SideMenuUser } from '../basic-widgets/side-menu/side-menu-user';
+import { useEventBus } from '../events/event-bus';
+import { EventTypes } from '../events/types';
 import { Router } from '../routes/types';
-import { findAccount } from '../services/account';
+import { findAccount, quit } from '../services/account';
 
 const AdminMenuContainer = styled.div.attrs<{ width: number }>(({ width }) => {
 	return {
@@ -54,6 +57,7 @@ const AdminMenuContainer = styled.div.attrs<{ width: number }>(({ width }) => {
 export const AdminMenu = () => {
 	const history = useHistory();
 	const location = useLocation();
+	const { fire } = useEventBus();
 	const [ menuWidth, setMenuWidth ] = useState(SIDE_MENU_MIN_WIDTH);
 
 	const onResize = (newWidth: number) => {
@@ -63,6 +67,16 @@ export const AdminMenu = () => {
 		if (!matchPath(location.pathname, path)) {
 			history.push(path);
 		}
+	};
+	const onLogoutClicked = () => {
+		fire(EventTypes.SHOW_YES_NO_DIALOG,
+			'Bye-bye now?',
+			() => {
+				fire(EventTypes.HIDE_DIALOG);
+				quit();
+				history.push(Router.LOGIN);
+			},
+			() => fire(EventTypes.HIDE_DIALOG));
 	};
 
 	const account = findAccount() || { name: MOCK_ACCOUNT_NAME };
@@ -108,6 +122,9 @@ export const AdminMenu = () => {
 		<SideMenuSeparator width={menuWidth}/>
 		<SideMenuItem icon={ICON_CONSOLE} label={'Switch to Console'} showTooltip={showTooltip}
 		              onClick={onMenuClicked(Router.CONSOLE)}/>
+		<SideMenuSeparator width={menuWidth}/>
+		<SideMenuItem icon={ICON_LOGOUT} label={'Logout'} showTooltip={showTooltip}
+		              onClick={onLogoutClicked}/>
 		<SideMenuUser name={account.name}/>
 		<SideMenuResizeHandle width={menuWidth} onResize={onResize}/>
 	</AdminMenuContainer>;

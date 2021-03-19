@@ -59,6 +59,7 @@ export const Jp = {
 	},
 	CONSOLE: {
 		LOADING: '個人データ読み込み中...',
+		BYE: '现在退出吗?',  // new
 		ERROR: {
 			DASHBOARD_NOT_FOUND: '該当ダッシュボードが見つかりません。',
 			CONNECTED_SPACE_NOT_FOUND: '該当連結空間が見つかりません。',

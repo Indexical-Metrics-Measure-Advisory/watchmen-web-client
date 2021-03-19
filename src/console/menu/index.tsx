@@ -6,6 +6,7 @@ import {
 	ICON_ADMIN,
 	ICON_DASHBOARD,
 	ICON_HOME,
+	ICON_LOGOUT,
 	ICON_MAIL,
 	ICON_NOTIFICATION,
 	ICON_SETTINGS,
@@ -26,7 +27,7 @@ import { EventTypes } from '../../events/types';
 import { Lang } from '../../langs';
 import { Router } from '../../routes/types';
 import { toDashboard } from '../../routes/utils';
-import { findAccount, isAdmin } from '../../services/account';
+import { findAccount, isAdmin, quit } from '../../services/account';
 import { saveLastSnapshot } from '../../services/console/last-snapshot';
 import { LastSnapshot } from '../../services/console/last-snapshot-types';
 import { saveDashboard } from '../../services/tuples/dashboard';
@@ -122,6 +123,16 @@ export const ConsoleMenu = () => {
 			}).fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT);
 		}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
 	};
+	const onLogoutClicked = () => {
+		fireGlobal(EventTypes.SHOW_YES_NO_DIALOG,
+			Lang.CONSOLE.BYE,
+			() => {
+				fireGlobal(EventTypes.HIDE_DIALOG);
+				quit();
+				history.push(Router.LOGIN);
+			},
+			() => fireGlobal(EventTypes.HIDE_DIALOG));
+	};
 
 	const account = findAccount() || { name: MOCK_ACCOUNT_NAME };
 	const showTooltip = menuWidth / SIDE_MENU_MIN_WIDTH <= 1.5;
@@ -164,6 +175,9 @@ export const ConsoleMenu = () => {
 		<SideMenuItem icon={ICON_ADMIN} label={Lang.CONSOLE.MENU.TO_ADMIN} showTooltip={showTooltip}
 		              onClick={onMenuClicked(Router.ADMIN)}
 		              visible={isAdmin()}/>
+		<SideMenuSeparator width={menuWidth}/>
+		<SideMenuItem icon={ICON_LOGOUT} label={'Logout'} showTooltip={showTooltip}
+		              onClick={onLogoutClicked}/>
 		<SideMenuUser name={account.name}/>
 		<SideMenuResizeHandle width={menuWidth} onResize={onResize}/>
 	</ConsoleMenuContainer>;

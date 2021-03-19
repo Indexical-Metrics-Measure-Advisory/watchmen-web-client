@@ -43,7 +43,7 @@ import {
 	faRandom,
 	faSave,
 	faSearch,
-	faShare,
+	faShare, faSignOutAlt,
 	faSortAmountDown,
 	faSortAmountUpAlt,
 	faSpinner,
@@ -111,6 +111,7 @@ export const TUPLE_SEARCH_PAGE_SIZE = 9;
 export const ICON_CONSOLE = faChalkboard;
 export const ICON_ADMIN = faTools;
 export const ICON_HOME = faHome;
+export const ICON_LOGOUT = faSignOutAlt;
 
 export const ICON_USER_GROUP = faUsers;
 export const ICON_USER = faUser;
