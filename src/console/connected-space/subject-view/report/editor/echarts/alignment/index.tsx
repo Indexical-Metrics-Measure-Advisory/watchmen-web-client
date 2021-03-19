@@ -9,6 +9,7 @@ import { ECharts } from '../../../../../../../services/tuples/echarts/echarts-ty
 import { Report } from '../../../../../../../services/tuples/report-types';
 import { onDropdownValueChange } from '../../data-utils';
 import { BarChartStylePropNames } from '../../prop-defs/chart-styles/bar-chart-style-props';
+import { PieChartStylePropNames } from '../../prop-defs/chart-styles/pie-chart-style-props';
 import {
 	HorizontalAlignmentOptions,
 	VerticalAlignmentOptions
@@ -20,6 +21,7 @@ import { DropdownValue } from '../../settings-widgets/dropdown-value';
 
 export interface SettingsAlignmentPropNames {
 	horizontalAlign: BarChartStylePropNames.LABEL_HORIZONTAL_ALIGN
+		| PieChartStylePropNames.LABEL_HORIZONTAL_ALIGN
 		| EChartsTitlePropNames.TEXT_HORIZONTAL_ALIGN
 		| EChartsXAxisPropNames.NAME_HORIZONTAL_ALIGN
 		| EChartsXAxisPropNames.LABEL_HORIZONTAL_ALIGN
@@ -27,6 +29,7 @@ export interface SettingsAlignmentPropNames {
 		| EChartsYAxisPropNames.LABEL_HORIZONTAL_ALIGN;
 
 	verticalAlign: BarChartStylePropNames.LABEL_VERTICAL_ALIGN
+		| PieChartStylePropNames.LABEL_VERTICAL_ALIGN
 		| EChartsTitlePropNames.TEXT_VERTICAL_ALIGN
 		| EChartsXAxisPropNames.NAME_VERTICAL_ALIGN
 		| EChartsXAxisPropNames.LABEL_VERTICAL_ALIGN

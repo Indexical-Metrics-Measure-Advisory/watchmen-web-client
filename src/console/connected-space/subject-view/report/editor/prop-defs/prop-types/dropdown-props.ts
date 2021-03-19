@@ -31,6 +31,14 @@ export type DropdownPropNames =
 
 	| PieChartStylePropNames.BORDER_STYLE
 	| PieChartStylePropNames.ROSE_TYPE
+	| PieChartStylePropNames.LABEL_HORIZONTAL_ALIGN
+	| PieChartStylePropNames.LABEL_VERTICAL_ALIGN
+	| PieChartStylePropNames.LABEL_FONT_FAMILY
+	| PieChartStylePropNames.LABEL_FONT_STYLE
+	| PieChartStylePropNames.LABEL_FONT_WEIGHT
+	| PieChartStylePropNames.LABEL_POSITION
+	| PieChartStylePropNames.LABEL_ALIGN_TO
+	| PieChartStylePropNames.LABEL_BORDER_STYLE
 
 	| MapChartStylePropNames.REGION
 

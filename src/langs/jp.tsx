@@ -408,6 +408,8 @@ export const Jp = {
 		LABEL_POSITION_INSIDE_BOTTOM_LEFT: 'Inside Bottom Left',  // new
 		LABEL_POSITION_INSIDE_TOP_RIGHT: 'Inside Top Right',  // new
 		LABEL_POSITION_INSIDE_BOTTOM_RIGHT: 'Inside Bottom Right',  // new
+		LABEL_POSITION_OUTSIDE : 'Outside',  // new
+		LABEL_POSITION_CENTER: 'Center',  // new
 		DECAL: 'Decal',  // new
 		ROAM: 'ローミング',
 		TREE_LAYOUT: 'レーアウト',
@@ -427,6 +429,9 @@ export const Jp = {
 		PIE_ROSE_TYPE_RADIUS: '半径により',
 		PIE_ROSE_TYPE_AREA: '面積により',
 		PIE_SHOW_PERCENTAGE: '%表示',
+		PIE_LABEL_ALIGN_TO_NONE: 'None',  // new
+		PIE_LABEL_ALIGN_TO_LABEL_LINE: 'Label Line',  // new
+		PIE_LABEL_ALIGN_TO_EDGE: 'Edge',  // new
 		MAP_REGION: '地域',
 		MAP_REGION_JAPAN_L1: '日本 (県/都/府)',
 		MAP_REGION_USA_L1: '米国 (州)',

@@ -23,6 +23,10 @@ export type BooleanPropNames =
 	| LineChartStylePropNames.SMOOTH
 
 	| PieChartStylePropNames.SHOW_PERCENTAGE
+	| PieChartStylePropNames.LABEL_SHOW
+	| PieChartStylePropNames.LABEL_FORMAT_USE_GROUPING
+	| PieChartStylePropNames.LABEL_FORMAT_USE_PERCENTAGE
+	| PieChartStylePropNames.LABEL_VALUE_AS_PERCENTAGE
 
 	| TreeChartStylePropNames.ROAM
 

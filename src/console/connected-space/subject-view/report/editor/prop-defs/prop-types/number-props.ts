@@ -46,6 +46,13 @@ export type NumberPropNames =
 	| PieChartStylePropNames.CENTER_Y
 	| PieChartStylePropNames.INSIDE_RADIUS
 	| PieChartStylePropNames.OUTSIDE_RADIUS
+	| PieChartStylePropNames.LABEL_FONT_SIZE
+	| PieChartStylePropNames.LABEL_GAP
+	| PieChartStylePropNames.LABEL_ROTATE
+	| PieChartStylePropNames.LABEL_PADDING
+	| PieChartStylePropNames.LABEL_FRACTION_DIGITS
+	| PieChartStylePropNames.LABEL_BORDER_WIDTH
+	| PieChartStylePropNames.LABEL_BORDER_RADIUS
 
 	| MapChartStylePropNames.POSITION_TOP
 	| MapChartStylePropNames.POSITION_RIGHT

@@ -19,6 +19,9 @@ export type ColorPropNames =
 	| BarChartStylePropNames.LABEL_FONT_COLOR
 
 	| PieChartStylePropNames.BORDER_COLOR
+	| PieChartStylePropNames.LABEL_BORDER_COLOR
+	| PieChartStylePropNames.LABEL_BACKGROUND_COLOR
+	| PieChartStylePropNames.LABEL_FONT_COLOR
 
 	| EChartsTitlePropNames.TEXT_FONT_COLOR
 	| EChartsTitlePropNames.TEXT_BORDER_COLOR
