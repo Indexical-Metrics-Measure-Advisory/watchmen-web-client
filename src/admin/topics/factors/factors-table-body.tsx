@@ -28,34 +28,34 @@ const filterBy = (factors: Array<Factor>, text: string, getValue: (factor: Facto
 };
 const filterFactors = (topic: Topic, search: string): Array<Factor> => {
 	let factors: Array<Factor> = topic.factors || [];
-	const text = (search || '').trim();
+	const text = (search || '').trim().toLowerCase();
 	switch (true) {
 		case (text.length === 0):
 			// do nothing
 			break;
 		case text.startsWith('n:') :
 			// in name
-			factors = filterBy(factors, text.substr(2).trim().toLowerCase(), (factor: Factor) => factor.name);
+			factors = filterBy(factors, text.substr(2).trim(), (factor: Factor) => factor.name);
 			break;
 		case text.startsWith('l:') :
 			// in label
-			factors = filterBy(factors, text.substr(2).trim().toLowerCase(), (factor: Factor) => factor.label);
+			factors = filterBy(factors, text.substr(2).trim(), (factor: Factor) => factor.label);
 			break;
 		case text.startsWith('t:'):
 			// in type
-			factors = filterBy(factors, text.substr(2).trim().toLowerCase(), (factor: Factor) => factor.type);
+			factors = filterBy(factors, text.substr(2).trim(), (factor: Factor) => factor.type);
 			break;
 		case text.startsWith('i:'):
 			// in index
-			factors = filterBy(factors, `i-${text.substr(2).trim().toLowerCase()}`, (factor: Factor) => factor.indexGroup || '');
+			factors = filterBy(factors, `i-${text.substr(2).trim()}`, (factor: Factor) => factor.indexGroup || '');
 			break;
 		case text.startsWith('u:'):
 			// in unique index
-			factors = filterBy(factors, `u-${text.substr(2).trim().toLowerCase()}`, (factor: Factor) => factor.indexGroup || '');
+			factors = filterBy(factors, `u-${text.substr(2).trim()}`, (factor: Factor) => factor.indexGroup || '');
 			break;
 		case text.startsWith('v:'):
 			// in default value
-			const has = text.substr(2).trim().toLowerCase() === 'true';
+			const has = text.substr(2).trim() === 'true';
 			factors = factors.filter(factor => {
 				if (has) {
 					return factor.defaultValue != null && factor.defaultValue.length !== 0;
@@ -65,7 +65,7 @@ const filterFactors = (topic: Topic, search: string): Array<Factor> => {
 			});
 			break;
 		default:
-			factors = filterBy(factors, text.trim().toLowerCase(), (factor: Factor) => `${factor.name}\t${factor.label}`);
+			factors = filterBy(factors, text, (factor: Factor) => `${factor.name}\t${factor.label}`);
 			break;
 	}
 
