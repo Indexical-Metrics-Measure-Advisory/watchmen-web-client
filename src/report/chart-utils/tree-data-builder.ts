@@ -2,20 +2,20 @@ import { ChartDataSet, ChartDataSetRows } from '../../services/tuples/chart-type
 import { Report } from '../../services/tuples/report-types';
 import { getDimensionColumnIndexOffset } from './dimension-utils';
 
-interface IntermediateTreeNode {
+export interface IntermediateTreeNode {
 	name: string,
 	children: ChartDataSetRows
 }
 
-interface TreeNode {
+export interface TreeNode {
 	name: string;
 }
 
-interface NonLeafTreeNode extends TreeNode {
+export interface NonLeafTreeNode extends TreeNode {
 	children: Array<TreeNode>;
 }
 
-interface LeafTreeNode extends TreeNode {
+export interface LeafTreeNode extends TreeNode {
 	value: number;
 }
 

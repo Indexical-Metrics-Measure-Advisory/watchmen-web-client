@@ -8,7 +8,7 @@ import { cleanUselessValues } from './data-utils';
 import { buildDecal } from './decal-utils';
 import { DefaultChartUtils } from './default-chart-utils';
 import { buildEChartsLegend } from './legend-utils';
-import { buildEChartsPie } from './pie-utils';
+import { buildEChartsPie, buildSeriesData } from './pie-utils';
 import { buildEChartsTitle } from './title-utils';
 import { ChartOptions } from './types';
 
@@ -24,12 +24,7 @@ export class ChartNightingaleUtils extends DefaultChartUtils {
 
 		const groups = this.buildDescartesByDimensions(report, dataset);
 
-		const data = groups.map(({ value, row }) => {
-			return {
-				name: value,
-				value: this.formatNumber(row[0] || 0)
-			};
-		});
+		const data = buildSeriesData(chart, groups, this.formatNumber);
 
 		return cleanUselessValues({
 			color: BASE_COLORS_24,

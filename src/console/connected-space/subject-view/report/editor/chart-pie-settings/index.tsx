@@ -1,6 +1,6 @@
 import React from 'react';
 import { Lang } from '../../../../../../langs';
-import { PieLabelAlignTo, PieLabelPosition, PieRoseType } from '../../../../../../services/tuples/chart-def/chart-pie';
+import { PieLabelAlignTo, PieRoseType } from '../../../../../../services/tuples/chart-def/chart-pie';
 import {
 	isDoughnutChart,
 	isNightingaleChart,
@@ -150,7 +150,7 @@ export const ChartPieSettings = (props: { report: Report }) => {
 				              done: onLabelValueChange
 			              })}/>
 			<DropdownValue label={Lang.CHART.POSITION} options={PieLabelPositionOptions}
-			               value={label?.position} defaultValue={PieLabelPosition.OUTSIDE}
+			               value={label?.position}
 			               onValueChange={onDropdownValueChange({
 				               report,
 				               chart,

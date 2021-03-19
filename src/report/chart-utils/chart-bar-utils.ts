@@ -1,9 +1,9 @@
 import { BASE_COLORS_24 } from '../../basic-widgets/colors';
-import { BAR, BarChartSettings } from '../../services/tuples/chart-def/chart-bar';
+import { BAR } from '../../services/tuples/chart-def/chart-bar';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
-import { buildAxis, buildLabel } from './bar-utils';
+import { buildAxis, buildLabel, buildSeriesData } from './bar-utils';
 import { cleanUselessValues } from './data-utils';
 import { buildDecal } from './decal-utils';
 import { DefaultChartUtils } from './default-chart-utils';
@@ -43,15 +43,7 @@ export class ChartBarUtils extends DefaultChartUtils {
 				return {
 					type: 'bar',
 					label: buildLabel(chart),
-					data: groups.map(({ row }) => {
-						const def = (chart.settings as BarChartSettings)?.label;
-						const value = parseFloat(`${row[indicatorIndex]}`);
-						if (!isNaN(value) && def?.valueAsPercentage) {
-							return this.formatNumber(value / 100, def.fractionDigits || 0);
-						} else {
-							return this.formatNumber(row[indicatorIndex]);
-						}
-					})
+					data: buildSeriesData(chart, groups, indicatorIndex, this.formatNumber)
 				};
 			}),
 			aria: buildDecal(chart)

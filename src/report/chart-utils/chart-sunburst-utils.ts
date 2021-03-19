@@ -6,7 +6,7 @@ import { Report } from '../../services/tuples/report-types';
 import { cleanUselessValues } from './data-utils';
 import { buildDecal } from './decal-utils';
 import { DefaultChartUtils } from './default-chart-utils';
-import { buildEChartsPie } from './pie-utils';
+import { buildEChartsPie, buildTreeSeriesData } from './pie-utils';
 import { buildEChartsTitle } from './title-utils';
 import { ChartOptions } from './types';
 
@@ -23,11 +23,15 @@ export class ChartSunburstUtils extends DefaultChartUtils {
 			tooltip: {
 				trigger: 'item'
 			},
-			series: [ buildEChartsPie(chart as ECharts, this.buildTreeData(report, dataset), {
-				type: 'sunburst',
-				insideRadius: '10%',
-				outsideRadius: '90%'
-			}) ],
+			series: [
+				buildEChartsPie(
+					chart as ECharts, buildTreeSeriesData(chart, this.buildTreeData(report, dataset), this.formatNumber),
+					{
+						type: 'sunburst',
+						insideRadius: '10%',
+						outsideRadius: '90%'
+					})
+			],
 			aria: buildDecal(chart)
 		});
 	}

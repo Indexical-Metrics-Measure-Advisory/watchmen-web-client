@@ -1,4 +1,6 @@
-import { BarChartSettings } from '../../services/tuples/chart-def/chart-bar';
+import { BarChartSettings, BarLabelPosition } from '../../services/tuples/chart-def/chart-bar';
+import { ChartDataSetRow } from '../../services/tuples/chart-types';
+import { EChartsVerticalAlignment } from '../../services/tuples/echarts/echarts-alignment-types';
 import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { cleanUselessValues } from './data-utils';
 import { PREDEFINED_GROUPING_FORMATS } from './number-format';
@@ -26,6 +28,30 @@ export const buildAxis = (chart: ECharts, groups: Array<{ value: any }>) => {
 	return series?.transformAxis ? { xAxis: yAxis, yAxis: xAxis } : { xAxis, yAxis };
 };
 
+export const buildSeriesData = (
+	chart: ECharts,
+	groups: Array<{ value: any, row: ChartDataSetRow }>,
+	indicatorIndex: number,
+	formatNumber: (value: any, decimal?: number) => any
+) => {
+	let { settings } = chart;
+
+	if (!settings) {
+		settings = {};
+		chart.settings = settings;
+	}
+	const { label } = settings as BarChartSettings;
+
+	return groups.map(({ row }) => {
+		const value = parseFloat(`${row[indicatorIndex]}`);
+		if (!isNaN(value) && label?.valueAsPercentage) {
+			return formatNumber(value / 100, label.fractionDigits || 0);
+		} else {
+			return formatNumber(row[indicatorIndex]);
+		}
+	});
+};
+
 export const buildLabel = (chart: ECharts) => {
 	let { settings } = chart;
 
@@ -41,9 +67,9 @@ export const buildLabel = (chart: ECharts) => {
 
 	return cleanUselessValues({
 		show: true,
-		position: label?.position || 'insideTop',
+		position: label?.position || BarLabelPosition.INSIDE_TOP,
 		align: label?.horizontalAlign,
-		verticalAlign: label?.verticalAlign || 'middle',
+		verticalAlign: label?.verticalAlign || EChartsVerticalAlignment.MIDDLE,
 		distance: label?.gap == null ? 15 : label.gap,
 		rotate: label?.rotate || 0,
 		padding: label?.padding,

@@ -3,7 +3,7 @@ import { LINE, LineChartSettings } from '../../services/tuples/chart-def/chart-l
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { ECharts } from '../../services/tuples/echarts/echarts-types';
 import { Report } from '../../services/tuples/report-types';
-import { buildLabel } from './bar-utils';
+import { buildLabel, buildSeriesData } from './bar-utils';
 import { DefaultChartUtils } from './default-chart-utils';
 import { buildEChartsGrid } from './grid-utils';
 import { buildEChartsLegend } from './legend-utils';
@@ -42,7 +42,7 @@ export class ChartLineUtils extends DefaultChartUtils {
 					type: 'line',
 					label: buildLabel(chart),
 					smooth: (chart.settings as LineChartSettings).series?.smooth,
-					data: groups.map(({ row }) => this.formatNumber(row[indicatorIndex]))
+					data: buildSeriesData(chart, groups, indicatorIndex, this.formatNumber)
 				};
 			})
 		};
