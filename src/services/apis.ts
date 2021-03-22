@@ -93,11 +93,9 @@ const buildApi = (api: string, args?: { [key in string]: any }): string => {
 	if (!args) {
 		return api;
 	}
-	console.log(args);
 
 	return Object.keys(args).reduce((api: string, key: string) => {
 		return api.replace(`:${key}`, encodeURIComponent(args[key]));
-		// return api;
 	}, api);
 };
 
