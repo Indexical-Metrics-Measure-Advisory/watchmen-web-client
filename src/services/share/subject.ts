@@ -1,7 +1,8 @@
 import { saveTokenIntoSession } from '../account';
+import { Apis, get } from '../apis';
 import { fetchMockSharedSubject } from '../mock/share/mock-subject';
 import { Subject } from '../tuples/subject-types';
-import { doFetch, getServiceHost, isMockService } from '../utils';
+import { isMockService } from '../utils';
 
 export interface SharedSubject {
 	subject: Subject;
@@ -11,15 +12,8 @@ export const fetchSharedSubject = async (subjectId: string, token: string): Prom
 	if (isMockService()) {
 		return await fetchMockSharedSubject(subjectId, token);
 	} else {
-		const response = await doFetch(`${getServiceHost()}share/subject?subject_id=${subjectId}&&token=${token}`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
-
+		const subject = await get({ api: Apis.SUBJECT_SHARE_GET, search: { subjectId, token }, auth: false });
 		saveTokenIntoSession(token);
-
-		return await response.json();
+		return await subject;
 	}
 };

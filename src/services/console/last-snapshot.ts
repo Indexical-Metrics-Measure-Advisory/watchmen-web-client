@@ -1,7 +1,8 @@
-import { findAccount, findToken } from '../account';
+import { findAccount } from '../account';
+import { Apis, get, post } from '../apis';
 import { fetchMockLastSnapshot } from '../mock/console/mock-last-snapshot';
 import { LAST_SNAPSHOT_TOKEN } from '../session-constants';
-import { doFetch, getServiceHost, isMockService } from '../utils';
+import { isMockService } from '../utils';
 import { LastSnapshot } from './last-snapshot-types';
 
 const fetchLastSnapshotFromSession = (): LastSnapshot | undefined => {
@@ -34,17 +35,7 @@ export const fetchLastSnapshot = async (): Promise<LastSnapshot> => {
 			return fromMock;
 		}
 	} else {
-		// REMOTE use real api
-		const token = findToken();
-		const response = await doFetch(`${getServiceHost()}last_snapshot/me`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: 'Bearer ' + token
-			}
-		});
-
-		return await response.json();
+		return await get({ api: Apis.LAST_SNAPSHOT_MINE });
 	}
 };
 
@@ -61,16 +52,6 @@ export const saveLastSnapshot = async (snapshot: Partial<LastSnapshot>): Promise
 	if (isMockService()) {
 		console.log('mock saveLastSnapshot');
 	} else {
-		const token = findToken();
-		await doFetch(`${getServiceHost()}last_snapshot/save`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: 'Bearer ' + token
-			},
-			body: JSON.stringify(qualifiedSnapshot)
-		});
+		await post({ api: Apis.LAST_SNAPSHOT_SAVE, data: qualifiedSnapshot });
 	}
-
-	// REMOTE use real api
 };

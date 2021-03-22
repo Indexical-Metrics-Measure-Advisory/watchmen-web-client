@@ -1,39 +1,33 @@
-import { findToken } from "../account";
+import { Apis, get, page, post } from '../apis';
 import {
 	fetchMockUserGroup,
 	listMockUserGroups,
 	listMockUserGroupsForSpace,
-	saveMockUserGroup,
-} from "../mock/tuples/mock-user-group";
-import { DataPage } from "../query/data-page";
-import { doFetch, getServiceHost, isMockService } from "../utils";
-import { QuerySpaceForHolder } from "./query-space-types";
-import { QueryUserGroup, QueryUserGroupForHolder } from "./query-user-group-types";
-import { QueryUserForHolder } from "./query-user-types";
-import { UserGroup } from "./user-group-types";
-import { isFakedUuid } from "./utils";
+	saveMockUserGroup
+} from '../mock/tuples/mock-user-group';
+import { DataPage } from '../query/data-page';
+import { isMockService } from '../utils';
+import { QuerySpaceForHolder } from './query-space-types';
+import { QueryUserGroup, QueryUserGroupForHolder } from './query-user-group-types';
+import { QueryUserForHolder } from './query-user-types';
+import { UserGroup } from './user-group-types';
+import { isFakedUuid } from './utils';
 
 export const listUserGroups = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
 }): Promise<DataPage<QueryUserGroup>> => {
-	const { search = "", pageNumber = 1, pageSize = 9 } = options;
+	const { search = '', pageNumber = 1, pageSize = 9 } = options;
 
 	if (isMockService()) {
 		return listMockUserGroups(options);
 	} else {
-		const token = findToken();
-		const response = await doFetch(`${getServiceHost()}user_group/name?query_name=${search}`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
-			body: JSON.stringify({ pageNumber, pageSize }),
+		return await page({
+			api: Apis.USER_GROUP_LIST_BY_NAME,
+			search: { search },
+			pageable: { pageNumber, pageSize }
 		});
-
-		return await response.json();
 	}
 };
 
@@ -43,28 +37,12 @@ export const fetchUserGroup = async (
 	if (isMockService()) {
 		return fetchMockUserGroup(userGroupId);
 	} else {
-		const token = findToken();
-		const response = await doFetch(`${getServiceHost()}user_group?user_group_id=${userGroupId}`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
-		});
-		const userGroup: UserGroup = await response.json();
+		const userGroup: UserGroup = await get({ api: Apis.USER_GROUP_GET, search: { userGroupId } });
 
 		const fetchUsers = async (): Promise<Array<QueryUserForHolder>> => {
 			const { userIds } = userGroup;
 			if (userIds && userIds.length > 0) {
-				const response = await doFetch(`${getServiceHost()}user/ids`, {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: "Bearer " + token,
-					},
-					body: JSON.stringify(userGroup.userIds),
-				});
-				return await response.json();
+				return await post({ api: Apis.USER_BY_IDS, data: userGroup.userIds });
 			} else {
 				return [];
 			}
@@ -72,20 +50,12 @@ export const fetchUserGroup = async (
 		const fetchSpaces = async (): Promise<Array<QuerySpaceForHolder>> => {
 			const { spaceIds } = userGroup;
 			if (spaceIds && spaceIds.length > 0) {
-				const response = await doFetch(`${getServiceHost()}space/ids`, {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: "Bearer " + token,
-					},
-					body: JSON.stringify(userGroup.spaceIds),
-				});
-				return await response.json();
+				return await post({ api: Apis.SPACE_BY_IDS, data: userGroup.spaceIds });
 			} else {
 				return [];
 			}
 		};
-		const [users, spaces] = await Promise.all([fetchUsers(), fetchSpaces()]);
+		const [ users, spaces ] = await Promise.all([ fetchUsers(), fetchSpaces() ]);
 
 		return { userGroup, users, spaces };
 	}
@@ -95,30 +65,15 @@ export const saveUserGroup = async (userGroup: UserGroup): Promise<void> => {
 	if (isMockService()) {
 		return saveMockUserGroup(userGroup);
 	} else if (isFakedUuid(userGroup)) {
-		const token = findToken();
-		const response = await doFetch(`${getServiceHost()}user_group`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
-			body: JSON.stringify(userGroup),
-		});
-
-		const data = await response.json();
+		const data = await post({ api: Apis.USER_GROUP_CREATE, data: userGroup });
 		userGroup.userGroupId = data.userGroupId;
 		userGroup.lastModifyTime = data.lastModifyTime;
 	} else {
-		const token = findToken();
-		const response = await doFetch(`${getServiceHost()}update/user_group?user_group_id=${userGroup.userGroupId}`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
-			body: JSON.stringify(userGroup),
+		const data = await post({
+			api: Apis.USER_GROUP_SAVE,
+			search: { userGroupId: userGroup.userGroupId },
+			data: userGroup
 		});
-		const data = await response.json();
 		userGroup.lastModifyTime = data.lastModifyTime;
 	}
 };
@@ -127,15 +82,6 @@ export const listUserGroupsForHolder = async (search: string): Promise<Array<Que
 	if (isMockService()) {
 		return listMockUserGroupsForSpace(search);
 	} else {
-		const token = findToken();
-		const response = await doFetch(`${getServiceHost()}query/user_group/space?query_name=${search}`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
-		});
-
-		return await response.json();
+		return await get({ api: Apis.USER_GROUP_LIST_FOR_HOLDER_BY_NAME, search: { search } });
 	}
 };

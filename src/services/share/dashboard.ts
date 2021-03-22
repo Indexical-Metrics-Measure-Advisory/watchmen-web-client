@@ -1,8 +1,9 @@
 import { saveTokenIntoSession } from '../account';
+import { Apis, get } from '../apis';
 import { fetchMockSharedDashboard } from '../mock/share/mock-dashboard';
 import { Dashboard } from '../tuples/dashboard-types';
 import { Report } from '../tuples/report-types';
-import { doFetch, getServiceHost, isMockService } from '../utils';
+import { isMockService } from '../utils';
 
 export interface SharedDashboard {
 	dashboard: Dashboard;
@@ -13,15 +14,8 @@ export const fetchSharedDashboard = async (dashboardId: string, token: string): 
 	if (isMockService()) {
 		return await fetchMockSharedDashboard(dashboardId, token);
 	} else {
-		const response = await doFetch(`${getServiceHost()}share/dashboard?dashboard_id=${dashboardId}&&token=${token}`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
-
+		const dashboard = await get({ api: Apis.DASHBOARD_SHARE_GET, search: { dashboardId, token }, auth: false });
 		saveTokenIntoSession(token);
-
-		return await response.json();
+		return dashboard;
 	}
 };

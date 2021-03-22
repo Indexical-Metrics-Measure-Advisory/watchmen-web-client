@@ -1,32 +1,22 @@
-import { findToken } from "../account";
-import { deleteMockReport, listMockReports, saveMockReport } from "../mock/tuples/mock-report";
-import { DataPage } from "../query/data-page";
-import { doFetch, getServiceHost, isMockService } from "../utils";
-import { QueryReport } from "./query-report-types";
-import { Report } from "./report-types";
-import { isFakedUuid } from "./utils";
+import { Apis, get, page, post } from '../apis';
+import { deleteMockReport, listMockReports, saveMockReport } from '../mock/tuples/mock-report';
+import { DataPage } from '../query/data-page';
+import { isMockService } from '../utils';
+import { QueryReport } from './query-report-types';
+import { Report } from './report-types';
+import { isFakedUuid } from './utils';
 
 export const listReports = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
 }): Promise<DataPage<QueryReport>> => {
-	const { search = "", pageNumber = 1, pageSize = 9 } = options;
+	const { search = '', pageNumber = 1, pageSize = 9 } = options;
 
 	if (isMockService()) {
 		return listMockReports(options);
 	} else {
-		const token = findToken();
-		const response = await doFetch(`${getServiceHost()}report/name?query_name=${search}`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
-			body: JSON.stringify({ pageNumber, pageSize }),
-		});
-
-		return await response.json();
+		return await page({ api: Apis.REPORT_LIST_BY_NAME, search: { search }, pageable: { pageNumber, pageSize } });
 	}
 };
 
@@ -34,16 +24,7 @@ export const saveNewReport = async (report: Report, subjectId: string): Promise<
 	if (isMockService()) {
 		return saveMockReport(report);
 	} else {
-		const token = findToken();
-		const response = await doFetch(`${getServiceHost()}console_space/subject/report/save?subject_id=${subjectId}`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
-			body: JSON.stringify(report),
-		});
-		const data = await response.json();
+		const data = await post({ api: Apis.REPORT_CREATE, search: { subjectId }, data: report });
 		report.reportId = data.reportId;
 		report.lastVisitTime = data.lastModifyTime;
 	}
@@ -53,34 +34,9 @@ export const saveReport = async (report: Report): Promise<void> => {
 	if (isMockService()) {
 		return saveMockReport(report);
 	} else if (isFakedUuid(report)) {
-		// REMOTE use real api
-		if (isMockService()) {
-			return saveMockReport(report);
-		} else {
-			const token = findToken();
-			const response = await doFetch(`${getServiceHost()}console_space/subject/report/update`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: "Bearer " + token,
-				},
-				body: JSON.stringify(report),
-			});
-			const data = await response.json();
-			report.reportId = data.reportId;
-			report.lastModifyTime = data.lastModifyTime;
-		}
+		throw new Error('Incorrect api called, should be "saveNewReport".');
 	} else {
-		const token = findToken();
-		const response = await doFetch(`${getServiceHost()}console_space/subject/report/update`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
-			body: JSON.stringify(report),
-		});
-		const data = await response.json();
+		const data = await post({ api: Apis.REPORT_SAVE, data: report });
 		report.reportId = data.reportId;
 		report.lastModifyTime = data.lastModifyTime;
 	}
@@ -90,16 +46,6 @@ export const deleteReport = async (report: Report): Promise<void> => {
 	if (isMockService()) {
 		return deleteMockReport(report);
 	} else {
-		// REMOTE use real api
-		// return deleteMockReport(report);
-
-		const token = findToken();
-		await doFetch(`${getServiceHost()}console_space/subject/report/delete?report_id=${report.reportId}`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
-		});
+		await get({ api: Apis.REPORT_DELETE, search: { reportId: report.reportId } });
 	}
 };

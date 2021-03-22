@@ -1,13 +1,13 @@
-import { findToken } from "../account";
-import { fetchMockUser, listMockUsers, listMockUsersForHolder, saveMockUser } from "../mock/tuples/mock-user";
-import { DataPage } from "../query/data-page";
-import { doFetch, getServiceHost, isMockService } from "../utils";
-import { QueryUserGroupForHolder } from "./query-user-group-types";
-import { QueryUser, QueryUserForHolder } from "./query-user-types";
-import { User } from "./user-types";
-import { isFakedUuid } from "./utils";
+import { Apis, get, page, post } from '../apis';
+import { fetchMockUser, listMockUsers, listMockUsersForHolder, saveMockUser } from '../mock/tuples/mock-user';
+import { DataPage } from '../query/data-page';
+import { isMockService } from '../utils';
+import { QueryUserGroupForHolder } from './query-user-group-types';
+import { QueryUser, QueryUserForHolder } from './query-user-types';
+import { User } from './user-types';
+import { isFakedUuid } from './utils';
 
-type UserOnServer = Omit<User, "userGroupIds"> & { groupIds: Array<string> };
+type UserOnServer = Omit<User, 'userGroupIds'> & { groupIds: Array<string> };
 const transformFromServer = (user: UserOnServer): User => {
 	const { groupIds, ...rest } = user;
 	return { userGroupIds: groupIds, ...rest };
@@ -22,21 +22,12 @@ export const listUsers = async (options: {
 	pageNumber?: number;
 	pageSize?: number;
 }): Promise<DataPage<QueryUser>> => {
-	const { search = "", pageNumber = 1, pageSize = 9 } = options;
+	const { search = '', pageNumber = 1, pageSize = 9 } = options;
 
 	if (isMockService()) {
 		return listMockUsers(options);
 	} else {
-		const token = findToken();
-		const response = await doFetch(`${getServiceHost()}user/name?query_name=${search}`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
-			body: JSON.stringify({ pageNumber, pageSize }),
-		});
-		return await response.json();
+		return await page({ api: Apis.USER_LIST_BY_NAME, search: { search }, pageable: { pageNumber, pageSize } });
 	}
 };
 
@@ -44,27 +35,11 @@ export const fetchUser = async (userId: string): Promise<{ user: User; groups: A
 	if (isMockService()) {
 		return fetchMockUser(userId);
 	} else {
-		const token = findToken();
-		const response = await doFetch(`${getServiceHost()}user?user_id=${userId}`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
-		});
-		const user: UserOnServer = await response.json();
+		const user: UserOnServer = await get({ api: Apis.USER_GET, search: { userId } });
 
 		const { groupIds } = user;
 		if (groupIds && groupIds.length > 0) {
-			const result = await doFetch(`${getServiceHost()}user_groups/ids`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: "Bearer " + token,
-				},
-				body: JSON.stringify(groupIds),
-			});
-			const groups = await result.json();
+			const groups = await post({ api: Apis.USER_GROUP_BY_IDS, data: groupIds });
 			return { user: transformFromServer(user), groups };
 		} else {
 			return { user: transformFromServer(user), groups: [] };
@@ -76,29 +51,11 @@ export const saveUser = async (user: User): Promise<void> => {
 	if (isMockService()) {
 		return saveMockUser(user);
 	} else if (isFakedUuid(user)) {
-		const token = findToken();
-		const response = await doFetch(`${getServiceHost()}user`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
-			body: JSON.stringify(transformToServer(user)),
-		});
-		const data = await response.json();
+		const data = await post({ api: Apis.USER_CREATE, data: transformToServer(user) });
 		user.userId = data.userId;
 		user.lastModifyTime = data.lastModifyTime;
 	} else {
-		const token = findToken();
-		const response = await doFetch(`${getServiceHost()}user`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
-			body: JSON.stringify(transformToServer(user)),
-		});
-		const data = await response.json();
+		const data = await post({ api: Apis.USER_SAVE, data: transformToServer(user) });
 		user.lastModifyTime = data.lastModifyTime;
 	}
 };
@@ -107,14 +64,6 @@ export const listUsersForHolder = async (search: string): Promise<Array<QueryUse
 	if (isMockService()) {
 		return listMockUsersForHolder(search);
 	} else {
-		const token = findToken();
-		const response = await doFetch(`${getServiceHost()}query/user/group?query_name=${search}`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
-		});
-		return await response.json();
+		return await get({ api: Apis.USER_LIST_FOR_HOLDER_BY_NAME, search: { search } });
 	}
 };

@@ -1,6 +1,6 @@
-import { findToken } from '../account';
+import { Apis, post } from '../apis';
 import { fetchMockSubjectData } from '../mock/console/mock-subject';
-import { doFetch, getServiceHost, isMockService } from '../utils';
+import { isMockService } from '../utils';
 import { DataSetPage } from './dataset';
 
 export const fetchSubjectData = async (options: {
@@ -12,19 +12,6 @@ export const fetchSubjectData = async (options: {
 	if (isMockService()) {
 		return fetchMockSubjectData({ subjectId, pageNumber, pageSize });
 	} else {
-		const token = findToken();
-		const response = await doFetch(
-			`${getServiceHost()}console_space/subject/dataset?subject_id=${subjectId}`,
-			{
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: 'Bearer ' + token
-				},
-				body: JSON.stringify({ pageNumber, pageSize })
-			}
-		);
-
-		return await response.json();
+		return await post({ api: Apis.SUBJECT_DATA, search: { subjectId }, data: { pageNumber, pageSize } });
 	}
 };

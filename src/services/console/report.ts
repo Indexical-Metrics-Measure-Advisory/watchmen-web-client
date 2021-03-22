@@ -1,4 +1,4 @@
-import { findToken } from "../account";
+import { Apis, get, post } from '../apis';
 import {
 	fetchMockBarChartData,
 	fetchMockChartData,
@@ -11,27 +11,17 @@ import {
 	fetchMockScatterChartData,
 	fetchMockSunburstChartData,
 	fetchMockTreeChartData,
-	fetchMockTreemapChartData,
-} from "../mock/console/mock-report";
-import { ChartDataSet, ChartType } from "../tuples/chart-types";
-import { Report } from "../tuples/report-types";
-import { doFetch, getServiceHost, isMockService } from '../utils';
+	fetchMockTreemapChartData
+} from '../mock/console/mock-report';
+import { ChartDataSet, ChartType } from '../tuples/chart-types';
+import { Report } from '../tuples/report-types';
+import { isMockService } from '../utils';
 
 export const fetchChartDataTemporary = async (report: Report): Promise<ChartDataSet> => {
 	if (isMockService()) {
 		return fetchChartData(report.reportId, report.chart.type);
 	} else {
-		const token = findToken();
-		const response = await doFetch(`${getServiceHost()}console_space/dataset/chart/temporary`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
-			body: JSON.stringify(report),
-		});
-
-		return await response.json();
+		return await post({ api: Apis.REPORT_TEMPORARY, data: report });
 	}
 };
 export const fetchChartData = async (reportId: string, type: ChartType): Promise<ChartDataSet> => {
@@ -62,15 +52,6 @@ export const fetchChartData = async (reportId: string, type: ChartType): Promise
 			return fetchMockChartData(reportId);
 		}
 	} else {
-		const token = findToken();
-		const response = await doFetch(`${getServiceHost()}console_space/dataset/chart?report_id=${reportId}`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
-		});
-
-		return await response.json();
+		return await get({ api: Apis.REPORT_DATA, search: { reportId } });
 	}
 };
