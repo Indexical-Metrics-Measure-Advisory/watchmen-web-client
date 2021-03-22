@@ -94,7 +94,7 @@ const buildApi = (api: string, args?: { [key in string]: any }): string => {
 		return api;
 	}
 
-	return args.reduce((api: string, key: string) => {
+	return Object.keys(args).reduce((api: string, key: string) => {
 		api.replace(`:${key}`, encodeURIComponent(args[key]));
 		return api;
 	}, api);
