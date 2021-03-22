@@ -1,4 +1,4 @@
-import { Apis, get, post } from '../apis';
+import { Apis, get, post } from "../apis";
 import {
 	fetchMockBarChartData,
 	fetchMockChartData,
@@ -11,11 +11,11 @@ import {
 	fetchMockScatterChartData,
 	fetchMockSunburstChartData,
 	fetchMockTreeChartData,
-	fetchMockTreemapChartData
-} from '../mock/console/mock-report';
-import { ChartDataSet, ChartType } from '../tuples/chart-types';
-import { Report } from '../tuples/report-types';
-import { isMockService } from '../utils';
+	fetchMockTreemapChartData,
+} from "../mock/console/mock-report";
+import { ChartDataSet, ChartType } from "../tuples/chart-types";
+import { Report } from "../tuples/report-types";
+import { isMockService } from "../utils";
 
 export const fetchChartDataTemporary = async (report: Report): Promise<ChartDataSet> => {
 	if (isMockService()) {
@@ -52,6 +52,6 @@ export const fetchChartData = async (reportId: string, type: ChartType): Promise
 			return fetchMockChartData(reportId);
 		}
 	} else {
-		return await get({ api: Apis.REPORT_DATA, search: { reportId } });
+		return await get({ api: Apis.REPORT_DATA, search: { reportId: reportId } });
 	}
 };
