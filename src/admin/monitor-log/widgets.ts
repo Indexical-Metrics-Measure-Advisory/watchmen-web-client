@@ -22,7 +22,6 @@ export const SearchCriteriaContainer = styled.div.attrs({ 'data-widget': 'monito
 	align-items           : center;
 	> button {
 		justify-self : start;
-		min-width    : 160px;
 	}
 `;
 export const SearchLabel = styled.div.attrs({ 'data-widget': 'monitor-logs-search-label' })`
@@ -42,7 +41,7 @@ export const SearchResultContainer = styled.div.attrs({ 'data-widget': 'monitor-
 `;
 export const SearchResultHeader = styled.div.attrs({ 'data-widget': 'monitor-logs-result-header' })`
 	display               : grid;
-	grid-template-columns : 40px 280px 200px 200px 200px 200px;
+	grid-template-columns : 40px 280px 280px 200px 200px 200px;
 	height                : var(--height);
 	border-bottom         : var(--border);
 	border-bottom-width   : 2px;
@@ -72,7 +71,7 @@ export const SearchResultBody = styled.div.attrs({
 `;
 export const SearchResultBodyRow = styled.div.attrs({ 'data-widget': 'monitor-logs-result-body-row' })`
 	display               : grid;
-	grid-template-columns : 40px 280px 200px 200px 200px 200px;
+	grid-template-columns : 40px 280px 280px 200px 200px 200px;
 	height                : var(--height);
 	border-bottom         : var(--border);
 	> div {
