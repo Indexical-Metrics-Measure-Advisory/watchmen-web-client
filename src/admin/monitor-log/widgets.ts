@@ -45,6 +45,7 @@ export const SearchResultHeader = styled.div.attrs({ 'data-widget': 'monitor-log
 	grid-template-columns : 40px 280px 200px 200px 200px 200px;
 	height                : var(--height);
 	border-bottom         : var(--border);
+	border-bottom-width   : 2px;
 	> div {
 		display      : flex;
 		align-items  : center;
@@ -61,7 +62,7 @@ export const SearchResultBody = styled.div.attrs({
 	display        : flex;
 	flex-direction : column;
 	flex-grow      : 1;
-	height: calc(100vh - 57px - 81px - var(--height));
+	height         : calc(100vh - 57px - 81px - var(--height));
 	overflow       : auto;
 `;
 export const SearchResultBodyRow = styled.div.attrs({ 'data-widget': 'monitor-logs-result-body-row' })`
@@ -70,10 +71,10 @@ export const SearchResultBodyRow = styled.div.attrs({ 'data-widget': 'monitor-lo
 	height                : var(--height);
 	border-bottom         : var(--border);
 	> div {
-		display       : flex;
-		align-items   : center;
-		padding       : 0 calc(var(--margin) / 2);
-		border-right  : var(--border);
+		display      : flex;
+		align-items  : center;
+		padding      : 0 calc(var(--margin) / 2);
+		border-right : var(--border);
 		> span {
 			overflow-x    : hidden;
 			white-space   : nowrap;
