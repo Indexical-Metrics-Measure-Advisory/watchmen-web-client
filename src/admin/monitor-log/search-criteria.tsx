@@ -17,6 +17,20 @@ interface Criteria {
 	endDate?: string;
 }
 
+const matchPipeline = (topicId: string) => (pipeline: Pipeline) => {
+	if (pipeline.topicId == topicId) {
+		return true;
+	}
+	return (pipeline.stages || []).some(stage => (stage.units || []).some(unit => (unit.do || []).some(action => (action as any).topicId == topicId)));
+};
+
+const findPipelinesByTopic = (pipelines: Array<Pipeline>, topicId?: string): Array<Pipeline> => {
+	if (!topicId) {
+		return pipelines;
+	}
+	return pipelines.filter(matchPipeline(topicId));
+};
+
 export const SearchCriteria = (props: {
 	topics: Array<Topic>;
 	pipelines: Array<Pipeline>;
@@ -32,7 +46,7 @@ export const SearchCriteria = (props: {
 		const topicId = option.value;
 		if (topicId && criteria.pipelineId) {
 			// eslint-disable-next-line
-			const pipeline = pipelines.find(pipeline => pipeline.pipelineId == criteria.pipelineId);
+			const pipeline = findPipelinesByTopic(pipelines, topicId).find(pipeline => pipeline.pipelineId == criteria.pipelineId);
 			// eslint-disable-next-line
 			if (!pipeline || pipeline.topicId != topicId) {
 				setCriteria({ ...criteria, topicId, pipelineId: '' });
@@ -58,23 +72,16 @@ export const SearchCriteria = (props: {
 				value: topic.topicId,
 				label: topic.name
 			};
-		})
+		}).sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()))
 	];
 	const pipelineOptions: Array<DropdownOption> = [
 		{ value: '', label: 'Any Pipeline' },
-		...pipelines.filter(pipeline => {
-			if (!criteria.topicId) {
-				return true;
-			} else {
-				// eslint-disable-next-line
-				return pipeline.topicId == criteria.topicId;
-			}
-		}).map(pipeline => {
+		...findPipelinesByTopic(pipelines, criteria.topicId).map(pipeline => {
 			return {
 				value: pipeline.pipelineId,
 				label: pipeline.name || 'Noname Pipeline'
 			};
-		})
+		}).sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()))
 	];
 
 	return <SearchCriteriaContainer>
