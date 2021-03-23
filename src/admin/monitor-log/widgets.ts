@@ -87,9 +87,32 @@ export const SearchResultBody = styled.div.attrs({
 `;
 export const SearchResultBodyRow = styled.div.attrs({ 'data-widget': 'monitor-logs-result-body-row' })`
 	display               : grid;
+	position              : relative;
 	grid-template-columns : 40px 280px 280px 200px 200px 200px;
 	height                : var(--height);
 	border-bottom         : var(--border);
+	cursor                : pointer;
+	&:hover {
+		background-color : var(--hover-color);
+		&:before,
+		&:after {
+			content          : '';
+			display          : block;
+			position         : absolute;
+			width            : 100%;
+			height           : 1px;
+			background-color : var(--invert-color);
+			top              : 0;
+			left             : 0;
+		}
+		&:after {
+			top    : unset;
+			bottom : 0;
+		}
+		> div {
+			border-right-color : var(--invert-color);
+		}
+	}
 	> div {
 		display      : flex;
 		align-items  : center;
