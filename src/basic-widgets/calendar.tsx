@@ -425,9 +425,15 @@ export const Calendar = (props: {
 		...state,
 		value: state.value!.hour(23).minute(59).second(59).millisecond(999)
 	});
-	const onDateClicked = (date: Dayjs) => () => setState({
-		...state,
-		value: date.clone()
+	const onDateClicked = (date: Dayjs) => () => setState(({ value }) => {
+		let newValue = date.clone();
+		if (value) {
+			newValue = newValue.hour(value.hour()).minute(value.minute()).second(value.second()).millisecond(value.millisecond());
+		}
+		return {
+			...state,
+			value: newValue
+		};
 	});
 	const onTodayClicked = onDateClicked(dayjs());
 	const onYesterdayClicked = onDateClicked(dayjs().subtract(1, 'day'));
@@ -461,14 +467,14 @@ export const Calendar = (props: {
 	const onGotoPrevMonthClicked = () => setState({ ...state, displayValue: state.displayValue!.subtract(1, 'month') });
 	const onGotoNextMonthClicked = () => setState({ ...state, displayValue: state.displayValue!.add(1, 'month') });
 
-	const onClearClicked = async () => {
-		const ret = await onChange();
+	const onClearClicked = () => {
+		const ret = onChange();
 		if (!ret || !ret.active) {
 			setState({ ...state, active: false });
 		}
 	};
-	const onConfirmClicked = async () => {
-		const ret = await onChange(state.value!.format(CALENDAR_FORMAT));
+	const onConfirmClicked = () => {
+		const ret = onChange(state.value!.format(CALENDAR_FORMAT));
 		if (!ret || !ret.active) {
 			setState({ ...state, active: false });
 		}
