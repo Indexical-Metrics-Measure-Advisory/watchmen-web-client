@@ -65,7 +65,7 @@ export const SearchResultHeader = styled.div.attrs({ 'data-widget': 'monitor-log
 			> div > span:nth-child(2) {
 				display : inline-block;
 				> div[data-widget=dropdown] {
-					height  : calc(var(--height) * 0.6);
+					height : calc(var(--height) * 0.6);
 				}
 			}
 		}
@@ -97,6 +97,9 @@ export const SearchResultBodyRow = styled.div.attrs({ 'data-widget': 'monitor-lo
 		border-right : var(--border);
 		&:first-child {
 			padding : 0 calc(var(--margin) / 4);
+		}
+		&:nth-child(5) {
+			text-transform : uppercase;
 		}
 		> span {
 			overflow-x    : hidden;

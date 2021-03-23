@@ -87,7 +87,7 @@ export const SearchResult = (props: {
 			<div>Pipeline Name</div>
 			<div>From Topic</div>
 			<div>Status</div>
-			<div>Complete At</div>
+			<div>Run At</div>
 		</SearchResultHeader>
 		<SearchResultBody>
 			{logs.data.map((row, index) => {
@@ -97,7 +97,7 @@ export const SearchResult = (props: {
 					<div><span>{pipelineMap.get(row.pipelineId)?.name || row.pipelineId}</span></div>
 					<div><span>{topicMap.get(row.topicId)?.name || row.topicId}</span></div>
 					<div>{row.status}</div>
-					<div>{row.completeTime}</div>
+					<div>{row.startTime}</div>
 				</SearchResultBodyRow>;
 			})
 			}
