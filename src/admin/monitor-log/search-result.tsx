@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { Dropdown } from '../../basic-widgets/dropdown';
+import { DropdownOption } from '../../basic-widgets/types';
 import { fetchMonitorLogs, MonitorLogCriteria, MonitorLogsDataPage } from '../../services/admin/logs';
 import { Pipeline } from '../../services/tuples/pipeline-types';
 import { Topic } from '../../services/tuples/topic-types';
 import { useMonitorLogEventBus } from './monitor-log-event-bus';
 import { MonitorLogEventTypes } from './monitor-log-event-bus-types';
 import { SearchResultBody, SearchResultBodyRow, SearchResultContainer, SearchResultHeader } from './widgets';
+
+interface State extends MonitorLogsDataPage {
+	criteria: MonitorLogCriteria;
+}
 
 const PAGE_SIZE = 100;
 
@@ -15,7 +21,8 @@ export const SearchResult = (props: {
 	const { topics, pipelines } = props;
 
 	const { on, off } = useMonitorLogEventBus();
-	const [ logs, setLogs ] = useState<MonitorLogsDataPage>({
+	const [ logs, setLogs ] = useState<State>({
+		criteria: {},
 		data: [],
 		itemCount: 0,
 		pageCount: 1,
@@ -24,14 +31,28 @@ export const SearchResult = (props: {
 	});
 	useEffect(() => {
 		const onSearch = async (criteria: MonitorLogCriteria) => {
-			const logs = await fetchMonitorLogs({ criteria, pageNumber: 1, pageSize: PAGE_SIZE });
-			setLogs(logs);
+			const page = await fetchMonitorLogs({ criteria, pageNumber: 1, pageSize: PAGE_SIZE });
+			setLogs({ ...page, criteria });
 		};
 		on(MonitorLogEventTypes.DO_SEARCH, onSearch);
 		return () => {
 			off(MonitorLogEventTypes.DO_SEARCH, onSearch);
 		};
 	}, [ on, off ]);
+
+	const onPageChange = (option: DropdownOption) => {
+		if (option.value === logs.pageNumber) {
+			return;
+		}
+		(async () => {
+			const page = await fetchMonitorLogs({
+				criteria: logs.criteria,
+				pageNumber: option.value,
+				pageSize: PAGE_SIZE
+			});
+			setLogs({ ...page, criteria: logs.criteria });
+		})();
+	};
 
 	const pipelineMap = pipelines.reduce((map, pipeline) => {
 		map.set(pipeline.pipelineId, pipeline);
@@ -42,8 +63,25 @@ export const SearchResult = (props: {
 		return map;
 	}, new Map<string, Topic>());
 
+	const pageOptions: Array<DropdownOption> = new Array(logs.pageCount).fill(1).map((v, index) => {
+		return { value: index + 1, label: `${index + 1}` };
+	});
+
 	return <SearchResultContainer>
 		<SearchResultHeader>
+			<div>
+				<div>
+					<span>Page</span>
+					<span>
+						<Dropdown value={logs.pageNumber} options={pageOptions} onChange={onPageChange}/>
+					</span>
+					<span>/</span>
+					<span>{logs.pageCount}</span>
+					<span>, Total</span>
+					<span>{logs.itemCount}</span>
+					<span>Rows</span>
+				</div>
+			</div>
 			<div>#</div>
 			<div>Run ID.</div>
 			<div>Pipeline Name</div>

@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { MonitorLogCriteria, MonitorLogRow, MonitorLogsDataPage } from '../../admin/logs';
+import { MonitorLogCriteria, MonitorLogRow, MonitorLogsDataPage, MonitorLogStatus } from '../../admin/logs';
 import { generateUuid } from '../../tuples/utils';
 
 export const fetchMockMonitorLogs = async (options: {
@@ -16,8 +16,9 @@ export const fetchMockMonitorLogs = async (options: {
 						uid: generateUuid(),
 						pipelineId: '1',
 						topicId: '1',
-						status: 'Done',
-						completeTime: dayjs().format('YYYY/MM/DD HH:mm:ss.SSS')
+						status: MonitorLogStatus.DONE,
+						startTime: dayjs().format('YYYY/MM/DD HH:mm:ss.SSS'),
+						completeTime: '' + Math.round(Math.random() * 1000)
 					} as MonitorLogRow;
 				}),
 				pageCount: 2,

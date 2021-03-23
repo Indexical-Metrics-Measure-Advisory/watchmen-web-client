@@ -42,7 +42,7 @@ export const SearchResultContainer = styled.div.attrs({ 'data-widget': 'monitor-
 export const SearchResultHeader = styled.div.attrs({ 'data-widget': 'monitor-logs-result-header' })`
 	display               : grid;
 	grid-template-columns : 40px 280px 280px 200px 200px 200px;
-	height                : var(--height);
+	grid-auto-rows        : var(--height);
 	border-bottom         : var(--border);
 	border-bottom-width   : 2px;
 	overflow-x            : hidden;
@@ -51,9 +51,25 @@ export const SearchResultHeader = styled.div.attrs({ 'data-widget': 'monitor-log
 		align-items  : center;
 		font-variant : petite-caps;
 		font-weight  : var(--font-demi-bold);
+		height       : var(--height);
 		padding      : 0 calc(var(--margin) / 2);
 		border-right : var(--border);
 		&:first-child {
+			display         : flex;
+			justify-content : flex-end;
+			grid-column     : 1 / span 7;
+			border-bottom   : var(--border);
+			> div > span:not(:nth-child(4)) {
+				margin-right : 4px;
+			}
+			> div > span:nth-child(2) {
+				display : inline-block;
+				> div[data-widget=dropdown] {
+					height  : calc(var(--height) * 0.6);
+				}
+			}
+		}
+		&:nth-child(2) {
 			padding : 0 calc(var(--margin) / 4);
 		}
 	}
@@ -65,7 +81,7 @@ export const SearchResultBody = styled.div.attrs({
 	display        : flex;
 	flex-direction : column;
 	flex-grow      : 1;
-	height         : calc(100vh - 57px - 81px - var(--height));
+	height         : calc(100vh - 57px - 81px - var(--height) * 2);
 	overflow-y     : auto;
 	overflow-x     : hidden;
 `;

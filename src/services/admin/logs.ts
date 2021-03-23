@@ -8,12 +8,20 @@ export interface MonitorLogCriteria {
 	endDate?: string;
 }
 
+export enum MonitorLogStatus {
+	DONE = 'done',
+	ERROR = 'error'
+}
+
 export interface MonitorLogRow {
 	uid: string;
 	pipelineId: string;
 	topicId: string;
-	status: string;
+	status: MonitorLogStatus;
+	startTime: string;
 	completeTime: string;
+	oldValue: any;
+	newValue: any;
 }
 
 export type MonitorLogs = Array<MonitorLogRow>
@@ -25,7 +33,6 @@ export interface MonitorLogsDataPage {
 	pageSize: number;
 	pageCount: number;
 }
-
 
 export const fetchMonitorLogs = async (options: {
 	criteria: MonitorLogCriteria;
