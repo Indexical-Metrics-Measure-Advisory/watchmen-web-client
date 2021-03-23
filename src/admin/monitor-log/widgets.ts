@@ -54,6 +54,9 @@ export const SearchResultHeader = styled.div.attrs({ 'data-widget': 'monitor-log
 		font-weight  : var(--font-demi-bold);
 		padding      : 0 calc(var(--margin) / 2);
 		border-right : var(--border);
+		&:first-child {
+			padding : 0 calc(var(--margin) / 4);
+		}
 	}
 `;
 export const SearchResultBody = styled.div.attrs({
@@ -77,6 +80,9 @@ export const SearchResultBodyRow = styled.div.attrs({ 'data-widget': 'monitor-lo
 		align-items  : center;
 		padding      : 0 calc(var(--margin) / 2);
 		border-right : var(--border);
+		&:first-child {
+			padding : 0 calc(var(--margin) / 4);
+		}
 		> span {
 			overflow-x    : hidden;
 			white-space   : nowrap;
