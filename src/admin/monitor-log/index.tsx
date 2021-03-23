@@ -4,7 +4,9 @@ import { fetchAllPipelines } from '../../services/pipeline/all-pipelines';
 import { fetchAllTopics } from '../../services/pipeline/all-topics';
 import { Pipeline } from '../../services/tuples/pipeline-types';
 import { Topic } from '../../services/tuples/topic-types';
+import { MonitorLogEventBusProvider } from './monitor-log-event-bus';
 import { SearchCriteria } from './search-criteria';
+import { SearchResult } from './search-result';
 import { Body, Header, HeaderTitle } from './widgets';
 
 interface State {
@@ -29,7 +31,10 @@ const AdminMonitorLogsIndex = () => {
 			<HeaderTitle>Monitor Logs</HeaderTitle>
 		</Header>
 		<Body>
-			<SearchCriteria topics={state.topics} pipelines={state.pipelines}/>
+			<MonitorLogEventBusProvider>
+				<SearchCriteria topics={state.topics} pipelines={state.pipelines}/>
+				<SearchResult topics={state.topics} pipelines={state.pipelines}/>
+			</MonitorLogEventBusProvider>
 		</Body>
 	</FullWidthPage>;
 };

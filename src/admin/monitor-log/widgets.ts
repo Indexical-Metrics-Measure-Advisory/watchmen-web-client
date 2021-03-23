@@ -18,7 +18,7 @@ export const SearchCriteriaContainer = styled.div.attrs({ 'data-widget': 'monito
 	grid-column-gap       : calc(var(--margin) / 2);
 	grid-row-gap          : calc(var(--margin) / 4);
 	padding               : calc(var(--margin) / 4) var(--margin);
-	border-bottom: var(--border);
+	border-bottom         : var(--border);
 	align-items           : center;
 	> button {
 		justify-self : start;
@@ -33,5 +33,51 @@ export const SearchLabel = styled.div.attrs({ 'data-widget': 'monitor-logs-searc
 	}
 	&:nth-child(6) {
 		grid-column : 2;
+	}
+`;
+export const SearchResultContainer = styled.div.attrs({ 'data-widget': 'monitor-logs-result' })`
+	display        : flex;
+	flex-direction : column;
+	flex-grow      : 1;
+`;
+export const SearchResultHeader = styled.div.attrs({ 'data-widget': 'monitor-logs-result-header' })`
+	display               : grid;
+	grid-template-columns : 40px 280px 200px 200px 200px 200px;
+	height                : var(--height);
+	border-bottom         : var(--border);
+	> div {
+		display      : flex;
+		align-items  : center;
+		font-variant : petite-caps;
+		font-weight  : var(--font-demi-bold);
+		padding      : 0 calc(var(--margin) / 2);
+		border-right : var(--border);
+	}
+`;
+export const SearchResultBody = styled.div.attrs({
+	'data-widget': 'monitor-logs-result-body',
+	'data-v-scroll': ''
+})`
+	display        : flex;
+	flex-direction : column;
+	flex-grow      : 1;
+	height: calc(100vh - 57px - 81px - var(--height));
+	overflow       : auto;
+`;
+export const SearchResultBodyRow = styled.div.attrs({ 'data-widget': 'monitor-logs-result-body-row' })`
+	display               : grid;
+	grid-template-columns : 40px 280px 200px 200px 200px 200px;
+	height                : var(--height);
+	border-bottom         : var(--border);
+	> div {
+		display       : flex;
+		align-items   : center;
+		padding       : 0 calc(var(--margin) / 2);
+		border-right  : var(--border);
+		> span {
+			overflow-x    : hidden;
+			white-space   : nowrap;
+			text-overflow : ellipsis;
+		}
 	}
 `;

@@ -6,21 +6,20 @@ import { Calendar, CALENDAR_FORMAT } from '../../basic-widgets/calendar';
 import { ICON_SEARCH } from '../../basic-widgets/constants';
 import { Dropdown } from '../../basic-widgets/dropdown';
 import { ButtonInk, DropdownOption } from '../../basic-widgets/types';
+import { MonitorLogCriteria } from '../../services/admin/logs';
 import { Pipeline } from '../../services/tuples/pipeline-types';
 import { Topic } from '../../services/tuples/topic-types';
+import { useMonitorLogEventBus } from './monitor-log-event-bus';
+import { MonitorLogEventTypes } from './monitor-log-event-bus-types';
 import { SearchCriteriaContainer, SearchLabel } from './widgets';
 
-interface Criteria {
-	topicId?: string;
-	pipelineId?: string;
-	startDate?: string;
-	endDate?: string;
-}
 
 const matchPipeline = (topicId: string) => (pipeline: Pipeline) => {
+	// eslint-disable-next-line
 	if (pipeline.topicId == topicId) {
 		return true;
 	}
+	// eslint-disable-next-line
 	return (pipeline.stages || []).some(stage => (stage.units || []).some(unit => (unit.do || []).some(action => (action as any).topicId == topicId)));
 };
 
@@ -37,7 +36,8 @@ export const SearchCriteria = (props: {
 }) => {
 	const { topics, pipelines } = props;
 
-	const [ criteria, setCriteria ] = useState<Criteria>({
+	const { fire } = useMonitorLogEventBus();
+	const [ criteria, setCriteria ] = useState<MonitorLogCriteria>({
 		startDate: dayjs().startOf('date').format(CALENDAR_FORMAT),
 		endDate: dayjs().format(CALENDAR_FORMAT)
 	});
@@ -64,6 +64,7 @@ export const SearchCriteria = (props: {
 	const onEndDateChanged = (value?: string) => {
 		setCriteria({ ...criteria, endDate: value });
 	};
+	const onSearchClicked = () => fire(MonitorLogEventTypes.DO_SEARCH, criteria);
 
 	const topicOptions: Array<DropdownOption> = [
 		{ value: '', label: 'Any Topic' },
@@ -94,7 +95,7 @@ export const SearchCriteria = (props: {
 		<Calendar value={criteria.startDate} onChange={onStartDateChanged}/>
 		<SearchLabel>To</SearchLabel>
 		<Calendar value={criteria.endDate} onChange={onEndDateChanged}/>
-		<Button ink={ButtonInk.PRIMARY}>
+		<Button ink={ButtonInk.PRIMARY} onClick={onSearchClicked}>
 			<FontAwesomeIcon icon={ICON_SEARCH}/>
 			<span>Find</span>
 		</Button>

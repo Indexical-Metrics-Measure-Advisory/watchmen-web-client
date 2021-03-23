@@ -50,7 +50,7 @@ const AdminIndex = () => {
 			<Route path={Router.ADMIN_PIPELINES}><AdminPipelines/></Route>
 			<Route path={Router.ADMIN_USER_GROUPS}><AdminMain><AdminUserGroups/></AdminMain></Route>
 			<Route path={Router.ADMIN_USERS}><AdminMain><AdminUsers/></AdminMain></Route>
-			<Route path={Router.ADMIN_MONITOR_LOGS}><AdminMain><AdminMonitorLogs/></AdminMain></Route>
+			<Route path={Router.ADMIN_MONITOR_LOGS}><AdminMain scrollable={false}><AdminMonitorLogs/></AdminMain></Route>
 			{/*		<Route path={Path.ADMIN_TASKS}><Tasks/></Route>*/}
 			<Route path='*'>
 				<Redirect to={Router.ADMIN_HOME}/>
