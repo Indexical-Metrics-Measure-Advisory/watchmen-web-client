@@ -6,6 +6,8 @@ import { Calendar, CALENDAR_FORMAT } from '../../basic-widgets/calendar';
 import { ICON_SEARCH } from '../../basic-widgets/constants';
 import { Dropdown } from '../../basic-widgets/dropdown';
 import { ButtonInk, DropdownOption } from '../../basic-widgets/types';
+import { Pipeline } from '../../services/tuples/pipeline-types';
+import { Topic } from '../../services/tuples/topic-types';
 import { SearchCriteriaContainer, SearchLabel } from './widgets';
 
 interface Criteria {
@@ -15,13 +17,28 @@ interface Criteria {
 	endDate?: string;
 }
 
-export const SearchCriteria = () => {
+export const SearchCriteria = (props: {
+	topics: Array<Topic>;
+	pipelines: Array<Pipeline>;
+}) => {
+	const { topics, pipelines } = props;
+
 	const [ criteria, setCriteria ] = useState<Criteria>({
 		startDate: dayjs().startOf('date').format(CALENDAR_FORMAT),
 		endDate: dayjs().format(CALENDAR_FORMAT)
 	});
 
 	const onTopicChanged = (option: DropdownOption) => {
+		const topicId = option.value;
+		if (topicId && criteria.pipelineId) {
+			// eslint-disable-next-line
+			const pipeline = pipelines.find(pipeline => pipeline.pipelineId == criteria.pipelineId);
+			// eslint-disable-next-line
+			if (!pipeline || pipeline.topicId != topicId) {
+				setCriteria({ ...criteria, topicId, pipelineId: '' });
+				return;
+			}
+		}
 		setCriteria({ ...criteria, topicId: option.value });
 	};
 	const onPipelineChanged = (option: DropdownOption) => {
@@ -34,8 +51,31 @@ export const SearchCriteria = () => {
 		setCriteria({ ...criteria, endDate: value });
 	};
 
-	const topicOptions: Array<DropdownOption> = [];
-	const pipelineOptions: Array<DropdownOption> = [];
+	const topicOptions: Array<DropdownOption> = [
+		{ value: '', label: 'Any Topic' },
+		...topics.map(topic => {
+			return {
+				value: topic.topicId,
+				label: topic.name
+			};
+		})
+	];
+	const pipelineOptions: Array<DropdownOption> = [
+		{ value: '', label: 'Any Pipeline' },
+		...pipelines.filter(pipeline => {
+			if (!criteria.topicId) {
+				return true;
+			} else {
+				// eslint-disable-next-line
+				return pipeline.topicId == criteria.topicId;
+			}
+		}).map(pipeline => {
+			return {
+				value: pipeline.pipelineId,
+				label: pipeline.name || 'Noname Pipeline'
+			};
+		})
+	];
 
 	return <SearchCriteriaContainer>
 		<SearchLabel>Search By</SearchLabel>
