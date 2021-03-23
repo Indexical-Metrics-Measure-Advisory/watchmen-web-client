@@ -1,5 +1,6 @@
 import React from 'react';
 import { FullWidthPage } from '../../basic-widgets/page';
+import { SearchCriteria } from './search-criteria';
 import { Body, Header, HeaderTitle } from './widgets';
 
 const AdminMonitorLogsIndex = () => {
@@ -8,7 +9,7 @@ const AdminMonitorLogsIndex = () => {
 			<HeaderTitle>Monitor Logs</HeaderTitle>
 		</Header>
 		<Body>
-
+			<SearchCriteria />
 		</Body>
 	</FullWidthPage>;
 };

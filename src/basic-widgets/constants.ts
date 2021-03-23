@@ -26,6 +26,7 @@ import {
 	faEdit,
 	faExpand,
 	faExpandArrowsAlt,
+	faFilter,
 	faGlobe,
 	faGripVertical,
 	faHome,
@@ -43,7 +44,8 @@ import {
 	faRandom,
 	faSave,
 	faSearch,
-	faShare, faSignOutAlt,
+	faShare,
+	faSignOutAlt,
 	faSortAmountDown,
 	faSortAmountUpAlt,
 	faSpinner,
@@ -186,6 +188,7 @@ export const ICON_APPEND = faLevelDownAlt;
 export const ICON_DRAG_HANDLE = faGripVertical;
 export const ICON_CHECK = faCheck;
 export const ICON_UNCHECK = faTimes;
+export const ICON_FILTER = faFilter;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';
