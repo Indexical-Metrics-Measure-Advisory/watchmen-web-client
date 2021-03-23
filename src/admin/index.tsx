@@ -22,7 +22,8 @@ const AdminMain = styled.main.attrs<{ scrollable?: boolean }>(({ scrollable = tr
 		'data-widget': 'admin-main',
 		'data-v-scroll': scrollable ? '' : (void 0),
 		style: {
-			overflowY: scrollable ? (void 0) : 'hidden'
+			overflowY: scrollable ? (void 0) : 'hidden',
+			overflowX: scrollable ? (void 0) : 'hidden'
 		}
 	};
 })<{ scrollable?: boolean }>`

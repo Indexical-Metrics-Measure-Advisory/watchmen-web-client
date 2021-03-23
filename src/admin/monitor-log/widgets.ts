@@ -46,6 +46,7 @@ export const SearchResultHeader = styled.div.attrs({ 'data-widget': 'monitor-log
 	height                : var(--height);
 	border-bottom         : var(--border);
 	border-bottom-width   : 2px;
+	overflow-x            : hidden;
 	> div {
 		display      : flex;
 		align-items  : center;
@@ -63,7 +64,8 @@ export const SearchResultBody = styled.div.attrs({
 	flex-direction : column;
 	flex-grow      : 1;
 	height         : calc(100vh - 57px - 81px - var(--height));
-	overflow       : auto;
+	overflow-y     : auto;
+	overflow-x     : hidden;
 `;
 export const SearchResultBodyRow = styled.div.attrs({ 'data-widget': 'monitor-logs-result-body-row' })`
 	display               : grid;
