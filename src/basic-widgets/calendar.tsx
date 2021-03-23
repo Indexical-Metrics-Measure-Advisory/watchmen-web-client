@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { ICON_BACK } from './constants';
 
 interface State {
 	active: boolean;
@@ -13,7 +14,9 @@ interface State {
 	height: number;
 	initValue?: Dayjs;
 	value?: Dayjs;
-	displayValue?: Dayjs;
+
+	pickTime?: boolean;
+	pickYearMonth?: boolean;
 }
 
 const getPosition = (container: HTMLDivElement) => {
@@ -136,6 +139,7 @@ const Picker = styled.div.attrs<State>(({ top, left, width, height }) => {
 	flex-direction   : column;
 	position         : fixed;
 	width            : 364px;
+	height           : 290px;
 	pointer-events   : none;
 	opacity          : 0;
 	background-color : var(--bg-color);
@@ -149,6 +153,7 @@ const PickerHeader = styled.div`
 	border-bottom : var(--border);
 	height        : 32px;
 	padding       : 0 0 0 calc(var(--margin) / 2);
+	cursor        : default;
 	> svg {
 		width        : 32px;
 		margin-right : calc(var(--margin) / 2);
@@ -156,6 +161,10 @@ const PickerHeader = styled.div`
 	> span:nth-child(2) {
 		margin-right : calc(var(--margin) / 2);
 		font-weight  : var(--font-bold);
+		cursor       : pointer;
+	}
+	> span:nth-child(3) {
+		cursor : pointer;
 	}
 	> span:nth-child(4) {
 		flex-grow : 1;
@@ -189,9 +198,10 @@ const PickerHeader = styled.div`
 		}
 	}
 `;
-const PickerBody = styled.div`
+const DatePickerBody = styled.div`
 	display               : grid;
 	grid-template-columns : auto 1fr;
+	cursor                : default;
 	> div:first-child {
 		display        : flex;
 		flex-direction : column;
@@ -230,6 +240,7 @@ const PickerBody = styled.div`
 				border-radius   : var(--border-radius);
 				user-select     : none;
 				transition      : all 300ms ease-in-out;
+				cursor          : pointer;
 				&:hover {
 					background-color : var(--hover-color);
 				}
@@ -255,10 +266,12 @@ const PickerBody = styled.div`
 			justify-content : center;
 			position        : relative;
 			text-align      : center;
+			cursor          : pointer;
 			&:nth-child(-n + 7) {
 				color       : var(--primary-color);
 				font-weight : var(--font-bold);
 				opacity     : 0.7;
+				cursor      : default;
 			}
 			&:first-child,
 			&:nth-child(7) {
@@ -317,7 +330,7 @@ const PickerBody = styled.div`
 		}
 	}
 `;
-const PickerButtons = styled.div`
+const DatePickerButtons = styled.div`
 	display  : flex;
 	position : absolute;
 	bottom   : -1px;
@@ -350,6 +363,118 @@ const PickerButtons = styled.div`
 			width            : 1px;
 			height           : 50%;
 			background-color : var(--invert-color);
+		}
+	}
+`;
+const TimePickerBody = styled.div`
+	display               : grid;
+	position              : relative;
+	grid-template-columns : 1fr 1fr 1fr;
+	grid-column-gap       : calc(var(--margin) / 2);
+	padding               : 0 calc(var(--margin) / 2) calc(var(--margin) / 2);
+	cursor                : default;
+	> div:first-child {
+		display                   : flex;
+		align-items               : center;
+		justify-content           : center;
+		position                  : absolute;
+		top                       : calc((var(--height) * 1.5 - 32px) / 2);
+		right                     : 0;
+		height                    : var(--height);
+		width                     : 32px;
+		background-color          : var(--primary-color);
+		color                     : var(--invert-color);
+		cursor                    : pointer;
+		border-top-left-radius    : var(--border-radius);
+		border-bottom-left-radius : var(--border-radius);
+	}
+	> div:nth-child(-n + 4):not(:first-child) {
+		display      : flex;
+		align-items  : center;
+		font-variant : petite-caps;
+		height       : calc(var(--height) * 1.5);
+		font-weight  : var(--font-bold);
+	}
+	> div:nth-last-child(-n + 3) {
+		display        : flex;
+		flex-direction : column;
+		height         : calc(290px - 32px - var(--height) * 1.5 - var(--margin) / 2);
+		border-radius  : var(--border-radius);
+		border         : var(--border);
+		overflow-y     : scroll;
+		> span {
+			display     : flex;
+			align-items : center;
+			min-height  : var(--height);
+			padding     : 0 calc(var(--margin) / 2);
+			cursor      : pointer;
+			&:hover {
+				background-color : var(--hover-color);
+			}
+		}
+	}
+`;
+const YearMonthPickerBody = styled.div`
+	display               : grid;
+	position              : relative;
+	grid-template-columns : 33% 1fr;
+	grid-column-gap       : calc(var(--margin) / 2);
+	padding               : 0 calc(var(--margin) / 2) calc(var(--margin) / 2);
+	cursor                : default;
+	> div:first-child {
+		display                   : flex;
+		align-items               : center;
+		justify-content           : center;
+		position                  : absolute;
+		top                       : calc((var(--height) * 1.5 - 32px) / 2);
+		right                     : 0;
+		height                    : var(--height);
+		width                     : 32px;
+		background-color          : var(--primary-color);
+		color                     : var(--invert-color);
+		cursor                    : pointer;
+		border-top-left-radius    : var(--border-radius);
+		border-bottom-left-radius : var(--border-radius);
+	}
+	> div:nth-child(-n + 3):not(:first-child) {
+		display      : flex;
+		align-items  : center;
+		font-variant : petite-caps;
+		height       : calc(var(--height) * 1.5);
+		font-weight  : var(--font-bold);
+	}
+	> div:nth-last-child(2) {
+		display        : flex;
+		flex-direction : column;
+		height         : calc(290px - 32px - var(--height) * 1.5 - var(--margin) / 2);
+		border-radius  : var(--border-radius);
+		border         : var(--border);
+		overflow-y     : scroll;
+		> span {
+			display     : flex;
+			align-items : center;
+			min-height  : var(--height);
+			padding     : 0 calc(var(--margin) / 2);
+			cursor      : pointer;
+			&:hover {
+				background-color : var(--hover-color);
+			}
+		}
+	}
+	> div:last-child {
+		display               : grid;
+		grid-template-columns : 1fr 1fr 1fr;
+		grid-column-gap       : calc(var(--margin) / 2);
+		grid-row-gap          : calc(var(--margin) / 2);
+		> span {
+			display         : flex;
+			align-items     : center;
+			justify-content : center;
+			border-radius   : var(--border-radius);
+			cursor          : pointer;
+			&:hover {
+				background-color : var(--hover-color);
+			}
 		}
 	}
 `;
@@ -401,8 +526,7 @@ export const Calendar = (props: {
 			width,
 			height,
 			initValue: currentDate,
-			value: currentDate,
-			displayValue: currentDate
+			value: currentDate
 		});
 	};
 	const onBlurred = async () => {
@@ -443,6 +567,19 @@ export const Calendar = (props: {
 	const onPrevMonthEndClicked = onDateClicked(dayjs().date(1).subtract(1, 'day'));
 	const onYearEndClicked = onDateClicked(dayjs().month(11).date(31));
 	const onPrevYearEndClicked = onDateClicked(dayjs().month(11).date(31).subtract(1, 'year'));
+	const onGotoTodayClicked = () => setState({ ...state, value: today });
+	const onGotoPrevMonthClicked = () => setState({ ...state, value: state.value!.subtract(1, 'month') });
+	const onGotoNextMonthClicked = () => setState({ ...state, value: state.value!.add(1, 'month') });
+
+	const onTimeClicked = () => setState({ ...state, pickTime: true });
+	const onCancelPickTimeClicked = () => setState({ ...state, pickTime: false });
+	const onHourChange = (index: number) => () => setState({ ...state, value: state.value!.hour(index) });
+	const onMinuteChange = (index: number) => () => setState({ ...state, value: state.value!.minute(index) });
+	const onSecondChange = (index: number) => () => setState({ ...state, value: state.value!.second(index) });
+	const onYearMonthClicked = () => setState({ ...state, pickYearMonth: true });
+	const onCancelPickYearMonthClicked = () => setState({ ...state, pickYearMonth: false });
+	const onYearChange = (year: number) => () => setState({ ...state, value: state.value!.year(year) });
+	const onMonthChange = (month: number) => () => setState({ ...state, value: state.value!.month(month) });
 
 	const currentValue = state.value || dayjs();
 	const currentDisplayDate = currentValue.format(CALENDAR_DATE_FORMAT);
@@ -451,21 +588,14 @@ export const Calendar = (props: {
 	const currentMonth = currentValue.month();
 	const currentDate = currentValue.date();
 
-	const displayValue = state.displayValue || dayjs();
-	const currentDisplayMonth = displayValue.format('MMM YYYY');
-	const firstDayOfDisplayMonth = displayValue.clone().date(1);
-	const displayYear = displayValue.year();
-	const displayMonth = displayValue.month();
+	const currentDisplayMonth = currentValue.format('MMM YYYY');
+	const firstDayOfDisplayMonth = currentValue.clone().date(1);
 	const days = computeCalendarDays(firstDayOfDisplayMonth);
 
 	const today = dayjs();
 	const todayYear = today.year();
 	const todayMonth = today.month();
 	const todayDate = today.date();
-
-	const onGotoTodayClicked = () => setState({ ...state, displayValue: today });
-	const onGotoPrevMonthClicked = () => setState({ ...state, displayValue: state.displayValue!.subtract(1, 'month') });
-	const onGotoNextMonthClicked = () => setState({ ...state, displayValue: state.displayValue!.add(1, 'month') });
 
 	const onClearClicked = () => {
 		const ret = onChange();
@@ -490,54 +620,120 @@ export const Calendar = (props: {
 		<Picker {...state}>
 			<PickerHeader>
 				<FontAwesomeIcon icon={faCalendarAlt}/>
-				<span>{currentDisplayDate}</span>
-				<span>{currentDisplayTime}</span>
+				<span onClick={onYearMonthClicked}>{currentDisplayDate}</span>
+				<span onClick={onTimeClicked}>{currentDisplayTime}</span>
 				<span/>
 				<span onClick={onDayStartClicked}>Start</span>
 				<span onClick={onDayEndClicked}>End</span>
 			</PickerHeader>
-			<PickerBody>
-				<div>
-					<span onClick={onTodayClicked}>Today</span>
-					<span onClick={onYesterdayClicked}>Yesterday</span>
-					<span onClick={onWeekendClicked}>This Weekend</span>
-					<span onClick={onPrevWeekendClicked}>Previous Weekend</span>
-					<span onClick={onMonthEndClicked}>This Month</span>
-					<span onClick={onPrevMonthEndClicked}>Previous Month</span>
-					<span onClick={onYearEndClicked}>This Year</span>
-					<span onClick={onPrevYearEndClicked}>Previous Year</span>
-				</div>
-				<div>
-					<span>{currentDisplayMonth}</span>
-					<div>
-						<span onClick={onGotoTodayClicked}>TODAY</span>
-						<span onClick={onGotoPrevMonthClicked}><FontAwesomeIcon icon={faCaretLeft}/></span>
-						<span onClick={onGotoNextMonthClicked}><FontAwesomeIcon icon={faCaretRight}/></span>
-					</div>
-				</div>
-				<div>
-					<span>S</span>
-					<span>M</span>
-					<span>T</span>
-					<span>W</span>
-					<span>T</span>
-					<span>F</span>
-					<span>S</span>
-					{days.map(({ year, month, date }) => {
-						return <span key={`${year}/${month}/${date}`}
-						             data-current-month={year === displayYear && month === displayMonth}
-						             data-current={year === currentYear && month === currentMonth && date === currentDate}
-						             data-today={year === todayYear && month === todayMonth && date === todayDate}
-						             onClick={onDateClicked(dayjs().year(year).month(month).date(date))}>
+			{!state.pickTime && !state.pickYearMonth
+				? <>
+					<DatePickerBody>
+						<div>
+							<span onClick={onTodayClicked}>Today</span>
+							<span onClick={onYesterdayClicked}>Yesterday</span>
+							<span onClick={onWeekendClicked}>This Weekend</span>
+							<span onClick={onPrevWeekendClicked}>Prev Weekend</span>
+							<span onClick={onMonthEndClicked}>This Month End</span>
+							<span onClick={onPrevMonthEndClicked}>Prev Month End</span>
+							<span onClick={onYearEndClicked}>This Year End</span>
+							<span onClick={onPrevYearEndClicked}>Prev Year End</span>
+						</div>
+						<div>
+							<span>{currentDisplayMonth}</span>
+							<div>
+								<span onClick={onGotoTodayClicked}>TODAY</span>
+								<span onClick={onGotoPrevMonthClicked}><FontAwesomeIcon icon={faCaretLeft}/></span>
+								<span onClick={onGotoNextMonthClicked}><FontAwesomeIcon icon={faCaretRight}/></span>
+							</div>
+						</div>
+						<div>
+							<span>S</span>
+							<span>M</span>
+							<span>T</span>
+							<span>W</span>
+							<span>T</span>
+							<span>F</span>
+							<span>S</span>
+							{days.map(({ year, month, date }) => {
+								return <span key={`${year}/${month}/${date}`}
+								             data-current-month={year === currentYear && month === currentMonth}
+								             data-current={year === currentYear && month === currentMonth && date === currentDate}
+								             data-today={year === todayYear && month === todayMonth && date === todayDate}
+								             onClick={onDateClicked(dayjs().year(year).month(month).date(date))}>
 							{date}
 						</span>;
-					})}
-				</div>
-			</PickerBody>
-			<PickerButtons>
-				<div onClick={onClearClicked}>Clear</div>
-				<div onClick={onConfirmClicked}>Confirm</div>
-			</PickerButtons>
+							})}
+						</div>
+					</DatePickerBody>
+					<DatePickerButtons>
+						<div onClick={onClearClicked}>Clear</div>
+						<div onClick={onConfirmClicked}>Confirm</div>
+					</DatePickerButtons>
+				</>
+				: null}
+			{state.pickTime
+				? <TimePickerBody>
+					<div onClick={onCancelPickTimeClicked}>
+						<FontAwesomeIcon icon={ICON_BACK} transform={{ rotate: 180 }}/>
+					</div>
+					<div>Hour</div>
+					<div>Minute</div>
+					<div>Second</div>
+					<div data-v-scroll=''>
+						{new Array(24).fill(1).map((v, index) => {
+							return <span onClick={onHourChange(index)} key={index}>
+								{`${index}`.padStart(2, '0')}
+							</span>;
+						})}
+					</div>
+					<div data-v-scroll=''>
+						{new Array(60).fill(1).map((v, index) => {
+							return <span onClick={onMinuteChange(index)} key={index}>
+								{`${index}`.padStart(2, '0')}
+							</span>;
+						})}
+					</div>
+					<div data-v-scroll=''>
+						{new Array(60).fill(1).map((v, index) => {
+							return <span onClick={onSecondChange(index)} key={index}>
+								{`${index}`.padStart(2, '0')}
+							</span>;
+						})}
+					</div>
+				</TimePickerBody>
+				: null}
+			{state.pickYearMonth
+				? <YearMonthPickerBody>
+					<div onClick={onCancelPickYearMonthClicked}>
+						<FontAwesomeIcon icon={ICON_BACK} transform={{ rotate: 180 }}/>
+					</div>
+					<div>Year</div>
+					<div>Month</div>
+					<div data-v-scroll=''>
+						{new Array(100).fill(1).map((v, index) => {
+							const year = new Date().getFullYear() - index;
+							return <span onClick={onYearChange(year)} key={index}>
+								{year}
+							</span>;
+						})}
+					</div>
+					<div>
+						<span onClick={onMonthChange(0)}>Jan</span>
+						<span onClick={onMonthChange(1)}>Feb</span>
+						<span onClick={onMonthChange(2)}>Mar</span>
+						<span onClick={onMonthChange(3)}>Apr</span>
+						<span onClick={onMonthChange(4)}>May</span>
+						<span onClick={onMonthChange(5)}>Jun</span>
+						<span onClick={onMonthChange(6)}>Jul</span>
+						<span onClick={onMonthChange(7)}>Aug</span>
+						<span onClick={onMonthChange(8)}>Sep</span>
+						<span onClick={onMonthChange(9)}>Oct</span>
+						<span onClick={onMonthChange(10)}>Nov</span>
+						<span onClick={onMonthChange(11)}>Dec</span>
+					</div>
+				</YearMonthPickerBody>
+				: null}
 		</Picker>
 	</Container>;
 };

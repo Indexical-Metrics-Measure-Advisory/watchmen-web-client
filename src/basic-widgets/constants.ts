@@ -189,6 +189,7 @@ export const ICON_DRAG_HANDLE = faGripVertical;
 export const ICON_CHECK = faCheck;
 export const ICON_UNCHECK = faTimes;
 export const ICON_FILTER = faFilter;
+export const ICON_BACK = faShare;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';
