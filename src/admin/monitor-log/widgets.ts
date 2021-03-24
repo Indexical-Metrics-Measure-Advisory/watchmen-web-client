@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Dropdown } from '../../basic-widgets/dropdown';
 import { PageHeaderContainer, PageTitle } from '../../basic-widgets/page-header';
 
 export const Header = styled(PageHeaderContainer)`
@@ -46,33 +47,41 @@ export const SearchResultHeader = styled.div.attrs({ 'data-widget': 'monitor-log
 	border-bottom         : var(--border);
 	border-bottom-width   : 2px;
 	overflow-x            : hidden;
-	> div {
-		display      : flex;
-		align-items  : center;
-		font-variant : petite-caps;
-		font-weight  : var(--font-demi-bold);
-		height       : var(--height);
-		padding      : 0 calc(var(--margin) / 2);
-		border-right : var(--border);
-		&:first-child {
-			display         : flex;
-			justify-content : flex-end;
-			grid-column     : 1 / span 7;
-			border-bottom   : var(--border);
-			> div > span:not(:nth-child(4)) {
-				margin-right : 4px;
-			}
-			> div > span:nth-child(2) {
-				display : inline-block;
-				> div[data-widget=dropdown] {
-					height : calc(var(--height) * 0.6);
-				}
-			}
-		}
-		&:nth-child(2) {
-			padding : 0 calc(var(--margin) / 4);
-		}
-	}
+`;
+export const SearchResultHeaderOperators = styled.div.attrs({ 'data-widget': 'monitor-logs-result-header-operators' })`
+	display         : flex;
+	position        : relative;
+	grid-column     : 1 / span 7;
+	justify-content : flex-end;
+	height          : var(--height);
+	padding         : 0 calc(var(--margin) / 2);
+	border-bottom   : var(--border);
+`;
+export const SearchResultHeaderPagination = styled.div.attrs({ 'data-widget': 'monitor-logs-result-header-pagination' })`
+	display      : flex;
+	align-items  : center;
+	font-variant : petite-caps;
+	font-weight  : var(--font-demi-bold);
+`;
+export const SearchResultHeaderPaginationLabel = styled.span.attrs({ 'data-widget': 'monitor-logs-result-header-pagination-label' })`
+	margin-right : 4px;
+	white-space  : nowrap;
+`;
+export const SearchResultHeaderPaginationDropdown = styled(Dropdown)`
+	margin-right : 4px;
+	height       : calc(var(--height) * 0.6);
+`;
+export const SearchResultHeaderCell = styled.div.attrs({ 'data-widget': 'monitor-logs-result-header-cell' })`
+	display      : flex;
+	align-items  : center;
+	font-variant : petite-caps;
+	font-weight  : var(--font-demi-bold);
+	height       : var(--height);
+	padding      : 0 calc(var(--margin) / 2);
+	border-right : var(--border);
+`;
+export const SearchResultHeaderSeqCell = styled(SearchResultHeaderCell)`
+	padding : 0 calc(var(--margin) / 4);
 `;
 export const SearchResultBody = styled.div.attrs({
 	'data-widget': 'monitor-logs-result-body',
@@ -113,21 +122,21 @@ export const SearchResultBodyRow = styled.div.attrs({ 'data-widget': 'monitor-lo
 			border-right-color : var(--invert-color);
 		}
 	}
-	> div {
-		display      : flex;
-		align-items  : center;
-		padding      : 0 calc(var(--margin) / 2);
-		border-right : var(--border);
-		&:first-child {
-			padding : 0 calc(var(--margin) / 4);
-		}
-		&:nth-child(5) {
-			text-transform : uppercase;
-		}
-		> span {
-			overflow-x    : hidden;
-			white-space   : nowrap;
-			text-overflow : ellipsis;
-		}
+`;
+export const SearchResultBodyCell = styled.div.attrs({ 'data-widget': 'monitor-logs-result-body-cell' })`
+	display      : flex;
+	align-items  : center;
+	padding      : 0 calc(var(--margin) / 2);
+	border-right : var(--border);
+	> span {
+		overflow-x    : hidden;
+		white-space   : nowrap;
+		text-overflow : ellipsis;
 	}
+`;
+export const SearchResultBodySeqCell = styled(SearchResultBodyCell)`
+	padding : 0 calc(var(--margin) / 4);
+`;
+export const SearchResultBodyStatusCell = styled(SearchResultBodyCell)`
+	text-transform : uppercase;
 `;

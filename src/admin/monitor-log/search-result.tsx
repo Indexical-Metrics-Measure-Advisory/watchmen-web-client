@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { Dropdown } from '../../basic-widgets/dropdown';
 import { DropdownOption } from '../../basic-widgets/types';
 import { fetchMonitorLogs, MonitorLogCriteria, MonitorLogsDataPage } from '../../services/admin/logs';
 import { Pipeline } from '../../services/tuples/pipeline-types';
 import { Topic } from '../../services/tuples/topic-types';
 import { useMonitorLogEventBus } from './monitor-log-event-bus';
 import { MonitorLogEventTypes } from './monitor-log-event-bus-types';
-import { SearchResultBody, SearchResultBodyRow, SearchResultContainer, SearchResultHeader } from './widgets';
+import {
+	SearchResultBody,
+	SearchResultBodyCell,
+	SearchResultBodyRow,
+	SearchResultBodySeqCell,
+	SearchResultBodyStatusCell,
+	SearchResultContainer,
+	SearchResultHeader,
+	SearchResultHeaderCell,
+	SearchResultHeaderOperators,
+	SearchResultHeaderPagination,
+	SearchResultHeaderPaginationDropdown,
+	SearchResultHeaderPaginationLabel,
+	SearchResultHeaderSeqCell
+} from './widgets';
 
 interface State extends MonitorLogsDataPage {
 	criteria: MonitorLogCriteria;
@@ -69,35 +82,34 @@ export const SearchResult = (props: {
 
 	return <SearchResultContainer>
 		<SearchResultHeader>
-			<div>
-				<div>
-					<span>Page</span>
-					<span>
-						<Dropdown value={logs.pageNumber} options={pageOptions} onChange={onPageChange}/>
-					</span>
-					<span>/</span>
-					<span>{logs.pageCount}</span>
-					<span>, Total</span>
-					<span>{logs.itemCount}</span>
-					<span>Rows</span>
-				</div>
-			</div>
-			<div>#</div>
-			<div>Run ID.</div>
-			<div>Pipeline Name</div>
-			<div>From Topic</div>
-			<div>Status</div>
-			<div>Run At</div>
+			<SearchResultHeaderOperators>
+				<SearchResultHeaderPagination>
+					<SearchResultHeaderPaginationLabel>Page</SearchResultHeaderPaginationLabel>
+					<SearchResultHeaderPaginationDropdown value={logs.pageNumber} options={pageOptions}
+					                                      onChange={onPageChange}/>
+					<SearchResultHeaderPaginationLabel>/</SearchResultHeaderPaginationLabel>
+					<SearchResultHeaderPaginationLabel>{logs.pageCount}</SearchResultHeaderPaginationLabel>
+					<SearchResultHeaderPaginationLabel>, Total</SearchResultHeaderPaginationLabel>
+					<SearchResultHeaderPaginationLabel>{logs.itemCount}</SearchResultHeaderPaginationLabel>
+					<SearchResultHeaderPaginationLabel>Rows</SearchResultHeaderPaginationLabel>
+				</SearchResultHeaderPagination>
+			</SearchResultHeaderOperators>
+			<SearchResultHeaderSeqCell>#</SearchResultHeaderSeqCell>
+			<SearchResultHeaderCell>Run ID.</SearchResultHeaderCell>
+			<SearchResultHeaderCell>Pipeline Name</SearchResultHeaderCell>
+			<SearchResultHeaderCell>From Topic</SearchResultHeaderCell>
+			<SearchResultHeaderCell>Status</SearchResultHeaderCell>
+			<SearchResultHeaderCell>Run At</SearchResultHeaderCell>
 		</SearchResultHeader>
 		<SearchResultBody>
 			{logs.data.map((row, index) => {
 				return <SearchResultBodyRow key={row.uid}>
-					<div>{index + 1 + logs.pageSize * (logs.pageNumber - 1)}</div>
-					<div><span>{row.uid}</span></div>
-					<div><span>{pipelineMap.get(row.pipelineId)?.name || row.pipelineId}</span></div>
-					<div><span>{topicMap.get(row.topicId)?.name || row.topicId}</span></div>
-					<div>{row.status}</div>
-					<div>{row.startTime}</div>
+					<SearchResultBodySeqCell>{index + 1 + logs.pageSize * (logs.pageNumber - 1)}</SearchResultBodySeqCell>
+					<SearchResultBodyCell><span>{row.uid}</span></SearchResultBodyCell>
+					<SearchResultBodyCell><span>{pipelineMap.get(row.pipelineId)?.name || row.pipelineId}</span></SearchResultBodyCell>
+					<SearchResultBodyCell><span>{topicMap.get(row.topicId)?.name || row.topicId}</span></SearchResultBodyCell>
+					<SearchResultBodyStatusCell>{row.status}</SearchResultBodyStatusCell>
+					<SearchResultBodyCell>{row.startTime}</SearchResultBodyCell>
 				</SearchResultBodyRow>;
 			})
 			}
