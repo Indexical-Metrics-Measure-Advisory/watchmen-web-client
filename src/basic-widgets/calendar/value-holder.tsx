@@ -14,7 +14,7 @@ export const CalendarValueHolder = () => {
 		return () => {
 			off(CalendarEventTypes.ASK_VALUE, onAskValue);
 		};
-	}, [ on, off ]);
+	}, [ on, off, fire, value ]);
 
 	return <></>;
 };

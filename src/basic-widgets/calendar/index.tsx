@@ -67,7 +67,6 @@ const Picker = (props: {
 		}
 
 		once(CalendarEventTypes.REPLY_VALUE, (newValue: Dayjs) => {
-			console.log(newValue)
 			if (!value) {
 				onChange(newValue!.format(CALENDAR_FORMAT));
 				setState({ ...state, active: false });
@@ -75,6 +74,8 @@ const Picker = (props: {
 				const originalValue = dayjs(value);
 				if (!originalValue.isSame(newValue)) {
 					onChange(newValue!.format(CALENDAR_FORMAT));
+					setState({ ...state, active: false });
+				} else {
 					setState({ ...state, active: false });
 				}
 			}
