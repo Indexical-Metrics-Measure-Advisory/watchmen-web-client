@@ -14,6 +14,10 @@ export const CalendarEventBusProvider = (props: { children?: ((props: any) => Re
 			emitter.emit(type, ...data);
 			return bus;
 		},
+		once: (type: string, listener: (...data: any) => void): CalendarEventBus => {
+			emitter.once(type, listener);
+			return bus;
+		},
 		on: (type: string, listener: (...data: any) => void): CalendarEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into calendar event bus, check it.`);

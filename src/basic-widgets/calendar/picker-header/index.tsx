@@ -1,5 +1,5 @@
 import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import React, { useState } from 'react';
 import { CALENDAR_DATE_FORMAT, CALENDAR_TIME_FORMAT } from '../constants';
 import { useCalendarEventBus } from '../event/calendar-event-bus';
@@ -14,13 +14,9 @@ import {
 	CalendarPickerHeaderTimeLabel
 } from './widgets';
 
-export const CalendarPickerHeader = (props: {
-	initValue: Dayjs;
-}) => {
-	const { initValue } = props;
-
+export const CalendarPickerHeader = () => {
 	const { fire } = useCalendarEventBus();
-	const [ value, setValue ] = useState<Dayjs>(initValue);
+	const [ value, setValue ] = useState<Dayjs>(dayjs());
 	useValueChange(setValue);
 
 	const onTimeClicked = () => fire(CalendarEventTypes.OPEN_TIME_PICKER);

@@ -8,7 +8,10 @@ export enum CalendarEventTypes {
 	TIME_PICKER_CLOSED = 'time-picker-closed',
 
 	DATE_CHANGED = 'date-changed',
-	TIME_CHANGED = 'time-changed'
+	TIME_CHANGED = 'time-changed',
+
+	ASK_VALUE = 'ask-value',
+	REPLY_VALUE = 'reply-value'
 }
 
 export interface CalendarEventBus {
@@ -35,4 +38,11 @@ export interface CalendarEventBus {
 	fire(type: CalendarEventTypes.TIME_CHANGED, value: Dayjs): this;
 	on(type: CalendarEventTypes.TIME_CHANGED, listener: (value: Dayjs) => void): this;
 	off(type: CalendarEventTypes.TIME_CHANGED, listener: (value: Dayjs) => void): this;
+
+	fire(type: CalendarEventTypes.ASK_VALUE): this;
+	on(type: CalendarEventTypes.ASK_VALUE, listener: () => void): this;
+	off(type: CalendarEventTypes.ASK_VALUE, listener: () => void): this;
+
+	fire(type: CalendarEventTypes.REPLY_VALUE, value: Dayjs): this;
+	once(type: CalendarEventTypes.REPLY_VALUE, listener: (value: Dayjs) => void): this;
 }

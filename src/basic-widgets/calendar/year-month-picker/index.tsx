@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { ICON_BACK } from '../../constants';
 import { useCalendarEventBus } from '../event/calendar-event-bus';
@@ -15,12 +15,10 @@ import {
 	YearSelectorOption
 } from './widgets';
 
-export const YearMonthPicker = (props: { initValue: Dayjs }) => {
-	const { initValue } = props;
-
+export const YearMonthPicker = () => {
 	const { on, off, fire } = useCalendarEventBus();
 	const [ visible, setVisible ] = useState(false);
-	const [ value, setValue ] = useState<Dayjs>(initValue);
+	const [ value, setValue ] = useState<Dayjs>(dayjs());
 
 	useEffect(() => {
 		const onOpen = () => setVisible(true);

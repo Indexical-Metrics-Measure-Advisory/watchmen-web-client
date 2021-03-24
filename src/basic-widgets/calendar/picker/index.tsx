@@ -10,16 +10,15 @@ import { YearMonthPicker } from '../year-month-picker';
 export const CalendarPicker = (props: {
 	state: CalendarState;
 	confirm: (value: Dayjs) => void;
-	clear: (value: Dayjs) => void;
+	clear: () => void;
 }) => {
 	const { state, confirm, clear } = props;
-	const { value } = state;
 
 	return <CalendarPickerContainer {...state}>
-		<CalendarPickerHeader initValue={value}/>
-		<DatePicker initValue={value} confirm={confirm} clear={clear}/>
-		<TimePicker initValue={value}/>
-		<YearMonthPicker initValue={value}/>
+		<CalendarPickerHeader/>
+		<DatePicker confirm={confirm} clear={clear}/>
+		<TimePicker/>
+		<YearMonthPicker/>
 	</CalendarPickerContainer>;
 
 };

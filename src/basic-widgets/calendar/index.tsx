@@ -2,9 +2,11 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useEffect, useRef, useState } from 'react';
 import { CALENDAR_DATE_FORMAT, CALENDAR_FORMAT, CALENDAR_TIME_FORMAT } from './constants';
-import { CalendarEventBusProvider } from './event/calendar-event-bus';
+import { CalendarEventBusProvider, useCalendarEventBus } from './event/calendar-event-bus';
+import { CalendarEventTypes } from './event/calendar-event-bus-types';
 import { CalendarPicker } from './picker';
 import { CalendarState } from './types';
+import { CalendarValueHolder } from './value-holder';
 import { CalendarCaret, CalendarContainer, CalendarLabel } from './widgets';
 
 const getPosition = (container: HTMLDivElement) => {
@@ -17,23 +19,21 @@ const getPosition = (container: HTMLDivElement) => {
 	};
 };
 
-export const Calendar = (props: {
+const Picker = (props: {
 	onChange: (value?: string) => (void | { active: boolean });
 	value?: string,
 }) => {
 	const { onChange, value, ...rest } = props;
 
+	const { once, fire } = useCalendarEventBus();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [ state, setState ] = useState<CalendarState>(() => {
-		const date = dayjs();
 		return {
 			active: false,
 			top: 0,
 			left: 0,
 			width: 0,
-			height: 0,
-			initValue: date,
-			value: date
+			height: 0
 		};
 	});
 
@@ -57,60 +57,61 @@ export const Calendar = (props: {
 		}
 		const { top, left, width, height } = getPosition(containerRef.current!);
 		const currentDate = value ? dayjs(value) : dayjs();
-		setState({
-			active: true,
-			top,
-			left,
-			width,
-			height,
-			initValue: currentDate,
-			value: currentDate
-		});
+		fire(CalendarEventTypes.DATE_CHANGED, currentDate);
+		setState({ active: true, top, left, width, height });
 	};
 	const onBlurred = async () => {
 		if (!state.active) {
 			// do nothing
 			return;
 		}
-		if (state.initValue === state.value) {
-			setState({ ...state, active: false });
-		} else {
-			const ret = onChange(state.value!.format(CALENDAR_FORMAT));
-			if (ret && ret.active) {
-				setState({ ...state, active: true });
-			} else {
+
+		once(CalendarEventTypes.REPLY_VALUE, (newValue: Dayjs) => {
+			console.log(newValue)
+			if (!value) {
+				onChange(newValue!.format(CALENDAR_FORMAT));
 				setState({ ...state, active: false });
+			} else {
+				const originalValue = dayjs(value);
+				if (!originalValue.isSame(newValue)) {
+					onChange(newValue!.format(CALENDAR_FORMAT));
+					setState({ ...state, active: false });
+				}
 			}
-		}
+		}).fire(CalendarEventTypes.ASK_VALUE);
 	};
 
-	const onClear = (value: Dayjs) => {
+	const onClear = () => {
 		const ret = onChange();
 		if (!ret || !ret.active) {
-			setState({ ...state, value, active: false });
-		} else {
-			setState({ ...state, value });
+			setState({ ...state, active: false });
 		}
 	};
 	const onConfirm = (value: Dayjs) => {
 		const ret = onChange(value!.format(CALENDAR_FORMAT));
 		if (!ret || !ret.active) {
-			setState({ ...state, value, active: false });
-		} else {
-			setState({ ...state, value });
+			setState({ ...state, active: false });
 		}
 	};
 
+	return <CalendarContainer data-options-visible={state.active}
+	                          {...state}
+	                          {...rest}
+	                          role='input' tabIndex={0} ref={containerRef}
+	                          onClick={onClicked} onBlur={onBlurred}>
+		<CalendarLabel>{value}</CalendarLabel>
+		<CalendarCaret icon={faCaretDown}/>
+		<CalendarPicker state={state} confirm={onConfirm} clear={onClear}/>
+		<CalendarValueHolder/>
+	</CalendarContainer>;
+};
+
+export const Calendar = (props: {
+	onChange: (value?: string) => (void | { active: boolean });
+	value?: string,
+}) => {
 	return <CalendarEventBusProvider>
-		<CalendarContainer data-options-visible={state.active}
-		                   {...state}
-		                   {...rest}
-		                   role='input' tabIndex={0} ref={containerRef}
-		                   onClick={onClicked} onBlur={onBlurred}>
-			<CalendarLabel>{value}</CalendarLabel>
-			<CalendarCaret icon={faCaretDown}/>
-			<CalendarPicker state={state} confirm={onConfirm} clear={onClear}/>
-		</CalendarContainer>
+		<Picker {...props}/>
 	</CalendarEventBusProvider>;
 };
 

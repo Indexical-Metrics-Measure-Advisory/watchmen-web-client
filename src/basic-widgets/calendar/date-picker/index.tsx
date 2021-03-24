@@ -24,15 +24,14 @@ import {
 } from './widgets';
 
 export const DatePicker = (props: {
-	initValue: Dayjs;
 	confirm: (value: Dayjs) => void;
 	clear: (value: Dayjs) => void;
 }) => {
-	const { initValue, confirm, clear } = props;
+	const { confirm, clear } = props;
 
 	const { on, off, fire } = useCalendarEventBus();
 	const [ visible, setVisible ] = useState(true);
-	const [ value, setValue ] = useState<Dayjs>(initValue);
+	const [ value, setValue ] = useState<Dayjs>(dayjs());
 
 	useEffect(() => {
 		const onOpen = () => setVisible(false);
