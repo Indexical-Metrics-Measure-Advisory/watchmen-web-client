@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { ICON_BACK } from '../../constants';
 import { useCalendarEventBus } from '../event/calendar-event-bus';
 import { CalendarEventTypes } from '../event/calendar-event-bus-types';
+import { useValueChange } from '../use-value-change';
 import {
 	TimePickerCloseButton,
 	TimePickerContainer,
@@ -29,7 +30,8 @@ export const TimePicker = (props: { initValue: Dayjs }) => {
 			off(CalendarEventTypes.OPEN_YEAR_MONTH_PICKER, onClose);
 		};
 	}, [ on, off ]);
-
+	useValueChange(setValue);
+	
 	if (!visible) {
 		return null;
 	}
@@ -40,17 +42,14 @@ export const TimePicker = (props: { initValue: Dayjs }) => {
 	};
 	const onHourChange = (index: number) => () => {
 		const newValue = value.hour(index);
-		setValue(newValue);
 		fire(CalendarEventTypes.TIME_CHANGED, newValue);
 	};
 	const onMinuteChange = (index: number) => () => {
 		const newValue = value.minute(index);
-		setValue(newValue);
 		fire(CalendarEventTypes.TIME_CHANGED, newValue);
 	};
 	const onSecondChange = (index: number) => () => {
 		const newValue = value.second(index);
-		setValue(newValue);
 		fire(CalendarEventTypes.TIME_CHANGED, newValue);
 	};
 

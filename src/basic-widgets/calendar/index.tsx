@@ -1,7 +1,7 @@
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useEffect, useRef, useState } from 'react';
-import { CALENDAR_FORMAT } from './constants';
+import { CALENDAR_DATE_FORMAT, CALENDAR_FORMAT, CALENDAR_TIME_FORMAT } from './constants';
 import { CalendarEventBusProvider } from './event/calendar-event-bus';
 import { CalendarPicker } from './picker';
 import { CalendarState } from './types';
@@ -83,9 +83,9 @@ export const Calendar = (props: {
 	const onClear = () => {
 		const ret = onChange();
 		if (!ret || !ret.active) {
-			setState({ ...state, active: false });
+			setState({ ...state, value: dayjs(), active: false });
 		} else {
-			setState({ ...state });
+			setState({ ...state, value: dayjs() });
 		}
 	};
 	const onConfirm = (value: Dayjs) => {
@@ -108,4 +108,10 @@ export const Calendar = (props: {
 			<CalendarPicker state={state} confirm={onConfirm} clear={onClear}/>
 		</CalendarContainer>
 	</CalendarEventBusProvider>;
+};
+
+export {
+	CALENDAR_FORMAT,
+	CALENDAR_DATE_FORMAT,
+	CALENDAR_TIME_FORMAT
 };

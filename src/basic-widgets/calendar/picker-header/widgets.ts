@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
-import { DwarfButton } from '../../button';
 import { DROPDOWN_Z_INDEX } from '../../constants';
 import { CalendarState } from '../types';
 import { DROPDOWN_HEIGHT, DROPDOWN_WIDTH } from '../widgets';
@@ -82,6 +81,30 @@ export const CalendarPickerHeaderTimeLabel = styled.span`
 export const CalendarPickerHeaderPlaceholder = styled.span`
 	flex-grow : 1;
 `;
-export const CalendarPickerHeaderTimeButton = styled(DwarfButton)`
-	min-width : 50px;
+export const CalendarPickerHeaderTimeButton = styled.div`
+	display          : flex;
+	position         : relative;
+	align-items      : center;
+	justify-content  : center;
+	color            : var(--invert-color);
+	background-color : var(--primary-color);
+	height           : var(--button-height-in-form);
+	min-width        : 50px;
+	font-variant     : petite-caps;
+	cursor           : pointer;
+	&:not(:last-child) {
+		border-top-left-radius    : var(--border-radius);
+		border-bottom-left-radius : var(--border-radius);
+	}
+	&:last-child:before {
+		content          : '';
+		display          : block;
+		position         : absolute;
+		top              : 30%;
+		left             : 0;
+		height           : 40%;
+		width            : 1px;
+		background-color : var(--invert-color);
+		opacity          : 0.7;
+	}
 `;

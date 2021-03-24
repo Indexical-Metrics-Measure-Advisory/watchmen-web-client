@@ -4,8 +4,24 @@ import dayjs, { Dayjs } from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { useCalendarEventBus } from '../event/calendar-event-bus';
 import { CalendarEventTypes } from '../event/calendar-event-bus-types';
+import { useValueChange } from '../use-value-change';
 import { computeCalendarDays } from './utils';
-import { DatePickerButtons, DatePickerContainer, DatePickerShortcut, DatePickerShortcutButton } from './widgets';
+import {
+	DatePickerBody,
+	DatePickerBodyDateCell,
+	DatePickerBodyHeaderCell,
+	DatePickerButtons,
+	DatePickerClearButton,
+	DatePickerConfirmButton,
+	DatePickerContainer,
+	DatePickerHeader,
+	DatePickerHeaderMonthChangeButton,
+	DatePickerHeaderOperators,
+	DatePickerHeaderTodayButton,
+	DatePickerHeaderYearMonth,
+	DatePickerShortcut,
+	DatePickerShortcutButton
+} from './widgets';
 
 export const DatePicker = (props: {
 	initValue: Dayjs;
@@ -32,6 +48,7 @@ export const DatePicker = (props: {
 			off(CalendarEventTypes.TIME_PICKER_CLOSED, onClosed);
 		};
 	}, [ on, off ]);
+	useValueChange(setValue);
 
 	if (!visible) {
 		return null;
@@ -81,36 +98,40 @@ export const DatePicker = (props: {
 				<DatePickerShortcutButton onClick={onYearEndClicked}>This Year End</DatePickerShortcutButton>
 				<DatePickerShortcutButton onClick={onPrevYearEndClicked}>Prev Year End</DatePickerShortcutButton>
 			</DatePickerShortcut>
-			<div>
-				<span>{currentDisplayMonth}</span>
-				<div>
-					<span onClick={onTodayClicked}>TODAY</span>
-					<span onClick={onGotoPrevMonthClicked}><FontAwesomeIcon icon={faCaretLeft}/></span>
-					<span onClick={onGotoNextMonthClicked}><FontAwesomeIcon icon={faCaretRight}/></span>
-				</div>
-			</div>
-			<div>
-				<span>S</span>
-				<span>M</span>
-				<span>T</span>
-				<span>W</span>
-				<span>T</span>
-				<span>F</span>
-				<span>S</span>
+			<DatePickerHeader>
+				<DatePickerHeaderYearMonth>{currentDisplayMonth}</DatePickerHeaderYearMonth>
+				<DatePickerHeaderOperators>
+					<DatePickerHeaderTodayButton onClick={onTodayClicked}>Today</DatePickerHeaderTodayButton>
+					<DatePickerHeaderMonthChangeButton onClick={onGotoPrevMonthClicked}>
+						<FontAwesomeIcon icon={faCaretLeft}/>
+					</DatePickerHeaderMonthChangeButton>
+					<DatePickerHeaderMonthChangeButton onClick={onGotoNextMonthClicked}>
+						<FontAwesomeIcon icon={faCaretRight}/>
+					</DatePickerHeaderMonthChangeButton>
+				</DatePickerHeaderOperators>
+			</DatePickerHeader>
+			<DatePickerBody>
+				<DatePickerBodyHeaderCell>S</DatePickerBodyHeaderCell>
+				<DatePickerBodyHeaderCell>M</DatePickerBodyHeaderCell>
+				<DatePickerBodyHeaderCell>T</DatePickerBodyHeaderCell>
+				<DatePickerBodyHeaderCell>W</DatePickerBodyHeaderCell>
+				<DatePickerBodyHeaderCell>T</DatePickerBodyHeaderCell>
+				<DatePickerBodyHeaderCell>F</DatePickerBodyHeaderCell>
+				<DatePickerBodyHeaderCell>S</DatePickerBodyHeaderCell>
 				{days.map(({ year, month, date }) => {
-					return <span key={`${year}/${month}/${date}`}
-					             data-current-month={year === currentYear && month === currentMonth}
-					             data-current={year === currentYear && month === currentMonth && date === currentDate}
-					             data-today={year === todayYear && month === todayMonth && date === todayDate}
-					             onClick={onDateClicked(dayjs().year(year).month(month).date(date))}>
-							{date}
-						</span>;
+					return <DatePickerBodyDateCell key={`${year}/${month}/${date}`}
+					                               data-current-month={year === currentYear && month === currentMonth}
+					                               data-current={year === currentYear && month === currentMonth && date === currentDate}
+					                               data-today={year === todayYear && month === todayMonth && date === todayDate}
+					                               onClick={onDateClicked(dayjs().year(year).month(month).date(date))}>
+						{date}
+					</DatePickerBodyDateCell>;
 				})}
-			</div>
+			</DatePickerBody>
 		</DatePickerContainer>
 		<DatePickerButtons>
-			<div onClick={onClearClicked}>Clear</div>
-			<div onClick={onConfirmClicked}>Confirm</div>
+			<DatePickerClearButton onClick={onClearClicked}>Clear</DatePickerClearButton>
+			<DatePickerConfirmButton onClick={onConfirmClicked}>Confirm</DatePickerConfirmButton>
 		</DatePickerButtons>
 	</>;
 };

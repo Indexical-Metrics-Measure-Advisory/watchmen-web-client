@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { ICON_BACK } from '../../constants';
 import { useCalendarEventBus } from '../event/calendar-event-bus';
 import { CalendarEventTypes } from '../event/calendar-event-bus-types';
+import { useValueChange } from '../use-value-change';
 import {
 	MonthSelector,
 	MonthSelectorOption,
@@ -31,6 +32,7 @@ export const YearMonthPicker = (props: { initValue: Dayjs }) => {
 			off(CalendarEventTypes.OPEN_TIME_PICKER, onClose);
 		};
 	}, [ on, off ]);
+	useValueChange(setValue);
 
 	if (!visible) {
 		return null;
@@ -42,12 +44,10 @@ export const YearMonthPicker = (props: { initValue: Dayjs }) => {
 	};
 	const onYearChange = (year: number) => () => {
 		const newValue = value.year(year);
-		setValue(newValue);
 		fire(CalendarEventTypes.DATE_CHANGED, newValue);
 	};
 	const onMonthChange = (month: number) => () => {
 		const newValue = value.month(month);
-		setValue(newValue);
 		fire(CalendarEventTypes.DATE_CHANGED, newValue);
 	};
 

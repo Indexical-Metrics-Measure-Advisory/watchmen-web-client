@@ -1,10 +1,10 @@
 import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
 import { Dayjs } from 'dayjs';
 import React, { useState } from 'react';
-import { ButtonInk } from '../../types';
 import { CALENDAR_DATE_FORMAT, CALENDAR_TIME_FORMAT } from '../constants';
 import { useCalendarEventBus } from '../event/calendar-event-bus';
 import { CalendarEventTypes } from '../event/calendar-event-bus-types';
+import { useValueChange } from '../use-value-change';
 import {
 	CalendarPickerHeaderContainer,
 	CalendarPickerHeaderDateLabel,
@@ -21,17 +21,16 @@ export const CalendarPickerHeader = (props: {
 
 	const { fire } = useCalendarEventBus();
 	const [ value, setValue ] = useState<Dayjs>(initValue);
+	useValueChange(setValue);
 
 	const onTimeClicked = () => fire(CalendarEventTypes.OPEN_TIME_PICKER);
 	const onYearMonthClicked = () => fire(CalendarEventTypes.OPEN_YEAR_MONTH_PICKER);
 	const onToDayStartClicked = () => {
 		const newValue = value.hour(0).minute(0).second(0).millisecond(0);
-		setValue(newValue);
 		fire(CalendarEventTypes.TIME_CHANGED, newValue);
 	};
 	const onToDayEndClicked = () => {
 		const newValue = value.hour(23).minute(59).second(59).millisecond(999);
-		setValue(newValue);
 		fire(CalendarEventTypes.TIME_CHANGED, newValue);
 	};
 
@@ -40,15 +39,17 @@ export const CalendarPickerHeader = (props: {
 
 	return <CalendarPickerHeaderContainer>
 		<CalendarPickerHeaderIcon icon={faCalendarAlt}/>
-		<CalendarPickerHeaderDateLabel
-			onClick={onYearMonthClicked}>{currentDisplayDate}</CalendarPickerHeaderDateLabel>
-		<CalendarPickerHeaderTimeLabel
-			onClick={onTimeClicked}>{currentDisplayTime}</CalendarPickerHeaderTimeLabel>
+		<CalendarPickerHeaderDateLabel onClick={onYearMonthClicked}>
+			{currentDisplayDate}
+		</CalendarPickerHeaderDateLabel>
+		<CalendarPickerHeaderTimeLabel onClick={onTimeClicked}>
+			{currentDisplayTime}
+		</CalendarPickerHeaderTimeLabel>
 		<CalendarPickerHeaderPlaceholder/>
-		<CalendarPickerHeaderTimeButton ink={ButtonInk.PRIMARY} onClick={onToDayStartClicked}>
+		<CalendarPickerHeaderTimeButton onClick={onToDayStartClicked}>
 			Start
 		</CalendarPickerHeaderTimeButton>
-		<CalendarPickerHeaderTimeButton ink={ButtonInk.PRIMARY} onClick={onToDayEndClicked}>
+		<CalendarPickerHeaderTimeButton onClick={onToDayEndClicked}>
 			End
 		</CalendarPickerHeaderTimeButton>
 	</CalendarPickerHeaderContainer>;
