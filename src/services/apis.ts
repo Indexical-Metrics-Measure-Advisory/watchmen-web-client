@@ -27,6 +27,11 @@ export const Apis = {
 	TOPIC_CREATE: "topic",
 	TOPIC_SAVE: "update/topic?topic_id=:topicId",
 
+	ENUM_LIST_BY_NAME: 'enum/name?query_name=:search',
+	ENUM_GET: 'enum/id?enum_id=:enumId',
+	ENUM_CREATE: 'enum',
+	ENUM_SAVE: 'enum',
+
 	REPORT_LIST_BY_NAME: "report/name?query_name=:search",
 
 	USER_LIST_BY_NAME: "user/name?query_name=:search",
