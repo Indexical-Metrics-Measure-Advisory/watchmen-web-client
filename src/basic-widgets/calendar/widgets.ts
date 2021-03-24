@@ -37,10 +37,6 @@ export const CalendarContainer = styled.div.attrs<CalendarState>(() => {
 			border-bottom-right-radius: ${atBottom ? 0 : 'var(--border-radius)'};
 			border-top-left-radius: ${atBottom ? 'var(--border-radius)' : 0};
 			border-top-right-radius: ${atBottom ? 'var(--border-radius)' : 0};
-			> div:last-child {
-				opacity: 1;
-				pointer-events: auto;
-			}
 		}
 	`;
 });

@@ -4,7 +4,7 @@ import { DROPDOWN_Z_INDEX } from '../../constants';
 import { CalendarState } from '../types';
 import { DROPDOWN_HEIGHT, DROPDOWN_WIDTH } from '../widgets';
 
-export const CalendarPickerContainer = styled.div.attrs<CalendarState>(({ top, left, width, height }) => {
+export const CalendarPickerContainer = styled.div.attrs<CalendarState>(({ active, top, left, width, height }) => {
 	const atBottom = top + height + DROPDOWN_HEIGHT < window.innerHeight;
 	return {
 		style: {
@@ -16,7 +16,9 @@ export const CalendarPickerContainer = styled.div.attrs<CalendarState>(({ top, l
 			borderTopLeftRadius: atBottom ? 0 : 'var(--border-radius)',
 			borderTopRightRadius: (atBottom && width >= 364) ? 0 : 'var(--border-radius)',
 			borderBottomLeftRadius: atBottom ? 'var(--border-radius)' : 0,
-			borderBottomRightRadius: (atBottom || width < 364) ? 'var(--border-radius)' : 0
+			borderBottomRightRadius: (atBottom || width < 364) ? 'var(--border-radius)' : 0,
+			opacity: active ? 1 : (void 0),
+			pointerEvents: active ? 'auto' : (void 0)
 		}
 	};
 })<CalendarState>`

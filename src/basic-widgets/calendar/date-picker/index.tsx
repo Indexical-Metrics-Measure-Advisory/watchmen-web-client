@@ -26,7 +26,7 @@ import {
 export const DatePicker = (props: {
 	initValue: Dayjs;
 	confirm: (value: Dayjs) => void;
-	clear: () => void;
+	clear: (value: Dayjs) => void;
 }) => {
 	const { initValue, confirm, clear } = props;
 
@@ -73,10 +73,14 @@ export const DatePicker = (props: {
 	const onYearEndClicked = onDateClicked(today.month(11).date(31));
 	const onPrevYearEndClicked = onDateClicked(today.month(11).date(31).subtract(1, 'year'));
 
-	const onGotoPrevMonthClicked = () => onDateClicked(value!.subtract(1, 'month'));
-	const onGotoNextMonthClicked = () => onDateClicked(value!.add(1, 'month'));
+	const onGotoPrevMonthClicked = () => onDateClicked(value.subtract(1, 'month'));
+	const onGotoNextMonthClicked = () => onDateClicked(value.add(1, 'month'));
 
-	const onClearClicked = () => clear();
+	const onClearClicked = () => {
+		const newValue = dayjs();
+		fire(CalendarEventTypes.DATE_CHANGED, newValue);
+		clear(newValue);
+	};
 	const onConfirmClicked = () => confirm(value);
 
 	const currentYear = value.year();

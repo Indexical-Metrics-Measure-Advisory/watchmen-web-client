@@ -10,7 +10,7 @@ import { YearMonthPicker } from '../year-month-picker';
 export const CalendarPicker = (props: {
 	state: CalendarState;
 	confirm: (value: Dayjs) => void;
-	clear: () => void;
+	clear: (value: Dayjs) => void;
 }) => {
 	const { state, confirm, clear } = props;
 	const { value } = state;

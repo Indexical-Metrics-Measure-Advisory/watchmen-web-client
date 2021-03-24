@@ -68,6 +68,10 @@ export const Calendar = (props: {
 		});
 	};
 	const onBlurred = async () => {
+		if (!state.active) {
+			// do nothing
+			return;
+		}
 		if (state.initValue === state.value) {
 			setState({ ...state, active: false });
 		} else {
@@ -80,12 +84,12 @@ export const Calendar = (props: {
 		}
 	};
 
-	const onClear = () => {
+	const onClear = (value: Dayjs) => {
 		const ret = onChange();
 		if (!ret || !ret.active) {
-			setState({ ...state, value: dayjs(), active: false });
+			setState({ ...state, value, active: false });
 		} else {
-			setState({ ...state, value: dayjs() });
+			setState({ ...state, value });
 		}
 	};
 	const onConfirm = (value: Dayjs) => {
