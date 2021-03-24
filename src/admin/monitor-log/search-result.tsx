@@ -60,7 +60,7 @@ export const SearchResult = (props: {
 		return () => {
 			off(MonitorLogEventTypes.DO_SEARCH, onSearch);
 		};
-	}, [ on, off ]);
+	}, [ on, off, fireGlobal ]);
 
 	const onPageChange = (option: DropdownOption) => {
 		if (option.value === logs.pageNumber) {
