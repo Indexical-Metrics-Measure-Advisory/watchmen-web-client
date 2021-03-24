@@ -1,8 +1,14 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
-import { DropdownOption } from '../../basic-widgets/types';
-import { fetchMonitorLogs, MonitorLogCriteria, MonitorLogsDataPage } from '../../services/admin/logs';
+import { ICON_DOWNLOAD, ICON_DOWNLOAD_PAGE } from '../../basic-widgets/constants';
+import { ButtonInk, DropdownOption } from '../../basic-widgets/types';
+import { useEventBus } from '../../events/event-bus';
+import { EventTypes } from '../../events/types';
+import { fetchMonitorLogs, MonitorLogCriteria, MonitorLogs, MonitorLogsDataPage } from '../../services/admin/logs';
 import { Pipeline } from '../../services/tuples/pipeline-types';
 import { Topic } from '../../services/tuples/topic-types';
+import { MAX_MONITOR_LOGS_DATASET_SIZE } from './constants';
 import { useMonitorLogEventBus } from './monitor-log-event-bus';
 import { MonitorLogEventTypes } from './monitor-log-event-bus-types';
 import {
@@ -13,6 +19,7 @@ import {
 	SearchResultBodyStatusCell,
 	SearchResultContainer,
 	SearchResultHeader,
+	SearchResultHeaderButton,
 	SearchResultHeaderCell,
 	SearchResultHeaderOperators,
 	SearchResultHeaderPagination,
@@ -33,6 +40,7 @@ export const SearchResult = (props: {
 }) => {
 	const { topics, pipelines } = props;
 
+	const { fire: fireGlobal } = useEventBus();
 	const { on, off } = useMonitorLogEventBus();
 	const [ logs, setLogs ] = useState<State>({
 		criteria: {},
@@ -44,8 +52,9 @@ export const SearchResult = (props: {
 	});
 	useEffect(() => {
 		const onSearch = async (criteria: MonitorLogCriteria) => {
-			const page = await fetchMonitorLogs({ criteria, pageNumber: 1, pageSize: PAGE_SIZE });
-			setLogs({ ...page, criteria });
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await fetchMonitorLogs({ criteria, pageNumber: 1, pageSize: PAGE_SIZE }),
+				(page: MonitorLogsDataPage) => setLogs({ ...page, criteria }));
 		};
 		on(MonitorLogEventTypes.DO_SEARCH, onSearch);
 		return () => {
@@ -57,14 +66,33 @@ export const SearchResult = (props: {
 		if (option.value === logs.pageNumber) {
 			return;
 		}
-		(async () => {
-			const page = await fetchMonitorLogs({
+		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => await fetchMonitorLogs({
 				criteria: logs.criteria,
 				pageNumber: option.value,
 				pageSize: PAGE_SIZE
-			});
-			setLogs({ ...page, criteria: logs.criteria });
-		})();
+			}),
+			(page) => setLogs({ ...page, criteria: logs.criteria }));
+	};
+	const download = (data: MonitorLogs) => {
+		const content = JSON.stringify(data);
+		const link = document.createElement('a');
+		link.href = 'data:application/json;charset=utf-8,' + encodeURI(content);
+		link.target = '_blank';
+		link.download = `monitor-logs-${dayjs().format('YYYYMMDDHHmmss')}.json`;
+		link.click();
+	};
+	const onDownloadPageClicked = () => {
+		download(logs.data || []);
+	};
+	const onDownloadAllClicked = () => {
+		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => await fetchMonitorLogs({
+				criteria: logs.criteria,
+				pageNumber: 1,
+				pageSize: MAX_MONITOR_LOGS_DATASET_SIZE
+			}),
+			(data) => download(data));
 	};
 
 	const pipelineMap = pipelines.reduce((map, pipeline) => {
@@ -93,6 +121,14 @@ export const SearchResult = (props: {
 					<SearchResultHeaderPaginationLabel>{logs.itemCount}</SearchResultHeaderPaginationLabel>
 					<SearchResultHeaderPaginationLabel>Rows</SearchResultHeaderPaginationLabel>
 				</SearchResultHeaderPagination>
+				<SearchResultHeaderButton ink={ButtonInk.PRIMARY} onClick={onDownloadPageClicked}>
+					<FontAwesomeIcon icon={ICON_DOWNLOAD_PAGE}/>
+					<span>Download Page</span>
+				</SearchResultHeaderButton>
+				<SearchResultHeaderButton ink={ButtonInk.PRIMARY} onClick={onDownloadAllClicked}>
+					<FontAwesomeIcon icon={ICON_DOWNLOAD}/>
+					<span>Download All</span>
+				</SearchResultHeaderButton>
 			</SearchResultHeaderOperators>
 			<SearchResultHeaderSeqCell>#</SearchResultHeaderSeqCell>
 			<SearchResultHeaderCell>Run ID.</SearchResultHeaderCell>

@@ -1,0 +1,1 @@
+export const MAX_MONITOR_LOGS_DATASET_SIZE = 10000;

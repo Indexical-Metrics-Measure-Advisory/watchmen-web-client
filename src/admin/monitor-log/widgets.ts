@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { DwarfButton } from '../../basic-widgets/button';
 import { Dropdown } from '../../basic-widgets/dropdown';
 import { PageHeaderContainer, PageTitle } from '../../basic-widgets/page-header';
 
@@ -70,6 +71,10 @@ export const SearchResultHeaderPaginationLabel = styled.span.attrs({ 'data-widge
 export const SearchResultHeaderPaginationDropdown = styled(Dropdown)`
 	margin-right : 4px;
 	height       : calc(var(--height) * 0.6);
+`;
+export const SearchResultHeaderButton = styled(DwarfButton)`
+	align-self  : center;
+	margin-left : calc(var(--margin) / 4);
 `;
 export const SearchResultHeaderCell = styled.div.attrs({ 'data-widget': 'monitor-logs-result-header-cell' })`
 	display      : flex;
