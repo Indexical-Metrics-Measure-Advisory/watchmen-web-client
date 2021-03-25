@@ -46,7 +46,7 @@ export const GraphicsSave = (props: { graphics?: AssembledPipelinesGraphics }) =
 		return () => {
 			off(CatalogEventTypes.TOPIC_MOVED, onGraphicsChange);
 		};
-	}, [ on, off, fireGlobal, assembledGraphics ]);
+	}, [ on, off, firePipelines, fireGlobal, assembledGraphics ]);
 
 	return <Fragment/>;
 };
