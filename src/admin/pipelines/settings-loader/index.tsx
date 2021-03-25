@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useEventBus } from '../../../events/event-bus';
 import { EventTypes } from '../../../events/types';
 import { fetchPipelinesSettingsData } from '../../../services/pipeline/settings';
-import { Pipeline } from '../../../services/tuples/pipeline-types';
+import { Pipeline, PipelinesGraphics } from '../../../services/tuples/pipeline-types';
 import { usePipelinesEventBus } from '../pipelines-event-bus';
 import { PipelinesEventTypes } from '../pipelines-event-bus-types';
 import { HoldSettings } from './types';
@@ -39,6 +39,15 @@ export const SettingsHolder = () => {
 			off(PipelinesEventTypes.PIPELINE_ADDED, onPipelineAdded);
 		};
 	}, [ on, off, holdSettings.pipelines ]);
+	useEffect(() => {
+		const onGraphicsChanged = (graphics: PipelinesGraphics) => {
+			holdSettings.graphics = graphics;
+		};
+		on(PipelinesEventTypes.GRAPHICS_CHANGED, onGraphicsChanged);
+		return () => {
+			off(PipelinesEventTypes.GRAPHICS_CHANGED, onGraphicsChanged);
+		};
+	}, [ on, off, holdSettings ]);
 	useReplier({ holdSettings });
 
 	return <Fragment/>;

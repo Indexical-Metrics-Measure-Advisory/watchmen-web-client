@@ -6,6 +6,7 @@ export enum PipelinesEventTypes {
 	SETTINGS_LOADED = 'settings-loaded',
 
 	PIPELINE_ADDED = 'pipeline-added',
+	GRAPHICS_CHANGED = 'graphics-changed',
 
 	// ask data
 	ASK_PIPELINES = 'ask-pipelines',
@@ -27,6 +28,10 @@ export interface PipelinesEventBus {
 	fire(type: PipelinesEventTypes.PIPELINE_ADDED, pipeline: Pipeline): this;
 	on(type: PipelinesEventTypes.PIPELINE_ADDED, listener: (pipeline: Pipeline) => void): this;
 	off(type: PipelinesEventTypes.PIPELINE_ADDED, listener: (pipeline: Pipeline) => void): this;
+
+	fire(type: PipelinesEventTypes.GRAPHICS_CHANGED, graphics: PipelinesGraphics): this;
+	on(type: PipelinesEventTypes.GRAPHICS_CHANGED, listener: (graphics: PipelinesGraphics) => void): this;
+	off(type: PipelinesEventTypes.GRAPHICS_CHANGED, listener: (graphics: PipelinesGraphics) => void): this;
 
 	// ask state or data
 	fire(type: PipelinesEventTypes.ASK_PIPELINES): this;

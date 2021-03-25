@@ -1,4 +1,5 @@
 import { Topic } from '../../../services/tuples/topic-types';
+import { AssembledTopicGraphics } from './types';
 
 export enum CatalogEventTypes {
 	TOPIC_SELECTED = 'topic-selected',
@@ -16,7 +17,7 @@ export interface CatalogEventBus {
 	on(type: CatalogEventTypes.CLEAR_SELECTION, listener: () => void): this;
 	off(type: CatalogEventTypes.CLEAR_SELECTION, listener: () => void): this;
 
-	fire(type: CatalogEventTypes.TOPIC_MOVED, topic: Topic): this;
-	on(type: CatalogEventTypes.TOPIC_MOVED, listener: (topic: Topic) => void): this;
-	off(type: CatalogEventTypes.TOPIC_MOVED, listener: (topic: Topic) => void): this;
+	fire(type: CatalogEventTypes.TOPIC_MOVED, topic: Topic, graphics: AssembledTopicGraphics): this;
+	on(type: CatalogEventTypes.TOPIC_MOVED, listener: (topic: Topic, graphics: AssembledTopicGraphics) => void): this;
+	off(type: CatalogEventTypes.TOPIC_MOVED, listener: (topic: Topic, graphics: AssembledTopicGraphics) => void): this;
 }

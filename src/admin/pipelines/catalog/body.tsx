@@ -28,7 +28,7 @@ export const CatalogBody = () => {
 	const svgContainerRef = useRef<HTMLDivElement>(null);
 	const svgRef = useRef<SVGSVGElement>(null);
 	const { once: oncePipelines } = usePipelinesEventBus();
-	const { fire } = useCatalogEventBus();
+	const { fire, on, off } = useCatalogEventBus();
 	const [ data, setData ] = useState<CatalogData>({ initialized: false, topics: [], pipelines: [] });
 	const [ svgSize, setSvgSize ] = useState<Partial<GraphicsSize>>({});
 
@@ -52,6 +52,21 @@ export const CatalogBody = () => {
 			setSvgSize({ width, height });
 		}
 	}, [ data.graphics, forceUpdate ]);
+	useEffect(() => {
+		const onTopicMoved = (topic: Topic, graphics: AssembledTopicGraphics) => {
+			const { width = 0, height = 0 } = svgSize;
+			const { coordinate: { x, y }, frame: { width: topicWidth, height: topicHeight } } = graphics.rect;
+			const newWidth = x + topicWidth > width ? width * 2 : width;
+			const newHeight = y + topicHeight > height ? height * 2 : height;
+			if (newWidth !== width || newHeight !== height) {
+				setSvgSize({ width: newWidth, height: newHeight });
+			}
+		};
+		on(CatalogEventTypes.TOPIC_MOVED, onTopicMoved);
+		return () => {
+			off(CatalogEventTypes.TOPIC_MOVED, onTopicMoved);
+		};
+	}, [ on, off, svgSize ]);
 
 	if (!data.initialized || !data.graphics) {
 		return null;

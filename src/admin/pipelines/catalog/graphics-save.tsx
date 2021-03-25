@@ -3,6 +3,8 @@ import { useEventBus } from '../../../events/event-bus';
 import { EventTypes } from '../../../events/types';
 import { savePipelinesGraphics } from '../../../services/tuples/pipeline';
 import { SAVE_TIMEOUT } from '../constants';
+import { usePipelinesEventBus } from '../pipelines-event-bus';
+import { PipelinesEventTypes } from '../pipelines-event-bus-types';
 import { useCatalogEventBus } from './catalog-event-bus';
 import { CatalogEventTypes } from './catalog-event-bus-types';
 import { transformGraphicsToSave } from './graphics-utils';
@@ -16,12 +18,14 @@ export const GraphicsSave = (props: { graphics?: AssembledPipelinesGraphics }) =
 	const { graphics: assembledGraphics } = props;
 
 	const { fire: fireGlobal } = useEventBus();
+	const { fire: firePipelines } = usePipelinesEventBus();
 	const { on, off } = useCatalogEventBus();
 	const [ , setState ] = useState<SaveState>({});
 	useEffect(() => {
 		const onGraphicsChange = () => {
 			if (assembledGraphics) {
 				const graphics = transformGraphicsToSave(assembledGraphics);
+				firePipelines(PipelinesEventTypes.GRAPHICS_CHANGED, graphics);
 				setState(({ handle }) => {
 					// eslint-disable-next-line
 					if (handle) {
