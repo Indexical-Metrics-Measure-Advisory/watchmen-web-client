@@ -374,7 +374,10 @@ export const isComputedValid = ({ type, parameters }: Computed, topics: Array<To
 		if (isConstantParameter(param)) {
 			const value = param.value;
 			// match value and type, get valid supporting
-			matched = availableParameterTypes.filter(({ parameterTypes }) => isConstantValueTypeMatched(value, parameterTypes[paramIndex]));
+			matched = availableParameterTypes.filter(({ parameterTypes }) => {
+				let type = parameterTypes[paramIndex] || parameterTypes[parameterTypes.length - 1];
+				isConstantValueTypeMatched(value, type);
+			});
 		} else if (isTopicFactorParameter(param)) {
 			if (!param.topicId || !param.factorId) {
 				// no topic or no factor, failure
@@ -397,10 +400,10 @@ export const isComputedValid = ({ type, parameters }: Computed, topics: Array<To
 				let type = parameterTypes[paramIndex] || parameterTypes[parameterTypes.length - 1];
 				if (isParameterType(type)) {
 					// check result type and parameter type, match use pre-definition
-					return ParameterAndFactorTypeMapping[parameterTypes[paramIndex] as ParameterType](factor.type);
+					return ParameterAndFactorTypeMapping[type as ParameterType](factor.type);
 				} else if (isFactorType(type)) {
 					// check result type and factor type, exactly match
-					return parameterTypes[paramIndex] === factor.type;
+					return type === factor.type;
 				} else {
 					// never occurred
 					return false;
@@ -418,12 +421,13 @@ export const isComputedValid = ({ type, parameters }: Computed, topics: Array<To
 				return false;
 			}
 			matched = availableParameterTypes.filter(({ parameterTypes }) => {
-				if (isParameterType(parameterTypes[paramIndex])) {
+				let type = parameterTypes[paramIndex] || parameterTypes[parameterTypes.length - 1];
+				if (isParameterType(type)) {
 					// check result type and parameter type, match use pre-definition
-					return ParameterAndFactorTypeMapping[parameterTypes[paramIndex] as ParameterType](result.resultType!);
-				} else if (isFactorType(parameterTypes[paramIndex])) {
+					return ParameterAndFactorTypeMapping[type as ParameterType](result.resultType!);
+				} else if (isFactorType(type)) {
 					// check result type and factor type, exactly match
-					return parameterTypes[paramIndex] === result.resultType;
+					return type === result.resultType;
 				} else {
 					// never occurred
 					return false;
