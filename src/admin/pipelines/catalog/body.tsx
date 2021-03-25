@@ -13,16 +13,10 @@ import { Navigator } from './navigator';
 import { BlockRelations } from './relation/block-relations';
 import { BlockRelationsAnimation } from './relation/block-relations-animation';
 import { BlockSelection } from './selection';
+import { Thumbnail } from './thumbnail';
 import { TopicRect } from './topic/topic-rect';
-import { AssembledPipelinesGraphics, AssembledTopicGraphics, GraphicsRole } from './types';
+import { AssembledTopicGraphics, CatalogData, GraphicsRole } from './types';
 import { BodyContainer, BodySvg, BodySvgContainer, BodySvgRelationsAnimationContainer } from './widgets';
-
-interface CatalogData {
-	initialized: boolean;
-	topics: Array<Topic>;
-	pipelines: Array<Pipeline>;
-	graphics?: AssembledPipelinesGraphics
-}
 
 export const CatalogBody = () => {
 	const svgContainerRef = useRef<HTMLDivElement>(null);
@@ -67,6 +61,16 @@ export const CatalogBody = () => {
 			off(CatalogEventTypes.TOPIC_MOVED, onTopicMoved);
 		};
 	}, [ on, off, svgSize ]);
+	useEffect(() => {
+		if (svgContainerRef.current) {
+			// @ts-ignore
+			const resizeObserver = new ResizeObserver(() => {
+				fire(CatalogEventTypes.RESIZE);
+			});
+			resizeObserver.observe(svgContainerRef.current);
+			return () => resizeObserver.disconnect();
+		}
+	});
 
 	if (!data.initialized || !data.graphics) {
 		return null;
@@ -75,6 +79,7 @@ export const CatalogBody = () => {
 	const clearSelection = () => {
 		fire(CatalogEventTypes.CLEAR_SELECTION);
 	};
+	const onBodyScroll = () => fire(CatalogEventTypes.SCROLL);
 	const onSvgMouseDown = (event: React.MouseEvent) => {
 		const { button, target } = event;
 		if (button === 2 || button === 1) {
@@ -105,7 +110,7 @@ export const CatalogBody = () => {
 	const topicGraphicsMap: Map<string, AssembledTopicGraphics> = asTopicGraphicsMap(data.graphics);
 
 	return <BodyContainer>
-		<BodySvgContainer ref={svgContainerRef}>
+		<BodySvgContainer ref={svgContainerRef} onScroll={onBodyScroll}>
 			<BodySvg onMouseDown={onSvgMouseDown} {...svgSize} ref={svgRef}>
 				<BlockRelations graphics={data.graphics} pipelines={data.pipelines}/>
 				{data.topics.map(topic => {
@@ -117,6 +122,7 @@ export const CatalogBody = () => {
 			<BodySvgRelationsAnimationContainer>
 				<BlockRelationsAnimation graphics={data.graphics} pipelines={data.pipelines}/>
 			</BodySvgRelationsAnimationContainer>
+			<Thumbnail data={data} svgSize={svgSize} topicGraphicsMap={topicGraphicsMap}/>
 		</BodySvgContainer>
 		<Navigator pipelines={data.pipelines} topics={data.topics}/>
 		<GraphicsSave graphics={data.graphics}/>

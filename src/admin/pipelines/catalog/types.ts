@@ -1,4 +1,4 @@
-import { PipelineBlockGraphics } from '../../../services/tuples/pipeline-types';
+import { Pipeline, PipelineBlockGraphics } from '../../../services/tuples/pipeline-types';
 import { Topic } from '../../../services/tuples/topic-types';
 
 export enum GraphicsRole {
@@ -23,4 +23,11 @@ export interface AssembledPipelinesGraphics {
 
 export interface RelationCurvePoints {
 	drawn: string;
+}
+
+export interface CatalogData {
+	initialized: boolean;
+	topics: Array<Topic>;
+	pipelines: Array<Pipeline>;
+	graphics?: AssembledPipelinesGraphics
 }
