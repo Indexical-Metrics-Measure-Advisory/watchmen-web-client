@@ -42,9 +42,15 @@ export const Thumbnail = (props: {
 
 	const onThumbnailClicked = (event: MouseEvent<HTMLDivElement>) => {
 		const { clientX, clientY } = event;
-		const { top, left, width, height } = thumbnailRef.current!.getBoundingClientRect();
+		const thumbnail = thumbnailRef.current!;
+		const { top, left } = thumbnail.getBoundingClientRect();
 		const { x, y } = { x: clientX - left, y: clientY - top };
 		// always try to use this point to be center
+		const parent = thumbnail.parentElement!;
+		const { width: parentWidth, height: parentHeight } = parent.getBoundingClientRect();
+		const scrollTop = y / ratio - parentHeight / 2;
+		const scrollLeft = x / ratio - parentWidth / 2;
+		parent.scrollTo({ top: scrollTop, left: scrollLeft, behavior: 'smooth' });
 	};
 	const onCloseClicked = (event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
