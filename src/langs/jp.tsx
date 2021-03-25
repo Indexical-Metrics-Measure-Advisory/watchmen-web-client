@@ -59,7 +59,7 @@ export const Jp = {
 	},
 	CONSOLE: {
 		LOADING: '個人データ読み込み中...',
-		BYE: '现在退出吗?',  // new
+		BYE: '終了しますか？',
 		ERROR: {
 			DASHBOARD_NOT_FOUND: '該当ダッシュボードが見つかりません。',
 			CONNECTED_SPACE_NOT_FOUND: '該当連結空間が見つかりません。',
@@ -116,7 +116,7 @@ export const Jp = {
 			NO_REPORT: 'レポートは定義されていません。',
 			SHOW_PRINT_PAGE: 'ページサイズを表示する',
 			HIDE_PRINT_PAGE: 'ページサイズを非表示する',
-			SET_AS_ADMIN_HOME: 'Set as Admin Home'  // new
+			SET_AS_ADMIN_HOME: '管理者ホームとして設定する'
 		},
 		CONNECTED_SPACE: {
 			CATALOG: 'カタログ',
@@ -318,7 +318,7 @@ export const Jp = {
 		PAGES: 'ページ'
 	},
 	CHART: {
-		SETTINGS_HEADER_LABEL: 'Report Settings',  // new
+		SETTINGS_HEADER_LABEL: 'レポート設定',
 		SECTION_TITLE_BASIC_STYLE: '基本スタイル',
 		SECTION_TITLE_DIMENSIONS: 'ディメンション',
 		SECTION_TITLE_INDICATORS: '指標',
@@ -395,25 +395,25 @@ export const Jp = {
 		LABEL_GAP: '間隔',
 		LABEL_ROTATE: '回転度',
 		LABEL_FORMAT_USING_GROUP: '小数第3位',
-		LABEL_FORMAT_USING_PERCENTAGE: 'Using %',  // new
-		LABEL_VALUE_AS_PERCENTAGE: 'Value as %',  // new
-		LABEL_FRACTION_DIGITS: 'Fraction Digits',  // new
-		LABEL_POSITION_TOP: '上側',  // new
-		LABEL_POSITION_LEFT: '左側',  // new
-		LABEL_POSITION_RIGHT: '右側',  // new
-		LABEL_POSITION_BOTTOM: '下側',  // new
-		LABEL_POSITION_INSIDE: 'Inside',  // new
-		LABEL_POSITION_INSIDE_LEFT: 'Inside Left',  // new
-		LABEL_POSITION_INSIDE_RIGHT: 'Inside Right',  // new
-		LABEL_POSITION_INSIDE_TOP: 'Inside Top',  // new
-		LABEL_POSITION_INSIDE_BOTTOM: 'Inside Bottom',  // new
-		LABEL_POSITION_INSIDE_TOP_LEFT: 'Inside Top Left',  // new
-		LABEL_POSITION_INSIDE_BOTTOM_LEFT: 'Inside Bottom Left',  // new
-		LABEL_POSITION_INSIDE_TOP_RIGHT: 'Inside Top Right',  // new
-		LABEL_POSITION_INSIDE_BOTTOM_RIGHT: 'Inside Bottom Right',  // new
-		LABEL_POSITION_OUTSIDE: 'Outside',  // new
-		LABEL_POSITION_CENTER: 'Center',  // new
-		DECAL: 'Decal',  // new
+		LABEL_FORMAT_USING_PERCENTAGE: '%を追加する',
+		LABEL_VALUE_AS_PERCENTAGE: '値を%に変換する',
+		LABEL_FRACTION_DIGITS: '小数位',
+		LABEL_POSITION_TOP: '上側',
+		LABEL_POSITION_LEFT: '左側',
+		LABEL_POSITION_RIGHT: '右側',
+		LABEL_POSITION_BOTTOM: '下側',
+		LABEL_POSITION_INSIDE: '内部',
+		LABEL_POSITION_INSIDE_LEFT: '内部の左側',
+		LABEL_POSITION_INSIDE_RIGHT: '内部の右側',
+		LABEL_POSITION_INSIDE_TOP: '内部の上側',
+		LABEL_POSITION_INSIDE_BOTTOM: '内部の下側',
+		LABEL_POSITION_INSIDE_TOP_LEFT: '内部の左上側',
+		LABEL_POSITION_INSIDE_BOTTOM_LEFT: '内部の左下側',
+		LABEL_POSITION_INSIDE_TOP_RIGHT: '内部の右上側',
+		LABEL_POSITION_INSIDE_BOTTOM_RIGHT: '内部の右下側',
+		LABEL_POSITION_OUTSIDE: '外部',
+		LABEL_POSITION_CENTER: '中央',
+		DECAL: 'デカール',
 		ROAM: 'ローミング',
 		TREE_LAYOUT: 'レーアウト',
 		TREE_LAYOUT_ORTHOGONAL: '直交',
@@ -432,19 +432,19 @@ export const Jp = {
 		PIE_ROSE_TYPE_RADIUS: '半径により',
 		PIE_ROSE_TYPE_AREA: '面積により',
 		PIE_SHOW_PERCENTAGE: '%表示',
-		PIE_LABEL_ALIGN_TO_NONE: 'None',  // new
-		PIE_LABEL_ALIGN_TO_LABEL_LINE: 'Label Line',  // new
-		PIE_LABEL_ALIGN_TO_EDGE: 'Edge',  // new
+		PIE_LABEL_ALIGN_TO_NONE: 'なし',
+		PIE_LABEL_ALIGN_TO_LABEL_LINE: 'ラベルライン',
+		PIE_LABEL_ALIGN_TO_EDGE: '縁',
 		MAP_REGION: '地域',
 		MAP_REGION_JAPAN_L1: '日本 (県/都/府)',
 		MAP_REGION_USA_L1: '米国 (州)',
-		TRUNCATION_TYPE: 'Type',  // new
-		TRUNCATION_NONE: 'None',  // new
-		TRUNCATION_TOP: 'Top',  // new
-		TRUNCATION_BOTTOM: 'Bottom',  // new
-		TRUNCATION_COUNT: 'Count',  // new
-		BAR_TRANSFORM_AXIS: 'Transform Axis',  // new
-		LINE_SMOOTH: 'Smooth',  // new
+		TRUNCATION_TYPE: 'タイプ',
+		TRUNCATION_NONE: 'なし',
+		TRUNCATION_TOP: '最高',
+		TRUNCATION_BOTTOM: '最低',
+		TRUNCATION_COUNT: '数量',
+		BAR_TRANSFORM_AXIS: '軸の変換',
+		LINE_SMOOTH: 'スムーズ',
 		TOOLBOX_ORIENT: '方向',
 		TOOLBOX_ORIENT_HORIZONTAL: '水平',
 		TOOLBOX_ORIENT_VERTICAL: '垂直',
@@ -471,8 +471,8 @@ export const Jp = {
 		SECTION_TITLE_ECHART_YAXIS_LABEL: 'Y軸のレベル',
 		SECTION_TITLE_ECHART_YAXIS_LINE: 'Y軸の分割線',
 		SECTION_TITLE_ECHART_YAXIS_MINOR_LINE: 'Y軸のマイナー分割線',
-		SECTION_TITLE_TRUNCATION: 'Data Truncation',  // new
-		SECTION_TITLE_TOOLBOX: 'Toolbox',  // new
+		SECTION_TITLE_TRUNCATION: 'データの切り捨て',
+		SECTION_TITLE_TOOLBOX: 'ツールボックス',
 		NONAME_COLUMN: 'ノーネームカラム',
 		UNKNOWN_COLUMN_NAME: '不明なカラム',
 		CAN_NOT_DELETE_DIMENSION: 'ディメンションの最小限に達したため、削除できません。',
