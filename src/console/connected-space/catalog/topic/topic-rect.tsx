@@ -22,7 +22,7 @@ export const TopicRect = (props: { topic: AssembledTopicGraphics }) => {
 			const onMove = ({ clientX: x, clientY: y }: MouseEvent) => {
 				rect.coordinate = { x: x - offsetX, y: y - offsetY };
 				forceUpdate();
-				fire(CatalogEventTypes.TOPIC_MOVED, topic);
+				fire(CatalogEventTypes.TOPIC_MOVED, topic, topicGraphics);
 			};
 			const root = findSvgRoot(event.target as SVGGraphicsElement);
 			const onEnd = () => {

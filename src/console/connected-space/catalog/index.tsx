@@ -8,7 +8,11 @@ import { Lang } from '../../../langs';
 import { Router } from '../../../routes/types';
 import { AvailableSpaceInConsole } from '../../../services/console/settings-types';
 import { GraphicsSize } from '../../../services/graphics/graphics-types';
-import { ConnectedSpace, ConnectedSpaceGraphics } from '../../../services/tuples/connected-space-types';
+import {
+	ConnectedSpace,
+	ConnectedSpaceBlockGraphics,
+	ConnectedSpaceGraphics
+} from '../../../services/tuples/connected-space-types';
 import { Topic } from '../../../services/tuples/topic-types';
 import { useConsoleEventBus } from '../../console-event-bus';
 import { ConsoleEventTypes } from '../../console-event-bus-types';
@@ -54,7 +58,7 @@ const CatalogBody = (props: { connectedSpace: ConnectedSpace }) => {
 	const history = useHistory();
 	const { once: onceGlobal } = useEventBus();
 	const { once: onceConsole } = useConsoleEventBus();
-	const { fire } = useCatalogEventBus();
+	const { fire, on, off } = useCatalogEventBus();
 	const [ data, setData ] = useState<CatalogData>({ initialized: false, topics: [] });
 	const [ svgSize, setSvgSize ] = useState<Partial<GraphicsSize>>({});
 	const forceUpdate = useForceUpdate();
@@ -110,6 +114,25 @@ const CatalogBody = (props: { connectedSpace: ConnectedSpace }) => {
 			setSvgSize({ width, height });
 		}
 	}, [ data.graphics, forceUpdate ]);
+	useEffect(() => {
+		const onBlockMoved = (data: any, graphics: ConnectedSpaceBlockGraphics) => {
+			const { width = 0, height = 0 } = svgSize;
+			const { coordinate: { x, y }, frame: { width: blockWidth, height: blockHeight } } = graphics.rect;
+			const newWidth = x + blockWidth > width ? width * 2 : width;
+			const newHeight = y + blockHeight > height ? height * 2 : height;
+			if (newWidth !== width || newHeight !== height) {
+				setSvgSize({ width: newWidth, height: newHeight });
+			}
+		};
+		on(CatalogEventTypes.TOPIC_MOVED, onBlockMoved);
+		on(CatalogEventTypes.SUBJECT_MOVED, onBlockMoved);
+		on(CatalogEventTypes.REPORT_MOVED, onBlockMoved);
+		return () => {
+			off(CatalogEventTypes.TOPIC_MOVED, onBlockMoved);
+			off(CatalogEventTypes.SUBJECT_MOVED, onBlockMoved);
+			off(CatalogEventTypes.REPORT_MOVED, onBlockMoved);
+		};
+	}, [ on, off, svgSize ]);
 
 	if (!data.initialized || !data.graphics) {
 		return null;

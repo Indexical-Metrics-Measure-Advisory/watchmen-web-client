@@ -22,7 +22,7 @@ export const ReportRect = (props: { report: AssembledReportGraphics }) => {
 			const onMove = ({ clientX: x, clientY: y }: MouseEvent) => {
 				rect.coordinate = { x: x - offsetX, y: y - offsetY };
 				forceUpdate();
-				fire(CatalogEventTypes.REPORT_MOVED, report);
+				fire(CatalogEventTypes.REPORT_MOVED, report, reportGraphics);
 			};
 			const root = findSvgRoot(event.target as SVGGraphicsElement);
 			const onEnd = () => {
