@@ -66,11 +66,17 @@ export const CatalogBody = () => {
 			// @ts-ignore
 			const resizeObserver = new ResizeObserver(() => {
 				fire(CatalogEventTypes.RESIZE);
+				if (data.graphics && svgContainerRef.current && svgRef.current) {
+					const { width, height } = computeGraphics({ graphics: data.graphics, svg: svgRef.current });
+					if (width > (svgSize.width || 0) || height > (svgSize.height || 0)) {
+						setSvgSize({ width, height });
+					}
+				}
 			});
 			resizeObserver.observe(svgContainerRef.current);
 			return () => resizeObserver.disconnect();
 		}
-	});
+	}, [ fire, data.graphics, svgSize.width, svgSize.height ]);
 
 	if (!data.initialized || !data.graphics) {
 		return null;

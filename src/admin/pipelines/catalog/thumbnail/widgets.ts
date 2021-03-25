@@ -28,8 +28,8 @@ export const BodyThumbnail = styled.div.attrs<{ minimize: boolean }>(({ minimize
 	&:hover {
 		box-shadow : var(--primary-hover-shadow);
 		&:before {
-			background-color: var(--border-color);
-			opacity : 1;
+			background-color : var(--border-color);
+			opacity          : 1;
 		}
 		> svg {
 			background-color : var(--invert-color);
@@ -73,6 +73,11 @@ export const ThumbnailBodySvg = styled(BodySvg).attrs<{ ratio: number }>(({ rati
 	transform-origin : top left;
 	pointer-events   : none;
 	transition       : background-color 300ms ease-in-out;
+	> g[data-role="block-selection"] > rect {
+		stroke : var(--danger-color);
+		stroke-dasharray: 9px 6px;
+		stroke-width: 6px;
+	}
 `;
 export const CurrentRect = styled.div.attrs<{ rect: GraphicsPosition & GraphicsSize }>(
 	({ rect }) => {
