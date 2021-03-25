@@ -376,7 +376,7 @@ export const isComputedValid = ({ type, parameters }: Computed, topics: Array<To
 			// match value and type, get valid supporting
 			matched = availableParameterTypes.filter(({ parameterTypes }) => {
 				let type = parameterTypes[paramIndex] || parameterTypes[parameterTypes.length - 1];
-				isConstantValueTypeMatched(value, type);
+				return isConstantValueTypeMatched(value, type);
 			});
 		} else if (isTopicFactorParameter(param)) {
 			if (!param.topicId || !param.factorId) {
