@@ -66,10 +66,6 @@ export const CatalogBody = () => {
 			// @ts-ignore
 			const resizeObserver = new ResizeObserver(() => {
 				fire(CatalogEventTypes.RESIZE);
-				if (data.graphics && svgContainerRef.current && svgRef.current) {
-					const { width, height } = computeGraphics({ graphics: data.graphics, svg: svgRef.current });
-					setSvgSize({ width, height });
-				}
 			});
 			resizeObserver.observe(svgContainerRef.current);
 			return () => resizeObserver.disconnect();

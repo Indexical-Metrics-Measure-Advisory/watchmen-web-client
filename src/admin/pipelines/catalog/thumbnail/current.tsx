@@ -16,7 +16,7 @@ const repaint = async (div: HTMLDivElement, ratio: number): Promise<(GraphicsPos
 			const { width: svgWidth, height: svgHeight } = svg.getBoundingClientRect();
 			const x = parentWidth / 2 - svgWidth / 2 + scrollLeft * ratio;
 			const y = parentHeight / 2 - svgHeight / 2 + scrollTop * ratio;
-			resolve({ x, y, width: width * ratio - 1, height: height * ratio - 2 });
+			resolve({ x, y, width: width * ratio, height: height * ratio });
 		} else {
 			resolve();
 		}

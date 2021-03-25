@@ -6,16 +6,16 @@ import { BodySvg } from '../widgets';
 export const THUMBNAIL_WIDTH = 300;
 export const THUMBNAIL_HEIGHT = 150;
 
-export const BodyThumbnail = styled.div.attrs<{ min: boolean }>(({ min }) => {
+export const BodyThumbnail = styled.div.attrs<{ minimize: boolean }>(({ minimize }) => {
 	return {
 		'data-widget': 'pipelines-catalog-thumbnail',
 		style: {
-			width: min ? 'calc(var(--margin) / 4 * 3)' : (void 0),
-			height: min ? 'calc(var(--margin) / 4 * 3)' : (void 0),
-			overflow: min ? 'hidden' : (void 0)
+			width: minimize ? 'calc(var(--margin) / 4 * 3)' : (void 0),
+			height: minimize ? 'calc(var(--margin) / 4 * 3)' : (void 0),
+			overflow: minimize ? 'hidden' : (void 0)
 		}
 	};
-})<{ min: boolean }>`
+})<{ minimize: boolean }>`
 	display       : block;
 	position      : fixed;
 	border-radius : var(--border-radius);
@@ -27,6 +27,10 @@ export const BodyThumbnail = styled.div.attrs<{ min: boolean }>(({ min }) => {
 	z-index       : 2;
 	&:hover {
 		box-shadow : var(--primary-hover-shadow);
+		&:before {
+			background-color: var(--border-color);
+			opacity : 1;
+		}
 		> svg {
 			background-color : var(--invert-color);
 		}
@@ -35,17 +39,19 @@ export const BodyThumbnail = styled.div.attrs<{ min: boolean }>(({ min }) => {
 		}
 	}
 	&:before, &:after {
-		content  : '';
-		display  : ${({ min }) => min ? 'none' : 'block'};
-		position : absolute;
-		top      : 0;
-		left     : 0;
-		width    : 100%;
-		height   : 100%;
+		content       : '';
+		display       : ${({ minimize }) => minimize ? 'none' : 'block'};
+		position      : absolute;
+		top           : 0;
+		left          : 0;
+		width         : 100%;
+		height        : 100%;
+		border-radius : var(--border-radius);
 	}
 	&:before {
 		background-color : var(--primary-color);
-		opacity          : 0.1;
+		opacity          : 0.05;
+		transition       : all 300ms ease-in-out;
 		z-index          : -1;
 	}
 	&:after {

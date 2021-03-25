@@ -43,8 +43,8 @@ export const Thumbnail = (props: {
 	const onThumbnailClicked = (event: MouseEvent<HTMLDivElement>) => {
 		const { clientX, clientY } = event;
 		const thumbnail = thumbnailRef.current!;
-		const { top, left } = thumbnail.getBoundingClientRect();
-		const { x, y } = { x: clientX - left, y: clientY - top };
+		const { top: svgTop, left: svgLeft } = thumbnail.querySelector('svg')!.getBoundingClientRect();
+		const { x, y } = { x: clientX - svgLeft, y: clientY - svgTop };
 		// always try to use this point to be center
 		const parent = thumbnail.parentElement!;
 		const { width: parentWidth, height: parentHeight } = parent.getBoundingClientRect();
@@ -62,7 +62,7 @@ export const Thumbnail = (props: {
 	const verticalRatio = THUMBNAIL_HEIGHT / height;
 	const ratio = Math.min(horizontalRatio, verticalRatio);
 
-	return <BodyThumbnail onClick={onThumbnailClicked} min={min}
+	return <BodyThumbnail onClick={onThumbnailClicked} minimize={min}
 	                      ref={thumbnailRef}>
 		{min ? null : <ThumbnailBodySvg {...svgSize} ratio={ratio}>
 			<BlockRelations graphics={data.graphics} pipelines={data.pipelines}/>
