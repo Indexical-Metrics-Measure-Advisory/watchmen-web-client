@@ -109,6 +109,8 @@ export const isConstantValueTypeMatched = (value: string, type: ParameterType | 
 		case FactorType.MINUTE:
 		case FactorType.SECOND:
 			return /^[0-5]?[0-9]$/.test(value);
+		case FactorType.MILLISECOND:
+			return /^\d{1,3}$/.test(value);
 
 		// datetime
 		case ParameterType.DATE:
@@ -121,6 +123,8 @@ export const isConstantValueTypeMatched = (value: string, type: ParameterType | 
 		case ParameterType.DATETIME:
 		case FactorType.DATETIME:
 			return !!value && !!dayjs(value, [ 'YYYY/MM/DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss' ], true);
+		case FactorType.FULL_DATETIME:
+			return !!value && !!dayjs(value, [ 'YYYY/MM/DD HH:mm:ss.SSS', 'YYYY-MM-DD HH:mm:ss.SSS' ], true);
 
 		// boolean
 		case ParameterType.BOOLEAN:
@@ -129,45 +133,30 @@ export const isConstantValueTypeMatched = (value: string, type: ParameterType | 
 	}
 };
 
+// noinspection TypeScriptValidateTypes
 export const ParameterAndFactorTypeMapping: { [key in ParameterType]: (factorType: FactorType) => boolean } = {
 	[ParameterType.ANY]: () => true,
-	[ParameterType.NUMBER]: (factorType: FactorType) => {
-		return [
-			FactorType.NUMBER, FactorType.UNSIGNED,
-			FactorType.FLOOR, FactorType.RESIDENTIAL_AREA,
-			FactorType.AGE,
-			FactorType.BIZ_SCALE,
-			FactorType.YEAR, FactorType.MONTH
-		].includes(factorType);
-	},
-	[ParameterType.TEXT]: (factorType: FactorType) => {
-		return [ FactorType.TEXT ].includes(factorType);
-	},
-	[ParameterType.DATE]: (factorType: FactorType) => {
-		return [ FactorType.DATE, FactorType.DATETIME ].includes(factorType);
-	},
-	[ParameterType.TIME]: (factorType: FactorType) => {
-		return [ FactorType.TIME, FactorType.DATETIME ].includes(factorType);
-	},
-	[ParameterType.DATETIME]: (factorType: FactorType) => {
-		return [ FactorType.DATETIME ].includes(factorType);
-	},
-	[ParameterType.BOOLEAN]: (factorType: FactorType) => {
-		return [ FactorType.BOOLEAN ].includes(factorType);
-	},
-	[ParameterType.ENUM]: (factorType: FactorType) => {
-		return [
-			FactorType.CONTINENT, FactorType.REGION, FactorType.COUNTRY, FactorType.PROVINCE, FactorType.CITY, FactorType.RESIDENCE_TYPE,
-			FactorType.HALF_YEAR, FactorType.QUARTER, FactorType.SEASON, FactorType.HALF_MONTH, FactorType.TEN_DAYS, FactorType.HALF_WEEK,
-			FactorType.DAY_OF_WEEK, FactorType.DAY_KIND, FactorType.HOUR_KIND, FactorType.AM_PM,
-			FactorType.GENDER, FactorType.OCCUPATION, FactorType.RELIGION, FactorType.NATIONALITY,
-			FactorType.BIZ_TRADE,
-			FactorType.ENUM
-		].includes(factorType);
-	},
-	[ParameterType.ARRAY]: (factorType: FactorType) => {
-		return [ FactorType.ARRAY ].includes(factorType);
-	}
+	[ParameterType.NUMBER]: (factorType: FactorType) => [
+		FactorType.NUMBER, FactorType.UNSIGNED,
+		FactorType.FLOOR, FactorType.RESIDENTIAL_AREA,
+		FactorType.AGE,
+		FactorType.BIZ_SCALE,
+		FactorType.YEAR, FactorType.MONTH
+	].includes(factorType),
+	[ParameterType.TEXT]: (factorType: FactorType) => [ FactorType.TEXT ].includes(factorType),
+	[ParameterType.DATE]: (factorType: FactorType) => [ FactorType.DATE, FactorType.DATETIME, FactorType.FULL_DATETIME ].includes(factorType),
+	[ParameterType.TIME]: (factorType: FactorType) => [ FactorType.TIME, FactorType.DATETIME, FactorType.FULL_DATETIME ].includes(factorType),
+	[ParameterType.DATETIME]: (factorType: FactorType) => [ FactorType.DATETIME, FactorType.FULL_DATETIME ].includes(factorType),
+	[ParameterType.BOOLEAN]: (factorType: FactorType) => [ FactorType.BOOLEAN ].includes(factorType),
+	[ParameterType.ENUM]: (factorType: FactorType) => [
+		FactorType.CONTINENT, FactorType.REGION, FactorType.COUNTRY, FactorType.PROVINCE, FactorType.CITY, FactorType.RESIDENCE_TYPE,
+		FactorType.HALF_YEAR, FactorType.QUARTER, FactorType.SEASON, FactorType.HALF_MONTH, FactorType.TEN_DAYS, FactorType.HALF_WEEK,
+		FactorType.DAY_OF_WEEK, FactorType.DAY_KIND, FactorType.HOUR_KIND, FactorType.AM_PM,
+		FactorType.GENDER, FactorType.OCCUPATION, FactorType.RELIGION, FactorType.NATIONALITY,
+		FactorType.BIZ_TRADE,
+		FactorType.ENUM
+	].includes(factorType),
+	[ParameterType.ARRAY]: (factorType: FactorType) => [ FactorType.ARRAY ].includes(factorType)
 };
 
 export interface ParameterCalculatorSupporting {

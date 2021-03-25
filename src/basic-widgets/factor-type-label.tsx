@@ -35,6 +35,7 @@ const Labels: { [key in FactorType]: string } = {
 	[FactorType.FAX]: Lang.FACTOR.FAX,
 
 	[FactorType.DATETIME]: Lang.FACTOR.DATETIME,
+	[FactorType.FULL_DATETIME]: Lang.FACTOR.FULL_DATETIME,
 	[FactorType.DATE]: Lang.FACTOR.DATE,
 	[FactorType.TIME]: Lang.FACTOR.TIME,
 	[FactorType.YEAR]: Lang.FACTOR.YEAR,
@@ -54,6 +55,7 @@ const Labels: { [key in FactorType]: string } = {
 	[FactorType.HOUR_KIND]: Lang.FACTOR.HOUR_KIND,
 	[FactorType.MINUTE]: Lang.FACTOR.MINUTE,
 	[FactorType.SECOND]: Lang.FACTOR.SECOND,
+	[FactorType.MILLISECOND]: Lang.FACTOR.MILLISECOND,
 	[FactorType.AM_PM]: Lang.FACTOR.AM_PM,
 
 	[FactorType.GENDER]: Lang.FACTOR.GENDER,
