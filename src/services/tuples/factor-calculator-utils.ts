@@ -394,10 +394,11 @@ export const isComputedValid = ({ type, parameters }: Computed, topics: Array<To
 				return true;
 			}
 			matched = availableParameterTypes.filter(({ parameterTypes }) => {
-				if (isParameterType(parameterTypes[paramIndex])) {
+				let type = parameterTypes[paramIndex] || parameterTypes[parameterTypes.length - 1];
+				if (isParameterType(type)) {
 					// check result type and parameter type, match use pre-definition
 					return ParameterAndFactorTypeMapping[parameterTypes[paramIndex] as ParameterType](factor.type);
-				} else if (isFactorType(parameterTypes[paramIndex])) {
+				} else if (isFactorType(type)) {
 					// check result type and factor type, exactly match
 					return parameterTypes[paramIndex] === factor.type;
 				} else {
