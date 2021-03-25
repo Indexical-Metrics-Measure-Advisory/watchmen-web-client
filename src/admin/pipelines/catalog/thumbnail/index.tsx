@@ -1,4 +1,7 @@
-import React, { MouseEvent, useEffect, useRef } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { MouseEvent, useEffect, useRef, useState } from 'react';
+import { ICON_CLOSE, ICON_EXPAND_PANEL } from '../../../../basic-widgets/constants';
+import { ButtonInk } from '../../../../basic-widgets/types';
 import { useForceUpdate } from '../../../../basic-widgets/utils';
 import { GraphicsSize } from '../../../../services/graphics/graphics-types';
 import { useCatalogEventBus } from '../catalog-event-bus';
@@ -8,7 +11,7 @@ import { BlockSelection } from '../selection';
 import { TopicRect } from '../topic/topic-rect';
 import { AssembledTopicGraphics, CatalogData } from '../types';
 import { Current } from './current';
-import { BodyThumbnail, THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH, ThumbnailBodySvg } from './widgets';
+import { BodyThumbnail, CloseButton, THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH, ThumbnailBodySvg } from './widgets';
 
 export const Thumbnail = (props: {
 	data: CatalogData;
@@ -19,6 +22,7 @@ export const Thumbnail = (props: {
 
 	const { on, off } = useCatalogEventBus();
 	const thumbnailRef = useRef<HTMLDivElement>(null);
+	const [ min, setMin ] = useState(false);
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		on(CatalogEventTypes.TOPIC_MOVED, forceUpdate);
@@ -37,25 +41,35 @@ export const Thumbnail = (props: {
 	}
 
 	const onThumbnailClicked = (event: MouseEvent<HTMLDivElement>) => {
-		// const { clientX, clientY } = event;
-		// const { top, left, width, height } = thumbnailRef.current!.getBoundingClientRect();
-		// const { x, y } = { x: clientX - left, y: clientY - top };
+		const { clientX, clientY } = event;
+		const { top, left, width, height } = thumbnailRef.current!.getBoundingClientRect();
+		const { x, y } = { x: clientX - left, y: clientY - top };
+		// always try to use this point to be center
+	};
+	const onCloseClicked = (event: MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+		event.stopPropagation();
+		setMin(!min);
 	};
 
 	const horizontalRatio = THUMBNAIL_WIDTH / width;
 	const verticalRatio = THUMBNAIL_HEIGHT / height;
 	const ratio = Math.min(horizontalRatio, verticalRatio);
 
-	return <BodyThumbnail onClick={onThumbnailClicked}
+	return <BodyThumbnail onClick={onThumbnailClicked} min={min}
 	                      ref={thumbnailRef}>
-		<ThumbnailBodySvg {...svgSize} ratio={ratio}>
+		{min ? null : <ThumbnailBodySvg {...svgSize} ratio={ratio}>
 			<BlockRelations graphics={data.graphics} pipelines={data.pipelines}/>
 			{data.topics.map(topic => {
 				const topicGraphics = topicGraphicsMap.get(topic.topicId)!;
 				return <TopicRect topic={topicGraphics} key={topic.topicId}/>;
 			})}
 			<BlockSelection graphics={data.graphics}/>
-		</ThumbnailBodySvg>
-		<Current ratio={ratio}/>
+		</ThumbnailBodySvg>}
+		{min ? null : <Current ratio={ratio}/>}
+		<CloseButton ink={ButtonInk.WARN} visible={min}
+		             onClick={onCloseClicked}>
+			<FontAwesomeIcon icon={min ? ICON_EXPAND_PANEL : ICON_CLOSE}/>
+		</CloseButton>
 	</BodyThumbnail>;
 };

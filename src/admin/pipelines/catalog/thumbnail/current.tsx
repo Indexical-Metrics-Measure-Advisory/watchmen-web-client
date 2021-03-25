@@ -32,7 +32,6 @@ export const Current = (props: {
 	const { on, off } = useCatalogEventBus();
 	const [ rect, setRect ] = useState<GraphicsPosition & GraphicsSize>({ x: 0, y: 0, width: 0, height: 0 });
 
-
 	useLayoutEffect(() => {
 		(async () => {
 			if (ref.current) {
