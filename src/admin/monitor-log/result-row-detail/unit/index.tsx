@@ -42,7 +42,7 @@ export const DetailProcessUnit = (props: {
 			? (log.actions || []).map((actionLog, actionIndex) => {
 				const action: PipelineStageUnitAction = (unit.do || [])[actionIndex] || {};
 				return <DetailProcessAction action={action}
-				                            stageIndex={stageIndex} unitIndex={unitIndex} actionIndex={actionIndex}
+				                            stageIndex={stageIndex} unitIndex={unitIndex} actionIndex={actionIndex + 1}
 				                            log={actionLog}
 				                            topicsMap={topicsMap}
 				                            key={action.actionId || v4()}/>;

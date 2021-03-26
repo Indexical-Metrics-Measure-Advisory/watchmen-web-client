@@ -6,7 +6,7 @@ import { MonitorLogRow } from '../../../services/admin/logs';
 import { Pipeline } from '../../../services/tuples/pipeline-types';
 import { isMockService } from '../../../services/utils';
 import demoData from './pipeline.json';
-import { Diff, ShowUnchanged, Title, TriggerDataContainer } from './widgets';
+import { Diff, PipelineTypeLabel, ShowUnchanged, Title, TriggerDataContainer } from './widgets';
 
 export const TriggerData = (props: {
 	row: MonitorLogRow;
@@ -25,7 +25,8 @@ export const TriggerData = (props: {
 
 	return <TriggerDataContainer>
 		<Title>
-			Trigger by <span>{pipeline.type}</span>
+			<span>Trigger by</span>
+			<PipelineTypeLabel>{pipeline.type}</PipelineTypeLabel>
 		</Title>
 		<ShowUnchanged>
 			<Toggle value={showUnchanged} onChange={onUnchangedChanged}/>

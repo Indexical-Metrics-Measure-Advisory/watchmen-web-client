@@ -39,7 +39,7 @@ export const DetailProcessStage = (props: {
 		</SectionTitle>
 		{expanded
 			? (log.units || []).map((unitLog, unitIndex) => {
-				const unit: PipelineStageUnit = (stage.units || [])[unitIndex];
+				const unit: PipelineStageUnit = (stage.units || [])[unitIndex] || {};
 				return <DetailProcessUnit unit={unit}
 				                          stageIndex={stageIndex} unitIndex={unitIndex + 1}
 				                          log={unitLog}

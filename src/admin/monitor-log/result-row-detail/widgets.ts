@@ -25,7 +25,7 @@ export const Title = styled.div.attrs({ 'data-widget': 'monitor-log-detail-title
 	padding       : 0 calc(var(--margin) / 2);
 	font-variant  : petite-caps;
 	font-weight   : var(--font-demi-bold);
-	height        : var(--height);
+	min-height    : var(--height);
 	border-bottom : var(--border);
 	&:after {
 		content          : '';
@@ -41,9 +41,12 @@ export const Title = styled.div.attrs({ 'data-widget': 'monitor-log-detail-title
 	}
 	> span {
 		text-transform : capitalize;
-		margin-left    : 3px;
-		flex-grow      : 1;
 	}
+`;
+export const PipelineTypeLabel = styled.span`
+	color       : var(--primary-color);
+	font-weight : var(--font-bold);
+	margin-left : 4px;
 `;
 export const ShowUnchanged = styled.div.attrs({ 'data-widget': 'monitor-log-detail-unchanged' })`
 	display       : flex;
@@ -92,19 +95,23 @@ export const Diff = styled.div.attrs({
 		}
 	}
 `;
-export const DetailProcessContainer = styled.div.attrs({
-	'data-widget': 'monitor-log-detail-process',
-	'data-h-scroll': '',
-	'data-v-scroll': ''
-})`
-	display        : flex;
-	flex-direction : column;
-	align-self     : stretch;
-	justify-self   : stretch;
-	overflow       : auto;
+export const DetailProcessContainer = styled.div.attrs({ 'data-widget': 'monitor-log-detail-process' })`
+	display               : grid;
+	grid-template-columns : 1fr auto;
+	align-self            : stretch;
+	justify-self          : stretch;
 `;
 export const CloseButton = styled(DwarfButton)`
 	display : block;
+`;
+export const DetailProcessBody = styled.div.attrs({
+	'data-widget': 'monitor-log-detail-process-body',
+	'data-v-scroll': '',
+	'data-h-scroll': ''
+})`
+	grid-column : 1 / span 2;
+	max-height  : calc(400px - var(--height));
+	overflow    : auto;
 `;
 export const SectionTitle = styled.div.attrs({ 'data-widget': 'monitor-log-detail-process-title' })`
 	display               : grid;

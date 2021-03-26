@@ -2,11 +2,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL } from '../../../../basic-widgets/constants';
 import { TooltipAlignment } from '../../../../basic-widgets/types';
-import { MonitorLogAction } from '../../../../services/admin/logs';
+import { MonitorLogAction, MonitorLogStatus } from '../../../../services/admin/logs';
 import { PipelineStageUnitAction } from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import { Topic } from '../../../../services/tuples/topic-types';
 import { ExpandToggleButton, TitleExecutionLabel, TitleLabel, TitleNameLabel } from '../widgets';
-import { ActionSectionTitle, DetailProcessActionBody, DetailProcessActionContainer } from './widgets';
+import {
+	ActionError,
+	ActionSectionTitle,
+	ActionStatus,
+	ActionType,
+	BodyLabel,
+	DetailProcessActionBody,
+	DetailProcessActionContainer
+} from './widgets';
 
 export const DetailProcessAction = (props: {
 	action: PipelineStageUnitAction;
@@ -39,7 +47,16 @@ export const DetailProcessAction = (props: {
 			</ExpandToggleButton>
 		</ActionSectionTitle>
 		<DetailProcessActionBody>
-
+			<BodyLabel>Type:</BodyLabel>
+			<ActionType>{action.type}</ActionType>
+			<BodyLabel>Status:</BodyLabel>
+			<ActionStatus>{log.status || 'done'}</ActionStatus>
+			{log.status === MonitorLogStatus.ERROR
+				? <>
+					<BodyLabel>Error:</BodyLabel>
+					<ActionError value={log.error} readOnly={true}/>
+				</>
+				: null}
 		</DetailProcessActionBody>
 	</DetailProcessActionContainer>;
 };

@@ -12,6 +12,7 @@ import demoData from './pipeline.json';
 import { DetailProcessStage } from './stage';
 import {
 	CloseButton,
+	DetailProcessBody,
 	DetailProcessContainer,
 	SectionTitle,
 	Title,
@@ -34,27 +35,32 @@ export const DetailProcess = (props: {
 	return <DetailProcessContainer>
 		<Title>
 			<span>Process Logs</span>
+		</Title>
+		<Title>
 			<CloseButton ink={ButtonInk.PRIMARY} onClick={onClose}>
 				<FontAwesomeIcon icon={ICON_CLOSE}/>
 				<span>Close</span>
 			</CloseButton>
 		</Title>
-		<SectionTitle>
-			<TitleLabel>
-				<TitleNameLabel>Pipeline Execution:</TitleNameLabel>
-				<TitleExecutionLabel data-ignored={!pipelineExecution}>{`${pipelineExecution}`}</TitleExecutionLabel>
-			</TitleLabel>
-			<TitleLabel>
-				<TitleNameLabel>Spent:</TitleNameLabel>
-				<TitleExecutionLabel>{row.completeTime} ms</TitleExecutionLabel>
-			</TitleLabel>
-		</SectionTitle>
-		{(row.stages || getStages()).map((stageLog, stageIndex) => {
-			const stage: PipelineStage = (pipeline.stages || [])[stageIndex];
-			return <DetailProcessStage stage={stage} stageIndex={stageIndex + 1}
-			                           log={stageLog}
-			                           topicsMap={topicsMap}
-			                           key={stage.stageId || v4()}/>;
-		})}
+		<DetailProcessBody>
+			<SectionTitle>
+				<TitleLabel>
+					<TitleNameLabel>Pipeline Execution:</TitleNameLabel>
+					<TitleExecutionLabel
+						data-ignored={!pipelineExecution}>{`${pipelineExecution}`}</TitleExecutionLabel>
+				</TitleLabel>
+				<TitleLabel>
+					<TitleNameLabel>Spent:</TitleNameLabel>
+					<TitleExecutionLabel>{row.completeTime} ms</TitleExecutionLabel>
+				</TitleLabel>
+			</SectionTitle>
+			{(row.stages || getStages()).map((stageLog, stageIndex) => {
+				const stage: PipelineStage = (pipeline.stages || [])[stageIndex] || {};
+				return <DetailProcessStage stage={stage} stageIndex={stageIndex + 1}
+				                           log={stageLog}
+				                           topicsMap={topicsMap}
+				                           key={stage.stageId || v4()}/>;
+			})}
+		</DetailProcessBody>
 	</DetailProcessContainer>;
 };
