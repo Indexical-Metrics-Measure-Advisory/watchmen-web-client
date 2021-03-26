@@ -11,7 +11,10 @@ export enum CatalogEventTypes {
 
 	TOPIC_MOVED = 'topic-moved',
 	SUBJECT_MOVED = 'subject-moved',
-	REPORT_MOVED = 'report-moved'
+	REPORT_MOVED = 'report-moved',
+
+	SCROLL = 'scroll',
+	RESIZE = 'resize'
 }
 
 export interface CatalogEventBus {
@@ -42,4 +45,12 @@ export interface CatalogEventBus {
 	fire(type: CatalogEventTypes.REPORT_MOVED, report: Report, graphics: AssembledReportGraphics): this;
 	on(type: CatalogEventTypes.REPORT_MOVED, listener: (report: Report, graphics: AssembledReportGraphics) => void): this;
 	off(type: CatalogEventTypes.REPORT_MOVED, listener: (report: Report, graphics: AssembledReportGraphics) => void): this;
+
+	fire(type: CatalogEventTypes.SCROLL): this;
+	on(type: CatalogEventTypes.SCROLL, listener: () => void): this;
+	off(type: CatalogEventTypes.SCROLL, listener: () => void): this;
+
+	fire(type: CatalogEventTypes.RESIZE): this;
+	on(type: CatalogEventTypes.RESIZE, listener: () => void): this;
+	off(type: CatalogEventTypes.RESIZE, listener: () => void): this;
 }

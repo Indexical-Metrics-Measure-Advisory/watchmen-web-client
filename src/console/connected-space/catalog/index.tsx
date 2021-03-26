@@ -33,22 +33,16 @@ import { BlockRelationsAnimation } from './relation/block-relations-animation';
 import { ReportRect } from './report/report-rect';
 import { BlockSelection } from './selection';
 import { SubjectRect } from './subject/subject-rect';
+import { Thumbnail } from './thumbnail';
 import { TopicRect } from './topic/topic-rect';
 import {
-	AssembledConnectedSpaceGraphics,
 	AssembledReportGraphics,
 	AssembledSubjectGraphics,
 	AssembledTopicGraphics,
+	CatalogData,
 	GraphicsRole
 } from './types';
 import { CatalogContainer, CatalogSvg, CatalogSvgContainer, CatalogSvgRelationsAnimationContainer } from './widgets';
-
-interface CatalogData {
-	initialized: boolean;
-	space?: AvailableSpaceInConsole;
-	topics: Array<Topic>;
-	graphics?: AssembledConnectedSpaceGraphics
-}
 
 const CatalogBody = (props: { connectedSpace: ConnectedSpace }) => {
 	const { connectedSpace } = props;
@@ -133,6 +127,22 @@ const CatalogBody = (props: { connectedSpace: ConnectedSpace }) => {
 			off(CatalogEventTypes.REPORT_MOVED, onBlockMoved);
 		};
 	}, [ on, off, svgSize ]);
+	useEffect(() => {
+		if (svgContainerRef.current) {
+			// @ts-ignore
+			const resizeObserver = new ResizeObserver(() => {
+				fire(CatalogEventTypes.RESIZE);
+				if (data.graphics && svgContainerRef.current && svgRef.current) {
+					const { width, height } = computeGraphics({ graphics: data.graphics, svg: svgRef.current });
+					if (width > (svgSize.width || 0) || height > (svgSize.height || 0)) {
+						setSvgSize({ width, height });
+					}
+				}
+			});
+			resizeObserver.observe(svgContainerRef.current);
+			return () => resizeObserver.disconnect();
+		}
+	}, [ fire, data.graphics, svgSize.width, svgSize.height ]);
 
 	if (!data.initialized || !data.graphics) {
 		return null;
@@ -141,6 +151,7 @@ const CatalogBody = (props: { connectedSpace: ConnectedSpace }) => {
 	const clearSelection = () => {
 		fire(CatalogEventTypes.CLEAR_SELECTION);
 	};
+	const onBodyScroll = () => fire(CatalogEventTypes.SCROLL);
 	const onSvgMouseDown = (event: React.MouseEvent) => {
 		const { button, target } = event;
 		if (button === 2 || button === 1) {
@@ -185,7 +196,7 @@ const CatalogBody = (props: { connectedSpace: ConnectedSpace }) => {
 	const reportGraphicsMap: Map<string, AssembledReportGraphics> = asReportGraphicsMap(data.graphics);
 
 	return <CatalogContainer>
-		<CatalogSvgContainer ref={svgContainerRef}>
+		<CatalogSvgContainer ref={svgContainerRef} onScroll={onBodyScroll}>
 			<CatalogSvg onMouseDown={onSvgMouseDown} {...svgSize} ref={svgRef}>
 				<BlockRelations graphics={data.graphics}/>
 				{data.topics.map(topic => {
@@ -209,6 +220,10 @@ const CatalogBody = (props: { connectedSpace: ConnectedSpace }) => {
 			<CatalogSvgRelationsAnimationContainer>
 				<BlockRelationsAnimation graphics={data.graphics}/>
 			</CatalogSvgRelationsAnimationContainer>
+			<Thumbnail connectedSpace={connectedSpace} data={data} svgSize={svgSize}
+			           topicGraphicsMap={topicGraphicsMap}
+			           subjectGraphicsMap={subjectGraphicsMap}
+			           reportGraphicsMap={reportGraphicsMap}/>
 		</CatalogSvgContainer>
 		<Navigator connectedSpace={connectedSpace}/>
 		<GraphicsSave connectedSpace={connectedSpace} graphics={data.graphics}/>
