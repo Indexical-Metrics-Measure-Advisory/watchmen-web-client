@@ -2,6 +2,7 @@ import React, { isValidElement, useEffect, useState } from 'react';
 import { useForceUpdate } from '../basic-widgets/utils';
 import { useEventBus } from '../events/event-bus';
 import { EventTypes } from '../events/types';
+import { fetchLanguageFromSession } from '../services/console/last-snapshot';
 import { En } from './en';
 import { Jp } from './jp';
 import { LanguageObjectType } from './types';
@@ -13,7 +14,13 @@ const LANGUAGES = {
 	[Zh.$$settings.code]: Zh as EnType,
 	[Jp.$$settings.code]: Jp as unknown as EnType
 };
-let currentLanguage = En;
+
+const findLanguage = (lang: string) => {
+	const [ language, country, variant ] = lang.split(/[-_.]/).map(x => (x || '').toLowerCase());
+	return LANGUAGES[`${language}_${country}_${variant}`] || LANGUAGES[`${language}_${country}`] || LANGUAGES[language] || En;
+};
+
+let currentLanguage = findLanguage(fetchLanguageFromSession() || En.$$settings.code);
 
 export const Languages = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
 	const { children } = props;
@@ -21,8 +28,7 @@ export const Languages = (props: { children?: ((props: any) => React.ReactNode) 
 	const { on, off, fire } = useEventBus();
 	useEffect(() => {
 		const onLangChange = (lang: string) => {
-			const [ language, country, variant ] = lang.split(/[-_.]/).map(x => (x || '').toLowerCase());
-			currentLanguage = LANGUAGES[`${language}_${country}_${variant}`] || LANGUAGES[`${language}_${country}`] || LANGUAGES[language] || En;
+			const currentLanguage = findLanguage(lang);
 			fire(EventTypes.LANGUAGE_CHANGED, currentLanguage);
 		};
 		on(EventTypes.CHANGE_LANGUAGE, onLangChange);
