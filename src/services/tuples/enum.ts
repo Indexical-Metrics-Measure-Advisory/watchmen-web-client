@@ -26,7 +26,11 @@ export const fetchEnum = async (enumId: string): Promise<{ enumeration: Enum; pa
 		const parents = await listEnumsForHolder();
 		return { enumeration, parents };
 	} else {
-		return await get({ api: Apis.ENUM_GET, search: { enumId } });
+		const [ enumeration, parents ] = await Promise.all([
+			get({ api: Apis.ENUM_GET, search: { enumId } }),
+			listEnumsForHolder()
+		]);
+		return { enumeration, parents };
 	}
 };
 
