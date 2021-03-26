@@ -20,6 +20,7 @@ const fetchLastSnapshotFromSession = (): LastSnapshot | undefined => {
 		}
 	}
 };
+// eslint-disable-next-line
 export const fetchLanguageFromSession = (): string | null => {
 	const value = localStorage.getItem(LAST_SNAPSHOT_TOKEN);
 	if (value) {

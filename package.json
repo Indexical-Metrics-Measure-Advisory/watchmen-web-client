@@ -23,6 +23,7 @@
     "csv-parse": "^4.15.0",
     "dayjs": "^1.10.3",
     "echarts": "^5.0.1",
+    "jsondiffpatch": "^0.4.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",

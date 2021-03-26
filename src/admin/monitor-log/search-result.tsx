@@ -11,12 +11,9 @@ import { Topic } from '../../services/tuples/topic-types';
 import { MAX_MONITOR_LOGS_DATASET_SIZE } from './constants';
 import { useMonitorLogEventBus } from './monitor-log-event-bus';
 import { MonitorLogEventTypes } from './monitor-log-event-bus-types';
+import { SearchResultRow } from './result-row';
 import {
 	SearchResultBody,
-	SearchResultBodyCell,
-	SearchResultBodyRow,
-	SearchResultBodySeqCell,
-	SearchResultBodyStatusCell,
 	SearchResultContainer,
 	SearchResultHeader,
 	SearchResultHeaderButton,
@@ -95,11 +92,11 @@ export const SearchResult = (props: {
 			(data) => download(data));
 	};
 
-	const pipelineMap = pipelines.reduce((map, pipeline) => {
+	const pipelinesMap = pipelines.reduce((map, pipeline) => {
 		map.set(pipeline.pipelineId, pipeline);
 		return map;
 	}, new Map<string, Pipeline>());
-	const topicMap = topics.reduce((map, topic) => {
+	const topicsMap = topics.reduce((map, topic) => {
 		map.set(topic.topicId, topic);
 		return map;
 	}, new Map<string, Topic>());
@@ -139,16 +136,10 @@ export const SearchResult = (props: {
 		</SearchResultHeader>
 		<SearchResultBody>
 			{logs.data.map((row, index) => {
-				return <SearchResultBodyRow key={row.uid}>
-					<SearchResultBodySeqCell>{index + 1 + logs.pageSize * (logs.pageNumber - 1)}</SearchResultBodySeqCell>
-					<SearchResultBodyCell><span>{row.uid}</span></SearchResultBodyCell>
-					<SearchResultBodyCell><span>{pipelineMap.get(row.pipelineId)?.name || row.pipelineId}</span></SearchResultBodyCell>
-					<SearchResultBodyCell><span>{topicMap.get(row.topicId)?.name || row.topicId}</span></SearchResultBodyCell>
-					<SearchResultBodyStatusCell>{row.status}</SearchResultBodyStatusCell>
-					<SearchResultBodyCell>{row.startTime}</SearchResultBodyCell>
-				</SearchResultBodyRow>;
-			})
-			}
+				return <SearchResultRow row={row} index={index + 1 + logs.pageSize * (logs.pageNumber - 1)}
+				                        pipelinesMap={pipelinesMap} topicsMap={topicsMap}
+				                        key={row.uid}/>;
+			})}
 		</SearchResultBody>
 	</SearchResultContainer>;
 };
