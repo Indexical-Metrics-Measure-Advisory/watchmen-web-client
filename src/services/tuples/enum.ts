@@ -1,17 +1,17 @@
-import { Apis, get, page, post } from '../apis';
-import { fetchMockEnum, listMockEnums, listMockEnumsForHolder, saveMockEnum } from '../mock/tuples/mock-enum';
-import { DataPage } from '../query/data-page';
-import { isMockService } from '../utils';
-import { Enum } from './enum-types';
-import { QueryEnum, QueryEnumForHolder } from './query-enum-types';
-import { isFakedUuid } from './utils';
+import { Apis, get, page, post } from "../apis";
+import { fetchMockEnum, listMockEnums, listMockEnumsForHolder, saveMockEnum } from "../mock/tuples/mock-enum";
+import { DataPage } from "../query/data-page";
+import { isMockService } from "../utils";
+import { Enum } from "./enum-types";
+import { QueryEnum, QueryEnumForHolder } from "./query-enum-types";
+import { isFakedUuid } from "./utils";
 
 export const listEnums = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
 }): Promise<DataPage<QueryEnum>> => {
-	const { search = '', pageNumber = 1, pageSize = 9 } = options;
+	const { search = "", pageNumber = 1, pageSize = 9 } = options;
 
 	if (isMockService()) {
 		return listMockEnums(options);
@@ -49,16 +49,7 @@ export const listEnumsForHolder = async (): Promise<Array<QueryEnumForHolder>> =
 	if (isMockService()) {
 		return listMockEnumsForHolder();
 	} else {
-		return listMockEnumsForHolder();
-		// REMOTE use real api
-		// const token = findToken();
-		// const response = await doFetch(`${getServiceHost()}enum/parent?enum_parent_id=${enumId}`, {
-		// 	method: "GET",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 		Authorization: "Bearer " + token,
-		// 	},
-		// });
-		// return await response.json();
+		// return listMockEnumsForHolder();
+		return await get({ api: Apis.ENUM_LOAD_ALL });
 	}
 };
