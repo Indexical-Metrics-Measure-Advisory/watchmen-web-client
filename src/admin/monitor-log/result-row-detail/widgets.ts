@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import { Button } from '../../../basic-widgets/button';
+import { DwarfButton } from '../../../basic-widgets/button';
+import { TooltipButton } from '../../../basic-widgets/tooltip-button';
 
 export const RowDetailContainer = styled.div.attrs({ 'data-widget': 'monitor-log-detail' })`
 	display               : grid;
-	grid-template-columns : 800px 1fr;
+	grid-template-columns : 50% 50%;
 	position              : relative;
 	grid-column           : 1 / span 7;
 	height                : 400px;
@@ -17,25 +18,52 @@ export const TriggerDataContainer = styled.div.attrs({ 'data-widget': 'monitor-l
 	align-content         : start;
 	border-right          : var(--border);
 `;
-export const TriggerType = styled.div.attrs({ 'data-widget': 'monitor-log-detail-trigger-type' })`
+export const Title = styled.div.attrs({ 'data-widget': 'monitor-log-detail-title' })`
 	display       : flex;
+	position      : relative;
 	align-items   : center;
 	padding       : 0 calc(var(--margin) / 2);
 	font-variant  : petite-caps;
 	font-weight   : var(--font-demi-bold);
 	height        : var(--height);
 	border-bottom : var(--border);
+	&:after {
+		content          : '';
+		display          : block;
+		position         : absolute;
+		top              : 0;
+		left             : 0;
+		width            : 100%;
+		height           : 100%;
+		background-color : var(--primary-color);
+		opacity          : 0.1;
+		pointer-events   : none;
+	}
 	> span {
 		text-transform : capitalize;
 		margin-left    : 3px;
+		flex-grow      : 1;
 	}
 `;
 export const ShowUnchanged = styled.div.attrs({ 'data-widget': 'monitor-log-detail-unchanged' })`
 	display       : flex;
+	position      : relative;
 	align-items   : center;
 	padding       : 0 calc(var(--margin) / 2);
 	height        : var(--height);
 	border-bottom : var(--border);
+	&:after {
+		content          : '';
+		display          : block;
+		position         : absolute;
+		top              : 0;
+		left             : 0;
+		width            : 100%;
+		height           : 100%;
+		background-color : var(--primary-color);
+		opacity          : 0.1;
+		pointer-events   : none;
+	}
 	> span {
 		margin-left  : calc(var(--margin) / 4);
 		font-variant : petite-caps;
@@ -54,7 +82,7 @@ export const Diff = styled.div.attrs({
 	align-self   : stretch;
 	padding      : calc(var(--margin) / 2);
 	max-height   : calc(400px - var(--height));
-	overflow-y   : scroll;
+	overflow     : auto;
 	.jsondiffpatch-property-name {
 		color       : var(--primary-color);
 		font-weight : var(--font-bold);
@@ -64,9 +92,46 @@ export const Diff = styled.div.attrs({
 		}
 	}
 `;
-export const CloseButton = styled(Button)`
-	display  : block;
-	position : absolute;
-	top      : 4px;
-	right    : 4px;
+export const DetailProcessContainer = styled.div.attrs({
+	'data-widget': 'monitor-log-detail-process',
+	'data-h-scroll': '',
+	'data-v-scroll': ''
+})`
+	display        : flex;
+	flex-direction : column;
+	align-self     : stretch;
+	justify-self   : stretch;
+	overflow       : auto;
+`;
+export const CloseButton = styled(DwarfButton)`
+	display : block;
+`;
+export const SectionTitle = styled.div.attrs({ 'data-widget': 'monitor-log-detail-process-title' })`
+	display               : grid;
+	grid-template-columns : 50% 50%;
+	height                : var(--height);
+	align-items           : center;
+	font-variant          : petite-caps;
+	padding               : 0 calc(var(--margin) / 2);
+	border-bottom         : var(--border);
+`;
+export const TitleLabel = styled.span`
+`;
+export const TitleNameLabel = styled.span`
+	font-weight  : var(--font-demi-bold);
+	margin-right : calc(var(--margin) / 2);
+`;
+export const TitleExecutionLabel = styled.span`
+	color       : var(--primary-color);
+	font-weight : var(--font-bold);
+	&[data-ignored=true] {
+		color : var(--danger-color);
+	}
+`;
+export const ExpandToggleButton = styled(TooltipButton)`
+	display      : block;
+	justify-self : flex-end;
+	padding      : 0;
+	width        : var(--button-height-in-form);
+	height       : var(--button-height-in-form);
 `;

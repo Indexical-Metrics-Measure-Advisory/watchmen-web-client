@@ -1,11 +1,9 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ICON_CLOSE } from '../../../basic-widgets/constants';
-import { ButtonInk } from '../../../basic-widgets/types';
 import { MonitorLogRow } from '../../../services/admin/logs';
 import { Pipeline } from '../../../services/tuples/pipeline-types';
 import { Topic } from '../../../services/tuples/topic-types';
+import { DetailProcess } from './detail-process';
 import { TriggerData } from './trigger-data';
-import { CloseButton, RowDetailContainer } from './widgets';
+import { RowDetailContainer } from './widgets';
 
 export const ResultRowDetail = (props: {
 	row: MonitorLogRow;
@@ -13,13 +11,10 @@ export const ResultRowDetail = (props: {
 	topicsMap: Map<string, Topic>;
 	onClose: () => void;
 }) => {
-	const { row, pipeline, onClose } = props;
+	const { row, pipeline, topicsMap, onClose } = props;
 
 	return <RowDetailContainer>
 		<TriggerData row={row} pipeline={pipeline}/>
-		<CloseButton ink={ButtonInk.PRIMARY} onClick={onClose}>
-			<FontAwesomeIcon icon={ICON_CLOSE}/>
-			<span>Close</span>
-		</CloseButton>
+		<DetailProcess row={row} pipeline={pipeline} topicsMap={topicsMap} onClose={onClose}/>
 	</RowDetailContainer>;
 };

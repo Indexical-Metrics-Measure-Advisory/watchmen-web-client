@@ -1,4 +1,10 @@
 import { fetchMockMonitorLogs } from '../mock/admin/mock-logs';
+import {
+	PipelineStageUnitActionType,
+	ReadTopicActionType,
+	SystemActionType,
+	WriteTopicActionType
+} from '../tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import { isMockService } from '../utils';
 
 export interface MonitorLogCriteria {
@@ -13,6 +19,51 @@ export enum MonitorLogStatus {
 	ERROR = 'error'
 }
 
+export interface MonitorLogAction {
+	uid: string;
+	type: PipelineStageUnitActionType;
+	status: MonitorLogStatus;
+	completeTime: string;
+	error?: string;
+	insertCount: number;
+	updateCount: number;
+}
+
+export type FindBy = any;
+
+export interface ReadAction {
+	type: ReadTopicActionType;
+	value?: any;
+	by: FindBy;
+}
+
+export interface WriteAction {
+	type: WriteTopicActionType;
+	value?: any;
+	by?: FindBy;
+}
+
+export interface AlarmAction {
+	type: SystemActionType.ALARM;
+	conditionResult: boolean;
+	value?: any
+}
+
+export interface CopyToMemoryAction {
+	type: SystemActionType.COPY_TO_MEMORY;
+	value?: any;
+}
+
+export interface MonitorLogUnit {
+	conditionResult: boolean;
+	actions: Array<MonitorLogAction>;
+}
+
+export interface MonitorLogStage {
+	conditionResult: boolean;
+	units: Array<MonitorLogUnit>;
+}
+
 export interface MonitorLogRow {
 	uid: string;
 	pipelineId: string;
@@ -22,6 +73,8 @@ export interface MonitorLogRow {
 	completeTime: string;
 	oldValue: any;
 	newValue: any;
+	conditionResult: boolean;
+	stages: Array<MonitorLogStage>
 }
 
 export type MonitorLogs = Array<MonitorLogRow>

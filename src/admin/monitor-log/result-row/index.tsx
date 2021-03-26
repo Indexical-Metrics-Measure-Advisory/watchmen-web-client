@@ -35,7 +35,7 @@ export const SearchResultRow = (props: {
 		<SearchResultBodyCell><span>{pipeline?.name || row.pipelineId}</span></SearchResultBodyCell>
 		<SearchResultBodyCell><span>{topicsMap.get(row.topicId)?.name || row.topicId}</span></SearchResultBodyCell>
 		<SearchResultBodyStatusCell>{row.status}</SearchResultBodyStatusCell>
-		<SearchResultBodyCell>{row.startTime}</SearchResultBodyCell>
+		<SearchResultBodyCell>{(row.startTime || '').replace('T', ' ')}</SearchResultBodyCell>
 		{(showDetail && pipeline)
 			? <ResultRowDetail row={row}
 			                   pipeline={pipeline} topicsMap={topicsMap}

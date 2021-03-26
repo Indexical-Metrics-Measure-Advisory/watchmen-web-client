@@ -1,0 +1,80 @@
+{
+  "condition_result": null,
+  "last_modified": "2021-03-26T08:27:22.588445",
+  "createTime": null,
+  "status": "DONE",
+  "pipelineId": "5608275072217293868",
+  "uid": "5620740224018440980",
+  "start_time": "2021-03-26T16:27:28.854085",
+  "complete_time": 0.0039560794830322266,
+  "stages": [
+    {
+      "condition_result": null,
+      "name": "Noname Stage",
+      "units": [
+        {
+          "condition_result": null,
+          "actions": [
+            {
+              "type": "write-factor",
+              "complete_time": 0.001977205276489258,
+              "status": null,
+              "error": null,
+              "uid": "5620740224018440981",
+              "insertCount": 0,
+              "updateCount": 0,
+              "value": null,
+              "writeFunction": null
+            },
+            {
+              "type": "write-factor",
+              "complete_time": 0.001725912094116211,
+              "status": null,
+              "error": null,
+              "uid": "5620740224018440982",
+              "insertCount": 0,
+              "updateCount": 0,
+              "value": null,
+              "writeFunction": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "error": null,
+  "oldValue": {
+    "_id": "605d9938650465711e6bbe25",
+    "pk_id": 5,
+    "number_factor": 200.0,
+    "date_factor": "2011-12-14",
+    "address_factor": "shanghai",
+    "date_factor_year": 2011,
+    "date_factor_month": 12,
+    "date_factor_workday": 31,
+    "text_factor": "text3",
+    "number_factor_add_constants": 250.0,
+    "two_number_factor": 400.0,
+    "insert_time": "2021-03-26T08:20:08.974000",
+    "insert_row": "5620736534016489665",
+    "update_row": "5620737580033525276",
+    "update_time": "2021-03-26T08:22:13.669000"
+  },
+  "newValue": {
+    "data_id": 5,
+    "number_factor": 200,
+    "date_factor": "2011-12-14",
+    "address_factor": "shanghai",
+    "text_factor": "text3",
+    "array_factor": [
+      {
+        "pk_id": 2
+      },
+      {
+        "pk_id": 3
+      }
+    ],
+    "insert_time": "2021-03-26T08:20:08.971730",
+    "_id": "605d9938650465711e6bbe25"
+  }
+}

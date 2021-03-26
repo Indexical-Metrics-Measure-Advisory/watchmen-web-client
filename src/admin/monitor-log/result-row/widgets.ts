@@ -5,7 +5,7 @@ export const SearchResultBodyRow = styled.div.attrs<{ detail: boolean }>(({ deta
 		'data-widget': 'monitor-logs-result-body-row',
 		style: {
 			height: detail ? 'unset' : (void 0),
-			cursor: detail ? 'default' : (void 0)
+			cursor: detail ? 'default' : (void 0),
 		}
 	};
 })<{ detail: boolean }>`
