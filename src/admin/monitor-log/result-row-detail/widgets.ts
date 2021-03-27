@@ -12,7 +12,7 @@ export const RowDetailContainer = styled.div.attrs({ 'data-widget': 'monitor-log
 `;
 export const TriggerDataContainer = styled.div.attrs({ 'data-widget': 'monitor-log-detail-trigger-data' })`
 	display               : grid;
-	grid-template-columns : 1fr auto;
+	grid-template-columns : 1fr auto auto;
 	align-self            : stretch;
 	justify-self          : stretch;
 	align-content         : start;
@@ -74,14 +74,19 @@ export const ShowUnchanged = styled.div.attrs({ 'data-widget': 'monitor-log-deta
 		font-weight  : var(--font-demi-bold);
 	}
 `;
-export const Diff = styled.div.attrs({
-	'data-widget': 'monitor-log-detail-data-diff',
-	'data-h-scroll': '',
-	'data-v-scroll': ''
-})`
+export const Diff = styled.div.attrs<{ fullScreen: boolean }>(({ fullScreen }) => {
+	return {
+		'data-widget': 'monitor-log-detail-data-diff',
+		'data-h-scroll': '',
+		'data-v-scroll': '',
+		style: {
+			maxHeight: fullScreen ? 'calc(100vh - var(--height))' : (void 0)
+		}
+	};
+})<{ fullScreen: boolean }>`
 	display      : block;
 	position     : relative;
-	grid-column  : 1 / span 2;
+	grid-column  : 1 / span 3;
 	justify-self : stretch;
 	align-self   : stretch;
 	padding      : calc(var(--margin) / 2);
@@ -105,13 +110,19 @@ export const DetailProcessContainer = styled.div.attrs({ 'data-widget': 'monitor
 	justify-content       : start;
 `;
 export const CloseButton = styled(DwarfButton)`
-	display : block;
+	display     : block;
+	margin-left : calc(var(--margin) / 4);
 `;
-export const DetailProcessBody = styled.div.attrs({
-	'data-widget': 'monitor-log-detail-process-body',
-	'data-v-scroll': '',
-	'data-h-scroll': ''
-})`
+export const DetailProcessBody = styled.div.attrs<{ fullScreen: boolean }>(({ fullScreen }) => {
+	return {
+		'data-widget': 'monitor-log-detail-process-body',
+		'data-v-scroll': '',
+		'data-h-scroll': '',
+		style: {
+			maxHeight: fullScreen ? 'calc(100vh - var(--height))' : (void 0)
+		}
+	};
+})<{ fullScreen: boolean }>`
 	grid-column : 1 / span 2;
 	max-height  : calc(400px - var(--height));
 	overflow    : auto;

@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { v4 } from 'uuid';
+import { DwarfButton } from '../../../basic-widgets/button';
 import { ICON_CLOSE } from '../../../basic-widgets/constants';
 import { ButtonInk } from '../../../basic-widgets/types';
 import { MonitorLogRow } from '../../../services/admin/logs';
@@ -31,18 +32,41 @@ export const DetailProcess = (props: {
 }) => {
 	const { row, pipeline, topicsMap, onClose } = props;
 
+	const containerRef = useRef<HTMLDivElement>(null);
+	const [ fullScreen, setFullScreen ] = useState(false);
+	useEffect(() => {
+		window.document.addEventListener('fullscreenchange', () => {
+			if (!window.document.fullscreenElement) {
+				setFullScreen(false);
+			}
+		});
+	}, [ setFullScreen ]);
+
+	const onFullScreenClicked = () => {
+		if (fullScreen) {
+			window.document.exitFullscreen();
+		} else {
+			containerRef.current?.requestFullscreen();
+			setFullScreen(true);
+		}
+	};
+
 	const pipelineExecution = row.conditionResult || true;
-	return <DetailProcessContainer>
+
+	return <DetailProcessContainer ref={containerRef}>
 		<Title>
 			<span>Process Logs</span>
 		</Title>
 		<Title>
+			<DwarfButton ink={ButtonInk.PRIMARY} onClick={onFullScreenClicked}>
+				<span>{fullScreen ? 'Quit Full Screen' : 'Full Screen'}</span>
+			</DwarfButton>
 			<CloseButton ink={ButtonInk.PRIMARY} onClick={onClose}>
 				<FontAwesomeIcon icon={ICON_CLOSE}/>
 				<span>Close</span>
 			</CloseButton>
 		</Title>
-		<DetailProcessBody>
+		<DetailProcessBody fullScreen={fullScreen}>
 			<SectionTitle>
 				<TitleLabel>
 					<TitleNameLabel>Pipeline Execution:</TitleNameLabel>
