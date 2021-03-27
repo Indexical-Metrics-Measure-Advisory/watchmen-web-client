@@ -6,6 +6,9 @@ import { MonitorLogAction, MonitorLogStatus } from '../../../../services/admin/l
 import { PipelineStageUnitAction } from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import { Topic } from '../../../../services/tuples/topic-types';
 import { ExpandToggleButton, TitleExecutionLabel, TitleLabel, TitleNameLabel } from '../widgets';
+import { AlarmLog } from './alarm-log';
+import { CopyToMemoryLog } from './copy-to-memory-log';
+import { ReadActionLog } from './read-action-log';
 import {
 	ActionError,
 	ActionSectionTitle,
@@ -15,6 +18,7 @@ import {
 	DetailProcessActionBody,
 	DetailProcessActionContainer
 } from './widgets';
+import { WriteActionLog } from './write-action-log';
 
 export const DetailProcessAction = (props: {
 	action: PipelineStageUnitAction;
@@ -24,7 +28,7 @@ export const DetailProcessAction = (props: {
 	log: MonitorLogAction;
 	topicsMap: Map<string, Topic>;
 }) => {
-	const { action, stageIndex, unitIndex, actionIndex, log } = props;
+	const { action, stageIndex, unitIndex, actionIndex, log, topicsMap } = props;
 
 	const [ expanded, setExpanded ] = useState(true);
 
@@ -46,17 +50,27 @@ export const DetailProcessAction = (props: {
 				<FontAwesomeIcon icon={expanded ? ICON_COLLAPSE_PANEL : ICON_EXPAND_PANEL}/>
 			</ExpandToggleButton>
 		</ActionSectionTitle>
-		<DetailProcessActionBody>
-			<BodyLabel>Type:</BodyLabel>
-			<ActionType>{action.type}</ActionType>
-			<BodyLabel>Status:</BodyLabel>
-			<ActionStatus>{log.status || 'done'}</ActionStatus>
-			{log.status === MonitorLogStatus.ERROR
-				? <>
-					<BodyLabel>Error:</BodyLabel>
-					<ActionError value={log.error} readOnly={true}/>
-				</>
-				: null}
-		</DetailProcessActionBody>
+		{expanded
+			? <DetailProcessActionBody>
+				<BodyLabel>Type:</BodyLabel>
+				<ActionType>{action.type || log.type}</ActionType>
+				<BodyLabel>Status:</BodyLabel>
+				<ActionStatus>{log.status || 'done'}</ActionStatus>
+				{log.status === MonitorLogStatus.ERROR
+					? <>
+						<BodyLabel>Error:</BodyLabel>
+						<ActionError value={log.error} readOnly={true}/>
+					</>
+					: null}
+				{log.status !== MonitorLogStatus.ERROR
+					? <>
+						<AlarmLog log={log}/>
+						<CopyToMemoryLog action={action} log={log}/>
+						<ReadActionLog action={action} log={log}/>
+						<WriteActionLog action={action} log={log} topicsMap={topicsMap}/>
+					</>
+					: null}
+			</DetailProcessActionBody>
+			: null}
 	</DetailProcessActionContainer>;
 };

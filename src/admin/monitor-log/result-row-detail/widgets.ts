@@ -26,6 +26,7 @@ export const Title = styled.div.attrs({ 'data-widget': 'monitor-log-detail-title
 	font-variant  : petite-caps;
 	font-weight   : var(--font-demi-bold);
 	min-height    : var(--height);
+	max-height    : var(--height);
 	border-bottom : var(--border);
 	&:after {
 		content          : '';
@@ -100,6 +101,8 @@ export const DetailProcessContainer = styled.div.attrs({ 'data-widget': 'monitor
 	grid-template-columns : 1fr auto;
 	align-self            : stretch;
 	justify-self          : stretch;
+	align-content         : start;
+	justify-content       : start;
 `;
 export const CloseButton = styled(DwarfButton)`
 	display : block;

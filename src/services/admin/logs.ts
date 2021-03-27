@@ -31,25 +31,25 @@ export interface MonitorLogAction {
 
 export type FindBy = any;
 
-export interface ReadAction {
+export interface ReadAction extends MonitorLogAction {
 	type: ReadTopicActionType;
 	value?: any;
 	by: FindBy;
 }
 
-export interface WriteAction {
+export interface WriteAction extends MonitorLogAction {
 	type: WriteTopicActionType;
 	value?: any;
 	by?: FindBy;
 }
 
-export interface AlarmAction {
+export interface AlarmAction extends MonitorLogAction {
 	type: SystemActionType.ALARM;
 	conditionResult: boolean;
 	value?: any
 }
 
-export interface CopyToMemoryAction {
+export interface CopyToMemoryAction extends MonitorLogAction {
 	type: SystemActionType.COPY_TO_MEMORY;
 	value?: any;
 }
@@ -98,4 +98,22 @@ export const fetchMonitorLogs = async (options: {
 		// REMOTE use real api
 		return await fetchMockMonitorLogs(options);
 	}
+};
+
+export const isAlarmLog = (log: MonitorLogAction): log is AlarmAction => {
+	return log.type === SystemActionType.ALARM;
+};
+export const isCopyToMemoryLog = (log: MonitorLogAction): log is CopyToMemoryAction => {
+	return log.type === SystemActionType.COPY_TO_MEMORY;
+};
+export const isReadLog = (log: MonitorLogAction): log is ReadAction => {
+	return ReadTopicActionType.EXISTS === log.type
+		|| ReadTopicActionType.READ_ROW === log.type
+		|| ReadTopicActionType.READ_FACTOR === log.type;
+};
+export const isWriteLog = (log: MonitorLogAction): log is WriteAction => {
+	return WriteTopicActionType.WRITE_FACTOR === log.type
+		|| WriteTopicActionType.INSERT_ROW === log.type
+		|| WriteTopicActionType.MERGE_ROW === log.type
+		|| WriteTopicActionType.INSERT_OR_MERGE_ROW === log.type;
 };
