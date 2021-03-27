@@ -19,7 +19,7 @@ export const DetailProcessStage = (props: {
 }) => {
 	const { stage, stageIndex, log, topicsMap } = props;
 
-	const [ expanded, setExpanded ] = useState(true);
+	const [ expanded, setExpanded ] = useState(false);
 
 	const onExpandToggleClicked = () => setExpanded(!expanded);
 
