@@ -8,6 +8,7 @@ import { SubjectEventTypes } from '../subject-event-bus-types';
 import { ReportEditor } from './editor';
 import { NoReport } from './no-report';
 import { PagePrintSize } from './page-print-size';
+import { ReportRefresher } from './refresher';
 import { SubjectReport } from './report';
 import { ReportMoveOrResizeMonitor } from './report-move-or-resize-monitor';
 import { ReportRemover } from './report-remover';
@@ -45,6 +46,7 @@ export const SubjectReports = (props: {
 				})
 				: <NoReport/>}
 			<PagePrintSize subject={subject}/>
+			<ReportRefresher subject={subject}/>
 		</SubjectReportContainer>
 		{transient ? null : <ReportEditor connectedSpace={connectedSpace} subject={subject}/>}
 		{transient ? null : <ReportMoveOrResizeMonitor/>}

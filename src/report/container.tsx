@@ -67,11 +67,21 @@ export const Container = (props: {
 			}
 			setDiagramState({ loaded: DiagramLoadState.RELOAD });
 		};
+		const onDoRefresh = (refreshReport: Report) => {
+			// eslint-disable-next-line
+			if (refreshReport.reportId != report.reportId) {
+				return;
+			}
+			// force reload data
+			setDiagramState({ loaded: DiagramLoadState.FALSE });
+		}
 		on(ReportEventTypes.EDIT_COMPLETED, onEditCompleted);
 		on(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onDoReloadDataOnEditing);
+		on(ReportEventTypes.DO_REFRESH, onDoRefresh)
 		return () => {
 			off(ReportEventTypes.EDIT_COMPLETED, onEditCompleted);
 			off(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onDoReloadDataOnEditing);
+			off(ReportEventTypes.DO_REFRESH, onDoRefresh)
 		};
 	}, [
 		on, off, forceUpdate,

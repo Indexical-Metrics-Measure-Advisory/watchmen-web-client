@@ -11,7 +11,9 @@ export enum ReportEventTypes {
 	DO_DELETE_PARAGRAPH = 'do-delete-paragraph',
 
 	REPORT_MOVE_OR_RESIZE_COMPLETED = 'report-move-or-resize-completed',
-	PARAGRAPH_MOVE_OR_RESIZE_COMPLETED = 'paragraph-move-or-resize-completed'
+	PARAGRAPH_MOVE_OR_RESIZE_COMPLETED = 'paragraph-move-or-resize-completed',
+
+	DO_REFRESH = 'do-refresh'
 }
 
 export interface ReportEventBus {
@@ -42,4 +44,8 @@ export interface ReportEventBus {
 	fire(type: ReportEventTypes.PARAGRAPH_MOVE_OR_RESIZE_COMPLETED, paragraph: Paragraph): this;
 	on(type: ReportEventTypes.PARAGRAPH_MOVE_OR_RESIZE_COMPLETED, listener: (paragraph: Paragraph) => void): this;
 	off(type: ReportEventTypes.PARAGRAPH_MOVE_OR_RESIZE_COMPLETED, listener: (paragraph: Paragraph) => void): this;
+
+	fire(type: ReportEventTypes.DO_REFRESH, report: Report): this;
+	on(type: ReportEventTypes.DO_REFRESH, listener: (report: Report) => void): this;
+	off(type: ReportEventTypes.DO_REFRESH, listener: (report: Report) => void): this;
 }
