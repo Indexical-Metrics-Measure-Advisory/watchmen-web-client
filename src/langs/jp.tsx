@@ -125,6 +125,8 @@ export const Jp = {
 			SUBJECT_REPORT: 'レポート',
 			SHARE: '共有',
 			PRINT: 'プリント',
+			REFRESH: '更新',
+			AUTO_REFRESH: '自動更新(5分間隔)',
 			SHOW_PRINT_PAGE: 'ページサイズを表示する',
 			HIDE_PRINT_PAGE: 'ページサイズを非表示する',
 			DOWNLOAD_PAGE: 'このページをダウンロードする',

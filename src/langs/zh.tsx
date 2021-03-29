@@ -125,6 +125,8 @@ export const Zh = {
 			SUBJECT_REPORT: '图表',
 			SHARE: '分享',
 			PRINT: '打印',
+			REFRESH: '刷新',
+			AUTO_REFRESH: '自动刷新(5分钟)',
 			SHOW_PRINT_PAGE: '显示纸张尺寸',
 			HIDE_PRINT_PAGE: '隐藏纸张尺寸',
 			DOWNLOAD_PAGE: '下载本页数据',

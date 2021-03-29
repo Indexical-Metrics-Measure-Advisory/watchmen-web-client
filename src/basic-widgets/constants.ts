@@ -14,6 +14,7 @@ import {
 	faChartPie,
 	faCheck,
 	faCheckSquare,
+	faClock,
 	faCloudDownloadAlt,
 	faCode,
 	faCog,
@@ -26,7 +27,6 @@ import {
 	faEdit,
 	faExpand,
 	faExpandArrowsAlt,
-	faFilter,
 	faGlobe,
 	faGripVertical,
 	faHome,
@@ -52,6 +52,7 @@ import {
 	faStar,
 	faStickyNote,
 	faStream,
+	faSyncAlt,
 	faTable,
 	faTachometerAlt,
 	faTags,
@@ -188,8 +189,9 @@ export const ICON_APPEND = faLevelDownAlt;
 export const ICON_DRAG_HANDLE = faGripVertical;
 export const ICON_CHECK = faCheck;
 export const ICON_UNCHECK = faTimes;
-export const ICON_FILTER = faFilter;
 export const ICON_BACK = faShare;
+export const ICON_REFRESH = faSyncAlt;
+export const ICON_AUTO_REFRESH = faClock;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

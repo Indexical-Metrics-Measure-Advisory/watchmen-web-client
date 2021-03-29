@@ -44,6 +44,7 @@ export interface SubjectDataSet {
 export interface Subject extends Tuple {
 	subjectId: string;
 	name: string;
+	autoRefreshInterval?: number;
 	reports?: Array<Report>;
 	dataset: SubjectDataSet;
 	lastVisitTime: string;

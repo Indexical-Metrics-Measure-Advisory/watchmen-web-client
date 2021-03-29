@@ -125,6 +125,8 @@ export const En = {
 			SUBJECT_REPORT: 'Report',
 			SHARE: 'Share',
 			PRINT: 'Print',
+			REFRESH: 'Refresh',
+			AUTO_REFRESH: 'Auto Refresh (5 Minutes)',
 			SHOW_PRINT_PAGE: 'Show Page Size',
 			HIDE_PRINT_PAGE: 'Hide Page Size',
 			DOWNLOAD_PAGE: 'Download This Page',

@@ -9,7 +9,8 @@ export enum SubjectEventTypes {
 	REPORT_ADDED = 'report-added',
 	REPORT_REMOVED = 'report-removed',
 
-	TOGGLE_PRINT_PAGE_SIZE = 'toggle-print-page-size'
+	TOGGLE_PRINT_PAGE_SIZE = 'toggle-print-page-size',
+	REFRESH_REPORTS = 'refresh-reports'
 }
 
 export interface SubjectEventBus {
@@ -32,4 +33,8 @@ export interface SubjectEventBus {
 	fire(type: SubjectEventTypes.TOGGLE_PRINT_PAGE_SIZE, visible: boolean): this;
 	on(type: SubjectEventTypes.TOGGLE_PRINT_PAGE_SIZE, listener: (visible: boolean) => void): this;
 	off(type: SubjectEventTypes.TOGGLE_PRINT_PAGE_SIZE, listener: (visible: boolean) => void): this;
+
+	fire(type: SubjectEventTypes.REFRESH_REPORTS, subject: Subject): this;
+	on(type: SubjectEventTypes.REFRESH_REPORTS, listener: (subject: Subject) => void): this;
+	off(type: SubjectEventTypes.REFRESH_REPORTS, listener: (subject: Subject) => void): this;
 }

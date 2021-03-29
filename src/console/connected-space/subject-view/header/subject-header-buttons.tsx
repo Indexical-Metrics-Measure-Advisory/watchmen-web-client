@@ -4,7 +4,9 @@ import { ConnectedSpace } from '../../../../services/tuples/connected-space-type
 import { Subject } from '../../../../services/tuples/subject-types';
 import { HeaderCatalogButton } from '../../header/header-catalog-button';
 import { HeaderAddReportButton } from './header-add-report-button';
+import { HeaderAutoRefreshButton } from './header-auto-refresh-button';
 import { HeaderDeleteSubjectButton } from './header-delete-subject-buttton';
+import { HeaderManualRefreshButton } from './header-manual-refresh-button';
 import { HeaderPrintButton } from './header-print-button';
 import { HeaderShareButton } from './header-share-button';
 import { HeaderShowPageButton } from './header-show-page-button';
@@ -30,6 +32,9 @@ export const SubjectHeaderButtons = (props: { connectedSpace: ConnectedSpace, su
 				<HeaderShareButton connectedSpace={connectedSpace} subject={subject}/>
 				<HeaderShowPageButton connectedSpace={connectedSpace} subject={subject}/>
 				<HeaderPrintButton connectedSpace={connectedSpace} subject={subject}/>
+				<PageHeaderButtonSeparator/>
+				<HeaderManualRefreshButton connectedSpace={connectedSpace} subject={subject}/>
+				<HeaderAutoRefreshButton connectedSpace={connectedSpace} subject={subject}/>
 			</Fragment>
 			: null
 		}
