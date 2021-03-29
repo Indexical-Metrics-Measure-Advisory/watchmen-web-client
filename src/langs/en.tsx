@@ -98,6 +98,8 @@ export const En = {
 		DASHBOARD: {
 			SHARE: 'Share',
 			PRINT: 'Print',
+			REFRESH: 'Refresh',
+			AUTO_REFRESH: 'Auto Refresh (5 Minutes)',
 			ADD_INTO_FAVORITE: 'Add into Favorite',
 			REMOVE_FROM_FAVORITE: 'Remove from Favorite',
 			ADD_REPORT: 'Add Report',

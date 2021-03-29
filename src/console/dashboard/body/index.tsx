@@ -18,6 +18,7 @@ import { DashboardEventTypes } from '../dashboard-event-bus-types';
 import { PagePrintSize } from './page-print-size';
 import { ParagraphMoveOrResizeMonitor } from './paragraph-move-or-resize-monitor';
 import { ParagraphRemover } from './paragraph-remover';
+import { ReportRefresher } from './refresher';
 import { ReportMoveOrResizeMonitor } from './report-move-or-resize-monitor';
 import { ReportRemover } from './report-remover';
 import { DashboardBodyContainer, DashboardNoReport } from './widgets';
@@ -46,15 +47,23 @@ export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean
 				async () => await saveDashboard(dashboard),
 				() => forceUpdate());
 		};
+		const onRefreshIntervalChanged = () => {
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await saveDashboard(dashboard),
+				() => {
+				});
+		};
 		on(DashboardEventTypes.REPORT_ADDED, onReportChanged);
 		on(DashboardEventTypes.REPORT_REMOVED, onReportChanged);
 		on(DashboardEventTypes.PARAGRAPH_ADDED, onParagraphChanged);
 		on(DashboardEventTypes.PARAGRAPH_REMOVED, onParagraphChanged);
+		on(DashboardEventTypes.REFRESH_INTERVAL_CHANGED, onRefreshIntervalChanged);
 		return () => {
 			off(DashboardEventTypes.REPORT_ADDED, onReportChanged);
 			off(DashboardEventTypes.REPORT_REMOVED, onReportChanged);
 			off(DashboardEventTypes.PARAGRAPH_ADDED, onParagraphChanged);
 			off(DashboardEventTypes.PARAGRAPH_REMOVED, onParagraphChanged);
+			off(DashboardEventTypes.REFRESH_INTERVAL_CHANGED, onRefreshIntervalChanged);
 		};
 	}, [ on, off, fireGlobal, forceUpdate, dashboard ]);
 
@@ -97,6 +106,7 @@ export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean
 				})
 				: null}
 			<PagePrintSize dashboard={dashboard}/>
+			<ReportRefresher dashboard={dashboard} reports={reports}/>
 		</DashboardBodyContainer>
 		{transient ? null : <ReportMoveOrResizeMonitor dashboard={dashboard}/>}
 		{transient ? null : <ParagraphMoveOrResizeMonitor dashboard={dashboard}/>}

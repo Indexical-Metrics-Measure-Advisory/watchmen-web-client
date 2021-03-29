@@ -98,6 +98,8 @@ export const Zh = {
 		DASHBOARD: {
 			SHARE: '分享',
 			PRINT: '打印',
+			REFRESH: '刷新',
+			AUTO_REFRESH: '自动刷新(5分钟)',
 			ADD_INTO_FAVORITE: '收藏',
 			REMOVE_FROM_FAVORITE: '取消收藏',
 			ADD_REPORT: '添加图表',

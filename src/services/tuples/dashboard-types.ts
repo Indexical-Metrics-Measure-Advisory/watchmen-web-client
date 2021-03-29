@@ -12,6 +12,7 @@ export interface DashboardReport {
 export interface Dashboard extends Tuple {
 	dashboardId: string;
 	name: string;
+	autoRefreshInterval?: number;
 	reports?: Array<DashboardReport>;
 	paragraphs?: Array<Paragraph>;
 	lastVisitTime: string;

@@ -98,6 +98,8 @@ export const Jp = {
 		DASHBOARD: {
 			SHARE: '共有',
 			PRINT: 'プリント',
+			REFRESH: '更新',
+			AUTO_REFRESH: '自動更新(5分間隔)',
 			ADD_INTO_FAVORITE: 'お気に入りに追加',
 			REMOVE_FROM_FAVORITE: 'お気に入りから削除',
 			ADD_REPORT: 'レポートを追加する',
