@@ -33,7 +33,7 @@ export const ReportRefresher = (props: { dashboard: Dashboard; reports: Array<Re
 		return () => {
 			off(DashboardEventTypes.REFRESH_REPORTS, refreshReports);
 		};
-	}, [ on, off, fireReport, dashboard.dashboardId, dashboard.reports ]);
+	}, [ on, off, fireReport, dashboard.dashboardId, dashboard.reports, reports ]);
 
 	return <></>;
 };
