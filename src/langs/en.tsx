@@ -23,7 +23,8 @@ export const En = {
 		REPORT_DESCRIPTION_PLACEHOLDER: 'Description here...',
 		REPORT_DATASET_GRID_TITLE: 'Report Dataset',
 		REPORT_DATASET_GRID_CLOSE: 'Close',
-		REPORT_DATASET_GRID_REFRESH: 'Refresh'
+		REPORT_DATASET_GRID_REFRESH: 'Refresh',
+		REPORT_DATASET_GRID_DOWNLOAD: 'Download'
 	},
 	ERROR: {
 		UNAUTHORIZED: 'Unauthorized now, login please.',

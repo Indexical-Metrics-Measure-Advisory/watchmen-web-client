@@ -103,7 +103,7 @@ export const EChartDiagramContainer = styled.div.attrs({ 'data-widget': 'echart-
 			height           : var(--button-height-in-form);
 			padding          : 0 calc(var(--margin) / 2);
 			right            : 100px;
-			margin-top       : 13px;
+			bottom           : 0;
 			cursor           : pointer;
 			transition       : box-shadow 300ms ease-in-out;
 			text-decoration  : none;

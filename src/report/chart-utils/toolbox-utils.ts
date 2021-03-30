@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { ToolboxComponentOption } from 'echarts/components';
-import { Lang } from '../../langs';
+import { getCurrentLanguage } from '../../langs';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { isBarChart, isLineChart, isScatterChart } from '../../services/tuples/chart-utils';
 import { ECharts } from '../../services/tuples/echarts/echarts-types';
@@ -34,6 +34,8 @@ export const buildToolbox = (chart: ECharts, report: Report, dataset: ChartDataS
 	const downloadHref = 'data:text/csv;charset=utf-8,' + encodeURI(content);
 	const fileName = `report-${encodeURI(report.name || '')}-${dayjs().format('YYYYMMDDHHmmss')}.csv`;
 
+	const Lang = getCurrentLanguage();
+
 	return cleanUselessValues({
 		show: toolbox?.show || false,
 		orient: toolbox?.orient,
@@ -54,7 +56,7 @@ export const buildToolbox = (chart: ECharts, report: Report, dataset: ChartDataS
 					const body = `<div class="report-dataset-grid-body" data-v-scroll="" data-h-scroll="">${dataset.data.map((row, rowIndex) => {
 						return `<div class="report-dataset-grid-body-row"><div>${rowIndex + 1}</div>${row.map(cell => `<div>${cell}</div>`).join('')}<div></div></div>`;
 					}).join('')}</div>`;
-					return `<div class="report-dataset-grid" data-columns="${dataset.data[0]?.length || 1}">${header}${body}</div><a href="${downloadHref}" target="_blank" download="${fileName}">Download</a>`;
+					return `<div class="report-dataset-grid" data-columns="${dataset.data[0]?.length || 1}">${header}${body}</div><a href="${downloadHref}" target="_blank" download="${fileName}">${Lang.PLAIN.REPORT_DATASET_GRID_DOWNLOAD}</a>`;
 				}
 			},
 			...(zoom ? {
