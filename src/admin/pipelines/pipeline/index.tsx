@@ -42,7 +42,8 @@ export const PipelineWorkbench = () => {
 		}).fire(PipelinesEventTypes.ASK_TOPICS);
 	}, [ onceGlobal, oncePipelines, pipelineId, history ]);
 
-	if (!data.pipeline) {
+	// eslint-disable-next-line
+	if (!data.pipeline || data.pipeline.pipelineId != pipelineId) {
 		return null;
 	}
 

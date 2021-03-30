@@ -32,7 +32,8 @@ export const SubjectView = (props: { connectedSpace: ConnectedSpace }) => {
 		}
 	}, [ connectedSpace.connectId, connectedSpace.subjects, subjectId, onceGlobal, history ]);
 
-	if (!subject) {
+	// eslint-disable-next-line
+	if (!subject || subject.subjectId !== subjectId) {
 		return null;
 	}
 
