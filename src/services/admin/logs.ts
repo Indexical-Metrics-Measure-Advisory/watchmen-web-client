@@ -12,6 +12,7 @@ export interface MonitorLogCriteria {
 	pipelineId?: string;
 	startDate?: string;
 	endDate?: string;
+	status?: MonitorLogStatus;
 }
 
 export enum MonitorLogStatus {

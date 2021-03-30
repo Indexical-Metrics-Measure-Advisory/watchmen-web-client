@@ -53,8 +53,6 @@ export const DetailProcess = (props: {
 	};
 
 	const pipelineExecution = row.conditionResult || true;
-	row.status = MonitorLogStatus.ERROR;
-	// row.error = 'could not extract ResultSet org.hibernate.exception.SQLGrammarException: could not extract ResultSet\n\tat or';
 
 	return <DetailProcessContainer ref={containerRef}>
 		<Title>
