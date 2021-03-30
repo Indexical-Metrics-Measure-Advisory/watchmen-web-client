@@ -1,8 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
 import { v4 } from 'uuid';
 import { DwarfButton } from '../../../basic-widgets/button';
-import { ICON_CLOSE } from '../../../basic-widgets/constants';
 import { ButtonInk } from '../../../basic-widgets/types';
 import { MonitorLogRow } from '../../../services/admin/logs';
 import { PipelineStage } from '../../../services/tuples/pipeline-stage-types';
@@ -62,7 +60,6 @@ export const DetailProcess = (props: {
 				<span>{fullScreen ? 'Quit Full Screen' : 'Full Screen'}</span>
 			</DwarfButton>
 			<CloseButton ink={ButtonInk.PRIMARY} onClick={onClose}>
-				<FontAwesomeIcon icon={ICON_CLOSE}/>
 				<span>Close</span>
 			</CloseButton>
 		</Title>
