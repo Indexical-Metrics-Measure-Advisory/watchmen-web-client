@@ -13,6 +13,7 @@ import { ShareSubjectContainer } from './widgets';
 
 interface ShareSubjectState {
 	initialized: boolean;
+	subjectId?: string;
 	subject?: Subject;
 }
 
@@ -44,15 +45,15 @@ const ShareSubjectIndex = () => {
 			(async () => {
 				try {
 					const { subject } = await fetchSharedSubject(subjectId, token);
-					setState({ initialized: true, subject });
+					setState({ initialized: true, subjectId, subject });
 				} catch (e) {
 					console.error(e);
-					setState({ initialized: true });
+					setState({ initialized: true, subjectId });
 				}
 			})();
 		}, [ subjectId, token ]);
 
-		if (!state.initialized) {
+		if (!state.initialized || (state.initialized && state.subjectId != subjectId)) {
 			return <ShareNothing label={Lang.CONSOLE.LOADING}/>;
 		}
 

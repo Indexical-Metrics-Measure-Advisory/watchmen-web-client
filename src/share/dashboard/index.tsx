@@ -13,6 +13,7 @@ import { ShareDashboardContainer } from './widgets';
 
 interface ShareDashboardState {
 	initialized: boolean;
+	dashboardId?: string;
 	dashboard?: Dashboard;
 	reports?: Array<Report>;
 }
@@ -34,15 +35,15 @@ const ShareDashboardIndex = () => {
 		(async () => {
 			try {
 				const { dashboard, reports } = await fetchSharedDashboard(dashboardId, token);
-				setState({ initialized: true, dashboard, reports });
+				setState({ initialized: true, dashboardId, dashboard, reports });
 			} catch (e) {
 				console.error(e);
-				setState({ initialized: true });
+				setState({ initialized: true, dashboardId });
 			}
 		})();
 	}, [ dashboardId, token ]);
 
-	if (!state.initialized) {
+	if (!state.initialized || (state.initialized && state.dashboardId != dashboardId)) {
 		return <ShareNothing label={Lang.CONSOLE.LOADING}/>;
 	}
 
