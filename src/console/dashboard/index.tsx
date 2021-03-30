@@ -62,7 +62,8 @@ const ConsoleDashboardIndex = () => {
 		};
 	}, [ once, on, off, history, dashboardId ]);
 
-	if (!dashboard) {
+	// eslint-disable-next-line
+	if (!dashboard || dashboard.dashboardId != dashboardId) {
 		return null;
 	}
 

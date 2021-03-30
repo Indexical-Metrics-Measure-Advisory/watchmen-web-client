@@ -61,7 +61,8 @@ const ConsoleConnectedSpaceIndex = () => {
 		};
 	}, [ once, on, off, history, connectedSpaceId ]);
 
-	if (!connectedSpace) {
+	// eslint-disable-next-line
+	if (!connectedSpace || connectedSpace.connectId != connectedSpaceId) {
 		return null;
 	}
 
