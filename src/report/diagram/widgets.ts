@@ -87,7 +87,27 @@ export const EChartDiagramContainer = styled.div.attrs({ 'data-widget': 'echart-
 				}
 			}
 		}
-		${new Array(10).fill(1).map((v, index) => `&[data-columns="${index + 1}"] > div.report-dataset-grid-header {grid-template-columns : repeat(${index + 1}, 100px) 1fr;}`)}
-		${new Array(10).fill(1).map((v, index) => `&[data-columns="${index + 1}"] > div.report-dataset-grid-body > div.report-dataset-grid-body-row {grid-template-columns : repeat(${index + 1}, 100px) 1fr;}`)}
+		${new Array(10).fill(1).map((v, index) => `&[data-columns="${index + 1}"] > div.report-dataset-grid-header {grid-template-columns : 40px repeat(${index + 1}, 100px) 1fr;}`)}
+		${new Array(10).fill(1).map((v, index) => `&[data-columns="${index + 1}"] > div.report-dataset-grid-body > div.report-dataset-grid-body-row {grid-template-columns : 40px repeat(${index + 1}, 100px) 1fr;}`)}
+		+ a {
+			display          : flex;
+			position         : absolute;
+			align-items      : center;
+			outline          : none;
+			color            : var(--invert-color);
+			background-color : var(--primary-color);
+			font-variant     : petite-caps;
+			font-weight      : var(--font-demi-bold);
+			font-size        : 0.8em;
+			border-radius    : var(--border-radius);
+			height           : var(--button-height-in-form);
+			padding          : 0 calc(var(--margin) / 2);
+			right            : 100px;
+			margin-top       : 13px;
+			cursor           : pointer;
+			transition       : box-shadow 300ms ease-in-out;
+			text-decoration  : none;
+			z-index          : 1;
+		}
 	}
 `;
