@@ -16,7 +16,7 @@ export const Body = styled.div.attrs({ 'data-widget': 'monitor-logs-body' })`
 `;
 export const SearchCriteriaContainer = styled.div.attrs({ 'data-widget': 'monitor-logs-search' })`
 	display               : grid;
-	grid-template-columns : auto auto 300px auto 300px auto 1fr;
+	grid-template-columns : auto auto 1fr auto 1fr auto 1fr;
 	grid-column-gap       : calc(var(--margin) / 2);
 	grid-row-gap          : calc(var(--margin) / 4);
 	padding               : calc(var(--margin) / 4) var(--margin);
