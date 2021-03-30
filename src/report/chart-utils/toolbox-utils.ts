@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { ToolboxComponentOption } from 'echarts/components';
+import { ICON_CSV } from '../../basic-widgets/constants';
 import { getCurrentLanguage } from '../../langs';
 import { ChartDataSet } from '../../services/tuples/chart-types';
 import { isBarChart, isLineChart, isScatterChart } from '../../services/tuples/chart-utils';
@@ -35,16 +36,19 @@ export const buildToolbox = (chart: ECharts, report: Report, dataset: ChartDataS
 	const fileName = `report-${encodeURI(report.name || '')}-${dayjs().format('YYYYMMDDHHmmss')}.csv`;
 
 	const Lang = getCurrentLanguage();
-
 	return cleanUselessValues({
 		show: toolbox?.show || false,
 		orient: toolbox?.orient,
 		showTitle: false,
 		feature: {
-			saveAsImage: { show: true, name: `download-${dayjs().format('YYYYMMDDHHmmss')}` },
+			saveAsImage: {
+				show: true,
+				name: `download-${dayjs().format('YYYYMMDDHHmmss')}`
+			},
 			dataView: {
 				show: true,
 				readOnly: true,
+				icon: ICON_CSV.icon[4],
 				lang: [
 					Lang.PLAIN.REPORT_DATASET_GRID_TITLE,
 					Lang.PLAIN.REPORT_DATASET_GRID_CLOSE,
