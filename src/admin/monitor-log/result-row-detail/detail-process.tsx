@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { v4 } from 'uuid';
 import { DwarfButton } from '../../../basic-widgets/button';
 import { ButtonInk } from '../../../basic-widgets/types';
-import { MonitorLogRow } from '../../../services/admin/logs';
+import { MonitorLogRow, MonitorLogStatus } from '../../../services/admin/logs';
 import { PipelineStage } from '../../../services/tuples/pipeline-stage-types';
 import { Pipeline } from '../../../services/tuples/pipeline-types';
 import { Topic } from '../../../services/tuples/topic-types';
@@ -13,6 +13,9 @@ import {
 	CloseButton,
 	DetailProcessBody,
 	DetailProcessContainer,
+	ErrorPart,
+	ErrorStack,
+	ErrorLabel,
 	SectionTitle,
 	Title,
 	TitleExecutionLabel,
@@ -50,6 +53,8 @@ export const DetailProcess = (props: {
 	};
 
 	const pipelineExecution = row.conditionResult || true;
+	row.status = MonitorLogStatus.ERROR;
+	// row.error = 'could not extract ResultSet org.hibernate.exception.SQLGrammarException: could not extract ResultSet\n\tat or';
 
 	return <DetailProcessContainer ref={containerRef}>
 		<Title>
@@ -82,6 +87,12 @@ export const DetailProcess = (props: {
 				                           topicsMap={topicsMap}
 				                           key={stage.stageId || v4()}/>;
 			})}
+			{row.status === MonitorLogStatus.ERROR
+				? <ErrorPart>
+					<ErrorLabel>Error on Pipeline</ErrorLabel>
+					<ErrorStack value={row.error || 'No error stack captured.'} readOnly={true}/>
+				</ErrorPart>
+				: null}
 		</DetailProcessBody>
 	</DetailProcessContainer>;
 };

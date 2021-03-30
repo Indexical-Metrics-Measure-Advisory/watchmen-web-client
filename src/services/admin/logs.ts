@@ -74,7 +74,8 @@ export interface MonitorLogRow {
 	oldValue: any;
 	newValue: any;
 	conditionResult: boolean;
-	stages: Array<MonitorLogStage>
+	stages: Array<MonitorLogStage>;
+	error?: string;
 }
 
 export type MonitorLogs = Array<MonitorLogRow>
