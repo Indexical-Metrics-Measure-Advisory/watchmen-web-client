@@ -33,4 +33,61 @@ export const EChartDiagramContainer = styled.div.attrs({ 'data-widget': 'echart-
 	position : relative;
 	width    : 100%;
 	height   : 100%;
+	div.report-dataset-grid {
+		display        : flex;
+		flex-direction : column;
+		margin         : 0 calc(var(--margin) / 2);
+		height         : 100%;
+		width          : calc(100% - var(--margin));
+		align-content  : start;
+		> div.report-dataset-grid-header {
+			display                 : grid;
+			border                  : var(--border);
+			border-top-left-radius  : var(--border-radius);
+			border-top-right-radius : var(--border-radius);
+			background-color        : var(--primary-color);
+			border-color            : var(--primary-color);
+			> div {
+				display      : flex;
+				align-items  : center;
+				font-variant : petite-caps;
+				font-weight  : var(--font-demi-bold);
+				color        : var(--invert-color);
+				height       : var(--height);
+				padding      : 0 calc(var(--margin) / 4);
+				border-right : var(--border);
+				&:last-child {
+					border-right : 0;
+				}
+			}
+		}
+		> div.report-dataset-grid-body {
+			display        : flex;
+			flex-direction : column;
+			height         : calc(100% - var(--height));
+			overflow       : auto;
+			border         : var(--border);
+			border-top     : 0;
+			border-color   : var(--primary-color);
+			> div.report-dataset-grid-body-row {
+				display       : grid;
+				border-bottom : var(--border);
+				&:hover {
+					background-color : var(--hover-color);
+				}
+				> div {
+					display      : flex;
+					align-items  : center;
+					height       : var(--height);
+					padding      : 0 calc(var(--margin) / 4);
+					border-right : var(--border);
+					&:last-child {
+						border-right : 0;
+					}
+				}
+			}
+		}
+		${new Array(10).fill(1).map((v, index) => `&[data-columns="${index + 1}"] > div.report-dataset-grid-header {grid-template-columns : repeat(${index + 1}, 100px) 1fr;}`)}
+		${new Array(10).fill(1).map((v, index) => `&[data-columns="${index + 1}"] > div.report-dataset-grid-body > div.report-dataset-grid-body-row {grid-template-columns : repeat(${index + 1}, 100px) 1fr;}`)}
+	}
 `;

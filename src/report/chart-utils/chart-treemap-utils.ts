@@ -36,7 +36,7 @@ export class ChartTreemapUtils extends DefaultChartUtils {
 				leafDepth: 1,
 				data: this.buildTreeData(report, dataset)
 			} ],
-			toolbox: buildToolbox(chart)
+			toolbox: buildToolbox(chart, report, dataset)
 		});
 	}
 }

@@ -133,7 +133,7 @@ export class ChartMapUtils extends DefaultChartUtils {
 					zlevel: 2
 				} as EChartOption.Series
 			],
-			toolbox: buildToolbox(chart)
+			toolbox: buildToolbox(chart, report, dataset)
 		} as EChartOption;
 	}
 }

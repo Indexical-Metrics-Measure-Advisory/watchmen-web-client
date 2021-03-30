@@ -39,7 +39,7 @@ export class ChartPieUtils extends DefaultChartUtils {
 				outsideRadius: '75%'
 			}) ],
 			aria: buildDecal(chart),
-			toolbox: buildToolbox(chart)
+			toolbox: buildToolbox(chart, report, dataset)
 		});
 	}
 }

@@ -20,7 +20,10 @@ export const En = {
 		CONSTANT_INPUT_PLACEHOLDER: 'Constant value please...',
 		UNKNOWN_TOPIC_NAME: 'Unknown Topic',
 		UNKNOWN_FACTOR_NAME: 'Unknown Factor',
-		REPORT_DESCRIPTION_PLACEHOLDER: 'Description here...'
+		REPORT_DESCRIPTION_PLACEHOLDER: 'Description here...',
+		REPORT_DATASET_GRID_TITLE: 'Report Dataset',
+		REPORT_DATASET_GRID_CLOSE: 'Close',
+		REPORT_DATASET_GRID_REFRESH: 'Refresh'
 	},
 	ERROR: {
 		UNAUTHORIZED: 'Unauthorized now, login please.',
