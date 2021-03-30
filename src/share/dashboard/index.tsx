@@ -43,6 +43,7 @@ const ShareDashboardIndex = () => {
 		})();
 	}, [ dashboardId, token ]);
 
+	// eslint-disable-next-line
 	if (!state.initialized || (state.initialized && state.dashboardId != dashboardId)) {
 		return <ShareNothing label={Lang.CONSOLE.LOADING}/>;
 	}
