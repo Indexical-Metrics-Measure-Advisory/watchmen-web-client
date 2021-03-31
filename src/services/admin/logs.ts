@@ -1,11 +1,12 @@
-import { fetchMockMonitorLogs } from '../mock/admin/mock-logs';
+import { Apis, post } from "../apis";
+import { fetchMockMonitorLogs } from "../mock/admin/mock-logs";
 import {
 	PipelineStageUnitActionType,
 	ReadTopicActionType,
 	SystemActionType,
-	WriteTopicActionType
-} from '../tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import { isMockService } from '../utils';
+	WriteTopicActionType,
+} from "../tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types";
+import { isMockService } from "../utils";
 
 export interface MonitorLogCriteria {
 	topicId?: string;
@@ -15,8 +16,8 @@ export interface MonitorLogCriteria {
 }
 
 export enum MonitorLogStatus {
-	DONE = 'done',
-	ERROR = 'error'
+	DONE = "done",
+	ERROR = "error",
 }
 
 export interface MonitorLogAction {
@@ -46,7 +47,7 @@ export interface WriteAction extends MonitorLogAction {
 export interface AlarmAction extends MonitorLogAction {
 	type: SystemActionType.ALARM;
 	conditionResult: boolean;
-	value?: any
+	value?: any;
 }
 
 export interface CopyToMemoryAction extends MonitorLogAction {
@@ -74,10 +75,10 @@ export interface MonitorLogRow {
 	oldValue: any;
 	newValue: any;
 	conditionResult: boolean;
-	stages: Array<MonitorLogStage>
+	stages: Array<MonitorLogStage>;
 }
 
-export type MonitorLogs = Array<MonitorLogRow>
+export type MonitorLogs = Array<MonitorLogRow>;
 
 export interface MonitorLogsDataPage {
 	data: MonitorLogs;
@@ -95,8 +96,13 @@ export const fetchMonitorLogs = async (options: {
 	if (isMockService()) {
 		return await fetchMockMonitorLogs(options);
 	} else {
-		// REMOTE use real api
-		return await fetchMockMonitorLogs(options);
+		return post({
+			api: Apis.QUERY_LOG,
+			data: {
+				criteria: options.criteria,
+				pagination: { pageNumber: options.pageNumber, pageSize: options.pageSize },
+			},
+		});
 	}
 };
 
@@ -107,13 +113,17 @@ export const isCopyToMemoryLog = (log: MonitorLogAction): log is CopyToMemoryAct
 	return log.type === SystemActionType.COPY_TO_MEMORY;
 };
 export const isReadLog = (log: MonitorLogAction): log is ReadAction => {
-	return ReadTopicActionType.EXISTS === log.type
-		|| ReadTopicActionType.READ_ROW === log.type
-		|| ReadTopicActionType.READ_FACTOR === log.type;
+	return (
+		ReadTopicActionType.EXISTS === log.type ||
+		ReadTopicActionType.READ_ROW === log.type ||
+		ReadTopicActionType.READ_FACTOR === log.type
+	);
 };
 export const isWriteLog = (log: MonitorLogAction): log is WriteAction => {
-	return WriteTopicActionType.WRITE_FACTOR === log.type
-		|| WriteTopicActionType.INSERT_ROW === log.type
-		|| WriteTopicActionType.MERGE_ROW === log.type
-		|| WriteTopicActionType.INSERT_OR_MERGE_ROW === log.type;
+	return (
+		WriteTopicActionType.WRITE_FACTOR === log.type ||
+		WriteTopicActionType.INSERT_ROW === log.type ||
+		WriteTopicActionType.MERGE_ROW === log.type ||
+		WriteTopicActionType.INSERT_OR_MERGE_ROW === log.type
+	);
 };

@@ -27,11 +27,11 @@ export const Apis = {
 	TOPIC_CREATE: "topic",
 	TOPIC_SAVE: "update/topic?topic_id=:topicId",
 
-	ENUM_LIST_BY_NAME: 'enum/name?query_name=:search',
-	ENUM_GET: 'enum/id?enum_id=:enumId',
-	ENUM_CREATE: 'enum',
-	ENUM_SAVE: 'enum',
-	ENUM_LOAD_ALL: 'enum/all',
+	ENUM_LIST_BY_NAME: "enum/name?query_name=:search",
+	ENUM_GET: "enum/id?enum_id=:enumId",
+	ENUM_CREATE: "enum",
+	ENUM_SAVE: "enum",
+	ENUM_LOAD_ALL: "enum/all",
 
 	REPORT_LIST_BY_NAME: "report/name?query_name=:search",
 
@@ -93,6 +93,8 @@ export const Apis = {
 	// any
 	SUBJECT_SHARE_GET: "share/subject?subject_id=:subjectId&&token=:token",
 	DASHBOARD_SHARE_GET: "share/dashboard?dashboard_id=:dashboardId&&token=:token",
+
+	QUERY_LOG: "pipeline/log/query",
 };
 
 const buildApi = (api: string, args?: { [key in string]: any }): string => {
