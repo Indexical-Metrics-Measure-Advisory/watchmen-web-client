@@ -50,7 +50,7 @@ export class ChartTreeUtils extends DefaultChartUtils {
 				expandAndCollapse: true,
 				data: this.buildTreeData(report, dataset)
 			} ],
-			toolbox: buildToolbox(chart)
+			toolbox: buildToolbox(chart, report, dataset)
 		});
 	}
 }

@@ -53,6 +53,7 @@ const ShareSubjectIndex = () => {
 			})();
 		}, [ subjectId, token ]);
 
+		// eslint-disable-next-line
 		if (!state.initialized || (state.initialized && state.subjectId != subjectId)) {
 			return <ShareNothing label={Lang.CONSOLE.LOADING}/>;
 		}

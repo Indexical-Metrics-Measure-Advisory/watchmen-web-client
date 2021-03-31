@@ -20,7 +20,11 @@ export const Jp = {
 		CONSTANT_INPUT_PLACEHOLDER: '定数値を入力してください...',
 		UNKNOWN_TOPIC_NAME: '不明なトピック',
 		UNKNOWN_FACTOR_NAME: '不明なファクター',
-		REPORT_DESCRIPTION_PLACEHOLDER: '説明を入力してください...'
+		REPORT_DESCRIPTION_PLACEHOLDER: '説明を入力してください...',
+		REPORT_DATASET_GRID_TITLE: 'レポートのデータセット',
+		REPORT_DATASET_GRID_CLOSE: '閉じる',
+		REPORT_DATASET_GRID_REFRESH: '更新',
+		REPORT_DATASET_GRID_DOWNLOAD: 'ダウンロード'
 	},
 	ERROR: {
 		UNAUTHORIZED: '権限がありません。ログインしてください。',

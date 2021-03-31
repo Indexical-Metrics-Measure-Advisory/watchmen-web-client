@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import { Router } from '../../../routes/types';
-import { toSubjectDef } from '../../../routes/utils';
+import { toSubjectDef, toSubjectReport } from '../../../routes/utils';
 import { AvailableSpaceInConsole } from '../../../services/console/settings-types';
 import { ConnectedSpace } from '../../../services/tuples/connected-space-types';
 import { Subject } from '../../../services/tuples/subject-types';
@@ -60,6 +60,9 @@ export const SubjectBodyRouter = (props: { connectedSpace: ConnectedSpace, subje
 		</Route>
 		<Route path={Router.CONSOLE_CONNECTED_SPACE_SUBJECT_DEF}>
 			<SubjectDef connectedSpace={connectedSpace} subject={subject}/>
+		</Route>
+		<Route path="*">
+			<Redirect to={toSubjectReport(connectedSpace.connectId, subject.subjectId)}/>
 		</Route>
 	</Switch>;
 };

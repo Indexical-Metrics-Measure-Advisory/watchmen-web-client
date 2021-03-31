@@ -28,7 +28,7 @@ export const Languages = (props: { children?: ((props: any) => React.ReactNode) 
 	const { on, off, fire } = useEventBus();
 	useEffect(() => {
 		const onLangChange = (lang: string) => {
-			const currentLanguage = findLanguage(lang);
+			currentLanguage = findLanguage(lang);
 			fire(EventTypes.LANGUAGE_CHANGED, currentLanguage);
 		};
 		on(EventTypes.CHANGE_LANGUAGE, onLangChange);

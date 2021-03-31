@@ -1,5 +1,4 @@
 // the most important thing is keep z-index always be correct
-import { faBuffer, faCreativeCommonsSampling } from '@fortawesome/free-brands-svg-icons';
 import {
 	faAngleLeft,
 	faAngleRight,
@@ -25,13 +24,16 @@ import {
 	faDiceD20,
 	faDrawPolygon,
 	faEdit,
+	faEthernet,
 	faExpand,
 	faExpandArrowsAlt,
+	faFileCsv,
 	faGlobe,
 	faGripVertical,
 	faHome,
 	faInbox,
 	faLaptopHouse,
+	faLayerGroup,
 	faLevelDownAlt,
 	faLevelUpAlt,
 	faLink,
@@ -40,12 +42,12 @@ import {
 	faLockOpen,
 	faParagraph,
 	faPlus,
+	faPowerOff,
 	faPrint,
 	faRandom,
 	faSave,
 	faSearch,
 	faShare,
-	faSignOutAlt,
 	faSortAmountDown,
 	faSortAmountUpAlt,
 	faSpinner,
@@ -114,7 +116,7 @@ export const TUPLE_SEARCH_PAGE_SIZE = 9;
 export const ICON_CONSOLE = faChalkboard;
 export const ICON_ADMIN = faTools;
 export const ICON_HOME = faHome;
-export const ICON_LOGOUT = faSignOutAlt;
+export const ICON_LOGOUT = faPowerOff;
 
 export const ICON_USER_GROUP = faUsers;
 export const ICON_USER = faUser;
@@ -127,6 +129,7 @@ export const ICON_FACTOR = faList;
 export const ICON_ENUM = faStream;
 export const ICON_REPORT = faChartBar;
 export const ICON_PARAGRAPH = faParagraph;
+export const ICON_CSV = faFileCsv;
 export const ICON_AS_ADMIN_HOME = faLaptopHouse;
 export const ICON_PIPELINE = faWaveSquare;
 
@@ -136,7 +139,7 @@ export const ICON_TASK = faTasks;
 export const ICON_NOTIFICATION = faBell;
 export const ICON_MAIL = faInbox;
 export const ICON_TIMELINE = faComments;
-export const ICON_MONITOR_LOGS = faCreativeCommonsSampling;
+export const ICON_MONITOR_LOGS = faEthernet;
 
 export const ICON_SECONDARY_SECTION = faCaretRight;
 
@@ -160,7 +163,7 @@ export const ICON_SWITCH = faRandom;
 export const ICON_PRINT = faPrint;
 export const ICON_PAGE_SIZE = faStickyNote;
 export const ICON_CONNECTED_SPACE_CATALOG = faDrawPolygon;
-export const ICON_SUBJECT_DEF = faBuffer;
+export const ICON_SUBJECT_DEF = faLayerGroup;
 export const ICON_SUBJECT_DATA = faTh;
 export const ICON_SUBJECT_REPORT = faChartPie;
 export const ICON_UPLOAD = faUpload;

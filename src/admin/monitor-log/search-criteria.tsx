@@ -6,7 +6,7 @@ import { Calendar, CALENDAR_FORMAT } from '../../basic-widgets/calendar';
 import { ICON_SEARCH } from '../../basic-widgets/constants';
 import { Dropdown } from '../../basic-widgets/dropdown';
 import { ButtonInk, DropdownOption } from '../../basic-widgets/types';
-import { MonitorLogCriteria } from '../../services/admin/logs';
+import { MonitorLogCriteria, MonitorLogStatus } from '../../services/admin/logs';
 import { Pipeline } from '../../services/tuples/pipeline-types';
 import { Topic } from '../../services/tuples/topic-types';
 import { useMonitorLogEventBus } from './monitor-log-event-bus';
@@ -58,6 +58,9 @@ export const SearchCriteria = (props: {
 	const onPipelineChanged = (option: DropdownOption) => {
 		setCriteria({ ...criteria, pipelineId: option.value });
 	};
+	const onStatusChanged = (option: DropdownOption) => {
+		setCriteria({ ...criteria, status: option.value });
+	};
 	const onStartDateChanged = (value?: string) => {
 		setCriteria({ ...criteria, startDate: value });
 	};
@@ -84,6 +87,11 @@ export const SearchCriteria = (props: {
 			};
 		}).sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()))
 	];
+	const statusOptions: Array<DropdownOption> = [
+		{ value: '', label: 'Any Status' },
+		{ value: MonitorLogStatus.ERROR, label: 'Error' },
+		{ value: MonitorLogStatus.DONE, label: 'Done' }
+	];
 
 	return <SearchCriteriaContainer>
 		<SearchLabel>Search By</SearchLabel>
@@ -91,6 +99,8 @@ export const SearchCriteria = (props: {
 		<Dropdown options={topicOptions} value={criteria.topicId} onChange={onTopicChanged}/>
 		<SearchLabel>Pipeline</SearchLabel>
 		<Dropdown options={pipelineOptions} value={criteria.pipelineId} onChange={onPipelineChanged}/>
+		<SearchLabel>Status</SearchLabel>
+		<Dropdown options={statusOptions} value={criteria.status} onChange={onStatusChanged}/>
 		<SearchLabel>From</SearchLabel>
 		<Calendar value={criteria.startDate} onChange={onStartDateChanged}/>
 		<SearchLabel>To</SearchLabel>

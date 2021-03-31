@@ -41,7 +41,7 @@ export class ChartNightingaleUtils extends DefaultChartUtils {
 				roseType: PieRoseType.AREA
 			}) ],
 			aria: buildDecal(chart),
-			toolbox: buildToolbox(chart)
+			toolbox: buildToolbox(chart, report, dataset)
 		});
 	}
 }

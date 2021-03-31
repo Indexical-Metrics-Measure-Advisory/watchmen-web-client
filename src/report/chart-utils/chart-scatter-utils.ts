@@ -116,7 +116,7 @@ export class ChartScatterUtils extends DefaultChartUtils {
 						return null;
 				}
 			}).filter(x => !x) as Array<EChartOption.VisualMap>,
-			toolbox: buildToolbox(chart)
+			toolbox: buildToolbox(chart, report, dataset)
 		} as EChartOption;
 	}
 }

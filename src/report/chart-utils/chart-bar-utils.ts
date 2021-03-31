@@ -48,7 +48,7 @@ export class ChartBarUtils extends DefaultChartUtils {
 				};
 			}),
 			aria: buildDecal(chart),
-			toolbox: buildToolbox(chart)
+			toolbox: buildToolbox(chart, report, dataset)
 		});
 	}
 }

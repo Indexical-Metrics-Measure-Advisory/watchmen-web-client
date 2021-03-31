@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { DwarfButton } from '../../../basic-widgets/button';
+import { InputLines } from '../../../basic-widgets/input-lines';
 import { TooltipButton } from '../../../basic-widgets/tooltip-button';
 
 export const RowDetailContainer = styled.div.attrs({ 'data-widget': 'monitor-log-detail' })`
@@ -155,4 +156,32 @@ export const ExpandToggleButton = styled(TooltipButton)`
 	padding      : 0;
 	width        : var(--button-height-in-form);
 	height       : var(--button-height-in-form);
+`;
+export const ErrorPart = styled.div.attrs({ 'data-widget': 'monitor-log-detail-process-error' })`
+	display               : grid;
+	grid-template-columns : 20% calc(80% - var(--margin) / 2);
+	grid-column-gap       : calc(var(--margin) / 2);
+	border-bottom         : var(--border);
+`;
+export const ErrorLabel = styled.div.attrs({ 'data-widget': 'monitor-log-detail-process-error-label' })`
+	display      : flex;
+	align-self   : start;
+	align-items  : center;
+	font-variant : petite-caps;
+	font-weight  : var(--font-demi-bold);
+	padding-left : calc(var(--margin) / 2);
+	height       : var(--height);
+`;
+export const ErrorStack = styled(InputLines).attrs({
+	'data-widget': 'monitor-log-detail-process-error-stack',
+	'data-v-scroll': '',
+	'data-h-scroll': ''
+})`
+	display     : flex;
+	position    : relative;
+	align-items : center;
+	width       : calc(100% - var(--margin));
+	height      : 200px;
+	margin      : 4px calc(var(--margin) / 2) 4px;
+	white-space : pre;
 `;

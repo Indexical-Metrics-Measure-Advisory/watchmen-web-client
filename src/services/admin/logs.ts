@@ -13,6 +13,7 @@ export interface MonitorLogCriteria {
 	pipelineId?: string;
 	startDate?: string;
 	endDate?: string;
+	status?: MonitorLogStatus;
 }
 
 export enum MonitorLogStatus {
@@ -76,6 +77,7 @@ export interface MonitorLogRow {
 	newValue: any;
 	conditionResult: boolean;
 	stages: Array<MonitorLogStage>;
+	error?: string;
 }
 
 export type MonitorLogs = Array<MonitorLogRow>;

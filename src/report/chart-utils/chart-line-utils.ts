@@ -46,7 +46,7 @@ export class ChartLineUtils extends DefaultChartUtils {
 					data: buildSeriesData(chart, groups, indicatorIndex, this.formatNumber)
 				};
 			}),
-			toolbox: buildToolbox(chart)
+			toolbox: buildToolbox(chart, report, dataset)
 		};
 	}
 }
