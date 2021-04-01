@@ -211,7 +211,10 @@ export const Zh = {
 		},
 		SETTINGS: {
 			TITLE: '设置',
-			LANGUAGE: '语言'
+			LANGUAGE: '语言',
+			THEME: '外观',
+			THEME_LIGHT: '标准',
+			THEME_DARK: '暗色'
 		}
 	},
 	PARAM: {

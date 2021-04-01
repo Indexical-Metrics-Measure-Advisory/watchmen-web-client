@@ -211,7 +211,10 @@ export const Jp = {
 		},
 		SETTINGS: {
 			TITLE: '設定',
-			LANGUAGE: '言語'
+			LANGUAGE: '言語',
+			THEME: 'テーマ',
+			THEME_LIGHT: '標準',
+			THEME_DARK: 'ダーク'
 		}
 	},
 	PARAM: {

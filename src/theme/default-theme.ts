@@ -16,6 +16,7 @@ import {
 } from '../basic-widgets/constants';
 
 const DefaultTheme = {
+	code: 'light',
 	// font
 	fontColor: '#666666',
 	fontFamily: '-apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Tahoma\', \'Verdana\', \'Arial\', \'Times New Roman\', \'Simsun\', \'Microsoft YaHei\', \'MS Mincho\', \'MS PGMincho\', \'Roboto\', \'Oxygen\', \'Ubuntu\', \'Cantarell\', \'Fira Sans\', \'Droid Sans\', \'Helvetica Neue\', sans-serif',

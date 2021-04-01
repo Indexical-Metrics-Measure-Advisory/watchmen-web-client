@@ -3,6 +3,7 @@ import { LanguageObjectType } from '../langs/types';
 
 export enum EventTypes {
 	CHANGE_THEME = 'change-theme',
+
 	CHANGE_LANGUAGE = 'change-lang',
 	LANGUAGE_CHANGED = 'lang-changed',
 

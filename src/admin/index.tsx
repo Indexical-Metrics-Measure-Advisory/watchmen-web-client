@@ -9,6 +9,7 @@ import { AdminMenu } from './menu';
 import AdminMonitorLogs from './monitor-log';
 import AdminPipelines from './pipelines';
 import AdminReports from './reports';
+import AdminSettings from './settings';
 import AdminSpaces from './spaces';
 import AdminTopics from './topics';
 import AdminUserGroups from './user-groups';
@@ -51,7 +52,10 @@ const AdminIndex = () => {
 			<Route path={Router.ADMIN_PIPELINES}><AdminPipelines/></Route>
 			<Route path={Router.ADMIN_USER_GROUPS}><AdminMain><AdminUserGroups/></AdminMain></Route>
 			<Route path={Router.ADMIN_USERS}><AdminMain><AdminUsers/></AdminMain></Route>
-			<Route path={Router.ADMIN_MONITOR_LOGS}><AdminMain scrollable={false}><AdminMonitorLogs/></AdminMain></Route>
+			<Route path={Router.ADMIN_MONITOR_LOGS}>
+				<AdminMain scrollable={false}><AdminMonitorLogs/></AdminMain>
+			</Route>
+			<Route path={Router.ADMIN_SETTINGS}><AdminMain><AdminSettings/></AdminMain></Route>
 			{/*		<Route path={Path.ADMIN_TASKS}><Tasks/></Route>*/}
 			<Route path='*'>
 				<Redirect to={Router.ADMIN_HOME}/>

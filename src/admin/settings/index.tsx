@@ -2,21 +2,18 @@ import React from 'react';
 import { VerticalMarginOneUnit } from '../../basic-widgets/margin';
 import { FixWidthPage } from '../../basic-widgets/page';
 import { PageHeader } from '../../basic-widgets/page-header';
-import { Lang } from '../../langs';
-import { LanguageSettings } from './language';
 import { ThemeSettings } from './theme';
 
-export const ConsoleSettings = () => {
+export const AdminSettings = () => {
 	return <FixWidthPage>
-		<PageHeader title={Lang.CONSOLE.SETTINGS.TITLE}/>
+		<PageHeader title="Settings"/>
 		<VerticalMarginOneUnit/>
-		<LanguageSettings/>
 		<ThemeSettings/>
 	</FixWidthPage>;
 };
 
-const ConsoleSettingsIndex = () => {
-	return <ConsoleSettings/>;
+const AdminSettingsIndex = () => {
+	return <AdminSettings/>;
 };
 
-export default ConsoleSettingsIndex;
+export default AdminSettingsIndex;

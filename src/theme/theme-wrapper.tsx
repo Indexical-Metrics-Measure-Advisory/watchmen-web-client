@@ -3,6 +3,8 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import '../assets/fonts/oswald/oswald.css';
 import { useEventBus } from '../events/event-bus';
 import { EventTypes } from '../events/types';
+import { fetchThemeFromSession } from '../services/console/last-snapshot';
+import DarkTheme from './dark-theme';
 import DefaultTheme from './default-theme';
 import { Theme } from './types';
 
@@ -35,18 +37,6 @@ const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
 	html {
 		${({ theme }) => writeThemeProperty(theme)}
 		width : 100%;
-		//&::-webkit-scrollbar {
-		//	background-color: var(--scrollbar-background-color);
-		//	width: 15px;
-		//	height: 15px;
-		//}
-		//&::-webkit-scrollbar-thumb {
-		//	background-color: var(--scrollbar-thumb-background-color);
-		//	border: 1px solid var(--scrollbar-border-color);
-		//}
-		//&::-webkit-scrollbar-corner {
-		//	background-color: var(--scrollbar-background-color);
-		//}
 	}
 
 	body {
@@ -108,13 +98,17 @@ const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
 `;
 
 const THEMES: { [key in string]: Theme } = {
-	default: DefaultTheme,
-	dark: DefaultTheme,
-	light: DefaultTheme
+	[DarkTheme.code]: DarkTheme,
+	[DefaultTheme.code]: DefaultTheme
 };
 
-let currentTheme = DefaultTheme;
+const findTheme = (themeCode: string) => {
+	return THEMES[themeCode] || DefaultTheme;
+};
+
+let currentTheme = findTheme(fetchThemeFromSession() || DefaultTheme.code);
 export const getCurrentTheme = () => currentTheme;
+export const getCurrentThemeCode = () => currentTheme.code;
 
 export const ThemeWrapper = () => {
 	const [ theme, setTheme ] = React.useState(currentTheme);

@@ -211,7 +211,10 @@ export const En = {
 		},
 		SETTINGS: {
 			TITLE: 'Settings',
-			LANGUAGE: 'Language'
+			LANGUAGE: 'Language',
+			THEME: 'Theme',
+			THEME_LIGHT: 'Light',
+			THEME_DARK: 'Dark'
 		}
 	},
 	PARAM: {

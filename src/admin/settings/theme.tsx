@@ -9,20 +9,24 @@ import { DropdownOption } from '../../basic-widgets/types';
 import { useForceUpdate } from '../../basic-widgets/utils';
 import { useEventBus } from '../../events/event-bus';
 import { EventTypes } from '../../events/types';
-import { getCurrentLanguageCode, Lang, SupportedLanguages } from '../../langs';
 import { saveLastSnapshot } from '../../services/console/last-snapshot';
+import { getCurrentThemeCode } from '../../theme/theme-wrapper';
 
-export const LanguageSettings = () => {
+const SupportedThemes: Array<DropdownOption> = [
+	{ value: 'light', label: 'Light' },
+	{ value: 'dark', label: 'Dark' }
+];
+export const ThemeSettings = () => {
 	const { fire } = useEventBus();
 	const forceUpdate = useForceUpdate();
 
-	const onLanguageChange = (option: DropdownOption) => {
+	const onThemeChange = (option: DropdownOption) => {
 		const { value: code } = option;
-		fire(EventTypes.CHANGE_LANGUAGE, code);
+		fire(EventTypes.CHANGE_THEME, code);
 		forceUpdate();
 		(async () => {
 			try {
-				await saveLastSnapshot({ language: code });
+				await saveLastSnapshot({ theme: code });
 			} catch (e) {
 				// ignore
 				console.info(e);
@@ -30,12 +34,10 @@ export const LanguageSettings = () => {
 		})();
 	};
 
-	const options = SupportedLanguages.map(({ code, name }) => ({ value: code, label: name }));
-
 	return <SettingsSection>
-		<SettingsSectionTitle>{Lang.CONSOLE.SETTINGS.LANGUAGE}</SettingsSectionTitle>
+		<SettingsSectionTitle>Theme</SettingsSectionTitle>
 		<SettingsSectionBody>
-			<Dropdown value={getCurrentLanguageCode()} options={options} onChange={onLanguageChange}/>
+			<Dropdown value={getCurrentThemeCode()} options={SupportedThemes} onChange={onThemeChange}/>
 		</SettingsSectionBody>
 	</SettingsSection>;
 };

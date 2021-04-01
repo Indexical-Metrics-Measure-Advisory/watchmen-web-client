@@ -31,6 +31,16 @@ export const fetchLanguageFromSession = (): string | null => {
 	}
 	return null;
 };
+export const fetchThemeFromSession = (): string | null => {
+	const value = localStorage.getItem(LAST_SNAPSHOT_TOKEN);
+	if (value) {
+		try {
+			return JSON.parse(atob(value)).theme;
+		} catch {
+		}
+	}
+	return null;
+}
 const saveLastSnapshotToSession = (snapshot: LastSnapshot) => {
 	localStorage.setItem(LAST_SNAPSHOT_TOKEN, btoa(JSON.stringify(snapshot)));
 };
