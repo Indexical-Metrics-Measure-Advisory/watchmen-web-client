@@ -40,7 +40,7 @@ export const fetchThemeFromSession = (): string | null => {
 		}
 	}
 	return null;
-}
+};
 const saveLastSnapshotToSession = (snapshot: LastSnapshot) => {
 	localStorage.setItem(LAST_SNAPSHOT_TOKEN, btoa(JSON.stringify(snapshot)));
 };

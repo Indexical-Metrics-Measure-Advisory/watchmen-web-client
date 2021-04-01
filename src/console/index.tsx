@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { Router } from '../routes/types';
+import { findAccount } from '../services/account';
 import { LastSnapshot } from '../services/console/last-snapshot-types';
 import ConsoleConnectedSpace from './connected-space';
 import { ConsoleEventBusProvider, useConsoleEventBus } from './console-event-bus';
@@ -129,6 +130,10 @@ const ConsoleContainerDelegate = () => {
 	</ConsoleContainer>;
 };
 const ConsoleIndex = () => {
+	if (!findAccount()) {
+		return <Redirect to={Router.LOGIN}/>
+	}
+
 	return <ConsoleEventBusProvider>
 		<ConsoleContainerDelegate/>
 	</ConsoleEventBusProvider>;
