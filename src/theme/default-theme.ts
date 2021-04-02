@@ -146,7 +146,10 @@ const DefaultTheme = {
 	distinctTopicColor: 'var(--primary-color)',
 	aggregateTopicColor: 'var(--info-color)',
 	timeTopicColor: 'var(--success-color)',
-	ratioTopicColor: 'var(--warn-color)'
+	ratioTopicColor: 'var(--warn-color)',
+
+	// data diff color
+	diffAddedBgColor: 'rgba(148,232,191,0.6)'
 };
 
 export default DefaultTheme;

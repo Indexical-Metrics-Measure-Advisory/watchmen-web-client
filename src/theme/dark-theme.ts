@@ -19,7 +19,9 @@ const DarkTheme = {
 
 	tooltipBgColor: '#F1F1F1',
 
-	gridRibBgColor: 'rgb(37,37,38)'
+	gridRibBgColor: 'rgb(37,37,38)',
+
+	diffAddedBgColor: 'rgba(148,232,191,0.9)'
 };
 
 export default DarkTheme;

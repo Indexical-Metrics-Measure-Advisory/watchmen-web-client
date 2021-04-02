@@ -101,6 +101,12 @@ export const Diff = styled.div.attrs<{ fullScreen: boolean }>(({ fullScreen }) =
 			font-weight : 400;
 		}
 	}
+	.jsondiffpatch-added .jsondiffpatch-property-name, 
+	.jsondiffpatch-added .jsondiffpatch-value pre, 
+	.jsondiffpatch-modified .jsondiffpatch-right-value pre, 
+	.jsondiffpatch-textdiff-added {
+		background-color: var(--diff-added-bg-color);
+	}
 `;
 export const DetailProcessContainer = styled.div.attrs({ 'data-widget': 'monitor-log-detail-process' })`
 	display               : grid;
