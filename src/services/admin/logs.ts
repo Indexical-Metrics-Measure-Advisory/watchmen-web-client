@@ -17,8 +17,8 @@ export interface MonitorLogCriteria {
 }
 
 export enum MonitorLogStatus {
-	DONE = "done",
-	ERROR = "error",
+	DONE = "DONE",
+	ERROR = "ERROR",
 }
 
 export interface MonitorLogAction {

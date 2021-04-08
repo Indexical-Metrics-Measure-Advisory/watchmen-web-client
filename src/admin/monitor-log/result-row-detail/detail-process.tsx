@@ -13,9 +13,9 @@ import {
 	CloseButton,
 	DetailProcessBody,
 	DetailProcessContainer,
+	ErrorLabel,
 	ErrorPart,
 	ErrorStack,
-	ErrorLabel,
 	SectionTitle,
 	Title,
 	TitleExecutionLabel,
@@ -70,8 +70,9 @@ export const DetailProcess = (props: {
 			<SectionTitle>
 				<TitleLabel>
 					<TitleNameLabel>Pipeline Execution:</TitleNameLabel>
-					<TitleExecutionLabel
-						data-ignored={!pipelineExecution}>{`${pipelineExecution}`}</TitleExecutionLabel>
+					<TitleExecutionLabel data-ignored={!pipelineExecution}>
+						{`${pipelineExecution}`}
+					</TitleExecutionLabel>
 				</TitleLabel>
 				<TitleLabel>
 					<TitleNameLabel>Spent:</TitleNameLabel>

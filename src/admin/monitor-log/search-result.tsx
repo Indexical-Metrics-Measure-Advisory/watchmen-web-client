@@ -48,7 +48,20 @@ export const SearchResult = (props: {
 		pageSize: PAGE_SIZE
 	});
 	useEffect(() => {
+		const decorate = (criteria: MonitorLogCriteria): MonitorLogCriteria => {
+			const condition = {
+				topicId: criteria.topicId || undefined,
+				pipelineId: criteria.pipelineId || undefined,
+				startDate: criteria.startDate || undefined,
+				endDate: criteria.endDate || undefined,
+				status: criteria.status || undefined
+			};
+			// @ts-ignore
+			Object.keys(condition).filter(key => !condition[key]).forEach(key => delete condition[key]);
+			return condition;
+		};
 		const onSearch = async (criteria: MonitorLogCriteria) => {
+			criteria = decorate(criteria);
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await fetchMonitorLogs({ criteria, pageNumber: 1, pageSize: PAGE_SIZE }),
 				(page: MonitorLogsDataPage) => setLogs({ ...page, criteria }));
