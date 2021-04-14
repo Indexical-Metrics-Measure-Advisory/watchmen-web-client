@@ -38,11 +38,11 @@ export enum FactorType {
 	MONTH = 'month', // 1 - 12
 	HALF_MONTH = 'half-month', // 1: first half, 2: second half
 	TEN_DAYS = 'ten-days', // 1, 2, 3
-	WEEK_OF_YEAR = 'week-of-year', // 1 - 53
-	WEEK_OF_MONTH = 'week-of-month', // 1 - 6
+	WEEK_OF_YEAR = 'week-of-year', // 0 (the partial week that precedes the first Sunday of the year) - 53 (leap year)
+	WEEK_OF_MONTH = 'week-of-month', // 0 (the partial week that precedes the first Sunday of the year) - 5
 	HALF_WEEK = 'half-week', // 1: first half, 2: second half
 	DAY_OF_MONTH = 'day-of-month', // 1 - 31, according to month/year
-	DAY_OF_WEEK = 'day-of-week', // 1 - 7
+	DAY_OF_WEEK = 'day-of-week', // 1 (Sunday) - 7 (Saturday)
 	DAY_KIND = 'day-kind', // 1: workday, 2: weekend, 3: holiday
 	HOUR = 'hour', // 0 - 23
 	HOUR_KIND = 'hour-kind', // 1: work time, 2: off hours, 3: sleeping time
