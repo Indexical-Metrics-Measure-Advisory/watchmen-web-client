@@ -9,7 +9,7 @@ WORKDIR /app
 # Copy all files from current directory to working dir in image
 COPY . .
 
-ARG PUBLIC_URL
+# ARG PUBLIC_URL
 
 # install node modules and build assets
 RUN yarn install && yarn build
