@@ -1,90 +1,90 @@
 @font-face {
     font-family: 'Oswald';
     font-weight: 200;
-    src: url('./Oswald-ExtraLight.ttf') format('truetype');
+    src: url('Oswald-ExtraLight.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Oswald';
     font-style: italic;
     font-weight: 200;
-    src: url('./Oswald-Extra-LightItalic.ttf') format('truetype');
+    src: url('Oswald-Extra-LightItalic.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Oswald';
     font-weight: 300;
-    src: url('./Oswald-Light.ttf') format('truetype');
+    src: url('Oswald-Light.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Oswald';
     font-style: italic;
     font-weight: 300;
-    src: url('./Oswald-LightItalic.ttf') format('truetype');
+    src: url('Oswald-LightItalic.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Oswald';
     font-weight: 400;
-    src: url('./Oswald-Regular.ttf') format('truetype');
+    src: url('Oswald-Regular.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Oswald';
     font-style: italic;
     font-weight: 400;
-    src: url('./Oswald-RegularItalic.ttf') format('truetype');
+    src: url('Oswald-RegularItalic.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Oswald';
     font-weight: 500;
-    src: url('./Oswald-Medium.ttf') format('truetype');
+    src: url('Oswald-Medium.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Oswald';
     font-style: italic;
     font-weight: 500;
-    src: url('./Oswald-MediumItalic.ttf') format('truetype');
+    src: url('Oswald-MediumItalic.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Oswald';
     font-weight: 600;
-    src: url('./Oswald-DemiBold.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'Oswald';
-    font-style: italic;
-    font-weight: 600;
-    src: url('./Oswald-Demi-BoldItalic.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'Oswald';
-    font-weight: 600;
-    src: url('./Oswald-Bold.ttf') format('truetype');
+    src: url('Oswald-DemiBold.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Oswald';
     font-style: italic;
     font-weight: 600;
-    src: url('./Oswald-BoldItalic.ttf') format('truetype');
+    src: url('Oswald-Demi-BoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Oswald';
+    font-weight: 600;
+    src: url('Oswald-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Oswald';
+    font-style: italic;
+    font-weight: 600;
+    src: url('Oswald-BoldItalic.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Oswald';
     font-weight: 900;
-    src: url('./Oswald-Heavy.ttf') format('truetype');
+    src: url('Oswald-Heavy.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Oswald';
     font-style: italic;
     font-weight: 900;
-    src: url('./Oswald-HeavyItalic.ttf') format('truetype');
+    src: url('Oswald-HeavyItalic.ttf') format('truetype');
 }
