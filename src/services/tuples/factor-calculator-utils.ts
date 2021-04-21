@@ -70,7 +70,6 @@ export const isConstantValueTypeMatched = (value: string, type: ParameterType | 
 		case FactorType.RESIDENCE_TYPE:
 		case FactorType.HALF_YEAR:
 		case FactorType.QUARTER:
-		case FactorType.SEASON:
 		case FactorType.HALF_MONTH:
 		case FactorType.TEN_DAYS:
 		case FactorType.WEEK_OF_YEAR:
@@ -150,7 +149,7 @@ export const ParameterAndFactorTypeMapping: { [key in ParameterType]: (factorTyp
 	[ParameterType.BOOLEAN]: (factorType: FactorType) => [ FactorType.BOOLEAN ].includes(factorType),
 	[ParameterType.ENUM]: (factorType: FactorType) => [
 		FactorType.CONTINENT, FactorType.REGION, FactorType.COUNTRY, FactorType.PROVINCE, FactorType.CITY, FactorType.RESIDENCE_TYPE,
-		FactorType.HALF_YEAR, FactorType.QUARTER, FactorType.SEASON, FactorType.HALF_MONTH, FactorType.TEN_DAYS, FactorType.HALF_WEEK,
+		FactorType.HALF_YEAR, FactorType.QUARTER, FactorType.HALF_MONTH, FactorType.TEN_DAYS, FactorType.HALF_WEEK,
 		FactorType.DAY_OF_WEEK, FactorType.DAY_KIND, FactorType.HOUR_KIND, FactorType.AM_PM,
 		FactorType.GENDER, FactorType.OCCUPATION, FactorType.RELIGION, FactorType.NATIONALITY,
 		FactorType.BIZ_TRADE,

@@ -34,7 +34,6 @@ export enum FactorType {
 	YEAR = 'year', // 4 digits
 	HALF_YEAR = 'half-year', // 1: first half, 2: second half
 	QUARTER = 'quarter', // 1 - 4
-	SEASON = 'season', // 1: spring, 2: summer, 3: autumn, 4: winter
 	MONTH = 'month', // 1 - 12
 	HALF_MONTH = 'half-month', // 1: first half, 2: second half
 	TEN_DAYS = 'ten-days', // 1, 2, 3
