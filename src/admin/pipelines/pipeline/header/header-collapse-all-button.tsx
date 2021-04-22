@@ -15,7 +15,7 @@ export const HeaderCollapseAllButton = (props: { pipeline: Pipeline }) => {
 		fire(PipelineEventTypes.COLLAPSE_ALL, pipeline);
 	};
 
-	return <PageHeaderButton tooltip='Collapse All'
+	return <PageHeaderButton tooltip='Collapse All to Units'
 	                         onClick={onCollapseAllClicked}>
 		<FontAwesomeIcon icon={ICON_COLLAPSE_PANEL}/>
 	</PageHeaderButton>;

@@ -161,6 +161,7 @@ export const DemoPipelines: Array<Pipeline> = [
 				units: [
 					{
 						unitId: generateUuid(),
+						name: '',
 						conditional: true,
 						on: {
 							jointType: ParameterJointType.AND,
@@ -189,6 +190,7 @@ export const DemoPipelines: Array<Pipeline> = [
 				units: [
 					{
 						unitId: generateUuid(),
+						name: '',
 						conditional: false, do: [ WriteRawEndorsementPremiumToPolicy ]
 					}
 				]
@@ -207,6 +209,7 @@ export const DemoPipelines: Array<Pipeline> = [
 				name: '', conditional: false,
 				units: [ {
 					unitId: generateUuid(),
+					name: '',
 					conditional: false,
 					do: [ AsIssueYear, AsIssueWeekOfYear, WriteWeeklyPremium ]
 				} ]
@@ -225,6 +228,7 @@ export const DemoPipelines: Array<Pipeline> = [
 				name: '', conditional: false,
 				units: [ {
 					unitId: generateUuid(),
+					name: '',
 					conditional: false,
 					do: [ AsIssueYear, AsIssueMonthOfYear, WriteMonthlyPremium ]
 				} ]

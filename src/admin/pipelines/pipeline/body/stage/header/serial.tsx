@@ -1,8 +1,8 @@
 import React from 'react';
 import { PipelineStage } from '../../../../../../services/tuples/pipeline-stage-types';
 import { Pipeline } from '../../../../../../services/tuples/pipeline-types';
-import { LeadLabel } from '../../widgets';
 import { useExpanded } from '../stage-effect/use-expanded';
+import { StageLeadLabel } from './widgets';
 
 export const Serial = (props: { pipeline: Pipeline, stage: PipelineStage }) => {
 	const { pipeline, stage } = props;
@@ -11,5 +11,5 @@ export const Serial = (props: { pipeline: Pipeline, stage: PipelineStage }) => {
 
 	const index = pipeline.stages.indexOf(stage) + 1;
 
-	return <LeadLabel>Stage #{index}{expanded ? '' : ' (Collapsed)'}:</LeadLabel>;
+	return <StageLeadLabel>Stage #{index}{expanded ? '' : ' (Collapsed)'}:</StageLeadLabel>;
 };

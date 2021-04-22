@@ -3,5 +3,6 @@ import { Conditional } from './pipeline-super-types';
 
 export interface PipelineStageUnit extends Conditional {
 	unitId: string;
+	name: string;
 	do: Array<PipelineStageUnitAction>;
 }

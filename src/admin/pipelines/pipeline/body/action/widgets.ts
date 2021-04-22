@@ -35,6 +35,7 @@ export const ActionContainer = styled.div.attrs({ 'data-widget': 'action' })`
 `;
 export const ActionLeadLabel = styled(LeadLabel)`
 	font-weight : var(--font-boldest);
+	color: var(--warn-color);
 `;
 export const ActionLeadLabelThin = styled(LeadLabel)`
 	font-weight : normal;

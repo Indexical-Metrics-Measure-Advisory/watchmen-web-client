@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Input } from '../../../../../../basic-widgets/input';
 import { GRID_COLUMN_GAP, GRID_STAGE_HEADER } from '../../constants';
+import { LeadLabel } from '../../widgets';
 
 export const StageHeaderContainer = styled.div.attrs({ 'data-widget': 'stage-header' })`
 	grid-column           : 1 / span 2;
@@ -16,6 +17,10 @@ export const StageHeaderContainer = styled.div.attrs({ 'data-widget': 'stage-hea
 		top   : calc((var(--margin) / 2 + var(--height) - var(--param-height)) / 2);
 		right : calc(var(--margin) / 2);
 	}
+`;
+export const StageLeadLabel = styled(LeadLabel)`
+	font-weight : var(--font-boldest);
+	color: var(--warn-color);
 `;
 export const StageNameEditor = styled.div.attrs({ 'data-widget': 'stage-name' })`
 	display     : flex;

@@ -25,7 +25,7 @@ export const ActionEditor = (props: {
 
 	return <ActionContainer>
 		<Operators action={action} unit={unit}/>
-		<ActionLeadLabel>#{stageIndex}.{unitIndex}.{actionIndex}:</ActionLeadLabel>
+		<ActionLeadLabel>Action #{stageIndex}.{unitIndex}.{actionIndex}:</ActionLeadLabel>
 		<ActionTypeEditor action={action}/>
 		<ActionBody pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
 		<ActionFooterLeadLabel>End of Action #{stageIndex}.{unitIndex}.{actionIndex}</ActionFooterLeadLabel>

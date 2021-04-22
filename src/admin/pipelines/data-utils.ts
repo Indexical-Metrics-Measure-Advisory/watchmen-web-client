@@ -74,6 +74,7 @@ export const createAction = (): AlarmAction => {
 export const createUnit = (): PipelineStageUnit => {
 	return {
 		unitId: generateUuid(),
+		name: 'Noname Unit',
 		conditional: false,
 		do: [ createAction() ]
 	};

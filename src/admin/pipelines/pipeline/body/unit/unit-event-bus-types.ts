@@ -2,6 +2,7 @@ import { PipelineStageUnitAction } from '../../../../../services/tuples/pipeline
 import { PipelineStageUnit } from '../../../../../services/tuples/pipeline-stage-unit-types';
 
 export enum UnitEventTypes {
+	RENAME_UNIT = 'rename-unit',
 	CONDITION_CHANGED = 'condition-changed',
 
 	ACTION_ADDED = 'action-added',
@@ -14,6 +15,10 @@ export enum UnitEventTypes {
 }
 
 export interface UnitEventBus {
+	fire(type: UnitEventTypes.RENAME_UNIT, unit: PipelineStageUnit): this;
+	on(type: UnitEventTypes.RENAME_UNIT, listener: (unit: PipelineStageUnit) => void): this;
+	off(type: UnitEventTypes.RENAME_UNIT, listener: (unit: PipelineStageUnit) => void): this;
+
 	fire(type: UnitEventTypes.CONDITION_CHANGED, unit: PipelineStageUnit): this;
 	on(type: UnitEventTypes.CONDITION_CHANGED, listener: (unit: PipelineStageUnit) => void): this;
 	off(type: UnitEventTypes.CONDITION_CHANGED, listener: (unit: PipelineStageUnit) => void): this;

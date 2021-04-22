@@ -12,14 +12,16 @@ export const useExpanded = () => {
 		const onExpandContent = () => setExpanded(true);
 		const onCollapseContent = () => setExpanded(false);
 		onPipeline(PipelineEventTypes.EXPAND_ALL, onExpandContent);
+		onPipeline(PipelineEventTypes.COLLAPSE_ALL, onCollapseContent);
 		on(UnitEventTypes.EXPAND_CONTENT, onExpandContent);
 		on(UnitEventTypes.COLLAPSE_CONTENT, onCollapseContent);
 		return () => {
 			offPipeline(PipelineEventTypes.EXPAND_ALL, onExpandContent);
+			offPipeline(PipelineEventTypes.COLLAPSE_ALL, onCollapseContent);
 			off(UnitEventTypes.EXPAND_CONTENT, onExpandContent);
 			off(UnitEventTypes.COLLAPSE_CONTENT, onCollapseContent);
 		};
-	}, [ on, off ]);
+	}, [ onPipeline, offPipeline, on, off ]);
 
 	return expanded;
 };

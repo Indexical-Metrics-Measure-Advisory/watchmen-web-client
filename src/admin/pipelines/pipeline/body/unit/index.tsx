@@ -7,6 +7,7 @@ import { Actions } from './actions';
 import { UnitBody } from './body';
 import { UnitFooter } from './footer';
 import { UnitHeader } from './header';
+import { UnitPrerequisite } from './prerequisite';
 import { UnitContainer } from './widgets';
 
 export const UnitEditor = (props: {
@@ -21,6 +22,7 @@ export const UnitEditor = (props: {
 	return <UnitContainer>
 		<UnitHeader pipeline={pipeline} stage={stage} unit={unit} topic={topic}/>
 		<UnitBody>
+			<UnitPrerequisite unit={unit} topic={topic}/>
 			<Actions pipeline={pipeline} stage={stage} unit={unit} topics={topics} topic={topic}/>
 			<UnitFooter pipeline={pipeline} stage={stage} unit={unit}/>
 		</UnitBody>
