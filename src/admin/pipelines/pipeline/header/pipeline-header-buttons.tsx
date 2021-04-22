@@ -5,9 +5,11 @@ import { Pipeline } from '../../../../services/tuples/pipeline-types';
 import { usePipelineEventBus } from '../pipeline-event-bus';
 import { PipelineEventTypes } from '../pipeline-event-bus-types';
 import { HeaderCatalogButton } from './header-catalog-button';
+import { HeaderCollapseAllButton } from './header-collapse-all-button';
 import { HeaderDisableButton } from './header-disable-button';
 import { HeaderDslButton } from './header-dsl-button';
 import { HeaderEnableButton } from './header-enable-button';
+import { HeaderExpandAllButton } from './header-expand-all-button';
 import { HeaderSaveButton } from './header-save-button';
 
 export const PipelineHeaderButtons = (props: { pipeline: Pipeline }) => {
@@ -36,6 +38,8 @@ export const PipelineHeaderButtons = (props: { pipeline: Pipeline }) => {
 			: <HeaderEnableButton pipeline={pipeline}/>}
 		<PageHeaderButtonSeparator/>
 		<HeaderDslButton pipeline={pipeline}/>
+		<HeaderExpandAllButton pipeline={pipeline}/>
+		<HeaderCollapseAllButton pipeline={pipeline}/>
 		<PageHeaderButtonSeparator/>
 		<HeaderCatalogButton/>
 	</PageHeaderButtons>;

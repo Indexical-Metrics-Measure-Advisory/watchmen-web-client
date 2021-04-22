@@ -18,7 +18,9 @@ export enum PipelineEventTypes {
 	STAGE_CHANGED = 'stage-changed',
 	STAGE_SORTED = 'stage-sorted',
 
-	SHOW_DSL = 'show-dsl'
+	SHOW_DSL = 'show-dsl',
+	COLLAPSE_ALL = 'collapse-all',
+	EXPAND_ALL = 'expand-all'
 }
 
 export interface PipelineEventBus {
@@ -69,4 +71,12 @@ export interface PipelineEventBus {
 	fire(type: PipelineEventTypes.SHOW_DSL, pipeline: Pipeline): this;
 	on(type: PipelineEventTypes.SHOW_DSL, listener: (pipeline: Pipeline) => void): this;
 	off(type: PipelineEventTypes.SHOW_DSL, listener: (pipeline: Pipeline) => void): this;
+
+	fire(type: PipelineEventTypes.COLLAPSE_ALL, pipeline: Pipeline): this;
+	on(type: PipelineEventTypes.COLLAPSE_ALL, listener: (pipeline: Pipeline) => void): this;
+	off(type: PipelineEventTypes.COLLAPSE_ALL, listener: (pipeline: Pipeline) => void): this;
+
+	fire(type: PipelineEventTypes.EXPAND_ALL, pipeline: Pipeline): this;
+	on(type: PipelineEventTypes.EXPAND_ALL, listener: (pipeline: Pipeline) => void): this;
+	off(type: PipelineEventTypes.EXPAND_ALL, listener: (pipeline: Pipeline) => void): this;
 }
