@@ -18,6 +18,9 @@ export const ColorPicker = (props: { color: string, onChange: (color?: string) =
 		height: 0
 	});
 	useEffect(() => {
+		if (!state.active) {
+			return;
+		}
 		const onScroll = () => {
 			if (!state.active) {
 				return;
