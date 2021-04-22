@@ -15,12 +15,14 @@ export const Unit2StageBridge = (props: { stage: PipelineStage, unit: PipelineSt
 		const onUnitChanged = () => {
 			fireStage(StageEventTypes.UNIT_CHANGED, unit, stage);
 		};
+		on(UnitEventTypes.RENAME_UNIT, onUnitChanged);
 		on(UnitEventTypes.CONDITION_CHANGED, onUnitChanged);
 		on(UnitEventTypes.ACTION_ADDED, onUnitChanged);
 		on(UnitEventTypes.ACTION_REMOVED, onUnitChanged);
 		on(UnitEventTypes.ACTION_CHANGED, onUnitChanged);
 		on(UnitEventTypes.ACTION_SORTED, onUnitChanged);
 		return () => {
+			off(UnitEventTypes.RENAME_UNIT, onUnitChanged);
 			off(UnitEventTypes.CONDITION_CHANGED, onUnitChanged);
 			off(UnitEventTypes.ACTION_ADDED, onUnitChanged);
 			off(UnitEventTypes.ACTION_REMOVED, onUnitChanged);
