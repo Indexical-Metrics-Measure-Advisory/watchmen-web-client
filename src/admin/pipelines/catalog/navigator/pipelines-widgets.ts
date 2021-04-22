@@ -12,12 +12,12 @@ export const PipelinesBodyContainer = styled.div.attrs<{ visible: boolean }>(({ 
 		}
 	};
 })<{ visible: boolean }>`
-	display               : grid;
+	display               : block;
 	position              : relative;
-	grid-template-columns : 1fr;
 	align-content         : start;
 	overflow-y            : auto;
 `;
+export const PipelinesWrapper = styled.div``
 export const PipelineRowContainer = styled.div.attrs({ 'data-widget': 'pipelines-navigator-pipeline' })`
 	display               : grid;
 	position              : relative;
