@@ -20,7 +20,7 @@ export const UnitEditor = (props: {
 	const { pipeline, stage, unit, topics, topic } = props;
 
 	return <UnitContainer>
-		<UnitHeader pipeline={pipeline} stage={stage} unit={unit} topic={topic}/>
+		<UnitHeader pipeline={pipeline} stage={stage} unit={unit}/>
 		<UnitBody>
 			<UnitPrerequisite unit={unit} topic={topic}/>
 			<Actions pipeline={pipeline} stage={stage} unit={unit} topics={topics} topic={topic}/>
