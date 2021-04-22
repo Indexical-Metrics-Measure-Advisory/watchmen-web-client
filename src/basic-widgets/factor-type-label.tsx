@@ -41,7 +41,6 @@ const Labels: { [key in FactorType]: string } = {
 	[FactorType.YEAR]: Lang.FACTOR.YEAR,
 	[FactorType.HALF_YEAR]: Lang.FACTOR.HALF_YEAR,
 	[FactorType.QUARTER]: Lang.FACTOR.QUARTER,
-	[FactorType.SEASON]: Lang.FACTOR.SEASON,
 	[FactorType.MONTH]: Lang.FACTOR.MONTH,
 	[FactorType.HALF_MONTH]: Lang.FACTOR.HALF_MONTH,
 	[FactorType.TEN_DAYS]: Lang.FACTOR.TEN_DAYS,
