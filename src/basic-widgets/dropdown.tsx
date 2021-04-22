@@ -177,6 +177,9 @@ export const Dropdown = (props: DropdownProps) => {
 	const [ filter, setFilter ] = useState('');
 
 	useEffect(() => {
+		if (!state.active) {
+			return;
+		}
 		const onScroll = (event: Event) => {
 			if (!state.active || event.target === optionsRef.current) {
 				return;

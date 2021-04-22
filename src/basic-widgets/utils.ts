@@ -24,12 +24,16 @@ export const notInMe = (me: HTMLOrSVGElement, target: EventTarget | null): boole
 
 export const useCollapseFixedThing = (options: {
 	containerRef: RefObject<HTMLOrSVGElement>;
+	visible?: boolean;
 	hide: () => void;
 	events?: Array<'scroll' | 'focus' | 'click'>
 }) => {
-	const { containerRef, hide, events = [ 'scroll', 'focus', 'click' ] } = options;
+	const { containerRef, visible = true, hide, events = [ 'scroll', 'focus', 'click' ] } = options;
 
 	useEffect(() => {
+		if (!visible) {
+			return;
+		}
 		const collapse = (event: Event) => {
 			if (notInMe(containerRef.current!, event.target)) {
 				hide();
@@ -43,5 +47,5 @@ export const useCollapseFixedThing = (options: {
 				window.removeEventListener(event, collapse, true);
 			});
 		};
-	}, [ containerRef, events, hide ]);
+	}, [ containerRef, events, visible, hide ]);
 };

@@ -56,7 +56,11 @@ export const ExpressionOperator = (props: { expression: ParameterExpression }) =
 	const containerRef = useRef<HTMLDivElement>(null);
 	const { fire } = useExpressionEventBus();
 	const [ state, setState ] = useState<DropdownState>({ visible: false, top: 0, left: 0 });
-	useCollapseFixedThing({ containerRef, hide: () => setState({ visible: false, top: 0, left: 0 }) });
+	useCollapseFixedThing({
+		containerRef,
+		visible: state.visible,
+		hide: () => setState({ visible: false, top: 0, left: 0 })
+	});
 
 	const onStartClicked = () => {
 		if (!containerRef.current) {

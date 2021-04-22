@@ -47,7 +47,11 @@ export const ActionTypeEditor = (props: { action: PipelineStageUnitAction }) => 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const { fire } = useActionEventBus();
 	const [ state, setState ] = useState<DropdownState>({ visible: false, top: 0, left: 0 });
-	useCollapseFixedThing({ containerRef, hide: () => setState({ visible: false, top: 0, left: 0 }) });
+	useCollapseFixedThing({
+		containerRef,
+		visible: state.visible,
+		hide: () => setState({ visible: false, top: 0, left: 0 })
+	});
 
 	const onTypeClicked = () => {
 		if (!containerRef.current) {
