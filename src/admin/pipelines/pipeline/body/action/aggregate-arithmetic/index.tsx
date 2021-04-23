@@ -11,10 +11,7 @@ const OptionsLabel: { [key in AggregateArithmetic]: string } = {
 	[AggregateArithmetic.NONE]: 'As Is',
 	[AggregateArithmetic.SUM]: 'Sum',
 	[AggregateArithmetic.AVG]: 'Avg',
-	[AggregateArithmetic.MEDIAN]: 'Median',
-	[AggregateArithmetic.COUNT]: 'Count',
-	[AggregateArithmetic.MAX]: 'Max',
-	[AggregateArithmetic.MIN]: 'Min'
+	[AggregateArithmetic.COUNT]: 'Count'
 };
 
 const defendHolder = (holder: AggregateArithmeticHolder) => {
@@ -52,8 +49,7 @@ export const AggregateArithmeticEditor = (props: { holder: AggregateArithmeticHo
 		setExpanded(!expanded);
 	};
 	const candidates = [
-		AggregateArithmetic.NONE, AggregateArithmetic.SUM, AggregateArithmetic.AVG, AggregateArithmetic.MEDIAN,
-		AggregateArithmetic.COUNT, AggregateArithmetic.MAX, AggregateArithmetic.MIN
+		AggregateArithmetic.NONE, AggregateArithmetic.SUM, AggregateArithmetic.AVG, AggregateArithmetic.COUNT
 	].filter(candidate => candidate !== arithmetic);
 
 	return <AggregateArithmeticContainer tabIndex={0} onClick={onExpandedClicked} onBlur={onBlur}>
