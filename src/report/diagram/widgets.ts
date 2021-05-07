@@ -1,17 +1,17 @@
 import styled from 'styled-components';
-import { ChartSettings } from '../../services/tuples/chart-types';
+import {ChartSettings} from '../../services/tuples/chart-types';
 
-export const DiagramContainer = styled.div.attrs<{ settings?: ChartSettings }>(({ settings = {} }) => {
-	return {
-		'data-widget': 'chart-diagram',
-		style: {
-			backgroundColor: settings?.backgroundColor || 'var(--bg-color)',
-			borderStyle: settings?.border?.style || 'none',
-			borderWidth: settings?.border?.width || 0,
-			borderColor: settings?.border?.color || 'var(--border-color)',
-			borderRadius: settings?.border?.radius || 0
-		}
-	};
+export const DiagramContainer = styled.div.attrs<{ settings?: ChartSettings }>(({settings = {}}) => {
+    return {
+        'data-widget': 'chart-diagram',
+        style: {
+            backgroundColor: settings?.backgroundColor || 'var(--bg-color)',
+            borderStyle: settings?.border?.style || 'none',
+            borderWidth: settings?.border?.width || 0,
+            borderColor: settings?.border?.color || 'var(--border-color)',
+            borderRadius: settings?.border?.radius || 0
+        }
+    };
 })<{ settings?: ChartSettings }>`
 	display  : block;
 	position : relative;
@@ -19,7 +19,7 @@ export const DiagramContainer = styled.div.attrs<{ settings?: ChartSettings }>((
 	height   : 100%;
 	overflow : hidden;
 `;
-export const DiagramLoading = styled.div.attrs({ 'data-widget': 'chart-diagram-loading' })`
+export const DiagramLoading = styled.div.attrs({'data-widget': 'chart-diagram-loading'})`
 	display         : flex;
 	align-items     : center;
 	justify-content : center;
@@ -28,7 +28,7 @@ export const DiagramLoading = styled.div.attrs({ 'data-widget': 'chart-diagram-l
 	color           : var(--font-color);
 	opacity         : 0.1;
 `;
-export const EChartDiagramContainer = styled.div.attrs({ 'data-widget': 'echart-diagram' })`
+export const EChartDiagramContainer = styled.div.attrs({'data-widget': 'echart-diagram'})`
 	display  : block;
 	position : relative;
 	width    : 100%;

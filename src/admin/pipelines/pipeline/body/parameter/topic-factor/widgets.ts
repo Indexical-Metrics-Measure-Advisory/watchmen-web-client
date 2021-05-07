@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Dropdown } from '../../../../../../basic-widgets/dropdown';
+import {Dropdown} from '../../../../../../basic-widgets/dropdown';
 
-export const TopicFactorEditContainer = styled.div.attrs({ 'data-widget': 'parameter-topic-factor-edit' })`
+export const TopicFactorEditContainer = styled.div.attrs({'data-widget': 'parameter-topic-factor-edit'})`
 	display               : grid;
 	grid-template-columns : auto auto 1fr;
 	position              : relative;
@@ -50,7 +50,7 @@ export const FactorDropdown = styled(TFDropdown)`
 	border-radius : 0 calc(var(--param-height) / 2) calc(var(--param-height) / 2) 0;
 	box-shadow    : var(--param-border);
 `;
-export const IncorrectOptionLabel = styled.span.attrs({ 'data-widget': 'incorrect-option' })`
+export const IncorrectOptionLabel = styled.span.attrs({'data-widget': 'incorrect-option'})`
 	color           : var(--danger-color);
 	text-decoration : line-through;
 `;

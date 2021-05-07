@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { DROPDOWN_HEIGHT } from '../widgets';
+import {DROPDOWN_HEIGHT} from '../widgets';
 
 export const TimePickerContainer = styled.div`
 	display               : grid;
@@ -31,7 +31,7 @@ export const TimePickerLabel = styled.div`
 	height       : calc(var(--height) * 1.5);
 	font-weight  : var(--font-bold);
 `;
-export const TimePickerSelector = styled.div.attrs({ 'data-v-scroll': '' })`
+export const TimePickerSelector = styled.div.attrs({'data-v-scroll': ''})`
 	display        : flex;
 	flex-direction : column;
 	height         : calc(${DROPDOWN_HEIGHT}px - 32px - var(--height) * 1.5 - var(--margin) / 2);

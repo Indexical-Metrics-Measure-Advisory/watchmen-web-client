@@ -4,9 +4,15 @@ import {
 	SystemActionType,
 	WriteTopicActionType
 } from './pipeline-stage-unit-action-types';
-import { ExistsAction, ReadFactorAction, ReadRowAction } from './read-topic-actions-types';
-import { AlarmAction, CopyToMemoryAction } from './system-actions-types';
-import { InsertRowAction, MergeRowAction, WriteFactorAction, WriteTopicAction } from './write-topic-actions-types';
+import {
+	ExistsAction,
+	ReadFactorAction,
+	ReadFactorsAction,
+	ReadRowAction,
+	ReadRowsAction
+} from './read-topic-actions-types';
+import {AlarmAction, CopyToMemoryAction} from './system-actions-types';
+import {InsertRowAction, MergeRowAction, WriteFactorAction, WriteTopicAction} from './write-topic-actions-types';
 
 export const isWriteTopicAction = (action: PipelineStageUnitAction): action is WriteTopicAction => {
 	return isMergeRowAction(action) || isInsertRowAction(action) || isWriteFactorAction(action);
@@ -25,8 +31,14 @@ export const isExistsAction = (action: PipelineStageUnitAction): action is Exist
 export const isReadFactorAction = (action: PipelineStageUnitAction): action is ReadFactorAction => {
 	return action.type === ReadTopicActionType.READ_FACTOR;
 };
+export const isReadFactorsAction = (action: PipelineStageUnitAction): action is ReadFactorsAction => {
+	return action.type === ReadTopicActionType.READ_FACTORS;
+};
 export const isReadRowAction = (action: PipelineStageUnitAction): action is ReadRowAction => {
 	return action.type === ReadTopicActionType.READ_ROW;
+};
+export const isReadRowsAction = (action: PipelineStageUnitAction): action is ReadRowsAction => {
+	return action.type === ReadTopicActionType.READ_ROWS;
 };
 
 export const isMergeRowAction = (action: PipelineStageUnitAction): action is MergeRowAction => {

@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-export const SearchResultBodyRow = styled.div.attrs<{ detail: boolean }>(({ detail }) => {
-	return {
-		'data-widget': 'monitor-logs-result-body-row',
-		style: {
-			height: detail ? 'unset' : (void 0),
-			cursor: detail ? 'default' : (void 0),
-		}
-	};
+export const SearchResultBodyRow = styled.div.attrs<{ detail: boolean }>(({detail}) => {
+    return {
+        'data-widget': 'monitor-logs-result-body-row',
+        style: {
+            height: detail ? 'unset' : (void 0),
+            cursor: detail ? 'default' : (void 0),
+        }
+    };
 })<{ detail: boolean }>`
 	display               : grid;
 	position              : relative;
@@ -15,8 +15,8 @@ export const SearchResultBodyRow = styled.div.attrs<{ detail: boolean }>(({ deta
 	height                : var(--height);
 	border-bottom         : var(--border);
 	cursor                : pointer;
-	${({ detail }) => {
-		return detail ? '' : `&:hover {
+	${({detail}) => {
+    return detail ? '' : `&:hover {
 			background-color : var(--hover-color);
 			&:before,
 			&:after {
@@ -38,9 +38,9 @@ export const SearchResultBodyRow = styled.div.attrs<{ detail: boolean }>(({ deta
 				border-top-color   : var(--invert-color);
 			}
 		}`;
-	}}
+}}
 `;
-export const SearchResultBodyCell = styled.div.attrs({ 'data-widget': 'monitor-logs-result-body-cell' })`
+export const SearchResultBodyCell = styled.div.attrs({'data-widget': 'monitor-logs-result-body-cell'})`
 	display      : flex;
 	align-items  : center;
 	height       : calc(var(--height) - 1px);

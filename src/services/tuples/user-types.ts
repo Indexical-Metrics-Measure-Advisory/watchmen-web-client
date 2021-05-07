@@ -1,7 +1,7 @@
-import { Tuple, UserGroupHolder } from './tuple-types';
+import {Tuple, UserGroupHolder} from './tuple-types';
 
 export interface User extends Tuple, UserGroupHolder {
-	userId: string;
-	name: string;
-	nickName: string;
+    userId: string;
+    name: string;
+    nickName: string;
 }

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const TriggerContainer = styled.div.attrs({ 'data-widget': 'pipeline-trigger' })`
+export const TriggerContainer = styled.div.attrs({'data-widget': 'pipeline-trigger'})`
 	display          : flex;
 	align-items      : center;
 	align-self       : center;
@@ -19,15 +19,15 @@ export const TriggerContainer = styled.div.attrs({ 'data-widget': 'pipeline-trig
 		box-shadow : var(--primary-hover-shadow);
 	}
 `;
-export const TriggerOn = styled.div.attrs<{ active: boolean, expanded: boolean }>(({ active, expanded }) => {
-	return {
-		'data-widget': 'pipeline-trigger-on',
-		style: {
-			display: (expanded || active) ? (void 0) : 'none',
-			backgroundColor: active ? (void 0) : 'var(--bg-color)',
-			boxShadow: active ? (void 0) : 'var(--param-left-border)'
-		}
-	};
+export const TriggerOn = styled.div.attrs<{ active: boolean, expanded: boolean }>(({active, expanded}) => {
+    return {
+        'data-widget': 'pipeline-trigger-on',
+        style: {
+            display: (expanded || active) ? (void 0) : 'none',
+            backgroundColor: active ? (void 0) : 'var(--bg-color)',
+            boxShadow: active ? (void 0) : 'var(--param-left-border)'
+        }
+    };
 })<{ active: boolean, expanded: boolean }>`
 	display      : flex;
 	align-items  : center;
@@ -37,10 +37,10 @@ export const TriggerOn = styled.div.attrs<{ active: boolean, expanded: boolean }
 	padding      : 0 calc(var(--margin) / 2);
 	transition   : color 300ms ease-in-out;
 	&:hover {
-		color : ${({ active }) => active ? (void 0) : 'var(--warn-color)'};
+		color : ${({active}) => active ? (void 0) : 'var(--warn-color)'};
 	}
 `;
-export const TriggerButton = styled.div.attrs({ 'data-widget': 'trigger-button' })`
+export const TriggerButton = styled.div.attrs({'data-widget': 'trigger-button'})`
 	display         : flex;
 	position        : relative;
 	align-items     : center;

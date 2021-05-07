@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const FixWidthPage = styled.div.attrs({ 'data-widget': 'fix-width-page' })`
+export const FixWidthPage = styled.div.attrs({'data-widget': 'fix-width-page'})`
 	flex-grow      : 1;
 	display        : flex;
 	position       : relative;
@@ -10,7 +10,7 @@ export const FixWidthPage = styled.div.attrs({ 'data-widget': 'fix-width-page' }
 	margin         : var(--margin) auto;
 `;
 
-export const FullWidthPage = styled.div.attrs({ 'data-widget': 'full-width-page' })`
+export const FullWidthPage = styled.div.attrs({'data-widget': 'full-width-page'})`
 	flex-grow      : 1;
 	display        : flex;
 	position       : relative;

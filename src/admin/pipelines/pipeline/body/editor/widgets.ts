@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const PipelineEditor = styled.div.attrs({ 'data-widget': 'pipeline-editor', 'data-v-scroll': '' })`
+export const PipelineEditor = styled.div.attrs({'data-widget': 'pipeline-editor', 'data-v-scroll': ''})`
 	display        : flex;
 	position       : relative;
 	flex-grow      : 1;

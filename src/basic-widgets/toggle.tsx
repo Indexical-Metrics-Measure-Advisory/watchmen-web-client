@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React, {useRef} from 'react';
 import styled from 'styled-components';
 
-const ToggleButton = styled.div.attrs({ 'data-widget': 'toggle' })`
+const ToggleButton = styled.div.attrs({'data-widget': 'toggle'})`
 	display       : flex;
 	position      : relative;
 	align-items   : center;
@@ -17,7 +17,7 @@ const ToggleButton = styled.div.attrs({ 'data-widget': 'toggle' })`
 		background-color : var(--toggle-negative-bg-color);
 	}
 `;
-const Slider = styled.div.attrs({ 'data-widget': 'toggle-slider' })`
+const Slider = styled.div.attrs({'data-widget': 'toggle-slider'})`
 	display       : block;
 	position      : relative;
 	width         : calc(var(--toggle-height) - 4px);
@@ -35,30 +35,30 @@ const Slider = styled.div.attrs({ 'data-widget': 'toggle-slider' })`
 `;
 
 export const Toggle = (props: {
-	value: boolean;
-	onChange: (value: boolean) => void;
+    value: boolean;
+    onChange: (value: boolean) => void;
 }) => {
-	const { value, onChange, ...rest } = props;
+    const {value, onChange, ...rest} = props;
 
-	const toggleRef = useRef<HTMLDivElement>(null);
+    const toggleRef = useRef<HTMLDivElement>(null);
 
-	const onToggleClicked = (event: React.MouseEvent<HTMLDivElement>) => {
-		const { clientX } = event;
-		const { left, width } = toggleRef.current!.getBoundingClientRect();
-		if (clientX - left > width / 2) {
-			// toggle to true
-			if (!value) {
-				onChange(true);
-			}
-		} else if (value) {
-			// toggle to false
-			onChange(false);
-		}
-	};
+    const onToggleClicked = (event: React.MouseEvent<HTMLDivElement>) => {
+        const {clientX} = event;
+        const {left, width} = toggleRef.current!.getBoundingClientRect();
+        if (clientX - left > width / 2) {
+            // toggle to true
+            if (!value) {
+                onChange(true);
+            }
+        } else if (value) {
+            // toggle to false
+            onChange(false);
+        }
+    };
 
-	return <ToggleButton data-positive={value} onClick={onToggleClicked}
-	                     {...rest}
-	                     ref={toggleRef}>
-		<Slider data-positive={value}/>
-	</ToggleButton>;
+    return <ToggleButton data-positive={value} onClick={onToggleClicked}
+                         {...rest}
+                         ref={toggleRef}>
+        <Slider data-positive={value}/>
+    </ToggleButton>;
 };

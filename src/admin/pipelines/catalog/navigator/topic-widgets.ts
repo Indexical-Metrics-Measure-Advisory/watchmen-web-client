@@ -1,16 +1,16 @@
 import styled from 'styled-components';
-import { FactorTypeLabel } from '../../../../basic-widgets/factor-type-label';
+import {FactorTypeLabel} from '../../../../basic-widgets/factor-type-label';
 
-export const TopicBodyContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
-	return {
-		'data-widget': 'pipelines-navigator-topic',
-		'data-v-scroll': '',
-		style: {
-			height: visible ? (void 0) : 0,
-			flexGrow: visible ? 1 : 0,
-			borderBottom: visible ? 'var(--border)' : 0
-		}
-	};
+export const TopicBodyContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+    return {
+        'data-widget': 'pipelines-navigator-topic',
+        'data-v-scroll': '',
+        style: {
+            height: visible ? (void 0) : 0,
+            flexGrow: visible ? 1 : 0,
+            borderBottom: visible ? 'var(--border)' : 0
+        }
+    };
 })<{ visible: boolean }>`
 	display               : grid;
 	position              : relative;
@@ -18,7 +18,7 @@ export const TopicBodyContainer = styled.div.attrs<{ visible: boolean }>(({ visi
 	grid-auto-rows        : var(--tall-height);
 	overflow-y            : auto;
 `;
-export const FactorRowContainer = styled.div.attrs({ 'data-widget': 'pipelines-navigator-topic-factor' })`
+export const FactorRowContainer = styled.div.attrs({'data-widget': 'pipelines-navigator-topic-factor'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : auto auto 1fr;
@@ -39,7 +39,7 @@ export const FactorRowContainer = styled.div.attrs({ 'data-widget': 'pipelines-n
 		background-color : var(--hover-color);
 	}
 `;
-export const FactorName = styled.div.attrs({ 'data-widget': 'pipelines-navigator-topic-factor-name' })`
+export const FactorName = styled.div.attrs({'data-widget': 'pipelines-navigator-topic-factor-name'})`
 	display     : flex;
 	align-items : center;
 `;
@@ -50,7 +50,7 @@ export const FactorTypeSmall = styled(FactorTypeLabel)`
 	transform-origin : left;
 	margin-left      : calc(var(--margin) / 2);
 `;
-export const NoFactor = styled.div.attrs({ 'data-widget': 'pipelines-navigator-topic-no-factor' })`
+export const NoFactor = styled.div.attrs({'data-widget': 'pipelines-navigator-topic-no-factor'})`
 	display      : flex;
 	align-items  : center;
 	grid-row     : 1 / span 2;

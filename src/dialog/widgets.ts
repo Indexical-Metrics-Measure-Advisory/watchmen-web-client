@@ -1,14 +1,14 @@
 import styled from 'styled-components';
-import { DIALOG_Z_INDEX } from '../basic-widgets/constants';
+import {DIALOG_Z_INDEX} from '../basic-widgets/constants';
 
-export const DialogContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
-	return {
-		'data-widget': 'dialog',
-		style: {
-			opacity: visible ? 1 : (void 0),
-			pointerEvents: visible ? 'auto' : (void 0)
-		}
-	};
+export const DialogContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+    return {
+        'data-widget': 'dialog',
+        style: {
+            opacity: visible ? 1 : (void 0),
+            pointerEvents: visible ? 'auto' : (void 0)
+        }
+    };
 })<{ visible: boolean }>`
 	position         : fixed;
 	top              : 0;
@@ -22,11 +22,11 @@ export const DialogContainer = styled.div.attrs<{ visible: boolean }>(({ visible
 	z-index          : ${DIALOG_Z_INDEX};
 `;
 
-export const DialogWrapper = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
-	return {
-		'data-widget': 'dialog-wrapper',
-		style: {}
-	};
+export const DialogWrapper = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+    return {
+        'data-widget': 'dialog-wrapper',
+        style: {}
+    };
 })<{ visible: boolean }>`
 	margin-top       : 25vh;
 	margin-left      : calc(50vw - 250px);
@@ -40,12 +40,12 @@ export const DialogWrapper = styled.div.attrs<{ visible: boolean }>(({ visible }
 	box-shadow       : var(--dialog-box-shadow);
 `;
 
-export const DialogBody = styled.div.attrs({ 'data-widget': 'dialog-body' })`
+export const DialogBody = styled.div.attrs({'data-widget': 'dialog-body'})`
 	flex-grow  : 1;
 	min-height : 60px;
 `;
 
-export const DialogFooter = styled.div.attrs({ 'data-widget': 'dialog-footer' })`
+export const DialogFooter = styled.div.attrs({'data-widget': 'dialog-footer'})`
 	display         : flex;
 	align-items     : center;
 	justify-content : flex-end;
@@ -55,7 +55,7 @@ export const DialogFooter = styled.div.attrs({ 'data-widget': 'dialog-footer' })
 		}
 	}
 `;
-export const DialogLabel = styled.span.attrs({ 'data-widget': 'dialog-label' })`
+export const DialogLabel = styled.span.attrs({'data-widget': 'dialog-label'})`
 	font-variant : petite-caps;
 	line-height  : var(--line-height);
 `;

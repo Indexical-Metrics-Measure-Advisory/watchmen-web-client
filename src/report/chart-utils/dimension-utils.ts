@@ -1,5 +1,5 @@
-import { Report } from '../../services/tuples/report-types';
+import {Report} from '../../services/tuples/report-types';
 
 export const getDimensionColumnIndexOffset = (report: Report) => {
-	return report.indicators.length || 0;
+    return report.indicators.length || 0;
 };

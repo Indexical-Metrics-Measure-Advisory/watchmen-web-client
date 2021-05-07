@@ -1,13 +1,13 @@
 import styled from 'styled-components';
-import { RoundDwarfButton } from '../../../basic-widgets/button';
-import { HEADER_HEIGHT } from '../../../basic-widgets/constants';
+import {RoundDwarfButton} from '../../../basic-widgets/button';
+import {HEADER_HEIGHT} from '../../../basic-widgets/constants';
 
-export const FactorsTableButton = styled(RoundDwarfButton).attrs({ 'data-widget': 'factors-table-button' })`
+export const FactorsTableButton = styled(RoundDwarfButton).attrs({'data-widget': 'factors-table-button'})`
 	align-self   : center;
 	justify-self : flex-start;
 `;
 
-export const FactorsTableContainer = styled.div.attrs({ 'data-widget': 'factors-table' })`
+export const FactorsTableContainer = styled.div.attrs({'data-widget': 'factors-table'})`
 	grid-column    : span 2;
 	display        : flex;
 	flex-direction : column;
@@ -17,7 +17,7 @@ export const FactorsTableContainer = styled.div.attrs({ 'data-widget': 'factors-
 	margin-bottom  : var(--margin);
 `;
 
-export const FactorsTableHeaderContainer = styled.div.attrs({ 'data-widget': 'factors-table-header' })`
+export const FactorsTableHeaderContainer = styled.div.attrs({'data-widget': 'factors-table-header'})`
 	display     : flex;
 	align-items : center;
 	height      : ${HEADER_HEIGHT}px;
@@ -37,14 +37,14 @@ export const FactorsTableHeaderContainer = styled.div.attrs({ 'data-widget': 'fa
 		//}
 	}
 `;
-export const FactorsTableBodyContainer = styled.div.attrs({ 'data-widget': 'factors-table-body' })`
+export const FactorsTableBodyContainer = styled.div.attrs({'data-widget': 'factors-table-body'})`
 	display        : flex;
 	flex-direction : column;
 	position       : relative;
 	margin         : 0 calc(var(--margin) / -2) calc(var(--margin) / 2);
 	padding        : 0 calc(var(--margin) / 2);
 `;
-export const FactorsTableBodyPageableContainer = styled.div.attrs({ 'data-widget': 'enum-items-table-body-pageable' })`
+export const FactorsTableBodyPageableContainer = styled.div.attrs({'data-widget': 'enum-items-table-body-pageable'})`
 	display     : flex;
 	position    : relative;
 	align-items : center;
@@ -63,7 +63,7 @@ export const FactorsTableBodyPageableContainer = styled.div.attrs({ 'data-widget
 `;
 
 
-export const FactorsTableFooter = styled.div.attrs({ 'data-widget': 'factors-table-footer' })`
+export const FactorsTableFooter = styled.div.attrs({'data-widget': 'factors-table-footer'})`
 	display         : flex;
 	align-items     : center;
 	justify-content : flex-end;

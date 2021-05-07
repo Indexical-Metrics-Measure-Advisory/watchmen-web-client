@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { GRID_ROW_GAP } from '../../constants';
+import {GRID_ROW_GAP} from '../../constants';
 
-export const JointElementsContainer = styled.div.attrs({ 'data-widget': 'joint-elements' })`
+export const JointElementsContainer = styled.div.attrs({'data-widget': 'joint-elements'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : 1fr;

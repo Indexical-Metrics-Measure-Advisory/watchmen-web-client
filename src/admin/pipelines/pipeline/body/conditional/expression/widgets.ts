@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { GRID_ROW_GAP } from '../../constants';
+import {GRID_ROW_GAP} from '../../constants';
 
-export const ExpressionContainer = styled.div.attrs({ 'data-widget': 'expression' })`
+export const ExpressionContainer = styled.div.attrs({'data-widget': 'expression'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : 1fr;
@@ -19,13 +19,13 @@ export const ExpressionContainer = styled.div.attrs({ 'data-widget': 'expression
 		z-index          : -1;
 	}
 `;
-export const ExpressionHeader = styled.div.attrs({ 'data-widget': 'expression-header' })`
+export const ExpressionHeader = styled.div.attrs({'data-widget': 'expression-header'})`
 	display : flex;
 	~ div {
 		margin-left : var(--margin);
 	}
 `;
-export const ExpressionLeadLabel = styled.div.attrs({ 'data-widget': 'expression-lead-label' })`
+export const ExpressionLeadLabel = styled.div.attrs({'data-widget': 'expression-lead-label'})`
 	display          : flex;
 	position         : relative;
 	align-self       : center;
@@ -41,11 +41,11 @@ export const ExpressionLeadLabel = styled.div.attrs({ 'data-widget': 'expression
 	outline          : none;
 	box-shadow       : var(--param-border);
 `;
-export const ExpressionSideContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
-	return {
-		'data-widget': 'expression-side',
-		style: { display: visible ? (void 0) : 'none' }
-	};
+export const ExpressionSideContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+    return {
+        'data-widget': 'expression-side',
+        style: {display: visible ? (void 0) : 'none'}
+    };
 })<{ visible: boolean }>`
 	display               : grid;
 	position              : relative;

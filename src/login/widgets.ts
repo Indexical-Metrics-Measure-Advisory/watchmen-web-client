@@ -1,25 +1,25 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 import Background2 from '../assets/login-background-avoid.png';
 import Background1 from '../assets/login-background.png';
-import { LoadingButton } from '../basic-widgets/button';
-import { Input } from '../basic-widgets/input';
-import { Logo } from '../basic-widgets/logo';
+import {LoadingButton} from '../basic-widgets/button';
+import {Input} from '../basic-widgets/input';
+import {Logo} from '../basic-widgets/logo';
 
-export const LoginContainer = styled.div.attrs({ 'data-widget': 'login' })`
+export const LoginContainer = styled.div.attrs({'data-widget': 'login'})`
 	display        : flex;
 	flex-direction : column;
 	min-width      : 1000px;
 	min-height     : calc(100vh - 60px);
 	margin-bottom  : 60px;
 `;
-export const LoginHeader = styled.div.attrs({ 'data-widget': 'login-header' })`
+export const LoginHeader = styled.div.attrs({'data-widget': 'login-header'})`
 	display     : flex;
 	align-items : center;
 	height      : 64px;
 	margin      : 0 var(--margin);
 `;
-export const LoginHeaderLogo = styled(Logo).attrs({ 'data-widget': 'login-header-logo' })`
+export const LoginHeaderLogo = styled(Logo).attrs({'data-widget': 'login-header-logo'})`
 	width  : 40px;
 	height : 40px;
 	filter : drop-shadow(4px 4px 12px rgba(0, 0, 0, 0.3));
@@ -28,7 +28,7 @@ export const LoginHeaderLogo = styled(Logo).attrs({ 'data-widget': 'login-header
 		stroke : var(--font-color);
 	}
 `;
-export const LoginHeaderTitle = styled.span.attrs({ 'data-widget': 'login-header-title' })`
+export const LoginHeaderTitle = styled.span.attrs({'data-widget': 'login-header-title'})`
 	font-variant : petite-caps;
 	font-family  : var(--console-title-font-family);
 	font-size    : 24px;
@@ -41,22 +41,22 @@ export const LoginHeaderTitle = styled.span.attrs({ 'data-widget': 'login-header
 		opacity   : 0.8;
 	}
 `;
-export const LoginBody = styled.div.attrs({ 'data-widget': 'login-body' })`
+export const LoginBody = styled.div.attrs({'data-widget': 'login-body'})`
 	flex-grow : 1;
 	display   : flex;
 `;
-export const ImagePart = styled.div.attrs({ 'data-widget': 'login-body-image-part' })`
+export const ImagePart = styled.div.attrs({'data-widget': 'login-body-image-part'})`
 	display         : flex;
 	justify-content : flex-end;
 	width           : 55%;
 	padding-top     : 120px;
 	padding-right   : 150px;
 `;
-export const Image = styled.div.attrs<{ avoid: boolean }>(({ avoid }) => {
-	return {
-		'data-widget': 'login-body-image',
-		style: { backgroundImage: avoid ? `url(${Background2})` : (void 0) }
-	};
+export const Image = styled.div.attrs<{ avoid: boolean }>(({avoid}) => {
+    return {
+        'data-widget': 'login-body-image',
+        style: {backgroundImage: avoid ? `url(${Background2})` : (void 0)}
+    };
 })<{ avoid: boolean }>`
 	width               : 400px;
 	height              : 320px;
@@ -65,13 +65,13 @@ export const Image = styled.div.attrs<{ avoid: boolean }>(({ avoid }) => {
 	background-position : center center;
 	filter              : drop-shadow(4px 2px 6px rgba(0, 0, 0, 0.7));
 `;
-export const FormPart = styled.div.attrs({ 'data-widget': 'login-body-form-part' })`
+export const FormPart = styled.div.attrs({'data-widget': 'login-body-form-part'})`
 	display        : flex;
 	position       : relative;
 	flex-direction : column;
 	padding-top    : 120px;
 `;
-export const Form = styled.div.attrs({ 'data-widget': 'login-body-form' })`
+export const Form = styled.div.attrs({'data-widget': 'login-body-form'})`
 	display       : block;
 	position      : relative;
 	width         : 450px;
@@ -79,7 +79,7 @@ export const Form = styled.div.attrs({ 'data-widget': 'login-body-form' })`
 	border-radius : calc(var(--border-radius) * 3);
 	padding       : 0 var(--margin);
 `;
-export const Greeting = styled.div.attrs({ 'data-widget': 'login-body-greeting' })`
+export const Greeting = styled.div.attrs({'data-widget': 'login-body-greeting'})`
 	display     : flex;
 	align-items : center;
 	height      : 40px;
@@ -87,13 +87,13 @@ export const Greeting = styled.div.attrs({ 'data-widget': 'login-body-greeting' 
 	font-family : var(--title-font-family);
 	font-size   : 1.2em;
 `;
-export const FormBody = styled.div.attrs({ 'data-widget': 'login-body-form-body' })`
+export const FormBody = styled.div.attrs({'data-widget': 'login-body-form-body'})`
 	display               : grid;
 	grid-template-columns : 1fr;
 	grid-row-gap          : var(--margin);
 	margin-top            : 40px;
 `;
-export const FormRow = styled.div.attrs({ 'data-widget': 'login-body-form-row' })`
+export const FormRow = styled.div.attrs({'data-widget': 'login-body-form-row'})`
 	display                 : flex;
 	align-items             : center;
 	border-bottom           : var(--border);
@@ -117,17 +117,17 @@ export const FormRow = styled.div.attrs({ 'data-widget': 'login-body-form-row' }
 	}
 `;
 export const FormRowIcon = styled(FontAwesomeIcon).attrs(() => {
-	return {
-		'data-widget': 'login-body-form-row-icon',
-		// width css cannot override selected style from original font awesome css according to css selection priority, use style attribute directly
-		style: { width: 40 }
-	};
+    return {
+        'data-widget': 'login-body-form-row-icon',
+        // width css cannot override selected style from original font awesome css according to css selection priority, use style attribute directly
+        style: {width: 40}
+    };
 })`
 	font-size : 1.05em;
 	opacity   : 0.7;
 	color     : var(--primary-color);
 `;
-export const FormRowInput = styled(Input).attrs({ 'data-widget': 'login-body-form-row-input' })`
+export const FormRowInput = styled(Input).attrs({'data-widget': 'login-body-form-row-input'})`
 	flex-grow     : 1;
 	border        : 0;
 	border-radius : 0 calc(var(--border-radius) * 2) 0 0;
@@ -141,7 +141,7 @@ export const FormRowInput = styled(Input).attrs({ 'data-widget': 'login-body-for
 		color       : var(--font-color);
 	}
 `;
-export const FormFooter = styled.div.attrs({ 'data-widget': 'login-body-form-footer' })`
+export const FormFooter = styled.div.attrs({'data-widget': 'login-body-form-footer'})`
 	display               : grid;
 	grid-template-columns : 1fr;
 	padding-bottom        : var(--margin);

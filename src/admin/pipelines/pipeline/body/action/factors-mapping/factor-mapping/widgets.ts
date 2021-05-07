@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { GRID_ROW_GAP } from '../../../constants';
-import { LeadLabel } from '../../../widgets';
+import {GRID_ROW_GAP} from '../../../constants';
+import {LeadLabel} from '../../../widgets';
 
-export const FactorMappingContainer = styled.div.attrs({ 'data-widget': 'factor-mapping' })`
+export const FactorMappingContainer = styled.div.attrs({'data-widget': 'factor-mapping'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : auto auto auto 1fr;
@@ -49,7 +49,7 @@ export const FactorMappingContainer = styled.div.attrs({ 'data-widget': 'factor-
 export const FactorMappingLeadLabel = styled(LeadLabel)`
 	font-weight : normal;
 `;
-export const RemoveMeButton = styled.div.attrs({ 'data-widget': 'remove-me-button' })`
+export const RemoveMeButton = styled.div.attrs({'data-widget': 'remove-me-button'})`
 	display         : flex;
 	position        : relative;
 	align-self      : center;

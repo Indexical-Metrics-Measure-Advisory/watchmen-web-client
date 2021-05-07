@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const DashboardBodyContainer = styled.div.attrs({
-	'data-widget': 'dashboard-body',
-	'data-v-scroll': '',
-	'data-h-scroll': ''
+    'data-widget': 'dashboard-body',
+    'data-v-scroll': '',
+    'data-h-scroll': ''
 })`
 	flex-grow : 1;
 	display   : block;
@@ -13,7 +13,7 @@ export const DashboardBodyContainer = styled.div.attrs({
 		overflow : unset;
 	}
 `;
-export const DashboardNoReport = styled.div.attrs({ 'data-widget': 'dashboard-no-reports' })`
+export const DashboardNoReport = styled.div.attrs({'data-widget': 'dashboard-no-reports'})`
 	display         : flex;
 	position        : absolute;
 	align-items     : center;

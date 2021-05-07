@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CatalogContainer = styled.div.attrs({ 'data-widget': 'connected-space-catalog' })`
+export const CatalogContainer = styled.div.attrs({'data-widget': 'connected-space-catalog'})`
 	display          : flex;
 	position         : relative;
 	flex-grow        : 1;
@@ -9,21 +9,21 @@ export const CatalogContainer = styled.div.attrs({ 'data-widget': 'connected-spa
 	overflow         : hidden;
 `;
 export const CatalogSvgContainer = styled.div.attrs({
-	'data-widget': 'connected-space-catalog-svg-container',
-	'data-v-scroll': '',
-	'data-h-scroll': ''
+    'data-widget': 'connected-space-catalog-svg-container',
+    'data-v-scroll': '',
+    'data-h-scroll': ''
 })`
 	display   : block;
 	position  : relative;
 	flex-grow : 1;
 	overflow  : scroll;
 `;
-export const CatalogSvg = styled.svg.attrs({ 'data-widget': 'connected-space-catalog-svg' })`
+export const CatalogSvg = styled.svg.attrs({'data-widget': 'connected-space-catalog-svg'})`
 	display    : block;
 	min-width  : 100%;
 	min-height : 100%;
 `;
-export const CatalogSvgRelationsAnimationContainer = styled.div.attrs({ 'data-widget': 'connected-space-catalog-relations-animation' })`
+export const CatalogSvgRelationsAnimationContainer = styled.div.attrs({'data-widget': 'connected-space-catalog-relations-animation'})`
 	display  : flex;
 	position : absolute;
 	top      : 0;

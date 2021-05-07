@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR } from '../../../../../admin/pipelines/pipeline/header/widgets';
+import {BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR} from '../../../../../admin/pipelines/pipeline/header/widgets';
 
-export const EditorContainer = styled.div.attrs({ 'data-widget': 'report-editor' })`
+export const EditorContainer = styled.div.attrs({'data-widget': 'report-editor'})`
 	display               : grid;
 	position              : sticky;
 	top                   : 0;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Input } from '../../../../../../basic-widgets/input';
+import {Input} from '../../../../../../basic-widgets/input';
 
-export const ConstantContainer = styled.div.attrs({ 'data-widget': 'parameter-constant' })`
+export const ConstantContainer = styled.div.attrs({'data-widget': 'parameter-constant'})`
 	display               : flex;
 	position              : relative;
 	align-items           : center;
@@ -18,7 +18,7 @@ export const ConstantContainer = styled.div.attrs({ 'data-widget': 'parameter-co
 		z-index          : -1;
 	}
 `;
-export const ConstantInput = styled(Input).attrs({ 'data-widget': 'parameter-constant-input' })`
+export const ConstantInput = styled(Input).attrs({'data-widget': 'parameter-constant-input'})`
 	position      : relative;
 	height        : var(--param-height);
 	width     : 300px;

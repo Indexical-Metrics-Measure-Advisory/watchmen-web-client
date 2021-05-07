@@ -1,13 +1,13 @@
 import styled from 'styled-components';
-import { REMOTE_REQUEST_INDEX } from '../basic-widgets/constants';
+import {REMOTE_REQUEST_INDEX} from '../basic-widgets/constants';
 
-export const RemoteRequestContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
-	return {
-		'data-widget': 'remote-request',
-		style: {
-			opacity: visible ? 0.5 : 0
-		}
-	};
+export const RemoteRequestContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+    return {
+        'data-widget': 'remote-request',
+        style: {
+            opacity: visible ? 0.5 : 0
+        }
+    };
 })<{ visible: boolean }>`
 	display        : flex;
 	position       : fixed;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ReportBodyContainer = styled.div.attrs({
-	'data-widget': 'connected-space-navigator-report'
+    'data-widget': 'connected-space-navigator-report'
 })`
 	display               : grid;
 	position              : relative;
@@ -11,7 +11,7 @@ export const ReportBodyContainer = styled.div.attrs({
 	padding               : calc(var(--margin) / 2);
 	overflow-y            : auto;
 `;
-export const ReportTypeLabel = styled.div.attrs({ 'data-widget': 'connected-space-navigator-report-label' })`
+export const ReportTypeLabel = styled.div.attrs({'data-widget': 'connected-space-navigator-report-label'})`
 	font-variant   : petite-caps;
 	text-transform : capitalize;
 `;

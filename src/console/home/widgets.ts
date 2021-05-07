@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { DwarfButton } from '../../basic-widgets/button';
+import {DwarfButton} from '../../basic-widgets/button';
 
-export const HomeSection = styled.div.attrs({ 'data-widget': 'console-home-section' })`
+export const HomeSection = styled.div.attrs({'data-widget': 'console-home-section'})`
 	display        : flex;
 	position       : relative;
 	flex-direction : column;
@@ -9,12 +9,12 @@ export const HomeSection = styled.div.attrs({ 'data-widget': 'console-home-secti
 		padding-bottom : var(--margin);
 	}
 `;
-export const HomeSectionHeader = styled.div.attrs({ 'data-widget': 'console-home-section-header' })`
+export const HomeSectionHeader = styled.div.attrs({'data-widget': 'console-home-section-header'})`
 	display         : flex;
 	justify-content : space-between;
 	align-items     : center;
 `;
-export const HomeSectionTitle = styled.div.attrs({ 'data-widget': 'console-home-section-title' })`
+export const HomeSectionTitle = styled.div.attrs({'data-widget': 'console-home-section-title'})`
 	display       : flex;
 	position      : relative;
 	align-items   : center;
@@ -24,11 +24,11 @@ export const HomeSectionTitle = styled.div.attrs({ 'data-widget': 'console-home-
 	font-size     : 1.6em;
 	font-weight   : var(--font-demi-bold);
 `;
-export const HomeSectionHeaderOperators = styled.div.attrs({ 'data-widget': 'console-home-section-header-operators' })`
+export const HomeSectionHeaderOperators = styled.div.attrs({'data-widget': 'console-home-section-header-operators'})`
 	display     : flex;
 	align-items : center;
 `;
-export const HeaderButton = styled(DwarfButton).attrs({ 'data-widget': 'console-home-section-header-operators-button' })`
+export const HeaderButton = styled(DwarfButton).attrs({'data-widget': 'console-home-section-header-operators-button'})`
 	&:not(:first-child) {
 		border-top-left-radius    : 0;
 		border-bottom-left-radius : 0;
@@ -49,15 +49,15 @@ export const HeaderButton = styled(DwarfButton).attrs({ 'data-widget': 'console-
 	}
 `;
 export const HomeSectionBody = styled.div.attrs<{ collapse: boolean, maxHeight?: number }>(
-	({ collapse, maxHeight }) => {
-		return {
-			'data-widget': 'console-home-section-body',
-			style: {
-				maxHeight: collapse ? 0 : (maxHeight || 2000),
-				padding: collapse ? '0 calc(var(--margin) / 2)' : (void 0)
-			}
-		};
-	})<{ collapse: boolean, maxHeight?: number }>`
+    ({collapse, maxHeight}) => {
+        return {
+            'data-widget': 'console-home-section-body',
+            style: {
+                maxHeight: collapse ? 0 : (maxHeight || 2000),
+                padding: collapse ? '0 calc(var(--margin) / 2)' : (void 0)
+            }
+        };
+    })<{ collapse: boolean, maxHeight?: number }>`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : repeat(3, minmax(0, 1fr));
@@ -69,7 +69,7 @@ export const HomeSectionBody = styled.div.attrs<{ collapse: boolean, maxHeight?:
 	transition            : all 300ms ease-in-out;
 `;
 
-export const ConnectedSpaceCardContainer = styled.div.attrs({ 'data-widget': 'connected-space-card' })`
+export const ConnectedSpaceCardContainer = styled.div.attrs({'data-widget': 'connected-space-card'})`
 	display               : grid;
 	grid-template-columns : var(--height) 1fr;
 	grid-row-gap          : calc(var(--margin) / 2);
@@ -83,13 +83,13 @@ export const ConnectedSpaceCardContainer = styled.div.attrs({ 'data-widget': 'co
 		box-shadow : var(--hover-shadow);
 	}
 `;
-export const ConnectedSpaceLastVisit = styled.div.attrs({ 'data-widget': 'connected-space-card-last-visit' })`
+export const ConnectedSpaceLastVisit = styled.div.attrs({'data-widget': 'connected-space-card-last-visit'})`
 	font-variant : petite-caps;
 	//transform        : scale(0.8);
 	//transform-origin : left;
 	opacity      : 0.7;
 `;
-export const ConnectedSpaceName = styled.div.attrs({ 'data-widget': 'connected-space-card-name' })`
+export const ConnectedSpaceName = styled.div.attrs({'data-widget': 'connected-space-card-name'})`
 	grid-column : span 2;
 	font-size   : 1.8em;
 	font-weight : var(--font-demi-bold);

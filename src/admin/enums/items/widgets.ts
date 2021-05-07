@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { HEADER_HEIGHT } from '../../../basic-widgets/constants';
+import {HEADER_HEIGHT} from '../../../basic-widgets/constants';
 
 const ITEMS_TABLE_HEADER_HEIGHT = HEADER_HEIGHT;
 const ITEMS_TABLE_FOOTER_HEIGHT = HEADER_HEIGHT;
 const GRID_COLUMNS = '64px 150px 1fr 150px 150px';
 
-export const ItemsTableContainer = styled.div.attrs({ 'data-widget': 'enum-items-table' })`
+export const ItemsTableContainer = styled.div.attrs({'data-widget': 'enum-items-table'})`
 	grid-column    : span 2;
 	display        : flex;
 	flex-direction : column;
@@ -17,8 +17,8 @@ export const ItemsTableContainer = styled.div.attrs({ 'data-widget': 'enum-items
 `;
 
 export const ItemsTableHeaderContainer = styled.div.attrs({
-	'data-widget': 'enum-items-table-header',
-	'data-v-scroll': ''
+    'data-widget': 'enum-items-table-header',
+    'data-v-scroll': ''
 })`
 	display               : grid;
 	position              : relative;
@@ -46,8 +46,8 @@ export const ItemsTableHeaderContainer = styled.div.attrs({
 	}
 `;
 export const ItemsTableHeaderCell = styled.div.attrs({
-	'data-widget': 'enum-items-table-header-cell',
-	'data-v-scroll': ''
+    'data-widget': 'enum-items-table-header-cell',
+    'data-v-scroll': ''
 })`
 	display       : flex;
 	align-items   : center;
@@ -58,8 +58,8 @@ export const ItemsTableHeaderCell = styled.div.attrs({
 `;
 
 export const ItemsTableBodyContainer = styled.div.attrs({
-	'data-widget': 'enum-items-table-body',
-	'data-v-scroll': ''
+    'data-widget': 'enum-items-table-body',
+    'data-v-scroll': ''
 })`
 	display        : flex;
 	flex-direction : column;
@@ -67,8 +67,8 @@ export const ItemsTableBodyContainer = styled.div.attrs({
 `;
 
 export const ItemsTableBodyRow = styled.div.attrs({
-	'data-widget': 'enum-items-table-body-row',
-	'data-v-scroll': ''
+    'data-widget': 'enum-items-table-body-row',
+    'data-v-scroll': ''
 })`
 	display               : grid;
 	position              : relative;
@@ -81,14 +81,14 @@ export const ItemsTableBodyRow = styled.div.attrs({
 		background-color : var(--grid-rib-bg-color);
 	}
 `;
-export const ItemsTableBodyCell = styled.div.attrs({ 'data-widget': 'enum-items-table-body-cell' })`
+export const ItemsTableBodyCell = styled.div.attrs({'data-widget': 'enum-items-table-body-cell'})`
 	display       : flex;
 	align-items   : center;
 	white-space   : nowrap;
 	overflow-x    : hidden;
 	text-overflow : ellipsis;
 `;
-export const ItemsTableBodyPageableContainer = styled.div.attrs({ 'data-widget': 'enum-items-table-body-pageable' })`
+export const ItemsTableBodyPageableContainer = styled.div.attrs({'data-widget': 'enum-items-table-body-pageable'})`
 	display     : flex;
 	position    : relative;
 	align-items : center;
@@ -106,7 +106,7 @@ export const ItemsTableBodyPageableContainer = styled.div.attrs({ 'data-widget':
 	}
 `;
 
-export const ItemsTableFooter = styled.div.attrs({ 'data-widget': 'enum-items-table-footer' })`
+export const ItemsTableFooter = styled.div.attrs({'data-widget': 'enum-items-table-footer'})`
 	display         : flex;
 	align-items     : center;
 	justify-content : flex-end;

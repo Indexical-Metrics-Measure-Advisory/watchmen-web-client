@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const JointFoldContainer = styled.div.attrs({ 'data-widget': 'joint-fold' })`
+export const JointFoldContainer = styled.div.attrs({'data-widget': 'joint-fold'})`
 	display       : flex;
 	position      : relative;
 	align-items   : center;
@@ -27,7 +27,7 @@ export const JointFoldContainer = styled.div.attrs({ 'data-widget': 'joint-fold'
 		z-index                   : -1;
 	}
 `;
-export const JointFoldOperator = styled.div.attrs({ 'data-widget': 'joint-fold-operator' })`
+export const JointFoldOperator = styled.div.attrs({'data-widget': 'joint-fold-operator'})`
 	display       : flex;
 	position      : relative;
 	align-items   : center;

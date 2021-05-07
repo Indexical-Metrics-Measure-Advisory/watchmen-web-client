@@ -1,46 +1,45 @@
-import React, { useEffect } from 'react';
-import { PageHeaderButtons, PageHeaderButtonSeparator } from '../../../../basic-widgets/page-header-buttons';
-import { useForceUpdate } from '../../../../basic-widgets/utils';
-import { Pipeline } from '../../../../services/tuples/pipeline-types';
-import { usePipelineEventBus } from '../pipeline-event-bus';
-import { PipelineEventTypes } from '../pipeline-event-bus-types';
-import { HeaderCatalogButton } from './header-catalog-button';
-import { HeaderCollapseAllButton } from './header-collapse-all-button';
-import { HeaderDisableButton } from './header-disable-button';
-import { HeaderDslButton } from './header-dsl-button';
-import { HeaderEnableButton } from './header-enable-button';
-import { HeaderExpandAllButton } from './header-expand-all-button';
-import { HeaderSaveButton } from './header-save-button';
+import React, {useEffect} from 'react';
+import {PageHeaderButtons, PageHeaderButtonSeparator} from '../../../../basic-widgets/page-header-buttons';
+import {useForceUpdate} from '../../../../basic-widgets/utils';
+import {Pipeline} from '../../../../services/tuples/pipeline-types';
+import {usePipelineEventBus} from '../pipeline-event-bus';
+import {PipelineEventTypes} from '../pipeline-event-bus-types';
+import {HeaderCatalogButton} from './header-catalog-button';
+import {HeaderDisableButton} from './header-disable-button';
+import {HeaderDslButton} from './header-dsl-button';
+import {HeaderEnableButton} from './header-enable-button';
+import {HeaderFocusModeButtons} from './header-focus-mode-buttons';
+import {HeaderSaveButton} from './header-save-button';
 
 export const PipelineHeaderButtons = (props: { pipeline: Pipeline }) => {
-	const { pipeline } = props;
+    const {pipeline} = props;
 
-	const { on, off } = usePipelineEventBus();
-	const forceUpdate = useForceUpdate();
-	useEffect(() => {
-		const onPipelineEnabledToggled = (changedPipeline: Pipeline) => {
-			if (changedPipeline !== pipeline) {
-				return;
-			}
-			forceUpdate();
-		};
-		on(PipelineEventTypes.PIPELINE_ENABLED_TOGGLED, onPipelineEnabledToggled);
-		return () => {
-			off(PipelineEventTypes.PIPELINE_ENABLED_TOGGLED, onPipelineEnabledToggled);
-		};
-	}, [ on, off, forceUpdate, pipeline ]);
+    const {on, off} = usePipelineEventBus();
+    const forceUpdate = useForceUpdate();
+    useEffect(() => {
+        const onPipelineEnabledToggled = (changedPipeline: Pipeline) => {
+            if (changedPipeline !== pipeline) {
+                return;
+            }
+            forceUpdate();
+        };
+        on(PipelineEventTypes.PIPELINE_ENABLED_TOGGLED, onPipelineEnabledToggled);
+        return () => {
+            off(PipelineEventTypes.PIPELINE_ENABLED_TOGGLED, onPipelineEnabledToggled);
+        };
+    }, [on, off, forceUpdate, pipeline]);
 
 
-	return <PageHeaderButtons>
-		<HeaderSaveButton pipeline={pipeline}/>
-		{pipeline.enabled
-			? <HeaderDisableButton pipeline={pipeline}/>
-			: <HeaderEnableButton pipeline={pipeline}/>}
-		<PageHeaderButtonSeparator/>
-		<HeaderDslButton pipeline={pipeline}/>
-		<HeaderExpandAllButton pipeline={pipeline}/>
-		<HeaderCollapseAllButton pipeline={pipeline}/>
-		<PageHeaderButtonSeparator/>
-		<HeaderCatalogButton/>
-	</PageHeaderButtons>;
+    return <PageHeaderButtons>
+        <HeaderSaveButton pipeline={pipeline}/>
+        {pipeline.enabled
+            ? <HeaderDisableButton pipeline={pipeline}/>
+            : <HeaderEnableButton pipeline={pipeline}/>}
+        <PageHeaderButtonSeparator/>
+        <HeaderDslButton pipeline={pipeline}/>
+        <PageHeaderButtonSeparator/>
+        <HeaderFocusModeButtons pipeline={pipeline}/>
+        <PageHeaderButtonSeparator/>
+        <HeaderCatalogButton/>
+    </PageHeaderButtons>;
 };

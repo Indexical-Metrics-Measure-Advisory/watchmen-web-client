@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ParameterAddContainer = styled.div.attrs({ 'data-widget': 'parameter-add' })`
+export const ParameterAddContainer = styled.div.attrs({'data-widget': 'parameter-add'})`
 	display      : flex;
 	position     : relative;
 	align-self   : stretch;
@@ -35,7 +35,7 @@ export const ParameterAddContainer = styled.div.attrs({ 'data-widget': 'paramete
 		box-shadow : var(--param-left-border);
 	}
 `;
-export const ParameterAddButton = styled.div.attrs({ 'data-widget': 'parameter-add-button' })`
+export const ParameterAddButton = styled.div.attrs({'data-widget': 'parameter-add-button'})`
 	display          : flex;
 	align-items      : center;
 	height           : var(--param-height);
@@ -54,13 +54,13 @@ export const ParameterAddButton = styled.div.attrs({ 'data-widget': 'parameter-a
 		box-shadow : var(--primary-hover-shadow);
 	}
 `;
-export const SubParameterEditContainer = styled.div.attrs<{ shorten: boolean }>(({ shorten }) => {
-	return {
-		'data-widget': 'parameter',
-		style: {
-			gridTemplateColumns: shorten ? 'auto auto 1fr' : (void 0)
-		}
-	};
+export const SubParameterEditContainer = styled.div.attrs<{ shorten: boolean }>(({shorten}) => {
+    return {
+        'data-widget': 'parameter',
+        style: {
+            gridTemplateColumns: shorten ? 'auto auto 1fr' : (void 0)
+        }
+    };
 })<{ shorten: boolean }>`
 	display               : grid;
 	grid-template-columns : auto 1fr auto;

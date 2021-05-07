@@ -1,21 +1,21 @@
 import styled from 'styled-components';
-import { DROPDOWN_Z_INDEX } from '../constants';
-import { ButtonInk } from '../types';
-import { PALETTE_WIDTH } from './constants';
-import { IndicatorState, State } from './types';
+import {DROPDOWN_Z_INDEX} from '../constants';
+import {ButtonInk} from '../types';
+import {PALETTE_WIDTH} from './constants';
+import {IndicatorState, State} from './types';
 
 export const ColorPickerContainer = styled.div.attrs<{ 'data-widget'?: string, active: boolean, atBottom: boolean }>(
-	({ 'data-widget': widget, active, atBottom }) => {
-		return {
-			'data-widget': widget || 'color-picker',
-			style: {
-				borderTopLeftRadius: (active && !atBottom) ? 0 : (void 0),
-				borderTopRightRadius: (active && !atBottom) ? 0 : (void 0),
-				borderBottomLeftRadius: (active && atBottom) ? 0 : (void 0),
-				borderBottomRightRadius: (active && atBottom) ? 0 : (void 0)
-			}
-		};
-	})<{ active: boolean, atBottom: boolean }>`
+    ({'data-widget': widget, active, atBottom}) => {
+        return {
+            'data-widget': widget || 'color-picker',
+            style: {
+                borderTopLeftRadius: (active && !atBottom) ? 0 : (void 0),
+                borderTopRightRadius: (active && !atBottom) ? 0 : (void 0),
+                borderBottomLeftRadius: (active && atBottom) ? 0 : (void 0),
+                borderBottomRightRadius: (active && atBottom) ? 0 : (void 0)
+            }
+        };
+    })<{ active: boolean, atBottom: boolean }>`
 	display          : flex;
 	position         : relative;
 	align-items      : center;
@@ -30,11 +30,11 @@ export const ColorPickerContainer = styled.div.attrs<{ 'data-widget'?: string, a
 	cursor           : pointer;
 	width            : 100%;
 `;
-export const ColorBar = styled.div.attrs<{ color: string }>(({ color }) => {
-	return {
-		'data-widget': 'color-bar',
-		style: { backgroundColor: color }
-	};
+export const ColorBar = styled.div.attrs<{ color: string }>(({color}) => {
+    return {
+        'data-widget': 'color-bar',
+        style: {backgroundColor: color}
+    };
 })<{ color: string }>`
 	display       : block;
 	flex-grow     : 1;
@@ -44,22 +44,22 @@ export const ColorBar = styled.div.attrs<{ color: string }>(({ color }) => {
 	border-radius : calc(var(--border-radius) * 2);
 `;
 export const ColorDropdownContainer = styled.div.attrs<State>(
-	({ active, atBottom, top, left, height }) => {
-		return {
-			'data-widget': 'color-picker-dropdown',
-			style: {
-				opacity: active ? 1 : (void 0),
-				pointerEvents: active ? 'auto' : (void 0),
-				top: atBottom ? (top + height) : (void 0),
-				bottom: atBottom ? (void 0) : `calc(100vh - ${top}px)`,
-				left,
-				borderTopLeftRadius: atBottom ? 0 : 'var(--border-radius)',
-				borderTopRightRadius: atBottom ? 0 : 'var(--border-radius)',
-				borderBottomLeftRadius: atBottom ? 'var(--border-radius)' : 0,
-				borderBottomRightRadius: atBottom ? 'var(--border-radius)' : 0
-			}
-		};
-	})<State>`
+    ({active, atBottom, top, left, height}) => {
+        return {
+            'data-widget': 'color-picker-dropdown',
+            style: {
+                opacity: active ? 1 : (void 0),
+                pointerEvents: active ? 'auto' : (void 0),
+                top: atBottom ? (top + height) : (void 0),
+                bottom: atBottom ? (void 0) : `calc(100vh - ${top}px)`,
+                left,
+                borderTopLeftRadius: atBottom ? 0 : 'var(--border-radius)',
+                borderTopRightRadius: atBottom ? 0 : 'var(--border-radius)',
+                borderBottomLeftRadius: atBottom ? 'var(--border-radius)' : 0,
+                borderBottomRightRadius: atBottom ? 'var(--border-radius)' : 0
+            }
+        };
+    })<State>`
 	display               : grid;
 	position              : fixed;
 	grid-template-columns : var(--margin) ${PALETTE_WIDTH}px;
@@ -75,13 +75,13 @@ export const ColorDropdownContainer = styled.div.attrs<State>(
 	opacity               : 0;
 	pointer-events        : none;
 `;
-export const ColorOverviewContainer = styled.div.attrs<{ color: string }>(({ color }) => {
-	return {
-		'data-widget': 'color-picker-overview',
-		style: {
-			backgroundColor: color || 'red'
-		}
-	};
+export const ColorOverviewContainer = styled.div.attrs<{ color: string }>(({color}) => {
+    return {
+        'data-widget': 'color-picker-overview',
+        style: {
+            backgroundColor: color || 'red'
+        }
+    };
 })<{ color: string }>`
 	display      : block;
 	position     : relative;
@@ -93,11 +93,11 @@ export const ColorOverviewContainer = styled.div.attrs<{ color: string }>(({ col
 	overflow     : hidden;
 	background   : linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), linear-gradient(to left, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1));
 `;
-export const ColorIndicator = styled.div.attrs<IndicatorState>(({ x, y }) => {
-	return {
-		'data-widget': 'color-picker-indicator',
-		style: { transform: `translate(${x}px, ${y}px)` }
-	};
+export const ColorIndicator = styled.div.attrs<IndicatorState>(({x, y}) => {
+    return {
+        'data-widget': 'color-picker-indicator',
+        style: {transform: `translate(${x}px, ${y}px)`}
+    };
 })<IndicatorState>`
 	position      : relative;
 	left          : -6px;
@@ -107,13 +107,13 @@ export const ColorIndicator = styled.div.attrs<IndicatorState>(({ x, y }) => {
 	border-radius : 50%;
 	border        : 1px solid white;
 `;
-export const ColorPreviewContainer = styled.div.attrs<{ color: string }>(({ color }) => {
-	return {
-		'data-widget': 'color-picker-preview',
-		style: {
-			background: `linear-gradient(${color}, ${color}) 0 0 / cover, linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 0 0 / 12px 12px, linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 6px 6px / 12px 12px`
-		}
-	};
+export const ColorPreviewContainer = styled.div.attrs<{ color: string }>(({color}) => {
+    return {
+        'data-widget': 'color-picker-preview',
+        style: {
+            background: `linear-gradient(${color}, ${color}) 0 0 / cover, linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 0 0 / 12px 12px, linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 6px 6px / 12px 12px`
+        }
+    };
 })<{ color: string }>`
 	grid-row      : 2 / span 2;
 	align-self    : center;
@@ -121,7 +121,7 @@ export const ColorPreviewContainer = styled.div.attrs<{ color: string }>(({ colo
 	border-radius : 100%;
 	border        : 1px solid #EEEEEE;
 `;
-const ColorPaletteContainer = styled.div.attrs({ 'data-widget': 'color-picker-palette' })`
+const ColorPaletteContainer = styled.div.attrs({'data-widget': 'color-picker-palette'})`
 	position      : relative;
 	justify-self  : stretch;
 	background    : darkblue;
@@ -132,21 +132,21 @@ const ColorPaletteContainer = styled.div.attrs({ 'data-widget': 'color-picker-pa
 export const HueColorPalette = styled(ColorPaletteContainer)`
 	background : linear-gradient(to left, hsl(0, 100%, 50%) 0%, hsl(30, 100%, 50%) 8.33%, hsl(60, 100%, 50%) 16.67%, hsl(90, 100%, 50%) 25%, hsl(120, 100%, 50%) 33.33%, hsl(150, 100%, 50%) 41.67%, hsl(180, 100%, 50%) 50%, hsl(210, 100%, 50%) 58.33%, hsl(240, 100%, 50%) 66.67%, hsl(270, 100%, 50%) 75%, hsl(300, 100%, 50%) 83.33%, hsl(330, 100%, 50%) 91.67%, hsl(0, 100%, 50%) 100%);
 `;
-export const AlphaColorPalette = styled(ColorPaletteContainer).attrs<{ color: string }>(({ color }) => {
-	return {
-		'data-widget': 'color-picker-palette',
-		style: {
-			background: `linear-gradient(to right, rgba(0,0,0,0), ${color}) 0 0 / cover, linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 0 0 / 12px 12px, linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 6px 6px / 12px 12px`
-		}
-	};
+export const AlphaColorPalette = styled(ColorPaletteContainer).attrs<{ color: string }>(({color}) => {
+    return {
+        'data-widget': 'color-picker-palette',
+        style: {
+            background: `linear-gradient(to right, rgba(0,0,0,0), ${color}) 0 0 / cover, linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 0 0 / 12px 12px, linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 6px 6px / 12px 12px`
+        }
+    };
 })<{ color: string }>`
 	grid-column : 2;
 `;
-export const ColorSlider = styled.div.attrs<{ x: number }>(({ x }) => {
-	return {
-		'data-widget': 'color-picker-slider',
-		style: { transform: `translateX(${x}px)` }
-	};
+export const ColorSlider = styled.div.attrs<{ x: number }>(({x}) => {
+    return {
+        'data-widget': 'color-picker-slider',
+        style: {transform: `translateX(${x}px)`}
+    };
 })<{ x: number }>`
 	position      : relative;
 	left          : -8px;
@@ -157,7 +157,7 @@ export const ColorSlider = styled.div.attrs<{ x: number }>(({ x }) => {
 	background    : var(--bg-color);
 	filter        : drop-shadow(2px 2px 3px rgba(0, 0, 0, .2));
 `;
-export const ColorResult = styled.h5.attrs({ 'data-widget': 'color-picker-result' })`
+export const ColorResult = styled.h5.attrs({'data-widget': 'color-picker-result'})`
 	display     : flex;
 	align-items : center;
 	font-weight : normal;
@@ -172,20 +172,20 @@ export const ColorResult = styled.h5.attrs({ 'data-widget': 'color-picker-result
 		min-width    : var(--margin);
 	}
 `;
-export const ColorButtons = styled.div.attrs({ 'data-widget': 'color-picker-buttons' })`
+export const ColorButtons = styled.div.attrs({'data-widget': 'color-picker-buttons'})`
 	display         : flex;
 	justify-content : flex-end;
 	grid-column     : 1 / span 2;
 	margin-right    : calc(var(--margin) / -4);
 	margin-bottom   : calc(var(--margin) / 8);
 `;
-export const ColorConfirmButton = styled.div.attrs<{ ink: ButtonInk }>(({ ink }) => {
-	return {
-		'data-widget': 'color-picker-button',
-		style: {
-			backgroundColor: ink === ButtonInk.PRIMARY ? 'var(--primary-color)' : 'var(--danger-color)'
-		}
-	};
+export const ColorConfirmButton = styled.div.attrs<{ ink: ButtonInk }>(({ink}) => {
+    return {
+        'data-widget': 'color-picker-button',
+        style: {
+            backgroundColor: ink === ButtonInk.PRIMARY ? 'var(--primary-color)' : 'var(--danger-color)'
+        }
+    };
 })<{ ink: ButtonInk }>`
 	display       : flex;
 	align-items   : center;
@@ -198,6 +198,6 @@ export const ColorConfirmButton = styled.div.attrs<{ ink: ButtonInk }>(({ ink })
 	cursor        : pointer;
 	transition    : box-shadow 300ms ease-in-out;
 	&:hover {
-		box-shadow : ${({ ink }) => ink === ButtonInk.PRIMARY ? 'var(--primary-hover-shadow)' : 'var(--danger-hover-shadow)'};
+		box-shadow : ${({ink}) => ink === ButtonInk.PRIMARY ? 'var(--primary-hover-shadow)' : 'var(--danger-hover-shadow)'};
 	}
 `;

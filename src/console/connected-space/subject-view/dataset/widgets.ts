@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 
-export const SubjectDataSetContainer = styled.div.attrs({ 'data-widget': 'subject-dataset' })`
+export const SubjectDataSetContainer = styled.div.attrs({'data-widget': 'subject-dataset'})`
 	display        : flex;
 	position       : relative;
 	flex-direction : column;
 	flex-grow      : 1;
 	overflow       : hidden;
 `;
-export const SubjectDataSetLoading = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
-	return {
-		'data-widget': 'subject-dataset-loading',
-		style: { display: visible ? 'flex' : 'none' }
-	};
+export const SubjectDataSetLoading = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+    return {
+        'data-widget': 'subject-dataset-loading',
+        style: {display: visible ? 'flex' : 'none'}
+    };
 })<{ visible: boolean }>`
 	position        : absolute;
 	align-items     : center;
@@ -39,7 +39,7 @@ export const SubjectDataSetLoading = styled.div.attrs<{ visible: boolean }>(({ v
 		opacity    : 0.3;
 	}
 `;
-export const SubjectDataSetNoColumn = styled.div.attrs({ 'data-widget': 'subject-dataset-no-column' })`
+export const SubjectDataSetNoColumn = styled.div.attrs({'data-widget': 'subject-dataset-no-column'})`
 	display         : flex;
 	position        : absolute;
 	align-items     : center;
@@ -55,7 +55,7 @@ export const SubjectDataSetNoColumn = styled.div.attrs({ 'data-widget': 'subject
 		margin-top : -10%;
 	}
 `;
-export const SubjectDataSetGridContainer = styled.div.attrs({ 'data-widget': 'subject-dataset-grid' })`
+export const SubjectDataSetGridContainer = styled.div.attrs({'data-widget': 'subject-dataset-grid'})`
 	display          : flex;
 	position         : absolute;
 	flex-direction   : column;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { GRID_ROW_GAP } from '../../constants';
+import {GRID_ROW_GAP} from '../../constants';
 
-export const ParameterAddContainer = styled.div.attrs({ 'data-widget': 'parameter-add' })`
+export const ParameterAddContainer = styled.div.attrs({'data-widget': 'parameter-add'})`
 	display      : flex;
 	position     : relative;
 	align-self   : stretch;
@@ -36,7 +36,7 @@ export const ParameterAddContainer = styled.div.attrs({ 'data-widget': 'paramete
 		box-shadow : var(--param-left-border);
 	}
 `;
-export const ParameterAddButton = styled.div.attrs({ 'data-widget': 'parameter-add-button' })`
+export const ParameterAddButton = styled.div.attrs({'data-widget': 'parameter-add-button'})`
 	display       : flex;
 	align-items   : center;
 	height        : var(--param-height);
@@ -58,13 +58,13 @@ export const ParameterAddButton = styled.div.attrs({ 'data-widget': 'parameter-a
 		box-shadow : var(--primary-hover-shadow);
 	}
 `;
-export const SubParameterEditContainer = styled.div.attrs<{ shorten: boolean }>(({ shorten }) => {
-	return {
-		'data-widget': 'parameter',
-		style: {
-			gridTemplateColumns: shorten ? 'minmax(0, auto) auto 1fr' : (void 0)
-		}
-	};
+export const SubParameterEditContainer = styled.div.attrs<{ shorten: boolean }>(({shorten}) => {
+    return {
+        'data-widget': 'parameter',
+        style: {
+            gridTemplateColumns: shorten ? 'minmax(0, auto) auto 1fr' : (void 0)
+        }
+    };
 })<{ shorten: boolean }>`
 	display               : grid;
 	position              : relative;
@@ -105,11 +105,11 @@ export const SubParameterEditContainer = styled.div.attrs<{ shorten: boolean }>(
 		top : calc(var(--height) / 2 - 1px);
 	}
 `;
-export const SubParameterConditionContainer = styled.div.attrs({ 'data-widget': 'parameter-condition' })`
+export const SubParameterConditionContainer = styled.div.attrs({'data-widget': 'parameter-condition'})`
 	position    : relative;
 	grid-column : 1 / span 3;
 `;
-export const RemoveMeButton = styled.div.attrs({ 'data-widget': 'remove-me-button' })`
+export const RemoveMeButton = styled.div.attrs({'data-widget': 'remove-me-button'})`
 	display         : flex;
 	position        : relative;
 	align-self      : center;

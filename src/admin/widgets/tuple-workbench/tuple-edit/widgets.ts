@@ -1,13 +1,13 @@
-import styled, { keyframes } from 'styled-components';
-import { Button } from '../../../../basic-widgets/button';
+import styled, {keyframes} from 'styled-components';
+import {Button} from '../../../../basic-widgets/button';
 
-export const TupleEditContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
-	return {
-		'data-widget': 'tuple-edit',
-		style: {
-			display: visible ? (void 0) : 'none'
-		}
-	};
+export const TupleEditContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+    return {
+        'data-widget': 'tuple-edit',
+        style: {
+            display: visible ? (void 0) : 'none'
+        }
+    };
 })<{ visible: boolean }>`
 	display               : grid;
 	position              : relative;
@@ -19,21 +19,21 @@ export const TupleEditContainer = styled.div.attrs<{ visible: boolean }>(({ visi
 	width                 : 100%;
 `;
 
-export const TupleImage = styled.div.attrs<{ background: string, position: string }>(({ background, position }) => {
-	return {
-		'data-widget': 'tuple-background-image',
-		style: {
-			backgroundImage: `url(${background})`,
-			backgroundPosition: position
-		}
-	};
+export const TupleImage = styled.div.attrs<{ background: string, position: string }>(({background, position}) => {
+    return {
+        'data-widget': 'tuple-background-image',
+        style: {
+            backgroundImage: `url(${background})`,
+            backgroundPosition: position
+        }
+    };
 })<{ background: string, position: string }>`
 	background-repeat : no-repeat;
 	background-size   : 80%;
 	filter            : drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.7)) grayscale(0.9);
 	transition        : all 300ms ease-in-out;
 `;
-export const TupleEditBody = styled.div.attrs({ 'data-widget': 'tuple-edit-body' })`
+export const TupleEditBody = styled.div.attrs({'data-widget': 'tuple-edit-body'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : 150px 1fr;
@@ -56,7 +56,7 @@ export const TupleEditTitle = styled.div`
 	margin-bottom : calc(var(--margin) / 2);
 `;
 
-export const TupleEditFooter = styled.div.attrs({ 'data-widget': 'tuple-edit-footer' })`
+export const TupleEditFooter = styled.div.attrs({'data-widget': 'tuple-edit-footer'})`
 	grid-column     : 2;
 	display         : flex;
 	justify-content : flex-end;
@@ -105,7 +105,7 @@ export const TupleEditInformMessage = styled.div`
 	}
 `;
 
-export const TupleEditFooterButton = styled(Button).attrs({ 'data-widget': 'tuple-edit-footer-button' })`
+export const TupleEditFooterButton = styled(Button).attrs({'data-widget': 'tuple-edit-footer-button'})`
 	font-size : 1.4em;
 	height    : 32px;
 	min-width : 120px;

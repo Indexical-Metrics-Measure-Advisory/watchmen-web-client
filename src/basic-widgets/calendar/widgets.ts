@@ -1,15 +1,15 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
-import { CalendarState } from './types';
+import {CalendarState} from './types';
 
 export const DROPDOWN_HEIGHT = 290;
 export const DROPDOWN_WIDTH = 364;
 
 export const CalendarContainer = styled.div.attrs<CalendarState>(() => {
-	return { 'data-widget': 'calendar' };
-})<CalendarState>(({ top, height }) => {
-	const atBottom = top + height + DROPDOWN_HEIGHT < window.innerHeight;
-	return `
+    return {'data-widget': 'calendar'};
+})<CalendarState>(({top, height}) => {
+    const atBottom = top + height + DROPDOWN_HEIGHT < window.innerHeight;
+    return `
 		position: relative;
 		padding: 6px var(--input-indent);
 		outline: none;

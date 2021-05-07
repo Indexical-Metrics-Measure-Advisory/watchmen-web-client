@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const SubjectReportContainer = styled.div.attrs({
-	'data-widget': 'reports',
-	'data-v-scroll': '',
-	'data-h-scroll': ''
+    'data-widget': 'reports',
+    'data-v-scroll': '',
+    'data-h-scroll': ''
 })`
 	flex-grow : 1;
 	display   : block;
@@ -13,7 +13,7 @@ export const SubjectReportContainer = styled.div.attrs({
 		overflow : unset;
 	}
 `;
-export const SubjectNoReport = styled.div.attrs({ 'data-widget': 'reports-no-reports' })`
+export const SubjectNoReport = styled.div.attrs({'data-widget': 'reports-no-reports'})`
 	display         : flex;
 	position        : absolute;
 	align-items     : center;

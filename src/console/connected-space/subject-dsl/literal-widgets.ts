@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-export const DotNode = styled.span.attrs({ 'data-widget': 'dot' })`
+export const DotNode = styled.span.attrs({'data-widget': 'dot'})`
 	line-height : var(--line-height);
 `;
-export const CommaNode = styled.span.attrs({ 'data-widget': 'comma' })`
+export const CommaNode = styled.span.attrs({'data-widget': 'comma'})`
 	line-height   : var(--line-height);
 	padding-right : calc(var(--margin) / 4);
 `;
-export const OnNode = styled.span.attrs({ 'data-widget': 'on' })`
+export const OnNode = styled.span.attrs({'data-widget': 'on'})`
 	line-height    : var(--line-height);
 	font-variant   : petite-caps;
 	font-weight    : var(--font-demi-bold);
@@ -15,7 +15,7 @@ export const OnNode = styled.span.attrs({ 'data-widget': 'on' })`
 	padding        : 0 calc(var(--margin) / 4);
 	color          : var(--info-color);
 `;
-export const AsNode = styled.span.attrs({ 'data-widget': 'as' })`
+export const AsNode = styled.span.attrs({'data-widget': 'as'})`
 	line-height    : var(--line-height);
 	font-variant   : petite-caps;
 	font-weight    : var(--font-demi-bold);
@@ -23,7 +23,7 @@ export const AsNode = styled.span.attrs({ 'data-widget': 'as' })`
 	padding        : 0 calc(var(--margin) / 4);
 	color          : var(--info-color);
 `;
-export const JoinAndNode = styled.span.attrs({ 'data-widget': 'join-and' })`
+export const JoinAndNode = styled.span.attrs({'data-widget': 'join-and'})`
 	line-height    : var(--line-height);
 	font-variant   : petite-caps;
 	font-weight    : var(--font-demi-bold);
@@ -32,11 +32,11 @@ export const JoinAndNode = styled.span.attrs({ 'data-widget': 'join-and' })`
 	margin-left    : calc(var(--margin) * 4);
 	color          : var(--info-color);
 `;
-export const JointAndNode = styled.span.attrs<{ indent: number }>(({ indent }) => {
-	return {
-		'data-widget': 'joint-and',
-		style: { marginLeft: `calc(var(--margin) / 2 * ${indent + 1})` }
-	};
+export const JointAndNode = styled.span.attrs<{ indent: number }>(({indent}) => {
+    return {
+        'data-widget': 'joint-and',
+        style: {marginLeft: `calc(var(--margin) / 2 * ${indent + 1})`}
+    };
 })<{ indent: number }>`
 	line-height    : var(--line-height);
 	font-variant   : petite-caps;
@@ -46,11 +46,11 @@ export const JointAndNode = styled.span.attrs<{ indent: number }>(({ indent }) =
 	margin-left    : calc(var(--margin) / 2);
 	color          : var(--info-color);
 `;
-export const JointOrNode = styled.span.attrs<{ indent: number }>(({ indent }) => {
-	return {
-		'data-widget': 'joint-or',
-		style: { marginLeft: `calc(var(--margin) / 2 * ${indent + 1})` }
-	};
+export const JointOrNode = styled.span.attrs<{ indent: number }>(({indent}) => {
+    return {
+        'data-widget': 'joint-or',
+        style: {marginLeft: `calc(var(--margin) / 2 * ${indent + 1})`}
+    };
 })<{ indent: number }>`
 	line-height    : var(--line-height);
 	font-variant   : petite-caps;
@@ -60,12 +60,12 @@ export const JointOrNode = styled.span.attrs<{ indent: number }>(({ indent }) =>
 	margin-left    : calc(var(--margin) / 2);
 	color          : var(--info-color);
 `;
-export const NewLineNode = styled.br.attrs({ 'data-widget': 'new-line' })`
+export const NewLineNode = styled.br.attrs({'data-widget': 'new-line'})`
 	+ span[data-widget="join-type"] {
 		margin-left : calc(var(--margin) * 2);
 	}
 `;
-export const JoinNode = styled.span.attrs({ 'data-widget': 'join-type' })`
+export const JoinNode = styled.span.attrs({'data-widget': 'join-type'})`
 	line-height    : var(--line-height);
 	font-variant   : petite-caps;
 	font-weight    : var(--font-demi-bold);
@@ -73,7 +73,7 @@ export const JoinNode = styled.span.attrs({ 'data-widget': 'join-type' })`
 	padding        : 0 calc(var(--margin) / 4);
 	color          : var(--info-color);
 `;
-export const EqualsNode = styled.span.attrs({ 'data-widget': 'equals' })`
+export const EqualsNode = styled.span.attrs({'data-widget': 'equals'})`
 	line-height    : var(--line-height);
 	font-variant   : petite-caps;
 	font-weight    : var(--font-demi-bold);
@@ -81,45 +81,45 @@ export const EqualsNode = styled.span.attrs({ 'data-widget': 'equals' })`
 	padding        : 0 calc(var(--margin) / 4);
 	color          : var(--info-color);
 `;
-export const TopicNode = styled.span.attrs({ 'data-widget': 'topic-name' })`
+export const TopicNode = styled.span.attrs({'data-widget': 'topic-name'})`
 	line-height : var(--line-height);
 	font-weight : var(--font-demi-bold);
 `;
-export const FactorNode = styled.span.attrs({ 'data-widget': 'factor-name' })`
+export const FactorNode = styled.span.attrs({'data-widget': 'factor-name'})`
 	line-height : var(--line-height);
 	font-weight : var(--font-demi-bold);
 `;
-export const NamePair = styled.span.attrs({ 'data-widget': 'name-pair' })`
+export const NamePair = styled.span.attrs({'data-widget': 'name-pair'})`
 `;
-export const AliasNode = styled.span.attrs({ 'data-widget': 'alias-name' })`
+export const AliasNode = styled.span.attrs({'data-widget': 'alias-name'})`
 	line-height : var(--line-height);
 	font-weight : var(--font-demi-bold);
 `;
-export const ConstantNode = styled.span.attrs({ 'data-widget': 'constant' })`
+export const ConstantNode = styled.span.attrs({'data-widget': 'constant'})`
 	color : var(--primary-color);
 `;
-export const UnknownParameterNode = styled.span.attrs({ 'data-widget': 'unknown-parameter' })`
+export const UnknownParameterNode = styled.span.attrs({'data-widget': 'unknown-parameter'})`
 	font-variant     : petite-caps;
 	font-weight      : var(--font-boldest);
 	color            : var(--danger-color);
 	transform        : scale(1.2);
 	transform-origin : bottom;
 `;
-export const UnknownFilterNode = styled.span.attrs({ 'data-widget': 'unknown-filter' })`
+export const UnknownFilterNode = styled.span.attrs({'data-widget': 'unknown-filter'})`
 	font-variant     : petite-caps;
 	font-weight      : var(--font-boldest);
 	color            : var(--danger-color);
 	transform        : scale(1.2);
 	transform-origin : bottom;
 `;
-export const NoStatementNode = styled.span.attrs({ 'data-widget': 'no-statement' })`
+export const NoStatementNode = styled.span.attrs({'data-widget': 'no-statement'})`
 	font-variant     : petite-caps;
 	font-weight      : var(--font-boldest);
 	color            : var(--danger-color);
 	transform        : scale(1.2);
 	transform-origin : bottom;
 `;
-export const ComputeStatementTypeNode = styled.span.attrs({ 'data-widget': 'compute' })`
+export const ComputeStatementTypeNode = styled.span.attrs({'data-widget': 'compute'})`
 	line-height    : var(--line-height);
 	font-variant   : petite-caps;
 	font-weight    : var(--font-demi-bold);
@@ -127,7 +127,7 @@ export const ComputeStatementTypeNode = styled.span.attrs({ 'data-widget': 'comp
 	padding        : 0 calc(var(--margin) / 4);
 	color          : var(--info-color);
 `;
-export const BracketNode = styled.span.attrs({ 'data-widget': 'bracket' })`
+export const BracketNode = styled.span.attrs({'data-widget': 'bracket'})`
 	line-height    : var(--line-height);
 	font-variant   : petite-caps;
 	font-weight    : var(--font-demi-bold);
@@ -135,18 +135,18 @@ export const BracketNode = styled.span.attrs({ 'data-widget': 'bracket' })`
 	padding        : 0 calc(var(--margin) / 8);
 	color          : var(--info-color);
 `;
-export const ExoticNode = styled.span.attrs({ 'data-widget': 'exotic' })`
+export const ExoticNode = styled.span.attrs({'data-widget': 'exotic'})`
 	text-decoration : line-through;
 	color           : var(--danger-color);
 `;
-export const UnknownNode = styled.span.attrs({ 'data-widget': 'unknown' })`
+export const UnknownNode = styled.span.attrs({'data-widget': 'unknown'})`
 	font-variant     : petite-caps;
 	font-weight      : var(--font-boldest);
 	color            : var(--danger-color);
 	transform        : scale(1.2);
 	transform-origin : bottom;
 `;
-export const FilterExpressionOperatorNode = styled.span.attrs({ 'data-widget': 'filter-expression-operator' })`
+export const FilterExpressionOperatorNode = styled.span.attrs({'data-widget': 'filter-expression-operator'})`
 	line-height    : var(--line-height);
 	font-variant   : petite-caps;
 	font-weight    : var(--font-demi-bold);

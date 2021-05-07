@@ -1,10 +1,10 @@
 export interface Account {
-	name?: string;
-	credential?: string;
+    name?: string;
+    credential?: string;
 }
 
 export interface LoginResponse {
-	pass: boolean;
-	admin: boolean;
-	error?: string;
+    pass: boolean;
+    admin: boolean;
+    error?: string;
 }

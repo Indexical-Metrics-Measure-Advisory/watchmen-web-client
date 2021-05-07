@@ -1,14 +1,14 @@
 import styled from 'styled-components';
-import { Input } from '../../../../../../basic-widgets/input';
+import {Input} from '../../../../../../basic-widgets/input';
 
-export const VariableNameInputContainer = styled.div.attrs({ 'data-widget': 'variable-name' })`
+export const VariableNameInputContainer = styled.div.attrs({'data-widget': 'variable-name'})`
 	display               : grid;
 	grid-template-columns : auto 1fr;
 	position              : relative;
 	align-items           : center;
 	justify-self          : start;
 `;
-export const VariableNameInputLabel = styled.div.attrs({ 'data-widget': 'variable-name-label' })`
+export const VariableNameInputLabel = styled.div.attrs({'data-widget': 'variable-name-label'})`
 	opacity       : 0;
 	min-width     : 400px;
 	height        : var(--param-height);

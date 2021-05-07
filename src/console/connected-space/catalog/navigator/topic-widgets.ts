@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { FactorTypeLabel } from '../../../../basic-widgets/factor-type-label';
+import {FactorTypeLabel} from '../../../../basic-widgets/factor-type-label';
 
 export const TopicBodyContainer = styled.div.attrs({
-	'data-widget': 'connected-space-navigator-topic',
-	'data-v-scroll': ''
+    'data-widget': 'connected-space-navigator-topic',
+    'data-v-scroll': ''
 })`
 	display               : grid;
 	position              : relative;
@@ -12,7 +12,7 @@ export const TopicBodyContainer = styled.div.attrs({
 	flex-grow             : 1;
 	overflow-y            : auto;
 `;
-export const FactorRowContainer = styled.div.attrs({ 'data-widget': 'connected-space-navigator-topic-factor' })`
+export const FactorRowContainer = styled.div.attrs({'data-widget': 'connected-space-navigator-topic-factor'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : auto auto 1fr;
@@ -33,7 +33,7 @@ export const FactorRowContainer = styled.div.attrs({ 'data-widget': 'connected-s
 		background-color : var(--hover-color);
 	}
 `;
-export const FactorName = styled.div.attrs({ 'data-widget': 'connected-space-navigator-topic-factor-name' })`
+export const FactorName = styled.div.attrs({'data-widget': 'connected-space-navigator-topic-factor-name'})`
 	display     : flex;
 	align-items : center;
 `;
@@ -45,7 +45,7 @@ export const FactorTypeSmall = styled(FactorTypeLabel)`
 	margin-left      : calc(var(--margin) / 2);
 `;
 
-export const NoFactor = styled.div.attrs({ 'data-widget': 'connected-space-navigator-topic-no-factor' })`
+export const NoFactor = styled.div.attrs({'data-widget': 'connected-space-navigator-topic-no-factor'})`
 	display      : flex;
 	align-items  : center;
 	grid-row     : 1 / span 2;

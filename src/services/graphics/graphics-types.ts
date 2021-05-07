@@ -1,11 +1,11 @@
 export interface GraphicsPosition {
-	x: number;
-	y: number;
+    x: number;
+    y: number;
 }
 
 export interface GraphicsSize {
-	width: number;
-	height: number;
+    width: number;
+    height: number;
 }
 
 /**

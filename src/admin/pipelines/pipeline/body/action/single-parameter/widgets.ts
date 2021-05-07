@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { GRID_ROW_GAP } from '../../constants';
+import {GRID_ROW_GAP} from '../../constants';
 
-export const SingleParameterContainer = styled.div.attrs({ 'data-widget': 'single-parameter' })`
+export const SingleParameterContainer = styled.div.attrs({'data-widget': 'single-parameter'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : auto 1fr;
