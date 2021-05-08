@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { GRID_ROW_HEIGHT } from '../../../basic-widgets/constants';
-import { TooltipButton } from '../../../basic-widgets/tooltip-button';
-import { TuplePropertyDropdown, TuplePropertyInput } from '../../widgets/tuple-workbench/tuple-editor';
+import {GRID_ROW_HEIGHT} from '../../../basic-widgets/constants';
+import {TooltipButton} from '../../../basic-widgets/tooltip-button';
+import {TuplePropertyDropdown, TuplePropertyInput} from '../../widgets/tuple-workbench/tuple-editor';
 
 export const FactorRowContainer = styled.div`
 	display               : grid;
@@ -29,7 +29,7 @@ export const FactorCell = styled.div`
 	transition  : all 300ms ease-in-out;
 `;
 
-export const FactorSerialCellContainer = styled(FactorCell).attrs({ 'data-widget': 'factor-serial-cell' })`
+export const FactorSerialCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-serial-cell'})`
 	font-variant : petite-caps;
 	font-weight  : var(--fond-bold);
 	padding      : 0 2px;
@@ -39,13 +39,13 @@ export const FactorSerialCellContainer = styled(FactorCell).attrs({ 'data-widget
 	}
 `;
 
-export const FactorNameCellContainer = styled(FactorCell).attrs({ 'data-widget': 'factor-name-cell' })``;
-export const FactorLabelCellContainer = styled(FactorCell).attrs({ 'data-widget': 'factor-label-cell' })`
+export const FactorNameCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-name-cell'})``;
+export const FactorLabelCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-label-cell'})`
 	grid-column: span 3;
 `;
-export const FactorTypeCellContainer = styled(FactorCell).attrs({ 'data-widget': 'factor-type-cell' })``;
+export const FactorTypeCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-type-cell'})``;
 export const FactorEnumCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-enum-cell'})``
-export const FactorDefaultValueCellContainer = styled(FactorCell).attrs({ 'data-widget': 'factor-default-value-cell' })`
+export const FactorDefaultValueCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-default-value-cell'})`
 	+ span {
 		grid-column: 1;
 	}
@@ -63,11 +63,11 @@ export const IncorrectFactorType = styled.span`
 	text-decoration : line-through;
 `;
 
-export const FactorButtonsContainer = styled(FactorCell).attrs({ 'data-widget': 'factor-buttons' })`
+export const FactorButtonsContainer = styled(FactorCell).attrs({'data-widget': 'factor-buttons'})`
 	grid-column  : 5 / span 2;
 	justify-self : end;
 `;
-export const FactorButton = styled(TooltipButton).attrs({ 'data-widget': 'factor-button' })`
+export const FactorButton = styled(TooltipButton).attrs({'data-widget': 'factor-button'})`
 	width          : 24px;
 	height         : 24px;
 	padding        : 0;

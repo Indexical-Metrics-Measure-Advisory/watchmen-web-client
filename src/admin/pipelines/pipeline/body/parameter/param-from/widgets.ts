@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ParameterFromEditContainer = styled.div.attrs({ 'data-widget': 'parameter-from-edit' })`
+export const ParameterFromEditContainer = styled.div.attrs({'data-widget': 'parameter-from-edit'})`
 	display          : flex;
 	position         : relative;
 	align-items      : center;
@@ -19,15 +19,15 @@ export const ParameterFromEditContainer = styled.div.attrs({ 'data-widget': 'par
 		box-shadow : var(--primary-hover-shadow);
 	}
 `;
-export const ParameterTypeButton = styled.div.attrs<{ active: boolean, edit: boolean }>(({ active, edit }) => {
-	return {
-		'data-widget': 'parameter-from-button',
-		style: {
-			display: (edit || active) ? (void 0) : 'none',
-			backgroundColor: active ? (void 0) : 'var(--bg-color)',
-			boxShadow: active ? (void 0) : 'var(--param-left-border)'
-		}
-	};
+export const ParameterTypeButton = styled.div.attrs<{ active: boolean, edit: boolean }>(({active, edit}) => {
+    return {
+        'data-widget': 'parameter-from-button',
+        style: {
+            display: (edit || active) ? (void 0) : 'none',
+            backgroundColor: active ? (void 0) : 'var(--bg-color)',
+            boxShadow: active ? (void 0) : 'var(--param-left-border)'
+        }
+    };
 })<{ active: boolean, edit: boolean }>`
 	display      : flex;
 	align-items  : center;
@@ -38,10 +38,10 @@ export const ParameterTypeButton = styled.div.attrs<{ active: boolean, edit: boo
 	white-space  : nowrap;
 	transition   : color 300ms ease-in-out;
 	&:hover {
-		color : ${({ active }) => active ? (void 0) : 'var(--warn-color)'};
+		color : ${({active}) => active ? (void 0) : 'var(--warn-color)'};
 	}
 `;
-export const ParameterFromIcon = styled.div.attrs({ 'data-widget': 'parameter-from-icon' })`
+export const ParameterFromIcon = styled.div.attrs({'data-widget': 'parameter-from-icon'})`
 	display         : flex;
 	position        : relative;
 	align-items     : center;

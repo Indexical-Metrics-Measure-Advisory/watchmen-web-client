@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Avatar } from '../avatar';
+import {Avatar} from '../avatar';
 
-const SideMenuUserContainer = styled.div.attrs({ 'data-widget': 'side-menu-user' })`
+const SideMenuUserContainer = styled.div.attrs({'data-widget': 'side-menu-user'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : var(--side-menu-icon-size) 1fr;
@@ -10,7 +10,7 @@ const SideMenuUserContainer = styled.div.attrs({ 'data-widget': 'side-menu-user'
 	align-items           : center;
 	padding               : calc(var(--margin) / 2) var(--side-menu-margin);
 `;
-const SideMenuUserLabel = styled.div.attrs({ 'data-widget': 'side-menu-user-label' })`
+const SideMenuUserLabel = styled.div.attrs({'data-widget': 'side-menu-user-label'})`
 	position      : relative;
 	white-space   : nowrap;
 	text-overflow : ellipsis;
@@ -20,10 +20,10 @@ const SideMenuUserLabel = styled.div.attrs({ 'data-widget': 'side-menu-user-labe
 `;
 
 export const SideMenuUser = (props: { name: string }) => {
-	const { name } = props;
+    const {name} = props;
 
-	return <SideMenuUserContainer>
-		<Avatar name={name}/>
-		<SideMenuUserLabel>{name}</SideMenuUserLabel>
-	</SideMenuUserContainer>;
+    return <SideMenuUserContainer>
+        <Avatar name={name}/>
+        <SideMenuUserLabel>{name}</SideMenuUserLabel>
+    </SideMenuUserContainer>;
 };

@@ -1,31 +1,31 @@
-import { ChartType } from '../chart-types';
-import { EChartsGridPositionOnly } from '../echarts/echarts-grid-types';
-import { ECharts, EChartsSettings } from '../echarts/echarts-types';
-import { ChartDef } from './chart-def-types';
+import {ChartType} from '../chart-types';
+import {EChartsGridPositionOnly} from '../echarts/echarts-grid-types';
+import {ECharts, EChartsSettings} from '../echarts/echarts-types';
+import {ChartDef} from './chart-def-types';
 
 export const TREEMAP: ChartDef = {
-	type: ChartType.TREEMAP,
-	minDimensionCount: 2,
-	minIndicatorCount: 1,
-	maxIndicatorCount: 1,
+    type: ChartType.TREEMAP,
+    minDimensionCount: 2,
+    minIndicatorCount: 1,
+    maxIndicatorCount: 1,
 
-	canHoldTitle: true,
-	canHoldLegend: false,
-	canUseGrid: false,
-	canUseXAxis: false,
-	canUseYAxis: false
+    canHoldTitle: true,
+    canHoldLegend: false,
+    canUseGrid: false,
+    canUseXAxis: false,
+    canUseYAxis: false
 };
 
 export interface TreemapChartSettingsSeries {
-	roam?: boolean;
+    roam?: boolean;
 }
 
 export interface TreemapChartSettings extends EChartsSettings {
-	series?: TreemapChartSettingsSeries;
-	grid?: EChartsGridPositionOnly;
+    series?: TreemapChartSettingsSeries;
+    grid?: EChartsGridPositionOnly;
 }
 
 export interface TreemapChart extends ECharts {
-	type: ChartType.TREEMAP;
-	settings?: TreemapChartSettings;
+    type: ChartType.TREEMAP;
+    settings?: TreemapChartSettings;
 }

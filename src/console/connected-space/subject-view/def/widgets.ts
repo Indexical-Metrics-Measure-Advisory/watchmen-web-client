@@ -2,21 +2,21 @@ import styled from 'styled-components';
 
 export const COLLAPSE_WIDTH = 40;
 export const computeColumnWidths = (activeIndex: number) => {
-	switch (activeIndex) {
-		case 1:
-			return `1fr repeat(4, ${COLLAPSE_WIDTH}px)`;
-		case 2:
-			return `${COLLAPSE_WIDTH}px 1fr repeat(3, ${COLLAPSE_WIDTH}px)`;
-		case 3:
-			return `repeat(2, ${COLLAPSE_WIDTH}px) 1fr repeat(2, ${COLLAPSE_WIDTH}px)`;
-		case 4:
-			return `repeat(3, ${COLLAPSE_WIDTH}px) 1fr ${COLLAPSE_WIDTH}px`;
-		case 5:
-			return `repeat(4, ${COLLAPSE_WIDTH}px) 1fr`;
-	}
+    switch (activeIndex) {
+        case 1:
+            return `1fr repeat(4, ${COLLAPSE_WIDTH}px)`;
+        case 2:
+            return `${COLLAPSE_WIDTH}px 1fr repeat(3, ${COLLAPSE_WIDTH}px)`;
+        case 3:
+            return `repeat(2, ${COLLAPSE_WIDTH}px) 1fr repeat(2, ${COLLAPSE_WIDTH}px)`;
+        case 4:
+            return `repeat(3, ${COLLAPSE_WIDTH}px) 1fr ${COLLAPSE_WIDTH}px`;
+        case 5:
+            return `repeat(4, ${COLLAPSE_WIDTH}px) 1fr`;
+    }
 };
 
-export const SubjectDefContainer = styled.div.attrs({ 'data-widget': 'subject-def' })`
+export const SubjectDefContainer = styled.div.attrs({'data-widget': 'subject-def'})`
 	display        : flex;
 	position       : relative;
 	flex-direction : column;
@@ -24,13 +24,13 @@ export const SubjectDefContainer = styled.div.attrs({ 'data-widget': 'subject-de
 	overflow       : hidden;
 `;
 
-export const SubjectDefBody = styled.div.attrs<{ activeIndex: number }>(({ activeIndex }) => {
-	return {
-		'data-widget': 'subject-def-body',
-		style: {
-			gridTemplateColumns: computeColumnWidths(activeIndex)
-		}
-	};
+export const SubjectDefBody = styled.div.attrs<{ activeIndex: number }>(({activeIndex}) => {
+    return {
+        'data-widget': 'subject-def-body',
+        style: {
+            gridTemplateColumns: computeColumnWidths(activeIndex)
+        }
+    };
 })<{ activeIndex: number }>`
 	display               : grid;
 	position              : relative;
@@ -39,11 +39,11 @@ export const SubjectDefBody = styled.div.attrs<{ activeIndex: number }>(({ activ
 	grid-template-columns : 1fr repeat(4, ${COLLAPSE_WIDTH}px);
 	transition            : all 300ms ease-in-out;
 `;
-export const SubjectDefBodyCover = styled.div.attrs<{ active: boolean }>(({ active }) => {
-	return {
-		'data-widget': 'subject-def-body-cover',
-		style: { display: active ? 'none' : (void 0) }
-	};
+export const SubjectDefBodyCover = styled.div.attrs<{ active: boolean }>(({active}) => {
+    return {
+        'data-widget': 'subject-def-body-cover',
+        style: {display: active ? 'none' : (void 0)}
+    };
 })<{ active: boolean }>`
 	display          : block;
 	position         : absolute;
@@ -61,13 +61,13 @@ export const SubjectDefBodyCover = styled.div.attrs<{ active: boolean }>(({ acti
 	user-select      : none;
 	z-index          : 1;
 `;
-export const SubjectDefNoData = styled.div.attrs<{ active: boolean, visible: boolean }>(({ active, visible }) => {
-	return {
-		'data-widget': 'subject-def-body-no-data',
-		style: {
-			display: active && visible ? (void 0) : 'none'
-		}
-	};
+export const SubjectDefNoData = styled.div.attrs<{ active: boolean, visible: boolean }>(({active, visible}) => {
+    return {
+        'data-widget': 'subject-def-body-no-data',
+        style: {
+            display: active && visible ? (void 0) : 'none'
+        }
+    };
 })<{ active: boolean, visible: boolean }>`
 	display         : flex;
 	position        : absolute;
@@ -81,7 +81,7 @@ export const SubjectDefNoData = styled.div.attrs<{ active: boolean, visible: boo
 	font-size       : 2em;
 	opacity         : 0.7;
 `;
-export const SubjectDefNoDataCreateButton = styled.span.attrs({ 'data-widget': 'subject-def-body-no-data-create' })`
+export const SubjectDefNoDataCreateButton = styled.span.attrs({'data-widget': 'subject-def-body-no-data-create'})`
 	text-decoration : underline;
 	cursor          : pointer;
 `;

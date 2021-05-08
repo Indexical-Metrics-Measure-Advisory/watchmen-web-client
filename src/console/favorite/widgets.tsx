@@ -1,22 +1,22 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
-import { Button } from '../../basic-widgets/button';
-import { FAVORITE_Z_INDEX, PIN_FAVORITE_Z_INDEX } from '../../basic-widgets/constants';
-import { TooltipButton } from '../../basic-widgets/tooltip-button';
+import {Button} from '../../basic-widgets/button';
+import {FAVORITE_Z_INDEX, PIN_FAVORITE_Z_INDEX} from '../../basic-widgets/constants';
+import {TooltipButton} from '../../basic-widgets/tooltip-button';
 
 export const FloatFavoriteContainer = styled.div.attrs<{ visible: boolean, top: number, left: number }>(
-	({ visible, top, left }) => {
-		return {
-			'data-widget': 'float-favorite',
-			style: {
-				pointerEvents: visible ? 'auto' : (void 0),
-				opacity: visible ? 1 : (void 0),
-				transform: visible ? '' : 'scaleX(0)',
-				top,
-				left
-			}
-		};
-	})<{ visible: boolean, top: number, left: number }>`
+    ({visible, top, left}) => {
+        return {
+            'data-widget': 'float-favorite',
+            style: {
+                pointerEvents: visible ? 'auto' : (void 0),
+                opacity: visible ? 1 : (void 0),
+                transform: visible ? '' : 'scaleX(0)',
+                top,
+                left
+            }
+        };
+    })<{ visible: boolean, top: number, left: number }>`
 	display          : flex;
 	flex-direction   : column;
 	position         : fixed;
@@ -32,7 +32,7 @@ export const FloatFavoriteContainer = styled.div.attrs<{ visible: boolean, top: 
 	transition       : transform 300ms ease-in-out, opacity 300ms ease-in-out;
 `;
 
-export const FloatFavoriteTitle = styled.div.attrs({ 'data-widget': 'float-favorite-title' })`
+export const FloatFavoriteTitle = styled.div.attrs({'data-widget': 'float-favorite-title'})`
 	display          : flex;
 	position         : relative;
 	align-items      : center;
@@ -45,7 +45,7 @@ export const FloatFavoriteTitle = styled.div.attrs({ 'data-widget': 'float-favor
 	color            : var(--invert-color);
 	background-color : var(--primary-color);
 `;
-export const FloatFavoritePinButton = styled(TooltipButton).attrs({ 'data-widget': 'float-favorite-pin-button' })`
+export const FloatFavoritePinButton = styled(TooltipButton).attrs({'data-widget': 'float-favorite-pin-button'})`
 	color         : var(--invert-color);
 	border-radius : 100%;
 	width         : calc(var(--height) / 1.2);
@@ -56,8 +56,8 @@ export const FloatFavoritePinButton = styled(TooltipButton).attrs({ 'data-widget
 	}
 `;
 export const FloatFavoriteBody = styled.div.attrs({
-	'data-widget': 'float-favorite-body',
-	'data-v-scroll': ''
+    'data-widget': 'float-favorite-body',
+    'data-v-scroll': ''
 })`
 	display          : flex;
 	flex-direction   : column;
@@ -67,7 +67,7 @@ export const FloatFavoriteBody = styled.div.attrs({
 	overflow-y       : auto;
 `;
 
-export const FloatFavoriteItem = styled.div.attrs({ 'data-widget': 'float-favorite-item' })`
+export const FloatFavoriteItem = styled.div.attrs({'data-widget': 'float-favorite-item'})`
 	display      : flex;
 	position     : relative;
 	align-items  : center;
@@ -92,16 +92,16 @@ export const FloatFavoriteItem = styled.div.attrs({ 'data-widget': 'float-favori
 		}
 	}
 `;
-export const FavoriteItemIcon = styled(FontAwesomeIcon).attrs({ 'data-widget': 'favorite-item-icon' })`
+export const FavoriteItemIcon = styled(FontAwesomeIcon).attrs({'data-widget': 'favorite-item-icon'})`
 	min-width    : 16px;
 	margin-right : calc(var(--margin) / 4);
 `;
-export const FavoriteItemLabel = styled.span.attrs({ 'data-widget': 'favorite-item-label' })`
+export const FavoriteItemLabel = styled.span.attrs({'data-widget': 'favorite-item-label'})`
 	white-space   : nowrap;
 	overflow      : hidden;
 	text-overflow : ellipsis;
 `;
-export const FloatFavoriteItemRemoveButton = styled(Button).attrs({ 'data-widget': 'float-favorite-item-remove-button' })`
+export const FloatFavoriteItemRemoveButton = styled(Button).attrs({'data-widget': 'float-favorite-item-remove-button'})`
 	position       : absolute;
 	right          : 0;
 	width          : 0;
@@ -111,7 +111,7 @@ export const FloatFavoriteItemRemoveButton = styled(Button).attrs({ 'data-widget
 	pointer-events : none;
 	transition     : opacity 300ms ease-in-out, width 300ms ease-in-out;
 `;
-export const FavoriteNoData = styled.div.attrs({ 'data-widget': 'float-favorite-no-data' })`
+export const FavoriteNoData = styled.div.attrs({'data-widget': 'float-favorite-no-data'})`
 	display      : flex;
 	position     : relative;
 	align-items  : center;
@@ -119,16 +119,16 @@ export const FavoriteNoData = styled.div.attrs({ 'data-widget': 'float-favorite-
 	padding      : 0 calc(var(--margin) / 2);
 	font-variant : petite-caps;
 `;
-export const PinFavoriteContainer = styled.div.attrs<{ visible: boolean, left: number }>(({ visible, left }) => {
-	return {
-		'data-widget': 'pin-favorite',
-		style: {
-			top: visible ? 0 : 'calc(var(--pin-favorite-height) * -1)',
-			left,
-			width: `calc(100vw - ${left}px)`,
-			opacity: visible ? 1 : (void 0)
-		}
-	};
+export const PinFavoriteContainer = styled.div.attrs<{ visible: boolean, left: number }>(({visible, left}) => {
+    return {
+        'data-widget': 'pin-favorite',
+        style: {
+            top: visible ? 0 : 'calc(var(--pin-favorite-height) * -1)',
+            left,
+            width: `calc(100vw - ${left}px)`,
+            opacity: visible ? 1 : (void 0)
+        }
+    };
 })<{ visible: boolean, left: number }>`
 	display               : grid;
 	position              : fixed;
@@ -159,7 +159,7 @@ export const PinFavoriteContainer = styled.div.attrs<{ visible: boolean, left: n
 		display : none;
 	}
 `;
-export const PinFavoriteTitle = styled.div.attrs({ 'data-widget': 'pin-favorite-title' })`
+export const PinFavoriteTitle = styled.div.attrs({'data-widget': 'pin-favorite-title'})`
 	display          : flex;
 	position         : relative;
 	grid-row         : 1;
@@ -172,7 +172,7 @@ export const PinFavoriteTitle = styled.div.attrs({ 'data-widget': 'pin-favorite-
 	color            : var(--invert-color);
 	background-color : var(--primary-color);
 `;
-export const PinFavoriteBody = styled.div.attrs({ 'data-widget': 'pin-favorite-body' })`
+export const PinFavoriteBody = styled.div.attrs({'data-widget': 'pin-favorite-body'})`
 	display          : flex;
 	position         : relative;
 	grid-column      : 2;
@@ -185,19 +185,19 @@ export const PinFavoriteBody = styled.div.attrs({ 'data-widget': 'pin-favorite-b
 	z-index          : 1;
 `;
 export const PinFavoriteScrollButton = styled.div.attrs<{ left: boolean, scrollable: boolean }>(
-	({ left, scrollable }) => {
-		return {
-			'data-widget': 'pin-favorite-body-scroll-button',
-			'data-scrollable': scrollable ? '' : (void 0),
-			style: {
-				left: left ? 'calc(100% - var(--margin) / 2 + 2px)' : (void 0),
-				right: left ? (void 0) : 'calc(100% - var(--margin) / 2 + 2px)',
-				borderRadius: left
-					? 'calc((var(--pin-favorite-height) - 4px) / 2) calc(var(--border-radius) * 2) calc(var(--border-radius) * 2) calc((var(--pin-favorite-height) - 4px) / 2)'
-					: 'calc(var(--border-radius) * 2) calc((var(--pin-favorite-height) - 4px) / 2) calc((var(--pin-favorite-height) - 4px) / 2) calc(var(--border-radius) * 2)'
-			}
-		};
-	})<{ left: boolean, scrollable: boolean }>`
+    ({left, scrollable}) => {
+        return {
+            'data-widget': 'pin-favorite-body-scroll-button',
+            'data-scrollable': scrollable ? '' : (void 0),
+            style: {
+                left: left ? 'calc(100% - var(--margin) / 2 + 2px)' : (void 0),
+                right: left ? (void 0) : 'calc(100% - var(--margin) / 2 + 2px)',
+                borderRadius: left
+                    ? 'calc((var(--pin-favorite-height) - 4px) / 2) calc(var(--border-radius) * 2) calc(var(--border-radius) * 2) calc((var(--pin-favorite-height) - 4px) / 2)'
+                    : 'calc(var(--border-radius) * 2) calc((var(--pin-favorite-height) - 4px) / 2) calc((var(--pin-favorite-height) - 4px) / 2) calc(var(--border-radius) * 2)'
+            }
+        };
+    })<{ left: boolean, scrollable: boolean }>`
 	display          : flex;
 	position         : absolute;
 	align-items      : center;
@@ -214,7 +214,7 @@ export const PinFavoriteScrollButton = styled.div.attrs<{ left: boolean, scrolla
 	transition       : opacity 300ms ease-in-out;
 	z-index          : 1;
 `;
-export const PinFavoriteItem = styled.div.attrs({ 'data-widget': 'pin-favorite-item' })`
+export const PinFavoriteItem = styled.div.attrs({'data-widget': 'pin-favorite-item'})`
 	display          : flex;
 	position         : relative;
 	align-items      : center;
@@ -243,7 +243,7 @@ export const PinFavoriteItem = styled.div.attrs({ 'data-widget': 'pin-favorite-i
 		}
 	}
 `;
-export const PinFavoriteItemRemoveButton = styled(Button).attrs({ 'data-widget': 'pin-favorite-item-remove-button' })`
+export const PinFavoriteItemRemoveButton = styled(Button).attrs({'data-widget': 'pin-favorite-item-remove-button'})`
 	position         : absolute;
 	top              : 0;
 	left             : calc(var(--height) * -1 + 2px);
@@ -259,12 +259,12 @@ export const PinFavoriteItemRemoveButton = styled(Button).attrs({ 'data-widget':
 	transition       : opacity 300ms ease-in-out, left 300ms ease-in-out, color 300ms ease-in-out, background-color 300ms ease-in-out, box-shadow 300ms ease-in-out;
 `;
 // avoid the last item adsorbs to unpin button
-export const PinFavoriteItemTail = styled.div.attrs({ 'data-widget': 'pin-favorite-item-tail' })`
+export const PinFavoriteItemTail = styled.div.attrs({'data-widget': 'pin-favorite-item-tail'})`
 	display   : block;
 	min-width : calc(var(--margin) / 2);
 	height    : var(--height);
 `;
-export const UnpinFavoriteButton = styled.div.attrs({ 'data-widget': 'pin-favorite-unpin-button' })`
+export const UnpinFavoriteButton = styled.div.attrs({'data-widget': 'pin-favorite-unpin-button'})`
 	display          : flex;
 	position         : relative;
 	align-items      : center;

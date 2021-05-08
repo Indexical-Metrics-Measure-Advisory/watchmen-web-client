@@ -1,3 +1,3 @@
 export enum LineChartStylePropNames {
-	SMOOTH = 'series.smooth',
+    SMOOTH = 'series.smooth',
 }

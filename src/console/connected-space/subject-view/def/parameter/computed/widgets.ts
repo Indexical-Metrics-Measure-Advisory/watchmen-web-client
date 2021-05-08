@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ComputedEditContainer = styled.div.attrs({ 'data-widget': 'parameter-computed-edit' })`
+export const ComputedEditContainer = styled.div.attrs({'data-widget': 'parameter-computed-edit'})`
 	display               : grid;
 	grid-template-columns : auto 1fr;
 	position              : relative;
@@ -8,7 +8,7 @@ export const ComputedEditContainer = styled.div.attrs({ 'data-widget': 'paramete
 	align-items           : center;
 	min-height            : var(--param-height);
 `;
-export const SubParametersContainer = styled.div.attrs({ 'data-widget': 'parameter-computed-body' })`
+export const SubParametersContainer = styled.div.attrs({'data-widget': 'parameter-computed-body'})`
 	display                    : grid;
 	position                   : relative;
 	grid-template-columns      : 1fr;

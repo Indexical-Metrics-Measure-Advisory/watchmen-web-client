@@ -1,15 +1,15 @@
 import styled from 'styled-components';
-import { DROPDOWN_Z_INDEX } from '../../../../../basic-widgets/constants';
+import {DROPDOWN_Z_INDEX} from '../../../../../basic-widgets/constants';
 
-export const JoinsContainer = styled.div.attrs<{ active: boolean }>(({ active }) => {
-	return {
-		'data-widget': 'subject-def-joins',
-		'data-v-scroll': '',
-		style: {
-			paddingRight: active ? (void 0) : 0,
-			overflowY: active ? (void 0) : 'hidden'
-		}
-	};
+export const JoinsContainer = styled.div.attrs<{ active: boolean }>(({active}) => {
+    return {
+        'data-widget': 'subject-def-joins',
+        'data-v-scroll': '',
+        style: {
+            paddingRight: active ? (void 0) : 0,
+            overflowY: active ? (void 0) : 'hidden'
+        }
+    };
 }) <{ active: boolean }>`
 	display        : flex;
 	position       : relative;
@@ -18,18 +18,18 @@ export const JoinsContainer = styled.div.attrs<{ active: boolean }>(({ active })
 	overflow-x     : hidden;
 	border-right   : var(--border);
 `;
-export const JoinsBottomGap = styled.div.attrs({ 'data-widget': 'subject-def-joins-bottom-gap' })`
+export const JoinsBottomGap = styled.div.attrs({'data-widget': 'subject-def-joins-bottom-gap'})`
 	width      : 100%;
 	height     : var(--margin);
 	min-height : var(--margin);
 `;
-export const JoinsEditContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
-	return {
-		'data-widget': 'subject-def-joins-edit',
-		style: {
-			display: visible ? (void 0) : 'none'
-		}
-	};
+export const JoinsEditContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+    return {
+        'data-widget': 'subject-def-joins-edit',
+        style: {
+            display: visible ? (void 0) : 'none'
+        }
+    };
 })<{ visible: boolean }>`
 	display        : flex;
 	position       : relative;
@@ -37,14 +37,14 @@ export const JoinsEditContainer = styled.div.attrs<{ visible: boolean }>(({ visi
 	flex-direction : column;
 	padding        : calc(var(--margin) / 2) var(--margin) 0 0;
 `;
-export const JoinEditContainer = styled.div.attrs({ 'data-widget': 'subject-def-join-edit' })`
+export const JoinEditContainer = styled.div.attrs({'data-widget': 'subject-def-join-edit'})`
 	display               : grid;
 	grid-template-columns : var(--margin) 1fr auto 1fr auto;
 	grid-column-gap       : calc(var(--margin) / 2);
 	grid-row-gap          : calc(var(--margin) / 4);
 	padding-bottom        : calc(var(--margin) / 4);
 `;
-export const JoinTopicFactorEditContainer = styled.div.attrs({ 'data-widget': 'subject-def-join-edit-wrapper' })`
+export const JoinTopicFactorEditContainer = styled.div.attrs({'data-widget': 'subject-def-join-edit-wrapper'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : 1fr;
@@ -72,23 +72,23 @@ export const JoinTopicFactorEditContainer = styled.div.attrs({ 'data-widget': 's
 		}
 	}
 `;
-export const JoinIndex = styled.span.attrs({ 'data-widget': 'subject-def-join-index' })`
+export const JoinIndex = styled.span.attrs({'data-widget': 'subject-def-join-index'})`
 	justify-self : end;
 	line-height  : var(--param-height);
 	font-variant : petite-caps;
 	font-weight  : var(--font-bold);
 `;
 const JOIN_TYPE_WIDTH = 200;
-export const JoinTypeDropdownContainer = styled.div.attrs<{ top?: number, bottom?: number }>(({ top, bottom }) => {
-	return {
-		'data-widget': 'subject-def-join-type',
-		style: {
-			borderBottomLeftRadius: top ? 0 : (void 0),
-			borderBottomRightRadius: top ? 0 : (void 0),
-			borderTopLeftRadius: bottom ? 0 : (void 0),
-			borderTopRightRadius: bottom ? 0 : (void 0)
-		}
-	};
+export const JoinTypeDropdownContainer = styled.div.attrs<{ top?: number, bottom?: number }>(({top, bottom}) => {
+    return {
+        'data-widget': 'subject-def-join-type',
+        style: {
+            borderBottomLeftRadius: top ? 0 : (void 0),
+            borderBottomRightRadius: top ? 0 : (void 0),
+            borderTopLeftRadius: bottom ? 0 : (void 0),
+            borderTopRightRadius: bottom ? 0 : (void 0)
+        }
+    };
 })<{ top?: number, bottom?: number }>`
 	display          : flex;
 	position         : relative;
@@ -130,21 +130,21 @@ export const JoinTypeDropdownContainer = styled.div.attrs<{ top?: number, bottom
 	}
 `;
 export const JoinTypeDropdown = styled.div.attrs<{ visible: boolean, top?: number, bottom?: number, left: number }>(
-	({ visible, top, bottom, left }) => {
-		return {
-			'data-widget': 'join-type-dropdown',
-			style: {
-				opacity: visible ? 1 : 0,
-				pointerEvents: visible ? 'auto' : 'none',
-				top, bottom, left,
-				transition: visible ? (void 0) : 'none',
-				borderTopLeftRadius: top ? 0 : (void 0),
-				borderTopRightRadius: top ? 0 : (void 0),
-				borderBottomLeftRadius: bottom ? 0 : (void 0),
-				borderBottomRightRadius: bottom ? 0 : (void 0)
-			}
-		};
-	})<{ visible: boolean, top?: number, bottom?: number, left: number }>`
+    ({visible, top, bottom, left}) => {
+        return {
+            'data-widget': 'join-type-dropdown',
+            style: {
+                opacity: visible ? 1 : 0,
+                pointerEvents: visible ? 'auto' : 'none',
+                top, bottom, left,
+                transition: visible ? (void 0) : 'none',
+                borderTopLeftRadius: top ? 0 : (void 0),
+                borderTopRightRadius: top ? 0 : (void 0),
+                borderBottomLeftRadius: bottom ? 0 : (void 0),
+                borderBottomRightRadius: bottom ? 0 : (void 0)
+            }
+        };
+    })<{ visible: boolean, top?: number, bottom?: number, left: number }>`
 	display          : flex;
 	position         : fixed;
 	flex-direction   : column;
@@ -159,7 +159,7 @@ export const JoinTypeDropdown = styled.div.attrs<{ visible: boolean, top?: numbe
 		box-shadow : var(--primary-hover-shadow);
 	}
 `;
-export const JoinTypeDropdownOption = styled.div.attrs({ 'data-widget': 'join-type-dropdown-option' })`
+export const JoinTypeDropdownOption = styled.div.attrs({'data-widget': 'join-type-dropdown-option'})`
 	display         : flex;
 	align-items     : center;
 	justify-content : center;
@@ -169,7 +169,7 @@ export const JoinTypeDropdownOption = styled.div.attrs({ 'data-widget': 'join-ty
 		background-color : var(--hover-color);
 	}
 `;
-export const RemoveJoinIcon = styled.div.attrs({ 'data-widget': 'join-remove-icon' })`
+export const RemoveJoinIcon = styled.div.attrs({'data-widget': 'join-remove-icon'})`
 	display       : flex;
 	position      : relative;
 	align-items   : center;

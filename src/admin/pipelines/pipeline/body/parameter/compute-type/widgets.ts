@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { DROPDOWN_Z_INDEX } from '../../../../../../basic-widgets/constants';
+import {DROPDOWN_Z_INDEX} from '../../../../../../basic-widgets/constants';
 
-export const ParameterComputeTypeContainer = styled.div.attrs({ 'data-widget': 'parameter-computed-type' })`
+export const ParameterComputeTypeContainer = styled.div.attrs({'data-widget': 'parameter-computed-type'})`
 	display          : flex;
 	position         : relative;
 	align-self       : start;
@@ -37,11 +37,11 @@ export const ParameterComputeTypeContainer = styled.div.attrs({ 'data-widget': '
 		z-index    : -1;
 	}
 `;
-export const ParameterComputeTypeLabel = styled.div.attrs({ 'data-widget': 'parameter-computed-type-label' })`
+export const ParameterComputeTypeLabel = styled.div.attrs({'data-widget': 'parameter-computed-type-label'})`
 	font-variant : petite-caps;
 	transition   : color 300ms ease-in-out;
 `;
-export const ParameterComputeTypeIcon = styled.div.attrs({ 'data-widget': 'parameter-computed-type-icon' })`
+export const ParameterComputeTypeIcon = styled.div.attrs({'data-widget': 'parameter-computed-type-icon'})`
 	display      : flex;
 	position     : relative;
 	align-self   : stretch;
@@ -54,17 +54,17 @@ export const ParameterComputeTypeIcon = styled.div.attrs({ 'data-widget': 'param
 `;
 export const PARAMETER_TYPE_DROPDOWN_HEIGHT = 200;
 export const ParameterComputeTypeDropdown = styled.div.attrs<{ visible: boolean, top?: number, bottom?: number, left: number }>(
-	({ visible, top, bottom, left }) => {
-		return {
-			'data-widget': 'parameter-computed-type-dropdown',
-			style: {
-				opacity: visible ? 1 : 0,
-				pointerEvents: visible ? 'auto' : 'none',
-				top, bottom, left,
-				transition: visible ? (void 0) : 'none'
-			}
-		};
-	})<{ visible: boolean, top?: number, bottom?: number, left: number }>`
+    ({visible, top, bottom, left}) => {
+        return {
+            'data-widget': 'parameter-computed-type-dropdown',
+            style: {
+                opacity: visible ? 1 : 0,
+                pointerEvents: visible ? 'auto' : 'none',
+                top, bottom, left,
+                transition: visible ? (void 0) : 'none'
+            }
+        };
+    })<{ visible: boolean, top?: number, bottom?: number, left: number }>`
 	display          : flex;
 	position         : fixed;
 	flex-wrap        : wrap;
@@ -81,14 +81,14 @@ export const ParameterComputeTypeDropdown = styled.div.attrs<{ visible: boolean,
 		box-shadow : var(--primary-hover-shadow);
 	}
 `;
-export const ParameterComputeTypeOption = styled.div.attrs<{ selected: boolean }>(({ selected }) => {
-	return {
-		'data-widget': 'parameter-compute-type-option',
-		style: {
-			backgroundColor: selected ? 'var(--primary-color)' : (void 0),
-			color: selected ? 'var(--invert-color)' : (void 0)
-		}
-	};
+export const ParameterComputeTypeOption = styled.div.attrs<{ selected: boolean }>(({selected}) => {
+    return {
+        'data-widget': 'parameter-compute-type-option',
+        style: {
+            backgroundColor: selected ? 'var(--primary-color)' : (void 0),
+            color: selected ? 'var(--invert-color)' : (void 0)
+        }
+    };
 })<{ selected: boolean }>`
 	display       : flex;
 	align-items   : center;
@@ -98,7 +98,7 @@ export const ParameterComputeTypeOption = styled.div.attrs<{ selected: boolean }
 	margin-left   : calc(var(--margin) / 4);
 	margin-bottom : calc(var(--margin) / 4);
 	border-radius : calc(var(--param-height) / 2);
-	box-shadow    : ${({ selected }) => selected ? 'var(--param-primary-color)' : 'var(--param-border)'};
+	box-shadow    : ${({selected}) => selected ? 'var(--param-primary-color)' : 'var(--param-border)'};
 	transition    : box-shadow 300ms ease-in-out;
 	&:hover {
 		box-shadow : var(--primary-hover-shadow);

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const JointOperatorsContainer = styled.div.attrs({ 'data-widget': 'joint-operators' })`
+export const JointOperatorsContainer = styled.div.attrs({'data-widget': 'joint-operators'})`
 	display       : flex;
 	position      : relative;
 	align-items   : center;
@@ -27,7 +27,7 @@ export const JointOperatorsContainer = styled.div.attrs({ 'data-widget': 'joint-
 		z-index                   : -1;
 	}
 `;
-export const JointOperator = styled.div.attrs({ 'data-widget': 'joint-operator' })`
+export const JointOperator = styled.div.attrs({'data-widget': 'joint-operator'})`
 	display     : flex;
 	position    : relative;
 	align-items : center;

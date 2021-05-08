@@ -1,8 +1,8 @@
 export interface EChartsSize {
-	width?: number;
-	height?: number;
+    width?: number;
+    height?: number;
 }
 
 export interface EChartsSizeHolder {
-	size?: EChartsSize;
+    size?: EChartsSize;
 }

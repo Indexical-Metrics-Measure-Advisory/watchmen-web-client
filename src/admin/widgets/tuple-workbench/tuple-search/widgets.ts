@@ -1,15 +1,15 @@
 import styled from 'styled-components';
-import { CarveButton } from '../../../../basic-widgets/button';
+import {CarveButton} from '../../../../basic-widgets/button';
 
-export const TupleSearchContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
-	return {
-		'data-widget': 'tuple-search',
-		style: {
-			display: visible ? (void 0) : 'none',
-			paddingBottom: visible ? (void 0) : 0,
-			marginBottom: visible ? (void 0) : 0
-		}
-	};
+export const TupleSearchContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+    return {
+        'data-widget': 'tuple-search',
+        style: {
+            display: visible ? (void 0) : 'none',
+            paddingBottom: visible ? (void 0) : 0,
+            marginBottom: visible ? (void 0) : 0
+        }
+    };
 })<{ visible: boolean }>`
 	display        : flex;
 	position       : relative;
@@ -18,11 +18,11 @@ export const TupleSearchContainer = styled.div.attrs<{ visible: boolean }>(({ vi
 	margin-bottom  : calc(var(--margin) * 2);
 `;
 
-export const NoData = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
-	return {
-		'data-widget': 'tuple-search-no-data',
-		style: { display: visible ? (void 0) : 'none' }
-	};
+export const NoData = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+    return {
+        'data-widget': 'tuple-search-no-data',
+        style: {display: visible ? (void 0) : 'none'}
+    };
 })<{ visible: boolean }>`
 	display        : flex;
 	position        : relative;
@@ -35,7 +35,7 @@ export const NoData = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
 	font-size       : 1.4em;
 `;
 
-export const TupleSearchList = styled.div.attrs({ 'data-widget': 'tuple-search-list' })`
+export const TupleSearchList = styled.div.attrs({'data-widget': 'tuple-search-list'})`
 	display               : grid;
 	grid-column           : span 2;
 	grid-template-columns : repeat(3, 1fr);
@@ -44,18 +44,18 @@ export const TupleSearchList = styled.div.attrs({ 'data-widget': 'tuple-search-l
 	padding-top           : calc(var(--margin) / 2);
 `;
 
-export const TupleSearchListPagination = styled.div.attrs({ 'data-widget': 'tuple-search-list-pagination' })`
+export const TupleSearchListPagination = styled.div.attrs({'data-widget': 'tuple-search-list-pagination'})`
 	grid-column : span 3;
 	display     : flex;
 	margin-top  : calc(var(--margin) / 2);
 `;
-export const TupleSearchListPaginationButton = styled(CarveButton).attrs<{ visible: boolean }>(({ visible }) => {
-	return {
-		'data-widget': 'tuple-search-list-pagination-button',
-		style: {
-			display: visible ? (void 0) : 'none'
-		}
-	};
+export const TupleSearchListPaginationButton = styled(CarveButton).attrs<{ visible: boolean }>(({visible}) => {
+    return {
+        'data-widget': 'tuple-search-list-pagination-button',
+        style: {
+            display: visible ? (void 0) : 'none'
+        }
+    };
 })<{ visible: boolean }>`
 	line-height : 1.6em;
 	font-weight : var(--font-demi-bold);
@@ -63,7 +63,7 @@ export const TupleSearchListPaginationButton = styled(CarveButton).attrs<{ visib
 		margin-left : calc(var(--margin) / 2);
 	}
 `;
-export const TupleSearchListPaginationPointer = styled.div.attrs({ 'data-widget': 'tuple-search-list-pagination-pointer' })`
+export const TupleSearchListPaginationPointer = styled.div.attrs({'data-widget': 'tuple-search-list-pagination-pointer'})`
 	display         : flex;
 	flex-grow       : 1;
 	align-items     : center;

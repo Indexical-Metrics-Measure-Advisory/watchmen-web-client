@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const JointTypeContainer = styled.div.attrs({ 'data-widget': 'joint-type' })`
+export const JointTypeContainer = styled.div.attrs({'data-widget': 'joint-type'})`
 	display          : flex;
 	position         : relative;
 	align-items      : center;
@@ -30,15 +30,15 @@ export const JointTypeContainer = styled.div.attrs({ 'data-widget': 'joint-type'
 		z-index          : -1;
 	}
 `;
-export const JointTypeOption = styled.div.attrs<{ active: boolean, expanded: boolean }>(({ active, expanded }) => {
-	return {
-		'data-widget': 'joint-type-option',
-		style: {
-			display: (expanded || active) ? (void 0) : 'none',
-			backgroundColor: active ? (void 0) : 'var(--bg-color)',
-			boxShadow: active ? (void 0) : 'var(--param-left-border)'
-		}
-	};
+export const JointTypeOption = styled.div.attrs<{ active: boolean, expanded: boolean }>(({active, expanded}) => {
+    return {
+        'data-widget': 'joint-type-option',
+        style: {
+            display: (expanded || active) ? (void 0) : 'none',
+            backgroundColor: active ? (void 0) : 'var(--bg-color)',
+            boxShadow: active ? (void 0) : 'var(--param-left-border)'
+        }
+    };
 })<{ active: boolean, expanded: boolean }>`
 	display      : flex;
 	align-items  : center;
@@ -48,10 +48,10 @@ export const JointTypeOption = styled.div.attrs<{ active: boolean, expanded: boo
 	padding      : 0 calc(var(--margin) / 2);
 	transition   : color 300ms ease-in-out;
 	&:hover {
-		color : ${({ active }) => active ? (void 0) : 'var(--warn-color)'};
+		color : ${({active}) => active ? (void 0) : 'var(--warn-color)'};
 	}
 `;
-export const JointTypeButton = styled.div.attrs({ 'data-widget': 'joint-type-button' })`
+export const JointTypeButton = styled.div.attrs({'data-widget': 'joint-type-button'})`
 	display         : flex;
 	position        : relative;
 	align-items     : center;

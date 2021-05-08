@@ -1,8 +1,8 @@
-import React, { ChangeEvent, FocusEvent } from 'react';
+import React, {ChangeEvent, FocusEvent} from 'react';
 import styled from 'styled-components';
-import { Input } from './input';
+import {Input} from './input';
 
-const Container = styled.div.attrs({ 'data-widget': 'page-title-editor' })`
+const Container = styled.div.attrs({'data-widget': 'page-title-editor'})`
 	display      : flex;
 	position     : relative;
 	min-width    : 150px;
@@ -12,7 +12,7 @@ const Container = styled.div.attrs({ 'data-widget': 'page-title-editor' })`
 		flex-grow : 1;
 	}
 `;
-const Label = styled.div.attrs({ 'data-widget': 'page-title-editor-label' })`
+const Label = styled.div.attrs({'data-widget': 'page-title-editor-label'})`
 	padding       : 0 var(--input-indent);
 	font-family   : var(--title-font-family);
 	font-size     : 3em;
@@ -23,7 +23,7 @@ const Label = styled.div.attrs({ 'data-widget': 'page-title-editor-label' })`
 	overflow      : hidden;
 	visibility    : hidden;
 `;
-const Editor = styled(Input).attrs({ 'data-widget': 'page-title-editor-input' })`
+const Editor = styled(Input).attrs({'data-widget': 'page-title-editor-input'})`
 	position      : absolute;
 	padding-right : var(--input-indent);
 	font-family   : var(--title-font-family);
@@ -45,25 +45,25 @@ const Editor = styled(Input).attrs({ 'data-widget': 'page-title-editor-input' })
 `;
 
 export const PageTitleEditor = (props: {
-	title: string;
-	defaultTitle: string;
-	onChange: (newTitle: string) => void;
-	onChangeComplete: (newTitle: string) => void;
+    title: string;
+    defaultTitle: string;
+    onChange: (newTitle: string) => void;
+    onChangeComplete: (newTitle: string) => void;
 }) => {
-	const { title, defaultTitle, onChange, onChangeComplete } = props;
+    const {title, defaultTitle, onChange, onChangeComplete} = props;
 
-	const onTextChange = (event: ChangeEvent<HTMLInputElement>) => {
-		onChange(event.target.value);
-	};
-	const onBlur = (event: FocusEvent<HTMLInputElement>) => {
-		onChangeComplete(event.target.value);
-	};
+    const onTextChange = (event: ChangeEvent<HTMLInputElement>) => {
+        onChange(event.target.value);
+    };
+    const onBlur = (event: FocusEvent<HTMLInputElement>) => {
+        onChangeComplete(event.target.value);
+    };
 
-	const label = (title || '').trim() || defaultTitle;
+    const label = (title || '').trim() || defaultTitle;
 
-	return <Container>
-		<Label>{label}</Label>
-		<Editor value={title} placeholder={defaultTitle}
-		        onChange={onTextChange} onBlur={onBlur}/>
-	</Container>;
+    return <Container>
+        <Label>{label}</Label>
+        <Editor value={title} placeholder={defaultTitle}
+                onChange={onTextChange} onBlur={onBlur}/>
+    </Container>;
 };

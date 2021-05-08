@@ -1,13 +1,13 @@
 import styled from 'styled-components';
-import { GRID_COLUMN_GAP, GRID_COLUMNS, GRID_ROW_GAP } from '../../constants';
+import {GRID_COLUMN_GAP, GRID_COLUMNS, GRID_ROW_GAP} from '../../constants';
 
-export const StageBodyContainer = styled.div.attrs<{ expanded: boolean }>(({ expanded }) => {
-	return {
-		'data-widget': 'stage-body',
-		style: {
-			display: expanded ? (void 0) : 'none'
-		}
-	};
+export const StageBodyContainer = styled.div.attrs<{ expanded: boolean }>(({expanded}) => {
+    return {
+        'data-widget': 'stage-body',
+        style: {
+            display: expanded ? (void 0) : 'none'
+        }
+    };
 })<{ expanded: boolean }>`
 	grid-column           : 1 / span 2;
 	display               : grid;

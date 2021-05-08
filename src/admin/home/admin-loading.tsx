@@ -1,8 +1,8 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
-import { Logo } from '../../basic-widgets/logo';
+import styled, {keyframes} from 'styled-components';
+import {Logo} from '../../basic-widgets/logo';
 
-const Container = styled.div.attrs({ 'data-widget': 'admin-home-loading' })`
+const Container = styled.div.attrs({'data-widget': 'admin-home-loading'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : 1fr;
@@ -18,7 +18,7 @@ const Spin = keyframes`
 		transform : rotate(360deg);
 	}
 `;
-const Icon = styled.div.attrs({ 'data-widget': 'admin-home-loading-icon' })`
+const Icon = styled.div.attrs({'data-widget': 'admin-home-loading-icon'})`
 	display         : flex;
 	position        : relative;
 	align-items     : center;
@@ -29,7 +29,7 @@ const Icon = styled.div.attrs({ 'data-widget': 'admin-home-loading-icon' })`
 		animation : ${Spin} 60s linear infinite;
 	}
 `;
-const Label = styled.div.attrs({ 'data-widget': 'admin-home-loading-label' })`
+const Label = styled.div.attrs({'data-widget': 'admin-home-loading-label'})`
 	display       : block;
 	text-align    : center;
 	font-family   : var(--title-font-family);
@@ -42,11 +42,11 @@ const Label = styled.div.attrs({ 'data-widget': 'admin-home-loading-label' })`
 `;
 
 export const AdminLoading = (props: { label?: string }) => {
-	const { label } = props;
-	return <Container>
-		<Icon>
-			<Logo/>
-		</Icon>
-		<Label>{label}</Label>
-	</Container>;
+    const {label} = props;
+    return <Container>
+        <Icon>
+            <Logo/>
+        </Icon>
+        <Label>{label}</Label>
+    </Container>;
 };

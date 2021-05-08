@@ -1,13 +1,13 @@
 import styled from 'styled-components';
-import { Button } from '../../../../basic-widgets/button';
+import {Button} from '../../../../basic-widgets/button';
 
-export const PipelineBodyContainer = styled.div.attrs({ 'data-widget': 'pipeline-body' })`
+export const PipelineBodyContainer = styled.div.attrs({'data-widget': 'pipeline-body'})`
 	display        : flex;
 	flex-direction : column;
 	position       : relative;
 	flex-grow      : 1;
 `;
-export const LeadLabel = styled.div.attrs({ 'data-widget': 'pipeline-editor-lead-label' })`
+export const LeadLabel = styled.div.attrs({'data-widget': 'pipeline-editor-lead-label'})`
 	display         : flex;
 	position        : relative;
 	align-items     : center;
@@ -23,14 +23,14 @@ export const FooterLeadLabel = styled(LeadLabel)`
 	justify-content : center;
 	opacity         : 0.5;
 `;
-export const HeaderButtons = styled.div.attrs({ 'data-widget': 'header-buttons' })`
+export const HeaderButtons = styled.div.attrs({'data-widget': 'header-buttons'})`
 	display               : grid;
 	position              : absolute;
 	grid-template-columns : repeat(10, auto);
 	right                 : 0;
 	top                   : calc((var(--height) - var(--param-height)) / 2);
 `;
-export const FooterButtons = styled.div.attrs({ 'data-widget': 'footer-buttons' })`
+export const FooterButtons = styled.div.attrs({'data-widget': 'footer-buttons'})`
 	display               : grid;
 	position              : absolute;
 	grid-template-columns : repeat(10, auto);

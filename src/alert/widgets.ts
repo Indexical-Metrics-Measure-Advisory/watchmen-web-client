@@ -1,14 +1,14 @@
 import styled from 'styled-components';
-import { ALERT_Z_INDEX } from '../basic-widgets/constants';
+import {ALERT_Z_INDEX} from '../basic-widgets/constants';
 
-export const AlertContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
-	return {
-		'data-widget': 'alert',
-		style: {
-			opacity: visible ? 1 : (void 0),
-			pointerEvents: visible ? 'auto' : (void 0)
-		}
-	};
+export const AlertContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+    return {
+        'data-widget': 'alert',
+        style: {
+            opacity: visible ? 1 : (void 0),
+            pointerEvents: visible ? 'auto' : (void 0)
+        }
+    };
 })<{ visible: boolean }>`
 	position         : fixed;
 	top              : 0;
@@ -21,13 +21,13 @@ export const AlertContainer = styled.div.attrs<{ visible: boolean }>(({ visible 
 	transition       : all 300ms ease-in-out;
 	z-index          : ${ALERT_Z_INDEX};
 `;
-export const AlertDialog = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
-	return {
-		'data-widget': 'alert-dialog',
-		style: {
-			transform: visible ? 'none' : (void 0)
-		}
-	};
+export const AlertDialog = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+    return {
+        'data-widget': 'alert-dialog',
+        style: {
+            transform: visible ? 'none' : (void 0)
+        }
+    };
 })<{ visible: boolean }>`
 	display          : flex;
 	flex-direction   : column;
@@ -41,15 +41,15 @@ export const AlertDialog = styled.div.attrs<{ visible: boolean }>(({ visible }) 
 	transform        : scale(0.75);
 	transition       : all 300ms ease-in-out;
 `;
-export const AlertBody = styled.div.attrs({ 'data-widget': 'alert-body' })`
+export const AlertBody = styled.div.attrs({'data-widget': 'alert-body'})`
 	flex-grow  : 1;
 	min-height : 60px;
 `;
-export const AlertFooter = styled.div.attrs({ 'data-widget': 'alert-footer' })`
+export const AlertFooter = styled.div.attrs({'data-widget': 'alert-footer'})`
 	display         : flex;
 	justify-content : flex-end;
 `;
-export const AlertLabel = styled.span.attrs({ 'data-widget': 'alert-label' })`
+export const AlertLabel = styled.span.attrs({'data-widget': 'alert-label'})`
 	font-variant : petite-caps;
 `;
 export const WaitRemoveDataDialog = styled(AlertDialog)`

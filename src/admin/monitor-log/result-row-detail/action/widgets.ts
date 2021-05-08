@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { InputLines } from '../../../../basic-widgets/input-lines';
-import { SectionTitle } from '../widgets';
+import {InputLines} from '../../../../basic-widgets/input-lines';
+import {SectionTitle} from '../widgets';
 
-export const DetailProcessActionContainer = styled.div.attrs({ 'data-widget': 'monitor-log-detail-process-action' })`
+export const DetailProcessActionContainer = styled.div.attrs({'data-widget': 'monitor-log-detail-process-action'})`
 	display        : flex;
 	position       : relative;
 	flex-direction : column;
@@ -11,7 +11,7 @@ export const DetailProcessActionContainer = styled.div.attrs({ 'data-widget': 'm
 export const ActionSectionTitle = styled(SectionTitle)`
 	grid-template-columns : 50% 1fr auto;
 `;
-export const DetailProcessActionBody = styled.div.attrs({ 'data-widget': 'monitor-log-detail-process-action-body' })`
+export const DetailProcessActionBody = styled.div.attrs({'data-widget': 'monitor-log-detail-process-action-body'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : 20% calc(80% - var(--margin) / 2);
@@ -19,7 +19,7 @@ export const DetailProcessActionBody = styled.div.attrs({ 'data-widget': 'monito
 	border-bottom         : var(--border);
 	padding-bottom        : calc(var(--margin) / 2);
 `;
-export const BodyLabel = styled.div.attrs({ 'data-widget': 'monitor-log-detail-process-action-body-label' })`
+export const BodyLabel = styled.div.attrs({'data-widget': 'monitor-log-detail-process-action-body-label'})`
 	display      : flex;
 	align-self   : start;
 	align-items  : center;
@@ -28,27 +28,27 @@ export const BodyLabel = styled.div.attrs({ 'data-widget': 'monitor-log-detail-p
 	padding-left : calc(var(--margin) / 2);
 	height       : var(--height);
 `;
-export const BodyValue = styled.div.attrs<{ emphasis?: boolean }>(({ emphasis = false }) => {
-	return {
-		'data-widget': 'monitor-log-detail-process-action-body-value',
-		style: {
-			fontVariant: emphasis ? 'petite-caps' : (void 0),
-			fontWeight: emphasis ? 'var(--font-demi-bold)' : (void 0)
-		}
-	};
+export const BodyValue = styled.div.attrs<{ emphasis?: boolean }>(({emphasis = false}) => {
+    return {
+        'data-widget': 'monitor-log-detail-process-action-body-value',
+        style: {
+            fontVariant: emphasis ? 'petite-caps' : (void 0),
+            fontWeight: emphasis ? 'var(--font-demi-bold)' : (void 0)
+        }
+    };
 })<{ emphasis?: boolean }>`
 	display     : flex;
 	align-items : center;
 	min-height  : var(--height);
 `;
-export const ActionType = styled.div.attrs({ 'data-widget': 'monitor-log-detail-process-action-type' })`
+export const ActionType = styled.div.attrs({'data-widget': 'monitor-log-detail-process-action-type'})`
 	display      : flex;
 	align-items  : center;
 	font-variant : petite-caps;
 	font-weight  : var(--font-demi-bold);
 	height       : var(--height);
 `;
-export const ActionStatus = styled.div.attrs({ 'data-widget': 'monitor-log-detail-process-action-status' })`
+export const ActionStatus = styled.div.attrs({'data-widget': 'monitor-log-detail-process-action-status'})`
 	display      : flex;
 	align-items  : center;
 	font-variant : petite-caps;
@@ -56,9 +56,9 @@ export const ActionStatus = styled.div.attrs({ 'data-widget': 'monitor-log-detai
 	height       : var(--height);
 `;
 export const ActionError = styled(InputLines).attrs({
-	'data-widget': 'monitor-log-detail-process-action-error',
-	'data-v-scroll': '',
-	'data-h-scroll': ''
+    'data-widget': 'monitor-log-detail-process-action-error',
+    'data-v-scroll': '',
+    'data-h-scroll': ''
 })`
 	display     : flex;
 	position    : relative;
@@ -68,8 +68,8 @@ export const ActionError = styled(InputLines).attrs({
 	white-space : pre;
 `;
 export const ObjectValue = styled(InputLines).attrs({
-	'data-v-scroll': '',
-	'data-h-scroll': ''
+    'data-v-scroll': '',
+    'data-h-scroll': ''
 })`
 	display     : flex;
 	position    : relative;

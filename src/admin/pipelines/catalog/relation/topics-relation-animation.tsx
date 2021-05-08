@@ -1,58 +1,58 @@
-import React, { useEffect, useState } from 'react';
-import { useForceUpdate } from '../../../../basic-widgets/utils';
-import { Topic } from '../../../../services/tuples/topic-types';
-import { useCatalogEventBus } from '../catalog-event-bus';
-import { CatalogEventTypes } from '../catalog-event-bus-types';
-import { computeRelationPoints } from '../graphics-utils';
-import { AssembledPipelinesGraphics, GraphicsRole } from '../types';
-import { RelationAnimationDot } from './widgets';
+import React, {useEffect, useState} from 'react';
+import {useForceUpdate} from '../../../../basic-widgets/utils';
+import {Topic} from '../../../../services/tuples/topic-types';
+import {useCatalogEventBus} from '../catalog-event-bus';
+import {CatalogEventTypes} from '../catalog-event-bus-types';
+import {computeRelationPoints} from '../graphics-utils';
+import {AssembledPipelinesGraphics, GraphicsRole} from '../types';
+import {RelationAnimationDot} from './widgets';
 
 export const TopicsRelationAnimation = (props: { graphics: AssembledPipelinesGraphics, source: Topic, target: Topic }) => {
-	const { graphics, source, target } = props;
+    const {graphics, source, target} = props;
 
-	const { on, off } = useCatalogEventBus();
-	const forceUpdate = useForceUpdate();
-	const [ visible, setVisible ] = useState(false);
-	useEffect(() => {
-		const onTopicSelected = (selectedTopic: Topic) => {
-			if (selectedTopic !== source && selectedTopic !== target) {
-				visible && setVisible(false);
-			} else {
-				visible ? forceUpdate() : setVisible(true);
-			}
-		};
-		const onTopicMoved = (movedTopic: Topic) => {
-			if (movedTopic !== source && movedTopic !== target) {
-				visible && setVisible(false);
-			} else {
-				visible ? forceUpdate() : setVisible(true);
-			}
-		};
-		const onSelectionClear = () => {
-			setVisible(false);
-		};
+    const {on, off} = useCatalogEventBus();
+    const forceUpdate = useForceUpdate();
+    const [visible, setVisible] = useState(false);
+    useEffect(() => {
+        const onTopicSelected = (selectedTopic: Topic) => {
+            if (selectedTopic !== source && selectedTopic !== target) {
+                visible && setVisible(false);
+            } else {
+                visible ? forceUpdate() : setVisible(true);
+            }
+        };
+        const onTopicMoved = (movedTopic: Topic) => {
+            if (movedTopic !== source && movedTopic !== target) {
+                visible && setVisible(false);
+            } else {
+                visible ? forceUpdate() : setVisible(true);
+            }
+        };
+        const onSelectionClear = () => {
+            setVisible(false);
+        };
 
-		on(CatalogEventTypes.TOPIC_SELECTED, onTopicSelected);
-		on(CatalogEventTypes.CLEAR_SELECTION, onSelectionClear);
+        on(CatalogEventTypes.TOPIC_SELECTED, onTopicSelected);
+        on(CatalogEventTypes.CLEAR_SELECTION, onSelectionClear);
 
-		on(CatalogEventTypes.TOPIC_MOVED, onTopicMoved);
+        on(CatalogEventTypes.TOPIC_MOVED, onTopicMoved);
 
-		return () => {
-			off(CatalogEventTypes.TOPIC_SELECTED, onTopicSelected);
-			off(CatalogEventTypes.CLEAR_SELECTION, onSelectionClear);
+        return () => {
+            off(CatalogEventTypes.TOPIC_SELECTED, onTopicSelected);
+            off(CatalogEventTypes.CLEAR_SELECTION, onSelectionClear);
 
-			off(CatalogEventTypes.TOPIC_MOVED, onTopicMoved);
-		};
-	}, [ on, off, source, target, forceUpdate, visible ]);
+            off(CatalogEventTypes.TOPIC_MOVED, onTopicMoved);
+        };
+    }, [on, off, source, target, forceUpdate, visible]);
 
-	const sourceGraphics = graphics.topics.find(topicGraphics => topicGraphics.topic === source);
-	const targetGraphics = graphics.topics.find(topicGraphics => topicGraphics.topic === target);
-	if (!sourceGraphics || !targetGraphics) {
-		return null;
-	}
+    const sourceGraphics = graphics.topics.find(topicGraphics => topicGraphics.topic === source);
+    const targetGraphics = graphics.topics.find(topicGraphics => topicGraphics.topic === target);
+    if (!sourceGraphics || !targetGraphics) {
+        return null;
+    }
 
-	const curvePoints = computeRelationPoints({ source: sourceGraphics, target: targetGraphics });
+    const curvePoints = computeRelationPoints({source: sourceGraphics, target: targetGraphics});
 
-	return <RelationAnimationDot lattice={curvePoints} visible={visible}
-	                             data-role={GraphicsRole.TOPICS_RELATION_ANIMATION}/>;
+    return <RelationAnimationDot lattice={curvePoints} visible={visible}
+                                 data-role={GraphicsRole.TOPICS_RELATION_ANIMATION}/>;
 };

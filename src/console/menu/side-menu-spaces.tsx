@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
-import { ICON_CONNECTED_SPACE } from '../../basic-widgets/constants';
-import { SideMenuItem } from '../../basic-widgets/side-menu/side-menu-item';
-import { useForceUpdate } from '../../basic-widgets/utils';
-import { isConnectedSpaceOpened, toConnectedSpace } from '../../routes/utils';
-import { ConnectedSpace } from '../../services/tuples/connected-space-types';
-import { useConsoleEventBus } from '../console-event-bus';
-import { ConsoleEventTypes } from '../console-event-bus-types';
+import {ICON_CONNECTED_SPACE} from '../../basic-widgets/constants';
+import {SideMenuItem} from '../../basic-widgets/side-menu/side-menu-item';
+import {useForceUpdate} from '../../basic-widgets/utils';
+import {isConnectedSpaceOpened, toConnectedSpace} from '../../routes/utils';
+import {ConnectedSpace} from '../../services/tuples/connected-space-types';
+import {useConsoleEventBus} from '../console-event-bus';
+import {ConsoleEventTypes} from '../console-event-bus-types';
 
 const SideMenuSpacesContainer = styled.div.attrs({
-	'data-widget': 'side-menu-spaces',
-	'data-v-scroll': ''
+    'data-widget': 'side-menu-spaces',
+    'data-v-scroll': ''
 })`
 	display        : flex;
 	flex-direction : column;
@@ -28,52 +28,52 @@ const SpaceMenu = styled(SideMenuItem)`
 `;
 
 export const SideMenuSpaces = (props: { showTooltip: boolean }) => {
-	const { showTooltip } = props;
+    const {showTooltip} = props;
 
-	const history = useHistory();
-	const { once, on, off } = useConsoleEventBus();
-	const [ spaces, setSpaces ] = useState<Array<ConnectedSpace>>([]);
-	const forceUpdate = useForceUpdate();
-	useEffect(() => {
-		once(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
-			setSpaces(connectedSpaces || []);
-		}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
-	}, [ once ]);
-	useEffect(() => {
-		const onConnectedSpaceCreated = (connectedSpace: ConnectedSpace) => {
-			setSpaces(spaces => Array.from(new Set([ ...spaces, connectedSpace ])));
-		};
-		const onConnectedSpaceRenamed = (connectedSpace: ConnectedSpace) => {
-			forceUpdate();
-		};
-		const onConnectedSpaceRemoved = (connectedSpace: ConnectedSpace) => {
-			setSpaces(spaces => spaces.filter(space => space !== connectedSpace));
-		};
-		on(ConsoleEventTypes.CONNECTED_SPACE_CREATED, onConnectedSpaceCreated);
-		on(ConsoleEventTypes.CONNECTED_SPACE_RENAMED, onConnectedSpaceRenamed);
-		on(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, onConnectedSpaceRemoved);
-		return () => {
-			off(ConsoleEventTypes.CONNECTED_SPACE_CREATED, onConnectedSpaceCreated);
-			off(ConsoleEventTypes.CONNECTED_SPACE_RENAMED, onConnectedSpaceRenamed);
-			off(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, onConnectedSpaceRemoved);
-		};
-	}, [ on, off, forceUpdate ]);
+    const history = useHistory();
+    const {once, on, off} = useConsoleEventBus();
+    const [spaces, setSpaces] = useState<Array<ConnectedSpace>>([]);
+    const forceUpdate = useForceUpdate();
+    useEffect(() => {
+        once(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
+            setSpaces(connectedSpaces || []);
+        }).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
+    }, [once]);
+    useEffect(() => {
+        const onConnectedSpaceCreated = (connectedSpace: ConnectedSpace) => {
+            setSpaces(spaces => Array.from(new Set([...spaces, connectedSpace])));
+        };
+        const onConnectedSpaceRenamed = (connectedSpace: ConnectedSpace) => {
+            forceUpdate();
+        };
+        const onConnectedSpaceRemoved = (connectedSpace: ConnectedSpace) => {
+            setSpaces(spaces => spaces.filter(space => space !== connectedSpace));
+        };
+        on(ConsoleEventTypes.CONNECTED_SPACE_CREATED, onConnectedSpaceCreated);
+        on(ConsoleEventTypes.CONNECTED_SPACE_RENAMED, onConnectedSpaceRenamed);
+        on(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, onConnectedSpaceRemoved);
+        return () => {
+            off(ConsoleEventTypes.CONNECTED_SPACE_CREATED, onConnectedSpaceCreated);
+            off(ConsoleEventTypes.CONNECTED_SPACE_RENAMED, onConnectedSpaceRenamed);
+            off(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, onConnectedSpaceRemoved);
+        };
+    }, [on, off, forceUpdate]);
 
-	const onSpaceClicked = (space: ConnectedSpace) => () => {
-		if (isConnectedSpaceOpened(space.connectId)) {
-			return;
-		}
+    const onSpaceClicked = (space: ConnectedSpace) => () => {
+        if (isConnectedSpaceOpened(space.connectId)) {
+            return;
+        }
 
-		history.push(toConnectedSpace(space.connectId));
-	};
+        history.push(toConnectedSpace(space.connectId));
+    };
 
-	return <SideMenuSpacesContainer>
-		{spaces
-			.sort((s1, s2) => s1.name.toLowerCase().localeCompare(s2.name.toLowerCase()))
-			.map(space => {
-				return <SpaceMenu icon={ICON_CONNECTED_SPACE} label={space.name} showTooltip={showTooltip}
-				                  onClick={onSpaceClicked(space)}
-				                  key={space.connectId}/>;
-			})}
-	</SideMenuSpacesContainer>;
+    return <SideMenuSpacesContainer>
+        {spaces
+            .sort((s1, s2) => s1.name.toLowerCase().localeCompare(s2.name.toLowerCase()))
+            .map(space => {
+                return <SpaceMenu icon={ICON_CONNECTED_SPACE} label={space.name} showTooltip={showTooltip}
+                                  onClick={onSpaceClicked(space)}
+                                  key={space.connectId}/>;
+            })}
+    </SideMenuSpacesContainer>;
 };

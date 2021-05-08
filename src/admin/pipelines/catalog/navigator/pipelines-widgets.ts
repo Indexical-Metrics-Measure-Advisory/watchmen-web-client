@@ -1,16 +1,16 @@
 import styled from 'styled-components';
-import { TooltipButton } from '../../../../basic-widgets/tooltip-button';
+import {TooltipButton} from '../../../../basic-widgets/tooltip-button';
 
-export const PipelinesBodyContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
-	return {
-		'data-widget': 'pipelines-navigator-pipelines',
-		'data-v-scroll': '',
-		style: {
-			height: visible ? (void 0) : 0,
-			flexGrow: visible ? 1 : 0,
-			borderBottom: visible ? 'var(--border)' : 0
-		}
-	};
+export const PipelinesBodyContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+    return {
+        'data-widget': 'pipelines-navigator-pipelines',
+        'data-v-scroll': '',
+        style: {
+            height: visible ? (void 0) : 0,
+            flexGrow: visible ? 1 : 0,
+            borderBottom: visible ? 'var(--border)' : 0
+        }
+    };
 })<{ visible: boolean }>`
 	display               : block;
 	position              : relative;
@@ -18,7 +18,7 @@ export const PipelinesBodyContainer = styled.div.attrs<{ visible: boolean }>(({ 
 	overflow-y            : auto;
 `;
 export const PipelinesWrapper = styled.div``
-export const PipelineRowContainer = styled.div.attrs({ 'data-widget': 'pipelines-navigator-pipeline' })`
+export const PipelineRowContainer = styled.div.attrs({'data-widget': 'pipelines-navigator-pipeline'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : auto 1fr auto;
@@ -38,7 +38,7 @@ export const PipelineRowContainer = styled.div.attrs({ 'data-widget': 'pipelines
 		opacity          : 0.5;
 	}
 `;
-export const PipelineName = styled.div.attrs({ 'data-widget': 'pipelines-navigator-pipeline-name' })`
+export const PipelineName = styled.div.attrs({'data-widget': 'pipelines-navigator-pipeline-name'})`
 	display     : flex;
 	position    : relative;
 	align-items : center;
@@ -58,7 +58,7 @@ export const PipelineName = styled.div.attrs({ 'data-widget': 'pipelines-navigat
 		z-index          : 1;
 	}
 `;
-export const PipelineNameLabel = styled.span.attrs({ 'data-widget': 'pipelines-navigator-pipeline-name-label' })`
+export const PipelineNameLabel = styled.span.attrs({'data-widget': 'pipelines-navigator-pipeline-name-label'})`
 	white-space   : nowrap;
 	overflow      : hidden;
 	text-overflow : ellipsis;
@@ -71,13 +71,13 @@ export const PipelineButton = styled(TooltipButton)`
 	align-self   : center;
 	margin-left  : calc(var(--margin) / -2);
 `;
-export const PipelineDirection = styled.div.attrs<{ rows: number }>(({ rows }) => {
-	return {
-		'data-widget': 'pipelines-navigator-pipeline-direction',
-		style: {
-			gridRow: `2 / span ${Math.max(rows, 1)}`
-		}
-	};
+export const PipelineDirection = styled.div.attrs<{ rows: number }>(({rows}) => {
+    return {
+        'data-widget': 'pipelines-navigator-pipeline-direction',
+        style: {
+            gridRow: `2 / span ${Math.max(rows, 1)}`
+        }
+    };
 })<{ rows: number }>`
 	display      : flex;
 	position     : relative;
@@ -87,7 +87,7 @@ export const PipelineDirection = styled.div.attrs<{ rows: number }>(({ rows }) =
 	font-variant : petite-caps;
 	opacity      : 0.7;
 `;
-export const PipelineTopic = styled.div.attrs({ 'data-widget': 'pipelines-navigator-pipeline-topic' })`
+export const PipelineTopic = styled.div.attrs({'data-widget': 'pipelines-navigator-pipeline-topic'})`
 	display      : flex;
 	position     : relative;
 	grid-column  : 2 / span 2;
@@ -109,12 +109,12 @@ export const PipelineTopic = styled.div.attrs({ 'data-widget': 'pipelines-naviga
 		z-index          : 1;
 	}
 `;
-export const PipelineTopicLabel = styled.span.attrs({ 'data-widget': 'pipelines-navigator-pipeline-topic-label' })`
+export const PipelineTopicLabel = styled.span.attrs({'data-widget': 'pipelines-navigator-pipeline-topic-label'})`
 	white-space   : nowrap;
 	overflow      : hidden;
 	text-overflow : ellipsis;
 `;
-export const NoPipelines = styled.div.attrs({ 'data-widget': 'pipelines-navigator-no-pipelines' })`
+export const NoPipelines = styled.div.attrs({'data-widget': 'pipelines-navigator-no-pipelines'})`
 	display      : flex;
 	align-items  : center;
 	height       : var(--tall-height);

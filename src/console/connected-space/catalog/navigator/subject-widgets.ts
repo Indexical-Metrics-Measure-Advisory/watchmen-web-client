@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const SubjectBodyContainer = styled.div.attrs({
-	'data-widget': 'connected-space-navigator-subject',
-	'data-v-scroll': ''
+    'data-widget': 'connected-space-navigator-subject',
+    'data-v-scroll': ''
 })`
 	display               : grid;
 	position              : relative;
@@ -16,7 +16,7 @@ export const SubjectBodyContainer = styled.div.attrs({
 		margin-top : calc(var(--margin) / 2);
 	}
 `;
-export const BottomGap = styled.div.attrs({ 'data-widget': 'bottom-gap' })`
+export const BottomGap = styled.div.attrs({'data-widget': 'bottom-gap'})`
 	width      : 100%;
 	height     : var(--margin);
 	min-height : var(--margin);

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Dsl = styled.code.attrs({ 'data-widget': 'dsl' })`
+export const Dsl = styled.code.attrs({'data-widget': 'dsl'})`
 	display       : block;
 	position      : relative;
 	line-height   : 2em;
@@ -24,7 +24,7 @@ export const Dsl = styled.code.attrs({ 'data-widget': 'dsl' })`
 		z-index          : -1;
 	}
 `;
-export const EmptyLine = styled.span.attrs({ 'data-widget': 'dsl-empty-line' })`
+export const EmptyLine = styled.span.attrs({'data-widget': 'dsl-empty-line'})`
 	display     : block;
 	position    : relative;
 	float       : left;
@@ -42,7 +42,7 @@ export const EmptyLine = styled.span.attrs({ 'data-widget': 'dsl-empty-line' })`
 		opacity           : 0.7;
 	}
 `;
-export const Whitespace = styled.span.attrs({ 'data-widget': 'dsl-whitespace' })`
+export const Whitespace = styled.span.attrs({'data-widget': 'dsl-whitespace'})`
 	display     : block;
 	float       : left;
 	font-weight : 600;
@@ -50,11 +50,11 @@ export const Whitespace = styled.span.attrs({ 'data-widget': 'dsl-whitespace' })
 	height      : 2em;
 	width       : 8px;
 `;
-export const LineComment = styled.span.attrs<{ indent?: number }>(({ indent = 0 }) => {
-	return {
-		'data-widget': 'dsl-line-comment',
-		style: { paddingLeft: indent * 16 }
-	};
+export const LineComment = styled.span.attrs<{ indent?: number }>(({indent = 0}) => {
+    return {
+        'data-widget': 'dsl-line-comment',
+        style: {paddingLeft: indent * 16}
+    };
 })<{ indent?: number }>`
 	display      : block;
 	position     : relative;
@@ -77,11 +77,11 @@ export const LineComment = styled.span.attrs<{ indent?: number }>(({ indent = 0 
 		margin-right : 2px;
 	}
 `;
-export const PropName = styled.span.attrs<{ indent?: number }>(({ indent = 0 }) => {
-	return {
-		'data-widget': 'dsl-prop-name',
-		style: { paddingLeft: indent * 16 }
-	};
+export const PropName = styled.span.attrs<{ indent?: number }>(({indent = 0}) => {
+    return {
+        'data-widget': 'dsl-prop-name',
+        style: {paddingLeft: indent * 16}
+    };
 })<{ indent?: number }>`
 	display      : block;
 	position     : relative;
@@ -105,8 +105,8 @@ export const PropName = styled.span.attrs<{ indent?: number }>(({ indent = 0 }) 
 	}
 `;
 export const PropNameInListFirst = styled(PropName)``;
-export const PropValue = styled.span.attrs<{ 'data-widget'?: string }>(({ 'data-widget': widget }) => {
-	return { 'data-widget': widget || 'dsl-prop-value' };
+export const PropValue = styled.span.attrs<{ 'data-widget'?: string }>(({'data-widget': widget}) => {
+    return {'data-widget': widget || 'dsl-prop-value'};
 })`
 	display       : block;
 	float         : left;
@@ -129,7 +129,7 @@ export const PropValue = styled.span.attrs<{ 'data-widget'?: string }>(({ 'data-
 		color            : red;
 	}
 `;
-export const TopicName = styled(PropValue).attrs({ 'data-widget': 'dsl-topic-name' })`
+export const TopicName = styled(PropValue).attrs({'data-widget': 'dsl-topic-name'})`
 	color           : var(--warn-color);
 	font-weight     : var(--font-boldest);
 	text-decoration : underline;
@@ -139,7 +139,7 @@ export const TopicName = styled(PropValue).attrs({ 'data-widget': 'dsl-topic-nam
 		}
 	}
 `;
-export const FactorName = styled(PropValue).attrs({ 'data-widget': 'dsl-topic-name' })`
+export const FactorName = styled(PropValue).attrs({'data-widget': 'dsl-topic-name'})`
 	color           : var(--warn-color);
 	font-weight     : var(--font-boldest);
 	text-decoration : underline;
@@ -149,7 +149,7 @@ export const FactorName = styled(PropValue).attrs({ 'data-widget': 'dsl-topic-na
 		}
 	}
 `;
-export const VariableName = styled(PropValue).attrs({ 'data-widget': 'dsl-topic-name' })`
+export const VariableName = styled(PropValue).attrs({'data-widget': 'dsl-topic-name'})`
 	color           : var(--success-color);
 	font-weight     : var(--font-boldest);
 	text-decoration : underline;
@@ -159,7 +159,7 @@ export const VariableName = styled(PropValue).attrs({ 'data-widget': 'dsl-topic-
 		}
 	}
 `;
-export const BooleanValue = styled(PropValue).attrs({ 'data-widget': 'dsl-boolean-value' })`
+export const BooleanValue = styled(PropValue).attrs({'data-widget': 'dsl-boolean-value'})`
 	color : var(--danger-color);
 `;
 export const EnumValue = styled(PropValue)`
@@ -167,22 +167,22 @@ export const EnumValue = styled(PropValue)`
 	font-variant   : petite-caps;
 	color          : var(--primary-color);
 `;
-export const TriggerOn = styled(EnumValue).attrs({ 'data-widget': 'dsl-trigger-on' })``;
-export const ActionType = styled(EnumValue).attrs({ 'data-widget': 'dsl-action-type' })``;
-export const ParamFrom = styled(EnumValue).attrs({ 'data-widget': 'dsl-parameter-from' })``;
-export const ComputeType = styled(EnumValue).attrs({ 'data-widget': 'dsl-compute-type' })``;
-export const ExpressionOperator = styled(EnumValue).attrs({ 'data-widget': 'dsl-expression-operator' })`
+export const TriggerOn = styled(EnumValue).attrs({'data-widget': 'dsl-trigger-on'})``;
+export const ActionType = styled(EnumValue).attrs({'data-widget': 'dsl-action-type'})``;
+export const ParamFrom = styled(EnumValue).attrs({'data-widget': 'dsl-parameter-from'})``;
+export const ComputeType = styled(EnumValue).attrs({'data-widget': 'dsl-compute-type'})``;
+export const ExpressionOperator = styled(EnumValue).attrs({'data-widget': 'dsl-expression-operator'})`
 	text-transform : uppercase;
 `;
-export const ConjunctionWord = styled(EnumValue).attrs({ 'data-widget': 'dsl-conjunction-word' })`
+export const ConjunctionWord = styled(EnumValue).attrs({'data-widget': 'dsl-conjunction-word'})`
 	color       : var(--info-color);
 	font-weight : var(--font-boldest);
 `;
-export const AggregateArithmeticValue = styled(EnumValue).attrs({ 'data-widget': 'dsl-aggregate-arithmetic' })`
+export const AggregateArithmeticValue = styled(EnumValue).attrs({'data-widget': 'dsl-aggregate-arithmetic'})`
 	font-weight : var(--font-boldest);
 `;
-export const Bracket = styled(EnumValue).attrs({ 'data-widget': 'dsl-bracket' })`
+export const Bracket = styled(EnumValue).attrs({'data-widget': 'dsl-bracket'})`
 	color       : var(--danger-color);
 	font-weight : var(--font-boldest);
 `;
-export const JointContainer = styled.div.attrs({ 'data-widget': 'dsl-joint' })``;
+export const JointContainer = styled.div.attrs({'data-widget': 'dsl-joint'})``;

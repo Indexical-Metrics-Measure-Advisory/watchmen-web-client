@@ -1,30 +1,30 @@
 import styled from 'styled-components';
-import { Button } from '../../../../basic-widgets/button';
-import { Input } from '../../../../basic-widgets/input';
+import {Button} from '../../../../basic-widgets/button';
+import {Input} from '../../../../basic-widgets/input';
 
-export const TupleSearchBarContainer = styled.div.attrs<{ noIndent: boolean }>(({ noIndent }) => {
-	return {
-		'data-widget': 'tuple-search-bar',
-		style: {
-			gridColumn: noIndent ? 'span 2' : (void 0)
-		}
-	};
+export const TupleSearchBarContainer = styled.div.attrs<{ noIndent: boolean }>(({noIndent}) => {
+    return {
+        'data-widget': 'tuple-search-bar',
+        style: {
+            gridColumn: noIndent ? 'span 2' : (void 0)
+        }
+    };
 })<{ noIndent: boolean }>`
 	display     : flex;
 	align-items : center;
 `;
 export const TupleSearchButton = styled(Button).attrs<{ search: boolean, noIndent: boolean }>(
-	({ search, noIndent }) => {
-		return {
-			'data-widget': 'tuple-search-button',
-			style: {
-				borderTopLeftRadius: noIndent ? 'calc(var(--border-radius) * 2)' : (void 0),
-				borderBottomLeftRadius: noIndent ? 'calc(var(--border-radius) * 2)' : (void 0),
-				borderTopRightRadius: search ? (void 0) : 'calc(var(--border-radius) * 2)',
-				borderBottomRightRadius: search ? (void 0) : 'calc(var(--border-radius) * 2)'
-			}
-		};
-	})<{ search: boolean, noIndent: boolean }>`
+    ({search, noIndent}) => {
+        return {
+            'data-widget': 'tuple-search-button',
+            style: {
+                borderTopLeftRadius: noIndent ? 'calc(var(--border-radius) * 2)' : (void 0),
+                borderBottomLeftRadius: noIndent ? 'calc(var(--border-radius) * 2)' : (void 0),
+                borderTopRightRadius: search ? (void 0) : 'calc(var(--border-radius) * 2)',
+                borderBottomRightRadius: search ? (void 0) : 'calc(var(--border-radius) * 2)'
+            }
+        };
+    })<{ search: boolean, noIndent: boolean }>`
 	font-size        : 1.6em;
 	width            : 44px;
 	min-width        : 44px;
@@ -38,18 +38,18 @@ export const TupleSearchButton = styled(Button).attrs<{ search: boolean, noInden
 		font-size : 0.7em;
 	}
 `;
-export const TupleSearchInput = styled(Input).attrs<{ search: boolean }>(({ search }) => {
-	return {
-		'data-widget': 'tuple-search-input',
-		style: {
-			padding: search ? '0 calc(var(--margin) / 2)' : (void 0),
-			borderStyle: search ? 'solid' : (void 0),
-			borderRightWidth: search ? 2 : (void 0),
-			borderTopRightRadius: search ? 'calc(var(--border-radius) * 2)' : (void 0),
-			borderBottomRightRadius: search ? 'calc(var(--border-radius) * 2)' : (void 0),
-			width: search ? '100%' : (void 0)
-		}
-	};
+export const TupleSearchInput = styled(Input).attrs<{ search: boolean }>(({search}) => {
+    return {
+        'data-widget': 'tuple-search-input',
+        style: {
+            padding: search ? '0 calc(var(--margin) / 2)' : (void 0),
+            borderStyle: search ? 'solid' : (void 0),
+            borderRightWidth: search ? 2 : (void 0),
+            borderTopRightRadius: search ? 'calc(var(--border-radius) * 2)' : (void 0),
+            borderBottomRightRadius: search ? 'calc(var(--border-radius) * 2)' : (void 0),
+            width: search ? '100%' : (void 0)
+        }
+    };
 })<{ search: boolean }>`
 	border-radius      : 0;
 	border-width       : 2px;

@@ -1,14 +1,14 @@
 import styled from 'styled-components';
-import { GRID_COLUMN_GAP, GRID_COLUMNS, GRID_ROW_GAP } from '../constants';
+import {GRID_COLUMN_GAP, GRID_COLUMNS, GRID_ROW_GAP} from '../constants';
 
-export const PipelinePartContainer = styled.div.attrs({ 'data-widget': 'pipeline-part' })`
+export const PipelinePartContainer = styled.div.attrs({'data-widget': 'pipeline-part'})`
 	display               : grid;
 	grid-template-columns : ${GRID_COLUMNS};
 	grid-column-gap       : ${GRID_COLUMN_GAP};
 	grid-row-gap          : ${GRID_ROW_GAP};
 	grid-auto-rows        : minmax(var(--height), auto);
 `;
-export const TopicName = styled.div.attrs({ 'data-widget': 'pipeline-topic-name' })`
+export const TopicName = styled.div.attrs({'data-widget': 'pipeline-topic-name'})`
 	display          : flex;
 	align-items      : center;
 	align-self       : center;

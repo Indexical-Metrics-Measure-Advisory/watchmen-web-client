@@ -3,6 +3,6 @@ export enum EChartsHorizontalAlignment { AUTO = 'auto', LEFT = 'left', RIGHT = '
 export enum EChartsVerticalAlignment { AUTO = 'auto', TOP = 'top', BOTTOM = 'bottom', MIDDLE = 'middle'}
 
 export interface EChartsAlignmentHolder {
-	horizontalAlign?: EChartsHorizontalAlignment;
-	verticalAlign?: EChartsVerticalAlignment;
+    horizontalAlign?: EChartsHorizontalAlignment;
+    verticalAlign?: EChartsVerticalAlignment;
 }

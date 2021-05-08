@@ -1,16 +1,16 @@
 import styled from 'styled-components';
-import { GRID_ROW_GAP } from '../constants';
+import {GRID_ROW_GAP} from '../constants';
 
-export const ConditionalContainer = styled.div.attrs({ 'data-widget': 'conditional' })`
+export const ConditionalContainer = styled.div.attrs({'data-widget': 'conditional'})`
 	display               : grid;
 	grid-template-columns : 1fr;
 	grid-row-gap          : ${GRID_ROW_GAP};
 	grid-auto-rows        : minmax(var(--height), auto);
 `;
-export const ConditionalHeader = styled.div.attrs({ 'data-widget': 'conditional-header' })`
+export const ConditionalHeader = styled.div.attrs({'data-widget': 'conditional-header'})`
 	display : flex;
 `;
-export const RemoveMeButton = styled.div.attrs({ 'data-widget': 'remove-me-button' })`
+export const RemoveMeButton = styled.div.attrs({'data-widget': 'remove-me-button'})`
 	display         : flex;
 	position        : relative;
 	align-self      : center;

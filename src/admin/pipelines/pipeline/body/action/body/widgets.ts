@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { GRID_ACTION_COLUMNS, GRID_COLUMN_GAP, GRID_ROW_GAP } from '../../constants';
+import {GRID_ACTION_COLUMNS, GRID_COLUMN_GAP, GRID_ROW_GAP} from '../../constants';
 
-export const ActionBodyContainer = styled.div.attrs({ 'data-widget': 'action-body' })`
+export const ActionBodyContainer = styled.div.attrs({'data-widget': 'action-body'})`
 	grid-column           : 1 / span 2;
 	display               : grid;
 	position              : relative;

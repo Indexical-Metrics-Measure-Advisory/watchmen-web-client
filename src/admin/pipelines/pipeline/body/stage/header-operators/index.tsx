@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { AlertLabel } from '../../../../../../alert/widgets';
+import {AlertLabel} from '../../../../../../alert/widgets';
 import {
 	ICON_APPEND,
 	ICON_COLLAPSE_PANEL,
@@ -10,18 +10,18 @@ import {
 	ICON_MOVE_UP,
 	ICON_PREPEND
 } from '../../../../../../basic-widgets/constants';
-import { ButtonInk } from '../../../../../../basic-widgets/types';
-import { useEventBus } from '../../../../../../events/event-bus';
-import { EventTypes } from '../../../../../../events/types';
-import { PipelineStage } from '../../../../../../services/tuples/pipeline-stage-types';
-import { Pipeline } from '../../../../../../services/tuples/pipeline-types';
-import { createStage } from '../../../../data-utils';
-import { usePipelineEventBus } from '../../../pipeline-event-bus';
-import { PipelineEventTypes } from '../../../pipeline-event-bus-types';
-import { HeaderButton } from '../../widgets';
-import { useExpanded } from '../stage-effect/use-expanded';
-import { useStageEventBus } from '../stage-event-bus';
-import { StageEventTypes } from '../stage-event-bus-types';
+import {ButtonInk} from '../../../../../../basic-widgets/types';
+import {useEventBus} from '../../../../../../events/event-bus';
+import {EventTypes} from '../../../../../../events/types';
+import {PipelineStage} from '../../../../../../services/tuples/pipeline-stage-types';
+import {Pipeline} from '../../../../../../services/tuples/pipeline-types';
+import {createStage} from '../../../../data-utils';
+import {usePipelineEventBus} from '../../../pipeline-event-bus';
+import {PipelineEventTypes} from '../../../pipeline-event-bus-types';
+import {HeaderButton} from '../../widgets';
+import {useExpanded} from '../stage-effect/use-expanded';
+import {useStageEventBus} from '../stage-event-bus';
+import {StageEventTypes} from '../stage-event-bus-types';
 
 export enum HeaderOperatorsPosition {
 	HEADER = 'header',
@@ -33,12 +33,12 @@ export const HeaderOperators = (props: {
 	stage: PipelineStage;
 	position: HeaderOperatorsPosition
 }) => {
-	const { pipeline, stage, position } = props;
+	const {pipeline, stage, position} = props;
 
-	const { fire: fireGlobal } = useEventBus();
-	const { fire: firePipeline } = usePipelineEventBus();
-	const { fire } = useStageEventBus();
-	const expanded = useExpanded();
+	const {fire: fireGlobal} = useEventBus();
+	const {fire: firePipeline} = usePipelineEventBus();
+	const {fire} = useStageEventBus();
+	const expanded = useExpanded(pipeline, stage);
 
 	const onCollapseClicked = () => {
 		fire(StageEventTypes.COLLAPSE_CONTENT);
@@ -114,13 +114,13 @@ export const HeaderOperators = (props: {
 			: null}
 		{expanded && position === HeaderOperatorsPosition.HEADER
 			? <HeaderButton ink={ButtonInk.PRIMARY} onClick={onPrependClicked}>
-				<FontAwesomeIcon icon={ICON_PREPEND} rotation={270} transform={{ y: 2 }}/>
+				<FontAwesomeIcon icon={ICON_PREPEND} rotation={270} transform={{y: 2}}/>
 				<span>Prepend</span>
 			</HeaderButton>
 			: null}
 		{expanded && position === HeaderOperatorsPosition.FOOTER
 			? <HeaderButton ink={ButtonInk.PRIMARY} onClick={onAppendClicked}>
-				<FontAwesomeIcon icon={ICON_APPEND} rotation={90} transform={{ y: 2 }}/>
+				<FontAwesomeIcon icon={ICON_APPEND} rotation={90} transform={{y: 2}}/>
 				<span>Append</span>
 			</HeaderButton>
 			: null}

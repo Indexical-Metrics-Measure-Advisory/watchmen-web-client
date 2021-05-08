@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SettingsSection = styled.div.attrs({ 'data-widget': 'settings-section' })`
+export const SettingsSection = styled.div.attrs({'data-widget': 'settings-section'})`
 	display        : flex;
 	flex-direction : column;
 	margin-top     : calc(var(--margin) / 2);
@@ -13,7 +13,7 @@ export const SettingsSection = styled.div.attrs({ 'data-widget': 'settings-secti
 	}
 `;
 
-export const SettingsSectionTitle = styled.div.attrs({ 'data-widget': 'settings-section-title' })`
+export const SettingsSectionTitle = styled.div.attrs({'data-widget': 'settings-section-title'})`
 	display       : flex;
 	position      : relative;
 	align-items   : center;
@@ -38,7 +38,7 @@ export const SettingsSectionTitle = styled.div.attrs({ 'data-widget': 'settings-
 	}
 `;
 
-export const SettingsSectionBody = styled.div.attrs({ 'data-widget': 'settings-section-body' })`
+export const SettingsSectionBody = styled.div.attrs({'data-widget': 'settings-section-body'})`
 	display               : grid;
 	grid-template-columns : 1fr;
 	grid-auto-rows        : minmax(var(--grid-tall-row-height), auto);

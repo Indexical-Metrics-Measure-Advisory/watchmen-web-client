@@ -1,15 +1,15 @@
 import styled from 'styled-components';
-import { Input } from '../../../../../basic-widgets/input';
+import {Input} from '../../../../../basic-widgets/input';
 
-export const ColumnsContainer = styled.div.attrs<{ active: boolean }>(({ active }) => {
-	return {
-		'data-widget': 'subject-def-columns',
-		'data-v-scroll': '',
-		style: {
-			paddingRight: active ? (void 0) : 0,
-			overflowY: active ? (void 0) : 'hidden'
-		}
-	};
+export const ColumnsContainer = styled.div.attrs<{ active: boolean }>(({active}) => {
+    return {
+        'data-widget': 'subject-def-columns',
+        'data-v-scroll': '',
+        style: {
+            paddingRight: active ? (void 0) : 0,
+            overflowY: active ? (void 0) : 'hidden'
+        }
+    };
 }) <{ active: boolean }>`
 	display        : flex;
 	position       : relative;
@@ -18,13 +18,13 @@ export const ColumnsContainer = styled.div.attrs<{ active: boolean }>(({ active 
 	overflow-x     : hidden;
 	border-right   : var(--border);
 `;
-export const ColumnsEditContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
-	return {
-		'data-widget': 'subject-def-columns-edit',
-		style: {
-			display: visible ? (void 0) : 'none'
-		}
-	};
+export const ColumnsEditContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+    return {
+        'data-widget': 'subject-def-columns-edit',
+        style: {
+            display: visible ? (void 0) : 'none'
+        }
+    };
 })<{ visible: boolean }>`
 	display        : flex;
 	position       : relative;
@@ -32,30 +32,30 @@ export const ColumnsEditContainer = styled.div.attrs<{ visible: boolean }>(({ vi
 	flex-direction : column;
 	padding        : calc(var(--margin) / 2) var(--margin) 0 0;
 `;
-export const ColumnsBottomGap = styled.div.attrs({ 'data-widget': 'subject-def-columns-bottom-gap' })`
+export const ColumnsBottomGap = styled.div.attrs({'data-widget': 'subject-def-columns-bottom-gap'})`
 	width      : 100%;
 	height     : var(--margin);
 	min-height : var(--margin);
 `;
-export const ColumnEditContainer = styled.div.attrs({ 'data-widget': 'subject-def-column-edit' })`
+export const ColumnEditContainer = styled.div.attrs({'data-widget': 'subject-def-column-edit'})`
 	display               : grid;
 	grid-template-columns : var(--margin) 1fr;
 	grid-column-gap       : calc(var(--margin) / 2);
 	padding-bottom        : calc(var(--margin) / 4);
 `;
-export const ColumnIndex = styled.span.attrs({ 'data-widget': 'subject-def-column-index' })`
+export const ColumnIndex = styled.span.attrs({'data-widget': 'subject-def-column-index'})`
 	justify-self : end;
 	line-height  : var(--param-height);
 	font-variant : petite-caps;
 	font-weight  : var(--font-bold);
 `;
-export const ColumnEditWrapper = styled.div.attrs<{ shorten: boolean }>(({ shorten }) => {
-	return {
-		'data-widget': 'subject-def-column-edit-wrapper',
-		style: {
-			gridTemplateColumns: shorten ? 'auto auto auto 1fr' : (void 0)
-		}
-	};
+export const ColumnEditWrapper = styled.div.attrs<{ shorten: boolean }>(({shorten}) => {
+    return {
+        'data-widget': 'subject-def-column-edit-wrapper',
+        style: {
+            gridTemplateColumns: shorten ? 'auto auto auto 1fr' : (void 0)
+        }
+    };
 })<{ shorten: boolean }>`
 	display               : grid;
 	grid-template-columns : auto 1fr auto auto;
@@ -68,7 +68,7 @@ export const ColumnEditWrapper = styled.div.attrs<{ shorten: boolean }>(({ short
 		border-bottom-right-radius : 0;
 	}
 `;
-export const AliasEdit = styled.div.attrs({ 'data-widget': 'subject-def-column-alias-edit' })`
+export const AliasEdit = styled.div.attrs({'data-widget': 'subject-def-column-alias-edit'})`
 	display      : flex;
 	position     : relative;
 	align-items  : center;
@@ -87,7 +87,7 @@ export const AliasEdit = styled.div.attrs({ 'data-widget': 'subject-def-column-a
 		background-color : var(--param-bg-color);
 	}
 `;
-export const AliasLabel = styled.div.attrs({ 'data-widget': 'subject-def-column-alias-edit-label' })`
+export const AliasLabel = styled.div.attrs({'data-widget': 'subject-def-column-alias-edit-label'})`
 	display          : flex;
 	align-items      : center;
 	align-self       : stretch;
@@ -100,7 +100,7 @@ export const AliasLabel = styled.div.attrs({ 'data-widget': 'subject-def-column-
 	box-shadow       : var(--param-top-border), var(--param-bottom-border);
 	cursor           : pointer;
 `;
-export const AliasEditInput = styled(Input).attrs({ 'data-widget': 'subject-def-column-alias-edit-input' })`
+export const AliasEditInput = styled(Input).attrs({'data-widget': 'subject-def-column-alias-edit-input'})`
 	width         : 200px;
 	height        : var(--param-height);
 	border        : 0;

@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-export const FilterJointContainer = styled.div.attrs({ 'data-widget': 'filter-joint-edit' })`
+export const FilterJointContainer = styled.div.attrs({'data-widget': 'filter-joint-edit'})`
 	display               : grid;
 	grid-template-columns : auto auto auto auto 1fr;
 	grid-row-gap          : calc(var(--margin) / 4);
 `;
-export const FilterJointTypeEditContainer = styled.div.attrs({ 'data-widget': 'filter-joint-type-edit' })`
+export const FilterJointTypeEditContainer = styled.div.attrs({'data-widget': 'filter-joint-type-edit'})`
 	display          : flex;
 	position         : relative;
 	align-items      : center;
@@ -23,16 +23,16 @@ export const FilterJointTypeEditContainer = styled.div.attrs({ 'data-widget': 'f
 		box-shadow : var(--param-border), var(--primary-hover-shadow);
 	}
 `;
-export const FilterJointTypeButton = styled.div.attrs<{ active: boolean, edit: boolean }>(({ active, edit }) => {
-	return {
-		'data-widget': 'filter-joint-type-button',
-		style: {
-			backgroundColor: active ? (void 0) : 'var(--bg-color)',
-			color: active ? (void 0) : 'var(--font-color)',
-			width: (!active && !edit) ? 0 : (void 0),
-			padding: (!active && !edit) ? 0 : (void 0)
-		}
-	};
+export const FilterJointTypeButton = styled.div.attrs<{ active: boolean, edit: boolean }>(({active, edit}) => {
+    return {
+        'data-widget': 'filter-joint-type-button',
+        style: {
+            backgroundColor: active ? (void 0) : 'var(--bg-color)',
+            color: active ? (void 0) : 'var(--font-color)',
+            width: (!active && !edit) ? 0 : (void 0),
+            padding: (!active && !edit) ? 0 : (void 0)
+        }
+    };
 })<{ active: boolean, edit: boolean }>`
 	display       : flex;
 	position      : relative;
@@ -50,7 +50,7 @@ export const FilterJointTypeButton = styled.div.attrs<{ active: boolean, edit: b
 		box-shadow : var(--primary-hover-shadow);
 	}
 `;
-export const FilterJointTypeIcon = styled.div.attrs({ 'data-widget': 'filter-joint-type-icon' })`
+export const FilterJointTypeIcon = styled.div.attrs({'data-widget': 'filter-joint-type-icon'})`
 	display      : flex;
 	position     : relative;
 	align-self   : stretch;
@@ -60,14 +60,14 @@ export const FilterJointTypeIcon = styled.div.attrs({ 'data-widget': 'filter-joi
 		font-size : 0.8em;
 	}
 `;
-export const AddSubFilterIcon = styled.div.attrs<{ singleton: boolean }>(({ singleton }) => {
-	return {
-		'data-widget': 'filter-add-sub-icon',
-		style: {
-			borderTopRightRadius: singleton ? 'calc(var(--param-height) / 2)' : (void 0),
-			borderBottomRightRadius: singleton ? 'calc(var(--param-height) / 2)' : (void 0)
-		}
-	};
+export const AddSubFilterIcon = styled.div.attrs<{ singleton: boolean }>(({singleton}) => {
+    return {
+        'data-widget': 'filter-add-sub-icon',
+        style: {
+            borderTopRightRadius: singleton ? 'calc(var(--param-height) / 2)' : (void 0),
+            borderBottomRightRadius: singleton ? 'calc(var(--param-height) / 2)' : (void 0)
+        }
+    };
 })<{ singleton: boolean }>`
 	display                    : flex;
 	position                   : relative;
@@ -105,7 +105,7 @@ export const FirstAddSubFilterIcon = styled(AddSubFilterIcon)`
 		background-color : var(--param-bg-color);
 	}
 `;
-export const NonTopJointFilterContainer = styled.div.attrs({ 'data-widget': 'non-top-filter-joint' })`
+export const NonTopJointFilterContainer = styled.div.attrs({'data-widget': 'non-top-filter-joint'})`
 	display     : block;
 	position    : relative;
 	grid-column : span 5;

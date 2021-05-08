@@ -1,4 +1,4 @@
 export interface SessionAccount {
-	name: string;
-	admin: boolean;
+    name: string;
+    admin: boolean;
 }

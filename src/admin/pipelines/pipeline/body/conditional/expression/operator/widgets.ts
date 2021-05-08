@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { DROPDOWN_Z_INDEX } from '../../../../../../../basic-widgets/constants';
+import {DROPDOWN_Z_INDEX} from '../../../../../../../basic-widgets/constants';
 
-export const ExpressionOperatorContainer = styled.div.attrs({ 'data-widget': 'expression-operator' })<{ hasRight: boolean }>`
+export const ExpressionOperatorContainer = styled.div.attrs({'data-widget': 'expression-operator'})<{ hasRight: boolean }>`
 	display          : flex;
 	position         : relative;
 	align-self       : center;
@@ -32,13 +32,13 @@ export const ExpressionOperatorContainer = styled.div.attrs({ 'data-widget': 'ex
 		right                     : 100%;
 		width                     : calc(var(--margin) / 2 - 1px);
 		height                    : calc(var(--margin) / 4 + var(--param-height) + 3px);
-		border-bottom-left-radius : ${({ hasRight }) => hasRight ? (void 0) : 'var(--border-radius)'};;
+		border-bottom-left-radius : ${({hasRight}) => hasRight ? (void 0) : 'var(--border-radius)'};;
 		z-index                   : -1;
 		box-shadow                : var(--param-left-border), var(--param-bottom-border);
 	}
 	&:not(:last-child):after {
 		content          : '';
-		display          : ${({ hasRight }) => hasRight ? 'block' : 'none'};
+		display          : ${({hasRight}) => hasRight ? 'block' : 'none'};
 		position         : absolute;
 		top              : calc(var(--param-height) / 2 - 3px);
 		left             : calc(var(--margin) / -2);
@@ -48,11 +48,11 @@ export const ExpressionOperatorContainer = styled.div.attrs({ 'data-widget': 'ex
 		z-index          : -1;
 	}
 `;
-export const ExpressionOperatorLabel = styled.div.attrs({ 'data-widget': 'expression-operator-label' })`
+export const ExpressionOperatorLabel = styled.div.attrs({'data-widget': 'expression-operator-label'})`
 	font-variant : petite-caps;
 	transition   : color 300ms ease-in-out;
 `;
-export const ExpressionOperatorIcon = styled.div.attrs({ 'data-widget': 'expression-operator-icon' })`
+export const ExpressionOperatorIcon = styled.div.attrs({'data-widget': 'expression-operator-icon'})`
 	display      : flex;
 	position     : relative;
 	align-self   : stretch;
@@ -65,17 +65,17 @@ export const ExpressionOperatorIcon = styled.div.attrs({ 'data-widget': 'express
 `;
 export const EXPRESSION_OPERATOR_DROPDOWN_HEIGHT = 200;
 export const ExpressionOperatorDropdown = styled.div.attrs<{ visible: boolean, top?: number, bottom?: number, left: number }>(
-	({ visible, top, bottom, left }) => {
-		return {
-			'data-widget': 'expression-operator-dropdown',
-			style: {
-				opacity: visible ? 1 : 0,
-				pointerEvents: visible ? 'auto' : 'none',
-				top, bottom, left,
-				transition: visible ? (void 0) : 'none'
-			}
-		};
-	})<{ visible: boolean, top?: number, bottom?: number, left: number }>`
+    ({visible, top, bottom, left}) => {
+        return {
+            'data-widget': 'expression-operator-dropdown',
+            style: {
+                opacity: visible ? 1 : 0,
+                pointerEvents: visible ? 'auto' : 'none',
+                top, bottom, left,
+                transition: visible ? (void 0) : 'none'
+            }
+        };
+    })<{ visible: boolean, top?: number, bottom?: number, left: number }>`
 	display          : flex;
 	position         : fixed;
 	flex-wrap        : wrap;
@@ -92,14 +92,14 @@ export const ExpressionOperatorDropdown = styled.div.attrs<{ visible: boolean, t
 		box-shadow : var(--primary-hover-shadow);
 	}
 `;
-export const ExpressionOperatorOption = styled.div.attrs<{ selected: boolean }>(({ selected }) => {
-	return {
-		'data-widget': 'expression-operator-option',
-		style: {
-			backgroundColor: selected ? 'var(--primary-color)' : (void 0),
-			color: selected ? 'var(--invert-color)' : (void 0)
-		}
-	};
+export const ExpressionOperatorOption = styled.div.attrs<{ selected: boolean }>(({selected}) => {
+    return {
+        'data-widget': 'expression-operator-option',
+        style: {
+            backgroundColor: selected ? 'var(--primary-color)' : (void 0),
+            color: selected ? 'var(--invert-color)' : (void 0)
+        }
+    };
 })<{ selected: boolean }>`
 	display       : flex;
 	align-items   : center;
@@ -109,7 +109,7 @@ export const ExpressionOperatorOption = styled.div.attrs<{ selected: boolean }>(
 	margin-left   : calc(var(--margin) / 4);
 	margin-bottom : calc(var(--margin) / 4);
 	border-radius : calc(var(--param-height) / 2);
-	box-shadow    : ${({ selected }) => selected ? 'var(--param-primary-color)' : 'var(--param-border)'};
+	box-shadow    : ${({selected}) => selected ? 'var(--param-primary-color)' : 'var(--param-border)'};
 	transition    : box-shadow 300ms ease-in-out;
 	&:hover {
 		box-shadow : var(--primary-hover-shadow);

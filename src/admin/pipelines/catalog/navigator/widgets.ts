@@ -1,13 +1,13 @@
 import styled from 'styled-components';
-import { TooltipButton } from '../../../../basic-widgets/tooltip-button';
+import {TooltipButton} from '../../../../basic-widgets/tooltip-button';
 
-export const NavigatorContainer = styled.div.attrs<{ visible: boolean }>(({ visible }) => {
-	return {
-		'data-widget': 'pipelines-navigator',
-		style: {
-			marginRight: visible ? 0 : -400
-		}
-	};
+export const NavigatorContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+    return {
+        'data-widget': 'pipelines-navigator',
+        style: {
+            marginRight: visible ? 0 : -400
+        }
+    };
 })<{ visible: boolean }>`
 	display          : flex;
 	flex-direction   : column;
@@ -19,7 +19,7 @@ export const NavigatorContainer = styled.div.attrs<{ visible: boolean }>(({ visi
 	transition       : margin-right 300ms ease-in-out;
 `;
 
-export const NavigatorHeader = styled.div.attrs({ 'data-widget': 'pipelines-navigator-header' })`
+export const NavigatorHeader = styled.div.attrs({'data-widget': 'pipelines-navigator-header'})`
 	display         : flex;
 	min-height      : var(--header-height);
 	height          : var(--header-height);
@@ -31,10 +31,10 @@ export const NavigatorHeader = styled.div.attrs({ 'data-widget': 'pipelines-navi
 	font-size       : 1.2em;
 	cursor          : pointer;
 `;
-export const NavigatorHeaderTitle = styled.div.attrs({ 'data-widget': 'pipelines-navigator-header-title' })`
+export const NavigatorHeaderTitle = styled.div.attrs({'data-widget': 'pipelines-navigator-header-title'})`
 	flex-grow : 1;
 `;
-export const NavigatorHeaderButton = styled(TooltipButton).attrs({ 'data-widget': 'pipelines-navigator-header-button' })`
+export const NavigatorHeaderButton = styled(TooltipButton).attrs({'data-widget': 'pipelines-navigator-header-button'})`
 	padding : 0;
 	width   : var(--height);
 	height  : var(--height);

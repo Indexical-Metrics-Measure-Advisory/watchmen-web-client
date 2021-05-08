@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { GRID_ROW_GAP } from '../../constants';
+import {GRID_ROW_GAP} from '../../constants';
 
-export const ComputedEditContainer = styled.div.attrs({ 'data-widget': 'parameter-computed-edit' })`
+export const ComputedEditContainer = styled.div.attrs({'data-widget': 'parameter-computed-edit'})`
 	grid-column           : 1 / span 2;
 	display               : grid;
 	position              : relative;
@@ -12,7 +12,7 @@ export const ComputedEditContainer = styled.div.attrs({ 'data-widget': 'paramete
 	align-items           : center;
 	min-height            : var(--param-height);
 `;
-export const SubParametersContainer = styled.div.attrs({ 'data-widget': 'parameter-computed-body' })`
+export const SubParametersContainer = styled.div.attrs({'data-widget': 'parameter-computed-body'})`
 	display                    : grid;
 	position                   : relative;
 	grid-template-columns      : 1fr;

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { DROPDOWN_Z_INDEX } from '../../../../../../basic-widgets/constants';
-import { ParameterFromEditor } from '../../parameter/param-from';
+import {DROPDOWN_Z_INDEX} from '../../../../../../basic-widgets/constants';
+import {ParameterFromEditor} from '../../parameter/param-from';
 
-export const ExpressionFilterContainer = styled.div.attrs({ 'data-widget': 'filter-expression' })`
+export const ExpressionFilterContainer = styled.div.attrs({'data-widget': 'filter-expression'})`
 	display               : grid;
 	grid-template-columns : auto auto 1fr;
 	grid-row-gap          : calc(var(--margin) / 4);
@@ -33,7 +33,7 @@ export const ExpressionFilterContainer = styled.div.attrs({ 'data-widget': 'filt
 		box-shadow : var(--param-left-border);
 	}
 `;
-export const ExpressionLeadLabel = styled.div.attrs({ 'data-widget': 'expression-lead-label' })`
+export const ExpressionLeadLabel = styled.div.attrs({'data-widget': 'expression-lead-label'})`
 	display          : flex;
 	position         : relative;
 	align-items      : center;
@@ -49,14 +49,14 @@ export const ExpressionLeadLabel = styled.div.attrs({ 'data-widget': 'expression
 	outline          : none;
 	box-shadow       : var(--param-border);
 `;
-export const ExpressionSide = styled.div.attrs<{ shorten: boolean, visible: boolean }>(({ shorten, visible }) => {
-	return {
-		'data-widget': 'expression',
-		style: {
-			display: visible ? (void 0) : 'none',
-			gridTemplateColumns: shorten ? 'auto auto 1fr' : (void 0)
-		}
-	};
+export const ExpressionSide = styled.div.attrs<{ shorten: boolean, visible: boolean }>(({shorten, visible}) => {
+    return {
+        'data-widget': 'expression',
+        style: {
+            display: visible ? (void 0) : 'none',
+            gridTemplateColumns: shorten ? 'auto auto 1fr' : (void 0)
+        }
+    };
 })<{ shorten: boolean, visible: boolean }>`
 	display               : grid;
 	grid-column           : span 3;
@@ -95,7 +95,7 @@ export const ExpressionSide = styled.div.attrs<{ shorten: boolean, visible: bool
 	}
 `;
 
-export const ExpressionOperatorContainer = styled.div.attrs({ 'data-widget': 'expression-operator' })<{ hasRight: boolean }>`
+export const ExpressionOperatorContainer = styled.div.attrs({'data-widget': 'expression-operator'})<{ hasRight: boolean }>`
 	display          : flex;
 	grid-column      : span 3;
 	position         : relative;
@@ -130,7 +130,7 @@ export const ExpressionOperatorContainer = styled.div.attrs({ 'data-widget': 'ex
 	}
 	&:not(:last-child):after {
 		content    : '';
-		display    : ${({ hasRight }) => hasRight ? 'block' : 'none'};
+		display    : ${({hasRight}) => hasRight ? 'block' : 'none'};
 		position   : absolute;
 		top        : calc(var(--param-height) / 2 - 3px);
 		right      : 100%;
@@ -140,10 +140,10 @@ export const ExpressionOperatorContainer = styled.div.attrs({ 'data-widget': 'ex
 		box-shadow : var(--param-left-border);
 	}
 `;
-export const ExpressionOperatorLabel = styled.div.attrs({ 'data-widget': 'expression-operator-label' })`
+export const ExpressionOperatorLabel = styled.div.attrs({'data-widget': 'expression-operator-label'})`
 	font-variant : petite-caps;
 `;
-export const ExpressionOperatorIcon = styled.div.attrs({ 'data-widget': 'expression-operator-icon' })`
+export const ExpressionOperatorIcon = styled.div.attrs({'data-widget': 'expression-operator-icon'})`
 	display      : flex;
 	position     : relative;
 	align-self   : stretch;
@@ -155,17 +155,17 @@ export const ExpressionOperatorIcon = styled.div.attrs({ 'data-widget': 'express
 `;
 export const EXPRESSION_OPERATOR_DROPDOWN_HEIGHT = 200;
 export const ExpressionOperatorDropdown = styled.div.attrs<{ visible: boolean, top?: number, bottom?: number, left: number }>(
-	({ visible, top, bottom, left }) => {
-		return {
-			'data-widget': 'expression-operator-dropdown',
-			style: {
-				opacity: visible ? 1 : 0,
-				pointerEvents: visible ? 'auto' : 'none',
-				top, bottom, left,
-				transition: visible ? (void 0) : 'none'
-			}
-		};
-	})<{ visible: boolean, top?: number, bottom?: number, left: number }>`
+    ({visible, top, bottom, left}) => {
+        return {
+            'data-widget': 'expression-operator-dropdown',
+            style: {
+                opacity: visible ? 1 : 0,
+                pointerEvents: visible ? 'auto' : 'none',
+                top, bottom, left,
+                transition: visible ? (void 0) : 'none'
+            }
+        };
+    })<{ visible: boolean, top?: number, bottom?: number, left: number }>`
 	display          : flex;
 	position         : fixed;
 	flex-wrap        : wrap;
@@ -182,14 +182,14 @@ export const ExpressionOperatorDropdown = styled.div.attrs<{ visible: boolean, t
 		box-shadow : var(--primary-hover-shadow);
 	}
 `;
-export const ExpressionOperatorOption = styled.div.attrs<{ selected: boolean }>(({ selected }) => {
-	return {
-		'data-widget': 'expression-operator-option',
-		style: {
-			backgroundColor: selected ? 'var(--primary-color)' : (void 0),
-			color: selected ? 'var(--invert-color)' : (void 0)
-		}
-	};
+export const ExpressionOperatorOption = styled.div.attrs<{ selected: boolean }>(({selected}) => {
+    return {
+        'data-widget': 'expression-operator-option',
+        style: {
+            backgroundColor: selected ? 'var(--primary-color)' : (void 0),
+            color: selected ? 'var(--invert-color)' : (void 0)
+        }
+    };
 })<{ selected: boolean }>`
 	display       : flex;
 	align-items   : center;
@@ -199,18 +199,18 @@ export const ExpressionOperatorOption = styled.div.attrs<{ selected: boolean }>(
 	margin-left   : calc(var(--margin) / 4);
 	margin-bottom : calc(var(--margin) / 4);
 	border-radius : calc(var(--param-height) / 2);
-	box-shadow    : ${({ selected }) => selected ? 'var(--param-primary-color)' : 'var(--param-border)'};
+	box-shadow    : ${({selected}) => selected ? 'var(--param-primary-color)' : 'var(--param-border)'};
 	transition    : box-shadow 300ms ease-in-out;
 	&:hover {
 		box-shadow : var(--primary-hover-shadow);
 	}
 `;
-export const ParameterFromEditorForExpression = styled(ParameterFromEditor).attrs<{ shorten: boolean }>(({ shorten }) => {
-	return {
-		style: {
-			borderTopRightRadius: shorten ? 'calc(var(--param-height) / 2)' : (void 0),
-			borderBottomRightRadius: shorten ? 'calc(var(--param-height) / 2)' : (void 0)
-		}
-	};
+export const ParameterFromEditorForExpression = styled(ParameterFromEditor).attrs<{ shorten: boolean }>(({shorten}) => {
+    return {
+        style: {
+            borderTopRightRadius: shorten ? 'calc(var(--param-height) / 2)' : (void 0),
+            borderBottomRightRadius: shorten ? 'calc(var(--param-height) / 2)' : (void 0)
+        }
+    };
 })<{ shorten: boolean }>`
 `;

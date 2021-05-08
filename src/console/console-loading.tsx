@@ -1,9 +1,9 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
-import { Logo } from '../basic-widgets/logo';
-import { Lang } from '../langs';
+import styled, {keyframes} from 'styled-components';
+import {Logo} from '../basic-widgets/logo';
+import {Lang} from '../langs';
 
-const Container = styled.div.attrs({ 'data-widget': 'console-loading' })`
+const Container = styled.div.attrs({'data-widget': 'console-loading'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : 1fr;
@@ -19,7 +19,7 @@ const Spin = keyframes`
 		transform : rotate(360deg);
 	}
 `;
-const Icon = styled.div.attrs({ 'data-widget': 'console-loading-icon' })`
+const Icon = styled.div.attrs({'data-widget': 'console-loading-icon'})`
 	display         : flex;
 	position        : relative;
 	align-items     : center;
@@ -30,7 +30,7 @@ const Icon = styled.div.attrs({ 'data-widget': 'console-loading-icon' })`
 		animation : ${Spin} 60s linear infinite;
 	}
 `;
-const Label = styled.div.attrs({ 'data-widget': 'console-loading-label' })`
+const Label = styled.div.attrs({'data-widget': 'console-loading-label'})`
 	display       : block;
 	text-align    : center;
 	font-family   : var(--title-font-family);
@@ -43,10 +43,10 @@ const Label = styled.div.attrs({ 'data-widget': 'console-loading-label' })`
 `;
 
 export const ConsoleLoading = () => {
-	return <Container>
-		<Icon>
-			<Logo/>
-		</Icon>
-		<Label>{Lang.CONSOLE.LOADING}</Label>
-	</Container>;
+    return <Container>
+        <Icon>
+            <Logo/>
+        </Icon>
+        <Label>{Lang.CONSOLE.LOADING}</Label>
+    </Container>;
 };

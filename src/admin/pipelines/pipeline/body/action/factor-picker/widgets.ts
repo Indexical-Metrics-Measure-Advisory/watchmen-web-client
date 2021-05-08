@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Dropdown } from '../../../../../../basic-widgets/dropdown';
+import {Dropdown} from '../../../../../../basic-widgets/dropdown';
 
-export const FactorFinderContainer = styled.div.attrs({ 'data-widget': 'factor-finder' })`
+export const FactorFinderContainer = styled.div.attrs({'data-widget': 'factor-finder'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : auto 1fr;
@@ -30,7 +30,7 @@ export const FactorDropdown = styled(Dropdown)`
 		padding : 0 calc(var(--margin) / 2);
 	}
 `;
-export const IncorrectOptionLabel = styled.span.attrs({ 'data-widget': 'incorrect-option' })`
+export const IncorrectOptionLabel = styled.span.attrs({'data-widget': 'incorrect-option'})`
 	color           : var(--danger-color);
 	text-decoration : line-through;
 `;

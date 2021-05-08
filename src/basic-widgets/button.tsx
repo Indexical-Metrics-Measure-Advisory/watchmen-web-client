@@ -1,8 +1,8 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { ForwardedRef, forwardRef } from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import React, {ForwardedRef, forwardRef} from 'react';
 import styled from 'styled-components';
-import { ICON_LOADING } from './constants';
-import { ButtonProps } from './types';
+import {ICON_LOADING} from './constants';
+import {ButtonProps} from './types';
 
 const AButton = styled.button`
 	display          : flex;
@@ -73,8 +73,8 @@ const AButton = styled.button`
 `;
 
 export const Button = forwardRef((props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
-	const { children, ink, ...rest } = props;
-	return <AButton {...rest} data-ink={ink} ref={ref}>{children}</AButton>;
+    const {children, ink, ...rest} = props;
+    return <AButton {...rest} data-ink={ink} ref={ref}>{children}</AButton>;
 });
 export const DwarfButton = styled(Button)`
 	height : var(--button-height-in-form);
@@ -121,12 +121,12 @@ export const DwarfCarveButton = styled(CarveButton)`
 	}
 `;
 
-const SpinIcon = styled(FontAwesomeIcon).attrs<{ spin: boolean }>(({ spin }) => {
-	return {
-		style: {
-			opacity: spin ? (void 0) : 0
-		}
-	};
+const SpinIcon = styled(FontAwesomeIcon).attrs<{ spin: boolean }>(({spin}) => {
+    return {
+        style: {
+            opacity: spin ? (void 0) : 0
+        }
+    };
 })`
 	display    : block;
 	position   : absolute;
@@ -136,10 +136,10 @@ const SpinIcon = styled(FontAwesomeIcon).attrs<{ spin: boolean }>(({ spin }) => 
 `;
 
 export const LoadingButton = forwardRef((props: ButtonProps & { spin?: boolean }, ref: ForwardedRef<HTMLButtonElement>) => {
-	const { children, spin, ...rest } = props;
+    const {children, spin, ...rest} = props;
 
-	return <Button {...rest} ref={ref}>
-		<SpinIcon icon={ICON_LOADING} spin={spin}/>
-		{children}
-	</Button>;
+    return <Button {...rest} ref={ref}>
+        <SpinIcon icon={ICON_LOADING} spin={spin}/>
+        {children}
+    </Button>;
 });

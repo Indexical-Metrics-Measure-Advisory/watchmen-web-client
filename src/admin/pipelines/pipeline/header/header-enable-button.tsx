@@ -1,46 +1,46 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { AlertLabel } from '../../../../alert/widgets';
-import { ICON_ENABLE } from '../../../../basic-widgets/constants';
-import { PageHeaderButton } from '../../../../basic-widgets/page-header-buttons';
-import { useEventBus } from '../../../../events/event-bus';
-import { EventTypes } from '../../../../events/types';
-import { Pipeline } from '../../../../services/tuples/pipeline-types';
-import { Topic } from '../../../../services/tuples/topic-types';
-import { usePipelinesEventBus } from '../../pipelines-event-bus';
-import { PipelinesEventTypes } from '../../pipelines-event-bus-types';
-import { usePipelineEventBus } from '../pipeline-event-bus';
-import { PipelineEventTypes } from '../pipeline-event-bus-types';
-import { useValidate } from '../valiator/use-validate';
+import {AlertLabel} from '../../../../alert/widgets';
+import {ICON_ENABLE} from '../../../../basic-widgets/constants';
+import {PageHeaderButton} from '../../../../basic-widgets/page-header-buttons';
+import {useEventBus} from '../../../../events/event-bus';
+import {EventTypes} from '../../../../events/types';
+import {Pipeline} from '../../../../services/tuples/pipeline-types';
+import {Topic} from '../../../../services/tuples/topic-types';
+import {usePipelinesEventBus} from '../../pipelines-event-bus';
+import {PipelinesEventTypes} from '../../pipelines-event-bus-types';
+import {usePipelineEventBus} from '../pipeline-event-bus';
+import {PipelineEventTypes} from '../pipeline-event-bus-types';
+import {useValidate} from '../valiator/use-validate';
 
 export const HeaderEnableButton = (props: { pipeline: Pipeline }) => {
-	const { pipeline } = props;
+    const {pipeline} = props;
 
-	const { fire: fireGlobal } = useEventBus();
-	const { once: oncePipelines } = usePipelinesEventBus();
-	const { fire } = usePipelineEventBus();
-	const validate = useValidate();
+    const {fire: fireGlobal} = useEventBus();
+    const {once: oncePipelines} = usePipelinesEventBus();
+    const {fire} = usePipelineEventBus();
+    const validate = useValidate();
 
-	const onClicked = () => {
-		if (pipeline.enabled) {
-			fire(PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, pipeline);
-		} else {
-			oncePipelines(PipelinesEventTypes.REPLY_TOPICS, async (topics: Array<Topic>) => {
-				const pass = await validate(pipeline, topics);
-				if (pass !== true) {
-					pipeline.enabled = false;
-					fireGlobal(EventTypes.SHOW_ALERT,
-						<AlertLabel>{pass}</AlertLabel>);
-				} else {
-					pipeline.enabled = true;
-					fire(PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, pipeline);
-				}
-			}).fire(PipelinesEventTypes.ASK_TOPICS);
-		}
-	};
+    const onClicked = () => {
+        if (pipeline.enabled) {
+            fire(PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, pipeline);
+        } else {
+            oncePipelines(PipelinesEventTypes.REPLY_TOPICS, async (topics: Array<Topic>) => {
+                const pass = await validate(pipeline, topics);
+                if (pass !== true) {
+                    pipeline.enabled = false;
+                    fireGlobal(EventTypes.SHOW_ALERT,
+                        <AlertLabel>{pass}</AlertLabel>);
+                } else {
+                    pipeline.enabled = true;
+                    fire(PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, pipeline);
+                }
+            }).fire(PipelinesEventTypes.ASK_TOPICS);
+        }
+    };
 
-	return <PageHeaderButton tooltip='Enable Pipeline'
-	                         onClick={onClicked}>
-		<FontAwesomeIcon icon={ICON_ENABLE}/>
-	</PageHeaderButton>;
+    return <PageHeaderButton tooltip='Enable Pipeline'
+                             onClick={onClicked}>
+        <FontAwesomeIcon icon={ICON_ENABLE}/>
+    </PageHeaderButton>;
 };

@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { CheckBox } from '../../../../../../basic-widgets/checkbox';
-import { ColorPicker } from '../../../../../../basic-widgets/color-picker';
-import { Dropdown } from '../../../../../../basic-widgets/dropdown';
-import { Input } from '../../../../../../basic-widgets/input';
-import { InputLines } from '../../../../../../basic-widgets/input-lines';
+import {CheckBox} from '../../../../../../basic-widgets/checkbox';
+import {ColorPicker} from '../../../../../../basic-widgets/color-picker';
+import {Dropdown} from '../../../../../../basic-widgets/dropdown';
+import {Input} from '../../../../../../basic-widgets/input';
+import {InputLines} from '../../../../../../basic-widgets/input-lines';
 
-export const SectionContainer = styled.div.attrs<{ expanded: boolean }>({ 'data-widget': 'chart-settings-section' })<{ expanded: boolean }>`
+export const SectionContainer = styled.div.attrs<{ expanded: boolean }>({'data-widget': 'chart-settings-section'})<{ expanded: boolean }>`
 	display       : flex;
 	position      : relative;
 	grid-column   : 1 / span 2;
@@ -44,7 +44,7 @@ export const SecondarySectionContainer = styled(SectionContainer)`
 		margin-right : calc(var(--margin) / 8);
 	}
 `;
-export const PropName = styled.div.attrs({ 'data-widget': 'chart-settings-prop-name' })`
+export const PropName = styled.div.attrs({'data-widget': 'chart-settings-prop-name'})`
 	display       : flex;
 	position      : relative;
 	align-items   : center;
@@ -56,13 +56,13 @@ export const PropName = styled.div.attrs({ 'data-widget': 'chart-settings-prop-n
 	overflow      : hidden;
 	text-overflow : ellipsis;
 `;
-export const PropValue = styled.div.attrs({ 'data-widget': 'chart-settings-prop-value' })`
+export const PropValue = styled.div.attrs({'data-widget': 'chart-settings-prop-value'})`
 	display       : flex;
 	align-items   : center;
 	height        : calc(var(--height) + 1px);
 	border-bottom : var(--border);
 `;
-export const PropExclusiveValue = styled.div.attrs({ 'data-widget': 'chart-settings-prop-exclusive-value' })`
+export const PropExclusiveValue = styled.div.attrs({'data-widget': 'chart-settings-prop-exclusive-value'})`
 	grid-column   : 1 / span 2;
 	display       : flex;
 	align-items   : center;
@@ -71,7 +71,7 @@ export const PropExclusiveValue = styled.div.attrs({ 'data-widget': 'chart-setti
 		border-bottom : 0;
 	}
 `;
-export const PropValueUnit = styled.div.attrs({ 'data-widget': 'chart-settings-prop-value-unit' })`
+export const PropValueUnit = styled.div.attrs({'data-widget': 'chart-settings-prop-value-unit'})`
 	display          : flex;
 	position         : relative;
 	align-items      : center;

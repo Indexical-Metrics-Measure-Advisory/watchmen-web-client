@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { Button, DwarfButton } from '../../../../../../basic-widgets/button';
-import { PropValue } from '../settings-widgets/widgets';
+import {Button, DwarfButton} from '../../../../../../basic-widgets/button';
+import {PropValue} from '../settings-widgets/widgets';
 
-export const IndicatorContainer = styled.div.attrs({ 'data-widget': 'report-indicator' })`
+export const IndicatorContainer = styled.div.attrs({'data-widget': 'report-indicator'})`
 	display               : grid;
 	grid-template-columns : 32px 1fr 32px;
 	position              : relative;
@@ -15,7 +15,7 @@ export const IndicatorContainer = styled.div.attrs({ 'data-widget': 'report-indi
 		height        : var(--height);
 	}
 `;
-export const IndicatorIndexLabel = styled.div.attrs({ 'data-widget': 'report-indicator-index' })`
+export const IndicatorIndexLabel = styled.div.attrs({'data-widget': 'report-indicator-index'})`
 	display         : flex;
 	align-items     : center;
 	justify-content : center;
@@ -34,11 +34,11 @@ export const IndicatorPropValue = styled(PropValue)`
 		width : unset;
 	}
 `;
-export const IncorrectOptionLabel = styled.span.attrs({ 'data-widget': 'incorrect-option' })`
+export const IncorrectOptionLabel = styled.span.attrs({'data-widget': 'incorrect-option'})`
 	color           : var(--danger-color);
 	text-decoration : line-through;
 `;
-export const DeleteMeContainer = styled.div.attrs({ 'data-widget': 'report-indicator-delete-me' })`
+export const DeleteMeContainer = styled.div.attrs({'data-widget': 'report-indicator-delete-me'})`
 	display     : flex;
 	align-items : center;
 	height      : var(--height);

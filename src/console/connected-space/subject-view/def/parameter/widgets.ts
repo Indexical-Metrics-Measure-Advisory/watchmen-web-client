@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const DeleteMeButton = styled.div.attrs({ 'data-widget': 'delete-me-button' })`
+export const DeleteMeButton = styled.div.attrs({'data-widget': 'delete-me-button'})`
 	display       : flex;
 	position      : relative;
 	align-self    : stretch;

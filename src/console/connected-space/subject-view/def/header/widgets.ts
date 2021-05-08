@@ -1,14 +1,14 @@
 import styled from 'styled-components';
-import { DwarfButton } from '../../../../../basic-widgets/button';
-import { COLLAPSE_WIDTH, computeColumnWidths } from '../widgets';
+import {DwarfButton} from '../../../../../basic-widgets/button';
+import {COLLAPSE_WIDTH, computeColumnWidths} from '../widgets';
 
-export const SubjectDefHeader = styled.div.attrs<{ activeIndex: number }>(({ activeIndex }) => {
-	return {
-		'data-widget': 'subject-def-header',
-		style: {
-			gridTemplateColumns: computeColumnWidths(activeIndex)
-		}
-	};
+export const SubjectDefHeader = styled.div.attrs<{ activeIndex: number }>(({activeIndex}) => {
+    return {
+        'data-widget': 'subject-def-header',
+        style: {
+            gridTemplateColumns: computeColumnWidths(activeIndex)
+        }
+    };
 })<{ activeIndex: number }>`
 	display               : grid;
 	grid-template-columns : 1fr repeat(4, ${COLLAPSE_WIDTH}px);
@@ -17,7 +17,7 @@ export const SubjectDefHeader = styled.div.attrs<{ activeIndex: number }>(({ act
 	min-height            : var(--grid-row-height);
 	transition            : all 300ms ease-in-out;
 `;
-export const DefHeaderCell = styled.div.attrs({ 'data-widget': 'subject-def-header-cell' })`
+export const DefHeaderCell = styled.div.attrs({'data-widget': 'subject-def-header-cell'})`
 	display       : flex;
 	position      : relative;
 	align-items   : center;
@@ -33,7 +33,7 @@ export const DefHeaderCell = styled.div.attrs({ 'data-widget': 'subject-def-head
 		border-right : 0;
 	}
 `;
-export const DefHeaderIndex = styled.span.attrs({ 'data-widget': 'subject-def-header-index' })`
+export const DefHeaderIndex = styled.span.attrs({'data-widget': 'subject-def-header-index'})`
 	display          : flex;
 	justify-content  : center;
 	font-variant     : petite-caps;
@@ -43,14 +43,14 @@ export const DefHeaderIndex = styled.span.attrs({ 'data-widget': 'subject-def-he
 	margin           : 0 var(--input-indent);
 	border-radius    : 50%;
 `;
-export const DefHeaderLabel = styled.span.attrs({ 'data-widget': 'subject-def-header-label' })`
+export const DefHeaderLabel = styled.span.attrs({'data-widget': 'subject-def-header-label'})`
 	display     : flex;
 	position    : relative;
 	align-items : center;
 	flex-grow   : 1;
 `;
-export const DefHeaderNextButton = styled(DwarfButton).attrs({ 'data-widget': 'subject-def-header-button' })`
+export const DefHeaderNextButton = styled(DwarfButton).attrs({'data-widget': 'subject-def-header-button'})`
 `;
-export const DefHeaderButton = styled(DwarfButton).attrs({ 'data-widget': 'subject-def-header-button' })`
+export const DefHeaderButton = styled(DwarfButton).attrs({'data-widget': 'subject-def-header-button'})`
 	margin-right : calc(var(--margin) / 4);
 `;
