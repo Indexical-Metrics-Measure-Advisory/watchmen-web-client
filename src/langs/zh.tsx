@@ -27,7 +27,7 @@ export const Zh = {
         REPORT_DATASET_GRID_DOWNLOAD: '下载'
     },
     ERROR: {
-        UNAUTHORIZED: '本操作需要先登录系统.',
+        UNAUTHORIZED: '没有权限进行本操作, 请先登录系统.',
         ACCESS_DENIED: '没有权限进行本操作, 请联系管理员以获取帮助.',
         UNPREDICTED: '发生不可预测的错误, 请联系管理员以获取帮助.'
     },
