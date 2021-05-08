@@ -3,20 +3,20 @@ import {Conditional} from '../pipeline-super-types';
 import {MemoryWriter, PipelineStageUnitAction, SystemActionType} from './pipeline-stage-unit-action-types';
 
 export enum AlarmActionSeverity {
-    LOW = 'low',
-    MEDIUM = 'medium',
-    HIGH = 'high',
-    CRITICAL = 'critical',
+	LOW = 'low',
+	MEDIUM = 'medium',
+	HIGH = 'high',
+	CRITICAL = 'critical',
 }
 
 export interface AlarmAction extends PipelineStageUnitAction, Conditional {
-    type: SystemActionType.ALARM;
-    severity: AlarmActionSeverity;
-    message: string;
+	type: SystemActionType.ALARM;
+	severity: AlarmActionSeverity;
+	message: string;
 }
 
 /** copy something to memory variable */
 export interface CopyToMemoryAction extends PipelineStageUnitAction, MemoryWriter {
-    type: SystemActionType.COPY_TO_MEMORY;
-    source: Parameter;
+	type: SystemActionType.COPY_TO_MEMORY;
+	source: Parameter;
 }

@@ -7,14 +7,14 @@ export const THUMBNAIL_WIDTH = 300;
 export const THUMBNAIL_HEIGHT = 150;
 
 export const BodyThumbnail = styled.div.attrs<{ minimize: boolean }>(({minimize}) => {
-    return {
-        'data-widget': 'pipelines-catalog-thumbnail',
-        style: {
-            width: minimize ? 'calc(var(--margin) / 4 * 3)' : (void 0),
-            height: minimize ? 'calc(var(--margin) / 4 * 3)' : (void 0),
-            overflow: minimize ? 'hidden' : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'pipelines-catalog-thumbnail',
+		style: {
+			width: minimize ? 'calc(var(--margin) / 4 * 3)' : (void 0),
+			height: minimize ? 'calc(var(--margin) / 4 * 3)' : (void 0),
+			overflow: minimize ? 'hidden' : (void 0)
+		}
+	};
 })<{ minimize: boolean }>`
 	display       : block;
 	position      : fixed;
@@ -60,11 +60,11 @@ export const BodyThumbnail = styled.div.attrs<{ minimize: boolean }>(({minimize}
 	}
 `;
 export const ThumbnailBodySvg = styled(BodySvg).attrs<{ ratio: number }>(({ratio}) => {
-    return {
-        style: {
-            transform: ratio === 1 ? 'translate(-50%, -50%)' : `scale(${ratio}) translate(-50%, -50%)`
-        }
-    };
+	return {
+		style: {
+			transform: ratio === 1 ? 'translate(-50%, -50%)' : `scale(${ratio}) translate(-50%, -50%)`
+		}
+	};
 })<{ ratio: number }>`
 	display          : block;
 	position         : absolute;
@@ -80,18 +80,18 @@ export const ThumbnailBodySvg = styled(BodySvg).attrs<{ ratio: number }>(({ratio
 	}
 `;
 export const CurrentRect = styled.div.attrs<{ rect: GraphicsPosition & GraphicsSize }>(
-    ({rect}) => {
-        const {x, y, width, height} = rect;
-        return {
-            'data-widget': 'pipelines-catalog-thumbnail-current',
-            style: {
-                top: y,
-                left: x,
-                width,
-                height
-            }
-        };
-    })<{ rect: GraphicsPosition & GraphicsSize }>`
+	({rect}) => {
+		const {x, y, width, height} = rect;
+		return {
+			'data-widget': 'pipelines-catalog-thumbnail-current',
+			style: {
+				top: y,
+				left: x,
+				width,
+				height
+			}
+		};
+	})<{ rect: GraphicsPosition & GraphicsSize }>`
 	display        : block;
 	position       : absolute;
 	border         : var(--border);
@@ -100,14 +100,14 @@ export const CurrentRect = styled.div.attrs<{ rect: GraphicsPosition & GraphicsS
 	pointer-events : none;
 `;
 export const CloseButton = styled(Button).attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        style: {
-            borderRadius: visible ? 0 : (void 0),
-            opacity: visible ? 0.7 : (void 0),
-            top: visible ? 0 : (void 0),
-            right: visible ? 0 : (void 0)
-        }
-    };
+	return {
+		style: {
+			borderRadius: visible ? 0 : (void 0),
+			opacity: visible ? 0.7 : (void 0),
+			top: visible ? 0 : (void 0),
+			right: visible ? 0 : (void 0)
+		}
+	};
 })<{ visible: boolean }>`
 	position      : absolute;
 	top           : 2px;

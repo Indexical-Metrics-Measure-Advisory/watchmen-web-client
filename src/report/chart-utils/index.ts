@@ -13,19 +13,19 @@ import {ChartTreemapUtils} from './chart-treemap-utils';
 import {ChartUtils} from './types';
 
 export const ChartHelper: { [key in ChartType]: ChartUtils } = {
-    [ChartType.BAR]: new ChartBarUtils(),
-    [ChartType.LINE]: new ChartLineUtils(),
+	[ChartType.BAR]: new ChartBarUtils(),
+	[ChartType.LINE]: new ChartLineUtils(),
 
-    [ChartType.PIE]: new ChartPieUtils(),
-    [ChartType.DOUGHNUT]: new ChartDoughnutUtils(),
-    [ChartType.NIGHTINGALE]: new ChartNightingaleUtils(),
+	[ChartType.PIE]: new ChartPieUtils(),
+	[ChartType.DOUGHNUT]: new ChartDoughnutUtils(),
+	[ChartType.NIGHTINGALE]: new ChartNightingaleUtils(),
 
-    [ChartType.SCATTER]: new ChartScatterUtils(),
-    [ChartType.MAP]: new ChartMapUtils(),
+	[ChartType.SCATTER]: new ChartScatterUtils(),
+	[ChartType.MAP]: new ChartMapUtils(),
 
-    [ChartType.SUNBURST]: new ChartSunburstUtils(),
-    [ChartType.TREE]: new ChartTreeUtils(),
-    [ChartType.TREEMAP]: new ChartTreemapUtils(),
+	[ChartType.SUNBURST]: new ChartSunburstUtils(),
+	[ChartType.TREE]: new ChartTreeUtils(),
+	[ChartType.TREEMAP]: new ChartTreemapUtils(),
 
-    [ChartType.COUNT]: new ChartCountUtils()
+	[ChartType.COUNT]: new ChartCountUtils()
 };

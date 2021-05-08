@@ -49,15 +49,15 @@ export const HeaderButton = styled(DwarfButton).attrs({'data-widget': 'console-h
 	}
 `;
 export const HomeSectionBody = styled.div.attrs<{ collapse: boolean, maxHeight?: number }>(
-    ({collapse, maxHeight}) => {
-        return {
-            'data-widget': 'console-home-section-body',
-            style: {
-                maxHeight: collapse ? 0 : (maxHeight || 2000),
-                padding: collapse ? '0 calc(var(--margin) / 2)' : (void 0)
-            }
-        };
-    })<{ collapse: boolean, maxHeight?: number }>`
+	({collapse, maxHeight}) => {
+		return {
+			'data-widget': 'console-home-section-body',
+			style: {
+				maxHeight: collapse ? 0 : (maxHeight || 2000),
+				padding: collapse ? '0 calc(var(--margin) / 2)' : (void 0)
+			}
+		};
+	})<{ collapse: boolean, maxHeight?: number }>`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : repeat(3, minmax(0, 1fr));

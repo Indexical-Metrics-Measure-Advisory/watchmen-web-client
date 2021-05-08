@@ -13,33 +13,33 @@ import {buildToolbox} from './toolbox-utils';
 import {ChartOptions} from './types';
 
 export class ChartDoughnutUtils extends DefaultChartUtils {
-    constructor() {
-        super(DOUGHNUT);
-    }
+	constructor() {
+		super(DOUGHNUT);
+	}
 
-    buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
-        const {chart} = report;
-        // only one indicator allowed
-        // const { indicators: [ indicator ] } = report;
+	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
+		const {chart} = report;
+		// only one indicator allowed
+		// const { indicators: [ indicator ] } = report;
 
-        const groups = this.buildDescartesByDimensions(report, dataset);
+		const groups = this.buildDescartesByDimensions(report, dataset);
 
-        const data = buildSeriesData(chart, groups, this.formatNumber);
+		const data = buildSeriesData(chart, groups, this.formatNumber);
 
-        return cleanUselessValues({
-            color: BASE_COLORS_24,
-            title: buildEChartsTitle(chart as ECharts),
-            tooltip: {
-                trigger: 'item'
-            },
-            legend: buildEChartsLegend(chart as ECharts, groups.map(({value}) => value)),
-            series: [buildEChartsPie(chart as ECharts, data, {
-                type: 'pie',
-                insideRadius: '50%',
-                outsideRadius: '75%'
-            })],
-            aria: buildDecal(chart),
-            toolbox: buildToolbox(chart, report, dataset)
-        });
-    }
+		return cleanUselessValues({
+			color: BASE_COLORS_24,
+			title: buildEChartsTitle(chart as ECharts),
+			tooltip: {
+				trigger: 'item'
+			},
+			legend: buildEChartsLegend(chart as ECharts, groups.map(({value}) => value)),
+			series: [buildEChartsPie(chart as ECharts, data, {
+				type: 'pie',
+				insideRadius: '50%',
+				outsideRadius: '75%'
+			})],
+			aria: buildDecal(chart),
+			toolbox: buildToolbox(chart, report, dataset)
+		});
+	}
 }

@@ -14,41 +14,41 @@ import {buildToolbox} from './toolbox-utils';
 import {ChartOptions} from './types';
 
 export class ChartBarUtils extends DefaultChartUtils {
-    constructor() {
-        super(BAR);
-    }
+	constructor() {
+		super(BAR);
+	}
 
-    buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
-        const {chart} = report;
-        const {indicators} = report;
+	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
+		const {chart} = report;
+		const {indicators} = report;
 
-        const legends = indicators.map((indicator, indicatorIndex) => {
-            return {label: indicator.name || `Indicator ${indicatorIndex + 1}`, indicator, index: indicatorIndex};
-        });
-        const groups = this.buildDescartesByDimensions(report, dataset);
+		const legends = indicators.map((indicator, indicatorIndex) => {
+			return {label: indicator.name || `Indicator ${indicatorIndex + 1}`, indicator, index: indicatorIndex};
+		});
+		const groups = this.buildDescartesByDimensions(report, dataset);
 
-        const {xAxis, yAxis} = buildAxis(chart, groups);
+		const {xAxis, yAxis} = buildAxis(chart, groups);
 
-        return cleanUselessValues({
-            color: BASE_COLORS_24,
-            title: buildEChartsTitle(chart as ECharts),
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {type: 'shadow'}
-            },
-            legend: buildEChartsLegend(chart as ECharts, legends.map(item => item.label)),
-            grid: buildEChartsGrid(chart as ECharts),
-            xAxis,
-            yAxis,
-            series: legends.map(({index: indicatorIndex}) => {
-                return {
-                    type: 'bar',
-                    label: buildLabel(chart),
-                    data: buildSeriesData(chart, groups, indicatorIndex, this.formatNumber)
-                };
-            }),
-            aria: buildDecal(chart),
-            toolbox: buildToolbox(chart, report, dataset)
-        });
-    }
+		return cleanUselessValues({
+			color: BASE_COLORS_24,
+			title: buildEChartsTitle(chart as ECharts),
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: {type: 'shadow'}
+			},
+			legend: buildEChartsLegend(chart as ECharts, legends.map(item => item.label)),
+			grid: buildEChartsGrid(chart as ECharts),
+			xAxis,
+			yAxis,
+			series: legends.map(({index: indicatorIndex}) => {
+				return {
+					type: 'bar',
+					label: buildLabel(chart),
+					data: buildSeriesData(chart, groups, indicatorIndex, this.formatNumber)
+				};
+			}),
+			aria: buildDecal(chart),
+			toolbox: buildToolbox(chart, report, dataset)
+		});
+	}
 }

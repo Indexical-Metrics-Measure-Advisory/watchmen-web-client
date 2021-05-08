@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import {DROPDOWN_Z_INDEX} from '../../../../../basic-widgets/constants';
 
 export const JoinsContainer = styled.div.attrs<{ active: boolean }>(({active}) => {
-    return {
-        'data-widget': 'subject-def-joins',
-        'data-v-scroll': '',
-        style: {
-            paddingRight: active ? (void 0) : 0,
-            overflowY: active ? (void 0) : 'hidden'
-        }
-    };
+	return {
+		'data-widget': 'subject-def-joins',
+		'data-v-scroll': '',
+		style: {
+			paddingRight: active ? (void 0) : 0,
+			overflowY: active ? (void 0) : 'hidden'
+		}
+	};
 }) <{ active: boolean }>`
 	display        : flex;
 	position       : relative;
@@ -24,12 +24,12 @@ export const JoinsBottomGap = styled.div.attrs({'data-widget': 'subject-def-join
 	min-height : var(--margin);
 `;
 export const JoinsEditContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        'data-widget': 'subject-def-joins-edit',
-        style: {
-            display: visible ? (void 0) : 'none'
-        }
-    };
+	return {
+		'data-widget': 'subject-def-joins-edit',
+		style: {
+			display: visible ? (void 0) : 'none'
+		}
+	};
 })<{ visible: boolean }>`
 	display        : flex;
 	position       : relative;
@@ -80,15 +80,15 @@ export const JoinIndex = styled.span.attrs({'data-widget': 'subject-def-join-ind
 `;
 const JOIN_TYPE_WIDTH = 200;
 export const JoinTypeDropdownContainer = styled.div.attrs<{ top?: number, bottom?: number }>(({top, bottom}) => {
-    return {
-        'data-widget': 'subject-def-join-type',
-        style: {
-            borderBottomLeftRadius: top ? 0 : (void 0),
-            borderBottomRightRadius: top ? 0 : (void 0),
-            borderTopLeftRadius: bottom ? 0 : (void 0),
-            borderTopRightRadius: bottom ? 0 : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'subject-def-join-type',
+		style: {
+			borderBottomLeftRadius: top ? 0 : (void 0),
+			borderBottomRightRadius: top ? 0 : (void 0),
+			borderTopLeftRadius: bottom ? 0 : (void 0),
+			borderTopRightRadius: bottom ? 0 : (void 0)
+		}
+	};
 })<{ top?: number, bottom?: number }>`
 	display          : flex;
 	position         : relative;
@@ -130,21 +130,21 @@ export const JoinTypeDropdownContainer = styled.div.attrs<{ top?: number, bottom
 	}
 `;
 export const JoinTypeDropdown = styled.div.attrs<{ visible: boolean, top?: number, bottom?: number, left: number }>(
-    ({visible, top, bottom, left}) => {
-        return {
-            'data-widget': 'join-type-dropdown',
-            style: {
-                opacity: visible ? 1 : 0,
-                pointerEvents: visible ? 'auto' : 'none',
-                top, bottom, left,
-                transition: visible ? (void 0) : 'none',
-                borderTopLeftRadius: top ? 0 : (void 0),
-                borderTopRightRadius: top ? 0 : (void 0),
-                borderBottomLeftRadius: bottom ? 0 : (void 0),
-                borderBottomRightRadius: bottom ? 0 : (void 0)
-            }
-        };
-    })<{ visible: boolean, top?: number, bottom?: number, left: number }>`
+	({visible, top, bottom, left}) => {
+		return {
+			'data-widget': 'join-type-dropdown',
+			style: {
+				opacity: visible ? 1 : 0,
+				pointerEvents: visible ? 'auto' : 'none',
+				top, bottom, left,
+				transition: visible ? (void 0) : 'none',
+				borderTopLeftRadius: top ? 0 : (void 0),
+				borderTopRightRadius: top ? 0 : (void 0),
+				borderBottomLeftRadius: bottom ? 0 : (void 0),
+				borderBottomRightRadius: bottom ? 0 : (void 0)
+			}
+		};
+	})<{ visible: boolean, top?: number, bottom?: number, left: number }>`
 	display          : flex;
 	position         : fixed;
 	flex-direction   : column;

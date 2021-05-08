@@ -9,36 +9,36 @@ import {TupleItemPickerEventTypes} from './tuple-item-picker-event-bus-types';
 import {TupleItemOperatorsContainer} from './widgets';
 
 export const TupleItemOperators = <TH extends TupleHolder, QTH extends QueryTupleForHolder>(props: {
-    actionLabel: string;
-    holder: TH;
-    codes: Array<QTH>;
-    isHolding: (holder: TH) => boolean;
-    listCandidates: (searchText: string) => Promise<Array<QTH>>;
-    getIdOfCandidate: (candidate: QTH) => string;
-    getNameOfCandidate: (candidate: QTH) => string;
-    isCandidateHold: (candidate: QTH) => boolean;
-    removeHold: (holdId: string | QTH) => void;
-    addHold: (hold: QTH) => void;
+	actionLabel: string;
+	holder: TH;
+	codes: Array<QTH>;
+	isHolding: (holder: TH) => boolean;
+	listCandidates: (searchText: string) => Promise<Array<QTH>>;
+	getIdOfCandidate: (candidate: QTH) => string;
+	getNameOfCandidate: (candidate: QTH) => string;
+	isCandidateHold: (candidate: QTH) => boolean;
+	removeHold: (holdId: string | QTH) => void;
+	addHold: (hold: QTH) => void;
 }) => {
-    const {
-        actionLabel, holder, codes,
-        isHolding,
-        listCandidates, getIdOfCandidate, getNameOfCandidate, isCandidateHold,
-        removeHold, addHold
-    } = props;
+	const {
+		actionLabel, holder, codes,
+		isHolding,
+		listCandidates, getIdOfCandidate, getNameOfCandidate, isCandidateHold,
+		removeHold, addHold
+	} = props;
 
-    const {fire} = useTupleItemPickerEventBus();
-    const containerRef = useRef<HTMLDivElement>(null);
-    const inputRef = useRef<HTMLInputElement>(null);
-    useCollapseFixedThing({containerRef, hide: () => fire(TupleItemPickerEventTypes.SEARCH_DONE)});
+	const {fire} = useTupleItemPickerEventBus();
+	const containerRef = useRef<HTMLDivElement>(null);
+	const inputRef = useRef<HTMLInputElement>(null);
+	useCollapseFixedThing({containerRef, hide: () => fire(TupleItemPickerEventTypes.SEARCH_DONE)});
 
-    return <TupleItemOperatorsContainer ref={containerRef}>
-        <TupleItemOperatorsSearch listCandidates={listCandidates} ref={inputRef}/>
-        <TupleItemOperatorsButton actionLabel={actionLabel} holder={holder} isHolding={isHolding} inputRef={inputRef}/>
-        <TupleItemCandidates {...{
-            containerRef, inputRef,
-            getIdOfCandidate, getNameOfCandidate, isCandidateHold,
-            codes, addHold, removeHold
-        }}/>
-    </TupleItemOperatorsContainer>;
+	return <TupleItemOperatorsContainer ref={containerRef}>
+		<TupleItemOperatorsSearch listCandidates={listCandidates} ref={inputRef}/>
+		<TupleItemOperatorsButton actionLabel={actionLabel} holder={holder} isHolding={isHolding} inputRef={inputRef}/>
+		<TupleItemCandidates {...{
+			containerRef, inputRef,
+			getIdOfCandidate, getNameOfCandidate, isCandidateHold,
+			codes, addHold, removeHold
+		}}/>
+	</TupleItemOperatorsContainer>;
 };

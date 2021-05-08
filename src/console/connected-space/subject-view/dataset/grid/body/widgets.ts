@@ -19,17 +19,17 @@ export const GridWrapperContainer = styled.div.attrs({'data-widget': 'subject-da
 	}
 `;
 export const RowSelection = styled.div
-    .attrs<{ index: number, top: number, height: number, scroll: number }>(({index, top, height, scroll}) => {
-        return {
-            'data-widget': 'subject-dataset-grid-row-selection',
-            style: {
-                display: index === -1 ? 'none' : 'block',
-                top,
-                width: `calc(100% - ${scroll}px)`,
-                height: height + 1
-            }
-        };
-    })<{ index: number, top: number, height: number, scroll: number }>`
+	.attrs<{ index: number, top: number, height: number, scroll: number }>(({index, top, height, scroll}) => {
+		return {
+			'data-widget': 'subject-dataset-grid-row-selection',
+			style: {
+				display: index === -1 ? 'none' : 'block',
+				top,
+				width: `calc(100% - ${scroll}px)`,
+				height: height + 1
+			}
+		};
+	})<{ index: number, top: number, height: number, scroll: number }>`
 	position         : absolute;
 	left             : 0;
 	background-color : var(--warn-color);
@@ -39,19 +39,19 @@ export const RowSelection = styled.div
 	z-index          : 10;
 `;
 export const ColumnSelection = styled.div
-    .attrs<{ index: number, left: number, width: number, height: number, scroll: number }>(
-        ({index, left, width, height, scroll}
-        ) => {
-            return {
-                'data-widget': 'subject-dataset-grid-column-selection',
-                style: {
-                    display: index !== -1 ? 'block' : 'none',
-                    left,
-                    width: width,
-                    height: height === 0 ? `calc(100% + 1px - ${scroll}px)` : height
-                }
-            };
-        })<{ index: number, left: number, width: number, height: number, scroll: number }>`
+	.attrs<{ index: number, left: number, width: number, height: number, scroll: number }>(
+		({index, left, width, height, scroll}
+		) => {
+			return {
+				'data-widget': 'subject-dataset-grid-column-selection',
+				style: {
+					display: index !== -1 ? 'block' : 'none',
+					left,
+					width: width,
+					height: height === 0 ? `calc(100% + 1px - ${scroll}px)` : height
+				}
+			};
+		})<{ index: number, left: number, width: number, height: number, scroll: number }>`
 	position         : absolute;
 	top              : 0;
 	background-color : var(--warn-color);
@@ -61,10 +61,10 @@ export const ColumnSelection = styled.div
 	z-index          : 10;
 `;
 export const GridResizeShade = styled.div.attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        'data-widget': 'grid-resize-shade',
-        style: {width: visible ? '100%' : (void 0)}
-    };
+	return {
+		'data-widget': 'grid-resize-shade',
+		style: {width: visible ? '100%' : (void 0)}
+	};
 })<{ visible: boolean }>`
 	display  : block;
 	position : absolute;

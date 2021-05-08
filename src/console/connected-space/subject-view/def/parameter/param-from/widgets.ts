@@ -28,15 +28,15 @@ export const ParameterFromLabel = styled.div.attrs({'data-widget': 'parameter-fr
 	padding      : 0 calc(var(--margin) / 4);
 `;
 export const ParameterTypeButton = styled.div.attrs<{ active: boolean, edit: boolean }>(({active, edit}) => {
-    return {
-        'data-widget': 'parameter-from-button',
-        style: {
-            backgroundColor: active ? (void 0) : 'var(--bg-color)',
-            color: active ? (void 0) : 'var(--font-color)',
-            width: (!active && !edit) ? 0 : (void 0),
-            padding: (!active && !edit) ? 0 : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'parameter-from-button',
+		style: {
+			backgroundColor: active ? (void 0) : 'var(--bg-color)',
+			color: active ? (void 0) : 'var(--font-color)',
+			width: (!active && !edit) ? 0 : (void 0),
+			padding: (!active && !edit) ? 0 : (void 0)
+		}
+	};
 })<{ active: boolean, edit: boolean }>`
 	display       : flex;
 	position      : relative;

@@ -1,7 +1,7 @@
 import {FindBy, FromFactor, FromTopic, MemoryWriter, ReadTopicActionType} from './pipeline-stage-unit-action-types';
 
 export interface ReadRowAction extends FromTopic, MemoryWriter, FindBy {
-    type: ReadTopicActionType.READ_ROW;
+	type: ReadTopicActionType.READ_ROW;
 }
 
 export interface ReadRowsAction extends FromTopic, MemoryWriter, FindBy {
@@ -9,7 +9,7 @@ export interface ReadRowsAction extends FromTopic, MemoryWriter, FindBy {
 }
 
 export interface ReadFactorAction extends FromFactor, MemoryWriter, FindBy {
-    type: ReadTopicActionType.READ_FACTOR;
+	type: ReadTopicActionType.READ_FACTOR;
 }
 
 export interface ReadFactorsAction extends FromFactor, MemoryWriter, FindBy {
@@ -17,5 +17,5 @@ export interface ReadFactorsAction extends FromFactor, MemoryWriter, FindBy {
 }
 
 export interface ExistsAction extends FromTopic, MemoryWriter, FindBy {
-    type: ReadTopicActionType.EXISTS;
+	type: ReadTopicActionType.EXISTS;
 }

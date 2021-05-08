@@ -6,14 +6,14 @@ import {PageHeaderButton} from '../../../../basic-widgets/page-header-buttons';
 import {Router} from '../../../../routes/types';
 
 export const HeaderCatalogButton = () => {
-    const history = useHistory();
+	const history = useHistory();
 
-    const onCatalogClicked = () => {
-        history.push(Router.ADMIN_PIPELINES);
-    };
+	const onCatalogClicked = () => {
+		history.push(Router.ADMIN_PIPELINES);
+	};
 
-    return <PageHeaderButton tooltip='Back to Catalog'
-                             onClick={onCatalogClicked}>
-        <FontAwesomeIcon icon={ICON_PIPELINES_CATALOG}/>
-    </PageHeaderButton>;
+	return <PageHeaderButton tooltip="Back to Catalog"
+	                         onClick={onCatalogClicked}>
+		<FontAwesomeIcon icon={ICON_PIPELINES_CATALOG}/>
+	</PageHeaderButton>;
 };

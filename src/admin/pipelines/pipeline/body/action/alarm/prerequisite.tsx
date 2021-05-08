@@ -6,16 +6,16 @@ import {useActionEventBus} from '../action-event-bus';
 import {ActionEventTypes} from '../action-event-bus-types';
 
 export const AlarmPrerequisite = (props: {
-    action: AlarmAction;
-    topic: Topic;
+	action: AlarmAction;
+	topic: Topic;
 }) => {
-    const {action, topic} = props;
+	const {action, topic} = props;
 
-    const {fire} = useActionEventBus();
+	const {fire} = useActionEventBus();
 
-    const onConditionTypeChange = () => {
-        fire(ActionEventTypes.ACTION_CONTENT_CHANGED, action);
-    };
+	const onConditionTypeChange = () => {
+		fire(ActionEventTypes.ACTION_CONTENT_CHANGED, action);
+	};
 
-    return <ConditionalEditor conditional={action} topics={[topic]} onChange={onConditionTypeChange}/>;
+	return <ConditionalEditor conditional={action} topics={[topic]} onChange={onConditionTypeChange}/>;
 };

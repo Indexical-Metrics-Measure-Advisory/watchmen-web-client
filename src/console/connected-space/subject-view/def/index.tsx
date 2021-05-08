@@ -13,30 +13,30 @@ import {SubjectDefEventBusProvider} from './subject-def-event-bus';
 import {SubjectDefBody, SubjectDefContainer} from './widgets';
 
 export const SubjectDefWrapper = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
-    const {connectedSpace, subject} = props;
+	const {connectedSpace, subject} = props;
 
-    const [activeIndex, setActiveIndex] = useState(1);
+	const [activeIndex, setActiveIndex] = useState(1);
 
-    const onActiveIndexChange = (activeIndex: number) => setActiveIndex(activeIndex);
+	const onActiveIndexChange = (activeIndex: number) => setActiveIndex(activeIndex);
 
-    return <SubjectDefContainer>
-        <Header subject={subject} activeIndex={activeIndex} changeActiveIndex={onActiveIndexChange}/>
-        <SubjectDefBody activeIndex={activeIndex}>
-            <PickTopics connectedSpace={connectedSpace} subject={subject} active={activeIndex === 1}/>
-            <Columns connectedSpace={connectedSpace} subject={subject} active={activeIndex === 2}/>
-            <Filters connectedSpace={connectedSpace} subject={subject} active={activeIndex === 3}/>
-            <Joins connectedSpace={connectedSpace} subject={subject} active={activeIndex === 4}/>
-            <Overview connectedSpace={connectedSpace} subject={subject} active={activeIndex === 5}/>
-        </SubjectDefBody>
-        <SubjectDefDataHolder connectedSpace={connectedSpace} subject={subject}/>
-    </SubjectDefContainer>;
+	return <SubjectDefContainer>
+		<Header subject={subject} activeIndex={activeIndex} changeActiveIndex={onActiveIndexChange}/>
+		<SubjectDefBody activeIndex={activeIndex}>
+			<PickTopics connectedSpace={connectedSpace} subject={subject} active={activeIndex === 1}/>
+			<Columns connectedSpace={connectedSpace} subject={subject} active={activeIndex === 2}/>
+			<Filters connectedSpace={connectedSpace} subject={subject} active={activeIndex === 3}/>
+			<Joins connectedSpace={connectedSpace} subject={subject} active={activeIndex === 4}/>
+			<Overview connectedSpace={connectedSpace} subject={subject} active={activeIndex === 5}/>
+		</SubjectDefBody>
+		<SubjectDefDataHolder connectedSpace={connectedSpace} subject={subject}/>
+	</SubjectDefContainer>;
 };
 
 export const SubjectDef = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
-    const {connectedSpace, subject} = props;
+	const {connectedSpace, subject} = props;
 
-    return <SubjectDefEventBusProvider>
-        <SubjectDefSaver connectedSpace={connectedSpace} subject={subject}/>
-        <SubjectDefWrapper connectedSpace={connectedSpace} subject={subject}/>
-    </SubjectDefEventBusProvider>;
+	return <SubjectDefEventBusProvider>
+		<SubjectDefSaver connectedSpace={connectedSpace} subject={subject}/>
+		<SubjectDefWrapper connectedSpace={connectedSpace} subject={subject}/>
+	</SubjectDefEventBusProvider>;
 };

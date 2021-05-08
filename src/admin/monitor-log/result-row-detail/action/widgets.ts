@@ -29,13 +29,13 @@ export const BodyLabel = styled.div.attrs({'data-widget': 'monitor-log-detail-pr
 	height       : var(--height);
 `;
 export const BodyValue = styled.div.attrs<{ emphasis?: boolean }>(({emphasis = false}) => {
-    return {
-        'data-widget': 'monitor-log-detail-process-action-body-value',
-        style: {
-            fontVariant: emphasis ? 'petite-caps' : (void 0),
-            fontWeight: emphasis ? 'var(--font-demi-bold)' : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'monitor-log-detail-process-action-body-value',
+		style: {
+			fontVariant: emphasis ? 'petite-caps' : (void 0),
+			fontWeight: emphasis ? 'var(--font-demi-bold)' : (void 0)
+		}
+	};
 })<{ emphasis?: boolean }>`
 	display     : flex;
 	align-items : center;
@@ -56,9 +56,9 @@ export const ActionStatus = styled.div.attrs({'data-widget': 'monitor-log-detail
 	height       : var(--height);
 `;
 export const ActionError = styled(InputLines).attrs({
-    'data-widget': 'monitor-log-detail-process-action-error',
-    'data-v-scroll': '',
-    'data-h-scroll': ''
+	'data-widget': 'monitor-log-detail-process-action-error',
+	'data-v-scroll': '',
+	'data-h-scroll': ''
 })`
 	display     : flex;
 	position    : relative;
@@ -68,8 +68,8 @@ export const ActionError = styled(InputLines).attrs({
 	white-space : pre;
 `;
 export const ObjectValue = styled(InputLines).attrs({
-    'data-v-scroll': '',
-    'data-h-scroll': ''
+	'data-v-scroll': '',
+	'data-h-scroll': ''
 })`
 	display     : flex;
 	position    : relative;

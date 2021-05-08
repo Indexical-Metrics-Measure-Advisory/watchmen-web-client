@@ -9,15 +9,15 @@ import {useSubjectEventBus} from '../subject-event-bus';
 import {SubjectEventTypes} from '../subject-event-bus-types';
 
 export const HeaderManualRefreshButton = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
-    const {subject} = props;
+	const {subject} = props;
 
-    const {fire} = useSubjectEventBus();
-    const onManualRefreshClicked = () => {
-        fire(SubjectEventTypes.REFRESH_REPORTS, subject);
-    };
+	const {fire} = useSubjectEventBus();
+	const onManualRefreshClicked = () => {
+		fire(SubjectEventTypes.REFRESH_REPORTS, subject);
+	};
 
-    return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.REFRESH}
-                             onClick={onManualRefreshClicked}>
-        <FontAwesomeIcon icon={ICON_REFRESH}/>
-    </PageHeaderButton>;
+	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.REFRESH}
+	                         onClick={onManualRefreshClicked}>
+		<FontAwesomeIcon icon={ICON_REFRESH}/>
+	</PageHeaderButton>;
 };

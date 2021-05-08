@@ -8,12 +8,12 @@ import {LastSnapshot} from './last-snapshot-types';
 export type AvailableSpaceInConsole = Pick<Space, 'spaceId' | 'name' | 'description' | 'topicIds'>;
 
 export interface ConsoleSettings {
-    connectedSpaces: Array<ConnectedSpace>;
-    connectedSpaceGraphics: Array<ConnectedSpaceGraphics>;
-    availableSpaces: Array<AvailableSpaceInConsole>;
-    availableTopics: Array<Topic>;
-    dashboards: Array<Dashboard>;
-    favorite: Favorite;
+	connectedSpaces: Array<ConnectedSpace>;
+	connectedSpaceGraphics: Array<ConnectedSpaceGraphics>;
+	availableSpaces: Array<AvailableSpaceInConsole>;
+	availableTopics: Array<Topic>;
+	dashboards: Array<Dashboard>;
+	favorite: Favorite;
 
-    lastSnapshot: LastSnapshot
+	lastSnapshot: LastSnapshot
 }

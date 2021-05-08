@@ -11,15 +11,15 @@ import {Parameter2ActionBridge} from './parameter-2-action-bridge';
 import {SingleParameterContainer} from './widgets';
 
 export const SingleParameter = (props: { action: PipelineStageUnitAction, parameter: Parameter, topics: Array<Topic> }) => {
-    const {action, parameter, topics} = props;
+	const {action, parameter, topics} = props;
 
-    return <ParameterEventBusProvider>
-        <Parameter2ActionBridge action={action}/>
-        <SingleParameterContainer>
-            <ParameterFromEditor parameter={parameter}/>
-            <TopicFactorEditor parameter={parameter} topics={topics}/>
-            <ConstantEditor parameter={parameter}/>
-            <ComputedEditor parameter={parameter} topics={topics}/>
-        </SingleParameterContainer>
-    </ParameterEventBusProvider>;
+	return <ParameterEventBusProvider>
+		<Parameter2ActionBridge action={action}/>
+		<SingleParameterContainer>
+			<ParameterFromEditor parameter={parameter}/>
+			<TopicFactorEditor parameter={parameter} topics={topics}/>
+			<ConstantEditor parameter={parameter}/>
+			<ComputedEditor parameter={parameter} topics={topics}/>
+		</SingleParameterContainer>
+	</ParameterEventBusProvider>;
 };

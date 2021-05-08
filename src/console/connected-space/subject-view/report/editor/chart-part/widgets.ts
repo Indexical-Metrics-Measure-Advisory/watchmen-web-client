@@ -3,9 +3,9 @@ import {BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR} from '../../../../../../admin/pip
 import {ReportRect} from '../../../../../../services/tuples/report-types';
 
 export const EditChartContainer = styled.div.attrs({
-    'data-widget': 'report-chart-editor',
-    'data-v-scroll': '',
-    'data-h-scroll': ''
+	'data-widget': 'report-chart-editor',
+	'data-v-scroll': '',
+	'data-h-scroll': ''
 })`
 	display         : flex;
 	position        : relative;
@@ -15,12 +15,12 @@ export const EditChartContainer = styled.div.attrs({
 	max-height      : ${BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR};
 `;
 export const ChartWrapper = styled.div.attrs<{ rect: ReportRect }>(({rect: {width, height}}) => {
-    return {
-        'data-widget': 'report-chart-wrapper',
-        // even border is applied, still use original width and height
-        // since echarts detect size including border width.
-        style: {width, height}
-    };
+	return {
+		'data-widget': 'report-chart-wrapper',
+		// even border is applied, still use original width and height
+		// since echarts detect size including border width.
+		style: {width, height}
+	};
 })<{ rect: ReportRect }>`
 	display       : block;
 	position      : absolute;

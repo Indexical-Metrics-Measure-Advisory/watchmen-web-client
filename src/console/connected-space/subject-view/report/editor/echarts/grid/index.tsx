@@ -14,68 +14,68 @@ import {BorderSettings, SettingsBorderPropNames} from '../border';
 import {PositionSettings, SettingsPositionPropNames} from '../position';
 
 export const EChartsGridSettings = (props: { report: Report }) => {
-    const {report} = props;
-    const {chart} = report;
+	const {report} = props;
+	const {chart} = report;
 
-    const {fire} = useReportEditEventBus();
-    useChartType({report});
+	const {fire} = useReportEditEventBus();
+	useChartType({report});
 
-    if (!isEChart(chart) || !canUseGrid(chart)) {
-        return null;
-    }
+	if (!isEChart(chart) || !canUseGrid(chart)) {
+		return null;
+	}
 
-    const onValueChange = () => {
-        fire(ReportEditEventTypes.ECHART_GRID_CHANGED, report);
-    };
+	const onValueChange = () => {
+		fire(ReportEditEventTypes.ECHART_GRID_CHANGED, report);
+	};
 
-    const grid = chart.settings?.grid;
-    const getGridHolder = () => grid;
-    const propNames = {
-        border: {
-            width: EChartsGridPropNames.BORDER_WIDTH,
-            style: EChartsGridPropNames.BORDER_STYLE,
-            color: EChartsGridPropNames.BORDER_COLOR
-        } as SettingsBorderPropNames,
-        position: {
-            top: EChartsGridPropNames.POSITION_TOP,
-            right: EChartsGridPropNames.POSITION_RIGHT,
-            left: EChartsGridPropNames.POSITION_LEFT,
-            bottom: EChartsGridPropNames.POSITION_BOTTOM
-        } as SettingsPositionPropNames
-    };
+	const grid = chart.settings?.grid;
+	const getGridHolder = () => grid;
+	const propNames = {
+		border: {
+			width: EChartsGridPropNames.BORDER_WIDTH,
+			style: EChartsGridPropNames.BORDER_STYLE,
+			color: EChartsGridPropNames.BORDER_COLOR
+		} as SettingsBorderPropNames,
+		position: {
+			top: EChartsGridPropNames.POSITION_TOP,
+			right: EChartsGridPropNames.POSITION_RIGHT,
+			left: EChartsGridPropNames.POSITION_LEFT,
+			bottom: EChartsGridPropNames.POSITION_BOTTOM
+		} as SettingsPositionPropNames
+	};
 
-    return <Section title={Lang.CHART.SECTION_TITLE_ECHART_GRID}>
-        <BooleanValue label={Lang.CHART.SHOW}
-                      value={grid?.show} defaultValue={false}
-                      onValueChange={onBooleanChange({
-                          report,
-                          chart,
-                          prop: EChartsGridPropNames.SHOW,
-                          done: onValueChange
-                      })}/>
-        <BooleanValue label={Lang.CHART.GRID_CONTAIN_LABEL}
-                      value={grid?.containLabel} defaultValue={false}
-                      onValueChange={onBooleanChange({
-                          report,
-                          chart,
-                          prop: EChartsGridPropNames.CONTAIN_LABEL,
-                          done: onValueChange
-                      })}/>
-        <ColorValue label={Lang.CHART.BACKGROUND_COLOR}
-                    value={grid?.backgroundColor}
-                    onValueChange={onColorChange({
-                        report,
-                        chart,
-                        prop: EChartsGridPropNames.BACKGROUND_COLOR,
-                        done: onValueChange
-                    })}/>
-        <PositionSettings report={report} chart={chart}
-                          getHolder={getGridHolder}
-                          propNames={propNames.position}
-                          onValueChange={onValueChange}/>
-        <BorderSettings report={report} chart={chart}
-                        getHolder={getGridHolder}
-                        propNames={propNames.border}
-                        onValueChange={onValueChange}/>
-    </Section>;
+	return <Section title={Lang.CHART.SECTION_TITLE_ECHART_GRID}>
+		<BooleanValue label={Lang.CHART.SHOW}
+		              value={grid?.show} defaultValue={false}
+		              onValueChange={onBooleanChange({
+			              report,
+			              chart,
+			              prop: EChartsGridPropNames.SHOW,
+			              done: onValueChange
+		              })}/>
+		<BooleanValue label={Lang.CHART.GRID_CONTAIN_LABEL}
+		              value={grid?.containLabel} defaultValue={false}
+		              onValueChange={onBooleanChange({
+			              report,
+			              chart,
+			              prop: EChartsGridPropNames.CONTAIN_LABEL,
+			              done: onValueChange
+		              })}/>
+		<ColorValue label={Lang.CHART.BACKGROUND_COLOR}
+		            value={grid?.backgroundColor}
+		            onValueChange={onColorChange({
+			            report,
+			            chart,
+			            prop: EChartsGridPropNames.BACKGROUND_COLOR,
+			            done: onValueChange
+		            })}/>
+		<PositionSettings report={report} chart={chart}
+		                  getHolder={getGridHolder}
+		                  propNames={propNames.position}
+		                  onValueChange={onValueChange}/>
+		<BorderSettings report={report} chart={chart}
+		                getHolder={getGridHolder}
+		                propNames={propNames.border}
+		                onValueChange={onValueChange}/>
+	</Section>;
 };

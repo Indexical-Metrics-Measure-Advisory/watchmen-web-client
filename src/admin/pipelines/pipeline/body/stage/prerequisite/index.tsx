@@ -7,19 +7,19 @@ import {useStageEventBus} from '../stage-event-bus';
 import {StageEventTypes} from '../stage-event-bus-types';
 
 export const StagePrerequisite = (props: {
-    stage: PipelineStage;
-    topic: Topic;
+	stage: PipelineStage;
+	topic: Topic;
 }) => {
-    const {stage, topic} = props;
+	const {stage, topic} = props;
 
-    const {fire} = useStageEventBus();
+	const {fire} = useStageEventBus();
 
-    const onConditionTypeChange = () => {
-        fire(StageEventTypes.CONDITION_CHANGED, stage);
-    };
+	const onConditionTypeChange = () => {
+		fire(StageEventTypes.CONDITION_CHANGED, stage);
+	};
 
-    return <>
-        <LeadLabel>Stage Prerequisite:</LeadLabel>
-        <ConditionalEditor conditional={stage} topics={[topic]} onChange={onConditionTypeChange}/>
-    </>;
+	return <>
+		<LeadLabel>Stage Prerequisite:</LeadLabel>
+		<ConditionalEditor conditional={stage} topics={[topic]} onChange={onConditionTypeChange}/>
+	</>;
 };

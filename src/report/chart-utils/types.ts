@@ -6,35 +6,35 @@ export type ChartEChartOptions = any;
 export type ChartOptions = ChartEChartOptions | JSX.Element;
 
 export interface ChartUtils {
-    getDef(): ChartDef;
+	getDef(): ChartDef;
 
-    shouldHasDimension(): boolean;
+	shouldHasDimension(): boolean;
 
-    getMaxDimensionCount(): number;
+	getMaxDimensionCount(): number;
 
-    shouldHasIndicator(): boolean;
+	shouldHasIndicator(): boolean;
 
-    getMaxIndicatorCount(): number;
+	getMaxIndicatorCount(): number;
 
-    canAppendDimensions(report: Report): boolean;
+	canAppendDimensions(report: Report): boolean;
 
-    canReduceIndicators(report: Report): boolean;
+	canReduceIndicators(report: Report): boolean;
 
-    canAppendIndicators(report: Report): boolean;
+	canAppendIndicators(report: Report): boolean;
 
-    canReduceDimensions(report: Report): boolean;
+	canReduceDimensions(report: Report): boolean;
 
-    defendIndicatorMinCount(report: Report): void;
+	defendIndicatorMinCount(report: Report): void;
 
-    defendIndicatorMaxCount(report: Report): void;
+	defendIndicatorMaxCount(report: Report): void;
 
-    defendDimensionMinCount(report: Report): void;
+	defendDimensionMinCount(report: Report): void;
 
-    defendDimensionMaxCount(report: Report): void;
+	defendDimensionMaxCount(report: Report): void;
 
-    defend(report: Report): void;
+	defend(report: Report): void;
 
-    validate(report: Report): boolean | string;
+	validate(report: Report): boolean | string;
 
-    buildOptions(report: Report, dataset: ChartDataSet): ChartOptions;
+	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions;
 }

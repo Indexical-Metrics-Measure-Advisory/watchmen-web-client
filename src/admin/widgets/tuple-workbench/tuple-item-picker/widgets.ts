@@ -6,9 +6,9 @@ import {Input} from '../../../../basic-widgets/input';
 import {PickerDropdownPosition} from './tuple-item-picker-event-bus-types';
 
 export const TupleItemPickerContainer = styled.div.attrs<{ 'data-widget'?: string }>(({'data-widget': widget}) => {
-    return {
-        'data-widget': widget || 'tuple-property-item-picker'
-    };
+	return {
+		'data-widget': widget || 'tuple-property-item-picker'
+	};
 })`
 	display               : grid;
 	grid-template-columns : 1fr;
@@ -24,87 +24,87 @@ export const TupleItemOperatorsContainer = styled.div.attrs({'data-widget': 'tup
 	width    : 100%;
 `;
 export const TupleItemPickerSearchInput = styled(Input).attrs<{ 'data-widget'?: string, visible: boolean, dropdownPosition: PickerDropdownPosition }>(
-    ({'data-widget': widget, visible, dropdownPosition}) => {
-        const dropdownAtBottom = dropdownPosition === PickerDropdownPosition.BOTTOM;
-        return {
-            'data-widget': widget || 'tuple-property-item-picker-button',
-            style: {
-                alignSelf: visible ? 'center' : (void 0),
-                width: visible ? '100%' : (void 0),
-                opacity: visible ? (void 0) : 0,
-                pointerEvents: visible ? (void 0) : 'none',
-                borderTopLeftRadius: dropdownAtBottom ? (void 0) : 0,
-                borderTopRightRadius: dropdownAtBottom ? (void 0) : 0,
-                borderBottomLeftRadius: dropdownAtBottom ? 0 : (void 0),
-                borderBottomRightRadius: dropdownAtBottom ? 0 : (void 0)
-            }
-        };
-    })<{ visible: boolean, dropdownPosition: PickerDropdownPosition }>`
+	({'data-widget': widget, visible, dropdownPosition}) => {
+		const dropdownAtBottom = dropdownPosition === PickerDropdownPosition.BOTTOM;
+		return {
+			'data-widget': widget || 'tuple-property-item-picker-button',
+			style: {
+				alignSelf: visible ? 'center' : (void 0),
+				width: visible ? '100%' : (void 0),
+				opacity: visible ? (void 0) : 0,
+				pointerEvents: visible ? (void 0) : 'none',
+				borderTopLeftRadius: dropdownAtBottom ? (void 0) : 0,
+				borderTopRightRadius: dropdownAtBottom ? (void 0) : 0,
+				borderBottomLeftRadius: dropdownAtBottom ? 0 : (void 0),
+				borderBottomRightRadius: dropdownAtBottom ? 0 : (void 0)
+			}
+		};
+	})<{ visible: boolean, dropdownPosition: PickerDropdownPosition }>`
 	flex-grow : 0;
 	width     : 0;
 `;
 export const TupleItemPickerButton = styled(RoundDwarfButton).attrs<{ 'data-widget'?: string, asClose: boolean }>(
-    ({'data-widget': widget, asClose}) => {
-        return {
-            'data-widget': widget || 'tuple-property-item-picker-button',
-            style: {
-                left: asClose ? 'calc(100% - 22px - 3px)' : (void 0),
-                borderRadius: asClose ? 'var(--border-radius)' : (void 0),
-                padding: asClose ? 0 : (void 0),
-                width: asClose ? 22 : (void 0)
-            }
-        };
-    })<{ asClose: boolean }>`
+	({'data-widget': widget, asClose}) => {
+		return {
+			'data-widget': widget || 'tuple-property-item-picker-button',
+			style: {
+				left: asClose ? 'calc(100% - 22px - 3px)' : (void 0),
+				borderRadius: asClose ? 'var(--border-radius)' : (void 0),
+				padding: asClose ? 0 : (void 0),
+				width: asClose ? 22 : (void 0)
+			}
+		};
+	})<{ asClose: boolean }>`
 	position   : absolute;
 	top        : calc((var(--height) - var(--button-height-in-form)) / 2);
 	left       : 0;
 	transition : all 300ms ease-in-out;
 `;
 export const TupleItemPickerButtonIcon = styled(FontAwesomeIcon).attrs<{ 'data-standalone': boolean }>(({'data-standalone': standalone}) => {
-    return {
-        'data-widget': 'tuple-property-item-picker-button-icon',
-        style: {
-            marginRight: standalone ? (void 0) : 0
-        }
-    };
+	return {
+		'data-widget': 'tuple-property-item-picker-button-icon',
+		style: {
+			marginRight: standalone ? (void 0) : 0
+		}
+	};
 })`
 `;
 export const TupleItemPickerButtonLabel = styled.span.attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        'data-widget': 'tuple-property-item-picker-button-label',
-        style: {
-            width: visible ? (void 0) : 0,
-            overflow: visible ? (void 0) : 'hidden'
-        }
-    };
+	return {
+		'data-widget': 'tuple-property-item-picker-button-label',
+		style: {
+			width: visible ? (void 0) : 0,
+			overflow: visible ? (void 0) : 'hidden'
+		}
+	};
 })<{ visible: boolean }>`
 `;
 
 export interface TupleItemPickerDropdownState {
-    visible: boolean;
-    top?: number;
-    bottom?: number;
-    left: number;
-    minWidth: number;
-    atBottom: boolean;
+	visible: boolean;
+	top?: number;
+	bottom?: number;
+	left: number;
+	minWidth: number;
+	atBottom: boolean;
 }
 
 export const TupleItemPickerDropdown = styled.div.attrs<TupleItemPickerDropdownState>(
-    ({visible, top, bottom, left, minWidth, atBottom}) => {
-        return {
-            'data-widget': 'tuple-property-item-picker-picked-dropdown',
-            'data-h-scroll': '',
-            style: {
-                opacity: visible ? 1 : (void 0),
-                pointerEvents: visible ? 'auto' : (void 0),
-                top, bottom, left, width: minWidth,
-                borderTopLeftRadius: atBottom ? 0 : (void 0),
-                borderTopRightRadius: atBottom ? 0 : (void 0),
-                borderBottomLeftRadius: atBottom ? (void 0) : 0,
-                borderBottomRightRadius: atBottom ? (void 0) : 0
-            }
-        };
-    })<TupleItemPickerDropdownState>`
+	({visible, top, bottom, left, minWidth, atBottom}) => {
+		return {
+			'data-widget': 'tuple-property-item-picker-picked-dropdown',
+			'data-h-scroll': '',
+			style: {
+				opacity: visible ? 1 : (void 0),
+				pointerEvents: visible ? 'auto' : (void 0),
+				top, bottom, left, width: minWidth,
+				borderTopLeftRadius: atBottom ? 0 : (void 0),
+				borderTopRightRadius: atBottom ? 0 : (void 0),
+				borderBottomLeftRadius: atBottom ? (void 0) : 0,
+				borderBottomRightRadius: atBottom ? (void 0) : 0
+			}
+		};
+	})<TupleItemPickerDropdownState>`
 	display          : flex;
 	position         : fixed;
 	flex-direction   : column;
@@ -140,14 +140,14 @@ export const TupleItemPickerDropdownCandidate = styled.div.attrs({'data-widget':
 	}
 `;
 export const TupleItemPickerDropdownCandidateIcon = styled(FontAwesomeIcon).attrs<{ 'data-checked': boolean }>(
-    ({'data-checked': checked}) => {
-        return {
-            'data-widget': 'tuple-property-item-picker-picked-dropdown-candidate-icon',
-            style: {
-                opacity: checked ? (void 0) : 0
-            }
-        };
-    })`
+	({'data-checked': checked}) => {
+		return {
+			'data-widget': 'tuple-property-item-picker-picked-dropdown-candidate-icon',
+			style: {
+				opacity: checked ? (void 0) : 0
+			}
+		};
+	})`
 	font-size    : 0.9em;
 	margin-right : calc(var(--margin) / 4);
 `;

@@ -44,13 +44,13 @@ export const FactorLabelCellContainer = styled(FactorCell).attrs({'data-widget':
 	grid-column: span 3;
 `;
 export const FactorTypeCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-type-cell'})``;
-export const FactorEnumCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-enum-cell'})``
+export const FactorEnumCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-enum-cell'})``;
 export const FactorDefaultValueCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-default-value-cell'})`
 	+ span {
 		grid-column: 1;
 	}
 `;
-export const FactorIndexGroupCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-index-group-cell'})``
+export const FactorIndexGroupCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-index-group-cell'})``;
 
 export const FactorPropInput = styled(TuplePropertyInput)`
 	width : 100%;

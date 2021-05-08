@@ -11,25 +11,25 @@ import {TopicPicker} from '../topic-picker';
 import {ActionLeadLabelThin} from '../widgets';
 
 export const InsertRow = (props: {
-    pipeline: Pipeline;
-    stage: PipelineStage;
-    unit: PipelineStageUnit;
-    action: PipelineStageUnitAction;
-    topics: Array<Topic>;
-    topic: Topic;
+	pipeline: Pipeline;
+	stage: PipelineStage;
+	unit: PipelineStageUnit;
+	action: PipelineStageUnitAction;
+	topics: Array<Topic>;
+	topic: Topic;
 }) => {
-    const {action, topics, topic} = props;
+	const {action, topics, topic} = props;
 
-    useActionType(action);
+	useActionType(action);
 
-    if (!isInsertRowAction(action)) {
-        return null;
-    }
+	if (!isInsertRowAction(action)) {
+		return null;
+	}
 
-    return <>
-        <ActionLeadLabelThin>Target Topic:</ActionLeadLabelThin>
-        <TopicPicker action={action} topics={topics}/>
-        <ActionLeadLabelThin>Use Mapping:</ActionLeadLabelThin>
-        <FactorsMapping action={action} topics={topics} topic={topic}/>
-    </>;
+	return <>
+		<ActionLeadLabelThin>Target Topic:</ActionLeadLabelThin>
+		<TopicPicker action={action} topics={topics}/>
+		<ActionLeadLabelThin>Use Mapping:</ActionLeadLabelThin>
+		<FactorsMapping action={action} topics={topics} topic={topic}/>
+	</>;
 };

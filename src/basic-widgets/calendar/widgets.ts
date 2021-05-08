@@ -6,10 +6,10 @@ export const DROPDOWN_HEIGHT = 290;
 export const DROPDOWN_WIDTH = 364;
 
 export const CalendarContainer = styled.div.attrs<CalendarState>(() => {
-    return {'data-widget': 'calendar'};
+	return {'data-widget': 'calendar'};
 })<CalendarState>(({top, height}) => {
-    const atBottom = top + height + DROPDOWN_HEIGHT < window.innerHeight;
-    return `
+	const atBottom = top + height + DROPDOWN_HEIGHT < window.innerHeight;
+	return `
 		position: relative;
 		padding: 6px var(--input-indent);
 		outline: none;

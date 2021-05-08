@@ -7,11 +7,11 @@ const Dashboard = lazy(() => import(/* webpackChunkName: "share-dashboard" */ '.
 const Subject = lazy(() => import(/* webpackChunkName: "share-subject" */ './subject'));
 
 export const ShareIndex = () => {
-    return <Switch>
-        <Route path={Router.SHARE_DASHBOARD}><Dashboard/></Route>
-        <Route path={Router.SHARE_SUBJECT}><Subject/></Route>
-        <Route path='*'><ShareNothing/></Route>
-    </Switch>;
+	return <Switch>
+		<Route path={Router.SHARE_DASHBOARD}><Dashboard/></Route>
+		<Route path={Router.SHARE_SUBJECT}><Subject/></Route>
+		<Route path="*"><ShareNothing/></Route>
+	</Switch>;
 };
 
 export default ShareIndex;

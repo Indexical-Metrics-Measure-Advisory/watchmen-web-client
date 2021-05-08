@@ -15,41 +15,41 @@ import {ReportRemover} from './report-remover';
 import {SubjectReportContainer} from './widgets';
 
 export const SubjectReports = (props: {
-    connectedSpace: ConnectedSpace;
-    subject: Subject;
-    editable?: boolean;
-    removable?: boolean;
-    transient?: boolean;
+	connectedSpace: ConnectedSpace;
+	subject: Subject;
+	editable?: boolean;
+	removable?: boolean;
+	transient?: boolean;
 }) => {
-    const {connectedSpace, subject, editable = true, removable = true, transient = false} = props;
+	const {connectedSpace, subject, editable = true, removable = true, transient = false} = props;
 
-    const {on, off} = useSubjectEventBus();
-    const forceUpdate = useForceUpdate();
-    useEffect(() => {
-        on(SubjectEventTypes.REPORT_ADDED, forceUpdate);
-        on(SubjectEventTypes.REPORT_REMOVED, forceUpdate);
-        return () => {
-            off(SubjectEventTypes.REPORT_ADDED, forceUpdate);
-            off(SubjectEventTypes.REPORT_REMOVED, forceUpdate);
-        };
-    }, [on, off, forceUpdate]);
+	const {on, off} = useSubjectEventBus();
+	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		on(SubjectEventTypes.REPORT_ADDED, forceUpdate);
+		on(SubjectEventTypes.REPORT_REMOVED, forceUpdate);
+		return () => {
+			off(SubjectEventTypes.REPORT_ADDED, forceUpdate);
+			off(SubjectEventTypes.REPORT_REMOVED, forceUpdate);
+		};
+	}, [on, off, forceUpdate]);
 
-    const hasReport = subject.reports && subject.reports.length !== 0;
+	const hasReport = subject.reports && subject.reports.length !== 0;
 
-    return <ReportEventBusProvider>
-        <SubjectReportContainer>
-            {hasReport
-                ? subject.reports?.map(report => {
-                    return <SubjectReport connectedSpace={connectedSpace} subject={subject} report={report}
-                                          editable={editable} removable={removable}
-                                          key={report.reportId}/>;
-                })
-                : <NoReport/>}
-            <PagePrintSize subject={subject}/>
-            <ReportRefresher subject={subject}/>
-        </SubjectReportContainer>
-        {transient ? null : <ReportEditor connectedSpace={connectedSpace} subject={subject}/>}
-        {transient ? null : <ReportMoveOrResizeMonitor/>}
-        <ReportRemover connectedSpace={connectedSpace} subject={subject}/>
-    </ReportEventBusProvider>;
+	return <ReportEventBusProvider>
+		<SubjectReportContainer>
+			{hasReport
+				? subject.reports?.map(report => {
+					return <SubjectReport connectedSpace={connectedSpace} subject={subject} report={report}
+					                      editable={editable} removable={removable}
+					                      key={report.reportId}/>;
+				})
+				: <NoReport/>}
+			<PagePrintSize subject={subject}/>
+			<ReportRefresher subject={subject}/>
+		</SubjectReportContainer>
+		{transient ? null : <ReportEditor connectedSpace={connectedSpace} subject={subject}/>}
+		{transient ? null : <ReportMoveOrResizeMonitor/>}
+		<ReportRemover connectedSpace={connectedSpace} subject={subject}/>
+	</ReportEventBusProvider>;
 };

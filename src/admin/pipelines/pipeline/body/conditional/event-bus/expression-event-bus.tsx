@@ -6,30 +6,30 @@ const Context = React.createContext<ExpressionEventBus>({} as ExpressionEventBus
 Context.displayName = 'ExpressionEventBus';
 
 export const ExpressionEventBusProvider = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
-    const {children} = props;
+	const {children} = props;
 
-    const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
-    const [bus] = useState<ExpressionEventBus>({
-        fire: (type: string, ...data: any): ExpressionEventBus => {
-            emitter.emit(type, ...data);
-            return bus;
-        },
-        on: (type: string, listener: (...data: any) => void): ExpressionEventBus => {
-            if (emitter.rawListeners(type).includes(listener)) {
-                console.error(`Listener on [${type}] was added into expression event bus, check it.`);
-            }
-            emitter.on(type, listener);
-            return bus;
-        },
-        off: (type: string, listener: (...data: any) => void): ExpressionEventBus => {
-            emitter.off(type, listener);
-            return bus;
-        }
-    });
+	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
+	const [bus] = useState<ExpressionEventBus>({
+		fire: (type: string, ...data: any): ExpressionEventBus => {
+			emitter.emit(type, ...data);
+			return bus;
+		},
+		on: (type: string, listener: (...data: any) => void): ExpressionEventBus => {
+			if (emitter.rawListeners(type).includes(listener)) {
+				console.error(`Listener on [${type}] was added into expression event bus, check it.`);
+			}
+			emitter.on(type, listener);
+			return bus;
+		},
+		off: (type: string, listener: (...data: any) => void): ExpressionEventBus => {
+			emitter.off(type, listener);
+			return bus;
+		}
+	});
 
-    return <Context.Provider value={bus}>
-        {children}
-    </Context.Provider>;
+	return <Context.Provider value={bus}>
+		{children}
+	</Context.Provider>;
 };
 
 export const useExpressionEventBus = () => useContext(Context);

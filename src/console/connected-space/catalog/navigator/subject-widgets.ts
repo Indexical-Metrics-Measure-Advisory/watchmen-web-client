@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const SubjectBodyContainer = styled.div.attrs({
-    'data-widget': 'connected-space-navigator-subject',
-    'data-v-scroll': ''
+	'data-widget': 'connected-space-navigator-subject',
+	'data-v-scroll': ''
 })`
 	display               : grid;
 	position              : relative;

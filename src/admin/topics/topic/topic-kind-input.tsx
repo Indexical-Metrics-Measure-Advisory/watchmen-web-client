@@ -7,20 +7,20 @@ import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';
 
 const TopicKindOptions: Array<DropdownOption> = [
-    {value: TopicKind.SYSTEM, label: 'System'},
-    {value: TopicKind.BUSINESS, label: 'Business'}
+	{value: TopicKind.SYSTEM, label: 'System'},
+	{value: TopicKind.BUSINESS, label: 'Business'}
 ];
 
 export const TopicKindInput = (props: { topic: Topic }) => {
-    const {topic} = props;
+	const {topic} = props;
 
-    const {fire} = useTopicEventBus();
-    const forceUpdate = useForceUpdate();
-    const onTypeChange = (option: DropdownOption) => {
-        topic.kind = option.value as TopicKind;
-        fire(TopicEventTypes.TOPIC_KIND_CHANGED, topic);
-        forceUpdate();
-    };
+	const {fire} = useTopicEventBus();
+	const forceUpdate = useForceUpdate();
+	const onTypeChange = (option: DropdownOption) => {
+		topic.kind = option.value as TopicKind;
+		fire(TopicEventTypes.TOPIC_KIND_CHANGED, topic);
+		forceUpdate();
+	};
 
-    return <TuplePropertyDropdown value={topic.kind} options={TopicKindOptions} onChange={onTypeChange}/>;
+	return <TuplePropertyDropdown value={topic.kind} options={TopicKindOptions} onChange={onTypeChange}/>;
 };

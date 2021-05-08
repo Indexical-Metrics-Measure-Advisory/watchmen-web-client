@@ -5,18 +5,18 @@ import {FAVORITE_Z_INDEX, PIN_FAVORITE_Z_INDEX} from '../../basic-widgets/consta
 import {TooltipButton} from '../../basic-widgets/tooltip-button';
 
 export const FloatFavoriteContainer = styled.div.attrs<{ visible: boolean, top: number, left: number }>(
-    ({visible, top, left}) => {
-        return {
-            'data-widget': 'float-favorite',
-            style: {
-                pointerEvents: visible ? 'auto' : (void 0),
-                opacity: visible ? 1 : (void 0),
-                transform: visible ? '' : 'scaleX(0)',
-                top,
-                left
-            }
-        };
-    })<{ visible: boolean, top: number, left: number }>`
+	({visible, top, left}) => {
+		return {
+			'data-widget': 'float-favorite',
+			style: {
+				pointerEvents: visible ? 'auto' : (void 0),
+				opacity: visible ? 1 : (void 0),
+				transform: visible ? '' : 'scaleX(0)',
+				top,
+				left
+			}
+		};
+	})<{ visible: boolean, top: number, left: number }>`
 	display          : flex;
 	flex-direction   : column;
 	position         : fixed;
@@ -56,8 +56,8 @@ export const FloatFavoritePinButton = styled(TooltipButton).attrs({'data-widget'
 	}
 `;
 export const FloatFavoriteBody = styled.div.attrs({
-    'data-widget': 'float-favorite-body',
-    'data-v-scroll': ''
+	'data-widget': 'float-favorite-body',
+	'data-v-scroll': ''
 })`
 	display          : flex;
 	flex-direction   : column;
@@ -120,15 +120,15 @@ export const FavoriteNoData = styled.div.attrs({'data-widget': 'float-favorite-n
 	font-variant : petite-caps;
 `;
 export const PinFavoriteContainer = styled.div.attrs<{ visible: boolean, left: number }>(({visible, left}) => {
-    return {
-        'data-widget': 'pin-favorite',
-        style: {
-            top: visible ? 0 : 'calc(var(--pin-favorite-height) * -1)',
-            left,
-            width: `calc(100vw - ${left}px)`,
-            opacity: visible ? 1 : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'pin-favorite',
+		style: {
+			top: visible ? 0 : 'calc(var(--pin-favorite-height) * -1)',
+			left,
+			width: `calc(100vw - ${left}px)`,
+			opacity: visible ? 1 : (void 0)
+		}
+	};
 })<{ visible: boolean, left: number }>`
 	display               : grid;
 	position              : fixed;
@@ -185,19 +185,19 @@ export const PinFavoriteBody = styled.div.attrs({'data-widget': 'pin-favorite-bo
 	z-index          : 1;
 `;
 export const PinFavoriteScrollButton = styled.div.attrs<{ left: boolean, scrollable: boolean }>(
-    ({left, scrollable}) => {
-        return {
-            'data-widget': 'pin-favorite-body-scroll-button',
-            'data-scrollable': scrollable ? '' : (void 0),
-            style: {
-                left: left ? 'calc(100% - var(--margin) / 2 + 2px)' : (void 0),
-                right: left ? (void 0) : 'calc(100% - var(--margin) / 2 + 2px)',
-                borderRadius: left
-                    ? 'calc((var(--pin-favorite-height) - 4px) / 2) calc(var(--border-radius) * 2) calc(var(--border-radius) * 2) calc((var(--pin-favorite-height) - 4px) / 2)'
-                    : 'calc(var(--border-radius) * 2) calc((var(--pin-favorite-height) - 4px) / 2) calc((var(--pin-favorite-height) - 4px) / 2) calc(var(--border-radius) * 2)'
-            }
-        };
-    })<{ left: boolean, scrollable: boolean }>`
+	({left, scrollable}) => {
+		return {
+			'data-widget': 'pin-favorite-body-scroll-button',
+			'data-scrollable': scrollable ? '' : (void 0),
+			style: {
+				left: left ? 'calc(100% - var(--margin) / 2 + 2px)' : (void 0),
+				right: left ? (void 0) : 'calc(100% - var(--margin) / 2 + 2px)',
+				borderRadius: left
+					? 'calc((var(--pin-favorite-height) - 4px) / 2) calc(var(--border-radius) * 2) calc(var(--border-radius) * 2) calc((var(--pin-favorite-height) - 4px) / 2)'
+					: 'calc(var(--border-radius) * 2) calc((var(--pin-favorite-height) - 4px) / 2) calc((var(--pin-favorite-height) - 4px) / 2) calc(var(--border-radius) * 2)'
+			}
+		};
+	})<{ left: boolean, scrollable: boolean }>`
 	display          : flex;
 	position         : absolute;
 	align-items      : center;

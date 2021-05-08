@@ -1,18 +1,18 @@
-import { PipelineStageUnitAction } from "../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types";
-import { PipelineStageUnit } from "../../../../../services/tuples/pipeline-stage-unit-types";
+import {PipelineStageUnitAction} from '../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {PipelineStageUnit} from '../../../../../services/tuples/pipeline-stage-unit-types';
 
 export enum UnitEventTypes {
-	RENAME_UNIT = "rename-unit",
-	LOOP_VARIABLE_CHANGED = "loop-variable-changed",
-	CONDITION_CHANGED = "condition-changed",
+	RENAME_UNIT = 'rename-unit',
+	LOOP_VARIABLE_CHANGED = 'loop-variable-changed',
+	CONDITION_CHANGED = 'condition-changed',
 
-	ACTION_ADDED = "action-added",
-	ACTION_REMOVED = "action-removed",
-	ACTION_CHANGED = "action-changed",
-	ACTION_SORTED = "action-sorted",
+	ACTION_ADDED = 'action-added',
+	ACTION_REMOVED = 'action-removed',
+	ACTION_CHANGED = 'action-changed',
+	ACTION_SORTED = 'action-sorted',
 
-	EXPAND_CONTENT = "expand-content",
-	COLLAPSE_CONTENT = "collapse-content",
+	EXPAND_CONTENT = 'expand-content',
+	COLLAPSE_CONTENT = 'collapse-content',
 }
 
 export interface UnitEventBus {

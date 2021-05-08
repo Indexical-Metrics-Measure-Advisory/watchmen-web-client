@@ -2,15 +2,15 @@ import styled from 'styled-components';
 import {FactorTypeLabel} from '../../../../basic-widgets/factor-type-label';
 
 export const TopicBodyContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        'data-widget': 'pipelines-navigator-topic',
-        'data-v-scroll': '',
-        style: {
-            height: visible ? (void 0) : 0,
-            flexGrow: visible ? 1 : 0,
-            borderBottom: visible ? 'var(--border)' : 0
-        }
-    };
+	return {
+		'data-widget': 'pipelines-navigator-topic',
+		'data-v-scroll': '',
+		style: {
+			height: visible ? (void 0) : 0,
+			flexGrow: visible ? 1 : 0,
+			borderBottom: visible ? 'var(--border)' : 0
+		}
+	};
 })<{ visible: boolean }>`
 	display               : grid;
 	position              : relative;

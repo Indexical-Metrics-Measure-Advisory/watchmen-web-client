@@ -11,35 +11,35 @@ import {HierarchicalParameterEventBridge} from './hierarchical-parameter-event-b
 import {SubParametersContainer} from './widgets';
 
 export const SubParameters = (props: {
-    parameter: ComputedParameter;
-    topics: Array<Topic>;
-    notifyChangeToParent: () => void;
+	parameter: ComputedParameter;
+	topics: Array<Topic>;
+	notifyChangeToParent: () => void;
 }) => {
-    const {parameter, topics, notifyChangeToParent} = props;
+	const {parameter, topics, notifyChangeToParent} = props;
 
-    const {on, off, fire} = useParameterEventBus();
-    const forceUpdate = useForceUpdate();
-    useEffect(() => {
-        on(ParameterEventTypes.COMPUTE_TYPE_CHANGED, forceUpdate);
-        on(ParameterEventTypes.COMPUTE_PARAMETER_ADDED, forceUpdate);
-        on(ParameterEventTypes.COMPUTE_PARAMETER_REMOVED, forceUpdate);
-        return () => {
-            off(ParameterEventTypes.COMPUTE_TYPE_CHANGED, forceUpdate);
-            off(ParameterEventTypes.COMPUTE_PARAMETER_ADDED, forceUpdate);
-            off(ParameterEventTypes.COMPUTE_PARAMETER_REMOVED, forceUpdate);
-        };
-    }, [on, off, forceUpdate]);
+	const {on, off, fire} = useParameterEventBus();
+	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		on(ParameterEventTypes.COMPUTE_TYPE_CHANGED, forceUpdate);
+		on(ParameterEventTypes.COMPUTE_PARAMETER_ADDED, forceUpdate);
+		on(ParameterEventTypes.COMPUTE_PARAMETER_REMOVED, forceUpdate);
+		return () => {
+			off(ParameterEventTypes.COMPUTE_TYPE_CHANGED, forceUpdate);
+			off(ParameterEventTypes.COMPUTE_PARAMETER_ADDED, forceUpdate);
+			off(ParameterEventTypes.COMPUTE_PARAMETER_REMOVED, forceUpdate);
+		};
+	}, [on, off, forceUpdate]);
 
-    return <SubParametersContainer>
-        {parameter.parameters.map(sub => {
-            return <ParameterEventBusProvider key={v4()}>
-                <HierarchicalParameterEventBridge notifyChangeToParent={notifyChangeToParent}/>
-                <SubParameterEditor parameter={sub} parentParameter={parameter}
-                                    topics={topics}
-                                    onDeleted={() => fire(ParameterEventTypes.COMPUTE_PARAMETER_REMOVED, sub)}/>
-            </ParameterEventBusProvider>;
-        })}
-        <SubParameterAdd parentParameter={parameter}
-                         onAdded={(parameter: Parameter) => fire(ParameterEventTypes.COMPUTE_PARAMETER_ADDED, parameter)}/>
-    </SubParametersContainer>;
+	return <SubParametersContainer>
+		{parameter.parameters.map(sub => {
+			return <ParameterEventBusProvider key={v4()}>
+				<HierarchicalParameterEventBridge notifyChangeToParent={notifyChangeToParent}/>
+				<SubParameterEditor parameter={sub} parentParameter={parameter}
+				                    topics={topics}
+				                    onDeleted={() => fire(ParameterEventTypes.COMPUTE_PARAMETER_REMOVED, sub)}/>
+			</ParameterEventBusProvider>;
+		})}
+		<SubParameterAdd parentParameter={parameter}
+		                 onAdded={(parameter: Parameter) => fire(ParameterEventTypes.COMPUTE_PARAMETER_ADDED, parameter)}/>
+	</SubParametersContainer>;
 };

@@ -9,7 +9,7 @@ import {UnitFooter} from './footer';
 import {UnitHeader} from './header';
 import {UnitPrerequisite} from './prerequisite';
 import {UnitContainer} from './widgets';
-import {UnitLoopVariableName} from "./loop";
+import {UnitLoopVariableName} from './loop';
 
 export const UnitEditor = (props: {
 	pipeline: Pipeline;

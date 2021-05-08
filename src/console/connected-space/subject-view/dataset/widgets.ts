@@ -8,10 +8,10 @@ export const SubjectDataSetContainer = styled.div.attrs({'data-widget': 'subject
 	overflow       : hidden;
 `;
 export const SubjectDataSetLoading = styled.div.attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        'data-widget': 'subject-dataset-loading',
-        style: {display: visible ? 'flex' : 'none'}
-    };
+	return {
+		'data-widget': 'subject-dataset-loading',
+		style: {display: visible ? 'flex' : 'none'}
+	};
 })<{ visible: boolean }>`
 	position        : absolute;
 	align-items     : center;

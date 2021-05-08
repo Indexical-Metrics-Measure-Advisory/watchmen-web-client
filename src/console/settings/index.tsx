@@ -7,16 +7,16 @@ import {LanguageSettings} from './language';
 import {ThemeSettings} from './theme';
 
 export const ConsoleSettings = () => {
-    return <FixWidthPage>
-        <PageHeader title={Lang.CONSOLE.SETTINGS.TITLE}/>
-        <VerticalMarginOneUnit/>
-        <LanguageSettings/>
-        <ThemeSettings/>
-    </FixWidthPage>;
+	return <FixWidthPage>
+		<PageHeader title={Lang.CONSOLE.SETTINGS.TITLE}/>
+		<VerticalMarginOneUnit/>
+		<LanguageSettings/>
+		<ThemeSettings/>
+	</FixWidthPage>;
 };
 
 const ConsoleSettingsIndex = () => {
-    return <ConsoleSettings/>;
+	return <ConsoleSettings/>;
 };
 
 export default ConsoleSettingsIndex;

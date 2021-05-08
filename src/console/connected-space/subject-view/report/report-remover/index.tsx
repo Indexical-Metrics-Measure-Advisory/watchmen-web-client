@@ -28,58 +28,58 @@ const NameUrl = styled.div`
 `;
 
 const ReportDelete = (props: { report: Report, onRemoved: () => void }) => {
-    const {report, onRemoved} = props;
+	const {report, onRemoved} = props;
 
-    const {fire} = useEventBus();
+	const {fire} = useEventBus();
 
-    const onDeleteClicked = async () => {
-        fire(EventTypes.HIDE_DIALOG);
-        fire(EventTypes.INVOKE_REMOTE_REQUEST,
-            async () => await deleteReport(report),
-            () => onRemoved())
-    };
-    const onCancelClicked = () => {
-        fire(EventTypes.HIDE_DIALOG);
-    };
+	const onDeleteClicked = async () => {
+		fire(EventTypes.HIDE_DIALOG);
+		fire(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => await deleteReport(report),
+			() => onRemoved());
+	};
+	const onCancelClicked = () => {
+		fire(EventTypes.HIDE_DIALOG);
+	};
 
-    return <>
-        <DeleteDialogBody>
-            <DialogLabel>{Lang.CONSOLE.CONNECTED_SPACE.DELETE_REPORT_DIALOG_LABEL}</DialogLabel>
-            <NameUrl>{report.name}</NameUrl>
-        </DeleteDialogBody>
-        <DialogFooter>
-            <Button ink={ButtonInk.DANGER} onClick={onDeleteClicked}>{Lang.ACTIONS.DELETE}</Button>
-            <Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>{Lang.ACTIONS.CANCEL}</Button>
-        </DialogFooter>
-    </>;
+	return <>
+		<DeleteDialogBody>
+			<DialogLabel>{Lang.CONSOLE.CONNECTED_SPACE.DELETE_REPORT_DIALOG_LABEL}</DialogLabel>
+			<NameUrl>{report.name}</NameUrl>
+		</DeleteDialogBody>
+		<DialogFooter>
+			<Button ink={ButtonInk.DANGER} onClick={onDeleteClicked}>{Lang.ACTIONS.DELETE}</Button>
+			<Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>{Lang.ACTIONS.CANCEL}</Button>
+		</DialogFooter>
+	</>;
 };
 
 export const ReportRemover = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
-    const {subject} = props;
+	const {subject} = props;
 
-    const {fire: fireGlobal} = useEventBus();
-    const {fire: fireSubject} = useSubjectEventBus();
-    const {on, off} = useReportEventBus();
-    useEffect(() => {
-        const onDeleted = (report: Report) => async () => {
-            if (!subject.reports) {
-                return;
-            }
-            // eslint-disable-next-line
-            const index = subject.reports.findIndex(r => r.reportId == report.reportId);
-            if (index !== -1) {
-                subject.reports.splice(index, 1);
-            }
-            fireSubject(SubjectEventTypes.REPORT_REMOVED, report);
-        };
-        const onDelete = (report: Report) => {
-            fireGlobal(EventTypes.SHOW_DIALOG,
-                <ReportDelete report={report} onRemoved={onDeleted(report)}/>);
-        };
-        on(ReportEventTypes.DO_DELETE_REPORT, onDelete);
-        return () => {
-            off(ReportEventTypes.DO_DELETE_REPORT, onDelete);
-        };
-    });
-    return <></>;
+	const {fire: fireGlobal} = useEventBus();
+	const {fire: fireSubject} = useSubjectEventBus();
+	const {on, off} = useReportEventBus();
+	useEffect(() => {
+		const onDeleted = (report: Report) => async () => {
+			if (!subject.reports) {
+				return;
+			}
+			// eslint-disable-next-line
+			const index = subject.reports.findIndex(r => r.reportId == report.reportId);
+			if (index !== -1) {
+				subject.reports.splice(index, 1);
+			}
+			fireSubject(SubjectEventTypes.REPORT_REMOVED, report);
+		};
+		const onDelete = (report: Report) => {
+			fireGlobal(EventTypes.SHOW_DIALOG,
+				<ReportDelete report={report} onRemoved={onDeleted(report)}/>);
+		};
+		on(ReportEventTypes.DO_DELETE_REPORT, onDelete);
+		return () => {
+			off(ReportEventTypes.DO_DELETE_REPORT, onDelete);
+		};
+	});
+	return <></>;
 };

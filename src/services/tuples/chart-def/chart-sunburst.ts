@@ -4,23 +4,23 @@ import {ChartDef} from './chart-def-types';
 import {PieChartSettings, PieChartSettingsSeries} from './chart-pie';
 
 export const SUNBURST: ChartDef = {
-    type: ChartType.SUNBURST,
-    minDimensionCount: 2,
-    minIndicatorCount: 1,
-    maxIndicatorCount: 1,
+	type: ChartType.SUNBURST,
+	minDimensionCount: 2,
+	minIndicatorCount: 1,
+	maxIndicatorCount: 1,
 
-    canHoldTitle: true,
-    canHoldLegend: false,
-    canUseGrid: false,
-    canUseXAxis: false,
-    canUseYAxis: false
+	canHoldTitle: true,
+	canHoldLegend: false,
+	canUseGrid: false,
+	canUseXAxis: false,
+	canUseYAxis: false
 };
 
 export interface SunburstChartSettings extends PieChartSettings {
-    series?: Omit<PieChartSettingsSeries, 'roseType' | 'showPercentage'>;
+	series?: Omit<PieChartSettingsSeries, 'roseType' | 'showPercentage'>;
 }
 
 export interface SunburstChart extends ECharts {
-    type: ChartType.SUNBURST;
-    settings?: SunburstChartSettings;
+	type: ChartType.SUNBURST;
+	settings?: SunburstChartSettings;
 }

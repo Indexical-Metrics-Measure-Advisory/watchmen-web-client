@@ -3,12 +3,12 @@ import {DwarfButton} from '../../../../../basic-widgets/button';
 import {COLLAPSE_WIDTH, computeColumnWidths} from '../widgets';
 
 export const SubjectDefHeader = styled.div.attrs<{ activeIndex: number }>(({activeIndex}) => {
-    return {
-        'data-widget': 'subject-def-header',
-        style: {
-            gridTemplateColumns: computeColumnWidths(activeIndex)
-        }
-    };
+	return {
+		'data-widget': 'subject-def-header',
+		style: {
+			gridTemplateColumns: computeColumnWidths(activeIndex)
+		}
+	};
 })<{ activeIndex: number }>`
 	display               : grid;
 	grid-template-columns : 1fr repeat(4, ${COLLAPSE_WIDTH}px);

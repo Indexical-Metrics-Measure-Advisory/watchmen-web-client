@@ -12,41 +12,41 @@ import {ExpandToggleButton, SectionTitle, TitleExecutionLabel, TitleLabel, Title
 import {DetailProcessUnitContainer} from './widgets';
 
 export const DetailProcessUnit = (props: {
-    unit: PipelineStageUnit;
-    stageIndex: number;
-    unitIndex: number;
-    log: MonitorLogUnit;
-    topicsMap: Map<string, Topic>;
+	unit: PipelineStageUnit;
+	stageIndex: number;
+	unitIndex: number;
+	log: MonitorLogUnit;
+	topicsMap: Map<string, Topic>;
 }) => {
-    const {unit, stageIndex, unitIndex, log, topicsMap} = props;
+	const {unit, stageIndex, unitIndex, log, topicsMap} = props;
 
-    const [expanded, setExpanded] = useState(false);
+	const [expanded, setExpanded] = useState(false);
 
-    const onExpandToggleClicked = () => setExpanded(!expanded);
+	const onExpandToggleClicked = () => setExpanded(!expanded);
 
-    const unitExecution = log.conditionResult || true;
+	const unitExecution = log.conditionResult || true;
 
-    return <DetailProcessUnitContainer>
-        <SectionTitle>
-            <TitleLabel>
-                <TitleNameLabel># {stageIndex}.{unitIndex}. Unit Execution</TitleNameLabel>
-                <TitleExecutionLabel data-ignored={!unitExecution}>{`${unitExecution}`}</TitleExecutionLabel>
-            </TitleLabel>
-            <ExpandToggleButton
-                tooltip={{label: expanded ? 'Collapse' : 'Expand', alignment: TooltipAlignment.RIGHT, offsetX: 8}}
-                onClick={onExpandToggleClicked}>
-                <FontAwesomeIcon icon={expanded ? ICON_COLLAPSE_PANEL : ICON_EXPAND_PANEL}/>
-            </ExpandToggleButton>
-        </SectionTitle>
-        {expanded
-            ? (log.actions || []).map((actionLog, actionIndex) => {
-                const action: PipelineStageUnitAction = (unit.do || [])[actionIndex] || {};
-                return <DetailProcessAction action={action}
-                                            stageIndex={stageIndex} unitIndex={unitIndex} actionIndex={actionIndex + 1}
-                                            log={actionLog}
-                                            topicsMap={topicsMap}
-                                            key={action.actionId || v4()}/>;
-            })
-            : null}
-    </DetailProcessUnitContainer>;
+	return <DetailProcessUnitContainer>
+		<SectionTitle>
+			<TitleLabel>
+				<TitleNameLabel># {stageIndex}.{unitIndex}. Unit Execution</TitleNameLabel>
+				<TitleExecutionLabel data-ignored={!unitExecution}>{`${unitExecution}`}</TitleExecutionLabel>
+			</TitleLabel>
+			<ExpandToggleButton
+				tooltip={{label: expanded ? 'Collapse' : 'Expand', alignment: TooltipAlignment.RIGHT, offsetX: 8}}
+				onClick={onExpandToggleClicked}>
+				<FontAwesomeIcon icon={expanded ? ICON_COLLAPSE_PANEL : ICON_EXPAND_PANEL}/>
+			</ExpandToggleButton>
+		</SectionTitle>
+		{expanded
+			? (log.actions || []).map((actionLog, actionIndex) => {
+				const action: PipelineStageUnitAction = (unit.do || [])[actionIndex] || {};
+				return <DetailProcessAction action={action}
+				                            stageIndex={stageIndex} unitIndex={unitIndex} actionIndex={actionIndex + 1}
+				                            log={actionLog}
+				                            topicsMap={topicsMap}
+				                            key={action.actionId || v4()}/>;
+			})
+			: null}
+	</DetailProcessUnitContainer>;
 };

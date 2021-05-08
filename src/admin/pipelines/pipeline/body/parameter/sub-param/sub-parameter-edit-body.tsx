@@ -13,40 +13,40 @@ import {TopicFactorEditor} from '../topic-factor';
 import {RemoveMeButton} from './widgets';
 
 export const SubParameterEditBody = (props: {
-    parentParameter: ComputedParameter;
-    parameter: Parameter;
-    topics: Array<Topic>;
-    onDeleted: () => void;
+	parentParameter: ComputedParameter;
+	parameter: Parameter;
+	topics: Array<Topic>;
+	onDeleted: () => void;
 }) => {
-    const {
-        parameter, parentParameter,
-        topics,
-        onDeleted
-    } = props;
+	const {
+		parameter, parentParameter,
+		topics,
+		onDeleted
+	} = props;
 
-    const {fire: fireGlobal} = useEventBus();
+	const {fire: fireGlobal} = useEventBus();
 
-    const onDeleteClicked = () => {
-        const canDelete = canDeleteAnyParameter(parentParameter);
-        if (!canDelete) {
-            fireGlobal(EventTypes.SHOW_ALERT,
-                <AlertLabel>Cannot delete this because of reach minimum parameter(s).</AlertLabel>);
-        } else {
-            const index = parentParameter.parameters.findIndex(child => child === parameter);
-            if (index !== -1) {
-                parentParameter.parameters.splice(index, 1);
-                onDeleted();
-            }
-        }
-    };
+	const onDeleteClicked = () => {
+		const canDelete = canDeleteAnyParameter(parentParameter);
+		if (!canDelete) {
+			fireGlobal(EventTypes.SHOW_ALERT,
+				<AlertLabel>Cannot delete this because of reach minimum parameter(s).</AlertLabel>);
+		} else {
+			const index = parentParameter.parameters.findIndex(child => child === parameter);
+			if (index !== -1) {
+				parentParameter.parameters.splice(index, 1);
+				onDeleted();
+			}
+		}
+	};
 
-    return <>
-        <ConstantEditor parameter={parameter}/>
-        <TopicFactorEditor parameter={parameter} topics={topics}/>
-        <RemoveMeButton onClick={onDeleteClicked}>
-            <FontAwesomeIcon icon={ICON_DELETE}/>
-        </RemoveMeButton>
-        <ComputedEditor parameter={parameter} topics={topics}/>
-    </>;
+	return <>
+		<ConstantEditor parameter={parameter}/>
+		<TopicFactorEditor parameter={parameter} topics={topics}/>
+		<RemoveMeButton onClick={onDeleteClicked}>
+			<FontAwesomeIcon icon={ICON_DELETE}/>
+		</RemoveMeButton>
+		<ComputedEditor parameter={parameter} topics={topics}/>
+	</>;
 
 };

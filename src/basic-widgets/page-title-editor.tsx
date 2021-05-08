@@ -45,25 +45,25 @@ const Editor = styled(Input).attrs({'data-widget': 'page-title-editor-input'})`
 `;
 
 export const PageTitleEditor = (props: {
-    title: string;
-    defaultTitle: string;
-    onChange: (newTitle: string) => void;
-    onChangeComplete: (newTitle: string) => void;
+	title: string;
+	defaultTitle: string;
+	onChange: (newTitle: string) => void;
+	onChangeComplete: (newTitle: string) => void;
 }) => {
-    const {title, defaultTitle, onChange, onChangeComplete} = props;
+	const {title, defaultTitle, onChange, onChangeComplete} = props;
 
-    const onTextChange = (event: ChangeEvent<HTMLInputElement>) => {
-        onChange(event.target.value);
-    };
-    const onBlur = (event: FocusEvent<HTMLInputElement>) => {
-        onChangeComplete(event.target.value);
-    };
+	const onTextChange = (event: ChangeEvent<HTMLInputElement>) => {
+		onChange(event.target.value);
+	};
+	const onBlur = (event: FocusEvent<HTMLInputElement>) => {
+		onChangeComplete(event.target.value);
+	};
 
-    const label = (title || '').trim() || defaultTitle;
+	const label = (title || '').trim() || defaultTitle;
 
-    return <Container>
-        <Label>{label}</Label>
-        <Editor value={title} placeholder={defaultTitle}
-                onChange={onTextChange} onBlur={onBlur}/>
-    </Container>;
+	return <Container>
+		<Label>{label}</Label>
+		<Editor value={title} placeholder={defaultTitle}
+		        onChange={onTextChange} onBlur={onBlur}/>
+	</Container>;
 };

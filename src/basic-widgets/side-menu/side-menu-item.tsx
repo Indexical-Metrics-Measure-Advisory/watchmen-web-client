@@ -21,13 +21,13 @@ export const SideMenuItemContainer = styled.div.attrs({'data-widget': 'side-menu
 	}
 `;
 export const SideMenuItemIcon = styled.div.attrs<{ active: boolean }>(({active}) => {
-    return {
-        'data-widget': 'side-menu-item-icon',
-        style: {
-            color: active ? 'var(--invert-color)' : (void 0),
-            backgroundColor: active ? 'var(--primary-color)' : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'side-menu-item-icon',
+		style: {
+			color: active ? 'var(--invert-color)' : (void 0),
+			backgroundColor: active ? 'var(--primary-color)' : (void 0)
+		}
+	};
 })<{ active: boolean }>`
 	display         : flex;
 	position        : relative;
@@ -51,38 +51,38 @@ export const SideMenuItemLabel = styled.div.attrs({'data-widget': 'side-menu-ite
 `;
 
 export const SideMenuItem = (props: {
-    icon: IconProp,
-    label: string
-    showTooltip: boolean,
-    active?: boolean
-    onClick?: (rect: DOMRect) => void;
-    visible?: boolean;
+	icon: IconProp,
+	label: string
+	showTooltip: boolean,
+	active?: boolean
+	onClick?: (rect: DOMRect) => void;
+	visible?: boolean;
 }) => {
-    const {icon, label, showTooltip, active = false, onClick, visible = true, ...rest} = props;
+	const {icon, label, showTooltip, active = false, onClick, visible = true, ...rest} = props;
 
-    const containerRef = useRef<HTMLDivElement>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
 
-    const tooltip = useTooltip<HTMLDivElement>({
-        use: showTooltip,
-        tooltip: label,
-        target: containerRef,
-        alignment: TooltipAlignment.LEFT,
-        offsetX: 6,
-        offsetY: TOOLTIP_CARET_OFFSET - 2
-    });
+	const tooltip = useTooltip<HTMLDivElement>({
+		use: showTooltip,
+		tooltip: label,
+		target: containerRef,
+		alignment: TooltipAlignment.LEFT,
+		offsetX: 6,
+		offsetY: TOOLTIP_CARET_OFFSET - 2
+	});
 
-    if (!visible) {
-        return null;
-    }
+	if (!visible) {
+		return null;
+	}
 
-    const onClicked = () => {
-        onClick && onClick(containerRef.current!.getBoundingClientRect());
-    };
+	const onClicked = () => {
+		onClick && onClick(containerRef.current!.getBoundingClientRect());
+	};
 
-    return <SideMenuItemContainer {...rest} onClick={onClicked} {...tooltip} ref={containerRef}>
-        <SideMenuItemIcon active={active}>
-            <FontAwesomeIcon icon={icon}/>
-        </SideMenuItemIcon>
-        <SideMenuItemLabel>{label}</SideMenuItemLabel>
-    </SideMenuItemContainer>;
+	return <SideMenuItemContainer {...rest} onClick={onClicked} {...tooltip} ref={containerRef}>
+		<SideMenuItemIcon active={active}>
+			<FontAwesomeIcon icon={icon}/>
+		</SideMenuItemIcon>
+		<SideMenuItemLabel>{label}</SideMenuItemLabel>
+	</SideMenuItemContainer>;
 };

@@ -6,13 +6,13 @@ import {Editor} from './editor';
 import {PipelineBodyContainer} from './widgets';
 
 export const PipelineBody = (props: {
-    pipeline: Pipeline;
-    topics: Array<Topic>;
+	pipeline: Pipeline;
+	topics: Array<Topic>;
 }) => {
-    const {pipeline, topics} = props;
+	const {pipeline, topics} = props;
 
-    return <PipelineBodyContainer>
-        <Editor pipeline={pipeline} topics={topics}/>
-        <PipelineDsl pipeline={pipeline} topics={topics}/>
-    </PipelineBodyContainer>;
+	return <PipelineBodyContainer>
+		<Editor pipeline={pipeline} topics={topics}/>
+		<PipelineDsl pipeline={pipeline} topics={topics}/>
+	</PipelineBodyContainer>;
 };

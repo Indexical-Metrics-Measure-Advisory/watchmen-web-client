@@ -2,22 +2,22 @@ import styled from 'styled-components';
 import {TooltipButton} from '../../../../basic-widgets/tooltip-button';
 
 export const PipelinesBodyContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        'data-widget': 'pipelines-navigator-pipelines',
-        'data-v-scroll': '',
-        style: {
-            height: visible ? (void 0) : 0,
-            flexGrow: visible ? 1 : 0,
-            borderBottom: visible ? 'var(--border)' : 0
-        }
-    };
+	return {
+		'data-widget': 'pipelines-navigator-pipelines',
+		'data-v-scroll': '',
+		style: {
+			height: visible ? (void 0) : 0,
+			flexGrow: visible ? 1 : 0,
+			borderBottom: visible ? 'var(--border)' : 0
+		}
+	};
 })<{ visible: boolean }>`
 	display               : block;
 	position              : relative;
 	align-content         : start;
 	overflow-y            : auto;
 `;
-export const PipelinesWrapper = styled.div``
+export const PipelinesWrapper = styled.div``;
 export const PipelineRowContainer = styled.div.attrs({'data-widget': 'pipelines-navigator-pipeline'})`
 	display               : grid;
 	position              : relative;
@@ -72,12 +72,12 @@ export const PipelineButton = styled(TooltipButton)`
 	margin-left  : calc(var(--margin) / -2);
 `;
 export const PipelineDirection = styled.div.attrs<{ rows: number }>(({rows}) => {
-    return {
-        'data-widget': 'pipelines-navigator-pipeline-direction',
-        style: {
-            gridRow: `2 / span ${Math.max(rows, 1)}`
-        }
-    };
+	return {
+		'data-widget': 'pipelines-navigator-pipeline-direction',
+		style: {
+			gridRow: `2 / span ${Math.max(rows, 1)}`
+		}
+	};
 })<{ rows: number }>`
 	display      : flex;
 	position     : relative;

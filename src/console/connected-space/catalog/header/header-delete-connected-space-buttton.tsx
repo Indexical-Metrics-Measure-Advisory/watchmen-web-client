@@ -27,47 +27,47 @@ const NameUrl = styled.div`
 `;
 
 const ConnectedSpaceDelete = (props: { connectedSpace: ConnectedSpace, onRemoved: () => void }) => {
-    const {connectedSpace, onRemoved} = props;
+	const {connectedSpace, onRemoved} = props;
 
-    const {fire} = useEventBus();
+	const {fire} = useEventBus();
 
-    const onDeleteClicked = async () => {
-        fire(EventTypes.HIDE_DIALOG);
-        fire(EventTypes.INVOKE_REMOTE_REQUEST,
-            async () => await deleteConnectedSpace(connectedSpace),
-            () => onRemoved());
-    };
-    const onCancelClicked = () => {
-        fire(EventTypes.HIDE_DIALOG);
-    };
+	const onDeleteClicked = async () => {
+		fire(EventTypes.HIDE_DIALOG);
+		fire(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => await deleteConnectedSpace(connectedSpace),
+			() => onRemoved());
+	};
+	const onCancelClicked = () => {
+		fire(EventTypes.HIDE_DIALOG);
+	};
 
-    return <>
-        <DeleteDialogBody>
-            <DialogLabel>{Lang.CONSOLE.CONNECTED_SPACE.DELETE_DIALOG_LABEL}</DialogLabel>
-            <NameUrl>{connectedSpace.name}</NameUrl>
-        </DeleteDialogBody>
-        <DialogFooter>
-            <Button ink={ButtonInk.DANGER} onClick={onDeleteClicked}>{Lang.ACTIONS.DELETE}</Button>
-            <Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>{Lang.ACTIONS.CANCEL}</Button>
-        </DialogFooter>
-    </>;
+	return <>
+		<DeleteDialogBody>
+			<DialogLabel>{Lang.CONSOLE.CONNECTED_SPACE.DELETE_DIALOG_LABEL}</DialogLabel>
+			<NameUrl>{connectedSpace.name}</NameUrl>
+		</DeleteDialogBody>
+		<DialogFooter>
+			<Button ink={ButtonInk.DANGER} onClick={onDeleteClicked}>{Lang.ACTIONS.DELETE}</Button>
+			<Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>{Lang.ACTIONS.CANCEL}</Button>
+		</DialogFooter>
+	</>;
 };
 
 export const HeaderDeleteConnectedSpaceButton = (props: { connectedSpace: ConnectedSpace }) => {
-    const {connectedSpace} = props;
-    const {fire: fireGlobal} = useEventBus();
-    const {fire} = useConsoleEventBus();
+	const {connectedSpace} = props;
+	const {fire: fireGlobal} = useEventBus();
+	const {fire} = useConsoleEventBus();
 
-    const onDeleted = async () => {
-        fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, connectedSpace.connectId);
-        fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, connectedSpace);
-    };
-    const onDeleteClicked = () => {
-        fireGlobal(EventTypes.SHOW_DIALOG,
-            <ConnectedSpaceDelete connectedSpace={connectedSpace} onRemoved={onDeleted}/>);
-    };
+	const onDeleted = async () => {
+		fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, connectedSpace.connectId);
+		fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, connectedSpace);
+	};
+	const onDeleteClicked = () => {
+		fireGlobal(EventTypes.SHOW_DIALOG,
+			<ConnectedSpaceDelete connectedSpace={connectedSpace} onRemoved={onDeleted}/>);
+	};
 
-    return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.DELETE_ME} onClick={onDeleteClicked}>
-        <FontAwesomeIcon icon={ICON_THROW_AWAY}/>
-    </PageHeaderButton>;
+	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.DELETE_ME} onClick={onDeleteClicked}>
+		<FontAwesomeIcon icon={ICON_THROW_AWAY}/>
+	</PageHeaderButton>;
 };

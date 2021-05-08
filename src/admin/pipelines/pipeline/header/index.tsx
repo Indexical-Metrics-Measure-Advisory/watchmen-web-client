@@ -5,10 +5,10 @@ import {PipelineHeaderButtons} from './pipeline-header-buttons';
 import {PageHeaderHolder} from './widgets';
 
 export const PipelineHeader = (props: { pipeline: Pipeline }) => {
-    const {pipeline} = props;
+	const {pipeline} = props;
 
-    return <PageHeaderHolder>
-        <NameEditor pipeline={pipeline}/>
-        <PipelineHeaderButtons pipeline={pipeline}/>
-    </PageHeaderHolder>;
+	return <PageHeaderHolder>
+		<NameEditor pipeline={pipeline}/>
+		<PipelineHeaderButtons pipeline={pipeline}/>
+	</PageHeaderHolder>;
 };

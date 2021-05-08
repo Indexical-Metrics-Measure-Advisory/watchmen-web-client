@@ -12,47 +12,47 @@ import {Parameter2FilterEventBridge} from '../parameter-2-filter-event-bridge';
 import {ExpressionSide, ParameterFromEditorForExpression} from './widgets';
 
 export const ExpressionBody = (props: {
-    filter: SubjectDataSetFilterExpression;
-    parameter: Parameter
-    availableTopics: Array<Topic>;
-    pickedTopics: Array<Topic>;
-    visible: boolean;
+	filter: SubjectDataSetFilterExpression;
+	parameter: Parameter
+	availableTopics: Array<Topic>;
+	pickedTopics: Array<Topic>;
+	visible: boolean;
 }) => {
-    const {
-        filter, parameter,
-        availableTopics, pickedTopics,
-        visible
-    } = props;
+	const {
+		filter, parameter,
+		availableTopics, pickedTopics,
+		visible
+	} = props;
 
-    const {on, off} = useParameterEventBus();
-    const forceUpdate = useForceUpdate();
-    useEffect(() => {
-        on(ParameterEventTypes.FROM_CHANGED, forceUpdate);
-        return () => {
-            off(ParameterEventTypes.FROM_CHANGED, forceUpdate);
-        };
-    }, [on, off, forceUpdate]);
+	const {on, off} = useParameterEventBus();
+	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		on(ParameterEventTypes.FROM_CHANGED, forceUpdate);
+		return () => {
+			off(ParameterEventTypes.FROM_CHANGED, forceUpdate);
+		};
+	}, [on, off, forceUpdate]);
 
-    return <ExpressionSide shorten={parameter.kind === ParameterKind.COMPUTED} visible={visible}>
-        <ParameterFromEditorForExpression shorten={parameter.kind === ParameterKind.COMPUTED}
-                                          parameter={parameter}/>
-        <ConstantValueEditor parameter={parameter}/>
-        <TopicFactorEditor parameter={parameter}
-                           availableTopics={availableTopics} pickedTopics={pickedTopics}/>
-        <ComputedEditor parameter={parameter}
-                        availableTopics={availableTopics} pickedTopics={pickedTopics}/>
-        <Parameter2FilterEventBridge filter={filter}/>
-    </ExpressionSide>;
+	return <ExpressionSide shorten={parameter.kind === ParameterKind.COMPUTED} visible={visible}>
+		<ParameterFromEditorForExpression shorten={parameter.kind === ParameterKind.COMPUTED}
+		                                  parameter={parameter}/>
+		<ConstantValueEditor parameter={parameter}/>
+		<TopicFactorEditor parameter={parameter}
+		                   availableTopics={availableTopics} pickedTopics={pickedTopics}/>
+		<ComputedEditor parameter={parameter}
+		                availableTopics={availableTopics} pickedTopics={pickedTopics}/>
+		<Parameter2FilterEventBridge filter={filter}/>
+	</ExpressionSide>;
 };
 
 export const Expression = (props: {
-    filter: SubjectDataSetFilterExpression;
-    parameter: Parameter
-    availableTopics: Array<Topic>;
-    pickedTopics: Array<Topic>;
-    visible: boolean;
+	filter: SubjectDataSetFilterExpression;
+	parameter: Parameter
+	availableTopics: Array<Topic>;
+	pickedTopics: Array<Topic>;
+	visible: boolean;
 }) => {
-    return <ParameterEventBusProvider>
-        <ExpressionBody {...props}/>
-    </ParameterEventBusProvider>;
+	return <ParameterEventBusProvider>
+		<ExpressionBody {...props}/>
+	</ParameterEventBusProvider>;
 };

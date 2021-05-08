@@ -20,14 +20,14 @@ export const SeverityContainer = styled.div.attrs({'data-widget': 'alarm-severit
 	}
 `;
 export const SeverityOption = styled.div.attrs<{ active: boolean, expanded: boolean }>(({active, expanded}) => {
-    return {
-        'data-widget': 'alarm-severity-option',
-        style: {
-            display: (expanded || active) ? (void 0) : 'none',
-            backgroundColor: active ? (void 0) : 'var(--bg-color)',
-            boxShadow: active ? (void 0) : 'var(--param-left-border)'
-        }
-    };
+	return {
+		'data-widget': 'alarm-severity-option',
+		style: {
+			display: (expanded || active) ? (void 0) : 'none',
+			backgroundColor: active ? (void 0) : 'var(--bg-color)',
+			boxShadow: active ? (void 0) : 'var(--param-left-border)'
+		}
+	};
 })<{ active: boolean, expanded: boolean }>`
 	display      : flex;
 	align-items  : center;

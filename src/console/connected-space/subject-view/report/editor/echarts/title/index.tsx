@@ -5,14 +5,14 @@ import {useChartType} from '../../settings-effect/use-chart-type';
 import {EChartsTitleTextSettings} from './text';
 
 export const EChartsTitleSettings = (props: { report: Report }) => {
-    const {report} = props;
-    const {chart} = report;
+	const {report} = props;
+	const {chart} = report;
 
-    useChartType({report});
+	useChartType({report});
 
-    if (!isEChart(chart) || !canHoldTitle(chart)) {
-        return null;
-    }
+	if (!isEChart(chart) || !canHoldTitle(chart)) {
+		return null;
+	}
 
-    return <EChartsTitleTextSettings report={report} chart={chart}/>;
+	return <EChartsTitleTextSettings report={report} chart={chart}/>;
 };

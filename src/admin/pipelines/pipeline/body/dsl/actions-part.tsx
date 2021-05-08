@@ -8,20 +8,20 @@ import {ActionPart} from './action-part';
 import {LineComment, PropName} from './dsl-widgets';
 
 export const ActionsPart = (props: { pipeline: Pipeline, stage: PipelineStage, unit: PipelineStageUnit, topicsMap: Map<string, Topic> }) => {
-    const {pipeline, stage, unit, topicsMap} = props;
+	const {pipeline, stage, unit, topicsMap} = props;
 
-    const stageIndex = pipeline.stages.indexOf(stage) + 1;
-    const unitIndex = stage.units.indexOf(unit) + 1;
+	const stageIndex = pipeline.stages.indexOf(stage) + 1;
+	const unitIndex = stage.units.indexOf(unit) + 1;
 
-    return <>
-        <PropName indent={4}>actions</PropName>
-        {
-            unit.do.map((action, actionIndex) => {
-                return <Fragment key={v4()}>
-                    <LineComment indent={5}>Action {stageIndex}.{unitIndex}.{actionIndex + 1}</LineComment>
-                    <ActionPart pipeline={pipeline} stage={stage} unit={unit} action={action} topicsMap={topicsMap}/>
-                </Fragment>;
-            })
-        }
-    </>;
+	return <>
+		<PropName indent={4}>actions</PropName>
+		{
+			unit.do.map((action, actionIndex) => {
+				return <Fragment key={v4()}>
+					<LineComment indent={5}>Action {stageIndex}.{unitIndex}.{actionIndex + 1}</LineComment>
+					<ActionPart pipeline={pipeline} stage={stage} unit={unit} action={action} topicsMap={topicsMap}/>
+				</Fragment>;
+			})
+		}
+	</>;
 };

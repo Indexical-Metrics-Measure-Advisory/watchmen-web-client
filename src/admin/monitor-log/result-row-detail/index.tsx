@@ -6,15 +6,15 @@ import {TriggerData} from './trigger-data';
 import {RowDetailContainer} from './widgets';
 
 export const ResultRowDetail = (props: {
-    row: MonitorLogRow;
-    pipeline: Pipeline;
-    topicsMap: Map<string, Topic>;
-    onClose: () => void;
+	row: MonitorLogRow;
+	pipeline: Pipeline;
+	topicsMap: Map<string, Topic>;
+	onClose: () => void;
 }) => {
-    const {row, pipeline, topicsMap, onClose} = props;
+	const {row, pipeline, topicsMap, onClose} = props;
 
-    return <RowDetailContainer>
-        <TriggerData row={row} pipeline={pipeline}/>
-        <DetailProcess row={row} pipeline={pipeline} topicsMap={topicsMap} onClose={onClose}/>
-    </RowDetailContainer>;
+	return <RowDetailContainer>
+		<TriggerData row={row} pipeline={pipeline}/>
+		<DetailProcess row={row} pipeline={pipeline} topicsMap={topicsMap} onClose={onClose}/>
+	</RowDetailContainer>;
 };

@@ -12,26 +12,26 @@ import {LeadKeyword} from './widgets';
  * can be layout by outside.
  */
 export const SubjectDsl = (props: {
-    subject: Subject;
-    availableTopics: Array<Topic>;
-    pickedTopics: Array<Topic>;
-    visible: boolean;
+	subject: Subject;
+	availableTopics: Array<Topic>;
+	pickedTopics: Array<Topic>;
+	visible: boolean;
 }) => {
-    const {subject, availableTopics, pickedTopics, visible} = props;
+	const {subject, availableTopics, pickedTopics, visible} = props;
 
-    if (!visible) {
-        return null;
-    }
+	if (!visible) {
+		return null;
+	}
 
-    return <>
-        <LeadKeyword>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_SELECT}</LeadKeyword>
-        <Select subject={subject}
-                availableTopics={availableTopics} pickedTopics={pickedTopics}/>
-        <LeadKeyword>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_FROM}</LeadKeyword>
-        <From subject={subject}
-              availableTopics={availableTopics} pickedTopics={pickedTopics}/>
-        <LeadKeyword>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_WHERE}</LeadKeyword>
-        <Where subject={subject}
-               availableTopics={availableTopics} pickedTopics={pickedTopics}/>
-    </>;
+	return <>
+		<LeadKeyword>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_SELECT}</LeadKeyword>
+		<Select subject={subject}
+		        availableTopics={availableTopics} pickedTopics={pickedTopics}/>
+		<LeadKeyword>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_FROM}</LeadKeyword>
+		<From subject={subject}
+		      availableTopics={availableTopics} pickedTopics={pickedTopics}/>
+		<LeadKeyword>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_WHERE}</LeadKeyword>
+		<Where subject={subject}
+		       availableTopics={availableTopics} pickedTopics={pickedTopics}/>
+	</>;
 };

@@ -53,10 +53,10 @@ export const ImagePart = styled.div.attrs({'data-widget': 'login-body-image-part
 	padding-right   : 150px;
 `;
 export const Image = styled.div.attrs<{ avoid: boolean }>(({avoid}) => {
-    return {
-        'data-widget': 'login-body-image',
-        style: {backgroundImage: avoid ? `url(${Background2})` : (void 0)}
-    };
+	return {
+		'data-widget': 'login-body-image',
+		style: {backgroundImage: avoid ? `url(${Background2})` : (void 0)}
+	};
 })<{ avoid: boolean }>`
 	width               : 400px;
 	height              : 320px;
@@ -117,11 +117,11 @@ export const FormRow = styled.div.attrs({'data-widget': 'login-body-form-row'})`
 	}
 `;
 export const FormRowIcon = styled(FontAwesomeIcon).attrs(() => {
-    return {
-        'data-widget': 'login-body-form-row-icon',
-        // width css cannot override selected style from original font awesome css according to css selection priority, use style attribute directly
-        style: {width: 40}
-    };
+	return {
+		'data-widget': 'login-body-form-row-icon',
+		// width css cannot override selected style from original font awesome css according to css selection priority, use style attribute directly
+		style: {width: 40}
+	};
 })`
 	font-size : 1.05em;
 	opacity   : 0.7;

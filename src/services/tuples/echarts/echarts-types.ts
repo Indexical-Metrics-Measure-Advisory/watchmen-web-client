@@ -10,12 +10,12 @@ export interface EChartsSettings extends ChartSettings {
 }
 
 export interface ECharts extends Chart {
-    type: ChartType;
-    settings?: EChartsSettings
-        & EChartsTitleHolder
-        & EChartsLegendHolder
-        & EChartsGridHolder
-        & EChartsXAxisHolder
-        & EChartsYAxisHolder
-        & EChartsToolboxHolder;
+	type: ChartType;
+	settings?: EChartsSettings
+		& EChartsTitleHolder
+		& EChartsLegendHolder
+		& EChartsGridHolder
+		& EChartsXAxisHolder
+		& EChartsYAxisHolder
+		& EChartsToolboxHolder;
 }

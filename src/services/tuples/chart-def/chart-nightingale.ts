@@ -4,22 +4,22 @@ import {ChartDef} from './chart-def-types';
 import {PieChartSettings} from './chart-pie';
 
 export const NIGHTINGALE: ChartDef = {
-    type: ChartType.NIGHTINGALE,
-    minDimensionCount: 1,
-    minIndicatorCount: 1,
-    maxIndicatorCount: 1,
+	type: ChartType.NIGHTINGALE,
+	minDimensionCount: 1,
+	minIndicatorCount: 1,
+	maxIndicatorCount: 1,
 
-    canHoldTitle: true,
-    canHoldLegend: true,
-    canUseGrid: false,
-    canUseXAxis: false,
-    canUseYAxis: false
+	canHoldTitle: true,
+	canHoldLegend: true,
+	canUseGrid: false,
+	canUseXAxis: false,
+	canUseYAxis: false
 };
 
 export interface NightingaleChartSettings extends PieChartSettings {
 }
 
 export interface NightingaleChart extends ECharts {
-    type: ChartType.NIGHTINGALE;
-    settings?: NightingaleChartSettings;
+	type: ChartType.NIGHTINGALE;
+	settings?: NightingaleChartSettings;
 }

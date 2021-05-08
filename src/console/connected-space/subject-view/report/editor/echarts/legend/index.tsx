@@ -18,90 +18,90 @@ import {FontSettings, SettingsFontPropNames} from '../font';
 import {PositionSettings, SettingsPositionPropNames} from '../position';
 
 export const EChartsLegendSettings = (props: { report: Report }) => {
-    const {report} = props;
-    const {chart} = report;
+	const {report} = props;
+	const {chart} = report;
 
-    const {fire} = useReportEditEventBus();
-    useChartType({report});
+	const {fire} = useReportEditEventBus();
+	useChartType({report});
 
-    if (!isEChart(chart) || !canHoldLegend(chart)) {
-        return null;
-    }
+	if (!isEChart(chart) || !canHoldLegend(chart)) {
+		return null;
+	}
 
-    const onValueChange = () => {
-        fire(ReportEditEventTypes.ECHART_LEGEND_CHANGED, report);
-    };
+	const onValueChange = () => {
+		fire(ReportEditEventTypes.ECHART_LEGEND_CHANGED, report);
+	};
 
-    const legend = chart.settings?.legend;
-    const getLegendHolder = () => legend;
-    const propNames = {
-        font: {
-            family: EChartsLegendPropNames.FONT_FAMILY,
-            size: EChartsLegendPropNames.FONT_SIZE,
-            weight: EChartsLegendPropNames.FONT_WEIGHT,
-            color: EChartsLegendPropNames.FONT_COLOR,
-            style: EChartsLegendPropNames.FONT_STYLE
-        } as SettingsFontPropNames,
-        border: {
-            width: EChartsLegendPropNames.BORDER_WIDTH,
-            style: EChartsLegendPropNames.BORDER_STYLE,
-            color: EChartsLegendPropNames.BORDER_COLOR,
-            radius: EChartsLegendPropNames.BORDER_RADIUS
-        } as SettingsBorderPropNames,
-        position: {
-            top: EChartsLegendPropNames.POSITION_TOP,
-            right: EChartsLegendPropNames.POSITION_RIGHT,
-            left: EChartsLegendPropNames.POSITION_LEFT,
-            bottom: EChartsLegendPropNames.POSITION_BOTTOM
-        } as SettingsPositionPropNames
-    };
+	const legend = chart.settings?.legend;
+	const getLegendHolder = () => legend;
+	const propNames = {
+		font: {
+			family: EChartsLegendPropNames.FONT_FAMILY,
+			size: EChartsLegendPropNames.FONT_SIZE,
+			weight: EChartsLegendPropNames.FONT_WEIGHT,
+			color: EChartsLegendPropNames.FONT_COLOR,
+			style: EChartsLegendPropNames.FONT_STYLE
+		} as SettingsFontPropNames,
+		border: {
+			width: EChartsLegendPropNames.BORDER_WIDTH,
+			style: EChartsLegendPropNames.BORDER_STYLE,
+			color: EChartsLegendPropNames.BORDER_COLOR,
+			radius: EChartsLegendPropNames.BORDER_RADIUS
+		} as SettingsBorderPropNames,
+		position: {
+			top: EChartsLegendPropNames.POSITION_TOP,
+			right: EChartsLegendPropNames.POSITION_RIGHT,
+			left: EChartsLegendPropNames.POSITION_LEFT,
+			bottom: EChartsLegendPropNames.POSITION_BOTTOM
+		} as SettingsPositionPropNames
+	};
 
-    return <Section title={Lang.CHART.SECTION_TITLE_ECHART_LEGEND}>
-        <BooleanValue label={Lang.CHART.SHOW}
-                      value={legend?.show} defaultValue={false}
-                      onValueChange={onBooleanChange({
-                          report,
-                          chart,
-                          prop: EChartsLegendPropNames.SHOW,
-                          done: onValueChange
-                      })}/>
-        <DropdownValue label={Lang.CHART.LEGEND_ORIENT}
-                       value={legend?.orient} defaultValue={EChartsLegendOrient.HORIZONTAL}
-                       options={LegendOrientOptions}
-                       onValueChange={onDropdownValueChange({
-                           report,
-                           chart,
-                           prop: EChartsLegendPropNames.ORIENT,
-                           done: onValueChange
-                       })}/>
-        <FontSettings report={report} chart={chart}
-                      getHolder={getLegendHolder}
-                      propNames={propNames.font}
-                      onValueChange={onValueChange}/>
-        <ColorValue label={Lang.CHART.BACKGROUND_COLOR}
-                    value={legend?.backgroundColor}
-                    onValueChange={onColorChange({
-                        report,
-                        chart,
-                        prop: EChartsLegendPropNames.BACKGROUND_COLOR,
-                        done: onValueChange
-                    })}/>
-        <PositionSettings report={report} chart={chart}
-                          getHolder={getLegendHolder}
-                          propNames={propNames.position}
-                          onValueChange={onValueChange}/>
-        <BorderSettings report={report} chart={chart}
-                        getHolder={getLegendHolder}
-                        propNames={propNames.border}
-                        onValueChange={onValueChange}/>
-        <NumberValue label={Lang.CHART.PADDING} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 9999'}
-                     value={legend?.padding} defaultValue={0}
-                     validate={validateNumber(4)}
-                     onValueChange={onNumberChange({
-                         report,
-                         chart,
-                         prop: EChartsLegendPropNames.PADDING,
-                         done: onValueChange
-                     })}/>
-    </Section>;
+	return <Section title={Lang.CHART.SECTION_TITLE_ECHART_LEGEND}>
+		<BooleanValue label={Lang.CHART.SHOW}
+		              value={legend?.show} defaultValue={false}
+		              onValueChange={onBooleanChange({
+			              report,
+			              chart,
+			              prop: EChartsLegendPropNames.SHOW,
+			              done: onValueChange
+		              })}/>
+		<DropdownValue label={Lang.CHART.LEGEND_ORIENT}
+		               value={legend?.orient} defaultValue={EChartsLegendOrient.HORIZONTAL}
+		               options={LegendOrientOptions}
+		               onValueChange={onDropdownValueChange({
+			               report,
+			               chart,
+			               prop: EChartsLegendPropNames.ORIENT,
+			               done: onValueChange
+		               })}/>
+		<FontSettings report={report} chart={chart}
+		              getHolder={getLegendHolder}
+		              propNames={propNames.font}
+		              onValueChange={onValueChange}/>
+		<ColorValue label={Lang.CHART.BACKGROUND_COLOR}
+		            value={legend?.backgroundColor}
+		            onValueChange={onColorChange({
+			            report,
+			            chart,
+			            prop: EChartsLegendPropNames.BACKGROUND_COLOR,
+			            done: onValueChange
+		            })}/>
+		<PositionSettings report={report} chart={chart}
+		                  getHolder={getLegendHolder}
+		                  propNames={propNames.position}
+		                  onValueChange={onValueChange}/>
+		<BorderSettings report={report} chart={chart}
+		                getHolder={getLegendHolder}
+		                propNames={propNames.border}
+		                onValueChange={onValueChange}/>
+		<NumberValue label={Lang.CHART.PADDING} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 9999'}
+		             value={legend?.padding} defaultValue={0}
+		             validate={validateNumber(4)}
+		             onValueChange={onNumberChange({
+			             report,
+			             chart,
+			             prop: EChartsLegendPropNames.PADDING,
+			             done: onValueChange
+		             })}/>
+	</Section>;
 };

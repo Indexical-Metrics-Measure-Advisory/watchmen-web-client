@@ -15,25 +15,25 @@ import {WriteFactor} from './actions/write-factor';
 import {ActionType, PropName, PropNameInListFirst} from './dsl-widgets';
 
 export const ActionPart = (props: {
-    pipeline: Pipeline;
-    stage: PipelineStage;
-    unit: PipelineStageUnit;
-    action: PipelineStageUnitAction;
-    topicsMap: Map<string, Topic>
+	pipeline: Pipeline;
+	stage: PipelineStage;
+	unit: PipelineStageUnit;
+	action: PipelineStageUnitAction;
+	topicsMap: Map<string, Topic>
 }) => {
-    const {action, topicsMap} = props;
+	const {action, topicsMap} = props;
 
-    return <>
-        <PropNameInListFirst indent={5}>- action</PropNameInListFirst>
-        <PropName indent={7}>type</PropName>
-        <ActionType>{action.type}</ActionType>
-        <Alarm action={action} topicsMap={topicsMap}/>
-        <CopyToMemory action={action} topicsMap={topicsMap}/>
-        <ReadFactor action={action} topicsMap={topicsMap}/>
-        <ReadRow action={action} topicsMap={topicsMap}/>
-        <RowExists action={action} topicsMap={topicsMap}/>
-        <WriteFactor action={action} topicsMap={topicsMap}/>
-        <InsertRow action={action} topicsMap={topicsMap}/>
-        <MergeRow action={action} topicsMap={topicsMap}/>
-    </>;
+	return <>
+		<PropNameInListFirst indent={5}>- action</PropNameInListFirst>
+		<PropName indent={7}>type</PropName>
+		<ActionType>{action.type}</ActionType>
+		<Alarm action={action} topicsMap={topicsMap}/>
+		<CopyToMemory action={action} topicsMap={topicsMap}/>
+		<ReadFactor action={action} topicsMap={topicsMap}/>
+		<ReadRow action={action} topicsMap={topicsMap}/>
+		<RowExists action={action} topicsMap={topicsMap}/>
+		<WriteFactor action={action} topicsMap={topicsMap}/>
+		<InsertRow action={action} topicsMap={topicsMap}/>
+		<MergeRow action={action} topicsMap={topicsMap}/>
+	</>;
 };

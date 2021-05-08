@@ -5,28 +5,28 @@ import {useSubjectEventBus} from '../../subject-event-bus';
 import {SubjectEventTypes} from '../../subject-event-bus-types';
 
 export const PagePrintSize = (props: { subject: Subject }) => {
-    const {subject} = props;
+	const {subject} = props;
 
-    const {on, off} = useSubjectEventBus();
-    const [showPageSize, setShowPageSize] = useState(false);
-    useEffect(() => {
-        on(SubjectEventTypes.TOGGLE_PRINT_PAGE_SIZE, setShowPageSize);
-        return () => {
-            off(SubjectEventTypes.TOGGLE_PRINT_PAGE_SIZE, setShowPageSize);
-        };
-    }, [on, off]);
-    useEffect(() => {
-        setShowPageSize(false);
-    }, [subject]);
+	const {on, off} = useSubjectEventBus();
+	const [showPageSize, setShowPageSize] = useState(false);
+	useEffect(() => {
+		on(SubjectEventTypes.TOGGLE_PRINT_PAGE_SIZE, setShowPageSize);
+		return () => {
+			off(SubjectEventTypes.TOGGLE_PRINT_PAGE_SIZE, setShowPageSize);
+		};
+	}, [on, off]);
+	useEffect(() => {
+		setShowPageSize(false);
+	}, [subject]);
 
-    if (!showPageSize) {
-        return null;
-    }
+	if (!showPageSize) {
+		return null;
+	}
 
-    return <>
-        <PortraitA4/>
-        <LandscapeA4/>
-        <PortraitA3/>
-        <LandscapeA3/>
-    </>;
+	return <>
+		<PortraitA4/>
+		<LandscapeA4/>
+		<PortraitA3/>
+		<LandscapeA3/>
+	</>;
 };

@@ -17,9 +17,9 @@ export const BodyContainer = styled.div.attrs({'data-widget': 'pipelines-catalog
 	overflow         : hidden;
 `;
 export const BodySvgContainer = styled.div.attrs({
-    'data-widget': 'pipelines-catalog-svg-container',
-    'data-v-scroll': '',
-    'data-h-scroll': ''
+	'data-widget': 'pipelines-catalog-svg-container',
+	'data-v-scroll': '',
+	'data-h-scroll': ''
 })`
 	display   : block;
 	position  : relative;

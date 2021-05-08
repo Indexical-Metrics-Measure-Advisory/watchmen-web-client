@@ -6,18 +6,18 @@ import {EmptyLine, LineComment} from './dsl-widgets';
 import {StagePart} from './stage-part';
 
 export const StagesPart = (props: { pipeline: Pipeline, topicsMap: Map<string, Topic> }) => {
-    const {pipeline, topicsMap} = props;
+	const {pipeline, topicsMap} = props;
 
-    return <>
-        <EmptyLine/>
-        {
-            pipeline.stages.map((stage, stageIndex) => {
-                return <Fragment key={v4()}>
-                    {stageIndex !== 0 ? <EmptyLine/> : null}
-                    <LineComment>Stage {stageIndex + 1}</LineComment>
-                    <StagePart pipeline={pipeline} stage={stage} topicsMap={topicsMap}/>
-                </Fragment>;
-            })
-        }
-    </>;
+	return <>
+		<EmptyLine/>
+		{
+			pipeline.stages.map((stage, stageIndex) => {
+				return <Fragment key={v4()}>
+					{stageIndex !== 0 ? <EmptyLine/> : null}
+					<LineComment>Stage {stageIndex + 1}</LineComment>
+					<StagePart pipeline={pipeline} stage={stage} topicsMap={topicsMap}/>
+				</Fragment>;
+			})
+		}
+	</>;
 };

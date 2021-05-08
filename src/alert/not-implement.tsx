@@ -5,16 +5,16 @@ import {Lang} from '../langs';
 import {AlertLabel} from './widgets';
 
 export const NotImplement = () => {
-    const {fire, on, off} = useEventBus();
+	const {fire, on, off} = useEventBus();
 
-    useEffect(() => {
-        const show = () => fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.ALERT.NOT_IMPLEMENT}</AlertLabel>);
-        on(EventTypes.SHOW_NOT_IMPLEMENT, show);
+	useEffect(() => {
+		const show = () => fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.ALERT.NOT_IMPLEMENT}</AlertLabel>);
+		on(EventTypes.SHOW_NOT_IMPLEMENT, show);
 
-        return () => {
-            off(EventTypes.SHOW_NOT_IMPLEMENT, show);
-        };
-    }, [on, off, fire]);
+		return () => {
+			off(EventTypes.SHOW_NOT_IMPLEMENT, show);
+		};
+	}, [on, off, fire]);
 
-    return <Fragment/>;
+	return <Fragment/>;
 };

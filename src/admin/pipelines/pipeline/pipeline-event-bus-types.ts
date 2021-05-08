@@ -1,6 +1,6 @@
 import {PipelineStage} from '../../../services/tuples/pipeline-stage-types';
 import {Pipeline} from '../../../services/tuples/pipeline-types';
-import {PipelineStageUnit} from "../../../services/tuples/pipeline-stage-unit-types";
+import {PipelineStageUnit} from '../../../services/tuples/pipeline-stage-unit-types';
 
 export enum PipelineFocusMode {
 	STAGE = 'stage',

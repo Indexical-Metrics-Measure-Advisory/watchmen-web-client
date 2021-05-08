@@ -12,29 +12,29 @@ import {buildToolbox} from './toolbox-utils';
 import {ChartOptions} from './types';
 
 export class ChartSunburstUtils extends DefaultChartUtils {
-    constructor() {
-        super(SUNBURST);
-    }
+	constructor() {
+		super(SUNBURST);
+	}
 
-    buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
-        const {chart} = report;
-        return cleanUselessValues({
-            color: BASE_COLORS_24,
-            title: buildEChartsTitle(chart as ECharts),
-            tooltip: {
-                trigger: 'item'
-            },
-            series: [
-                buildEChartsPie(
-                    chart as ECharts, buildTreeSeriesData(chart, this.buildTreeData(report, dataset), this.formatNumber),
-                    {
-                        type: 'sunburst',
-                        insideRadius: '10%',
-                        outsideRadius: '90%'
-                    })
-            ],
-            aria: buildDecal(chart),
-            toolbox: buildToolbox(chart, report, dataset)
-        });
-    }
+	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
+		const {chart} = report;
+		return cleanUselessValues({
+			color: BASE_COLORS_24,
+			title: buildEChartsTitle(chart as ECharts),
+			tooltip: {
+				trigger: 'item'
+			},
+			series: [
+				buildEChartsPie(
+					chart as ECharts, buildTreeSeriesData(chart, this.buildTreeData(report, dataset), this.formatNumber),
+					{
+						type: 'sunburst',
+						insideRadius: '10%',
+						outsideRadius: '90%'
+					})
+			],
+			aria: buildDecal(chart),
+			toolbox: buildToolbox(chart, report, dataset)
+		});
+	}
 }

@@ -7,11 +7,11 @@ import {SubjectHeaderButtons} from './subject-header-buttons';
 import {PageHeaderHolder} from './widgets';
 
 export const SubjectHeader = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
-    const {connectedSpace, subject} = props;
+	const {connectedSpace, subject} = props;
 
-    return <PageHeaderHolder>
-        <HeaderSubjectNameEditor connectedSpace={connectedSpace} subject={subject}/>
-        <HeaderConnectedSpaceNameLabel connectedSpace={connectedSpace}/>
-        <SubjectHeaderButtons connectedSpace={connectedSpace} subject={subject}/>
-    </PageHeaderHolder>;
+	return <PageHeaderHolder>
+		<HeaderSubjectNameEditor connectedSpace={connectedSpace} subject={subject}/>
+		<HeaderConnectedSpaceNameLabel connectedSpace={connectedSpace}/>
+		<SubjectHeaderButtons connectedSpace={connectedSpace} subject={subject}/>
+	</PageHeaderHolder>;
 };

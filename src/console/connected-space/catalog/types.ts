@@ -5,54 +5,54 @@ import {Subject} from '../../../services/tuples/subject-types';
 import {Topic} from '../../../services/tuples/topic-types';
 
 export enum GraphicsRole {
-    TOPIC = 'topic',
-    TOPIC_FRAME = 'topic-frame',
-    TOPIC_NAME = 'topic-name',
+	TOPIC = 'topic',
+	TOPIC_FRAME = 'topic-frame',
+	TOPIC_NAME = 'topic-name',
 
-    SUBJECT = 'subject',
-    SUBJECT_FRAME = 'subject-frame',
-    SUBJECT_NAME = 'subject-name',
+	SUBJECT = 'subject',
+	SUBJECT_FRAME = 'subject-frame',
+	SUBJECT_NAME = 'subject-name',
 
-    REPORT = 'report',
-    REPORT_FRAME = 'report-frame',
-    REPORT_NAME = 'report-name',
+	REPORT = 'report',
+	REPORT_FRAME = 'report-frame',
+	REPORT_NAME = 'report-name',
 
-    BLOCK_SELECTION = 'block-selection',
+	BLOCK_SELECTION = 'block-selection',
 
-    SUBJECT_TOPIC_RELATION = 'subject-topic-relation',
-    SUBJECT_TOPIC_RELATION_LINK = 'subject-topic-relation-link',
-    SUBJECT_TOPIC_RELATION_ANIMATION = 'subject-topic-relation-animation',
+	SUBJECT_TOPIC_RELATION = 'subject-topic-relation',
+	SUBJECT_TOPIC_RELATION_LINK = 'subject-topic-relation-link',
+	SUBJECT_TOPIC_RELATION_ANIMATION = 'subject-topic-relation-animation',
 
-    REPORT_SUBJECT_RELATION = 'report-subject-relation',
-    REPORT_SUBJECT_RELATION_LINK = 'report-subject-relation-link',
-    REPORT_SUBJECT_RELATION_ANIMATION = 'report-subject-relation-animation'
+	REPORT_SUBJECT_RELATION = 'report-subject-relation',
+	REPORT_SUBJECT_RELATION_LINK = 'report-subject-relation-link',
+	REPORT_SUBJECT_RELATION_ANIMATION = 'report-subject-relation-animation'
 }
 
 export interface AssembledTopicGraphics extends ConnectedSpaceBlockGraphics {
-    topic: Topic;
+	topic: Topic;
 }
 
 export interface AssembledSubjectGraphics extends ConnectedSpaceBlockGraphics {
-    subject: Subject,
+	subject: Subject,
 }
 
 export interface AssembledReportGraphics extends ConnectedSpaceBlockGraphics {
-    report: Report;
+	report: Report;
 }
 
 export interface AssembledConnectedSpaceGraphics {
-    topics: Array<AssembledTopicGraphics>;
-    subjects: Array<AssembledSubjectGraphics>;
-    reports: Array<AssembledReportGraphics>;
+	topics: Array<AssembledTopicGraphics>;
+	subjects: Array<AssembledSubjectGraphics>;
+	reports: Array<AssembledReportGraphics>;
 }
 
 export interface RelationCurvePoints {
-    drawn: string;
+	drawn: string;
 }
 
 export interface CatalogData {
-    initialized: boolean;
-    space?: AvailableSpaceInConsole;
-    topics: Array<Topic>;
-    graphics?: AssembledConnectedSpaceGraphics
+	initialized: boolean;
+	space?: AvailableSpaceInConsole;
+	topics: Array<Topic>;
+	graphics?: AssembledConnectedSpaceGraphics
 }

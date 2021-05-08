@@ -10,33 +10,33 @@ import {buildToolbox} from './toolbox-utils';
 import {ChartOptions} from './types';
 
 export class ChartTreemapUtils extends DefaultChartUtils {
-    constructor() {
-        super(TREEMAP);
-    }
+	constructor() {
+		super(TREEMAP);
+	}
 
-    buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
-        const {chart} = report;
-        const {settings} = chart;
-        const {grid, series} = (settings || {}) as TreemapChartSettings;
+	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
+		const {chart} = report;
+		const {settings} = chart;
+		const {grid, series} = (settings || {}) as TreemapChartSettings;
 
-        return cleanUselessValues({
-            color: BASE_COLORS_24,
-            title: buildEChartsTitle(chart as ECharts),
-            tooltip: {
-                trigger: 'item'
-            },
-            series: [{
-                name: report.name,
-                type: 'treemap',
-                roam: series?.roam,
-                top: grid?.position?.top,
-                left: grid?.position?.left,
-                bottom: grid?.position?.bottom,
-                right: grid?.position?.right,
-                leafDepth: 1,
-                data: this.buildTreeData(report, dataset)
-            }],
-            toolbox: buildToolbox(chart, report, dataset)
-        });
-    }
+		return cleanUselessValues({
+			color: BASE_COLORS_24,
+			title: buildEChartsTitle(chart as ECharts),
+			tooltip: {
+				trigger: 'item'
+			},
+			series: [{
+				name: report.name,
+				type: 'treemap',
+				roam: series?.roam,
+				top: grid?.position?.top,
+				left: grid?.position?.left,
+				bottom: grid?.position?.bottom,
+				right: grid?.position?.right,
+				leafDepth: 1,
+				data: this.buildTreeData(report, dataset)
+			}],
+			toolbox: buildToolbox(chart, report, dataset)
+		});
+	}
 }

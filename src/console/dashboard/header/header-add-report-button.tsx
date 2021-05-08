@@ -29,110 +29,110 @@ const DashboardDropdown = styled(Dropdown)`
 `;
 
 interface ReportCandidate {
-    reportId: string;
-    subjectName: string;
-    reportName: string;
-    reportType: ChartType;
-    report: Report;
+	reportId: string;
+	subjectName: string;
+	reportName: string;
+	reportType: ChartType;
+	report: Report;
 }
 
 const ReportSelect = (props: { reports: Array<ReportCandidate>, open: (report: Report) => void }) => {
-    const {reports, open} = props;
+	const {reports, open} = props;
 
-    const {fire} = useEventBus();
-    const [selection, setSelection] = useState<ReportCandidate>(reports[0]);
+	const {fire} = useEventBus();
+	const [selection, setSelection] = useState<ReportCandidate>(reports[0]);
 
-    const onChange = (option: DropdownOption) => {
-        setSelection((option.value as ReportCandidate));
-    };
-    const onConfirmClicked = () => {
-        open(selection.report);
-        fire(EventTypes.HIDE_DIALOG);
-    };
-    const onCancelClicked = () => {
-        fire(EventTypes.HIDE_DIALOG);
-    };
+	const onChange = (option: DropdownOption) => {
+		setSelection((option.value as ReportCandidate));
+	};
+	const onConfirmClicked = () => {
+		open(selection.report);
+		fire(EventTypes.HIDE_DIALOG);
+	};
+	const onCancelClicked = () => {
+		fire(EventTypes.HIDE_DIALOG);
+	};
 
-    const options = reports.map(report => {
-        return {
-            value: report,
-            label: (option: DropdownOption) => {
-                const report = option.value as ReportCandidate;
-                const name = `${report.subjectName} - ${report.reportName}`;
-                return {
-                    node: name,
-                    label: name
-                };
-            },
-            key: (option: DropdownOption) => (option.value as ReportCandidate).reportId
-        };
-    });
+	const options = reports.map(report => {
+		return {
+			value: report,
+			label: (option: DropdownOption) => {
+				const report = option.value as ReportCandidate;
+				const name = `${report.subjectName} - ${report.reportName}`;
+				return {
+					node: name,
+					label: name
+				};
+			},
+			key: (option: DropdownOption) => (option.value as ReportCandidate).reportId
+		};
+	});
 
-    return <>
-        <AddReportDialogBody>
-            <DialogLabel>{Lang.CONSOLE.DASHBOARD.SWITCH_DIALOG_LABEL}</DialogLabel>
-            <DashboardDropdown value={selection} options={options} onChange={onChange}/>
-        </AddReportDialogBody>
-        <DialogFooter>
-            <Button ink={ButtonInk.PRIMARY} onClick={onConfirmClicked}>{Lang.ACTIONS.CONFIRM}</Button>
-            <Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>{Lang.ACTIONS.CANCEL}</Button>
-        </DialogFooter>
-    </>;
+	return <>
+		<AddReportDialogBody>
+			<DialogLabel>{Lang.CONSOLE.DASHBOARD.SWITCH_DIALOG_LABEL}</DialogLabel>
+			<DashboardDropdown value={selection} options={options} onChange={onChange}/>
+		</AddReportDialogBody>
+		<DialogFooter>
+			<Button ink={ButtonInk.PRIMARY} onClick={onConfirmClicked}>{Lang.ACTIONS.CONFIRM}</Button>
+			<Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>{Lang.ACTIONS.CANCEL}</Button>
+		</DialogFooter>
+	</>;
 };
 
 export const HeaderAddReportButton = (props: { dashboard: Dashboard }) => {
-    const {dashboard} = props;
+	const {dashboard} = props;
 
-    const {fire: fireGlobal} = useEventBus();
-    const {once: onceConsole} = useConsoleEventBus();
-    const {fire} = useDashboardEventBus();
-    const addReport = (report: Report) => {
-        if (!dashboard.reports) {
-            dashboard.reports = [];
-        }
-        dashboard.reports.push({
-            reportId: report.reportId,
-            rect: {
-                x: 32,
-                y: 32,
-                width: report.rect.width,
-                height: report.rect.height
-            }
-        });
-        fire(DashboardEventTypes.REPORT_ADDED, report);
-    };
-    const onAddReportClicked = () => {
-        onceConsole(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
-            const existsReportIds = (dashboard.reports || []).map(report => report.reportId);
+	const {fire: fireGlobal} = useEventBus();
+	const {once: onceConsole} = useConsoleEventBus();
+	const {fire} = useDashboardEventBus();
+	const addReport = (report: Report) => {
+		if (!dashboard.reports) {
+			dashboard.reports = [];
+		}
+		dashboard.reports.push({
+			reportId: report.reportId,
+			rect: {
+				x: 32,
+				y: 32,
+				width: report.rect.width,
+				height: report.rect.height
+			}
+		});
+		fire(DashboardEventTypes.REPORT_ADDED, report);
+	};
+	const onAddReportClicked = () => {
+		onceConsole(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
+			const existsReportIds = (dashboard.reports || []).map(report => report.reportId);
 
-            const candidates = connectedSpaces.map(connectedSpace => {
-                return (connectedSpace.subjects || []).map(subject => {
-                    return (subject.reports || []).map(report => {
-                        return {subject, report};
-                    });
-                }).flat();
-            }).flat().filter(({report}) => {
-                // eslint-disable-next-line
-                return !existsReportIds.some(reportId => reportId == report.reportId);
-            }).map(({subject, report}) => {
-                return {
-                    reportId: report.reportId,
-                    subjectName: subject.name,
-                    reportName: report.name,
-                    reportType: report.chart.type,
-                    report
-                } as ReportCandidate;
-            });
-            if (candidates.length === 0) {
-                // no other
-                fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.CONSOLE.DASHBOARD.NO_MORE_REPORT}</AlertLabel>);
-            } else {
-                fireGlobal(EventTypes.SHOW_DIALOG, <ReportSelect reports={candidates} open={addReport}/>);
-            }
-        }).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
-    };
+			const candidates = connectedSpaces.map(connectedSpace => {
+				return (connectedSpace.subjects || []).map(subject => {
+					return (subject.reports || []).map(report => {
+						return {subject, report};
+					});
+				}).flat();
+			}).flat().filter(({report}) => {
+				// eslint-disable-next-line
+				return !existsReportIds.some(reportId => reportId == report.reportId);
+			}).map(({subject, report}) => {
+				return {
+					reportId: report.reportId,
+					subjectName: subject.name,
+					reportName: report.name,
+					reportType: report.chart.type,
+					report
+				} as ReportCandidate;
+			});
+			if (candidates.length === 0) {
+				// no other
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.CONSOLE.DASHBOARD.NO_MORE_REPORT}</AlertLabel>);
+			} else {
+				fireGlobal(EventTypes.SHOW_DIALOG, <ReportSelect reports={candidates} open={addReport}/>);
+			}
+		}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
+	};
 
-    return <PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.ADD_REPORT} onClick={onAddReportClicked}>
-        <FontAwesomeIcon icon={ICON_REPORT}/>
-    </PageHeaderButton>;
+	return <PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.ADD_REPORT} onClick={onAddReportClicked}>
+		<FontAwesomeIcon icon={ICON_REPORT}/>
+	</PageHeaderButton>;
 };

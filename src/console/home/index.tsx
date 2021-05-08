@@ -7,13 +7,13 @@ import {ConnectedSpacesSection} from './connected-spaces-section';
 import {DashboardsSection} from './dashboards-section';
 
 const ConsoleHomeIndex = () => {
-    return <FixWidthPage>
-        <PageHeader title={Lang.CONSOLE.HOME.TITLE}/>
-        <VerticalMarginOneUnit/>
-        <ConnectedSpacesSection/>
-        <DashboardsSection/>
-        <VerticalMarginOneUnit/>
-    </FixWidthPage>;
+	return <FixWidthPage>
+		<PageHeader title={Lang.CONSOLE.HOME.TITLE}/>
+		<VerticalMarginOneUnit/>
+		<ConnectedSpacesSection/>
+		<DashboardsSection/>
+		<VerticalMarginOneUnit/>
+	</FixWidthPage>;
 };
 
 export default ConsoleHomeIndex;

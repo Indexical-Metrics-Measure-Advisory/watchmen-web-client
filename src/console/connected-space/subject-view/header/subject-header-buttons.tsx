@@ -17,30 +17,30 @@ import {HeaderSwitchSubjectButton} from './header-switch-subject-button';
 import {isSubjectReportNow} from './utils';
 
 export const SubjectHeaderButtons = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
-    const {connectedSpace, subject} = props;
+	const {connectedSpace, subject} = props;
 
-    return <PageHeaderButtons>
-        <HeaderCatalogButton connectedSpace={connectedSpace}/>
-        <PageHeaderButtonSeparator/>
-        <HeaderSubjectDefButton connectedSpace={connectedSpace} subject={subject}/>
-        <HeaderSubjectDataButton connectedSpace={connectedSpace} subject={subject}/>
-        <HeaderSubjectReportButton connectedSpace={connectedSpace} subject={subject}/>
-        {isSubjectReportNow()
-            ? <Fragment>
-                <PageHeaderButtonSeparator/>
-                <HeaderAddReportButton connectedSpace={connectedSpace} subject={subject}/>
-                <HeaderShareButton connectedSpace={connectedSpace} subject={subject}/>
-                <HeaderShowPageButton connectedSpace={connectedSpace} subject={subject}/>
-                <HeaderPrintButton connectedSpace={connectedSpace} subject={subject}/>
-                <PageHeaderButtonSeparator/>
-                <HeaderManualRefreshButton connectedSpace={connectedSpace} subject={subject}/>
-                <HeaderAutoRefreshButton connectedSpace={connectedSpace} subject={subject}/>
-            </Fragment>
-            : null
-        }
-        <PageHeaderButtonSeparator/>
-        <HeaderSwitchSubjectButton connectedSpace={connectedSpace} subject={subject}/>
-        <PageHeaderButtonSeparator/>
-        <HeaderDeleteSubjectButton connectedSpace={connectedSpace} subject={subject}/>
-    </PageHeaderButtons>;
+	return <PageHeaderButtons>
+		<HeaderCatalogButton connectedSpace={connectedSpace}/>
+		<PageHeaderButtonSeparator/>
+		<HeaderSubjectDefButton connectedSpace={connectedSpace} subject={subject}/>
+		<HeaderSubjectDataButton connectedSpace={connectedSpace} subject={subject}/>
+		<HeaderSubjectReportButton connectedSpace={connectedSpace} subject={subject}/>
+		{isSubjectReportNow()
+			? <Fragment>
+				<PageHeaderButtonSeparator/>
+				<HeaderAddReportButton connectedSpace={connectedSpace} subject={subject}/>
+				<HeaderShareButton connectedSpace={connectedSpace} subject={subject}/>
+				<HeaderShowPageButton connectedSpace={connectedSpace} subject={subject}/>
+				<HeaderPrintButton connectedSpace={connectedSpace} subject={subject}/>
+				<PageHeaderButtonSeparator/>
+				<HeaderManualRefreshButton connectedSpace={connectedSpace} subject={subject}/>
+				<HeaderAutoRefreshButton connectedSpace={connectedSpace} subject={subject}/>
+			</Fragment>
+			: null
+		}
+		<PageHeaderButtonSeparator/>
+		<HeaderSwitchSubjectButton connectedSpace={connectedSpace} subject={subject}/>
+		<PageHeaderButtonSeparator/>
+		<HeaderDeleteSubjectButton connectedSpace={connectedSpace} subject={subject}/>
+	</PageHeaderButtons>;
 };

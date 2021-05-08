@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import {Input} from '../../../../../basic-widgets/input';
 
 export const ColumnsContainer = styled.div.attrs<{ active: boolean }>(({active}) => {
-    return {
-        'data-widget': 'subject-def-columns',
-        'data-v-scroll': '',
-        style: {
-            paddingRight: active ? (void 0) : 0,
-            overflowY: active ? (void 0) : 'hidden'
-        }
-    };
+	return {
+		'data-widget': 'subject-def-columns',
+		'data-v-scroll': '',
+		style: {
+			paddingRight: active ? (void 0) : 0,
+			overflowY: active ? (void 0) : 'hidden'
+		}
+	};
 }) <{ active: boolean }>`
 	display        : flex;
 	position       : relative;
@@ -19,12 +19,12 @@ export const ColumnsContainer = styled.div.attrs<{ active: boolean }>(({active})
 	border-right   : var(--border);
 `;
 export const ColumnsEditContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        'data-widget': 'subject-def-columns-edit',
-        style: {
-            display: visible ? (void 0) : 'none'
-        }
-    };
+	return {
+		'data-widget': 'subject-def-columns-edit',
+		style: {
+			display: visible ? (void 0) : 'none'
+		}
+	};
 })<{ visible: boolean }>`
 	display        : flex;
 	position       : relative;
@@ -50,12 +50,12 @@ export const ColumnIndex = styled.span.attrs({'data-widget': 'subject-def-column
 	font-weight  : var(--font-bold);
 `;
 export const ColumnEditWrapper = styled.div.attrs<{ shorten: boolean }>(({shorten}) => {
-    return {
-        'data-widget': 'subject-def-column-edit-wrapper',
-        style: {
-            gridTemplateColumns: shorten ? 'auto auto auto 1fr' : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'subject-def-column-edit-wrapper',
+		style: {
+			gridTemplateColumns: shorten ? 'auto auto auto 1fr' : (void 0)
+		}
+	};
 })<{ shorten: boolean }>`
 	display               : grid;
 	grid-template-columns : auto 1fr auto auto;

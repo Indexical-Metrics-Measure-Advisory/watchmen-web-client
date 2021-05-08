@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const SubjectReportContainer = styled.div.attrs({
-    'data-widget': 'reports',
-    'data-v-scroll': '',
-    'data-h-scroll': ''
+	'data-widget': 'reports',
+	'data-v-scroll': '',
+	'data-h-scroll': ''
 })`
 	flex-grow : 1;
 	display   : block;

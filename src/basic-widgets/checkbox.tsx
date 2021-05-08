@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import {ICON_CHECK, ICON_UNCHECK} from './constants';
 
 const CheckBoxContainer = styled.div.attrs<{ 'data-widget'?: string }>(({'data-widget': widget}) => {
-    return {
-        'data-widget': widget || 'checkbox'
-    };
+	return {
+		'data-widget': widget || 'checkbox'
+	};
 })<{ 'data-widget'?: string }>`
 	display         : flex;
 	position        : relative;
@@ -23,16 +23,16 @@ const CheckBoxContainer = styled.div.attrs<{ 'data-widget'?: string }>(({'data-w
 `;
 
 export const CheckBox = (props: {
-    value: boolean;
-    onChange: (value: boolean) => void;
+	value: boolean;
+	onChange: (value: boolean) => void;
 }) => {
-    const {value, onChange, ...rest} = props;
+	const {value, onChange, ...rest} = props;
 
-    const onClicked = () => onChange(!value);
+	const onClicked = () => onChange(!value);
 
-    return <CheckBoxContainer {...rest} onClick={onClicked}>
-        {value
-            ? <FontAwesomeIcon icon={ICON_CHECK}/>
-            : <FontAwesomeIcon icon={ICON_UNCHECK}/>}
-    </CheckBoxContainer>;
+	return <CheckBoxContainer {...rest} onClick={onClicked}>
+		{value
+			? <FontAwesomeIcon icon={ICON_CHECK}/>
+			: <FontAwesomeIcon icon={ICON_UNCHECK}/>}
+	</CheckBoxContainer>;
 };

@@ -28,8 +28,8 @@ const getKeyOfTopic = (topic: QueryTopic) => topic.topicId;
 
 const isNameInvalid = (name: string) => {
 	return /^\d.*$/.test(name)
-		|| name.split("_").some(part => !/^[A-Za-z0-9]+$/.test(part))
-}
+		|| name.split('_').some(part => !/^[A-Za-z0-9]+$/.test(part));
+};
 const AdminTopics = () => {
 	const {once: onceGlobal, fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useTupleEventBus();
@@ -104,18 +104,18 @@ const AdminTopics = () => {
 		};
 	}, [on, off, fire, onceGlobal, fireGlobal]);
 
-    return <TupleWorkbench title='Topics'
-                           createButtonLabel='Create Topic' canCreate={true}
-                           searchPlaceholder='Search by topic name, factor name, description, etc.'
-                           tupleLabel='Topic' tupleImage={TopicBackground} tupleImagePosition='left 80px'
-                           renderEditor={renderEditor}
-                           renderCard={renderCard} getKeyOfTuple={getKeyOfTopic}
-    />;
+	return <TupleWorkbench title="Topics"
+	                       createButtonLabel="Create Topic" canCreate={true}
+	                       searchPlaceholder="Search by topic name, factor name, description, etc."
+	                       tupleLabel="Topic" tupleImage={TopicBackground} tupleImagePosition="left 80px"
+	                       renderEditor={renderEditor}
+	                       renderCard={renderCard} getKeyOfTuple={getKeyOfTopic}
+	/>;
 };
 const AdminTopicsIndex = () => {
-    return <TupleEventBusProvider>
-        <AdminTopics/>
-    </TupleEventBusProvider>;
+	return <TupleEventBusProvider>
+		<AdminTopics/>
+	</TupleEventBusProvider>;
 };
 
 export default AdminTopicsIndex;

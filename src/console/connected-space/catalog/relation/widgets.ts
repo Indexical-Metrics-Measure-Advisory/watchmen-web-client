@@ -2,7 +2,7 @@ import styled, {keyframes} from 'styled-components';
 import {RelationCurvePoints} from '../types';
 
 export const Curve = styled.path.attrs<{ lattice: RelationCurvePoints }>(({lattice: {drawn}}) => {
-    return {d: drawn};
+	return {d: drawn};
 })<{ lattice: RelationCurvePoints }>`
 	stroke       : var(--waive-color);
 	stroke-width : 2px;
@@ -18,14 +18,14 @@ const RelationAnimationFrames = keyframes`
 	}
 `;
 export const RelationAnimationDot = styled.div.attrs<{ lattice: RelationCurvePoints, visible: boolean }>(
-    ({lattice: {drawn}, visible}) => {
-        return {
-            style: {
-                display: visible ? 'block' : 'none',
-                offsetPath: `path("${drawn}")`
-            }
-        };
-    })<{ lattice: RelationCurvePoints, visible: boolean }>`
+	({lattice: {drawn}, visible}) => {
+		return {
+			style: {
+				display: visible ? 'block' : 'none',
+				offsetPath: `path("${drawn}")`
+			}
+		};
+	})<{ lattice: RelationCurvePoints, visible: boolean }>`
 	position         : absolute;
 	top              : 0;
 	left             : 0;

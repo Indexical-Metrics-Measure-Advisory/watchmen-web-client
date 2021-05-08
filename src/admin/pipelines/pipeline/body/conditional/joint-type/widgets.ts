@@ -31,14 +31,14 @@ export const JointTypeContainer = styled.div.attrs({'data-widget': 'joint-type'}
 	}
 `;
 export const JointTypeOption = styled.div.attrs<{ active: boolean, expanded: boolean }>(({active, expanded}) => {
-    return {
-        'data-widget': 'joint-type-option',
-        style: {
-            display: (expanded || active) ? (void 0) : 'none',
-            backgroundColor: active ? (void 0) : 'var(--bg-color)',
-            boxShadow: active ? (void 0) : 'var(--param-left-border)'
-        }
-    };
+	return {
+		'data-widget': 'joint-type-option',
+		style: {
+			display: (expanded || active) ? (void 0) : 'none',
+			backgroundColor: active ? (void 0) : 'var(--bg-color)',
+			boxShadow: active ? (void 0) : 'var(--param-left-border)'
+		}
+	};
 })<{ active: boolean, expanded: boolean }>`
 	display      : flex;
 	align-items  : center;

@@ -24,12 +24,12 @@ const ShareUrl = styled.div`
 	line-height : var(--line-height);
 `;
 const CopiedLabel = styled(DialogLabel).attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        style: {
-            opacity: visible ? 1 : (void 0),
-            transition: visible ? 'opacity 300ms ease-in-out' : (void 0)
-        }
-    };
+	return {
+		style: {
+			opacity: visible ? 1 : (void 0),
+			transition: visible ? 'opacity 300ms ease-in-out' : (void 0)
+		}
+	};
 })<{ visible: boolean }>`
 	flex-grow   : 1;
 	color       : var(--success-color);
@@ -39,50 +39,50 @@ const CopiedLabel = styled(DialogLabel).attrs<{ visible: boolean }>(({visible}) 
 `;
 
 const DashboardShare = (props: { dashboard: Dashboard }) => {
-    const {dashboard} = props;
+	const {dashboard} = props;
 
-    const {fire} = useEventBus();
-    const [copied, setCopied] = useState(false);
-    const [url, setUrl] = useState('');
-    useEffect(() => {
-        (async () => {
-            const url = await buildDashboardShareUrl(dashboard);
-            setUrl(url);
-        })();
-    }, [dashboard]);
+	const {fire} = useEventBus();
+	const [copied, setCopied] = useState(false);
+	const [url, setUrl] = useState('');
+	useEffect(() => {
+		(async () => {
+			const url = await buildDashboardShareUrl(dashboard);
+			setUrl(url);
+		})();
+	}, [dashboard]);
 
-    const onCopyClicked = async () => {
-        await navigator.clipboard.writeText(url);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 300);
-    };
-    const onCloseClicked = () => {
-        fire(EventTypes.HIDE_DIALOG);
-    };
+	const onCopyClicked = async () => {
+		await navigator.clipboard.writeText(url);
+		setCopied(true);
+		setTimeout(() => setCopied(false), 300);
+	};
+	const onCloseClicked = () => {
+		fire(EventTypes.HIDE_DIALOG);
+	};
 
-    return <>
-        <ShareDialogBody>
-            <DialogLabel>{Lang.CONSOLE.DASHBOARD.SHARE_DIALOG_LABEL}</DialogLabel>
-            <ShareUrl>{url}</ShareUrl>
-        </ShareDialogBody>
-        <DialogFooter>
-            <CopiedLabel visible={copied}>{Lang.CONSOLE.DASHBOARD.URL_COPIED}</CopiedLabel>
-            <Button ink={ButtonInk.PRIMARY} onClick={onCopyClicked}>{Lang.ACTIONS.COPY}</Button>
-            <Button ink={ButtonInk.PRIMARY} onClick={onCloseClicked}>{Lang.ACTIONS.CLOSE}</Button>
-        </DialogFooter>
-    </>;
+	return <>
+		<ShareDialogBody>
+			<DialogLabel>{Lang.CONSOLE.DASHBOARD.SHARE_DIALOG_LABEL}</DialogLabel>
+			<ShareUrl>{url}</ShareUrl>
+		</ShareDialogBody>
+		<DialogFooter>
+			<CopiedLabel visible={copied}>{Lang.CONSOLE.DASHBOARD.URL_COPIED}</CopiedLabel>
+			<Button ink={ButtonInk.PRIMARY} onClick={onCopyClicked}>{Lang.ACTIONS.COPY}</Button>
+			<Button ink={ButtonInk.PRIMARY} onClick={onCloseClicked}>{Lang.ACTIONS.CLOSE}</Button>
+		</DialogFooter>
+	</>;
 };
 
 export const HeaderShareButton = (props: { dashboard: Dashboard }) => {
-    const {dashboard} = props;
+	const {dashboard} = props;
 
-    const {fire} = useEventBus();
+	const {fire} = useEventBus();
 
-    const onShareClicked = () => {
-        fire(EventTypes.SHOW_DIALOG, <DashboardShare dashboard={dashboard}/>);
-    };
+	const onShareClicked = () => {
+		fire(EventTypes.SHOW_DIALOG, <DashboardShare dashboard={dashboard}/>);
+	};
 
-    return <PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.SHARE} onClick={onShareClicked}>
-        <FontAwesomeIcon icon={ICON_SHARE}/>
-    </PageHeaderButton>;
+	return <PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.SHARE} onClick={onShareClicked}>
+		<FontAwesomeIcon icon={ICON_SHARE}/>
+	</PageHeaderButton>;
 };

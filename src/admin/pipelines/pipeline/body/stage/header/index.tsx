@@ -8,16 +8,16 @@ import {Serial} from './serial';
 import {StageHeaderContainer} from './widgets';
 
 export const StageHeader = (props: {
-    pipeline: Pipeline;
-    stage: PipelineStage;
+	pipeline: Pipeline;
+	stage: PipelineStage;
 }) => {
-    const {pipeline, stage} = props;
+	const {pipeline, stage} = props;
 
-    return <StageHeaderContainer>
-        <Serial pipeline={pipeline} stage={stage}/>
-        <NameEditor stage={stage}/>
-        <HeaderButtons>
-            <HeaderOperators pipeline={pipeline} stage={stage} position={HeaderOperatorsPosition.HEADER}/>
-        </HeaderButtons>
-    </StageHeaderContainer>;
+	return <StageHeaderContainer>
+		<Serial pipeline={pipeline} stage={stage}/>
+		<NameEditor stage={stage}/>
+		<HeaderButtons>
+			<HeaderOperators pipeline={pipeline} stage={stage} position={HeaderOperatorsPosition.HEADER}/>
+		</HeaderButtons>
+	</StageHeaderContainer>;
 };

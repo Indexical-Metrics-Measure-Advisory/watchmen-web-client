@@ -43,17 +43,17 @@ export const ActionTypeIcon = styled.div.attrs({'data-widget': 'action-type-icon
 `;
 export const ACTION_TYPE_DROPDOWN_HEIGHT = 200;
 export const ActionTypeDropdown = styled.div.attrs<{ visible: boolean, top?: number, bottom?: number, left: number }>(
-    ({visible, top, bottom, left}) => {
-        return {
-            'data-widget': 'action-type-dropdown',
-            style: {
-                opacity: visible ? 1 : 0,
-                pointerEvents: visible ? 'auto' : 'none',
-                top, bottom, left,
-                transition: visible ? (void 0) : 'none'
-            }
-        };
-    })<{ visible: boolean, top?: number, bottom?: number, left: number }>`
+	({visible, top, bottom, left}) => {
+		return {
+			'data-widget': 'action-type-dropdown',
+			style: {
+				opacity: visible ? 1 : 0,
+				pointerEvents: visible ? 'auto' : 'none',
+				top, bottom, left,
+				transition: visible ? (void 0) : 'none'
+			}
+		};
+	})<{ visible: boolean, top?: number, bottom?: number, left: number }>`
 	display          : flex;
 	flex-direction   : column;
 	position         : fixed;
@@ -75,13 +75,13 @@ export const ActionTypeOptions = styled.div.attrs({'data-widget': 'action-type-o
 	flex-wrap : wrap;
 `;
 export const ActionTypeOption = styled.div.attrs<{ selected: boolean }>(({selected}) => {
-    return {
-        'data-widget': 'action-type-option',
-        style: {
-            backgroundColor: selected ? 'var(--primary-color)' : (void 0),
-            color: selected ? 'var(--invert-color)' : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'action-type-option',
+		style: {
+			backgroundColor: selected ? 'var(--primary-color)' : (void 0),
+			color: selected ? 'var(--invert-color)' : (void 0)
+		}
+	};
 })<{ selected: boolean }>`
 	display       : flex;
 	align-items   : center;

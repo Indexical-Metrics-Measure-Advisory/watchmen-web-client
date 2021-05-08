@@ -12,35 +12,35 @@ import {TreemapChart} from './chart-def/chart-treemap';
 import {Chart, ChartType} from './chart-types';
 
 export const isBarChart = (chart: Chart): chart is BarChart => {
-    return chart.type === ChartType.BAR;
+	return chart.type === ChartType.BAR;
 };
 export const isCountChart = (chart: Chart): chart is CountChart => {
-    return chart.type === ChartType.COUNT;
+	return chart.type === ChartType.COUNT;
 };
 export const isDoughnutChart = (chart: Chart): chart is DoughnutChart => {
-    return chart.type === ChartType.DOUGHNUT;
+	return chart.type === ChartType.DOUGHNUT;
 };
 export const isLineChart = (chart: Chart): chart is LineChart => {
-    return chart.type === ChartType.LINE;
+	return chart.type === ChartType.LINE;
 };
 export const isMapChart = (chart: Chart): chart is MapChart => {
-    return chart.type === ChartType.MAP;
+	return chart.type === ChartType.MAP;
 };
 export const isNightingaleChart = (chart: Chart): chart is NightingaleChart => {
-    return chart.type === ChartType.NIGHTINGALE;
+	return chart.type === ChartType.NIGHTINGALE;
 };
 export const isPieChart = (chart: Chart): chart is PieChart => {
-    return chart.type === ChartType.PIE;
+	return chart.type === ChartType.PIE;
 };
 export const isScatterChart = (chart: Chart): chart is ScatterChart => {
-    return chart.type === ChartType.SCATTER;
+	return chart.type === ChartType.SCATTER;
 };
 export const isSunburstChart = (chart: Chart): chart is SunburstChart => {
-    return chart.type === ChartType.SUNBURST;
+	return chart.type === ChartType.SUNBURST;
 };
 export const isTreeChart = (chart: Chart): chart is TreeChart => {
-    return chart.type === ChartType.TREE;
+	return chart.type === ChartType.TREE;
 };
 export const isTreemapChart = (chart: Chart): chart is TreemapChart => {
-    return chart.type === ChartType.TREEMAP;
+	return chart.type === ChartType.TREEMAP;
 };

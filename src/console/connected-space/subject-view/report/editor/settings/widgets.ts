@@ -3,10 +3,10 @@ import {CHART_SETTINGS_MAX_WIDTH, CHART_SETTINGS_MIN_WIDTH} from '../../../../..
 import {TooltipButton} from '../../../../../../basic-widgets/tooltip-button';
 
 export const SettingsContainer = styled.div.attrs<{ width?: number }>(({width}) => {
-    return {
-        'data-widget': 'report-editor-settings',
-        style: {width: width || CHART_SETTINGS_MIN_WIDTH}
-    };
+	return {
+		'data-widget': 'report-editor-settings',
+		style: {width: width || CHART_SETTINGS_MIN_WIDTH}
+	};
 })<{ width?: number }>`
 	display        : flex;
 	flex-direction : column;

@@ -3,9 +3,9 @@ import {EChartsXAxisPropNames} from '../echart-styles/echarts-xaxis-props';
 import {EChartsYAxisPropNames} from '../echart-styles/echarts-yaxis-props';
 
 export type TextPropNames =
-    EChartsTitlePropNames.TEXT
-    | EChartsTitlePropNames.SUBTEXT
+	EChartsTitlePropNames.TEXT
+	| EChartsTitlePropNames.SUBTEXT
 
-    | EChartsXAxisPropNames.NAME_TEXT
+	| EChartsXAxisPropNames.NAME_TEXT
 
-    | EChartsYAxisPropNames.NAME_TEXT;
+	| EChartsYAxisPropNames.NAME_TEXT;

@@ -12,27 +12,27 @@ import {VariableName} from '../variable-name';
 import {ActionLeadLabelThin} from '../widgets';
 
 export const ReadRow = (props: {
-    pipeline: Pipeline;
-    stage: PipelineStage;
-    unit: PipelineStageUnit;
-    action: PipelineStageUnitAction;
-    topics: Array<Topic>;
-    topic: Topic;
+	pipeline: Pipeline;
+	stage: PipelineStage;
+	unit: PipelineStageUnit;
+	action: PipelineStageUnitAction;
+	topics: Array<Topic>;
+	topic: Topic;
 }) => {
-    const {action, topics, topic} = props;
+	const {action, topics, topic} = props;
 
-    useActionType(action);
+	useActionType(action);
 
-    if (!isReadRowAction(action)) {
-        return null;
-    }
+	if (!isReadRowAction(action)) {
+		return null;
+	}
 
-    return <>
-        <ActionLeadLabelThin>Variable Name:</ActionLeadLabelThin>
-        <VariableName action={action}/>
-        <ActionLeadLabelThin>Source Topic:</ActionLeadLabelThin>
-        <TopicPicker action={action} topics={topics}/>
-        <ActionLeadLabelThin>By:</ActionLeadLabelThin>
-        <FindByCondition action={action} topics={topics} topic={topic}/>
-    </>;
+	return <>
+		<ActionLeadLabelThin>Variable Name:</ActionLeadLabelThin>
+		<VariableName action={action}/>
+		<ActionLeadLabelThin>Source Topic:</ActionLeadLabelThin>
+		<TopicPicker action={action} topics={topics}/>
+		<ActionLeadLabelThin>By:</ActionLeadLabelThin>
+		<FindByCondition action={action} topics={topics} topic={topic}/>
+	</>;
 };

@@ -13,41 +13,41 @@ import {JoinTopicFactorEdit} from './topic-factor-edit';
 import {JoinEditContainer, JoinIndex, RemoveJoinIcon} from './widgets';
 
 export const JoinEdit = (props: {
-    subject: Subject;
-    join: SubjectDataSetJoin;
-    availableTopics: Array<Topic>;
-    pickedTopics: Array<Topic>;
+	subject: Subject;
+	join: SubjectDataSetJoin;
+	availableTopics: Array<Topic>;
+	pickedTopics: Array<Topic>;
 }) => {
-    const {subject, join, availableTopics, pickedTopics} = props;
+	const {subject, join, availableTopics, pickedTopics} = props;
 
-    const {fire} = useSubjectDefEventBus();
+	const {fire} = useSubjectDefEventBus();
 
-    const onRemoveClicked = () => {
-        const index = subject.dataset.joins.indexOf(join);
-        if (index !== -1) {
-            subject.dataset.joins.splice(index, 1);
-            fire(SubjectDefEventTypes.DATASET_JOIN_REMOVED, join);
-        }
-    };
+	const onRemoveClicked = () => {
+		const index = subject.dataset.joins.indexOf(join);
+		if (index !== -1) {
+			subject.dataset.joins.splice(index, 1);
+			fire(SubjectDefEventTypes.DATASET_JOIN_REMOVED, join);
+		}
+	};
 
-    const index = subject.dataset.joins.indexOf(join) + 1;
+	const index = subject.dataset.joins.indexOf(join) + 1;
 
-    return <JoinEventBusProvider>
-        <JoinEditContainer>
-            <JoinIndex>{index}</JoinIndex>
-            <ParameterEventBusProvider>
-                <JoinTopicFactorEdit subject={subject} join={join} first={true}
-                                     availableTopics={availableTopics} pickedTopics={pickedTopics}/>
-            </ParameterEventBusProvider>
-            <JoinTypeEdit join={join}/>
-            <ParameterEventBusProvider>
-                <JoinTopicFactorEdit subject={subject} join={join} first={false}
-                                     availableTopics={availableTopics} pickedTopics={pickedTopics}/>
-            </ParameterEventBusProvider>
-            <RemoveJoinIcon onClick={onRemoveClicked}>
-                <FontAwesomeIcon icon={ICON_DELETE}/>
-            </RemoveJoinIcon>
-        </JoinEditContainer>
-        <Join2DefEventBridge subject={subject} join={join}/>
-    </JoinEventBusProvider>;
+	return <JoinEventBusProvider>
+		<JoinEditContainer>
+			<JoinIndex>{index}</JoinIndex>
+			<ParameterEventBusProvider>
+				<JoinTopicFactorEdit subject={subject} join={join} first={true}
+				                     availableTopics={availableTopics} pickedTopics={pickedTopics}/>
+			</ParameterEventBusProvider>
+			<JoinTypeEdit join={join}/>
+			<ParameterEventBusProvider>
+				<JoinTopicFactorEdit subject={subject} join={join} first={false}
+				                     availableTopics={availableTopics} pickedTopics={pickedTopics}/>
+			</ParameterEventBusProvider>
+			<RemoveJoinIcon onClick={onRemoveClicked}>
+				<FontAwesomeIcon icon={ICON_DELETE}/>
+			</RemoveJoinIcon>
+		</JoinEditContainer>
+		<Join2DefEventBridge subject={subject} join={join}/>
+	</JoinEventBusProvider>;
 };

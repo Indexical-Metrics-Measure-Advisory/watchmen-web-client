@@ -50,13 +50,13 @@ export const ExpressionLeadLabel = styled.div.attrs({'data-widget': 'expression-
 	box-shadow       : var(--param-border);
 `;
 export const ExpressionSide = styled.div.attrs<{ shorten: boolean, visible: boolean }>(({shorten, visible}) => {
-    return {
-        'data-widget': 'expression',
-        style: {
-            display: visible ? (void 0) : 'none',
-            gridTemplateColumns: shorten ? 'auto auto 1fr' : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'expression',
+		style: {
+			display: visible ? (void 0) : 'none',
+			gridTemplateColumns: shorten ? 'auto auto 1fr' : (void 0)
+		}
+	};
 })<{ shorten: boolean, visible: boolean }>`
 	display               : grid;
 	grid-column           : span 3;
@@ -155,17 +155,17 @@ export const ExpressionOperatorIcon = styled.div.attrs({'data-widget': 'expressi
 `;
 export const EXPRESSION_OPERATOR_DROPDOWN_HEIGHT = 200;
 export const ExpressionOperatorDropdown = styled.div.attrs<{ visible: boolean, top?: number, bottom?: number, left: number }>(
-    ({visible, top, bottom, left}) => {
-        return {
-            'data-widget': 'expression-operator-dropdown',
-            style: {
-                opacity: visible ? 1 : 0,
-                pointerEvents: visible ? 'auto' : 'none',
-                top, bottom, left,
-                transition: visible ? (void 0) : 'none'
-            }
-        };
-    })<{ visible: boolean, top?: number, bottom?: number, left: number }>`
+	({visible, top, bottom, left}) => {
+		return {
+			'data-widget': 'expression-operator-dropdown',
+			style: {
+				opacity: visible ? 1 : 0,
+				pointerEvents: visible ? 'auto' : 'none',
+				top, bottom, left,
+				transition: visible ? (void 0) : 'none'
+			}
+		};
+	})<{ visible: boolean, top?: number, bottom?: number, left: number }>`
 	display          : flex;
 	position         : fixed;
 	flex-wrap        : wrap;
@@ -183,13 +183,13 @@ export const ExpressionOperatorDropdown = styled.div.attrs<{ visible: boolean, t
 	}
 `;
 export const ExpressionOperatorOption = styled.div.attrs<{ selected: boolean }>(({selected}) => {
-    return {
-        'data-widget': 'expression-operator-option',
-        style: {
-            backgroundColor: selected ? 'var(--primary-color)' : (void 0),
-            color: selected ? 'var(--invert-color)' : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'expression-operator-option',
+		style: {
+			backgroundColor: selected ? 'var(--primary-color)' : (void 0),
+			color: selected ? 'var(--invert-color)' : (void 0)
+		}
+	};
 })<{ selected: boolean }>`
 	display       : flex;
 	align-items   : center;
@@ -206,11 +206,11 @@ export const ExpressionOperatorOption = styled.div.attrs<{ selected: boolean }>(
 	}
 `;
 export const ParameterFromEditorForExpression = styled(ParameterFromEditor).attrs<{ shorten: boolean }>(({shorten}) => {
-    return {
-        style: {
-            borderTopRightRadius: shorten ? 'calc(var(--param-height) / 2)' : (void 0),
-            borderBottomRightRadius: shorten ? 'calc(var(--param-height) / 2)' : (void 0)
-        }
-    };
+	return {
+		style: {
+			borderTopRightRadius: shorten ? 'calc(var(--param-height) / 2)' : (void 0),
+			borderBottomRightRadius: shorten ? 'calc(var(--param-height) / 2)' : (void 0)
+		}
+	};
 })<{ shorten: boolean }>`
 `;

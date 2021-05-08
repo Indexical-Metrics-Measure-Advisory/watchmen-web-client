@@ -12,19 +12,19 @@ import {RemoveMeButton} from '../widgets';
 import {JointContainer, JointHeader} from './widgets';
 
 export const Joint = (props: { joint: ParameterJoint, topics: Array<Topic>, removeMe: () => void }) => {
-    const {joint, topics, removeMe} = props;
+	const {joint, topics, removeMe} = props;
 
-    return <JointContainer>
-        <JointHeader>
-            <JointType joint={joint}/>
-            <JointFold/>
-            <RemoveMeButton onClick={removeMe}>
-                <FontAwesomeIcon icon={ICON_DELETE}/>
-            </RemoveMeButton>
-        </JointHeader>
-        <JointBody>
-            <JointElements joint={joint} topics={topics}/>
-            <JointOperators joint={joint}/>
-        </JointBody>
-    </JointContainer>;
+	return <JointContainer>
+		<JointHeader>
+			<JointType joint={joint}/>
+			<JointFold/>
+			<RemoveMeButton onClick={removeMe}>
+				<FontAwesomeIcon icon={ICON_DELETE}/>
+			</RemoveMeButton>
+		</JointHeader>
+		<JointBody>
+			<JointElements joint={joint} topics={topics}/>
+			<JointOperators joint={joint}/>
+		</JointBody>
+	</JointContainer>;
 };

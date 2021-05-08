@@ -62,7 +62,6 @@ export const FactorsTableBodyPageableContainer = styled.div.attrs({'data-widget'
 	}
 `;
 
-
 export const FactorsTableFooter = styled.div.attrs({'data-widget': 'factors-table-footer'})`
 	display         : flex;
 	align-items     : center;

@@ -24,15 +24,15 @@ export const FilterJointTypeEditContainer = styled.div.attrs({'data-widget': 'fi
 	}
 `;
 export const FilterJointTypeButton = styled.div.attrs<{ active: boolean, edit: boolean }>(({active, edit}) => {
-    return {
-        'data-widget': 'filter-joint-type-button',
-        style: {
-            backgroundColor: active ? (void 0) : 'var(--bg-color)',
-            color: active ? (void 0) : 'var(--font-color)',
-            width: (!active && !edit) ? 0 : (void 0),
-            padding: (!active && !edit) ? 0 : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'filter-joint-type-button',
+		style: {
+			backgroundColor: active ? (void 0) : 'var(--bg-color)',
+			color: active ? (void 0) : 'var(--font-color)',
+			width: (!active && !edit) ? 0 : (void 0),
+			padding: (!active && !edit) ? 0 : (void 0)
+		}
+	};
 })<{ active: boolean, edit: boolean }>`
 	display       : flex;
 	position      : relative;
@@ -61,13 +61,13 @@ export const FilterJointTypeIcon = styled.div.attrs({'data-widget': 'filter-join
 	}
 `;
 export const AddSubFilterIcon = styled.div.attrs<{ singleton: boolean }>(({singleton}) => {
-    return {
-        'data-widget': 'filter-add-sub-icon',
-        style: {
-            borderTopRightRadius: singleton ? 'calc(var(--param-height) / 2)' : (void 0),
-            borderBottomRightRadius: singleton ? 'calc(var(--param-height) / 2)' : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'filter-add-sub-icon',
+		style: {
+			borderTopRightRadius: singleton ? 'calc(var(--param-height) / 2)' : (void 0),
+			borderBottomRightRadius: singleton ? 'calc(var(--param-height) / 2)' : (void 0)
+		}
+	};
 })<{ singleton: boolean }>`
 	display                    : flex;
 	position                   : relative;

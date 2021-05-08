@@ -15,8 +15,8 @@ export const LIGHT_COLORS_24 = base24.map(c => c.lighten(0.2).rgb().toString());
 export const LIGHTER_COLORS_24 = base24.map(c => c.lighten(0.4).rgb().toString());
 
 export const [DARK_COLORS_12, LIGHT_COLORS_12, LIGHTER_COLORS_12] = [DARK_COLORS_24, LIGHT_COLORS_24, LIGHTER_COLORS_24].map(series => {
-    return series.filter((c, index) => index % 2 === 0);
+	return series.filter((c, index) => index % 2 === 0);
 });
 export const [DARK_COLORS_6, LIGHT_COLORS_6, LIGHTER_COLORS_6] = [DARK_COLORS_24, LIGHT_COLORS_24, LIGHTER_COLORS_24].map(series => {
-    return series.filter((c, index) => index % 4 === 0);
+	return series.filter((c, index) => index % 4 === 0);
 });

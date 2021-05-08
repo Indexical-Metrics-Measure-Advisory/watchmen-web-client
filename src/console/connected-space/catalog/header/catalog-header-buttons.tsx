@@ -9,17 +9,17 @@ import {HeaderFavoriteButton} from './header-favorite-button';
 import {HeaderSwitchConnectedSpaceButton} from './header-switch-connected-space-button';
 
 export const CatalogHeaderButtons = (props: { connectedSpace: ConnectedSpace }) => {
-    const {connectedSpace} = props;
+	const {connectedSpace} = props;
 
-    return <PageHeaderButtons>
-        <HeaderCatalogButton connectedSpace={connectedSpace}/>
-        <HeaderAddSubjectButton connectedSpace={connectedSpace}/>
-        <PageHeaderButtonSeparator/>
-        <HeaderFavoriteButton connectedSpace={connectedSpace}/>
-        <PageHeaderButtonSeparator/>
-        <HeaderCreateConnectedSpaceButton/>
-        <HeaderSwitchConnectedSpaceButton connectedSpace={connectedSpace}/>
-        <PageHeaderButtonSeparator/>
-        <HeaderDeleteConnectedSpaceButton connectedSpace={connectedSpace}/>
-    </PageHeaderButtons>;
+	return <PageHeaderButtons>
+		<HeaderCatalogButton connectedSpace={connectedSpace}/>
+		<HeaderAddSubjectButton connectedSpace={connectedSpace}/>
+		<PageHeaderButtonSeparator/>
+		<HeaderFavoriteButton connectedSpace={connectedSpace}/>
+		<PageHeaderButtonSeparator/>
+		<HeaderCreateConnectedSpaceButton/>
+		<HeaderSwitchConnectedSpaceButton connectedSpace={connectedSpace}/>
+		<PageHeaderButtonSeparator/>
+		<HeaderDeleteConnectedSpaceButton connectedSpace={connectedSpace}/>
+	</PageHeaderButtons>;
 };

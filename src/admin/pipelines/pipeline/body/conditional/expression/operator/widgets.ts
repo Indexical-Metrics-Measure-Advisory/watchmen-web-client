@@ -65,17 +65,17 @@ export const ExpressionOperatorIcon = styled.div.attrs({'data-widget': 'expressi
 `;
 export const EXPRESSION_OPERATOR_DROPDOWN_HEIGHT = 200;
 export const ExpressionOperatorDropdown = styled.div.attrs<{ visible: boolean, top?: number, bottom?: number, left: number }>(
-    ({visible, top, bottom, left}) => {
-        return {
-            'data-widget': 'expression-operator-dropdown',
-            style: {
-                opacity: visible ? 1 : 0,
-                pointerEvents: visible ? 'auto' : 'none',
-                top, bottom, left,
-                transition: visible ? (void 0) : 'none'
-            }
-        };
-    })<{ visible: boolean, top?: number, bottom?: number, left: number }>`
+	({visible, top, bottom, left}) => {
+		return {
+			'data-widget': 'expression-operator-dropdown',
+			style: {
+				opacity: visible ? 1 : 0,
+				pointerEvents: visible ? 'auto' : 'none',
+				top, bottom, left,
+				transition: visible ? (void 0) : 'none'
+			}
+		};
+	})<{ visible: boolean, top?: number, bottom?: number, left: number }>`
 	display          : flex;
 	position         : fixed;
 	flex-wrap        : wrap;
@@ -93,13 +93,13 @@ export const ExpressionOperatorDropdown = styled.div.attrs<{ visible: boolean, t
 	}
 `;
 export const ExpressionOperatorOption = styled.div.attrs<{ selected: boolean }>(({selected}) => {
-    return {
-        'data-widget': 'expression-operator-option',
-        style: {
-            backgroundColor: selected ? 'var(--primary-color)' : (void 0),
-            color: selected ? 'var(--invert-color)' : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'expression-operator-option',
+		style: {
+			backgroundColor: selected ? 'var(--primary-color)' : (void 0),
+			color: selected ? 'var(--invert-color)' : (void 0)
+		}
+	};
 })<{ selected: boolean }>`
 	display       : flex;
 	align-items   : center;

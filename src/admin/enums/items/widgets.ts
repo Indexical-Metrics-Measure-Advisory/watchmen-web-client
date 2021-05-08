@@ -17,8 +17,8 @@ export const ItemsTableContainer = styled.div.attrs({'data-widget': 'enum-items-
 `;
 
 export const ItemsTableHeaderContainer = styled.div.attrs({
-    'data-widget': 'enum-items-table-header',
-    'data-v-scroll': ''
+	'data-widget': 'enum-items-table-header',
+	'data-v-scroll': ''
 })`
 	display               : grid;
 	position              : relative;
@@ -46,8 +46,8 @@ export const ItemsTableHeaderContainer = styled.div.attrs({
 	}
 `;
 export const ItemsTableHeaderCell = styled.div.attrs({
-    'data-widget': 'enum-items-table-header-cell',
-    'data-v-scroll': ''
+	'data-widget': 'enum-items-table-header-cell',
+	'data-v-scroll': ''
 })`
 	display       : flex;
 	align-items   : center;
@@ -58,8 +58,8 @@ export const ItemsTableHeaderCell = styled.div.attrs({
 `;
 
 export const ItemsTableBodyContainer = styled.div.attrs({
-    'data-widget': 'enum-items-table-body',
-    'data-v-scroll': ''
+	'data-widget': 'enum-items-table-body',
+	'data-v-scroll': ''
 })`
 	display        : flex;
 	flex-direction : column;
@@ -67,8 +67,8 @@ export const ItemsTableBodyContainer = styled.div.attrs({
 `;
 
 export const ItemsTableBodyRow = styled.div.attrs({
-    'data-widget': 'enum-items-table-body-row',
-    'data-v-scroll': ''
+	'data-widget': 'enum-items-table-body-row',
+	'data-v-scroll': ''
 })`
 	display               : grid;
 	position              : relative;

@@ -11,12 +11,12 @@ export const PageHeaderHolder = styled(PageHeaderHolderContainer)`
 `;
 
 export const PipelineSaveButton = styled(PageHeaderButton).attrs<{ changed: boolean }>(({changed}) => {
-    return {
-        style: {
-            paddingLeft: changed ? 'calc(var(--margin) / 2)' : (void 0),
-            color: changed ? 'var(--danger-color)' : (void 0)
-        }
-    };
+	return {
+		style: {
+			paddingLeft: changed ? 'calc(var(--margin) / 2)' : (void 0),
+			color: changed ? 'var(--danger-color)' : (void 0)
+		}
+	};
 })<{ changed: boolean }>`
 	width     : auto;
 	min-width : var(--height);

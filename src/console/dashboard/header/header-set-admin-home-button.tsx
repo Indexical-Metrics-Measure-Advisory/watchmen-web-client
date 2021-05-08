@@ -11,20 +11,20 @@ import {saveLastSnapshot} from '../../../services/console/last-snapshot';
 import {Dashboard} from '../../../services/tuples/dashboard-types';
 
 export const HeaderSetAdminHomeButton = (props: { dashboard: Dashboard }) => {
-    const {dashboard} = props;
+	const {dashboard} = props;
 
-    const {fire} = useEventBus();
+	const {fire} = useEventBus();
 
-    if (!isAdmin()) {
-        return null;
-    }
+	if (!isAdmin()) {
+		return null;
+	}
 
-    const onSetClicked = async () => {
-        await saveLastSnapshot({adminDashboardId: dashboard.dashboardId});
-        fire(EventTypes.SHOW_ALERT, <AlertLabel>Done.</AlertLabel>);
-    };
+	const onSetClicked = async () => {
+		await saveLastSnapshot({adminDashboardId: dashboard.dashboardId});
+		fire(EventTypes.SHOW_ALERT, <AlertLabel>Done.</AlertLabel>);
+	};
 
-    return <PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.SET_AS_ADMIN_HOME} onClick={onSetClicked}>
-        <FontAwesomeIcon icon={ICON_AS_ADMIN_HOME}/>
-    </PageHeaderButton>;
+	return <PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.SET_AS_ADMIN_HOME} onClick={onSetClicked}>
+		<FontAwesomeIcon icon={ICON_AS_ADMIN_HOME}/>
+	</PageHeaderButton>;
 };

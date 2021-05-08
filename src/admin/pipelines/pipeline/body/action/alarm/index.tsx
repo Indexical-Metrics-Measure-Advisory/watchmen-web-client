@@ -12,27 +12,27 @@ import {AlarmSeverity} from './alarm-severity';
 import {AlarmPrerequisite} from './prerequisite';
 
 export const Alarm = (props: {
-    pipeline: Pipeline;
-    stage: PipelineStage;
-    unit: PipelineStageUnit;
-    action: PipelineStageUnitAction;
-    topics: Array<Topic>;
-    topic: Topic;
+	pipeline: Pipeline;
+	stage: PipelineStage;
+	unit: PipelineStageUnit;
+	action: PipelineStageUnitAction;
+	topics: Array<Topic>;
+	topic: Topic;
 }) => {
-    const {action, topic} = props;
+	const {action, topic} = props;
 
-    useActionType(action);
+	useActionType(action);
 
-    if (!isAlarmAction(action)) {
-        return null;
-    }
+	if (!isAlarmAction(action)) {
+		return null;
+	}
 
-    return <>
-        <ActionLeadLabelThin>Alarm Prerequisite:</ActionLeadLabelThin>
-        <AlarmPrerequisite action={action} topic={topic}/>
-        <ActionLeadLabelThin>Severity:</ActionLeadLabelThin>
-        <AlarmSeverity action={action}/>
-        <ActionLeadLabelThin>Message:</ActionLeadLabelThin>
-        <AlarmMessage action={action}/>
-    </>;
+	return <>
+		<ActionLeadLabelThin>Alarm Prerequisite:</ActionLeadLabelThin>
+		<AlarmPrerequisite action={action} topic={topic}/>
+		<ActionLeadLabelThin>Severity:</ActionLeadLabelThin>
+		<AlarmSeverity action={action}/>
+		<ActionLeadLabelThin>Message:</ActionLeadLabelThin>
+		<AlarmMessage action={action}/>
+	</>;
 };

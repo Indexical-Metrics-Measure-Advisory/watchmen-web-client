@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import {TooltipButton} from '../../../../basic-widgets/tooltip-button';
 
 export const NavigatorContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        'data-widget': 'pipelines-navigator',
-        style: {
-            marginRight: visible ? 0 : -400
-        }
-    };
+	return {
+		'data-widget': 'pipelines-navigator',
+		style: {
+			marginRight: visible ? 0 : -400
+		}
+	};
 })<{ visible: boolean }>`
 	display          : flex;
 	flex-direction   : column;

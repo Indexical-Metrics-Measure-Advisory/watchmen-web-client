@@ -5,16 +5,16 @@ import {ReportRect} from '../services/tuples/report-types';
 import {DragType} from './types';
 
 export const ChartContainer = styled.div.attrs<{ rect: ReportRect, fixed: boolean }>(({rect, fixed}) => {
-    return {
-        'data-widget': 'chart-container',
-        style: {
-            position: fixed ? 'relative' : 'absolute',
-            top: fixed ? (void 0) : rect.y,
-            left: fixed ? (void 0) : rect.x,
-            width: fixed ? '100%' : rect.width,
-            height: fixed ? '100%' : rect.height
-        }
-    };
+	return {
+		'data-widget': 'chart-container',
+		style: {
+			position: fixed ? 'relative' : 'absolute',
+			top: fixed ? (void 0) : rect.y,
+			left: fixed ? (void 0) : rect.x,
+			width: fixed ? '100%' : rect.width,
+			height: fixed ? '100%' : rect.height
+		}
+	};
 })<{ rect: ReportRect, fixed: boolean }>`
 	display: block;
 	border-radius: var(--border-radius);
@@ -64,10 +64,10 @@ export const ChartContainer = styled.div.attrs<{ rect: ReportRect, fixed: boolea
 	}
 `;
 export const ChartDragHandle = styled.div.attrs<{ dragging: boolean }>(({dragging}) => {
-    return {
-        'data-widget': 'chart-drag-handle',
-        style: {clipPath: dragging ? (void 0) : 'polygon(0% 0%, 0% 100%, 6px 100%, 6px 40px, 100px 40px, 100px 6px, calc(100% - 6px) 6px, calc(100% - 6px) calc(100% - 6px), 6px calc(100% - 6px), 6px 100%, 100% 100%, 100% 0%)'}
-    };
+	return {
+		'data-widget': 'chart-drag-handle',
+		style: {clipPath: dragging ? (void 0) : 'polygon(0% 0%, 0% 100%, 6px 100%, 6px 40px, 100px 40px, 100px 6px, calc(100% - 6px) 6px, calc(100% - 6px) calc(100% - 6px), 6px calc(100% - 6px), 6px 100%, 100% 100%, 100% 0%)'}
+	};
 })<{ dragging: boolean }>`
 	display: flex;
 	flex-direction: column;

@@ -7,14 +7,14 @@ import {ItemsTableHeader} from './items-table-header';
 import {ItemsTableContainer, ItemsTableFooter} from './widgets';
 
 export const ItemsTable = (props: { enumeration: Enum }) => {
-    const {enumeration} = props;
+	const {enumeration} = props;
 
-    return <ItemsTableContainer>
-        <ItemsTableHeader enumeration={enumeration}/>
-        <ItemsTableBody enumeration={enumeration}/>
-        <ItemsTableFooter>
-            <ItemsImportButton enumeration={enumeration}/>
-            <ItemsExportButton enumeration={enumeration}/>
-        </ItemsTableFooter>
-    </ItemsTableContainer>;
+	return <ItemsTableContainer>
+		<ItemsTableHeader enumeration={enumeration}/>
+		<ItemsTableBody enumeration={enumeration}/>
+		<ItemsTableFooter>
+			<ItemsImportButton enumeration={enumeration}/>
+			<ItemsExportButton enumeration={enumeration}/>
+		</ItemsTableFooter>
+	</ItemsTableContainer>;
 };

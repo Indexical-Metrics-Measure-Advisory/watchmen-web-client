@@ -11,25 +11,25 @@ import {VariableName} from '../variable-name';
 import {ActionLeadLabelThin} from '../widgets';
 
 export const CopyToMemory = (props: {
-    pipeline: Pipeline;
-    stage: PipelineStage;
-    unit: PipelineStageUnit;
-    action: PipelineStageUnitAction;
-    topics: Array<Topic>;
-    topic: Topic;
+	pipeline: Pipeline;
+	stage: PipelineStage;
+	unit: PipelineStageUnit;
+	action: PipelineStageUnitAction;
+	topics: Array<Topic>;
+	topic: Topic;
 }) => {
-    const {action, topic} = props;
+	const {action, topic} = props;
 
-    useActionType(action);
+	useActionType(action);
 
-    if (!isCopyToMemoryAction(action)) {
-        return null;
-    }
+	if (!isCopyToMemoryAction(action)) {
+		return null;
+	}
 
-    return <>
-        <ActionLeadLabelThin>Variable Name:</ActionLeadLabelThin>
-        <VariableName action={action}/>
-        <ActionLeadLabelThin>Value From:</ActionLeadLabelThin>
-        <SingleParameter action={action} parameter={action.source} topics={[topic]}/>
-    </>;
+	return <>
+		<ActionLeadLabelThin>Variable Name:</ActionLeadLabelThin>
+		<VariableName action={action}/>
+		<ActionLeadLabelThin>Value From:</ActionLeadLabelThin>
+		<SingleParameter action={action} parameter={action.source} topics={[topic]}/>
+	</>;
 };

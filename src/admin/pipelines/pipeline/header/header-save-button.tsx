@@ -17,82 +17,82 @@ import {useValidate} from '../valiator/use-validate';
 import {PipelineChangeLabel, PipelineSaveButton} from './widgets';
 
 const StillSaveDialog = (props: { message: string, onSave: () => void }) => {
-    const {message, onSave} = props;
+	const {message, onSave} = props;
 
-    const {fire} = useEventBus();
+	const {fire} = useEventBus();
 
-    const onConfirmClicked = async () => {
-        onSave();
-        fire(EventTypes.HIDE_DIALOG);
-    };
-    const onCancelClicked = () => {
-        fire(EventTypes.HIDE_DIALOG);
-    };
+	const onConfirmClicked = async () => {
+		onSave();
+		fire(EventTypes.HIDE_DIALOG);
+	};
+	const onCancelClicked = () => {
+		fire(EventTypes.HIDE_DIALOG);
+	};
 
-    return <>
-        <DialogBody>
-            <DialogLabel>{message}</DialogLabel>
-            <DialogLabel style={{display: 'block'}}>Click "Confirm" to save it anyway.</DialogLabel>
-        </DialogBody>
-        <DialogFooter>
-            <Button ink={ButtonInk.PRIMARY} onClick={onConfirmClicked}>{Lang.ACTIONS.CONFIRM}</Button>
-            <Button ink={ButtonInk.WAIVE} onClick={onCancelClicked}>{Lang.ACTIONS.CANCEL}</Button>
-        </DialogFooter>
-    </>;
+	return <>
+		<DialogBody>
+			<DialogLabel>{message}</DialogLabel>
+			<DialogLabel style={{display: 'block'}}>Click "Confirm" to save it anyway.</DialogLabel>
+		</DialogBody>
+		<DialogFooter>
+			<Button ink={ButtonInk.PRIMARY} onClick={onConfirmClicked}>{Lang.ACTIONS.CONFIRM}</Button>
+			<Button ink={ButtonInk.WAIVE} onClick={onCancelClicked}>{Lang.ACTIONS.CANCEL}</Button>
+		</DialogFooter>
+	</>;
 };
 
 export const HeaderSaveButton = (props: { pipeline: Pipeline }) => {
-    const {pipeline} = props;
+	const {pipeline} = props;
 
-    const {fire: fireGlobal} = useEventBus();
-    const {once: oncePipelines} = usePipelinesEventBus();
-    const {on, off, fire} = usePipelineEventBus();
-    const [changed, setChanged] = useState(false);
-    const validate = useValidate();
-    useEffect(() => {
-        const onPipelineChanged = () => setChanged(true);
-        const onPipelineSaved = (pipeline: Pipeline, saved: boolean) => {
-            if (saved) {
-                setChanged(false);
-            }
-        };
-        on(PipelineEventTypes.TRIGGER_TYPE_CHANGED, onPipelineChanged);
-        on(PipelineEventTypes.CONDITION_CHANGED, onPipelineChanged);
-        on(PipelineEventTypes.STAGE_ADDED, onPipelineChanged);
-        on(PipelineEventTypes.STAGE_REMOVED, onPipelineChanged);
-        on(PipelineEventTypes.STAGE_CHANGED, onPipelineChanged);
-        on(PipelineEventTypes.STAGE_SORTED, onPipelineChanged);
+	const {fire: fireGlobal} = useEventBus();
+	const {once: oncePipelines} = usePipelinesEventBus();
+	const {on, off, fire} = usePipelineEventBus();
+	const [changed, setChanged] = useState(false);
+	const validate = useValidate();
+	useEffect(() => {
+		const onPipelineChanged = () => setChanged(true);
+		const onPipelineSaved = (pipeline: Pipeline, saved: boolean) => {
+			if (saved) {
+				setChanged(false);
+			}
+		};
+		on(PipelineEventTypes.TRIGGER_TYPE_CHANGED, onPipelineChanged);
+		on(PipelineEventTypes.CONDITION_CHANGED, onPipelineChanged);
+		on(PipelineEventTypes.STAGE_ADDED, onPipelineChanged);
+		on(PipelineEventTypes.STAGE_REMOVED, onPipelineChanged);
+		on(PipelineEventTypes.STAGE_CHANGED, onPipelineChanged);
+		on(PipelineEventTypes.STAGE_SORTED, onPipelineChanged);
 
-        on(PipelineEventTypes.PIPELINE_SAVED, onPipelineSaved);
-        return () => {
-            off(PipelineEventTypes.TRIGGER_TYPE_CHANGED, onPipelineChanged);
-            off(PipelineEventTypes.CONDITION_CHANGED, onPipelineChanged);
-            off(PipelineEventTypes.STAGE_ADDED, onPipelineChanged);
-            off(PipelineEventTypes.STAGE_REMOVED, onPipelineChanged);
-            off(PipelineEventTypes.STAGE_CHANGED, onPipelineChanged);
-            off(PipelineEventTypes.STAGE_SORTED, onPipelineChanged);
+		on(PipelineEventTypes.PIPELINE_SAVED, onPipelineSaved);
+		return () => {
+			off(PipelineEventTypes.TRIGGER_TYPE_CHANGED, onPipelineChanged);
+			off(PipelineEventTypes.CONDITION_CHANGED, onPipelineChanged);
+			off(PipelineEventTypes.STAGE_ADDED, onPipelineChanged);
+			off(PipelineEventTypes.STAGE_REMOVED, onPipelineChanged);
+			off(PipelineEventTypes.STAGE_CHANGED, onPipelineChanged);
+			off(PipelineEventTypes.STAGE_SORTED, onPipelineChanged);
 
-            off(PipelineEventTypes.PIPELINE_SAVED, onPipelineSaved);
-        };
-    }, [on, off]);
+			off(PipelineEventTypes.PIPELINE_SAVED, onPipelineSaved);
+		};
+	}, [on, off]);
 
-    const onClicked = () => {
-        oncePipelines(PipelinesEventTypes.REPLY_TOPICS, async (topics: Array<Topic>) => {
-            const pass = await validate(pipeline, topics);
-            if (pass !== true) {
-                fireGlobal(EventTypes.SHOW_DIALOG,
-                    <StillSaveDialog message={pass}
-                                     onSave={() => fire(PipelineEventTypes.SAVE_PIPELINE, pipeline)}/>);
-            } else {
-                fire(PipelineEventTypes.SAVE_PIPELINE, pipeline);
-            }
-        }).fire(PipelinesEventTypes.ASK_TOPICS);
-    };
+	const onClicked = () => {
+		oncePipelines(PipelinesEventTypes.REPLY_TOPICS, async (topics: Array<Topic>) => {
+			const pass = await validate(pipeline, topics);
+			if (pass !== true) {
+				fireGlobal(EventTypes.SHOW_DIALOG,
+					<StillSaveDialog message={pass}
+					                 onSave={() => fire(PipelineEventTypes.SAVE_PIPELINE, pipeline)}/>);
+			} else {
+				fire(PipelineEventTypes.SAVE_PIPELINE, pipeline);
+			}
+		}).fire(PipelinesEventTypes.ASK_TOPICS);
+	};
 
-    return <PipelineSaveButton tooltip='Save Pipeline'
-                               onClick={onClicked}
-                               changed={changed}>
-        <FontAwesomeIcon icon={ICON_SAVE}/>
-        {changed ? <PipelineChangeLabel>Pipeline Changed</PipelineChangeLabel> : null}
-    </PipelineSaveButton>;
+	return <PipelineSaveButton tooltip="Save Pipeline"
+	                           onClick={onClicked}
+	                           changed={changed}>
+		<FontAwesomeIcon icon={ICON_SAVE}/>
+		{changed ? <PipelineChangeLabel>Pipeline Changed</PipelineChangeLabel> : null}
+	</PipelineSaveButton>;
 };

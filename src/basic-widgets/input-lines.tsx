@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 export const InputLines = styled.textarea.attrs<{ autoSelect?: boolean }>(({autoSelect = true, onFocus}) => {
-    return {
-        'data-v-scroll': '',
-        'data-h-scroll': '',
-        onFocus: autoSelect ? ((event: React.FocusEvent<HTMLTextAreaElement>) => {
-            event.target.select();
-            onFocus && onFocus(event);
-        }) : onFocus
-    };
+	return {
+		'data-v-scroll': '',
+		'data-h-scroll': '',
+		onFocus: autoSelect ? ((event: React.FocusEvent<HTMLTextAreaElement>) => {
+			event.target.select();
+			onFocus && onFocus(event);
+		}) : onFocus
+	};
 })<{ autoSelect?: boolean }>`
 	appearance       : none;
 	outline          : none;

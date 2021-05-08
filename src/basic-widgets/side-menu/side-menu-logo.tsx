@@ -27,9 +27,9 @@ const SideMenuLogoTitle = styled.div.attrs({'data-widget': 'side-menu-logo-title
 `;
 
 export const SideMenuLogo = (props: { title?: string; }) => {
-    const {title = 'Watchmen'} = props;
-    return <SideMenuLogoContainer>
-        <SideMenuLogoImage/>
-        <SideMenuLogoTitle>{title}</SideMenuLogoTitle>
-    </SideMenuLogoContainer>;
+	const {title = 'Watchmen'} = props;
+	return <SideMenuLogoContainer>
+		<SideMenuLogoImage/>
+		<SideMenuLogoTitle>{title}</SideMenuLogoTitle>
+	</SideMenuLogoContainer>;
 };

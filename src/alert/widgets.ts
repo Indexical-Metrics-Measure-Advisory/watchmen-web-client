@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import {ALERT_Z_INDEX} from '../basic-widgets/constants';
 
 export const AlertContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        'data-widget': 'alert',
-        style: {
-            opacity: visible ? 1 : (void 0),
-            pointerEvents: visible ? 'auto' : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'alert',
+		style: {
+			opacity: visible ? 1 : (void 0),
+			pointerEvents: visible ? 'auto' : (void 0)
+		}
+	};
 })<{ visible: boolean }>`
 	position         : fixed;
 	top              : 0;
@@ -22,12 +22,12 @@ export const AlertContainer = styled.div.attrs<{ visible: boolean }>(({visible})
 	z-index          : ${ALERT_Z_INDEX};
 `;
 export const AlertDialog = styled.div.attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        'data-widget': 'alert-dialog',
-        style: {
-            transform: visible ? 'none' : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'alert-dialog',
+		style: {
+			transform: visible ? 'none' : (void 0)
+		}
+	};
 })<{ visible: boolean }>`
 	display          : flex;
 	flex-direction   : column;

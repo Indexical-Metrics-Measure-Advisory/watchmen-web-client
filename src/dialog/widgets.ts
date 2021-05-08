@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import {DIALOG_Z_INDEX} from '../basic-widgets/constants';
 
 export const DialogContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        'data-widget': 'dialog',
-        style: {
-            opacity: visible ? 1 : (void 0),
-            pointerEvents: visible ? 'auto' : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'dialog',
+		style: {
+			opacity: visible ? 1 : (void 0),
+			pointerEvents: visible ? 'auto' : (void 0)
+		}
+	};
 })<{ visible: boolean }>`
 	position         : fixed;
 	top              : 0;
@@ -23,10 +23,10 @@ export const DialogContainer = styled.div.attrs<{ visible: boolean }>(({visible}
 `;
 
 export const DialogWrapper = styled.div.attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        'data-widget': 'dialog-wrapper',
-        style: {}
-    };
+	return {
+		'data-widget': 'dialog-wrapper',
+		style: {}
+	};
 })<{ visible: boolean }>`
 	margin-top       : 25vh;
 	margin-left      : calc(50vw - 250px);

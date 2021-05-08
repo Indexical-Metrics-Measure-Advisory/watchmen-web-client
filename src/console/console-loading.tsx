@@ -43,10 +43,10 @@ const Label = styled.div.attrs({'data-widget': 'console-loading-label'})`
 `;
 
 export const ConsoleLoading = () => {
-    return <Container>
-        <Icon>
-            <Logo/>
-        </Icon>
-        <Label>{Lang.CONSOLE.LOADING}</Label>
-    </Container>;
+	return <Container>
+		<Icon>
+			<Logo/>
+		</Icon>
+		<Label>{Lang.CONSOLE.LOADING}</Label>
+	</Container>;
 };

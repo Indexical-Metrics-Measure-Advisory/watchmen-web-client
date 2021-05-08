@@ -14,33 +14,33 @@ import {PipelineEventTypes} from '../pipeline-event-bus-types';
 import {useValidate} from '../valiator/use-validate';
 
 export const HeaderEnableButton = (props: { pipeline: Pipeline }) => {
-    const {pipeline} = props;
+	const {pipeline} = props;
 
-    const {fire: fireGlobal} = useEventBus();
-    const {once: oncePipelines} = usePipelinesEventBus();
-    const {fire} = usePipelineEventBus();
-    const validate = useValidate();
+	const {fire: fireGlobal} = useEventBus();
+	const {once: oncePipelines} = usePipelinesEventBus();
+	const {fire} = usePipelineEventBus();
+	const validate = useValidate();
 
-    const onClicked = () => {
-        if (pipeline.enabled) {
-            fire(PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, pipeline);
-        } else {
-            oncePipelines(PipelinesEventTypes.REPLY_TOPICS, async (topics: Array<Topic>) => {
-                const pass = await validate(pipeline, topics);
-                if (pass !== true) {
-                    pipeline.enabled = false;
-                    fireGlobal(EventTypes.SHOW_ALERT,
-                        <AlertLabel>{pass}</AlertLabel>);
-                } else {
-                    pipeline.enabled = true;
-                    fire(PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, pipeline);
-                }
-            }).fire(PipelinesEventTypes.ASK_TOPICS);
-        }
-    };
+	const onClicked = () => {
+		if (pipeline.enabled) {
+			fire(PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, pipeline);
+		} else {
+			oncePipelines(PipelinesEventTypes.REPLY_TOPICS, async (topics: Array<Topic>) => {
+				const pass = await validate(pipeline, topics);
+				if (pass !== true) {
+					pipeline.enabled = false;
+					fireGlobal(EventTypes.SHOW_ALERT,
+						<AlertLabel>{pass}</AlertLabel>);
+				} else {
+					pipeline.enabled = true;
+					fire(PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, pipeline);
+				}
+			}).fire(PipelinesEventTypes.ASK_TOPICS);
+		}
+	};
 
-    return <PageHeaderButton tooltip='Enable Pipeline'
-                             onClick={onClicked}>
-        <FontAwesomeIcon icon={ICON_ENABLE}/>
-    </PageHeaderButton>;
+	return <PageHeaderButton tooltip="Enable Pipeline"
+	                         onClick={onClicked}>
+		<FontAwesomeIcon icon={ICON_ENABLE}/>
+	</PageHeaderButton>;
 };

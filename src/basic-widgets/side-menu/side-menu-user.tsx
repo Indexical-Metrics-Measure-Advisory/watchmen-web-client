@@ -20,10 +20,10 @@ const SideMenuUserLabel = styled.div.attrs({'data-widget': 'side-menu-user-label
 `;
 
 export const SideMenuUser = (props: { name: string }) => {
-    const {name} = props;
+	const {name} = props;
 
-    return <SideMenuUserContainer>
-        <Avatar name={name}/>
-        <SideMenuUserLabel>{name}</SideMenuUserLabel>
-    </SideMenuUserContainer>;
+	return <SideMenuUserContainer>
+		<Avatar name={name}/>
+		<SideMenuUserLabel>{name}</SideMenuUserLabel>
+	</SideMenuUserContainer>;
 };

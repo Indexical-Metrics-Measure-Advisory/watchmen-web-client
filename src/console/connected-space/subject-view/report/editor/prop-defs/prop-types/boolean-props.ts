@@ -12,46 +12,46 @@ import {EChartsYAxisPropNames} from '../echart-styles/echarts-yaxis-props';
 import {PeripheralStylePropNames} from '../peripheral-style-props';
 
 export type BooleanPropNames =
-    PeripheralStylePropNames.DECAL
-    | CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING
+	PeripheralStylePropNames.DECAL
+	| CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING
 
-    | BarChartStylePropNames.TRANSFORM_AXIS
-    | BarChartStylePropNames.LABEL_SHOW
-    | BarChartStylePropNames.LABEL_FORMAT_USE_GROUPING
-    | BarChartStylePropNames.LABEL_FORMAT_USE_PERCENTAGE
-    | BarChartStylePropNames.LABEL_VALUE_AS_PERCENTAGE
+	| BarChartStylePropNames.TRANSFORM_AXIS
+	| BarChartStylePropNames.LABEL_SHOW
+	| BarChartStylePropNames.LABEL_FORMAT_USE_GROUPING
+	| BarChartStylePropNames.LABEL_FORMAT_USE_PERCENTAGE
+	| BarChartStylePropNames.LABEL_VALUE_AS_PERCENTAGE
 
-    | LineChartStylePropNames.SMOOTH
+	| LineChartStylePropNames.SMOOTH
 
-    | PieChartStylePropNames.SHOW_PERCENTAGE
-    | PieChartStylePropNames.LABEL_SHOW
-    | PieChartStylePropNames.LABEL_FORMAT_USE_GROUPING
-    | PieChartStylePropNames.LABEL_FORMAT_USE_PERCENTAGE
-    | PieChartStylePropNames.LABEL_VALUE_AS_PERCENTAGE
+	| PieChartStylePropNames.SHOW_PERCENTAGE
+	| PieChartStylePropNames.LABEL_SHOW
+	| PieChartStylePropNames.LABEL_FORMAT_USE_GROUPING
+	| PieChartStylePropNames.LABEL_FORMAT_USE_PERCENTAGE
+	| PieChartStylePropNames.LABEL_VALUE_AS_PERCENTAGE
 
-    | TreeChartStylePropNames.ROAM
+	| TreeChartStylePropNames.ROAM
 
-    | TreemapChartStylePropNames.ROAM
+	| TreemapChartStylePropNames.ROAM
 
-    | EChartsLegendPropNames.SHOW
+	| EChartsLegendPropNames.SHOW
 
-    | EChartsGridPropNames.SHOW
-    | EChartsGridPropNames.CONTAIN_LABEL
+	| EChartsGridPropNames.SHOW
+	| EChartsGridPropNames.CONTAIN_LABEL
 
-    | EChartsXAxisPropNames.SHOW
-    | EChartsXAxisPropNames.AUTO_MIN
-    | EChartsXAxisPropNames.AUTO_MAX
-    | EChartsXAxisPropNames.LABEL_SHOW
-    | EChartsXAxisPropNames.LABEL_INSIDE
-    | EChartsXAxisPropNames.SPLIT_LINE_SHOW
-    | EChartsXAxisPropNames.MINOR_SPLIT_LINE_SHOW
+	| EChartsXAxisPropNames.SHOW
+	| EChartsXAxisPropNames.AUTO_MIN
+	| EChartsXAxisPropNames.AUTO_MAX
+	| EChartsXAxisPropNames.LABEL_SHOW
+	| EChartsXAxisPropNames.LABEL_INSIDE
+	| EChartsXAxisPropNames.SPLIT_LINE_SHOW
+	| EChartsXAxisPropNames.MINOR_SPLIT_LINE_SHOW
 
-    | EChartsYAxisPropNames.SHOW
-    | EChartsYAxisPropNames.AUTO_MIN
-    | EChartsYAxisPropNames.AUTO_MAX
-    | EChartsYAxisPropNames.LABEL_SHOW
-    | EChartsYAxisPropNames.LABEL_INSIDE
-    | EChartsYAxisPropNames.SPLIT_LINE_SHOW
-    | EChartsYAxisPropNames.MINOR_SPLIT_LINE_SHOW
+	| EChartsYAxisPropNames.SHOW
+	| EChartsYAxisPropNames.AUTO_MIN
+	| EChartsYAxisPropNames.AUTO_MAX
+	| EChartsYAxisPropNames.LABEL_SHOW
+	| EChartsYAxisPropNames.LABEL_INSIDE
+	| EChartsYAxisPropNames.SPLIT_LINE_SHOW
+	| EChartsYAxisPropNames.MINOR_SPLIT_LINE_SHOW
 
-    | EChartsTooltipPropNames.SHOW;
+	| EChartsTooltipPropNames.SHOW;

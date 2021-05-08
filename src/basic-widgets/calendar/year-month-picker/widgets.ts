@@ -54,7 +54,7 @@ export const MonthSelector = styled.div`
 	grid-template-columns : 1fr 1fr 1fr;
 	grid-column-gap       : calc(var(--margin) / 2);
 	grid-row-gap          : calc(var(--margin) / 2);
-`
+`;
 export const MonthSelectorOption = styled.span`
 	display         : flex;
 	align-items     : center;
@@ -64,4 +64,4 @@ export const MonthSelectorOption = styled.span`
 	&:hover {
 		background-color : var(--hover-color);
 	}
-`
+`;

@@ -12,27 +12,27 @@ import {TopicPicker} from '../topic-picker';
 import {ActionLeadLabelThin} from '../widgets';
 
 export const MergeRow = (props: {
-    pipeline: Pipeline;
-    stage: PipelineStage;
-    unit: PipelineStageUnit;
-    action: PipelineStageUnitAction;
-    topics: Array<Topic>;
-    topic: Topic;
+	pipeline: Pipeline;
+	stage: PipelineStage;
+	unit: PipelineStageUnit;
+	action: PipelineStageUnitAction;
+	topics: Array<Topic>;
+	topic: Topic;
 }) => {
-    const {action, topics, topic} = props;
+	const {action, topics, topic} = props;
 
-    useActionType(action);
+	useActionType(action);
 
-    if (!isMergeRowAction(action)) {
-        return null;
-    }
+	if (!isMergeRowAction(action)) {
+		return null;
+	}
 
-    return <>
-        <ActionLeadLabelThin>Target Topic:</ActionLeadLabelThin>
-        <TopicPicker action={action} topics={topics}/>
-        <ActionLeadLabelThin>Use Mapping:</ActionLeadLabelThin>
-        <FactorsMapping action={action} topics={topics} topic={topic}/>
-        <ActionLeadLabelThin>By:</ActionLeadLabelThin>
-        <FindByCondition action={action} topics={topics} topic={topic}/>
-    </>;
+	return <>
+		<ActionLeadLabelThin>Target Topic:</ActionLeadLabelThin>
+		<TopicPicker action={action} topics={topics}/>
+		<ActionLeadLabelThin>Use Mapping:</ActionLeadLabelThin>
+		<FactorsMapping action={action} topics={topics} topic={topic}/>
+		<ActionLeadLabelThin>By:</ActionLeadLabelThin>
+		<FindByCondition action={action} topics={topics} topic={topic}/>
+	</>;
 };

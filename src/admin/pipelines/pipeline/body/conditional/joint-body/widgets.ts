@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import {GRID_ROW_GAP} from '../../constants';
 
 export const JointBodyContainer = styled.div.attrs<{ expanded: boolean }>(({expanded}) => {
-    return {
-        'data-widget': 'joint-body',
-        style: {
-            display: expanded ? (void 0) : 'none'
-        }
-    };
+	return {
+		'data-widget': 'joint-body',
+		style: {
+			display: expanded ? (void 0) : 'none'
+		}
+	};
 })<{ expanded: boolean }>`
 	display               : grid;
 	position              : relative;

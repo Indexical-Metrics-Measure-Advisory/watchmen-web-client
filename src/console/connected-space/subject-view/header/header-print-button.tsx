@@ -7,11 +7,11 @@ import {ConnectedSpace} from '../../../../services/tuples/connected-space-types'
 import {Subject} from '../../../../services/tuples/subject-types';
 
 export const HeaderPrintButton = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
-    const onPrintClicked = () => {
-        window.print();
-    };
+	const onPrintClicked = () => {
+		window.print();
+	};
 
-    return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.PRINT} onClick={onPrintClicked}>
-        <FontAwesomeIcon icon={ICON_PRINT}/>
-    </PageHeaderButton>;
+	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.PRINT} onClick={onPrintClicked}>
+		<FontAwesomeIcon icon={ICON_PRINT}/>
+	</PageHeaderButton>;
 };

@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import {Button} from '../../../../../basic-widgets/button';
 
 export const DslContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        'data-widget': 'pipeline-dsl',
-        'data-v-scroll': '',
-        style: {
-            top: visible ? 0 : (void 0),
-            height: visible ? '100%' : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'pipeline-dsl',
+		'data-v-scroll': '',
+		style: {
+			top: visible ? 0 : (void 0),
+			height: visible ? '100%' : (void 0)
+		}
+	};
 })<{ visible: boolean }>`
 	display          : flex;
 	flex-direction   : column;

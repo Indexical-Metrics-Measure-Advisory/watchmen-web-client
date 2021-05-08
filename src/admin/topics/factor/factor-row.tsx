@@ -12,25 +12,25 @@ import {FactorTypeCell} from './factor-type-cell';
 import {FactorPropLabel, FactorRowContainer} from './widgets';
 
 export const FactorRow = (props: {
-    topic: Topic;
-    factor: Factor;
-    enums: Array<QueryEnumForHolder>;
+	topic: Topic;
+	factor: Factor;
+	enums: Array<QueryEnumForHolder>;
 }) => {
-    const {topic, factor, enums} = props;
+	const {topic, factor, enums} = props;
 
-    return <FactorRowContainer>
-        {/*<FactorSerialCell topic={topic} factor={factor}/>*/}
-        <FactorPropLabel><span>#{topic.factors.indexOf(factor) + 1}</span> Name</FactorPropLabel>
-        <FactorNameCell topic={topic} factor={factor}/>
-        <FactorPropLabel>Label</FactorPropLabel>
-        <FactorLabelCell factor={factor}/>
-        <FactorPropLabel>Type</FactorPropLabel>
-        <FactorTypeCell topic={topic} factor={factor}/>
-        <FactorEnumCell factor={factor} enums={enums}/>
-        <FactorPropLabel>Default Value</FactorPropLabel>
-        <FactorDefaultValueCell factor={factor}/>
-        <FactorPropLabel>Index Group</FactorPropLabel>
-        <FactorIndexGroupCell factor={factor}/>
-        <FactorButtons topic={topic} factor={factor}/>
-    </FactorRowContainer>;
+	return <FactorRowContainer>
+		{/*<FactorSerialCell topic={topic} factor={factor}/>*/}
+		<FactorPropLabel><span>#{topic.factors.indexOf(factor) + 1}</span> Name</FactorPropLabel>
+		<FactorNameCell topic={topic} factor={factor}/>
+		<FactorPropLabel>Label</FactorPropLabel>
+		<FactorLabelCell factor={factor}/>
+		<FactorPropLabel>Type</FactorPropLabel>
+		<FactorTypeCell topic={topic} factor={factor}/>
+		<FactorEnumCell factor={factor} enums={enums}/>
+		<FactorPropLabel>Default Value</FactorPropLabel>
+		<FactorDefaultValueCell factor={factor}/>
+		<FactorPropLabel>Index Group</FactorPropLabel>
+		<FactorIndexGroupCell factor={factor}/>
+		<FactorButtons topic={topic} factor={factor}/>
+	</FactorRowContainer>;
 };

@@ -43,11 +43,11 @@ const Label = styled.div.attrs({'data-widget': 'share-nothing-label'})`
 `;
 
 export const ShareNothing = (props: { label?: string }) => {
-    const {label} = props;
-    return <Container>
-        <Icon>
-            <Logo/>
-        </Icon>
-        <Label>{label || Lang.SHARE.NOTHING}</Label>
-    </Container>;
+	const {label} = props;
+	return <Container>
+		<Icon>
+			<Logo/>
+		</Icon>
+		<Label>{label || Lang.SHARE.NOTHING}</Label>
+	</Container>;
 };

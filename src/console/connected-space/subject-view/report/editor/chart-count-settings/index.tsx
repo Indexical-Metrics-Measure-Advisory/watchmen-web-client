@@ -12,39 +12,39 @@ import {BooleanValue} from '../settings-widgets/boolean-value';
 import {Section} from '../settings-widgets/section';
 
 export const ChartCountSettings = (props: { report: Report }) => {
-    const {report} = props;
-    const {chart} = report;
+	const {report} = props;
+	const {chart} = report;
 
-    const {fire} = useReportEditEventBus();
-    useChartType({report});
+	const {fire} = useReportEditEventBus();
+	useChartType({report});
 
-    if (!isCountChart(chart)) {
-        return null;
-    }
+	if (!isCountChart(chart)) {
+		return null;
+	}
 
-    const onValueChange = () => {
-        fire(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, report);
-    };
+	const onValueChange = () => {
+		fire(ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, report);
+	};
 
-    const getHolder = () => chart.settings?.countText;
-    const propNames: SettingsFontPropNames = {
-        family: CountChartStylePropNames.TEXT_FONT_FAMILY,
-        color: CountChartStylePropNames.TEXT_FONT_COLOR,
-        weight: CountChartStylePropNames.TEXT_FONT_WEIGHT,
-        size: CountChartStylePropNames.TEXT_FONT_SIZE,
-        style: CountChartStylePropNames.TEXT_FONT_STYLE
-    };
+	const getHolder = () => chart.settings?.countText;
+	const propNames: SettingsFontPropNames = {
+		family: CountChartStylePropNames.TEXT_FONT_FAMILY,
+		color: CountChartStylePropNames.TEXT_FONT_COLOR,
+		weight: CountChartStylePropNames.TEXT_FONT_WEIGHT,
+		size: CountChartStylePropNames.TEXT_FONT_SIZE,
+		style: CountChartStylePropNames.TEXT_FONT_STYLE
+	};
 
-    return <Section title={Lang.CHART.SECTION_TITLE_COUNT_CHART}>
-        <FontSettings report={report} chart={chart} getHolder={getHolder} propNames={propNames}
-                      onValueChange={onValueChange}/>
-        <BooleanValue label={Lang.CHART.COUNT.FORMAT_USING_GROUP}
-                      value={chart.settings?.countText?.formatUseGrouping} defaultValue={false}
-                      onValueChange={onBooleanChange({
-                          report,
-                          chart,
-                          prop: CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING,
-                          done: onValueChange
-                      })}/>
-    </Section>;
+	return <Section title={Lang.CHART.SECTION_TITLE_COUNT_CHART}>
+		<FontSettings report={report} chart={chart} getHolder={getHolder} propNames={propNames}
+		              onValueChange={onValueChange}/>
+		<BooleanValue label={Lang.CHART.COUNT.FORMAT_USING_GROUP}
+		              value={chart.settings?.countText?.formatUseGrouping} defaultValue={false}
+		              onValueChange={onBooleanChange({
+			              report,
+			              chart,
+			              prop: CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING,
+			              done: onValueChange
+		              })}/>
+	</Section>;
 };

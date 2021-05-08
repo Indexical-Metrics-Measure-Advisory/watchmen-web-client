@@ -15,24 +15,24 @@ import {HeaderShowPageButton} from './header-show-page-button';
 import {HeaderSwitchDashboardButton} from './header-switch-dashboard-button';
 
 export const HeaderButtons = (props: { dashboard: Dashboard }) => {
-    const {dashboard} = props;
+	const {dashboard} = props;
 
-    return <PageHeaderButtons>
-        <HeaderAddReportButton dashboard={dashboard}/>
-        <HeaderAddParagraphButton dashboard={dashboard}/>
-        <PageHeaderButtonSeparator/>
-        <HeaderFavoriteButton dashboard={dashboard}/>
-        <HeaderShareButton dashboard={dashboard}/>
-        <HeaderShowPageButton dashboard={dashboard}/>
-        <HeaderPrintButton/>
-        <HeaderSetAdminHomeButton dashboard={dashboard}/>
-        <PageHeaderButtonSeparator/>
-        <HeaderManualRefreshButton dashboard={dashboard}/>
-        <HeaderAutoRefreshButton dashboard={dashboard}/>
-        <PageHeaderButtonSeparator/>
-        <HeaderCreateDashboardButton/>
-        <HeaderSwitchDashboardButton dashboard={dashboard}/>
-        <PageHeaderButtonSeparator/>
-        <HeaderDeleteMeButton dashboard={dashboard}/>
-    </PageHeaderButtons>;
+	return <PageHeaderButtons>
+		<HeaderAddReportButton dashboard={dashboard}/>
+		<HeaderAddParagraphButton dashboard={dashboard}/>
+		<PageHeaderButtonSeparator/>
+		<HeaderFavoriteButton dashboard={dashboard}/>
+		<HeaderShareButton dashboard={dashboard}/>
+		<HeaderShowPageButton dashboard={dashboard}/>
+		<HeaderPrintButton/>
+		<HeaderSetAdminHomeButton dashboard={dashboard}/>
+		<PageHeaderButtonSeparator/>
+		<HeaderManualRefreshButton dashboard={dashboard}/>
+		<HeaderAutoRefreshButton dashboard={dashboard}/>
+		<PageHeaderButtonSeparator/>
+		<HeaderCreateDashboardButton/>
+		<HeaderSwitchDashboardButton dashboard={dashboard}/>
+		<PageHeaderButtonSeparator/>
+		<HeaderDeleteMeButton dashboard={dashboard}/>
+	</PageHeaderButtons>;
 };

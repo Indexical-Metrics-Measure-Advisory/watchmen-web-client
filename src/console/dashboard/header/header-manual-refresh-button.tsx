@@ -8,15 +8,15 @@ import {useDashboardEventBus} from '../dashboard-event-bus';
 import {DashboardEventTypes} from '../dashboard-event-bus-types';
 
 export const HeaderManualRefreshButton = (props: { dashboard: Dashboard }) => {
-    const {dashboard} = props;
+	const {dashboard} = props;
 
-    const {fire} = useDashboardEventBus();
-    const onManualRefreshClicked = () => {
-        fire(DashboardEventTypes.REFRESH_REPORTS, dashboard);
-    };
+	const {fire} = useDashboardEventBus();
+	const onManualRefreshClicked = () => {
+		fire(DashboardEventTypes.REFRESH_REPORTS, dashboard);
+	};
 
-    return <PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.REFRESH}
-                             onClick={onManualRefreshClicked}>
-        <FontAwesomeIcon icon={ICON_REFRESH}/>
-    </PageHeaderButton>;
+	return <PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.REFRESH}
+	                         onClick={onManualRefreshClicked}>
+		<FontAwesomeIcon icon={ICON_REFRESH}/>
+	</PageHeaderButton>;
 };

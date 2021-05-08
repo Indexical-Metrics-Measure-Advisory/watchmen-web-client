@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ReportBodyContainer = styled.div.attrs({
-    'data-widget': 'connected-space-navigator-report'
+	'data-widget': 'connected-space-navigator-report'
 })`
 	display               : grid;
 	position              : relative;

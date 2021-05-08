@@ -5,22 +5,22 @@ import {CalendarState} from '../types';
 import {DROPDOWN_HEIGHT, DROPDOWN_WIDTH} from '../widgets';
 
 export const CalendarPickerContainer = styled.div.attrs<CalendarState>(({active, top, left, width, height}) => {
-    const atBottom = top + height + DROPDOWN_HEIGHT < window.innerHeight;
-    return {
-        style: {
-            height: DROPDOWN_HEIGHT,
-            width: DROPDOWN_WIDTH,
-            top: atBottom ? (top + height - 1) : 'unset',
-            bottom: atBottom ? 'unset' : `calc(100vh - ${top + 1}px)`,
-            left,
-            borderTopLeftRadius: atBottom ? 0 : 'var(--border-radius)',
-            borderTopRightRadius: (atBottom && width >= 364) ? 0 : 'var(--border-radius)',
-            borderBottomLeftRadius: atBottom ? 'var(--border-radius)' : 0,
-            borderBottomRightRadius: (atBottom || width < 364) ? 'var(--border-radius)' : 0,
-            opacity: active ? 1 : (void 0),
-            pointerEvents: active ? 'auto' : (void 0)
-        }
-    };
+	const atBottom = top + height + DROPDOWN_HEIGHT < window.innerHeight;
+	return {
+		style: {
+			height: DROPDOWN_HEIGHT,
+			width: DROPDOWN_WIDTH,
+			top: atBottom ? (top + height - 1) : 'unset',
+			bottom: atBottom ? 'unset' : `calc(100vh - ${top + 1}px)`,
+			left,
+			borderTopLeftRadius: atBottom ? 0 : 'var(--border-radius)',
+			borderTopRightRadius: (atBottom && width >= 364) ? 0 : 'var(--border-radius)',
+			borderBottomLeftRadius: atBottom ? 'var(--border-radius)' : 0,
+			borderBottomRightRadius: (atBottom || width < 364) ? 'var(--border-radius)' : 0,
+			opacity: active ? 1 : (void 0),
+			pointerEvents: active ? 'auto' : (void 0)
+		}
+	};
 })<CalendarState>`
 	display          : flex;
 	flex-direction   : column;

@@ -12,20 +12,20 @@ import {ConnectedSpace} from '../../../services/tuples/connected-space-types';
 const isCatalogNow = () => !!matchPath(window.location.pathname, Router.CONSOLE_CONNECTED_SPACE_CATALOG);
 
 export const HeaderCatalogButton = (props: { connectedSpace: ConnectedSpace }) => {
-    const {connectedSpace} = props;
+	const {connectedSpace} = props;
 
-    const history = useHistory();
+	const history = useHistory();
 
-    const onCatalogClicked = () => {
-        if (isCatalogNow()) {
-            return;
-        }
-        history.push(toConnectedSpaceCatalog(connectedSpace.connectId));
-    };
+	const onCatalogClicked = () => {
+		if (isCatalogNow()) {
+			return;
+		}
+		history.push(toConnectedSpaceCatalog(connectedSpace.connectId));
+	};
 
-    return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.CATALOG}
-                             ink={isCatalogNow() ? ButtonInk.PRIMARY : (void 0)}
-                             onClick={onCatalogClicked}>
-        <FontAwesomeIcon icon={ICON_CONNECTED_SPACE_CATALOG}/>
-    </PageHeaderButton>;
+	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.CATALOG}
+	                         ink={isCatalogNow() ? ButtonInk.PRIMARY : (void 0)}
+	                         onClick={onCatalogClicked}>
+		<FontAwesomeIcon icon={ICON_CONNECTED_SPACE_CATALOG}/>
+	</PageHeaderButton>;
 };

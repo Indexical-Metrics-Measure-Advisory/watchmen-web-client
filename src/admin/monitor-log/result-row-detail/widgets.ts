@@ -76,14 +76,14 @@ export const ShowUnchanged = styled.div.attrs({'data-widget': 'monitor-log-detai
 	}
 `;
 export const Diff = styled.div.attrs<{ fullScreen: boolean }>(({fullScreen}) => {
-    return {
-        'data-widget': 'monitor-log-detail-data-diff',
-        'data-h-scroll': '',
-        'data-v-scroll': '',
-        style: {
-            maxHeight: fullScreen ? 'calc(100vh - var(--height))' : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'monitor-log-detail-data-diff',
+		'data-h-scroll': '',
+		'data-v-scroll': '',
+		style: {
+			maxHeight: fullScreen ? 'calc(100vh - var(--height))' : (void 0)
+		}
+	};
 })<{ fullScreen: boolean }>`
 	display      : block;
 	position     : relative;
@@ -121,14 +121,14 @@ export const CloseButton = styled(DwarfButton)`
 	margin-left : calc(var(--margin) / 4);
 `;
 export const DetailProcessBody = styled.div.attrs<{ fullScreen: boolean }>(({fullScreen}) => {
-    return {
-        'data-widget': 'monitor-log-detail-process-body',
-        'data-v-scroll': '',
-        'data-h-scroll': '',
-        style: {
-            maxHeight: fullScreen ? 'calc(100vh - var(--height))' : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'monitor-log-detail-process-body',
+		'data-v-scroll': '',
+		'data-h-scroll': '',
+		style: {
+			maxHeight: fullScreen ? 'calc(100vh - var(--height))' : (void 0)
+		}
+	};
 })<{ fullScreen: boolean }>`
 	grid-column : 1 / span 2;
 	max-height  : calc(400px - var(--height));
@@ -179,9 +179,9 @@ export const ErrorLabel = styled.div.attrs({'data-widget': 'monitor-log-detail-p
 	height       : var(--height);
 `;
 export const ErrorStack = styled(InputLines).attrs({
-    'data-widget': 'monitor-log-detail-process-error-stack',
-    'data-v-scroll': '',
-    'data-h-scroll': ''
+	'data-widget': 'monitor-log-detail-process-error-stack',
+	'data-v-scroll': '',
+	'data-h-scroll': ''
 })`
 	display     : flex;
 	position    : relative;

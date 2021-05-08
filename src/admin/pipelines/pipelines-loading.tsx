@@ -42,10 +42,10 @@ const Label = styled.div.attrs({'data-widget': 'pipelines-loading-label'})`
 `;
 
 export const PipelinesLoading = () => {
-    return <Container>
-        <Icon>
-            <Logo/>
-        </Icon>
-        <Label>Loading Pipelines Data...</Label>
-    </Container>;
+	return <Container>
+		<Icon>
+			<Logo/>
+		</Icon>
+		<Label>Loading Pipelines Data...</Label>
+	</Container>;
 };

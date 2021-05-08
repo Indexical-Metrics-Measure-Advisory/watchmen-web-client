@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import {CarveButton} from '../../../../basic-widgets/button';
 
 export const TupleSearchContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        'data-widget': 'tuple-search',
-        style: {
-            display: visible ? (void 0) : 'none',
-            paddingBottom: visible ? (void 0) : 0,
-            marginBottom: visible ? (void 0) : 0
-        }
-    };
+	return {
+		'data-widget': 'tuple-search',
+		style: {
+			display: visible ? (void 0) : 'none',
+			paddingBottom: visible ? (void 0) : 0,
+			marginBottom: visible ? (void 0) : 0
+		}
+	};
 })<{ visible: boolean }>`
 	display        : flex;
 	position       : relative;
@@ -19,10 +19,10 @@ export const TupleSearchContainer = styled.div.attrs<{ visible: boolean }>(({vis
 `;
 
 export const NoData = styled.div.attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        'data-widget': 'tuple-search-no-data',
-        style: {display: visible ? (void 0) : 'none'}
-    };
+	return {
+		'data-widget': 'tuple-search-no-data',
+		style: {display: visible ? (void 0) : 'none'}
+	};
 })<{ visible: boolean }>`
 	display        : flex;
 	position        : relative;
@@ -50,12 +50,12 @@ export const TupleSearchListPagination = styled.div.attrs({'data-widget': 'tuple
 	margin-top  : calc(var(--margin) / 2);
 `;
 export const TupleSearchListPaginationButton = styled(CarveButton).attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        'data-widget': 'tuple-search-list-pagination-button',
-        style: {
-            display: visible ? (void 0) : 'none'
-        }
-    };
+	return {
+		'data-widget': 'tuple-search-list-pagination-button',
+		style: {
+			display: visible ? (void 0) : 'none'
+		}
+	};
 })<{ visible: boolean }>`
 	line-height : 1.6em;
 	font-weight : var(--font-demi-bold);

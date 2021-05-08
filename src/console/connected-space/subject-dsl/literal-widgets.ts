@@ -33,10 +33,10 @@ export const JoinAndNode = styled.span.attrs({'data-widget': 'join-and'})`
 	color          : var(--info-color);
 `;
 export const JointAndNode = styled.span.attrs<{ indent: number }>(({indent}) => {
-    return {
-        'data-widget': 'joint-and',
-        style: {marginLeft: `calc(var(--margin) / 2 * ${indent + 1})`}
-    };
+	return {
+		'data-widget': 'joint-and',
+		style: {marginLeft: `calc(var(--margin) / 2 * ${indent + 1})`}
+	};
 })<{ indent: number }>`
 	line-height    : var(--line-height);
 	font-variant   : petite-caps;
@@ -47,10 +47,10 @@ export const JointAndNode = styled.span.attrs<{ indent: number }>(({indent}) => 
 	color          : var(--info-color);
 `;
 export const JointOrNode = styled.span.attrs<{ indent: number }>(({indent}) => {
-    return {
-        'data-widget': 'joint-or',
-        style: {marginLeft: `calc(var(--margin) / 2 * ${indent + 1})`}
-    };
+	return {
+		'data-widget': 'joint-or',
+		style: {marginLeft: `calc(var(--margin) / 2 * ${indent + 1})`}
+	};
 })<{ indent: number }>`
 	line-height    : var(--line-height);
 	font-variant   : petite-caps;

@@ -3,6 +3,6 @@ import {QueryUserGroupForHolder} from '../../services/tuples/query-user-group-ty
 import {HoldByTuple} from '../widgets/tuple-workbench/tuple-event-bus-types';
 
 export interface HoldBySpace extends HoldByTuple {
-    topics?: Array<QueryTopicForHolder>;
-    groups?: Array<QueryUserGroupForHolder>
+	topics?: Array<QueryTopicForHolder>;
+	groups?: Array<QueryUserGroupForHolder>
 }

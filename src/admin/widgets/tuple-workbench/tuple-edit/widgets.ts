@@ -2,12 +2,12 @@ import styled, {keyframes} from 'styled-components';
 import {Button} from '../../../../basic-widgets/button';
 
 export const TupleEditContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        'data-widget': 'tuple-edit',
-        style: {
-            display: visible ? (void 0) : 'none'
-        }
-    };
+	return {
+		'data-widget': 'tuple-edit',
+		style: {
+			display: visible ? (void 0) : 'none'
+		}
+	};
 })<{ visible: boolean }>`
 	display               : grid;
 	position              : relative;
@@ -20,13 +20,13 @@ export const TupleEditContainer = styled.div.attrs<{ visible: boolean }>(({visib
 `;
 
 export const TupleImage = styled.div.attrs<{ background: string, position: string }>(({background, position}) => {
-    return {
-        'data-widget': 'tuple-background-image',
-        style: {
-            backgroundImage: `url(${background})`,
-            backgroundPosition: position
-        }
-    };
+	return {
+		'data-widget': 'tuple-background-image',
+		style: {
+			backgroundImage: `url(${background})`,
+			backgroundPosition: position
+		}
+	};
 })<{ background: string, position: string }>`
 	background-repeat : no-repeat;
 	background-size   : 80%;

@@ -10,31 +10,31 @@ import {SubParameterEditBody} from './sub-parameter-edit-body';
 import {SubParameterEditContainer} from './widgets';
 
 export const SubParameterEditor = (props: {
-    parentParameter: ComputedParameter;
-    parameter: Parameter;
-    topics: Array<Topic>;
-    onDeleted: () => void;
+	parentParameter: ComputedParameter;
+	parameter: Parameter;
+	topics: Array<Topic>;
+	onDeleted: () => void;
 }) => {
-    const {
-        parameter, parentParameter,
-        topics,
-        onDeleted
-    } = props;
+	const {
+		parameter, parentParameter,
+		topics,
+		onDeleted
+	} = props;
 
-    const {on, off} = useParameterEventBus();
-    const forceUpdate = useForceUpdate();
-    useEffect(() => {
-        on(ParameterEventTypes.FROM_CHANGED, forceUpdate);
-        return () => {
-            off(ParameterEventTypes.FROM_CHANGED, forceUpdate);
-        };
-    }, [on, off, forceUpdate]);
+	const {on, off} = useParameterEventBus();
+	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		on(ParameterEventTypes.FROM_CHANGED, forceUpdate);
+		return () => {
+			off(ParameterEventTypes.FROM_CHANGED, forceUpdate);
+		};
+	}, [on, off, forceUpdate]);
 
-    return <SubParameterEditContainer shorten={parameter.kind === ParameterKind.COMPUTED}>
-        <SubParameterCondition parentParameter={parentParameter} parameter={parameter} topics={topics}/>
-        <ParameterFromEditor parameter={parameter}/>
-        <SubParameterEditBody parameter={parameter} parentParameter={parentParameter}
-                              topics={topics}
-                              onDeleted={onDeleted}/>
-    </SubParameterEditContainer>;
+	return <SubParameterEditContainer shorten={parameter.kind === ParameterKind.COMPUTED}>
+		<SubParameterCondition parentParameter={parentParameter} parameter={parameter} topics={topics}/>
+		<ParameterFromEditor parameter={parameter}/>
+		<SubParameterEditBody parameter={parameter} parentParameter={parentParameter}
+		                      topics={topics}
+		                      onDeleted={onDeleted}/>
+	</SubParameterEditContainer>;
 };

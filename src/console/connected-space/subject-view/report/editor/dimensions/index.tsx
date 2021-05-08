@@ -19,70 +19,70 @@ import {DimensionEditor} from './dimension';
 import {AddDimensionButton, AddDimensionContainer} from './widgets';
 
 export const DimensionsSection = (props: { subject: Subject, report: Report }) => {
-    const {subject, report} = props;
-    const {chart: {type}} = report;
+	const {subject, report} = props;
+	const {chart: {type}} = report;
 
-    const {fire: fireGlobal} = useEventBus();
-    const {fire} = useReportEditEventBus();
-    const forceUpdate = useForceUpdate();
-    useChartType({report});
+	const {fire: fireGlobal} = useEventBus();
+	const {fire} = useReportEditEventBus();
+	const forceUpdate = useForceUpdate();
+	useChartType({report});
 
-    const onDelete = (dimension: ReportDimension) => {
-        const index = report.dimensions.indexOf(dimension);
-        if (index !== -1) {
-            report.dimensions.splice(index, 1);
+	const onDelete = (dimension: ReportDimension) => {
+		const index = report.dimensions.indexOf(dimension);
+		if (index !== -1) {
+			report.dimensions.splice(index, 1);
 
-            // dimensions will not be deleted when switch chart type.
-            // so in some case, even displayed dimension was deleted, count of dimension still be more than maximum
-            // remove them now.
-            // note didn't remove the needless dimensions, in case of switch chart type back
-            const chartUtils = ChartHelper[type];
-            chartUtils.defendDimensionMaxCount(report);
+			// dimensions will not be deleted when switch chart type.
+			// so in some case, even displayed dimension was deleted, count of dimension still be more than maximum
+			// remove them now.
+			// note didn't remove the needless dimensions, in case of switch chart type back
+			const chartUtils = ChartHelper[type];
+			chartUtils.defendDimensionMaxCount(report);
 
-            fire(ReportEditEventTypes.DIMENSION_REMOVED, report, dimension);
-            forceUpdate();
-        }
-    };
-    const onAddDimensionClicked = () => {
-        const chartUtils = ChartHelper[type];
-        if (!chartUtils.canAppendDimensions(report)) {
-            fireGlobal(EventTypes.SHOW_ALERT,
-                <AlertLabel>{Lang.CHART.CAN_NOT_ADD_DIMENSION}</AlertLabel>);
-        } else {
-            const dimension: ReportDimension = {columnId: '', name: ''};
-            report.dimensions.push(dimension);
-            fire(ReportEditEventTypes.DIMENSION_ADDED, report, dimension);
-            forceUpdate();
-        }
-    };
+			fire(ReportEditEventTypes.DIMENSION_REMOVED, report, dimension);
+			forceUpdate();
+		}
+	};
+	const onAddDimensionClicked = () => {
+		const chartUtils = ChartHelper[type];
+		if (!chartUtils.canAppendDimensions(report)) {
+			fireGlobal(EventTypes.SHOW_ALERT,
+				<AlertLabel>{Lang.CHART.CAN_NOT_ADD_DIMENSION}</AlertLabel>);
+		} else {
+			const dimension: ReportDimension = {columnId: '', name: ''};
+			report.dimensions.push(dimension);
+			fire(ReportEditEventTypes.DIMENSION_ADDED, report, dimension);
+			forceUpdate();
+		}
+	};
 
-    /** defend */
-    const chartUtils = ChartHelper[type];
+	/** defend */
+	const chartUtils = ChartHelper[type];
 
-    if (!chartUtils.shouldHasDimension()) {
-        return null;
-    }
+	if (!chartUtils.shouldHasDimension()) {
+		return null;
+	}
 
-    chartUtils.defend(report);
-    const canAddDimension = chartUtils.canAppendDimensions(report);
+	chartUtils.defend(report);
+	const canAddDimension = chartUtils.canAppendDimensions(report);
 
-    return <Section title={Lang.CHART.SECTION_TITLE_DIMENSIONS}>
-        {report.dimensions.map((dimension, dimensionIndex) => {
-            // ignore needless dimensions
-            if (dimensionIndex >= chartUtils.getMaxDimensionCount()) {
-                return null;
-            }
-            return <DimensionEditor subject={subject} report={report} dimension={dimension}
-                                    onDelete={onDelete}
-                                    key={v4()}/>;
-        })}
-        {canAddDimension
-            ? <AddDimensionContainer>
-                <AddDimensionButton ink={ButtonInk.PRIMARY} onClick={onAddDimensionClicked}>
-                    <FontAwesomeIcon icon={ICON_ADD}/>
-                    <span>{Lang.CHART.ADD_DIMENSION}</span>
-                </AddDimensionButton>
-            </AddDimensionContainer>
-            : null}
-    </Section>;
+	return <Section title={Lang.CHART.SECTION_TITLE_DIMENSIONS}>
+		{report.dimensions.map((dimension, dimensionIndex) => {
+			// ignore needless dimensions
+			if (dimensionIndex >= chartUtils.getMaxDimensionCount()) {
+				return null;
+			}
+			return <DimensionEditor subject={subject} report={report} dimension={dimension}
+			                        onDelete={onDelete}
+			                        key={v4()}/>;
+		})}
+		{canAddDimension
+			? <AddDimensionContainer>
+				<AddDimensionButton ink={ButtonInk.PRIMARY} onClick={onAddDimensionClicked}>
+					<FontAwesomeIcon icon={ICON_ADD}/>
+					<span>{Lang.CHART.ADD_DIMENSION}</span>
+				</AddDimensionButton>
+			</AddDimensionContainer>
+			: null}
+	</Section>;
 };

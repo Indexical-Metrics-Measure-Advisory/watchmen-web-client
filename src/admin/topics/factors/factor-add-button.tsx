@@ -9,18 +9,18 @@ import {TopicEventTypes} from '../topic-event-bus-types';
 import {createFactor} from '../utils';
 
 export const FactorAddButton = (props: { topic: Topic }) => {
-    const {topic} = props;
+	const {topic} = props;
 
-    const {fire} = useTopicEventBus();
+	const {fire} = useTopicEventBus();
 
-    const onFactorAddClicked = () => {
-        const factor = createFactor(topic);
-        topic.factors.push(factor);
-        fire(TopicEventTypes.FACTOR_ADDED, factor);
-    };
+	const onFactorAddClicked = () => {
+		const factor = createFactor(topic);
+		topic.factors.push(factor);
+		fire(TopicEventTypes.FACTOR_ADDED, factor);
+	};
 
-    return <DwarfButton ink={ButtonInk.PRIMARY} onClick={onFactorAddClicked}>
-        <FontAwesomeIcon icon={ICON_ADD}/>
-        <span>Append Factor</span>
-    </DwarfButton>;
+	return <DwarfButton ink={ButtonInk.PRIMARY} onClick={onFactorAddClicked}>
+		<FontAwesomeIcon icon={ICON_ADD}/>
+		<span>Append Factor</span>
+	</DwarfButton>;
 };

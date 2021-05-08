@@ -6,9 +6,9 @@ import {Lang} from '../../../../langs';
 import {useConnectSpace} from '../../../widgets/use-connect-space';
 
 export const HeaderCreateConnectedSpaceButton = () => {
-    const onConnectSpaceClicked = useConnectSpace();
+	const onConnectSpaceClicked = useConnectSpace();
 
-    return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.ADD_CONNECTED_SPACE} onClick={onConnectSpaceClicked}>
-        <FontAwesomeIcon icon={ICON_CONNECTION}/>
-    </PageHeaderButton>;
+	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.ADD_CONNECTED_SPACE} onClick={onConnectSpaceClicked}>
+		<FontAwesomeIcon icon={ICON_CONNECTION}/>
+	</PageHeaderButton>;
 };

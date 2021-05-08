@@ -3,16 +3,16 @@ import styled from 'styled-components';
 import {InputProps} from './types';
 
 const AnInput = styled.input.attrs<{ autoSelect: boolean }>(({autoSelect, onFocus}) => {
-    if (!autoSelect) {
-        return {};
-    }
+	if (!autoSelect) {
+		return {};
+	}
 
-    return {
-        onFocus: (event: React.FocusEvent<HTMLInputElement>) => {
-            event.target.select();
-            onFocus && onFocus(event);
-        }
-    };
+	return {
+		onFocus: (event: React.FocusEvent<HTMLInputElement>) => {
+			event.target.select();
+			onFocus && onFocus(event);
+		}
+	};
 })<{ autoSelect: boolean }>`
 	display          : block;
 	position         : relative;
@@ -32,6 +32,6 @@ const AnInput = styled.input.attrs<{ autoSelect: boolean }>(({autoSelect, onFocu
 `;
 
 export const Input = forwardRef((props: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
-    const {autoSelect = true, ...rest} = props;
-    return <AnInput {...rest} autoSelect={autoSelect} ref={ref}/>;
+	const {autoSelect = true, ...rest} = props;
+	return <AnInput {...rest} autoSelect={autoSelect} ref={ref}/>;
 });

@@ -13,25 +13,25 @@ import {useSubjectEventBus} from '../subject-event-bus';
 import {SubjectEventTypes} from '../subject-event-bus-types';
 
 export const HeaderAddReportButton = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
-    const {subject} = props;
+	const {subject} = props;
 
-    const {fire: fireGlobal} = useEventBus();
-    const {fire} = useSubjectEventBus();
+	const {fire: fireGlobal} = useEventBus();
+	const {fire} = useSubjectEventBus();
 
-    const onAddReportClicked = async () => {
-        const report = createReport();
-        fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-            async () => await saveNewReport(report, subject.subjectId),
-            () => {
-                if (!subject.reports) {
-                    subject.reports = [];
-                }
-                subject.reports.push(report);
-                fire(SubjectEventTypes.REPORT_ADDED, report);
-            });
-    };
+	const onAddReportClicked = async () => {
+		const report = createReport();
+		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => await saveNewReport(report, subject.subjectId),
+			() => {
+				if (!subject.reports) {
+					subject.reports = [];
+				}
+				subject.reports.push(report);
+				fire(SubjectEventTypes.REPORT_ADDED, report);
+			});
+	};
 
-    return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.ADD_REPORT} onClick={onAddReportClicked}>
-        <FontAwesomeIcon icon={ICON_REPORT}/>
-    </PageHeaderButton>;
+	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.ADD_REPORT} onClick={onAddReportClicked}>
+		<FontAwesomeIcon icon={ICON_REPORT}/>
+	</PageHeaderButton>;
 };

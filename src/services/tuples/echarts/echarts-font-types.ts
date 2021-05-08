@@ -4,5 +4,5 @@ export interface EChartsFont extends ChartFont {
 }
 
 export interface EChartsFontHolder {
-    font?: EChartsFont;
+	font?: EChartsFont;
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import {Dropdown} from '../../basic-widgets/dropdown';
 import {
-    SettingsSection,
-    SettingsSectionBody,
-    SettingsSectionTitle
+	SettingsSection,
+	SettingsSectionBody,
+	SettingsSectionTitle
 } from '../../basic-widgets/settings/settings-section';
 import {DropdownOption} from '../../basic-widgets/types';
 import {useForceUpdate} from '../../basic-widgets/utils';
@@ -13,31 +13,31 @@ import {saveLastSnapshot} from '../../services/console/last-snapshot';
 import {getCurrentThemeCode} from '../../theme/theme-wrapper';
 
 const SupportedThemes: Array<DropdownOption> = [
-    {value: 'light', label: 'Light'},
-    {value: 'dark', label: 'Dark'}
+	{value: 'light', label: 'Light'},
+	{value: 'dark', label: 'Dark'}
 ];
 export const ThemeSettings = () => {
-    const {fire} = useEventBus();
-    const forceUpdate = useForceUpdate();
+	const {fire} = useEventBus();
+	const forceUpdate = useForceUpdate();
 
-    const onThemeChange = (option: DropdownOption) => {
-        const {value: code} = option;
-        fire(EventTypes.CHANGE_THEME, code);
-        forceUpdate();
-        (async () => {
-            try {
-                await saveLastSnapshot({theme: code});
-            } catch (e) {
-                // ignore
-                console.info(e);
-            }
-        })();
-    };
+	const onThemeChange = (option: DropdownOption) => {
+		const {value: code} = option;
+		fire(EventTypes.CHANGE_THEME, code);
+		forceUpdate();
+		(async () => {
+			try {
+				await saveLastSnapshot({theme: code});
+			} catch (e) {
+				// ignore
+				console.info(e);
+			}
+		})();
+	};
 
-    return <SettingsSection>
-        <SettingsSectionTitle>Theme</SettingsSectionTitle>
-        <SettingsSectionBody>
-            <Dropdown value={getCurrentThemeCode()} options={SupportedThemes} onChange={onThemeChange}/>
-        </SettingsSectionBody>
-    </SettingsSection>;
+	return <SettingsSection>
+		<SettingsSectionTitle>Theme</SettingsSectionTitle>
+		<SettingsSectionBody>
+			<Dropdown value={getCurrentThemeCode()} options={SupportedThemes} onChange={onThemeChange}/>
+		</SettingsSectionBody>
+	</SettingsSection>;
 };

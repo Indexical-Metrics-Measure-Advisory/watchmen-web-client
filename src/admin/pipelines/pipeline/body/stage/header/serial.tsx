@@ -5,11 +5,11 @@ import {useExpanded} from '../stage-effect/use-expanded';
 import {StageLeadLabel} from './widgets';
 
 export const Serial = (props: { pipeline: Pipeline, stage: PipelineStage }) => {
-    const {pipeline, stage} = props;
+	const {pipeline, stage} = props;
 
-    const expanded = useExpanded(pipeline, stage);
+	const expanded = useExpanded(pipeline, stage);
 
-    const index = pipeline.stages.indexOf(stage) + 1;
+	const index = pipeline.stages.indexOf(stage) + 1;
 
-    return <StageLeadLabel>Stage #{index}{expanded ? '' : ' (Collapsed)'}:</StageLeadLabel>;
+	return <StageLeadLabel>Stage #{index}{expanded ? '' : ' (Collapsed)'}:</StageLeadLabel>;
 };

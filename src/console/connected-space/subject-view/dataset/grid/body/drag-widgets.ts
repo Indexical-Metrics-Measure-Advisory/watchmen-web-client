@@ -2,30 +2,30 @@ import styled from 'styled-components';
 import {HEADER_HEIGHT, ROW_HEIGHT} from '../../constants';
 
 interface DragColumnRect {
-    left?: number;
-    width: number;
-    height: number;
-    movementX: number;
-    visible: boolean;
+	left?: number;
+	width: number;
+	height: number;
+	movementX: number;
+	visible: boolean;
 }
 
 export const DragColumnContainer = styled.div
-    .attrs<DragColumnRect>((
-        {left = 10, width, height, movementX, visible}
-    ) => {
-        const rotate = Math.max(-10, Math.min(10, movementX / 10));
-        return {
-            'data-widget': 'subject-dataset-grid-drag-column',
-            style: {
-                display: visible ? (void 0) : 'none',
-                top: -1,
-                left,
-                width,
-                height: height + 1,
-                transform: `translateY(${HEADER_HEIGHT}px) rotate(${rotate}deg)`
-            }
-        };
-    })<DragColumnRect>`
+	.attrs<DragColumnRect>((
+		{left = 10, width, height, movementX, visible}
+	) => {
+		const rotate = Math.max(-10, Math.min(10, movementX / 10));
+		return {
+			'data-widget': 'subject-dataset-grid-drag-column',
+			style: {
+				display: visible ? (void 0) : 'none',
+				top: -1,
+				left,
+				width,
+				height: height + 1,
+				transform: `translateY(${HEADER_HEIGHT}px) rotate(${rotate}deg)`
+			}
+		};
+	})<DragColumnRect>`
 	display          : flex;
 	flex-direction   : column;
 	position         : absolute;
@@ -73,10 +73,10 @@ export const DragColumnHeaderCell = styled.div.attrs({'data-widget': 'subject-da
 	}
 `;
 export const DragColumnBody = styled.div.attrs<{ firstRowOffsetY: number }>(({firstRowOffsetY}) => {
-    return {
-        'data-widget': 'subject-dataset-grid-drag-column-body',
-        style: {marginTop: 0 - firstRowOffsetY}
-    };
+	return {
+		'data-widget': 'subject-dataset-grid-drag-column-body',
+		style: {marginTop: 0 - firstRowOffsetY}
+	};
 })<{ firstRowOffsetY: number }>`
 	display        : grid;
 	justify-items  : stretch;

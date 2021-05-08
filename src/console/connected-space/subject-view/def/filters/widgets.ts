@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 export const FiltersContainer = styled.div.attrs<{ active: boolean }>(({active}) => {
-    return {
-        'data-widget': 'subject-def-filters',
-        'data-v-scroll': '',
-        style: {
-            paddingRight: active ? (void 0) : 0,
-            overflowY: active ? (void 0) : 'hidden'
-        }
-    };
+	return {
+		'data-widget': 'subject-def-filters',
+		'data-v-scroll': '',
+		style: {
+			paddingRight: active ? (void 0) : 0,
+			overflowY: active ? (void 0) : 'hidden'
+		}
+	};
 }) <{ active: boolean }>`
 	display      : flex;
 	position     : relative;
@@ -23,12 +23,12 @@ export const FiltersBottomGap = styled.div.attrs({'data-widget': 'subject-def-fi
 	min-height : var(--margin);
 `;
 export const FiltersEditContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
-    return {
-        'data-widget': 'subject-def-filters-edit',
-        style: {
-            display: visible ? (void 0) : 'none'
-        }
-    };
+	return {
+		'data-widget': 'subject-def-filters-edit',
+		style: {
+			display: visible ? (void 0) : 'none'
+		}
+	};
 })<{ visible: boolean }>`
 	display        : flex;
 	position       : relative;

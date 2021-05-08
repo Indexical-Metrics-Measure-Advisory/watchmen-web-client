@@ -19,55 +19,55 @@ const DeleteDialogBody = styled(DialogBody)`
 `;
 
 const ParagraphDelete = (props: { onRemoved: () => void }) => {
-    const {onRemoved} = props;
+	const {onRemoved} = props;
 
-    const {fire} = useEventBus();
+	const {fire} = useEventBus();
 
-    const onDeleteClicked = async () => {
-        fire(EventTypes.HIDE_DIALOG);
-        onRemoved();
-    };
-    const onCancelClicked = () => {
-        fire(EventTypes.HIDE_DIALOG);
-    };
+	const onDeleteClicked = async () => {
+		fire(EventTypes.HIDE_DIALOG);
+		onRemoved();
+	};
+	const onCancelClicked = () => {
+		fire(EventTypes.HIDE_DIALOG);
+	};
 
-    return <>
-        <DeleteDialogBody>
-            <DialogLabel>{Lang.CONSOLE.DASHBOARD.DELETE_PARAGRAPH_DIALOG_LABEL}</DialogLabel>
-        </DeleteDialogBody>
-        <DialogFooter>
-            <Button ink={ButtonInk.DANGER} onClick={onDeleteClicked}>{Lang.ACTIONS.DELETE}</Button>
-            <Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>{Lang.ACTIONS.CANCEL}</Button>
-        </DialogFooter>
-    </>;
+	return <>
+		<DeleteDialogBody>
+			<DialogLabel>{Lang.CONSOLE.DASHBOARD.DELETE_PARAGRAPH_DIALOG_LABEL}</DialogLabel>
+		</DeleteDialogBody>
+		<DialogFooter>
+			<Button ink={ButtonInk.DANGER} onClick={onDeleteClicked}>{Lang.ACTIONS.DELETE}</Button>
+			<Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>{Lang.ACTIONS.CANCEL}</Button>
+		</DialogFooter>
+	</>;
 };
 
 export const ParagraphRemover = (props: { dashboard: Dashboard }) => {
-    const {dashboard} = props;
+	const {dashboard} = props;
 
-    const {fire: fireGlobal} = useEventBus();
-    const {fire: fireDashboard} = useDashboardEventBus();
-    const {on, off} = useReportEventBus();
-    useEffect(() => {
-        const onDeleted = (paragraph: Paragraph) => async () => {
-            if (!dashboard.paragraphs) {
-                return;
-            }
-            // eslint-disable-next-line
-            const index = dashboard.paragraphs.findIndex(p => p === paragraph);
-            if (index !== -1) {
-                dashboard.paragraphs.splice(index, 1);
-            }
-            fireDashboard(DashboardEventTypes.PARAGRAPH_REMOVED, paragraph);
-        };
-        const onDelete = (paragraph: Paragraph) => {
-            fireGlobal(EventTypes.SHOW_DIALOG,
-                <ParagraphDelete onRemoved={onDeleted(paragraph)}/>);
-        };
-        on(ReportEventTypes.DO_DELETE_PARAGRAPH, onDelete);
-        return () => {
-            off(ReportEventTypes.DO_DELETE_PARAGRAPH, onDelete);
-        };
-    });
-    return <></>;
+	const {fire: fireGlobal} = useEventBus();
+	const {fire: fireDashboard} = useDashboardEventBus();
+	const {on, off} = useReportEventBus();
+	useEffect(() => {
+		const onDeleted = (paragraph: Paragraph) => async () => {
+			if (!dashboard.paragraphs) {
+				return;
+			}
+			// eslint-disable-next-line
+			const index = dashboard.paragraphs.findIndex(p => p === paragraph);
+			if (index !== -1) {
+				dashboard.paragraphs.splice(index, 1);
+			}
+			fireDashboard(DashboardEventTypes.PARAGRAPH_REMOVED, paragraph);
+		};
+		const onDelete = (paragraph: Paragraph) => {
+			fireGlobal(EventTypes.SHOW_DIALOG,
+				<ParagraphDelete onRemoved={onDeleted(paragraph)}/>);
+		};
+		on(ReportEventTypes.DO_DELETE_PARAGRAPH, onDelete);
+		return () => {
+			off(ReportEventTypes.DO_DELETE_PARAGRAPH, onDelete);
+		};
+	});
+	return <></>;
 };

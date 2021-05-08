@@ -14,39 +14,39 @@ import {buildEChartsXAxis} from './xaxis-utils';
 import {buildEChartsYAxis} from './yaxis-utils';
 
 export class ChartLineUtils extends DefaultChartUtils {
-    constructor() {
-        super(LINE);
-    }
+	constructor() {
+		super(LINE);
+	}
 
-    buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
-        const {chart} = report;
-        const {indicators} = report;
+	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
+		const {chart} = report;
+		const {indicators} = report;
 
-        const legends = indicators.map((indicator, indicatorIndex) => {
-            return {label: indicator.name || `Indicator ${indicatorIndex + 1}`, indicator, index: indicatorIndex};
-        });
-        const groups = this.buildDescartesByDimensions(report, dataset);
+		const legends = indicators.map((indicator, indicatorIndex) => {
+			return {label: indicator.name || `Indicator ${indicatorIndex + 1}`, indicator, index: indicatorIndex};
+		});
+		const groups = this.buildDescartesByDimensions(report, dataset);
 
-        return {
-            color: BASE_COLORS_24,
-            title: buildEChartsTitle(chart as ECharts),
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {type: 'shadow'}
-            },
-            legend: buildEChartsLegend(chart as ECharts, legends.map(item => item.label)),
-            grid: buildEChartsGrid(chart as ECharts),
-            xAxis: [buildEChartsXAxis(chart as ECharts, groups.map(({value}) => value))],
-            yAxis: [buildEChartsYAxis(chart as ECharts)],
-            series: legends.map(({index: indicatorIndex}) => {
-                return {
-                    type: 'line',
-                    label: buildLabel(chart),
-                    smooth: (chart.settings as LineChartSettings).series?.smooth,
-                    data: buildSeriesData(chart, groups, indicatorIndex, this.formatNumber)
-                };
-            }),
-            toolbox: buildToolbox(chart, report, dataset)
-        };
-    }
+		return {
+			color: BASE_COLORS_24,
+			title: buildEChartsTitle(chart as ECharts),
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: {type: 'shadow'}
+			},
+			legend: buildEChartsLegend(chart as ECharts, legends.map(item => item.label)),
+			grid: buildEChartsGrid(chart as ECharts),
+			xAxis: [buildEChartsXAxis(chart as ECharts, groups.map(({value}) => value))],
+			yAxis: [buildEChartsYAxis(chart as ECharts)],
+			series: legends.map(({index: indicatorIndex}) => {
+				return {
+					type: 'line',
+					label: buildLabel(chart),
+					smooth: (chart.settings as LineChartSettings).series?.smooth,
+					data: buildSeriesData(chart, groups, indicatorIndex, this.formatNumber)
+				};
+			}),
+			toolbox: buildToolbox(chart, report, dataset)
+		};
+	}
 }

@@ -51,10 +51,10 @@ export const Whitespace = styled.span.attrs({'data-widget': 'dsl-whitespace'})`
 	width       : 8px;
 `;
 export const LineComment = styled.span.attrs<{ indent?: number }>(({indent = 0}) => {
-    return {
-        'data-widget': 'dsl-line-comment',
-        style: {paddingLeft: indent * 16}
-    };
+	return {
+		'data-widget': 'dsl-line-comment',
+		style: {paddingLeft: indent * 16}
+	};
 })<{ indent?: number }>`
 	display      : block;
 	position     : relative;
@@ -78,10 +78,10 @@ export const LineComment = styled.span.attrs<{ indent?: number }>(({indent = 0})
 	}
 `;
 export const PropName = styled.span.attrs<{ indent?: number }>(({indent = 0}) => {
-    return {
-        'data-widget': 'dsl-prop-name',
-        style: {paddingLeft: indent * 16}
-    };
+	return {
+		'data-widget': 'dsl-prop-name',
+		style: {paddingLeft: indent * 16}
+	};
 })<{ indent?: number }>`
 	display      : block;
 	position     : relative;
@@ -106,7 +106,7 @@ export const PropName = styled.span.attrs<{ indent?: number }>(({indent = 0}) =>
 `;
 export const PropNameInListFirst = styled(PropName)``;
 export const PropValue = styled.span.attrs<{ 'data-widget'?: string }>(({'data-widget': widget}) => {
-    return {'data-widget': widget || 'dsl-prop-value'};
+	return {'data-widget': widget || 'dsl-prop-value'};
 })`
 	display       : block;
 	float         : left;

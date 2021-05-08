@@ -14,11 +14,11 @@ const PageHeaderButtonsContainer = styled.div.attrs({'data-widget': 'page-header
 `;
 
 export const PageHeaderButtons = (props: { children: ((props: any) => React.ReactNode) | React.ReactNode }) => {
-    const {children} = props;
+	const {children} = props;
 
-    return <PageHeaderButtonsContainer>
-        {children}
-    </PageHeaderButtonsContainer>;
+	return <PageHeaderButtonsContainer>
+		{children}
+	</PageHeaderButtonsContainer>;
 };
 
 const PageHeaderBtn = styled(Button).attrs({'data-widget': 'page-header-button'})`
@@ -71,20 +71,20 @@ const PageHeaderButtonTooltipCaret = styled(FontAwesomeIcon).attrs({'data-widget
 	opacity  : 0;
 `;
 export const PageHeaderButton = (props: {
-    tooltip: string,
-    ink?: ButtonInk;
-    onClick: () => void,
-    children?: ((props: any) => ReactNode) | ReactNode
+	tooltip: string,
+	ink?: ButtonInk;
+	onClick: () => void,
+	children?: ((props: any) => ReactNode) | ReactNode
 }) => {
-    const {tooltip, ink, onClick, children, ...rest} = props;
+	const {tooltip, ink, onClick, children, ...rest} = props;
 
-    return <PageHeaderBtn {...rest} ink={ink} onClick={onClick}>
-        <PageHeaderButtonTooltip>
-            {tooltip}
-        </PageHeaderButtonTooltip>
-        <PageHeaderButtonTooltipCaret icon={faCaretUp}/>
-        {children}
-    </PageHeaderBtn>;
+	return <PageHeaderBtn {...rest} ink={ink} onClick={onClick}>
+		<PageHeaderButtonTooltip>
+			{tooltip}
+		</PageHeaderButtonTooltip>
+		<PageHeaderButtonTooltipCaret icon={faCaretUp}/>
+		{children}
+	</PageHeaderBtn>;
 };
 
 export const PageHeaderButtonSeparator = styled.div.attrs({'data-widget': 'page-header-button-separator'})`

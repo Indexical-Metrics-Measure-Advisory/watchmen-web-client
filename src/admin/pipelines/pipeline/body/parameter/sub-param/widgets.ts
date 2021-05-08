@@ -59,12 +59,12 @@ export const ParameterAddButton = styled.div.attrs({'data-widget': 'parameter-ad
 	}
 `;
 export const SubParameterEditContainer = styled.div.attrs<{ shorten: boolean }>(({shorten}) => {
-    return {
-        'data-widget': 'parameter',
-        style: {
-            gridTemplateColumns: shorten ? 'minmax(0, auto) auto 1fr' : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'parameter',
+		style: {
+			gridTemplateColumns: shorten ? 'minmax(0, auto) auto 1fr' : (void 0)
+		}
+	};
 })<{ shorten: boolean }>`
 	display               : grid;
 	position              : relative;

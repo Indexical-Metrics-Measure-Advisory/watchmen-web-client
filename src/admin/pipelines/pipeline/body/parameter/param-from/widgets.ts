@@ -20,14 +20,14 @@ export const ParameterFromEditContainer = styled.div.attrs({'data-widget': 'para
 	}
 `;
 export const ParameterTypeButton = styled.div.attrs<{ active: boolean, edit: boolean }>(({active, edit}) => {
-    return {
-        'data-widget': 'parameter-from-button',
-        style: {
-            display: (edit || active) ? (void 0) : 'none',
-            backgroundColor: active ? (void 0) : 'var(--bg-color)',
-            boxShadow: active ? (void 0) : 'var(--param-left-border)'
-        }
-    };
+	return {
+		'data-widget': 'parameter-from-button',
+		style: {
+			display: (edit || active) ? (void 0) : 'none',
+			backgroundColor: active ? (void 0) : 'var(--bg-color)',
+			boxShadow: active ? (void 0) : 'var(--param-left-border)'
+		}
+	};
 })<{ active: boolean, edit: boolean }>`
 	display      : flex;
 	align-items  : center;

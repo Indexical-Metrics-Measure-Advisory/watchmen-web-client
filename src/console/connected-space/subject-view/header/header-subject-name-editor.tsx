@@ -8,24 +8,24 @@ import {useSubjectEventBus} from '../subject-event-bus';
 import {SubjectEventTypes} from '../subject-event-bus-types';
 
 export const HeaderSubjectNameEditor = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
-    const {subject} = props;
+	const {subject} = props;
 
-    const language = useLanguage();
-    const {fire} = useSubjectEventBus();
-    const forceUpdate = useForceUpdate();
+	const language = useLanguage();
+	const {fire} = useSubjectEventBus();
+	const forceUpdate = useForceUpdate();
 
-    const onNameChange = async (name: string) => {
-        subject.name = name;
-        forceUpdate();
-        fire(SubjectEventTypes.SUBJECT_RENAMED, subject);
-    };
-    const onNameChangeComplete = async (name: string) => {
-        subject.name = name.trim() || language.PLAIN.DEFAULT_SUBJECT_NAME;
-        forceUpdate();
-        fire(SubjectEventTypes.SUBJECT_RENAMED, subject);
-    };
+	const onNameChange = async (name: string) => {
+		subject.name = name;
+		forceUpdate();
+		fire(SubjectEventTypes.SUBJECT_RENAMED, subject);
+	};
+	const onNameChangeComplete = async (name: string) => {
+		subject.name = name.trim() || language.PLAIN.DEFAULT_SUBJECT_NAME;
+		forceUpdate();
+		fire(SubjectEventTypes.SUBJECT_RENAMED, subject);
+	};
 
-    return <PageTitleEditor title={subject.name}
-                            defaultTitle={language.PLAIN.DEFAULT_SUBJECT_NAME}
-                            onChange={onNameChange} onChangeComplete={onNameChangeComplete}/>;
+	return <PageTitleEditor title={subject.name}
+	                        defaultTitle={language.PLAIN.DEFAULT_SUBJECT_NAME}
+	                        onChange={onNameChange} onChangeComplete={onNameChangeComplete}/>;
 };

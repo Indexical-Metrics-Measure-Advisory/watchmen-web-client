@@ -7,45 +7,45 @@ import {Topic} from './topic-types';
 import {isFakedUuid} from './utils';
 
 export const listTopics = async (options: {
-    search: string;
-    pageNumber?: number;
-    pageSize?: number;
+	search: string;
+	pageNumber?: number;
+	pageSize?: number;
 }): Promise<DataPage<QueryTopic>> => {
-    const {search = '', pageNumber = 1, pageSize = 9} = options;
+	const {search = '', pageNumber = 1, pageSize = 9} = options;
 
-    if (isMockService()) {
-        return listMockTopics(options);
-    } else {
-        return await page({api: Apis.TOPIC_LIST_BY_NAME, search: {search}, pageable: {pageNumber, pageSize}});
-    }
+	if (isMockService()) {
+		return listMockTopics(options);
+	} else {
+		return await page({api: Apis.TOPIC_LIST_BY_NAME, search: {search}, pageable: {pageNumber, pageSize}});
+	}
 };
 
 export const fetchTopic = async (topicId: string): Promise<{ topic: Topic }> => {
-    if (isMockService()) {
-        return fetchMockTopic(topicId);
-    } else {
-        const topic = await get({api: Apis.TOPIC_GET, search: {topicId}});
-        return {topic};
-    }
+	if (isMockService()) {
+		return fetchMockTopic(topicId);
+	} else {
+		const topic = await get({api: Apis.TOPIC_GET, search: {topicId}});
+		return {topic};
+	}
 };
 
 export const saveTopic = async (topic: Topic): Promise<void> => {
-    if (isMockService()) {
-        return saveMockTopic(topic);
-    } else if (isFakedUuid(topic)) {
-        const data = await post({api: Apis.TOPIC_CREATE, data: topic});
-        topic.topicId = data.topicId;
-        topic.lastModifyTime = data.lastModifyTime;
-    } else {
-        const data = await post({api: Apis.TOPIC_SAVE, search: {topicId: topic.topicId}, data: topic});
-        topic.lastModifyTime = data.lastModifyTime;
-    }
+	if (isMockService()) {
+		return saveMockTopic(topic);
+	} else if (isFakedUuid(topic)) {
+		const data = await post({api: Apis.TOPIC_CREATE, data: topic});
+		topic.topicId = data.topicId;
+		topic.lastModifyTime = data.lastModifyTime;
+	} else {
+		const data = await post({api: Apis.TOPIC_SAVE, search: {topicId: topic.topicId}, data: topic});
+		topic.lastModifyTime = data.lastModifyTime;
+	}
 };
 
 export const listTopicsForHolder = async (search: string): Promise<Array<QueryTopicForHolder>> => {
-    if (isMockService()) {
-        return listMockTopicsForHolder(search);
-    } else {
-        return await get({api: Apis.TOPIC_LIST_FOR_HOLDER_BY_NAME, search: {search}});
-    }
+	if (isMockService()) {
+		return listMockTopicsForHolder(search);
+	} else {
+		return await get({api: Apis.TOPIC_LIST_FOR_HOLDER_BY_NAME, search: {search}});
+	}
 };

@@ -8,26 +8,26 @@ import {FilterEventTypes} from '../filter-event-bus-types';
 import {Expression} from './expression';
 
 export const ExpressionRight = (props: {
-    filter: SubjectDataSetFilterExpression;
-    parameter: Parameter
-    availableTopics: Array<Topic>;
-    pickedTopics: Array<Topic>;
+	filter: SubjectDataSetFilterExpression;
+	parameter: Parameter
+	availableTopics: Array<Topic>;
+	pickedTopics: Array<Topic>;
 }) => {
-    const {filter, parameter, availableTopics, pickedTopics} = props;
+	const {filter, parameter, availableTopics, pickedTopics} = props;
 
-    const {on, off} = useFilterEventBus();
-    const forceUpdate = useForceUpdate();
-    useEffect(() => {
-        on(FilterEventTypes.CONTENT_CHANGED, forceUpdate);
-        return () => {
-            off(FilterEventTypes.CONTENT_CHANGED, forceUpdate);
-        };
-    }, [on, off, forceUpdate]);
+	const {on, off} = useFilterEventBus();
+	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		on(FilterEventTypes.CONTENT_CHANGED, forceUpdate);
+		return () => {
+			off(FilterEventTypes.CONTENT_CHANGED, forceUpdate);
+		};
+	}, [on, off, forceUpdate]);
 
-    const visible = filter.operator !== ParameterExpressionOperator.NOT_EMPTY
-        && filter.operator !== ParameterExpressionOperator.EMPTY;
+	const visible = filter.operator !== ParameterExpressionOperator.NOT_EMPTY
+		&& filter.operator !== ParameterExpressionOperator.EMPTY;
 
-    return <Expression filter={filter} parameter={parameter}
-                       availableTopics={availableTopics} pickedTopics={pickedTopics}
-                       visible={visible}/>;
+	return <Expression filter={filter} parameter={parameter}
+	                   availableTopics={availableTopics} pickedTopics={pickedTopics}
+	                   visible={visible}/>;
 };

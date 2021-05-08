@@ -4,9 +4,9 @@ export interface EChartsBorder extends ChartBorder {
 }
 
 export interface EChartsBorderHolder {
-    border?: EChartsBorder;
+	border?: EChartsBorder;
 }
 
 export interface EChartsBorderHolderNoRadius {
-    border?: Omit<EChartsBorder, 'radius'>;
+	border?: Omit<EChartsBorder, 'radius'>;
 }

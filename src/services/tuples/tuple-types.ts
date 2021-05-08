@@ -1,6 +1,6 @@
 export interface Tuple {
-    createTime: string;
-    lastModifyTime: string;
+	createTime: string;
+	lastModifyTime: string;
 }
 
 export interface QueryTuple {
@@ -13,17 +13,17 @@ export interface TupleHolder {
 }
 
 export interface SpaceHolder extends TupleHolder {
-    spaceIds: Array<string>;
+	spaceIds: Array<string>;
 }
 
 export interface TopicHolder extends TupleHolder {
-    topicIds: Array<string>;
+	topicIds: Array<string>;
 }
 
 export interface UserGroupHolder extends TupleHolder {
-    userGroupIds: Array<string>;
+	userGroupIds: Array<string>;
 }
 
 export interface UserHolder extends TupleHolder {
-    userIds: Array<string>;
+	userIds: Array<string>;
 }

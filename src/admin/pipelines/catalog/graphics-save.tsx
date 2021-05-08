@@ -11,42 +11,42 @@ import {transformGraphicsToSave} from './graphics-utils';
 import {AssembledPipelinesGraphics} from './types';
 
 interface SaveState {
-    handle?: number;
+	handle?: number;
 }
 
 export const GraphicsSave = (props: { graphics?: AssembledPipelinesGraphics }) => {
-    const {graphics: assembledGraphics} = props;
+	const {graphics: assembledGraphics} = props;
 
-    const {fire: fireGlobal} = useEventBus();
-    const {fire: firePipelines} = usePipelinesEventBus();
-    const {on, off} = useCatalogEventBus();
-    const [, setState] = useState<SaveState>({});
-    useEffect(() => {
-        const onGraphicsChange = () => {
-            if (assembledGraphics) {
-                const graphics = transformGraphicsToSave(assembledGraphics);
-                firePipelines(PipelinesEventTypes.GRAPHICS_CHANGED, graphics);
-                setState(({handle}) => {
-                    // eslint-disable-next-line
-                    if (handle) {
-                        clearTimeout(handle);
-                    }
-                    return {
-                        handle: window.setTimeout(() => {
-                            fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-                                async () => await savePipelinesGraphics(graphics),
-                                () => {
-                                });
-                        }, SAVE_TIMEOUT)
-                    };
-                });
-            }
-        };
-        on(CatalogEventTypes.TOPIC_MOVED, onGraphicsChange);
-        return () => {
-            off(CatalogEventTypes.TOPIC_MOVED, onGraphicsChange);
-        };
-    }, [on, off, firePipelines, fireGlobal, assembledGraphics]);
+	const {fire: fireGlobal} = useEventBus();
+	const {fire: firePipelines} = usePipelinesEventBus();
+	const {on, off} = useCatalogEventBus();
+	const [, setState] = useState<SaveState>({});
+	useEffect(() => {
+		const onGraphicsChange = () => {
+			if (assembledGraphics) {
+				const graphics = transformGraphicsToSave(assembledGraphics);
+				firePipelines(PipelinesEventTypes.GRAPHICS_CHANGED, graphics);
+				setState(({handle}) => {
+					// eslint-disable-next-line
+					if (handle) {
+						clearTimeout(handle);
+					}
+					return {
+						handle: window.setTimeout(() => {
+							fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+								async () => await savePipelinesGraphics(graphics),
+								() => {
+								});
+						}, SAVE_TIMEOUT)
+					};
+				});
+			}
+		};
+		on(CatalogEventTypes.TOPIC_MOVED, onGraphicsChange);
+		return () => {
+			off(CatalogEventTypes.TOPIC_MOVED, onGraphicsChange);
+		};
+	}, [on, off, firePipelines, fireGlobal, assembledGraphics]);
 
-    return <Fragment/>;
+	return <Fragment/>;
 };

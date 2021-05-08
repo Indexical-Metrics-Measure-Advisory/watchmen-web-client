@@ -20,14 +20,14 @@ export const TriggerContainer = styled.div.attrs({'data-widget': 'pipeline-trigg
 	}
 `;
 export const TriggerOn = styled.div.attrs<{ active: boolean, expanded: boolean }>(({active, expanded}) => {
-    return {
-        'data-widget': 'pipeline-trigger-on',
-        style: {
-            display: (expanded || active) ? (void 0) : 'none',
-            backgroundColor: active ? (void 0) : 'var(--bg-color)',
-            boxShadow: active ? (void 0) : 'var(--param-left-border)'
-        }
-    };
+	return {
+		'data-widget': 'pipeline-trigger-on',
+		style: {
+			display: (expanded || active) ? (void 0) : 'none',
+			backgroundColor: active ? (void 0) : 'var(--bg-color)',
+			boxShadow: active ? (void 0) : 'var(--param-left-border)'
+		}
+	};
 })<{ active: boolean, expanded: boolean }>`
 	display      : flex;
 	align-items  : center;

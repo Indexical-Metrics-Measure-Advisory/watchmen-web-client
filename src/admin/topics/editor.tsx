@@ -11,23 +11,23 @@ import {TopicTypeInput} from './topic/topic-type-input';
 import {HoldByTopic} from './types';
 
 const TopicEditor = (props: { topic: Topic, enums: Array<QueryEnumForHolder> }) => {
-    const {topic, enums} = props;
+	const {topic, enums} = props;
 
-    return <TopicEventBusProvider>
-        <TuplePropertyLabel>Topic Name:</TuplePropertyLabel>
-        <TopicNameInput topic={topic}/>
-        <TuplePropertyLabel>Topic Kind:</TuplePropertyLabel>
-        <TopicKindInput topic={topic}/>
-        <TuplePropertyLabel>Topic Type:</TuplePropertyLabel>
-        <TopicTypeInput topic={topic}/>
-        <TuplePropertyLabel>Description:</TuplePropertyLabel>
-        <TopicDescriptionInput topic={topic}/>
-        <TuplePropertyLabel>Factors:</TuplePropertyLabel>
-        <Factors topic={topic} enums={enums}/>
-    </TopicEventBusProvider>;
+	return <TopicEventBusProvider>
+		<TuplePropertyLabel>Topic Name:</TuplePropertyLabel>
+		<TopicNameInput topic={topic}/>
+		<TuplePropertyLabel>Topic Kind:</TuplePropertyLabel>
+		<TopicKindInput topic={topic}/>
+		<TuplePropertyLabel>Topic Type:</TuplePropertyLabel>
+		<TopicTypeInput topic={topic}/>
+		<TuplePropertyLabel>Description:</TuplePropertyLabel>
+		<TopicDescriptionInput topic={topic}/>
+		<TuplePropertyLabel>Factors:</TuplePropertyLabel>
+		<Factors topic={topic} enums={enums}/>
+	</TopicEventBusProvider>;
 };
 
 export const renderEditor = (topic: Topic, codes?: HoldByTopic) => {
-    const enums = codes?.enums || [];
-    return <TopicEditor topic={topic} enums={enums}/>;
+	const enums = codes?.enums || [];
+	return <TopicEditor topic={topic} enums={enums}/>;
 };

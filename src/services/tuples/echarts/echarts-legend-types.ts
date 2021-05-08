@@ -3,17 +3,17 @@ import {EChartsFontHolder} from './echarts-font-types';
 import {EChartsPositionHolder} from './echarts-position-types';
 
 export enum EChartsLegendOrient {
-    HORIZONTAL = 'horizontal',
-    VERTICAL = 'vertical'
+	HORIZONTAL = 'horizontal',
+	VERTICAL = 'vertical'
 }
 
 export interface EChartsLegend extends EChartsBorderHolder, EChartsPositionHolder, EChartsFontHolder {
-    show?: boolean;
-    orient?: EChartsLegendOrient;
-    backgroundColor?: string;
-    padding?: number;
+	show?: boolean;
+	orient?: EChartsLegendOrient;
+	backgroundColor?: string;
+	padding?: number;
 }
 
 export interface EChartsLegendHolder {
-    legend?: EChartsLegend;
+	legend?: EChartsLegend;
 }

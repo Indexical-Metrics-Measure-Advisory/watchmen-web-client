@@ -9,9 +9,9 @@ export const CatalogContainer = styled.div.attrs({'data-widget': 'connected-spac
 	overflow         : hidden;
 `;
 export const CatalogSvgContainer = styled.div.attrs({
-    'data-widget': 'connected-space-catalog-svg-container',
-    'data-v-scroll': '',
-    'data-h-scroll': ''
+	'data-widget': 'connected-space-catalog-svg-container',
+	'data-v-scroll': '',
+	'data-h-scroll': ''
 })`
 	display   : block;
 	position  : relative;

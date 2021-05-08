@@ -22,16 +22,16 @@ dayjs.extend(Duration);
 dayjs.extend(RelativeTime);
 
 const app = () => {
-    return <EventBusProvider>
-        <ThemeWrapper/>
-        <Languages/>
-        <Routes/>
-        <Alert/>
-        <NotImplement/>
-        <WaitRemoteData/>
-        <Dialog/>
-        <YesNoDialog/>
-        <Tooltip/>
-    </EventBusProvider>;
+	return <EventBusProvider>
+		<ThemeWrapper/>
+		<Languages/>
+		<Routes/>
+		<Alert/>
+		<NotImplement/>
+		<WaitRemoteData/>
+		<Dialog/>
+		<YesNoDialog/>
+		<Tooltip/>
+	</EventBusProvider>;
 };
 export default app;

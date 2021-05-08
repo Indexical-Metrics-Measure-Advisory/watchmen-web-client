@@ -7,34 +7,34 @@ import {FilterEventTypes} from '../filter-event-bus-types';
 import {FilterEdit} from './filter-edit';
 
 export const SubFilters = (props: {
-    joint: SubjectDataSetFilterJoint
-    availableTopics: Array<Topic>;
-    pickedTopics: Array<Topic>;
+	joint: SubjectDataSetFilterJoint
+	availableTopics: Array<Topic>;
+	pickedTopics: Array<Topic>;
 }) => {
-    const {joint, availableTopics, pickedTopics} = props;
+	const {joint, availableTopics, pickedTopics} = props;
 
-    const {fire} = useFilterEventBus();
-    const forceUpdate = useForceUpdate();
+	const {fire} = useFilterEventBus();
+	const forceUpdate = useForceUpdate();
 
-    // when sub filter removed, fire this event
-    const onRemove = (filter: SubjectDataSetFilter) => () => {
-        forceUpdate();
-        // delegate to parent
-        fire(FilterEventTypes.FILTER_REMOVED, filter);
-    };
-    // when sub filter changed, fire this event
-    const notifyChangeToParent = () => {
-        // delegate to parent
-        fire(FilterEventTypes.CONTENT_CHANGED, joint);
-    };
+	// when sub filter removed, fire this event
+	const onRemove = (filter: SubjectDataSetFilter) => () => {
+		forceUpdate();
+		// delegate to parent
+		fire(FilterEventTypes.FILTER_REMOVED, filter);
+	};
+	// when sub filter changed, fire this event
+	const notifyChangeToParent = () => {
+		// delegate to parent
+		fire(FilterEventTypes.CONTENT_CHANGED, joint);
+	};
 
-    return <>
-        {joint.filters.map(filter => {
-            return <FilterEdit filter={filter}
-                               parentJoint={joint} onRemoveMe={onRemove(filter)}
-                               notifyChangeToParent={notifyChangeToParent}
-                               availableTopics={availableTopics} pickedTopics={pickedTopics}
-                               key={v4()}/>;
-        })}
-    </>;
+	return <>
+		{joint.filters.map(filter => {
+			return <FilterEdit filter={filter}
+			                   parentJoint={joint} onRemoveMe={onRemove(filter)}
+			                   notifyChangeToParent={notifyChangeToParent}
+			                   availableTopics={availableTopics} pickedTopics={pickedTopics}
+			                   key={v4()}/>;
+		})}
+	</>;
 };

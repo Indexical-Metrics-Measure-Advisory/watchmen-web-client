@@ -90,8 +90,8 @@ export const SearchResultHeaderSeqCell = styled(SearchResultHeaderCell)`
 	padding : 0 calc(var(--margin) / 4);
 `;
 export const SearchResultBody = styled.div.attrs({
-    'data-widget': 'monitor-logs-result-body',
-    'data-v-scroll': ''
+	'data-widget': 'monitor-logs-result-body',
+	'data-v-scroll': ''
 })`
 	display        : flex;
 	flex-direction : column;

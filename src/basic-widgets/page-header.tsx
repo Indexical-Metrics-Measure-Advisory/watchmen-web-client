@@ -44,17 +44,17 @@ const SettingsButton = styled(TooltipButton).attrs({'data-widget': 'page-header-
 `;
 
 export const PageHeader = (props: { title: string; onSettingsClicked?: () => void; }) => {
-    const {title, onSettingsClicked} = props;
+	const {title, onSettingsClicked} = props;
 
-    return <PageHeaderContainer>
-        <PageTitle>{title}</PageTitle>
-        {onSettingsClicked
-            ? <SettingsButton tooltip={{label: 'Settings', alignment: TooltipAlignment.CENTER}}
-                              onClick={onSettingsClicked}>
-                <FontAwesomeIcon icon={ICON_SETTINGS}/>
-            </SettingsButton>
-            : null}
-    </PageHeaderContainer>;
+	return <PageHeaderContainer>
+		<PageTitle>{title}</PageTitle>
+		{onSettingsClicked
+			? <SettingsButton tooltip={{label: 'Settings', alignment: TooltipAlignment.CENTER}}
+			                  onClick={onSettingsClicked}>
+				<FontAwesomeIcon icon={ICON_SETTINGS}/>
+			</SettingsButton>
+			: null}
+	</PageHeaderContainer>;
 };
 
 export const PageHeaderHolderContainer = styled.div.attrs({'data-widget': 'page-header'})`
@@ -66,8 +66,8 @@ export const PageHeaderHolderContainer = styled.div.attrs({'data-widget': 'page-
 `;
 
 export const PageHeaderHolder = (props: { children: ((props: any) => React.ReactNode) | React.ReactNode }) => {
-    const {children} = props;
-    return <PageHeaderHolderContainer>
-        {children}
-    </PageHeaderHolderContainer>;
+	const {children} = props;
+	return <PageHeaderHolderContainer>
+		{children}
+	</PageHeaderHolderContainer>;
 };

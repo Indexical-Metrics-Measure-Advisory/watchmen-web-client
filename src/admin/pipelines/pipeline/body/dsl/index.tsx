@@ -11,43 +11,43 @@ import {StagesPart} from './stages-part';
 import {CloseButton, DslBottomGap, DslContainer} from './widgets';
 
 export const PipelineDsl = (props: { pipeline: Pipeline, topics: Array<Topic> }) => {
-    const {pipeline, topics} = props;
+	const {pipeline, topics} = props;
 
-    const {on, off} = usePipelineEventBus();
-    const [visible, setVisible] = useState(false);
-    useEffect(() => {
-        const onShowDsl = (ordered: Pipeline) => {
-            if (ordered !== pipeline) {
-                return;
-            }
-            setVisible(true);
-        };
-        on(PipelineEventTypes.SHOW_DSL, onShowDsl);
-        return () => {
-            off(PipelineEventTypes.SHOW_DSL, onShowDsl);
-        };
-    }, [on, off, pipeline]);
+	const {on, off} = usePipelineEventBus();
+	const [visible, setVisible] = useState(false);
+	useEffect(() => {
+		const onShowDsl = (ordered: Pipeline) => {
+			if (ordered !== pipeline) {
+				return;
+			}
+			setVisible(true);
+		};
+		on(PipelineEventTypes.SHOW_DSL, onShowDsl);
+		return () => {
+			off(PipelineEventTypes.SHOW_DSL, onShowDsl);
+		};
+	}, [on, off, pipeline]);
 
-    const onCloseClicked = () => {
-        setVisible(false);
-    };
+	const onCloseClicked = () => {
+		setVisible(false);
+	};
 
-    const topicsMap = topics.reduce((map, topic) => {
-        map.set(topic.topicId, topic);
-        return map;
-    }, new Map<string, Topic>());
+	const topicsMap = topics.reduce((map, topic) => {
+		map.set(topic.topicId, topic);
+		return map;
+	}, new Map<string, Topic>());
 
-    return <DslContainer visible={visible}>
-        <CloseButton onClick={onCloseClicked}>
-            <FontAwesomeIcon icon={ICON_CLOSE}/>
-        </CloseButton>
-        <Dsl>
-            <PipelinePart pipeline={pipeline} topicsMap={topicsMap}/>
-            <StagesPart pipeline={pipeline} topicsMap={topicsMap}/>
-            <EmptyLine/>
-            <LineComment>End of Pipeline Definition</LineComment>
-            <EmptyLine/>
-        </Dsl>
-        <DslBottomGap/>
-    </DslContainer>;
+	return <DslContainer visible={visible}>
+		<CloseButton onClick={onCloseClicked}>
+			<FontAwesomeIcon icon={ICON_CLOSE}/>
+		</CloseButton>
+		<Dsl>
+			<PipelinePart pipeline={pipeline} topicsMap={topicsMap}/>
+			<StagesPart pipeline={pipeline} topicsMap={topicsMap}/>
+			<EmptyLine/>
+			<LineComment>End of Pipeline Definition</LineComment>
+			<EmptyLine/>
+		</Dsl>
+		<DslBottomGap/>
+	</DslContainer>;
 };

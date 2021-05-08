@@ -15,34 +15,34 @@ import {TopicFactorPicker} from '../topic-factor-picker';
 import {ActionLeadLabelThin} from '../widgets';
 
 export const WriteFactor = (props: {
-    pipeline: Pipeline;
-    stage: PipelineStage;
-    unit: PipelineStageUnit;
-    action: PipelineStageUnitAction;
-    topics: Array<Topic>;
-    topic: Topic;
+	pipeline: Pipeline;
+	stage: PipelineStage;
+	unit: PipelineStageUnit;
+	action: PipelineStageUnitAction;
+	topics: Array<Topic>;
+	topic: Topic;
 }) => {
-    const {action, topics, topic} = props;
+	const {action, topics, topic} = props;
 
-    const {fire} = useActionEventBus();
-    useActionType(action);
+	const {fire} = useActionEventBus();
+	useActionType(action);
 
-    if (!isWriteFactorAction(action)) {
-        return null;
-    }
+	if (!isWriteFactorAction(action)) {
+		return null;
+	}
 
-    const onArithmeticChanged = () => {
-        fire(ActionEventTypes.ACTION_CONTENT_CHANGED, action);
-    };
+	const onArithmeticChanged = () => {
+		fire(ActionEventTypes.ACTION_CONTENT_CHANGED, action);
+	};
 
-    return <>
-        <ActionLeadLabelThin>Value From:</ActionLeadLabelThin>
-        <SingleParameter action={action} parameter={action.source} topics={[topic]}/>
-        <ActionLeadLabelThin>Write As:</ActionLeadLabelThin>
-        <AggregateArithmeticEditor holder={action} onChange={onArithmeticChanged}/>
-        <ActionLeadLabelThin>Target Topic & Factor:</ActionLeadLabelThin>
-        <TopicFactorPicker action={action} topics={topics}/>
-        <ActionLeadLabelThin>By:</ActionLeadLabelThin>
-        <FindByCondition action={action} topics={topics} topic={topic}/>
-    </>;
+	return <>
+		<ActionLeadLabelThin>Value From:</ActionLeadLabelThin>
+		<SingleParameter action={action} parameter={action.source} topics={[topic]}/>
+		<ActionLeadLabelThin>Write As:</ActionLeadLabelThin>
+		<AggregateArithmeticEditor holder={action} onChange={onArithmeticChanged}/>
+		<ActionLeadLabelThin>Target Topic & Factor:</ActionLeadLabelThin>
+		<TopicFactorPicker action={action} topics={topics}/>
+		<ActionLeadLabelThin>By:</ActionLeadLabelThin>
+		<FindByCondition action={action} topics={topics} topic={topic}/>
+	</>;
 };

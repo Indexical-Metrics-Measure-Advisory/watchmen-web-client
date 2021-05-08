@@ -2,14 +2,14 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 
 export const PickTopicsContainer = styled.div.attrs<{ active: boolean }>(({active}) => {
-    return {
-        'data-widget': 'subject-def-pick-topics',
-        'data-v-scroll': '',
-        style: {
-            paddingRight: active ? (void 0) : 0,
-            overflowY: active ? (void 0) : 'hidden'
-        }
-    };
+	return {
+		'data-widget': 'subject-def-pick-topics',
+		'data-v-scroll': '',
+		style: {
+			paddingRight: active ? (void 0) : 0,
+			overflowY: active ? (void 0) : 'hidden'
+		}
+	};
 }) <{ active: boolean }>`
 	display               : grid;
 	position              : relative;
@@ -35,12 +35,12 @@ export const AvailableTopicCard = styled.div.attrs({'data-widget': 'subject-def-
 	}
 `;
 export const TopicName = styled.div.attrs<{ 'data-picked': boolean }>(({'data-picked': picked}) => {
-    return {
-        'data-widget': 'subject-def-available-topic-name',
-        style: {
-            color: picked ? 'var(--primary-color)' : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'subject-def-available-topic-name',
+		style: {
+			color: picked ? 'var(--primary-color)' : (void 0)
+		}
+	};
 })<{ 'data-picked': boolean }>`
 	display     : flex;
 	flex-grow   : 1;
@@ -50,12 +50,12 @@ export const TopicName = styled.div.attrs<{ 'data-picked': boolean }>(({'data-pi
 	transition  : color 300ms ease-in-out;
 `;
 export const TopicPicked = styled(FontAwesomeIcon).attrs<{ 'data-picked': boolean }>(({'data-picked': picked}) => {
-    return {
-        style: {
-            color: picked ? 'var(--primary-color)' : 'var(--waive-color)',
-            opacity: picked ? 1 : 0.5
-        }
-    };
+	return {
+		style: {
+			color: picked ? 'var(--primary-color)' : 'var(--waive-color)',
+			opacity: picked ? 1 : 0.5
+		}
+	};
 })<{ 'data-picked': boolean }>`
 	font-size  : 2em;
 	transition : color 300ms ease-in-out, opacity 300ms ease-in-out;

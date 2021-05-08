@@ -19,90 +19,90 @@ import {EChartsXAxisNameSettings} from './name';
 import {EChartsXAxisSplitLineSettings} from './split-line';
 
 export const EChartsXAxisSettings = (props: { report: Report }) => {
-    const {report} = props;
-    const {chart} = report;
+	const {report} = props;
+	const {chart} = report;
 
-    const {fire} = useReportEditEventBus();
-    useChartType({report});
+	const {fire} = useReportEditEventBus();
+	useChartType({report});
 
-    if (!isEChart(chart) || !canUseXAxis(chart)) {
-        return null;
-    }
+	if (!isEChart(chart) || !canUseXAxis(chart)) {
+		return null;
+	}
 
-    const onValueChange = () => {
-        fire(ReportEditEventTypes.ECHART_XAXIS_CHANGED, report);
-    };
+	const onValueChange = () => {
+		fire(ReportEditEventTypes.ECHART_XAXIS_CHANGED, report);
+	};
 
-    const xaxis = chart.settings?.xaxis;
+	const xaxis = chart.settings?.xaxis;
 
-    return <>
-        <Section title={Lang.CHART.SECTION_TITLE_ECHART_XAXIS}>
-            <BooleanValue label={Lang.CHART.SHOW}
-                          value={xaxis?.show} defaultValue={true}
-                          onValueChange={onBooleanChange({
-                              report,
-                              chart,
-                              prop: EChartsXAxisPropNames.SHOW,
-                              done: onValueChange
-                          })}/>
-            <DropdownValue label={Lang.CHART.POSITION}
-                           value={xaxis?.position} defaultValue={EChartsXAxisPosition.BOTTOM}
-                           options={XAxisPositionOptions}
-                           onValueChange={onDropdownValueChange({
-                               report,
-                               chart,
-                               prop: EChartsXAxisPropNames.POSITION,
-                               done: onValueChange
-                           })}/>
-            <DropdownValue label={Lang.CHART.AXIS_TYPE}
-                           value={xaxis?.type} defaultValue={EChartsXAxisType.CATEGORY}
-                           options={AxisTypeOptions}
-                           onValueChange={onDropdownValueChange({
-                               report,
-                               chart,
-                               prop: EChartsXAxisPropNames.TYPE,
-                               done: onValueChange
-                           })}/>
-            <SecondarySection title={Lang.CHART.SECTION_TITLE_ECHART_XAXIS_RANGE}>
-                <BooleanValue label={Lang.CHART.AXIS_AUTO_MIN}
-                              value={xaxis?.autoMin} defaultValue={false}
-                              onValueChange={onBooleanChange({
-                                  report,
-                                  chart,
-                                  prop: EChartsXAxisPropNames.AUTO_MIN,
-                                  done: onValueChange
-                              })}/>
-                <NumberValue label={Lang.CHART.AXIS_MIN}
-                             value={xaxis?.min}
-                             validate={isANumber}
-                             onValueChange={onNumberChange({
-                                 report,
-                                 chart,
-                                 prop: EChartsXAxisPropNames.MIN,
-                                 done: onValueChange
-                             })}/>
-                <BooleanValue label={Lang.CHART.AXIS_AUTO_MAX}
-                              value={xaxis?.autoMin} defaultValue={false}
-                              onValueChange={onBooleanChange({
-                                  report,
-                                  chart,
-                                  prop: EChartsXAxisPropNames.AUTO_MAX,
-                                  done: onValueChange
-                              })}/>
-                <NumberValue label={Lang.CHART.AXIS_MAX}
-                             value={xaxis?.min}
-                             validate={isANumber}
-                             onValueChange={onNumberChange({
-                                 report,
-                                 chart,
-                                 prop: EChartsXAxisPropNames.MAX,
-                                 done: onValueChange
-                             })}/>
-            </SecondarySection>
-            <EChartsXAxisNameSettings report={report} chart={chart}/>
-            <EChartsXAxisLabelSettings report={report} chart={chart}/>
-            <EChartsXAxisSplitLineSettings report={report} chart={chart}/>
-            {/*<EChartsXAxisMinorSplitLineSettings report={report} chart={chart}/>*/}
-        </Section>
-    </>;
+	return <>
+		<Section title={Lang.CHART.SECTION_TITLE_ECHART_XAXIS}>
+			<BooleanValue label={Lang.CHART.SHOW}
+			              value={xaxis?.show} defaultValue={true}
+			              onValueChange={onBooleanChange({
+				              report,
+				              chart,
+				              prop: EChartsXAxisPropNames.SHOW,
+				              done: onValueChange
+			              })}/>
+			<DropdownValue label={Lang.CHART.POSITION}
+			               value={xaxis?.position} defaultValue={EChartsXAxisPosition.BOTTOM}
+			               options={XAxisPositionOptions}
+			               onValueChange={onDropdownValueChange({
+				               report,
+				               chart,
+				               prop: EChartsXAxisPropNames.POSITION,
+				               done: onValueChange
+			               })}/>
+			<DropdownValue label={Lang.CHART.AXIS_TYPE}
+			               value={xaxis?.type} defaultValue={EChartsXAxisType.CATEGORY}
+			               options={AxisTypeOptions}
+			               onValueChange={onDropdownValueChange({
+				               report,
+				               chart,
+				               prop: EChartsXAxisPropNames.TYPE,
+				               done: onValueChange
+			               })}/>
+			<SecondarySection title={Lang.CHART.SECTION_TITLE_ECHART_XAXIS_RANGE}>
+				<BooleanValue label={Lang.CHART.AXIS_AUTO_MIN}
+				              value={xaxis?.autoMin} defaultValue={false}
+				              onValueChange={onBooleanChange({
+					              report,
+					              chart,
+					              prop: EChartsXAxisPropNames.AUTO_MIN,
+					              done: onValueChange
+				              })}/>
+				<NumberValue label={Lang.CHART.AXIS_MIN}
+				             value={xaxis?.min}
+				             validate={isANumber}
+				             onValueChange={onNumberChange({
+					             report,
+					             chart,
+					             prop: EChartsXAxisPropNames.MIN,
+					             done: onValueChange
+				             })}/>
+				<BooleanValue label={Lang.CHART.AXIS_AUTO_MAX}
+				              value={xaxis?.autoMin} defaultValue={false}
+				              onValueChange={onBooleanChange({
+					              report,
+					              chart,
+					              prop: EChartsXAxisPropNames.AUTO_MAX,
+					              done: onValueChange
+				              })}/>
+				<NumberValue label={Lang.CHART.AXIS_MAX}
+				             value={xaxis?.min}
+				             validate={isANumber}
+				             onValueChange={onNumberChange({
+					             report,
+					             chart,
+					             prop: EChartsXAxisPropNames.MAX,
+					             done: onValueChange
+				             })}/>
+			</SecondarySection>
+			<EChartsXAxisNameSettings report={report} chart={chart}/>
+			<EChartsXAxisLabelSettings report={report} chart={chart}/>
+			<EChartsXAxisSplitLineSettings report={report} chart={chart}/>
+			{/*<EChartsXAxisMinorSplitLineSettings report={report} chart={chart}/>*/}
+		</Section>
+	</>;
 };

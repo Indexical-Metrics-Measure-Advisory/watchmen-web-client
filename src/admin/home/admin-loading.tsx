@@ -42,11 +42,11 @@ const Label = styled.div.attrs({'data-widget': 'admin-home-loading-label'})`
 `;
 
 export const AdminLoading = (props: { label?: string }) => {
-    const {label} = props;
-    return <Container>
-        <Icon>
-            <Logo/>
-        </Icon>
-        <Label>{label}</Label>
-    </Container>;
+	const {label} = props;
+	return <Container>
+		<Icon>
+			<Logo/>
+		</Icon>
+		<Label>{label}</Label>
+	</Container>;
 };

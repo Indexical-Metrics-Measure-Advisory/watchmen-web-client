@@ -11,20 +11,20 @@ import {Subject} from '../../../../services/tuples/subject-types';
 import {isSubjectDefNow} from './utils';
 
 export const HeaderSubjectDefButton = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
-    const {connectedSpace, subject} = props;
+	const {connectedSpace, subject} = props;
 
-    const history = useHistory();
+	const history = useHistory();
 
-    const onDefClicked = () => {
-        if (isSubjectDefNow()) {
-            return;
-        }
-        history.push(toSubjectDef(connectedSpace.connectId, subject.subjectId));
-    };
+	const onDefClicked = () => {
+		if (isSubjectDefNow()) {
+			return;
+		}
+		history.push(toSubjectDef(connectedSpace.connectId, subject.subjectId));
+	};
 
-    return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_DEF}
-                             ink={isSubjectDefNow() ? ButtonInk.PRIMARY : (void 0)}
-                             onClick={onDefClicked}>
-        <FontAwesomeIcon icon={ICON_SUBJECT_DEF}/>
-    </PageHeaderButton>;
+	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_DEF}
+	                         ink={isSubjectDefNow() ? ButtonInk.PRIMARY : (void 0)}
+	                         onClick={onDefClicked}>
+		<FontAwesomeIcon icon={ICON_SUBJECT_DEF}/>
+	</PageHeaderButton>;
 };

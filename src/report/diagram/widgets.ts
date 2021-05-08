@@ -2,16 +2,16 @@ import styled from 'styled-components';
 import {ChartSettings} from '../../services/tuples/chart-types';
 
 export const DiagramContainer = styled.div.attrs<{ settings?: ChartSettings }>(({settings = {}}) => {
-    return {
-        'data-widget': 'chart-diagram',
-        style: {
-            backgroundColor: settings?.backgroundColor || 'var(--bg-color)',
-            borderStyle: settings?.border?.style || 'none',
-            borderWidth: settings?.border?.width || 0,
-            borderColor: settings?.border?.color || 'var(--border-color)',
-            borderRadius: settings?.border?.radius || 0
-        }
-    };
+	return {
+		'data-widget': 'chart-diagram',
+		style: {
+			backgroundColor: settings?.backgroundColor || 'var(--bg-color)',
+			borderStyle: settings?.border?.style || 'none',
+			borderWidth: settings?.border?.width || 0,
+			borderColor: settings?.border?.color || 'var(--border-color)',
+			borderRadius: settings?.border?.radius || 0
+		}
+	};
 })<{ settings?: ChartSettings }>`
 	display  : block;
 	position : relative;

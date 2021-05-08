@@ -11,25 +11,25 @@ import {TopType} from './top-type';
 import {ConditionalContainer, ConditionalHeader} from './widgets';
 
 export const ConditionalEditor = (props: {
-    conditional: Conditional;
-    topics: Array<Topic>;
-    // true means force have conditional, default is false
-    force?: boolean;
-    onChange: () => void;
+	conditional: Conditional;
+	topics: Array<Topic>;
+	// true means force have conditional, default is false
+	force?: boolean;
+	onChange: () => void;
 }) => {
-    const {conditional, topics, onChange, force = false} = props;
+	const {conditional, topics, onChange, force = false} = props;
 
-    return <ConditionalEventBusProvider>
-        <Conditional2ParentBridge onChange={onChange}/>
-        <JointEventBusProvider>
-            <TopJoint2ConditionalBridge conditional={conditional}/>
-            <ConditionalContainer>
-                <ConditionalHeader>
-                    <TopType conditional={conditional} force={force}/>
-                    <TopFold conditional={conditional}/>
-                </ConditionalHeader>
-                <TopJoint conditional={conditional} topics={topics}/>
-            </ConditionalContainer>
-        </JointEventBusProvider>
-    </ConditionalEventBusProvider>;
+	return <ConditionalEventBusProvider>
+		<Conditional2ParentBridge onChange={onChange}/>
+		<JointEventBusProvider>
+			<TopJoint2ConditionalBridge conditional={conditional}/>
+			<ConditionalContainer>
+				<ConditionalHeader>
+					<TopType conditional={conditional} force={force}/>
+					<TopFold conditional={conditional}/>
+				</ConditionalHeader>
+				<TopJoint conditional={conditional} topics={topics}/>
+			</ConditionalContainer>
+		</JointEventBusProvider>
+	</ConditionalEventBusProvider>;
 };

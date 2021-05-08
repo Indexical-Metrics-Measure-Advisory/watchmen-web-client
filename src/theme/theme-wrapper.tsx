@@ -10,22 +10,22 @@ import {Theme} from './types';
 
 const shouldIgnorePixel = (key: string) => ['fontDemiBold', 'fontBold', 'fontBoldest'].includes(key);
 const convertToCssVariableName = (key: string) => {
-    return '--' + key.split('').map(ch => (ch >= 'A' && ch <= 'Z') ? `-${ch.toLowerCase()}` : ch).join('');
+	return '--' + key.split('').map(ch => (ch >= 'A' && ch <= 'Z') ? `-${ch.toLowerCase()}` : ch).join('');
 };
 const writeThemeProperty = (theme: Theme) => {
-    return Object.keys(theme).map(key => {
-        const name = convertToCssVariableName(key);
-        const value = (theme as any)[key];
-        if (typeof value === 'number') {
-            if (shouldIgnorePixel(key)) {
-                return `${name}: ${value};`;
-            } else {
-                return `${name}: ${value}px;`;
-            }
-        } else {
-            return `${name}: ${value};`;
-        }
-    });
+	return Object.keys(theme).map(key => {
+		const name = convertToCssVariableName(key);
+		const value = (theme as any)[key];
+		if (typeof value === 'number') {
+			if (shouldIgnorePixel(key)) {
+				return `${name}: ${value};`;
+			} else {
+				return `${name}: ${value}px;`;
+			}
+		} else {
+			return `${name}: ${value};`;
+		}
+	});
 };
 const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
 	*, *:before, *:after {
@@ -98,12 +98,12 @@ const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
 `;
 
 const THEMES: { [key in string]: Theme } = {
-    [DarkTheme.code]: DarkTheme,
-    [DefaultTheme.code]: DefaultTheme
+	[DarkTheme.code]: DarkTheme,
+	[DefaultTheme.code]: DefaultTheme
 };
 
 const findTheme = (themeCode: string) => {
-    return THEMES[themeCode] || DefaultTheme;
+	return THEMES[themeCode] || DefaultTheme;
 };
 
 let currentTheme = findTheme(fetchThemeFromSession() || DefaultTheme.code);
@@ -111,26 +111,26 @@ export const getCurrentTheme = () => currentTheme;
 export const getCurrentThemeCode = () => currentTheme.code;
 
 export const ThemeWrapper = () => {
-    const [theme, setTheme] = React.useState(currentTheme);
+	const [theme, setTheme] = React.useState(currentTheme);
 
-    const {on, off} = useEventBus();
-    useEffect(() => {
-        const onThemeChange = (themeName: string) => {
-            const theme = THEMES[themeName];
-            if (theme) {
-                currentTheme = theme;
-                setTheme(theme);
-            } else {
-                console.warn(`Theme[${themeName}] is not supported yet.`);
-            }
-        };
-        on(EventTypes.CHANGE_THEME, onThemeChange);
-        return () => {
-            off(EventTypes.CHANGE_THEME, onThemeChange);
-        };
-    }, [on, off]);
+	const {on, off} = useEventBus();
+	useEffect(() => {
+		const onThemeChange = (themeName: string) => {
+			const theme = THEMES[themeName];
+			if (theme) {
+				currentTheme = theme;
+				setTheme(theme);
+			} else {
+				console.warn(`Theme[${themeName}] is not supported yet.`);
+			}
+		};
+		on(EventTypes.CHANGE_THEME, onThemeChange);
+		return () => {
+			off(EventTypes.CHANGE_THEME, onThemeChange);
+		};
+	}, [on, off]);
 
-    return <ThemeProvider theme={theme}>
-        <GlobalStyle/>
-    </ThemeProvider>;
+	return <ThemeProvider theme={theme}>
+		<GlobalStyle/>
+	</ThemeProvider>;
 };

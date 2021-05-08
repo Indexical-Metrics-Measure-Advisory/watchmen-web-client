@@ -7,25 +7,25 @@ import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {PropName, PropValue, PropValueInput} from '../settings-widgets/widgets';
 
 export const NamePropEditor = (props: { report: Report }) => {
-    const {report} = props;
+	const {report} = props;
 
-    const {fire} = useReportEditEventBus();
-    const forceUpdate = useForceUpdate();
-    const onNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const {value} = event.target;
-        if (report.name === value) {
-            return;
-        }
+	const {fire} = useReportEditEventBus();
+	const forceUpdate = useForceUpdate();
+	const onNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+		const {value} = event.target;
+		if (report.name === value) {
+			return;
+		}
 
-        report.name = value;
-        fire(ReportEditEventTypes.NAME_CHANGED, report);
-        forceUpdate();
-    };
+		report.name = value;
+		fire(ReportEditEventTypes.NAME_CHANGED, report);
+		forceUpdate();
+	};
 
-    return <>
-        <PropName>{Lang.CHART.NAME}</PropName>
-        <PropValue>
-            <PropValueInput value={report.name || ''} onChange={onNameChange}/>
-        </PropValue>
-    </>;
+	return <>
+		<PropName>{Lang.CHART.NAME}</PropName>
+		<PropValue>
+			<PropValueInput value={report.name || ''} onChange={onNameChange}/>
+		</PropValue>
+	</>;
 };

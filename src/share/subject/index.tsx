@@ -12,61 +12,61 @@ import {ShareNothing} from '../share-nothing';
 import {ShareSubjectContainer} from './widgets';
 
 interface ShareSubjectState {
-    initialized: boolean;
-    subjectId?: string;
-    subject?: Subject;
+	initialized: boolean;
+	subjectId?: string;
+	subject?: Subject;
 }
 
 const ShareSubject = (props: { subject: Subject }) => {
-    const {subject} = props;
+	const {subject} = props;
 
-    const connectedSpace: ConnectedSpace = {
-        connectId: '',
-        name: '',
-        spaceId: '',
-        subjects: [subject],
-        lastVisitTime: getCurrentTime(),
-        lastModifyTime: getCurrentTime(),
-        createTime: getCurrentTime()
-    };
-    return <SubjectEventBusProvider>
-        <ShareSubjectContainer>
-            <SubjectReports connectedSpace={connectedSpace} subject={subject}
-                            editable={false} removable={false}/>
-        </ShareSubjectContainer>
-    </SubjectEventBusProvider>;
+	const connectedSpace: ConnectedSpace = {
+		connectId: '',
+		name: '',
+		spaceId: '',
+		subjects: [subject],
+		lastVisitTime: getCurrentTime(),
+		lastModifyTime: getCurrentTime(),
+		createTime: getCurrentTime()
+	};
+	return <SubjectEventBusProvider>
+		<ShareSubjectContainer>
+			<SubjectReports connectedSpace={connectedSpace} subject={subject}
+			                editable={false} removable={false}/>
+		</ShareSubjectContainer>
+	</SubjectEventBusProvider>;
 };
 
 const ShareSubjectIndex = () => {
-        const {subjectId, token} = useParams<{ subjectId: string, token: string }>();
+		const {subjectId, token} = useParams<{ subjectId: string, token: string }>();
 
-        const [state, setState] = useState<ShareSubjectState>({initialized: false});
-        useEffect(() => {
-            (async () => {
-                try {
-                    const {subject} = await fetchSharedSubject(subjectId, token);
-                    setState({initialized: true, subjectId, subject});
-                } catch (e) {
-                    console.error(e);
-                    setState({initialized: true, subjectId});
-                }
-            })();
-        }, [subjectId, token]);
+		const [state, setState] = useState<ShareSubjectState>({initialized: false});
+		useEffect(() => {
+			(async () => {
+				try {
+					const {subject} = await fetchSharedSubject(subjectId, token);
+					setState({initialized: true, subjectId, subject});
+				} catch (e) {
+					console.error(e);
+					setState({initialized: true, subjectId});
+				}
+			})();
+		}, [subjectId, token]);
 
-        // eslint-disable-next-line
-        if (!state.initialized || (state.initialized && state.subjectId != subjectId)) {
-            return <ShareNothing label={Lang.CONSOLE.LOADING}/>;
-        }
+		// eslint-disable-next-line
+		if (!state.initialized || (state.initialized && state.subjectId != subjectId)) {
+			return <ShareNothing label={Lang.CONSOLE.LOADING}/>;
+		}
 
-        if (state.initialized && state.subject == null) {
-            return <ShareNothing label={Lang.CONSOLE.ERROR.SUBJECT_NOT_FOUND}/>;
-        }
+		if (state.initialized && state.subject == null) {
+			return <ShareNothing label={Lang.CONSOLE.ERROR.SUBJECT_NOT_FOUND}/>;
+		}
 
-        return <ConsoleEventBusProvider>
-            {/*<SimulateConsole reports={state.reports!}/>*/}
-            <ShareSubject subject={state.subject!}/>
-        </ConsoleEventBusProvider>;
-    }
+		return <ConsoleEventBusProvider>
+			{/*<SimulateConsole reports={state.reports!}/>*/}
+			<ShareSubject subject={state.subject!}/>
+		</ConsoleEventBusProvider>;
+	}
 ;
 
 export default ShareSubjectIndex;

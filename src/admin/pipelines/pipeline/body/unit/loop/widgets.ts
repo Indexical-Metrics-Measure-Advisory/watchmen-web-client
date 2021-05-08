@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import {Input} from "../../../../../../basic-widgets/input";
+import styled from 'styled-components';
+import {Input} from '../../../../../../basic-widgets/input';
 
 export const VariableInputContainer = styled.div.attrs({'data-widget': 'loop-variable'})`
 	display: grid;

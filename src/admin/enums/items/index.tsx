@@ -3,7 +3,7 @@ import {Enum} from '../../../services/tuples/enum-types';
 import {ItemsTable} from './items-table';
 
 export const Items = (props: { enumeration: Enum }) => {
-    const {enumeration} = props;
+	const {enumeration} = props;
 
-    return <ItemsTable enumeration={enumeration}/>;
+	return <ItemsTable enumeration={enumeration}/>;
 };

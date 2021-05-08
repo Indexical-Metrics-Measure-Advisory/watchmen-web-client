@@ -54,17 +54,17 @@ export const ParameterComputeTypeIcon = styled.div.attrs({'data-widget': 'parame
 `;
 export const PARAMETER_TYPE_DROPDOWN_HEIGHT = 200;
 export const ParameterComputeTypeDropdown = styled.div.attrs<{ visible: boolean, top?: number, bottom?: number, left: number }>(
-    ({visible, top, bottom, left}) => {
-        return {
-            'data-widget': 'parameter-computed-type-dropdown',
-            style: {
-                opacity: visible ? 1 : 0,
-                pointerEvents: visible ? 'auto' : 'none',
-                top, bottom, left,
-                transition: visible ? (void 0) : 'none'
-            }
-        };
-    })<{ visible: boolean, top?: number, bottom?: number, left: number }>`
+	({visible, top, bottom, left}) => {
+		return {
+			'data-widget': 'parameter-computed-type-dropdown',
+			style: {
+				opacity: visible ? 1 : 0,
+				pointerEvents: visible ? 'auto' : 'none',
+				top, bottom, left,
+				transition: visible ? (void 0) : 'none'
+			}
+		};
+	})<{ visible: boolean, top?: number, bottom?: number, left: number }>`
 	display          : flex;
 	position         : fixed;
 	flex-wrap        : wrap;
@@ -82,13 +82,13 @@ export const ParameterComputeTypeDropdown = styled.div.attrs<{ visible: boolean,
 	}
 `;
 export const ParameterComputeTypeOption = styled.div.attrs<{ selected: boolean }>(({selected}) => {
-    return {
-        'data-widget': 'parameter-compute-type-option',
-        style: {
-            backgroundColor: selected ? 'var(--primary-color)' : (void 0),
-            color: selected ? 'var(--invert-color)' : (void 0)
-        }
-    };
+	return {
+		'data-widget': 'parameter-compute-type-option',
+		style: {
+			backgroundColor: selected ? 'var(--primary-color)' : (void 0),
+			color: selected ? 'var(--invert-color)' : (void 0)
+		}
+	};
 })<{ selected: boolean }>`
 	display       : flex;
 	align-items   : center;

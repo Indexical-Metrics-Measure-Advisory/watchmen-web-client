@@ -2,9 +2,9 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {ICON_DELETE} from '../../../../../../../basic-widgets/constants';
 import {
-    MappingFactor,
-    MappingRow,
-    WriteTopicAction
+	MappingFactor,
+	MappingRow,
+	WriteTopicAction
 } from '../../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import {Topic} from '../../../../../../../services/tuples/topic-types';
 import {AggregateArithmeticEditor} from '../../aggregate-arithmetic';
@@ -15,35 +15,35 @@ import {FactorsMappingEventTypes} from '../factors-mapping-event-bus-types';
 import {FactorMappingContainer, FactorMappingLeadLabel, RemoveMeButton} from './widgets';
 
 export const FactorMapping = (props: {
-    action: WriteTopicAction & MappingRow;
-    mapping: MappingFactor;
-    source: Topic;
-    target?: Topic;
+	action: WriteTopicAction & MappingRow;
+	mapping: MappingFactor;
+	source: Topic;
+	target?: Topic;
 }) => {
-    const {action, mapping, source, target} = props;
+	const {action, mapping, source, target} = props;
 
-    const {fire} = useFactorsMappingEventBus();
+	const {fire} = useFactorsMappingEventBus();
 
-    const onArithmeticChanged = () => {
-        fire(FactorsMappingEventTypes.MAPPING_CHANGED, mapping);
-    };
-    const onRemoveClicked = () => {
-        const index = action.mapping.indexOf(mapping);
-        if (index !== -1) {
-            action.mapping.splice(index, 1);
-            fire(FactorsMappingEventTypes.MAPPING_REMOVED, mapping);
-        }
-    };
+	const onArithmeticChanged = () => {
+		fire(FactorsMappingEventTypes.MAPPING_CHANGED, mapping);
+	};
+	const onRemoveClicked = () => {
+		const index = action.mapping.indexOf(mapping);
+		if (index !== -1) {
+			action.mapping.splice(index, 1);
+			fire(FactorsMappingEventTypes.MAPPING_REMOVED, mapping);
+		}
+	};
 
-    const mappingIndex = action.mapping.indexOf(mapping) + 1;
+	const mappingIndex = action.mapping.indexOf(mapping) + 1;
 
-    return <FactorMappingContainer>
-        <FactorMappingLeadLabel>#{mappingIndex}</FactorMappingLeadLabel>
-        <SingleParameter action={action} parameter={mapping.source} topics={[source]}/>
-        <AggregateArithmeticEditor holder={mapping} onChange={onArithmeticChanged}/>
-        <FactorPicker holder={mapping} topic={target}/>
-        <RemoveMeButton onClick={onRemoveClicked}>
-            <FontAwesomeIcon icon={ICON_DELETE}/>
-        </RemoveMeButton>
-    </FactorMappingContainer>;
+	return <FactorMappingContainer>
+		<FactorMappingLeadLabel>#{mappingIndex}</FactorMappingLeadLabel>
+		<SingleParameter action={action} parameter={mapping.source} topics={[source]}/>
+		<AggregateArithmeticEditor holder={mapping} onChange={onArithmeticChanged}/>
+		<FactorPicker holder={mapping} topic={target}/>
+		<RemoveMeButton onClick={onRemoveClicked}>
+			<FontAwesomeIcon icon={ICON_DELETE}/>
+		</RemoveMeButton>
+	</FactorMappingContainer>;
 };

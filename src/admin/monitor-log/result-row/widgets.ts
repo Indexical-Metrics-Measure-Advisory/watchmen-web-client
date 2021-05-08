@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 export const SearchResultBodyRow = styled.div.attrs<{ detail: boolean }>(({detail}) => {
-    return {
-        'data-widget': 'monitor-logs-result-body-row',
-        style: {
-            height: detail ? 'unset' : (void 0),
-            cursor: detail ? 'default' : (void 0),
-        }
-    };
+	return {
+		'data-widget': 'monitor-logs-result-body-row',
+		style: {
+			height: detail ? 'unset' : (void 0),
+			cursor: detail ? 'default' : (void 0)
+		}
+	};
 })<{ detail: boolean }>`
 	display               : grid;
 	position              : relative;
@@ -16,7 +16,7 @@ export const SearchResultBodyRow = styled.div.attrs<{ detail: boolean }>(({detai
 	border-bottom         : var(--border);
 	cursor                : pointer;
 	${({detail}) => {
-    return detail ? '' : `&:hover {
+	return detail ? '' : `&:hover {
 			background-color : var(--hover-color);
 			&:before,
 			&:after {

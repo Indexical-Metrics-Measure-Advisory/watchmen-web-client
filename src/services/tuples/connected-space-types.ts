@@ -3,38 +3,38 @@ import {Subject} from './subject-types';
 import {Tuple} from './tuple-types';
 
 export interface ConnectedSpace extends Tuple {
-    connectId: string;
-    name: string;
-    spaceId: string;
-    subjects: Array<Subject>;
-    lastVisitTime: string;
+	connectId: string;
+	name: string;
+	spaceId: string;
+	subjects: Array<Subject>;
+	lastVisitTime: string;
 }
 
 export interface ConnectedSpaceBlockGraphicsRect {
-    coordinate: BlockCoordinate;
-    frame: BlockFrame;
-    name: BlockName;
+	coordinate: BlockCoordinate;
+	frame: BlockFrame;
+	name: BlockName;
 }
 
 export interface ConnectedSpaceBlockGraphics {
-    rect: ConnectedSpaceBlockGraphicsRect;
+	rect: ConnectedSpaceBlockGraphicsRect;
 }
 
 export interface TopicGraphics extends ConnectedSpaceBlockGraphics {
-    topicId: string;
+	topicId: string;
 }
 
 export interface SubjectGraphics extends ConnectedSpaceBlockGraphics {
-    subjectId: string;
+	subjectId: string;
 }
 
 export interface ReportGraphics extends ConnectedSpaceBlockGraphics {
-    reportId: string;
+	reportId: string;
 }
 
 export interface ConnectedSpaceGraphics {
-    connectId: string;
-    topics: Array<TopicGraphics>;
-    subjects: Array<SubjectGraphics>;
-    reports: Array<ReportGraphics>;
+	connectId: string;
+	topics: Array<TopicGraphics>;
+	subjects: Array<SubjectGraphics>;
+	reports: Array<ReportGraphics>;
 }

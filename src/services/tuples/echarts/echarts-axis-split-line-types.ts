@@ -1,20 +1,20 @@
 export enum EChartsAxisSplitLineStyle {
-    SOLID = 'solid',
-    DASHED = 'dashed',
-    DOTTED = 'dotted'
+	SOLID = 'solid',
+	DASHED = 'dashed',
+	DOTTED = 'dotted'
 }
 
 export interface EChartsAxisSplitLine {
-    show?: boolean;
-    color?: string;
-    width?: number;
-    style?: EChartsAxisSplitLineStyle;
+	show?: boolean;
+	color?: string;
+	width?: number;
+	style?: EChartsAxisSplitLineStyle;
 }
 
 export interface EChartsAxisSplitLineHolder {
-    splitLine?: EChartsAxisSplitLine;
+	splitLine?: EChartsAxisSplitLine;
 }
 
 export interface EChartsAxisMinorSplitLineHolder {
-    minorSplitLine?: EChartsAxisSplitLine;
+	minorSplitLine?: EChartsAxisSplitLine;
 }
