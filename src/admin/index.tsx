@@ -14,6 +14,7 @@ import AdminSpaces from './spaces';
 import AdminTopics from './topics';
 import AdminUserGroups from './user-groups';
 import AdminUsers from './users';
+import {AdminCache} from './cache';
 
 const AdminContainer = styled.div.attrs({'data-widget': 'admin'})`
 	display : flex;
@@ -41,6 +42,7 @@ const AdminIndex = () => {
 	}
 
 	return <AdminContainer>
+		<AdminCache/>
 		<AdminMenu/>
 
 		<Switch>
