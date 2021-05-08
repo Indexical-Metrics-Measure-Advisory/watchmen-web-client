@@ -34,8 +34,7 @@ export const HeaderFocusModeButtons = (props: { pipeline: Pipeline }) => {
 		}
 		setFocusMode(PipelineFocusMode.UNIT);
 		fire(PipelineEventTypes.FOCUS_MODE_CHANGED, pipeline, PipelineFocusMode.UNIT);
-		fire(PipelineEventTypes.STAGE_EXPANDED, pipeline, pipeline.stages[0]);
-		fire(PipelineEventTypes.UNIT_EXPANDED, pipeline, pipeline.stages[0], pipeline.stages[0]?.units[0]);
+		fire(PipelineEventTypes.COLLAPSE_ALL, pipeline);
 	};
 	const onFocusOnStageClicked = () => {
 		if (focusMode === PipelineFocusMode.STAGE) {
@@ -43,7 +42,7 @@ export const HeaderFocusModeButtons = (props: { pipeline: Pipeline }) => {
 		}
 		setFocusMode(PipelineFocusMode.STAGE);
 		fire(PipelineEventTypes.FOCUS_MODE_CHANGED, pipeline, PipelineFocusMode.STAGE);
-		fire(PipelineEventTypes.STAGE_EXPANDED, pipeline, pipeline.stages[0]);
+		fire(PipelineEventTypes.COLLAPSE_ALL, pipeline);
 	};
 	const onFreeWalkClicked = () => {
 		if (focusMode === PipelineFocusMode.FREE_WALK) {

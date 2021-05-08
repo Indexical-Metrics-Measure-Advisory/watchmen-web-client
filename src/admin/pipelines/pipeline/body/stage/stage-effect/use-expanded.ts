@@ -24,6 +24,16 @@ export const useExpanded = (pipeline: Pipeline, stage: PipelineStage) => {
 		};
 	}, [firePipeline, on, off, pipeline, stage]);
 	useEffect(() => {
+		const onExpandContent = () => setExpanded(true);
+		const onCollapseContent = () => setExpanded(false);
+		onPipeline(PipelineEventTypes.EXPAND_ALL, onExpandContent);
+		onPipeline(PipelineEventTypes.COLLAPSE_ALL, onCollapseContent);
+		return () => {
+			offPipeline(PipelineEventTypes.EXPAND_ALL, onExpandContent);
+			offPipeline(PipelineEventTypes.COLLAPSE_ALL, onCollapseContent);
+		};
+	}, [onPipeline, offPipeline]);
+	useEffect(() => {
 		const onStageExpanded = (p: Pipeline, s: PipelineStage) => {
 			if (p !== pipeline) {
 				return;
