@@ -29,7 +29,9 @@ export const CacheSettings = () => {
 				{!reloading ? null : <FontAwesomeIcon icon={ICON_LOADING} spin={true}/>}
 				<span>Reload</span>
 			</Button>
-			<span>Should takes a while on reloading, please don't leave current page.</span>
+			<span>
+				Should takes a while on reloading, please don't leave current page until reloaded.
+			</span>
 		</SettingsSectionBody>
 	</SettingsSection>;
 };
