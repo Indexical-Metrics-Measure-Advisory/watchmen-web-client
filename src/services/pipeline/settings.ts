@@ -5,7 +5,6 @@ import {PipelinesSettings} from './settings-types';
 import {Dayjs} from 'dayjs';
 import {PipelinesGraphics} from '../tuples/pipeline-types';
 import {isMockService} from '../utils';
-import {Apis, post} from '../apis';
 
 export const fetchPipelinesSettingsData = async (): Promise<PipelinesSettings> => {
 	const [pipelines, topics, graphics] = await Promise.all([

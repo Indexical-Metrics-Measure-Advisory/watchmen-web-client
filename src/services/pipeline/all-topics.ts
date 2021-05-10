@@ -1,4 +1,4 @@
-import {Apis, get, post} from '../apis';
+import {Apis, get} from '../apis';
 import {fetchMockAllTopics} from '../mock/pipeline/mock-all-topics';
 import {Topic} from '../tuples/topic-types';
 import {isMockService} from '../utils';

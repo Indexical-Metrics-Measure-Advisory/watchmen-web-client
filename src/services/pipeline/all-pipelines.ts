@@ -1,4 +1,4 @@
-import {Apis, get, post} from '../apis';
+import {Apis, get} from '../apis';
 import {fetchMockAllPipelines} from '../mock/pipeline/mock-all-pipelines';
 import {Pipeline} from '../tuples/pipeline-types';
 import {isMockService} from '../utils';
