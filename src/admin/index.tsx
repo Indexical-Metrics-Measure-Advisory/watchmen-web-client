@@ -15,9 +15,10 @@ import AdminTopics from './topics';
 import AdminUserGroups from './user-groups';
 import AdminUsers from './users';
 import {AdminCache} from './cache';
+import {AdminCacheEventBusProvider} from './cache/cache-event-bus';
 
 const AdminContainer = styled.div.attrs({'data-widget': 'admin'})`
-	display : flex;
+	display: flex;
 `;
 const AdminMain = styled.main.attrs<{ scrollable?: boolean }>(({scrollable = true}) => {
 	return {
@@ -29,11 +30,11 @@ const AdminMain = styled.main.attrs<{ scrollable?: boolean }>(({scrollable = tru
 		}
 	};
 })<{ scrollable?: boolean }>`
-	flex-grow  : 1;
-	display    : flex;
-	height     : 100vh;
-	min-height : 100vh;
-	overflow-y : scroll;
+	flex-grow: 1;
+	display: flex;
+	height: 100vh;
+	min-height: 100vh;
+	overflow-y: scroll;
 `;
 
 const AdminIndex = () => {
@@ -42,27 +43,29 @@ const AdminIndex = () => {
 	}
 
 	return <AdminContainer>
-		<AdminCache/>
-		<AdminMenu/>
+		<AdminCacheEventBusProvider>
+			<AdminCache/>
+			<AdminMenu/>
 
-		<Switch>
-			<Route path={Router.ADMIN_HOME}><AdminMain scrollable={false}><AdminHome/></AdminMain></Route>
-			<Route path={Router.ADMIN_TOPICS}><AdminMain><AdminTopics/></AdminMain></Route>
-			<Route path={Router.ADMIN_ENUMS}><AdminMain><AdminEnums/></AdminMain></Route>
-			<Route path={Router.ADMIN_REPORTS}><AdminMain><AdminReports/></AdminMain></Route>
-			<Route path={Router.ADMIN_SPACES}><AdminMain><AdminSpaces/></AdminMain></Route>
-			<Route path={Router.ADMIN_PIPELINES}><AdminPipelines/></Route>
-			<Route path={Router.ADMIN_USER_GROUPS}><AdminMain><AdminUserGroups/></AdminMain></Route>
-			<Route path={Router.ADMIN_USERS}><AdminMain><AdminUsers/></AdminMain></Route>
-			<Route path={Router.ADMIN_MONITOR_LOGS}>
-				<AdminMain scrollable={false}><AdminMonitorLogs/></AdminMain>
-			</Route>
-			<Route path={Router.ADMIN_SETTINGS}><AdminMain><AdminSettings/></AdminMain></Route>
-			{/*		<Route path={Path.ADMIN_TASKS}><Tasks/></Route>*/}
-			<Route path="*">
-				<Redirect to={Router.ADMIN_HOME}/>
-			</Route>
-		</Switch>
+			<Switch>
+				<Route path={Router.ADMIN_HOME}><AdminMain scrollable={false}><AdminHome/></AdminMain></Route>
+				<Route path={Router.ADMIN_TOPICS}><AdminMain><AdminTopics/></AdminMain></Route>
+				<Route path={Router.ADMIN_ENUMS}><AdminMain><AdminEnums/></AdminMain></Route>
+				<Route path={Router.ADMIN_REPORTS}><AdminMain><AdminReports/></AdminMain></Route>
+				<Route path={Router.ADMIN_SPACES}><AdminMain><AdminSpaces/></AdminMain></Route>
+				<Route path={Router.ADMIN_PIPELINES}><AdminPipelines/></Route>
+				<Route path={Router.ADMIN_USER_GROUPS}><AdminMain><AdminUserGroups/></AdminMain></Route>
+				<Route path={Router.ADMIN_USERS}><AdminMain><AdminUsers/></AdminMain></Route>
+				<Route path={Router.ADMIN_MONITOR_LOGS}>
+					<AdminMain scrollable={false}><AdminMonitorLogs/></AdminMain>
+				</Route>
+				<Route path={Router.ADMIN_SETTINGS}><AdminMain><AdminSettings/></AdminMain></Route>
+				{/*		<Route path={Path.ADMIN_TASKS}><Tasks/></Route>*/}
+				<Route path="*">
+					<Redirect to={Router.ADMIN_HOME}/>
+				</Route>
+			</Switch>
+		</AdminCacheEventBusProvider>
 	</AdminContainer>;
 };
 

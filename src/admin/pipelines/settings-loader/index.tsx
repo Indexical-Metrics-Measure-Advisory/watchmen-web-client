@@ -7,6 +7,7 @@ import {usePipelinesEventBus} from '../pipelines-event-bus';
 import {PipelinesEventTypes} from '../pipelines-event-bus-types';
 import {HoldSettings} from './types';
 import {useReplier} from './use-replier';
+import {getCurrentTime} from '../../../services/utils';
 
 export const SettingsHolder = () => {
 	const {fire: fireGlobal} = useEventBus();
@@ -15,7 +16,7 @@ export const SettingsHolder = () => {
 		initialized: false,
 		pipelines: [],
 		topics: [],
-		graphics: {topics: []}
+		graphics: {topics: [], createTime: getCurrentTime(), lastModifyTime: getCurrentTime()}
 	});
 
 	useEffect(() => {

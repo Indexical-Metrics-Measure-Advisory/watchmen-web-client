@@ -20,6 +20,7 @@ import {
 	SELECTION_GAP
 } from './constants';
 import {AssembledPipelinesGraphics, AssembledTopicGraphics, GraphicsRole, RelationCurvePoints} from './types';
+import {getCurrentTime} from '../../../services/utils';
 
 const dependRectData = (rect: PipelineBlockGraphicsRect): PipelineBlockGraphicsRect => {
 	const {
@@ -317,6 +318,8 @@ export const transformGraphicsToSave = (graphics: AssembledPipelinesGraphics): P
 				topicId: graphics.topic.topicId,
 				rect: JSON.parse(JSON.stringify(graphics.rect))
 			};
-		})
+		}),
+		createTime: '',
+		lastModifyTime: getCurrentTime()
 	};
 };

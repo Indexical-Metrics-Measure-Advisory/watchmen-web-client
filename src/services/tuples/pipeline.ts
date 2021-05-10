@@ -22,7 +22,8 @@ export const savePipelinesGraphics = async (graphics: PipelinesGraphics): Promis
 	if (isMockService()) {
 		return saveMockPipelinesGraphics(graphics);
 	} else {
-		await post({api: Apis.PIPELINE_GRAPHICS_SAVE, data: graphics});
+		const data = await post({api: Apis.PIPELINE_GRAPHICS_SAVE, data: graphics});
+		graphics.lastModifyTime = data.lastModifyTime;
 	}
 };
 

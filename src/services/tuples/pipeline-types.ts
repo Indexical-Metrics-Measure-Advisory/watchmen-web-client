@@ -37,4 +37,6 @@ export interface TopicGraphics extends PipelineBlockGraphics {
 
 export interface PipelinesGraphics {
 	topics: Array<TopicGraphics>;
+	createTime: string;
+	lastModifyTime: string;
 }
