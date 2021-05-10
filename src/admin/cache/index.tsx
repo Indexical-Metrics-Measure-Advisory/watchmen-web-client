@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {loadAdminData, prepareAdminDB} from '../../local-persist';
+import {clearAdminData, loadAdminData, prepareAdminDB} from '../../local-persist';
 import {useCacheEventBus} from './cache-event-bus';
 import {AdminCacheData} from '../../local-persist/types';
 import {AdminCacheEventTypes} from './cache-event-bus-types';
@@ -36,6 +36,19 @@ export const AdminCache = () => {
 			off(AdminCacheEventTypes.ASK_DATA, onAskData);
 		};
 	}, [fireGlobal, on, off, fire, data.initialized, data.data]);
+
+	useEffect(() => {
+		const onAskReload = async () => {
+			setData({initialized: false});
+			await clearAdminData();
+			await loadAdminData();
+			fire(AdminCacheEventTypes.REPLY_RELOAD);
+		};
+		on(AdminCacheEventTypes.ASK_RELOAD, onAskReload);
+		return () => {
+			off(AdminCacheEventTypes.ASK_RELOAD, onAskReload);
+		};
+	}, [on, off]);
 
 	return <></>;
 };

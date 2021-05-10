@@ -59,6 +59,10 @@ export const savePipeline = async (db: AdminDatabase, pipeline: Pipeline) => {
 	}
 };
 
+export const clearPipelines = async (db: AdminDatabase) => {
+	await db.pipelines.clear();
+};
+
 export const findTopics = async (db: AdminDatabase): Promise<Array<Topic>> => {
 	const data = await db.topics.toArray();
 	return data.map(row => row.body as Topic);
@@ -78,12 +82,16 @@ export const saveTopic = async (db: AdminDatabase, topic: Topic) => {
 	}
 };
 
-export const findPipelineGraphics = async (db: AdminDatabase): Promise<PipelinesGraphics | undefined> => {
+export const clearTopics = async (db: AdminDatabase) => {
+	await db.topics.clear();
+};
+
+export const findPipelinesGraphics = async (db: AdminDatabase): Promise<PipelinesGraphics | undefined> => {
 	const data = await db.pipelinesGraphics.limit(1).toArray();
 	return data[0]?.body as PipelinesGraphics;
 };
 
-export const saveGraphics = async (db: AdminDatabase, graphics: PipelinesGraphics) => {
+export const savePipelinesGraphics = async (db: AdminDatabase, graphics: PipelinesGraphics) => {
 	const name = findAccount()?.name;
 	if (!name) {
 		return;
@@ -100,3 +108,8 @@ export const saveGraphics = async (db: AdminDatabase, graphics: PipelinesGraphic
 		});
 	}
 };
+
+export const clearPipelinesGraphics = async (db: AdminDatabase) => {
+	await db.pipelinesGraphics.clear();
+};
+

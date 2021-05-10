@@ -21,7 +21,7 @@ import {
 	faCompress,
 	faCompressAlt,
 	faCompressArrowsAlt,
-	faDiceD20,
+	faDiceD20, faDraftingCompass,
 	faDrawPolygon,
 	faEdit,
 	faEthernet,
@@ -145,6 +145,7 @@ export const ICON_NOTIFICATION = faBell;
 export const ICON_MAIL = faInbox;
 export const ICON_TIMELINE = faComments;
 export const ICON_MONITOR_LOGS = faEthernet;
+export const ICON_PIPELINE_DEBUG = faDraftingCompass;
 
 export const ICON_SECONDARY_SECTION = faCaretRight;
 

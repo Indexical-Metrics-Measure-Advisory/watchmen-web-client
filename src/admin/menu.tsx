@@ -8,6 +8,7 @@ import {
 	ICON_LOGOUT,
 	ICON_MONITOR_LOGS,
 	ICON_PIPELINE,
+	ICON_PIPELINE_DEBUG,
 	ICON_REPORT,
 	ICON_SETTINGS,
 	ICON_SPACE,
@@ -36,21 +37,21 @@ const AdminMenuContainer = styled.div.attrs<{ width: number }>(({width}) => {
 		style: {width}
 	};
 })<{ width: number }>`
-	display          : flex;
-	position         : relative;
-	flex-direction   : column;
-	align-items      : flex-start;
-	min-width        : var(--console-menu-width);
-	height           : 100vh;
-	top              : 0;
-	left             : 0;
-	border-right     : var(--border);
-	background-color : var(--invert-color);
-	overflow         : hidden;
+	display: flex;
+	position: relative;
+	flex-direction: column;
+	align-items: flex-start;
+	min-width: var(--console-menu-width);
+	height: 100vh;
+	top: 0;
+	left: 0;
+	border-right: var(--border);
+	background-color: var(--invert-color);
+	overflow: hidden;
 	+ main {
-		max-width : ${({width}) => `calc(100vw - ${width}px)`};
+		max-width: ${({width}) => `calc(100vw - ${width}px)`};
 		div[data-widget="full-width-page"] {
-			max-width : ${({width}) => `calc(100vw - ${width}px)`};
+			max-width: ${({width}) => `calc(100vw - ${width}px)`};
 		}
 	}
 `;
@@ -110,6 +111,10 @@ export const AdminMenu = () => {
 		<SideMenuItem icon={ICON_USER} label="Users" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_USERS)}
 		              onClick={onMenuClicked(Router.ADMIN_USERS)}/>
+		<SideMenuSeparator width={menuWidth}/>
+		<SideMenuItem icon={ICON_PIPELINE_DEBUG} label="Simulator" showTooltip={showTooltip}
+		              active={!!matchPath(location.pathname, Router.ADMIN_SIMULATOR)}
+		              onClick={onMenuClicked(Router.ADMIN_SIMULATOR)}/>
 		<SideMenuSeparator width={menuWidth}/>
 		{/* FEAT hide task menu */}
 		<SideMenuItem icon={ICON_TASK} label="Tasks" showTooltip={showTooltip}

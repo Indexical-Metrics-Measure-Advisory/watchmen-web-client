@@ -1,10 +1,13 @@
 import {
 	AdminDatabase,
-	findPipelineGraphics,
+	clearPipelines,
+	clearPipelinesGraphics,
+	clearTopics,
 	findPipelines,
+	findPipelinesGraphics,
 	findTopics,
-	saveGraphics,
 	savePipeline,
+	savePipelinesGraphics,
 	saveTopic
 } from './admin';
 import {Pipeline, PipelinesGraphics} from '../../services/tuples/pipeline-types';
@@ -25,7 +28,7 @@ export const findAdminTopics = async (): Promise<Array<Topic>> => {
 };
 
 export const findAdminPipelinesGraphics = async (): Promise<PipelinesGraphics | undefined> => {
-	return findPipelineGraphics(adminDB);
+	return findPipelinesGraphics(adminDB);
 };
 
 export const saveAdminPipeline = async (pipeline: Pipeline) => {
@@ -37,5 +40,15 @@ export const saveAdminTopic = async (topic: Topic) => {
 };
 
 export const saveAdminPipelinesGraphics = async (graphics: PipelinesGraphics) => {
-	await saveGraphics(adminDB, graphics);
+	await savePipelinesGraphics(adminDB, graphics);
+};
+
+export const clearAdminPipelines = async () => {
+	await clearPipelines(adminDB);
+};
+export const clearAdminTopics = async () => {
+	await clearTopics(adminDB);
+};
+export const clearAdminPipelinesGraphics = async () => {
+	await clearPipelinesGraphics(adminDB);
 };

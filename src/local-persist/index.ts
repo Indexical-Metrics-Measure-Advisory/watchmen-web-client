@@ -1,4 +1,7 @@
 import {
+	clearAdminPipelines,
+	clearAdminPipelinesGraphics,
+	clearAdminTopics,
 	connectAdminDB,
 	findAdminPipelines,
 	findAdminPipelinesGraphics,
@@ -113,4 +116,10 @@ export const loadAdminData = async (): Promise<AdminCacheData> => {
 			graphics: g
 		};
 	}
+};
+
+export const clearAdminData = async () => {
+	await clearAdminPipelines();
+	await clearAdminTopics();
+	await clearAdminPipelinesGraphics();
 };
