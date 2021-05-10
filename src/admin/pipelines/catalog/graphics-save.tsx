@@ -9,6 +9,7 @@ import {useCatalogEventBus} from './catalog-event-bus';
 import {CatalogEventTypes} from './catalog-event-bus-types';
 import {transformGraphicsToSave} from './graphics-utils';
 import {AssembledPipelinesGraphics} from './types';
+import {saveAdminPipelinesGraphics} from '../../../local-persist/db';
 
 interface SaveState {
 	handle?: number;
@@ -35,8 +36,7 @@ export const GraphicsSave = (props: { graphics?: AssembledPipelinesGraphics }) =
 						handle: window.setTimeout(() => {
 							fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 								async () => await savePipelinesGraphics(graphics),
-								() => {
-								});
+								async () => await saveAdminPipelinesGraphics(graphics));
 						}, SAVE_TIMEOUT)
 					};
 				});

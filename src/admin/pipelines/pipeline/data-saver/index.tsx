@@ -5,6 +5,7 @@ import {renamePipeline, savePipeline, togglePipelineEnabled} from '../../../../s
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {usePipelineEventBus} from '../pipeline-event-bus';
 import {PipelineEventTypes} from '../pipeline-event-bus-types';
+import {saveAdminPipeline} from '../../../../local-persist/db';
 
 export const PipelineDataSaver = () => {
 	const {fire: fireGlobal} = useEventBus();
@@ -13,19 +14,26 @@ export const PipelineDataSaver = () => {
 		const onSavePipeline = async (pipeline: Pipeline) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await savePipeline(pipeline),
-				() => fire(PipelineEventTypes.PIPELINE_SAVED, pipeline, true),
-				() => fire(PipelineEventTypes.PIPELINE_SAVED, pipeline, false));
+				async () => {
+					fire(PipelineEventTypes.PIPELINE_SAVED, pipeline, true);
+					await saveAdminPipeline(pipeline);
+				},
+				() => fire(PipelineEventTypes.PIPELINE_SAVED, pipeline, false)
+			);
 		};
 		const onRenamePipeline = async (pipeline: Pipeline) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await renamePipeline(pipeline.pipelineId, pipeline.name),
-				() => {
-				});
+				async () => await saveAdminPipeline(pipeline)
+			);
 		};
 		const onTogglePipelineEnabled = async (pipeline: Pipeline) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await togglePipelineEnabled(pipeline.pipelineId, pipeline.enabled),
-				() => fire(PipelineEventTypes.PIPELINE_ENABLED_TOGGLED, pipeline));
+				async () => {
+					fire(PipelineEventTypes.PIPELINE_ENABLED_TOGGLED, pipeline);
+					await saveAdminPipeline(pipeline);
+				});
 		};
 		on(PipelineEventTypes.SAVE_PIPELINE, onSavePipeline);
 		on(PipelineEventTypes.RENAME_PIPELINE, onRenamePipeline);
