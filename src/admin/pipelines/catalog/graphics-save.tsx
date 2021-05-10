@@ -9,7 +9,8 @@ import {useCatalogEventBus} from './catalog-event-bus';
 import {CatalogEventTypes} from './catalog-event-bus-types';
 import {transformGraphicsToSave} from './graphics-utils';
 import {AssembledPipelinesGraphics} from './types';
-import {saveAdminPipelinesGraphics} from '../../../local-persist/db';
+import {useCacheEventBus} from '../../cache/cache-event-bus';
+import {AdminCacheEventTypes} from '../../cache/cache-event-bus-types';
 
 interface SaveState {
 	handle?: number;
@@ -19,6 +20,7 @@ export const GraphicsSave = (props: { graphics?: AssembledPipelinesGraphics }) =
 	const {graphics: assembledGraphics} = props;
 
 	const {fire: fireGlobal} = useEventBus();
+	const {fire: fireCache} = useCacheEventBus();
 	const {fire: firePipelines} = usePipelinesEventBus();
 	const {on, off} = useCatalogEventBus();
 	const [, setState] = useState<SaveState>({});
@@ -36,7 +38,8 @@ export const GraphicsSave = (props: { graphics?: AssembledPipelinesGraphics }) =
 						handle: window.setTimeout(() => {
 							fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 								async () => await savePipelinesGraphics(graphics),
-								async () => await saveAdminPipelinesGraphics(graphics));
+								() => fireCache(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, graphics)
+							);
 						}, SAVE_TIMEOUT)
 					};
 				});
@@ -46,7 +49,7 @@ export const GraphicsSave = (props: { graphics?: AssembledPipelinesGraphics }) =
 		return () => {
 			off(CatalogEventTypes.TOPIC_MOVED, onGraphicsChange);
 		};
-	}, [on, off, firePipelines, fireGlobal, assembledGraphics]);
+	}, [on, off, firePipelines, fireGlobal, fireCache, assembledGraphics]);
 
 	return <Fragment/>;
 };

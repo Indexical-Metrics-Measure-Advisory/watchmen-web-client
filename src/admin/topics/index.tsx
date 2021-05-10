@@ -17,6 +17,8 @@ import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types'
 import {renderCard} from './card';
 import {renderEditor} from './editor';
 import {createTopic} from './utils';
+import {useCacheEventBus} from '../cache/cache-event-bus';
+import {AdminCacheEventTypes} from '../cache/cache-event-bus-types';
 
 const fetchTopicAndCodes = async (queryTopic: QueryTopic) => {
 	const {topic} = await fetchTopic(queryTopic.topicId);
@@ -32,6 +34,7 @@ const isNameInvalid = (name: string) => {
 };
 const AdminTopics = () => {
 	const {once: onceGlobal, fire: fireGlobal} = useEventBus();
+	const {fire: fireCache} = useCacheEventBus();
 	const {on, off, fire} = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateTopic = async () => {
@@ -89,7 +92,10 @@ const AdminTopics = () => {
 			}
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await saveTopic(topic),
-				() => fire(TupleEventTypes.TUPLE_SAVED, topic, true),
+				() => {
+					fire(TupleEventTypes.TUPLE_SAVED, topic, true);
+					fireCache(AdminCacheEventTypes.SAVE_TOPIC, topic);
+				},
 				() => fire(TupleEventTypes.TUPLE_SAVED, topic, false));
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateTopic);
@@ -102,7 +108,7 @@ const AdminTopics = () => {
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchTopic);
 			off(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveTopic);
 		};
-	}, [on, off, fire, onceGlobal, fireGlobal]);
+	}, [on, off, fire, onceGlobal, fireGlobal, fireCache]);
 
 	return <TupleWorkbench title="Topics"
 	                       createButtonLabel="Create Topic" canCreate={true}

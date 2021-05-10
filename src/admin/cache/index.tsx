@@ -5,6 +5,9 @@ import {AdminCacheData} from '../../local-persist/types';
 import {AdminCacheEventTypes} from './cache-event-bus-types';
 import {EventTypes} from '../../events/types';
 import {useEventBus} from '../../events/event-bus';
+import {Pipeline, PipelinesGraphics} from '../../services/tuples/pipeline-types';
+import {saveAdminPipeline, saveAdminPipelinesGraphics, saveAdminTopic} from '../../local-persist/db';
+import {Topic} from '../../services/tuples/topic-types';
 
 interface Cache {
 	initialized: boolean;
@@ -49,6 +52,41 @@ export const AdminCache = () => {
 			off(AdminCacheEventTypes.ASK_RELOAD, onAskReload);
 		};
 	}, [on, off, fire]);
+
+	useEffect(() => {
+		const onSavePipeline = async (pipeline: Pipeline) => {
+			await saveAdminPipeline(pipeline);
+			if (data.data) {
+				data.data.pipelines = [
+					pipeline,
+					...(data.data.pipelines || []).filter(p => p.pipelineId == pipeline.pipelineId)
+				];
+			}
+		};
+		const onSaveTopic = async (topic: Topic) => {
+			await saveAdminTopic(topic);
+			if (data.data) {
+				data.data.topics = [
+					topic,
+					...(data.data.topics || []).filter(t => t.topicId == topic.topicId)
+				];
+			}
+		};
+		const onSavePipelinesGraphics = async (graphics: PipelinesGraphics) => {
+			await saveAdminPipelinesGraphics(graphics);
+			if (data.data) {
+				data.data.graphics = graphics;
+			}
+		};
+		on(AdminCacheEventTypes.SAVE_PIPELINE, onSavePipeline);
+		on(AdminCacheEventTypes.SAVE_TOPIC, onSaveTopic);
+		on(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, onSavePipelinesGraphics);
+		return () => {
+			off(AdminCacheEventTypes.SAVE_PIPELINE, onSavePipeline);
+			off(AdminCacheEventTypes.SAVE_TOPIC, onSaveTopic);
+			off(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, onSavePipelinesGraphics);
+		};
+	});
 
 	return <></>;
 };

@@ -5,18 +5,20 @@ import {renamePipeline, savePipeline, togglePipelineEnabled} from '../../../../s
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {usePipelineEventBus} from '../pipeline-event-bus';
 import {PipelineEventTypes} from '../pipeline-event-bus-types';
-import {saveAdminPipeline} from '../../../../local-persist/db';
+import {useCacheEventBus} from '../../../cache/cache-event-bus';
+import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
 
 export const PipelineDataSaver = () => {
 	const {fire: fireGlobal} = useEventBus();
+	const {fire: fireCache} = useCacheEventBus();
 	const {on, off, fire} = usePipelineEventBus();
 	useEffect(() => {
 		const onSavePipeline = async (pipeline: Pipeline) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await savePipeline(pipeline),
-				async () => {
+				() => {
 					fire(PipelineEventTypes.PIPELINE_SAVED, pipeline, true);
-					await saveAdminPipeline(pipeline);
+					fireCache(AdminCacheEventTypes.SAVE_PIPELINE, pipeline);
 				},
 				() => fire(PipelineEventTypes.PIPELINE_SAVED, pipeline, false)
 			);
@@ -24,15 +26,15 @@ export const PipelineDataSaver = () => {
 		const onRenamePipeline = async (pipeline: Pipeline) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await renamePipeline(pipeline.pipelineId, pipeline.name),
-				async () => await saveAdminPipeline(pipeline)
+				() => fireCache(AdminCacheEventTypes.SAVE_PIPELINE, pipeline)
 			);
 		};
 		const onTogglePipelineEnabled = async (pipeline: Pipeline) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await togglePipelineEnabled(pipeline.pipelineId, pipeline.enabled),
-				async () => {
+				() => {
 					fire(PipelineEventTypes.PIPELINE_ENABLED_TOGGLED, pipeline);
-					await saveAdminPipeline(pipeline);
+					fireCache(AdminCacheEventTypes.SAVE_PIPELINE, pipeline);
 				});
 		};
 		on(PipelineEventTypes.SAVE_PIPELINE, onSavePipeline);
@@ -43,7 +45,7 @@ export const PipelineDataSaver = () => {
 			off(PipelineEventTypes.RENAME_PIPELINE, onRenamePipeline);
 			off(PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, onTogglePipelineEnabled);
 		};
-	}, [on, off, fire, fireGlobal]);
+	}, [on, off, fire, fireGlobal, fireCache]);
 
 	return <Fragment/>;
 };
