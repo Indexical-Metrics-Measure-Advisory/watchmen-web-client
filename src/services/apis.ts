@@ -6,7 +6,9 @@ export const Apis = {
 
 	// admin only
 	PIPELINE_ALL: 'pipeline/all',
+	PIPELINE_UPDATED: 'pipeline/updated',
 	PIPELINE_GRAPHICS_MINE: 'pipeline/graphics/me',
+	PIPELINE_GRAPHICS_MINE_UPDATED: 'pipeline/graphics/me/updated',
 	PIPELINE_GRAPHICS_SAVE: 'pipeline/graphics',
 	PIPELINE_CREATE: 'pipeline',
 	PIPELINE_SAVE: 'pipeline',
@@ -20,7 +22,8 @@ export const Apis = {
 	SPACE_CREATE: 'space',
 	SPACE_SAVE: 'update/space?space_id=:spaceId',
 
-	TOPICS_ALL: 'topic/all',
+	TOPIC_ALL: 'topic/all',
+	TOPIC_UPDATED: 'topic/updated',
 	TOPIC_LIST_BY_NAME: 'topic/name?query_name=:search',
 	TOPIC_LIST_FOR_HOLDER_BY_NAME: 'query/topic/space?query_name=:search',
 	TOPIC_GET: 'topic?topic_id=:topicId',
