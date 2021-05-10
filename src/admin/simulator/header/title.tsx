@@ -25,6 +25,6 @@ export const SimulatorHeaderTitle = () => {
 	}, [on, off]);
 
 	return <HeaderTitle>
-		{name ? `Simulate from ${name}` : 'Pipeline Simulator'}
+		{name ? `Simulate from [${name}]` : 'Pipeline Simulator'}
 	</HeaderTitle>;
 };
