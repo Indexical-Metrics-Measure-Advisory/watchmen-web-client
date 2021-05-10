@@ -21,10 +21,11 @@ const fetchUpdatedPipelinesGraphics = async (lastModifiedTime: Dayjs): Promise<P
 	if (isMockService()) {
 		return null;
 	} else {
-		return await post({
-			api: Apis.PIPELINE_GRAPHICS_MINE_UPDATED,
-			data: lastModifiedTime.format('YYYY/MM/DD HH:mm:ss')
-		});
+		return await fetchPipelinesGraphics();
+		// return await post({
+		// 	api: Apis.PIPELINE_GRAPHICS_MINE_UPDATED,
+		// 	data: lastModifiedTime.format('YYYY/MM/DD HH:mm:ss')
+		// });
 	}
 };
 

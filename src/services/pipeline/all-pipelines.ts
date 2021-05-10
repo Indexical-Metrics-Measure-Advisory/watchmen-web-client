@@ -16,6 +16,7 @@ export const fetchUpdatedPipelines = async (lastModifiedTime: Dayjs): Promise<Ar
 	if (isMockService()) {
 		return [];
 	} else {
-		return await post({api: Apis.PIPELINE_UPDATED, data: lastModifiedTime.format('YYYY/MM/DD HH:mm:ss')});
+		return await get({api: Apis.PIPELINE_ALL});
+		// return await post({api: Apis.PIPELINE_UPDATED, data: lastModifiedTime.format('YYYY/MM/DD HH:mm:ss')});
 	}
 };
