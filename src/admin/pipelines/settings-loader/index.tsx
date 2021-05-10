@@ -1,16 +1,15 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {useEventBus} from '../../../events/event-bus';
-import {EventTypes} from '../../../events/types';
-import {fetchPipelinesSettingsData} from '../../../services/pipeline/settings';
 import {Pipeline, PipelinesGraphics} from '../../../services/tuples/pipeline-types';
 import {usePipelinesEventBus} from '../pipelines-event-bus';
 import {PipelinesEventTypes} from '../pipelines-event-bus-types';
 import {HoldSettings} from './types';
 import {useReplier} from './use-replier';
 import {getCurrentTime} from '../../../services/utils';
+import {useCacheEventBus} from '../../cache/cache-event-bus';
+import {AdminCacheEventTypes} from '../../cache/cache-event-bus-types';
 
 export const SettingsHolder = () => {
-	const {fire: fireGlobal} = useEventBus();
+	const {once: onceCache} = useCacheEventBus();
 	const {on, off, fire} = usePipelinesEventBus();
 	const [holdSettings, setHoldSettings] = useState<HoldSettings>({
 		initialized: false,
@@ -21,16 +20,21 @@ export const SettingsHolder = () => {
 
 	useEffect(() => {
 		if (!holdSettings.initialized) {
-			(async () => {
-				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-					async () => await fetchPipelinesSettingsData(),
-					(settings) => {
-						setHoldSettings({initialized: true, ...settings});
-						fire(PipelinesEventTypes.SETTINGS_LOADED, settings);
-					});
-			})();
+			const askData = () => {
+				onceCache(AdminCacheEventTypes.REPLY_DATA_LOADED, (loaded) => {
+					if (loaded) {
+						onceCache(AdminCacheEventTypes.REPLY_DATA, (data) => {
+							setHoldSettings({initialized: true, ...data!});
+							fire(PipelinesEventTypes.SETTINGS_LOADED, data!);
+						}).fire(AdminCacheEventTypes.ASK_DATA);
+					} else {
+						setTimeout(askData, 100);
+					}
+				}).fire(AdminCacheEventTypes.ASK_DATA_LOADED);
+			};
+			askData();
 		}
-	}, [fire, fireGlobal, holdSettings.initialized]);
+	}, [fire, onceCache, holdSettings.initialized]);
 	useEffect(() => {
 		const onPipelineAdded = (pipeline: Pipeline) => {
 			holdSettings.pipelines.push(pipeline);
