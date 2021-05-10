@@ -1,15 +1,16 @@
 import {AdminMain} from '../pipelines/widgets';
 import {FullWidthPage} from '../../basic-widgets/page';
 import React from 'react';
-import {Header, HeaderTitle} from '../pipelines/catalog/widgets';
+import {SimulatorHeader} from './header';
+import {SimulatorEventBusProvider} from './simulator-event-bus';
 
 const AdminDebugIndex = () => {
 	return <AdminMain>
-		<FullWidthPage>
-			<Header>
-				<HeaderTitle>Pipeline Simulator</HeaderTitle>
-			</Header>
-		</FullWidthPage>
+		<SimulatorEventBusProvider>
+			<FullWidthPage>
+				<SimulatorHeader/>
+			</FullWidthPage>
+		</SimulatorEventBusProvider>
 	</AdminMain>;
 };
 
