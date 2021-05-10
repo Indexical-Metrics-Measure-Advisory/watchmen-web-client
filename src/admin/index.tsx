@@ -16,6 +16,7 @@ import AdminUserGroups from './user-groups';
 import AdminUsers from './users';
 import {AdminCache} from './cache';
 import {AdminCacheEventBusProvider} from './cache/cache-event-bus';
+import AdminDebug from './simulator'
 
 const AdminContainer = styled.div.attrs({'data-widget': 'admin'})`
 	display: flex;
@@ -59,6 +60,7 @@ const AdminIndex = () => {
 				<Route path={Router.ADMIN_MONITOR_LOGS}>
 					<AdminMain scrollable={false}><AdminMonitorLogs/></AdminMain>
 				</Route>
+				<Route path={Router.ADMIN_SIMULATOR}><AdminDebug/></Route>
 				<Route path={Router.ADMIN_SETTINGS}><AdminMain><AdminSettings/></AdminMain></Route>
 				{/*		<Route path={Path.ADMIN_TASKS}><Tasks/></Route>*/}
 				<Route path="*">
