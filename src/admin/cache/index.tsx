@@ -48,7 +48,7 @@ export const AdminCache = () => {
 		return () => {
 			off(AdminCacheEventTypes.ASK_RELOAD, onAskReload);
 		};
-	}, [on, off]);
+	}, [on, off, fire]);
 
 	return <></>;
 };
