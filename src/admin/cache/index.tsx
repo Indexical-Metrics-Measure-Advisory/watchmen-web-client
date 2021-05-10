@@ -59,6 +59,7 @@ export const AdminCache = () => {
 			if (data.data) {
 				data.data.pipelines = [
 					pipeline,
+					// eslint-disable-next-line
 					...(data.data.pipelines || []).filter(p => p.pipelineId == pipeline.pipelineId)
 				];
 			}
@@ -68,6 +69,7 @@ export const AdminCache = () => {
 			if (data.data) {
 				data.data.topics = [
 					topic,
+					// eslint-disable-next-line
 					...(data.data.topics || []).filter(t => t.topicId == topic.topicId)
 				];
 			}
