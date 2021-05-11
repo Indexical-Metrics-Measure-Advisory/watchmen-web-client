@@ -9,7 +9,8 @@ export enum StartFrom {
 export enum ActiveStep {
 	SELECT = 'select',
 	PREPARE_DATA = 'prepare-data',
-	RUN = 'run'
+	RUN = 'run',
+	RESULT = 'result'
 }
 
 export interface SimulateStart {
