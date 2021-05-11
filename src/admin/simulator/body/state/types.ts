@@ -6,7 +6,14 @@ export enum StartFrom {
 	PIPELINE = 'pipeline'
 }
 
+export enum ActiveStep {
+	SELECT = 'select',
+	PREPARE_DATA = 'prepare-data'
+}
+
 export interface SimulatorState {
+	step: ActiveStep;
+
 	startFrom: StartFrom;
 	startTopic: Topic | null;
 	startPipeline: Pipeline | null;

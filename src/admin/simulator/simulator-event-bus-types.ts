@@ -1,13 +1,13 @@
 import {Pipeline} from '../../services/tuples/pipeline-types';
 import {Topic} from '../../services/tuples/topic-types';
-import {StartFrom} from './body/state/types';
+import {ActiveStep, StartFrom} from './body/state/types';
 
 export enum SimulatorEventTypes {
 	START_FROM_CHANGED = 'start-from-changed',
 	START_PIPELINE_CHANGED = 'start-pipeline-changed',
 	START_TOPIC_CHANGED = 'start-topic-changed',
 
-	DO_PREPARE_DATA = 'do-prepare-data'
+	ACTIVE_STEP_CHANGED = 'active-step-changed'
 }
 
 export interface SimulatorEventBus {
@@ -23,7 +23,7 @@ export interface SimulatorEventBus {
 	on(type: SimulatorEventTypes.START_TOPIC_CHANGED, listener: (topic: Topic | null) => void): this;
 	off(type: SimulatorEventTypes.START_TOPIC_CHANGED, listener: (topic: Topic | null) => void): this;
 
-	fire(type: SimulatorEventTypes.DO_PREPARE_DATA): this;
-	on(type: SimulatorEventTypes.DO_PREPARE_DATA, listener: () => void): this;
-	off(type: SimulatorEventTypes.DO_PREPARE_DATA, listener: () => void): this;
+	fire(type: SimulatorEventTypes.ACTIVE_STEP_CHANGED, step: ActiveStep): this;
+	on(type: SimulatorEventTypes.ACTIVE_STEP_CHANGED, listener: (step: ActiveStep) => void): this;
+	off(type: SimulatorEventTypes.ACTIVE_STEP_CHANGED, listener: (step: ActiveStep) => void): this;
 }
