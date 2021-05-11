@@ -5,7 +5,9 @@ import {StartFrom} from './body/state/types';
 export enum SimulatorEventTypes {
 	START_FROM_CHANGED = 'start-from-changed',
 	START_PIPELINE_CHANGED = 'start-pipeline-changed',
-	START_TOPIC_CHANGED = 'start-topic-changed'
+	START_TOPIC_CHANGED = 'start-topic-changed',
+
+	DO_PREPARE_DATA = 'do-prepare-data'
 }
 
 export interface SimulatorEventBus {
@@ -20,4 +22,8 @@ export interface SimulatorEventBus {
 	fire(type: SimulatorEventTypes.START_TOPIC_CHANGED, topic: Topic | null): this;
 	on(type: SimulatorEventTypes.START_TOPIC_CHANGED, listener: (topic: Topic | null) => void): this;
 	off(type: SimulatorEventTypes.START_TOPIC_CHANGED, listener: (topic: Topic | null) => void): this;
+
+	fire(type: SimulatorEventTypes.DO_PREPARE_DATA): this;
+	on(type: SimulatorEventTypes.DO_PREPARE_DATA, listener: () => void): this;
+	off(type: SimulatorEventTypes.DO_PREPARE_DATA, listener: () => void): this;
 }

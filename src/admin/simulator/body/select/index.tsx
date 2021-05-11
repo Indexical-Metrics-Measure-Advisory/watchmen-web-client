@@ -6,7 +6,7 @@ import {
 	SimulatorBodyPartHeaderTitle
 } from '../widgets';
 import {Dropdown} from '../../../../basic-widgets/dropdown';
-import {DropdownOption} from '../../../../basic-widgets/types';
+import {ButtonInk, DropdownOption} from '../../../../basic-widgets/types';
 import {StartFromRow, StartFromRowLabel} from './widgets';
 import {SimulatorState, StartFrom} from '../state/types';
 import {useSimulatorEventBus} from '../../simulator-event-bus';
@@ -14,6 +14,10 @@ import {SimulatorEventTypes} from '../../simulator-event-bus-types';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {Topic} from '../../../../services/tuples/topic-types';
 import {getPipelineName, getTopicName} from '../../utils';
+import {Button} from '../../../../basic-widgets/button';
+import {useEventBus} from '../../../../events/event-bus';
+import {EventTypes} from '../../../../events/types';
+import {AlertLabel} from '../../../../alert/widgets';
 
 type State = Pick<SimulatorState, 'startFrom' | 'startPipeline' | 'startTopic'>
 
@@ -28,6 +32,7 @@ export const Select = (props: {
 }) => {
 	const {pipelines, topics} = props;
 
+	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useSimulatorEventBus();
 	const [state, setState] = useState<State>({
 		startFrom: StartFrom.PIPELINE,
@@ -41,18 +46,28 @@ export const Select = (props: {
 		fire(SimulatorEventTypes.START_FROM_CHANGED, from);
 	};
 	const onPipelineChanged = (option: DropdownOption) => {
-		const pipeline = option.value as Pipeline;
+		const pipeline = option.value === '' ? null : option.value as Pipeline;
 		setState(state => {
 			return {...state, startPipeline: pipeline, startTopic: null};
 		});
 		fire(SimulatorEventTypes.START_PIPELINE_CHANGED, pipeline);
 	};
 	const onTopicChanged = (option: DropdownOption) => {
-		const topic = option.value as Topic;
+		const topic = option.value === '' ? null : option.value as Topic;
 		setState(state => {
 			return {...state, startPipeline: null, startTopic: topic};
 		});
 		fire(SimulatorEventTypes.START_TOPIC_CHANGED, topic);
+	};
+	const onGoClicked = () => {
+		if (state.startTopic == null && state.startPipeline == null) {
+			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+				Please select a {state.startFrom === StartFrom.TOPIC ? 'topic' : 'pipeline'}.
+			</AlertLabel>);
+			return;
+		}
+
+		fire(SimulatorEventTypes.DO_PREPARE_DATA);
 	};
 
 	const pipelineOptions = [
@@ -84,6 +99,7 @@ export const Select = (props: {
 					: <Dropdown options={topicOptions} value={state.startTopic || ''}
 					            onChange={onTopicChanged}/>
 				}
+				<Button ink={ButtonInk.PRIMARY} onClick={onGoClicked}>GO!</Button>
 			</StartFromRow>
 		</SimulatorBodyPartBody>
 	</SimulatorBodyPart>;
