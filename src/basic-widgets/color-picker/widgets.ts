@@ -77,7 +77,7 @@ export const ColorDropdownContainer = styled.div.attrs<State>(
 `;
 export const ColorOverviewContainer = styled.div.attrs<{ color: string }>(({color}) => {
 	return {
-		'data-widget': 'color-picker-overview',
+		'data-widget': 'color-picker-select',
 		style: {
 			backgroundColor: color || 'red'
 		}

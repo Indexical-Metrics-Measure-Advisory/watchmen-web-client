@@ -10,17 +10,17 @@ export const SimulatorHeaderTitle = () => {
 	const {on, off} = useSimulatorEventBus();
 	const [name, setName] = useState('');
 	useEffect(() => {
-		const onPipelineStart = (pipeline: Pipeline) => {
-			setName(getPipelineName(pipeline));
+		const onPipelineStart = (pipeline: Pipeline | null) => {
+			setName(pipeline ? getPipelineName(pipeline) : '');
 		};
-		const onTopicStart = (topic: Topic) => {
-			setName(getTopicName(topic));
+		const onTopicStart = (topic: Topic | null) => {
+			setName(topic ? getTopicName(topic) : '');
 		};
-		on(SimulatorEventTypes.START_PIPELINE, onPipelineStart);
-		on(SimulatorEventTypes.START_TOPIC, onTopicStart);
+		on(SimulatorEventTypes.START_PIPELINE_CHANGED, onPipelineStart);
+		on(SimulatorEventTypes.START_TOPIC_CHANGED, onTopicStart);
 		return () => {
-			off(SimulatorEventTypes.START_PIPELINE, onPipelineStart);
-			off(SimulatorEventTypes.START_TOPIC, onTopicStart);
+			off(SimulatorEventTypes.START_PIPELINE_CHANGED, onPipelineStart);
+			off(SimulatorEventTypes.START_TOPIC_CHANGED, onTopicStart);
 		};
 	}, [on, off]);
 

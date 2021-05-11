@@ -9,7 +9,7 @@ import {Pipeline, PipelinesGraphics} from '../../services/tuples/pipeline-types'
 import {saveAdminPipeline, saveAdminPipelinesGraphics, saveAdminTopic} from '../../local-persist/db';
 import {Topic} from '../../services/tuples/topic-types';
 
-interface Cache {
+export interface CacheState {
 	initialized: boolean;
 	data?: AdminCacheData;
 }
@@ -17,7 +17,7 @@ interface Cache {
 export const AdminCache = () => {
 	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useCacheEventBus();
-	const [data, setData] = useState<Cache>({initialized: false});
+	const [data, setData] = useState<CacheState>({initialized: false});
 	useEffect(() => {
 		const onAskDataLoaded = () => fire(AdminCacheEventTypes.REPLY_DATA_LOADED, data.initialized);
 		const onAskData = () => fire(AdminCacheEventTypes.REPLY_DATA, data.data);

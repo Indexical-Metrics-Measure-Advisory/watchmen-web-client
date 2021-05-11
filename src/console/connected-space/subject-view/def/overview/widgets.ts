@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const OverviewContainer = styled.div.attrs<{ active: boolean }>(({active}) => {
 	return {
-		'data-widget': 'subject-def-overview',
+		'data-widget': 'subject-def-select',
 		'data-v-scroll': '',
 		style: {
 			paddingRight: active ? (void 0) : 0,
@@ -17,12 +17,12 @@ export const OverviewContainer = styled.div.attrs<{ active: boolean }>(({active}
 	overflow-x     : hidden;
 	border-right   : var(--border);
 `;
-export const OverviewBottomGap = styled.div.attrs({'data-widget': 'subject-def-overview-bottom-gap'})`
+export const OverviewBottomGap = styled.div.attrs({'data-widget': 'subject-def-select-bottom-gap'})`
 	width      : 100%;
 	height     : var(--margin);
 	min-height : var(--margin);
 `;
-export const OverviewPanelContainer = styled.div.attrs({'data-widget': 'subject-def-overview-container'})`
+export const OverviewPanelContainer = styled.div.attrs({'data-widget': 'subject-def-select-container'})`
 	flex-grow             : 1;
 	display               : grid;
 	position              : relative;
