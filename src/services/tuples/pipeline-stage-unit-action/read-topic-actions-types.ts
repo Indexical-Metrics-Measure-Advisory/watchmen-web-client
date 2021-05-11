@@ -1,21 +1,32 @@
-import {FindBy, FromFactor, FromTopic, MemoryWriter, ReadTopicActionType} from './pipeline-stage-unit-action-types';
+import {
+	FindBy,
+	FromFactor,
+	FromTopic,
+	MemoryWriter,
+	PipelineStageUnitAction,
+	ReadTopicActionType
+} from './pipeline-stage-unit-action-types';
 
-export interface ReadRowAction extends FromTopic, MemoryWriter, FindBy {
+export interface ReadTopicAction extends FromTopic, MemoryWriter, FindBy, PipelineStageUnitAction {
+	type: ReadTopicActionType;
+}
+
+export interface ReadRowAction extends ReadTopicAction {
 	type: ReadTopicActionType.READ_ROW;
 }
 
-export interface ReadRowsAction extends FromTopic, MemoryWriter, FindBy {
+export interface ReadRowsAction extends ReadTopicAction {
 	type: ReadTopicActionType.READ_ROWS
 }
 
-export interface ReadFactorAction extends FromFactor, MemoryWriter, FindBy {
+export interface ReadFactorAction extends FromFactor, ReadTopicAction {
 	type: ReadTopicActionType.READ_FACTOR;
 }
 
-export interface ReadFactorsAction extends FromFactor, MemoryWriter, FindBy {
+export interface ReadFactorsAction extends FromFactor, ReadTopicAction {
 	type: ReadTopicActionType.READ_FACTORS;
 }
 
-export interface ExistsAction extends FromTopic, MemoryWriter, FindBy {
+export interface ExistsAction extends ReadTopicAction {
 	type: ReadTopicActionType.EXISTS;
 }

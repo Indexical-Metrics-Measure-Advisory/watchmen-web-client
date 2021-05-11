@@ -42,13 +42,13 @@ export const SimulatorBodyPartBody = styled.div.attrs({'data-widget': 'simulator
 	flex-grow: 1;
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-row-gap: calc(var(--margin) / 4);
-	grid-auto-rows: var(--margin);
+	grid-auto-rows: var(--grid-row-height);
 	padding: calc(var(--margin) / 2);
 	border-bottom: var(--border);
 `;
 export const SimulatorBodyPartRow = styled.div`
 	display: grid;
+	position: relative;
 	grid-template-columns: auto auto auto auto auto 1fr;
 	grid-column-gap: calc(var(--margin) / 2);
 	align-items: center;

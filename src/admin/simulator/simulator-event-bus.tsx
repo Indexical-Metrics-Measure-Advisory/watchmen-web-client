@@ -14,6 +14,10 @@ export const SimulatorEventBusProvider = (props: { children?: ((props: any) => R
 			emitter.emit(type, ...data);
 			return bus;
 		},
+		once: (type: string, listener: (...data: any) => void): SimulatorEventBus => {
+			emitter.once(type, listener);
+			return bus;
+		},
 		on: (type: string, listener: (...data: any) => void): SimulatorEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into simulator event bus, check it.`);

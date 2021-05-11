@@ -6,8 +6,8 @@ import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {Topic} from '../../../../services/tuples/topic-types';
 
 export const SimulatorStates = () => {
-	const {on, off} = useSimulatorEventBus();
-	const [, setState] = useState<SimulatorState>({
+	const {on, off, fire} = useSimulatorEventBus();
+	const [state, setState] = useState<SimulatorState>({
 		step: ActiveStep.SELECT,
 
 		startFrom: StartFrom.PIPELINE,
@@ -42,9 +42,23 @@ export const SimulatorStates = () => {
 			off(SimulatorEventTypes.START_FROM_CHANGED, onStartFromChanged);
 			off(SimulatorEventTypes.START_PIPELINE_CHANGED, onStartPipelineChanged);
 			off(SimulatorEventTypes.START_TOPIC_CHANGED, onStartTopicChanged);
-			on(SimulatorEventTypes.ACTIVE_STEP_CHANGED, onActiveStepChanged);
+			off(SimulatorEventTypes.ACTIVE_STEP_CHANGED, onActiveStepChanged);
 		};
 	}, [on, off]);
+
+	useEffect(() => {
+		const onAskStart = () => {
+			fire(SimulatorEventTypes.REPLY_START, {
+				startFrom: state.startFrom,
+				startTopic: state.startTopic,
+				startPipeline: state.startPipeline
+			});
+		};
+		on(SimulatorEventTypes.ASK_START, onAskStart);
+		return () => {
+			off(SimulatorEventTypes.ASK_START, onAskStart);
+		};
+	}, [on, off, fire, state.startFrom, state.startTopic, state.startPipeline]);
 
 	return <></>;
 };

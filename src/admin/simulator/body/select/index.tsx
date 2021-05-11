@@ -9,7 +9,7 @@ import {
 } from '../widgets';
 import {Dropdown} from '../../../../basic-widgets/dropdown';
 import {ButtonInk, DropdownOption} from '../../../../basic-widgets/types';
-import {ActiveStep, SimulatorState, StartFrom} from '../state/types';
+import {ActiveStep, SimulateStart, SimulatorState, StartFrom} from '../state/types';
 import {useSimulatorEventBus} from '../../simulator-event-bus';
 import {SimulatorEventTypes} from '../../simulator-event-bus-types';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
@@ -21,7 +21,7 @@ import {EventTypes} from '../../../../events/types';
 import {AlertLabel} from '../../../../alert/widgets';
 import {useActiveStep} from '../use-active-step';
 
-type State = Pick<SimulatorState, 'step' | 'startFrom' | 'startPipeline' | 'startTopic'>
+type State = SimulateStart & Pick<SimulatorState, 'step'>
 
 const StartFromOptions: Array<DropdownOption> = [
 	{value: StartFrom.PIPELINE, label: 'Pipeline'},
@@ -70,9 +70,13 @@ export const Select = (props: {
 		fire(SimulatorEventTypes.ACTIVE_STEP_CHANGED, ActiveStep.PREPARE_DATA);
 	};
 
+	const topicsMap = topics.reduce((map, topic) => {
+		map.set(topic.topicId, topic);
+		return map;
+	}, new Map<string, Topic>());
 	const pipelineOptions = [
 		{value: '', label: 'Please select...', key: ''},
-		...pipelines.map(p => {
+		...pipelines.filter(p => topicsMap.has(p.topicId)).map(p => {
 			return {value: p, label: getPipelineName(p), key: p.pipelineId};
 		})
 	];

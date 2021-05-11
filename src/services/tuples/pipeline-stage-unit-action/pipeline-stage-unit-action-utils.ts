@@ -9,7 +9,8 @@ import {
 	ReadFactorAction,
 	ReadFactorsAction,
 	ReadRowAction,
-	ReadRowsAction
+	ReadRowsAction,
+	ReadTopicAction
 } from './read-topic-actions-types';
 import {AlarmAction, CopyToMemoryAction} from './system-actions-types';
 import {InsertRowAction, MergeRowAction, WriteFactorAction, WriteTopicAction} from './write-topic-actions-types';
@@ -25,6 +26,10 @@ export const isCopyToMemoryAction = (action: PipelineStageUnitAction): action is
 	return action.type === SystemActionType.COPY_TO_MEMORY;
 };
 
+export const isReadTopicAction = (action: PipelineStageUnitAction): action is ReadTopicAction => {
+	return isExistsAction(action) || isReadFactorAction(action) || isReadFactorsAction(action)
+		|| isReadRowAction(action) || isReadRowsAction(action);
+};
 export const isExistsAction = (action: PipelineStageUnitAction): action is ExistsAction => {
 	return action.type === ReadTopicActionType.EXISTS;
 };

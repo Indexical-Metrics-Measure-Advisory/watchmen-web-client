@@ -12,12 +12,14 @@ export enum ActiveStep {
 	RUN = 'run'
 }
 
-export interface SimulatorState {
-	step: ActiveStep;
-
+export interface SimulateStart {
 	startFrom: StartFrom;
 	startTopic: Topic | null;
 	startPipeline: Pipeline | null;
+}
+
+export interface SimulatorState extends SimulateStart {
+	step: ActiveStep;
 }
 
 export enum RunType {
