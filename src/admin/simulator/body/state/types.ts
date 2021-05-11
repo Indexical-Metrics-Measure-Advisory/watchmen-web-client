@@ -8,7 +8,8 @@ export enum StartFrom {
 
 export enum ActiveStep {
 	SELECT = 'select',
-	PREPARE_DATA = 'prepare-data'
+	PREPARE_DATA = 'prepare-data',
+	RUN = 'run'
 }
 
 export interface SimulatorState {
@@ -17,4 +18,9 @@ export interface SimulatorState {
 	startFrom: StartFrom;
 	startTopic: Topic | null;
 	startPipeline: Pipeline | null;
+}
+
+export enum RunType {
+	ONE = 'one',
+	ALL = 'all'
 }

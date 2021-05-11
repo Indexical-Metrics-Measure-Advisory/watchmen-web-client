@@ -3,11 +3,12 @@ import {
 	SimulatorBodyPart,
 	SimulatorBodyPartBody,
 	SimulatorBodyPartHeader,
-	SimulatorBodyPartHeaderTitle
+	SimulatorBodyPartHeaderTitle,
+	SimulatorBodyPartLabel,
+	SimulatorBodyPartRow
 } from '../widgets';
 import {Dropdown} from '../../../../basic-widgets/dropdown';
 import {ButtonInk, DropdownOption} from '../../../../basic-widgets/types';
-import {StartFromRow, StartFromRowLabel} from './widgets';
 import {ActiveStep, SimulatorState, StartFrom} from '../state/types';
 import {useSimulatorEventBus} from '../../simulator-event-bus';
 import {SimulatorEventTypes} from '../../simulator-event-bus-types';
@@ -82,24 +83,36 @@ export const Select = (props: {
 		})
 	];
 
+	let title = '# 1. Select Start Point';
+	if (state.step !== ActiveStep.SELECT) {
+		if (state.startFrom === StartFrom.PIPELINE && state.startPipeline) {
+			title = `# 1. Start from [${getPipelineName(state.startPipeline)}]`;
+		} else if (state.startFrom === StartFrom.TOPIC && state.startTopic) {
+			title = `# 1. Start from [${getTopicName(state.startTopic)}]`;
+		}
+	}
+
 	return <SimulatorBodyPart collapsed={state.step !== ActiveStep.SELECT}>
-		<SimulatorBodyPartHeader collapsed={state.step !== ActiveStep.SELECT}>
-			<SimulatorBodyPartHeaderTitle># 1. Select Start Point</SimulatorBodyPartHeaderTitle>
+		<SimulatorBodyPartHeader>
+			<SimulatorBodyPartHeaderTitle>{title}</SimulatorBodyPartHeaderTitle>
 		</SimulatorBodyPartHeader>
-		<SimulatorBodyPartBody visible={state.step === ActiveStep.SELECT}>
-			<StartFromRow>
-				<StartFromRowLabel>Start</StartFromRowLabel>
-				<Dropdown options={StartFromOptions} value={state.startFrom}
-				          onChange={onStartFromChanged}/>
-				<StartFromRowLabel>From</StartFromRowLabel>
-				{state.startFrom === StartFrom.PIPELINE
-					? <Dropdown options={pipelineOptions} value={state.startPipeline || ''}
-					            onChange={onPipelineChanged}/>
-					: <Dropdown options={topicOptions} value={state.startTopic || ''}
-					            onChange={onTopicChanged}/>
-				}
-				<Button ink={ButtonInk.PRIMARY} onClick={onGoClicked}>Next</Button>
-			</StartFromRow>
-		</SimulatorBodyPartBody>
+		{state.step === ActiveStep.SELECT
+			? <SimulatorBodyPartBody>
+				<SimulatorBodyPartRow>
+					<SimulatorBodyPartLabel>Start</SimulatorBodyPartLabel>
+					<Dropdown options={StartFromOptions} value={state.startFrom}
+					          onChange={onStartFromChanged}/>
+					<SimulatorBodyPartLabel>From</SimulatorBodyPartLabel>
+					{state.startFrom === StartFrom.PIPELINE
+						? <Dropdown options={pipelineOptions} value={state.startPipeline || ''}
+						            onChange={onPipelineChanged}/>
+						: <Dropdown options={topicOptions} value={state.startTopic || ''}
+						            onChange={onTopicChanged}/>
+					}
+					<Button ink={ButtonInk.PRIMARY} onClick={onGoClicked}>Next</Button>
+				</SimulatorBodyPartRow>
+			</SimulatorBodyPartBody>
+			: null
+		}
 	</SimulatorBodyPart>;
 };

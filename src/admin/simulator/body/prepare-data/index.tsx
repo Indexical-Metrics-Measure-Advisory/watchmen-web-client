@@ -4,13 +4,25 @@ import {
 	SimulatorBodyPart,
 	SimulatorBodyPartBody,
 	SimulatorBodyPartHeader,
-	SimulatorBodyPartHeaderTitle
+	SimulatorBodyPartHeaderTitle,
+	SimulatorBodyPartLabel,
+	SimulatorBodyPartRow
 } from '../widgets';
 import React, {useState} from 'react';
-import {ActiveStep, SimulatorState, StartFrom} from '../state/types';
+import {ActiveStep, RunType} from '../state/types';
 import {useActiveStep} from '../use-active-step';
+import {Dropdown} from '../../../../basic-widgets/dropdown';
+import {DropdownOption} from '../../../../basic-widgets/types';
 
-type State = Pick<SimulatorState, 'step' | 'startFrom' | 'startPipeline' | 'startTopic'>
+interface State {
+	step: ActiveStep;
+	runType: RunType
+}
+
+const RunTypeOptions: Array<DropdownOption> = [
+	{value: RunType.ONE, label: 'Selected One'},
+	{value: RunType.ALL, label: 'All'}
+];
 
 export const PrepareData = (props: {
 	pipelines: Array<Pipeline>;
@@ -18,17 +30,32 @@ export const PrepareData = (props: {
 }) => {
 	const [state, setState] = useState<State>({
 		step: ActiveStep.SELECT,
-		startFrom: StartFrom.PIPELINE,
-		startPipeline: null,
-		startTopic: null
+		runType: RunType.ONE
 	});
-	useActiveStep((step) => setState(state => ({...state, step})));
+	useActiveStep((step) => {
+		setState(state => ({...state, step}));
+	});
+
+	const onRunTypeChanged = (option: DropdownOption) => {
+		const type = option.value as RunType;
+		setState(state => ({...state, runType: type}));
+	};
 
 	return <SimulatorBodyPart collapsed={state.step !== ActiveStep.PREPARE_DATA}>
-		<SimulatorBodyPartHeader collapsed={state.step !== ActiveStep.PREPARE_DATA}>
+		<SimulatorBodyPartHeader>
 			<SimulatorBodyPartHeaderTitle># 2. Prepare Data</SimulatorBodyPartHeaderTitle>
 		</SimulatorBodyPartHeader>
-		<SimulatorBodyPartBody visible={state.step === ActiveStep.PREPARE_DATA}>
-		</SimulatorBodyPartBody>
+		{state.step === ActiveStep.PREPARE_DATA
+			? <SimulatorBodyPartBody>
+				<SimulatorBodyPartRow>
+					<SimulatorBodyPartLabel>Run Type</SimulatorBodyPartLabel>
+					<Dropdown options={RunTypeOptions} value={state.runType}
+					          onChange={onRunTypeChanged}/>
+				</SimulatorBodyPartRow>
+				<SimulatorBodyPartRow>
+				</SimulatorBodyPartRow>
+			</SimulatorBodyPartBody>
+			: null
+		}
 	</SimulatorBodyPart>;
 };

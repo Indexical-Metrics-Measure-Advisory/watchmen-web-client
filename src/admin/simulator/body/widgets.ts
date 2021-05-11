@@ -17,16 +17,12 @@ export const SimulatorBodyPart = styled.div.attrs<{ collapsed: boolean }>(({coll
 })<{ collapsed: boolean }>`
 	display: flex;
 	flex-direction: column;
+	&:last-child > div[data-widget='simulator-body-part-header'] {
+		border-bottom: ${({collapsed}) => collapsed ? 0 : (void 0)};
+	}
 `;
 
-export const SimulatorBodyPartHeader = styled.div.attrs<{ collapsed: boolean }>(({collapsed}) => {
-	return {
-		'data-widget': 'simulator-body-part-header',
-		style: {
-			borderBottom: collapsed ? 0 : ''
-		}
-	};
-})<{ collapsed: boolean }>`
+export const SimulatorBodyPartHeader = styled.div.attrs({'data-widget': 'simulator-body-part-header'})`
 	display: grid;
 	grid-template-columns: auto 1fr;
 	grid-column-gap: calc(var(--margin) / 2);
@@ -42,16 +38,7 @@ export const SimulatorBodyPartHeaderTitle = styled.div.attrs({'data-widget': 'si
 	font-family: var(--title-font-family);
 `;
 
-export const SimulatorBodyPartBody = styled.div.attrs<{ visible: boolean }>(({visible}) => {
-	return {
-		'data-widget': 'simulator-body-part-body',
-		style: {
-			overflow: visible ? '' : 'hidden',
-			height: visible ? '' : 0,
-			padding: visible ? '' : '0 calc(var(--margin) / 2)'
-		}
-	};
-})<{ visible: boolean }>`
+export const SimulatorBodyPartBody = styled.div.attrs({'data-widget': 'simulator-body-part-body'})`
 	flex-grow: 1;
 	display: grid;
 	grid-template-columns: 1fr;
@@ -59,6 +46,12 @@ export const SimulatorBodyPartBody = styled.div.attrs<{ visible: boolean }>(({vi
 	grid-auto-rows: var(--margin);
 	padding: calc(var(--margin) / 2);
 	border-bottom: var(--border);
+`;
+export const SimulatorBodyPartRow = styled.div`
+	display: grid;
+	grid-template-columns: auto auto auto auto auto 1fr;
+	grid-column-gap: calc(var(--margin) / 2);
+	align-items: center;
 `;
 
 export const SimulatorBodyPartLabel = styled.span`
