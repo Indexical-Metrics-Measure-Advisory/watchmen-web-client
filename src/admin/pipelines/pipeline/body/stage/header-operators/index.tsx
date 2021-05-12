@@ -88,6 +88,12 @@ export const HeaderOperators = (props: {
 	const index = pipeline.stages.indexOf(stage) + 1;
 
 	return <>
+		{expanded && pipeline.stages.length !== 1
+			? <HeaderButton ink={ButtonInk.DANGER} onClick={onDeleteClicked} data-role="delete-button">
+				<FontAwesomeIcon icon={ICON_DELETE}/>
+				<span>Delete Me</span>
+			</HeaderButton>
+			: null}
 		{expanded
 			? <HeaderButton ink={ButtonInk.PRIMARY} onClick={onCollapseClicked}>
 				<FontAwesomeIcon icon={ICON_COLLAPSE_PANEL}/>
@@ -122,12 +128,6 @@ export const HeaderOperators = (props: {
 			? <HeaderButton ink={ButtonInk.PRIMARY} onClick={onAppendClicked}>
 				<FontAwesomeIcon icon={ICON_APPEND} rotation={90} transform={{y: 2}}/>
 				<span>Append</span>
-			</HeaderButton>
-			: null}
-		{expanded && pipeline.stages.length !== 1
-			? <HeaderButton ink={ButtonInk.DANGER} onClick={onDeleteClicked}>
-				<FontAwesomeIcon icon={ICON_DELETE}/>
-				<span>Delete Me</span>
 			</HeaderButton>
 			: null}
 	</>;

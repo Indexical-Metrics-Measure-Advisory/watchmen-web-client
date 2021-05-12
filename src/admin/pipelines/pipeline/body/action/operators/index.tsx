@@ -66,6 +66,12 @@ export const Operators = (props: { unit: PipelineStageUnit, action: PipelineStag
 	const actionIndex = unit.do.indexOf(action) + 1;
 
 	return <HeaderButtons>
+		{unit.do.length !== 1
+			? <HeaderButton ink={ButtonInk.DANGER} onClick={onDeleteClicked} data-role="delete-button">
+				<FontAwesomeIcon icon={ICON_DELETE}/>
+				<span>Delete Me</span>
+			</HeaderButton>
+			: null}
 		{actionIndex !== 1
 			? <HeaderButton ink={ButtonInk.PRIMARY} onClick={onMoveUpClicked}>
 				<FontAwesomeIcon icon={ICON_MOVE_UP}/>
@@ -86,11 +92,5 @@ export const Operators = (props: { unit: PipelineStageUnit, action: PipelineStag
 			<FontAwesomeIcon icon={ICON_APPEND} rotation={90} transform={{y: 2}}/>
 			<span>Append</span>
 		</HeaderButton>
-		{unit.do.length !== 1
-			? <HeaderButton ink={ButtonInk.DANGER} onClick={onDeleteClicked}>
-				<FontAwesomeIcon icon={ICON_DELETE}/>
-				<span>Delete Me</span>
-			</HeaderButton>
-			: null}
 	</HeaderButtons>;
 };
