@@ -3,9 +3,9 @@ import {
 	BlockContainer,
 	ChildrenBlock,
 	NameBlock,
-	PipelineCheck,
 	PipelineEditButton,
 	PipelineEditButtons,
+	PipelineName,
 	TopicBlockType
 } from './widgets';
 import {getPipelineName, getTopicName} from '../../utils';
@@ -13,7 +13,8 @@ import {
 	ICON_CHECK,
 	ICON_CHECK_ALL,
 	ICON_COLLAPSE_CONTENT,
-	ICON_EXPAND_CONTENT
+	ICON_EXPAND_CONTENT,
+	ICON_UNCHECK
 } from '../../../../basic-widgets/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
@@ -89,7 +90,7 @@ export const PipelineBlock = (props: {
 	return <BlockContainer>
 		<NameBlock onClick={onNameClicked} expanded={expanded}>
 			<FontAwesomeIcon icon={expanded ? ICON_COLLAPSE_CONTENT : ICON_EXPAND_CONTENT}/>
-			<span>Pipeline: {getPipelineName(node.pipeline)}</span>
+			<PipelineName run={node.checked}>Pipeline: {getPipelineName(node.pipeline)}</PipelineName>
 		</NameBlock>
 		<PipelineEditButtons>
 			<PipelineEditButton
@@ -98,7 +99,7 @@ export const PipelineBlock = (props: {
 					alignment: TooltipAlignment.CENTER
 				}}
 				onClick={onRunMeClicked}>
-				<PipelineCheck icon={ICON_CHECK} run={node.checked}/>
+				<FontAwesomeIcon icon={node.checked ? ICON_UNCHECK : ICON_CHECK}/>
 			</PipelineEditButton>
 			<PipelineEditButton tooltip={{label: 'Me & All Descendants', alignment: TooltipAlignment.CENTER}}
 			                    onClick={onRunAllClicked}>

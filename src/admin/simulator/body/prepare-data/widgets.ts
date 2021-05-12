@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import {SimulatorBodyPartBody, SimulatorBodyPartRow} from '../widgets';
 import {TooltipButton} from '../../../../basic-widgets/tooltip-button';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 export enum TopicBlockType {
 	ROOT = 'root',
@@ -80,35 +79,12 @@ export const NameBlock = styled.div.attrs<{ expanded: boolean }>({'data-widget':
 		transform: ${({expanded}) => expanded ? (void 0) : 'rotate(180deg)'};
 	}
 `;
-export const TopicRole = styled.span.attrs<{ type: TopicBlockType }>({})<{ type: TopicBlockType }>`
-	margin: 0 calc(var(--margin) / 8);
-	color: ${({type}) => {
-		switch (type) {
-			case TopicBlockType.READ_ONLY:
-				return 'var(--info-color)';
-			case TopicBlockType.WRITE_ONLY:
-				return 'var(--info-color)';
-			case TopicBlockType.READ_WRITE:
-				return 'var(--info-color)';
-			case TopicBlockType.ROOT:
-				return 'var(--success-color)';
-		}
-	}};
-	&:before {
-		content: '(${({type}) => {
-			switch (type) {
-				case TopicBlockType.READ_ONLY:
-					return 'READ';
-				case TopicBlockType.WRITE_ONLY:
-					return 'WRITE';
-				case TopicBlockType.READ_WRITE:
-					return 'READ-WRITE';
-				case TopicBlockType.ROOT:
-					return 'ROOT';
-			}
-		}})';
-	}
+export const PipelineName = styled.span.attrs<{ run: boolean }>(({run}) => {
+	return {style: {color: run ? 'var(--info-color)' : ''}};
+})<{ run: boolean }>`
+	transition: color 300ms ease-in-out;
 `;
+
 export const TopicEditButton = styled.div`
 	display: flex;
 	position: relative;
@@ -232,16 +208,6 @@ export const PipelineEditButton = styled(TooltipButton)`
 	> svg {
 		font-size: 0.8em;
 	}
-`;
-export const PipelineCheck = styled(FontAwesomeIcon).attrs<{ run: boolean }>(({run}) => {
-	return {
-		style: {
-			color: run ? 'var(--warn-color)' : '',
-			filter: run ? 'drop-shadow(2px 4px 6px rgba(255, 128, 0, 0.7))': ''
-		}
-	};
-})<{ run: boolean }>`
-	transition: color 300ms ease-in-out;
 `;
 export const ChildrenBlock = styled.div`
 	align-self: start;

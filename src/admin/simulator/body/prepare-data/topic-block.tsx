@@ -1,14 +1,6 @@
 import React, {useState} from 'react';
 import {Topic} from '../../../../services/tuples/topic-types';
-import {
-	BlockContainer,
-	ChildrenBlock,
-	LoopButton,
-	NameBlock,
-	TopicBlockType,
-	TopicEditButton,
-	TopicRole
-} from './widgets';
+import {BlockContainer, ChildrenBlock, LoopButton, NameBlock, TopicBlockType, TopicEditButton} from './widgets';
 import {getTopicName} from '../../utils';
 import {ICON_COLLAPSE_CONTENT, ICON_EXPAND_CONTENT, ICON_LOOP} from '../../../../basic-widgets/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -39,7 +31,7 @@ export const TopicBlock = (props: {
 				? null
 				: <FontAwesomeIcon icon={expanded ? ICON_COLLAPSE_CONTENT : ICON_EXPAND_CONTENT}/>
 			}
-			<span>Topic<TopicRole type={type}/>: {getTopicName(node.topic)}</span>
+			<span>{type.toLowerCase()} Topic: {getTopicName(node.topic)}</span>
 		</NameBlock>
 		<TopicEditButton>0</TopicEditButton>
 		{node.loop
