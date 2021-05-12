@@ -1,5 +1,6 @@
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {Topic} from '../../../../services/tuples/topic-types';
+import {DataRow} from '../../simulator-event-bus-types';
 
 export enum StartFrom {
 	TOPIC = 'topic',
@@ -23,4 +24,5 @@ export interface SimulatorState extends SimulateStart {
 	step: ActiveStep;
 
 	runPipelines: Array<Pipeline>;
+	topicsData: { [key in string]: Array<DataRow> };
 }

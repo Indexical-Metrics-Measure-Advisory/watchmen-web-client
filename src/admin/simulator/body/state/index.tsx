@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {ActiveStep, SimulatorState, StartFrom} from './types';
 import {useSimulatorEventBus} from '../../simulator-event-bus';
-import {SimulatorEventTypes} from '../../simulator-event-bus-types';
+import {DataRow, SimulatorEventTypes} from '../../simulator-event-bus-types';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {Topic} from '../../../../services/tuples/topic-types';
 
@@ -14,7 +14,8 @@ export const SimulatorStates = () => {
 		startTopic: null,
 		startPipeline: null,
 
-		runPipelines: []
+		runPipelines: [],
+		topicsData: {}
 	});
 
 	useEffect(() => {
@@ -61,6 +62,7 @@ export const SimulatorStates = () => {
 			off(SimulatorEventTypes.ASK_START, onAskStart);
 		};
 	}, [on, off, fire, state.startFrom, state.startTopic, state.startPipeline]);
+
 	useEffect(() => {
 		const onAskPipelineRun = (pipeline: Pipeline) => {
 			fire(SimulatorEventTypes.REPLY_PIPELINE_RUN, state.runPipelines.includes(pipeline));
@@ -81,6 +83,34 @@ export const SimulatorStates = () => {
 		on(SimulatorEventTypes.PIPELINE_RUN_CHANGED, onPipelineRunChanged);
 		return () => {
 			off(SimulatorEventTypes.PIPELINE_RUN_CHANGED, onPipelineRunChanged);
+		};
+	}, [on, off]);
+
+	useEffect(() => {
+		const onAskTopicData = (topic: Topic) => {
+			const rows = state.topicsData[topic.topicId] || [];
+			fire(SimulatorEventTypes.REPLY_TOPIC_DATA, rows);
+		};
+		on(SimulatorEventTypes.ASK_TOPIC_DATA, onAskTopicData);
+		return () => {
+			off(SimulatorEventTypes.ASK_TOPIC_DATA, onAskTopicData);
+		};
+	}, [on, off, fire, state.topicsData]);
+	useEffect(() => {
+		const onTopicDataChanged = (topic: Topic, rows: Array<DataRow>) => {
+			setState(state => {
+				return {
+					...state,
+					topicsData: {
+						...state.topicsData,
+						[topic.topicId]: rows
+					}
+				};
+			});
+		};
+		on(SimulatorEventTypes.TOPIC_DATA_CHANGED, onTopicDataChanged);
+		return () => {
+			off(SimulatorEventTypes.TOPIC_DATA_CHANGED, onTopicDataChanged);
 		};
 	}, [on, off]);
 

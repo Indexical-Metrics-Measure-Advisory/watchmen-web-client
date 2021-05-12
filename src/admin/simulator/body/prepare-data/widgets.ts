@@ -3,10 +3,10 @@ import {SimulatorBodyPartBody, SimulatorBodyPartRow} from '../widgets';
 import {TooltipButton} from '../../../../basic-widgets/tooltip-button';
 
 export enum TopicBlockType {
-	ROOT = 'root',
-	WRITE_ONLY = 'write',
-	READ_ONLY = 'read',
-	READ_WRITE = 'read-write'
+	ROOT = 'trigger by',
+	WRITE_ONLY = 'write to',
+	READ_ONLY = 'read from',
+	READ_WRITE = 'read & write'
 }
 
 export const PrepareDataBodyPartBody = styled(SimulatorBodyPartBody)`
@@ -223,9 +223,8 @@ export const DialogHeader = styled.div`
 	display: flex;
 	position: relative;
 	padding: 0 var(--margin);
-	border-bottom: var(--border);
-	height: calc(var(--header-height) * 1.5);
-	margin: calc(var(--margin) * -1) calc(var(--margin) * -1) calc(var(--margin) / 2);
+	min-height: calc(var(--header-height) * 1.5);
+	margin: calc(var(--margin) * -1) calc(var(--margin) * -1) 0;
 	align-items: center;
 `;
 export const DialogTitle = styled.div`
@@ -233,28 +232,75 @@ export const DialogTitle = styled.div`
 	font-size: 2.5em;
 `;
 
-export const DataTable = styled.div.attrs({'data-widget': 'data-table'})`
+export const DataTable = styled.div.attrs({
+	'data-widget': 'data-table',
+	'data-v-scroll': '',
+	'data-h-scroll': ''
+})`
 	display: flex;
 	flex-direction: column;
 	height: calc(100% - var(--margin) / 2);
 	margin-bottom: calc(var(--margin) / 2);
+	overflow: auto;
 `;
 export const DataTableHeader = styled.div.attrs<{ columnCount: number }>(({columnCount}) => {
 	return {
 		'data-widget': 'data-table-header',
 		style: {
-			gridTemplateColumns: `40px ${new Array(columnCount).fill('120px').join(' ')}`
+			gridTemplateColumns: `40px ${new Array(columnCount).fill('140px').join(' ')}`,
+			width: `${40 + columnCount * 140}px`
 		}
 	};
 })<{ columnCount: number }>`
 	display: grid;
-	border-bottom: var(--border);
+	position: sticky;
+	top: 0;
+	z-index: 1;
 `;
 export const DataTableHeaderCell = styled.div.attrs({'data-widget': 'data-table-header-cell'})`
 	display: flex;
 	align-items: center;
-	padding: 0 calc(var(--margin / 8));
+	padding: 0 calc(var(--margin) / 8);
 	height: var(--tall-height);
 	font-weight: var(--font-bold);
 	font-size: 1.2em;
+	border-bottom: var(--border);
+	background-color: var(--bg-color);
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+`;
+export const DataTableBodyRow = styled.div.attrs<{ columnCount: number }>(({columnCount}) => {
+	return {
+		'data-widget': 'data-table-body-row',
+		style: {
+			gridTemplateColumns: `40px ${new Array(columnCount).fill('140px').join(' ')}`,
+			width: `${40 + columnCount * 140}px`
+		}
+	};
+})<{ columnCount: number }>`
+	display: grid;
+	z-index: 0;
+	&:nth-child(2n) {
+		background-color: var(--grid-rib-bg-color);
+	}
+`;
+
+export const DataTableBodyCell = styled.div.attrs({'data-widget': 'data-table-body-cell'})`
+	display: flex;
+	align-items: center;
+	padding: 0 calc(var(--margin) / 8);
+	height: var(--height);
+	&:hover > input {
+		box-shadow: var(--primary-shadow);
+	}
+	> input {
+		height: 22px;
+		border-color: transparent;
+		margin-left: calc(var(--input-indent) * -1);
+		margin-right: calc(var(--margin) / 8);
+		&:focus {
+			box-shadow: var(--primary-hover-shadow);
+		}
+	}
 `;
