@@ -23,9 +23,11 @@ export const Units = (props: {
 	useEffect(() => {
 		on(StageEventTypes.UNIT_ADDED, forceUpdate);
 		on(StageEventTypes.UNIT_REMOVED, forceUpdate);
+		on(StageEventTypes.UNIT_SORTED, forceUpdate);
 		return () => {
 			off(StageEventTypes.UNIT_ADDED, forceUpdate);
 			off(StageEventTypes.UNIT_REMOVED, forceUpdate);
+			off(StageEventTypes.UNIT_SORTED, forceUpdate);
 		};
 	}, [on, off, forceUpdate]);
 
