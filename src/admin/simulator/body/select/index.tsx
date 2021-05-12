@@ -3,6 +3,7 @@ import {
 	SimulatorBodyPart,
 	SimulatorBodyPartBody,
 	SimulatorBodyPartHeader,
+	SimulatorBodyPartHeaderButtons,
 	SimulatorBodyPartHeaderTitle,
 	SimulatorBodyPartLabel,
 	SimulatorBodyPartRow
@@ -69,6 +70,10 @@ export const Select = (props: {
 		setState(state => ({...state, step: ActiveStep.PREPARE_DATA}));
 		fire(SimulatorEventTypes.ACTIVE_STEP_CHANGED, ActiveStep.PREPARE_DATA);
 	};
+	const onActiveClicked = () => {
+		setState(state => ({...state, step: ActiveStep.SELECT}));
+		fire(SimulatorEventTypes.ACTIVE_STEP_CHANGED, ActiveStep.SELECT);
+	};
 
 	const topicsMap = topics.reduce((map, topic) => {
 		map.set(topic.topicId, topic);
@@ -99,6 +104,12 @@ export const Select = (props: {
 	return <SimulatorBodyPart collapsed={state.step !== ActiveStep.SELECT}>
 		<SimulatorBodyPartHeader>
 			<SimulatorBodyPartHeaderTitle>{title}</SimulatorBodyPartHeaderTitle>
+			{state.step !== ActiveStep.SELECT
+				? <SimulatorBodyPartHeaderButtons>
+					<Button ink={ButtonInk.PRIMARY} onClick={onActiveClicked}>Reselect</Button>
+				</SimulatorBodyPartHeaderButtons>
+				: null
+			}
 		</SimulatorBodyPartHeader>
 		{state.step === ActiveStep.SELECT
 			? <SimulatorBodyPartBody>

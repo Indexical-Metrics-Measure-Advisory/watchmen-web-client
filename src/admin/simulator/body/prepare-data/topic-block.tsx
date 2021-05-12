@@ -117,6 +117,11 @@ export const TopicDataEdit = (props: { node: FlowTreeTopicNode }) => {
 			off(SimulatorEventTypes.TOPIC_DATA_CHANGED, onTopicDataChanged);
 		};
 	}, [on, off, node.topic.topicId]);
+	useEffect(() => {
+		once(SimulatorEventTypes.REPLY_TOPIC_DATA, (rows: Array<DataRow>) => {
+			setDataRowsCount(rows.length);
+		}).fire(SimulatorEventTypes.ASK_TOPIC_DATA, node.topic);
+	}, [once, node.topic]);
 
 	const onConfirmClicked = (rows: Array<DataRow>) => {
 		fire(SimulatorEventTypes.TOPIC_DATA_CHANGED, node.topic, rows);

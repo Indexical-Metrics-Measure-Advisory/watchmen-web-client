@@ -41,7 +41,10 @@ export const SimulatorBodyPartHeaderTitle = styled.div.attrs({'data-widget': 'si
 	font-weight: var(--font-semi-bold);
 	font-family: var(--title-font-family);
 `;
-
+export const SimulatorBodyPartHeaderButtons = styled.div.attrs({'data-widget': 'simulator-body-part-header-buttons'})`
+	display: flex;
+	justify-content: flex-end;
+`
 export const SimulatorBodyPartBody = styled.div.attrs({'data-widget': 'simulator-body-part-body'})`
 	flex-grow: 1;
 	display: grid;
