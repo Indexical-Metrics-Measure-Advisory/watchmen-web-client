@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 
-export const SimulatorBodyContainer = styled.div.attrs({'data-widget': 'simulator-body'})`
+export const SimulatorBodyContainer = styled.div.attrs({
+	'data-widget': 'simulator-body',
+	'data-v-scroll': ''
+})`
 	display: flex;
 	flex-direction: column;
 	position: relative;
 	flex-grow: 1;
+	overflow-y: auto;
 `;
 
 export const SimulatorBodyPart = styled.div.attrs<{ collapsed: boolean }>(({collapsed}) => {
@@ -43,7 +47,7 @@ export const SimulatorBodyPartBody = styled.div.attrs({'data-widget': 'simulator
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-auto-rows: var(--grid-row-height);
-	padding: calc(var(--margin) / 2);
+	padding: calc(var(--margin) / 4);
 	border-bottom: var(--border);
 `;
 export const SimulatorBodyPartRow = styled.div`

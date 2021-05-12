@@ -9,8 +9,13 @@ export enum SimulatorEventTypes {
 
 	ACTIVE_STEP_CHANGED = 'active-step-changed',
 
+	PIPELINE_RUN_CHANGED = 'pipeline-run-changed',
+
 	ASK_START = 'ask-start',
-	REPLY_START = 'reply-start'
+	REPLY_START = 'reply-start',
+
+	ASK_PIPELINE_RUN = 'ask-pipeline-run',
+	REPLY_PIPELINE_RUN = 'reply-pipeline-run'
 }
 
 export interface SimulatorEventBus {
@@ -30,10 +35,21 @@ export interface SimulatorEventBus {
 	on(type: SimulatorEventTypes.ACTIVE_STEP_CHANGED, listener: (step: ActiveStep) => void): this;
 	off(type: SimulatorEventTypes.ACTIVE_STEP_CHANGED, listener: (step: ActiveStep) => void): this;
 
+	fire(type: SimulatorEventTypes.PIPELINE_RUN_CHANGED, pipeline: Pipeline, run: boolean): this;
+	on(type: SimulatorEventTypes.PIPELINE_RUN_CHANGED, listener: (pipeline: Pipeline, run: boolean) => void): this;
+	off(type: SimulatorEventTypes.PIPELINE_RUN_CHANGED, listener: (pipeline: Pipeline, run: boolean) => void): this;
+
 	fire(type: SimulatorEventTypes.ASK_START): this;
 	on(type: SimulatorEventTypes.ASK_START, listener: () => void): this;
 	off(type: SimulatorEventTypes.ASK_START, listener: () => void): this;
 
 	fire(type: SimulatorEventTypes.REPLY_START, start: SimulateStart): this;
 	once(type: SimulatorEventTypes.REPLY_START, listener: (start: SimulateStart) => void): this;
+
+	fire(type: SimulatorEventTypes.ASK_PIPELINE_RUN, pipeline: Pipeline): this;
+	on(type: SimulatorEventTypes.ASK_PIPELINE_RUN, listener: (pipeline: Pipeline) => void): this;
+	off(type: SimulatorEventTypes.ASK_PIPELINE_RUN, listener: (pipeline: Pipeline) => void): this;
+
+	fire(type: SimulatorEventTypes.REPLY_PIPELINE_RUN, run: boolean): this;
+	once(type: SimulatorEventTypes.REPLY_PIPELINE_RUN, listener: (run: boolean) => void): this;
 }

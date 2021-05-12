@@ -12,7 +12,9 @@ export const SimulatorStates = () => {
 
 		startFrom: StartFrom.PIPELINE,
 		startTopic: null,
-		startPipeline: null
+		startPipeline: null,
+
+		runPipelines: []
 	});
 
 	useEffect(() => {
@@ -59,6 +61,28 @@ export const SimulatorStates = () => {
 			off(SimulatorEventTypes.ASK_START, onAskStart);
 		};
 	}, [on, off, fire, state.startFrom, state.startTopic, state.startPipeline]);
+	useEffect(() => {
+		const onAskPipelineRun = (pipeline: Pipeline) => {
+			fire(SimulatorEventTypes.REPLY_PIPELINE_RUN, state.runPipelines.includes(pipeline));
+		};
+		on(SimulatorEventTypes.ASK_PIPELINE_RUN, onAskPipelineRun);
+		return () => {
+			off(SimulatorEventTypes.ASK_PIPELINE_RUN, onAskPipelineRun);
+		};
+	}, [on, off, fire, state.runPipelines]);
+	useEffect(() => {
+		const onPipelineRunChanged = (pipeline: Pipeline, run: boolean) => {
+			if (run) {
+				setState(state => ({...state, runPipelines: Array.from(new Set([...state.runPipelines, pipeline]))}));
+			} else {
+				setState(state => ({...state, runPipelines: state.runPipelines.filter(p => p !== pipeline)}));
+			}
+		};
+		on(SimulatorEventTypes.PIPELINE_RUN_CHANGED, onPipelineRunChanged);
+		return () => {
+			off(SimulatorEventTypes.PIPELINE_RUN_CHANGED, onPipelineRunChanged);
+		};
+	}, [on, off]);
 
 	return <></>;
 };

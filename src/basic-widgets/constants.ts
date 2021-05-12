@@ -11,7 +11,7 @@ import {
 	faChalkboard,
 	faChartBar,
 	faChartPie,
-	faCheck,
+	faCheck, faCheckDouble,
 	faCheckSquare,
 	faClock,
 	faCloudDownloadAlt,
@@ -21,7 +21,8 @@ import {
 	faCompress,
 	faCompressAlt,
 	faCompressArrowsAlt,
-	faDiceD20, faDraftingCompass,
+	faDiceD20,
+	faDraftingCompass,
 	faDrawPolygon,
 	faEdit,
 	faEthernet,
@@ -67,6 +68,7 @@ import {
 	faTimesCircle,
 	faTools,
 	faTrashAlt,
+	faUndoAlt,
 	faUpload,
 	faUser,
 	faUsers,
@@ -197,11 +199,13 @@ export const ICON_PREPEND = faLevelUpAlt;
 export const ICON_APPEND = faLevelDownAlt;
 export const ICON_DRAG_HANDLE = faGripVertical;
 export const ICON_CHECK = faCheck;
+export const ICON_CHECK_ALL = faCheckDouble;
 export const ICON_UNCHECK = faTimes;
 export const ICON_BACK = faShare;
 export const ICON_REFRESH = faSyncAlt;
 export const ICON_AUTO_REFRESH = faClock;
 export const ICON_FREE_WALK = faWind;
+export const ICON_LOOP = faUndoAlt;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

@@ -1,11 +1,9 @@
 import React from 'react';
-import {PageHeaderHolder} from '../../../basic-widgets/page-header';
-import {Header, HeaderTitle} from '../../pipelines/catalog/widgets';
+import {PageHeaderHolder} from './widgets';
+import {PageTitle} from '../../../basic-widgets/page-header';
 
 export const SimulatorHeader = () => {
-	return <Header>
-		<PageHeaderHolder>
-			<HeaderTitle>Pipeline Simulator</HeaderTitle>
-		</PageHeaderHolder>
-	</Header>;
+	return <PageHeaderHolder>
+		<PageTitle>Pipeline Simulator</PageTitle>
+	</PageHeaderHolder>;
 };

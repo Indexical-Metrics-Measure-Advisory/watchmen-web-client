@@ -21,9 +21,6 @@ export interface SimulateStart {
 
 export interface SimulatorState extends SimulateStart {
 	step: ActiveStep;
-}
 
-export enum RunType {
-	ONE = 'one',
-	ALL = 'all'
+	runPipelines: Array<Pipeline>;
 }
