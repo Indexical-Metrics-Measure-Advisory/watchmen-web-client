@@ -33,6 +33,7 @@ export const buildTopicNode = (
 	const topicNode = {topic, loop, parent} as FlowTreeTopicNode;
 	topicNode.pipelines = (loop || !deep)
 		? []
+		// eslint-disable-next-line
 		: pipelines.filter(pipeline => pipeline.topicId == topic.topicId).sort((p1, p2) => {
 			return getPipelineName(p1).toLowerCase().localeCompare(getPipelineName(p2).toLowerCase());
 		}).map(pipeline => {
@@ -49,9 +50,11 @@ export const buildTopicNode = (
 				stage.units.forEach(unit => {
 					unit.do.forEach(action => {
 						if (isReadTopicAction(action)) {
+							// eslint-disable-next-line
 							const readTopic = topics.find(t => t.topicId == action.topicId)!;
 							readTopics.push(buildTopicNode(readTopic, pipelineNode, Array.from(new Set([topic, ...ancestors])), topics, pipelines, false));
 						} else if (isWriteTopicAction(action)) {
+							// eslint-disable-next-line
 							const writeTopic = topics.find(t => t.topicId == action.topicId)!;
 							writeTopics.push(buildTopicNode(writeTopic, pipelineNode, Array.from(new Set([topic, ...ancestors])), topics, pipelines, true));
 						}
