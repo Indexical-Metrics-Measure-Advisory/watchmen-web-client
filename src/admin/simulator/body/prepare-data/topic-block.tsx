@@ -12,11 +12,12 @@ import {
 	DialogTitle,
 	LoopButton,
 	NameBlock,
+	PlayButton,
 	TopicBlockType,
 	TopicEditButton
 } from './widgets';
 import {getTopicName} from '../../utils';
-import {ICON_COLLAPSE_CONTENT, ICON_EXPAND_CONTENT, ICON_LOOP} from '../../../../basic-widgets/constants';
+import {ICON_COLLAPSE_CONTENT, ICON_EXPAND_CONTENT, ICON_LOOP, ICON_PLAY} from '../../../../basic-widgets/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {PipelineBlock} from './pipeline-block';
@@ -31,6 +32,8 @@ import {Factor} from '../../../../services/tuples/factor-types';
 import {useForceUpdate} from '../../../../basic-widgets/utils';
 import {useSimulatorEventBus} from '../../simulator-event-bus';
 import {DataRow, SimulatorEventTypes} from '../../simulator-event-bus-types';
+import {AlertLabel} from '../../../../alert/widgets';
+import {ActiveStep} from '../state/types';
 
 const DataCell = (props: { row: DataRow, factor: Factor }) => {
 	const {row, factor} = props;
@@ -69,22 +72,27 @@ const DataDialog = (props: {
 		onConfirm(rows);
 	};
 
+	// only top level factors
+	// use json object/array string for raw topic
+	// eslint-disable-next-line
+	const availableFactors = topic.factors.filter(f => f.name.indexOf('.') == -1);
+
 	return <>
 		<DialogHeader>
 			<DialogTitle>Prepare Data for Topic[{getTopicName(topic)}]</DialogTitle>
 		</DialogHeader>
 		<DialogBody>
 			<DataTable>
-				<DataTableHeader columnCount={topic.factors.length}>
+				<DataTableHeader columnCount={availableFactors.length}>
 					<DataTableHeaderCell>#</DataTableHeaderCell>
-					{topic.factors.map(factor => {
+					{availableFactors.map(factor => {
 						return <DataTableHeaderCell key={factor.factorId}>{factor.name}</DataTableHeaderCell>;
 					})}
 				</DataTableHeader>
 				{rows.map((row, rowIndex) => {
-					return <DataTableBodyRow columnCount={topic.factors.length} key={rowIndex}>
+					return <DataTableBodyRow columnCount={availableFactors.length} key={rowIndex}>
 						<DataTableBodyCell>{rowIndex + 1}</DataTableBodyCell>
-						{topic.factors.map(factor => {
+						{availableFactors.map(factor => {
 							return <DataCell key={factor.factorId} row={row} factor={factor}/>;
 						})}
 					</DataTableBodyRow>;
@@ -150,12 +158,40 @@ export const TopicBlock = (props: {
 }) => {
 	const {node, pipelines, topics, type} = props;
 
+	const {fire: fireGlobal} = useEventBus();
+	const {once, fire} = useSimulatorEventBus();
 	const [expanded, setExpanded] = useState(true);
 
 	const onNameClicked = () => {
 		if (node.pipelines.length !== 0) {
 			setExpanded(!expanded);
 		}
+	};
+	const onPlayClicked = async () => {
+		let has = false;
+		node.pipelines.some(p => {
+			if (has) {
+				// previous is checked
+				return true;
+			}
+			once(SimulatorEventTypes.REPLY_PIPELINE_RUN, (run: boolean) => {
+				has = has || run;
+			}).fire(SimulatorEventTypes.ASK_PIPELINE_RUN, p.pipeline);
+			return false;
+		});
+
+		if (!has) {
+			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>No pipeline is selected.</AlertLabel>);
+			return;
+		}
+
+		once(SimulatorEventTypes.REPLY_TOPIC_DATA, (rows: Array<DataRow>) => {
+			if (rows.length === 0) {
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>No trigger data prepared.</AlertLabel>);
+			} else {
+				fire(SimulatorEventTypes.ACTIVE_STEP_CHANGED, ActiveStep.RUN);
+			}
+		}).fire(SimulatorEventTypes.ASK_TOPIC_DATA, node.topic);
 	};
 
 	return <BlockContainer>
@@ -167,6 +203,12 @@ export const TopicBlock = (props: {
 			<span>{type.toLowerCase()}: {getTopicName(node.topic)}</span>
 		</NameBlock>
 		<TopicDataEdit node={node}/>
+		{node.parent == null
+			? <PlayButton ink={ButtonInk.PRIMARY} onClick={onPlayClicked}>
+				<FontAwesomeIcon icon={ICON_PLAY}/>
+				<span>Run</span>
+			</PlayButton>
+			: null}
 		{node.loop
 			? <LoopButton tooltip={{label: 'Loop Found', alignment: TooltipAlignment.CENTER}}>
 				<FontAwesomeIcon icon={ICON_LOOP}/>

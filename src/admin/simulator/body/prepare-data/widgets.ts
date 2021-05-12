@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {SimulatorBodyPartBody, SimulatorBodyPartRow} from '../widgets';
+import {NextStepButton, SimulatorBodyPartBody, SimulatorBodyPartRow} from '../widgets';
 import {TooltipButton} from '../../../../basic-widgets/tooltip-button';
 
 export enum TopicBlockType {
@@ -114,7 +114,23 @@ export const TopicEditButton = styled.div`
 		background-color: var(--border-color);
 	}
 `;
-
+export const PlayButton = styled(NextStepButton).attrs({'data-widget': 'play-button'})`
+	margin-left: calc(var(--margin) / 2);
+	justify-self: start;
+	&:before {
+		content: '';
+		display: block;
+		position: absolute;
+		top: calc(var(--height) / 2);
+		left: calc(var(--margin) / -2);
+		width: calc(var(--margin) / 2);
+		height: 1px;
+		background-color: var(--border-color);
+	}
+	> svg {
+		font-size: 0.8em;
+	}
+`;
 export const LoopButton = styled(TooltipButton).attrs({'data-widget': 'loop-button'})`
 	display: flex;
 	position: relative;

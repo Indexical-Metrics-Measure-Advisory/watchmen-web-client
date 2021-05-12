@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
 	BlockContainer,
 	ChildrenBlock,
@@ -37,9 +37,15 @@ export const PipelineBlock = (props: {
 	const {node, pipelines, topics} = props;
 
 	const {fire: fireGlobal} = useEventBus();
-	const {fire} = useSimulatorEventBus();
+	const {once, fire} = useSimulatorEventBus();
 	const [expanded, setExpanded] = useState(true);
 	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		once(SimulatorEventTypes.REPLY_PIPELINE_RUN, (run: boolean) => {
+			node.checked = run;
+			forceUpdate();
+		}).fire(SimulatorEventTypes.ASK_PIPELINE_RUN, node.pipeline);
+	}, [once, forceUpdate, node]);
 
 	const onNameClicked = () => {
 		setExpanded(!expanded);

@@ -21,17 +21,17 @@ export const SimulatorStates = () => {
 	useEffect(() => {
 		const onStartFromChanged = (startFrom: StartFrom) => {
 			setState(state => {
-				return {...state, startFrom, startTopic: null, startPipeline: null};
+				return {...state, startFrom, startTopic: null, startPipeline: null, runPipelines: [], topicsData: {}};
 			});
 		};
 		const onStartPipelineChanged = (pipeline: Pipeline | null) => {
 			setState(state => {
-				return {...state, startTopic: null, startPipeline: pipeline};
+				return {...state, startTopic: null, startPipeline: pipeline, runPipelines: [], topicsData: {}};
 			});
 		};
 		const onStartTopicChanged = (topic: Topic | null) => {
 			setState(state => {
-				return {...state, startTopic: topic, startPipeline: null};
+				return {...state, startTopic: topic, startPipeline: null, runPipelines: [], topicsData: {}};
 			});
 		};
 		const onActiveStepChanged = (step: ActiveStep) => {

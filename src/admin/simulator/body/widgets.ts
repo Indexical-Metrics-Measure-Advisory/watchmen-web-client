@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {Button} from '../../../basic-widgets/button';
 
 export const SimulatorBodyContainer = styled.div.attrs({
 	'data-widget': 'simulator-body',
@@ -43,7 +44,10 @@ export const SimulatorBodyPartHeaderTitle = styled.div.attrs({'data-widget': 'si
 `;
 export const SimulatorBodyPartHeaderButtons = styled.div.attrs({'data-widget': 'simulator-body-part-header-buttons'})`
 	display: flex;
-	justify-content: flex-end;
+	justify-content: flex-start;
+	> button {
+		border-radius: calc(var(--height) / 2);
+	}
 `
 export const SimulatorBodyPartBody = styled.div.attrs({'data-widget': 'simulator-body-part-body'})`
 	flex-grow: 1;
@@ -60,8 +64,12 @@ export const SimulatorBodyPartRow = styled.div`
 	grid-column-gap: calc(var(--margin) / 2);
 	align-items: center;
 `;
-
 export const SimulatorBodyPartLabel = styled.span`
 	font-weight: var(--font-bold);
 	font-variant: petite-caps;
 `;
+export const NextStepButton = styled(Button).attrs({'data-widget': 'next-step-button'})`
+	border-radius: calc(var(--height) / 2);
+	font-variant: petite-caps;
+	font-weight: var(--font-bold);
+`

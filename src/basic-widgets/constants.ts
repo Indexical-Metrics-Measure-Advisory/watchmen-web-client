@@ -11,7 +11,8 @@ import {
 	faChalkboard,
 	faChartBar,
 	faChartPie,
-	faCheck, faCheckDouble,
+	faCheck,
+	faCheckDouble,
 	faCheckSquare,
 	faClock,
 	faCloudDownloadAlt,
@@ -44,6 +45,7 @@ import {
 	faLockOpen,
 	faObjectGroup,
 	faParagraph,
+	faPlay,
 	faPlus,
 	faPowerOff,
 	faPrint,
@@ -206,6 +208,7 @@ export const ICON_REFRESH = faSyncAlt;
 export const ICON_AUTO_REFRESH = faClock;
 export const ICON_FREE_WALK = faWind;
 export const ICON_LOOP = faUndoAlt;
+export const ICON_PLAY = faPlay;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

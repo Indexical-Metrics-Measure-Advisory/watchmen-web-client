@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+	NextStepButton,
 	SimulatorBodyPart,
 	SimulatorBodyPartBody,
 	SimulatorBodyPartHeader,
@@ -71,7 +72,6 @@ export const Select = (props: {
 		fire(SimulatorEventTypes.ACTIVE_STEP_CHANGED, ActiveStep.PREPARE_DATA);
 	};
 	const onActiveClicked = () => {
-		setState(state => ({...state, step: ActiveStep.SELECT}));
 		fire(SimulatorEventTypes.ACTIVE_STEP_CHANGED, ActiveStep.SELECT);
 	};
 
@@ -124,7 +124,7 @@ export const Select = (props: {
 						: <Dropdown options={topicOptions} value={state.startTopic || ''}
 						            onChange={onTopicChanged}/>
 					}
-					<Button ink={ButtonInk.PRIMARY} onClick={onGoClicked}>Next</Button>
+					<NextStepButton ink={ButtonInk.PRIMARY} onClick={onGoClicked}>Next</NextStepButton>
 				</SimulatorBodyPartRow>
 			</SimulatorBodyPartBody>
 			: null
