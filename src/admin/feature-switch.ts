@@ -1,0 +1,1 @@
+export const isUnitLoopVariableEnabled = () => process.env.REACT_APP_UNIT_LOOP_VARIABLE_ENABLED === 'true';
