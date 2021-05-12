@@ -218,3 +218,43 @@ export const ChildrenBlock = styled.div`
 	grid-auto-rows: minmax(var(--grid-row-height), auto);
 	margin-left: calc(var(--margin) * 2);
 `;
+
+export const DialogHeader = styled.div`
+	display: flex;
+	position: relative;
+	padding: 0 var(--margin);
+	border-bottom: var(--border);
+	height: calc(var(--header-height) * 1.5);
+	margin: calc(var(--margin) * -1) calc(var(--margin) * -1) calc(var(--margin) / 2);
+	align-items: center;
+`;
+export const DialogTitle = styled.div`
+	font-family: var(--title-font-family);
+	font-size: 2.5em;
+`;
+
+export const DataTable = styled.div.attrs({'data-widget': 'data-table'})`
+	display: flex;
+	flex-direction: column;
+	height: calc(100% - var(--margin) / 2);
+	margin-bottom: calc(var(--margin) / 2);
+`;
+export const DataTableHeader = styled.div.attrs<{ columnCount: number }>(({columnCount}) => {
+	return {
+		'data-widget': 'data-table-header',
+		style: {
+			gridTemplateColumns: `40px ${new Array(columnCount).fill('120px').join(' ')}`
+		}
+	};
+})<{ columnCount: number }>`
+	display: grid;
+	border-bottom: var(--border);
+`;
+export const DataTableHeaderCell = styled.div.attrs({'data-widget': 'data-table-header-cell'})`
+	display: flex;
+	align-items: center;
+	padding: 0 calc(var(--margin / 8));
+	height: var(--tall-height);
+	font-weight: var(--font-bold);
+	font-size: 1.2em;
+`;

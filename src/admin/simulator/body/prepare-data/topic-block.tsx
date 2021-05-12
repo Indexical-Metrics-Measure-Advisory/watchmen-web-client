@@ -1,6 +1,18 @@
 import React, {useState} from 'react';
 import {Topic} from '../../../../services/tuples/topic-types';
-import {BlockContainer, ChildrenBlock, LoopButton, NameBlock, TopicBlockType, TopicEditButton} from './widgets';
+import {
+	BlockContainer,
+	ChildrenBlock,
+	DataTable,
+	DataTableHeader,
+	DataTableHeaderCell,
+	DialogHeader,
+	DialogTitle,
+	LoopButton,
+	NameBlock,
+	TopicBlockType,
+	TopicEditButton
+} from './widgets';
 import {getTopicName} from '../../utils';
 import {ICON_COLLAPSE_CONTENT, ICON_EXPAND_CONTENT, ICON_LOOP} from '../../../../basic-widgets/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -10,16 +22,28 @@ import {ButtonInk, TooltipAlignment} from '../../../../basic-widgets/types';
 import {FlowTreeTopicNode} from './utils';
 import {useEventBus} from '../../../../events/event-bus';
 import {EventTypes} from '../../../../events/types';
-import {DialogBody, DialogFooter, DialogLabel} from '../../../../dialog/widgets';
+import {DialogBody, DialogFooter} from '../../../../dialog/widgets';
 import {Button} from '../../../../basic-widgets/button';
 
-const DataDialog = (props: { topic: Topic }) => {
+const DataDialog = (props: { topic: Topic, onConfirm: () => void }) => {
+	const {topic, onConfirm: onConfirmClicked} = props;
+
 	return <>
+		<DialogHeader>
+			<DialogTitle>Prepare Data for Topic[{getTopicName(topic)}]</DialogTitle>
+		</DialogHeader>
 		<DialogBody>
-			<DialogLabel>Hello</DialogLabel>
+			<DataTable>
+				<DataTableHeader columnCount={topic.factors.length}>
+					<DataTableHeaderCell>#</DataTableHeaderCell>
+					{topic.factors.map(factor => {
+						return <DataTableHeaderCell key={factor.factorId}>{factor.name}</DataTableHeaderCell>;
+					})}
+				</DataTableHeader>
+			</DataTable>
 		</DialogBody>
 		<DialogFooter>
-			<Button ink={ButtonInk.PRIMARY}>OK</Button>
+			<Button ink={ButtonInk.PRIMARY} onClick={onConfirmClicked}>OK</Button>
 		</DialogFooter>
 	</>;
 };
@@ -40,8 +64,11 @@ export const TopicBlock = (props: {
 			setExpanded(!expanded);
 		}
 	};
+	const onConfirmClicked = () => {
+		fireGlobal(EventTypes.HIDE_DIALOG);
+	};
 	const onDataClicked = () => {
-		fireGlobal(EventTypes.SHOW_DIALOG, <DataDialog topic={node.topic}/>, {
+		fireGlobal(EventTypes.SHOW_DIALOG, <DataDialog topic={node.topic} onConfirm={onConfirmClicked}/>, {
 			marginTop: '5vh',
 			marginLeft: '10%',
 			width: '80%',
