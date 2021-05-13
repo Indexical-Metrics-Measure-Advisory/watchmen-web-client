@@ -12,7 +12,7 @@ export const Runs = (props: {
 	topics: { [key in string]: Topic };
 	data: TopicsData;
 }) => {
-	const {runPipelines, allPipelines, topics, data} = props;
+	const {runPipelines, topics, data} = props;
 
 	const [runs] = useState<Array<PipelineRuntimeContext>>(() => {
 		return runPipelines.map(pipeline => {
