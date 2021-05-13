@@ -49,9 +49,9 @@ export const Run = (props: {
 		<RunTableHeader>
 			<RunTableHeaderCell>Execution Element</RunTableHeaderCell>
 			<RunTableHeaderCell>Status</RunTableHeaderCell>
-			<RunTableHeaderCell>Mem. PRE</RunTableHeaderCell>
-			<RunTableHeaderCell>Mem. POST</RunTableHeaderCell>
-			<RunTableHeaderCell>Break</RunTableHeaderCell>
+			<RunTableHeaderCell>Pre Mem.</RunTableHeaderCell>
+			<RunTableHeaderCell>Post Mem.</RunTableHeaderCell>
+			<RunTableHeaderCell>Break Point</RunTableHeaderCell>
 		</RunTableHeader>
 		<Runs runPipelines={runPipelines} allPipelines={allPipelines}
 		      topics={topicsMap} data={topicsData}/>
@@ -62,7 +62,7 @@ export const RunningPlan = (props: {
 	pipelines: Array<Pipeline>;
 	topics: Array<Topic>;
 }) => {
-	const {topics, pipelines} = props;
+	const {topics} = props;
 
 	const {once, on, off} = useSimulatorEventBus();
 	const [state, setState] = useState<State>({
@@ -90,7 +90,7 @@ export const RunningPlan = (props: {
 					topic = start.startTopic!;
 				} else if (start.startFrom === StartFrom.PIPELINE) {
 					// eslint-disable-next-line
-					topic = topics.find(t => t.topicId == pipelines[0].topicId)!;
+					topic = topics.find(t => t.topicId == start.startPipeline!.topicId)!;
 				}
 				once(SimulatorEventTypes.REPLY_RUN_MATERIAL, (topicsData: TopicsData, pipelines: Array<Pipeline>) => {
 					setState({step: ActiveStep.RUN, topic, topicsData, pipelines});

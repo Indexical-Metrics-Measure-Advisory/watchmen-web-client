@@ -1,6 +1,6 @@
 import {CellButton, RunTableBodyCell, RunTableBodyRow, UnitElementType} from './widgets';
 import React from 'react';
-import {RunStatus, UnitRuntimeContext} from './types';
+import {UnitRunStatus, UnitRuntimeContext} from './types';
 import {ButtonInk} from '../../../../basic-widgets/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ICON_SEARCH} from '../../../../basic-widgets/constants';
@@ -8,20 +8,20 @@ import {getUnitName} from '../../utils';
 import {ActionRun} from './action-run';
 
 const UnitRunStatusCell = (props: {
-	status: RunStatus;
+	status: UnitRunStatus;
 }) => {
 	const {status} = props;
 
 	switch (status) {
-		case RunStatus.READY:
+		case UnitRunStatus.READY:
 			return <span/>;
-		case RunStatus.WAIT:
-			return <span>Wait</span>;
-		case RunStatus.RUNNING:
+		case UnitRunStatus.RUNNING:
 			return <span>Running</span>;
-		case RunStatus.DONE:
+		case UnitRunStatus.IGNORED:
+			return <span>Ignored</span>;
+		case UnitRunStatus.DONE:
 			return <span>Done</span>;
-		case RunStatus.FAIL:
+		case UnitRunStatus.FAIL:
 			return <CellButton ink={ButtonInk.DANGER}>
 				<FontAwesomeIcon icon={ICON_SEARCH}/>
 			</CellButton>;

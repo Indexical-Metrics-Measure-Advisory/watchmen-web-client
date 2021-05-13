@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {Topic} from '../../../../services/tuples/topic-types';
 import {TopicsData} from '../state/types';
-import {PipelineRuntimeContext, RunStatus} from './types';
+import {PipelineRunStatus, PipelineRuntimeContext} from './types';
 import {PipelineRun} from './pipeline-run';
 import {buildPipelineRuntimeContext} from './utils';
 
@@ -18,14 +18,14 @@ export const Runs = (props: {
 		return runPipelines.map(pipeline => {
 			const triggerData = data[pipeline.topicId];
 			return triggerData.map(d => {
-				return buildPipelineRuntimeContext(pipeline, topics[pipeline.topicId]!, d);
+				return buildPipelineRuntimeContext(pipeline, topics[pipeline.topicId]!, d, data);
 			});
 		}).flat();
 	});
 
 	// future is not led by first, always run
 	const [first, ...rest] = runs;
-	first.status = RunStatus.READY;
+	first.status = PipelineRunStatus.READY;
 
 	// TODO write data into db
 

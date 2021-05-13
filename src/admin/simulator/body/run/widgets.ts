@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import {Button} from '../../../../basic-widgets/button';
 
-const COLUMNS = '400px repeat(4, 140px)';
-const COLUMNS_WIDTH = '960px';
+const COLUMNS = '600px repeat(4, 100px)';
+const COLUMNS_WIDTH = '1000px';
 export const RunTable = styled.div.attrs({'data-widget': 'run-table'})`
 	position: relative;
 	display: flex;
@@ -23,7 +23,8 @@ export const RunTableHeaderCell = styled.div.attrs({'data-widget': 'run-table-he
 	padding: 0 calc(var(--margin) / 8);
 	margin-bottom: -1px;
 	height: var(--tall-height);
-	font-weight: var(--font-bold);
+	font-variant: petite-caps;
+	font-family: var(--title-font-family);
 	font-size: 1.2em;
 	border-bottom: var(--border);
 	background-color: var(--bg-color);
@@ -47,8 +48,7 @@ export const RunTableBodyCell = styled.div.attrs({'data-widget': 'run-table-body
 	height: var(--tall-height);
 	border-bottom: var(--border);
 	background-color: var(--bg-color);
-	&:first-child,
-	&:nth-child(2) {
+	&:first-child {
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
@@ -87,4 +87,5 @@ export const ActionElementType = styled(ElementType)`
 export const CellButton = styled(Button)`
 	height: 20px;
 	font-size: 0.8em;
+	border-radius: 10px;
 `;
