@@ -78,8 +78,8 @@ export const DataQualityMenu = () => {
 	const showTooltip = menuWidth / SIDE_MENU_MIN_WIDTH <= 1.5;
 
 	const workbenches = [
-		{label: 'To Console', icon: ICON_CONSOLE, action: () => onMenuClicked(Router.CONSOLE)},
-		{label: 'To Admin', icon: ICON_ADMIN, action: () => onMenuClicked(Router.ADMIN)}
+		{label: 'To Console', icon: ICON_CONSOLE, action: () => onMenuClicked(Router.CONSOLE)()},
+		{label: 'To Admin', icon: ICON_ADMIN, action: () => onMenuClicked(Router.ADMIN)()}
 	];
 
 	return <DataQualityMenuContainer width={menuWidth}>

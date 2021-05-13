@@ -140,11 +140,11 @@ export const ConsoleMenu = () => {
 	const account = findAccount() || {name: MOCK_ACCOUNT_NAME};
 	const showTooltip = menuWidth / SIDE_MENU_MIN_WIDTH <= 1.5;
 	const workbenches = [
-		{label: Lang.CONSOLE.MENU.TO_ADMIN, icon: ICON_ADMIN, action: () => onMenuClicked(Router.ADMIN)},
+		{label: Lang.CONSOLE.MENU.TO_ADMIN, icon: ICON_ADMIN, action: () => onMenuClicked(Router.ADMIN)()},
 		{
 			label: Lang.CONSOLE.MENU.TO_DATA_QUALITY,
 			icon: ICON_DATA_QUALITY,
-			action: () => onMenuClicked(Router.DATA_QUALITY)
+			action: () => onMenuClicked(Router.DATA_QUALITY)()
 		}
 	];
 

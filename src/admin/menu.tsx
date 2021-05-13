@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import {matchPath, useHistory, useLocation} from 'react-router-dom';
 import styled from 'styled-components';
 import {
-	ICON_CONSOLE,
+	ICON_ADMIN,
+	ICON_DATA_QUALITY,
 	ICON_ENUM,
 	ICON_HOME,
 	ICON_LOGOUT,
@@ -12,6 +13,7 @@ import {
 	ICON_REPORT,
 	ICON_SETTINGS,
 	ICON_SPACE,
+	ICON_SWITCH_WORKBENCH,
 	ICON_TASK,
 	ICON_TOPIC,
 	ICON_USER,
@@ -30,6 +32,7 @@ import {useEventBus} from '../events/event-bus';
 import {EventTypes} from '../events/types';
 import {Router} from '../routes/types';
 import {findAccount, quit} from '../services/account';
+import {SideMenuSwitchWorkbench} from '../basic-widgets/side-menu/side-menu-switch-workbench';
 
 const AdminMenuContainer = styled.div.attrs<{ width: number }>(({width}) => {
 	return {
@@ -83,6 +86,14 @@ export const AdminMenu = () => {
 
 	const account = findAccount() || {name: MOCK_ACCOUNT_NAME};
 	const showTooltip = menuWidth / SIDE_MENU_MIN_WIDTH <= 1.5;
+	const workbenches = [
+		{label: 'To Console', icon: ICON_ADMIN, action: () => onMenuClicked(Router.CONSOLE)()},
+		{
+			label: 'To Data Quality Center',
+			icon: ICON_DATA_QUALITY,
+			action: () => onMenuClicked(Router.DATA_QUALITY)()
+		}
+	];
 
 	return <AdminMenuContainer width={menuWidth}>
 		<SideMenuLogo title="Watchmen Admin"/>
@@ -129,8 +140,8 @@ export const AdminMenu = () => {
 		<SideMenuItem icon={ICON_SETTINGS} label={'Settings'} showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_SETTINGS)}
 		              onClick={onMenuClicked(Router.ADMIN_SETTINGS)}/>
-		<SideMenuItem icon={ICON_CONSOLE} label={'Switch to Console'} showTooltip={showTooltip}
-		              onClick={onMenuClicked(Router.CONSOLE)}/>
+		<SideMenuSwitchWorkbench icon={ICON_SWITCH_WORKBENCH}
+		                         workbenches={workbenches}/>
 		<SideMenuSeparator width={menuWidth}/>
 		<SideMenuItem icon={ICON_LOGOUT} label={'Logout'} showTooltip={showTooltip}
 		              onClick={onLogoutClicked}/>
