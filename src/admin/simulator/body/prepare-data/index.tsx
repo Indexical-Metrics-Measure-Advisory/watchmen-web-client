@@ -80,7 +80,7 @@ export const PrepareData = (props: {
 				} else if (start.startFrom === StartFrom.PIPELINE) {
 					availablePipelines = [start.startPipeline!];
 					// eslint-disable-next-line
-					topic = topics.find(t => t.topicId == pipelines[0].topicId)!;
+					topic = topics.find(t => t.topicId == availablePipelines[0].topicId)!;
 				}
 				setState({step: ActiveStep.PREPARE_DATA, topic, pipelines: availablePipelines});
 			}).fire(SimulatorEventTypes.ASK_START);

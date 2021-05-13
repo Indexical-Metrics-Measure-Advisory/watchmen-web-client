@@ -5,6 +5,7 @@ import {ButtonInk} from '../../../../basic-widgets/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ICON_SEARCH} from '../../../../basic-widgets/constants';
 import {getUnitName} from '../../utils';
+import {ActionRun} from './action-run';
 
 const UnitRunStatusCell = (props: {
 	status: RunStatus;
@@ -42,5 +43,6 @@ export const UnitRun = (props: {
 			<RunTableBodyCell>-</RunTableBodyCell>
 			<RunTableBodyCell>-</RunTableBodyCell>
 		</RunTableBodyRow>
+		{context.actions.map(context => <ActionRun context={context} key={context.action.actionId}/>)}
 	</>;
 };
