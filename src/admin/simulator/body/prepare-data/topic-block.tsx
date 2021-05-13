@@ -206,7 +206,7 @@ export const TopicBlock = (props: {
 		{node.parent == null
 			? <PlayButton ink={ButtonInk.PRIMARY} onClick={onPlayClicked}>
 				<FontAwesomeIcon icon={ICON_PLAY}/>
-				<span>Run</span>
+				<span>Next</span>
 			</PlayButton>
 			: null}
 		{node.loop

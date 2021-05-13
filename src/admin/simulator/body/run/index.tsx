@@ -21,7 +21,11 @@ export const RunningPlan = (props: {
 	const [state, setState] = useState<State>({
 		step: ActiveStep.SELECT
 	});
-	useActiveStep((step) => setState(state => ({...state, step})));
+	useActiveStep((step) => {
+		setState(state => {
+			return {...state, step};
+		});
+	});
 
 	return <SimulatorBodyPart collapsed={state.step !== ActiveStep.RUN}>
 		<SimulatorBodyPartHeader>
