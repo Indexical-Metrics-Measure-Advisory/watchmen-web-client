@@ -1,1 +1,2 @@
+export const isDataQualityCenterEnabled = () => process.env.REACT_APP_DCQ_ENABLED === 'true';
 export const isUnitLoopVariableEnabled = () => process.env.REACT_APP_UNIT_LOOP_VARIABLE_ENABLED === 'true';

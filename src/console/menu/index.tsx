@@ -41,6 +41,7 @@ import {useConnectSpace} from '../widgets/use-connect-space';
 import {FavoriteMenu} from './side-menu-favorite';
 import {SideMenuSpaces} from './side-menu-spaces';
 import {SideMenuSwitchWorkbench} from '../../basic-widgets/side-menu/side-menu-switch-workbench';
+import {isDataQualityCenterEnabled} from '../../feature-switch';
 
 const ConsoleMenuContainer = styled.div.attrs<{ width: number }>(({width}) => {
 	return {
@@ -140,13 +141,15 @@ export const ConsoleMenu = () => {
 	const account = findAccount() || {name: MOCK_ACCOUNT_NAME};
 	const showTooltip = menuWidth / SIDE_MENU_MIN_WIDTH <= 1.5;
 	const workbenches = [
-		{label: Lang.CONSOLE.MENU.TO_ADMIN, icon: ICON_ADMIN, action: () => onMenuClicked(Router.ADMIN)()},
-		{
+		{label: Lang.CONSOLE.MENU.TO_ADMIN, icon: ICON_ADMIN, action: () => onMenuClicked(Router.ADMIN)()}
+	];
+	if (isDataQualityCenterEnabled()) {
+		workbenches.push({
 			label: Lang.CONSOLE.MENU.TO_DATA_QUALITY,
 			icon: ICON_DATA_QUALITY,
 			action: () => onMenuClicked(Router.DATA_QUALITY)()
-		}
-	];
+		});
+	}
 
 	return <ConsoleMenuContainer width={menuWidth}>
 		<SideMenuLogo title={Lang.CONSOLE.MENU.TITLE}/>

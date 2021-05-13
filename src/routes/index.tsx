@@ -2,6 +2,7 @@ import React, {lazy, Suspense} from 'react';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import {RemoteRequest} from '../remote-request';
 import {Router} from './types';
+import {isDataQualityCenterEnabled} from '../feature-switch';
 
 const Login = lazy(() => import(/* webpackChunkName: "login" */ '../login'));
 const Admin = lazy(() => import(/* webpackChunkName: "admin" */ '../admin'));
@@ -15,7 +16,10 @@ export const Routes = () => {
 			<RemoteRequest/>
 			<Switch>
 				<Route path={Router.ADMIN}><Admin/></Route>
-				<Route path={Router.DATA_QUALITY}><DataQuality/></Route>
+				{isDataQualityCenterEnabled()
+					? <Route path={Router.DATA_QUALITY}><DataQuality/></Route>
+					: null
+				}
 				<Route path={Router.CONSOLE}><Console/></Route>
 				<Route path={Router.SHARE}><Share/></Route>
 				<Route path={Router.LOGIN}><Login/></Route>

@@ -33,6 +33,7 @@ import {EventTypes} from '../events/types';
 import {Router} from '../routes/types';
 import {findAccount, quit} from '../services/account';
 import {SideMenuSwitchWorkbench} from '../basic-widgets/side-menu/side-menu-switch-workbench';
+import {isDataQualityCenterEnabled} from '../feature-switch';
 
 const AdminMenuContainer = styled.div.attrs<{ width: number }>(({width}) => {
 	return {
@@ -87,13 +88,15 @@ export const AdminMenu = () => {
 	const account = findAccount() || {name: MOCK_ACCOUNT_NAME};
 	const showTooltip = menuWidth / SIDE_MENU_MIN_WIDTH <= 1.5;
 	const workbenches = [
-		{label: 'To Console', icon: ICON_ADMIN, action: () => onMenuClicked(Router.CONSOLE)()},
-		{
+		{label: 'To Console', icon: ICON_ADMIN, action: () => onMenuClicked(Router.CONSOLE)()}
+	];
+	if (isDataQualityCenterEnabled()) {
+		workbenches.push({
 			label: 'To Data Quality Center',
 			icon: ICON_DATA_QUALITY,
 			action: () => onMenuClicked(Router.DATA_QUALITY)()
-		}
-	];
+		});
+	}
 
 	return <AdminMenuContainer width={menuWidth}>
 		<SideMenuLogo title="Watchmen Admin"/>
