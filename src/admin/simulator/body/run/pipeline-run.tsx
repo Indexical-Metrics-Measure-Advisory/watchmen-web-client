@@ -1,4 +1,4 @@
-import {CellButton, PipelineElementType, RunTableBodyCell, RunTableBodyRow} from './widgets';
+import {CellButton, PipelineElementType, RunTableBodyCell, RunTablePipelineRow, StatusLabel} from './widgets';
 import React from 'react';
 import {PipelineRunStatus, PipelineRuntimeContext} from './types';
 import {getPipelineName} from '../../utils';
@@ -19,13 +19,13 @@ const PipelineRunStatusCell = (props: {
 				<FontAwesomeIcon icon={ICON_PLAY}/>
 			</CellButton>;
 		case PipelineRunStatus.WAIT:
-			return <span>Wait</span>;
+			return <StatusLabel>Wait</StatusLabel>;
 		case PipelineRunStatus.RUNNING:
-			return <span>Running</span>;
+			return <StatusLabel>Running</StatusLabel>;
 		case PipelineRunStatus.IGNORED:
-			return <span>Ignored</span>;
+			return <StatusLabel>Ignored</StatusLabel>;
 		case PipelineRunStatus.DONE:
-			return <span>Done</span>;
+			return <StatusLabel>Done</StatusLabel>;
 		case PipelineRunStatus.FAIL:
 			return <CellButton ink={ButtonInk.DANGER}>
 				<FontAwesomeIcon icon={ICON_SEARCH}/>
@@ -51,7 +51,7 @@ export const PipelineRun = (props: {
 	};
 
 	return <>
-		<RunTableBodyRow>
+		<RunTablePipelineRow>
 			<RunTableBodyCell><PipelineElementType>p</PipelineElementType>{getPipelineName(context.pipeline)}
 			</RunTableBodyCell>
 			<RunTableBodyCell>
@@ -64,7 +64,7 @@ export const PipelineRun = (props: {
 			</RunTableBodyCell>
 			<RunTableBodyCell>-</RunTableBodyCell>
 			<RunTableBodyCell/>
-		</RunTableBodyRow>
+		</RunTablePipelineRow>
 		{context.stages.map(context => <StageRun context={context} key={context.stage.stageId}/>)}
 	</>;
 };

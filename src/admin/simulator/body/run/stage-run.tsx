@@ -1,4 +1,4 @@
-import {CellButton, RunTableBodyCell, RunTableBodyRow, StageElementType} from './widgets';
+import {CellButton, RunTableBodyCell, RunTableBodyRow, StageElementType, StatusLabel} from './widgets';
 import React from 'react';
 import {StageRunStatus, StageRuntimeContext} from './types';
 import {getStageName} from '../../utils';
@@ -14,13 +14,13 @@ const StageRunStatusCell = (props: {
 
 	switch (status) {
 		case StageRunStatus.READY:
-			return <span/>;
+			return <StatusLabel/>;
 		case StageRunStatus.RUNNING:
-			return <span>Running</span>;
+			return <StatusLabel>Running</StatusLabel>;
 		case StageRunStatus.IGNORED:
-			return <span>Ignored</span>;
+			return <StatusLabel>Ignored</StatusLabel>;
 		case StageRunStatus.DONE:
-			return <span>Done</span>;
+			return <StatusLabel>Done</StatusLabel>;
 		case StageRunStatus.FAIL:
 			return <CellButton ink={ButtonInk.DANGER}>
 				<FontAwesomeIcon icon={ICON_SEARCH}/>

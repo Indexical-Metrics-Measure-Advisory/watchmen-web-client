@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 import {Button} from '../../../../basic-widgets/button';
+import {SimulatorBodyPartBody} from '../widgets';
 
 const COLUMNS = '600px repeat(4, 100px)';
 const COLUMNS_WIDTH = '1000px';
+export const RunBody = styled(SimulatorBodyPartBody)`
+	padding-top: 0;
+`;
 export const RunTable = styled.div.attrs({'data-widget': 'run-table'})`
 	position: relative;
 	display: flex;
@@ -11,22 +15,25 @@ export const RunTable = styled.div.attrs({'data-widget': 'run-table'})`
 export const RunTableHeader = styled.div.attrs({'data-widget': 'run-table-header'})`
 	display: grid;
 	position: sticky;
+	align-items: end;
 	grid-template-columns: ${COLUMNS};
 	top: 0;
 	min-width: ${COLUMNS_WIDTH};
+	width: 100%;
 	border-bottom: var(--border);
+	border-bottom-width: calc(var(--border-width) * 2);
+	border-bottom-color: var(--info-color);
+	background-color: var(--bg-color);
 	z-index: 1;
 `;
 export const RunTableHeaderCell = styled.div.attrs({'data-widget': 'run-table-header-cell'})`
 	display: flex;
 	align-items: center;
 	padding: 0 calc(var(--margin) / 8);
-	margin-bottom: -1px;
 	height: var(--tall-height);
 	font-variant: petite-caps;
 	font-family: var(--title-font-family);
 	font-size: 1.2em;
-	border-bottom: var(--border);
 	background-color: var(--bg-color);
 	overflow: hidden;
 	white-space: nowrap;
@@ -38,7 +45,16 @@ export const RunTableBodyRow = styled.div.attrs({'data-widget': 'run-table-body-
 	position: relative;
 	grid-template-columns: ${COLUMNS};
 	min-width: ${COLUMNS_WIDTH};
-	border-bottom: var(--border);
+	&:not(:first-child) {
+		border-top: var(--border);
+	}
+`;
+export const RunTablePipelineRow = styled(RunTableBodyRow)`
+	background-color: var(--border-color);
+	&:not(:first-child) {
+		border-top: var(--border);
+		border-top-color: var(--info-color);
+	}
 `;
 export const RunTableBodyCell = styled.div.attrs({'data-widget': 'run-table-body-cell'})`
 	display: flex;
@@ -46,8 +62,6 @@ export const RunTableBodyCell = styled.div.attrs({'data-widget': 'run-table-body
 	padding: 0 calc(var(--margin) / 8);
 	margin-bottom: -1px;
 	height: var(--tall-height);
-	border-bottom: var(--border);
-	background-color: var(--bg-color);
 	&:first-child {
 		overflow: hidden;
 		white-space: nowrap;
@@ -88,4 +102,8 @@ export const CellButton = styled(Button)`
 	height: 20px;
 	font-size: 0.8em;
 	border-radius: 10px;
+`;
+export const StatusLabel = styled.span`
+	font-variant: petite-caps;
+	font-weight: var(--font-bold);
 `;

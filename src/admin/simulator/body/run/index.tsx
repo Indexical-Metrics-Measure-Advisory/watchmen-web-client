@@ -1,15 +1,10 @@
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {Topic} from '../../../../services/tuples/topic-types';
-import {
-	SimulatorBodyPart,
-	SimulatorBodyPartBody,
-	SimulatorBodyPartHeader,
-	SimulatorBodyPartHeaderTitle
-} from '../widgets';
+import {SimulatorBodyPart, SimulatorBodyPartHeader, SimulatorBodyPartHeaderTitle} from '../widgets';
 import React, {useEffect, useState} from 'react';
 import {ActiveStep, SimulateStart, StartFrom, TopicsData} from '../state/types';
 import {useActiveStep} from '../use-active-step';
-import {RunTable, RunTableHeader, RunTableHeaderCell} from './widgets';
+import {RunBody, RunTable, RunTableHeader, RunTableHeaderCell} from './widgets';
 import {SimulatorEventTypes} from '../../simulator-event-bus-types';
 import {useSimulatorEventBus} from '../../simulator-event-bus';
 import {getPipelineName} from '../../utils';
@@ -45,7 +40,7 @@ export const Run = (props: {
 	}, {} as { [key in string]: Topic });
 	let runPipelines: Array<Pipeline> = computeRunPipelines(allPipelines, topic);
 
-	return <RunTable>
+	return <>
 		<RunTableHeader>
 			<RunTableHeaderCell>Execution Element</RunTableHeaderCell>
 			<RunTableHeaderCell>Status</RunTableHeaderCell>
@@ -53,9 +48,11 @@ export const Run = (props: {
 			<RunTableHeaderCell>Post Mem.</RunTableHeaderCell>
 			<RunTableHeaderCell>Break Point</RunTableHeaderCell>
 		</RunTableHeader>
-		<Runs runPipelines={runPipelines} allPipelines={allPipelines}
-		      topics={topicsMap} data={topicsData}/>
-	</RunTable>;
+		<RunTable>
+			<Runs runPipelines={runPipelines} allPipelines={allPipelines}
+			      topics={topicsMap} data={topicsData}/>
+		</RunTable>
+	</>;
 };
 
 export const RunningPlan = (props: {
@@ -106,9 +103,9 @@ export const RunningPlan = (props: {
 			<SimulatorBodyPartHeaderTitle># 3. Running</SimulatorBodyPartHeaderTitle>
 		</SimulatorBodyPartHeader>
 		{state.step === ActiveStep.RUN && state.topic != null
-			? <SimulatorBodyPartBody>
+			? <RunBody>
 				<Run topic={state.topic} topics={topics} topicsData={state.topicsData} runPipelines={state.pipelines}/>
-			</SimulatorBodyPartBody>
+			</RunBody>
 			: null
 		}
 	</SimulatorBodyPart>;

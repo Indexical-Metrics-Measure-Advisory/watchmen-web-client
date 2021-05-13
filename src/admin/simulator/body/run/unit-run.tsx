@@ -1,4 +1,4 @@
-import {CellButton, RunTableBodyCell, RunTableBodyRow, UnitElementType} from './widgets';
+import {CellButton, RunTableBodyCell, RunTableBodyRow, StatusLabel, UnitElementType} from './widgets';
 import React from 'react';
 import {UnitRunStatus, UnitRuntimeContext} from './types';
 import {ButtonInk} from '../../../../basic-widgets/types';
@@ -14,13 +14,13 @@ const UnitRunStatusCell = (props: {
 
 	switch (status) {
 		case UnitRunStatus.READY:
-			return <span/>;
+			return <StatusLabel/>;
 		case UnitRunStatus.RUNNING:
-			return <span>Running</span>;
+			return <StatusLabel>Running</StatusLabel>;
 		case UnitRunStatus.IGNORED:
-			return <span>Ignored</span>;
+			return <StatusLabel>Ignored</StatusLabel>;
 		case UnitRunStatus.DONE:
-			return <span>Done</span>;
+			return <StatusLabel>Done</StatusLabel>;
 		case UnitRunStatus.FAIL:
 			return <CellButton ink={ButtonInk.DANGER}>
 				<FontAwesomeIcon icon={ICON_SEARCH}/>

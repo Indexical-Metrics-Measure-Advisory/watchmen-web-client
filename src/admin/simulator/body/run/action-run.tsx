@@ -1,4 +1,4 @@
-import {ActionElementType, CellButton, RunTableBodyCell, RunTableBodyRow} from './widgets';
+import {ActionElementType, CellButton, RunTableBodyCell, RunTableBodyRow, StatusLabel} from './widgets';
 import React from 'react';
 import {ActionRunStatus, ActionRuntimeContext} from './types';
 import {ButtonInk} from '../../../../basic-widgets/types';
@@ -13,11 +13,11 @@ const ActionRunStatusCell = (props: {
 
 	switch (status) {
 		case ActionRunStatus.READY:
-			return <span/>;
+			return <StatusLabel/>;
 		case ActionRunStatus.RUNNING:
-			return <span>Running</span>;
+			return <StatusLabel>Running</StatusLabel>;
 		case ActionRunStatus.DONE:
-			return <span>Done</span>;
+			return <StatusLabel>Done</StatusLabel>;
 		case ActionRunStatus.FAIL:
 			return <CellButton ink={ButtonInk.DANGER}>
 				<FontAwesomeIcon icon={ICON_SEARCH}/>
