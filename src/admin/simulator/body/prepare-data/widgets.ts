@@ -12,14 +12,11 @@ export enum TopicBlockType {
 export const PrepareDataBodyPartBody = styled(SimulatorBodyPartBody)`
 	grid-template-rows: 1fr;
 `;
-export const PrepareDataBodyPartRow = styled(SimulatorBodyPartRow).attrs({
-	'data-h-scroll': ''
-})`
+export const PrepareDataBodyPartRow = styled(SimulatorBodyPartRow)`
 	grid-template-columns: 1fr;
 	align-content: start;
 	margin: calc(var(--margin) / -4);
 	padding: calc(var(--margin) / 4);
-	overflow-x: auto;
 `;
 export const BlockContainer = styled.div.attrs({'data-widget': 'block-container'})`
 	display: grid;
@@ -67,6 +64,9 @@ export const NameBlock = styled.div.attrs<{ expanded: boolean }>({'data-widget':
 	font-weight: var(--font-bold);
 	border-radius: calc(var(--height) / 2);
 	box-shadow: var(--shadow);
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 	transition: box-shadow 300ms ease-in-out;
 	cursor: pointer;
 	&:hover {

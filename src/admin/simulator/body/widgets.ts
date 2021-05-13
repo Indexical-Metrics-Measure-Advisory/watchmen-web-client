@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 import {Button} from '../../../basic-widgets/button';
 
+export const PART_MAX_HEIGHT = 'calc(100vh - 57px - 3 * 40px)';
+
 export const SimulatorBodyContainer = styled.div.attrs({
-	'data-widget': 'simulator-body',
-	'data-v-scroll': ''
+	'data-widget': 'simulator-body'
 })`
 	display: flex;
 	flex-direction: column;
 	position: relative;
 	flex-grow: 1;
-	overflow-y: auto;
 `;
 
 export const SimulatorBodyPart = styled.div.attrs<{ collapsed: boolean }>(({collapsed}) => {
@@ -41,6 +41,9 @@ export const SimulatorBodyPartHeaderTitle = styled.div.attrs({'data-widget': 'si
 	font-size: 1.6em;
 	font-weight: var(--font-semi-bold);
 	font-family: var(--title-font-family);
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 `;
 export const SimulatorBodyPartHeaderButtons = styled.div.attrs({'data-widget': 'simulator-body-part-header-buttons'})`
 	display: flex;
@@ -48,14 +51,19 @@ export const SimulatorBodyPartHeaderButtons = styled.div.attrs({'data-widget': '
 	> button {
 		border-radius: calc(var(--height) / 2);
 	}
-`
-export const SimulatorBodyPartBody = styled.div.attrs({'data-widget': 'simulator-body-part-body'})`
+`;
+export const SimulatorBodyPartBody = styled.div.attrs({
+	'data-widget': 'simulator-body-part-body',
+	'data-v-scroll': ''
+})`
 	flex-grow: 1;
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-auto-rows: var(--grid-row-height);
 	padding: calc(var(--margin) / 4);
 	border-bottom: var(--border);
+	max-height: ${PART_MAX_HEIGHT};
+	overflow: auto;
 `;
 export const SimulatorBodyPartRow = styled.div`
 	display: grid;
@@ -72,4 +80,4 @@ export const NextStepButton = styled(Button).attrs({'data-widget': 'next-step-bu
 	border-radius: calc(var(--height) / 2);
 	font-variant: petite-caps;
 	font-weight: var(--font-bold);
-`
+`;
