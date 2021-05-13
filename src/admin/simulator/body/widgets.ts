@@ -54,7 +54,8 @@ export const SimulatorBodyPartHeaderButtons = styled.div.attrs({'data-widget': '
 `;
 export const SimulatorBodyPartBody = styled.div.attrs({
 	'data-widget': 'simulator-body-part-body',
-	'data-v-scroll': ''
+	'data-v-scroll': '',
+	'data-h-scroll': ''
 })`
 	flex-grow: 1;
 	display: grid;

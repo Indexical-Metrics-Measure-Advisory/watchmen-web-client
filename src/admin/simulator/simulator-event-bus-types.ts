@@ -1,6 +1,6 @@
 import {Pipeline} from '../../services/tuples/pipeline-types';
 import {Topic} from '../../services/tuples/topic-types';
-import {ActiveStep, SimulateStart, StartFrom} from './body/state/types';
+import {ActiveStep, SimulateStart, StartFrom, TopicsData} from './body/state/types';
 
 export type DataRow = { [key in string]: string | null };
 
@@ -21,7 +21,10 @@ export enum SimulatorEventTypes {
 	REPLY_PIPELINE_RUN = 'reply-pipeline-run',
 
 	ASK_TOPIC_DATA = 'ask-topic-data',
-	REPLY_TOPIC_DATA = 'reply-topic-data'
+	REPLY_TOPIC_DATA = 'reply-topic-data',
+
+	ASK_RUN_MATERIAL = 'ask-run-material',
+	REPLY_RUN_MATERIAL = 'reply-run-material'
 }
 
 export interface SimulatorEventBus {
@@ -69,4 +72,11 @@ export interface SimulatorEventBus {
 
 	fire(type: SimulatorEventTypes.REPLY_TOPIC_DATA, rows: Array<DataRow>): this;
 	once(type: SimulatorEventTypes.REPLY_TOPIC_DATA, listener: (rows: Array<DataRow>) => void): this;
+
+	fire(type: SimulatorEventTypes.ASK_RUN_MATERIAL): this;
+	on(type: SimulatorEventTypes.ASK_RUN_MATERIAL, listener: () => void): this;
+	off(type: SimulatorEventTypes.ASK_RUN_MATERIAL, listener: () => void): this;
+
+	fire(type: SimulatorEventTypes.REPLY_RUN_MATERIAL, topicData: TopicsData, pipelines: Array<Pipeline>): this;
+	once(type: SimulatorEventTypes.REPLY_RUN_MATERIAL, listener: (topicData: TopicsData, pipelines: Array<Pipeline>) => void): this;
 }

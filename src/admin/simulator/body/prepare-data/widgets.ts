@@ -264,19 +264,21 @@ export const DataTableHeader = styled.div.attrs<{ columnCount: number }>(({colum
 		'data-widget': 'data-table-header',
 		style: {
 			gridTemplateColumns: `40px ${new Array(columnCount).fill('140px').join(' ')}`,
-			width: `${40 + columnCount * 140}px`
+			minWidth: `${40 + columnCount * 140}px`
 		}
 	};
 })<{ columnCount: number }>`
 	display: grid;
 	position: sticky;
 	top: 0;
+	border-bottom: var(--border);
 	z-index: 1;
 `;
 export const DataTableHeaderCell = styled.div.attrs({'data-widget': 'data-table-header-cell'})`
 	display: flex;
 	align-items: center;
 	padding: 0 calc(var(--margin) / 8);
+	margin-bottom: -1px;
 	height: var(--tall-height);
 	font-weight: var(--font-bold);
 	font-size: 1.2em;
@@ -291,7 +293,7 @@ export const DataTableBodyRow = styled.div.attrs<{ columnCount: number }>(({colu
 		'data-widget': 'data-table-body-row',
 		style: {
 			gridTemplateColumns: `40px ${new Array(columnCount).fill('140px').join(' ')}`,
-			width: `${40 + columnCount * 140}px`
+			minWidth: `${40 + columnCount * 140}px`
 		}
 	};
 })<{ columnCount: number }>`

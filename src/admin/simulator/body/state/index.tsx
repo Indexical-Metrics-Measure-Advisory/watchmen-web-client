@@ -114,5 +114,15 @@ export const SimulatorStates = () => {
 		};
 	}, [on, off]);
 
+	useEffect(() => {
+		const onAskRunMaterial = () => {
+			fire(SimulatorEventTypes.REPLY_RUN_MATERIAL, state.topicsData, state.runPipelines);
+		};
+		on(SimulatorEventTypes.ASK_RUN_MATERIAL, onAskRunMaterial);
+		return () => {
+			off(SimulatorEventTypes.ASK_RUN_MATERIAL, onAskRunMaterial);
+		};
+	}, [on, off, fire, state.topicsData, state.runPipelines]);
+
 	return <></>;
 };

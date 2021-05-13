@@ -25,11 +25,12 @@ interface State {
 
 const PrepareDataBody = (props: {
 	topic: Topic;
+	availablePipelines: Array<Pipeline>;
 	pipelines: Array<Pipeline>;
 	topics: Array<Topic>;
 }) => {
-	const {topic, topics, pipelines} = props;
-	const root = buildTopicNode(topic, null, [], topics, pipelines, true);
+	const {topic, topics, availablePipelines, pipelines} = props;
+	const root = buildTopicNode(topic, null, availablePipelines, [], topics, pipelines, true);
 
 	const topicsMap = topics.reduce((map, topic) => {
 		map.set(topic.topicId, topic);
@@ -81,12 +82,7 @@ export const PrepareData = (props: {
 					// eslint-disable-next-line
 					topic = topics.find(t => t.topicId == pipelines[0].topicId)!;
 				}
-				setState({
-					...state,
-					step: ActiveStep.PREPARE_DATA,
-					topic,
-					pipelines: availablePipelines
-				});
+				setState({step: ActiveStep.PREPARE_DATA, topic, pipelines: availablePipelines});
 			}).fire(SimulatorEventTypes.ASK_START);
 		} else {
 			setState(state => ({...state, step}));
@@ -108,7 +104,8 @@ export const PrepareData = (props: {
 			}
 		</SimulatorBodyPartHeader>
 		{state.step === ActiveStep.PREPARE_DATA
-			? <PrepareDataBody topic={state.topic!} topics={topics} pipelines={pipelines}/>
+			? <PrepareDataBody topic={state.topic!} availablePipelines={state.pipelines}
+			                   topics={topics} pipelines={pipelines}/>
 			: null
 		}
 	</SimulatorBodyPart>;

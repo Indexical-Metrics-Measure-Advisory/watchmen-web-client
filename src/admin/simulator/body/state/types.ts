@@ -10,8 +10,7 @@ export enum StartFrom {
 export enum ActiveStep {
 	SELECT = 'select',
 	PREPARE_DATA = 'prepare-data',
-	RUN = 'run',
-	RESULT = 'result'
+	RUN = 'run'
 }
 
 export interface SimulateStart {
@@ -20,9 +19,11 @@ export interface SimulateStart {
 	startPipeline: Pipeline | null;
 }
 
+export type TopicsData = { [key in string]: Array<DataRow> };
+
 export interface SimulatorState extends SimulateStart {
 	step: ActiveStep;
 
 	runPipelines: Array<Pipeline>;
-	topicsData: { [key in string]: Array<DataRow> };
+	topicsData: TopicsData;
 }
