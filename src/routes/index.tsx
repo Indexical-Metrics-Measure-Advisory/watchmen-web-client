@@ -5,6 +5,7 @@ import {Router} from './types';
 
 const Login = lazy(() => import(/* webpackChunkName: "login" */ '../login'));
 const Admin = lazy(() => import(/* webpackChunkName: "admin" */ '../admin'));
+const DataQuality = lazy(() => import(/* webpackChunkName: "data-quality" */ '../data-quality'));
 const Console = lazy(() => import(/* webpackChunkName: "console" */ '../console'));
 const Share = lazy(() => import(/* webpackChunkName: "console" */ '../share'));
 
@@ -14,6 +15,7 @@ export const Routes = () => {
 			<RemoteRequest/>
 			<Switch>
 				<Route path={Router.ADMIN}><Admin/></Route>
+				<Route path={Router.DATA_QUALITY}><DataQuality/></Route>
 				<Route path={Router.CONSOLE}><Console/></Route>
 				<Route path={Router.SHARE}><Share/></Route>
 				<Route path={Router.LOGIN}><Login/></Route>

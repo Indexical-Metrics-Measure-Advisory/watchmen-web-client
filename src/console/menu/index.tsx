@@ -5,11 +5,13 @@ import {
 	ICON_ADD,
 	ICON_ADMIN,
 	ICON_DASHBOARD,
+	ICON_DATA_QUALITY,
 	ICON_HOME,
 	ICON_LOGOUT,
 	ICON_MAIL,
 	ICON_NOTIFICATION,
 	ICON_SETTINGS,
+	ICON_SWITCH_WORKBENCH,
 	ICON_TIMELINE,
 	MOCK_ACCOUNT_NAME,
 	SIDE_MENU_MAX_WIDTH,
@@ -38,6 +40,7 @@ import {createDashboard} from '../utils/tuples';
 import {useConnectSpace} from '../widgets/use-connect-space';
 import {FavoriteMenu} from './side-menu-favorite';
 import {SideMenuSpaces} from './side-menu-spaces';
+import {SideMenuSwitchWorkbench} from '../../basic-widgets/side-menu/side-menu-switch-workbench';
 
 const ConsoleMenuContainer = styled.div.attrs<{ width: number }>(({width}) => {
 	return {
@@ -45,29 +48,29 @@ const ConsoleMenuContainer = styled.div.attrs<{ width: number }>(({width}) => {
 		style: {width}
 	};
 })<{ width: number }>`
-	display          : flex;
-	position         : relative;
-	flex-direction   : column;
-	align-items      : flex-start;
-	min-width        : var(--console-menu-width);
-	height           : 100vh;
-	top              : 0;
-	left             : 0;
-	border-right     : var(--border);
-	background-color : var(--invert-color);
-	overflow         : hidden;
+	display: flex;
+	position: relative;
+	flex-direction: column;
+	align-items: flex-start;
+	min-width: var(--console-menu-width);
+	height: 100vh;
+	top: 0;
+	left: 0;
+	border-right: var(--border);
+	background-color: var(--invert-color);
+	overflow: hidden;
 	+ main {
-		max-width : ${({width}) => `calc(100vw - ${width}px)`};
+		max-width: ${({width}) => `calc(100vw - ${width}px)`};
 		div[data-widget="full-width-page"] {
-			max-width : ${({width}) => `calc(100vw - ${width}px)`};
+			max-width: ${({width}) => `calc(100vw - ${width}px)`};
 		}
 	}
 	@media print {
-		display : none;
+		display: none;
 		+ main {
-			max-width : unset;
+			max-width: unset;
 			div[data-widget="full-width-page"] {
-				max-width : unset;
+				max-width: unset;
 			}
 		}
 	}
@@ -136,6 +139,14 @@ export const ConsoleMenu = () => {
 
 	const account = findAccount() || {name: MOCK_ACCOUNT_NAME};
 	const showTooltip = menuWidth / SIDE_MENU_MIN_WIDTH <= 1.5;
+	const workbenches = [
+		{label: Lang.CONSOLE.MENU.TO_ADMIN, icon: ICON_ADMIN, action: () => onMenuClicked(Router.ADMIN)},
+		{
+			label: Lang.CONSOLE.MENU.TO_DATA_QUALITY,
+			icon: ICON_DATA_QUALITY,
+			action: () => onMenuClicked(Router.DATA_QUALITY)
+		}
+	];
 
 	return <ConsoleMenuContainer width={menuWidth}>
 		<SideMenuLogo title={Lang.CONSOLE.MENU.TITLE}/>
@@ -172,9 +183,9 @@ export const ConsoleMenu = () => {
 		<SideMenuItem icon={ICON_SETTINGS} label={Lang.CONSOLE.MENU.SETTINGS} showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.CONSOLE_SETTINGS)}
 		              onClick={onMenuClicked(Router.CONSOLE_SETTINGS)}/>
-		<SideMenuItem icon={ICON_ADMIN} label={Lang.CONSOLE.MENU.TO_ADMIN} showTooltip={showTooltip}
-		              onClick={onMenuClicked(Router.ADMIN)}
-		              visible={isAdmin()}/>
+		<SideMenuSwitchWorkbench icon={ICON_SWITCH_WORKBENCH}
+		                         workbenches={workbenches}
+		                         visible={isAdmin()}/>
 		<SideMenuSeparator width={menuWidth}/>
 		<SideMenuItem icon={ICON_LOGOUT} label={'Logout'} showTooltip={showTooltip}
 		              onClick={onLogoutClicked}/>

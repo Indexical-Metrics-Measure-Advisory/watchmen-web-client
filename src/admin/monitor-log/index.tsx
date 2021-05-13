@@ -7,7 +7,8 @@ import {Topic} from '../../services/tuples/topic-types';
 import {MonitorLogEventBusProvider} from './monitor-log-event-bus';
 import {SearchCriteria} from './search-criteria';
 import {SearchResult} from './search-result';
-import {Body, Header, HeaderTitle} from './widgets';
+import {Body} from './widgets';
+import {FullWidthPageHeaderContainer, PageTitle} from '../../basic-widgets/page-header';
 
 interface State {
 	topics: Array<Topic>;
@@ -27,9 +28,9 @@ const AdminMonitorLogsIndex = () => {
 	}, []);
 
 	return <FullWidthPage>
-		<Header>
-			<HeaderTitle>Monitor Logs</HeaderTitle>
-		</Header>
+		<FullWidthPageHeaderContainer>
+			<PageTitle>Monitor Logs</PageTitle>
+		</FullWidthPageHeaderContainer>
 		<Body>
 			<MonitorLogEventBusProvider>
 				<SearchCriteria topics={state.topics} pipelines={state.pipelines}/>

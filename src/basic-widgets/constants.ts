@@ -17,7 +17,7 @@ import {
 	faClock,
 	faCloudDownloadAlt,
 	faCode,
-	faCog,
+	faCog, faCoins,
 	faComments,
 	faCompress,
 	faCompressAlt,
@@ -34,6 +34,7 @@ import {
 	faGlobe,
 	faGripVertical,
 	faHome,
+	faIgloo,
 	faInbox,
 	faLaptopHouse,
 	faLayerGroup,
@@ -120,8 +121,10 @@ export const CHART_SETTINGS_RESIZE_HANDLE_WIDTH = 6;
 export const TUPLE_SEARCH_PAGE_SIZE = 9;
 
 // icons
+export const ICON_SWITCH_WORKBENCH = faIgloo;
 export const ICON_CONSOLE = faChalkboard;
 export const ICON_ADMIN = faTools;
+export const ICON_DATA_QUALITY = faCoins;
 export const ICON_HOME = faHome;
 export const ICON_LOGOUT = faPowerOff;
 

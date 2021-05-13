@@ -31,6 +31,10 @@ export enum Router {
 	CONSOLE_TIMELINE = '/console/timeline',
 	CONSOLE_SETTINGS = '/console/settings',
 
+	DATA_QUALITY = '/data-quality',
+	DATA_QUALITY_HOME = '/data-quality/home',
+	DATA_QUALITY_SETTINGS = '/data-quality/settings',
+
 	SHARE = '/share',
 	SHARE_DASHBOARD = '/share/dashboard/:dashboardId/:token',
 	SHARE_SUBJECT = '/share/subject/:subjectId/:token'

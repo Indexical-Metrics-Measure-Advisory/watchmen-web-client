@@ -79,7 +79,8 @@ export const En = {
 			TIMELINE: 'Show Timeline',
 			CONNECT_SPACE: 'Connect Space',
 			SETTINGS: 'Settings',
-			TO_ADMIN: 'Switch to Admin'
+			TO_ADMIN: 'To Admin',
+			TO_DATA_QUALITY: 'To Data Quality Center'
 		},
 		FAVORITE: {
 			TITLE: 'My Favorite',
