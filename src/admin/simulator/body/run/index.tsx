@@ -47,6 +47,7 @@ export const Run = (props: {
 			<RunTableHeaderCell>Pre Mem.</RunTableHeaderCell>
 			<RunTableHeaderCell>Post Mem.</RunTableHeaderCell>
 			<RunTableHeaderCell>Break Point</RunTableHeaderCell>
+			<RunTableHeaderCell/>
 		</RunTableHeader>
 		<RunTable>
 			<Runs runPipelines={runPipelines} allPipelines={allPipelines}

@@ -13,6 +13,7 @@ import {
 import {PipelineStage} from '../../../../services/tuples/pipeline-stage-types';
 import {PipelineStageUnit} from '../../../../services/tuples/pipeline-stage-unit-types';
 import {TopicsData} from '../state/types';
+import {v4} from 'uuid';
 
 export const buildUnitRuntimeContext = (unit: PipelineStageUnit, parentContext: StageRuntimeContext): UnitRuntimeContext => {
 	const context = {
@@ -31,8 +32,9 @@ export const buildUnitRuntimeContext = (unit: PipelineStageUnit, parentContext: 
 
 	return context;
 };
-export const buildStageRuntimeContext = (stage: PipelineStage, parentContext: PipelineRuntimeContext): StageRuntimeContext => {
+export const buildStageRuntimeContext = (stage: PipelineStage, index: number, parentContext: PipelineRuntimeContext): StageRuntimeContext => {
 	const context = {
+		stageIndex: index,
 		stage,
 		status: StageRunStatus.READY,
 		parentContext
@@ -46,6 +48,7 @@ export const buildPipelineRuntimeContext = (
 	pipeline: Pipeline,
 	topic: Topic,
 	triggerData: DataRow,
+	existsData: Array<DataRow>,
 	allData: TopicsData
 ): PipelineRuntimeContext => {
 	const context = {
@@ -53,10 +56,15 @@ export const buildPipelineRuntimeContext = (
 		topic,
 		status: PipelineRunStatus.WAIT,
 		triggerData,
+		existsData,
 		allData
 	} as PipelineRuntimeContext;
 
-	context.stages = pipeline.stages.map(stage => buildStageRuntimeContext(stage, context));
+	context.stages = pipeline.stages.map((stage, stageIndex) => buildStageRuntimeContext(stage, stageIndex, context));
 
 	return context;
+};
+
+export const generateRuntimeId = (): string => {
+	return v4();
 };

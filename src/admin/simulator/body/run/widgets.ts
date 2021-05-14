@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import {Button} from '../../../../basic-widgets/button';
 import {SimulatorBodyPartBody} from '../widgets';
 
-const COLUMNS = '600px repeat(4, 100px)';
-const COLUMNS_WIDTH = '1000px';
+const COLUMNS = '400px repeat(4, 100px) 400px';
+const COLUMNS_WIDTH = '1200px';
 export const RunBody = styled(SimulatorBodyPartBody)`
 	padding-top: 0;
 `;

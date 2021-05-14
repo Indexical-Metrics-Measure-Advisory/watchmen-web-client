@@ -12,11 +12,17 @@ import {
 } from './admin';
 import {Pipeline, PipelinesGraphics} from '../../services/tuples/pipeline-types';
 import {Topic} from '../../services/tuples/topic-types';
+import {SimulatorDatabase} from './simulator';
 
 const adminDB = new AdminDatabase();
+const simulatorDB = new SimulatorDatabase();
 
 export const connectAdminDB = () => {
 	return adminDB;
+};
+
+export const connectSimulatorDB = () => {
+	return simulatorDB;
 };
 
 export const findAdminPipelines = async (): Promise<Array<Pipeline>> => {

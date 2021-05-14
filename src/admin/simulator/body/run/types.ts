@@ -42,16 +42,26 @@ export interface PipelineRuntimeContext {
 	pipeline: Pipeline;
 	topic: Topic;
 	status: PipelineRunStatus;
+	/** data trigger this pipeline */
 	triggerData: DataRow;
+	/** data exists on this trigger */
+	existsData: Array<DataRow>;
 	stages: Array<StageRuntimeContext>;
+	/** all data declared in prepare data panel */
 	allData: TopicsData;
+
+	pipelineRuntimeId?: string;
 }
 
 export interface StageRuntimeContext {
+	stageIndex: number;
 	stage: PipelineStage;
 	status: StageRunStatus;
 	parentContext: PipelineRuntimeContext;
 	units: Array<UnitRuntimeContext>;
+
+	pipelineRuntimeId?: string;
+	stageRuntimeId?: string;
 }
 
 export interface UnitRuntimeContext {
