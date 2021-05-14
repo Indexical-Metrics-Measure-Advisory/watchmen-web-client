@@ -4,7 +4,7 @@ interface PipelineRuntimeTable {
 	pipelineRuntimeId: string;
 	pipelineId: string;
 	status: string;
-	body: object;
+	context: object;
 	dataBefore: object;
 	dataAfter?: object;
 	changed?: Array<object>;
@@ -18,7 +18,7 @@ interface StageRuntimeTable {
 	pipelineId: string;
 	stageIndex: number;
 	status: string;
-	body: object;
+	context: object;
 	dataBefore: object;
 	dataAfter?: object;
 	lastModifiedAt: Date;
@@ -33,7 +33,7 @@ interface UnitRuntimeTable {
 	pipelineId: string;
 	unitIndex: number;
 	status: string;
-	body: object;
+	context: object;
 	dataBefore: object;
 	dataAfter?: object;
 	lastModifiedAt: Date;
@@ -50,7 +50,7 @@ interface ActionRuntimeTable {
 	pipelineId: string;
 	actionIndex: number;
 	status: string;
-	body: object;
+	context: object;
 	dataBefore: object;
 	dataAfter?: object;
 	lastModifiedAt: Date;

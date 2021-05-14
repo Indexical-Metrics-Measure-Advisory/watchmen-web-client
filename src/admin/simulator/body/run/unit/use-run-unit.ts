@@ -36,7 +36,7 @@ export const useRunUnit = (
 				pipelineRuntimeId: pipelineContext.pipelineRuntimeId!,
 				unitIndex: context.unitIndex,
 				status: context.status,
-				body: buildContextBody(context),
+				context: buildContextBody(context),
 				dataBefore: pipelineContext.runtimeData,
 				lastModifiedAt: dayjs().toDate()
 			});

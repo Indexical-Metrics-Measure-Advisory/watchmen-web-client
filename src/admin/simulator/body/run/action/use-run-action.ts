@@ -46,7 +46,7 @@ export const useRunAction = (
 				pipelineRuntimeId: pipelineContext.pipelineRuntimeId!,
 				actionIndex: context.actionIndex,
 				status: context.status,
-				body: buildContextBody(context),
+				context: buildContextBody(context),
 				dataBefore: pipelineContext.runtimeData,
 				lastModifiedAt: dayjs().toDate()
 			});

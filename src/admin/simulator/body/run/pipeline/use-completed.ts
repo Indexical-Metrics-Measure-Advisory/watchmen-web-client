@@ -15,8 +15,8 @@ export const useCompleted = (
 		const logWrite = createLogWriter(context, setMessage);
 		const finishPipeline = async () => {
 			await connectSimulatorDB().pipelines.update(context.pipelineRuntimeId!, {
-				body: buildContextBody(context),
 				status: context.status,
+				context: buildContextBody(context),
 				dataAfter: context.runtimeData,
 				changed: context.changedData,
 				lastModifiedAt: dayjs().toDate()

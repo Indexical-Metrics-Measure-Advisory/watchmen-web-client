@@ -53,7 +53,7 @@ export const PipelineRuntime = (props: { context: PipelineRuntimeContext }) => {
 			pipelineId: context.pipeline.pipelineId,
 			pipelineRuntimeId: context.pipelineRuntimeId,
 			status: context.status,
-			body: buildContextBody(context),
+			context: buildContextBody(context),
 			dataBefore: data,
 			lastModifiedAt: dayjs().toDate()
 		});

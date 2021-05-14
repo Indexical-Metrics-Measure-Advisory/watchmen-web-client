@@ -18,7 +18,7 @@ export const useCompleted = (
 		const finishUnit = async () => {
 			await connectSimulatorDB().units.update(context.unitRuntimeId!, {
 				status: context.status,
-				body: buildContextBody(context),
+				context: buildContextBody(context),
 				dataAfter: pipelineContext.runtimeData,
 				lastModifiedAt: dayjs().toDate()
 			});

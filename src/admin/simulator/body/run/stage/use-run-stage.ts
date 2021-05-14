@@ -32,7 +32,7 @@ export const useRunStage = (
 				pipelineRuntimeId: pipelineContext.pipelineRuntimeId!,
 				stageIndex: context.stageIndex,
 				status: context.status,
-				body: buildContextBody(context),
+				context: buildContextBody(context),
 				dataBefore: pipelineContext.runtimeData,
 				lastModifiedAt: dayjs().toDate()
 			});

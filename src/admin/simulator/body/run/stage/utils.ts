@@ -23,6 +23,6 @@ export const createLogWriter = (
 };
 
 export const buildContextBody = (context: StageRuntimeContext): Partial<StageRuntimeContext> => {
-	const {pipelineRuntimeId, stageRuntimeId, status, ...rest} = context;
+	const {pipelineRuntimeId, stageRuntimeId, stageIndex, status, ...rest} = context;
 	return rest;
 };
