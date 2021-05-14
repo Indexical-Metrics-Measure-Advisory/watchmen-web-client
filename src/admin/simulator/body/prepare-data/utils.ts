@@ -22,6 +22,7 @@ export interface FlowTreeTopicNode {
 }
 
 const buildPipelineNodes = (
+	availablePipelines: Array<Pipeline>,
 	pipelines: Array<Pipeline>,
 	topicNode: FlowTreeTopicNode,
 	topics: Array<Topic>,
@@ -50,11 +51,11 @@ const buildPipelineNodes = (
 						if (isReadTopicAction(action)) {
 							// eslint-disable-next-line
 							const readTopic = topics.find(t => t.topicId == action.topicId)!;
-							readTopics.push(buildTopicNode(readTopic, pipelineNode, [], Array.from(new Set([topic, ...ancestors])), topics, pipelines, false));
+							readTopics.push(buildTopicNode(readTopic, pipelineNode, [], [...new Set([topic, ...ancestors])], topics, pipelines, false));
 						} else if (isWriteTopicAction(action)) {
 							// eslint-disable-next-line
 							const writeTopic = topics.find(t => t.topicId == action.topicId)!;
-							writeTopics.push(buildTopicNode(writeTopic, pipelineNode, [], Array.from(new Set([topic, ...ancestors])), topics, pipelines, true));
+							writeTopics.push(buildTopicNode(writeTopic, pipelineNode, [], [...new Set([topic, ...ancestors])], topics, pipelines, true));
 						}
 					});
 				});
@@ -76,6 +77,6 @@ export const buildTopicNode = (
 	const topicNode = {topic, loop, parent} as FlowTreeTopicNode;
 	topicNode.pipelines = (loop || !deep)
 		? []
-		: buildPipelineNodes(availablePipelines.length !== 0 ? availablePipelines : pipelines, topicNode, topics, ancestors);
+		: buildPipelineNodes(availablePipelines.length === 0 ? pipelines : availablePipelines, pipelines, topicNode, topics, ancestors);
 	return topicNode;
 };

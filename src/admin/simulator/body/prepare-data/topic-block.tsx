@@ -167,7 +167,7 @@ export const TopicBlock = (props: {
 			setExpanded(!expanded);
 		}
 	};
-	const onPlayClicked = async () => {
+	const onNextClicked = async () => {
 		let has = false;
 		node.pipelines.some(p => {
 			if (has) {
@@ -204,7 +204,7 @@ export const TopicBlock = (props: {
 		</NameBlock>
 		<TopicDataEdit node={node}/>
 		{node.parent == null
-			? <PlayButton ink={ButtonInk.PRIMARY} onClick={onPlayClicked}>
+			? <PlayButton ink={ButtonInk.PRIMARY} onClick={onNextClicked}>
 				<FontAwesomeIcon icon={ICON_PLAY}/>
 				<span>Next</span>
 			</PlayButton>
