@@ -10,7 +10,7 @@ import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
 import {connectSimulatorDB} from '../../../../../local-persist/db';
 import dayjs from 'dayjs';
-import {createLogWriter} from './utils';
+import {buildContextBody, createLogWriter} from './utils';
 
 export const useCompleted = (
 	pipelineContext: PipelineRuntimeContext,
@@ -24,7 +24,8 @@ export const useCompleted = (
 		const logWrite = createLogWriter(pipelineContext, stageContext, unitContext, context, setMessage);
 		const finishAction = async () => {
 			await connectSimulatorDB().actions.update(context.actionRuntimeId!, {
-				body: context,
+				status: context.status,
+				body: buildContextBody(context),
 				dataAfter: pipelineContext.runtimeData,
 				lastModifiedAt: dayjs().toDate()
 			});

@@ -3,9 +3,11 @@ import Dexie from 'dexie';
 interface PipelineRuntimeTable {
 	pipelineRuntimeId: string;
 	pipelineId: string;
+	status: string;
 	body: object;
 	dataBefore: object;
 	dataAfter?: object;
+	changed?: Array<object>;
 	lastModifiedAt: Date;
 }
 
@@ -14,6 +16,8 @@ interface StageRuntimeTable {
 	stageId: string;
 	pipelineRuntimeId: string;
 	pipelineId: string;
+	stageIndex: number;
+	status: string;
 	body: object;
 	dataBefore: object;
 	dataAfter?: object;
@@ -27,6 +31,8 @@ interface UnitRuntimeTable {
 	stageId: string;
 	pipelineRuntimeId: string;
 	pipelineId: string;
+	unitIndex: number;
+	status: string;
 	body: object;
 	dataBefore: object;
 	dataAfter?: object;
@@ -42,6 +48,8 @@ interface ActionRuntimeTable {
 	stageId: string;
 	pipelineRuntimeId: string;
 	pipelineId: string;
+	actionIndex: number;
+	status: string;
 	body: object;
 	dataBefore: object;
 	dataAfter?: object;

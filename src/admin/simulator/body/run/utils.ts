@@ -16,32 +16,26 @@ import {TopicsData} from '../state/types';
 import {v4} from 'uuid';
 
 export const buildUnitRuntimeContext = (unit: PipelineStageUnit, index: number): UnitRuntimeContext => {
-	const context = {
+	return {
 		unitIndex: index,
 		unit,
-		status: UnitRunStatus.READY
-	} as UnitRuntimeContext;
-
-	context.actions = unit.do.map((action, actionIndex) => {
-		return {
-			actionIndex,
-			action,
-			status: ActionRunStatus.READY
-		};
-	});
-
-	return context;
+		status: UnitRunStatus.READY,
+		actions: unit.do.map((action, actionIndex) => {
+			return {
+				actionIndex,
+				action,
+				status: ActionRunStatus.READY
+			};
+		})
+	};
 };
 export const buildStageRuntimeContext = (stage: PipelineStage, index: number): StageRuntimeContext => {
-	const context = {
+	return {
 		stageIndex: index,
 		stage,
-		status: StageRunStatus.READY
-	} as StageRuntimeContext;
-
-	context.units = stage.units.map((unit, unitIndex) => buildUnitRuntimeContext(unit, unitIndex));
-
-	return context;
+		status: StageRunStatus.READY,
+		units: stage.units.map((unit, unitIndex) => buildUnitRuntimeContext(unit, unitIndex))
+	};
 };
 export const buildPipelineRuntimeContext = (
 	pipeline: Pipeline,
@@ -50,19 +44,19 @@ export const buildPipelineRuntimeContext = (
 	existsData: Array<DataRow>,
 	allData: TopicsData
 ): PipelineRuntimeContext => {
-	const context = {
+	return {
 		pipeline,
 		topic,
 		status: PipelineRunStatus.WAIT,
 		triggerData,
 		existsData,
+		stages: pipeline.stages.map((stage, stageIndex) => buildStageRuntimeContext(stage, stageIndex)),
+
 		allData,
-		runtimeData: {}
-	} as PipelineRuntimeContext;
 
-	context.stages = pipeline.stages.map((stage, stageIndex) => buildStageRuntimeContext(stage, stageIndex));
-
-	return context;
+		runtimeData: {},
+		changedData: []
+	};
 };
 
 export const generateRuntimeId = (): string => {

@@ -4,7 +4,7 @@ import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
 import {connectSimulatorDB} from '../../../../../local-persist/db';
 import dayjs from 'dayjs';
-import {createLogWriter} from './utils';
+import {buildContextBody, createLogWriter} from './utils';
 
 export const useCompleted = (
 	context: PipelineRuntimeContext,
@@ -15,8 +15,10 @@ export const useCompleted = (
 		const logWrite = createLogWriter(context, setMessage);
 		const finishPipeline = async () => {
 			await connectSimulatorDB().pipelines.update(context.pipelineRuntimeId!, {
-				body: context,
+				body: buildContextBody(context),
+				status: context.status,
 				dataAfter: context.runtimeData,
+				changed: context.changedData,
 				lastModifiedAt: dayjs().toDate()
 			});
 			// TODO run next pipeline

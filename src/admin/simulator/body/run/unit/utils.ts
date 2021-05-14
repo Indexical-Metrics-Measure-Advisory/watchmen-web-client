@@ -24,3 +24,8 @@ export const createLogWriter = (
 		callback && callback(message);
 	};
 };
+
+export const buildContextBody = (context: UnitRuntimeContext): Partial<UnitRuntimeContext> => {
+	const {pipelineRuntimeId, stageRuntimeId, unitRuntimeId, status, ...rest} = context;
+	return rest;
+};

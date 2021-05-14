@@ -4,7 +4,7 @@ import {PipelineRuntimeContext, StageRunStatus, StageRuntimeContext} from '../ty
 import {generateRuntimeId} from '../utils';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
 import {useForceUpdate} from '../../../../../basic-widgets/utils';
-import {createLogWriter} from './utils';
+import {buildContextBody, createLogWriter} from './utils';
 import {connectSimulatorDB} from '../../../../../local-persist/db';
 import dayjs from 'dayjs';
 
@@ -30,7 +30,9 @@ export const useRunStage = (
 				stageRuntimeId: context.stageRuntimeId,
 				pipelineId: pipelineContext.pipeline.pipelineId,
 				pipelineRuntimeId: pipelineContext.pipelineRuntimeId!,
-				body: context,
+				stageIndex: context.stageIndex,
+				status: context.status,
+				body: buildContextBody(context),
 				dataBefore: pipelineContext.runtimeData,
 				lastModifiedAt: dayjs().toDate()
 			});

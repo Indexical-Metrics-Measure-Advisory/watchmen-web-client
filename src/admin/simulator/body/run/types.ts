@@ -38,20 +38,31 @@ export enum ActionRunStatus {
 	FAIL = 'fail'
 }
 
+export interface ChangedDataRow {
+	topicId: string;
+	before?: DataRow;
+	after: DataRow;
+}
+
 export interface PipelineRuntimeContext {
 	pipeline: Pipeline;
 	topic: Topic;
 	status: PipelineRunStatus;
-	/** data trigger this pipeline */
+	/** topic row trigger this pipeline */
 	triggerData: DataRow;
-	/** data exists on this trigger */
+	/**
+	 * topic data which already exists when trigger this pipeline.
+	 */
 	existsData: Array<DataRow>;
 	stages: Array<StageRuntimeContext>;
+
 	/** all data declared in prepare data panel */
 	allData: TopicsData;
 
 	pipelineRuntimeId?: string;
 	runtimeData: TopicsData;
+	// changed data rows
+	changedData: Array<ChangedDataRow>;
 }
 
 export interface StageRuntimeContext {

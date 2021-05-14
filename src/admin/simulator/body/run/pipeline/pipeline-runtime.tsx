@@ -16,7 +16,7 @@ import {useForceUpdate} from '../../../../../basic-widgets/utils';
 import {useTriggerTypeCheck} from './use-trigger-type-check';
 import {useCompleted} from './use-completed';
 import {useConditionCheck} from './use-condition-check';
-import {createLogWriter} from './utils';
+import {buildContextBody, createLogWriter} from './utils';
 import {useRunStages} from './use-run-stages';
 
 const buildTriggerData = (context: PipelineRuntimeContext) => {
@@ -47,16 +47,18 @@ export const PipelineRuntime = (props: { context: PipelineRuntimeContext }) => {
 		const data = buildTriggerData(context);
 		context.pipelineRuntimeId = generateRuntimeId();
 		await (createLogWriter(context)('Start pipeline'));
+
+		context.status = PipelineRunStatus.RUNNING;
 		await connectSimulatorDB().pipelines.add({
 			pipelineId: context.pipeline.pipelineId,
 			pipelineRuntimeId: context.pipelineRuntimeId,
-			body: context,
+			status: context.status,
+			body: buildContextBody(context),
 			dataBefore: data,
 			lastModifiedAt: dayjs().toDate()
 		});
 		// attach runtime data to context
 		context.runtimeData = data;
-		context.status = PipelineRunStatus.RUNNING;
 		forceUpdate();
 		fire(RuntimeEventTypes.DO_PIPELINE_TRIGGER_TYPE_CHECK, context);
 	};

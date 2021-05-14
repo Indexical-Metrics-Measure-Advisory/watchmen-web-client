@@ -12,7 +12,7 @@ import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
 import {useForceUpdate} from '../../../../../basic-widgets/utils';
 import {connectSimulatorDB} from '../../../../../local-persist/db';
 import dayjs from 'dayjs';
-import {createLogWriter} from './utils';
+import {buildContextBody, createLogWriter} from './utils';
 
 export const useRunAction = (
 	pipelineContext: PipelineRuntimeContext,
@@ -34,6 +34,7 @@ export const useRunAction = (
 			context.unitRuntimeId = unitContext.unitRuntimeId!;
 			context.actionRuntimeId = generateRuntimeId();
 			await (createLogWriter(pipelineContext, stageContext, unitContext, context)('Start action'));
+			context.status = ActionRunStatus.RUNNING;
 			await connectSimulatorDB().actions.add({
 				actionId: context.action.actionId,
 				actionRuntimeId: context.actionRuntimeId!,
@@ -43,11 +44,12 @@ export const useRunAction = (
 				stageRuntimeId: stageContext.stageRuntimeId!,
 				pipelineId: pipelineContext.pipeline.pipelineId,
 				pipelineRuntimeId: pipelineContext.pipelineRuntimeId!,
-				body: context,
+				actionIndex: context.actionIndex,
+				status: context.status,
+				body: buildContextBody(context),
 				dataBefore: pipelineContext.runtimeData,
 				lastModifiedAt: dayjs().toDate()
 			});
-			context.status = ActionRunStatus.RUNNING;
 			forceUpdate();
 		};
 		on(RuntimeEventTypes.RUN_ACTION, onRunAction);

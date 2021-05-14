@@ -15,3 +15,8 @@ export const createLogWriter = (context: PipelineRuntimeContext, callback?: (mes
 		callback && callback(message);
 	};
 };
+
+export const buildContextBody = (context: PipelineRuntimeContext): Partial<PipelineRuntimeContext> => {
+	const {status, runtimeData, changedData, ...rest} = context;
+	return rest;
+};
