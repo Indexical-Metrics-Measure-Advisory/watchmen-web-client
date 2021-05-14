@@ -1,4 +1,4 @@
-import {PipelineRuntimeContext, StageRuntimeContext} from '../types';
+import {PipelineRuntimeContext, StageRuntimeContext, UnitRuntimeContext} from '../types';
 
 export enum RuntimeEventTypes {
 	DO_PIPELINE_TRIGGER_TYPE_CHECK = 'do-pipeline-trigger-type-check',
@@ -14,6 +14,8 @@ export enum RuntimeEventTypes {
 	STAGE_IGNORED = 'stage-ignored',
 	STAGE_DONE = 'stage-done',
 	STAGE_FAILED = 'stage-failed',
+
+	RUN_UNIT = 'run-unit',
 }
 
 export interface RuntimeEventBus {
@@ -64,4 +66,8 @@ export interface RuntimeEventBus {
 	fire(type: RuntimeEventTypes.STAGE_FAILED, context: StageRuntimeContext): this;
 	on(type: RuntimeEventTypes.STAGE_FAILED, listener: (context: StageRuntimeContext) => void): this;
 	off(type: RuntimeEventTypes.STAGE_FAILED, listener: (context: StageRuntimeContext) => void): this;
+
+	fire(type: RuntimeEventTypes.RUN_UNIT, context: UnitRuntimeContext): this;
+	on(type: RuntimeEventTypes.RUN_UNIT, listener: (context: UnitRuntimeContext) => void): this;
+	off(type: RuntimeEventTypes.RUN_UNIT, listener: (context: UnitRuntimeContext) => void): this;
 }

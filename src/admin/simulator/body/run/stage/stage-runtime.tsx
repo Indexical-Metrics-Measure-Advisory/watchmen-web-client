@@ -6,6 +6,7 @@ import {StageRunStatusCell} from './stage-run-status-cell';
 import {useRunStage} from './use-run-stage';
 import {useCompleted} from './use-completed';
 import {useConditionCheck} from './use-condition-check';
+import {useRunUnits} from './use-run-units';
 
 export const StageRuntime = (props: {
 	pipelineContext: PipelineRuntimeContext;
@@ -17,6 +18,7 @@ export const StageRuntime = (props: {
 	useRunStage(pipelineContext, context);
 	useCompleted(pipelineContext, context);
 	useConditionCheck(pipelineContext, context, setMessage);
+	useRunUnits(pipelineContext, context, setMessage);
 
 	return <RunTableBodyRow>
 		<RunTableBodyCell><StageElementType>s</StageElementType>{getStageName(context.stage)}</RunTableBodyCell>
