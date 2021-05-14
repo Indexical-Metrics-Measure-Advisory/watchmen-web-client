@@ -1,10 +1,15 @@
 import {ActionElementType, RunTableBodyCell, RunTableBodyRow} from '../widgets';
 import React from 'react';
-import {ActionRuntimeContext} from '../types';
+import {ActionRuntimeContext, PipelineRuntimeContext, StageRuntimeContext, UnitRuntimeContext} from '../types';
 import {getActionType} from '../../../utils';
 import {ActionRunStatusCell} from './action-run-status-cell';
 
-export const ActionRun = (props: { context: ActionRuntimeContext }) => {
+export const ActionRun = (props: {
+	pipelineContext: PipelineRuntimeContext;
+	stageContext: StageRuntimeContext;
+	unitContext: UnitRuntimeContext;
+	context: ActionRuntimeContext;
+}) => {
 	const {context} = props;
 
 	return <>

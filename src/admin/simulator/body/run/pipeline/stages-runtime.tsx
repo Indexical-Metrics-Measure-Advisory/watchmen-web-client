@@ -3,9 +3,12 @@ import React from 'react';
 import {PipelineRuntimeContext} from '../types';
 
 export const StagesRuntime = (props: { context: PipelineRuntimeContext }) => {
-	const {context} = props;
+	const {context: pipelineContext} = props;
 
 	return <>
-		{context.stages.map(context => <StageRun context={context} key={context.stage.stageId}/>)}
+		{pipelineContext.stages.map(context => {
+			return <StageRun pipelineContext={pipelineContext} context={context}
+			                 key={context.stage.stageId}/>;
+		})}
 	</>;
 };

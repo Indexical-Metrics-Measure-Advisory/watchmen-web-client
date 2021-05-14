@@ -1,11 +1,19 @@
-import {UnitRuntimeContext} from '../types';
+import {PipelineRuntimeContext, StageRuntimeContext, UnitRuntimeContext} from '../types';
 import {ActionRun} from '../action';
 import React from 'react';
 
-export const ActionsRuntime = (props: { context: UnitRuntimeContext }) => {
-	const {context} = props;
+export const ActionsRuntime = (props: {
+	pipelineContext: PipelineRuntimeContext;
+	stageContext: StageRuntimeContext;
+	context: UnitRuntimeContext;
+}) => {
+	const {pipelineContext, stageContext, context: unitContext} = props;
 
 	return <>
-		{context.actions.map(context => <ActionRun context={context} key={context.action.actionId}/>)}
+		{unitContext.actions.map(context => {
+			return <ActionRun pipelineContext={pipelineContext} stageContext={stageContext}
+			                  unitContext={unitContext} context={context}
+			                  key={context.action.actionId}/>;
+		})}
 	</>;
 };

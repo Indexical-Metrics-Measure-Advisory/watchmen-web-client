@@ -1,13 +1,16 @@
 import React from 'react';
-import {StageRuntimeContext} from '../types';
+import {PipelineRuntimeContext, StageRuntimeContext} from '../types';
 import {StageRuntime} from './stage-runtime';
 import {UnitsRuntime} from './units-runtime';
 
-export const StageRun = (props: { context: StageRuntimeContext }) => {
-	const {context} = props;
+export const StageRun = (props: {
+	pipelineContext: PipelineRuntimeContext;
+	context: StageRuntimeContext;
+}) => {
+	const {pipelineContext, context} = props;
 
 	return <>
-		<StageRuntime context={context}/>
-		<UnitsRuntime context={context}/>
+		<StageRuntime pipelineContext={pipelineContext} context={context}/>
+		<UnitsRuntime pipelineContext={pipelineContext} context={context}/>
 	</>;
 };

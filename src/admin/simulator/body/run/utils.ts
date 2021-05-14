@@ -15,32 +15,31 @@ import {PipelineStageUnit} from '../../../../services/tuples/pipeline-stage-unit
 import {TopicsData} from '../state/types';
 import {v4} from 'uuid';
 
-export const buildUnitRuntimeContext = (unit: PipelineStageUnit, parentContext: StageRuntimeContext): UnitRuntimeContext => {
+export const buildUnitRuntimeContext = (unit: PipelineStageUnit, index: number): UnitRuntimeContext => {
 	const context = {
+		unitIndex: index,
 		unit,
-		status: UnitRunStatus.READY,
-		parentContext
+		status: UnitRunStatus.READY
 	} as UnitRuntimeContext;
 
-	context.actions = unit.do.map(action => {
+	context.actions = unit.do.map((action, actionIndex) => {
 		return {
+			actionIndex,
 			action,
-			status: ActionRunStatus.READY,
-			parentContext: context
+			status: ActionRunStatus.READY
 		};
 	});
 
 	return context;
 };
-export const buildStageRuntimeContext = (stage: PipelineStage, index: number, parentContext: PipelineRuntimeContext): StageRuntimeContext => {
+export const buildStageRuntimeContext = (stage: PipelineStage, index: number): StageRuntimeContext => {
 	const context = {
 		stageIndex: index,
 		stage,
-		status: StageRunStatus.READY,
-		parentContext
+		status: StageRunStatus.READY
 	} as StageRuntimeContext;
 
-	context.units = stage.units.map(unit => buildUnitRuntimeContext(unit, context));
+	context.units = stage.units.map((unit, unitIndex) => buildUnitRuntimeContext(unit, unitIndex));
 
 	return context;
 };
@@ -60,7 +59,7 @@ export const buildPipelineRuntimeContext = (
 		allData
 	} as PipelineRuntimeContext;
 
-	context.stages = pipeline.stages.map((stage, stageIndex) => buildStageRuntimeContext(stage, stageIndex, context));
+	context.stages = pipeline.stages.map((stage, stageIndex) => buildStageRuntimeContext(stage, stageIndex));
 
 	return context;
 };

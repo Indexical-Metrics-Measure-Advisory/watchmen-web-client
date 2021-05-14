@@ -8,14 +8,17 @@ import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
 import {useForceUpdate} from '../../../../../basic-widgets/utils';
 import {generateRuntimeId} from '../utils';
 
-export const StageRuntime = (props: { context: StageRuntimeContext }) => {
-	const {context} = props;
+export const StageRuntime = (props: {
+	pipelineContext: PipelineRuntimeContext;
+	context: StageRuntimeContext;
+}) => {
+	const {pipelineContext, context} = props;
 
 	const {on, off} = useRuntimeEventBus();
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const onPipelineStart = (parentContext: PipelineRuntimeContext) => {
-			if (parentContext !== context.parentContext) {
+			if (parentContext !== pipelineContext) {
 				return;
 			}
 
@@ -33,7 +36,7 @@ export const StageRuntime = (props: { context: StageRuntimeContext }) => {
 		return () => {
 			off(RuntimeEventTypes.START_PIPELINE, onPipelineStart);
 		};
-	}, [on, off, forceUpdate, context]);
+	}, [on, off, forceUpdate, pipelineContext, context]);
 
 	return <RunTableBodyRow>
 		<RunTableBodyCell><StageElementType>s</StageElementType>{getStageName(context.stage)}</RunTableBodyCell>

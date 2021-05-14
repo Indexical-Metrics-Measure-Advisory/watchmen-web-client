@@ -57,7 +57,6 @@ export interface StageRuntimeContext {
 	stageIndex: number;
 	stage: PipelineStage;
 	status: StageRunStatus;
-	parentContext: PipelineRuntimeContext;
 	units: Array<UnitRuntimeContext>;
 
 	pipelineRuntimeId?: string;
@@ -65,14 +64,14 @@ export interface StageRuntimeContext {
 }
 
 export interface UnitRuntimeContext {
+	unitIndex: number;
 	unit: PipelineStageUnit;
 	status: UnitRunStatus;
-	parentContext: StageRuntimeContext;
 	actions: Array<ActionRuntimeContext>;
 }
 
 export interface ActionRuntimeContext {
+	actionIndex: number;
 	action: PipelineStageUnitAction;
 	status: ActionRunStatus;
-	parentContext: UnitRuntimeContext;
 }
