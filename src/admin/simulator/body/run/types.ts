@@ -51,6 +51,7 @@ export interface PipelineRuntimeContext {
 	allData: TopicsData;
 
 	pipelineRuntimeId?: string;
+	runtimeData: TopicsData;
 }
 
 export interface StageRuntimeContext {

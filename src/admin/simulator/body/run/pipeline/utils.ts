@@ -2,7 +2,7 @@ import {PipelineRuntimeContext} from '../types';
 import {connectSimulatorDB} from '../../../../../local-persist/db';
 import dayjs from 'dayjs';
 
-export const createLogWriter = (context: PipelineRuntimeContext, callback: (message: string) => void) => {
+export const createLogWriter = (context: PipelineRuntimeContext, callback?: (message: string) => void) => {
 	return async (message: string) => {
 		const db = connectSimulatorDB();
 		await db.logs.add({
@@ -12,6 +12,6 @@ export const createLogWriter = (context: PipelineRuntimeContext, callback: (mess
 			createdAt: dayjs().toDate()
 		});
 
-		callback(message);
+		callback && callback(message);
 	};
 };

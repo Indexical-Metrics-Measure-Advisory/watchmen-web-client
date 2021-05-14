@@ -14,6 +14,7 @@ interface StageRuntimeTable {
 	pipelineRuntimeId: string;
 	pipelineId: string;
 	body: object;
+	dataBefore: object;
 	lastModifiedAt: Date;
 }
 

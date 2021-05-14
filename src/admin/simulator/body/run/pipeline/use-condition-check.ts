@@ -19,10 +19,10 @@ export const useConditionCheck = (
 
 			const {pipeline} = context;
 			if (!pipeline.on) {
-				await logWrite(`No condition declared in pipeline, passed condition check.`);
-				fire(RuntimeEventTypes.START_PIPELINE, context);
+				await logWrite(`No condition declared in pipeline, pass condition check.`);
+				fire(RuntimeEventTypes.RUN_STAGES, context);
 			} else {
-				// TODO
+				// TODO compute pipeline condition
 				fire(RuntimeEventTypes.PIPELINE_IGNORED, context);
 			}
 		};

@@ -7,7 +7,7 @@ import {createLogWriter} from './utils';
 
 export const useTriggerTypeCheck = (
 	context: PipelineRuntimeContext,
-	setMessage: (value: (((prevState: string) => string) | string)) => void
+	setMessage: (message: string) => void
 ) => {
 	const {on, off, fire} = useRuntimeEventBus();
 	useEffect(() => {

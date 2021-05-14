@@ -14,8 +14,10 @@ import {connectSimulatorDB} from '../../../../../local-persist/db';
 import dayjs from 'dayjs';
 import {useForceUpdate} from '../../../../../basic-widgets/utils';
 import {useTriggerTypeCheck} from './use-trigger-type-check';
-import {useIgnored} from './use-ignored';
+import {useCompleted} from './use-completed';
 import {useConditionCheck} from './use-condition-check';
+import {createLogWriter} from './utils';
+import {useRunStages} from './use-run-stages';
 
 const buildTriggerData = (context: PipelineRuntimeContext) => {
 	return Object.keys(context.allData).reduce((data, topicId) => {
@@ -36,27 +38,24 @@ export const PipelineRuntime = (props: { context: PipelineRuntimeContext }) => {
 	const {fire} = useRuntimeEventBus();
 	const [message, setMessage] = useState('');
 	const forceUpdate = useForceUpdate();
-	useIgnored(context, forceUpdate);
+	useCompleted(context);
 	useTriggerTypeCheck(context, setMessage);
 	useConditionCheck(context, setMessage);
+	useRunStages(context, setMessage);
 
 	const onStartPipeline = async () => {
 		const data = buildTriggerData(context);
 		context.pipelineRuntimeId = generateRuntimeId();
-		const db = connectSimulatorDB();
-		await db.pipelines.add({
+		await (createLogWriter(context)('Start pipeline'));
+		await connectSimulatorDB().pipelines.add({
 			pipelineId: context.pipeline.pipelineId,
 			pipelineRuntimeId: context.pipelineRuntimeId,
 			body: context,
 			dataBefore: data,
 			lastModifiedAt: dayjs().toDate()
 		});
-		await db.logs.add({
-			pipelineId: context.pipeline.pipelineId,
-			pipelineRuntimeId: context.pipelineRuntimeId,
-			message: 'Start pipeline',
-			createdAt: dayjs().toDate()
-		});
+		// attach runtime data to context
+		context.runtimeData = data;
 		context.status = PipelineRunStatus.RUNNING;
 		forceUpdate();
 		fire(RuntimeEventTypes.DO_PIPELINE_TRIGGER_TYPE_CHECK, context);

@@ -56,7 +56,8 @@ export const buildPipelineRuntimeContext = (
 		status: PipelineRunStatus.WAIT,
 		triggerData,
 		existsData,
-		allData
+		allData,
+		runtimeData: {}
 	} as PipelineRuntimeContext;
 
 	context.stages = pipeline.stages.map((stage, stageIndex) => buildStageRuntimeContext(stage, stageIndex));
