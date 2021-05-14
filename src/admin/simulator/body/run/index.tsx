@@ -17,6 +17,9 @@ interface State {
 	pipelines: Array<Pipeline>;
 }
 
+/**
+ * only compute the pipelines which are triggered by given topic directly
+ */
 const computeRunPipelines = (
 	pipelines: Array<Pipeline>,
 	topic: Topic
@@ -65,8 +68,11 @@ export const RunningPlan = (props: {
 	const {once, on, off} = useSimulatorEventBus();
 	const [state, setState] = useState<State>({
 		step: ActiveStep.SELECT,
+		// trigger topic
 		topic: null,
+		// all topics data, initialized. including all trigger data
 		topicsData: {},
+		// available pipelines
 		pipelines: []
 	});
 	useEffect(() => {

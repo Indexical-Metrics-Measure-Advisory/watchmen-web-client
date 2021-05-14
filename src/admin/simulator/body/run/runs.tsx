@@ -7,15 +7,22 @@ import {PipelineRun} from './pipeline';
 import {buildPipelineRuntimeContext} from './utils';
 import {DataRow} from '../../simulator-event-bus-types';
 
+interface State {
+	runs: Array<PipelineRuntimeContext>;
+	currentIndex: number;
+}
+
 export const Runs = (props: {
+	// run pipelines, each pipeline means a trigger
 	runPipelines: Array<Pipeline>;
+	// available pipelines
 	allPipelines: Array<Pipeline>;
 	topics: { [key in string]: Topic };
 	data: TopicsData;
 }) => {
-	const {runPipelines, topics, data} = props;
+	const {runPipelines, allPipelines, topics, data} = props;
 
-	const [runs] = useState<Array<PipelineRuntimeContext>>(() => {
+	const [state] = useState<State>(() => {
 		// all run pipelines are triggered by same topic
 		const triggerDataRows = data[runPipelines[0].topicId];
 		const existsData: Array<DataRow> = [];
@@ -23,27 +30,30 @@ export const Runs = (props: {
 		// pipeline will be triggered multiple times
 		// here built the initial data for each trigger
 		// in runtime, exists data for each trigger depends on previous pipeline run result
-		return triggerDataRows.map(triggerData => {
-			return runPipelines.map(pipeline => {
-				// exists data doesn't include the trigger data if trigger data is not inserted by previous pipelines
-				const context = buildPipelineRuntimeContext(pipeline, topics[pipeline.topicId]!, triggerData, [...existsData], data);
-				// trigger data will be inserted into this topic
-				if (!existsData.includes(triggerData)) {
-					existsData.push(triggerData);
-				}
-				return context;
-			});
-		}).flat();
+		return {
+			runs: triggerDataRows.map(triggerData => {
+				return runPipelines.map(pipeline => {
+					// exists data doesn't include the trigger data if trigger data is not inserted by previous pipelines
+					const context = buildPipelineRuntimeContext(pipeline, topics[pipeline.topicId]!, triggerData, [...existsData], data);
+					// trigger data will be inserted into this topic
+					if (!existsData.includes(triggerData)) {
+						existsData.push(triggerData);
+					}
+					return context;
+				});
+			}).flat(),
+			currentIndex: 0
+		};
 	});
 
 	// future is not led by first, always run
-	const [first, ...rest] = runs;
+	const [first, ...rest] = state.runs;
 	first.status = PipelineRunStatus.READY;
 
 	return <>
-		<PipelineRun context={first}/>
+		<PipelineRun context={first} topics={topics} pipelines={allPipelines}/>
 		{rest.map((context, index) => {
-			return <PipelineRun context={context} key={index}/>;
+			return <PipelineRun context={context} topics={topics} pipelines={allPipelines} key={index}/>;
 		})}
 	</>;
 };
