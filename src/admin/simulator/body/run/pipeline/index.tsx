@@ -13,10 +13,8 @@ export const PipelineRun = (props: {
 }) => {
 	const {context} = props;
 
-	return <>
-		<RuntimeEventBusProvider>
-			<PipelineRuntime context={context}/>
-			<StagesRuntime context={context}/>
-		</RuntimeEventBusProvider>
-	</>;
+	return <RuntimeEventBusProvider>
+		<PipelineRuntime context={context}/>
+		<StagesRuntime context={context}/>
+	</RuntimeEventBusProvider>;
 };
