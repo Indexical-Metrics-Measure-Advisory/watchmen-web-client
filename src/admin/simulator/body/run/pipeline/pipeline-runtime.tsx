@@ -55,7 +55,7 @@ export const PipelineRuntime = (props: { context: PipelineRuntimeContext }) => {
 			pipelineId: context.pipeline.pipelineId,
 			pipelineRuntimeId: context.pipelineRuntimeId,
 			message: 'Start pipeline',
-			lastModifiedAt: dayjs().toDate()
+			createdAt: dayjs().toDate()
 		});
 		context.status = PipelineRunStatus.RUNNING;
 		forceUpdate();

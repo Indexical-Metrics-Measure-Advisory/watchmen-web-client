@@ -52,7 +52,7 @@ interface RuntimeLogsTable {
 	pipelineRuntimeId: string;
 	pipelineId: string;
 	message: string;
-	lastModifiedAt: Date;
+	createdAt: Date;
 }
 
 export class SimulatorDatabase extends Dexie {
