@@ -4,6 +4,7 @@ import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
 import {connectSimulatorDB} from '../../../../../local-persist/db';
 import dayjs from 'dayjs';
+import {createLogWriter} from './utils';
 
 export const useCompleted = (
 	pipelineContext: PipelineRuntimeContext,
@@ -13,6 +14,7 @@ export const useCompleted = (
 ) => {
 	const {on, off, fire} = useRuntimeEventBus();
 	useEffect(() => {
+		const logWrite = createLogWriter(pipelineContext, stageContext, context, setMessage);
 		const finishUnit = async () => {
 			await connectSimulatorDB().units.update(context.unitRuntimeId!, {
 				body: context,
@@ -40,7 +42,7 @@ export const useCompleted = (
 				return;
 			}
 			context.status = status;
-			setMessage(`Unit finished on status ${status}.`);
+			await logWrite(`Unit finished on status ${status}.`);
 			await finishUnit();
 		};
 		const onUnitIgnored = onUnitCompleted(UnitRunStatus.IGNORED);

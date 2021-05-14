@@ -73,9 +73,9 @@ export class SimulatorDatabase extends Dexie {
 		super('watchmen-simulator');
 		this.version(1).stores({
 			pipelines: 'pipelineRuntimeId, pipelineId',
-			stages: 'pipelineRuntimeId, pipelineId, stageRuntimeId, stageId',
-			units: 'pipelineRuntimeId, pipelineId, stageRuntimeId, stageId, unitRuntimeId, unitId',
-			actions: 'pipelineRuntimeId, pipelineId, stageRuntimeId, stageId, unitRuntimeId, unitId, actionRuntimeId, actionId',
+			stages: 'stageRuntimeId, stageId, pipelineRuntimeId, pipelineId',
+			units: 'unitRuntimeId, unitId, stageRuntimeId, stageId, pipelineRuntimeId, pipelineId',
+			actions: 'actionRuntimeId, actionId, unitRuntimeId, unitId, stageRuntimeId, stageId, pipelineRuntimeId, pipelineId',
 			logs: '++logId, pipelineRuntimeId, pipelineId, stageRuntimeId, stageId, unitRuntimeId, unitId, actionRuntimeId, actionId'
 		});
 		this.pipelines = this.table('pipelines');
