@@ -55,7 +55,8 @@ export const buildPipelineRuntimeContext = (
 		allData,
 
 		runtimeData: {},
-		changedData: []
+		changedData: [],
+		variables: {}
 	};
 };
 
