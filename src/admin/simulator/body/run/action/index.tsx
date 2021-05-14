@@ -1,8 +1,10 @@
 import {ActionElementType, RunTableBodyCell, RunTableBodyRow} from '../widgets';
-import React from 'react';
+import React, {useState} from 'react';
 import {ActionRuntimeContext, PipelineRuntimeContext, StageRuntimeContext, UnitRuntimeContext} from '../types';
 import {getActionType} from '../../../utils';
 import {ActionRunStatusCell} from './action-run-status-cell';
+import {useRunAction} from './use-run-action';
+import {useCompleted} from './use-completed';
 
 export const ActionRun = (props: {
 	pipelineContext: PipelineRuntimeContext;
@@ -10,7 +12,11 @@ export const ActionRun = (props: {
 	unitContext: UnitRuntimeContext;
 	context: ActionRuntimeContext;
 }) => {
-	const {context} = props;
+	const {pipelineContext, stageContext, unitContext, context} = props;
+
+	const [message, setMessage] = useState('');
+	useRunAction(pipelineContext, stageContext, unitContext, context);
+	useCompleted(pipelineContext, stageContext, unitContext, context, setMessage);
 
 	return <>
 		<RunTableBodyRow>
@@ -21,6 +27,7 @@ export const ActionRun = (props: {
 			<RunTableBodyCell>-</RunTableBodyCell>
 			<RunTableBodyCell>-</RunTableBodyCell>
 			<RunTableBodyCell>-</RunTableBodyCell>
+			<RunTableBodyCell>{message}</RunTableBodyCell>
 		</RunTableBodyRow>
 	</>;
 };
