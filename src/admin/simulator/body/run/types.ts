@@ -63,6 +63,7 @@ export interface PipelineRuntimeContext {
 	runtimeData: TopicsData;
 	// changed data rows
 	changedData: Array<ChangedDataRow>;
+	variables: { [key in string]: any };
 }
 
 export interface StageRuntimeContext {
@@ -73,6 +74,7 @@ export interface StageRuntimeContext {
 
 	pipelineRuntimeId?: string;
 	stageRuntimeId?: string;
+	variables: { [key in string]: any };
 }
 
 export interface UnitRuntimeContext {
@@ -84,6 +86,7 @@ export interface UnitRuntimeContext {
 	pipelineRuntimeId?: string;
 	stageRuntimeId?: string;
 	unitRuntimeId?: string;
+	variables: { [key in string]: any };
 }
 
 export interface ActionRuntimeContext {
@@ -95,4 +98,5 @@ export interface ActionRuntimeContext {
 	stageRuntimeId?: string;
 	unitRuntimeId?: string;
 	actionRuntimeId?: string;
+	variables: { [key in string]: any };
 }
