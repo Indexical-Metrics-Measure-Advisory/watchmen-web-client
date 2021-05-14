@@ -7,7 +7,7 @@ import {createLogWriter} from './utils';
 export const useConditionCheck = (
 	pipelineContext: PipelineRuntimeContext,
 	context: StageRuntimeContext,
-	setMessage: (value: (((prevState: string) => string) | string)) => void
+	setMessage: (message: string) => void
 ) => {
 	const {on, off, fire} = useRuntimeEventBus();
 

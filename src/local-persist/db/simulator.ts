@@ -5,6 +5,7 @@ interface PipelineRuntimeTable {
 	pipelineId: string;
 	body: object;
 	dataBefore: object;
+	dataAfter?: object;
 	lastModifiedAt: Date;
 }
 
@@ -15,6 +16,7 @@ interface StageRuntimeTable {
 	pipelineId: string;
 	body: object;
 	dataBefore: object;
+	dataAfter?: object;
 	lastModifiedAt: Date;
 }
 
@@ -26,6 +28,8 @@ interface UnitRuntimeTable {
 	pipelineRuntimeId: string;
 	pipelineId: string;
 	body: object;
+	dataBefore: object;
+	dataAfter?: object;
 	lastModifiedAt: Date;
 }
 
@@ -39,6 +43,8 @@ interface ActionRuntimeTable {
 	pipelineRuntimeId: string;
 	pipelineId: string;
 	body: object;
+	dataBefore: object;
+	dataAfter?: object;
 	lastModifiedAt: Date;
 }
 

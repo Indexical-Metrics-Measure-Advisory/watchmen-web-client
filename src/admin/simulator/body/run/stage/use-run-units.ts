@@ -30,5 +30,5 @@ export const useRunUnits = (
 		return () => {
 			off(RuntimeEventTypes.RUN_UNITS, onRunUnits);
 		};
-	}, [on, off, fire, context, setMessage]);
+	}, [on, off, fire, pipelineContext, context, setMessage]);
 };

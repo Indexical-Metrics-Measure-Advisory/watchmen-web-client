@@ -38,7 +38,7 @@ export const PipelineRuntime = (props: { context: PipelineRuntimeContext }) => {
 	const {fire} = useRuntimeEventBus();
 	const [message, setMessage] = useState('');
 	const forceUpdate = useForceUpdate();
-	useCompleted(context);
+	useCompleted(context, setMessage);
 	useTriggerTypeCheck(context, setMessage);
 	useConditionCheck(context, setMessage);
 	useRunStages(context, setMessage);

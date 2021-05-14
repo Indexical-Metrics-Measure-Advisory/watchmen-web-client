@@ -69,10 +69,19 @@ export interface UnitRuntimeContext {
 	unit: PipelineStageUnit;
 	status: UnitRunStatus;
 	actions: Array<ActionRuntimeContext>;
+
+	pipelineRuntimeId?: string;
+	stageRuntimeId?: string;
+	unitRuntimeId?: string;
 }
 
 export interface ActionRuntimeContext {
 	actionIndex: number;
 	action: PipelineStageUnitAction;
 	status: ActionRunStatus;
+
+	pipelineRuntimeId?: string;
+	stageRuntimeId?: string;
+	unitRuntimeId?: string;
+	actionRuntimeId?: string;
 }

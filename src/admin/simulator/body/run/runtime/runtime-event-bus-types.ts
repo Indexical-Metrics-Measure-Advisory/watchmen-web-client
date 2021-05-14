@@ -1,4 +1,4 @@
-import {PipelineRuntimeContext, StageRuntimeContext, UnitRuntimeContext} from '../types';
+import {ActionRuntimeContext, PipelineRuntimeContext, StageRuntimeContext, UnitRuntimeContext} from '../types';
 
 export enum RuntimeEventTypes {
 	DO_PIPELINE_TRIGGER_TYPE_CHECK = 'do-pipeline-trigger-type-check',
@@ -16,6 +16,15 @@ export enum RuntimeEventTypes {
 	STAGE_FAILED = 'stage-failed',
 
 	RUN_UNIT = 'run-unit',
+	DO_UNIT_CONDITION_CHECK = 'do-unit-condition-check',
+	RUN_ACTIONS = 'run-actions',
+	UNIT_IGNORED = 'unit-ignored',
+	UNIT_DONE = 'unit-done',
+	UNIT_FAILED = 'unit-failed',
+
+	RUN_ACTION = 'run-action',
+	ACTION_DONE = 'action-done',
+	ACTION_FAILED = 'action-failed'
 }
 
 export interface RuntimeEventBus {
@@ -70,4 +79,36 @@ export interface RuntimeEventBus {
 	fire(type: RuntimeEventTypes.RUN_UNIT, context: UnitRuntimeContext): this;
 	on(type: RuntimeEventTypes.RUN_UNIT, listener: (context: UnitRuntimeContext) => void): this;
 	off(type: RuntimeEventTypes.RUN_UNIT, listener: (context: UnitRuntimeContext) => void): this;
+
+	fire(type: RuntimeEventTypes.DO_UNIT_CONDITION_CHECK, context: UnitRuntimeContext): this;
+	on(type: RuntimeEventTypes.DO_UNIT_CONDITION_CHECK, listener: (context: UnitRuntimeContext) => void): this;
+	off(type: RuntimeEventTypes.DO_UNIT_CONDITION_CHECK, listener: (context: UnitRuntimeContext) => void): this;
+
+	fire(type: RuntimeEventTypes.RUN_ACTIONS, context: UnitRuntimeContext): this;
+	on(type: RuntimeEventTypes.RUN_ACTIONS, listener: (context: UnitRuntimeContext) => void): this;
+	off(type: RuntimeEventTypes.RUN_ACTIONS, listener: (context: UnitRuntimeContext) => void): this;
+
+	fire(type: RuntimeEventTypes.UNIT_IGNORED, context: UnitRuntimeContext): this;
+	on(type: RuntimeEventTypes.UNIT_IGNORED, listener: (context: UnitRuntimeContext) => void): this;
+	off(type: RuntimeEventTypes.UNIT_IGNORED, listener: (context: UnitRuntimeContext) => void): this;
+
+	fire(type: RuntimeEventTypes.UNIT_DONE, context: UnitRuntimeContext): this;
+	on(type: RuntimeEventTypes.UNIT_DONE, listener: (context: UnitRuntimeContext) => void): this;
+	off(type: RuntimeEventTypes.UNIT_DONE, listener: (context: UnitRuntimeContext) => void): this;
+
+	fire(type: RuntimeEventTypes.UNIT_FAILED, context: UnitRuntimeContext): this;
+	on(type: RuntimeEventTypes.UNIT_FAILED, listener: (context: UnitRuntimeContext) => void): this;
+	off(type: RuntimeEventTypes.UNIT_FAILED, listener: (context: UnitRuntimeContext) => void): this;
+
+	fire(type: RuntimeEventTypes.RUN_ACTION, context: ActionRuntimeContext): this;
+	on(type: RuntimeEventTypes.RUN_ACTION, listener: (context: ActionRuntimeContext) => void): this;
+	off(type: RuntimeEventTypes.RUN_ACTION, listener: (context: ActionRuntimeContext) => void): this;
+
+	fire(type: RuntimeEventTypes.ACTION_DONE, context: ActionRuntimeContext): this;
+	on(type: RuntimeEventTypes.ACTION_DONE, listener: (context: ActionRuntimeContext) => void): this;
+	off(type: RuntimeEventTypes.ACTION_DONE, listener: (context: ActionRuntimeContext) => void): this;
+
+	fire(type: RuntimeEventTypes.ACTION_FAILED, context: ActionRuntimeContext): this;
+	on(type: RuntimeEventTypes.ACTION_FAILED, listener: (context: ActionRuntimeContext) => void): this;
+	off(type: RuntimeEventTypes.ACTION_FAILED, listener: (context: ActionRuntimeContext) => void): this;
 }

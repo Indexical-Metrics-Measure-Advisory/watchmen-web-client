@@ -1,10 +1,11 @@
-import {PipelineRuntimeContext, StageRuntimeContext} from '../types';
+import {PipelineRuntimeContext, StageRuntimeContext, UnitRuntimeContext} from '../types';
 import {connectSimulatorDB} from '../../../../../local-persist/db';
 import dayjs from 'dayjs';
 
 export const createLogWriter = (
 	pipelineContext: PipelineRuntimeContext,
-	context: StageRuntimeContext,
+	stageContext: StageRuntimeContext,
+	context: UnitRuntimeContext,
 	callback?: (message: string) => void
 ) => {
 	return async (message: string) => {
@@ -12,8 +13,10 @@ export const createLogWriter = (
 		await db.logs.add({
 			pipelineId: pipelineContext.pipeline.pipelineId,
 			pipelineRuntimeId: pipelineContext.pipelineRuntimeId!,
-			stageId: context.stage.stageId,
-			stageRuntimeId: context.stageRuntimeId,
+			stageId: stageContext.stage.stageId,
+			stageRuntimeId: stageContext.stageRuntimeId,
+			unitId: context.unit.unitId,
+			unitRuntimeId: context.unitRuntimeId,
 			message,
 			createdAt: dayjs().toDate()
 		});

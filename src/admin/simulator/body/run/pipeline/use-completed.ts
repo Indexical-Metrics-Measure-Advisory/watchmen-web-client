@@ -4,15 +4,17 @@ import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
 import {connectSimulatorDB} from '../../../../../local-persist/db';
 import dayjs from 'dayjs';
-import {useForceUpdate} from '../../../../../basic-widgets/utils';
 
-export const useCompleted = (context: PipelineRuntimeContext) => {
+export const useCompleted = (
+	context: PipelineRuntimeContext,
+	setMessage: (message: string) => void
+) => {
 	const {on, off} = useRuntimeEventBus();
-	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const finishPipeline = async () => {
 			await connectSimulatorDB().pipelines.update(context.pipelineRuntimeId!, {
 				body: context,
+				dataAfter: context.runtimeData,
 				lastModifiedAt: dayjs().toDate()
 			});
 			// TODO run next pipeline
@@ -22,7 +24,7 @@ export const useCompleted = (context: PipelineRuntimeContext) => {
 				return;
 			}
 			context.status = status;
-			forceUpdate();
+			setMessage(`Pipeline finished on status ${status}.`);
 			await finishPipeline();
 		};
 		const onPipelineIgnored = onPipelineCompeted(PipelineRunStatus.IGNORED);
@@ -36,5 +38,5 @@ export const useCompleted = (context: PipelineRuntimeContext) => {
 			off(RuntimeEventTypes.PIPELINE_DONE, onPipelineDone);
 			off(RuntimeEventTypes.PIPELINE_FAILED, onPipelineFailed);
 		};
-	}, [on, off, forceUpdate, context]);
+	}, [on, off, context, setMessage]);
 };

@@ -16,7 +16,7 @@ export const StageRuntime = (props: {
 
 	const [message, setMessage] = useState('');
 	useRunStage(pipelineContext, context);
-	useCompleted(pipelineContext, context);
+	useCompleted(pipelineContext, context, setMessage);
 	useConditionCheck(pipelineContext, context, setMessage);
 	useRunUnits(pipelineContext, context, setMessage);
 

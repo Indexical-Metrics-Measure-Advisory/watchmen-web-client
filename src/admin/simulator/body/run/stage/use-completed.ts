@@ -4,18 +4,18 @@ import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
 import {connectSimulatorDB} from '../../../../../local-persist/db';
 import dayjs from 'dayjs';
-import {useForceUpdate} from '../../../../../basic-widgets/utils';
 
 export const useCompleted = (
 	pipelineContext: PipelineRuntimeContext,
-	context: StageRuntimeContext
+	context: StageRuntimeContext,
+	setMessage: (message: string) => void
 ) => {
 	const {on, off, fire} = useRuntimeEventBus();
-	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const finishStage = async () => {
 			await connectSimulatorDB().stages.update(context.stageRuntimeId!, {
 				body: context,
+				dataAfter: pipelineContext.runtimeData,
 				lastModifiedAt: dayjs().toDate()
 			});
 			if (context.status === StageRunStatus.FAIL) {
@@ -39,19 +39,19 @@ export const useCompleted = (
 				return;
 			}
 			context.status = status;
-			forceUpdate();
+			setMessage(`Stage finished on status ${status}.`);
 			await finishStage();
 		};
-		const onPipelineIgnored = onStageCompleted(StageRunStatus.IGNORED);
-		const onPipelineDone = onStageCompleted(StageRunStatus.DONE);
-		const onPipelineFailed = onStageCompleted(StageRunStatus.FAIL);
-		on(RuntimeEventTypes.STAGE_IGNORED, onPipelineIgnored);
-		on(RuntimeEventTypes.STAGE_DONE, onPipelineDone);
-		on(RuntimeEventTypes.STAGE_FAILED, onPipelineFailed);
+		const onStageIgnored = onStageCompleted(StageRunStatus.IGNORED);
+		const onStageDone = onStageCompleted(StageRunStatus.DONE);
+		const onStageFailed = onStageCompleted(StageRunStatus.FAIL);
+		on(RuntimeEventTypes.STAGE_IGNORED, onStageIgnored);
+		on(RuntimeEventTypes.STAGE_DONE, onStageDone);
+		on(RuntimeEventTypes.STAGE_FAILED, onStageFailed);
 		return () => {
-			off(RuntimeEventTypes.STAGE_IGNORED, onPipelineIgnored);
-			off(RuntimeEventTypes.STAGE_DONE, onPipelineDone);
-			off(RuntimeEventTypes.STAGE_FAILED, onPipelineFailed);
+			off(RuntimeEventTypes.STAGE_IGNORED, onStageIgnored);
+			off(RuntimeEventTypes.STAGE_DONE, onStageDone);
+			off(RuntimeEventTypes.STAGE_FAILED, onStageFailed);
 		};
-	}, [on, off, fire, forceUpdate, pipelineContext, context]);
+	}, [on, off, fire, pipelineContext, context, setMessage]);
 };
