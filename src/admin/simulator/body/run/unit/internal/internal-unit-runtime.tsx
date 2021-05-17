@@ -1,12 +1,16 @@
 import React, {useState} from 'react';
 import {InternalUnitRuntimeContext, PipelineRuntimeContext, StageRuntimeContext, UnitRuntimeContext} from '../../types';
-import {RunTableBodyCell, RunTableBodyRow, UnitElementType} from '../../widgets';
+import {CellButton, RunTableBodyCell, RunTableBodyRow, UnitElementType} from '../../widgets';
 import {InternalUnitRunStatusCell} from './internal-unit-run-status-cell';
 import {getUnitName} from '../../../../utils';
 import {useRunInternalUnit} from './use-run-internal-unit';
 import {useCompleted} from './use-completed';
 import {useConditionCheck} from './use-condition-check';
 import {useRunActions} from './use-run-actions';
+import {isInternalUnitCompleted, isInternalUnitStarted} from '../../utils';
+import {ButtonInk} from '../../../../../../basic-widgets/types';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {ICON_SEARCH} from '../../../../../../basic-widgets/constants';
 
 export const InternalUnitRuntime = (props: {
 	pipelineContext: PipelineRuntimeContext;
@@ -27,8 +31,22 @@ export const InternalUnitRuntime = (props: {
 		<RunTableBodyCell>
 			<InternalUnitRunStatusCell status={context.status}/>
 		</RunTableBodyCell>
-		<RunTableBodyCell>-</RunTableBodyCell>
-		<RunTableBodyCell>-</RunTableBodyCell>
+		<RunTableBodyCell>
+			{isInternalUnitStarted(context)
+				? <CellButton ink={ButtonInk.SUCCESS}>
+					<FontAwesomeIcon icon={ICON_SEARCH}/>
+				</CellButton>
+				: '-'
+			}
+		</RunTableBodyCell>
+		<RunTableBodyCell>
+			{isInternalUnitCompleted(context)
+				? <CellButton ink={ButtonInk.SUCCESS}>
+					<FontAwesomeIcon icon={ICON_SEARCH}/>
+				</CellButton>
+				: '-'
+			}
+		</RunTableBodyCell>
 		<RunTableBodyCell>-</RunTableBodyCell>
 		<RunTableBodyCell>{message}</RunTableBodyCell>
 	</RunTableBodyRow>;

@@ -1,4 +1,4 @@
-import {ActionElementType, RunTableBodyCell, RunTableBodyRow} from '../widgets';
+import {ActionElementType, CellButton, RunTableBodyCell, RunTableBodyRow} from '../widgets';
 import React, {useState} from 'react';
 import {
 	ActionRuntimeContext,
@@ -11,6 +11,10 @@ import {getActionType} from '../../../utils';
 import {ActionRunStatusCell} from './action-run-status-cell';
 import {useRunAction} from './use-run-action';
 import {useCompleted} from './use-completed';
+import {isActionCompleted, isActionStarted} from '../utils';
+import {ButtonInk} from '../../../../../basic-widgets/types';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {ICON_SEARCH} from '../../../../../basic-widgets/constants';
 
 export const ActionRun = (props: {
 	pipelineContext: PipelineRuntimeContext;
@@ -31,8 +35,22 @@ export const ActionRun = (props: {
 			<RunTableBodyCell>
 				<ActionRunStatusCell status={context.status}/>
 			</RunTableBodyCell>
-			<RunTableBodyCell>-</RunTableBodyCell>
-			<RunTableBodyCell>-</RunTableBodyCell>
+			<RunTableBodyCell>
+				{isActionStarted(context)
+					? <CellButton ink={ButtonInk.SUCCESS}>
+						<FontAwesomeIcon icon={ICON_SEARCH}/>
+					</CellButton>
+					: '-'
+				}
+			</RunTableBodyCell>
+			<RunTableBodyCell>
+				{isActionCompleted(context)
+					? <CellButton ink={ButtonInk.SUCCESS}>
+						<FontAwesomeIcon icon={ICON_SEARCH}/>
+					</CellButton>
+					: '-'
+				}
+			</RunTableBodyCell>
 			<RunTableBodyCell>-</RunTableBodyCell>
 			<RunTableBodyCell>{message}</RunTableBodyCell>
 		</RunTableBodyRow>

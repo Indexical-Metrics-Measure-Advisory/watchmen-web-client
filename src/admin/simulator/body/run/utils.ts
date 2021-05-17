@@ -81,3 +81,22 @@ export const buildPipelineRuntimeContext = (
 export const generateRuntimeId = (): string => {
 	return v4();
 };
+
+export const isStageStarted = (context: StageRuntimeContext): boolean => {
+	return context.status != StageRunStatus.READY;
+};
+export const isStageCompleted = (context: StageRuntimeContext) => {
+	return [StageRunStatus.IGNORED, StageRunStatus.DONE, StageRunStatus.FAIL].includes(context.status);
+};
+export const isInternalUnitStarted = (context: InternalUnitRuntimeContext): boolean => {
+	return context.status != UnitRunStatus.READY;
+};
+export const isInternalUnitCompleted = (context: InternalUnitRuntimeContext) => {
+	return [UnitRunStatus.IGNORED, UnitRunStatus.DONE, UnitRunStatus.FAIL].includes(context.status);
+};
+export const isActionStarted = (context: ActionRuntimeContext): boolean => {
+	return context.status != ActionRunStatus.READY;
+};
+export const isActionCompleted = (context: ActionRuntimeContext) => {
+	return [ActionRunStatus.DONE, ActionRunStatus.FAIL].includes(context.status);
+};
