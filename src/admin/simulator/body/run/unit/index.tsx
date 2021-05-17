@@ -1,7 +1,7 @@
 import React from 'react';
 import {PipelineRuntimeContext, StageRuntimeContext, UnitRuntimeContext} from '../types';
 import {UnitRuntime} from './unit-runtime';
-import {ActionsRuntime} from './actions-runtime';
+import {InternalUnitsRuntime} from './internal-units-runtime';
 
 export const UnitRun = (props: {
 	pipelineContext: PipelineRuntimeContext;
@@ -10,10 +10,8 @@ export const UnitRun = (props: {
 }) => {
 	const {pipelineContext, stageContext, context} = props;
 
-	// TODO get loop variable value to check loop is needed or not
-
 	return <>
 		<UnitRuntime pipelineContext={pipelineContext} stageContext={stageContext} context={context}/>
-		<ActionsRuntime pipelineContext={pipelineContext} stageContext={stageContext} context={context}/>
+		<InternalUnitsRuntime pipelineContext={pipelineContext} stageContext={stageContext} context={context}/>
 	</>;
 };

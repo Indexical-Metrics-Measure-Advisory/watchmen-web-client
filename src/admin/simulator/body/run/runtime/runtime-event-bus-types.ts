@@ -1,4 +1,10 @@
-import {ActionRuntimeContext, PipelineRuntimeContext, StageRuntimeContext, UnitRuntimeContext} from '../types';
+import {
+	ActionRuntimeContext,
+	InternalUnitRuntimeContext,
+	PipelineRuntimeContext,
+	StageRuntimeContext,
+	UnitRuntimeContext
+} from '../types';
 
 export enum RuntimeEventTypes {
 	DO_PIPELINE_TRIGGER_TYPE_CHECK = 'do-pipeline-trigger-type-check',
@@ -16,11 +22,18 @@ export enum RuntimeEventTypes {
 	STAGE_FAILED = 'stage-failed',
 
 	RUN_UNIT = 'run-unit',
-	DO_UNIT_CONDITION_CHECK = 'do-unit-condition-check',
-	RUN_ACTIONS = 'run-actions',
+	BUILD_INTERNAL_UNITS = 'build-internal-units',
+	RUN_INTERNAL_UNITS = 'run-internal-units',
 	UNIT_IGNORED = 'unit-ignored',
 	UNIT_DONE = 'unit-done',
 	UNIT_FAILED = 'unit-failed',
+
+	RUN_INTERNAL_UNIT = 'run-internal-unit',
+	DO_INTERNAL_UNIT_CONDITION_CHECK = 'do-internal-unit-condition-check',
+	RUN_ACTIONS = 'run-actions',
+	INTERNAL_UNIT_IGNORED = 'internal-unit-ignored',
+	INTERNAL_UNIT_DONE = 'internal-unit-done',
+	INTERNAL_UNIT_FAILED = 'internal-unit-failed',
 
 	RUN_ACTION = 'run-action',
 	ACTION_DONE = 'action-done',
@@ -80,13 +93,13 @@ export interface RuntimeEventBus {
 	on(type: RuntimeEventTypes.RUN_UNIT, listener: (context: UnitRuntimeContext) => void): this;
 	off(type: RuntimeEventTypes.RUN_UNIT, listener: (context: UnitRuntimeContext) => void): this;
 
-	fire(type: RuntimeEventTypes.DO_UNIT_CONDITION_CHECK, context: UnitRuntimeContext): this;
-	on(type: RuntimeEventTypes.DO_UNIT_CONDITION_CHECK, listener: (context: UnitRuntimeContext) => void): this;
-	off(type: RuntimeEventTypes.DO_UNIT_CONDITION_CHECK, listener: (context: UnitRuntimeContext) => void): this;
+	fire(type: RuntimeEventTypes.BUILD_INTERNAL_UNITS, context: UnitRuntimeContext): this;
+	on(type: RuntimeEventTypes.BUILD_INTERNAL_UNITS, listener: (context: UnitRuntimeContext) => void): this;
+	off(type: RuntimeEventTypes.BUILD_INTERNAL_UNITS, listener: (context: UnitRuntimeContext) => void): this;
 
-	fire(type: RuntimeEventTypes.RUN_ACTIONS, context: UnitRuntimeContext): this;
-	on(type: RuntimeEventTypes.RUN_ACTIONS, listener: (context: UnitRuntimeContext) => void): this;
-	off(type: RuntimeEventTypes.RUN_ACTIONS, listener: (context: UnitRuntimeContext) => void): this;
+	fire(type: RuntimeEventTypes.RUN_INTERNAL_UNITS, context: UnitRuntimeContext): this;
+	on(type: RuntimeEventTypes.RUN_INTERNAL_UNITS, listener: (context: UnitRuntimeContext) => void): this;
+	off(type: RuntimeEventTypes.RUN_INTERNAL_UNITS, listener: (context: UnitRuntimeContext) => void): this;
 
 	fire(type: RuntimeEventTypes.UNIT_IGNORED, context: UnitRuntimeContext): this;
 	on(type: RuntimeEventTypes.UNIT_IGNORED, listener: (context: UnitRuntimeContext) => void): this;
@@ -99,6 +112,30 @@ export interface RuntimeEventBus {
 	fire(type: RuntimeEventTypes.UNIT_FAILED, context: UnitRuntimeContext): this;
 	on(type: RuntimeEventTypes.UNIT_FAILED, listener: (context: UnitRuntimeContext) => void): this;
 	off(type: RuntimeEventTypes.UNIT_FAILED, listener: (context: UnitRuntimeContext) => void): this;
+
+	fire(type: RuntimeEventTypes.RUN_INTERNAL_UNIT, context: InternalUnitRuntimeContext): this;
+	on(type: RuntimeEventTypes.RUN_INTERNAL_UNIT, listener: (context: InternalUnitRuntimeContext) => void): this;
+	off(type: RuntimeEventTypes.RUN_INTERNAL_UNIT, listener: (context: InternalUnitRuntimeContext) => void): this;
+
+	fire(type: RuntimeEventTypes.DO_INTERNAL_UNIT_CONDITION_CHECK, context: InternalUnitRuntimeContext): this;
+	on(type: RuntimeEventTypes.DO_INTERNAL_UNIT_CONDITION_CHECK, listener: (context: InternalUnitRuntimeContext) => void): this;
+	off(type: RuntimeEventTypes.DO_INTERNAL_UNIT_CONDITION_CHECK, listener: (context: InternalUnitRuntimeContext) => void): this;
+
+	fire(type: RuntimeEventTypes.RUN_ACTIONS, context: InternalUnitRuntimeContext): this;
+	on(type: RuntimeEventTypes.RUN_ACTIONS, listener: (context: InternalUnitRuntimeContext) => void): this;
+	off(type: RuntimeEventTypes.RUN_ACTIONS, listener: (context: InternalUnitRuntimeContext) => void): this;
+
+	fire(type: RuntimeEventTypes.INTERNAL_UNIT_IGNORED, context: InternalUnitRuntimeContext): this;
+	on(type: RuntimeEventTypes.INTERNAL_UNIT_IGNORED, listener: (context: InternalUnitRuntimeContext) => void): this;
+	off(type: RuntimeEventTypes.INTERNAL_UNIT_IGNORED, listener: (context: InternalUnitRuntimeContext) => void): this;
+
+	fire(type: RuntimeEventTypes.INTERNAL_UNIT_DONE, context: InternalUnitRuntimeContext): this;
+	on(type: RuntimeEventTypes.INTERNAL_UNIT_DONE, listener: (context: InternalUnitRuntimeContext) => void): this;
+	off(type: RuntimeEventTypes.INTERNAL_UNIT_DONE, listener: (context: InternalUnitRuntimeContext) => void): this;
+
+	fire(type: RuntimeEventTypes.INTERNAL_UNIT_FAILED, context: InternalUnitRuntimeContext): this;
+	on(type: RuntimeEventTypes.INTERNAL_UNIT_FAILED, listener: (context: InternalUnitRuntimeContext) => void): this;
+	off(type: RuntimeEventTypes.INTERNAL_UNIT_FAILED, listener: (context: InternalUnitRuntimeContext) => void): this;
 
 	fire(type: RuntimeEventTypes.RUN_ACTION, context: ActionRuntimeContext): this;
 	on(type: RuntimeEventTypes.RUN_ACTION, listener: (context: ActionRuntimeContext) => void): this;

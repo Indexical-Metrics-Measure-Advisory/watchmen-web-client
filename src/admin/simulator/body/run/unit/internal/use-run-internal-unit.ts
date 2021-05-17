@@ -1,31 +1,30 @@
-import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
+import {useRuntimeEventBus} from '../../runtime/runtime-event-bus';
 import {useEffect} from 'react';
 import {
-	ActionRunStatus,
-	ActionRuntimeContext, InternalUnitRuntimeContext,
+	InternalUnitRuntimeContext,
 	PipelineRuntimeContext,
 	StageRuntimeContext,
+	UnitRunStatus,
 	UnitRuntimeContext
-} from '../types';
-import {generateRuntimeId} from '../utils';
-import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
-import {useForceUpdate} from '../../../../../basic-widgets/utils';
-import {connectSimulatorDB} from '../../../../../local-persist/db';
-import dayjs from 'dayjs';
+} from '../../types';
+import {useForceUpdate} from '../../../../../../basic-widgets/utils';
 import {buildContextBody, createLogWriter} from './utils';
+import {connectSimulatorDB} from '../../../../../../local-persist/db';
+import dayjs from 'dayjs';
+import {generateRuntimeId} from '../../utils';
+import {RuntimeEventTypes} from '../../runtime/runtime-event-bus-types';
 
-export const useRunAction = (
+export const useRunInternalUnit = (
 	pipelineContext: PipelineRuntimeContext,
 	stageContext: StageRuntimeContext,
 	unitContext: UnitRuntimeContext,
-	internalUnitContext: InternalUnitRuntimeContext,
-	context: ActionRuntimeContext
+	context: InternalUnitRuntimeContext
 ) => {
 	const {on, off, fire} = useRuntimeEventBus();
 	const forceUpdate = useForceUpdate();
 
 	useEffect(() => {
-		const onRunAction = async (c: ActionRuntimeContext) => {
+		const onRunUnit = async (c: InternalUnitRuntimeContext) => {
 			if (c !== context) {
 				return;
 			}
@@ -33,30 +32,29 @@ export const useRunAction = (
 			context.pipelineRuntimeId = pipelineContext.pipelineRuntimeId;
 			context.stageRuntimeId = stageContext.stageRuntimeId!;
 			context.unitRuntimeId = unitContext.unitRuntimeId!;
-			context.actionRuntimeId = generateRuntimeId();
-			await (createLogWriter(pipelineContext, stageContext, unitContext, context)('Start action'));
-			context.status = ActionRunStatus.RUNNING;
-			await connectSimulatorDB().actions.add({
-				actionId: context.action.actionId,
-				actionRuntimeId: context.actionRuntimeId!,
-				internalUnitRuntimeId: internalUnitContext.internalUnitRuntimeId!,
+			context.internalUnitRuntimeId = generateRuntimeId();
+			await (createLogWriter(pipelineContext, stageContext, unitContext, context)('Start unit'));
+			await connectSimulatorDB().internalUnits.add({
+				internalUnitRuntimeId: context.internalUnitRuntimeId,
 				unitId: unitContext.unit.unitId,
 				unitRuntimeId: unitContext.unitRuntimeId!,
 				stageId: stageContext.stage.stageId,
 				stageRuntimeId: stageContext.stageRuntimeId!,
 				pipelineId: pipelineContext.pipeline.pipelineId,
 				pipelineRuntimeId: pipelineContext.pipelineRuntimeId!,
-				actionIndex: context.actionIndex,
+				internalUnitIndex: context.internalUnitIndex,
 				status: context.status,
 				context: buildContextBody(context),
 				dataBefore: pipelineContext.runtimeData,
 				lastModifiedAt: dayjs().toDate()
 			});
+			context.status = UnitRunStatus.RUNNING;
 			forceUpdate();
+			fire(RuntimeEventTypes.DO_INTERNAL_UNIT_CONDITION_CHECK, context);
 		};
-		on(RuntimeEventTypes.RUN_ACTION, onRunAction);
+		on(RuntimeEventTypes.RUN_INTERNAL_UNIT, onRunUnit);
 		return () => {
-			off(RuntimeEventTypes.RUN_ACTION, onRunAction);
+			off(RuntimeEventTypes.RUN_INTERNAL_UNIT, onRunUnit);
 		};
 	}, [on, off, fire, forceUpdate, pipelineContext, stageContext, unitContext, context]);
 };

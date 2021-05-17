@@ -42,7 +42,7 @@ export const useRunUnit = (
 			});
 			context.status = UnitRunStatus.RUNNING;
 			forceUpdate();
-			fire(RuntimeEventTypes.DO_UNIT_CONDITION_CHECK, context);
+			fire(RuntimeEventTypes.BUILD_INTERNAL_UNITS, context);
 		};
 		on(RuntimeEventTypes.RUN_UNIT, onRunUnit);
 		return () => {

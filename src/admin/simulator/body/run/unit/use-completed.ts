@@ -9,12 +9,11 @@ import {buildContextBody, createLogWriter} from './utils';
 export const useCompleted = (
 	pipelineContext: PipelineRuntimeContext,
 	stageContext: StageRuntimeContext,
-	context: UnitRuntimeContext,
-	setMessage: (message: string) => void
+	context: UnitRuntimeContext
 ) => {
 	const {on, off, fire} = useRuntimeEventBus();
 	useEffect(() => {
-		const logWrite = createLogWriter(pipelineContext, stageContext, context, setMessage);
+		const logWrite = createLogWriter(pipelineContext, stageContext, context);
 		const finishUnit = async () => {
 			await connectSimulatorDB().units.update(context.unitRuntimeId!, {
 				status: context.status,
@@ -57,5 +56,5 @@ export const useCompleted = (
 			off(RuntimeEventTypes.UNIT_DONE, onUnitDone);
 			off(RuntimeEventTypes.UNIT_FAILED, onUnitFailed);
 		};
-	}, [on, off, fire, pipelineContext, stageContext, context, setMessage]);
+	}, [on, off, fire, pipelineContext, stageContext, context]);
 };

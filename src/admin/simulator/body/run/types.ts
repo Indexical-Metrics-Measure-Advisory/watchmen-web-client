@@ -44,6 +44,8 @@ export interface ChangedDataRow {
 	after: DataRow;
 }
 
+export type InMemoryVariables = { [key in string]: any };
+
 export interface PipelineRuntimeContext {
 	pipeline: Pipeline;
 	topic: Topic;
@@ -63,7 +65,7 @@ export interface PipelineRuntimeContext {
 	runtimeData: TopicsData;
 	// changed data rows
 	changedData: Array<ChangedDataRow>;
-	variables: { [key in string]: any };
+	variables: InMemoryVariables;
 }
 
 export interface StageRuntimeContext {
@@ -80,11 +82,26 @@ export interface UnitRuntimeContext {
 	unitIndex: number;
 	unit: PipelineStageUnit;
 	status: UnitRunStatus;
-	actions: Array<ActionRuntimeContext>;
+	internals: Array<InternalUnitRuntimeContext>;
 
 	pipelineRuntimeId?: string;
 	stageRuntimeId?: string;
 	unitRuntimeId?: string;
+}
+
+export interface InternalUnitRuntimeContext {
+	internalUnitIndex: number;
+	unit: PipelineStageUnit;
+	status: UnitRunStatus;
+	actions: Array<ActionRuntimeContext>;
+
+	// since there might be a loop, delegate variables in pipeline
+	variables: InMemoryVariables;
+
+	pipelineRuntimeId?: string;
+	stageRuntimeId?: string;
+	unitRuntimeId?: string;
+	internalUnitRuntimeId?: string;
 }
 
 export interface ActionRuntimeContext {

@@ -2,6 +2,7 @@ import {useEffect} from 'react';
 import {
 	ActionRunStatus,
 	ActionRuntimeContext,
+	InternalUnitRuntimeContext,
 	PipelineRuntimeContext,
 	StageRuntimeContext,
 	UnitRuntimeContext
@@ -16,6 +17,7 @@ export const useCompleted = (
 	pipelineContext: PipelineRuntimeContext,
 	stageContext: StageRuntimeContext,
 	unitContext: UnitRuntimeContext,
+	internalUnitContext: InternalUnitRuntimeContext,
 	context: ActionRuntimeContext,
 	setMessage: (message: string) => void
 ) => {
@@ -31,14 +33,14 @@ export const useCompleted = (
 			});
 			if (context.status === ActionRunStatus.FAIL) {
 				// unit failed, break;
-				fire(RuntimeEventTypes.UNIT_FAILED, unitContext);
+				fire(RuntimeEventTypes.INTERNAL_UNIT_FAILED, internalUnitContext);
 			} else {
 				// try to run next stage
-				const actions = unitContext.actions;
+				const actions = internalUnitContext.actions;
 				const index = actions.indexOf(context);
 				if (index === actions.length - 1) {
 					// last finished
-					fire(RuntimeEventTypes.UNIT_DONE, unitContext);
+					fire(RuntimeEventTypes.INTERNAL_UNIT_DONE, internalUnitContext);
 				} else {
 					// run next stage
 					fire(RuntimeEventTypes.RUN_ACTION, actions[index + 1]);
@@ -61,5 +63,5 @@ export const useCompleted = (
 			off(RuntimeEventTypes.ACTION_DONE, onActionDone);
 			off(RuntimeEventTypes.ACTION_FAILED, onActionFailed);
 		};
-	}, [on, off, fire, pipelineContext, stageContext, unitContext, context, setMessage]);
+	}, [on, off, fire, pipelineContext, stageContext, unitContext, internalUnitContext, context, setMessage]);
 };
