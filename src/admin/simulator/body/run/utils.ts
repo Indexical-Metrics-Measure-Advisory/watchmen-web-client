@@ -82,6 +82,9 @@ export const generateRuntimeId = (): string => {
 	return v4();
 };
 
+export const isPipelineCompleted = (context: PipelineRuntimeContext): boolean => {
+	return [PipelineRunStatus.IGNORED, PipelineRunStatus.DONE, PipelineRunStatus.FAIL].includes(context.status);
+};
 export const isStageStarted = (context: StageRuntimeContext): boolean => {
 	return context.status != StageRunStatus.READY;
 };

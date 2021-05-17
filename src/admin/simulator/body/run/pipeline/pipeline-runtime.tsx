@@ -8,7 +8,7 @@ import React, {useState} from 'react';
 import {TopicsData} from '../../state/types';
 import {PipelineRunStatusCell} from './pipeline-run-status-cell';
 import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
-import {generateRuntimeId} from '../utils';
+import {generateRuntimeId, isPipelineCompleted} from '../utils';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
 import {connectSimulatorDB} from '../../../../../local-persist/db';
 import dayjs from 'dayjs';
@@ -74,7 +74,14 @@ export const PipelineRuntime = (props: { context: PipelineRuntimeContext }) => {
 				<FontAwesomeIcon icon={ICON_SEARCH}/>
 			</CellButton>
 		</RunTableBodyCell>
-		<RunTableBodyCell>-</RunTableBodyCell>
+		<RunTableBodyCell>
+			{isPipelineCompleted(context)
+				? <CellButton ink={ButtonInk.SUCCESS}>
+					<FontAwesomeIcon icon={ICON_SEARCH}/>
+				</CellButton>
+				: '-'
+			}
+		</RunTableBodyCell>
 		<RunTableBodyCell/>
 		<RunTableBodyCell>{message}</RunTableBodyCell>
 	</RunTablePipelineRow>;
