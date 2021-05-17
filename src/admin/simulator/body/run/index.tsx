@@ -9,6 +9,7 @@ import {SimulatorEventTypes} from '../../simulator-event-bus-types';
 import {useSimulatorEventBus} from '../../simulator-event-bus';
 import {getPipelineName} from '../../utils';
 import {Runs} from './runs';
+import {AllTopics} from './types';
 
 interface State {
 	step: ActiveStep;
@@ -40,7 +41,7 @@ export const Run = (props: {
 	const topicsMap = topics.reduce((map, topic) => {
 		map[topic.topicId] = topic;
 		return map;
-	}, {} as { [key in string]: Topic });
+	}, {} as AllTopics);
 	let runPipelines: Array<Pipeline> = computeRunPipelines(allPipelines, topic);
 
 	return <>

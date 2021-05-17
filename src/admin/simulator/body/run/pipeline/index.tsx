@@ -1,14 +1,13 @@
 import React from 'react';
-import {PipelineRuntimeContext} from '../types';
+import {AllTopics, PipelineRuntimeContext} from '../types';
 import {RuntimeEventBusProvider} from '../runtime/runtime-event-bus';
 import {PipelineRuntime} from './pipeline-runtime';
 import {StagesRuntime} from './stages-runtime';
-import {Topic} from '../../../../../services/tuples/topic-types';
 import {Pipeline} from '../../../../../services/tuples/pipeline-types';
 
 export const PipelineRun = (props: {
 	context: PipelineRuntimeContext;
-	topics: { [key in string]: Topic };
+	topics: AllTopics;
 	pipelines: Array<Pipeline>;
 }) => {
 	const {context} = props;

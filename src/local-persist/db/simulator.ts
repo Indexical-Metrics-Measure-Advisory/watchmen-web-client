@@ -85,6 +85,7 @@ interface RuntimeLogsTable {
 	pipelineRuntimeId: string;
 	pipelineId: string;
 	message: string;
+	error?: string;
 	createdAt: Date;
 }
 

@@ -3,6 +3,7 @@ import {useRuntimeEventBus} from '../../runtime/runtime-event-bus';
 import {useEffect} from 'react';
 import {RuntimeEventTypes} from '../../runtime/runtime-event-bus-types';
 import {createLogWriter} from './utils';
+import {checkInternalUnitCondition} from '../../compute/condition-check';
 
 export const useConditionCheck = (
 	pipelineContext: PipelineRuntimeContext,
@@ -21,12 +22,24 @@ export const useConditionCheck = (
 			}
 
 			const {unit} = context;
-			if (!unit.on) {
-				await logWrite(`No condition declared in unit, pass condition check.`);
+			if (!unit.conditional || !unit.on) {
+				await logWrite('No condition declared in unit, pass condition check.');
 				fire(RuntimeEventTypes.RUN_ACTIONS, context);
 			} else {
-				// TODO compute unit condition
-				fire(RuntimeEventTypes.INTERNAL_UNIT_IGNORED, context);
+				try {
+					const pass = checkInternalUnitCondition(pipelineContext, context);
+					if (!pass) {
+						// compute unit condition
+						await logWrite('Failed on condition check.');
+						fire(RuntimeEventTypes.INTERNAL_UNIT_IGNORED, context);
+					} else {
+						await logWrite('Pass condition check.');
+						fire(RuntimeEventTypes.RUN_ACTIONS, context);
+					}
+				} catch (e) {
+					await logWrite('Error occurs on condition check.', e);
+					fire(RuntimeEventTypes.INTERNAL_UNIT_FAILED, context);
+				}
 			}
 		};
 		on(RuntimeEventTypes.DO_INTERNAL_UNIT_CONDITION_CHECK, onConditionCheck);

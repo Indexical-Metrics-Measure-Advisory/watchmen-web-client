@@ -3,6 +3,7 @@ import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
 import {useEffect} from 'react';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
 import {createLogWriter} from './utils';
+import {checkStageCondition} from '../compute/condition-check';
 
 export const useConditionCheck = (
 	pipelineContext: PipelineRuntimeContext,
@@ -19,12 +20,24 @@ export const useConditionCheck = (
 			}
 
 			const {stage} = context;
-			if (!stage.on) {
-				await logWrite(`No condition declared in stage, pass condition check.`);
+			if (!stage.conditional || !stage.on) {
+				await logWrite('No condition declared in stage, pass condition check.');
 				fire(RuntimeEventTypes.RUN_UNITS, context);
 			} else {
-				// TODO compute stage condition
-				fire(RuntimeEventTypes.STAGE_IGNORED, context);
+				try {
+					const pass = checkStageCondition(pipelineContext, context);
+					if (!pass) {
+						// compute stage condition
+						await logWrite('Failed on condition check.');
+						fire(RuntimeEventTypes.STAGE_IGNORED, context);
+					} else {
+						await logWrite('Pass condition check.');
+						fire(RuntimeEventTypes.RUN_UNITS, context);
+					}
+				} catch (e) {
+					await logWrite('Error occurs on condition check.', e);
+					fire(RuntimeEventTypes.STAGE_FAILED, context);
+				}
 			}
 		};
 		on(RuntimeEventTypes.DO_STAGE_CONDITION_CHECK, onConditionCheck);

@@ -5,9 +5,9 @@ import dayjs from 'dayjs';
 export const createLogWriter = (
 	pipelineContext: PipelineRuntimeContext,
 	context: StageRuntimeContext,
-	callback?: (message: string) => void
+	callback?: (message: string, error?: Error) => void
 ) => {
-	return async (message: string) => {
+	return async (message: string, error?: Error) => {
 		const db = connectSimulatorDB();
 		await db.logs.add({
 			pipelineId: pipelineContext.pipeline.pipelineId,
@@ -15,6 +15,7 @@ export const createLogWriter = (
 			stageId: context.stage.stageId,
 			stageRuntimeId: context.stageRuntimeId,
 			message,
+			error: error ? error.message : error,
 			createdAt: dayjs().toDate()
 		});
 

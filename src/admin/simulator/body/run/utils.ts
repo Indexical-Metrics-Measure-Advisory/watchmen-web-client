@@ -4,6 +4,7 @@ import {DataRow} from '../../simulator-event-bus-types';
 import {
 	ActionRunStatus,
 	ActionRuntimeContext,
+	AllTopics,
 	InMemoryVariables,
 	InternalUnitRuntimeContext,
 	PipelineRunStatus,
@@ -55,13 +56,15 @@ export const buildStageRuntimeContext = (stage: PipelineStage, index: number): S
 		units: stage.units.map((unit, unitIndex) => buildUnitRuntimeContext(unit, unitIndex))
 	};
 };
-export const buildPipelineRuntimeContext = (
+export const buildPipelineRuntimeContext = (options: {
 	pipeline: Pipeline,
 	topic: Topic,
 	triggerData: DataRow,
 	existsData: Array<DataRow>,
-	allData: TopicsData
-): PipelineRuntimeContext => {
+	allData: TopicsData,
+	allTopics: AllTopics
+}): PipelineRuntimeContext => {
+	const {pipeline, topic, triggerData, existsData, allData, allTopics} = options;
 	return {
 		pipeline,
 		topic,
@@ -71,6 +74,7 @@ export const buildPipelineRuntimeContext = (
 		stages: pipeline.stages.map((stage, stageIndex) => buildStageRuntimeContext(stage, stageIndex)),
 
 		allData,
+		allTopics,
 
 		runtimeData: {},
 		changedData: [],
@@ -86,19 +90,19 @@ export const isPipelineCompleted = (context: PipelineRuntimeContext): boolean =>
 	return [PipelineRunStatus.IGNORED, PipelineRunStatus.DONE, PipelineRunStatus.FAIL].includes(context.status);
 };
 export const isStageStarted = (context: StageRuntimeContext): boolean => {
-	return context.status != StageRunStatus.READY;
+	return context.status !== StageRunStatus.READY;
 };
 export const isStageCompleted = (context: StageRuntimeContext) => {
 	return [StageRunStatus.IGNORED, StageRunStatus.DONE, StageRunStatus.FAIL].includes(context.status);
 };
 export const isInternalUnitStarted = (context: InternalUnitRuntimeContext): boolean => {
-	return context.status != UnitRunStatus.READY;
+	return context.status !== UnitRunStatus.READY;
 };
 export const isInternalUnitCompleted = (context: InternalUnitRuntimeContext) => {
 	return [UnitRunStatus.IGNORED, UnitRunStatus.DONE, UnitRunStatus.FAIL].includes(context.status);
 };
 export const isActionStarted = (context: ActionRuntimeContext): boolean => {
-	return context.status != ActionRunStatus.READY;
+	return context.status !== ActionRunStatus.READY;
 };
 export const isActionCompleted = (context: ActionRuntimeContext) => {
 	return [ActionRunStatus.DONE, ActionRunStatus.FAIL].includes(context.status);

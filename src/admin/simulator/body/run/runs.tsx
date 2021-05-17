@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
-import {Topic} from '../../../../services/tuples/topic-types';
 import {TopicsData} from '../state/types';
-import {PipelineRunStatus, PipelineRuntimeContext} from './types';
+import {AllTopics, PipelineRunStatus, PipelineRuntimeContext} from './types';
 import {PipelineRun} from './pipeline';
 import {buildPipelineRuntimeContext} from './utils';
 import {DataRow} from '../../simulator-event-bus-types';
@@ -17,7 +16,7 @@ export const Runs = (props: {
 	runPipelines: Array<Pipeline>;
 	// available pipelines
 	allPipelines: Array<Pipeline>;
-	topics: { [key in string]: Topic };
+	topics: AllTopics;
 	data: TopicsData;
 }) => {
 	const {runPipelines, allPipelines, topics, data} = props;
@@ -34,7 +33,14 @@ export const Runs = (props: {
 			runs: triggerDataRows.map(triggerData => {
 				return runPipelines.map(pipeline => {
 					// exists data doesn't include the trigger data if trigger data is not inserted by previous pipelines
-					const context = buildPipelineRuntimeContext(pipeline, topics[pipeline.topicId]!, triggerData, [...existsData], data);
+					const context = buildPipelineRuntimeContext({
+						pipeline,
+						topic: topics[pipeline.topicId]!,
+						triggerData,
+						existsData: [...existsData],
+						allData: data,
+						allTopics: topics
+					});
 					// trigger data will be inserted into this topic
 					if (!existsData.includes(triggerData)) {
 						existsData.push(triggerData);

@@ -44,6 +44,7 @@ export interface ChangedDataRow {
 	after: DataRow;
 }
 
+export type AllTopics = { [key in string]: Topic };
 export type InMemoryVariables = { [key in string]: any };
 
 export interface PipelineRuntimeContext {
@@ -60,6 +61,7 @@ export interface PipelineRuntimeContext {
 
 	/** all data declared in prepare data panel */
 	allData: TopicsData;
+	allTopics: AllTopics;
 
 	pipelineRuntimeId?: string;
 	runtimeData: TopicsData;

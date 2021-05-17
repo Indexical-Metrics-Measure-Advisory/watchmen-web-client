@@ -1,0 +1,210 @@
+import {
+	ParameterCondition,
+	ParameterExpression,
+	ParameterExpressionOperator,
+	ParameterJoint,
+	ParameterJointType
+} from '../../../../../services/tuples/factor-calculator-types';
+import {InternalUnitRuntimeContext, PipelineRuntimeContext} from '../types';
+import {isExpressionParameter, isJointParameter} from '../../../../../services/tuples/factor-calculator-utils';
+import dayjs, {Dayjs} from 'dayjs';
+import {computeParameter} from './parameter-compute';
+
+type CompareDate = (date1: Dayjs, date2: Dayjs) => boolean;
+
+export const computeJoint = (
+	joint: ParameterJoint,
+	pipelineContext: PipelineRuntimeContext,
+	internalUnitContext: InternalUnitRuntimeContext | null = null
+): boolean => {
+	if (joint.jointType === ParameterJointType.OR) {
+		return joint.filters.some(condition => {
+			return computeCondition(condition, pipelineContext, internalUnitContext);
+		});
+	} else if (joint.jointType === ParameterJointType.AND) {
+		return joint.filters.every((condition) => {
+			return computeCondition(condition, pipelineContext, internalUnitContext);
+		});
+	} else {
+		throw new Error(`Unsupported joint type[${joint.jointType}].`);
+	}
+};
+
+const compareWhenOneDateAtLeast = (
+	value1: any,
+	value2: any,
+	compareTillDay: CompareDate,
+	compareTillSecond: CompareDate,
+	incompare: () => boolean
+): boolean => {
+	const str1 = value1.toString().split('').map((c: string) => ' -/:.TZ'.includes(c) ? '' : c).join('');
+	const str2 = value2.toString().split('').map((c: string) => ' -/:.TZ'.includes(c) ? '' : c).join('');
+	if (str1.length === 8) {
+		// str1 must be a date of YYYYMMDD
+		if (str2.length < 8) {
+			// anyway, str2 cannot be a date
+			return false;
+		} else {
+			const date1 = dayjs(str1);
+			const date2 = dayjs(str2);
+			return date1.isValid() && date2.isValid() && compareTillDay(date1, date2);
+		}
+	} else if (str1.length < 14) {
+		// invalid date format
+		return incompare();
+	} else if (str2.length === 8) {
+		// str2 must be a date of YYYYMMDD
+		const date1 = dayjs(str1);
+		const date2 = dayjs(str2);
+		return date1.isValid() && date2.isValid() && compareTillDay(date1, date2);
+	} else if (str2.length < 14) {
+		// invalid date format
+		return incompare();
+	} else {
+		const date1 = dayjs(str1);
+		const date2 = dayjs(str2);
+		return date1.isValid() && date2.isValid() && compareTillSecond(date1, date2);
+	}
+};
+
+const eq = (value1?: any, value2?: any): boolean => {
+	if (value1 == null) {
+		return value2 == null;
+	} else if (value2 == null) {
+		return false;
+		// eslint-disable-next-line
+	} else if (value1 == value2) {
+		return true;
+		// eslint-disable-next-line
+	} else if (`${value1}` == `${value2}`) {
+		return true;
+	} else {
+		return compareWhenOneDateAtLeast(value1, value2, (date1: Dayjs, date2: Dayjs) => {
+			return date1.isSame(date2, 'day');
+		}, (date1: Dayjs, date2: Dayjs) => {
+			return date1.isSame(date2, 'second');
+		}, () => false);
+	}
+};
+
+const empty = (value?: any): boolean => {
+	return value == null || value.toString().trim().length === 0;
+};
+
+const less = (value1?: any, value2?: any): boolean => {
+	// eslint-disable-next-line
+	if (value1 == null) {
+		return value2 != null;
+		// eslint-disable-next-line
+	} else if (value2 == null) {
+		return false;
+	} else if (!Number.isNaN(value1.toString()) && !Number.isNaN(value2.toString())) {
+		return value1 < value2;
+	} else {
+		return compareWhenOneDateAtLeast(value1, value2, (date1: Dayjs, date2: Dayjs) => {
+			return date1.isBefore(date2, 'day');
+		}, (date1: Dayjs, date2: Dayjs) => {
+			return date1.isBefore(date2, 'second');
+		}, () => {
+			throw new Error(`More or less than operator is only compatible for comparable or null values, currently are [${value1}] and [${value2}].`);
+		});
+	}
+};
+
+const more = (value1?: any, value2?: any): boolean => {
+	// eslint-disable-next-line
+	if (value2 == null) {
+		return value1 != null;
+		// eslint-disable-next-line
+	} else if (value1 == null) {
+		return false;
+	} else if (!Number.isNaN(value1.toString()) && !Number.isNaN(value2.toString())) {
+		return value1 > value2;
+	} else {
+		return compareWhenOneDateAtLeast(value1, value2, (date1: Dayjs, date2: Dayjs) => {
+			return date1.isAfter(date2, 'day');
+		}, (date1: Dayjs, date2: Dayjs) => {
+			return date1.isAfter(date2, 'second');
+		}, () => {
+			throw new Error(`More or less than operator is only compatible for comparable or null values, currently are [${value1}] and [${value2}].`);
+		});
+	}
+};
+
+const exists = (value?: any, values?: any): boolean => {
+	if (Array.isArray(values)) {
+		return values.some(item => eq(value, item));
+	} else {
+		return eq(value, values);
+	}
+};
+
+const notExists = (value?: any, values?: any): boolean => {
+	if (Array.isArray(values)) {
+		return values.every(item => !eq(value, item));
+	} else {
+		return !eq(value, values);
+	}
+};
+
+const computeExpressionParts = (
+	expression: ParameterExpression,
+	pipelineContext: PipelineRuntimeContext,
+	internalUnitContext: InternalUnitRuntimeContext | null = null
+) => {
+	return {
+		left: () => computeParameter(expression.left, pipelineContext, internalUnitContext),
+		right: () => {
+			if (!expression.right) {
+				throw new Error(`Right part of expression[${JSON.stringify(expression)}] doesn't exists.`);
+			}
+			return computeParameter(expression.right, pipelineContext, internalUnitContext);
+		}
+	};
+};
+
+export const computeExpression = (
+	expression: ParameterExpression,
+	pipelineContext: PipelineRuntimeContext,
+	internalUnitContext: InternalUnitRuntimeContext | null = null
+): boolean => {
+	const {left, right} = computeExpressionParts(expression, pipelineContext, internalUnitContext);
+	switch (expression.operator) {
+		case ParameterExpressionOperator.EQUALS:
+			return eq(left(), right());
+		case ParameterExpressionOperator.NOT_EQUALS :
+			return !eq(left(), right());
+		case ParameterExpressionOperator.EMPTY :
+			return empty(left());
+		case ParameterExpressionOperator.NOT_EMPTY :
+			return !empty(left());
+		case ParameterExpressionOperator.LESS :
+			return less(left(), right());
+		case ParameterExpressionOperator.LESS_EQUALS :
+			return !more(left(), right());
+		case ParameterExpressionOperator.MORE :
+			return more(left(), right());
+		case ParameterExpressionOperator.MORE_EQUALS :
+			return !less(left(), right());
+		case ParameterExpressionOperator.IN :
+			return exists(left(), right());
+		case ParameterExpressionOperator.NOT_IN :
+			return notExists(left(), right());
+		default:
+			throw new Error(`Unsupported expression operator[${expression.operator}].`);
+	}
+};
+
+export const computeCondition = (
+	condition: ParameterCondition,
+	pipelineContext: PipelineRuntimeContext,
+	internalUnitContext: InternalUnitRuntimeContext | null = null
+): boolean => {
+	if (isExpressionParameter(condition)) {
+		return computeExpression(condition, pipelineContext, internalUnitContext);
+	} else if (isJointParameter(condition)) {
+		return computeJoint(condition, pipelineContext, internalUnitContext);
+	} else {
+		throw new Error(`Unsupported condition[${JSON.stringify(condition)}].`);
+	}
+};
