@@ -2,8 +2,8 @@ import {PipelineRuntimeContext, StageRuntimeContext, UnitRuntimeContext} from '.
 import React, {useEffect, useState} from 'react';
 import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
-import {InternalUnitRuntime} from './internal/internal-unit-runtime';
 import {buildInternalUnitRuntimeContext} from '../utils';
+import {InternalUnitRun} from './internal';
 
 export const InternalUnitsRuntime = (props: {
 	pipelineContext: PipelineRuntimeContext;
@@ -55,10 +55,10 @@ export const InternalUnitsRuntime = (props: {
 	}, [fire, built, unitContext]);
 
 	return <>
-		{unitContext.internals.map(context => {
-			return <InternalUnitRuntime pipelineContext={pipelineContext} stageContext={stageContext}
-			                            unitContext={unitContext} context={context}
-			                            key={context.internalUnitRuntimeId!}/>;
+		{unitContext.internals.map((context, index) => {
+			return <InternalUnitRun pipelineContext={pipelineContext} stageContext={stageContext}
+			                        unitContext={unitContext} context={context}
+			                        key={`${context.unit.unitId}-${index}`}/>;
 		})}
 	</>;
 };
