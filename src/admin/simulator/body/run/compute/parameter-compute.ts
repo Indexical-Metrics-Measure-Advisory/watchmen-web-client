@@ -22,6 +22,7 @@ import {
 import {ParameterShouldBe} from './types';
 import dayjs from 'dayjs';
 import {computeJoint} from './condition-compute';
+import {DataRow} from '../../../simulator-event-bus-types';
 
 const HALF_YEAR_FIRST: number = 1;
 const HALF_YEAR_SECOND: number = 2;
@@ -31,25 +32,42 @@ const QUARTER_SECOND: number = 2;
 const QUARTER_THIRD: number = 3;
 const QUARTER_FOURTH: number = 4;
 
+/**
+ * if there is alternative trigger data passed,
+ * which means data can be retrieved from another topic besides the topic which triggered this pipeline.
+ *
+ * note, the passed alternative trigger data must be same as the topic which is declared in this topic factor parameter.
+ * program will not check this.
+ *
+ * @param options
+ */
 const computeTopicFactor = (options: {
 	parameter: TopicFactorParameter,
 	pipelineContext: PipelineRuntimeContext,
-	shouldBe: ParameterShouldBe
+	shouldBe: ParameterShouldBe,
+	/** data which can bed used to find **/
+	alternativeTriggerData: DataRow | null
 }): any => {
-	const {parameter, pipelineContext, shouldBe} = options;
+	const {parameter, pipelineContext, shouldBe, alternativeTriggerData} = options;
 
-	const {factor} = readTopicFactorParameter({
+	const {topic, factor} = readTopicFactorParameter({
 		parameter,
 		topics: pipelineContext.allTopics,
 		validOrThrow: (topicId) => {
 			// eslint-disable-next-line
-			if (topicId != pipelineContext.pipeline.topicId) {
+			if (!alternativeTriggerData && topicId != pipelineContext.pipeline.topicId) {
 				throw new Error(`Topic of parameter[${parameter}] must be source topic of pipeline.`);
 			}
 		}
 	});
 
-	const value = getValueFromSourceData(factor, pipelineContext.triggerData);
+	let sourceData = pipelineContext.triggerData;
+	// eslint-disable-next-line
+	if (topic.topicId != pipelineContext.pipeline.topicId && alternativeTriggerData) {
+		sourceData = alternativeTriggerData;
+	}
+
+	const value = getValueFromSourceData(factor, sourceData);
 	return castParameterValueType({value, shouldBe, parameter});
 };
 const computeConstant = (options: {
@@ -86,23 +104,26 @@ const computeConstant = (options: {
 const computeComputedToNumbers = (options: {
 	parameters: Array<Parameter>,
 	pipelineContext: PipelineRuntimeContext,
-	internalUnitContext?: InternalUnitRuntimeContext
+	internalUnitContext?: InternalUnitRuntimeContext,
+	alternativeTriggerData: DataRow | null
 }): Array<number | null> => {
-	const {parameters, pipelineContext, internalUnitContext} = options;
+	const {parameters, pipelineContext, internalUnitContext, alternativeTriggerData} = options;
 	return parameters.map(sub => computeParameter({
 		parameter: sub,
 		pipelineContext,
 		internalUnitContext,
-		shouldBe: ParameterShouldBe.NUMBER
+		shouldBe: ParameterShouldBe.NUMBER,
+		alternativeTriggerData
 	}));
 };
 const computeComputed = (options: {
 	parameter: ComputedParameter,
 	pipelineContext: PipelineRuntimeContext,
 	shouldBe: ParameterShouldBe
-	internalUnitContext?: InternalUnitRuntimeContext
+	internalUnitContext?: InternalUnitRuntimeContext,
+	alternativeTriggerData: DataRow | null
 }): any => {
-	const {parameter, shouldBe, pipelineContext, internalUnitContext} = options;
+	const {parameter, shouldBe, pipelineContext, internalUnitContext, alternativeTriggerData} = options;
 	checkSubParameters(parameter);
 	checkShouldBe(parameter, shouldBe);
 
@@ -113,20 +134,20 @@ const computeComputed = (options: {
 		case ParameterComputeType.NONE:
 			throw new Error(`Operator of parameter[${parameter}] cannot be none.`);
 		case ParameterComputeType.ADD:
-			value = computeComputedToNumbers({parameters, pipelineContext, internalUnitContext})
+			value = computeComputedToNumbers({parameters, pipelineContext, internalUnitContext, alternativeTriggerData})
 				.reduce((x, y) => (x ?? 0) + (y ?? 0));
 			break;
 		case ParameterComputeType.SUBTRACT:
-			value = computeComputedToNumbers({parameters, pipelineContext, internalUnitContext})
+			value = computeComputedToNumbers({parameters, pipelineContext, internalUnitContext, alternativeTriggerData})
 				.filter(x => !x)
 				.reduce((x, y) => (x as number) - (y as number));
 			break;
 		case ParameterComputeType.MULTIPLY:
-			value = computeComputedToNumbers({parameters, pipelineContext, internalUnitContext})
+			value = computeComputedToNumbers({parameters, pipelineContext, internalUnitContext, alternativeTriggerData})
 				.reduce((x, y) => (x ?? 1) * (y ?? 1));
 			break;
 		case ParameterComputeType.DIVIDE:
-			value = computeComputedToNumbers({parameters, pipelineContext, internalUnitContext})
+			value = computeComputedToNumbers({parameters, pipelineContext, internalUnitContext, alternativeTriggerData})
 				.filter(x => !x)
 				.reduce((x, y) => (x as number) - (y as number));
 			break;
@@ -135,13 +156,15 @@ const computeComputed = (options: {
 				parameter: parameters[0],
 				pipelineContext,
 				shouldBe: ParameterShouldBe.NUMBER,
-				internalUnitContext
+				internalUnitContext,
+				alternativeTriggerData
 			});
 			const v1 = computeParameter({
 				parameter: parameters[1],
 				pipelineContext,
 				shouldBe: ParameterShouldBe.NUMBER,
-				internalUnitContext
+				internalUnitContext,
+				alternativeTriggerData
 			});
 			value = v0 % v1;
 			break;
@@ -150,7 +173,8 @@ const computeComputed = (options: {
 				parameter: parameters[0],
 				pipelineContext,
 				shouldBe: ParameterShouldBe.NUMBER,
-				internalUnitContext
+				internalUnitContext,
+				alternativeTriggerData
 			}));
 			value = date ? dayjs(date).year() : null;
 			break;
@@ -160,7 +184,8 @@ const computeComputed = (options: {
 				parameter: parameters[0],
 				pipelineContext,
 				shouldBe: ParameterShouldBe.NUMBER,
-				internalUnitContext
+				internalUnitContext,
+				alternativeTriggerData
 			}));
 			if (date == null) {
 				value = null;
@@ -175,7 +200,8 @@ const computeComputed = (options: {
 				parameter: parameters[0],
 				pipelineContext,
 				shouldBe: ParameterShouldBe.NUMBER,
-				internalUnitContext
+				internalUnitContext,
+				alternativeTriggerData
 			}));
 			if (date == null) {
 				value = null;
@@ -203,7 +229,8 @@ const computeComputed = (options: {
 				parameter: parameters[0],
 				pipelineContext,
 				shouldBe: ParameterShouldBe.NUMBER,
-				internalUnitContext
+				internalUnitContext,
+				alternativeTriggerData
 			}));
 			value = date ?? dayjs(date).month() + 1;
 			break;
@@ -213,7 +240,8 @@ const computeComputed = (options: {
 				parameter: parameters[0],
 				pipelineContext,
 				shouldBe: ParameterShouldBe.NUMBER,
-				internalUnitContext
+				internalUnitContext,
+				alternativeTriggerData
 			}));
 			// week starts from sunday
 			if (date == null) {
@@ -238,9 +266,10 @@ const computeComputed = (options: {
 				parameter: parameters[0],
 				pipelineContext,
 				shouldBe: ParameterShouldBe.NUMBER,
-				internalUnitContext
+				internalUnitContext,
+				alternativeTriggerData
 			}));
-			// week starts from sunday, and first week must have 7 days
+			// week starts from sunday
 			if (date == null) {
 				value = null;
 			} else {
@@ -263,7 +292,8 @@ const computeComputed = (options: {
 				parameter: parameters[0],
 				pipelineContext,
 				shouldBe: ParameterShouldBe.NUMBER,
-				internalUnitContext
+				internalUnitContext,
+				alternativeTriggerData
 			}));
 			value = date ?? dayjs(date).date();
 			break;
@@ -273,7 +303,8 @@ const computeComputed = (options: {
 				parameter: parameters[0],
 				pipelineContext,
 				shouldBe: ParameterShouldBe.NUMBER,
-				internalUnitContext
+				internalUnitContext,
+				alternativeTriggerData
 			}));
 			value = date ?? dayjs(date).day() + 1;
 			break;
@@ -282,15 +313,32 @@ const computeComputed = (options: {
 			const route = parameters
 				.filter(parameter => parameter.conditional && parameter.on != null)
 				.find(parameter => {
-					return computeJoint({joint: parameter.on!, pipelineContext, internalUnitContext});
+					return computeJoint({
+						joint: parameter.on!,
+						pipelineContext,
+						internalUnitContext,
+						alternativeTriggerData
+					});
 				});
 			if (route != null) {
-				return computeParameter({parameter: route, pipelineContext, shouldBe, internalUnitContext});
+				return computeParameter({
+					parameter: route,
+					pipelineContext,
+					shouldBe,
+					internalUnitContext,
+					alternativeTriggerData
+				});
 			}
 
 			const defaultRoute = parameters.find(parameter => parameter.on == null);
 			if (defaultRoute) {
-				value = computeParameter({parameter: defaultRoute, pipelineContext, shouldBe, internalUnitContext});
+				value = computeParameter({
+					parameter: defaultRoute,
+					pipelineContext,
+					shouldBe,
+					internalUnitContext,
+					alternativeTriggerData
+				});
 			} else {
 				value = null;
 			}
@@ -304,12 +352,20 @@ export const computeParameter = (options: {
 	parameter: Parameter,
 	pipelineContext: PipelineRuntimeContext,
 	shouldBe?: ParameterShouldBe,
-	internalUnitContext?: InternalUnitRuntimeContext
+	internalUnitContext?: InternalUnitRuntimeContext,
+	/** data which can bed used to find in parameter **/
+	alternativeTriggerData: DataRow | null
 }): any => {
-	const {parameter, pipelineContext, shouldBe = ParameterShouldBe.ANY, internalUnitContext} = options;
+	const {
+		parameter,
+		pipelineContext,
+		shouldBe = ParameterShouldBe.ANY,
+		internalUnitContext,
+		alternativeTriggerData
+	} = options;
 
 	if (isTopicFactorParameter(parameter)) {
-		return computeTopicFactor({parameter, pipelineContext, shouldBe});
+		return computeTopicFactor({parameter, pipelineContext, shouldBe, alternativeTriggerData});
 	} else if (isConstantParameter(parameter)) {
 		return computeConstant({
 			parameter, shouldBe, getValue: (propertyName) => {
@@ -324,7 +380,7 @@ export const computeParameter = (options: {
 			}
 		});
 	} else if (isComputedParameter(parameter)) {
-		return computeComputed({parameter, pipelineContext, shouldBe, internalUnitContext});
+		return computeComputed({parameter, pipelineContext, shouldBe, internalUnitContext, alternativeTriggerData});
 	} else {
 		throw new Error(`Unsupported parameter[${parameter}].`);
 	}

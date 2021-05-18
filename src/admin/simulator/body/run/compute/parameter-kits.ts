@@ -48,7 +48,7 @@ export const getValueFromSourceData = (factor: Factor, sourceData: DataRow): any
 		return sourceData[name];
 	} else {
 		const parts = name.split('.');
-		var source: any = sourceData;
+		let source: any = sourceData;
 		parts.reduce((obj, part) => {
 			if (obj == null) {
 				return null;

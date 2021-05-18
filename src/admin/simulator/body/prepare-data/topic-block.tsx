@@ -40,11 +40,29 @@ const DataCell = (props: { row: DataRow, factor: Factor }) => {
 
 	const forceUpdate = useForceUpdate();
 	const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-		row[factor.name] = event.target.value;
+		const {value} = event.target;
+		const v = value.trim();
+		try {
+			if (v.startsWith('{') && v.endsWith('}')) {
+				row[factor.name] = JSON.parse(v);
+			} else if (v.startsWith('[') && v.endsWith(']')) {
+				row[factor.name] = JSON.parse(v);
+			} else {
+				row[factor.name] = value;
+			}
+		} catch {
+			row[factor.name] = value;
+		}
 		forceUpdate();
 	};
+
+	let value = row[factor.name] ?? '';
+	if (typeof value === 'object') {
+		value = JSON.stringify(value);
+	}
+
 	return <DataTableBodyCell key={factor.factorId}>
-		<Input value={row[factor.name] ?? ''} onChange={onInputChange}/>
+		<Input value={value} onChange={onInputChange}/>
 	</DataTableBodyCell>;
 };
 const DataDialog = (props: {
@@ -66,7 +84,7 @@ const DataDialog = (props: {
 		setRows([...rows, {}]);
 	};
 	const onUploadClicked = () => {
-
+		// TODO upload topic rows
 	};
 	const onConfirmClicked = () => {
 		onConfirm(rows);

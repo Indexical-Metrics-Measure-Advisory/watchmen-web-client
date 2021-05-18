@@ -9,22 +9,24 @@ import {InternalUnitRuntimeContext, PipelineRuntimeContext} from '../types';
 import {isExpressionParameter, isJointParameter} from '../../../../../services/tuples/factor-calculator-utils';
 import dayjs, {Dayjs} from 'dayjs';
 import {computeParameter} from './parameter-compute';
+import {DataRow} from '../../../simulator-event-bus-types';
 
 type CompareDate = (date1: Dayjs, date2: Dayjs) => boolean;
 
 export const computeJoint = (options: {
 	joint: ParameterJoint,
 	pipelineContext: PipelineRuntimeContext,
-	internalUnitContext?: InternalUnitRuntimeContext
+	internalUnitContext?: InternalUnitRuntimeContext,
+	alternativeTriggerData: DataRow | null
 }): boolean => {
-	const {joint, pipelineContext, internalUnitContext} = options;
+	const {joint, pipelineContext, internalUnitContext, alternativeTriggerData} = options;
 	if (joint.jointType === ParameterJointType.OR) {
 		return joint.filters.some(condition => {
-			return computeCondition({condition, pipelineContext, internalUnitContext});
+			return computeCondition({condition, pipelineContext, internalUnitContext, alternativeTriggerData});
 		});
 	} else if (joint.jointType === ParameterJointType.AND) {
 		return joint.filters.every((condition) => {
-			return computeCondition({condition, pipelineContext, internalUnitContext});
+			return computeCondition({condition, pipelineContext, internalUnitContext, alternativeTriggerData});
 		});
 	} else {
 		throw new Error(`Unsupported joint type[${joint.jointType}].`);
@@ -36,7 +38,7 @@ const compareWhenOneDateAtLeast = (
 	value2: any,
 	compareTillDay: CompareDate,
 	compareTillSecond: CompareDate,
-	incompare: () => boolean
+	mismatched: () => boolean
 ): boolean => {
 	const str1 = value1.toString().split('').map((c: string) => ' -/:.TZ'.includes(c) ? '' : c).join('');
 	const str2 = value2.toString().split('').map((c: string) => ' -/:.TZ'.includes(c) ? '' : c).join('');
@@ -52,7 +54,7 @@ const compareWhenOneDateAtLeast = (
 		}
 	} else if (str1.length < 14) {
 		// invalid date format
-		return incompare();
+		return mismatched();
 	} else if (str2.length === 8) {
 		// str2 must be a date of YYYYMMDD
 		const date1 = dayjs(str1);
@@ -60,7 +62,7 @@ const compareWhenOneDateAtLeast = (
 		return date1.isValid() && date2.isValid() && compareTillDay(date1, date2);
 	} else if (str2.length < 14) {
 		// invalid date format
-		return incompare();
+		return mismatched();
 	} else {
 		const date1 = dayjs(str1);
 		const date2 = dayjs(str2);
@@ -151,17 +153,28 @@ const notExists = (value?: any, values?: any): boolean => {
 const computeExpressionParts = (options: {
 	expression: ParameterExpression,
 	pipelineContext: PipelineRuntimeContext,
-	internalUnitContext?: InternalUnitRuntimeContext
+	internalUnitContext?: InternalUnitRuntimeContext,
+	alternativeTriggerData: DataRow | null
 }) => {
-	const {expression, pipelineContext, internalUnitContext} = options;
+	const {expression, pipelineContext, internalUnitContext, alternativeTriggerData} = options;
 
 	return {
-		left: () => computeParameter({parameter: expression.left, pipelineContext, internalUnitContext}),
+		left: () => computeParameter({
+			parameter: expression.left,
+			pipelineContext,
+			internalUnitContext,
+			alternativeTriggerData
+		}),
 		right: () => {
 			if (!expression.right) {
 				throw new Error(`Right part of expression[${JSON.stringify(expression)}] doesn't exists.`);
 			}
-			return computeParameter({parameter: expression.right, pipelineContext, internalUnitContext});
+			return computeParameter({
+				parameter: expression.right,
+				pipelineContext,
+				internalUnitContext,
+				alternativeTriggerData
+			});
 		}
 	};
 };
@@ -169,11 +182,17 @@ const computeExpressionParts = (options: {
 export const computeExpression = (options: {
 	expression: ParameterExpression,
 	pipelineContext: PipelineRuntimeContext,
-	internalUnitContext?: InternalUnitRuntimeContext
+	internalUnitContext?: InternalUnitRuntimeContext,
+	alternativeTriggerData: DataRow | null
 }): boolean => {
-	const {expression, pipelineContext, internalUnitContext} = options;
+	const {expression, pipelineContext, internalUnitContext, alternativeTriggerData} = options;
 
-	const {left, right} = computeExpressionParts({expression, pipelineContext, internalUnitContext});
+	const {left, right} = computeExpressionParts({
+		expression,
+		pipelineContext,
+		internalUnitContext,
+		alternativeTriggerData
+	});
 	switch (expression.operator) {
 		case ParameterExpressionOperator.EQUALS:
 			return eq(left(), right());
@@ -203,13 +222,14 @@ export const computeExpression = (options: {
 export const computeCondition = (options: {
 	condition: ParameterCondition,
 	pipelineContext: PipelineRuntimeContext,
-	internalUnitContext?: InternalUnitRuntimeContext
+	internalUnitContext?: InternalUnitRuntimeContext,
+	alternativeTriggerData: DataRow | null
 }): boolean => {
-	const {condition, pipelineContext, internalUnitContext} = options;
+	const {condition, pipelineContext, internalUnitContext, alternativeTriggerData} = options;
 	if (isExpressionParameter(condition)) {
-		return computeExpression({expression: condition, pipelineContext, internalUnitContext});
+		return computeExpression({expression: condition, pipelineContext, internalUnitContext, alternativeTriggerData});
 	} else if (isJointParameter(condition)) {
-		return computeJoint({joint: condition, pipelineContext, internalUnitContext});
+		return computeJoint({joint: condition, pipelineContext, internalUnitContext, alternativeTriggerData});
 	} else {
 		throw new Error(`Unsupported condition[${JSON.stringify(condition)}].`);
 	}

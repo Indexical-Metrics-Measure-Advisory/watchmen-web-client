@@ -28,7 +28,8 @@ export const runCopyToMemory = async (options: {
 	const value = computeParameter({
 		parameter: source,
 		pipelineContext,
-		internalUnitContext
+		internalUnitContext,
+		alternativeTriggerData: null
 	});
 	pipelineContext.variables[variableName] = value;
 	await logWrite(`Value[${value}] copied to in-memory variable[${variableName}].`);

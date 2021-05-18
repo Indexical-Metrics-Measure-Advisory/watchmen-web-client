@@ -1,5 +1,6 @@
 import {ActionRuntimeContext, InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
 import {isExistsAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {computeJoint} from '../../compute/condition-compute';
 
 export const runExists = async (options: {
 	pipelineContext: PipelineRuntimeContext,
@@ -36,11 +37,16 @@ export const runExists = async (options: {
 		throw new Error('By of read action cannot be empty.');
 	}
 
-	// val topic = prepareTopic()
-	// val joint = prepareBy()
-	// services.dynamicTopic {
-	// 	exists(topic, build(topic, joint))
-	// }.also {
-	// 	variables[variableName] = it
-	// }
+	const exists = (pipelineContext.runtimeData[topicId] || []).some(fakeTriggerData => {
+		return computeJoint({
+			joint, pipelineContext, internalUnitContext, alternativeTriggerData: fakeTriggerData
+		});
+	});
+
+	pipelineContext.variables[variableName] = exists;
+	if (exists) {
+		await logWrite('Given topic data exists.');
+	} else {
+		await logWrite('Given topic data doesn\'t exist.');
+	}
 };

@@ -19,7 +19,12 @@ export const runAlarm = async (options: {
 
 	let shouldRun = true;
 	if (action.conditional) {
-		shouldRun = computeJoint({joint: action.on!, pipelineContext, internalUnitContext});
+		shouldRun = computeJoint({
+			joint: action.on!,
+			pipelineContext,
+			internalUnitContext,
+			alternativeTriggerData: null
+		});
 		if (!shouldRun) {
 			// compute pipeline condition
 			await logWrite('Failed on condition check.');
@@ -45,7 +50,8 @@ export const runAlarm = async (options: {
 				conditional: false
 			} as ConstantParameter,
 			pipelineContext,
-			internalUnitContext
+			internalUnitContext,
+			alternativeTriggerData: null
 		});
 		await logWrite(`Alarm: [severity=${severity}, message=${value || 'No Message'}]`);
 	}

@@ -16,6 +16,7 @@ import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
 import {createLogWriter} from './utils';
 import {runAlarm} from './action-runner/alarm';
 import {runCopyToMemory} from './action-runner/copy-to-memory';
+import {runExists} from './action-runner/exists';
 
 export const useDoRunAction = (
 	pipelineContext: PipelineRuntimeContext,
@@ -45,7 +46,7 @@ export const useDoRunAction = (
 						await runCopyToMemory({pipelineContext, internalUnitContext, context, logWrite});
 						break;
 					case ReadTopicActionType.EXISTS:
-						// ExistsAction(context, logger).run();
+						await runExists({pipelineContext, internalUnitContext, context, logWrite});
 						break;
 					case ReadTopicActionType.READ_FACTOR:
 						// ReadFactorAction(context, logger).run();
