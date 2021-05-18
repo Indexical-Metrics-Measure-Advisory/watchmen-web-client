@@ -12,18 +12,19 @@ import {computeParameter} from './parameter-compute';
 
 type CompareDate = (date1: Dayjs, date2: Dayjs) => boolean;
 
-export const computeJoint = (
+export const computeJoint = (options: {
 	joint: ParameterJoint,
 	pipelineContext: PipelineRuntimeContext,
-	internalUnitContext: InternalUnitRuntimeContext | null = null
-): boolean => {
+	internalUnitContext?: InternalUnitRuntimeContext
+}): boolean => {
+	const {joint, pipelineContext, internalUnitContext} = options;
 	if (joint.jointType === ParameterJointType.OR) {
 		return joint.filters.some(condition => {
-			return computeCondition(condition, pipelineContext, internalUnitContext);
+			return computeCondition({condition, pipelineContext, internalUnitContext});
 		});
 	} else if (joint.jointType === ParameterJointType.AND) {
 		return joint.filters.every((condition) => {
-			return computeCondition(condition, pipelineContext, internalUnitContext);
+			return computeCondition({condition, pipelineContext, internalUnitContext});
 		});
 	} else {
 		throw new Error(`Unsupported joint type[${joint.jointType}].`);
@@ -147,28 +148,32 @@ const notExists = (value?: any, values?: any): boolean => {
 	}
 };
 
-const computeExpressionParts = (
+const computeExpressionParts = (options: {
 	expression: ParameterExpression,
 	pipelineContext: PipelineRuntimeContext,
-	internalUnitContext: InternalUnitRuntimeContext | null = null
-) => {
+	internalUnitContext?: InternalUnitRuntimeContext
+}) => {
+	const {expression, pipelineContext, internalUnitContext} = options;
+
 	return {
-		left: () => computeParameter(expression.left, pipelineContext, internalUnitContext),
+		left: () => computeParameter({parameter: expression.left, pipelineContext, internalUnitContext}),
 		right: () => {
 			if (!expression.right) {
 				throw new Error(`Right part of expression[${JSON.stringify(expression)}] doesn't exists.`);
 			}
-			return computeParameter(expression.right, pipelineContext, internalUnitContext);
+			return computeParameter({parameter: expression.right, pipelineContext, internalUnitContext});
 		}
 	};
 };
 
-export const computeExpression = (
+export const computeExpression = (options: {
 	expression: ParameterExpression,
 	pipelineContext: PipelineRuntimeContext,
-	internalUnitContext: InternalUnitRuntimeContext | null = null
-): boolean => {
-	const {left, right} = computeExpressionParts(expression, pipelineContext, internalUnitContext);
+	internalUnitContext?: InternalUnitRuntimeContext
+}): boolean => {
+	const {expression, pipelineContext, internalUnitContext} = options;
+
+	const {left, right} = computeExpressionParts({expression, pipelineContext, internalUnitContext});
 	switch (expression.operator) {
 		case ParameterExpressionOperator.EQUALS:
 			return eq(left(), right());
@@ -195,15 +200,16 @@ export const computeExpression = (
 	}
 };
 
-export const computeCondition = (
+export const computeCondition = (options: {
 	condition: ParameterCondition,
 	pipelineContext: PipelineRuntimeContext,
-	internalUnitContext: InternalUnitRuntimeContext | null = null
-): boolean => {
+	internalUnitContext?: InternalUnitRuntimeContext
+}): boolean => {
+	const {condition, pipelineContext, internalUnitContext} = options;
 	if (isExpressionParameter(condition)) {
-		return computeExpression(condition, pipelineContext, internalUnitContext);
+		return computeExpression({expression: condition, pipelineContext, internalUnitContext});
 	} else if (isJointParameter(condition)) {
-		return computeJoint(condition, pipelineContext, internalUnitContext);
+		return computeJoint({joint: condition, pipelineContext, internalUnitContext});
 	} else {
 		throw new Error(`Unsupported condition[${JSON.stringify(condition)}].`);
 	}
