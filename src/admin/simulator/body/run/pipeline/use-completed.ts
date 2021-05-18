@@ -10,7 +10,7 @@ export const useCompleted = (
 	context: PipelineRuntimeContext,
 	setMessage: (message: string) => void
 ) => {
-	const {on, off} = useRuntimeEventBus();
+	const {on, off, fire} = useRuntimeEventBus();
 	useEffect(() => {
 		const logWrite = createLogWriter(context, setMessage);
 		const finishPipeline = async () => {
@@ -22,6 +22,13 @@ export const useCompleted = (
 				lastModifiedAt: dayjs().toDate()
 			});
 			// TODO run next pipeline
+			// merge changed data
+			if (context.changedData.length > 0) {
+
+			} else {
+				// nothing changed, never occurs
+				fire(RuntimeEventTypes.RUN_NEXT_PIPELINE);
+			}
 		};
 		const onPipelineCompeted = (status: PipelineRunStatus) => async (c: PipelineRuntimeContext) => {
 			if (c !== context) {
@@ -42,5 +49,5 @@ export const useCompleted = (
 			off(RuntimeEventTypes.PIPELINE_DONE, onPipelineDone);
 			off(RuntimeEventTypes.PIPELINE_FAILED, onPipelineFailed);
 		};
-	}, [on, off, context, setMessage]);
+	}, [on, off, fire, context, setMessage]);
 };

@@ -13,6 +13,7 @@ export enum RuntimeEventTypes {
 	PIPELINE_IGNORED = 'pipeline-ignored',
 	PIPELINE_DONE = 'pipeline-done',
 	PIPELINE_FAILED = 'pipeline-failed',
+	RUN_NEXT_PIPELINE = 'run-next-pipeline',
 
 	RUN_STAGE = 'run-stage',
 	DO_STAGE_CONDITION_CHECK = 'do-stage-condition-check',
@@ -65,6 +66,10 @@ export interface RuntimeEventBus {
 	fire(type: RuntimeEventTypes.PIPELINE_FAILED, context: PipelineRuntimeContext): this;
 	on(type: RuntimeEventTypes.PIPELINE_FAILED, listener: (context: PipelineRuntimeContext) => void): this;
 	off(type: RuntimeEventTypes.PIPELINE_FAILED, listener: (context: PipelineRuntimeContext) => void): this;
+
+	fire(type: RuntimeEventTypes.RUN_NEXT_PIPELINE): this;
+	on(type: RuntimeEventTypes.RUN_NEXT_PIPELINE, listener: () => void): this;
+	off(type: RuntimeEventTypes.RUN_NEXT_PIPELINE, listener: () => void): this;
 
 	fire(type: RuntimeEventTypes.RUN_STAGE, context: StageRuntimeContext): this;
 	on(type: RuntimeEventTypes.RUN_STAGE, listener: (context: StageRuntimeContext) => void): this;

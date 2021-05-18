@@ -115,10 +115,9 @@ export const pushToChangeData = (options: {
 	pipelineContext: PipelineRuntimeContext
 }) => {
 	const {before, after, topic, pipelineContext} = options;
-	const {...cloneAfter} = after;
 	pipelineContext.changedData.push({
 		topicId: topic.topicId,
 		before: before,
-		after: cloneAfter
+		after
 	});
 };

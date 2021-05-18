@@ -5,12 +5,50 @@ import {AllTopics, PipelineRunStatus, PipelineRuntimeContext} from './types';
 import {PipelineRun} from './pipeline';
 import {buildPipelineRuntimeContext} from './utils';
 import {DataRow} from '../../simulator-event-bus-types';
+import {RunsEventBusProvider, useRunsEventBus} from './runs-event-bus';
+import {RunsEventTypes} from './runs-event-bus-types';
+import {useEventBus} from '../../../../events/event-bus';
+import {EventTypes} from '../../../../events/types';
+import {AlertLabel} from '../../../../alert/widgets';
 
 interface State {
 	runs: Array<PipelineRuntimeContext>;
 	currentIndex: number;
 }
 
+export const Pipelines = (props: {
+	pipelineContexts: Array<PipelineRuntimeContext>;
+	topics: AllTopics;
+	allPipelines: Array<Pipeline>;
+}) => {
+	const {pipelineContexts, topics, allPipelines} = props;
+
+	const {fire: fireGlobal} = useEventBus();
+	const {fire} = useRunsEventBus();
+	const onRunNext = () => {
+		const nextPipeline = pipelineContexts.find(c => c.status === PipelineRunStatus.WAIT);
+		if (nextPipeline) {
+			fire(RunsEventTypes.RUN_PIPELINE, nextPipeline);
+		} else {
+			// all done
+			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+				Congratulations, all pipelines are completed.
+			</AlertLabel>);
+		}
+	};
+
+	const [first, ...rest] = pipelineContexts;
+
+	return <>
+		<PipelineRun context={first} topics={topics} pipelines={allPipelines} runNext={onRunNext}/>
+		{rest.map((context, index) => {
+			return <PipelineRun context={context} topics={topics} pipelines={allPipelines}
+			                    runNext={onRunNext}
+			                    key={index}/>;
+		})}
+	</>;
+
+};
 export const Runs = (props: {
 	// run pipelines, each pipeline means a trigger
 	runPipelines: Array<Pipeline>;
@@ -53,13 +91,10 @@ export const Runs = (props: {
 	});
 
 	// future is not led by first, always run
-	const [first, ...rest] = state.runs;
-	first.status = PipelineRunStatus.READY;
+	state.runs[0].status = PipelineRunStatus.READY;
 
-	return <>
-		<PipelineRun context={first} topics={topics} pipelines={allPipelines}/>
-		{rest.map((context, index) => {
-			return <PipelineRun context={context} topics={topics} pipelines={allPipelines} key={index}/>;
-		})}
-	</>;
+	return <RunsEventBusProvider>
+		<Pipelines pipelineContexts={state.runs}
+		           topics={topics} allPipelines={allPipelines}/>
+	</RunsEventBusProvider>;
 };

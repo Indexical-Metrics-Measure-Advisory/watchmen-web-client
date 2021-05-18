@@ -4,7 +4,7 @@ import {getPipelineName} from '../../../utils';
 import {ButtonInk} from '../../../../../basic-widgets/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ICON_SEARCH} from '../../../../../basic-widgets/constants';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {TopicsData} from '../../state/types';
 import {PipelineRunStatusCell} from './pipeline-run-status-cell';
 import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
@@ -18,6 +18,8 @@ import {useCompleted} from './use-completed';
 import {useConditionCheck} from './use-condition-check';
 import {buildContextBody, createLogWriter} from './utils';
 import {useRunStages} from './use-run-stages';
+import {RunsEventTypes} from '../runs-event-bus-types';
+import {useRunsEventBus} from '../runs-event-bus';
 
 const buildTriggerData = (context: PipelineRuntimeContext) => {
 	return Object.keys(context.allData).reduce((data, topicId) => {
@@ -32,9 +34,28 @@ const buildTriggerData = (context: PipelineRuntimeContext) => {
 	}, {} as TopicsData);
 };
 
+const startPipeline = async (context: PipelineRuntimeContext, start: () => void) => {
+	const data = buildTriggerData(context);
+	context.pipelineRuntimeId = generateRuntimeId();
+	await (createLogWriter(context)('Start pipeline'));
+
+	context.status = PipelineRunStatus.RUNNING;
+	await connectSimulatorDB().pipelines.add({
+		pipelineId: context.pipeline.pipelineId,
+		pipelineRuntimeId: context.pipelineRuntimeId,
+		status: context.status,
+		context: buildContextBody(context),
+		dataBefore: data,
+		lastModifiedAt: dayjs().toDate()
+	});
+	// attach runtime data to context
+	context.runtimeData = data;
+	start();
+};
 export const PipelineRuntime = (props: { context: PipelineRuntimeContext }) => {
 	const {context} = props;
 
+	const {on: onRuns, off: offRuns} = useRunsEventBus();
 	const {fire} = useRuntimeEventBus();
 	const [message, setMessage] = useState('');
 	const forceUpdate = useForceUpdate();
@@ -43,24 +64,28 @@ export const PipelineRuntime = (props: { context: PipelineRuntimeContext }) => {
 	useConditionCheck(context, setMessage);
 	useRunStages(context, setMessage);
 
-	const onStartPipeline = async () => {
-		const data = buildTriggerData(context);
-		context.pipelineRuntimeId = generateRuntimeId();
-		await (createLogWriter(context)('Start pipeline'));
+	useEffect(() => {
+		const onRunPipeline = async (c: PipelineRuntimeContext) => {
+			if (c !== context) {
+				return;
+			}
 
-		context.status = PipelineRunStatus.RUNNING;
-		await connectSimulatorDB().pipelines.add({
-			pipelineId: context.pipeline.pipelineId,
-			pipelineRuntimeId: context.pipelineRuntimeId,
-			status: context.status,
-			context: buildContextBody(context),
-			dataBefore: data,
-			lastModifiedAt: dayjs().toDate()
+			await startPipeline(context, () => {
+				forceUpdate();
+				fire(RuntimeEventTypes.DO_PIPELINE_TRIGGER_TYPE_CHECK, context);
+			});
+		};
+		onRuns(RunsEventTypes.RUN_PIPELINE, onRunPipeline);
+		return () => {
+			offRuns(RunsEventTypes.RUN_PIPELINE, onRunPipeline);
+		};
+	}, [onRuns, offRuns, fire, forceUpdate, context]);
+
+	const onStartPipeline = async () => {
+		await startPipeline(context, () => {
+			forceUpdate();
+			fire(RuntimeEventTypes.DO_PIPELINE_TRIGGER_TYPE_CHECK, context);
 		});
-		// attach runtime data to context
-		context.runtimeData = data;
-		forceUpdate();
-		fire(RuntimeEventTypes.DO_PIPELINE_TRIGGER_TYPE_CHECK, context);
 	};
 
 	return <RunTablePipelineRow>
