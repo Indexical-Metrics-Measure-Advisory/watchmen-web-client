@@ -4,6 +4,7 @@ import {
 	AGGREGATE_ASSIST_FACTOR_NAME,
 	AGGREGATE_AVG_COUNT_PROP_NAME,
 	DEFAULT_AGGREGATE_ASSIST_FACTOR_VALUE,
+	getOldValue,
 	prepareBy,
 	prepareFactor,
 	prepareSource,
@@ -13,20 +14,7 @@ import {
 import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import {computeJoint} from '../../compute/condition-compute';
 import {computeParameter} from '../../compute/parameter-compute';
-import {Parameter} from '../../../../../../services/tuples/factor-calculator-types';
 
-const getOldValue = (source: Parameter, pipelineContext: PipelineRuntimeContext, internalUnitContext: InternalUnitRuntimeContext) => {
-	if (pipelineContext.triggerDataOnce) {
-		return computeParameter({
-			parameter: source,
-			pipelineContext,
-			internalUnitContext,
-			alternativeTriggerData: pipelineContext.triggerData
-		}) || 0;
-	} else {
-		return 0;
-	}
-};
 export const runWriteFactor = async (options: {
 	pipelineContext: PipelineRuntimeContext,
 	internalUnitContext: InternalUnitRuntimeContext,
@@ -60,20 +48,26 @@ export const runWriteFactor = async (options: {
 	}
 
 	if (found && row) {
+		const {...rowBeforeUpdate} = row;
+
 		const newValue = computeParameter({
 			parameter: source,
 			pipelineContext,
 			internalUnitContext,
 			alternativeTriggerData: null
 		}) || 0;
-		const {...rowBeforeUpdate} = row;
 		switch (arithmetic) {
 			case AggregateArithmetic.COUNT:
 				// count will not be changed when merge
 				await logWrite(`Count will not be written, ignored.`);
 				break;
 			case AggregateArithmetic.AVG: {
-				const oldValue = getOldValue(source, pipelineContext, internalUnitContext);
+				const oldValue = getOldValue({
+					parameter: source,
+					pipelineContext,
+					internalUnitContext,
+					defaultValue: 0
+				});
 				const oldAvg = row[factor.name] || 0;
 				const assist = JSON.parse(row[AGGREGATE_ASSIST_FACTOR_NAME] || DEFAULT_AGGREGATE_ASSIST_FACTOR_VALUE);
 				const count = assist[`${factor.name}.${AGGREGATE_AVG_COUNT_PROP_NAME}`] || 1;
@@ -83,7 +77,12 @@ export const runWriteFactor = async (options: {
 				break;
 			}
 			case AggregateArithmetic.SUM: {
-				const oldValue = getOldValue(source, pipelineContext, internalUnitContext);
+				const oldValue = getOldValue({
+					parameter: source,
+					pipelineContext,
+					internalUnitContext,
+					defaultValue: 0
+				});
 				const oldSum = row[factor.name] || 0;
 				row[factor.name] = oldSum + newValue - oldValue;
 				pushToChangeData({before: rowBeforeUpdate, after: row, pipelineContext, topic});
@@ -92,7 +91,8 @@ export const runWriteFactor = async (options: {
 			}
 			case AggregateArithmetic.NONE:
 			default:
-				row![factor.name] = newValue;
+				row[factor.name] = newValue;
+				pushToChangeData({before: rowBeforeUpdate, after: row, pipelineContext, topic});
 				await logWrite(`Factor[value=${newValue}] written.`);
 				break;
 		}

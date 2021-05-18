@@ -23,6 +23,8 @@ import {runReadRow} from './action-runner/read-row';
 import {runReadRows} from './action-runner/read-rows';
 import {runWriteFactor} from './action-runner/write-factor';
 import {runInsertRow} from './action-runner/insert-row';
+import {runMergeRow} from './action-runner/merge-row';
+import {runInsertOrMergeRow} from './action-runner/insert-or-merge-row';
 
 export const useDoRunAction = (
 	pipelineContext: PipelineRuntimeContext,
@@ -73,10 +75,10 @@ export const useDoRunAction = (
 						await runInsertRow({pipelineContext, internalUnitContext, context, logWrite});
 						break;
 					case WriteTopicActionType.MERGE_ROW:
-						// MergeRowAction(context, logger).run();
+						await runMergeRow({pipelineContext, internalUnitContext, context, logWrite});
 						break;
 					case WriteTopicActionType.INSERT_OR_MERGE_ROW:
-						// InsertOrMergeRowAction(context, logger).run();
+						await runInsertOrMergeRow({pipelineContext, internalUnitContext, context, logWrite});
 						break;
 					default:
 						// noinspection ExceptionCaughtLocallyJS

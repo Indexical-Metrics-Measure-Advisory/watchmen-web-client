@@ -8,25 +8,20 @@ import {
 	pushToChangeData
 } from './utils';
 import {DataRow} from '../../../../simulator-event-bus-types';
-import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
+import {
+	AggregateArithmetic,
+	MappingFactor
+} from '../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import {computeParameter} from '../../compute/parameter-compute';
+import {Topic} from '../../../../../../services/tuples/topic-types';
 
-export const runInsertRow = async (options: {
+export const doInsertRow = async (
+	mapping: Array<MappingFactor>,
+	topic: Topic,
 	pipelineContext: PipelineRuntimeContext,
 	internalUnitContext: InternalUnitRuntimeContext,
-	context: ActionRuntimeContext,
-	logWrite: (message: string) => Promise<void>;
-}) => {
-	const {pipelineContext, internalUnitContext, context, logWrite} = options;
-	const {action} = context;
-
-	if (!isInsertRowAction(action)) {
-		throw new Error(`Not a insert row action[${action}].`);
-	}
-
-	const topic = prepareTopic(action, pipelineContext);
-	const mapping = prepareMapping(action);
-
+	logWrite: (message: string) => Promise<void>
+) => {
 	const newRow = mapping.reduce((newRow, mapping) => {
 		const {source, factorId, arithmetic} = mapping;
 		// eslint-disable-next-line
@@ -65,4 +60,22 @@ export const runInsertRow = async (options: {
 	existsRows.push(newRow);
 	pushToChangeData({after: newRow, topic, pipelineContext});
 	await logWrite(`New row[value=${newRow}] created.`);
+};
+export const runInsertRow = async (options: {
+	pipelineContext: PipelineRuntimeContext,
+	internalUnitContext: InternalUnitRuntimeContext,
+	context: ActionRuntimeContext,
+	logWrite: (message: string) => Promise<void>;
+}) => {
+	const {pipelineContext, internalUnitContext, context, logWrite} = options;
+	const {action} = context;
+
+	if (!isInsertRowAction(action)) {
+		throw new Error(`Not an insert row action[${action}].`);
+	}
+
+	const topic = prepareTopic(action, pipelineContext);
+	const mapping = prepareMapping(action);
+
+	await doInsertRow(mapping, topic, pipelineContext, internalUnitContext, logWrite);
 };

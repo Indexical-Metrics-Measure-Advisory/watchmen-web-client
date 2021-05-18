@@ -1,4 +1,4 @@
-import {PipelineRuntimeContext} from '../../types';
+import {InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
 import {
 	FindBy,
 	FromFactor,
@@ -16,10 +16,11 @@ import {
 } from '../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import {CopyToMemoryAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/system-actions-types';
 import {DataRow} from '../../../../simulator-event-bus-types';
+import {computeParameter} from '../../compute/parameter-compute';
 
 export const AGGREGATE_ASSIST_FACTOR_NAME = '_aggregate_assist';
 export const DEFAULT_AGGREGATE_ASSIST_FACTOR_VALUE = '{}';
-export const AGGREGATE_AVG_COUNT_PROP_NAME = 'avg_count'
+export const AGGREGATE_AVG_COUNT_PROP_NAME = 'avg_count';
 
 export const prepareVariable = (action: MemoryWriter): string => {
 	const variableName = (action.variableName || '').trim();
@@ -53,7 +54,7 @@ export const prepareFactor = (topic: Topic, action: FromFactor | ToFactor): Fact
 	// eslint-disable-next-line
 	const factor = topic.factors.find(f => f.factorId == factorId);
 	if (!factor) {
-		throw new Error(`Factor[${factorId}] of topic[${topic.topicId}] not found.`);
+		throw new Error(`Factor[${factorId}] of topic[${topic.name}] not found.`);
 	}
 
 	return factor;
@@ -86,6 +87,25 @@ export const prepareMapping = (action: MappingRow): Array<MappingFactor> => {
 		throw new Error('Mapping of insert/merge action cannot be empty.');
 	}
 	return mapping;
+};
+
+export const getOldValue = (options: {
+	parameter: Parameter,
+	pipelineContext: PipelineRuntimeContext,
+	internalUnitContext: InternalUnitRuntimeContext,
+	defaultValue?: any
+}) => {
+	const {parameter, pipelineContext, internalUnitContext, defaultValue} = options;
+	if (pipelineContext.triggerDataOnce) {
+		return computeParameter({
+			parameter,
+			pipelineContext,
+			internalUnitContext,
+			alternativeTriggerData: pipelineContext.triggerData
+		}) || defaultValue;
+	} else {
+		return defaultValue;
+	}
 };
 
 export const pushToChangeData = (options: {
