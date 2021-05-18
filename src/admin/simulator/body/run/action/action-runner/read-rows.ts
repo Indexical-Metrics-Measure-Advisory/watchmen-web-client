@@ -1,9 +1,9 @@
 import {ActionRuntimeContext, InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
-import {isExistsAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
-import {computeJoint} from '../../compute/condition-compute';
+import {isReadRowsAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {prepareBy, prepareTopic, prepareVariable} from './utils';
+import {computeJoint} from '../../compute/condition-compute';
 
-export const runExists = async (options: {
+export const runReadRows = async (options: {
 	pipelineContext: PipelineRuntimeContext,
 	internalUnitContext: InternalUnitRuntimeContext,
 	context: ActionRuntimeContext,
@@ -12,24 +12,26 @@ export const runExists = async (options: {
 	const {pipelineContext, internalUnitContext, context, logWrite} = options;
 	const {action} = context;
 
-	if (!isExistsAction(action)) {
-		throw new Error(`Not an exists action[${action}].`);
+	if (!isReadRowsAction(action)) {
+		throw new Error(`Not a read factor action[${action}].`);
 	}
 
 	const variableName = prepareVariable(action);
 	const topic = prepareTopic(action, pipelineContext);
 	const by = prepareBy(action);
 
-	const exists = (pipelineContext.runtimeData[topic.topicId] || []).some(fakeTriggerData => {
+	const rows = (pipelineContext.runtimeData[topic.topicId] || []).filter(fakeTriggerData => {
 		return computeJoint({
 			joint: by, pipelineContext, internalUnitContext, alternativeTriggerData: fakeTriggerData
 		});
 	});
 
-	pipelineContext.variables[variableName] = exists;
-	if (exists) {
-		await logWrite('Given topic data exists.');
+	let found: boolean = rows.length !== 0;
+
+	pipelineContext.variables[variableName] = rows;
+	if (found) {
+		await logWrite(`Rows[value=${JSON.stringify(rows)}] found.`);
 	} else {
-		await logWrite('Given topic data doesn\'t exist.');
+		await logWrite('Rows not found by given condition.');
 	}
 };

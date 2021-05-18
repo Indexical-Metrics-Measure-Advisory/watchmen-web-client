@@ -41,7 +41,7 @@ const QUARTER_FOURTH: number = 4;
  *
  * @param options
  */
-const computeTopicFactor = (options: {
+export const computeTopicFactor = (options: {
 	parameter: TopicFactorParameter,
 	pipelineContext: PipelineRuntimeContext,
 	shouldBe: ParameterShouldBe,

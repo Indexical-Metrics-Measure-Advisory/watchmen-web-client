@@ -1,6 +1,7 @@
 import {ActionRuntimeContext, InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
 import {isCopyToMemoryAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {computeParameter} from '../../compute/parameter-compute';
+import {prepareVariable} from './utils';
 
 export const runCopyToMemory = async (options: {
 	pipelineContext: PipelineRuntimeContext,
@@ -15,10 +16,7 @@ export const runCopyToMemory = async (options: {
 		throw new Error(`Not a copy-to-memory action[${action}].`);
 	}
 
-	const variableName = (action.variableName || '').trim();
-	if (!variableName) {
-		throw new Error('Variable name of copy to memory action cannot be null or empty.');
-	}
+	const variableName = prepareVariable(action);
 
 	const source = action.source;
 	if (source == null) {

@@ -17,6 +17,10 @@ import {createLogWriter} from './utils';
 import {runAlarm} from './action-runner/alarm';
 import {runCopyToMemory} from './action-runner/copy-to-memory';
 import {runExists} from './action-runner/exists';
+import {runReadFactor} from './action-runner/read-factor';
+import {runReadFactors} from './action-runner/read-factors';
+import {runReadRow} from './action-runner/read-row';
+import {runReadRows} from './action-runner/read-rows';
 
 export const useDoRunAction = (
 	pipelineContext: PipelineRuntimeContext,
@@ -49,16 +53,16 @@ export const useDoRunAction = (
 						await runExists({pipelineContext, internalUnitContext, context, logWrite});
 						break;
 					case ReadTopicActionType.READ_FACTOR:
-						// ReadFactorAction(context, logger).run();
+						await runReadFactor({pipelineContext, internalUnitContext, context, logWrite});
 						break;
 					case ReadTopicActionType.READ_FACTORS:
-						// ReadFactorsAction(context, logger).run();
+						await runReadFactors({pipelineContext, internalUnitContext, context, logWrite});
 						break;
 					case ReadTopicActionType.READ_ROW:
-						// ReadRowAction(context, logger).run();
+						await runReadRow({pipelineContext, internalUnitContext, context, logWrite});
 						break;
 					case ReadTopicActionType.READ_ROWS:
-						// ReadRowsAction(context, logger).run();
+						await runReadRows({pipelineContext, internalUnitContext, context, logWrite});
 						break;
 					case WriteTopicActionType.WRITE_FACTOR:
 						// WriteFactorAction(context, logger).run();
