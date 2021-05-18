@@ -13,7 +13,7 @@ export const runReadRow = async (options: {
 	const {action} = context;
 
 	if (!isReadRowAction(action)) {
-		throw new Error(`Not a read factor action[${action}].`);
+		throw new Error(`Not a read row action[${action}].`);
 	}
 
 	const variableName = prepareVariable(action);

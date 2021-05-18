@@ -3,11 +3,23 @@ import {
 	FindBy,
 	FromFactor,
 	FromTopic,
-	MemoryWriter
+	MemoryWriter,
+	ToFactor
 } from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {Factor} from '../../../../../../services/tuples/factor-types';
-import {ParameterJoint} from '../../../../../../services/tuples/factor-calculator-types';
+import {Parameter, ParameterJoint} from '../../../../../../services/tuples/factor-calculator-types';
+import {
+	MappingFactor,
+	MappingRow,
+	WriteFactorAction
+} from '../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
+import {CopyToMemoryAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/system-actions-types';
+import {DataRow} from '../../../../simulator-event-bus-types';
+
+export const AGGREGATE_ASSIST_FACTOR_NAME = '_aggregate_assist';
+export const DEFAULT_AGGREGATE_ASSIST_FACTOR_VALUE = '{}';
+export const AGGREGATE_AVG_COUNT_PROP_NAME = 'avg_count'
 
 export const prepareVariable = (action: MemoryWriter): string => {
 	const variableName = (action.variableName || '').trim();
@@ -18,7 +30,7 @@ export const prepareVariable = (action: MemoryWriter): string => {
 	return variableName;
 };
 
-export const prepareTopic = (action: FromTopic, pipelineContext: PipelineRuntimeContext): Topic => {
+export const prepareTopic = (action: FromTopic | ToFactor, pipelineContext: PipelineRuntimeContext): Topic => {
 	const topicId = action.topicId;
 	if (!topicId) {
 		throw new Error('Topic id of action cannot be null or empty.');
@@ -32,12 +44,13 @@ export const prepareTopic = (action: FromTopic, pipelineContext: PipelineRuntime
 	return topic;
 };
 
-export const prepareFactor = (topic: Topic, action: FromFactor): Factor => {
+export const prepareFactor = (topic: Topic, action: FromFactor | ToFactor): Factor => {
 	const factorId = action.factorId;
 	if (!factorId) {
 		throw new Error('Factor id of action cannot be null or empty.');
 	}
 
+	// eslint-disable-next-line
 	const factor = topic.factors.find(f => f.factorId == factorId);
 	if (!factor) {
 		throw new Error(`Factor[${factorId}] of topic[${topic.topicId}] not found.`);
@@ -54,4 +67,38 @@ export const prepareBy = (action: FindBy): ParameterJoint => {
 		throw new Error('By of read action cannot be empty.');
 	}
 	return joint;
+};
+
+export const prepareSource = (action: CopyToMemoryAction | WriteFactorAction): Parameter => {
+	const source = action.source;
+	if (source == null) {
+		throw new Error('Source of copy to memory action cannot be null.');
+	}
+	return source;
+};
+
+export const prepareMapping = (action: MappingRow): Array<MappingFactor> => {
+	const mapping = action.mapping;
+	if (mapping == null) {
+		throw  new Error('Mapping of insert/merge action cannot be null.');
+	}
+	if (mapping.length === 0) {
+		throw new Error('Mapping of insert/merge action cannot be empty.');
+	}
+	return mapping;
+};
+
+export const pushToChangeData = (options: {
+	after: DataRow,
+	before?: DataRow,
+	topic: Topic,
+	pipelineContext: PipelineRuntimeContext
+}) => {
+	const {before, after, topic, pipelineContext} = options;
+	const {...cloneAfter} = after;
+	pipelineContext.changedData.push({
+		topicId: topic.topicId,
+		before: before,
+		after: cloneAfter
+	});
 };

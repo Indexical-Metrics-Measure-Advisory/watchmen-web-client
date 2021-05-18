@@ -21,6 +21,8 @@ import {runReadFactor} from './action-runner/read-factor';
 import {runReadFactors} from './action-runner/read-factors';
 import {runReadRow} from './action-runner/read-row';
 import {runReadRows} from './action-runner/read-rows';
+import {runWriteFactor} from './action-runner/write-factor';
+import {runInsertRow} from './action-runner/insert-row';
 
 export const useDoRunAction = (
 	pipelineContext: PipelineRuntimeContext,
@@ -65,10 +67,10 @@ export const useDoRunAction = (
 						await runReadRows({pipelineContext, internalUnitContext, context, logWrite});
 						break;
 					case WriteTopicActionType.WRITE_FACTOR:
-						// WriteFactorAction(context, logger).run();
+						await runWriteFactor({pipelineContext, internalUnitContext, context, logWrite});
 						break;
 					case WriteTopicActionType.INSERT_ROW:
-						// InsertRowAction(context, logger).run();
+						await runInsertRow({pipelineContext, internalUnitContext, context, logWrite});
 						break;
 					case WriteTopicActionType.MERGE_ROW:
 						// MergeRowAction(context, logger).run();

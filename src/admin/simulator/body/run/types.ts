@@ -53,6 +53,8 @@ export interface PipelineRuntimeContext {
 	status: PipelineRunStatus;
 	/** topic row trigger this pipeline */
 	triggerData: DataRow;
+	/** topic row trigger this pipeline, it used to be */
+	triggerDataOnce?: DataRow;
 	/**
 	 * topic data which already exists when trigger this pipeline.
 	 */

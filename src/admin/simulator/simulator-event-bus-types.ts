@@ -2,7 +2,7 @@ import {Pipeline} from '../../services/tuples/pipeline-types';
 import {Topic} from '../../services/tuples/topic-types';
 import {ActiveStep, SimulateStart, StartFrom, TopicsData} from './body/state/types';
 
-export type DataRow = { [key in string]: string | null };
+export type DataRow = { [key in string]: any };
 
 export enum SimulatorEventTypes {
 	START_FROM_CHANGED = 'start-from-changed',
