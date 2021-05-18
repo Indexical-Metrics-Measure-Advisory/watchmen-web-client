@@ -7,9 +7,9 @@ export const createLogWriter = (
 	stageContext: StageRuntimeContext,
 	unitContext: UnitRuntimeContext,
 	context: ActionRuntimeContext,
-	callback?: (message: string) => void
+	callback?: (message: string, error?: Error) => void
 ) => {
-	return async (message: string) => {
+	return async (message: string, error?: Error) => {
 		const db = connectSimulatorDB();
 		await db.logs.add({
 			pipelineId: pipelineContext.pipeline.pipelineId,
@@ -21,6 +21,7 @@ export const createLogWriter = (
 			actionId: context.action.actionId,
 			actionRuntimeId: context.actionRuntimeId,
 			message,
+			error: error?.message,
 			createdAt: dayjs().toDate()
 		});
 

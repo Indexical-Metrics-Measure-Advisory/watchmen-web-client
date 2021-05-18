@@ -36,6 +36,7 @@ export enum RuntimeEventTypes {
 	INTERNAL_UNIT_FAILED = 'internal-unit-failed',
 
 	RUN_ACTION = 'run-action',
+	DO_RUN_ACTION = 'do-run-action',
 	ACTION_DONE = 'action-done',
 	ACTION_FAILED = 'action-failed'
 }
@@ -140,6 +141,10 @@ export interface RuntimeEventBus {
 	fire(type: RuntimeEventTypes.RUN_ACTION, context: ActionRuntimeContext): this;
 	on(type: RuntimeEventTypes.RUN_ACTION, listener: (context: ActionRuntimeContext) => void): this;
 	off(type: RuntimeEventTypes.RUN_ACTION, listener: (context: ActionRuntimeContext) => void): this;
+
+	fire(type: RuntimeEventTypes.DO_RUN_ACTION, context: ActionRuntimeContext): this;
+	on(type: RuntimeEventTypes.DO_RUN_ACTION, listener: (context: ActionRuntimeContext) => void): this;
+	off(type: RuntimeEventTypes.DO_RUN_ACTION, listener: (context: ActionRuntimeContext) => void): this;
 
 	fire(type: RuntimeEventTypes.ACTION_DONE, context: ActionRuntimeContext): this;
 	on(type: RuntimeEventTypes.ACTION_DONE, listener: (context: ActionRuntimeContext) => void): this;

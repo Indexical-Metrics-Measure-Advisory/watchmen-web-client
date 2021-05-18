@@ -15,6 +15,7 @@ import {isActionCompleted, isActionStarted} from '../utils';
 import {ButtonInk} from '../../../../../basic-widgets/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ICON_SEARCH} from '../../../../../basic-widgets/constants';
+import {useDoRunAction} from './use-do-run-action';
 
 export const ActionRun = (props: {
 	pipelineContext: PipelineRuntimeContext;
@@ -27,6 +28,7 @@ export const ActionRun = (props: {
 
 	const [message, setMessage] = useState('');
 	useRunAction(pipelineContext, stageContext, unitContext, internalUnitContext, context);
+	useDoRunAction(pipelineContext, stageContext, unitContext, internalUnitContext, context, setMessage);
 	useCompleted(pipelineContext, stageContext, unitContext, internalUnitContext, context, setMessage);
 
 	return <>

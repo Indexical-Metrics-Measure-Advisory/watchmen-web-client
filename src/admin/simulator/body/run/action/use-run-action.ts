@@ -2,7 +2,8 @@ import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
 import {useEffect} from 'react';
 import {
 	ActionRunStatus,
-	ActionRuntimeContext, InternalUnitRuntimeContext,
+	ActionRuntimeContext,
+	InternalUnitRuntimeContext,
 	PipelineRuntimeContext,
 	StageRuntimeContext,
 	UnitRuntimeContext
@@ -53,10 +54,11 @@ export const useRunAction = (
 				lastModifiedAt: dayjs().toDate()
 			});
 			forceUpdate();
+			fire(RuntimeEventTypes.DO_RUN_ACTION, context);
 		};
 		on(RuntimeEventTypes.RUN_ACTION, onRunAction);
 		return () => {
 			off(RuntimeEventTypes.RUN_ACTION, onRunAction);
 		};
-	}, [on, off, fire, forceUpdate, pipelineContext, stageContext, unitContext, context]);
+	}, [on, off, fire, forceUpdate, pipelineContext, stageContext, unitContext, internalUnitContext, context]);
 };

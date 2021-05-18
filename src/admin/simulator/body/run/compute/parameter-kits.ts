@@ -1,6 +1,8 @@
 import {
+	ComputedParameter,
 	ConstantParameter,
 	Parameter,
+	ParameterComputeType,
 	TopicFactorParameter
 } from '../../../../../services/tuples/factor-calculator-types';
 import {AllTopics} from '../types';
@@ -91,7 +93,7 @@ const computeToNumeric = (parameter: Parameter, value?: any): number | null => {
 	}
 };
 
-const computeToDate = (parameter: Parameter, date?: any): string | null => {
+export const computeToDate = (parameter: Parameter, date?: any): string | null => {
 	if (date == null) {
 		return null;
 	}
@@ -188,7 +190,7 @@ const computeStatement = (statement: string, getFirstValue: (propertyName: strin
 		return values.filter(x => !x).join('');
 	}
 };
-const computeConstantByStatement = (options: {
+export const computeConstantByStatement = (options: {
 	statement: string,
 	parameter: ConstantParameter,
 	shouldBe: ParameterShouldBe,
@@ -201,31 +203,64 @@ const computeConstantByStatement = (options: {
 	});
 	return castParameterValueType({value, parameter, shouldBe});
 };
-export const computeConstant = (options: {
-	parameter: ConstantParameter, shouldBe: ParameterShouldBe, getValue: (propertyName: string) => any
-}): any => {
-	const {parameter, shouldBe, getValue} = options;
 
-	const statement = parameter.value;
-
-	let value: any;
-	if (statement == null) {
-		value = null;
-	} else if (statement.length === 0) {
-		if (shouldBe === ParameterShouldBe.ANY) {
-			value = '';
-		} else {
-			value = null;
-		}
-	} else if (statement.trim().length === 0) {
-		if (shouldBe === ParameterShouldBe.ANY) {
-			value = statement;
-		} else {
-			value = null;
-		}
-	} else {
-		value = computeConstantByStatement({statement, parameter, shouldBe, getValue});
+const checkMinSubParameterCount = (parameter: ComputedParameter, count: number) => {
+	const size = parameter.parameters.length;
+	if (size < count) {
+		throw new Error(`At least ${count} sub parameter(s) in [${parameter}], but only [${size}] now.`);
 	}
-
-	return castParameterValueType({value, parameter, shouldBe});
 };
+const checkMaxSubParameterCount = (parameter: ComputedParameter, count: number) => {
+	const size = parameter.parameters.length;
+	if (size > count) {
+		throw new Error(`At most ${count} sub parameter(s) in [${parameter}], but [${size}] now.`);
+	}
+};
+export const checkSubParameters = (parameter: ComputedParameter) => {
+	switch (parameter.type) {
+		case ParameterComputeType.NONE:
+			break;
+		case        ParameterComputeType.ADD:
+		case ParameterComputeType.SUBTRACT:
+		case ParameterComputeType.MULTIPLY:
+		case ParameterComputeType.DIVIDE:
+			checkMinSubParameterCount(parameter, 2);
+			break;
+		case ParameterComputeType.MODULUS:
+			checkMinSubParameterCount(parameter, 2);
+			checkMaxSubParameterCount(parameter, 2);
+			break;
+		case ParameterComputeType.YEAR_OF:
+		case ParameterComputeType.HALF_YEAR_OF:
+		case ParameterComputeType.QUARTER_OF:
+		case ParameterComputeType.MONTH_OF:
+		case ParameterComputeType.WEEK_OF_YEAR:
+		case ParameterComputeType.WEEK_OF_MONTH:
+		case ParameterComputeType.DAY_OF_MONTH:
+		case ParameterComputeType.DAY_OF_WEEK:
+			checkMaxSubParameterCount(parameter, 1);
+			break;
+		case ParameterComputeType.CASE_THEN:
+			checkMinSubParameterCount(parameter, 1);
+			if (parameter.parameters.filter(sub => sub.on == null).length > 1) {
+				throw new Error(`Multiple anyway routes in case-then expression of [${parameter}] is not allowed.`);
+			}
+	}
+};
+export const checkShouldBe = (parameter: ComputedParameter, shouldBe: ParameterShouldBe) => {
+	const type = parameter.type;
+
+	if (type === ParameterComputeType.NONE) {
+	} else if (type === ParameterComputeType.CASE_THEN) {
+	} else if (shouldBe === ParameterShouldBe.ANY) {
+	} else if (shouldBe === ParameterShouldBe.COLLECTION) {
+		// anything can be cast to collection,
+		// collection is collection itself,
+		// non-collection is the only element of collection
+	} else if (shouldBe === ParameterShouldBe.DATE) {
+		// cannot get date by computing except case-then
+		throw new Error(`Cannot get date result on parameter[${parameter}].`);
+	} else if (shouldBe === ParameterShouldBe.NUMBER) {
+	}
+};
+
