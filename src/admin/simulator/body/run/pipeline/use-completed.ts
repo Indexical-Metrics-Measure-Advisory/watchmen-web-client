@@ -21,10 +21,8 @@ export const useCompleted = (
 				changed: context.changedData,
 				lastModifiedAt: dayjs().toDate()
 			});
-			// TODO run next pipeline
-			// merge changed data
 			if (context.changedData.length > 0) {
-
+				// TODO merge changed data
 			} else {
 				// nothing changed, never occurs
 				fire(RuntimeEventTypes.RUN_NEXT_PIPELINE);
