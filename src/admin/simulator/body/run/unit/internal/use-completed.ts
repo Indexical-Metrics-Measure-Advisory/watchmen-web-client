@@ -50,7 +50,7 @@ export const useCompleted = (
 				return;
 			}
 			context.status = status;
-			await logWrite(`Internal unit finished on status ${status}.`);
+			await logWrite(`Unit finished on status ${status}.`);
 			await finishInternalUnit();
 		};
 		const onInternalUnitIgnored = onInternalUnitCompleted(UnitRunStatus.IGNORED);
