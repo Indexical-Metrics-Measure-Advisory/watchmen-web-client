@@ -160,7 +160,7 @@ export interface RuntimeEventBus {
 	on(type: RuntimeEventTypes.ACTION_DONE, listener: (context: ActionRuntimeContext) => void): this;
 	off(type: RuntimeEventTypes.ACTION_DONE, listener: (context: ActionRuntimeContext) => void): this;
 
-	fire(type: RuntimeEventTypes.ACTION_FAILED, context: ActionRuntimeContext): this;
-	on(type: RuntimeEventTypes.ACTION_FAILED, listener: (context: ActionRuntimeContext) => void): this;
-	off(type: RuntimeEventTypes.ACTION_FAILED, listener: (context: ActionRuntimeContext) => void): this;
+	fire(type: RuntimeEventTypes.ACTION_FAILED, context: ActionRuntimeContext, error: Error): this;
+	on(type: RuntimeEventTypes.ACTION_FAILED, listener: (context: ActionRuntimeContext, error: Error) => void): this;
+	off(type: RuntimeEventTypes.ACTION_FAILED, listener: (context: ActionRuntimeContext, error: Error) => void): this;
 }

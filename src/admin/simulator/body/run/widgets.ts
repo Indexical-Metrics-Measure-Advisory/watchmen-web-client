@@ -63,6 +63,7 @@ export const RunTableBodyCell = styled.div.attrs({'data-widget': 'run-table-body
 	padding: 0 calc(var(--margin) / 8);
 	margin-bottom: -1px;
 	height: var(--tall-height);
+	white-space: nowrap;
 	&:first-child {
 		overflow: hidden;
 		white-space: nowrap;

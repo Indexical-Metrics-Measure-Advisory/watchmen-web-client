@@ -21,22 +21,22 @@ export const readTopicFactorParameter = (options: {
 
 	const topicId = parameter.topicId;
 	if (!topicId || topicId.trim().length === 0) {
-		throw new Error(`Topic id of parameter[${parameter}] cannot be blank.`);
+		throw new Error(`Topic id of parameter[${JSON.stringify(parameter)}] cannot be blank.`);
 	}
 	validOrThrow(topicId);
 	const topic = topics[topicId];
 	if (!topic) {
-		throw new Error(`Topic[${topicId}] of parameter[${parameter}] not found.`);
+		throw new Error(`Topic[${topicId}] of parameter[${JSON.stringify(parameter)}] not found.`);
 	}
 
 	const factorId = parameter.factorId;
 	if (!factorId || factorId.trim().length === 0) {
-		throw new Error(`Factor id of parameter[${parameter}] cannot be blank.`);
+		throw new Error(`Factor id of parameter[${JSON.stringify(parameter)}] cannot be blank.`);
 	}
 	// eslint-disable-next-line
 	const factor = topic.factors.find(factor => factor.factorId == factorId);
 	if (!factor) {
-		throw new Error(`Factor[${factorId}] of parameter[${parameter}] not found.`);
+		throw new Error(`Factor[${factorId}] of parameter[${JSON.stringify(parameter)}] not found.`);
 	}
 
 	return {topic, factor};
@@ -87,7 +87,7 @@ const computeToNumeric = (parameter: Parameter, value?: any): number | null => {
 	if (value == null) {
 		return value;
 	} else if (isNaN(value)) {
-		throw new Error(`Cannot cast given value[${value}] to numeric, which is computed by parameter[${parameter}].`);
+		throw new Error(`Cannot cast given value[${value}] to numeric, which is computed by parameter[${JSON.stringify(parameter)}].`);
 	} else {
 		return Number(value.toString());
 	}
@@ -104,7 +104,7 @@ export const computeToDate = (parameter: Parameter, date?: any): string | null =
 		// remove time
 		return casted.startOf('day').format('YYYYMMDD');
 	} else {
-		throw new Error(`Cannot cast given value[${date}] to date, which is computed by parameter[${parameter}].`);
+		throw new Error(`Cannot cast given value[${date}] to date, which is computed by parameter[${JSON.stringify(parameter)}].`);
 	}
 };
 
@@ -199,7 +199,7 @@ export const computeConstantByStatement = (options: {
 	const {statement, parameter, shouldBe, getValue} = options;
 
 	const value = computeStatement(statement, getValue, () => {
-		throw new Error(`Cannot retrieve value of variable[${statement}], which is defined by parameter[${parameter}].`);
+		throw new Error(`Cannot retrieve value of variable[${statement}], which is defined by parameter[${JSON.stringify(parameter)}].`);
 	});
 	return castParameterValueType({value, parameter, shouldBe});
 };
@@ -207,13 +207,13 @@ export const computeConstantByStatement = (options: {
 const checkMinSubParameterCount = (parameter: ComputedParameter, count: number) => {
 	const size = parameter.parameters.length;
 	if (size < count) {
-		throw new Error(`At least ${count} sub parameter(s) in [${parameter}], but only [${size}] now.`);
+		throw new Error(`At least ${count} sub parameter(s) in [${JSON.stringify(parameter)}], but only [${size}] now.`);
 	}
 };
 const checkMaxSubParameterCount = (parameter: ComputedParameter, count: number) => {
 	const size = parameter.parameters.length;
 	if (size > count) {
-		throw new Error(`At most ${count} sub parameter(s) in [${parameter}], but [${size}] now.`);
+		throw new Error(`At most ${count} sub parameter(s) in [${JSON.stringify(parameter)}], but [${size}] now.`);
 	}
 };
 export const checkSubParameters = (parameter: ComputedParameter) => {
@@ -243,7 +243,7 @@ export const checkSubParameters = (parameter: ComputedParameter) => {
 		case ParameterComputeType.CASE_THEN:
 			checkMinSubParameterCount(parameter, 1);
 			if (parameter.parameters.filter(sub => sub.on == null).length > 1) {
-				throw new Error(`Multiple anyway routes in case-then expression of [${parameter}] is not allowed.`);
+				throw new Error(`Multiple anyway routes in case-then expression of [${JSON.stringify(parameter)}] is not allowed.`);
 			}
 	}
 };
@@ -259,7 +259,7 @@ export const checkShouldBe = (parameter: ComputedParameter, shouldBe: ParameterS
 		// non-collection is the only element of collection
 	} else if (shouldBe === ParameterShouldBe.DATE) {
 		// cannot get date by computing except case-then
-		throw new Error(`Cannot get date result on parameter[${parameter}].`);
+		throw new Error(`Cannot get date result on parameter[${JSON.stringify(parameter)}].`);
 	} else if (shouldBe === ParameterShouldBe.NUMBER) {
 	}
 };

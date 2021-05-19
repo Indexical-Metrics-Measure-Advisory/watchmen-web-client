@@ -87,8 +87,8 @@ export const useDoRunAction = (
 				fire(RuntimeEventTypes.ACTION_DONE, context);
 			} catch (e) {
 				console.error(e);
-				await logWrite(`Error occurred, caused by ${e.message}.`, e);
-				fire(RuntimeEventTypes.ACTION_FAILED, context);
+				await logWrite(`Error occurred.`, e);
+				fire(RuntimeEventTypes.ACTION_FAILED, context, e);
 			}
 		};
 		on(RuntimeEventTypes.DO_RUN_ACTION, onDoRunAction);

@@ -47,16 +47,22 @@ export const useCompleted = (
 				}
 			}
 		};
-		const onUnitCompleted = (status: ActionRunStatus) => async (c: ActionRuntimeContext) => {
+		const onActionDone = async (c: ActionRuntimeContext) => {
 			if (c !== context) {
 				return;
 			}
-			context.status = status;
-			await logWrite(`Action finished on status ${status}.`);
+			context.status = ActionRunStatus.DONE;
+			await logWrite(`Action done.`);
 			await finishAction();
 		};
-		const onActionDone = onUnitCompleted(ActionRunStatus.DONE);
-		const onActionFailed = onUnitCompleted(ActionRunStatus.FAIL);
+		const onActionFailed = async (c: ActionRuntimeContext, error: Error) => {
+			if (c !== context) {
+				return;
+			}
+			context.status = ActionRunStatus.FAIL;
+			await logWrite(`Action failed on error[${error.message}].`);
+			await finishAction();
+		};
 		on(RuntimeEventTypes.ACTION_DONE, onActionDone);
 		on(RuntimeEventTypes.ACTION_FAILED, onActionFailed);
 		return () => {
