@@ -21,3 +21,4 @@ export const buildContextBody = (context: PipelineRuntimeContext): Partial<Pipel
 	const {pipelineRuntimeId, status, allTopics, runtimeData, ...rest} = context;
 	return rest;
 };
+

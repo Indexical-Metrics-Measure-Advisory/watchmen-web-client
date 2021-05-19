@@ -20,6 +20,7 @@ import {buildContextBody, createLogWriter} from './utils';
 import {useRunStages} from './use-run-stages';
 import {RunsEventTypes} from '../runs-event-bus-types';
 import {useRunsEventBus} from '../runs-event-bus';
+import {Pipeline} from '../../../../../services/tuples/pipeline-types';
 
 const buildTriggerData = (context: PipelineRuntimeContext) => {
 	return Object.keys(context.allData).reduce((data, topicId) => {
@@ -52,14 +53,17 @@ const startPipeline = async (context: PipelineRuntimeContext, start: () => void)
 	context.runtimeData = data;
 	start();
 };
-export const PipelineRuntime = (props: { context: PipelineRuntimeContext }) => {
-	const {context} = props;
+export const PipelineRuntime = (props: {
+	context: PipelineRuntimeContext;
+	pipelines: Array<Pipeline>
+}) => {
+	const {context, pipelines} = props;
 
 	const {on: onRuns, off: offRuns} = useRunsEventBus();
 	const {fire} = useRuntimeEventBus();
 	const [message, setMessage] = useState('');
 	const forceUpdate = useForceUpdate();
-	useCompleted(context, setMessage);
+	useCompleted(context, pipelines, setMessage);
 	useTriggerTypeCheck(context, setMessage);
 	useConditionCheck(context, setMessage);
 	useRunStages(context, setMessage);

@@ -32,7 +32,7 @@ export const DynamicPipelineRun = (props: {
 	}
 
 	return <RuntimeEventBusProvider>
-		<PipelineRuntime context={context}/>
+		<PipelineRuntime context={context} pipelines={pipelines}/>
 		<StagesRuntime context={context}/>
 		<RunNextPipeline runNext={runNext}/>
 		<DynamicPipelineRun topics={topics} pipelines={pipelines} runNext={runNext}/>
@@ -48,7 +48,7 @@ export const PipelineRun = (props: {
 	const {context, topics, pipelines, runNext} = props;
 
 	return <RuntimeEventBusProvider>
-		<PipelineRuntime context={context}/>
+		<PipelineRuntime context={context} pipelines={pipelines}/>
 		<StagesRuntime context={context}/>
 		{/* catch pipeline all done */}
 		<RunNextPipeline runNext={runNext}/>

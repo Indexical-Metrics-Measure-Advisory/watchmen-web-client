@@ -60,16 +60,18 @@ export const buildPipelineRuntimeContext = (options: {
 	pipeline: Pipeline,
 	topic: Topic,
 	triggerData: DataRow,
+	triggerDataOnce?: DataRow,
 	existsData: Array<DataRow>,
 	allData: TopicsData,
 	allTopics: AllTopics
 }): PipelineRuntimeContext => {
-	const {pipeline, topic, triggerData, existsData, allData, allTopics} = options;
+	const {pipeline, topic, triggerData, triggerDataOnce, existsData, allData, allTopics} = options;
 	return {
 		pipeline,
 		topic,
 		status: PipelineRunStatus.WAIT,
 		triggerData,
+		triggerDataOnce,
 		existsData,
 		stages: pipeline.stages.map((stage, stageIndex) => buildStageRuntimeContext(stage, stageIndex)),
 
