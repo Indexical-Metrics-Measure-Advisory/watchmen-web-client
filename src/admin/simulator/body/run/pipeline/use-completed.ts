@@ -34,23 +34,24 @@ export const useCompleted = (
 					return merged;
 				}, [] as Array<ChangedDataRow>);
 				context.changedData = merged;
-				const [first] = merged;
-				const {topicId} = first;
-				const topic = context.allTopics[topicId];
+				const topicIds = merged.map(merge => merge.topicId);
 				// eslint-disable-next-line
-				const availablePipelines = pipelines.filter(p => p.topicId == topicId);
+				const availablePipelines = pipelines.filter(p => topicIds.includes(p.topicId));
 				const nextDynamicPipeline = voteNextDynamicPipeline({
 					candidates: availablePipelines,
 					allPipelines: pipelines
 				});
+				const topicId = nextDynamicPipeline.topicId;
+				const trigger = merged.find(merge => merge.topicId == topicId)!;
 				const dynamicPipelineContext = buildPipelineRuntimeContext({
 					pipeline: nextDynamicPipeline,
-					topic,
-					triggerData: first.after,
-					triggerDataOnce: first.before,
+					topic: context.allTopics[topicId],
+					triggerData: trigger.after,
+					triggerDataOnce: trigger.before,
 					existsData: context.allData[topicId],
 					allData: context.allData,
-					allTopics: context.allTopics
+					allTopics: context.allTopics,
+					changedData: merged.filter(merge => merge !== trigger)
 				});
 				fire(RuntimeEventTypes.RUN_DYNAMIC_PIPELINE, dynamicPipelineContext);
 			} else {

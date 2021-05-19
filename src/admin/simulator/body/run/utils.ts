@@ -5,6 +5,7 @@ import {
 	ActionRunStatus,
 	ActionRuntimeContext,
 	AllTopics,
+	ChangedDataRow,
 	InMemoryVariables,
 	InternalUnitRuntimeContext,
 	PipelineRunStatus,
@@ -63,9 +64,10 @@ export const buildPipelineRuntimeContext = (options: {
 	triggerDataOnce?: DataRow,
 	existsData: Array<DataRow>,
 	allData: TopicsData,
-	allTopics: AllTopics
+	allTopics: AllTopics,
+	changedData?: Array<ChangedDataRow>
 }): PipelineRuntimeContext => {
-	const {pipeline, topic, triggerData, triggerDataOnce, existsData, allData, allTopics} = options;
+	const {pipeline, topic, triggerData, triggerDataOnce, existsData, allData, allTopics, changedData = []} = options;
 	return {
 		pipeline,
 		topic,
@@ -79,7 +81,7 @@ export const buildPipelineRuntimeContext = (options: {
 		allTopics,
 
 		runtimeData: {},
-		changedData: [],
+		changedData,
 		variables: {}
 	};
 };
