@@ -1,8 +1,6 @@
 import {ActionRunStatus} from '../types';
-import {CellButton, StatusLabel} from '../widgets';
+import {StatusLabel} from '../widgets';
 import {ButtonInk} from '../../../../../basic-widgets/types';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_SEARCH} from '../../../../../basic-widgets/constants';
 import React from 'react';
 
 export const ActionRunStatusCell = (props: {
@@ -14,12 +12,10 @@ export const ActionRunStatusCell = (props: {
 		case ActionRunStatus.READY:
 			return <StatusLabel/>;
 		case ActionRunStatus.RUNNING:
-			return <StatusLabel>Running</StatusLabel>;
+			return <StatusLabel ink={ButtonInk.PRIMARY}>Running</StatusLabel>;
 		case ActionRunStatus.DONE:
-			return <StatusLabel>Done</StatusLabel>;
+			return <StatusLabel ink={ButtonInk.SUCCESS}>Done</StatusLabel>;
 		case ActionRunStatus.FAIL:
-			return <CellButton ink={ButtonInk.DANGER}>
-				<FontAwesomeIcon icon={ICON_SEARCH}/>
-			</CellButton>;
+			return <StatusLabel ink={ButtonInk.DANGER}>Failed</StatusLabel>;
 	}
 };

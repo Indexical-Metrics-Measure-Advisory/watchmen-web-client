@@ -1,8 +1,6 @@
 import {UnitRunStatus} from '../../types';
-import {CellButton, StatusLabel} from '../../widgets';
+import {StatusLabel} from '../../widgets';
 import {ButtonInk} from '../../../../../../basic-widgets/types';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_SEARCH} from '../../../../../../basic-widgets/constants';
 import React from 'react';
 
 export const InternalUnitRunStatusCell = (props: {
@@ -14,14 +12,12 @@ export const InternalUnitRunStatusCell = (props: {
 		case UnitRunStatus.READY:
 			return <StatusLabel/>;
 		case UnitRunStatus.RUNNING:
-			return <StatusLabel>Running</StatusLabel>;
+			return <StatusLabel ink={ButtonInk.PRIMARY}>Running</StatusLabel>;
 		case UnitRunStatus.IGNORED:
-			return <StatusLabel>Ignored</StatusLabel>;
+			return <StatusLabel ink={ButtonInk.WARN}>Ignored</StatusLabel>;
 		case UnitRunStatus.DONE:
-			return <StatusLabel>Done</StatusLabel>;
+			return <StatusLabel ink={ButtonInk.SUCCESS}>Done</StatusLabel>;
 		case UnitRunStatus.FAIL:
-			return <CellButton ink={ButtonInk.DANGER}>
-				<FontAwesomeIcon icon={ICON_SEARCH}/>
-			</CellButton>;
+			return <StatusLabel ink={ButtonInk.DANGER}>Failed</StatusLabel>;
 	}
 };

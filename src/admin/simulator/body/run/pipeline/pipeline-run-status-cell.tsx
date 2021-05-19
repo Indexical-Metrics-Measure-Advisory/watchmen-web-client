@@ -2,7 +2,7 @@ import {PipelineRunStatus} from '../types';
 import {CellButton, StatusLabel} from '../widgets';
 import {ButtonInk} from '../../../../../basic-widgets/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_PLAY, ICON_SEARCH} from '../../../../../basic-widgets/constants';
+import {ICON_PLAY} from '../../../../../basic-widgets/constants';
 import React from 'react';
 
 export const PipelineRunStatusCell = (props: {
@@ -19,14 +19,12 @@ export const PipelineRunStatusCell = (props: {
 		case PipelineRunStatus.WAIT:
 			return <StatusLabel>Wait</StatusLabel>;
 		case PipelineRunStatus.RUNNING:
-			return <StatusLabel>Running</StatusLabel>;
+			return <StatusLabel ink={ButtonInk.PRIMARY}>Running</StatusLabel>;
 		case PipelineRunStatus.IGNORED:
-			return <StatusLabel>Ignored</StatusLabel>;
+			return <StatusLabel ink={ButtonInk.WARN}>Ignored</StatusLabel>;
 		case PipelineRunStatus.DONE:
-			return <StatusLabel>Done</StatusLabel>;
+			return <StatusLabel ink={ButtonInk.SUCCESS}>Done</StatusLabel>;
 		case PipelineRunStatus.FAIL:
-			return <CellButton ink={ButtonInk.DANGER}>
-				<FontAwesomeIcon icon={ICON_SEARCH}/>
-			</CellButton>;
+			return <StatusLabel ink={ButtonInk.DANGER}>Failed</StatusLabel>;
 	}
 };

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {Button} from '../../../../basic-widgets/button';
 import {SimulatorBodyPartBody} from '../widgets';
+import {ButtonInk} from '../../../../basic-widgets/types';
 
 const COLUMNS = '400px repeat(4, 100px) 400px';
 const COLUMNS_WIDTH = '1200px';
@@ -103,7 +104,27 @@ export const CellButton = styled(Button)`
 	font-size: 0.8em;
 	border-radius: 10px;
 `;
-export const StatusLabel = styled.span`
+export const StatusLabel = styled.span.attrs<{ ink?: ButtonInk }>(({ink}) => {
+	let color = '';
+	switch (ink) {
+		case ButtonInk.PRIMARY:
+			color = 'var(--primary-color)';
+			break;
+		case ButtonInk.DANGER:
+			color = 'var(--danger-color)';
+			break;
+		case ButtonInk.INFO:
+			color = 'var(--info-color)';
+			break;
+		case ButtonInk.WARN:
+			color = 'var(--warn-color)';
+			break;
+		case ButtonInk.SUCCESS:
+			color = 'var(--success-color)';
+			break;
+	}
+	return {style: {color}};
+})<{ ink?: ButtonInk }>`
 	font-variant: petite-caps;
 	font-weight: var(--font-bold);
 `;
