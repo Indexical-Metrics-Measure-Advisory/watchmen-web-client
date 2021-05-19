@@ -75,11 +75,11 @@ const MatchIssueWeekOfYear: ParameterJoint = {
 	filters: [{
 		left: {kind: ParameterKind.TOPIC, topicId: '5', factorId: '501'},
 		operator: ParameterExpressionOperator.EQUALS,
-		right: {kind: ParameterKind.CONSTANT, value: 'IssueYear'} as ConstantParameter
+		right: {kind: ParameterKind.CONSTANT, value: '{IssueYear}'} as ConstantParameter
 	}, {
 		left: {kind: ParameterKind.TOPIC, topicId: '5', factorId: '502'},
 		operator: ParameterExpressionOperator.EQUALS,
-		right: {kind: ParameterKind.CONSTANT, value: 'IssueWeekOfYear'} as ConstantParameter
+		right: {kind: ParameterKind.CONSTANT, value: '{IssueWeekOfYear}'} as ConstantParameter
 	}]
 };
 const WriteWeeklyPremium: MergeRowAction = {
@@ -88,12 +88,12 @@ const WriteWeeklyPremium: MergeRowAction = {
 	mapping: [
 		{
 			factorId: '501',
-			source: {kind: ParameterKind.CONSTANT, value: 'IssueYear'} as ConstantParameter,
+			source: {kind: ParameterKind.CONSTANT, value: '{IssueYear}'} as ConstantParameter,
 			arithmetic: AggregateArithmetic.NONE
 		},
 		{
 			factorId: '502',
-			source: {kind: ParameterKind.CONSTANT, value: 'IssueWeekOfYear'} as ConstantParameter,
+			source: {kind: ParameterKind.CONSTANT, value: '{IssueWeekOfYear}'} as ConstantParameter,
 			arithmetic: AggregateArithmetic.NONE
 		},
 		{
@@ -120,11 +120,11 @@ const MatchIssueMonthOfYear: ParameterJoint = {
 	filters: [{
 		left: {kind: ParameterKind.TOPIC, topicId: '6', factorId: '601'},
 		operator: ParameterExpressionOperator.EQUALS,
-		right: {kind: ParameterKind.CONSTANT, value: 'IssueYear'} as ConstantParameter
+		right: {kind: ParameterKind.CONSTANT, value: '{IssueYear}'} as ConstantParameter
 	}, {
 		left: {kind: ParameterKind.TOPIC, topicId: '6', factorId: '602'},
 		operator: ParameterExpressionOperator.EQUALS,
-		right: {kind: ParameterKind.CONSTANT, value: 'IssueMonthOfYear'} as ConstantParameter
+		right: {kind: ParameterKind.CONSTANT, value: '{IssueMonthOfYear}'} as ConstantParameter
 	}]
 };
 const WriteMonthlyPremium: MergeRowAction = {
@@ -133,12 +133,12 @@ const WriteMonthlyPremium: MergeRowAction = {
 	mapping: [
 		{
 			factorId: '601',
-			source: {kind: ParameterKind.CONSTANT, value: 'IssueYear'} as ConstantParameter,
+			source: {kind: ParameterKind.CONSTANT, value: '{IssueYear}'} as ConstantParameter,
 			arithmetic: AggregateArithmetic.NONE
 		},
 		{
 			factorId: '602',
-			source: {kind: ParameterKind.CONSTANT, value: 'IssueMonthOfYear'} as ConstantParameter,
+			source: {kind: ParameterKind.CONSTANT, value: '{IssueMonthOfYear}'} as ConstantParameter,
 			arithmetic: AggregateArithmetic.NONE
 		},
 		{

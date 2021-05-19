@@ -123,7 +123,7 @@ export const castParameterValueType = (options: {
 		case ParameterShouldBe.NUMBER:
 			return computeToNumeric(parameter, value);
 		case ParameterShouldBe.DATE:
-			return computeToDate(value, parameter);
+			return computeToDate(parameter, value);
 	}
 };
 
@@ -165,12 +165,12 @@ const computeVariable = (options: { variable: string, getFirstValue: (propertyNa
 	}, null as any);
 };
 const computeStatement = (statement: string, getFirstValue: (propertyName: string) => any, throws: () => void): any => {
-	const segments = statement.match(/([^{]*({[^}]+})?)/);
+	const segments = statement.match(/([^{]*({[^}]+})?)/g);
 	if (segments == null) {
 		// no variable
 		return statement;
 	}
-	const values = segments.map(segment => {
+	const values = segments.filter(x => x).map(segment => {
 		const braceStartIndex = segment.indexOf('{');
 		if (braceStartIndex === -1) {
 			return segment;

@@ -31,9 +31,7 @@ export const Pipelines = (props: {
 			fire(RunsEventTypes.RUN_PIPELINE, nextPipeline);
 		} else {
 			// all done
-			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
-				Congratulations, all pipelines are completed.
-			</AlertLabel>);
+			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>All pipelines are completed.</AlertLabel>);
 		}
 	};
 

@@ -37,23 +37,29 @@ export const useCompleted = (
 				const topicIds = merged.map(merge => merge.topicId);
 				// eslint-disable-next-line
 				const availablePipelines = pipelines.filter(p => topicIds.includes(p.topicId));
-				const nextDynamicPipeline = voteNextDynamicPipeline({
-					candidates: availablePipelines,
-					allPipelines: pipelines
-				});
-				const topicId = nextDynamicPipeline.topicId;
-				const trigger = merged.find(merge => merge.topicId == topicId)!;
-				const dynamicPipelineContext = buildPipelineRuntimeContext({
-					pipeline: nextDynamicPipeline,
-					topic: context.allTopics[topicId],
-					triggerData: trigger.after,
-					triggerDataOnce: trigger.before,
-					existsData: context.allData[topicId],
-					allData: context.allData,
-					allTopics: context.allTopics,
-					changedData: merged.filter(merge => merge !== trigger)
-				});
-				fire(RuntimeEventTypes.RUN_DYNAMIC_PIPELINE, dynamicPipelineContext);
+				if (availablePipelines.length === 0) {
+					// no more pipelines needs to be run in this series
+					fire(RuntimeEventTypes.RUN_NEXT_PIPELINE);
+				} else {
+					const nextDynamicPipeline = voteNextDynamicPipeline({
+						candidates: availablePipelines,
+						allPipelines: pipelines
+					});
+					const topicId = nextDynamicPipeline.topicId;
+					// eslint-disable-next-line
+					const trigger = merged.find(merge => merge.topicId == topicId)!;
+					const dynamicPipelineContext = buildPipelineRuntimeContext({
+						pipeline: nextDynamicPipeline,
+						topic: context.allTopics[topicId],
+						triggerData: trigger.after,
+						triggerDataOnce: trigger.before,
+						existsData: context.allData[topicId],
+						allData: context.allData,
+						allTopics: context.allTopics,
+						changedData: merged.filter(merge => merge !== trigger)
+					});
+					fire(RuntimeEventTypes.RUN_DYNAMIC_PIPELINE, dynamicPipelineContext);
+				}
 			} else {
 				// nothing changed, never occurs
 				fire(RuntimeEventTypes.RUN_NEXT_PIPELINE);

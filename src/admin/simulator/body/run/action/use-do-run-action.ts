@@ -86,6 +86,7 @@ export const useDoRunAction = (
 				}
 				fire(RuntimeEventTypes.ACTION_DONE, context);
 			} catch (e) {
+				console.error(e);
 				await logWrite(`Unsupported type of action[type=${action.type}].`, e);
 				fire(RuntimeEventTypes.ACTION_FAILED, context);
 			}

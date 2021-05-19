@@ -169,24 +169,24 @@ const computeComputed = (options: {
 			value = v0 % v1;
 			break;
 		case ParameterComputeType.YEAR_OF: {
-			const date = computeParameter(computeParameter({
+			const date = computeParameter({
 				parameter: parameters[0],
 				pipelineContext,
-				shouldBe: ParameterShouldBe.NUMBER,
+				shouldBe: ParameterShouldBe.DATE,
 				internalUnitContext,
 				alternativeTriggerData
-			}));
+			});
 			value = date ? dayjs(date).year() : null;
 			break;
 		}
 		case ParameterComputeType.HALF_YEAR_OF: {
-			const date = computeParameter(computeParameter({
+			const date = computeParameter({
 				parameter: parameters[0],
 				pipelineContext,
-				shouldBe: ParameterShouldBe.NUMBER,
+				shouldBe: ParameterShouldBe.DATE,
 				internalUnitContext,
 				alternativeTriggerData
-			}));
+			});
 			if (date == null) {
 				value = null;
 			} else {
@@ -196,13 +196,13 @@ const computeComputed = (options: {
 			break;
 		}
 		case ParameterComputeType.QUARTER_OF: {
-			const date = computeParameter(computeParameter({
+			const date = computeParameter({
 				parameter: parameters[0],
 				pipelineContext,
-				shouldBe: ParameterShouldBe.NUMBER,
+				shouldBe: ParameterShouldBe.DATE,
 				internalUnitContext,
 				alternativeTriggerData
-			}));
+			});
 			if (date == null) {
 				value = null;
 			} else {
@@ -225,24 +225,24 @@ const computeComputed = (options: {
 			break;
 		}
 		case ParameterComputeType.MONTH_OF: {
-			const date = computeParameter(computeParameter({
+			const date = computeParameter({
 				parameter: parameters[0],
 				pipelineContext,
-				shouldBe: ParameterShouldBe.NUMBER,
+				shouldBe: ParameterShouldBe.DATE,
 				internalUnitContext,
 				alternativeTriggerData
-			}));
+			});
 			value = date ?? dayjs(date).month() + 1;
 			break;
 		}
 		case ParameterComputeType.WEEK_OF_YEAR: {
-			const date = computeParameter(computeParameter({
+			const date = computeParameter({
 				parameter: parameters[0],
 				pipelineContext,
-				shouldBe: ParameterShouldBe.NUMBER,
+				shouldBe: ParameterShouldBe.DATE,
 				internalUnitContext,
 				alternativeTriggerData
-			}));
+			});
 			// week starts from sunday
 			if (date == null) {
 				value = null;
@@ -262,13 +262,13 @@ const computeComputed = (options: {
 			break;
 		}
 		case ParameterComputeType.WEEK_OF_MONTH: {
-			const date = computeParameter(computeParameter({
+			const date = computeParameter({
 				parameter: parameters[0],
 				pipelineContext,
-				shouldBe: ParameterShouldBe.NUMBER,
+				shouldBe: ParameterShouldBe.DATE,
 				internalUnitContext,
 				alternativeTriggerData
-			}));
+			});
 			// week starts from sunday
 			if (date == null) {
 				value = null;
@@ -288,24 +288,24 @@ const computeComputed = (options: {
 			break;
 		}
 		case ParameterComputeType.DAY_OF_MONTH: {
-			const date = computeParameter(computeParameter({
+			const date = computeParameter({
 				parameter: parameters[0],
 				pipelineContext,
-				shouldBe: ParameterShouldBe.NUMBER,
+				shouldBe: ParameterShouldBe.DATE,
 				internalUnitContext,
 				alternativeTriggerData
-			}));
+			});
 			value = date ?? dayjs(date).date();
 			break;
 		}
 		case ParameterComputeType.DAY_OF_WEEK: {
-			const date = computeParameter(computeParameter({
+			const date = computeParameter({
 				parameter: parameters[0],
 				pipelineContext,
-				shouldBe: ParameterShouldBe.NUMBER,
+				shouldBe: ParameterShouldBe.DATE,
 				internalUnitContext,
 				alternativeTriggerData
-			}));
+			});
 			value = date ?? dayjs(date).day() + 1;
 			break;
 		}
