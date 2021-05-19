@@ -16,11 +16,13 @@ import {useForceUpdate} from '../../../../../basic-widgets/utils';
 import {useTriggerTypeCheck} from './use-trigger-type-check';
 import {useCompleted} from './use-completed';
 import {useConditionCheck} from './use-condition-check';
-import {buildContextBody, createLogWriter} from './utils';
+import {buildContextBody, createLogWriter, findRuntimeData} from './utils';
 import {useRunStages} from './use-run-stages';
 import {RunsEventTypes} from '../runs-event-bus-types';
 import {useRunsEventBus} from '../runs-event-bus';
 import {Pipeline} from '../../../../../services/tuples/pipeline-types';
+import {useEventBus} from '../../../../../events/event-bus';
+import {EventTypes} from '../../../../../events/types';
 
 const buildTriggerData = (context: PipelineRuntimeContext) => {
 	return Object.keys(context.allData).reduce((data, topicId) => {
@@ -59,6 +61,7 @@ export const PipelineRuntime = (props: {
 }) => {
 	const {context, pipelines} = props;
 
+	const {fire: fireGlobal} = useEventBus();
 	const {on: onRuns, off: offRuns} = useRunsEventBus();
 	const {fire} = useRuntimeEventBus();
 	const [message, setMessage] = useState('');
@@ -91,6 +94,32 @@ export const PipelineRuntime = (props: {
 			fire(RuntimeEventTypes.DO_PIPELINE_TRIGGER_TYPE_CHECK, context);
 		});
 	};
+	const onDataBeforeClicked = async () => {
+		const {triggerData, triggerDataOnce} = context;
+		let allData;
+		let changedData;
+		const data = await findRuntimeData(context);
+		if (data) {
+			allData = data.dataBefore;
+			changedData = data.changed;
+		} else {
+			allData = context.allData;
+			changedData = context.changedData;
+		}
+		console.log(triggerData, triggerDataOnce, allData, changedData);
+		fireGlobal(EventTypes.SHOW_DIALOG,
+			// 	<DataDialog topic={node.topic} rows={rows} onConfirm={onConfirmClicked}/>,
+			<></>,
+			{
+				marginTop: '5vh',
+				marginLeft: '10%',
+				width: '80%',
+				height: '90vh'
+			});
+	};
+	const onDataAfterClicked = () => {
+
+	};
 
 	return <RunTablePipelineRow>
 		<RunTableBodyCell><PipelineElementType>p</PipelineElementType>{getPipelineName(context.pipeline)}
@@ -99,13 +128,13 @@ export const PipelineRuntime = (props: {
 			<PipelineRunStatusCell status={context.status} onStart={onStartPipeline}/>
 		</RunTableBodyCell>
 		<RunTableBodyCell>
-			<CellButton ink={ButtonInk.SUCCESS}>
+			<CellButton ink={ButtonInk.SUCCESS} onClick={onDataBeforeClicked}>
 				<FontAwesomeIcon icon={ICON_SEARCH}/>
 			</CellButton>
 		</RunTableBodyCell>
 		<RunTableBodyCell>
 			{isPipelineCompleted(context)
-				? <CellButton ink={ButtonInk.SUCCESS}>
+				? <CellButton ink={ButtonInk.SUCCESS} onClick={onDataAfterClicked}>
 					<FontAwesomeIcon icon={ICON_SEARCH}/>
 				</CellButton>
 				: '-'

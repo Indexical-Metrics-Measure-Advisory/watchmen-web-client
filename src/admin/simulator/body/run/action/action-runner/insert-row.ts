@@ -52,7 +52,6 @@ export const doInsertRow = async (
 		return newRow;
 	}, {} as DataRow);
 
-	console.log(newRow);
 	let existsRows = pipelineContext.runtimeData[topic.topicId];
 	if (!existsRows) {
 		existsRows = [];

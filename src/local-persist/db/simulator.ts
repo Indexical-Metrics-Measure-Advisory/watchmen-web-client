@@ -1,6 +1,6 @@
 import Dexie from 'dexie';
 
-interface PipelineRuntimeTable {
+export interface PipelineRuntimeTable {
 	pipelineRuntimeId: string;
 	pipelineId: string;
 	status: string;
@@ -11,7 +11,7 @@ interface PipelineRuntimeTable {
 	lastModifiedAt: Date;
 }
 
-interface StageRuntimeTable {
+export interface StageRuntimeTable {
 	stageRuntimeId: string;
 	stageId: string;
 	pipelineRuntimeId: string;
@@ -24,7 +24,7 @@ interface StageRuntimeTable {
 	lastModifiedAt: Date;
 }
 
-interface UnitRuntimeTable {
+export interface UnitRuntimeTable {
 	unitRuntimeId: string;
 	unitId: string;
 	stageRuntimeId: string;
@@ -39,7 +39,7 @@ interface UnitRuntimeTable {
 	lastModifiedAt: Date;
 }
 
-interface InternalUnitRuntimeTable {
+export interface InternalUnitRuntimeTable {
 	internalUnitRuntimeId: string;
 	unitRuntimeId: string;
 	unitId: string;
@@ -55,7 +55,7 @@ interface InternalUnitRuntimeTable {
 	lastModifiedAt: Date;
 }
 
-interface ActionRuntimeTable {
+export interface ActionRuntimeTable {
 	actionRuntimeId: string;
 	actionId: string;
 	internalUnitRuntimeId: string;
@@ -73,7 +73,7 @@ interface ActionRuntimeTable {
 	lastModifiedAt: Date;
 }
 
-interface RuntimeLogsTable {
+export interface RuntimeLogsTable {
 	logId?: number;
 	actionRuntimeId?: string;
 	actionId?: string;
