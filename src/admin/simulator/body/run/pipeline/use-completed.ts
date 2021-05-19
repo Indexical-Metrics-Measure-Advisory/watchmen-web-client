@@ -75,7 +75,14 @@ export const useCompleted = (
 		};
 		const onPipelineIgnored = onPipelineCompeted(PipelineRunStatus.IGNORED);
 		const onPipelineDone = onPipelineCompeted(PipelineRunStatus.DONE);
-		const onPipelineFailed = onPipelineCompeted(PipelineRunStatus.FAIL);
+		const onPipelineFailed = async (c: PipelineRuntimeContext, error?: Error) => {
+			if (c !== context) {
+				return;
+			}
+			context.status = PipelineRunStatus.FAIL;
+			await logWrite(`Pipeline failed${error ? ` on error[${error.message}]` : ''}.`);
+			await finishPipeline();
+		};
 		on(RuntimeEventTypes.PIPELINE_IGNORED, onPipelineIgnored);
 		on(RuntimeEventTypes.PIPELINE_DONE, onPipelineDone);
 		on(RuntimeEventTypes.PIPELINE_FAILED, onPipelineFailed);

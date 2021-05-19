@@ -64,9 +64,9 @@ export interface RuntimeEventBus {
 	on(type: RuntimeEventTypes.PIPELINE_DONE, listener: (context: PipelineRuntimeContext) => void): this;
 	off(type: RuntimeEventTypes.PIPELINE_DONE, listener: (context: PipelineRuntimeContext) => void): this;
 
-	fire(type: RuntimeEventTypes.PIPELINE_FAILED, context: PipelineRuntimeContext): this;
-	on(type: RuntimeEventTypes.PIPELINE_FAILED, listener: (context: PipelineRuntimeContext) => void): this;
-	off(type: RuntimeEventTypes.PIPELINE_FAILED, listener: (context: PipelineRuntimeContext) => void): this;
+	fire(type: RuntimeEventTypes.PIPELINE_FAILED, context: PipelineRuntimeContext, error?: Error): this;
+	on(type: RuntimeEventTypes.PIPELINE_FAILED, listener: (context: PipelineRuntimeContext, error?: Error) => void): this;
+	off(type: RuntimeEventTypes.PIPELINE_FAILED, listener: (context: PipelineRuntimeContext, error?: Error) => void): this;
 
 	fire(type: RuntimeEventTypes.RUN_DYNAMIC_PIPELINE, context: PipelineRuntimeContext): this;
 	on(type: RuntimeEventTypes.RUN_DYNAMIC_PIPELINE, listener: (context: PipelineRuntimeContext) => void): this;
@@ -96,9 +96,9 @@ export interface RuntimeEventBus {
 	on(type: RuntimeEventTypes.STAGE_DONE, listener: (context: StageRuntimeContext) => void): this;
 	off(type: RuntimeEventTypes.STAGE_DONE, listener: (context: StageRuntimeContext) => void): this;
 
-	fire(type: RuntimeEventTypes.STAGE_FAILED, context: StageRuntimeContext): this;
-	on(type: RuntimeEventTypes.STAGE_FAILED, listener: (context: StageRuntimeContext) => void): this;
-	off(type: RuntimeEventTypes.STAGE_FAILED, listener: (context: StageRuntimeContext) => void): this;
+	fire(type: RuntimeEventTypes.STAGE_FAILED, context: StageRuntimeContext, error?: Error): this;
+	on(type: RuntimeEventTypes.STAGE_FAILED, listener: (context: StageRuntimeContext, error?: Error) => void): this;
+	off(type: RuntimeEventTypes.STAGE_FAILED, listener: (context: StageRuntimeContext, error?: Error) => void): this;
 
 	fire(type: RuntimeEventTypes.RUN_UNIT, context: UnitRuntimeContext): this;
 	on(type: RuntimeEventTypes.RUN_UNIT, listener: (context: UnitRuntimeContext) => void): this;
@@ -144,9 +144,9 @@ export interface RuntimeEventBus {
 	on(type: RuntimeEventTypes.INTERNAL_UNIT_DONE, listener: (context: InternalUnitRuntimeContext) => void): this;
 	off(type: RuntimeEventTypes.INTERNAL_UNIT_DONE, listener: (context: InternalUnitRuntimeContext) => void): this;
 
-	fire(type: RuntimeEventTypes.INTERNAL_UNIT_FAILED, context: InternalUnitRuntimeContext): this;
-	on(type: RuntimeEventTypes.INTERNAL_UNIT_FAILED, listener: (context: InternalUnitRuntimeContext) => void): this;
-	off(type: RuntimeEventTypes.INTERNAL_UNIT_FAILED, listener: (context: InternalUnitRuntimeContext) => void): this;
+	fire(type: RuntimeEventTypes.INTERNAL_UNIT_FAILED, context: InternalUnitRuntimeContext, error?: Error): this;
+	on(type: RuntimeEventTypes.INTERNAL_UNIT_FAILED, listener: (context: InternalUnitRuntimeContext, error?: Error) => void): this;
+	off(type: RuntimeEventTypes.INTERNAL_UNIT_FAILED, listener: (context: InternalUnitRuntimeContext, error?: Error) => void): this;
 
 	fire(type: RuntimeEventTypes.RUN_ACTION, context: ActionRuntimeContext): this;
 	on(type: RuntimeEventTypes.RUN_ACTION, listener: (context: ActionRuntimeContext) => void): this;

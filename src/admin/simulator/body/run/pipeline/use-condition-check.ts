@@ -36,7 +36,7 @@ export const useConditionCheck = (
 					}
 				} catch (e) {
 					await logWrite('Error occurs on condition check.', e);
-					fire(RuntimeEventTypes.PIPELINE_FAILED, context);
+					fire(RuntimeEventTypes.PIPELINE_FAILED, context, e);
 				}
 			}
 		};

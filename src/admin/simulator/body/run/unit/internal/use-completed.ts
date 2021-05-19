@@ -55,7 +55,14 @@ export const useCompleted = (
 		};
 		const onInternalUnitIgnored = onInternalUnitCompleted(UnitRunStatus.IGNORED);
 		const onInternalUnitDone = onInternalUnitCompleted(UnitRunStatus.DONE);
-		const onInternalUnitFailed = onInternalUnitCompleted(UnitRunStatus.FAIL);
+		const onInternalUnitFailed = async (c: InternalUnitRuntimeContext, error?: Error) => {
+			if (c !== context) {
+				return;
+			}
+			context.status = UnitRunStatus.FAIL;
+			await logWrite(`Unit failed${error ? ` on error[${error.message}]` : ''}.`);
+			await finishInternalUnit();
+		};
 		on(RuntimeEventTypes.INTERNAL_UNIT_IGNORED, onInternalUnitIgnored);
 		on(RuntimeEventTypes.INTERNAL_UNIT_DONE, onInternalUnitDone);
 		on(RuntimeEventTypes.INTERNAL_UNIT_FAILED, onInternalUnitFailed);

@@ -38,7 +38,7 @@ export const useConditionCheck = (
 					}
 				} catch (e) {
 					await logWrite('Error occurs on condition check.', e);
-					fire(RuntimeEventTypes.INTERNAL_UNIT_FAILED, context);
+					fire(RuntimeEventTypes.INTERNAL_UNIT_FAILED, context, e);
 				}
 			}
 		};

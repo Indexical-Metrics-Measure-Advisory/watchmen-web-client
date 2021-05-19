@@ -47,7 +47,14 @@ export const useCompleted = (
 		};
 		const onStageIgnored = onStageCompleted(StageRunStatus.IGNORED);
 		const onStageDone = onStageCompleted(StageRunStatus.DONE);
-		const onStageFailed = onStageCompleted(StageRunStatus.FAIL);
+		const onStageFailed = async (c: StageRuntimeContext, error?: Error) => {
+			if (c !== context) {
+				return;
+			}
+			context.status = StageRunStatus.FAIL;
+			await logWrite(`Stage failed${error ? ` on error[${error.message}]` : ''}.`);
+			await finishStage();
+		};
 		on(RuntimeEventTypes.STAGE_IGNORED, onStageIgnored);
 		on(RuntimeEventTypes.STAGE_DONE, onStageDone);
 		on(RuntimeEventTypes.STAGE_FAILED, onStageFailed);
