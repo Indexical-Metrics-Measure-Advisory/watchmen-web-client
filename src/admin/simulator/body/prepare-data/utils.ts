@@ -30,7 +30,7 @@ const buildPipelineNodes = (
 ) => {
 	const topic = topicNode.topic;
 
-	return pipelines
+	return availablePipelines
 		// eslint-disable-next-line
 		.filter(pipeline => pipeline.topicId == topic.topicId)
 		.sort((p1, p2) => {
