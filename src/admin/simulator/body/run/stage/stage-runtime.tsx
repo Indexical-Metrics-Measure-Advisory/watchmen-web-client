@@ -10,7 +10,12 @@ import {useRunUnits} from './use-run-units';
 import {ButtonInk} from '../../../../../basic-widgets/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ICON_SEARCH} from '../../../../../basic-widgets/constants';
-import {isStageStarted} from '../utils';
+import {isStageCompleted} from '../utils';
+import {TopicsData} from '../../state/types';
+import {findRuntimeData} from './utils';
+import {EventTypes} from '../../../../../events/types';
+import {DataDialog} from '../data-dialog';
+import {useEventBus} from '../../../../../events/event-bus';
 
 export const StageRuntime = (props: {
 	pipelineContext: PipelineRuntimeContext;
@@ -18,11 +23,31 @@ export const StageRuntime = (props: {
 }) => {
 	const {pipelineContext, context} = props;
 
+	const {fire: fireGlobal} = useEventBus();
 	const [message, setMessage] = useState('');
 	useRunStage(pipelineContext, context);
 	useCompleted(pipelineContext, context, setMessage);
 	useConditionCheck(pipelineContext, context, setMessage);
 	useRunUnits(pipelineContext, context, setMessage);
+
+	const onDataClicked = async () => {
+		const {stageRuntimeId} = context;
+
+		let data = await findRuntimeData(stageRuntimeId!);
+		const beforeData = data!.dataBefore as TopicsData;
+		const afterData = data!.dataAfter as TopicsData;
+
+		fireGlobal(EventTypes.SHOW_DIALOG,
+			<DataDialog title="Data of Stage Run"
+			            beforeData={beforeData} afterData={afterData}
+			            allTopics={pipelineContext.allTopics}/>,
+			{
+				marginTop: '5vh',
+				marginLeft: '10%',
+				width: '80%',
+				height: '90vh'
+			});
+	};
 
 	return <RunTableBodyRow>
 		<RunTableBodyCell><StageElementType>s</StageElementType>{getStageName(context.stage)}</RunTableBodyCell>
@@ -30,8 +55,8 @@ export const StageRuntime = (props: {
 			<StageRunStatusCell status={context.status}/>
 		</RunTableBodyCell>
 		<RunTableBodyCell>
-			{isStageStarted(context)
-				? <CellButton ink={ButtonInk.SUCCESS}>
+			{isStageCompleted(context)
+				? <CellButton ink={ButtonInk.SUCCESS} onClick={onDataClicked}>
 					<FontAwesomeIcon icon={ICON_SEARCH}/>
 				</CellButton>
 				: '-'

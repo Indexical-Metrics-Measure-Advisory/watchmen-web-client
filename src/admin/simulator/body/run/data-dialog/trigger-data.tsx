@@ -12,6 +12,7 @@ import {
 } from './widgets';
 import React from 'react';
 import {getTopicName} from '../../../utils';
+import {ButtonInk} from '../../../../../basic-widgets/types';
 
 export const TriggerData = (props: {
 	topic: Topic;
@@ -22,7 +23,7 @@ export const TriggerData = (props: {
 	const factors = topic.factors;
 
 	return <>
-		<SectionTitle>Trigger By: {getTopicName(topic)}</SectionTitle>
+		<SectionTitle ink={ButtonInk.WARN}>Trigger By: {getTopicName(topic)}</SectionTitle>
 		<DataTable>
 			<DataTableHeader firstWidth={80} columnCount={factors.length}>
 				<DataTableHeaderCell>#</DataTableHeaderCell>

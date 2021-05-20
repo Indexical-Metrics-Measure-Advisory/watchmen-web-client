@@ -23,7 +23,7 @@ export const useCompleted = (
 	useEffect(() => {
 		const logWrite = createLogWriter(pipelineContext, stageContext, unitContext, context, setMessage);
 		const finishInternalUnit = async () => {
-			await connectSimulatorDB().units.update(context.unitRuntimeId!, {
+			await connectSimulatorDB().internalUnits.update(context.internalUnitRuntimeId!, {
 				status: context.status,
 				context: buildContextBody(context),
 				dataAfter: pipelineContext.runtimeData,

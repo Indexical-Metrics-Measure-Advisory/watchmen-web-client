@@ -1,6 +1,7 @@
 import {InternalUnitRuntimeContext, PipelineRuntimeContext, StageRuntimeContext, UnitRuntimeContext} from '../../types';
 import {connectSimulatorDB} from '../../../../../../local-persist/db';
 import dayjs from 'dayjs';
+import {InternalUnitRuntimeTable} from '../../../../../../local-persist/db/simulator';
 
 export const createLogWriter = (
 	pipelineContext: PipelineRuntimeContext,
@@ -39,4 +40,9 @@ export const buildContextBody = (context: InternalUnitRuntimeContext): Partial<U
 		...rest
 	} = context;
 	return rest;
+};
+
+export const findRuntimeData = async (internalUnitRuntimeId: string): Promise<InternalUnitRuntimeTable | undefined> => {
+	const db = connectSimulatorDB();
+	return db.internalUnits.get({internalUnitRuntimeId});
 };

@@ -21,16 +21,31 @@ export const DataDialog = (props: {
 		newOne: DataRow
 	}
 	allTopics: AllTopics;
-	allData: TopicsData;
-	changedData: Array<ChangedDataRow>
+	beforeData: TopicsData;
+	afterData?: TopicsData;
+	changedData?: Array<ChangedDataRow>
 }) => {
-	const {title, triggerData, allTopics, allData, changedData} = props;
+	const {title, triggerData, allTopics, beforeData, afterData = {}, changedData} = props;
 
 	const {fire} = useEventBus();
 
 	const onCloseClicked = () => {
 		fire(EventTypes.HIDE_DIALOG);
 	};
+
+	// if data changed, then display whole data of this topic
+	// ignore the unchanged data
+	let afterChangedData: TopicsData = afterData;
+	if (changedData) {
+		afterChangedData = Object.keys(afterData).reduce((after, topicId) => {
+			// eslint-disable-next-line
+			if (changedData.some(({topicId: id}) => topicId == id)) {
+				after[topicId] = afterData[topicId];
+			}
+			return after;
+		}, {} as TopicsData);
+	}
+	afterChangedData = afterChangedData ?? {};
 
 	return <>
 		<DialogHeader>
@@ -44,11 +59,12 @@ export const DataDialog = (props: {
 						<TriggerData topic={triggerData.topic} newOne={triggerData.newOne} oldOne={triggerData.oldOne}/>
 						: null
 					}
-					<AllData topics={allTopics} data={allData}/>
-					{changedData.length !== 0
-						? <ChangedData topics={allTopics} data={changedData}/>
+					<AllData topics={allTopics} data={beforeData} before={true}/>
+					{(changedData || []).length !== 0
+						? <ChangedData topics={allTopics} data={changedData || []}/>
 						: null
 					}
+					<AllData topics={allTopics} data={afterChangedData} before={false}/>
 				</div>
 			</DialogBodyContent>
 		</DialogBody>

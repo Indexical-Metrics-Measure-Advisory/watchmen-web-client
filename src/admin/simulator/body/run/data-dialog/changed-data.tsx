@@ -12,6 +12,7 @@ import React, {Fragment} from 'react';
 import {AllTopics, ChangedDataRow} from '../types';
 import {getTopicName} from '../../../utils';
 import {Topic} from '../../../../../services/tuples/topic-types';
+import {ButtonInk} from '../../../../../basic-widgets/types';
 
 export const ChangedData = (props: {
 	topics: AllTopics;
@@ -46,7 +47,7 @@ export const ChangedData = (props: {
 			const factors = topic.factors;
 			const factorsCount = factors.length;
 			return <Fragment key={topic.topicId}>
-				<SectionTitle>Changed: {getTopicName(topic)}</SectionTitle>
+				<SectionTitle ink={ButtonInk.INFO}>Changed: {getTopicName(topic)}</SectionTitle>
 				<DataTable>
 					<DataTableHeader firstWidth={80} columnCount={factorsCount}>
 						<DataTableHeaderCell>#</DataTableHeaderCell>

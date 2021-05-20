@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {ButtonInk} from '../../../../../basic-widgets/types';
 
 export const DialogHeader = styled.div`
 	display: flex;
@@ -25,7 +26,32 @@ export const DialogBodyContent = styled.div.attrs({
 	overflow-x: hidden;
 `;
 
-export const SectionTitle = styled.div.attrs({'data-widget': 'data-table-section-title'})`
+export const SectionTitle = styled.div.attrs<{ ink?: ButtonInk }>(({ink}) => {
+	let color = '';
+	switch (ink) {
+		case ButtonInk.PRIMARY:
+			color = 'var(--primary-color)';
+			break;
+		case ButtonInk.DANGER:
+			color = 'var(--danger-color)';
+			break;
+		case ButtonInk.INFO:
+			color = 'var(--info-color)';
+			break;
+		case ButtonInk.WARN:
+			color = 'var(--warn-color)';
+			break;
+		case ButtonInk.SUCCESS:
+			color = 'var(--success-color)';
+			break;
+	}
+	return {
+		'data-widget': 'data-table-section-title',
+		style: {
+			backgroundColor: color
+		}
+	};
+})<{ ink?: ButtonInk }>`
 	display: flex;
 	position: relative;
 	align-items: center;

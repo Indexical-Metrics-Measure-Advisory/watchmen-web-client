@@ -12,12 +12,14 @@ import React, {Fragment} from 'react';
 import {TopicsData} from '../../state/types';
 import {AllTopics} from '../types';
 import {getTopicName} from '../../../utils';
+import {ButtonInk} from '../../../../../basic-widgets/types';
 
 export const AllData = (props: {
 	topics: AllTopics;
 	data: TopicsData;
+	before: boolean;
 }) => {
-	const {topics, data} = props;
+	const {topics, data, before} = props;
 
 	const topicsData = Object.keys(topics)
 		.map(topicId => topics[topicId]!)
@@ -35,7 +37,9 @@ export const AllData = (props: {
 			const factors = topic.factors;
 			const factorsCount = factors.length;
 			return <Fragment key={topic.topicId}>
-				<SectionTitle>Before Run: {getTopicName(topic)}</SectionTitle>
+				<SectionTitle ink={before ? (void 0) : ButtonInk.SUCCESS}>
+					{before ? 'Before' : 'After'} Run: {getTopicName(topic)}
+				</SectionTitle>
 				<DataTable>
 					<DataTableHeader firstWidth={80} columnCount={factorsCount}>
 						<DataTableHeaderCell>#</DataTableHeaderCell>

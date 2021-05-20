@@ -1,6 +1,7 @@
 import {PipelineRuntimeContext, StageRuntimeContext} from '../types';
 import {connectSimulatorDB} from '../../../../../local-persist/db';
 import dayjs from 'dayjs';
+import {StageRuntimeTable} from '../../../../../local-persist/db/simulator';
 
 export const createLogWriter = (
 	pipelineContext: PipelineRuntimeContext,
@@ -26,4 +27,9 @@ export const createLogWriter = (
 export const buildContextBody = (context: StageRuntimeContext): Partial<StageRuntimeContext> => {
 	const {pipelineRuntimeId, stageRuntimeId, stageIndex, status, ...rest} = context;
 	return rest;
+};
+
+export const findRuntimeData = async (stageRuntimeId: string): Promise<StageRuntimeTable | undefined> => {
+	const db = connectSimulatorDB();
+	return db.stages.get({stageRuntimeId});
 };

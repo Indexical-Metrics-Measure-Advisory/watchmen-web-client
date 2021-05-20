@@ -98,12 +98,14 @@ export const PipelineRuntime = (props: {
 	const onDataClicked = async () => {
 		const {pipelineRuntimeId, triggerData, triggerDataOnce} = context;
 
-		let allData: TopicsData;
+		let beforeData: TopicsData;
+		let afterData: TopicsData | undefined = void 0;
 		let data = pipelineRuntimeId ? await findRuntimeData(pipelineRuntimeId) : (void 0);
 		if (data) {
-			allData = data.dataBefore as TopicsData;
+			beforeData = data.dataBefore as TopicsData;
+			afterData = data.dataAfter as TopicsData;
 		} else {
-			allData = context.allData;
+			beforeData = context.allData;
 		}
 
 		const changedData = context.changedData;
@@ -111,8 +113,9 @@ export const PipelineRuntime = (props: {
 		fireGlobal(EventTypes.SHOW_DIALOG,
 			<DataDialog title="Data of Pipeline Run"
 			            triggerData={{topic: context.topic, newOne: triggerData, oldOne: triggerDataOnce}}
-			            allData={allData} allTopics={context.allTopics}
-			            changedData={changedData}/>,
+			            beforeData={beforeData} afterData={afterData}
+			            changedData={changedData}
+			            allTopics={context.allTopics}/>,
 			{
 				marginTop: '5vh',
 				marginLeft: '10%',
