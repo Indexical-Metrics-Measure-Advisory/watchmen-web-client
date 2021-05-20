@@ -89,6 +89,10 @@ export interface RuntimeLogsTable {
 	createdAt: Date;
 }
 
+export const deleteSimulatorDatabase = async () => {
+	await Dexie.delete('watchmen-simulator');
+};
+
 export class SimulatorDatabase extends Dexie {
 	pipelines: Dexie.Table<PipelineRuntimeTable, string>; // string = type of the primary key
 	stages: Dexie.Table<StageRuntimeTable, string>;
