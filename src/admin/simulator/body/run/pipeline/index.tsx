@@ -6,6 +6,19 @@ import {StagesRuntime} from './stages-runtime';
 import {Pipeline} from '../../../../../services/tuples/pipeline-types';
 import {RunNextPipeline} from './run-next-pipeline';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
+import {useRunsEventBus} from '../runs-event-bus';
+import {RunsEventTypes} from '../runs-event-bus-types';
+
+export const DynamicPipelineRunAutoTrigger = (props: { context: PipelineRuntimeContext }) => {
+	const {context} = props;
+
+	const {fire} = useRunsEventBus();
+	useEffect(() => {
+		fire(RunsEventTypes.RUN_PIPELINE, context);
+	}, []);
+
+	return <></>;
+};
 
 export const DynamicPipelineRun = (props: {
 	topics: AllTopics;
@@ -35,6 +48,7 @@ export const DynamicPipelineRun = (props: {
 		<PipelineRuntime context={context} pipelines={pipelines}/>
 		<StagesRuntime context={context}/>
 		<RunNextPipeline runNext={runNext}/>
+		<DynamicPipelineRunAutoTrigger context={context}/>
 		<DynamicPipelineRun topics={topics} pipelines={pipelines} runNext={runNext}/>
 	</RuntimeEventBusProvider>;
 };
