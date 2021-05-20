@@ -1,4 +1,4 @@
-import {PipelineRunStatus, PipelineRuntimeContext} from '../types';
+import {ChangedDataRow, PipelineRunStatus, PipelineRuntimeContext} from '../types';
 import {CellButton, PipelineElementType, RunTableBodyCell, RunTablePipelineRow} from '../widgets';
 import {getPipelineName} from '../../../utils';
 import {ButtonInk} from '../../../../../basic-widgets/types';
@@ -95,6 +95,64 @@ export const PipelineRuntime = (props: {
 			fire(RuntimeEventTypes.DO_PIPELINE_TRIGGER_TYPE_CHECK, context);
 		});
 	};
+	const onExportClicked = async () => {
+		const {pipelineRuntimeId, topic, triggerData, triggerDataOnce, allTopics} = context;
+		const data = await findRuntimeData(pipelineRuntimeId!);
+		const beforeData = data!.dataBefore as TopicsData;
+		const afterData = data!.dataAfter as TopicsData;
+		const changedData = context.changedData;
+
+		const content = {
+			triggerData: {
+				topicId: topic.topicId,
+				topic: topic.name,
+				new: triggerData,
+				old: triggerDataOnce
+			},
+			dataBeforeRun: Object.keys(beforeData).map(topicId => {
+				return {
+					topicId,
+					topic: allTopics[topicId]!.name,
+					data: beforeData[topicId]
+				};
+			}),
+			dataChanged: Array.from((changedData || []).reduce((map, changed) => {
+				let rows = map.get(changed.topicId);
+				if (!rows) {
+					rows = [];
+					map.set(changed.topicId, rows);
+				}
+				rows.push(changed);
+				return map;
+			}, new Map<string, Array<ChangedDataRow>>()).values()).map((rows) => {
+				if (rows.length === 0) {
+					return null;
+				} else {
+					return {
+						topicId: rows[0].topicId,
+						topic: allTopics[rows[0].topicId]!.name,
+						data: rows.map(row => {
+							return {before: row.before, after: row.after};
+						})
+					};
+				}
+			}).filter(x => x != null),
+			dataAfterRun: Object.keys(afterData).map(topicId => {
+				return {
+					topicId,
+					topic: allTopics[topicId]!.name,
+					data: afterData[topicId]
+				};
+			})
+		};
+
+		const link = document.createElement('a');
+		link.href = 'data:application/json;charset=utf-8,' + encodeURI(JSON.stringify(content));
+		link.target = '_blank';
+		//provide the name for the CSV file to be downloaded
+		link.download = `data-of-pipeline-${dayjs().format('YYYYMMDDHHmmss')}.json`;
+		link.click();
+	};
 	const onDataClicked = async () => {
 		const {pipelineRuntimeId, triggerData, triggerDataOnce} = context;
 
@@ -115,7 +173,12 @@ export const PipelineRuntime = (props: {
 			            triggerData={{topic: context.topic, newOne: triggerData, oldOne: triggerDataOnce}}
 			            beforeData={beforeData} afterData={afterData}
 			            changedData={changedData}
-			            allTopics={context.allTopics}/>,
+			            allTopics={context.allTopics}
+			            buttons={context.status === PipelineRunStatus.DONE ? [{
+				            label: 'Export',
+				            ink: ButtonInk.PRIMARY,
+				            action: onExportClicked
+			            }] : (void 0)}/>,
 			{
 				marginTop: '5vh',
 				marginLeft: '10%',

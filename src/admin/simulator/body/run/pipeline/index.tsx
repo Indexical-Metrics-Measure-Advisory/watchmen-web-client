@@ -15,6 +15,7 @@ export const DynamicPipelineRunAutoTrigger = (props: { context: PipelineRuntimeC
 	const {fire} = useRunsEventBus();
 	useEffect(() => {
 		fire(RunsEventTypes.RUN_PIPELINE, context);
+		// eslint-disable-next-line
 	}, []);
 
 	return <></>;

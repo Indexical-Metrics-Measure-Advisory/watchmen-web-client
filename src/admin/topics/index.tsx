@@ -30,7 +30,7 @@ const getKeyOfTopic = (topic: QueryTopic) => topic.topicId;
 
 const isNameInvalid = (name: string) => {
 	return /^\d.*$/.test(name)
-		|| name.split('_').some(part => !/^[A-Za-z0-9]+$/.test(part));
+		|| name.split(/[_.]/).some(part => !/^[A-Za-z0-9]+$/.test(part));
 };
 const AdminTopics = () => {
 	const {once: onceGlobal, fire: fireGlobal} = useEventBus();

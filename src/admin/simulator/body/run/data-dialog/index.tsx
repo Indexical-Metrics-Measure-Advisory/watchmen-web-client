@@ -23,9 +23,10 @@ export const DataDialog = (props: {
 	allTopics: AllTopics;
 	beforeData: TopicsData;
 	afterData?: TopicsData;
-	changedData?: Array<ChangedDataRow>
+	changedData?: Array<ChangedDataRow>;
+	buttons?: Array<{ label: string, ink?: ButtonInk, action: () => void }>
 }) => {
-	const {title, triggerData, allTopics, beforeData, afterData = {}, changedData} = props;
+	const {title, triggerData, allTopics, beforeData, afterData = {}, changedData, buttons = []} = props;
 
 	const {fire} = useEventBus();
 
@@ -69,6 +70,11 @@ export const DataDialog = (props: {
 			</DialogBodyContent>
 		</DialogBody>
 		<DialogFooter>
+			{buttons.map(button => {
+				return <Button ink={button.ink} onClick={button.action} key={button.label}>
+					{button.label}
+				</Button>;
+			})}
 			<Button ink={ButtonInk.PRIMARY} onClick={onCloseClicked}>Close</Button>
 		</DialogFooter>
 	</>;
