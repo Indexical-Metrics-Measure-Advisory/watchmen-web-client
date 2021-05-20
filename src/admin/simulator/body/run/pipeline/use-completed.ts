@@ -25,18 +25,53 @@ export const useCompleted = (
 				changed: context.changedData,
 				lastModifiedAt: dayjs().toDate()
 			});
-			if (context.changedData.length > 0) {
-				// merge changed data
-				const merged = context.changedData.reduce((merged, changed) => {
+			let defeatedPipelines = context.defeatedPipelines || [];
+			if (context.changedData.length > 0 || defeatedPipelines.length > 0) {
+				// changed data which come from defeated pipelines in candidates voting on previous pipelines done
+				const previousChanged = (context.defeatedPipelines || []).map(dp => dp.triggerData);
+				// merge changed data which changed in this pipeline
+				const newChanged = context.changedData.reduce((merged, changed) => {
 					if (!merged.some(item => item.after === changed.after)) {
 						merged.push(changed);
 					}
 					return merged;
 				}, [] as Array<ChangedDataRow>);
-				context.changedData = merged;
-				const topicIds = merged.map(merge => merge.topicId);
+				// all changed data, including changed in this pipeline, and changed in previous pipelines
+				// sometimes, data changed in previous pipelines are changed in this pipeline again.
+				const allMerged = [...new Set([...newChanged, ...previousChanged])];
+				// distinct changed data on context in this pipeline
+				context.changedData = newChanged;
+				// find topics of these changed data
+				const topicIds = allMerged.map(merge => merge.topicId);
+				// find pipelines triggered by changed data
 				// eslint-disable-next-line
-				const availablePipelines = pipelines.filter(p => topicIds.includes(p.topicId));
+				let availablePipelines = pipelines.filter(p => topicIds.includes(p.topicId));
+				// available pipelines might include this pipeline, consider the following situation:
+				// 1. topic A changed, triggered pipelines X and Y,
+				// 2. vote in X & Y, X win,
+				// 3. run pipeline X, changes topic B. in runtime context of pipeline X, pipeline Y is defeated pipeline,
+				// 4. topic B change trigger pipeline Z, now we have pipeline Z comes from topic B and pipeline Y comes from topic A,
+				// 5. gather changed topics, obviously we got A & B.
+				// 6. find available pipelines by A & B, we got X/Y from A and Z from B. but in this case X was run, it is not needed anymore.
+				// so following statement will find available pipelines from change data introduced by this pipeline
+				// and if any pipeline is not included in this, it must be triggered by defeated.
+				// and if cannot find it in defeated list, it will be removed. like in example above, pipeline X must be removed after step 6.
+				const availablePipelinesOnNewChanged = (() => {
+					const topicIds = newChanged.map(changed => changed.topicId);
+					return pipelines.filter(p => topicIds.includes(p.topicId));
+				})();
+				let concernedPipelines = availablePipelines.filter(p => !availablePipelinesOnNewChanged.includes(p));
+				concernedPipelines = concernedPipelines.filter(p => {
+					// eslint-disable-next-line
+					const defeated = defeatedPipelines.find(dp => dp.triggerData.topicId == p.topicId);
+					if (!defeated) {
+						return true;
+					} else {
+						return !defeated.pipelines.includes(p.pipelineId);
+					}
+				});
+				availablePipelines = availablePipelines.filter(p => !concernedPipelines.includes(p));
+
 				if (availablePipelines.length === 0) {
 					// no more pipelines needs to be run in this series
 					fire(RuntimeEventTypes.RUN_NEXT_PIPELINE);
@@ -46,8 +81,31 @@ export const useCompleted = (
 						allPipelines: pipelines
 					});
 					const topicId = nextDynamicPipeline.topicId;
+					let trigger;
+					// find trigger in defeated pipelines first
 					// eslint-disable-next-line
-					const trigger = merged.find(merge => merge.topicId == topicId)!;
+					const defeats = defeatedPipelines.find(defeated => defeated.triggerData.topicId == topicId);
+					let defeatedPicked = false;
+					// eslint-disable-next-line
+					if (defeats && defeats.pipelines.some(pipelineId => pipelineId == nextDynamicPipeline.pipelineId)) {
+						// pipeline voted exists in defeated pipelines, use its data as trigger
+						trigger = defeats.triggerData;
+						// remove this pipeline from defeated list
+						// eslint-disable-next-line
+						defeats.pipelines = defeats.pipelines.filter(pipelineId => pipelineId != nextDynamicPipeline.pipelineId);
+						if (defeats.pipelines.length === 0) {
+							// all defeated pipelines are run or scheduled
+							// remove this defeated
+							defeatedPipelines = defeatedPipelines.filter(dp => dp !== defeats);
+						}
+						defeatedPicked = true;
+					} else {
+						// pipeline voted doesn't exist in defeated pipelines, use changed data from this pipeline
+						// eslint-disable-next-line
+						trigger = newChanged.find(changed => changed.topicId == topicId)!;
+						defeatedPicked = false;
+					}
+
 					const dynamicPipelineContext = buildPipelineRuntimeContext({
 						pipeline: nextDynamicPipeline,
 						topic: context.allTopics[topicId],
@@ -55,9 +113,29 @@ export const useCompleted = (
 						triggerDataOnce: trigger.before,
 						existsData: context.allData[topicId],
 						allData: context.allData,
-						allTopics: context.allTopics,
-						changedData: merged.filter(merge => merge !== trigger)
+						allTopics: context.allTopics
 					});
+					// save defeated pipelines to context, will used in next round
+					dynamicPipelineContext.defeatedPipelines = [
+						// comes from defeated pipelines, from previous pipelines
+						//
+						...defeatedPipelines,
+						// comes from changed data introduced by this pipeline
+						...newChanged.map(changed => {
+							// eslint-disable-next-line
+							let availablePipelines = pipelines.filter(p => changed.topicId == p.topicId);
+							if (!defeatedPicked) {
+								// if next dynamic pipeline comes from defeated pipelines
+								// then any pipelines must add into new defeated list
+								// otherwise picked one must be filtered
+								availablePipelines = availablePipelines.filter(p => p !== nextDynamicPipeline);
+							}
+							return {
+								triggerData: changed,
+								pipelines: availablePipelines.map(p => p.pipelineId)
+							};
+						}).filter(x => x.pipelines.length > 0)
+					];
 					fire(RuntimeEventTypes.RUN_DYNAMIC_PIPELINE, dynamicPipelineContext);
 				}
 			} else {

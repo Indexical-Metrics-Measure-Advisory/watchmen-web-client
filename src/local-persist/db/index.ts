@@ -15,19 +15,22 @@ import {Topic} from '../../services/tuples/topic-types';
 import {deleteSimulatorDatabase, SimulatorDatabase} from './simulator';
 
 const adminDB = new AdminDatabase();
-const simulatorDB = new SimulatorDatabase();
+let simulatorDB = new SimulatorDatabase();
 
 export const connectAdminDB = () => {
 	return adminDB;
 };
 
 export const connectSimulatorDB = () => {
+	if (!simulatorDB.isOpen()) {
+		simulatorDB = new SimulatorDatabase();
+	}
 	return simulatorDB;
 };
 
 export const clearSimulatorDB = async () => {
 	await deleteSimulatorDatabase();
-}
+};
 
 export const findAdminPipelines = async (): Promise<Array<Pipeline>> => {
 	return findPipelines(adminDB);

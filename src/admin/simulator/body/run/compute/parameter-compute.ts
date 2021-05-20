@@ -232,7 +232,7 @@ const computeComputed = (options: {
 				internalUnitContext,
 				alternativeTriggerData
 			});
-			value = date ?? dayjs(date).month() + 1;
+			value = date ? (dayjs(date).month() + 1) : null;
 			break;
 		}
 		case ParameterComputeType.WEEK_OF_YEAR: {

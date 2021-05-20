@@ -46,6 +46,10 @@ export interface ChangedDataRow {
 
 export type AllTopics = { [key in string]: Topic };
 export type InMemoryVariables = { [key in string]: any };
+export interface DefeatedPipeline {
+	triggerData: ChangedDataRow;
+	pipelines: Array<string>;
+}
 
 export interface PipelineRuntimeContext {
 	pipeline: Pipeline;
@@ -70,6 +74,9 @@ export interface PipelineRuntimeContext {
 	// changed data rows
 	changedData: Array<ChangedDataRow>;
 	variables: InMemoryVariables;
+
+	// defeated pipelines
+	defeatedPipelines?: Array<DefeatedPipeline>;
 }
 
 export interface StageRuntimeContext {
