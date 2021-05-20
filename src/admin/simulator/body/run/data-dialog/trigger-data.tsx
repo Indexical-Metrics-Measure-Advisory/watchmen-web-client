@@ -1,0 +1,55 @@
+import {Topic} from '../../../../../services/tuples/topic-types';
+import {DataRow} from '../../../simulator-event-bus-types';
+import {
+	DataTable,
+	DataTableBodyCell,
+	DataTableBodyRow,
+	DataTableHeader,
+	DataTableHeaderCell,
+	SectionTitle,
+	TriggerDataFirstHeaderCell,
+	TriggerDataNoOldCell
+} from './widgets';
+import React from 'react';
+
+export const TriggerData = (props: {
+	topic: Topic;
+	oldOne?: DataRow;
+	newOne: DataRow
+}) => {
+	const {topic, oldOne, newOne} = props;
+	const factors = topic.factors;
+
+	return <>
+		<SectionTitle>Trigger Data</SectionTitle>
+		<DataTable>
+			<DataTableHeader firstWidth={60} columnCount={factors.length}>
+				<DataTableHeaderCell>#</DataTableHeaderCell>
+				{factors.map(factor => {
+					return <DataTableHeaderCell key={factor.factorId}>{factor.name}</DataTableHeaderCell>;
+				})}
+			</DataTableHeader>
+			<DataTableBodyRow firstWidth={60} columnCount={factors.length}>
+				<TriggerDataFirstHeaderCell>NEW</TriggerDataFirstHeaderCell>
+				{factors.map(factor => {
+					return <DataTableBodyCell key={factor.factorId}>
+						{newOne[factor.name]}
+					</DataTableBodyCell>;
+				})}
+			</DataTableBodyRow>
+			<DataTableBodyRow firstWidth={60} columnCount={factors.length}>
+				<TriggerDataFirstHeaderCell>OLD</TriggerDataFirstHeaderCell>
+				{oldOne == null
+					? <TriggerDataNoOldCell columnCount={factors.length}>
+						Trigger data is inserted, old one is not existed.
+					</TriggerDataNoOldCell>
+					: factors.map(factor => {
+						return <DataTableBodyCell key={factor.factorId}>
+							{oldOne[factor.name]}
+						</DataTableBodyCell>;
+					})
+				}
+			</DataTableBodyRow>
+		</DataTable>
+	</>;
+};

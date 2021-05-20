@@ -10,7 +10,7 @@ import {useRunUnits} from './use-run-units';
 import {ButtonInk} from '../../../../../basic-widgets/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ICON_SEARCH} from '../../../../../basic-widgets/constants';
-import {isStageCompleted, isStageStarted} from '../utils';
+import {isStageStarted} from '../utils';
 
 export const StageRuntime = (props: {
 	pipelineContext: PipelineRuntimeContext;
@@ -37,15 +37,6 @@ export const StageRuntime = (props: {
 				: '-'
 			}
 		</RunTableBodyCell>
-		<RunTableBodyCell>
-			{isStageCompleted(context)
-				? <CellButton ink={ButtonInk.SUCCESS}>
-					<FontAwesomeIcon icon={ICON_SEARCH}/>
-				</CellButton>
-				: '-'
-			}
-		</RunTableBodyCell>
-		<RunTableBodyCell>-</RunTableBodyCell>
 		<RunTableBodyCell>{message}</RunTableBodyCell>
 	</RunTableBodyRow>;
 };

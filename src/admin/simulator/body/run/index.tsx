@@ -48,9 +48,9 @@ export const Run = (props: {
 		<RunTableHeader>
 			<RunTableHeaderCell>Execution Element</RunTableHeaderCell>
 			<RunTableHeaderCell>Status</RunTableHeaderCell>
-			<RunTableHeaderCell>Pre Mem.</RunTableHeaderCell>
-			<RunTableHeaderCell>Post Mem.</RunTableHeaderCell>
-			<RunTableHeaderCell>Break Point</RunTableHeaderCell>
+			<RunTableHeaderCell>Memory Data</RunTableHeaderCell>
+			{/*<RunTableHeaderCell>Post Mem.</RunTableHeaderCell>*/}
+			{/*<RunTableHeaderCell>Break Point</RunTableHeaderCell>*/}
 			<RunTableHeaderCell/>
 		</RunTableHeader>
 		<RunTable>

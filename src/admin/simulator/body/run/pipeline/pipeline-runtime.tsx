@@ -8,7 +8,7 @@ import React, {useEffect, useState} from 'react';
 import {TopicsData} from '../../state/types';
 import {PipelineRunStatusCell} from './pipeline-run-status-cell';
 import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
-import {generateRuntimeId, isPipelineCompleted} from '../utils';
+import {generateRuntimeId} from '../utils';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
 import {connectSimulatorDB} from '../../../../../local-persist/db';
 import dayjs from 'dayjs';
@@ -23,6 +23,7 @@ import {useRunsEventBus} from '../runs-event-bus';
 import {Pipeline} from '../../../../../services/tuples/pipeline-types';
 import {useEventBus} from '../../../../../events/event-bus';
 import {EventTypes} from '../../../../../events/types';
+import {DataDialog} from '../data-dialog';
 
 const buildTriggerData = (context: PipelineRuntimeContext) => {
 	return Object.keys(context.allData).reduce((data, topicId) => {
@@ -94,31 +95,25 @@ export const PipelineRuntime = (props: {
 			fire(RuntimeEventTypes.DO_PIPELINE_TRIGGER_TYPE_CHECK, context);
 		});
 	};
-	const onDataBeforeClicked = async () => {
-		const {triggerData, triggerDataOnce} = context;
+	const onDataClicked = async () => {
+		const {pipelineRuntimeId, triggerData, triggerDataOnce} = context;
 		let allData;
-		let changedData;
-		const data = await findRuntimeData(context);
+		let data = pipelineRuntimeId ? await findRuntimeData(pipelineRuntimeId) : (void 0);
 		if (data) {
-			allData = data.dataBefore;
-			changedData = data.changed;
+			allData = data.dataBefore as TopicsData;
 		} else {
 			allData = context.allData;
-			changedData = context.changedData;
 		}
-		console.log(triggerData, triggerDataOnce, allData, changedData);
 		fireGlobal(EventTypes.SHOW_DIALOG,
-			// 	<DataDialog topic={node.topic} rows={rows} onConfirm={onConfirmClicked}/>,
-			<></>,
+			<DataDialog title="Data of Pipeline Run"
+			            triggerData={{topic: context.topic, newOne: triggerData, oldOne: triggerDataOnce}}
+			            allData={allData}/>,
 			{
 				marginTop: '5vh',
 				marginLeft: '10%',
 				width: '80%',
 				height: '90vh'
 			});
-	};
-	const onDataAfterClicked = () => {
-
 	};
 
 	return <RunTablePipelineRow>
@@ -128,19 +123,10 @@ export const PipelineRuntime = (props: {
 			<PipelineRunStatusCell status={context.status} onStart={onStartPipeline}/>
 		</RunTableBodyCell>
 		<RunTableBodyCell>
-			<CellButton ink={ButtonInk.SUCCESS} onClick={onDataBeforeClicked}>
+			<CellButton ink={ButtonInk.SUCCESS} onClick={onDataClicked}>
 				<FontAwesomeIcon icon={ICON_SEARCH}/>
 			</CellButton>
 		</RunTableBodyCell>
-		<RunTableBodyCell>
-			{isPipelineCompleted(context)
-				? <CellButton ink={ButtonInk.SUCCESS} onClick={onDataAfterClicked}>
-					<FontAwesomeIcon icon={ICON_SEARCH}/>
-				</CellButton>
-				: '-'
-			}
-		</RunTableBodyCell>
-		<RunTableBodyCell/>
 		<RunTableBodyCell>{message}</RunTableBodyCell>
 	</RunTablePipelineRow>;
 };

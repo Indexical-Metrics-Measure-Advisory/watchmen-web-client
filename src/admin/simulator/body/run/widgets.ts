@@ -3,7 +3,7 @@ import {Button} from '../../../../basic-widgets/button';
 import {SimulatorBodyPartBody} from '../widgets';
 import {ButtonInk} from '../../../../basic-widgets/types';
 
-const COLUMNS = '400px repeat(4, 100px) 400px';
+const COLUMNS = '400px repeat(2, 100px) 600px';
 const COLUMNS_WIDTH = '1200px';
 export const RunBody = styled(SimulatorBodyPartBody)`
 	padding-top: 0;

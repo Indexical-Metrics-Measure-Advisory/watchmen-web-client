@@ -23,7 +23,7 @@ export const buildContextBody = (context: PipelineRuntimeContext): Partial<Pipel
 	return rest;
 };
 
-export const findRuntimeData = async (context: PipelineRuntimeContext): Promise<PipelineRuntimeTable | undefined> => {
+export const findRuntimeData = async (pipelineRuntimeId: string): Promise<PipelineRuntimeTable | undefined> => {
 	const db = connectSimulatorDB();
-	return db.pipelines.get({pipelineRuntimeId: context.pipelineRuntimeId});
+	return db.pipelines.get({pipelineRuntimeId});
 };
