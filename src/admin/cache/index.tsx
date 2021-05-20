@@ -44,7 +44,8 @@ export const AdminCache = () => {
 		const onAskReload = async () => {
 			setData({initialized: false});
 			await clearAdminData();
-			await loadAdminData();
+			const data = await loadAdminData();
+			setData({initialized: true, data});
 			fire(AdminCacheEventTypes.REPLY_RELOAD);
 		};
 		on(AdminCacheEventTypes.ASK_RELOAD, onAskReload);
