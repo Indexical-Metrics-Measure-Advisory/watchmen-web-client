@@ -43,7 +43,7 @@ export const TriggerData = (props: {
 				<TriggerDataFirstHeaderCell>old</TriggerDataFirstHeaderCell>
 				{oldOne == null
 					? <TriggerDataNoOldCell columnCount={factors.length}>
-						Trigger data is inserted, old one is not existed.
+						Trigger data is inserted, old one doesn't exist.
 					</TriggerDataNoOldCell>
 					: factors.map(factor => {
 						return <DataTableBodyCell key={factor.factorId}>
