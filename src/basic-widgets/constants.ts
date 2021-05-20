@@ -80,7 +80,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 export const TOOLTIP_Z_INDEX = 10000;
-export const DIALOG_Z_INDEX = 99999;
+export const DIALOG_Z_INDEX = 99989;
 export const ALERT_Z_INDEX = 99999;
 export const FAVORITE_Z_INDEX = 1500;
 export const PIN_FAVORITE_Z_INDEX = 1499;

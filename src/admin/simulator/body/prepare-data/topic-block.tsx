@@ -13,11 +13,18 @@ import {
 	LoopButton,
 	NameBlock,
 	PlayButton,
+	RowDeleteButton,
 	TopicBlockType,
 	TopicEditButton
 } from './widgets';
 import {getTopicName} from '../../utils';
-import {ICON_COLLAPSE_CONTENT, ICON_EXPAND_CONTENT, ICON_LOOP, ICON_PLAY} from '../../../../basic-widgets/constants';
+import {
+	ICON_COLLAPSE_CONTENT,
+	ICON_DELETE,
+	ICON_EXPAND_CONTENT,
+	ICON_LOOP,
+	ICON_PLAY
+} from '../../../../basic-widgets/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {PipelineBlock} from './pipeline-block';
@@ -34,6 +41,8 @@ import {useSimulatorEventBus} from '../../simulator-event-bus';
 import {DataRow, SimulatorEventTypes} from '../../simulator-event-bus-types';
 import {AlertLabel} from '../../../../alert/widgets';
 import {ActiveStep} from '../state/types';
+import {v4} from 'uuid';
+import JSON5 from 'json5';
 
 const DataCell = (props: { row: DataRow, factor: Factor }) => {
 	const {row, factor} = props;
@@ -72,6 +81,7 @@ const DataDialog = (props: {
 }) => {
 	const {topic, rows: data, onConfirm} = props;
 
+	const {fire} = useEventBus();
 	const [rows, setRows] = useState<Array<DataRow>>(() => {
 		try {
 			return JSON.parse(JSON.stringify(data));
@@ -80,11 +90,70 @@ const DataDialog = (props: {
 		}
 	});
 
+	const onRemoveRowClicked = (row: DataRow) => () => {
+		setRows(rows.filter(r => r !== row));
+	};
 	const onAddRowClicked = () => {
 		setRows([...rows, {}]);
 	};
+	const onAddRows = (rows: Array<any>) => {
+		const validRows = rows.filter(row => row != null && typeof row === 'object')
+			.map((row) => {
+				return topic.factors.reduce((data, factor) => {
+					data[factor.name] = row[factor.name];
+					return data;
+				}, {} as DataRow);
+			});
+		console.log(validRows);
+		setRows(rows => {
+			return [...rows, ...validRows];
+		});
+	};
+	const onFileSelected = (input: HTMLInputElement) => async () => {
+		if (!input.files || input.files.length === 0) {
+			return;
+		}
+		const file = input.files.item(0);
+		if (!file) {
+			return;
+		}
+		const content = await file.text();
+		try {
+			const data = JSON5.parse(content);
+			if (data == null) {
+				fire(EventTypes.SHOW_ALERT, <AlertLabel>There is no data in selected file.</AlertLabel>);
+			} else if (Array.isArray(data)) {
+				onAddRows(data);
+			} else if (data.data && Array.isArray(data.data)) {
+				onAddRows(data.data);
+			} else {
+				fire(EventTypes.SHOW_ALERT, <AlertLabel>Cannot determine data from selected file.</AlertLabel>);
+			}
+		} catch {
+			fire(EventTypes.SHOW_ALERT, <AlertLabel>
+				Cannot parse the selected file, make sure it is on well-formed json or json5 format.
+			</AlertLabel>);
+		}
+	};
 	const onUploadClicked = () => {
-		// TODO upload topic rows
+		const input = document.createElement('input');
+		input.type = 'file';
+		input.multiple = false;
+		input.accept = '.json,.json5';
+		input.onchange = onFileSelected(input);
+		input.click();
+	};
+	const onDownloadClicked = () => {
+		const content = [topic.factors.reduce((data, factor) => {
+			data[factor.name] = null;
+			return data;
+		}, {} as DataRow)];
+
+		const link = document.createElement('a');
+		link.href = 'data:application/json;charset=utf-8,' + encodeURI(JSON.stringify(content));
+		link.target = '_blank';
+		link.download = `topic-data-template.json`;
+		link.click();
 	};
 	const onConfirmClicked = () => {
 		onConfirm(rows);
@@ -108,7 +177,10 @@ const DataDialog = (props: {
 					})}
 				</DataTableHeader>
 				{rows.map((row, rowIndex) => {
-					return <DataTableBodyRow columnCount={availableFactors.length} key={rowIndex}>
+					return <DataTableBodyRow columnCount={availableFactors.length} key={v4()}>
+						<RowDeleteButton ink={ButtonInk.DANGER} onClick={onRemoveRowClicked(row)}>
+							<FontAwesomeIcon icon={ICON_DELETE}/>
+						</RowDeleteButton>
 						<DataTableBodyCell>{rowIndex + 1}</DataTableBodyCell>
 						{availableFactors.map(factor => {
 							return <DataCell key={factor.factorId} row={row} factor={factor}/>;
@@ -118,8 +190,10 @@ const DataDialog = (props: {
 			</DataTable>
 		</DialogBody>
 		<DialogFooter>
-			<Button ink={ButtonInk.PRIMARY} onClick={onAddRowClicked}>Add Row</Button>
+			<Button ink={ButtonInk.PRIMARY} onClick={onDownloadClicked}>Download Template</Button>
 			<Button ink={ButtonInk.PRIMARY} onClick={onUploadClicked}>Upload Rows</Button>
+			<div style={{flexGrow: 1}}/>
+			<Button ink={ButtonInk.PRIMARY} onClick={onAddRowClicked}>Add Row</Button>
 			<Button ink={ButtonInk.PRIMARY} onClick={onConfirmClicked}>OK</Button>
 		</DialogFooter>
 	</>;

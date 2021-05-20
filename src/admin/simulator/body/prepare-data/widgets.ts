@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {NextStepButton, SimulatorBodyPartBody, SimulatorBodyPartRow} from '../widgets';
 import {TooltipButton} from '../../../../basic-widgets/tooltip-button';
+import {Button} from '../../../../basic-widgets/button';
 
 export enum TopicBlockType {
 	ROOT = 'trigger by',
@@ -298,9 +299,13 @@ export const DataTableBodyRow = styled.div.attrs<{ columnCount: number }>(({colu
 	};
 })<{ columnCount: number }>`
 	display: grid;
+	position: relative;
 	z-index: 0;
 	&:nth-child(2n) {
 		background-color: var(--grid-rib-bg-color);
+	}
+	&:hover > button {
+		left: 0;
 	}
 `;
 
@@ -321,4 +326,15 @@ export const DataTableBodyCell = styled.div.attrs({'data-widget': 'data-table-bo
 			box-shadow: var(--primary-hover-shadow);
 		}
 	}
+`;
+
+export const RowDeleteButton = styled(Button)`
+	position: absolute;
+	top: calc(var(--height) / 2 - 10px);
+	left: -24px;
+	height: 20px;
+	width: 24px;
+	border-radius: 0 10px 10px 0;
+	padding: 0;
+	transition: left 300ms ease-in-out;
 `;

@@ -149,7 +149,6 @@ export const PipelineRuntime = (props: {
 		const link = document.createElement('a');
 		link.href = 'data:application/json;charset=utf-8,' + encodeURI(JSON.stringify(content));
 		link.target = '_blank';
-		//provide the name for the CSV file to be downloaded
 		link.download = `data-of-pipeline-${dayjs().format('YYYYMMDDHHmmss')}.json`;
 		link.click();
 	};
