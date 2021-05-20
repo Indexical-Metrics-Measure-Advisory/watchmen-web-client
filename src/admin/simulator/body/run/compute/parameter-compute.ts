@@ -295,7 +295,7 @@ const computeComputed = (options: {
 				internalUnitContext,
 				alternativeTriggerData
 			});
-			value = date ?? dayjs(date).date();
+			value = date ? dayjs(date).date() : null;
 			break;
 		}
 		case ParameterComputeType.DAY_OF_WEEK: {
@@ -306,7 +306,7 @@ const computeComputed = (options: {
 				internalUnitContext,
 				alternativeTriggerData
 			});
-			value = date ?? dayjs(date).day() + 1;
+			value = date ? (dayjs(date).day() + 1) : null;
 			break;
 		}
 		case ParameterComputeType.CASE_THEN:
