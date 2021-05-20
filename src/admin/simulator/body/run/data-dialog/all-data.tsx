@@ -8,7 +8,7 @@ import {
 	SectionTitle,
 	TriggerDataFirstHeaderCell
 } from './widgets';
-import React from 'react';
+import React, {Fragment} from 'react';
 import {TopicsData} from '../../state/types';
 import {AllTopics} from '../types';
 import {getTopicName} from '../../../utils';
@@ -33,19 +33,22 @@ export const AllData = (props: {
 	return <>
 		{topicsData.map(({topic, data}) => {
 			const factors = topic.factors;
-			return <>
+			const factorsCount = factors.length;
+			return <Fragment key={topic.topicId}>
 				<SectionTitle>Before Run: {getTopicName(topic)}</SectionTitle>
 				<DataTable>
-					<DataTableHeader columnCount={factors.length}>
+					<DataTableHeader firstWidth={80} columnCount={factorsCount}>
 						<DataTableHeaderCell>#</DataTableHeaderCell>
 						{factors.map(factor => {
 							return <DataTableHeaderCell key={factor.factorId}>{factor.name}</DataTableHeaderCell>;
 						})}
 					</DataTableHeader>
 					{data.length === 0
-						? <AllDataNoDataCell columnCount={factors.length}>No Data.</AllDataNoDataCell>
+						? <DataTableBodyRow firstWidth={80} columnCount={factorsCount}>
+							<AllDataNoDataCell columnCount={factorsCount}>No Data.</AllDataNoDataCell>
+						</DataTableBodyRow>
 						: data.map((row, rowIndex) => {
-							return <DataTableBodyRow columnCount={factors.length} key={rowIndex}>
+							return <DataTableBodyRow firstWidth={80} columnCount={factorsCount} key={rowIndex}>
 								<TriggerDataFirstHeaderCell>{rowIndex + 1}</TriggerDataFirstHeaderCell>
 								{factors.map(factor => {
 									return <DataTableBodyCell key={factor.factorId}>
@@ -56,7 +59,7 @@ export const AllData = (props: {
 						})
 					}
 				</DataTable>
-			</>;
+			</Fragment>;
 		})}
 	</>;
 };

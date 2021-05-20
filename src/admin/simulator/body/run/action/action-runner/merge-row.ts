@@ -55,7 +55,7 @@ export const doMergeRow = async (
 				const oldAvg = row[factor.name] || 0;
 				const assist = JSON.parse(row[AGGREGATE_ASSIST_FACTOR_NAME] || DEFAULT_AGGREGATE_ASSIST_FACTOR_VALUE);
 				const count = assist[`${factor.name}.${AGGREGATE_AVG_COUNT_PROP_NAME}`] || 1;
-				row[factor.name] = (oldAvg * count + newValue - oldValue) / count;
+				row[factor.name] = (oldAvg * count + newValue * 1 - oldValue) / count;
 				break;
 			}
 			case AggregateArithmetic.SUM: {
@@ -66,7 +66,7 @@ export const doMergeRow = async (
 					defaultValue: 0
 				});
 				const oldSum = row[factor.name] || 0;
-				row[factor.name] = oldSum + newValue - oldValue;
+				row[factor.name] = oldSum * 1 + newValue * 1 - oldValue;
 				break;
 			}
 			case AggregateArithmetic.NONE:

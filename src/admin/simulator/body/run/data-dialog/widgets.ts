@@ -12,6 +12,18 @@ export const DialogTitle = styled.div`
 	font-family: var(--title-font-family);
 	font-size: 2.5em;
 `;
+export const DialogBodyContent = styled.div.attrs({
+	'data-widget': 'dialog-body-content',
+	'data-v-scroll': ''
+})`
+	display: block;
+	position: relative;
+	height: calc(100% - var(--margin) / 2);
+	margin-right: calc(var(--margin) / -4);
+	padding-right: calc(var(--margin) / 4);
+	overflow-y: auto;
+	overflow-x: hidden;
+`;
 
 export const SectionTitle = styled.div.attrs({'data-widget': 'data-table-section-title'})`
 	display: flex;
@@ -27,18 +39,20 @@ export const SectionTitle = styled.div.attrs({'data-widget': 'data-table-section
 `;
 export const DataTable = styled.div.attrs({
 	'data-widget': 'data-table',
-	'data-v-scroll': '',
 	'data-h-scroll': ''
 })`
-	display: flex;
-	flex-direction: column;
-	max-height: calc(var(--tall-height) * 10);
+	display: grid;
+	grid-template-columns: 1fr;
 	margin-bottom: calc(var(--margin) / 2);
-	overflow: auto;
-	//border-radius: var(--border-radius);
 	border-bottom: var(--border);
 	border-bottom-color: var(--primary-color);
+	overflow-x: auto;
+	overflow-y: hidden;
+	&:last-child {
+		margin-bottom: 0;
+	}
 `;
+
 export const DataTableHeader = styled.div.attrs<{ firstWidth?: number, columnCount: number }>(
 	({firstWidth = 40, columnCount}) => {
 		return {
@@ -119,6 +133,16 @@ export const TriggerDataNoOldCell = styled(DataTableBodyCell).attrs<{ columnCoun
 `;
 
 export const AllDataNoDataCell = styled(DataTableBodyCell).attrs<{ columnCount: number }>(({columnCount}) => {
+	return {style: {gridColumn: `span ${columnCount + 1}`}};
+})<{ columnCount: number }>`
+	font-variant: petite-caps;
+`;
+export const ChangedDataFirstHeaderCell = styled(DataTableBodyCell)`
+	font-variant: petite-caps;
+	font-weight: var(--font-bold);
+	color: var(--primary-color);
+`;
+export const ChangedDataNoDataCell = styled(DataTableBodyCell).attrs<{ columnCount: number }>(({columnCount}) => {
 	return {style: {gridColumn: `span ${columnCount + 1}`}};
 })<{ columnCount: number }>`
 	font-variant: petite-caps;

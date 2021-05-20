@@ -96,32 +96,23 @@ export const PipelineRuntime = (props: {
 		});
 	};
 	const onDataClicked = async () => {
-		const {pipelineRuntimeId, topic: {topicId: triggerTopicId}, triggerData, triggerDataOnce} = context;
-		let allData;
+		const {pipelineRuntimeId, triggerData, triggerDataOnce} = context;
+
+		let allData: TopicsData;
 		let data = pipelineRuntimeId ? await findRuntimeData(pipelineRuntimeId) : (void 0);
 		if (data) {
 			allData = data.dataBefore as TopicsData;
 		} else {
-			allData = Object.keys(context.allData).reduce((map, topicId) => {
-				let data = context.allData[topicId];
-				// eslint-disable-next-line
-				if (topicId == triggerTopicId) {
-					if (triggerDataOnce) {
-						data = data.map(row => {
-							return row === triggerData ? triggerDataOnce : row;
-						});
-					} else {
-						data = data.filter(row => row !== triggerData);
-					}
-				}
-				map[topicId] = data;
-				return map;
-			}, {} as TopicsData);
+			allData = context.allData;
 		}
+
+		const changedData = context.changedData;
+
 		fireGlobal(EventTypes.SHOW_DIALOG,
 			<DataDialog title="Data of Pipeline Run"
 			            triggerData={{topic: context.topic, newOne: triggerData, oldOne: triggerDataOnce}}
-			            allData={allData} allTopics={context.allTopics}/>,
+			            allData={allData} allTopics={context.allTopics}
+			            changedData={changedData}/>,
 			{
 				marginTop: '5vh',
 				marginLeft: '10%',

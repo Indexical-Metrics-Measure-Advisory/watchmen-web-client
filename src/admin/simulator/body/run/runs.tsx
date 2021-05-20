@@ -74,7 +74,7 @@ export const Runs = (props: {
 						topic: topics[pipeline.topicId]!,
 						triggerData,
 						existsData: [...existsData],
-						allData: data,
+						allData: JSON.parse(JSON.stringify(data)),
 						allTopics: topics
 					});
 					// trigger data will be inserted into this topic

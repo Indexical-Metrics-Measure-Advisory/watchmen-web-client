@@ -24,22 +24,22 @@ export const TriggerData = (props: {
 	return <>
 		<SectionTitle>Trigger By: {getTopicName(topic)}</SectionTitle>
 		<DataTable>
-			<DataTableHeader firstWidth={60} columnCount={factors.length}>
+			<DataTableHeader firstWidth={80} columnCount={factors.length}>
 				<DataTableHeaderCell>#</DataTableHeaderCell>
 				{factors.map(factor => {
 					return <DataTableHeaderCell key={factor.factorId}>{factor.name}</DataTableHeaderCell>;
 				})}
 			</DataTableHeader>
-			<DataTableBodyRow firstWidth={60} columnCount={factors.length}>
-				<TriggerDataFirstHeaderCell>NEW</TriggerDataFirstHeaderCell>
+			<DataTableBodyRow firstWidth={80} columnCount={factors.length}>
+				<TriggerDataFirstHeaderCell>new</TriggerDataFirstHeaderCell>
 				{factors.map(factor => {
 					return <DataTableBodyCell key={factor.factorId}>
 						{newOne[factor.name]}
 					</DataTableBodyCell>;
 				})}
 			</DataTableBodyRow>
-			<DataTableBodyRow firstWidth={60} columnCount={factors.length}>
-				<TriggerDataFirstHeaderCell>OLD</TriggerDataFirstHeaderCell>
+			<DataTableBodyRow firstWidth={80} columnCount={factors.length}>
+				<TriggerDataFirstHeaderCell>old</TriggerDataFirstHeaderCell>
 				{oldOne == null
 					? <TriggerDataNoOldCell columnCount={factors.length}>
 						Trigger data is inserted, old one is not existed.

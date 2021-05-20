@@ -1,4 +1,4 @@
-import {DialogHeader, DialogTitle} from './widgets';
+import {DialogBodyContent, DialogHeader, DialogTitle} from './widgets';
 import React from 'react';
 import {DialogBody, DialogFooter} from '../../../../../dialog/widgets';
 import {Button} from '../../../../../basic-widgets/button';
@@ -9,8 +9,9 @@ import {DataRow} from '../../../simulator-event-bus-types';
 import {TopicsData} from '../../state/types';
 import {Topic} from '../../../../../services/tuples/topic-types';
 import {TriggerData} from './trigger-data';
-import {AllTopics} from '../types';
+import {AllTopics, ChangedDataRow} from '../types';
 import {AllData} from './all-data';
+import {ChangedData} from './changed-data';
 
 export const DataDialog = (props: {
 	title: string;
@@ -21,8 +22,9 @@ export const DataDialog = (props: {
 	}
 	allTopics: AllTopics;
 	allData: TopicsData;
+	changedData: Array<ChangedDataRow>
 }) => {
-	const {title, triggerData, allTopics, allData} = props;
+	const {title, triggerData, allTopics, allData, changedData} = props;
 
 	const {fire} = useEventBus();
 
@@ -35,11 +37,20 @@ export const DataDialog = (props: {
 			<DialogTitle>{title}</DialogTitle>
 		</DialogHeader>
 		<DialogBody>
-			{triggerData != null
-				? <TriggerData topic={triggerData.topic} newOne={triggerData.newOne} oldOne={triggerData.oldOne}/>
-				: null
-			}
-			<AllData topics={allTopics} data={allData}/>
+			<DialogBodyContent>
+				<div>
+					{triggerData != null
+						?
+						<TriggerData topic={triggerData.topic} newOne={triggerData.newOne} oldOne={triggerData.oldOne}/>
+						: null
+					}
+					<AllData topics={allTopics} data={allData}/>
+					{changedData.length !== 0
+						? <ChangedData topics={allTopics} data={changedData}/>
+						: null
+					}
+				</div>
+			</DialogBodyContent>
 		</DialogBody>
 		<DialogFooter>
 			<Button ink={ButtonInk.PRIMARY} onClick={onCloseClicked}>Close</Button>
