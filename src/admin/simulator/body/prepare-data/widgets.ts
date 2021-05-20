@@ -64,7 +64,6 @@ export const NameBlock = styled.div.attrs<{ expanded: boolean }>({'data-widget':
 	font-variant: petite-caps;
 	font-weight: var(--font-bold);
 	border-radius: calc(var(--height) / 2);
-	box-shadow: var(--shadow);
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -98,7 +97,6 @@ export const TopicEditButton = styled.div`
 	font-weight: var(--font-bold);
 	background-color: var(--border-color);
 	border-radius: calc(var(--height) * 2);
-	box-shadow: var(--shadow);
 	transition: box-shadow 300ms ease-in-out;
 	cursor: pointer;
 	&:hover {
@@ -144,7 +142,6 @@ export const LoopButton = styled(TooltipButton).attrs({'data-widget': 'loop-butt
 	background-color: var(--border-color);
 	font-size: 0.8em;
 	border-radius: 100%;
-	box-shadow: var(--shadow);
 	transition: box-shadow 300ms ease-in-out;
 	cursor: pointer;
 	&:hover {
@@ -196,7 +193,6 @@ export const PipelineEditButton = styled(TooltipButton)`
 	font-variant: petite-caps;
 	font-weight: var(--font-bold);
 	border-radius: calc(var(--height) * 2);
-	box-shadow: var(--shadow);
 	transition: color 300ms ease-in-out;
 	&:hover {
 		color: var(--primary-color);
