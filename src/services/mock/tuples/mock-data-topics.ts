@@ -172,35 +172,40 @@ export const RawQuotation: Topic = {
 			lastModifyTime: getCurrentTime()
 		},
 		{
-			factorId: '406', name: 'holderId', label: 'Holder Id', type: FactorType.SEQUENCE,
+			factorId: '406', name: 'holder', label: 'Holder', type: FactorType.OBJECT,
 			createTime: getCurrentTime(),
 			lastModifyTime: getCurrentTime()
 		},
 		{
-			factorId: '407', name: 'holderFirstName', label: 'Holder First Name', type: FactorType.TEXT,
+			factorId: '407', name: 'holder.holderId', label: 'Holder Id', type: FactorType.SEQUENCE,
 			createTime: getCurrentTime(),
 			lastModifyTime: getCurrentTime()
 		},
 		{
-			factorId: '408', name: 'holderLastName', label: 'Holder Last Name', type: FactorType.TEXT,
+			factorId: '408', name: 'holder.firstName', label: 'Holder First Name', type: FactorType.TEXT,
+			createTime: getCurrentTime(),
+			lastModifyTime: getCurrentTime()
+		},
+		{
+			factorId: '409', name: 'holder.lastName', label: 'Holder Last Name', type: FactorType.TEXT,
 			createTime: getCurrentTime(),
 			lastModifyTime: getCurrentTime()
 		},
 		{
 			factorId: '410',
-			name: 'holderDateOfBirth',
+			name: 'holder.dateOfBirth',
 			label: 'Policy Holder Birth Date',
 			type: FactorType.DATETIME,
 			createTime: getCurrentTime(),
 			lastModifyTime: getCurrentTime()
 		},
 		{
-			factorId: '411', name: 'holderGender', label: 'Holder Gender', type: FactorType.ENUM,
+			factorId: '411', name: 'holder.gender', label: 'Holder Gender', type: FactorType.ENUM,
 			createTime: getCurrentTime(),
 			lastModifyTime: getCurrentTime()
 		},
 		{
-			factorId: '412', name: 'holderCity', label: 'Holder City', type: FactorType.ENUM,
+			factorId: '412', name: 'holder.city', label: 'Holder City', type: FactorType.ENUM,
 			createTime: getCurrentTime(),
 			lastModifyTime: getCurrentTime()
 		},
