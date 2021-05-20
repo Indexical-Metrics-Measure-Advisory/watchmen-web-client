@@ -11,6 +11,7 @@ import {
 	TriggerDataNoOldCell
 } from './widgets';
 import React from 'react';
+import {getTopicName} from '../../../utils';
 
 export const TriggerData = (props: {
 	topic: Topic;
@@ -21,7 +22,7 @@ export const TriggerData = (props: {
 	const factors = topic.factors;
 
 	return <>
-		<SectionTitle>Trigger Data</SectionTitle>
+		<SectionTitle>Trigger By: {getTopicName(topic)}</SectionTitle>
 		<DataTable>
 			<DataTableHeader firstWidth={60} columnCount={factors.length}>
 				<DataTableHeaderCell>#</DataTableHeaderCell>

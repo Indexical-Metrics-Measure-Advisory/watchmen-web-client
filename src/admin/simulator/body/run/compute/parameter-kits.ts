@@ -187,7 +187,7 @@ const computeStatement = (statement: string, getFirstValue: (propertyName: strin
 	if (values.length === 1) {
 		return values[0];
 	} else {
-		return values.filter(x => !x).join('');
+		return values.filter(x => x != null).join('');
 	}
 };
 export const computeConstantByStatement = (options: {

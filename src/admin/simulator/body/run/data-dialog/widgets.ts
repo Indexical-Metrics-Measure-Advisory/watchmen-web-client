@@ -118,3 +118,9 @@ export const TriggerDataNoOldCell = styled(DataTableBodyCell).attrs<{ columnCoun
 	font-variant: petite-caps;
 `;
 
+export const AllDataNoDataCell = styled(DataTableBodyCell).attrs<{ columnCount: number }>(({columnCount}) => {
+	return {style: {gridColumn: `span ${columnCount + 1}`}};
+})<{ columnCount: number }>`
+	font-variant: petite-caps;
+`;
+

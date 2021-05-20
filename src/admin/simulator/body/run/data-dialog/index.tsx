@@ -9,6 +9,8 @@ import {DataRow} from '../../../simulator-event-bus-types';
 import {TopicsData} from '../../state/types';
 import {Topic} from '../../../../../services/tuples/topic-types';
 import {TriggerData} from './trigger-data';
+import {AllTopics} from '../types';
+import {AllData} from './all-data';
 
 export const DataDialog = (props: {
 	title: string;
@@ -17,9 +19,10 @@ export const DataDialog = (props: {
 		oldOne?: DataRow;
 		newOne: DataRow
 	}
+	allTopics: AllTopics;
 	allData: TopicsData;
 }) => {
-	const {title, triggerData} = props;
+	const {title, triggerData, allTopics, allData} = props;
 
 	const {fire} = useEventBus();
 
@@ -36,6 +39,7 @@ export const DataDialog = (props: {
 				? <TriggerData topic={triggerData.topic} newOne={triggerData.newOne} oldOne={triggerData.oldOne}/>
 				: null
 			}
+			<AllData topics={allTopics} data={allData}/>
 		</DialogBody>
 		<DialogFooter>
 			<Button ink={ButtonInk.PRIMARY} onClick={onCloseClicked}>Close</Button>

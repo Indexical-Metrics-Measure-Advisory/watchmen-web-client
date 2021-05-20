@@ -139,7 +139,7 @@ const computeComputed = (options: {
 			break;
 		case ParameterComputeType.SUBTRACT:
 			value = computeComputedToNumbers({parameters, pipelineContext, internalUnitContext, alternativeTriggerData})
-				.filter(x => !x)
+				.filter(x => x != null)
 				.reduce((x, y) => (x as number) - (y as number));
 			break;
 		case ParameterComputeType.MULTIPLY:
@@ -148,7 +148,7 @@ const computeComputed = (options: {
 			break;
 		case ParameterComputeType.DIVIDE:
 			value = computeComputedToNumbers({parameters, pipelineContext, internalUnitContext, alternativeTriggerData})
-				.filter(x => !x)
+				.filter(x => x != null)
 				.reduce((x, y) => (x as number) - (y as number));
 			break;
 		case ParameterComputeType.MODULUS:
