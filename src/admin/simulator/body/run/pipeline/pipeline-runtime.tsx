@@ -99,13 +99,13 @@ const startPipeline = async (context: PipelineRuntimeContext, start: () => void)
 			} else if (fits.length === 1) {
 				const index = topicData.findIndex(row => row === fits[0]);
 				// remove the fit one, replace with trigger data
+				context.triggerDataOnce = fits[0];
 				topicData.splice(index, 1, triggerData);
 			} else {
 				throw new Error(`More than one rows matched with trigger data[${JSON.stringify(triggerData)}].`);
 			}
 		}
 	}
-
 	context.status = PipelineRunStatus.RUNNING;
 	await connectSimulatorDB().pipelines.add({
 		pipelineId: context.pipeline.pipelineId,
