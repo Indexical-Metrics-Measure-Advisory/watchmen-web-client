@@ -71,6 +71,7 @@ export const useCompleted = (
 					}
 				});
 				availablePipelines = availablePipelines.filter(p => !concernedPipelines.includes(p));
+				console.log(availablePipelines, availablePipelinesOnNewChanged);
 
 				if (availablePipelines.length === 0) {
 					// no more pipelines needs to be run in this series
