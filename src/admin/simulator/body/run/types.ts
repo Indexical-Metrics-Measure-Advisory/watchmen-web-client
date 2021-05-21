@@ -59,17 +59,13 @@ export interface PipelineRuntimeContext {
 	triggerData: DataRow;
 	/** topic row trigger this pipeline, it used to be */
 	triggerDataOnce?: DataRow;
-	/**
-	 * topic data which already exists when trigger this pipeline.
-	 */
-	existsData: Array<DataRow>;
+
 	stages: Array<StageRuntimeContext>;
 
-	/** all data declared in prepare data panel */
-	allData: TopicsData;
 	allTopics: AllTopics;
 
 	pipelineRuntimeId?: string;
+	/** runtime data */
 	runtimeData: TopicsData;
 	// changed data rows
 	changedData: Array<ChangedDataRow>;

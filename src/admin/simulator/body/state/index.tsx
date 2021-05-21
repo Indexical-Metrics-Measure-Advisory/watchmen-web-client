@@ -116,7 +116,10 @@ export const SimulatorStates = () => {
 
 	useEffect(() => {
 		const onAskRunMaterial = () => {
-			fire(SimulatorEventTypes.REPLY_RUN_MATERIAL, state.topicsData, state.runPipelines);
+			fire(SimulatorEventTypes.REPLY_RUN_MATERIAL,
+				// serialize and deserialize rows to break relation with original data
+				JSON.parse(JSON.stringify(state.topicsData)),
+				state.runPipelines);
 		};
 		on(SimulatorEventTypes.ASK_RUN_MATERIAL, onAskRunMaterial);
 		return () => {

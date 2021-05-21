@@ -62,25 +62,22 @@ export const buildPipelineRuntimeContext = (options: {
 	topic: Topic,
 	triggerData: DataRow,
 	triggerDataOnce?: DataRow,
-	existsData: Array<DataRow>,
-	allData: TopicsData,
+	runtimeData: TopicsData,
 	allTopics: AllTopics,
 	changedData?: Array<ChangedDataRow>
 }): PipelineRuntimeContext => {
-	const {pipeline, topic, triggerData, triggerDataOnce, existsData, allData, allTopics, changedData = []} = options;
+	const {pipeline, topic, triggerData, triggerDataOnce, runtimeData, allTopics, changedData = []} = options;
 	return {
 		pipeline,
 		topic,
 		status: PipelineRunStatus.WAIT,
 		triggerData,
 		triggerDataOnce,
-		existsData,
 		stages: pipeline.stages.map((stage, stageIndex) => buildStageRuntimeContext(stage, stageIndex)),
 
-		allData,
 		allTopics,
 
-		runtimeData: {},
+		runtimeData,
 		changedData,
 		variables: {}
 	};
@@ -91,23 +88,23 @@ export const generateRuntimeId = (): string => {
 };
 
 export const isPipelineCompleted = (context: PipelineRuntimeContext): boolean => {
-	return [PipelineRunStatus.IGNORED, PipelineRunStatus.DONE, PipelineRunStatus.FAIL].includes(context.status);
+	return ([PipelineRunStatus.IGNORED, PipelineRunStatus.DONE, PipelineRunStatus.FAIL] as Array<PipelineRunStatus>).includes(context.status);
 };
 export const isStageStarted = (context: StageRuntimeContext): boolean => {
 	return context.status !== StageRunStatus.READY;
 };
 export const isStageCompleted = (context: StageRuntimeContext) => {
-	return [StageRunStatus.IGNORED, StageRunStatus.DONE, StageRunStatus.FAIL].includes(context.status);
+	return ([StageRunStatus.IGNORED, StageRunStatus.DONE, StageRunStatus.FAIL] as Array<StageRunStatus>).includes(context.status);
 };
 export const isInternalUnitStarted = (context: InternalUnitRuntimeContext): boolean => {
 	return context.status !== UnitRunStatus.READY;
 };
 export const isInternalUnitCompleted = (context: InternalUnitRuntimeContext) => {
-	return [UnitRunStatus.IGNORED, UnitRunStatus.DONE, UnitRunStatus.FAIL].includes(context.status);
+	return ([UnitRunStatus.IGNORED, UnitRunStatus.DONE, UnitRunStatus.FAIL] as Array<UnitRunStatus>).includes(context.status);
 };
 export const isActionStarted = (context: ActionRuntimeContext): boolean => {
 	return context.status !== ActionRunStatus.READY;
 };
 export const isActionCompleted = (context: ActionRuntimeContext) => {
-	return [ActionRunStatus.DONE, ActionRunStatus.FAIL].includes(context.status);
+	return ([ActionRunStatus.DONE, ActionRunStatus.FAIL] as Array<ActionRunStatus>).includes(context.status);
 };

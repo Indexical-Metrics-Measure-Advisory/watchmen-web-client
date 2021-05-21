@@ -4,7 +4,6 @@ import {TopicsData} from '../state/types';
 import {AllTopics, PipelineRunStatus, PipelineRuntimeContext} from './types';
 import {PipelineRun} from './pipeline';
 import {buildPipelineRuntimeContext} from './utils';
-import {DataRow} from '../../simulator-event-bus-types';
 import {RunsEventBusProvider, useRunsEventBus} from './runs-event-bus';
 import {RunsEventTypes} from './runs-event-bus-types';
 import {useEventBus} from '../../../../events/event-bus';
@@ -60,35 +59,46 @@ export const Runs = (props: {
 	const [state] = useState<State>(() => {
 		// all run pipelines are triggered by same topic
 		const triggerDataRows = data[runPipelines[0].topicId];
-		const existsData: Array<DataRow> = [];
 		// if there are multiple rows of trigger data
 		// pipeline will be triggered multiple times
 		// here built the initial data for each trigger
 		// in runtime, exists data for each trigger depends on previous pipeline run result
+
+		// all pipelines will be run sequential, and they will share the same runtime data
+		// but for trigger data, it will be inserted/updated one by one
+		// therefore, runtime data for first bulk pipelines, only have first trigger data
+		// and for 2nd bulk pipelines, the 2nd trigger data will be inserted/updated into runtime data
+		// and so on.
+		// let's construct the shared runtime data here, excludes all trigger data
+		const runtimeData = Object.keys(data).reduce((runtimeData, topicId) => {
+			// eslint-disable-next-line
+			if (topicId == runPipelines[0].topicId) {
+				// ignored
+			} else {
+				runtimeData[topicId] = data[topicId];
+			}
+			return runtimeData;
+		}, {} as TopicsData);
 		return {
 			runs: triggerDataRows.map(triggerData => {
+				// hold trigger data for context here
 				return runPipelines.map(pipeline => {
-					// exists data doesn't include the trigger data if trigger data is not inserted by previous pipelines
-					const context = buildPipelineRuntimeContext({
+					// first bulk always be insert
+					return buildPipelineRuntimeContext({
 						pipeline,
 						topic: topics[pipeline.topicId]!,
 						triggerData,
-						existsData: [...existsData],
-						allData: JSON.parse(JSON.stringify(data)),
+						runtimeData,
 						allTopics: topics
 					});
-					// trigger data will be inserted into this topic
-					if (!existsData.includes(triggerData)) {
-						existsData.push(triggerData);
-					}
-					return context;
 				});
 			}).flat(),
 			currentIndex: 0
 		};
 	});
 
-	// future is not led by first, always run
+	// future runs are led by first run,
+	// change first context to ready and hold others as wait
 	state.runs[0].status = PipelineRunStatus.READY;
 
 	return <RunsEventBusProvider>

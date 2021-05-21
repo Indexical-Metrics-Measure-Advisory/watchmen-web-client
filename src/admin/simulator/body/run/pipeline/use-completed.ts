@@ -111,8 +111,7 @@ export const useCompleted = (
 						topic: context.allTopics[topicId],
 						triggerData: trigger.after,
 						triggerDataOnce: trigger.before,
-						existsData: context.allData[topicId],
-						allData: context.allData,
+						runtimeData: context.runtimeData,
 						allTopics: context.allTopics
 					});
 					// save defeated pipelines to context, will used in next round

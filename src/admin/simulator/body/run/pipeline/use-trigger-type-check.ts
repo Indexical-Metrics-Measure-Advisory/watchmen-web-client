@@ -17,8 +17,8 @@ export const useTriggerTypeCheck = (
 			}
 
 			const logWrite = createLogWriter(context, setMessage);
-			const {existsData, triggerData, pipeline} = context;
-			const isInsert = !existsData.includes(triggerData);
+			const {triggerDataOnce, pipeline} = context;
+			const isInsert = !triggerDataOnce;
 			const type = isInsert ? PipelineTriggerType.INSERT : PipelineTriggerType.MERGE;
 			switch (pipeline.type) {
 				case PipelineTriggerType.MERGE:

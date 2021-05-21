@@ -1,12 +1,9 @@
 import {ChangedDataRow, PipelineRunStatus, PipelineRuntimeContext} from '../types';
-import {CellButton, PipelineElementType, RunTableBodyCell, RunTablePipelineRow} from '../widgets';
 import {getPipelineName} from '../../../utils';
 import {ButtonInk} from '../../../../../basic-widgets/types';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ICON_SEARCH} from '../../../../../basic-widgets/constants';
 import React, {useEffect, useState} from 'react';
 import {TopicsData} from '../../state/types';
-import {PipelineRunStatusCell} from './pipeline-run-status-cell';
 import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
 import {generateRuntimeId} from '../utils';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
@@ -23,25 +20,91 @@ import {useRunsEventBus} from '../runs-event-bus';
 import {Pipeline} from '../../../../../services/tuples/pipeline-types';
 import {useEventBus} from '../../../../../events/event-bus';
 import {EventTypes} from '../../../../../events/types';
+import {Factor, FactorType} from '../../../../../services/tuples/factor-types';
 import {DataDialog} from '../data-dialog';
-
-const buildTriggerData = (context: PipelineRuntimeContext) => {
-	return Object.keys(context.allData).reduce((data, topicId) => {
-		// eslint-disable-next-line
-		if (topicId == context.topic.topicId) {
-			// now, data in trigger topic is trigger data + exists data
-			data[topicId] = [...new Set([context.triggerData, ...context.existsData])];
-		} else {
-			data[topicId] = context.allData[topicId];
-		}
-		return data;
-	}, {} as TopicsData);
-};
+import {CellButton, PipelineElementType, RunTableBodyCell, RunTablePipelineRow} from '../widgets';
+import {PipelineRunStatusCell} from './pipeline-run-status-cell';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {DataRow} from '../../../simulator-event-bus-types';
 
 const startPipeline = async (context: PipelineRuntimeContext, start: () => void) => {
-	const data = buildTriggerData(context);
 	context.pipelineRuntimeId = generateRuntimeId();
 	await (createLogWriter(context)('Start pipeline'));
+
+	// now, here is a thing more tricky:
+	// normally, for pipelines defined, trigger data is not existed in runtime data
+	// and for pipelines triggered by others (called dynamic pipelines), trigger data is already existed in runtime data.
+	// but there is still an exception case, consider the following scenario:
+	// this pipeline is in pipelines defined, which means it is first bulk.
+	// it has trigger data which is defined manually,
+	// but when some pipelines run, data might be already written into runtime data,
+	// which means trigger data is already existed in runtime data just like dynamic pipeline.
+	// now have to find a way to identify this, use unique index
+	const triggerData = context.triggerData;
+	const topicId = context.topic.topicId;
+	// find it in runtime data
+	const topicData = context.runtimeData[topicId];
+	if (!topicData) {
+		// not exists, put it into runtime data
+		// make sure trigger data in runtime data
+		context.runtimeData[topicId] = [triggerData];
+	} else if (topicData.some(row => row === triggerData)) {
+		// exists, do nothing. it is dynamic pipeline triggered
+	} else {
+		// not exists, use unique index
+		// group unique index factors and find sequence factor
+		const factorsGroups = context.topic.factors.reduce((groups, factor) => {
+			if (factor.type === FactorType.SEQUENCE) {
+				groups.push({key: FactorType.SEQUENCE, factors: [factor], values: [triggerData[factor.name]]});
+			} else if (factor.indexGroup && factor.indexGroup.startsWith('u-')) {
+				let group = groups.find(group => group.key === factor.indexGroup);
+				if (!group) {
+					group = {key: factor.indexGroup, factors: [factor], values: [triggerData[factor.name]]};
+					groups.push(group);
+				} else {
+					group.factors.push(factor);
+					group.values.push(triggerData[factor.name]);
+				}
+			}
+			return groups;
+		}, [] as Array<{ key: string, factors: Array<Factor>, values: Array<any> }>);
+		if (factorsGroups.length === 0) {
+			// unique index not found, just simply insert trigger data to runtime data
+			topicData.push(triggerData);
+		} else {
+			// use these groups to find the fit one and only one in runtime data
+			const fits: Array<DataRow> = [];
+			for (let row of topicData) {
+				// must fit all groups
+				// raise exception if some matched and some mismatched
+				let hasMatched = false;
+				for (let factorGroup of factorsGroups) {
+					const matched = factorGroup.factors.every((factor, index) => {
+						// eslint-disable-next-line
+						return (row[factor.name] ?? '') == (factorGroup.values[index] ?? '');
+					});
+					if (matched) {
+						hasMatched = true;
+					} else if (hasMatched) {
+						throw new Error(`Ignored by cannot identify topic data by multiple unique indexes matched, data[trigger=${JSON.stringify(triggerData)}, exists=${JSON.stringify(row)}].`);
+					}
+				}
+				if (hasMatched) {
+					fits.push(row);
+				}
+			}
+			if (fits.length === 0) {
+				// not found
+				topicData.push(triggerData);
+			} else if (fits.length === 1) {
+				const index = topicData.findIndex(row => row === fits[0]);
+				// remove the fit one, replace with trigger data
+				topicData.splice(index, 1, triggerData);
+			} else {
+				throw new Error(`More than one rows matched with trigger data[${JSON.stringify(triggerData)}].`);
+			}
+		}
+	}
 
 	context.status = PipelineRunStatus.RUNNING;
 	await connectSimulatorDB().pipelines.add({
@@ -49,11 +112,9 @@ const startPipeline = async (context: PipelineRuntimeContext, start: () => void)
 		pipelineRuntimeId: context.pipelineRuntimeId,
 		status: context.status,
 		context: buildContextBody(context),
-		dataBefore: data,
+		dataBefore: context.runtimeData,
 		lastModifiedAt: dayjs().toDate()
 	});
-	// attach runtime data to context
-	context.runtimeData = data;
 	start();
 };
 export const PipelineRuntime = (props: {
@@ -78,10 +139,15 @@ export const PipelineRuntime = (props: {
 				return;
 			}
 
-			await startPipeline(context, () => {
-				forceUpdate();
-				fire(RuntimeEventTypes.DO_PIPELINE_TRIGGER_TYPE_CHECK, context);
-			});
+			try {
+				await startPipeline(context, () => {
+					forceUpdate();
+					fire(RuntimeEventTypes.DO_PIPELINE_TRIGGER_TYPE_CHECK, context);
+				});
+			} catch (e) {
+				await (createLogWriter(context)(e.message));
+				fire(RuntimeEventTypes.PIPELINE_FAILED, context);
+			}
 		};
 		onRuns(RunsEventTypes.RUN_PIPELINE, onRunPipeline);
 		return () => {
@@ -90,10 +156,15 @@ export const PipelineRuntime = (props: {
 	}, [onRuns, offRuns, fire, forceUpdate, context]);
 
 	const onStartPipeline = async () => {
-		await startPipeline(context, () => {
-			forceUpdate();
-			fire(RuntimeEventTypes.DO_PIPELINE_TRIGGER_TYPE_CHECK, context);
-		});
+		try {
+			await startPipeline(context, () => {
+				forceUpdate();
+				fire(RuntimeEventTypes.DO_PIPELINE_TRIGGER_TYPE_CHECK, context);
+			});
+		} catch (e) {
+			await (createLogWriter(context)(e.message));
+			fire(RuntimeEventTypes.PIPELINE_FAILED, context);
+		}
 	};
 	const onExportClicked = async () => {
 		const {pipelineRuntimeId, topic, triggerData, triggerDataOnce, allTopics} = context;
@@ -149,7 +220,10 @@ export const PipelineRuntime = (props: {
 		const link = document.createElement('a');
 		link.href = 'data:application/json;charset=utf-8,' + encodeURI(JSON.stringify(content));
 		link.target = '_blank';
-		link.download = `data-of-pipeline-${dayjs().format('YYYYMMDDHHmmss')}.json`;
+		link.download = `
+						data - of - pipeline -${dayjs().format('YYYYMMDDHHmmss')}
+					.
+						json`;
 		link.click();
 	};
 	const onDataClicked = async () => {
@@ -162,7 +236,7 @@ export const PipelineRuntime = (props: {
 			beforeData = data.dataBefore as TopicsData;
 			afterData = data.dataAfter as TopicsData;
 		} else {
-			beforeData = context.allData;
+			beforeData = context.runtimeData;
 		}
 
 		const changedData = context.changedData;
