@@ -6,7 +6,7 @@ import {
 	isInsertRowAction,
 	isMergeRowAction,
 	isReadFactorAction,
-	isReadRowAction,
+	isReadRowAction, isReadTopicAction,
 	isWriteFactorAction
 } from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
@@ -80,7 +80,7 @@ export const useValidate = () => {
 							const {variableName, source} = action;
 							return !variableName || variableName.trim().length === 0
 								|| !source || !isParameterValid(source, topics);
-						} else if (isExistsAction(action) || isReadRowAction(action) || isReadFactorAction(action)) {
+						} else if (isReadTopicAction(action)) {
 							const {topicId, variableName, by} = action;
 							// eslint-disable-next-line
 							const topic = topics.find(topic => topic.topicId == topicId);
