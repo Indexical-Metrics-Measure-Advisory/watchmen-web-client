@@ -35,14 +35,14 @@ import {
 	isExistsAction,
 	isInsertRowAction,
 	isMergeRowAction,
-	isReadFactorAction,
-	isReadRowAction,
+	isReadFactorAction, isReadFactorsAction,
+	isReadRowAction, isReadRowsAction,
 	isWriteFactorAction
 } from '../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {
 	ExistsAction,
-	ReadFactorAction,
-	ReadRowAction
+	ReadFactorAction, ReadFactorsAction,
+	ReadRowAction, ReadRowsAction
 } from '../../services/tuples/pipeline-stage-unit-action/read-topic-actions-types';
 import {
 	AlarmAction,
@@ -193,7 +193,17 @@ export const defendReadFactorAction = (action: ReadFactorAction) => {
 	defendFactor(action);
 	defendFindBy(action);
 };
+export const defendReadFactorsAction = (action: ReadFactorsAction) => {
+	defendMemoryWriter(action);
+	defendFactor(action);
+	defendFindBy(action);
+}
 export const defendReadRowAction = (action: ReadRowAction) => {
+	defendMemoryWriter(action);
+	defendTopic(action);
+	defendFindBy(action);
+};
+export const defendReadRowsAction = (action: ReadRowsAction) => {
 	defendMemoryWriter(action);
 	defendTopic(action);
 	defendFindBy(action);
@@ -220,8 +230,12 @@ export const defendAction = (action: PipelineStageUnitAction) => {
 		defendExistsAction(action);
 	} else if (isReadFactorAction(action)) {
 		defendReadFactorAction(action);
+	} else if (isReadFactorsAction(action)) {
+		defendReadFactorsAction(action);
 	} else if (isReadRowAction(action)) {
 		defendReadRowAction(action);
+	} else if (isReadRowsAction(action)) {
+		defendReadRowsAction(action);
 	} else if (isWriteFactorAction(action)) {
 		defendWriteFactorAction(action);
 	} else if (isMergeRowAction(action)) {
