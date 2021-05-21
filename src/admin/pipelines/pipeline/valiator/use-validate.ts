@@ -2,11 +2,10 @@ import {isJointValid, isParameterValid} from '../../../../services/tuples/factor
 import {
 	isAlarmAction,
 	isCopyToMemoryAction,
-	isExistsAction,
 	isInsertRowAction,
 	isMergeRowAction,
 	isReadFactorAction,
-	isReadRowAction, isReadTopicAction,
+	isReadTopicAction,
 	isWriteFactorAction
 } from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
