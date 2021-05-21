@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {AlertLabel} from '../../alert/widgets';
-import SpaceBackground from '../../assets/space-background.png';
+import SpaceBackground from '../../assets/space-background.svg';
 import {TUPLE_SEARCH_PAGE_SIZE} from '../../basic-widgets/constants';
 import {useEventBus} from '../../events/event-bus';
 import {EventTypes} from '../../events/types';

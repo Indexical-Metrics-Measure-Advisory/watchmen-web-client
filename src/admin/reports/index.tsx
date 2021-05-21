@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import ReportBackground from '../../assets/report-background.png';
+import ReportBackground from '../../assets/report-background.svg';
 import {TUPLE_SEARCH_PAGE_SIZE} from '../../basic-widgets/constants';
 import {useEventBus} from '../../events/event-bus';
 import {EventTypes} from '../../events/types';

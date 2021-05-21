@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {AlertLabel} from '../../alert/widgets';
-import TopicBackground from '../../assets/topic-background.png';
+import TopicBackground from '../../assets/topic-background.svg';
 import {TUPLE_SEARCH_PAGE_SIZE} from '../../basic-widgets/constants';
 import {useEventBus} from '../../events/event-bus';
 import {EventTypes} from '../../events/types';
@@ -113,7 +113,7 @@ const AdminTopics = () => {
 	return <TupleWorkbench title="Topics"
 	                       createButtonLabel="Create Topic" canCreate={true}
 	                       searchPlaceholder="Search by topic name, factor name, description, etc."
-	                       tupleLabel="Topic" tupleImage={TopicBackground} tupleImagePosition="left 80px"
+	                       tupleLabel="Topic" tupleImage={TopicBackground} tupleImagePosition="left 120px"
 	                       renderEditor={renderEditor}
 	                       renderCard={renderCard} getKeyOfTuple={getKeyOfTopic}
 	/>;

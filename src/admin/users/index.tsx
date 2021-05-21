@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {AlertLabel} from '../../alert/widgets';
-import UserBackground from '../../assets/user-background.png';
+import UserBackground from '../../assets/user-background.svg';
 import {TUPLE_SEARCH_PAGE_SIZE} from '../../basic-widgets/constants';
 import {useEventBus} from '../../events/event-bus';
 import {EventTypes} from '../../events/types';
