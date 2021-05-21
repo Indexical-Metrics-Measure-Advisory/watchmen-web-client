@@ -5,6 +5,7 @@ import {
 	isInsertRowAction,
 	isMergeRowAction,
 	isReadFactorAction,
+	isReadFactorsAction,
 	isReadTopicAction,
 	isWriteFactorAction
 } from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
@@ -88,7 +89,7 @@ export const useValidate = () => {
 								|| !by || !isJointValid(by, topics)) {
 								return true;
 							}
-							if (isReadFactorAction(action)) {
+							if (isReadFactorAction(action) || isReadFactorsAction(action)) {
 								const {factorId} = action;
 								// eslint-disable-next-line
 								const factor = topic.factors.find(factor => factor.factorId == factorId);
