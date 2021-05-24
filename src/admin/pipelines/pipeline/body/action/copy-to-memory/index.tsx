@@ -9,6 +9,7 @@ import {useActionType} from '../action-effect/use-action-type';
 import {SingleParameter} from '../single-parameter';
 import {VariableName} from '../variable-name';
 import {ActionLeadLabelThin} from '../widgets';
+import {ValidFactorTypes} from '../../../../../../services/tuples/factor-calculator-types';
 
 export const CopyToMemory = (props: {
 	pipeline: Pipeline;
@@ -30,6 +31,6 @@ export const CopyToMemory = (props: {
 		<ActionLeadLabelThin>Variable Name:</ActionLeadLabelThin>
 		<VariableName action={action}/>
 		<ActionLeadLabelThin>Value From:</ActionLeadLabelThin>
-		<SingleParameter action={action} parameter={action.source} topics={[topic]}  validTypes={[]}/>
+		<SingleParameter action={action} parameter={action.source} topics={[topic]}  validTypes={ValidFactorTypes.ANY}/>
 	</>;
 };
