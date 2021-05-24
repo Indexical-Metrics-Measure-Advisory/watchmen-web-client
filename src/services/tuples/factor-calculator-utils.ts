@@ -141,8 +141,7 @@ export const ParameterAndFactorTypeMapping: { [key in ParameterType]: (factorTyp
 		FactorType.NUMBER, FactorType.UNSIGNED,
 		FactorType.FLOOR, FactorType.RESIDENTIAL_AREA,
 		FactorType.AGE,
-		FactorType.BIZ_SCALE,
-		FactorType.YEAR, FactorType.MONTH
+		FactorType.BIZ_SCALE
 	].includes(factorType),
 	[ParameterType.TEXT]: (factorType: FactorType) => [FactorType.TEXT].includes(factorType),
 	[ParameterType.DATE]: (factorType: FactorType) => [FactorType.DATE, FactorType.DATETIME, FactorType.FULL_DATETIME].includes(factorType),
