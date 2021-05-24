@@ -1,12 +1,15 @@
 import React, {ChangeEvent, useEffect} from 'react';
 import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {Parameter} from '../../../../../../services/tuples/factor-calculator-types';
+import {Parameter, ValidFactorType} from '../../../../../../services/tuples/factor-calculator-types';
 import {isConstantParameter} from '../../../../../../services/tuples/factor-calculator-utils';
 import {useParameterEventBus} from '../parameter/parameter-event-bus';
 import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';
 import {ConstantContainer, ConstantInput} from './widgets';
 
-export const ConstantEditor = (props: { parameter: Parameter }) => {
+export const ConstantEditor = (props: {
+	parameter: Parameter;
+	validTypes: Array<ValidFactorType>;
+}) => {
 	const {parameter} = props;
 
 	const {on, off, fire} = useParameterEventBus();

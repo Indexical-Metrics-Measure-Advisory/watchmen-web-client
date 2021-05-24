@@ -36,7 +36,7 @@ export const RightPart = (props: { expression: ParameterExpression, topics: Arra
 
 	return <ParameterEventBusProvider>
 		<Parameter2ExpressionBridge onChange={onRightParameterChanged}/>
-		<ExpressionSide parameter={expression.right} topics={topics}
+		<ExpressionSide base={expression} parameter={expression.right} topics={topics}
 		                visible={visible} leftSide={false}/>
 	</ParameterEventBusProvider>;
 };

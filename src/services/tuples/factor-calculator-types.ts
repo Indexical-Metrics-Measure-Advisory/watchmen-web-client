@@ -73,6 +73,17 @@ export enum ParameterExpressionOperator {
 	NOT_IN = 'not-in',
 }
 
+export enum ValidFactorType {
+	ANY = 'any',
+	NUMBER = 'number',
+	DATE = 'date',
+	DATETIME = 'datetime'
+}
+export const ValidFactorTypes ={
+	ANY: [ValidFactorType.ANY],
+	NUMBER_AND_DATE: [ValidFactorType.NUMBER, ValidFactorType.DATE, ValidFactorType.DATETIME]
+}
+
 export interface ParameterCondition {
 }
 

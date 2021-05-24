@@ -30,6 +30,6 @@ export const CopyToMemory = (props: {
 		<ActionLeadLabelThin>Variable Name:</ActionLeadLabelThin>
 		<VariableName action={action}/>
 		<ActionLeadLabelThin>Value From:</ActionLeadLabelThin>
-		<SingleParameter action={action} parameter={action.source} topics={[topic]}/>
+		<SingleParameter action={action} parameter={action.source} topics={[topic]}  validTypes={[]}/>
 	</>;
 };

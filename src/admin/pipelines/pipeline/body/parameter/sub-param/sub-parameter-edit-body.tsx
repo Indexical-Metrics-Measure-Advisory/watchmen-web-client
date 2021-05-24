@@ -4,7 +4,11 @@ import {AlertLabel} from '../../../../../../alert/widgets';
 import {ICON_DELETE} from '../../../../../../basic-widgets/constants';
 import {useEventBus} from '../../../../../../events/event-bus';
 import {EventTypes} from '../../../../../../events/types';
-import {ComputedParameter, Parameter} from '../../../../../../services/tuples/factor-calculator-types';
+import {
+	ComputedParameter,
+	Parameter,
+	ValidFactorTypes
+} from '../../../../../../services/tuples/factor-calculator-types';
 import {canDeleteAnyParameter} from '../../../../../../services/tuples/factor-calculator-utils';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {ComputedEditor} from '../compute';
@@ -40,13 +44,14 @@ export const SubParameterEditBody = (props: {
 		}
 	};
 
+	// TODO sub parameters valid factor types should be defined according to compute type
 	return <>
-		<ConstantEditor parameter={parameter}/>
-		<TopicFactorEditor parameter={parameter} topics={topics}/>
+		<ConstantEditor parameter={parameter} validTypes={ValidFactorTypes.ANY}/>
+		<TopicFactorEditor parameter={parameter} topics={topics} validTypes={ValidFactorTypes.ANY}/>
 		<RemoveMeButton onClick={onDeleteClicked}>
 			<FontAwesomeIcon icon={ICON_DELETE}/>
 		</RemoveMeButton>
-		<ComputedEditor parameter={parameter} topics={topics}/>
+		<ComputedEditor parameter={parameter} topics={topics} validTypes={ValidFactorTypes.ANY}/>
 	</>;
 
 };

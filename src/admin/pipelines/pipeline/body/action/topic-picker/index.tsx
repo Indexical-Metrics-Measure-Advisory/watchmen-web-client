@@ -1,28 +1,15 @@
 import React from 'react';
 import {DropdownOption} from '../../../../../../basic-widgets/types';
 import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {Factor} from '../../../../../../services/tuples/factor-types';
 import {
 	FromTopic,
 	ToTopic
 } from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {Topic, TopicKind, TopicType} from '../../../../../../services/tuples/topic-types';
-import {getCurrentTime} from '../../../../../../services/utils';
+import {Topic} from '../../../../../../services/tuples/topic-types';
 import {useActionEventBus} from '../action-event-bus';
 import {ActionEventTypes} from '../action-event-bus-types';
 import {IncorrectOptionLabel, TopicDropdown, TopicFinderContainer} from './widgets';
-
-const createUnknownTopic = (topicId: string): Topic => {
-	return {
-		topicId,
-		name: 'Unknown Topic',
-		kind: TopicKind.SYSTEM,
-		type: TopicType.DISTINCT,
-		factors: [] as Array<Factor>,
-		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
-	};
-};
+import {createUnknownTopic} from '../../../../../../services/tuples/factor-calculator-utils';
 
 export const TopicPicker = (props: { action: FromTopic | ToTopic, topics: Array<Topic> }) => {
 	const {action, topics} = props;

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {Parameter} from '../../../../../../services/tuples/factor-calculator-types';
+import {Parameter, ValidFactorType} from '../../../../../../services/tuples/factor-calculator-types';
 import {isComputedParameter} from '../../../../../../services/tuples/factor-calculator-utils';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {ParameterComputeTypeEditor} from '../compute-type';
@@ -12,6 +12,7 @@ import {ComputedEditContainer} from './widgets';
 export const ComputedEditor = (props: {
 	parameter: Parameter;
 	topics: Array<Topic>;
+	validTypes: Array<ValidFactorType>;
 }) => {
 	const {parameter, topics} = props;
 

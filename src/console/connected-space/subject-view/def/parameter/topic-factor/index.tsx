@@ -4,35 +4,16 @@ import {DropdownOption} from '../../../../../../basic-widgets/types';
 import {useForceUpdate} from '../../../../../../basic-widgets/utils';
 import {Lang} from '../../../../../../langs';
 import {Parameter} from '../../../../../../services/tuples/factor-calculator-types';
-import {isTopicFactorParameter} from '../../../../../../services/tuples/factor-calculator-utils';
-import {Factor, FactorType} from '../../../../../../services/tuples/factor-types';
-import {Topic, TopicKind, TopicType} from '../../../../../../services/tuples/topic-types';
-import {getCurrentTime} from '../../../../../../services/utils';
+import {
+	createUnknownFactor,
+	createUnknownTopic,
+	isTopicFactorParameter
+} from '../../../../../../services/tuples/factor-calculator-utils';
+import {Factor} from '../../../../../../services/tuples/factor-types';
+import {Topic} from '../../../../../../services/tuples/topic-types';
 import {useParameterEventBus} from '../parameter-event-bus';
 import {ParameterEventTypes} from '../parameter-event-bus-types';
 import {FactorDropdown, IncorrectOptionLabel, TopicDropdown, TopicFactorEditContainer} from './widgets';
-
-const createUnknownTopic = (topicId: string): Topic => {
-	return {
-		topicId,
-		name: Lang.PLAIN.UNKNOWN_TOPIC_NAME,
-		kind: TopicKind.SYSTEM,
-		type: TopicType.DISTINCT,
-		factors: [] as Array<Factor>,
-		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
-	};
-};
-const createUnknownFactor = (factorId: string): Factor => {
-	return {
-		factorId,
-		name: Lang.PLAIN.UNKNOWN_FACTOR_NAME,
-		type: FactorType.TEXT,
-		label: '',
-		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
-	};
-};
 
 export const TopicFactorEdit = (props: {
 	availableTopics: Array<Topic>;
@@ -86,7 +67,7 @@ export const TopicFactorEdit = (props: {
 			// create an unknown one when not found
 			// eslint-disable-next-line
 			extraTopic = availableTopics.find(topic => topic.topicId == topicId)
-				|| createUnknownTopic(topicId);
+				|| createUnknownTopic(topicId, Lang.PLAIN.UNKNOWN_TOPIC_NAME);
 			selectedTopic = extraTopic;
 		}
 	}
@@ -98,7 +79,7 @@ export const TopicFactorEdit = (props: {
 			selectedFactor = selectedTopic.factors.find(factor => factor.factorId == factorId) || null;
 		}
 		if (!selectedFactor) {
-			extraFactor = createUnknownFactor(factorId);
+			extraFactor = createUnknownFactor(factorId, Lang.PLAIN.UNKNOWN_FACTOR_NAME);
 			selectedFactor = extraFactor;
 		}
 	}
@@ -146,18 +127,18 @@ export const TopicFactorEdit = (props: {
 export const TopicFactorEditor = styled(TopicFactorEdit)`
 	> div[data-widget=dropdown] {
 		&:first-child {
-			border-radius : 0;
-			box-shadow    : var(--param-top-border), var(--param-bottom-border);
+			border-radius: 0;
+			box-shadow: var(--param-top-border), var(--param-bottom-border);
 		}
 		&:last-child {
-			border-radius : 0 calc(var(--param-height) / 2) calc(var(--param-height) / 2) 0;
-			box-shadow    : var(--param-border);
+			border-radius: 0 calc(var(--param-height) / 2) calc(var(--param-height) / 2) 0;
+			box-shadow: var(--param-border);
 		}
 		// redefine since box-shadow overridden by first-child/last-child
 		&:hover,
 		&:focus {
-			z-index    : 1;
-			box-shadow : var(--primary-hover-shadow);
+			z-index: 1;
+			box-shadow: var(--primary-hover-shadow);
 		}
 	}
 `;

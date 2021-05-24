@@ -1,39 +1,25 @@
 import React, {useEffect} from 'react';
 import {DropdownOption} from '../../../../../../basic-widgets/types';
 import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {Parameter} from '../../../../../../services/tuples/factor-calculator-types';
-import {isTopicFactorParameter} from '../../../../../../services/tuples/factor-calculator-utils';
-import {Factor, FactorType} from '../../../../../../services/tuples/factor-types';
-import {Topic, TopicKind, TopicType} from '../../../../../../services/tuples/topic-types';
-import {getCurrentTime} from '../../../../../../services/utils';
+import {Parameter, ValidFactorType} from '../../../../../../services/tuples/factor-calculator-types';
+import {
+	createUnknownFactor,
+	createUnknownTopic,
+	isFactorValid,
+	isTopicFactorParameter
+} from '../../../../../../services/tuples/factor-calculator-utils';
+import {Factor} from '../../../../../../services/tuples/factor-types';
+import {Topic} from '../../../../../../services/tuples/topic-types';
 import {useParameterEventBus} from '../parameter/parameter-event-bus';
 import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';
 import {FactorDropdown, IncorrectOptionLabel, TopicDropdown, TopicFactorEditContainer} from './widgets';
 
-const createUnknownTopic = (topicId: string): Topic => {
-	return {
-		topicId,
-		name: 'Unknown Topic',
-		kind: TopicKind.SYSTEM,
-		type: TopicType.DISTINCT,
-		factors: [] as Array<Factor>,
-		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
-	};
-};
-const createUnknownFactor = (factorId: string): Factor => {
-	return {
-		factorId,
-		name: 'Unknown Factor',
-		type: FactorType.TEXT,
-		label: '',
-		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
-	};
-};
-
-export const TopicFactorEditor = (props: { parameter: Parameter; topics: Array<Topic> }) => {
-	const {parameter, topics} = props;
+export const TopicFactorEditor = (props: {
+	parameter: Parameter;
+	topics: Array<Topic>;
+	validTypes: Array<ValidFactorType>;
+}) => {
+	const {parameter, topics, validTypes} = props;
 
 	const {on, off, fire} = useParameterEventBus();
 	const forceUpdate = useForceUpdate();
@@ -115,7 +101,7 @@ export const TopicFactorEditor = (props: { parameter: Parameter; topics: Array<T
 			return {
 				value: factor,
 				label: ({value}) => {
-					if (selectedTopic === extraTopic || value === extraFactor) {
+					if (selectedTopic === extraTopic || value === extraFactor || !isFactorValid(value as Factor, validTypes)) {
 						return {
 							node: <IncorrectOptionLabel>{value.label || value.name}</IncorrectOptionLabel>,
 							label: value.label || value.name

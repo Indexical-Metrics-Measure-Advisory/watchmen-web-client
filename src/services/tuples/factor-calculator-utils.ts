@@ -11,10 +11,12 @@ import {
 	ParameterJoint,
 	ParameterKind,
 	ParameterType,
-	TopicFactorParameter
+	TopicFactorParameter,
+	ValidFactorType
 } from './factor-calculator-types';
-import {FactorType} from './factor-types';
-import {Topic} from './topic-types';
+import {Factor, FactorType} from './factor-types';
+import {Topic, TopicKind, TopicType} from './topic-types';
+import {getCurrentTime} from '../utils';
 
 export const isTopicFactorParameter = (param: Parameter): param is TopicFactorParameter => param.kind === ParameterKind.TOPIC;
 export const isConstantParameter = (param: Parameter): param is ConstantParameter => param.kind === ParameterKind.CONSTANT;
@@ -452,7 +454,6 @@ export const isExpressionValid = (expression: ParameterExpression, topics: Array
 	return !(operator !== ParameterExpressionOperator.NOT_EMPTY
 		&& operator !== ParameterExpressionOperator.EMPTY
 		&& (!right || !isParameterValid(right, topics)));
-
 };
 
 export const isJointValid = (joint: ParameterJoint, topics: Array<Topic>): boolean => {
@@ -472,4 +473,44 @@ export const isJointValid = (joint: ParameterJoint, topics: Array<Topic>): boole
 		}
 		return true;
 	});
+};
+
+export const createUnknownTopic = (topicId: string, name: string = 'Unknown Topic'): Topic => {
+	return {
+		topicId,
+		name,
+		kind: TopicKind.SYSTEM,
+		type: TopicType.DISTINCT,
+		factors: [] as Array<Factor>,
+		createTime: getCurrentTime(),
+		lastModifyTime: getCurrentTime()
+	};
+};
+export const createUnknownFactor = (factorId: string, name: string = 'Unknown Factor'): Factor => {
+	return {
+		factorId,
+		name,
+		type: FactorType.TEXT,
+		label: '',
+		createTime: getCurrentTime(),
+		lastModifyTime: getCurrentTime()
+	};
+};
+
+export const isFactorTypeValid = (factorType: FactorType, validType: ValidFactorType): boolean => {
+	switch (validType) {
+		case ValidFactorType.ANY:
+			return true;
+		case ValidFactorType.NUMBER:
+			return ParameterAndFactorTypeMapping[ParameterType.NUMBER](factorType);
+		case ValidFactorType.DATE:
+			return ParameterAndFactorTypeMapping[ParameterType.DATE](factorType);
+		case ValidFactorType.DATETIME:
+			return ParameterAndFactorTypeMapping[ParameterType.DATETIME](factorType);
+		default:
+			return false;
+	}
+};
+export const isFactorValid = (factor: Factor, validTypes: Array<ValidFactorType>): boolean => {
+	return validTypes.some(validType => isFactorTypeValid(factor.type, validType));
 };

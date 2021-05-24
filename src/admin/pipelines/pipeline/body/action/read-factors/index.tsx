@@ -10,6 +10,7 @@ import {FindByCondition} from '../find-by';
 import {TopicFactorPicker} from '../topic-factor-picker';
 import {VariableName} from '../variable-name';
 import {ActionLeadLabelThin} from '../widgets';
+import {ValidFactorTypes} from '../../../../../../services/tuples/factor-calculator-types';
 
 export const ReadFactors = (props: {
 	pipeline: Pipeline;
@@ -31,7 +32,7 @@ export const ReadFactors = (props: {
 		<ActionLeadLabelThin>Variable Name:</ActionLeadLabelThin>
 		<VariableName action={action}/>
 		<ActionLeadLabelThin>Source Topic & Factor:</ActionLeadLabelThin>
-		<TopicFactorPicker action={action} topics={topics}/>
+		<TopicFactorPicker action={action} topics={topics} validTypes={ValidFactorTypes.ANY}/>
 		<ActionLeadLabelThin>By:</ActionLeadLabelThin>
 		<FindByCondition action={action} topics={topics} topic={topic}/>
 	</>;

@@ -13,6 +13,7 @@ import {FindByCondition} from '../find-by';
 import {SingleParameter} from '../single-parameter';
 import {TopicFactorPicker} from '../topic-factor-picker';
 import {ActionLeadLabelThin} from '../widgets';
+import {ValidFactorTypes} from '../../../../../../services/tuples/factor-calculator-types';
 
 export const WriteFactor = (props: {
 	pipeline: Pipeline;
@@ -35,13 +36,14 @@ export const WriteFactor = (props: {
 		fire(ActionEventTypes.ACTION_CONTENT_CHANGED, action);
 	};
 
+	// TODO valid factor types of source parameter and target factor should be matched
 	return <>
 		<ActionLeadLabelThin>Value From:</ActionLeadLabelThin>
-		<SingleParameter action={action} parameter={action.source} topics={[topic]}/>
+		<SingleParameter action={action} parameter={action.source} topics={[topic]} validTypes={ValidFactorTypes.ANY}/>
 		<ActionLeadLabelThin>Write As:</ActionLeadLabelThin>
 		<AggregateArithmeticEditor holder={action} onChange={onArithmeticChanged}/>
 		<ActionLeadLabelThin>Target Topic & Factor:</ActionLeadLabelThin>
-		<TopicFactorPicker action={action} topics={topics}/>
+		<TopicFactorPicker action={action} topics={topics} validTypes={ValidFactorTypes.ANY}/>
 		<ActionLeadLabelThin>By:</ActionLeadLabelThin>
 		<FindByCondition action={action} topics={topics} topic={topic}/>
 	</>;
