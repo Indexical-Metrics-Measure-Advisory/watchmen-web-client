@@ -7,7 +7,12 @@ import {ParameterFromEditor} from '../../parameter/param-from';
 import {TopicFactorEditor} from '../../parameter/topic-factor';
 import {ExpressionSideContainer} from './widgets';
 
-export const ExpressionSide = (props: { parameter: Parameter, topics: Array<Topic>, visible?: boolean }) => {
+export const ExpressionSide = (props: {
+	parameter: Parameter;
+	topics: Array<Topic>;
+	visible?: boolean;
+	leftSide: boolean;
+}) => {
 	const {parameter, topics, visible = true} = props;
 
 	return <ExpressionSideContainer visible={visible}>

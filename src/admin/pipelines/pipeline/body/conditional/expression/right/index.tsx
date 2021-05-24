@@ -30,9 +30,13 @@ export const RightPart = (props: { expression: ParameterExpression, topics: Arra
 	const visible = expression.operator !== ParameterExpressionOperator.EMPTY
 		&& expression.operator !== ParameterExpressionOperator.NOT_EMPTY;
 
+	if (!visible) {
+		return null;
+	}
+
 	return <ParameterEventBusProvider>
 		<Parameter2ExpressionBridge onChange={onRightParameterChanged}/>
 		<ExpressionSide parameter={expression.right} topics={topics}
-		                visible={visible}/>
+		                visible={visible} leftSide={false}/>
 	</ParameterEventBusProvider>;
 };

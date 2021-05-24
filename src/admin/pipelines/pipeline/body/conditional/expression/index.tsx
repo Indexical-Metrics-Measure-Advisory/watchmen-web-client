@@ -50,7 +50,7 @@ export const Expression = (props: { expression: ParameterExpression, topics: Arr
 		</ExpressionHeader>
 		<ParameterEventBusProvider>
 			<Parameter2ExpressionBridge onChange={onLeftParameterChanged}/>
-			<ExpressionSide parameter={expression.left} topics={topics}/>
+			<ExpressionSide parameter={expression.left} topics={topics} leftSide={true}/>
 		</ParameterEventBusProvider>
 		<ExpressionOperator expression={expression}/>
 		<RightPart expression={expression} topics={topics}/>
