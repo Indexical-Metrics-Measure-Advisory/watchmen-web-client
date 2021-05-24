@@ -8,6 +8,8 @@ import {StageHeader} from './header';
 import {StagePrerequisite} from './prerequisite';
 import {Units} from './units';
 import {StageContainer} from './widgets';
+import {VariablesHelper} from '../variables/variables-helper';
+import {VariablesEventBusProvider} from '../variables/variables-event-bus';
 
 export const StageEditor = (props: {
 	pipeline: Pipeline;
@@ -20,9 +22,12 @@ export const StageEditor = (props: {
 	return <StageContainer>
 		<StageHeader pipeline={pipeline} stage={stage}/>
 		<StageBody pipeline={pipeline} stage={stage}>
-			<StagePrerequisite stage={stage} topic={topic}/>
-			<Units pipeline={pipeline} stage={stage} topics={topics} topic={topic}/>
-			<StageFooter pipeline={pipeline} stage={stage}/>
+			<VariablesEventBusProvider>
+				<VariablesHelper pipeline={pipeline} stage={stage} topics={[topic]}/>
+				<StagePrerequisite stage={stage} topic={topic}/>
+				<Units pipeline={pipeline} stage={stage} topics={topics} topic={topic}/>
+				<StageFooter pipeline={pipeline} stage={stage}/>
+			</VariablesEventBusProvider>
 		</StageBody>
 	</StageContainer>;
 };

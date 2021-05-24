@@ -13,7 +13,10 @@ import {
 	ParameterType,
 	TopicFactorParameter,
 	ValidFactorType,
-	ValidFactorTypes
+	ValidFactorTypes,
+	Variable,
+	VariablePredefineFunctions,
+	VariableType
 } from './factor-calculator-types';
 import {Factor, FactorType} from './factor-types';
 import {Topic, TopicKind, TopicType} from './topic-types';
@@ -607,4 +610,139 @@ export const computeValidTypesForSubParameter = (parameter: ComputedParameter, e
 		default:
 			return expectedTypes;
 	}
-}
+};
+
+const digByParentType = (names: Array<string>, types: VariableType): Array<VariableType> => {
+	const [first, ...rest] = names;
+	if (types.type !== FactorType.OBJECT) {
+		// no an object, cannot determine
+		return [{collection: types.collection, type: 'error'}];
+	} else if (!types.topic) {
+		// not from topic, cannot determine
+		return [{collection: types.collection, type: 'error'}];
+	} else if (!types.factor) {
+		// from topic
+		const factor: Factor | undefined = (types.topic.factors || []).find(f => f.name === first);
+		const factorType: VariableType = {
+			topic: types.topic,
+			factor,
+			collection: factor ? factor.type === FactorType.ARRAY : false,
+			type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : 'error'
+		};
+		return (rest.length === 0 || !factor) ? [factorType] : digByParentType(rest, factorType);
+	} else {
+		// from a factor
+		const prefix = types.factor.name;
+		const factor: Factor | undefined = (types.topic.factors || []).find(f => f.name === `${prefix}.${first}`);
+		const factorType: VariableType = {
+			topic: types.topic,
+			factor,
+			collection: factor ? factor.type === FactorType.ARRAY : false,
+			type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : 'error'
+		};
+		return (rest.length === 0 || !factor) ? [factorType] : digByParentType(rest, factorType);
+	}
+};
+const digByParentTypes = (names: Array<string>, types: Array<VariableType>): Array<VariableType> => {
+	return types.map(type => digByParentType(names, type)).flat();
+};
+export const computeParameterTypes = (
+	parameter: Parameter,
+	topics: Array<Topic>,
+	variables: Array<Variable>,
+	triggerTopic?: Topic
+): Array<VariableType> => {
+	if (isTopicFactorParameter(parameter)) {
+		// eslint-disable-next-line
+		const topic = topics.find(topic => topic.topicId == parameter.topicId);
+		// eslint-disable-next-line
+		const factor: Factor | undefined = (topic?.factors || []).find(factor => factor.factorId == parameter.factorId);
+		return [{
+			topic,
+			factor,
+			collection: factor ? factor.type === FactorType.ARRAY : false,
+			type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : ParameterType.ANY
+		}];
+	} else if (isComputedParameter(parameter)) {
+		switch (parameter.type) {
+			case ParameterComputeType.ADD:
+			case ParameterComputeType.SUBTRACT:
+			case ParameterComputeType.MULTIPLY:
+			case ParameterComputeType.DIVIDE:
+			case ParameterComputeType.MODULUS:
+				return [{collection: false, type: ParameterType.NUMBER}];
+			case ParameterComputeType.YEAR_OF:
+				return [{collection: false, type: FactorType.YEAR}];
+			case ParameterComputeType.HALF_YEAR_OF:
+				return [{collection: false, type: FactorType.HALF_YEAR}];
+			case ParameterComputeType.QUARTER_OF:
+				return [{collection: false, type: FactorType.QUARTER}];
+			case ParameterComputeType.MONTH_OF:
+				return [{collection: false, type: FactorType.MONTH}];
+			case ParameterComputeType.WEEK_OF_YEAR:
+				return [{collection: false, type: FactorType.WEEK_OF_YEAR}];
+			case ParameterComputeType.WEEK_OF_MONTH:
+				return [{collection: false, type: FactorType.WEEK_OF_MONTH}];
+			case ParameterComputeType.DAY_OF_MONTH:
+				return [{collection: false, type: FactorType.DAY_OF_MONTH}];
+			case ParameterComputeType.DAY_OF_WEEK:
+				return [{collection: false, type: FactorType.DAY_OF_WEEK}];
+			case ParameterComputeType.CASE_THEN:
+				return parameter.parameters.filter(x => !!x).map(sub => {
+					return computeParameterTypes(sub, topics, variables, triggerTopic);
+				}).flat();
+			default:
+				return [{collection: false, type: ParameterType.ANY}];
+		}
+	} else if (isConstantParameter(parameter)) {
+		const statement = parameter.value || '';
+		let segments = statement.match(/([^{]*({[^}]+})?)/g);
+		if (segments == null) {
+			return [{collection: false, type: ParameterType.ANY}];
+		}
+
+		segments = segments.filter(x => !!x);
+		if (segments.length > 1) {
+			// multiple segments, always concatenate to string
+			return [{collection: false, type: ParameterType.TEXT}];
+		} else if (segments.length === 1 && segments[0].startsWith('{') && segments[0].endsWith('}')) {
+			// variable
+			const name = segments[0].substring(1, segments[0].length - 1).trim();
+			if (name === VariablePredefineFunctions.NEXT_SEQ) {
+				return [{collection: false, type: FactorType.SEQUENCE}];
+			} else if (name.endsWith(`.${VariablePredefineFunctions.COUNT}`) || name.endsWith(`.${VariablePredefineFunctions.LENGTH}`)) {
+				return [{collection: false, type: FactorType.UNSIGNED}];
+			}
+			const [first, ...rest] = name.split('.');
+			let firstTypes: Array<VariableType>;
+			if (first === VariablePredefineFunctions.FROM_PREVIOUS_TRIGGER_DATA) {
+				firstTypes = [{topic: triggerTopic, collection: false, type: FactorType.OBJECT}];
+			} else {
+				const variable = variables.find(v => v.name === first);
+				if (variable) {
+					// find in variables
+					firstTypes = variable.types;
+				} else {
+					const factor: Factor | undefined = (triggerTopic?.factors || []).find(f => f.name === first);
+					firstTypes = [{
+						topic: triggerTopic,
+						factor,
+						collection: factor ? factor.type === FactorType.ARRAY : false,
+						type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : 'error'
+					}];
+				}
+			}
+			if (rest.length === 0) {
+				return firstTypes;
+			} else {
+				return digByParentTypes(rest, firstTypes);
+			}
+		} else {
+			// constant, could be anything since string can be cast to anything
+			return [{collection: false, type: ParameterType.ANY}];
+		}
+	} else {
+		// cannot determine
+		return [{collection: false, type: ParameterType.ANY}];
+	}
+};

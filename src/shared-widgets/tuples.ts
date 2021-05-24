@@ -35,7 +35,7 @@ export const buildFactorOptions = (options: {
 	isValid?: (factor: Factor) => boolean;
 	toExtraNode: (factor: Factor) => ReactNode;
 }) => {
-	const {topic, extraFactor, isValid = () => false, toExtraNode} = options;
+	const {topic, extraFactor, isValid = () => true, toExtraNode} = options;
 
 	return ([...(topic?.factors || []), extraFactor].filter(x => !!x) as Array<Factor>)
 		.sort((f1, f2) => (f1.label || f1.name).toLowerCase().localeCompare((f2.label || f2.name).toLowerCase()))

@@ -3,7 +3,8 @@ import {
 	ConstantParameter,
 	Parameter,
 	ParameterComputeType,
-	TopicFactorParameter
+	TopicFactorParameter,
+	VariablePredefineFunctions
 } from '../../../../../services/tuples/factor-calculator-types';
 import {InternalUnitRuntimeContext, PipelineRuntimeContext} from '../types';
 import {
@@ -369,12 +370,16 @@ export const computeParameter = (options: {
 	} else if (isConstantParameter(parameter)) {
 		return computeConstant({
 			parameter, shouldBe, getValue: (propertyName) => {
-				let value = pipelineContext.triggerData[propertyName];
-				if (typeof value === 'undefined') {
-					value = internalUnitContext?.variables[propertyName];
+				if (propertyName === VariablePredefineFunctions.FROM_PREVIOUS_TRIGGER_DATA) {
+					return pipelineContext.triggerDataOnce;
 				}
-				if (typeof value === 'undefined') {
+				let value;
+				if (internalUnitContext && Object.keys(internalUnitContext.variables).includes(propertyName)) {
+					value = internalUnitContext.variables[propertyName];
+				} else if (Object.keys(pipelineContext.variables).includes(propertyName)) {
 					value = pipelineContext.variables[propertyName];
+				} else {
+					value = pipelineContext.triggerData[propertyName];
 				}
 				return value ?? null;
 			}

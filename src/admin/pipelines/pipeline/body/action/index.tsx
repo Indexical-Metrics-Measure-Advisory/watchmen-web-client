@@ -8,6 +8,8 @@ import {ActionTypeEditor} from './action-type';
 import {ActionBody} from './body';
 import {Operators} from './operators';
 import {ActionContainer, ActionFooterLeadLabel, ActionLeadLabel} from './widgets';
+import {VariablesHelper} from '../variables/variables-helper';
+import {VariablesEventBusProvider} from '../variables/variables-event-bus';
 
 export const ActionEditor = (props: {
 	pipeline: Pipeline;
@@ -23,11 +25,15 @@ export const ActionEditor = (props: {
 	const unitIndex = stage.units.indexOf(unit) + 1;
 	const actionIndex = unit.do.indexOf(action) + 1;
 
-	return <ActionContainer>
-		<Operators action={action} unit={unit}/>
-		<ActionLeadLabel>Action #{stageIndex}.{unitIndex}.{actionIndex}:</ActionLeadLabel>
-		<ActionTypeEditor action={action}/>
-		<ActionBody pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} topic={topic}/>
-		<ActionFooterLeadLabel>End of Action #{stageIndex}.{unitIndex}.{actionIndex}</ActionFooterLeadLabel>
-	</ActionContainer>;
+	return <VariablesEventBusProvider>
+		<ActionContainer>
+			<VariablesHelper pipeline={pipeline} stage={stage} unit={unit} action={action} topics={[topic]}/>
+			<Operators action={action} unit={unit}/>
+			<ActionLeadLabel>Action #{stageIndex}.{unitIndex}.{actionIndex}:</ActionLeadLabel>
+			<ActionTypeEditor action={action}/>
+			<ActionBody pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics}
+			            topic={topic}/>
+			<ActionFooterLeadLabel>End of Action #{stageIndex}.{unitIndex}.{actionIndex}</ActionFooterLeadLabel>
+		</ActionContainer>
+	</VariablesEventBusProvider>;
 };

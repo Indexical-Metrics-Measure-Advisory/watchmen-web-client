@@ -3,13 +3,14 @@ import {
 	ConstantParameter,
 	Parameter,
 	ParameterComputeType,
-	TopicFactorParameter
+	TopicFactorParameter,
+	VariablePredefineFunctions
 } from '../../../../../services/tuples/factor-calculator-types';
 import {AllTopics} from '../types';
 import {Topic} from '../../../../../services/tuples/topic-types';
 import {Factor} from '../../../../../services/tuples/factor-types';
 import {DataRow} from '../../../simulator-event-bus-types';
-import {ConstantPredefines, ParameterShouldBe} from './types';
+import {ParameterShouldBe} from './types';
 import dayjs from 'dayjs';
 
 export const readTopicFactorParameter = (options: {
@@ -138,15 +139,15 @@ const computeVariable = (options: { variable: string, getFirstValue: (propertyNa
 
 	// eslint-disable-next-line
 	return variable.split('.').map(x => x.trim()).reduce((value: any, part, index) => {
-		if (index === 0 && part === ConstantPredefines.NEXT_SEQ) {
+		if (index === 0 && part === VariablePredefineFunctions.NEXT_SEQ) {
 			return currentSnowflakeId++;
 		} else if (index === 0) {
 			return getFirstValue(part);
-		} else if (part === ConstantPredefines.COUNT && Array.isArray(value)) {
+		} else if (part === VariablePredefineFunctions.COUNT && Array.isArray(value)) {
 			return value.length;
-		} else if (part === ConstantPredefines.COUNT && typeof value === 'object') {
+		} else if (part === VariablePredefineFunctions.COUNT && typeof value === 'object') {
 			return Object.keys(value).length;
-		} else if (part === ConstantPredefines.LENGTH && typeof value === 'string') {
+		} else if (part === VariablePredefineFunctions.LENGTH && typeof value === 'string') {
 			return value.length;
 		} else if (typeof value === 'object') {
 			return value[part];
@@ -242,7 +243,7 @@ export const checkSubParameters = (parameter: ComputedParameter) => {
 			break;
 		case ParameterComputeType.CASE_THEN:
 			checkMinSubParameterCount(parameter, 1);
-			if (parameter.parameters.filter(sub => sub.on == null).length > 1) {
+			if (parameter.parameters.filter(sub => !sub.on).length > 1) {
 				throw new Error(`Multiple anyway routes in case-then expression of [${JSON.stringify(parameter)}] is not allowed.`);
 			}
 	}

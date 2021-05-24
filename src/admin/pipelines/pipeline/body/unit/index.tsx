@@ -10,6 +10,8 @@ import {UnitHeader} from './header';
 import {UnitPrerequisite} from './prerequisite';
 import {UnitContainer} from './widgets';
 import {UnitLoopVariableName} from './loop';
+import {VariablesHelper} from '../variables/variables-helper';
+import {VariablesEventBusProvider} from '../variables/variables-event-bus';
 
 export const UnitEditor = (props: {
 	pipeline: Pipeline;
@@ -23,10 +25,13 @@ export const UnitEditor = (props: {
 	return <UnitContainer>
 		<UnitHeader pipeline={pipeline} stage={stage} unit={unit}/>
 		<UnitBody pipeline={pipeline} stage={stage} unit={unit}>
-			<UnitLoopVariableName unit={unit} topic={topic}/>
-			<UnitPrerequisite unit={unit} topic={topic}/>
-			<Actions pipeline={pipeline} stage={stage} unit={unit} topics={topics} topic={topic}/>
-			<UnitFooter pipeline={pipeline} stage={stage} unit={unit}/>
+			<VariablesEventBusProvider>
+				<VariablesHelper pipeline={pipeline} stage={stage} unit={unit} topics={[topic]}/>
+				<UnitLoopVariableName unit={unit} topic={topic}/>
+				<UnitPrerequisite unit={unit} topic={topic}/>
+				<Actions pipeline={pipeline} stage={stage} unit={unit} topics={topics} topic={topic}/>
+				<UnitFooter pipeline={pipeline} stage={stage} unit={unit}/>
+			</VariablesEventBusProvider>
 		</UnitBody>
 	</UnitContainer>;
 };

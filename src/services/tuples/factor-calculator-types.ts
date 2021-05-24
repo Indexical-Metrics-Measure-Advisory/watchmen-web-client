@@ -1,3 +1,6 @@
+import {Factor, FactorType} from './factor-types';
+import {Topic} from './topic-types';
+
 export enum ParameterType {
 	ANY = 'pt-any',
 	NUMBER = 'pt-number',
@@ -79,12 +82,13 @@ export enum ValidFactorType {
 	DATE = 'date',
 	DATETIME = 'datetime'
 }
-export const ValidFactorTypes ={
+
+export const ValidFactorTypes = {
 	ANY: [ValidFactorType.ANY],
 	NUMBER: [ValidFactorType.NUMBER],
 	NUMBER_AND_DATE: [ValidFactorType.NUMBER, ValidFactorType.DATE, ValidFactorType.DATETIME],
 	DATE: [ValidFactorType.DATE, ValidFactorType.DATETIME]
-}
+};
 
 export interface ParameterCondition {
 }
@@ -103,4 +107,23 @@ export enum ParameterJointType {
 export interface ParameterJoint extends ParameterCondition {
 	jointType: ParameterJointType;
 	filters: Array<ParameterCondition>;
+}
+
+export type VariableTypeType = FactorType | ParameterType | 'error'
+export interface VariableType {
+	type: VariableTypeType;
+	collection: boolean;
+	topic?: Topic;
+	factor?: Factor;
+}
+export interface Variable {
+	name: string;
+	types: Array<VariableType>;
+}
+
+export enum VariablePredefineFunctions {
+	NEXT_SEQ = '&nextSeq',
+	COUNT = '&count',
+	LENGTH = '&length',
+	FROM_PREVIOUS_TRIGGER_DATA = '&old'
 }

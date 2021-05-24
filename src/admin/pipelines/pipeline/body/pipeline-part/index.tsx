@@ -7,6 +7,8 @@ import {ConditionalEditor} from '../conditional';
 import {LeadLabel} from '../widgets';
 import {TriggerOnButton} from './trigger-on-button';
 import {PipelinePartContainer, TopicName} from './widgets';
+import {VariablesHelper} from '../variables/variables-helper';
+import {VariablesEventBusProvider} from '../variables/variables-event-bus';
 
 export const PipelinePart = (props: {
 	pipeline: Pipeline;
@@ -26,6 +28,9 @@ export const PipelinePart = (props: {
 		<LeadLabel>Trigger On:</LeadLabel>
 		<TriggerOnButton pipeline={pipeline}/>
 		<LeadLabel>Pipeline Prerequisite:</LeadLabel>
-		<ConditionalEditor conditional={pipeline} topics={[topic]} onChange={onConditionTypeChange}/>
+		<VariablesEventBusProvider>
+			<VariablesHelper pipeline={pipeline} topics={[topic]}/>
+			<ConditionalEditor conditional={pipeline} topics={[topic]} onChange={onConditionTypeChange}/>
+		</VariablesEventBusProvider>
 	</PipelinePartContainer>;
 };
