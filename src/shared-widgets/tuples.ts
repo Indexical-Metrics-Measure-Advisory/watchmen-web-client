@@ -17,7 +17,7 @@ export const buildTopicOptions = (options: {
 				label: ({value}: { value: Topic }) => {
 					if (value === extraTopic) {
 						return {
-							node: toExtraNode(extraTopic!),
+							node: toExtraNode(value),
 							label: value.name
 						};
 					} else {
@@ -45,7 +45,7 @@ export const buildFactorOptions = (options: {
 				label: ({value}: { value: Factor }) => {
 					if (value === extraFactor || !isValid(value)) {
 						return {
-							node: toExtraNode(extraFactor!),
+							node: toExtraNode(value),
 							label: value.label || value.name
 						};
 					} else {

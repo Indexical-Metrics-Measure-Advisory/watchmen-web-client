@@ -4,11 +4,7 @@ import {AlertLabel} from '../../../../../../alert/widgets';
 import {ICON_DELETE} from '../../../../../../basic-widgets/constants';
 import {useEventBus} from '../../../../../../events/event-bus';
 import {EventTypes} from '../../../../../../events/types';
-import {
-	ComputedParameter,
-	Parameter,
-	ValidFactorTypes
-} from '../../../../../../services/tuples/factor-calculator-types';
+import {ComputedParameter, Parameter, ValidFactorType} from '../../../../../../services/tuples/factor-calculator-types';
 import {canDeleteAnyParameter} from '../../../../../../services/tuples/factor-calculator-utils';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {ComputedEditor} from '../compute';
@@ -20,11 +16,12 @@ export const SubParameterEditBody = (props: {
 	parentParameter: ComputedParameter;
 	parameter: Parameter;
 	topics: Array<Topic>;
+	validTypes: Array<ValidFactorType>;
 	onDeleted: () => void;
 }) => {
 	const {
 		parameter, parentParameter,
-		topics,
+		topics, validTypes,
 		onDeleted
 	} = props;
 
@@ -44,14 +41,14 @@ export const SubParameterEditBody = (props: {
 		}
 	};
 
-	// TODO sub parameters valid factor types should be defined according to compute type
+	// sub parameters valid factor types should be defined according to compute type
 	return <>
-		<ConstantEditor parameter={parameter} validTypes={ValidFactorTypes.ANY}/>
-		<TopicFactorEditor parameter={parameter} topics={topics} validTypes={ValidFactorTypes.ANY}/>
+		<ConstantEditor parameter={parameter} validTypes={validTypes}/>
+		<TopicFactorEditor parameter={parameter} topics={topics} validTypes={validTypes}/>
 		<RemoveMeButton onClick={onDeleteClicked}>
 			<FontAwesomeIcon icon={ICON_DELETE}/>
 		</RemoveMeButton>
-		<ComputedEditor parameter={parameter} topics={topics} validTypes={ValidFactorTypes.ANY}/>
+		<ComputedEditor parameter={parameter} topics={topics} validTypes={validTypes}/>
 	</>;
 
 };

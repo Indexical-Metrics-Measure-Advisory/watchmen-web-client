@@ -81,7 +81,9 @@ export enum ValidFactorType {
 }
 export const ValidFactorTypes ={
 	ANY: [ValidFactorType.ANY],
-	NUMBER_AND_DATE: [ValidFactorType.NUMBER, ValidFactorType.DATE, ValidFactorType.DATETIME]
+	NUMBER: [ValidFactorType.NUMBER],
+	NUMBER_AND_DATE: [ValidFactorType.NUMBER, ValidFactorType.DATE, ValidFactorType.DATETIME],
+	DATE: [ValidFactorType.DATE, ValidFactorType.DATETIME]
 }
 
 export interface ParameterCondition {

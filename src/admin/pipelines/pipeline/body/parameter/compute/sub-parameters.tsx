@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {v4} from 'uuid';
 import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {ComputedParameter, Parameter} from '../../../../../../services/tuples/factor-calculator-types';
+import {ComputedParameter, Parameter, ValidFactorType} from '../../../../../../services/tuples/factor-calculator-types';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {ParameterEventBusProvider, useParameterEventBus} from '../parameter/parameter-event-bus';
 import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';
@@ -9,13 +9,15 @@ import {SubParameterEditor} from '../sub-param';
 import {SubParameterAdd} from '../sub-param/sub-parameter-add';
 import {HierarchicalParameterEventBridge} from './hierarchical-parameter-event-bridge';
 import {SubParametersContainer} from './widgets';
+import {computeValidTypesForSubParameter} from '../../../../../../services/tuples/factor-calculator-utils';
 
 export const SubParameters = (props: {
 	parameter: ComputedParameter;
 	topics: Array<Topic>;
+	validTypes: Array<ValidFactorType>;
 	notifyChangeToParent: () => void;
 }) => {
-	const {parameter, topics, notifyChangeToParent} = props;
+	const {parameter, topics, validTypes: validTypesOfParameter, notifyChangeToParent} = props;
 
 	const {on, off, fire} = useParameterEventBus();
 	const forceUpdate = useForceUpdate();
@@ -30,12 +32,14 @@ export const SubParameters = (props: {
 		};
 	}, [on, off, forceUpdate]);
 
+	const validTypes = computeValidTypesForSubParameter(parameter, validTypesOfParameter);
+
 	return <SubParametersContainer>
 		{parameter.parameters.map(sub => {
 			return <ParameterEventBusProvider key={v4()}>
 				<HierarchicalParameterEventBridge notifyChangeToParent={notifyChangeToParent}/>
 				<SubParameterEditor parameter={sub} parentParameter={parameter}
-				                    topics={topics}
+				                    topics={topics} validTypes={validTypes}
 				                    onDeleted={() => fire(ParameterEventTypes.COMPUTE_PARAMETER_REMOVED, sub)}/>
 			</ParameterEventBusProvider>;
 		})}

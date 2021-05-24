@@ -2,7 +2,11 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useRef, useState} from 'react';
 import {ICON_EDIT} from '../../../../../../basic-widgets/constants';
 import {useCollapseFixedThing} from '../../../../../../basic-widgets/utils';
-import {ComputedParameter, ParameterComputeType} from '../../../../../../services/tuples/factor-calculator-types';
+import {
+	ComputedParameter,
+	ParameterComputeType,
+	ValidFactorType
+} from '../../../../../../services/tuples/factor-calculator-types';
 import {defendComputedParameter} from '../../../../data-utils';
 import {useParameterEventBus} from '../parameter/parameter-event-bus';
 import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';
@@ -14,6 +18,7 @@ import {
 	ParameterComputeTypeLabel,
 	ParameterComputeTypeOption
 } from './widgets';
+import {isComputeTypeValid} from '../../../../../../services/tuples/factor-calculator-utils';
 
 const AvailableComputeTypes = [
 	ParameterComputeType.ADD,
@@ -57,8 +62,11 @@ interface DropdownState {
 	left: number;
 }
 
-export const ParameterComputeTypeEditor = (props: { parameter: ComputedParameter }) => {
-	const {parameter} = props;
+export const ParameterComputeTypeEditor = (props: {
+	parameter: ComputedParameter;
+	validTypes: Array<ValidFactorType>;
+}) => {
+	const {parameter, validTypes} = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const {fire} = useParameterEventBus();
@@ -96,8 +104,10 @@ export const ParameterComputeTypeEditor = (props: { parameter: ComputedParameter
 		}
 	};
 
+	const computeTypeValid = isComputeTypeValid(parameter.type, validTypes);
+
 	return <ParameterComputeTypeContainer onClick={onTypeClicked} ref={containerRef}>
-		<ParameterComputeTypeLabel>{ParameterComputeTypeLabels[parameter.type]}</ParameterComputeTypeLabel>
+		<ParameterComputeTypeLabel valid={computeTypeValid}>{ParameterComputeTypeLabels[parameter.type]}</ParameterComputeTypeLabel>
 		<ParameterComputeTypeIcon>
 			<FontAwesomeIcon icon={ICON_EDIT}/>
 		</ParameterComputeTypeIcon>

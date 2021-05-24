@@ -1,6 +1,11 @@
 import React, {useEffect} from 'react';
 import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {ComputedParameter, Parameter, ParameterKind} from '../../../../../../services/tuples/factor-calculator-types';
+import {
+	ComputedParameter,
+	Parameter,
+	ParameterKind,
+	ValidFactorType
+} from '../../../../../../services/tuples/factor-calculator-types';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {ParameterFromEditor} from '../param-from';
 import {useParameterEventBus} from '../parameter/parameter-event-bus';
@@ -13,11 +18,12 @@ export const SubParameterEditor = (props: {
 	parentParameter: ComputedParameter;
 	parameter: Parameter;
 	topics: Array<Topic>;
+	validTypes: Array<ValidFactorType>;
 	onDeleted: () => void;
 }) => {
 	const {
 		parameter, parentParameter,
-		topics,
+		topics, validTypes,
 		onDeleted
 	} = props;
 
@@ -34,7 +40,7 @@ export const SubParameterEditor = (props: {
 		<SubParameterCondition parentParameter={parentParameter} parameter={parameter} topics={topics}/>
 		<ParameterFromEditor parameter={parameter}/>
 		<SubParameterEditBody parameter={parameter} parentParameter={parentParameter}
-		                      topics={topics}
+		                      topics={topics} validTypes={validTypes}
 		                      onDeleted={onDeleted}/>
 	</SubParameterEditContainer>;
 };

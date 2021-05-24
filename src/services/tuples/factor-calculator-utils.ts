@@ -12,7 +12,8 @@ import {
 	ParameterKind,
 	ParameterType,
 	TopicFactorParameter,
-	ValidFactorType
+	ValidFactorType,
+	ValidFactorTypes
 } from './factor-calculator-types';
 import {Factor, FactorType} from './factor-types';
 import {Topic, TopicKind, TopicType} from './topic-types';
@@ -546,3 +547,59 @@ export const isFactorTypeValid = (factorType: FactorType, validType: ValidFactor
 export const isFactorValid = (factor: Factor, validTypes: Array<ValidFactorType>): boolean => {
 	return validTypes.some(validType => isFactorTypeValid(factor.type, validType));
 };
+
+export const isComputeTypeValid = (computeType: ParameterComputeType, validTypes: Array<ValidFactorType>): boolean => {
+	switch (computeType) {
+		case ParameterComputeType.CASE_THEN:
+			// case then can returns any type
+			return true;
+		case ParameterComputeType.ADD:
+		case ParameterComputeType.SUBTRACT:
+		case ParameterComputeType.MULTIPLY:
+		case ParameterComputeType.DIVIDE:
+		case ParameterComputeType.MODULUS:
+			return validTypes.includes(ValidFactorType.NUMBER) || validTypes.includes(ValidFactorType.ANY);
+		case ParameterComputeType.YEAR_OF:
+		case ParameterComputeType.HALF_YEAR_OF:
+		case ParameterComputeType.QUARTER_OF:
+		case ParameterComputeType.MONTH_OF:
+		case ParameterComputeType.WEEK_OF_YEAR:
+		case ParameterComputeType.WEEK_OF_MONTH:
+		case ParameterComputeType.DAY_OF_MONTH:
+		case ParameterComputeType.DAY_OF_WEEK:
+			return validTypes.includes(ValidFactorType.ANY);
+		case ParameterComputeType.NONE:
+		default:
+			return true;
+	}
+};
+
+/**
+ * @param parameter compute parameter
+ * @param expectedTypes expected types after compute parameter
+ */
+export const computeValidTypesForSubParameter = (parameter: ComputedParameter, expectedTypes: Array<ValidFactorType>): Array<ValidFactorType> => {
+	switch (parameter.type) {
+		case ParameterComputeType.CASE_THEN:
+			// case then can returns any type
+			return expectedTypes;
+		case ParameterComputeType.ADD:
+		case ParameterComputeType.SUBTRACT:
+		case ParameterComputeType.MULTIPLY:
+		case ParameterComputeType.DIVIDE:
+		case ParameterComputeType.MODULUS:
+			return ValidFactorTypes.NUMBER;
+		case ParameterComputeType.YEAR_OF:
+		case ParameterComputeType.HALF_YEAR_OF:
+		case ParameterComputeType.QUARTER_OF:
+		case ParameterComputeType.MONTH_OF:
+		case ParameterComputeType.WEEK_OF_YEAR:
+		case ParameterComputeType.WEEK_OF_MONTH:
+		case ParameterComputeType.DAY_OF_MONTH:
+		case ParameterComputeType.DAY_OF_WEEK:
+			return ValidFactorTypes.DATE;
+		case ParameterComputeType.NONE:
+		default:
+			return expectedTypes;
+	}
+}

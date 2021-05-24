@@ -37,7 +37,16 @@ export const ParameterComputeTypeContainer = styled.div.attrs({'data-widget': 'p
 		z-index: -1;
 	}
 `;
-export const ParameterComputeTypeLabel = styled.div.attrs({'data-widget': 'parameter-computed-type-label'})`
+export const ParameterComputeTypeLabel = styled.div.attrs<{ valid: boolean }>(({valid}) => {
+	return {
+		'data-widget': 'parameter-computed-type-label',
+		style: {
+			color: valid ? (void 0) : 'var(--danger-color)',
+			fontWeight: valid ? (void 0) : 'var(--font-bold)',
+			textDecoration: valid ? (void 0) : 'line-through'
+		}
+	};
+})<{ valid: boolean }>`
 	font-variant: petite-caps;
 	transition: color 300ms ease-in-out;
 	white-space: nowrap;

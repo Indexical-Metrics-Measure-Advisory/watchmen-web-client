@@ -14,7 +14,7 @@ export const ComputedEditor = (props: {
 	topics: Array<Topic>;
 	validTypes: Array<ValidFactorType>;
 }) => {
-	const {parameter, topics} = props;
+	const {parameter, topics, validTypes} = props;
 
 	const {on, off, fire} = useParameterEventBus();
 	const forceUpdate = useForceUpdate();
@@ -44,9 +44,9 @@ export const ComputedEditor = (props: {
 	}
 
 	return <ComputedEditContainer>
-		<ParameterComputeTypeEditor parameter={parameter}/>
+		<ParameterComputeTypeEditor parameter={parameter} validTypes={validTypes}/>
 		<SubParameters parameter={parameter}
-		               topics={topics}
+		               topics={topics} validTypes={validTypes}
 		               notifyChangeToParent={() => fire(ParameterEventTypes.COMPUTE_CONTENT_CHANGED, parameter)}/>
 	</ComputedEditContainer>;
 };
