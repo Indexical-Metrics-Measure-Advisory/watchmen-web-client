@@ -38,6 +38,7 @@ export const FactorMapping = (props: {
 
 	const mappingIndex = action.mapping.indexOf(mapping) + 1;
 
+	// TODO valid factor types of source parameter and target factor should be matched
 	return <FactorMappingContainer>
 		<FactorMappingLeadLabel>#{mappingIndex}</FactorMappingLeadLabel>
 		<SingleParameter action={action} parameter={mapping.source} topics={[source]}

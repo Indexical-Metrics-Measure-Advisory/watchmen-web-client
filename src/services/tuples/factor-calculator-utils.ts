@@ -497,6 +497,39 @@ export const createUnknownFactor = (factorId: string, name: string = 'Unknown Fa
 	};
 };
 
+export const findSelectedTopic = (topics: Array<Topic>, topicId?: string, extraTopicName?: string): { selected: Topic | null, extra: Topic | null } => {
+	let selectedTopic: Topic | null = null, extraTopic: Topic | null = null;
+	if (topicId) {
+		// eslint-disable-next-line
+		selectedTopic = topics.find(topic => topic.topicId == topicId) || null;
+		if (!selectedTopic) {
+			extraTopic = createUnknownTopic(topicId, extraTopicName);
+			selectedTopic = extraTopic;
+		}
+	}
+	return {selected: selectedTopic, extra: extraTopic};
+};
+/**
+ * find selected factor by given topic & factorId.
+ * create extra factor when selection not found, and let selected to be extra one.
+ */
+export const findSelectedFactor = (topic?: Topic | null, factorId?: string, extraFactorName?: string): { selected: Factor | null, extra: Factor | null } => {
+	let selectedFactor: Factor | null = null;
+	let extraFactor: Factor | null = null;
+	if (factorId) {
+		if (topic) {
+			// find factor in selected topic
+			// eslint-disable-next-line
+			selectedFactor = topic.factors.find(factor => factor.factorId == factorId) || null;
+		}
+		if (!selectedFactor) {
+			extraFactor = createUnknownFactor(factorId, extraFactorName);
+			selectedFactor = extraFactor;
+		}
+	}
+	return {selected: selectedFactor, extra: extraFactor};
+};
+
 export const isFactorTypeValid = (factorType: FactorType, validType: ValidFactorType): boolean => {
 	switch (validType) {
 		case ValidFactorType.ANY:

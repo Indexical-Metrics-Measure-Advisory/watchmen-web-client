@@ -9,7 +9,8 @@ import {Topic} from '../../../../../../services/tuples/topic-types';
 import {useActionEventBus} from '../action-event-bus';
 import {ActionEventTypes} from '../action-event-bus-types';
 import {IncorrectOptionLabel, TopicDropdown, TopicFinderContainer} from './widgets';
-import {createUnknownTopic} from '../../../../../../services/tuples/factor-calculator-utils';
+import {findSelectedTopic} from '../../../../../../services/tuples/factor-calculator-utils';
+import {buildTopicOptions} from '../../../../../../shared-widgets/tuples';
 
 export const TopicPicker = (props: { action: FromTopic | ToTopic, topics: Array<Topic> }) => {
 	const {action, topics} = props;
@@ -30,30 +31,12 @@ export const TopicPicker = (props: { action: FromTopic | ToTopic, topics: Array<
 		fire(ActionEventTypes.TOPIC_CHANGED, action);
 	};
 
-	let selectedTopic: Topic | null = null, extraTopic: Topic | null = null;
-	if (topicId) {
-		// eslint-disable-next-line
-		selectedTopic = topics.find(topic => topic.topicId == topicId) || null;
-		if (!selectedTopic) {
-			extraTopic = createUnknownTopic(topicId);
+	const {selected: selectedTopic, extra: extraTopic} = findSelectedTopic(topics, topicId);
+	const topicOptions = buildTopicOptions({
+		topics, extraTopic, toExtraNode: (topic: Topic) => {
+			return <IncorrectOptionLabel>{topic.name}</IncorrectOptionLabel>;
 		}
-	}
-
-	const topicOptions = ([...topics, extraTopic].filter(x => !!x) as Array<Topic>)
-		.sort((t1, t2) => t1.name.toLowerCase().localeCompare(t2.name.toLowerCase()))
-		.map(topic => {
-			return {
-				value: topic,
-				label: ({value}) => {
-					if (value === extraTopic) {
-						return {node: <IncorrectOptionLabel>{value.name}</IncorrectOptionLabel>, label: value.name};
-					} else {
-						return value.name;
-					}
-				},
-				key: topic.topicId
-			} as DropdownOption;
-		});
+	});
 
 	return <TopicFinderContainer>
 		<TopicDropdown value={selectedTopic} options={topicOptions} onChange={onTopicChange}

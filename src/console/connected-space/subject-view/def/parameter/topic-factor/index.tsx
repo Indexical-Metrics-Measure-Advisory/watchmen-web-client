@@ -5,8 +5,8 @@ import {useForceUpdate} from '../../../../../../basic-widgets/utils';
 import {Lang} from '../../../../../../langs';
 import {Parameter} from '../../../../../../services/tuples/factor-calculator-types';
 import {
-	createUnknownFactor,
-	createUnknownTopic,
+	findSelectedFactor,
+	findSelectedTopic,
 	isTopicFactorParameter
 } from '../../../../../../services/tuples/factor-calculator-utils';
 import {Factor} from '../../../../../../services/tuples/factor-types';
@@ -14,6 +14,7 @@ import {Topic} from '../../../../../../services/tuples/topic-types';
 import {useParameterEventBus} from '../parameter-event-bus';
 import {ParameterEventTypes} from '../parameter-event-bus-types';
 import {FactorDropdown, IncorrectOptionLabel, TopicDropdown, TopicFactorEditContainer} from './widgets';
+import {buildFactorOptions, buildTopicOptions} from '../../../../../../shared-widgets/tuples';
 
 export const TopicFactorEdit = (props: {
 	availableTopics: Array<Topic>;
@@ -58,65 +59,27 @@ export const TopicFactorEdit = (props: {
 		fire(ParameterEventTypes.FACTOR_CHANGED, parameter, selectedFactor);
 	};
 
-	let selectedTopic: Topic | null = null, extraTopic: Topic | null = null;
-	if (topicId) {
-		// eslint-disable-next-line
-		selectedTopic = pickedTopics.find(topic => topic.topicId == topicId) || null;
-		if (!selectedTopic) {
-			// try to find topic from available topics
-			// create an unknown one when not found
-			// eslint-disable-next-line
-			extraTopic = availableTopics.find(topic => topic.topicId == topicId)
-				|| createUnknownTopic(topicId, Lang.PLAIN.UNKNOWN_TOPIC_NAME);
-			selectedTopic = extraTopic;
-		}
-	}
-	let selectedFactor: Factor | null = null, extraFactor: Factor | null = null;
-	if (factorId) {
-		if (selectedTopic) {
-			// find factor in selected topic
-			// eslint-disable-next-line
-			selectedFactor = selectedTopic.factors.find(factor => factor.factorId == factorId) || null;
-		}
-		if (!selectedFactor) {
-			extraFactor = createUnknownFactor(factorId, Lang.PLAIN.UNKNOWN_FACTOR_NAME);
-			selectedFactor = extraFactor;
-		}
-	}
+	const {
+		selected: selectedTopic,
+		extra: extraTopic
+	} = findSelectedTopic(pickedTopics, topicId, Lang.PLAIN.UNKNOWN_TOPIC_NAME);
+	const {
+		selected: selectedFactor,
+		extra: extraFactor
+	} = findSelectedFactor(selectedTopic, factorId, Lang.PLAIN.UNKNOWN_FACTOR_NAME);
 
-	const topicOptions = ([...pickedTopics, extraTopic].filter(x => !!x) as Array<Topic>)
-		.sort((t1, t2) => t1.name.toLowerCase().localeCompare(t2.name.toLowerCase()))
-		.map(topic => {
-			return {
-				value: topic,
-				label: ({value}) => {
-					if (value === extraTopic) {
-						return {node: <IncorrectOptionLabel>{value.name}</IncorrectOptionLabel>, label: value.name};
-					} else {
-						return value.name;
-					}
-				},
-				key: topic.topicId
-			} as DropdownOption;
-		});
-	const factorOptions = ([...(selectedTopic?.factors || []), extraFactor].filter(x => !!x) as Array<Factor>)
-		.sort((f1, f2) => (f1.label || f1.name).toLowerCase().localeCompare((f2.label || f2.name).toLowerCase()))
-		.map(factor => {
-			return {
-				value: factor,
-				label: ({value}) => {
-					if (selectedTopic === extraTopic || value === extraFactor) {
-						return {
-							node: <IncorrectOptionLabel>{value.label || value.name}</IncorrectOptionLabel>,
-							label: value.label || value.name
-						};
-					} else {
-						return value.label || value.name;
-					}
-				},
-				key: factor.factorId
-			} as DropdownOption;
-		});
+	const topicOptions = buildTopicOptions({
+		topics: pickedTopics, extraTopic, toExtraNode: (topic: Topic) => {
+			return <IncorrectOptionLabel>{topic.name}</IncorrectOptionLabel>;
+		}
+	});
+	const factorOptions = buildFactorOptions({
+		topic: selectedTopic, extraFactor,
+		isValid: (factor: Factor) => selectedTopic !== extraTopic && factor !== extraFactor,
+		toExtraNode: (factor: Factor) => {
+			return <IncorrectOptionLabel>{factor.label || factor.name}</IncorrectOptionLabel>;
+		}
+	});
 
 	return <TopicFactorEditContainer {...rest}>
 		<TopicDropdown value={selectedTopic} options={topicOptions} onChange={onTopicChange}/>
