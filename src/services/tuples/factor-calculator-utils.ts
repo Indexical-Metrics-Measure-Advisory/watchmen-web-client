@@ -548,6 +548,10 @@ export const isFactorValid = (factor: Factor, validTypes: Array<ValidFactorType>
 	return validTypes.some(validType => isFactorTypeValid(factor.type, validType));
 };
 
+/**
+ * @param computeType compute type of compute parameter
+ * @param validTypes excepted types after compute
+ */
 export const isComputeTypeValid = (computeType: ParameterComputeType, validTypes: Array<ValidFactorType>): boolean => {
 	switch (computeType) {
 		case ParameterComputeType.CASE_THEN:
@@ -577,6 +581,7 @@ export const isComputeTypeValid = (computeType: ParameterComputeType, validTypes
 /**
  * @param parameter compute parameter
  * @param expectedTypes expected types after compute parameter
+ * @return factor types expected for sub parameters
  */
 export const computeValidTypesForSubParameter = (parameter: ComputedParameter, expectedTypes: Array<ValidFactorType>): Array<ValidFactorType> => {
 	switch (parameter.type) {
