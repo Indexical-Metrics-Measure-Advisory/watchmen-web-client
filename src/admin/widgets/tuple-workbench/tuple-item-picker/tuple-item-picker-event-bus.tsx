@@ -10,18 +10,18 @@ export const TupleItemPickerEventBusProvider = (props: { children?: ((props: any
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<TupleItemPickerEventBus>({
-		fire: (type: string, ...data: any): TupleItemPickerEventBus => {
+		fire: (type: string, ...data: Array<any>): TupleItemPickerEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): TupleItemPickerEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): TupleItemPickerEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into tuple item picker event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): TupleItemPickerEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): TupleItemPickerEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

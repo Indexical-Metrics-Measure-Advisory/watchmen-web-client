@@ -10,18 +10,18 @@ export const ExpressionEventBusProvider = (props: { children?: ((props: any) => 
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<ExpressionEventBus>({
-		fire: (type: string, ...data: any): ExpressionEventBus => {
+		fire: (type: string, ...data: Array<any>): ExpressionEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): ExpressionEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): ExpressionEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into expression event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): ExpressionEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): ExpressionEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

@@ -10,22 +10,22 @@ export const CalendarEventBusProvider = (props: { children?: ((props: any) => Re
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<CalendarEventBus>({
-		fire: (type: string, ...data: any): CalendarEventBus => {
+		fire: (type: string, ...data: Array<any>): CalendarEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		once: (type: string, listener: (...data: any) => void): CalendarEventBus => {
+		once: (type: string, listener: (...data: Array<any>) => void): CalendarEventBus => {
 			emitter.once(type, listener);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): CalendarEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): CalendarEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into calendar event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): CalendarEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): CalendarEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

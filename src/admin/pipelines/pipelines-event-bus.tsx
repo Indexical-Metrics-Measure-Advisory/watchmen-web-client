@@ -10,22 +10,22 @@ export const PipelinesEventBusProvider = (props: { children?: ((props: any) => R
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<PipelinesEventBus>({
-		fire: (type: string, ...data: any): PipelinesEventBus => {
+		fire: (type: string, ...data: Array<any>): PipelinesEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		once: (type: string, listener: (...data: any) => void): PipelinesEventBus => {
+		once: (type: string, listener: (...data: Array<any>) => void): PipelinesEventBus => {
 			emitter.once(type, listener);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): PipelinesEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): PipelinesEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into pipelines event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): PipelinesEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): PipelinesEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

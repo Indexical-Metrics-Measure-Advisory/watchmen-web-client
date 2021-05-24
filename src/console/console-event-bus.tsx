@@ -10,22 +10,22 @@ export const ConsoleEventBusProvider = (props: { children?: ((props: any) => Rea
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<ConsoleEventBus>({
-		fire: (type: string, ...data: any): ConsoleEventBus => {
+		fire: (type: string, ...data: Array<any>): ConsoleEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		once: (type: string, listener: (...data: any) => void): ConsoleEventBus => {
+		once: (type: string, listener: (...data: Array<any>) => void): ConsoleEventBus => {
 			emitter.once(type, listener);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): ConsoleEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): ConsoleEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into console event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): ConsoleEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): ConsoleEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

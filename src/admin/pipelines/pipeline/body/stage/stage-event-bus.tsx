@@ -10,18 +10,18 @@ export const StageEventBusProvider = (props: { children?: ((props: any) => React
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<StageEventBus>({
-		fire: (type: string, ...data: any): StageEventBus => {
+		fire: (type: string, ...data: Array<any>): StageEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): StageEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): StageEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into stage event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): StageEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): StageEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

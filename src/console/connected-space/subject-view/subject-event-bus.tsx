@@ -10,18 +10,18 @@ export const SubjectEventBusProvider = (props: { children?: ((props: any) => Rea
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<SubjectEventBus>({
-		fire: (type: string, ...data: any): SubjectEventBus => {
+		fire: (type: string, ...data: Array<any>): SubjectEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): SubjectEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): SubjectEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into subject event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): SubjectEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): SubjectEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

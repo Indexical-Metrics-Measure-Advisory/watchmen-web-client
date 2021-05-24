@@ -10,18 +10,18 @@ export const ReportEventBusProvider = (props: { children?: ((props: any) => Reac
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<ReportEventBus>({
-		fire: (type: string, ...data: any): ReportEventBus => {
+		fire: (type: string, ...data: Array<any>): ReportEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): ReportEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): ReportEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into report event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): ReportEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): ReportEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

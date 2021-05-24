@@ -10,18 +10,18 @@ export const RuntimeEventBusProvider = (props: { children?: ((props: any) => Rea
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<RuntimeEventBus>({
-		fire: (type: string, ...data: any): RuntimeEventBus => {
+		fire: (type: string, ...data: Array<any>): RuntimeEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): RuntimeEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): RuntimeEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into runtime event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): RuntimeEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): RuntimeEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

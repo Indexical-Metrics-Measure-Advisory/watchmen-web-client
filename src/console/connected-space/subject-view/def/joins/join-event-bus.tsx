@@ -10,18 +10,18 @@ export const JoinEventBusProvider = (props: { children?: ((props: any) => React.
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<JoinEventBus>({
-		fire: (type: string, ...data: any): JoinEventBus => {
+		fire: (type: string, ...data: Array<any>): JoinEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): JoinEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): JoinEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into join event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): JoinEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): JoinEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

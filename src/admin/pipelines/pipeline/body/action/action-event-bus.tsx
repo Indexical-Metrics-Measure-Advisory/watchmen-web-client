@@ -10,18 +10,18 @@ export const ActionEventBusProvider = (props: { children?: ((props: any) => Reac
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<ActionEventBus>({
-		fire: (type: string, ...data: any): ActionEventBus => {
+		fire: (type: string, ...data: Array<any>): ActionEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): ActionEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): ActionEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into action event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): ActionEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): ActionEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

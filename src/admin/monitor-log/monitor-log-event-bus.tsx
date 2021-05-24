@@ -10,18 +10,18 @@ export const MonitorLogEventBusProvider = (props: { children?: ((props: any) => 
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<MonitorLogEventBus>({
-		fire: (type: string, ...data: any): MonitorLogEventBus => {
+		fire: (type: string, ...data: Array<any>): MonitorLogEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): MonitorLogEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): MonitorLogEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into monitor log event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): MonitorLogEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): MonitorLogEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

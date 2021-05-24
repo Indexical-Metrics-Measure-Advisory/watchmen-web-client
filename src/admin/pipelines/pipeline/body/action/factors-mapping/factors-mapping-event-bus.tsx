@@ -10,18 +10,18 @@ export const FactorsMappingEventBusProvider = (props: { children?: ((props: any)
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<FactorsMappingEventBus>({
-		fire: (type: string, ...data: any): FactorsMappingEventBus => {
+		fire: (type: string, ...data: Array<any>): FactorsMappingEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): FactorsMappingEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): FactorsMappingEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into factors mapping event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): FactorsMappingEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): FactorsMappingEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

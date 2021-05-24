@@ -10,22 +10,22 @@ export const ColorPickerEventBusProvider = (props: { children?: ((props: any) =>
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<ColorPickerEventBus>({
-		fire: (type: string, ...data: any): ColorPickerEventBus => {
+		fire: (type: string, ...data: Array<any>): ColorPickerEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		once: (type: string, listener: (...data: any) => void): ColorPickerEventBus => {
+		once: (type: string, listener: (...data: Array<any>) => void): ColorPickerEventBus => {
 			emitter.once(type, listener);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): ColorPickerEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): ColorPickerEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into color-picker event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): ColorPickerEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): ColorPickerEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

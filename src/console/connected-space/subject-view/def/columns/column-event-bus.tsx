@@ -10,18 +10,18 @@ export const ColumnEventBusProvider = (props: { children?: ((props: any) => Reac
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<ColumnEventBus>({
-		fire: (type: string, ...data: any): ColumnEventBus => {
+		fire: (type: string, ...data: Array<any>): ColumnEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): ColumnEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): ColumnEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into column event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): ColumnEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): ColumnEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

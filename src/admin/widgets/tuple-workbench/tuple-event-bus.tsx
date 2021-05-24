@@ -10,22 +10,22 @@ export const TupleEventBusProvider = (props: { children?: ((props: any) => React
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<TupleEventBus>({
-		fire: (type: string, ...data: any): TupleEventBus => {
+		fire: (type: string, ...data: Array<any>): TupleEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		once: (type: string, listener: (...data: any) => void): TupleEventBus => {
+		once: (type: string, listener: (...data: Array<any>) => void): TupleEventBus => {
 			emitter.once(type, listener);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): TupleEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): TupleEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into tuple event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): TupleEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): TupleEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

@@ -10,18 +10,18 @@ export const CatalogEventBusProvider = (props: { children?: ((props: any) => Rea
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<CatalogEventBus>({
-		fire: (type: string, ...data: any): CatalogEventBus => {
+		fire: (type: string, ...data: Array<any>): CatalogEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): CatalogEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): CatalogEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into catalog event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): CatalogEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): CatalogEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

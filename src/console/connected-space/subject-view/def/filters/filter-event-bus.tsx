@@ -10,18 +10,18 @@ export const FilterEventBusProvider = (props: { children?: ((props: any) => Reac
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<FilterEventBus>({
-		fire: (type: string, ...data: any): FilterEventBus => {
+		fire: (type: string, ...data: Array<any>): FilterEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): FilterEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): FilterEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into filter event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): FilterEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): FilterEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

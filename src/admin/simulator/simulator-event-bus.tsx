@@ -10,22 +10,22 @@ export const SimulatorEventBusProvider = (props: { children?: ((props: any) => R
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<SimulatorEventBus>({
-		fire: (type: string, ...data: any): SimulatorEventBus => {
+		fire: (type: string, ...data: Array<any>): SimulatorEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		once: (type: string, listener: (...data: any) => void): SimulatorEventBus => {
+		once: (type: string, listener: (...data: Array<any>) => void): SimulatorEventBus => {
 			emitter.once(type, listener);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): SimulatorEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): SimulatorEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into simulator event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): SimulatorEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): SimulatorEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}

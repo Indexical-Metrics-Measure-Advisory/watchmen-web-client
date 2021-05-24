@@ -10,18 +10,18 @@ export const ConditionalEventBusProvider = (props: { children?: ((props: any) =>
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
 	const [bus] = useState<ConditionalEventBus>({
-		fire: (type: string, ...data: any): ConditionalEventBus => {
+		fire: (type: string, ...data: Array<any>): ConditionalEventBus => {
 			emitter.emit(type, ...data);
 			return bus;
 		},
-		on: (type: string, listener: (...data: any) => void): ConditionalEventBus => {
+		on: (type: string, listener: (...data: Array<any>) => void): ConditionalEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into conditional event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;
 		},
-		off: (type: string, listener: (...data: any) => void): ConditionalEventBus => {
+		off: (type: string, listener: (...data: Array<any>) => void): ConditionalEventBus => {
 			emitter.off(type, listener);
 			return bus;
 		}
