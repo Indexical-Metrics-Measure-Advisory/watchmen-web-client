@@ -14,7 +14,7 @@ import {Topic} from '../../../../services/tuples/topic-types';
 
 export const useValidate = () => {
 	return async (pipeline: Pipeline, topics: Array<Topic>): Promise<string | true> => {
-		return new Promise((resolve) => {
+		return new Promise<string | true>((resolve) => {
 			const {name, type, topicId, conditional, on, stages} = pipeline;
 			if (!name || name.trim().length === 0) {
 				pipeline.validated = false;
