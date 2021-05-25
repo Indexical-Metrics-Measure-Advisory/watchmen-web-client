@@ -1,14 +1,13 @@
-import {Parameter, ParameterExpressionOperator} from '../../../services/tuples/factor-calculator-types';
-import {
-	isComputedParameter,
-	isExpressionValid,
-	isJointValid,
-	isParameterValid,
-	isTopicFactorParameter
-} from '../../../services/tuples/factor-calculator-utils';
+import {AnyFactorType, Parameter, ParameterExpressionOperator} from '../../../services/tuples/factor-calculator-types';
 import {Subject, SubjectDataSetFilterJoint} from '../../../services/tuples/subject-types';
 import {isExpressionFilter, isJointFilter} from '../../../services/tuples/subject-utils';
 import {Topic} from '../../../services/tuples/topic-types';
+import {
+	isExpressionValid4DataSet,
+	isJointValid4DataSet,
+	isParameterValid4DataSet
+} from '../../../services/tuples/dataset-validation-utils';
+import {isComputedParameter, isTopicFactorParameter} from '../../../services/tuples/parameter-utils';
 
 const getTopicIdsFromParameter = (parameter: Parameter): Array<string> => {
 	if (isTopicFactorParameter(parameter)) {
@@ -27,10 +26,12 @@ const getTopicIdsFromFilter = (joint: SubjectDataSetFilterJoint): Array<string> 
 			return getTopicIdsFromFilter(filter);
 		} else if (isExpressionFilter(filter)) {
 			const {left, operator, right} = filter;
-			return getTopicIdsFromParameter(left)
-				|| (operator !== ParameterExpressionOperator.EMPTY
-					&& operator !== ParameterExpressionOperator.NOT_EMPTY
-					&& getTopicIdsFromParameter(right));
+			const leftTopicIds = getTopicIdsFromParameter(left);
+			const rightTopicIds = (
+				operator !== ParameterExpressionOperator.EMPTY
+				&& operator !== ParameterExpressionOperator.NOT_EMPTY
+			) ? getTopicIdsFromParameter(right) : [];
+			return [...leftTopicIds, ...rightTopicIds];
 		} else {
 			return [];
 		}
@@ -49,7 +50,12 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
 		return false;
 	}
 	const hasInvalidColumn = columns.some(({parameter, alias}) => {
-		return !alias || alias.trim().length === 0 || !isParameterValid(parameter, topics).pass;
+		return !alias || alias.trim().length === 0 || !isParameterValid4DataSet({
+			parameter,
+			topics,
+			expectedTypes: [AnyFactorType.ANY],
+			array: false
+		});
 	});
 	if (hasInvalidColumn) {
 		return false;
@@ -62,9 +68,9 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
 	if (filters.filters.length !== 0) {
 		const hasInvalidFilter = filters.filters.some(filter => {
 			if (isJointFilter(filter)) {
-				return !isJointValid(filter, topics);
+				return !isJointValid4DataSet(filter, topics);
 			} else if (isExpressionFilter(filter)) {
-				return !isExpressionValid(filter, topics);
+				return !isExpressionValid4DataSet(filter, topics);
 			} else {
 				return true;
 			}

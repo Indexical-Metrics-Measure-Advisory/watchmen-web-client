@@ -8,11 +8,6 @@ import {
 } from '../../../../../services/tuples/factor-calculator-types';
 import {InternalUnitRuntimeContext, PipelineRuntimeContext} from '../types';
 import {
-	isComputedParameter,
-	isConstantParameter,
-	isTopicFactorParameter
-} from '../../../../../services/tuples/factor-calculator-utils';
-import {
 	castParameterValueType,
 	checkShouldBe,
 	checkSubParameters,
@@ -24,6 +19,11 @@ import {ParameterShouldBe} from './types';
 import dayjs from 'dayjs';
 import {computeJoint} from './condition-compute';
 import {DataRow} from '../../../simulator-event-bus-types';
+import {
+	isComputedParameter,
+	isConstantParameter,
+	isTopicFactorParameter
+} from '../../../../../services/tuples/parameter-utils';
 
 const HALF_YEAR_FIRST: number = 1;
 const HALF_YEAR_SECOND: number = 2;
@@ -245,6 +245,7 @@ const computeComputed = (options: {
 				alternativeTriggerData
 			});
 			// week starts from sunday
+			// noinspection DuplicatedCode
 			if (date == null) {
 				value = null;
 			} else {
@@ -271,6 +272,7 @@ const computeComputed = (options: {
 				alternativeTriggerData
 			});
 			// week starts from sunday
+			// noinspection DuplicatedCode
 			if (date == null) {
 				value = null;
 			} else {
@@ -312,7 +314,7 @@ const computeComputed = (options: {
 		}
 		case ParameterComputeType.CASE_THEN:
 			const route = parameters
-				.filter(parameter => parameter.conditional && parameter.on != null)
+				.filter(parameter => parameter.conditional && !!parameter.on)
 				.find(parameter => {
 					return computeJoint({
 						joint: parameter.on!,
@@ -321,6 +323,7 @@ const computeComputed = (options: {
 						alternativeTriggerData
 					});
 				});
+			// noinspection JSIncompatibleTypesComparison
 			if (route != null) {
 				return computeParameter({
 					parameter: route,
@@ -331,7 +334,7 @@ const computeComputed = (options: {
 				});
 			}
 
-			const defaultRoute = parameters.find(parameter => parameter.on == null);
+			const defaultRoute = parameters.find(parameter => !parameter.on);
 			if (defaultRoute) {
 				value = computeParameter({
 					parameter: defaultRoute,

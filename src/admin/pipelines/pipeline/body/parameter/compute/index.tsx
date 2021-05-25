@@ -1,20 +1,20 @@
 import React, {useEffect} from 'react';
 import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {Parameter, ValidFactorType} from '../../../../../../services/tuples/factor-calculator-types';
-import {isComputedParameter} from '../../../../../../services/tuples/factor-calculator-utils';
+import {Parameter, ValueTypes} from '../../../../../../services/tuples/factor-calculator-types';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {ParameterComputeTypeEditor} from '../compute-type';
 import {useParameterEventBus} from '../parameter/parameter-event-bus';
 import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';
 import {SubParameters} from './sub-parameters';
 import {ComputedEditContainer} from './widgets';
+import {isComputedParameter} from '../../../../../../services/tuples/parameter-utils';
 
 export const ComputedEditor = (props: {
 	parameter: Parameter;
 	topics: Array<Topic>;
-	validTypes: Array<ValidFactorType>;
+	expectedTypes: ValueTypes;
 }) => {
-	const {parameter, topics, validTypes} = props;
+	const {parameter, topics, expectedTypes} = props;
 
 	const {on, off, fire} = useParameterEventBus();
 	const forceUpdate = useForceUpdate();
@@ -44,9 +44,9 @@ export const ComputedEditor = (props: {
 	}
 
 	return <ComputedEditContainer>
-		<ParameterComputeTypeEditor parameter={parameter} validTypes={validTypes}/>
+		<ParameterComputeTypeEditor parameter={parameter} expectedTypes={expectedTypes}/>
 		<SubParameters parameter={parameter}
-		               topics={topics} validTypes={validTypes}
+		               topics={topics} expectedTypes={expectedTypes}
 		               notifyChangeToParent={() => fire(ParameterEventTypes.COMPUTE_CONTENT_CHANGED, parameter)}/>
 	</ComputedEditContainer>;
 };

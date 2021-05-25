@@ -3,7 +3,6 @@ import React, {MouseEvent, useRef, useState} from 'react';
 import {ICON_EDIT} from '../../../../../../basic-widgets/constants';
 import {useCollapseFixedThing} from '../../../../../../basic-widgets/utils';
 import {ComputedParameter, ParameterComputeType} from '../../../../../../services/tuples/factor-calculator-types';
-import {defendComputedParameter} from '../../data-utils';
 import {ParameterComputeTypeLabels} from '../constants';
 import {useParameterEventBus} from '../parameter-event-bus';
 import {ParameterEventTypes} from '../parameter-event-bus-types';
@@ -15,6 +14,7 @@ import {
 	ParameterComputeTypeLabel,
 	ParameterComputeTypeOption
 } from './widgets';
+import {defendComputedParameter} from '../../../../../../services/tuples/parameter-utils';
 
 const AvailableComputeTypes = [
 	ParameterComputeType.ADD,
@@ -39,9 +39,11 @@ interface DropdownState {
 	left: number;
 }
 
+// noinspection DuplicatedCode
 export const ParameterComputeTypeEdit = (props: { parameter: ComputedParameter }) => {
 	const {parameter} = props;
 
+	// noinspection TypeScriptValidateTypes
 	const containerRef = useRef<HTMLDivElement>(null);
 	const {fire} = useParameterEventBus();
 	const [state, setState] = useState<DropdownState>({visible: false, top: 0, left: 0});

@@ -5,9 +5,8 @@ import {useCollapseFixedThing} from '../../../../../../basic-widgets/utils';
 import {
 	ComputedParameter,
 	ParameterComputeType,
-	ValidFactorType
+	ValueTypes
 } from '../../../../../../services/tuples/factor-calculator-types';
-import {defendComputedParameter} from '../../../../data-utils';
 import {useParameterEventBus} from '../parameter/parameter-event-bus';
 import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';
 import {
@@ -19,6 +18,7 @@ import {
 	ParameterComputeTypeOption
 } from './widgets';
 import {isComputeTypeValid} from '../../../../../../services/tuples/factor-calculator-utils';
+import {defendComputedParameter} from '../../../../../../services/tuples/parameter-utils';
 
 const AvailableComputeTypes = [
 	ParameterComputeType.ADD,
@@ -62,12 +62,14 @@ interface DropdownState {
 	left: number;
 }
 
+// noinspection DuplicatedCode
 export const ParameterComputeTypeEditor = (props: {
 	parameter: ComputedParameter;
-	validTypes: Array<ValidFactorType>;
+	expectedTypes: ValueTypes;
 }) => {
-	const {parameter, validTypes} = props;
+	const {parameter, expectedTypes} = props;
 
+	// noinspection TypeScriptValidateTypes
 	const containerRef = useRef<HTMLDivElement>(null);
 	const {fire} = useParameterEventBus();
 	const [state, setState] = useState<DropdownState>({visible: false, top: 0, left: 0});
@@ -104,7 +106,7 @@ export const ParameterComputeTypeEditor = (props: {
 		}
 	};
 
-	const computeTypeValid = isComputeTypeValid(parameter.type, validTypes);
+	const computeTypeValid = isComputeTypeValid(parameter.type, expectedTypes);
 
 	return <ParameterComputeTypeContainer onClick={onTypeClicked} valid={computeTypeValid}
 	                                      ref={containerRef}>

@@ -1,479 +1,19 @@
-import dayjs from 'dayjs';
 import {
-	Computed,
-	ComputedParameter,
-	ConstantParameter,
+	AnyFactorType,
+	DeclaredVariable,
 	Parameter,
 	ParameterComputeType,
-	ParameterCondition,
-	ParameterExpression,
 	ParameterExpressionOperator,
-	ParameterJoint,
-	ParameterKind,
-	ParameterType,
-	TopicFactorParameter,
-	ValidFactorType,
-	ValidFactorTypes,
-	Variable,
-	VariablePredefineFunctions,
-	VariableType
+	ValueType,
+	ValueTypeOfParameter,
+	ValueTypes,
+	ValueTypesOfParameter,
+	VariablePredefineFunctions
 } from './factor-calculator-types';
-import {Factor, FactorType} from './factor-types';
+import {CompatibleTypes, Factor, FactorType} from './factor-types';
 import {Topic, TopicKind, TopicType} from './topic-types';
 import {getCurrentTime} from '../utils';
-
-export const isTopicFactorParameter = (param: Parameter): param is TopicFactorParameter => param.kind === ParameterKind.TOPIC;
-export const isConstantParameter = (param: Parameter): param is ConstantParameter => param.kind === ParameterKind.CONSTANT;
-export const isComputedParameter = (param: Parameter): param is ComputedParameter => param.kind === ParameterKind.COMPUTED;
-
-export const isJointParameter = (condition: ParameterCondition): condition is ParameterJoint => {
-	return !!(condition as any).jointType;
-};
-export const isExpressionParameter = (condition: ParameterCondition): condition is ParameterExpression => {
-	return !isJointParameter(condition);
-};
-
-export const isParameterType = (parameterType: ParameterType | FactorType): parameterType is ParameterType => {
-	return parameterType.startsWith('pt-');
-};
-export const isFactorType = (parameterType: ParameterType | FactorType): parameterType is FactorType => {
-	return !parameterType.startsWith('pt-');
-};
-
-export const isConstantValueTypeMatched = (value: string, type: ParameterType | FactorType): boolean => {
-	switch (type) {
-		// always matched
-		case ParameterType.ANY:
-		case ParameterType.TEXT:
-		case FactorType.TEXT:
-		case FactorType.ADDRESS:
-		case FactorType.DISTRICT:
-		case FactorType.ROAD:
-		case FactorType.COMMUNITY:
-		case FactorType.EMAIL:
-		case FactorType.PHONE:
-		case FactorType.MOBILE:
-		case FactorType.FAX:
-		case FactorType.ID_NO:
-			return true;
-
-		// always mismatched
-		case ParameterType.ARRAY:
-		case FactorType.OBJECT:
-		case FactorType.ARRAY:
-		case FactorType.SEQUENCE:
-			// sequence factor never occurs in any expression/filter
-			return false;
-
-		// enum
-		case ParameterType.ENUM:
-		case FactorType.ENUM:
-		case FactorType.CONTINENT:
-		case FactorType.REGION:
-		case FactorType.COUNTRY:
-		case FactorType.PROVINCE:
-		case FactorType.CITY:
-		case FactorType.RESIDENCE_TYPE:
-		case FactorType.HALF_YEAR:
-		case FactorType.QUARTER:
-		case FactorType.HALF_MONTH:
-		case FactorType.TEN_DAYS:
-		case FactorType.WEEK_OF_YEAR:
-		case FactorType.WEEK_OF_MONTH:
-		case FactorType.HALF_WEEK:
-		case FactorType.DAY_OF_WEEK:
-		case FactorType.DAY_KIND:
-		case FactorType.HOUR_KIND:
-		case FactorType.AM_PM:
-		case FactorType.GENDER:
-		case FactorType.OCCUPATION:
-		case FactorType.RELIGION:
-		case FactorType.NATIONALITY:
-		case FactorType.BIZ_TRADE:
-			return false;
-
-		// numeric
-		case ParameterType.NUMBER:
-		case FactorType.NUMBER:
-		case FactorType.FLOOR:
-			return /^-?\d+(\.\d+)?$/.test(value);
-		case FactorType.UNSIGNED:
-		case FactorType.AGE:
-		case FactorType.RESIDENTIAL_AREA:
-		case FactorType.BIZ_SCALE:
-			return /^\d+(\.\d+)?$/.test(value);
-
-		case FactorType.YEAR:
-			return /^\d{4}$/.test(value);
-		case FactorType.MONTH:
-			return /^(10|11|12|0?[1-9])$/.test(value);
-		case FactorType.DAY_OF_MONTH:
-			return /^([0-2]?[1-9]|10|20|30|31)$/.test(value);
-		case FactorType.HOUR:
-			return /^([0-1]?[1-9]|10|20|21|22|23)$/.test(value);
-		case FactorType.MINUTE:
-		case FactorType.SECOND:
-			return /^[0-5]?[0-9]$/.test(value);
-		case FactorType.MILLISECOND:
-			return /^\d{1,3}$/.test(value);
-
-		// datetime
-		case ParameterType.DATE:
-		case FactorType.DATE:
-		case FactorType.DATE_OF_BIRTH:
-			return !!value && !!dayjs(value, ['YYYY/MM/DD', 'YYYY-MM-DD'], true);
-		case ParameterType.TIME:
-		case FactorType.TIME:
-			return !!value && !!dayjs(value, 'HH:mm:ss', true);
-		case ParameterType.DATETIME:
-		case FactorType.DATETIME:
-			return !!value && !!dayjs(value, ['YYYY/MM/DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss'], true);
-		case FactorType.FULL_DATETIME:
-			return !!value && !!dayjs(value, ['YYYY/MM/DD HH:mm:ss.SSS', 'YYYY-MM-DD HH:mm:ss.SSS'], true);
-
-		// boolean
-		case ParameterType.BOOLEAN:
-		case FactorType.BOOLEAN:
-			return ['true', 'false'].includes(value.toLowerCase());
-	}
-};
-
-const FACTOR_NUMBER_TYPES = [FactorType.NUMBER, FactorType.UNSIGNED, FactorType.FLOOR, FactorType.RESIDENTIAL_AREA, FactorType.AGE, FactorType.BIZ_SCALE];
-const FACTOR_TEXT_TYPES = [FactorType.TEXT];
-// noinspection TypeScriptValidateTypes
-export const ParameterAndFactorTypeMapping: { [key in ParameterType]: (factorType: FactorType) => boolean } = {
-	[ParameterType.ANY]: () => true,
-	[ParameterType.NUMBER]: (factorType: FactorType) => FACTOR_NUMBER_TYPES.includes(factorType),
-	[ParameterType.TEXT]: (factorType: FactorType) => FACTOR_TEXT_TYPES.includes(factorType),
-	[ParameterType.DATE]: (factorType: FactorType) => [FactorType.DATE, FactorType.DATETIME, FactorType.FULL_DATETIME].includes(factorType),
-	[ParameterType.TIME]: (factorType: FactorType) => [FactorType.TIME, FactorType.DATETIME, FactorType.FULL_DATETIME].includes(factorType),
-	[ParameterType.DATETIME]: (factorType: FactorType) => [FactorType.DATETIME, FactorType.FULL_DATETIME].includes(factorType),
-	[ParameterType.BOOLEAN]: (factorType: FactorType) => [FactorType.BOOLEAN].includes(factorType),
-	[ParameterType.ENUM]: (factorType: FactorType) => [
-		FactorType.CONTINENT, FactorType.REGION, FactorType.COUNTRY, FactorType.PROVINCE, FactorType.CITY, FactorType.RESIDENCE_TYPE,
-		FactorType.HALF_YEAR, FactorType.QUARTER, FactorType.MONTH, FactorType.HALF_MONTH, FactorType.TEN_DAYS, FactorType.HALF_WEEK,
-		FactorType.DAY_OF_WEEK, FactorType.DAY_KIND, FactorType.HOUR_KIND, FactorType.AM_PM,
-		FactorType.GENDER, FactorType.OCCUPATION, FactorType.RELIGION, FactorType.NATIONALITY,
-		FactorType.BIZ_TRADE,
-		FactorType.ENUM
-	].includes(factorType),
-	[ParameterType.ARRAY]: (factorType: FactorType) => [FactorType.ARRAY].includes(factorType)
-};
-
-export interface ParameterCalculatorSupporting {
-	parameterTypes: Array<ParameterType | FactorType>;
-	/**
-	 * if result type is not given, use first parameter type instead
-	 */
-	resultType?: FactorType;
-}
-
-export interface ParameterCalculatorDef {
-	/**
-	 * calculator name
-	 */
-	name: ParameterComputeType;
-	/**
-	 * how many parameters this calculator accepted
-	 */
-	parameterCount?: number;
-	minParameterCount?: number;
-	maxParameterCount?: number;
-	/**
-	 * supported types
-	 */
-	supports: Array<ParameterCalculatorSupporting>;
-}
-
-export const ParameterCalculatorDefsMap: { [key in ParameterComputeType]: ParameterCalculatorDef } = {
-	[ParameterComputeType.NONE]: {
-		name: ParameterComputeType.NONE, parameterCount: 1,
-		supports: [{parameterTypes: [ParameterType.ANY]}]
-	},
-	[ParameterComputeType.ADD]: {
-		name: ParameterComputeType.ADD, minParameterCount: 2,
-		supports: [{
-			parameterTypes: [ParameterType.NUMBER, ParameterType.NUMBER],
-			resultType: FactorType.NUMBER
-		}]
-	},
-	[ParameterComputeType.SUBTRACT]: {
-		name: ParameterComputeType.SUBTRACT, minParameterCount: 2,
-		supports: [{
-			parameterTypes: [ParameterType.NUMBER, ParameterType.NUMBER],
-			resultType: FactorType.NUMBER
-		}]
-	},
-	[ParameterComputeType.MULTIPLY]: {
-		name: ParameterComputeType.MULTIPLY, minParameterCount: 2,
-		supports: [{
-			parameterTypes: [ParameterType.NUMBER, ParameterType.NUMBER],
-			resultType: FactorType.NUMBER
-		}]
-	},
-	[ParameterComputeType.DIVIDE]: {
-		name: ParameterComputeType.DIVIDE, minParameterCount: 2,
-		supports: [{
-			parameterTypes: [ParameterType.NUMBER, ParameterType.NUMBER],
-			resultType: FactorType.NUMBER
-		}]
-	},
-	[ParameterComputeType.MODULUS]: {
-		name: ParameterComputeType.MODULUS, minParameterCount: 2,
-		supports: [{
-			parameterTypes: [ParameterType.NUMBER, ParameterType.NUMBER],
-			resultType: FactorType.NUMBER
-		}]
-	},
-	[ParameterComputeType.YEAR_OF]: {
-		name: ParameterComputeType.YEAR_OF, parameterCount: 1,
-		supports: [{
-			parameterTypes: [ParameterType.DATE],
-			resultType: FactorType.YEAR
-		}, {
-			parameterTypes: [ParameterType.DATETIME],
-			resultType: FactorType.YEAR
-		}]
-	},
-	[ParameterComputeType.HALF_YEAR_OF]: {
-		name: ParameterComputeType.HALF_YEAR_OF, parameterCount: 1,
-		supports: [{
-			parameterTypes: [ParameterType.DATE],
-			resultType: FactorType.HALF_YEAR
-		}, {
-			parameterTypes: [ParameterType.DATETIME],
-			resultType: FactorType.HALF_YEAR
-		}]
-	},
-	[ParameterComputeType.QUARTER_OF]: {
-		name: ParameterComputeType.QUARTER_OF, parameterCount: 1,
-		supports: [{
-			parameterTypes: [ParameterType.DATE],
-			resultType: FactorType.QUARTER
-		}, {
-			parameterTypes: [ParameterType.DATETIME],
-			resultType: FactorType.QUARTER
-		}, {
-			parameterTypes: [FactorType.MONTH],
-			resultType: FactorType.QUARTER
-		}]
-	},
-	[ParameterComputeType.MONTH_OF]: {
-		name: ParameterComputeType.MONTH_OF, parameterCount: 1,
-		supports: [{
-			parameterTypes: [ParameterType.DATE],
-			resultType: FactorType.MONTH
-		}, {
-			parameterTypes: [ParameterType.DATETIME],
-			resultType: FactorType.MONTH
-		}]
-	},
-	[ParameterComputeType.WEEK_OF_YEAR]: {
-		name: ParameterComputeType.WEEK_OF_YEAR, parameterCount: 1,
-		supports: [{
-			parameterTypes: [ParameterType.DATE],
-			resultType: FactorType.WEEK_OF_YEAR
-		}, {
-			parameterTypes: [ParameterType.DATETIME],
-			resultType: FactorType.WEEK_OF_YEAR
-		}]
-	},
-	[ParameterComputeType.WEEK_OF_MONTH]: {
-		name: ParameterComputeType.WEEK_OF_MONTH, parameterCount: 1,
-		supports: [{
-			parameterTypes: [ParameterType.DATE],
-			resultType: FactorType.WEEK_OF_MONTH
-		}, {
-			parameterTypes: [ParameterType.DATETIME],
-			resultType: FactorType.WEEK_OF_MONTH
-		}]
-	},
-	[ParameterComputeType.DAY_OF_MONTH]: {
-		name: ParameterComputeType.DAY_OF_WEEK, parameterCount: 1,
-		supports: [{
-			parameterTypes: [ParameterType.DATE],
-			resultType: FactorType.DAY_OF_MONTH
-		}, {
-			parameterTypes: [ParameterType.DATETIME],
-			resultType: FactorType.DAY_OF_MONTH
-		}]
-	},
-	[ParameterComputeType.DAY_OF_WEEK]: {
-		name: ParameterComputeType.DAY_OF_WEEK, parameterCount: 1,
-		supports: [{
-			parameterTypes: [ParameterType.DATE],
-			resultType: FactorType.DAY_OF_WEEK
-		}, {
-			parameterTypes: [ParameterType.DATETIME],
-			resultType: FactorType.DAY_OF_WEEK
-		}]
-	},
-	[ParameterComputeType.CASE_THEN]: {
-		name: ParameterComputeType.CASE_THEN, minParameterCount: 2,
-		supports: [{parameterTypes: [ParameterType.ANY]}]
-	}
-};
-
-export const canAddMoreParameter = (parent: ComputedParameter) => {
-	const computeType = parent.type;
-	const calculatorDef = ParameterCalculatorDefsMap[computeType];
-	const maxParamCount = calculatorDef.maxParameterCount || calculatorDef.parameterCount || Infinity;
-	const currentCount = parent.parameters.length;
-	return currentCount < maxParamCount;
-};
-
-export const canDeleteAnyParameter = (parent: ComputedParameter) => {
-	const computeType = parent.type;
-	const calculatorDef = ParameterCalculatorDefsMap[computeType];
-	const minParamCount = calculatorDef.minParameterCount || calculatorDef.parameterCount || 1;
-	const currentCount = parent.parameters.length;
-	return currentCount > minParamCount;
-};
-
-export interface Validation {
-	pass: boolean;
-	resultType?: FactorType;
-}
-
-export const isComputedValid = ({type, parameters}: Computed, topics: Array<Topic>): Validation => {
-	if (!type) {
-		// type must exists
-		return {pass: false};
-	}
-	const calculatorDef = ParameterCalculatorDefsMap[type];
-	// no calculator
-	if (calculatorDef.parameterCount && parameters.length !== calculatorDef.parameterCount) {
-		// parameters length mismatch
-		return {pass: false};
-	}
-	if (calculatorDef.minParameterCount && parameters.length < calculatorDef.minParameterCount) {
-		// parameters length mismatch
-		return {pass: false};
-	}
-	if (calculatorDef.maxParameterCount && parameters.length > calculatorDef.maxParameterCount) {
-		// parameters length mismatch
-		return {pass: false};
-	}
-	const hasEmptyParameter = parameters.some(param => !param);
-	if (hasEmptyParameter) {
-		return {pass: false};
-	}
-	let availableParameterTypes = calculatorDef.supports;
-	const hasInvalidParameter = parameters.some((param, paramIndex) => {
-		let matched: Array<ParameterCalculatorSupporting> = [];
-		if (isConstantParameter(param)) {
-			const value = param.value;
-			// match value and type, get valid supporting
-			matched = availableParameterTypes.filter(({parameterTypes}) => {
-				let type = parameterTypes[paramIndex] || parameterTypes[parameterTypes.length - 1];
-				return isConstantValueTypeMatched(value, type);
-			});
-		} else if (isTopicFactorParameter(param)) {
-			if (!param.topicId || !param.factorId) {
-				// no topic or no factor, failure
-				return true;
-			}
-			// test factor type and parameter type
-			// eslint-disable-next-line
-			const topic = topics.find(topic => topic.topicId == param.topicId);
-			if (!topic) {
-				// topic not found, failure
-				return true;
-			}
-			// eslint-disable-next-line
-			const factor = topic.factors.find(factor => factor.factorId == param.factorId);
-			if (!factor) {
-				// factor not found, failure
-				return true;
-			}
-			matched = availableParameterTypes.filter(({parameterTypes}) => {
-				let type = parameterTypes[paramIndex] || parameterTypes[parameterTypes.length - 1];
-				if (isParameterType(type)) {
-					// check result type and parameter type, match use pre-definition
-					return ParameterAndFactorTypeMapping[type as ParameterType](factor.type);
-				} else if (isFactorType(type)) {
-					// check result type and factor type, exactly match
-					return type === factor.type;
-				} else {
-					// never occurred
-					return false;
-				}
-			});
-		} else if (isComputedParameter(param)) {
-			// test computed parameter
-			const result = isComputedValid(param, topics);
-			if (!result.pass) {
-				// failed on computed valid check
-				return true;
-			}
-			if (!result.resultType) {
-				// return can be any, cannot check here, ignore.
-				return false;
-			}
-			matched = availableParameterTypes.filter(({parameterTypes}) => {
-				let type = parameterTypes[paramIndex] || parameterTypes[parameterTypes.length - 1];
-				if (isParameterType(type)) {
-					// check result type and parameter type, match use pre-definition
-					return ParameterAndFactorTypeMapping[type as ParameterType](result.resultType!);
-				} else if (isFactorType(type)) {
-					// check result type and factor type, exactly match
-					return type === result.resultType;
-				} else {
-					// never occurred
-					return false;
-				}
-			});
-		}
-		if (matched.length === 0) {
-			// no matched, parameter is invalid, failure
-			return true;
-		} else {
-			availableParameterTypes = matched;
-			return false;
-		}
-	});
-	return {pass: !hasInvalidParameter, resultType: availableParameterTypes[0].resultType};
-};
-
-export const isParameterValid = (parameter: Parameter, topics: Array<Topic>): Validation => {
-	if (!parameter) {
-		return {pass: false};
-	}
-	return isComputedValid({type: ParameterComputeType.NONE, parameters: [parameter]}, topics);
-};
-
-export const isExpressionValid = (expression: ParameterExpression, topics: Array<Topic>): boolean => {
-	const {left, operator, right} = expression;
-
-	if (!left || !isParameterValid(left, topics)) {
-		return false;
-	}
-	if (!operator) {
-		return false;
-	}
-	return !(operator !== ParameterExpressionOperator.NOT_EMPTY
-		&& operator !== ParameterExpressionOperator.EMPTY
-		&& (!right || !isParameterValid(right, topics)));
-};
-
-export const isJointValid = (joint: ParameterJoint, topics: Array<Topic>): boolean => {
-	const {jointType, filters} = joint;
-	if (!jointType) {
-		return false;
-	}
-	if (!filters || filters.length === 0) {
-		return false;
-	}
-
-	return !filters.some(filter => {
-		if (isJointParameter(filter)) {
-			return !isJointValid(filter, topics);
-		} else if (isExpressionParameter(filter)) {
-			return !isExpressionValid(filter, topics);
-		}
-		return true;
-	});
-};
+import {isComputedParameter, isConstantParameter, isTopicFactorParameter} from './parameter-utils';
 
 export const createUnknownTopic = (topicId: string, name: string = 'Unknown Topic'): Topic => {
 	return {
@@ -530,29 +70,48 @@ export const findSelectedFactor = (topic?: Topic | null, factorId?: string, extr
 	return {selected: selectedFactor, extra: extraFactor};
 };
 
-export const isFactorTypeValid = (factorType: FactorType, validType: ValidFactorType): boolean => {
-	switch (validType) {
-		case ValidFactorType.ANY:
-			return true;
-		case ValidFactorType.NUMBER:
-			return ParameterAndFactorTypeMapping[ParameterType.NUMBER](factorType);
-		case ValidFactorType.DATE:
-			return ParameterAndFactorTypeMapping[ParameterType.DATE](factorType);
-		case ValidFactorType.DATETIME:
-			return ParameterAndFactorTypeMapping[ParameterType.DATETIME](factorType);
-		default:
-			return false;
+/**
+ * factor type can be write as expected type
+ */
+export const isFactorTypeValid = (factorType: FactorType, expectedType: ValueType): boolean => {
+	if (expectedType === AnyFactorType.ANY || expectedType === AnyFactorType.ERROR) {
+		// expect any
+		return true;
 	}
+	const compatibleTypes = CompatibleTypes[expectedType];
+	const {includes = [], excludes = []} = compatibleTypes;
+	// if includes is not declared, means can includes any type
+	return (includes.length === 0 || includes.includes(factorType)) && !excludes.includes(factorType);
 };
-export const isFactorValid = (factor: Factor, validTypes: Array<ValidFactorType>): boolean => {
-	return validTypes.some(validType => isFactorTypeValid(factor.type, validType));
+
+/**
+ * type of factor can be write as one of expected types
+ */
+export const isFactorValid = (factor: Factor, expectedTypes: ValueTypes): boolean => {
+	return isFactorTypeCompatibleWith(factor.type, expectedTypes);
+};
+
+/**
+ * factor type can write to one of given expected types or not
+ */
+export const isFactorTypeCompatibleWith = (factorType: FactorType, expectedTypes: ValueTypes): boolean => {
+	if (expectedTypes.includes(AnyFactorType.ANY)) {
+		return true;
+	} else if (expectedTypes.includes(AnyFactorType.ERROR)) {
+		return true;
+	}
+
+	return expectedTypes.some(expectedType => {
+		const {includes = [], excludes = []} = CompatibleTypes[expectedType as FactorType] || {};
+		return (includes.length === 0 || includes.includes(factorType)) && !excludes.includes(factorType);
+	});
 };
 
 /**
  * @param computeType compute type of compute parameter
- * @param validTypes excepted types after compute
+ * @param expectedTypes expected types after compute
  */
-export const isComputeTypeValid = (computeType: ParameterComputeType, validTypes: Array<ValidFactorType>): boolean => {
+export const isComputeTypeValid = (computeType: ParameterComputeType, expectedTypes: ValueTypes): boolean => {
 	switch (computeType) {
 		case ParameterComputeType.CASE_THEN:
 			// case then can returns any type
@@ -562,16 +121,23 @@ export const isComputeTypeValid = (computeType: ParameterComputeType, validTypes
 		case ParameterComputeType.MULTIPLY:
 		case ParameterComputeType.DIVIDE:
 		case ParameterComputeType.MODULUS:
-			return validTypes.includes(ValidFactorType.NUMBER) || validTypes.includes(ValidFactorType.ANY);
+			return isFactorTypeCompatibleWith(FactorType.NUMBER, expectedTypes);
 		case ParameterComputeType.YEAR_OF:
+			return isFactorTypeCompatibleWith(FactorType.YEAR, expectedTypes);
 		case ParameterComputeType.HALF_YEAR_OF:
+			return isFactorTypeCompatibleWith(FactorType.HALF_YEAR, expectedTypes);
 		case ParameterComputeType.QUARTER_OF:
+			return isFactorTypeCompatibleWith(FactorType.QUARTER, expectedTypes);
 		case ParameterComputeType.MONTH_OF:
+			return isFactorTypeCompatibleWith(FactorType.MONTH, expectedTypes);
 		case ParameterComputeType.WEEK_OF_YEAR:
+			return isFactorTypeCompatibleWith(FactorType.WEEK_OF_YEAR, expectedTypes);
 		case ParameterComputeType.WEEK_OF_MONTH:
+			return isFactorTypeCompatibleWith(FactorType.WEEK_OF_MONTH, expectedTypes);
 		case ParameterComputeType.DAY_OF_MONTH:
+			return isFactorTypeCompatibleWith(FactorType.DAY_OF_MONTH, expectedTypes);
 		case ParameterComputeType.DAY_OF_WEEK:
-			return validTypes.includes(ValidFactorType.ANY);
+			return isFactorTypeCompatibleWith(FactorType.DAY_OF_WEEK, expectedTypes);
 		case ParameterComputeType.NONE:
 		default:
 			return true;
@@ -579,12 +145,12 @@ export const isComputeTypeValid = (computeType: ParameterComputeType, validTypes
 };
 
 /**
- * @param parameter compute parameter
- * @param expectedTypes expected types after compute parameter
+ * @param computeType compute type
+ * @param expectedTypes expected types after compute
  * @return factor types expected for sub parameters
  */
-export const computeValidTypesForSubParameter = (parameter: ComputedParameter, expectedTypes: Array<ValidFactorType>): Array<ValidFactorType> => {
-	switch (parameter.type) {
+export const computeValidTypesForSubParameter = (computeType: ParameterComputeType, expectedTypes: ValueTypes): ValueTypes => {
+	switch (computeType) {
 		case ParameterComputeType.CASE_THEN:
 			// case then can returns any type
 			return expectedTypes;
@@ -593,7 +159,7 @@ export const computeValidTypesForSubParameter = (parameter: ComputedParameter, e
 		case ParameterComputeType.MULTIPLY:
 		case ParameterComputeType.DIVIDE:
 		case ParameterComputeType.MODULUS:
-			return ValidFactorTypes.NUMBER;
+			return CompatibleTypes[FactorType.NUMBER].includes || [];
 		case ParameterComputeType.YEAR_OF:
 		case ParameterComputeType.HALF_YEAR_OF:
 		case ParameterComputeType.QUARTER_OF:
@@ -602,53 +168,91 @@ export const computeValidTypesForSubParameter = (parameter: ComputedParameter, e
 		case ParameterComputeType.WEEK_OF_MONTH:
 		case ParameterComputeType.DAY_OF_MONTH:
 		case ParameterComputeType.DAY_OF_WEEK:
-			return ValidFactorTypes.DATE;
+			return CompatibleTypes[FactorType.DATE].includes || [];
 		case ParameterComputeType.NONE:
 		default:
 			return expectedTypes;
 	}
 };
 
-const digByParentType = (names: Array<string>, types: VariableType): Array<VariableType> => {
-	const [first, ...rest] = names;
-	if (types.type !== FactorType.OBJECT) {
-		// no an object, cannot determine
-		return [{collection: types.collection, type: 'error'}];
-	} else if (!types.topic) {
-		// not from topic, cannot determine
-		return [{collection: types.collection, type: 'error'}];
-	} else if (!types.factor) {
-		// from topic
-		const factor: Factor | undefined = (types.topic.factors || []).find(f => f.name === first);
-		const factorType: VariableType = {
-			topic: types.topic,
-			factor,
-			collection: factor ? factor.type === FactorType.ARRAY : false,
-			type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : 'error'
-		};
-		return (rest.length === 0 || !factor) ? [factorType] : digByParentType(rest, factorType);
-	} else {
-		// from a factor
-		const prefix = types.factor.name;
-		const factor: Factor | undefined = (types.topic.factors || []).find(f => f.name === `${prefix}.${first}`);
-		const factorType: VariableType = {
-			topic: types.topic,
-			factor,
-			collection: factor ? factor.type === FactorType.ARRAY : false,
-			type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : 'error'
-		};
-		return (rest.length === 0 || !factor) ? [factorType] : digByParentType(rest, factorType);
+export const computeValidTypesByExpressionOperator = (operator?: ParameterExpressionOperator): ValueTypes => {
+	switch (operator) {
+		case ParameterExpressionOperator.MORE:
+		case ParameterExpressionOperator.MORE_EQUALS:
+		case ParameterExpressionOperator.LESS:
+		case ParameterExpressionOperator.LESS_EQUALS:
+			// all number, date
+			return [...new Set([
+				...(CompatibleTypes[FactorType.NUMBER].includes || []),
+				...(CompatibleTypes[FactorType.DATE].includes || [])
+			])].filter(x => x !== FactorType.TEXT);
+		default:
+			return [AnyFactorType.ANY];
 	}
 };
-const digByParentTypes = (names: Array<string>, types: Array<VariableType>): Array<VariableType> => {
+
+const digByParentType = (names: Array<string>, types: ValueTypeOfParameter): ValueTypesOfParameter => {
+	const [first, ...rest] = names;
+	if (types.type !== FactorType.OBJECT) {
+		// no an object, cannot determine deeper
+		return [{array: types.array, type: AnyFactorType.ERROR}];
+	} else if (!types.topic) {
+		// not from topic, cannot determine deeper
+		return [{array: types.array, type: AnyFactorType.ERROR}];
+	} else if (!types.factor) {
+		// from topic directly
+		const factor: Factor | undefined = (types.topic.factors || []).find(f => f.name === first);
+		const factorType: ValueTypeOfParameter = {
+			topic: types.topic,
+			factor,
+			array: factor ? factor.type === FactorType.ARRAY : false,
+			type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : AnyFactorType.ERROR
+		};
+		if (factor) {
+			// factor found
+			// return factor type if stop here
+			// or keep dig deeper
+			return rest.length === 0 ? [factorType] : digByParentType(rest, factorType);
+		} else {
+			// factor not found, there is no necessary to dig more, return directly
+			return [factorType];
+		}
+	} else {
+		// from a factor
+		// factor which can hold properties is from raw topic
+		// and its properties are declared by "prefix.x", prefix is name of parent factor.
+		const prefix = types.factor.name;
+		const factor: Factor | undefined = (types.topic.factors || []).find(f => f.name === `${prefix}.${first}`);
+		const factorType: ValueTypeOfParameter = {
+			topic: types.topic,
+			factor,
+			array: factor ? factor.type === FactorType.ARRAY : false,
+			type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : AnyFactorType.ERROR
+		};
+		if (factor) {
+			// factor found
+			// return factor type if stop here
+			// or keep dig deeper
+			return rest.length === 0 ? [factorType] : digByParentType(rest, factorType);
+		} else {
+			// factor not found, there is no necessary to dig more, return directly
+			return [factorType];
+		}
+	}
+};
+const digByParentTypes = (names: Array<string>, types: ValueTypesOfParameter): ValueTypesOfParameter => {
 	return types.map(type => digByParentType(names, type)).flat();
 };
+/**
+ * compute the possible types of given parameter,
+ * according to topics and variables which are used in parameter definition.
+ */
 export const computeParameterTypes = (
 	parameter: Parameter,
 	topics: Array<Topic>,
-	variables: Array<Variable>,
+	variables: Array<DeclaredVariable>,
 	triggerTopic?: Topic
-): Array<VariableType> => {
+): ValueTypesOfParameter => {
 	if (isTopicFactorParameter(parameter)) {
 		// eslint-disable-next-line
 		const topic = topics.find(topic => topic.topicId == parameter.topicId);
@@ -657,8 +261,10 @@ export const computeParameterTypes = (
 		return [{
 			topic,
 			factor,
-			collection: factor ? factor.type === FactorType.ARRAY : false,
-			type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : 'any'
+			// treat unknown factor as not an array
+			array: factor ? factor.type === FactorType.ARRAY : false,
+			// treat unknown factor as any type
+			type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : AnyFactorType.ANY
 		}];
 	} else if (isComputedParameter(parameter)) {
 		switch (parameter.type) {
@@ -667,65 +273,72 @@ export const computeParameterTypes = (
 			case ParameterComputeType.MULTIPLY:
 			case ParameterComputeType.DIVIDE:
 			case ParameterComputeType.MODULUS:
-				return FACTOR_NUMBER_TYPES.map(type => ({collection: false, type}));
+				// return FACTOR_NUMBER_TYPES.map(type => ({collection: false, type}));
+				return [{array: false, type: FactorType.NUMBER}];
 			case ParameterComputeType.YEAR_OF:
-				return [{collection: false, type: FactorType.YEAR}];
+				return [{array: false, type: FactorType.YEAR}];
 			case ParameterComputeType.HALF_YEAR_OF:
-				return [{collection: false, type: FactorType.HALF_YEAR}];
+				return [{array: false, type: FactorType.HALF_YEAR}];
 			case ParameterComputeType.QUARTER_OF:
-				return [{collection: false, type: FactorType.QUARTER}];
+				return [{array: false, type: FactorType.QUARTER}];
 			case ParameterComputeType.MONTH_OF:
-				return [{collection: false, type: FactorType.MONTH}];
+				return [{array: false, type: FactorType.MONTH}];
 			case ParameterComputeType.WEEK_OF_YEAR:
-				return [{collection: false, type: FactorType.WEEK_OF_YEAR}];
+				return [{array: false, type: FactorType.WEEK_OF_YEAR}];
 			case ParameterComputeType.WEEK_OF_MONTH:
-				return [{collection: false, type: FactorType.WEEK_OF_MONTH}];
+				return [{array: false, type: FactorType.WEEK_OF_MONTH}];
 			case ParameterComputeType.DAY_OF_MONTH:
-				return [{collection: false, type: FactorType.DAY_OF_MONTH}];
+				return [{array: false, type: FactorType.DAY_OF_MONTH}];
 			case ParameterComputeType.DAY_OF_WEEK:
-				return [{collection: false, type: FactorType.DAY_OF_WEEK}];
+				return [{array: false, type: FactorType.DAY_OF_WEEK}];
 			case ParameterComputeType.CASE_THEN:
 				return parameter.parameters.filter(x => !!x).map(sub => {
 					return computeParameterTypes(sub, topics, variables, triggerTopic);
 				}).flat();
 			default:
-				return [{collection: false, type: 'any'}];
+				// cannot determine compute type, treated as any type
+				return [{array: false, type: AnyFactorType.ANY}];
 		}
 	} else if (isConstantParameter(parameter)) {
 		const statement = parameter.value || '';
 		let segments = statement.match(/([^{]*({[^}]+})?)/g);
 		if (segments == null) {
-			return [{collection: false, type: 'any'}];
+			// cannot match, treated as any type
+			// actually never happens
+			return [{array: false, type: AnyFactorType.ANY}];
 		}
 
 		segments = segments.filter(x => !!x);
 		if (segments.length > 1) {
 			// multiple segments, always concatenate to string
-			return FACTOR_TEXT_TYPES.map(type => ({collection: false, type}));
+			return [{array: false, type: FactorType.TEXT}];
 		} else if (segments.length === 1 && segments[0].startsWith('{') && segments[0].endsWith('}')) {
 			// variable
 			const name = segments[0].substring(1, segments[0].length - 1).trim();
 			if (name === VariablePredefineFunctions.NEXT_SEQ) {
-				return [{collection: false, type: FactorType.SEQUENCE}];
+				return [{array: false, type: FactorType.SEQUENCE}];
 			} else if (name.endsWith(`.${VariablePredefineFunctions.COUNT}`) || name.endsWith(`.${VariablePredefineFunctions.LENGTH}`)) {
-				return [{collection: false, type: FactorType.UNSIGNED}];
+				return [{array: false, type: FactorType.UNSIGNED}];
 			}
 			const [first, ...rest] = name.split('.');
-			let firstTypes: Array<VariableType>;
+			let firstTypes: ValueTypesOfParameter;
 			if (first === VariablePredefineFunctions.FROM_PREVIOUS_TRIGGER_DATA) {
-				firstTypes = [{topic: triggerTopic, collection: false, type: FactorType.OBJECT}];
+				// retrieve previous trigger data object
+				firstTypes = [{topic: triggerTopic, array: false, type: FactorType.OBJECT}];
 			} else {
+				// find in variables first
 				const variable = variables.find(v => v.name === first);
 				if (variable) {
 					// find in variables
 					firstTypes = variable.types;
 				} else {
+					// find in trigger data when not existed in variables
 					const factor: Factor | undefined = (triggerTopic?.factors || []).find(f => f.name === first);
 					firstTypes = [{
 						topic: triggerTopic,
 						factor,
-						collection: factor ? factor.type === FactorType.ARRAY : false,
-						type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : 'error'
+						array: factor ? factor.type === FactorType.ARRAY : false,
+						type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : AnyFactorType.ERROR
 					}];
 				}
 			}
@@ -735,11 +348,11 @@ export const computeParameterTypes = (
 				return digByParentTypes(rest, firstTypes);
 			}
 		} else {
-			// constant, could be anything since string can be cast to anything
-			return [{collection: false, type: 'any'}];
+			// constant value, a string
+			return [{array: false, type: FactorType.TEXT}];
 		}
 	} else {
-		// cannot determine
-		return [{collection: false, type: 'any'}];
+		// cannot determine parameter type
+		return [{array: false, type: AnyFactorType.ANY}];
 	}
 };

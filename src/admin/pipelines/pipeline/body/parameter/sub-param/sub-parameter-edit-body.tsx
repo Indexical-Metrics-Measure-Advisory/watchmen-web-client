@@ -4,24 +4,24 @@ import {AlertLabel} from '../../../../../../alert/widgets';
 import {ICON_DELETE} from '../../../../../../basic-widgets/constants';
 import {useEventBus} from '../../../../../../events/event-bus';
 import {EventTypes} from '../../../../../../events/types';
-import {ComputedParameter, Parameter, ValidFactorType} from '../../../../../../services/tuples/factor-calculator-types';
-import {canDeleteAnyParameter} from '../../../../../../services/tuples/factor-calculator-utils';
+import {ComputedParameter, Parameter, ValueTypes} from '../../../../../../services/tuples/factor-calculator-types';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {ComputedEditor} from '../compute';
 import {ConstantEditor} from '../constant';
 import {TopicFactorEditor} from '../topic-factor';
 import {RemoveMeButton} from './widgets';
+import {canDeleteAnyParameter} from '../../../../../../services/tuples/parameter-utils';
 
 export const SubParameterEditBody = (props: {
 	parentParameter: ComputedParameter;
 	parameter: Parameter;
 	topics: Array<Topic>;
-	validTypes: Array<ValidFactorType>;
+	expectedTypes: ValueTypes;
 	onDeleted: () => void;
 }) => {
 	const {
 		parameter, parentParameter,
-		topics, validTypes,
+		topics, expectedTypes,
 		onDeleted
 	} = props;
 
@@ -43,12 +43,12 @@ export const SubParameterEditBody = (props: {
 
 	// sub parameters valid factor types should be defined according to compute type
 	return <>
-		<ConstantEditor parameter={parameter} validTypes={validTypes}/>
-		<TopicFactorEditor parameter={parameter} topics={topics} validTypes={validTypes}/>
+		<ConstantEditor parameter={parameter} expectedTypes={expectedTypes}/>
+		<TopicFactorEditor parameter={parameter} topics={topics} expectedTypes={expectedTypes}/>
 		<RemoveMeButton onClick={onDeleteClicked}>
 			<FontAwesomeIcon icon={ICON_DELETE}/>
 		</RemoveMeButton>
-		<ComputedEditor parameter={parameter} topics={topics} validTypes={validTypes}/>
+		<ComputedEditor parameter={parameter} topics={topics} expectedTypes={expectedTypes}/>
 	</>;
 
 };

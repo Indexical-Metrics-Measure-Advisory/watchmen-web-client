@@ -1,18 +1,6 @@
 import {Factor, FactorType} from './factor-types';
 import {Topic} from './topic-types';
 
-export enum ParameterType {
-	ANY = 'pt-any',
-	NUMBER = 'pt-number',
-	TEXT = 'pt-text',
-	DATE = 'pt-date',
-	TIME = 'pt-time',
-	DATETIME = 'pt-datetime',
-	BOOLEAN = 'pt-boolean',
-	ENUM = 'pt-enum',
-	ARRAY = 'pt-array'
-}
-
 export enum ParameterKind {
 	TOPIC = 'topic',
 	CONSTANT = 'constant',
@@ -76,20 +64,6 @@ export enum ParameterExpressionOperator {
 	NOT_IN = 'not-in',
 }
 
-export enum ValidFactorType {
-	ANY = 'any',
-	NUMBER = 'number',
-	DATE = 'date',
-	DATETIME = 'datetime'
-}
-
-export const ValidFactorTypes = {
-	ANY: [ValidFactorType.ANY],
-	NUMBER: [ValidFactorType.NUMBER],
-	NUMBER_AND_DATE: [ValidFactorType.NUMBER, ValidFactorType.DATE, ValidFactorType.DATETIME],
-	DATE: [ValidFactorType.DATE, ValidFactorType.DATETIME]
-};
-
 export interface ParameterCondition {
 }
 
@@ -109,21 +83,42 @@ export interface ParameterJoint extends ParameterCondition {
 	filters: Array<ParameterCondition>;
 }
 
-export type VariableTypeType = FactorType | 'any' | 'error'
-export interface VariableType {
-	type: VariableTypeType;
-	collection: boolean;
-	topic?: Topic;
-	factor?: Factor;
-}
-export interface Variable {
-	name: string;
-	types: Array<VariableType>;
-}
-
 export enum VariablePredefineFunctions {
 	NEXT_SEQ = '&nextSeq',
 	COUNT = '&count',
 	LENGTH = '&length',
 	FROM_PREVIOUS_TRIGGER_DATA = '&old'
+}
+
+export enum AnyFactorType {
+	ANY = 'any',
+	// use in parse constant parameter, if variable not found, type is error
+	ERROR = 'error'
+}
+
+export type ValueType = FactorType | AnyFactorType;
+export type ValueTypes = Array<ValueType>;
+
+/**
+ * value type computed from parameter
+ */
+export interface ValueTypeOfParameter {
+	/** topic is recorded when can be determined */
+	topic?: Topic;
+	/** factor is recorded when can be determined */
+	factor?: Factor;
+	/** is array or not */
+	array: boolean;
+	/** possible value types */
+	type: ValueType;
+}
+
+export type ValueTypesOfParameter = Array<ValueTypeOfParameter>;
+
+/**
+ * there are multiple possible value type of declared variable
+ */
+export interface DeclaredVariable {
+	name: string;
+	types: ValueTypesOfParameter;
 }

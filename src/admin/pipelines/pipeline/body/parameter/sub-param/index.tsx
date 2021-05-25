@@ -4,7 +4,7 @@ import {
 	ComputedParameter,
 	Parameter,
 	ParameterKind,
-	ValidFactorType
+	ValueTypes
 } from '../../../../../../services/tuples/factor-calculator-types';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {ParameterFromEditor} from '../param-from';
@@ -18,12 +18,12 @@ export const SubParameterEditor = (props: {
 	parentParameter: ComputedParameter;
 	parameter: Parameter;
 	topics: Array<Topic>;
-	validTypes: Array<ValidFactorType>;
+	expectedTypes: ValueTypes;
 	onDeleted: () => void;
 }) => {
 	const {
 		parameter, parentParameter,
-		topics, validTypes,
+		topics, expectedTypes,
 		onDeleted
 	} = props;
 
@@ -40,7 +40,7 @@ export const SubParameterEditor = (props: {
 		<SubParameterCondition parentParameter={parentParameter} parameter={parameter} topics={topics}/>
 		<ParameterFromEditor parameter={parameter}/>
 		<SubParameterEditBody parameter={parameter} parentParameter={parentParameter}
-		                      topics={topics} validTypes={validTypes}
+		                      topics={topics} expectedTypes={expectedTypes}
 		                      onDeleted={onDeleted}/>
 	</SubParameterEditContainer>;
 };

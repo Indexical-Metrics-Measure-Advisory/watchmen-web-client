@@ -13,7 +13,7 @@ import {SingleParameter} from '../../single-parameter';
 import {useFactorsMappingEventBus} from '../factors-mapping-event-bus';
 import {FactorsMappingEventTypes} from '../factors-mapping-event-bus-types';
 import {FactorMappingContainer, FactorMappingLeadLabel, RemoveMeButton} from './widgets';
-import {ValidFactorTypes} from '../../../../../../../services/tuples/factor-calculator-types';
+import {AnyFactorType} from '../../../../../../../services/tuples/factor-calculator-types';
 
 export const FactorMapping = (props: {
 	action: WriteTopicAction & MappingRow;
@@ -38,11 +38,12 @@ export const FactorMapping = (props: {
 
 	const mappingIndex = action.mapping.indexOf(mapping) + 1;
 
-	// TODO valid factor types of source parameter and target factor should be matched
 	return <FactorMappingContainer>
 		<FactorMappingLeadLabel>#{mappingIndex}</FactorMappingLeadLabel>
+		{/*TODO expected types of source parameter and target factor should be matched */}
+		{/* assume any type is valid now */}
 		<SingleParameter action={action} parameter={mapping.source} topics={[source]}
-		                 validTypes={ValidFactorTypes.ANY}/>
+		                 expectedTypes={[AnyFactorType.ANY]}/>
 		<AggregateArithmeticEditor holder={mapping} onChange={onArithmeticChanged}/>
 		<FactorPicker holder={mapping} topic={target}/>
 		<RemoveMeButton onClick={onRemoveClicked}>

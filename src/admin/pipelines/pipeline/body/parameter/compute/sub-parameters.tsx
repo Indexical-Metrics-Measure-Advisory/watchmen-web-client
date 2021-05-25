@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {v4} from 'uuid';
 import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {ComputedParameter, Parameter, ValidFactorType} from '../../../../../../services/tuples/factor-calculator-types';
+import {ComputedParameter, Parameter, ValueTypes} from '../../../../../../services/tuples/factor-calculator-types';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {ParameterEventBusProvider, useParameterEventBus} from '../parameter/parameter-event-bus';
 import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';
@@ -14,10 +14,10 @@ import {computeValidTypesForSubParameter} from '../../../../../../services/tuple
 export const SubParameters = (props: {
 	parameter: ComputedParameter;
 	topics: Array<Topic>;
-	validTypes: Array<ValidFactorType>;
+	expectedTypes: ValueTypes;
 	notifyChangeToParent: () => void;
 }) => {
-	const {parameter, topics, validTypes: validTypesOfParameter, notifyChangeToParent} = props;
+	const {parameter, topics, expectedTypes: validTypesOfParameter, notifyChangeToParent} = props;
 
 	const {on, off, fire} = useParameterEventBus();
 	const forceUpdate = useForceUpdate();
@@ -32,14 +32,14 @@ export const SubParameters = (props: {
 		};
 	}, [on, off, forceUpdate]);
 
-	const validTypes = computeValidTypesForSubParameter(parameter, validTypesOfParameter);
+	const validTypes = computeValidTypesForSubParameter(parameter.type, validTypesOfParameter);
 
 	return <SubParametersContainer>
 		{parameter.parameters.map(sub => {
 			return <ParameterEventBusProvider key={v4()}>
 				<HierarchicalParameterEventBridge notifyChangeToParent={notifyChangeToParent}/>
 				<SubParameterEditor parameter={sub} parentParameter={parameter}
-				                    topics={topics} validTypes={validTypes}
+				                    topics={topics} expectedTypes={validTypes}
 				                    onDeleted={() => fire(ParameterEventTypes.COMPUTE_PARAMETER_REMOVED, sub)}/>
 			</ParameterEventBusProvider>;
 		})}

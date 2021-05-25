@@ -1,5 +1,5 @@
 import React from 'react';
-import {ParameterKind, ValidFactorType} from '../../../../../../services/tuples/factor-calculator-types';
+import {ParameterKind, ValueTypes} from '../../../../../../services/tuples/factor-calculator-types';
 import {
 	FromFactor,
 	ToFactor
@@ -13,9 +13,9 @@ import {TopicFactorFinderContainer} from './widgets';
 export const TopicFactorPicker = (props: {
 	action: FromFactor | ToFactor;
 	topics: Array<Topic>;
-	validTypes: Array<ValidFactorType>;
+	expectedTypes: ValueTypes;
 }) => {
-	const {action, topics, validTypes} = props;
+	const {action, topics, expectedTypes} = props;
 	const {topicId, factorId} = action;
 
 	const parameter = {kind: ParameterKind.TOPIC, topicId, factorId};
@@ -23,7 +23,7 @@ export const TopicFactorPicker = (props: {
 	return <ParameterEventBusProvider>
 		<Parameter2ActionBridge action={action}/>
 		<TopicFactorFinderContainer>
-			<TopicFactorEditor parameter={parameter} topics={topics} validTypes={validTypes}/>
+			<TopicFactorEditor parameter={parameter} topics={topics} expectedTypes={expectedTypes}/>
 		</TopicFactorFinderContainer>
 	</ParameterEventBusProvider>;
 };

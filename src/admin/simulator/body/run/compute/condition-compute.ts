@@ -6,10 +6,10 @@ import {
 	ParameterJointType
 } from '../../../../../services/tuples/factor-calculator-types';
 import {InternalUnitRuntimeContext, PipelineRuntimeContext} from '../types';
-import {isExpressionParameter, isJointParameter} from '../../../../../services/tuples/factor-calculator-utils';
 import dayjs, {Dayjs} from 'dayjs';
 import {computeParameter} from './parameter-compute';
 import {DataRow} from '../../../simulator-event-bus-types';
+import {isExpressionParameter, isJointParameter} from '../../../../../services/tuples/parameter-utils';
 
 type CompareDate = (date1: Dayjs, date2: Dayjs) => boolean;
 
@@ -104,6 +104,7 @@ const less = (value1?: any, value2?: any): boolean => {
 	} else if (!Number.isNaN(value1.toString()) && !Number.isNaN(value2.toString())) {
 		return value1 < value2;
 	} else {
+		// noinspection TypeScriptValidateTypes
 		return compareWhenOneDateAtLeast(value1, value2, (date1: Dayjs, date2: Dayjs) => {
 			return date1.isBefore(date2, 'day');
 		}, (date1: Dayjs, date2: Dayjs) => {
@@ -124,6 +125,7 @@ const more = (value1?: any, value2?: any): boolean => {
 	} else if (!Number.isNaN(value1.toString()) && !Number.isNaN(value2.toString())) {
 		return value1 > value2;
 	} else {
+		// noinspection TypeScriptValidateTypes
 		return compareWhenOneDateAtLeast(value1, value2, (date1: Dayjs, date2: Dayjs) => {
 			return date1.isAfter(date2, 'day');
 		}, (date1: Dayjs, date2: Dayjs) => {

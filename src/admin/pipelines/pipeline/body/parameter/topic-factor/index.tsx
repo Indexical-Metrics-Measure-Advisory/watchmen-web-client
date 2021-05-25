@@ -1,12 +1,11 @@
 import React, {useEffect} from 'react';
 import {DropdownOption} from '../../../../../../basic-widgets/types';
 import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {Parameter, ValidFactorType} from '../../../../../../services/tuples/factor-calculator-types';
+import {Parameter, ValueTypes} from '../../../../../../services/tuples/factor-calculator-types';
 import {
 	findSelectedFactor,
 	findSelectedTopic,
-	isFactorValid,
-	isTopicFactorParameter
+	isFactorValid
 } from '../../../../../../services/tuples/factor-calculator-utils';
 import {Factor} from '../../../../../../services/tuples/factor-types';
 import {Topic} from '../../../../../../services/tuples/topic-types';
@@ -14,13 +13,14 @@ import {useParameterEventBus} from '../parameter/parameter-event-bus';
 import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';
 import {FactorDropdown, IncorrectOptionLabel, TopicDropdown, TopicFactorEditContainer} from './widgets';
 import {buildFactorOptions, buildTopicOptions} from '../../../../../../shared-widgets/tuples';
+import {isTopicFactorParameter} from '../../../../../../services/tuples/parameter-utils';
 
 export const TopicFactorEditor = (props: {
 	parameter: Parameter;
 	topics: Array<Topic>;
-	validTypes: Array<ValidFactorType>;
+	expectedTypes: ValueTypes;
 }) => {
-	const {parameter, topics, validTypes} = props;
+	const {parameter, topics, expectedTypes} = props;
 
 	const {on, off, fire} = useParameterEventBus();
 	const forceUpdate = useForceUpdate();
@@ -62,7 +62,7 @@ export const TopicFactorEditor = (props: {
 	const {selected: selectedTopic, extra: extraTopic} = findSelectedTopic(topics, topicId);
 	const {selected: selectedFactor, extra: extraFactor} = findSelectedFactor(selectedTopic, factorId);
 
-	const isValid = (factor: Factor) => selectedTopic !== extraTopic && factor !== extraFactor && isFactorValid(factor, validTypes);
+	const isValid = (factor: Factor) => selectedTopic !== extraTopic && factor !== extraFactor && isFactorValid(factor, expectedTypes);
 	const topicOptions = buildTopicOptions({
 		topics, extraTopic, toExtraNode: (topic: Topic) => {
 			return <IncorrectOptionLabel>{topic.name}</IncorrectOptionLabel>;

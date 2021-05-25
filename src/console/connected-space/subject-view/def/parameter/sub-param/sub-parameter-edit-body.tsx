@@ -6,12 +6,12 @@ import {useEventBus} from '../../../../../../events/event-bus';
 import {EventTypes} from '../../../../../../events/types';
 import {Lang} from '../../../../../../langs';
 import {ComputedParameter, Parameter} from '../../../../../../services/tuples/factor-calculator-types';
-import {canDeleteAnyParameter} from '../../../../../../services/tuples/factor-calculator-utils';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {ComputedEditor} from '../computed';
 import {ConstantValueEditor} from '../constant';
 import {TopicFactorEditor} from '../topic-factor';
 import {DeleteMeButton} from '../widgets';
+import {canDeleteAnyParameter} from '../../../../../../services/tuples/parameter-utils';
 
 export const SubParameterEditBody = (props: {
 	availableTopics: Array<Topic>;

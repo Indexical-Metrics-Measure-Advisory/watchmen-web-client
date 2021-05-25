@@ -13,7 +13,7 @@ import {FindByCondition} from '../find-by';
 import {SingleParameter} from '../single-parameter';
 import {TopicFactorPicker} from '../topic-factor-picker';
 import {ActionLeadLabelThin} from '../widgets';
-import {ValidFactorTypes} from '../../../../../../services/tuples/factor-calculator-types';
+import {AnyFactorType} from '../../../../../../services/tuples/factor-calculator-types';
 
 export const WriteFactor = (props: {
 	pipeline: Pipeline;
@@ -36,14 +36,17 @@ export const WriteFactor = (props: {
 		fire(ActionEventTypes.ACTION_CONTENT_CHANGED, action);
 	};
 
-	// TODO valid factor types of source parameter and target factor should be matched
 	return <>
 		<ActionLeadLabelThin>Value From:</ActionLeadLabelThin>
-		<SingleParameter action={action} parameter={action.source} topics={[topic]} validTypes={ValidFactorTypes.ANY}/>
+		{/*TODO expected types of source parameter and target factor should be matched */}
+		{/* assume any type is valid now */}
+		<SingleParameter action={action} parameter={action.source} topics={[topic]}
+		                 expectedTypes={[AnyFactorType.ANY]}/>
 		<ActionLeadLabelThin>Write As:</ActionLeadLabelThin>
 		<AggregateArithmeticEditor holder={action} onChange={onArithmeticChanged}/>
 		<ActionLeadLabelThin>Target Topic & Factor:</ActionLeadLabelThin>
-		<TopicFactorPicker action={action} topics={topics} validTypes={ValidFactorTypes.ANY}/>
+		{/* any type is valid here, factor has high priority here */}
+		<TopicFactorPicker action={action} topics={topics} expectedTypes={[AnyFactorType.ANY]}/>
 		<ActionLeadLabelThin>By:</ActionLeadLabelThin>
 		<FindByCondition action={action} topics={topics} topic={topic}/>
 	</>;

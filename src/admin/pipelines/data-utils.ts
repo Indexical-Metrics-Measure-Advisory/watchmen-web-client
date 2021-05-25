@@ -1,23 +1,11 @@
 import {
-	ComputedParameter,
 	ConstantParameter,
-	Parameter,
-	ParameterComputeType,
 	ParameterExpression,
 	ParameterExpressionOperator,
 	ParameterJoint,
 	ParameterJointType,
-	ParameterKind,
-	TopicFactorParameter
+	ParameterKind
 } from '../../services/tuples/factor-calculator-types';
-import {
-	isComputedParameter,
-	isConstantParameter,
-	isExpressionParameter,
-	isJointParameter,
-	isTopicFactorParameter,
-	ParameterCalculatorDefsMap
-} from '../../services/tuples/factor-calculator-utils';
 import {PipelineStage} from '../../services/tuples/pipeline-stage-types';
 import {
 	FindBy,
@@ -35,14 +23,18 @@ import {
 	isExistsAction,
 	isInsertRowAction,
 	isMergeRowAction,
-	isReadFactorAction, isReadFactorsAction,
-	isReadRowAction, isReadRowsAction,
+	isReadFactorAction,
+	isReadFactorsAction,
+	isReadRowAction,
+	isReadRowsAction,
 	isWriteFactorAction
 } from '../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {
 	ExistsAction,
-	ReadFactorAction, ReadFactorsAction,
-	ReadRowAction, ReadRowsAction
+	ReadFactorAction,
+	ReadFactorsAction,
+	ReadRowAction,
+	ReadRowsAction
 } from '../../services/tuples/pipeline-stage-unit-action/read-topic-actions-types';
 import {
 	AlarmAction,
@@ -61,6 +53,13 @@ import {PipelineStageUnit} from '../../services/tuples/pipeline-stage-unit-types
 import {Pipeline, PipelineTriggerType} from '../../services/tuples/pipeline-types';
 import {generateUuid} from '../../services/tuples/utils';
 import {getCurrentTime} from '../../services/utils';
+import {
+	createConstantParameter,
+	createTopicFactorParameter,
+	defendParameter,
+	isExpressionParameter,
+	isJointParameter
+} from '../../services/tuples/parameter-utils';
 
 export const createAction = (): AlarmAction => {
 	return {
@@ -197,7 +196,7 @@ export const defendReadFactorsAction = (action: ReadFactorsAction) => {
 	defendMemoryWriter(action);
 	defendFactor(action);
 	defendFindBy(action);
-}
+};
 export const defendReadRowAction = (action: ReadRowAction) => {
 	defendMemoryWriter(action);
 	defendTopic(action);
@@ -245,13 +244,6 @@ export const defendAction = (action: PipelineStageUnitAction) => {
 	}
 };
 
-export const createTopicFactorParameter = (): TopicFactorParameter => {
-	return {kind: ParameterKind.TOPIC, topicId: '', factorId: ''};
-};
-export const createConstantParameter = (): ConstantParameter => {
-	return {kind: ParameterKind.CONSTANT, value: ''};
-};
-
 export const createTopicEqualsConstantParameter = (): ParameterExpression => {
 	return {
 		left: createTopicFactorParameter(),
@@ -264,30 +256,4 @@ export const createJointParameter = (jointType?: ParameterJointType): ParameterJ
 		jointType: jointType || ParameterJointType.AND,
 		filters: [createTopicEqualsConstantParameter()]
 	};
-};
-
-export const defendParameter = (parameter: Parameter) => {
-	parameter.kind = parameter.kind || ParameterKind.TOPIC;
-	if (isTopicFactorParameter(parameter)) {
-		parameter.topicId = parameter.topicId || '';
-		parameter.factorId = parameter.factorId || '';
-	} else if (isConstantParameter(parameter)) {
-		parameter.value = parameter.value || '';
-	} else if (isComputedParameter(parameter)) {
-		defendComputedParameter(parameter);
-	}
-};
-export const defendComputedParameter = (parameter: ComputedParameter) => {
-	parameter.type = parameter.type || ParameterComputeType.ADD;
-	const calculatorDef = ParameterCalculatorDefsMap[parameter.type];
-	const maxParamCount = calculatorDef.maxParameterCount || calculatorDef.parameterCount || Infinity;
-	if (parameter.parameters.length > maxParamCount) {
-		parameter.parameters.length = maxParamCount;
-	}
-	const minParamCount = calculatorDef.minParameterCount || calculatorDef.parameterCount || 1;
-	if (parameter.parameters.length < minParamCount) {
-		new Array(minParamCount - parameter.parameters.length).fill(1).forEach(() => {
-			parameter.parameters.push(createTopicFactorParameter());
-		});
-	}
 };

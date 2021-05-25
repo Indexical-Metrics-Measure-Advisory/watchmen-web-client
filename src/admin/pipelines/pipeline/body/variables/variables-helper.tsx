@@ -16,7 +16,11 @@ import {
 } from '../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {Topic} from '../../../../../services/tuples/topic-types';
 import {computeParameterTypes} from '../../../../../services/tuples/factor-calculator-utils';
-import {ParameterKind, TopicFactorParameter, Variable} from '../../../../../services/tuples/factor-calculator-types';
+import {
+	DeclaredVariable,
+	ParameterKind,
+	TopicFactorParameter
+} from '../../../../../services/tuples/factor-calculator-types';
 import {FactorType} from '../../../../../services/tuples/factor-types';
 import {usePipelineEventBus} from '../../pipeline-event-bus';
 import {PipelineEventTypes} from '../../pipeline-event-bus-types';
@@ -27,7 +31,7 @@ const buildVariables = (
 	stage?: PipelineStage,
 	unit?: PipelineStageUnit,
 	action?: PipelineStageUnitAction
-): Array<Variable> => {
+): Array<DeclaredVariable> => {
 	let actions: Array<PipelineStageUnitAction>;
 	// compute actions before me
 	if (stage && unit && action) {
@@ -65,7 +69,7 @@ const buildVariables = (
 		actions = [];
 	}
 
-	const variables: Array<Variable> = [];
+	const variables: Array<DeclaredVariable> = [];
 	// eslint-disable-next-line
 	const triggerTopic = topics.find(t => t.topicId == pipeline.topicId);
 	actions.forEach(action => {
@@ -86,7 +90,7 @@ const buildVariables = (
 					topicId: action.topicId,
 					factorId: action.factorId
 				} as TopicFactorParameter, topics, variables, triggerTopic).map(t => {
-					t.collection = true;
+					t.array = true;
 					return t;
 				})
 			});
@@ -105,14 +109,14 @@ const buildVariables = (
 					kind: ParameterKind.TOPIC,
 					topicId: action.topicId
 				} as TopicFactorParameter, topics, variables, triggerTopic).map(t => {
-					t.collection = true;
+					t.array = true;
 					return t;
 				})
 			});
 		} else if (isExistsAction(action)) {
 			variables.push({
 				name: action.variableName,
-				types: [{type: FactorType.BOOLEAN, collection: false}]
+				types: [{type: FactorType.BOOLEAN, array: false}]
 			});
 		} else if (isCopyToMemoryAction(action)) {
 			variables.push({
@@ -134,7 +138,7 @@ const buildVariables = (
 			temp.exists[v.name] = true;
 		}
 		return temp;
-	}, {exists: {}, all: []} as { exists: { [key in string]: any }, all: Array<Variable> }).all.reverse();
+	}, {exists: {}, all: []} as { exists: { [key in string]: any }, all: Array<DeclaredVariable> }).all.reverse();
 };
 
 export const VariablesHelper = (props: {

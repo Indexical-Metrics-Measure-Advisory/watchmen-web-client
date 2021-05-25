@@ -4,17 +4,14 @@ import {DropdownOption} from '../../../../../../basic-widgets/types';
 import {useForceUpdate} from '../../../../../../basic-widgets/utils';
 import {Lang} from '../../../../../../langs';
 import {Parameter} from '../../../../../../services/tuples/factor-calculator-types';
-import {
-	findSelectedFactor,
-	findSelectedTopic,
-	isTopicFactorParameter
-} from '../../../../../../services/tuples/factor-calculator-utils';
+import {findSelectedFactor, findSelectedTopic} from '../../../../../../services/tuples/factor-calculator-utils';
 import {Factor} from '../../../../../../services/tuples/factor-types';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {useParameterEventBus} from '../parameter-event-bus';
 import {ParameterEventTypes} from '../parameter-event-bus-types';
 import {FactorDropdown, IncorrectOptionLabel, TopicDropdown, TopicFactorEditContainer} from './widgets';
 import {buildFactorOptions, buildTopicOptions} from '../../../../../../shared-widgets/tuples';
+import {isTopicFactorParameter} from '../../../../../../services/tuples/parameter-utils';
 
 export const TopicFactorEdit = (props: {
 	availableTopics: Array<Topic>;

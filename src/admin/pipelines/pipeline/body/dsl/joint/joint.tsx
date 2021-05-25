@@ -1,10 +1,10 @@
 import React, {Fragment} from 'react';
 import {v4} from 'uuid';
 import {ParameterJoint} from '../../../../../../services/tuples/factor-calculator-types';
-import {isExpressionParameter, isJointParameter} from '../../../../../../services/tuples/factor-calculator-utils';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {Bracket, ConjunctionWord, JointContainer, PropValue, Whitespace} from '../dsl-widgets';
 import {ExpressionLine} from './expression';
+import {isExpressionParameter, isJointParameter} from '../../../../../../services/tuples/parameter-utils';
 
 export const JointLine = (props: {
 	joint?: ParameterJoint;

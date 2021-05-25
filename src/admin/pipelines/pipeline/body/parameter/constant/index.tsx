@@ -1,53 +1,53 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useForceUpdate} from '../../../../../../basic-widgets/utils';
 import {
+	AnyFactorType,
 	ConstantParameter,
+	DeclaredVariable,
 	Parameter,
-	ValidFactorType,
-	Variable
+	ValueTypes
 } from '../../../../../../services/tuples/factor-calculator-types';
-import {
-	computeParameterTypes,
-	isConstantParameter,
-	isFactorTypeValid
-} from '../../../../../../services/tuples/factor-calculator-utils';
+import {computeParameterTypes} from '../../../../../../services/tuples/factor-calculator-utils';
 import {useParameterEventBus} from '../parameter/parameter-event-bus';
 import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';
 import {ConstantContainer, ConstantInput} from './widgets';
 import {useVariablesEventBus} from '../../variables/variables-event-bus';
 import {VariablesEventTypes} from '../../variables/variables-event-bus-types';
 import {Topic} from '../../../../../../services/tuples/topic-types';
-import {FactorType} from '../../../../../../services/tuples/factor-types';
+import {isConstantParameter} from '../../../../../../services/tuples/parameter-utils';
 
 const computeTypes = (options: {
 	parameter: ConstantParameter;
 	topics: Array<Topic>;
-	variables: Array<Variable>;
+	variables: Array<DeclaredVariable>;
 	triggerTopic?: Topic;
-	validTypes: Array<ValidFactorType>;
+	expectedTypes: ValueTypes;
 	onMismatch: () => void;
 	onMatch: () => void;
 }) => {
-	const {parameter, topics, variables, triggerTopic, validTypes, onMismatch, onMatch} = options;
+	const {parameter, topics, variables, triggerTopic, expectedTypes, onMismatch, onMatch} = options;
 	const types = computeParameterTypes(parameter, topics, variables, triggerTopic);
-	if (types.every(t => t.type === 'error')) {
+	if (types.every(t => t.type === AnyFactorType.ERROR)) {
 		onMismatch();
 		return;
 	}
-	if (validTypes.includes(ValidFactorType.ANY)) {
+	if (expectedTypes.includes(AnyFactorType.ANY)) {
 		onMatch();
 		return;
 	}
 
-	const computedTypes = types.filter(t => t.type !== 'error');
-	const match = validTypes.filter(type => type !== ValidFactorType.ANY)
-		.some(validType => {
-			return computedTypes.some(type => {
-				return !type.collection && (type.type === 'any' || isFactorTypeValid(type.type as FactorType, validType));
-			});
-		});
+	//TODO match computed constant types and expected types
+	// since array exists, currently not supported yet
 
-	match ? onMatch() : onMismatch();
+	// const computedTypes = types.filter(t => t.type !== AnyFactorType.ERROR);
+	// const match = expectedTypes.some(expectedType => {
+	// 	return computedTypes.some(type => {
+	// 		return !type.array && (type.type === AnyFactorType.ANY || isFactorTypeValid(type.type as FactorType, expectedType));
+	// 	});
+	// });
+	//
+	// match ? onMatch() : onMismatch();
+	onMatch();
 };
 
 /**
@@ -61,9 +61,9 @@ const computeTypes = (options: {
  */
 export const ConstantEditor = (props: {
 	parameter: Parameter;
-	validTypes: Array<ValidFactorType>;
+	expectedTypes: ValueTypes;
 }) => {
-	const {parameter, validTypes} = props;
+	const {parameter, expectedTypes} = props;
 
 	const {once: onceVariables, on: onVariables, off: offVariables} = useVariablesEventBus();
 	const {on, off, fire} = useParameterEventBus();
@@ -81,12 +81,12 @@ export const ConstantEditor = (props: {
 		}
 		onceVariables(VariablesEventTypes.REPLY_VARIABLES, (variables, topics, triggerTopic) => {
 			computeTypes({
-				parameter, topics, variables, triggerTopic, validTypes,
+				parameter, topics, variables, triggerTopic, expectedTypes: expectedTypes,
 				onMismatch: () => setValid(false),
 				onMatch: () => setValid(true)
 			});
 		}).fire(VariablesEventTypes.ASK_VARIABLES);
-	}, [onceVariables, parameter, validTypes]);
+	}, [onceVariables, parameter, expectedTypes]);
 	useEffect(() => {
 		if (!isConstantParameter(parameter)) {
 			return;
@@ -95,7 +95,7 @@ export const ConstantEditor = (props: {
 			// noinspection DuplicatedCode
 			onceVariables(VariablesEventTypes.REPLY_VARIABLES, (variables, topics, triggerTopic) => {
 				computeTypes({
-					parameter, topics, variables, triggerTopic, validTypes,
+					parameter, topics, variables, triggerTopic, expectedTypes: expectedTypes,
 					onMismatch: () => !valid ? forceUpdate() : setValid(false),
 					onMatch: () => valid ? forceUpdate() : setValid(true)
 				});
@@ -105,7 +105,7 @@ export const ConstantEditor = (props: {
 		return () => {
 			offVariables(VariablesEventTypes.VARIABLE_CHANGED, onVariableChanged);
 		};
-	}, [onVariables, offVariables, onceVariables, forceUpdate, parameter, valid, validTypes]);
+	}, [onVariables, offVariables, onceVariables, forceUpdate, parameter, valid, expectedTypes]);
 
 	if (!isConstantParameter(parameter)) {
 		return null;
@@ -120,7 +120,7 @@ export const ConstantEditor = (props: {
 		// noinspection DuplicatedCode
 		onceVariables(VariablesEventTypes.REPLY_VARIABLES, (variables, topics, triggerTopic) => {
 			computeTypes({
-				parameter, topics, variables, triggerTopic, validTypes,
+				parameter, topics, variables, triggerTopic, expectedTypes: expectedTypes,
 				onMismatch: () => !valid ? forceUpdate() : setValid(false),
 				onMatch: () => valid ? forceUpdate() : setValid(true)
 			});

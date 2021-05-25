@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import {useForceUpdate} from '../../../../../../basic-widgets/utils';
 import {Lang} from '../../../../../../langs';
 import {Parameter} from '../../../../../../services/tuples/factor-calculator-types';
-import {isConstantParameter} from '../../../../../../services/tuples/factor-calculator-utils';
 import {useParameterEventBus} from '../parameter-event-bus';
 import {ParameterEventTypes} from '../parameter-event-bus-types';
 import {ConstantInput} from './widgets';
+import {isConstantParameter} from '../../../../../../services/tuples/parameter-utils';
 
 export const ConstantEdit = (props: { parameter: Parameter }) => {
 	const {parameter, ...rest} = props;
@@ -40,10 +40,10 @@ export const ConstantEdit = (props: { parameter: Parameter }) => {
 };
 
 export const ConstantValueEditor = styled(ConstantEdit)`
-	border-radius : 0 calc(var(--param-height) / 2) calc(var(--param-height) / 2) 0;
-	box-shadow    : var(--param-top-border), var(--param-right-border), var(--param-bottom-border);
+	border-radius: 0 calc(var(--param-height) / 2) calc(var(--param-height) / 2) 0;
+	box-shadow: var(--param-top-border), var(--param-right-border), var(--param-bottom-border);
 	// redefine since box-shadow overridden
 	&:hover {
-		box-shadow : var(--primary-hover-shadow);
+		box-shadow: var(--primary-hover-shadow);
 	}
 `;

@@ -1,8 +1,8 @@
 import React from 'react';
 import {Parameter} from '../../../../../../services/tuples/factor-calculator-types';
-import {isTopicFactorParameter} from '../../../../../../services/tuples/factor-calculator-utils';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {FactorName, PropName, PropValue, TopicName} from '../dsl-widgets';
+import {isTopicFactorParameter} from '../../../../../../services/tuples/parameter-utils';
 
 export const TopicFactorParameterLine = (props: { parameter: Parameter, topicsMap: Map<string, Topic>, inList: boolean, indent: number }) => {
 	const {parameter, topicsMap, inList, indent} = props;

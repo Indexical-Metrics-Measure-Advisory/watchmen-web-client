@@ -1,13 +1,4 @@
-import {
-	ComputedParameter,
-	ConstantParameter,
-	ParameterComputeType,
-	ParameterExpressionOperator,
-	ParameterJointType,
-	ParameterKind,
-	TopicFactorParameter
-} from '../../../../services/tuples/factor-calculator-types';
-import {ParameterCalculatorDefsMap} from '../../../../services/tuples/factor-calculator-utils';
+import {ParameterExpressionOperator, ParameterJointType} from '../../../../services/tuples/factor-calculator-types';
 import {
 	Subject,
 	SubjectDataSetColumn,
@@ -17,13 +8,8 @@ import {
 	TopicJoinType
 } from '../../../../services/tuples/subject-types';
 import {generateUuid} from '../../../../services/tuples/utils';
+import {createConstantParameter, createTopicFactorParameter} from '../../../../services/tuples/parameter-utils';
 
-export const createTopicFactorParameter = (): TopicFactorParameter => {
-	return {kind: ParameterKind.TOPIC, topicId: '', factorId: ''};
-};
-export const createConstantParameter = (): ConstantParameter => {
-	return {kind: ParameterKind.CONSTANT, value: ''};
-};
 export const createSubjectDataSetColumn = (subject: Subject): SubjectDataSetColumn => {
 	const {columns} = subject.dataset;
 	const existsNames = columns.map(column => (column.alias || '').trim().toLowerCase()).filter(x => !!x);
@@ -71,19 +57,4 @@ export const createSubjectDataSetJoin = (): SubjectDataSetJoin => {
 		secondaryFactorId: '',
 		type: TopicJoinType.INNER
 	};
-};
-
-export const defendComputedParameter = (parameter: ComputedParameter) => {
-	parameter.type = parameter.type || ParameterComputeType.ADD;
-	const calculatorDef = ParameterCalculatorDefsMap[parameter.type];
-	const maxParamCount = calculatorDef.maxParameterCount || calculatorDef.parameterCount || Infinity;
-	if (parameter.parameters.length > maxParamCount) {
-		parameter.parameters.length = maxParamCount;
-	}
-	const minParamCount = calculatorDef.minParameterCount || calculatorDef.parameterCount || 1;
-	if (parameter.parameters.length < minParamCount) {
-		new Array(minParamCount - parameter.parameters.length).fill(1).forEach(() => {
-			parameter.parameters.push(createTopicFactorParameter());
-		});
-	}
 };
