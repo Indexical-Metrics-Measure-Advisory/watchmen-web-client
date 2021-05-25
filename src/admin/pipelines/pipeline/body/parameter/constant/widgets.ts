@@ -22,8 +22,7 @@ export const ConstantInput = styled(Input).attrs<{ valid: boolean }>(({valid}) =
 	return {
 		'data-widget': 'parameter-constant-input',
 		style: {
-			color: valid ? (void 0) : 'var(--danger-color)',
-			textDecoration: valid ? (void 0) : 'line-through'
+			color: valid ? (void 0) : 'var(--danger-color)'
 		}
 	};
 })<{ valid: boolean }>`
@@ -33,10 +32,10 @@ export const ConstantInput = styled(Input).attrs<{ valid: boolean }>(({valid}) =
 	border-radius: calc(var(--param-height) / 2);
 	border: 0;
 	padding: 0 calc(var(--margin) / 2);
-	box-shadow: var(--param-border);
+	box-shadow: ${({valid}) => valid ? 'var(--param-border)' : 'var(--param-danger-border)'};
 	&:hover {
 		z-index: 1;
 		background-color: var(--bg-color);
-		box-shadow: var(--primary-hover-shadow);
+		box-shadow: ${({valid}) => valid ? 'var(--primary-hover-shadow)' : 'var(--danger-hover-shadow)'};
 	}
 `;

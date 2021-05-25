@@ -106,8 +106,9 @@ export const ParameterComputeTypeEditor = (props: {
 
 	const computeTypeValid = isComputeTypeValid(parameter.type, validTypes);
 
-	return <ParameterComputeTypeContainer onClick={onTypeClicked} ref={containerRef}>
-		<ParameterComputeTypeLabel valid={computeTypeValid}>{ParameterComputeTypeLabels[parameter.type]}</ParameterComputeTypeLabel>
+	return <ParameterComputeTypeContainer onClick={onTypeClicked} valid={computeTypeValid}
+	                                      ref={containerRef}>
+		<ParameterComputeTypeLabel>{ParameterComputeTypeLabels[parameter.type]}</ParameterComputeTypeLabel>
 		<ParameterComputeTypeIcon>
 			<FontAwesomeIcon icon={ICON_EDIT}/>
 		</ParameterComputeTypeIcon>

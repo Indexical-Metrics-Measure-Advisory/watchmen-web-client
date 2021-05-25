@@ -62,6 +62,7 @@ export const TopicFactorEditor = (props: {
 	const {selected: selectedTopic, extra: extraTopic} = findSelectedTopic(topics, topicId);
 	const {selected: selectedFactor, extra: extraFactor} = findSelectedFactor(selectedTopic, factorId);
 
+	const isValid = (factor: Factor) => selectedTopic !== extraTopic && factor !== extraFactor && isFactorValid(factor, validTypes);
 	const topicOptions = buildTopicOptions({
 		topics, extraTopic, toExtraNode: (topic: Topic) => {
 			return <IncorrectOptionLabel>{topic.name}</IncorrectOptionLabel>;
@@ -69,16 +70,21 @@ export const TopicFactorEditor = (props: {
 	});
 	const factorOptions = buildFactorOptions({
 		topic: selectedTopic, extraFactor,
-		isValid: (factor: Factor) => selectedTopic !== extraTopic && factor !== extraFactor && isFactorValid(factor, validTypes),
+		isValid,
 		toExtraNode: (factor: Factor) => {
 			return <IncorrectOptionLabel>{factor.label || factor.name}</IncorrectOptionLabel>;
 		}
 	});
 
+	const topicValid = !selectedTopic || selectedTopic !== extraTopic;
+	const factorValid = !selectedFactor || isValid(selectedFactor);
+
 	return <TopicFactorEditContainer>
 		<TopicDropdown value={selectedTopic} options={topicOptions} onChange={onTopicChange}
-		               please="Topic?"/>
+		               please="Topic?"
+		               valid={topicValid}/>
 		<FactorDropdown value={selectedFactor} options={factorOptions} onChange={onFactorChange}
-		                please="Factor?"/>
+		                please="Factor?"
+		                valid={factorValid}/>
 	</TopicFactorEditContainer>;
 };

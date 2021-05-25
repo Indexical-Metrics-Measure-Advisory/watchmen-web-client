@@ -42,7 +42,6 @@ export const ConstantEditor = (props: {
 			return;
 		}
 		const onVariableChanged = () => {
-			console.log('x');
 			// noinspection DuplicatedCode
 			onceVariables(VariablesEventTypes.REPLY_VARIABLES, (variables, topics, triggerTopic) => {
 				const types = computeParameterTypes(parameter, topics, variables, triggerTopic);

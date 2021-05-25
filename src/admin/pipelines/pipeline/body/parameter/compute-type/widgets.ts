@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import {DROPDOWN_Z_INDEX} from '../../../../../../basic-widgets/constants';
 
-export const ParameterComputeTypeContainer = styled.div.attrs({'data-widget': 'parameter-computed-type'})`
+export const ParameterComputeTypeContainer = styled.div.attrs<{ valid: boolean }>(({valid}) => {
+	return {
+		'data-widget': 'parameter-computed-type'
+	};
+})<{ valid: boolean }>`
 	display: flex;
 	position: relative;
 	align-self: start;
@@ -15,14 +19,14 @@ export const ParameterComputeTypeContainer = styled.div.attrs({'data-widget': 'p
 	margin-right: var(--margin);
 	cursor: pointer;
 	outline: none;
-	box-shadow: var(--param-border);
+	box-shadow: ${({valid}) => valid ? 'var(--param-border)' : 'var(--param-danger-border)'};;
 	transition: box-shadow 300ms ease-in-out;
 	&:hover {
 		z-index: 1;
-		box-shadow: var(--primary-hover-shadow);
+		box-shadow: ${({valid}) => valid ? 'var(--primary-hover-shadow)' : 'var(--danger-hover-shadow)'};
 		> div[data-widget="parameter-computed-type-label"],
 		> div[data-widget="parameter-computed-type-icon"] {
-			color: var(--warn-color);
+			color: ${({valid}) => valid ? 'var(--warn-color)' : 'var(--danger-color)'};;
 		}
 	}
 	&:before {
@@ -36,17 +40,12 @@ export const ParameterComputeTypeContainer = styled.div.attrs({'data-widget': 'p
 		box-shadow: var(--param-left-border);
 		z-index: -1;
 	}
+	> div[data-widget='parameter-computed-type-label'],
+	> div[data-widget="parameter-computed-type-icon"] {
+		color: ${({valid}) => valid ? (void 0) : 'var(--danger-color)'};
+	}
 `;
-export const ParameterComputeTypeLabel = styled.div.attrs<{ valid: boolean }>(({valid}) => {
-	return {
-		'data-widget': 'parameter-computed-type-label',
-		style: {
-			color: valid ? (void 0) : 'var(--danger-color)',
-			fontWeight: valid ? (void 0) : 'var(--font-bold)',
-			textDecoration: valid ? (void 0) : 'line-through'
-		}
-	};
-})<{ valid: boolean }>`
+export const ParameterComputeTypeLabel = styled.div.attrs({'data-widget': 'parameter-computed-type-label'})`
 	font-variant: petite-caps;
 	transition: color 300ms ease-in-out;
 	white-space: nowrap;
