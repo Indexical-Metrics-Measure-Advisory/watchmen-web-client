@@ -138,16 +138,13 @@ export const isConstantValueTypeMatched = (value: string, type: ParameterType | 
 	}
 };
 
+const FACTOR_NUMBER_TYPES = [FactorType.NUMBER, FactorType.UNSIGNED, FactorType.FLOOR, FactorType.RESIDENTIAL_AREA, FactorType.AGE, FactorType.BIZ_SCALE];
+const FACTOR_TEXT_TYPES = [FactorType.TEXT];
 // noinspection TypeScriptValidateTypes
 export const ParameterAndFactorTypeMapping: { [key in ParameterType]: (factorType: FactorType) => boolean } = {
 	[ParameterType.ANY]: () => true,
-	[ParameterType.NUMBER]: (factorType: FactorType) => [
-		FactorType.NUMBER, FactorType.UNSIGNED,
-		FactorType.FLOOR, FactorType.RESIDENTIAL_AREA,
-		FactorType.AGE,
-		FactorType.BIZ_SCALE
-	].includes(factorType),
-	[ParameterType.TEXT]: (factorType: FactorType) => [FactorType.TEXT].includes(factorType),
+	[ParameterType.NUMBER]: (factorType: FactorType) => FACTOR_NUMBER_TYPES.includes(factorType),
+	[ParameterType.TEXT]: (factorType: FactorType) => FACTOR_TEXT_TYPES.includes(factorType),
 	[ParameterType.DATE]: (factorType: FactorType) => [FactorType.DATE, FactorType.DATETIME, FactorType.FULL_DATETIME].includes(factorType),
 	[ParameterType.TIME]: (factorType: FactorType) => [FactorType.TIME, FactorType.DATETIME, FactorType.FULL_DATETIME].includes(factorType),
 	[ParameterType.DATETIME]: (factorType: FactorType) => [FactorType.DATETIME, FactorType.FULL_DATETIME].includes(factorType),
@@ -661,7 +658,7 @@ export const computeParameterTypes = (
 			topic,
 			factor,
 			collection: factor ? factor.type === FactorType.ARRAY : false,
-			type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : ParameterType.ANY
+			type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : 'any'
 		}];
 	} else if (isComputedParameter(parameter)) {
 		switch (parameter.type) {
@@ -670,7 +667,7 @@ export const computeParameterTypes = (
 			case ParameterComputeType.MULTIPLY:
 			case ParameterComputeType.DIVIDE:
 			case ParameterComputeType.MODULUS:
-				return [{collection: false, type: ParameterType.NUMBER}];
+				return FACTOR_NUMBER_TYPES.map(type => ({collection: false, type}));
 			case ParameterComputeType.YEAR_OF:
 				return [{collection: false, type: FactorType.YEAR}];
 			case ParameterComputeType.HALF_YEAR_OF:
@@ -692,19 +689,19 @@ export const computeParameterTypes = (
 					return computeParameterTypes(sub, topics, variables, triggerTopic);
 				}).flat();
 			default:
-				return [{collection: false, type: ParameterType.ANY}];
+				return [{collection: false, type: 'any'}];
 		}
 	} else if (isConstantParameter(parameter)) {
 		const statement = parameter.value || '';
 		let segments = statement.match(/([^{]*({[^}]+})?)/g);
 		if (segments == null) {
-			return [{collection: false, type: ParameterType.ANY}];
+			return [{collection: false, type: 'any'}];
 		}
 
 		segments = segments.filter(x => !!x);
 		if (segments.length > 1) {
 			// multiple segments, always concatenate to string
-			return [{collection: false, type: ParameterType.TEXT}];
+			return FACTOR_TEXT_TYPES.map(type => ({collection: false, type}));
 		} else if (segments.length === 1 && segments[0].startsWith('{') && segments[0].endsWith('}')) {
 			// variable
 			const name = segments[0].substring(1, segments[0].length - 1).trim();
@@ -739,10 +736,10 @@ export const computeParameterTypes = (
 			}
 		} else {
 			// constant, could be anything since string can be cast to anything
-			return [{collection: false, type: ParameterType.ANY}];
+			return [{collection: false, type: 'any'}];
 		}
 	} else {
 		// cannot determine
-		return [{collection: false, type: ParameterType.ANY}];
+		return [{collection: false, type: 'any'}];
 	}
 };

@@ -109,7 +109,7 @@ export interface ParameterJoint extends ParameterCondition {
 	filters: Array<ParameterCondition>;
 }
 
-export type VariableTypeType = FactorType | ParameterType | 'error'
+export type VariableTypeType = FactorType | 'any' | 'error'
 export interface VariableType {
 	type: VariableTypeType;
 	collection: boolean;
