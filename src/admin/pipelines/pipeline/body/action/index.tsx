@@ -25,8 +25,8 @@ export const ActionEditor = (props: {
 	const unitIndex = stage.units.indexOf(unit) + 1;
 	const actionIndex = unit.do.indexOf(action) + 1;
 
-	return <VariablesEventBusProvider>
-		<ActionContainer>
+	return <ActionContainer>
+		<VariablesEventBusProvider>
 			<VariablesHelper pipeline={pipeline} stage={stage} unit={unit} action={action} topics={[topic]}/>
 			<Operators action={action} unit={unit}/>
 			<ActionLeadLabel>Action #{stageIndex}.{unitIndex}.{actionIndex}:</ActionLeadLabel>
@@ -34,6 +34,6 @@ export const ActionEditor = (props: {
 			<ActionBody pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics}
 			            topic={topic}/>
 			<ActionFooterLeadLabel>End of Action #{stageIndex}.{unitIndex}.{actionIndex}</ActionFooterLeadLabel>
-		</ActionContainer>
-	</VariablesEventBusProvider>;
+		</VariablesEventBusProvider>
+	</ActionContainer>;
 };

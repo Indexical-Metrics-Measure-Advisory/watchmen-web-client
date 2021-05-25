@@ -14,7 +14,7 @@ export const ConstantEditor = (props: {
 }) => {
 	const {parameter, validTypes} = props;
 
-	const {once: onceVariables} = useVariablesEventBus();
+	const {once: onceVariables, on: onVariables, off: offVariables} = useVariablesEventBus();
 	const {on, off, fire} = useParameterEventBus();
 	const [valid, setValid] = useState<boolean>(true);
 	const forceUpdate = useForceUpdate();
@@ -37,6 +37,27 @@ export const ConstantEditor = (props: {
 			}
 		}).fire(VariablesEventTypes.ASK_VARIABLES);
 	}, [onceVariables, parameter, validTypes]);
+	useEffect(() => {
+		if (!isConstantParameter(parameter)) {
+			return;
+		}
+		const onVariableChanged = () => {
+			console.log('x');
+			// noinspection DuplicatedCode
+			onceVariables(VariablesEventTypes.REPLY_VARIABLES, (variables, topics, triggerTopic) => {
+				const types = computeParameterTypes(parameter, topics, variables, triggerTopic);
+				if (types.every(t => t.type === 'error')) {
+					!valid ? forceUpdate() : setValid(false);
+				} else {
+					valid ? forceUpdate() : setValid(true);
+				}
+			}).fire(VariablesEventTypes.ASK_VARIABLES);
+		};
+		onVariables(VariablesEventTypes.VARIABLE_CHANGED, onVariableChanged);
+		return () => {
+			offVariables(VariablesEventTypes.VARIABLE_CHANGED, onVariableChanged);
+		};
+	}, [onVariables, offVariables, onceVariables, forceUpdate, parameter, valid]);
 
 	if (!isConstantParameter(parameter)) {
 		return null;
@@ -48,6 +69,7 @@ export const ConstantEditor = (props: {
 			return;
 		}
 		parameter.value = value;
+		// noinspection DuplicatedCode
 		onceVariables(VariablesEventTypes.REPLY_VARIABLES, (variables, topics, triggerTopic) => {
 			const types = computeParameterTypes(parameter, topics, variables, triggerTopic);
 			if (types.every(t => t.type === 'error')) {

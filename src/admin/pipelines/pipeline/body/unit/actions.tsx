@@ -39,7 +39,7 @@ export const Actions = (props: {
 				action.actionId = generateUuid();
 			}
 			return <ActionEventBusProvider key={action.actionId}>
-				<Action2UnitBridge unit={unit} action={action}/>
+				<Action2UnitBridge pipeline={pipeline} stage={stage} unit={unit} action={action}/>
 				<ActionEditor pipeline={pipeline} stage={stage} unit={unit} action={action}
 				              topics={topics} topic={topic}/>
 			</ActionEventBusProvider>;

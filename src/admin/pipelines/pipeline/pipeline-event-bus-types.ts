@@ -1,6 +1,7 @@
 import {PipelineStage} from '../../../services/tuples/pipeline-stage-types';
 import {Pipeline} from '../../../services/tuples/pipeline-types';
 import {PipelineStageUnit} from '../../../services/tuples/pipeline-stage-unit-types';
+import {PipelineStageUnitAction} from '../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 
 export enum PipelineFocusMode {
 	STAGE = 'stage',
@@ -24,6 +25,8 @@ export enum PipelineEventTypes {
 	STAGE_REMOVED = 'stage-removed',
 	STAGE_CHANGED = 'stage-changed',
 	STAGE_SORTED = 'stage-sorted',
+
+	ACTION_CHANGED = 'action-changed',
 
 	STAGE_EXPANDED = 'stage-expanded',
 	UNIT_EXPANDED = 'unit-expanded',
@@ -81,6 +84,10 @@ export interface PipelineEventBus {
 	fire(type: PipelineEventTypes.STAGE_SORTED, pipeline: Pipeline): this;
 	on(type: PipelineEventTypes.STAGE_SORTED, listener: (pipeline: Pipeline) => void): this;
 	off(type: PipelineEventTypes.STAGE_SORTED, listener: (pipeline: Pipeline) => void): this;
+
+	fire(type: PipelineEventTypes.ACTION_CHANGED, pipeline: Pipeline, stage: PipelineStage, unit: PipelineStageUnit, action: PipelineStageUnitAction): this;
+	on(type: PipelineEventTypes.ACTION_CHANGED, listener: (pipeline: Pipeline, stage: PipelineStage, unit: PipelineStageUnit, action: PipelineStageUnitAction) => void): this;
+	off(type: PipelineEventTypes.ACTION_CHANGED, listener: (pipeline: Pipeline, stage: PipelineStage, unit: PipelineStageUnit, action: PipelineStageUnitAction) => void): this;
 
 	fire(type: PipelineEventTypes.STAGE_EXPANDED, pipeline: Pipeline, stage: PipelineStage): this;
 	on(type: PipelineEventTypes.STAGE_EXPANDED, listener: (pipeline: Pipeline, stage: PipelineStage) => void): this;
