@@ -1,3 +1,5 @@
+// noinspection DuplicatedCode
+
 import {
 	AnyFactorType,
 	ComputedParameter,
@@ -25,7 +27,8 @@ import {
 import {
 	computeValidTypesByExpressionOperator,
 	computeValidTypesForSubParameter,
-	isComputeTypeValid, isFactorTypeCompatibleWith
+	isComputeTypeValid,
+	isFactorTypeCompatibleWith
 } from './factor-calculator-utils';
 
 export const isJointValid4DataSet = (joint: ParameterJoint, topics: Array<Topic>): boolean => {

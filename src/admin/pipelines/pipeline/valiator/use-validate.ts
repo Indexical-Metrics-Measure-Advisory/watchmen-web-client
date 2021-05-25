@@ -10,8 +10,8 @@ import {
 } from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {Topic} from '../../../../services/tuples/topic-types';
-import {isJointValid4DataSet, isParameterValid4DataSet} from '../../../../services/tuples/dataset-validation-utils';
 import {AnyFactorType} from '../../../../services/tuples/factor-calculator-types';
+import {isJointValid4Pipeline, isParameterValid4Pipeline} from '../../../../services/tuples/pipeline-validation-utils';
 
 export const useValidate = () => {
 	return async (pipeline: Pipeline, topics: Array<Topic>): Promise<string | true> => {
@@ -44,7 +44,7 @@ export const useValidate = () => {
 					resolve('Pipeline prerequisite is not given yet.');
 					return;
 				}
-				if (!isJointValid4DataSet(on, [topic])) {
+				if (!isJointValid4Pipeline(on, [topic])) {
 					pipeline.validated = false;
 					resolve('Pipeline prerequisite is incorrect.');
 					return;
@@ -58,7 +58,7 @@ export const useValidate = () => {
 					if (!on) {
 						return true;
 					}
-					if (!isJointValid4DataSet(on, topics)) {
+					if (!isJointValid4Pipeline(on, topics)) {
 						return true;
 					}
 				}
@@ -70,7 +70,7 @@ export const useValidate = () => {
 						if (!on) {
 							return true;
 						}
-						if (!isJointValid4DataSet(on, topics)) {
+						if (!isJointValid4Pipeline(on, topics)) {
 							return true;
 						}
 					}
@@ -79,12 +79,12 @@ export const useValidate = () => {
 						if (isAlarmAction(action)) {
 							const {severity, on, conditional, message} = action;
 							return !severity
-								|| (conditional && (!on || !isJointValid4DataSet(on, topics)))
+								|| (conditional && (!on || !isJointValid4Pipeline(on, topics)))
 								|| !message || message.trim().length === 0;
 						} else if (isCopyToMemoryAction(action)) {
 							const {variableName, source} = action;
 							return !variableName || variableName.trim().length === 0
-								|| !source || !isParameterValid4DataSet({
+								|| !source || !isParameterValid4Pipeline({
 									parameter: source,
 									topics,
 									expectedTypes: [AnyFactorType.ANY],
@@ -96,7 +96,7 @@ export const useValidate = () => {
 							const topic = topics.find(topic => topic.topicId == topicId);
 							if (!topic
 								|| !variableName || variableName.trim().length === 0
-								|| !by || !isJointValid4DataSet(by, topics)) {
+								|| !by || !isJointValid4Pipeline(by, topics)) {
 								return true;
 							}
 							if (isReadFactorAction(action) || isReadFactorsAction(action)) {
@@ -122,7 +122,7 @@ export const useValidate = () => {
 							const fail = mapping.some(({factorId, source}) => {
 								// eslint-disable-next-line
 								const factor = topic.factors.find(factor => factor.factorId == factorId);
-								return !factor || !isParameterValid4DataSet({
+								return !factor || !isParameterValid4Pipeline({
 									parameter: source,
 									topics,
 									expectedTypes: [factor.type],
@@ -134,7 +134,7 @@ export const useValidate = () => {
 							}
 							if (isMergeRowAction(action)) {
 								const {by} = action;
-								return !by || !isJointValid4DataSet(by, topics);
+								return !by || !isJointValid4Pipeline(by, topics);
 							} else {
 								// pass validation
 								return false;
@@ -151,7 +151,7 @@ export const useValidate = () => {
 							if (!factor) {
 								return true;
 							}
-							return !by || !isJointValid4DataSet(by, topics);
+							return !by || !isJointValid4Pipeline(by, topics);
 						} else {
 							return true;
 						}

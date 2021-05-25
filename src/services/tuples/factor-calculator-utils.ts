@@ -4,7 +4,6 @@ import {
 	Parameter,
 	ParameterComputeType,
 	ParameterExpressionOperator,
-	ValueType,
 	ValueTypeOfParameter,
 	ValueTypes,
 	ValueTypesOfParameter,
@@ -68,20 +67,6 @@ export const findSelectedFactor = (topic?: Topic | null, factorId?: string, extr
 		}
 	}
 	return {selected: selectedFactor, extra: extraFactor};
-};
-
-/**
- * factor type can be write as expected type
- */
-export const isFactorTypeValid = (factorType: FactorType, expectedType: ValueType): boolean => {
-	if (expectedType === AnyFactorType.ANY || expectedType === AnyFactorType.ERROR) {
-		// expect any
-		return true;
-	}
-	const compatibleTypes = CompatibleTypes[expectedType];
-	const {includes = [], excludes = []} = compatibleTypes;
-	// if includes is not declared, means can includes any type
-	return (includes.length === 0 || includes.includes(factorType)) && !excludes.includes(factorType);
 };
 
 /**
@@ -191,6 +176,23 @@ export const computeValidTypesByExpressionOperator = (operator?: ParameterExpres
 	}
 };
 
+const digByFactor = (factor: Factor | undefined, names: Array<string>, types: ValueTypeOfParameter) => {
+	const factorType: ValueTypeOfParameter = {
+		topic: types.topic,
+		factor,
+		array: factor ? factor.type === FactorType.ARRAY : false,
+		type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : AnyFactorType.ERROR
+	};
+	if (factor) {
+		// factor found
+		// return factor type if stop here
+		// or keep dig deeper
+		return names.length === 0 ? [factorType] : digByParentType(names, factorType);
+	} else {
+		// factor not found, there is no necessary to dig more, return directly
+		return [factorType];
+	}
+};
 const digByParentType = (names: Array<string>, types: ValueTypeOfParameter): ValueTypesOfParameter => {
 	const [first, ...rest] = names;
 	if (types.type !== FactorType.OBJECT) {
@@ -202,42 +204,14 @@ const digByParentType = (names: Array<string>, types: ValueTypeOfParameter): Val
 	} else if (!types.factor) {
 		// from topic directly
 		const factor: Factor | undefined = (types.topic.factors || []).find(f => f.name === first);
-		const factorType: ValueTypeOfParameter = {
-			topic: types.topic,
-			factor,
-			array: factor ? factor.type === FactorType.ARRAY : false,
-			type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : AnyFactorType.ERROR
-		};
-		if (factor) {
-			// factor found
-			// return factor type if stop here
-			// or keep dig deeper
-			return rest.length === 0 ? [factorType] : digByParentType(rest, factorType);
-		} else {
-			// factor not found, there is no necessary to dig more, return directly
-			return [factorType];
-		}
+		return digByFactor(factor, rest, types);
 	} else {
 		// from a factor
 		// factor which can hold properties is from raw topic
 		// and its properties are declared by "prefix.x", prefix is name of parent factor.
 		const prefix = types.factor.name;
 		const factor: Factor | undefined = (types.topic.factors || []).find(f => f.name === `${prefix}.${first}`);
-		const factorType: ValueTypeOfParameter = {
-			topic: types.topic,
-			factor,
-			array: factor ? factor.type === FactorType.ARRAY : false,
-			type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : AnyFactorType.ERROR
-		};
-		if (factor) {
-			// factor found
-			// return factor type if stop here
-			// or keep dig deeper
-			return rest.length === 0 ? [factorType] : digByParentType(rest, factorType);
-		} else {
-			// factor not found, there is no necessary to dig more, return directly
-			return [factorType];
-		}
+		return digByFactor(factor, rest, types);
 	}
 };
 const digByParentTypes = (names: Array<string>, types: ValueTypesOfParameter): ValueTypesOfParameter => {
@@ -356,3 +330,4 @@ export const computeParameterTypes = (
 		return [{array: false, type: AnyFactorType.ANY}];
 	}
 };
+
