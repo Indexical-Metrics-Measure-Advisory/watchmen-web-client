@@ -50,7 +50,6 @@ export const ConstantEditor = (props: {
 		parameter.value = value;
 		onceVariables(VariablesEventTypes.REPLY_VARIABLES, (variables, topics, triggerTopic) => {
 			const types = computeParameterTypes(parameter, topics, variables, triggerTopic);
-			console.log(types)
 			if (types.every(t => t.type === 'error')) {
 				!valid ? forceUpdate() : setValid(false);
 			} else {

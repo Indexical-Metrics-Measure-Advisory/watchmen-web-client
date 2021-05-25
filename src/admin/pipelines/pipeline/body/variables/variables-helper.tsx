@@ -27,10 +27,10 @@ const buildVariables = (
 	let actions: Array<PipelineStageUnitAction>;
 	// compute actions before me
 	if (stage && unit && action) {
-		actions = pipeline.stages.slice(0, pipeline.stages.indexOf(stage)).map(currentStage => {
+		actions = pipeline.stages.slice(0, pipeline.stages.indexOf(stage) + 1).map(currentStage => {
 			let units = currentStage.units || [];
 			if (currentStage === stage) {
-				units = units.slice(0, stage.units.indexOf(unit));
+				units = units.slice(0, stage.units.indexOf(unit) + 1);
 			}
 			return units.map(currentUnit => {
 				let actions = currentUnit.do || [];
@@ -41,7 +41,7 @@ const buildVariables = (
 			}).flat();
 		}).flat();
 	} else if (stage && unit) {
-		actions = pipeline.stages.slice(0, pipeline.stages.indexOf(stage)).map(currentStage => {
+		actions = pipeline.stages.slice(0, pipeline.stages.indexOf(stage) + 1).map(currentStage => {
 			let units = currentStage.units || [];
 			if (currentStage === stage) {
 				units = units.slice(0, stage.units.indexOf(unit));
