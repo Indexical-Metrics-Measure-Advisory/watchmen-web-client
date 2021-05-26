@@ -153,6 +153,11 @@ export const computeValidTypesForSubParameter = (computeType: ParameterComputeTy
 	}
 };
 
+const COMPARABLE_VALUE_TYPES = [...new Set([
+	...(CompatibleTypes[FactorType.NUMBER].includes || []),
+	...(CompatibleTypes[FactorType.DATE].includes || [])
+])];
+const OTHER_VALUE_TYPES = [AnyFactorType.ANY];
 export const computeValidTypesByExpressionOperator = (operator?: ParameterExpressionOperator): ValueTypes => {
 	switch (operator) {
 		case ParameterExpressionOperator.MORE:
@@ -160,12 +165,9 @@ export const computeValidTypesByExpressionOperator = (operator?: ParameterExpres
 		case ParameterExpressionOperator.LESS:
 		case ParameterExpressionOperator.LESS_EQUALS:
 			// all number, date
-			return [...new Set([
-				...(CompatibleTypes[FactorType.NUMBER].includes || []),
-				...(CompatibleTypes[FactorType.DATE].includes || [])
-			])].filter(x => x !== FactorType.TEXT);
+			return COMPARABLE_VALUE_TYPES;
 		default:
-			return [AnyFactorType.ANY];
+			return OTHER_VALUE_TYPES;
 	}
 };
 

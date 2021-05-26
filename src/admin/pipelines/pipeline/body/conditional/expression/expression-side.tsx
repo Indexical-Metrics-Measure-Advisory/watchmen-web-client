@@ -16,6 +16,8 @@ export const ExpressionSide = (props: {
 	topics: Array<Topic>;
 	visible?: boolean;
 	leftSide: boolean;
+	// expect array or not, can be true only when left side is false
+	expectArray: boolean;
 }) => {
 	const {base, parameter, topics, visible = true} = props;
 
@@ -26,9 +28,9 @@ export const ExpressionSide = (props: {
 			if (base !== expression) {
 				return;
 			}
-			const newValidTypes = computeValidTypesByExpressionOperator(expression.operator);
-			if (newValidTypes !== expectedTypes) {
-				setExpectedTypes(newValidTypes);
+			const newExpectedTypes = computeValidTypesByExpressionOperator(expression.operator);
+			if (newExpectedTypes !== expectedTypes) {
+				setExpectedTypes(newExpectedTypes);
 			}
 		};
 		on(ExpressionEventTypes.OPERATOR_CHANGED, onOperatorChanged);

@@ -129,6 +129,8 @@ export const isParameterValid4Pipeline = (options: {
 	}
 	if (isTopicFactorParameter(parameter)) {
 		if (array) {
+			// a factor with type of primitive array is never existed
+			// therefore return false
 			return false;
 		} else {
 			return isTopicFactorParameterValid(parameter, allTopics, expectedTypes);

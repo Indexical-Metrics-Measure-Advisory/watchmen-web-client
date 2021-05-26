@@ -34,9 +34,13 @@ export const RightPart = (props: { expression: ParameterExpression, topics: Arra
 		return null;
 	}
 
+	const expectArray = expression.operator === ParameterExpressionOperator.IN
+		|| expression.operator === ParameterExpressionOperator.NOT_IN;
+
 	return <ParameterEventBusProvider>
 		<Parameter2ExpressionBridge onChange={onRightParameterChanged}/>
 		<ExpressionSide base={expression} parameter={expression.right} topics={topics}
-		                visible={visible} leftSide={false}/>
+		                visible={visible}
+		                leftSide={false} expectArray={expectArray}/>
 	</ParameterEventBusProvider>;
 };
