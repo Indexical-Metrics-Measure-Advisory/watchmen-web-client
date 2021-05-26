@@ -20,6 +20,7 @@ export const AdminCache = () => {
 	const [data, setData] = useState<CacheState>({initialized: false});
 	useEffect(() => {
 		const onAskDataLoaded = () => fire(AdminCacheEventTypes.REPLY_DATA_LOADED, data.initialized);
+		// noinspection TypeScriptValidateTypes
 		const onAskData = () => fire(AdminCacheEventTypes.REPLY_DATA, data.data);
 		on(AdminCacheEventTypes.ASK_DATA_LOADED, onAskDataLoaded);
 		on(AdminCacheEventTypes.ASK_DATA, onAskData);
@@ -61,7 +62,7 @@ export const AdminCache = () => {
 				data.data.pipelines = [
 					pipeline,
 					// eslint-disable-next-line
-					...(data.data.pipelines || []).filter(p => p.pipelineId == pipeline.pipelineId)
+					...(data.data.pipelines || []).filter(p => p.pipelineId != pipeline.pipelineId)
 				];
 			}
 		};
@@ -71,7 +72,7 @@ export const AdminCache = () => {
 				data.data.topics = [
 					topic,
 					// eslint-disable-next-line
-					...(data.data.topics || []).filter(t => t.topicId == topic.topicId)
+					...(data.data.topics || []).filter(t => t.topicId != topic.topicId)
 				];
 			}
 		};

@@ -26,14 +26,17 @@ export const HeaderEnableButton = (props: { pipeline: Pipeline }) => {
 			fire(PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, pipeline);
 		} else {
 			oncePipelines(PipelinesEventTypes.REPLY_TOPICS, async (topics: Array<Topic>) => {
-				const pass = await validate(pipeline, topics);
-				if (pass !== true) {
+				const result = await validate(pipeline, topics);
+				if (!result.pass) {
 					pipeline.enabled = false;
-					fireGlobal(EventTypes.SHOW_ALERT,
-						<AlertLabel>{pass}</AlertLabel>);
+					fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{result.message}</AlertLabel>);
 				} else {
 					pipeline.enabled = true;
 					fire(PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, pipeline);
+					if (result.message) {
+						// warning message
+						fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{result.message}</AlertLabel>);
+					}
 				}
 			}).fire(PipelinesEventTypes.ASK_TOPICS);
 		}

@@ -1,37 +1,165 @@
 import {
 	isAlarmAction,
 	isCopyToMemoryAction,
+	isExistsAction,
 	isInsertRowAction,
 	isMergeRowAction,
 	isReadFactorAction,
 	isReadFactorsAction,
+	isReadRowsAction,
 	isReadTopicAction,
 	isWriteFactorAction
 } from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {Topic} from '../../../../services/tuples/topic-types';
-import {AnyFactorType, DeclaredVariables} from '../../../../services/tuples/factor-calculator-types';
+import {
+	AnyFactorType,
+	DeclaredVariables,
+	Parameter,
+	ParameterCondition,
+	ParameterExpressionOperator,
+	TopicFactorParameter
+} from '../../../../services/tuples/factor-calculator-types';
 import {
 	buildVariable,
 	isJointValid4Pipeline,
 	isParameterValid4Pipeline
 } from '../../../../services/tuples/pipeline-validation-utils';
-import {PipelineStageUnitAction} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {
+	FindBy,
+	PipelineStageUnitAction
+} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {
+	isComputedParameter,
+	isConstantParameter,
+	isExpressionParameter,
+	isJointParameter,
+	isTopicFactorParameter
+} from '../../../../services/tuples/parameter-utils';
+
+export interface Validation {
+	pass: boolean;
+	message?: string;
+}
+
+const isConditionCanBeComputedInMemory = (condition: ParameterCondition, topic: Topic): boolean => {
+	if (isJointParameter(condition)) {
+		return condition.filters.every(condition => isConditionCanBeComputedInMemory(condition, topic));
+	} else if (isExpressionParameter(condition)) {
+		const {left, right} = condition;
+		if (left && !isParameterCanBeComputedInMemory(left, topic)) {
+			return false;
+		}
+		return !right || isParameterCanBeComputedInMemory(right, topic);
+	} else {
+		// never occurs
+		return true;
+	}
+};
+const isParameterCanBeComputedInMemory = (parameter: Parameter, topic: Topic): boolean => {
+	if (isConstantParameter(parameter)) {
+		return true;
+	} else if (isComputedParameter(parameter)) {
+		return parameter.parameters.every(sub => {
+			let can = isParameterCanBeComputedInMemory(sub, topic);
+			if (!can) {
+				return false;
+			}
+			if (sub.on) {
+				return sub.on.filters.every(condition => isConditionCanBeComputedInMemory(condition, topic));
+			} else {
+				return true;
+			}
+		});
+	} else if (isTopicFactorParameter(parameter)) {
+		// eslint-disable-next-line
+		return parameter.topicId != topic.topicId;
+	} else {
+		return true;
+	}
+};
+
+const countIndex = (one: TopicFactorParameter, another: Parameter, topic: Topic, usedIndexGroups: { [key in string]: Array<string> }) => {
+	if (isParameterCanBeComputedInMemory(another, topic)) {
+		// eslint-disable-next-line
+		const factor = topic.factors.find(factor => factor.factorId == one.factorId);
+		if (factor?.indexGroup) {
+			let group = usedIndexGroups[factor.indexGroup];
+			if (!group) {
+				usedIndexGroups[factor.indexGroup] = [factor.factorId];
+			} else {
+				group.push(factor.factorId);
+			}
+		}
+	}
+};
+// assume action already pass validation
+const isIndexUsed = (action: FindBy, topic: Topic): boolean => {
+	const {by} = action;
+
+	const unique = !isReadFactorsAction(action) && !isReadRowsAction(action) && !isExistsAction(action);
+
+	const definedIndexes: { [key in string]: Array<string> } = topic.factors.reduce((indexes, factor) => {
+		if (factor.indexGroup) {
+			const group = indexes[factor.indexGroup];
+			if (!group) {
+				indexes[factor.indexGroup] = [factor.factorId];
+			} else {
+				group.push(factor.factorId);
+			}
+		}
+		return indexes;
+	}, {} as { [key in string]: Array<string> });
+	const usedIndexGroups: { [key in string]: Array<string> } = {};
+	by.filters.forEach(condition => {
+		if (!isExpressionParameter(condition)) {
+			return;
+		}
+
+		if (condition.operator !== ParameterExpressionOperator.EQUALS) {
+			return;
+		}
+
+		const {left, right} = condition;
+		// eslint-disable-next-line
+		if (isTopicFactorParameter(left) && left.topicId == topic.topicId) {
+			countIndex(left, right, topic, usedIndexGroups);
+			// eslint-disable-next-line
+		} else if (isTopicFactorParameter(right) && right.topicId == topic.topicId) {
+			countIndex(right, left, topic, usedIndexGroups);
+		}
+	});
+
+	if (Object.keys(usedIndexGroups).length === 0) {
+		return false;
+	}
+
+	const usefulIndexGroups = unique ? Object.keys(usedIndexGroups).filter(indexGroup => {
+		return indexGroup.startsWith('u-');
+	}) : Object.keys(usedIndexGroups);
+
+	// compare useful with defined
+	return usefulIndexGroups.some(indexGroup => {
+		const used = [...new Set(usedIndexGroups[indexGroup] || [])];
+		const defined = definedIndexes[indexGroup];
+		return used.length === defined.length;
+	});
+};
 
 export const useValidate = () => {
-	return async (pipeline: Pipeline, topics: Array<Topic>): Promise<string | true> => {
-		return new Promise<string | true>((resolve) => {
+	return async (pipeline: Pipeline, topics: Array<Topic>): Promise<Validation> => {
+		return new Promise<Validation>((resolve) => {
 			const {name, type, topicId, conditional, on, stages} = pipeline;
 			if (!name || name.trim().length === 0) {
 				pipeline.validated = false;
-				resolve('Pipeline name is not given yet.');
+				resolve({pass: false, message: 'Pipeline name is not given yet.'});
 				return;
 			}
 
 			// noinspection JSIncompatibleTypesComparison
 			if (type == null) {
 				pipeline.validated = false;
-				resolve('Pipeline trigger type is not given yet.');
+				resolve({pass: false, message: 'Pipeline trigger type is not given yet.'});
 				return;
 			}
 
@@ -39,21 +167,22 @@ export const useValidate = () => {
 			const triggerTopic = topics.find(topic => topic.topicId == topicId);
 			if (!triggerTopic) {
 				pipeline.validated = false;
-				resolve('Pipeline source topic is mismatched.');
+				resolve({pass: false, message: 'Pipeline source topic is mismatched.'});
 				return;
 			}
 
 			const variables: DeclaredVariables = [];
+			const misIndexed: Array<string> = [];
 
 			if (conditional) {
 				if (!on || on.filters.length === 0) {
 					pipeline.validated = false;
-					resolve('Pipeline prerequisite is not given yet.');
+					resolve({pass: false, message: 'Pipeline prerequisite is not given yet.'});
 					return;
 				}
 				if (!isJointValid4Pipeline({joint: on, allTopics: [triggerTopic], triggerTopic, variables})) {
 					pipeline.validated = false;
-					resolve('Pipeline prerequisite is incorrect.');
+					resolve({pass: false, message: 'Pipeline prerequisite is incorrect.'});
 					return;
 				}
 			}
@@ -217,6 +346,9 @@ export const useValidate = () => {
 								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] topic or factor is incorrect.`;
 								return true;
 							}
+							if (!isIndexUsed(action, topic)) {
+								misIndexed.push(`#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}`);
+							}
 							// pass all validation
 							return false;
 						} else if (isInsertRowAction(action) || isMergeRowAction(action)) {
@@ -262,6 +394,10 @@ export const useValidate = () => {
 									failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] merge by is incorrect.`;
 									return true;
 								}
+
+								if (!isIndexUsed(action, topic)) {
+									misIndexed.push(`#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}`);
+								}
 							}
 							// pass validation
 							return false;
@@ -292,6 +428,9 @@ export const useValidate = () => {
 								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] merge by is incorrect.`;
 								return true;
 							}
+							if (!isIndexUsed(action, topic)) {
+								misIndexed.push(`#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}`);
+							}
 							// pass
 							return false;
 						} else {
@@ -304,12 +443,22 @@ export const useValidate = () => {
 
 			if (!pass) {
 				pipeline.validated = false;
-				resolve(failureReason || 'There is something incorrect in pipeline definition, view it in dsl panel for detail information.');
+				resolve({
+					pass: false,
+					message: failureReason || 'There is something incorrect in pipeline definition, view it in dsl panel for detail information.'
+				});
 				return;
 			}
 
 			pipeline.validated = true;
-			resolve(true);
+			if (misIndexed.length !== 0) {
+				resolve({
+					pass: true,
+					message: `Action[${misIndexed.join(',')}] might not be indexed, try to use index when read or write data from storage.`
+				});
+			} else {
+				resolve({pass: true});
+			}
 		});
 	};
 };

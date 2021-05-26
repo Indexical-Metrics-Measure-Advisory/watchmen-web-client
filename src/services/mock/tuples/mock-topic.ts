@@ -11,7 +11,7 @@ export const listMockTopics = async (options: {
 	pageSize?: number;
 }): Promise<DataPage<QueryTopic>> => {
 	const {pageNumber = 1, pageSize = 9} = options;
-	return new Promise((resolve) => {
+	return new Promise<DataPage<QueryTopic>>((resolve) => {
 		setTimeout(() => {
 			resolve({
 				data: DemoQueryTopics,
@@ -48,7 +48,7 @@ export const fetchMockTopic = async (topicId: string): Promise<{ topic: Topic }>
 
 let newTopicId = 10000;
 export const saveMockTopic = async (topic: Topic): Promise<void> => {
-	return new Promise((resolve) => {
+	return new Promise<void>((resolve) => {
 		if (isFakedUuid(topic)) {
 			topic.topicId = `${newTopicId++}`;
 		}
@@ -57,7 +57,7 @@ export const saveMockTopic = async (topic: Topic): Promise<void> => {
 };
 
 export const listMockTopicsForHolder = async (search: string): Promise<Array<QueryTopicForHolder>> => {
-	return new Promise((resolve) => {
+	return new Promise<Array<QueryTopicForHolder>>((resolve) => {
 		setTimeout(() => {
 			resolve(
 				[

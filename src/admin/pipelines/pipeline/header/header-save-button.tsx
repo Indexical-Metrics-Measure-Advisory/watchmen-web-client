@@ -15,6 +15,7 @@ import {usePipelineEventBus} from '../pipeline-event-bus';
 import {PipelineEventTypes} from '../pipeline-event-bus-types';
 import {useValidate} from '../valiator/use-validate';
 import {PipelineChangeLabel, PipelineSaveButton} from './widgets';
+import {AlertLabel} from '../../../../alert/widgets';
 
 const StillSaveDialog = (props: { message: string, onSave: () => void }) => {
 	const {message, onSave} = props;
@@ -78,13 +79,17 @@ export const HeaderSaveButton = (props: { pipeline: Pipeline }) => {
 
 	const onClicked = () => {
 		oncePipelines(PipelinesEventTypes.REPLY_TOPICS, async (topics: Array<Topic>) => {
-			const pass = await validate(pipeline, topics);
-			if (pass !== true) {
+			const result = await validate(pipeline, topics);
+			if (!result.pass) {
 				fireGlobal(EventTypes.SHOW_DIALOG,
-					<StillSaveDialog message={pass}
+					<StillSaveDialog message={result.message || ''}
 					                 onSave={() => fire(PipelineEventTypes.SAVE_PIPELINE, pipeline)}/>);
 			} else {
 				fire(PipelineEventTypes.SAVE_PIPELINE, pipeline);
+				if (result.message) {
+					// warning message
+					fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{result.message}</AlertLabel>);
+				}
 			}
 		}).fire(PipelinesEventTypes.ASK_TOPICS);
 	};

@@ -95,6 +95,7 @@ const AdminTopics = () => {
 				() => {
 					fire(TupleEventTypes.TUPLE_SAVED, topic, true);
 					fireCache(AdminCacheEventTypes.SAVE_TOPIC, topic);
+					console.log(topic);
 				},
 				() => fire(TupleEventTypes.TUPLE_SAVED, topic, false));
 		};
