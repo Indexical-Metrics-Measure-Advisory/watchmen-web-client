@@ -240,6 +240,13 @@ const isComputedParameterValid = (options: {
 		return false;
 	}
 
+	if (computeType === ParameterComputeType.CASE_THEN) {
+		if (parameters.filter(parameter => !parameter.conditional || !parameter.on).length > 1) {
+			// only one anyway route in case-then
+			return false;
+		}
+	}
+
 	if (!isComputeTypeValid(computeType, expectedTypes)) {
 		return false;
 	}
@@ -263,7 +270,7 @@ const isComputedParameterValid = (options: {
 			// only case-then should return an array
 			// therefore any return value will be treated as an array which contains only one element
 			// then true is passed only when compute type is case-then
-			array: array && computeType !== ParameterComputeType.CASE_THEN
+			array: array && computeType === ParameterComputeType.CASE_THEN
 		});
 	});
 };

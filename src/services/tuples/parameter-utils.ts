@@ -38,7 +38,7 @@ export const ParameterCalculatorDefsMap: { [key in ParameterComputeType]: Parame
 	[ParameterComputeType.WEEK_OF_MONTH]: {name: ParameterComputeType.WEEK_OF_MONTH, parameterCount: 1},
 	[ParameterComputeType.DAY_OF_MONTH]: {name: ParameterComputeType.DAY_OF_WEEK, parameterCount: 1},
 	[ParameterComputeType.DAY_OF_WEEK]: {name: ParameterComputeType.DAY_OF_WEEK, parameterCount: 1},
-	[ParameterComputeType.CASE_THEN]: {name: ParameterComputeType.CASE_THEN, minParameterCount: 2}
+	[ParameterComputeType.CASE_THEN]: {name: ParameterComputeType.CASE_THEN, minParameterCount: 1}
 };
 
 export const isTopicFactorParameter = (param: Parameter): param is TopicFactorParameter => param.kind === ParameterKind.TOPIC;

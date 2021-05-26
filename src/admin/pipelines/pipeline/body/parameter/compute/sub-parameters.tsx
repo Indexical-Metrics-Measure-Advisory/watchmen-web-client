@@ -39,7 +39,7 @@ export const SubParameters = (props: {
 	}, [on, off, forceUpdate]);
 
 	const expectedTypesOfSubParameters = computeValidTypesForSubParameter(parameter.type, expectedTypesOfParameter);
-	const expectArrayOfSubParameters = expectArray && parameter.type !== ParameterComputeType.CASE_THEN;
+	const expectArrayOfSubParameters = expectArray && parameter.type === ParameterComputeType.CASE_THEN;
 
 	return <SubParametersContainer>
 		{parameter.parameters.map(sub => {
