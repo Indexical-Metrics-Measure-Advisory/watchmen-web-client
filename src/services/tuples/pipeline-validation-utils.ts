@@ -255,6 +255,14 @@ const isComputedParameterValid = (options: {
 
 	const subTypes = computeValidTypesForSubParameter(computeType, expectedTypes);
 	return parameters.every(parameter => {
+		if (parameter.conditional) {
+			if (!parameter.on || parameter.on.filters.length === 0) {
+				return false;
+			}
+			if (!isJointValid4Pipeline({joint: parameter.on, allTopics, triggerTopic, variables})) {
+				return false;
+			}
+		}
 		return isParameterValid4Pipeline({
 			parameter,
 			allTopics,
