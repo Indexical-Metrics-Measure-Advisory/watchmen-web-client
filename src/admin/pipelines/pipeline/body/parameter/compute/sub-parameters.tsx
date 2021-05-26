@@ -1,7 +1,12 @@
 import React, {useEffect} from 'react';
 import {v4} from 'uuid';
 import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {ComputedParameter, Parameter, ValueTypes} from '../../../../../../services/tuples/factor-calculator-types';
+import {
+	ComputedParameter,
+	Parameter,
+	ParameterComputeType,
+	ValueTypes
+} from '../../../../../../services/tuples/factor-calculator-types';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {ParameterEventBusProvider, useParameterEventBus} from '../parameter/parameter-event-bus';
 import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';
@@ -15,9 +20,10 @@ export const SubParameters = (props: {
 	parameter: ComputedParameter;
 	topics: Array<Topic>;
 	expectedTypes: ValueTypes;
+	expectArray: boolean;
 	notifyChangeToParent: () => void;
 }) => {
-	const {parameter, topics, expectedTypes: expectedTypesOfParameter, notifyChangeToParent} = props;
+	const {parameter, topics, expectedTypes: expectedTypesOfParameter, expectArray, notifyChangeToParent} = props;
 
 	const {on, off, fire} = useParameterEventBus();
 	const forceUpdate = useForceUpdate();
@@ -33,13 +39,16 @@ export const SubParameters = (props: {
 	}, [on, off, forceUpdate]);
 
 	const expectedTypesOfSubParameters = computeValidTypesForSubParameter(parameter.type, expectedTypesOfParameter);
+	const expectArrayOfSubParameters = expectArray && parameter.type !== ParameterComputeType.CASE_THEN;
 
 	return <SubParametersContainer>
 		{parameter.parameters.map(sub => {
 			return <ParameterEventBusProvider key={v4()}>
 				<HierarchicalParameterEventBridge notifyChangeToParent={notifyChangeToParent}/>
 				<SubParameterEditor parameter={sub} parentParameter={parameter}
-				                    topics={topics} expectedTypes={expectedTypesOfSubParameters}
+				                    topics={topics}
+				                    expectedTypes={expectedTypesOfSubParameters}
+				                    expectArray={expectArrayOfSubParameters}
 				                    onDeleted={() => fire(ParameterEventTypes.COMPUTE_PARAMETER_REMOVED, sub)}/>
 			</ParameterEventBusProvider>;
 		})}

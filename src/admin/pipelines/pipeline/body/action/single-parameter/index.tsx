@@ -23,8 +23,8 @@ export const SingleParameter = (props: {
 		<SingleParameterContainer>
 			<ParameterFromEditor parameter={parameter}/>
 			<TopicFactorEditor parameter={parameter} topics={topics} expectedTypes={expectedTypes}/>
-			<ConstantEditor parameter={parameter} expectedTypes={expectedTypes}/>
-			<ComputedEditor parameter={parameter} topics={topics} expectedTypes={expectedTypes}/>
+			<ConstantEditor parameter={parameter} expectedTypes={expectedTypes} expectArray={false}/>
+			<ComputedEditor parameter={parameter} topics={topics} expectedTypes={expectedTypes} expectArray={false}/>
 		</SingleParameterContainer>
 	</ParameterEventBusProvider>;
 };

@@ -19,11 +19,12 @@ export const SubParameterEditor = (props: {
 	parameter: Parameter;
 	topics: Array<Topic>;
 	expectedTypes: ValueTypes;
+	expectArray: boolean;
 	onDeleted: () => void;
 }) => {
 	const {
 		parameter, parentParameter,
-		topics, expectedTypes,
+		topics, expectedTypes, expectArray,
 		onDeleted
 	} = props;
 
@@ -40,7 +41,7 @@ export const SubParameterEditor = (props: {
 		<SubParameterCondition parentParameter={parentParameter} parameter={parameter} topics={topics}/>
 		<ParameterFromEditor parameter={parameter}/>
 		<SubParameterEditBody parameter={parameter} parentParameter={parentParameter}
-		                      topics={topics} expectedTypes={expectedTypes}
+		                      topics={topics} expectedTypes={expectedTypes} expectArray={expectArray}
 		                      onDeleted={onDeleted}/>
 	</SubParameterEditContainer>;
 };

@@ -128,13 +128,9 @@ export const isParameterValid4Pipeline = (options: {
 		return false;
 	}
 	if (isTopicFactorParameter(parameter)) {
-		if (array) {
-			// a factor with type of primitive array is never existed
-			// therefore return false
-			return false;
-		} else {
-			return isTopicFactorParameterValid(parameter, allTopics, expectedTypes);
-		}
+		// a factor with type of primitive array is never existed
+		// therefore any return value will be treated as an array which contains only one element
+		return isTopicFactorParameterValid(parameter, allTopics, expectedTypes);
 	} else if (isConstantParameter(parameter)) {
 		return isConstantParameterValid({parameter, allTopics, triggerTopic, variables, expectedTypes, array});
 	} else if (isComputedParameter(parameter)) {
@@ -145,10 +141,10 @@ export const isParameterValid4Pipeline = (options: {
 };
 
 // noinspection JSUnusedLocalSymbols
-const isConstantParameterValid = (options: {
+export const isConstantParameterValid = (options: {
 	parameter: ConstantParameter;
 	allTopics: Array<Topic>;
-	triggerTopic: Topic;
+	triggerTopic?: Topic;
 	variables: DeclaredVariables;
 	expectedTypes: ValueTypes;
 	// true only when
@@ -244,11 +240,6 @@ const isComputedParameterValid = (options: {
 		return false;
 	}
 
-	if (array && computeType !== ParameterComputeType.CASE_THEN) {
-		// only case-then can produce array result
-		return false;
-	}
-
 	if (!isComputeTypeValid(computeType, expectedTypes)) {
 		return false;
 	}
@@ -269,7 +260,10 @@ const isComputedParameterValid = (options: {
 			triggerTopic,
 			variables,
 			expectedTypes: subTypes,
-			array
+			// only case-then should return an array
+			// therefore any return value will be treated as an array which contains only one element
+			// then true is passed only when compute type is case-then
+			array: array && computeType !== ParameterComputeType.CASE_THEN
 		});
 	});
 };

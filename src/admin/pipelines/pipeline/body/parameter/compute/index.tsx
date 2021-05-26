@@ -13,8 +13,9 @@ export const ComputedEditor = (props: {
 	parameter: Parameter;
 	topics: Array<Topic>;
 	expectedTypes: ValueTypes;
+	expectArray: boolean;
 }) => {
-	const {parameter, topics, expectedTypes} = props;
+	const {parameter, topics, expectedTypes, expectArray} = props;
 
 	const {on, off, fire} = useParameterEventBus();
 	const forceUpdate = useForceUpdate();
@@ -46,7 +47,7 @@ export const ComputedEditor = (props: {
 	return <ComputedEditContainer>
 		<ParameterComputeTypeEditor parameter={parameter} expectedTypes={expectedTypes}/>
 		<SubParameters parameter={parameter}
-		               topics={topics} expectedTypes={expectedTypes}
+		               topics={topics} expectedTypes={expectedTypes} expectArray={expectArray}
 		               notifyChangeToParent={() => fire(ParameterEventTypes.COMPUTE_CONTENT_CHANGED, parameter)}/>
 	</ComputedEditContainer>;
 };

@@ -17,11 +17,12 @@ export const SubParameterEditBody = (props: {
 	parameter: Parameter;
 	topics: Array<Topic>;
 	expectedTypes: ValueTypes;
+	expectArray: boolean;
 	onDeleted: () => void;
 }) => {
 	const {
 		parameter, parentParameter,
-		topics, expectedTypes,
+		topics, expectedTypes, expectArray,
 		onDeleted
 	} = props;
 
@@ -43,12 +44,12 @@ export const SubParameterEditBody = (props: {
 
 	// sub parameters valid factor types should be defined according to compute type
 	return <>
-		<ConstantEditor parameter={parameter} expectedTypes={expectedTypes}/>
+		<ConstantEditor parameter={parameter} expectedTypes={expectedTypes} expectArray={expectArray}/>
 		<TopicFactorEditor parameter={parameter} topics={topics} expectedTypes={expectedTypes}/>
 		<RemoveMeButton onClick={onDeleteClicked}>
 			<FontAwesomeIcon icon={ICON_DELETE}/>
 		</RemoveMeButton>
-		<ComputedEditor parameter={parameter} topics={topics} expectedTypes={expectedTypes}/>
+		<ComputedEditor parameter={parameter} topics={topics} expectedTypes={expectedTypes} expectArray={expectArray}/>
 	</>;
 
 };

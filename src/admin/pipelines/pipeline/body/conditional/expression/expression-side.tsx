@@ -19,7 +19,7 @@ export const ExpressionSide = (props: {
 	// expect array or not, can be true only when left side is false
 	expectArray: boolean;
 }) => {
-	const {base, parameter, topics, visible = true} = props;
+	const {base, parameter, topics, visible = true, expectArray} = props;
 
 	const {on, off} = useExpressionEventBus();
 	const [expectedTypes, setExpectedTypes] = useState(computeValidTypesByExpressionOperator(base.operator));
@@ -42,7 +42,7 @@ export const ExpressionSide = (props: {
 	return <ExpressionSideContainer visible={visible}>
 		<ParameterFromEditor parameter={parameter}/>
 		<TopicFactorEditor parameter={parameter} topics={topics} expectedTypes={expectedTypes}/>
-		<ConstantEditor parameter={parameter} expectedTypes={expectedTypes}/>
-		<ComputedEditor parameter={parameter} topics={topics} expectedTypes={expectedTypes}/>
+		<ConstantEditor parameter={parameter} expectedTypes={expectedTypes} expectArray={expectArray}/>
+		<ComputedEditor parameter={parameter} topics={topics} expectedTypes={expectedTypes} expectArray={expectArray}/>
 	</ExpressionSideContainer>;
 };

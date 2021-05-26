@@ -1,13 +1,11 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useForceUpdate} from '../../../../../../basic-widgets/utils';
 import {
-	AnyFactorType,
 	ConstantParameter,
 	DeclaredVariables,
 	Parameter,
 	ValueTypes
 } from '../../../../../../services/tuples/factor-calculator-types';
-import {computeParameterTypes} from '../../../../../../services/tuples/factor-calculator-utils';
 import {useParameterEventBus} from '../parameter/parameter-event-bus';
 import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';
 import {ConstantContainer, ConstantInput} from './widgets';
@@ -15,6 +13,7 @@ import {useVariablesEventBus} from '../../variables/variables-event-bus';
 import {VariablesEventTypes} from '../../variables/variables-event-bus-types';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {isConstantParameter} from '../../../../../../services/tuples/parameter-utils';
+import {isConstantParameterValid} from '../../../../../../services/tuples/pipeline-validation-utils';
 
 const computeTypes = (options: {
 	parameter: ConstantParameter;
@@ -22,32 +21,20 @@ const computeTypes = (options: {
 	variables: DeclaredVariables;
 	triggerTopic?: Topic;
 	expectedTypes: ValueTypes;
+	expectArray: boolean;
 	onMismatch: () => void;
 	onMatch: () => void;
 }) => {
-	const {parameter, topics, variables, triggerTopic, expectedTypes, onMismatch, onMatch} = options;
-	const types = computeParameterTypes(parameter, topics, variables, triggerTopic);
-	if (types.every(t => t.type === AnyFactorType.ERROR)) {
-		onMismatch();
-		return;
-	}
-	if (expectedTypes.includes(AnyFactorType.ANY)) {
-		onMatch();
-		return;
-	}
-
-	//TODO match computed constant types and expected types
-	// since array exists, currently not supported yet
-
-	// const computedTypes = types.filter(t => t.type !== AnyFactorType.ERROR);
-	// const match = expectedTypes.some(expectedType => {
-	// 	return computedTypes.some(type => {
-	// 		return !type.array && (type.type === AnyFactorType.ANY || isFactorTypeValid(type.type as FactorType, expectedType));
-	// 	});
-	// });
-	//
-	// match ? onMatch() : onMismatch();
-	onMatch();
+	const {parameter, topics, variables, triggerTopic, expectedTypes, expectArray, onMismatch, onMatch} = options;
+	const matched = isConstantParameterValid({
+		parameter,
+		allTopics: topics,
+		triggerTopic,
+		variables,
+		expectedTypes,
+		array: expectArray
+	});
+	matched ? onMatch() : onMismatch();
 };
 
 /**
@@ -62,8 +49,9 @@ const computeTypes = (options: {
 export const ConstantEditor = (props: {
 	parameter: Parameter;
 	expectedTypes: ValueTypes;
+	expectArray: boolean;
 }) => {
-	const {parameter, expectedTypes} = props;
+	const {parameter, expectedTypes, expectArray} = props;
 
 	const {once: onceVariables, on: onVariables, off: offVariables} = useVariablesEventBus();
 	const {on, off, fire} = useParameterEventBus();
@@ -81,12 +69,12 @@ export const ConstantEditor = (props: {
 		}
 		onceVariables(VariablesEventTypes.REPLY_VARIABLES, (variables, topics, triggerTopic) => {
 			computeTypes({
-				parameter, topics, variables, triggerTopic, expectedTypes: expectedTypes,
+				parameter, topics, variables, triggerTopic, expectedTypes, expectArray,
 				onMismatch: () => setValid(false),
 				onMatch: () => setValid(true)
 			});
 		}).fire(VariablesEventTypes.ASK_VARIABLES);
-	}, [onceVariables, parameter, expectedTypes]);
+	}, [onceVariables, parameter, expectedTypes, expectArray]);
 	useEffect(() => {
 		if (!isConstantParameter(parameter)) {
 			return;
@@ -95,7 +83,7 @@ export const ConstantEditor = (props: {
 			// noinspection DuplicatedCode
 			onceVariables(VariablesEventTypes.REPLY_VARIABLES, (variables, topics, triggerTopic) => {
 				computeTypes({
-					parameter, topics, variables, triggerTopic, expectedTypes: expectedTypes,
+					parameter, topics, variables, triggerTopic, expectedTypes, expectArray,
 					onMismatch: () => !valid ? forceUpdate() : setValid(false),
 					onMatch: () => valid ? forceUpdate() : setValid(true)
 				});
@@ -105,7 +93,7 @@ export const ConstantEditor = (props: {
 		return () => {
 			offVariables(VariablesEventTypes.VARIABLE_CHANGED, onVariableChanged);
 		};
-	}, [onVariables, offVariables, onceVariables, forceUpdate, parameter, valid, expectedTypes]);
+	}, [onVariables, offVariables, onceVariables, forceUpdate, parameter, valid, expectedTypes, expectArray]);
 
 	if (!isConstantParameter(parameter)) {
 		return null;
@@ -120,7 +108,7 @@ export const ConstantEditor = (props: {
 		// noinspection DuplicatedCode
 		onceVariables(VariablesEventTypes.REPLY_VARIABLES, (variables, topics, triggerTopic) => {
 			computeTypes({
-				parameter, topics, variables, triggerTopic, expectedTypes: expectedTypes,
+				parameter, topics, variables, triggerTopic, expectedTypes, expectArray,
 				onMismatch: () => !valid ? forceUpdate() : setValid(false),
 				onMatch: () => valid ? forceUpdate() : setValid(true)
 			});
