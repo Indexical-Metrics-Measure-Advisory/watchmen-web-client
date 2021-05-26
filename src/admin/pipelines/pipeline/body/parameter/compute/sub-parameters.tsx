@@ -17,7 +17,7 @@ export const SubParameters = (props: {
 	expectedTypes: ValueTypes;
 	notifyChangeToParent: () => void;
 }) => {
-	const {parameter, topics, expectedTypes: validTypesOfParameter, notifyChangeToParent} = props;
+	const {parameter, topics, expectedTypes: expectedTypesOfParameter, notifyChangeToParent} = props;
 
 	const {on, off, fire} = useParameterEventBus();
 	const forceUpdate = useForceUpdate();
@@ -32,14 +32,14 @@ export const SubParameters = (props: {
 		};
 	}, [on, off, forceUpdate]);
 
-	const validTypes = computeValidTypesForSubParameter(parameter.type, validTypesOfParameter);
+	const expectedTypesOfSubParameters = computeValidTypesForSubParameter(parameter.type, expectedTypesOfParameter);
 
 	return <SubParametersContainer>
 		{parameter.parameters.map(sub => {
 			return <ParameterEventBusProvider key={v4()}>
 				<HierarchicalParameterEventBridge notifyChangeToParent={notifyChangeToParent}/>
 				<SubParameterEditor parameter={sub} parentParameter={parameter}
-				                    topics={topics} expectedTypes={validTypes}
+				                    topics={topics} expectedTypes={expectedTypesOfSubParameters}
 				                    onDeleted={() => fire(ParameterEventTypes.COMPUTE_PARAMETER_REMOVED, sub)}/>
 			</ParameterEventBusProvider>;
 		})}

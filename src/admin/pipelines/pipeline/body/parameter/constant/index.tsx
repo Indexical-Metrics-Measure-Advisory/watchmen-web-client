@@ -3,7 +3,7 @@ import {useForceUpdate} from '../../../../../../basic-widgets/utils';
 import {
 	AnyFactorType,
 	ConstantParameter,
-	DeclaredVariable,
+	DeclaredVariables,
 	Parameter,
 	ValueTypes
 } from '../../../../../../services/tuples/factor-calculator-types';
@@ -19,7 +19,7 @@ import {isConstantParameter} from '../../../../../../services/tuples/parameter-u
 const computeTypes = (options: {
 	parameter: ConstantParameter;
 	topics: Array<Topic>;
-	variables: Array<DeclaredVariable>;
+	variables: DeclaredVariables;
 	triggerTopic?: Topic;
 	expectedTypes: ValueTypes;
 	onMismatch: () => void;

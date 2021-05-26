@@ -20,27 +20,27 @@ export const ExpressionSide = (props: {
 	const {base, parameter, topics, visible = true} = props;
 
 	const {on, off} = useExpressionEventBus();
-	const [validTypes, setValidTypes] = useState(computeValidTypesByExpressionOperator(base.operator));
+	const [expectedTypes, setExpectedTypes] = useState(computeValidTypesByExpressionOperator(base.operator));
 	useEffect(() => {
 		const onOperatorChanged = (expression: ParameterExpression) => {
 			if (base !== expression) {
 				return;
 			}
 			const newValidTypes = computeValidTypesByExpressionOperator(expression.operator);
-			if (newValidTypes !== validTypes) {
-				setValidTypes(newValidTypes);
+			if (newValidTypes !== expectedTypes) {
+				setExpectedTypes(newValidTypes);
 			}
 		};
 		on(ExpressionEventTypes.OPERATOR_CHANGED, onOperatorChanged);
 		return () => {
 			off(ExpressionEventTypes.OPERATOR_CHANGED, onOperatorChanged);
 		};
-	}, [on, off, base, validTypes]);
+	}, [on, off, base, expectedTypes]);
 
 	return <ExpressionSideContainer visible={visible}>
 		<ParameterFromEditor parameter={parameter}/>
-		<TopicFactorEditor parameter={parameter} topics={topics} expectedTypes={validTypes}/>
-		<ConstantEditor parameter={parameter} expectedTypes={validTypes}/>
-		<ComputedEditor parameter={parameter} topics={topics} expectedTypes={validTypes}/>
+		<TopicFactorEditor parameter={parameter} topics={topics} expectedTypes={expectedTypes}/>
+		<ConstantEditor parameter={parameter} expectedTypes={expectedTypes}/>
+		<ComputedEditor parameter={parameter} topics={topics} expectedTypes={expectedTypes}/>
 	</ExpressionSideContainer>;
 };

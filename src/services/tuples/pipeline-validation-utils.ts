@@ -1,13 +1,17 @@
 // noinspection DuplicatedCode
 
 import {
+	AnyFactorType,
 	ComputedParameter,
 	ConstantParameter,
+	DeclaredVariable,
+	DeclaredVariables,
 	Parameter,
 	ParameterComputeType,
 	ParameterExpression,
 	ParameterExpressionOperator,
 	ParameterJoint,
+	ParameterKind,
 	TopicFactorParameter,
 	ValueTypes
 } from './factor-calculator-types';
@@ -21,13 +25,35 @@ import {
 	ParameterCalculatorDefsMap
 } from './parameter-utils';
 import {
+	computeParameterTypes,
 	computeValidTypesByExpressionOperator,
 	computeValidTypesForSubParameter,
 	isComputeTypeValid,
 	isFactorTypeCompatibleWith
 } from './factor-calculator-utils';
+import {Pipeline} from './pipeline-types';
+import {PipelineStage} from './pipeline-stage-types';
+import {PipelineStageUnit} from './pipeline-stage-unit-types';
+import {PipelineStageUnitAction} from './pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {
+	isCopyToMemoryAction,
+	isExistsAction,
+	isReadFactorAction,
+	isReadFactorsAction,
+	isReadRowAction,
+	isReadRowsAction,
+	isReadTopicAction
+} from './pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {FactorType} from './factor-types';
 
-export const isJointValid4Pipeline = (joint: ParameterJoint, topics: Array<Topic>): boolean => {
+export const isJointValid4Pipeline = (options: {
+	joint: ParameterJoint;
+	allTopics: Array<Topic>;
+	triggerTopic: Topic;
+	variables: DeclaredVariables;
+}): boolean => {
+	const {joint, allTopics, triggerTopic, variables} = options;
+
 	const {jointType, filters} = joint;
 	if (!jointType) {
 		return false;
@@ -38,15 +64,21 @@ export const isJointValid4Pipeline = (joint: ParameterJoint, topics: Array<Topic
 
 	return !filters.some(filter => {
 		if (isJointParameter(filter)) {
-			return !isJointValid4Pipeline(filter, topics);
+			return !isJointValid4Pipeline({joint: filter, allTopics, triggerTopic, variables});
 		} else if (isExpressionParameter(filter)) {
-			return !isExpressionValid4Pipeline(filter, topics);
+			return !isExpressionValid4Pipeline({expression: filter, allTopics, triggerTopic, variables});
 		}
 		return true;
 	});
 };
 
-const isExpressionValid4Pipeline = (expression: ParameterExpression, topics: Array<Topic>): boolean => {
+const isExpressionValid4Pipeline = (options: {
+	expression: ParameterExpression;
+	allTopics: Array<Topic>;
+	triggerTopic: Topic;
+	variables: DeclaredVariables;
+}): boolean => {
+	const {expression, allTopics, triggerTopic, variables} = options;
 	const {left, operator, right} = expression;
 
 	if (!operator) {
@@ -55,13 +87,27 @@ const isExpressionValid4Pipeline = (expression: ParameterExpression, topics: Arr
 
 	const expectedTypes = computeValidTypesByExpressionOperator(operator);
 
-	if (!left || !isParameterValid4Pipeline({parameter: left, topics, expectedTypes, array: false})) {
+	if (!left || !isParameterValid4Pipeline({
+		parameter: left,
+		allTopics,
+		triggerTopic,
+		variables,
+		expectedTypes,
+		array: false
+	})) {
 		return false;
 	}
 
 	if (operator !== ParameterExpressionOperator.NOT_EMPTY && operator !== ParameterExpressionOperator.EMPTY) {
 		const array = operator === ParameterExpressionOperator.IN || operator === ParameterExpressionOperator.NOT_IN;
-		if (!right || !isParameterValid4Pipeline({parameter: right, topics, expectedTypes, array})) {
+		if (!right || !isParameterValid4Pipeline({
+			parameter: right,
+			allTopics,
+			triggerTopic,
+			variables,
+			expectedTypes,
+			array
+		})) {
 			return false;
 		}
 	}
@@ -71,11 +117,13 @@ const isExpressionValid4Pipeline = (expression: ParameterExpression, topics: Arr
 
 export const isParameterValid4Pipeline = (options: {
 	parameter: Parameter;
-	topics: Array<Topic>;
+	allTopics: Array<Topic>;
+	triggerTopic: Topic;
+	variables: DeclaredVariables;
 	expectedTypes: ValueTypes;
 	array?: boolean;
 }): boolean => {
-	const {parameter, topics, expectedTypes, array = false} = options;
+	const {parameter, allTopics, triggerTopic, variables, expectedTypes, array = false} = options;
 	if (!parameter) {
 		return false;
 	}
@@ -83,21 +131,60 @@ export const isParameterValid4Pipeline = (options: {
 		if (array) {
 			return false;
 		} else {
-			return isTopicFactorParameterValid(parameter, topics, expectedTypes);
+			return isTopicFactorParameterValid(parameter, allTopics, expectedTypes);
 		}
 	} else if (isConstantParameter(parameter)) {
-		return isConstantParameterValid(parameter, topics, expectedTypes, array);
+		return isConstantParameterValid({parameter, allTopics, triggerTopic, variables, expectedTypes, array});
 	} else if (isComputedParameter(parameter)) {
-		return isComputedParameterValid(parameter, topics, expectedTypes, array);
+		return isComputedParameterValid({parameter, allTopics, triggerTopic, variables, expectedTypes, array});
 	} else {
 		return false;
 	}
 };
 
 // noinspection JSUnusedLocalSymbols
-const isConstantParameterValid = (parameter: ConstantParameter, topics: Array<Topic>, expectedTypes: ValueTypes, array: boolean): boolean => {
-	// TODO assume everything is ok
-	return true;
+const isConstantParameterValid = (options: {
+	parameter: ConstantParameter;
+	allTopics: Array<Topic>;
+	triggerTopic: Topic;
+	variables: DeclaredVariables;
+	expectedTypes: ValueTypes;
+	// true only when
+	// 1. parameter is right part of an expression and expression operator is in/not in
+	// 2. parameter is in case-then
+	// in these cases, only constant values are supported, which means anything if fine, validation ignored.
+	array: boolean;
+}): boolean => {
+	const {parameter, allTopics, triggerTopic, variables, expectedTypes, array} = options;
+
+	if (array) {
+		// constant
+		return true;
+	}
+
+	const types = computeParameterTypes(parameter, allTopics, variables, triggerTopic)
+		.filter(type => type.array === array);
+
+	if (types.every(type => type.type === AnyFactorType.ERROR)) {
+		// none of computed types is correct
+		return false;
+	}
+
+	if (expectedTypes.some(expectedType => expectedType === AnyFactorType.ANY)) {
+		// one of expected types is any type
+		return true;
+	}
+
+	if (types.some(type => type.type === AnyFactorType.ANY)) {
+		// one of computed types is any type
+		return true;
+	}
+
+	const actualExpectedTypes = expectedTypes.filter(expectedType => expectedType !== AnyFactorType.ERROR && expectedType !== AnyFactorType.ANY);
+
+	return types.filter(type => type.type !== AnyFactorType.ERROR)
+		.filter(type => type.array === array)
+		.some(type => isFactorTypeCompatibleWith(type.type as FactorType, actualExpectedTypes));
 };
 
 const isTopicFactorParameterValid = (parameter: TopicFactorParameter, topics: Array<Topic>, expectedTypes: ValueTypes): boolean => {
@@ -121,7 +208,16 @@ const isTopicFactorParameterValid = (parameter: TopicFactorParameter, topics: Ar
 	return isFactorTypeCompatibleWith(factor.type, expectedTypes);
 };
 
-const isComputedParameterValid = (parameter: ComputedParameter, topics: Array<Topic>, expectedTypes: ValueTypes, array: boolean): boolean => {
+const isComputedParameterValid = (options: {
+	parameter: ComputedParameter;
+	allTopics: Array<Topic>;
+	triggerTopic: Topic;
+	variables: DeclaredVariables;
+	expectedTypes: ValueTypes;
+	array: boolean;
+}): boolean => {
+	const {parameter, allTopics, triggerTopic, variables, expectedTypes, array} = options;
+
 	const {type: computeType, parameters} = parameter;
 	if (!computeType) {
 		// type must exists
@@ -157,6 +253,141 @@ const isComputedParameterValid = (parameter: ComputedParameter, topics: Array<To
 
 	const subTypes = computeValidTypesForSubParameter(computeType, expectedTypes);
 	return parameters.every(parameter => {
-		return isParameterValid4Pipeline({parameter, topics, expectedTypes: subTypes, array});
+		return isParameterValid4Pipeline({
+			parameter,
+			allTopics,
+			triggerTopic,
+			variables,
+			expectedTypes: subTypes,
+			array
+		});
 	});
+};
+
+export const buildVariable = (options: {
+	action: PipelineStageUnitAction;
+	variables: DeclaredVariables;
+	topics: Array<Topic>;
+	triggerTopic?: Topic;
+}): DeclaredVariable | undefined => {
+	const {action, variables, topics, triggerTopic} = options;
+	if (isReadFactorAction(action)) {
+		return {
+			name: action.variableName,
+			types: computeParameterTypes({
+				kind: ParameterKind.TOPIC,
+				topicId: action.topicId,
+				factorId: action.factorId
+			} as TopicFactorParameter, topics, variables, triggerTopic)
+		};
+	} else if (isReadFactorsAction(action)) {
+		return {
+			name: action.variableName,
+			types: computeParameterTypes({
+				kind: ParameterKind.TOPIC,
+				topicId: action.topicId,
+				factorId: action.factorId
+			} as TopicFactorParameter, topics, variables, triggerTopic).map(t => {
+				t.array = true;
+				return t;
+			})
+		};
+	} else if (isReadRowAction(action)) {
+		return {
+			name: action.variableName,
+			types: computeParameterTypes({
+				kind: ParameterKind.TOPIC,
+				topicId: action.topicId
+			} as TopicFactorParameter, topics, variables, triggerTopic)
+		};
+	} else if (isReadRowsAction(action)) {
+		return {
+			name: action.variableName,
+			types: computeParameterTypes({
+				kind: ParameterKind.TOPIC,
+				topicId: action.topicId
+			} as TopicFactorParameter, topics, variables, triggerTopic).map(t => {
+				t.array = true;
+				return t;
+			})
+		};
+	} else if (isExistsAction(action)) {
+		return {
+			name: action.variableName,
+			types: [{type: FactorType.BOOLEAN, array: false}]
+		};
+	} else if (isCopyToMemoryAction(action)) {
+		return {
+			name: action.variableName,
+			types: computeParameterTypes(action.source, topics, variables, triggerTopic)
+		};
+	}
+};
+export const buildVariables = (
+	topics: Array<Topic>,
+	pipeline: Pipeline,
+	stage?: PipelineStage,
+	unit?: PipelineStageUnit,
+	action?: PipelineStageUnitAction
+): DeclaredVariables => {
+	let actions: Array<PipelineStageUnitAction>;
+	// compute actions before me
+	if (stage && unit && action) {
+		actions = pipeline.stages.slice(0, pipeline.stages.indexOf(stage) + 1).map(currentStage => {
+			let units = currentStage.units || [];
+			if (currentStage === stage) {
+				units = units.slice(0, stage.units.indexOf(unit) + 1);
+			}
+			return units.map(currentUnit => {
+				let actions = currentUnit.do || [];
+				if (currentUnit === unit) {
+					actions = actions.slice(0, unit.do.indexOf(action));
+				}
+				return actions.filter(action => isReadTopicAction(action) || isCopyToMemoryAction(action));
+			}).flat();
+		}).flat();
+	} else if (stage && unit) {
+		actions = pipeline.stages.slice(0, pipeline.stages.indexOf(stage) + 1).map(currentStage => {
+			let units = currentStage.units || [];
+			if (currentStage === stage) {
+				units = units.slice(0, stage.units.indexOf(unit));
+			}
+			return units.map(unit => {
+				return (unit.do || []).filter(action => isReadTopicAction(action) || isCopyToMemoryAction(action));
+			}).flat();
+		}).flat();
+	} else if (stage) {
+		actions = pipeline.stages.slice(0, pipeline.stages.indexOf(stage)).map(stage => {
+			return (stage.units || []).map(unit => {
+				return (unit.do || []).filter(action => isReadTopicAction(action) || isCopyToMemoryAction(action));
+			}).flat();
+		}).flat();
+	} else {
+		// in pipeline, no variable yet
+		actions = [];
+	}
+
+	const variables: DeclaredVariables = [];
+	// eslint-disable-next-line
+	const triggerTopic = topics.find(t => t.topicId == pipeline.topicId);
+	actions.forEach(action => {
+		const variable = buildVariable({action, variables, topics, triggerTopic});
+		if (variable) {
+			variables.push(variable);
+		}
+	});
+
+	return variables.reduceRight((temp, v) => {
+		if (!v.name || !v.name.trim()) {
+			// ignore noname
+			return temp;
+		}
+		v.name = v.name.trim();
+		// variable might be replaced
+		if (!temp.exists[v.name]) {
+			temp.all.push(v);
+			temp.exists[v.name] = true;
+		}
+		return temp;
+	}, {exists: {}, all: []} as { exists: { [key in string]: any }, all: DeclaredVariables }).all.reverse();
 };

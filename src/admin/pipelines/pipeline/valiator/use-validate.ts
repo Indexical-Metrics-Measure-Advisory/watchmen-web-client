@@ -10,8 +10,13 @@ import {
 } from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {Topic} from '../../../../services/tuples/topic-types';
-import {AnyFactorType} from '../../../../services/tuples/factor-calculator-types';
-import {isJointValid4Pipeline, isParameterValid4Pipeline} from '../../../../services/tuples/pipeline-validation-utils';
+import {AnyFactorType, DeclaredVariables} from '../../../../services/tuples/factor-calculator-types';
+import {
+	buildVariable,
+	isJointValid4Pipeline,
+	isParameterValid4Pipeline
+} from '../../../../services/tuples/pipeline-validation-utils';
+import {PipelineStageUnitAction} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 
 export const useValidate = () => {
 	return async (pipeline: Pipeline, topics: Array<Topic>): Promise<string | true> => {
@@ -31,12 +36,14 @@ export const useValidate = () => {
 			}
 
 			// eslint-disable-next-line
-			const topic = topics.find(topic => topic.topicId == topicId);
-			if (!topic) {
+			const triggerTopic = topics.find(topic => topic.topicId == topicId);
+			if (!triggerTopic) {
 				pipeline.validated = false;
 				resolve('Pipeline source topic is mismatched.');
 				return;
 			}
+
+			const variables: DeclaredVariables = [];
 
 			if (conditional) {
 				if (!on) {
@@ -44,12 +51,38 @@ export const useValidate = () => {
 					resolve('Pipeline prerequisite is not given yet.');
 					return;
 				}
-				if (!isJointValid4Pipeline(on, [topic])) {
+				if (!isJointValid4Pipeline({joint: on, allTopics: [triggerTopic], triggerTopic, variables})) {
 					pipeline.validated = false;
 					resolve('Pipeline prerequisite is incorrect.');
 					return;
 				}
 			}
+
+			/**
+			 * try to build variable and push into given variables.
+			 * return true when successful, return false when cannot find the correct type or build failure
+			 */
+			const tryToBuildVariable = (options: {
+				action: PipelineStageUnitAction;
+				variables: DeclaredVariables;
+				topics: Array<Topic>;
+				triggerTopic: Topic;
+			}): boolean => {
+				const {action, variables, topics, triggerTopic} = options;
+
+				const variable = buildVariable({action, variables, topics, triggerTopic});
+				if (variable) {
+					if (variable.types.every(type => type.type === AnyFactorType.ERROR)) {
+						// detect error type
+						return false;
+					} else {
+						variables.push(variable);
+						return true;
+					}
+				} else {
+					return false;
+				}
+			};
 
 			const pass = !stages.some(stage => {
 				// return true when fail on validation
@@ -58,7 +91,7 @@ export const useValidate = () => {
 					if (!on) {
 						return true;
 					}
-					if (!isJointValid4Pipeline(on, topics)) {
+					if (!isJointValid4Pipeline({joint: on, allTopics: [triggerTopic], triggerTopic, variables})) {
 						return true;
 					}
 				}
@@ -70,33 +103,53 @@ export const useValidate = () => {
 						if (!on) {
 							return true;
 						}
-						if (!isJointValid4Pipeline(on, topics)) {
+						if (!isJointValid4Pipeline({joint: on, allTopics: [triggerTopic], triggerTopic, variables})) {
 							return true;
 						}
 					}
 					return actions.some(action => {
 						// return true when fail on validation
 						if (isAlarmAction(action)) {
-							const {severity, on, conditional, message} = action;
+							const {severity, on, conditional} = action;
 							return !severity
-								|| (conditional && (!on || !isJointValid4Pipeline(on, topics)))
-								|| !message || message.trim().length === 0;
+								|| (conditional && (!on || !isJointValid4Pipeline({
+									joint: on,
+									allTopics: [triggerTopic],
+									triggerTopic,
+									variables
+								})));
 						} else if (isCopyToMemoryAction(action)) {
 							const {variableName, source} = action;
-							return !variableName || variableName.trim().length === 0
+							const invalid = !variableName || variableName.trim().length === 0
 								|| !source || !isParameterValid4Pipeline({
 									parameter: source,
-									topics,
+									allTopics: topics,
+									triggerTopic,
+									variables,
 									expectedTypes: [AnyFactorType.ANY],
 									array: false
 								});
+							if (!invalid) {
+								// pass validate
+								const built = tryToBuildVariable({action, variables, topics, triggerTopic});
+								if (!built) {
+									// cannot build variable, return true as failed.
+									return true;
+								}
+							}
+							return invalid;
 						} else if (isReadTopicAction(action)) {
 							const {topicId, variableName, by} = action;
 							// eslint-disable-next-line
 							const topic = topics.find(topic => topic.topicId == topicId);
 							if (!topic
 								|| !variableName || variableName.trim().length === 0
-								|| !by || !isJointValid4Pipeline(by, topics)) {
+								|| !by || !isJointValid4Pipeline({
+									joint: by,
+									allTopics: [topic, triggerTopic],
+									triggerTopic,
+									variables
+								})) {
 								return true;
 							}
 							if (isReadFactorAction(action) || isReadFactorsAction(action)) {
@@ -107,7 +160,13 @@ export const useValidate = () => {
 									return true;
 								}
 							}
-							// pass validation
+
+							const built = tryToBuildVariable({action, variables, topics, triggerTopic});
+							if (!built) {
+								// cannot build variable, return true as failed.
+								return true;
+							}
+							// pass all validation
 							return false;
 						} else if (isInsertRowAction(action) || isMergeRowAction(action)) {
 							const {topicId, mapping} = action;
@@ -124,7 +183,9 @@ export const useValidate = () => {
 								const factor = topic.factors.find(factor => factor.factorId == factorId);
 								return !factor || !isParameterValid4Pipeline({
 									parameter: source,
-									topics,
+									allTopics: topics,
+									triggerTopic,
+									variables,
 									expectedTypes: [factor.type],
 									array: false
 								});
@@ -134,7 +195,12 @@ export const useValidate = () => {
 							}
 							if (isMergeRowAction(action)) {
 								const {by} = action;
-								return !by || !isJointValid4Pipeline(by, topics);
+								return !by || !isJointValid4Pipeline({
+									joint: by,
+									allTopics: [topic, triggerTopic],
+									triggerTopic,
+									variables
+								});
 							} else {
 								// pass validation
 								return false;
@@ -151,7 +217,12 @@ export const useValidate = () => {
 							if (!factor) {
 								return true;
 							}
-							return !by || !isJointValid4Pipeline(by, topics);
+							return !by || !isJointValid4Pipeline({
+								joint: by,
+								allTopics: [topic, triggerTopic],
+								triggerTopic,
+								variables
+							});
 						} else {
 							return true;
 						}

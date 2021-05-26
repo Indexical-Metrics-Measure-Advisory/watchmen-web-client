@@ -1,6 +1,6 @@
 import {
 	AnyFactorType,
-	DeclaredVariable,
+	DeclaredVariables,
 	Parameter,
 	ParameterComputeType,
 	ParameterExpressionOperator,
@@ -67,13 +67,6 @@ export const findSelectedFactor = (topic?: Topic | null, factorId?: string, extr
 		}
 	}
 	return {selected: selectedFactor, extra: extraFactor};
-};
-
-/**
- * type of factor can be write as one of expected types
- */
-export const isFactorValid = (factor: Factor, expectedTypes: ValueTypes): boolean => {
-	return isFactorTypeCompatibleWith(factor.type, expectedTypes);
 };
 
 /**
@@ -224,7 +217,7 @@ const digByParentTypes = (names: Array<string>, types: ValueTypesOfParameter): V
 export const computeParameterTypes = (
 	parameter: Parameter,
 	topics: Array<Topic>,
-	variables: Array<DeclaredVariable>,
+	variables: DeclaredVariables,
 	triggerTopic?: Topic
 ): ValueTypesOfParameter => {
 	if (isTopicFactorParameter(parameter)) {

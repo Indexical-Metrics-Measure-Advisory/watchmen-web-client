@@ -5,7 +5,7 @@ import {Parameter, ValueTypes} from '../../../../../../services/tuples/factor-ca
 import {
 	findSelectedFactor,
 	findSelectedTopic,
-	isFactorValid
+	isFactorTypeCompatibleWith
 } from '../../../../../../services/tuples/factor-calculator-utils';
 import {Factor} from '../../../../../../services/tuples/factor-types';
 import {Topic} from '../../../../../../services/tuples/topic-types';
@@ -62,7 +62,10 @@ export const TopicFactorEditor = (props: {
 	const {selected: selectedTopic, extra: extraTopic} = findSelectedTopic(topics, topicId);
 	const {selected: selectedFactor, extra: extraFactor} = findSelectedFactor(selectedTopic, factorId);
 
-	const isValid = (factor: Factor) => selectedTopic !== extraTopic && factor !== extraFactor && isFactorValid(factor, expectedTypes);
+	const isValid = (factor: Factor) => {
+		return selectedTopic !== extraTopic && factor !== extraFactor && isFactorTypeCompatibleWith(factor.type, expectedTypes);
+	};
+
 	const topicOptions = buildTopicOptions({
 		topics, extraTopic, toExtraNode: (topic: Topic) => {
 			return <IncorrectOptionLabel>{topic.name}</IncorrectOptionLabel>;

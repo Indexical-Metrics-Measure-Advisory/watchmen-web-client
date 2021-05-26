@@ -1,5 +1,5 @@
 import {Topic} from '../../../../../services/tuples/topic-types';
-import {DeclaredVariable} from '../../../../../services/tuples/factor-calculator-types';
+import {DeclaredVariables} from '../../../../../services/tuples/factor-calculator-types';
 
 export enum VariablesEventTypes {
 	ASK_VARIABLES = 'ask-variables',
@@ -13,8 +13,8 @@ export interface VariablesEventBus {
 	on(type: VariablesEventTypes.ASK_VARIABLES, listener: () => void): this;
 	off(type: VariablesEventTypes.ASK_VARIABLES, listener: () => void): this;
 
-	fire(type: VariablesEventTypes.REPLY_VARIABLES, variables: Array<DeclaredVariable>, topics: Array<Topic>, triggerTopic?: Topic): this;
-	once(type: VariablesEventTypes.REPLY_VARIABLES, listener: (variables: Array<DeclaredVariable>, topics: Array<Topic>, triggerTopic?: Topic) => void): this;
+	fire(type: VariablesEventTypes.REPLY_VARIABLES, variables: DeclaredVariables, topics: Array<Topic>, triggerTopic?: Topic): this;
+	once(type: VariablesEventTypes.REPLY_VARIABLES, listener: (variables: DeclaredVariables, topics: Array<Topic>, triggerTopic?: Topic) => void): this;
 
 	fire(type: VariablesEventTypes.VARIABLE_CHANGED): this;
 	on(type: VariablesEventTypes.VARIABLE_CHANGED, listener: () => void): this;

@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect} from 'react';
 import {useEventBus} from '../../../../events/event-bus';
 import {EventTypes} from '../../../../events/types';
-import {renamePipeline, savePipeline, togglePipelineEnabled} from '../../../../services/tuples/pipeline';
+import {renamePipeline, savePipeline} from '../../../../services/tuples/pipeline';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {usePipelineEventBus} from '../pipeline-event-bus';
 import {PipelineEventTypes} from '../pipeline-event-bus-types';
@@ -31,8 +31,9 @@ export const PipelineDataSaver = () => {
 		};
 		const onTogglePipelineEnabled = async (pipeline: Pipeline) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-				async () => await togglePipelineEnabled(pipeline.pipelineId, pipeline.enabled),
+				async () => await savePipeline(pipeline),
 				() => {
+					fire(PipelineEventTypes.PIPELINE_SAVED, pipeline, true);
 					fire(PipelineEventTypes.PIPELINE_ENABLED_TOGGLED, pipeline);
 					fireCache(AdminCacheEventTypes.SAVE_PIPELINE, pipeline);
 				});

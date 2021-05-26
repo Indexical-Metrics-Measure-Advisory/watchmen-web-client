@@ -122,3 +122,5 @@ export interface DeclaredVariable {
 	name: string;
 	types: ValueTypesOfParameter;
 }
+
+export type DeclaredVariables = Array<DeclaredVariable>;
