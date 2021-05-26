@@ -34,6 +34,7 @@ const computeTypes = (options: {
 		expectedTypes,
 		array: expectArray
 	});
+	console.log(matched, parameter)
 	matched ? onMatch() : onMismatch();
 };
 
