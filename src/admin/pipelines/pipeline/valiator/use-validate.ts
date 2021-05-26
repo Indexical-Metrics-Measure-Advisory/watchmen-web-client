@@ -46,7 +46,7 @@ export const useValidate = () => {
 			const variables: DeclaredVariables = [];
 
 			if (conditional) {
-				if (!on) {
+				if (!on || on.filters.length === 0) {
 					pipeline.validated = false;
 					resolve('Pipeline prerequisite is not given yet.');
 					return;
@@ -76,7 +76,9 @@ export const useValidate = () => {
 						// detect error type
 						return false;
 					} else {
-						variables.push(variable);
+						const newVariables = variables.filter(v => v.name !== variable.name);
+						variables.length = 0;
+						variables.push(variable, ...newVariables);
 						return true;
 					}
 				} else {
@@ -84,72 +86,106 @@ export const useValidate = () => {
 				}
 			};
 
-			const pass = !stages.some(stage => {
+			let failureReason = '';
+			const pass = !stages.some((stage, stageIndex) => {
 				// return true when fail on validation
 				const {conditional, on, units} = stage;
 				if (conditional) {
-					if (!on) {
+					if (!on || on.filters.length === 0) {
+						failureReason = `Stage[#${stageIndex + 1}] prerequisite is not given yet.`;
 						return true;
 					}
 					if (!isJointValid4Pipeline({joint: on, allTopics: [triggerTopic], triggerTopic, variables})) {
+						failureReason = `Stage[#${stageIndex + 1}] prerequisite is incorrect.`;
 						return true;
 					}
 				}
 
-				return units.some(unit => {
+				return units.some((unit, unitIndex) => {
 					// return true when fail on validation
-					const {conditional, on, do: actions} = unit;
-					if (conditional) {
-						if (!on) {
-							return true;
-						}
-						if (!isJointValid4Pipeline({joint: on, allTopics: [triggerTopic], triggerTopic, variables})) {
+					const {loopVariableName, conditional, on, do: actions} = unit;
+					if (loopVariableName && loopVariableName.trim().length !== 0) {
+						if (variables.every(variable => variable.name !== loopVariableName.trim())) {
+							failureReason = `Unit[#${stageIndex + 1}.${unitIndex + 1}] loop variable name is incorrect.`;
 							return true;
 						}
 					}
-					return actions.some(action => {
+
+					if (conditional) {
+						if (!on || on.filters.length === 0) {
+							failureReason = `Unit[#${stageIndex + 1}.${unitIndex + 1}] prerequisite is not given yet.`;
+							return true;
+						}
+						if (!isJointValid4Pipeline({joint: on, allTopics: [triggerTopic], triggerTopic, variables})) {
+							failureReason = `Unit[#${stageIndex + 1}.${unitIndex + 1}] prerequisite is incorrect.`;
+							return true;
+						}
+					}
+					return actions.some((action, actionIndex) => {
 						// return true when fail on validation
 						if (isAlarmAction(action)) {
 							const {severity, on, conditional} = action;
-							return !severity
-								|| (conditional && (!on || !isJointValid4Pipeline({
+							if (!severity) {
+								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] severity is not given yet.`;
+								return true;
+							}
+							if (conditional) {
+								if (!on || on.filters.length === 0) {
+									failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] prerequisite is not given yet.`;
+									return true;
+								}
+								if (!isJointValid4Pipeline({
 									joint: on,
 									allTopics: [triggerTopic],
 									triggerTopic,
 									variables
-								})));
-						} else if (isCopyToMemoryAction(action)) {
-							const {variableName, source} = action;
-							const invalid = !variableName || variableName.trim().length === 0
-								|| !source || !isParameterValid4Pipeline({
-									parameter: source,
-									allTopics: topics,
-									triggerTopic,
-									variables,
-									expectedTypes: [AnyFactorType.ANY],
-									array: false
-								});
-							if (!invalid) {
-								// pass validate
-								const built = tryToBuildVariable({action, variables, topics, triggerTopic});
-								if (!built) {
-									// cannot build variable, return true as failed.
+								})) {
+									failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] prerequisite is incorrect.`;
 									return true;
 								}
 							}
-							return invalid;
+							// pass
+							return false;
+						} else if (isCopyToMemoryAction(action)) {
+							const {variableName, source} = action;
+							if (!variableName || variableName.trim().length === 0) {
+								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] variable name is not given yet.`;
+								return true;
+							}
+							if (!source) {
+								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] source is not given yet.`;
+								return true;
+							}
+							if (!isParameterValid4Pipeline({
+								parameter: source,
+								allTopics: topics,
+								triggerTopic,
+								variables,
+								expectedTypes: [AnyFactorType.ANY],
+								array: false
+							})) {
+								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] source is incorrect.`;
+								return true;
+							}
+
+							// pass validate
+							const built = tryToBuildVariable({action, variables, topics, triggerTopic});
+							if (!built) {
+								// cannot build variable, return true as failed.
+								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] source is incorrect.`;
+								return true;
+							}
+							return false;
 						} else if (isReadTopicAction(action)) {
 							const {topicId, variableName, by} = action;
+							if (!variableName || variableName.trim().length === 0) {
+								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] variable name is not given yet.`;
+								return true;
+							}
 							// eslint-disable-next-line
 							const topic = topics.find(topic => topic.topicId == topicId);
-							if (!topic
-								|| !variableName || variableName.trim().length === 0
-								|| !by || !isJointValid4Pipeline({
-									joint: by,
-									allTopics: [topic, triggerTopic],
-									triggerTopic,
-									variables
-								})) {
+							if (!topic) {
+								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] source topic is incorrect.`;
 								return true;
 							}
 							if (isReadFactorAction(action) || isReadFactorsAction(action)) {
@@ -157,13 +193,28 @@ export const useValidate = () => {
 								// eslint-disable-next-line
 								const factor = topic.factors.find(factor => factor.factorId == factorId);
 								if (!factor) {
+									failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] source factor is incorrect.`;
 									return true;
 								}
+							}
+							if (!by || by.filters.length === 0) {
+								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] read by is not given yet.`;
+								return true;
+							}
+							if (!isJointValid4Pipeline({
+								joint: by,
+								allTopics: [topic, triggerTopic],
+								triggerTopic,
+								variables
+							})) {
+								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] read by is incorrect.`;
+								return true;
 							}
 
 							const built = tryToBuildVariable({action, variables, topics, triggerTopic});
 							if (!built) {
 								// cannot build variable, return true as failed.
+								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] topic or factor is incorrect.`;
 								return true;
 							}
 							// pass all validation
@@ -173,9 +224,11 @@ export const useValidate = () => {
 							// eslint-disable-next-line
 							const topic = topics.find(topic => topic.topicId == topicId);
 							if (!topic) {
+								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] target topic is incorrect.`;
 								return true;
 							}
 							if (!mapping || mapping.length === 0) {
+								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] mapping doesn't be defined yet.`;
 								return true;
 							}
 							const fail = mapping.some(({factorId, source}) => {
@@ -191,39 +244,58 @@ export const useValidate = () => {
 								});
 							});
 							if (fail) {
+								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] mapping has incorrect definition.`;
 								return true;
 							}
 							if (isMergeRowAction(action)) {
 								const {by} = action;
-								return !by || !isJointValid4Pipeline({
+								if (!by || by.filters.length === 0) {
+									failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] merge by is not given yet.`;
+									return true;
+								}
+								if (!isJointValid4Pipeline({
 									joint: by,
 									allTopics: [topic, triggerTopic],
 									triggerTopic,
 									variables
-								});
-							} else {
-								// pass validation
-								return false;
+								})) {
+									failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] merge by is incorrect.`;
+									return true;
+								}
 							}
+							// pass validation
+							return false;
 						} else if (isWriteFactorAction(action)) {
 							const {topicId, factorId, by} = action;
 							// eslint-disable-next-line
 							const topic = topics.find(topic => topic.topicId == topicId);
 							if (!topic) {
+								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] target topic is incorrect.`;
 								return true;
 							}
 							// eslint-disable-next-line
 							const factor = topic.factors.find(factor => factor.factorId == factorId);
 							if (!factor) {
+								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] source factor is incorrect.`;
 								return true;
 							}
-							return !by || !isJointValid4Pipeline({
+							if (!by || by.filters.length === 0) {
+								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] merge by is not given yet.`;
+								return true;
+							}
+							if (!isJointValid4Pipeline({
 								joint: by,
 								allTopics: [topic, triggerTopic],
 								triggerTopic,
 								variables
-							});
+							})) {
+								failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] merge by is incorrect.`;
+								return true;
+							}
+							// pass
+							return false;
 						} else {
+							failureReason = `Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] action type is not supported yet.`;
 							return true;
 						}
 					});
@@ -232,7 +304,7 @@ export const useValidate = () => {
 
 			if (!pass) {
 				pipeline.validated = false;
-				resolve('There is something incorrect in pipeline definition, view it in dsl panel for detail information.');
+				resolve(failureReason || 'There is something incorrect in pipeline definition, view it in dsl panel for detail information.');
 				return;
 			}
 

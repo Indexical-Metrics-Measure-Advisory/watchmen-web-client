@@ -275,7 +275,7 @@ export const buildVariable = (options: {
 	const {action, variables, topics, triggerTopic} = options;
 	if (isReadFactorAction(action)) {
 		return {
-			name: action.variableName,
+			name: action.variableName.trim(),
 			types: computeParameterTypes({
 				kind: ParameterKind.TOPIC,
 				topicId: action.topicId,
@@ -284,7 +284,7 @@ export const buildVariable = (options: {
 		};
 	} else if (isReadFactorsAction(action)) {
 		return {
-			name: action.variableName,
+			name: action.variableName.trim(),
 			types: computeParameterTypes({
 				kind: ParameterKind.TOPIC,
 				topicId: action.topicId,
@@ -296,7 +296,7 @@ export const buildVariable = (options: {
 		};
 	} else if (isReadRowAction(action)) {
 		return {
-			name: action.variableName,
+			name: action.variableName.trim(),
 			types: computeParameterTypes({
 				kind: ParameterKind.TOPIC,
 				topicId: action.topicId
@@ -304,7 +304,7 @@ export const buildVariable = (options: {
 		};
 	} else if (isReadRowsAction(action)) {
 		return {
-			name: action.variableName,
+			name: action.variableName.trim(),
 			types: computeParameterTypes({
 				kind: ParameterKind.TOPIC,
 				topicId: action.topicId
@@ -315,12 +315,12 @@ export const buildVariable = (options: {
 		};
 	} else if (isExistsAction(action)) {
 		return {
-			name: action.variableName,
+			name: action.variableName.trim(),
 			types: [{type: FactorType.BOOLEAN, array: false}]
 		};
 	} else if (isCopyToMemoryAction(action)) {
 		return {
-			name: action.variableName,
+			name: action.variableName.trim(),
 			types: computeParameterTypes(action.source, topics, variables, triggerTopic)
 		};
 	}
