@@ -64,7 +64,7 @@ import {
 	faTable,
 	faTachometerAlt,
 	faTags,
-	faTasks,
+	faTasks, faTerminal,
 	faTh,
 	faThumbtack,
 	faTimes,
@@ -218,6 +218,7 @@ export const ICON_SEND = faPaperPlane;
 
 export const ICON_COMMENTS = faCommentDots;
 export const ICON_SHORTCUT = faBolt;
+export const ICON_CMD_PROMPT = faTerminal;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

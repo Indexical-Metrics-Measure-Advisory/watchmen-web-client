@@ -65,14 +65,14 @@
 
 @font-face {
     font-family: 'Oswald';
-    font-weight: 600;
+    font-weight: 700;
     src: url('Oswald-Bold.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Oswald';
     font-style: italic;
-    font-weight: 600;
+    font-weight: 700;
     src: url('Oswald-BoldItalic.ttf') format('truetype');
 }
 

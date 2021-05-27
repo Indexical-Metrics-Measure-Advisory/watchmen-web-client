@@ -22,7 +22,7 @@ const DefaultTheme = {
 	fontColor: '#666666',
 	fontFamily: '-apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Tahoma\', \'Verdana\', \'Arial\', \'Times New Roman\', \'Simsun\', \'Microsoft YaHei\', \'MS Mincho\', \'MS PGMincho\', \'Roboto\', \'Oxygen\', \'Ubuntu\', \'Cantarell\', \'Fira Sans\', \'Droid Sans\', \'Helvetica Neue\', sans-serif',
 	titleFontFamily: 'Oswald, -apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Roboto\', \'Oxygen\', \'Ubuntu\', \'Cantarell\', \'Fira Sans\', \'Droid Sans\', \'Helvetica Neue\', sans-serif',
-	codeFontFamily: 'source-code-pro, Menlo, Monaco, Consolas, \'Courier New\', monospace',
+	codeFontFamily: '\'Source Code Pro\', Menlo, Monaco, Consolas, \'Courier New\', monospace',
 	fontSize: 12,
 	lineHeight: 20,
 	fontNormal: 400,

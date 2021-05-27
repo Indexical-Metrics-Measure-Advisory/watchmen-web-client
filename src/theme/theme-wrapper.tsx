@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {createGlobalStyle, ThemeProvider} from 'styled-components';
 import '../assets/fonts/oswald/oswald.css';
+import '../assets/fonts/source-code-pro/source-code-pro.css';
 import {useEventBus} from '../events/event-bus';
 import {EventTypes} from '../events/types';
 import {fetchThemeFromSession} from '../services/console/last-snapshot';
@@ -29,40 +30,40 @@ const writeThemeProperty = (theme: Theme) => {
 };
 const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
 	*, *:before, *:after {
-		margin     : 0;
-		padding    : 0;
-		box-sizing : border-box;
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
 	}
 
 	html {
 		${({theme}) => writeThemeProperty(theme)}
-		width : 100%;
+		width: 100%;
 	}
 
 	body {
-		margin                  : 0;
-		font-family             : var(--font-family);
-		font-size               : var(--font-size);
-		color                   : var(--font-color);
-		-webkit-font-smoothing  : antialiased;
-		-moz-osx-font-smoothing : grayscale;
-		position                : relative;
-		background-color        : var(--bg-color);
-		overflow-x              : hidden;
-		width                   : 100%;
+		margin: 0;
+		font-family: var(--font-family);
+		font-size: var(--font-size);
+		color: var(--font-color);
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		position: relative;
+		background-color: var(--bg-color);
+		overflow-x: hidden;
+		width: 100%;
 	}
 
 	a,
 	a:visited {
-		color : var(--font-color);
+		color: var(--font-color);
 	}
 
 	input::placeholder {
-		color : var(--placeholder-color);
+		color: var(--placeholder-color);
 	}
 
 	code {
-		font-family : var(--code-font-family);
+		font-family: var(--code-font-family);
 	}
 
 	main[data-v-scroll],
@@ -71,28 +72,28 @@ const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
 	textarea[data-v-scroll],
 	textarea[data-h-scroll] {
 		&::-webkit-scrollbar {
-			background-color : transparent;
+			background-color: transparent;
 		}
 		&::-webkit-scrollbar-track {
-			background-color : var(--scrollbar-bg-color);
-			border-radius    : 2px;
+			background-color: var(--scrollbar-bg-color);
+			border-radius: 2px;
 		}
 		&::-webkit-scrollbar-thumb {
-			background-color : var(--scrollbar-thumb-bg-color);
-			border-radius    : 2px;
+			background-color: var(--scrollbar-thumb-bg-color);
+			border-radius: 2px;
 		}
 	}
 	div[data-h-scroll],
 	textarea[data-h-scroll] {
 		&::-webkit-scrollbar {
-			height : 8px;
+			height: 8px;
 		}
 	}
 	main[data-v-scroll],
 	div[data-v-scroll],
 	textarea[data-v-scroll] {
 		&::-webkit-scrollbar {
-			width : 4px;
+			width: 4px;
 		}
 	}
 `;

@@ -7,3 +7,15 @@ export interface CommandShortcut {
 	reminder?: string;
 	standalone: boolean;
 }
+
+export interface ExecutionCommandPart {
+	command?: string;
+	text?: string;
+}
+
+export type ExecutionCommand = Array<ExecutionCommandPart>;
+
+export interface ExecutionContent {
+	id: string;
+	command: ExecutionCommand;
+}

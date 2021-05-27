@@ -1,5 +1,5 @@
 import {Greeting} from '../greeting';
-import React, {ChangeEvent, useRef, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, ReactNode, useRef, useState} from 'react';
 import {
 	CLIContainer,
 	CommandArea,
@@ -10,8 +10,8 @@ import {
 	CommandLineShortcutFilter,
 	CommandLineShortcutFilterInput,
 	CommandLineShortcuts,
-	CommandReminder,
-	CommandReminderLine,
+	PickedCommand,
+	PickedCommandLine,
 	ShortcutEmptyIcon,
 	ShortcutMenu,
 	ShortcutMenus,
@@ -20,16 +20,18 @@ import {
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ICON_SEARCH, ICON_SEND, ICON_SHORTCUT} from '../../../basic-widgets/constants';
 import {TooltipAlignment} from '../../../basic-widgets/types';
-import {CommandShortcut} from './types';
+import {CommandShortcut, ExecutionCommand} from './types';
 import {useCollapseFixedThing} from '../../../basic-widgets/utils';
 
 const DEFAULT_PLACEHOLDER = 'Send a command...';
 
 export const CLI = (props: {
 	greeting: string;
-	shortcuts: Array<CommandShortcut>
+	shortcuts: Array<CommandShortcut>;
+	executeCommand: (command: ExecutionCommand) => void;
+	executions: ((props: any) => ReactNode) | ReactNode
 }) => {
-	const {greeting, shortcuts} = props;
+	const {greeting, shortcuts, executeCommand, executions} = props;
 
 	// noinspection TypeScriptValidateTypes
 	const shortcutsContainerRef = useRef<HTMLDivElement>(null);
@@ -83,10 +85,28 @@ export const CLI = (props: {
 		const {value} = event.target;
 		setCommandText(value);
 	};
+	const doExecuteCommand = () => {
+		const text = commandText.trim();
+		if (text.length === 0) {
+			return;
+		}
+
+		executeCommand([...pickedCommands, {text}]);
+	};
+	const onCommandTextKeyPressed = (event: KeyboardEvent<HTMLInputElement>) => {
+		if (event.key !== 'Enter') {
+			return;
+		}
+		doExecuteCommand();
+	};
+	const onSendCommandClicked = () => {
+		doExecuteCommand();
+	};
 
 	return <CLIContainer>
 		<WorkingArea>
 			<Greeting>{greeting}</Greeting>
+			{executions}
 		</WorkingArea>
 		<CommandArea>
 			<CommandLine pickedCount={pickedCommands.length}>
@@ -117,19 +137,21 @@ export const CLI = (props: {
 				</div>
 				<CommandLineSeparator/>
 				{pickedCommands.length !== 0
-					? <CommandReminderLine>
+					? <PickedCommandLine>
 						{pickedCommands.map(({command, label}) => {
-							return <CommandReminder key={command}>
+							return <PickedCommand key={command}>
 								{label}
-							</CommandReminder>;
+							</PickedCommand>;
 						})}
-					</CommandReminderLine>
+					</PickedCommandLine>
 					: null}
-				<CommandLineInput value={commandText} onChange={onCommandTextChanged}
+				<CommandLineInput value={commandText}
+				                  onChange={onCommandTextChanged} onKeyPress={onCommandTextKeyPressed}
 				                  ref={commandInputRef}
 				                  placeholder={placeholder}/>
 				<CommandLineSeparator/>
-				<CommandLineButton tooltip={{alignment: TooltipAlignment.RIGHT, offsetX: 5, label: 'Send Command'}}>
+				<CommandLineButton tooltip={{alignment: TooltipAlignment.RIGHT, offsetX: 5, label: 'Send Command'}}
+				                   onClick={onSendCommandClicked}>
 					<FontAwesomeIcon icon={ICON_SEND}/>
 				</CommandLineButton>
 			</CommandLine>

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 import {TooltipButton} from '../../../basic-widgets/tooltip-button';
 import {Input} from '../../../basic-widgets/input';
 
@@ -61,7 +61,7 @@ export const CommandLineButton = styled(TooltipButton)`
 		background-color: var(--primary-color);
 	}
 `;
-export const CommandReminderLine = styled.div.attrs({'data-widget': 'cli-command-reminder-line'})`
+export const PickedCommandLine = styled.div.attrs({'data-widget': 'cli-command-reminder-line'})`
 	display: flex;
 	position: relative;
 	align-items: center;
@@ -79,7 +79,7 @@ export const CommandReminderLine = styled.div.attrs({'data-widget': 'cli-command
 		transform: translateY(-50%);
 	}
 `;
-export const CommandReminder = styled.div`
+export const PickedCommand = styled.div`
 	display: flex;
 	align-items: center;
 	color: var(--invert-color);
@@ -162,4 +162,68 @@ export const CommandLineShortcutFilterInput = styled(Input)`
 	width: 100%;
 	padding-left: calc(var(--margin) - 4px);
 	border-radius: calc(var(--tall-height) / 2);
+`;
+
+export const ExecutionContainer = styled.div.attrs({'data-widget': 'execution'})`
+	display: grid;
+	position: relative;
+	grid-template-columns: 32px 1fr;
+	grid-template-rows: var(--tall-height) 1fr;
+	align-items: center;
+	+ div[data-widget=execution] {
+		margin-top: calc(var(--margin) / 4);
+	}
+`;
+export const ExecutionPrompt = styled.div`
+	display: flex;
+	color: var(--warn-color);
+	font-size: 1.1em;
+	justify-content: center;
+`;
+const Flick = keyframes`
+	0%, 100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.2;
+	}
+`;
+export const ExecutionPromptFlicker = styled.div`
+	display: flex;
+	background-color: var(--font-color);
+	height: calc(var(--font-size) * 1.3);
+	width: 0.6em;
+	border-radius: 1px;
+	animation: ${Flick} 1s linear infinite;
+`;
+export const ExecutionCommandLine = styled.div`
+	display: flex;
+	font-family: var(--code-font-family);
+	font-size: 1.1em;
+	opacity: 0.9;
+`;
+export const ExecutionCommandPrimary = styled.span`
+	color: var(--danger-color);
+	font-weight: var(--font-semi-bold);
+`;
+export const ExecutionCommandArgument = styled.span`
+	margin-left: 0.5em;
+`;
+export const ExecutionCommandResult = styled.div`
+	grid-column: 2;
+`;
+export const ExecutionResultItemTable = styled.div`
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+`;
+export const ExecutionResultItem = styled.div`
+	display: flex;
+	align-items: center;
+	height: var(--height);
+`;
+export const ExecutionResultClickableItem = styled(ExecutionResultItem)`
+	cursor: pointer;
+	&:hover {
+		text-decoration: underline;
+	}
 `;
