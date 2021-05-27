@@ -2,8 +2,9 @@ import {Command, CommandPublishedBehaviour} from '../widgets/cli/types';
 import {ICON_PIPELINE, ICON_TOPIC} from '../../basic-widgets/constants';
 
 export const CMD_PIPELINE = '/pipeline';
-export const CMD_PIPELINE_LIST = 'list';
 export const CMD_TOPIC = '/topic';
+
+export const CMD_ARGUMENT_LIST = 'list';
 
 export const CONSANGUINITY_COMMANDS: Array<Command> = [
 	{

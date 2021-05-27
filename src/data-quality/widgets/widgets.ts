@@ -6,6 +6,7 @@ export const GreetingContainer = styled.div.attrs({'data-widgets': 'data-quality
 	grid-template-rows: 24px 24px;
 	grid-column-gap: calc(var(--margin) / 2);
 	padding-bottom: calc(var(--margin) / 2);
+	margin-bottom: var(--margin);
 	border-bottom: var(--border);
 `;
 export const GreetingIcon = styled.div.attrs({'data-widgets': 'data-quality-greeting-icon'})`

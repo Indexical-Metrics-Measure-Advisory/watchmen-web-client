@@ -7,13 +7,19 @@ export const CLIContainer = styled.div.attrs({'data-widget': 'cli'})`
 	flex-direction: column;
 	flex-grow: 1;
 	padding: calc(var(--margin) / 2);
+	height: calc(100vh - 57px);
 `;
 
-export const WorkingArea = styled.div.attrs({'data-widget': 'cli-working-area'})`
+export const WorkingArea = styled.div.attrs({
+	'data-widget': 'cli-working-area',
+	'data-v-scroll': ''
+})`
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-end;
 	flex-grow: 1;
+	margin-right: calc(var(--margin) / -2);
+	padding-right: calc(var(--margin) / 2);
+	overflow-y: auto;
 `;
 export const CommandArea = styled.div.attrs({'data-widget': 'cli-command-area'})`
 	display: flex;
@@ -22,7 +28,7 @@ export const CommandArea = styled.div.attrs({'data-widget': 'cli-command-area'})
 	border-radius: calc(var(--border-radius) * 2);
 	border: var(--border);
 	border-color: var(--primary-color);
-	margin-top: calc(var(--margin) / 2);
+	margin-top: var(--margin);
 `;
 export const CommandLine = styled.div.attrs<{ pickedCount: number }>(({pickedCount}) => {
 	return {
@@ -223,7 +229,7 @@ export const ExecutionCommandLine = styled.div`
 `;
 export const ExecutionCommandPrimary = styled.span`
 	color: var(--danger-color);
-	font-weight: var(--font-semi-bold);
+	font-weight: var(--font-boldest);
 `;
 export const ExecutionCommandArgument = styled.span`
 	margin-left: 0.5em;
