@@ -47,18 +47,37 @@ export const CommandLineSeparator = styled.div`
 export const CommandLineInput = styled(Input)`
 	border: 0;
 `;
+export const CommandLineButtons = styled.div`
+	display: flex;
+	align-items: center;
+	> button:not(:first-child) {
+		margin-left: calc(var(--margin) / 4);
+	}
+`;
 export const CommandLineButton = styled(TooltipButton)`
 	padding: 0;
 	height: var(--height);
 	width: var(--height);
 	color: var(--primary-color);
-	> svg {
-		font-size: 1.2em;
+	&[data-ink=success]:hover {
+		background-color: var(--success-color);
+	}
+	&[data-ink=waive] {
+		color: var(--border-color);
+		background-color: transparent;
+		cursor: default;
+		&:hover {
+			box-shadow: none;
+			background-color: transparent;
+		}
 	}
 	&:hover {
 		box-shadow: none;
 		color: var(--invert-color);
 		background-color: var(--primary-color);
+	}
+	> svg {
+		font-size: 1.2em;
 	}
 `;
 export const PickedCommandLine = styled.div.attrs({'data-widget': 'cli-command-reminder-line'})`

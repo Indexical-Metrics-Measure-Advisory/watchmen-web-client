@@ -5,6 +5,7 @@ import {
 	CommandArea,
 	CommandLine,
 	CommandLineButton,
+	CommandLineButtons,
 	CommandLineInput,
 	CommandLineSeparator,
 	CommandLineShortcuts,
@@ -18,8 +19,8 @@ import {
 	WorkingArea
 } from './widgets';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_SEARCH, ICON_SEND, ICON_SHORTCUT} from '../../../basic-widgets/constants';
-import {TooltipAlignment} from '../../../basic-widgets/types';
+import {ICON_HELP, ICON_SEARCH, ICON_SEND, ICON_SHORTCUT} from '../../../basic-widgets/constants';
+import {ButtonInk, TooltipAlignment} from '../../../basic-widgets/types';
 import {Command, CommandPublishedBehaviour, ExecutionCommand} from './types';
 import {useCollapseFixedThing} from '../../../basic-widgets/utils';
 import {CMD_CLEAR} from './commands';
@@ -65,10 +66,10 @@ export const CLI = (props: {
 			shortcutsFilterInputRef.current?.focus();
 		}
 	};
-	const onShortcutCommandClicked = (command: Command) => () => {
+	const onShortcutCommandClicked = (command: Command, text: string = '') => () => {
 		if (command.standalone) {
 			setPickedCommand([command]);
-			setCommandText('');
+			setCommandText(text);
 		} else {
 			setPickedCommand([...pickedCommands, command]);
 		}
@@ -83,12 +84,21 @@ export const CLI = (props: {
 		setFilterText(value);
 		setFilteredCommands(value.trim().length === 0 ? commands : commands.filter(shortcut => shortcut.label.toLowerCase().includes(value.trim().toLowerCase())));
 	};
-	// make sure the parameter text IS NOT trimmed before call this
-	const handleCommandText = (text: string) => {
-		if (text.endsWith(' ') && text.startsWith('/')) {
-			const command = commands.find(command => command.command === text.trim());
+	// make sure the parameter text IS trimmed before call this
+	const handleCommandText = (text: string, publish: boolean) => {
+		if (text.startsWith('/') && !text.includes(' ')) {
+			// check what if it is a command
+			const command = commands.find(command => command.command === text);
 			if (command) {
 				onShortcutCommandClicked(command)();
+			}
+		} else if (publish) {
+			// treat as arguments
+			if (pickedCommands.length === 0) {
+				// no command
+				return;
+			} else {
+				publishCommand();
 			}
 		}
 	};
@@ -97,8 +107,6 @@ export const CLI = (props: {
 		setCommandText(value);
 		if (value.trim() === '/') {
 			// TODO show command help
-		} else {
-			handleCommandText(value);
 		}
 	};
 	const clearAll = () => {
@@ -127,20 +135,37 @@ export const CLI = (props: {
 		}
 	};
 	const onCommandTextKeyPressed = (event: KeyboardEvent<HTMLInputElement>) => {
-		if (event.key !== 'Enter') {
-			return;
-		}
-
-		const text = (event.target as HTMLInputElement).value;
-		if (text.trim() === CMD_CLEAR) {
-			clearAll();
-		} else {
-			handleCommandText(text);
+		const input = event.target as HTMLInputElement;
+		const text = input.value;
+		if (event.key === 'Enter') {
+			if (text.trim() === CMD_CLEAR) {
+				clearAll();
+			} else {
+				handleCommandText(text.trim(), true);
+			}
+		} else if (event.key === ' ') {
+			const before = text.substring(0, input.selectionStart || 0).trim();
+			const after = text.substring(input.selectionStart || 0);
+			if (before.startsWith('/') && !before.includes(' ')) {
+				// check what if it is a command
+				const command = commands.find(command => command.command === before.trim());
+				if (command) {
+					onShortcutCommandClicked(command)();
+					setCommandText(after);
+					event.stopPropagation();
+					event.preventDefault();
+				}
+			}
 		}
 	};
 	const onSendCommandClicked = () => {
 		publishCommand();
 	};
+	const onHelpClicked = () => {
+
+	};
+
+	const commandValid = pickedCommands.length !== 0;
 
 	return <CLIContainer>
 		<WorkingArea>
@@ -189,10 +214,18 @@ export const CLI = (props: {
 				                  ref={commandInputRef}
 				                  placeholder={placeholder}/>
 				<CommandLineSeparator/>
-				<CommandLineButton tooltip={{alignment: TooltipAlignment.RIGHT, offsetX: 5, label: 'Send Command'}}
-				                   onClick={onSendCommandClicked}>
-					<FontAwesomeIcon icon={ICON_SEND}/>
-				</CommandLineButton>
+				<CommandLineButtons>
+					<CommandLineButton tooltip={{alignment: TooltipAlignment.RIGHT, offsetX: 5, label: 'Send Command'}}
+					                   disabled={!commandValid}
+					                   ink={commandValid ? ButtonInk.SUCCESS : ButtonInk.WAIVE}
+					                   onClick={onSendCommandClicked}>
+						<FontAwesomeIcon icon={ICON_SEND}/>
+					</CommandLineButton>
+					<CommandLineButton tooltip={{alignment: TooltipAlignment.RIGHT, offsetX: 5, label: 'Help'}}
+					                   onClick={onHelpClicked}>
+						<FontAwesomeIcon icon={ICON_HELP}/>
+					</CommandLineButton>
+				</CommandLineButtons>
 			</CommandLine>
 		</CommandArea>
 	</CLIContainer>;

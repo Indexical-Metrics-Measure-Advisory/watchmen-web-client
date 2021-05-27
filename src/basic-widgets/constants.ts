@@ -49,7 +49,7 @@ import {
 	faPlay,
 	faPlus,
 	faPowerOff,
-	faPrint, faPuzzlePiece,
+	faPrint, faPuzzlePiece, faQuestionCircle,
 	faRandom,
 	faSave,
 	faSearch,
@@ -215,6 +215,7 @@ export const ICON_FREE_WALK = faWind;
 export const ICON_LOOP = faUndoAlt;
 export const ICON_PLAY = faPlay;
 export const ICON_SEND = faPaperPlane;
+export const ICON_HELP = faQuestionCircle;
 
 export const ICON_COMMENTS = faCommentDots;
 export const ICON_SHORTCUT = faBolt;
