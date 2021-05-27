@@ -20,14 +20,14 @@ import {
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ICON_SEARCH, ICON_SEND, ICON_SHORTCUT} from '../../../basic-widgets/constants';
 import {TooltipAlignment} from '../../../basic-widgets/types';
-import {CommandShortcut, ExecutionCommand} from './types';
+import {Command, CommandPublishedBehaviour, ExecutionCommand} from './types';
 import {useCollapseFixedThing} from '../../../basic-widgets/utils';
 
 const DEFAULT_PLACEHOLDER = 'Send a command...';
 
 export const CLI = (props: {
 	greeting: string;
-	shortcuts: Array<CommandShortcut>;
+	shortcuts: Array<Command>;
 	executeCommand: (command: ExecutionCommand) => void;
 	executions: ((props: any) => ReactNode) | ReactNode
 }) => {
@@ -41,8 +41,8 @@ export const CLI = (props: {
 	const commandInputRef = useRef<HTMLInputElement>(null);
 	const [shortcutTransition, setShortcutTransition] = useState(true);
 	const [filterText, setFilterText] = useState('');
-	const [filteredShortcuts, setFilteredShortcuts] = useState<Array<CommandShortcut>>(shortcuts);
-	const [pickedCommands, setPickedCommand] = useState<Array<CommandShortcut>>([]);
+	const [filteredShortcuts, setFilteredShortcuts] = useState<Array<Command>>(shortcuts);
+	const [pickedCommands, setPickedCommand] = useState<Array<Command>>([]);
 	const [commandText, setCommandText] = useState('');
 	const [placeholder, setPlaceholder] = useState(DEFAULT_PLACEHOLDER);
 	const [shortcutsVisible, setShortcutsVisible] = useState(false);
@@ -64,9 +64,10 @@ export const CLI = (props: {
 			shortcutsFilterInputRef.current?.focus();
 		}
 	};
-	const onShortcutClicked = (shortcut: CommandShortcut) => () => {
+	const onShortcutClicked = (shortcut: Command) => () => {
 		if (shortcut.standalone) {
 			setPickedCommand([shortcut]);
+			setCommandText('');
 		} else {
 			setPickedCommand([...pickedCommands, shortcut]);
 		}
@@ -92,6 +93,19 @@ export const CLI = (props: {
 		}
 
 		executeCommand([...pickedCommands, {text}]);
+		const command = pickedCommands[pickedCommands.length - 1];
+		switch (command.publishedBehaviour) {
+			case CommandPublishedBehaviour.KEEP:
+				// do nothing
+				break;
+			case CommandPublishedBehaviour.CLEAR_ALL:
+				setPickedCommand([]);
+				setCommandText('');
+				break;
+			case CommandPublishedBehaviour.CLEAR_ARGUMENT:
+				setCommandText('');
+				break;
+		}
 	};
 	const onCommandTextKeyPressed = (event: KeyboardEvent<HTMLInputElement>) => {
 		if (event.key !== 'Enter') {
