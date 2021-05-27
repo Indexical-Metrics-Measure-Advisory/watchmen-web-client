@@ -112,7 +112,7 @@ export const CommandLineShortcuts = styled.div
 	overflow: hidden;
 	z-index: 1;
 `;
-export const ShortcutMenus = styled.div.attrs<{ itemCount: number }>(({itemCount}) => {
+export const CommandShortcutsMenu = styled.div.attrs<{ itemCount: number }>(({itemCount}) => {
 	return {
 		'data-v-scroll': '',
 		style: {
@@ -125,7 +125,7 @@ export const ShortcutMenus = styled.div.attrs<{ itemCount: number }>(({itemCount
 	overflow-y: auto;
 	overflow-x: hidden;
 `;
-export const ShortcutMenu = styled.div`
+export const CommandShortcutMenu = styled.div`
 	display: grid;
 	position: relative;
 	grid-template-columns: 32px 1fr;
@@ -142,7 +142,7 @@ export const ShortcutEmptyIcon = styled.div`
 	width: var(--height);
 	height: var(--height);
 `;
-export const CommandLineShortcutFilter = styled.div`
+export const CommandShortcutFilter = styled.div`
 	display: flex;
 	position: relative;
 	align-items: center;
@@ -157,7 +157,7 @@ export const CommandLineShortcutFilter = styled.div`
 		left: calc(var(--margin) / 2 + 2px);
 	}
 `;
-export const CommandLineShortcutFilterInput = styled(Input)`
+export const CommandShortcutFilterInput = styled(Input)`
 	height: var(--tall-height);
 	width: 100%;
 	padding-left: calc(var(--margin) - 4px);
@@ -194,7 +194,7 @@ export const ExecutionPromptFlicker = styled.div`
 	height: calc(var(--font-size) * 1.3);
 	width: 0.6em;
 	border-radius: 1px;
-	animation: ${Flick} 1s linear infinite;
+	animation: ${Flick} 1.2s linear infinite;
 `;
 export const ExecutionCommandLine = styled.div`
 	display: flex;

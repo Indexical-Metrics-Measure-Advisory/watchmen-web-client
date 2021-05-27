@@ -148,6 +148,7 @@ const computeVariable = (options: { variable: string, getFirstValue: (propertyNa
 		} else if (part === VariablePredefineFunctions.COUNT && typeof value === 'object') {
 			return Object.keys(value).length;
 		} else if (part === VariablePredefineFunctions.SUM && Array.isArray(value)) {
+			// eslint-disable-next-line
 			return value.reduce((sum, v) => {
 				if (v == null || v.toString().trim().length === 0) {
 					return sum;

@@ -12,7 +12,7 @@ export const CONSANGUINITY_COMMANDS: Array<Command> = [
 		icon: ICON_PIPELINE,
 		reminder: 'A text to match name, or "list" to list all',
 		standalone: true,
-		publishedBehaviour: CommandPublishedBehaviour.CLEAR_ARGUMENT
+		published: CommandPublishedBehaviour.CLEAR_ARGUMENT
 	},
 	{
 		label: 'Find Topic',
@@ -20,6 +20,6 @@ export const CONSANGUINITY_COMMANDS: Array<Command> = [
 		icon: ICON_TOPIC,
 		reminder: 'A text to match name, or "list" to list all.',
 		standalone: true,
-		publishedBehaviour: CommandPublishedBehaviour.CLEAR_ARGUMENT
+		published: CommandPublishedBehaviour.CLEAR_ARGUMENT
 	}
 ];

@@ -15,8 +15,8 @@ const CLIWrapper = () => {
 	};
 
 	return <CLI greeting="This channel is for working on consanguinity."
-	            shortcuts={CONSANGUINITY_COMMANDS}
-	            executeCommand={onExecuteCommand}
+	            commands={CONSANGUINITY_COMMANDS}
+	            publish={onExecuteCommand}
 	            executions={<Executions/>}
 	/>;
 };

@@ -21,7 +21,7 @@ export interface Command {
 	// is standalone. true means picked commands and arguments will be cleared when this command is picked
 	standalone: boolean;
 
-	publishedBehaviour: CommandPublishedBehaviour
+	published: CommandPublishedBehaviour
 }
 
 export interface ExecutionCommandPart {

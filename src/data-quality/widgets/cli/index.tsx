@@ -7,14 +7,14 @@ import {
 	CommandLineButton,
 	CommandLineInput,
 	CommandLineSeparator,
-	CommandLineShortcutFilter,
-	CommandLineShortcutFilterInput,
 	CommandLineShortcuts,
+	CommandShortcutFilter,
+	CommandShortcutFilterInput,
+	CommandShortcutMenu,
+	CommandShortcutsMenu,
 	PickedCommand,
 	PickedCommandLine,
 	ShortcutEmptyIcon,
-	ShortcutMenu,
-	ShortcutMenus,
 	WorkingArea
 } from './widgets';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -22,16 +22,17 @@ import {ICON_SEARCH, ICON_SEND, ICON_SHORTCUT} from '../../../basic-widgets/cons
 import {TooltipAlignment} from '../../../basic-widgets/types';
 import {Command, CommandPublishedBehaviour, ExecutionCommand} from './types';
 import {useCollapseFixedThing} from '../../../basic-widgets/utils';
+import {CMD_CLEAR} from './commands';
 
 const DEFAULT_PLACEHOLDER = 'Send a command...';
 
 export const CLI = (props: {
 	greeting: string;
-	shortcuts: Array<Command>;
-	executeCommand: (command: ExecutionCommand) => void;
+	commands: Array<Command>;
+	publish: (command: ExecutionCommand) => void;
 	executions: ((props: any) => ReactNode) | ReactNode
 }) => {
-	const {greeting, shortcuts, executeCommand, executions} = props;
+	const {greeting, commands, publish, executions} = props;
 
 	// noinspection TypeScriptValidateTypes
 	const shortcutsContainerRef = useRef<HTMLDivElement>(null);
@@ -41,7 +42,7 @@ export const CLI = (props: {
 	const commandInputRef = useRef<HTMLInputElement>(null);
 	const [shortcutTransition, setShortcutTransition] = useState(true);
 	const [filterText, setFilterText] = useState('');
-	const [filteredShortcuts, setFilteredShortcuts] = useState<Array<Command>>(shortcuts);
+	const [filteredCommands, setFilteredCommands] = useState<Array<Command>>(commands);
 	const [pickedCommands, setPickedCommand] = useState<Array<Command>>([]);
 	const [commandText, setCommandText] = useState('');
 	const [placeholder, setPlaceholder] = useState(DEFAULT_PLACEHOLDER);
@@ -64,43 +65,61 @@ export const CLI = (props: {
 			shortcutsFilterInputRef.current?.focus();
 		}
 	};
-	const onShortcutClicked = (shortcut: Command) => () => {
-		if (shortcut.standalone) {
-			setPickedCommand([shortcut]);
+	const onShortcutCommandClicked = (command: Command) => () => {
+		if (command.standalone) {
+			setPickedCommand([command]);
 			setCommandText('');
 		} else {
-			setPickedCommand([...pickedCommands, shortcut]);
+			setPickedCommand([...pickedCommands, command]);
 		}
 		setShortcutsVisible(false);
-		setPlaceholder(shortcut.reminder || DEFAULT_PLACEHOLDER);
+		setPlaceholder(command.reminder || DEFAULT_PLACEHOLDER);
 		commandInputRef.current?.focus();
 		setFilterText('');
-		setFilteredShortcuts(shortcuts);
+		setFilteredCommands(commands);
 	};
 	const onFilterTextChanged = (event: ChangeEvent<HTMLInputElement>) => {
 		const {value} = event.target;
 		setFilterText(value);
-		setFilteredShortcuts(value.trim().length === 0 ? shortcuts : shortcuts.filter(shortcut => shortcut.label.toLowerCase().includes(value.trim().toLowerCase())));
+		setFilteredCommands(value.trim().length === 0 ? commands : commands.filter(shortcut => shortcut.label.toLowerCase().includes(value.trim().toLowerCase())));
+	};
+	// make sure the parameter text IS NOT trimmed before call this
+	const handleCommandText = (text: string) => {
+		if (text.endsWith(' ') && text.startsWith('/')) {
+			const command = commands.find(command => command.command === text.trim());
+			if (command) {
+				onShortcutCommandClicked(command)();
+			}
+		}
 	};
 	const onCommandTextChanged = (event: ChangeEvent<HTMLInputElement>) => {
 		const {value} = event.target;
 		setCommandText(value);
+		if (value.trim() === '/') {
+			// TODO show command help
+		} else {
+			handleCommandText(value);
+		}
 	};
-	const doExecuteCommand = () => {
+	const clearAll = () => {
+		setPickedCommand([]);
+		setCommandText('');
+		setPlaceholder(DEFAULT_PLACEHOLDER);
+	};
+	const publishCommand = () => {
 		const text = commandText.trim();
 		if (text.length === 0) {
 			return;
 		}
 
-		executeCommand([...pickedCommands, {text}]);
+		publish([...pickedCommands, {text}]);
 		const command = pickedCommands[pickedCommands.length - 1];
-		switch (command.publishedBehaviour) {
+		switch (command.published) {
 			case CommandPublishedBehaviour.KEEP:
 				// do nothing
 				break;
 			case CommandPublishedBehaviour.CLEAR_ALL:
-				setPickedCommand([]);
-				setCommandText('');
+				clearAll();
 				break;
 			case CommandPublishedBehaviour.CLEAR_ARGUMENT:
 				setCommandText('');
@@ -111,10 +130,16 @@ export const CLI = (props: {
 		if (event.key !== 'Enter') {
 			return;
 		}
-		doExecuteCommand();
+
+		const text = (event.target as HTMLInputElement).value;
+		if (text.trim() === CMD_CLEAR) {
+			clearAll();
+		} else {
+			handleCommandText(text);
+		}
 	};
 	const onSendCommandClicked = () => {
-		doExecuteCommand();
+		publishCommand();
 	};
 
 	return <CLIContainer>
@@ -125,23 +150,23 @@ export const CLI = (props: {
 		<CommandArea>
 			<CommandLine pickedCount={pickedCommands.length}>
 				<div ref={shortcutsContainerRef}>
-					<CommandLineShortcuts itemCount={filteredShortcuts.length} visible={shortcutsVisible}
+					<CommandLineShortcuts itemCount={filteredCommands.length} visible={shortcutsVisible}
 					                      transition={shortcutTransition} onTransitionEnd={onShortcutTransitionEnd}>
-						<ShortcutMenus itemCount={filteredShortcuts.length}>
-							{filteredShortcuts.map(shortcut => {
-								return <ShortcutMenu onClick={onShortcutClicked(shortcut)}
-								                     key={shortcut.command}>
+						<CommandShortcutsMenu itemCount={filteredCommands.length}>
+							{filteredCommands.map(shortcut => {
+								return <CommandShortcutMenu onClick={onShortcutCommandClicked(shortcut)}
+								                            key={shortcut.command}>
 									{shortcut.icon ? <FontAwesomeIcon icon={shortcut.icon}/> : <ShortcutEmptyIcon/>}
 									{shortcut.label}
-								</ShortcutMenu>;
+								</CommandShortcutMenu>;
 							})}
-						</ShortcutMenus>
-						<CommandLineShortcutFilter>
+						</CommandShortcutsMenu>
+						<CommandShortcutFilter>
 							<FontAwesomeIcon icon={ICON_SEARCH}/>
-							<CommandLineShortcutFilterInput value={filterText} onChange={onFilterTextChanged}
-							                                placeholder="Search shortcuts"
-							                                ref={shortcutsFilterInputRef}/>
-						</CommandLineShortcutFilter>
+							<CommandShortcutFilterInput value={filterText} onChange={onFilterTextChanged}
+							                            placeholder="Search shortcuts"
+							                            ref={shortcutsFilterInputRef}/>
+						</CommandShortcutFilter>
 					</CommandLineShortcuts>
 					<CommandLineButton
 						tooltip={{alignment: TooltipAlignment.LEFT, offsetX: -5, label: 'Command Shortcuts'}}
