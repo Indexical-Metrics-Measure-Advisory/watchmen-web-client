@@ -1,2 +1,1 @@
-export const isDataQualityCenterEnabled = () => process.env.REACT_APP_DQC_ENABLED === 'true';
-export const isUnitLoopVariableEnabled = () => process.env.REACT_APP_UNIT_LOOP_VARIABLE_ENABLED !== 'false';
+export const isCatalogCenterEnabled = () => process.env.REACT_APP_DQC_ENABLED === 'true';
