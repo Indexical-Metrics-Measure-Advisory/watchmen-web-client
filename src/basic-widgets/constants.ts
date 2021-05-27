@@ -6,7 +6,7 @@ import {
 	faArrowDown,
 	faArrowUp,
 	faBan,
-	faBell,
+	faBell, faBolt,
 	faCaretRight,
 	faChalkboard,
 	faChartBar,
@@ -17,7 +17,7 @@ import {
 	faClock,
 	faCloudDownloadAlt,
 	faCode,
-	faCog, faCoins,
+	faCog, faCoins, faCommentDots,
 	faComments,
 	faCompress,
 	faCompressAlt,
@@ -44,7 +44,7 @@ import {
 	faList,
 	faLock,
 	faLockOpen,
-	faObjectGroup,
+	faObjectGroup, faPaperPlane,
 	faParagraph,
 	faPlay,
 	faPlus,
@@ -214,6 +214,10 @@ export const ICON_AUTO_REFRESH = faClock;
 export const ICON_FREE_WALK = faWind;
 export const ICON_LOOP = faUndoAlt;
 export const ICON_PLAY = faPlay;
+export const ICON_SEND = faPaperPlane;
+
+export const ICON_COMMENTS = faCommentDots;
+export const ICON_SHORTCUT = faBolt;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';
