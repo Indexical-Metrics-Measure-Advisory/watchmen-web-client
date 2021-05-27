@@ -6,6 +6,7 @@ import {SideMenuItemContainer, SideMenuItemIcon} from './side-menu-item';
 import {TooltipButton} from '../tooltip-button';
 import {ButtonInk, TooltipAlignment, TooltipPosition} from '../types';
 import {SIDE_MENU_MIN_WIDTH, SIDE_MENU_RESIZE_HANDLE_Z_INDEX} from '../constants';
+import {v4} from 'uuid';
 
 export const Container = styled(SideMenuItemContainer)`
 	height: calc(var(--side-menu-item-height) - 2px);
@@ -81,7 +82,7 @@ export const SideMenuSwitchWorkbench = (props: {
 					alignment: TooltipAlignment.LEFT,
 					offsetX: -3,
 					label: wb.label
-				}} ink={ButtonInk.PRIMARY} onClick={wb.action} key={wb.label}>
+				}} ink={ButtonInk.PRIMARY} onClick={wb.action} key={v4()}>
 					<FontAwesomeIcon icon={wb.icon}/>
 				</TooltipButton>;
 			})}
@@ -93,7 +94,7 @@ export const SideMenuSwitchWorkbench = (props: {
 					alignment: TooltipAlignment.LEFT,
 					offsetX: -3,
 					label: wb.label
-				}} ink={ButtonInk.PRIMARY} onClick={wb.action} key={wb.label}>
+				}} ink={ButtonInk.PRIMARY} onClick={wb.action} key={v4()}>
 					<FontAwesomeIcon icon={wb.icon}/>
 				</TooltipButton>;
 			})}

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {matchPath, useHistory, useLocation} from 'react-router-dom';
 import styled from 'styled-components';
 import {
-	ICON_ADMIN,
+	ICON_ADMIN, ICON_CONSANGUINITY,
 	ICON_CONSOLE,
 	ICON_HOME,
 	ICON_LOGOUT,
@@ -85,13 +85,16 @@ export const DataQualityMenu = () => {
 	return <DataQualityMenuContainer width={menuWidth}>
 		<SideMenuLogo title="Data Quality Center"/>
 		<SideMenuItem icon={ICON_HOME} label="Home" showTooltip={showTooltip}
-		              active={!!matchPath(location.pathname, Router.ADMIN_HOME)}
-		              onClick={onMenuClicked(Router.ADMIN_HOME)}/>
+		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_HOME)}
+		              onClick={onMenuClicked(Router.DATA_QUALITY_HOME)}/>
+		<SideMenuItem icon={ICON_CONSANGUINITY} label="Consanguinity" showTooltip={showTooltip}
+		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_CONSANGUINITY)}
+		              onClick={onMenuClicked(Router.DATA_QUALITY_CONSANGUINITY)}/>
 		<SideMenuPlaceholder/>
 		<SideMenuSeparator width={menuWidth}/>
 		<SideMenuItem icon={ICON_SETTINGS} label={'Settings'} showTooltip={showTooltip}
-		              active={!!matchPath(location.pathname, Router.ADMIN_SETTINGS)}
-		              onClick={onMenuClicked(Router.ADMIN_SETTINGS)}/>
+		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_SETTINGS)}
+		              onClick={onMenuClicked(Router.DATA_QUALITY_SETTINGS)}/>
 		<SideMenuSwitchWorkbench icon={ICON_SWITCH_WORKBENCH}
 		                         workbenches={workbenches}/>
 		<SideMenuSeparator width={menuWidth}/>

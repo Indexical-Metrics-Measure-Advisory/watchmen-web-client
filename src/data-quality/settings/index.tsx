@@ -9,6 +9,7 @@ export const DataQualitySettings = () => {
 		<PageHeader title="Settings"/>
 		<VerticalMarginOneUnit/>
 		<ThemeSettings/>
+		<VerticalMarginOneUnit/>
 	</FixWidthPage>;
 };
 

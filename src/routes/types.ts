@@ -33,6 +33,7 @@ export enum Router {
 
 	DATA_QUALITY = '/data-quality',
 	DATA_QUALITY_HOME = '/data-quality/home',
+	DATA_QUALITY_CONSANGUINITY = '/data-quality/consanguinity',
 	DATA_QUALITY_SETTINGS = '/data-quality/settings',
 
 	SHARE = '/share',

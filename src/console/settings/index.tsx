@@ -12,6 +12,7 @@ export const ConsoleSettings = () => {
 		<VerticalMarginOneUnit/>
 		<LanguageSettings/>
 		<ThemeSettings/>
+		<VerticalMarginOneUnit/>
 	</FixWidthPage>;
 };
 

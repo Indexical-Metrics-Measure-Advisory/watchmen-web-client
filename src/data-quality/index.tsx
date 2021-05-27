@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {Router} from '../routes/types';
 import {isAdmin} from '../services/account';
 import DataQualityHome from './home';
+import DataQualityConsanguinity from './consanguinity';
 import {DataQualityMenu} from './menu';
 import DataQualitySettings from './settings';
 
@@ -39,10 +40,16 @@ const DataQualityIndex = () => {
 			<Route path={Router.DATA_QUALITY_HOME}>
 				<DataQualityMain scrollable={false}>
 					<DataQualityHome/>
-				</DataQualityMain></Route>
-			<Route
-				path={Router.DATA_QUALITY_SETTINGS}><DataQualityMain><DataQualitySettings/></DataQualityMain></Route>
-			{/*		<Route path={Path.ADMIN_TASKS}><Tasks/></Route>*/}
+				</DataQualityMain>
+			</Route>
+			<Route path={Router.DATA_QUALITY_CONSANGUINITY}>
+				<DataQualityMain scrollable={false}>
+					<DataQualityConsanguinity/>
+				</DataQualityMain>
+			</Route>
+			<Route path={Router.DATA_QUALITY_SETTINGS}>
+				<DataQualityMain><DataQualitySettings/></DataQualityMain>
+			</Route>
 			<Route path="*">
 				<Redirect to={Router.DATA_QUALITY_HOME}/>
 			</Route>

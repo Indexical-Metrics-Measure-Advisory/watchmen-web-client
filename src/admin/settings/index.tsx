@@ -13,6 +13,7 @@ export const AdminSettings = () => {
 		<ThemeSettings/>
 		<CacheSettings/>
 		<SimulatorLogsSettings/>
+		<VerticalMarginOneUnit/>
 	</FixWidthPage>;
 };
 

@@ -49,7 +49,7 @@ import {
 	faPlay,
 	faPlus,
 	faPowerOff,
-	faPrint,
+	faPrint, faPuzzlePiece,
 	faRandom,
 	faSave,
 	faSearch,
@@ -153,6 +153,8 @@ export const ICON_MAIL = faInbox;
 export const ICON_TIMELINE = faComments;
 export const ICON_MONITOR_LOGS = faEthernet;
 export const ICON_PIPELINE_DEBUG = faDraftingCompass;
+
+export const ICON_CONSANGUINITY = faPuzzlePiece;
 
 export const ICON_SECONDARY_SECTION = faCaretRight;
 
