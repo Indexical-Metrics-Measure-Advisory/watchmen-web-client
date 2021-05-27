@@ -87,6 +87,7 @@ export enum VariablePredefineFunctions {
 	NEXT_SEQ = '&nextSeq',
 	COUNT = '&count',
 	LENGTH = '&length',
+	SUM = '&sum',
 	FROM_PREVIOUS_TRIGGER_DATA = '&old'
 }
 

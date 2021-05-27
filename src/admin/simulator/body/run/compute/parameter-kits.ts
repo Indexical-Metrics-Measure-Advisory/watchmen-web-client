@@ -147,6 +147,17 @@ const computeVariable = (options: { variable: string, getFirstValue: (propertyNa
 			return value.length;
 		} else if (part === VariablePredefineFunctions.COUNT && typeof value === 'object') {
 			return Object.keys(value).length;
+		} else if (part === VariablePredefineFunctions.SUM && Array.isArray(value)) {
+			return value.reduce((sum, v) => {
+				if (v == null || v.toString().trim().length === 0) {
+					return sum;
+				}
+				if (isNaN(v)) {
+					throws();
+				} else {
+					return sum + (v * 1);
+				}
+			}, 0);
 		} else if (part === VariablePredefineFunctions.LENGTH && typeof value === 'string') {
 			return value.length;
 		} else if (typeof value === 'object') {
