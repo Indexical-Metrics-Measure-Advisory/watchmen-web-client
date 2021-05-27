@@ -7,7 +7,7 @@ import {
 } from './widgets';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ICON_CMD_PROMPT} from '../../../basic-widgets/constants';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 export const ExecutionWaiter = () => {
 	return <ExecutionContainer>
@@ -18,20 +18,12 @@ export const ExecutionWaiter = () => {
 			<ExecutionPromptFlicker/>
 		</ExecutionCommandLine>
 	</ExecutionContainer>;
-}
+};
 export const ExecutionDelegate = (props: {
 	commandLine: ((props: any) => React.ReactNode) | React.ReactNode;
-	computeResult: () => Promise<((props: any) => React.ReactNode) | React.ReactNode>;
+	result?: ((props: any) => React.ReactNode) | React.ReactNode;
 }) => {
-	const {commandLine, computeResult} = props;
-
-	const [result, setResult] = useState<any>(null);
-	useEffect(() => {
-		(async () => {
-			const result = await computeResult();
-			setResult(result);
-		})();
-	}, []);
+	const {commandLine, result} = props;
 
 	return <ExecutionContainer>
 		<ExecutionPrompt>
