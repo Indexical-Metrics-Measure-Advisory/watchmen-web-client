@@ -2,14 +2,25 @@ import React from 'react';
 import {FullWidthPage} from '../../basic-widgets/page';
 import {FullWidthPageHeaderContainer, PageTitle} from '../../basic-widgets/page-header';
 import {CLI} from '../widgets/cli';
-import {ICON_PIPELINE, ICON_SPACE, ICON_SUBJECT, ICON_TOPIC} from '../../basic-widgets/constants';
+import {ICON_PIPELINE, ICON_TOPIC} from '../../basic-widgets/constants';
+import {CommandShortcut} from '../widgets/cli/types';
 
 const DataQualityConsanguinityIndex = () => {
-	const shortcuts = [
-		{label: 'Find Pipeline', command: '/pipeline', icon: ICON_PIPELINE},
-		{label: 'Find Topic', command: '/topic', icon: ICON_TOPIC},
-		{label: 'Find Space', command: '/space', icon: ICON_SPACE},
-		{label: 'Find Subject', command: '/subject', icon: ICON_SUBJECT}
+	const shortcuts: Array<CommandShortcut> = [
+		{
+			label: 'Find Pipeline',
+			command: '/pipeline',
+			icon: ICON_PIPELINE,
+			reminder: 'A text to match name, or "list" to list all',
+			standalone: true
+		},
+		{
+			label: 'Find Topic',
+			command: '/topic',
+			icon: ICON_TOPIC,
+			reminder: 'A text to match name, or "list" to list all.',
+			standalone: true
+		}
 	];
 
 	return <FullWidthPage>

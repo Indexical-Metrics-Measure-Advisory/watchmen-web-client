@@ -18,6 +18,7 @@ export const Container = styled(SideMenuItemContainer)`
 		//border-color: var(--border-color);
 		> div[data-widget='side-menu-item-label'] + div[data-widget='side-menu-item-label'] {
 			opacity: 1;
+			pointer-events: auto;
 		}
 	}
 `;
@@ -48,6 +49,7 @@ export const SideMenuItemLabel = styled.div.attrs({'data-widget': 'side-menu-ite
 		margin: -1px 0 1px -11px;
 		padding: 0 11px;
 		opacity: 0;
+		pointer-events: none;
 		z-index: ${SIDE_MENU_RESIZE_HANDLE_Z_INDEX + 1};
 		border-radius: calc(var(--side-menu-item-height) / 2);
 		border: var(--border);

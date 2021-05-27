@@ -5,6 +5,8 @@ export const GreetingContainer = styled.div.attrs({'data-widgets': 'data-quality
 	grid-template-columns: 48px 1fr;
 	grid-template-rows: 24px 24px;
 	grid-column-gap: calc(var(--margin) / 2);
+	padding-bottom: calc(var(--margin) / 2);
+	border-bottom: var(--border);
 `;
 export const GreetingIcon = styled.div.attrs({'data-widgets': 'data-quality-greeting-icon'})`
 	grid-row: span 2;
@@ -12,7 +14,7 @@ export const GreetingIcon = styled.div.attrs({'data-widgets': 'data-quality-gree
 	position: relative;
 	align-items: center;
 	justify-content: center;
-	color: var(--invert-color);
+	color: var(--success-color);
 	font-size: 30px;
 	&:before {
 		content: '';
@@ -24,6 +26,7 @@ export const GreetingIcon = styled.div.attrs({'data-widgets': 'data-quality-gree
 		height: 100%;
 		background-color: var(--primary-color);
 		border-radius: calc(var(--border-radius) * 2);
+		opacity: 0.2;
 		z-index: -1;
 	}
 `;
