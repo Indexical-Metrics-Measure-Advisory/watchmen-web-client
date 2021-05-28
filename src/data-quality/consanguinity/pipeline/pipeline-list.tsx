@@ -24,8 +24,9 @@ export const isPipelineListCommand = (content: ExecutionContent) => {
 	return command[1].text?.trim()?.toLowerCase() === CMD_ARGUMENT_LIST;
 };
 
-// noinspection JSUnusedLocalSymbols
 export const PipelineList = (props: { content: ExecutionContent }) => {
+	const {content} = props;
+
 	const {fire} = useCliEventBus();
 	const [result, setResult] = useState<any>();
 	const [onDataRetrieved] = useState(() => {
@@ -56,5 +57,5 @@ export const PipelineList = (props: { content: ExecutionContent }) => {
 	return <ExecutionDelegate commandLine={<>
 		<ExecutionCommandPrimary>/pipeline</ExecutionCommandPrimary>
 		<ExecutionCommandArgument>list</ExecutionCommandArgument>
-	</>} result={result}/>;
+	</>} executeAt={content.time} result={result}/>;
 };

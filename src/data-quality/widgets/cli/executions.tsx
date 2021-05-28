@@ -4,6 +4,7 @@ import {ExecutionCommand, ExecutionContent} from './types';
 import {v4} from 'uuid';
 import {CliEventTypes} from './cli-event-bus-types';
 import {ExecutionWaiter} from './execution-waiter';
+import dayjs from 'dayjs';
 
 export const Executions = (props: {
 	execution: (props: { content: ExecutionContent }) => JSX.Element;
@@ -15,7 +16,7 @@ export const Executions = (props: {
 	useEffect(() => {
 		const onExecuteCommand = (command: ExecutionCommand) => {
 			setExecutionContents(executionContents => {
-				return [...executionContents, {id: v4(), command}]
+				return [...executionContents, {id: v4(), command, time: dayjs()}]
 			});
 		};
 		const onClearScreen = () => setExecutionContents([]);

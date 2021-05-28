@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import Duration from 'dayjs/plugin/duration';
+import IsToday from 'dayjs/plugin/isToday';
 import QuarterOfYear from 'dayjs/plugin/quarterOfYear';
 import RelativeTime from 'dayjs/plugin/relativeTime';
 import WeekOfYear from 'dayjs/plugin/weekOfYear';
@@ -19,6 +20,7 @@ import {ThemeWrapper} from './theme/theme-wrapper';
 dayjs.extend(WeekOfYear);
 dayjs.extend(QuarterOfYear);
 dayjs.extend(Duration);
+dayjs.extend(IsToday);
 dayjs.extend(RelativeTime);
 
 const app = () => {

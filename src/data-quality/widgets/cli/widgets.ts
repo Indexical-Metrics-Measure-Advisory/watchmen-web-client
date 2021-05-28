@@ -192,7 +192,7 @@ export const CommandShortcutFilterInput = styled(Input)`
 export const ExecutionContainer = styled.div.attrs({'data-widget': 'execution'})`
 	display: grid;
 	position: relative;
-	grid-template-columns: 32px 1fr;
+	grid-template-columns: 32px auto 1fr;
 	grid-template-rows: var(--tall-height) 1fr;
 	align-items: center;
 	+ div[data-widget=execution] {
@@ -226,6 +226,9 @@ export const ExecutionCommandLine = styled.div`
 	font-family: var(--code-font-family);
 	font-size: 1.1em;
 	opacity: 0.9;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 `;
 export const ExecutionCommandPrimary = styled.span`
 	color: var(--danger-color);
@@ -234,8 +237,32 @@ export const ExecutionCommandPrimary = styled.span`
 export const ExecutionCommandArgument = styled.span`
 	margin-left: 0.5em;
 `;
+export const ExecutionTime = styled.div`
+	display: flex;
+	position: relative;
+	align-items: center;
+	font-family: var(--code-font-family);
+	font-weight: var(--font-bold);
+	overflow: hidden;
+	> span:first-child {
+		display: block;
+		flex-grow: 1;
+		height: 1px;
+		border-top: var(--border);	
+		border-top-style: dashed;
+		margin: 0 var(--margin);
+	}
+	> span:last-child {
+		display: block;
+		height: 1.6em;
+		line-height: 1.6em;
+		background-color: var(--info-color);
+		padding: 0 calc(var(--margin) / 4) 0 calc(var(--margin) / 2);
+		border-radius: 0.8em var(--border-radius) var(--border-radius) 0.8em;
+	}
+`;
 export const ExecutionCommandResult = styled.div`
-	grid-column: 2;
+	grid-column: 2 / span 2;
 `;
 export const ExecutionResultItemTable = styled.div`
 	display: grid;

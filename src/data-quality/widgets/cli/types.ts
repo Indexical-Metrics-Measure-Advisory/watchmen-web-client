@@ -1,4 +1,5 @@
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
+import {Dayjs} from 'dayjs';
 
 /**
  * behaviour of command sender when command published to executor
@@ -34,4 +35,5 @@ export type ExecutionCommand = Array<ExecutionCommandPart>;
 export interface ExecutionContent {
 	id: string;
 	command: ExecutionCommand;
+	time: Dayjs;
 }
