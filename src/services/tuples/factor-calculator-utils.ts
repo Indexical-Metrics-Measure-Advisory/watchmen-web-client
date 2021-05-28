@@ -79,6 +79,11 @@ export const isFactorTypeCompatibleWith = (factorType: FactorType, expectedTypes
 		return true;
 	}
 
+	if (factorType === FactorType.TEXT) {
+		// assume text can be cast to anything
+		return true;
+	}
+
 	return expectedTypes.some(expectedType => {
 		const {includes = [], excludes = []} = CompatibleTypes[expectedType as FactorType] || {};
 		return (includes.length === 0 || includes.includes(factorType)) && !excludes.includes(factorType);
