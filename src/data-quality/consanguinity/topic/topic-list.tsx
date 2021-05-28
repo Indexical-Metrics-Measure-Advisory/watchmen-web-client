@@ -12,6 +12,8 @@ import {ExecutionDelegate} from '../../widgets/cli/execution-delegate';
 import React, {useState} from 'react';
 import {DataQualityCacheData} from '../../../local-persist/types';
 import {useDataQualityCacheData} from '../../cache/use-cache-data';
+import {CliEventTypes} from '../../widgets/cli/cli-event-bus-types';
+import {useCliEventBus} from '../../widgets/cli/cli-event-bus';
 
 export const isTopicListCommand = (content: ExecutionContent) => {
 	const {command} = content;
@@ -23,6 +25,7 @@ export const isTopicListCommand = (content: ExecutionContent) => {
 
 // noinspection JSUnusedLocalSymbols
 export const TopicList = (props: { content: ExecutionContent }) => {
+	const {fire} = useCliEventBus();
 	const [result, setResult] = useState<any>();
 	const [onDataRetrieved] = useState(() => {
 		return (data?: DataQualityCacheData) => {
@@ -39,6 +42,7 @@ export const TopicList = (props: { content: ExecutionContent }) => {
 					<ExecutionResultNoData/>
 				</ExecutionResultItemTable>);
 			}
+			fire(CliEventTypes.COMMAND_EXECUTED);
 		};
 	});
 	useDataQualityCacheData({onDataRetrieved});

@@ -1,5 +1,5 @@
 import {Greeting} from '../greeting';
-import React, {ChangeEvent, KeyboardEvent, ReactNode, useRef, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, ReactNode, useEffect, useRef, useState} from 'react';
 import {
 	CLIContainer,
 	CommandArea,
@@ -48,7 +48,7 @@ export const CLI = (props: {
 }) => {
 	const {greeting, commands, executions} = props;
 
-	const {fire} = useCliEventBus();
+	const {on, off, fire} = useCliEventBus();
 	// noinspection TypeScriptValidateTypes
 	const shortcutsContainerRef = useRef<HTMLDivElement>(null);
 	// noinspection TypeScriptValidateTypes
@@ -70,6 +70,16 @@ export const CLI = (props: {
 			setShortcutsVisible(false);
 		}
 	});
+	useEffect(() => {
+		const onSuggestCommand = (commands: Array<Command>, argument?: string) => {
+			setPickedCommand(commands);
+			setCommandText(argument || '');
+		};
+		on(CliEventTypes.SUGGEST_COMMAND, onSuggestCommand);
+		return () => {
+			off(CliEventTypes.SUGGEST_COMMAND, onSuggestCommand);
+		};
+	}, [on, off]);
 
 	const onShortcutTransitionEnd = () => {
 		setShortcutTransition(!shortcutsVisible);
@@ -134,7 +144,6 @@ export const CLI = (props: {
 			return;
 		}
 
-		fire(CliEventTypes.EXECUTE_COMMAND, [...pickedCommands, {text}]);
 		const command = pickedCommands[pickedCommands.length - 1];
 		switch (command.published) {
 			case CommandPublishedBehaviour.KEEP:
@@ -147,6 +156,7 @@ export const CLI = (props: {
 				setCommandText('');
 				break;
 		}
+		fire(CliEventTypes.EXECUTE_COMMAND, [...pickedCommands, {text}]);
 	};
 	const onCommandTextKeyPressed = (event: KeyboardEvent<HTMLInputElement>) => {
 		const input = event.target as HTMLInputElement;

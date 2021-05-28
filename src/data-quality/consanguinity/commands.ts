@@ -6,7 +6,7 @@ export const CMD_TOPIC = '/topic';
 
 export const CMD_ARGUMENT_LIST = 'list';
 
-export const CONSANGUINITY_COMMANDS: Array<Command> = [
+export const CONSANGUINITY_COMMANDS: Array<Readonly<Command>> = [
 	{
 		label: 'Find Pipeline',
 		command: CMD_PIPELINE,
@@ -24,3 +24,11 @@ export const CONSANGUINITY_COMMANDS: Array<Command> = [
 		published: CommandPublishedBehaviour.CLEAR_ARGUMENT
 	}
 ];
+
+export const PICK_PIPELINE: Readonly<Command> = {
+	label: 'Pick Pipeline',
+	command: CMD_PIPELINE,
+	reminder: 'Number of pipeline in list',
+	standalone: true,
+	published: CommandPublishedBehaviour.CLEAR_ARGUMENT
+};

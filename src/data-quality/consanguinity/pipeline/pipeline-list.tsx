@@ -1,5 +1,5 @@
 import {ExecutionContent} from '../../widgets/cli/types';
-import {CMD_ARGUMENT_LIST} from '../commands';
+import {CMD_ARGUMENT_LIST, PICK_PIPELINE} from '../commands';
 import {
 	ExecutionCommandArgument,
 	ExecutionCommandPrimary,
@@ -12,6 +12,8 @@ import {ExecutionDelegate} from '../../widgets/cli/execution-delegate';
 import React, {useState} from 'react';
 import {DataQualityCacheData} from '../../../local-persist/types';
 import {useDataQualityCacheData} from '../../cache/use-cache-data';
+import {useCliEventBus} from '../../widgets/cli/cli-event-bus';
+import {CliEventTypes} from '../../widgets/cli/cli-event-bus-types';
 
 export const isPipelineListCommand = (content: ExecutionContent) => {
 	const {command} = content;
@@ -23,6 +25,7 @@ export const isPipelineListCommand = (content: ExecutionContent) => {
 
 // noinspection JSUnusedLocalSymbols
 export const PipelineList = (props: { content: ExecutionContent }) => {
+	const {fire} = useCliEventBus();
 	const [result, setResult] = useState<any>();
 	const [onDataRetrieved] = useState(() => {
 		return (data?: DataQualityCacheData) => {
@@ -39,6 +42,8 @@ export const PipelineList = (props: { content: ExecutionContent }) => {
 					<ExecutionResultNoData/>
 				</ExecutionResultItemTable>);
 			}
+			fire(CliEventTypes.COMMAND_EXECUTED);
+			fire(CliEventTypes.SUGGEST_COMMAND, [PICK_PIPELINE], '1');
 		};
 	});
 	useDataQualityCacheData({onDataRetrieved});

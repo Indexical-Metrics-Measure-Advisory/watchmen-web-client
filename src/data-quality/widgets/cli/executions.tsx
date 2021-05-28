@@ -11,12 +11,9 @@ export const Executions = (props: {
 	const {execution: Execution} = props;
 
 	const {on, off} = useCliEventBus();
-
-	const [executing, setExecuting] = useState(false);
 	const [executionContents, setExecutionContents] = useState<Array<ExecutionContent>>([]);
 	useEffect(() => {
 		const onExecuteCommand = (command: ExecutionCommand) => {
-			setExecuting(true);
 			setExecutionContents(executionContents => [...executionContents, {id: v4(), command}]);
 		};
 		on(CliEventTypes.EXECUTE_COMMAND, onExecuteCommand);
@@ -24,18 +21,11 @@ export const Executions = (props: {
 			off(CliEventTypes.EXECUTE_COMMAND, onExecuteCommand);
 		};
 	}, [on, off]);
-	useEffect(() => {
-		const onCommandExecuted = () => setExecuting(false);
-		on(CliEventTypes.COMMAND_EXECUTED, onCommandExecuted);
-		return () => {
-			off(CliEventTypes.COMMAND_EXECUTED, onCommandExecuted);
-		};
-	}, [on, off]);
 
 	return <>
 		{executionContents.map(content => {
 			return <Execution content={content} key={content.id}/>;
 		})}
-		{executing ? null : <ExecutionWaiter/>}
+		<ExecutionWaiter/>
 	</>;
 };
