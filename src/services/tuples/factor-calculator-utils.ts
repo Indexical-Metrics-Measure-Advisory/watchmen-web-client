@@ -288,6 +288,8 @@ export const computeParameterTypes = (
 				return [{array: false, type: FactorType.SEQUENCE}];
 			} else if (name.endsWith(`.${VariablePredefineFunctions.COUNT}`) || name.endsWith(`.${VariablePredefineFunctions.LENGTH}`)) {
 				return [{array: false, type: FactorType.UNSIGNED}];
+			} else if (name.endsWith(`.${VariablePredefineFunctions.SUM}`)) {
+				return [{array: false, type: FactorType.NUMBER}]
 			}
 			const [first, ...rest] = name.split('.');
 			let firstTypes: ValueTypesOfParameter;
