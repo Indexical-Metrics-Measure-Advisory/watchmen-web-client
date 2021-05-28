@@ -1,8 +1,8 @@
-import {useCliEventBus} from './cli-event-bus';
+import {useCliEventBus} from '../events/cli-event-bus';
 import {useEffect, useState} from 'react';
-import {ExecutionCommand, ExecutionContent} from './types';
+import {ExecutionCommand, ExecutionContent} from '../types';
 import {v4} from 'uuid';
-import {CliEventTypes} from './cli-event-bus-types';
+import {CliEventTypes} from '../events/cli-event-bus-types';
 import {ExecutionWaiter} from './execution-waiter';
 import dayjs from 'dayjs';
 

@@ -1,19 +1,19 @@
 import {ExecutionContent} from '../../widgets/cli/types';
 import {buildWithPipelineCommand, CMD_ARGUMENT_LIST} from '../commands';
 import {
-	ExecutionCommandArgument,
-	ExecutionCommandPrimary,
+	ExecutionCommandLineArgument,
+	ExecutionCommandLinePrimary,
 	ExecutionResultClickableItem,
 	ExecutionResultItemTable,
 	ExecutionResultNoData
-} from '../../widgets/cli/widgets';
+} from '../../widgets/cli/execution/widgets';
 import {getPipelineName} from '../../utils';
-import {ExecutionDelegate} from '../../widgets/cli/execution-delegate';
+import {ExecutionDelegate} from '../../widgets/cli/execution/execution-delegate';
 import React, {useState} from 'react';
 import {DataQualityCacheData} from '../../../local-persist/types';
 import {useDataQualityCacheData} from '../../cache/use-cache-data';
-import {useCliEventBus} from '../../widgets/cli/cli-event-bus';
-import {CliEventTypes} from '../../widgets/cli/cli-event-bus-types';
+import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
+import {CliEventTypes} from '../../widgets/cli/events/cli-event-bus-types';
 import {Pipeline} from '../../../services/tuples/pipeline-types';
 
 export const isPipelineListCommand = (content: ExecutionContent) => {
@@ -55,7 +55,7 @@ export const PipelineList = (props: { content: ExecutionContent }) => {
 	useDataQualityCacheData({onDataRetrieved});
 
 	return <ExecutionDelegate commandLine={<>
-		<ExecutionCommandPrimary>/pipeline</ExecutionCommandPrimary>
-		<ExecutionCommandArgument>list</ExecutionCommandArgument>
+		<ExecutionCommandLinePrimary>/pipeline</ExecutionCommandLinePrimary>
+		<ExecutionCommandLineArgument>list</ExecutionCommandLineArgument>
 	</>} executeAt={content.time} result={result}/>;
 };

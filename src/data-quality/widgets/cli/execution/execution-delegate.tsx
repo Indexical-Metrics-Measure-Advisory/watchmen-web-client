@@ -1,12 +1,14 @@
 import {
 	ExecutionCommandLine,
-	ExecutionCommandResult,
+	ExecutionResult,
 	ExecutionContainer,
 	ExecutionPrompt,
-	ExecutionTime
+	ExecutionTimeContainer,
+	ExecutionTimeLabel,
+	ExecutionTimeLine
 } from './widgets';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_CMD_PROMPT, ICON_LOADING} from '../../../basic-widgets/constants';
+import {ICON_CMD_PROMPT, ICON_LOADING} from '../../../../basic-widgets/constants';
 import React from 'react';
 import {Dayjs} from 'dayjs';
 
@@ -26,16 +28,16 @@ export const ExecutionDelegate = (props: {
 		<ExecutionCommandLine>
 			{commandLine}
 		</ExecutionCommandLine>
-		<ExecutionTime>
-			<span/>
-			<span>{executeTime}</span>
-		</ExecutionTime>
+		<ExecutionTimeContainer>
+			<ExecutionTimeLine/>
+			<ExecutionTimeLabel>{executeTime}</ExecutionTimeLabel>
+		</ExecutionTimeContainer>
 		{result
-			? <ExecutionCommandResult>
+			? <ExecutionResult>
 				{result}
-			</ExecutionCommandResult>
-			: <ExecutionCommandResult>
+			</ExecutionResult>
+			: <ExecutionResult>
 				<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>
-			</ExecutionCommandResult>}
+			</ExecutionResult>}
 	</ExecutionContainer>;
 };

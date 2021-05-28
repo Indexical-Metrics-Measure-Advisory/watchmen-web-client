@@ -1,19 +1,19 @@
 import {ExecutionContent} from '../../widgets/cli/types';
 import {CMD_ARGUMENT_LIST} from '../commands';
 import {
-	ExecutionCommandArgument,
-	ExecutionCommandPrimary,
+	ExecutionCommandLineArgument,
+	ExecutionCommandLinePrimary,
 	ExecutionResultClickableItem,
 	ExecutionResultItemTable,
 	ExecutionResultNoData
-} from '../../widgets/cli/widgets';
+} from '../../widgets/cli/execution/widgets';
 import {getTopicName} from '../../utils';
-import {ExecutionDelegate} from '../../widgets/cli/execution-delegate';
+import {ExecutionDelegate} from '../../widgets/cli/execution/execution-delegate';
 import React, {useState} from 'react';
 import {DataQualityCacheData} from '../../../local-persist/types';
 import {useDataQualityCacheData} from '../../cache/use-cache-data';
-import {CliEventTypes} from '../../widgets/cli/cli-event-bus-types';
-import {useCliEventBus} from '../../widgets/cli/cli-event-bus';
+import {CliEventTypes} from '../../widgets/cli/events/cli-event-bus-types';
+import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
 
 export const isTopicListCommand = (content: ExecutionContent) => {
 	const {command} = content;
@@ -49,7 +49,7 @@ export const TopicList = (props: { content: ExecutionContent }) => {
 	useDataQualityCacheData({onDataRetrieved});
 
 	return <ExecutionDelegate commandLine={<>
-		<ExecutionCommandPrimary>/topic</ExecutionCommandPrimary>
-		<ExecutionCommandArgument>list</ExecutionCommandArgument>
+		<ExecutionCommandLinePrimary>/topic</ExecutionCommandLinePrimary>
+		<ExecutionCommandLineArgument>list</ExecutionCommandLineArgument>
 	</>} executeAt={content.time} result={result}/>;
 };
