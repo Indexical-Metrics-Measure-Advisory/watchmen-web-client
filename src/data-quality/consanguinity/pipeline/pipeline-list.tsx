@@ -1,5 +1,5 @@
 import {ExecutionContent} from '../../widgets/cli/types';
-import {CMD_ARGUMENT_LIST, PICK_PIPELINE} from '../commands';
+import {buildWithPipelineCommand, CMD_ARGUMENT_LIST} from '../commands';
 import {
 	ExecutionCommandArgument,
 	ExecutionCommandPrimary,
@@ -14,6 +14,7 @@ import {DataQualityCacheData} from '../../../local-persist/types';
 import {useDataQualityCacheData} from '../../cache/use-cache-data';
 import {useCliEventBus} from '../../widgets/cli/cli-event-bus';
 import {CliEventTypes} from '../../widgets/cli/cli-event-bus-types';
+import {Pipeline} from '../../../services/tuples/pipeline-types';
 
 export const isPipelineListCommand = (content: ExecutionContent) => {
 	const {command} = content;
@@ -28,22 +29,26 @@ export const PipelineList = (props: { content: ExecutionContent }) => {
 	const {fire} = useCliEventBus();
 	const [result, setResult] = useState<any>();
 	const [onDataRetrieved] = useState(() => {
+
 		return (data?: DataQualityCacheData) => {
+			const onPipelineClicked = (pipeline: Pipeline) => () => {
+				fire(CliEventTypes.SUGGEST_COMMAND, buildWithPipelineCommand(pipeline));
+			};
 			if (data) {
 				setResult(<ExecutionResultItemTable>
 					{data.pipelines.map((pipeline, index) => {
-						return <ExecutionResultClickableItem key={pipeline.pipelineId}>
+						return <ExecutionResultClickableItem onClick={onPipelineClicked(pipeline)}
+						                                     key={pipeline.pipelineId}>
 							{index + 1}. {getPipelineName(pipeline)}
 						</ExecutionResultClickableItem>;
 					})}
 				</ExecutionResultItemTable>);
 			} else {
 				setResult(<ExecutionResultItemTable>
-					<ExecutionResultNoData/>
+					<ExecutionResultNoData>No matched pipeline found.</ExecutionResultNoData>
 				</ExecutionResultItemTable>);
 			}
 			fire(CliEventTypes.COMMAND_EXECUTED);
-			fire(CliEventTypes.SUGGEST_COMMAND, [PICK_PIPELINE], '1');
 		};
 	});
 	useDataQualityCacheData({onDataRetrieved});

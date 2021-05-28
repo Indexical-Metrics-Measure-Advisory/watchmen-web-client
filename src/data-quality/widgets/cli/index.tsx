@@ -60,7 +60,6 @@ export const CLI = (props: {
 	const [filteredCommands, setFilteredCommands] = useState<Array<Command>>(commands);
 	const [pickedCommands, setPickedCommand] = useState<Array<Command>>([]);
 	const [commandText, setCommandText] = useState('');
-	const [placeholder, setPlaceholder] = useState(DEFAULT_PLACEHOLDER);
 	const [shortcutsVisible, setShortcutsVisible] = useState(false);
 	useCollapseFixedThing({
 		containerRef: shortcutsContainerRef,
@@ -74,6 +73,7 @@ export const CLI = (props: {
 		const onSuggestCommand = (commands: Array<Command>, argument?: string) => {
 			setPickedCommand(commands);
 			setCommandText(argument || '');
+			commandInputRef.current?.focus();
 		};
 		on(CliEventTypes.SUGGEST_COMMAND, onSuggestCommand);
 		return () => {
@@ -98,7 +98,6 @@ export const CLI = (props: {
 			setPickedCommand([...pickedCommands, command]);
 		}
 		setShortcutsVisible(false);
-		setPlaceholder(command.reminder || DEFAULT_PLACEHOLDER);
 		commandInputRef.current?.focus();
 		setFilterText('');
 		setFilteredCommands(commands);
@@ -143,14 +142,10 @@ export const CLI = (props: {
 	const clearAll = () => {
 		setPickedCommand([]);
 		setCommandText('');
-		setPlaceholder(DEFAULT_PLACEHOLDER);
 	};
 	const clearScreen = () => {
 		fire(CliEventTypes.CLEAR_SCREEN);
 		setCommandText('');
-		if (pickedCommands.length !== 0) {
-			setPlaceholder(pickedCommands[pickedCommands.length - 1].reminder || '');
-		}
 	};
 	const publishCommand = () => {
 		const text = commandText.trim();
@@ -203,6 +198,7 @@ export const CLI = (props: {
 		// TODO help command
 	};
 
+	const commandPlaceholder = pickedCommands.length === 0 ? DEFAULT_PLACEHOLDER : (pickedCommands[pickedCommands.length - 1].reminder || DEFAULT_PLACEHOLDER);
 	const commandValid = pickedCommands.length !== 0;
 
 	return <CLIContainer>
@@ -250,7 +246,7 @@ export const CLI = (props: {
 				<CommandLineInput value={commandText}
 				                  onChange={onCommandTextChanged} onKeyPress={onCommandTextKeyPressed}
 				                  ref={commandInputRef}
-				                  placeholder={placeholder}/>
+				                  placeholder={commandPlaceholder}/>
 				<CommandLineSeparator/>
 				<CommandLineButtons>
 					<CommandLineButton

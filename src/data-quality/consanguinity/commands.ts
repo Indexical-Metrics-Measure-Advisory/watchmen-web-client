@@ -1,10 +1,10 @@
 import {Command, CommandPublishedBehaviour} from '../widgets/cli/types';
 import {ICON_PIPELINE, ICON_TOPIC} from '../../basic-widgets/constants';
+import {Pipeline} from '../../services/tuples/pipeline-types';
+import {getPipelineName} from '../utils';
 
 export const CMD_PIPELINE = '/pipeline';
-export const CMD_PICK_PIPELINE = '/pick-pipeline';
 export const CMD_TOPIC = '/topic';
-export const CMD_PICK_TOPIC = '/pick-topic';
 
 export const CMD_ARGUMENT_LIST = 'list';
 
@@ -27,18 +27,26 @@ export const CONSANGUINITY_COMMANDS: Array<Readonly<Command>> = [
 	}
 ];
 
-export const PICK_PIPELINE: Readonly<Command> = {
-	label: 'Pick Pipeline',
-	command: CMD_PICK_PIPELINE,
-	reminder: 'Number of pipeline in list',
+export const WITH_PIPELINE: Readonly<Command> = {
+	label: 'With Pipeline',
+	command: CMD_PIPELINE,
 	standalone: true,
 	published: CommandPublishedBehaviour.CLEAR_ARGUMENT
 };
 
-export const PICK_TOPIC: Readonly<Command> = {
-	label: 'Pick Topic',
-	command: CMD_PICK_TOPIC,
-	reminder: 'Number of topic in list',
+export const buildWithPipelineCommand = (pipeline: Pipeline): Array<Readonly<Command>> => {
+	return [WITH_PIPELINE, {
+		label: getPipelineName(pipeline),
+		command: pipeline.pipelineId,
+		reminder: '"list" for list all relations, or "list topic" for list related topics only, etc.',
+		standalone: true,
+		published: CommandPublishedBehaviour.CLEAR_ARGUMENT
+	}];
+};
+
+export const WITH_TOPIC: Readonly<Command> = {
+	label: 'With Topic',
+	command: CMD_TOPIC,
 	standalone: true,
 	published: CommandPublishedBehaviour.CLEAR_ARGUMENT
 };
