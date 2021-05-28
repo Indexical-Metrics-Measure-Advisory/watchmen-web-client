@@ -81,6 +81,9 @@ export const Workbench = (props: { commands: Array<Command> }) => {
 	const onCommandTextChanged = (event: ChangeEvent<HTMLInputElement>) => {
 		const {value} = event.target;
 		setCommandText(value);
+		if (pickedCommands.length !== 0) {
+			fire(CliEventTypes.COMMAND_SOLVABLE_CHANGED, pickedCommands[0].isValid(value));
+		}
 		if (value.trim() === '/') {
 			// TODO show command help
 			fire(CliEventTypes.COMMAND_SOLVABLE_CHANGED, false);
@@ -122,6 +125,7 @@ export const Workbench = (props: { commands: Array<Command> }) => {
 				const command = commands.find(command => command.command === before.trim());
 				if (command) {
 					fire(CliEventTypes.SELECT_COMMAND, command);
+					fire(CliEventTypes.COMMAND_SOLVABLE_CHANGED, command.isValid(after));
 					setCommandText(after);
 					event.stopPropagation();
 					event.preventDefault();

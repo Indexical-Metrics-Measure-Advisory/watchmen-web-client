@@ -15,7 +15,8 @@ export const CONSANGUINITY_COMMANDS: Array<Readonly<Command>> = [
 		icon: ICON_PIPELINE,
 		reminder: 'A text to match name, or "list" to list all',
 		standalone: true,
-		published: CommandPublishedBehaviour.CLEAR_ARGUMENT
+		published: CommandPublishedBehaviour.CLEAR_ARGUMENT,
+		isValid: text => text.trim().length !== 0
 	},
 	{
 		label: 'Find Topic',
@@ -23,7 +24,8 @@ export const CONSANGUINITY_COMMANDS: Array<Readonly<Command>> = [
 		icon: ICON_TOPIC,
 		reminder: 'A text to match name, or "list" to list all.',
 		standalone: true,
-		published: CommandPublishedBehaviour.CLEAR_ARGUMENT
+		published: CommandPublishedBehaviour.CLEAR_ARGUMENT,
+		isValid: text => text.trim().length !== 0
 	}
 ];
 
@@ -31,7 +33,8 @@ export const WITH_PIPELINE: Readonly<Command> = {
 	label: 'With Pipeline',
 	command: CMD_PIPELINE,
 	standalone: true,
-	published: CommandPublishedBehaviour.CLEAR_ARGUMENT
+	published: CommandPublishedBehaviour.CLEAR_ARGUMENT,
+	isValid: text => text.trim().length !== 0
 };
 
 export const buildWithPipelineCommand = (pipeline: Pipeline): Array<Readonly<Command>> => {
@@ -40,7 +43,8 @@ export const buildWithPipelineCommand = (pipeline: Pipeline): Array<Readonly<Com
 		command: pipeline.pipelineId,
 		reminder: '"list" for list all relations, or "list topic" for list related topics only, etc.',
 		standalone: true,
-		published: CommandPublishedBehaviour.CLEAR_ARGUMENT
+		published: CommandPublishedBehaviour.CLEAR_ARGUMENT,
+		isValid: text => text.trim().length !== 0
 	}];
 };
 
@@ -48,5 +52,6 @@ export const WITH_TOPIC: Readonly<Command> = {
 	label: 'With Topic',
 	command: CMD_TOPIC,
 	standalone: true,
-	published: CommandPublishedBehaviour.CLEAR_ARGUMENT
+	published: CommandPublishedBehaviour.CLEAR_ARGUMENT,
+	isValid: text => text.trim().length !== 0
 };

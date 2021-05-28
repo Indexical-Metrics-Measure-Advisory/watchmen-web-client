@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import {Input} from '../../../../basic-widgets/input';
 
 export const WorkbenchContainer = styled.div.attrs({'data-widget': 'cli-workbench'})`
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-column-gap: calc(var(--margin) / 4);
 `;
 export const PickedCommands = styled.div.attrs({'data-widget': 'cli-picked-commands'})`
 	display: flex;

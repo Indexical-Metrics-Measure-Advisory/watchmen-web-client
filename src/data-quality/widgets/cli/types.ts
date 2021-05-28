@@ -9,6 +9,7 @@ export enum CommandPublishedBehaviour {
 	CLEAR_ARGUMENT = 'clear-argument',
 	KEEP = 'keep'
 }
+
 export interface Command {
 	// label in command shortcut popup
 	label: string;
@@ -22,7 +23,9 @@ export interface Command {
 	// is standalone. true means picked commands and arguments will be cleared when this command is picked
 	standalone: boolean;
 
-	published: CommandPublishedBehaviour
+	published: CommandPublishedBehaviour,
+
+	isValid: (text: string) => boolean;
 }
 
 export interface ExecutionCommandPart {
