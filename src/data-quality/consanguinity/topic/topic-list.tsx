@@ -1,5 +1,5 @@
 import {ExecutionContent} from '../../widgets/cli/types';
-import {CMD_ARGUMENT_LIST} from '../commands';
+import {CMD_ARGUMENT_LIST, PICK_TOPIC} from '../commands';
 import {
 	ExecutionCommandArgument,
 	ExecutionCommandPrimary,
@@ -43,6 +43,7 @@ export const TopicList = (props: { content: ExecutionContent }) => {
 				</ExecutionResultItemTable>);
 			}
 			fire(CliEventTypes.COMMAND_EXECUTED);
+			fire(CliEventTypes.SUGGEST_COMMAND, [PICK_TOPIC], '1');
 		};
 	});
 	useDataQualityCacheData({onDataRetrieved});

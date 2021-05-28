@@ -23,7 +23,7 @@ import {ICON_HELP, ICON_SEARCH, ICON_SEND, ICON_SHORTCUT} from '../../../basic-w
 import {ButtonInk, TooltipAlignment} from '../../../basic-widgets/types';
 import {Command, CommandPublishedBehaviour, ExecutionContent} from './types';
 import {useCollapseFixedThing} from '../../../basic-widgets/utils';
-import {CMD_CLEAR} from './commands';
+import {CMD_ARGUMENT_CLEAR_SCREEN, CMD_CLEAR} from './commands';
 import {CliEventBusProvider, useCliEventBus} from './cli-event-bus';
 import {CliEventTypes} from './cli-event-bus-types';
 import {Executions} from './executions';
@@ -116,6 +116,13 @@ export const CLI = (props: {
 			if (command) {
 				onShortcutCommandClicked(command)();
 			}
+		} else if (text.startsWith('/')) {
+			const parts = text.split(' ').map(part => part.trim());
+			if (parts[0] === CMD_CLEAR) {
+				if (parts[1] === CMD_ARGUMENT_CLEAR_SCREEN) {
+					clearScreen();
+				}
+			}
 		} else if (publish) {
 			// treat as arguments
 			if (pickedCommands.length === 0) {
@@ -137,6 +144,13 @@ export const CLI = (props: {
 		setPickedCommand([]);
 		setCommandText('');
 		setPlaceholder(DEFAULT_PLACEHOLDER);
+	};
+	const clearScreen = () => {
+		fire(CliEventTypes.CLEAR_SCREEN);
+		setCommandText('');
+		if (pickedCommands.length !== 0) {
+			setPlaceholder(pickedCommands[pickedCommands.length - 1].reminder || '');
+		}
 	};
 	const publishCommand = () => {
 		const text = commandText.trim();

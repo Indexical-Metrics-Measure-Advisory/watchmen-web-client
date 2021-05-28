@@ -14,11 +14,16 @@ export const Executions = (props: {
 	const [executionContents, setExecutionContents] = useState<Array<ExecutionContent>>([]);
 	useEffect(() => {
 		const onExecuteCommand = (command: ExecutionCommand) => {
-			setExecutionContents(executionContents => [...executionContents, {id: v4(), command}]);
+			setExecutionContents(executionContents => {
+				return [...executionContents, {id: v4(), command}]
+			});
 		};
+		const onClearScreen = () => setExecutionContents([]);
 		on(CliEventTypes.EXECUTE_COMMAND, onExecuteCommand);
+		on(CliEventTypes.CLEAR_SCREEN, onClearScreen);
 		return () => {
 			off(CliEventTypes.EXECUTE_COMMAND, onExecuteCommand);
+			off(CliEventTypes.CLEAR_SCREEN, onClearScreen);
 		};
 	}, [on, off]);
 
