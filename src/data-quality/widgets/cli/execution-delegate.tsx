@@ -6,7 +6,7 @@ import {
 	ExecutionPromptFlicker
 } from './widgets';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_CMD_PROMPT} from '../../../basic-widgets/constants';
+import {ICON_CMD_PROMPT, ICON_LOADING} from '../../../basic-widgets/constants';
 import React from 'react';
 
 export const ExecutionWaiter = () => {
@@ -36,6 +36,8 @@ export const ExecutionDelegate = (props: {
 			? <ExecutionCommandResult>
 				{result}
 			</ExecutionCommandResult>
-			: null}
+			: <ExecutionCommandResult>
+				<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>
+			</ExecutionCommandResult>}
 	</ExecutionContainer>;
 };

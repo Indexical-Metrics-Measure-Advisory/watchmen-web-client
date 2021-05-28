@@ -20,7 +20,7 @@ export const AdminCacheEventBusProvider = (props: { children?: ((props: any) => 
 		},
 		on: (type: string, listener: (...data: Array<any>) => void): AdminCacheEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
-				console.error(`Listener on [${type}] was added into cache event bus, check it.`);
+				console.error(`Listener on [${type}] was added into admin cache event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;

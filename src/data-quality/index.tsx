@@ -7,6 +7,8 @@ import DataQualityHome from './home';
 import DataQualityConsanguinity from './consanguinity';
 import {DataQualityMenu} from './menu';
 import DataQualitySettings from './settings';
+import {DataQualityCacheEventBusProvider} from './cache/cache-event-bus';
+import {DataQualityCache} from './cache';
 
 const DataQualityContainer = styled.div.attrs({'data-widget': 'data-quality'})`
 	display: flex;
@@ -34,26 +36,29 @@ const DataQualityIndex = () => {
 	}
 
 	return <DataQualityContainer>
-		<DataQualityMenu/>
+		<DataQualityCacheEventBusProvider>
+			<DataQualityCache/>
+			<DataQualityMenu/>
 
-		<Switch>
-			<Route path={Router.DATA_QUALITY_HOME}>
-				<DataQualityMain scrollable={false}>
-					<DataQualityHome/>
-				</DataQualityMain>
-			</Route>
-			<Route path={Router.DATA_QUALITY_CONSANGUINITY}>
-				<DataQualityMain scrollable={false}>
-					<DataQualityConsanguinity/>
-				</DataQualityMain>
-			</Route>
-			<Route path={Router.DATA_QUALITY_SETTINGS}>
-				<DataQualityMain><DataQualitySettings/></DataQualityMain>
-			</Route>
-			<Route path="*">
-				<Redirect to={Router.DATA_QUALITY_HOME}/>
-			</Route>
-		</Switch>
+			<Switch>
+				<Route path={Router.DATA_QUALITY_HOME}>
+					<DataQualityMain scrollable={false}>
+						<DataQualityHome/>
+					</DataQualityMain>
+				</Route>
+				<Route path={Router.DATA_QUALITY_CONSANGUINITY}>
+					<DataQualityMain scrollable={false}>
+						<DataQualityConsanguinity/>
+					</DataQualityMain>
+				</Route>
+				<Route path={Router.DATA_QUALITY_SETTINGS}>
+					<DataQualityMain><DataQualitySettings/></DataQualityMain>
+				</Route>
+				<Route path="*">
+					<Redirect to={Router.DATA_QUALITY_HOME}/>
+				</Route>
+			</Switch>
+		</DataQualityCacheEventBusProvider>
 	</DataQualityContainer>;
 };
 

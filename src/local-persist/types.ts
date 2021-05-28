@@ -6,3 +6,8 @@ export interface AdminCacheData {
 	topics: Array<Topic>;
 	graphics: PipelinesGraphics;
 }
+
+export interface DataQualityCacheData {
+	pipelines: Array<Pipeline>;
+	topics: Array<Topic>;
+}

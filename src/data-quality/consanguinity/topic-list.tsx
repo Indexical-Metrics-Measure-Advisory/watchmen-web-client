@@ -33,9 +33,9 @@ export const TopicList = (props: { content: ExecutionContent }) => {
 		}
 		const computeResult = () => {
 			return <ExecutionResultItemTable>
-				{DemoTopics.map(topic => {
+				{DemoTopics.map((topic, index) => {
 					return <ExecutionResultClickableItem key={topic.topicId}>
-						{getTopicName(topic)}
+						{index + 1}. {getTopicName(topic)}
 					</ExecutionResultClickableItem>;
 				})}
 			</ExecutionResultItemTable>;

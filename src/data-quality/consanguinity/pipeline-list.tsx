@@ -1,5 +1,5 @@
 import {ExecutionContent} from '../widgets/cli/types';
-import {CMD_PIPELINE, CMD_ARGUMENT_LIST} from './commands';
+import {CMD_ARGUMENT_LIST, CMD_PIPELINE} from './commands';
 import {
 	ExecutionCommandArgument,
 	ExecutionCommandPrimary,
@@ -10,6 +10,8 @@ import {DemoPipelines} from '../../services/mock/pipeline/mock-data-pipelines';
 import {getPipelineName} from '../utils';
 import {ExecutionDelegate} from '../widgets/cli/execution-delegate';
 import React, {useEffect, useState} from 'react';
+import {useConsanguinityEventBus} from './consanguinity-event-bus';
+import {ConsanguinityEventTypes} from './consanguinity-event-bus-types';
 
 const ignore = (content: ExecutionContent) => {
 	if (content.command.length < 2) {
@@ -26,22 +28,25 @@ const ignore = (content: ExecutionContent) => {
 export const PipelineList = (props: { content: ExecutionContent }) => {
 	const {content} = props;
 
+	const {fire} = useConsanguinityEventBus();
 	const [result, setResult] = useState<any>();
 	useEffect(() => {
 		if (ignore(content)) {
 			return;
 		}
 		const computeResult = () => {
+			const pipelines = DemoPipelines;
 			return <ExecutionResultItemTable>
-				{DemoPipelines.map(pipeline => {
+				{pipelines.map((pipeline, index) => {
 					return <ExecutionResultClickableItem key={pipeline.pipelineId}>
-						{getPipelineName(pipeline)}
+						{index + 1}. {getPipelineName(pipeline)}
 					</ExecutionResultClickableItem>;
 				})}
 			</ExecutionResultItemTable>;
 		};
 		setResult(computeResult());
-	}, [content]);
+		fire(ConsanguinityEventTypes.COMMAND_EXECUTED);
+	}, [fire, content]);
 
 	if (ignore(content)) {
 		return null;
