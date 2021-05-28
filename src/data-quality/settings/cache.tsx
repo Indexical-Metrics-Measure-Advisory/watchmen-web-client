@@ -8,11 +8,11 @@ import React, {useState} from 'react';
 import {Button} from '../../basic-widgets/button';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ICON_LOADING} from '../../basic-widgets/constants';
-import {useCacheEventBus} from '../cache/cache-event-bus';
+import {useDataQualityCacheEventBus} from '../cache/cache-event-bus';
 import {DataQualityCacheEventTypes} from '../cache/cache-event-bus-types';
 
 export const CacheSettings = () => {
-	const {once} = useCacheEventBus();
+	const {once} = useDataQualityCacheEventBus();
 
 	const [reloading, setReloading] = useState(false);
 	const onReloadClicked = () => {

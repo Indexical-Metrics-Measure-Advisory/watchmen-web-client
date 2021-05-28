@@ -252,3 +252,9 @@ export const ExecutionResultClickableItem = styled(ExecutionResultItem)`
 		text-decoration: underline;
 	}
 `;
+export const ExecutionResultNoData = styled.div`
+	display: flex;
+	align-items: center;
+	height: var(--height);
+	grid-column: 3;
+`;

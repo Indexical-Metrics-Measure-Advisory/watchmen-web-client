@@ -36,4 +36,4 @@ export const DataQualityCacheEventBusProvider = (props: { children?: ((props: an
 	</Context.Provider>;
 };
 
-export const useCacheEventBus = () => useContext(Context);
+export const useDataQualityCacheEventBus = () => useContext(Context);

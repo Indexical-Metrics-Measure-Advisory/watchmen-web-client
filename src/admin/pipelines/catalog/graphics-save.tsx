@@ -9,7 +9,7 @@ import {useCatalogEventBus} from './catalog-event-bus';
 import {CatalogEventTypes} from './catalog-event-bus-types';
 import {transformGraphicsToSave} from './graphics-utils';
 import {AssembledPipelinesGraphics} from './types';
-import {useCacheEventBus} from '../../cache/cache-event-bus';
+import {useAdminCacheEventBus} from '../../cache/cache-event-bus';
 import {AdminCacheEventTypes} from '../../cache/cache-event-bus-types';
 
 interface SaveState {
@@ -20,7 +20,7 @@ export const GraphicsSave = (props: { graphics?: AssembledPipelinesGraphics }) =
 	const {graphics: assembledGraphics} = props;
 
 	const {fire: fireGlobal} = useEventBus();
-	const {fire: fireCache} = useCacheEventBus();
+	const {fire: fireCache} = useAdminCacheEventBus();
 	const {fire: firePipelines} = usePipelinesEventBus();
 	const {on, off} = useCatalogEventBus();
 	const [, setState] = useState<SaveState>({});

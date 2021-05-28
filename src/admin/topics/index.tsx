@@ -17,7 +17,7 @@ import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types'
 import {renderCard} from './card';
 import {renderEditor} from './editor';
 import {createTopic} from './utils';
-import {useCacheEventBus} from '../cache/cache-event-bus';
+import {useAdminCacheEventBus} from '../cache/cache-event-bus';
 import {AdminCacheEventTypes} from '../cache/cache-event-bus-types';
 
 const fetchTopicAndCodes = async (queryTopic: QueryTopic) => {
@@ -34,7 +34,7 @@ const isNameInvalid = (name: string) => {
 };
 const AdminTopics = () => {
 	const {once: onceGlobal, fire: fireGlobal} = useEventBus();
-	const {fire: fireCache} = useCacheEventBus();
+	const {fire: fireCache} = useAdminCacheEventBus();
 	const {on, off, fire} = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateTopic = async () => {

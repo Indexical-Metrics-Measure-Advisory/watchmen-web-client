@@ -21,20 +21,34 @@ import {
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ICON_HELP, ICON_SEARCH, ICON_SEND, ICON_SHORTCUT} from '../../../basic-widgets/constants';
 import {ButtonInk, TooltipAlignment} from '../../../basic-widgets/types';
-import {Command, CommandPublishedBehaviour, ExecutionCommand} from './types';
+import {Command, CommandPublishedBehaviour, ExecutionContent} from './types';
 import {useCollapseFixedThing} from '../../../basic-widgets/utils';
 import {CMD_CLEAR} from './commands';
+import {CliEventBusProvider, useCliEventBus} from './cli-event-bus';
+import {CliEventTypes} from './cli-event-bus-types';
+import {Executions} from './executions';
 
 const DEFAULT_PLACEHOLDER = 'Send a command...';
+
+export const CLIWrapper = (props: {
+	greeting: string;
+	commands: Array<Command>;
+	execution: (props: { content: ExecutionContent }) => JSX.Element;
+}) => {
+	const {greeting, commands, execution} = props;
+	return <CliEventBusProvider>
+		<CLI greeting={greeting} commands={commands} executions={<Executions execution={execution}/>}/>
+	</CliEventBusProvider>;
+};
 
 export const CLI = (props: {
 	greeting: string;
 	commands: Array<Command>;
-	publish: (command: ExecutionCommand) => void;
 	executions: ((props: any) => ReactNode) | ReactNode
 }) => {
-	const {greeting, commands, publish, executions} = props;
+	const {greeting, commands, executions} = props;
 
+	const {fire} = useCliEventBus();
 	// noinspection TypeScriptValidateTypes
 	const shortcutsContainerRef = useRef<HTMLDivElement>(null);
 	// noinspection TypeScriptValidateTypes
@@ -120,7 +134,7 @@ export const CLI = (props: {
 			return;
 		}
 
-		publish([...pickedCommands, {text}]);
+		fire(CliEventTypes.EXECUTE_COMMAND, [...pickedCommands, {text}]);
 		const command = pickedCommands[pickedCommands.length - 1];
 		switch (command.published) {
 			case CommandPublishedBehaviour.KEEP:
@@ -162,7 +176,7 @@ export const CLI = (props: {
 		publishCommand();
 	};
 	const onHelpClicked = () => {
-
+		// TODO help command
 	};
 
 	const commandValid = pickedCommands.length !== 0;
@@ -215,10 +229,11 @@ export const CLI = (props: {
 				                  placeholder={placeholder}/>
 				<CommandLineSeparator/>
 				<CommandLineButtons>
-					<CommandLineButton tooltip={{alignment: TooltipAlignment.RIGHT, offsetX: 5, label: 'Send Command'}}
-					                   disabled={!commandValid}
-					                   ink={commandValid ? ButtonInk.SUCCESS : ButtonInk.WAIVE}
-					                   onClick={onSendCommandClicked}>
+					<CommandLineButton
+						tooltip={{alignment: TooltipAlignment.RIGHT, offsetX: 5, label: 'Send Command'}}
+						disabled={!commandValid}
+						ink={commandValid ? ButtonInk.SUCCESS : ButtonInk.WAIVE}
+						onClick={onSendCommandClicked}>
 						<FontAwesomeIcon icon={ICON_SEND}/>
 					</CommandLineButton>
 					<CommandLineButton tooltip={{alignment: TooltipAlignment.RIGHT, offsetX: 5, label: 'Help'}}

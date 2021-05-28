@@ -36,4 +36,4 @@ export const AdminCacheEventBusProvider = (props: { children?: ((props: any) => 
 	</Context.Provider>;
 };
 
-export const useCacheEventBus = () => useContext(Context);
+export const useAdminCacheEventBus = () => useContext(Context);

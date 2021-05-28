@@ -5,12 +5,12 @@ import {PipelinesEventTypes} from '../pipelines-event-bus-types';
 import {HoldSettings} from './types';
 import {useReplier} from './use-replier';
 import {getCurrentTime} from '../../../services/utils';
-import {useCacheEventBus} from '../../cache/cache-event-bus';
+import {useAdminCacheEventBus} from '../../cache/cache-event-bus';
 import {AdminCacheEventTypes} from '../../cache/cache-event-bus-types';
 import {AdminCacheData} from '../../../local-persist/types';
 
 export const SettingsHolder = () => {
-	const {once: onceCache} = useCacheEventBus();
+	const {once: onceCache} = useAdminCacheEventBus();
 	const {on, off, fire} = usePipelinesEventBus();
 	const [holdSettings, setHoldSettings] = useState<HoldSettings>({
 		initialized: false,

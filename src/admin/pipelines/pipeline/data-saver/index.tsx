@@ -5,12 +5,12 @@ import {renamePipeline, savePipeline} from '../../../../services/tuples/pipeline
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {usePipelineEventBus} from '../pipeline-event-bus';
 import {PipelineEventTypes} from '../pipeline-event-bus-types';
-import {useCacheEventBus} from '../../../cache/cache-event-bus';
+import {useAdminCacheEventBus} from '../../../cache/cache-event-bus';
 import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
 
 export const PipelineDataSaver = () => {
 	const {fire: fireGlobal} = useEventBus();
-	const {fire: fireCache} = useCacheEventBus();
+	const {fire: fireCache} = useAdminCacheEventBus();
 	const {on, off, fire} = usePipelineEventBus();
 	useEffect(() => {
 		const onSavePipeline = async (pipeline: Pipeline) => {

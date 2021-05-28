@@ -7,11 +7,11 @@ import {SimulatorBody} from './body';
 import {AdminCacheEventTypes} from '../cache/cache-event-bus-types';
 import {AdminCacheData} from '../../local-persist/types';
 import {CacheState} from '../cache';
-import {useCacheEventBus} from '../cache/cache-event-bus';
+import {useAdminCacheEventBus} from '../cache/cache-event-bus';
 import {SimulatorLoading} from './simulator-loading';
 
 const AdminDebugIndex = () => {
-	const {once: onceCache} = useCacheEventBus();
+	const {once: onceCache} = useAdminCacheEventBus();
 	const [state, setState] = useState<CacheState>({initialized: false});
 	useEffect(() => {
 		if (!state.initialized) {

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {clearAdminData, loadAdminData, prepareAdminDB} from '../../local-persist';
-import {useCacheEventBus} from './cache-event-bus';
+import {useDataQualityCacheEventBus} from './cache-event-bus';
 import {DataQualityCacheData} from '../../local-persist/types';
 import {DataQualityCacheEventTypes} from './cache-event-bus-types';
 import {EventTypes} from '../../events/types';
@@ -13,7 +13,7 @@ export interface CacheState {
 
 export const DataQualityCache = () => {
 	const {fire: fireGlobal} = useEventBus();
-	const {on, off, fire} = useCacheEventBus();
+	const {on, off, fire} = useDataQualityCacheEventBus();
 	const [data, setData] = useState<CacheState>({initialized: false});
 	useEffect(() => {
 		const onAskDataLoaded = () => fire(DataQualityCacheEventTypes.REPLY_DATA_LOADED, data.initialized);

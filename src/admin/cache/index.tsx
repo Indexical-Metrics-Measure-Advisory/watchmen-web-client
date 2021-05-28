@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {clearAdminData, loadAdminData, prepareAdminDB} from '../../local-persist';
-import {useCacheEventBus} from './cache-event-bus';
+import {useAdminCacheEventBus} from './cache-event-bus';
 import {AdminCacheData} from '../../local-persist/types';
 import {AdminCacheEventTypes} from './cache-event-bus-types';
 import {EventTypes} from '../../events/types';
@@ -16,7 +16,7 @@ export interface CacheState {
 
 export const AdminCache = () => {
 	const {fire: fireGlobal} = useEventBus();
-	const {on, off, fire} = useCacheEventBus();
+	const {on, off, fire} = useAdminCacheEventBus();
 	const [data, setData] = useState<CacheState>({initialized: false});
 	useEffect(() => {
 		const onAskDataLoaded = () => fire(AdminCacheEventTypes.REPLY_DATA_LOADED, data.initialized);

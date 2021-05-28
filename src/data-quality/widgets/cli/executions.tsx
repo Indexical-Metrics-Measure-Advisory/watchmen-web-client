@@ -1,13 +1,16 @@
-import {useConsanguinityEventBus} from './consanguinity-event-bus';
+import {useCliEventBus} from './cli-event-bus';
 import {useEffect, useState} from 'react';
-import {ExecutionCommand, ExecutionContent} from '../widgets/cli/types';
-import {ConsanguinityEventTypes} from './consanguinity-event-bus-types';
+import {ExecutionCommand, ExecutionContent} from './types';
 import {v4} from 'uuid';
-import {Execution} from './execution';
-import {ExecutionWaiter} from '../widgets/cli/execution-delegate';
+import {CliEventTypes} from './cli-event-bus-types';
+import {ExecutionWaiter} from './execution-waiter';
 
-export const Executions = () => {
-	const {on, off} = useConsanguinityEventBus();
+export const Executions = (props: {
+	execution: (props: { content: ExecutionContent }) => JSX.Element;
+}) => {
+	const {execution: Execution} = props;
+
+	const {on, off} = useCliEventBus();
 
 	const [executing, setExecuting] = useState(false);
 	const [executionContents, setExecutionContents] = useState<Array<ExecutionContent>>([]);
@@ -16,16 +19,16 @@ export const Executions = () => {
 			setExecuting(true);
 			setExecutionContents(executionContents => [...executionContents, {id: v4(), command}]);
 		};
-		on(ConsanguinityEventTypes.EXECUTE_COMMAND, onExecuteCommand);
+		on(CliEventTypes.EXECUTE_COMMAND, onExecuteCommand);
 		return () => {
-			off(ConsanguinityEventTypes.EXECUTE_COMMAND, onExecuteCommand);
+			off(CliEventTypes.EXECUTE_COMMAND, onExecuteCommand);
 		};
 	}, [on, off]);
 	useEffect(() => {
 		const onCommandExecuted = () => setExecuting(false);
-		on(ConsanguinityEventTypes.COMMAND_EXECUTED, onCommandExecuted);
+		on(CliEventTypes.COMMAND_EXECUTED, onCommandExecuted);
 		return () => {
-			off(ConsanguinityEventTypes.COMMAND_EXECUTED, onCommandExecuted);
+			off(CliEventTypes.COMMAND_EXECUTED, onCommandExecuted);
 		};
 	}, [on, off]);
 

@@ -1,24 +1,8 @@
-import {
-	ExecutionCommandLine,
-	ExecutionCommandResult,
-	ExecutionContainer,
-	ExecutionPrompt,
-	ExecutionPromptFlicker
-} from './widgets';
+import {ExecutionCommandLine, ExecutionCommandResult, ExecutionContainer, ExecutionPrompt} from './widgets';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ICON_CMD_PROMPT, ICON_LOADING} from '../../../basic-widgets/constants';
 import React from 'react';
 
-export const ExecutionWaiter = () => {
-	return <ExecutionContainer>
-		<ExecutionPrompt>
-			<FontAwesomeIcon icon={ICON_CMD_PROMPT}/>
-		</ExecutionPrompt>
-		<ExecutionCommandLine>
-			<ExecutionPromptFlicker/>
-		</ExecutionCommandLine>
-	</ExecutionContainer>;
-};
 export const ExecutionDelegate = (props: {
 	commandLine: ((props: any) => React.ReactNode) | React.ReactNode;
 	result?: ((props: any) => React.ReactNode) | React.ReactNode;
