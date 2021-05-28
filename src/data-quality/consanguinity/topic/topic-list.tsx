@@ -4,12 +4,14 @@ import {
 	ExecutionCommandArgument,
 	ExecutionCommandPrimary,
 	ExecutionResultClickableItem,
-	ExecutionResultItemTable
+	ExecutionResultItemTable,
+	ExecutionResultNoData
 } from '../../widgets/cli/widgets';
 import {getTopicName} from '../../utils';
 import {ExecutionDelegate} from '../../widgets/cli/execution-delegate';
-import React, {useEffect, useState} from 'react';
-import {DemoTopics} from '../../../services/mock/tuples/mock-data-topics';
+import React, {useState} from 'react';
+import {DataQualityCacheData} from '../../../local-persist/types';
+import {useDataQualityCacheData} from '../../cache/use-cache-data';
 
 export const isTopicListCommand = (content: ExecutionContent) => {
 	const {command} = content;
@@ -19,22 +21,27 @@ export const isTopicListCommand = (content: ExecutionContent) => {
 	return command[1].text?.trim()?.toLowerCase() === CMD_ARGUMENT_LIST;
 };
 
+// noinspection JSUnusedLocalSymbols
 export const TopicList = (props: { content: ExecutionContent }) => {
-	const {content} = props;
-
 	const [result, setResult] = useState<any>();
-	useEffect(() => {
-		const computeResult = () => {
-			return <ExecutionResultItemTable>
-				{DemoTopics.map((topic, index) => {
-					return <ExecutionResultClickableItem key={topic.topicId}>
-						{index + 1}. {getTopicName(topic)}
-					</ExecutionResultClickableItem>;
-				})}
-			</ExecutionResultItemTable>;
+	const [onDataRetrieved] = useState(() => {
+		return (data?: DataQualityCacheData) => {
+			if (data) {
+				setResult(<ExecutionResultItemTable>
+					{data.topics.map((topic, index) => {
+						return <ExecutionResultClickableItem key={topic.topicId}>
+							{index + 1}. {getTopicName(topic)}
+						</ExecutionResultClickableItem>;
+					})}
+				</ExecutionResultItemTable>);
+			} else {
+				setResult(<ExecutionResultItemTable>
+					<ExecutionResultNoData/>
+				</ExecutionResultItemTable>);
+			}
 		};
-		setResult(computeResult());
-	}, [content]);
+	});
+	useDataQualityCacheData({onDataRetrieved});
 
 	return <ExecutionDelegate commandLine={<>
 		<ExecutionCommandPrimary>/topic</ExecutionCommandPrimary>

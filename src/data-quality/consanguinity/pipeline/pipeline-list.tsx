@@ -21,9 +21,8 @@ export const isPipelineListCommand = (content: ExecutionContent) => {
 	return command[1].text?.trim()?.toLowerCase() === CMD_ARGUMENT_LIST;
 };
 
+// noinspection JSUnusedLocalSymbols
 export const PipelineList = (props: { content: ExecutionContent }) => {
-	const {content} = props;
-
 	const [result, setResult] = useState<any>();
 	const [onDataRetrieved] = useState(() => {
 		return (data?: DataQualityCacheData) => {
@@ -42,7 +41,7 @@ export const PipelineList = (props: { content: ExecutionContent }) => {
 			}
 		};
 	});
-	useDataQualityCacheData({content, onDataRetrieved});
+	useDataQualityCacheData({onDataRetrieved});
 
 	return <ExecutionDelegate commandLine={<>
 		<ExecutionCommandPrimary>/pipeline</ExecutionCommandPrimary>

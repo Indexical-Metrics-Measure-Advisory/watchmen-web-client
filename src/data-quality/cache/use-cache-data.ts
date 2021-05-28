@@ -1,14 +1,15 @@
 import {useDataQualityCacheEventBus} from './cache-event-bus';
-import {ExecutionContent} from '../widgets/cli/types';
 import {useEffect} from 'react';
 import {DataQualityCacheEventTypes} from './cache-event-bus-types';
 import {DataQualityCacheData} from '../../local-persist/types';
 
+/**
+ * make sure options will not change, this must be executed only once
+ */
 export const useDataQualityCacheData = (options: {
-	content: ExecutionContent;
 	onDataRetrieved: (data?: DataQualityCacheData) => void;
 }) => {
-	const {content, onDataRetrieved} = options;
+	const {onDataRetrieved} = options;
 
 	const {once} = useDataQualityCacheEventBus();
 
@@ -28,6 +29,5 @@ export const useDataQualityCacheData = (options: {
 			}).fire(DataQualityCacheEventTypes.ASK_DATA_LOADED);
 		};
 		askDataLoaded(askData);
-	}, [once, onDataRetrieved, content]);
-
+	}, [once, onDataRetrieved]);
 };
