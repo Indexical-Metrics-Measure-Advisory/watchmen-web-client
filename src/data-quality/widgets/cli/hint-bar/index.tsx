@@ -1,4 +1,11 @@
-import {HintBarContainer, HintButton} from './widgets';
+import {
+	HintBarContainer,
+	HintCommandButton,
+	HintNoCommandButton,
+	HintOperateButton,
+	HintSendButton,
+	Placeholder
+} from './widgets';
 import React, {useEffect, useState} from 'react';
 import {useCliEventBus} from '../events/cli-event-bus';
 import {CliEventTypes} from '../events/cli-event-bus-types';
@@ -56,10 +63,14 @@ export const HintBar = (props: { commands: Array<Command> }) => {
 	return <HintBarContainer>
 		{hints.commands.length !== 0
 			? hints.commands.map(hint => {
-				return <HintButton onClick={onHintClicked(hint)} key={hint.label}>
+				return <HintCommandButton onClick={onHintClicked(hint)} key={hint.label}>
 					{hint.command}
-				</HintButton>;
+				</HintCommandButton>;
 			})
-			: <HintButton>No further command found.</HintButton>}
+			: <HintNoCommandButton>No further suggestion found.</HintNoCommandButton>}
+		<Placeholder/>
+		{hints.clearable ? <HintOperateButton>Remove Last Command</HintOperateButton> : null}
+		{hints.clearable ? <HintOperateButton>Clear Command(s)</HintOperateButton> : null}
+		{hints.executable ? <HintSendButton>Send</HintSendButton> : null}
 	</HintBarContainer>;
 };
