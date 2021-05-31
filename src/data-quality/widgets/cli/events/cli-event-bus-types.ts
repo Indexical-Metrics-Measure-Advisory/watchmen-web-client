@@ -1,15 +1,13 @@
-import {Command, ExecutionCommand} from '../types';
+import {Command} from '../../../command/types';
 
 export enum CliEventTypes {
 	SELECT_COMMAND = 'select-command',
-	SEND_COMMAND = 'send-command',
 	SUGGEST_COMMAND = 'suggest-command',
-
-	COMMAND_SOLVABLE_CHANGED = 'command-solvable-changed',
 
 	EXECUTE_COMMAND = 'execute-command',
 	COMMAND_EXECUTED = 'command-executed',
 
+	WORKBENCH_CHANGED = 'workbench-changed',
 	CLEAR_SCREEN = 'clear-screen',
 }
 
@@ -18,25 +16,21 @@ export interface CliEventBus {
 	on(type: CliEventTypes.SELECT_COMMAND, listener: (command: Command) => void): this;
 	off(type: CliEventTypes.SELECT_COMMAND, listener: (command: Command) => void): this;
 
-	fire(type: CliEventTypes.SEND_COMMAND): this;
-	on(type: CliEventTypes.SEND_COMMAND, listener: () => void): this;
-	off(type: CliEventTypes.SEND_COMMAND, listener: () => void): this;
-
 	fire(type: CliEventTypes.SUGGEST_COMMAND, commands: Array<Command>, argument?: string): this;
 	on(type: CliEventTypes.SUGGEST_COMMAND, listener: (commands: Array<Command>, argument?: string) => void): this;
 	off(type: CliEventTypes.SUGGEST_COMMAND, listener: (commands: Array<Command>, argument?: string) => void): this;
 
-	fire(type: CliEventTypes.COMMAND_SOLVABLE_CHANGED, solvable: boolean): this;
-	on(type: CliEventTypes.COMMAND_SOLVABLE_CHANGED, listener: (solvable: boolean) => void): this;
-	off(type: CliEventTypes.COMMAND_SOLVABLE_CHANGED, listener: (solvable: boolean) => void): this;
-
-	fire(type: CliEventTypes.EXECUTE_COMMAND, command: ExecutionCommand): this;
-	on(type: CliEventTypes.EXECUTE_COMMAND, listener: (command: ExecutionCommand) => void): this;
-	off(type: CliEventTypes.EXECUTE_COMMAND, listener: (command: ExecutionCommand) => void): this;
+	fire(type: CliEventTypes.EXECUTE_COMMAND, commands: Array<Command>, argument?: string): this;
+	on(type: CliEventTypes.EXECUTE_COMMAND, listener: (commands: Array<Command>, argument?: string) => void): this;
+	off(type: CliEventTypes.EXECUTE_COMMAND, listener: (commands: Array<Command>, argument?: string) => void): this;
 
 	fire(type: CliEventTypes.COMMAND_EXECUTED): this;
 	on(type: CliEventTypes.COMMAND_EXECUTED, listener: () => void): this;
 	off(type: CliEventTypes.COMMAND_EXECUTED, listener: () => void): this;
+
+	fire(type: CliEventTypes.WORKBENCH_CHANGED, commands: Array<Command>, argument?: string): this;
+	on(type: CliEventTypes.WORKBENCH_CHANGED, listener: (commands: Array<Command>, argument?: string) => void): this;
+	off(type: CliEventTypes.WORKBENCH_CHANGED, listener: (commands: Array<Command>, argument?: string) => void): this;
 
 	fire(type: CliEventTypes.CLEAR_SCREEN): this;
 	on(type: CliEventTypes.CLEAR_SCREEN, listener: () => void): this;

@@ -32,9 +32,8 @@ export const CommandArea = styled.div.attrs({'data-widget': 'cli-command-area'})
 export const CommandLine = styled.div.attrs({'data-widget': 'cli-command-line'})`
 	display: grid;
 	align-items: center;
-	grid-template-columns: auto auto 1fr auto auto;
+	grid-template-columns: 1fr auto auto;
 	grid-column-gap: calc(var(--margin) / 4);
-	height: calc(var(--tall-height) * 1.2);
 	padding: 0 calc(var(--margin) / 4);
 `;
 export const CommandLineSeparator = styled.div`

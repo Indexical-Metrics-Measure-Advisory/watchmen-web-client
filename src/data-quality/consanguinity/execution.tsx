@@ -1,6 +1,6 @@
 import {ExecutionContent} from '../widgets/cli/types';
-import {isPipelineCommand, PipelineCommand} from './pipeline';
-import {isTopicCommand, TopicCommand} from './topic';
+import {isPipelineExecution, PipelineExecution} from './pipeline';
+import {isTopicExecution, TopicExecution} from './topic';
 
 export const Execution = (props: {
 	content: ExecutionContent;
@@ -8,7 +8,7 @@ export const Execution = (props: {
 	const {content} = props;
 
 	return <>
-		{isPipelineCommand(content) ? <PipelineCommand content={content}/> : null}
-		{isTopicCommand(content) ? <TopicCommand content={content}/> : null}
+		{isPipelineExecution(content) ? <PipelineExecution content={content}/> : null}
+		{isTopicExecution(content) ? <TopicExecution content={content}/> : null}
 	</>;
 };

@@ -3,14 +3,16 @@ import {Input} from '../../../../basic-widgets/input';
 
 export const WorkbenchContainer = styled.div.attrs({'data-widget': 'cli-workbench'})`
 	display: grid;
+	position: relative;
 	grid-template-columns: auto 1fr;
-	grid-column-gap: calc(var(--margin) / 4);
+	height: var(--tall-height);
+	align-items: center;
 `;
 export const PickedCommands = styled.div.attrs({'data-widget': 'cli-picked-commands'})`
 	display: flex;
 	position: relative;
 	align-items: center;
-	padding-right: calc(var(--margin) / 4);
+	padding: 0 calc(var(--margin) / 2) 0 calc(var(--margin) / 4);
 	&:after {
 		content: '';
 		display: block;
@@ -30,8 +32,8 @@ export const PickedCommand = styled.div.attrs({'data-widget': 'cli-picked-comman
 	color: var(--invert-color);
 	background-color: var(--warn-color);
 	padding: 0 calc(var(--margin) / 2);
-	height: calc(var(--height) * 0.9);
-	border-radius: calc(var(--height) * 0.45);
+	height: calc(var(--height) * 0.8);
+	border-radius: calc(var(--height) * 0.4);
 	font-variant: petite-caps;
 	&:not(:first-child) {
 		margin-left: calc(var(--margin) / 8);
@@ -39,4 +41,5 @@ export const PickedCommand = styled.div.attrs({'data-widget': 'cli-picked-comman
 `;
 export const WorkbenchInput = styled(Input)`
 	border: 0;
+	justify-self: stretch;
 `;
