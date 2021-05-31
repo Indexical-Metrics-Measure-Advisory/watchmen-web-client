@@ -4,27 +4,34 @@ import {useCliEventBus} from '../events/cli-event-bus';
 import {CliEventTypes} from '../events/cli-event-bus-types';
 import {Command} from '../../../command/types';
 
+interface Hints {
+	commands: Array<Command>;
+	back: boolean;
+}
+
 export const HintBar = (props: { commands: Array<Command> }) => {
 	const {commands} = props;
 
-	const [hints, setHints] = useState<Array<Command>>(commands);
-
-	const {on, off} = useCliEventBus();
+	const {on, off, fire} = useCliEventBus();
+	const [hints, setHints] = useState<Hints>({commands, back: false});
 	useEffect(() => {
 		const onWorkbenchChanged = (pickedCommands: Array<Command>, argument?: string) => {
 			const text = (argument || '').trim();
 			if (text === '/') {
-				setHints(commands);
+				setHints({commands, back: pickedCommands.length !== 0});
 			} else if (text.startsWith('/')) {
-				setHints(commands.filter(command => command.command.startsWith(text)));
+				setHints({
+					commands: commands.filter(command => command.command.startsWith(text)),
+					back: pickedCommands.length !== 0
+				});
 			} else if (pickedCommands.length === 0) {
-				setHints(commands);
+				setHints({commands, back: false});
 			} else {
 				const hints = pickedCommands[pickedCommands.length - 1].trails;
 				if (hints.length === 0) {
-					setHints([]);
+					setHints({commands: [], back: true});
 				} else {
-					setHints(hints.filter(hint => hint.command !== ''));
+					setHints({commands: hints.filter(hint => hint.command !== ''), back: true});
 				}
 			}
 		};
@@ -34,11 +41,17 @@ export const HintBar = (props: { commands: Array<Command> }) => {
 		};
 	}, [on, off, commands]);
 
+	const onHintClicked = (command: Command) => () => {
+		fire(CliEventTypes.SELECT_COMMAND, command);
+	};
+
 	return <HintBarContainer>
-		{hints.map(hint => {
-			return <HintButton key={hint.label}>
-				{hint.label}
-			</HintButton>;
-		})}
+		{hints.commands.length !== 0
+			? hints.commands.map(hint => {
+				return <HintButton onClick={onHintClicked(hint)} key={hint.label}>
+					{hint.command}
+				</HintButton>;
+			})
+			: <span>No further command found.</span>}
 	</HintBarContainer>;
 };

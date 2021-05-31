@@ -4,28 +4,19 @@ import {getPipelineName} from '../../utils';
 
 export const CMD_PIPELINE = '/pipeline';
 
-export const CMD_ARGUMENT_FIND = 'find';
 export const CMD_ARGUMENT_LIST = 'list';
-export const CMD_ARGUMENT_USE = 'use';
+export const CMD_ARGUMENT_OF = 'of';
 
-export const PipelineNameCriteriaCommand: Command = {
+const PipelineFindCmd: Command = {
 	label: '',
 	command: '',
-	reminder: 'Press "enter" to find pipeline',
+	reminder: 'Press "enter" to search by name or id',
+	published: {type: CommandPublishedBehaviorType.BACKWARD, steps: 1} as CommandPublishedBehaviorBackward,
 	trails: [],
-	executableOnNoTrail: true,
-	published: {type: CommandPublishedBehaviorType.BACKWARD, steps: 1} as CommandPublishedBehaviorBackward
-};
-export const PipelineFindCmd: Command = {
-	label: 'Find',
-	command: CMD_ARGUMENT_FIND,
-	reminder: 'A text to match name.',
-	published: {type: CommandPublishedBehaviorType.KEEP},
-	trails: [PipelineNameCriteriaCommand],
-	executableOnNoTrail: false
+	executableOnNoTrail: true
 };
 
-export const PipelineListCmd: Command = {
+const PipelineListCmd: Command = {
 	label: 'List',
 	command: CMD_ARGUMENT_LIST,
 	reminder: 'Press "enter" to list all pipelines.',
@@ -34,17 +25,41 @@ export const PipelineListCmd: Command = {
 	executableOnNoTrail: true
 };
 
-export const PipelineIdCmd: Command = {
+const PipelineListTopicCmd: Command = {
+	label: 'Topics',
+	command: 'topic',
+	reminder: 'Press "enter" to list topics',
+	published: {type: CommandPublishedBehaviorType.BACKWARD, steps: 1} as CommandPublishedBehaviorBackward,
+	trails: [],
+	executableOnNoTrail: true
+};
+const PipelineOutgoingCmd: Command = {
+	label: 'Find Outgoing',
+	command: 'out',
+	reminder: 'Press "enter" to list all outgoing; or "topic" to list on topic level',
+	published: {type: CommandPublishedBehaviorType.KEEP},
+	trails: [PipelineListTopicCmd],
+	executableOnNoTrail: true
+};
+const PipelineIngoingCmd: Command = {
+	label: 'Find Ingoing',
+	command: 'in',
+	reminder: 'Press "enter" to list all ingoing; or "topic" to list on topic level',
+	published: {type: CommandPublishedBehaviorType.KEEP},
+	trails: [PipelineListTopicCmd],
+	executableOnNoTrail: true
+};
+const PipelineIdCmd: Command = {
 	label: '',
 	command: '',
-	reminder: 'Press "enter" to find pipeline',
+	reminder: 'Press "enter" to list all relevant tuples; or "in" to list ingoing, "out" to list outgoing',
 	published: {type: CommandPublishedBehaviorType.KEEP},
-	trails: [],
-	executableOnNoTrail: false
+	trails: [PipelineIngoingCmd, PipelineOutgoingCmd],
+	executableOnNoTrail: true
 };
-export const PipelineUseCmd: Command = {
-	label: 'Use',
-	command: CMD_ARGUMENT_USE,
+const PipelineOfCmd: Command = {
+	label: 'Of',
+	command: CMD_ARGUMENT_OF,
 	reminder: 'Expect a pipeline id',
 	published: {type: CommandPublishedBehaviorType.KEEP},
 	trails: [PipelineIdCmd],
@@ -53,19 +68,16 @@ export const PipelineUseCmd: Command = {
 export const PipelineCmd: Command = {
 	label: 'Pipeline',
 	command: CMD_PIPELINE,
-	reminder: '"find" to find pipeline by name, or "list" to list all',
+	reminder: 'A text to search; or "list" to list all',
 	published: {type: CommandPublishedBehaviorType.KEEP},
-	trails: [PipelineFindCmd, PipelineListCmd, PipelineUseCmd],
+	trails: [PipelineFindCmd, PipelineListCmd, PipelineOfCmd],
 	executableOnNoTrail: false
 };
 
 export const buildUsePipelineCommand = (pipeline: Pipeline): Array<Readonly<Command>> => {
-	return [PipelineCmd, PipelineUseCmd, {
+	return [PipelineCmd, PipelineOfCmd, {
+		...PipelineIdCmd,
 		label: getPipelineName(pipeline),
-		command: pipeline.pipelineId,
-		reminder: '"list" for list all relations, or "list topic" for list related topics only, etc.',
-		published: {type: CommandPublishedBehaviorType.KEEP},
-		trails: [],
-		executableOnNoTrail: false
+		command: pipeline.pipelineId
 	}];
 };

@@ -16,7 +16,6 @@ export const HintButton = styled.div.attrs({'data-widget': 'cli-hint'})`
 	padding: 0 calc(var(--margin) / 2);
 	height: calc(var(--height) * 0.8);
 	border-radius: var(--border-radius);
-	font-variant: petite-caps;
 	cursor: pointer;
 	overflow: hidden;
 	&:not(:first-child) {
