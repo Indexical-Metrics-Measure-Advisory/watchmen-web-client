@@ -9,14 +9,20 @@ export const HintBarContainer = styled.div.attrs({'data-widget': 'cli-hint-bar'}
 	margin: 0 calc(var(--margin) / -4);
 	padding: 0 calc(var(--margin) / 2) 0 calc(var(--margin) / 4 + var(--input-indent));
 `;
-export const HintButton = styled.div.attrs({'data-widget': 'cli-hint'})`
+export const HintButton = styled.div.attrs(({onClick}) => {
+	return {
+		'data-widget': 'cli-hint',
+		style: {
+			cursor: onClick ? 'pointer' : (void 0)
+		}
+	};
+})`
 	display: flex;
 	position: relative;
 	align-items: center;
 	padding: 0 calc(var(--margin) / 2);
 	height: calc(var(--height) * 0.8);
 	border-radius: var(--border-radius);
-	cursor: pointer;
 	overflow: hidden;
 	&:not(:first-child) {
 		margin-left: calc(var(--margin) / 4);
@@ -29,7 +35,7 @@ export const HintButton = styled.div.attrs({'data-widget': 'cli-hint'})`
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background-color: var(--info-color);
+		background-color: ${({onClick}) => onClick ? 'var(--info-color)' : 'var(--waive-color)'};
 		opacity: 0.3;
 		z-index: -1;
 	}

@@ -6,32 +6,40 @@ import {Command} from '../../../command/types';
 
 interface Hints {
 	commands: Array<Command>;
-	back: boolean;
+	executable: boolean;
+	clearable: boolean;
 }
 
 export const HintBar = (props: { commands: Array<Command> }) => {
 	const {commands} = props;
 
 	const {on, off, fire} = useCliEventBus();
-	const [hints, setHints] = useState<Hints>({commands, back: false});
+	const [hints, setHints] = useState<Hints>({commands, executable: false, clearable: false});
 	useEffect(() => {
 		const onWorkbenchChanged = (pickedCommands: Array<Command>, argument?: string) => {
 			const text = (argument || '').trim();
 			if (text === '/') {
-				setHints({commands, back: pickedCommands.length !== 0});
+				setHints({commands, executable: false, clearable: pickedCommands.length !== 0});
 			} else if (text.startsWith('/')) {
 				setHints({
 					commands: commands.filter(command => command.command.startsWith(text)),
-					back: pickedCommands.length !== 0
+					executable: false,
+					clearable: pickedCommands.length !== 0
 				});
 			} else if (pickedCommands.length === 0) {
-				setHints({commands, back: false});
+				setHints({commands, executable: false, clearable: false});
 			} else {
-				const hints = pickedCommands[pickedCommands.length - 1].trails;
+				const lastPicked = pickedCommands[pickedCommands.length - 1];
+				const hints = lastPicked.trails;
 				if (hints.length === 0) {
-					setHints({commands: [], back: true});
+					// no more hints, it must be executable
+					setHints({commands: [], executable: true, clearable: true});
 				} else {
-					setHints({commands: hints.filter(hint => hint.command !== ''), back: true});
+					setHints({
+						commands: hints.filter(hint => hint.command !== ''),
+						executable: !argument?.trim() && lastPicked.executableOnNoTrail,
+						clearable: true
+					});
 				}
 			}
 		};
@@ -52,6 +60,6 @@ export const HintBar = (props: { commands: Array<Command> }) => {
 					{hint.command}
 				</HintButton>;
 			})
-			: <span>No further command found.</span>}
+			: <HintButton>No further command found.</HintButton>}
 	</HintBarContainer>;
 };
