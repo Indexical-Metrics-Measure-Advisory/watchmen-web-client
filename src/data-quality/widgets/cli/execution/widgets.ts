@@ -66,11 +66,24 @@ export const ExecutionTimeLine = styled.span.attrs({'data-widget': 'cli-executio
 `;
 export const ExecutionTimeLabel = styled.span.attrs({'data-widget': 'cli-execution-time-label'})`
 	display: block;
+	position: relative;
 	height: 1.6em;
 	line-height: 1.6em;
-	background-color: var(--info-color);
 	padding: 0 calc(var(--margin) / 4) 0 calc(var(--margin) / 2);
 	border-radius: 0.8em var(--border-radius) var(--border-radius) 0.8em;
+	overflow: hidden;
+	&:before {
+		content: '';
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: var(--info-color);
+		opacity: 0.3;
+		z-index: -1;
+	}
 `;
 export const ExecutionResult = styled.div.attrs({'data-widget': 'cli-execution-result'})`
 	grid-column: 2 / span 2;
