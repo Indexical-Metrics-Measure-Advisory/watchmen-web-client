@@ -15,7 +15,7 @@ import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
 import {CliEventTypes} from '../../widgets/cli/events/cli-event-bus-types';
 import {Pipeline} from '../../../services/tuples/pipeline-types';
 import {
-	buildUsePipelineCommand,
+	buildViewPipelineCommand,
 	CMD_ARGUMENT_DISABLED,
 	CMD_ARGUMENT_ENABLED,
 	CMD_ARGUMENT_INVALID,
@@ -38,7 +38,7 @@ export const PipelineListExecution = (props: { content: ExecutionContent }) => {
 	const [onDataRetrieved] = useState(() => {
 		return (data?: DataQualityCacheData) => {
 			const onPipelineClicked = (pipeline: Pipeline) => () => {
-				fire(CliEventTypes.SUGGEST_COMMAND, buildUsePipelineCommand(pipeline));
+				fire(CliEventTypes.SUGGEST_COMMAND, buildViewPipelineCommand(pipeline));
 			};
 			if (data) {
 				let found;

@@ -5,6 +5,9 @@ export const CMD_ARGUMENT_CLEAR_SCREEN = 'screen';
 
 export const CMD_HELP = '/help';
 
+export const CMD_ARGUMENT_LIST = 'list';
+export const CMD_ARGUMENT_VIEW = 'view';
+
 const ClearScreenCmd: Command = {
 	label: 'Screen',
 	command: CMD_ARGUMENT_CLEAR_SCREEN,

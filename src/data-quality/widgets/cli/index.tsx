@@ -7,18 +7,17 @@ import {Executions} from './execution/executions';
 import {CLITrailButtons} from './cli-trail-buttons';
 import {Workbench} from './workbench';
 import {HintBar} from './hint-bar';
-import {ClearCmd, createHelpCmd} from '../../command';
+import {ClearCmd} from '../../command';
 import {Command} from '../../command/types';
 
 const CLI = (props: {
 	greeting: string;
 	commands: Array<Command>;
-	helpCommands: Array<Command>;
+	helpCommand: Command;
 	executions: ((props: any) => ReactNode) | ReactNode
 }) => {
-	const {greeting, commands, helpCommands, executions} = props;
+	const {greeting, commands, helpCommand, executions} = props;
 
-	const helpCommand = createHelpCmd(helpCommands)
 	const availableCommands = [...commands, ClearCmd, helpCommand];
 
 	return <CLIContainer>
@@ -40,12 +39,13 @@ const CLI = (props: {
 export const CLIWrapper = (props: {
 	greeting: string;
 	commands: Array<Command>;
-	helpCommands: Array<Command>;
+	helpCommand: Command;
 	execution: (props: { content: ExecutionContent }) => JSX.Element;
 }) => {
-	const {greeting, commands, helpCommands, execution} = props;
+	const {greeting, commands, helpCommand, execution} = props;
+
 	return <CliEventBusProvider>
-		<CLI greeting={greeting} commands={commands} helpCommands={helpCommands}
+		<CLI greeting={greeting} commands={commands} helpCommand={helpCommand}
 		     executions={<Executions execution={execution}/>}/>
 	</CliEventBusProvider>;
 };

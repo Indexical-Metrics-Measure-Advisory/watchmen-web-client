@@ -99,9 +99,7 @@ export const ExecutionResultItem = styled.div.attrs({'data-widget': 'cli-executi
 `;
 export const ExecutionResultClickableItem = styled(ExecutionResultItem)`
 	cursor: pointer;
-	&:hover {
-		text-decoration: underline;
-	}
+	text-decoration: underline;
 `;
 export const ExecutionResultNoData = styled.div.attrs({'data-widget': 'cli-execution-result-no-data'})`
 	display: flex;
@@ -122,8 +120,17 @@ export const LeadHelpCommandName = styled.div`
 	line-height: 20px;
 	padding: 4px 0;
 	grid-column: span 2;
+	font-weight: var(--font-bold);
+	color: var(--warn-color);
 `;
-export const HelpCommandName = styled.div`
+export const HelpCommandName = styled.div.attrs(({onClick}) => {
+	return {
+		style: {
+			cursor: onClick ? 'pointer' : (void 0),
+			textDecoration: onClick ? 'underline' : (void 0)
+		}
+	};
+})`
 	display: flex;
 	align-self: start;
 	align-items: center;

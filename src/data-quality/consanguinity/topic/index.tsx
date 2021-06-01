@@ -50,3 +50,4 @@ export const TopicExecution = (props: { content: ExecutionContent }) => {
 		<ExecutionCommandLineArgument>list</ExecutionCommandLineArgument>
 	</>} executeAt={content.time} result={result}/>;
 };
+export {TopicHelpCmd} from './help';

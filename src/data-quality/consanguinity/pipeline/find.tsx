@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import {DataQualityCacheData} from '../../../local-persist/types';
 import {Pipeline} from '../../../services/tuples/pipeline-types';
 import {CliEventTypes} from '../../widgets/cli/events/cli-event-bus-types';
-import {buildUsePipelineCommand} from './commands';
+import {buildViewPipelineCommand} from './commands';
 import {
 	ExecutionCommandLineArgument,
 	ExecutionCommandLinePrimary,
@@ -26,7 +26,7 @@ export const PipelineFindExecution = (props: { content: ExecutionContent }) => {
 	const [onDataRetrieved] = useState(() => {
 		return (data?: DataQualityCacheData) => {
 			const onPipelineClicked = (pipeline: Pipeline) => () => {
-				fire(CliEventTypes.SUGGEST_COMMAND, buildUsePipelineCommand(pipeline));
+				fire(CliEventTypes.SUGGEST_COMMAND, buildViewPipelineCommand(pipeline));
 			};
 			if (data) {
 				// assume text is id first

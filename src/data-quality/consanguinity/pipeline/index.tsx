@@ -1,9 +1,10 @@
 import {ExecutionContent} from '../../widgets/cli/types';
 import React from 'react';
-import {CMD_ARGUMENT_LIST, CMD_ARGUMENT_OF, CMD_PIPELINE} from './commands';
+import { CMD_PIPELINE} from './commands';
 import {PipelineListExecution} from './list';
 import {PipelineFindExecution} from './find';
-import {PipelineOfExecution} from './of';
+import {PipelineViewExecution} from './view';
+import {CMD_ARGUMENT_LIST, CMD_ARGUMENT_VIEW} from '../../command';
 
 export const isPipelineExecution = (content: ExecutionContent) => {
 	const {commands} = content;
@@ -18,9 +19,10 @@ export const PipelineExecution = (props: { content: ExecutionContent }) => {
 
 	if (cmd.command === CMD_ARGUMENT_LIST) {
 		return <PipelineListExecution content={content}/>;
-	} else if (cmd.command === CMD_ARGUMENT_OF) {
-		return <PipelineOfExecution content={content}/>;
+	} else if (cmd.command === CMD_ARGUMENT_VIEW) {
+		return <PipelineViewExecution content={content}/>;
 	} else {
 		return <PipelineFindExecution content={content}/>;
 	}
 };
+export {PipelineHelpCmd} from './help';
