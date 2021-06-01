@@ -141,8 +141,9 @@ const PipelineView = (props: { pipeline: Pipeline, topics: Array<Topic> }) => {
 	});
 
 	const triggerFactors = [...new Set([...triggerFactorIds, ...(readFactorIds[pipeline.topicId] || [])])];
-	// noinspection DuplicatedCode
-	const readFactors = Object.keys(readFactorIds).filter(topicId => topicId)
+	const readFactors = Object.keys(readFactorIds)
+		// eslint-disable-next-line
+		.filter(topicId => topicId && topicId != pipeline.topicId)
 		.map(topicId => {
 			const topic = topicMap[topicId];
 			return {topic, factors: readFactorIds[topicId]};
@@ -151,8 +152,8 @@ const PipelineView = (props: { pipeline: Pipeline, topics: Array<Topic> }) => {
 		.sort((x1, x2) => {
 			return getTopicName(x1.topic).toLowerCase().localeCompare(getTopicName(x2.topic));
 		});
-	// noinspection DuplicatedCode
-	const writeFactors = Object.keys(writeFactorIds).filter(topicId => topicId)
+	const writeFactors = Object.keys(writeFactorIds)
+		.filter(topicId => topicId)
 		.map(topicId => {
 			const topic = topicMap[topicId];
 			return {topic, factors: writeFactorIds[topicId]};

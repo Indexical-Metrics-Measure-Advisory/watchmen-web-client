@@ -87,15 +87,20 @@ export const ExecutionTimeLabel = styled.span.attrs({'data-widget': 'cli-executi
 `;
 export const ExecutionResult = styled.div.attrs({'data-widget': 'cli-execution-result'})`
 	grid-column: 2 / span 2;
+	display: flex;
 `;
 export const ExecutionResultItemTable = styled.div.attrs({'data-widget': 'cli-execution-result-table'})`
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
+	grid-column-gap: var(--margin);
+	min-width: 900px;
 `;
 export const ExecutionResultItem = styled.div.attrs({'data-widget': 'cli-execution-result-item'})`
 	display: flex;
-	align-items: center;
-	height: var(--height);
+	align-items: flex-start;
+	min-height: var(--height);
+	padding: 4px 0;
+	line-height: 20px;
 `;
 export const ExecutionResultClickableItem = styled(ExecutionResultItem)`
 	cursor: pointer;
