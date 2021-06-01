@@ -26,7 +26,9 @@ export const HelpExecution = (props: { content: ExecutionContent }) => {
 				{commands[0].trails.map(trail => <Fragment key={v4()}>{(trail as HelpCommand).brief}</Fragment>)}
 			</HelpTable>);
 		} else if (commands.length > 1) {
-			setResult((commands[1] as HelpCommand).whole);
+			setResult(<HelpTable>
+				{(commands[1] as HelpCommand).whole}
+			</HelpTable>);
 		}
 		fire(CliEventTypes.COMMAND_EXECUTED);
 	}, [fire, content]);

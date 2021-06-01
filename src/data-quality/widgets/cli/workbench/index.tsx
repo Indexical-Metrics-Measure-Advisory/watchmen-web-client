@@ -49,7 +49,8 @@ export const Workbench = (props: { commands: Array<Command> }) => {
 			setPickedCommand(pickedCommands => {
 				const commands = [...pickedCommands];
 				commands.length = commands.length - 1;
-				setTimeout(() => fire(CliEventTypes.WORKBENCH_CHANGED, commands, commandText), 1);
+				// cannot repaint another component when still in set state of this
+				setTimeout(() => fire(CliEventTypes.WORKBENCH_CHANGED, commands, commandText), 10);
 				commandInputRef.current?.focus();
 				return commands;
 			});

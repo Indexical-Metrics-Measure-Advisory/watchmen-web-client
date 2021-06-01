@@ -116,6 +116,13 @@ export const HelpTable = styled.div.attrs({'data-widget': 'help-table'})`
 	grid-template-columns: auto 1fr;
 	grid-column-gap: var(--margin);
 `;
+export const LeadHelpCommandName = styled.div`
+	display: flex;
+	align-items: center;
+	line-height: 20px;
+	padding: 4px 0;
+	grid-column: span 2;
+`;
 export const HelpCommandName = styled.div`
 	display: flex;
 	align-self: start;
@@ -125,9 +132,22 @@ export const HelpCommandName = styled.div`
 	white-space: nowrap;
 `;
 export const HelpCommandDescription = styled.div`
-	display: flex;
+	display: grid;
+	grid-template-columns: 1fr;
 	align-items: center;
 	line-height: 20px;
 	padding: 4px 0;
 	word-break: break-word;
+	> span {
+		display: block;
+	}
+`;
+export const HelpCommandExample = styled.span`
+	display: flex;
+	align-items: center;
+	color: var(--warn-color);
+	font-weight: var(--font-bold);
+	+ span {
+		margin-left: 3em;
+	}
 `;

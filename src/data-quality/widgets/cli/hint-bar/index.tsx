@@ -43,7 +43,12 @@ export const HintBar = (props: { commands: Array<Command> }) => {
 				const hintCandidates = lastPicked.trails;
 				if (hintCandidates.length === 0) {
 					// no more hints, it must be executable
-					setHints({commands: [], executable: !argument?.trim(), clearable: true});
+					setHints({
+						commands: [],
+						message: lastPicked?.reminder,
+						executable: !argument?.trim(),
+						clearable: true
+					});
 				} else {
 					let executable = false;
 					if ((!argument || argument.trim().length === 0) && lastPicked.executableOnNoTrail) {
@@ -87,18 +92,13 @@ export const HintBar = (props: { commands: Array<Command> }) => {
 		};
 	}, [on, off, commands]);
 
-	const onHintClicked = (command: Command) => () => {
-		fire(CliEventTypes.SELECT_COMMAND, command);
-	};
-	const onRemoveLastCommandClicked = () => {
-		fire(CliEventTypes.REMOVE_LAST_COMMAND);
-	};
-	const onClearCommandClicked = () => {
-		fire(CliEventTypes.CLEAR_COMMAND);
-	};
+	const onHintClicked = (command: Command) => () => fire(CliEventTypes.SELECT_COMMAND, command);
+	const onRemoveLastCommandClicked = () => fire(CliEventTypes.REMOVE_LAST_COMMAND);
+	const onClearCommandClicked = () => fire(CliEventTypes.CLEAR_COMMAND);
 	const onSendClicked = () => {
 		// TODO
 	};
+	const onClearScreenClicked = () => fire(CliEventTypes.CLEAR_SCREEN);
 
 	return <HintBarContainer>
 		{hints.commands.length !== 0
@@ -114,5 +114,6 @@ export const HintBar = (props: { commands: Array<Command> }) => {
 		{hints.clearable ?
 			<HintOperateButton onClick={onClearCommandClicked}>Clear Command(s)</HintOperateButton> : null}
 		{hints.executable ? <HintSendButton onClick={onSendClicked}>Send</HintSendButton> : null}
+		<HintSendButton onClick={onClearScreenClicked}>Clear Screen</HintSendButton>
 	</HintBarContainer>;
 };
