@@ -1,1 +1,1 @@
-export const isDataQualityCenterEnabled = () => process.env.REACT_APP_DQC_ENABLED === 'true';
+export const isDataQualityCenterEnabled = () => process.env.REACT_APP_DQC_ENABLED === 'true' || window.location.hash === '#enable-dqc';
