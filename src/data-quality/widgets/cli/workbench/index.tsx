@@ -4,134 +4,10 @@ import {isClearCommand, isClearScreenCommand, isFirstCommand, isHelpCommand} fro
 import {CliEventTypes} from '../events/cli-event-bus-types';
 import {useCliEventBus} from '../events/cli-event-bus';
 import {Command, CommandPublishedBehaviorBackward, CommandPublishedBehaviorType} from '../../../command/types';
-
-interface MatchedCommand {
-	command?: Command;
-	// left text which
-	// 1. cannot match command or
-	// 2. not ends with a space (in not greedy mode)
-	left: string;
-}
-
-interface MatchedCommands {
-	commands: Array<Command>;
-	// left text which
-	// 1. cannot match command or
-	// 2. not ends with a space (in not greedy mode)
-	left: string;
-}
+import {MatchedCommands} from '../types';
+import {matchCommand} from '../utils';
 
 const DEFAULT_PLACEHOLDER = 'Send a command...';
-
-const findNextQuote = (text: string, quote: string, startPosition: number): number => {
-	const index = text.indexOf(quote, startPosition);
-	if (index === -1) {
-		return index;
-	} else if (text.substr(index - 1, 1) === '\\') {
-		return findNextQuote(text, quote, index + 1);
-	} else {
-		return index;
-	}
-};
-
-const matchFreeTextCommandUnderQuotes = (commandText: string, freeTextCommand: Command, quote: string): MatchedCommand => {
-	const index = findNextQuote(commandText, quote, 1);
-	if (index === -1) {
-		return {command: {...freeTextCommand, command: commandText.trim()}, left: ''};
-	} else {
-		let realCommand = commandText.substring(0, index);
-		if (realCommand.startsWith(quote)) {
-			realCommand = realCommand.substring(1, realCommand.length - 2);
-		}
-		return {
-			command: {...freeTextCommand, command: realCommand},
-			left: commandText.substring(index + 1)
-		};
-	}
-};
-const matchFreeTextCommand = (commandText: string, startCommand: Command): MatchedCommand => {
-	// only one free text command is defined, or not
-	const freeTextCommand = startCommand.trails.find(cmd => cmd.command === '');
-	if (freeTextCommand) {
-		if (commandText.startsWith('"')) {
-			return matchFreeTextCommandUnderQuotes(commandText, freeTextCommand, '"');
-		} else if (commandText.startsWith('\'')) {
-			return matchFreeTextCommandUnderQuotes(commandText, freeTextCommand, '"');
-		} else {
-			return {command: {...freeTextCommand, command: commandText.trim()}, left: ''};
-		}
-	} else {
-		return {left: commandText};
-	}
-};
-const findFirstCommand = (startCommand: Command, commandText: string, greedy: boolean): MatchedCommand => {
-	const fixCommands = startCommand.trails.filter(cmd => cmd.command !== '');
-	if (greedy) {
-		// try to match each part
-		let found = fixCommands.find(cmd => commandText === cmd.command);
-		if (found) {
-			return {command: found, left: ''};
-		}
-		found = fixCommands.find(cmd => commandText.startsWith(`${cmd.command} `));
-		if (found) {
-			return {
-				command: found,
-				left: found ? commandText.substring(found.command.length).trimLeft() : commandText
-			};
-		}
-		return matchFreeTextCommand(commandText, startCommand);
-	} else {
-		// each command must follow a blank
-		const found = fixCommands.find(cmd => commandText.startsWith(`${cmd.command} `));
-		if (found) {
-			return {
-				command: found,
-				left: found ? commandText.substring(found.command.length).trimLeft() : commandText
-			};
-		}
-		if (commandText.endsWith(' ')) {
-			// last character is a space, free text command is open to match
-			return matchFreeTextCommand(commandText, startCommand);
-		} else {
-			// leave it as text
-			return {left: commandText};
-		}
-	}
-};
-
-const matchCommand = (options: {
-	matched: MatchedCommands;
-	startCommand: Command;
-	commandText: string;
-	greedy: boolean;
-}) => {
-	const {matched, startCommand, commandText, greedy} = options;
-
-	let found = findFirstCommand(startCommand, commandText, greedy);
-	if (found.command) {
-		// command matched
-		matched.commands.push(found.command);
-		const leftText = found.left;
-		if (leftText.trim().length !== 0 && found.command.trails.length !== 0) {
-			// there is text left and matched command has trails
-			matchCommand({
-				matched,
-				startCommand: found.command,
-				commandText: leftText,
-				greedy
-			});
-		} else if (leftText.trim().length === 0) {
-			// no text left
-			matched.left = '';
-		} else if (found.command.trails.length === 0) {
-			// matched command has no trail
-			matched.left = leftText;
-		}
-	} else {
-		// no command matched
-		matched.left = found.left;
-	}
-};
 
 export const Workbench = (props: { commands: Array<Command> }) => {
 	const {commands} = props;
@@ -177,6 +53,42 @@ export const Workbench = (props: { commands: Array<Command> }) => {
 		fire(CliEventTypes.CLEAR_SCREEN);
 		setCommandText('');
 	};
+	const doAfterPublished = (commands: Array<Command>) => {
+		commands = [...commands];
+		const command = commands[commands.length - 1];
+		switch (command.published.type) {
+			case CommandPublishedBehaviorType.BACKWARD:
+				const backwardSteps = (command.published as CommandPublishedBehaviorBackward).steps;
+				const picked = commands.reverse().slice(backwardSteps).reverse();
+				setPickedCommand(picked);
+				setCommandText('');
+				fire(CliEventTypes.WORKBENCH_CHANGED, picked, '');
+				break;
+			case CommandPublishedBehaviorType.CLEAR_ALL:
+				setPickedCommand([]);
+				setCommandText('');
+				fire(CliEventTypes.WORKBENCH_CHANGED, [], '');
+				break;
+			case CommandPublishedBehaviorType.KEEP: {
+				// just keep the last command as text
+				const [first, ...rest] = commands.reverse();
+				const picked = rest.reverse();
+				setPickedCommand(picked);
+				setCommandText(first.command);
+				fire(CliEventTypes.WORKBENCH_CHANGED, picked, first.command);
+				break;
+			}
+			case CommandPublishedBehaviorType.CLEAR_ARGUMENT: {
+				// clear argument
+				const [, ...rest] = commands.reverse();
+				const picked = rest.reverse();
+				setPickedCommand(picked);
+				setCommandText('');
+				fire(CliEventTypes.WORKBENCH_CHANGED, picked, '');
+				break;
+			}
+		}
+	};
 	const sendCommand = () => {
 		const matched = matchCommandText(commandText.trimLeft(), true);
 		if (matched.left) {
@@ -210,40 +122,7 @@ export const Workbench = (props: { commands: Array<Command> }) => {
 			return;
 		}
 
-		const command = commandsWillSend[commandsWillSend.length - 1];
-		switch (command.published.type) {
-			case CommandPublishedBehaviorType.BACKWARD:
-				const backwardSteps = (command.published as CommandPublishedBehaviorBackward).steps;
-				const picked = commandsWillSend.reverse().slice(backwardSteps).reverse();
-				setPickedCommand(picked);
-				setCommandText('');
-				fire(CliEventTypes.WORKBENCH_CHANGED, picked, '');
-				break;
-			case CommandPublishedBehaviorType.CLEAR_ALL:
-				setPickedCommand([]);
-				setCommandText('');
-				fire(CliEventTypes.WORKBENCH_CHANGED, [], '');
-				break;
-			case CommandPublishedBehaviorType.KEEP: {
-				// just keep the last command as text
-				const [first, ...rest] = commandsWillSend.reverse();
-				const picked = rest.reverse();
-				setPickedCommand(picked);
-				setCommandText(first.command);
-				fire(CliEventTypes.WORKBENCH_CHANGED, picked, first.command);
-				break;
-			}
-			case CommandPublishedBehaviorType.CLEAR_ARGUMENT: {
-				// clear argument
-				const [, ...rest] = commandsWillSend.reverse();
-				const picked = rest.reverse();
-				setPickedCommand(picked);
-				setCommandText('');
-				fire(CliEventTypes.WORKBENCH_CHANGED, picked, '');
-				break;
-			}
-		}
-
+		doAfterPublished(commandsWillSend);
 		if (isClearCommand(commandsWillSend[0])) {
 			if (commandsWillSend.length > 1 && isClearScreenCommand(commandsWillSend[1])) {
 				clearScreen();
@@ -293,13 +172,6 @@ export const Workbench = (props: { commands: Array<Command> }) => {
 	const onCommandTextKeyPressed = (event: KeyboardEvent<HTMLInputElement>) => {
 		if (event.key === 'Enter') {
 			sendCommand();
-		}
-		if (event.key === 'Backspace' && commandInputRef.current?.value === '') {
-			if (pickedCommands.length !== 0) {
-				const [first, ...rest] = pickedCommands.reverse();
-				setPickedCommand(rest.reverse);
-				setCommandText(first.command);
-			}
 		}
 	};
 

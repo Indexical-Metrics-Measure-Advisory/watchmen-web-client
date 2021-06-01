@@ -48,3 +48,4 @@ export const CLIWrapper = (props: {
 		     executions={<Executions execution={execution}/>}/>
 	</CliEventBusProvider>;
 };
+export {matchCommand} from './utils';

@@ -10,7 +10,7 @@ export const CMD_ARGUMENT_OF = 'of';
 const PipelineFindCmd: Command = {
 	label: '',
 	command: '',
-	reminder: 'Press "enter" to search by name or id',
+	reminder: 'An id or part of name',
 	published: {type: CommandPublishedBehaviorType.BACKWARD, steps: 1} as CommandPublishedBehaviorBackward,
 	trails: [],
 	executableOnNoTrail: true
@@ -60,7 +60,7 @@ const PipelineIdCmd: Command = {
 const PipelineOfCmd: Command = {
 	label: 'Of',
 	command: CMD_ARGUMENT_OF,
-	reminder: 'Expect a pipeline id',
+	reminder: 'An id, or a fully qualified name of pipeline',
 	published: {type: CommandPublishedBehaviorType.KEEP},
 	trails: [PipelineIdCmd],
 	executableOnNoTrail: false
@@ -68,7 +68,7 @@ const PipelineOfCmd: Command = {
 export const PipelineCmd: Command = {
 	label: 'Pipeline',
 	command: CMD_PIPELINE,
-	reminder: 'A text to search; or "list" to list all',
+	reminder: 'A text to search by id or name; or "list" to list all',
 	published: {type: CommandPublishedBehaviorType.KEEP},
 	trails: [PipelineFindCmd, PipelineListCmd, PipelineOfCmd],
 	executableOnNoTrail: false

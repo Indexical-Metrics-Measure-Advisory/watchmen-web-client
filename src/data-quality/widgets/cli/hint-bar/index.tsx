@@ -10,11 +10,14 @@ import React, {useEffect, useState} from 'react';
 import {useCliEventBus} from '../events/cli-event-bus';
 import {CliEventTypes} from '../events/cli-event-bus-types';
 import {Command} from '../../../command/types';
+import {matchCommand} from '../utils';
+import {MatchedCommands} from '../types';
 
 interface Hints {
 	commands: Array<Command>;
 	executable: boolean;
 	clearable: boolean;
+	message?: string;
 }
 
 export const HintBar = (props: { commands: Array<Command> }) => {
@@ -37,16 +40,44 @@ export const HintBar = (props: { commands: Array<Command> }) => {
 				setHints({commands, executable: false, clearable: false});
 			} else {
 				const lastPicked = pickedCommands[pickedCommands.length - 1];
-				const hints = lastPicked.trails;
-				if (hints.length === 0) {
+				const hintCandidates = lastPicked.trails;
+				if (hintCandidates.length === 0) {
 					// no more hints, it must be executable
-					setHints({commands: [], executable: true, clearable: true});
+					setHints({commands: [], executable: !argument?.trim(), clearable: true});
 				} else {
-					setHints({
-						commands: hints.filter(hint => hint.command !== ''),
-						executable: !argument?.trim() && lastPicked.executableOnNoTrail,
-						clearable: true
-					});
+					let executable = false;
+					if ((!argument || argument.trim().length === 0) && lastPicked.executableOnNoTrail) {
+						// no argument, see last picked command is executable or not
+						executable = true;
+					} else if (argument && argument.trim().length !== 0) {
+						// has argument, try to match
+						const matched: MatchedCommands = {commands: [], left: ''};
+						matchCommand({
+							matched,
+							startCommand: lastPicked,
+							commandText: (argument || '').trimLeft(),
+							greedy: true
+						});
+						if (!matched.left && matched.commands.length === 1 && matched.commands[0].executableOnNoTrail) {
+							executable = true;
+						}
+					}
+
+					const hintCommands = hintCandidates.filter(hint => hint.command !== '');
+					if (hintCommands.length !== 0) {
+						// there is some standard command
+						setHints({
+							commands: hintCandidates.filter(hint => hint.command !== ''),
+							executable,
+							clearable: true
+						});
+					} else if (hintCommands.length === hintCandidates.length) {
+						// no free text command
+						setHints({commands: [], executable, clearable: true});
+					} else {
+						// there is free text command
+						setHints({commands: [], message: lastPicked?.reminder, executable, clearable: true});
+					}
 				}
 			}
 		};
@@ -67,7 +98,7 @@ export const HintBar = (props: { commands: Array<Command> }) => {
 					{hint.command}
 				</HintCommandButton>;
 			})
-			: <HintNoCommandButton>No further suggestion found.</HintNoCommandButton>}
+			: <HintNoCommandButton>{hints.message || 'No further suggestion found.'}</HintNoCommandButton>}
 		<Placeholder/>
 		{hints.clearable ? <HintOperateButton>Remove Last Command</HintOperateButton> : null}
 		{hints.clearable ? <HintOperateButton>Clear Command(s)</HintOperateButton> : null}
