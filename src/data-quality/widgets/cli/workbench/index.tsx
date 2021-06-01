@@ -4,8 +4,7 @@ import {isClearCommand, isClearScreenCommand, isFirstCommand, isHelpCommand} fro
 import {CliEventTypes} from '../events/cli-event-bus-types';
 import {useCliEventBus} from '../events/cli-event-bus';
 import {Command, CommandPublishedBehaviorBackward, CommandPublishedBehaviorType} from '../../../command/types';
-import {MatchedCommands} from '../types';
-import {matchCommand} from '../utils';
+import {matchCommandText} from '../utils';
 
 const DEFAULT_PLACEHOLDER = 'Send a command...';
 
@@ -67,105 +66,96 @@ export const Workbench = (props: { commands: Array<Command> }) => {
 			off(CliEventTypes.CLEAR_COMMAND, onClearCommand);
 		};
 	}, [on, off, fire, commandText]);
-
-	const clearAll = () => {
-		setPickedCommand([]);
-		setCommandText('');
-	};
-	const clearScreen = () => {
-		fire(CliEventTypes.CLEAR_SCREEN);
-	};
-	const doAfterPublished = (commands: Array<Command>) => {
-		commands = [...commands];
-		const command = commands[commands.length - 1];
-		switch (command.published.type) {
-			case CommandPublishedBehaviorType.BACKWARD:
-				const backwardSteps = (command.published as CommandPublishedBehaviorBackward).steps;
-				const picked = commands;
-				picked.length = Math.max(0, picked.length - backwardSteps);
-				setPickedCommand(picked);
-				setCommandText('');
-				fire(CliEventTypes.WORKBENCH_CHANGED, picked, '');
-				break;
-			case CommandPublishedBehaviorType.CLEAR_ALL:
-				clearAll();
-				fire(CliEventTypes.WORKBENCH_CHANGED, [], '');
-				break;
-			case CommandPublishedBehaviorType.KEEP: {
-				// just keep the last command as text
-				setPickedCommand(commands);
-				setCommandText('');
-				fire(CliEventTypes.WORKBENCH_CHANGED, commands, '');
-				break;
-			}
-		}
-	};
-	const sendCommand = () => {
-		const matched = matchCommandText(commandText.trimLeft(), true);
-		if (matched.left) {
-			// something not matched
-			if (matched.commands.length !== 0) {
-				if (commandText.trimLeft().startsWith('/')) {
-					// replace picked commands
-					setPickedCommand(matched.commands);
-				} else {
-					// follow the picked commands
-					setPickedCommand([...pickedCommands, ...matched.commands]);
+	useEffect(() => {
+		const clearAll = () => {
+			setPickedCommand([]);
+			setCommandText('');
+		};
+		const doAfterPublished = (commands: Array<Command>) => {
+			commands = [...commands];
+			const command = commands[commands.length - 1];
+			switch (command.published.type) {
+				case CommandPublishedBehaviorType.BACKWARD:
+					const backwardSteps = (command.published as CommandPublishedBehaviorBackward).steps;
+					const picked = commands;
+					picked.length = Math.max(0, picked.length - backwardSteps);
+					setPickedCommand(picked);
+					setCommandText('');
+					fire(CliEventTypes.WORKBENCH_CHANGED, picked, '');
+					break;
+				case CommandPublishedBehaviorType.CLEAR_ALL:
+					clearAll();
+					fire(CliEventTypes.WORKBENCH_CHANGED, [], '');
+					break;
+				case CommandPublishedBehaviorType.KEEP: {
+					// just keep the last command as text
+					setPickedCommand(commands);
+					setCommandText('');
+					fire(CliEventTypes.WORKBENCH_CHANGED, commands, '');
+					break;
 				}
 			}
-			setCommandText(matched.left);
+		};
+		const onSendCommand = () => {
+			const matched = matchCommandText({
+				text: commandText.trimLeft(),
+				greedy: true,
+				pickedCommands,
+				allCommands: commands
+			});
+			if (matched.left) {
+				// something not matched
+				if (matched.commands.length !== 0) {
+					if (commandText.trimLeft().startsWith('/')) {
+						// replace picked commands
+						setPickedCommand(matched.commands);
+					} else {
+						// follow the picked commands
+						setPickedCommand([...pickedCommands, ...matched.commands]);
+					}
+				}
+				setCommandText(matched.left);
 
-			// cannot execute, return
-			return;
-		}
-
-		// exactly matched, no left text
-		let commandsWillSend: Array<Command>;
-		if (commandText.trimLeft().startsWith('/')) {
-			// replace current picked command
-			commandsWillSend = matched.commands;
-		} else {
-			commandsWillSend = [...pickedCommands, ...matched.commands];
-		}
-
-		if (commandsWillSend.length === 0) {
-			// no valid command needs to be sent
-			return;
-		}
-
-		doAfterPublished(commandsWillSend);
-		if (isClearCommand(commandsWillSend[0])) {
-			if (commandsWillSend.length > 1 && isClearScreenCommand(commandsWillSend[1])) {
-				clearScreen();
-			} else {
-				clearAll();
+				// cannot execute, return
+				return;
 			}
-		} else if (isHelpCommand(commandsWillSend[0])) {
-			fire(CliEventTypes.EXECUTE_COMMAND, commandsWillSend, commandText);
-		} else {
-			fire(CliEventTypes.EXECUTE_COMMAND, commandsWillSend, commandText);
-		}
-	};
 
-	const matchCommandText = (text: string, greedy: boolean) => {
-		let startCommand: Command;
-		if (text.trimLeft().startsWith('/')) {
-			startCommand = {trails: commands} as Command;
-		} else if (pickedCommands.length === 0) {
-			startCommand = {trails: commands} as Command;
-		} else {
-			startCommand = pickedCommands[pickedCommands.length - 1];
-		}
+			// exactly matched, no left text
+			let commandsWillSend: Array<Command>;
+			if (commandText.trimLeft().startsWith('/')) {
+				// replace current picked command
+				commandsWillSend = matched.commands;
+			} else {
+				commandsWillSend = [...pickedCommands, ...matched.commands];
+			}
 
-		const matched: MatchedCommands = {commands: [], left: ''};
-		if (text.trim()) {
-			matchCommand({matched, startCommand, commandText: text.trimLeft(), greedy});
-		}
-		return matched;
-	};
+			if (commandsWillSend.length === 0) {
+				// no valid command needs to be sent
+				return;
+			}
+
+			doAfterPublished(commandsWillSend);
+			if (isClearCommand(commandsWillSend[0])) {
+				if (commandsWillSend.length > 1 && isClearScreenCommand(commandsWillSend[1])) {
+					fire(CliEventTypes.CLEAR_SCREEN);
+				} else {
+					clearAll();
+				}
+			} else if (isHelpCommand(commandsWillSend[0])) {
+				fire(CliEventTypes.EXECUTE_COMMAND, commandsWillSend, commandText);
+			} else {
+				fire(CliEventTypes.EXECUTE_COMMAND, commandsWillSend, commandText);
+			}
+		};
+		on(CliEventTypes.SEND_COMMAND, onSendCommand);
+		return () => {
+			off(CliEventTypes.SEND_COMMAND, onSendCommand);
+		};
+	}, [on, off, fire, pickedCommands, commandText, commands]);
+
 	const onCommandTextChanged = (event: ChangeEvent<HTMLInputElement>) => {
 		const {value} = event.target;
-		const matched = matchCommandText(value, false);
+		const matched = matchCommandText({text: value, greedy: false, pickedCommands, allCommands: commands});
 
 		if (matched.commands.length !== 0) {
 			if (value.trimLeft().startsWith('/')) {
@@ -182,7 +172,7 @@ export const Workbench = (props: { commands: Array<Command> }) => {
 	};
 	const onCommandTextKeyPressed = (event: KeyboardEvent<HTMLInputElement>) => {
 		if (event.key === 'Enter') {
-			sendCommand();
+			fire(CliEventTypes.SEND_COMMAND);
 		}
 	};
 

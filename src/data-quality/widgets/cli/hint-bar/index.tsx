@@ -12,6 +12,8 @@ import {CliEventTypes} from '../events/cli-event-bus-types';
 import {Command} from '../../../command/types';
 import {matchCommand} from '../utils';
 import {MatchedCommands} from '../types';
+import {ICON_SEND} from '../../../../basic-widgets/constants';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 interface Hints {
 	commands: Array<Command>;
@@ -28,6 +30,7 @@ export const HintBar = (props: { commands: Array<Command> }) => {
 	useEffect(() => {
 		const onWorkbenchChanged = (pickedCommands: Array<Command>, argument?: string) => {
 			const text = (argument || '').trim();
+			const hasText = text.length !== 0;
 			if (text === '/') {
 				setHints({commands, executable: false, clearable: pickedCommands.length !== 0});
 			} else if (text.startsWith('/')) {
@@ -45,8 +48,8 @@ export const HintBar = (props: { commands: Array<Command> }) => {
 					// no more hints, it must be executable
 					setHints({
 						commands: [],
-						message: lastPicked?.reminder,
-						executable: !argument?.trim(),
+						message: !hasText ? lastPicked?.reminder : 'No more arguments are required now',
+						executable: !hasText,
 						clearable: true
 					});
 				} else {
@@ -68,20 +71,22 @@ export const HintBar = (props: { commands: Array<Command> }) => {
 						}
 					}
 
-					const hintCommands = hintCandidates.filter(hint => hint.command !== '');
-					if (hintCommands.length !== 0) {
+					const standardCommands = hintCandidates.filter(hint => hint.command !== '');
+					if (standardCommands.length !== 0) {
 						// there is some standard command
 						setHints({
 							commands: hintCandidates.filter(hint => hint.command !== ''),
 							executable,
 							clearable: true
 						});
-					} else if (hintCommands.length === hintCandidates.length) {
-						// no free text command
-						setHints({commands: [], executable, clearable: true});
 					} else {
-						// there is free text command
-						setHints({commands: [], message: lastPicked?.reminder, executable, clearable: true});
+						// no standard command
+						setHints({
+							commands: [],
+							message: hasText ? lastPicked?.reminder : (void 0),
+							executable,
+							clearable: true
+						});
 					}
 				}
 			}
@@ -95,10 +100,7 @@ export const HintBar = (props: { commands: Array<Command> }) => {
 	const onHintClicked = (command: Command) => () => fire(CliEventTypes.SELECT_COMMAND, command);
 	const onRemoveLastCommandClicked = () => fire(CliEventTypes.REMOVE_LAST_COMMAND);
 	const onClearCommandClicked = () => fire(CliEventTypes.CLEAR_COMMAND);
-	const onSendClicked = () => {
-		// TODO
-	};
-	const onClearScreenClicked = () => fire(CliEventTypes.CLEAR_SCREEN);
+	const onSendClicked = () => fire(CliEventTypes.SEND_COMMAND);
 
 	return <HintBarContainer>
 		{hints.commands.length !== 0
@@ -113,7 +115,9 @@ export const HintBar = (props: { commands: Array<Command> }) => {
 			<HintOperateButton onClick={onRemoveLastCommandClicked}>Remove Last Command</HintOperateButton> : null}
 		{hints.clearable ?
 			<HintOperateButton onClick={onClearCommandClicked}>Clear Command(s)</HintOperateButton> : null}
-		{hints.executable ? <HintSendButton onClick={onSendClicked}>Send</HintSendButton> : null}
-		<HintSendButton onClick={onClearScreenClicked}>Clear Screen</HintSendButton>
+		<HintSendButton onClick={onSendClicked} disabled={!hints.executable}>
+			<FontAwesomeIcon icon={ICON_SEND}/>
+			<span>Send</span>
+		</HintSendButton>
 	</HintBarContainer>;
 };

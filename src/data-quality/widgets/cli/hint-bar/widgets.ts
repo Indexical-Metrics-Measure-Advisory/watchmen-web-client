@@ -61,6 +61,13 @@ export const HintSendButton = styled(HintButton)`
 		background-color: var(--success-color);
 		opacity: 0.8;
 	}
+	&[disabled] {
+		cursor: default;
+		background-color: var(--waive-color);
+		&:hover {
+			box-shadow: none;
+		}
+	}
 `;
 
 export const Placeholder = styled.div`

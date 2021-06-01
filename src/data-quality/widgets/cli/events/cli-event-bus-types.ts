@@ -5,6 +5,7 @@ export enum CliEventTypes {
 	SUGGEST_COMMAND = 'suggest-command',
 	REMOVE_LAST_COMMAND = 'remove-last-command',
 	CLEAR_COMMAND = 'clear-command',
+	SEND_COMMAND = 'send-command',
 
 	EXECUTE_COMMAND = 'execute-command',
 	COMMAND_EXECUTED = 'command-executed',
@@ -21,6 +22,10 @@ export interface CliEventBus {
 	fire(type: CliEventTypes.SUGGEST_COMMAND, commands: Array<Command>, argument?: string): this;
 	on(type: CliEventTypes.SUGGEST_COMMAND, listener: (commands: Array<Command>, argument?: string) => void): this;
 	off(type: CliEventTypes.SUGGEST_COMMAND, listener: (commands: Array<Command>, argument?: string) => void): this;
+
+	fire(type: CliEventTypes.SEND_COMMAND): this;
+	on(type: CliEventTypes.SEND_COMMAND, listener: () => void): this;
+	off(type: CliEventTypes.SEND_COMMAND, listener: () => void): this;
 
 	fire(type: CliEventTypes.REMOVE_LAST_COMMAND): this;
 	on(type: CliEventTypes.REMOVE_LAST_COMMAND, listener: () => void): this;

@@ -16,7 +16,7 @@ const ClearScreenCmd: Command = {
 export const ClearCmd: Command = {
 	label: 'Clear',
 	command: CMD_CLEAR,
-	reminder: '"screen" to clear screen, press "enter" to clear command line.',
+	reminder: 'Press "enter" to clear command line; or "screen" to clear screen',
 	published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
 	trails: [ClearScreenCmd],
 	executableOnNoTrail: true
@@ -28,7 +28,7 @@ export const createHelpCmd = (commands: Array<Command>): Command => {
 	return {
 		label: 'Help',
 		command: CMD_HELP,
-		reminder: 'Press "enter" to show cli help.',
+		reminder: 'Press "enter" to show cli help; or command name to view specific',
 		published: {type: CommandPublishedBehaviorType.KEEP},
 		trails: commands,
 		executableOnNoTrail: true

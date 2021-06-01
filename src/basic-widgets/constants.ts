@@ -6,7 +6,7 @@ import {
 	faArrowDown,
 	faArrowUp,
 	faBan,
-	faBell, faBolt,
+	faBell,
 	faCaretRight,
 	faChalkboard,
 	faChartBar,
@@ -17,7 +17,9 @@ import {
 	faClock,
 	faCloudDownloadAlt,
 	faCode,
-	faCog, faCoins, faCommentDots,
+	faCog,
+	faCoins,
+	faCommentDots,
 	faComments,
 	faCompress,
 	faCompressAlt,
@@ -33,6 +35,7 @@ import {
 	faFileCsv,
 	faGlobe,
 	faGripVertical,
+	faHandSparkles,
 	faHome,
 	faIgloo,
 	faInbox,
@@ -44,12 +47,15 @@ import {
 	faList,
 	faLock,
 	faLockOpen,
-	faObjectGroup, faPaperPlane,
+	faObjectGroup,
+	faPaperPlane,
 	faParagraph,
 	faPlay,
 	faPlus,
 	faPowerOff,
-	faPrint, faPuzzlePiece, faQuestionCircle,
+	faPrint,
+	faPuzzlePiece,
+	faQuestionCircle,
 	faRandom,
 	faSave,
 	faSearch,
@@ -64,7 +70,8 @@ import {
 	faTable,
 	faTachometerAlt,
 	faTags,
-	faTasks, faTerminal,
+	faTasks,
+	faTerminal,
 	faTh,
 	faThumbtack,
 	faTimes,
@@ -216,9 +223,9 @@ export const ICON_LOOP = faUndoAlt;
 export const ICON_PLAY = faPlay;
 export const ICON_SEND = faPaperPlane;
 export const ICON_HELP = faQuestionCircle;
+export const ICON_CLEAR_SCREEN = faHandSparkles;
 
 export const ICON_COMMENTS = faCommentDots;
-export const ICON_SHORTCUT = faBolt;
 export const ICON_CMD_PROMPT = faTerminal;
 
 // mock data

@@ -108,3 +108,27 @@ export const matchCommand = (options: {
 		matched.left = found.left;
 	}
 };
+
+export const matchCommandText = (options: {
+	text: string;
+	greedy: boolean;
+	allCommands: Array<Command>;
+	pickedCommands: Array<Command>;
+}) => {
+	const {text, greedy, allCommands, pickedCommands} = options;
+
+	let startCommand: Command;
+	if (text.trimLeft().startsWith('/')) {
+		startCommand = {trails: allCommands} as Command;
+	} else if (pickedCommands.length === 0) {
+		startCommand = {trails: allCommands} as Command;
+	} else {
+		startCommand = pickedCommands[pickedCommands.length - 1];
+	}
+
+	const matched: MatchedCommands = {commands: [], left: ''};
+	if (text.trim()) {
+		matchCommand({matched, startCommand, commandText: text.trimLeft(), greedy});
+	}
+	return matched;
+};
