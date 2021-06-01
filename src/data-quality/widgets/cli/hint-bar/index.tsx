@@ -90,6 +90,14 @@ export const HintBar = (props: { commands: Array<Command> }) => {
 	const onHintClicked = (command: Command) => () => {
 		fire(CliEventTypes.SELECT_COMMAND, command);
 	};
+	const onRemoveLastCommandClicked = () => {
+		fire(CliEventTypes.REMOVE_LAST_COMMAND);
+	};
+	const onClearCommandClicked = () => {
+		fire(CliEventTypes.CLEAR_COMMAND);
+	};
+	const onSendClicked = () => {
+	};
 
 	return <HintBarContainer>
 		{hints.commands.length !== 0
@@ -100,8 +108,10 @@ export const HintBar = (props: { commands: Array<Command> }) => {
 			})
 			: <HintNoCommandButton>{hints.message || 'No further suggestion found.'}</HintNoCommandButton>}
 		<Placeholder/>
-		{hints.clearable ? <HintOperateButton>Remove Last Command</HintOperateButton> : null}
-		{hints.clearable ? <HintOperateButton>Clear Command(s)</HintOperateButton> : null}
-		{hints.executable ? <HintSendButton>Send</HintSendButton> : null}
+		{hints.clearable ?
+			<HintOperateButton onClick={onRemoveLastCommandClicked}>Remove Last Command</HintOperateButton> : null}
+		{hints.clearable ?
+			<HintOperateButton onClick={onClearCommandClicked}>Clear Command(s)</HintOperateButton> : null}
+		{hints.executable ? <HintSendButton onClick={onSendClicked}>Send</HintSendButton> : null}
 	</HintBarContainer>;
 };

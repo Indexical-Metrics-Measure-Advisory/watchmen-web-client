@@ -3,12 +3,15 @@ import {Command} from '../../../command/types';
 export enum CliEventTypes {
 	SELECT_COMMAND = 'select-command',
 	SUGGEST_COMMAND = 'suggest-command',
+	REMOVE_LAST_COMMAND = 'remove-last-command',
+	CLEAR_COMMAND = 'clear-command',
 
 	EXECUTE_COMMAND = 'execute-command',
 	COMMAND_EXECUTED = 'command-executed',
 
 	WORKBENCH_CHANGED = 'workbench-changed',
 	CLEAR_SCREEN = 'clear-screen',
+	SHOW_HELP = 'show-help',
 }
 
 export interface CliEventBus {
@@ -19,6 +22,14 @@ export interface CliEventBus {
 	fire(type: CliEventTypes.SUGGEST_COMMAND, commands: Array<Command>, argument?: string): this;
 	on(type: CliEventTypes.SUGGEST_COMMAND, listener: (commands: Array<Command>, argument?: string) => void): this;
 	off(type: CliEventTypes.SUGGEST_COMMAND, listener: (commands: Array<Command>, argument?: string) => void): this;
+
+	fire(type: CliEventTypes.REMOVE_LAST_COMMAND): this;
+	on(type: CliEventTypes.REMOVE_LAST_COMMAND, listener: () => void): this;
+	off(type: CliEventTypes.REMOVE_LAST_COMMAND, listener: () => void): this;
+
+	fire(type: CliEventTypes.CLEAR_COMMAND): this;
+	on(type: CliEventTypes.CLEAR_COMMAND, listener: () => void): this;
+	off(type: CliEventTypes.CLEAR_COMMAND, listener: () => void): this;
 
 	fire(type: CliEventTypes.EXECUTE_COMMAND, commands: Array<Command>, argument?: string): this;
 	on(type: CliEventTypes.EXECUTE_COMMAND, listener: (commands: Array<Command>, argument?: string) => void): this;

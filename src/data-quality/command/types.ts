@@ -3,7 +3,6 @@
  */
 export enum CommandPublishedBehaviorType {
 	CLEAR_ALL = 'clear-all',
-	CLEAR_ARGUMENT = 'clear-argument',
 	BACKWARD = 'backward',
 	KEEP = 'keep'
 }

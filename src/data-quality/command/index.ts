@@ -29,7 +29,7 @@ export const createHelpCmd = (commands: Array<Command>): Command => {
 		label: 'Help',
 		command: CMD_HELP,
 		reminder: 'Press "enter" to show cli help.',
-		published: {type: CommandPublishedBehaviorType.CLEAR_ARGUMENT},
+		published: {type: CommandPublishedBehaviorType.KEEP},
 		trails: commands,
 		executableOnNoTrail: true
 	};

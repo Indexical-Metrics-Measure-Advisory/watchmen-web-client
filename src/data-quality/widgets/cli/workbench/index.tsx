@@ -44,6 +44,28 @@ export const Workbench = (props: { commands: Array<Command> }) => {
 			off(CliEventTypes.SUGGEST_COMMAND, onSuggestCommand);
 		};
 	}, [on, off, fire, commandText]);
+	useEffect(() => {
+		const onRemoveLastCommand = () => {
+			setPickedCommand(pickedCommands => {
+				const commands = [...pickedCommands];
+				commands.length = commands.length - 1;
+				setTimeout(() => fire(CliEventTypes.WORKBENCH_CHANGED, commands, commandText), 1);
+				commandInputRef.current?.focus();
+				return commands;
+			});
+		};
+		const onClearCommand = () => {
+			setPickedCommand([]);
+			fire(CliEventTypes.WORKBENCH_CHANGED, [], commandText);
+			commandInputRef.current?.focus();
+		};
+		on(CliEventTypes.REMOVE_LAST_COMMAND, onRemoveLastCommand);
+		on(CliEventTypes.CLEAR_COMMAND, onClearCommand);
+		return () => {
+			off(CliEventTypes.REMOVE_LAST_COMMAND, onRemoveLastCommand);
+			off(CliEventTypes.CLEAR_COMMAND, onClearCommand);
+		};
+	}, [on, off, fire, commandText]);
 
 	const clearAll = () => {
 		setPickedCommand([]);
@@ -51,7 +73,6 @@ export const Workbench = (props: { commands: Array<Command> }) => {
 	};
 	const clearScreen = () => {
 		fire(CliEventTypes.CLEAR_SCREEN);
-		setCommandText('');
 	};
 	const doAfterPublished = (commands: Array<Command>) => {
 		commands = [...commands];
@@ -59,32 +80,23 @@ export const Workbench = (props: { commands: Array<Command> }) => {
 		switch (command.published.type) {
 			case CommandPublishedBehaviorType.BACKWARD:
 				const backwardSteps = (command.published as CommandPublishedBehaviorBackward).steps;
-				const picked = commands.reverse().slice(backwardSteps).reverse();
+				const picked = commands;
+				picked.length = Math.max(0, picked.length - backwardSteps);
 				setPickedCommand(picked);
 				setCommandText('');
 				fire(CliEventTypes.WORKBENCH_CHANGED, picked, '');
 				break;
 			case CommandPublishedBehaviorType.CLEAR_ALL:
-				setPickedCommand([]);
-				setCommandText('');
+				clearAll();
 				fire(CliEventTypes.WORKBENCH_CHANGED, [], '');
 				break;
 			case CommandPublishedBehaviorType.KEEP: {
 				// just keep the last command as text
-				const [first, ...rest] = commands.reverse();
-				const picked = rest.reverse();
-				setPickedCommand(picked);
-				setCommandText(first.command);
-				fire(CliEventTypes.WORKBENCH_CHANGED, picked, first.command);
-				break;
-			}
-			case CommandPublishedBehaviorType.CLEAR_ARGUMENT: {
-				// clear argument
-				const [, ...rest] = commands.reverse();
-				const picked = rest.reverse();
-				setPickedCommand(picked);
-				setCommandText('');
-				fire(CliEventTypes.WORKBENCH_CHANGED, picked, '');
+				const last = commands.pop();
+				const picked = commands;
+				setPickedCommand([...picked]);
+				setCommandText(last?.command || '');
+				fire(CliEventTypes.WORKBENCH_CHANGED, picked, last?.command || '');
 				break;
 			}
 		}
