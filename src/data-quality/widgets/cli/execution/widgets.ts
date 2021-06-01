@@ -107,7 +107,7 @@ export const ExecutionResultNoData = styled.div.attrs({'data-widget': 'cli-execu
 	display: flex;
 	align-items: center;
 	height: var(--height);
-	grid-column: 3;
+	grid-column: span 3;
 `;
 
 export const HelpTable = styled.div.attrs({'data-widget': 'help-table'})`

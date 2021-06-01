@@ -5,6 +5,12 @@ import {getPipelineName} from '../../utils';
 export const CMD_PIPELINE = '/pipeline';
 
 export const CMD_ARGUMENT_LIST = 'list';
+export const CMD_ARGUMENT_NONAME = 'noname';
+export const CMD_ARGUMENT_INVALID = 'invalid';
+export const CMD_ARGUMENT_VALID = 'valid';
+export const CMD_ARGUMENT_ENABLED = 'enabled';
+export const CMD_ARGUMENT_DISABLED = 'disabled';
+
 export const CMD_ARGUMENT_OF = 'of';
 
 const PipelineFindCmd: Command = {
@@ -16,17 +22,58 @@ const PipelineFindCmd: Command = {
 	executableOnNoTrail: true
 };
 
-const PipelineListCmd: Command = {
-	label: 'List',
-	command: CMD_ARGUMENT_LIST,
-	reminder: 'Press "enter" to list all pipelines.',
+const PipelineListNonameCmd: Command = {
+	label: 'Noname',
+	command: CMD_ARGUMENT_NONAME,
+	reminder: 'Press "enter" to list all noname pipelines.',
+	published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
+	trails: [],
+	executableOnNoTrail: true
+};
+const PipelineInvalidCmd: Command = {
+	label: 'Invalid',
+	command: CMD_ARGUMENT_INVALID,
+	reminder: 'Press "enter" to list all pipelines still failed on validation.',
+	published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
+	trails: [],
+	executableOnNoTrail: true
+};
+const PipelineValidCmd: Command = {
+	label: 'Valid',
+	command: CMD_ARGUMENT_VALID,
+	reminder: 'Press "enter" to list all pipelines passed validation.',
+	published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
+	trails: [],
+	executableOnNoTrail: true
+};
+const PipelineEnabledCmd: Command = {
+	label: 'Enabled',
+	command: CMD_ARGUMENT_ENABLED,
+	reminder: 'Press "enter" to list all enabled pipelines.',
+	published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
+	trails: [],
+	executableOnNoTrail: true
+};
+const PipelineDisabledCmd: Command = {
+	label: 'Disabled',
+	command: CMD_ARGUMENT_DISABLED,
+	reminder: 'Press "enter" to list all disabled pipelines.',
 	published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
 	trails: [],
 	executableOnNoTrail: true
 };
 
+const PipelineListCmd: Command = {
+	label: 'List',
+	command: CMD_ARGUMENT_LIST,
+	reminder: 'Press "enter" to list all pipelines.',
+	published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
+	trails: [PipelineListNonameCmd, PipelineEnabledCmd, PipelineDisabledCmd, PipelineValidCmd, PipelineInvalidCmd],
+	executableOnNoTrail: true
+};
+
 const PipelineListTopicCmd: Command = {
-	label: 'Topics',
+	label: 'Topic',
 	command: 'topic',
 	reminder: 'Press "enter" to list topics',
 	published: {type: CommandPublishedBehaviorType.BACKWARD, steps: 1} as CommandPublishedBehaviorBackward,
@@ -34,7 +81,7 @@ const PipelineListTopicCmd: Command = {
 	executableOnNoTrail: true
 };
 const PipelineOutgoingCmd: Command = {
-	label: 'Find Outgoing',
+	label: 'List Outgoing',
 	command: 'out',
 	reminder: 'Press "enter" to list all outgoing; or "topic" to list on topic level',
 	published: {type: CommandPublishedBehaviorType.KEEP},
@@ -42,7 +89,7 @@ const PipelineOutgoingCmd: Command = {
 	executableOnNoTrail: true
 };
 const PipelineIngoingCmd: Command = {
-	label: 'Find Ingoing',
+	label: 'List Ingoing',
 	command: 'in',
 	reminder: 'Press "enter" to list all ingoing; or "topic" to list on topic level',
 	published: {type: CommandPublishedBehaviorType.KEEP},

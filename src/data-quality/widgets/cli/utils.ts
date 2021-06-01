@@ -18,7 +18,7 @@ const matchFreeTextCommandUnderQuotes = (commandText: string, freeTextCommand: C
 	} else {
 		let realCommand = commandText.substring(0, index);
 		if (realCommand.startsWith(quote)) {
-			realCommand = realCommand.substring(1, realCommand.length - 2);
+			realCommand = realCommand.substring(1);
 		}
 		return {
 			command: {...freeTextCommand, command: realCommand},
