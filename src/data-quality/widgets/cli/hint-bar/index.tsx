@@ -97,6 +97,7 @@ export const HintBar = (props: { commands: Array<Command> }) => {
 		fire(CliEventTypes.CLEAR_COMMAND);
 	};
 	const onSendClicked = () => {
+		// TODO
 	};
 
 	return <HintBarContainer>

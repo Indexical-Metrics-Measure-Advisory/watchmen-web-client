@@ -11,7 +11,6 @@ export enum CliEventTypes {
 
 	WORKBENCH_CHANGED = 'workbench-changed',
 	CLEAR_SCREEN = 'clear-screen',
-	SHOW_HELP = 'show-help',
 }
 
 export interface CliEventBus {

@@ -1,6 +1,8 @@
 /**
  * behaviour of command sender when command published to executor
  */
+import React from 'react';
+
 export enum CommandPublishedBehaviorType {
 	CLEAR_ALL = 'clear-all',
 	BACKWARD = 'backward',
@@ -39,4 +41,9 @@ export interface Command {
 	readonly executableOnNoTrail: boolean;
 
 	readonly published: CommandPublishedBehavior,
+}
+
+export interface HelpCommand extends Command {
+	brief: ((props: any) => React.ReactNode) | React.ReactNode;
+	whole: ((props: any) => React.ReactNode) | React.ReactNode;
 }

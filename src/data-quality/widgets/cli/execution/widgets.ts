@@ -109,3 +109,25 @@ export const ExecutionResultNoData = styled.div.attrs({'data-widget': 'cli-execu
 	height: var(--height);
 	grid-column: 3;
 `;
+
+export const HelpTable = styled.div.attrs({'data-widget': 'help-table'})`
+	display: grid;
+	align-items: center;
+	grid-template-columns: auto 1fr;
+	grid-column-gap: var(--margin);
+`;
+export const HelpCommandName = styled.div`
+	display: flex;
+	align-self: start;
+	align-items: center;
+	line-height: 20px;
+	padding: 4px 0;
+	white-space: nowrap;
+`;
+export const HelpCommandDescription = styled.div`
+	display: flex;
+	align-items: center;
+	line-height: 20px;
+	padding: 4px 0;
+	word-break: break-word;
+`;

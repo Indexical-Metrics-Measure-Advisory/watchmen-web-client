@@ -18,7 +18,8 @@ const CLI = (props: {
 }) => {
 	const {greeting, commands, helpCommands, executions} = props;
 
-	const availableCommands = [...commands, ClearCmd, createHelpCmd(helpCommands)];
+	const helpCommand = createHelpCmd(helpCommands)
+	const availableCommands = [...commands, ClearCmd, helpCommand];
 
 	return <CLIContainer>
 		<WorkingArea>
@@ -30,7 +31,7 @@ const CLI = (props: {
 				<HintBar commands={availableCommands}/>
 				<Workbench commands={availableCommands}/>
 				<CommandLineSeparator/>
-				<CLITrailButtons/>
+				<CLITrailButtons helpCommand={helpCommand}/>
 			</CommandLine>
 		</CommandArea>
 	</CLIContainer>;

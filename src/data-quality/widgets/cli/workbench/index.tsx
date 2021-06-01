@@ -92,11 +92,9 @@ export const Workbench = (props: { commands: Array<Command> }) => {
 				break;
 			case CommandPublishedBehaviorType.KEEP: {
 				// just keep the last command as text
-				const last = commands.pop();
-				const picked = commands;
-				setPickedCommand([...picked]);
-				setCommandText(last?.command || '');
-				fire(CliEventTypes.WORKBENCH_CHANGED, picked, last?.command || '');
+				setPickedCommand(commands);
+				setCommandText('');
+				fire(CliEventTypes.WORKBENCH_CHANGED, commands, '');
 				break;
 			}
 		}
@@ -142,7 +140,7 @@ export const Workbench = (props: { commands: Array<Command> }) => {
 				clearAll();
 			}
 		} else if (isHelpCommand(commandsWillSend[0])) {
-			// TODO handle help
+			fire(CliEventTypes.EXECUTE_COMMAND, commandsWillSend, commandText);
 		} else {
 			fire(CliEventTypes.EXECUTE_COMMAND, commandsWillSend, commandText);
 		}

@@ -3,10 +3,16 @@ import {TooltipAlignment} from '../../../basic-widgets/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ICON_HELP} from '../../../basic-widgets/constants';
 import React from 'react';
+import {useCliEventBus} from './events/cli-event-bus';
+import {Command} from '../../command/types';
+import {CliEventTypes} from './events/cli-event-bus-types';
 
-export const CLITrailButtons = () => {
+export const CLITrailButtons = (props: { helpCommand: Command }) => {
+	const {helpCommand} = props;
+
+	const {fire} = useCliEventBus();
 	const onHelpClicked = () => {
-		// TODO execute help command
+		fire(CliEventTypes.EXECUTE_COMMAND, [helpCommand], '');
 	};
 
 	return <CommandLineButtons>
