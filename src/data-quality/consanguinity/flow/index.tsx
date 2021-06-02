@@ -86,14 +86,14 @@ export const FlowExecution = (props: { content: ExecutionContent }) => {
 				const options = compute({maps: data.maps, relations: data.relations, starts, stops});
 				if (!options) {
 					setResult(<ExecutionResultItemTable>
-						<ExecutionResultNoData>No matched data found.</ExecutionResultNoData>
+						<ExecutionResultNoData>No data flow found.</ExecutionResultNoData>
 					</ExecutionResultItemTable>);
 				} else {
 					setResult(<FlowDiagram options={options}/>);
 				}
 			} else {
 				setResult(<ExecutionResultItemTable>
-					<ExecutionResultNoData>No matched data found.</ExecutionResultNoData>
+					<ExecutionResultNoData>No data flow found.</ExecutionResultNoData>
 				</ExecutionResultItemTable>);
 			}
 			fire(CliEventTypes.COMMAND_EXECUTED);

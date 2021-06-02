@@ -3,6 +3,12 @@ import {Topic, TopicType} from '../../../services/tuples/topic-types';
 import {getTopicName} from '../../utils';
 import {getCurrentTheme} from '../../../theme/theme-wrapper';
 
+interface Link {
+	source: Topic;
+	target: Topic;
+	size: number;
+}
+
 const findTopic = (topicsMap: TopicsMap, idOrName?: string): Topic | undefined => {
 	if (idOrName) {
 		let topic: MappedTopic | undefined = topicsMap[idOrName];
@@ -43,6 +49,36 @@ const buildLinks = (options: {
 	});
 };
 
+const filterByTargets = (links: Array<Link>, targets: Array<Topic>) => {
+	const linkMap = links.reduce((map, link) => {
+		const topicId = link.target.topicId;
+		let exists = map[topicId];
+		if (!exists) {
+			exists = [];
+			map[topicId] = exists;
+		}
+		exists.push(link);
+		return map;
+	}, {} as { [key in string]: Array<Link> });
+
+	const pickedLinks: Array<Link> = [];
+	const findLinksToTargets = (targets: Array<Topic>) => {
+		return targets.map<Array<Link>>(target => linkMap[target.topicId]).filter(x => !!x).flat();
+	};
+	let linksToTargets = findLinksToTargets(targets);
+	while (linksToTargets.length !== 0) {
+		linksToTargets.forEach(link => {
+			if (!pickedLinks.includes(link)) {
+				pickedLinks.push(link);
+			}
+		});
+		// use sources as target
+		linksToTargets = findLinksToTargets(linksToTargets.map(link => link.source));
+	}
+
+	return pickedLinks;
+};
+
 export const compute = (options: {
 	maps: DQCMaps;
 	relations: DQCRelations;
@@ -54,13 +90,18 @@ export const compute = (options: {
 	const stopTopic = findTopic(maps.topics, stops);
 
 	let processedTopics: Array<Topic> = [];
-	const links: Array<{ source: Topic, target: Topic, size: number }> = [];
+	let links: Array<Link> = [];
 	Object.values(maps.topics).filter(({topic}: MappedTopic) => {
 		// no start topic given then use all raw topics
 		return (!startTopic && topic.type === TopicType.RAW) || topic === startTopic;
 	}).forEach(({topic}) => {
 		buildLinks({source: topic, processedTopics, relations, links, stops: stopTopic});
 	});
+
+	// when there is a stop topic, removed the branches which are not the stop topic directed
+	if (stopTopic) {
+		links = filterByTargets(links, [stopTopic]);
+	}
 
 	// remove useless
 	const existsMap = links.reduce((map, {source, target}) => {
@@ -70,7 +111,7 @@ export const compute = (options: {
 	}, {} as { [key in string]: Topic });
 	processedTopics = processedTopics.filter(topic => !!existsMap[topic.topicId]);
 
-	if (!processedTopics) {
+	if (!processedTopics || processedTopics.length === 0) {
 		return (void 0);
 	}
 
