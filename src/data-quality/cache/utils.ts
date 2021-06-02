@@ -274,13 +274,10 @@ export const buildRelations = (options: {
 		return relations;
 	}, {} as PipelineRelationMap);
 	const topicsRelations = topics.reduce((relations, topic) => {
-
 		const part = {
 			topic,
 			trigger: Object.values(pipelineRelations)
-				.filter(relation => {
-					return relation.trigger?.topic === topic;
-				})
+				.filter(relation => relation.trigger?.topic === topic)
 				.map(relation => relation.pipeline),
 			readMe: Object.values(pipelineRelations)
 				.filter(relation => relation.incoming.some(({topic: read}) => read === topic))
@@ -293,11 +290,14 @@ export const buildRelations = (options: {
 		relations[topic.topicId] = {
 			...part,
 			notUsedFactors: topic.factors.map(factor => {
-				const read = part.readMe.some(pipeline => {
+				const read = part.trigger.some(pipeline => {
 					const relation = pipelineRelations[pipeline.pipelineId];
 					// in trigger or in incoming, means read
-					return !!relation.trigger?.factors?.includes(factor)
-						|| relation.incoming.some(({factors}) => factors.includes(factor));
+					return relation.trigger?.factors.includes(factor);
+				}) || part.readMe.some(pipeline => {
+					const relation = pipelineRelations[pipeline.pipelineId];
+					// in trigger or in incoming, means read
+					return relation.incoming.some(({factors}) => factors.includes(factor));
 				});
 				// always written or in outgoing
 				const write = alwaysWritten || part.writeMe.some(pipeline => {

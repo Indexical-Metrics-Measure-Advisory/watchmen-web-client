@@ -79,7 +79,6 @@ export const TopicViewExecution = (props: { content: ExecutionContent }) => {
 					</ExecutionResultItemTable>);
 				} else {
 					const relation = data.relations.topics[found.topicId];
-					console.log(data.relations)
 					setResult(<TopicView relation={relation}/>);
 				}
 			} else {
