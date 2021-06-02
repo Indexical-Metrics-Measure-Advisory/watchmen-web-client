@@ -21,4 +21,5 @@ export interface ExecutionContent {
 	id: string;
 	commands: Array<Command>;
 	time: Dayjs;
+	locked: boolean;
 }
