@@ -56,7 +56,7 @@ import {
 	faPrint,
 	faPuzzlePiece,
 	faQuestionCircle,
-	faRandom,
+	faRandom, faRobot,
 	faSave,
 	faSearch,
 	faShare,
@@ -162,6 +162,7 @@ export const ICON_MONITOR_LOGS = faEthernet;
 export const ICON_PIPELINE_DEBUG = faDraftingCompass;
 
 export const ICON_CONSANGUINITY = faPuzzlePiece;
+export const ICON_RULE_DEFINE = faRobot;
 
 export const ICON_SECONDARY_SECTION = faCaretRight;
 

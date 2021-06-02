@@ -2,10 +2,12 @@ import React, {useState} from 'react';
 import {matchPath, useHistory, useLocation} from 'react-router-dom';
 import styled from 'styled-components';
 import {
-	ICON_ADMIN, ICON_CONSANGUINITY,
+	ICON_ADMIN,
+	ICON_CONSANGUINITY,
 	ICON_CONSOLE,
 	ICON_HOME,
 	ICON_LOGOUT,
+	ICON_RULE_DEFINE,
 	ICON_SETTINGS,
 	ICON_SWITCH_WORKBENCH,
 	MOCK_ACCOUNT_NAME,
@@ -90,6 +92,9 @@ export const DataQualityMenu = () => {
 		<SideMenuItem icon={ICON_CONSANGUINITY} label="Consanguinity" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_CONSANGUINITY)}
 		              onClick={onMenuClicked(Router.DATA_QUALITY_CONSANGUINITY)}/>
+		<SideMenuItem icon={ICON_RULE_DEFINE} label="Monitor Rules" showTooltip={showTooltip}
+		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_RULES)}
+		              onClick={onMenuClicked(Router.DATA_QUALITY_RULES)}/>
 		<SideMenuPlaceholder/>
 		<SideMenuSeparator width={menuWidth}/>
 		<SideMenuItem icon={ICON_SETTINGS} label={'Settings'} showTooltip={showTooltip}
