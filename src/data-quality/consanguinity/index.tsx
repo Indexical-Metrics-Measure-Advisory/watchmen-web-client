@@ -12,7 +12,7 @@ import {TopicHelpCmd} from './topic/help';
 import {FlowCmd} from './flow/commands';
 import {FlowHelpCmd} from './flow/help';
 
-export const CONSANGUINITY_COMMANDS: Array<Readonly<Command>> = [PipelineCmd, TopicCmd, FlowCmd];
+export const CONSANGUINITY_COMMANDS: Array<Command> = [PipelineCmd, TopicCmd, FlowCmd];
 
 export const CONSANGUINITY_HELP_COMMAND = createHelpCmd([PipelineHelpCmd, TopicHelpCmd, FlowHelpCmd]);
 

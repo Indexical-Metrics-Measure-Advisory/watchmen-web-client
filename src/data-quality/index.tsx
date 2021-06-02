@@ -9,6 +9,7 @@ import {DataQualityMenu} from './menu';
 import DataQualitySettings from './settings';
 import {DataQualityCacheEventBusProvider} from './cache/cache-event-bus';
 import {DataQualityCache} from './cache';
+import DataQualityMonitorRules from './rules';
 
 const DataQualityContainer = styled.div.attrs({'data-widget': 'data-quality'})`
 	display: flex;
@@ -49,6 +50,11 @@ const DataQualityIndex = () => {
 				<Route path={Router.DATA_QUALITY_CONSANGUINITY}>
 					<DataQualityMain scrollable={false}>
 						<DataQualityConsanguinity/>
+					</DataQualityMain>
+				</Route>
+				<Route path={Router.DATA_QUALITY_RULES}>
+					<DataQualityMain scrollable={false}>
+						<DataQualityMonitorRules/>
 					</DataQualityMain>
 				</Route>
 				<Route path={Router.DATA_QUALITY_SETTINGS}>
