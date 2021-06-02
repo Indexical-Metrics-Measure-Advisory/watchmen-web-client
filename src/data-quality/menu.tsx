@@ -5,10 +5,12 @@ import {
 	ICON_ADMIN,
 	ICON_CONSANGUINITY,
 	ICON_CONSOLE,
+	ICON_END_USER,
 	ICON_HOME,
 	ICON_LOGOUT,
 	ICON_RULE_DEFINE,
-	ICON_SETTINGS, ICON_STATISTICS,
+	ICON_SETTINGS,
+	ICON_STATISTICS,
 	ICON_SWITCH_WORKBENCH,
 	MOCK_ACCOUNT_NAME,
 	SIDE_MENU_MAX_WIDTH,
@@ -95,9 +97,12 @@ export const DataQualityMenu = () => {
 		<SideMenuItem icon={ICON_RULE_DEFINE} label="Monitor Rules" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_RULES)}
 		              onClick={onMenuClicked(Router.DATA_QUALITY_RULES)}/>
-		<SideMenuItem icon={ICON_STATISTICS} label="Statistics" showTooltip={showTooltip}
+		<SideMenuItem icon={ICON_STATISTICS} label="Run Statistics" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_STATISTICS)}
 		              onClick={onMenuClicked(Router.DATA_QUALITY_STATISTICS)}/>
+		<SideMenuItem icon={ICON_END_USER} label="End User's Console" showTooltip={showTooltip}
+		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_END_USER)}
+		              onClick={onMenuClicked(Router.DATA_QUALITY_END_USER)}/>
 		<SideMenuPlaceholder/>
 		<SideMenuSeparator width={menuWidth}/>
 		<SideMenuItem icon={ICON_SETTINGS} label={'Settings'} showTooltip={showTooltip}

@@ -10,16 +10,16 @@ export const RULES_COMMANDS: Array<Command> = [];
 
 export const RULES_HELP_COMMAND = createHelpCmd([]);
 
-const DataQualityStatisticsIndex = () => {
+const DataQualityEndUserIndex = () => {
 	return <FullWidthPage>
 		<FullWidthPageHeaderContainer>
-			<PageTitle>Run Statistics</PageTitle>
+			<PageTitle>End User Console</PageTitle>
 		</FullWidthPageHeaderContainer>
-		<CLIWrapper greeting="This channel is for working on run statistics."
+		<CLIWrapper greeting="This channel is for working on end user's console, spaces, reports, groups, users."
 		            commands={RULES_COMMANDS}
 		            helpCommand={RULES_HELP_COMMAND}
 		            execution={Execution}/>
 	</FullWidthPage>;
 };
 
-export default DataQualityStatisticsIndex;
+export default DataQualityEndUserIndex;

@@ -11,6 +11,7 @@ import {DataQualityCacheEventBusProvider} from './cache/cache-event-bus';
 import {DataQualityCache} from './cache';
 import DataQualityMonitorRules from './rules';
 import DataQualityStatistics from './statistics'
+import DataQualityEndUser from './end-user'
 
 const DataQualityContainer = styled.div.attrs({'data-widget': 'data-quality'})`
 	display: flex;
@@ -61,6 +62,11 @@ const DataQualityIndex = () => {
 				<Route path={Router.DATA_QUALITY_STATISTICS}>
 					<DataQualityMain scrollable={false}>
 						<DataQualityStatistics/>
+					</DataQualityMain>
+				</Route>
+				<Route path={Router.DATA_QUALITY_END_USER}>
+					<DataQualityMain scrollable={false}>
+						<DataQualityEndUser/>
 					</DataQualityMain>
 				</Route>
 				<Route path={Router.DATA_QUALITY_SETTINGS}>

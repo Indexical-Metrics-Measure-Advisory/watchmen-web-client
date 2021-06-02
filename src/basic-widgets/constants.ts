@@ -9,6 +9,7 @@ import {
 	faBell,
 	faCaretRight,
 	faChalkboard,
+	faChalkboardTeacher,
 	faChartBar,
 	faChartPie,
 	faCheck,
@@ -26,6 +27,7 @@ import {
 	faCompressAlt,
 	faCompressArrowsAlt,
 	faDiceD20,
+	faDna,
 	faDraftingCompass,
 	faDrawPolygon,
 	faEdit,
@@ -34,7 +36,6 @@ import {
 	faExpandArrowsAlt,
 	faFeather,
 	faFileCsv,
-	faFingerprint,
 	faGlobe,
 	faGripVertical,
 	faHandSparkles,
@@ -163,9 +164,10 @@ export const ICON_TIMELINE = faComments;
 export const ICON_MONITOR_LOGS = faEthernet;
 export const ICON_PIPELINE_DEBUG = faDraftingCompass;
 
-export const ICON_CONSANGUINITY = faFingerprint;
+export const ICON_CONSANGUINITY = faDna;
 export const ICON_RULE_DEFINE = faRobot;
 export const ICON_STATISTICS = faCompass;
+export const ICON_END_USER = faChalkboardTeacher;
 
 export const ICON_SECONDARY_SECTION = faCaretRight;
 

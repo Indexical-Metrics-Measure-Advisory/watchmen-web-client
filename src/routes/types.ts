@@ -36,6 +36,7 @@ export enum Router {
 	DATA_QUALITY_CONSANGUINITY = '/data-quality/consanguinity',
 	DATA_QUALITY_RULES = '/data-quality/rules',
 	DATA_QUALITY_STATISTICS = '/data-quality/statistics',
+	DATA_QUALITY_END_USER = '/data-quality/end-user',
 	DATA_QUALITY_SETTINGS = '/data-quality/settings',
 
 	SHARE = '/share',
