@@ -27,8 +27,8 @@ export const isFlowExecution = (content: ExecutionContent) => {
 	return commands[0].command === CMD_FLOW;
 };
 
+// noinspection DuplicatedCode
 const FlowDiagram = (props: { options: any }) => {
-	// noinspection DuplicatedCode
 	const {options} = props;
 
 	// noinspection TypeScriptValidateTypes

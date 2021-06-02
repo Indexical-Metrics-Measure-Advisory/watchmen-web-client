@@ -1,12 +1,14 @@
 import {DQCMaps, DQCRelations, MappedTopic, TopicsMap} from '../../cache/types';
 import {Topic, TopicType} from '../../../services/tuples/topic-types';
-import {getTopicName} from '../../utils';
+import {getPipelineName, getTopicName} from '../../utils';
 import {getCurrentTheme} from '../../../theme/theme-wrapper';
+import {Pipeline} from '../../../services/tuples/pipeline-types';
 
 interface Link {
 	source: Topic;
 	target: Topic;
 	size: number;
+	pipeline: Pipeline;
 }
 
 const findTopic = (topicsMap: TopicsMap, idOrName?: string): Topic | undefined => {
@@ -24,7 +26,7 @@ const buildLinks = (options: {
 	source: Topic;
 	processedTopics: Array<Topic>;
 	relations: DQCRelations;
-	links: Array<{ source: Topic, target: Topic, size: number }>;
+	links: Array<Link>;
 	stops?: Topic;
 }) => {
 	const {source, processedTopics, relations, links, stops} = options;
@@ -38,7 +40,7 @@ const buildLinks = (options: {
 				return;
 			}
 
-			links.push({source, target, size: factors.length || 1});
+			links.push({source, target, size: factors.length || 1, pipeline});
 			if (target === stops) {
 				// stops here
 				processedTopics.push(target);
@@ -125,20 +127,23 @@ export const compute = (options: {
 			trigger: 'item',
 			triggerOn: 'mousemove',
 			formatter: ({
-				            data: {name, source, target, value}
-			            }: { data: { name: string, source: string, target: string, value: number } }) => {
+				            data: {name, source, target, value, pipeline}
+			            }: { data: { name: string, source: string, target: string, value: number, pipeline: string } }) => {
 				if (name) {
 					// noinspection CssUnresolvedCustomProperty
 					return `<span style="font-variant: petite-caps;font-weight: bold;color:var(--info-color)">${name}</span>`;
 				} else {
-					return [
+					// noinspection CssUnresolvedCustomProperty
+					return '<div style="display:grid;grid-template-columns:auto 1fr;grid-column-gap:var(--margin)">' + [
 						['From', source],
 						['To', target],
+						['Through', pipeline],
 						['Touched Factors', value]
 					].map(x => {
-						// noinspection CssUnresolvedCustomProperty
-						return `<span style="font-variant: petite-caps;font-weight: bold;color:var(--info-color)">${x[0]}: ${x[1]}</span>`;
-					}).join('<br/>');
+						// noinspection CssUnresolvedCustomProperty,CssNoGenericFontName
+						return `<span style="font-variant:petite-caps;font-family:var(--title-font-family);color:var(--info-color)">${x[0]}:</span>`
+							+ `<span style="font-family:var(--title-font-family)">${x[1]}</span>`;
+					}).join('') + '</div>';
 				}
 			}
 		},
@@ -153,11 +158,12 @@ export const compute = (options: {
 				data: processedTopics.map((topic) => {
 					return {name: getTopicName(topic)};
 				}),
-				links: links.map(({source, target, size}) => {
+				links: links.map(({source, target, size, pipeline}) => {
 					return {
 						source: getTopicName(source),
 						target: getTopicName(target),
-						value: size
+						value: size,
+						pipeline: getPipelineName(pipeline)
 					};
 				}),
 				label: {
