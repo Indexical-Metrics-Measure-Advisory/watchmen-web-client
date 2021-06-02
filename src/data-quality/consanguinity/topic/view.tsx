@@ -1,8 +1,6 @@
 import {ExecutionContent} from '../../widgets/cli/types';
 import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
 import React, {useState} from 'react';
-import {DataQualityCacheData} from '../../../local-persist/types';
-import {Pipeline} from '../../../services/tuples/pipeline-types';
 import {CliEventTypes} from '../../widgets/cli/events/cli-event-bus-types';
 import {
 	ExecutionCommandLineArgument,
@@ -13,42 +11,36 @@ import {
 import {useDataQualityCacheData} from '../../cache/use-cache-data';
 import {ExecutionDelegate} from '../../widgets/cli/execution/execution-delegate';
 import {Topic} from '../../../services/tuples/topic-types';
-import {buildViewTopicCommand} from './commands';
+import {DQCCacheData, TopicRelation} from '../../cache/types';
+import {getPipelineName, getTopicName} from '../../utils';
+import {PipelineGroup, PipelineName, TopicName} from './widgets';
+import {buildViewPipelineCommand} from '../pipeline/commands';
+import {Pipeline} from '../../../services/tuples/pipeline-types';
 
-const TopicView = (props: { topic: Topic, pipelines: Array<Pipeline> }) => {
-	// const {topic, topics} = props;
-	//
-	// const {fire} = useCliEventBus();
-	// const onTopicClicked = (topic: Topic) => () => {
-	// 	fire(CliEventTypes.SUGGEST_COMMAND, buildViewTopicCommand(topic));
-	// };
+const TopicView = (props: { relation: TopicRelation }) => {
+	const {relation} = props;
+	const {topic, trigger, readMe, writeMe} = relation;
 
-	// return <ExecutionResultItemTable>
-	// 	<PipelineName>{getTopicName(topic)}</PipelineName>
-	// 	<TopicGroup>Trigger By</TopicGroup>
-	// 	<TopicName onClick={onTopicClicked(triggerTopic)}>{getTopicName(triggerTopic)}</TopicName>
-	// 	{triggerFactors.map(factorId => <FactorName key={factorId}>
-	// 		{factorMap[factorId]?.name || 'Noname Factor'}
-	// 	</FactorName>)}
-	// 	<TopicGroup>Read From</TopicGroup>
-	// 	{readFactors.map(({topic, factors}) => {
-	// 		return <>
-	// 			<TopicName onClick={onTopicClicked(topic)}>{getTopicName(topic)}</TopicName>
-	// 			{factors.map(factorId => <FactorName key={factorId}>
-	// 				{factorMap[factorId]?.name || 'Noname Factor'}
-	// 			</FactorName>)}
-	// 		</>;
-	// 	})}
-	// 	<TopicGroup>Write To</TopicGroup>
-	// 	{writeFactors.map(({topic, factors}) => {
-	// 		return <>
-	// 			<TopicName onClick={onTopicClicked(topic)}>{getTopicName(topic)}</TopicName>
-	// 			{factors.map(factorId => <FactorName key={factorId}>
-	// 				{factorMap[factorId]?.name || 'Noname Factor'}
-	// 			</FactorName>)}
-	// 		</>;
-	// 	})}
-	// </ExecutionResultItemTable>;
+	const {fire} = useCliEventBus();
+	const onPipelineClicked = (pipeline: Pipeline) => () => {
+		fire(CliEventTypes.SUGGEST_COMMAND, buildViewPipelineCommand(pipeline));
+	};
+
+	return <ExecutionResultItemTable>
+		<TopicName>{getTopicName(topic)}</TopicName>
+		<PipelineGroup>Trigger By Me</PipelineGroup>
+		{trigger.map((pipeline) => {
+			return <PipelineName onClick={onPipelineClicked(pipeline)}>{getPipelineName(pipeline)}</PipelineName>;
+		})}
+		<PipelineGroup>Read Me</PipelineGroup>
+		{readMe.map((pipeline) => {
+			return <PipelineName onClick={onPipelineClicked(pipeline)}>{getPipelineName(pipeline)}</PipelineName>;
+		})}
+		<PipelineGroup>Write Me</PipelineGroup>
+		{writeMe.map((pipeline) => {
+			return <PipelineName onClick={onPipelineClicked(pipeline)}>{getPipelineName(pipeline)}</PipelineName>;
+		})}
+	</ExecutionResultItemTable>;
 };
 
 export const TopicViewExecution = (props: { content: ExecutionContent }) => {
@@ -61,10 +53,10 @@ export const TopicViewExecution = (props: { content: ExecutionContent }) => {
 	const {fire} = useCliEventBus();
 	const [result, setResult] = useState<any>();
 	const [onDataRetrieved] = useState(() => {
-		return (data?: DataQualityCacheData) => {
+		return (data?: DQCCacheData) => {
 			if (data) {
 				// assume text is id first
-				let found = data.topics.find(topic => topic.topicId === text);
+				let found: Topic | undefined = data.maps.topics[text]?.topic;
 				if (!found) {
 					found = data.topics.find(topic => topic.name.trim() === text);
 				}
@@ -73,7 +65,8 @@ export const TopicViewExecution = (props: { content: ExecutionContent }) => {
 						<ExecutionResultNoData>No matched topic found.</ExecutionResultNoData>
 					</ExecutionResultItemTable>);
 				} else {
-					// setResult(<TopicView topic={found} pipelines={data.pipelines}/>);
+					const relation = data.relations.topics[found.topicId];
+					setResult(<TopicView relation={relation}/>);
 				}
 			} else {
 				setResult(<ExecutionResultItemTable>

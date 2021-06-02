@@ -159,10 +159,6 @@ const buildPipelineRelation = (options: { pipeline: Pipeline; topicsMap: TopicsM
 			});
 	};
 
-	console.log(pipeline.pipelineId)
-	console.log('read', redressFactors(readFactorIds, topicId => !!(topicId && topicId != pipeline.topicId)));
-	console.log('write', redressFactors(writeFactorIds, () => true));
-
 	return {
 		pipeline,
 		trigger: !!trigger.topic ? {
