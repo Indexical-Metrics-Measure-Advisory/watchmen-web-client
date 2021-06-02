@@ -50,6 +50,7 @@ export const EChartDiagram = (props: { options: ChartEChartOptions }) => {
 	const {options} = props;
 	// console.log(JSON.stringify(options));
 
+	// noinspection TypeScriptValidateTypes
 	const rootRef = useRef<HTMLDivElement>(null);
 	const [chartInstance, setChartInstance] = useState<EChartsType | null>(null);
 	useEffect(() => {
