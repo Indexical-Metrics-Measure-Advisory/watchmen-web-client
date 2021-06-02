@@ -1,6 +1,7 @@
 import {DQCMaps, DQCRelations, MappedTopic, TopicsMap} from '../../cache/types';
 import {Topic, TopicType} from '../../../services/tuples/topic-types';
 import {getTopicName} from '../../utils';
+import {getCurrentTheme} from '../../../theme/theme-wrapper';
 
 const findTopic = (topicsMap: TopicsMap, idOrName?: string): Topic | undefined => {
 	if (idOrName) {
@@ -73,6 +74,8 @@ export const compute = (options: {
 		return (void 0);
 	}
 
+	const theme = getCurrentTheme();
+
 	return {
 		// title: {
 		// 	text: 'Topic Data Flow'
@@ -117,7 +120,9 @@ export const compute = (options: {
 					};
 				}),
 				label: {
-					color: 'var(--primary-color)',
+					color: theme.fontColor,
+					textBorderColor: theme.bgColor,
+					textBorderWidth: 1
 				},
 				lineStyle: {color: 'source'}
 			}

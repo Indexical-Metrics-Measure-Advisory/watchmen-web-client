@@ -53,10 +53,6 @@ export const CommandLineButton = styled(TooltipButton)`
 	padding: 0;
 	height: var(--height);
 	width: var(--height);
-	color: var(--primary-color);
-	&[data-ink=success]:hover {
-		background-color: var(--success-color);
-	}
 	&[data-ink=waive] {
 		color: var(--border-color);
 		background-color: transparent;
@@ -69,7 +65,7 @@ export const CommandLineButton = styled(TooltipButton)`
 	&:hover {
 		box-shadow: none;
 		color: var(--invert-color);
-		background-color: var(--primary-color);
+		background-color: var(--success-color);
 	}
 	> svg {
 		font-size: 1.2em;

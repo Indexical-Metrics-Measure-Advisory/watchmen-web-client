@@ -1,6 +1,6 @@
 import {ExecutionContent} from '../../widgets/cli/types';
 import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
-import React, {useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import {CliEventTypes} from '../../widgets/cli/events/cli-event-bus-types';
 import {
 	ExecutionCommandLineArgument,
@@ -40,21 +40,21 @@ const PipelineView = (props: { relation: PipelineRelation }) => {
 			: <TopicName>Not matched.</TopicName>}
 		<TopicGroup>Read From</TopicGroup>
 		{incoming.map(({topic, factors}) => {
-			return <>
+			return <Fragment key={topic.topicId}>
 				<TopicName onClick={onTopicClicked(topic)}>{getTopicName(topic)}</TopicName>
 				{factors.map(({factorId, name}) => <FactorName key={factorId}>
 					{name || 'Noname Factor'}
 				</FactorName>)}
-			</>;
+			</Fragment>;
 		})}
 		<TopicGroup>Write To</TopicGroup>
 		{outgoing.map(({topic, factors}) => {
-			return <>
+			return <Fragment key={topic.topicId}>
 				<TopicName onClick={onTopicClicked(topic)}>{getTopicName(topic)}</TopicName>
 				{factors.map(({factorId, name}) => <FactorName key={factorId}>
 					{name || 'Noname Factor'}
 				</FactorName>)}
-			</>;
+			</Fragment>;
 		})}
 	</ExecutionResultItemTable>;
 };
