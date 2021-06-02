@@ -1,6 +1,6 @@
 import {ExecutionContent} from '../../widgets/cli/types';
 import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
-import React, {useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import {CliEventTypes} from '../../widgets/cli/events/cli-event-bus-types';
 import {
 	ExecutionCommandLineArgument,
@@ -13,13 +13,13 @@ import {ExecutionDelegate} from '../../widgets/cli/execution/execution-delegate'
 import {Topic} from '../../../services/tuples/topic-types';
 import {DQCCacheData, TopicRelation} from '../../cache/types';
 import {getPipelineName, getTopicName} from '../../utils';
-import {PipelineGroup, PipelineName, TopicName} from './widgets';
+import {FactorName, FactorNotUsedReason, NotUsedFactorsGroup, PipelineGroup, PipelineName, TopicName} from './widgets';
 import {buildViewPipelineCommand} from '../pipeline/commands';
 import {Pipeline} from '../../../services/tuples/pipeline-types';
 
 const TopicView = (props: { relation: TopicRelation }) => {
 	const {relation} = props;
-	const {topic, trigger, readMe, writeMe} = relation;
+	const {topic, trigger, readMe, writeMe, notUsedFactors} = relation;
 
 	const {fire} = useCliEventBus();
 	const onPipelineClicked = (pipeline: Pipeline) => () => {
@@ -30,15 +30,28 @@ const TopicView = (props: { relation: TopicRelation }) => {
 		<TopicName>{getTopicName(topic)}</TopicName>
 		<PipelineGroup>Trigger By Me</PipelineGroup>
 		{trigger.map((pipeline) => {
-			return <PipelineName onClick={onPipelineClicked(pipeline)}>{getPipelineName(pipeline)}</PipelineName>;
+			return <PipelineName onClick={onPipelineClicked(pipeline)} key={pipeline.pipelineId}>
+				{getPipelineName(pipeline)}
+			</PipelineName>;
 		})}
 		<PipelineGroup>Read Me</PipelineGroup>
 		{readMe.map((pipeline) => {
-			return <PipelineName onClick={onPipelineClicked(pipeline)}>{getPipelineName(pipeline)}</PipelineName>;
+			return <PipelineName onClick={onPipelineClicked(pipeline)} key={pipeline.pipelineId}>
+				{getPipelineName(pipeline)}
+			</PipelineName>;
 		})}
 		<PipelineGroup>Write Me</PipelineGroup>
 		{writeMe.map((pipeline) => {
-			return <PipelineName onClick={onPipelineClicked(pipeline)}>{getPipelineName(pipeline)}</PipelineName>;
+			return <PipelineName onClick={onPipelineClicked(pipeline)} key={pipeline.pipelineId}>
+				{getPipelineName(pipeline)}
+			</PipelineName>;
+		})}
+		<NotUsedFactorsGroup>Factors Not Used In Pipeline</NotUsedFactorsGroup>
+		{notUsedFactors.map(({factor, written}) => {
+			return <Fragment key={factor.factorId}>
+				<FactorName>{factor.name || 'Noname Factor'}</FactorName>
+				<FactorNotUsedReason>{written ? 'Never Read' : 'Never Read/Write'}</FactorNotUsedReason>
+			</Fragment>;
 		})}
 	</ExecutionResultItemTable>;
 };
@@ -66,6 +79,7 @@ export const TopicViewExecution = (props: { content: ExecutionContent }) => {
 					</ExecutionResultItemTable>);
 				} else {
 					const relation = data.relations.topics[found.topicId];
+					console.log(data.relations)
 					setResult(<TopicView relation={relation}/>);
 				}
 			} else {

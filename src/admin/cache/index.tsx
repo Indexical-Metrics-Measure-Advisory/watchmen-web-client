@@ -43,7 +43,6 @@ export const AdminCache = () => {
 
 	useEffect(() => {
 		const onAskReload = async () => {
-			setData({initialized: false});
 			await clearAdminData();
 			const data = await loadAdminData();
 			setData({initialized: true, data});

@@ -45,7 +45,6 @@ export const DataQualityCache = () => {
 
 	useEffect(() => {
 		const onAskReload = async () => {
-			setData({initialized: false});
 			await clearAdminData();
 			const {pipelines, topics} = await loadAdminData();
 			setData({initialized: true, data: buildRelations({pipelines, topics})});
