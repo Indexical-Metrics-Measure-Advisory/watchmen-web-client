@@ -17,7 +17,10 @@ export const Executions = (props: {
 	useEffect(() => {
 		const onExecuteCommand = (commands: Array<Command>) => {
 			setExecutionContents(executionContents => {
-				return [...executionContents, {id: v4(), commands, time: dayjs(), locked: false}];
+				return [
+					...executionContents,
+					{id: v4(), commands, time: dayjs(), locked: false}
+				].slice(-50);
 			});
 		};
 		const onClearScreen = () => setExecutionContents([]);
