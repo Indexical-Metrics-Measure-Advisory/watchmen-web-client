@@ -133,6 +133,11 @@ export const Workbench = (props: { commands: Array<Command> }) => {
 			if (commandsWillSend.length === 0) {
 				// no valid command needs to be sent
 				return;
+			} else if (!commandsWillSend[commandsWillSend.length - 1].executableOnNoTrail) {
+				// the last command says it cannot be execute on no trail
+				setPickedCommand([...pickedCommands, ...matched.commands]);
+				setCommandText('');
+				return;
 			}
 
 			doAfterPublished(commandsWillSend);
