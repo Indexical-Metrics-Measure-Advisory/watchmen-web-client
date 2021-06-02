@@ -29,12 +29,12 @@ export const PipelineHelpCmd: HelpCommand = {
 		</HelpCommandDescription>
 		<HelpCommandName>-- view "pipeline id or name"</HelpCommandName>
 		<HelpCommandDescription>
-			<span>List related topics/factors by given id or full qualified name.</span>
+			<span>View detail information of pipeline by given id or full qualified name.</span>
 			<span>Examples:</span>
 			<HelpCommandExample>/pipeline view 861904759133</HelpCommandExample>
-			<span>List topics/factors used in pipeline which id is 861904759133.</span>
+			<span>View pipeline which id is 861904759133.</span>
 			<HelpCommandExample>/pipeline view 'Hello World'</HelpCommandExample>
-			<span>List topics/factors used in pipeline which name is "Hello World". Single or double quote is supported when name has whitespace.</span>
+			<span>View pipeline which name is "Hello World". Single or double quote is supported when name has whitespace.</span>
 		</HelpCommandDescription>
 		<HelpCommandName>-- "id or part of name"</HelpCommandName>
 		<HelpCommandDescription>Find pipeline by given id or text.</HelpCommandDescription>

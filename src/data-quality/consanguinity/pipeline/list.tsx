@@ -20,14 +20,8 @@ import {
 	CMD_ARGUMENT_ENABLED,
 	CMD_ARGUMENT_INVALID,
 	CMD_ARGUMENT_NONAME,
-	CMD_ARGUMENT_VALID,
-	CMD_PIPELINE
+	CMD_ARGUMENT_VALID
 } from './commands';
-
-export const isPipelineExecution = (content: ExecutionContent) => {
-	const {commands} = content;
-	return commands.length > 1 && commands[0].command === CMD_PIPELINE;
-};
 
 export const PipelineListExecution = (props: { content: ExecutionContent }) => {
 	const {content} = props;

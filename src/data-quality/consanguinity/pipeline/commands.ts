@@ -20,53 +20,40 @@ const PipelineFindCmd: Command = {
 	executableOnNoTrail: true
 };
 
-const PipelineListNonameCmd: Command = {
-	label: 'Noname',
-	command: CMD_ARGUMENT_NONAME,
-	reminder: 'Press "enter" to list all noname pipelines',
-	published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
-	trails: [],
-	executableOnNoTrail: true
-};
-const PipelineInvalidCmd: Command = {
-	label: 'Invalid',
-	command: CMD_ARGUMENT_INVALID,
-	reminder: 'Press "enter" to list all pipelines still failed on validation',
-	published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
-	trails: [],
-	executableOnNoTrail: true
-};
-const PipelineValidCmd: Command = {
-	label: 'Valid',
-	command: CMD_ARGUMENT_VALID,
-	reminder: 'Press "enter" to list all pipelines passed validation',
-	published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
-	trails: [],
-	executableOnNoTrail: true
-};
-const PipelineEnabledCmd: Command = {
-	label: 'Enabled',
-	command: CMD_ARGUMENT_ENABLED,
-	reminder: 'Press "enter" to list all enabled pipelines',
-	published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
-	trails: [],
-	executableOnNoTrail: true
-};
-const PipelineDisabledCmd: Command = {
-	label: 'Disabled',
-	command: CMD_ARGUMENT_DISABLED,
-	reminder: 'Press "enter" to list all disabled pipelines',
-	published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
-	trails: [],
-	executableOnNoTrail: true
-};
-
 const PipelineListCmd: Command = {
 	label: 'List',
 	command: CMD_ARGUMENT_LIST,
 	reminder: 'Press "enter" to list all pipelines; or add restriction argument',
 	published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
-	trails: [PipelineListNonameCmd, PipelineEnabledCmd, PipelineDisabledCmd, PipelineValidCmd, PipelineInvalidCmd],
+	trails: [
+		{
+			label: 'Noname', command: CMD_ARGUMENT_NONAME,
+			reminder: 'Press "enter" to list all noname pipelines'
+		},
+		{
+			label: 'Invalid', command: CMD_ARGUMENT_INVALID,
+			reminder: 'Press "enter" to list all pipelines still failed on validation'
+		},
+		{
+			label: 'Valid', command: CMD_ARGUMENT_VALID,
+			reminder: 'Press "enter" to list all pipelines passed validation'
+		},
+		{
+			label: 'Enabled', command: CMD_ARGUMENT_ENABLED,
+			reminder: 'Press "enter" to list all enabled pipelines'
+		},
+		{
+			label: 'Disabled', command: CMD_ARGUMENT_DISABLED,
+			reminder: 'Press "enter" to list all disabled pipelines'
+		}
+	].map(item => {
+		return {
+			...item,
+			published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
+			trails: [],
+			executableOnNoTrail: true
+		};
+	}),
 	executableOnNoTrail: true
 };
 
@@ -86,6 +73,7 @@ const PipelineViewCmd: Command = {
 	trails: [PipelineIdCmd],
 	executableOnNoTrail: false
 };
+
 export const PipelineCmd: Command = {
 	label: 'Pipeline',
 	command: CMD_PIPELINE,

@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {clearAdminData, loadAdminData, prepareAdminDB} from '../../local-persist';
 import {useDataQualityCacheEventBus} from './cache-event-bus';
-import {DataQualityCacheData} from '../../local-persist/types';
 import {DataQualityCacheEventTypes} from './cache-event-bus-types';
 import {EventTypes} from '../../events/types';
 import {useEventBus} from '../../events/event-bus';
+import {DQCCacheData} from './types';
+import {buildRelations} from './utils';
 
 export interface CacheState {
 	initialized: boolean;
-	data?: DataQualityCacheData;
+	data?: DQCCacheData;
 }
 
 export const DataQualityCache = () => {
@@ -27,7 +28,11 @@ export const DataQualityCache = () => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await loadAdminData(),
 				(data) => {
-					setData({initialized: true, data});
+					const {pipelines, topics} = data;
+					setData({
+						initialized: true,
+						data: buildRelations({pipelines, topics})
+					});
 					fire(DataQualityCacheEventTypes.DATA_LOADED, data);
 				});
 		}
@@ -42,8 +47,8 @@ export const DataQualityCache = () => {
 		const onAskReload = async () => {
 			setData({initialized: false});
 			await clearAdminData();
-			const data = await loadAdminData();
-			setData({initialized: true, data});
+			const {pipelines, topics} = await loadAdminData();
+			setData({initialized: true, data: buildRelations({pipelines, topics})});
 			fire(DataQualityCacheEventTypes.REPLY_RELOAD);
 		};
 		on(DataQualityCacheEventTypes.ASK_RELOAD, onAskReload);

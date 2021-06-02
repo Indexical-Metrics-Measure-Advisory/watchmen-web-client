@@ -7,8 +7,8 @@ import {Command} from '../command/types';
 import {PipelineCmd} from './pipeline/commands';
 import {TopicCmd} from './topic/commands';
 import {createHelpCmd} from '../command';
-import {PipelineHelpCmd} from './pipeline';
-import {TopicHelpCmd} from './topic';
+import {PipelineHelpCmd} from './pipeline/help';
+import {TopicHelpCmd} from './topic/help';
 
 export const CONSANGUINITY_COMMANDS: Array<Readonly<Command>> = [PipelineCmd, TopicCmd];
 

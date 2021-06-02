@@ -25,4 +25,3 @@ export const PipelineExecution = (props: { content: ExecutionContent }) => {
 		return <PipelineFindExecution content={content}/>;
 	}
 };
-export {PipelineHelpCmd} from './help';

@@ -1,4 +1,4 @@
-import {DataQualityCacheData} from '../../local-persist/types';
+import {DQCCacheData} from './types';
 
 export enum DataQualityCacheEventTypes {
 	DATA_LOADED = 'data-loaded',
@@ -14,9 +14,9 @@ export enum DataQualityCacheEventTypes {
 }
 
 export interface DataQualityCacheEventBus {
-	fire(type: DataQualityCacheEventTypes.DATA_LOADED, data: DataQualityCacheData): this;
-	on(type: DataQualityCacheEventTypes.DATA_LOADED, listener: (data: DataQualityCacheData) => void): this;
-	off(type: DataQualityCacheEventTypes.DATA_LOADED, listener: (data: DataQualityCacheData) => void): this;
+	fire(type: DataQualityCacheEventTypes.DATA_LOADED, data: DQCCacheData): this;
+	on(type: DataQualityCacheEventTypes.DATA_LOADED, listener: (data: DQCCacheData) => void): this;
+	off(type: DataQualityCacheEventTypes.DATA_LOADED, listener: (data: DQCCacheData) => void): this;
 
 	fire(type: DataQualityCacheEventTypes.ASK_DATA_LOADED): this;
 	on(type: DataQualityCacheEventTypes.ASK_DATA_LOADED, listener: () => void): this;
@@ -29,8 +29,8 @@ export interface DataQualityCacheEventBus {
 	on(type: DataQualityCacheEventTypes.ASK_DATA, listener: () => void): this;
 	off(type: DataQualityCacheEventTypes.ASK_DATA, listener: () => void): this;
 
-	fire(type: DataQualityCacheEventTypes.REPLY_DATA, data?: DataQualityCacheData): this;
-	once(type: DataQualityCacheEventTypes.REPLY_DATA, listener: (data?: DataQualityCacheData) => void): this;
+	fire(type: DataQualityCacheEventTypes.REPLY_DATA, data?: DQCCacheData): this;
+	once(type: DataQualityCacheEventTypes.REPLY_DATA, listener: (data?: DQCCacheData) => void): this;
 
 	fire(type: DataQualityCacheEventTypes.ASK_RELOAD): this;
 	on(type: DataQualityCacheEventTypes.ASK_RELOAD, listener: () => void): this;

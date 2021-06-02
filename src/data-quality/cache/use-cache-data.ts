@@ -1,13 +1,13 @@
 import {useDataQualityCacheEventBus} from './cache-event-bus';
 import {useEffect} from 'react';
 import {DataQualityCacheEventTypes} from './cache-event-bus-types';
-import {DataQualityCacheData} from '../../local-persist/types';
+import {DQCCacheData} from './types';
 
 /**
  * make sure options will not change, this must be executed only once
  */
 export const useDataQualityCacheData = (options: {
-	onDataRetrieved: (data?: DataQualityCacheData) => void;
+	onDataRetrieved: (data?: DQCCacheData) => void;
 }) => {
 	const {onDataRetrieved} = options;
 
@@ -15,7 +15,7 @@ export const useDataQualityCacheData = (options: {
 
 	useEffect(() => {
 		const askData = () => {
-			once(DataQualityCacheEventTypes.REPLY_DATA, (data?: DataQualityCacheData) => {
+			once(DataQualityCacheEventTypes.REPLY_DATA, (data?: DQCCacheData) => {
 				onDataRetrieved(data);
 			}).fire(DataQualityCacheEventTypes.ASK_DATA);
 		};
