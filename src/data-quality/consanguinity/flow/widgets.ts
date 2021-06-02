@@ -4,8 +4,9 @@ export const FlowContainer = styled.div`
 	display: block;
 	position: relative;
 	width: 100%;
-	min-height: 400px;
-	margin: calc(var(--margin) / 2) 0;
+	height: 600px;
+	max-height: 70vh;
+	margin: calc(var(--margin) / 2) 0 calc(var(--margin) / 2);
 	border-radius: calc(var(--border-radius) * 8);
 	overflow: hidden;
 	&:after {
