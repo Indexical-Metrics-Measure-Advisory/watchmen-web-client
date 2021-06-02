@@ -13,7 +13,7 @@ export const RULES_HELP_COMMAND = createHelpCmd([]);
 const DataQualityEndUserIndex = () => {
 	return <FullWidthPage>
 		<FullWidthPageHeaderContainer>
-			<PageTitle>End User Console</PageTitle>
+			<PageTitle>End User's Console</PageTitle>
 		</FullWidthPageHeaderContainer>
 		<CLIWrapper greeting="This channel is for working on end user's console, spaces, reports, groups, users."
 		            commands={RULES_COMMANDS}
