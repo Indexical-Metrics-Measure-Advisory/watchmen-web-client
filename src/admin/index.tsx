@@ -8,7 +8,6 @@ import AdminHome from './home';
 import {AdminMenu} from './menu';
 import AdminMonitorLogs from './monitor-log';
 import AdminPipelines from './pipelines';
-import AdminReports from './reports';
 import AdminSettings from './settings';
 import AdminSpaces from './spaces';
 import AdminTopics from './topics';
@@ -16,7 +15,7 @@ import AdminUserGroups from './user-groups';
 import AdminUsers from './users';
 import {AdminCache} from './cache';
 import {AdminCacheEventBusProvider} from './cache/cache-event-bus';
-import AdminDebug from './simulator'
+import AdminDebug from './simulator';
 
 const AdminContainer = styled.div.attrs({'data-widget': 'admin'})`
 	display: flex;
@@ -52,7 +51,7 @@ const AdminIndex = () => {
 				<Route path={Router.ADMIN_HOME}><AdminMain scrollable={false}><AdminHome/></AdminMain></Route>
 				<Route path={Router.ADMIN_TOPICS}><AdminMain><AdminTopics/></AdminMain></Route>
 				<Route path={Router.ADMIN_ENUMS}><AdminMain><AdminEnums/></AdminMain></Route>
-				<Route path={Router.ADMIN_REPORTS}><AdminMain><AdminReports/></AdminMain></Route>
+				{/*<Route path={Router.ADMIN_REPORTS}><AdminMain><AdminReports/></AdminMain></Route>*/}
 				<Route path={Router.ADMIN_SPACES}><AdminMain><AdminSpaces/></AdminMain></Route>
 				<Route path={Router.ADMIN_PIPELINES}><AdminPipelines/></Route>
 				<Route path={Router.ADMIN_USER_GROUPS}><AdminMain><AdminUserGroups/></AdminMain></Route>

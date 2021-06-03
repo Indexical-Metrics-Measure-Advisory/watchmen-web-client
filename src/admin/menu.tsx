@@ -111,7 +111,8 @@ export const AdminMenu = () => {
 		              onClick={onMenuClicked(Router.ADMIN_ENUMS)}/>
 		<SideMenuItem icon={ICON_REPORT} label="Reports" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_REPORTS)}
-		              onClick={onMenuClicked(Router.ADMIN_REPORTS)}/>
+		              onClick={onMenuClicked(Router.ADMIN_REPORTS)}
+		              visible={false}/>
 		<SideMenuItem icon={ICON_SPACE} label="Spaces" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_SPACES)}
 		              onClick={onMenuClicked(Router.ADMIN_SPACES)}/>
