@@ -1,8 +1,7 @@
 import {ExecutionContent} from '../../widgets/cli/types';
 import {CMD_ARGUMENT_START, CMD_ARGUMENT_STOP, CMD_FLOW} from './commands';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import * as echarts from 'echarts/core';
-import {EChartsType} from 'echarts/core';
 import {ExecutionDelegate} from '../../widgets/cli/execution/execution-delegate';
 import {
 	ExecutionCommandLineArgument,
@@ -17,8 +16,8 @@ import {useDataQualityCacheData} from '../../cache/use-cache-data';
 import {compute} from './utils';
 import {SankeyChart} from 'echarts/charts';
 import {CanvasRenderer} from 'echarts/renderers';
-import {FlowContainer} from './widgets';
 import {TooltipComponent} from 'echarts/components';
+import {GraphDiagram} from '../../widgets/cli/graph';
 
 echarts.use([TooltipComponent, SankeyChart, CanvasRenderer]);
 
@@ -27,36 +26,6 @@ export const isFlowExecution = (content: ExecutionContent) => {
 	return commands[0].command === CMD_FLOW;
 };
 
-// noinspection DuplicatedCode
-const FlowDiagram = (props: { options: any }) => {
-	const {options} = props;
-
-	// noinspection TypeScriptValidateTypes
-	const rootRef = useRef<HTMLDivElement>(null);
-	const [chartInstance, setChartInstance] = useState<EChartsType | null>(null);
-	useEffect(() => {
-		if (!chartInstance) {
-			setChartInstance(echarts.init(rootRef.current!));
-		} else {
-			// console.log(JSON.stringify(options));
-			chartInstance.setOption(options, true);
-		}
-	}, [options, chartInstance]);
-	useEffect(() => {
-		if (rootRef.current) {
-			// @ts-ignore
-			const resizeObserver = new ResizeObserver(() => {
-				if (chartInstance) {
-					chartInstance.resize();
-				}
-			});
-			resizeObserver.observe(rootRef.current);
-			return () => resizeObserver.disconnect();
-		}
-	});
-
-	return <FlowContainer ref={rootRef}/>;
-};
 export const FlowExecution = (props: { content: ExecutionContent }) => {
 	const {content} = props;
 	const {commands} = content;
@@ -89,7 +58,7 @@ export const FlowExecution = (props: { content: ExecutionContent }) => {
 						<ExecutionResultNoData>No data flow found.</ExecutionResultNoData>
 					</ExecutionResultItemTable>);
 				} else {
-					setResult(<FlowDiagram options={options}/>);
+					setResult(<GraphDiagram options={options}/>);
 				}
 			} else {
 				setResult(<ExecutionResultItemTable>
