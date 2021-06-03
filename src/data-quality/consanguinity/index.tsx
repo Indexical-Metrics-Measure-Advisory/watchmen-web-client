@@ -11,10 +11,12 @@ import {PipelineHelpCmd} from './pipeline/help';
 import {TopicHelpCmd} from './topic/help';
 import {FlowCmd} from './flow/commands';
 import {FlowHelpCmd} from './flow/help';
+import {GraphCmd} from './graph/commands';
+import {GraphHelpCmd} from './graph/help';
 
-export const CONSANGUINITY_COMMANDS: Array<Command> = [PipelineCmd, TopicCmd, FlowCmd];
+export const CONSANGUINITY_COMMANDS: Array<Command> = [PipelineCmd, TopicCmd, FlowCmd, GraphCmd];
 
-export const CONSANGUINITY_HELP_COMMAND = createHelpCmd([PipelineHelpCmd, TopicHelpCmd, FlowHelpCmd]);
+export const CONSANGUINITY_HELP_COMMAND = createHelpCmd([PipelineHelpCmd, TopicHelpCmd, FlowHelpCmd, GraphHelpCmd]);
 
 const DataQualityConsanguinityIndex = () => {
 	return <FullWidthPage>

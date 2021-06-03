@@ -13,7 +13,7 @@ const FlowStopCmd: Command = {
 	trails: [{
 		label: '',
 		command: '',
-		reminder: 'Press "enter" to view graphics; or set endpoint by "start"',
+		reminder: 'Press "enter" to view flow; or set endpoint by "start"',
 		published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
 		trails: [{
 			label: 'Start From',
@@ -23,7 +23,7 @@ const FlowStopCmd: Command = {
 			trails: [{
 				label: '',
 				command: '',
-				reminder: 'Press "enter" to view graphics',
+				reminder: 'Press "enter" to view flow',
 				published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
 				trails: [],
 				executableOnNoTrail: true
@@ -42,7 +42,7 @@ const FlowStartCmd: Command = {
 	trails: [{
 		label: '',
 		command: '',
-		reminder: 'Press "enter" to view graphics; or set endpoint by "stop"',
+		reminder: 'Press "enter" to view flow; or set endpoint by "stop"',
 		published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
 		trails: [{
 			label: 'Stop By',
@@ -52,7 +52,7 @@ const FlowStartCmd: Command = {
 			trails: [{
 				label: '',
 				command: '',
-				reminder: 'Press "enter" to view graphics',
+				reminder: 'Press "enter" to view flow',
 				published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
 				trails: [],
 				executableOnNoTrail: true
@@ -67,7 +67,7 @@ const FlowStartCmd: Command = {
 export const FlowCmd: Command = {
 	label: 'Flow',
 	command: CMD_FLOW,
-	reminder: 'Press "enter" to view graphics; or set endpoints by "start" and "stop"',
+	reminder: 'Press "enter" to view flow; or set endpoints by "start" and "stop"',
 	published: {type: CommandPublishedBehaviorType.KEEP},
 	trails: [FlowStartCmd, FlowStopCmd],
 	executableOnNoTrail: true
