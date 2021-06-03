@@ -90,9 +90,10 @@ export const TopicListExecution = (props: { content: ExecutionContent }) => {
 	});
 	useDataQualityCacheData({onDataRetrieved});
 
-	return <ExecutionDelegate commandLine={<>
-		<ExecutionCommandLinePrimary>/topic</ExecutionCommandLinePrimary>
-		<ExecutionCommandLineArgument>list</ExecutionCommandLineArgument>
-	</>} executeAt={content.time} result={result}/>;
+	return <ExecutionDelegate content={content}
+	                          commandLine={<>
+		                          <ExecutionCommandLinePrimary>/topic</ExecutionCommandLinePrimary>
+		                          <ExecutionCommandLineArgument>list</ExecutionCommandLineArgument>
+	                          </>}
+	                          result={result}/>;
 };
-export {TopicHelpCmd} from './help';

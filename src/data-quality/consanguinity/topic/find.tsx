@@ -59,8 +59,10 @@ export const TopicFindExecution = (props: { content: ExecutionContent }) => {
 	});
 	useDataQualityCacheData({onDataRetrieved});
 
-	return <ExecutionDelegate commandLine={<>
-		<ExecutionCommandLinePrimary>/topic</ExecutionCommandLinePrimary>
-		<ExecutionCommandLineArgument>"{text}"</ExecutionCommandLineArgument>
-	</>} executeAt={content.time} result={result}/>;
+	return <ExecutionDelegate content={content}
+	                          commandLine={<>
+		                          <ExecutionCommandLinePrimary>/topic</ExecutionCommandLinePrimary>
+		                          <ExecutionCommandLineArgument>"{text}"</ExecutionCommandLineArgument>
+	                          </>}
+	                          result={result}/>;
 };

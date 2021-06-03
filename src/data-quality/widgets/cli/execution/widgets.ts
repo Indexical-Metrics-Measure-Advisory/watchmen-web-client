@@ -70,7 +70,7 @@ export const ExecutionTimeLabel = styled.span.attrs({'data-widget': 'cli-executi
 	height: 1.6em;
 	line-height: 1.6em;
 	padding: 0 calc(var(--margin) / 4) 0 calc(var(--margin) / 2);
-	border-radius: 0.8em var(--border-radius) var(--border-radius) 0.8em;
+	border-radius: 0.8em 0 0 0.8em;
 	overflow: hidden;
 	&:before {
 		content: '';
@@ -83,6 +83,44 @@ export const ExecutionTimeLabel = styled.span.attrs({'data-widget': 'cli-executi
 		background-color: var(--info-color);
 		opacity: 0.3;
 		z-index: -1;
+	}
+`;
+export const ExecutionLockButton = styled.span.attrs({'data-widget': 'cli-execution-lock'})`
+	display: flex;
+	position: relative;
+	align-items: center;
+	height: 1.6em;
+	line-height: 1.6em;
+	padding: 0 calc(var(--margin) / 3);
+	border-radius: 0 0.8em 0.8em 0;
+	cursor: pointer;
+	overflow: hidden;
+	&:before {
+		content: '';
+		display: block;
+		position: absolute;
+		top: 30%;
+		left: 0;
+		width: 1px;
+		height: 40%;
+		background-color: var(--border-color);
+		z-index: 1;
+		filter: brightness(2);
+	}
+	&:after {
+		content: '';
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: var(--info-color);
+		opacity: 0.3;
+		z-index: -2;
+	}
+	> svg {
+		font-size: 0.8em;
 	}
 `;
 export const ExecutionResult = styled.div.attrs({'data-widget': 'cli-execution-result'})`

@@ -233,6 +233,8 @@ export const ICON_CLEAR_SCREEN = faHandSparkles;
 
 export const ICON_COMMENTS = faCommentDots;
 export const ICON_CMD_PROMPT = faTerminal;
+export const ICON_LOCK = faLockOpen;
+export const ICON_UNLOCK = faLock;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

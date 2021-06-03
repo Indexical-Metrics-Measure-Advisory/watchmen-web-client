@@ -18,18 +18,14 @@ export const GraphHelpCmd: HelpCommand = {
 	brief: <GraphBrief/>,
 	whole: <>
 		<LeadHelpCommandName>/graph</LeadHelpCommandName>
-		<HelpCommandName>-- [start "topic id or name"] [stop "topic id or name"]</HelpCommandName>
+		<HelpCommandName>-- [factor]</HelpCommandName>
 		<HelpCommandDescription>
-			<span>List data flow of given endpoints.</span>
+			<span>Show graphics of relationship between pipelines, topics, factors which are defined pipelines.</span>
 			<span>Examples:</span>
-			<HelpCommandExample>/flow</HelpCommandExample>
-			<span>List all data flow.</span>
-			<HelpCommandExample>/flow start "Hello World"</HelpCommandExample>
-			<span>List data flow which starts from topic "Hello World". Single or double quote is supported when name has whitespace.</span>
-			<HelpCommandExample>/flow stop "Hello World"</HelpCommandExample>
-			<span>List data flow which stops by topic "Hello World".</span>
-			<HelpCommandExample>/flow start "Hello World" stop 861904759132</HelpCommandExample>
-			<span>List data flow which starts from topic "Hello World" and stops by topic 861904759132.</span>
+			<HelpCommandExample>/graph</HelpCommandExample>
+			<span>Show graphics between pipelines and topics.</span>
+			<HelpCommandExample>/graph factor</HelpCommandExample>
+			<span>Show graphics between pipelines, topics and factors.</span>
 		</HelpCommandDescription>
 	</>
 };

@@ -13,7 +13,7 @@ export const GraphBrief = () => {
 	};
 
 	return <>
-		<HelpCommandName onClick={onGraphHelpClicked}>-- flow</HelpCommandName>
+		<HelpCommandName onClick={onGraphHelpClicked}>-- graph</HelpCommandName>
 		<HelpCommandDescription>Show graph command help.</HelpCommandDescription>
 	</>;
 };

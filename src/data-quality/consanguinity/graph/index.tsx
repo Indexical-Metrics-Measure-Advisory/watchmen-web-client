@@ -55,6 +55,7 @@ export const GraphExecution = (props: { content: ExecutionContent }) => {
 	});
 	useDataQualityCacheData({onDataRetrieved});
 
-	return <ExecutionDelegate commandLine={<ExecutionCommandLinePrimary>/graph</ExecutionCommandLinePrimary>}
-	                          executeAt={content.time} result={result}/>;
+	return <ExecutionDelegate content={content}
+	                          commandLine={<ExecutionCommandLinePrimary>/graph</ExecutionCommandLinePrimary>}
+	                          result={result}/>;
 };

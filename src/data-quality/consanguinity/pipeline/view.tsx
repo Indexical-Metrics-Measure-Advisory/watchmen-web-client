@@ -94,9 +94,11 @@ export const PipelineViewExecution = (props: { content: ExecutionContent }) => {
 	});
 	useDataQualityCacheData({onDataRetrieved});
 
-	return <ExecutionDelegate commandLine={<>
-		<ExecutionCommandLinePrimary>/pipeline</ExecutionCommandLinePrimary>
-		<ExecutionCommandLineArgument>view</ExecutionCommandLineArgument>
-		<ExecutionCommandLineArgument>"{text}"</ExecutionCommandLineArgument>
-	</>} executeAt={content.time} result={result}/>;
+	return <ExecutionDelegate content={content}
+	                          commandLine={<>
+		                          <ExecutionCommandLinePrimary>/pipeline</ExecutionCommandLinePrimary>
+		                          <ExecutionCommandLineArgument>view</ExecutionCommandLineArgument>
+		                          <ExecutionCommandLineArgument>"{text}"</ExecutionCommandLineArgument>
+	                          </>}
+	                          result={result}/>;
 };

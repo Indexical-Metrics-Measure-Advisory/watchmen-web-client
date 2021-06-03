@@ -33,10 +33,13 @@ export const HelpExecution = (props: { content: ExecutionContent }) => {
 		fire(CliEventTypes.COMMAND_EXECUTED);
 	}, [fire, content]);
 
-	return <ExecutionDelegate commandLine={<>
-		<ExecutionCommandLinePrimary>/help</ExecutionCommandLinePrimary>
-		{commands.length > 1
-			? <ExecutionCommandLineArgument>{commands[1].command}</ExecutionCommandLineArgument>
-			: null}
-	</>} executeAt={content.time} result={result}/>;
+	return <ExecutionDelegate content={content}
+	                          commandLine={<>
+		                          <ExecutionCommandLinePrimary>/help</ExecutionCommandLinePrimary>
+		                          {commands.length > 1
+			                          ?
+			                          <ExecutionCommandLineArgument>{commands[1].command}</ExecutionCommandLineArgument>
+			                          : null}
+	                          </>}
+	                          result={result}/>;
 };

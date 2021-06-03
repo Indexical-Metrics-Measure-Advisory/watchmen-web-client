@@ -70,14 +70,18 @@ export const FlowExecution = (props: { content: ExecutionContent }) => {
 	});
 	useDataQualityCacheData({onDataRetrieved});
 
-	return <ExecutionDelegate commandLine={<>
-		<ExecutionCommandLinePrimary>/flow</ExecutionCommandLinePrimary>
-		{args.map((argument, index) => {
-			if (index === 1 || index === 3) {
-				return <ExecutionCommandLineArgument key={index}>"{argument.command}"</ExecutionCommandLineArgument>;
-			} else {
-				return <ExecutionCommandLineArgument key={index}>{argument.command}</ExecutionCommandLineArgument>;
-			}
-		})}
-	</>} executeAt={content.time} result={result}/>;
+	return <ExecutionDelegate content={content}
+	                          commandLine={<>
+		                          <ExecutionCommandLinePrimary>/flow</ExecutionCommandLinePrimary>
+		                          {args.map((argument, index) => {
+			                          if (index === 1 || index === 3) {
+				                          return <ExecutionCommandLineArgument
+					                          key={index}>"{argument.command}"</ExecutionCommandLineArgument>;
+			                          } else {
+				                          return <ExecutionCommandLineArgument
+					                          key={index}>{argument.command}</ExecutionCommandLineArgument>;
+			                          }
+		                          })}
+	                          </>}
+	                          result={result}/>;
 };

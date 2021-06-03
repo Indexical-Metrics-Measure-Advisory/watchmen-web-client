@@ -79,11 +79,14 @@ export const PipelineListExecution = (props: { content: ExecutionContent }) => {
 	});
 	useDataQualityCacheData({onDataRetrieved});
 
-	return <ExecutionDelegate commandLine={<>
-		<ExecutionCommandLinePrimary>/pipeline</ExecutionCommandLinePrimary>
-		<ExecutionCommandLineArgument>list</ExecutionCommandLineArgument>
-		{commands.length > 2
-			? <ExecutionCommandLineArgument>{commands[2].command}</ExecutionCommandLineArgument>
-			: null}
-	</>} executeAt={content.time} result={result}/>;
+	return <ExecutionDelegate content={content}
+	                          commandLine={<>
+		                          <ExecutionCommandLinePrimary>/pipeline</ExecutionCommandLinePrimary>
+		                          <ExecutionCommandLineArgument>list</ExecutionCommandLineArgument>
+		                          {commands.length > 2
+			                          ?
+			                          <ExecutionCommandLineArgument>{commands[2].command}</ExecutionCommandLineArgument>
+			                          : null}
+	                          </>}
+	                          result={result}/>;
 };

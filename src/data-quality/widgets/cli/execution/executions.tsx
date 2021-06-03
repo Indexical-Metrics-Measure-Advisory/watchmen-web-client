@@ -17,13 +17,27 @@ export const Executions = (props: {
 	useEffect(() => {
 		const onExecuteCommand = (commands: Array<Command>) => {
 			setExecutionContents(executionContents => {
-				return [
-					...executionContents,
-					{id: v4(), commands, time: dayjs(), locked: false}
-				].slice(-50);
+				if (executionContents.length >= 30) {
+					let removed = false;
+					return [
+						...executionContents.filter(content => {
+							if (!removed && !content.locked) {
+								removed = true;
+								return false;
+							}
+							return true;
+						}),
+						{id: v4(), commands, time: dayjs(), locked: false}
+					];
+				} else {
+					return [
+						...executionContents,
+						{id: v4(), commands, time: dayjs(), locked: false}
+					];
+				}
 			});
 		};
-		const onClearScreen = () => setExecutionContents([]);
+		const onClearScreen = () => setExecutionContents(executionContents => executionContents.filter(content => content.locked));
 		on(CliEventTypes.EXECUTE_COMMAND, onExecuteCommand);
 		on(CliEventTypes.CLEAR_SCREEN, onClearScreen);
 		return () => {
