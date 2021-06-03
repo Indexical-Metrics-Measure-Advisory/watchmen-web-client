@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {matchPath, useHistory, useLocation} from 'react-router-dom';
 import styled from 'styled-components';
 import {
-	ICON_ADMIN,
+	ICON_CONSOLE,
 	ICON_DATA_QUALITY,
 	ICON_ENUM,
 	ICON_HOME,
@@ -88,7 +88,7 @@ export const AdminMenu = () => {
 	const account = findAccount() || {name: MOCK_ACCOUNT_NAME};
 	const showTooltip = menuWidth / SIDE_MENU_MIN_WIDTH <= 1.5;
 	const workbenches = [
-		{label: 'To Console', icon: ICON_ADMIN, action: () => onMenuClicked(Router.CONSOLE)()}
+		{label: 'To Console', icon: ICON_CONSOLE, action: () => onMenuClicked(Router.CONSOLE)()}
 	];
 	if (isDataQualityCenterEnabled()) {
 		workbenches.push({
