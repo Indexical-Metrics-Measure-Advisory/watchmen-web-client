@@ -20,12 +20,13 @@ import {useRunsEventBus} from '../runs-event-bus';
 import {Pipeline} from '../../../../../services/tuples/pipeline-types';
 import {useEventBus} from '../../../../../events/event-bus';
 import {EventTypes} from '../../../../../events/types';
-import {Factor, FactorType} from '../../../../../services/tuples/factor-types';
+import {Factor} from '../../../../../services/tuples/factor-types';
 import {DataDialog} from '../data-dialog';
 import {CellButton, PipelineElementType, RunTableBodyCell, RunTablePipelineRow} from '../widgets';
 import {PipelineRunStatusCell} from './pipeline-run-status-cell';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {DataRow} from '../../../simulator-event-bus-types';
+import {getValueFromSourceData} from '../compute/parameter-kits';
 
 const startPipeline = async (context: PipelineRuntimeContext, start: () => void) => {
 	context.pipelineRuntimeId = generateRuntimeId();
@@ -54,16 +55,18 @@ const startPipeline = async (context: PipelineRuntimeContext, start: () => void)
 		// not exists, use unique index
 		// group unique index factors and find sequence factor
 		const factorsGroups = context.topic.factors.reduce((groups, factor) => {
-			if (factor.type === FactorType.SEQUENCE) {
-				groups.push({key: FactorType.SEQUENCE, factors: [factor], values: [triggerData[factor.name]]});
-			} else if (factor.indexGroup && factor.indexGroup.startsWith('u-')) {
+			if (factor.indexGroup && factor.indexGroup.startsWith('u-')) {
 				let group = groups.find(group => group.key === factor.indexGroup);
 				if (!group) {
-					group = {key: factor.indexGroup, factors: [factor], values: [triggerData[factor.name]]};
+					group = {
+						key: factor.indexGroup,
+						factors: [factor],
+						values: [getValueFromSourceData(factor, triggerData)]
+					};
 					groups.push(group);
 				} else {
 					group.factors.push(factor);
-					group.values.push(triggerData[factor.name]);
+					group.values.push(getValueFromSourceData(factor, triggerData));
 				}
 			}
 			return groups;
@@ -81,7 +84,7 @@ const startPipeline = async (context: PipelineRuntimeContext, start: () => void)
 				for (let factorGroup of factorsGroups) {
 					const matched = factorGroup.factors.every((factor, index) => {
 						// eslint-disable-next-line
-						return (row[factor.name] ?? '') == (factorGroup.values[index] ?? '');
+						return (getValueFromSourceData(factor, row) ?? '') == (factorGroup.values[index] ?? '');
 					});
 					if (matched) {
 						hasMatched = true;

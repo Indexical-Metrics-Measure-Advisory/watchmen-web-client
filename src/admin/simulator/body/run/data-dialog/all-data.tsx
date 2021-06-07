@@ -13,6 +13,7 @@ import {TopicsData} from '../../state/types';
 import {AllTopics} from '../types';
 import {getTopicName} from '../../../utils';
 import {ButtonInk} from '../../../../../basic-widgets/types';
+import {toString} from './utils';
 
 export const AllData = (props: {
 	topics: AllTopics;
@@ -56,7 +57,7 @@ export const AllData = (props: {
 								<TriggerDataFirstHeaderCell>{rowIndex + 1}</TriggerDataFirstHeaderCell>
 								{factors.map(factor => {
 									return <DataTableBodyCell key={factor.factorId}>
-										{JSON.stringify(row[factor.name])}
+										{toString(row[factor.name])}
 									</DataTableBodyCell>;
 								})}
 							</DataTableBodyRow>;

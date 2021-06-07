@@ -13,6 +13,7 @@ import {AllTopics, ChangedDataRow} from '../types';
 import {getTopicName} from '../../../utils';
 import {Topic} from '../../../../../services/tuples/topic-types';
 import {ButtonInk} from '../../../../../basic-widgets/types';
+import {toString} from './utils';
 
 export const ChangedData = (props: {
 	topics: AllTopics;
@@ -68,7 +69,7 @@ export const ChangedData = (props: {
 									<ChangedDataFirstHeaderCell>{rowIndex + 1}.org</ChangedDataFirstHeaderCell>
 									{factors.map(factor => {
 										return <DataTableBodyCell key={factor.factorId}>
-											{row.before ? JSON.stringify(row.before[factor.name]) : null}
+											{row.before ? toString(row.before[factor.name]) : null}
 										</DataTableBodyCell>;
 									})}
 								</DataTableBodyRow>
@@ -77,7 +78,7 @@ export const ChangedData = (props: {
 								<ChangedDataFirstHeaderCell>{rowIndex + 1}.chg</ChangedDataFirstHeaderCell>
 								{factors.map(factor => {
 									return <DataTableBodyCell key={factor.factorId}>
-										{row.after ? JSON.stringify(row.after[factor.name]) : null}
+										{row.after ? toString(row.after[factor.name]) : null}
 									</DataTableBodyCell>;
 								})}
 							</DataTableBodyRow>

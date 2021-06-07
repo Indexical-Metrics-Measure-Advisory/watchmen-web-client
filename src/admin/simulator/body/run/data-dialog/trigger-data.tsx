@@ -13,6 +13,7 @@ import {
 import React from 'react';
 import {getTopicName} from '../../../utils';
 import {ButtonInk} from '../../../../../basic-widgets/types';
+import {toString} from './utils';
 
 export const TriggerData = (props: {
 	topic: Topic;
@@ -35,7 +36,7 @@ export const TriggerData = (props: {
 				<TriggerDataFirstHeaderCell>new</TriggerDataFirstHeaderCell>
 				{factors.map(factor => {
 					return <DataTableBodyCell key={factor.factorId}>
-						{JSON.stringify(newOne[factor.name])}
+						{toString(newOne[factor.name])}
 					</DataTableBodyCell>;
 				})}
 			</DataTableBodyRow>
@@ -47,7 +48,7 @@ export const TriggerData = (props: {
 					</TriggerDataNoOldCell>
 					: factors.map(factor => {
 						return <DataTableBodyCell key={factor.factorId}>
-							{JSON.stringify(oldOne[factor.name])}
+							{toString(oldOne[factor.name])}
 						</DataTableBodyCell>;
 					})
 				}

@@ -50,7 +50,7 @@ export const getValueFromSourceData = (factor: Factor, sourceData: DataRow): any
 	} else {
 		const parts = name.split('.');
 		let source: any = sourceData;
-		parts.reduce((obj, part) => {
+		return parts.reduce((obj, part) => {
 			if (obj == null) {
 				return null;
 			} else if (Array.isArray(obj)) {
@@ -67,7 +67,6 @@ export const getValueFromSourceData = (factor: Factor, sourceData: DataRow): any
 				throw new Error(`Cannot retrieve data from ${source} by [${part}].`);
 			}
 		}, source);
-		return source;
 	}
 };
 
