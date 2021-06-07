@@ -8,8 +8,8 @@ import {
 import {InternalUnitRuntimeContext, PipelineRuntimeContext} from '../types';
 import dayjs, {Dayjs} from 'dayjs';
 import {computeParameter} from './parameter-compute';
-import {DataRow} from '../../../simulator-event-bus-types';
 import {isExpressionParameter, isJointParameter} from '../../../../../services/tuples/parameter-utils';
+import {DataRow} from '../../../types';
 
 type CompareDate = (date1: Dayjs, date2: Dayjs) => boolean;
 

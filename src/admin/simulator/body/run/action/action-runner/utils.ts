@@ -15,8 +15,8 @@ import {
 	WriteFactorAction
 } from '../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import {CopyToMemoryAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/system-actions-types';
-import {DataRow} from '../../../../simulator-event-bus-types';
 import {computeParameter} from '../../compute/parameter-compute';
+import {DataRow} from '../../../../types';
 
 export const AGGREGATE_ASSIST_FACTOR_NAME = '_aggregate_assist';
 export const DEFAULT_AGGREGATE_ASSIST_FACTOR_VALUE = '{}';

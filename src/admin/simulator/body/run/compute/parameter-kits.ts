@@ -9,9 +9,9 @@ import {
 import {AllTopics} from '../types';
 import {Topic} from '../../../../../services/tuples/topic-types';
 import {Factor} from '../../../../../services/tuples/factor-types';
-import {DataRow} from '../../../simulator-event-bus-types';
 import {ParameterShouldBe} from './types';
 import dayjs from 'dayjs';
+import {DataRow} from '../../../types';
 
 export const readTopicFactorParameter = (options: {
 	parameter: TopicFactorParameter,

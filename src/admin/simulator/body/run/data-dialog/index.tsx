@@ -5,13 +5,13 @@ import {Button} from '../../../../../basic-widgets/button';
 import {ButtonInk} from '../../../../../basic-widgets/types';
 import {useEventBus} from '../../../../../events/event-bus';
 import {EventTypes} from '../../../../../events/types';
-import {DataRow} from '../../../simulator-event-bus-types';
 import {TopicsData} from '../../state/types';
 import {Topic} from '../../../../../services/tuples/topic-types';
 import {TriggerData} from './trigger-data';
 import {AllTopics, ChangedDataRow} from '../types';
 import {AllData} from './all-data';
 import {ChangedData} from './changed-data';
+import {DataRow} from '../../../types';
 
 export const DataDialog = (props: {
 	title: string;

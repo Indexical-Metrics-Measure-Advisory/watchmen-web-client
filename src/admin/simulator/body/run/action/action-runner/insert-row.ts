@@ -7,13 +7,13 @@ import {
 	prepareTopic,
 	pushToChangeData
 } from './utils';
-import {DataRow} from '../../../../simulator-event-bus-types';
 import {
 	AggregateArithmetic,
 	MappingFactor
 } from '../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import {computeParameter} from '../../compute/parameter-compute';
 import {Topic} from '../../../../../../services/tuples/topic-types';
+import {DataRow} from '../../../../types';
 
 export const doInsertRow = async (
 	mapping: Array<MappingFactor>,

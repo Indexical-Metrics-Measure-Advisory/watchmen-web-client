@@ -38,11 +38,12 @@ import {Input} from '../../../../basic-widgets/input';
 import {Factor} from '../../../../services/tuples/factor-types';
 import {useForceUpdate} from '../../../../basic-widgets/utils';
 import {useSimulatorEventBus} from '../../simulator-event-bus';
-import {DataRow, SimulatorEventTypes} from '../../simulator-event-bus-types';
+import {SimulatorEventTypes} from '../../simulator-event-bus-types';
 import {AlertLabel} from '../../../../alert/widgets';
 import {ActiveStep} from '../state/types';
 import {v4} from 'uuid';
 import JSON5 from 'json5';
+import {DataRow} from '../../types';
 
 const DataCell = (props: { row: DataRow, factor: Factor }) => {
 	const {row, factor} = props;

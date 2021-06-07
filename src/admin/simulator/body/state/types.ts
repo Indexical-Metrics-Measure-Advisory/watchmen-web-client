@@ -1,6 +1,6 @@
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {Topic} from '../../../../services/tuples/topic-types';
-import {DataRow} from '../../simulator-event-bus-types';
+import {DataRow} from '../../types';
 
 export enum StartFrom {
 	TOPIC = 'topic',

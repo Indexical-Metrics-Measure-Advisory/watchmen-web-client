@@ -1,5 +1,4 @@
 import {Topic} from '../../../../../services/tuples/topic-types';
-import {DataRow} from '../../../simulator-event-bus-types';
 import {
 	DataTable,
 	DataTableBodyCell,
@@ -14,6 +13,7 @@ import React from 'react';
 import {getTopicName} from '../../../utils';
 import {ButtonInk} from '../../../../../basic-widgets/types';
 import {toString} from './utils';
+import {DataRow} from '../../../types';
 
 export const TriggerData = (props: {
 	topic: Topic;

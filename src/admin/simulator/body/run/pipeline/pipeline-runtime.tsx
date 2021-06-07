@@ -25,8 +25,8 @@ import {DataDialog} from '../data-dialog';
 import {CellButton, PipelineElementType, RunTableBodyCell, RunTablePipelineRow} from '../widgets';
 import {PipelineRunStatusCell} from './pipeline-run-status-cell';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {DataRow} from '../../../simulator-event-bus-types';
 import {getValueFromSourceData} from '../compute/parameter-kits';
+import {DataRow} from '../../../types';
 
 const startPipeline = async (context: PipelineRuntimeContext, start: () => void) => {
 	context.pipelineRuntimeId = generateRuntimeId();

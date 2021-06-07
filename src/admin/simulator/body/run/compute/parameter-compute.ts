@@ -18,12 +18,12 @@ import {
 import {ParameterShouldBe} from './types';
 import dayjs from 'dayjs';
 import {computeJoint} from './condition-compute';
-import {DataRow} from '../../../simulator-event-bus-types';
 import {
 	isComputedParameter,
 	isConstantParameter,
 	isTopicFactorParameter
 } from '../../../../../services/tuples/parameter-utils';
+import {DataRow} from '../../../types';
 
 const HALF_YEAR_FIRST: number = 1;
 const HALF_YEAR_SECOND: number = 2;
