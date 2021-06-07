@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {TopicsData} from '../state/types';
 import {AllTopics, PipelineRunStatus, PipelineRuntimeContext} from './types';
 import {PipelineRun} from './pipeline';
 import {buildPipelineRuntimeContext} from './utils';
-import {RunsEventBusProvider, useRunsEventBus} from './runs-event-bus';
+import {useRunsEventBus} from './runs-event-bus';
 import {RunsEventTypes} from './runs-event-bus-types';
 import {useEventBus} from '../../../../events/event-bus';
 import {EventTypes} from '../../../../events/types';
@@ -56,6 +56,7 @@ export const Runs = (props: {
 }) => {
 	const {runPipelines, allPipelines, topics, data} = props;
 
+	const {on, off, fire} = useRunsEventBus();
 	const [state] = useState<State>(() => {
 		// all run pipelines are triggered by same topic
 		const triggerDataRows = data[runPipelines[0].topicId];
@@ -96,13 +97,28 @@ export const Runs = (props: {
 			currentIndex: 0
 		};
 	});
+	useEffect(() => {
+		const onAskRuntimeData = () => {
+			const first = state.runs[0];
+			const last = state.runs[state.runs.length - 1];
+			if (first.status === PipelineRunStatus.WAIT || first.status === PipelineRunStatus.READY) {
+				fire(RunsEventTypes.REPLY_RUNTIME_DATA, false, false, first.runtimeData);
+			} else if (last.status !== PipelineRunStatus.DONE && last.status !== PipelineRunStatus.FAIL && last.status !== PipelineRunStatus.IGNORED) {
+				fire(RunsEventTypes.REPLY_RUNTIME_DATA, true, false, first.runtimeData);
+			} else {
+				fire(RunsEventTypes.REPLY_RUNTIME_DATA, true, true, first.runtimeData);
+			}
+		};
+		on(RunsEventTypes.ASK_RUNTIME_DATA, onAskRuntimeData);
+		return () => {
+			off(RunsEventTypes.ASK_RUNTIME_DATA, onAskRuntimeData);
+		};
+	});
 
 	// future runs are led by first run,
 	// change first context to ready and hold others as wait
 	state.runs[0].status = PipelineRunStatus.READY;
 
-	return <RunsEventBusProvider>
-		<Pipelines pipelineContexts={state.runs}
-		           topics={topics} allPipelines={allPipelines}/>
-	</RunsEventBusProvider>;
+	return <Pipelines pipelineContexts={state.runs}
+	                  topics={topics} allPipelines={allPipelines}/>;
 };

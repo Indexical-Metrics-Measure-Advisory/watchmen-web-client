@@ -1,6 +1,11 @@
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {Topic} from '../../../../services/tuples/topic-types';
-import {SimulatorBodyPart, SimulatorBodyPartHeader, SimulatorBodyPartHeaderTitle} from '../widgets';
+import {
+	SimulatorBodyPart,
+	SimulatorBodyPartHeader,
+	SimulatorBodyPartHeaderButtons,
+	SimulatorBodyPartHeaderTitle
+} from '../widgets';
 import React, {useEffect, useState} from 'react';
 import {ActiveStep, SimulateStart, StartFrom, TopicsData} from '../state/types';
 import {useActiveStep} from '../use-active-step';
@@ -10,6 +15,14 @@ import {useSimulatorEventBus} from '../../simulator-event-bus';
 import {getPipelineName} from '../../utils';
 import {Runs} from './runs';
 import {AllTopics} from './types';
+import {Button} from '../../../../basic-widgets/button';
+import {ButtonInk} from '../../../../basic-widgets/types';
+import {RunsEventBusProvider, useRunsEventBus} from './runs-event-bus';
+import {RunsEventTypes} from './runs-event-bus-types';
+import {useEventBus} from '../../../../events/event-bus';
+import {EventTypes} from '../../../../events/types';
+import {AlertLabel} from '../../../../alert/widgets';
+import dayjs from 'dayjs';
 
 interface State {
 	step: ActiveStep;
@@ -60,6 +73,80 @@ export const Run = (props: {
 	</>;
 };
 
+export const RunningPlanHeader = (props: {
+	topic: Topic | null;
+	topics: Array<Topic>;
+	showExport: boolean;
+}) => {
+	const {topic, topics, showExport} = props;
+
+	const {fire: fireGlobal} = useEventBus();
+	const {once: onceSimulator} = useSimulatorEventBus();
+	const {once} = useRunsEventBus();
+
+	const topicsMap = topics.reduce((map, topic) => {
+		map[topic.topicId] = topic;
+		return map;
+	}, {} as { [key in string]: Topic });
+
+	const onExportClicked = () => {
+		console.log('2');
+		once(RunsEventTypes.REPLY_RUNTIME_DATA, (started: boolean, done: boolean, runtimeData: TopicsData) => {
+			if (!started) {
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+					Pipeline(s) doesn't start yet.
+				</AlertLabel>);
+			} else if (!done) {
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+					Pipeline(s) still in running.
+				</AlertLabel>);
+			} else {
+				onceSimulator(SimulatorEventTypes.REPLY_RUN_MATERIAL, (topicsData: TopicsData) => {
+					const content = {
+						triggerData: {
+							topicId: topic!.topicId,
+							topic: topic!.name,
+							data: topicsData[topic!.topicId]
+						},
+						dataBeforeRun: Object.keys(topicsData)
+							// eslint-disable-next-line
+							.filter(topicId => topicId != topic!.topicId)
+							.map(topicId => {
+								return {
+									topicId,
+									topic: topicsMap[topicId]!.name,
+									data: topicsData[topicId]
+								};
+							}),
+						dataAfterRun: Object.keys(runtimeData).map(topicId => {
+							return {
+								topicId,
+								topic: topicsMap[topicId]!.name,
+								data: runtimeData[topicId]
+							};
+						})
+					};
+
+					const link = document.createElement('a');
+					link.href = 'data:application/json;charset=utf-8,' + encodeURI(JSON.stringify(content));
+					link.target = '_blank';
+					link.download = `data-of-pipeline -${dayjs().format('YYYYMMDDHHmmss')}.json`;
+					link.click();
+				}).fire(SimulatorEventTypes.ASK_RUN_MATERIAL);
+			}
+		}).fire(RunsEventTypes.ASK_RUNTIME_DATA);
+	};
+
+	return <SimulatorBodyPartHeader>
+		<SimulatorBodyPartHeaderTitle># 3. Running</SimulatorBodyPartHeaderTitle>
+		{showExport
+			? <SimulatorBodyPartHeaderButtons>
+				<Button ink={ButtonInk.PRIMARY} onClick={onExportClicked}>Export Whole Case Data</Button>
+			</SimulatorBodyPartHeaderButtons>
+			: null}
+	</SimulatorBodyPartHeader>;
+};
+
 export const RunningPlan = (props: {
 	pipelines: Array<Pipeline>;
 	topics: Array<Topic>;
@@ -107,14 +194,15 @@ export const RunningPlan = (props: {
 	});
 
 	return <SimulatorBodyPart collapsed={state.step !== ActiveStep.RUN}>
-		<SimulatorBodyPartHeader>
-			<SimulatorBodyPartHeaderTitle># 3. Running</SimulatorBodyPartHeaderTitle>
-		</SimulatorBodyPartHeader>
-		{state.step === ActiveStep.RUN && state.topic != null
-			? <RunBody>
-				<Run topic={state.topic} topics={topics} topicsData={state.topicsData} runPipelines={state.pipelines}/>
-			</RunBody>
-			: null
-		}
+		<RunsEventBusProvider>
+			<RunningPlanHeader topic={state.topic} topics={topics} showExport={state.step === ActiveStep.RUN}/>
+			{state.step === ActiveStep.RUN && state.topic != null
+				? <RunBody>
+					<Run topic={state.topic} topics={topics} topicsData={state.topicsData}
+					     runPipelines={state.pipelines}/>
+				</RunBody>
+				: null
+			}
+		</RunsEventBusProvider>
 	</SimulatorBodyPart>;
 };
