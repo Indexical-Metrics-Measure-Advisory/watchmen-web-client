@@ -46,13 +46,19 @@ export const ChangedData = (props: {
 	return <>
 		{topicsData.map(({topic, data}) => {
 			const factors = topic.factors;
-			const factorsCount = factors.length;
+
+			// only top level factors
+			// use json object/array string for raw topic
+			// eslint-disable-next-line
+			const availableFactors = factors.filter(f => f.name.indexOf('.') == -1);
+			const factorsCount = availableFactors.length;
+
 			return <Fragment key={topic.topicId}>
 				<SectionTitle ink={ButtonInk.INFO}>Changed: {getTopicName(topic)}</SectionTitle>
 				<DataTable>
 					<DataTableHeader firstWidth={80} columnCount={factorsCount}>
 						<DataTableHeaderCell>#</DataTableHeaderCell>
-						{factors.map(factor => {
+						{availableFactors.map(factor => {
 							return <DataTableHeaderCell key={factor.factorId}>{factor.name}</DataTableHeaderCell>;
 						})}
 					</DataTableHeader>
@@ -67,7 +73,7 @@ export const ChangedData = (props: {
 								</DataTableBodyRow>
 								: <DataTableBodyRow firstWidth={80} columnCount={factorsCount}>
 									<ChangedDataFirstHeaderCell>{rowIndex + 1}.org</ChangedDataFirstHeaderCell>
-									{factors.map(factor => {
+									{availableFactors.map(factor => {
 										return <DataTableBodyCell key={factor.factorId}>
 											{row.before ? toString(row.before[factor.name]) : null}
 										</DataTableBodyCell>;
@@ -76,7 +82,7 @@ export const ChangedData = (props: {
 							}
 							<DataTableBodyRow firstWidth={80} columnCount={factorsCount}>
 								<ChangedDataFirstHeaderCell>{rowIndex + 1}.chg</ChangedDataFirstHeaderCell>
-								{factors.map(factor => {
+								{availableFactors.map(factor => {
 									return <DataTableBodyCell key={factor.factorId}>
 										{row.after ? toString(row.after[factor.name]) : null}
 									</DataTableBodyCell>;
