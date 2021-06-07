@@ -68,7 +68,7 @@ export const ChangedData = (props: {
 									<ChangedDataFirstHeaderCell>{rowIndex + 1}.org</ChangedDataFirstHeaderCell>
 									{factors.map(factor => {
 										return <DataTableBodyCell key={factor.factorId}>
-											{row.before ? row.before[factor.name] : null}
+											{row.before ? JSON.stringify(row.before[factor.name]) : null}
 										</DataTableBodyCell>;
 									})}
 								</DataTableBodyRow>
@@ -77,7 +77,7 @@ export const ChangedData = (props: {
 								<ChangedDataFirstHeaderCell>{rowIndex + 1}.chg</ChangedDataFirstHeaderCell>
 								{factors.map(factor => {
 									return <DataTableBodyCell key={factor.factorId}>
-										{row.after ? row.after[factor.name] : null}
+										{row.after ? JSON.stringify(row.after[factor.name]) : null}
 									</DataTableBodyCell>;
 								})}
 							</DataTableBodyRow>

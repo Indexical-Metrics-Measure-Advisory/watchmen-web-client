@@ -35,7 +35,7 @@ export const TriggerData = (props: {
 				<TriggerDataFirstHeaderCell>new</TriggerDataFirstHeaderCell>
 				{factors.map(factor => {
 					return <DataTableBodyCell key={factor.factorId}>
-						{newOne[factor.name]}
+						{JSON.stringify(newOne[factor.name])}
 					</DataTableBodyCell>;
 				})}
 			</DataTableBodyRow>
@@ -47,7 +47,7 @@ export const TriggerData = (props: {
 					</TriggerDataNoOldCell>
 					: factors.map(factor => {
 						return <DataTableBodyCell key={factor.factorId}>
-							{oldOne[factor.name]}
+							{JSON.stringify(oldOne[factor.name])}
 						</DataTableBodyCell>;
 					})
 				}

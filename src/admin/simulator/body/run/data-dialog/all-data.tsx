@@ -56,7 +56,7 @@ export const AllData = (props: {
 								<TriggerDataFirstHeaderCell>{rowIndex + 1}</TriggerDataFirstHeaderCell>
 								{factors.map(factor => {
 									return <DataTableBodyCell key={factor.factorId}>
-										{row[factor.name]}
+										{JSON.stringify(row[factor.name])}
 									</DataTableBodyCell>;
 								})}
 							</DataTableBodyRow>;
