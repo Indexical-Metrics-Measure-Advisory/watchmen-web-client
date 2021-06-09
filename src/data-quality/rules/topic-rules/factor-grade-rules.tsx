@@ -118,7 +118,8 @@ export const FactorGradeRules = (props: { topic: Topic; rules: MonitorRules }) =
 	const [state, setState] = useState<State>({ruleMap: {}, factors: [], candidates: []});
 	useEffect(() => {
 		const ruleMap = buildRuleMap(rules);
-		const factors = topic.factors.filter(factor => !!ruleMap[factor.factorId]);
+		const factors = topic.factors.filter(factor => !!ruleMap[factor.factorId])
+			.sort((f1, f2) => (f1.name || '').toLowerCase().localeCompare(f2.name || ''));
 		const candidates = topic.factors.filter(factor => !ruleMap[factor.factorId]);
 		setState({ruleMap, factors, candidates});
 	}, [topic, rules]);
@@ -127,6 +128,9 @@ export const FactorGradeRules = (props: { topic: Topic; rules: MonitorRules }) =
 		const factorId = option.value as string;
 		// eslint-disable-next-line
 		const factor = topic.factors.find(factor => factor.factorId == factorId)!;
+
+		// doesn't rewrite the rule map
+		// rule map will be changed in render
 		setState({
 			...state,
 			factors: [...state.factors, factor],
@@ -142,13 +146,7 @@ export const FactorGradeRules = (props: { topic: Topic; rules: MonitorRules }) =
 			return def.canApply(topic);
 		}
 	}).length;
-	const defs = transformRuleDefsToDisplay(FactorRuleDefs).filter(def => {
-		if (!def.canApply) {
-			return true;
-		} else {
-			return def.canApply(topic);
-		}
-	});
+	const defs = transformRuleDefsToDisplay(FactorRuleDefs);
 
 	const candidatesOptions = state.candidates
 		.sort((f1, f2) => (f1.name || '').toLowerCase().localeCompare(f2.name || ''))

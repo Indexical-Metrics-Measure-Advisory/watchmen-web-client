@@ -211,31 +211,6 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 	},
 
 	{
-		code: MonitorRuleCode.FACTOR_IN_DATE_RANGE,
-		severity: MonitorRuleSeverity.TRACE,
-		name: 'Value in range',
-		canApply: (topic: Topic, factor?: Factor) => {
-			return !!factor && [FactorType.DATE, FactorType.DATETIME, FactorType.FULL_DATETIME, FactorType.DATE_OF_BIRTH].includes(factor.type);
-		}
-	},
-	{
-		code: MonitorRuleCode.FACTOR_MAX_IN_DATE_RANGE,
-		severity: MonitorRuleSeverity.TRACE,
-		name: 'Max in range',
-		canApply: (topic: Topic, factor?: Factor) => {
-			return !!factor && [FactorType.DATE, FactorType.DATETIME, FactorType.FULL_DATETIME, FactorType.DATE_OF_BIRTH].includes(factor.type);
-		}
-	},
-	{
-		code: MonitorRuleCode.FACTOR_MIN_IN_DATE_RANGE,
-		severity: MonitorRuleSeverity.TRACE,
-		name: 'Min in range',
-		canApply: (topic: Topic, factor?: Factor) => {
-			return !!factor && [FactorType.DATE, FactorType.DATETIME, FactorType.FULL_DATETIME, FactorType.DATE_OF_BIRTH].includes(factor.type);
-		}
-	},
-
-	{
 		code: MonitorRuleCode.FACTOR_AND_ANOTHER,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Value compare with another factor'

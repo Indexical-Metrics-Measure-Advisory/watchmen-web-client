@@ -53,11 +53,6 @@ export enum MonitorRuleCode {
 	FACTOR_MATCH_REGEXP = 'factor-match-regexp',
 	FACTOR_UNMATCH_REGEXP = 'factor-unmatch-regexp',
 
-	// for date
-	FACTOR_IN_DATE_RANGE = 'factor-in-date-range',
-	FACTOR_MAX_IN_DATE_RANGE = 'factor-max-in-date-range',
-	FACTOR_MIN_IN_DATE_RANGE = 'factor-min-in-date-range',
-
 	// for 2 factors
 	FACTOR_AND_ANOTHER = 'factor-and-another'
 }
@@ -131,10 +126,6 @@ export const FactorRuleDefs = [
 	MonitorRuleCode.FACTOR_STRING_LENGTH_RANGE,
 	MonitorRuleCode.FACTOR_MATCH_REGEXP,
 	MonitorRuleCode.FACTOR_UNMATCH_REGEXP,
-
-	MonitorRuleCode.FACTOR_IN_DATE_RANGE,
-	MonitorRuleCode.FACTOR_MAX_IN_DATE_RANGE,
-	MonitorRuleCode.FACTOR_MIN_IN_DATE_RANGE,
 
 	MonitorRuleCode.FACTOR_AND_ANOTHER
 ];
