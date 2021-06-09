@@ -6,8 +6,6 @@ export enum MonitorLogEventTypes {
 
 export interface MonitorLogEventBus {
 	fire(type: MonitorLogEventTypes.DO_SEARCH, criteria: MonitorLogCriteria): this;
-
 	on(type: MonitorLogEventTypes.DO_SEARCH, listener: (criteria: MonitorLogCriteria) => void): this;
-
 	off(type: MonitorLogEventTypes.DO_SEARCH, listener: (criteria: MonitorLogCriteria) => void): this;
 }
