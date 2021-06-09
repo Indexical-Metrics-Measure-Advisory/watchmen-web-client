@@ -64,6 +64,13 @@ const AButton = styled.button`
 			box-shadow : var(--waive-hover-shadow);
 		}
 	}
+	&[disabled] {
+		cursor: default;
+		background-color: var(--waive-color);
+		&:hover {
+			box-shadow: none;
+		}
+	}
 	&:hover {
 		box-shadow : var(--hover-shadow);
 	}

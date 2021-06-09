@@ -8,7 +8,7 @@ export const Body = styled.div.attrs({'data-widget': 'rules-body'})`
 `;
 export const SearchCriteriaContainer = styled.div.attrs({'data-widget': 'rules-search'})`
 	display: grid;
-	grid-template-columns: auto 1fr auto 1fr auto 1fr auto;
+	grid-template-columns: auto auto auto 1fr auto 1fr;
 	grid-column-gap: var(--margin);
 	grid-row-gap: calc(var(--margin) / 4);
 	padding: calc(var(--margin) / 4) var(--margin);
@@ -51,6 +51,20 @@ export const SearchResultTargetLabel = styled.div.attrs({'data-widget': 'rules-r
 	height: 40px;
 	padding: 0 var(--margin);
 	border-bottom: var(--border);
+	> span:first-child {
+		flex-grow: 1;
+	}
+	> div[data-widget=dropdown] {
+		width: unset;
+		min-width: 150px;
+		max-width: 200px;
+		font-size: var(--font-size);
+		font-variant: none;
+		font-weight: normal;
+	}
+	> button {
+		margin-left: calc(var(--margin) / 4);
+	}
 `;
 export const SearchResultHeader = styled.div.attrs<{ grade: MonitorRuleGrade.GLOBAL | MonitorRuleGrade.TOPIC }>(({grade}) => {
 	return {

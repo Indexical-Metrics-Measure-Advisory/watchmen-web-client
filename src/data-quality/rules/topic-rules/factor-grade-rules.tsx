@@ -119,8 +119,9 @@ export const FactorGradeRules = (props: { topic: Topic; rules: MonitorRules }) =
 	useEffect(() => {
 		const ruleMap = buildRuleMap(rules);
 		const factors = topic.factors.filter(factor => !!ruleMap[factor.factorId])
-			.sort((f1, f2) => (f1.name || '').toLowerCase().localeCompare(f2.name || ''));
-		const candidates = topic.factors.filter(factor => !ruleMap[factor.factorId]);
+			.sort((f1, f2) => (f1.name || '').toLowerCase().localeCompare((f2.name || '').toLowerCase()));
+		const candidates = topic.factors.filter(factor => !ruleMap[factor.factorId])
+			.sort((f1, f2) => (f1.name || '').toLowerCase().localeCompare((f2.name || '').toLowerCase()));
 		setState({ruleMap, factors, candidates});
 	}, [topic, rules]);
 
@@ -148,11 +149,9 @@ export const FactorGradeRules = (props: { topic: Topic; rules: MonitorRules }) =
 	}).length;
 	const defs = transformRuleDefsToDisplay(FactorRuleDefs);
 
-	const candidatesOptions = state.candidates
-		.sort((f1, f2) => (f1.name || '').toLowerCase().localeCompare(f2.name || ''))
-		.map(factor => {
-			return {value: factor.factorId, label: factor.name || 'Noname Factor'} as DropdownOption;
-		});
+	const candidatesOptions = state.candidates.map(factor => {
+		return {value: factor.factorId, label: factor.name || 'Noname Factor'} as DropdownOption;
+	});
 
 	return <>
 		{state.factors.map((factor, factorIndex) => {

@@ -195,17 +195,17 @@ export const RawQuotation: Topic = {
 			factorId: '410',
 			name: 'holder.dateOfBirth',
 			label: 'Policy Holder Birth Date',
-			type: FactorType.DATETIME,
+			type: FactorType.DATE_OF_BIRTH,
 			createTime: getCurrentTime(),
 			lastModifyTime: getCurrentTime()
 		},
 		{
-			factorId: '411', name: 'holder.gender', label: 'Holder Gender', type: FactorType.ENUM,
+			factorId: '411', name: 'holder.gender', label: 'Holder Gender', type: FactorType.GENDER,
 			createTime: getCurrentTime(),
 			lastModifyTime: getCurrentTime()
 		},
 		{
-			factorId: '412', name: 'holder.city', label: 'Holder City', type: FactorType.ENUM,
+			factorId: '412', name: 'holder.city', label: 'Holder City', type: FactorType.CITY,
 			createTime: getCurrentTime(),
 			lastModifyTime: getCurrentTime()
 		},
@@ -222,12 +222,12 @@ export const WeeklyPolicyPremium: Topic = {
 	topicId: '5', name: 'Weekly Policy Premium', kind: TopicKind.BUSINESS, type: TopicType.TIME,
 	factors: [
 		{
-			factorId: '501', name: 'year', label: 'Year', type: FactorType.NUMBER,
+			factorId: '501', name: 'year', label: 'Year', type: FactorType.YEAR,
 			createTime: getCurrentTime(),
 			lastModifyTime: getCurrentTime()
 		},
 		{
-			factorId: '502', name: 'week', label: 'Week', type: FactorType.NUMBER,
+			factorId: '502', name: 'week', label: 'Week', type: FactorType.WEEK_OF_YEAR,
 			createTime: getCurrentTime(),
 			lastModifyTime: getCurrentTime()
 		},
@@ -244,12 +244,12 @@ export const MonthlyPolicyPremium: Topic = {
 	topicId: '6', name: 'Monthly Policy Premium', kind: TopicKind.BUSINESS, type: TopicType.TIME,
 	factors: [
 		{
-			factorId: '601', name: 'year', label: 'Year', type: FactorType.NUMBER,
+			factorId: '601', name: 'year', label: 'Year', type: FactorType.YEAR,
 			createTime: getCurrentTime(),
 			lastModifyTime: getCurrentTime()
 		},
 		{
-			factorId: '602', name: 'month', label: 'Month', type: FactorType.NUMBER,
+			factorId: '602', name: 'month', label: 'Month', type: FactorType.MONTH,
 			createTime: getCurrentTime(),
 			lastModifyTime: getCurrentTime()
 		},

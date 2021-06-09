@@ -21,12 +21,62 @@ import {useRulesEventBus} from './rules-event-bus';
 import {getTopicName} from '../utils';
 import {GlobalRules} from './global-rules';
 import {TopicRules} from './topic-rules';
+import {Button} from '../../basic-widgets/button';
+import {ButtonInk, DropdownOption} from '../../basic-widgets/types';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {ICON_SAVE, ICON_SORT_ASC} from '../../basic-widgets/constants';
+import {Dropdown} from '../../basic-widgets/dropdown';
+import {Factor} from '../../services/tuples/factor-types';
 
 interface State {
 	grade: MonitorRuleGrade.GLOBAL | MonitorRuleGrade.TOPIC;
 	topic?: Topic;
 	data: MonitorRules;
 }
+
+export const TopicResultHeader = (props: { topic: Topic }) => {
+	const {topic} = props;
+
+	const {fire} = useRulesEventBus();
+	const [factor, setFactor] = useState<Factor | null>(null);
+	const onFactorFilterChanged = (option: DropdownOption) => {
+		const value = option.value;
+		if (!value) {
+			setFactor(null);
+			fire(RulesEventTypes.FILTER_BY_FACTOR);
+		} else {
+			// eslint-disable-next-line
+			const factor = topic.factors.find(factor => factor.factorId == value);
+			setFactor(factor ?? null);
+			fire(RulesEventTypes.FILTER_BY_FACTOR, factor);
+		}
+	};
+	const onSortFactorsClicked = () => fire(RulesEventTypes.SORT_FACTORS);
+	const onSaveClicked = () => {
+		// TODO
+	};
+
+	const factorFilterOptions = [
+		{value: '', label: 'Show All Defined'},
+		...[...topic!.factors].sort((f1, f2) => {
+			return (f1.name || '').toLowerCase().localeCompare((f2.name || '').toLowerCase());
+		}).map(factor => {
+			return {value: factor.factorId, label: factor.name || 'Noname Factor'};
+		})];
+
+	return <SearchResultTargetLabel>
+		<span>Topic Rules on {getTopicName(topic)}</span>
+		<Dropdown value={factor ? factor.factorId : ''} options={factorFilterOptions} onChange={onFactorFilterChanged}/>
+		<Button ink={ButtonInk.PRIMARY} onClick={onSortFactorsClicked} disabled={!!factor}>
+			<FontAwesomeIcon icon={ICON_SORT_ASC}/>
+			<span>Sort Factors</span>
+		</Button>
+		<Button ink={ButtonInk.SUCCESS} onClick={onSaveClicked}>
+			<FontAwesomeIcon icon={ICON_SAVE}/>
+			<span>Save</span>
+		</Button>
+	</SearchResultTargetLabel>;
+};
 
 export const SearchResult = () => {
 	const {fire: fireGlobal} = useEventBus();
@@ -47,9 +97,11 @@ export const SearchResult = () => {
 	const onTopic = state.grade === MonitorRuleGrade.TOPIC;
 
 	return <SearchResultContainer>
-		<SearchResultTargetLabel>
-			{!onTopic ? 'Global Rules' : `Topic Rules on ${getTopicName(state.topic!)}`}
-		</SearchResultTargetLabel>
+		{onTopic
+			? <TopicResultHeader topic={state.topic!}/>
+			: <SearchResultTargetLabel>
+				<span>Global Rules</span>
+			</SearchResultTargetLabel>}
 		<SearchResultHeader grade={state.grade}>
 			<SearchResultHeaderSeqCell>#</SearchResultHeaderSeqCell>
 			{onTopic ? <SearchResultHeaderCell>Factor</SearchResultHeaderCell> : null}
