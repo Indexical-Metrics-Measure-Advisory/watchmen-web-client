@@ -10,11 +10,17 @@ import {
 	SearchResultHeaderSeqCell,
 	SearchResultTargetLabel
 } from './widgets';
-import {fetchMonitorRules, MonitorRules, MonitorRuleGrade, MonitorRulesCriteria} from '../../services/data-quality/rules';
+import {
+	fetchMonitorRules,
+	MonitorRuleGrade,
+	MonitorRules,
+	MonitorRulesCriteria
+} from '../../services/data-quality/rules';
 import {RulesEventTypes} from './rules-event-bus-types';
 import {useRulesEventBus} from './rules-event-bus';
 import {getTopicName} from '../utils';
 import {GlobalRules} from './global-rules';
+import {TopicRules} from './topic-rules';
 
 interface State {
 	grade: MonitorRuleGrade.GLOBAL | MonitorRuleGrade.TOPIC;
@@ -53,14 +59,9 @@ export const SearchResult = () => {
 			{onTopic ? <SearchResultHeaderCell>Parameters</SearchResultHeaderCell> : null}
 		</SearchResultHeader>
 		<SearchResultBody>
-			{!onTopic
-				? <GlobalRules rules={state.data}/>
-				: null}
-			{/*{state.data.map((row, index) => {*/}
-			{/*	return <SearchResultRow row={row} index={index + 1 + state.pageSize * (state.pageNumber - 1)}*/}
-			{/*	                        pipelinesMap={pipelinesMap} topicsMap={topicsMap}*/}
-			{/*	                        key={row.uid}/>;*/}
-			{/*})}*/}
+			{onTopic
+				? <TopicRules rules={state.data}/>
+				: <GlobalRules rules={state.data}/>}
 		</SearchResultBody>
 	</SearchResultContainer>;
 };

@@ -1,20 +1,19 @@
 import React from 'react';
 import {
-	GlobalRuleDefs,
 	MonitorRule,
 	MonitorRuleGrade,
 	MonitorRules,
-	MonitorRuleSeverity
+	MonitorRuleSeverity,
+	TopicRuleDefs
 } from '../../../services/data-quality/rules';
-import {GlobalRuleCell, GlobalRuleEnablementCell, GlobalRuleRow, GlobalRuleSeqCell} from './widgets';
+import {TopicRuleCell, TopicRuleEnablementCell, TopicRuleRow, TopicRuleSeqCell} from './widgets';
 import {CheckBox} from '../../../basic-widgets/checkbox';
 import {useForceUpdate} from '../../../basic-widgets/utils';
 import {Dropdown} from '../../../basic-widgets/dropdown';
 import {DropdownOption} from '../../../basic-widgets/types';
 import {SeverityOptions, transformRuleDefsToDisplay} from '../utils';
 
-
-export const GlobalRules = (props: { rules: MonitorRules }) => {
+export const TopicRules = (props: { rules: MonitorRules }) => {
 	const {rules} = props;
 
 	const forceUpdate = useForceUpdate();
@@ -34,7 +33,7 @@ export const GlobalRules = (props: { rules: MonitorRules }) => {
 		forceUpdate();
 	};
 
-	const defs = transformRuleDefsToDisplay(GlobalRuleDefs);
+	const defs = transformRuleDefsToDisplay(TopicRuleDefs);
 
 	return <>
 		{defs.map((def, index) => {
@@ -45,16 +44,16 @@ export const GlobalRules = (props: { rules: MonitorRules }) => {
 					severity: MonitorRuleSeverity.TRACE,
 					enabled: false
 				};
-			return <GlobalRuleRow key={def.code}>
-				<GlobalRuleSeqCell>{index + 1}</GlobalRuleSeqCell>
-				<GlobalRuleCell>{def.name}</GlobalRuleCell>
-				<GlobalRuleEnablementCell>
+			return <TopicRuleRow key={def.code}>
+				<TopicRuleSeqCell>{index + 1}</TopicRuleSeqCell>
+				<TopicRuleCell>{def.name}</TopicRuleCell>
+				<TopicRuleEnablementCell>
 					<CheckBox value={rule?.enabled ?? false} onChange={onEnabledChanged(rule)}/>
-				</GlobalRuleEnablementCell>
-				<GlobalRuleCell>
+				</TopicRuleEnablementCell>
+				<TopicRuleCell>
 					<Dropdown value={rule.severity} options={SeverityOptions} onChange={onSeverityChanged(rule)}/>
-				</GlobalRuleCell>
-			</GlobalRuleRow>;
+				</TopicRuleCell>
+			</TopicRuleRow>;
 		})}
 	</>;
 };

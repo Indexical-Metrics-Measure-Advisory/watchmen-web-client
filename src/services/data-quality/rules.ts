@@ -14,9 +14,10 @@ export interface MonitorRulesCriteria {
 	enabled?: boolean;
 }
 
-export enum MonitorRuleCodes {
+export enum MonitorRuleCode {
 	RAW_MATCH_STRUCTURE = 'raw-match-structure',
 
+	ROWS_NO_CHANGE = 'rows-no-change',
 	ROWS_COUNT = 'rows-count',
 	ROWS_COUNT_INCREASING_RATE = 'rows-count-increasing-rate',
 
@@ -35,7 +36,7 @@ export enum MonitorRuleSeverity {
 
 export interface MonitorRule {
 	uid?: string;
-	code: MonitorRuleCodes;
+	code: MonitorRuleCode;
 	grade: MonitorRuleGrade;
 	severity: MonitorRuleSeverity;
 	enabled: boolean;
@@ -52,10 +53,21 @@ export interface MonitorRuleOnFactor extends MonitorRuleOnTopic {
 export type MonitorRules = Array<MonitorRule>;
 
 export const GlobalRuleDefs = [
-	MonitorRuleCodes.RAW_MATCH_STRUCTURE,
-	MonitorRuleCodes.FACTOR_MATCH_TYPE,
-	MonitorRuleCodes.FACTOR_MATCH_ENUM,
-	MonitorRuleCodes.FACTOR_MATCH_DATE_TYPE
+	MonitorRuleCode.RAW_MATCH_STRUCTURE,
+	MonitorRuleCode.FACTOR_MATCH_TYPE,
+	MonitorRuleCode.FACTOR_MATCH_ENUM,
+	MonitorRuleCode.FACTOR_MATCH_DATE_TYPE
+];
+
+export const TopicRuleDefs = [
+	MonitorRuleCode.RAW_MATCH_STRUCTURE,
+	MonitorRuleCode.FACTOR_MATCH_TYPE,
+	MonitorRuleCode.FACTOR_MATCH_ENUM,
+	MonitorRuleCode.FACTOR_MATCH_DATE_TYPE,
+
+	MonitorRuleCode.ROWS_NO_CHANGE,
+	MonitorRuleCode.ROWS_COUNT,
+	MonitorRuleCode.ROWS_COUNT_INCREASING_RATE
 ];
 
 export const fetchMonitorRules = async (options: { criteria: MonitorRulesCriteria }): Promise<MonitorRules> => {
