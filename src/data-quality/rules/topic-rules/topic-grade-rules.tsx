@@ -9,15 +9,32 @@ import {
 import {SeverityOptions, transformRuleDefsToDisplay} from '../utils';
 import {TopicRuleCell, TopicRuleEnablementCell, TopicRuleRow, TopicRuleSeqCell} from './widgets';
 import {Dropdown} from '../../../basic-widgets/dropdown';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Topic} from '../../../services/tuples/topic-types';
 import {useEnabledAndSeverity} from '../use-enabled-and-severity';
 import {ColorfulCheckBox} from '../widgets';
+import {useRulesEventBus} from '../rules-event-bus';
+import {RulesEventTypes} from '../rules-event-bus-types';
 
 export const TopicGradeRules = (props: { topic: Topic; rules: MonitorRules }) => {
 	const {topic, rules} = props;
 
+	const {on, off} = useRulesEventBus();
+	const [visible, setVisible] = useState(true);
 	const {onEnabledChanged, onSeverityChanged} = useEnabledAndSeverity(rules);
+	useEffect(() => {
+		const onFilterChanged = (all: boolean, topicOnly: boolean) => {
+			setVisible(all || topicOnly);
+		};
+		on(RulesEventTypes.FILTER_BY_FACTOR, onFilterChanged);
+		return () => {
+			off(RulesEventTypes.FILTER_BY_FACTOR, onFilterChanged);
+		};
+	});
+
+	if (!visible) {
+		return null;
+	}
 
 	const defs = transformRuleDefsToDisplay(TopicRuleDefs).filter(def => {
 		if (!def.canApply) {
