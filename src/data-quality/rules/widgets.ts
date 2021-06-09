@@ -56,8 +56,8 @@ export const SearchResultTargetLabel = styled.div.attrs({'data-widget': 'rules-r
 	}
 	> div[data-widget=dropdown] {
 		width: unset;
-		min-width: 150px;
-		max-width: 200px;
+		min-width: 200px;
+		max-width: 300px;
 		font-size: var(--font-size);
 		font-variant: none;
 		font-weight: normal;

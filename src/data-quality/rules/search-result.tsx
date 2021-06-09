@@ -38,17 +38,20 @@ export const TopicResultHeader = (props: { topic: Topic }) => {
 	const {topic} = props;
 
 	const {fire} = useRulesEventBus();
-	const [factor, setFactor] = useState<Factor | null>(null);
+	const [factor, setFactor] = useState<Factor | '' | '-'>('');
 	const onFactorFilterChanged = (option: DropdownOption) => {
 		const value = option.value;
 		if (!value) {
-			setFactor(null);
-			fire(RulesEventTypes.FILTER_BY_FACTOR);
+			setFactor('');
+			fire(RulesEventTypes.FILTER_BY_FACTOR, true, false);
+		} else if (value === '-') {
+			setFactor('-');
+			fire(RulesEventTypes.FILTER_BY_FACTOR, false, true);
 		} else {
 			// eslint-disable-next-line
 			const factor = topic.factors.find(factor => factor.factorId == value);
-			setFactor(factor ?? null);
-			fire(RulesEventTypes.FILTER_BY_FACTOR, factor);
+			setFactor(factor ?? '');
+			fire(RulesEventTypes.FILTER_BY_FACTOR, false, false, factor);
 		}
 	};
 	const onSortFactorsClicked = () => fire(RulesEventTypes.SORT_FACTORS);
@@ -58,20 +61,37 @@ export const TopicResultHeader = (props: { topic: Topic }) => {
 
 	const factorFilterOptions = [
 		{value: '', label: 'Show All Defined'},
+		{value: '-', label: 'Show Topic Rules Only'},
 		...[...topic!.factors].sort((f1, f2) => {
 			return (f1.name || '').toLowerCase().localeCompare((f2.name || '').toLowerCase());
 		}).map(factor => {
 			return {value: factor.factorId, label: factor.name || 'Noname Factor'};
 		})];
 
+	const filterValue = factor === '' ? '' : (factor === '-' ? '-' : factor.factorId);
+
 	return <SearchResultTargetLabel>
 		<span>Topic Rules on {getTopicName(topic)}</span>
-		<Dropdown value={factor ? factor.factorId : ''} options={factorFilterOptions} onChange={onFactorFilterChanged}/>
+		<Dropdown value={filterValue} options={factorFilterOptions} onChange={onFactorFilterChanged}/>
 		<Button ink={ButtonInk.PRIMARY} onClick={onSortFactorsClicked} disabled={!!factor}>
 			<FontAwesomeIcon icon={ICON_SORT_ASC}/>
 			<span>Sort Factors</span>
 		</Button>
-		<Button ink={ButtonInk.SUCCESS} onClick={onSaveClicked}>
+		<Button ink={ButtonInk.PRIMARY} onClick={onSaveClicked}>
+			<FontAwesomeIcon icon={ICON_SAVE}/>
+			<span>Save</span>
+		</Button>
+	</SearchResultTargetLabel>;
+};
+
+const GlobalResultHeader = () => {
+	const onSaveClicked = () => {
+		// TODO
+	};
+
+	return <SearchResultTargetLabel>
+		<span>Global Rules</span>
+		<Button ink={ButtonInk.PRIMARY} onClick={onSaveClicked}>
 			<FontAwesomeIcon icon={ICON_SAVE}/>
 			<span>Save</span>
 		</Button>
@@ -99,9 +119,7 @@ export const SearchResult = () => {
 	return <SearchResultContainer>
 		{onTopic
 			? <TopicResultHeader topic={state.topic!}/>
-			: <SearchResultTargetLabel>
-				<span>Global Rules</span>
-			</SearchResultTargetLabel>}
+			: <GlobalResultHeader/>}
 		<SearchResultHeader grade={state.grade}>
 			<SearchResultHeaderSeqCell>#</SearchResultHeaderSeqCell>
 			{onTopic ? <SearchResultHeaderCell>Factor</SearchResultHeaderCell> : null}

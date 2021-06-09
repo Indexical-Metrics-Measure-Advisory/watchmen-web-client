@@ -14,9 +14,9 @@ export interface RulesEventBus {
 	on(type: RulesEventTypes.DO_SEARCH, listener: (criteria: MonitorRulesCriteria, topic?: Topic) => void): this;
 	off(type: RulesEventTypes.DO_SEARCH, listener: (criteria: MonitorRulesCriteria, topic?: Topic) => void): this;
 
-	fire(type: RulesEventTypes.FILTER_BY_FACTOR, factor?: Factor): this;
-	on(type: RulesEventTypes.FILTER_BY_FACTOR, listener: (factor?: Factor) => void): this;
-	off(type: RulesEventTypes.FILTER_BY_FACTOR, listener: (factor?: Factor) => void): this;
+	fire(type: RulesEventTypes.FILTER_BY_FACTOR, all: boolean, topicOnly: boolean, factor?: Factor): this;
+	on(type: RulesEventTypes.FILTER_BY_FACTOR, listener: (all: boolean, topicOnly: boolean, factor?: Factor) => void): this;
+	off(type: RulesEventTypes.FILTER_BY_FACTOR, listener: (all: boolean, topicOnly: boolean, factor?: Factor) => void): this;
 
 	fire(type: RulesEventTypes.SORT_FACTORS): this;
 	on(type: RulesEventTypes.SORT_FACTORS, listener: () => void): this;
