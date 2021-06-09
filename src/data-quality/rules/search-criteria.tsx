@@ -47,6 +47,7 @@ export const SearchCriteria = () => {
 	};
 	const onSearchClicked = () => {
 		if (criteria.grade === MonitorRuleGrade.TOPIC) {
+			// eslint-disable-next-line
 			const topic = topics.find(topic => topic.topicId == criteria.topicId);
 			if (!topic) {
 				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>Please pick a topic first.</AlertLabel>);

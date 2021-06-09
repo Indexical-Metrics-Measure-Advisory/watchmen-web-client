@@ -60,7 +60,7 @@ export const SearchResult = () => {
 		</SearchResultHeader>
 		<SearchResultBody>
 			{onTopic
-				? <TopicRules rules={state.data}/>
+				? <TopicRules topic={state.topic!} rules={state.data}/>
 				: <GlobalRules rules={state.data}/>}
 		</SearchResultBody>
 	</SearchResultContainer>;

@@ -8,31 +8,14 @@ import {
 } from '../../../services/data-quality/rules';
 import {GlobalRuleCell, GlobalRuleEnablementCell, GlobalRuleRow, GlobalRuleSeqCell} from './widgets';
 import {CheckBox} from '../../../basic-widgets/checkbox';
-import {useForceUpdate} from '../../../basic-widgets/utils';
 import {Dropdown} from '../../../basic-widgets/dropdown';
-import {DropdownOption} from '../../../basic-widgets/types';
 import {SeverityOptions, transformRuleDefsToDisplay} from '../utils';
-
+import {useEnabledAndSeverity} from '../use-enabled-and-severity';
 
 export const GlobalRules = (props: { rules: MonitorRules }) => {
 	const {rules} = props;
 
-	const forceUpdate = useForceUpdate();
-
-	const onEnabledChanged = (rule: MonitorRule) => (value: boolean) => {
-		rule.enabled = value;
-		if (!rules.includes(rule)) {
-			rules.push(rule);
-		}
-		forceUpdate();
-	};
-	const onSeverityChanged = (rule: MonitorRule) => (option: DropdownOption) => {
-		rule.severity = option.value;
-		if (!rules.includes(rule)) {
-			rules.push(rule);
-		}
-		forceUpdate();
-	};
+	const {onEnabledChanged, onSeverityChanged} = useEnabledAndSeverity(rules);
 
 	const defs = transformRuleDefsToDisplay(GlobalRuleDefs);
 
@@ -42,9 +25,9 @@ export const GlobalRules = (props: { rules: MonitorRules }) => {
 				?? {
 					code: def.code,
 					grade: MonitorRuleGrade.GLOBAL,
-					severity: MonitorRuleSeverity.TRACE,
+					severity: def.severity ?? MonitorRuleSeverity.TRACE,
 					enabled: false
-				};
+				} as MonitorRule;
 			return <GlobalRuleRow key={def.code}>
 				<GlobalRuleSeqCell>{index + 1}</GlobalRuleSeqCell>
 				<GlobalRuleCell>{def.name}</GlobalRuleCell>
