@@ -29,7 +29,11 @@ export const SearchCriteria = () => {
 	});
 
 	const onGradeClicked = (grade: RuleGrade.GLOBAL | RuleGrade.TOPIC) => () => {
-		setCriteria(({...criteria, grade}));
+		if (grade === RuleGrade.GLOBAL) {
+			setCriteria({grade, enabled: criteria.enabled});
+		} else {
+			setCriteria(({...criteria, grade}));
+		}
 	};
 	const onTopicChanged = (option: DropdownOption) => {
 		setCriteria({...criteria, topicId: option.value});
