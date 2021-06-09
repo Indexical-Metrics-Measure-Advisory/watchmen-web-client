@@ -30,20 +30,13 @@ export const SearchCriteria = () => {
 
 	const onGradeClicked = (grade: MonitorRuleGrade.GLOBAL | MonitorRuleGrade.TOPIC) => () => {
 		if (grade === MonitorRuleGrade.GLOBAL) {
-			setCriteria({grade, enabled: criteria.enabled});
+			setCriteria({grade});
 		} else {
 			setCriteria(({...criteria, grade}));
 		}
 	};
 	const onTopicChanged = (option: DropdownOption) => {
 		setCriteria({...criteria, topicId: option.value});
-	};
-	const onStatusChanged = (option: DropdownOption) => {
-		if (option.value === '') {
-			setCriteria({grade: criteria.grade, topicId: criteria.topicId});
-		} else {
-			setCriteria({...criteria, enabled: option.value});
-		}
 	};
 	const onSearchClicked = () => {
 		if (criteria.grade === MonitorRuleGrade.TOPIC) {
@@ -67,11 +60,6 @@ export const SearchCriteria = () => {
 			};
 		}).sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()))
 	];
-	const statusOptions: Array<DropdownOption> = [
-		{value: '', label: 'Any'},
-		{value: true, label: 'Effective'},
-		{value: false, label: 'Suspended'}
-	];
 
 	return <SearchCriteriaContainer>
 		<SearchLabel>Grade</SearchLabel>
@@ -93,8 +81,6 @@ export const SearchCriteria = () => {
 				<Dropdown options={topicOptions} value={criteria.topicId} onChange={onTopicChanged}/>
 			</>
 			: null}
-		<SearchLabel>Enabled</SearchLabel>
-		<Dropdown options={statusOptions} value={criteria.enabled} onChange={onStatusChanged}/>
 		<Button ink={ButtonInk.PRIMARY} onClick={onSearchClicked}>
 			<FontAwesomeIcon icon={ICON_SEARCH}/>
 			<span>Find</span>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const GlobalRuleRow = styled.div`
 	display: grid;
 	grid-template-columns: 40px 350px 85px 100px 400px;
-	height: var(--height);
+	min-height: calc(var(--height) + 1px);
 	border-bottom: var(--border);
 `;
 export const GlobalRuleCell = styled.div`
@@ -15,6 +15,9 @@ export const GlobalRuleCell = styled.div`
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	> div[data-widget=checkbox] {
+		border: 0;
+	}
 	> div[data-widget=dropdown] {
 		border: 0;
 		margin: calc(var(--margin) / -2);

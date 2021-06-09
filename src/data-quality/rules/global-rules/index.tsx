@@ -37,6 +37,7 @@ export const GlobalRules = (props: { rules: MonitorRules }) => {
 				<GlobalRuleCell>
 					<Dropdown value={rule.severity} options={SeverityOptions} onChange={onSeverityChanged(rule)}/>
 				</GlobalRuleCell>
+				<GlobalRuleCell/>
 			</GlobalRuleRow>;
 		})}
 	</>;

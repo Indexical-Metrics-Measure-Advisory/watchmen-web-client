@@ -11,7 +11,6 @@ export enum MonitorRuleGrade {
 export interface MonitorRulesCriteria {
 	grade: MonitorRuleGrade.GLOBAL | MonitorRuleGrade.TOPIC;
 	topicId?: string;
-	enabled?: boolean;
 }
 
 export enum MonitorRuleCode {
@@ -32,7 +31,7 @@ export enum MonitorRuleCode {
 	// for all factor types
 	FACTOR_IS_EMPTY = 'factor-is-empty',
 	FACTOR_USE_CAST = 'factor-use-cast',
-	FACTOR_COMMON_VALUE_IN_RANGE = 'factor-common-value-in-range',
+	FACTOR_COMMON_VALUE_COVERAGE = 'factor-common-value-coverage',
 
 	// for number type
 	FACTOR_MONOTONE_INCREASING = 'factor-monotone-increasing',
@@ -45,6 +44,7 @@ export enum MonitorRuleCode {
 	FACTOR_MEDIAN_IN_RANGE = 'factor-median-in-range',
 	FACTOR_QUANTILE_IN_RANGE = 'factor-quantile-in-range',
 	FACTOR_STDEV_IN_RANGE = 'factor-stdev-in-range',
+	FACTOR_COMMON_VALUE_IN_RANGE = 'factor-common-value-in-range',
 
 	// for string type
 	FACTOR_IS_BLANK = 'factor-is-blank',
@@ -55,6 +55,8 @@ export enum MonitorRuleCode {
 
 	// for date
 	FACTOR_IN_DATE_RANGE = 'factor-in-date-range',
+	FACTOR_MAX_IN_DATE_RANGE = 'factor-max-in-date-range',
+	FACTOR_MIN_IN_DATE_RANGE = 'factor-min-in-date-range',
 
 	// for 2 factors
 	FACTOR_AND_ANOTHER = 'factor-and-another'
@@ -110,7 +112,7 @@ export const FactorRuleDefs = [
 
 	MonitorRuleCode.FACTOR_IS_EMPTY,
 	MonitorRuleCode.FACTOR_USE_CAST,
-	MonitorRuleCode.FACTOR_COMMON_VALUE_IN_RANGE,
+	MonitorRuleCode.FACTOR_COMMON_VALUE_COVERAGE,
 
 	MonitorRuleCode.FACTOR_MONOTONE_INCREASING,
 	MonitorRuleCode.FACTOR_MONOTONE_DECREASING,
@@ -122,6 +124,7 @@ export const FactorRuleDefs = [
 	MonitorRuleCode.FACTOR_MEDIAN_IN_RANGE,
 	MonitorRuleCode.FACTOR_QUANTILE_IN_RANGE,
 	MonitorRuleCode.FACTOR_STDEV_IN_RANGE,
+	MonitorRuleCode.FACTOR_COMMON_VALUE_IN_RANGE,
 
 	MonitorRuleCode.FACTOR_IS_BLANK,
 	MonitorRuleCode.FACTOR_STRING_LENGTH,
@@ -130,6 +133,8 @@ export const FactorRuleDefs = [
 	MonitorRuleCode.FACTOR_UNMATCH_REGEXP,
 
 	MonitorRuleCode.FACTOR_IN_DATE_RANGE,
+	MonitorRuleCode.FACTOR_MAX_IN_DATE_RANGE,
+	MonitorRuleCode.FACTOR_MIN_IN_DATE_RANGE,
 
 	MonitorRuleCode.FACTOR_AND_ANOTHER
 ];
@@ -143,4 +148,12 @@ export const fetchMonitorRules = async (options: { criteria: MonitorRulesCriteri
 			data: {criteria: options.criteria}
 		});
 	}
+};
+
+export const isRuleOnTopic = (rule: MonitorRule): rule is MonitorRuleOnTopic => {
+	const x = rule as any;
+	return x.topicId && !x.factorId;
+};
+export const isRuleOnFactor = (rule: MonitorRule): rule is MonitorRuleOnFactor => {
+	return (rule as any).factorId;
 };

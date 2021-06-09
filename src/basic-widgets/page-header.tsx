@@ -9,7 +9,7 @@ import {TooltipAlignment} from './types';
 export const PageHeaderContainer = styled.div.attrs({'data-widget': 'page-header'})`
 	display: flex;
 	align-items: center;
-	height: 57px;
+	min-height: 57px;
 `;
 export const FullWidthPageHeaderContainer = styled(PageHeaderContainer)`
 	border-bottom: var(--border);
@@ -65,7 +65,7 @@ export const PageHeaderHolderContainer = styled.div.attrs({'data-widget': 'page-
 	display: grid;
 	grid-template-columns: auto 1fr;
 	align-items: center;
-	height: 57px;
+	min-height: 57px;
 	border-bottom: var(--border);
 `;
 

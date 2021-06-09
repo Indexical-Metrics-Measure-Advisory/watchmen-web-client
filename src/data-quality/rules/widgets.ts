@@ -47,7 +47,7 @@ export const SearchResultTargetLabel = styled.div.attrs({'data-widget': 'rules-r
 	font-size: 1.4em;
 	font-weight: var(--font-bold);
 	font-variant: petite-caps;
-	height: calc(var(--height) * 1.4);
+	height: 40px;
 	padding: 0 var(--margin);
 	border-bottom: var(--border);
 `;
@@ -85,7 +85,7 @@ export const SearchResultBody = styled.div.attrs({
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
-	height: calc(100vh - 57px - 45px - var(--height) - 2px);
+	height: calc(100vh - 57px - 45px - 40px - var(--height) - 2px);
 	overflow-y: auto;
 	overflow-x: hidden;
 `;

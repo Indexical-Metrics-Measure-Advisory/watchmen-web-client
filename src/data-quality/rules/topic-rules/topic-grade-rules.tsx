@@ -1,4 +1,5 @@
 import {
+	isRuleOnTopic,
 	MonitorRuleGrade,
 	MonitorRuleOnTopic,
 	MonitorRules,
@@ -28,7 +29,7 @@ export const TopicGradeRules = (props: { topic: Topic; rules: MonitorRules }) =>
 
 	return <>
 		{defs.map((def, index) => {
-			const rule = rules.find(({code}) => code === def.code)
+			const rule = rules.find(rule => isRuleOnTopic(rule) && rule.code === def.code)
 				?? {
 					code: def.code,
 					topicId: topic.topicId,
@@ -46,6 +47,7 @@ export const TopicGradeRules = (props: { topic: Topic; rules: MonitorRules }) =>
 				<TopicRuleCell>
 					<Dropdown value={rule.severity} options={SeverityOptions} onChange={onSeverityChanged(rule)}/>
 				</TopicRuleCell>
+				<TopicRuleCell/>
 			</TopicRuleRow>;
 		})}
 	</>;
