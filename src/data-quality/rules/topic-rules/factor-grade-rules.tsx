@@ -2,13 +2,14 @@ import {Topic} from '../../../services/tuples/topic-types';
 import {
 	FactorRuleDefs,
 	isRuleOnFactor,
+	MonitorRule,
 	MonitorRuleGrade,
 	MonitorRuleOnFactor,
 	MonitorRules,
 	MonitorRuleSeverity,
 	TopicRuleDefs
 } from '../../../services/data-quality/rules';
-import {SeverityOptions, transformRuleDefsToDisplay} from '../utils';
+import {MonitorRuleDef, SeverityOptions, transformRuleDefsToDisplay} from '../utils';
 import {
 	FactorRow,
 	FactorRuleNameCell,
@@ -19,12 +20,12 @@ import {
 	TopicRuleRow,
 	TopicRuleSeqCell
 } from './widgets';
-import {CheckBox} from '../../../basic-widgets/checkbox';
 import {Dropdown} from '../../../basic-widgets/dropdown';
 import React, {useEffect, useState} from 'react';
-import {useEnabledAndSeverity} from '../use-enabled-and-severity';
 import {DropdownOption} from '../../../basic-widgets/types';
 import {Factor} from '../../../services/tuples/factor-types';
+import {useForceUpdate} from '../../../basic-widgets/utils';
+import {ColorfulCheckBox} from '../widgets';
 
 type RuleMap = { [key in string]: { [key in string]: MonitorRuleOnFactor } }
 
@@ -49,11 +50,72 @@ const buildRuleMap = (rules: MonitorRules): RuleMap => {
 
 	}, {} as { [key in string]: { [key in string]: MonitorRuleOnFactor } });
 };
+
+const FactorRulesRow = (props: {
+	topic: Topic;
+	factor: Factor;
+	factorIndex: number;
+	ruleMap: RuleMap;
+	defs: Array<MonitorRuleDef>;
+	topicDefsCount: number;
+}) => {
+	const {topic, factor, factorIndex, ruleMap, defs, topicDefsCount} = props;
+
+	const forceUpdate = useForceUpdate();
+	const onEnabledChanged = (rule: MonitorRule) => (value: boolean) => {
+		rule.enabled = value;
+		forceUpdate();
+	};
+	const onSeverityChanged = (rule: MonitorRule) => (option: DropdownOption) => {
+		rule.severity = option.value;
+		forceUpdate();
+	};
+
+	const factorId = factor.factorId;
+	let factorRuleMap = ruleMap[factorId];
+	if (!factorRuleMap) {
+		factorRuleMap = {};
+		ruleMap[factorId] = factorRuleMap;
+	}
+	const factorRuleDefs = defs.filter(def => !def.canApply || def.canApply(topic, factor));
+	const rulesCount = factorRuleDefs.length;
+
+	return <FactorRow rows={rulesCount} key={factor.factorId}>
+		<FactorRuleSeqCell rows={rulesCount}>{factorIndex + 1 + topicDefsCount}</FactorRuleSeqCell>
+		<FactorRuleNameCell rows={rulesCount}>{factor.name || 'Noname Factor'}</FactorRuleNameCell>
+		{factorRuleDefs.map(def => {
+			let rule = factorRuleMap[def.code];
+			if (!rule) {
+				rule = {
+					code: def.code,
+					topicId: topic.topicId,
+					factorId,
+					grade: MonitorRuleGrade.FACTOR,
+					severity: def.severity ?? MonitorRuleSeverity.TRACE,
+					enabled: false
+				} as MonitorRuleOnFactor;
+				factorRuleMap[def.code] = rule;
+			}
+
+			return <FactorRuleRow key={def.code}>
+				<TopicRuleCell>{def.name}</TopicRuleCell>
+				<TopicRuleEnablementCell>
+					<ColorfulCheckBox value={rule?.enabled ?? false} onChange={onEnabledChanged(rule)}/>
+				</TopicRuleEnablementCell>
+				<TopicRuleCell>
+					<Dropdown value={rule.severity} options={SeverityOptions}
+					          onChange={onSeverityChanged(rule)}/>
+				</TopicRuleCell>
+				<TopicRuleCell/>
+			</FactorRuleRow>;
+		})}
+	</FactorRow>;
+};
+
 export const FactorGradeRules = (props: { topic: Topic; rules: MonitorRules }) => {
 	const {topic, rules} = props;
 
 	const [state, setState] = useState<State>({ruleMap: {}, factors: [], candidates: []});
-	const {onEnabledChanged, onSeverityChanged} = useEnabledAndSeverity(rules);
 	useEffect(() => {
 		const ruleMap = buildRuleMap(rules);
 		const factors = topic.factors.filter(factor => !!ruleMap[factor.factorId]);
@@ -96,41 +158,9 @@ export const FactorGradeRules = (props: { topic: Topic; rules: MonitorRules }) =
 
 	return <>
 		{state.factors.map((factor, factorIndex) => {
-			const factorId = factor.factorId;
-			const ruleMap = state.ruleMap[factorId] ?? {};
-			const factorRuleDefs = defs.filter(def => !def.canApply || def.canApply(topic, factor));
-			const rulesCount = factorRuleDefs.length;
-
-			return <FactorRow rows={rulesCount} key={factor.factorId}>
-				<FactorRuleSeqCell rows={rulesCount}>{factorIndex + 1 + topicDefsCount}</FactorRuleSeqCell>
-				<FactorRuleNameCell rows={rulesCount}>{factor.name || 'Noname Factor'}</FactorRuleNameCell>
-				{factorRuleDefs.map(def => {
-					const rule = ruleMap[def.code]
-						?? {
-							code: def.code,
-							topicId: topic.topicId,
-							factorId,
-							grade: MonitorRuleGrade.FACTOR,
-							severity: def.severity ?? MonitorRuleSeverity.TRACE,
-							enabled: false
-						} as MonitorRuleOnFactor;
-					if (!rule) {
-						return null;
-					}
-
-					return <FactorRuleRow key={def.code}>
-						<TopicRuleCell>{def.name}</TopicRuleCell>
-						<TopicRuleEnablementCell>
-							<CheckBox value={rule?.enabled ?? false} onChange={onEnabledChanged(rule)}/>
-						</TopicRuleEnablementCell>
-						<TopicRuleCell>
-							<Dropdown value={rule.severity} options={SeverityOptions}
-							          onChange={onSeverityChanged(rule)}/>
-						</TopicRuleCell>
-						<TopicRuleCell/>
-					</FactorRuleRow>;
-				})}
-			</FactorRow>;
+			return <FactorRulesRow topic={topic} factor={factor} factorIndex={factorIndex}
+			                       ruleMap={state.ruleMap} defs={defs} topicDefsCount={topicDefsCount}
+			                       key={factor.factorId}/>;
 		})}
 		{candidatesOptions.length !== 0
 			? <TopicRuleRow>

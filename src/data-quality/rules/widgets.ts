@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import {MonitorRuleGrade} from '../../services/data-quality/rules';
+import {CheckBox} from '../../basic-widgets/checkbox';
 
 export const Body = styled.div.attrs({'data-widget': 'rules-body'})`
 	display: flex;
@@ -88,4 +89,13 @@ export const SearchResultBody = styled.div.attrs({
 	height: calc(100vh - 57px - 45px - 40px - var(--height) - 2px);
 	overflow-y: auto;
 	overflow-x: hidden;
+`;
+
+export const ColorfulCheckBox = styled(CheckBox).attrs(({value}) => {
+	return {
+		style: {
+			color: value === true ? 'var(--success-color)' : 'var(--danger-color)'
+		}
+	};
+})`
 `;

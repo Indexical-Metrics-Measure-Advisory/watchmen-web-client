@@ -8,11 +8,11 @@ import {
 } from '../../../services/data-quality/rules';
 import {SeverityOptions, transformRuleDefsToDisplay} from '../utils';
 import {TopicRuleCell, TopicRuleEnablementCell, TopicRuleRow, TopicRuleSeqCell} from './widgets';
-import {CheckBox} from '../../../basic-widgets/checkbox';
 import {Dropdown} from '../../../basic-widgets/dropdown';
 import React from 'react';
 import {Topic} from '../../../services/tuples/topic-types';
 import {useEnabledAndSeverity} from '../use-enabled-and-severity';
+import {ColorfulCheckBox} from '../widgets';
 
 export const TopicGradeRules = (props: { topic: Topic; rules: MonitorRules }) => {
 	const {topic, rules} = props;
@@ -42,7 +42,7 @@ export const TopicGradeRules = (props: { topic: Topic; rules: MonitorRules }) =>
 				<TopicRuleCell>-</TopicRuleCell>
 				<TopicRuleCell>{def.name}</TopicRuleCell>
 				<TopicRuleEnablementCell>
-					<CheckBox value={rule?.enabled ?? false} onChange={onEnabledChanged(rule)}/>
+					<ColorfulCheckBox value={rule?.enabled ?? false} onChange={onEnabledChanged(rule)}/>
 				</TopicRuleEnablementCell>
 				<TopicRuleCell>
 					<Dropdown value={rule.severity} options={SeverityOptions} onChange={onSeverityChanged(rule)}/>

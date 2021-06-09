@@ -7,10 +7,10 @@ import {
 	MonitorRuleSeverity
 } from '../../../services/data-quality/rules';
 import {GlobalRuleCell, GlobalRuleEnablementCell, GlobalRuleRow, GlobalRuleSeqCell} from './widgets';
-import {CheckBox} from '../../../basic-widgets/checkbox';
 import {Dropdown} from '../../../basic-widgets/dropdown';
 import {SeverityOptions, transformRuleDefsToDisplay} from '../utils';
 import {useEnabledAndSeverity} from '../use-enabled-and-severity';
+import {ColorfulCheckBox} from '../widgets';
 
 export const GlobalRules = (props: { rules: MonitorRules }) => {
 	const {rules} = props;
@@ -32,7 +32,7 @@ export const GlobalRules = (props: { rules: MonitorRules }) => {
 				<GlobalRuleSeqCell>{index + 1}</GlobalRuleSeqCell>
 				<GlobalRuleCell>{def.name}</GlobalRuleCell>
 				<GlobalRuleEnablementCell>
-					<CheckBox value={rule?.enabled ?? false} onChange={onEnabledChanged(rule)}/>
+					<ColorfulCheckBox value={rule?.enabled ?? false} onChange={onEnabledChanged(rule)}/>
 				</GlobalRuleEnablementCell>
 				<GlobalRuleCell>
 					<Dropdown value={rule.severity} options={SeverityOptions} onChange={onSeverityChanged(rule)}/>
