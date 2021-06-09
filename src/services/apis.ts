@@ -97,7 +97,9 @@ export const Apis = {
 	SUBJECT_SHARE_GET: 'share/subject?subject_id=:subjectId&&token=:token',
 	DASHBOARD_SHARE_GET: 'share/dashboard?dashboard_id=:dashboardId&&token=:token',
 
-	QUERY_LOG: 'pipeline/log/query'
+	QUERY_LOG: 'pipeline/log/query',
+
+	QUERY_RULE: 'rules/query'
 };
 
 const buildApi = (api: string, args?: { [key in string]: any }): string => {

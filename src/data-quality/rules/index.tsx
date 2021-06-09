@@ -4,6 +4,7 @@ import {FullWidthPageHeaderContainer, PageTitle} from '../../basic-widgets/page-
 import {Body} from './widgets';
 import {RulesEventBusProvider} from './rules-event-bus';
 import {SearchCriteria} from './search-criteria';
+import {SearchResult} from './search-result';
 
 const DataQualityMonitorRulesIndex = () => {
 	return <FullWidthPage>
@@ -13,6 +14,7 @@ const DataQualityMonitorRulesIndex = () => {
 		<Body>
 			<RulesEventBusProvider>
 				<SearchCriteria/>
+				<SearchResult/>
 			</RulesEventBusProvider>
 		</Body>
 	</FullWidthPage>;

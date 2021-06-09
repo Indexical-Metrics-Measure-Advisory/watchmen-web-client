@@ -11,8 +11,12 @@ import {RuleGrade, RulesCriteria} from '../../services/data-quality/rules';
 import {useDataQualityCacheData} from '../cache/use-cache-data';
 import {DQCCacheData} from '../cache/types';
 import {Topic} from '../../services/tuples/topic-types';
+import {EventTypes} from '../../events/types';
+import {AlertLabel} from '../../alert/widgets';
+import {useEventBus} from '../../events/event-bus';
 
 export const SearchCriteria = () => {
+	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useRulesEventBus();
 	const [topics, setTopics] = useState<Array<Topic>>([]);
 	const [criteria, setCriteria] = useState<RulesCriteria>({grade: RuleGrade.GLOBAL});
@@ -24,7 +28,7 @@ export const SearchCriteria = () => {
 		}
 	});
 
-	const onGradeClicked = (grade: RuleGrade) => () => {
+	const onGradeClicked = (grade: RuleGrade.GLOBAL | RuleGrade.TOPIC) => () => {
 		setCriteria(({...criteria, grade}));
 	};
 	const onTopicChanged = (option: DropdownOption) => {
@@ -37,10 +41,20 @@ export const SearchCriteria = () => {
 			setCriteria({...criteria, enabled: option.value});
 		}
 	};
-	const onSearchClicked = () => fire(RulesEventTypes.DO_SEARCH, criteria);
+	const onSearchClicked = () => {
+		if (criteria.grade === RuleGrade.TOPIC) {
+			const topic = topics.find(topic => topic.topicId == criteria.topicId);
+			if (!topic) {
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>Please pick a topic first.</AlertLabel>);
+			} else {
+				fire(RulesEventTypes.DO_SEARCH, criteria, topic);
+			}
+		} else {
+			fire(RulesEventTypes.DO_SEARCH, criteria);
+		}
+	};
 
 	const topicOptions: Array<DropdownOption> = [
-		{value: '', label: 'Any Topic'},
 		...topics.map(topic => {
 			return {
 				value: topic.topicId,
