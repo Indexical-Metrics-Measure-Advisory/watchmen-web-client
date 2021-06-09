@@ -8,7 +8,7 @@ export const TupleCreateButton = styled(Button).attrs({'data-widget': 'tuple-cre
 	height           : 44px;
 	background-color : var(--border-color);
 	padding          : 0 var(--margin);
-	border-radius    : calc(var(--border-radius) * 2) 0 0 calc(var(--border-radius) * 2);
+	border-radius    : 0 calc(var(--border-radius) * 2) calc(var(--border-radius) * 2) 0;
 	&:after {
 		content          : '';
 		display          : block;

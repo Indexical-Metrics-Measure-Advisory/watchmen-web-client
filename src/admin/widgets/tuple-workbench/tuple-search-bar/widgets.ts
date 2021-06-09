@@ -10,56 +10,40 @@ export const TupleSearchBarContainer = styled.div.attrs<{ noIndent: boolean }>((
 		}
 	};
 })<{ noIndent: boolean }>`
-	display     : flex;
-	align-items : center;
+	display: flex;
+	align-items: center;
 `;
-export const TupleSearchButton = styled(Button).attrs<{ search: boolean, noIndent: boolean }>(
-	({search, noIndent}) => {
-		return {
-			'data-widget': 'tuple-search-button',
-			style: {
-				borderTopLeftRadius: noIndent ? 'calc(var(--border-radius) * 2)' : (void 0),
-				borderBottomLeftRadius: noIndent ? 'calc(var(--border-radius) * 2)' : (void 0),
-				borderTopRightRadius: search ? (void 0) : 'calc(var(--border-radius) * 2)',
-				borderBottomRightRadius: search ? (void 0) : 'calc(var(--border-radius) * 2)'
-			}
-		};
-	})<{ search: boolean, noIndent: boolean }>`
-	font-size        : 1.6em;
-	width            : 44px;
-	min-width        : 44px;
-	height           : 44px;
-	line-height      : 44px;
-	background-color : var(--border-color);
-	border-radius    : 0;
-	padding          : 0;
-	cursor           : pointer;
+export const TupleSearchButton = styled(Button).attrs({'data-widget': 'tuple-search-button'})`
+	font-size: 1.6em;
+	width: 44px;
+	min-width: 44px;
+	height: 44px;
+	line-height: 44px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: var(--border-color);
+	border-right-width: 0;
+	border-radius: calc(var(--border-radius) * 2) 0 0 calc(var(--border-radius) * 2);
+	padding: 0;
+	cursor: default;
+	&:hover {
+		box-shadow: inherit;
+	}
 	> svg {
-		font-size : 0.7em;
+		font-size: 0.7em;
 	}
 `;
-export const TupleSearchInput = styled(Input).attrs<{ search: boolean }>(({search}) => {
-	return {
-		'data-widget': 'tuple-search-input',
-		style: {
-			padding: search ? '0 calc(var(--margin) / 2)' : (void 0),
-			borderStyle: search ? 'solid' : (void 0),
-			borderRightWidth: search ? 2 : (void 0),
-			borderTopRightRadius: search ? 'calc(var(--border-radius) * 2)' : (void 0),
-			borderBottomRightRadius: search ? 'calc(var(--border-radius) * 2)' : (void 0),
-			width: search ? '100%' : (void 0)
-		}
-	};
-})<{ search: boolean }>`
-	border-radius      : 0;
-	border-width       : 2px;
-	border-color       : var(--border-color);
-	border-left        : 0;
-	border-right-width : 0;
-	padding            : 0;
-	font-size          : 1.6em;
-	line-height        : 1.8em;
-	width              : 0;
-	height             : 44px;
-	transition         : all 300ms ease-in-out;
+export const TupleSearchInput = styled(Input).attrs({'data-widget': 'tuple-search-input'})`
+	border-radius: 0;
+	border-style: solid;
+	border-width: 2px;
+	border-color: var(--border-color);
+	border-left-width: 0;
+	border-right-width: 0;
+	padding: 0 calc(var(--margin) / 2) 0 0;
+	font-size: 1.6em;
+	line-height: 1.8em;
+	width: 100%;
+	height: 44px;
+	transition: all 300ms ease-in-out;
 `;

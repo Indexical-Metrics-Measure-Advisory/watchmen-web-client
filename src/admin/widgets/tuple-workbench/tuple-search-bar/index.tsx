@@ -27,6 +27,9 @@ export const TupleSearchBar = (props: {
 			off(TupleEventTypes.TUPLE_LOADED, onTupleEdit);
 		};
 	}, [on, off]);
+	useEffect(() => {
+		searchRef.current!.focus();
+	}, [searchRef])
 
 	const onSearchClicked = () => {
 		!onSearch && setOnSearch(true);
@@ -57,10 +60,10 @@ export const TupleSearchBar = (props: {
 	};
 
 	return <TupleSearchBarContainer noIndent={!canCreate}>
-		<TupleSearchButton search={onSearch} noIndent={!canCreate} onClick={onSearchClicked}>
+		<TupleSearchButton onClick={onSearchClicked}>
 			<FontAwesomeIcon icon={ICON_SEARCH}/>
 		</TupleSearchButton>
-		<TupleSearchInput search={onSearch} placeholder={placeholder}
+		<TupleSearchInput placeholder={placeholder}
 		                  value={searchText} onChange={onSearchChanged}
 		                  onKeyPress={onSearchKeyPressed}
 		                  ref={searchRef}/>

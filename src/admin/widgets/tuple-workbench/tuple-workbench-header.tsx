@@ -14,7 +14,7 @@ export const TupleWorkbenchHeader = (props: {
 	} = props;
 
 	return <TupleWorkbenchHeaderContainer>
-		<TupleCreate label={createButtonLabel} visible={canCreate}/>
 		<TupleSearchBar placeholder={searchPlaceholder} canCreate={canCreate}/>
+		<TupleCreate label={createButtonLabel} visible={canCreate}/>
 	</TupleWorkbenchHeaderContainer>;
 };
