@@ -10,13 +10,14 @@ import {
 	SearchResultHeaderSeqCell,
 	SearchResultTargetLabel
 } from './widgets';
-import {fetchMonitorRules, MonitorRules, RuleGrade, RulesCriteria} from '../../services/data-quality/rules';
+import {fetchMonitorRules, MonitorRules, MonitorRuleGrade, MonitorRulesCriteria} from '../../services/data-quality/rules';
 import {RulesEventTypes} from './rules-event-bus-types';
 import {useRulesEventBus} from './rules-event-bus';
 import {getTopicName} from '../utils';
+import {GlobalRules} from './global-rules';
 
 interface State {
-	grade: RuleGrade.GLOBAL | RuleGrade.TOPIC;
+	grade: MonitorRuleGrade.GLOBAL | MonitorRuleGrade.TOPIC;
 	topic?: Topic;
 	data: MonitorRules;
 }
@@ -24,9 +25,9 @@ interface State {
 export const SearchResult = () => {
 	const {fire: fireGlobal} = useEventBus();
 	const {on, off} = useRulesEventBus();
-	const [state, setState] = useState<State>({grade: RuleGrade.GLOBAL, data: []});
+	const [state, setState] = useState<State>({grade: MonitorRuleGrade.GLOBAL, data: []});
 	useEffect(() => {
-		const onSearch = async (criteria: RulesCriteria, topic?: Topic) => {
+		const onSearch = async (criteria: MonitorRulesCriteria, topic?: Topic) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await fetchMonitorRules({criteria}),
 				(data: MonitorRules) => setState({grade: criteria.grade, topic, data}));
@@ -37,20 +38,24 @@ export const SearchResult = () => {
 		};
 	}, [on, off, fireGlobal]);
 
-	const onTopic = state.grade === RuleGrade.TOPIC;
+	const onTopic = state.grade === MonitorRuleGrade.TOPIC;
 
 	return <SearchResultContainer>
 		<SearchResultTargetLabel>
 			{!onTopic ? 'Global Rules' : `Topic Rules on ${getTopicName(state.topic!)}`}
 		</SearchResultTargetLabel>
-		<SearchResultHeader onTopic={onTopic}>
+		<SearchResultHeader grade={state.grade}>
 			<SearchResultHeaderSeqCell>#</SearchResultHeaderSeqCell>
-			<SearchResultHeaderCell>Rule Name</SearchResultHeaderCell>
 			{onTopic ? <SearchResultHeaderCell>Factor</SearchResultHeaderCell> : null}
-			<SearchResultHeaderCell>Status</SearchResultHeaderCell>
-			<SearchResultHeaderCell>Parameters</SearchResultHeaderCell>
+			<SearchResultHeaderCell>Rule Name</SearchResultHeaderCell>
+			<SearchResultHeaderCell>Enabled</SearchResultHeaderCell>
+			<SearchResultHeaderCell>Severity</SearchResultHeaderCell>
+			{onTopic ? <SearchResultHeaderCell>Parameters</SearchResultHeaderCell> : null}
 		</SearchResultHeader>
 		<SearchResultBody>
+			{!onTopic
+				? <GlobalRules rules={state.data}/>
+				: null}
 			{/*{state.data.map((row, index) => {*/}
 			{/*	return <SearchResultRow row={row} index={index + 1 + state.pageSize * (state.pageNumber - 1)}*/}
 			{/*	                        pipelinesMap={pipelinesMap} topicsMap={topicsMap}*/}

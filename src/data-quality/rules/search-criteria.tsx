@@ -7,7 +7,7 @@ import {ButtonInk, DropdownOption} from '../../basic-widgets/types';
 import {GradePickerContainer, SearchCriteriaContainer, SearchLabel} from './widgets';
 import {useRulesEventBus} from './rules-event-bus';
 import {RulesEventTypes} from './rules-event-bus-types';
-import {RuleGrade, RulesCriteria} from '../../services/data-quality/rules';
+import {MonitorRuleGrade, MonitorRulesCriteria} from '../../services/data-quality/rules';
 import {useDataQualityCacheData} from '../cache/use-cache-data';
 import {DQCCacheData} from '../cache/types';
 import {Topic} from '../../services/tuples/topic-types';
@@ -19,7 +19,7 @@ export const SearchCriteria = () => {
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useRulesEventBus();
 	const [topics, setTopics] = useState<Array<Topic>>([]);
-	const [criteria, setCriteria] = useState<RulesCriteria>({grade: RuleGrade.GLOBAL});
+	const [criteria, setCriteria] = useState<MonitorRulesCriteria>({grade: MonitorRuleGrade.GLOBAL});
 	useDataQualityCacheData({
 		onDataRetrieved: (data?: DQCCacheData) => {
 			if (data) {
@@ -28,8 +28,8 @@ export const SearchCriteria = () => {
 		}
 	});
 
-	const onGradeClicked = (grade: RuleGrade.GLOBAL | RuleGrade.TOPIC) => () => {
-		if (grade === RuleGrade.GLOBAL) {
+	const onGradeClicked = (grade: MonitorRuleGrade.GLOBAL | MonitorRuleGrade.TOPIC) => () => {
+		if (grade === MonitorRuleGrade.GLOBAL) {
 			setCriteria({grade, enabled: criteria.enabled});
 		} else {
 			setCriteria(({...criteria, grade}));
@@ -46,7 +46,7 @@ export const SearchCriteria = () => {
 		}
 	};
 	const onSearchClicked = () => {
-		if (criteria.grade === RuleGrade.TOPIC) {
+		if (criteria.grade === MonitorRuleGrade.TOPIC) {
 			const topic = topics.find(topic => topic.topicId == criteria.topicId);
 			if (!topic) {
 				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>Please pick a topic first.</AlertLabel>);
@@ -67,7 +67,7 @@ export const SearchCriteria = () => {
 		}).sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()))
 	];
 	const statusOptions: Array<DropdownOption> = [
-		{value: '', label: 'Any Status'},
+		{value: '', label: 'Any'},
 		{value: true, label: 'Effective'},
 		{value: false, label: 'Suspended'}
 	];
@@ -75,24 +75,24 @@ export const SearchCriteria = () => {
 	return <SearchCriteriaContainer>
 		<SearchLabel>Grade</SearchLabel>
 		<GradePickerContainer>
-			<Button ink={criteria.grade === RuleGrade.GLOBAL ? ButtonInk.PRIMARY : ButtonInk.WAIVE}
-			        onClick={onGradeClicked(RuleGrade.GLOBAL)}>
+			<Button ink={criteria.grade === MonitorRuleGrade.GLOBAL ? ButtonInk.PRIMARY : ButtonInk.WAIVE}
+			        onClick={onGradeClicked(MonitorRuleGrade.GLOBAL)}>
 				<span>Global</span>
-				{criteria.grade === RuleGrade.GLOBAL ? <FontAwesomeIcon icon={ICON_SELECTED}/> : null}
+				{criteria.grade === MonitorRuleGrade.GLOBAL ? <FontAwesomeIcon icon={ICON_SELECTED}/> : null}
 			</Button>
-			<Button ink={criteria.grade === RuleGrade.TOPIC ? ButtonInk.PRIMARY : ButtonInk.WAIVE}
-			        onClick={onGradeClicked(RuleGrade.TOPIC)}>
+			<Button ink={criteria.grade === MonitorRuleGrade.TOPIC ? ButtonInk.PRIMARY : ButtonInk.WAIVE}
+			        onClick={onGradeClicked(MonitorRuleGrade.TOPIC)}>
 				<span>On Topic</span>
-				{criteria.grade === RuleGrade.TOPIC ? <FontAwesomeIcon icon={ICON_SELECTED}/> : null}
+				{criteria.grade === MonitorRuleGrade.TOPIC ? <FontAwesomeIcon icon={ICON_SELECTED}/> : null}
 			</Button>
 		</GradePickerContainer>
-		{criteria.grade === RuleGrade.TOPIC
+		{criteria.grade === MonitorRuleGrade.TOPIC
 			? <>
 				<SearchLabel>Topic</SearchLabel>
 				<Dropdown options={topicOptions} value={criteria.topicId} onChange={onTopicChanged}/>
 			</>
 			: null}
-		<SearchLabel>Status</SearchLabel>
+		<SearchLabel>Enabled</SearchLabel>
 		<Dropdown options={statusOptions} value={criteria.enabled} onChange={onStatusChanged}/>
 		<Button ink={ButtonInk.PRIMARY} onClick={onSearchClicked}>
 			<FontAwesomeIcon icon={ICON_SEARCH}/>

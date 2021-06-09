@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {MonitorRuleGrade} from '../../services/data-quality/rules';
 
 export const Body = styled.div.attrs({'data-widget': 'rules-body'})`
 	display: flex;
@@ -50,16 +51,16 @@ export const SearchResultTargetLabel = styled.div.attrs({'data-widget': 'rules-r
 	padding: 0 var(--margin);
 	border-bottom: var(--border);
 `;
-export const SearchResultHeader = styled.div.attrs<{ onTopic: boolean }>(({onTopic}) => {
+export const SearchResultHeader = styled.div.attrs<{ grade: MonitorRuleGrade.GLOBAL | MonitorRuleGrade.TOPIC }>(({grade}) => {
 	return {
 		'data-widget': 'rules-result-header',
 		style: {
-			gridTemplateColumns: onTopic ? '40px 280px 280px 120px 400px' : (void 0)
+			gridTemplateColumns: grade === MonitorRuleGrade.TOPIC ? '40px 280px 350px 85px 100px 400px' : (void 0)
 		}
 	};
-})<{ onTopic: boolean }>`
+})<{ grade: MonitorRuleGrade.GLOBAL | MonitorRuleGrade.TOPIC }>`
 	display: grid;
-	grid-template-columns: 40px 280px 120px 400px;
+	grid-template-columns: 40px 350px 85px 100px;
 	grid-auto-rows: var(--height);
 	border-bottom: var(--border);
 	border-bottom-width: 2px;
