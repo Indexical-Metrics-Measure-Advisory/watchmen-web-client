@@ -1,6 +1,7 @@
 import {
 	MonitorRule,
 	MonitorRuleCode,
+	MonitorRuleCompareOperator,
 	MonitorRuleSeverity,
 	MonitorRuleStatisticalInterval
 } from '../../services/data-quality/rules';
@@ -284,6 +285,12 @@ export const prepareRuleParams = (rule: MonitorRule, def: MonitorRuleDef): Monit
 			case RuleParameterType.STATISTICAL_INTERVAL:
 				if (!params.statisticalInterval) {
 					params.statisticalInterval = MonitorRuleStatisticalInterval.MONTHLY;
+					rule.params = params;
+				}
+				break;
+			case RuleParameterType.COMPARE_OPERATOR:
+				if (!params.compareOperator) {
+					params.compareOperator = MonitorRuleCompareOperator.EQUAL;
 					rule.params = params;
 				}
 				break;
