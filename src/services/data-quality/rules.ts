@@ -24,8 +24,6 @@ export enum MonitorRuleCode {
 
 	// topic row count
 	ROWS_NO_CHANGE = 'rows-no-change',
-	ROWS_COUNT = 'rows-count',
-	ROWS_COUNT_INCREASING_RATE = 'rows-count-increasing-rate',
 	ROWS_COUNT_AND_ANOTHER = 'rows-count-and-another',
 
 	// for all factor types
@@ -95,8 +93,6 @@ export const TopicRuleDefs = [
 	MonitorRuleCode.FACTOR_MATCH_DATE_TYPE,
 
 	MonitorRuleCode.ROWS_NO_CHANGE,
-	MonitorRuleCode.ROWS_COUNT,
-	MonitorRuleCode.ROWS_COUNT_INCREASING_RATE,
 	MonitorRuleCode.ROWS_COUNT_AND_ANOTHER
 ];
 

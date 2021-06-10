@@ -48,16 +48,6 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		name: 'Rows no change'
 	},
 	{
-		code: MonitorRuleCode.ROWS_COUNT,
-		severity: MonitorRuleSeverity.WARN,
-		name: 'Rows count change'
-	},
-	{
-		code: MonitorRuleCode.ROWS_COUNT_INCREASING_RATE,
-		severity: MonitorRuleSeverity.WARN,
-		name: 'Rows count increasing rate'
-	},
-	{
 		code: MonitorRuleCode.ROWS_COUNT_AND_ANOTHER,
 		severity: MonitorRuleSeverity.FATAL,
 		name: 'Rows count with another topic',
