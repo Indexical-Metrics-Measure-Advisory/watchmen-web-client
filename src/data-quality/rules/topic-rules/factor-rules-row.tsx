@@ -84,7 +84,7 @@ export const FactorRulesRow = (props: {
 					          onChange={onSeverityChanged(rule)}/>
 				</TopicRuleCell>
 				<TopicRuleCell>
-					{def.parameters ? <RuleParameters rule={rule} def={def}/> : null}
+					{def.parameters ? <RuleParameters rule={rule} def={def} topic={topic} factor={factor}/> : null}
 				</TopicRuleCell>
 			</FactorRuleRow>;
 		})}

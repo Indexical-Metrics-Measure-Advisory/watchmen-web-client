@@ -67,7 +67,7 @@ export const TopicGradeRules = (props: { topic: Topic; rules: MonitorRules }) =>
 					<Dropdown value={rule.severity} options={SeverityOptions} onChange={onSeverityChanged(rule)}/>
 				</TopicRuleCell>
 				<TopicRuleCell>
-					{def.parameters ? <RuleParameters rule={rule} def={def}/> : null}
+					{def.parameters ? <RuleParameters rule={rule} def={def} topic={topic}/> : null}
 				</TopicRuleCell>
 			</TopicRuleRow>;
 		})}

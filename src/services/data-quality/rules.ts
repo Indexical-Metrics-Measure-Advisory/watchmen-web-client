@@ -90,6 +90,8 @@ export interface MonitorRule {
 		min?: number;
 		regexp?: string;
 		compareOperator?: MonitorRuleCompareOperator;
+		topicId?: string;
+		factorId?: string;
 	}
 }
 
