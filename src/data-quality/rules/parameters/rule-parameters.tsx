@@ -4,6 +4,8 @@ import React from 'react';
 import {StatisticalIntervalParameter} from './statistical-interval-parameter';
 import {PercentageParameter} from './percentage-parameter';
 import {NumberParameter} from './number-parameter';
+import {RegexpParameter} from './regexp-parameter';
+import {CompareOperatorParameter} from './compare-operator-parameter';
 
 export const RuleParameter = (props: { rule: MonitorRule, parameter: RuleParameterType }) => {
 	const {rule, parameter} = props;
@@ -17,9 +19,9 @@ export const RuleParameter = (props: { rule: MonitorRule, parameter: RuleParamet
 	} else if ([RuleParameterType.COVERAGE_RATE, RuleParameterType.QUANTILE, RuleParameterType.AGGREGATION].includes(parameter)) {
 		return <PercentageParameter rule={rule} parameter={parameter}/>;
 	} else if (parameter === RuleParameterType.REGEXP) {
-		return null;
+		return <RegexpParameter rule={rule}/>;
 	} else if (parameter === RuleParameterType.COMPARE_OPERATOR) {
-		return null;
+		return <CompareOperatorParameter rule={rule}/>;
 	} else if ([
 		RuleParameterType.LENGTH, RuleParameterType.MIN_LENGTH, RuleParameterType.MAX_LENGTH,
 		RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER

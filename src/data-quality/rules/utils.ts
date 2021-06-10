@@ -242,7 +242,7 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		code: MonitorRuleCode.FACTOR_AND_ANOTHER,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Value compare with another factor',
-		parameters: [RuleParameterType.FACTOR, RuleParameterType.COMPARE_OPERATOR]
+		parameters: [RuleParameterType.COMPARE_OPERATOR, RuleParameterType.FACTOR]
 	}
 ].reduce((map, def) => {
 	map[def.code] = def;

@@ -66,6 +66,14 @@ export enum MonitorRuleStatisticalInterval {
 	MONTHLY = 'monthly'
 }
 
+export enum MonitorRuleCompareOperator {
+	EQUAL = 'eq',
+	LESS_THAN = 'lt',
+	LESS_THAN_OR_EQUAL = 'lte',
+	GREATER_THAN = 'gt',
+	GREATER_THAN_EQUAL = 'gte'
+}
+
 export interface MonitorRule {
 	uid?: string;
 	code: MonitorRuleCode;
@@ -80,6 +88,8 @@ export interface MonitorRule {
 		length?: number;
 		max?: number;
 		min?: number;
+		regexp?: string;
+		compareOperator?: MonitorRuleCompareOperator;
 	}
 }
 
