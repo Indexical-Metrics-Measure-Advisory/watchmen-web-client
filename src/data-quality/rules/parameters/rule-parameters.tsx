@@ -1,5 +1,5 @@
-import {MonitorRule} from '../../../services/data-quality/rules';
-import {RuleParameterType} from '../utils';
+import {MonitorRuleParameters} from '../../../services/data-quality/rules';
+import {MonitorRuleParameterType} from '../utils';
 import React from 'react';
 import {StatisticalIntervalParameter} from './statistical-interval-parameter';
 import {PercentageParameter} from './percentage-parameter';
@@ -12,31 +12,31 @@ import {AnotherTopicParameter} from './another-topic-parameter';
 import {AnotherFactorParameter} from './another-factor-parameter';
 
 export const RuleParameter = (props: {
-	rule: MonitorRule;
-	parameter: RuleParameterType;
+	params: MonitorRuleParameters;
+	type: MonitorRuleParameterType;
 	topic?: Topic;
 	factor?: Factor;
 	topics: Array<Topic>;
 }) => {
-	const {rule, parameter, topic, factor, topics} = props;
+	const {params, type, topic, factor, topics} = props;
 
-	if (parameter === RuleParameterType.TOPIC) {
-		return <AnotherTopicParameter rule={rule} currentTopic={topic} topics={topics}/>;
-	} else if (parameter === RuleParameterType.FACTOR) {
-		return <AnotherFactorParameter rule={rule} topic={topic} factor={factor}/>;
-	} else if (parameter === RuleParameterType.STATISTICAL_INTERVAL) {
-		return <StatisticalIntervalParameter rule={rule}/>;
-	} else if ([RuleParameterType.COVERAGE_RATE, RuleParameterType.QUANTILE, RuleParameterType.AGGREGATION].includes(parameter)) {
-		return <PercentageParameter rule={rule} parameter={parameter}/>;
-	} else if (parameter === RuleParameterType.REGEXP) {
-		return <RegexpParameter rule={rule}/>;
-	} else if (parameter === RuleParameterType.COMPARE_OPERATOR) {
-		return <CompareOperatorParameter rule={rule}/>;
+	if (type === MonitorRuleParameterType.TOPIC) {
+		return <AnotherTopicParameter params={params} currentTopic={topic} topics={topics}/>;
+	} else if (type === MonitorRuleParameterType.FACTOR) {
+		return <AnotherFactorParameter params={params} topic={topic} factor={factor}/>;
+	} else if (type === MonitorRuleParameterType.STATISTICAL_INTERVAL) {
+		return <StatisticalIntervalParameter params={params}/>;
+	} else if ([MonitorRuleParameterType.COVERAGE_RATE, MonitorRuleParameterType.QUANTILE, MonitorRuleParameterType.AGGREGATION].includes(type)) {
+		return <PercentageParameter params={params} parameter={type}/>;
+	} else if (type === MonitorRuleParameterType.REGEXP) {
+		return <RegexpParameter params={params}/>;
+	} else if (type === MonitorRuleParameterType.COMPARE_OPERATOR) {
+		return <CompareOperatorParameter params={params}/>;
 	} else if ([
-		RuleParameterType.LENGTH, RuleParameterType.MIN_LENGTH, RuleParameterType.MAX_LENGTH,
-		RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER
-	].includes(parameter)) {
-		return <NumberParameter rule={rule} parameter={parameter}/>;
+		MonitorRuleParameterType.LENGTH, MonitorRuleParameterType.MIN_LENGTH, MonitorRuleParameterType.MAX_LENGTH,
+		MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER
+	].includes(type)) {
+		return <NumberParameter params={params} parameter={type}/>;
 	} else {
 		return null;
 	}

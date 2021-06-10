@@ -1,4 +1,4 @@
-import {MonitorRule, MonitorRuleStatisticalInterval} from '../../../services/data-quality/rules';
+import {MonitorRuleParameters, MonitorRuleStatisticalInterval} from '../../../services/data-quality/rules';
 import {useForceUpdate} from '../../../basic-widgets/utils';
 import {DropdownOption} from '../../../basic-widgets/types';
 import {Dropdown} from '../../../basic-widgets/dropdown';
@@ -10,17 +10,16 @@ const StatisticalIntervalOptions = [
 	{value: MonitorRuleStatisticalInterval.MONTHLY, label: 'Monthly'}
 ];
 
-export const StatisticalIntervalParameter = (props: { rule: MonitorRule }) => {
-	const {rule} = props;
+export const StatisticalIntervalParameter = (props: { params: MonitorRuleParameters }) => {
+	const {params} = props;
 
 	const forceUpdate = useForceUpdate();
 	const onChanged = (option: DropdownOption) => {
-		rule.params = (rule.params || {});
-		rule.params.statisticalInterval = option.value;
+		params.statisticalInterval = option.value;
 		forceUpdate();
 	};
 
 	return <Dropdown options={StatisticalIntervalOptions}
-	                 value={(rule.params || {}).statisticalInterval}
+	                 value={params.statisticalInterval}
 	                 onChange={onChanged}/>;
 };

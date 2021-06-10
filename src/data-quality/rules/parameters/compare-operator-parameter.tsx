@@ -1,4 +1,4 @@
-import {MonitorRule, MonitorRuleCompareOperator} from '../../../services/data-quality/rules';
+import {MonitorRuleCompareOperator, MonitorRuleParameters} from '../../../services/data-quality/rules';
 import {useForceUpdate} from '../../../basic-widgets/utils';
 import {DropdownOption} from '../../../basic-widgets/types';
 import {Dropdown} from '../../../basic-widgets/dropdown';
@@ -12,17 +12,16 @@ const CompareOperatorOptions = [
 	{value: MonitorRuleCompareOperator.GREATER_THAN_EQUAL, label: 'Greater Than or Equals'}
 ];
 
-export const CompareOperatorParameter = (props: { rule: MonitorRule }) => {
-	const {rule} = props;
+export const CompareOperatorParameter = (props: { params: MonitorRuleParameters }) => {
+	const {params} = props;
 
 	const forceUpdate = useForceUpdate();
 	const onChanged = (option: DropdownOption) => {
-		rule.params = (rule.params || {});
-		rule.params.compareOperator = option.value;
+		params.compareOperator = option.value;
 		forceUpdate();
 	};
 
 	return <Dropdown options={CompareOperatorOptions}
-	                 value={(rule.params || {}).compareOperator}
+	                 value={params.compareOperator}
 	                 onChange={onChanged}/>;
 };

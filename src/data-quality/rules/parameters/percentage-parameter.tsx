@@ -1,13 +1,13 @@
-import {MonitorRule} from '../../../services/data-quality/rules';
+import {MonitorRuleParameters} from '../../../services/data-quality/rules';
 import React, {ChangeEvent, useState} from 'react';
 import {PercentageContainer} from './widgets';
-import {RuleParameterType} from '../utils';
+import {MonitorRuleParameterType} from '../utils';
 import {Input} from '../../../basic-widgets/input';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ICON_PERCENTAGE} from '../../../basic-widgets/constants';
 
-const getValue = (rule: MonitorRule, propName: 'coverageRate' | 'aggregation' | 'quantile'): number | null => {
-	return (rule.params || {[propName]: (void 0)})[propName] ?? null;
+const getValue = (params: MonitorRuleParameters, propName: 'coverageRate' | 'aggregation' | 'quantile'): number | null => {
+	return params[propName] ?? null;
 };
 const getDisplayValue = (value: number | null): string => {
 	if (value == null) {
@@ -16,42 +16,41 @@ const getDisplayValue = (value: number | null): string => {
 		return `${value}`;
 	}
 };
-export const PercentageParameter = (props: { rule: MonitorRule, parameter: RuleParameterType }) => {
-	const {rule, parameter} = props;
+export const PercentageParameter = (props: { params: MonitorRuleParameters, parameter: MonitorRuleParameterType }) => {
+	const {params, parameter} = props;
 
 	let propName: 'coverageRate' | 'aggregation' | 'quantile';
 	switch (parameter) {
-		case RuleParameterType.COVERAGE_RATE:
+		case MonitorRuleParameterType.COVERAGE_RATE:
 			propName = 'coverageRate';
 			break;
-		case RuleParameterType.AGGREGATION:
+		case MonitorRuleParameterType.AGGREGATION:
 			propName = 'aggregation';
 			break;
-		case RuleParameterType.QUANTILE:
+		case MonitorRuleParameterType.QUANTILE:
 			propName = 'quantile';
 			break;
 		default:
 			throw new Error(`Parameter[${parameter}] not supported.`);
 	}
 
-	const [displayValue, setDisplayValue] = useState(getDisplayValue(getValue(rule, propName)));
+	const [displayValue, setDisplayValue] = useState(getDisplayValue(getValue(params, propName)));
 	const onChanged = (event: ChangeEvent<HTMLInputElement>) => {
 		const {value: displayValue} = event.target;
 		setDisplayValue(displayValue);
-		rule.params = (rule.params || {});
 		if (displayValue == null || displayValue.trim().length === 0) {
-			delete rule.params[propName];
+			delete params[propName];
 		} else {
 			try {
-				rule.params[propName] = Number(displayValue);
+				params[propName] = Number(displayValue);
 			} catch {
-				delete rule.params[propName];
+				delete params[propName];
 			}
 		}
 	};
 
 	return <PercentageContainer>
-		<Input value={displayValue} placeholder='20% - 80% is recommended'
+		<Input value={displayValue} placeholder="20% - 80% is recommended"
 		       onChange={onChanged}/>
 		<FontAwesomeIcon icon={ICON_PERCENTAGE}/>
 	</PercentageContainer>;

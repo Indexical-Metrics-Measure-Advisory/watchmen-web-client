@@ -1,4 +1,4 @@
-import {MonitorRule} from '../../../services/data-quality/rules';
+import {MonitorRuleParameters} from '../../../services/data-quality/rules';
 import {useForceUpdate} from '../../../basic-widgets/utils';
 import {DropdownOption} from '../../../basic-widgets/types';
 import {Dropdown} from '../../../basic-widgets/dropdown';
@@ -6,13 +6,12 @@ import React from 'react';
 import {Topic} from '../../../services/tuples/topic-types';
 import {getTopicName} from '../../utils';
 
-export const AnotherTopicParameter = (props: { rule: MonitorRule, currentTopic?: Topic, topics: Array<Topic> }) => {
-	const {rule, currentTopic, topics} = props;
+export const AnotherTopicParameter = (props: { params: MonitorRuleParameters, currentTopic?: Topic, topics: Array<Topic> }) => {
+	const {params, currentTopic, topics} = props;
 
 	const forceUpdate = useForceUpdate();
 	const onChanged = (option: DropdownOption) => {
-		rule.params = (rule.params || {});
-		rule.params.topicId = option.value;
+		params.topicId = option.value;
 		forceUpdate();
 	};
 
@@ -21,6 +20,6 @@ export const AnotherTopicParameter = (props: { rule: MonitorRule, currentTopic?:
 	});
 
 	return <Dropdown options={options}
-	                 value={(rule.params || {}).topicId}
+	                 value={params.topicId}
 	                 onChange={onChanged}/>;
 };

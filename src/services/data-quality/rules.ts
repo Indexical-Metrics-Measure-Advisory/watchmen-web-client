@@ -74,25 +74,27 @@ export enum MonitorRuleCompareOperator {
 	GREATER_THAN_EQUAL = 'gte'
 }
 
+export interface MonitorRuleParameters {
+	statisticalInterval?: MonitorRuleStatisticalInterval;
+	coverageRate?: number;
+	aggregation?: number;
+	quantile?: number;
+	length?: number;
+	max?: number;
+	min?: number;
+	regexp?: string;
+	compareOperator?: MonitorRuleCompareOperator;
+	topicId?: string;
+	factorId?: string;
+}
+
 export interface MonitorRule {
 	uid?: string;
 	code: MonitorRuleCode;
 	grade: MonitorRuleGrade;
 	severity: MonitorRuleSeverity;
 	enabled: boolean;
-	params?: {
-		statisticalInterval?: MonitorRuleStatisticalInterval;
-		coverageRate?: number;
-		aggregation?: number;
-		quantile?: number;
-		length?: number;
-		max?: number;
-		min?: number;
-		regexp?: string;
-		compareOperator?: MonitorRuleCompareOperator;
-		topicId?: string;
-		factorId?: string;
-	}
+	params?: MonitorRuleParameters;
 }
 
 export interface MonitorRuleOnTopic extends MonitorRule {
