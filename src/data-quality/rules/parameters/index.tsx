@@ -62,7 +62,7 @@ const ParametersLabel = (props: {
 				case MonitorRuleParameterType.QUANTILE:
 					return `Quantile=${params?.quantile ? `${params?.quantile}%` : ''}`;
 				case MonitorRuleParameterType.COMPARE_OPERATOR:
-					return `Compare Operator${compareOperators[params?.compareOperator || ''] || ''}`;
+					return `Compare Operator=${compareOperators[params?.compareOperator || ''] || ''}`;
 				case MonitorRuleParameterType.LENGTH:
 					return `Length=${params?.length || ''}`;
 				case MonitorRuleParameterType.MAX_LENGTH:

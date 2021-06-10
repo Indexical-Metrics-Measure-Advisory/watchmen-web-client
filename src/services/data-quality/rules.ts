@@ -29,6 +29,7 @@ export enum MonitorRuleCode {
 	FACTOR_IS_EMPTY = 'factor-is-empty',
 	FACTOR_USE_CAST = 'factor-use-cast',
 	FACTOR_COMMON_VALUE_COVERAGE = 'factor-common-value-coverage',
+	FACTOR_EMPTY_COVERAGE = 'factor-empty-coverage',
 
 	// for number type
 	FACTOR_MONOTONE_INCREASING = 'factor-monotone-increasing',
@@ -36,7 +37,6 @@ export enum MonitorRuleCode {
 	FACTOR_IN_RANGE = 'factor-in-range',
 	FACTOR_MAX_IN_RANGE = 'factor-max-in-range',
 	FACTOR_MIN_IN_RANGE = 'factor-min-in-range',
-	FACTOR_SUM_IN_RANGE = 'factor-sum-in-range',
 	FACTOR_AVG_IN_RANGE = 'factor-avg-in-range',
 	FACTOR_MEDIAN_IN_RANGE = 'factor-median-in-range',
 	FACTOR_QUANTILE_IN_RANGE = 'factor-quantile-in-range',
@@ -48,7 +48,7 @@ export enum MonitorRuleCode {
 	FACTOR_STRING_LENGTH = 'factor-string-length',
 	FACTOR_STRING_LENGTH_RANGE = 'factor-string-length-range',
 	FACTOR_MATCH_REGEXP = 'factor-match-regexp',
-	FACTOR_UNMATCH_REGEXP = 'factor-unmatch-regexp',
+	FACTOR_MISMATCH_REGEXP = 'factor-mismatch-regexp',
 
 	// for 2 factors
 	FACTOR_AND_ANOTHER = 'factor-and-another'
@@ -132,13 +132,13 @@ export const FactorRuleDefs = [
 	MonitorRuleCode.FACTOR_IS_EMPTY,
 	MonitorRuleCode.FACTOR_USE_CAST,
 	MonitorRuleCode.FACTOR_COMMON_VALUE_COVERAGE,
+	MonitorRuleCode.FACTOR_EMPTY_COVERAGE,
 
 	MonitorRuleCode.FACTOR_MONOTONE_INCREASING,
 	MonitorRuleCode.FACTOR_MONOTONE_DECREASING,
 	MonitorRuleCode.FACTOR_IN_RANGE,
 	MonitorRuleCode.FACTOR_MAX_IN_RANGE,
 	MonitorRuleCode.FACTOR_MIN_IN_RANGE,
-	MonitorRuleCode.FACTOR_SUM_IN_RANGE,
 	MonitorRuleCode.FACTOR_AVG_IN_RANGE,
 	MonitorRuleCode.FACTOR_MEDIAN_IN_RANGE,
 	MonitorRuleCode.FACTOR_QUANTILE_IN_RANGE,
@@ -149,7 +149,7 @@ export const FactorRuleDefs = [
 	MonitorRuleCode.FACTOR_STRING_LENGTH,
 	MonitorRuleCode.FACTOR_STRING_LENGTH_RANGE,
 	MonitorRuleCode.FACTOR_MATCH_REGEXP,
-	MonitorRuleCode.FACTOR_UNMATCH_REGEXP,
+	MonitorRuleCode.FACTOR_MISMATCH_REGEXP,
 
 	MonitorRuleCode.FACTOR_AND_ANOTHER
 ];

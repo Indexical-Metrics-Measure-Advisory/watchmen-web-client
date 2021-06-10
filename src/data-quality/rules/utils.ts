@@ -92,8 +92,14 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 	{
 		code: MonitorRuleCode.FACTOR_COMMON_VALUE_COVERAGE,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'Most common values cover coverage',
+		name: 'Most common values over coverage',
 		parameters: [MonitorRuleParameterType.AGGREGATION, MonitorRuleParameterType.COVERAGE_RATE, MonitorRuleParameterType.STATISTICAL_INTERVAL]
+	},
+	{
+		code: MonitorRuleCode.FACTOR_EMPTY_COVERAGE,
+		severity: MonitorRuleSeverity.WARN,
+		name: 'Empty values over coverage',
+		parameters: [MonitorRuleParameterType.COVERAGE_RATE, MonitorRuleParameterType.STATISTICAL_INTERVAL]
 	},
 
 	{
@@ -138,15 +144,6 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
 		},
 		parameters: [MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER]
-	},
-	{
-		code: MonitorRuleCode.FACTOR_SUM_IN_RANGE,
-		severity: MonitorRuleSeverity.WARN,
-		name: 'Sum is not in range',
-		canApply: (topic: Topic, factor?: Factor) => {
-			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
-		},
-		parameters: [MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER, MonitorRuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_AVG_IN_RANGE,
@@ -230,7 +227,7 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		parameters: [MonitorRuleParameterType.REGEXP]
 	},
 	{
-		code: MonitorRuleCode.FACTOR_UNMATCH_REGEXP,
+		code: MonitorRuleCode.FACTOR_MISMATCH_REGEXP,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Matches regexp',
 		canApply: (topic: Topic, factor?: Factor) => {
