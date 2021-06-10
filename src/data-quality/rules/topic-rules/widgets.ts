@@ -5,6 +5,9 @@ export const TopicRuleRow = styled.div`
 	grid-template-columns: 40px 280px 350px 85px 100px 400px;
 	min-height: calc(var(--height) + 1px);
 	border-bottom: var(--border);
+	:hover {
+		background-color: var(--hover-color);
+	}
 `;
 export const TopicRuleCell = styled.div`
 	display: flex;
@@ -45,6 +48,12 @@ export const FactorRow = styled.div.attrs<{ rows: number }>(({rows}) => {
 	display: grid;
 	grid-template-columns: 40px 280px 1fr;
 	border-bottom: var(--border);
+	&:hover {
+		> div:first-child,
+		> div:nth-child(2) {
+			background-color: var(--hover-color);
+		}
+	}
 `;
 export const FactorRuleRow = styled(TopicRuleRow)`
 	grid-template-columns: 350px 85px 100px 400px;

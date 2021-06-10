@@ -19,10 +19,9 @@ export const AddFactorRules = (props: {
 	const {once, on, off} = useRulesEventBus();
 	const [visible, setVisible] = useState(true);
 	const forceUpdate = useForceUpdate();
+	useEffect(() => setVisible(true), [topic, ruleMap]);
 	useEffect(() => {
-		const onFilterChanged = (all: boolean) => {
-			setVisible(all);
-		};
+		const onFilterChanged = (all: boolean) => setVisible(all);
 		on(RulesEventTypes.FILTER_BY_FACTOR, onFilterChanged);
 		return () => {
 			off(RulesEventTypes.FILTER_BY_FACTOR, onFilterChanged);

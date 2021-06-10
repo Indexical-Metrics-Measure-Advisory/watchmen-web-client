@@ -34,11 +34,38 @@ interface State {
 	data: MonitorRules;
 }
 
+const useRuleChanged = (topic?: Topic) => {
+	const [changed, setChanged] = useState(false);
+	const {on, off, fire} = useRulesEventBus();
+	useEffect(() => {
+		const onAskRuleChanged = () => {
+			fire(RulesEventTypes.REPLY_RULE_CHANGED, changed);
+		};
+		on(RulesEventTypes.ASK_RULE_CHANGED, onAskRuleChanged);
+		return () => {
+			off(RulesEventTypes.ASK_RULE_CHANGED, onAskRuleChanged);
+		};
+	}, [on, off, fire, changed]);
+	useEffect(() => {
+		const onRuleChanged = () => setChanged(true);
+		on(RulesEventTypes.RULE_CHANGED, onRuleChanged);
+		return () => {
+			off(RulesEventTypes.RULE_CHANGED, onRuleChanged);
+		};
+	}, [on, off]);
+	useEffect(() => setChanged(false), [topic]);
+
+	return changed;
+};
+
 export const TopicResultHeader = (props: { topic: Topic }) => {
 	const {topic} = props;
 
 	const {fire} = useRulesEventBus();
 	const [factor, setFactor] = useState<Factor | '' | '-'>('');
+	useEffect(() => setFactor(''), [topic]);
+	const changed = useRuleChanged(topic);
+
 	const onFactorFilterChanged = (option: DropdownOption) => {
 		const value = option.value;
 		if (!value) {
@@ -77,7 +104,7 @@ export const TopicResultHeader = (props: { topic: Topic }) => {
 			<FontAwesomeIcon icon={ICON_SORT_ASC}/>
 			<span>Sort Factors</span>
 		</Button>
-		<Button ink={ButtonInk.PRIMARY} onClick={onSaveClicked}>
+		<Button ink={ButtonInk.PRIMARY} onClick={onSaveClicked} disabled={!changed}>
 			<FontAwesomeIcon icon={ICON_SAVE}/>
 			<span>Save</span>
 		</Button>
@@ -85,13 +112,15 @@ export const TopicResultHeader = (props: { topic: Topic }) => {
 };
 
 const GlobalResultHeader = () => {
+	const changed = useRuleChanged();
+
 	const onSaveClicked = () => {
 		// TODO
 	};
 
 	return <SearchResultTargetLabel>
 		<span>Global Rules</span>
-		<Button ink={ButtonInk.PRIMARY} onClick={onSaveClicked}>
+		<Button ink={ButtonInk.PRIMARY} onClick={onSaveClicked} disabled={!changed}>
 			<FontAwesomeIcon icon={ICON_SAVE}/>
 			<span>Save</span>
 		</Button>
@@ -100,19 +129,33 @@ const GlobalResultHeader = () => {
 
 export const SearchResult = () => {
 	const {fire: fireGlobal} = useEventBus();
-	const {on, off} = useRulesEventBus();
+	const {once, on, off} = useRulesEventBus();
 	const [state, setState] = useState<State>({grade: MonitorRuleGrade.GLOBAL, data: []});
 	useEffect(() => {
 		const onSearch = async (criteria: MonitorRulesCriteria, topic?: Topic) => {
-			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-				async () => await fetchMonitorRules({criteria}),
-				(data: MonitorRules) => setState({grade: criteria.grade, topic, data}));
+			once(RulesEventTypes.REPLY_RULE_CHANGED, (changed) => {
+				if (changed) {
+					fireGlobal(EventTypes.SHOW_YES_NO_DIALOG,
+						'Data is changed, are you sure to discard them and load another?',
+						() => {
+							fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+								async () => await fetchMonitorRules({criteria}),
+								(data: MonitorRules) => setState({grade: criteria.grade, topic, data}));
+							fireGlobal(EventTypes.HIDE_DIALOG);
+						},
+						() => fireGlobal(EventTypes.HIDE_DIALOG));
+				} else {
+					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+						async () => await fetchMonitorRules({criteria}),
+						(data: MonitorRules) => setState({grade: criteria.grade, topic, data}));
+				}
+			}).fire(RulesEventTypes.ASK_RULE_CHANGED);
 		};
 		on(RulesEventTypes.DO_SEARCH, onSearch);
 		return () => {
 			off(RulesEventTypes.DO_SEARCH, onSearch);
 		};
-	}, [on, off, fireGlobal]);
+	}, [once, on, off, fireGlobal]);
 
 	const onTopic = state.grade === MonitorRuleGrade.TOPIC;
 

@@ -21,6 +21,8 @@ import {ColorfulCheckBox} from '../widgets';
 import {Dropdown} from '../../../basic-widgets/dropdown';
 import React from 'react';
 import {RuleMap} from './types';
+import {RulesEventTypes} from '../rules-event-bus-types';
+import {useRulesEventBus} from '../rules-event-bus';
 
 export const FactorRulesRow = (props: {
 	topic: Topic;
@@ -32,13 +34,16 @@ export const FactorRulesRow = (props: {
 }) => {
 	const {topic, factor, factorIndex, ruleMap, defs, topicDefsCount} = props;
 
+	const {fire} = useRulesEventBus();
 	const forceUpdate = useForceUpdate();
 	const onEnabledChanged = (rule: MonitorRule) => (value: boolean) => {
 		rule.enabled = value;
+		fire(RulesEventTypes.RULE_CHANGED, rule);
 		forceUpdate();
 	};
 	const onSeverityChanged = (rule: MonitorRule) => (option: DropdownOption) => {
 		rule.severity = option.value;
+		fire(RulesEventTypes.RULE_CHANGED, rule);
 		forceUpdate();
 	};
 

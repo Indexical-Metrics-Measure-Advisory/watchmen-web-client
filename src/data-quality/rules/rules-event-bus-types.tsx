@@ -1,4 +1,4 @@
-import {MonitorRulesCriteria} from '../../services/data-quality/rules';
+import {MonitorRule, MonitorRulesCriteria} from '../../services/data-quality/rules';
 import {Topic} from '../../services/tuples/topic-types';
 import {Factor} from '../../services/tuples/factor-types';
 
@@ -9,7 +9,11 @@ export enum RulesEventTypes {
 	SORT_FACTORS = 'sort-factors',
 
 	ADD_FACTOR = 'add-factor',
-	FACTOR_ADDED = 'factor-added'
+	FACTOR_ADDED = 'factor-added',
+
+	RULE_CHANGED = 'rule-changed',
+	ASK_RULE_CHANGED = 'ask-rule-changed',
+	REPLY_RULE_CHANGED = 'reply-rule-changed'
 }
 
 export interface RulesEventBus {
@@ -31,4 +35,15 @@ export interface RulesEventBus {
 
 	fire(type: RulesEventTypes.FACTOR_ADDED): this;
 	once(type: RulesEventTypes.FACTOR_ADDED, listener: () => void): this;
+
+	fire(type: RulesEventTypes.RULE_CHANGED, rule?: MonitorRule): this;
+	on(type: RulesEventTypes.RULE_CHANGED, listener: (rule?: MonitorRule) => void): this;
+	off(type: RulesEventTypes.RULE_CHANGED, listener: (rule?: MonitorRule) => void): this;
+
+	fire(type: RulesEventTypes.ASK_RULE_CHANGED): this;
+	on(type: RulesEventTypes.ASK_RULE_CHANGED, listener: () => void): this;
+	off(type: RulesEventTypes.ASK_RULE_CHANGED, listener: () => void): this;
+
+	fire(type: RulesEventTypes.REPLY_RULE_CHANGED, changed: boolean): this;
+	once(type: RulesEventTypes.REPLY_RULE_CHANGED, listener: (changed: boolean) => void): this;
 }

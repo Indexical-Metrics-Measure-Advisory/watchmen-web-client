@@ -22,6 +22,7 @@ export const TopicGradeRules = (props: { topic: Topic; rules: MonitorRules }) =>
 	const {on, off} = useRulesEventBus();
 	const [visible, setVisible] = useState(true);
 	const {onEnabledChanged, onSeverityChanged} = useEnabledAndSeverity(rules);
+	useEffect(() => setVisible(true), [topic, rules]);
 	useEffect(() => {
 		const onFilterChanged = (all: boolean, topicOnly: boolean) => {
 			setVisible(all || topicOnly);
