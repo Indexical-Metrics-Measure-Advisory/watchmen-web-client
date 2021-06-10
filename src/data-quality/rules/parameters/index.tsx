@@ -1,11 +1,13 @@
 import {MonitorRule, MonitorRuleCompareOperator, MonitorRuleParameters} from '../../../services/data-quality/rules';
 import {
+	ParameterDialogHeader,
 	ParameterEditor,
 	ParameterEditorContainer,
 	ParameterEditorDropdownEditor,
 	ParameterEditorDropdownLabel,
 	ParameterEditorIcon,
-	ParameterEditorLabel
+	ParameterEditorLabel,
+	ParameterPositionLabel
 } from './widgets';
 import {ICON_EDIT} from '../../../basic-widgets/constants';
 import React, {Fragment, useState} from 'react';
@@ -121,12 +123,22 @@ export const RuleParameters = (props: {
 				// clone, therefore cancel is possible
 				const params = JSON.parse(JSON.stringify(rule.params || {}));
 				fireGlobal(EventTypes.SHOW_DIALOG, <>
+					<ParameterDialogHeader>
+						<span>{def.name}</span>
+					</ParameterDialogHeader>
 					<DialogBody>
+						{(!topic && !factor) ? <ParameterPositionLabel>on Global</ParameterPositionLabel> : null}
+						{topic ? <ParameterPositionLabel>
+							on Topic: {getTopicName(topic)}
+						</ParameterPositionLabel> : null}
+						{factor ? <ParameterPositionLabel>
+							and Factor: {factor.name || 'Noname Factor'}
+						</ParameterPositionLabel> : null}
 						<ParameterEditor>
 							{def.parameters!.map(param => {
 								return <Fragment key={param}>
 									<ParameterEditorDropdownLabel>
-										{param.replace('-', ' ')}
+										{param.replaceAll('-', ' ')}
 									</ParameterEditorDropdownLabel>
 									<ParameterEditorDropdownEditor>
 										<RuleParameter params={params} type={param}

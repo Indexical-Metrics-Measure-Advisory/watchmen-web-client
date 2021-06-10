@@ -21,7 +21,16 @@ export const ParameterEditorIcon = styled(FontAwesomeIcon)`
 	width: 24px;
 	margin-left: calc(var(--margin) / 2);
 	font-size: 0.9em;
-	transition: opacity 300ms ease-in-out, color 300ms ease-in-out;
+	opacity: 0.7;
+`;
+export const ParameterPositionLabel = styled.div.attrs({'data-widget': 'rule-parameter-position-label'})`
+	display: flex;
+	position: relative;
+	align-items: center;
+	font-size: 1.2em;
+	font-variant: petite-caps;
+	font-weight: var(--font-semi-bold);
+	height: calc(var(--height) * 1.1);
 `;
 export const ParameterEditor = styled.div.attrs({'data-widget': 'rule-parameter-editor'})`
 	display: grid;
@@ -31,6 +40,7 @@ export const ParameterEditor = styled.div.attrs({'data-widget': 'rule-parameter-
 	grid-auto-rows: var(--height);
 	grid-row-gap: calc(var(--margin) / 4);
 	width: 100%;
+	margin-top: calc(var(--margin) / 2);
 	margin-bottom: calc(var(--margin) / 2);
 `;
 export const ParameterEditorDropdownLabel = styled.div`
@@ -39,11 +49,24 @@ export const ParameterEditorDropdownLabel = styled.div`
 	height: var(--height);
 	text-transform: capitalize;
 `;
+export const ParameterDialogHeader = styled.div`
+	display: flex;
+	position: relative;
+	padding: 0 var(--margin);
+	min-height: calc(var(--header-height) * 1.2);
+	margin: calc(var(--margin) * -1) calc(var(--margin) * -1) 0;
+	align-items: center;
+	font-variant: petite-caps;
+	font-size: 1.6em;
+	font-weight: var(--font-bold);
+	text-transform: capitalize;
+`;
 export const ParameterEditorDropdownEditor = styled.div`
 	display: flex;
 	align-items: center;
 	height: var(--height);
 `;
+
 export const PercentageContainer = styled.div`
 	display: flex;
 	position: relative;
