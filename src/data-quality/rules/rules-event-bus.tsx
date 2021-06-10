@@ -14,6 +14,10 @@ export const RulesEventBusProvider = (props: { children?: ((props: any) => React
 			emitter.emit(type, ...data);
 			return bus;
 		},
+		once: (type: string, listener: (...data: Array<any>) => void): RulesEventBus => {
+			emitter.once(type, listener);
+			return bus;
+		},
 		on: (type: string, listener: (...data: Array<any>) => void): RulesEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into rules event bus, check it.`);

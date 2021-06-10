@@ -236,3 +236,9 @@ export const SeverityOptions = [
 	{value: MonitorRuleSeverity.WARN, label: 'Warn'},
 	{value: MonitorRuleSeverity.TRACE, label: 'Trace'}
 ];
+
+export const sortFactors = (factors: Array<Factor>) => {
+	return factors.sort((f1, f2) => {
+		return (f1.name || '').toLowerCase().localeCompare((f2.name || '').toLowerCase());
+	})
+}
