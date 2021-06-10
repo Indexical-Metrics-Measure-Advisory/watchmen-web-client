@@ -52,7 +52,7 @@ import {
 	faLockOpen,
 	faObjectGroup,
 	faPaperPlane,
-	faParagraph,
+	faParagraph, faPercentage,
 	faPlay,
 	faPlus,
 	faPowerOff,
@@ -235,6 +235,7 @@ export const ICON_COMMENTS = faCommentDots;
 export const ICON_CMD_PROMPT = faTerminal;
 export const ICON_LOCK = faLockOpen;
 export const ICON_UNLOCK = faLock;
+export const ICON_PERCENTAGE = faPercentage;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

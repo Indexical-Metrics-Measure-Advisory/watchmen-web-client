@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {Input} from '../../../basic-widgets/input';
 
 export const ParameterEditorContainer = styled.div.attrs({'data-widget': 'rule-parameter-editor'})`
 	flex-grow: 1;
@@ -28,8 +29,9 @@ export const ParameterEditor = styled.div.attrs({'data-widget': 'rule-parameter-
 	grid-template-columns: auto 1fr;
 	grid-column-gap: var(--margin);
 	grid-auto-rows: var(--height);
-	grid-row-gap: calc(var(--margin) / 8);
+	grid-row-gap: calc(var(--margin) / 4);
 	width: 100%;
+	margin-bottom: calc(var(--margin) / 2);
 `;
 export const ParameterEditorDropdownLabel = styled.div`
 	display: flex;
@@ -41,4 +43,28 @@ export const ParameterEditorDropdownEditor = styled.div`
 	display: flex;
 	align-items: center;
 	height: var(--height);
+`;
+export const PercentageContainer = styled.div`
+	display: flex;
+	position: relative;
+	align-items: center;
+	border: var(--border);
+	border-radius: var(--border-radius);
+	height: var(--height);
+	width: 100%;
+	> input {
+		border: 0;
+		flex-grow: 1;
+		padding-right: 30px;
+	}
+	> svg.svg-inline--fa {
+		display: block;
+		position: absolute;
+		right: 0;
+		font-size: 0.9em;
+		width: 24px;
+	}
+`;
+export const NumberInput = styled(Input)`
+	width: 100%;
 `;

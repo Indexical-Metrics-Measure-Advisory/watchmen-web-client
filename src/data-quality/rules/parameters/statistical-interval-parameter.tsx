@@ -10,7 +10,7 @@ const StatisticalIntervalOptions = [
 	{value: MonitorRuleStatisticalInterval.MONTHLY, label: 'Monthly'}
 ];
 
-export const StatisticalInterval = (props: { rule: MonitorRule }) => {
+export const StatisticalIntervalParameter = (props: { rule: MonitorRule }) => {
 	const {rule} = props;
 
 	const forceUpdate = useForceUpdate();
@@ -20,5 +20,7 @@ export const StatisticalInterval = (props: { rule: MonitorRule }) => {
 		forceUpdate();
 	};
 
-	return <Dropdown options={StatisticalIntervalOptions} onChange={onChanged}/>;
+	return <Dropdown options={StatisticalIntervalOptions}
+	                 value={(rule.params || {}).statisticalInterval}
+	                 onChange={onChanged}/>;
 };

@@ -74,6 +74,12 @@ export interface MonitorRule {
 	enabled: boolean;
 	params?: {
 		statisticalInterval?: MonitorRuleStatisticalInterval;
+		coverageRate?: number;
+		aggregation?: number;
+		quantile?: number;
+		length?: number;
+		max?: number;
+		min?: number;
 	}
 }
 

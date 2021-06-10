@@ -1,7 +1,9 @@
 import {MonitorRule} from '../../../services/data-quality/rules';
 import {RuleParameterType} from '../utils';
 import React from 'react';
-import {StatisticalInterval} from './statistical-interval';
+import {StatisticalIntervalParameter} from './statistical-interval-parameter';
+import {PercentageParameter} from './percentage-parameter';
+import {NumberParameter} from './number-parameter';
 
 export const RuleParameter = (props: { rule: MonitorRule, parameter: RuleParameterType }) => {
 	const {rule, parameter} = props;
@@ -11,9 +13,9 @@ export const RuleParameter = (props: { rule: MonitorRule, parameter: RuleParamet
 	} else if (parameter === RuleParameterType.FACTOR) {
 		return null;
 	} else if (parameter === RuleParameterType.STATISTICAL_INTERVAL) {
-		return <StatisticalInterval rule={rule}/>;
+		return <StatisticalIntervalParameter rule={rule}/>;
 	} else if ([RuleParameterType.COVERAGE_RATE, RuleParameterType.QUANTILE, RuleParameterType.AGGREGATION].includes(parameter)) {
-		return null;
+		return <PercentageParameter rule={rule} parameter={parameter}/>;
 	} else if (parameter === RuleParameterType.REGEXP) {
 		return null;
 	} else if (parameter === RuleParameterType.COMPARE_OPERATOR) {
@@ -22,7 +24,7 @@ export const RuleParameter = (props: { rule: MonitorRule, parameter: RuleParamet
 		RuleParameterType.LENGTH, RuleParameterType.MIN_LENGTH, RuleParameterType.MAX_LENGTH,
 		RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER
 	].includes(parameter)) {
-		return null;
+		return <NumberParameter rule={rule} parameter={parameter}/>;
 	} else {
 		return null;
 	}

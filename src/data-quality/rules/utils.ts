@@ -63,14 +63,14 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		code: MonitorRuleCode.ROWS_NO_CHANGE,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Rows have no change',
-		parameters: [RuleParameterType.STATISTICAL_INTERVAL]
+		parameters: [RuleParameterType.COVERAGE_RATE, RuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
 		code: MonitorRuleCode.ROWS_COUNT_AND_ANOTHER,
 		severity: MonitorRuleSeverity.FATAL,
 		name: 'Rows count mismatches another topic\'s',
 		canApply: (topic: Topic) => topic.type !== TopicType.RAW,
-		parameters: [RuleParameterType.TOPIC]
+		parameters: [RuleParameterType.TOPIC, RuleParameterType.STATISTICAL_INTERVAL]
 	},
 
 	{
