@@ -16,6 +16,7 @@ export const FactorRulesRows = (props: {
 	const {topic, topicDefsCount, ruleMap} = props;
 
 	const {on, off, fire} = useRulesEventBus();
+	const [showTopicRules, setShowTopicRules] = useState(true);
 	// initialize defined factors
 	const [definedFactors, setDefinedFactors] = useState<Array<Factor>>([]);
 	// recompute factors when topic or rule map changed
@@ -46,10 +47,13 @@ export const FactorRulesRows = (props: {
 	useEffect(() => {
 		const onFilterChanged = (all: boolean, topicOnly: boolean, factor?: Factor) => {
 			if (topicOnly) {
+				setShowTopicRules(true);
 				setDefinedFactors([]);
 			} else if (all) {
+				setShowTopicRules(true);
 				setDefinedFactors(sortFactors(topic.factors.filter(factor => !!ruleMap[factor.factorId])));
 			} else if (factor) {
+				setShowTopicRules(false);
 				setDefinedFactors([factor]);
 			}
 		};
@@ -64,7 +68,7 @@ export const FactorRulesRows = (props: {
 	return <>
 		{definedFactors.map((factor, factorIndex) => {
 			return <FactorRulesRow topic={topic} factor={factor} factorIndex={factorIndex}
-			                       ruleMap={ruleMap} defs={defs} topicDefsCount={topicDefsCount}
+			                       ruleMap={ruleMap} defs={defs} topicDefsCount={showTopicRules ? topicDefsCount : 0}
 			                       key={factor.factorId}/>;
 		})}
 	</>;
