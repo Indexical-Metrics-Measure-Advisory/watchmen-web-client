@@ -14,7 +14,8 @@ import {
 	fetchMonitorRules,
 	MonitorRuleGrade,
 	MonitorRules,
-	MonitorRulesCriteria
+	MonitorRulesCriteria,
+	saveMonitorRules
 } from '../../services/data-quality/rules';
 import {RulesEventTypes} from './rules-event-bus-types';
 import {useRulesEventBus} from './rules-event-bus';
@@ -24,14 +25,14 @@ import {TopicRules} from './topic-rules';
 import {Button} from '../../basic-widgets/button';
 import {ButtonInk, DropdownOption} from '../../basic-widgets/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_SAVE, ICON_SORT_ASC} from '../../basic-widgets/constants';
+import {ICON_LOADING, ICON_SAVE, ICON_SORT_ASC} from '../../basic-widgets/constants';
 import {Dropdown} from '../../basic-widgets/dropdown';
 import {Factor} from '../../services/tuples/factor-types';
 
 interface State {
 	grade: MonitorRuleGrade.GLOBAL | MonitorRuleGrade.TOPIC;
 	topic?: Topic;
-	data: MonitorRules;
+	rules: MonitorRules;
 }
 
 const useRuleChanged = (topic?: Topic) => {
@@ -53,16 +54,25 @@ const useRuleChanged = (topic?: Topic) => {
 			off(RulesEventTypes.RULE_CHANGED, onRuleChanged);
 		};
 	}, [on, off]);
+	useEffect(() => {
+		const onSaved = () => setChanged(false);
+		on(RulesEventTypes.SAVED, onSaved);
+		return () => {
+			off(RulesEventTypes.SAVED, onSaved);
+		};
+	}, [on, off]);
 	useEffect(() => setChanged(false), [topic]);
 
 	return changed;
 };
 
-export const TopicResultHeader = (props: { topic: Topic }) => {
-	const {topic} = props;
+export const TopicResultHeader = (props: { topic: Topic; rules: MonitorRules }) => {
+	const {topic, rules} = props;
 
+	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useRulesEventBus();
 	const [factor, setFactor] = useState<Factor | '' | '-'>('');
+	const [saving, setSaving] = useState(false);
 	useEffect(() => setFactor(''), [topic]);
 	const changed = useRuleChanged(topic);
 
@@ -83,7 +93,17 @@ export const TopicResultHeader = (props: { topic: Topic }) => {
 	};
 	const onSortFactorsClicked = () => fire(RulesEventTypes.SORT_FACTORS);
 	const onSaveClicked = () => {
-		// TODO
+		if (!changed) {
+			return;
+		}
+
+		setSaving(true);
+		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => await saveMonitorRules({rules}),
+			() => {
+				fire(RulesEventTypes.SAVED, rules);
+				setSaving(false);
+			});
 	};
 
 	const factorFilterOptions = [
@@ -105,23 +125,38 @@ export const TopicResultHeader = (props: { topic: Topic }) => {
 			<span>Sort Factors</span>
 		</Button>
 		<Button ink={ButtonInk.PRIMARY} onClick={onSaveClicked} disabled={!changed}>
-			<FontAwesomeIcon icon={ICON_SAVE}/>
+			<FontAwesomeIcon icon={saving ? ICON_LOADING : ICON_SAVE} spin={saving}/>
 			<span>Save</span>
 		</Button>
 	</SearchResultTargetLabel>;
 };
 
-const GlobalResultHeader = () => {
+const GlobalResultHeader = (props: { rules: MonitorRules }) => {
+	const {rules} = props;
+
+	const {fire: fireGlobal} = useEventBus();
+	const {fire} = useRulesEventBus();
+	const [saving, setSaving] = useState(false);
 	const changed = useRuleChanged();
 
 	const onSaveClicked = () => {
-		// TODO
+		if (!changed) {
+			return;
+		}
+
+		setSaving(true);
+		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => await saveMonitorRules({rules}),
+			(rules: MonitorRules) => {
+				fire(RulesEventTypes.SAVED, rules);
+				setSaving(false);
+			});
 	};
 
 	return <SearchResultTargetLabel>
 		<span>Global Rules</span>
 		<Button ink={ButtonInk.PRIMARY} onClick={onSaveClicked} disabled={!changed}>
-			<FontAwesomeIcon icon={ICON_SAVE}/>
+			<FontAwesomeIcon icon={saving ? ICON_LOADING : ICON_SAVE} spin={saving}/>
 			<span>Save</span>
 		</Button>
 	</SearchResultTargetLabel>;
@@ -130,7 +165,7 @@ const GlobalResultHeader = () => {
 export const SearchResult = () => {
 	const {fire: fireGlobal} = useEventBus();
 	const {once, on, off} = useRulesEventBus();
-	const [state, setState] = useState<State>({grade: MonitorRuleGrade.GLOBAL, data: []});
+	const [state, setState] = useState<State>({grade: MonitorRuleGrade.GLOBAL, rules: []});
 	useEffect(() => {
 		const onSearch = async (criteria: MonitorRulesCriteria, topic?: Topic) => {
 			once(RulesEventTypes.REPLY_RULE_CHANGED, (changed) => {
@@ -140,14 +175,14 @@ export const SearchResult = () => {
 						() => {
 							fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 								async () => await fetchMonitorRules({criteria}),
-								(data: MonitorRules) => setState({grade: criteria.grade, topic, data}));
+								(data: MonitorRules) => setState({grade: criteria.grade, topic, rules: data}));
 							fireGlobal(EventTypes.HIDE_DIALOG);
 						},
 						() => fireGlobal(EventTypes.HIDE_DIALOG));
 				} else {
 					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 						async () => await fetchMonitorRules({criteria}),
-						(data: MonitorRules) => setState({grade: criteria.grade, topic, data}));
+						(data: MonitorRules) => setState({grade: criteria.grade, topic, rules: data}));
 				}
 			}).fire(RulesEventTypes.ASK_RULE_CHANGED);
 		};
@@ -156,13 +191,24 @@ export const SearchResult = () => {
 			off(RulesEventTypes.DO_SEARCH, onSearch);
 		};
 	}, [once, on, off, fireGlobal]);
+	useEffect(() => {
+		const onSaved = (rules: MonitorRules) => {
+			setState(state => {
+				return {...state, rules};
+			});
+		};
+		on(RulesEventTypes.SAVED, onSaved);
+		return () => {
+			off(RulesEventTypes.SAVED, onSaved);
+		};
+	}, [on, off]);
 
 	const onTopic = state.grade === MonitorRuleGrade.TOPIC;
 
 	return <SearchResultContainer>
 		{onTopic
-			? <TopicResultHeader topic={state.topic!}/>
-			: <GlobalResultHeader/>}
+			? <TopicResultHeader topic={state.topic!} rules={state.rules}/>
+			: <GlobalResultHeader rules={state.rules}/>}
 		<SearchResultHeader grade={state.grade}>
 			<SearchResultHeaderSeqCell>#</SearchResultHeaderSeqCell>
 			{onTopic ? <SearchResultHeaderCell>Factor</SearchResultHeaderCell> : null}
@@ -173,8 +219,8 @@ export const SearchResult = () => {
 		</SearchResultHeader>
 		<SearchResultBody>
 			{onTopic
-				? <TopicRules topic={state.topic!} rules={state.data}/>
-				: <GlobalRules rules={state.data}/>}
+				? <TopicRules topic={state.topic!} rules={state.rules}/>
+				: <GlobalRules rules={state.rules}/>}
 		</SearchResultBody>
 	</SearchResultContainer>;
 };

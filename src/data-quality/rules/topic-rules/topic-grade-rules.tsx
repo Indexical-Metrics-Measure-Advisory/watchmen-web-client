@@ -6,7 +6,7 @@ import {
 	MonitorRuleSeverity,
 	TopicRuleDefs
 } from '../../../services/data-quality/rules';
-import {SeverityOptions, transformRuleDefsToDisplay} from '../utils';
+import {prepareRuleParams, SeverityOptions, transformRuleDefsToDisplay} from '../utils';
 import {TopicRuleCell, TopicRuleEnablementCell, TopicRuleRow, TopicRuleSeqCell} from './widgets';
 import {Dropdown} from '../../../basic-widgets/dropdown';
 import React, {useEffect, useState} from 'react';
@@ -49,13 +49,13 @@ export const TopicGradeRules = (props: { topic: Topic; rules: MonitorRules }) =>
 	return <>
 		{defs.map((def, index) => {
 			const rule = rules.find(rule => isRuleOnTopic(rule) && rule.code === def.code)
-				?? {
+				?? prepareRuleParams({
 					code: def.code,
 					topicId: topic.topicId,
 					grade: MonitorRuleGrade.TOPIC,
 					severity: def.severity ?? MonitorRuleSeverity.TRACE,
 					enabled: false
-				} as MonitorRuleOnTopic;
+				} as MonitorRuleOnTopic, def) as MonitorRuleOnTopic;
 			return <TopicRuleRow key={def.code}>
 				<TopicRuleSeqCell>{index + 1}</TopicRuleSeqCell>
 				<TopicRuleCell>-</TopicRuleCell>
@@ -67,7 +67,7 @@ export const TopicGradeRules = (props: { topic: Topic; rules: MonitorRules }) =>
 					<Dropdown value={rule.severity} options={SeverityOptions} onChange={onSeverityChanged(rule)}/>
 				</TopicRuleCell>
 				<TopicRuleCell>
-					{def.parameters ? <RuleParameters rule={rule} def={def}/> : null}
+					{def.parameters ? <RuleParameters rule={rule} def={def} topic={topic}/> : null}
 				</TopicRuleCell>
 			</TopicRuleRow>;
 		})}

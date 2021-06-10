@@ -1,10 +1,18 @@
 import {Topic} from '../../../services/tuples/topic-types';
-import {isRuleOnFactor, MonitorRuleOnFactor, MonitorRules, TopicRuleDefs} from '../../../services/data-quality/rules';
+import {
+	isRuleOnFactor,
+	MonitorRule,
+	MonitorRuleOnFactor,
+	MonitorRules,
+	TopicRuleDefs
+} from '../../../services/data-quality/rules';
 import {transformRuleDefsToDisplay} from '../utils';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {RuleMap} from './types';
 import {FactorRulesRows} from './factor-rules-rows';
 import {AddFactorRules} from './add-factor-rules';
+import {useRulesEventBus} from '../rules-event-bus';
+import {RulesEventTypes} from '../rules-event-bus-types';
 
 const buildRuleMap = (rules: MonitorRules): RuleMap => {
 	return rules.filter(rule => isRuleOnFactor(rule)).reduce((map, rule) => {
@@ -23,6 +31,23 @@ const buildRuleMap = (rules: MonitorRules): RuleMap => {
 
 export const FactorGradeRules = (props: { topic: Topic; rules: MonitorRules }) => {
 	const {topic, rules} = props;
+
+	const {on, off} = useRulesEventBus();
+	useEffect(() => {
+		const onRuleChanged = (rule?: MonitorRule) => {
+			if (!rule) {
+				return;
+			}
+
+			if (!rules.includes(rule)) {
+				rules.push(rule);
+			}
+		};
+		on(RulesEventTypes.RULE_CHANGED, onRuleChanged);
+		return () => {
+			off(RulesEventTypes.RULE_CHANGED, onRuleChanged);
+		};
+	}, [on, off, rules]);
 
 	const ruleMap = buildRuleMap(rules);
 	const topicDefsCount = transformRuleDefsToDisplay(TopicRuleDefs).filter(def => {

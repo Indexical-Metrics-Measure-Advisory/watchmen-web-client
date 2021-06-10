@@ -1,4 +1,4 @@
-import {MonitorRule, MonitorRulesCriteria} from '../../services/data-quality/rules';
+import {MonitorRule, MonitorRules, MonitorRulesCriteria} from '../../services/data-quality/rules';
 import {Topic} from '../../services/tuples/topic-types';
 import {Factor} from '../../services/tuples/factor-types';
 
@@ -13,7 +13,9 @@ export enum RulesEventTypes {
 
 	RULE_CHANGED = 'rule-changed',
 	ASK_RULE_CHANGED = 'ask-rule-changed',
-	REPLY_RULE_CHANGED = 'reply-rule-changed'
+	REPLY_RULE_CHANGED = 'reply-rule-changed',
+
+	SAVED = 'saved',
 }
 
 export interface RulesEventBus {
@@ -46,4 +48,8 @@ export interface RulesEventBus {
 
 	fire(type: RulesEventTypes.REPLY_RULE_CHANGED, changed: boolean): this;
 	once(type: RulesEventTypes.REPLY_RULE_CHANGED, listener: (changed: boolean) => void): this;
+
+	fire(type: RulesEventTypes.SAVED, rules: MonitorRules): this;
+	on(type: RulesEventTypes.SAVED, listener: (rules: MonitorRules) => void): this;
+	off(type: RulesEventTypes.SAVED, listener: (rules: MonitorRules) => void): this;
 }

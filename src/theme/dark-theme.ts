@@ -6,7 +6,7 @@ const DarkTheme = {
 	code: 'dark',
 
 	fontColor: 'rgba(255,255,255,0.8)',
-	placeholderColor: 'rgb(255,255,255,0.7)',
+	placeholderColor: 'rgb(255,255,255,0.5)',
 
 	bgColor: '#1D1E21',
 	hoverColor: 'rgb(116,127,143)',

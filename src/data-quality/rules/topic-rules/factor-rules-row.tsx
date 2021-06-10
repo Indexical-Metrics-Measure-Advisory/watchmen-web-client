@@ -1,6 +1,6 @@
 import {Topic} from '../../../services/tuples/topic-types';
 import {Factor} from '../../../services/tuples/factor-types';
-import {MonitorRuleDef, SeverityOptions} from '../utils';
+import {MonitorRuleDef, prepareRuleParams, SeverityOptions} from '../utils';
 import {useForceUpdate} from '../../../basic-widgets/utils';
 import {
 	MonitorRule,
@@ -63,14 +63,14 @@ export const FactorRulesRow = (props: {
 		{factorRuleDefs.map(def => {
 			let rule = factorRuleMap[def.code];
 			if (!rule) {
-				rule = {
+				rule = prepareRuleParams({
 					code: def.code,
 					topicId: topic.topicId,
 					factorId,
 					grade: MonitorRuleGrade.FACTOR,
 					severity: def.severity ?? MonitorRuleSeverity.TRACE,
 					enabled: false
-				} as MonitorRuleOnFactor;
+				} as MonitorRuleOnFactor, def) as MonitorRuleOnFactor;
 				factorRuleMap[def.code] = rule;
 			}
 
@@ -84,7 +84,7 @@ export const FactorRulesRow = (props: {
 					          onChange={onSeverityChanged(rule)}/>
 				</TopicRuleCell>
 				<TopicRuleCell>
-					{def.parameters ? <RuleParameters rule={rule} def={def}/> : null}
+					{def.parameters ? <RuleParameters rule={rule} def={def} topic={topic} factor={factor}/> : null}
 				</TopicRuleCell>
 			</FactorRuleRow>;
 		})}

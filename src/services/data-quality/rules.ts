@@ -66,15 +66,35 @@ export enum MonitorRuleStatisticalInterval {
 	MONTHLY = 'monthly'
 }
 
+export enum MonitorRuleCompareOperator {
+	EQUAL = 'eq',
+	LESS_THAN = 'lt',
+	LESS_THAN_OR_EQUAL = 'lte',
+	GREATER_THAN = 'gt',
+	GREATER_THAN_EQUAL = 'gte'
+}
+
+export interface MonitorRuleParameters {
+	statisticalInterval?: MonitorRuleStatisticalInterval;
+	coverageRate?: number;
+	aggregation?: number;
+	quantile?: number;
+	length?: number;
+	max?: number;
+	min?: number;
+	regexp?: string;
+	compareOperator?: MonitorRuleCompareOperator;
+	topicId?: string;
+	factorId?: string;
+}
+
 export interface MonitorRule {
 	uid?: string;
 	code: MonitorRuleCode;
 	grade: MonitorRuleGrade;
 	severity: MonitorRuleSeverity;
 	enabled: boolean;
-	params?: {
-		statisticalInterval?: MonitorRuleStatisticalInterval;
-	}
+	params?: MonitorRuleParameters;
 }
 
 export interface MonitorRuleOnTopic extends MonitorRule {
@@ -144,6 +164,21 @@ export const fetchMonitorRules = async (options: { criteria: MonitorRulesCriteri
 		// 	api: Apis.QUERY_RULE,
 		// 	data: {criteria: options.criteria}
 		// });
+	}
+};
+
+export const saveMonitorRules = async (options: { rules: MonitorRules }): Promise<MonitorRules> => {
+	const {rules} = options;
+	console.log(rules);
+	if (isMockService()) {
+		return new Promise<MonitorRules>(resolve => {
+			setTimeout(() => resolve(rules || []), 1000);
+		});
+	} else {
+		// TODO
+		return new Promise<MonitorRules>(resolve => {
+			setTimeout(() => resolve(rules || []), 1000);
+		});
 	}
 };
 

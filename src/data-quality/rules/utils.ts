@@ -1,4 +1,10 @@
-import {MonitorRuleCode, MonitorRuleSeverity} from '../../services/data-quality/rules';
+import {
+	MonitorRule,
+	MonitorRuleCode,
+	MonitorRuleCompareOperator,
+	MonitorRuleSeverity,
+	MonitorRuleStatisticalInterval
+} from '../../services/data-quality/rules';
 import {Topic, TopicType} from '../../services/tuples/topic-types';
 import {Factor, FactorType} from '../../services/tuples/factor-types';
 
@@ -7,10 +13,10 @@ export interface MonitorRuleDef {
 	name: string;
 	severity?: MonitorRuleSeverity;
 	canApply?: (topic: Topic, factor?: Factor) => boolean;
-	parameters?: Array<RuleParameterType>;
+	parameters?: Array<MonitorRuleParameterType>;
 }
 
-export enum RuleParameterType {
+export enum MonitorRuleParameterType {
 	TOPIC = 'topic',
 	FACTOR = 'factor',
 	STATISTICAL_INTERVAL = 'statistical-interval',
@@ -63,14 +69,14 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		code: MonitorRuleCode.ROWS_NO_CHANGE,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Rows have no change',
-		parameters: [RuleParameterType.STATISTICAL_INTERVAL]
+		parameters: [MonitorRuleParameterType.COVERAGE_RATE, MonitorRuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
 		code: MonitorRuleCode.ROWS_COUNT_AND_ANOTHER,
 		severity: MonitorRuleSeverity.FATAL,
 		name: 'Rows count mismatches another topic\'s',
 		canApply: (topic: Topic) => topic.type !== TopicType.RAW,
-		parameters: [RuleParameterType.TOPIC]
+		parameters: [MonitorRuleParameterType.TOPIC, MonitorRuleParameterType.STATISTICAL_INTERVAL]
 	},
 
 	{
@@ -87,7 +93,7 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		code: MonitorRuleCode.FACTOR_COMMON_VALUE_COVERAGE,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Most common values cover coverage',
-		parameters: [RuleParameterType.AGGREGATION, RuleParameterType.COVERAGE_RATE, RuleParameterType.STATISTICAL_INTERVAL]
+		parameters: [MonitorRuleParameterType.AGGREGATION, MonitorRuleParameterType.COVERAGE_RATE, MonitorRuleParameterType.STATISTICAL_INTERVAL]
 	},
 
 	{
@@ -113,7 +119,7 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
 		},
-		parameters: [RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER]
+		parameters: [MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_MAX_IN_RANGE,
@@ -122,7 +128,7 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
 		},
-		parameters: [RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER]
+		parameters: [MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_MIN_IN_RANGE,
@@ -131,7 +137,7 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
 		},
-		parameters: [RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER]
+		parameters: [MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_SUM_IN_RANGE,
@@ -140,7 +146,7 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
 		},
-		parameters: [RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER, RuleParameterType.STATISTICAL_INTERVAL]
+		parameters: [MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER, MonitorRuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_AVG_IN_RANGE,
@@ -149,7 +155,7 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
 		},
-		parameters: [RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER, RuleParameterType.STATISTICAL_INTERVAL]
+		parameters: [MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER, MonitorRuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_MEDIAN_IN_RANGE,
@@ -158,7 +164,7 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
 		},
-		parameters: [RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER, RuleParameterType.STATISTICAL_INTERVAL]
+		parameters: [MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER, MonitorRuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_QUANTILE_IN_RANGE,
@@ -167,7 +173,7 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
 		},
-		parameters: [RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER, RuleParameterType.STATISTICAL_INTERVAL]
+		parameters: [MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER, MonitorRuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_STDEV_IN_RANGE,
@@ -176,7 +182,7 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
 		},
-		parameters: [RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER, RuleParameterType.STATISTICAL_INTERVAL]
+		parameters: [MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER, MonitorRuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_COMMON_VALUE_IN_RANGE,
@@ -185,7 +191,7 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
 		},
-		parameters: [RuleParameterType.AGGREGATION, RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER, RuleParameterType.STATISTICAL_INTERVAL]
+		parameters: [MonitorRuleParameterType.AGGREGATION, MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER, MonitorRuleParameterType.STATISTICAL_INTERVAL]
 	},
 
 	{
@@ -203,7 +209,7 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.TEXT].includes(factor.type);
 		},
-		parameters: [RuleParameterType.LENGTH]
+		parameters: [MonitorRuleParameterType.LENGTH]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_STRING_LENGTH_RANGE,
@@ -212,7 +218,7 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.TEXT].includes(factor.type);
 		},
-		parameters: [RuleParameterType.MIN_LENGTH, RuleParameterType.MAX_LENGTH]
+		parameters: [MonitorRuleParameterType.MIN_LENGTH, MonitorRuleParameterType.MAX_LENGTH]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_MATCH_REGEXP,
@@ -221,7 +227,7 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.TEXT].includes(factor.type);
 		},
-		parameters: [RuleParameterType.REGEXP]
+		parameters: [MonitorRuleParameterType.REGEXP]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_UNMATCH_REGEXP,
@@ -230,14 +236,14 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.TEXT].includes(factor.type);
 		},
-		parameters: [RuleParameterType.REGEXP]
+		parameters: [MonitorRuleParameterType.REGEXP]
 	},
 
 	{
 		code: MonitorRuleCode.FACTOR_AND_ANOTHER,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Value compare with another factor',
-		parameters: [RuleParameterType.FACTOR, RuleParameterType.COMPARE_OPERATOR]
+		parameters: [MonitorRuleParameterType.COMPARE_OPERATOR, MonitorRuleParameterType.FACTOR]
 	}
 ].reduce((map, def) => {
 	map[def.code] = def;
@@ -265,4 +271,31 @@ export const sortFactors = (factors: Array<Factor>) => {
 	return factors.sort((f1, f2) => {
 		return (f1.name || '').toLowerCase().localeCompare((f2.name || '').toLowerCase());
 	});
+};
+
+export const prepareRuleParams = (rule: MonitorRule, def: MonitorRuleDef): MonitorRule => {
+	if (!def.parameters || def.parameters.length === 0) {
+		return rule;
+	}
+
+	const params = rule.params || {};
+
+	def.parameters.forEach(param => {
+		switch (param) {
+			case MonitorRuleParameterType.STATISTICAL_INTERVAL:
+				if (!params.statisticalInterval) {
+					params.statisticalInterval = MonitorRuleStatisticalInterval.MONTHLY;
+					rule.params = params;
+				}
+				break;
+			case MonitorRuleParameterType.COMPARE_OPERATOR:
+				if (!params.compareOperator) {
+					params.compareOperator = MonitorRuleCompareOperator.EQUAL;
+					rule.params = params;
+				}
+				break;
+		}
+	});
+
+	return rule;
 };
