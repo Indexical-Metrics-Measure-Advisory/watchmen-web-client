@@ -84,10 +84,14 @@ export const AdminCache = () => {
 		on(AdminCacheEventTypes.SAVE_PIPELINE, onSavePipeline);
 		on(AdminCacheEventTypes.SAVE_TOPIC, onSaveTopic);
 		on(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, onSavePipelinesGraphics);
+		on(AdminCacheEventTypes.TOPIC_LOADED, onSaveTopic);
+		on(AdminCacheEventTypes.PIPELINE_LOADED, onSavePipeline);
 		return () => {
 			off(AdminCacheEventTypes.SAVE_PIPELINE, onSavePipeline);
 			off(AdminCacheEventTypes.SAVE_TOPIC, onSaveTopic);
 			off(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, onSavePipelinesGraphics);
+			off(AdminCacheEventTypes.TOPIC_LOADED, onSaveTopic);
+			off(AdminCacheEventTypes.PIPELINE_LOADED, onSavePipeline);
 		};
 	});
 

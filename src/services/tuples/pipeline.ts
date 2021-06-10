@@ -27,6 +27,16 @@ export const savePipelinesGraphics = async (graphics: PipelinesGraphics): Promis
 	}
 };
 
+export const fetchPipeline = async (pipelineId: string): Promise<{ pipeline: Pipeline }> => {
+	if (isMockService()) {
+		// return nothing
+		return {} as { pipeline: Pipeline };
+	} else {
+		const pipeline = await get({api: Apis.PIPELINE_GET, search: {pipelineId}});
+		return {pipeline};
+	}
+};
+
 export const savePipeline = async (pipeline: Pipeline): Promise<void> => {
 	if (isMockService()) {
 		return saveMockPipeline(pipeline);

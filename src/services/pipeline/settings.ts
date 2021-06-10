@@ -20,6 +20,7 @@ const fetchUpdatedPipelinesGraphics = async (lastModifiedTime: Dayjs): Promise<P
 	if (isMockService()) {
 		return null;
 	} else {
+		// TODO fetch updated pipeline graphics
 		return await fetchPipelinesGraphics();
 		// return await post({
 		// 	api: Apis.PIPELINE_GRAPHICS_MINE_UPDATED,

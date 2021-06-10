@@ -16,7 +16,10 @@ export enum AdminCacheEventTypes {
 
 	SAVE_PIPELINE = 'save-pipeline',
 	SAVE_TOPIC = 'save-topic',
-	SAVE_PIPELINES_GRAPHICS = 'save-pipelines-graphics'
+	SAVE_PIPELINES_GRAPHICS = 'save-pipelines-graphics',
+
+	PIPELINE_LOADED = 'pipeline-loaded',
+	TOPIC_LOADED = 'topic-loaded',
 }
 
 export interface AdminCacheEventBus {
@@ -56,4 +59,12 @@ export interface AdminCacheEventBus {
 	fire(type: AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, graphics: PipelinesGraphics): this;
 	on(type: AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, listener: (graphics: PipelinesGraphics) => void): this;
 	off(type: AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, listener: (graphics: PipelinesGraphics) => void): this;
+
+	fire(type: AdminCacheEventTypes.PIPELINE_LOADED, pipeline: Pipeline): this;
+	on(type: AdminCacheEventTypes.PIPELINE_LOADED, listener: (pipeline: Pipeline) => void): this;
+	off(type: AdminCacheEventTypes.PIPELINE_LOADED, listener: (pipeline: Pipeline) => void): this;
+
+	fire(type: AdminCacheEventTypes.TOPIC_LOADED, topic: Topic): this;
+	on(type: AdminCacheEventTypes.TOPIC_LOADED, listener: (topic: Topic) => void): this;
+	off(type: AdminCacheEventTypes.TOPIC_LOADED, listener: (topic: Topic) => void): this;
 }

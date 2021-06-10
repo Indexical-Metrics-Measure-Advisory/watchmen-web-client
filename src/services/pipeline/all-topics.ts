@@ -16,6 +16,7 @@ export const fetchUpdatedTopics = async (lastModifiedTime: Dayjs): Promise<Array
 	if (isMockService()) {
 		return [];
 	} else {
+		// TODO fetch updated topics
 		return await get({api: Apis.TOPIC_ALL});
 		// return await post({api: Apis.TOPIC_UPDATED, data: {lastModifyTime: lastModifiedTime.format('YYYY/MM/DD HH:mm:ss')}});
 	}

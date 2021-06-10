@@ -44,7 +44,10 @@ const AdminTopics = () => {
 		const onDoEditTopic = async (queryTopic: QueryTopic) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await fetchTopicAndCodes(queryTopic),
-				({tuple, enums}) => fire(TupleEventTypes.TUPLE_LOADED, tuple, {enums}));
+				({tuple, enums}) => {
+					fireCache(AdminCacheEventTypes.TOPIC_LOADED, tuple);
+					fire(TupleEventTypes.TUPLE_LOADED, tuple, {enums});
+				});
 		};
 		const onDoSearchTopic = async (searchText: string, pageNumber: number) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
@@ -95,7 +98,6 @@ const AdminTopics = () => {
 				() => {
 					fire(TupleEventTypes.TUPLE_SAVED, topic, true);
 					fireCache(AdminCacheEventTypes.SAVE_TOPIC, topic);
-					console.log(topic);
 				},
 				() => fire(TupleEventTypes.TUPLE_SAVED, topic, false));
 		};

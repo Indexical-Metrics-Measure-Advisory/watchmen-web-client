@@ -10,6 +10,7 @@ export const Apis = {
 	PIPELINE_GRAPHICS_MINE: 'pipeline/graphics/me',
 	PIPELINE_GRAPHICS_MINE_UPDATED: 'pipeline/graphics/me/updated',
 	PIPELINE_GRAPHICS_SAVE: 'pipeline/graphics',
+	PIPELINE_GET: 'pipeline?pipeline_id=:pipelineId',
 	PIPELINE_CREATE: 'pipeline',
 	PIPELINE_SAVE: 'pipeline',
 	PIPELINE_RENAME: 'pipeline/rename?pipeline_id=:pipelineId&name=:name',
