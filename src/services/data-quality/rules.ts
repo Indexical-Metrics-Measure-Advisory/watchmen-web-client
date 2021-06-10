@@ -1,5 +1,4 @@
 import {isMockService} from '../utils';
-import {Apis, post} from '../apis';
 import {fetchMockRules} from '../mock/data-quality/mock-rules';
 
 export enum MonitorRuleGrade {
@@ -61,12 +60,21 @@ export enum MonitorRuleSeverity {
 	TRACE = 'trace'
 }
 
+export enum MonitorRuleStatisticalInterval {
+	DAILY = 'daily',
+	WEEKLY = 'weekly',
+	MONTHLY = 'monthly'
+}
+
 export interface MonitorRule {
 	uid?: string;
 	code: MonitorRuleCode;
 	grade: MonitorRuleGrade;
 	severity: MonitorRuleSeverity;
 	enabled: boolean;
+	params?: {
+		statisticalInterval?: MonitorRuleStatisticalInterval;
+	}
 }
 
 export interface MonitorRuleOnTopic extends MonitorRule {
@@ -130,10 +138,12 @@ export const fetchMonitorRules = async (options: { criteria: MonitorRulesCriteri
 	if (isMockService()) {
 		return await fetchMockRules(options);
 	} else {
-		return post({
-			api: Apis.QUERY_RULE,
-			data: {criteria: options.criteria}
-		});
+		// TODO
+		return await fetchMockRules(options);
+		// return post({
+		// 	api: Apis.QUERY_RULE,
+		// 	data: {criteria: options.criteria}
+		// });
 	}
 };
 

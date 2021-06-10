@@ -23,6 +23,7 @@ import React from 'react';
 import {RuleMap} from './types';
 import {RulesEventTypes} from '../rules-event-bus-types';
 import {useRulesEventBus} from '../rules-event-bus';
+import {RuleParameters} from '../parameters';
 
 export const FactorRulesRow = (props: {
 	topic: Topic;
@@ -82,7 +83,9 @@ export const FactorRulesRow = (props: {
 					<Dropdown value={rule.severity} options={SeverityOptions}
 					          onChange={onSeverityChanged(rule)}/>
 				</TopicRuleCell>
-				<TopicRuleCell/>
+				<TopicRuleCell>
+					{def.parameters ? <RuleParameters rule={rule} def={def}/> : null}
+				</TopicRuleCell>
 			</FactorRuleRow>;
 		})}
 	</FactorRow>;

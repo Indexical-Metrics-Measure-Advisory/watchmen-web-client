@@ -11,6 +11,7 @@ import {Dropdown} from '../../../basic-widgets/dropdown';
 import {SeverityOptions, transformRuleDefsToDisplay} from '../utils';
 import {useEnabledAndSeverity} from '../use-enabled-and-severity';
 import {ColorfulCheckBox} from '../widgets';
+import {RuleParameters} from '../parameters';
 
 export const GlobalRules = (props: { rules: MonitorRules }) => {
 	const {rules} = props;
@@ -37,7 +38,9 @@ export const GlobalRules = (props: { rules: MonitorRules }) => {
 				<GlobalRuleCell>
 					<Dropdown value={rule.severity} options={SeverityOptions} onChange={onSeverityChanged(rule)}/>
 				</GlobalRuleCell>
-				<GlobalRuleCell/>
+				<GlobalRuleCell>
+					{def.parameters ? <RuleParameters rule={rule} def={def}/> : null}
+				</GlobalRuleCell>
 			</GlobalRuleRow>;
 		})}
 	</>;

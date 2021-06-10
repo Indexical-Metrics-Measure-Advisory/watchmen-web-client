@@ -7,24 +7,41 @@ export interface MonitorRuleDef {
 	name: string;
 	severity?: MonitorRuleSeverity;
 	canApply?: (topic: Topic, factor?: Factor) => boolean;
+	parameters?: Array<RuleParameterType>;
+}
+
+export enum RuleParameterType {
+	TOPIC = 'topic',
+	FACTOR = 'factor',
+	STATISTICAL_INTERVAL = 'statistical-interval',
+	AGGREGATION = 'aggregation',
+	COVERAGE_RATE = 'coverage-rate',
+	MIN_NUMBER = 'min-number',
+	MAX_NUMBER = 'max-number',
+	QUANTILE = 'quantile',
+	LENGTH = 'length',
+	MIN_LENGTH = 'min-length',
+	MAX_LENGTH = 'max-length',
+	REGEXP = 'regexp',
+	COMPARE_OPERATOR = 'compare-operator'
 }
 
 const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 	{
 		code: MonitorRuleCode.RAW_MATCH_STRUCTURE,
-		name: 'Row of raw topic must match structure',
+		name: 'Row of raw topic mismatches structure',
 		severity: MonitorRuleSeverity.WARN,
 		canApply: (topic: Topic) => topic.type === TopicType.RAW
 	},
 	{
 		code: MonitorRuleCode.FACTOR_MATCH_TYPE,
 		severity: MonitorRuleSeverity.FATAL,
-		name: 'Factor value must match type'
+		name: 'Value mismatches type'
 	},
 	{
 		code: MonitorRuleCode.FACTOR_MATCH_ENUM,
 		severity: MonitorRuleSeverity.FATAL,
-		name: 'Factor value must match enumeration',
+		name: 'Value mismatches enumeration',
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !factor || [FactorType.ENUM].includes(factor.type);
 		}
@@ -32,7 +49,7 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 	{
 		code: MonitorRuleCode.FACTOR_MATCH_DATE_TYPE,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'Factor value must match date type',
+		name: 'Value mismatches date type',
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !factor || [
 				FactorType.DATE, FactorType.DATETIME, FactorType.FULL_DATETIME,
@@ -45,13 +62,15 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 	{
 		code: MonitorRuleCode.ROWS_NO_CHANGE,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'Rows no change'
+		name: 'Rows have no change',
+		parameters: [RuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
 		code: MonitorRuleCode.ROWS_COUNT_AND_ANOTHER,
 		severity: MonitorRuleSeverity.FATAL,
-		name: 'Rows count with another topic',
-		canApply: (topic: Topic) => topic.type !== TopicType.RAW
+		name: 'Rows count mismatches another topic\'s',
+		canApply: (topic: Topic) => topic.type !== TopicType.RAW,
+		parameters: [RuleParameterType.TOPIC]
 	},
 
 	{
@@ -67,13 +86,14 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 	{
 		code: MonitorRuleCode.FACTOR_COMMON_VALUE_COVERAGE,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'Most common values coverage'
+		name: 'Most common values cover coverage',
+		parameters: [RuleParameterType.AGGREGATION, RuleParameterType.COVERAGE_RATE, RuleParameterType.STATISTICAL_INTERVAL]
 	},
 
 	{
 		code: MonitorRuleCode.FACTOR_MONOTONE_INCREASING,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'Monotone increasing',
+		name: 'Value breaks monotone increasing',
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
 		}
@@ -81,7 +101,7 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 	{
 		code: MonitorRuleCode.FACTOR_MONOTONE_DECREASING,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'Monotone decreasing',
+		name: 'Value breaks monotone decreasing',
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
 		}
@@ -89,74 +109,83 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 	{
 		code: MonitorRuleCode.FACTOR_IN_RANGE,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'Value in range',
+		name: 'Value is not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
-		}
+		},
+		parameters: [RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_MAX_IN_RANGE,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'Max value in range',
+		name: 'Max value is not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
-		}
+		},
+		parameters: [RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_MIN_IN_RANGE,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'Min in range',
+		name: 'Min is not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
-		}
+		},
+		parameters: [RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_SUM_IN_RANGE,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'Sum in range',
+		name: 'Sum is not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
-		}
+		},
+		parameters: [RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER, RuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_AVG_IN_RANGE,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'Avg in range',
+		name: 'Avg is not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
-		}
+		},
+		parameters: [RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER, RuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_MEDIAN_IN_RANGE,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'Median in range',
+		name: 'Median is not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
-		}
+		},
+		parameters: [RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER, RuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_QUANTILE_IN_RANGE,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'Quantile in range',
+		name: 'Quantile is not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
-		}
+		},
+		parameters: [RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER, RuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_STDEV_IN_RANGE,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'StDev in range',
+		name: 'StDev is not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
-		}
+		},
+		parameters: [RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER, RuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_COMMON_VALUE_IN_RANGE,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'Most common values in range',
+		name: 'Most common values are not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.NUMBER, FactorType.UNSIGNED].includes(factor.type);
-		}
+		},
+		parameters: [RuleParameterType.AGGREGATION, RuleParameterType.MIN_NUMBER, RuleParameterType.MAX_NUMBER, RuleParameterType.STATISTICAL_INTERVAL]
 	},
 
 	{
@@ -170,40 +199,45 @@ const defs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 	{
 		code: MonitorRuleCode.FACTOR_STRING_LENGTH,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'String length',
+		name: 'String length mismatched',
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.TEXT].includes(factor.type);
-		}
+		},
+		parameters: [RuleParameterType.LENGTH]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_STRING_LENGTH_RANGE,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'String length in range',
+		name: 'String length is not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.TEXT].includes(factor.type);
-		}
+		},
+		parameters: [RuleParameterType.MIN_LENGTH, RuleParameterType.MAX_LENGTH]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_MATCH_REGEXP,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'Match regexp',
+		name: 'Mismatches regexp',
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.TEXT].includes(factor.type);
-		}
+		},
+		parameters: [RuleParameterType.REGEXP]
 	},
 	{
 		code: MonitorRuleCode.FACTOR_UNMATCH_REGEXP,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'Unmatch regexp',
+		name: 'Matches regexp',
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && [FactorType.TEXT].includes(factor.type);
-		}
+		},
+		parameters: [RuleParameterType.REGEXP]
 	},
 
 	{
 		code: MonitorRuleCode.FACTOR_AND_ANOTHER,
 		severity: MonitorRuleSeverity.WARN,
-		name: 'Value compare with another factor'
+		name: 'Value compare with another factor',
+		parameters: [RuleParameterType.FACTOR, RuleParameterType.COMPARE_OPERATOR]
 	}
 ].reduce((map, def) => {
 	map[def.code] = def;
@@ -230,5 +264,5 @@ export const SeverityOptions = [
 export const sortFactors = (factors: Array<Factor>) => {
 	return factors.sort((f1, f2) => {
 		return (f1.name || '').toLowerCase().localeCompare((f2.name || '').toLowerCase());
-	})
-}
+	});
+};

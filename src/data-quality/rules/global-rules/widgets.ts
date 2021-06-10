@@ -5,6 +5,9 @@ export const GlobalRuleRow = styled.div`
 	grid-template-columns: 40px 350px 85px 100px 400px;
 	min-height: calc(var(--height) + 1px);
 	border-bottom: var(--border);
+	:hover {
+		background-color: var(--hover-color);
+	}
 `;
 export const GlobalRuleCell = styled.div`
 	display: flex;

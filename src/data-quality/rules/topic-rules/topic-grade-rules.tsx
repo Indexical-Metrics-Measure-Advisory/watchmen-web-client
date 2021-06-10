@@ -15,6 +15,7 @@ import {useEnabledAndSeverity} from '../use-enabled-and-severity';
 import {ColorfulCheckBox} from '../widgets';
 import {useRulesEventBus} from '../rules-event-bus';
 import {RulesEventTypes} from '../rules-event-bus-types';
+import {RuleParameters} from '../parameters';
 
 export const TopicGradeRules = (props: { topic: Topic; rules: MonitorRules }) => {
 	const {topic, rules} = props;
@@ -65,7 +66,9 @@ export const TopicGradeRules = (props: { topic: Topic; rules: MonitorRules }) =>
 				<TopicRuleCell>
 					<Dropdown value={rule.severity} options={SeverityOptions} onChange={onSeverityChanged(rule)}/>
 				</TopicRuleCell>
-				<TopicRuleCell/>
+				<TopicRuleCell>
+					{def.parameters ? <RuleParameters rule={rule} def={def}/> : null}
+				</TopicRuleCell>
 			</TopicRuleRow>;
 		})}
 	</>;
