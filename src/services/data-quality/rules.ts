@@ -167,6 +167,20 @@ export const fetchMonitorRules = async (options: { criteria: MonitorRulesCriteri
 	}
 };
 
+export const saveMonitorRules = async (options: { rules: MonitorRules }): Promise<MonitorRules> => {
+	const {rules} = options;
+	console.log(rules);
+	if (isMockService()) {
+		return new Promise<MonitorRules>(resolve => {
+			setTimeout(() => resolve(rules || []), 1000);
+		});
+	} else {
+		return new Promise<MonitorRules>(resolve => {
+			setTimeout(() => resolve(rules || []), 1000);
+		});
+	}
+};
+
 export const isRuleOnTopic = (rule: MonitorRule): rule is MonitorRuleOnTopic => {
 	const x = rule as any;
 	return x.topicId && !x.factorId;

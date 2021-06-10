@@ -58,7 +58,7 @@ const ParametersLabel = (props: {
 				case MonitorRuleParameterType.AGGREGATION:
 					return `Aggregation=${params?.aggregation ? `${params?.aggregation}%` : ''}`;
 				case MonitorRuleParameterType.COVERAGE_RATE:
-					return `Coverage Rate=${params?.coverageRate ? `${params?.coverageRate}%` : ''}`;
+					return `Coverage=${params?.coverageRate ? `${params?.coverageRate}%` : ''}`;
 				case MonitorRuleParameterType.QUANTILE:
 					return `Quantile=${params?.quantile ? `${params?.quantile}%` : ''}`;
 				case MonitorRuleParameterType.COMPARE_OPERATOR:
