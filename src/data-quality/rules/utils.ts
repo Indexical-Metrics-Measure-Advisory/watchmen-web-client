@@ -1,4 +1,9 @@
-import {MonitorRuleCode, MonitorRuleSeverity} from '../../services/data-quality/rules';
+import {
+	MonitorRule,
+	MonitorRuleCode,
+	MonitorRuleSeverity,
+	MonitorRuleStatisticalInterval
+} from '../../services/data-quality/rules';
 import {Topic, TopicType} from '../../services/tuples/topic-types';
 import {Factor, FactorType} from '../../services/tuples/factor-types';
 
@@ -265,4 +270,25 @@ export const sortFactors = (factors: Array<Factor>) => {
 	return factors.sort((f1, f2) => {
 		return (f1.name || '').toLowerCase().localeCompare((f2.name || '').toLowerCase());
 	});
+};
+
+export const prepareRuleParams = (rule: MonitorRule, def: MonitorRuleDef): MonitorRule => {
+	if (!def.parameters || def.parameters.length === 0) {
+		return rule;
+	}
+
+	const params = rule.params || {};
+
+	def.parameters.forEach(param => {
+		switch (param) {
+			case RuleParameterType.STATISTICAL_INTERVAL:
+				if (!params.statisticalInterval) {
+					params.statisticalInterval = MonitorRuleStatisticalInterval.MONTHLY;
+					rule.params = params;
+				}
+				break;
+		}
+	});
+
+	return rule;
 };

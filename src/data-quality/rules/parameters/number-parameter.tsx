@@ -50,6 +50,6 @@ export const NumberParameter = (props: { rule: MonitorRule, parameter: RuleParam
 		}
 	};
 
-	return <NumberInput value={displayValue} placeholder="numeric value here..."
+	return <NumberInput value={displayValue} placeholder="Number here..."
 	                    onChange={onChanged}/>;
 };

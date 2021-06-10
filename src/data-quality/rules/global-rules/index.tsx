@@ -8,7 +8,7 @@ import {
 } from '../../../services/data-quality/rules';
 import {GlobalRuleCell, GlobalRuleEnablementCell, GlobalRuleRow, GlobalRuleSeqCell} from './widgets';
 import {Dropdown} from '../../../basic-widgets/dropdown';
-import {SeverityOptions, transformRuleDefsToDisplay} from '../utils';
+import {prepareRuleParams, SeverityOptions, transformRuleDefsToDisplay} from '../utils';
 import {useEnabledAndSeverity} from '../use-enabled-and-severity';
 import {ColorfulCheckBox} from '../widgets';
 import {RuleParameters} from '../parameters';
@@ -23,12 +23,12 @@ export const GlobalRules = (props: { rules: MonitorRules }) => {
 	return <>
 		{defs.map((def, index) => {
 			const rule = rules.find(({code}) => code === def.code)
-				?? {
+				?? prepareRuleParams({
 					code: def.code,
 					grade: MonitorRuleGrade.GLOBAL,
 					severity: def.severity ?? MonitorRuleSeverity.TRACE,
 					enabled: false
-				} as MonitorRule;
+				} as MonitorRule, def);
 			return <GlobalRuleRow key={def.code}>
 				<GlobalRuleSeqCell>{index + 1}</GlobalRuleSeqCell>
 				<GlobalRuleCell>{def.name}</GlobalRuleCell>
