@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import {TooltipButton} from '../../../basic-widgets/tooltip-button';
 import {DataPanelLayout} from '../types';
+import Color from 'color';
+
+const SEQ_WIDTH = 40;
 
 export const DataPanelContainer = styled.div
 	.attrs<{ layout: DataPanelLayout }>(({layout}) => {
@@ -36,6 +39,7 @@ export const DataPanelHeader = styled.div.attrs<{ layout: DataPanelLayout }>(({l
 	};
 })<{ layout: DataPanelLayout }>`
 	display: grid;
+	border-bottom: var(--border);
 `;
 export const DataPanelHeaderTitle = styled.div.attrs<{ layout: DataPanelLayout }>(({layout}) => {
 	return {
@@ -64,4 +68,96 @@ export const DataPanelHeaderButtons = styled.div.attrs<{ layout: DataPanelLayout
 export const DataPanelHeaderButton = styled(TooltipButton)`
 	width: var(--height);
 	padding: 0;
+`;
+export const DataPanelBody = styled.div.attrs({
+	'data-widget': 'data-panel-body',
+	'data-v-scroll': ''
+})`
+	display: flex;
+	position: relative;
+	flex-direction: column;
+	overflow-y: auto;
+`;
+export const DataPanelBodyHeader = styled.div.attrs<{ columns: string }>(({columns}) => {
+	return {
+		'data-widget': 'data-panel-body-header',
+		style: {
+			gridTemplateColumns: `${SEQ_WIDTH}px ${columns}`
+		}
+	};
+})<{ columns: string }>`
+	display: grid;
+	position: sticky;
+	top: 0;
+	grid-template-rows: 1fr;
+	width: 100%;
+	border-bottom: var(--border);
+	background-color: var(--bg-color);
+	z-index: 1;
+`;
+export const DataPanelBodyHeaderCell = styled.div.attrs({'data-widget': 'data-panel-body-header-cell'})`
+	display: flex;
+	align-items: center;
+	min-height: calc(var(--height) * 1.1);
+	font-variant: petite-caps;
+	font-weight: var(--font-bold);
+	font-size: 1.1em;
+	padding: 0 calc(var(--margin) / 4);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+`;
+export const DataPanelBodyHeaderSeqCell = styled(DataPanelBodyHeaderCell)`
+	width: ${SEQ_WIDTH}px;
+`;
+export const DataPanelBodyDataRow = styled.div.attrs<{ columns: string }>(({columns}) => {
+	return {
+		'data-widget': 'data-panel-body-data-row',
+		style: {
+			gridTemplateColumns: `${SEQ_WIDTH}px ${columns}`
+		}
+	};
+})<{ columns: string }>`
+	display: grid;
+	grid-template-rows: 1fr;
+	width: 100%;
+	background-color: var(--bg-color);
+	&:nth-child(2n) {
+		background-color: var(--grid-rib-bg-color);
+	}
+`;
+export const DataPanelBodyDataCell = styled.div.attrs({'data-widget': 'data-panel-body-data-cell'})`
+	display: flex;
+	align-items: center;
+	min-height: var(--height);
+	padding: 0 calc(var(--margin) / 4);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+`;
+export const DataPanelBodyDataSeqCell = styled(DataPanelBodyDataCell)`
+	width: ${SEQ_WIDTH}px;
+`;
+export const HorizontalValueBar = styled.div.attrs<{ value: number }>(({value}) => {
+	const r = 255 * Math.max(value / 100, 0.7);
+	const color = Color({r, g: 0, b: 0});
+	return {
+		'data-widget': 'horizontal-value-bar',
+		style: {
+			width: `${value}%`,
+			backgroundColor: `${color}`
+			// color: `${color.rotate(90) }`
+		}
+	};
+})<{ value: number }>`
+	display: flex;
+	align-items: center;
+	height: calc(var(--height) * 0.6);
+	border-top-right-radius: calc(var(--height) * 0.3);
+	border-bottom-right-radius: calc(var(--height) * 0.3);
+	padding: 0 calc(var(--margin) / 4);
+	> span {
+		color: ${({value}) => `${Color({r: 255 * (1 - Math.max(value / 100, 0.7)), g: 255, b: 255})}`};
+		mix-blend-mode: difference;
+	}
 `;

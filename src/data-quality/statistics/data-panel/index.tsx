@@ -25,8 +25,9 @@ export const DataPanel = (props: {
 	title: string;
 	layout: DataPanelLayout;
 	defaultLayout: DataPanelLayout;
+	children?: ((props: any) => React.ReactNode) | React.ReactNode;
 }) => {
-	const {which, title, layout, defaultLayout} = props;
+	const {which, title, layout, defaultLayout, children} = props;
 
 	const {fire} = useStatisticsEventBus();
 
@@ -62,5 +63,6 @@ export const DataPanel = (props: {
 					: null}
 			</DataPanelHeaderButtons>
 		</DataPanelHeader>
+		{children}
 	</DataPanelContainer>;
 };
