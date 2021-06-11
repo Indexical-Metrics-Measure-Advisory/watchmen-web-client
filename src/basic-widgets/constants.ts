@@ -52,7 +52,8 @@ import {
 	faLockOpen,
 	faObjectGroup,
 	faPaperPlane,
-	faParagraph, faPercentage,
+	faParagraph,
+	faPercentage,
 	faPlay,
 	faPlus,
 	faPowerOff,
@@ -86,7 +87,9 @@ import {
 	faUser,
 	faUsers,
 	faWaveSquare,
-	faWind
+	faWind,
+	faWindowMaximize,
+	faWindowMinimize, faWindowRestore
 } from '@fortawesome/free-solid-svg-icons';
 
 export const TOOLTIP_Z_INDEX = 10000;
@@ -230,6 +233,9 @@ export const ICON_PLAY = faPlay;
 export const ICON_SEND = faPaperPlane;
 export const ICON_HELP = faQuestionCircle;
 export const ICON_CLEAR_SCREEN = faHandSparkles;
+export const ICON_MINIMIZE_PANEL = faWindowMinimize;
+export const ICON_MAXIMIZE_PANEL = faWindowMaximize;
+export const ICON_RESTORE_PANEL = faWindowRestore;
 
 export const ICON_COMMENTS = faCommentDots;
 export const ICON_CMD_PROMPT = faTerminal;

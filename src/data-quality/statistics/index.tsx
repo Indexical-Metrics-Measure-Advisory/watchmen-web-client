@@ -1,24 +1,24 @@
 import React from 'react';
 import {FullWidthPage} from '../../basic-widgets/page';
 import {FullWidthPageHeaderContainer, PageTitle} from '../../basic-widgets/page-header';
-import {CLIWrapper} from '../widgets/cli';
-import {Execution} from './execution';
-import {Command} from '../command/types';
-import {createHelpCmd} from '../command';
-
-export const RULES_COMMANDS: Array<Command> = [];
-
-export const RULES_HELP_COMMAND = createHelpCmd([]);
+import {StatisticsEventBusProvider} from './statistics-event-bus';
+import {StatisticsPageBody} from './body';
+import {DailyPanel} from './daily';
+import {WeeklyPanel} from './weekly';
+import {FreeWalkPanel} from './free-walk';
 
 const DataQualityStatisticsIndex = () => {
 	return <FullWidthPage>
 		<FullWidthPageHeaderContainer>
 			<PageTitle>Run Statistics</PageTitle>
 		</FullWidthPageHeaderContainer>
-		<CLIWrapper greeting="This channel is for working on run statistics."
-		            commands={RULES_COMMANDS}
-		            helpCommand={RULES_HELP_COMMAND}
-		            execution={Execution}/>
+		<StatisticsEventBusProvider>
+			<StatisticsPageBody>
+				<DailyPanel/>
+				<WeeklyPanel/>
+				<FreeWalkPanel/>
+			</StatisticsPageBody>
+		</StatisticsEventBusProvider>
 	</FullWidthPage>;
 };
 

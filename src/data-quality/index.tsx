@@ -3,15 +3,13 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
 import {Router} from '../routes/types';
 import {isAdmin} from '../services/account';
-import DataQualityHome from './home';
 import DataQualityConsanguinity from './consanguinity';
 import {DataQualityMenu} from './menu';
 import DataQualitySettings from './settings';
 import {DataQualityCacheEventBusProvider} from './cache/cache-event-bus';
 import {DataQualityCache} from './cache';
 import DataQualityMonitorRules from './rules';
-import DataQualityStatistics from './statistics'
-import DataQualityEndUser from './end-user'
+import DataQualityStatistics from './statistics';
 
 const DataQualityContainer = styled.div.attrs({'data-widget': 'data-quality'})`
 	display: flex;
@@ -44,11 +42,11 @@ const DataQualityIndex = () => {
 			<DataQualityMenu/>
 
 			<Switch>
-				<Route path={Router.DATA_QUALITY_HOME}>
-					<DataQualityMain scrollable={false}>
-						<DataQualityHome/>
-					</DataQualityMain>
-				</Route>
+				{/*<Route path={Router.DATA_QUALITY_HOME}>*/}
+				{/*	<DataQualityMain scrollable={false}>*/}
+				{/*		<DataQualityHome/>*/}
+				{/*	</DataQualityMain>*/}
+				{/*</Route>*/}
 				<Route path={Router.DATA_QUALITY_CONSANGUINITY}>
 					<DataQualityMain scrollable={false}>
 						<DataQualityConsanguinity/>
@@ -64,11 +62,11 @@ const DataQualityIndex = () => {
 						<DataQualityStatistics/>
 					</DataQualityMain>
 				</Route>
-				<Route path={Router.DATA_QUALITY_END_USER}>
-					<DataQualityMain scrollable={false}>
-						<DataQualityEndUser/>
-					</DataQualityMain>
-				</Route>
+				{/*<Route path={Router.DATA_QUALITY_END_USER}>*/}
+				{/*	<DataQualityMain scrollable={false}>*/}
+				{/*		<DataQualityEndUser/>*/}
+				{/*	</DataQualityMain>*/}
+				{/*</Route>*/}
 				<Route path={Router.DATA_QUALITY_SETTINGS}>
 					<DataQualityMain><DataQualitySettings/></DataQualityMain>
 				</Route>

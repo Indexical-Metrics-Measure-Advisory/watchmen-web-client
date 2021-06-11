@@ -90,19 +90,21 @@ export const DataQualityMenu = () => {
 		<SideMenuLogo title="Data Quality Center"/>
 		<SideMenuItem icon={ICON_HOME} label="Home" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_HOME)}
-		              onClick={onMenuClicked(Router.DATA_QUALITY_HOME)}/>
+		              onClick={onMenuClicked(Router.DATA_QUALITY_HOME)}
+		              visible={false}/>
+		<SideMenuItem icon={ICON_STATISTICS} label="Run Statistics" showTooltip={showTooltip}
+		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_STATISTICS)}
+		              onClick={onMenuClicked(Router.DATA_QUALITY_STATISTICS)}/>
 		<SideMenuItem icon={ICON_CONSANGUINITY} label="Consanguinity" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_CONSANGUINITY)}
 		              onClick={onMenuClicked(Router.DATA_QUALITY_CONSANGUINITY)}/>
 		<SideMenuItem icon={ICON_RULE_DEFINE} label="Monitor Rules" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_RULES)}
 		              onClick={onMenuClicked(Router.DATA_QUALITY_RULES)}/>
-		<SideMenuItem icon={ICON_STATISTICS} label="Run Statistics" showTooltip={showTooltip}
-		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_STATISTICS)}
-		              onClick={onMenuClicked(Router.DATA_QUALITY_STATISTICS)}/>
 		<SideMenuItem icon={ICON_END_USER} label="End User's Console" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_END_USER)}
-		              onClick={onMenuClicked(Router.DATA_QUALITY_END_USER)}/>
+		              onClick={onMenuClicked(Router.DATA_QUALITY_END_USER)}
+		              visible={false}/>
 		<SideMenuPlaceholder/>
 		<SideMenuSeparator width={menuWidth}/>
 		<SideMenuItem icon={ICON_SETTINGS} label={'Settings'} showTooltip={showTooltip}
