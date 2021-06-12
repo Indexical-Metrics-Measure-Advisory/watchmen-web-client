@@ -125,6 +125,9 @@ export const DataPanelBodyDataRow = styled.div.attrs<{ columns: string }>(({colu
 	&:nth-child(2n) {
 		background-color: var(--grid-rib-bg-color);
 	}
+	&:hover {
+		background-color: var(--hover-color);
+	}
 `;
 export const DataPanelBodyDataCell = styled.div.attrs({'data-widget': 'data-panel-body-data-cell'})`
 	display: flex;
@@ -138,26 +141,34 @@ export const DataPanelBodyDataCell = styled.div.attrs({'data-widget': 'data-pane
 export const DataPanelBodyDataSeqCell = styled(DataPanelBodyDataCell)`
 	width: ${SEQ_WIDTH}px;
 `;
+const start = Color({r: 223, g: 27, b: 46});
+const end = Color({r: 128, g: 128, b: 128});
+const computeColor = (value: number) => {
+	const r = start.red() + (end.red() - start.red()) * (1 - value / 100);
+	const g = start.green() + (end.green() - start.green()) * (1 - value / 100);
+	const b = start.blue() + (end.blue() - start.blue()) * (1 - value / 100);
+	return Color({r, g, b});
+};
 export const HorizontalValueBar = styled.div.attrs<{ value: number }>(({value}) => {
-	const r = 255 * Math.max(value / 100, 0.7);
-	const color = Color({r, g: 0, b: 0});
 	return {
 		'data-widget': 'horizontal-value-bar',
 		style: {
-			width: `${value}%`,
-			backgroundColor: `${color}`
-			// color: `${color.rotate(90) }`
+			width: `calc((100% - 50px) * ${value} / 100)`,
+			backgroundColor: `${computeColor(value)}`
 		}
 	};
 })<{ value: number }>`
 	display: flex;
 	align-items: center;
 	height: calc(var(--height) * 0.6);
-	border-top-right-radius: calc(var(--height) * 0.3);
-	border-bottom-right-radius: calc(var(--height) * 0.3);
+	border-radius: calc(var(--border-radius) / 2) calc(var(--height) * 0.3) calc(var(--height) * 0.3) calc(var(--border-radius) / 2);
 	padding: 0 calc(var(--margin) / 4);
-	> span {
-		color: ${({value}) => `${Color({r: 255 * (1 - Math.max(value / 100, 0.7)), g: 255, b: 255})}`};
-		mix-blend-mode: difference;
-	}
+	overflow: hidden;
+`;
+export const HorizontalValue = styled.div.attrs({'data-widget': 'horizontal-value'})`
+	display: flex;
+	align-items: center;
+	height: calc(var(--height) * 0.6);
+	margin-left: calc(var(--margin) / 2);
+	overflow: hidden;
 `;

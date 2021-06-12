@@ -11,6 +11,7 @@ import {
 	DataPanelBodyHeader,
 	DataPanelBodyHeaderCell,
 	DataPanelBodyHeaderSeqCell,
+	HorizontalValue,
 	HorizontalValueBar
 } from '../data-panel/widgets';
 import {getCurrentTime} from '../../../services/utils';
@@ -42,9 +43,8 @@ export const DailyPanel = () => {
 					<DataPanelBodyDataSeqCell>{index + 1}</DataPanelBodyDataSeqCell>
 					<DataPanelBodyDataCell>{row.name}</DataPanelBodyDataCell>
 					<DataPanelBodyDataCell>
-						<HorizontalValueBar value={row.value / 100}>
-							<span>{format.format(row.value)}</span>
-						</HorizontalValueBar>
+						<HorizontalValueBar value={row.value / 100}/>
+						<HorizontalValue>{format.format(row.value)}</HorizontalValue>
 					</DataPanelBodyDataCell>
 					<DataPanelBodyDataCell>{row.lastOccurred}</DataPanelBodyDataCell>
 				</DataPanelBodyDataRow>;
