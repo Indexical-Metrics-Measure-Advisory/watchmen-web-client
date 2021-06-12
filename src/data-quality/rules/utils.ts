@@ -5,33 +5,8 @@ import {
 	MonitorRuleSeverity,
 	MonitorRuleStatisticalInterval
 } from '../../services/data-quality/rules';
-import {Topic} from '../../services/tuples/topic-types';
 import {Factor} from '../../services/tuples/factor-types';
-import {RuleDefs} from '../rule-defs';
-
-export interface MonitorRuleDef {
-	code: MonitorRuleCode;
-	name: string;
-	severity?: MonitorRuleSeverity;
-	canApply?: (topic: Topic, factor?: Factor) => boolean;
-	parameters?: Array<MonitorRuleParameterType>;
-}
-
-export enum MonitorRuleParameterType {
-	TOPIC = 'topic',
-	FACTOR = 'factor',
-	STATISTICAL_INTERVAL = 'statistical-interval',
-	AGGREGATION = 'aggregation',
-	COVERAGE_RATE = 'coverage-rate',
-	MIN_NUMBER = 'min-number',
-	MAX_NUMBER = 'max-number',
-	QUANTILE = 'quantile',
-	LENGTH = 'length',
-	MIN_LENGTH = 'min-length',
-	MAX_LENGTH = 'max-length',
-	REGEXP = 'regexp',
-	COMPARE_OPERATOR = 'compare-operator'
-}
+import {MonitorRuleDef, MonitorRuleParameterType, RuleDefs} from '../rule-defs';
 
 export const transformRuleDefsToDisplay = (codes: Array<MonitorRuleCode>) => {
 	return codes.map(code => {

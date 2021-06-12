@@ -1,6 +1,6 @@
 import {Topic} from '../../../services/tuples/topic-types';
 import {Factor} from '../../../services/tuples/factor-types';
-import {MonitorRuleDef, prepareRuleParams, SeverityOptions} from '../utils';
+import {prepareRuleParams, SeverityOptions} from '../utils';
 import {useForceUpdate} from '../../../basic-widgets/utils';
 import {
 	MonitorRule,
@@ -24,6 +24,7 @@ import {RuleMap} from './types';
 import {RulesEventTypes} from '../rules-event-bus-types';
 import {useRulesEventBus} from '../rules-event-bus';
 import {RuleParameters} from '../parameters';
+import {MonitorRuleDef} from '../../rule-defs';
 
 export const FactorRulesRow = (props: {
 	topic: Topic;

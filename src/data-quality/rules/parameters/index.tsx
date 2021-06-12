@@ -11,7 +11,6 @@ import {
 } from './widgets';
 import {ICON_EDIT} from '../../../basic-widgets/constants';
 import React, {Fragment, useState} from 'react';
-import {MonitorRuleDef, MonitorRuleParameterType} from '../utils';
 import {ButtonInk} from '../../../basic-widgets/types';
 import {useEventBus} from '../../../events/event-bus';
 import {EventTypes} from '../../../events/types';
@@ -28,6 +27,7 @@ import {useDataQualityCacheData} from '../../cache/use-cache-data';
 import {getTopicName} from '../../utils';
 import {RulesEventTypes} from '../rules-event-bus-types';
 import {useRulesEventBus} from '../rules-event-bus';
+import {MonitorRuleDef, MonitorRuleParameterType} from '../../rule-defs';
 
 const ParametersLabel = (props: {
 	def: MonitorRuleDef;

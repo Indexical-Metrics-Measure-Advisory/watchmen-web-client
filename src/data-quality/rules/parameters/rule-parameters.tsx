@@ -1,5 +1,4 @@
 import {MonitorRuleParameters} from '../../../services/data-quality/rules';
-import {MonitorRuleParameterType} from '../utils';
 import React from 'react';
 import {StatisticalIntervalParameter} from './statistical-interval-parameter';
 import {PercentageParameter} from './percentage-parameter';
@@ -10,6 +9,7 @@ import {Topic} from '../../../services/tuples/topic-types';
 import {Factor} from '../../../services/tuples/factor-types';
 import {AnotherTopicParameter} from './another-topic-parameter';
 import {AnotherFactorParameter} from './another-factor-parameter';
+import {MonitorRuleParameterType} from '../../rule-defs';
 
 export const RuleParameter = (props: {
 	params: MonitorRuleParameters;
