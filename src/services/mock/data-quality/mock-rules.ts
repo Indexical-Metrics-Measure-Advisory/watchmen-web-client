@@ -32,7 +32,7 @@ export const fetchMockMonitorRuleLogs = async (options: { criteria: MonitorRuleL
 				lastOccurredTime: getCurrentTime()
 			};
 		});
-	} else if (ruleCode) {
+	} else if (ruleCode && !topicId) {
 		return DemoTopics.map(topic => {
 			return {
 				ruleCode,
@@ -41,7 +41,7 @@ export const fetchMockMonitorRuleLogs = async (options: { criteria: MonitorRuleL
 				lastOccurredTime: getCurrentTime()
 			};
 		});
-	} else {
+	} else if (!ruleCode && !topicId) {
 		return new Array(20).fill(1).map(() => {
 			return {
 				ruleCode: codes[Math.floor(Math.random() * codes.length)] as MonitorRuleCode,
@@ -49,5 +49,21 @@ export const fetchMockMonitorRuleLogs = async (options: { criteria: MonitorRuleL
 				lastOccurredTime: getCurrentTime()
 			};
 		});
+	} else if (!ruleCode && topicId) {
+		// eslint-disable-next-line
+		const topic = DemoTopics.find(topic => topic.topicId == topicId);
+		return new Array(Math.floor(Math.random() * 5)).fill(1).map(() => {
+			return (topic?.factors || []).map(factor => {
+				return {
+					ruleCode: codes[Math.floor(Math.random() * codes.length)] as MonitorRuleCode,
+					topicId,
+					factorId: factor.factorId,
+					count: Math.round(Math.random() * 10000),
+					lastOccurredTime: getCurrentTime()
+				};
+			});
+		}).flat();
+	} else {
+		return [];
 	}
 };
