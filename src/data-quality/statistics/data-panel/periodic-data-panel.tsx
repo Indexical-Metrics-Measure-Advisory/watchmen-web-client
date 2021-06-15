@@ -90,7 +90,8 @@ export const PeriodicPanel = (props: {
 									} else {
 										return {
 											...row,
-											topicName: topic ? getTopicName(topic) : topicId
+											topicName: topic ? getTopicName(topic) : topicId,
+											factorName: '-'
 										};
 									}
 								}

@@ -195,6 +195,8 @@ export const FreeWalkPanel = () => {
 					if (factorId) {
 						// eslint-disable-next-line
 						factorName = (topic?.factors || []).find(factor => factor.factorId == factorId)?.name || 'Noname Factor';
+					} else if (topicId) {
+						factorName = '-';
 					}
 					return <DataPanelBodyDataRow columns={gridColumns} key={index}>
 						<DataPanelBodyDataSeqCell>{index + 1}</DataPanelBodyDataSeqCell>
