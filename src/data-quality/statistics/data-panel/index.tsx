@@ -6,7 +6,7 @@ import {
 	DataPanelHeaderButtons,
 	DataPanelHeaderTitle
 } from './widgets';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome';
 import {ICON_MAXIMIZE_PANEL, ICON_MINIMIZE_PANEL, ICON_RESTORE_PANEL} from '../../../basic-widgets/constants';
 import {TooltipAlignment} from '../../../basic-widgets/types';
 import {DataPanelLayout, DataPanelResize, DataPanels} from '../types';
@@ -20,14 +20,21 @@ const sameLayout = (l1: DataPanelLayout, l2: DataPanelLayout): boolean => {
 		&& l1.spanRow === l2.spanRow;
 };
 
+export interface AdditionalDataPanelHeaderButton {
+	iconProps: FontAwesomeIconProps;
+	tooltip: string;
+	action: () => void;
+}
+
 export const DataPanel = (props: {
 	which: DataPanels;
 	title: string;
 	layout: DataPanelLayout;
 	defaultLayout: DataPanelLayout;
+	buttons?: Array<AdditionalDataPanelHeaderButton>;
 	children?: ((props: any) => React.ReactNode) | React.ReactNode;
 }) => {
-	const {which, title, layout, defaultLayout, children} = props;
+	const {which, title, layout, defaultLayout, buttons = [], children} = props;
 
 	const {fire} = useStatisticsEventBus();
 
@@ -43,6 +50,13 @@ export const DataPanel = (props: {
 		<DataPanelHeader layout={layout}>
 			<DataPanelHeaderTitle layout={layout}>{title}</DataPanelHeaderTitle>
 			<DataPanelHeaderButtons layout={layout}>
+				{buttons.map(button => {
+					return <DataPanelHeaderButton tooltip={{label: button.tooltip, alignment: TooltipAlignment.CENTER}}
+					                              onClick={button.action}
+					                              key={button.tooltip}>
+						<FontAwesomeIcon {...button.iconProps}/>
+					</DataPanelHeaderButton>;
+				})}
 				{!hideMin
 					? <DataPanelHeaderButton tooltip={{label: 'Minimize', alignment: TooltipAlignment.CENTER}}
 					                         onClick={minimize}>

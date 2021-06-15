@@ -53,6 +53,9 @@ export const DataPanelHeaderTitle = styled.div.attrs<{ layout: DataPanelLayout }
 	align-items: center;
 	font-family: var(--title-font-family);
 	font-size: 1.4em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 `;
 export const DataPanelHeaderButtons = styled.div.attrs<{ layout: DataPanelLayout }>(({layout}) => {
 	return {
@@ -140,6 +143,12 @@ export const DataPanelBodyDataCell = styled.div.attrs({'data-widget': 'data-pane
 `;
 export const DataPanelBodyNoDataCell = styled(DataPanelBodyDataCell)`
 	grid-column: span 4;
+`;
+export const DataPanelBodyBreakdownCell = styled(DataPanelBodyDataCell).attrs<{ breakdown: boolean }>({})<{ breakdown: boolean }>`
+	&:hover > span {
+		text-decoration: underline;
+		cursor: pointer;
+	}
 `;
 export const DataPanelBodyDataSeqCell = styled(DataPanelBodyDataCell)`
 	width: ${SEQ_WIDTH}px;

@@ -1,10 +1,11 @@
-import {DataPanel} from './index';
+import {AdditionalDataPanelHeaderButton, DataPanel} from './index';
 import React, {useEffect, useState} from 'react';
 import {DataPanels} from '../types';
 import {useLayout} from './use-layout';
 import {DEFAULT_LAYOUTS} from '../constants';
 import {
 	DataPanelBody,
+	DataPanelBodyBreakdownCell,
 	DataPanelBodyDataCell,
 	DataPanelBodyDataRow,
 	DataPanelBodyDataSeqCell,
@@ -16,8 +17,28 @@ import {
 	HorizontalValueBar
 } from './widgets';
 import {fetchMonitorRuleLogs} from '../../../services/data-quality/rules';
-import {MonitorRuleLogs} from '../../../services/data-quality/rule-types';
+import {MonitorRuleCode, MonitorRuleLog, MonitorRuleLogs} from '../../../services/data-quality/rule-types';
 import {RuleDefs} from '../../rule-defs';
+import {EventTypes} from '../../../events/types';
+import {useEventBus} from '../../../events/event-bus';
+import {useDataQualityCacheEventBus} from '../../cache/cache-event-bus';
+import {DataQualityCacheEventTypes} from '../../cache/cache-event-bus-types';
+import {DQCCacheData} from '../../cache/types';
+import {getTopicName} from '../../utils';
+import {Topic} from '../../../services/tuples/topic-types';
+import {ICON_BACK, ICON_REFRESH} from '../../../basic-widgets/constants';
+
+const GRID_COLUMN_ALL = '35% 1fr 150px';
+
+interface State {
+	ruleCode?: MonitorRuleCode;
+	topicId?: string;
+}
+
+interface DataRow extends MonitorRuleLog {
+	topicName?: string;
+	factorName?: string;
+}
 
 export const PeriodicPanel = (props: {
 	which: DataPanels;
@@ -27,45 +48,135 @@ export const PeriodicPanel = (props: {
 		end: () => string;
 	}
 }) => {
-	const {which, title, period: {start, end}} = props;
+	const {which, title: givenTitle, period: {start, end}} = props;
 
+	const {fire: fireGlobal} = useEventBus();
+	const {once: onceCache} = useDataQualityCacheEventBus();
 	const {layout} = useLayout(which);
 
-	const [data, setData] = useState<MonitorRuleLogs>([]);
+	const [title, setTitle] = useState(givenTitle);
+	const [state, setState] = useState<State>({});
+	const [data, setData] = useState<Array<DataRow>>([]);
 	useEffect(() => {
-		(async () => {
-			const logs = await fetchMonitorRuleLogs({
+		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => await fetchMonitorRuleLogs({
 				criteria: {
 					startDate: start(),
-					endDate: end()
+					endDate: end(),
+					ruleCode: state.ruleCode,
+					topicId: state.topicId
+				}
+			}),
+			(logs: MonitorRuleLogs) => {
+				if (state.ruleCode) {
+					onceCache(DataQualityCacheEventTypes.REPLY_DATA, (data?: DQCCacheData) => {
+						const topics = data?.topics || [];
+						const topicMap = topics.reduce((map, topic) => {
+							map[topic.topicId] = topic;
+							return map;
+						}, {} as { [key in string]: Topic });
+						setData(logs.sort((r1, r2) => r1.count === r2.count ? 0 : (r1.count < r2.count) ? 1 : -1)
+							.map(row => {
+								const {topicId, factorId} = row;
+								if (topicId) {
+									const topic = topicMap[topicId];
+									if (factorId) {
+										return {
+											...row,
+											topicName: topic ? getTopicName(topic) : topicId,
+											// eslint-disable-next-line
+											factorName: (topic?.factors || []).find(factor => factor.factorId == factorId)?.name || 'Noname Factor'
+										};
+									} else {
+										return {
+											...row,
+											topicName: topic ? getTopicName(topic) : topicId
+										};
+									}
+								}
+								return row;
+							}));
+						if (state.topicId) {
+							const topic = topicMap[state.topicId];
+							const topicName = topic ? getTopicName(topic) : state.topicId;
+							setTitle(`${givenTitle} @ ${RuleDefs[state.ruleCode!].name} @ ${topicName}`);
+						} else {
+							setTitle(`${givenTitle} @ ${RuleDefs[state.ruleCode!].name}`);
+						}
+					}).fire(DataQualityCacheEventTypes.ASK_DATA);
+				} else {
+					setTitle(givenTitle);
+					setData(logs.sort((r1, r2) => r1.count === r2.count ? 0 : (r1.count < r2.count) ? 1 : -1));
 				}
 			});
-			logs.sort((r1, r2) => r1.count === r2.count ? 0 : (r1.count < r2.count) ? 1 : -1);
-			setData(logs);
-		})();
 		// load data once
 		// eslint-disable-next-line
-	}, []);
+	}, [state]);
 
+	const canBreakdown = !state.topicId;
+	const onBreakdownClicked = (ruleCode: MonitorRuleCode, topicId?: string) => () => {
+		setState({ruleCode, topicId});
+	};
 	const format = new Intl.NumberFormat(undefined, {useGrouping: true});
 
+	let headerButton;
+	let breakdownHeaderCell: JSX.Element;
+	let breakdownCell: (row: DataRow) => JSX.Element;
+	if (state.ruleCode && state.topicId) {
+		// rule code and topic fixed
+		headerButton = {
+			iconProps: {icon: ICON_BACK, transform: {rotate: 180}},
+			tooltip: 'Back to Topic',
+			action: () => setState({ruleCode: state.ruleCode})
+		};
+		breakdownHeaderCell = <DataPanelBodyHeaderCell>Factor</DataPanelBodyHeaderCell>;
+		breakdownCell = (row) => <DataPanelBodyDataCell>
+			<span>{row.factorName}</span>
+		</DataPanelBodyDataCell>;
+	} else if (state.ruleCode) {
+		// rule code fixed
+		headerButton = {
+			iconProps: {icon: ICON_BACK, transform: {rotate: 180}},
+			tooltip: 'Back to All',
+			action: () => setState({})
+		};
+		breakdownHeaderCell = <DataPanelBodyHeaderCell>Topic</DataPanelBodyHeaderCell>;
+		breakdownCell = (row) => <DataPanelBodyBreakdownCell breakdown={canBreakdown}
+		                                                     onClick={onBreakdownClicked(row.ruleCode, row.topicId)}>
+			<span>{row.topicName}</span>
+		</DataPanelBodyBreakdownCell>;
+	} else {
+		// all
+		breakdownHeaderCell = <DataPanelBodyHeaderCell>Rule</DataPanelBodyHeaderCell>;
+		breakdownCell = (row) => <DataPanelBodyBreakdownCell breakdown={canBreakdown}
+		                                                     onClick={onBreakdownClicked(row.ruleCode)}>
+			<span>{RuleDefs[row.ruleCode].name}</span>
+		</DataPanelBodyBreakdownCell>;
+	}
+
+	const headerButtons = [
+		headerButton,
+		{iconProps: {icon: ICON_REFRESH}, tooltip: 'Refresh', action: () => setState({...state})}
+	].filter(x => !!x) as Array<AdditionalDataPanelHeaderButton>;
+
 	return <DataPanel which={which} title={title}
-	                  layout={layout} defaultLayout={DEFAULT_LAYOUTS[which]}>
+	                  layout={layout} defaultLayout={DEFAULT_LAYOUTS[which]}
+	                  buttons={headerButtons}>
 		<DataPanelBody>
-			<DataPanelBodyHeader columns="35% 1fr 150px">
+			<DataPanelBodyHeader columns={GRID_COLUMN_ALL}>
 				<DataPanelBodyHeaderSeqCell>#</DataPanelBodyHeaderSeqCell>
-				<DataPanelBodyHeaderCell>Rule</DataPanelBodyHeaderCell>
+				{breakdownHeaderCell}
 				<DataPanelBodyHeaderCell>Occurred Times</DataPanelBodyHeaderCell>
 				<DataPanelBodyHeaderCell>Last Occurred</DataPanelBodyHeaderCell>
 			</DataPanelBodyHeader>
 			{data.length === 0
-				? <DataPanelBodyDataRow columns="35% 1fr 150px">
+				? <DataPanelBodyDataRow columns={GRID_COLUMN_ALL}>
 					<DataPanelBodyNoDataCell>No rule monitored.</DataPanelBodyNoDataCell>
 				</DataPanelBodyDataRow>
 				: data.map((row, index) => {
-					return <DataPanelBodyDataRow columns="35% 1fr 150px" key={index}>
+					return <DataPanelBodyDataRow columns={GRID_COLUMN_ALL} key={index}>
 						<DataPanelBodyDataSeqCell>{index + 1}</DataPanelBodyDataSeqCell>
-						<DataPanelBodyDataCell>{RuleDefs[row.ruleCode].name}</DataPanelBodyDataCell>
+						{breakdownCell(row)}
 						<DataPanelBodyDataCell>
 							<HorizontalValueBar value={row.count / 100}/>
 							<HorizontalValue>{format.format(row.count)}</HorizontalValue>

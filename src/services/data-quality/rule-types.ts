@@ -151,8 +151,9 @@ export const FactorRuleDefs = [
 export interface MonitorRuleLogCriteria {
 	startDate: string;
 	endDate: string;
-	ruleCode?: string;
+	ruleCode?: MonitorRuleCode;
 	topicId?: string;
+	factorId?: string;
 }
 
 export interface MonitorRuleLog {

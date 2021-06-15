@@ -6,6 +6,7 @@ import {
 	MonitorRulesCriteria
 } from '../../data-quality/rule-types';
 import {getCurrentTime} from '../../utils';
+import {DemoTopics} from '../tuples/mock-data-topics';
 
 export const fetchMockRules = async (options: { criteria: MonitorRulesCriteria }): Promise<MonitorRules> => {
 	return new Promise(resolve => {
@@ -16,12 +17,37 @@ export const fetchMockRules = async (options: { criteria: MonitorRulesCriteria }
 };
 
 export const fetchMockMonitorRuleLogs = async (options: { criteria: MonitorRuleLogCriteria }): Promise<MonitorRuleLogs> => {
+	const {criteria: {ruleCode, topicId}} = options;
 	const codes = Object.values(MonitorRuleCode);
-	return new Array(20).fill(1).map(() => {
-		return {
-			ruleCode: codes[Math.floor(Math.random() * codes.length)] as MonitorRuleCode,
-			count: Math.round(Math.random() * 10000),
-			lastOccurredTime: getCurrentTime()
-		};
-	});
+
+	if (ruleCode && topicId) {
+		// eslint-disable-next-line
+		const topic = DemoTopics.find(topic => topic.topicId == topicId);
+		return (topic?.factors || []).map(factor => {
+			return {
+				ruleCode,
+				topicId,
+				factorId: factor.factorId,
+				count: Math.round(Math.random() * 10000),
+				lastOccurredTime: getCurrentTime()
+			};
+		});
+	} else if (ruleCode) {
+		return DemoTopics.map(topic => {
+			return {
+				ruleCode,
+				topicId: topic.topicId,
+				count: Math.round(Math.random() * 10000),
+				lastOccurredTime: getCurrentTime()
+			};
+		});
+	} else {
+		return new Array(20).fill(1).map(() => {
+			return {
+				ruleCode: codes[Math.floor(Math.random() * codes.length)] as MonitorRuleCode,
+				count: Math.round(Math.random() * 10000),
+				lastOccurredTime: getCurrentTime()
+			};
+		});
+	}
 };
