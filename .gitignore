@@ -116,3 +116,4 @@ dist
 /build
 .vscode/settings.json
 .env.local
+.env.local
