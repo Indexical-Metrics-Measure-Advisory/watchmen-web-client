@@ -1,10 +1,5 @@
 import {
-	isRuleOnTopic,
-	MonitorRuleGrade,
-	MonitorRuleOnTopic,
-	MonitorRules,
-	MonitorRuleSeverity,
-	TopicRuleDefs
+	isRuleOnTopic
 } from '../../../services/data-quality/rules';
 import {prepareRuleParams, SeverityOptions, transformRuleDefsToDisplay} from '../utils';
 import {TopicRuleCell, TopicRuleEnablementCell, TopicRuleRow, TopicRuleSeqCell} from './widgets';
@@ -16,6 +11,13 @@ import {ColorfulCheckBox} from '../widgets';
 import {useRulesEventBus} from '../rules-event-bus';
 import {RulesEventTypes} from '../rules-event-bus-types';
 import {RuleParameters} from '../parameters';
+import {
+	MonitorRuleGrade,
+	MonitorRuleOnTopic,
+	MonitorRules,
+	MonitorRuleSeverity,
+	TopicRuleDefs
+} from '../../../services/data-quality/rule-types';
 
 export const TopicGradeRules = (props: { topic: Topic; rules: MonitorRules }) => {
 	const {topic, rules} = props;

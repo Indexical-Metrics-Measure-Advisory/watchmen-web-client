@@ -12,9 +12,6 @@ import {
 } from './widgets';
 import {
 	fetchMonitorRules,
-	MonitorRuleGrade,
-	MonitorRules,
-	MonitorRulesCriteria,
 	saveMonitorRules
 } from '../../services/data-quality/rules';
 import {RulesEventTypes} from './rules-event-bus-types';
@@ -28,6 +25,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ICON_LOADING, ICON_SAVE, ICON_SORT_ASC} from '../../basic-widgets/constants';
 import {Dropdown} from '../../basic-widgets/dropdown';
 import {Factor} from '../../services/tuples/factor-types';
+import {MonitorRuleGrade, MonitorRules, MonitorRulesCriteria} from '../../services/data-quality/rule-types';
 
 interface State {
 	grade: MonitorRuleGrade.GLOBAL | MonitorRuleGrade.TOPIC;

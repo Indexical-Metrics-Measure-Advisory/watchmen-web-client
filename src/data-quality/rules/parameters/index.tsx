@@ -1,4 +1,4 @@
-import {MonitorRule, MonitorRuleCompareOperator, MonitorRuleParameters} from '../../../services/data-quality/rules';
+
 import {
 	ParameterDialogHeader,
 	ParameterEditor,
@@ -28,6 +28,11 @@ import {getTopicName} from '../../utils';
 import {RulesEventTypes} from '../rules-event-bus-types';
 import {useRulesEventBus} from '../rules-event-bus';
 import {MonitorRuleDef, MonitorRuleParameterType} from '../../rule-defs';
+import {
+	MonitorRule,
+	MonitorRuleCompareOperator,
+	MonitorRuleParameters
+} from '../../../services/data-quality/rule-types';
 
 const ParametersLabel = (props: {
 	def: MonitorRuleDef;

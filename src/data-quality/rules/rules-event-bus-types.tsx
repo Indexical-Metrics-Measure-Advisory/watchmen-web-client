@@ -1,6 +1,7 @@
-import {MonitorRule, MonitorRules, MonitorRulesCriteria} from '../../services/data-quality/rules';
+
 import {Topic} from '../../services/tuples/topic-types';
 import {Factor} from '../../services/tuples/factor-types';
+import {MonitorRule, MonitorRules, MonitorRulesCriteria} from '../../services/data-quality/rule-types';
 
 export enum RulesEventTypes {
 	DO_SEARCH = 'do-search',

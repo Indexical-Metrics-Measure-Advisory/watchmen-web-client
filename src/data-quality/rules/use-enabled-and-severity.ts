@@ -1,8 +1,8 @@
 import {useForceUpdate} from '../../basic-widgets/utils';
-import {MonitorRule} from '../../services/data-quality/rules';
 import {DropdownOption} from '../../basic-widgets/types';
 import {useRulesEventBus} from './rules-event-bus';
 import {RulesEventTypes} from './rules-event-bus-types';
+import {MonitorRule} from '../../services/data-quality/rule-types';
 
 export const useEnabledAndSeverity = (rules: Array<MonitorRule>) => {
 	const {fire} = useRulesEventBus();
