@@ -52,7 +52,7 @@ export const fetchMockMonitorRuleLogs = async (options: { criteria: MonitorRuleL
 	} else if (!ruleCode && topicId) {
 		// eslint-disable-next-line
 		const topic = DemoTopics.find(topic => topic.topicId == topicId);
-		return new Array(Math.floor(Math.random() * 5)).fill(1).map(() => {
+		return new Array(Math.ceil(Math.random() * 4)).fill(1).map(() => {
 			return (topic?.factors || []).map(factor => {
 				return {
 					ruleCode: codes[Math.floor(Math.random() * codes.length)] as MonitorRuleCode,

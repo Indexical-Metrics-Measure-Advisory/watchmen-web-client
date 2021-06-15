@@ -85,14 +85,7 @@ export const FreeWalkPanel = () => {
 	}, []);
 	const fetchData = (criteria: Criteria) => {
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-			async () => await fetchMonitorRuleLogs({
-				criteria: {
-					startDate: criteria.startDate,
-					endDate: criteria.endDate,
-					ruleCode: criteria.ruleCode,
-					topicId: criteria.topicId
-				}
-			}),
+			async () => await fetchMonitorRuleLogs({criteria}),
 			(logs: MonitorRuleLogs) => {
 				setData(logs.sort((r1, r2) => r1.count === r2.count ? 0 : (r1.count < r2.count) ? 1 : -1));
 				setState({...criteria, loader: (void 0)});
