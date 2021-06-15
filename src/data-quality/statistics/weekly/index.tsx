@@ -1,12 +1,11 @@
-import {DataPanel} from '../data-panel';
 import React from 'react';
 import {DataPanels} from '../types';
-import {useLayout} from '../data-panel/use-layout';
-import {DEFAULT_LAYOUTS} from '../constants';
+import dayjs from 'dayjs';
+import {PeriodicPanel} from '../data-panel/periodic-data-panel';
 
 export const WeeklyPanel = () => {
-	const {layout} = useLayout(DataPanels.WEEKLY);
+	const getStartDate = () => dayjs().startOf('week').format('YYYY/MM/DD HH:mm:ss.SSS');
+	const getEndDate = () => dayjs().endOf('date').format('YYYY/MM/DD HH:mm:ss.SSS');
 
-	return <DataPanel which={DataPanels.WEEKLY} title="Weekly"
-	                  layout={layout} defaultLayout={DEFAULT_LAYOUTS[DataPanels.WEEKLY]}/>;
+	return <PeriodicPanel which={DataPanels.WEEKLY} title="Weekly" period={{start: getStartDate, end: getEndDate}}/>;
 };
