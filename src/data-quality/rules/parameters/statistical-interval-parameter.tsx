@@ -1,8 +1,9 @@
-import {MonitorRuleParameters, MonitorRuleStatisticalInterval} from '../../../services/data-quality/rules';
+
 import {useForceUpdate} from '../../../basic-widgets/utils';
 import {DropdownOption} from '../../../basic-widgets/types';
 import {Dropdown} from '../../../basic-widgets/dropdown';
 import React from 'react';
+import {MonitorRuleParameters, MonitorRuleStatisticalInterval} from '../../../services/data-quality/rule-types';
 
 const StatisticalIntervalOptions = [
 	{value: MonitorRuleStatisticalInterval.DAILY, label: 'Daily'},

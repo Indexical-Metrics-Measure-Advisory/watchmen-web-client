@@ -1,6 +1,7 @@
-import {MonitorRuleCode, MonitorRuleSeverity} from '../../services/data-quality/rules';
+
 import {Topic, TopicType} from '../../services/tuples/topic-types';
 import {Factor, FactorType} from '../../services/tuples/factor-types';
+import {MonitorRuleCode, MonitorRuleSeverity} from '../../services/data-quality/rule-types';
 
 export interface MonitorRuleDef {
 	code: MonitorRuleCode;

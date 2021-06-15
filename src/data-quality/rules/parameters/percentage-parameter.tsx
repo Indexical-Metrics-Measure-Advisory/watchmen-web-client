@@ -1,4 +1,4 @@
-import {MonitorRuleParameters} from '../../../services/data-quality/rules';
+import {MonitorRuleParameters} from '../../../services/data-quality/rule-types';
 import React, {ChangeEvent, useState} from 'react';
 import {PercentageContainer} from './widgets';
 import {Input} from '../../../basic-widgets/input';

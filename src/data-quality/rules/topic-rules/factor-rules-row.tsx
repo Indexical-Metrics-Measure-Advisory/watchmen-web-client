@@ -2,12 +2,6 @@ import {Topic} from '../../../services/tuples/topic-types';
 import {Factor} from '../../../services/tuples/factor-types';
 import {prepareRuleParams, SeverityOptions} from '../utils';
 import {useForceUpdate} from '../../../basic-widgets/utils';
-import {
-	MonitorRule,
-	MonitorRuleGrade,
-	MonitorRuleOnFactor,
-	MonitorRuleSeverity
-} from '../../../services/data-quality/rules';
 import {DropdownOption} from '../../../basic-widgets/types';
 import {
 	FactorRow,
@@ -25,6 +19,12 @@ import {RulesEventTypes} from '../rules-event-bus-types';
 import {useRulesEventBus} from '../rules-event-bus';
 import {RuleParameters} from '../parameters';
 import {MonitorRuleDef} from '../../rule-defs';
+import {
+	MonitorRule,
+	MonitorRuleGrade,
+	MonitorRuleOnFactor,
+	MonitorRuleSeverity
+} from '../../../services/data-quality/rule-types';
 
 export const FactorRulesRow = (props: {
 	topic: Topic;

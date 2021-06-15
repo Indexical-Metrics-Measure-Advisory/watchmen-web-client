@@ -1,5 +1,5 @@
 import {DataPanel} from '../data-panel';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {DataPanels} from '../types';
 import {useLayout} from '../data-panel/use-layout';
 import {DEFAULT_LAYOUTS} from '../constants';
@@ -14,19 +14,28 @@ import {
 	HorizontalValue,
 	HorizontalValueBar
 } from '../data-panel/widgets';
-import {getCurrentTime} from '../../../services/utils';
+import {fetchMonitorRuleLogs} from '../../../services/data-quality/rules';
+import {MonitorRuleLogs} from '../../../services/data-quality/rule-types';
+import {RuleDefs} from '../../rule-defs';
+import dayjs from 'dayjs';
 
 export const DailyPanel = () => {
 	const {layout} = useLayout(DataPanels.DAILY);
 
-	// TODO retrieve data
-	const data = new Array(100).fill(1).map(() => {
-		return {
-			name: 'Value breaks monotone increasing',
-			value: Math.round(Math.random() * 10000),
-			lastOccurred: getCurrentTime()
-		};
-	}).sort((r1, r2) => r1.value === r2.value ? 0 : (r1.value < r2.value) ? 1 : -1);
+	const [data, setData] = useState<MonitorRuleLogs>([]);
+	useEffect(() => {
+		(async () => {
+			const logs = await fetchMonitorRuleLogs({
+				criteria: {
+					startDate: dayjs().startOf('date').format('YYYY/MM/DD HH:mm:ss.SSS'),
+					endDate: dayjs().endOf('date').format('YYYY/MM/DD HH:mm:ss.SSS')
+				}
+			});
+			logs.sort((r1, r2) => r1.count === r2.count ? 0 : (r1.count < r2.count) ? 1 : -1);
+			setData(logs);
+		})();
+	}, []);
+
 	const format = new Intl.NumberFormat(undefined, {useGrouping: true});
 
 	return <DataPanel which={DataPanels.DAILY} title="Daily"
@@ -41,12 +50,12 @@ export const DailyPanel = () => {
 			{data.map((row, index) => {
 				return <DataPanelBodyDataRow columns="35% 1fr 150px" key={index}>
 					<DataPanelBodyDataSeqCell>{index + 1}</DataPanelBodyDataSeqCell>
-					<DataPanelBodyDataCell>{row.name}</DataPanelBodyDataCell>
+					<DataPanelBodyDataCell>{RuleDefs[row.ruleCode].name}</DataPanelBodyDataCell>
 					<DataPanelBodyDataCell>
-						<HorizontalValueBar value={row.value / 100}/>
-						<HorizontalValue>{format.format(row.value)}</HorizontalValue>
+						<HorizontalValueBar value={row.count / 100}/>
+						<HorizontalValue>{format.format(row.count)}</HorizontalValue>
 					</DataPanelBodyDataCell>
-					<DataPanelBodyDataCell>{row.lastOccurred}</DataPanelBodyDataCell>
+					<DataPanelBodyDataCell>{row.lastOccurredTime}</DataPanelBodyDataCell>
 				</DataPanelBodyDataRow>;
 			})}
 		</DataPanelBody>

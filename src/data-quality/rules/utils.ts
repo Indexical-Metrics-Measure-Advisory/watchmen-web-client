@@ -1,12 +1,11 @@
-import {
-	MonitorRule,
-	MonitorRuleCode,
-	MonitorRuleCompareOperator,
-	MonitorRuleSeverity,
-	MonitorRuleStatisticalInterval
-} from '../../services/data-quality/rules';
+
 import {Factor} from '../../services/tuples/factor-types';
 import {MonitorRuleDef, MonitorRuleParameterType, RuleDefs} from '../rule-defs';
+import {
+	MonitorRule, MonitorRuleCode,
+	MonitorRuleCompareOperator, MonitorRuleSeverity,
+	MonitorRuleStatisticalInterval
+} from '../../services/data-quality/rule-types';
 
 export const transformRuleDefsToDisplay = (codes: Array<MonitorRuleCode>) => {
 	return codes.map(code => {

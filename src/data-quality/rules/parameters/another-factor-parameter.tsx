@@ -1,4 +1,4 @@
-import {MonitorRuleParameters} from '../../../services/data-quality/rules';
+import {MonitorRuleParameters} from '../../../services/data-quality/rule-types';
 import {useForceUpdate} from '../../../basic-widgets/utils';
 import {DropdownOption} from '../../../basic-widgets/types';
 import {Dropdown} from '../../../basic-widgets/dropdown';

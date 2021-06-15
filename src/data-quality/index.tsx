@@ -71,7 +71,7 @@ const DataQualityIndex = () => {
 					<DataQualityMain><DataQualitySettings/></DataQualityMain>
 				</Route>
 				<Route path="*">
-					<Redirect to={Router.DATA_QUALITY_HOME}/>
+					<Redirect to={Router.DATA_QUALITY_STATISTICS}/>
 				</Route>
 			</Switch>
 		</DataQualityCacheEventBusProvider>
