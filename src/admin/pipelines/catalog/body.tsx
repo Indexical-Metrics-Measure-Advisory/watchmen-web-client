@@ -27,6 +27,7 @@ export const CatalogBody = (props: {
 	const svgRef = useRef<SVGSVGElement>(null);
 	const {fire, on, off} = useCatalogEventBus();
 	const [svgSize, setSvgSize] = useState<Partial<GraphicsSize>>({});
+	const [willComputeGraphics, setWillComputeGraphics] = useState(false);
 
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
@@ -36,12 +37,24 @@ export const CatalogBody = (props: {
 		}
 	}, [graphics, forceUpdate]);
 	useEffect(() => {
-		const onTopicsSelected = () => forceUpdate();
+		// when topic selected change, must paint topics to svg first
+		// and prepare to trigger next render
+		const onTopicsSelected = () => setWillComputeGraphics(true);
 		on(CatalogEventTypes.TOPICS_SELECTED, onTopicsSelected);
 		return () => {
 			off(CatalogEventTypes.TOPICS_SELECTED, onTopicsSelected);
 		};
-	}, [on, off, forceUpdate]);
+	}, [on, off, graphics]);
+	useEffect(() => {
+		if (willComputeGraphics) {
+			setWillComputeGraphics(false);
+			if (graphics && svgContainerRef.current && svgRef.current) {
+				const {width, height} = computeGraphics({graphics: graphics, svg: svgRef.current});
+				setSvgSize({width, height});
+				fire(CatalogEventTypes.TOPICS_REPAINTED, graphics);
+			}
+		}
+	}, [fire, graphics, willComputeGraphics])
 	useEffect(() => {
 		const onTopicMoved = (topic: Topic, graphics: AssembledTopicGraphics) => {
 			const {width = 0, height = 0} = svgSize;

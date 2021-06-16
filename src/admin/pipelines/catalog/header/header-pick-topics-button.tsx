@@ -13,6 +13,7 @@ import {Button} from '../../../../basic-widgets/button';
 import {Topic} from '../../../../services/tuples/topic-types';
 import {CheckBox} from '../../../../basic-widgets/checkbox';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
+import {createInitTopicRect} from '../graphics-utils';
 
 const SwitchDialogBody = styled(DialogBody)`
 	flex-direction: column;
@@ -114,11 +115,22 @@ export const HeaderPickTopicsButton = (props: { topics: Array<Topic>, graphics: 
 	const {fire} = useCatalogEventBus();
 
 	const onConfirm = (topics: Array<Topic>) => {
-		const map = topics.reduce((map, topic) => {
+		const selection = topics.reduce((map, topic) => {
 			map[topic.topicId] = topic;
 			return map;
 		}, {} as { [key in string]: Topic });
-		graphics.topics = graphics.topics.filter(({topic}) => map[topic.topicId]);
+		const exists = graphics.topics.reduce((map, {topic}) => {
+			map[topic.topicId] = topic;
+			return map;
+		}, {} as { [key in string]: Topic });
+		graphics.topics = [
+			// remove unpicked
+			...graphics.topics.filter(({topic}) => selection[topic.topicId]),
+			// picked, but not exists
+			...topics.filter(topic => !exists[topic.topicId]).map(topic => {
+				return {topic, rect: createInitTopicRect()};
+			})
+		];
 		fire(CatalogEventTypes.TOPICS_SELECTED, graphics);
 	};
 	const onPickClicked = () => {

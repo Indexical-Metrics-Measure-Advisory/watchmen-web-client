@@ -49,11 +49,11 @@ export const GraphicsSave = (props: { graphics?: AssembledPipelinesGraphics }) =
 		};
 		on(CatalogEventTypes.TOPIC_MOVED, onGraphicsChange);
 		on(CatalogEventTypes.NAME_CHANGED, onGraphicsChange);
-		on(CatalogEventTypes.TOPICS_SELECTED, onGraphicsChange);
+		on(CatalogEventTypes.TOPICS_REPAINTED, onGraphicsChange);
 		return () => {
 			off(CatalogEventTypes.TOPIC_MOVED, onGraphicsChange);
 			off(CatalogEventTypes.NAME_CHANGED, onGraphicsChange);
-			off(CatalogEventTypes.TOPICS_SELECTED, onGraphicsChange);
+			off(CatalogEventTypes.TOPICS_REPAINTED, onGraphicsChange);
 		};
 	}, [on, off, firePipelines, fireGlobal, fireCache, assembledGraphics]);
 

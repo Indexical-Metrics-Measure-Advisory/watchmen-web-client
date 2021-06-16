@@ -43,6 +43,14 @@ const dependRectData = (rect: PipelineBlockGraphicsRect): PipelineBlockGraphicsR
 	};
 };
 
+export const createInitTopicRect = () => {
+	return {
+		coordinate: {x: 0, y: 0},
+		frame: {x: 0, y: 0, width: BLOCK_WIDTH_MIN, height: BLOCK_HEIGHT_MIN},
+		name: {x: BLOCK_WIDTH_MIN / 2, y: BLOCK_HEIGHT_MIN / 2}
+	};
+};
+
 export const createInitGraphics = (options: {
 	topics: Array<Topic>;
 	graphics: PipelinesGraphics;
@@ -68,11 +76,7 @@ export const createInitGraphics = (options: {
 				rect: dependRectData(JSON.parse(JSON.stringify(graphics.rect)))
 			} : {
 				topic,
-				rect: {
-					coordinate: {x: 0, y: 0},
-					frame: {x: 0, y: 0, width: BLOCK_WIDTH_MIN, height: BLOCK_HEIGHT_MIN},
-					name: {x: BLOCK_WIDTH_MIN / 2, y: BLOCK_HEIGHT_MIN / 2}
-				}
+				rect: createInitTopicRect()
 			};
 		})
 	};
@@ -104,9 +108,11 @@ const computeTopicsGraphics = (graphics: AssembledPipelinesGraphics, svg: SVGSVG
 		const topicId = topicRect.getAttribute('data-topic-id')!;
 		const name = topicRect.querySelector(`text[data-role='${GraphicsRole.TOPIC_NAME}']`)! as SVGTextElement;
 		const nameRect = name.getBBox();
-		const rect = topicMap.get(topicId)!.rect;
-		rect.frame = {...rect.frame, ...computeBlockFrameSize(nameRect)};
-		rect.name = computeBlockNamePosition(rect.frame);
+		const rect = topicMap.get(topicId)?.rect;
+		if (rect) {
+			rect.frame = {...rect.frame, ...computeBlockFrameSize(nameRect)};
+			rect.name = computeBlockNamePosition(rect.frame);
+		}
 	});
 	const allTopics = Array.from(topicMap.values());
 	const rawTopics = allTopics.filter(({topic}) => topic.type === TopicType.RAW);

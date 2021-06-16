@@ -51,7 +51,9 @@ const PipelineCatalogContainer = () => {
 					if (isFakedUuidForGraphics(currentGraphics)) {
 						currentGraphics = transformGraphicsToSave(assembled);
 						await savePipelinesGraphics(currentGraphics);
-						graphics.push(currentGraphics);
+						if (graphics.filter(g => g.pipelineGraphId === currentGraphics!.pipelineGraphId).length === 0) {
+							graphics.push(currentGraphics);
+						}
 						fireCache(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, currentGraphics);
 					}
 
