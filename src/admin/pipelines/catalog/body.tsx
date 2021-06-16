@@ -47,6 +47,7 @@ export const CatalogBody = (props: {
 	}, [on, off, graphics]);
 	useEffect(() => {
 		if (willComputeGraphics) {
+			// trigger position compute again, fire repainted event to save data
 			setWillComputeGraphics(false);
 			if (graphics && svgContainerRef.current && svgRef.current) {
 				const {width, height} = computeGraphics({graphics: graphics, svg: svgRef.current});
