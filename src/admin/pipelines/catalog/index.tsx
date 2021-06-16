@@ -32,7 +32,6 @@ const PipelineCatalogContainer = () => {
 					if (!currentGraphics) {
 						currentGraphics = graphics[0];
 					}
-					let renderAll = false;
 					if (!currentGraphics) {
 						currentGraphics = {
 							pipelineGraphId: generateUuid(),
@@ -41,12 +40,11 @@ const PipelineCatalogContainer = () => {
 							createTime: getCurrentTime(),
 							lastModifyTime: getCurrentTime()
 						};
-						renderAll = true;
 					}
 					const assembled = createInitGraphics({
 						topics,
 						graphics: currentGraphics!,
-						renderAll
+						renderAll: graphics.length < 2
 					});
 					if (isFakedUuidForGraphics(currentGraphics)) {
 						currentGraphics = transformGraphicsToSave(assembled);

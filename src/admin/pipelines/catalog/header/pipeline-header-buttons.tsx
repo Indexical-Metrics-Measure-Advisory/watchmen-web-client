@@ -14,10 +14,16 @@ export const PipelineHeaderButtons = (props: {
 }) => {
 	const {topics, allGraphics, graphics} = props;
 
+	const showSwitch = allGraphics.length > 1;
+	const showPickTopics = allGraphics.length > 1;
+
 	return <PageHeaderButtons>
 		<HeaderCreateGraphicsButton/>
-		<HeaderSwitchGraphicsButton graphics={graphics} allGraphics={allGraphics}/>
-		<PageHeaderButtonSeparator/>
-		<HeaderPickTopicsButton topics={topics} graphics={graphics}/>
+		{showSwitch ? <HeaderSwitchGraphicsButton graphics={graphics} allGraphics={allGraphics}/> : null}
+		{showPickTopics
+			? <><PageHeaderButtonSeparator/>
+				<HeaderPickTopicsButton topics={topics} graphics={graphics}/>
+			</>
+			: null}
 	</PageHeaderButtons>;
 };

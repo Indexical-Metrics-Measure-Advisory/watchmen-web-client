@@ -108,7 +108,10 @@ const TopicPicker = (props: {
 	</>;
 };
 
-export const HeaderPickTopicsButton = (props: { topics: Array<Topic>, graphics: AssembledPipelinesGraphics }) => {
+export const HeaderPickTopicsButton = (props: {
+	topics: Array<Topic>;
+	graphics: AssembledPipelinesGraphics;
+}) => {
 	const {topics, graphics} = props;
 
 	const {fire: fireGlobal} = useEventBus();

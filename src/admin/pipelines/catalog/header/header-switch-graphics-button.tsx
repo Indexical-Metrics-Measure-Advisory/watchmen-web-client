@@ -65,10 +65,6 @@ export const HeaderSwitchGraphicsButton = (props: { allGraphics: Array<Pipelines
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useCatalogEventBus();
 
-	if (allGraphics.length < 2) {
-		return null;
-	}
-
 	const onSwitchTo = (graphics: PipelinesGraphics) => {
 		fire(CatalogEventTypes.SWITCH_GRAPHICS, graphics);
 	};
