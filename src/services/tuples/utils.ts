@@ -2,7 +2,7 @@ import {v4} from 'uuid';
 import {ConnectedSpace} from './connected-space-types';
 import {Dashboard} from './dashboard-types';
 import {Enum} from './enum-types';
-import {Pipeline} from './pipeline-types';
+import {Pipeline, PipelinesGraphics} from './pipeline-types';
 import {Report} from './report-types';
 import {Space} from './space-types';
 import {Subject} from './subject-types';
@@ -49,6 +49,9 @@ export const isEnum = (tuple: Tuple): tuple is Enum => {
 };
 
 export const generateUuid = (): string => `${FAKE_ID_PREFIX}${v4().replace(/-/g, '')}`;
+export const isFakedUuidForGraphics = (graphics: PipelinesGraphics): boolean => {
+	return graphics.pipelineGraphId.startsWith(FAKE_ID_PREFIX);
+};
 export const isFakedUuid = (tuple: Tuple): boolean => {
 	if (isPipeline(tuple)) {
 		// pipeline check must before topic check

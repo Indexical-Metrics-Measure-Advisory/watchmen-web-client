@@ -4,7 +4,7 @@ import {Topic} from '../services/tuples/topic-types';
 export interface AdminCacheData {
 	pipelines: Array<Pipeline>;
 	topics: Array<Topic>;
-	graphics: PipelinesGraphics;
+	graphics: Array<PipelinesGraphics>;
 }
 
 export interface DataQualityCacheData {

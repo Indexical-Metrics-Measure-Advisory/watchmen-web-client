@@ -3,6 +3,7 @@ import {Pipeline, PipelinesGraphics} from '../../services/tuples/pipeline-types'
 import {Topic} from '../../services/tuples/topic-types';
 import dayjs from 'dayjs';
 import {findAccount} from '../../services/account';
+import {AdminLastSnapshot} from '../../services/admin/last-snapshot-types';
 
 interface PipelinesTable {
 	id: string;
@@ -22,10 +23,17 @@ interface PipelinesGraphicsTable {
 	lastModifiedAt: Date;
 }
 
+interface AdminLastSnapshotTable {
+	id: string;
+	body: object;
+	lastModifiedAt: Date;
+}
+
 export class AdminDatabase extends Dexie {
 	pipelines: Dexie.Table<PipelinesTable, string>; // string = type of the primary key
 	topics: Dexie.Table<TopicsTable, string>;
 	pipelinesGraphics: Dexie.Table<PipelinesGraphicsTable, string>;
+	lastSnapshot: Dexie.Table<AdminLastSnapshotTable, string>;
 
 	constructor() {
 		super('watchmen-admin');
@@ -34,9 +42,13 @@ export class AdminDatabase extends Dexie {
 			topics: 'id',
 			pipelines_graphics: 'id'
 		});
+		this.version(2).stores({
+			admin_last_snapshot: 'id'
+		});
 		this.pipelines = this.table('pipelines');
 		this.topics = this.table('topics');
 		this.pipelinesGraphics = this.table('pipelines_graphics');
+		this.lastSnapshot = this.table('admin_last_snapshot');
 	}
 }
 
@@ -86,9 +98,31 @@ export const clearTopics = async (db: AdminDatabase) => {
 	await db.topics.clear();
 };
 
-export const findPipelinesGraphics = async (db: AdminDatabase): Promise<PipelinesGraphics | undefined> => {
-	const data = await db.pipelinesGraphics.limit(1).toArray();
-	return data[0]?.body as PipelinesGraphics;
+export const findPipelinesGraphics = async (db: AdminDatabase): Promise<Array<PipelinesGraphics>> => {
+	const name = findAccount()?.name;
+	if (!name) {
+		return [];
+	}
+	const data: Array<PipelinesGraphicsTable> = await db.pipelinesGraphics.toArray();
+	return data.filter(({id, body}) => {
+		if (body == null) {
+			return false;
+		} else if (id === name) {
+			// version 1, id is account name, delete it anyway
+			db.pipelinesGraphics.delete(id);
+			return true;
+		} else if ((body as any).account === name) {
+			// now for an account, there are multiple graphics
+			return true;
+		} else if (!(body as any).account) {
+			// belongs to nobody, delete it
+			db.pipelinesGraphics.delete(id);
+			return false;
+		} else {
+			// belongs to other accounts, ignored
+			return false;
+		}
+	}).map(item => item.body) as Array<PipelinesGraphics>;
 };
 
 export const savePipelinesGraphics = async (db: AdminDatabase, graphics: PipelinesGraphics) => {
@@ -96,20 +130,55 @@ export const savePipelinesGraphics = async (db: AdminDatabase, graphics: Pipelin
 	if (!name) {
 		return;
 	}
-	const updatedRows = await db.pipelinesGraphics.update(name, {
-		body: graphics,
+	const updatedRows = await db.pipelinesGraphics.update(graphics.pipelineGraphId, {
+		body: {...graphics, account: name},
 		lastModifiedAt: dayjs(graphics.lastModifyTime).toDate()
 	});
 	if (updatedRows === 0) {
 		await db.pipelinesGraphics.add({
-			id: name,
-			body: graphics,
+			id: graphics.pipelineGraphId,
+			body: {...graphics, account: name},
 			lastModifiedAt: dayjs(graphics.lastModifyTime).toDate()
 		});
 	}
+	await saveLastSnapshot(db, {lastPipelineGraphId: graphics.pipelineGraphId});
 };
 
 export const clearPipelinesGraphics = async (db: AdminDatabase) => {
 	await db.pipelinesGraphics.clear();
+};
+
+export const loadLastSnapshot = async (db: AdminDatabase): Promise<AdminLastSnapshot> => {
+	const name = findAccount()?.name;
+	if (!name) {
+		return {};
+	}
+	const lastSnapshot = await db.lastSnapshot.get(name);
+	if (!lastSnapshot) {
+		return {};
+	} else {
+		return lastSnapshot.body || {};
+	}
+};
+
+export const saveLastSnapshot = async (db: AdminDatabase, snapshot: Partial<AdminLastSnapshot>) => {
+	const name = findAccount()?.name;
+	if (!name) {
+		return;
+	}
+
+	const exists = await loadLastSnapshot(db);
+	const updated: AdminLastSnapshot = {...exists, ...snapshot};
+	const updatedRows = await db.lastSnapshot.update(name, {
+		body: updated,
+		lastModifiedAt: dayjs().toDate()
+	});
+	if (updatedRows === 0) {
+		await db.lastSnapshot.add({
+			id: name,
+			body: updated,
+			lastModifiedAt: dayjs().toDate()
+		});
+	}
 };
 

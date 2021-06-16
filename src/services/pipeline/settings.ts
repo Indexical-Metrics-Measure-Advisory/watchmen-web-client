@@ -16,7 +16,7 @@ export const fetchPipelinesSettingsData = async (): Promise<PipelinesSettings> =
 	return {pipelines, topics, graphics};
 };
 
-const fetchUpdatedPipelinesGraphics = async (lastModifiedTime: Dayjs): Promise<PipelinesGraphics | null> => {
+const fetchUpdatedPipelinesGraphics = async (lastModifiedTime: Dayjs): Promise<Array<PipelinesGraphics> | null> => {
 	if (isMockService()) {
 		return null;
 	} else {

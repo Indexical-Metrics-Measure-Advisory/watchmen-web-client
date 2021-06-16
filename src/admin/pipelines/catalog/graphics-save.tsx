@@ -38,7 +38,9 @@ export const GraphicsSave = (props: { graphics?: AssembledPipelinesGraphics }) =
 						handle: window.setTimeout(() => {
 							fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 								async () => await savePipelinesGraphics(graphics),
-								() => fireCache(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, graphics)
+								async () => {
+									fireCache(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, graphics);
+								}
 							);
 						}, SAVE_TIMEOUT)
 					};

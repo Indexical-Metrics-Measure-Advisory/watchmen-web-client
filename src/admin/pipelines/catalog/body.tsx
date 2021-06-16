@@ -17,6 +17,7 @@ import {Thumbnail} from './thumbnail';
 import {TopicRect} from './topic/topic-rect';
 import {AssembledTopicGraphics, CatalogData, GraphicsRole} from './types';
 import {BodyContainer, BodySvg, BodySvgContainer, BodySvgRelationsAnimationContainer} from './widgets';
+import {loadAdminLastSnapshot, saveAdminLastSnapshot} from '../../../local-persist/db';
 
 export const CatalogBody = () => {
 	const svgContainerRef = useRef<HTMLDivElement>(null);
@@ -30,11 +31,18 @@ export const CatalogBody = () => {
 	useEffect(() => {
 		oncePipelines(PipelinesEventTypes.REPLY_TOPICS, (topics: Array<Topic>) => {
 			oncePipelines(PipelinesEventTypes.REPLY_PIPELINES, (pipelines: Array<Pipeline>) => {
-				oncePipelines(PipelinesEventTypes.REPLY_GRAPHICS, (graphics: PipelinesGraphics) => {
+				oncePipelines(PipelinesEventTypes.REPLY_GRAPHICS, async (graphics: Array<PipelinesGraphics>) => {
+					const lastSnapshot = await loadAdminLastSnapshot();
+					const lastPipelineGraphId = lastSnapshot.lastPipelineGraphId;
+					const currentGraphics = graphics.find(g => g.pipelineGraphId === lastPipelineGraphId) ?? graphics[0];
+					await saveAdminLastSnapshot({lastPipelineGraphId: currentGraphics.pipelineGraphId});
 					setData({
 						initialized: true,
 						topics, pipelines,
-						graphics: createInitGraphics({topics, graphics})
+						graphics: createInitGraphics({
+							topics,
+							graphics: currentGraphics
+						})
 					});
 				}).fire(PipelinesEventTypes.ASK_GRAPHICS);
 			}).fire(PipelinesEventTypes.ASK_PIPELINES);

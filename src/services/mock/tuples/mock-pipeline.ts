@@ -1,10 +1,16 @@
 import {Pipeline, PipelinesGraphics} from '../../tuples/pipeline-types';
-import {isFakedUuid} from '../../tuples/utils';
+import {generateUuid, isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
 
-export const fetchMockPipelinesGraphics = async (): Promise<PipelinesGraphics> => {
+export const fetchMockPipelinesGraphics = async (): Promise<Array<PipelinesGraphics>> => {
 	return new Promise((resolve) => {
-		setTimeout(() => resolve({topics: [], createTime: getCurrentTime(), lastModifyTime: getCurrentTime()}), 500);
+		setTimeout(() => resolve([{
+			pipelineGraphId: generateUuid(),
+			name: '',
+			topics: [],
+			createTime: getCurrentTime(),
+			lastModifyTime: getCurrentTime()
+		}]), 500);
 	});
 };
 

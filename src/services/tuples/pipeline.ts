@@ -8,9 +8,9 @@ import {
 } from '../mock/tuples/mock-pipeline';
 import {isMockService} from '../utils';
 import {Pipeline, PipelinesGraphics} from './pipeline-types';
-import {isFakedUuid} from './utils';
+import {isFakedUuid, isFakedUuidForGraphics} from './utils';
 
-export const fetchPipelinesGraphics = async (): Promise<PipelinesGraphics> => {
+export const fetchPipelinesGraphics = async (): Promise<Array<PipelinesGraphics>> => {
 	if (isMockService()) {
 		return fetchMockPipelinesGraphics();
 	} else {
@@ -21,6 +21,10 @@ export const fetchPipelinesGraphics = async (): Promise<PipelinesGraphics> => {
 export const savePipelinesGraphics = async (graphics: PipelinesGraphics): Promise<void> => {
 	if (isMockService()) {
 		return saveMockPipelinesGraphics(graphics);
+	} else if (isFakedUuidForGraphics(graphics)) {
+		const data = await post({api: Apis.PIPELINE_GRAPHICS_SAVE, data: graphics});
+		graphics.pipelineGraphId = data.pipelineGraphId;
+		graphics.lastModifyTime = data.lastModifyTime;
 	} else {
 		const data = await post({api: Apis.PIPELINE_GRAPHICS_SAVE, data: graphics});
 		graphics.lastModifyTime = data.lastModifyTime;

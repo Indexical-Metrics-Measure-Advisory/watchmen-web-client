@@ -8,6 +8,7 @@ import {getCurrentTime} from '../../../services/utils';
 import {useAdminCacheEventBus} from '../../cache/cache-event-bus';
 import {AdminCacheEventTypes} from '../../cache/cache-event-bus-types';
 import {AdminCacheData} from '../../../local-persist/types';
+import {generateUuid} from '../../../services/tuples/utils';
 
 export const SettingsHolder = () => {
 	const {once: onceCache} = useAdminCacheEventBus();
@@ -16,7 +17,14 @@ export const SettingsHolder = () => {
 		initialized: false,
 		pipelines: [],
 		topics: [],
-		graphics: {topics: [], createTime: getCurrentTime(), lastModifyTime: getCurrentTime()}
+		// generate a fake graphics to defend the scenario which has no graphics yet
+		graphics: [{
+			pipelineGraphId: generateUuid(),
+			name: '',
+			topics: [],
+			createTime: getCurrentTime(),
+			lastModifyTime: getCurrentTime()
+		}]
 	});
 
 	useEffect(() => {
@@ -54,7 +62,11 @@ export const SettingsHolder = () => {
 	}, [on, off, holdSettings.pipelines]);
 	useEffect(() => {
 		const onGraphicsChanged = (graphics: PipelinesGraphics) => {
-			holdSettings.graphics = graphics;
+			holdSettings.graphics = [
+				graphics,
+				// eslint-disable-next-line
+				...holdSettings.graphics.filter(g => g.pipelineGraphId != graphics.pipelineGraphId)
+			];
 		};
 		on(PipelinesEventTypes.GRAPHICS_CHANGED, onGraphicsChanged);
 		return () => {

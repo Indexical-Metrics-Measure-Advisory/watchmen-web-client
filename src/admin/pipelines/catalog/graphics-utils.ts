@@ -21,6 +21,7 @@ import {
 } from './constants';
 import {AssembledPipelinesGraphics, AssembledTopicGraphics, GraphicsRole, RelationCurvePoints} from './types';
 import {getCurrentTime} from '../../../services/utils';
+import {generateUuid} from '../../../services/tuples/utils';
 
 const dependRectData = (rect: PipelineBlockGraphicsRect): PipelineBlockGraphicsRect => {
 	const {
@@ -49,8 +50,9 @@ export const createInitGraphics = (options: {
 }): AssembledPipelinesGraphics => {
 	const {
 		topics,
-		graphics: {topics: topicGraphics = []} = {topics: []}
+		graphics = {pipelineGraphId: generateUuid(), name: '', topics: []}
 	} = options;
+	const {topics: topicGraphics = []} = graphics;
 
 	const topicGraphicsMap: Map<string, TopicGraphics> = topicGraphics.reduce((map, topic) => {
 		map.set(topic.topicId, topic);
@@ -58,6 +60,8 @@ export const createInitGraphics = (options: {
 	}, new Map<string, TopicGraphics>());
 
 	return {
+		pipelineGraphId: graphics.pipelineGraphId,
+		name: graphics.name,
 		topics: topics.map(topic => {
 			const graphics = topicGraphicsMap.get(topic.topicId);
 			return graphics && graphics.rect ? {
@@ -313,6 +317,8 @@ export const computeRelationPoints = (options: { source: PipelineBlockGraphics; 
 
 export const transformGraphicsToSave = (graphics: AssembledPipelinesGraphics): PipelinesGraphics => {
 	return {
+		pipelineGraphId: graphics.pipelineGraphId,
+		name: graphics.name,
 		topics: graphics.topics.map(graphics => {
 			return {
 				topicId: graphics.topic.topicId,

@@ -62,6 +62,6 @@ export interface PipelinesEventBus {
 	on(type: PipelinesEventTypes.ASK_GRAPHICS, listener: () => void): this;
 	off(type: PipelinesEventTypes.ASK_GRAPHICS, listener: () => void): this;
 
-	fire(type: PipelinesEventTypes.REPLY_GRAPHICS, graphics: PipelinesGraphics): this;
-	once(type: PipelinesEventTypes.REPLY_GRAPHICS, listener: (graphics: PipelinesGraphics) => void): this;
+	fire(type: PipelinesEventTypes.REPLY_GRAPHICS, graphics: Array<PipelinesGraphics>): this;
+	once(type: PipelinesEventTypes.REPLY_GRAPHICS, listener: (graphics: Array<PipelinesGraphics>) => void): this;
 }

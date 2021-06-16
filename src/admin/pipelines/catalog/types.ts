@@ -18,6 +18,8 @@ export interface AssembledTopicGraphics extends PipelineBlockGraphics {
 }
 
 export interface AssembledPipelinesGraphics {
+	pipelineGraphId: string;
+	name: string;
 	topics: Array<AssembledTopicGraphics>;
 }
 

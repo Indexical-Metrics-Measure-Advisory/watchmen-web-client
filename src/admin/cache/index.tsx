@@ -8,6 +8,7 @@ import {useEventBus} from '../../events/event-bus';
 import {Pipeline, PipelinesGraphics} from '../../services/tuples/pipeline-types';
 import {saveAdminPipeline, saveAdminPipelinesGraphics, saveAdminTopic} from '../../local-persist/db';
 import {Topic} from '../../services/tuples/topic-types';
+import {isFakedUuidForGraphics} from '../../services/tuples/utils';
 
 export interface CacheState {
 	initialized: boolean;
@@ -78,7 +79,13 @@ export const AdminCache = () => {
 		const onSavePipelinesGraphics = async (graphics: PipelinesGraphics) => {
 			await saveAdminPipelinesGraphics(graphics);
 			if (data.data) {
-				data.data.graphics = graphics;
+				data.data.graphics = [
+					graphics,
+					// eslint-disable-next-line
+					...(data.data.graphics || []).filter(g => g.pipelineGraphId != graphics.pipelineGraphId)
+						// there is only one (maybe not exists) graphics is faked, now it is saved, so remove the fake one
+						.filter(g => isFakedUuidForGraphics(g))
+				];
 			}
 		};
 		on(AdminCacheEventTypes.SAVE_PIPELINE, onSavePipeline);

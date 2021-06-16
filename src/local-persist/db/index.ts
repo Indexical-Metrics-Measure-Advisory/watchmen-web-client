@@ -6,6 +6,8 @@ import {
 	findPipelines,
 	findPipelinesGraphics,
 	findTopics,
+	loadLastSnapshot,
+	saveLastSnapshot,
 	savePipeline,
 	savePipelinesGraphics,
 	saveTopic
@@ -13,6 +15,7 @@ import {
 import {Pipeline, PipelinesGraphics} from '../../services/tuples/pipeline-types';
 import {Topic} from '../../services/tuples/topic-types';
 import {deleteSimulatorDatabase, SimulatorDatabase} from './simulator';
+import {AdminLastSnapshot} from '../../services/admin/last-snapshot-types';
 
 const adminDB = new AdminDatabase();
 let simulatorDB = new SimulatorDatabase();
@@ -40,7 +43,7 @@ export const findAdminTopics = async (): Promise<Array<Topic>> => {
 	return findTopics(adminDB);
 };
 
-export const findAdminPipelinesGraphics = async (): Promise<PipelinesGraphics | undefined> => {
+export const findAdminPipelinesGraphics = async (): Promise<Array<PipelinesGraphics>> => {
 	return findPipelinesGraphics(adminDB);
 };
 
@@ -64,4 +67,12 @@ export const clearAdminTopics = async () => {
 };
 export const clearAdminPipelinesGraphics = async () => {
 	await clearPipelinesGraphics(adminDB);
+};
+
+export const loadAdminLastSnapshot = async (): Promise<AdminLastSnapshot> => {
+	return await loadLastSnapshot(adminDB);
+};
+
+export const saveAdminLastSnapshot = async (snapshot: Partial<AdminLastSnapshot>) => {
+	await saveLastSnapshot(adminDB, snapshot);
 };

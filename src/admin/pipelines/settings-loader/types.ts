@@ -5,5 +5,5 @@ export interface HoldSettings {
 	initialized: boolean;
 	pipelines: Array<Pipeline>;
 	topics: Array<Topic>;
-	graphics: PipelinesGraphics;
+	graphics: Array<PipelinesGraphics>;
 }
