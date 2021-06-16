@@ -1,59 +1,47 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useForceUpdate} from '../../../basic-widgets/utils';
 import {GraphicsSize} from '../../../services/graphics/graphics-types';
-import {Pipeline, PipelinesGraphics} from '../../../services/tuples/pipeline-types';
+import {Pipeline} from '../../../services/tuples/pipeline-types';
 import {Topic} from '../../../services/tuples/topic-types';
-import {usePipelinesEventBus} from '../pipelines-event-bus';
-import {PipelinesEventTypes} from '../pipelines-event-bus-types';
 import {useCatalogEventBus} from './catalog-event-bus';
 import {CatalogEventTypes} from './catalog-event-bus-types';
 import {GraphicsSave} from './graphics-save';
-import {asTopicGraphicsMap, computeGraphics, createInitGraphics} from './graphics-utils';
+import {asTopicGraphicsMap, computeGraphics} from './graphics-utils';
 import {Navigator} from './navigator';
 import {BlockRelations} from './relation/block-relations';
 import {BlockRelationsAnimation} from './relation/block-relations-animation';
 import {BlockSelection} from './selection';
 import {Thumbnail} from './thumbnail';
 import {TopicRect} from './topic/topic-rect';
-import {AssembledTopicGraphics, CatalogData, GraphicsRole} from './types';
+import {AssembledPipelinesGraphics, AssembledTopicGraphics, GraphicsRole} from './types';
 import {BodyContainer, BodySvg, BodySvgContainer, BodySvgRelationsAnimationContainer} from './widgets';
-import {loadAdminLastSnapshot, saveAdminLastSnapshot} from '../../../local-persist/db';
 
-export const CatalogBody = () => {
+export const CatalogBody = (props: {
+	topics: Array<Topic>;
+	pipelines: Array<Pipeline>;
+	graphics: AssembledPipelinesGraphics;
+}) => {
+	const {topics, pipelines, graphics} = props;
+
 	const svgContainerRef = useRef<HTMLDivElement>(null);
 	const svgRef = useRef<SVGSVGElement>(null);
-	const {once: oncePipelines} = usePipelinesEventBus();
 	const {fire, on, off} = useCatalogEventBus();
-	const [data, setData] = useState<CatalogData>({initialized: false, topics: [], pipelines: []});
 	const [svgSize, setSvgSize] = useState<Partial<GraphicsSize>>({});
 
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
-		oncePipelines(PipelinesEventTypes.REPLY_TOPICS, (topics: Array<Topic>) => {
-			oncePipelines(PipelinesEventTypes.REPLY_PIPELINES, (pipelines: Array<Pipeline>) => {
-				oncePipelines(PipelinesEventTypes.REPLY_GRAPHICS, async (graphics: Array<PipelinesGraphics>) => {
-					const lastSnapshot = await loadAdminLastSnapshot();
-					const lastPipelineGraphId = lastSnapshot.lastPipelineGraphId;
-					const currentGraphics = graphics.find(g => g.pipelineGraphId === lastPipelineGraphId) ?? graphics[0];
-					await saveAdminLastSnapshot({lastPipelineGraphId: currentGraphics.pipelineGraphId});
-					setData({
-						initialized: true,
-						topics, pipelines,
-						graphics: createInitGraphics({
-							topics,
-							graphics: currentGraphics
-						})
-					});
-				}).fire(PipelinesEventTypes.ASK_GRAPHICS);
-			}).fire(PipelinesEventTypes.ASK_PIPELINES);
-		}).fire(PipelinesEventTypes.ASK_TOPICS);
-	}, [oncePipelines]);
-	useEffect(() => {
-		if (data.graphics && svgContainerRef.current && svgRef.current) {
-			const {width, height} = computeGraphics({graphics: data.graphics, svg: svgRef.current});
+		if (graphics && svgContainerRef.current && svgRef.current) {
+			const {width, height} = computeGraphics({graphics: graphics, svg: svgRef.current});
 			setSvgSize({width, height});
 		}
-	}, [data.graphics, forceUpdate]);
+	}, [graphics, forceUpdate]);
+	useEffect(() => {
+		const onTopicsSelected = () => forceUpdate();
+		on(CatalogEventTypes.TOPICS_SELECTED, onTopicsSelected);
+		return () => {
+			off(CatalogEventTypes.TOPICS_SELECTED, onTopicsSelected);
+		};
+	}, [on, off, forceUpdate]);
 	useEffect(() => {
 		const onTopicMoved = (topic: Topic, graphics: AssembledTopicGraphics) => {
 			const {width = 0, height = 0} = svgSize;
@@ -74,8 +62,8 @@ export const CatalogBody = () => {
 			// @ts-ignore
 			const resizeObserver = new ResizeObserver(() => {
 				fire(CatalogEventTypes.RESIZE);
-				if (data.graphics && svgContainerRef.current && svgRef.current) {
-					const {width, height} = computeGraphics({graphics: data.graphics, svg: svgRef.current});
+				if (graphics && svgContainerRef.current && svgRef.current) {
+					const {width, height} = computeGraphics({graphics: graphics, svg: svgRef.current});
 					if (width > (svgSize.width || 0) || height > (svgSize.height || 0)) {
 						setSvgSize({width, height});
 					}
@@ -84,11 +72,7 @@ export const CatalogBody = () => {
 			resizeObserver.observe(svgContainerRef.current);
 			return () => resizeObserver.disconnect();
 		}
-	}, [fire, data.graphics, svgSize.width, svgSize.height]);
-
-	if (!data.initialized || !data.graphics) {
-		return null;
-	}
+	}, [fire, graphics, svgSize.width, svgSize.height]);
 
 	const clearSelection = () => {
 		fire(CatalogEventTypes.CLEAR_SELECTION);
@@ -121,24 +105,29 @@ export const CatalogBody = () => {
 		}
 	};
 
-	const topicGraphicsMap: Map<string, AssembledTopicGraphics> = asTopicGraphicsMap(data.graphics);
+	const topicGraphicsMap: Map<string, AssembledTopicGraphics> = asTopicGraphicsMap(graphics);
 
 	return <BodyContainer>
 		<BodySvgContainer ref={svgContainerRef} onScroll={onBodyScroll}>
 			<BodySvg onMouseDown={onSvgMouseDown} {...svgSize} ref={svgRef}>
-				<BlockRelations graphics={data.graphics} pipelines={data.pipelines}/>
-				{data.topics.map(topic => {
-					const topicGraphics = topicGraphicsMap.get(topic.topicId)!;
+				<BlockRelations graphics={graphics} pipelines={pipelines}/>
+				{topics.map(topic => {
+					const topicGraphics = topicGraphicsMap.get(topic.topicId);
+					if (!topicGraphics) {
+						return null;
+					}
 					return <TopicRect topic={topicGraphics} key={topic.topicId}/>;
 				})}
-				<BlockSelection graphics={data.graphics}/>
+				<BlockSelection graphics={graphics}/>
 			</BodySvg>
 			<BodySvgRelationsAnimationContainer>
-				<BlockRelationsAnimation graphics={data.graphics} pipelines={data.pipelines}/>
+				<BlockRelationsAnimation graphics={graphics} pipelines={pipelines}/>
 			</BodySvgRelationsAnimationContainer>
-			<Thumbnail data={data} svgSize={svgSize} topicGraphicsMap={topicGraphicsMap}/>
+			<Thumbnail pipelines={pipelines} topics={topics} graphics={graphics}
+			           svgSize={svgSize}
+			           topicGraphicsMap={topicGraphicsMap}/>
 		</BodySvgContainer>
-		<Navigator pipelines={data.pipelines} topics={data.topics}/>
-		<GraphicsSave graphics={data.graphics}/>
+		<Navigator pipelines={pipelines} topics={topics}/>
+		<GraphicsSave graphics={graphics}/>
 	</BodyContainer>;
 };

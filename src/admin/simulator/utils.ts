@@ -21,5 +21,5 @@ export const getActionType = (action: PipelineStageUnitAction): string => {
 };
 
 export const getTopicName = (topic: Topic): string => {
-	return topic.name || `Noname Pipeline (#${topic.topicId})`;
+	return topic.name || `Noname Topic (#${topic.topicId})`;
 };

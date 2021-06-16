@@ -8,7 +8,6 @@ import {useEventBus} from '../../events/event-bus';
 import {Pipeline, PipelinesGraphics} from '../../services/tuples/pipeline-types';
 import {saveAdminPipeline, saveAdminPipelinesGraphics, saveAdminTopic} from '../../local-persist/db';
 import {Topic} from '../../services/tuples/topic-types';
-import {isFakedUuidForGraphics} from '../../services/tuples/utils';
 
 export interface CacheState {
 	initialized: boolean;
@@ -83,8 +82,6 @@ export const AdminCache = () => {
 					graphics,
 					// eslint-disable-next-line
 					...(data.data.graphics || []).filter(g => g.pipelineGraphId != graphics.pipelineGraphId)
-						// there is only one (maybe not exists) graphics is faked, now it is saved, so remove the fake one
-						.filter(g => isFakedUuidForGraphics(g))
 				];
 			}
 		};

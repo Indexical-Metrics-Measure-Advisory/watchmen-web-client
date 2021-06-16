@@ -1,5 +1,6 @@
 import {Topic} from '../../../services/tuples/topic-types';
-import {AssembledTopicGraphics} from './types';
+import {AssembledPipelinesGraphics, AssembledTopicGraphics} from './types';
+import {PipelinesGraphics} from '../../../services/tuples/pipeline-types';
 
 export enum CatalogEventTypes {
 	TOPIC_SELECTED = 'topic-selected',
@@ -7,38 +8,45 @@ export enum CatalogEventTypes {
 
 	TOPIC_MOVED = 'topic-moved',
 
+	NAME_CHANGED = 'name-changed',
+
 	SCROLL = 'scroll',
-	RESIZE = 'resize'
+	RESIZE = 'resize',
+
+	SWITCH_GRAPHICS = 'switch-graphics',
+	TOPICS_SELECTED = 'topics-selected'
 }
 
 export interface CatalogEventBus {
 	fire(type: CatalogEventTypes.TOPIC_SELECTED, topic: Topic): this;
-
 	on(type: CatalogEventTypes.TOPIC_SELECTED, listener: (topic: Topic) => void): this;
-
 	off(type: CatalogEventTypes.TOPIC_SELECTED, listener: (topic: Topic) => void): this;
 
 	fire(type: CatalogEventTypes.CLEAR_SELECTION): this;
-
 	on(type: CatalogEventTypes.CLEAR_SELECTION, listener: () => void): this;
-
 	off(type: CatalogEventTypes.CLEAR_SELECTION, listener: () => void): this;
 
 	fire(type: CatalogEventTypes.TOPIC_MOVED, topic: Topic, graphics: AssembledTopicGraphics): this;
-
 	on(type: CatalogEventTypes.TOPIC_MOVED, listener: (topic: Topic, graphics: AssembledTopicGraphics) => void): this;
-
 	off(type: CatalogEventTypes.TOPIC_MOVED, listener: (topic: Topic, graphics: AssembledTopicGraphics) => void): this;
 
+	fire(type: CatalogEventTypes.NAME_CHANGED, graphics: AssembledPipelinesGraphics): this;
+	on(type: CatalogEventTypes.NAME_CHANGED, listener: (graphics: AssembledPipelinesGraphics) => void): this;
+	off(type: CatalogEventTypes.NAME_CHANGED, listener: (graphics: AssembledPipelinesGraphics) => void): this;
+
 	fire(type: CatalogEventTypes.SCROLL): this;
-
 	on(type: CatalogEventTypes.SCROLL, listener: () => void): this;
-
 	off(type: CatalogEventTypes.SCROLL, listener: () => void): this;
 
 	fire(type: CatalogEventTypes.RESIZE): this;
-
 	on(type: CatalogEventTypes.RESIZE, listener: () => void): this;
-
 	off(type: CatalogEventTypes.RESIZE, listener: () => void): this;
+
+	fire(type: CatalogEventTypes.SWITCH_GRAPHICS, graphics: PipelinesGraphics): this;
+	on(type: CatalogEventTypes.SWITCH_GRAPHICS, listener: (graphics: PipelinesGraphics) => void): this;
+	off(type: CatalogEventTypes.SWITCH_GRAPHICS, listener: (graphics: PipelinesGraphics) => void): this;
+
+	fire(type: CatalogEventTypes.TOPICS_SELECTED, graphics: AssembledPipelinesGraphics): this;
+	on(type: CatalogEventTypes.TOPICS_SELECTED, listener: (graphics: AssembledPipelinesGraphics) => void): this;
+	off(type: CatalogEventTypes.TOPICS_SELECTED, listener: (graphics: AssembledPipelinesGraphics) => void): this;
 }

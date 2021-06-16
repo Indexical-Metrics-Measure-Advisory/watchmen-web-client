@@ -9,16 +9,20 @@ import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {BlockRelations} from '../relation/block-relations';
 import {BlockSelection} from '../selection';
 import {TopicRect} from '../topic/topic-rect';
-import {AssembledTopicGraphics, CatalogData} from '../types';
+import {AssembledPipelinesGraphics, AssembledTopicGraphics} from '../types';
 import {Current} from './current';
 import {BodyThumbnail, CloseButton, THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH, ThumbnailBodySvg} from './widgets';
+import {Pipeline} from '../../../../services/tuples/pipeline-types';
+import {Topic} from '../../../../services/tuples/topic-types';
 
 export const Thumbnail = (props: {
-	data: CatalogData;
+	pipelines: Array<Pipeline>;
+	topics: Array<Topic>;
+	graphics: AssembledPipelinesGraphics;
 	svgSize: Partial<GraphicsSize>;
 	topicGraphicsMap: Map<string, AssembledTopicGraphics>
 }) => {
-	const {data, svgSize, topicGraphicsMap} = props;
+	const {pipelines, topics, graphics, svgSize, topicGraphicsMap} = props;
 
 	const {on, off} = useCatalogEventBus();
 	const thumbnailRef = useRef<HTMLDivElement>(null);
@@ -30,10 +34,6 @@ export const Thumbnail = (props: {
 			off(CatalogEventTypes.TOPIC_MOVED, forceUpdate);
 		};
 	}, [on, off, forceUpdate]);
-
-	if (!data.graphics) {
-		return null;
-	}
 
 	const {width = 0, height = 0} = svgSize;
 	if (width === 0 || height === 0) {
@@ -65,12 +65,15 @@ export const Thumbnail = (props: {
 	return <BodyThumbnail onClick={onThumbnailClicked} minimize={min}
 	                      ref={thumbnailRef}>
 		{min ? null : <ThumbnailBodySvg {...svgSize} ratio={ratio}>
-			<BlockRelations graphics={data.graphics} pipelines={data.pipelines}/>
-			{data.topics.map(topic => {
-				const topicGraphics = topicGraphicsMap.get(topic.topicId)!;
+			<BlockRelations graphics={graphics} pipelines={pipelines}/>
+			{topics.map(topic => {
+				const topicGraphics = topicGraphicsMap.get(topic.topicId);
+				if (!topicGraphics) {
+					return null;
+				}
 				return <TopicRect topic={topicGraphics} key={topic.topicId}/>;
 			})}
-			<BlockSelection graphics={data.graphics}/>
+			<BlockSelection graphics={graphics}/>
 		</ThumbnailBodySvg>}
 		{min ? null : <Current ratio={ratio}/>}
 		<CloseButton ink={ButtonInk.WARN} visible={min}
