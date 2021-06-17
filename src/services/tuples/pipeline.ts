@@ -1,5 +1,6 @@
 import {Apis, get, post} from '../apis';
 import {
+	deleteMockPipelineGraphics,
 	fetchMockPipelinesGraphics,
 	renameMockPipeline,
 	saveMockPipeline,
@@ -28,6 +29,14 @@ export const savePipelinesGraphics = async (graphics: PipelinesGraphics): Promis
 	} else {
 		const data = await post({api: Apis.PIPELINE_GRAPHICS_SAVE, data: graphics});
 		graphics.lastModifyTime = data.lastModifyTime;
+	}
+};
+
+export const deletePipelineGraphics = async (pipelineGraphId: string): Promise<void> => {
+	if (isMockService()) {
+		await deleteMockPipelineGraphics(pipelineGraphId);
+	} else {
+		await get({api: Apis.PIPELINE_GRAPHICS_DELETE, search: {pipelineGraphId}});
 	}
 };
 

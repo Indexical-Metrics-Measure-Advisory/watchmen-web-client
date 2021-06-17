@@ -15,7 +15,9 @@ export enum CatalogEventTypes {
 
 	SWITCH_GRAPHICS = 'switch-graphics',
 	TOPICS_SELECTED = 'topics-selected',
-	TOPICS_REPAINTED = 'topics-repaint'
+	TOPICS_REPAINTED = 'topics-repaint',
+
+	GRAPHICS_REMOVED = 'graphics-removed'
 }
 
 export interface CatalogEventBus {
@@ -54,4 +56,8 @@ export interface CatalogEventBus {
 	fire(type: CatalogEventTypes.TOPICS_REPAINTED, graphics: AssembledPipelinesGraphics): this;
 	on(type: CatalogEventTypes.TOPICS_REPAINTED, listener: (graphics: AssembledPipelinesGraphics) => void): this;
 	off(type: CatalogEventTypes.TOPICS_REPAINTED, listener: (graphics: AssembledPipelinesGraphics) => void): this;
+
+	fire(type: CatalogEventTypes.GRAPHICS_REMOVED, graphics: AssembledPipelinesGraphics): this;
+	on(type: CatalogEventTypes.GRAPHICS_REMOVED, listener: (graphics: AssembledPipelinesGraphics) => void): this;
+	off(type: CatalogEventTypes.GRAPHICS_REMOVED, listener: (graphics: AssembledPipelinesGraphics) => void): this;
 }

@@ -3,6 +3,7 @@ import {
 	clearPipelines,
 	clearPipelinesGraphics,
 	clearTopics,
+	deletePipelineGraphics,
 	findPipelines,
 	findPipelinesGraphics,
 	findTopics,
@@ -64,6 +65,9 @@ export const clearAdminPipelines = async () => {
 };
 export const clearAdminTopics = async () => {
 	await clearTopics(adminDB);
+};
+export const deleteAdminPipelineGraphics = async (pipelineGraphId: string) => {
+	await deletePipelineGraphics(adminDB, pipelineGraphId);
 };
 export const clearAdminPipelinesGraphics = async () => {
 	await clearPipelinesGraphics(adminDB);

@@ -6,7 +6,12 @@ import {AdminCacheEventTypes} from './cache-event-bus-types';
 import {EventTypes} from '../../events/types';
 import {useEventBus} from '../../events/event-bus';
 import {Pipeline, PipelinesGraphics} from '../../services/tuples/pipeline-types';
-import {saveAdminPipeline, saveAdminPipelinesGraphics, saveAdminTopic} from '../../local-persist/db';
+import {
+	deleteAdminPipelineGraphics,
+	saveAdminPipeline,
+	saveAdminPipelinesGraphics,
+	saveAdminTopic
+} from '../../local-persist/db';
 import {Topic} from '../../services/tuples/topic-types';
 
 export interface CacheState {
@@ -85,15 +90,24 @@ export const AdminCache = () => {
 				];
 			}
 		};
+		const onRemovePipelinesGraphics = async (pipelineGraphId: string) => {
+			await deleteAdminPipelineGraphics(pipelineGraphId);
+			if (data.data) {
+				// eslint-disable-next-line
+				data.data.graphics = (data.data.graphics || []).filter(g => g.pipelineGraphId != pipelineGraphId);
+			}
+		};
 		on(AdminCacheEventTypes.SAVE_PIPELINE, onSavePipeline);
 		on(AdminCacheEventTypes.SAVE_TOPIC, onSaveTopic);
 		on(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, onSavePipelinesGraphics);
+		on(AdminCacheEventTypes.REMOVE_PIPELINES_GRAPHICS, onRemovePipelinesGraphics);
 		on(AdminCacheEventTypes.TOPIC_LOADED, onSaveTopic);
 		on(AdminCacheEventTypes.PIPELINE_LOADED, onSavePipeline);
 		return () => {
 			off(AdminCacheEventTypes.SAVE_PIPELINE, onSavePipeline);
 			off(AdminCacheEventTypes.SAVE_TOPIC, onSaveTopic);
 			off(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, onSavePipelinesGraphics);
+			off(AdminCacheEventTypes.REMOVE_PIPELINES_GRAPHICS, onRemovePipelinesGraphics);
 			off(AdminCacheEventTypes.TOPIC_LOADED, onSaveTopic);
 			off(AdminCacheEventTypes.PIPELINE_LOADED, onSavePipeline);
 		};

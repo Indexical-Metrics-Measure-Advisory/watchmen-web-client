@@ -144,6 +144,20 @@ export const savePipelinesGraphics = async (db: AdminDatabase, graphics: Pipelin
 	await saveLastSnapshot(db, {lastPipelineGraphId: graphics.pipelineGraphId});
 };
 
+export const deletePipelineGraphics = async (db: AdminDatabase, pipelineGraphId: string) => {
+	const name = findAccount()?.name;
+	if (!name) {
+		return;
+	}
+
+	const graphics = await db.pipelinesGraphics.get(pipelineGraphId);
+	if (graphics) {
+		if ((graphics.body as any).account === name) {
+			await db.pipelinesGraphics.delete(pipelineGraphId);
+		}
+	}
+};
+
 export const clearPipelinesGraphics = async (db: AdminDatabase) => {
 	await db.pipelinesGraphics.clear();
 };

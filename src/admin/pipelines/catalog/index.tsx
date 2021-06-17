@@ -8,14 +8,30 @@ import {Pipeline, PipelinesGraphics} from '../../../services/tuples/pipeline-typ
 import {loadAdminLastSnapshot, saveAdminLastSnapshot} from '../../../local-persist/db';
 import {createInitGraphics, transformGraphicsToSave} from './graphics-utils';
 import {usePipelinesEventBus} from '../pipelines-event-bus';
-import {CatalogData} from './types';
+import {AssembledPipelinesGraphics, CatalogData} from './types';
 import {CatalogEventTypes} from './catalog-event-bus-types';
 import {generateUuid, isFakedUuidForGraphics} from '../../../services/tuples/utils';
 import {getCurrentTime} from '../../../services/utils';
 import {savePipelinesGraphics} from '../../../services/tuples/pipeline';
-import {AdminCacheEventTypes} from '../../cache/cache-event-bus-types';
 import {useAdminCacheEventBus} from '../../cache/cache-event-bus';
+import {AdminCacheEventTypes} from '../../cache/cache-event-bus-types';
 
+const saveAndPutIntoState = async (
+	currentGraphics: PipelinesGraphics,
+	assembled: AssembledPipelinesGraphics,
+	allGraphics: Array<PipelinesGraphics>,
+	notify: (graphics: PipelinesGraphics) => void
+): Promise<PipelinesGraphics> => {
+	if (isFakedUuidForGraphics(currentGraphics)) {
+		currentGraphics = transformGraphicsToSave(assembled);
+		await savePipelinesGraphics(currentGraphics);
+		if (allGraphics.filter(g => g.pipelineGraphId === currentGraphics!.pipelineGraphId).length === 0) {
+			allGraphics.push(currentGraphics);
+		}
+		notify(currentGraphics);
+	}
+	return currentGraphics;
+};
 const PipelineCatalogContainer = () => {
 	const {fire: fireCache} = useAdminCacheEventBus();
 	const {once: oncePipelines} = usePipelinesEventBus();
@@ -25,12 +41,12 @@ const PipelineCatalogContainer = () => {
 	useEffect(() => {
 		oncePipelines(PipelinesEventTypes.REPLY_TOPICS, (topics: Array<Topic>) => {
 			oncePipelines(PipelinesEventTypes.REPLY_PIPELINES, (pipelines: Array<Pipeline>) => {
-				oncePipelines(PipelinesEventTypes.REPLY_GRAPHICS, async (graphics: Array<PipelinesGraphics>) => {
+				oncePipelines(PipelinesEventTypes.REPLY_GRAPHICS, async (allGraphics: Array<PipelinesGraphics>) => {
 					const lastSnapshot = await loadAdminLastSnapshot();
 					const lastPipelineGraphId = lastSnapshot.lastPipelineGraphId;
-					let currentGraphics = graphics.find(g => g.pipelineGraphId === lastPipelineGraphId);
+					let currentGraphics = allGraphics.find(g => g.pipelineGraphId === lastPipelineGraphId);
 					if (!currentGraphics) {
-						currentGraphics = graphics[0];
+						currentGraphics = allGraphics[0];
 					}
 					if (!currentGraphics) {
 						currentGraphics = {
@@ -44,22 +60,17 @@ const PipelineCatalogContainer = () => {
 					const assembled = createInitGraphics({
 						topics,
 						graphics: currentGraphics!,
-						renderAll: graphics.length < 2
+						renderAll: allGraphics.length < 2
 					});
-					if (isFakedUuidForGraphics(currentGraphics)) {
-						currentGraphics = transformGraphicsToSave(assembled);
-						await savePipelinesGraphics(currentGraphics);
-						if (graphics.filter(g => g.pipelineGraphId === currentGraphics!.pipelineGraphId).length === 0) {
-							graphics.push(currentGraphics);
-						}
-						fireCache(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, currentGraphics);
-					}
+					currentGraphics = await saveAndPutIntoState(currentGraphics, assembled, allGraphics, (graphics: PipelinesGraphics) => {
+						fireCache(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, graphics);
+					});
 
 					await saveAdminLastSnapshot({lastPipelineGraphId: currentGraphics.pipelineGraphId});
 					setData({
 						initialized: true,
 						topics, pipelines,
-						allGraphics: graphics,
+						allGraphics: allGraphics,
 						graphics: assembled
 					});
 				}).fire(PipelinesEventTypes.ASK_GRAPHICS);
@@ -87,6 +98,49 @@ const PipelineCatalogContainer = () => {
 		on(CatalogEventTypes.SWITCH_GRAPHICS, onSwitchGraphics);
 		return () => {
 			off(CatalogEventTypes.SWITCH_GRAPHICS, onSwitchGraphics);
+		};
+	}, [on, off]);
+	useEffect(() => {
+		const onNameChanged = (assembled: AssembledPipelinesGraphics) => {
+			// synchronize name to state
+			data.graphics!.name = assembled.name;
+		};
+		on(CatalogEventTypes.NAME_CHANGED, onNameChanged);
+		return () => {
+			off(CatalogEventTypes.NAME_CHANGED, onNameChanged);
+		};
+	}, [on, off, data.graphics]);
+	useEffect(() => {
+		const onGraphicsRemoved = async (removed: AssembledPipelinesGraphics) => {
+			const allGraphics = data.allGraphics.filter(g => g.pipelineGraphId !== removed.pipelineGraphId);
+			let graphics = allGraphics[0] ?? {
+				pipelineGraphId: generateUuid(),
+				name: 'Pipelines Group',
+				topics: [],
+				createTime: getCurrentTime(),
+				lastModifyTime: getCurrentTime()
+			};
+			const assembled = createInitGraphics({
+				topics: data.topics,
+				graphics,
+				renderAll: allGraphics.length < 2
+			});
+			graphics = await saveAndPutIntoState(graphics, assembled, allGraphics, (graphics: PipelinesGraphics) => {
+				fireCache(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, graphics);
+			});
+
+			await saveAdminLastSnapshot({lastPipelineGraphId: graphics.pipelineGraphId});
+			setData(data => {
+				return {
+					...data,
+					allGraphics,
+					graphics: createInitGraphics({topics: data.topics, graphics, renderAll: allGraphics.length < 2})
+				};
+			});
+		};
+		on(CatalogEventTypes.GRAPHICS_REMOVED, onGraphicsRemoved);
+		return () => {
+			off(CatalogEventTypes.GRAPHICS_REMOVED, onGraphicsRemoved);
 		};
 	}, [on, off]);
 

@@ -21,6 +21,12 @@ export const saveMockPipelinesGraphics = async (graphics: PipelinesGraphics): Pr
 	});
 };
 
+export const deleteMockPipelineGraphics = async (pipelineGraphId: string): Promise<void> => {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve(), 500);
+	});
+};
+
 let newPipelineId = 10000;
 export const saveMockPipeline = async (pipeline: Pipeline): Promise<void> => {
 	return new Promise((resolve) => {
