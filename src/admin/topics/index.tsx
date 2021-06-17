@@ -19,6 +19,8 @@ import {renderEditor} from './editor';
 import {createTopic} from './utils';
 import {useAdminCacheEventBus} from '../cache/cache-event-bus';
 import {AdminCacheEventTypes} from '../cache/cache-event-bus-types';
+import {ScriptsDownloadDialog} from './scripts-download-dialog';
+import {AdminCacheData} from '../../local-persist/types';
 
 const fetchTopicAndCodes = async (queryTopic: QueryTopic) => {
 	const {topic} = await fetchTopic(queryTopic.topicId);
@@ -34,7 +36,7 @@ const isNameInvalid = (name: string) => {
 };
 const AdminTopics = () => {
 	const {once: onceGlobal, fire: fireGlobal} = useEventBus();
-	const {fire: fireCache} = useAdminCacheEventBus();
+	const {once: onceCache, fire: fireCache} = useAdminCacheEventBus();
 	const {on, off, fire} = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateTopic = async () => {
@@ -65,7 +67,7 @@ const AdminTopics = () => {
 					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
 				}).fire(EventTypes.SHOW_ALERT,
 					<AlertLabel>
-						Please use camel case or snake case for topic name, and starts with lower case character.
+						Please use camel case or snake case for topic name.
 					</AlertLabel>);
 				return;
 			} else if (!topic.factors || topic.factors.filter(f => !!f).length === 0) {
@@ -83,7 +85,7 @@ const AdminTopics = () => {
 					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
 				}).fire(EventTypes.SHOW_ALERT,
 					<AlertLabel>
-						Please use camel case or snake case for factor name, and starts with lower case character.
+						Please use camel case or snake case for factor name.
 					</AlertLabel>);
 				return;
 			} else if (topic.type !== TopicType.RAW && topic.factors.some(f => f.type === FactorType.OBJECT || f.type === FactorType.ARRAY)) {
@@ -114,6 +116,24 @@ const AdminTopics = () => {
 	}, [on, off, fire, onceGlobal, fireGlobal, fireCache]);
 
 	const onDownloadScriptsClicked = () => {
+		const askData = () => {
+			onceCache(AdminCacheEventTypes.REPLY_DATA_LOADED, (loaded: boolean) => {
+				if (loaded) {
+					onceCache(AdminCacheEventTypes.REPLY_DATA, (data?: AdminCacheData) => {
+						fireGlobal(EventTypes.SHOW_DIALOG, <ScriptsDownloadDialog topics={data?.topics || []}/>,
+							{
+								marginTop: '10vh',
+								marginLeft: '20%',
+								width: '60%',
+								height: '80vh'
+							});
+					}).fire(AdminCacheEventTypes.ASK_DATA);
+				} else {
+					setTimeout(() => askData(), 100);
+				}
+			}).fire(AdminCacheEventTypes.ASK_DATA_LOADED);
+		};
+		askData();
 	};
 
 	return <TupleWorkbench title="Topics"
