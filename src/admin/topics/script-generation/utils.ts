@@ -22,3 +22,10 @@ export const gatherUniqueIndexes = (topic: Topic): IndexGroups => {
 export const gatherIndexes = (topic: Topic): IndexGroups => {
 	return collectIndexes(topic, 'i-');
 };
+
+export const asTopicName = (topic: Topic) => {
+	return topic.name.toUpperCase().replaceAll('-', '_').replaceAll(' ', '_');
+};
+export const asFactorName = (factor: Factor) => {
+	return factor.name.toUpperCase().replaceAll('-', '_').replaceAll(' ', '_');
+};
