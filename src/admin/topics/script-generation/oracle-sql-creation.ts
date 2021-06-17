@@ -16,22 +16,22 @@ const createSQL = (topic: Topic): string => {
 CREATE TABLE TOPIC_${topicName}(
 	ID_ VARCHAR2(60),
 ${topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
-		return `    ${asFactorName(factor)} ${OracleFactorTypeMap[factor.type]},\n`;
-	}).join('')}
+		return `    ${asFactorName(factor)} ${OracleFactorTypeMap[factor.type]},`;
+	}).join('\n')}
+
 	-- primary key
 	PRIMARY KEY (ID_)
 );
 
 -- unique index
 ${Object.values(uniqueIndexes).map((factors, index) => {
-		return `CREATE UNIQUE INDEX U_${topicName}_${index + 1} ON TOPIC_${topicName}(${factors.map(factor => asFactorName(factor)).join(', ')}),`;
-	})}
+		return `CREATE UNIQUE INDEX U_${topicName}_${index + 1} ON TOPIC_${topicName}(${factors.map(factor => asFactorName(factor)).join(', ')});`;
+	}).join('\n')}
 
 -- index
 ${Object.values(indexes).map((factors, index) => {
-		return `CREATE INDEX I_${topicName}_${index + 1} ON TOPIC_${topicName}(${factors.map(factor => asFactorName(factor)).join(', ')}),`;
-	})}
-
+		return `CREATE INDEX I_${topicName}_${index + 1} ON TOPIC_${topicName}(${factors.map(factor => asFactorName(factor)).join(', ')});`;
+	}).join('\n')}
 `;
 };
 

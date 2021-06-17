@@ -14,7 +14,7 @@ export const fetchAllPipelines = async (): Promise<Array<Pipeline>> => {
 
 export const fetchUpdatedPipelines = async (lastModifiedTime: Dayjs): Promise<Array<Pipeline>> => {
 	if (isMockService()) {
-		return [];
+		return fetchMockAllPipelines();
 	} else {
 		// TODO fetch updated pipelines
 		return await get({api: Apis.PIPELINE_ALL});

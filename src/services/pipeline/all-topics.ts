@@ -14,7 +14,7 @@ export const fetchAllTopics = async (): Promise<Array<Topic>> => {
 
 export const fetchUpdatedTopics = async (lastModifiedTime: Dayjs): Promise<Array<Topic>> => {
 	if (isMockService()) {
-		return [];
+		return fetchMockAllTopics();
 	} else {
 		// TODO fetch updated topics
 		return await get({api: Apis.TOPIC_ALL});

@@ -12,6 +12,7 @@ import JSZip from 'jszip';
 import {generateMySQLCreateSQLScripts} from './script-generation/mysql-sql-creation';
 import dayjs from 'dayjs';
 import {generateOracleCreateSQLScripts} from './script-generation/oracle-sql-creation';
+import {generateMySQLAlterSQLScripts} from './script-generation/mysql-sql-alteration';
 
 const SwitchDialogBody = styled(DialogBody)`
 	display: grid;
@@ -170,6 +171,20 @@ export const ScriptsDownloadDialog = (props: {
 		}
 		if (databases.includes(Database.ORACLE) && scriptTypes.includes(ScriptType.CREATE) && scriptFormats.includes(ScriptFormat.SQL)) {
 			generateOracleCreateSQLScripts(zip, selection);
+		}
+		if (databases.includes(Database.MYSQL) && scriptTypes.includes(ScriptType.ALTER) && scriptFormats.includes(ScriptFormat.SQL)) {
+			generateMySQLAlterSQLScripts(zip, selection);
+		}
+		if (databases.includes(Database.ORACLE) && scriptTypes.includes(ScriptType.ALTER) && scriptFormats.includes(ScriptFormat.SQL)) {
+			// generateOracleAlterSQLScripts(zip, selection);
+		}
+		if (databases.includes(Database.MYSQL) && scriptTypes.includes(ScriptType.CREATE) && scriptFormats.includes(ScriptFormat.LIQUIBASE)) {
+		}
+		if (databases.includes(Database.ORACLE) && scriptTypes.includes(ScriptType.CREATE) && scriptFormats.includes(ScriptFormat.LIQUIBASE)) {
+		}
+		if (databases.includes(Database.MYSQL) && scriptTypes.includes(ScriptType.ALTER) && scriptFormats.includes(ScriptFormat.LIQUIBASE)) {
+		}
+		if (databases.includes(Database.ORACLE) && scriptTypes.includes(ScriptType.ALTER) && scriptFormats.includes(ScriptFormat.LIQUIBASE)) {
 		}
 
 		const base64 = await zip.generateAsync({type: 'base64'});

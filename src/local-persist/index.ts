@@ -115,7 +115,7 @@ export const loadAdminData = async (): Promise<AdminCacheData> => {
 		} = await fetchUpdatedPipelinesSettingsData(
 			getLastModifiedAt(pipelines),
 			getLastModifiedAt(topics),
-			(graphics || []).reduce((time, graphics) => {
+			graphics.reduce((time, graphics) => {
 				const lastModifiedAt = graphics.lastModifyTime;
 				if (lastModifiedAt) {
 					return time.isBefore(dayjs(lastModifiedAt)) ? dayjs(lastModifiedAt) : time;

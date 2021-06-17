@@ -59,6 +59,7 @@ export const Policy: Topic = {
 		},
 		{
 			factorId: '202', name: 'quotationNo', label: 'Quotation No.', type: FactorType.TEXT,
+			indexGroup: 'u-1',
 			createTime: getCurrentTime(),
 			lastModifyTime: getCurrentTime()
 		},
@@ -67,6 +68,7 @@ export const Policy: Topic = {
 			name: 'quoteDate',
 			label: 'Quotation Create Date',
 			type: FactorType.DATETIME,
+			indexGroup: 'i-1',
 			createTime: getCurrentTime(),
 			lastModifyTime: getCurrentTime()
 		},

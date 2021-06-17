@@ -16,9 +16,9 @@ export const fetchPipelinesSettingsData = async (): Promise<PipelinesSettings> =
 	return {pipelines, topics, graphics};
 };
 
-const fetchUpdatedPipelinesGraphics = async (lastModifiedTime: Dayjs): Promise<Array<PipelinesGraphics> | null> => {
+const fetchUpdatedPipelinesGraphics = async (lastModifiedTime: Dayjs): Promise<Array<PipelinesGraphics>> => {
 	if (isMockService()) {
-		return null;
+		return [];
 	} else {
 		// TODO fetch updated pipeline graphics
 		return await fetchPipelinesGraphics();
@@ -41,5 +41,5 @@ export const fetchUpdatedPipelinesSettingsData = async (
 	]);
 
 	// fetch updated pipelines settings data
-	return {pipelines, topics, graphics: graphics ?? undefined};
+	return {pipelines, topics, graphics};
 };
