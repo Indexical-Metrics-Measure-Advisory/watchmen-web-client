@@ -109,7 +109,7 @@ const PipelineCatalogContainer = () => {
 		return () => {
 			off(CatalogEventTypes.NAME_CHANGED, onNameChanged);
 		};
-	}, [on, off]);
+	}, [on, off, data.graphics]);
 	useEffect(() => {
 		const onTopicMoved = () => {
 			const graphics = transformGraphicsToSave(data.graphics!);
@@ -123,7 +123,7 @@ const PipelineCatalogContainer = () => {
 		return () => {
 			off(CatalogEventTypes.TOPIC_MOVED, onTopicMoved);
 		};
-	}, [on, off, data.graphics]);
+	}, [on, off, data.graphics, data.allGraphics]);
 	useEffect(() => {
 		const onGraphicsRemoved = async (removed: AssembledPipelinesGraphics) => {
 			const allGraphics = data.allGraphics.filter(g => g.pipelineGraphId !== removed.pipelineGraphId);
@@ -156,7 +156,7 @@ const PipelineCatalogContainer = () => {
 		return () => {
 			off(CatalogEventTypes.GRAPHICS_REMOVED, onGraphicsRemoved);
 		};
-	}, [on, off]);
+	}, [on, off, fireCache, data.allGraphics, data.topics]);
 
 	return <>
 		{data.graphics

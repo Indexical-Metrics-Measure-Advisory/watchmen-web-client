@@ -55,6 +55,9 @@ export const BlockSelection = (props: { graphics: AssembledPipelinesGraphics }) 
 			off(CatalogEventTypes.TOPIC_MOVED, onTopicMoved);
 		};
 	}, [on, off, graphics, selection.topic]);
+	useEffect(() => {
+		setSelection({visible: false, rect: {x: 0, y: 0, width: 0, height: 0}});
+	}, [graphics]);
 
 	return <Container data-role={GraphicsRole.BLOCK_SELECTION} visible={selection.visible}>
 		<Rect rect={selection.rect}/>
