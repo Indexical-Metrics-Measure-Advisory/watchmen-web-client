@@ -13,6 +13,7 @@ import {generateMySQLCreateSQLScripts} from './script-generation/mysql-sql-creat
 import dayjs from 'dayjs';
 import {generateOracleCreateSQLScripts} from './script-generation/oracle-sql-creation';
 import {generateMySQLAlterSQLScripts} from './script-generation/mysql-sql-alteration';
+import {generateOracleAlterSQLScripts} from './script-generation/oracle-sql-alteration';
 
 const SwitchDialogBody = styled(DialogBody)`
 	display: grid;
@@ -176,7 +177,7 @@ export const ScriptsDownloadDialog = (props: {
 			generateMySQLAlterSQLScripts(zip, selection);
 		}
 		if (databases.includes(Database.ORACLE) && scriptTypes.includes(ScriptType.ALTER) && scriptFormats.includes(ScriptFormat.SQL)) {
-			// generateOracleAlterSQLScripts(zip, selection);
+			generateOracleAlterSQLScripts(zip, selection);
 		}
 		if (databases.includes(Database.MYSQL) && scriptTypes.includes(ScriptType.CREATE) && scriptFormats.includes(ScriptFormat.LIQUIBASE)) {
 		}
