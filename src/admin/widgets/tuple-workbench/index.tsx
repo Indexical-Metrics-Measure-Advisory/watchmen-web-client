@@ -6,6 +6,7 @@ import {TupleEdit} from './tuple-edit';
 import {HoldByTuple} from './tuple-event-bus-types';
 import {TupleSearch} from './tuple-search';
 import {TupleWorkbenchHeader} from './tuple-workbench-header';
+import {IconProp} from '@fortawesome/fontawesome-svg-core';
 
 export const TupleWorkbench = <T extends Tuple, QT extends QueryTuple, HBT extends HoldByTuple>(props: {
 	// for workbench
@@ -13,6 +14,7 @@ export const TupleWorkbench = <T extends Tuple, QT extends QueryTuple, HBT exten
 	// for header
 	createButtonLabel?: string;
 	canCreate: boolean;
+	moreButtons?: Array<{ label: string, icon: IconProp, action: () => void }>;
 	searchPlaceholder?: string;
 	// for search
 	renderCard: (item: QT) => ReactNode;
@@ -26,7 +28,7 @@ export const TupleWorkbench = <T extends Tuple, QT extends QueryTuple, HBT exten
 }) => {
 	const {
 		title,
-		createButtonLabel, canCreate, searchPlaceholder,
+		createButtonLabel, canCreate, moreButtons, searchPlaceholder,
 		renderCard, getKeyOfTuple,
 		tupleLabel, tupleImage, tupleImagePosition, canEdit = true, renderEditor
 	} = props;
@@ -34,6 +36,7 @@ export const TupleWorkbench = <T extends Tuple, QT extends QueryTuple, HBT exten
 	return <FixWidthPage>
 		<PageHeader title={title}/>
 		<TupleWorkbenchHeader createButtonLabel={createButtonLabel} canCreate={canCreate}
+		                      moreButtons={moreButtons}
 		                      searchPlaceholder={searchPlaceholder}/>
 		<TupleSearch renderCard={renderCard} getKeyOfTuple={getKeyOfTuple}/>
 		<TupleEdit tupleLabel={tupleLabel} tupleImage={tupleImage} tupleImagePosition={tupleImagePosition}

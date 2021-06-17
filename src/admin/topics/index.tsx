@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {AlertLabel} from '../../alert/widgets';
 import TopicBackground from '../../assets/topic-background.svg';
-import {TUPLE_SEARCH_PAGE_SIZE} from '../../basic-widgets/constants';
+import {ICON_DOWNLOAD, TUPLE_SEARCH_PAGE_SIZE} from '../../basic-widgets/constants';
 import {useEventBus} from '../../events/event-bus';
 import {EventTypes} from '../../events/types';
 import {DataPage} from '../../services/query/data-page';
@@ -113,8 +113,16 @@ const AdminTopics = () => {
 		};
 	}, [on, off, fire, onceGlobal, fireGlobal, fireCache]);
 
+	const onDownloadScriptsClicked = () => {
+	};
+
 	return <TupleWorkbench title="Topics"
 	                       createButtonLabel="Create Topic" canCreate={true}
+	                       moreButtons={[{
+		                       label: 'Download Scripts',
+		                       icon: ICON_DOWNLOAD,
+		                       action: onDownloadScriptsClicked
+	                       }]}
 	                       searchPlaceholder="Search by topic name, factor name, description, etc."
 	                       tupleLabel="Topic" tupleImage={TopicBackground} tupleImagePosition="left 120px"
 	                       renderEditor={renderEditor}
