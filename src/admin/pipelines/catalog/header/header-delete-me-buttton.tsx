@@ -13,8 +13,8 @@ import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {PageHeaderButton} from '../../../../basic-widgets/page-header-buttons';
 import {ICON_THROW_AWAY} from '../../../../basic-widgets/constants';
-import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
 import {useAdminCacheEventBus} from '../../../cache/cache-event-bus';
+import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
 
 const DeleteDialogBody = styled(DialogBody)`
 	flex-direction: column;
@@ -32,16 +32,12 @@ const PipelineGraphicsDelete = (props: { graphics: AssembledPipelinesGraphics, o
 	const {graphics, onRemoved} = props;
 
 	const {fire} = useEventBus();
-	const {fire: fireCache} = useAdminCacheEventBus();
 
 	const onDeleteClicked = async () => {
 		fire(EventTypes.HIDE_DIALOG);
 		fire(EventTypes.INVOKE_REMOTE_REQUEST,
 			async () => await deletePipelineGraphics(graphics.pipelineGraphId),
-			async () => {
-				fireCache(AdminCacheEventTypes.REMOVE_PIPELINES_GRAPHICS, graphics.pipelineGraphId);
-				onRemoved();
-			});
+			async () => onRemoved());
 	};
 	const onCancelClicked = () => {
 		fire(EventTypes.HIDE_DIALOG);
@@ -63,9 +59,11 @@ const PipelineGraphicsDelete = (props: { graphics: AssembledPipelinesGraphics, o
 export const HeaderDeleteMeButton = (props: { graphics: AssembledPipelinesGraphics }) => {
 	const {graphics} = props;
 	const {fire: fireGlobal} = useEventBus();
+	const {fire: fireCache} = useAdminCacheEventBus();
 	const {fire} = useCatalogEventBus();
 
 	const onDeleted = async () => {
+		fireCache(AdminCacheEventTypes.REMOVE_PIPELINES_GRAPHICS, graphics.pipelineGraphId);
 		fire(CatalogEventTypes.GRAPHICS_REMOVED, graphics);
 	};
 	const onDeleteClicked = () => {

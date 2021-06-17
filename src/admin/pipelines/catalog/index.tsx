@@ -109,6 +109,20 @@ const PipelineCatalogContainer = () => {
 		return () => {
 			off(CatalogEventTypes.NAME_CHANGED, onNameChanged);
 		};
+	}, [on, off]);
+	useEffect(() => {
+		const onTopicMoved = () => {
+			const graphics = transformGraphicsToSave(data.graphics!);
+			const exists = data.allGraphics.find(g => g.pipelineGraphId === graphics.pipelineGraphId);
+			if (exists) {
+				// sync topics to state
+				exists.topics = graphics.topics;
+			}
+		};
+		on(CatalogEventTypes.TOPIC_MOVED, onTopicMoved);
+		return () => {
+			off(CatalogEventTypes.TOPIC_MOVED, onTopicMoved);
+		};
 	}, [on, off, data.graphics]);
 	useEffect(() => {
 		const onGraphicsRemoved = async (removed: AssembledPipelinesGraphics) => {
