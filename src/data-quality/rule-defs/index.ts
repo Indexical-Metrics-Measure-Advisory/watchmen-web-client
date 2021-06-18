@@ -1,4 +1,3 @@
-
 import {Topic, TopicType} from '../../services/tuples/topic-types';
 import {Factor, FactorType} from '../../services/tuples/factor-types';
 import {MonitorRuleCode, MonitorRuleSeverity} from '../../services/data-quality/rule-types';
@@ -61,6 +60,10 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 	},
 
 	{
+		code: MonitorRuleCode.ROWS_NOT_EXISTS,
+		severity: MonitorRuleSeverity.WARN,
+		name: 'Data not exists'
+	}, {
 		code: MonitorRuleCode.ROWS_NO_CHANGE,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Rows have no change',

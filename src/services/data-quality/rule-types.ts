@@ -19,6 +19,7 @@ export enum MonitorRuleCode {
 	FACTOR_MATCH_DATE_TYPE = 'factor-match-date-type',
 
 	// topic row count
+	ROWS_NOT_EXISTS = 'rows-not-exists',
 	ROWS_NO_CHANGE = 'rows-no-change',
 	ROWS_COUNT_AND_ANOTHER = 'rows-count-and-another',
 
@@ -107,7 +108,9 @@ export const GlobalRuleDefs = [
 	MonitorRuleCode.RAW_MATCH_STRUCTURE,
 	MonitorRuleCode.FACTOR_MATCH_TYPE,
 	MonitorRuleCode.FACTOR_MATCH_ENUM,
-	MonitorRuleCode.FACTOR_MATCH_DATE_TYPE
+	MonitorRuleCode.FACTOR_MATCH_DATE_TYPE,
+
+	MonitorRuleCode.ROWS_NOT_EXISTS
 ];
 export const TopicRuleDefs = [
 	MonitorRuleCode.RAW_MATCH_STRUCTURE,
@@ -115,6 +118,7 @@ export const TopicRuleDefs = [
 	MonitorRuleCode.FACTOR_MATCH_ENUM,
 	MonitorRuleCode.FACTOR_MATCH_DATE_TYPE,
 
+	MonitorRuleCode.ROWS_NOT_EXISTS,
 	MonitorRuleCode.ROWS_NO_CHANGE,
 	MonitorRuleCode.ROWS_COUNT_AND_ANOTHER
 ];
