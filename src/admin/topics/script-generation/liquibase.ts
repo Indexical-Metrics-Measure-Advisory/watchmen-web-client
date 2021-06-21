@@ -74,6 +74,38 @@ ${topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => 
 	
 	<!-- drop exists indexes and add new indexes -->
 	<changeSet id="${v4()}" author="watchmen">
+		<createProcedure dbms="oracle" procedureName="SCHEMA_CHANGE">
+			CREATE OR REPLACE PROCEDURE SCHEMA_CHANGE AS
+				CURSOR cursorIndexes IS SELECT UI.INDEX_NAME
+					FROM USER_INDEXES UI
+					WHERE UI.TABLE_NAME = 'TOPIC_${topicName}'
+                        AND NOT EXISTS (SELECT 1 FROM USER_CONSTRAINTS WHERE TABLE_NAME = 'TOPIC_${topicName}' AND CONSTRAINT_TYPE = 'P' AND CONSTRAINT_NAME = UI.INDEX_NAME);
+			BEGIN
+				-- drop existed indexes
+				FOR anIndex in cursorIndexes LOOP
+					EXECUTE IMMEDIATE CONCAT('DROP INDEX ', anIndex.INDEX_NAME);
+				END LOOP;
+			END;
+		</createProcedure>
+		<createProcedure dbms="mysql" procedureName="SCHEMA_CHANGE">
+			DELIMITER $$
+			CREATE PROCEDURE SCHEMA_CHANGE() 
+			BEGIN 
+				-- drop existed indexes
+				SELECT INDEX_NAME INTO @indexName FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'TOPIC_${topicName}' AND INDEX_NAME <> 'PRIMARY' LIMIT 1;
+				WHILE @indexName IS NOT NULL DO
+				    SET @sql = concat('DROP INDEX ', @indexName, ' ON TOPIC_${topicName};');
+					PREPARE stmt FROM @sql;
+					EXECUTE stmt;
+					DEALLOCATE PREPARE stmt;
+					SELECT INDEX_NAME INTO @indexName FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'TOPIC_${topicName}' AND INDEX_NAME <> 'PRIMARY' LIMIT 1;
+				END WHILE;
+			END $$
+			DELIMITER ;
+		</createProcedure>
+		<sql dbms="oracle">CALL SCHEMA_CHANGE();</sql>
+		<sql dbms="mysql">CALL \`SCHEMA_CHANGE\'();</sql>
+		<dropProcedure procedureName="SCHEMA_CHANGE"/>
 ${Object.values(uniqueIndexes).map((factors, index) => {
 		return `		<!-- unique index -->
 		<createIndex indexName="U_${topicName}_${index + 1}" tableName="TOPIC_${topicName}" unique="true">
