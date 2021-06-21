@@ -71,9 +71,34 @@ ${topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => 
     </changSet>
 	`;
 	}).join('\n')}
+    <!-- add _AGGREGATE_ASSIST when column not exists -->
+	<changeSet id="${v4()}" author="watchmen">
+		<preConditions onFail="MARK_RAN">
+			<dbms type="mysql"/>
+			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '_AGGREGATE_ASSIST'</sqlCheck>
+        </preConditions>
+        <addColumn tableName="TOPIC_${topicName}">
+        	<column name="_AGGREGATE_ASSIST" type="\${VARCHAR(1024)}"/>
+		</addColumn>
+    </changSet>
+	<changeSet id="${v4()}" author="watchmen">
+		<preConditions onFail="MARK_RAN">
+			<dbms type="oracle"/>
+			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '_AGGREGATE_ASSIST'</sqlCheck>
+        </preConditions>
+        <addColumn tableName="TOPIC_${topicName}">
+        	<column name="_AGGREGATE_ASSIST" type="\${VARCHAR2(1024)}"/>
+		</addColumn>
+    </changSet>
 	
 	<!-- drop exists indexes and add new indexes -->
 	<changeSet id="${v4()}" author="watchmen">
+		<!-- simply change the following sql of pre-conditions to "SELECT 0 FROM DUAL" to drop all exists indexes. -->
+		<!-- considering performance of rebuild indexes, manually drop useless indexes accurate is recommended. -->
+		<!-- according to duplication check of index names, following create scripts need to be adjusted manually as well. -->
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">SELECT 1 FROM DUAL</sqlCheck>
+		</preConditions>
 		<createProcedure dbms="oracle" procedureName="SCHEMA_CHANGE">
 			CREATE OR REPLACE PROCEDURE SCHEMA_CHANGE AS
 				CURSOR cursorIndexes IS SELECT UI.INDEX_NAME
@@ -104,8 +129,10 @@ ${topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => 
 			DELIMITER ;
 		</createProcedure>
 		<sql dbms="oracle">CALL SCHEMA_CHANGE();</sql>
-		<sql dbms="mysql">CALL \`SCHEMA_CHANGE\'();</sql>
+		<sql dbms="mysql">CALL \`SCHEMA_CHANGE\`();</sql>
 		<dropProcedure procedureName="SCHEMA_CHANGE"/>
+	</changSet>
+	<changeSet id="${v4()}" author="watchmen">
 ${Object.values(uniqueIndexes).map((factors, index) => {
 		return `		<!-- unique index -->
 		<createIndex indexName="U_${topicName}_${index + 1}" tableName="TOPIC_${topicName}" unique="true">
@@ -118,7 +145,7 @@ ${Object.values(indexes).map((factors, index) => {
 ${factors.map(factor => `			<column name="${asFactorName(factor)}"/>`)}
 		</createIndex>`;
 	}).join('\n')}
-	</changSet>
+	</changeSet>
 </databaseChangeLog>`;
 };
 

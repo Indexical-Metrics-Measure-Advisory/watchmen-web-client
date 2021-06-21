@@ -1,4 +1,4 @@
-import {Topic} from '../../../services/tuples/topic-types';
+import {Topic, TopicType} from '../../../services/tuples/topic-types';
 import JSZip from 'jszip';
 import {asFactorName, asTopicName, gatherIndexes, gatherUniqueIndexes} from './utils';
 import {OracleFactorTypeMap} from './oracle';
@@ -18,6 +18,7 @@ CREATE TABLE TOPIC_${topicName}(
 ${topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
 		return `    ${asFactorName(factor)} ${OracleFactorTypeMap[factor.type]},`;
 	}).join('\n')}
+	${[TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `_AGGREGATE_ASSIST VARCHAR2(1024),`: ''}
 
 	-- primary key
 	PRIMARY KEY (ID_)
@@ -38,6 +39,6 @@ ${Object.values(indexes).map((factors, index) => {
 export const generateOracleCreateSQLScripts = (zip: JSZip, topics: Array<Topic>) => {
 	topics.forEach(topic => {
 		const filename = asTopicName(topic);
-		zip.file(`oracle/sql/creation/${filename}.sql`, createSQL(topic));
+		zip.file(`oracle/creation/${filename}.sql`, createSQL(topic));
 	});
 };

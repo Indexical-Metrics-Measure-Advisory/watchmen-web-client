@@ -1,4 +1,4 @@
-import {Topic} from '../../../services/tuples/topic-types';
+import {Topic, TopicType} from '../../../services/tuples/topic-types';
 import JSZip from 'jszip';
 import {asFactorName, asTopicName, gatherIndexes, gatherUniqueIndexes} from './utils';
 import {MySQLFactorTypeMap} from './mysql';
@@ -22,22 +22,34 @@ ${topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => 
 		const factorColumnName = asFactorName(factor);
 		return `    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '${factorColumnName}') THEN  
 		-- add columns
-	    ALTER TABLE TOPIC_${topicName} ADD COLUMN ${factorColumnName} ${MySQLFactorTypeMap[factor.type]};
+		ALTER TABLE TOPIC_${topicName} ADD COLUMN ${factorColumnName} ${MySQLFactorTypeMap[factor.type]};
 	ELSE
 		-- modify columns
 		ALTER TABLE TOPIC_${topicName} MODIFY COLUMN ${factorColumnName} ${MySQLFactorTypeMap[factor.type]};
 	END IF;`;
 	}).join('\n')}
+${[TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type)
+		? `\tIF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '_AGGREGATE_ASSIST') THEN
+		-- add columns
+	    EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} ADD (_AGGREGATE_ASSIST VARCHAR2(1024))';
+	ELSE
+		-- modify columns
+		EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} MODIFY (_AGGREGATE_ASSIST VARCHAR2(1024))';
+	END IF;`
+		: ''}
 
 	-- drop existed indexes
-	SELECT INDEX_NAME INTO @indexName FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = 'TOPIC_${topicName}' AND INDEX_NAME <> 'PRIMARY' LIMIT 1;
-	WHILE @indexName IS NOT NULL DO
-	    SET @sql = concat('DROP INDEX ', @indexName, ' ON TOPIC_${topicName};');
-		PREPARE stmt FROM @sql;
-		EXECUTE stmt;
-		DEALLOCATE PREPARE stmt;
-		SELECT INDEX_NAME INTO @indexName FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = 'TOPIC_${topicName}' AND INDEX_NAME <> 'PRIMARY' LIMIT 1;
-	END WHILE;
+	-- simply uncomment the following loop to drop all exists indexes
+	-- considering performance of rebuild indexes, manually drop useless indexes accurate is recommended.
+	-- according to duplication check of index names, following create scripts need to be adjusted manually as well.
+	-- SELECT INDEX_NAME INTO @indexName FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = 'TOPIC_${topicName}' AND INDEX_NAME <> 'PRIMARY' LIMIT 1;
+	-- WHILE @indexName IS NOT NULL DO
+	--	SET @sql = concat('DROP INDEX ', @indexName, ' ON TOPIC_${topicName};');
+	--	PREPARE stmt FROM @sql;
+	--	EXECUTE stmt;
+	--	DEALLOCATE PREPARE stmt;
+	--	SELECT INDEX_NAME INTO @indexName FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = 'TOPIC_${topicName}' AND INDEX_NAME <> 'PRIMARY' LIMIT 1;
+	-- END WHILE;
 	
 	-- unique index
 ${Object.values(uniqueIndexes).map((factors, index) => {
@@ -64,6 +76,6 @@ DROP PROCEDURE IF EXISTS SCHEMA_CHANGE;
 export const generateMySQLAlterSQLScripts = (zip: JSZip, topics: Array<Topic>) => {
 	topics.forEach(topic => {
 		const filename = asTopicName(topic);
-		zip.file(`mysql/sql/alteration/${filename}.sql`, createSQL(topic));
+		zip.file(`mysql/alteration/${filename}.sql`, createSQL(topic));
 	});
 };

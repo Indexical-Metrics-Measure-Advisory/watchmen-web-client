@@ -1,4 +1,4 @@
-import {Topic} from '../../../services/tuples/topic-types';
+import {Topic, TopicType} from '../../../services/tuples/topic-types';
 import JSZip from 'jszip';
 import {asFactorName, asTopicName, gatherIndexes, gatherUniqueIndexes} from './utils';
 import {OracleFactorTypeMap} from './oracle';
@@ -28,11 +28,24 @@ ${topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => 
 		EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} MODIFY (${factorColumnName} ${OracleFactorTypeMap[factor.type]})';
 	END IF;`;
 	}).join('\n')}
+${[TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type)
+		? `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '_AGGREGATE_ASSIST';
+	IF columnExists = 0 THEN  
+		-- add columns
+	    EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} ADD (_AGGREGATE_ASSIST VARCHAR2(1024))';
+	ELSE
+		-- modify columns
+		EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} MODIFY (_AGGREGATE_ASSIST VARCHAR2(1024))';
+	END IF;`
+		: ''}
 
 	-- drop existed indexes
-	FOR anIndex in cursorIndexes LOOP
-		EXECUTE IMMEDIATE CONCAT('DROP INDEX ', anIndex.INDEX_NAME);
-	END LOOP;
+	-- simply uncomment the following loop to drop all exists indexes
+	-- considering performance of rebuild indexes, manually drop useless indexes accurate is recommended.
+	-- according to duplication check of index names, following create scripts need to be adjusted manually as well.
+	-- FOR anIndex in cursorIndexes LOOP
+	-- 	EXECUTE IMMEDIATE CONCAT('DROP INDEX ', anIndex.INDEX_NAME);
+	-- END LOOP;
 	
 	-- unique index
 ${Object.values(uniqueIndexes).map((factors, index) => {
@@ -53,6 +66,6 @@ DROP PROCEDURE SCHEMA_CHANGE;
 export const generateOracleAlterSQLScripts = (zip: JSZip, topics: Array<Topic>) => {
 	topics.forEach(topic => {
 		const filename = asTopicName(topic);
-		zip.file(`oracle/sql/alteration/${filename}.sql`, createSQL(topic));
+		zip.file(`oracle/alteration/${filename}.sql`, createSQL(topic));
 	});
 };
