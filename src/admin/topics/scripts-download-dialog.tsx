@@ -14,6 +14,7 @@ import dayjs from 'dayjs';
 import {generateOracleCreateSQLScripts} from './script-generation/oracle-sql-creation';
 import {generateMySQLAlterSQLScripts} from './script-generation/mysql-sql-alteration';
 import {generateOracleAlterSQLScripts} from './script-generation/oracle-sql-alteration';
+import {generateLiquibaseScripts} from './script-generation/liquibase';
 
 const SwitchDialogBody = styled(DialogBody)`
 	display: grid;
@@ -179,13 +180,8 @@ export const ScriptsDownloadDialog = (props: {
 		if (databases.includes(Database.ORACLE) && scriptTypes.includes(ScriptType.ALTER) && scriptFormats.includes(ScriptFormat.SQL)) {
 			generateOracleAlterSQLScripts(zip, selection);
 		}
-		if (databases.includes(Database.MYSQL) && scriptTypes.includes(ScriptType.CREATE) && scriptFormats.includes(ScriptFormat.LIQUIBASE)) {
-		}
-		if (databases.includes(Database.ORACLE) && scriptTypes.includes(ScriptType.CREATE) && scriptFormats.includes(ScriptFormat.LIQUIBASE)) {
-		}
-		if (databases.includes(Database.MYSQL) && scriptTypes.includes(ScriptType.ALTER) && scriptFormats.includes(ScriptFormat.LIQUIBASE)) {
-		}
-		if (databases.includes(Database.ORACLE) && scriptTypes.includes(ScriptType.ALTER) && scriptFormats.includes(ScriptFormat.LIQUIBASE)) {
+		if (scriptFormats.includes(ScriptFormat.LIQUIBASE)) {
+			generateLiquibaseScripts(zip, selection);
 		}
 
 		const base64 = await zip.generateAsync({type: 'base64'});
