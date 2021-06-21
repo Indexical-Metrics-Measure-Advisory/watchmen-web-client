@@ -139,6 +139,8 @@ const more = (value1?: any, value2?: any): boolean => {
 const exists = (value?: any, values?: any): boolean => {
 	if (Array.isArray(values)) {
 		return values.some(item => eq(value, item));
+	} else if (typeof values === 'string') {
+		return eq(value, values.split(',').map(x => x.trim()).filter(x => x));
 	} else {
 		return eq(value, values);
 	}
@@ -147,6 +149,8 @@ const exists = (value?: any, values?: any): boolean => {
 const notExists = (value?: any, values?: any): boolean => {
 	if (Array.isArray(values)) {
 		return values.every(item => !eq(value, item));
+	} else if (typeof values === 'string') {
+		return eq(value, values.split(',').map(x => x.trim()).filter(x => x));
 	} else {
 		return !eq(value, values);
 	}
