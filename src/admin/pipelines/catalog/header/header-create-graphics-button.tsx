@@ -18,7 +18,7 @@ export const HeaderCreateGraphicsButton = () => {
 	const {fire: fireCache} = useAdminCacheEventBus();
 	const {fire} = useCatalogEventBus();
 
-	const onConnectSpaceClicked = async () => {
+	const onCreatePipelineGraphicsClicked = async () => {
 		const graphics: PipelinesGraphics = {
 			pipelineGraphId: generateUuid(),
 			name: `Pipelines Group ${btoa(generateUuid()).substr(0, 12)}`,
@@ -35,7 +35,7 @@ export const HeaderCreateGraphicsButton = () => {
 		);
 	};
 
-	return <PageHeaderButton tooltip="New Pipeline Group" onClick={onConnectSpaceClicked}>
+	return <PageHeaderButton tooltip="New Pipeline Group" onClick={onCreatePipelineGraphicsClicked}>
 		<FontAwesomeIcon icon={ICON_PIPELINE}/>
 	</PageHeaderButton>;
 };
