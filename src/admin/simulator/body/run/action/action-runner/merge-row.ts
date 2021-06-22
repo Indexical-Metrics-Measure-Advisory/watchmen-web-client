@@ -43,7 +43,11 @@ export const doMergeRow = async (
 		}) || 0;
 		switch (arithmetic) {
 			case AggregateArithmetic.COUNT:
-				// count will not be changed when merge
+				if (!pipelineContext.triggerDataOnce) {
+					// the trigger data is inserted, not merged
+					const oldCount = (row[factor.name] || 0) * 1;
+					row[factor.name] = oldCount + 1;
+				}
 				break;
 			case AggregateArithmetic.AVG: {
 				const oldValue = getOldValue({

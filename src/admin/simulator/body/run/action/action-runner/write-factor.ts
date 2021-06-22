@@ -58,8 +58,11 @@ export const runWriteFactor = async (options: {
 		}) || 0;
 		switch (arithmetic) {
 			case AggregateArithmetic.COUNT:
-				// count will not be changed when merge
-				await logWrite(`Count will not be written, ignored.`);
+				if (!pipelineContext.triggerDataOnce) {
+					// the trigger data is inserted, not merged
+					const oldCount = (row[factor.name] || 0) * 1;
+					row[factor.name] = oldCount + 1;
+				}
 				break;
 			case AggregateArithmetic.AVG: {
 				const oldValue = getOldValue({
