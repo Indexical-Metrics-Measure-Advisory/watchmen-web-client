@@ -70,7 +70,7 @@ const saveGraphics = async (graphics: Array<PipelinesGraphics>) => {
 		await saveAdminPipelinesGraphics(g);
 	}
 };
-const mergePipelineGraphics = async (graphics: Array<PipelinesGraphics>, updatedGraphics: Array<PipelinesGraphics> | undefined): Promise<Array<PipelinesGraphics>> => {
+const mergePipelineGraphics = async (graphics: Array<PipelinesGraphics>, updatedGraphics: Array<PipelinesGraphics> | undefined, removedGraphics: Array<string>): Promise<Array<PipelinesGraphics>> => {
 	const existsMap = graphics.reduce((map, graphics) => {
 		map.set(graphics.pipelineGraphId, graphics);
 		return map;
@@ -80,7 +80,11 @@ const mergePipelineGraphics = async (graphics: Array<PipelinesGraphics>, updated
 		await saveGraphics(updatedGraphics);
 	}
 
-	return Array.from(existsMap.values());
+	if (removedGraphics && removedGraphics.length !== 0) {
+		return Array.from(existsMap.values()).filter(g => !removedGraphics.includes(g.pipelineGraphId));
+	} else {
+		return Array.from(existsMap.values());
+	}
 };
 
 export const loadAdminData = async (): Promise<AdminCacheData> => {
@@ -92,7 +96,7 @@ export const loadAdminData = async (): Promise<AdminCacheData> => {
 
 	if ((!pipelines || pipelines.length === 0)
 		&& (!topics || topics.length === 0)
-		&& !graphics) {
+		&& (!graphics || graphics.length === 0)) {
 		// no data in local persistence
 		const settings = await fetchPipelinesSettingsData();
 
@@ -111,25 +115,27 @@ export const loadAdminData = async (): Promise<AdminCacheData> => {
 		const {
 			pipelines: updatedPipelines,
 			topics: updatedTopics,
-			graphics: updatedGraphics
-		} = await fetchUpdatedPipelinesSettingsData(
-			getLastModifiedAt(pipelines),
-			getLastModifiedAt(topics),
-			graphics.reduce((time, graphics) => {
+			graphics: updatedGraphics,
+			removedGraphics
+		} = await fetchUpdatedPipelinesSettingsData({
+			lastModifiedTimeOfPipelines: getLastModifiedAt(pipelines),
+			lastModifiedTimeOfTopics: getLastModifiedAt(topics),
+			lastModifiedTimeOfGraphics: graphics.reduce((time, graphics) => {
 				const lastModifiedAt = graphics.lastModifyTime;
 				if (lastModifiedAt) {
 					return time.isBefore(dayjs(lastModifiedAt)) ? dayjs(lastModifiedAt) : time;
 				} else {
 					return time;
 				}
-			}, dayjs('2000/01/01 00:00:00'))
-		);
+			}, dayjs('2000/01/01 00:00:00')),
+			existsGraphicsIds: graphics.map(g => g.pipelineGraphId)
+		});
 
 		// merge
 		return {
 			pipelines: await mergePipelines(pipelines, updatedPipelines),
 			topics: await mergeTopics(topics, updatedTopics),
-			graphics: await mergePipelineGraphics(graphics, updatedGraphics)
+			graphics: await mergePipelineGraphics(graphics, updatedGraphics, removedGraphics)
 		};
 	}
 };

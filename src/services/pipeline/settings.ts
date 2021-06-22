@@ -16,30 +16,37 @@ export const fetchPipelinesSettingsData = async (): Promise<PipelinesSettings> =
 	return {pipelines, topics, graphics};
 };
 
-const fetchUpdatedPipelinesGraphics = async (lastModifiedTime: Dayjs): Promise<Array<PipelinesGraphics>> => {
+const fetchUpdatedPipelinesGraphics = async (lastModifiedTime: Dayjs, existsGraphicsIds: Array<string>): Promise<{ updated: Array<PipelinesGraphics>, removed: Array<string> }> => {
 	if (isMockService()) {
-		return [];
+		return {updated: [], removed: []};
 	} else {
 		// TODO fetch updated pipeline graphics
-		return await fetchPipelinesGraphics();
-		// return await post({
-		// 	api: Apis.PIPELINE_GRAPHICS_MINE_UPDATED,
-		// 	data: {lastModifyTime: lastModifiedTime.format('YYYY/MM/DD HH:mm:ss')}
-		// });
+		return {
+			updated: await fetchPipelinesGraphics(),
+			removed: []
+		};
 	}
 };
 
-export const fetchUpdatedPipelinesSettingsData = async (
+export const fetchUpdatedPipelinesSettingsData = async (options: {
 	lastModifiedTimeOfPipelines: Dayjs,
 	lastModifiedTimeOfTopics: Dayjs,
-	lastModifiedTimeOfGraphics: Dayjs
-): Promise<Partial<PipelinesSettings>> => {
+	lastModifiedTimeOfGraphics: Dayjs,
+	existsGraphicsIds: Array<string>
+}): Promise<Partial<PipelinesSettings> & { removedGraphics: Array<string> }> => {
+	const {
+		lastModifiedTimeOfPipelines,
+		lastModifiedTimeOfTopics,
+		lastModifiedTimeOfGraphics,
+		existsGraphicsIds
+	} = options;
+
 	const [pipelines, topics, graphics] = await Promise.all([
 		fetchUpdatedPipelines(lastModifiedTimeOfPipelines),
 		fetchUpdatedTopics(lastModifiedTimeOfTopics),
-		fetchUpdatedPipelinesGraphics(lastModifiedTimeOfGraphics)
+		fetchUpdatedPipelinesGraphics(lastModifiedTimeOfGraphics, existsGraphicsIds)
 	]);
 
 	// fetch updated pipelines settings data
-	return {pipelines, topics, graphics};
+	return {pipelines, topics, graphics: graphics.updated, removedGraphics: graphics.removed};
 };

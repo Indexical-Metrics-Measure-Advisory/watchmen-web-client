@@ -17,7 +17,7 @@ export const fetchUpdatedPipelines = async (lastModifiedTime: Dayjs): Promise<Ar
 		return fetchMockAllPipelines();
 	} else {
 		// TODO fetch updated pipelines
-		return await get({api: Apis.PIPELINE_ALL});
+		return fetchAllPipelines();
 		// return await post({api: Apis.PIPELINE_UPDATED, data: {lastModifyTime: lastModifiedTime.format('YYYY/MM/DD HH:mm:ss')}});
 	}
 };
