@@ -96,7 +96,7 @@ export const loadAdminData = async (): Promise<AdminCacheData> => {
 
 	if ((!pipelines || pipelines.length === 0)
 		&& (!topics || topics.length === 0)
-		&& !graphics) {
+		&& (!graphics || graphics.length === 0)) {
 		// no data in local persistence
 		const settings = await fetchPipelinesSettingsData();
 
