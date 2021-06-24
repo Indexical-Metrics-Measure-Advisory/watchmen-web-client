@@ -104,7 +104,7 @@ export const PipelinesBody = (props: {
 							rows={incoming ? 1 : toTopics.length}>{incoming ? 'From' : 'To'}</PipelineDirection>
 						{incoming
 							? <PipelineTopic>
-								<PipelineTopicLabel>{from.name}</PipelineTopicLabel>
+								<PipelineTopicLabel>{from?.name}</PipelineTopicLabel>
 							</PipelineTopic>
 							: toTopics.map(topic => {
 								return <PipelineTopic key={topic.topicId}>
