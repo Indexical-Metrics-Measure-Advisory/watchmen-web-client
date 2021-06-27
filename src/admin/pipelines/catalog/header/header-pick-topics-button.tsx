@@ -1,5 +1,5 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {ICON_TOPIC} from '../../../../basic-widgets/constants';
 import {PageHeaderButton} from '../../../../basic-widgets/page-header-buttons';
 import {useCatalogEventBus} from '../catalog-event-bus';
@@ -14,6 +14,12 @@ import {Topic} from '../../../../services/tuples/topic-types';
 import {CheckBox} from '../../../../basic-widgets/checkbox';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {createInitTopicRect} from '../graphics-utils';
+import {Input} from '../../../../basic-widgets/input';
+
+interface Filter {
+	value: string;
+	handler?: number;
+}
 
 const SwitchDialogBody = styled(DialogBody)`
 	flex-direction: column;
@@ -31,6 +37,17 @@ const HeaderCell = styled.div`
 	font-weight: var(--font-bold);
 	font-variant: petite-caps;
 	padding: 0 calc(var(--margin) / 4);
+	> input {
+		border-top: 0;
+		border-left: 0;
+		border-right: 0;
+		border-radius: 0;
+		height: calc(var(--height) * 0.8);
+		width: 100%;
+		padding: 0;
+		margin-bottom: -1px;
+		margin-left: calc(var(--margin) / 2);
+	}
 `;
 const TopicTableBody = styled.div.attrs({'data-v-scroll': ''})`
 	display: block;
@@ -64,7 +81,27 @@ const TopicPicker = (props: {
 	const {topics, graphics, onConfirm} = props;
 
 	const {fire} = useEventBus();
+	const [items, setItems] = useState(topics);
 	const [selection, setSelection] = useState(graphics.topics.map(({topic}) => topic));
+	const [filter, setFilter] = useState<Filter>({value: ''});
+
+	const onFilterTextChanged = (event: ChangeEvent<HTMLInputElement>) => {
+		const {value} = event.target;
+		if (filter.handler) {
+			clearTimeout(filter.handler);
+		}
+		setFilter({
+			value, handler: window.setTimeout(() => {
+				delete filter.handler;
+				const text = value.trim().toLowerCase();
+				if (text === '') {
+					setItems(topics);
+				} else {
+					setItems(topics.filter(topic => (topic.name || '').toLowerCase().includes(text)));
+				}
+			}, 300)
+		});
+	};
 
 	const onSelectionChange = (topic: Topic) => (value: boolean) => {
 		if (value) {
@@ -87,10 +124,14 @@ const TopicPicker = (props: {
 			<TopicTableHeader>
 				<HeaderCell>#</HeaderCell>
 				<HeaderCell>View</HeaderCell>
-				<HeaderCell>Topic</HeaderCell>
+				<HeaderCell>
+					<span>Topic</span>
+					<Input placeholder="Filter by name..."
+					       value={filter.value} onChange={onFilterTextChanged}/>
+				</HeaderCell>
 			</TopicTableHeader>
 			<TopicTableBody>
-				{topics.map((topic, index) => {
+				{items.map((topic, index) => {
 					return <BodyRow key={topic.topicId}>
 						<BodyCell>{index + 1}</BodyCell>
 						<BodyCell>
