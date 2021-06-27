@@ -1,6 +1,6 @@
 import {Topic} from '../../services/tuples/topic-types';
 import {useEventBus} from '../../events/event-bus';
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {EventTypes} from '../../events/types';
 import {DialogBody, DialogFooter} from '../../dialog/widgets';
 import {CheckBox} from '../../basic-widgets/checkbox';
@@ -15,6 +15,12 @@ import {generateOracleCreateSQLScripts} from './script-generation/oracle-sql-cre
 import {generateMySQLAlterSQLScripts} from './script-generation/mysql-sql-alteration';
 import {generateOracleAlterSQLScripts} from './script-generation/oracle-sql-alteration';
 import {generateLiquibaseScripts} from './script-generation/liquibase';
+import {Input} from '../../basic-widgets/input';
+
+interface Filter {
+	value: string;
+	handler?: number;
+}
 
 const SwitchDialogBody = styled(DialogBody)`
 	display: grid;
@@ -34,6 +40,17 @@ const HeaderCell = styled.div`
 	font-weight: var(--font-bold);
 	font-variant: petite-caps;
 	padding: 0 calc(var(--margin) / 4);
+	> input {
+		border-top: 0;
+		border-left: 0;
+		border-right: 0;
+		border-radius: 0;
+		height: calc(var(--height) * 0.8);
+		width: 100%;
+		padding: 0;
+		margin-bottom: -1px;
+		margin-left: calc(var(--margin) / 2);
+	}
 `;
 const TopicTableBody = styled.div.attrs({'data-v-scroll': ''})`
 	display: block;
@@ -114,11 +131,30 @@ export const ScriptsDownloadDialog = (props: {
 	const {topics} = props;
 
 	const {fire} = useEventBus();
+	const [items, setItems] = useState(topics);
 	const [selection, setSelection] = useState(topics);
+	const [filter, setFilter] = useState<Filter>({value: ''});
 	const [databases, setDatabases] = useState<Array<Database>>([Database.MYSQL]);
 	const [scriptTypes, setScriptTypes] = useState<Array<ScriptType>>([ScriptType.CREATE]);
 	const [scriptFormats, setScriptFormats] = useState<Array<ScriptFormat>>([ScriptFormat.SQL]);
 
+	const onFilterTextChanged = (event: ChangeEvent<HTMLInputElement>) => {
+		const {value} = event.target;
+		if (filter.handler) {
+			clearTimeout(filter.handler);
+		}
+		setFilter({
+			value, handler: window.setTimeout(() => {
+				delete filter.handler;
+				const text = value.trim().toLowerCase();
+				if (text === '') {
+					setItems(topics);
+				} else {
+					setItems(topics.filter(topic => (topic.name || '').toLowerCase().includes(text)));
+				}
+			}, 300)
+		});
+	};
 	const onSelectionChange = (topic: Topic) => (value: boolean) => {
 		if (value) {
 			setSelection([topic, ...selection]);
@@ -146,6 +182,12 @@ export const ScriptsDownloadDialog = (props: {
 		} else {
 			setScriptFormats(scriptFormats.filter(sf => sf !== scriptFormat));
 		}
+	};
+	const onSelectAllClicked = () => {
+		setSelection(topics);
+	};
+	const onDeselectAllClicked = () => {
+		setSelection([]);
 	};
 	const onDownloadClicked = async () => {
 		if (databases.length === 0) {
@@ -202,10 +244,14 @@ export const ScriptsDownloadDialog = (props: {
 			<TopicTableHeader>
 				<HeaderCell>#</HeaderCell>
 				<HeaderCell>View</HeaderCell>
-				<HeaderCell>Topic</HeaderCell>
+				<HeaderCell>
+					<span>Topic</span>
+					<Input placeholder="Filter by name..."
+					       value={filter.value} onChange={onFilterTextChanged}/>
+				</HeaderCell>
 			</TopicTableHeader>
 			<TopicTableBody>
-				{topics.map((topic, index) => {
+				{items.map((topic, index) => {
 					return <BodyRow key={topic.topicId}>
 						<BodyCell>{index + 1}</BodyCell>
 						<BodyCell>
@@ -245,6 +291,8 @@ export const ScriptsDownloadDialog = (props: {
 			</DownloadOptionsBar>
 		</SwitchDialogBody>
 		<DialogFooter>
+			<Button ink={ButtonInk.PRIMARY} onClick={onSelectAllClicked}>Select All</Button>
+			<Button ink={ButtonInk.PRIMARY} onClick={onDeselectAllClicked}>Deselect All</Button>
 			<Button ink={ButtonInk.PRIMARY} onClick={onDownloadClicked}>Download</Button>
 			<Button ink={ButtonInk.PRIMARY} onClick={onCloseClicked}>Close</Button>
 		</DialogFooter>
