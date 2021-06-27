@@ -3,6 +3,44 @@ import JSZip from 'jszip';
 import {asFactorName, asTopicName, gatherIndexes, gatherUniqueIndexes} from './utils';
 import {MySQLFactorTypeMap} from './mysql';
 
+const buildFactors = (topic: Topic) => {
+	const topicName = asTopicName(topic);
+	if (topic.type === TopicType.RAW) {
+		return `\tIF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = 'DATA_') THEN  
+		-- add columns
+		ALTER TABLE TOPIC_${topicName} ADD COLUMN DATA_ JSON;
+	ELSE
+		-- modify columns
+		ALTER TABLE TOPIC_${topicName} MODIFY COLUMN DATA_ JSON;
+	END IF;`;
+	} else {
+		return topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
+			const factorColumnName = asFactorName(factor);
+			return `\tIF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '${factorColumnName}') THEN  
+		-- add columns
+		ALTER TABLE TOPIC_${topicName} ADD COLUMN ${factorColumnName} ${MySQLFactorTypeMap[factor.type]};
+	ELSE
+		-- modify columns
+		ALTER TABLE TOPIC_${topicName} MODIFY COLUMN ${factorColumnName} ${MySQLFactorTypeMap[factor.type]};
+	END IF;`;
+		}).join('\n');
+	}
+};
+
+const buildAggregateAssist = (topic: Topic) => {
+	const topicName = asTopicName(topic);
+
+	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type)
+		? `\tIF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '_AGGREGATE_ASSIST') THEN
+		-- add columns
+	    ALTER TABLE TOPIC_${topicName} ADD COLUMN _AGGREGATE_ASSIST JSON;
+	ELSE
+		-- modify columns
+		ALTER TABLE TOPIC_${topicName} MODIFY COLUMN _AGGREGATE_ASSIST JSON;
+	END IF;`
+		: '';
+};
+
 const createSQL = (topic: Topic): string => {
 	const uniqueIndexes = gatherUniqueIndexes(topic);
 	const indexes = gatherIndexes(topic);
@@ -18,25 +56,8 @@ BEGIN
 	SELECT DATABASE() INTO CurrentDatabase;
 
 	-- will not drop any column even it is not in definition, just keep it
-${topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
-		const factorColumnName = asFactorName(factor);
-		return `    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '${factorColumnName}') THEN  
-		-- add columns
-		ALTER TABLE TOPIC_${topicName} ADD COLUMN ${factorColumnName} ${MySQLFactorTypeMap[factor.type]};
-	ELSE
-		-- modify columns
-		ALTER TABLE TOPIC_${topicName} MODIFY COLUMN ${factorColumnName} ${MySQLFactorTypeMap[factor.type]};
-	END IF;`;
-	}).join('\n')}
-${[TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type)
-		? `\tIF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '_AGGREGATE_ASSIST') THEN
-		-- add columns
-	    EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} ADD (_AGGREGATE_ASSIST VARCHAR2(1024))';
-	ELSE
-		-- modify columns
-		EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} MODIFY (_AGGREGATE_ASSIST VARCHAR2(1024))';
-	END IF;`
-		: ''}
+${buildFactors(topic)}
+${buildAggregateAssist(topic)}
 
 	-- drop existed indexes
 	-- simply uncomment the following loop to drop all exists indexes

@@ -3,6 +3,48 @@ import JSZip from 'jszip';
 import {asFactorName, asTopicName, gatherIndexes, gatherUniqueIndexes} from './utils';
 import {OracleFactorTypeMap} from './oracle';
 
+const buildFactors = (topic: Topic) => {
+	const topicName = asTopicName(topic);
+
+	if (topic.type === TopicType.RAW) {
+		return `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = 'DATA_';
+	IF columnExists = 0 THEN
+		-- add columns
+		EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} ADD (DATA_ CLOB)';
+	ELSE
+		-- modify columns
+		EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} MODIFY (DATA_ CLOB)';
+	END IF;`;
+	} else {
+		return topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
+			const factorColumnName = asFactorName(factor);
+			return `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '${factorColumnName}';
+	IF columnExists = 0 THEN  
+		-- add columns
+	    EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} ADD (${factorColumnName} ${OracleFactorTypeMap[factor.type]})';
+	ELSE
+		-- modify columns
+		EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} MODIFY (${factorColumnName} ${OracleFactorTypeMap[factor.type]})';
+	END IF;`;
+		}).join('\n');
+	}
+};
+
+const buildAggregateAssist = (topic: Topic) => {
+	const topicName = asTopicName(topic);
+
+	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type)
+		? `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '_AGGREGATE_ASSIST';
+	IF columnExists = 0 THEN  
+		-- add columns
+	    EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} ADD (_AGGREGATE_ASSIST VARCHAR2(1024))';
+	ELSE
+		-- modify columns
+		EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} MODIFY (_AGGREGATE_ASSIST VARCHAR2(1024))';
+	END IF;`
+		: '';
+};
+
 const createSQL = (topic: Topic): string => {
 	const uniqueIndexes = gatherUniqueIndexes(topic);
 	const indexes = gatherIndexes(topic);
@@ -17,27 +59,8 @@ CREATE OR REPLACE PROCEDURE SCHEMA_CHANGE AS
     columnExists NUMBER;
 BEGIN 
 	-- will not drop any column even it is not in definition, just keep it
-${topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
-		const factorColumnName = asFactorName(factor);
-		return `    SELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '${factorColumnName}';
-	IF columnExists = 0 THEN  
-		-- add columns
-	    EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} ADD (${factorColumnName} ${OracleFactorTypeMap[factor.type]})';
-	ELSE
-		-- modify columns
-		EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} MODIFY (${factorColumnName} ${OracleFactorTypeMap[factor.type]})';
-	END IF;`;
-	}).join('\n')}
-${[TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type)
-		? `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '_AGGREGATE_ASSIST';
-	IF columnExists = 0 THEN  
-		-- add columns
-	    EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} ADD (_AGGREGATE_ASSIST VARCHAR2(1024))';
-	ELSE
-		-- modify columns
-		EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} MODIFY (_AGGREGATE_ASSIST VARCHAR2(1024))';
-	END IF;`
-		: ''}
+${buildFactors(topic)}
+${buildAggregateAssist(topic)}
 
 	-- drop existed indexes
 	-- simply uncomment the following loop to drop all exists indexes

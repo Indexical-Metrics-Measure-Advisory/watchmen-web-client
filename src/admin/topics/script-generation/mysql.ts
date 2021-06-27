@@ -69,6 +69,6 @@ export const MySQLFactorTypeMap: { [key in FactorType]: string } = {
 
 	[FactorType.ENUM]: 'VARCHAR(20)',
 
-	[FactorType.OBJECT]: 'MEDIUMTEXT',
-	[FactorType.ARRAY]: 'MEDIUMTEXT'
+	[FactorType.OBJECT]: 'JSON',
+	[FactorType.ARRAY]: 'JSON'
 };
