@@ -6,7 +6,7 @@ export const OracleFactorTypeMap: { [key in FactorType]: string } = {
 	[FactorType.NUMBER]: 'NUMBER(32,6)',
 	[FactorType.UNSIGNED]: 'NUMBER(32,6)',
 
-	[FactorType.TEXT]: 'VARCHAR2(30)',
+	[FactorType.TEXT]: 'VARCHAR2(1024)',
 
 	// address
 	[FactorType.ADDRESS]: 'VARCHAR2(1024)',
