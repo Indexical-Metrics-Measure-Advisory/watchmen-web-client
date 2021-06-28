@@ -1,6 +1,16 @@
 import JSZip from 'jszip';
 import {Topic, TopicType} from '../../../services/tuples/topic-types';
-import {asFactorName, asTopicName, gatherIndexes, gatherUniqueIndexes} from './utils';
+import {
+	asFactorName,
+	asFullTopicName,
+	asIndexName,
+	asTopicName,
+	asUniqueIndexName,
+	gatherIndexes,
+	gatherUniqueIndexes,
+	getAggregateAssistColumnName,
+	getRawTopicDataColumnName
+} from './utils';
 import {OracleFactorTypeMap} from './oracle';
 import {Factor, FactorType} from '../../../services/tuples/factor-types';
 import {MySQLFactorTypeMap} from './mysql';
@@ -8,7 +18,7 @@ import {v4} from 'uuid';
 
 const buildFactorsOnCreate = (topic: Topic) => {
 	if (topic.type === TopicType.RAW) {
-		return '			<column name="DATA_" type="\${json.type}"/>';
+		return `			<column name="${getRawTopicDataColumnName()}" type="\${json.type}"/>`;
 	} else {
 		return topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
 			return `			<column name="${asFactorName(factor)}" type="\${${factor.type}.type}"/>`;
@@ -17,23 +27,24 @@ const buildFactorsOnCreate = (topic: Topic) => {
 };
 
 const buildAggregateAssistOnCreate = (topic: Topic) => {
-	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? '			<column name="_AGGREGATE_ASSIST" type="\${aggregate-assist.type}"/>' : '';
+	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `			<column name="${getAggregateAssistColumnName()}" type="\${aggregate-assist.type}"/>` : '';
 };
 
-const buildFactorOnModify = (topicName: string, factor: Factor) => {
+const buildFactorOnModify = (topic: Topic, factor: Factor) => {
+	const tableName = asFullTopicName(topic);
 	const factorColumnName = asFactorName(factor);
 
 	return `\t<!-- add ${factorColumnName} when column not exists -->
 	<changeSet id="${v4()}" author="watchmen">
 		<preConditions onFail="MARK_RAN">
 			<dbms type="mysql"/>
-			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '${factorColumnName}'</sqlCheck>
+			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${factorColumnName}'</sqlCheck>
         </preConditions>
 		<preConditions onFail="MARK_RAN">
 			<dbms type="oracle"/>
-			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '${factorColumnName}'</sqlCheck>
+			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${factorColumnName}'</sqlCheck>
         </preConditions>
-        <addColumn tableName="TOPIC_${topicName}">
+        <addColumn tableName="${tableName}">
         	<column name="${factorColumnName}" type="\${${factor.type}.type}"/>
 		</addColumn>
     </changSet>
@@ -41,24 +52,22 @@ const buildFactorOnModify = (topicName: string, factor: Factor) => {
     <changeSet id="${v4()}" author="watchmen">
 		<preConditions onFail="MARK_RAN">
 			<dbms type="mysql"/>
-			<sqlCheck expectedResult="1">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '${factorColumnName}'</sqlCheck>
+			<sqlCheck expectedResult="1">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${factorColumnName}'</sqlCheck>
         </preConditions>
 		<preConditions onFail="MARK_RAN">
 			<dbms type="oracle"/>
-			<sqlCheck expectedResult="1">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '${factorColumnName}'</sqlCheck>
+			<sqlCheck expectedResult="1">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${factorColumnName}'</sqlCheck>
         </preConditions>
-        <modifyDataType tableName="TOPIC_${topicName}" columnName="${factorColumnName}" newDataType="\${${factor.type}.type}"/>
+        <modifyDataType tableName="${tableName}" columnName="${factorColumnName}" newDataType="\${${factor.type}.type}"/>
     </changSet>`;
 };
 const buildFactorsOnModify = (topic: Topic) => {
-	const topicName = asTopicName(topic);
-
 	if (topic.type === TopicType.RAW) {
 		// fake me as a factor, therefore use this build function
-		return buildFactorOnModify(topicName, {name: 'DATA_', type: 'json'} as unknown as Factor);
+		return buildFactorOnModify(topic, {name: getRawTopicDataColumnName(), type: 'json'} as unknown as Factor);
 	} else {
 		return topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
-			return buildFactorOnModify(topicName, factor);
+			return buildFactorOnModify(topic, factor);
 		}).join('\n');
 	}
 };
@@ -68,24 +77,24 @@ const buildAggregateAssistOnModify = (topic: Topic) => {
 		return '';
 	}
 
-	const topicName = asTopicName(topic);
-	return `\t<!-- add _AGGREGATE_ASSIST when column not exists -->
+	const tableName = asFullTopicName(topic);
+	return `\t<!-- add ${getAggregateAssistColumnName()} when column not exists -->
 	<changeSet id="${v4()}" author="watchmen">
 		<preConditions onFail="MARK_RAN">
 			<dbms type="mysql"/>
-			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '_AGGREGATE_ASSIST'</sqlCheck>
+			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getAggregateAssistColumnName()}'</sqlCheck>
         </preConditions>
-        <addColumn tableName="TOPIC_${topicName}">
-        	<column name="_AGGREGATE_ASSIST" type="\${aggregate-assist.type}"/>
+        <addColumn tableName="${tableName}">
+        	<column name="${getAggregateAssistColumnName()}" type="\${aggregate-assist.type}"/>
 		</addColumn>
     </changSet>
 	<changeSet id="${v4()}" author="watchmen">
 		<preConditions onFail="MARK_RAN">
 			<dbms type="oracle"/>
-			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '_AGGREGATE_ASSIST'</sqlCheck>
+			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getAggregateAssistColumnName()}'</sqlCheck>
         </preConditions>
-        <addColumn tableName="TOPIC_${topicName}">
-        	<column name="_AGGREGATE_ASSIST" type="\${aggregate-assist.type}"/>
+        <addColumn tableName="${tableName}">
+        	<column name="${getAggregateAssistColumnName()}" type="\${aggregate-assist.type}"/>
 		</addColumn>
     </changSet>`;
 };
@@ -93,7 +102,9 @@ const buildAggregateAssistOnModify = (topic: Topic) => {
 const createXML = (topic: Topic) => {
 	const uniqueIndexes = gatherUniqueIndexes(topic);
 	const indexes = gatherIndexes(topic);
-	const topicName = asTopicName(topic);
+	const tableName = asFullTopicName(topic);
+	const uniqueIndexName = asUniqueIndexName(topic);
+	const indexName = asIndexName(topic);
 
 	return `<?xml version="1.0" encoding="UTF-8"?>  
 <databaseChangeLog  
@@ -115,10 +126,10 @@ ${Object.keys(MySQLFactorTypeMap).map(factorType => {
 	<changeSet id="${v4()}" author="watchmen">
 		<preConditions onFail="MARK_RAN">
 			<not>
-				<tableExists tableName="TOPIC_${topicName}"/>
+				<tableExists tableName="${tableName}"/>
 			</not>
         </preConditions>
-        <createTable tableName="TOPIC_${topicName}">
+        <createTable tableName="${tableName}">
 			<column name="ID_" type="\${pk.type}">
 				<constraints primaryKey="true"/>
 			</column>
@@ -143,8 +154,8 @@ ${buildAggregateAssistOnModify(topic)}
 			CREATE OR REPLACE PROCEDURE SCHEMA_CHANGE AS
 				CURSOR cursorIndexes IS SELECT UI.INDEX_NAME
 					FROM USER_INDEXES UI
-					WHERE UI.TABLE_NAME = 'TOPIC_${topicName}'
-                        AND NOT EXISTS (SELECT 1 FROM USER_CONSTRAINTS WHERE TABLE_NAME = 'TOPIC_${topicName}' AND CONSTRAINT_TYPE = 'P' AND CONSTRAINT_NAME = UI.INDEX_NAME);
+					WHERE UI.TABLE_NAME = '${tableName}'
+                        AND NOT EXISTS (SELECT 1 FROM USER_CONSTRAINTS WHERE TABLE_NAME = '${tableName}' AND CONSTRAINT_TYPE = 'P' AND CONSTRAINT_NAME = UI.INDEX_NAME);
 			BEGIN
 				-- drop existed indexes
 				FOR anIndex in cursorIndexes LOOP
@@ -157,13 +168,13 @@ ${buildAggregateAssistOnModify(topic)}
 			CREATE PROCEDURE SCHEMA_CHANGE() 
 			BEGIN 
 				-- drop existed indexes
-				SELECT INDEX_NAME INTO @indexName FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'TOPIC_${topicName}' AND INDEX_NAME <> 'PRIMARY' LIMIT 1;
+				SELECT INDEX_NAME INTO @indexName FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${tableName}' AND INDEX_NAME <> 'PRIMARY' LIMIT 1;
 				WHILE @indexName IS NOT NULL DO
-				    SET @sql = concat('DROP INDEX ', @indexName, ' ON TOPIC_${topicName};');
+				    SET @sql = concat('DROP INDEX ', @indexName, ' ON ${tableName};');
 					PREPARE stmt FROM @sql;
 					EXECUTE stmt;
 					DEALLOCATE PREPARE stmt;
-					SELECT INDEX_NAME INTO @indexName FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'TOPIC_${topicName}' AND INDEX_NAME <> 'PRIMARY' LIMIT 1;
+					SELECT INDEX_NAME INTO @indexName FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${tableName}' AND INDEX_NAME <> 'PRIMARY' LIMIT 1;
 				END WHILE;
 			END $$
 			DELIMITER ;
@@ -175,13 +186,13 @@ ${buildAggregateAssistOnModify(topic)}
 	<changeSet id="${v4()}" author="watchmen">
 ${Object.values(uniqueIndexes).map((factors, index) => {
 		return `		<!-- unique index -->
-		<createIndex indexName="U_${topicName}_${index + 1}" tableName="TOPIC_${topicName}" unique="true">
+		<createIndex indexName="${uniqueIndexName}_${index + 1}" tableName="${tableName}" unique="true">
 ${factors.map(factor => `			<column name="${asFactorName(factor)}"/>`)}
 		</createIndex>`;
 	}).join('\n')}
 ${Object.values(indexes).map((factors, index) => {
 		return `		<!-- index -->
-		<createIndex indexName="I_${topicName}_${index + 1}" tableName="TOPIC_${topicName}">
+		<createIndex indexName="${indexName}_${index + 1}" tableName="${tableName}">
 ${factors.map(factor => `			<column name="${asFactorName(factor)}"/>`)}
 		</createIndex>`;
 	}).join('\n')}

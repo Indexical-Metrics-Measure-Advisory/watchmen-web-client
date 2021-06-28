@@ -1,11 +1,19 @@
 import {Topic, TopicType} from '../../../services/tuples/topic-types';
 import JSZip from 'jszip';
-import {asFactorName, asTopicName, gatherIndexes, gatherUniqueIndexes} from './utils';
+import {
+	asFactorName,
+	asFullTopicName,
+	asTopicName,
+	gatherIndexes,
+	gatherUniqueIndexes,
+	getAggregateAssistColumnName,
+	getRawTopicDataColumnName
+} from './utils';
 import {MySQLFactorTypeMap} from './mysql';
 
 const buildFactors = (topic: Topic) => {
 	if (topic.type === TopicType.RAW) {
-		return '\tDATA_ JSON,';
+		return `\t${getRawTopicDataColumnName()} JSON,`;
 	} else {
 		return topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
 			return `\t${asFactorName(factor)} ${MySQLFactorTypeMap[factor.type]},`;
@@ -14,20 +22,20 @@ const buildFactors = (topic: Topic) => {
 };
 
 const buildAggregateAssist = (topic: Topic) => {
-	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `_AGGREGATE_ASSIST JSON,` : '';
+	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `${getAggregateAssistColumnName()} JSON,` : '';
 };
 
 const createSQL = (topic: Topic): string => {
 	const uniqueIndexes = gatherUniqueIndexes(topic);
 	const indexes = gatherIndexes(topic);
-	const topicName = asTopicName(topic);
+	const tableName = asFullTopicName(topic);
 
 	return `-- sqls for topic[id=${topic.topicId}, name=${topic.name}]
 -- drop, commented default
--- DROP TABLE IF EXISTS TOPIC_${topicName};
+-- DROP TABLE IF EXISTS ${tableName};
 
 -- create 
-CREATE TABLE TOPIC_${topicName}(
+CREATE TABLE ${tableName}(
 	ID_ VARCHAR(60),
 ${buildFactors(topic)}
 	${buildAggregateAssist(topic)}

@@ -1,46 +1,56 @@
 import {Topic, TopicType} from '../../../services/tuples/topic-types';
 import JSZip from 'jszip';
-import {asFactorName, asTopicName, gatherIndexes, gatherUniqueIndexes} from './utils';
+import {
+	asFactorName,
+	asFullTopicName,
+	asIndexName,
+	asTopicName,
+	asUniqueIndexName,
+	gatherIndexes,
+	gatherUniqueIndexes,
+	getAggregateAssistColumnName,
+	getRawTopicDataColumnName
+} from './utils';
 import {OracleFactorTypeMap} from './oracle';
 
 const buildFactors = (topic: Topic) => {
-	const topicName = asTopicName(topic);
+	const tableName = asFullTopicName(topic);
 
 	if (topic.type === TopicType.RAW) {
-		return `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = 'DATA_';
+		return `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getRawTopicDataColumnName()}';
 	IF columnExists = 0 THEN
 		-- add columns
-		EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} ADD (DATA_ CLOB)';
+		EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} ADD (${getRawTopicDataColumnName()} CLOB)';
 	ELSE
 		-- modify columns
-		EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} MODIFY (DATA_ CLOB)';
+		EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} MODIFY (${getRawTopicDataColumnName()} CLOB)';
 	END IF;`;
 	} else {
 		return topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
 			const factorColumnName = asFactorName(factor);
-			return `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '${factorColumnName}';
+			return `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${factorColumnName}';
 	IF columnExists = 0 THEN  
 		-- add columns
-	    EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} ADD (${factorColumnName} ${OracleFactorTypeMap[factor.type]})';
+	    EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} ADD (${factorColumnName} ${OracleFactorTypeMap[factor.type]})';
 	ELSE
 		-- modify columns
-		EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} MODIFY (${factorColumnName} ${OracleFactorTypeMap[factor.type]})';
+		EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} MODIFY (${factorColumnName} ${OracleFactorTypeMap[factor.type]})';
 	END IF;`;
 		}).join('\n');
 	}
 };
 
 const buildAggregateAssist = (topic: Topic) => {
-	const topicName = asTopicName(topic);
+	const tableName = asFullTopicName(topic);
 
 	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type)
-		? `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'TOPIC_${topicName}' AND COLUMN_NAME = '_AGGREGATE_ASSIST';
+		? `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getAggregateAssistColumnName()}';
 	IF columnExists = 0 THEN  
 		-- add columns
-	    EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} ADD (_AGGREGATE_ASSIST VARCHAR2(1024))';
+	    EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} ADD (${getAggregateAssistColumnName()} VARCHAR2(1024))';
 	ELSE
 		-- modify columns
-		EXECUTE IMMEDIATE 'ALTER TABLE TOPIC_${topicName} MODIFY (_AGGREGATE_ASSIST VARCHAR2(1024))';
+		EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} MODIFY (${getAggregateAssistColumnName()} VARCHAR2(1024))';
 	END IF;`
 		: '';
 };
@@ -48,14 +58,16 @@ const buildAggregateAssist = (topic: Topic) => {
 const createSQL = (topic: Topic): string => {
 	const uniqueIndexes = gatherUniqueIndexes(topic);
 	const indexes = gatherIndexes(topic);
-	const topicName = asTopicName(topic);
+	const tableName = asFullTopicName(topic);
+	const uniqueIndexName = asUniqueIndexName(topic);
+	const indexName = asIndexName(topic);
 
 	return `-- procedure for topic[id=${topic.topicId}, name=${topic.name}]
 CREATE OR REPLACE PROCEDURE SCHEMA_CHANGE AS
 	CURSOR cursorIndexes IS SELECT UI.INDEX_NAME
 		FROM USER_INDEXES UI
-		WHERE UI.TABLE_NAME = 'TOPIC_${topicName}'
-        AND NOT EXISTS (SELECT 1 FROM USER_CONSTRAINTS WHERE TABLE_NAME = 'TOPIC_${topicName}' AND CONSTRAINT_TYPE = 'P' AND CONSTRAINT_NAME = UI.INDEX_NAME);
+		WHERE UI.TABLE_NAME = '${tableName}'
+        AND NOT EXISTS (SELECT 1 FROM USER_CONSTRAINTS WHERE TABLE_NAME = '${tableName}' AND CONSTRAINT_TYPE = 'P' AND CONSTRAINT_NAME = UI.INDEX_NAME);
     columnExists NUMBER;
 BEGIN 
 	-- will not drop any column even it is not in definition, just keep it
@@ -72,12 +84,12 @@ ${buildAggregateAssist(topic)}
 	
 	-- unique index
 ${Object.values(uniqueIndexes).map((factors, index) => {
-		return `	EXECUTE IMMEDIATE 'CREATE UNIQUE INDEX U_${topicName}_${index + 1} ON TOPIC_${topicName} (${factors.map(factor => asFactorName(factor)).join(', ')})';`;
+		return `	EXECUTE IMMEDIATE 'CREATE UNIQUE INDEX ${uniqueIndexName}_${index + 1} ON ${tableName} (${factors.map(factor => asFactorName(factor)).join(', ')})';`;
 	}).join('\n')}
 
 	-- index
 ${Object.values(indexes).map((factors, index) => {
-		return `	EXECUTE IMMEDIATE 'CREATE INDEX I_${topicName}_${index + 1} ON TOPIC_${topicName} (${factors.map(factor => asFactorName(factor)).join(', ')})';`;
+		return `	EXECUTE IMMEDIATE 'CREATE INDEX ${indexName}_${index + 1} ON ${tableName} (${factors.map(factor => asFactorName(factor)).join(', ')})';`;
 	}).join('\n')}
 
 END;

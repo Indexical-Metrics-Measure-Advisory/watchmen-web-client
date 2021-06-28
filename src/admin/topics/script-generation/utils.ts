@@ -26,6 +26,13 @@ export const gatherIndexes = (topic: Topic): IndexGroups => {
 export const asTopicName = (topic: Topic) => {
 	return topic.name.toLowerCase().replaceAll('-', '_').replaceAll(' ', '_');
 };
+export const asFullTopicName = (topic: Topic) => {
+	return `topic_${asTopicName(topic)}`;
+};
 export const asFactorName = (factor: Factor) => {
 	return factor.name.toLowerCase().replaceAll('-', '_').replaceAll(' ', '_');
 };
+export const getRawTopicDataColumnName = () => 'data_';
+export const getAggregateAssistColumnName = () => '_aggregate_assist';
+export const asUniqueIndexName = (topic: Topic) => `u_${asTopicName(topic)}`;
+export const asIndexName = (topic: Topic) => `i_${asTopicName(topic)}`;
