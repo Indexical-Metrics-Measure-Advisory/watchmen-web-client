@@ -16,7 +16,7 @@ import {OracleFactorTypeMap} from './oracle';
 
 const buildFactors = (topic: Topic) => {
 	if (topic.type === TopicType.RAW) {
-		return `\t${getRawTopicDataColumnName()} JSON,`;
+		return `\t${getRawTopicDataColumnName()} CLOB,`;
 	} else {
 		return topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
 			return `\t${factor.name.toUpperCase()} ${OracleFactorTypeMap[factor.type]},`;
