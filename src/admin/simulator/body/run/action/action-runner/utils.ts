@@ -18,7 +18,7 @@ import {CopyToMemoryAction} from '../../../../../../services/tuples/pipeline-sta
 import {computeParameter} from '../../compute/parameter-compute';
 import {DataRow} from '../../../../types';
 
-export const AGGREGATE_ASSIST_FACTOR_NAME = '_aggregate_assist';
+export const AGGREGATE_ASSIST_FACTOR_NAME = 'aggregate_assist_';
 export const DEFAULT_AGGREGATE_ASSIST_FACTOR_VALUE = '{}';
 export const AGGREGATE_AVG_COUNT_PROP_NAME = 'avg_count';
 
