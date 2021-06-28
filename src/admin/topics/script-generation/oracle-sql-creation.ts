@@ -9,6 +9,7 @@ import {
 	gatherIndexes,
 	gatherUniqueIndexes,
 	getAggregateAssistColumnName,
+	getIdColumnName,
 	getRawTopicDataColumnName
 } from './utils';
 import {OracleFactorTypeMap} from './oracle';
@@ -40,12 +41,12 @@ const createSQL = (topic: Topic): string => {
 
 -- create 
 CREATE TABLE ${tableName}(
-	ID_ VARCHAR2(60),
+	${getIdColumnName()} VARCHAR2(60),
 ${buildFactors(topic)}
 	${buildAggregateAssist(topic)}
 
 	-- primary key
-	PRIMARY KEY (ID_)
+	PRIMARY KEY (${getIdColumnName()})
 );
 
 -- unique index

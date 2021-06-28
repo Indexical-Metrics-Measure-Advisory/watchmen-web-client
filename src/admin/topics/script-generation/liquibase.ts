@@ -8,7 +8,7 @@ import {
 	asUniqueIndexName,
 	gatherIndexes,
 	gatherUniqueIndexes,
-	getAggregateAssistColumnName,
+	getAggregateAssistColumnName, getIdColumnName,
 	getRawTopicDataColumnName
 } from './utils';
 import {OracleFactorTypeMap} from './oracle';
@@ -130,7 +130,7 @@ ${Object.keys(MySQLFactorTypeMap).map(factorType => {
 			</not>
         </preConditions>
         <createTable tableName="${tableName}">
-			<column name="ID_" type="\${pk.type}">
+			<column name="${getIdColumnName()}" type="\${pk.type}">
 				<constraints primaryKey="true"/>
 			</column>
 ${buildFactorsOnCreate(topic)}

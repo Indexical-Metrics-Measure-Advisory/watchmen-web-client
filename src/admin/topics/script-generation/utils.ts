@@ -32,6 +32,7 @@ export const asFullTopicName = (topic: Topic) => {
 export const asFactorName = (factor: Factor) => {
 	return factor.name.toLowerCase().replaceAll('-', '_').replaceAll(' ', '_');
 };
+export const getIdColumnName = () => 'id_';
 export const getRawTopicDataColumnName = () => 'data_';
 export const getAggregateAssistColumnName = () => '_aggregate_assist';
 export const asUniqueIndexName = (topic: Topic) => `u_${asTopicName(topic)}`;

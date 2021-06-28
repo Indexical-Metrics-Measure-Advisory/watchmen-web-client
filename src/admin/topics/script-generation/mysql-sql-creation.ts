@@ -7,6 +7,7 @@ import {
 	gatherIndexes,
 	gatherUniqueIndexes,
 	getAggregateAssistColumnName,
+	getIdColumnName,
 	getRawTopicDataColumnName
 } from './utils';
 import {MySQLFactorTypeMap} from './mysql';
@@ -36,7 +37,7 @@ const createSQL = (topic: Topic): string => {
 
 -- create 
 CREATE TABLE ${tableName}(
-	ID_ VARCHAR(60),
+	${getIdColumnName()} VARCHAR(60),
 ${buildFactors(topic)}
 	${buildAggregateAssist(topic)}
 
@@ -51,7 +52,7 @@ ${Object.values(indexes).map(factors => {
 	}).join('\n')}
 
 	-- primary key
-	PRIMARY KEY (ID_)
+	PRIMARY KEY (${getIdColumnName()})
 );
 
 `;
