@@ -24,8 +24,8 @@ export const gatherIndexes = (topic: Topic): IndexGroups => {
 };
 
 export const asTopicName = (topic: Topic) => {
-	return topic.name.toUpperCase().replaceAll('-', '_').replaceAll(' ', '_');
+	return topic.name.toLowerCase().replaceAll('-', '_').replaceAll(' ', '_');
 };
 export const asFactorName = (factor: Factor) => {
-	return factor.name.toUpperCase().replaceAll('-', '_').replaceAll(' ', '_');
+	return factor.name.toLowerCase().replaceAll('-', '_').replaceAll(' ', '_');
 };
