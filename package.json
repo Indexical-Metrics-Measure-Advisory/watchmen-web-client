@@ -1,6 +1,6 @@
 {
   "name": "watchmen-web-client",
-  "version": "0.11.7",
+  "version": "0.11.14",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
