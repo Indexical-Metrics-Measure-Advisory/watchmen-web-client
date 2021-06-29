@@ -62,40 +62,68 @@ export const AdminCache = () => {
 	useEffect(() => {
 		const onSavePipeline = async (pipeline: Pipeline) => {
 			await saveAdminPipeline(pipeline);
-			if (data.data) {
-				data.data.pipelines = [
-					pipeline,
-					// eslint-disable-next-line
-					...(data.data.pipelines || []).filter(p => p.pipelineId != pipeline.pipelineId)
-				];
-			}
+			setData(data => {
+				return {
+					initialized: data.initialized,
+					data: {
+						topics: data.data?.topics || [],
+						pipelines: [
+							pipeline,
+							// eslint-disable-next-line
+							...(data.data?.pipelines || []).filter(p => p.pipelineId != pipeline.pipelineId)
+						],
+						graphics: data.data?.graphics || []
+					}
+				};
+			});
 		};
 		const onSaveTopic = async (topic: Topic) => {
 			await saveAdminTopic(topic);
-			if (data.data) {
-				data.data.topics = [
-					topic,
-					// eslint-disable-next-line
-					...(data.data.topics || []).filter(t => t.topicId != topic.topicId)
-				];
-			}
+			setData(data => {
+				return {
+					initialized: data.initialized,
+					data: {
+						topics: [
+							topic,
+							// eslint-disable-next-line
+							...(data.data?.topics || []).filter(t => t.topicId != topic.topicId)
+						],
+						pipelines: data.data?.pipelines || [],
+						graphics: data.data?.graphics || []
+					}
+				};
+			});
 		};
 		const onSavePipelinesGraphics = async (graphics: PipelinesGraphics) => {
 			await saveAdminPipelinesGraphics(graphics);
-			if (data.data) {
-				data.data.graphics = [
-					graphics,
-					// eslint-disable-next-line
-					...(data.data.graphics || []).filter(g => g.pipelineGraphId != graphics.pipelineGraphId)
-				];
-			}
+			setData(data => {
+				return {
+					initialized: data.initialized,
+					data: {
+						topics: data.data?.topics || [],
+						pipelines: data.data?.pipelines || [],
+						graphics: [
+							graphics,
+							// eslint-disable-next-line
+							...(data.data?.graphics || []).filter(g => g.pipelineGraphId != graphics.pipelineGraphId)
+						]
+					}
+				};
+			});
 		};
 		const onRemovePipelinesGraphics = async (pipelineGraphId: string) => {
 			await deleteAdminPipelineGraphics(pipelineGraphId);
-			if (data.data) {
-				// eslint-disable-next-line
-				data.data.graphics = (data.data.graphics || []).filter(g => g.pipelineGraphId != pipelineGraphId);
-			}
+			setData(data => {
+				return {
+					initialized: data.initialized,
+					data: {
+						topics: data.data?.topics || [],
+						pipelines: data.data?.pipelines || [],
+						// eslint-disable-next-line
+						graphics: (data.data?.graphics || []).filter(g => g.pipelineGraphId != pipelineGraphId)
+					}
+				};
+			});
 		};
 		on(AdminCacheEventTypes.SAVE_PIPELINE, onSavePipeline);
 		on(AdminCacheEventTypes.SAVE_TOPIC, onSaveTopic);
@@ -111,7 +139,7 @@ export const AdminCache = () => {
 			off(AdminCacheEventTypes.TOPIC_LOADED, onSaveTopic);
 			off(AdminCacheEventTypes.PIPELINE_LOADED, onSavePipeline);
 		};
-	});
+	}, [on, off]);
 
 	return <></>;
 };
