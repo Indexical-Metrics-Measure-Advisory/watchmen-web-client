@@ -18,15 +18,15 @@ import {useConnectedSpaceEventBus} from '../../connected-space-event-bus';
 import {ConnectedSpaceEventTypes} from '../../connected-space-event-bus-types';
 
 const DeleteDialogBody = styled(DialogBody)`
-	flex-direction : column;
-	margin-bottom  : var(--margin);
+	flex-direction: column;
+	margin-bottom: var(--margin);
 `;
 const NameUrl = styled.div`
-	color       : var(--info-color);
-	font-weight : var(--font-bold);
-	padding-top : calc(var(--margin) / 2);
-	word-break  : break-all;
-	line-height : var(--line-height);
+	color: var(--info-color);
+	font-weight: var(--font-bold);
+	padding-top: calc(var(--margin) / 2);
+	word-break: break-all;
+	line-height: var(--line-height);
 `;
 
 const SubjectDelete = (props: { subject: Subject, onRemoved: () => void }) => {
@@ -37,7 +37,10 @@ const SubjectDelete = (props: { subject: Subject, onRemoved: () => void }) => {
 	const onDeleteClicked = async () => {
 		fire(EventTypes.INVOKE_REMOTE_REQUEST,
 			async () => await deleteSubject(subject),
-			() => onRemoved());
+			() => {
+				fire(EventTypes.HIDE_DIALOG);
+				onRemoved();
+			});
 	};
 	const onCancelClicked = () => {
 		fire(EventTypes.HIDE_DIALOG);
