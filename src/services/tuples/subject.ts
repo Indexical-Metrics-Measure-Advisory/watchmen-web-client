@@ -5,18 +5,14 @@ import {Subject} from './subject-types';
 import {isFakedUuid} from './utils';
 
 export const saveSubject = async (subject: Subject, connectedSpaceId: string): Promise<void> => {
-	// remove reports when save subject
-	// reports will save by itself, independent
-	const {reports, ...rest} = subject;
-
 	if (isMockService()) {
-		return saveMockSubject(rest);
+		return saveMockSubject(subject);
 	} else if (isFakedUuid(subject)) {
-		const data = await post({api: Apis.SUBJECT_CREATE, search: {connectId: connectedSpaceId}, data: rest});
+		const data = await post({api: Apis.SUBJECT_CREATE, search: {connectId: connectedSpaceId}, data: subject});
 		subject.subjectId = data.subjectId;
 		subject.lastModifyTime = data.lastModifyTime;
 	} else {
-		const data = await post({api: Apis.SUBJECT_SAVE, data: rest});
+		const data = await post({api: Apis.SUBJECT_SAVE, data: subject});
 		subject.lastModifyTime = data.lastModifyTime;
 	}
 };
