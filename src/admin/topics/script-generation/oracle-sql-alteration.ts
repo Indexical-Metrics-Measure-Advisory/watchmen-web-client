@@ -9,7 +9,10 @@ import {
 	gatherIndexes,
 	gatherUniqueIndexes,
 	getAggregateAssistColumnName,
-	getRawTopicDataColumnName
+	getInsertTimeColumnName,
+	getRawTopicDataColumnName,
+	getUpdateTimeColumnName,
+	getVersionColumnName
 } from './utils';
 import {OracleFactorTypeMap} from './oracle';
 
@@ -54,6 +57,32 @@ const buildAggregateAssist = (topic: Topic) => {
 	END IF;`
 		: '';
 };
+const buildVersionAssist = (topic: Topic) => {
+	const tableName = asFullTopicName(topic);
+
+	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type)
+		? `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getVersionColumnName()}';
+	IF columnExists = 0 THEN  
+		-- add columns
+	    EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} ADD (${getVersionColumnName()} NUMBER(8))';
+	ELSE
+		-- modify columns
+		EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} MODIFY (${getVersionColumnName()} NUMBER(8))';
+	END IF;`
+		: '';
+};
+const buildAuditTimeColumn = (topic: Topic, columnName: string) => {
+	const tableName = asFullTopicName(topic);
+
+	return `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}';
+	IF columnExists = 0 THEN  
+		-- add columns
+	    EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} ADD (${columnName} DATE)';
+	ELSE
+		-- modify columns
+		EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} MODIFY (${columnName} DATE)';
+	END IF`;
+};
 
 const createSQL = (topic: Topic): string => {
 	const uniqueIndexes = gatherUniqueIndexes(topic);
@@ -73,6 +102,9 @@ BEGIN
 	-- will not drop any column even it is not in definition, just keep it
 ${buildFactors(topic)}
 ${buildAggregateAssist(topic)}
+${buildVersionAssist(topic)}
+${buildAuditTimeColumn(topic, getInsertTimeColumnName())}
+${buildAuditTimeColumn(topic, getUpdateTimeColumnName())}
 
 	-- drop existed indexes
 	-- simply uncomment the following loop to drop all exists indexes

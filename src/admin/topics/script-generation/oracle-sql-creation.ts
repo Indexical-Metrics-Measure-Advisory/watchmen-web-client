@@ -9,8 +9,8 @@ import {
 	gatherIndexes,
 	gatherUniqueIndexes,
 	getAggregateAssistColumnName,
-	getIdColumnName,
-	getRawTopicDataColumnName
+	getIdColumnName, getInsertTimeColumnName,
+	getRawTopicDataColumnName, getUpdateTimeColumnName, getVersionColumnName
 } from './utils';
 import {OracleFactorTypeMap} from './oracle';
 
@@ -27,6 +27,9 @@ const buildFactors = (topic: Topic) => {
 const buildAggregateAssist = (topic: Topic) => {
 	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `${getAggregateAssistColumnName()} VARCHAR2(1024),` : '';
 };
+const buildVersion = (topic: Topic) => {
+	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `${getVersionColumnName()} NUMBER(8),` : '';
+}
 
 const createSQL = (topic: Topic): string => {
 	const uniqueIndexes = gatherUniqueIndexes(topic);
@@ -44,6 +47,9 @@ CREATE TABLE ${tableName}(
 	${getIdColumnName()} VARCHAR2(60),
 ${buildFactors(topic)}
 	${buildAggregateAssist(topic)}
+	${buildVersion(topic)}
+	${getInsertTimeColumnName()} DATE,
+	${getUpdateTimeColumnName()} DATE,
 
 	-- primary key
 	PRIMARY KEY (${getIdColumnName()})

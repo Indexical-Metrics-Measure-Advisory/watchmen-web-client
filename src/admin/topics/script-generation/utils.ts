@@ -35,5 +35,8 @@ export const asFactorName = (factor: Factor) => {
 export const getIdColumnName = () => 'id_';
 export const getRawTopicDataColumnName = () => 'data_';
 export const getAggregateAssistColumnName = () => 'aggregate_assist_';
+export const getVersionColumnName = () => 'version_';
+export const getInsertTimeColumnName = () => 'insert_time_';
+export const getUpdateTimeColumnName = () => 'update_time_'
 export const asUniqueIndexName = (topic: Topic) => `u_${asTopicName(topic)}`;
 export const asIndexName = (topic: Topic) => `i_${asTopicName(topic)}`;

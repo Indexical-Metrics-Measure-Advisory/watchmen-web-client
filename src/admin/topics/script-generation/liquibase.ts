@@ -8,8 +8,12 @@ import {
 	asUniqueIndexName,
 	gatherIndexes,
 	gatherUniqueIndexes,
-	getAggregateAssistColumnName, getIdColumnName,
-	getRawTopicDataColumnName
+	getAggregateAssistColumnName,
+	getIdColumnName,
+	getInsertTimeColumnName,
+	getRawTopicDataColumnName,
+	getUpdateTimeColumnName,
+	getVersionColumnName
 } from './utils';
 import {OracleFactorTypeMap} from './oracle';
 import {Factor, FactorType} from '../../../services/tuples/factor-types';
@@ -18,7 +22,7 @@ import {v4} from 'uuid';
 
 const buildFactorsOnCreate = (topic: Topic) => {
 	if (topic.type === TopicType.RAW) {
-		return `			<column name="${getRawTopicDataColumnName()}" type="\${json.type}"/>`;
+		return `			<column name="${getRawTopicDataColumnName()}" type="\${json-column.type}"/>`;
 	} else {
 		return topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
 			return `			<column name="${asFactorName(factor)}" type="\${${factor.type}.type}"/>`;
@@ -27,7 +31,13 @@ const buildFactorsOnCreate = (topic: Topic) => {
 };
 
 const buildAggregateAssistOnCreate = (topic: Topic) => {
-	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `			<column name="${getAggregateAssistColumnName()}" type="\${aggregate-assist.type}"/>` : '';
+	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `			<column name="${getAggregateAssistColumnName()}" type="\${aggregate-assist-column.type}"/>` : '';
+};
+const buildVersionOnCreate = (topic: Topic) => {
+	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `			<column name="${getVersionColumnName()}" type="\${version-column.type}"/>` : '';
+};
+const buildAuditColumnOnCreate = (topic: Topic, columnName: string) => {
+	return `			<column name="${columnName}" type="\${audit-column.type}"/>`;
 };
 
 const buildFactorOnModify = (topic: Topic, factor: Factor) => {
@@ -85,7 +95,7 @@ const buildAggregateAssistOnModify = (topic: Topic) => {
 			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getAggregateAssistColumnName()}'</sqlCheck>
         </preConditions>
         <addColumn tableName="${tableName}">
-        	<column name="${getAggregateAssistColumnName()}" type="\${aggregate-assist.type}"/>
+        	<column name="${getAggregateAssistColumnName()}" type="\${aggregate-assist-column.type}"/>
 		</addColumn>
     </changSet>
 	<changeSet id="${v4()}" author="watchmen">
@@ -94,7 +104,55 @@ const buildAggregateAssistOnModify = (topic: Topic) => {
 			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getAggregateAssistColumnName()}'</sqlCheck>
         </preConditions>
         <addColumn tableName="${tableName}">
-        	<column name="${getAggregateAssistColumnName()}" type="\${aggregate-assist.type}"/>
+        	<column name="${getAggregateAssistColumnName()}" type="\${aggregate-assist-column.type}"/>
+		</addColumn>
+    </changSet>`;
+};
+const buildVersionOnModify = (topic: Topic) => {
+	if (![TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type)) {
+		return '';
+	}
+
+	const tableName = asFullTopicName(topic);
+	return `\t<!-- add ${getVersionColumnName()} when column not exists -->
+	<changeSet id="${v4()}" author="watchmen">
+		<preConditions onFail="MARK_RAN">
+			<dbms type="mysql"/>
+			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getVersionColumnName()}'</sqlCheck>
+        </preConditions>
+        <addColumn tableName="${tableName}">
+        	<column name="${getVersionColumnName()}" type="\${version-column.type}"/>
+		</addColumn>
+    </changSet>
+	<changeSet id="${v4()}" author="watchmen">
+		<preConditions onFail="MARK_RAN">
+			<dbms type="oracle"/>
+			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getVersionColumnName()}'</sqlCheck>
+        </preConditions>
+        <addColumn tableName="${tableName}">
+        	<column name="${getVersionColumnName()}" type="\${version-column.type}"/>
+		</addColumn>
+    </changSet>`;
+};
+const buildAuditColumnOnModify = (topic: Topic, columnName: string) => {
+	const tableName = asFullTopicName(topic);
+	return `\t<!-- add ${columnName} when column not exists -->
+	<changeSet id="${v4()}" author="watchmen">
+		<preConditions onFail="MARK_RAN">
+			<dbms type="mysql"/>
+			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}'</sqlCheck>
+        </preConditions>
+        <addColumn tableName="${tableName}">
+        	<column name="${columnName}" type="\${audit-column.type}"/>
+		</addColumn>
+    </changSet>
+	<changeSet id="${v4()}" author="watchmen">
+		<preConditions onFail="MARK_RAN">
+			<dbms type="oracle"/>
+			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}'</sqlCheck>
+        </preConditions>
+        <addColumn tableName="${tableName}">
+        	<column name="${columnName}" type="\${audit-column.type}"/>
 		</addColumn>
     </changSet>`;
 };
@@ -111,15 +169,19 @@ const createXML = (topic: Topic) => {
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"  
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-	<property dbms="oracle" name="pk.type" value="VARCHAR2(60)"/>
-	<property dbms="oracle" name="json.type" value="CLOB"/>
-	<property dbms="oracle" name="aggregate-assist.type" value="VARCHAR2(1024)"/>
+	<property dbms="oracle" name="pk-column.type" value="VARCHAR2(60)"/>
+	<property dbms="oracle" name="json-column.type" value="CLOB"/>
+	<property dbms="oracle" name="aggregate-assist-column.type" value="VARCHAR2(1024)"/>
+	<property dbms="oracle" name="version-column.type" value="NUMBER(8)"/>
+	<property dbms="oracle" name="audit-column.type" value="DATE"/>
 ${Object.keys(OracleFactorTypeMap).map(factorType => {
 		return `\t<property dbms="oracle" name="${factorType}.type" value="${OracleFactorTypeMap[factorType as FactorType]}"/>`;
 	}).join('\n')}
-	<property dbms="mysql" name="pk.type" value="VARCHAR(60)"/>
-	<property dbms="mysql" name="json.type" value="JSON"/>
-	<property dbms="mysql" name="aggregate-assist.type" value="JSON"/>
+	<property dbms="mysql" name="pk-column.type" value="VARCHAR(60)"/>
+	<property dbms="mysql" name="json-column.type" value="JSON"/>
+	<property dbms="mysql" name="aggregate-assist-column.type" value="JSON"/>
+	<property dbms="mysql" name="version-column.type" value="INT"/>
+	<property dbms="mysql" name="audit-column.type" value="DATETIME"/>
 ${Object.keys(MySQLFactorTypeMap).map(factorType => {
 		return `\t<property dbms="mysql" name="${factorType}.type" value="${MySQLFactorTypeMap[factorType as FactorType]}"/>`;
 	}).join('\n')}
@@ -130,17 +192,23 @@ ${Object.keys(MySQLFactorTypeMap).map(factorType => {
 			</not>
         </preConditions>
         <createTable tableName="${tableName}">
-			<column name="${getIdColumnName()}" type="\${pk.type}">
+			<column name="${getIdColumnName()}" type="\${pk-column.type}">
 				<constraints primaryKey="true"/>
 			</column>
 ${buildFactorsOnCreate(topic)}
 ${buildAggregateAssistOnCreate(topic)}
+${buildVersionOnCreate(topic)}
+${buildAuditColumnOnCreate(topic, getInsertTimeColumnName())}
+${buildAuditColumnOnCreate(topic, getUpdateTimeColumnName())}
         </createTable>
 	</changeSet>
 	
 	<!-- add or modify columns -->
 ${buildFactorsOnModify(topic)}
 ${buildAggregateAssistOnModify(topic)}
+${buildVersionOnModify(topic)}
+${buildAuditColumnOnModify(topic, getInsertTimeColumnName())}
+${buildAuditColumnOnModify(topic, getUpdateTimeColumnName())}
 	
 	<!-- drop exists indexes and add new indexes -->
 	<changeSet id="${v4()}" author="watchmen">

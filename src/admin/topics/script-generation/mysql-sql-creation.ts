@@ -8,7 +8,10 @@ import {
 	gatherUniqueIndexes,
 	getAggregateAssistColumnName,
 	getIdColumnName,
-	getRawTopicDataColumnName
+	getInsertTimeColumnName,
+	getRawTopicDataColumnName,
+	getUpdateTimeColumnName,
+	getVersionColumnName
 } from './utils';
 import {MySQLFactorTypeMap} from './mysql';
 
@@ -25,6 +28,9 @@ const buildFactors = (topic: Topic) => {
 const buildAggregateAssist = (topic: Topic) => {
 	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `${getAggregateAssistColumnName()} JSON,` : '';
 };
+const buildVersion = (topic: Topic) => {
+	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `${getVersionColumnName()} INT,` : '';
+};
 
 const createSQL = (topic: Topic): string => {
 	const uniqueIndexes = gatherUniqueIndexes(topic);
@@ -40,6 +46,9 @@ CREATE TABLE ${tableName}(
 	${getIdColumnName()} VARCHAR(60),
 ${buildFactors(topic)}
 	${buildAggregateAssist(topic)}
+	${buildVersion(topic)}
+	${getInsertTimeColumnName()} DATETIME,
+	${getUpdateTimeColumnName()} DATETIME,
 
 	-- unique index
 ${Object.values(uniqueIndexes).map(factors => {

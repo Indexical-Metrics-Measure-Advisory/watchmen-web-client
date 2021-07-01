@@ -134,9 +134,9 @@ export const ScriptsDownloadDialog = (props: {
 	const [items, setItems] = useState(topics);
 	const [selection, setSelection] = useState(topics);
 	const [filter, setFilter] = useState<Filter>({value: ''});
-	const [databases, setDatabases] = useState<Array<Database>>([Database.MYSQL]);
-	const [scriptTypes, setScriptTypes] = useState<Array<ScriptType>>([ScriptType.CREATE]);
-	const [scriptFormats, setScriptFormats] = useState<Array<ScriptFormat>>([ScriptFormat.SQL]);
+	const [databases, setDatabases] = useState<Array<Database>>([Database.MYSQL, Database.ORACLE]);
+	const [scriptTypes, setScriptTypes] = useState<Array<ScriptType>>([ScriptType.CREATE, ScriptType.ALTER]);
+	const [scriptFormats, setScriptFormats] = useState<Array<ScriptFormat>>([ScriptFormat.SQL, ScriptFormat.LIQUIBASE]);
 
 	const onFilterTextChanged = (event: ChangeEvent<HTMLInputElement>) => {
 		const {value} = event.target;

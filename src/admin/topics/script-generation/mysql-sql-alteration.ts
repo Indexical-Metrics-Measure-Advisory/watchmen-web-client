@@ -8,8 +8,9 @@ import {
 	asUniqueIndexName,
 	gatherIndexes,
 	gatherUniqueIndexes,
-	getAggregateAssistColumnName,
-	getRawTopicDataColumnName
+	getAggregateAssistColumnName, getInsertTimeColumnName,
+	getRawTopicDataColumnName, getUpdateTimeColumnName,
+	getVersionColumnName
 } from './utils';
 import {MySQLFactorTypeMap} from './mysql';
 
@@ -51,6 +52,30 @@ const buildAggregateAssist = (topic: Topic) => {
 	END IF;`
 		: '';
 };
+const buildVersionAssist = (topic: Topic) => {
+	const tableName = asFullTopicName(topic);
+
+	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type)
+		? `\tIF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getVersionColumnName()}') THEN
+		-- add columns
+	    ALTER TABLE ${tableName} ADD COLUMN ${getVersionColumnName()} INT;
+	ELSE
+		-- modify columns
+		ALTER TABLE ${tableName} MODIFY COLUMN ${getVersionColumnName()} INT;
+	END IF;`
+		: '';
+};
+const buildAuditTimeColumn = (topic: Topic, columnName: string) => {
+	const tableName = asFullTopicName(topic);
+
+	return `\tIF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}') THEN
+		-- add columns
+	    ALTER TABLE ${tableName} ADD COLUMN ${columnName} DATETIME;
+	ELSE
+		-- modify columns
+		ALTER TABLE ${tableName} MODIFY COLUMN ${columnName} DATETIME;
+	END IF;`;
+};
 
 const createSQL = (topic: Topic): string => {
 	const uniqueIndexes = gatherUniqueIndexes(topic);
@@ -71,6 +96,9 @@ BEGIN
 	-- will not drop any column even it is not in definition, just keep it
 ${buildFactors(topic)}
 ${buildAggregateAssist(topic)}
+${buildVersionAssist(topic)}
+${buildAuditTimeColumn(topic, getInsertTimeColumnName())}
+${buildAuditTimeColumn(topic, getUpdateTimeColumnName())}
 
 	-- drop existed indexes
 	-- simply uncomment the following loop to drop all exists indexes
