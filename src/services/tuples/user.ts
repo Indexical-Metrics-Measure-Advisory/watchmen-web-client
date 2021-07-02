@@ -6,6 +6,9 @@ import {QueryUserGroupForHolder} from './query-user-group-types';
 import {QueryUser, QueryUserForHolder} from './query-user-types';
 import {User} from './user-types';
 import {isFakedUuid} from './utils';
+import {isSuperAdmin} from '../account';
+import {QueryTenant} from './query-tenant-types';
+import {listTenants} from './tenant';
 
 type UserOnServer = Omit<User, 'userGroupIds'> & { groupIds: Array<string> };
 const transformFromServer = (user: UserOnServer): User => {
@@ -14,6 +17,9 @@ const transformFromServer = (user: UserOnServer): User => {
 };
 const transformToServer = (user: User): UserOnServer => {
 	const {userGroupIds, ...rest} = user;
+	if (!isSuperAdmin()) {
+		delete rest.tenantId;
+	}
 	return {groupIds: userGroupIds, ...rest};
 };
 
@@ -31,18 +37,23 @@ export const listUsers = async (options: {
 	}
 };
 
-export const fetchUser = async (userId: string): Promise<{ user: User; groups: Array<QueryUserGroupForHolder> }> => {
+export const fetchUser = async (userId: string): Promise<{ user: User; groups: Array<QueryUserGroupForHolder>; tenants: Array<QueryTenant> }> => {
 	if (isMockService()) {
 		return fetchMockUser(userId);
 	} else {
 		const user: UserOnServer = await get({api: Apis.USER_GET, search: {userId}});
 
+		let tenants: Array<QueryTenant> = [];
+		if (isSuperAdmin()) {
+			tenants = (await listTenants({search: '', pageNumber: 1, pageSize: 9999})).data;
+		}
+
 		const {groupIds} = user;
 		if (groupIds && groupIds.length > 0) {
 			const groups = await post({api: Apis.USER_GROUP_BY_IDS, data: groupIds});
-			return {user: transformFromServer(user), groups};
+			return {user: transformFromServer(user), groups, tenants};
 		} else {
-			return {user: transformFromServer(user), groups: []};
+			return {user: transformFromServer(user), groups: [], tenants};
 		}
 	}
 };

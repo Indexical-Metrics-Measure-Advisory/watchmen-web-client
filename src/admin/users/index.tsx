@@ -16,6 +16,8 @@ import {TupleEventBusProvider, useTupleEventBus} from '../widgets/tuple-workbenc
 import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
 import {renderCard} from './card';
 import {renderEditor} from './editor';
+import {listTenants} from '../../services/tuples/tenant';
+import {isSuperAdmin} from '../../services/account';
 
 const createUser = (): User => {
 	return {
@@ -26,8 +28,9 @@ const createUser = (): User => {
 };
 
 const fetchUserAndCodes = async (queryUser: QueryUser) => {
-	const {user, groups} = await fetchUser(queryUser.userId);
-	return {tuple: user, groups};
+	const {user, groups, tenants} = await fetchUser(queryUser.userId);
+	console.log(tenants);
+	return {tuple: user, groups, tenants};
 };
 
 const getKeyOfUser = (user: QueryUser) => user.userId;
@@ -36,13 +39,14 @@ const AdminUsers = () => {
 	const {once: onceGlobal, fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useTupleEventBus();
 	useEffect(() => {
-		const onDoCreateUser = () => {
-			fire(TupleEventTypes.TUPLE_CREATED, createUser());
+		const onDoCreateUser = async () => {
+			const tenants = (await listTenants({search: '', pageNumber: 1, pageSize: 9999})).data;
+			fire(TupleEventTypes.TUPLE_CREATED, createUser(), {tenants});
 		};
 		const onDoEditUser = async (queryUser: QueryUser) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await fetchUserAndCodes(queryUser),
-				({tuple, groups}) => fire(TupleEventTypes.TUPLE_LOADED, tuple, {groups}));
+				({tuple, groups, tenants}) => fire(TupleEventTypes.TUPLE_LOADED, tuple, {groups, tenants}));
 		};
 		const onDoSearchUser = async (searchText: string, pageNumber: number) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
@@ -54,12 +58,18 @@ const AdminUsers = () => {
 				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
 					fire(TupleEventTypes.TUPLE_SAVED, user, false);
 				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>User name is required.</AlertLabel>);
-			} else {
-				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-					async () => await saveUser(user),
-					() => fire(TupleEventTypes.TUPLE_SAVED, user, true),
-					() => fire(TupleEventTypes.TUPLE_SAVED, user, false));
+				return;
 			}
+			if (isSuperAdmin() && !user.tenantId) {
+				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+					fire(TupleEventTypes.TUPLE_SAVED, user, false);
+				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Tenant is required.</AlertLabel>);
+				return;
+			}
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await saveUser(user),
+				() => fire(TupleEventTypes.TUPLE_SAVED, user, true),
+				() => fire(TupleEventTypes.TUPLE_SAVED, user, false));
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateUser);
 		on(TupleEventTypes.DO_EDIT_TUPLE, onDoEditUser);

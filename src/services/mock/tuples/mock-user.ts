@@ -3,6 +3,8 @@ import {QueryUserGroupForHolder} from '../../tuples/query-user-group-types';
 import {QueryUser, QueryUserForHolder} from '../../tuples/query-user-types';
 import {User} from '../../tuples/user-types';
 import {getCurrentTime} from '../../utils';
+import {isSuperAdmin} from '../../account';
+import {QueryTenant} from '../../tuples/query-tenant-types';
 
 export const listMockUsers = async (options: {
 	search: string;
@@ -60,7 +62,7 @@ export const listMockUsers = async (options: {
 	});
 };
 
-export const fetchMockUser = async (userId: string): Promise<{ user: User; groups: Array<QueryUserGroupForHolder> }> => {
+export const fetchMockUser = async (userId: string): Promise<{ user: User; groups: Array<QueryUserGroupForHolder>; tenants: Array<QueryTenant> }> => {
 	let user;
 	switch (userId) {
 		case '1':
@@ -105,7 +107,11 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 				lastModifyTime: getCurrentTime()
 			};
 	}
-	return {user, groups: [{userGroupId: '1', name: 'Oklahoma'}]};
+	return {
+		user,
+		groups: [{userGroupId: '1', name: 'Oklahoma'}],
+		tenants: isSuperAdmin() ? [{tenantId: '1', name: 'X World'}] : []
+	};
 };
 
 let newUserId = 10000;
