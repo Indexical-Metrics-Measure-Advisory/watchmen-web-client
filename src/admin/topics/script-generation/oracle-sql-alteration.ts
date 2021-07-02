@@ -11,77 +11,60 @@ import {
 	getAggregateAssistColumnName,
 	getInsertTimeColumnName,
 	getRawTopicDataColumnName,
+	getTenantIdColumnName,
 	getUpdateTimeColumnName,
-	getVersionColumnName
+	getVersionColumnName,
+	isAggregateTopic
 } from './utils';
 import {OracleFactorTypeMap} from './oracle';
 
-const buildFactors = (topic: Topic) => {
+const buildColumn = (topic: Topic, columnName: string, columnType: string) => {
 	const tableName = asFullTopicName(topic);
-
-	if (topic.type === TopicType.RAW) {
-		return `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getRawTopicDataColumnName()}';
-	IF columnExists = 0 THEN
-		-- add columns
-		EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} ADD (${getRawTopicDataColumnName()} CLOB)';
-	ELSE
-		-- modify columns
-		EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} MODIFY (${getRawTopicDataColumnName()} CLOB)';
-	END IF;`;
-	} else {
-		return topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
-			const factorColumnName = asFactorName(factor);
-			return `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${factorColumnName}';
+	return `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}';
 	IF columnExists = 0 THEN  
 		-- add columns
-	    EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} ADD (${factorColumnName} ${OracleFactorTypeMap[factor.type]})';
+	    EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} ADD (${columnName} ${columnType})';
 	ELSE
 		-- modify columns
-		EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} MODIFY (${factorColumnName} ${OracleFactorTypeMap[factor.type]})';
+		EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} MODIFY (${columnName} ${columnType})';
 	END IF;`;
+};
+const buildFactors = (topic: Topic) => {
+	if (topic.type === TopicType.RAW) {
+		return [
+			...topic.factors.filter(factor => {
+				return factor.name.indexOf('.') === -1 && factor.flatten === true;
+			}).map(factor => {
+				return buildColumn(topic, asFactorName(factor), OracleFactorTypeMap[factor.type]);
+			}),
+			buildColumn(topic, getRawTopicDataColumnName(), 'CLOB')
+		].join('\n');
+	} else {
+		return topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
+			return buildColumn(topic, asFactorName(factor), OracleFactorTypeMap[factor.type]);
 		}).join('\n');
 	}
 };
 
 const buildAggregateAssist = (topic: Topic) => {
-	const tableName = asFullTopicName(topic);
+	if (!isAggregateTopic(topic)) {
+		return '';
+	}
 
-	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type)
-		? `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getAggregateAssistColumnName()}';
-	IF columnExists = 0 THEN  
-		-- add columns
-	    EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} ADD (${getAggregateAssistColumnName()} VARCHAR2(1024))';
-	ELSE
-		-- modify columns
-		EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} MODIFY (${getAggregateAssistColumnName()} VARCHAR2(1024))';
-	END IF;`
-		: '';
+	return buildColumn(topic, getAggregateAssistColumnName(), 'VARCHAR2(1024)');
 };
 const buildVersionAssist = (topic: Topic) => {
-	const tableName = asFullTopicName(topic);
+	if (!isAggregateTopic(topic)) {
+		return '';
+	}
 
-	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type)
-		? `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getVersionColumnName()}';
-	IF columnExists = 0 THEN  
-		-- add columns
-	    EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} ADD (${getVersionColumnName()} NUMBER(8))';
-	ELSE
-		-- modify columns
-		EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} MODIFY (${getVersionColumnName()} NUMBER(8))';
-	END IF;`
-		: '';
+	return buildColumn(topic, getVersionColumnName(), 'NUMBER(8)');
+};
+const buildTenantIdColumn = (topic: Topic) => {
+	return buildColumn(topic, getTenantIdColumnName(), 'VARCHAR2(32)');
 };
 const buildAuditTimeColumn = (topic: Topic, columnName: string) => {
-	const tableName = asFullTopicName(topic);
-
-	return `\tSELECT COUNT(1) INTO columnExists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}';
-	IF columnExists = 0 THEN  
-		-- add columns
-	    EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} ADD (${columnName} DATE)';
-	ELSE
-		-- modify columns
-		EXECUTE IMMEDIATE 'ALTER TABLE ${tableName} MODIFY (${columnName} DATE)';
-	END IF`;
+	return buildColumn(topic, columnName, 'DATE');
 };
 
 const createSQL = (topic: Topic): string => {
@@ -103,6 +86,7 @@ BEGIN
 ${buildFactors(topic)}
 ${buildAggregateAssist(topic)}
 ${buildVersionAssist(topic)}
+${buildTenantIdColumn(topic)}
 ${buildAuditTimeColumn(topic, getInsertTimeColumnName())}
 ${buildAuditTimeColumn(topic, getUpdateTimeColumnName())}
 

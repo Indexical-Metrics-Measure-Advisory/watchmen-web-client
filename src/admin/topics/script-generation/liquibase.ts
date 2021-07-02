@@ -12,129 +12,72 @@ import {
 	getIdColumnName,
 	getInsertTimeColumnName,
 	getRawTopicDataColumnName,
+	getTenantIdColumnName,
 	getUpdateTimeColumnName,
-	getVersionColumnName
+	getVersionColumnName, isAggregateTopic
 } from './utils';
 import {OracleFactorTypeMap} from './oracle';
-import {Factor, FactorType} from '../../../services/tuples/factor-types';
+import {FactorType} from '../../../services/tuples/factor-types';
 import {MySQLFactorTypeMap} from './mysql';
 import {v4} from 'uuid';
 
+const buildColumnOnCreate = (options: { topic: Topic, columnName: string, columnType: string, should?: (topic: Topic) => boolean }) => {
+	const {topic, columnName, columnType, should} = options;
+	if (!should || should(topic)) {
+		return `\t\t\t<column name="${columnName}" type="\${${columnType}}"/>`;
+	} else {
+		return '';
+	}
+};
 const buildFactorsOnCreate = (topic: Topic) => {
 	if (topic.type === TopicType.RAW) {
-		return `			<column name="${getRawTopicDataColumnName()}" type="\${json-column.type}"/>`;
+		return [
+			...topic.factors.filter(factor => {
+				return factor.name.indexOf('.') === -1 && factor.flatten === true;
+			}).map(factor => {
+				return buildColumnOnCreate({
+					topic,
+					columnName: asFactorName(factor),
+					columnType: `${factor.type}.type`
+				});
+			}),
+			buildColumnOnCreate({topic, columnName: getRawTopicDataColumnName(), columnType: 'json-column.type'})
+		].join('\n');
 	} else {
 		return topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
-			return `			<column name="${asFactorName(factor)}" type="\${${factor.type}.type}"/>`;
+			return buildColumnOnCreate({
+				topic,
+				columnName: asFactorName(factor),
+				columnType: `${factor.type}.type`
+			});
 		}).join('\n');
 	}
 };
-
 const buildAggregateAssistOnCreate = (topic: Topic) => {
-	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `			<column name="${getAggregateAssistColumnName()}" type="\${aggregate-assist-column.type}"/>` : '';
+	return buildColumnOnCreate({
+		topic,
+		columnName: getAggregateAssistColumnName(),
+		columnType: 'aggregate-assist-column.type',
+		should: isAggregateTopic
+	});
 };
 const buildVersionOnCreate = (topic: Topic) => {
-	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `			<column name="${getVersionColumnName()}" type="\${version-column.type}"/>` : '';
+	return buildColumnOnCreate({
+		topic,
+		columnName: getVersionColumnName(),
+		columnType: 'version-column.type',
+		should: isAggregateTopic
+	});
+};
+const buildTenantIdColumnOnCreate = (topic: Topic) => {
+	return buildColumnOnCreate({topic, columnName: getTenantIdColumnName(), columnType: 'tenant-column.type'});
 };
 const buildAuditColumnOnCreate = (topic: Topic, columnName: string) => {
-	return `			<column name="${columnName}" type="\${audit-column.type}"/>`;
+	return buildColumnOnCreate({topic, columnName, columnType: 'audit-column.type'});
 };
 
-const buildFactorOnModify = (topic: Topic, factor: Factor) => {
-	const tableName = asFullTopicName(topic);
-	const factorColumnName = asFactorName(factor);
-
-	return `\t<!-- add ${factorColumnName} when column not exists -->
-	<changeSet id="${v4()}" author="watchmen">
-		<preConditions onFail="MARK_RAN">
-			<dbms type="mysql"/>
-			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${factorColumnName}'</sqlCheck>
-        </preConditions>
-		<preConditions onFail="MARK_RAN">
-			<dbms type="oracle"/>
-			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${factorColumnName}'</sqlCheck>
-        </preConditions>
-        <addColumn tableName="${tableName}">
-        	<column name="${factorColumnName}" type="\${${factor.type}.type}"/>
-		</addColumn>
-    </changSet>
-    <!-- modify ${factorColumnName} when column exists -->
-    <changeSet id="${v4()}" author="watchmen">
-		<preConditions onFail="MARK_RAN">
-			<dbms type="mysql"/>
-			<sqlCheck expectedResult="1">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${factorColumnName}'</sqlCheck>
-        </preConditions>
-		<preConditions onFail="MARK_RAN">
-			<dbms type="oracle"/>
-			<sqlCheck expectedResult="1">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${factorColumnName}'</sqlCheck>
-        </preConditions>
-        <modifyDataType tableName="${tableName}" columnName="${factorColumnName}" newDataType="\${${factor.type}.type}"/>
-    </changSet>`;
-};
-const buildFactorsOnModify = (topic: Topic) => {
-	if (topic.type === TopicType.RAW) {
-		// fake me as a factor, therefore use this build function
-		return buildFactorOnModify(topic, {name: getRawTopicDataColumnName(), type: 'json'} as unknown as Factor);
-	} else {
-		return topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
-			return buildFactorOnModify(topic, factor);
-		}).join('\n');
-	}
-};
-
-const buildAggregateAssistOnModify = (topic: Topic) => {
-	if (![TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type)) {
-		return '';
-	}
-
-	const tableName = asFullTopicName(topic);
-	return `\t<!-- add ${getAggregateAssistColumnName()} when column not exists -->
-	<changeSet id="${v4()}" author="watchmen">
-		<preConditions onFail="MARK_RAN">
-			<dbms type="mysql"/>
-			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getAggregateAssistColumnName()}'</sqlCheck>
-        </preConditions>
-        <addColumn tableName="${tableName}">
-        	<column name="${getAggregateAssistColumnName()}" type="\${aggregate-assist-column.type}"/>
-		</addColumn>
-    </changSet>
-	<changeSet id="${v4()}" author="watchmen">
-		<preConditions onFail="MARK_RAN">
-			<dbms type="oracle"/>
-			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getAggregateAssistColumnName()}'</sqlCheck>
-        </preConditions>
-        <addColumn tableName="${tableName}">
-        	<column name="${getAggregateAssistColumnName()}" type="\${aggregate-assist-column.type}"/>
-		</addColumn>
-    </changSet>`;
-};
-const buildVersionOnModify = (topic: Topic) => {
-	if (![TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type)) {
-		return '';
-	}
-
-	const tableName = asFullTopicName(topic);
-	return `\t<!-- add ${getVersionColumnName()} when column not exists -->
-	<changeSet id="${v4()}" author="watchmen">
-		<preConditions onFail="MARK_RAN">
-			<dbms type="mysql"/>
-			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getVersionColumnName()}'</sqlCheck>
-        </preConditions>
-        <addColumn tableName="${tableName}">
-        	<column name="${getVersionColumnName()}" type="\${version-column.type}"/>
-		</addColumn>
-    </changSet>
-	<changeSet id="${v4()}" author="watchmen">
-		<preConditions onFail="MARK_RAN">
-			<dbms type="oracle"/>
-			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getVersionColumnName()}'</sqlCheck>
-        </preConditions>
-        <addColumn tableName="${tableName}">
-        	<column name="${getVersionColumnName()}" type="\${version-column.type}"/>
-		</addColumn>
-    </changSet>`;
-};
-const buildAuditColumnOnModify = (topic: Topic, columnName: string) => {
+const buildColumnOnModify = (options: { topic: Topic; columnName: string; columnType: string; }) => {
+	const {topic, columnName, columnType} = options;
 	const tableName = asFullTopicName(topic);
 	return `\t<!-- add ${columnName} when column not exists -->
 	<changeSet id="${v4()}" author="watchmen">
@@ -142,19 +85,70 @@ const buildAuditColumnOnModify = (topic: Topic, columnName: string) => {
 			<dbms type="mysql"/>
 			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}'</sqlCheck>
         </preConditions>
-        <addColumn tableName="${tableName}">
-        	<column name="${columnName}" type="\${audit-column.type}"/>
-		</addColumn>
-    </changSet>
-	<changeSet id="${v4()}" author="watchmen">
 		<preConditions onFail="MARK_RAN">
 			<dbms type="oracle"/>
 			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}'</sqlCheck>
         </preConditions>
         <addColumn tableName="${tableName}">
-        	<column name="${columnName}" type="\${audit-column.type}"/>
+        	<column name="${columnName}" type="\${${columnType}}"/>
 		</addColumn>
+    </changSet>
+    <!-- modify ${columnName} when column exists -->
+    <changeSet id="${v4()}" author="watchmen">
+		<preConditions onFail="MARK_RAN">
+			<dbms type="mysql"/>
+			<sqlCheck expectedResult="1">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}'</sqlCheck>
+        </preConditions>
+		<preConditions onFail="MARK_RAN">
+			<dbms type="oracle"/>
+			<sqlCheck expectedResult="1">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}'</sqlCheck>
+        </preConditions>
+        <modifyDataType tableName="${tableName}" columnName="${columnName}" newDataType="\${${columnType}}"/>
     </changSet>`;
+};
+const buildFactorsOnModify = (topic: Topic) => {
+	if (topic.type === TopicType.RAW) {
+		return [
+			...topic.factors.filter(factor => {
+				return factor.name.indexOf('.') === -1 && factor.flatten === true;
+			}).map(factor => {
+				return buildColumnOnModify({
+					topic,
+					columnName: asFactorName(factor),
+					columnType: `${factor.type}.type`
+				});
+			}),
+			buildColumnOnModify({topic, columnName: getRawTopicDataColumnName(), columnType: 'json-column.type'})
+		].join('\n');
+	} else {
+		return topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
+			return buildColumnOnModify({topic, columnName: asFactorName(factor), columnType: `${factor.type}.type`});
+		}).join('\n');
+	}
+};
+
+const buildAggregateAssistOnModify = (topic: Topic) => {
+	if (!isAggregateTopic(topic)) {
+		return '';
+	}
+
+	return buildColumnOnModify({
+		topic,
+		columnName: getAggregateAssistColumnName(),
+		columnType: 'aggregate-assist-column.type'
+	});
+};
+const buildVersionOnModify = (topic: Topic) => {
+	if (!isAggregateTopic(topic)) {
+		return '';
+	}
+	return buildColumnOnModify({topic, columnName: getVersionColumnName(), columnType: 'version-column.type'});
+};
+const buildTenantIdColumnOnModify = (topic: Topic) => {
+	return buildColumnOnModify({topic, columnName: getTenantIdColumnName(), columnType: 'tenant-column.type'});
+};
+const buildAuditColumnOnModify = (topic: Topic, columnName: string) => {
+	return buildColumnOnModify({topic, columnName, columnType: 'audit-column.type'});
 };
 
 const createXML = (topic: Topic) => {
@@ -173,6 +167,7 @@ const createXML = (topic: Topic) => {
 	<property dbms="oracle" name="json-column.type" value="CLOB"/>
 	<property dbms="oracle" name="aggregate-assist-column.type" value="VARCHAR2(1024)"/>
 	<property dbms="oracle" name="version-column.type" value="NUMBER(8)"/>
+	<property dbms="oracle" name="tenant-column.type" value="VARCHAR2(32)"/>
 	<property dbms="oracle" name="audit-column.type" value="DATE"/>
 ${Object.keys(OracleFactorTypeMap).map(factorType => {
 		return `\t<property dbms="oracle" name="${factorType}.type" value="${OracleFactorTypeMap[factorType as FactorType]}"/>`;
@@ -181,6 +176,7 @@ ${Object.keys(OracleFactorTypeMap).map(factorType => {
 	<property dbms="mysql" name="json-column.type" value="JSON"/>
 	<property dbms="mysql" name="aggregate-assist-column.type" value="JSON"/>
 	<property dbms="mysql" name="version-column.type" value="INT"/>
+	<property dbms="mysql" name="tenant-column.type" value="VARCHAR(32)"/>
 	<property dbms="mysql" name="audit-column.type" value="DATETIME"/>
 ${Object.keys(MySQLFactorTypeMap).map(factorType => {
 		return `\t<property dbms="mysql" name="${factorType}.type" value="${MySQLFactorTypeMap[factorType as FactorType]}"/>`;
@@ -198,6 +194,7 @@ ${Object.keys(MySQLFactorTypeMap).map(factorType => {
 ${buildFactorsOnCreate(topic)}
 ${buildAggregateAssistOnCreate(topic)}
 ${buildVersionOnCreate(topic)}
+${buildTenantIdColumnOnCreate(topic)}
 ${buildAuditColumnOnCreate(topic, getInsertTimeColumnName())}
 ${buildAuditColumnOnCreate(topic, getUpdateTimeColumnName())}
         </createTable>
@@ -207,6 +204,7 @@ ${buildAuditColumnOnCreate(topic, getUpdateTimeColumnName())}
 ${buildFactorsOnModify(topic)}
 ${buildAggregateAssistOnModify(topic)}
 ${buildVersionOnModify(topic)}
+${buildTenantIdColumnOnModify(topic)}
 ${buildAuditColumnOnModify(topic, getInsertTimeColumnName())}
 ${buildAuditColumnOnModify(topic, getUpdateTimeColumnName())}
 	

@@ -10,6 +10,7 @@ import {
 	getIdColumnName,
 	getInsertTimeColumnName,
 	getRawTopicDataColumnName,
+	getTenantIdColumnName,
 	getUpdateTimeColumnName,
 	getVersionColumnName
 } from './utils';
@@ -17,7 +18,14 @@ import {MySQLFactorTypeMap} from './mysql';
 
 const buildFactors = (topic: Topic) => {
 	if (topic.type === TopicType.RAW) {
-		return `\t${getRawTopicDataColumnName()} JSON,`;
+		return [
+			...topic.factors.filter(factor => {
+				return factor.name.indexOf('.') === -1 && factor.flatten === true;
+			}).map(factor => {
+				return `\t${asFactorName(factor)} ${MySQLFactorTypeMap[factor.type]},`;
+			}),
+			`\t${getRawTopicDataColumnName()} JSON,`
+		].join('\n');
 	} else {
 		return topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
 			return `\t${asFactorName(factor)} ${MySQLFactorTypeMap[factor.type]},`;
@@ -26,10 +34,10 @@ const buildFactors = (topic: Topic) => {
 };
 
 const buildAggregateAssist = (topic: Topic) => {
-	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `${getAggregateAssistColumnName()} JSON,` : '';
+	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `\t${getAggregateAssistColumnName()} JSON,` : '';
 };
 const buildVersion = (topic: Topic) => {
-	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `${getVersionColumnName()} INT,` : '';
+	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `\t${getVersionColumnName()} INT,` : '';
 };
 
 const createSQL = (topic: Topic): string => {
@@ -45,8 +53,9 @@ const createSQL = (topic: Topic): string => {
 CREATE TABLE ${tableName}(
 	${getIdColumnName()} VARCHAR(60),
 ${buildFactors(topic)}
-	${buildAggregateAssist(topic)}
-	${buildVersion(topic)}
+${buildAggregateAssist(topic)}
+${buildVersion(topic)}
+	${getTenantIdColumnName()} VARCHAR(32),
 	${getInsertTimeColumnName()} DATETIME,
 	${getUpdateTimeColumnName()} DATETIME,
 

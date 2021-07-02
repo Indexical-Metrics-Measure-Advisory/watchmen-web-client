@@ -8,73 +8,60 @@ import {
 	asUniqueIndexName,
 	gatherIndexes,
 	gatherUniqueIndexes,
-	getAggregateAssistColumnName, getInsertTimeColumnName,
-	getRawTopicDataColumnName, getUpdateTimeColumnName,
-	getVersionColumnName
+	getAggregateAssistColumnName,
+	getInsertTimeColumnName,
+	getRawTopicDataColumnName,
+	getTenantIdColumnName,
+	getUpdateTimeColumnName,
+	getVersionColumnName,
+	isAggregateTopic
 } from './utils';
 import {MySQLFactorTypeMap} from './mysql';
 
-const buildFactors = (topic: Topic) => {
+const buildColumn = (topic: Topic, columnName: string, columnType: string) => {
 	const tableName = asFullTopicName(topic);
-
-	if (topic.type === TopicType.RAW) {
-		return `\tIF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getRawTopicDataColumnName()}') THEN  
+	return `\tIF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}') THEN  
 		-- add columns
-		ALTER TABLE ${tableName} ADD COLUMN ${getRawTopicDataColumnName()} JSON;
+		ALTER TABLE ${tableName} ADD COLUMN ${columnName} ${columnType};
 	ELSE
 		-- modify columns
-		ALTER TABLE ${tableName} MODIFY COLUMN ${getRawTopicDataColumnName()} JSON;
+		ALTER TABLE ${tableName} MODIFY COLUMN ${columnName} ${columnType};
 	END IF;`;
+};
+const buildFactors = (topic: Topic) => {
+	if (topic.type === TopicType.RAW) {
+		return [
+			...topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
+				return buildColumn(topic, asFactorName(factor), MySQLFactorTypeMap[factor.type]);
+			}),
+			buildColumn(topic, getRawTopicDataColumnName(), 'JSON')
+		].join('\n');
 	} else {
 		return topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
-			const factorColumnName = asFactorName(factor);
-			return `\tIF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${factorColumnName}') THEN  
-		-- add columns
-		ALTER TABLE ${tableName} ADD COLUMN ${factorColumnName} ${MySQLFactorTypeMap[factor.type]};
-	ELSE
-		-- modify columns
-		ALTER TABLE ${tableName} MODIFY COLUMN ${factorColumnName} ${MySQLFactorTypeMap[factor.type]};
-	END IF;`;
+			return buildColumn(topic, asFactorName(factor), MySQLFactorTypeMap[factor.type]);
 		}).join('\n');
 	}
 };
 
 const buildAggregateAssist = (topic: Topic) => {
-	const tableName = asFullTopicName(topic);
+	if (!isAggregateTopic(topic)) {
+		return '';
+	}
 
-	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type)
-		? `\tIF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getAggregateAssistColumnName()}') THEN
-		-- add columns
-	    ALTER TABLE ${tableName} ADD COLUMN ${getAggregateAssistColumnName()} JSON;
-	ELSE
-		-- modify columns
-		ALTER TABLE ${tableName} MODIFY COLUMN ${getAggregateAssistColumnName()} JSON;
-	END IF;`
-		: '';
+	return buildColumn(topic, getAggregateAssistColumnName(), 'JSON');
 };
 const buildVersionAssist = (topic: Topic) => {
-	const tableName = asFullTopicName(topic);
+	if (!isAggregateTopic(topic)) {
+		return '';
+	}
 
-	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type)
-		? `\tIF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${getVersionColumnName()}') THEN
-		-- add columns
-	    ALTER TABLE ${tableName} ADD COLUMN ${getVersionColumnName()} INT;
-	ELSE
-		-- modify columns
-		ALTER TABLE ${tableName} MODIFY COLUMN ${getVersionColumnName()} INT;
-	END IF;`
-		: '';
+	return buildColumn(topic, getVersionColumnName(), 'INT');
+};
+const buildTenantIdColumn = (topic: Topic) => {
+	return buildColumn(topic, getTenantIdColumnName(), 'VARCHAR(32)');
 };
 const buildAuditTimeColumn = (topic: Topic, columnName: string) => {
-	const tableName = asFullTopicName(topic);
-
-	return `\tIF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = CurrentDatabase AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}') THEN
-		-- add columns
-	    ALTER TABLE ${tableName} ADD COLUMN ${columnName} DATETIME;
-	ELSE
-		-- modify columns
-		ALTER TABLE ${tableName} MODIFY COLUMN ${columnName} DATETIME;
-	END IF;`;
+	return buildColumn(topic, columnName, 'DATETIME');
 };
 
 const createSQL = (topic: Topic): string => {
@@ -97,6 +84,7 @@ BEGIN
 ${buildFactors(topic)}
 ${buildAggregateAssist(topic)}
 ${buildVersionAssist(topic)}
+${buildTenantIdColumn(topic)}
 ${buildAuditTimeColumn(topic, getInsertTimeColumnName())}
 ${buildAuditTimeColumn(topic, getUpdateTimeColumnName())}
 

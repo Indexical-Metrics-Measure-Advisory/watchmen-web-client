@@ -179,6 +179,8 @@ export interface Factor {
 	enumId?: string;
 	defaultValue?: string;
 	indexGroup?: string;
+	// will be flatten to table column or not, only used in raw topic, and must be top level factor
+	flatten?: boolean;
 	description?: string;
 	createTime: string;
 	lastModifyTime: string;
