@@ -8,7 +8,7 @@ import {DataPage} from '../../services/query/data-page';
 import {QueryUser} from '../../services/tuples/query-user-types';
 import {QueryTuple} from '../../services/tuples/tuple-types';
 import {fetchUser, listUsers, saveUser} from '../../services/tuples/user';
-import {User} from '../../services/tuples/user-types';
+import {User, UserRole} from '../../services/tuples/user-types';
 import {generateUuid} from '../../services/tuples/utils';
 import {getCurrentTime} from '../../services/utils';
 import {TupleWorkbench} from '../widgets/tuple-workbench';
@@ -21,7 +21,9 @@ import {isSuperAdmin} from '../../services/account';
 
 const createUser = (): User => {
 	return {
-		userId: generateUuid(), name: '', nickName: '', userGroupIds: [],
+		userId: generateUuid(), name: '', nickName: '',
+		role: UserRole.CONSOLE,
+		userGroupIds: [],
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()
 	};

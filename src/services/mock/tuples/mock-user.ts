@@ -1,7 +1,7 @@
 import {DataPage} from '../../query/data-page';
 import {QueryUserGroupForHolder} from '../../tuples/query-user-group-types';
 import {QueryUser, QueryUserForHolder} from '../../tuples/query-user-types';
-import {User} from '../../tuples/user-types';
+import {User, UserRole} from '../../tuples/user-types';
 import {getCurrentTime} from '../../utils';
 import {isSuperAdmin} from '../../account';
 import {QueryTenant} from '../../tuples/query-tenant-types';
@@ -67,42 +67,54 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 	switch (userId) {
 		case '1':
 			user = {
-				userId, name: 'Damon Lindelof', nickName: '', userGroupIds: ['1'],
+				userId, name: 'Damon Lindelof', nickName: '',
+				role: UserRole.CONSOLE,
+				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
 				lastModifyTime: getCurrentTime()
 			};
 			break;
 		case '2':
 			user = {
-				userId, name: 'Sally Jupiter', nickName: '', userGroupIds: ['1'],
+				userId, name: 'Sally Jupiter', nickName: '',
+				role: UserRole.CONSOLE,
+				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
 				lastModifyTime: getCurrentTime()
 			};
 			break;
 		case '3':
 			user = {
-				userId, name: 'Roy Raymond', nickName: '', userGroupIds: ['1'],
+				userId, name: 'Roy Raymond', nickName: '',
+				role: UserRole.CONSOLE,
+				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
 				lastModifyTime: getCurrentTime()
 			};
 			break;
 		case '4':
 			user = {
-				userId, name: 'Walter Kovacs', nickName: '', userGroupIds: ['1'],
+				userId, name: 'Walter Kovacs', nickName: '',
+				role: UserRole.CONSOLE,
+				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
 				lastModifyTime: getCurrentTime()
 			};
 			break;
 		case '5':
 			user = {
-				userId, name: 'Jeffrey Dean Morgan', nickName: '', userGroupIds: ['1'],
+				userId, name: 'Jeffrey Dean Morgan', nickName: '',
+				role: UserRole.CONSOLE,
+				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
 				lastModifyTime: getCurrentTime()
 			};
 			break;
 		default:
 			user = {
-				userId, name: 'Mock User', nickName: '', userGroupIds: ['1'],
+				userId, name: 'Mock User', nickName: '',
+				role: UserRole.CONSOLE,
+				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
 				lastModifyTime: getCurrentTime()
 			};

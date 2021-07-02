@@ -3,12 +3,13 @@ import {Apis} from '../apis';
 import {mockLogin} from '../mock/mock-login';
 import {doFetch, getServiceHost, isMockService} from '../utils';
 import {Account, LoginResponse} from './types';
+import {UserRole} from '../tuples/user-types';
 
 const isAdmin = (loginResult: any) => {
-	return loginResult.role === 'admin' || loginResult.role === 'superadmin';
+	return loginResult.role === UserRole.ADMIN || loginResult.role === UserRole.SUPER_ADMIN;
 };
 const isSuperAdmin = (loginResult: any) => {
-	return loginResult.role === 'superadmin';
+	return loginResult.role === UserRole.SUPER_ADMIN;
 };
 
 export const login = async (account: Account): Promise<LoginResponse> => {
