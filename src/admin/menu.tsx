@@ -15,6 +15,7 @@ import {
 	ICON_SPACE,
 	ICON_SWITCH_WORKBENCH,
 	ICON_TASK,
+	ICON_TENANT,
 	ICON_TOPIC,
 	ICON_USER,
 	ICON_USER_GROUP,
@@ -31,7 +32,7 @@ import {SideMenuUser} from '../basic-widgets/side-menu/side-menu-user';
 import {useEventBus} from '../events/event-bus';
 import {EventTypes} from '../events/types';
 import {Router} from '../routes/types';
-import {findAccount, quit} from '../services/account';
+import {findAccount, isSuperAdmin, quit} from '../services/account';
 import {SideMenuSwitchWorkbench} from '../basic-widgets/side-menu/side-menu-switch-workbench';
 import {isDataQualityCenterEnabled} from '../feature-switch';
 
@@ -102,35 +103,46 @@ export const AdminMenu = () => {
 		<SideMenuLogo title="Watchmen Admin"/>
 		<SideMenuItem icon={ICON_HOME} label="Home" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_HOME)}
-		              onClick={onMenuClicked(Router.ADMIN_HOME)}/>
+		              onClick={onMenuClicked(Router.ADMIN_HOME)}
+		              visible={!isSuperAdmin()}/>
 		<SideMenuItem icon={ICON_TOPIC} label="Topics" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_TOPICS)}
-		              onClick={onMenuClicked(Router.ADMIN_TOPICS)}/>
+		              onClick={onMenuClicked(Router.ADMIN_TOPICS)}
+		              visible={!isSuperAdmin()}/>
 		<SideMenuItem icon={ICON_ENUM} label="Enumerations" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_ENUMS)}
-		              onClick={onMenuClicked(Router.ADMIN_ENUMS)}/>
+		              onClick={onMenuClicked(Router.ADMIN_ENUMS)}
+		              visible={!isSuperAdmin()}/>
 		<SideMenuItem icon={ICON_REPORT} label="Reports" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_REPORTS)}
 		              onClick={onMenuClicked(Router.ADMIN_REPORTS)}
 		              visible={false}/>
 		<SideMenuItem icon={ICON_SPACE} label="Spaces" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_SPACES)}
-		              onClick={onMenuClicked(Router.ADMIN_SPACES)}/>
+		              onClick={onMenuClicked(Router.ADMIN_SPACES)}
+		              visible={!isSuperAdmin()}/>
 		<SideMenuItem icon={ICON_PIPELINE} label="Pipelines" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_PIPELINES)}
-		              onClick={onMenuClicked(Router.ADMIN_PIPELINES)}/>
-		<SideMenuSeparator width={menuWidth}/>
+		              onClick={onMenuClicked(Router.ADMIN_PIPELINES)}
+		              visible={!isSuperAdmin()}/>
+		<SideMenuSeparator width={menuWidth} visible={!isSuperAdmin()}/>
 		<SideMenuItem icon={ICON_USER_GROUP} label="User Groups" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_USER_GROUPS)}
-		              onClick={onMenuClicked(Router.ADMIN_USER_GROUPS)}/>
+		              onClick={onMenuClicked(Router.ADMIN_USER_GROUPS)}
+		              visible={!isSuperAdmin()}/>
+		<SideMenuItem icon={ICON_TENANT} label="Tenants" showTooltip={showTooltip}
+		              active={!!matchPath(location.pathname, Router.ADMIN_TENANTS)}
+		              onClick={onMenuClicked(Router.ADMIN_TENANTS)}
+		              visible={isSuperAdmin()}/>
 		<SideMenuItem icon={ICON_USER} label="Users" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_USERS)}
 		              onClick={onMenuClicked(Router.ADMIN_USERS)}/>
-		<SideMenuSeparator width={menuWidth}/>
+		<SideMenuSeparator width={menuWidth} visible={!isSuperAdmin()}/>
 		<SideMenuItem icon={ICON_PIPELINE_DEBUG} label="Simulator (experimental)" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_SIMULATOR)}
-		              onClick={onMenuClicked(Router.ADMIN_SIMULATOR)}/>
-		<SideMenuSeparator width={menuWidth}/>
+		              onClick={onMenuClicked(Router.ADMIN_SIMULATOR)}
+		              visible={!isSuperAdmin()}/>
+		<SideMenuSeparator width={menuWidth} visible={!isSuperAdmin()}/>
 		{/* FEAT hide task menu */}
 		<SideMenuItem icon={ICON_TASK} label="Tasks" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_TASKS)}
@@ -138,14 +150,17 @@ export const AdminMenu = () => {
 		              visible={false}/>
 		<SideMenuItem icon={ICON_MONITOR_LOGS} label="Monitor Logs" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_MONITOR_LOGS)}
-		              onClick={onMenuClicked(Router.ADMIN_MONITOR_LOGS)}/>
+		              onClick={onMenuClicked(Router.ADMIN_MONITOR_LOGS)}
+		              visible={!isSuperAdmin()}/>
 		<SideMenuPlaceholder/>
 		<SideMenuSeparator width={menuWidth}/>
 		<SideMenuItem icon={ICON_SETTINGS} label={'Settings'} showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_SETTINGS)}
-		              onClick={onMenuClicked(Router.ADMIN_SETTINGS)}/>
+		              onClick={onMenuClicked(Router.ADMIN_SETTINGS)}
+		              visible={!isSuperAdmin()}/>
 		<SideMenuSwitchWorkbench icon={ICON_SWITCH_WORKBENCH}
-		                         workbenches={workbenches}/>
+		                         workbenches={workbenches}
+		                         visible={!isSuperAdmin()}/>
 		<SideMenuSeparator width={menuWidth}/>
 		<SideMenuItem icon={ICON_LOGOUT} label={'Logout'} showTooltip={showTooltip}
 		              onClick={onLogoutClicked}/>

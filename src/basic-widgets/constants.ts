@@ -15,6 +15,7 @@ import {
 	faCheck,
 	faCheckDouble,
 	faCheckSquare,
+	faCity,
 	faClock,
 	faCloudDownloadAlt,
 	faCode,
@@ -89,7 +90,8 @@ import {
 	faWaveSquare,
 	faWind,
 	faWindowMaximize,
-	faWindowMinimize, faWindowRestore
+	faWindowMinimize,
+	faWindowRestore
 } from '@fortawesome/free-solid-svg-icons';
 
 export const TOOLTIP_Z_INDEX = 10000;
@@ -143,6 +145,7 @@ export const ICON_LOGOUT = faPowerOff;
 
 export const ICON_USER_GROUP = faUsers;
 export const ICON_USER = faUser;
+export const ICON_TENANT = faCity;
 export const ICON_SPACE = faGlobe;
 export const ICON_CONNECTION = faLink;
 export const ICON_CONNECTED_SPACE = faDiceD20;

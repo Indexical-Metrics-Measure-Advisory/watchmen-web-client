@@ -6,5 +6,6 @@ export interface Account {
 export interface LoginResponse {
 	pass: boolean;
 	admin: boolean;
+	super: boolean;
 	error?: string;
 }

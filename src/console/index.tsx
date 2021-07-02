@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
 import {Router} from '../routes/types';
-import {findAccount} from '../services/account';
+import {findAccount, isSuperAdmin} from '../services/account';
 import {LastSnapshot} from '../services/console/last-snapshot-types';
 import ConsoleConnectedSpace from './connected-space';
 import {ConsoleEventBusProvider, useConsoleEventBus} from './console-event-bus';
@@ -16,20 +16,20 @@ import ConsoleSettings from './settings';
 import {SettingsHolder} from './settings-holder';
 
 const ConsoleContainer = styled.div.attrs({'data-widget': 'console'})`
-	display    : flex;
-	height     : 100vh;
-	max-height : 100vh;
+	display: flex;
+	height: 100vh;
+	max-height: 100vh;
 	@media print {
 		height: unset;
 		max-height: unset;
 	}
 `;
 const ConsoleMain = styled.main.attrs({'data-widget': 'console-main'})`
-	flex-grow      : 1;
-	display        : flex;
-	flex-direction : column;
-	height         : 100vh;
-	min-height     : 100vh;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	min-height: 100vh;
 	@media print {
 		height: unset;
 	}
@@ -43,15 +43,15 @@ const ConsolePinFavoritePlaceholder = styled.div.attrs<{ favorite: boolean }>(({
 		}
 	};
 })<{ favorite: boolean }>`
-	transition : min-height 300ms ease-in-out, height 300ms ease-in-out;
+	transition: min-height 300ms ease-in-out, height 300ms ease-in-out;
 `;
 const ConsoleWorkbench = styled.div.attrs({
 	'data-widget': 'console-workbench',
 	'data-v-scroll': ''
 })`
-	flex-grow  : 1;
-	display    : flex;
-	overflow-y : auto;
+	flex-grow: 1;
+	display: flex;
+	overflow-y: auto;
 	@media print {
 		overflow-y: unset;
 	}
@@ -132,6 +132,10 @@ const ConsoleContainerDelegate = () => {
 const ConsoleIndex = () => {
 	if (!findAccount()) {
 		return <Redirect to={Router.LOGIN}/>;
+	}
+
+	if (isSuperAdmin()) {
+		return <Redirect to={Router.ADMIN}/>;
 	}
 
 	return <ConsoleEventBusProvider>

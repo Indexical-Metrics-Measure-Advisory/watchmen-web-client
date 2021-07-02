@@ -2,7 +2,7 @@ import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
 import {Router} from '../routes/types';
-import {isAdmin} from '../services/account';
+import {isAdmin, isSuperAdmin} from '../services/account';
 import DataQualityConsanguinity from './consanguinity';
 import {DataQualityMenu} from './menu';
 import DataQualitySettings from './settings';
@@ -34,6 +34,9 @@ const DataQualityMain = styled.main.attrs<{ scrollable?: boolean }>(({scrollable
 const DataQualityIndex = () => {
 	if (!isAdmin()) {
 		return <Redirect to={Router.CONSOLE_HOME}/>;
+	}
+	if (isSuperAdmin()) {
+		return <Redirect to={Router.ADMIN}/>;
 	}
 
 	return <DataQualityContainer>

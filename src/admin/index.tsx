@@ -2,7 +2,7 @@ import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
 import {Router} from '../routes/types';
-import {isAdmin} from '../services/account';
+import {isAdmin, isSuperAdmin} from '../services/account';
 import AdminEnums from './enums';
 import AdminHome from './home';
 import {AdminMenu} from './menu';
@@ -13,6 +13,7 @@ import AdminSpaces from './spaces';
 import AdminTopics from './topics';
 import AdminUserGroups from './user-groups';
 import AdminUsers from './users';
+import AdminTenants from './tenants';
 import {AdminCache} from './cache';
 import {AdminCacheEventBusProvider} from './cache/cache-event-bus';
 import AdminDebug from './simulator';
@@ -38,7 +39,7 @@ const AdminMain = styled.main.attrs<{ scrollable?: boolean }>(({scrollable = tru
 `;
 
 const AdminIndex = () => {
-	if (!isAdmin()) {
+	if (!isAdmin() && !isSuperAdmin()) {
 		return <Redirect to={Router.CONSOLE_HOME}/>;
 	}
 
@@ -56,6 +57,7 @@ const AdminIndex = () => {
 				<Route path={Router.ADMIN_PIPELINES}><AdminPipelines/></Route>
 				<Route path={Router.ADMIN_USER_GROUPS}><AdminMain><AdminUserGroups/></AdminMain></Route>
 				<Route path={Router.ADMIN_USERS}><AdminMain><AdminUsers/></AdminMain></Route>
+				<Route path={Router.ADMIN_TENANTS}><AdminMain><AdminTenants/></AdminMain></Route>
 				<Route path={Router.ADMIN_MONITOR_LOGS}>
 					<AdminMain scrollable={false}><AdminMonitorLogs/></AdminMain>
 				</Route>
@@ -63,7 +65,7 @@ const AdminIndex = () => {
 				<Route path={Router.ADMIN_SETTINGS}><AdminMain><AdminSettings/></AdminMain></Route>
 				{/*		<Route path={Path.ADMIN_TASKS}><Tasks/></Route>*/}
 				<Route path="*">
-					<Redirect to={Router.ADMIN_HOME}/>
+					<Redirect to={isSuperAdmin() ? Router.ADMIN_TENANTS : Router.ADMIN_HOME}/>
 				</Route>
 			</Switch>
 		</AdminCacheEventBusProvider>

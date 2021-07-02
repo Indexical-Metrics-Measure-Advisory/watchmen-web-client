@@ -10,6 +10,7 @@ import {Topic} from './topic-types';
 import {Tuple} from './tuple-types';
 import {UserGroup} from './user-group-types';
 import {User} from './user-types';
+import {Tenant} from './tenant-types';
 
 const FAKE_ID_PREFIX = 'f-';
 
@@ -47,6 +48,9 @@ export const isPipeline = (tuple: Tuple): tuple is Pipeline => {
 export const isEnum = (tuple: Tuple): tuple is Enum => {
 	return !!(tuple as any).enumId;
 };
+export const isTenant = (tuple: Tuple): tuple is Tenant => {
+	return !!(tuple as any).tenantId;
+};
 
 export const generateUuid = (): string => `${FAKE_ID_PREFIX}${v4().replace(/-/g, '')}`;
 export const isFakedUuidForGraphics = (graphics: PipelinesGraphics): boolean => {
@@ -77,6 +81,8 @@ export const isFakedUuid = (tuple: Tuple): boolean => {
 		return tuple.subjectId.startsWith(FAKE_ID_PREFIX);
 	} else if (isEnum(tuple)) {
 		return tuple.enumId.startsWith(FAKE_ID_PREFIX);
+	} else if (isTenant(tuple)) {
+		return tuple.tenantId.startsWith(FAKE_ID_PREFIX);
 	}
 
 	console.groupCollapsed('Unsupported tuple type');

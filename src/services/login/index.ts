@@ -5,7 +5,10 @@ import {doFetch, getServiceHost, isMockService} from '../utils';
 import {Account, LoginResponse} from './types';
 
 const isAdmin = (loginResult: any) => {
-	return loginResult.role === 'admin';
+	return loginResult.role === 'admin' || loginResult.role === 'superadmin';
+};
+const isSuperAdmin = (loginResult: any) => {
+	return loginResult.role === 'superadmin';
 };
 
 export const login = async (account: Account): Promise<LoginResponse> => {
@@ -30,6 +33,6 @@ export const login = async (account: Account): Promise<LoginResponse> => {
 		const result = await response.json();
 		saveTokenIntoSession(result.access_token);
 
-		return {pass: true, admin: isAdmin(result)};
+		return {pass: true, admin: isAdmin(result), super: isSuperAdmin(result)};
 	}
 };
