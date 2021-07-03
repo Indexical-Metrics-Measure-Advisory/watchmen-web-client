@@ -5,6 +5,7 @@ import {PageHeader} from '../../basic-widgets/page-header';
 import {CacheSettings} from './cache';
 import {SimulatorLogsSettings} from './simulator-logs';
 import {ThemeSettings} from '../../common-settings/theme';
+import {PersonalAccessToken} from '../../common-settings/personal-access-token';
 
 export const AdminSettings = () => {
 	return <FixWidthPage>
@@ -13,6 +14,7 @@ export const AdminSettings = () => {
 		<ThemeSettings/>
 		<CacheSettings/>
 		<SimulatorLogsSettings/>
+		<PersonalAccessToken/>
 		<VerticalMarginOneUnit/>
 	</FixWidthPage>;
 };

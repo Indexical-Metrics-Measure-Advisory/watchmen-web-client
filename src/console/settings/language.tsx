@@ -10,7 +10,7 @@ import {useForceUpdate} from '../../basic-widgets/utils';
 import {useEventBus} from '../../events/event-bus';
 import {EventTypes} from '../../events/types';
 import {getCurrentLanguageCode, Lang, SupportedLanguages} from '../../langs';
-import {saveLastSnapshot} from '../../services/console/last-snapshot';
+import {saveLastSnapshot} from '../../services/account/last-snapshot';
 
 export const LanguageSettings = () => {
 	const {fire} = useEventBus();

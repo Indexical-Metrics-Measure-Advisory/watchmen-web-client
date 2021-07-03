@@ -215,7 +215,15 @@ export const Jp = {
 			LANGUAGE: '言語',
 			THEME: 'テーマ',
 			THEME_LIGHT: '標準',
-			THEME_DARK: 'ダーク'
+			THEME_DARK: 'ダーク',
+			PAT: {
+				TITLE: 'パーソナルアクセストークン',
+				CREATE: '新しいトークンを生成する',
+				DESCRIPTION: 'Watchmen APIへのアクセスに使用できる生成したトークン。',
+				DELETE_CONFIRM: 'トークンを削除してもよろしいですか？ 削除したものは復元できませんので、ご注意ください。',
+				INPUT_PLACEHOLDER: 'トークンの目的を特定するためのメモ',
+				NOTE_REQUIRED: 'トークンには注意が必要です。'
+			}
 		}
 	},
 	PARAM: {

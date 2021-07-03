@@ -6,7 +6,7 @@ import {SideMenuItemContainer, SideMenuItemIcon, SideMenuItemLabel} from '../../
 import {useTooltip} from '../../basic-widgets/tooltip';
 import {TooltipAlignment} from '../../basic-widgets/types';
 import {Lang} from '../../langs';
-import {LastSnapshot} from '../../services/console/last-snapshot-types';
+import {LastSnapshot} from '../../services/account/last-snapshot-types';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes, FavoriteState} from '../console-event-bus-types';
 

@@ -1,5 +1,5 @@
 import {Favorite} from '../services/console/favorite-types';
-import {LastSnapshot} from '../services/console/last-snapshot-types';
+import {LastSnapshot} from '../services/account/last-snapshot-types';
 import {AvailableSpaceInConsole, ConsoleSettings} from '../services/console/settings-types';
 import {ConnectedSpace, ConnectedSpaceGraphics} from '../services/tuples/connected-space-types';
 import {Dashboard} from '../services/tuples/dashboard-types';

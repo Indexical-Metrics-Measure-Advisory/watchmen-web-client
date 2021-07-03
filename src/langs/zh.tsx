@@ -215,7 +215,15 @@ export const Zh = {
 			LANGUAGE: '语言',
 			THEME: '外观',
 			THEME_LIGHT: '标准',
-			THEME_DARK: '暗色'
+			THEME_DARK: '暗色',
+			PAT: {
+				TITLE: 'Personal Access Token',
+				CREATE: '创建新Token',
+				DESCRIPTION: 'Token在使用API访问Watchmen的后台服务的过程中, 用于认证服务.',
+				DELETE_CONFIRM: '确认要删除Token吗? 请注意删除动作不能被恢复.',
+				INPUT_PLACEHOLDER: '请赋予token一个名字, 以便进行识别',
+				NOTE_REQUIRED: 'Token需要有一个名字.'
+			}
 		}
 	},
 	PARAM: {

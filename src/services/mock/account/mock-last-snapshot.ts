@@ -1,4 +1,4 @@
-import {LastSnapshot} from '../../console/last-snapshot-types';
+import {LastSnapshot} from '../../account/last-snapshot-types';
 
 export const fetchMockLastSnapshot = async (): Promise<LastSnapshot> => {
 	return {

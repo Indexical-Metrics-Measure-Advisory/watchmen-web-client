@@ -215,7 +215,15 @@ export const En = {
 			LANGUAGE: 'Language',
 			THEME: 'Theme',
 			THEME_LIGHT: 'Light',
-			THEME_DARK: 'Dark'
+			THEME_DARK: 'Dark',
+			PAT: {
+				TITLE: 'Personal Access Token',
+				CREATE: 'Generate New Token',
+				DESCRIPTION: 'Tokens you have generated that can be used to access the Watchmen API.',
+				DELETE_CONFIRM: 'Are you sure to delete token? Please note that deletion cannot be recovered.',
+				INPUT_PLACEHOLDER: 'A note for identify purpose of token',
+				NOTE_REQUIRED: 'Note is required for a token.'
+			}
 		}
 	},
 	PARAM: {

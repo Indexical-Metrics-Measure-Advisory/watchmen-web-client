@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, RefObject, useEffect, useRef, useState} from 'react';
 import {BASE_MARGIN, ICON_DELETE, SIDE_MENU_MIN_WIDTH} from '../../basic-widgets/constants';
 import {Lang} from '../../langs';
-import {saveLastSnapshot} from '../../services/console/last-snapshot';
+import {saveLastSnapshot} from '../../services/account/last-snapshot';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes, FavoriteState} from '../console-event-bus-types';
 import {useFavoriteState} from './use-favorite-state';

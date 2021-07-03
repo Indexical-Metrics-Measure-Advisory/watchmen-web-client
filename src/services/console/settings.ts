@@ -3,7 +3,7 @@ import {fetchDashboards} from '../tuples/dashboard';
 import {fetchAvailableSpaces} from './available-space';
 import {fetchAvailableTopics} from './available-topic';
 import {fetchFavorite} from './favorite';
-import {fetchLastSnapshot} from './last-snapshot';
+import {fetchLastSnapshot} from '../account/last-snapshot';
 import {ConsoleSettings} from './settings-types';
 
 export const fetchConsoleSettingsData = async (): Promise<ConsoleSettings> => {

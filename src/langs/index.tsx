@@ -2,7 +2,7 @@ import React, {isValidElement, useEffect, useState} from 'react';
 import {useForceUpdate} from '../basic-widgets/utils';
 import {useEventBus} from '../events/event-bus';
 import {EventTypes} from '../events/types';
-import {fetchLanguageFromSession} from '../services/console/last-snapshot';
+import {fetchLanguageFromSession} from '../services/account/last-snapshot';
 import {En} from './en';
 import {Jp} from './jp';
 import {LanguageObjectType} from './types';

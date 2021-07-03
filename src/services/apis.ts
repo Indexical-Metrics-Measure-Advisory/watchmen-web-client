@@ -100,6 +100,10 @@ export const Apis = {
 	LAST_SNAPSHOT_MINE: 'last_snapshot/me',
 	LAST_SNAPSHOT_SAVE: 'last_snapshot/save',
 
+	PAT_LIST: 'pat/list',
+	PAT_CREATE: 'pat/create',
+	PAT_DELETE: 'pat/delete?pat_id=:patId',
+
 	// any
 	SUBJECT_SHARE_GET: 'share/subject?subject_id=:subjectId&&token=:token',
 	DASHBOARD_SHARE_GET: 'share/dashboard?dashboard_id=:dashboardId&&token=:token',

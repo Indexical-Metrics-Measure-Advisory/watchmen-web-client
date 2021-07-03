@@ -5,7 +5,7 @@ import {Dropdown} from '../basic-widgets/dropdown';
 import {getCurrentThemeCode} from '../theme/theme-wrapper';
 import {EventTypes} from '../events/types';
 import {useEventBus} from '../events/event-bus';
-import {saveLastSnapshot} from '../services/console/last-snapshot';
+import {saveLastSnapshot} from '../services/account/last-snapshot';
 import {SettingsSection, SettingsSectionBody, SettingsSectionTitle} from '../basic-widgets/settings/settings-section';
 
 export const ThemeSettings = (props: {

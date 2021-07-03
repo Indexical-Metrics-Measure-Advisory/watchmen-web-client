@@ -7,7 +7,7 @@ import {useEventBus} from '../../../events/event-bus';
 import {EventTypes} from '../../../events/types';
 import {Lang} from '../../../langs';
 import {isAdmin} from '../../../services/account';
-import {saveLastSnapshot} from '../../../services/console/last-snapshot';
+import {saveLastSnapshot} from '../../../services/account/last-snapshot';
 import {Dashboard} from '../../../services/tuples/dashboard-types';
 
 export const HeaderSetAdminHomeButton = (props: { dashboard: Dashboard }) => {

@@ -4,7 +4,7 @@ import '../assets/fonts/oswald/oswald.css';
 import '../assets/fonts/source-code-pro/source-code-pro.css';
 import {useEventBus} from '../events/event-bus';
 import {EventTypes} from '../events/types';
-import {fetchThemeFromSession} from '../services/console/last-snapshot';
+import {fetchThemeFromSession} from '../services/account/last-snapshot';
 import DarkTheme from './dark-theme';
 import DefaultTheme from './default-theme';
 import {Theme} from './types';

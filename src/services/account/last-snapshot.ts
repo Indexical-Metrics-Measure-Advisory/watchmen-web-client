@@ -1,6 +1,6 @@
-import {findAccount} from '../account';
+import {findAccount} from './index';
 import {Apis, get, post} from '../apis';
-import {fetchMockLastSnapshot} from '../mock/console/mock-last-snapshot';
+import {fetchMockLastSnapshot} from '../mock/account/mock-last-snapshot';
 import {LAST_SNAPSHOT_TOKEN} from '../session-constants';
 import {isMockService} from '../utils';
 import {LastSnapshot} from './last-snapshot-types';
