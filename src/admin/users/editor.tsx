@@ -66,9 +66,10 @@ const UserEditor = (props: { user: User, codes?: HoldByUser }) => {
 				<TuplePropertyLabel>Tenant:</TuplePropertyLabel>
 				<TuplePropertyDropdown value={user.tenantId} options={tenantOptions} onChange={onTenantChange}/>
 			</>
-			: null}
-		<TuplePropertyLabel>Groups:</TuplePropertyLabel>
-		<UserGroupPicker label="Join Group" user={user} codes={groups}/>
+			: <>
+				<TuplePropertyLabel>Groups:</TuplePropertyLabel>
+				<UserGroupPicker label="Join Group" user={user} codes={groups}/>
+			</>}
 	</>;
 };
 export const renderEditor = (user: User, codes?: HoldByUser) => {
