@@ -57,7 +57,7 @@ const UserEditor = (props: { user: User, codes?: HoldByUser }) => {
 		<TuplePropertyLabel>Nick Name:</TuplePropertyLabel>
 		<TuplePropertyInput value={user.nickName || ''} onChange={onPropChange('nickName')}/>
 		<TuplePropertyLabel>Password:</TuplePropertyLabel>
-		<TuplePropertyInput value={user.pwd || ''} onChange={onPropChange('pwd')}
+		<TuplePropertyInput value={user.password || ''} onChange={onPropChange('pwd')}
 		                    placeholder="Leave empty if keep password unchange"/>
 		<TuplePropertyLabel>User Role:</TuplePropertyLabel>
 		<TuplePropertyDropdown value={user.role || UserRole.CONSOLE} options={roleOptions} onChange={onRoleChange}/>
