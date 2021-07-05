@@ -67,7 +67,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 	switch (userId) {
 		case '1':
 			user = {
-				userId, name: 'Damon Lindelof', nickName: '',
+				userId, name: 'Damon Lindelof', nickName: '', pwd: '',
 				role: UserRole.CONSOLE,
 				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
@@ -76,7 +76,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 			break;
 		case '2':
 			user = {
-				userId, name: 'Sally Jupiter', nickName: '',
+				userId, name: 'Sally Jupiter', nickName: '', pwd: '',
 				role: UserRole.CONSOLE,
 				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
@@ -85,7 +85,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 			break;
 		case '3':
 			user = {
-				userId, name: 'Roy Raymond', nickName: '',
+				userId, name: 'Roy Raymond', nickName: '', pwd: '',
 				role: UserRole.CONSOLE,
 				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
@@ -94,7 +94,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 			break;
 		case '4':
 			user = {
-				userId, name: 'Walter Kovacs', nickName: '',
+				userId, name: 'Walter Kovacs', nickName: '', pwd: '',
 				role: UserRole.CONSOLE,
 				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
@@ -103,7 +103,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 			break;
 		case '5':
 			user = {
-				userId, name: 'Jeffrey Dean Morgan', nickName: '',
+				userId, name: 'Jeffrey Dean Morgan', nickName: '', pwd: '',
 				role: UserRole.CONSOLE,
 				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
@@ -112,7 +112,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 			break;
 		default:
 			user = {
-				userId, name: 'Mock User', nickName: '',
+				userId, name: 'Mock User', nickName: '', pwd: '',
 				role: UserRole.CONSOLE,
 				userGroupIds: ['1'],
 				createTime: getCurrentTime(),

@@ -21,7 +21,7 @@ import {isSuperAdmin} from '../../services/account';
 
 const createUser = (): User => {
 	return {
-		userId: generateUuid(), name: '', nickName: '',
+		userId: generateUuid(), name: '', nickName: '', pwd: '',
 		role: UserRole.CONSOLE,
 		userGroupIds: [],
 		createTime: getCurrentTime(),
