@@ -13,7 +13,7 @@ export const listMockUsers = async (options: {
 }): Promise<DataPage<QueryUser>> => {
 	const {pageNumber = 1, pageSize = 9} = options;
 
-	return new Promise((resolve) => {
+	return new Promise<DataPage<QueryUser>>((resolve) => {
 		setTimeout(() => {
 			resolve({
 				data: [
@@ -67,7 +67,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 	switch (userId) {
 		case '1':
 			user = {
-				userId, name: 'Damon Lindelof', nickName: '', pwd: '',
+				userId, name: 'Damon Lindelof', nickName: '', password: '',
 				role: UserRole.CONSOLE,
 				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
@@ -76,7 +76,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 			break;
 		case '2':
 			user = {
-				userId, name: 'Sally Jupiter', nickName: '', pwd: '',
+				userId, name: 'Sally Jupiter', nickName: '', password: '',
 				role: UserRole.CONSOLE,
 				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
@@ -85,7 +85,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 			break;
 		case '3':
 			user = {
-				userId, name: 'Roy Raymond', nickName: '', pwd: '',
+				userId, name: 'Roy Raymond', nickName: '', password: '',
 				role: UserRole.CONSOLE,
 				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
@@ -94,7 +94,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 			break;
 		case '4':
 			user = {
-				userId, name: 'Walter Kovacs', nickName: '', pwd: '',
+				userId, name: 'Walter Kovacs', nickName: '', password: '',
 				role: UserRole.CONSOLE,
 				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
@@ -103,7 +103,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 			break;
 		case '5':
 			user = {
-				userId, name: 'Jeffrey Dean Morgan', nickName: '', pwd: '',
+				userId, name: 'Jeffrey Dean Morgan', nickName: '', password: '',
 				role: UserRole.CONSOLE,
 				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
@@ -112,7 +112,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 			break;
 		default:
 			user = {
-				userId, name: 'Mock User', nickName: '', pwd: '',
+				userId, name: 'Mock User', nickName: '', password: '',
 				role: UserRole.CONSOLE,
 				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
@@ -128,14 +128,14 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 
 let newUserId = 10000;
 export const saveMockUser = async (user: User): Promise<void> => {
-	return new Promise((resolve) => {
+	return new Promise<void>((resolve) => {
 		user.userId = `${newUserId++}`;
 		setTimeout(() => resolve(), 500);
 	});
 };
 
 export const listMockUsersForHolder = async (search: string): Promise<Array<QueryUserForHolder>> => {
-	return new Promise((resolve) => {
+	return new Promise<Array<QueryUserForHolder>>((resolve) => {
 		setTimeout(() => {
 			resolve(
 				[
