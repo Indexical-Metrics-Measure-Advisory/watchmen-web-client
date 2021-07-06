@@ -18,7 +18,7 @@ export const maskToken = (token: string = createToken()) => {
 };
 export const fetchPATs = async (): Promise<Array<PAT>> => {
 	if (isMockService()) {
-		return new Promise(resolve => {
+		return new Promise<Array<PAT>>(resolve => {
 			setTimeout(() => {
 				resolve([
 					{patId: '1', note: 'build', token: maskToken()},
@@ -33,7 +33,7 @@ export const fetchPATs = async (): Promise<Array<PAT>> => {
 
 export const createPAT = async (note: string): Promise<PAT> => {
 	if (isMockService()) {
-		return new Promise(resolve => {
+		return new Promise<PAT>(resolve => {
 			setTimeout(() => {
 				resolve({patId: generateUuid(), note, token: createToken()});
 			}, 300);
