@@ -63,7 +63,7 @@ const UserEditor = (props: { user: User, codes?: HoldByUser }) => {
 		<TuplePropertyDropdown value={user.role || UserRole.CONSOLE} options={roleOptions} onChange={onRoleChange}/>
 		{isSuperAdmin()
 			? <>
-				<TuplePropertyLabel>Tenant:</TuplePropertyLabel>
+				<TuplePropertyLabel>Data Zone:</TuplePropertyLabel>
 				<TuplePropertyDropdown value={user.tenantId} options={tenantOptions} onChange={onTenantChange}/>
 			</>
 			: <>

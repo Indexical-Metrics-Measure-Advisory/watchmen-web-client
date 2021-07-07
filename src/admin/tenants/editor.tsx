@@ -20,7 +20,7 @@ const TenantEditor = (props: { tenant: Tenant }) => {
 	};
 
 	return <>
-		<TuplePropertyLabel>Tenant Name:</TuplePropertyLabel>
+		<TuplePropertyLabel>Zone Name:</TuplePropertyLabel>
 		<TuplePropertyInput value={tenant.name || ''} onChange={onPropChange('name')}/>
 	</>;
 };

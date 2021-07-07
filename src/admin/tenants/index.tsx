@@ -72,10 +72,10 @@ const AdminTenants = () => {
 		};
 	}, [on, off, fire, onceGlobal, fireGlobal]);
 
-	return <TupleWorkbench title="Tenants"
-	                       createButtonLabel="Create Tenant" canCreate={true}
-	                       searchPlaceholder="Search by tenant name"
-	                       tupleLabel="Tenant" tupleImage={TenantBackground} renderEditor={renderEditor}
+	return <TupleWorkbench title="Data Zones"
+	                       createButtonLabel="Create Data Zone" canCreate={true}
+	                       searchPlaceholder="Search by name"
+	                       tupleLabel="Data Zone" tupleImage={TenantBackground} renderEditor={renderEditor}
 	                       renderCard={renderCard} getKeyOfTuple={getKeyOfTenant}
 	/>;
 };

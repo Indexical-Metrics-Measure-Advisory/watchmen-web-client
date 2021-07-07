@@ -130,7 +130,7 @@ export const AdminMenu = () => {
 		              active={!!matchPath(location.pathname, Router.ADMIN_USER_GROUPS)}
 		              onClick={onMenuClicked(Router.ADMIN_USER_GROUPS)}
 		              visible={!isSuperAdmin()}/>
-		<SideMenuItem icon={ICON_TENANT} label="Tenants" showTooltip={showTooltip}
+		<SideMenuItem icon={ICON_TENANT} label="Data Zones" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_TENANTS)}
 		              onClick={onMenuClicked(Router.ADMIN_TENANTS)}
 		              visible={isSuperAdmin()}/>
