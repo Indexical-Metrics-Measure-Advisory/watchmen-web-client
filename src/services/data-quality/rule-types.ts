@@ -11,17 +11,17 @@ export interface MonitorRulesCriteria {
 
 export enum MonitorRuleCode {
 	// structure
-	RAW_MATCH_STRUCTURE = 'raw-match-structure',
+	RAW_MISMATCH_STRUCTURE = 'raw-mismatch-structure',
 
 	// type
-	FACTOR_MATCH_ENUM = 'factor-match-enum',
-	FACTOR_MATCH_TYPE = 'factor-match-type',
-	FACTOR_MATCH_DATE_TYPE = 'factor-match-date-type',
+	FACTOR_MISMATCH_ENUM = 'factor-mismatch-enum',
+	FACTOR_MISMATCH_TYPE = 'factor-mismatch-type',
+	FACTOR_MISMATCH_DATE_TYPE = 'factor-mismatch-date-type',
 
 	// topic row count
 	ROWS_NOT_EXISTS = 'rows-not-exists',
 	ROWS_NO_CHANGE = 'rows-no-change',
-	ROWS_COUNT_AND_ANOTHER = 'rows-count-and-another',
+	ROWS_COUNT_MISMMATCHES_AND_ANOTHER = 'rows-count-mismatch-and-another',
 
 	// for all factor types
 	FACTOR_IS_EMPTY = 'factor-is-empty',
@@ -30,21 +30,21 @@ export enum MonitorRuleCode {
 	FACTOR_EMPTY_COVERAGE = 'factor-empty-coverage',
 
 	// for number type
-	FACTOR_MONOTONE_INCREASING = 'factor-monotone-increasing',
-	FACTOR_MONOTONE_DECREASING = 'factor-monotone-decreasing',
-	FACTOR_IN_RANGE = 'factor-in-range',
-	FACTOR_MAX_IN_RANGE = 'factor-max-in-range',
-	FACTOR_MIN_IN_RANGE = 'factor-min-in-range',
-	FACTOR_AVG_IN_RANGE = 'factor-avg-in-range',
-	FACTOR_MEDIAN_IN_RANGE = 'factor-median-in-range',
-	FACTOR_QUANTILE_IN_RANGE = 'factor-quantile-in-range',
-	FACTOR_STDEV_IN_RANGE = 'factor-stdev-in-range',
-	FACTOR_COMMON_VALUE_IN_RANGE = 'factor-common-value-in-range',
+	FACTOR_BREAKS_MONOTONE_INCREASING = 'factor-breaks-monotone-increasing',
+	FACTOR_BREAKS_MONOTONE_DECREASING = 'factor-breaks-monotone-decreasing',
+	FACTOR_NOT_IN_RANGE = 'factor-not-in-range',
+	FACTOR_MAX_NOT_IN_RANGE = 'factor-max-not-in-range',
+	FACTOR_MIN_NOT_IN_RANGE = 'factor-min-not-in-range',
+	FACTOR_AVG_NOT_IN_RANGE = 'factor-avg-not-in-range',
+	FACTOR_MEDIAN_NOT_IN_RANGE = 'factor-median-not-in-range',
+	FACTOR_QUANTILE_NOT_IN_RANGE = 'factor-quantile-not-in-range',
+	FACTOR_STDEV_NOT_IN_RANGE = 'factor-stdev-not-in-range',
+	FACTOR_COMMON_VALUE_NOT_IN_RANGE = 'factor-common-value-not-in-range',
 
 	// for string type
 	FACTOR_IS_BLANK = 'factor-is-blank',
-	FACTOR_STRING_LENGTH = 'factor-string-length',
-	FACTOR_STRING_LENGTH_RANGE = 'factor-string-length-range',
+	FACTOR_STRING_LENGTH_MISMATCH = 'factor-string-length-mismatch',
+	FACTOR_STRING_LENGTH_NOT_IN_RANGE = 'factor-string-length-not-in-range',
 	FACTOR_MATCH_REGEXP = 'factor-match-regexp',
 	FACTOR_MISMATCH_REGEXP = 'factor-mismatch-regexp',
 

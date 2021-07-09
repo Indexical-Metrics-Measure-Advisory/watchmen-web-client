@@ -28,18 +28,18 @@ export enum MonitorRuleParameterType {
 
 export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 	{
-		code: MonitorRuleCode.RAW_MATCH_STRUCTURE,
+		code: MonitorRuleCode.RAW_MISMATCH_STRUCTURE,
 		name: 'Row of raw topic mismatches structure',
 		severity: MonitorRuleSeverity.WARN,
 		canApply: (topic: Topic) => topic.type === TopicType.RAW
 	},
 	{
-		code: MonitorRuleCode.FACTOR_MATCH_TYPE,
+		code: MonitorRuleCode.FACTOR_MISMATCH_TYPE,
 		severity: MonitorRuleSeverity.FATAL,
 		name: 'Value mismatches type'
 	},
 	{
-		code: MonitorRuleCode.FACTOR_MATCH_ENUM,
+		code: MonitorRuleCode.FACTOR_MISMATCH_ENUM,
 		severity: MonitorRuleSeverity.FATAL,
 		name: 'Value mismatches enumeration',
 		canApply: (topic: Topic, factor?: Factor) => {
@@ -47,7 +47,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		}
 	},
 	{
-		code: MonitorRuleCode.FACTOR_MATCH_DATE_TYPE,
+		code: MonitorRuleCode.FACTOR_MISMATCH_DATE_TYPE,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Value mismatches date type',
 		canApply: (topic: Topic, factor?: Factor) => {
@@ -70,7 +70,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		parameters: [MonitorRuleParameterType.COVERAGE_RATE, MonitorRuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
-		code: MonitorRuleCode.ROWS_COUNT_AND_ANOTHER,
+		code: MonitorRuleCode.ROWS_COUNT_MISMMATCHES_AND_ANOTHER,
 		severity: MonitorRuleSeverity.FATAL,
 		name: 'Rows count mismatches another topic\'s',
 		canApply: (topic: Topic) => topic.type !== TopicType.RAW,
@@ -101,7 +101,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 	},
 
 	{
-		code: MonitorRuleCode.FACTOR_MONOTONE_INCREASING,
+		code: MonitorRuleCode.FACTOR_BREAKS_MONOTONE_INCREASING,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Value breaks monotone increasing',
 		canApply: (topic: Topic, factor?: Factor) => {
@@ -109,7 +109,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		}
 	},
 	{
-		code: MonitorRuleCode.FACTOR_MONOTONE_DECREASING,
+		code: MonitorRuleCode.FACTOR_BREAKS_MONOTONE_DECREASING,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Value breaks monotone decreasing',
 		canApply: (topic: Topic, factor?: Factor) => {
@@ -117,7 +117,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		}
 	},
 	{
-		code: MonitorRuleCode.FACTOR_IN_RANGE,
+		code: MonitorRuleCode.FACTOR_NOT_IN_RANGE,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Value is not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
@@ -126,7 +126,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		parameters: [MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER]
 	},
 	{
-		code: MonitorRuleCode.FACTOR_MAX_IN_RANGE,
+		code: MonitorRuleCode.FACTOR_MAX_NOT_IN_RANGE,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Max value is not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
@@ -135,7 +135,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		parameters: [MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER]
 	},
 	{
-		code: MonitorRuleCode.FACTOR_MIN_IN_RANGE,
+		code: MonitorRuleCode.FACTOR_MIN_NOT_IN_RANGE,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Min is not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
@@ -144,7 +144,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		parameters: [MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER]
 	},
 	{
-		code: MonitorRuleCode.FACTOR_AVG_IN_RANGE,
+		code: MonitorRuleCode.FACTOR_AVG_NOT_IN_RANGE,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Avg is not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
@@ -153,7 +153,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		parameters: [MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER, MonitorRuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
-		code: MonitorRuleCode.FACTOR_MEDIAN_IN_RANGE,
+		code: MonitorRuleCode.FACTOR_MEDIAN_NOT_IN_RANGE,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Median is not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
@@ -162,7 +162,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		parameters: [MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER, MonitorRuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
-		code: MonitorRuleCode.FACTOR_QUANTILE_IN_RANGE,
+		code: MonitorRuleCode.FACTOR_QUANTILE_NOT_IN_RANGE,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Quantile is not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
@@ -171,7 +171,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		parameters: [MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER, MonitorRuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
-		code: MonitorRuleCode.FACTOR_STDEV_IN_RANGE,
+		code: MonitorRuleCode.FACTOR_STDEV_NOT_IN_RANGE,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'StDev is not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
@@ -180,7 +180,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		parameters: [MonitorRuleParameterType.MIN_NUMBER, MonitorRuleParameterType.MAX_NUMBER, MonitorRuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
-		code: MonitorRuleCode.FACTOR_COMMON_VALUE_IN_RANGE,
+		code: MonitorRuleCode.FACTOR_COMMON_VALUE_NOT_IN_RANGE,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Most common values are not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
@@ -198,7 +198,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		}
 	},
 	{
-		code: MonitorRuleCode.FACTOR_STRING_LENGTH,
+		code: MonitorRuleCode.FACTOR_STRING_LENGTH_MISMATCH,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'String length mismatched',
 		canApply: (topic: Topic, factor?: Factor) => {
@@ -207,7 +207,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		parameters: [MonitorRuleParameterType.LENGTH]
 	},
 	{
-		code: MonitorRuleCode.FACTOR_STRING_LENGTH_RANGE,
+		code: MonitorRuleCode.FACTOR_STRING_LENGTH_NOT_IN_RANGE,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'String length is not in range',
 		canApply: (topic: Topic, factor?: Factor) => {
@@ -216,7 +216,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		parameters: [MonitorRuleParameterType.MIN_LENGTH, MonitorRuleParameterType.MAX_LENGTH]
 	},
 	{
-		code: MonitorRuleCode.FACTOR_MATCH_REGEXP,
+		code: MonitorRuleCode.FACTOR_MISMATCH_REGEXP,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Mismatches regexp',
 		canApply: (topic: Topic, factor?: Factor) => {
@@ -225,7 +225,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		parameters: [MonitorRuleParameterType.REGEXP]
 	},
 	{
-		code: MonitorRuleCode.FACTOR_MISMATCH_REGEXP,
+		code: MonitorRuleCode.FACTOR_MATCH_REGEXP,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Matches regexp',
 		canApply: (topic: Topic, factor?: Factor) => {
