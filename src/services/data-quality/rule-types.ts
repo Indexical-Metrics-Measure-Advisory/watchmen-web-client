@@ -26,8 +26,8 @@ export enum MonitorRuleCode {
 	// for all factor types
 	FACTOR_IS_EMPTY = 'factor-is-empty',
 	FACTOR_USE_CAST = 'factor-use-cast',
-	FACTOR_COMMON_VALUE_COVERAGE = 'factor-common-value-coverage',
-	FACTOR_EMPTY_COVERAGE = 'factor-empty-coverage',
+	FACTOR_COMMON_VALUE_OVER_COVERAGE = 'factor-common-value-over-coverage',
+	FACTOR_EMPTY_OVER_COVERAGE = 'factor-empty-over-coverage',
 
 	// for number type
 	FACTOR_BREAKS_MONOTONE_INCREASING = 'factor-breaks-monotone-increasing',
@@ -105,47 +105,47 @@ export interface MonitorRuleOnFactor extends MonitorRuleOnTopic {
 
 export type MonitorRules = Array<MonitorRule>;
 export const GlobalRuleDefs = [
-	MonitorRuleCode.RAW_MATCH_STRUCTURE,
-	MonitorRuleCode.FACTOR_MATCH_TYPE,
-	MonitorRuleCode.FACTOR_MATCH_ENUM,
-	MonitorRuleCode.FACTOR_MATCH_DATE_TYPE,
+	MonitorRuleCode.RAW_MISMATCH_STRUCTURE,
+	MonitorRuleCode.FACTOR_MISMATCH_TYPE,
+	MonitorRuleCode.FACTOR_MISMATCH_ENUM,
+	MonitorRuleCode.FACTOR_MISMATCH_DATE_TYPE,
 
 	MonitorRuleCode.ROWS_NOT_EXISTS
 ];
 export const TopicRuleDefs = [
-	MonitorRuleCode.RAW_MATCH_STRUCTURE,
-	MonitorRuleCode.FACTOR_MATCH_TYPE,
-	MonitorRuleCode.FACTOR_MATCH_ENUM,
-	MonitorRuleCode.FACTOR_MATCH_DATE_TYPE,
+	MonitorRuleCode.RAW_MISMATCH_STRUCTURE,
+	MonitorRuleCode.FACTOR_MISMATCH_TYPE,
+	MonitorRuleCode.FACTOR_MISMATCH_ENUM,
+	MonitorRuleCode.FACTOR_MISMATCH_DATE_TYPE,
 
 	MonitorRuleCode.ROWS_NOT_EXISTS,
 	MonitorRuleCode.ROWS_NO_CHANGE,
-	MonitorRuleCode.ROWS_COUNT_AND_ANOTHER
+	MonitorRuleCode.ROWS_COUNT_MISMMATCHES_AND_ANOTHER
 ];
 export const FactorRuleDefs = [
-	MonitorRuleCode.FACTOR_MATCH_TYPE,
-	MonitorRuleCode.FACTOR_MATCH_ENUM,
-	MonitorRuleCode.FACTOR_MATCH_DATE_TYPE,
+	MonitorRuleCode.FACTOR_MISMATCH_TYPE,
+	MonitorRuleCode.FACTOR_MISMATCH_ENUM,
+	MonitorRuleCode.FACTOR_MISMATCH_DATE_TYPE,
 
 	MonitorRuleCode.FACTOR_IS_EMPTY,
 	MonitorRuleCode.FACTOR_USE_CAST,
-	MonitorRuleCode.FACTOR_COMMON_VALUE_COVERAGE,
-	MonitorRuleCode.FACTOR_EMPTY_COVERAGE,
+	MonitorRuleCode.FACTOR_COMMON_VALUE_OVER_COVERAGE,
+	MonitorRuleCode.FACTOR_EMPTY_OVER_COVERAGE,
 
-	MonitorRuleCode.FACTOR_MONOTONE_INCREASING,
-	MonitorRuleCode.FACTOR_MONOTONE_DECREASING,
-	MonitorRuleCode.FACTOR_IN_RANGE,
-	MonitorRuleCode.FACTOR_MAX_IN_RANGE,
-	MonitorRuleCode.FACTOR_MIN_IN_RANGE,
-	MonitorRuleCode.FACTOR_AVG_IN_RANGE,
-	MonitorRuleCode.FACTOR_MEDIAN_IN_RANGE,
-	MonitorRuleCode.FACTOR_QUANTILE_IN_RANGE,
-	MonitorRuleCode.FACTOR_STDEV_IN_RANGE,
-	MonitorRuleCode.FACTOR_COMMON_VALUE_IN_RANGE,
+	MonitorRuleCode.FACTOR_BREAKS_MONOTONE_INCREASING,
+	MonitorRuleCode.FACTOR_BREAKS_MONOTONE_DECREASING,
+	MonitorRuleCode.FACTOR_NOT_IN_RANGE,
+	MonitorRuleCode.FACTOR_MAX_NOT_IN_RANGE,
+	MonitorRuleCode.FACTOR_MIN_NOT_IN_RANGE,
+	MonitorRuleCode.FACTOR_AVG_NOT_IN_RANGE,
+	MonitorRuleCode.FACTOR_MEDIAN_NOT_IN_RANGE,
+	MonitorRuleCode.FACTOR_QUANTILE_NOT_IN_RANGE,
+	MonitorRuleCode.FACTOR_STDEV_NOT_IN_RANGE,
+	MonitorRuleCode.FACTOR_COMMON_VALUE_NOT_IN_RANGE,
 
 	MonitorRuleCode.FACTOR_IS_BLANK,
-	MonitorRuleCode.FACTOR_STRING_LENGTH,
-	MonitorRuleCode.FACTOR_STRING_LENGTH_RANGE,
+	MonitorRuleCode.FACTOR_STRING_LENGTH_MISMATCH,
+	MonitorRuleCode.FACTOR_STRING_LENGTH_NOT_IN_RANGE,
 	MonitorRuleCode.FACTOR_MATCH_REGEXP,
 	MonitorRuleCode.FACTOR_MISMATCH_REGEXP,
 

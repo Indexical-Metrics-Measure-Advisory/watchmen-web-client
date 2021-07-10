@@ -88,13 +88,13 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		name: 'Value type casted'
 	},
 	{
-		code: MonitorRuleCode.FACTOR_COMMON_VALUE_COVERAGE,
+		code: MonitorRuleCode.FACTOR_COMMON_VALUE_OVER_COVERAGE,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Most common values over coverage',
 		parameters: [MonitorRuleParameterType.AGGREGATION, MonitorRuleParameterType.COVERAGE_RATE, MonitorRuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
-		code: MonitorRuleCode.FACTOR_EMPTY_COVERAGE,
+		code: MonitorRuleCode.FACTOR_EMPTY_OVER_COVERAGE,
 		severity: MonitorRuleSeverity.WARN,
 		name: 'Empty values over coverage',
 		parameters: [MonitorRuleParameterType.COVERAGE_RATE, MonitorRuleParameterType.STATISTICAL_INTERVAL]
