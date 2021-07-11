@@ -31,7 +31,9 @@ const buildColumn = (topic: Topic, columnName: string, columnType: string) => {
 const buildFactors = (topic: Topic) => {
 	if (topic.type === TopicType.RAW) {
 		return [
-			...topic.factors.filter(factor => factor.name.indexOf('.') === -1).map(factor => {
+			...topic.factors.filter(factor => {
+				return factor.name.indexOf('.') === -1 && factor.flatten === true
+			}).map(factor => {
 				return buildColumn(topic, asFactorName(factor), MySQLFactorTypeMap[factor.type]);
 			}),
 			buildColumn(topic, getRawTopicDataColumnName(), 'JSON')
