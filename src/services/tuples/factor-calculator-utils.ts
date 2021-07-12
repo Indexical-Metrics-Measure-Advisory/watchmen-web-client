@@ -237,8 +237,8 @@ export const computeParameterTypes = (
 			factor,
 			// treat unknown factor as not an array
 			array: factor ? factor.type === FactorType.ARRAY : false,
-			// treat unknown factor as any type
-			type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : AnyFactorType.ANY
+			// treat unknown factor as object, since topic is an object anyway
+			type: factor ? (factor.type === FactorType.ARRAY ? FactorType.OBJECT : factor.type) : FactorType.OBJECT
 		}];
 	} else if (isComputedParameter(parameter)) {
 		switch (parameter.type) {
