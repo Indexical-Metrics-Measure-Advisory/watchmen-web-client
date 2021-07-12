@@ -11,7 +11,7 @@ import {usePipelinesEventBus} from '../../pipelines-event-bus';
 import {PipelinesEventTypes} from '../../pipelines-event-bus-types';
 import {usePipelineEventBus} from '../pipeline-event-bus';
 import {PipelineEventTypes} from '../pipeline-event-bus-types';
-import {useValidate} from '../valiator/use-validate';
+import {useValidate} from '../validator/use-validate';
 
 export const HeaderEnableButton = (props: { pipeline: Pipeline }) => {
 	const {pipeline} = props;
