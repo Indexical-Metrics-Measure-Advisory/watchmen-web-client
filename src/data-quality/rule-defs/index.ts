@@ -70,7 +70,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		parameters: [MonitorRuleParameterType.COVERAGE_RATE, MonitorRuleParameterType.STATISTICAL_INTERVAL]
 	},
 	{
-		code: MonitorRuleCode.ROWS_COUNT_MISMMATCHES_AND_ANOTHER,
+		code: MonitorRuleCode.ROWS_COUNT_MISMATCH_AND_ANOTHER,
 		severity: MonitorRuleSeverity.FATAL,
 		name: 'Rows count mismatches another topic\'s',
 		canApply: (topic: Topic) => topic.type !== TopicType.RAW,

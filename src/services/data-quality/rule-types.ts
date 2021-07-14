@@ -21,7 +21,7 @@ export enum MonitorRuleCode {
 	// topic row count
 	ROWS_NOT_EXISTS = 'rows-not-exists',
 	ROWS_NO_CHANGE = 'rows-no-change',
-	ROWS_COUNT_MISMMATCHES_AND_ANOTHER = 'rows-count-mismatch-and-another',
+	ROWS_COUNT_MISMATCH_AND_ANOTHER = 'rows-count-mismatch-and-another',
 
 	// for all factor types
 	FACTOR_IS_EMPTY = 'factor-is-empty',
@@ -120,7 +120,7 @@ export const TopicRuleDefs = [
 
 	MonitorRuleCode.ROWS_NOT_EXISTS,
 	MonitorRuleCode.ROWS_NO_CHANGE,
-	MonitorRuleCode.ROWS_COUNT_MISMMATCHES_AND_ANOTHER
+	MonitorRuleCode.ROWS_COUNT_MISMATCH_AND_ANOTHER
 ];
 export const FactorRuleDefs = [
 	MonitorRuleCode.FACTOR_MISMATCH_TYPE,

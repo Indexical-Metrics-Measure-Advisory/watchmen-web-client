@@ -142,10 +142,22 @@ export const PeriodicPanel = (props: {
 			action: () => setState({})
 		};
 		breakdownHeaderCell = <DataPanelBodyHeaderCell>Topic</DataPanelBodyHeaderCell>;
-		breakdownCell = (row) => <DataPanelBodyBreakdownCell breakdown={canBreakdown}
-		                                                     onClick={onBreakdownClicked(row.ruleCode, row.topicId)}>
-			<span>{row.topicName}</span>
-		</DataPanelBodyBreakdownCell>;
+		breakdownCell = (row) => {
+			if ([MonitorRuleCode.RAW_MISMATCH_STRUCTURE,
+				MonitorRuleCode.ROWS_NOT_EXISTS,
+				MonitorRuleCode.ROWS_NO_CHANGE,
+				MonitorRuleCode.ROWS_COUNT_MISMATCH_AND_ANOTHER].includes(row.ruleCode)) {
+				// topic level rule, cannot breakdown anymore
+				return <DataPanelBodyDataCell>
+					<span>{row.topicName}</span>
+				</DataPanelBodyDataCell>;
+			} else {
+				return <DataPanelBodyBreakdownCell breakdown={canBreakdown}
+				                                   onClick={onBreakdownClicked(row.ruleCode, row.topicId)}>
+					<span>{row.topicName}</span>
+				</DataPanelBodyBreakdownCell>;
+			}
+		};
 	} else {
 		// all
 		breakdownHeaderCell = <DataPanelBodyHeaderCell>Rule</DataPanelBodyHeaderCell>;
