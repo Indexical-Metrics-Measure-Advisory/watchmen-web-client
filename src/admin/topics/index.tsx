@@ -94,6 +94,12 @@ const AdminTopics = () => {
 				}).fire(EventTypes.SHOW_ALERT,
 					<AlertLabel>Object or array factor is allowed in raw topic only.</AlertLabel>);
 				return;
+			} else if (new Set(topic.factors.map(factor => factor.name.toUpperCase())).size != topic.factors.length) {
+				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
+				}).fire(EventTypes.SHOW_ALERT,
+					<AlertLabel>Each factor should have its unique name.</AlertLabel>);
+				return;
 			}
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await saveTopic(topic),
