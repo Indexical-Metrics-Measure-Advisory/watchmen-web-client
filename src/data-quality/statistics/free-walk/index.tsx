@@ -138,8 +138,7 @@ export const FreeWalkPanel = () => {
 	const ruleOptions = [
 		{value: '', label: 'Any Rule'},
 		...Object.keys(RuleDefs).filter(ruleCode => {
-			const def = RuleDefs[ruleCode];
-			return def.enabled;
+			return RuleDefs[ruleCode as MonitorRuleCode].enabled;
 		}).map(ruleCode => {
 			return {value: ruleCode, label: RuleDefs[ruleCode as MonitorRuleCode].name};
 		}).sort((o1, o2) => {
