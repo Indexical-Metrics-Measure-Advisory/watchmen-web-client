@@ -1,20 +1,27 @@
-
 import {Factor} from '../../services/tuples/factor-types';
 import {MonitorRuleDef, MonitorRuleParameterType, RuleDefs} from '../rule-defs';
 import {
-	MonitorRule, MonitorRuleCode,
-	MonitorRuleCompareOperator, MonitorRuleSeverity,
+	MonitorRule,
+	MonitorRuleCode,
+	MonitorRuleCompareOperator,
+	MonitorRuleSeverity,
 	MonitorRuleStatisticalInterval
 } from '../../services/data-quality/rule-types';
 
-export const transformRuleDefsToDisplay = (codes: Array<MonitorRuleCode>) => {
-	return codes.map(code => {
+export const transformRuleDefsToDisplay = (codes: Array<MonitorRuleCode>): Array<MonitorRuleDef> => {
+	return codes.filter(code => {
 		const def = RuleDefs[code];
 		if (!def) {
-			throw new Error(`Unsupported rule code[${code}].`);
+			console.error(`Unsupported rule code[${code}].`);
+			return false;
+		} else if (!def.enabled) {
+			console.info(`Rule[code=${code}] is disabled now.`);
+			return false;
 		} else {
-			return def;
+			return true;
 		}
+	}).map(code => {
+		return RuleDefs[code];
 	});
 };
 

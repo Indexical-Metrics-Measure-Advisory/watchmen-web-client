@@ -143,10 +143,13 @@ export const PeriodicPanel = (props: {
 		};
 		breakdownHeaderCell = <DataPanelBodyHeaderCell>Topic</DataPanelBodyHeaderCell>;
 		breakdownCell = (row) => {
-			if ([MonitorRuleCode.RAW_MISMATCH_STRUCTURE,
+			// noinspection TypeScriptValidateTypes
+			if ([
+				MonitorRuleCode.RAW_MISMATCH_STRUCTURE,
 				MonitorRuleCode.ROWS_NOT_EXISTS,
 				MonitorRuleCode.ROWS_NO_CHANGE,
-				MonitorRuleCode.ROWS_COUNT_MISMATCH_AND_ANOTHER].includes(row.ruleCode)) {
+				MonitorRuleCode.ROWS_COUNT_MISMATCH_AND_ANOTHER
+			].includes(row.ruleCode)) {
 				// topic level rule, cannot breakdown anymore
 				return <DataPanelBodyDataCell>
 					<span>{row.topicName}</span>
