@@ -10,7 +10,7 @@ import {
 export const transformRuleDefsToDisplay = (codes: Array<MonitorRuleCode>) => {
 	return codes.map(code => {
 		const def = RuleDefs[code];
-		if (!def) {
+		if (!def || !def.enabled) {
 			throw new Error(`Unsupported rule code[${code}].`);
 		} else {
 			return def;
