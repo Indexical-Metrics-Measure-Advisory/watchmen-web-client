@@ -45,7 +45,10 @@ export const fetchMonitorRuleLogs = async (options: { criteria: MonitorRuleLogCr
 		return await fetchMockMonitorRuleLogs(options);
 	} else {
 		// TODO
-		return await fetchMockMonitorRuleLogs(options);
+		return post({
+			api: Apis.QUERY_RULE_RESULT,
+			data: options,
+		});
 	}
 };
 
