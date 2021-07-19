@@ -35,7 +35,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		name: 'Row of raw topic mismatches structure',
 		severity: MonitorRuleSeverity.WARN,
 		canApply: (topic: Topic) => topic.type === TopicType.RAW,
-		enabled: true
+		enabled: false
 	},
 	{
 		code: MonitorRuleCode.FACTOR_MISMATCH_TYPE,
@@ -122,7 +122,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && supportFactorType([FactorType.NUMBER, FactorType.UNSIGNED], factor.type);
 		},
-		enabled: true
+		enabled: false
 	},
 	{
 		code: MonitorRuleCode.FACTOR_BREAKS_MONOTONE_DECREASING,
@@ -131,7 +131,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		canApply: (topic: Topic, factor?: Factor) => {
 			return !!factor && supportFactorType([FactorType.NUMBER, FactorType.UNSIGNED], factor.type);
 		},
-		enabled: true
+		enabled: false
 	},
 	{
 		code: MonitorRuleCode.FACTOR_NOT_IN_RANGE,

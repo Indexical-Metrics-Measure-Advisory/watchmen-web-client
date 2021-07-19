@@ -137,7 +137,10 @@ export const FreeWalkPanel = () => {
 	}
 	const ruleOptions = [
 		{value: '', label: 'Any Rule'},
-		...Object.keys(RuleDefs).map(ruleCode => {
+		...Object.keys(RuleDefs).filter(ruleCode => {
+			const def = RuleDefs[ruleCode];
+			return def.enabled;
+		}).map(ruleCode => {
 			return {value: ruleCode, label: RuleDefs[ruleCode as MonitorRuleCode].name};
 		}).sort((o1, o2) => {
 			return o1.label.toLowerCase().localeCompare(o2.label.toLowerCase());
