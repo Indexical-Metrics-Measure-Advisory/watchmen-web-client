@@ -11,7 +11,7 @@ export const mockLogin = async (account: Account): Promise<LoginResponse> => {
 				pass: [SUPER_ADMIN, ADMIN, USER].includes(account.name || ''),
 				admin: account.name === ADMIN,
 				super: account.name === SUPER_ADMIN,
-				tenantId: '1',
+				tenantId: account.name === SUPER_ADMIN ? (void 0) : '1',
 				error: [ADMIN, USER].includes(account.name || '')
 					? void 0
 					: 'Name or credential cannot be identified now.'
