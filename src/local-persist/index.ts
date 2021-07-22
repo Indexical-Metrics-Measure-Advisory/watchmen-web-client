@@ -105,7 +105,9 @@ export const loadAdminData = async (): Promise<AdminCacheData> => {
 	const pipelineCount = pipelines?.length || 0;
 	const topicCount = topics?.length || 0;
 	const noCacheData = (pipelineCount + topicCount + (graphics?.length || 0)) === 0;
+	// eslint-disable-next-line
 	const shouldRefreshCache = (pipelineCount !== 0 && pipelines[0].tenantId != tenantId)
+		// eslint-disable-next-line
 		|| (topicCount !== 0 && topics[0].tenantId != tenantId);
 
 	if (noCacheData || shouldRefreshCache) {

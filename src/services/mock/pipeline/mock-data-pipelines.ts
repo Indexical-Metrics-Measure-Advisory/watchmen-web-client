@@ -237,4 +237,4 @@ export const DemoPipelines: Array<Pipeline> = [
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()
 	}
-];
+].map(p => ({...p, tenantId: '1'}));

@@ -326,7 +326,7 @@ export const WeeklyPolicyPremiumIncrement: Topic = {
 export const DemoTopics: Array<Topic> = [
 	Quotation, Policy, Participant, RawQuotation,
 	WeeklyPolicyPremium, MonthlyPolicyPremium, RawEndorsement, WeeklyPolicyPremiumIncrement
-];
+].map(t => ({...t, tenantId: '1'}));
 const asQueryTopic = (topic: Topic, reportCount: number, groupCount: number, spaceCount: number): QueryTopic => {
 	const {topicId, name, type, description, factors} = topic;
 	return {
