@@ -7,5 +7,6 @@ export interface LoginResponse {
 	pass: boolean;
 	admin: boolean;
 	super: boolean;
+	tenantId?: string;
 	error?: string;
 }

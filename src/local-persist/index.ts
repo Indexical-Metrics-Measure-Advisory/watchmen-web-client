@@ -16,6 +16,7 @@ import dayjs, {Dayjs} from 'dayjs';
 import {Tuple} from '../services/tuples/tuple-types';
 import {Pipeline, PipelinesGraphics} from '../services/tuples/pipeline-types';
 import {Topic} from '../services/tuples/topic-types';
+import {findAccount} from '../services/account';
 
 export const prepareAdminDB = () => {
 	connectAdminDB();
@@ -88,15 +89,31 @@ const mergePipelineGraphics = async (graphics: Array<PipelinesGraphics>, updated
 };
 
 export const loadAdminData = async (): Promise<AdminCacheData> => {
+	// check tenant
+	const tenantId = findAccount()?.tenantId;
+	if (!tenantId) {
+		// no tenant of current user
+		return {pipelines: [], topics: [], graphics: []};
+	}
+
 	const [pipelines, topics, graphics] = await Promise.all([
 		findAdminPipelines(),
 		findAdminTopics(),
 		findAdminPipelinesGraphics()
 	]);
 
-	if ((!pipelines || pipelines.length === 0)
-		&& (!topics || topics.length === 0)
-		&& (!graphics || graphics.length === 0)) {
+	const pipelineCount = pipelines?.length || 0;
+	const topicCount = topics?.length || 0;
+	const noCacheData = (pipelineCount + topicCount + (graphics?.length || 0)) === 0;
+	const shouldRefreshCache = (pipelineCount !== 0 && pipelines[0].tenantId != tenantId)
+		|| (topicCount !== 0 && topics[0].tenantId != tenantId);
+
+	if (noCacheData || shouldRefreshCache) {
+		if (shouldRefreshCache) {
+			await clearAdminPipelines();
+			await clearAdminTopics();
+		}
+
 		// no data in local persistence
 		const settings = await fetchPipelinesSettingsData();
 

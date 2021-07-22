@@ -64,13 +64,18 @@ const LoginIndex = () => {
 		setIng(true);
 
 		try {
-			const {pass, admin, super: superAdmin, error} = await login(account);
+			const {pass, admin, super: superAdmin, tenantId, error} = await login(account);
 			if (!pass) {
 				setError(error || Lang.LOGIN.FAIL);
 				return;
 			}
 
-			saveAccountIntoSession({name: (account.name || '').trim(), admin, super: superAdmin});
+			saveAccountIntoSession({
+				name: (account.name || '').trim(),
+				admin,
+				super: superAdmin,
+				tenantId
+			});
 			if (admin || superAdmin) {
 				history.replace(Router.ADMIN);
 			} else {

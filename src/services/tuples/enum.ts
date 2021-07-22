@@ -5,6 +5,7 @@ import {isMockService} from '../utils';
 import {Enum} from './enum-types';
 import {QueryEnum, QueryEnumForHolder} from './query-enum-types';
 import {isFakedUuid} from './utils';
+import {findAccount} from '../account';
 
 export const listEnums = async (options: {
 	search: string;
@@ -40,12 +41,19 @@ export const saveEnum = async (enumeration: Enum): Promise<void> => {
 	if (parentEnumId) {
 		toSave.parentEnumId = parentEnumId;
 	}
+	enumeration.tenantId = findAccount()?.tenantId;
+
 	if (isMockService()) {
-		return saveMockEnum(toSave);
+		await saveMockEnum(toSave);
 	} else if (isFakedUuid(enumeration)) {
-		return await post({api: Apis.ENUM_CREATE, data: toSave});
+		const data = await post({api: Apis.ENUM_CREATE, data: toSave});
+		enumeration.enumId = data.enumId;
+		enumeration.tenantId = data.tenantId;
+		enumeration.lastModifyTime = data.lastModifyTime;
 	} else {
-		return await post({api: Apis.ENUM_SAVE, data: toSave});
+		const data = await post({api: Apis.ENUM_SAVE, data: toSave});
+		enumeration.tenantId = data.tenantId;
+		enumeration.lastModifyTime = data.lastModifyTime;
 	}
 };
 

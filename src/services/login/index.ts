@@ -34,6 +34,6 @@ export const login = async (account: Account): Promise<LoginResponse> => {
 		const result = await response.json();
 		saveTokenIntoSession(result.access_token);
 
-		return {pass: true, admin: isAdmin(result), super: isSuperAdmin(result)};
+		return {pass: true, admin: isAdmin(result), super: isSuperAdmin(result), tenantId: result.tenantId};
 	}
 };

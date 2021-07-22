@@ -6,7 +6,7 @@ import {QueryUserGroupForHolder} from './query-user-group-types';
 import {QueryUser, QueryUserForHolder} from './query-user-types';
 import {User} from './user-types';
 import {isFakedUuid} from './utils';
-import {isSuperAdmin} from '../account';
+import {findAccount, isSuperAdmin} from '../account';
 import {QueryTenant} from './query-tenant-types';
 import {listTenants} from './tenant';
 
@@ -59,14 +59,20 @@ export const fetchUser = async (userId: string): Promise<{ user: User; groups: A
 };
 
 export const saveUser = async (user: User): Promise<void> => {
+	if (!isSuperAdmin()) {
+		user.tenantId = findAccount()?.tenantId;
+	}
+
 	if (isMockService()) {
 		return saveMockUser(user);
 	} else if (isFakedUuid(user)) {
 		const data = await post({api: Apis.USER_CREATE, data: transformToServer(user)});
 		user.userId = data.userId;
+		user.tenantId = data.tenantId ?? user.tenantId;
 		user.lastModifyTime = data.lastModifyTime;
 	} else {
 		const data = await post({api: Apis.USER_SAVE, data: transformToServer(user)});
+		user.tenantId = data.tenantId ?? user.tenantId;
 		user.lastModifyTime = data.lastModifyTime;
 	}
 };

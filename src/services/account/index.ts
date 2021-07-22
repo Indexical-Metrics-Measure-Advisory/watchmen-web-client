@@ -1,8 +1,8 @@
 import {ACCOUNT_KEY_IN_SESSION, ACCOUNT_TOKEN} from '../session-constants';
 import {SessionAccount} from './types';
 
-export const saveAccountIntoSession = ({name, admin, super: superAdmin}: SessionAccount) => {
-	sessionStorage.setItem(ACCOUNT_KEY_IN_SESSION, btoa(JSON.stringify({name, admin, super: superAdmin})));
+export const saveAccountIntoSession = ({name, admin, super: superAdmin, tenantId}: SessionAccount) => {
+	sessionStorage.setItem(ACCOUNT_KEY_IN_SESSION, btoa(JSON.stringify({name, admin, super: superAdmin, tenantId})));
 };
 
 export const findAccount = (): SessionAccount | undefined => {
@@ -23,10 +23,10 @@ export const isAdmin = (): boolean => {
 	return !!account && account.admin;
 };
 
-export const isSuperAdmin = ():boolean => {
+export const isSuperAdmin = (): boolean => {
 	const account = findAccount();
 	return !!account && account.super;
-}
+};
 
 export const findToken = (): string | null => {
 	return sessionStorage.getItem(ACCOUNT_TOKEN);

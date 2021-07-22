@@ -5,6 +5,7 @@ import {isMockService} from '../utils';
 import {QueryTopic, QueryTopicForHolder} from './query-topic-types';
 import {Topic} from './topic-types';
 import {isFakedUuid} from './utils';
+import {findAccount} from '../account';
 
 export const listTopics = async (options: {
 	search: string;
@@ -30,14 +31,17 @@ export const fetchTopic = async (topicId: string): Promise<{ topic: Topic }> => 
 };
 
 export const saveTopic = async (topic: Topic): Promise<void> => {
+	topic.tenantId = findAccount()?.tenantId;
 	if (isMockService()) {
 		return saveMockTopic(topic);
 	} else if (isFakedUuid(topic)) {
 		const data = await post({api: Apis.TOPIC_CREATE, data: topic});
 		topic.topicId = data.topicId;
+		topic.tenantId = data.tenantId;
 		topic.lastModifyTime = data.lastModifyTime;
 	} else {
 		const data = await post({api: Apis.TOPIC_SAVE, search: {topicId: topic.topicId}, data: topic});
+		topic.tenantId = data.tenantId;
 		topic.lastModifyTime = data.lastModifyTime;
 	}
 };

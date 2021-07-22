@@ -4,4 +4,5 @@ export interface Space extends Tuple, TopicHolder, UserGroupHolder {
 	spaceId: string;
 	name: string;
 	description?: string;
+	tenantId?: string;
 }

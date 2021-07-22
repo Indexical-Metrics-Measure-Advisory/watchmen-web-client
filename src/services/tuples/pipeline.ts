@@ -10,6 +10,7 @@ import {
 import {isMockService} from '../utils';
 import {Pipeline, PipelinesGraphics} from './pipeline-types';
 import {isFakedUuid, isFakedUuidForGraphics} from './utils';
+import {findAccount} from '../account';
 
 export const fetchPipelinesGraphics = async (): Promise<Array<PipelinesGraphics>> => {
 	if (isMockService()) {
@@ -51,14 +52,17 @@ export const fetchPipeline = async (pipelineId: string): Promise<{ pipeline: Pip
 };
 
 export const savePipeline = async (pipeline: Pipeline): Promise<void> => {
+	pipeline.tenantId = findAccount()?.tenantId;
 	if (isMockService()) {
 		return saveMockPipeline(pipeline);
 	} else if (isFakedUuid(pipeline)) {
 		const data = await post({api: Apis.PIPELINE_CREATE, data: pipeline});
 		pipeline.pipelineId = data.pipelineId;
+		pipeline.tenantId = data.tenantId;
 		pipeline.lastModifyTime = data.lastModifyTime;
 	} else {
 		const data = await post({api: Apis.PIPELINE_SAVE, data: pipeline});
+		pipeline.tenantId = data.tenantId;
 		pipeline.lastModifyTime = data.lastModifyTime;
 	}
 };

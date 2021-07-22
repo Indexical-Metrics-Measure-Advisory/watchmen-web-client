@@ -21,4 +21,5 @@ export interface Topic extends Tuple {
 	type: TopicType;
 	description?: string;
 	factors: Array<Factor>;
+	tenantId?: string;
 }

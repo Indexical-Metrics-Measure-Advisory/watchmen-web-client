@@ -13,4 +13,5 @@ export interface Enum extends Tuple {
 	description?: string;
 	parentEnumId?: string;
 	items: Array<EnumItem>;
+	tenantId?: string;
 }

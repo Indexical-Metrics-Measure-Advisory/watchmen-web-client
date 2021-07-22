@@ -7,6 +7,7 @@ import {QueryTopicForHolder} from './query-topic-types';
 import {QueryUserGroupForHolder} from './query-user-group-types';
 import {Space} from './space-types';
 import {isFakedUuid} from './utils';
+import {findAccount} from '../account';
 
 type SpaceOnServer = Omit<Space, 'userGroupIds'> & { groupIds: Array<string> };
 const transformFromServer = (space: SpaceOnServer): Space => {
@@ -63,11 +64,13 @@ export const fetchSpace = async (
 };
 
 export const saveSpace = async (space: Space): Promise<void> => {
+	space.tenantId = findAccount()?.tenantId;
 	if (isMockService()) {
 		return saveMockSpace(space);
 	} else if (isFakedUuid(space)) {
 		const data = await post({api: Apis.SPACE_CREATE, data: transformToServer(space)});
 		space.spaceId = data.spaceId;
+		space.tenantId = data.tenantId;
 		space.lastModifyTime = data.lastModifyTime;
 	} else {
 		const data = await post({
@@ -75,6 +78,7 @@ export const saveSpace = async (space: Space): Promise<void> => {
 			search: {spaceId: space.spaceId},
 			data: transformToServer(space)
 		});
+		space.tenantId = data.tenantId;
 		space.lastModifyTime = data.lastModifyTime;
 	}
 };

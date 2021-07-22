@@ -12,6 +12,7 @@ import {QueryUserGroup, QueryUserGroupForHolder} from './query-user-group-types'
 import {QueryUserForHolder} from './query-user-types';
 import {UserGroup} from './user-group-types';
 import {isFakedUuid} from './utils';
+import {findAccount} from '../account';
 
 export const listUserGroups = async (options: {
 	search: string;
@@ -62,11 +63,13 @@ export const fetchUserGroup = async (
 };
 
 export const saveUserGroup = async (userGroup: UserGroup): Promise<void> => {
+	userGroup.tenantId = findAccount()?.tenantId;
 	if (isMockService()) {
 		return saveMockUserGroup(userGroup);
 	} else if (isFakedUuid(userGroup)) {
 		const data = await post({api: Apis.USER_GROUP_CREATE, data: userGroup});
 		userGroup.userGroupId = data.userGroupId;
+		userGroup.tenantId = data.tenantId;
 		userGroup.lastModifyTime = data.lastModifyTime;
 	} else {
 		const data = await post({
@@ -74,6 +77,7 @@ export const saveUserGroup = async (userGroup: UserGroup): Promise<void> => {
 			search: {userGroupId: userGroup.userGroupId},
 			data: userGroup
 		});
+		userGroup.tenantId = data.tenantId;
 		userGroup.lastModifyTime = data.lastModifyTime;
 	}
 };
