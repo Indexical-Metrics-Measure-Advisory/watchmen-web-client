@@ -211,7 +211,7 @@ const buildPipelineRelation = (options: { pipeline: Pipeline; topicsMap: TopicsM
 				const topic = topicsMap[topicId];
 				return {topic, factors: [...new Set(factors[topicId].filter(x => !!x))]};
 			})
-			.filter(({factors}) => factors && factors.length > 0)
+			.filter(({topic, factors}) => topic != null && factors && factors.length > 0)
 			.sort((x1, x2) => {
 				return getTopicName(x1.topic.topic).toLowerCase().localeCompare(getTopicName(x2.topic.topic));
 			}).map(item => {
