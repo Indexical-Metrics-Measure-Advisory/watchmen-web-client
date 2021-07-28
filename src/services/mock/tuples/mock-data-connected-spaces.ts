@@ -9,6 +9,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 		spaceId: '1',
 		name: 'Sales Statistics',
 		subjects: [],
+		isTemplate: false,
 		lastVisitTime: '2020/10/31 14:23:07',
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()
@@ -124,6 +125,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 				lastModifyTime: getCurrentTime()
 			}
 		],
+		isTemplate: false,
 		lastVisitTime: '2020/11/05 15:14:11',
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()
@@ -133,6 +135,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 		connectId: '3',
 		name: 'Sales Statistics in Maine',
 		subjects: [],
+		isTemplate: false,
 		lastVisitTime: '2020/11/05 14:13:11',
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()
@@ -142,6 +145,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 		connectId: '4',
 		name: 'Sales Statistics in New Hampshire',
 		subjects: [],
+		isTemplate: false,
 		lastVisitTime: '2020/11/05 13:12:11',
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()
@@ -151,6 +155,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 		connectId: '5',
 		name: 'Sales Statistics in Vermont',
 		subjects: [],
+		isTemplate: false,
 		lastVisitTime: '2020/11/05 12:11:11',
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()
@@ -160,6 +165,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 		connectId: '6',
 		name: 'Sales Statistics in Rhode Island',
 		subjects: [],
+		isTemplate: false,
 		lastVisitTime: '2020/11/05 11:10:11',
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()
@@ -169,6 +175,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 		connectId: '7',
 		name: 'Sales Statistics in Connecticut',
 		subjects: [],
+		isTemplate: false,
 		lastVisitTime: '2020/11/05 10:09:11',
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()
@@ -178,6 +185,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 		connectId: '8',
 		name: 'Sales Statistics in Massachusetts',
 		subjects: [],
+		isTemplate: false,
 		lastVisitTime: '2020/11/05 09:08:11',
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()

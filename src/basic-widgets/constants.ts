@@ -73,6 +73,7 @@ import {
 	faStream,
 	faSyncAlt,
 	faTable,
+	faTablets,
 	faTachometerAlt,
 	faTags,
 	faTasks,
@@ -163,6 +164,7 @@ export const ICON_UNIT = faFeather;
 
 export const ICON_DASHBOARD = faTachometerAlt;
 export const ICON_FAVORITE = faStar;
+export const ICON_TEMPLATE = faTablets;
 export const ICON_TASK = faTasks;
 export const ICON_NOTIFICATION = faBell;
 export const ICON_MAIL = faInbox;

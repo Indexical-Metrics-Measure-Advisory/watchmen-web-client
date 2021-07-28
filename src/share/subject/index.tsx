@@ -25,6 +25,7 @@ const ShareSubject = (props: { subject: Subject }) => {
 		name: '',
 		spaceId: '',
 		subjects: [subject],
+		isTemplate: false,
 		lastVisitTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime(),
 		createTime: getCurrentTime()

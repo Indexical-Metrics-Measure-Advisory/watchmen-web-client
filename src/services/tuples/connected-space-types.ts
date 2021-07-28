@@ -7,6 +7,7 @@ export interface ConnectedSpace extends Tuple {
 	name: string;
 	spaceId: string;
 	subjects: Array<Subject>;
+	isTemplate: boolean;
 	lastVisitTime: string;
 }
 
@@ -37,4 +38,10 @@ export interface ConnectedSpaceGraphics {
 	topics: Array<TopicGraphics>;
 	subjects: Array<SubjectGraphics>;
 	reports: Array<ReportGraphics>;
+}
+
+export interface ConnectedSpaceTemplate {
+	connectId: string;
+	name: string;
+	createBy: string;
 }

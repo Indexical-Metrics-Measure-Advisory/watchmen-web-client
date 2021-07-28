@@ -8,7 +8,7 @@ import {
 	saveMockConnectedSpaceGraphics
 } from '../mock/tuples/mock-connected-space';
 import {isMockService} from '../utils';
-import {ConnectedSpace, ConnectedSpaceGraphics} from './connected-space-types';
+import {ConnectedSpace, ConnectedSpaceGraphics, ConnectedSpaceTemplate} from './connected-space-types';
 import {isFakedUuid} from './utils';
 
 export const fetchConnectedSpaces = async (): Promise<Array<ConnectedSpace>> => {
@@ -27,14 +27,19 @@ export const fetchConnectedSpaceGraphics = async (): Promise<Array<ConnectedSpac
 	}
 };
 
-export const saveConnectedSpace = async (connectedSpace: ConnectedSpace): Promise<void> => {
+export const saveConnectedSpace = async (connectedSpace: ConnectedSpace, templateConnectedSpaceIds: Array<string> = []): Promise<void> => {
 	if (isMockService()) {
 		return saveMockConnectedSpace(connectedSpace);
 	} else if (isFakedUuid(connectedSpace)) {
 		const data = await get({
 			api: Apis.SPACE_CONNECT,
-			search: {spaceId: connectedSpace.spaceId, name: connectedSpace.name}
+			search: {
+				spaceId: connectedSpace.spaceId,
+				name: connectedSpace.name,
+				templateIds: templateConnectedSpaceIds.join(',')
+			}
 		});
+		connectedSpace.subjects = data.subjects || [];
 		connectedSpace.connectId = data.connectId;
 		connectedSpace.lastModifyTime = data.lastModifyTime;
 	} else {
@@ -71,5 +76,21 @@ export const saveConnectedSpaceGraphics = async (
 	} else {
 		graphics.connectId = connectedSpace.connectId;
 		await post({api: Apis.CONNECTED_SPACE_GRAPHICS_SAVE, data: graphics});
+	}
+};
+
+export const listTemplateConnectedSpaces = async (spaceId: string): Promise<Array<ConnectedSpaceTemplate>> => {
+	if (isMockService()) {
+		return [
+			{connectId: '1', name: 'Template One', createBy: 'Damon Lindelof'},
+			{connectId: '2', name: 'Template Two', createBy: 'Damon Lindelof'},
+			{connectId: '3', name: 'Template Three', createBy: 'Damon Lindelof'}
+			// ...new Array(10).fill(1).map((x, index) => {
+			// 	return {connectId: `${index + 4}`, name: `Template ${index + 1}`, createBy: 'Auto'};
+			// })
+		];
+	} else {
+		const data = await get({api: Apis.CONNECTED_SPACES_TEMPLATE_LIST, search: {spaceId}});
+		return data || [];
 	}
 };

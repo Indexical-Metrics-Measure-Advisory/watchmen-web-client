@@ -7,19 +7,25 @@ import {HeaderCreateConnectedSpaceButton} from './header-create-connected-space-
 import {HeaderDeleteConnectedSpaceButton} from './header-delete-connected-space-buttton';
 import {HeaderFavoriteButton} from './header-favorite-button';
 import {HeaderSwitchConnectedSpaceButton} from './header-switch-connected-space-button';
+import {isAdmin} from '../../../../services/account';
+import {HeaderTemplateButton} from './header-template-button';
 
 export const CatalogHeaderButtons = (props: { connectedSpace: ConnectedSpace }) => {
-	const {connectedSpace} = props;
+		const {connectedSpace} = props;
 
-	return <PageHeaderButtons>
-		<HeaderCatalogButton connectedSpace={connectedSpace}/>
-		<HeaderAddSubjectButton connectedSpace={connectedSpace}/>
-		<PageHeaderButtonSeparator/>
-		<HeaderFavoriteButton connectedSpace={connectedSpace}/>
-		<PageHeaderButtonSeparator/>
-		<HeaderCreateConnectedSpaceButton/>
-		<HeaderSwitchConnectedSpaceButton connectedSpace={connectedSpace}/>
-		<PageHeaderButtonSeparator/>
-		<HeaderDeleteConnectedSpaceButton connectedSpace={connectedSpace}/>
-	</PageHeaderButtons>;
-};
+		const admin = isAdmin();
+
+		return <PageHeaderButtons>
+			<HeaderCatalogButton connectedSpace={connectedSpace}/>
+			<HeaderAddSubjectButton connectedSpace={connectedSpace}/>
+			<PageHeaderButtonSeparator/>
+			<HeaderFavoriteButton connectedSpace={connectedSpace}/>
+			{admin ? <HeaderTemplateButton connectedSpace={connectedSpace}/> : null}
+			<PageHeaderButtonSeparator/>
+			<HeaderCreateConnectedSpaceButton/>
+			<HeaderSwitchConnectedSpaceButton connectedSpace={connectedSpace}/>
+			<PageHeaderButtonSeparator/>
+			<HeaderDeleteConnectedSpaceButton connectedSpace={connectedSpace}/>
+		</PageHeaderButtons>;
+	}
+;

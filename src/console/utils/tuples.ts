@@ -27,6 +27,7 @@ export const createConnectedSpace = (spaceId: string, name?: string): ConnectedS
 		name: name || `${getCurrentLanguage().PLAIN.NEW_CONNECTED_SPACE_NAME} ${btoa(connectId).substr(0, 12)}`,
 		spaceId,
 		subjects: [],
+		isTemplate: false,
 		lastVisitTime: getCurrentTime(),
 		createTime: getCurrentTime(),
 		lastModifyTime: getCurrentTime()

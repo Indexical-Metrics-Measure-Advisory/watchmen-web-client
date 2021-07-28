@@ -31,6 +31,7 @@ export const SimulateConsole = (props: { reports: Array<Report> }) => {
 						lastModifyTime: getCurrentTime(),
 						createTime: getCurrentTime()
 					}],
+					isTemplate: false,
 					lastVisitTime: getCurrentTime(),
 					lastModifyTime: getCurrentTime(),
 					createTime: getCurrentTime()
