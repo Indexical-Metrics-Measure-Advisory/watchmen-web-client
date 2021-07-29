@@ -31,6 +31,7 @@ export const Apis = {
 	TOPIC_GET: "topic?topic_id=:topicId",
 	TOPIC_CREATE: "topic",
 	TOPIC_SAVE: "update/topic?topic_id=:topicId",
+	TOPIC_PROFILE: "dqc/topic/profile?topic_id=:topicId&date=:date",
 
 	ENUM_LIST_BY_NAME: "enum/name?query_name=:search",
 	ENUM_GET: "enum/id?enum_id=:enumId",

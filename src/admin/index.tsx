@@ -17,6 +17,8 @@ import AdminTenants from './tenants';
 import {AdminCache} from './cache';
 import {AdminCacheEventBusProvider} from './cache/cache-event-bus';
 import AdminDebug from './simulator';
+import {TopicProfileEventBusProvider} from './topic-profile/topic-profile-event-bus';
+import {TopicProfile} from './topic-profile';
 
 const AdminContainer = styled.div.attrs({'data-widget': 'admin'})`
 	display: flex;
@@ -45,8 +47,11 @@ const AdminIndex = () => {
 
 	return <AdminContainer>
 		<AdminCacheEventBusProvider>
+			<TopicProfileEventBusProvider>
 			<AdminCache/>
 			<AdminMenu/>
+
+				<TopicProfile/>
 
 			{isSuperAdmin()
 				? <Switch>
@@ -77,7 +82,7 @@ const AdminIndex = () => {
 					</Route>
 				</Switch>
 			}
-
+			</TopicProfileEventBusProvider>
 		</AdminCacheEventBusProvider>
 	</AdminContainer>;
 };

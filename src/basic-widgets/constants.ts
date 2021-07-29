@@ -11,6 +11,7 @@ import {
 	faChalkboard,
 	faChalkboardTeacher,
 	faChartBar,
+	faChartLine,
 	faChartPie,
 	faCheck,
 	faCheckDouble,
@@ -152,6 +153,7 @@ export const ICON_CONNECTION = faLink;
 export const ICON_CONNECTED_SPACE = faDiceD20;
 export const ICON_SUBJECT = faTable;
 export const ICON_TOPIC = faTags;
+export const ICON_TOPIC_PROFILE = faChartLine;
 export const ICON_FACTOR = faList;
 export const ICON_ENUM = faStream;
 export const ICON_REPORT = faChartBar;

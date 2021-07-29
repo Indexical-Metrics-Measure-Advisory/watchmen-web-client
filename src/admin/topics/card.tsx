@@ -1,6 +1,6 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React from 'react';
-import {ICON_FACTOR, ICON_REPORT, ICON_SPACE, ICON_USER_GROUP} from '../../basic-widgets/constants';
+import React, {MouseEvent} from 'react';
+import {ICON_FACTOR, ICON_REPORT, ICON_SPACE, ICON_TOPIC_PROFILE, ICON_USER_GROUP} from '../../basic-widgets/constants';
 import {TooltipAlignment} from '../../basic-widgets/types';
 import {QueryTopic} from '../../services/tuples/query-topic-types';
 import {
@@ -8,20 +8,38 @@ import {
 	TupleCardDescription,
 	TupleCardStatistics,
 	TupleCardStatisticsItem,
-	TupleCardTitle
+	TupleCardTitle,
+	TupleProfileButton
 } from '../widgets/tuple-workbench/tuple-card';
 import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
+import {useTopicProfileEventBus} from '../topic-profile/topic-profile-event-bus';
+import {TopicProfileEventTypes} from '../topic-profile/topic-profile-event-bus-types';
+import dayjs from 'dayjs';
+import {fetchTopic} from '../../services/tuples/topic';
 
 const TopicCard = (props: { topic: QueryTopic }) => {
 	const {topic} = props;
 
 	const {fire} = useTupleEventBus();
+	const {fire: fireProfile} = useTopicProfileEventBus();
 	const onEditClicked = () => {
 		fire(TupleEventTypes.DO_EDIT_TUPLE, topic);
 	};
+	const onProfileClicked = async (event: MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+		event.stopPropagation();
+		const {topic: topicData} = await fetchTopic(topic.topicId);
+		fireProfile(TopicProfileEventTypes.SHOW_PROFILE, topicData, dayjs().add(-1, 'day'));
+	};
 	return <TupleCard key={topic.topicId} onClick={onEditClicked}>
-		<TupleCardTitle>{topic.name}</TupleCardTitle>
+		<TupleCardTitle>
+			<span>{topic.name}</span>
+			<TupleProfileButton tooltip={{label: 'Profile', alignment: TooltipAlignment.CENTER}}
+			                    onClick={onProfileClicked}>
+				<FontAwesomeIcon icon={ICON_TOPIC_PROFILE}/>
+			</TupleProfileButton>
+		</TupleCardTitle>
 		<TupleCardDescription>{topic.description}</TupleCardDescription>
 		<TupleCardStatistics>
 			<TupleCardStatisticsItem tooltip={{label: 'Factors Count', alignment: TooltipAlignment.CENTER}}>
