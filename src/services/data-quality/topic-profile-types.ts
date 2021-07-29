@@ -31,6 +31,7 @@ export interface TopicProfileCategoricalFactor extends TopicProfileFactor {
 		bin_edges: Array<number>;
 	};
 	first_rows: { [key in string]: string }
+	mode: string;
 }
 
 export interface TopicProfileNumericFactor extends TopicProfileFactor {

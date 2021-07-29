@@ -17,12 +17,14 @@ import {useTopicProfileEventBus} from '../topic-profile/topic-profile-event-bus'
 import {TopicProfileEventTypes} from '../topic-profile/topic-profile-event-bus-types';
 import dayjs from 'dayjs';
 import {fetchTopic} from '../../services/tuples/topic';
+import {TopicType} from '../../services/tuples/topic-types';
 
 const TopicCard = (props: { topic: QueryTopic }) => {
 	const {topic} = props;
 
 	const {fire} = useTupleEventBus();
 	const {fire: fireProfile} = useTopicProfileEventBus();
+
 	const onEditClicked = () => {
 		fire(TupleEventTypes.DO_EDIT_TUPLE, topic);
 	};
@@ -32,13 +34,16 @@ const TopicCard = (props: { topic: QueryTopic }) => {
 		const {topic: topicData} = await fetchTopic(topic.topicId);
 		fireProfile(TopicProfileEventTypes.SHOW_PROFILE, topicData, dayjs().add(-1, 'day'));
 	};
+
 	return <TupleCard key={topic.topicId} onClick={onEditClicked}>
 		<TupleCardTitle>
 			<span>{topic.name}</span>
-			<TupleProfileButton tooltip={{label: 'Profile', alignment: TooltipAlignment.CENTER}}
-			                    onClick={onProfileClicked}>
-				<FontAwesomeIcon icon={ICON_TOPIC_PROFILE}/>
-			</TupleProfileButton>
+			{topic.type !== TopicType.RAW
+				? <TupleProfileButton tooltip={{label: 'Profile', alignment: TooltipAlignment.CENTER}}
+				                      onClick={onProfileClicked}>
+					<FontAwesomeIcon icon={ICON_TOPIC_PROFILE}/>
+				</TupleProfileButton>
+				: null}
 		</TupleCardTitle>
 		<TupleCardDescription>{topic.description}</TupleCardDescription>
 		<TupleCardStatistics>

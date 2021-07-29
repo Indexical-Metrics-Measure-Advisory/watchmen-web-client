@@ -48,40 +48,39 @@ const AdminIndex = () => {
 	return <AdminContainer>
 		<AdminCacheEventBusProvider>
 			<TopicProfileEventBusProvider>
-			<AdminCache/>
-			<AdminMenu/>
+				<AdminCache/>
+				<AdminMenu/>
 
+				{isSuperAdmin()
+					? <Switch>
+						<Route path={Router.ADMIN_USERS}><AdminMain><AdminUsers/></AdminMain></Route>
+						<Route path={Router.ADMIN_TENANTS}><AdminMain><AdminTenants/></AdminMain></Route>
+						<Route path="*">
+							<Redirect to={Router.ADMIN_TENANTS}/>
+						</Route>
+					</Switch>
+					: <Switch>
+						<Route path={Router.ADMIN_HOME}><AdminMain scrollable={false}><AdminHome/></AdminMain></Route>
+						<Route path={Router.ADMIN_TOPICS}><AdminMain><AdminTopics/></AdminMain></Route>
+						<Route path={Router.ADMIN_ENUMS}><AdminMain><AdminEnums/></AdminMain></Route>
+						{/*<Route path={Router.ADMIN_REPORTS}><AdminMain><AdminReports/></AdminMain></Route>*/}
+						<Route path={Router.ADMIN_SPACES}><AdminMain><AdminSpaces/></AdminMain></Route>
+						<Route path={Router.ADMIN_PIPELINES}><AdminPipelines/></Route>
+						<Route path={Router.ADMIN_USER_GROUPS}><AdminMain><AdminUserGroups/></AdminMain></Route>
+						<Route path={Router.ADMIN_USERS}><AdminMain><AdminUsers/></AdminMain></Route>
+						<Route path={Router.ADMIN_TENANTS}><AdminMain><AdminTenants/></AdminMain></Route>
+						<Route path={Router.ADMIN_MONITOR_LOGS}>
+							<AdminMain scrollable={false}><AdminMonitorLogs/></AdminMain>
+						</Route>
+						<Route path={Router.ADMIN_SIMULATOR}><AdminDebug/></Route>
+						<Route path={Router.ADMIN_SETTINGS}><AdminMain><AdminSettings/></AdminMain></Route>
+						{/*		<Route path={Path.ADMIN_TASKS}><Tasks/></Route>*/}
+						<Route path="*">
+							<Redirect to={Router.ADMIN_HOME}/>
+						</Route>
+					</Switch>
+				}
 				<TopicProfile/>
-
-			{isSuperAdmin()
-				? <Switch>
-					<Route path={Router.ADMIN_USERS}><AdminMain><AdminUsers/></AdminMain></Route>
-					<Route path={Router.ADMIN_TENANTS}><AdminMain><AdminTenants/></AdminMain></Route>
-					<Route path="*">
-						<Redirect to={Router.ADMIN_TENANTS}/>
-					</Route>
-				</Switch>
-				: <Switch>
-					<Route path={Router.ADMIN_HOME}><AdminMain scrollable={false}><AdminHome/></AdminMain></Route>
-					<Route path={Router.ADMIN_TOPICS}><AdminMain><AdminTopics/></AdminMain></Route>
-					<Route path={Router.ADMIN_ENUMS}><AdminMain><AdminEnums/></AdminMain></Route>
-					{/*<Route path={Router.ADMIN_REPORTS}><AdminMain><AdminReports/></AdminMain></Route>*/}
-					<Route path={Router.ADMIN_SPACES}><AdminMain><AdminSpaces/></AdminMain></Route>
-					<Route path={Router.ADMIN_PIPELINES}><AdminPipelines/></Route>
-					<Route path={Router.ADMIN_USER_GROUPS}><AdminMain><AdminUserGroups/></AdminMain></Route>
-					<Route path={Router.ADMIN_USERS}><AdminMain><AdminUsers/></AdminMain></Route>
-					<Route path={Router.ADMIN_TENANTS}><AdminMain><AdminTenants/></AdminMain></Route>
-					<Route path={Router.ADMIN_MONITOR_LOGS}>
-						<AdminMain scrollable={false}><AdminMonitorLogs/></AdminMain>
-					</Route>
-					<Route path={Router.ADMIN_SIMULATOR}><AdminDebug/></Route>
-					<Route path={Router.ADMIN_SETTINGS}><AdminMain><AdminSettings/></AdminMain></Route>
-					{/*		<Route path={Path.ADMIN_TASKS}><Tasks/></Route>*/}
-					<Route path="*">
-						<Redirect to={Router.ADMIN_HOME}/>
-					</Route>
-				</Switch>
-			}
 			</TopicProfileEventBusProvider>
 		</AdminCacheEventBusProvider>
 	</AdminContainer>;

@@ -1,7 +1,7 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import {ICON_ADD, ICON_CLOSE} from '../../../../basic-widgets/constants';
+import {ICON_ADD, ICON_CLOSE, ICON_TOPIC_PROFILE} from '../../../../basic-widgets/constants';
 import {TooltipAlignment} from '../../../../basic-widgets/types';
 import {useEventBus} from '../../../../events/event-bus';
 import {EventTypes} from '../../../../events/types';
@@ -17,6 +17,9 @@ import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {PipelinesBody} from './pipelines-body';
 import {TopicBody} from './topic-body';
 import {NavigatorContainer, NavigatorHeader, NavigatorHeaderButton, NavigatorHeaderTitle} from './widgets';
+import {TopicProfileEventTypes} from '../../../topic-profile/topic-profile-event-bus-types';
+import dayjs from 'dayjs';
+import {useTopicProfileEventBus} from '../../../topic-profile/topic-profile-event-bus';
 
 enum OpenPanel {
 	TOPIC, INCOMING, OUTGOING
@@ -30,6 +33,7 @@ export const Navigator = (props: {
 
 	const history = useHistory();
 	const {fire: fireGlobal} = useEventBus();
+	const {fire: fireProfile} = useTopicProfileEventBus();
 	const {fire: firePipelines} = usePipelinesEventBus();
 	const {on, off} = useCatalogEventBus();
 	const [visible, setVisible] = useState(false);
@@ -52,6 +56,12 @@ export const Navigator = (props: {
 			return;
 		}
 		setOpenPanel(nextOpenPanel);
+	};
+	const onProfileClicked = async () => {
+		if (topic == null) {
+			return;
+		}
+		fireProfile(TopicProfileEventTypes.SHOW_PROFILE, topic, dayjs().add(-1, 'day'));
 	};
 	const onCloseClicked = (event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
@@ -83,6 +93,13 @@ export const Navigator = (props: {
 	return <NavigatorContainer visible={visible}>
 		<NavigatorHeader onClick={onHeaderClicked(OpenPanel.TOPIC)}>
 			<NavigatorHeaderTitle>{name}</NavigatorHeaderTitle>
+			{topic == null
+				? null
+				: <NavigatorHeaderButton tooltip={{label: 'Profile', alignment: TooltipAlignment.CENTER}}
+				                         onClick={onProfileClicked}>
+					<FontAwesomeIcon icon={ICON_TOPIC_PROFILE}/>
+				</NavigatorHeaderButton>
+			}
 			<NavigatorHeaderButton tooltip={{label: 'Close', alignment: TooltipAlignment.RIGHT, offsetX: 4}}
 			                       onClick={onCloseClicked}>
 				<FontAwesomeIcon icon={ICON_CLOSE}/>
