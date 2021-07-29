@@ -8,7 +8,7 @@ import {EventTypes} from '../../../../events/types';
 import {toPipeline} from '../../../../routes/utils';
 import {savePipeline} from '../../../../services/tuples/pipeline';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
-import {Topic} from '../../../../services/tuples/topic-types';
+import {Topic, TopicType} from '../../../../services/tuples/topic-types';
 import {createPipeline} from '../../data-utils';
 import {usePipelinesEventBus} from '../../pipelines-event-bus';
 import {PipelinesEventTypes} from '../../pipelines-event-bus-types';
@@ -93,7 +93,7 @@ export const Navigator = (props: {
 	return <NavigatorContainer visible={visible}>
 		<NavigatorHeader onClick={onHeaderClicked(OpenPanel.TOPIC)}>
 			<NavigatorHeaderTitle>{name}</NavigatorHeaderTitle>
-			{topic == null
+			{topic == null || topic.type === TopicType.RAW
 				? null
 				: <NavigatorHeaderButton tooltip={{label: 'Profile', alignment: TooltipAlignment.CENTER}}
 				                         onClick={onProfileClicked}>
