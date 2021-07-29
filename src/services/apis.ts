@@ -69,11 +69,11 @@ export const Apis = {
 
 	CONNECTED_SPACES_MINE: "console_space/connected/me",
 	CONNECTED_SPACES_GRAPHICS_MINE: "console_space/graphics/me",
-	CONNECTED_SPACE_SAVE: "space/save",
+	CONNECTED_SPACE_SAVE: "console_space/save",
 	CONNECTED_SPACE_RENAME: "console_space/rename?connect_id=:connectId&name=:name",
 	CONNECTED_SPACE_DELETE: "console_space/delete?connect_id=:connectId",
 	CONNECTED_SPACE_GRAPHICS_SAVE: "console_space/graphics",
-	CONNECTED_SPACES_TEMPLATE_LIST: 'console_space/template/list?space_id=:spaceId',
+	CONNECTED_SPACES_TEMPLATE_LIST: "console_space/template/list?space_id=:spaceId",
 
 	SUBJECT_CREATE: "console_space/subject?connect_id=:connectId",
 	SUBJECT_SAVE: "console_space/subject/save",
