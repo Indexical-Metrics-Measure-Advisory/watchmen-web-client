@@ -22,6 +22,7 @@ export const runReadFactor = async (options: {
 	const variableName = prepareVariable(action);
 	const topic = prepareTopic(action, pipelineContext);
 	const factor = prepareFactor(topic, action);
+	// const arithmetic = action.arithmetic || AggregateArithmetic.NONE;
 	const by = prepareBy(action);
 
 	const rows = (pipelineContext.runtimeData[topic.topicId] || []).filter(fakeTriggerData => {

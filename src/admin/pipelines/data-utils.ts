@@ -42,7 +42,6 @@ import {
 	CopyToMemoryAction
 } from '../../services/tuples/pipeline-stage-unit-action/system-actions-types';
 import {
-	AggregateArithmetic,
 	InsertRowAction,
 	MappingFactor,
 	MappingRow,
@@ -60,6 +59,7 @@ import {
 	isExpressionParameter,
 	isJointParameter
 } from '../../services/tuples/parameter-utils';
+import {AggregateArithmetic} from '../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic';
 
 export const createAction = (): AlarmAction => {
 	return {
@@ -190,6 +190,7 @@ export const defendExistsAction = (action: ExistsAction) => {
 export const defendReadFactorAction = (action: ReadFactorAction) => {
 	defendMemoryWriter(action);
 	defendFactor(action);
+	action.arithmetic = action.arithmetic || AggregateArithmetic.NONE;
 	defendFindBy(action);
 };
 export const defendReadFactorsAction = (action: ReadFactorsAction) => {

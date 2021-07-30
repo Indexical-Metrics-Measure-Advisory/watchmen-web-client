@@ -6,13 +6,7 @@ import {
 	ToTopic,
 	WriteTopicActionType
 } from './pipeline-stage-unit-action-types';
-
-export enum AggregateArithmetic {
-	NONE = 'none',
-	COUNT = 'count',
-	SUM = 'sum',
-	AVG = 'avg'
-}
+import {AggregateArithmetic} from './aggregate-arithmetic';
 
 export interface AggregateArithmeticHolder {
 	arithmetic: AggregateArithmetic;

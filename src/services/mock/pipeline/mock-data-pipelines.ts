@@ -14,13 +14,13 @@ import {
 } from '../../tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {CopyToMemoryAction} from '../../tuples/pipeline-stage-unit-action/system-actions-types';
 import {
-	AggregateArithmetic,
 	MergeRowAction,
 	WriteFactorAction
 } from '../../tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import {Pipeline, PipelineTriggerType} from '../../tuples/pipeline-types';
 import {generateUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
+import {AggregateArithmetic} from '../../tuples/pipeline-stage-unit-action/aggregate-arithmetic';
 
 const WriteRawQuotationPremiumToPolicy: WriteFactorAction = {
 	actionId: generateUuid(),

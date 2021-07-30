@@ -11,13 +11,13 @@ import {
 	pushToChangeData
 } from './utils';
 import {
-	AggregateArithmetic,
 	MappingFactor
 } from '../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import {computeParameter} from '../../compute/parameter-compute';
 import {computeJoint} from '../../compute/condition-compute';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {DataRow} from '../../../../types';
+import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic';
 
 export const doMergeRow = async (
 	row: DataRow,

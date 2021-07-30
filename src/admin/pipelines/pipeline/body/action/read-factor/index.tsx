@@ -11,6 +11,9 @@ import {TopicFactorPicker} from '../topic-factor-picker';
 import {VariableName} from '../variable-name';
 import {ActionLeadLabelThin} from '../widgets';
 import {AnyFactorType} from '../../../../../../services/tuples/factor-calculator-types';
+import {AggregateArithmeticEditor} from '../aggregate-arithmetic';
+import {ActionEventTypes} from '../action-event-bus-types';
+import {useActionEventBus} from '../action-event-bus';
 
 export const ReadFactor = (props: {
 	pipeline: Pipeline;
@@ -22,11 +25,16 @@ export const ReadFactor = (props: {
 }) => {
 	const {action, topics, topic} = props;
 
+	const {fire} = useActionEventBus();
 	useActionType(action);
 
 	if (!isReadFactorAction(action)) {
 		return null;
 	}
+
+	const onArithmeticChanged = () => {
+		fire(ActionEventTypes.ACTION_CONTENT_CHANGED, action);
+	};
 
 	return <>
 		<ActionLeadLabelThin>Variable Name:</ActionLeadLabelThin>
@@ -34,6 +42,8 @@ export const ReadFactor = (props: {
 		<ActionLeadLabelThin>Source Topic & Factor:</ActionLeadLabelThin>
 		{/* any type can be read and copied to memory variable */}
 		<TopicFactorPicker action={action} topics={topics} expectedTypes={[AnyFactorType.ANY]}/>
+		<ActionLeadLabelThin>Aggregate:</ActionLeadLabelThin>
+		<AggregateArithmeticEditor holder={action} onChange={onArithmeticChanged}/>
 		<ActionLeadLabelThin>By:</ActionLeadLabelThin>
 		<FindByCondition action={action} topics={topics} topic={topic}/>
 	</>;

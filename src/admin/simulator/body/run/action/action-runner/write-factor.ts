@@ -11,9 +11,9 @@ import {
 	prepareTopic,
 	pushToChangeData
 } from './utils';
-import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import {computeJoint} from '../../compute/condition-compute';
 import {computeParameter} from '../../compute/parameter-compute';
+import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic';
 
 export const runWriteFactor = async (options: {
 	pipelineContext: PipelineRuntimeContext,

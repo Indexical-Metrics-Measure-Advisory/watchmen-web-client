@@ -3,7 +3,6 @@ import {v4} from 'uuid';
 import {Factor} from '../../../../../../services/tuples/factor-types';
 import {PipelineStageUnitAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {isMergeRowAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
-import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {
 	AggregateArithmeticValue,
@@ -15,6 +14,7 @@ import {
 } from '../dsl-widgets';
 import {JointLine} from '../joint/joint';
 import {ParameterLines} from '../parameter';
+import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic';
 
 export const MergeRow = (props: { action: PipelineStageUnitAction, topicsMap: Map<string, Topic> }) => {
 	const {action, topicsMap} = props;

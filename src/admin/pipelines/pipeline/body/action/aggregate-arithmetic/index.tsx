@@ -2,10 +2,10 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useState} from 'react';
 import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '../../../../../../basic-widgets/constants';
 import {
-	AggregateArithmetic,
 	AggregateArithmeticHolder
 } from '../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import {AggregateArithmeticButton, AggregateArithmeticContainer, AggregateArithmeticOption} from './widgets';
+import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic';
 
 const OptionsLabel: { [key in AggregateArithmetic]: string } = {
 	[AggregateArithmetic.NONE]: 'As Is',
