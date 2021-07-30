@@ -20,7 +20,7 @@ import {
 import {Pipeline, PipelineTriggerType} from '../../tuples/pipeline-types';
 import {generateUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
-import {AggregateArithmetic} from '../../tuples/pipeline-stage-unit-action/aggregate-arithmetic';
+import {AggregateArithmetic} from '../../tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
 
 const WriteRawQuotationPremiumToPolicy: WriteFactorAction = {
 	actionId: generateUuid(),

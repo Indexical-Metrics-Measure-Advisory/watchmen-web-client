@@ -14,7 +14,7 @@ import {
 } from '../dsl-widgets';
 import {JointLine} from '../joint/joint';
 import {ParameterLines} from '../parameter';
-import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic';
+import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
 
 export const MergeRow = (props: { action: PipelineStageUnitAction, topicsMap: Map<string, Topic> }) => {
 	const {action, topicsMap} = props;

@@ -59,7 +59,7 @@ import {
 	isExpressionParameter,
 	isJointParameter
 } from '../../services/tuples/parameter-utils';
-import {AggregateArithmetic} from '../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic';
+import {AggregateArithmetic} from '../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
 
 export const createAction = (): AlarmAction => {
 	return {

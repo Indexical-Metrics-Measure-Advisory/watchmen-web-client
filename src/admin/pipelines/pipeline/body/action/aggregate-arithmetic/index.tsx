@@ -5,7 +5,7 @@ import {
 	AggregateArithmeticHolder
 } from '../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import {AggregateArithmeticButton, AggregateArithmeticContainer, AggregateArithmeticOption} from './widgets';
-import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic';
+import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
 
 const OptionsLabel: { [key in AggregateArithmetic]: string } = {
 	[AggregateArithmetic.NONE]: 'As Is',

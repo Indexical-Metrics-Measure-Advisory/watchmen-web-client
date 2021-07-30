@@ -13,7 +13,7 @@ import {
 } from './utils';
 import {computeJoint} from '../../compute/condition-compute';
 import {computeParameter} from '../../compute/parameter-compute';
-import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic';
+import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
 
 export const runWriteFactor = async (options: {
 	pipelineContext: PipelineRuntimeContext,

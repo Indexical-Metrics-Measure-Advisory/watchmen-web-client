@@ -6,7 +6,7 @@ import {
 	ToTopic,
 	WriteTopicActionType
 } from './pipeline-stage-unit-action-types';
-import {AggregateArithmetic} from './aggregate-arithmetic';
+import {AggregateArithmetic} from './aggregate-arithmetic-types';
 
 export interface AggregateArithmeticHolder {
 	arithmetic: AggregateArithmetic;

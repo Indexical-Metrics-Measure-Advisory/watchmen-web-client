@@ -17,7 +17,7 @@ import {computeParameter} from '../../compute/parameter-compute';
 import {computeJoint} from '../../compute/condition-compute';
 import {Topic} from '../../../../../../services/tuples/topic-types';
 import {DataRow} from '../../../../types';
-import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic';
+import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
 
 export const doMergeRow = async (
 	row: DataRow,
