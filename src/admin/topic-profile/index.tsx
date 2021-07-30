@@ -53,7 +53,7 @@ export const TopicProfile = () => {
 
 	useEffect(() => {
 		const onShowProfile = (topic: Topic, date?: Dayjs) => {
-			const profileDate = date ?? dayjs().add(-1, 'day');
+			const profileDate = date ?? dayjs();
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await fetchTopicProfileData({topicId: topic.topicId, date: profileDate}),
 				(data?: TopicProfileData) => {

@@ -20,6 +20,7 @@ import {NavigatorContainer, NavigatorHeader, NavigatorHeaderButton, NavigatorHea
 import {TopicProfileEventTypes} from '../../../topic-profile/topic-profile-event-bus-types';
 import dayjs from 'dayjs';
 import {useTopicProfileEventBus} from '../../../topic-profile/topic-profile-event-bus';
+import {isDataQualityCenterEnabled} from '../../../../feature-switch';
 
 enum OpenPanel {
 	TOPIC, INCOMING, OUTGOING
@@ -61,7 +62,7 @@ export const Navigator = (props: {
 		if (topic == null) {
 			return;
 		}
-		fireProfile(TopicProfileEventTypes.SHOW_PROFILE, topic, dayjs().add(-1, 'day'));
+		fireProfile(TopicProfileEventTypes.SHOW_PROFILE, topic, dayjs());
 	};
 	const onCloseClicked = (event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
@@ -93,12 +94,12 @@ export const Navigator = (props: {
 	return <NavigatorContainer visible={visible}>
 		<NavigatorHeader onClick={onHeaderClicked(OpenPanel.TOPIC)}>
 			<NavigatorHeaderTitle>{name}</NavigatorHeaderTitle>
-			{topic == null || topic.type === TopicType.RAW
-				? null
-				: <NavigatorHeaderButton tooltip={{label: 'Profile', alignment: TooltipAlignment.CENTER}}
+			{isDataQualityCenterEnabled() && topic != null && topic.type !== TopicType.RAW
+				? <NavigatorHeaderButton tooltip={{label: 'Profile', alignment: TooltipAlignment.CENTER}}
 				                         onClick={onProfileClicked}>
 					<FontAwesomeIcon icon={ICON_TOPIC_PROFILE}/>
 				</NavigatorHeaderButton>
+				: null
 			}
 			<NavigatorHeaderButton tooltip={{label: 'Close', alignment: TooltipAlignment.RIGHT, offsetX: 4}}
 			                       onClick={onCloseClicked}>

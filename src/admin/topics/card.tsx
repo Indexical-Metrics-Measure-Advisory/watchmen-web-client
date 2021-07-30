@@ -18,6 +18,7 @@ import {TopicProfileEventTypes} from '../topic-profile/topic-profile-event-bus-t
 import dayjs from 'dayjs';
 import {fetchTopic} from '../../services/tuples/topic';
 import {TopicType} from '../../services/tuples/topic-types';
+import {isDataQualityCenterEnabled} from '../../feature-switch';
 
 const TopicCard = (props: { topic: QueryTopic }) => {
 	const {topic} = props;
@@ -32,13 +33,13 @@ const TopicCard = (props: { topic: QueryTopic }) => {
 		event.preventDefault();
 		event.stopPropagation();
 		const {topic: topicData} = await fetchTopic(topic.topicId);
-		fireProfile(TopicProfileEventTypes.SHOW_PROFILE, topicData, dayjs().add(-1, 'day'));
+		fireProfile(TopicProfileEventTypes.SHOW_PROFILE, topicData, dayjs());
 	};
 
 	return <TupleCard key={topic.topicId} onClick={onEditClicked}>
 		<TupleCardTitle>
 			<span>{topic.name}</span>
-			{topic.type !== TopicType.RAW
+			{isDataQualityCenterEnabled() && topic.type !== TopicType.RAW
 				? <TupleProfileButton tooltip={{label: 'Profile', alignment: TooltipAlignment.CENTER}}
 				                      onClick={onProfileClicked}>
 					<FontAwesomeIcon icon={ICON_TOPIC_PROFILE}/>
