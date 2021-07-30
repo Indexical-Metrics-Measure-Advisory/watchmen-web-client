@@ -38,5 +38,7 @@ export const PipelineHelpCmd: HelpCommand = {
 		</HelpCommandDescription>
 		<HelpCommandName>-- "id or part of name"</HelpCommandName>
 		<HelpCommandDescription>Find pipeline by given id or text.</HelpCommandDescription>
+		<HelpCommandName>-- inspect</HelpCommandName>
+		<HelpCommandDescription>Inspect issue on all pipelines.</HelpCommandDescription>
 	</>
 };
