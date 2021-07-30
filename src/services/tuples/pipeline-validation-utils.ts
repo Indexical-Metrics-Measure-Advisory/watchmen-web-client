@@ -49,7 +49,7 @@ import {FactorType} from './factor-types';
 export const isJointValid4Pipeline = (options: {
 	joint: ParameterJoint;
 	allTopics: Array<Topic>;
-	triggerTopic: Topic;
+	triggerTopic?: Topic;
 	variables: DeclaredVariables;
 }): boolean => {
 	const {joint, allTopics, triggerTopic, variables} = options;
@@ -75,7 +75,7 @@ export const isJointValid4Pipeline = (options: {
 const isExpressionValid4Pipeline = (options: {
 	expression: ParameterExpression;
 	allTopics: Array<Topic>;
-	triggerTopic: Topic;
+	triggerTopic?: Topic;
 	variables: DeclaredVariables;
 }): boolean => {
 	const {expression, allTopics, triggerTopic, variables} = options;
@@ -118,7 +118,7 @@ const isExpressionValid4Pipeline = (options: {
 export const isParameterValid4Pipeline = (options: {
 	parameter: Parameter;
 	allTopics: Array<Topic>;
-	triggerTopic: Topic;
+	triggerTopic?: Topic;
 	variables: DeclaredVariables;
 	expectedTypes: ValueTypes;
 	array?: boolean;
@@ -209,7 +209,7 @@ const isTopicFactorParameterValid = (parameter: TopicFactorParameter, topics: Ar
 const isComputedParameterValid = (options: {
 	parameter: ComputedParameter;
 	allTopics: Array<Topic>;
-	triggerTopic: Topic;
+	triggerTopic?: Topic;
 	variables: DeclaredVariables;
 	expectedTypes: ValueTypes;
 	array: boolean;

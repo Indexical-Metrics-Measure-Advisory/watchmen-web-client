@@ -7,6 +7,7 @@ export const CMD_HELP = '/help';
 
 export const CMD_ARGUMENT_LIST = 'list';
 export const CMD_ARGUMENT_VIEW = 'view';
+export const CMD_ARGUMENT_INSPECT = 'inspect'
 
 const ClearScreenCmd: Command = {
 	label: 'Screen',

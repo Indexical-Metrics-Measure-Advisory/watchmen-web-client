@@ -1,7 +1,7 @@
 import {Command, CommandPublishedBehaviorBackward, CommandPublishedBehaviorType} from '../../command/types';
 import {Pipeline} from '../../../services/tuples/pipeline-types';
 import {getPipelineName} from '../../utils';
-import {CMD_ARGUMENT_LIST, CMD_ARGUMENT_VIEW} from '../../command';
+import {CMD_ARGUMENT_INSPECT, CMD_ARGUMENT_LIST, CMD_ARGUMENT_VIEW} from '../../command';
 
 export const CMD_PIPELINE = '/pipeline';
 
@@ -74,12 +74,21 @@ const PipelineViewCmd: Command = {
 	executableOnNoTrail: false
 };
 
+const PipelineInspectCmd: Command = {
+	label: 'Inspect',
+	command: CMD_ARGUMENT_INSPECT,
+	reminder: 'Press "enter" to inspect pipelines',
+	published: {type: CommandPublishedBehaviorType.CLEAR_ALL},
+	trails: [],
+	executableOnNoTrail: true
+};
+
 export const PipelineCmd: Command = {
 	label: 'Pipeline',
 	command: CMD_PIPELINE,
 	reminder: 'A text to search by id or name; or "list" to list all',
 	published: {type: CommandPublishedBehaviorType.KEEP},
-	trails: [PipelineFindCmd, PipelineListCmd, PipelineViewCmd],
+	trails: [PipelineFindCmd, PipelineListCmd, PipelineViewCmd, PipelineInspectCmd],
 	executableOnNoTrail: false
 };
 
