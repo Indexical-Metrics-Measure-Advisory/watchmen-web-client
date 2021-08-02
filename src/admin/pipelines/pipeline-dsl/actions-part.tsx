@@ -1,9 +1,9 @@
 import React, {Fragment} from 'react';
 import {v4} from 'uuid';
-import {PipelineStage} from '../../../../../services/tuples/pipeline-stage-types';
-import {PipelineStageUnit} from '../../../../../services/tuples/pipeline-stage-unit-types';
-import {Pipeline} from '../../../../../services/tuples/pipeline-types';
-import {Topic} from '../../../../../services/tuples/topic-types';
+import {PipelineStage} from '../../../services/tuples/pipeline-stage-types';
+import {PipelineStageUnit} from '../../../services/tuples/pipeline-stage-unit-types';
+import {Pipeline} from '../../../services/tuples/pipeline-types';
+import {Topic} from '../../../services/tuples/topic-types';
 import {ActionPart} from './action-part';
 import {LineComment, PropName} from './dsl-widgets';
 

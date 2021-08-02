@@ -1,7 +1,7 @@
 import React from 'react';
-import {PipelineStageUnitAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {isCopyToMemoryAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {PipelineStageUnitAction} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {isCopyToMemoryAction} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {Topic} from '../../../../services/tuples/topic-types';
 import {PropName, VariableName} from '../dsl-widgets';
 import {ParameterLines} from '../parameter';
 

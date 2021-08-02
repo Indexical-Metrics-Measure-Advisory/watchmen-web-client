@@ -1,8 +1,8 @@
 import React from 'react';
-import {PipelineStage} from '../../../../../services/tuples/pipeline-stage-types';
-import {PipelineStageUnit} from '../../../../../services/tuples/pipeline-stage-unit-types';
-import {Pipeline} from '../../../../../services/tuples/pipeline-types';
-import {Topic} from '../../../../../services/tuples/topic-types';
+import {PipelineStage} from '../../../services/tuples/pipeline-stage-types';
+import {PipelineStageUnit} from '../../../services/tuples/pipeline-stage-unit-types';
+import {Pipeline} from '../../../services/tuples/pipeline-types';
+import {Topic} from '../../../services/tuples/topic-types';
 import {ActionsPart} from './actions-part';
 import {ConditionalLine} from './conditonal';
 import {PropName, PropNameInListFirst, PropValue, VariableName} from './dsl-widgets';

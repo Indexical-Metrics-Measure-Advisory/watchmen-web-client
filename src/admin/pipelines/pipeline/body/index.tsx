@@ -1,7 +1,7 @@
 import React from 'react';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {Topic} from '../../../../services/tuples/topic-types';
-import {PipelineDsl} from './dsl';
+import {PipelineDsl} from '../../pipeline-dsl';
 import {Editor} from './editor';
 import {PipelineBodyContainer} from './widgets';
 

@@ -1,13 +1,12 @@
 import styled from 'styled-components';
-import {Button} from '../../../../../basic-widgets/button';
+import {Button} from '../../../basic-widgets/button';
 
 export const DslContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
 	return {
 		'data-widget': 'pipeline-dsl',
 		'data-v-scroll': '',
 		style: {
-			top: visible ? 0 : (void 0),
-			height: visible ? '100%' : (void 0)
+			top: visible ? 0 : (void 0)
 		}
 	};
 })<{ visible: boolean }>`
@@ -17,12 +16,12 @@ export const DslContainer = styled.div.attrs<{ visible: boolean }>(({visible}) =
 	top              : 100%;
 	left             : 0;
 	width            : 100%;
-	height           : 0;
+	height           : 100%;
 	background-color : var(--bg-color);
 	padding          : calc(var(--margin) / 2) var(--margin);
 	overflow         : auto;
 	z-index          : 1;
-	transition       : top 300ms ease-in-out, height 300ms ease-in-out;
+	transition       : top 300ms ease-in-out;
 `;
 export const CloseButton = styled(Button)`
 	display          : block;

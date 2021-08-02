@@ -1,7 +1,7 @@
 import React from 'react';
-import {PipelineStageUnitAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {isReadFactorAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {PipelineStageUnitAction} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {isReadFactorAction} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {Topic} from '../../../../services/tuples/topic-types';
 import {FactorName, PropName, PropValue, TopicName, VariableName} from '../dsl-widgets';
 import {JointLine} from '../joint/joint';
 

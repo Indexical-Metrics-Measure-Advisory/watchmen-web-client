@@ -1,14 +1,14 @@
 import React from 'react';
-import {PipelineStageUnitAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {isExistsAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {PipelineStageUnitAction} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {isReadRowAction} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {Topic} from '../../../../services/tuples/topic-types';
 import {PropName, TopicName, VariableName} from '../dsl-widgets';
 import {JointLine} from '../joint/joint';
 
-export const RowExists = (props: { action: PipelineStageUnitAction, topicsMap: Map<string, Topic> }) => {
+export const ReadRow = (props: { action: PipelineStageUnitAction, topicsMap: Map<string, Topic> }) => {
 	const {action, topicsMap} = props;
 
-	if (!isExistsAction(action)) {
+	if (!isReadRowAction(action)) {
 		return null;
 	}
 

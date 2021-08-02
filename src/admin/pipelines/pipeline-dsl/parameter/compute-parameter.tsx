@@ -1,11 +1,11 @@
 import React, {Fragment} from 'react';
 import {v4} from 'uuid';
-import {Parameter, ParameterComputeType} from '../../../../../../services/tuples/factor-calculator-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {Parameter, ParameterComputeType} from '../../../../services/tuples/factor-calculator-types';
+import {Topic} from '../../../../services/tuples/topic-types';
 import {ComputeType, PropName, PropValue, Whitespace} from '../dsl-widgets';
 import {JointLine} from '../joint/joint';
 import {ParameterLines} from './index';
-import {isComputedParameter} from '../../../../../../services/tuples/parameter-utils';
+import {isComputedParameter} from '../../../../services/tuples/parameter-utils';
 
 export const ComputeParameterLine = (props: { parameter: Parameter, topicsMap: Map<string, Topic>, inList: boolean, indent: number }) => {
 	const {parameter, topicsMap, inList, indent} = props;
