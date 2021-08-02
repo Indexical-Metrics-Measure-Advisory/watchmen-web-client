@@ -66,3 +66,22 @@ export const PipelineDsl = (props: { pipeline: Pipeline, topics: Array<Topic> })
 		<DslBottomGap/>
 	</DslContainer>;
 };
+
+export const PurePipelineDsl = (props: { pipeline: Pipeline, topics: Array<Topic> }) => {
+	const {pipeline, topics} = props;
+
+	const topicsMap = topics.reduce((map, topic) => {
+		map.set(topic.topicId, topic);
+		return map;
+	}, new Map<string, Topic>());
+
+	return <DslContainer visible={true}>
+		<Dsl>
+			<PipelinePart pipeline={pipeline} topicsMap={topicsMap}/>
+			<StagesPart pipeline={pipeline} topicsMap={topicsMap}/>
+			<EmptyLine/>
+			<LineComment>End of Pipeline Definition</LineComment>
+			<EmptyLine/>
+		</Dsl>
+	</DslContainer>;
+};

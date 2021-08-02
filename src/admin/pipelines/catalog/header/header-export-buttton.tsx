@@ -29,6 +29,10 @@ import {EventTypes} from '../../../../events/types';
 import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
 import {TopicPickerTable} from './topic-picker-table';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import ReactDOM from 'react-dom';
+import {PurePipelineDsl} from '../../pipeline-dsl';
+// @ts-ignore
+import {MarkdownCSS} from './markdown-css';
 
 type EnumsMap = { [key in string]: QueryEnum };
 
@@ -145,11 +149,21 @@ const generatePipelineMarkdown = (options: {
 }): string => {
 	const {pipeline, topicsMap, index} = options;
 
+	const div = document.createElement('div');
+	ReactDOM.render(
+		<React.StrictMode>
+			<PurePipelineDsl pipeline={pipeline} topics={Object.values(topicsMap)}/>
+		</React.StrictMode>,
+		div
+	);
+	const def = div.innerHTML;
+
 	return `## 2.${index + 1}. ${pipeline.name || 'Noname Pipeline'} #${pipeline.pipelineId}<span id="pipeline-${pipeline.pipelineId}"/>
 
 <a href="data:application/json;base64,${window.btoa(JSON.stringify(pipeline))}" target="_blank" download="${pipeline.name || 'Noname Pipeline'}-${pipeline.pipelineId}.json">Download Meta File</a>
 
 ### 1.${index + 1}.1. Definition
+${def}
 `;
 };
 
@@ -158,8 +172,13 @@ const generateMarkdown = (options: {
 	topicRelations: TopicRelationMap, pipelineRelations: PipelineRelationMap
 }): string => {
 	const {topicsMap, pipelinesMap, enumsMap, topicRelations, pipelineRelations} = options;
+
 	return `Exported Topics & Pipelines on ${dayjs().format('YYYY/MM/DD')}
 ------------------------------------------
+
+<style>
+${MarkdownCSS}
+</style>
 
 # 1. Topics
 ${Object.values(topicsMap).sort((t1, t2) => {
