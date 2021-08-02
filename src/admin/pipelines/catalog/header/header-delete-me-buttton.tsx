@@ -6,7 +6,6 @@ import {AssembledPipelinesGraphics} from '../types';
 import {useEventBus} from '../../../../events/event-bus';
 import {EventTypes} from '../../../../events/types';
 import {deletePipelineGraphics} from '../../../../services/tuples/pipeline';
-import {Lang} from '../../../../langs';
 import {Button} from '../../../../basic-widgets/button';
 import {ButtonInk} from '../../../../basic-widgets/types';
 import {useCatalogEventBus} from '../catalog-event-bus';
@@ -50,8 +49,8 @@ const PipelineGraphicsDelete = (props: { graphics: AssembledPipelinesGraphics, o
 			<NameUrl>{graphics.name}</NameUrl>
 		</DeleteDialogBody>
 		<DialogFooter>
-			<Button ink={ButtonInk.DANGER} onClick={onDeleteClicked}>{Lang.ACTIONS.DELETE}</Button>
-			<Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>{Lang.ACTIONS.CANCEL}</Button>
+			<Button ink={ButtonInk.DANGER} onClick={onDeleteClicked}>Delete</Button>
+			<Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>Cancel</Button>
 		</DialogFooter>
 	</>;
 };

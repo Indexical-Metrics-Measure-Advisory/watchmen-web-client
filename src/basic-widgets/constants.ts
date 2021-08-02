@@ -37,7 +37,7 @@ import {
 	faExpand,
 	faExpandArrowsAlt,
 	faFeather,
-	faFileCsv,
+	faFileCsv, faFileExport, faFileImport,
 	faGlobe,
 	faGripVertical,
 	faHandSparkles,
@@ -188,6 +188,8 @@ export const ICON_DISCARD = faBan;
 export const ICON_DELETE = faTimes;
 export const ICON_CONFIRM = faCheck;
 export const ICON_THROW_AWAY = faTrashAlt;
+export const ICON_IMPORT = faFileImport;
+export const ICON_EXPORT = faFileExport;
 export const ICON_SETTINGS = faCog;
 export const ICON_SEARCH = faSearch;
 export const ICON_SELECTED = faCheck;

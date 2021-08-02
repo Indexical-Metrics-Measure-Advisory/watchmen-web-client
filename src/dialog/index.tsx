@@ -27,7 +27,9 @@ export const Dialog = () => {
 		hide: () => {
 			document.body.style.paddingRight = '';
 			document.body.style.overflowY = '';
-			setDialog({visible: false, content: dialog.content});
+			setDialog(({content, wrapperStyle}) => {
+				return {visible: false, content, wrapperStyle};
+			});
 		}
 	});
 	useEffect(() => {
@@ -39,7 +41,13 @@ export const Dialog = () => {
 		};
 	}, [on, off, functions.show, functions.hide]);
 
-	return <DialogContainer visible={dialog.visible}>
+	const onTransitionEnd = () => {
+		if (!dialog.visible) {
+			setDialog({visible: false});
+		}
+	};
+
+	return <DialogContainer visible={dialog.visible} onTransitionEnd={onTransitionEnd}>
 		<DialogWrapper style={dialog.wrapperStyle}>
 			{dialog.content}
 		</DialogWrapper>

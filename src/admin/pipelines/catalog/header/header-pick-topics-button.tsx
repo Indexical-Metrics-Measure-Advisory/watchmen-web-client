@@ -1,5 +1,5 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {ChangeEvent, useState} from 'react';
+import React, {useState} from 'react';
 import {ICON_TOPIC} from '../../../../basic-widgets/constants';
 import {PageHeaderButton} from '../../../../basic-widgets/page-header-buttons';
 import {useCatalogEventBus} from '../catalog-event-bus';
@@ -11,66 +11,13 @@ import {DialogBody, DialogFooter, DialogLabel} from '../../../../dialog/widgets'
 import {ButtonInk} from '../../../../basic-widgets/types';
 import {Button} from '../../../../basic-widgets/button';
 import {Topic} from '../../../../services/tuples/topic-types';
-import {CheckBox} from '../../../../basic-widgets/checkbox';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {createInitTopicRect} from '../graphics-utils';
-import {Input} from '../../../../basic-widgets/input';
-
-interface Filter {
-	value: string;
-	handler?: number;
-}
+import {TopicPickerTable} from './topic-picker-table';
 
 const SwitchDialogBody = styled(DialogBody)`
 	flex-direction: column;
 	margin-bottom: var(--margin);
-`;
-const TopicTableHeader = styled.div`
-	display: grid;
-	position: relative;
-	grid-template-columns: 40px 60px 1fr;
-`;
-const HeaderCell = styled.div`
-	display: flex;
-	align-items: center;
-	height: var(--height);
-	font-weight: var(--font-bold);
-	font-variant: petite-caps;
-	padding: 0 calc(var(--margin) / 4);
-	> input {
-		border-top: 0;
-		border-left: 0;
-		border-right: 0;
-		border-radius: 0;
-		height: calc(var(--height) * 0.8);
-		width: 100%;
-		padding: 0;
-		margin-bottom: -1px;
-		margin-left: calc(var(--margin) / 2);
-	}
-`;
-const TopicTableBody = styled.div.attrs({'data-v-scroll': ''})`
-	display: block;
-	position: relative;
-	overflow-y: auto;
-	max-height: calc(100% - var(--margin) - var(--line-height));
-`;
-const BodyRow = styled.div`
-	display: grid;
-	position: relative;
-	grid-template-columns: 40px 60px 1fr;
-	&:nth-child(2n) {
-		background-color: var(--grid-rib-bg-color);
-	}
-	&:hover {
-		background-color: var(--hover-color);
-	}
-`;
-const BodyCell = styled.div`
-	display: flex;
-	align-items: center;
-	height: var(--height);
-	padding: 0 calc(var(--margin) / 4);
 `;
 
 const TopicPicker = (props: {
@@ -81,37 +28,15 @@ const TopicPicker = (props: {
 	const {topics, graphics, onConfirm} = props;
 
 	const {fire} = useEventBus();
-	const [items, setItems] = useState(topics);
-	const [selection, setSelection] = useState(graphics.topics.map(({topic}) => topic));
-	const [filter, setFilter] = useState<Filter>({value: ''});
-
-	const onFilterTextChanged = (event: ChangeEvent<HTMLInputElement>) => {
-		const {value} = event.target;
-		if (filter.handler) {
-			clearTimeout(filter.handler);
-		}
-		setFilter({
-			value, handler: window.setTimeout(() => {
-				delete filter.handler;
-				const text = value.trim().toLowerCase();
-				if (text === '') {
-					setItems(topics);
-				} else {
-					setItems(topics.filter(topic => (topic.name || '').toLowerCase().includes(text)));
-				}
-			}, 300)
+	const [candidates] = useState(() => {
+		const inGraphicsTopics = graphics.topics.map(t => t.topic);
+		return topics.map(topic => {
+			return {topic, picked: inGraphicsTopics.includes(topic)};
 		});
-	};
+	});
 
-	const onSelectionChange = (topic: Topic) => (value: boolean) => {
-		if (value) {
-			setSelection([topic, ...selection]);
-		} else {
-			setSelection(selection.filter(t => t !== topic));
-		}
-	};
 	const onConfirmClicked = () => {
-		onConfirm(selection);
+		onConfirm(candidates.filter(c => c.picked).map(({topic}) => topic));
 		fire(EventTypes.HIDE_DIALOG);
 	};
 	const onCancelClicked = () => {
@@ -121,26 +46,7 @@ const TopicPicker = (props: {
 	return <>
 		<SwitchDialogBody>
 			<DialogLabel>Please select topics</DialogLabel>
-			<TopicTableHeader>
-				<HeaderCell>#</HeaderCell>
-				<HeaderCell>View</HeaderCell>
-				<HeaderCell>
-					<span>Topic</span>
-					<Input placeholder="Filter by name..."
-					       value={filter.value} onChange={onFilterTextChanged}/>
-				</HeaderCell>
-			</TopicTableHeader>
-			<TopicTableBody>
-				{items.map((topic, index) => {
-					return <BodyRow key={topic.topicId}>
-						<BodyCell>{index + 1}</BodyCell>
-						<BodyCell>
-							<CheckBox value={selection.includes(topic)} onChange={onSelectionChange(topic)}/>
-						</BodyCell>
-						<BodyCell>{topic.name || 'Noname Topic'}</BodyCell>
-					</BodyRow>;
-				})}
-			</TopicTableBody>
+			<TopicPickerTable candidates={candidates}/>
 		</SwitchDialogBody>
 		<DialogFooter>
 			<Button ink={ButtonInk.PRIMARY} onClick={onConfirmClicked}>Confirm</Button>
@@ -192,8 +98,7 @@ export const HeaderPickTopicsButton = (props: {
 			});
 	};
 
-	return <PageHeaderButton tooltip="Pick Topics"
-	                         onClick={onPickClicked}>
+	return <PageHeaderButton tooltip="Pick Topics" onClick={onPickClicked}>
 		<FontAwesomeIcon icon={ICON_TOPIC}/>
 	</PageHeaderButton>;
 };
