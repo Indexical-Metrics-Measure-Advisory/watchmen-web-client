@@ -28,8 +28,9 @@ import {
 } from '../tuples/parameter-utils';
 
 export type FactorsMap = { [key in string]: Factor };
+export type TopicsMap = { [key in string]: Topic };
 export type MappedTopic = { topic: Topic; factors: FactorsMap };
-export type TopicsMap = { [key in string]: MappedTopic };
+export type MappedTopicsMap = { [key in string]: MappedTopic };
 export type PipelinesMap = { [key in string]: Pipeline };
 
 export interface RelevantTopic {
@@ -163,10 +164,10 @@ const findOnCondition = (condition: ParameterJoint, result: UsedFactors, variabl
 	});
 };
 
-export const buildPipelineRelation = (options: { pipeline: Pipeline; topicsMap: TopicsMap }): PipelineRelation => {
+export const buildPipelineRelation = (options: { pipeline: Pipeline; topicsMap: MappedTopicsMap }): PipelineRelation => {
 	const {pipeline, topicsMap} = options;
 
-	const findFactorsByTrigger = (pipeline: Pipeline, topicsMap: TopicsMap): { topic?: Topic; factorIds: Array<string> } => {
+	const findFactorsByTrigger = (pipeline: Pipeline, topicsMap: MappedTopicsMap): { topic?: Topic; factorIds: Array<string> } => {
 		const triggerFactorIds: Array<string> = [];
 		const triggerTopic = topicsMap[pipeline.topicId]?.topic;
 		if (triggerTopic) {
@@ -266,7 +267,7 @@ export const buildPipelineRelation = (options: { pipeline: Pipeline; topicsMap: 
 	};
 };
 
-export const buildPipelinesRelation = (pipelines: Array<Pipeline>, topicsMap: TopicsMap): PipelineRelationMap => {
+export const buildPipelinesRelation = (pipelines: Array<Pipeline>, topicsMap: MappedTopicsMap): PipelineRelationMap => {
 	return pipelines.reduce((relations, pipeline) => {
 		relations[pipeline.pipelineId] = buildPipelineRelation({pipeline, topicsMap});
 		return relations;
@@ -315,7 +316,7 @@ export const buildTopicsRelation = (topics: Array<Topic>, pipelineRelations: Pip
 	}, {} as TopicRelationMap);
 };
 
-export const buildTopicsMap = (topics: Array<Topic>): TopicsMap => {
+export const buildTopicsMap = (topics: Array<Topic>): MappedTopicsMap => {
 	return topics.reduce((map, topic) => {
 		map[topic.topicId] = {
 			topic,
@@ -325,7 +326,7 @@ export const buildTopicsMap = (topics: Array<Topic>): TopicsMap => {
 			}, {} as FactorsMap)
 		};
 		return map;
-	}, {} as TopicsMap);
+	}, {} as MappedTopicsMap);
 };
 
 export const buildPipelinesMap = (pipelines: Array<Pipeline>): PipelinesMap => {

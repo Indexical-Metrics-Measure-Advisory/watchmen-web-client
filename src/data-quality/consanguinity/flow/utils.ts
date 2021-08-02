@@ -3,7 +3,7 @@ import {Topic, TopicType} from '../../../services/tuples/topic-types';
 import {getPipelineName, getTopicName} from '../../utils';
 import {getCurrentTheme} from '../../../theme/theme-wrapper';
 import {Pipeline} from '../../../services/tuples/pipeline-types';
-import {MappedTopic, TopicsMap} from '../../../services/pipeline/pipeline-relations';
+import {MappedTopic, MappedTopicsMap} from '../../../services/pipeline/pipeline-relations';
 
 interface Link {
 	source: Topic;
@@ -12,7 +12,7 @@ interface Link {
 	pipeline: Pipeline;
 }
 
-const findTopic = (topicsMap: TopicsMap, idOrName?: string): Topic | undefined => {
+const findTopic = (topicsMap: MappedTopicsMap, idOrName?: string): Topic | undefined => {
 	if (idOrName) {
 		let topic: MappedTopic | undefined = topicsMap[idOrName];
 		if (!topic) {

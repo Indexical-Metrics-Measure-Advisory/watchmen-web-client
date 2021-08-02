@@ -3,11 +3,11 @@ import {
 	PipelineRelationMap,
 	PipelinesMap,
 	TopicRelationMap,
-	TopicsMap
+	MappedTopicsMap
 } from '../../services/pipeline/pipeline-relations';
 
 export interface DQCMaps {
-	topics: TopicsMap;
+	topics: MappedTopicsMap;
 	pipelines: PipelinesMap;
 }
 

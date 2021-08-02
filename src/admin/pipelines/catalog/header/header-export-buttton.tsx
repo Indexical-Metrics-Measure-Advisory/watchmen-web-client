@@ -21,8 +21,11 @@ import {
 	buildTopicsRelation,
 	PipelineRelationMap,
 	PipelinesMap,
-	TopicRelationMap
+	TopicRelationMap,
+	TopicsMap
 } from '../../../../services/pipeline/pipeline-relations';
+import dayjs from 'dayjs';
+import JSZip from 'jszip';
 
 const DownloadDialogBody = styled(DialogBody)`
 	flex-direction: column;
@@ -48,7 +51,7 @@ const findTopicsOnMe = (pipelines: Array<Pipeline>, pipelineRelation: PipelineRe
 
 const findByTopics = (options: {
 	topics: Array<Topic>;
-	finalTopicMap: { [key in string]: Topic };
+	finalTopicMap: TopicsMap;
 	finalPipelineMap: PipelinesMap
 	topicRelations: TopicRelationMap;
 	pipelineRelations: PipelineRelationMap
@@ -79,6 +82,38 @@ const findByTopics = (options: {
 	}
 };
 
+const generateTopicMarkdown = (topic: Topic, pipelinesMap: PipelinesMap, index: number): string => {
+	return `## 1.${index + 1}. ${topic.name || 'Noname Topic'} #${topic.topicId}
+
+<a href="data:application/json;base64,${window.btoa(JSON.stringify(topic))}" target="_blank" download="${topic.name || 'Noname Topic'}-${topic.topicId}.json">Download Meta File</a>
+`;
+};
+const generatePipelineMarkdown = (pipeline: Pipeline, topicsMap: TopicsMap, index: number): string => {
+	return `## 2.${index + 1}. ${pipeline.name || 'Noname Pipeline'} #${pipeline.pipelineId}
+
+<a href="data:application/json;base64,${window.btoa(JSON.stringify(pipeline))}" target="_blank" download="${pipeline.name || 'Noname Pipeline'}-${pipeline.pipelineId}.json">Download Meta File</a>
+`;
+};
+
+const generateMarkdown = (topicsMap: TopicsMap, pipelinesMap: PipelinesMap): string => {
+	return `Exported Topics & Pipelines on ${dayjs().format('YYYY/MM/DD')}
+------------------------------------------
+
+# 1. Topics
+${Object.values(topicsMap).sort((t1, t2) => {
+		return (t1.name || '').toLowerCase().localeCompare(t2.name || '');
+	}).map((topic, index) => generateTopicMarkdown(topic, pipelinesMap, index)).join('\n')}
+
+# 2. Pipelines
+${Object.values(pipelinesMap).sort((p1, p2) => {
+		return (p1.name || '').toLowerCase().localeCompare(p2.name || '');
+	}).map((pipeline, index) => generatePipelineMarkdown(pipeline, topicsMap, index)).join('\n')}
+
+# 3. Relations
+
+`;
+};
+
 const PipelinesDownload = (props: {
 	pipelines: Array<Pipeline>;
 	topics: Array<Topic>;
@@ -94,7 +129,7 @@ const PipelinesDownload = (props: {
 		});
 	});
 
-	const onDownloadClicked = () => {
+	const onDownloadClicked = async () => {
 		const selectedTopics = candidates.filter(c => c.picked).map(({topic}) => topic);
 
 		// use these topics to find upstream
@@ -103,11 +138,24 @@ const PipelinesDownload = (props: {
 		const pipelineRelations = buildPipelinesRelation(pipelines, topicsMap);
 		const topicRelations = buildTopicsRelation(topics, pipelineRelations);
 
-		const finalTopicMap: { [key in string]: Topic } = {};
+		const finalTopicMap: TopicsMap = selectedTopics.reduce((map, topic) => {
+			map[topic.topicId] = topic;
+			return map;
+		}, {} as TopicsMap);
 		const finalPipelineMap: PipelinesMap = {};
 		findByTopics({topics: selectedTopics, finalTopicMap, finalPipelineMap, topicRelations, pipelineRelations});
 
+		const markdown = generateMarkdown(finalTopicMap, finalPipelineMap);
 
+		const zip = new JSZip();
+		zip.file(`${graphics.name || 'Noname Pipelines Group'}.md`, markdown);
+		const base64 = await zip.generateAsync({type: 'base64'});
+		const link = document.createElement('a');
+		link.href = 'data:application/zip;base64,' + base64;
+		link.target = '_blank';
+		//provide the name for the CSV file to be downloaded
+		link.download = `export-${graphics.name || 'Noname Pipelines Group'}-${dayjs().format('YYYYMMDD')}.zip`;
+		link.click();
 
 		fire(EventTypes.HIDE_DIALOG);
 	};

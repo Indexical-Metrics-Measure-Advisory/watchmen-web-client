@@ -5,7 +5,7 @@ import {getCurrentTheme} from '../../../theme/theme-wrapper';
 import {Pipeline} from '../../../services/tuples/pipeline-types';
 import {Theme} from '../../../theme/types';
 import {Factor} from '../../../services/tuples/factor-types';
-import {TopicsMap} from '../../../services/pipeline/pipeline-relations';
+import {MappedTopicsMap} from '../../../services/pipeline/pipeline-relations';
 
 enum LinkType {
 	TRIGGER = 'trigger',
@@ -59,7 +59,7 @@ const computeNodeItemStyle = (topic: Topic, theme: Theme) => {
 	}
 };
 
-const putIntoProceedFactors = (map: TopicsMap, topic: Topic, factor: Factor, factorNodeId: string) => {
+const putIntoProceedFactors = (map: MappedTopicsMap, topic: Topic, factor: Factor, factorNodeId: string) => {
 	let mappedTopic = map[topic.topicId];
 	if (!mappedTopic) {
 		map[topic.topicId] = {topic, factors: {[factorNodeId]: factor}};
@@ -74,7 +74,7 @@ const computeFactorNodeId = (topicNodeId: string, factor: Factor) => `${topicNod
 
 const build = (options: {
 	processedTopics: Array<Topic>;
-	factorsMap: TopicsMap;
+	factorsMap: MappedTopicsMap;
 	links: Array<Link>;
 	linkTimes: { [key in string]: number }
 
@@ -135,7 +135,7 @@ export const compute = (options: {
 
 	const processPipelines: Array<Pipeline> = [];
 	let processedTopics: Array<Topic> = [];
-	const factorsMap: TopicsMap = {};
+	const factorsMap: MappedTopicsMap = {};
 	const links: Array<Link> = [];
 	const linkTimes: { [key in string]: number } = {};
 
