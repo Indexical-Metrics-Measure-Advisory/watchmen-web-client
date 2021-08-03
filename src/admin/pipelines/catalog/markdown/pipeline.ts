@@ -306,7 +306,7 @@ export const generatePipelineMarkdown = (options: {
 
 <a href="data:application/json;base64,${window.btoa(JSON.stringify(pipeline))}" target="_blank" download="${pipeline.name || 'Noname Pipeline'}-${pipeline.pipelineId}.json">Download Meta File</a>
 
-### 1.${index + 1}.1. Definition
+### 2.${index + 1}.1. Definition
 ${'```ts'}
 Pipeline.id('${pipeline.pipelineId}')
 	.name('${pipeline.name || 'Noname Pipeline'}')
