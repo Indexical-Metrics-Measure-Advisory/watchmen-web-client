@@ -54,6 +54,7 @@ const generateParameter = (parameter: Parameter, topicsMap: TopicsMap): string =
 		return `byConst('${parameter.value ?? ''}')`;
 	} else if (isTopicFactorParameter(parameter)) {
 		const topic = topicsMap[parameter.topicId];
+		// eslint-disable-next-line
 		const factor = topic?.factors.find(f => f.factorId == parameter.factorId);
 		const topicName = topic?.name || 'MissedTopic';
 		const factorName = factor?.name || 'MissedFactor';
@@ -159,7 +160,7 @@ const generateActionType = (action: PipelineStageUnitAction): string => {
 };
 
 const generateArithmetic = (arithmetic: AggregateArithmetic): string => {
-	if (arithmetic == AggregateArithmetic.NONE) {
+	if (arithmetic === AggregateArithmetic.NONE) {
 		return '';
 	} else {
 		return `.${arithmetic}()`;
@@ -208,10 +209,11 @@ const generateActionBody = (action: PipelineStageUnitAction, topicsMap: TopicsMa
 		const topic = topicsMap[action.topicId];
 		const topicName = topic?.name || 'MissedTopic';
 		if (isWriteFactorAction(action)) {
+			// eslint-disable-next-line
 			const factor = topic?.factors.find(f => f.factorId == action.factorId);
 			const factorName = factor?.name || 'MissedFactor';
 			let arithmetic;
-			if (action.arithmetic == AggregateArithmetic.NONE) {
+			if (action.arithmetic === AggregateArithmetic.NONE) {
 				arithmetic = '';
 			} else {
 				arithmetic = `.use${action.arithmetic.split('').map((c, index) => index === 0 ? c.toUpperCase() : c).join('')}()`;
@@ -223,10 +225,11 @@ const generateActionBody = (action: PipelineStageUnitAction, topicsMap: TopicsMa
 				mapping = '.missedFactor()';
 			} else {
 				mapping = (action.mapping || []).map(map => {
+					// eslint-disable-next-line
 					const factor = topic?.factors.find(f => f.factorId == map.factorId);
 					const factorName = factor?.name || 'MissedFactor';
 					let arithmetic;
-					if (map.arithmetic == AggregateArithmetic.NONE) {
+					if (map.arithmetic === AggregateArithmetic.NONE) {
 						arithmetic = '';
 					} else {
 						arithmetic = `.use${map.arithmetic.split('').map((c, index) => index === 0 ? c.toUpperCase() : c).join('')}()`;

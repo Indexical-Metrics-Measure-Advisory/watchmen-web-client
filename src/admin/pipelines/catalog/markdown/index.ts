@@ -9,12 +9,14 @@ import dayjs from 'dayjs';
 import {generateTopicMarkdown} from './topic';
 import {generatePipelineMarkdown} from './pipeline';
 import {listEnums} from '../../../../services/tuples/enum';
+import {generateGraphics} from './graphics';
 
 export const generateMarkdown = async (options: {
 	topicsMap: TopicsMap, pipelinesMap: PipelinesMap,
-	topicRelations: TopicRelationMap, pipelineRelations: PipelineRelationMap
+	topicRelations: TopicRelationMap, pipelineRelations: PipelineRelationMap,
+	selectedSvg: string, allSvg: string
 }): Promise<string> => {
-	const {topicsMap, pipelinesMap,  topicRelations, pipelineRelations} = options;
+	const {topicsMap, pipelinesMap, topicRelations, pipelineRelations, selectedSvg, allSvg} = options;
 
 	const {data: enums} = await listEnums({search: '', pageNumber: 1, pageSize: 9999});
 	const enumsMap: EnumsMap = enums.reduce((map, enumeration) => {
@@ -44,6 +46,6 @@ ${Object.values(pipelinesMap).sort((p1, p2) => {
 	})).join('\n')}
 
 # 3. Relations
-
+${generateGraphics(selectedSvg, allSvg)}
 `;
 };

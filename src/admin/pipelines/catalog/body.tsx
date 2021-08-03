@@ -1,12 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useForceUpdate} from '../../../basic-widgets/utils';
 import {GraphicsSize} from '../../../services/graphics/graphics-types';
-import {Pipeline} from '../../../services/tuples/pipeline-types';
+import {Pipeline, PipelinesGraphics} from '../../../services/tuples/pipeline-types';
 import {Topic} from '../../../services/tuples/topic-types';
 import {useCatalogEventBus} from './catalog-event-bus';
 import {CatalogEventTypes} from './catalog-event-bus-types';
 import {GraphicsSave} from './graphics-save';
-import {asTopicGraphicsMap, computeGraphics} from './graphics-utils';
+import {asTopicGraphicsMap, computeGraphics, createInitGraphics} from './graphics-utils';
 import {Navigator} from './navigator';
 import {BlockRelations} from './relation/block-relations';
 import {BlockRelationsAnimation} from './relation/block-relations-animation';
@@ -14,7 +14,80 @@ import {BlockSelection} from './selection';
 import {Thumbnail} from './thumbnail';
 import {TopicRect} from './topic/topic-rect';
 import {AssembledPipelinesGraphics, AssembledTopicGraphics, GraphicsRole} from './types';
-import {BodyContainer, BodySvg, BodySvgContainer, BodySvgRelationsAnimationContainer} from './widgets';
+import {
+	BodyContainer,
+	BodySvg,
+	BodySvgContainer,
+	BodySvgRelationsAnimationContainer,
+	MarkdownBodySvgContainer
+} from './widgets';
+import {generateUuid} from '../../../services/tuples/utils';
+import {getCurrentTime} from '../../../services/utils';
+
+const MarkdownSvgPalette = (props: { pipelines: Array<Pipeline> }) => {
+	const {pipelines} = props;
+
+	const {fire, on, off} = useCatalogEventBus();
+	const ref = useRef<HTMLDivElement>(null);
+	const svgRef = useRef<SVGSVGElement>(null);
+	const [state, setState] = useState<{ topics: Array<Topic>, assembled: AssembledPipelinesGraphics | null, toComputeGraphics: boolean, svgSize: Partial<GraphicsSize> }>({
+		topics: [],
+		assembled: null,
+		toComputeGraphics: false,
+		svgSize: {}
+	});
+	useEffect(() => {
+		const onAskGraphicsSvg = (topics: Array<Topic>) => {
+			const graphics: PipelinesGraphics = {
+				pipelineGraphId: generateUuid(),
+				name: 'Pipelines Group',
+				topics: [],
+				createTime: getCurrentTime(),
+				lastModifyTime: getCurrentTime()
+			};
+			const assembled = createInitGraphics({topics, graphics, renderAll: true});
+			setState({topics, assembled, toComputeGraphics: true, svgSize: {}});
+		};
+		on(CatalogEventTypes.ASK_GRAPHICS_SVG, onAskGraphicsSvg);
+		return () => {
+			off(CatalogEventTypes.ASK_GRAPHICS_SVG, onAskGraphicsSvg);
+		};
+	}, [on, off, pipelines]);
+	useEffect(() => {
+		if (state.toComputeGraphics) {
+			setState(({topics, assembled}) => {
+				const {width, height} = computeGraphics({graphics: assembled!, svg: svgRef.current!});
+				return {topics, assembled, toComputeGraphics: false, svgSize: {width, height}};
+			});
+		}
+	}, [fire, state.toComputeGraphics]);
+
+	useEffect(() => {
+		if (state.assembled && !state.toComputeGraphics) {
+			fire(CatalogEventTypes.REPLY_GRAPHICS_SVG, ref.current!.innerHTML);
+			setState({topics: [], assembled: null, toComputeGraphics: false, svgSize: {}});
+		}
+	}, [fire, state.assembled, state.toComputeGraphics]);
+
+	if (state.assembled == null) {
+		return null;
+	}
+
+	const topicGraphicsMap: Map<string, AssembledTopicGraphics> = asTopicGraphicsMap(state.assembled);
+
+	return <MarkdownBodySvgContainer ref={ref}>
+		<BodySvg {...state.svgSize} ref={svgRef}>
+			<BlockRelations graphics={state.assembled} pipelines={pipelines}/>
+			{state.topics.map(topic => {
+				const topicGraphics = topicGraphicsMap.get(topic.topicId);
+				if (!topicGraphics) {
+					return null;
+				}
+				return <TopicRect topic={topicGraphics} key={topic.topicId}/>;
+			})}
+		</BodySvg>
+	</MarkdownBodySvgContainer>;
+};
 
 export const CatalogBody = (props: {
 	topics: Array<Topic>;
@@ -55,7 +128,7 @@ export const CatalogBody = (props: {
 				fire(CatalogEventTypes.TOPICS_REPAINTED, graphics);
 			}
 		}
-	}, [fire, graphics, willComputeGraphics])
+	}, [fire, graphics, willComputeGraphics]);
 	useEffect(() => {
 		const onTopicMoved = (topic: Topic, graphics: AssembledTopicGraphics) => {
 			const {width = 0, height = 0} = svgSize;
@@ -143,5 +216,6 @@ export const CatalogBody = (props: {
 		</BodySvgContainer>
 		<Navigator pipelines={pipelines} topics={topics}/>
 		<GraphicsSave graphics={graphics}/>
+		<MarkdownSvgPalette pipelines={pipelines}/>
 	</BodyContainer>;
 };

@@ -14,6 +14,10 @@ export const CatalogEventBusProvider = (props: { children?: ((props: any) => Rea
 			emitter.emit(type, ...data);
 			return bus;
 		},
+		once: (type: string, listener: (...data: Array<any>) => void): CatalogEventBus => {
+			emitter.once(type, listener);
+			return bus;
+		},
 		on: (type: string, listener: (...data: Array<any>) => void): CatalogEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into catalog event bus, check it.`);

@@ -23,6 +23,17 @@ export const BodySvg = styled.svg.attrs({'data-widget': 'pipelines-catalog-svg'}
 	min-width: 100%;
 	min-height: 100%;
 `;
+export const MarkdownBodySvgContainer = styled.div`
+	display: block;
+	position: fixed;
+	left: 100%;
+	top: 100%;
+	opacity: 0;
+	pointer-events: none;
+	text[data-role=topic-name] {
+		font-family: sans-serif;
+	}
+`;
 export const BodySvgRelationsAnimationContainer = styled.div.attrs({'data-widget': 'body-catalog-relations-animation'})`
 	display: flex;
 	position: absolute;

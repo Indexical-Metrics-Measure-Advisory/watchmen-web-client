@@ -27,6 +27,8 @@ import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
 import {TopicPickerTable} from './topic-picker-table';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {generateMarkdown} from '../markdown';
+import {useCatalogEventBus} from '../catalog-event-bus';
+import {CatalogEventTypes} from '../catalog-event-bus-types';
 
 const DownloadDialogBody = styled(DialogBody)`
 	flex-direction: column;
@@ -87,8 +89,9 @@ const PipelinesDownload = (props: {
 	pipelines: Array<Pipeline>;
 	topics: Array<Topic>;
 	graphics: AssembledPipelinesGraphics;
+	askSvg: (topics: Array<Topic>) => Promise<string>
 }) => {
-	const {pipelines, topics, graphics} = props;
+	const {pipelines, topics, graphics, askSvg} = props;
 
 	const {fire} = useEventBus();
 	const [candidates] = useState(() => {
@@ -114,11 +117,15 @@ const PipelinesDownload = (props: {
 		const finalPipelineMap: PipelinesMap = {};
 		findByTopics({topics: selectedTopics, finalTopicMap, finalPipelineMap, topicRelations, pipelineRelations});
 
+		const selectedSvg = await askSvg(selectedTopics);
+		const allTopics = Object.values(finalTopicMap);
+		const allSvg = allTopics.length === selectedTopics.length ? '' : await askSvg(Object.values(finalTopicMap));
+
 		const markdown = await generateMarkdown({
 			topicsMap: finalTopicMap,
 			pipelinesMap: finalPipelineMap,
-			topicRelations,
-			pipelineRelations
+			topicRelations, pipelineRelations,
+			selectedSvg, allSvg
 		});
 
 		const zip = new JSZip();
@@ -152,13 +159,22 @@ const PipelinesDownload = (props: {
 export const HeaderExportButton = (props: { graphics: AssembledPipelinesGraphics }) => {
 	const {graphics} = props;
 	const {fire: fireGlobal} = useEventBus();
+	const {once} = useCatalogEventBus();
 	const {once: onceCache} = useAdminCacheEventBus();
 
+	const askSvg = async (topics: Array<Topic>) => {
+		return new Promise<string>(resolve => {
+			once(CatalogEventTypes.REPLY_GRAPHICS_SVG, (html: string) => {
+				resolve(html);
+			}).fire(CatalogEventTypes.ASK_GRAPHICS_SVG, topics);
+		});
+	};
 	const onExportClicked = () => {
 		onceCache(AdminCacheEventTypes.REPLY_DATA, (data?: AdminCacheData) => {
 			const {pipelines, topics} = data!;
 			fireGlobal(EventTypes.SHOW_DIALOG,
-				<PipelinesDownload pipelines={pipelines} topics={topics} graphics={graphics}/>);
+				<PipelinesDownload pipelines={pipelines} topics={topics} graphics={graphics}
+				                   askSvg={askSvg}/>);
 		}).fire(AdminCacheEventTypes.ASK_DATA);
 	};
 

@@ -17,7 +17,10 @@ export enum CatalogEventTypes {
 	TOPICS_SELECTED = 'topics-selected',
 	TOPICS_REPAINTED = 'topics-repaint',
 
-	GRAPHICS_REMOVED = 'graphics-removed'
+	GRAPHICS_REMOVED = 'graphics-removed',
+
+	ASK_GRAPHICS_SVG = 'ask-graphics-svg',
+	REPLY_GRAPHICS_SVG = 'replay-graphics-svg'
 }
 
 export interface CatalogEventBus {
@@ -60,4 +63,11 @@ export interface CatalogEventBus {
 	fire(type: CatalogEventTypes.GRAPHICS_REMOVED, graphics: AssembledPipelinesGraphics): this;
 	on(type: CatalogEventTypes.GRAPHICS_REMOVED, listener: (graphics: AssembledPipelinesGraphics) => void): this;
 	off(type: CatalogEventTypes.GRAPHICS_REMOVED, listener: (graphics: AssembledPipelinesGraphics) => void): this;
+
+	fire(type: CatalogEventTypes.ASK_GRAPHICS_SVG, topics: Array<Topic>): this;
+	on(type: CatalogEventTypes.ASK_GRAPHICS_SVG, listener: (topics: Array<Topic>) => void): this;
+	off(type: CatalogEventTypes.ASK_GRAPHICS_SVG, listener: (topics: Array<Topic>) => void): this;
+
+	fire(type: CatalogEventTypes.REPLY_GRAPHICS_SVG, html: string): this;
+	once(type: CatalogEventTypes.REPLY_GRAPHICS_SVG, listener: (html: string) => void): this;
 }
