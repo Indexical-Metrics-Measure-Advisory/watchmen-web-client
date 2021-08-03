@@ -2,8 +2,9 @@ import React from 'react';
 import {PipelineStageUnitAction} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {isReadFactorAction} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {Topic} from '../../../../services/tuples/topic-types';
-import {FactorName, PropName, PropValue, TopicName, VariableName} from '../dsl-widgets';
+import {AggregateArithmeticValue, FactorName, PropName, PropValue, TopicName, VariableName} from '../dsl-widgets';
 import {JointLine} from '../joint/joint';
+import {AggregateArithmetic} from '../../../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
 
 export const ReadFactor = (props: { action: PipelineStageUnitAction, topicsMap: Map<string, Topic> }) => {
 	const {action, topicsMap} = props;
@@ -29,6 +30,12 @@ export const ReadFactor = (props: { action: PipelineStageUnitAction, topicsMap: 
 		<TopicName>{topic?.name}</TopicName>
 		<PropValue>.</PropValue>
 		<FactorName>{factor?.name}</FactorName>
+		{action.arithmetic !== AggregateArithmetic.NONE
+			? <>
+				<PropName indent={7}>use-aggregate</PropName>
+				<AggregateArithmeticValue>{action.arithmetic}</AggregateArithmeticValue>
+			</>
+			: null}
 		<PropName indent={7}>by</PropName>
 		<JointLine joint={action.by} topicsMap={topicsMap} indent={7}/>
 	</>;
