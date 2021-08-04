@@ -14,7 +14,7 @@ export const listMockEnums = async (options: {
 		setTimeout(() => {
 			resolve({
 				data: [{
-					enumId: '1', name: 'Mock State', createTime: getCurrentTime(), lastModifyTime: getCurrentTime()
+					enumId: '1', name: 'Mock State', createTime: getCurrentTime(), lastModified: getCurrentTime()
 				}],
 				itemCount: 1,
 				pageNumber,
@@ -41,7 +41,7 @@ export const fetchMockEnum = async (enumId: string): Promise<{ enumeration: Enum
 				{code: '007', label: 'Massachusetts'}
 			],
 			createTime: getCurrentTime(),
-			lastModifyTime: getCurrentTime()
+			lastModified: getCurrentTime()
 		};
 		return {enumeration};
 	} else {
@@ -53,7 +53,7 @@ export const fetchMockEnum = async (enumId: string): Promise<{ enumeration: Enum
 				{code: '002', label: 'Japan'}
 			],
 			createTime: getCurrentTime(),
-			lastModifyTime: getCurrentTime()
+			lastModified: getCurrentTime()
 		};
 		return {enumeration};
 	}

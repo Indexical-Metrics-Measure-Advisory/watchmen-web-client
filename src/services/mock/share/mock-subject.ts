@@ -23,7 +23,7 @@ export const fetchMockSharedSubject = async (subjectId: string, token: string): 
 							},
 							lastVisitTime: getCurrentTime(),
 							createTime: getCurrentTime(),
-							lastModifyTime: getCurrentTime()
+							lastModified: getCurrentTime()
 						}
 					],
 					dataset: {
@@ -33,7 +33,7 @@ export const fetchMockSharedSubject = async (subjectId: string, token: string): 
 					},
 					lastVisitTime: getCurrentTime(),
 					createTime: getCurrentTime(),
-					lastModifyTime: getCurrentTime()
+					lastModified: getCurrentTime()
 				} as Subject
 			});
 		}, 500);

@@ -43,7 +43,7 @@ const MarkdownSvgPalette = (props: { pipelines: Array<Pipeline> }) => {
 				name: 'Pipelines Group',
 				topics: [],
 				createTime: getCurrentTime(),
-				lastModifyTime: getCurrentTime()
+				lastModified: getCurrentTime()
 			};
 			const assembled = createInitGraphics({topics, graphics, renderAll: true});
 			setState({topics, assembled, toComputeGraphics: true, svgSize: {}});

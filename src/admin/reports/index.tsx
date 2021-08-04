@@ -27,7 +27,7 @@ const createReport = (): Report => {
 		chart: {type: ChartType.BAR, settings: {colorSeries: PredefinedChartColorSeries.REGULAR}},
 		lastVisitTime: getCurrentTime(),
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	};
 };
 

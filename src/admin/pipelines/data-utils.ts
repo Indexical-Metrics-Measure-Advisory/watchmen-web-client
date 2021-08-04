@@ -99,7 +99,7 @@ export const createPipeline = (topicId: string, name?: string): Pipeline => {
 		enabled: false,
 		validated: false,
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	};
 };
 

@@ -8,6 +8,6 @@ export const createEnum = (): Enum => {
 		name: '',
 		items: [],
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	};
 };

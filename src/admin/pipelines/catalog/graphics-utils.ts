@@ -331,6 +331,6 @@ export const transformGraphicsToSave = (graphics: AssembledPipelinesGraphics): P
 			};
 		}),
 		createTime: '',
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	};
 };

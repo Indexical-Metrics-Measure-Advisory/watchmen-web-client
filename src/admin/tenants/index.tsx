@@ -21,7 +21,7 @@ const createTenant = (): Tenant => {
 	return {
 		tenantId: generateUuid(), name: '',
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	};
 };
 

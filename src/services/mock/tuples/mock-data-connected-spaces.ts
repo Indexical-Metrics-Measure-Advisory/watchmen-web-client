@@ -12,7 +12,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 		isTemplate: false,
 		lastVisitTime: '2020/10/31 14:23:07',
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	},
 	{
 		connectId: '2',
@@ -110,7 +110,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 				},
 				lastVisitTime: '2020/11/12 20:20:01',
 				createTime: getCurrentTime(),
-				lastModifyTime: getCurrentTime()
+				lastModified: getCurrentTime()
 			},
 			{
 				subjectId: '2',
@@ -122,13 +122,13 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 				},
 				lastVisitTime: '2020/11/02 20:25:01',
 				createTime: getCurrentTime(),
-				lastModifyTime: getCurrentTime()
+				lastModified: getCurrentTime()
 			}
 		],
 		isTemplate: false,
 		lastVisitTime: '2020/11/05 15:14:11',
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	},
 	{
 		spaceId: '1',
@@ -138,7 +138,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 		isTemplate: false,
 		lastVisitTime: '2020/11/05 14:13:11',
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	},
 	{
 		spaceId: '1',
@@ -148,7 +148,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 		isTemplate: false,
 		lastVisitTime: '2020/11/05 13:12:11',
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	},
 	{
 		spaceId: '1',
@@ -158,7 +158,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 		isTemplate: false,
 		lastVisitTime: '2020/11/05 12:11:11',
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	},
 	{
 		spaceId: '1',
@@ -168,7 +168,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 		isTemplate: false,
 		lastVisitTime: '2020/11/05 11:10:11',
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	},
 	{
 		spaceId: '1',
@@ -178,7 +178,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 		isTemplate: false,
 		lastVisitTime: '2020/11/05 10:09:11',
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	},
 	{
 		spaceId: '1',
@@ -188,6 +188,6 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 		isTemplate: false,
 		lastVisitTime: '2020/11/05 09:08:11',
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	}
 ];

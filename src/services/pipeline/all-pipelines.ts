@@ -18,6 +18,6 @@ export const fetchUpdatedPipelines = async (lastModifiedTime: Dayjs): Promise<Ar
 	} else {
 		// TODO fetch updated pipelines
 		return fetchAllPipelines();
-		// return await post({api: Apis.PIPELINE_UPDATED, data: {lastModifyTime: lastModifiedTime.format('YYYY/MM/DD HH:mm:ss')}});
+		// return await post({api: Apis.PIPELINE_UPDATED, data: {lastModified: lastModifiedTime.format('YYYY/MM/DD HH:mm:ss')}});
 	}
 };

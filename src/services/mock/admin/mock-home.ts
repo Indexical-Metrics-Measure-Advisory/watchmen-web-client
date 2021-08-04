@@ -18,7 +18,7 @@ export const fetchMockAdminDashboard = async (): Promise<AdminDashboard> => {
 					],
 					lastVisitTime: getCurrentTime(),
 					createTime: getCurrentTime(),
-					lastModifyTime: getCurrentTime()
+					lastModified: getCurrentTime()
 				} as Dashboard,
 				reports: [
 					{
@@ -32,7 +32,7 @@ export const fetchMockAdminDashboard = async (): Promise<AdminDashboard> => {
 						},
 						lastVisitTime: getCurrentTime(),
 						createTime: getCurrentTime(),
-						lastModifyTime: getCurrentTime()
+						lastModified: getCurrentTime()
 					}
 				]
 			});

@@ -22,7 +22,7 @@ export const listMockSpaces = async (options: {
 						name: 'Quotation & Policy',
 						description: 'All Sales Data',
 						createTime: getCurrentTime(),
-						lastModifyTime: getCurrentTime()
+						lastModified: getCurrentTime()
 					} as QuerySpace
 				],
 				itemCount: 0,
@@ -43,7 +43,7 @@ export const fetchMockSpace = async (spaceId: string): Promise<{ space: Space; g
 			topicIds: ['1', '2'],
 			userGroupIds: [],
 			createTime: getCurrentTime(),
-			lastModifyTime: getCurrentTime()
+			lastModified: getCurrentTime()
 		},
 		groups: [{userGroupId: '1', name: 'Oklahoma'}],
 		topics: [

@@ -31,7 +31,7 @@ const ReportCard = (props: { report: QueryReport }) => {
 			</TupleCardStatisticsItem>
 			<TupleCardStatisticsItem tooltip={{label: 'Last Modified At', alignment: TooltipAlignment.CENTER}}>
 				<FontAwesomeIcon icon={ICON_LAST_MODIFIED_AT}/>
-				<span>{prettifyDateTimeToMinute(report.lastModifyTime)}</span>
+				<span>{prettifyDateTimeToMinute(report.lastModified)}</span>
 			</TupleCardStatisticsItem>
 		</TupleCardStatistics>
 	</TupleCard>;

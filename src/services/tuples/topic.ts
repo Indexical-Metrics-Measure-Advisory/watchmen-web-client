@@ -38,11 +38,11 @@ export const saveTopic = async (topic: Topic): Promise<void> => {
 		const data = await post({api: Apis.TOPIC_CREATE, data: topic});
 		topic.topicId = data.topicId;
 		topic.tenantId = data.tenantId;
-		topic.lastModifyTime = data.lastModifyTime;
+		topic.lastModified = data.lastModified;
 	} else {
 		const data = await post({api: Apis.TOPIC_SAVE, search: {topicId: topic.topicId}, data: topic});
 		topic.tenantId = data.tenantId;
-		topic.lastModifyTime = data.lastModifyTime;
+		topic.lastModified = data.lastModified;
 	}
 };
 

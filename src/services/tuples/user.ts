@@ -69,11 +69,11 @@ export const saveUser = async (user: User): Promise<void> => {
 		const data = await post({api: Apis.USER_CREATE, data: transformToServer(user)});
 		user.userId = data.userId;
 		user.tenantId = data.tenantId ?? user.tenantId;
-		user.lastModifyTime = data.lastModifyTime;
+		user.lastModified = data.lastModified;
 	} else {
 		const data = await post({api: Apis.USER_SAVE, data: transformToServer(user)});
 		user.tenantId = data.tenantId ?? user.tenantId;
-		user.lastModifyTime = data.lastModifyTime;
+		user.lastModified = data.lastModified;
 	}
 };
 

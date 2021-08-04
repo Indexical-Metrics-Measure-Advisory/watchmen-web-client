@@ -22,7 +22,7 @@ export const createUnknownTopic = (topicId: string, name: string = 'Unknown Topi
 		type: TopicType.DISTINCT,
 		factors: [] as Array<Factor>,
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	};
 };
 export const createUnknownFactor = (factorId: string, name: string = 'Unknown Factor'): Factor => {
@@ -32,7 +32,7 @@ export const createUnknownFactor = (factorId: string, name: string = 'Unknown Fa
 		type: FactorType.TEXT,
 		label: '',
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	};
 };
 

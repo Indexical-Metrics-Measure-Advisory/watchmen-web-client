@@ -70,7 +70,7 @@ export const saveUserGroup = async (userGroup: UserGroup): Promise<void> => {
 		const data = await post({api: Apis.USER_GROUP_CREATE, data: userGroup});
 		userGroup.userGroupId = data.userGroupId;
 		userGroup.tenantId = data.tenantId;
-		userGroup.lastModifyTime = data.lastModifyTime;
+		userGroup.lastModified = data.lastModified;
 	} else {
 		const data = await post({
 			api: Apis.USER_GROUP_SAVE,
@@ -78,7 +78,7 @@ export const saveUserGroup = async (userGroup: UserGroup): Promise<void> => {
 			data: userGroup
 		});
 		userGroup.tenantId = data.tenantId;
-		userGroup.lastModifyTime = data.lastModifyTime;
+		userGroup.lastModified = data.lastModified;
 	}
 };
 

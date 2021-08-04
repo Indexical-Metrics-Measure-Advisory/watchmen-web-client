@@ -16,7 +16,7 @@ export const createDashboard = (name?: string): Dashboard => {
 		reports: [],
 		lastVisitTime: getCurrentTime(),
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	};
 };
 
@@ -30,7 +30,7 @@ export const createConnectedSpace = (spaceId: string, name?: string): ConnectedS
 		isTemplate: false,
 		lastVisitTime: getCurrentTime(),
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	};
 };
 
@@ -46,7 +46,7 @@ export const createSubject = (name?: string): Subject => {
 		},
 		lastVisitTime: getCurrentTime(),
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	};
 };
 
@@ -61,6 +61,6 @@ export const createReport = (name?: string): Report => {
 		chart: {type: ChartType.COUNT},
 		lastVisitTime: getCurrentTime(),
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	};
 };

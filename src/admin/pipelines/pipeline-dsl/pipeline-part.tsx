@@ -27,6 +27,6 @@ export const PipelinePart = (props: { pipeline: Pipeline, topicsMap: Map<string,
 		<PropName>created-at</PropName>
 		<PropValue>{pipeline.createTime}</PropValue>
 		<PropName>last-modified-at</PropName>
-		<PropValue>{pipeline.lastModifyTime}</PropValue>
+		<PropValue>{pipeline.lastModified}</PropValue>
 	</>;
 };

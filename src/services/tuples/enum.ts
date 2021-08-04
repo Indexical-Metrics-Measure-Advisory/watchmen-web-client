@@ -58,11 +58,11 @@ export const saveEnum = async (enumeration: Enum): Promise<void> => {
 		const data = await post({api: Apis.ENUM_CREATE, data: toSave});
 		enumeration.enumId = data.enumId;
 		enumeration.tenantId = data.tenantId;
-		enumeration.lastModifyTime = data.lastModifyTime;
+		enumeration.lastModified = data.lastModified;
 	} else {
 		const data = await post({api: Apis.ENUM_SAVE, data: toSave});
 		enumeration.tenantId = data.tenantId;
-		enumeration.lastModifyTime = data.lastModifyTime;
+		enumeration.lastModified = data.lastModified;
 	}
 };
 

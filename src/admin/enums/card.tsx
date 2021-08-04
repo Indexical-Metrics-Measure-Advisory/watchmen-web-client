@@ -31,7 +31,7 @@ const EnumCard = (props: { enumeration: QueryEnum }) => {
 			</TupleCardStatisticsItem>
 			<TupleCardStatisticsItem tooltip={{label: 'Last Modified At', alignment: TooltipAlignment.CENTER}}>
 				<FontAwesomeIcon icon={ICON_LAST_MODIFIED_AT}/>
-				<span>{prettifyDateTimeToMinute(enumeration.lastModifyTime)}</span>
+				<span>{prettifyDateTimeToMinute(enumeration.lastModified)}</span>
 			</TupleCardStatisticsItem>
 		</TupleCardStatistics>
 	</TupleCard>;

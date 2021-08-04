@@ -315,7 +315,7 @@ Pipeline.id('${pipeline.pipelineId}')
 	.name('${pipeline.name || 'Noname Pipeline'}')
 	.triggerBy('${triggerTopicName}').when(${pipeline.type ? `'${pipeline.type.toUpperCase()}'` : 'Missed'})
 	.enabled(${pipeline.enabled ?? true})
-	.createdAt('${pipeline.createTime}').lastModifiedAt('${pipeline.lastModifyTime}')
+	.createdAt('${pipeline.createTime}').lastModifiedAt('${pipeline.lastModified}')
 ${generateStages(pipeline.stages || [], topicsMap)}
 ${'```'}
 `;

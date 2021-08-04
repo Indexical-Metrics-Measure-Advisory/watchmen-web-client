@@ -17,7 +17,7 @@ export const listMockTenants = async (options: {
 						tenantId: '1',
 						name: 'X World',
 						createTime: getCurrentTime(),
-						lastModifyTime: getCurrentTime()
+						lastModified: getCurrentTime()
 					}
 				],
 				itemCount: 0,

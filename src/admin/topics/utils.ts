@@ -11,7 +11,7 @@ export const createTopic = (): Topic => {
 		type: TopicType.DISTINCT,
 		factors: [],
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	};
 };
 
@@ -27,6 +27,6 @@ export const createFactor = (topic: Topic): Factor => {
 	return {
 		factorId: removeFakeIdPrefix(newFactorId), name: '', label: '', type: FactorType.TEXT,
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	};
 };

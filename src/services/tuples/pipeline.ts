@@ -26,10 +26,10 @@ export const savePipelinesGraphics = async (graphics: PipelinesGraphics): Promis
 	} else if (isFakedUuidForGraphics(graphics)) {
 		const data = await post({api: Apis.PIPELINE_GRAPHICS_SAVE, data: graphics});
 		graphics.pipelineGraphId = data.pipelineGraphId;
-		graphics.lastModifyTime = data.lastModifyTime;
+		graphics.lastModified = data.lastModified;
 	} else {
 		const data = await post({api: Apis.PIPELINE_GRAPHICS_SAVE, data: graphics});
-		graphics.lastModifyTime = data.lastModifyTime;
+		graphics.lastModified = data.lastModified;
 	}
 };
 
@@ -59,11 +59,11 @@ export const savePipeline = async (pipeline: Pipeline): Promise<void> => {
 		const data = await post({api: Apis.PIPELINE_CREATE, data: pipeline});
 		pipeline.pipelineId = data.pipelineId;
 		pipeline.tenantId = data.tenantId;
-		pipeline.lastModifyTime = data.lastModifyTime;
+		pipeline.lastModified = data.lastModified;
 	} else {
 		const data = await post({api: Apis.PIPELINE_SAVE, data: pipeline});
 		pipeline.tenantId = data.tenantId;
-		pipeline.lastModifyTime = data.lastModifyTime;
+		pipeline.lastModified = data.lastModified;
 	}
 };
 

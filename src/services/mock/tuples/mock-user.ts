@@ -21,31 +21,31 @@ export const listMockUsers = async (options: {
 						userId: '1',
 						name: 'Damon Lindelof',
 						createTime: getCurrentTime(),
-						lastModifyTime: getCurrentTime()
+						lastModified: getCurrentTime()
 					},
 					{
 						userId: '2',
 						name: 'Sally Jupiter',
 						createTime: getCurrentTime(),
-						lastModifyTime: getCurrentTime()
+						lastModified: getCurrentTime()
 					},
 					{
 						userId: '3',
 						name: 'Roy Raymond',
 						createTime: getCurrentTime(),
-						lastModifyTime: getCurrentTime()
+						lastModified: getCurrentTime()
 					},
 					{
 						userId: '4',
 						name: 'Walter Kovacs',
 						createTime: getCurrentTime(),
-						lastModifyTime: getCurrentTime()
+						lastModified: getCurrentTime()
 					},
 					{
 						userId: '5',
 						name: 'Jeffrey Dean Morgan',
 						createTime: getCurrentTime(),
-						lastModifyTime: getCurrentTime()
+						lastModified: getCurrentTime()
 					}
 				],
 				itemCount: 0,
@@ -66,7 +66,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 				role: UserRole.CONSOLE,
 				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
-				lastModifyTime: getCurrentTime()
+				lastModified: getCurrentTime()
 			};
 			break;
 		case '2':
@@ -75,7 +75,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 				role: UserRole.CONSOLE,
 				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
-				lastModifyTime: getCurrentTime()
+				lastModified: getCurrentTime()
 			};
 			break;
 		case '3':
@@ -84,7 +84,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 				role: UserRole.CONSOLE,
 				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
-				lastModifyTime: getCurrentTime()
+				lastModified: getCurrentTime()
 			};
 			break;
 		case '4':
@@ -93,7 +93,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 				role: UserRole.CONSOLE,
 				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
-				lastModifyTime: getCurrentTime()
+				lastModified: getCurrentTime()
 			};
 			break;
 		case '5':
@@ -102,7 +102,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 				role: UserRole.CONSOLE,
 				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
-				lastModifyTime: getCurrentTime()
+				lastModified: getCurrentTime()
 			};
 			break;
 		default:
@@ -111,7 +111,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 				role: UserRole.CONSOLE,
 				userGroupIds: ['1'],
 				createTime: getCurrentTime(),
-				lastModifyTime: getCurrentTime()
+				lastModified: getCurrentTime()
 			};
 	}
 	return {
@@ -121,7 +121,7 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 			tenantId: '1',
 			name: 'X World',
 			createTime: getCurrentTime(),
-			lastModifyTime: getCurrentTime()
+			lastModified: getCurrentTime()
 		}] : []
 	};
 };

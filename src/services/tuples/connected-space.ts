@@ -41,10 +41,10 @@ export const saveConnectedSpace = async (connectedSpace: ConnectedSpace, templat
 		});
 		connectedSpace.subjects = data.subjects || [];
 		connectedSpace.connectId = data.connectId;
-		connectedSpace.lastModifyTime = data.lastModifyTime;
+		connectedSpace.lastModified = data.lastModified;
 	} else {
 		const data = await post({api: Apis.CONNECTED_SPACE_SAVE, data: connectedSpace});
-		connectedSpace.lastModifyTime = data.lastModifyTime;
+		connectedSpace.lastModified = data.lastModified;
 	}
 };
 

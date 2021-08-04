@@ -54,7 +54,7 @@ const PipelineCatalogContainer = () => {
 							name: 'Pipelines Group',
 							topics: [],
 							createTime: getCurrentTime(),
-							lastModifyTime: getCurrentTime()
+							lastModified: getCurrentTime()
 						};
 					}
 					const assembled = createInitGraphics({
@@ -132,7 +132,7 @@ const PipelineCatalogContainer = () => {
 				name: 'Pipelines Group',
 				topics: [],
 				createTime: getCurrentTime(),
-				lastModifyTime: getCurrentTime()
+				lastModified: getCurrentTime()
 			};
 			const assembled = createInitGraphics({
 				topics: data.topics,

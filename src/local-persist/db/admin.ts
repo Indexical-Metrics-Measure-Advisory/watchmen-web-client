@@ -60,13 +60,13 @@ export const findPipelines = async (db: AdminDatabase): Promise<Array<Pipeline>>
 export const savePipeline = async (db: AdminDatabase, pipeline: Pipeline) => {
 	const updatedRows = await db.pipelines.update(pipeline.pipelineId, {
 		body: pipeline,
-		lastModifiedAt: dayjs(pipeline.lastModifyTime).toDate()
+		lastModifiedAt: dayjs(pipeline.lastModified).toDate()
 	});
 	if (updatedRows === 0) {
 		await db.pipelines.add({
 			id: pipeline.pipelineId,
 			body: pipeline,
-			lastModifiedAt: dayjs(pipeline.lastModifyTime).toDate()
+			lastModifiedAt: dayjs(pipeline.lastModified).toDate()
 		});
 	}
 };
@@ -83,13 +83,13 @@ export const findTopics = async (db: AdminDatabase): Promise<Array<Topic>> => {
 export const saveTopic = async (db: AdminDatabase, topic: Topic) => {
 	const updatedRows = await db.topics.update(topic.topicId, {
 		body: topic,
-		lastModifiedAt: dayjs(topic.lastModifyTime).toDate()
+		lastModifiedAt: dayjs(topic.lastModified).toDate()
 	});
 	if (updatedRows === 0) {
 		await db.topics.add({
 			id: topic.topicId,
 			body: topic,
-			lastModifiedAt: dayjs(topic.lastModifyTime).toDate()
+			lastModifiedAt: dayjs(topic.lastModified).toDate()
 		});
 	}
 };
@@ -132,13 +132,13 @@ export const savePipelinesGraphics = async (db: AdminDatabase, graphics: Pipelin
 	}
 	const updatedRows = await db.pipelinesGraphics.update(graphics.pipelineGraphId, {
 		body: {...graphics, account: name},
-		lastModifiedAt: dayjs(graphics.lastModifyTime).toDate()
+		lastModifiedAt: dayjs(graphics.lastModified).toDate()
 	});
 	if (updatedRows === 0) {
 		await db.pipelinesGraphics.add({
 			id: graphics.pipelineGraphId,
 			body: {...graphics, account: name},
-			lastModifiedAt: dayjs(graphics.lastModifyTime).toDate()
+			lastModifiedAt: dayjs(graphics.lastModified).toDate()
 		});
 	}
 	await saveLastSnapshot(db, {lastPipelineGraphId: graphics.pipelineGraphId});

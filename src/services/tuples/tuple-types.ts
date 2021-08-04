@@ -1,6 +1,6 @@
 export interface Tuple {
 	createTime: string;
-	lastModifyTime: string;
+	lastModified: string;
 }
 
 export interface QueryTuple {

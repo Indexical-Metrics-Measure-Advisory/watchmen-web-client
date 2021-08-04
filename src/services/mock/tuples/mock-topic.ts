@@ -30,8 +30,8 @@ export const fetchMockTopic = async (topicId: string): Promise<{ topic: Topic }>
 	// eslint-disable-next-line
 	const found = DemoTopics.find(({topicId: id}) => id == topicId);
 	if (found) {
-		const {topicId, name, kind, type, description, factors, createTime, lastModifyTime} = found;
-		topic = {topicId, name, kind, type, description, factors, createTime, lastModifyTime};
+		const {topicId, name, kind, type, description, factors, createTime, lastModified} = found;
+		topic = {topicId, name, kind, type, description, factors, createTime, lastModified};
 	} else {
 		topic = {
 			topicId,
@@ -40,7 +40,7 @@ export const fetchMockTopic = async (topicId: string): Promise<{ topic: Topic }>
 			type: TopicType.DISTINCT,
 			factors: [],
 			createTime: getCurrentTime(),
-			lastModifyTime: getCurrentTime()
+			lastModified: getCurrentTime()
 		};
 	}
 	return {topic};

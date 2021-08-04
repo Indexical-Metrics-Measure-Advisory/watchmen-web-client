@@ -27,7 +27,7 @@ const ShareSubject = (props: { subject: Subject }) => {
 		subjects: [subject],
 		isTemplate: false,
 		lastVisitTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime(),
+		lastModified: getCurrentTime(),
 		createTime: getCurrentTime()
 	};
 	return <SubjectEventBusProvider>

@@ -41,5 +41,5 @@ export interface PipelinesGraphics {
 	name: string;
 	topics: Array<TopicGraphics>;
 	createTime: string;
-	lastModifyTime: string;
+	lastModified: string;
 }

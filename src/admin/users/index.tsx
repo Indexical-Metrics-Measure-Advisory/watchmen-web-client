@@ -25,7 +25,7 @@ const createUser = (): User => {
 		role: UserRole.CONSOLE,
 		userGroupIds: [],
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	};
 };
 

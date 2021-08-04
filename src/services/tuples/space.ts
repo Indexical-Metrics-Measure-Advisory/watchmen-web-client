@@ -71,7 +71,7 @@ export const saveSpace = async (space: Space): Promise<void> => {
 		const data = await post({api: Apis.SPACE_CREATE, data: transformToServer(space)});
 		space.spaceId = data.spaceId;
 		space.tenantId = data.tenantId;
-		space.lastModifyTime = data.lastModifyTime;
+		space.lastModified = data.lastModified;
 	} else {
 		const data = await post({
 			api: Apis.SPACE_SAVE,
@@ -79,7 +79,7 @@ export const saveSpace = async (space: Space): Promise<void> => {
 			data: transformToServer(space)
 		});
 		space.tenantId = data.tenantId;
-		space.lastModifyTime = data.lastModifyTime;
+		space.lastModified = data.lastModified;
 	}
 };
 

@@ -18,6 +18,6 @@ export const fetchUpdatedTopics = async (lastModifiedTime: Dayjs): Promise<Array
 	} else {
 		// TODO fetch updated topics
 		return fetchAllTopics();
-		// return await post({api: Apis.TOPIC_UPDATED, data: {lastModifyTime: lastModifiedTime.format('YYYY/MM/DD HH:mm:ss')}});
+		// return await post({api: Apis.TOPIC_UPDATED, data: {lastModified: lastModifiedTime.format('YYYY/MM/DD HH:mm:ss')}});
 	}
 };

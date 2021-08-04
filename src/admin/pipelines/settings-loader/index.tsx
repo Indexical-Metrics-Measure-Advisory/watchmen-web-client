@@ -23,7 +23,7 @@ export const SettingsHolder = () => {
 			name: '',
 			topics: [],
 			createTime: getCurrentTime(),
-			lastModifyTime: getCurrentTime()
+			lastModified: getCurrentTime()
 		}]
 	});
 

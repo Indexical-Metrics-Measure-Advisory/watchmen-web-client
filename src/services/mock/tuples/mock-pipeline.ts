@@ -9,7 +9,7 @@ export const fetchMockPipelinesGraphics = async (): Promise<Array<PipelinesGraph
 			name: '',
 			topics: [],
 			createTime: getCurrentTime(),
-			lastModifyTime: getCurrentTime()
+			lastModified: getCurrentTime()
 		}]), 500);
 	});
 };

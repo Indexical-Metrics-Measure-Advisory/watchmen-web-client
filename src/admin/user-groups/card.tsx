@@ -31,7 +31,7 @@ const UserGroupCard = (props: { userGroup: QueryUserGroup }) => {
 			</TupleCardStatisticsItem>
 			<TupleCardStatisticsItem tooltip={{label: 'Last Modified At', alignment: TooltipAlignment.CENTER}}>
 				<FontAwesomeIcon icon={ICON_LAST_MODIFIED_AT}/>
-				<span>{prettifyDateTimeToMinute(userGroup.lastModifyTime)}</span>
+				<span>{prettifyDateTimeToMinute(userGroup.lastModified)}</span>
 			</TupleCardStatisticsItem>
 		</TupleCardStatistics>
 	</TupleCard>;

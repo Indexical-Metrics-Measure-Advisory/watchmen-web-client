@@ -183,5 +183,5 @@ export interface Factor {
 	flatten?: boolean;
 	description?: string;
 	createTime: string;
-	lastModifyTime: string;
+	lastModified: string;
 }

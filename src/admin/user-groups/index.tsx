@@ -21,7 +21,7 @@ const createUserGroup = (): UserGroup => {
 	return {
 		userGroupId: generateUuid(), name: '', spaceIds: [], userIds: [],
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	};
 };
 

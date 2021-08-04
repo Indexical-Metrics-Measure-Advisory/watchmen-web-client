@@ -26,7 +26,7 @@ export const saveNewReport = async (report: Report, subjectId: string): Promise<
 	} else {
 		const data = await post({api: Apis.REPORT_CREATE, search: {subjectId}, data: report});
 		report.reportId = data.reportId;
-		report.lastVisitTime = data.lastModifyTime;
+		report.lastVisitTime = data.lastModified;
 	}
 };
 
@@ -38,7 +38,7 @@ export const saveReport = async (report: Report): Promise<void> => {
 	} else {
 		const data = await post({api: Apis.REPORT_SAVE, data: report});
 		report.reportId = data.reportId;
-		report.lastModifyTime = data.lastModifyTime;
+		report.lastModified = data.lastModified;
 	}
 };
 

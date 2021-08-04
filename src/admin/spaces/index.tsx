@@ -21,7 +21,7 @@ const createSpace = (): Space => {
 	return {
 		spaceId: generateUuid(), name: '', topicIds: [], userGroupIds: [],
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	};
 };
 

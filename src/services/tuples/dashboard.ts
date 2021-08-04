@@ -23,10 +23,10 @@ export const saveDashboard = async (dashboard: Dashboard): Promise<void> => {
 	} else if (isFakedUuid(dashboard)) {
 		const data = await get({api: Apis.DASHBOARD_CREATE, search: {name: dashboard.name}});
 		dashboard.dashboardId = data.dashboardId;
-		dashboard.lastModifyTime = data.lastModifyTime;
+		dashboard.lastModified = data.lastModified;
 	} else {
 		const data = await post({api: Apis.DASHBOARD_SAVE, data: dashboard});
-		dashboard.lastModifyTime = data.lastModifyTime;
+		dashboard.lastModified = data.lastModified;
 	}
 };
 

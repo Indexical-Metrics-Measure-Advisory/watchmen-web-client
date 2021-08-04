@@ -28,12 +28,12 @@ export const SimulateConsole = (props: { reports: Array<Report> }) => {
 							joins: []
 						},
 						lastVisitTime: getCurrentTime(),
-						lastModifyTime: getCurrentTime(),
+						lastModified: getCurrentTime(),
 						createTime: getCurrentTime()
 					}],
 					isTemplate: false,
 					lastVisitTime: getCurrentTime(),
-					lastModifyTime: getCurrentTime(),
+					lastModified: getCurrentTime(),
 					createTime: getCurrentTime()
 				} as ConnectedSpace
 			]);

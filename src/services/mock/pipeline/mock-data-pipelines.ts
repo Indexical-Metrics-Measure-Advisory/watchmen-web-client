@@ -177,7 +177,7 @@ export const DemoPipelines: Array<Pipeline> = [
 			}
 		],
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	},
 	{
 		pipelineId: '2', topicId: '7', type: PipelineTriggerType.INSERT_OR_MERGE,
@@ -197,7 +197,7 @@ export const DemoPipelines: Array<Pipeline> = [
 			}
 		],
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	},
 	{
 		pipelineId: '3', topicId: '2', type: PipelineTriggerType.INSERT_OR_MERGE,
@@ -216,7 +216,7 @@ export const DemoPipelines: Array<Pipeline> = [
 			}
 		],
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	},
 	{
 		pipelineId: '4', topicId: '2', type: PipelineTriggerType.INSERT_OR_MERGE,
@@ -235,6 +235,6 @@ export const DemoPipelines: Array<Pipeline> = [
 			}
 		],
 		createTime: getCurrentTime(),
-		lastModifyTime: getCurrentTime()
+		lastModified: getCurrentTime()
 	}
 ].map(p => ({...p, tenantId: '1'}));

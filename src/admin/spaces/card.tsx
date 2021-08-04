@@ -31,7 +31,7 @@ const SpaceCard = (props: { space: QuerySpace }) => {
 			</TupleCardStatisticsItem>
 			<TupleCardStatisticsItem tooltip={{label: 'Last Modified At', alignment: TooltipAlignment.CENTER}}>
 				<FontAwesomeIcon icon={ICON_LAST_MODIFIED_AT}/>
-				<span>{prettifyDateTimeToMinute(space.lastModifyTime)}</span>
+				<span>{prettifyDateTimeToMinute(space.lastModified)}</span>
 			</TupleCardStatisticsItem>
 		</TupleCardStatistics>
 	</TupleCard>;

@@ -10,10 +10,10 @@ export const saveSubject = async (subject: Subject, connectedSpaceId: string): P
 	} else if (isFakedUuid(subject)) {
 		const data = await post({api: Apis.SUBJECT_CREATE, search: {connectId: connectedSpaceId}, data: subject});
 		subject.subjectId = data.subjectId;
-		subject.lastModifyTime = data.lastModifyTime;
+		subject.lastModified = data.lastModified;
 	} else {
 		const data = await post({api: Apis.SUBJECT_SAVE, data: subject});
-		subject.lastModifyTime = data.lastModifyTime;
+		subject.lastModified = data.lastModified;
 	}
 };
 
