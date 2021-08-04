@@ -21,10 +21,8 @@ export const listMockSpaces = async (options: {
 						spaceId: '1',
 						name: 'Quotation & Policy',
 						description: 'All Sales Data',
-						topicCount: 3,
-						reportCount: 2,
-						groupCount: 2,
-						connectionCount: 8
+						createTime: getCurrentTime(),
+						lastModifyTime: getCurrentTime()
 					} as QuerySpace
 				],
 				itemCount: 0,

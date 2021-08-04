@@ -11,6 +11,7 @@ import {Tuple} from './tuple-types';
 import {UserGroup} from './user-group-types';
 import {User} from './user-types';
 import {Tenant} from './tenant-types';
+import dayjs from 'dayjs';
 
 const FAKE_ID_PREFIX = 'f-';
 
@@ -89,4 +90,8 @@ export const isFakedUuid = (tuple: Tuple): boolean => {
 	console.error(tuple);
 	console.groupEnd();
 	throw new Error('Unsupported tuple type.');
+};
+
+export const prettifyDateTimeToMinute = (datetime?: string) => {
+	return datetime ? dayjs(datetime).format('YYYY/MM/DD HH:mm') : '';
 };

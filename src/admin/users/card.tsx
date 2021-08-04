@@ -2,7 +2,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
 import {Avatar} from '../../basic-widgets/avatar';
-import {ICON_REPORT, ICON_SPACE, ICON_TOPIC} from '../../basic-widgets/constants';
+import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT} from '../../basic-widgets/constants';
 import {TooltipAlignment} from '../../basic-widgets/types';
 import {QueryUser} from '../../services/tuples/query-user-types';
 import {
@@ -13,6 +13,7 @@ import {
 } from '../widgets/tuple-workbench/tuple-card';
 import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
+import {prettifyDateTimeToMinute} from '../../services/tuples/utils';
 
 const Title = styled(TupleCardTitle)`
 	justify-content: space-between;
@@ -34,17 +35,13 @@ const UserCard = (props: { user: QueryUser }) => {
 			<UserAvatar name={user.name}/>
 		</Title>
 		<TupleCardStatistics>
-			<TupleCardStatisticsItem tooltip={{label: 'Spaces Assigned', alignment: TooltipAlignment.CENTER}}>
-				<FontAwesomeIcon icon={ICON_SPACE}/>
-				<span>{user.spaceCount}</span>
+			<TupleCardStatisticsItem tooltip={{label: 'Created At', alignment: TooltipAlignment.CENTER}}>
+				<FontAwesomeIcon icon={ICON_CREATED_AT}/>
+				<span>{prettifyDateTimeToMinute(user.createTime)}</span>
 			</TupleCardStatisticsItem>
-			<TupleCardStatisticsItem tooltip={{label: 'Topics Available', alignment: TooltipAlignment.CENTER}}>
-				<FontAwesomeIcon icon={ICON_TOPIC}/>
-				<span>{user.topicCount}</span>
-			</TupleCardStatisticsItem>
-			<TupleCardStatisticsItem tooltip={{label: 'Reports Created', alignment: TooltipAlignment.CENTER}}>
-				<FontAwesomeIcon icon={ICON_REPORT}/>
-				<span>{user.reportCount}</span>
+			<TupleCardStatisticsItem tooltip={{label: 'Last Modified At', alignment: TooltipAlignment.CENTER}}>
+				<FontAwesomeIcon icon={ICON_LAST_MODIFIED_AT}/>
+				<span>{prettifyDateTimeToMinute(user.lastModifyTime)}</span>
 			</TupleCardStatisticsItem>
 		</TupleCardStatistics>
 	</TupleCard>;

@@ -20,10 +20,8 @@ export const listMockUserGroups = async (options: {
 						userGroupId: '1',
 						name: 'Oklahoma',
 						description: 'South-center market analysis squad.',
-						userCount: 4,
-						spaceCount: 2,
-						topicCount: 3,
-						reportCount: 21
+						createTime: getCurrentTime(),
+						lastModifyTime: getCurrentTime()
 					}
 				],
 				itemCount: 0,

@@ -20,37 +20,32 @@ export const listMockUsers = async (options: {
 					{
 						userId: '1',
 						name: 'Damon Lindelof',
-						spaceCount: 2,
-						topicCount: 3,
-						reportCount: 7
+						createTime: getCurrentTime(),
+						lastModifyTime: getCurrentTime()
 					},
 					{
 						userId: '2',
 						name: 'Sally Jupiter',
-						spaceCount: 2,
-						topicCount: 3,
-						reportCount: 2
+						createTime: getCurrentTime(),
+						lastModifyTime: getCurrentTime()
 					},
 					{
 						userId: '3',
 						name: 'Roy Raymond',
-						spaceCount: 2,
-						topicCount: 3,
-						reportCount: 4
+						createTime: getCurrentTime(),
+						lastModifyTime: getCurrentTime()
 					},
 					{
 						userId: '4',
 						name: 'Walter Kovacs',
-						spaceCount: 2,
-						topicCount: 3,
-						reportCount: 8
+						createTime: getCurrentTime(),
+						lastModifyTime: getCurrentTime()
 					},
 					{
 						userId: '5',
 						name: 'Jeffrey Dean Morgan',
-						spaceCount: 2,
-						topicCount: 3,
-						reportCount: 0
+						createTime: getCurrentTime(),
+						lastModifyTime: getCurrentTime()
 					}
 				],
 				itemCount: 0,
@@ -122,7 +117,12 @@ export const fetchMockUser = async (userId: string): Promise<{ user: User; group
 	return {
 		user,
 		groups: [{userGroupId: '1', name: 'Oklahoma'}],
-		tenants: isSuperAdmin() ? [{tenantId: '1', name: 'X World'}] : []
+		tenants: isSuperAdmin() ? [{
+			tenantId: '1',
+			name: 'X World',
+			createTime: getCurrentTime(),
+			lastModifyTime: getCurrentTime()
+		}] : []
 	};
 };
 

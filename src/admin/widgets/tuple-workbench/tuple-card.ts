@@ -41,11 +41,11 @@ export const TupleCardStatistics = styled.div.attrs({'data-widget': 'tuple-card-
 	justify-content: space-around;
 	line-height: 1.2em;
 	opacity: 0.7;
-	margin-top: calc(var(--margin) / 2);
+	margin: calc(var(--margin) / 2) calc(var(--margin) / -2) 0;
 `;
 export const TupleCardStatisticsItem = styled(TooltipButton).attrs({'data-widget': 'tuple-card-statistics-item'})`
 	font-size: 0.8em;
 	svg {
-		margin-right: calc(var(--margin) / 4);
+		margin-right: calc(var(--margin) / 2);
 	}
 `;

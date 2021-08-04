@@ -1,6 +1,6 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {ICON_SPACE, ICON_TOPIC, ICON_USER_GROUP} from '../../basic-widgets/constants';
+import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT} from '../../basic-widgets/constants';
 import {TooltipAlignment} from '../../basic-widgets/types';
 import {QueryReport} from '../../services/tuples/query-report-types';
 import {
@@ -12,6 +12,7 @@ import {
 } from '../widgets/tuple-workbench/tuple-card';
 import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
+import {prettifyDateTimeToMinute} from '../../services/tuples/utils';
 
 const ReportCard = (props: { report: QueryReport }) => {
 	const {report} = props;
@@ -24,17 +25,13 @@ const ReportCard = (props: { report: QueryReport }) => {
 		<TupleCardTitle>{report.name}</TupleCardTitle>
 		<TupleCardDescription>{report.description}</TupleCardDescription>
 		<TupleCardStatistics>
-			<TupleCardStatisticsItem tooltip={{label: 'Topics Count', alignment: TooltipAlignment.CENTER}}>
-				<FontAwesomeIcon icon={ICON_TOPIC}/>
-				<span>{report.topicCount}</span>
+			<TupleCardStatisticsItem tooltip={{label: 'Created At', alignment: TooltipAlignment.CENTER}}>
+				<FontAwesomeIcon icon={ICON_CREATED_AT}/>
+				<span>{prettifyDateTimeToMinute(report.createTime)}</span>
 			</TupleCardStatisticsItem>
-			<TupleCardStatisticsItem tooltip={{label: 'In User Groups', alignment: TooltipAlignment.CENTER}}>
-				<FontAwesomeIcon icon={ICON_USER_GROUP}/>
-				<span>{report.groupCount}</span>
-			</TupleCardStatisticsItem>
-			<TupleCardStatisticsItem tooltip={{label: 'In Spaces', alignment: TooltipAlignment.CENTER}}>
-				<FontAwesomeIcon icon={ICON_SPACE}/>
-				<span>{report.spaceCount}</span>
+			<TupleCardStatisticsItem tooltip={{label: 'Last Modified At', alignment: TooltipAlignment.CENTER}}>
+				<FontAwesomeIcon icon={ICON_LAST_MODIFIED_AT}/>
+				<span>{prettifyDateTimeToMinute(report.lastModifyTime)}</span>
 			</TupleCardStatisticsItem>
 		</TupleCardStatistics>
 	</TupleCard>;

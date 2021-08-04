@@ -2,6 +2,7 @@ import {DataPage} from '../../query/data-page';
 import {QueryReport} from '../../tuples/query-report-types';
 import {Report} from '../../tuples/report-types';
 import {isFakedUuid} from '../../tuples/utils';
+import {getCurrentTime} from '../../utils';
 
 export const listMockReports = async (options: {
 	search: string;
@@ -18,9 +19,8 @@ export const listMockReports = async (options: {
 						reportId: '1',
 						name: 'Premium on State',
 						description: 'Annual premium summary group by state.',
-						topicCount: 2,
-						groupCount: 1,
-						spaceCount: 2
+						createTime: getCurrentTime(),
+						lastModifyTime: getCurrentTime()
 					}
 				],
 				itemCount: 0,

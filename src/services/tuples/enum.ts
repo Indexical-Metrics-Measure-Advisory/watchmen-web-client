@@ -21,6 +21,15 @@ export const listEnums = async (options: {
 	}
 };
 
+export const listAllEnums = async (): Promise<Array<QueryEnum>> => {
+	const {data} = await page({
+		api: Apis.ENUM_LIST_BY_NAME,
+		search: {search: ''},
+		pageable: {pageNumber: 1, pageSize: 9999}
+	});
+	return data;
+};
+
 export const fetchEnum = async (enumId: string): Promise<{ enumeration: Enum; parents: Array<QueryEnumForHolder> }> => {
 	if (isMockService()) {
 		const {enumeration} = await fetchMockEnum(enumId);

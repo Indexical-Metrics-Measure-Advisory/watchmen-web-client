@@ -8,7 +8,7 @@ import {EnumsMap} from './types';
 import dayjs from 'dayjs';
 import {generateTopicMarkdown} from './topic';
 import {generatePipelineMarkdown} from './pipeline';
-import {listEnums} from '../../../../services/tuples/enum';
+import {listAllEnums} from '../../../../services/tuples/enum';
 import {generateGraphics} from './graphics';
 
 export const generateMarkdown = async (options: {
@@ -18,7 +18,7 @@ export const generateMarkdown = async (options: {
 }): Promise<string> => {
 	const {topicsMap, pipelinesMap, topicRelations, pipelineRelations, selectedSvg, allSvg} = options;
 
-	const {data: enums} = await listEnums({search: '', pageNumber: 1, pageSize: 9999});
+	const enums = await listAllEnums();
 	const enumsMap: EnumsMap = enums.reduce((map, enumeration) => {
 		map[enumeration.enumId] = enumeration;
 		return map;

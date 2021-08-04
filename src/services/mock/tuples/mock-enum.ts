@@ -14,7 +14,7 @@ export const listMockEnums = async (options: {
 		setTimeout(() => {
 			resolve({
 				data: [{
-					enumId: '1', name: 'Mock State', topicCount: 1, enumCount: 0
+					enumId: '1', name: 'Mock State', createTime: getCurrentTime(), lastModifyTime: getCurrentTime()
 				}],
 				itemCount: 1,
 				pageNumber,

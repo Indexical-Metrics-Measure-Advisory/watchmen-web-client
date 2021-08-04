@@ -1,6 +1,6 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {ICON_ENUM, ICON_TOPIC} from '../../basic-widgets/constants';
+import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT} from '../../basic-widgets/constants';
 import {TooltipAlignment} from '../../basic-widgets/types';
 import {QueryEnum} from '../../services/tuples/query-enum-types';
 import {
@@ -12,6 +12,7 @@ import {
 } from '../widgets/tuple-workbench/tuple-card';
 import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
+import {prettifyDateTimeToMinute} from '../../services/tuples/utils';
 
 const EnumCard = (props: { enumeration: QueryEnum }) => {
 	const {enumeration} = props;
@@ -24,13 +25,13 @@ const EnumCard = (props: { enumeration: QueryEnum }) => {
 		<TupleCardTitle>{enumeration.name}</TupleCardTitle>
 		<TupleCardDescription>{enumeration.description}</TupleCardDescription>
 		<TupleCardStatistics>
-			<TupleCardStatisticsItem tooltip={{label: 'In Topics', alignment: TooltipAlignment.CENTER}}>
-				<FontAwesomeIcon icon={ICON_TOPIC}/>
-				<span>{enumeration.topicCount}</span>
+			<TupleCardStatisticsItem tooltip={{label: 'Created At', alignment: TooltipAlignment.CENTER}}>
+				<FontAwesomeIcon icon={ICON_CREATED_AT}/>
+				<span>{prettifyDateTimeToMinute(enumeration.createTime)}</span>
 			</TupleCardStatisticsItem>
-			<TupleCardStatisticsItem tooltip={{label: 'In Enumerations', alignment: TooltipAlignment.CENTER}}>
-				<FontAwesomeIcon icon={ICON_ENUM}/>
-				<span>{enumeration.enumCount}</span>
+			<TupleCardStatisticsItem tooltip={{label: 'Last Modified At', alignment: TooltipAlignment.CENTER}}>
+				<FontAwesomeIcon icon={ICON_LAST_MODIFIED_AT}/>
+				<span>{prettifyDateTimeToMinute(enumeration.lastModifyTime)}</span>
 			</TupleCardStatisticsItem>
 		</TupleCardStatistics>
 	</TupleCard>;

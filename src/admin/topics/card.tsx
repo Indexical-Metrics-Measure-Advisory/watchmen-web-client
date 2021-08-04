@@ -1,6 +1,6 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent} from 'react';
-import {ICON_FACTOR, ICON_REPORT, ICON_SPACE, ICON_TOPIC_PROFILE, ICON_USER_GROUP} from '../../basic-widgets/constants';
+import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT, ICON_TOPIC_PROFILE} from '../../basic-widgets/constants';
 import {TooltipAlignment} from '../../basic-widgets/types';
 import {QueryTopic} from '../../services/tuples/query-topic-types';
 import {
@@ -19,6 +19,7 @@ import dayjs from 'dayjs';
 import {fetchTopic} from '../../services/tuples/topic';
 import {TopicType} from '../../services/tuples/topic-types';
 import {isDataQualityCenterEnabled} from '../../feature-switch';
+import {prettifyDateTimeToMinute} from '../../services/tuples/utils';
 
 const TopicCard = (props: { topic: QueryTopic }) => {
 	const {topic} = props;
@@ -48,21 +49,13 @@ const TopicCard = (props: { topic: QueryTopic }) => {
 		</TupleCardTitle>
 		<TupleCardDescription>{topic.description}</TupleCardDescription>
 		<TupleCardStatistics>
-			<TupleCardStatisticsItem tooltip={{label: 'Factors Count', alignment: TooltipAlignment.CENTER}}>
-				<FontAwesomeIcon icon={ICON_FACTOR}/>
-				<span>{topic.factorCount}</span>
+			<TupleCardStatisticsItem tooltip={{label: 'Created At', alignment: TooltipAlignment.CENTER}}>
+				<FontAwesomeIcon icon={ICON_CREATED_AT}/>
+				<span>{prettifyDateTimeToMinute(topic.createTime)}</span>
 			</TupleCardStatisticsItem>
-			<TupleCardStatisticsItem tooltip={{label: 'In User Groups', alignment: TooltipAlignment.CENTER}}>
-				<FontAwesomeIcon icon={ICON_USER_GROUP}/>
-				<span>{topic.groupCount}</span>
-			</TupleCardStatisticsItem>
-			<TupleCardStatisticsItem tooltip={{label: 'In Spaces', alignment: TooltipAlignment.CENTER}}>
-				<FontAwesomeIcon icon={ICON_SPACE}/>
-				<span>{topic.spaceCount}</span>
-			</TupleCardStatisticsItem>
-			<TupleCardStatisticsItem tooltip={{label: 'In Reports', alignment: TooltipAlignment.CENTER}}>
-				<FontAwesomeIcon icon={ICON_REPORT}/>
-				<span>{topic.reportCount}</span>
+			<TupleCardStatisticsItem tooltip={{label: 'Last Modified At', alignment: TooltipAlignment.CENTER}}>
+				<FontAwesomeIcon icon={ICON_LAST_MODIFIED_AT}/>
+				<span>{prettifyDateTimeToMinute(topic.lastModifyTime)}</span>
 			</TupleCardStatisticsItem>
 		</TupleCardStatistics>
 	</TupleCard>;

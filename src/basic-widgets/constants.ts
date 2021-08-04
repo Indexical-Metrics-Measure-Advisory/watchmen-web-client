@@ -6,7 +6,7 @@ import {
 	faArrowDown,
 	faArrowUp,
 	faBan,
-	faBell,
+	faBell, faCalendarPlus,
 	faCaretRight,
 	faChalkboard,
 	faChalkboardTeacher,
@@ -40,7 +40,7 @@ import {
 	faFileCsv, faFileExport, faFileImport,
 	faGlobe,
 	faGripVertical,
-	faHandSparkles,
+	faHandSparkles, faHighlighter,
 	faHome,
 	faIgloo,
 	faInbox,
@@ -180,6 +180,9 @@ export const ICON_STATISTICS = faCompass;
 export const ICON_END_USER = faChalkboardTeacher;
 
 export const ICON_SECONDARY_SECTION = faCaretRight;
+
+export const ICON_CREATED_AT= faCalendarPlus;
+export const ICON_LAST_MODIFIED_AT = faHighlighter
 
 // icons for doing something
 export const ICON_ADD = faPlus;

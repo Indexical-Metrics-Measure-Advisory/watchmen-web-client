@@ -1,6 +1,7 @@
 import {DataPage} from '../../query/data-page';
 import {QueryTenant} from '../../tuples/query-tenant-types';
 import {Tenant} from '../../tuples/tenant-types';
+import {getCurrentTime} from '../../utils';
 
 export const listMockTenants = async (options: {
 	search: string;
@@ -14,7 +15,9 @@ export const listMockTenants = async (options: {
 				data: [
 					{
 						tenantId: '1',
-						name: 'X World'
+						name: 'X World',
+						createTime: getCurrentTime(),
+						lastModifyTime: getCurrentTime()
 					}
 				],
 				itemCount: 0,

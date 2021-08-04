@@ -327,19 +327,17 @@ export const DemoTopics: Array<Topic> = [
 	Quotation, Policy, Participant, RawQuotation,
 	WeeklyPolicyPremium, MonthlyPolicyPremium, RawEndorsement, WeeklyPolicyPremiumIncrement
 ].map(t => ({...t, tenantId: '1'}));
-const asQueryTopic = (topic: Topic, reportCount: number, groupCount: number, spaceCount: number): QueryTopic => {
-	const {topicId, name, type, description, factors} = topic;
-	return {
-		topicId, name, type, description, factorCount: factors.length, reportCount, groupCount, spaceCount
-	} as QueryTopic;
+const asQueryTopic = (topic: Topic): QueryTopic => {
+	const {topicId, name, type, description, createTime, lastModifyTime} = topic;
+	return {topicId, name, type, description, createTime, lastModifyTime} as QueryTopic;
 };
 export const DemoQueryTopics: Array<QueryTopic> = [
-	asQueryTopic(Quotation, 5, 3, 2),
-	asQueryTopic(Policy, 4, 3, 2),
-	asQueryTopic(Participant, 2, 3, 2),
-	asQueryTopic(RawQuotation, 0, 0, 0),
-	asQueryTopic(WeeklyPolicyPremium, 0, 0, 0),
-	asQueryTopic(MonthlyPolicyPremium, 0, 0, 0),
-	asQueryTopic(RawEndorsement, 0, 0, 0),
-	asQueryTopic(WeeklyPolicyPremiumIncrement, 0, 0, 0)
+	asQueryTopic(Quotation),
+	asQueryTopic(Policy),
+	asQueryTopic(Participant),
+	asQueryTopic(RawQuotation),
+	asQueryTopic(WeeklyPolicyPremium),
+	asQueryTopic(MonthlyPolicyPremium),
+	asQueryTopic(RawEndorsement),
+	asQueryTopic(WeeklyPolicyPremiumIncrement)
 ];
