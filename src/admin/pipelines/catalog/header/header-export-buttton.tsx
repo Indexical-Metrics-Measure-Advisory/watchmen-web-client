@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import styled from 'styled-components';
-import {DialogBody, DialogFooter, DialogLabel} from '../../../../dialog/widgets';
+import {DialogFooter, DialogLabel} from '../../../../dialog/widgets';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {Topic} from '../../../../services/tuples/topic-types';
 import {

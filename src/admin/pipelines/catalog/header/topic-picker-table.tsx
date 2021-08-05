@@ -45,15 +45,28 @@ export const TopicPickerTable = (props: { candidates: Array<TopicCandidate> }) =
 			}, 300)
 		});
 	};
+	const onAllSelectionChange = () => {
+		const allSelected = items.every(item => item.picked);
+		if (allSelected) {
+			items.forEach(item => item.picked = false);
+		} else {
+			items.forEach(item => item.picked = true);
+		}
+		forceUpdate();
+	};
 	const onSelectionChange = (candidate: TopicCandidate) => (value: boolean) => {
 		candidate.picked = value;
 		forceUpdate();
 	};
 
+	const allSelected = items.every(item => item.picked);
+
 	return <>
 		<TopicPickerTableHeader>
 			<TopicPickerTableHeaderCell>#</TopicPickerTableHeaderCell>
-			<TopicPickerTableHeaderCell>View</TopicPickerTableHeaderCell>
+			<TopicPickerTableHeaderCell>
+				<CheckBox value={allSelected} onChange={onAllSelectionChange}/>
+			</TopicPickerTableHeaderCell>
 			<TopicPickerTableHeaderCell>
 				<span>Topic</span>
 				<Input placeholder="Filter by name..."

@@ -9,13 +9,13 @@ export const PageHeaderHolder = styled(PageHeaderHolderContainer)`
 export const TopicPickerDialogBody = styled(DialogBody)`
 	flex-direction: column;
 	margin-bottom: var(--margin);
-	max-height: 50vh;
 `;
 
 export const TopicPickerTableHeader = styled.div`
 	display: grid;
 	position: relative;
 	grid-template-columns: 40px 60px 1fr;
+	border-bottom: var(--border);
 `;
 export const TopicPickerTableHeaderCell = styled.div`
 	display: flex;
@@ -40,7 +40,7 @@ export const TopicPickerTableBody = styled.div.attrs({'data-v-scroll': ''})`
 	display: block;
 	position: relative;
 	overflow-y: auto;
-	max-height: calc(100% - var(--margin) - var(--line-height));
+	max-height: calc(50vh - var(--margin) - var(--line-height));
 `;
 export const TopicPickerTableBodyRow = styled.div`
 	display: grid;
