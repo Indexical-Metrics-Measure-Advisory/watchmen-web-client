@@ -1,8 +1,15 @@
 import styled from 'styled-components';
 import {PageHeaderHolderContainer} from '../../../../basic-widgets/page-header';
+import {DialogBody} from '../../../../dialog/widgets';
 
 export const PageHeaderHolder = styled(PageHeaderHolderContainer)`
 	grid-template-columns: auto auto 1fr;
+`;
+
+export const TopicPickerDialogBody = styled(DialogBody)`
+	flex-direction: column;
+	margin-bottom: var(--margin);
+	max-height: 50vh;
 `;
 
 export const TopicPickerTableHeader = styled.div`
