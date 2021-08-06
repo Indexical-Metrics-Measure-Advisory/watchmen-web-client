@@ -13,7 +13,7 @@ import {Topic} from '../../../../services/tuples/topic-types';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {createInitTopicRect} from '../graphics-utils';
 import {TopicPickerTable} from './topic-picker-table';
-import {TopicPickerDialogBody} from './widgets';
+import {PickerDialogBody} from './widgets';
 
 const TopicPicker = (props: {
 	topics: Array<Topic>;
@@ -39,10 +39,10 @@ const TopicPicker = (props: {
 	};
 
 	return <>
-		<TopicPickerDialogBody>
+		<PickerDialogBody>
 			<DialogLabel>Please select topics</DialogLabel>
 			<TopicPickerTable candidates={candidates}/>
-		</TopicPickerDialogBody>
+		</PickerDialogBody>
 		<DialogFooter>
 			<Button ink={ButtonInk.PRIMARY} onClick={onConfirmClicked}>Confirm</Button>
 			<Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>Cancel</Button>

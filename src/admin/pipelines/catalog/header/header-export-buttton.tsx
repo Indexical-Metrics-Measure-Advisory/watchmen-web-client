@@ -28,7 +28,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {generateMarkdown} from '../markdown';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
-import {TopicPickerDialogBody} from './widgets';
+import {PickerDialogBody} from './widgets';
 
 const findPipelinesWriteMe = (topics: Array<Topic>, topicRelations: TopicRelationMap): Array<Pipeline> => {
 	return topics.reduce((found, topic) => {
@@ -140,10 +140,10 @@ const PipelinesDownload = (props: {
 	};
 
 	return <>
-		<TopicPickerDialogBody>
+		<PickerDialogBody>
 			<DialogLabel>Picked topics to download, related pipelines will be included as well.</DialogLabel>
 			<TopicPickerTable candidates={candidates}/>
-		</TopicPickerDialogBody>
+		</PickerDialogBody>
 		<DialogFooter>
 			<Button ink={ButtonInk.DANGER} onClick={onDownloadClicked}>Download</Button>
 			<Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>Cancel</Button>
