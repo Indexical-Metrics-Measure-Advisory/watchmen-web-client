@@ -60,6 +60,11 @@ export const Apis = {
 	USER_GROUP_CREATE: "user_group",
 	USER_GROUP_SAVE: "update/user_group?user_group_id=:userGroupId",
 
+	DATASOURCE_LIST_BY_NAME: "datasource/name?query_name=:search",
+	DATASOURCE_GET: "datasource/id?datasource_id=:dataSourceId",
+	DATASOURCE_CREATE: "datasource",
+	DATASOURCE_SAVE: "datasource",
+
 	DASHBOARD_FOR_ADMIN: "home/dashboard",
 
 	// authenticated

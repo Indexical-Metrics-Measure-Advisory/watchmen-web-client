@@ -16,6 +16,9 @@ import {renderEditor} from './editor';
 import {Tenant} from '../../services/tuples/tenant-types';
 import {QueryTenant} from '../../services/tuples/query-tenant-types';
 import {listTenants, saveTenant} from '../../services/tuples/tenant';
+import {useHistory} from 'react-router-dom';
+import {isSuperAdmin} from '../../services/account';
+import {Router} from '../../routes/types';
 
 const createTenant = (): Tenant => {
 	return {
@@ -80,6 +83,13 @@ const AdminTenants = () => {
 	/>;
 };
 const AdminTenantsIndex = () => {
+	const history = useHistory();
+
+	if (!isSuperAdmin()) {
+		history.replace(Router.ADMIN_HOME);
+		return null;
+	}
+
 	return <TupleEventBusProvider>
 		<AdminTenants/>
 	</TupleEventBusProvider>;
