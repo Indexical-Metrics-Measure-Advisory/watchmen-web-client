@@ -21,11 +21,13 @@ import {useAdminCacheEventBus} from '../cache/cache-event-bus';
 import {AdminCacheEventTypes} from '../cache/cache-event-bus-types';
 import {ScriptsDownloadDialog} from './scripts-download-dialog';
 import {AdminCacheData} from '../../local-persist/types';
+import {listDataSourcesForHolder} from '../../services/tuples/data-source';
 
 const fetchTopicAndCodes = async (queryTopic: QueryTopic) => {
 	const {topic} = await fetchTopic(queryTopic.topicId);
 	const enums = await listEnumsForHolder();
-	return {tuple: topic, enums};
+	const dataSources = await listDataSourcesForHolder();
+	return {tuple: topic, enums, dataSources};
 };
 
 const getKeyOfTopic = (topic: QueryTopic) => topic.topicId;
@@ -41,14 +43,15 @@ const AdminTopics = () => {
 	useEffect(() => {
 		const onDoCreateTopic = async () => {
 			const enums = await listEnumsForHolder();
-			fire(TupleEventTypes.TUPLE_CREATED, createTopic(), {enums});
+			const dataSources = await listDataSourcesForHolder();
+			fire(TupleEventTypes.TUPLE_CREATED, createTopic(), {enums, dataSources});
 		};
 		const onDoEditTopic = async (queryTopic: QueryTopic) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await fetchTopicAndCodes(queryTopic),
-				({tuple, enums}) => {
+				({tuple, enums, dataSources}) => {
 					fireCache(AdminCacheEventTypes.TOPIC_LOADED, tuple);
-					fire(TupleEventTypes.TUPLE_LOADED, tuple, {enums});
+					fire(TupleEventTypes.TUPLE_LOADED, tuple, {enums, dataSources});
 				});
 		};
 		const onDoSearchTopic = async (searchText: string, pageNumber: number) => {

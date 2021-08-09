@@ -13,6 +13,7 @@ export enum Router {
 	ADMIN_USER_GROUPS = '/admin/user-groups',
 	ADMIN_USERS = '/admin/users',
 	ADMIN_TENANTS = '/admin/tenants',
+	ADMIN_DATA_SOURCES = '/admin/data-sources',
 	ADMIN_MONITOR_LOGS = '/admin/monitor_logs',
 	ADMIN_SIMULATOR = '/admin/simulator',
 	ADMIN_SETTINGS = '/admin/settings',

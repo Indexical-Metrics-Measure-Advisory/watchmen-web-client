@@ -6,7 +6,8 @@ import {
 	faArrowDown,
 	faArrowUp,
 	faBan,
-	faBell, faCalendarPlus,
+	faBell,
+	faCalendarPlus,
 	faCaretRight,
 	faChalkboard,
 	faChalkboardTeacher,
@@ -28,6 +29,7 @@ import {
 	faCompress,
 	faCompressAlt,
 	faCompressArrowsAlt,
+	faDatabase,
 	faDiceD20,
 	faDna,
 	faDraftingCompass,
@@ -37,10 +39,13 @@ import {
 	faExpand,
 	faExpandArrowsAlt,
 	faFeather,
-	faFileCsv, faFileExport, faFileImport,
+	faFileCsv,
+	faFileExport,
+	faFileImport,
 	faGlobe,
 	faGripVertical,
-	faHandSparkles, faHighlighter,
+	faHandSparkles,
+	faHighlighter,
 	faHome,
 	faIgloo,
 	faInbox,
@@ -148,6 +153,7 @@ export const ICON_LOGOUT = faPowerOff;
 export const ICON_USER_GROUP = faUsers;
 export const ICON_USER = faUser;
 export const ICON_TENANT = faCity;
+export const ICON_DATA_SOURCE = faDatabase;
 export const ICON_SPACE = faGlobe;
 export const ICON_CONNECTION = faLink;
 export const ICON_CONNECTED_SPACE = faDiceD20;
@@ -181,8 +187,8 @@ export const ICON_END_USER = faChalkboardTeacher;
 
 export const ICON_SECONDARY_SECTION = faCaretRight;
 
-export const ICON_CREATED_AT= faCalendarPlus;
-export const ICON_LAST_MODIFIED_AT = faHighlighter
+export const ICON_CREATED_AT = faCalendarPlus;
+export const ICON_LAST_MODIFIED_AT = faHighlighter;
 
 // icons for doing something
 export const ICON_ADD = faPlus;
