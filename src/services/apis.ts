@@ -114,8 +114,7 @@ export const Apis = {
 	QUERY_RULE: "dqc/monitor/query",
 	QUERY_RULE_RESULT: "dqc/rule/result/query",
 	SAVE_RULE_LIST: "dqc/monitor/rules",
-
-	IMPORT_TOPICS_AND_PIPELINES: "import"
+	IMPORT_TOPICS_AND_PIPELINES: "import",
 };
 
 const buildApi = (api: string, args?: { [key in string]: any }): string => {
