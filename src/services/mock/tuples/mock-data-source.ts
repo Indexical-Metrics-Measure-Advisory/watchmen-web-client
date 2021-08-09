@@ -1,6 +1,6 @@
 import {DataPage} from '../../query/data-page';
 import {getCurrentTime} from '../../utils';
-import {QueryDataSource} from '../../tuples/query-data-source-types';
+import {QueryDataSource, QueryDataSourceForHolder} from '../../tuples/query-data-source-types';
 import {DataSource, DataSourceType} from '../../tuples/data-source-types';
 import {isFakedUuid} from '../../tuples/utils';
 
@@ -48,7 +48,6 @@ export const fetchMockDataSource = async (dataSourceId: string): Promise<{ dataS
 	return {dataSource};
 };
 
-
 let newDataSourceId = 10000;
 export const saveMockDataSource = async (dataSource: DataSource): Promise<void> => {
 	return new Promise((resolve) => {
@@ -56,5 +55,17 @@ export const saveMockDataSource = async (dataSource: DataSource): Promise<void> 
 			dataSource.dataSourceId = `${newDataSourceId++}`;
 		}
 		setTimeout(() => resolve(), 500);
+	});
+};
+
+export const listMockDataSourcesForHolder = async (): Promise<Array<QueryDataSourceForHolder>> => {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve(
+				[
+					{dataSourceId: '1', dataSourceCode: 'DEFAULT_ONE'}
+				]
+			);
+		}, 500);
 	});
 };

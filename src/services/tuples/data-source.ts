@@ -1,10 +1,16 @@
 import {DataPage} from '../query/data-page';
 import {isMockService} from '../utils';
 import {Apis, get, page, post} from '../apis';
-import {QueryDataSource} from './query-data-source-types';
+import {QueryDataSource, QueryDataSourceForHolder} from './query-data-source-types';
 import {DataSource} from './data-source-types';
 import {isFakedUuid} from './utils';
-import {fetchMockDataSource, listMockDataSources, saveMockDataSource} from '../mock/tuples/mock-data-source';
+import {
+	fetchMockDataSource,
+	listMockDataSources,
+	listMockDataSourcesForHolder,
+	saveMockDataSource
+} from '../mock/tuples/mock-data-source';
+import {isMultipleDataSourcesEnabled} from '../../feature-switch';
 
 export const listDataSources = async (options: {
 	search: string;
@@ -40,5 +46,16 @@ export const saveDataSource = async (dataSource: DataSource): Promise<void> => {
 	} else {
 		const data = await post({api: Apis.DATASOURCE_SAVE, data: dataSource});
 		dataSource.lastModified = data.lastModified;
+	}
+};
+
+export const listDataSourcesForHolder = async (): Promise<Array<QueryDataSourceForHolder>> => {
+	if (!isMultipleDataSourcesEnabled()) {
+		return [];
+	} else if (isMockService()) {
+		return listMockDataSourcesForHolder();
+	} else {
+		// return listMockEnumsForHolder();
+		return await get({api: Apis.DATASOURCE_LOAD_ALL});
 	}
 };
