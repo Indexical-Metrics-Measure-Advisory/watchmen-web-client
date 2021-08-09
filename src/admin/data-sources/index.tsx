@@ -71,8 +71,23 @@ const AdminDataSources = () => {
 				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Data zone is required.</AlertLabel>);
 				return;
 			}
+			const hasIncorrectParam = (dataSource.params || []).some(({name}) => {
+				return (name || '').trim().length === 0;
+			});
+			if (hasIncorrectParam) {
+				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+					fire(TupleEventTypes.TUPLE_SAVED, dataSource, false);
+				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Extra parameter name is required.</AlertLabel>);
+				return;
+			}
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-				async () => await saveDataSource(dataSource),
+				async () => {
+					dataSource.params = (dataSource.params || [])
+						.filter(({name}) => {
+							return (name || '').trim().length !== 0;
+						});
+					return await saveDataSource(dataSource);
+				},
 				() => fire(TupleEventTypes.TUPLE_SAVED, dataSource, true),
 				() => fire(TupleEventTypes.TUPLE_SAVED, dataSource, false));
 		};
