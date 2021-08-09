@@ -15,9 +15,6 @@ export const DataSourceTenantInput = (props: { dataSource: DataSource, tenants: 
 
 	const onTenantChange = (option: DropdownOption) => {
 		dataSource.tenantId = option.value as string;
-		if (!dataSource.tenantId) {
-			delete dataSource.tenantId;
-		}
 		fire(DataSourceEventTypes.DATASOURCE_TENANT_CHANGED, dataSource);
 		forceUpdate();
 	};

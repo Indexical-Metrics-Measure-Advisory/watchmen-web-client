@@ -23,7 +23,9 @@ const DataSourceCard = (props: { dataSource: QueryDataSource }) => {
 	};
 	return <TupleCard key={dataSource.dataSourceId} onClick={onEditClicked}>
 		<TupleCardTitle>{dataSource.dataSourceCode}</TupleCardTitle>
-		<TupleCardDescription>@{dataSource.tenantName || ''}</TupleCardDescription>
+		<TupleCardDescription>
+			{dataSource.dataSourceType || ''} @{dataSource.tenantName || ''}
+		</TupleCardDescription>
 		<TupleCardStatistics>
 			<TupleCardStatisticsItem tooltip={{label: 'Created At', alignment: TooltipAlignment.CENTER}}>
 				<FontAwesomeIcon icon={ICON_CREATED_AT}/>

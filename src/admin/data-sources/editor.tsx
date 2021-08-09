@@ -6,6 +6,8 @@ import {DataSourceCodeInput} from './data-source/data-source-code-input';
 import {DataSourceEventBusProvider} from './data-source-event-bus';
 import {DataSourceTenantInput} from './data-source/data-source-tenant-input';
 import {QueryTenantForHolder} from '../../services/tuples/query-tenant-types';
+import {DataSourceTypeInput} from './data-source/data-source-type-input';
+import {DataSourceConnectInput} from './data-source/data-source-connection-input';
 
 const DataSourceEditor = (props: { dataSource: DataSource; tenants: Array<QueryTenantForHolder>; }) => {
 	const {dataSource, tenants} = props;
@@ -13,9 +15,18 @@ const DataSourceEditor = (props: { dataSource: DataSource; tenants: Array<QueryT
 	return <DataSourceEventBusProvider>
 		<TuplePropertyLabel>Data Source Code:</TuplePropertyLabel>
 		<DataSourceCodeInput dataSource={dataSource}/>
+		<TuplePropertyLabel>Data Source Type:</TuplePropertyLabel>
+		<DataSourceTypeInput dataSource={dataSource}/>
 		<TuplePropertyLabel>Data Zone:</TuplePropertyLabel>
 		<DataSourceTenantInput dataSource={dataSource} tenants={tenants}/>
-		{/*<TuplePropertyLabel>Description:</TuplePropertyLabel>*/}
+		<TuplePropertyLabel>Host:</TuplePropertyLabel>
+		<DataSourceConnectInput dataSource={dataSource} propName='host'/>
+		<TuplePropertyLabel>Port:</TuplePropertyLabel>
+		<DataSourceConnectInput dataSource={dataSource} propName='port'/>
+		<TuplePropertyLabel>Username:</TuplePropertyLabel>
+		<DataSourceConnectInput dataSource={dataSource} propName='username'/>
+		<TuplePropertyLabel>Password:</TuplePropertyLabel>
+		<DataSourceConnectInput dataSource={dataSource} propName='password'/>
 	</DataSourceEventBusProvider>;
 };
 

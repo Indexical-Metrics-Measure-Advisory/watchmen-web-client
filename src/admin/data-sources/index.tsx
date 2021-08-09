@@ -59,6 +59,18 @@ const AdminDataSources = () => {
 				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Data source code is required.</AlertLabel>);
 				return;
 			}
+			if (!dataSource.dataSourceType) {
+				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+					fire(TupleEventTypes.TUPLE_SAVED, dataSource, false);
+				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Data source type is required.</AlertLabel>);
+				return;
+			}
+			if (!dataSource.tenantId) {
+				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+					fire(TupleEventTypes.TUPLE_SAVED, dataSource, false);
+				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Data zone is required.</AlertLabel>);
+				return;
+			}
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await saveDataSource(dataSource),
 				() => fire(TupleEventTypes.TUPLE_SAVED, dataSource, true),
