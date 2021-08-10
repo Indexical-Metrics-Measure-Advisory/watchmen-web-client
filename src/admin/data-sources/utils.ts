@@ -9,6 +9,7 @@ export const createDataSource = (): DataSource => {
 		dataSourceType: DataSourceType.MYSQL,
 		host: '',
 		port: '',
+		name: '',
 		username: '',
 		password: '',
 		url: '',

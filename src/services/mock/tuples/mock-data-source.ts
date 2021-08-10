@@ -38,6 +38,7 @@ export const fetchMockDataSource = async (dataSourceId: string): Promise<{ dataS
 		tenantId: '1',
 		host: '',
 		port: '',
+		name: '',
 		username: '',
 		password: '',
 		url: '',

@@ -24,6 +24,8 @@ const DataSourceEditor = (props: { dataSource: DataSource; tenants: Array<QueryT
 		<DataSourceConnectInput dataSource={dataSource} propName='host'/>
 		<TuplePropertyLabel>Port:</TuplePropertyLabel>
 		<DataSourceConnectInput dataSource={dataSource} propName='port'/>
+		<TuplePropertyLabel>Data Source Name:</TuplePropertyLabel>
+		<DataSourceConnectInput dataSource={dataSource} propName='name'/>
 		<TuplePropertyLabel>Username:</TuplePropertyLabel>
 		<DataSourceConnectInput dataSource={dataSource} propName='username'/>
 		<TuplePropertyLabel>Password:</TuplePropertyLabel>

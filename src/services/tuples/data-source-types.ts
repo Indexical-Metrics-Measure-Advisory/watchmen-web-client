@@ -17,6 +17,7 @@ export interface DataSource extends Tuple {
 	dataSourceType: DataSourceType;
 	host: string;
 	port: string;
+	name: string;
 	username: string;
 	password: string;
 	url: string;
