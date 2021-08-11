@@ -85,7 +85,7 @@ export const Thumbnail = (props: {
 			})}
 			{connectedSpace.subjects.map(subject => {
 				const subjectGraphics = subjectGraphicsMap.get(subject.subjectId)!;
-				return <SubjectRect subject={subjectGraphics} key={subject.subjectId}/>;
+				return <SubjectRect connectedSpace={connectedSpace} subject={subjectGraphics} key={subject.subjectId}/>;
 			})}
 			{connectedSpace.subjects.map(subject => subject.reports)
 				.filter(x => !!x).flat().map(report => {
