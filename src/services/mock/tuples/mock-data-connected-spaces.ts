@@ -31,7 +31,8 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 								kind: ParameterKind.TOPIC,
 								topicId: '1',
 								factorId: '102'
-							} as TopicFactorParameter
+							} as TopicFactorParameter,
+							alias: 'Column1'
 						},
 						{
 							columnId: generateUuid(),
@@ -39,7 +40,8 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 								kind: ParameterKind.TOPIC,
 								topicId: '1',
 								factorId: '103'
-							} as TopicFactorParameter
+							} as TopicFactorParameter,
+							alias: 'Column2'
 						},
 						{
 							columnId: generateUuid(),
@@ -47,7 +49,8 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 								kind: ParameterKind.TOPIC,
 								topicId: '1',
 								factorId: '106'
-							} as TopicFactorParameter
+							} as TopicFactorParameter,
+							alias: 'Column3'
 						},
 						{
 							columnId: generateUuid(),
@@ -55,7 +58,8 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 								kind: ParameterKind.TOPIC,
 								topicId: '2',
 								factorId: '204'
-							} as TopicFactorParameter
+							} as TopicFactorParameter,
+							alias: 'Column4'
 						},
 						{
 							columnId: generateUuid(),
@@ -63,7 +67,8 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 								kind: ParameterKind.TOPIC,
 								topicId: '2',
 								factorId: '205'
-							} as TopicFactorParameter
+							} as TopicFactorParameter,
+							alias: 'Column5'
 						},
 						{
 							columnId: generateUuid(),
@@ -71,7 +76,8 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 								kind: ParameterKind.TOPIC,
 								topicId: '2',
 								factorId: '207'
-							} as TopicFactorParameter
+							} as TopicFactorParameter,
+							alias: 'Column6'
 						},
 						{
 							columnId: generateUuid(),
@@ -79,7 +85,8 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 								kind: ParameterKind.TOPIC,
 								topicId: '3',
 								factorId: '304'
-							} as TopicFactorParameter
+							} as TopicFactorParameter,
+							alias: 'Column7'
 						},
 						{
 							columnId: generateUuid(),
@@ -87,7 +94,8 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 								kind: ParameterKind.TOPIC,
 								topicId: '3',
 								factorId: '305'
-							} as TopicFactorParameter
+							} as TopicFactorParameter,
+							alias: 'Column8'
 						},
 						{
 							columnId: generateUuid(),
@@ -95,7 +103,8 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 								kind: ParameterKind.TOPIC,
 								topicId: '3',
 								factorId: '306'
-							} as TopicFactorParameter
+							} as TopicFactorParameter,
+							alias: 'Column9'
 						},
 						{
 							columnId: generateUuid(),
@@ -103,7 +112,8 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 								kind: ParameterKind.TOPIC,
 								topicId: '3',
 								factorId: '307'
-							} as TopicFactorParameter
+							} as TopicFactorParameter,
+							alias: 'Column10'
 						}
 					],
 					joins: []
@@ -117,7 +127,17 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 				name: 'District Summary',
 				dataset: {
 					filters: {jointType: ParameterJointType.AND, filters: []},
-					columns: [],
+					columns: [
+						{
+							columnId: generateUuid(),
+							parameter: {
+								kind: ParameterKind.TOPIC,
+								topicId: '1',
+								factorId: '103'
+							} as TopicFactorParameter,
+							alias: 'Column2'
+						}
+					],
 					joins: []
 				},
 				lastVisitTime: '2020/11/02 20:25:01',

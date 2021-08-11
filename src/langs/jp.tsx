@@ -49,7 +49,12 @@ export const Jp = {
 		SORT_ASC: '昇順',
 		SORT_DESC: '降順',
 		PREVIOUS_PAGE: '前へ',
-		NEXT_PAGE: '次へ'
+		NEXT_PAGE: '次へ',
+		EXPAND: '展開じる',
+		COLLAPSE: '閉じる',
+		MINIMIZE: '最小化する',
+		MAXIMIZE: '最大化する',
+		RESTORE: '戻す'
 	},
 	LOGIN: {
 		PRODUCT_TITLE: <>Indexical Metrics <span>&</span> Measure Advisory</>,

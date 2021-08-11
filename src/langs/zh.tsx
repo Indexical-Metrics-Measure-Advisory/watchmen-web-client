@@ -49,7 +49,12 @@ export const Zh = {
 		SORT_ASC: '正序',
 		SORT_DESC: '倒序',
 		PREVIOUS_PAGE: '上一页',
-		NEXT_PAGE: '下一页'
+		NEXT_PAGE: '下一页',
+		EXPAND: '展开',
+		COLLAPSE: '收拢',
+		MINIMIZE: '最小化',
+		MAXIMIZE: '最大化',
+		RESTORE: '复原'
 	},
 	LOGIN: {
 		PRODUCT_TITLE: <>Indexical Metrics <span>&</span> Measure Advisory</>,

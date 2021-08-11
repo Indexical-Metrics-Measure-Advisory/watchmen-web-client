@@ -49,7 +49,13 @@ export const En = {
 		SORT_ASC: 'Sort Ascending',
 		SORT_DESC: 'Sort Descending',
 		PREVIOUS_PAGE: 'Previous Page',
-		NEXT_PAGE: 'Next Page'
+		NEXT_PAGE: 'Next Page',
+		EXPAND: 'Expand',
+		COLLAPSE: 'Collapse',
+		MINIMIZE: 'Minimize',
+		MAXIMIZE: 'Maximize',
+		RESTORE: 'Restore'
+
 	},
 	LOGIN: {
 		PRODUCT_TITLE: <>Indexical Metrics <span>&</span> Measure Advisory</>,
