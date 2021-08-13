@@ -4,6 +4,6 @@ import {PageTitle} from '../../../basic-widgets/page-header';
 
 export const SimulatorHeader = () => {
 	return <PageHeaderHolder>
-		<PageTitle>Pipeline Simulator (experimental)</PageTitle>
+		<PageTitle>Pipeline Simulator</PageTitle>
 	</PageHeaderHolder>;
 };
