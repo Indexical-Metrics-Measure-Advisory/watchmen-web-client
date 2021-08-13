@@ -22,6 +22,7 @@ import {AdminCacheEventTypes} from '../cache/cache-event-bus-types';
 import {ScriptsDownloadDialog} from './scripts-download-dialog';
 import {AdminCacheData} from '../../local-persist/types';
 import {listDataSourcesForHolder} from '../../services/tuples/data-source';
+import {isMultipleDataSourcesEnabled} from '../../feature-switch';
 
 const fetchTopicAndCodes = async (queryTopic: QueryTopic) => {
 	const {topic} = await fetchTopic(queryTopic.topicId);
@@ -71,6 +72,14 @@ const AdminTopics = () => {
 				}).fire(EventTypes.SHOW_ALERT,
 					<AlertLabel>
 						Please use camel case or snake case for topic name.
+					</AlertLabel>);
+				return;
+			} else if (isMultipleDataSourcesEnabled() && !topic.dataSourceId) {
+				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
+				}).fire(EventTypes.SHOW_ALERT,
+					<AlertLabel>
+						Please select data source.
 					</AlertLabel>);
 				return;
 			} else if (!topic.factors || topic.factors.filter(f => !!f).length === 0) {
