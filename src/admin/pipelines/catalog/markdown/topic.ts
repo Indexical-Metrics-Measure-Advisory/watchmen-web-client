@@ -24,7 +24,7 @@ ${topic.description || ''}
 
 ### 1.${index + 1}.2. Factors
 ${['Name', 'Type', 'Label', 'Enumeration', 'Default Value', canBeFlatten(topic) ? 'Flatten' : null, 'Description'].filter(x => x != null).join(' | ')}
-${new Array(canBeFlatten(topic) ? 7 : 6).fill('--').join(' | ')}
+${new Array(canBeFlatten(topic) ? 7 : 6).fill('---').join(' | ')}
 ${topic.factors.sort((f1, f2) => {
 		return (f1.name || '').toUpperCase().localeCompare((f2.name || '').toUpperCase());
 	}).map(factor => {

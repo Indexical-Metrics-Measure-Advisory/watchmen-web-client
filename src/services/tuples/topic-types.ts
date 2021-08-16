@@ -22,4 +22,5 @@ export interface Topic extends Tuple {
 	description?: string;
 	factors: Array<Factor>;
 	tenantId?: string;
+	dataSourceId?: string;
 }

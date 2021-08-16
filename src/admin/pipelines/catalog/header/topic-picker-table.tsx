@@ -2,11 +2,11 @@ import {Input} from '../../../../basic-widgets/input';
 import {CheckBox} from '../../../../basic-widgets/checkbox';
 import React, {ChangeEvent, useState} from 'react';
 import {
-	TopicPickerTableBody,
-	TopicPickerTableBodyCell,
-	TopicPickerTableBodyRow,
-	TopicPickerTableHeader,
-	TopicPickerTableHeaderCell
+	PickerTableBody,
+	PickerTableBodyCell,
+	PickerTableBodyRow,
+	PickerTableHeader,
+	PickerTableHeaderCell
 } from './widgets';
 import {Topic} from '../../../../services/tuples/topic-types';
 import {useForceUpdate} from '../../../../basic-widgets/utils';
@@ -45,31 +45,44 @@ export const TopicPickerTable = (props: { candidates: Array<TopicCandidate> }) =
 			}, 300)
 		});
 	};
+	const onAllSelectionChange = () => {
+		const allSelected = items.every(item => item.picked);
+		if (allSelected) {
+			items.forEach(item => item.picked = false);
+		} else {
+			items.forEach(item => item.picked = true);
+		}
+		forceUpdate();
+	};
 	const onSelectionChange = (candidate: TopicCandidate) => (value: boolean) => {
 		candidate.picked = value;
 		forceUpdate();
 	};
 
+	const allSelected = items.every(item => item.picked);
+
 	return <>
-		<TopicPickerTableHeader>
-			<TopicPickerTableHeaderCell>#</TopicPickerTableHeaderCell>
-			<TopicPickerTableHeaderCell>View</TopicPickerTableHeaderCell>
-			<TopicPickerTableHeaderCell>
+		<PickerTableHeader>
+			<PickerTableHeaderCell>#</PickerTableHeaderCell>
+			<PickerTableHeaderCell>
+				<CheckBox value={allSelected} onChange={onAllSelectionChange}/>
+			</PickerTableHeaderCell>
+			<PickerTableHeaderCell>
 				<span>Topic</span>
 				<Input placeholder="Filter by name..."
 				       value={filter.value} onChange={onFilterTextChanged}/>
-			</TopicPickerTableHeaderCell>
-		</TopicPickerTableHeader>
-		<TopicPickerTableBody>
+			</PickerTableHeaderCell>
+		</PickerTableHeader>
+		<PickerTableBody>
 			{items.map((candidate, index) => {
-				return <TopicPickerTableBodyRow key={candidate.topic.topicId}>
-					<TopicPickerTableBodyCell>{index + 1}</TopicPickerTableBodyCell>
-					<TopicPickerTableBodyCell>
+				return <PickerTableBodyRow key={candidate.topic.topicId}>
+					<PickerTableBodyCell>{index + 1}</PickerTableBodyCell>
+					<PickerTableBodyCell>
 						<CheckBox value={candidate.picked} onChange={onSelectionChange(candidate)}/>
-					</TopicPickerTableBodyCell>
-					<TopicPickerTableBodyCell>{candidate.topic.name || 'Noname Topic'}</TopicPickerTableBodyCell>
-				</TopicPickerTableBodyRow>;
+					</PickerTableBodyCell>
+					<PickerTableBodyCell>{candidate.topic.name || 'Noname Topic'}</PickerTableBodyCell>
+				</PickerTableBodyRow>;
 			})}
-		</TopicPickerTableBody>
+		</PickerTableBody>
 	</>;
 };

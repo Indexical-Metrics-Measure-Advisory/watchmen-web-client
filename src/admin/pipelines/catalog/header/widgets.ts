@@ -1,16 +1,23 @@
 import styled from 'styled-components';
 import {PageHeaderHolderContainer} from '../../../../basic-widgets/page-header';
+import {DialogBody} from '../../../../dialog/widgets';
 
 export const PageHeaderHolder = styled(PageHeaderHolderContainer)`
 	grid-template-columns: auto auto 1fr;
 `;
 
-export const TopicPickerTableHeader = styled.div`
+export const PickerDialogBody = styled(DialogBody)`
+	flex-direction: column;
+	margin-bottom: var(--margin);
+`;
+
+export const PickerTableHeader = styled.div`
 	display: grid;
 	position: relative;
 	grid-template-columns: 40px 60px 1fr;
+	border-bottom: var(--border);
 `;
-export const TopicPickerTableHeaderCell = styled.div`
+export const PickerTableHeaderCell = styled.div`
 	display: flex;
 	align-items: center;
 	height: var(--height);
@@ -29,16 +36,21 @@ export const TopicPickerTableHeaderCell = styled.div`
 		margin-left: calc(var(--margin) / 2);
 	}
 `;
-export const TopicPickerTableBody = styled.div.attrs({'data-v-scroll': ''})`
+export const PickerTableBody = styled.div.attrs({'data-v-scroll': ''})`
 	display: block;
 	position: relative;
 	overflow-y: auto;
-	max-height: calc(100% - var(--margin) - var(--line-height));
+	max-height: calc(50vh - var(--margin) - var(--line-height));
 `;
-export const TopicPickerTableBodyRow = styled.div`
+export const PickerTableBodyRow = styled.div.attrs<{ columns?: number }>(({columns = 3}) => {
+	return {
+		style: {
+			gridTemplateColumns: columns === 3 ? '40px 60px 1fr' : '40px 60px auto 1fr'
+		}
+	};
+})<{ columns?: number }>`
 	display: grid;
 	position: relative;
-	grid-template-columns: 40px 60px 1fr;
 	&:nth-child(2n) {
 		background-color: var(--grid-rib-bg-color);
 	}
@@ -46,7 +58,7 @@ export const TopicPickerTableBodyRow = styled.div`
 		background-color: var(--hover-color);
 	}
 `;
-export const TopicPickerTableBodyCell = styled.div`
+export const PickerTableBodyCell = styled.div`
 	display: flex;
 	align-items: center;
 	height: var(--height);

@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import styled from 'styled-components';
-import {DialogBody, DialogFooter, DialogLabel} from '../../../../dialog/widgets';
+import {DialogFooter, DialogLabel} from '../../../../dialog/widgets';
 import {Pipeline} from '../../../../services/tuples/pipeline-types';
 import {Topic} from '../../../../services/tuples/topic-types';
 import {
@@ -29,11 +28,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {generateMarkdown} from '../markdown';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
-
-const DownloadDialogBody = styled(DialogBody)`
-	flex-direction: column;
-	margin-bottom: var(--margin);
-`;
+import {PickerDialogBody} from './widgets';
 
 const findPipelinesWriteMe = (topics: Array<Topic>, topicRelations: TopicRelationMap): Array<Pipeline> => {
 	return topics.reduce((found, topic) => {
@@ -145,10 +140,10 @@ const PipelinesDownload = (props: {
 	};
 
 	return <>
-		<DownloadDialogBody>
+		<PickerDialogBody>
 			<DialogLabel>Picked topics to download, related pipelines will be included as well.</DialogLabel>
 			<TopicPickerTable candidates={candidates}/>
-		</DownloadDialogBody>
+		</PickerDialogBody>
 		<DialogFooter>
 			<Button ink={ButtonInk.DANGER} onClick={onDownloadClicked}>Download</Button>
 			<Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>Cancel</Button>

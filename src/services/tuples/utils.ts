@@ -12,6 +12,7 @@ import {UserGroup} from './user-group-types';
 import {User} from './user-types';
 import {Tenant} from './tenant-types';
 import dayjs from 'dayjs';
+import {DataSource} from './data-source-types';
 
 const FAKE_ID_PREFIX = 'f-';
 
@@ -52,6 +53,9 @@ export const isEnum = (tuple: Tuple): tuple is Enum => {
 export const isTenant = (tuple: Tuple): tuple is Tenant => {
 	return !!(tuple as any).tenantId;
 };
+export const isDataSource = (tuple: Tuple): tuple is DataSource => {
+	return !!(tuple as any).dataSourceId;
+};
 
 export const generateUuid = (): string => `${FAKE_ID_PREFIX}${v4().replace(/-/g, '')}`;
 export const isFakedUuidForGraphics = (graphics: PipelinesGraphics): boolean => {
@@ -84,6 +88,8 @@ export const isFakedUuid = (tuple: Tuple): boolean => {
 		return tuple.enumId.startsWith(FAKE_ID_PREFIX);
 	} else if (isTenant(tuple)) {
 		return tuple.tenantId.startsWith(FAKE_ID_PREFIX);
+	} else if (isDataSource(tuple)) {
+		return tuple.dataSourceId.startsWith(FAKE_ID_PREFIX);
 	}
 
 	console.groupCollapsed('Unsupported tuple type');

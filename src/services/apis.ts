@@ -60,6 +60,12 @@ export const Apis = {
 	USER_GROUP_CREATE: "user_group",
 	USER_GROUP_SAVE: "update/user_group?user_group_id=:userGroupId",
 
+	DATASOURCE_LIST_BY_NAME: "datasource/name?query_name=:search",
+	DATASOURCE_GET: "datasource/id?datasource_id=:dataSourceId",
+	DATASOURCE_CREATE: "datasource",
+	DATASOURCE_SAVE: "datasource",
+	DATASOURCE_LOAD_ALL: "datasource/all",
+
 	DASHBOARD_FOR_ADMIN: "home/dashboard",
 
 	// authenticated
@@ -111,12 +117,10 @@ export const Apis = {
 	DASHBOARD_SHARE_GET: "share/dashboard?dashboard_id=:dashboardId&&token=:token",
 
 	QUERY_LOG: "pipeline/log/query",
-
 	QUERY_RULE: "dqc/monitor/query",
-
 	QUERY_RULE_RESULT: "dqc/rule/result/query",
-
 	SAVE_RULE_LIST: "dqc/monitor/rules",
+	IMPORT_TOPICS_AND_PIPELINES: "import",
 };
 
 const buildApi = (api: string, args?: { [key in string]: any }): string => {

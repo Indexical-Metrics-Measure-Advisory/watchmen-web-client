@@ -42,7 +42,7 @@ export const PipelineHeaderButtons = (props: {
 			{canDownloadPipelines
 				? <>
 					<PageHeaderButtonSeparator/>
-					<HeaderImportButton graphics={graphics}/>
+					<HeaderImportButton/>
 					<HeaderExportButton graphics={graphics}/>
 				</>
 				: null}

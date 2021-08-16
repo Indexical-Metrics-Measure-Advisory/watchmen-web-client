@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {
 	ICON_CONSOLE,
 	ICON_DATA_QUALITY,
+	ICON_DATA_SOURCE,
 	ICON_ENUM,
 	ICON_HOME,
 	ICON_LOGOUT,
@@ -34,7 +35,7 @@ import {EventTypes} from '../events/types';
 import {Router} from '../routes/types';
 import {findAccount, isSuperAdmin, quit} from '../services/account';
 import {SideMenuSwitchWorkbench} from '../basic-widgets/side-menu/side-menu-switch-workbench';
-import {isDataQualityCenterEnabled} from '../feature-switch';
+import {isDataQualityCenterEnabled, isMultipleDataSourcesEnabled} from '../feature-switch';
 
 const AdminMenuContainer = styled.div.attrs<{ width: number }>(({width}) => {
 	return {
@@ -134,6 +135,10 @@ export const AdminMenu = () => {
 		              active={!!matchPath(location.pathname, Router.ADMIN_TENANTS)}
 		              onClick={onMenuClicked(Router.ADMIN_TENANTS)}
 		              visible={isSuperAdmin()}/>
+		<SideMenuItem icon={ICON_DATA_SOURCE} label="Data Sources" showTooltip={showTooltip}
+		              active={!!matchPath(location.pathname, Router.ADMIN_DATA_SOURCES)}
+		              onClick={onMenuClicked(Router.ADMIN_DATA_SOURCES)}
+		              visible={isSuperAdmin() && isMultipleDataSourcesEnabled()}/>
 		<SideMenuItem icon={ICON_USER} label="Users" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_USERS)}
 		              onClick={onMenuClicked(Router.ADMIN_USERS)}/>

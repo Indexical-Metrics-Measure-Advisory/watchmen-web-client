@@ -19,6 +19,8 @@ import {AdminCacheEventBusProvider} from './cache/cache-event-bus';
 import AdminDebug from './simulator';
 import {TopicProfileEventBusProvider} from './topic-profile/topic-profile-event-bus';
 import {TopicProfile} from './topic-profile';
+import AdminDataSources from './data-sources';
+import {isMultipleDataSourcesEnabled} from '../feature-switch';
 
 const AdminContainer = styled.div.attrs({'data-widget': 'admin'})`
 	display: flex;
@@ -55,6 +57,9 @@ const AdminIndex = () => {
 					? <Switch>
 						<Route path={Router.ADMIN_USERS}><AdminMain><AdminUsers/></AdminMain></Route>
 						<Route path={Router.ADMIN_TENANTS}><AdminMain><AdminTenants/></AdminMain></Route>
+						{isMultipleDataSourcesEnabled()
+							? <Route path={Router.ADMIN_DATA_SOURCES}><AdminMain><AdminDataSources/></AdminMain></Route>
+							: null}
 						<Route path="*">
 							<Redirect to={Router.ADMIN_TENANTS}/>
 						</Route>

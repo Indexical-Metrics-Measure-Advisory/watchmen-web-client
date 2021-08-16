@@ -6,19 +6,14 @@ import {useCatalogEventBus} from '../catalog-event-bus';
 import {AssembledPipelinesGraphics} from '../types';
 import {EventTypes} from '../../../../events/types';
 import {useEventBus} from '../../../../events/event-bus';
-import styled from 'styled-components';
-import {DialogBody, DialogFooter, DialogLabel} from '../../../../dialog/widgets';
+import {DialogFooter, DialogLabel} from '../../../../dialog/widgets';
 import {ButtonInk} from '../../../../basic-widgets/types';
 import {Button} from '../../../../basic-widgets/button';
 import {Topic} from '../../../../services/tuples/topic-types';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {createInitTopicRect} from '../graphics-utils';
 import {TopicPickerTable} from './topic-picker-table';
-
-const SwitchDialogBody = styled(DialogBody)`
-	flex-direction: column;
-	margin-bottom: var(--margin);
-`;
+import {PickerDialogBody} from './widgets';
 
 const TopicPicker = (props: {
 	topics: Array<Topic>;
@@ -44,10 +39,10 @@ const TopicPicker = (props: {
 	};
 
 	return <>
-		<SwitchDialogBody>
+		<PickerDialogBody>
 			<DialogLabel>Please select topics</DialogLabel>
 			<TopicPickerTable candidates={candidates}/>
-		</SwitchDialogBody>
+		</PickerDialogBody>
 		<DialogFooter>
 			<Button ink={ButtonInk.PRIMARY} onClick={onConfirmClicked}>Confirm</Button>
 			<Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>Cancel</Button>
