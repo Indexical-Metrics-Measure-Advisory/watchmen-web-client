@@ -17,6 +17,7 @@ export const En = {
 		NEW_SUBJECT_NAME: 'Subject',
 		DEFAULT_SUBJECT_NAME: 'Subject',
 		NEW_REPORT_NAME: 'Report',
+		DEFAULT_REPORT_NAME: 'Report',
 		CONSTANT_INPUT_PLACEHOLDER: 'Constant value please...',
 		UNKNOWN_TOPIC_NAME: 'Unknown Topic',
 		UNKNOWN_FACTOR_NAME: 'Unknown Factor',
@@ -55,7 +56,6 @@ export const En = {
 		MINIMIZE: 'Minimize',
 		MAXIMIZE: 'Maximize',
 		RESTORE: 'Restore'
-
 	},
 	LOGIN: {
 		PRODUCT_TITLE: <>Indexical Metrics <span>&</span> Measure Advisory</>,
@@ -73,7 +73,8 @@ export const En = {
 		ERROR: {
 			DASHBOARD_NOT_FOUND: 'Given dashboard not found.',
 			CONNECTED_SPACE_NOT_FOUND: 'Given connected space not found.',
-			SUBJECT_NOT_FOUND: 'Given subject not found.'
+			SUBJECT_NOT_FOUND: 'Given subject not found.',
+			REPORT_NOT_FOUND: 'Given report not found.'
 		},
 		MENU: {
 			TITLE: 'Watchmen Console',
@@ -136,6 +137,7 @@ export const En = {
 			SUBJECT_DEF: 'Definition',
 			SUBJECT_DATA: 'DataSet',
 			SUBJECT_REPORT: 'Report',
+			REPORT_DATA: 'DataSet',
 			SHARE: 'Share',
 			PRINT: 'Print',
 			REFRESH: 'Refresh',
@@ -216,7 +218,12 @@ export const En = {
 			UNFIX_COLUMN: 'Unfix Me and Follows',
 			FIX_COLUMN: 'Fix Columns to Here',
 			COMPRESS_COLUMNS: 'Compress Columns',
-			NO_REPORT: 'No report defined.',
+			NO_REPORT: 'No report defined, do you want ',
+			CREATE_REPORT: 'create one',
+			NO_REPORT_2: '?',
+			NO_MORE_REPORT: 'No more report exists.',
+			SWITCH_REPORT: 'Switch Report',
+			SWITCH_REPORT_DIALOG_LABEL: 'Please select report',
 			DELETE_REPORT_DIALOG_LABEL: 'Are you sure to delete report? Please note that deletion cannot be recovered.',
 			COLLAPSE_REPORT_SETTINGS_SECTIONS: 'Collapse All Sections',
 			EXPAND_REPORT_SETTINGS_SECTIONS: 'Expand All Sections'

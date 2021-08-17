@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Redirect, Route, Switch, useHistory} from 'react-router-dom';
 import {Router} from '../../../routes/types';
-import {toSubjectDef, toSubjectReport} from '../../../routes/utils';
+import {toSubjectDef, toSubjectReport, toSubjectReports} from '../../../routes/utils';
 import {AvailableSpaceInConsole} from '../../../services/console/settings-types';
 import {ConnectedSpace} from '../../../services/tuples/connected-space-types';
 import {Subject} from '../../../services/tuples/subject-types';
@@ -12,7 +12,7 @@ import {isDefValid} from './data-validator';
 import {SubjectDataSet} from './dataset';
 import {SubjectDef} from './def';
 import {isSubjectDefNow} from './header/utils';
-import {SubjectReports} from './report';
+import {NoReport} from './no-report';
 
 export const SubjectBodyRouter = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const {connectedSpace, subject} = props;
@@ -52,8 +52,15 @@ export const SubjectBodyRouter = (props: { connectedSpace: ConnectedSpace, subje
 	}
 
 	return <Switch>
-		<Route path={Router.CONSOLE_CONNECTED_SPACE_SUBJECT_REPORT}>
-			<SubjectReports connectedSpace={connectedSpace} subject={subject}/>
+		<Route path={Router.CONSOLE_CONNECTED_SPACE_SUBJECT_REPORTS}>
+			{() => {
+				if ((subject.reports || []).length === 0) {
+					return <NoReport connectedSpace={connectedSpace} subject={subject}/>;
+				} else {
+					return <Redirect
+						to={toSubjectReport(connectedSpace.connectId, subject.subjectId, subject.reports![0].reportId)}/>;
+				}
+			}}
 		</Route>
 		<Route path={Router.CONSOLE_CONNECTED_SPACE_SUBJECT_DATA}>
 			<SubjectDataSet connectedSpace={connectedSpace} subject={subject}/>
@@ -62,7 +69,7 @@ export const SubjectBodyRouter = (props: { connectedSpace: ConnectedSpace, subje
 			<SubjectDef connectedSpace={connectedSpace} subject={subject}/>
 		</Route>
 		<Route path="*">
-			<Redirect to={toSubjectReport(connectedSpace.connectId, subject.subjectId)}/>
+			<Redirect to={toSubjectReports(connectedSpace.connectId, subject.subjectId)}/>
 		</Route>
 	</Switch>;
 };

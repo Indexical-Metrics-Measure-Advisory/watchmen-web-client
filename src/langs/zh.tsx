@@ -17,6 +17,7 @@ export const Zh = {
 		NEW_SUBJECT_NAME: '主题',
 		DEFAULT_SUBJECT_NAME: '主题',
 		NEW_REPORT_NAME: '图表',
+		DEFAULT_REPORT_NAME: '图表',
 		CONSTANT_INPUT_PLACEHOLDER: '请填写常量值...',
 		UNKNOWN_TOPIC_NAME: '未知数据集',
 		UNKNOWN_FACTOR_NAME: '未知数据因子',
@@ -72,7 +73,8 @@ export const Zh = {
 		ERROR: {
 			DASHBOARD_NOT_FOUND: '未找到指定的仪表盘数据.',
 			CONNECTED_SPACE_NOT_FOUND: '未找到指定的已联接工作空间.',
-			SUBJECT_NOT_FOUND: '未找到指定的主题.'
+			SUBJECT_NOT_FOUND: '未找到指定的主题.',
+			REPORT_NOT_FOUND: '未找到指定的图表.'
 		},
 		MENU: {
 			TITLE: 'Watchmen操作台',
@@ -135,6 +137,7 @@ export const Zh = {
 			SUBJECT_DEF: '设置主题',
 			SUBJECT_DATA: '主题数据',
 			SUBJECT_REPORT: '图表',
+			REPORT_DATA: '图表数据',
 			SHARE: '分享',
 			PRINT: '打印',
 			REFRESH: '刷新',
@@ -215,7 +218,12 @@ export const Zh = {
 			UNFIX_COLUMN: '解锁本列以及之后已锁定列',
 			FIX_COLUMN: '锁定至本列',
 			COMPRESS_COLUMNS: '全部缩小列宽',
-			NO_REPORT: '尚未定义图表.',
+			NO_REPORT: '尚未定义图表, 现在就',
+			CREATE_REPORT: '开始',
+			NO_REPORT_2: '吗?',
+			NO_MORE_REPORT: '没有更多图表.',
+			SWITCH_REPORT: '切换图表',
+			SWITCH_REPORT_DIALOG_LABEL: '请选择图表',
 			DELETE_REPORT_DIALOG_LABEL: '确认要删除图表吗? 请注意删除动作不能被恢复.',
 			COLLAPSE_REPORT_SETTINGS_SECTIONS: '折叠所有',
 			EXPAND_REPORT_SETTINGS_SECTIONS: '展开所有'

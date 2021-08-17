@@ -36,7 +36,7 @@ const ConsoleMain = styled.main.attrs({'data-widget': 'console-main'})`
 `;
 const ConsolePinFavoritePlaceholder = styled.div.attrs<{ favorite: boolean }>(({favorite}) => {
 	return {
-		'data-widget': 'console-workbench-pin-favorite-placeholder',
+		'data-widget': 'console-report-workbench-pin-favorite-placeholder',
 		style: {
 			height: favorite ? 'var(--pin-favorite-height)' : 0,
 			minHeight: favorite ? 'var(--pin-favorite-height)' : 0
@@ -46,7 +46,7 @@ const ConsolePinFavoritePlaceholder = styled.div.attrs<{ favorite: boolean }>(({
 	transition: min-height 300ms ease-in-out, height 300ms ease-in-out;
 `;
 const ConsoleWorkbench = styled.div.attrs({
-	'data-widget': 'console-workbench',
+	'data-widget': 'console-report-workbench',
 	'data-v-scroll': ''
 })`
 	flex-grow: 1;

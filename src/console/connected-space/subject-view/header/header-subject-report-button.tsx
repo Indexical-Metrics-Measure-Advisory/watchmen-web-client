@@ -8,7 +8,7 @@ import {ButtonInk} from '../../../../basic-widgets/types';
 import {useEventBus} from '../../../../events/event-bus';
 import {EventTypes} from '../../../../events/types';
 import {Lang} from '../../../../langs';
-import {toSubjectReport} from '../../../../routes/utils';
+import {toSubjectReports} from '../../../../routes/utils';
 import {AvailableSpaceInConsole} from '../../../../services/console/settings-types';
 import {ConnectedSpace} from '../../../../services/tuples/connected-space-types';
 import {Subject} from '../../../../services/tuples/subject-types';
@@ -35,7 +35,7 @@ export const HeaderSubjectReportButton = (props: { connectedSpace: ConnectedSpac
 				fireGlobal(EventTypes.SHOW_ALERT,
 					<AlertLabel>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_DEF_INVALID}</AlertLabel>);
 			} else {
-				history.push(toSubjectReport(connectedSpace.connectId, subject.subjectId));
+				history.push(toSubjectReports(connectedSpace.connectId, subject.subjectId));
 			}
 		};
 

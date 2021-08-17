@@ -27,7 +27,8 @@ export enum Router {
 	CONSOLE_CONNECTED_SPACE_SUBJECT = '/console/space/connected/:connectId/subject/:subjectId',
 	CONSOLE_CONNECTED_SPACE_SUBJECT_DEF = '/console/space/connected/:connectId/subject/:subjectId/def',
 	CONSOLE_CONNECTED_SPACE_SUBJECT_DATA = '/console/space/connected/:connectId/subject/:subjectId/data',
-	CONSOLE_CONNECTED_SPACE_SUBJECT_REPORT = '/console/space/connected/:connectId/subject/:subjectId/report',
+	CONSOLE_CONNECTED_SPACE_SUBJECT_REPORTS = '/console/space/connected/:connectId/subject/:subjectId/report',
+	CONSOLE_CONNECTED_SPACE_SUBJECT_REPORT = '/console/space/connected/:connectId/subject/:subjectId/report/:reportId',
 	CONSOLE_NOTIFICATION = '/console/notification',
 	CONSOLE_MAIL = '/console/mail',
 	CONSOLE_TIMELINE = '/console/timeline',
@@ -43,5 +44,4 @@ export enum Router {
 
 	SHARE = '/share',
 	SHARE_DASHBOARD = '/share/dashboard/:dashboardId/:token',
-	SHARE_SUBJECT = '/share/subject/:subjectId/:token'
 }

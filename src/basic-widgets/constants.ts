@@ -8,6 +8,7 @@ import {
 	faBan,
 	faBell,
 	faCalendarPlus,
+	faCaretDown,
 	faCaretRight,
 	faChalkboard,
 	faChalkboardTeacher,
@@ -205,6 +206,7 @@ export const ICON_SELECTED = faCheck;
 export const ICON_LOADING = faSpinner;
 export const ICON_PIN = faThumbtack;
 export const ICON_SORT = faSortAmountDown;
+export const ICON_DROPDOWN = faCaretDown;
 export const ICON_COLLAPSE_PANEL = faCompress;
 export const ICON_EXPAND_PANEL = faExpand;
 export const ICON_SHARE = faShare;
@@ -215,6 +217,7 @@ export const ICON_CONNECTED_SPACE_CATALOG = faDrawPolygon;
 export const ICON_SUBJECT_DEF = faLayerGroup;
 export const ICON_SUBJECT_DATA = faTh;
 export const ICON_SUBJECT_REPORT = faChartPie;
+export const ICON_REPORT_DATA = faTh;
 export const ICON_UPLOAD = faUpload;
 export const ICON_ROW_PREPEND_ON_RIGHT = faLevelUpAlt;
 export const ICON_CLOSE = faTimes;

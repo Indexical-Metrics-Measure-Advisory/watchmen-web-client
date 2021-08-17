@@ -17,6 +17,7 @@ export const Jp = {
 		NEW_SUBJECT_NAME: '主題',
 		DEFAULT_SUBJECT_NAME: '主題',
 		NEW_REPORT_NAME: 'レポート',
+		DEFAULT_REPORT_NAME: 'レポート',
 		CONSTANT_INPUT_PLACEHOLDER: '定数値を入力してください...',
 		UNKNOWN_TOPIC_NAME: '不明なトピック',
 		UNKNOWN_FACTOR_NAME: '不明なファクター',
@@ -72,7 +73,8 @@ export const Jp = {
 		ERROR: {
 			DASHBOARD_NOT_FOUND: '該当ダッシュボードが見つかりません。',
 			CONNECTED_SPACE_NOT_FOUND: '該当連結空間が見つかりません。',
-			SUBJECT_NOT_FOUND: '該当主題が見つかりません。'
+			SUBJECT_NOT_FOUND: '該当主題が見つかりません。',
+			REPORT_NOT_FOUND: '該当レポートが見つかりません。'
 		},
 		MENU: {
 			TITLE: 'Watchmenコンソール',
@@ -135,6 +137,7 @@ export const Jp = {
 			SUBJECT_DEF: '主題を定義する',
 			SUBJECT_DATA: 'データセット',
 			SUBJECT_REPORT: 'レポート',
+			REPORT_DATA: 'データセット',
 			SHARE: '共有',
 			PRINT: 'プリント',
 			REFRESH: '更新',
@@ -215,7 +218,12 @@ export const Jp = {
 			UNFIX_COLUMN: 'これ以降のカラムの固定を解除すうｒ',
 			FIX_COLUMN: 'このカラムに固定する',
 			COMPRESS_COLUMNS: 'カラムの幅を狭める',
-			NO_REPORT: 'レポートは定義されていません。',
+			NO_REPORT: 'レポートは定義されていません。定義しますか',
+			CREATE_REPORT: '始める',
+			NO_REPORT_2: 'か？',
+			NO_MORE_REPORT: 'これ以上のレポートは存在しません.',
+			SWITCH_REPORT: 'レポートを切り替える',
+			SWITCH_REPORT_DIALOG_LABEL: 'レポートを選択してください',
 			DELETE_REPORT_DIALOG_LABEL: 'レポートを削除してもよろしいですか？ 削除したものは復元できませんので、ご注意ください。',
 			COLLAPSE_REPORT_SETTINGS_SECTIONS: 'すべてのセクションを折りたたむ',
 			EXPAND_REPORT_SETTINGS_SECTIONS: 'すべてのセクションを表示する'

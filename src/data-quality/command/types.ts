@@ -23,7 +23,7 @@ export interface CommandPublishedBehaviorBackward extends CommandPublishedBehavi
  * 1. A label: to display, label might be dynamic computed.
  * 2. A command: to execute, command might be a free text.
  * 3. A reminder: to remind user format of this command.
- * 4. A published behavior: how to process the cli workbench after this command is published.
+ * 4. A published behavior: how to process the cli report-workbench after this command is published.
  * 5. Trails: commands can followed after this command.
  * 6. Executable: command can be executable when no trail followed.
  */

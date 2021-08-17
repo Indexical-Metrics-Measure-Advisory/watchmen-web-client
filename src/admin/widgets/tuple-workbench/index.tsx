@@ -9,7 +9,7 @@ import {TupleWorkbenchHeader} from './tuple-workbench-header';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 
 export const TupleWorkbench = <T extends Tuple, QT extends QueryTuple, HBT extends HoldByTuple>(props: {
-	// for workbench
+	// for report-workbench
 	title: string;
 	// for header
 	createButtonLabel?: string;

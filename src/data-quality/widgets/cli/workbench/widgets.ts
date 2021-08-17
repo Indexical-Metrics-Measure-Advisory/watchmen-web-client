@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {Input} from '../../../../basic-widgets/input';
 
-export const WorkbenchContainer = styled.div.attrs({'data-widget': 'cli-workbench'})`
+export const WorkbenchContainer = styled.div.attrs({'data-widget': 'cli-report-workbench'})`
 	display: grid;
 	position: relative;
 	grid-template-columns: auto 1fr;
