@@ -222,6 +222,7 @@ export const Zh = {
 			CREATE_REPORT: '开始',
 			NO_REPORT_2: '吗?',
 			NO_MORE_REPORT: '没有更多图表.',
+			OPEN_REPORT: '打开图表',
 			SWITCH_REPORT: '切换图表',
 			SWITCH_REPORT_DIALOG_LABEL: '请选择图表',
 			DELETE_REPORT_DIALOG_LABEL: '确认要删除图表吗? 请注意删除动作不能被恢复.',

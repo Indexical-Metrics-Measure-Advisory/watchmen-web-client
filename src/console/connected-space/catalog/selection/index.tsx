@@ -40,7 +40,7 @@ export const BlockSelection = (props: { graphics: AssembledConnectedSpaceGraphic
 				rect: computeSubjectSelection({subjectId: subject.subjectId, graphics})
 			});
 		};
-		const onReportSelected = (report: Report) => {
+		const onReportSelected = (subject: Subject, report: Report) => {
 			setSelection({
 				visible: true,
 				report,

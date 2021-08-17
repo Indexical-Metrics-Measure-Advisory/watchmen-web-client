@@ -4,13 +4,19 @@ import {findSvgRoot} from '../../../utils/in-svg';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {AssembledReportGraphics, GraphicsRole} from '../types';
-import {ReportBlock, ReportContainer, ReportNameText} from './widgets';
+import {OpenSubjectButton, OpenSubjectButtonIcon, ReportBlock, ReportContainer, ReportNameText} from './widgets';
+import {ICON_EDIT} from '../../../../basic-widgets/constants';
+import {toSubjectReport} from '../../../../routes/utils';
+import {useHistory} from 'react-router-dom';
+import {ConnectedSpace} from '../../../../services/tuples/connected-space-types';
+import {Subject} from '../../../../services/tuples/subject-types';
 
-export const ReportRect = (props: { report: AssembledReportGraphics }) => {
-	const {report: reportGraphics} = props;
+export const ReportRect = (props: { connectedSpace: ConnectedSpace; subject: Subject, report: AssembledReportGraphics }) => {
+	const {connectedSpace, subject, report: reportGraphics} = props;
 	const {report, rect} = reportGraphics;
 	const {coordinate, frame: frameRect, name: namePos} = rect;
 
+	const history = useHistory();
 	const {fire} = useCatalogEventBus();
 	const forceUpdate = useForceUpdate();
 	const [dnd, setDnd] = useState<boolean>(false);
@@ -38,14 +44,22 @@ export const ReportRect = (props: { report: AssembledReportGraphics }) => {
 		}
 	};
 
+	const onReportOpenClicked = () => {
+		history.push(toSubjectReport(connectedSpace.connectId, subject.subjectId, report.reportId));
+	};
+
 	return <ReportContainer onMouseDown={onMouseDown} coordinate={coordinate}
+	                        data-subject-id={subject.subjectId}
 	                        data-report-id={report.reportId}
 	                        data-role={GraphicsRole.REPORT}>
 		<ReportBlock frame={frameRect} dnd={dnd}
+		             data-subject-id={subject.subjectId}
 		             data-report-id={report.reportId}
 		             data-role={GraphicsRole.REPORT_FRAME}/>
 		<ReportNameText pos={namePos} dnd={dnd} data-role={GraphicsRole.REPORT_NAME}>
 			{report.name}
 		</ReportNameText>
+		<OpenSubjectButton frame={frameRect} onClick={onReportOpenClicked}/>
+		<OpenSubjectButtonIcon d={ICON_EDIT.icon[4] as any} frame={frameRect}/>
 	</ReportContainer>;
 };

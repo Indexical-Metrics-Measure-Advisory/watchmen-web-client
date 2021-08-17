@@ -29,7 +29,7 @@ export const ReportSubjectRelationAnimation = (props: { graphics: AssembledConne
 				visible ? forceUpdate() : setVisible(true);
 			}
 		};
-		const onReportSelected = (selectedReport: Report) => {
+		const onReportSelected = (selectedSubject: Subject, selectedReport: Report) => {
 			if (selectedReport !== report) {
 				visible && setVisible(false);
 			} else {

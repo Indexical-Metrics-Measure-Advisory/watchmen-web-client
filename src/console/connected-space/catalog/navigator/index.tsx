@@ -1,16 +1,14 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import {ICON_CLOSE, ICON_SUBJECT} from '../../../../basic-widgets/constants';
+import {ICON_CLOSE, ICON_EDIT} from '../../../../basic-widgets/constants';
 import {TooltipAlignment} from '../../../../basic-widgets/types';
 import {Lang} from '../../../../langs';
-import {toSubject} from '../../../../routes/utils';
+import {toSubject, toSubjectReport} from '../../../../routes/utils';
 import {ConnectedSpace} from '../../../../services/tuples/connected-space-types';
 import {Report} from '../../../../services/tuples/report-types';
 import {Subject} from '../../../../services/tuples/subject-types';
 import {Topic} from '../../../../services/tuples/topic-types';
-import {Tuple} from '../../../../services/tuples/tuple-types';
-import {isReport, isSubject, isTopic} from '../../../../services/tuples/utils';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {ReportBody} from './report-body';
@@ -24,18 +22,18 @@ export const Navigator = (props: { connectedSpace: ConnectedSpace }) => {
 	const history = useHistory();
 	const {on, off} = useCatalogEventBus();
 	const [visible, setVisible] = useState(false);
-	const [tuple, setTuple] = useState<Tuple | null>(null);
+	const [tuples, setTuples] = useState<{ topic?: Topic, subject?: Subject, report?: Report }>({});
 	useEffect(() => {
 		const onTopicSelected = (topic: Topic) => {
-			setTuple(topic);
+			setTuples({topic});
 			setVisible(true);
 		};
 		const onSubjectSelected = (subject: Subject) => {
-			setTuple(subject);
+			setTuples({subject});
 			setVisible(true);
 		};
-		const onReportSelected = (report: Report) => {
-			setTuple(report);
+		const onReportSelected = (subject: Subject, report: Report) => {
+			setTuples({subject, report});
 			setVisible(true);
 		};
 
@@ -50,8 +48,13 @@ export const Navigator = (props: { connectedSpace: ConnectedSpace }) => {
 	}, [on, off]);
 
 	const onOpenSubjectClicked = () => {
-		if (tuple && isSubject(tuple)) {
-			history.push(toSubject(connectedSpace.connectId, tuple.subjectId));
+		if (tuples && tuples.subject) {
+			history.push(toSubject(connectedSpace.connectId, tuples.subject.subjectId));
+		}
+	};
+	const onOpenReportClicked = () => {
+		if (tuples && tuples.subject && tuples.report) {
+			history.push(toSubjectReport(connectedSpace.connectId, tuples.subject.subjectId, tuples.report.reportId));
 		}
 	};
 	const onCloseClicked = () => {
@@ -59,19 +62,19 @@ export const Navigator = (props: { connectedSpace: ConnectedSpace }) => {
 	};
 
 	let name = '';
-	if (tuple == null) {
-	} else if (isTopic(tuple)) {
-		name = tuple.name;
-	} else if (isSubject(tuple)) {
-		name = tuple.name;
-	} else if (isReport(tuple)) {
-		name = tuple.name;
+	if (tuples == null) {
+	} else if (tuples.topic) {
+		name = tuples.topic.name;
+	} else if (tuples.report) {
+		name = tuples.report.name;
+	} else if (tuples.subject) {
+		name = tuples.subject.name;
 	}
 
 	return <NavigatorContainer visible={visible}>
 		<NavigatorHeader>
 			<NavigatorHeaderTitle>{name}</NavigatorHeaderTitle>
-			{tuple != null && isSubject(tuple)
+			{tuples != null && tuples.subject && !tuples.report
 				? <NavigatorHeaderButton
 					tooltip={{
 						label: Lang.CONSOLE.CONNECTED_SPACE.OPEN_SUBJECT,
@@ -79,7 +82,18 @@ export const Navigator = (props: { connectedSpace: ConnectedSpace }) => {
 						offsetX: 4
 					}}
 					onClick={onOpenSubjectClicked}>
-					<FontAwesomeIcon icon={ICON_SUBJECT}/>
+					<FontAwesomeIcon icon={ICON_EDIT}/>
+				</NavigatorHeaderButton>
+				: null}
+			{tuples != null && tuples.report
+				? <NavigatorHeaderButton
+					tooltip={{
+						label: Lang.CONSOLE.CONNECTED_SPACE.OPEN_REPORT,
+						alignment: TooltipAlignment.RIGHT,
+						offsetX: 4
+					}}
+					onClick={onOpenReportClicked}>
+					<FontAwesomeIcon icon={ICON_EDIT}/>
 				</NavigatorHeaderButton>
 				: null}
 			<NavigatorHeaderButton
@@ -88,14 +102,14 @@ export const Navigator = (props: { connectedSpace: ConnectedSpace }) => {
 				<FontAwesomeIcon icon={ICON_CLOSE}/>
 			</NavigatorHeaderButton>
 		</NavigatorHeader>
-		{tuple != null && isTopic(tuple)
-			? <TopicBody topic={tuple}/>
+		{tuples != null && tuples.topic
+			? <TopicBody topic={tuples.topic}/>
 			: null}
-		{tuple != null && isSubject(tuple)
-			? <SubjectBody connectedSpace={connectedSpace} subject={tuple}/>
+		{tuples != null && tuples.subject && !tuples.report
+			? <SubjectBody connectedSpace={connectedSpace} subject={tuples.subject}/>
 			: null}
-		{tuple != null && isReport(tuple)
-			? <ReportBody report={tuple}/>
+		{tuples != null && tuples.report
+			? <ReportBody report={tuples.report}/>
 			: null}
 	</NavigatorContainer>;
 };

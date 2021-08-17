@@ -222,6 +222,7 @@ export const Jp = {
 			CREATE_REPORT: '始める',
 			NO_REPORT_2: 'か？',
 			NO_MORE_REPORT: 'これ以上のレポートは存在しません.',
+			OPEN_REPORT: 'レポートを開く',
 			SWITCH_REPORT: 'レポートを切り替える',
 			SWITCH_REPORT_DIALOG_LABEL: 'レポートを選択してください',
 			DELETE_REPORT_DIALOG_LABEL: 'レポートを削除してもよろしいですか？ 削除したものは復元できませんので、ご注意ください。',

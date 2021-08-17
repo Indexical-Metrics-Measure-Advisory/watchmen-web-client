@@ -174,17 +174,20 @@ const CatalogBody = (props: { connectedSpace: ConnectedSpace }) => {
 				fire(CatalogEventTypes.TOPIC_SELECTED, topicGraphicsMap.get(topicId)!.topic);
 				break;
 			case GraphicsRole.SUBJECT_FRAME:
-			case GraphicsRole.SUBJECT_NAME:
+			case GraphicsRole.SUBJECT_NAME: {
 				const subjectRect = element.parentElement! as unknown as SVGGElement;
 				const subjectId = subjectRect.getAttribute('data-subject-id')!;
 				fire(CatalogEventTypes.SUBJECT_SELECTED, subjectGraphicsMap.get(subjectId)!.subject);
 				break;
+			}
 			case GraphicsRole.REPORT_FRAME:
-			case GraphicsRole.REPORT_NAME:
+			case GraphicsRole.REPORT_NAME: {
 				const reportRect = element.parentElement! as unknown as SVGGElement;
+				const subjectId = reportRect.getAttribute('data-subject-id')!;
 				const reportId = reportRect.getAttribute('data-report-id')!;
-				fire(CatalogEventTypes.REPORT_SELECTED, reportGraphicsMap.get(reportId)!.report);
+				fire(CatalogEventTypes.REPORT_SELECTED, subjectGraphicsMap.get(subjectId)!.subject, reportGraphicsMap.get(reportId)!.report);
 				break;
+			}
 			default:
 				clearSelection();
 				break;
@@ -205,16 +208,21 @@ const CatalogBody = (props: { connectedSpace: ConnectedSpace }) => {
 				})}
 				{connectedSpace.subjects.map(subject => {
 					const subjectGraphics = subjectGraphicsMap.get(subject.subjectId)!;
-					return <SubjectRect connectedSpace={connectedSpace} subject={subjectGraphics} key={subject.subjectId}/>;
+					return <SubjectRect connectedSpace={connectedSpace} subject={subjectGraphics}
+					                    key={subject.subjectId}/>;
 				})}
-				{connectedSpace.subjects.map(subject => subject.reports)
-					.filter(x => !!x).flat().map(report => {
+				{connectedSpace.subjects.map(subject => {
+					return (subject.reports || []).filter(x => !!x).map(report => {
 						if (!report) {
 							return null;
 						}
 						const reportGraphics = reportGraphicsMap.get(report.reportId)!;
-						return <ReportRect report={reportGraphics} key={report.reportId}/>;
-					})}
+						return <ReportRect connectedSpace={connectedSpace}
+						                   subject={subject}
+						                   report={reportGraphics}
+						                   key={report.reportId}/>;
+					});
+				}).flat()}
 				<BlockSelection graphics={data.graphics}/>
 			</CatalogSvg>
 			<CatalogSvgRelationsAnimationContainer>

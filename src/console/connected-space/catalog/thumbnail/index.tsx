@@ -87,14 +87,17 @@ export const Thumbnail = (props: {
 				const subjectGraphics = subjectGraphicsMap.get(subject.subjectId)!;
 				return <SubjectRect connectedSpace={connectedSpace} subject={subjectGraphics} key={subject.subjectId}/>;
 			})}
-			{connectedSpace.subjects.map(subject => subject.reports)
-				.filter(x => !!x).flat().map(report => {
+			{connectedSpace.subjects.map(subject => {
+				return (subject.reports || []).filter(x => !!x).map(report => {
 					if (!report) {
 						return null;
 					}
 					const reportGraphics = reportGraphicsMap.get(report.reportId)!;
-					return <ReportRect report={reportGraphics} key={report.reportId}/>;
-				})}
+					return <ReportRect connectedSpace={connectedSpace} subject={subject}
+					                   report={reportGraphics}
+					                   key={report.reportId}/>;
+				});
+			}).flat()}
 			<BlockSelection graphics={data.graphics}/>
 		</ThumbnailBodySvg>}
 		{min ? null : <Current ratio={ratio}/>}

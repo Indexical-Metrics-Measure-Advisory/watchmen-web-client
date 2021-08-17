@@ -222,6 +222,7 @@ export const En = {
 			CREATE_REPORT: 'create one',
 			NO_REPORT_2: '?',
 			NO_MORE_REPORT: 'No more report exists.',
+			OPEN_REPORT: 'Open Report',
 			SWITCH_REPORT: 'Switch Report',
 			SWITCH_REPORT_DIALOG_LABEL: 'Please select report',
 			DELETE_REPORT_DIALOG_LABEL: 'Are you sure to delete report? Please note that deletion cannot be recovered.',
