@@ -77,8 +77,7 @@ export const HeaderDeleteReportButton = (props: { connectedSpace: ConnectedSpace
 		}
 	};
 	const onDeleteClicked = () => {
-		fireGlobal(EventTypes.SHOW_DIALOG,
-			<ReportDelete report={report} onRemoved={onDeleted}/>);
+		fireGlobal(EventTypes.SHOW_DIALOG, <ReportDelete report={report} onRemoved={onDeleted}/>);
 	};
 
 	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.DELETE_ME} onClick={onDeleteClicked}>

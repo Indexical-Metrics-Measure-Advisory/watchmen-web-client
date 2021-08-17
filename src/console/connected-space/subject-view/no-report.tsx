@@ -1,6 +1,5 @@
 import React from 'react';
 import {Lang} from '../../../langs';
-import {SubjectNoReport, SubjectNoReportCreateButton} from '../report-view/widgets';
 import {createReport} from '../../utils/tuples';
 import {EventTypes} from '../../../events/types';
 import {saveNewReport} from '../../../services/tuples/report';
@@ -9,6 +8,7 @@ import {Subject} from '../../../services/tuples/subject-types';
 import {ConnectedSpace} from '../../../services/tuples/connected-space-types';
 import {toSubjectReport} from '../../../routes/utils';
 import {useHistory} from 'react-router-dom';
+import {SubjectNoReport, SubjectNoReportCreateButton} from './widgets';
 
 export const NoReport = (props: { connectedSpace: ConnectedSpace; subject: Subject }) => {
 	const {connectedSpace, subject} = props;

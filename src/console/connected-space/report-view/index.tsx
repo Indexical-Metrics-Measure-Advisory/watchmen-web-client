@@ -20,13 +20,6 @@ export const ReportView = (props: {
 		<ReportEventBusProvider>
 			<ReportHeader connectedSpace={connectedSpace} subject={subject} report={report}/>
 			<ReportWorkbench connectedSpace={connectedSpace} subject={subject} report={report} editable={editable}/>
-			{/*<SubjectReportContainer>*/}
-			{/*	{hasReport*/}
-			{/*		? subject.reports?.map(report => {*/}
-			{/*			return <SubjectReport connectedSpace={connectedSpace} subject={subject} report={report}*/}
-			{/*			                      editable={editable} removable={removable}*/}
-			{/*			                      key={report.reportId}/>;*/}
-			{/*		})*/}
 			<ReportRefresher report={report}/>
 		</ReportEventBusProvider>
 	</ReportViewEventBusProvider>;

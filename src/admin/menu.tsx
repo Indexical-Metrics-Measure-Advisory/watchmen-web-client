@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {matchPath, useHistory, useLocation} from 'react-router-dom';
 import styled from 'styled-components';
 import {
@@ -65,11 +65,22 @@ const AdminMenuContainer = styled.div.attrs<{ width: number }>(({width}) => {
 export const AdminMenu = () => {
 	const history = useHistory();
 	const location = useLocation();
-	const {fire} = useEventBus();
+	const {on, off, fire} = useEventBus();
 	const [menuWidth, setMenuWidth] = useState(SIDE_MENU_MIN_WIDTH);
+	useEffect(() => {
+		const onAskMenuWidth = () => {
+			fire(EventTypes.REPLY_SIDE_MENU_WIDTH, menuWidth);
+		};
+		on(EventTypes.ASK_SIDE_MENU_WIDTH, onAskMenuWidth);
+		return () => {
+			off(EventTypes.ASK_SIDE_MENU_WIDTH, onAskMenuWidth);
+		};
+	}, [on, off, fire, menuWidth]);
 
 	const onResize = (newWidth: number) => {
-		setMenuWidth(Math.min(Math.max(newWidth, SIDE_MENU_MIN_WIDTH), SIDE_MENU_MAX_WIDTH));
+		const width = Math.min(Math.max(newWidth, SIDE_MENU_MIN_WIDTH), SIDE_MENU_MAX_WIDTH);
+		setMenuWidth(width);
+		fire(EventTypes.SIDE_MENU_RESIZED, width);
 	};
 	const onMenuClicked = (path: string) => () => {
 		if (!matchPath(location.pathname, path)) {

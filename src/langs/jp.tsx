@@ -41,6 +41,7 @@ export const Jp = {
 		BUTTON_NO: 'いいえ'
 	},
 	ACTIONS: {
+		SAVE: '保存します',
 		COPY: 'コピー',
 		CLOSE: '閉じる',
 		CANCEL: '取消',

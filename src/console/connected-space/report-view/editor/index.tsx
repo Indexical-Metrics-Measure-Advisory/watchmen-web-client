@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {ConnectedSpace} from '../../../../services/tuples/connected-space-types';
 import {Report} from '../../../../services/tuples/report-types';
 import {Subject} from '../../../../services/tuples/subject-types';
@@ -6,34 +6,31 @@ import {ChartPart} from './chart-part';
 import {ReportEditEventBusProvider} from './report-edit-event-bus';
 import {ReportSettings} from './settings';
 import {EditorContainer} from './widgets';
+import {useReportViewEventBus} from '../report-view-event-bus';
+import {ReportViewEventTypes} from '../report-view-event-bus-types';
 
-export const ReportEditor = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
-	const {connectedSpace, subject, report} = props;
+export const ReportEditor = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report, editable: boolean }) => {
+	const {connectedSpace, subject, report, editable} = props;
 
-	// const {on, off} = useReportEventBus();
-	// useEffect(() => {
-	// 	const onEdit = (report: Report) => {
-	// 		if (!(subject.reports || []).includes(report)) {
-	// 			return;
-	// 		}
-	// 		// setReport(report);
-	// 	};
-	// 	const onEditCompleted = (completedReport: Report) => {
-	// 		// if (report === completedReport) {
-	// 		// 	setReport(null);
-	// 		// }
-	// 	};
-	// 	on(ReportEventTypes.DO_EDIT, onEdit);
-	// 	on(ReportEventTypes.EDIT_COMPLETED, onEditCompleted);
-	// 	return () => {
-	// 		off(ReportEventTypes.DO_EDIT, onEdit);
-	// 		off(ReportEventTypes.EDIT_COMPLETED, onEditCompleted);
-	// 	};
-	// }, [on, off, subject.reports]);
+	const {on: onView, off: offView} = useReportViewEventBus();
+	const [datasetVisible, setDatasetVisible] = useState(false);
+	useEffect(() => {
+		const onShowDataset = (aReport: Report, shown: boolean) => {
+			if (aReport !== report) {
+				return;
+			}
+			setDatasetVisible(shown);
+		};
+
+		onView(ReportViewEventTypes.SHOW_DATASET, onShowDataset);
+		return () => {
+			offView(ReportViewEventTypes.SHOW_DATASET, onShowDataset);
+		};
+	}, [onView, offView, report]);
 
 	return <ReportEditEventBusProvider>
-		<EditorContainer>
-			<ReportSettings connectedSpace={connectedSpace} subject={subject} report={report}/>
+		<EditorContainer datasetVisible={datasetVisible} editable={editable}>
+			{editable ? <ReportSettings connectedSpace={connectedSpace} subject={subject} report={report}/> : null}
 			<ChartPart report={report}/>
 		</EditorContainer>
 	</ReportEditEventBusProvider>;

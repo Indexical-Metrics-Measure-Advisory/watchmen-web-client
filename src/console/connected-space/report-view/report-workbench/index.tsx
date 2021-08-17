@@ -5,9 +5,10 @@ import {ConnectedSpace} from '../../../../services/tuples/connected-space-types'
 import {ReportEditor} from '../editor';
 
 export const ReportWorkbench = (props: { connectedSpace: ConnectedSpace; subject: Subject; report: Report; editable: boolean }) => {
-	const {connectedSpace, subject, report} = props;
+	const {connectedSpace, subject, report, editable} = props;
 
 	return <WorkbenchContainer>
-		<ReportEditor connectedSpace={connectedSpace} subject={subject} report={report}/>
+		<ReportEditor connectedSpace={connectedSpace} subject={subject} report={report}
+		              editable={editable}/>
 	</WorkbenchContainer>;
 };

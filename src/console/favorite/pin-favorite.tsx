@@ -20,6 +20,8 @@ import {
 	PinFavoriteTitle,
 	UnpinFavoriteButton
 } from './widgets';
+import {useEventBus} from '../../events/event-bus';
+import {EventTypes} from '../../events/types';
 
 interface ScrollState {
 	scrollable: boolean;
@@ -45,7 +47,8 @@ export const PinFavorite = (props: {
 }) => {
 	const {state} = props;
 
-	const {on, off, fire} = useConsoleEventBus();
+	const {on: onGlobal, off: offGlobal} = useEventBus();
+	const {fire} = useConsoleEventBus();
 	const bodyRef = useRef<HTMLDivElement>(null);
 	const [menuWidth, setMenuWidth] = useState(SIDE_MENU_MIN_WIDTH);
 	const [scrollState, setScrollState] = useState<ScrollState>({
@@ -58,11 +61,11 @@ export const PinFavorite = (props: {
 		const onSideMenuResized = (width: number) => {
 			setMenuWidth(width);
 		};
-		on(ConsoleEventTypes.SIDE_MENU_RESIZED, onSideMenuResized);
+		onGlobal(EventTypes.SIDE_MENU_RESIZED, onSideMenuResized);
 		return () => {
-			off(ConsoleEventTypes.SIDE_MENU_RESIZED, onSideMenuResized);
+			offGlobal(EventTypes.SIDE_MENU_RESIZED, onSideMenuResized);
 		};
-	}, [on, off]);
+	}, [onGlobal, offGlobal]);
 
 	const onUnpinClicked = async () => {
 		fire(ConsoleEventTypes.UNPIN_FAVORITE);

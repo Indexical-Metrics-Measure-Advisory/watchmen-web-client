@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {matchPath, useHistory, useLocation} from 'react-router-dom';
 import styled from 'styled-components';
 import {
@@ -80,15 +80,24 @@ const ConsoleMenuContainer = styled.div.attrs<{ width: number }>(({width}) => {
 export const ConsoleMenu = () => {
 	const history = useHistory();
 	const location = useLocation();
-	const {fire: fireGlobal} = useEventBus();
+	const {on: onGlobal, off: offGlobal, fire: fireGlobal} = useEventBus();
 	const {once, fire} = useConsoleEventBus();
 	const [menuWidth, setMenuWidth] = useState(SIDE_MENU_MIN_WIDTH);
 	const onConnectSpaceClicked = useConnectSpace();
+	useEffect(() => {
+		const onAskMenuWidth = () => {
+			fireGlobal(EventTypes.REPLY_SIDE_MENU_WIDTH, menuWidth);
+		};
+		onGlobal(EventTypes.ASK_SIDE_MENU_WIDTH, onAskMenuWidth);
+		return () => {
+			offGlobal(EventTypes.ASK_SIDE_MENU_WIDTH, onAskMenuWidth);
+		};
+	}, [onGlobal, offGlobal, fireGlobal, menuWidth]);
 
 	const onResize = (newWidth: number) => {
 		const width = Math.min(Math.max(newWidth, SIDE_MENU_MIN_WIDTH), SIDE_MENU_MAX_WIDTH);
 		setMenuWidth(width);
-		fire(ConsoleEventTypes.SIDE_MENU_RESIZED, width);
+		fireGlobal(EventTypes.SIDE_MENU_RESIZED, width);
 	};
 	const onMenuClicked = (path: string) => () => {
 		if (!matchPath(location.pathname, path)) {

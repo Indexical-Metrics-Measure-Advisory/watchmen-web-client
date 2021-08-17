@@ -1,6 +1,6 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useRef, useState} from 'react';
-import {ICON_DELETE, ICON_DRAG_HANDLE, ICON_LOADING, ICON_SETTINGS} from '../basic-widgets/constants';
+import {ICON_DELETE, ICON_DRAG_HANDLE, ICON_LOADING} from '../basic-widgets/constants';
 import {useForceUpdate} from '../basic-widgets/utils';
 import {fetchChartData, fetchChartDataTemporary} from '../services/console/report';
 import {ChartDataSet} from '../services/tuples/chart-types';
@@ -50,17 +50,6 @@ export const Container = (props: {
 				setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
 			})();
 		}
-		const onEditCompleted = (completedReport: Report, changed: boolean, shouldReloadData: boolean) => {
-			if (report !== completedReport && !changed) {
-				return;
-			}
-			if (shouldReloadData) {
-				// state change will lead data reload, see codes above.
-				setDiagramState({loaded: DiagramLoadState.FALSE});
-			} else {
-				forceUpdate();
-			}
-		};
 		const onDoReloadDataOnEditing = (editReport: Report) => {
 			if (report !== editReport || !editing) {
 				return;
@@ -75,11 +64,9 @@ export const Container = (props: {
 			// force reload data
 			setDiagramState({loaded: DiagramLoadState.FALSE});
 		};
-		on(ReportEventTypes.EDIT_COMPLETED, onEditCompleted);
 		on(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onDoReloadDataOnEditing);
 		on(ReportEventTypes.DO_REFRESH, onDoRefresh);
 		return () => {
-			off(ReportEventTypes.EDIT_COMPLETED, onEditCompleted);
 			off(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onDoReloadDataOnEditing);
 			off(ReportEventTypes.DO_REFRESH, onDoRefresh);
 		};
@@ -97,7 +84,6 @@ export const Container = (props: {
 		onDrop
 	});
 
-	const onEditClicked = () => fire(ReportEventTypes.DO_EDIT, report);
 	const onRemoveClicked = () => fire(ReportEventTypes.DO_DELETE_REPORT, report);
 
 	return <ChartContainer rect={report.rect} fixed={fixed} ref={containerRef}>
@@ -126,11 +112,6 @@ export const Container = (props: {
 					</ChartDragHandlePart>
 					{editable || removable
 						? <ChartButtons>
-							{editable
-								? <ChartButton onClick={onEditClicked}>
-									<FontAwesomeIcon icon={ICON_SETTINGS}/>
-								</ChartButton>
-								: null}
 							{removable
 								? <ChartButton onClick={onRemoveClicked}>
 									<FontAwesomeIcon icon={ICON_DELETE}/>

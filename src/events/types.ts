@@ -22,6 +22,10 @@ export enum EventTypes {
 	HIDE_DIALOG = 'hide-dialog',
 	SHOW_YES_NO_DIALOG = 'show-yes-no-dialog',
 
+	SIDE_MENU_RESIZED = 'side-menu-resized',
+	ASK_SIDE_MENU_WIDTH = 'ask-side-menu-width',
+	REPLY_SIDE_MENU_WIDTH = 'reply-side-menu-width',
+
 	INVOKE_REMOTE_REQUEST = 'invoke-remote-request'
 }
 
@@ -96,6 +100,17 @@ export interface EventBus {
 	fire(type: EventTypes.SHOW_YES_NO_DIALOG, question: string, onYes: () => void, onNo: () => void): this;
 	on(type: EventTypes.SHOW_YES_NO_DIALOG, listener: (question: string, onYes: () => void, onNo: () => void) => void): this;
 	off(type: EventTypes.SHOW_YES_NO_DIALOG, listener: (question: string, onYes: () => void, onNo: () => void) => void): this;
+
+	fire(type: EventTypes.SIDE_MENU_RESIZED, width: number): this;
+	on(type: EventTypes.SIDE_MENU_RESIZED, listener: (width: number) => void): this;
+	off(type: EventTypes.SIDE_MENU_RESIZED, listener: (width: number) => void): this;
+
+	fire(type: EventTypes.ASK_SIDE_MENU_WIDTH): this;
+	on(type: EventTypes.ASK_SIDE_MENU_WIDTH, listener: () => void): this;
+	off(type: EventTypes.ASK_SIDE_MENU_WIDTH, listener: () => void): this;
+
+	fire(type: EventTypes.REPLY_SIDE_MENU_WIDTH, width: number): this;
+	once(type: EventTypes.REPLY_SIDE_MENU_WIDTH, listener: (width: number) => void): this;
 
 	fire(type: EventTypes.INVOKE_REMOTE_REQUEST, request: () => Promise<any>, success: (data?: any) => void, failure?: (error?: any) => void): this;
 	on(type: EventTypes.INVOKE_REMOTE_REQUEST, listener: (request: () => Promise<any>, success: (data?: any) => void, failure?: (error?: any) => void) => void): this;

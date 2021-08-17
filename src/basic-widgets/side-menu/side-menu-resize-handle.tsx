@@ -24,26 +24,26 @@ const Handle = styled.div.attrs<HandleState>(({top = 0, left, resizing, alignmen
 		}
 	};
 })<HandleState>`
-	display          : block;
-	position         : fixed;
-	height           : 100vh;
-	z-index          : ${SIDE_MENU_RESIZE_HANDLE_Z_INDEX};
-	background-color : transparent;
+	display: block;
+	position: fixed;
+	height: 100vh;
+	z-index: ${SIDE_MENU_RESIZE_HANDLE_Z_INDEX};
+	background-color: transparent;
 	&:before {
-		content          : '';
-		display          : block;
-		position         : relative;
-		width            : ${SIDE_MENU_RESIZE_HANDLE_WIDTH}px;
-		height           : 100%;
-		background-color : var(--primary-color);
-		opacity          : 0;
-		transition       : opacity 300ms ease-in-out;
-		pointer-events   : none;
+		content: '';
+		display: block;
+		position: relative;
+		width: ${SIDE_MENU_RESIZE_HANDLE_WIDTH}px;
+		height: 100%;
+		background-color: var(--primary-color);
+		opacity: 0;
+		transition: opacity 300ms ease-in-out;
+		pointer-events: none;
 	}
 	&:hover {
 		&:before {
-			pointer-events : auto;
-			opacity        : 0.3;
+			pointer-events: auto;
+			opacity: 0.3;
 		}
 	}
 `;

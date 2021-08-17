@@ -41,6 +41,7 @@ export const Zh = {
 		BUTTON_NO: '否'
 	},
 	ACTIONS: {
+		SAVE: '保存',
 		COPY: '复制',
 		CLOSE: '关闭',
 		CANCEL: '取消',

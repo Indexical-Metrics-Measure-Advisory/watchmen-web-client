@@ -41,6 +41,7 @@ export const En = {
 		BUTTON_NO: 'No'
 	},
 	ACTIONS: {
+		SAVE: 'Save',
 		COPY: 'Copy',
 		CLOSE: 'Close',
 		CANCEL: 'Cancel',
