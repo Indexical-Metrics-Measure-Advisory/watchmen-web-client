@@ -13,9 +13,8 @@ export const ReportView = (props: {
 	subject: Subject;
 	report: Report;
 	editable?: boolean;
-	removable?: boolean;
 }) => {
-	const {connectedSpace, subject, report, editable = true, removable = true} = props;
+	const {connectedSpace, subject, report, editable = true} = props;
 
 	return <ReportViewEventBusProvider>
 		<ReportEventBusProvider>
@@ -29,8 +28,6 @@ export const ReportView = (props: {
 			{/*			                      key={report.reportId}/>;*/}
 			{/*		})*/}
 			<ReportRefresher report={report}/>
-			{/*</SubjectReportContainer>*/}
-			{/*{transient ? null : <ReportEditor connectedSpace={connectedSpace} subject={subject}/>}*/}
 		</ReportEventBusProvider>
 	</ReportViewEventBusProvider>;
 };

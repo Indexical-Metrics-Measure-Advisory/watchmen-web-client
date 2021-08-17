@@ -7,7 +7,7 @@ export const EditorContainer = styled.div.attrs({'data-widget': 'report-editor'}
 	top                   : 0;
 	width                 : 100%;
 	max-height            : ${BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR};
-	grid-template-columns : 1fr auto;
+	grid-template-columns : auto 1fr;
 	background-color      : var(--bg-color);
 	overflow              : hidden;
 `;

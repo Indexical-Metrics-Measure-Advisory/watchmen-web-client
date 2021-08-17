@@ -54,7 +54,6 @@ export const SettingsSaver = (props: { report: Report }) => {
 			}
 		};
 		on(ReportEditEventTypes.SIZE_CHANGED, onStyleChanged);
-		on(ReportEditEventTypes.NAME_CHANGED, onStyleChanged);
 		on(ReportEditEventTypes.DESCRIPTION_CHANGED, onStyleChanged);
 
 		on(ReportEditEventTypes.BASIC_STYLE_CHANGED, onStyleChanged);
@@ -85,7 +84,6 @@ export const SettingsSaver = (props: { report: Report }) => {
 
 		return () => {
 			off(ReportEditEventTypes.SIZE_CHANGED, onStyleChanged);
-			off(ReportEditEventTypes.NAME_CHANGED, onStyleChanged);
 			off(ReportEditEventTypes.DESCRIPTION_CHANGED, onStyleChanged);
 
 			off(ReportEditEventTypes.BASIC_STYLE_CHANGED, onStyleChanged);

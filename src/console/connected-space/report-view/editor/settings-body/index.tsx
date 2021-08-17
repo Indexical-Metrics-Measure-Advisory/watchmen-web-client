@@ -20,7 +20,6 @@ import {EChartsYAxisSettings} from '../echarts/yaxis';
 import {IndicatorsSection} from '../indicators';
 import {ToolboxSection} from '../toolbox';
 import {ChartTypeEditor} from './chart-type';
-import {NamePropEditor} from './name-prop';
 import {SettingsBodyContainer} from './widgets';
 
 export const SettingsBody = (props: { subject: Subject, report: Report }) => {
@@ -45,7 +44,6 @@ export const SettingsBody = (props: { subject: Subject, report: Report }) => {
 	}, [on, off]);
 
 	return <SettingsBodyContainer favoritePin={favoritePin}>
-		<NamePropEditor report={report}/>
 		<ChartTypeEditor report={report}/>
 		<IndicatorsSection subject={subject} report={report}/>
 		<DimensionsSection subject={subject} report={report}/>

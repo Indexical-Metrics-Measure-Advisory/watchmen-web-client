@@ -1,7 +1,6 @@
 import {Report, ReportDimension, ReportIndicator} from '../../../../services/tuples/report-types';
 
 export enum ReportEditEventTypes {
-	NAME_CHANGED = 'name-changed',
 	DESCRIPTION_CHANGED = 'description-changed',
 	SIZE_CHANGED = 'size-changed',
 	BASIC_STYLE_CHANGED = 'basic-style-changed',
@@ -35,165 +34,107 @@ export enum ReportEditEventTypes {
 }
 
 export interface ReportEditEventBus {
-	fire(type: ReportEditEventTypes.NAME_CHANGED, report: Report): this;
-
-	on(type: ReportEditEventTypes.NAME_CHANGED, listener: (report: Report) => void): this;
-
-	off(type: ReportEditEventTypes.NAME_CHANGED, listener: (report: Report) => void): this;
-
 	fire(type: ReportEditEventTypes.DESCRIPTION_CHANGED, report: Report): this;
-
 	on(type: ReportEditEventTypes.DESCRIPTION_CHANGED, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.DESCRIPTION_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.SIZE_CHANGED, report: Report): this;
-
 	on(type: ReportEditEventTypes.SIZE_CHANGED, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.SIZE_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.BASIC_STYLE_CHANGED, report: Report): this;
-
 	on(type: ReportEditEventTypes.BASIC_STYLE_CHANGED, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.BASIC_STYLE_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.TOOLBOX_CHANGED, report: Report): this;
-
 	on(type: ReportEditEventTypes.TOOLBOX_CHANGED, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.TOOLBOX_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, report: Report): this;
-
 	on(type: ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.CHART_COUNT_STYLE_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.CHART_BAR_STYLE_CHANGED, report: Report): this;
-
 	on(type: ReportEditEventTypes.CHART_BAR_STYLE_CHANGED, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.CHART_BAR_STYLE_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.CHART_PIE_STYLE_CHANGED, report: Report): this;
-
 	on(type: ReportEditEventTypes.CHART_PIE_STYLE_CHANGED, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.CHART_PIE_STYLE_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.CHART_TREE_STYLE_CHANGED, report: Report): this;
-
 	on(type: ReportEditEventTypes.CHART_TREE_STYLE_CHANGED, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.CHART_TREE_STYLE_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.CHART_TREEMAP_STYLE_CHANGED, report: Report): this;
-
 	on(type: ReportEditEventTypes.CHART_TREEMAP_STYLE_CHANGED, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.CHART_TREEMAP_STYLE_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.CHART_MAP_STYLE_CHANGED, report: Report): this;
-
 	on(type: ReportEditEventTypes.CHART_MAP_STYLE_CHANGED, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.CHART_MAP_STYLE_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.ECHART_TITLE_CHANGED, report: Report): this;
-
 	on(type: ReportEditEventTypes.ECHART_TITLE_CHANGED, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.ECHART_TITLE_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.ECHART_LEGEND_CHANGED, report: Report): this;
-
 	on(type: ReportEditEventTypes.ECHART_LEGEND_CHANGED, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.ECHART_LEGEND_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.ECHART_GRID_CHANGED, report: Report): this;
-
 	on(type: ReportEditEventTypes.ECHART_GRID_CHANGED, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.ECHART_GRID_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.ECHART_LABEL_CHANGED, report: Report): this;
-
 	on(type: ReportEditEventTypes.ECHART_LABEL_CHANGED, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.ECHART_LABEL_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.ECHART_XAXIS_CHANGED, report: Report): this;
-
 	on(type: ReportEditEventTypes.ECHART_XAXIS_CHANGED, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.ECHART_XAXIS_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.ECHART_YAXIS_CHANGED, report: Report): this;
-
 	on(type: ReportEditEventTypes.ECHART_YAXIS_CHANGED, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.ECHART_YAXIS_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.CHART_TYPE_CHANGED, report: Report): this;
-
 	on(type: ReportEditEventTypes.CHART_TYPE_CHANGED, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.CHART_TYPE_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.DIMENSION_CHANGED, report: Report, dimension: ReportDimension): this;
-
 	on(type: ReportEditEventTypes.DIMENSION_CHANGED, listener: (report: Report, dimension: ReportDimension) => void): this;
-
 	off(type: ReportEditEventTypes.DIMENSION_CHANGED, listener: (report: Report, dimension: ReportDimension) => void): this;
 
 	fire(type: ReportEditEventTypes.DIMENSION_ADDED, report: Report, dimension: ReportDimension): this;
-
 	on(type: ReportEditEventTypes.DIMENSION_ADDED, listener: (report: Report, dimension: ReportDimension) => void): this;
-
 	off(type: ReportEditEventTypes.DIMENSION_ADDED, listener: (report: Report, dimension: ReportDimension) => void): this;
 
 	fire(type: ReportEditEventTypes.DIMENSION_REMOVED, report: Report, dimension: ReportDimension): this;
-
 	on(type: ReportEditEventTypes.DIMENSION_REMOVED, listener: (report: Report, dimension: ReportDimension) => void): this;
-
 	off(type: ReportEditEventTypes.DIMENSION_REMOVED, listener: (report: Report, dimension: ReportDimension) => void): this;
 
 	fire(type: ReportEditEventTypes.INDICATOR_CHANGED, report: Report, indicator: ReportIndicator): this;
-
 	on(type: ReportEditEventTypes.INDICATOR_CHANGED, listener: (report: Report, indicator: ReportIndicator) => void): this;
-
 	off(type: ReportEditEventTypes.INDICATOR_CHANGED, listener: (report: Report, indicator: ReportIndicator) => void): this;
 
 	fire(type: ReportEditEventTypes.INDICATOR_ADDED, report: Report, indicator: ReportIndicator): this;
-
 	on(type: ReportEditEventTypes.INDICATOR_ADDED, listener: (report: Report, indicator: ReportIndicator) => void): this;
-
 	off(type: ReportEditEventTypes.INDICATOR_ADDED, listener: (report: Report, indicator: ReportIndicator) => void): this;
 
 	fire(type: ReportEditEventTypes.INDICATOR_REMOVED, report: Report, indicator: ReportIndicator): this;
-
 	on(type: ReportEditEventTypes.INDICATOR_REMOVED, listener: (report: Report, indicator: ReportIndicator) => void): this;
-
 	off(type: ReportEditEventTypes.INDICATOR_REMOVED, listener: (report: Report, indicator: ReportIndicator) => void): this;
 
 	fire(type: ReportEditEventTypes.EDIT_COMPLETED, report: Report): this;
-
 	on(type: ReportEditEventTypes.EDIT_COMPLETED, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.EDIT_COMPLETED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.EXPAND_ALL_SECTIONS, report: Report): this;
-
 	on(type: ReportEditEventTypes.EXPAND_ALL_SECTIONS, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.EXPAND_ALL_SECTIONS, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.COLLAPSE_ALL_SECTIONS, report: Report): this;
-
 	on(type: ReportEditEventTypes.COLLAPSE_ALL_SECTIONS, listener: (report: Report) => void): this;
-
 	off(type: ReportEditEventTypes.COLLAPSE_ALL_SECTIONS, listener: (report: Report) => void): this;
 }
