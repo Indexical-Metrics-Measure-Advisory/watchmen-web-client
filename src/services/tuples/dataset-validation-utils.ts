@@ -217,6 +217,9 @@ const isValueValid = (value: string, type: ValueType): boolean => {
  */
 const isConstantParameterValid = (parameter: ConstantParameter, expectedTypes: ValueTypes, array: boolean): boolean => {
 	const value = (parameter.value || '').trim();
+	if (/^.*{.+}.*$/.test(value)) {
+		return true;
+	}
 	let check = (type: ValueType) => isValueValid(value, type);
 	if (array) {
 		const values = value.split(',').map(x => x.trim());
