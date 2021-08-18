@@ -6,7 +6,7 @@ export const MySQLFactorTypeMap: { [key in FactorType]: string } = {
 	[FactorType.NUMBER]: 'DECIMAL(32,6)',
 	[FactorType.UNSIGNED]: 'DECIMAL(32,6)',
 
-	[FactorType.TEXT]: 'VARCHAR(1024)',
+	[FactorType.TEXT]: 'VARCHAR(255)',
 
 	// address
 	[FactorType.ADDRESS]: 'TEXT',
