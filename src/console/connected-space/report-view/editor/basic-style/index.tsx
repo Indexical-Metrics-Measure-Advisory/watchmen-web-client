@@ -45,14 +45,14 @@ export const BasicStyleSection = (props: { report: Report }) => {
 	};
 	const onBasicStyleValueChange = () => {
 		fire(ReportEditEventTypes.BASIC_STYLE_CHANGED, report);
-		forceUpdate()
+		forceUpdate();
 	};
 
 	const supportDecal = isBarChart(chart) || isPieChart(chart) || isDoughnutChart(chart) || isNightingaleChart(chart) || isSunburstChart(chart);
 	const theme = getCurrentTheme();
 
 	return <>
-		<Section title={'Palette'}>
+		<Section title={Lang.CHART.SECTION_TITLE_BASIC_STYLE}>
 			<NumberValue label={Lang.CHART.WIDTH} unitLabel={Lang.CHART.PIXEL}
 			             value={rect.width}
 			             placeholder={'1 - 9999'}
@@ -81,8 +81,6 @@ export const BasicStyleSection = (props: { report: Report }) => {
 					                done: onBasicStyleValueChange
 				                })}/>
 				: null}
-		</Section>
-		<Section title={'Palette Border'}>
 			<DropdownValue label={Lang.CHART.BORDER_STYLE} options={BorderStyleOptions}
 			               value={report.chart.settings?.border?.style} defaultValue={ChartBorderStyle.NONE}
 			               onValueChange={onDropdownValueChange({

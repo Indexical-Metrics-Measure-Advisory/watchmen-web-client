@@ -22,7 +22,7 @@ export const SettingsContainer = styled.div.attrs<{ width?: number }>(({width}) 
 export const SettingsHeader = styled.div.attrs({'data-widget': 'report-editor-settings-header'})`
 	display: flex;
 	position: relative;
-	min-height: var(--header-height);
+	min-height: calc(var(--height) * 2);
 	height: calc(var(--height) * 2);
 	align-items: center;
 	justify-content: space-between;

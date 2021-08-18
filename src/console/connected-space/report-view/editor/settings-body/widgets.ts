@@ -16,5 +16,5 @@ export const SettingsBodyContainer = styled.div.attrs<{ favoritePin: boolean }>(
 	grid-column-gap: calc(var(--margin) / 2);
 	align-content: start;
 	overflow-y: auto;
-	height: calc(${BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR} - var(--header-height));
+	height: calc(${BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR} - var(--height) * 2);
 `;

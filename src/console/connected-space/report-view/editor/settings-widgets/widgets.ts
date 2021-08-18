@@ -118,16 +118,6 @@ export const PropValueUnit = styled.div.attrs({'data-widget': 'chart-settings-pr
 	overflow: hidden;
 	opacity: 0.7;
 	pointer-events: none;
-	//&:before {
-	//	content: '';
-	//	display: block;
-	//	position: absolute;
-	//	top: 30%;
-	//	left: 0;
-	//	width: 1px;
-	//	height: 40%;
-	//	background-color: var(--border-color);
-	//}
 `;
 export const PropValueInput = styled(Input)`
 	flex-grow: 1;
