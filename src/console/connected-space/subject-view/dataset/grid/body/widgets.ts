@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {TITLE_HEIGHT} from '../../constants';
 
-export const GridWrapperContainer = styled.div.attrs({'data-widget': 'subject-dataset-grid-wrapper'})`
+export const GridWrapperContainer = styled.div.attrs({'data-widget': 'subject-dataset-and-palette-grid-wrapper'})`
 	display  : flex;
 	position : absolute;
 	top      : ${TITLE_HEIGHT}px;
@@ -21,7 +21,7 @@ export const GridWrapperContainer = styled.div.attrs({'data-widget': 'subject-da
 export const RowSelection = styled.div
 	.attrs<{ index: number, top: number, height: number, scroll: number }>(({index, top, height, scroll}) => {
 		return {
-			'data-widget': 'subject-dataset-grid-row-selection',
+			'data-widget': 'subject-dataset-and-palette-grid-row-selection',
 			style: {
 				display: index === -1 ? 'none' : 'block',
 				top,
@@ -43,7 +43,7 @@ export const ColumnSelection = styled.div
 		({index, left, width, height, scroll}
 		) => {
 			return {
-				'data-widget': 'subject-dataset-grid-column-selection',
+				'data-widget': 'subject-dataset-and-palette-grid-column-selection',
 				style: {
 					display: index !== -1 ? 'block' : 'none',
 					left,

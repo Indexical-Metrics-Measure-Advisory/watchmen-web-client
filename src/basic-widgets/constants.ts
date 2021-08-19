@@ -60,6 +60,7 @@ import {
 	faLock,
 	faLockOpen,
 	faObjectGroup,
+	faPalette,
 	faPaperPlane,
 	faParagraph,
 	faPercentage,
@@ -224,6 +225,7 @@ export const ICON_SUBJECT_DEF = faLayerGroup;
 export const ICON_SUBJECT_DATA = faTh;
 export const ICON_SUBJECT_REPORT = faChartPie;
 export const ICON_REPORT_DATA = faTh;
+export const ICON_PALETTE = faPalette;
 export const ICON_UPLOAD = faUpload;
 export const ICON_ROW_PREPEND_ON_RIGHT = faLevelUpAlt;
 export const ICON_CLOSE = faTimes;

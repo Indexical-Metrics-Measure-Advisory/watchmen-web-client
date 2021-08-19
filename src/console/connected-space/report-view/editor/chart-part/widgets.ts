@@ -7,27 +7,31 @@ export const EditChartContainer = styled.div.attrs({
 	'data-v-scroll': '',
 	'data-h-scroll': ''
 })`
-	display         : flex;
-	position        : relative;
-	align-items     : center;
-	justify-content : center;
-	overflow        : auto;
-	max-height      : ${BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR};
+	display: flex;
+	position: relative;
+	align-items: center;
+	justify-content: center;
+	overflow: auto;
+	max-height: ${BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR};
 `;
-export const ChartWrapper = styled.div.attrs<{ rect: ReportRect }>(({rect: {width, height}}) => {
-	return {
-		'data-widget': 'report-chart-wrapper',
-		// even border is applied, still use original width and height
-		// since echarts detect size including border width.
-		style: {width, height}
-	};
-})<{ rect: ReportRect }>`
-	display       : block;
-	position      : absolute;
-	border-radius : var(--border-radius);
-	box-shadow    : var(--param-border);
-	overflow      : auto;
+export const ChartWrapper = styled.div.attrs<{ rect: ReportRect, applyRect: boolean }>(
+	({rect: {width, height}, applyRect}) => {
+		return {
+			'data-widget': 'report-chart-wrapper',
+			// even border is applied, still use original width and height
+			// since echarts detect size including border width.
+			style: {
+				width: applyRect ? width : '100%',
+				height: applyRect ? height : '100%'
+			}
+		};
+	})<{ rect: ReportRect, applyRect: boolean }>`
+	display: block;
+	position: absolute;
+	//border-radius: var(--border-radius);
+	box-shadow: var(--param-border);
+	overflow: auto;
 	&:hover {
-		box-shadow : var(--hover-shadow);
+		box-shadow: var(--hover-shadow);
 	}
 `;

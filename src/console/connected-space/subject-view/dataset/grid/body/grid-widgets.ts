@@ -13,7 +13,7 @@ export const GridContainer = styled.div
 		({columns, autoFill}) => {
 			const fixTableWidth = columns.reduce((width, column) => width + column.width, 0);
 			return {
-				'data-widget': 'subject-dataset-grid',
+				'data-widget': 'subject-dataset-and-palette-grid',
 				'data-v-scroll': '',
 				'data-h-scroll': '',
 				style: {
@@ -65,7 +65,7 @@ export const GridContainer = styled.div
 export const GridHeader = styled.div
 	.attrs<GridProps>(({columns, autoFill}) => {
 		return {
-			'data-widget': 'subject-dataset-grid-header',
+			'data-widget': 'subject-dataset-and-palette-grid-header',
 			style: {
 				// each data column hold 2 physical columns, the first is show data, the second is for show drag placeholder
 				gridTemplateColumns: autoFill ? `0 ${columns.map(def => `${def.width}px 0`).join(' ')} minmax(${FILLER_MIN_WIDTH}px, 1fr)` : `0 ${columns.map(def => `${def.width}px 0`).join(' ')}`
@@ -84,7 +84,7 @@ export const GridHeader = styled.div
 export const GridHeaderCell = styled.div
 	.attrs<{ column: number, filler?: true }>(({column, filler}) => {
 		return {
-			'data-widget': 'subject-dataset-grid-header-cell',
+			'data-widget': 'subject-dataset-and-palette-grid-header-cell',
 			style: {
 				gridColumn: column,
 				borderRightColor: filler ? 'transparent' : 'var(--border-color)'
@@ -134,7 +134,7 @@ export const GridHeaderCell = styled.div
 	}
 `;
 export const GridHeaderCellButtons = styled.div.attrs({
-	'data-widget': 'subject-dataset-grid-header-cell-buttons'
+	'data-widget': 'subject-dataset-and-palette-grid-header-cell-buttons'
 })`
 	display          : flex;
 	position         : absolute;
@@ -159,7 +159,7 @@ export const GridHeaderCellButton = styled(TooltipButton)`
 export const GridBody = styled.div
 	.attrs<GridProps>(({columns, autoFill}) => {
 		return {
-			'data-widget': 'subject-dataset-grid-body',
+			'data-widget': 'subject-dataset-and-palette-grid-body',
 			style: {
 				// each data column hold 2 physical columns, the first is show data, the second is for show drag placeholder
 				gridTemplateColumns: autoFill ? `0 ${columns.map(def => `${def.width}px 0`).join(' ')} minmax(${FILLER_MIN_WIDTH}px, 1fr)` : `0 ${columns.map(def => `${def.width}px 0`).join(' ')}`
@@ -175,7 +175,7 @@ export const GridBody = styled.div
 export const GridBodyCell = styled.div
 	.attrs<{ lastRow: boolean, column: number, filler?: true }>(({lastRow, column, filler}) => {
 		return {
-			'data-widget': 'subject-dataset-grid-body-cell',
+			'data-widget': 'subject-dataset-and-palette-grid-body-cell',
 			style: {
 				gridColumn: column,
 				borderBottom: lastRow ? 0 : 'var(--border)',

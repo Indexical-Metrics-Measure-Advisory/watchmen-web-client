@@ -19,6 +19,8 @@ import {SettingsSaver} from './settings-saver';
 import {SettingsContainer, SettingsHeader, SettingsHeaderButton, SettingsHeaderTitle} from './widgets';
 import {useEventBus} from '../../../../../events/event-bus';
 import {EventTypes} from '../../../../../events/types';
+import {ReportViewEventTypes} from '../../report-view-event-bus-types';
+import {useReportViewEventBus} from '../../report-view-event-bus';
 
 interface ResizeHandleState {
 	width: number;
@@ -29,10 +31,12 @@ export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject:
 	const {subject, report} = props;
 
 	const {once: onceGlobal, on: onGlobal, off: offGlobal} = useEventBus();
+	const {on: onView, off: offView} = useReportViewEventBus();
 	const {fire} = useReportEditEventBus();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [sideMenuWidth, setSideMenuWidth] = useState(0);
 	const [resizeState, setResizeState] = useState<ResizeHandleState>({top: 0, width: CHART_SETTINGS_MIN_WIDTH});
+	const [visible, setVisible] = useState(true);
 	useEffect(() => {
 		if (containerRef.current) {
 			const {top, width} = containerRef.current.getBoundingClientRect();
@@ -51,6 +55,20 @@ export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject:
 			offGlobal(EventTypes.SIDE_MENU_RESIZED, onSideMenuResized);
 		};
 	}, [onGlobal, offGlobal]);
+	useEffect(() => {
+		const onShowSettings = () => {
+			setVisible(true);
+		};
+		const onHideSettings = () => {
+			setVisible(false);
+		};
+		onView(ReportViewEventTypes.SHOW_SETTINGS, onShowSettings);
+		onView(ReportViewEventTypes.HIDE_SETTINGS, onHideSettings);
+		return () => {
+			offView(ReportViewEventTypes.SHOW_SETTINGS, onShowSettings);
+			offView(ReportViewEventTypes.HIDE_SETTINGS, onHideSettings);
+		};
+	}, [onView, offView]);
 
 	const onExpandAllClicked = () => fire(ReportEditEventTypes.EXPAND_ALL_SECTIONS, report);
 	const onCollapseAllClicked = () => fire(ReportEditEventTypes.COLLAPSE_ALL_SECTIONS, report);
@@ -62,7 +80,7 @@ export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject:
 	};
 
 	return <>
-		<SettingsContainer width={resizeState.width} ref={containerRef}>
+		<SettingsContainer visible={visible} width={resizeState.width} ref={containerRef}>
 			<SettingsHeader>
 				<SettingsHeaderTitle>{Lang.CHART.SETTINGS_HEADER_LABEL}</SettingsHeaderTitle>
 				<SettingsHeaderButton
@@ -86,8 +104,10 @@ export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject:
 			</SettingsHeader>
 			<SettingsBody subject={subject} report={report}/>
 		</SettingsContainer>
-		<SettingsResizeHandle top={resizeState.top} width={resizeState.width + sideMenuWidth} onResize={onResize}
-		                      alignment={ResizeHandleAlignment.LEFT}/>
+		{visible
+			? <SettingsResizeHandle top={resizeState.top} width={resizeState.width + sideMenuWidth} onResize={onResize}
+			                        alignment={ResizeHandleAlignment.LEFT}/>
+			: null}
 		<SettingsSaver report={report}/>
 	</>;
 };

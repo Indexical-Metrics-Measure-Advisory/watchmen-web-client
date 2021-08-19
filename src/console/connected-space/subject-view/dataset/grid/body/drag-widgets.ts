@@ -15,7 +15,7 @@ export const DragColumnContainer = styled.div
 	) => {
 		const rotate = Math.max(-10, Math.min(10, movementX / 10));
 		return {
-			'data-widget': 'subject-dataset-grid-drag-column',
+			'data-widget': 'subject-dataset-and-palette-grid-drag-column',
 			style: {
 				display: visible ? (void 0) : 'none',
 				top: -1,
@@ -49,13 +49,13 @@ export const DragColumnContainer = styled.div
 		z-index          : 2;
 	}
 `;
-export const DragColumnHeader = styled.div.attrs({'data-widget': 'subject-dataset-grid-drag-column-header'})`
+export const DragColumnHeader = styled.div.attrs({'data-widget': 'subject-dataset-and-palette-grid-drag-column-header'})`
 	display     : flex;
 	align-items : stretch;
 	min-height  : ${HEADER_HEIGHT + 1}px;
 	z-index     : 1;
 `;
-export const DragColumnHeaderCell = styled.div.attrs({'data-widget': 'subject-dataset-grid-drag-column-header-cell'})`
+export const DragColumnHeaderCell = styled.div.attrs({'data-widget': 'subject-dataset-and-palette-grid-drag-column-header-cell'})`
 	display          : flex;
 	position         : relative;
 	align-items      : center;
@@ -74,7 +74,7 @@ export const DragColumnHeaderCell = styled.div.attrs({'data-widget': 'subject-da
 `;
 export const DragColumnBody = styled.div.attrs<{ firstRowOffsetY: number }>(({firstRowOffsetY}) => {
 	return {
-		'data-widget': 'subject-dataset-grid-drag-column-body',
+		'data-widget': 'subject-dataset-and-palette-grid-drag-column-body',
 		style: {marginTop: 0 - firstRowOffsetY}
 	};
 })<{ firstRowOffsetY: number }>`
@@ -83,7 +83,7 @@ export const DragColumnBody = styled.div.attrs<{ firstRowOffsetY: number }>(({fi
 	align-items    : stretch;
 	grid-auto-rows : ${ROW_HEIGHT}px;
 `;
-export const DragColumnBodyCell = styled.div.attrs({'data-widget': 'subject-dataset-grid-drag-column-body-cell'})`
+export const DragColumnBodyCell = styled.div.attrs({'data-widget': 'subject-dataset-and-palette-grid-drag-column-body-cell'})`
 	display          : flex;
 	position         : relative;
 	align-items      : center;

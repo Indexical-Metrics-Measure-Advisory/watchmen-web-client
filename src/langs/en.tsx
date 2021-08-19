@@ -140,10 +140,10 @@ export const En = {
 		CONNECTED_SPACE: {
 			CATALOG: 'Catalog',
 			SUBJECT_DEF: 'Definition',
-			SUBJECT_DATA: 'DataSet',
+			SUBJECT_DATA: 'Dataset',
 			SUBJECT_REPORTS: 'Reports',
 			SUBJECT_REPORT: 'Report',
-			REPORT_DATA: 'DataSet',
+			REPORT_DATA: 'Dataset',
 			SHARE: 'Share',
 			PRINT: 'Print',
 			REFRESH: 'Refresh',

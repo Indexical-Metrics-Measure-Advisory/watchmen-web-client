@@ -6,8 +6,8 @@ import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {ChartWrapper, EditChartContainer} from './widgets';
 
-export const ChartPart = (props: { report: Report }) => {
-	const {report} = props;
+export const ChartPart = (props: { report: Report, applyRect?: boolean }) => {
+	const {report, applyRect = true} = props;
 
 	const {on, off} = useReportEditEventBus();
 	const forceUpdate = useForceUpdate();
@@ -51,7 +51,7 @@ export const ChartPart = (props: { report: Report }) => {
 	}, [on, off, forceUpdate]);
 
 	return <EditChartContainer>
-		<ChartWrapper rect={report.rect}>
+		<ChartWrapper rect={report.rect} applyRect={applyRect}>
 			<Chart report={report} fixed={true} editable={false} removable={false}
 			       editing={true}/>
 		</ChartWrapper>

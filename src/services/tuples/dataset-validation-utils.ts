@@ -213,7 +213,7 @@ const isValueValid = (value: string, type: ValueType): boolean => {
 	}
 };
 /**
- * constant parameter in dataset doesn't support {} syntax, just check value
+ * constant parameter in dataset-and-palette doesn't support {} syntax, just check value
  */
 const isConstantParameterValid = (parameter: ConstantParameter, expectedTypes: ValueTypes, array: boolean): boolean => {
 	const value = (parameter.value || '').trim();

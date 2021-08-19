@@ -2,19 +2,27 @@ import styled from 'styled-components';
 import {CHART_SETTINGS_MAX_WIDTH, CHART_SETTINGS_MIN_WIDTH} from '../../../../../basic-widgets/constants';
 import {TooltipButton} from '../../../../../basic-widgets/tooltip-button';
 
-export const SettingsContainer = styled.div.attrs<{ width?: number }>(({width}) => {
+export const SettingsContainer = styled.div.attrs<{ visible: boolean, width?: number }>(({visible, width}) => {
 	return {
 		'data-widget': 'report-editor-settings',
-		style: {width: width || CHART_SETTINGS_MIN_WIDTH}
+		style: {
+			width: visible ? (width || CHART_SETTINGS_MIN_WIDTH) : 0,
+			minWidth: visible ? (void 0) : 0,
+			maxWidth: visible ? (void 0) : 0,
+			overflow: visible ? (void 0) : 'hidden',
+			borderRight: visible ? (void 0) : 0
+		}
 	};
-})<{ width?: number }>`
+})<{ visible: boolean, width?: number }>`
 	display: flex;
 	flex-direction: column;
 	position: relative;
+	grid-row: 1 / span 2;
 	border-right: var(--border);
 	min-width: ${CHART_SETTINGS_MIN_WIDTH}px;
 	max-width: ${CHART_SETTINGS_MAX_WIDTH}px;
 	height: 100%;
+	transition: min-width 300ms ease-in-out, max-width 300ms ease-in-out;
 	@media print {
 		display: none;
 	}
@@ -30,6 +38,9 @@ export const SettingsHeader = styled.div.attrs({'data-widget': 'report-editor-se
 	//font-family: var(--title-font-family);
 	font-weight: var(--font-demi-bold);
 	font-size: 1.2em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	&:after {
 		content: '';
 		display: block;

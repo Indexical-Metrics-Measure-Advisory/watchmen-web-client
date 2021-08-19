@@ -7,6 +7,7 @@ import {Report} from '../../../services/tuples/report-types';
 import {ReportHeader} from './header';
 import {ReportViewEventBusProvider} from './report-view-event-bus';
 import {ReportRefresher} from './refresher';
+import {ReportPartController} from './part-controller';
 
 export const ReportView = (props: {
 	connectedSpace: ConnectedSpace;
@@ -21,6 +22,7 @@ export const ReportView = (props: {
 			<ReportHeader connectedSpace={connectedSpace} subject={subject} report={report}/>
 			<ReportWorkbench connectedSpace={connectedSpace} subject={subject} report={report} editable={editable}/>
 			<ReportRefresher report={report}/>
+			<ReportPartController report={report}/>
 		</ReportEventBusProvider>
 	</ReportViewEventBusProvider>;
 };

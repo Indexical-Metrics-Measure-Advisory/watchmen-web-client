@@ -87,13 +87,13 @@ export const Apis = {
 	SUBJECT_RENAME: "console_space/subject/rename?subject_id=:subjectId&name=:name",
 	SUBJECT_DELETE: "console_space/subject/delete?subject_id=:subjectId",
 	SUBJECT_SHARE: "subject/share", // TODO
-	SUBJECT_DATA: "console_space/subject/dataset?subject_id=:subjectId",
+	SUBJECT_DATA: "console_space/subject/dataset-and-palette?subject_id=:subjectId",
 
 	REPORT_CREATE: "console_space/subject/report/save?subject_id=:subjectId",
 	REPORT_SAVE: "console_space/subject/report/update",
 	REPORT_DELETE: "console_space/subject/report/delete?report_id=:reportId",
-	REPORT_TEMPORARY: "console_space/dataset/chart/temporary",
-	REPORT_DATA: "console_space/dataset/chart?report_id=:reportId",
+	REPORT_TEMPORARY: "console_space/dataset-and-palette/chart/temporary",
+	REPORT_DATA: "console_space/dataset-and-palette/chart?report_id=:reportId",
 
 	DASHBOARD_SHARE: "dashboard/share", // TODO
 	DASHBOARD_MINE: "dashboard/me",
