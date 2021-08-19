@@ -27,6 +27,10 @@ export const Jp = {
 		REPORT_DATASET_GRID_REFRESH: '更新',
 		REPORT_DATASET_GRID_DOWNLOAD: 'ダウンロード'
 	},
+	STANDARD: {
+		YES: 'はい',
+		NO: 'いいえ'
+	},
 	ERROR: {
 		UNAUTHORIZED: '権限がありません。ログインしてください。',
 		ACCESS_DENIED: 'アクセスが拒否されました。詳細については、管理者にお問い合わせください。',
@@ -137,6 +141,7 @@ export const Jp = {
 			CATALOG: 'カタログ',
 			SUBJECT_DEF: '主題を定義する',
 			SUBJECT_DATA: 'データセット',
+			SUBJECT_REPORTS: 'レポート一覧',
 			SUBJECT_REPORT: 'レポート',
 			REPORT_DATA: 'データセット',
 			SHARE: '共有',
@@ -362,6 +367,10 @@ export const Jp = {
 		SECTION_TITLE_BASIC_STYLE: '基本スタイル',
 		SECTION_TITLE_DIMENSIONS: 'ディメンション',
 		SECTION_TITLE_INDICATORS: '指標',
+		SECTION_TITLE_FILTERS: 'フィルタ',
+		DIMENSIONS: 'ディメンション',
+		INDICATORS: '指標',
+		FILTERS: 'フィルタ',
 		NAME: '名称',
 		DESCRIPTION: '説明',
 		WIDTH: '幅',

@@ -30,6 +30,6 @@ export const HeaderReportNameEditor = (props: { connectedSpace: ConnectedSpace, 
 	};
 
 	return <PageTitleEditor title={report.name}
-	                        defaultTitle={language.PLAIN.DEFAULT_SUBJECT_NAME}
+	                        defaultTitle={language.PLAIN.DEFAULT_REPORT_NAME}
 	                        onChange={onNameChange} onChangeComplete={onNameChangeComplete}/>;
 };

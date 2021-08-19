@@ -27,6 +27,10 @@ export const En = {
 		REPORT_DATASET_GRID_REFRESH: 'Refresh',
 		REPORT_DATASET_GRID_DOWNLOAD: 'Download'
 	},
+	STANDARD: {
+		YES: 'Yes',
+		NO: 'No'
+	},
 	ERROR: {
 		UNAUTHORIZED: 'Unauthorized now, login please.',
 		ACCESS_DENIED: 'Access denied, contact administrator for more information.',
@@ -137,6 +141,7 @@ export const En = {
 			CATALOG: 'Catalog',
 			SUBJECT_DEF: 'Definition',
 			SUBJECT_DATA: 'DataSet',
+			SUBJECT_REPORTS: 'Reports',
 			SUBJECT_REPORT: 'Report',
 			REPORT_DATA: 'DataSet',
 			SHARE: 'Share',
@@ -362,6 +367,10 @@ export const En = {
 		SECTION_TITLE_BASIC_STYLE: 'Basic Style',
 		SECTION_TITLE_DIMENSIONS: 'Dimensions',
 		SECTION_TITLE_INDICATORS: 'Indicators',
+		SECTION_TITLE_FILTERS: 'Filters',
+		DIMENSIONS: 'Dimensions',
+		INDICATORS: 'Indicators',
+		FILTERS: 'Filters',
 		NAME: 'Name',
 		DESCRIPTION: 'Description',
 		WIDTH: 'Width',

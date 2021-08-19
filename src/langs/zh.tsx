@@ -27,6 +27,10 @@ export const Zh = {
 		REPORT_DATASET_GRID_REFRESH: '刷新',
 		REPORT_DATASET_GRID_DOWNLOAD: '下载'
 	},
+	STANDARD: {
+		YES: '是',
+		NO: '否'
+	},
 	ERROR: {
 		UNAUTHORIZED: '没有权限进行本操作, 请先登录系统.',
 		ACCESS_DENIED: '没有权限进行本操作, 请联系管理员以获取帮助.',
@@ -137,6 +141,7 @@ export const Zh = {
 			CATALOG: '目录',
 			SUBJECT_DEF: '设置主题',
 			SUBJECT_DATA: '主题数据',
+			SUBJECT_REPORTS: '图表列表',
 			SUBJECT_REPORT: '图表',
 			REPORT_DATA: '图表数据',
 			SHARE: '分享',
@@ -362,6 +367,10 @@ export const Zh = {
 		SECTION_TITLE_BASIC_STYLE: '基本样式',
 		SECTION_TITLE_DIMENSIONS: '统计维度',
 		SECTION_TITLE_INDICATORS: '统计指标',
+		SECTION_TITLE_FILTERS: '过滤器',
+		DIMENSIONS: '统计维度',
+		INDICATORS: '统计指标',
+		FILTERS: '过滤器',
 		NAME: '名称',
 		DESCRIPTION: '描述',
 		WIDTH: '宽度',

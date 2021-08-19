@@ -99,5 +99,5 @@ export const isFakedUuid = (tuple: Tuple): boolean => {
 };
 
 export const prettifyDateTimeToMinute = (datetime?: string) => {
-	return datetime ? dayjs(datetime).format('YYYY/MM/DD HH:mm') : '';
+	return datetime ? dayjs(datetime).format('YYYY/M/DD H:m') : '';
 };

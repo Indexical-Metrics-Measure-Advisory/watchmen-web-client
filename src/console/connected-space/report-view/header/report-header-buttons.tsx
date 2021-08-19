@@ -11,12 +11,14 @@ import {HeaderPrintButton} from './header-print-button';
 import {Report} from '../../../../services/tuples/report-types';
 import {HeaderManualRefreshButton} from './header-manual-refresh-button';
 import {HeaderSaveReportButton} from './header-save-report-buttton';
+import {HeaderSubjectButton} from '../../header/header-subject-button';
 
 export const ReportHeaderButtons = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
 	const {connectedSpace, subject, report} = props;
 
 	return <PageHeaderButtons>
 		<HeaderCatalogButton connectedSpace={connectedSpace}/>
+		<HeaderSubjectButton connectedSpace={connectedSpace} subject={subject}/>
 		<PageHeaderButtonSeparator/>
 		<HeaderSaveReportButton connectedSpace={connectedSpace} subject={subject} report={report}/>
 		<HeaderAddReportButton connectedSpace={connectedSpace} subject={subject}/>

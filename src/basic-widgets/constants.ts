@@ -43,6 +43,7 @@ import {
 	faFileCsv,
 	faFileExport,
 	faFileImport,
+	faFilter,
 	faGlobe,
 	faGripVertical,
 	faHandSparkles,
@@ -69,6 +70,7 @@ import {
 	faQuestionCircle,
 	faRandom,
 	faRobot,
+	faRulerCombined,
 	faSave,
 	faSearch,
 	faShare,
@@ -84,6 +86,7 @@ import {
 	faTachometerAlt,
 	faTags,
 	faTasks,
+	faTenge,
 	faTerminal,
 	faTh,
 	faThumbtack,
@@ -165,6 +168,9 @@ export const ICON_FACTOR = faList;
 export const ICON_ENUM = faStream;
 export const ICON_REPORT = faChartBar;
 export const ICON_PARAGRAPH = faParagraph;
+export const ICON_INDICATOR = faTenge;
+export const ICON_DIMENSION = faRulerCombined;
+export const ICON_FILTER = faFilter;
 export const ICON_CSV = faFileCsv;
 export const ICON_AS_ADMIN_HOME = faLaptopHouse;
 export const ICON_PIPELINE = faWaveSquare;

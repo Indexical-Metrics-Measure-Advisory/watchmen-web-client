@@ -13,6 +13,7 @@ import {SubjectDataSet} from './dataset';
 import {SubjectDef} from './def';
 import {isSubjectDefNow} from './header/utils';
 import {NoReport} from './no-report';
+import {ReportList} from './report-list';
 
 export const SubjectBodyRouter = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const {connectedSpace, subject} = props;
@@ -57,7 +58,7 @@ export const SubjectBodyRouter = (props: { connectedSpace: ConnectedSpace, subje
 				if ((subject.reports || []).length === 0) {
 					return <NoReport connectedSpace={connectedSpace} subject={subject}/>;
 				} else {
-					return <Redirect to={toSubjectDef(connectedSpace.connectId, subject.subjectId)}/>;
+					return <ReportList connectedSpace={connectedSpace} subject={subject}/>;
 				}
 			}}
 		</Route>

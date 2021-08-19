@@ -1,6 +1,7 @@
 import {GraphicsPosition, GraphicsSize} from '../graphics/graphics-types';
 import {Chart} from './chart-types';
 import {Tuple} from './tuple-types';
+import {ParameterCondition, ParameterExpression, ParameterJoint} from './factor-calculator-types';
 
 export enum ReportIndicatorArithmetic {
 	NONE = 'none',
@@ -23,6 +24,17 @@ export interface ReportDimension {
 	name: string;
 }
 
+/** filter */
+export interface ReportFilter extends ParameterCondition {
+}
+
+export interface ReportFilterJoint extends ReportFilter, ParameterJoint {
+	filters: Array<ReportFilter>;
+}
+
+export interface ReportFilterExpression extends ReportFilter, ParameterExpression {
+}
+
 export type ReportRect = GraphicsPosition & GraphicsSize;
 
 export interface Report extends Tuple {
@@ -30,6 +42,7 @@ export interface Report extends Tuple {
 	name: string;
 	indicators: Array<ReportIndicator>;
 	dimensions: Array<ReportDimension>;
+	filters?: ReportFilterJoint;
 	description?: string;
 	rect: ReportRect;
 	chart: Chart;
