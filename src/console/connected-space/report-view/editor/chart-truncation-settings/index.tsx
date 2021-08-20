@@ -45,12 +45,10 @@ export const ChartTruncationSettings = (props: { report: Report }) => {
 		fire(ReportEditEventTypes.CHART_PIE_STYLE_CHANGED, report);
 	};
 
-	return <>
-		<Section title={Lang.CHART.SECTION_TITLE_TRUNCATION}>
-			<TruncationSettings report={report} chart={chart}
-			                    getHolder={getTruncationHolder}
-			                    propNames={propNames.truncation}
-			                    onValueChange={onValueChange}/>
-		</Section>
-	</>;
+	return <Section title={Lang.CHART.SECTION_TITLE_TRUNCATION} defaultExpanded={true}>
+		<TruncationSettings report={report} chart={chart}
+		                    getHolder={getTruncationHolder}
+		                    propNames={propNames.truncation}
+		                    onValueChange={onValueChange}/>
+	</Section>;
 };

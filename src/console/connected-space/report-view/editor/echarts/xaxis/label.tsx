@@ -9,10 +9,10 @@ import {ReportEditEventTypes} from '../../report-edit-event-bus-types';
 import {BooleanValue} from '../../settings-widgets/boolean-value';
 import {ColorValue} from '../../settings-widgets/color-value';
 import {NumberValue} from '../../settings-widgets/number-value';
-import {SecondarySection} from '../../settings-widgets/secondary-section';
 import {AlignmentSettings, SettingsAlignmentPropNames} from '../alignment';
 import {BorderSettings, SettingsBorderPropNames} from '../border';
 import {FontSettings, SettingsFontPropNames} from '../font';
+import {TabBodySectionBody, TabBodySectionTitle} from '../../dataset-and-palette/widget';
 
 export const EChartsXAxisLabelSettings = (props: { report: Report, chart: ECharts }) => {
 	const {report, chart} = props;
@@ -46,69 +46,84 @@ export const EChartsXAxisLabelSettings = (props: { report: Report, chart: EChart
 		} as SettingsAlignmentPropNames
 	};
 
-	return <SecondarySection title={Lang.CHART.SECTION_TITLE_ECHART_XAXIS_LABEL}>
-		<BooleanValue label={Lang.CHART.SHOW}
-		              value={label?.show} defaultValue={true}
-		              onValueChange={onBooleanChange({
-			              report,
-			              chart,
-			              prop: EChartsXAxisPropNames.LABEL_SHOW,
-			              done: onValueChange
-		              })}/>
-		<BooleanValue label={Lang.CHART.AXIS_LABEL_INSIDE}
-		              value={label?.inside} defaultValue={false}
-		              onValueChange={onBooleanChange({
-			              report,
-			              chart,
-			              prop: EChartsXAxisPropNames.LABEL_INSIDE,
-			              done: onValueChange
-		              })}/>
-		<FontSettings report={report} chart={chart}
-		              getHolder={getNameHolder}
-		              propNames={propNames.font}
-		              onValueChange={onValueChange}/>
-		<ColorValue label={Lang.CHART.BACKGROUND_COLOR}
-		            value={label?.backgroundColor}
-		            onValueChange={onColorChange({
-			            report,
-			            chart,
-			            prop: EChartsXAxisPropNames.LABEL_BACKGROUND_COLOR,
-			            done: onValueChange
-		            })}/>
-		<AlignmentSettings report={report} chart={chart}
-		                   getHolder={getNameHolder}
-		                   propNames={propNames.alignment}
-		                   onValueChange={onValueChange}/>
-		<BorderSettings report={report} chart={chart}
-		                getHolder={getNameHolder}
-		                propNames={propNames.border}
-		                onValueChange={onValueChange}/>
-		<NumberValue label={Lang.CHART.AXIS_NAME_GAP} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 999'}
-		             value={label?.gap} defaultValue={0}
-		             validate={validateNumber(3)}
-		             onValueChange={onNumberChange({
-			             report,
-			             chart,
-			             prop: EChartsXAxisPropNames.LABEL_GAP,
-			             done: onValueChange
-		             })}/>
-		<NumberValue label={Lang.CHART.AXIS_NAME_ROTATE} unitLabel={Lang.CHART.DEGREE} placeholder={'-90 - 90'}
-		             value={label?.rotate}
-		             validate={isANumberAndInRange(-90, 90)}
-		             onValueChange={onNumberChange({
-			             report,
-			             chart,
-			             prop: EChartsXAxisPropNames.LABEL_ROTATE,
-			             done: onValueChange
-		             })}/>
-		<NumberValue label={Lang.CHART.PADDING} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 9999'}
-		             value={label?.padding} defaultValue={0}
-		             validate={validateNumber(4)}
-		             onValueChange={onNumberChange({
-			             report,
-			             chart,
-			             prop: EChartsXAxisPropNames.LABEL_PADDING,
-			             done: onValueChange
-		             })}/>
-	</SecondarySection>;
+	return <>
+		<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_ECHART_XAXIS_LABEL}</TabBodySectionTitle>
+		<TabBodySectionBody>
+			<BooleanValue label={Lang.CHART.SHOW}
+			              value={label?.show} defaultValue={true}
+			              onValueChange={onBooleanChange({
+				              report,
+				              chart,
+				              prop: EChartsXAxisPropNames.LABEL_SHOW,
+				              done: onValueChange
+			              })}/>
+			<BooleanValue label={Lang.CHART.AXIS_LABEL_INSIDE}
+			              value={label?.inside} defaultValue={false}
+			              onValueChange={onBooleanChange({
+				              report,
+				              chart,
+				              prop: EChartsXAxisPropNames.LABEL_INSIDE,
+				              done: onValueChange
+			              })}/>
+			<AlignmentSettings report={report} chart={chart}
+			                   getHolder={getNameHolder}
+			                   propNames={propNames.alignment}
+			                   onValueChange={onValueChange}/>
+		</TabBodySectionBody>
+		<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_ECHART_XAXIS_LABEL_FONT}</TabBodySectionTitle>
+		<TabBodySectionBody>
+			<FontSettings report={report} chart={chart}
+			              getHolder={getNameHolder}
+			              propNames={propNames.font}
+			              onValueChange={onValueChange}/>
+		</TabBodySectionBody>
+		<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_ECHART_XAXIS_LABEL_COLOR}</TabBodySectionTitle>
+		<TabBodySectionBody>
+			<ColorValue label={Lang.CHART.BACKGROUND_COLOR}
+			            value={label?.backgroundColor}
+			            onValueChange={onColorChange({
+				            report,
+				            chart,
+				            prop: EChartsXAxisPropNames.LABEL_BACKGROUND_COLOR,
+				            done: onValueChange
+			            })}/>
+		</TabBodySectionBody>
+		<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_ECHART_XAXIS_LABEL_BORDER}</TabBodySectionTitle>
+		<TabBodySectionBody>
+			<BorderSettings report={report} chart={chart}
+			                getHolder={getNameHolder}
+			                propNames={propNames.border}
+			                onValueChange={onValueChange}/>
+		</TabBodySectionBody>
+		<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_ECHART_XAXIS_LABEL_GAP_AND_PADDING}</TabBodySectionTitle>
+		<TabBodySectionBody>
+			<NumberValue label={Lang.CHART.AXIS_NAME_GAP} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 999'}
+			             value={label?.gap} defaultValue={0}
+			             validate={validateNumber(3)}
+			             onValueChange={onNumberChange({
+				             report,
+				             chart,
+				             prop: EChartsXAxisPropNames.LABEL_GAP,
+				             done: onValueChange
+			             })}/>
+			<NumberValue label={Lang.CHART.PADDING} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 9999'}
+			             value={label?.padding} defaultValue={0}
+			             validate={validateNumber(4)}
+			             onValueChange={onNumberChange({
+				             report,
+				             chart,
+				             prop: EChartsXAxisPropNames.LABEL_PADDING,
+				             done: onValueChange
+			             })}/>
+			<NumberValue label={Lang.CHART.AXIS_NAME_ROTATE} unitLabel={Lang.CHART.DEGREE} placeholder={'-90 - 90'}
+			             value={label?.rotate}
+			             validate={isANumberAndInRange(-90, 90)}
+			             onValueChange={onNumberChange({
+				             report,
+				             chart,
+				             prop: EChartsXAxisPropNames.LABEL_ROTATE,
+				             done: onValueChange
+			             })}/>
+		</TabBodySectionBody>
+	</>;
 };

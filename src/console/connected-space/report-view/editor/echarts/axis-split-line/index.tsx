@@ -16,7 +16,7 @@ import {BooleanValue} from '../../settings-widgets/boolean-value';
 import {ColorValue} from '../../settings-widgets/color-value';
 import {DropdownValue} from '../../settings-widgets/dropdown-value';
 import {NumberValue} from '../../settings-widgets/number-value';
-import {SecondarySection} from '../../settings-widgets/secondary-section';
+import {TabBodySectionBody, TabBodySectionTitle} from '../../dataset-and-palette/widget';
 
 export interface SettingsAxisSplitLinePropNames {
 	show: EChartsXAxisPropNames.SPLIT_LINE_SHOW
@@ -52,40 +52,43 @@ export const EChartsAxisSplitLineSettings = (props: {
 	const holder = getHolder(chart);
 	const splitLine = getSplitLine(holder);
 
-	return <SecondarySection title={title}>
-		<BooleanValue label={Lang.CHART.SHOW}
-		              value={splitLine?.show} defaultValue={defaultShow}
-		              onValueChange={onBooleanChange({
-			              report,
-			              chart,
-			              prop: propNames.show,
-			              done: onValueChange
-		              })}/>
-		<ColorValue label={Lang.CHART.LINE_COLOR}
-		            value={splitLine?.color}
-		            onValueChange={onColorChange({
-			            report,
-			            chart,
-			            prop: propNames.color,
-			            done: onValueChange
-		            })}/>
-		<NumberValue label={Lang.CHART.WIDTH} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 999'}
-		             value={splitLine?.width} defaultValue={0}
-		             validate={validateNumber(3)}
-		             onValueChange={onNumberChange({
-			             report,
-			             chart,
-			             prop: propNames.width,
-			             done: onValueChange
-		             })}/>
-		<DropdownValue label={Lang.CHART.LINE_STYLE}
-		               value={splitLine?.style} defaultValue={EChartsAxisSplitLineStyle.SOLID}
-		               options={AxisSplitLineStyleOptions}
-		               onValueChange={onDropdownValueChange({
-			               report,
-			               chart,
-			               prop: propNames.style,
-			               done: onValueChange
-		               })}/>
-	</SecondarySection>;
+	return <>
+		<TabBodySectionTitle>{title}</TabBodySectionTitle>
+		<TabBodySectionBody>
+			<BooleanValue label={Lang.CHART.SHOW}
+			              value={splitLine?.show} defaultValue={defaultShow}
+			              onValueChange={onBooleanChange({
+				              report,
+				              chart,
+				              prop: propNames.show,
+				              done: onValueChange
+			              })}/>
+			<ColorValue label={Lang.CHART.LINE_COLOR}
+			            value={splitLine?.color}
+			            onValueChange={onColorChange({
+				            report,
+				            chart,
+				            prop: propNames.color,
+				            done: onValueChange
+			            })}/>
+			<NumberValue label={Lang.CHART.WIDTH} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 999'}
+			             value={splitLine?.width} defaultValue={0}
+			             validate={validateNumber(3)}
+			             onValueChange={onNumberChange({
+				             report,
+				             chart,
+				             prop: propNames.width,
+				             done: onValueChange
+			             })}/>
+			<DropdownValue label={Lang.CHART.LINE_STYLE}
+			               value={splitLine?.style} defaultValue={EChartsAxisSplitLineStyle.SOLID}
+			               options={AxisSplitLineStyleOptions}
+			               onValueChange={onDropdownValueChange({
+				               report,
+				               chart,
+				               prop: propNames.style,
+				               done: onValueChange
+			               })}/>
+		</TabBodySectionBody>
+	</>;
 };

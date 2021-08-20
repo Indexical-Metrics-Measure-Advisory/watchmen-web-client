@@ -6,7 +6,14 @@ import {useReportViewEventBus} from '../../report-view-event-bus';
 import React, {useEffect, useState} from 'react';
 import {ReportViewEventTypes} from '../../report-view-event-bus-types';
 import {Lang} from '../../../../../langs';
-import {canHoldLegend, canHoldTitle, canUseGrid, isEChart} from '../../../../../services/tuples/echarts/echarts-utils';
+import {
+	canHoldLegend,
+	canHoldTitle,
+	canUseGrid,
+	canUseXAxis,
+	canUseYAxis,
+	isEChart
+} from '../../../../../services/tuples/echarts/echarts-utils';
 import {BasicStyleSection} from '../basic-style';
 import {TabBody} from './tab-body';
 import {EChartsTitleSettings} from '../echarts/title';
@@ -32,6 +39,8 @@ import {ChartPieSettings} from '../chart-pie-settings';
 import {ChartTreeSettings} from '../chart-tree-settings';
 import {ChartTreemapSettings} from '../chart-treemap-settings';
 import {ChartMapSettings} from '../chart-map-settings';
+import {EChartsXAxisSettings} from '../echarts/xaxis';
+import {EChartsYAxisSettings} from '../echarts/yaxis';
 
 enum TABS {
 	DATASET = 'dataset',
@@ -46,7 +55,10 @@ enum TABS {
 	PIE_SETTINGS = 'pie-settings',
 	TREE_SETTINGS = 'tree-settings',
 	TREEMAP_SETTINGS = 'treemap-settings',
-	MAP_SETTINGS = 'map-settings'
+	MAP_SETTINGS = 'map-settings',
+
+	X_AXIS = 'x-axis',
+	Y_AXIS = 'y-axis'
 }
 
 export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
@@ -113,66 +125,78 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 	// @ts-ignore
 	return <ReportDataSetAndPaletteContainer visible={visible}>
 		<TabHeaders>
-			<TabHeader active={activeTab === TABS.DATASET} zIndex={9999} onClick={onTabClicked(TABS.DATASET)}>
+			<TabHeader active={activeTab === TABS.DATASET} zIndex={100} onClick={onTabClicked(TABS.DATASET)}>
 				{Lang.CONSOLE.CONNECTED_SPACE.REPORT_DATA}
 			</TabHeader>
-			<TabHeader active={activeTab === TABS.BASIC_STYLE} zIndex={9998} onClick={onTabClicked(TABS.BASIC_STYLE)}>
+			<TabHeader active={activeTab === TABS.BASIC_STYLE} zIndex={90} onClick={onTabClicked(TABS.BASIC_STYLE)}>
 				{Lang.CHART.SECTION_TITLE_BASIC_STYLE}
 			</TabHeader>
 			{echart && holdTitle
-				? <TabHeader active={activeTab === TABS.TITLE} zIndex={9997} onClick={onTabClicked(TABS.TITLE)}>
+				? <TabHeader active={activeTab === TABS.TITLE} zIndex={81} onClick={onTabClicked(TABS.TITLE)}>
 					{Lang.CHART.SECTION_TITLE_ECHART_TITLE}
 				</TabHeader>
 				: null}
 			{echart && holdTitle
-				? <TabHeader active={activeTab === TABS.SUBTITLE} zIndex={9996} onClick={onTabClicked(TABS.SUBTITLE)}>
+				? <TabHeader active={activeTab === TABS.SUBTITLE} zIndex={80} onClick={onTabClicked(TABS.SUBTITLE)}>
 					{Lang.CHART.SECTION_TITLE_ECHART_SUBTITLE}
 				</TabHeader>
 				: null}
 			{echart && useGrid
-				? <TabHeader active={activeTab === TABS.GRID} zIndex={9995} onClick={onTabClicked(TABS.GRID)}>
+				? <TabHeader active={activeTab === TABS.GRID} zIndex={71} onClick={onTabClicked(TABS.GRID)}>
 					{Lang.CHART.SECTION_TITLE_ECHART_GRID}
 				</TabHeader>
 				: null}
 			{echart && holdLegend
-				? <TabHeader active={activeTab === TABS.LEGEND} zIndex={9994} onClick={onTabClicked(TABS.LEGEND)}>
+				? <TabHeader active={activeTab === TABS.LEGEND} zIndex={70} onClick={onTabClicked(TABS.LEGEND)}>
 					{Lang.CHART.SECTION_TITLE_ECHART_LEGEND}
 				</TabHeader>
 				: null}
 			{isCountChart(chart)
-				? <TabHeader active={activeTab === TABS.COUNT_SETTINGS} zIndex={9993}
+				? <TabHeader active={activeTab === TABS.COUNT_SETTINGS} zIndex={60}
 				             onClick={onTabClicked(TABS.COUNT_SETTINGS)}>
 					{Lang.CHART.SECTION_TITLE_COUNT_CHART}
 				</TabHeader>
 				: null}
 			{isBarChart(chart) || isLineChart(chart)
-				? <TabHeader active={activeTab === TABS.BAR_SETTINGS} zIndex={9992}
+				? <TabHeader active={activeTab === TABS.BAR_SETTINGS} zIndex={60}
 				             onClick={onTabClicked(TABS.BAR_SETTINGS)}>
 					{Lang.CHART.SECTION_TITLE_BAR_CHART}
 				</TabHeader>
 				: null}
 			{isPieChart(chart) || isDoughnutChart(chart) || isNightingaleChart(chart) || isSunburstChart(chart)
-				? <TabHeader active={activeTab === TABS.PIE_SETTINGS} zIndex={9991}
+				? <TabHeader active={activeTab === TABS.PIE_SETTINGS} zIndex={60}
 				             onClick={onTabClicked(TABS.PIE_SETTINGS)}>
 					{Lang.CHART.SECTION_TITLE_PIE_CHART}
 				</TabHeader>
 				: null}
 			{isTreeChart(chart)
-				? <TabHeader active={activeTab === TABS.TREE_SETTINGS} zIndex={9990}
+				? <TabHeader active={activeTab === TABS.TREE_SETTINGS} zIndex={60}
 				             onClick={onTabClicked(TABS.TREE_SETTINGS)}>
 					{Lang.CHART.SECTION_TITLE_TREE_CHART}
 				</TabHeader>
 				: null}
 			{isTreemapChart(chart)
-				? <TabHeader active={activeTab === TABS.TREEMAP_SETTINGS} zIndex={9989}
+				? <TabHeader active={activeTab === TABS.TREEMAP_SETTINGS} zIndex={60}
 				             onClick={onTabClicked(TABS.TREEMAP_SETTINGS)}>
 					{Lang.CHART.SECTION_TITLE_TREEMAP_CHART}
 				</TabHeader>
 				: null}
 			{isMapChart(chart)
-				? <TabHeader active={activeTab === TABS.MAP_SETTINGS} zIndex={9988}
+				? <TabHeader active={activeTab === TABS.MAP_SETTINGS} zIndex={60}
 				             onClick={onTabClicked(TABS.MAP_SETTINGS)}>
 					{Lang.CHART.SECTION_TITLE_MAP_CHART}
+				</TabHeader>
+				: null}
+			{echart && canUseXAxis(chart)
+				? <TabHeader active={activeTab === TABS.X_AXIS} zIndex={51}
+				             onClick={onTabClicked(TABS.X_AXIS)}>
+					{Lang.CHART.SECTION_TITLE_ECHART_XAXIS}
+				</TabHeader>
+				: null}
+			{echart && canUseYAxis(chart)
+				? <TabHeader active={activeTab === TABS.Y_AXIS} zIndex={50}
+				             onClick={onTabClicked(TABS.Y_AXIS)}>
+					{Lang.CHART.SECTION_TITLE_ECHART_YAXIS}
 				</TabHeader>
 				: null}
 		</TabHeaders>
@@ -208,6 +232,12 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 		</TabBody>
 		<TabBody subject={subject} report={report} active={activeTab === TABS.MAP_SETTINGS}>
 			<ChartMapSettings report={report}/>
+		</TabBody>
+		<TabBody subject={subject} report={report} active={activeTab === TABS.X_AXIS}>
+			<EChartsXAxisSettings report={report}/>
+		</TabBody>
+		<TabBody subject={subject} report={report} active={activeTab === TABS.Y_AXIS}>
+			<EChartsYAxisSettings report={report}/>
 		</TabBody>
 	</ReportDataSetAndPaletteContainer>;
 };

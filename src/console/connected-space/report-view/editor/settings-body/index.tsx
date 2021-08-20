@@ -5,8 +5,6 @@ import {useConsoleEventBus} from '../../../../console-event-bus';
 import {ConsoleEventTypes, FavoriteState} from '../../../../console-event-bus-types';
 import {ChartTruncationSettings} from '../chart-truncation-settings';
 import {DimensionsSection} from '../dimensions';
-import {EChartsXAxisSettings} from '../echarts/xaxis';
-import {EChartsYAxisSettings} from '../echarts/yaxis';
 import {IndicatorsSection} from '../indicators';
 import {ChartTypeEditor} from './chart-type';
 import {SettingsBodyContainer} from './widgets';
@@ -38,9 +36,6 @@ export const SettingsBody = (props: { subject: Subject, report: Report }) => {
 		<DimensionsSection subject={subject} report={report}/>
 
 		<ChartTruncationSettings report={report}/>
-
-		<EChartsXAxisSettings report={report}/>
-		<EChartsYAxisSettings report={report}/>
 		{/*<ToolboxSection report={report}/>*/}
 		{/*<DescriptionPropEditor report={report}/>*/}
 	</SettingsBodyContainer>;
