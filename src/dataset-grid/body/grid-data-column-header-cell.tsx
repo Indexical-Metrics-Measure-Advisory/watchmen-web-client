@@ -1,8 +1,8 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useRef} from 'react';
-import {ICON_FIX_COLUMN, ICON_SORT_ASC, ICON_SORT_DESC, ICON_UNFIX_COLUMN} from '../../../basic-widgets/constants';
-import {TooltipAlignment} from '../../../basic-widgets/types';
-import {Lang} from '../../../langs';
+import {ICON_FIX_COLUMN, ICON_SORT_ASC, ICON_SORT_DESC, ICON_UNFIX_COLUMN} from '../../basic-widgets/constants';
+import {TooltipAlignment} from '../../basic-widgets/types';
+import {Lang} from '../../langs';
 import {GridHeaderCell, GridHeaderCellButton, GridHeaderCellButtons} from './grid-widgets';
 import {DataColumnDef} from '../types';
 

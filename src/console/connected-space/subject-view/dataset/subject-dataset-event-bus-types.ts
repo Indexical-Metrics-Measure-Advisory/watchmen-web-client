@@ -1,4 +1,4 @@
-import {ColumnDefs, DataPage} from '../../../dataset-grid/types';
+import {ColumnDefs, DataPage} from '../../../../dataset-grid/types';
 
 export enum SubjectDataSetEventTypes {
 	COLUMN_DEFS_READY = 'column-defs-ready',

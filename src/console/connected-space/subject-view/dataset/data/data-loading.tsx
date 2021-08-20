@@ -9,7 +9,7 @@ import {DEFAULT_SUBJECT_DATASET_PAGE_SIZE} from '../constants';
 import {useSubjectDataSetEventBus} from '../subject-dataset-event-bus';
 import {SubjectDataSetEventTypes} from '../subject-dataset-event-bus-types';
 import {SubjectDataSetLoading} from '../widgets';
-import {ColumnDefs} from '../../../../dataset-grid/types';
+import {ColumnDefs} from '../../../../../dataset-grid/types';
 
 const fetchData = async (options: { subject: Subject; pageNumber?: number; }) => {
 	const {subject, pageNumber = 1} = options;

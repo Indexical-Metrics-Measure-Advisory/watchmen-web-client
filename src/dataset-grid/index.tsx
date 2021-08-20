@@ -5,7 +5,7 @@ import {DataSetGridContainer} from './widgets';
 import {ColumnDefs, DataPage, DataSetState} from './types';
 import {GridEventTypes} from './grid-event-bus-types';
 import {GridHeader} from './header';
-import {DataSetPage} from '../../services/console/dataset';
+import {DataSetPage} from '../services/console/dataset';
 
 export const Grid = (props: {
 	hasColumns: boolean;
