@@ -67,4 +67,7 @@ export const ReportPartButton = styled(Button)`
 		left: calc(var(--margin) * 6.5);
 		border-radius: 0 25% 25% 0;
 	}
+	@media print {
+		display: none;
+	}
 `;

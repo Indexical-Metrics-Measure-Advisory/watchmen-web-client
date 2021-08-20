@@ -17,6 +17,9 @@ export const ReportDataSetAndPaletteContainer = styled.div.attrs<{ visible: bool
 	min-height: ${HEIGHT}px;
 	max-height: ${HEIGHT}px;
 	transition: min-height 300ms ease-in-out, max-height 300ms ease-in-out;
+	@media print {
+		display: none;
+	}
 `;
 export const TabHeaders = styled.div.attrs({'data-widget': 'tab-headers'})`
 	display: flex;

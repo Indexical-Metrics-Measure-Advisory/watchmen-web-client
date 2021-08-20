@@ -8,7 +8,7 @@ export enum ReportViewEventTypes {
 	HIDE_SETTINGS = 'hide-settings',
 
 	TOGGLE_DATASET = 'toggle-dataset',
-	TOGGLE_PALETTE = 'toggle-palette',
+	TOGGLE_PALETTE = 'toggle-palette'
 }
 
 export interface ReportViewEventBus {

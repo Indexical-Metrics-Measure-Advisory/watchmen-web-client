@@ -13,7 +13,10 @@ export enum ReportEventTypes {
 	STRUCTURE_CHANGED = 'structure-changed',
 	STYLE_CHANGED = 'styled-changed',
 
-	DO_REFRESH = 'do-refresh'
+	DO_REFRESH = 'do-refresh',
+
+	CHART_BASE64_READY = 'chart-base64-ready',
+	ASK_DOWNLOAD_CHART = 'ask-download-chart'
 }
 
 export interface ReportEventBus {
@@ -48,4 +51,11 @@ export interface ReportEventBus {
 	fire(type: ReportEventTypes.DO_REFRESH, report: Report): this;
 	on(type: ReportEventTypes.DO_REFRESH, listener: (report: Report) => void): this;
 	off(type: ReportEventTypes.DO_REFRESH, listener: (report: Report) => void): this;
+
+	fire(type: ReportEventTypes.CHART_BASE64_READY, report: Report, base64?: string): this;
+	once(type: ReportEventTypes.CHART_BASE64_READY, listener: (report: Report, base64?: string) => void): this;
+
+	fire(type: ReportEventTypes.ASK_DOWNLOAD_CHART, report: Report): this;
+	on(type: ReportEventTypes.ASK_DOWNLOAD_CHART, listener: (report: Report) => void): this;
+	off(type: ReportEventTypes.ASK_DOWNLOAD_CHART, listener: (report: Report) => void): this;
 }

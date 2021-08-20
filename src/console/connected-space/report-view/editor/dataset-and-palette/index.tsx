@@ -41,6 +41,8 @@ import {ChartTreemapSettings} from '../chart-treemap-settings';
 import {ChartMapSettings} from '../chart-map-settings';
 import {EChartsXAxisSettings} from '../echarts/xaxis';
 import {EChartsYAxisSettings} from '../echarts/yaxis';
+import {useEventBus} from '../../../../../events/event-bus';
+import {EventTypes} from '../../../../../events/types';
 
 enum TABS {
 	DATASET = 'dataset',
@@ -65,6 +67,7 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 	const {subject, report} = props;
 	const {chart} = report;
 
+	const {fire: fireGlobal} = useEventBus();
 	const {on, off} = useReportViewEventBus();
 	const [visible, setVisible] = useState(false);
 	const [activeTab, setActiveTab] = useState('');
@@ -107,10 +110,19 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 			off(ReportViewEventTypes.TOGGLE_PALETTE, onTogglePalette);
 		};
 	}, [on, off, visible, activeTab, report]);
-	useChartType({report});
+	useChartType({
+		report, beforeForceUpdate: () => {
+			setActiveTab(TABS.BASIC_STYLE);
+		}
+	});
 
 	const onTabClicked = (tab: string) => () => {
 		if (tab === activeTab) {
+			return;
+		}
+
+		if (tab === TABS.DATASET) {
+			fireGlobal(EventTypes.SHOW_NOT_IMPLEMENT);
 			return;
 		}
 

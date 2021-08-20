@@ -4,8 +4,8 @@ import {Report} from '../../../../../services/tuples/report-types';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 
-export const useChartType = (options: { report: Report }) => {
-	const {report} = options;
+export const useChartType = (options: { report: Report, beforeForceUpdate?: () => void }) => {
+	const {report, beforeForceUpdate} = options;
 
 	const {on, off} = useReportEditEventBus();
 	const forceUpdate = useForceUpdate();
@@ -14,11 +14,12 @@ export const useChartType = (options: { report: Report }) => {
 			if (changedReport !== report) {
 				return;
 			}
+			beforeForceUpdate && beforeForceUpdate();
 			forceUpdate();
 		};
 		on(ReportEditEventTypes.CHART_TYPE_CHANGED, onChartTypeChanged);
 		return () => {
 			off(ReportEditEventTypes.CHART_TYPE_CHANGED, onChartTypeChanged);
 		};
-	}, [on, off, forceUpdate, report]);
+	}, [on, off, forceUpdate, report, beforeForceUpdate]);
 };

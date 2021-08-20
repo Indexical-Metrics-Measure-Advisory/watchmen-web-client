@@ -14,6 +14,10 @@ export const ReportEventBusProvider = (props: { children?: ((props: any) => Reac
 			emitter.emit(type, ...data);
 			return bus;
 		},
+		once: (type: string, listener: (...data: Array<any>) => void): ReportEventBus => {
+			emitter.once(type, listener);
+			return bus;
+		},
 		on: (type: string, listener: (...data: Array<any>) => void): ReportEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
 				console.error(`Listener on [${type}] was added into report event bus, check it.`);

@@ -18,6 +18,6 @@ export const ChartDiagram = (props: { report: Report, dataset: ChartDataSet }) =
 	if (isJSXElement(options)) {
 		return <>{options}</>;
 	} else {
-		return <EChartDiagram options={options}/>;
+		return <EChartDiagram report={report} options={options}/>;
 	}
 };

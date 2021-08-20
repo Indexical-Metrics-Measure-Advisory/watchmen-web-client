@@ -33,6 +33,9 @@ import {CanvasRenderer} from 'echarts/renderers';
 import React, {useEffect, useRef, useState} from 'react';
 import {ChartEChartOptions} from '../chart-utils/types';
 import {EChartDiagramContainer} from './widgets';
+import {useReportEventBus} from '../report-event-bus';
+import {ReportEventTypes} from '../report-event-bus-types';
+import {Report} from '../../services/tuples/report-types';
 
 echarts.use([
 	TitleComponent, TooltipComponent, GridComponent, AxisPointerComponent, DataZoomComponent,
@@ -46,10 +49,11 @@ echarts.use([
 	CanvasRenderer
 ]);
 
-export const EChartDiagram = (props: { options: ChartEChartOptions }) => {
-	const {options} = props;
+export const EChartDiagram = (props: { report: Report, options: ChartEChartOptions }) => {
+	const {report, options} = props;
 	// console.log(JSON.stringify(options));
 
+	const {on, off, fire} = useReportEventBus();
 	// noinspection TypeScriptValidateTypes
 	const rootRef = useRef<HTMLDivElement>(null);
 	const [chartInstance, setChartInstance] = useState<EChartsType | null>(null);
@@ -72,6 +76,19 @@ export const EChartDiagram = (props: { options: ChartEChartOptions }) => {
 			return () => resizeObserver.disconnect();
 		}
 	});
+	useEffect(() => {
+		const onAskDownloadChart = (aReport: Report) => {
+			if (report !== aReport) {
+				return;
+			}
+			const base64 = chartInstance?.getDataURL({type: 'png', pixelRatio: window.devicePixelRatio});
+			fire(ReportEventTypes.CHART_BASE64_READY, report, base64);
+		};
+		on(ReportEventTypes.ASK_DOWNLOAD_CHART, onAskDownloadChart);
+		return () => {
+			off(ReportEventTypes.ASK_DOWNLOAD_CHART, onAskDownloadChart);
+		};
+	}, [on, off, fire, chartInstance, report]);
 
 	return <EChartDiagramContainer ref={rootRef}/>;
 };
