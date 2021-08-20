@@ -8,7 +8,6 @@ import {DimensionsSection} from '../dimensions';
 import {EChartsXAxisSettings} from '../echarts/xaxis';
 import {EChartsYAxisSettings} from '../echarts/yaxis';
 import {IndicatorsSection} from '../indicators';
-import {ToolboxSection} from '../toolbox';
 import {ChartTypeEditor} from './chart-type';
 import {SettingsBodyContainer} from './widgets';
 
@@ -42,7 +41,7 @@ export const SettingsBody = (props: { subject: Subject, report: Report }) => {
 
 		<EChartsXAxisSettings report={report}/>
 		<EChartsYAxisSettings report={report}/>
-		<ToolboxSection report={report}/>
+		{/*<ToolboxSection report={report}/>*/}
 		{/*<DescriptionPropEditor report={report}/>*/}
 	</SettingsBodyContainer>;
 };
