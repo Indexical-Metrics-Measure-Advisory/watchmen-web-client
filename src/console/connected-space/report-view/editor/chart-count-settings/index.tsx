@@ -9,7 +9,7 @@ import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {useChartType} from '../settings-effect/use-chart-type';
 import {BooleanValue} from '../settings-widgets/boolean-value';
-import {Section} from '../settings-widgets/section';
+import {TabBodySection, TabBodySectionBody, TabBodySectionTitle} from '../dataset-and-palette/widget';
 
 export const ChartCountSettings = (props: { report: Report }) => {
 	const {report} = props;
@@ -35,16 +35,22 @@ export const ChartCountSettings = (props: { report: Report }) => {
 		style: CountChartStylePropNames.TEXT_FONT_STYLE
 	};
 
-	return <Section title={Lang.CHART.SECTION_TITLE_COUNT_CHART}>
-		<FontSettings report={report} chart={chart} getHolder={getHolder} propNames={propNames}
-		              onValueChange={onValueChange}/>
-		<BooleanValue label={Lang.CHART.COUNT.FORMAT_USING_GROUP}
-		              value={chart.settings?.countText?.formatUseGrouping} defaultValue={false}
-		              onValueChange={onBooleanChange({
-			              report,
-			              chart,
-			              prop: CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING,
-			              done: onValueChange
-		              })}/>
-	</Section>;
+	return <TabBodySection>
+		<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_BASIC}</TabBodySectionTitle>
+		<TabBodySectionBody>
+			<BooleanValue label={Lang.CHART.COUNT.FORMAT_USING_GROUP}
+			              value={chart.settings?.countText?.formatUseGrouping} defaultValue={false}
+			              onValueChange={onBooleanChange({
+				              report,
+				              chart,
+				              prop: CountChartStylePropNames.TEXT_FORMAT_USE_GROUPING,
+				              done: onValueChange
+			              })}/>
+		</TabBodySectionBody>
+		<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_FONT}</TabBodySectionTitle>
+		<TabBodySectionBody>
+			<FontSettings report={report} chart={chart} getHolder={getHolder} propNames={propNames}
+			              onValueChange={onValueChange}/>
+		</TabBodySectionBody>
+	</TabBodySection>;
 };

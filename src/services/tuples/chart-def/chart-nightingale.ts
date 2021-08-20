@@ -11,7 +11,7 @@ export const NIGHTINGALE: ChartDef = {
 
 	canHoldTitle: true,
 	canHoldLegend: true,
-	canUseGrid: false,
+	canUseGrid: true,
 	canUseXAxis: false,
 	canUseYAxis: false
 };

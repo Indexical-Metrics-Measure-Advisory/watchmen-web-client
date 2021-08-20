@@ -7,12 +7,13 @@ import {SectionContainer} from './widgets';
 
 export const Section = (props: {
 	title: string;
+	defaultExpanded?: boolean;
 	children: ((props: any) => React.ReactNode) | React.ReactNode
 }) => {
-	const {title, children} = props;
+	const {title, defaultExpanded = false, children} = props;
 
 	const {on, off} = useReportEditEventBus();
-	const [expanded, setExpanded] = useState(false);
+	const [expanded, setExpanded] = useState(defaultExpanded);
 	useEffect(() => {
 		const onExpand = () => setExpanded(true);
 		const onCollapse = () => setExpanded(false);

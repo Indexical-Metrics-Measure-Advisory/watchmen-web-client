@@ -66,7 +66,7 @@ export const IndicatorsSection = (props: { subject: Subject, report: Report }) =
 	chartUtils.defend(report);
 	const canAddIndicator = chartUtils.canAppendIndicators(report);
 
-	return <Section title={Lang.CHART.SECTION_TITLE_INDICATORS}>
+	return <Section title={Lang.CHART.SECTION_TITLE_INDICATORS} defaultExpanded={true}>
 		{report.indicators.map((indicator, indicatorIndex) => {
 			// ignore needless indicators
 			if (indicatorIndex >= chartUtils.getMaxIndicatorCount()) {

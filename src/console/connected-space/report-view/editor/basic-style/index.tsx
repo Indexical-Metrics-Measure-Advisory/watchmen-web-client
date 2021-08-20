@@ -1,6 +1,6 @@
 import React from 'react';
 import {Lang} from '../../../../../langs';
-import {CHART_MIN_HEIGHT, CHART_MIN_WIDTH} from '../../../../../report/constants';
+// import {CHART_MIN_HEIGHT, CHART_MIN_WIDTH} from '../../../../../report/constants';
 import {ChartBorderStyle} from '../../../../../services/tuples/chart-types';
 import {
 	isBarChart,
@@ -21,28 +21,29 @@ import {BooleanValue} from '../settings-widgets/boolean-value';
 import {ColorValue} from '../settings-widgets/color-value';
 import {DropdownValue} from '../settings-widgets/dropdown-value';
 import {NumberValue} from '../settings-widgets/number-value';
-import {Section} from '../settings-widgets/section';
 import {useForceUpdate} from '../../../../../basic-widgets/utils';
+import {TabBodySection, TabBodySectionBody, TabBodySectionTitle} from '../dataset-and-palette/widget';
 
 export const BasicStyleSection = (props: { report: Report }) => {
 	const {report} = props;
-	const {chart, rect} = report;
+	// const {chart, rect} = report;
+	const {chart} = report;
 
 	const {fire} = useReportEditEventBus();
 	useChartType({report});
 	const forceUpdate = useForceUpdate();
 
-	const onValueChange = (prop: 'width' | 'height') => (value?: string) => {
-		let numberValue = value ? parseInt(value) : 0;
-		if (prop === 'width') {
-			numberValue = Math.max(numberValue, CHART_MIN_WIDTH);
-		} else {
-			numberValue = Math.max(numberValue, CHART_MIN_HEIGHT);
-		}
-		rect[prop] = numberValue;
-		fire(ReportEditEventTypes.SIZE_CHANGED, report);
-		return numberValue;
-	};
+	// const onValueChange = (prop: 'width' | 'height') => (value?: string) => {
+	// 	let numberValue = value ? parseInt(value) : 0;
+	// 	if (prop === 'width') {
+	// 		numberValue = Math.max(numberValue, CHART_MIN_WIDTH);
+	// 	} else {
+	// 		numberValue = Math.max(numberValue, CHART_MIN_HEIGHT);
+	// 	}
+	// 	rect[prop] = numberValue;
+	// 	fire(ReportEditEventTypes.SIZE_CHANGED, report);
+	// 	return numberValue;
+	// };
 	const onBasicStyleValueChange = () => {
 		fire(ReportEditEventTypes.BASIC_STYLE_CHANGED, report);
 		forceUpdate();
@@ -51,18 +52,22 @@ export const BasicStyleSection = (props: { report: Report }) => {
 	const supportDecal = isBarChart(chart) || isPieChart(chart) || isDoughnutChart(chart) || isNightingaleChart(chart) || isSunburstChart(chart);
 	const theme = getCurrentTheme();
 
-	return <>
-		<Section title={Lang.CHART.SECTION_TITLE_BASIC_STYLE}>
-			<NumberValue label={Lang.CHART.WIDTH} unitLabel={Lang.CHART.PIXEL}
-			             value={rect.width}
-			             placeholder={'1 - 9999'}
-			             validate={validateNumber(4)}
-			             onValueChange={onValueChange('width')}/>
-			<NumberValue label={Lang.CHART.HEIGHT} unitLabel={Lang.CHART.PIXEL}
-			             value={rect.height}
-			             placeholder={'1 - 9999'}
-			             validate={validateNumber(4)}
-			             onValueChange={onValueChange('height')}/>
+	return <TabBodySection>
+		{/*<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_PALETTE_SIZE}</TabBodySectionTitle>*/}
+		{/*<TabBodySectionBody>*/}
+		{/*	<NumberValue label={Lang.CHART.WIDTH} unitLabel={Lang.CHART.PIXEL}*/}
+		{/*	             value={rect.width}*/}
+		{/*	             placeholder={'1 - 9999'}*/}
+		{/*	             validate={validateNumber(4)}*/}
+		{/*	             onValueChange={onValueChange('width')}/>*/}
+		{/*	<NumberValue label={Lang.CHART.HEIGHT} unitLabel={Lang.CHART.PIXEL}*/}
+		{/*	             value={rect.height}*/}
+		{/*	             placeholder={'1 - 9999'}*/}
+		{/*	             validate={validateNumber(4)}*/}
+		{/*	             onValueChange={onValueChange('height')}/>*/}
+		{/*</TabBodySectionBody>*/}
+		<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_COLOR}</TabBodySectionTitle>
+		<TabBodySectionBody>
 			<ColorValue label={Lang.CHART.BACKGROUND_COLOR}
 			            value={report.chart.settings?.backgroundColor} defaultValue={theme.bgColor}
 			            onValueChange={onColorChange({
@@ -81,6 +86,9 @@ export const BasicStyleSection = (props: { report: Report }) => {
 					                done: onBasicStyleValueChange
 				                })}/>
 				: null}
+		</TabBodySectionBody>
+		<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_BORDER}</TabBodySectionTitle>
+		<TabBodySectionBody>
 			<DropdownValue label={Lang.CHART.BORDER_STYLE} options={BorderStyleOptions}
 			               value={report.chart.settings?.border?.style} defaultValue={ChartBorderStyle.NONE}
 			               onValueChange={onDropdownValueChange({
@@ -117,6 +125,6 @@ export const BasicStyleSection = (props: { report: Report }) => {
 				             prop: PeripheralStylePropNames.BORDER_RADIUS,
 				             done: onBasicStyleValueChange
 			             })}/>
-		</Section>
-	</>;
+		</TabBodySectionBody>
+	</TabBodySection>;
 };

@@ -1,19 +1,26 @@
 import React from 'react';
 import {Lang} from '../../../../../../langs';
-import {ECharts} from '../../../../../../services/tuples/echarts/echarts-types';
 import {Report} from '../../../../../../services/tuples/report-types';
 import {onTextValueChange} from '../../data-utils';
 import {EChartsTitlePropNames} from '../../prop-defs/echart-styles/echarts-title-props';
 import {useReportEditEventBus} from '../../report-edit-event-bus';
 import {ReportEditEventTypes} from '../../report-edit-event-bus-types';
-import {SecondarySection} from '../../settings-widgets/secondary-section';
 import {TextValue} from '../../settings-widgets/text-value';
 import {FontSettings, SettingsFontPropNames} from '../font';
+import {useChartType} from '../../settings-effect/use-chart-type';
+import {canHoldTitle, isEChart} from '../../../../../../services/tuples/echarts/echarts-utils';
+import {TabBodySection, TabBodySectionBody, TabBodySectionTitle} from '../../dataset-and-palette/widget';
 
-export const EChartsTitleSubtextSettings = (props: { report: Report, chart: ECharts }) => {
-	const {report, chart} = props;
+export const EChartsTitleSubtextSettings = (props: { report: Report }) => {
+	const {report} = props;
+	const {chart} = report;
 
 	const {fire} = useReportEditEventBus();
+	useChartType({report});
+
+	if (!isEChart(chart) || !canHoldTitle(chart)) {
+		return null;
+	}
 
 	const onValueChange = () => {
 		fire(ReportEditEventTypes.ECHART_TITLE_CHANGED, report);
@@ -31,18 +38,24 @@ export const EChartsTitleSubtextSettings = (props: { report: Report, chart: ECha
 		} as SettingsFontPropNames
 	};
 
-	return <SecondarySection title={Lang.CHART.SECTION_TITLE_ECHART_SUBTITLE}>
-		<TextValue label={Lang.CHART.ECHART.TEXT}
-		           value={text?.text}
-		           onValueChange={onTextValueChange({
-			           report,
-			           chart,
-			           prop: EChartsTitlePropNames.SUBTEXT,
-			           done: onValueChange
-		           })}/>
-		<FontSettings report={report} chart={chart}
-		              getHolder={getHolder}
-		              propNames={propNames.font}
-		              onValueChange={onValueChange}/>
-	</SecondarySection>;
+	return <TabBodySection>
+		<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_ECHART_TITLE}</TabBodySectionTitle>
+		<TabBodySectionBody>
+			<TextValue label={Lang.CHART.ECHART.TEXT}
+			           value={text?.text}
+			           onValueChange={onTextValueChange({
+				           report,
+				           chart,
+				           prop: EChartsTitlePropNames.SUBTEXT,
+				           done: onValueChange
+			           })}/>
+		</TabBodySectionBody>
+		<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_FONT}</TabBodySectionTitle>
+		<TabBodySectionBody>
+			<FontSettings report={report} chart={chart}
+			              getHolder={getHolder}
+			              propNames={propNames.font}
+			              onValueChange={onValueChange}/>
+		</TabBodySectionBody>
+	</TabBodySection>;
 };

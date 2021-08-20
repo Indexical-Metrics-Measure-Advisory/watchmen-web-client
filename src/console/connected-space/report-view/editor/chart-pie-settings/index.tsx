@@ -20,7 +20,7 @@ import {AlignmentSettings, SettingsAlignmentPropNames} from '../echarts/alignmen
 import {BorderSettings, SettingsBorderPropNames} from '../echarts/border';
 import {FontSettings, SettingsFontPropNames} from '../echarts/font';
 import {PieSettings, SettingsPiePropNames} from '../echarts/pie';
-import {PositionSettings, SettingsPositionPropNames} from '../echarts/position';
+import {SettingsPositionPropNames} from '../echarts/position';
 import {
 	PieChartStylePropNames,
 	PieLabelAlignToOptions,
@@ -33,7 +33,7 @@ import {BooleanValue} from '../settings-widgets/boolean-value';
 import {ColorValue} from '../settings-widgets/color-value';
 import {DropdownValue} from '../settings-widgets/dropdown-value';
 import {NumberValue} from '../settings-widgets/number-value';
-import {Section} from '../settings-widgets/section';
+import {TabBodySection, TabBodySectionBody, TabBodySectionTitle} from '../dataset-and-palette/widget';
 
 export const ChartPieSettings = (props: { report: Report }) => {
 	const {report} = props;
@@ -49,7 +49,6 @@ export const ChartPieSettings = (props: { report: Report }) => {
 	const settings = chart.settings;
 	const label = settings?.label;
 	const getSeriesHolder = () => settings?.series;
-	const getGridHolder = () => settings?.grid;
 	const getLabelHolder = () => label;
 	const propNames = {
 		series: {
@@ -92,16 +91,34 @@ export const ChartPieSettings = (props: { report: Report }) => {
 	};
 
 	const onValueChange = () => fire(ReportEditEventTypes.CHART_PIE_STYLE_CHANGED, report);
-	const onGridChanged = () => fire(ReportEditEventTypes.ECHART_GRID_CHANGED, report);
 	const onLabelValueChange = () => fire(ReportEditEventTypes.ECHART_LABEL_CHANGED, report);
 
-	return <>
-		<Section title={Lang.CHART.SECTION_TITLE_PIE_CHART}>
+	return <TabBodySection>
+		<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_BASIC}</TabBodySectionTitle>
+		<TabBodySectionBody>
 			<PieSettings report={report} chart={chart}
 			             getHolder={getSeriesHolder}
 			             propNames={propNames.series}
 			             defaultRoseType={PieRoseType.NONE}
 			             onValueChange={onValueChange}/>
+			<BooleanValue label={Lang.CHART.SERIES_TEXT_SHOW}
+			              value={label?.show} defaultValue={true}
+			              onValueChange={onBooleanChange({
+				              report,
+				              chart,
+				              prop: PieChartStylePropNames.LABEL_SHOW,
+				              done: onLabelValueChange
+			              })}/>
+		</TabBodySectionBody>
+		<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_BORDER}</TabBodySectionTitle>
+		<TabBodySectionBody>
+			<BorderSettings report={report} chart={chart}
+			                getHolder={getSeriesHolder}
+			                propNames={propNames.border}
+			                onValueChange={onValueChange}/>
+		</TabBodySectionBody>
+		<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_VALUE_FORMAT}</TabBodySectionTitle>
+		<TabBodySectionBody>
 			<BooleanValue label={Lang.CHART.LABEL_FORMAT_USING_GROUP}
 			              value={label?.formatUseGrouping} defaultValue={true}
 			              onValueChange={onBooleanChange({
@@ -135,20 +152,9 @@ export const ChartPieSettings = (props: { report: Report }) => {
 				             prop: PieChartStylePropNames.LABEL_FRACTION_DIGITS,
 				             done: onLabelValueChange
 			             })}/>
-			<BorderSettings report={report} chart={chart}
-			                getHolder={getSeriesHolder}
-			                propNames={propNames.border}
-			                onValueChange={onValueChange}/>
-		</Section>
-		<Section title={Lang.CHART.SECTION_TITLE_ECHART_SERIES_LABEL}>
-			<BooleanValue label={Lang.CHART.SHOW}
-			              value={label?.show} defaultValue={true}
-			              onValueChange={onBooleanChange({
-				              report,
-				              chart,
-				              prop: PieChartStylePropNames.LABEL_SHOW,
-				              done: onLabelValueChange
-			              })}/>
+		</TabBodySectionBody>
+		<TabBodySectionTitle>{Lang.CHART.SERIES_TEXT_POSITION}</TabBodySectionTitle>
+		<TabBodySectionBody>
 			<DropdownValue label={Lang.CHART.POSITION} options={PieLabelPositionOptions}
 			               value={label?.position}
 			               onValueChange={onDropdownValueChange({
@@ -157,7 +163,7 @@ export const ChartPieSettings = (props: { report: Report }) => {
 				               prop: PieChartStylePropNames.LABEL_POSITION,
 				               done: onLabelValueChange
 			               })}/>
-			<DropdownValue label={Lang.CHART.POSITION} options={PieLabelAlignToOptions}
+			<DropdownValue label={Lang.CHART.POSITION_ON_OUTSIDE_OF_PIE} options={PieLabelAlignToOptions}
 			               value={label?.alignTo} defaultValue={PieLabelAlignTo.NONE}
 			               onValueChange={onDropdownValueChange({
 				               report,
@@ -169,10 +175,16 @@ export const ChartPieSettings = (props: { report: Report }) => {
 			                   getHolder={getLabelHolder}
 			                   propNames={propNames.labelAlignment}
 			                   onValueChange={onLabelValueChange}/>
+		</TabBodySectionBody>
+		<TabBodySectionTitle>{Lang.CHART.SERIES_TEXT_FONT}</TabBodySectionTitle>
+		<TabBodySectionBody>
 			<FontSettings report={report} chart={chart}
 			              getHolder={getLabelHolder}
 			              propNames={propNames.labelFont}
 			              onValueChange={onLabelValueChange}/>
+		</TabBodySectionBody>
+		<TabBodySectionTitle>{Lang.CHART.SERIES_TEXT_COLOR}</TabBodySectionTitle>
+		<TabBodySectionBody>
 			<ColorValue label={Lang.CHART.BACKGROUND_COLOR}
 			            value={label?.backgroundColor}
 			            onValueChange={onColorChange({
@@ -181,10 +193,16 @@ export const ChartPieSettings = (props: { report: Report }) => {
 				            prop: PieChartStylePropNames.LABEL_BACKGROUND_COLOR,
 				            done: onLabelValueChange
 			            })}/>
+		</TabBodySectionBody>
+		<TabBodySectionTitle>{Lang.CHART.SERIES_TEXT_BORDER}</TabBodySectionTitle>
+		<TabBodySectionBody>
 			<BorderSettings report={report} chart={chart}
 			                getHolder={getLabelHolder}
 			                propNames={propNames.labelBorder}
 			                onValueChange={onLabelValueChange}/>
+		</TabBodySectionBody>
+		<TabBodySectionTitle>{Lang.CHART.SERIES_TEXT_GAP_AND_PADDING}</TabBodySectionTitle>
+		<TabBodySectionBody>
 			<NumberValue label={Lang.CHART.LABEL_GAP} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 999'}
 			             value={label?.gap} defaultValue={15}
 			             validate={validateNumber(3)}
@@ -192,15 +210,6 @@ export const ChartPieSettings = (props: { report: Report }) => {
 				             report,
 				             chart,
 				             prop: PieChartStylePropNames.LABEL_GAP,
-				             done: onLabelValueChange
-			             })}/>
-			<NumberValue label={Lang.CHART.LABEL_ROTATE} unitLabel={Lang.CHART.DEGREE} placeholder={'-90 - 90'}
-			             value={label?.rotate}
-			             validate={isANumberAndInRange(-90, 90)}
-			             onValueChange={onNumberChange({
-				             report,
-				             chart,
-				             prop: PieChartStylePropNames.LABEL_ROTATE,
 				             done: onLabelValueChange
 			             })}/>
 			<NumberValue label={Lang.CHART.PADDING} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 9999'}
@@ -212,12 +221,15 @@ export const ChartPieSettings = (props: { report: Report }) => {
 				             prop: PieChartStylePropNames.LABEL_PADDING,
 				             done: onLabelValueChange
 			             })}/>
-		</Section>
-		<Section title={Lang.CHART.SECTION_TITLE_ECHART_GRID}>
-			<PositionSettings report={report} chart={chart}
-			                  getHolder={getGridHolder}
-			                  propNames={propNames.position}
-			                  onValueChange={onGridChanged}/>
-		</Section>
-	</>;
+			<NumberValue label={Lang.CHART.LABEL_ROTATE} unitLabel={Lang.CHART.DEGREE} placeholder={'-90 - 90'}
+			             value={label?.rotate}
+			             validate={isANumberAndInRange(-90, 90)}
+			             onValueChange={onNumberChange({
+				             report,
+				             chart,
+				             prop: PieChartStylePropNames.LABEL_ROTATE,
+				             done: onLabelValueChange
+			             })}/>
+		</TabBodySectionBody>
+	</TabBodySection>;
 };

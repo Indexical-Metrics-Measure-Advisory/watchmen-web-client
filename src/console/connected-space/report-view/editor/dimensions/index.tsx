@@ -66,7 +66,7 @@ export const DimensionsSection = (props: { subject: Subject, report: Report }) =
 	chartUtils.defend(report);
 	const canAddDimension = chartUtils.canAppendDimensions(report);
 
-	return <Section title={Lang.CHART.SECTION_TITLE_DIMENSIONS}>
+	return <Section title={Lang.CHART.SECTION_TITLE_DIMENSIONS} defaultExpanded={true}>
 		{report.dimensions.map((dimension, dimensionIndex) => {
 			// ignore needless dimensions
 			if (dimensionIndex >= chartUtils.getMaxDimensionCount()) {

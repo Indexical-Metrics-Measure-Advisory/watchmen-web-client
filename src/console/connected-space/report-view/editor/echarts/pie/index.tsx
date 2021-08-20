@@ -47,6 +47,17 @@ export const PieSettings = (props: {
 	const holder = getHolder(chart);
 
 	return <>
+		{chart.type === ChartType.SUNBURST
+			? null
+			: <DropdownValue label={Lang.CHART.PIE_ROSE_TYPE}
+			                 value={holder?.roseType} defaultValue={defaultRoseType}
+			                 options={PieRoseTypeOptions}
+			                 onValueChange={onDropdownValueChange({
+				                 report,
+				                 chart,
+				                 prop: roseTypePropName,
+				                 done: onValueChange
+			                 })}/>}
 		<NumberValue label={Lang.CHART.PIE_CENTER_X} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 9999'}
 		             value={holder?.centerX}
 		             validate={validateNumber(4)}
@@ -83,17 +94,6 @@ export const PieSettings = (props: {
 			             prop: outsideRadiusPropName,
 			             done: onValueChange
 		             })}/>
-		{chart.type === ChartType.SUNBURST
-			? null
-			: <DropdownValue label={Lang.CHART.PIE_ROSE_TYPE}
-			                 value={holder?.roseType} defaultValue={defaultRoseType}
-			                 options={PieRoseTypeOptions}
-			                 onValueChange={onDropdownValueChange({
-				                 report,
-				                 chart,
-				                 prop: roseTypePropName,
-				                 done: onValueChange
-			                 })}/>}
 		{chart.type === ChartType.SUNBURST
 			? null
 			: <BooleanValue label={Lang.CHART.PIE_SHOW_PERCENTAGE}

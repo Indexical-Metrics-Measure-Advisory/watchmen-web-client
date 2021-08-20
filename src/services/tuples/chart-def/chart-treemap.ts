@@ -11,7 +11,7 @@ export const TREEMAP: ChartDef = {
 
 	canHoldTitle: true,
 	canHoldLegend: false,
-	canUseGrid: false,
+	canUseGrid: true,
 	canUseXAxis: false,
 	canUseYAxis: false
 };

@@ -11,7 +11,7 @@ export const SUNBURST: ChartDef = {
 
 	canHoldTitle: true,
 	canHoldLegend: false,
-	canUseGrid: false,
+	canUseGrid: true,
 	canUseXAxis: false,
 	canUseYAxis: false
 };

@@ -9,9 +9,16 @@ import {ReportEditEventTypes} from '../../report-edit-event-bus-types';
 import {useChartType} from '../../settings-effect/use-chart-type';
 import {BooleanValue} from '../../settings-widgets/boolean-value';
 import {ColorValue} from '../../settings-widgets/color-value';
-import {Section} from '../../settings-widgets/section';
 import {BorderSettings, SettingsBorderPropNames} from '../border';
 import {PositionSettings, SettingsPositionPropNames} from '../position';
+import {TabBodySection, TabBodySectionBody, TabBodySectionTitle} from '../../dataset-and-palette/widget';
+import {
+	isDoughnutChart, isMapChart,
+	isNightingaleChart,
+	isPieChart,
+	isSunburstChart,
+	isTreeChart, isTreemapChart
+} from '../../../../../../services/tuples/chart-utils';
 
 export const EChartsGridSettings = (props: { report: Report }) => {
 	const {report} = props;
@@ -44,38 +51,60 @@ export const EChartsGridSettings = (props: { report: Report }) => {
 		} as SettingsPositionPropNames
 	};
 
-	return <Section title={Lang.CHART.SECTION_TITLE_ECHART_GRID}>
-		<BooleanValue label={Lang.CHART.SHOW}
-		              value={grid?.show} defaultValue={false}
-		              onValueChange={onBooleanChange({
-			              report,
-			              chart,
-			              prop: EChartsGridPropNames.SHOW,
-			              done: onValueChange
-		              })}/>
-		<BooleanValue label={Lang.CHART.GRID_CONTAIN_LABEL}
-		              value={grid?.containLabel} defaultValue={false}
-		              onValueChange={onBooleanChange({
-			              report,
-			              chart,
-			              prop: EChartsGridPropNames.CONTAIN_LABEL,
-			              done: onValueChange
-		              })}/>
-		<ColorValue label={Lang.CHART.BACKGROUND_COLOR}
-		            value={grid?.backgroundColor}
-		            onValueChange={onColorChange({
-			            report,
-			            chart,
-			            prop: EChartsGridPropNames.BACKGROUND_COLOR,
-			            done: onValueChange
-		            })}/>
-		<PositionSettings report={report} chart={chart}
-		                  getHolder={getGridHolder}
-		                  propNames={propNames.position}
-		                  onValueChange={onValueChange}/>
-		<BorderSettings report={report} chart={chart}
-		                getHolder={getGridHolder}
-		                propNames={propNames.border}
-		                onValueChange={onValueChange}/>
-	</Section>;
+	const onlyPosition = isPieChart(chart) || isDoughnutChart(chart)
+		|| isNightingaleChart(chart) || isSunburstChart(chart)
+		|| isTreeChart(chart) || isTreemapChart(chart) || isMapChart(chart);
+
+	return <TabBodySection>
+		{onlyPosition ? null : <>
+			<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_BASIC}</TabBodySectionTitle>
+			<TabBodySectionBody>
+				<BooleanValue label={Lang.CHART.SHOW}
+				              value={grid?.show} defaultValue={false}
+				              onValueChange={onBooleanChange({
+					              report,
+					              chart,
+					              prop: EChartsGridPropNames.SHOW,
+					              done: onValueChange
+				              })}/>
+				<BooleanValue label={Lang.CHART.GRID_CONTAIN_LABEL}
+				              value={grid?.containLabel} defaultValue={false}
+				              onValueChange={onBooleanChange({
+					              report,
+					              chart,
+					              prop: EChartsGridPropNames.CONTAIN_LABEL,
+					              done: onValueChange
+				              })}/>
+			</TabBodySectionBody>
+		</>}
+		{onlyPosition ? null : <>
+			<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_COLOR}</TabBodySectionTitle>
+			<TabBodySectionBody>
+				<ColorValue label={Lang.CHART.BACKGROUND_COLOR}
+				            value={grid?.backgroundColor}
+				            onValueChange={onColorChange({
+					            report,
+					            chart,
+					            prop: EChartsGridPropNames.BACKGROUND_COLOR,
+					            done: onValueChange
+				            })}/>
+			</TabBodySectionBody>
+		</>}
+		<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_POSITION}</TabBodySectionTitle>
+		<TabBodySectionBody>
+			<PositionSettings report={report} chart={chart}
+			                  getHolder={getGridHolder}
+			                  propNames={propNames.position}
+			                  onValueChange={onValueChange}/>
+		</TabBodySectionBody>
+		{onlyPosition ? null : <>
+			<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_BORDER}</TabBodySectionTitle>
+			<TabBodySectionBody>
+				<BorderSettings report={report} chart={chart}
+				                getHolder={getGridHolder}
+				                propNames={propNames.border}
+				                onValueChange={onValueChange}/>
+			</TabBodySectionBody>
+		</>}
+	</TabBodySection>;
 };
