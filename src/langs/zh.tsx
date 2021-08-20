@@ -72,6 +72,13 @@ export const Zh = {
 		CREDENTIAL_EMPTY: '请输入密码.',
 		FAIL: '用户名或者密码未能验证通过.'
 	},
+	DATASET: {
+		UNFIX_COLUMN: '解锁本列以及之后已锁定列',
+		FIX_COLUMN: '锁定至本列',
+		COMPRESS_COLUMNS: '全部缩小列宽',
+		DOWNLOAD_PAGE: '下载本页数据',
+		DOWNLOAD_ALL: '下载所有数据',
+	},
 	CONSOLE: {
 		LOADING: '努力加载个人数据...',
 		BYE: '现在退出吗?',
@@ -150,8 +157,6 @@ export const Zh = {
 			AUTO_REFRESH: '自动刷新(5分钟)',
 			SHOW_PRINT_PAGE: '显示纸张尺寸',
 			HIDE_PRINT_PAGE: '隐藏纸张尺寸',
-			DOWNLOAD_PAGE: '下载本页数据',
-			DOWNLOAD_ALL: '下载所有数据',
 			ADD_REPORT: '添加图表',
 			ADD_SUBJECT: '添加主题',
 			OPEN_SUBJECT: '打开主题',
@@ -221,9 +226,6 @@ export const Zh = {
 			SUBJECT_FILTER_JOINT_NO_STATEMENT: '没有定义子过滤条件',
 			SUBJECT_UNKNOWN_FILTER: '未知过滤条件',
 			NO_DATASET_COLUMN: '尚未定义数据列.',
-			UNFIX_COLUMN: '解锁本列以及之后已锁定列',
-			FIX_COLUMN: '锁定至本列',
-			COMPRESS_COLUMNS: '全部缩小列宽',
 			NO_REPORT: '尚未定义图表, 现在就',
 			CREATE_REPORT: '开始',
 			NO_REPORT_2: '吗?',

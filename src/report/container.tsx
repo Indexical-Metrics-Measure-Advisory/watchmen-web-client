@@ -12,6 +12,8 @@ import {useReportEventBus} from './report-event-bus';
 import {ReportEventTypes} from './report-event-bus-types';
 import {DragType} from './types';
 import {ChartButton, ChartButtons, ChartContainer, ChartDragHandle, ChartDragHandlePart} from './widgets';
+import {useEventBus} from '../events/event-bus';
+import {EventTypes} from '../events/types';
 
 enum DiagramLoadState {
 	FALSE = 'false',
@@ -35,20 +37,23 @@ export const Container = (props: {
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const dndRef = useRef<HTMLDivElement>(null);
+	const {fire: fireGlobal} = useEventBus();
 	const {fire, on, off} = useReportEventBus();
 	const [diagramState, setDiagramState] = useState<DiagramState>({loaded: DiagramLoadState.FALSE});
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		if (diagramState.loaded === DiagramLoadState.FALSE) {
-			(async () => {
-				const dataset = await fetchChartData(report.reportId, report.chart.type);
-				setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
-			})();
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await fetchChartData(report.reportId, report.chart.type),
+				(dataset: ChartDataSet) => {
+					setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
+				});
 		} else if (diagramState.loaded === DiagramLoadState.RELOAD) {
-			(async () => {
-				const dataset = await fetchChartDataTemporary(report);
-				setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
-			})();
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await fetchChartDataTemporary(report),
+				(dataset: ChartDataSet) => {
+					setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
+				});
 		}
 		const onDoReloadDataOnEditing = (editReport: Report) => {
 			if (report !== editReport || !editing) {
@@ -70,10 +75,7 @@ export const Container = (props: {
 			off(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onDoReloadDataOnEditing);
 			off(ReportEventTypes.DO_REFRESH, onDoRefresh);
 		};
-	}, [
-		on, off, forceUpdate,
-		report, diagramState.loaded, editing
-	]);
+	}, [fireGlobal, on, off, forceUpdate, report, diagramState.loaded, editing]);
 
 	const writeToRect = (rect: ReportRect) => report.rect = rect;
 	const onDrop = () => fire(ReportEventTypes.REPORT_MOVE_OR_RESIZE_COMPLETED, report);

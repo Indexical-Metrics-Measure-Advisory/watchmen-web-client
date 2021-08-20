@@ -20,7 +20,7 @@ export const SubjectDataSetEventBusProvider = (props: { children?: ((props: any)
 		},
 		on: (type: string, listener: (...data: Array<any>) => void): SubjectDataSetEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
-				console.error(`Listener on [${type}] was added into subject data event bus, check it.`);
+				console.error(`Listener on [${type}] was added into subject dataset event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;

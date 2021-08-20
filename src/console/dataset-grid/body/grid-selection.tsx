@@ -8,11 +8,11 @@ import React, {
 	useRef,
 	useState
 } from 'react';
-import {HEADER_HEIGHT, ROW_HEIGHT} from '../../constants';
-import {ColumnDefs, DataSetState, SelectionRef, TableSelection} from '../../types';
-import {useGridEventBus} from './grid-event-bus';
-import {GridEventTypes} from './grid-event-bus-types';
+import {useGridEventBus} from '../grid-event-bus';
+import {GridEventTypes} from '../grid-event-bus-types';
 import {ColumnSelection, RowSelection} from './widgets';
+import {HEADER_HEIGHT, ROW_HEIGHT} from '../constants';
+import {ColumnDefs, DataSetState, SelectionRef, TableSelection} from '../types';
 
 const computeRowSelectionPosition = (options: {
 	rowIndex: number;

@@ -41,8 +41,7 @@ export const ReportEditor = (props: { connectedSpace: ConnectedSpace, subject: S
 		fireView(ReportViewEventTypes.TOGGLE_PALETTE, report);
 	};
 	const onToggleDataSetClicked = () => {
-		// fireView(ReportViewEventTypes.TOGGLE_DATASET, report);
-		fireGlobal(EventTypes.SHOW_NOT_IMPLEMENT);
+		fireView(ReportViewEventTypes.TOGGLE_DATASET, report);
 	};
 	const onDownloadClicked = () => {
 		onceReport(ReportEventTypes.CHART_BASE64_READY, (aReport: Report, base64?: string) => {

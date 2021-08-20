@@ -1,6 +1,13 @@
 import React, {RefObject, useEffect, useRef, useState} from 'react';
-import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {Subject} from '../../../../../../services/tuples/subject-types';
+import {useForceUpdate} from '../../../basic-widgets/utils';
+import {Grid} from './grid';
+import {GridDragColumn} from './grid-drag-column';
+import {useGridEventBus} from '../grid-event-bus';
+import {GridEventTypes} from '../grid-event-bus-types';
+import {GridScrollShade} from './grid-scroll-shade';
+import {GridSelection} from './grid-selection';
+import {GridResizeShade, GridWrapperContainer} from './widgets';
+import {ColumnDefs, ColumnSortBy, DataColumnDef, DataSetState, SelectionRef} from '../types';
 import {
 	DRAG_DEVIATION,
 	FILLER_MIN_WIDTH,
@@ -10,15 +17,7 @@ import {
 	RESIZE_DEVIATION,
 	ROW_HEIGHT,
 	ROW_NO_WIDTH
-} from '../../constants';
-import {ColumnDefs, ColumnSortBy, DataColumnDef, DataSetState, SelectionRef} from '../../types';
-import {Grid} from './grid';
-import {GridDragColumn} from './grid-drag-column';
-import {useGridEventBus} from './grid-event-bus';
-import {GridEventTypes} from './grid-event-bus-types';
-import {GridScrollShade} from './grid-scroll-shade';
-import {GridSelection} from './grid-selection';
-import {GridResizeShade, GridWrapperContainer} from './widgets';
+} from '../constants';
 
 enum Behavior {
 	NONE = 'none',
@@ -47,8 +46,8 @@ interface PickColumnOptions {
 
 const findDataTable = (element: HTMLElement): HTMLDivElement | null => {
 	const widgetType = element.getAttribute('data-widget');
-	if (widgetType !== 'subject-dataset-and-palette-grid') {
-		return element.closest('div[data-widget="subject-dataset-and-palette-grid"]') as HTMLDivElement;
+	if (widgetType !== 'dataset-grid') {
+		return element.closest('div[data-widget="dataset-grid"]') as HTMLDivElement;
 	}
 	return element as HTMLDivElement;
 };
@@ -199,10 +198,7 @@ const useDecorateFixStyle = (options: {
 	return arrangeFixedTableStyle;
 };
 
-export const GridWrapper = (props: {
-	subject: Subject;
-	data: DataSetState;
-}) => {
+export const GridWrapper = (props: { data: DataSetState }) => {
 	const {data} = props;
 	const {columnDefs} = data;
 
@@ -260,8 +256,8 @@ export const GridWrapper = (props: {
 		const isFixTable = columnDefs.fixed.includes(pickedColumn.column);
 		const table = isFixTable ? fixTableRef.current! : dataTableRef.current!;
 		const columns = isFixTable ? columnDefs.fixed : columnDefs.data;
-		const header = table.querySelector('div[data-widget="subject-dataset-and-palette-grid-header"]')! as HTMLDivElement;
-		const body = table.querySelector('div[data-widget="subject-dataset-and-palette-grid-body"]')! as HTMLDivElement;
+		const header = table.querySelector('div[data-widget="dataset-grid-header"]')! as HTMLDivElement;
+		const body = table.querySelector('div[data-widget="dataset-grid-body"]')! as HTMLDivElement;
 		const gridTemplateColumns = header.style.gridTemplateColumns.split(' ');
 		// physical column is on (definition column index + 1) * 2, starts from 1;
 		// width declaration in grid template columns css also is on (definition column index + 1) * 2, starts from 0, therefore index must plus 1 additional;
@@ -323,8 +319,8 @@ export const GridWrapper = (props: {
 
 		// handle source table
 		const dragColumnIndex = sourceColumns.indexOf(pickedColumn);
-		const sourceHeader = sourceTable.querySelector<HTMLDivElement>('div[data-widget="subject-dataset-and-palette-grid-header"]')!;
-		const sourceBody = sourceTable.querySelector<HTMLDivElement>('div[data-widget="subject-dataset-and-palette-grid-body"]')!;
+		const sourceHeader = sourceTable.querySelector<HTMLDivElement>('div[data-widget="dataset-grid-header"]')!;
+		const sourceBody = sourceTable.querySelector<HTMLDivElement>('div[data-widget="dataset-grid-body"]')!;
 		const sourceIsFixTable = sourceTable === fixTableRef.current;
 		const sourceGridTemplateColumns = resetGridTemplateColumns({
 			element: sourceHeader,
@@ -352,8 +348,8 @@ export const GridWrapper = (props: {
 			targetBody = sourceBody;
 			targetGridTemplateColumns = sourceGridTemplateColumns;
 		} else {
-			targetHeader = targetTable.querySelector<HTMLDivElement>('div[data-widget="subject-dataset-and-palette-grid-header"]')!;
-			targetBody = targetTable.querySelector<HTMLDivElement>('div[data-widget="subject-dataset-and-palette-grid-body"]')!;
+			targetHeader = targetTable.querySelector<HTMLDivElement>('div[data-widget="dataset-grid-header"]')!;
+			targetBody = targetTable.querySelector<HTMLDivElement>('div[data-widget="dataset-grid-body"]')!;
 			targetGridTemplateColumns = resetGridTemplateColumns({
 				element: targetHeader,
 				columns: targetColumns,
@@ -421,8 +417,8 @@ export const GridWrapper = (props: {
 				fixTable = sourceTable;
 				// reset data table since processing above is all about fix table
 				dataTable = dataTableRef.current!;
-				const dataTableHeader = dataTable.querySelector<HTMLDivElement>('div[data-widget="subject-dataset-and-palette-grid-header"]')!;
-				const dataTableBody = dataTable.querySelector<HTMLDivElement>('div[data-widget="subject-dataset-and-palette-grid-body"]')!;
+				const dataTableHeader = dataTable.querySelector<HTMLDivElement>('div[data-widget="dataset-grid-header"]')!;
+				const dataTableBody = dataTable.querySelector<HTMLDivElement>('div[data-widget="dataset-grid-body"]')!;
 				const dataTableGridColumns = `0 ${columnDefs.data.map(column => `${column.width}px 0`).join(' ')} minmax(${FILLER_MIN_WIDTH}px, 1fr)`;
 				dataTableHeader.style.gridTemplateColumns = dataTableGridColumns;
 				dataTableBody.style.gridTemplateColumns = dataTableGridColumns;
@@ -437,8 +433,8 @@ export const GridWrapper = (props: {
 				// target to data table
 				// reset fix table since processing above is all about data table
 				fixTable = fixTableRef.current!;
-				const fixTableHeader = fixTable.querySelector<HTMLDivElement>('div[data-widget="subject-dataset-and-palette-grid-header"]')!;
-				const fixTableBody = fixTable.querySelector<HTMLDivElement>('div[data-widget="subject-dataset-and-palette-grid-body"]')!;
+				const fixTableHeader = fixTable.querySelector<HTMLDivElement>('div[data-widget="dataset-grid-header"]')!;
+				const fixTableBody = fixTable.querySelector<HTMLDivElement>('div[data-widget="dataset-grid-body"]')!;
 				const fixTableGridColumns = `0 ${rowNoColumnWidth}px 0 ${columnDefs.fixed.map(column => `${column.width}px 0`).join(' ')}`;
 				fixTableHeader.style.gridTemplateColumns = fixTableGridColumns;
 				fixTableBody.style.gridTemplateColumns = fixTableGridColumns;
@@ -615,8 +611,8 @@ export const GridWrapper = (props: {
 		// detect the move to index, convert the placeholder index to column index
 		if (toFixTable) {
 			// in grid template columns css, placeholder index is 2, 4, 6, ..., column length * 2 + 2
-			const fixTableHeader = fixTable.querySelector<HTMLDivElement>('div[data-widget="subject-dataset-and-palette-grid-header"]')!;
-			const fixTableBody = fixTable.querySelector<HTMLDivElement>('div[data-widget="subject-dataset-and-palette-grid-body"]')!;
+			const fixTableHeader = fixTable.querySelector<HTMLDivElement>('div[data-widget="dataset-grid-header"]')!;
+			const fixTableBody = fixTable.querySelector<HTMLDivElement>('div[data-widget="dataset-grid-body"]')!;
 			const placeholderWidths = fixTableHeader.style.gridTemplateColumns.split(' ')
 				.filter((width, index) => index >= 2 && index % 2 === 0).map(width => parseInt(width));
 			const placeholderIndex = placeholderWidths.findIndex(width => width !== 0);
@@ -642,8 +638,8 @@ export const GridWrapper = (props: {
 			fixTableBody.style.gridTemplateColumns = fixTableGridColumns;
 		} else {
 			// in grid template columns css, placeholder index is 0, 2, 4, 6, ..., column length * 2
-			const dataTableHeader = dataTable.querySelector<HTMLDivElement>('div[data-widget="subject-dataset-and-palette-grid-header"]')!;
-			const dataTableBody = dataTable.querySelector<HTMLDivElement>('div[data-widget="subject-dataset-and-palette-grid-body"]')!;
+			const dataTableHeader = dataTable.querySelector<HTMLDivElement>('div[data-widget="dataset-grid-header"]')!;
+			const dataTableBody = dataTable.querySelector<HTMLDivElement>('div[data-widget="dataset-grid-body"]')!;
 			const placeholderWidths = dataTableHeader.style.gridTemplateColumns.split(' ')
 				.filter((width, index) => index % 2 === 0).map(width => parseInt(width));
 			const placeholderIndex = placeholderWidths.findIndex(width => width !== 0);

@@ -1,0 +1,10 @@
+export const DEFAULT_COLUMN_WIDTH = 200;
+export const TITLE_HEIGHT = 40;
+export const HEADER_HEIGHT = 32;
+export const ROW_HEIGHT = 24;
+export const ROW_NO_WIDTH = 40;
+export const FILLER_MIN_WIDTH = 40;
+export const RESIZE_DEVIATION = 3;
+export const MIN_COLUMN_WIDTH = 100;
+export const MAX_COLUMN_WIDTH = 500;
+export const DRAG_DEVIATION = 10;

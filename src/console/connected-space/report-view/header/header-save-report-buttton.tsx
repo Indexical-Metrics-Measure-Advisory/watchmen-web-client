@@ -22,7 +22,7 @@ export const HeaderSaveReportButton = (props: { connectedSpace: ConnectedSpace, 
 	const {report} = props;
 
 	const {fire: fireGlobal} = useEventBus();
-	const {on, off} = useReportEventBus();
+	const {on, off, fire} = useReportEventBus();
 	const [changed, setChanged] = useState<SaveState>({styleChanged: false, structureChanged: false});
 	useEffect(() => {
 		const onStyleChanged = (aReport: Report) => {
@@ -48,13 +48,28 @@ export const HeaderSaveReportButton = (props: { connectedSpace: ConnectedSpace, 
 			off(ReportEventTypes.STRUCTURE_CHANGED, onStructureChanged);
 		};
 	}, [on, off, report]);
+	useEffect(() => {
+		const onAskReportChanged = (aReport: Report) => {
+			if (aReport !== report) {
+				return;
+			}
+			fire(ReportEventTypes.REPLY_REPORT_STRUCTURE_CHANGED, report, changed.structureChanged);
+		};
+		on(ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, onAskReportChanged);
+		return () => {
+			off(ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, onAskReportChanged);
+		};
+	}, [on, off, fire, report, changed]);
 
 	const onSaveClicked = () => {
 		if (changed.styleChanged || changed.structureChanged) {
 			// structure changed
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await saveReport(report),
-				() => setChanged({styleChanged: false, structureChanged: false}));
+				() => {
+					setChanged({styleChanged: false, structureChanged: false});
+					fire(ReportEventTypes.DATA_SAVED, report);
+				});
 		}
 	};
 

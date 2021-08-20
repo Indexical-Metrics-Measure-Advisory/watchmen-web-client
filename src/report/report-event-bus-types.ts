@@ -12,6 +12,9 @@ export enum ReportEventTypes {
 
 	STRUCTURE_CHANGED = 'structure-changed',
 	STYLE_CHANGED = 'styled-changed',
+	DATA_SAVED = 'data-saved',
+	ASK_REPORT_STRUCTURE_CHANGED = 'ask-report-structure-changed',
+	REPLY_REPORT_STRUCTURE_CHANGED = 'reply-report-structure-changed',
 
 	DO_REFRESH = 'do-refresh',
 
@@ -47,6 +50,17 @@ export interface ReportEventBus {
 	fire(type: ReportEventTypes.STYLE_CHANGED, report: Report): this;
 	on(type: ReportEventTypes.STYLE_CHANGED, listener: (report: Report) => void): this;
 	off(type: ReportEventTypes.STYLE_CHANGED, listener: (report: Report) => void): this;
+
+	fire(type: ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, report: Report): this;
+	on(type: ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, listener: (report: Report) => void): this;
+	off(type: ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, listener: (report: Report) => void): this;
+
+	fire(type: ReportEventTypes.REPLY_REPORT_STRUCTURE_CHANGED, report: Report, changed: boolean): this;
+	once(type: ReportEventTypes.REPLY_REPORT_STRUCTURE_CHANGED, listener: (report: Report, changed: boolean) => void): this;
+
+	fire(type: ReportEventTypes.DATA_SAVED, report: Report): this;
+	on(type: ReportEventTypes.DATA_SAVED, listener: (report: Report) => void): this;
+	off(type: ReportEventTypes.DATA_SAVED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEventTypes.DO_REFRESH, report: Report): this;
 	on(type: ReportEventTypes.DO_REFRESH, listener: (report: Report) => void): this;

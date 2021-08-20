@@ -8,8 +8,8 @@ import {Subject} from '../../../../../services/tuples/subject-types';
 import {DEFAULT_SUBJECT_DATASET_PAGE_SIZE} from '../constants';
 import {useSubjectDataSetEventBus} from '../subject-dataset-event-bus';
 import {SubjectDataSetEventTypes} from '../subject-dataset-event-bus-types';
-import {ColumnDefs} from '../types';
 import {SubjectDataSetLoading} from '../widgets';
+import {ColumnDefs} from '../../../../dataset-grid/types';
 
 const fetchData = async (options: { subject: Subject; pageNumber?: number; }) => {
 	const {subject, pageNumber = 1} = options;

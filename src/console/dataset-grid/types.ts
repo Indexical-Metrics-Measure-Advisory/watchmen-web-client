@@ -1,5 +1,4 @@
-import {DataSetPage} from '../../../../services/console/dataset';
-import {SubjectDataSetColumn} from '../../../../services/tuples/subject-types';
+import {DataSetPage} from '../../services/console/dataset';
 
 export enum ColumnSortBy {
 	NONE = 'none',
@@ -15,7 +14,6 @@ export interface ColumnDef {
 
 export interface DataColumnDef extends ColumnDef {
 	name: string;
-	column: SubjectDataSetColumn;
 	sort: ColumnSortBy;
 }
 
@@ -27,9 +25,9 @@ export interface ColumnDefs {
 	data: Array<DataColumnDef>;
 }
 
-export type SubjectDataPage = DataSetPage<Array<string | number | boolean | null | undefined>>;
+export type DataPage = DataSetPage<Array<string | number | boolean | null | undefined>>;
 
-export interface DataSetState extends SubjectDataPage {
+export interface DataSetState extends DataPage {
 	loaded: boolean;
 	columnDefs: ColumnDefs;
 }
@@ -61,4 +59,3 @@ export interface DragColumnState {
 	firstRowOffsetY: number;
 	movementX: number;
 }
-

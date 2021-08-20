@@ -1,15 +1,10 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useRef} from 'react';
-import {
-	ICON_FIX_COLUMN,
-	ICON_SORT_ASC,
-	ICON_SORT_DESC,
-	ICON_UNFIX_COLUMN
-} from '../../../../../../basic-widgets/constants';
-import {TooltipAlignment} from '../../../../../../basic-widgets/types';
-import {Lang} from '../../../../../../langs';
-import {DataColumnDef} from '../../types';
+import {ICON_FIX_COLUMN, ICON_SORT_ASC, ICON_SORT_DESC, ICON_UNFIX_COLUMN} from '../../../basic-widgets/constants';
+import {TooltipAlignment} from '../../../basic-widgets/types';
+import {Lang} from '../../../langs';
 import {GridHeaderCell, GridHeaderCellButton, GridHeaderCellButtons} from './grid-widgets';
+import {DataColumnDef} from '../types';
 
 export const GridDatColumnHeaderCell = (props: {
 	column: DataColumnDef;
@@ -51,14 +46,14 @@ export const GridDatColumnHeaderCell = (props: {
 			</GridHeaderCellButton>
 			{isFixTable
 				? <GridHeaderCellButton tooltip={{
-					label: Lang.CONSOLE.CONNECTED_SPACE.UNFIX_COLUMN,
+					label: Lang.DATASET.UNFIX_COLUMN,
 					alignment: TooltipAlignment.RIGHT,
 					offsetX: 6
 				}} onClick={unfixColumn}>
 					<FontAwesomeIcon icon={ICON_UNFIX_COLUMN}/>
 				</GridHeaderCellButton>
 				: <GridHeaderCellButton tooltip={{
-					label: Lang.CONSOLE.CONNECTED_SPACE.FIX_COLUMN,
+					label: Lang.DATASET.FIX_COLUMN,
 					alignment: TooltipAlignment.RIGHT,
 					offsetX: 6
 				}} onClick={fixColumn}>

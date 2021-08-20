@@ -72,6 +72,13 @@ export const En = {
 		CREDENTIAL_EMPTY: 'Credential is required to enjoy the journey.',
 		FAIL: 'Name or credential cannot be identified now.'
 	},
+	DATASET: {
+		UNFIX_COLUMN: 'Unfix Me and Follows',
+		FIX_COLUMN: 'Fix Columns to Here',
+		COMPRESS_COLUMNS: 'Compress Columns',
+		DOWNLOAD_PAGE: 'Download This Page',
+		DOWNLOAD_ALL: 'Download All',
+	},
 	CONSOLE: {
 		LOADING: 'Loading Personal Data...',
 		BYE: 'Bye-bye now?',
@@ -150,8 +157,6 @@ export const En = {
 			AUTO_REFRESH: 'Auto Refresh (5 Minutes)',
 			SHOW_PRINT_PAGE: 'Show Page Size',
 			HIDE_PRINT_PAGE: 'Hide Page Size',
-			DOWNLOAD_PAGE: 'Download This Page',
-			DOWNLOAD_ALL: 'Download All',
 			ADD_REPORT: 'Add Report',
 			ADD_SUBJECT: 'Add Subject',
 			OPEN_SUBJECT: 'Open Subject',
@@ -221,9 +226,6 @@ export const En = {
 			SUBJECT_FILTER_JOINT_NO_STATEMENT: 'No Statement in Joint',
 			SUBJECT_UNKNOWN_FILTER: 'Unknown Filter',
 			NO_DATASET_COLUMN: 'No column defined.',
-			UNFIX_COLUMN: 'Unfix Me and Follows',
-			FIX_COLUMN: 'Fix Columns to Here',
-			COMPRESS_COLUMNS: 'Compress Columns',
 			NO_REPORT: 'No report defined, do you want ',
 			CREATE_REPORT: 'create one',
 			NO_REPORT_2: '?',

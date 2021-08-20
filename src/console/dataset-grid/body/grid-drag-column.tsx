@@ -1,5 +1,4 @@
 import React, {ForwardedRef, forwardRef, useEffect, useState} from 'react';
-import {DataColumnDef, DataSetState, DragColumnState} from '../../types';
 import {
 	DragColumnBody,
 	DragColumnBodyCell,
@@ -7,8 +6,9 @@ import {
 	DragColumnHeader,
 	DragColumnHeaderCell
 } from './drag-widgets';
-import {useGridEventBus} from './grid-event-bus';
-import {GridEventTypes} from './grid-event-bus-types';
+import {useGridEventBus} from '../grid-event-bus';
+import {GridEventTypes} from '../grid-event-bus-types';
+import {DataColumnDef, DataSetState, DragColumnState} from '../types';
 
 export const GridDragColumn = forwardRef((props: {
 	column?: DataColumnDef;

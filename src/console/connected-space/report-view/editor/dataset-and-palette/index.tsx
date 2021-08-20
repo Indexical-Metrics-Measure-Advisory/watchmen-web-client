@@ -41,8 +41,7 @@ import {ChartTreemapSettings} from '../chart-treemap-settings';
 import {ChartMapSettings} from '../chart-map-settings';
 import {EChartsXAxisSettings} from '../echarts/xaxis';
 import {EChartsYAxisSettings} from '../echarts/yaxis';
-import {useEventBus} from '../../../../../events/event-bus';
-import {EventTypes} from '../../../../../events/types';
+import {DataSetTab} from '../dataset-tab';
 
 enum TABS {
 	DATASET = 'dataset',
@@ -64,10 +63,9 @@ enum TABS {
 }
 
 export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
-	const {subject, report} = props;
+	const {connectedSpace, subject, report} = props;
 	const {chart} = report;
 
-	const {fire: fireGlobal} = useEventBus();
 	const {on, off} = useReportViewEventBus();
 	const [visible, setVisible] = useState(false);
 	const [activeTab, setActiveTab] = useState('');
@@ -118,11 +116,6 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 
 	const onTabClicked = (tab: string) => () => {
 		if (tab === activeTab) {
-			return;
-		}
-
-		if (tab === TABS.DATASET) {
-			fireGlobal(EventTypes.SHOW_NOT_IMPLEMENT);
 			return;
 		}
 
@@ -212,6 +205,8 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 				</TabHeader>
 				: null}
 		</TabHeaders>
+		<DataSetTab connectedSpace={connectedSpace} subject={subject} report={report}
+		            active={activeTab === TABS.DATASET}/>
 		<TabBody subject={subject} report={report} active={activeTab === TABS.BASIC_STYLE}>
 			<BasicStyleSection report={report}/>
 		</TabBody>

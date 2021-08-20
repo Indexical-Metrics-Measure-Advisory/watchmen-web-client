@@ -1,9 +1,9 @@
 import React, {ForwardedRef, forwardRef, Fragment} from 'react';
-import {ColumnDef, DataColumnDef, DataSetState, SequenceColumnDef} from '../../types';
 import {GridDatColumnHeaderCell} from './grid-data-column-header-cell';
-import {useGridEventBus} from './grid-event-bus';
-import {GridEventTypes} from './grid-event-bus-types';
+import {useGridEventBus} from '../grid-event-bus';
+import {GridEventTypes} from '../grid-event-bus-types';
 import {GridBody, GridBodyCell, GridContainer, GridHeader, GridHeaderCell} from './grid-widgets';
+import {ColumnDef, DataColumnDef, DataSetState, SequenceColumnDef} from '../types';
 
 export const Grid = forwardRef((props: {
 	displayColumns: Array<DataColumnDef>;

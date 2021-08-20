@@ -72,6 +72,13 @@ export const Jp = {
 		CREDENTIAL_EMPTY: 'パスワードを入力してください。',
 		FAIL: 'アカウントまたはパスワードの認証に失敗しました。'
 	},
+	DATASET: {
+		UNFIX_COLUMN: 'これ以降のカラムの固定を解除すうｒ',
+		FIX_COLUMN: 'このカラムに固定する',
+		COMPRESS_COLUMNS: 'カラムの幅を狭める',
+		DOWNLOAD_PAGE: 'このページをダウンロードする',
+		DOWNLOAD_ALL: 'すべてをダウンロードする',
+	},
 	CONSOLE: {
 		LOADING: '個人データ読み込み中...',
 		BYE: '終了しますか？',
@@ -150,8 +157,6 @@ export const Jp = {
 			AUTO_REFRESH: '自動更新(5分間隔)',
 			SHOW_PRINT_PAGE: 'ページサイズを表示する',
 			HIDE_PRINT_PAGE: 'ページサイズを非表示する',
-			DOWNLOAD_PAGE: 'このページをダウンロードする',
-			DOWNLOAD_ALL: 'すべてをダウンロードする',
 			ADD_REPORT: 'レポートを追加する',
 			ADD_SUBJECT: '主題を追加する',
 			OPEN_SUBJECT: '主題を開く',
@@ -221,9 +226,6 @@ export const Jp = {
 			SUBJECT_FILTER_JOINT_NO_STATEMENT: 'ジョイントがありません',
 			SUBJECT_UNKNOWN_FILTER: '不明なフィルタ',
 			NO_DATASET_COLUMN: 'カラムは定義されていません。',
-			UNFIX_COLUMN: 'これ以降のカラムの固定を解除すうｒ',
-			FIX_COLUMN: 'このカラムに固定する',
-			COMPRESS_COLUMNS: 'カラムの幅を狭める',
 			NO_REPORT: 'レポートは定義されていません。定義しますか',
 			CREATE_REPORT: '始める',
 			NO_REPORT_2: 'か？',
