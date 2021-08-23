@@ -3,6 +3,7 @@ import {
 	ConstantParameter,
 	Parameter,
 	ParameterComputeType,
+	ParsedVariablePredefineFunctions,
 	TopicFactorParameter,
 	VariablePredefineFunctions
 } from '../../../../../services/tuples/factor-calculator-types';
@@ -12,6 +13,7 @@ import {Factor} from '../../../../../services/tuples/factor-types';
 import {ParameterShouldBe} from './types';
 import dayjs from 'dayjs';
 import {DataRow} from '../../../types';
+import {isDateDiffConstant} from '../../../../../services/tuples/factor-calculator-utils';
 
 export const readTopicFactorParameter = (options: {
 	parameter: TopicFactorParameter,
@@ -134,6 +136,35 @@ const computeVariable = (options: { variable: string, getFirstValue: (propertyNa
 	const {variable, getFirstValue, throws} = options;
 	if (variable.trim().length === 0) {
 		return null;
+	}
+
+	const parsedFunction = [isDateDiffConstant].reduce((ret: { is: boolean, parsed?: ParsedVariablePredefineFunctions }, parse) => {
+		if (!ret.is) {
+			return parse(variable);
+		} else {
+			return ret;
+		}
+	}, {is: false});
+	if (parsedFunction.is) {
+		const params = parsedFunction.parsed?.params.map(p => {
+			return computeVariable({variable: p, getFirstValue, throws});
+		}) || [];
+		switch (parsedFunction.parsed?.f) {
+			case VariablePredefineFunctions.YEAR_DIFF: {
+				const [p1, p2] = params;
+				return dayjs(p2).diff(p1, 'year');
+			}
+			case VariablePredefineFunctions.MONTH_DIFF: {
+				const [p1, p2] = params;
+				return dayjs(p2).diff(p1, 'month');
+			}
+			case VariablePredefineFunctions.DAY_DIFF: {
+				const [p1, p2] = params;
+				return dayjs(p2).diff(p1, 'day');
+			}
+			default:
+				throws();
+		}
 	}
 
 	// eslint-disable-next-line

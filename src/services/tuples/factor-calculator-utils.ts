@@ -4,6 +4,7 @@ import {
 	Parameter,
 	ParameterComputeType,
 	ParameterExpressionOperator,
+	ParsedVariablePredefineFunctions,
 	ValueTypeOfParameter,
 	ValueTypes,
 	ValueTypesOfParameter,
@@ -217,6 +218,26 @@ const digByParentType = (names: Array<string>, types: ValueTypeOfParameter): Val
 const digByParentTypes = (names: Array<string>, types: ValueTypesOfParameter): ValueTypesOfParameter => {
 	return types.map(type => digByParentType(names, type)).flat();
 };
+export const isDateDiffConstant = (statement: string): { is: boolean, parsed?: ParsedVariablePredefineFunctions } => {
+	const parsed = [
+		VariablePredefineFunctions.YEAR_DIFF,
+		VariablePredefineFunctions.MONTH_DIFF,
+		VariablePredefineFunctions.DAY_DIFF
+	].map((func: VariablePredefineFunctions) => {
+		const matched = (statement || '').trim().match(new RegExp(`^(${func})\\s*\\((.+),(.+)\\)$`));
+		if (matched) {
+			const [, f, p1, p2] = matched;
+			return {f: f as VariablePredefineFunctions, params: [p1.trim(), p2.trim()]};
+		} else {
+			return false;
+		}
+	}).filter(x => x !== false);
+	if (parsed.length === 0) {
+		return {is: false};
+	} else {
+		return {is: true, parsed: parsed[0] as ParsedVariablePredefineFunctions};
+	}
+};
 /**
  * compute the possible types of given parameter,
  * according to topics and variables which are used in parameter definition.
@@ -294,7 +315,9 @@ export const computeParameterTypes = (
 			} else if (name.endsWith(`.${VariablePredefineFunctions.COUNT}`) || name.endsWith(`.${VariablePredefineFunctions.LENGTH}`)) {
 				return [{array: false, type: FactorType.UNSIGNED}];
 			} else if (name.endsWith(`.${VariablePredefineFunctions.SUM}`)) {
-				return [{array: false, type: FactorType.NUMBER}]
+				return [{array: false, type: FactorType.NUMBER}];
+			} else if (isDateDiffConstant(name).is) {
+				return [{array: false, type: FactorType.NUMBER}];
 			}
 			const [first, ...rest] = name.split('.');
 			let firstTypes: ValueTypesOfParameter;

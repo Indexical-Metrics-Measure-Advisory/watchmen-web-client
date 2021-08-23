@@ -88,7 +88,16 @@ export enum VariablePredefineFunctions {
 	COUNT = '&count',
 	LENGTH = '&length',
 	SUM = '&sum',
-	FROM_PREVIOUS_TRIGGER_DATA = '&old'
+	FROM_PREVIOUS_TRIGGER_DATA = '&old',
+
+	DAY_DIFF = '&dayDiff',
+	MONTH_DIFF = '&monthDiff',
+	YEAR_DIFF = '&yearDiff'
+}
+
+export interface ParsedVariablePredefineFunctions {
+	f: VariablePredefineFunctions;
+	params: Array<string>;
 }
 
 export enum AnyFactorType {
