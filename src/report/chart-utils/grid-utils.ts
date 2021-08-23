@@ -23,9 +23,9 @@ export const buildEChartsGrid = (chart: ECharts): GridComponentOption | undefine
 		borderColor: grid.border?.color,
 		borderWidth: grid.border?.width,
 		borderType: grid.border?.style as any,
-		top: grid.position?.top,
-		right: grid.position?.right,
-		left: grid.position?.left,
-		bottom: grid.position?.bottom
+		top: (grid?.position?.top != null) ? `${grid?.position?.top}%` : (void 0),
+		right: (grid?.position?.right != null) ? `${grid?.position?.right}%` : (void 0),
+		left: (grid?.position?.left != null) ? `${grid?.position?.left}%` : (void 0),
+		bottom: (grid?.position?.bottom != null) ? `${grid?.position?.bottom}%` : (void 0)
 	});
 };

@@ -52,6 +52,10 @@ export const onColorChange = (options: {
 export const validateNumber = (fractionDigits: number) => (value: string) => {
 	return new RegExp(`^\\d{1,${fractionDigits}}$`).test(value);
 };
+export const validatePercentage = (value: string): boolean => {
+	const numberValue = parseFloat(value);
+	return !isNaN(numberValue);
+};
 export const isANumber = (value: string) => {
 	try {
 		parseInt(value);
@@ -72,12 +76,21 @@ export const onNumberChange = (options: {
 	chart: Chart;
 	prop: NumberPropNames;
 	done: (report: Report, chart: Chart, prop: string, value?: number) => void;
-}) => (value?: string) => {
+}) => (value?: string): number | undefined => {
 	const {report, chart, prop, done} = options;
-	const numberValue = value ? parseInt(value) : (void 0);
+	let numberValue = value ? parseFloat(value) : (void 0);
+	numberValue = isNaN(numberValue as any) ? (void 0) : numberValue;
 	assignValue(chart, prop, numberValue, true);
 	done(report, chart, prop, numberValue);
 	return numberValue;
+};
+export const onPercentageChange = (options: {
+	report: Report;
+	chart: Chart;
+	prop: NumberPropNames;
+	done: (report: Report, chart: Chart, prop: string, value?: number | string) => void;
+}) => (value?: string): number | undefined => {
+	return onNumberChange(options)(value);
 };
 export const onDropdownValueChange = (options: {
 	report: Report;

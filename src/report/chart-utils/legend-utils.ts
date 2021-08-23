@@ -34,9 +34,9 @@ export const buildEChartsLegend = (chart: ECharts, legendNames: Array<string>): 
 		borderWidth: legend.border?.width,
 		borderType: legend.border?.style as any,
 		borderRadius: legend.border?.radius,
-		top: legend.position?.top,
-		right: legend.position?.right,
-		left: legend.position?.left,
-		bottom: legend.position?.bottom
+		top: (legend?.position?.top != null) ? `${legend?.position?.top}%` : (void 0),
+		right: (legend?.position?.right != null) ? `${legend?.position?.right}%` : (void 0),
+		left: (legend?.position?.left != null) ? `${legend?.position?.left}%` : (void 0),
+		bottom: (legend?.position?.bottom != null) ? `${legend?.position?.bottom}%` : (void 0)
 	});
 };

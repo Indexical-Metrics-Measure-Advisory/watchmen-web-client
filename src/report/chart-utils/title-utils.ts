@@ -42,9 +42,9 @@ export const buildEChartsTitle = (chart: ECharts): TitleComponentOption | undefi
 		borderWidth: title.border?.width,
 		borderType: title.border?.style as any,
 		borderRadius: title.border?.radius,
-		top: title.position?.top,
-		right: title.position?.right,
-		left: title.position?.left,
-		bottom: title.position?.bottom
+		top: (title.position?.top != null) ? `${title.position?.top}%` : (void 0),
+		right: (title.position?.right != null) ? `${title.position?.right}%` : (void 0),
+		left: (title.position?.left != null) ? `${title.position?.left}%` : (void 0),
+		bottom: (title.position?.bottom != null) ? `${title.position?.bottom}%` : (void 0)
 	});
 };

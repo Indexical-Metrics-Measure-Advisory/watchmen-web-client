@@ -3,7 +3,7 @@ import {Lang} from '../../../../../../langs';
 import {EChartsPositionHolder} from '../../../../../../services/tuples/echarts/echarts-position-types';
 import {ECharts} from '../../../../../../services/tuples/echarts/echarts-types';
 import {Report} from '../../../../../../services/tuples/report-types';
-import {onNumberChange, validateNumber} from '../../data-utils';
+import {onPercentageChange, validatePercentage} from '../../data-utils';
 import {MapChartStylePropNames} from '../../prop-defs/chart-styles/map-chart-style-props';
 import {PieChartStylePropNames} from '../../prop-defs/chart-styles/pie-chart-style-props';
 import {TreeChartStylePropNames} from '../../prop-defs/chart-styles/tree-chart-style-props';
@@ -12,7 +12,7 @@ import {EChartsGridPropNames} from '../../prop-defs/echart-styles/echarts-grid-p
 import {EChartsLegendPropNames} from '../../prop-defs/echart-styles/echarts-legend-props';
 import {EChartsTitlePropNames} from '../../prop-defs/echart-styles/echarts-title-props';
 import {EChartsTooltipPropNames} from '../../prop-defs/echart-styles/echarts-tooltip-props';
-import {NumberValue} from '../../settings-widgets/number-value';
+import {PercentageValue} from '../../settings-widgets/pecentage-value';
 
 export interface SettingsPositionPropNames {
 	top: EChartsTitlePropNames.POSITION_TOP
@@ -78,16 +78,17 @@ export const PositionSettings = (props: {
 
 	return <>
 		{editors.map(({name, label, value}) => {
-			return <NumberValue label={label} unitLabel={Lang.CHART.PIXEL} placeholder={'0 - 9999'}
-			                    value={value}
-			                    validate={validateNumber(4)}
-			                    onValueChange={onNumberChange({
-				                    report,
-				                    chart,
-				                    prop: name,
-				                    done: onValueChange
-			                    })}
-			                    key={name}/>;
+			return <PercentageValue label={label} unitLabel={Lang.CHART.PERCENTAGE}
+			                        placeholder={'0 - 100%'}
+			                        value={value}
+			                        validate={validatePercentage}
+			                        onValueChange={onPercentageChange({
+				                        report,
+				                        chart,
+				                        prop: name,
+				                        done: onValueChange
+			                        })}
+			                        key={name}/>;
 
 		})}
 	</>;

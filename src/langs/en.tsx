@@ -387,6 +387,7 @@ export const En = {
 		WIDTH: 'Width',
 		HEIGHT: 'Height',
 		PIXEL: 'PX',
+		PERCENTAGE: '%',
 		DEGREE: 'DEG',
 		LINE_COLOR: 'Line Color',
 		LINE_STYLE: 'Line Style',

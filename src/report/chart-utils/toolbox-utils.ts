@@ -66,9 +66,9 @@ export const buildToolbox = (chart: ECharts, report: Report, dataset: ChartDataS
 				restore: {show: true}
 			} : {})
 		},
-		top: toolbox?.position?.top,
-		right: toolbox?.position?.right,
-		left: toolbox?.position?.left,
-		bottom: toolbox?.position?.bottom
+		top: (toolbox?.position?.top != null) ? `${toolbox?.position?.top}%` : (void 0),
+		right: (toolbox?.position?.right != null) ? `${toolbox?.position?.right}%` : (void 0),
+		left: (toolbox?.position?.left != null) ? `${toolbox?.position?.left}%` : (void 0),
+		bottom: (toolbox?.position?.bottom != null) ? `${toolbox?.position?.bottom}%` : (void 0)
 	});
 };

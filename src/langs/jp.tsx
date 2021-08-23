@@ -387,6 +387,7 @@ export const Jp = {
 		WIDTH: '幅',
 		HEIGHT: '高さ',
 		PIXEL: 'PX',
+		PERCENTAGE: '%',
 		DEGREE: '度',
 		LINE_COLOR: '線の色',
 		LINE_STYLE: '線のスタイル',
