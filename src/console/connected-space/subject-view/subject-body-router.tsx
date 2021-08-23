@@ -22,7 +22,7 @@ export const SubjectBodyRouter = (props: { connectedSpace: ConnectedSpace, subje
 	const {once: onceConsole} = useConsoleEventBus();
 	const [initialized, setInitialized] = useState(false);
 	useEffect(() => {
-		const handle = (valid: boolean) => {
+		const handle = ({valid}: { valid: boolean }) => {
 			if (!valid && !isSubjectDefNow()) {
 				history.replace(toSubjectDef(connectedSpace.connectId, subject.subjectId));
 			} else {

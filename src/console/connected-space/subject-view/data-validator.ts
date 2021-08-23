@@ -38,16 +38,16 @@ const getTopicIdsFromFilter = (joint: SubjectDataSetFilterJoint): Array<string> 
 	}).flat();
 };
 
-export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
+export const isDefValid = (subject: Subject, topics: Array<Topic>): { valid: boolean, messages: Array<string> } => {
 	const {dataset} = subject;
 	if (!dataset) {
-		return false;
+		return {valid: false, messages: ['No dataset defined.']};
 	}
 
 	// validate subject definition
 	const {columns} = dataset;
 	if (!columns || columns.length === 0) {
-		return false;
+		return {valid: false, messages: ['No columns defined.']};
 	}
 	const hasInvalidColumn = columns.some(({parameter, alias}) => {
 		return !alias || alias.trim().length === 0 || !isParameterValid4DataSet({
@@ -58,12 +58,12 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
 		});
 	});
 	if (hasInvalidColumn) {
-		return false;
+		return {valid: false, messages: ['Invalid column defined.']};
 	}
 
 	const {filters} = dataset;
 	if (!filters || !filters.jointType) {
-		return false;
+		return {valid: false, messages: ['No filter defined.']};
 	}
 	if (filters.filters.length !== 0) {
 		const hasInvalidFilter = filters.filters.some(filter => {
@@ -76,7 +76,7 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
 			}
 		});
 		if (hasInvalidFilter) {
-			return false;
+			return {valid: false, messages: ['Invalid filter defined.']};
 		}
 	}
 
@@ -110,7 +110,7 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
 		return false;
 	});
 	if (hasInvalidJoin) {
-		return false;
+		return {valid: false, messages: ['Invalid join defined.']};
 	}
 	const topicIdsInJoins = Array.from(new Set((joins || []).reduce((topicIds, {topicId, secondaryTopicId}) => {
 		topicIds.push(topicId, secondaryTopicId);
@@ -121,26 +121,23 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>) => {
 	if (topicIdsInJoins.length === 0) {
 		// no join, single source topic
 		if (topicIdsInColumns.length > 1 || topicIdsInFilters.length > 1) {
-			return false;
+			return {valid: false, messages: ['Join of topics in columns or filters should be defined.']};
 		}
 		if (topicIdsInColumns.length === 1 && topicIdsInFilters.length === 1) {
 			// eslint-disable-next-line
-			return topicIdsInColumns[0] == topicIdsInFilters[0];
+			return {valid: false, messages: ['Topic in columns and filters is mismatched.']};
 		}
 	} else {
 		const columnTopicNotInJoin = topicIdsInColumns.some(topicId => !topicIdsInJoins.includes(topicId));
 		if (columnTopicNotInJoin) {
-			return false;
+			return {valid: false, messages: ['Join of topics in columns should be defined.']};
 		}
 		const filterTopicNotInJoin = topicIdsInFilters.some(topicId => !topicIdsInJoins.includes(topicId));
 		if (filterTopicNotInJoin) {
-			return false;
-		}
-		if (topicIdsInColumns.length !== topicIdsInJoins.length) {
-			// every topic in column must be declared in joins
-			return false;
+			return {valid: false, messages: ['Join of topics in filters should be defined.']};
 		}
 	}
 
-	return true;
+	// valid
+	return {valid: true, messages: []};
 };

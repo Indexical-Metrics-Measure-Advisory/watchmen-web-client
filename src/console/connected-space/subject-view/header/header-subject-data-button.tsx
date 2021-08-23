@@ -1,7 +1,7 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {useHistory} from 'react-router-dom';
-import {AlertLabel} from '../../../../alert/widgets';
+import {SingleLineAlertLabel} from '../../../../alert/widgets';
 import {ICON_SUBJECT_DATA} from '../../../../basic-widgets/constants';
 import {PageHeaderButton} from '../../../../basic-widgets/page-header-buttons';
 import {ButtonInk} from '../../../../basic-widgets/types';
@@ -29,10 +29,15 @@ export const HeaderSubjectDataButton = (props: { connectedSpace: ConnectedSpace,
 		if (isSubjectDataNow()) {
 			return;
 		}
-		const handle = (valid: boolean) => {
+		const handle = ({valid, messages}: { valid: boolean, messages: Array<string> }) => {
 			if (!valid) {
 				fireGlobal(EventTypes.SHOW_ALERT,
-					<AlertLabel>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_DEF_INVALID}</AlertLabel>);
+					<>
+						{(messages || []).reduce((all, message) => {
+								return <SingleLineAlertLabel>{message}</SingleLineAlertLabel>;
+							},
+							<SingleLineAlertLabel>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_DEF_INVALID}</SingleLineAlertLabel>)}
+					</>);
 			} else {
 				history.push(toSubjectData(connectedSpace.connectId, subject.subjectId));
 			}
