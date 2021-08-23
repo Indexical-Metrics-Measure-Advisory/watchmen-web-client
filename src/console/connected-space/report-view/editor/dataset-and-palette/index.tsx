@@ -42,9 +42,11 @@ import {ChartMapSettings} from '../chart-map-settings';
 import {EChartsXAxisSettings} from '../echarts/xaxis';
 import {EChartsYAxisSettings} from '../echarts/yaxis';
 import {DataSetTab} from '../dataset-tab';
+import { FilterTab } from '../filter-tab';
 
 enum TABS {
 	DATASET = 'dataset',
+	FILTER = 'filter',
 	BASIC_STYLE = 'basic-style',
 	TITLE = 'title',
 	SUBTITLE = 'subtitle',
@@ -130,8 +132,11 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 	// @ts-ignore
 	return <ReportDataSetAndPaletteContainer visible={visible}>
 		<TabHeaders>
-			<TabHeader active={activeTab === TABS.DATASET} zIndex={100} onClick={onTabClicked(TABS.DATASET)}>
+			<TabHeader active={activeTab === TABS.DATASET} zIndex={101} onClick={onTabClicked(TABS.DATASET)}>
 				{Lang.CONSOLE.CONNECTED_SPACE.REPORT_DATA}
+			</TabHeader>
+			<TabHeader active={activeTab === TABS.FILTER} zIndex={100} onClick={onTabClicked(TABS.FILTER)}>
+				{Lang.CONSOLE.CONNECTED_SPACE.REPORT_FILTER}
 			</TabHeader>
 			<TabHeader active={activeTab === TABS.BASIC_STYLE} zIndex={90} onClick={onTabClicked(TABS.BASIC_STYLE)}>
 				{Lang.CHART.SECTION_TITLE_BASIC_STYLE}
@@ -207,6 +212,8 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 		</TabHeaders>
 		<DataSetTab connectedSpace={connectedSpace} subject={subject} report={report}
 		            active={activeTab === TABS.DATASET}/>
+		<FilterTab connectedSpace={connectedSpace} subject={subject} report={report}
+		            active={activeTab === TABS.FILTER}/>
 		<TabBody subject={subject} report={report} active={activeTab === TABS.BASIC_STYLE}>
 			<BasicStyleSection report={report}/>
 		</TabBody>

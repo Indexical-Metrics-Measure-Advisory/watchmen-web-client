@@ -1,13 +1,13 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useState} from 'react';
 import styled from 'styled-components';
-import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '../../../../../../basic-widgets/constants';
-import {Lang} from '../../../../../../langs';
-import {Parameter, ParameterKind} from '../../../../../../services/tuples/factor-calculator-types';
+import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '../../../../basic-widgets/constants';
+import {Lang} from '../../../../langs';
+import {Parameter, ParameterKind} from '../../../../services/tuples/factor-calculator-types';
 import {useParameterEventBus} from '../parameter-event-bus';
 import {ParameterEventTypes} from '../parameter-event-bus-types';
 import {ParameterFromEditContainer, ParameterFromIcon, ParameterFromLabel, ParameterTypeButton} from './widgets';
-import {defendParameterAndRemoveUnnecessary} from '../../../../../../services/tuples/parameter-utils';
+import {defendParameterAndRemoveUnnecessary} from '../../../../services/tuples/parameter-utils';
 
 export const ParameterFromEdit = (props: { parameter: Parameter }) => {
 	const {parameter, ...rest} = props;

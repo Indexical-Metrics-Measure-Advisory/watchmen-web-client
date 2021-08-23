@@ -239,7 +239,7 @@ export const Dropdown = (props: DropdownProps) => {
 		} else if (isJSXElement(label)) {
 			return label;
 		} else {
-			const display: DropdownOptionLabel = label(option);
+			const display: DropdownOptionLabel = label(option) || '';
 			// don't know why, webstorm consider "display" cannot have type "string",
 			// but obviously it has
 			// noinspection SuspiciousTypeOfGuard

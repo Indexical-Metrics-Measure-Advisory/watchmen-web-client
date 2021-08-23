@@ -1,11 +1,11 @@
 import React, {Fragment, useEffect} from 'react';
-import {SubjectDataSetFilterExpression} from '../../../../../services/tuples/subject-types';
-import {useParameterEventBus} from '../../../parameter/parameter-event-bus';
-import {ParameterEventTypes} from '../../../parameter/parameter-event-bus-types';
 import {useFilterEventBus} from './filter-event-bus';
 import {FilterEventTypes} from './filter-event-bus-types';
+import {ReportFilterExpression} from '../../../../../../services/tuples/report-types';
+import {useParameterEventBus} from '../../../../parameter/parameter-event-bus';
+import {ParameterEventTypes} from '../../../../parameter/parameter-event-bus-types';
 
-export const Parameter2FilterEventBridge = (props: { filter: SubjectDataSetFilterExpression }) => {
+export const Parameter2FilterEventBridge = (props: { filter: ReportFilterExpression }) => {
 	const {filter} = props;
 
 	const {fire: fireFilter} = useFilterEventBus();

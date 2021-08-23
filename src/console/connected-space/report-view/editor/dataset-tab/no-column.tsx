@@ -6,7 +6,7 @@ import {Lang} from '../../../../../langs';
 export const NoColumn = (props: { report: Report }) => {
 	const {report} = props;
 
-	if (report.indicators.length !== 0 && report.dimensions.length !== 0) {
+	if (report.indicators.length !== 0 || report.dimensions.length !== 0) {
 		return null;
 	}
 

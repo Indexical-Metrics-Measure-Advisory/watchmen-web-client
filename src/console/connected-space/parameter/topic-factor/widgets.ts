@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Dropdown} from '../../../../../../basic-widgets/dropdown';
+import {Dropdown} from '../../../../basic-widgets/dropdown';
 
 export const TopicFactorEditContainer = styled.div.attrs({'data-widget': 'parameter-topic-factor-edit'})`
 	display               : grid;

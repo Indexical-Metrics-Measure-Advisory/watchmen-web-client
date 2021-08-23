@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {v4} from 'uuid';
-import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {ComputedParameter, Parameter} from '../../../../../../services/tuples/factor-calculator-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {useForceUpdate} from '../../../../basic-widgets/utils';
+import {ComputedParameter, Parameter} from '../../../../services/tuples/factor-calculator-types';
+import {Topic} from '../../../../services/tuples/topic-types';
 import {ParameterEventBusProvider, useParameterEventBus} from '../parameter-event-bus';
 import {ParameterEventTypes} from '../parameter-event-bus-types';
 import {SubParameterEdit} from '../sub-param';

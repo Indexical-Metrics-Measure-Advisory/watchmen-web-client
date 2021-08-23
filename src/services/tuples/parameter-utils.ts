@@ -52,8 +52,8 @@ export const isExpressionParameter = (condition: ParameterCondition): condition 
 	return !isJointParameter(condition);
 };
 
-export const createTopicFactorParameter = (): TopicFactorParameter => {
-	return {kind: ParameterKind.TOPIC, topicId: '', factorId: ''};
+export const createTopicFactorParameter = (topicId?: string, factorId?: string): TopicFactorParameter => {
+	return {kind: ParameterKind.TOPIC, topicId: topicId || '', factorId: factorId || ''};
 };
 export const createConstantParameter = (): ConstantParameter => {
 	return {kind: ParameterKind.CONSTANT, value: ''};

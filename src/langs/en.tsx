@@ -77,7 +77,7 @@ export const En = {
 		FIX_COLUMN: 'Fix Columns to Here',
 		COMPRESS_COLUMNS: 'Compress Columns',
 		DOWNLOAD_PAGE: 'Download This Page',
-		DOWNLOAD_ALL: 'Download All',
+		DOWNLOAD_ALL: 'Download All'
 	},
 	CONSOLE: {
 		LOADING: 'Loading Personal Data...',
@@ -151,6 +151,7 @@ export const En = {
 			SUBJECT_REPORTS: 'Reports',
 			SUBJECT_REPORT: 'Report',
 			REPORT_DATA: 'Dataset',
+			REPORT_FILTER: 'Filter',
 			SHARE: 'Share',
 			PRINT: 'Print',
 			REFRESH: 'Refresh',
@@ -201,8 +202,8 @@ export const En = {
 			NO_DATASET_FILTER_FOR_SUBJECT: 'No filter defined, do you want ',
 			CREATE_DATASET_FILTER_WHEN_NONE: 'create one',
 			NO_DATASET_FILTER_FOR_SUBJECT_2: '?',
-			ADD_SUBJECT_SUB_EXPRESSION_FILTER: 'Add Sub Expression',
-			ADD_SUBJECT_SUB_JOINT_FILTER: 'Add Sub Joint',
+			ADD_SUB_EXPRESSION_FILTER: 'Add Sub Expression',
+			ADD_SUB_JOINT_FILTER: 'Add Sub Joint',
 			NO_DATASET_JOIN_FOR_SUBJECT: 'No join defined, do you want ',
 			CREATE_DATASET_JOIN_WHEN_NONE: 'create one',
 			NO_DATASET_JOIN_FOR_SUBJECT_2: '?',
@@ -235,7 +236,10 @@ export const En = {
 			SWITCH_REPORT_DIALOG_LABEL: 'Please select report',
 			DELETE_REPORT_DIALOG_LABEL: 'Are you sure to delete report? Please note that deletion cannot be recovered.',
 			COLLAPSE_REPORT_SETTINGS_SECTIONS: 'Collapse All Sections',
-			EXPAND_REPORT_SETTINGS_SECTIONS: 'Expand All Sections'
+			EXPAND_REPORT_SETTINGS_SECTIONS: 'Expand All Sections',
+			REPORT_NO_FILTER: 'No filter defined, do you want ',
+			CREATE_REPORT_FILTER: 'create now',
+			REPORT_NO_FILTER_2: '?'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',

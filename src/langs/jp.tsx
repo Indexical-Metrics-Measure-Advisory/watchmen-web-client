@@ -77,7 +77,7 @@ export const Jp = {
 		FIX_COLUMN: 'このカラムに固定する',
 		COMPRESS_COLUMNS: 'カラムの幅を狭める',
 		DOWNLOAD_PAGE: 'このページをダウンロードする',
-		DOWNLOAD_ALL: 'すべてをダウンロードする',
+		DOWNLOAD_ALL: 'すべてをダウンロードする'
 	},
 	CONSOLE: {
 		LOADING: '個人データ読み込み中...',
@@ -151,6 +151,7 @@ export const Jp = {
 			SUBJECT_REPORTS: 'レポート一覧',
 			SUBJECT_REPORT: 'レポート',
 			REPORT_DATA: 'データセット',
+			REPORT_FILTER: 'フィルタ',
 			SHARE: '共有',
 			PRINT: 'プリント',
 			REFRESH: '更新',
@@ -201,8 +202,8 @@ export const Jp = {
 			NO_DATASET_FILTER_FOR_SUBJECT: 'フィルタは定義されていません。定義しますか',
 			CREATE_DATASET_FILTER_WHEN_NONE: '始める',
 			NO_DATASET_FILTER_FOR_SUBJECT_2: 'か？',
-			ADD_SUBJECT_SUB_EXPRESSION_FILTER: 'フィルタの条件を追加する',
-			ADD_SUBJECT_SUB_JOINT_FILTER: 'サブ結合を追加する',
+			ADD_SUB_EXPRESSION_FILTER: 'フィルタの条件を追加する',
+			ADD_SUB_JOINT_FILTER: 'サブ結合を追加する',
 			NO_DATASET_JOIN_FOR_SUBJECT: '結合は定義されていません。定義しますか',
 			CREATE_DATASET_JOIN_WHEN_NONE: '始める',
 			NO_DATASET_JOIN_FOR_SUBJECT_2: 'か？',
@@ -235,7 +236,10 @@ export const Jp = {
 			SWITCH_REPORT_DIALOG_LABEL: 'レポートを選択してください',
 			DELETE_REPORT_DIALOG_LABEL: 'レポートを削除してもよろしいですか？ 削除したものは復元できませんので、ご注意ください。',
 			COLLAPSE_REPORT_SETTINGS_SECTIONS: 'すべてのセクションを折りたたむ',
-			EXPAND_REPORT_SETTINGS_SECTIONS: 'すべてのセクションを表示する'
+			EXPAND_REPORT_SETTINGS_SECTIONS: 'すべてのセクションを表示する',
+			REPORT_NO_FILTER: 'フィルタは定義されていません。定義しますか',
+			CREATE_REPORT_FILTER: '始める',
+			REPORT_NO_FILTER_2: 'か？'
 		},
 		SETTINGS: {
 			TITLE: '設定',

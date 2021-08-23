@@ -1,4 +1,10 @@
-import {Report, ReportDimension, ReportIndicator} from '../../../../services/tuples/report-types';
+import {
+	Report,
+	ReportDimension,
+	ReportFilter,
+	ReportFilterJoint,
+	ReportIndicator
+} from '../../../../services/tuples/report-types';
 
 export enum ReportEditEventTypes {
 	DESCRIPTION_CHANGED = 'description-changed',
@@ -27,6 +33,11 @@ export enum ReportEditEventTypes {
 	INDICATOR_CHANGED = 'indicator-changed',
 	INDICATOR_ADDED = 'indicator-added',
 	INDICATOR_REMOVED = 'indicator-removed',
+	FILTER_CREATED = 'filter-created',
+	FILTER_DESTROYED = 'filter-destroyed',
+	FILTER_CHANGED = 'filter-changed',
+	FILTER_ADDED = 'filter-added',
+	FILTER_REMOVED = 'filter-removed',
 
 	EXPAND_ALL_SECTIONS = 'expand-all-sections',
 	COLLAPSE_ALL_SECTIONS = 'collapse-all-sections'
@@ -124,6 +135,26 @@ export interface ReportEditEventBus {
 	fire(type: ReportEditEventTypes.INDICATOR_REMOVED, report: Report, indicator: ReportIndicator): this;
 	on(type: ReportEditEventTypes.INDICATOR_REMOVED, listener: (report: Report, indicator: ReportIndicator) => void): this;
 	off(type: ReportEditEventTypes.INDICATOR_REMOVED, listener: (report: Report, indicator: ReportIndicator) => void): this;
+
+	fire(type: ReportEditEventTypes.FILTER_CREATED, report: Report, filter: ReportFilterJoint): this;
+	on(type: ReportEditEventTypes.FILTER_CREATED, listener: (report: Report, filter: ReportFilterJoint) => void): this;
+	off(type: ReportEditEventTypes.FILTER_CREATED, listener: (report: Report, filter: ReportFilterJoint) => void): this;
+
+	fire(type: ReportEditEventTypes.FILTER_DESTROYED, report: Report): this;
+	on(type: ReportEditEventTypes.FILTER_DESTROYED, listener: (report: Report) => void): this;
+	off(type: ReportEditEventTypes.FILTER_DESTROYED, listener: (report: Report) => void): this;
+
+	fire(type: ReportEditEventTypes.FILTER_CHANGED, report: Report, filter: ReportFilter): this;
+	on(type: ReportEditEventTypes.FILTER_CHANGED, listener: (report: Report, filter: ReportFilter) => void): this;
+	off(type: ReportEditEventTypes.FILTER_CHANGED, listener: (report: Report, filter: ReportFilter) => void): this;
+
+	fire(type: ReportEditEventTypes.FILTER_ADDED, report: Report, filter: ReportFilter): this;
+	on(type: ReportEditEventTypes.FILTER_ADDED, listener: (report: Report, filter: ReportFilter) => void): this;
+	off(type: ReportEditEventTypes.FILTER_ADDED, listener: (report: Report, filter: ReportFilter) => void): this;
+
+	fire(type: ReportEditEventTypes.FILTER_REMOVED, report: Report, filter: ReportFilter): this;
+	on(type: ReportEditEventTypes.FILTER_REMOVED, listener: (report: Report, filter: ReportFilter) => void): this;
+	off(type: ReportEditEventTypes.FILTER_REMOVED, listener: (report: Report, filter: ReportFilter) => void): this;
 
 	fire(type: ReportEditEventTypes.EXPAND_ALL_SECTIONS, report: Report): this;
 	on(type: ReportEditEventTypes.EXPAND_ALL_SECTIONS, listener: (report: Report) => void): this;

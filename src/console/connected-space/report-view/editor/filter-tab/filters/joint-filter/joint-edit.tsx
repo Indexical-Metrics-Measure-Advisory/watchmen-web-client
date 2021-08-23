@@ -1,12 +1,5 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useState} from 'react';
-import {ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EDIT} from '../../../../../../basic-widgets/constants';
-import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {Lang} from '../../../../../../langs';
-import {ParameterJointType} from '../../../../../../services/tuples/factor-calculator-types';
-import {SubjectDataSetFilterJoint} from '../../../../../../services/tuples/subject-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
-import {createSubjectDataSetFilter, createSubjectDataSetJoint} from '../../data-utils';
 import {useFilterEventBus} from '../filter-event-bus';
 import {FilterEventTypes} from '../filter-event-bus-types';
 import {RemoveFilterIcon} from '../widgets';
@@ -19,22 +12,35 @@ import {
 	FilterJointTypeIcon,
 	FirstAddSubFilterIcon
 } from './widgets';
+import {Subject} from '../../../../../../../services/tuples/subject-types';
+import {Report, ReportFilterJoint} from '../../../../../../../services/tuples/report-types';
+import {ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EDIT} from '../../../../../../../basic-widgets/constants';
+import {Lang} from '../../../../../../../langs';
+import {
+	ParameterExpressionOperator,
+	ParameterJointType
+} from '../../../../../../../services/tuples/factor-calculator-types';
+import {
+	createConstantParameter,
+	createTopicFactorParameter
+} from '../../../../../../../services/tuples/parameter-utils';
+import {useForceUpdate} from '../../../../../../../basic-widgets/utils';
 
 export const JointEdit = (props: {
+	subject: Subject;
+	report: Report;
 	/**
 	 * if parent joint exists, means current joint is not in top level.
 	 * otherwise, current is top level, which means cannot be removed.
 	 */
-	parentJoint?: SubjectDataSetFilterJoint;
+	parentJoint?: ReportFilterJoint;
 	onRemoveMe?: () => void;
-	joint: SubjectDataSetFilterJoint;
-	availableTopics: Array<Topic>;
-	pickedTopics: Array<Topic>;
+	joint: ReportFilterJoint;
 }) => {
 	const {
+		subject, report,
 		parentJoint, onRemoveMe,
-		joint,
-		availableTopics, pickedTopics
+		joint
 	} = props;
 
 	const {fire} = useFilterEventBus();
@@ -63,7 +69,11 @@ export const JointEdit = (props: {
 	const onAddSubExpressionClicked = (event: MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
-		const newFilter = createSubjectDataSetFilter();
+		const newFilter = {
+			left: createTopicFactorParameter(),
+			operator: ParameterExpressionOperator.EQUALS,
+			right: createConstantParameter()
+		};
 		joint.filters.push(newFilter);
 		fire(FilterEventTypes.FILTER_ADDED, newFilter);
 		forceUpdate();
@@ -71,7 +81,15 @@ export const JointEdit = (props: {
 	const onAddSubJointClicked = (event: MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
-		const newJoint = createSubjectDataSetJoint(joint.jointType);
+		const newJoint = {
+			jointType: joint.jointType === ParameterJointType.AND ? ParameterJointType.OR : ParameterJointType.AND,
+			filters: [{
+				// 1 is factor, always be subject itself
+				left: createTopicFactorParameter('1'),
+				operator: ParameterExpressionOperator.EQUALS,
+				right: createConstantParameter()
+			}]
+		};
 		joint.filters.push(newJoint);
 		fire(FilterEventTypes.FILTER_ADDED, newJoint);
 		forceUpdate();
@@ -119,7 +137,6 @@ export const JointEdit = (props: {
 				<FontAwesomeIcon icon={ICON_DELETE}/>
 			</RemoveFilterIcon>
 			: null}
-		<SubFilters joint={joint}
-		            availableTopics={availableTopics} pickedTopics={pickedTopics}/>
+		<SubFilters joint={joint} subject={subject} report={report}/>
 	</FilterJointContainer>;
 };
