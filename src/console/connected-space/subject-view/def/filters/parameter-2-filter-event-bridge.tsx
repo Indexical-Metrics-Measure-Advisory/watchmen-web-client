@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect} from 'react';
 import {SubjectDataSetFilterExpression} from '../../../../../services/tuples/subject-types';
-import {useParameterEventBus} from '../../../parameter/parameter-event-bus';
-import {ParameterEventTypes} from '../../../parameter/parameter-event-bus-types';
+import {useParameterEventBus} from '../../../../../data-filter/parameter-event-bus';
+import {ParameterEventTypes} from '../../../../../data-filter/parameter-event-bus-types';
 import {useFilterEventBus} from './filter-event-bus';
 import {FilterEventTypes} from './filter-event-bus-types';
 

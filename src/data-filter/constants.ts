@@ -1,5 +1,5 @@
-import {Lang} from '../../../langs';
-import {ParameterComputeType} from '../../../services/tuples/factor-calculator-types';
+import {Lang} from '../langs';
+import {ParameterComputeType} from '../services/tuples/factor-calculator-types';
 
 export const ParameterComputeTypeLabels: { [key in ParameterComputeType]: string } = {
 	[ParameterComputeType.NONE]: Lang.PARAMETER.COMPUTE_TYPE.NONE,

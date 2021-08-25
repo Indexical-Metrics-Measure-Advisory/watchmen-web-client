@@ -1,17 +1,17 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {AlertLabel} from '../../../../alert/widgets';
-import {ICON_DELETE} from '../../../../basic-widgets/constants';
-import {useEventBus} from '../../../../events/event-bus';
-import {EventTypes} from '../../../../events/types';
-import {Lang} from '../../../../langs';
-import {ComputedParameter, Parameter} from '../../../../services/tuples/factor-calculator-types';
-import {Topic} from '../../../../services/tuples/topic-types';
+import {AlertLabel} from '../../alert/widgets';
+import {ICON_DELETE} from '../../basic-widgets/constants';
+import {useEventBus} from '../../events/event-bus';
+import {EventTypes} from '../../events/types';
+import {Lang} from '../../langs';
+import {ComputedParameter, Parameter} from '../../services/tuples/factor-calculator-types';
+import {Topic} from '../../services/tuples/topic-types';
 import {ComputedEditor} from '../computed';
 import {ConstantValueEditor} from '../constant';
 import {TopicFactorEditor} from '../topic-factor';
 import {DeleteMeButton} from '../widgets';
-import {canDeleteAnyParameter} from '../../../../services/tuples/parameter-utils';
+import {canDeleteAnyParameter} from '../../services/tuples/parameter-utils';
 
 export const SubParameterEditBody = (props: {
 	availableTopics: Array<Topic>;

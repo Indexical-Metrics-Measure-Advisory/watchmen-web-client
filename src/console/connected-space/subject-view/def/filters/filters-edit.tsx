@@ -36,7 +36,7 @@ export const FiltersEdit = (props: {
 	}
 
 	return <FiltersEditContainer visible={visible}>
-		<TopFilterEdit filter={subject.dataset.filters}
+		<TopFilterEdit subject={subject} filter={subject.dataset.filters}
 		               availableTopics={availableTopics} pickedTopics={pickedTopics}/>
 	</FiltersEditContainer>;
 };

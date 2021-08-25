@@ -123,7 +123,7 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>): { valid: boo
 		if (topicIdsInColumns.length > 1 || topicIdsInFilters.length > 1) {
 			return {valid: false, messages: ['Join of topics in columns or filters should be defined.']};
 		}
-		if (topicIdsInColumns.length === 1 && topicIdsInFilters.length === 1) {
+		if (topicIdsInColumns.length === 1 && topicIdsInFilters.length === 1 && topicIdsInColumns[0] !== topicIdsInFilters[0]) {
 			// eslint-disable-next-line
 			return {valid: false, messages: ['Topic in columns and filters is mismatched.']};
 		}

@@ -4,12 +4,12 @@ import {ExpressionSide, ParameterFromEditorForExpression} from './widgets';
 import {Report, ReportFilterExpression} from '../../../../../../../services/tuples/report-types';
 import {Subject} from '../../../../../../../services/tuples/subject-types';
 import {Parameter, ParameterKind} from '../../../../../../../services/tuples/factor-calculator-types';
-import {ComputedEditor} from '../../../../../parameter/computed';
-import {TopicFactorEditor} from '../../../../../parameter/topic-factor';
-import {ConstantValueEditor} from '../../../../../parameter/constant';
-import {ParameterEventTypes} from '../../../../../parameter/parameter-event-bus-types';
+import {ComputedEditor} from '../../../../../../../data-filter/computed';
+import {TopicFactorEditor} from '../../../../../../../data-filter/topic-factor';
+import {ConstantValueEditor} from '../../../../../../../data-filter/constant';
+import {ParameterEventTypes} from '../../../../../../../data-filter/parameter-event-bus-types';
 import {useForceUpdate} from '../../../../../../../basic-widgets/utils';
-import {ParameterEventBusProvider, useParameterEventBus} from '../../../../../parameter/parameter-event-bus';
+import {ParameterEventBusProvider, useParameterEventBus} from '../../../../../../../data-filter/parameter-event-bus';
 import {Topic} from '../../../../../../../services/tuples/topic-types';
 import {Factor} from '../../../../../../../services/tuples/factor-types';
 

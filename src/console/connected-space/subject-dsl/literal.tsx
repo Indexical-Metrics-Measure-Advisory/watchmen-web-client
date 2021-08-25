@@ -5,7 +5,7 @@ import {ParameterComputeType, ParameterKind} from '../../../services/tuples/fact
 import {Factor} from '../../../services/tuples/factor-types';
 import {TopicJoinType} from '../../../services/tuples/subject-types';
 import {Topic} from '../../../services/tuples/topic-types';
-import {ParameterComputeTypeLabels} from '../parameter/constants';
+import {ParameterComputeTypeLabels} from '../../../data-filter/constants';
 import {PrettyComputed, PrettyConstant, PrettyFactor} from './literal-types';
 import {
 	AliasNode,
