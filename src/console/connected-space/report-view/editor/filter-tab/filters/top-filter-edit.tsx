@@ -6,7 +6,6 @@ import {Report, ReportFilter, ReportFilterJoint} from '../../../../../../service
 import {Subject} from '../../../../../../services/tuples/subject-types';
 import {useReportEditEventBus} from '../../report-edit-event-bus';
 import {ReportEditEventTypes} from '../../report-edit-event-bus-types';
-import {ParameterJointType} from '../../../../../../services/tuples/factor-calculator-types';
 
 const TopFilter = (props: { subject: Subject; report: Report; joint: ReportFilterJoint }) => {
 	const {subject, report, joint} = props;
@@ -27,6 +26,10 @@ const TopFilter = (props: { subject: Subject; report: Report; joint: ReportFilte
 		};
 		const onFilterRemoved = (subFilter: ReportFilter) => {
 			fireDef(ReportEditEventTypes.FILTER_REMOVED, report, subFilter);
+			if (!report.filters || !report.filters.filters || report.filters.filters.length === 0) {
+				delete report.filters;
+				fireDef(ReportEditEventTypes.FILTER_DESTROYED, report);
+			}
 		};
 
 		on(FilterEventTypes.JOINT_TYPE_CHANGED, onJointChanged);
@@ -41,14 +44,7 @@ const TopFilter = (props: { subject: Subject; report: Report; joint: ReportFilte
 		};
 	}, [on, off, fireDef, joint, report]);
 
-	const onRemoveFilter = () => {
-		delete report.filters;
-		fireDef(ReportEditEventTypes.FILTER_DESTROYED, report);
-	};
-
-	return <JointEdit joint={joint} parentJoint={{jointType: ParameterJointType.AND, filters: [joint]}}
-	                  subject={subject} report={report}
-	                  onRemoveMe={onRemoveFilter}/>;
+	return <JointEdit joint={joint} subject={subject} report={report}/>;
 };
 
 export const TopFilterEdit = (props: { subject: Subject; report: Report; filter: ReportFilterJoint; }) => {

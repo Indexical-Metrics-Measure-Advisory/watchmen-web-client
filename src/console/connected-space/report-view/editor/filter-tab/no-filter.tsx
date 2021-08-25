@@ -20,7 +20,7 @@ export const NoFilter = (props: { report: Report }) => {
 		};
 	}, [on, off, forceUpdate]);
 
-	if (report.filters) {
+	if (report.filters && report.filters.filters && report.filters.filters.length !== 0) {
 		return null;
 	}
 
