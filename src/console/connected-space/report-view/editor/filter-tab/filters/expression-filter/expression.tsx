@@ -4,7 +4,6 @@ import {ExpressionSide, ParameterFromEditorForExpression} from './widgets';
 import {Report, ReportFilterExpression} from '../../../../../../../services/tuples/report-types';
 import {Subject} from '../../../../../../../services/tuples/subject-types';
 import {Parameter, ParameterKind} from '../../../../../../../services/tuples/factor-calculator-types';
-import {ComputedEditor} from '../../../../../../../data-filter/computed';
 import {TopicFactorEditor} from '../../../../../../../data-filter/topic-factor';
 import {ConstantValueEditor} from '../../../../../../../data-filter/constant';
 import {ParameterEventTypes} from '../../../../../../../data-filter/parameter-event-bus-types';
@@ -17,14 +16,11 @@ export const ExpressionBody = (props: {
 	subject: Subject;
 	report: Report;
 	filter: ReportFilterExpression;
-	parameter: Parameter
+	parameter: Parameter;
+	availableKinds: Array<ParameterKind>;
 	visible: boolean;
 }) => {
-	const {
-		subject,
-		filter, parameter,
-		visible
-	} = props;
+	const {subject, filter, parameter, availableKinds, visible} = props;
 
 	const {on, off} = useParameterEventBus();
 	const forceUpdate = useForceUpdate();
@@ -46,14 +42,13 @@ export const ExpressionBody = (props: {
 			} as Factor;
 		})
 	} as Topic];
-	const pickedTopics = availableTopics;
 
 	return <ExpressionSide shorten={parameter.kind === ParameterKind.COMPUTED} visible={visible}>
 		<ParameterFromEditorForExpression shorten={parameter.kind === ParameterKind.COMPUTED}
-		                                  parameter={parameter}/>
+		                                  parameter={parameter} availableKinds={availableKinds}/>
 		<ConstantValueEditor parameter={parameter}/>
-		<TopicFactorEditor parameter={parameter} availableTopics={availableTopics} pickedTopics={pickedTopics}/>
-		<ComputedEditor parameter={parameter} availableTopics={availableTopics} pickedTopics={pickedTopics}/>
+		<TopicFactorEditor parameter={parameter} availableTopics={availableTopics} pickedTopics={availableTopics}/>
+		{/*<ComputedEditor parameter={parameter} availableTopics={availableTopics} pickedTopics={pickedTopics}/>*/}
 		<Parameter2FilterEventBridge filter={filter}/>
 	</ExpressionSide>;
 };
@@ -62,7 +57,8 @@ export const Expression = (props: {
 	subject: Subject;
 	report: Report;
 	filter: ReportFilterExpression;
-	parameter: Parameter
+	parameter: Parameter;
+	availableKinds: Array<ParameterKind>;
 	visible: boolean;
 }) => {
 	return <ParameterEventBusProvider>

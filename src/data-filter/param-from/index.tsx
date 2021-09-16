@@ -9,8 +9,12 @@ import {ParameterEventTypes} from '../parameter-event-bus-types';
 import {ParameterFromEditContainer, ParameterFromIcon, ParameterFromLabel, ParameterTypeButton} from './widgets';
 import {defendParameterAndRemoveUnnecessary} from '../../services/tuples/parameter-utils';
 
-export const ParameterFromEdit = (props: { parameter: Parameter }) => {
-	const {parameter, ...rest} = props;
+export const ParameterFromEdit = (props: { parameter: Parameter; availableKinds?: Array<ParameterKind> }) => {
+	const {
+		parameter,
+		availableKinds = [ParameterKind.TOPIC, ParameterKind.CONSTANT, ParameterKind.COMPUTED],
+		...rest
+	} = props;
 
 	const {fire} = useParameterEventBus();
 	const [editing, setEditing] = useState(false);
@@ -36,23 +40,35 @@ export const ParameterFromEdit = (props: { parameter: Parameter }) => {
 		setEditing(!editing);
 	};
 
+	const fromTopicAllowed = availableKinds.includes(ParameterKind.TOPIC);
+	const fromConstantAllowed = availableKinds.includes(ParameterKind.CONSTANT);
+	const fromComputedAllowed = availableKinds.includes(ParameterKind.COMPUTED);
+
 	return <ParameterFromEditContainer onClick={onStartEditing} tabIndex={0} onBlur={onBlur} {...rest}>
 		<ParameterFromLabel>{Lang.PARAM.FROM}</ParameterFromLabel>
-		<ParameterTypeButton active={parameter.kind === ParameterKind.TOPIC} edit={editing}
-		                     onClick={onFromChange(ParameterKind.TOPIC)}>
-			{Lang.PARAM.FROM_TOPIC}
-		</ParameterTypeButton>
-		<ParameterTypeButton active={parameter.kind === ParameterKind.CONSTANT} edit={editing}
-		                     onClick={onFromChange(ParameterKind.CONSTANT)}>
-			{Lang.PARAM.FROM_CONSTANT}
-		</ParameterTypeButton>
-		<ParameterTypeButton active={parameter.kind === ParameterKind.COMPUTED} edit={editing}
-		                     onClick={onFromChange(ParameterKind.COMPUTED)}>
-			{Lang.PARAM.FROM_COMPUTED}
-		</ParameterTypeButton>
-		<ParameterFromIcon onClick={onIconClicked}>
-			{editing ? <FontAwesomeIcon icon={ICON_COLLAPSE_CONTENT}/> : <FontAwesomeIcon icon={ICON_EDIT}/>}
-		</ParameterFromIcon>
+		{fromTopicAllowed
+			? <ParameterTypeButton active={parameter.kind === ParameterKind.TOPIC} edit={editing}
+			                       onClick={onFromChange(ParameterKind.TOPIC)}>
+				{Lang.PARAM.FROM_TOPIC}
+			</ParameterTypeButton>
+			: null}
+		{fromConstantAllowed
+			? <ParameterTypeButton active={parameter.kind === ParameterKind.CONSTANT} edit={editing}
+			                       onClick={onFromChange(ParameterKind.CONSTANT)}>
+				{Lang.PARAM.FROM_CONSTANT}
+			</ParameterTypeButton>
+			: null}
+		{fromComputedAllowed
+			? <ParameterTypeButton active={parameter.kind === ParameterKind.COMPUTED} edit={editing}
+			                       onClick={onFromChange(ParameterKind.COMPUTED)}>
+				{Lang.PARAM.FROM_COMPUTED}
+			</ParameterTypeButton>
+			: null}
+		{availableKinds.length !== 1
+			? <ParameterFromIcon onClick={onIconClicked}>
+				{editing ? <FontAwesomeIcon icon={ICON_COLLAPSE_CONTENT}/> : <FontAwesomeIcon icon={ICON_EDIT}/>}
+			</ParameterFromIcon>
+			: null}
 	</ParameterFromEditContainer>;
 };
 

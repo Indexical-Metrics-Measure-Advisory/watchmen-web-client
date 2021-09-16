@@ -4,7 +4,11 @@ import {FilterEventTypes} from '../filter-event-bus-types';
 import {Expression} from './expression';
 import {Subject} from '../../../../../../../services/tuples/subject-types';
 import {Report, ReportFilterExpression} from '../../../../../../../services/tuples/report-types';
-import {Parameter, ParameterExpressionOperator} from '../../../../../../../services/tuples/factor-calculator-types';
+import {
+	Parameter,
+	ParameterExpressionOperator,
+	ParameterKind
+} from '../../../../../../../services/tuples/factor-calculator-types';
 import {useForceUpdate} from '../../../../../../../basic-widgets/utils';
 
 export const ExpressionRight = (props: {
@@ -28,6 +32,6 @@ export const ExpressionRight = (props: {
 		&& filter.operator !== ParameterExpressionOperator.EMPTY;
 
 	return <Expression subject={subject} report={report}
-	                   filter={filter} parameter={parameter}
+	                   filter={filter} parameter={parameter} availableKinds={[ParameterKind.CONSTANT]}
 	                   visible={visible}/>;
 };

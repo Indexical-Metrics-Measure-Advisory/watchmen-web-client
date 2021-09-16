@@ -11,6 +11,7 @@ import {Report, ReportFilterExpression, ReportFilterJoint} from '../../../../../
 import {Subject} from '../../../../../../../services/tuples/subject-types';
 import {Lang} from '../../../../../../../langs';
 import {ICON_DELETE} from '../../../../../../../basic-widgets/constants';
+import {ParameterKind} from '../../../../../../../services/tuples/factor-calculator-types';
 
 export const ExpressionFilterEdit = (props: {
 	subject: Subject;
@@ -42,7 +43,8 @@ export const ExpressionFilterEdit = (props: {
 			<RemoveFilterIcon onClick={onRemoveClicked}>
 				<FontAwesomeIcon icon={ICON_DELETE}/>
 			</RemoveFilterIcon>
-			<Expression filter={filter} parameter={filter.left} subject={subject} report={report}
+			<Expression filter={filter} parameter={filter.left} availableKinds={[ParameterKind.TOPIC]}
+			            subject={subject} report={report}
 			            visible={true}/>
 			<ExpressionOperator filter={filter}/>
 			<ExpressionRight filter={filter} parameter={filter.right} subject={subject} report={report}/>
