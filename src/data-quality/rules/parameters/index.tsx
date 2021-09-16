@@ -1,4 +1,3 @@
-
 import {
 	ParameterDialogHeader,
 	ParameterEditor,
@@ -9,30 +8,26 @@ import {
 	ParameterEditorLabel,
 	ParameterPositionLabel
 } from './widgets';
-import {ICON_EDIT} from '../../../basic-widgets/constants';
+import {ICON_EDIT} from '@/basic-widgets/constants';
 import React, {Fragment, useState} from 'react';
-import {ButtonInk} from '../../../basic-widgets/types';
-import {useEventBus} from '../../../events/event-bus';
-import {EventTypes} from '../../../events/types';
-import {DialogBody, DialogFooter} from '../../../dialog/widgets';
-import {Button} from '../../../basic-widgets/button';
+import {ButtonInk} from '@/basic-widgets/types';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {DialogBody, DialogFooter} from '@/dialog/widgets';
+import {Button} from '@/basic-widgets/button';
 import {RuleParameter} from './rule-parameters';
-import {Factor} from '../../../services/tuples/factor-types';
-import {Topic} from '../../../services/tuples/topic-types';
+import {Factor} from '@/services/tuples/factor-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {DQCCacheData} from '../../cache/types';
 import {DataQualityCacheEventTypes} from '../../cache/cache-event-bus-types';
 import {useDataQualityCacheEventBus} from '../../cache/cache-event-bus';
-import {useForceUpdate} from '../../../basic-widgets/utils';
+import {useForceUpdate} from '@/basic-widgets/utils';
 import {useDataQualityCacheData} from '../../cache/use-cache-data';
 import {getTopicName} from '../../utils';
 import {RulesEventTypes} from '../rules-event-bus-types';
 import {useRulesEventBus} from '../rules-event-bus';
 import {MonitorRuleDef, MonitorRuleParameterType} from '../../rule-defs';
-import {
-	MonitorRule,
-	MonitorRuleCompareOperator,
-	MonitorRuleParameters
-} from '../../../services/data-quality/rule-types';
+import {MonitorRule, MonitorRuleCompareOperator, MonitorRuleParameters} from '@/services/data-quality/rule-types';
 
 const ParametersLabel = (props: {
 	def: MonitorRuleDef;

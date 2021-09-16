@@ -1,11 +1,9 @@
-import {
-	isRuleOnTopic
-} from '../../../services/data-quality/rules';
+import {isRuleOnTopic} from '@/services/data-quality/rules';
 import {prepareRuleParams, SeverityOptions, transformRuleDefsToDisplay} from '../utils';
 import {TopicRuleCell, TopicRuleEnablementCell, TopicRuleRow, TopicRuleSeqCell} from './widgets';
-import {Dropdown} from '../../../basic-widgets/dropdown';
+import {Dropdown} from '@/basic-widgets/dropdown';
 import React, {useEffect, useState} from 'react';
-import {Topic} from '../../../services/tuples/topic-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {useEnabledAndSeverity} from '../use-enabled-and-severity';
 import {ColorfulCheckBox} from '../widgets';
 import {useRulesEventBus} from '../rules-event-bus';
@@ -17,7 +15,7 @@ import {
 	MonitorRules,
 	MonitorRuleSeverity,
 	TopicRuleDefs
-} from '../../../services/data-quality/rule-types';
+} from '@/services/data-quality/rule-types';
 
 export const TopicGradeRules = (props: { topic: Topic; rules: MonitorRules }) => {
 	const {topic, rules} = props;

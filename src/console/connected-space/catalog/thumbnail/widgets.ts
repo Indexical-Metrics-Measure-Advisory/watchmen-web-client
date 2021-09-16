@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import {Button} from '../../../../basic-widgets/button';
-import {GraphicsPosition, GraphicsSize} from '../../../../services/graphics/graphics-types';
+import {Button} from '@/basic-widgets/button';
+import {GraphicsPosition, GraphicsSize} from '@/services/graphics/graphics-types';
 import {CatalogSvg} from '../widgets';
 
 export const THUMBNAIL_WIDTH = 300;
@@ -74,9 +74,9 @@ export const ThumbnailBodySvg = styled(CatalogSvg).attrs<{ ratio: number }>(({ra
 	pointer-events   : none;
 	transition       : background-color 300ms ease-in-out;
 	> g[data-role="block-selection"] > rect {
-		stroke : var(--danger-color);
-		stroke-dasharray: 9px 6px;
-		stroke-width: 6px;
+		stroke           : var(--danger-color);
+		stroke-dasharray : 9px 6px;
+		stroke-width     : 6px;
 	}
 `;
 export const CurrentRect = styled.div.attrs<{ rect: GraphicsPosition & GraphicsSize }>(

@@ -1,13 +1,8 @@
 import React from 'react';
-import {Lang} from '../../../../../langs';
-import {PieLabelAlignTo, PieRoseType} from '../../../../../services/tuples/chart-def/chart-pie';
-import {
-	isDoughnutChart,
-	isNightingaleChart,
-	isPieChart,
-	isSunburstChart
-} from '../../../../../services/tuples/chart-utils';
-import {Report} from '../../../../../services/tuples/report-types';
+import {Lang} from '@/langs';
+import {PieLabelAlignTo, PieRoseType} from '@/services/tuples/chart-def/chart-pie';
+import {isDoughnutChart, isNightingaleChart, isPieChart, isSunburstChart} from '@/services/tuples/chart-utils';
+import {Report} from '@/services/tuples/report-types';
 import {
 	isANumberAndInRange,
 	onBooleanChange,

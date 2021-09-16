@@ -2,7 +2,7 @@ import React from 'react';
 import {TupleCard, TupleCardDescription, TupleCardTitle} from '../widgets/tuple-workbench/tuple-card';
 import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
-import {QueryTenant} from '../../services/tuples/query-tenant-types';
+import {QueryTenant} from '@/services/tuples/query-tenant-types';
 
 const TenantCard = (props: { tenant: QueryTenant }) => {
 	const {tenant} = props;

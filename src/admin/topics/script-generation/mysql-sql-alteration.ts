@@ -1,4 +1,4 @@
-import {Topic, TopicType} from '../../../services/tuples/topic-types';
+import {Topic, TopicType} from '@/services/tuples/topic-types';
 import JSZip from 'jszip';
 import {
 	asFactorName,
@@ -32,7 +32,7 @@ const buildFactors = (topic: Topic) => {
 	if (topic.type === TopicType.RAW) {
 		return [
 			...topic.factors.filter(factor => {
-				return factor.name.indexOf('.') === -1 && factor.flatten === true
+				return factor.name.indexOf('.') === -1 && factor.flatten === true;
 			}).map(factor => {
 				return buildColumn(topic, asFactorName(factor), MySQLFactorTypeMap[factor.type]);
 			}),

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {TooltipButton} from '../../basic-widgets/tooltip-button';
+import {TooltipButton} from '@/basic-widgets/tooltip-button';
 import {ColumnDef} from '../types';
 import {FILLER_MIN_WIDTH, HEADER_HEIGHT, ROW_HEIGHT} from '../constants';
 

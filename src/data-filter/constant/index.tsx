@@ -1,12 +1,12 @@
 import React, {ChangeEvent, useEffect} from 'react';
 import styled from 'styled-components';
-import {useForceUpdate} from '../../basic-widgets/utils';
-import {Lang} from '../../langs';
-import {Parameter} from '../../services/tuples/factor-calculator-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {Lang} from '@/langs';
+import {Parameter} from '@/services/tuples/factor-calculator-types';
 import {useParameterEventBus} from '../parameter-event-bus';
 import {ParameterEventTypes} from '../parameter-event-bus-types';
 import {ConstantInput} from './widgets';
-import {isConstantParameter} from '../../services/tuples/parameter-utils';
+import {isConstantParameter} from '@/services/tuples/parameter-utils';
 
 export const ConstantEdit = (props: { parameter: Parameter }) => {
 	const {parameter, ...rest} = props;

@@ -1,16 +1,16 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
-import {ICON_LOADING} from '../../../../../basic-widgets/constants';
-import {useEventBus} from '../../../../../events/event-bus';
-import {Report} from '../../../../../services/tuples/report-types';
+import {ICON_LOADING} from '@/basic-widgets/constants';
+import {useEventBus} from '@/events/event-bus';
+import {Report} from '@/services/tuples/report-types';
 import {ReportDataSetEventTypes} from './report-dataset-event-bus-types';
 import {ReportDataSetLoading} from './widgets';
-import {fetchChartData, fetchChartDataTemporary} from '../../../../../services/console/report';
-import {ChartDataSet} from '../../../../../services/tuples/chart-types';
+import {fetchChartData, fetchChartDataTemporary} from '@/services/console/report';
+import {ChartDataSet} from '@/services/tuples/chart-types';
 import {useReportDataSetEventBus} from './report-dataset-event-bus';
-import {EventTypes} from '../../../../../events/types';
-import {useReportEventBus} from '../../../../../report/report-event-bus';
-import {ReportEventTypes} from '../../../../../report/report-event-bus-types';
+import {EventTypes} from '@/events/types';
+import {useReportEventBus} from '@/report/report-event-bus';
+import {ReportEventTypes} from '@/report/report-event-bus-types';
 
 export const DataLoading = (props: { report: Report }) => {
 	const {report} = props;

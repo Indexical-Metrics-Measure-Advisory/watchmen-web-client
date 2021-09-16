@@ -1,5 +1,5 @@
-import {Factor} from '../../services/tuples/factor-types';
-import {Topic} from '../../services/tuples/topic-types';
+import {Factor} from '@/services/tuples/factor-types';
+import {Topic} from '@/services/tuples/topic-types';
 
 export enum TopicEventTypes {
 	TOPIC_NAME_CHANGED = 'topic-name-changed',

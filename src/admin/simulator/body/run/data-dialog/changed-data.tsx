@@ -11,8 +11,8 @@ import {
 import React, {Fragment} from 'react';
 import {AllTopics, ChangedDataRow} from '../types';
 import {getTopicName} from '../../../utils';
-import {Topic} from '../../../../../services/tuples/topic-types';
-import {ButtonInk} from '../../../../../basic-widgets/types';
+import {Topic} from '@/services/tuples/topic-types';
+import {ButtonInk} from '@/basic-widgets/types';
 import {toString} from './utils';
 
 export const ChangedData = (props: {

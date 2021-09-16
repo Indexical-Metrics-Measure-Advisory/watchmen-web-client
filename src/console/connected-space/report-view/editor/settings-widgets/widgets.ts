@@ -1,147 +1,147 @@
 import styled from 'styled-components';
-import {CheckBox} from '../../../../../basic-widgets/checkbox';
-import {ColorPicker} from '../../../../../basic-widgets/color-picker';
-import {Dropdown} from '../../../../../basic-widgets/dropdown';
-import {Input} from '../../../../../basic-widgets/input';
-import {InputLines} from '../../../../../basic-widgets/input-lines';
+import {CheckBox} from '@/basic-widgets/checkbox';
+import {ColorPicker} from '@/basic-widgets/color-picker';
+import {Dropdown} from '@/basic-widgets/dropdown';
+import {Input} from '@/basic-widgets/input';
+import {InputLines} from '@/basic-widgets/input-lines';
 
 export const SectionContainer = styled.div.attrs<{ expanded: boolean }>({'data-widget': 'chart-settings-section'})<{ expanded: boolean }>`
-	display: flex;
-	position: relative;
-	grid-column: 1 / span 2;
-	align-items: center;
-	font-variant: petite-caps;
-	font-weight: var(--font-demi-bold);
-	font-size: 1.1em;
-	padding: 0 calc(var(--margin) / 2);
-	height: calc(var(--height) * 2);
-	cursor: pointer;
+	display      : flex;
+	position     : relative;
+	grid-column  : 1 / span 2;
+	align-items  : center;
+	font-variant : petite-caps;
+	font-weight  : var(--font-demi-bold);
+	font-size    : 1.1em;
+	padding      : 0 calc(var(--margin) / 2);
+	height       : calc(var(--height) * 2);
+	cursor       : pointer;
 	&:before {
-		content: '';
-		display: block;
-		position: absolute;
-		left: calc(var(--margin) / 4);
-		top: 0;
-		width: calc(100% - var(--margin) / 4 * 3);
-		height: 1px;
-		border-bottom: var(--border);
-		border-bottom-style: dashed;
-		opacity: 0.7;
+		content             : '';
+		display             : block;
+		position            : absolute;
+		left                : calc(var(--margin) / 4);
+		top                 : 0;
+		width               : calc(100% - var(--margin) / 4 * 3);
+		height              : 1px;
+		border-bottom       : var(--border);
+		border-bottom-style : dashed;
+		opacity             : 0.7;
 	}
 	&:after {
-		content: ${({expanded}) => expanded ? '\'\'' : (void 0)};
-		display: block;
-		position: absolute;
-		left: calc(var(--margin) / 4);
-		bottom: 0;
-		width: calc(100% - var(--margin) / 4 * 3);
-		height: 1px;
-		border-bottom: var(--border);
-		border-bottom-style: dashed;
-		opacity: 0.7;
+		content             : ${({expanded}) => expanded ? '\'\'' : (void 0)};
+		display             : block;
+		position            : absolute;
+		left                : calc(var(--margin) / 4);
+		bottom              : 0;
+		width               : calc(100% - var(--margin) / 4 * 3);
+		height              : 1px;
+		border-bottom       : var(--border);
+		border-bottom-style : dashed;
+		opacity             : 0.7;
 	}
 	&:hover {
 		> span:first-child,
 		> svg {
-			opacity: 1;
-			color: var(--primary-color);
+			opacity : 1;
+			color   : var(--primary-color);
 		}
 	}
 	> span:first-child {
-		flex-grow: 1;
-		opacity: 0.7;
-		transition: opacity 300ms ease-in-out, color 300ms ease-in-out;
+		flex-grow  : 1;
+		opacity    : 0.7;
+		transition : opacity 300ms ease-in-out, color 300ms ease-in-out;
 	}
 	> svg {
-		font-size: 0.8em;
-		opacity: 0.3;
-		transition: opacity 300ms ease-in-out, color 300ms ease-in-out;
+		font-size  : 0.8em;
+		opacity    : 0.3;
+		transition : opacity 300ms ease-in-out, color 300ms ease-in-out;
 	}
 `;
 export const SecondarySectionContainer = styled(SectionContainer)`
 	> span:first-child > svg {
-		font-size: 0.8em;
-		opacity: 0.5;
-		margin-right: calc(var(--margin) / 4);
+		font-size    : 0.8em;
+		opacity      : 0.5;
+		margin-right : calc(var(--margin) / 4);
 	}
 `;
 export const PropName = styled.div.attrs({'data-widget': 'chart-settings-prop-name'})`
-	display: flex;
-	position: relative;
-	align-items: center;
-	height: calc(var(--height) * 1.8 + 1px);
-	padding: 0 calc(var(--margin) / 2);
-	font-weight: var(--font-demi-bold);
-	font-variant: petite-caps;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	opacity: 0.5;
-	transition: opacity 300ms ease-in-out, color 300ms ease-in-out;
-	cursor: default;
+	display       : flex;
+	position      : relative;
+	align-items   : center;
+	height        : calc(var(--height) * 1.8 + 1px);
+	padding       : 0 calc(var(--margin) / 2);
+	font-weight   : var(--font-demi-bold);
+	font-variant  : petite-caps;
+	white-space   : nowrap;
+	overflow      : hidden;
+	text-overflow : ellipsis;
+	opacity       : 0.5;
+	transition    : opacity 300ms ease-in-out, color 300ms ease-in-out;
+	cursor        : default;
 	&:hover {
-		opacity: 1;
-		color: var(--primary-color);
+		opacity : 1;
+		color   : var(--primary-color);
 	}
 `;
 export const PropValue = styled.div.attrs({'data-widget': 'chart-settings-prop-value'})`
-	display: flex;
-	position: relative;
-	align-items: center;
-	height: calc(var(--height) * 1.8 + 1px);
-	margin-right: calc(var(--margin) / 2);
+	display      : flex;
+	position     : relative;
+	align-items  : center;
+	height       : calc(var(--height) * 1.8 + 1px);
+	margin-right : calc(var(--margin) / 2);
 `;
 export const PropExclusiveValue = styled.div.attrs({'data-widget': 'chart-settings-prop-exclusive-value'})`
-	grid-column: 1 / span 2;
-	display: flex;
-	align-items: center;
-	border-bottom: var(--border);
+	grid-column   : 1 / span 2;
+	display       : flex;
+	align-items   : center;
+	border-bottom : var(--border);
 	&:last-child {
-		border-bottom: 0;
+		border-bottom : 0;
 	}
 `;
 export const PropValueUnit = styled.div.attrs({'data-widget': 'chart-settings-prop-value-unit'})`
-	display: flex;
-	position: absolute;
-	align-items: center;
-	height: calc(var(--height) - 1px);
-	top: calc(var(--height) * 0.4 + 1px);
-	right: 1px;
-	font-variant: petite-caps;
-	background-color: var(--primary-color);
-	color: var(--invert-color);
-	padding: 0 calc(var(--margin) / 4);
-	border-radius: calc(var(--border-radius) * 1.5);
-	transform: scale(0.8);
-	transform-origin: center;
-	white-space: nowrap;
-	overflow: hidden;
-	opacity: 0.7;
-	pointer-events: none;
+	display          : flex;
+	position         : absolute;
+	align-items      : center;
+	height           : calc(var(--height) - 1px);
+	top              : calc(var(--height) * 0.4 + 1px);
+	right            : 1px;
+	font-variant     : petite-caps;
+	background-color : var(--primary-color);
+	color            : var(--invert-color);
+	padding          : 0 calc(var(--margin) / 4);
+	border-radius    : calc(var(--border-radius) * 1.5);
+	transform        : scale(0.8);
+	transform-origin : center;
+	white-space      : nowrap;
+	overflow         : hidden;
+	opacity          : 0.7;
+	pointer-events   : none;
 `;
 export const PropValueInput = styled(Input)`
-	flex-grow: 1;
-	width: 0;
-	height: 60%;
+	flex-grow : 1;
+	width     : 0;
+	height    : 60%;
 `;
 export const PropValueInputLines = styled(InputLines)`
-	flex-grow: 1;
-	width: 0;
-	border: 0;
-	border-radius: 0;
-	padding-left: calc(var(--margin) / 2);
-	padding-right: calc(var(--margin) / 2);
+	flex-grow     : 1;
+	width         : 0;
+	border        : 0;
+	border-radius : 0;
+	padding-left  : calc(var(--margin) / 2);
+	padding-right : calc(var(--margin) / 2);
 `;
 export const PropValueDropdown = styled(Dropdown)`
-	flex-grow: 1;
-	width: 0;
-	height: 60%;
+	flex-grow : 1;
+	width     : 0;
+	height    : 60%;
 `;
 export const PropValueCheckBox = styled(CheckBox)`
-	height: var(--height);
-	width: var(--height);
-	border-radius: var(--border-radius);
+	height        : var(--height);
+	width         : var(--height);
+	border-radius : var(--border-radius);
 `;
 export const ChartColorPicker = styled(ColorPicker)`
-	height: 60%;
+	height : 60%;
 `;

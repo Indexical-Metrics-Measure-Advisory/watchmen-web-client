@@ -1,29 +1,23 @@
 import React, {useRef} from 'react';
-import {ConnectedSpace} from '../../../../services/tuples/connected-space-types';
-import {Report} from '../../../../services/tuples/report-types';
-import {Subject} from '../../../../services/tuples/subject-types';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
+import {Report} from '@/services/tuples/report-types';
+import {Subject} from '@/services/tuples/subject-types';
 import {ChartPart} from './chart-part';
 import {ReportEditEventBusProvider} from './report-edit-event-bus';
 import {ReportSettings} from './settings';
 import {ChartContainer, EditorContainer, ReportPartButton} from './widgets';
 import {useReportViewEventBus} from '../report-view-event-bus';
 import {ReportViewEventTypes} from '../report-view-event-bus-types';
-import {
-	ICON_DOWNLOAD,
-	ICON_PALETTE,
-	ICON_REFRESH,
-	ICON_REPORT_DATA,
-	ICON_SETTINGS
-} from '../../../../basic-widgets/constants';
+import {ICON_DOWNLOAD, ICON_PALETTE, ICON_REFRESH, ICON_REPORT_DATA, ICON_SETTINGS} from '@/basic-widgets/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ButtonInk} from '../../../../basic-widgets/types';
+import {ButtonInk} from '@/basic-widgets/types';
 import {ReportDataSetAndPalette} from './dataset-and-palette';
-import {EventTypes} from '../../../../events/types';
-import {useEventBus} from '../../../../events/event-bus';
-import {useReportEventBus} from '../../../../report/report-event-bus';
-import {ReportEventTypes} from '../../../../report/report-event-bus-types';
-import {AlertLabel} from '../../../../alert/widgets';
-import {Lang} from '../../../../langs';
+import {EventTypes} from '@/events/types';
+import {useEventBus} from '@/events/event-bus';
+import {useReportEventBus} from '@/report/report-event-bus';
+import {ReportEventTypes} from '@/report/report-event-bus-types';
+import {AlertLabel} from '@/alert/widgets';
+import {Lang} from '@/langs';
 import dayjs from 'dayjs';
 
 export const ReportEditor = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report, editable: boolean }) => {

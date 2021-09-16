@@ -1,10 +1,10 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import MDEditor from '@uiw/react-md-editor';
 import React, {useRef, useState} from 'react';
-import {ICON_CONFIRM, ICON_DELETE, ICON_DRAG_HANDLE, ICON_EDIT} from '../../basic-widgets/constants';
-import {useForceUpdate} from '../../basic-widgets/utils';
-import {GraphicsPosition, GraphicsSize} from '../../services/graphics/graphics-types';
-import {Paragraph} from '../../services/tuples/paragraph';
+import {ICON_CONFIRM, ICON_DELETE, ICON_DRAG_HANDLE, ICON_EDIT} from '@/basic-widgets/constants';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {GraphicsPosition, GraphicsSize} from '@/services/graphics/graphics-types';
+import {Paragraph} from '@/services/tuples/paragraph';
 import {useDragAndResize} from '../drag-and-resize/use-drag-and-resize';
 import {useReportEventBus} from '../report-event-bus';
 import {ReportEventTypes} from '../report-event-bus-types';

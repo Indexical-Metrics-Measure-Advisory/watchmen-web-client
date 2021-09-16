@@ -1,12 +1,12 @@
 import {diff, formatters} from 'jsondiffpatch';
 import 'jsondiffpatch/dist/formatters-styles/html.css';
 import React, {useEffect, useRef, useState} from 'react';
-import {DwarfButton} from '../../../basic-widgets/button';
-import {Toggle} from '../../../basic-widgets/toggle';
-import {ButtonInk} from '../../../basic-widgets/types';
-import {MonitorLogRow} from '../../../services/admin/logs';
-import {Pipeline} from '../../../services/tuples/pipeline-types';
-import {isMockService} from '../../../services/utils';
+import {DwarfButton} from '@/basic-widgets/button';
+import {Toggle} from '@/basic-widgets/toggle';
+import {ButtonInk} from '@/basic-widgets/types';
+import {MonitorLogRow} from '@/services/admin/logs';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {isMockService} from '@/services/utils';
 import demoData from './pipeline.json';
 import {Diff, PipelineTypeLabel, ShowUnchanged, Title, TriggerDataContainer} from './widgets';
 

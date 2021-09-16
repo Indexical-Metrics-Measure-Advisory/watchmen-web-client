@@ -1,5 +1,5 @@
-import { isMockService } from "../utils";
-import { fetchMockMonitorRuleLogs, fetchMockRules } from "../mock/data-quality/mock-rules";
+import {isMockService} from '../utils';
+import {fetchMockMonitorRuleLogs, fetchMockRules} from '../mock/data-quality/mock-rules';
 import {
 	MonitorRule,
 	MonitorRuleLogCriteria,
@@ -7,9 +7,9 @@ import {
 	MonitorRuleOnFactor,
 	MonitorRuleOnTopic,
 	MonitorRules,
-	MonitorRulesCriteria,
-} from "./rule-types";
-import { Apis, post } from "../apis";
+	MonitorRulesCriteria
+} from './rule-types';
+import {Apis, post} from '../apis';
 
 export const fetchMonitorRules = async (options: { criteria: MonitorRulesCriteria }): Promise<MonitorRules> => {
 	if (isMockService()) {
@@ -19,13 +19,13 @@ export const fetchMonitorRules = async (options: { criteria: MonitorRulesCriteri
 		// return await fetchMockRules(options);
 		return post({
 			api: Apis.QUERY_RULE,
-			data: { criteria: options.criteria },
+			data: {criteria: options.criteria}
 		});
 	}
 };
 
 export const saveMonitorRules = async (options: { rules: MonitorRules }): Promise<MonitorRules> => {
-	const { rules } = options;
+	const {rules} = options;
 	if (isMockService()) {
 		return new Promise<MonitorRules>((resolve) => {
 			setTimeout(() => resolve(rules || []), 1000);
@@ -34,7 +34,7 @@ export const saveMonitorRules = async (options: { rules: MonitorRules }): Promis
 		// TODO
 		return post({
 			api: Apis.SAVE_RULE_LIST,
-			data: rules,
+			data: rules
 		});
 	}
 };
@@ -47,7 +47,7 @@ export const fetchMonitorRuleLogs = async (options: { criteria: MonitorRuleLogCr
 		// TODO
 		return post({
 			api: Apis.QUERY_RULE_RESULT,
-			data: options,
+			data: options
 		});
 	}
 };

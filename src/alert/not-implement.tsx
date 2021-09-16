@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect} from 'react';
-import {useEventBus} from '../events/event-bus';
-import {EventTypes} from '../events/types';
-import {Lang} from '../langs';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Lang} from '@/langs';
 import {AlertLabel} from './widgets';
 
 export const NotImplement = () => {

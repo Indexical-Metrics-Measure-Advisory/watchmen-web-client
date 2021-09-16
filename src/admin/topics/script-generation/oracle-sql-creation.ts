@@ -1,4 +1,4 @@
-import {Topic, TopicType} from '../../../services/tuples/topic-types';
+import {Topic, TopicType} from '@/services/tuples/topic-types';
 import JSZip from 'jszip';
 import {
 	asFactorName,

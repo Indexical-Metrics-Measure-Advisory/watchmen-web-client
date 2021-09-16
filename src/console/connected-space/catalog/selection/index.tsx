@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {GraphicsPosition, GraphicsSize} from '../../../../services/graphics/graphics-types';
-import {Report} from '../../../../services/tuples/report-types';
-import {Subject} from '../../../../services/tuples/subject-types';
-import {Topic} from '../../../../services/tuples/topic-types';
+import {GraphicsPosition, GraphicsSize} from '@/services/graphics/graphics-types';
+import {Report} from '@/services/tuples/report-types';
+import {Subject} from '@/services/tuples/subject-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {computeReportSelection, computeSubjectSelection, computeTopicSelection} from '../graphics-utils';
@@ -14,7 +14,7 @@ interface SelectionState {
 	topic?: Topic;
 	subject?: Subject;
 	report?: Report;
-	rect: GraphicsPosition & GraphicsSize
+	rect: GraphicsPosition & GraphicsSize;
 }
 
 export const BlockSelection = (props: { graphics: AssembledConnectedSpaceGraphics }) => {

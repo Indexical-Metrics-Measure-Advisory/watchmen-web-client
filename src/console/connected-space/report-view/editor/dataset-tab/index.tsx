@@ -1,6 +1,6 @@
-import {ConnectedSpace} from '../../../../../services/tuples/connected-space-types';
-import {Subject} from '../../../../../services/tuples/subject-types';
-import {Report} from '../../../../../services/tuples/report-types';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
+import {Subject} from '@/services/tuples/subject-types';
+import {Report} from '@/services/tuples/report-types';
 import {ReportDataSetEventBusProvider, useReportDataSetEventBus} from './report-dataset-event-bus';
 import {ReportDataSetContainer} from './widgets';
 import React, {useEffect} from 'react';

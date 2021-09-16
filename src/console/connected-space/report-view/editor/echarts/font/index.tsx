@@ -1,9 +1,9 @@
 import React from 'react';
-import {Lang} from '../../../../../../langs';
-import {EChartsFontHolder} from '../../../../../../services/tuples/echarts/echarts-font-types';
-import {ECharts} from '../../../../../../services/tuples/echarts/echarts-types';
-import {Report} from '../../../../../../services/tuples/report-types';
-import {getCurrentTheme} from '../../../../../../theme/theme-wrapper';
+import {Lang} from '@/langs';
+import {EChartsFontHolder} from '@/services/tuples/echarts/echarts-font-types';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
+import {Report} from '@/services/tuples/report-types';
+import {getCurrentTheme} from '@/theme/theme-wrapper';
 import {onColorChange, onDropdownValueChange, onNumberChange, validateNumber} from '../../data-utils';
 import {BarChartStylePropNames} from '../../prop-defs/chart-styles/bar-chart-style-props';
 import {CountChartStylePropNames} from '../../prop-defs/chart-styles/count-chart-style-props';

@@ -1,6 +1,6 @@
-import {Parameter} from '../../../../../../services/tuples/factor-calculator-types';
-import {Factor} from '../../../../../../services/tuples/factor-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {Parameter} from '@/services/tuples/factor-calculator-types';
+import {Factor} from '@/services/tuples/factor-types';
+import {Topic} from '@/services/tuples/topic-types';
 
 export enum ParameterEventTypes {
 	/**

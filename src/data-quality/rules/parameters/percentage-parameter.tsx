@@ -1,9 +1,9 @@
-import {MonitorRuleParameters} from '../../../services/data-quality/rule-types';
+import {MonitorRuleParameters} from '@/services/data-quality/rule-types';
 import React, {ChangeEvent, useState} from 'react';
 import {PercentageContainer} from './widgets';
-import {Input} from '../../../basic-widgets/input';
+import {Input} from '@/basic-widgets/input';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_PERCENTAGE} from '../../../basic-widgets/constants';
+import {ICON_PERCENTAGE} from '@/basic-widgets/constants';
 import {MonitorRuleParameterType} from '../../rule-defs';
 
 const getValue = (params: MonitorRuleParameters, propName: 'coverageRate' | 'aggregation' | 'quantile'): number | null => {

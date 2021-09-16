@@ -1,5 +1,5 @@
 import JSZip from 'jszip';
-import {Topic, TopicType} from '../../../services/tuples/topic-types';
+import {Topic, TopicType} from '@/services/tuples/topic-types';
 import {
 	asFactorName,
 	asFullTopicName,
@@ -14,10 +14,11 @@ import {
 	getRawTopicDataColumnName,
 	getTenantIdColumnName,
 	getUpdateTimeColumnName,
-	getVersionColumnName, isAggregateTopic
+	getVersionColumnName,
+	isAggregateTopic
 } from './utils';
 import {OracleFactorTypeMap} from './oracle';
-import {FactorType} from '../../../services/tuples/factor-types';
+import {FactorType} from '@/services/tuples/factor-types';
 import {MySQLFactorTypeMap} from './mysql';
 import {v4} from 'uuid';
 

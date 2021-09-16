@@ -4,11 +4,11 @@ import {
 	ParameterExpressionOperator,
 	ParameterJoint,
 	ParameterJointType
-} from '../../../../../services/tuples/factor-calculator-types';
+} from '@/services/tuples/factor-calculator-types';
 import {InternalUnitRuntimeContext, PipelineRuntimeContext} from '../types';
 import dayjs, {Dayjs} from 'dayjs';
 import {computeParameter} from './parameter-compute';
-import {isExpressionParameter, isJointParameter} from '../../../../../services/tuples/parameter-utils';
+import {isExpressionParameter, isJointParameter} from '@/services/tuples/parameter-utils';
 import {DataRow} from '../../../types';
 
 type CompareDate = (date1: Dayjs, date2: Dayjs) => boolean;

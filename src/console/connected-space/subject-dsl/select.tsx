@@ -1,8 +1,8 @@
 import React, {Fragment} from 'react';
 import {v4} from 'uuid';
-import {Lang} from '../../../langs';
-import {Subject, SubjectDataSetColumn} from '../../../services/tuples/subject-types';
-import {Topic} from '../../../services/tuples/topic-types';
+import {Lang} from '@/langs';
+import {Subject, SubjectDataSetColumn} from '@/services/tuples/subject-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {Alias, Comma, NewLine, ParameterLine} from './literal';
 import {PrettyComputed, PrettyConstant, PrettyFactor} from './literal-types';
 import {buildTopicsMap, fromParameter} from './literal-utils';

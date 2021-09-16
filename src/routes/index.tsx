@@ -1,8 +1,8 @@
 import React, {lazy, Suspense} from 'react';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
-import {RemoteRequest} from '../remote-request';
+import {RemoteRequest} from '@/remote-request';
 import {Router} from './types';
-import {isDataQualityCenterEnabled} from '../feature-switch';
+import {isDataQualityCenterEnabled} from '@/feature-switch';
 
 const Login = lazy(() => import(/* webpackChunkName: "login" */ '../login'));
 const Admin = lazy(() => import(/* webpackChunkName: "admin" */ '../admin'));

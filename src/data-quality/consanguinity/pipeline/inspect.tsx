@@ -13,7 +13,7 @@ import {ExecutionDelegate} from '../../widgets/cli/execution/execution-delegate'
 import {getPipelineName} from '../../utils';
 import {InspectItem, InspectItems, InspectPipelineName, InspectResult} from './widgets';
 import {DQCCacheData} from '../../cache/types';
-import {PipelineValidateResult, validatePipeline} from '../../../services/pipeline/pipeline-validate';
+import {PipelineValidateResult, validatePipeline} from '@/services/pipeline/pipeline-validate';
 
 const PipelineIssues = (props: { inspects: Array<PipelineValidateResult> }) => {
 	const {inspects} = props;

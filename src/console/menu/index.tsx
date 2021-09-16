@@ -16,32 +16,32 @@ import {
 	MOCK_ACCOUNT_NAME,
 	SIDE_MENU_MAX_WIDTH,
 	SIDE_MENU_MIN_WIDTH
-} from '../../basic-widgets/constants';
-import {SideMenuConnectSpace} from '../../basic-widgets/side-menu/side-menu-connect-space';
-import {SideMenuItem} from '../../basic-widgets/side-menu/side-menu-item';
-import {SideMenuLogo} from '../../basic-widgets/side-menu/side-menu-logo';
-import {SideMenuPlaceholder} from '../../basic-widgets/side-menu/side-menu-placeholder';
-import {SideMenuResizeHandle} from '../../basic-widgets/side-menu/side-menu-resize-handle';
-import {SideMenuSeparator} from '../../basic-widgets/side-menu/side-menu-separator';
-import {SideMenuUser} from '../../basic-widgets/side-menu/side-menu-user';
-import {useEventBus} from '../../events/event-bus';
-import {EventTypes} from '../../events/types';
-import {Lang} from '../../langs';
-import {Router} from '../../routes/types';
-import {toDashboard} from '../../routes/utils';
+} from '@/basic-widgets/constants';
+import {SideMenuConnectSpace} from '@/basic-widgets/side-menu/side-menu-connect-space';
+import {SideMenuItem} from '@/basic-widgets/side-menu/side-menu-item';
+import {SideMenuLogo} from '@/basic-widgets/side-menu/side-menu-logo';
+import {SideMenuPlaceholder} from '@/basic-widgets/side-menu/side-menu-placeholder';
+import {SideMenuResizeHandle} from '@/basic-widgets/side-menu/side-menu-resize-handle';
+import {SideMenuSeparator} from '@/basic-widgets/side-menu/side-menu-separator';
+import {SideMenuUser} from '@/basic-widgets/side-menu/side-menu-user';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Lang} from '@/langs';
+import {Router} from '@/routes/types';
+import {toDashboard} from '@/routes/utils';
 import {findAccount, isAdmin, quit} from '../../services/account';
-import {saveLastSnapshot} from '../../services/account/last-snapshot';
-import {LastSnapshot} from '../../services/account/last-snapshot-types';
-import {saveDashboard} from '../../services/tuples/dashboard';
-import {Dashboard} from '../../services/tuples/dashboard-types';
+import {saveLastSnapshot} from '@/services/account/last-snapshot';
+import {LastSnapshot} from '@/services/account/last-snapshot-types';
+import {saveDashboard} from '@/services/tuples/dashboard';
+import {Dashboard} from '@/services/tuples/dashboard-types';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes} from '../console-event-bus-types';
 import {createDashboard} from '../utils/tuples';
 import {useConnectSpace} from '../widgets/use-connect-space';
 import {FavoriteMenu} from './side-menu-favorite';
 import {SideMenuSpaces} from './side-menu-spaces';
-import {SideMenuSwitchWorkbench} from '../../basic-widgets/side-menu/side-menu-switch-workbench';
-import {isDataQualityCenterEnabled} from '../../feature-switch';
+import {SideMenuSwitchWorkbench} from '@/basic-widgets/side-menu/side-menu-switch-workbench';
+import {isDataQualityCenterEnabled} from '@/feature-switch';
 
 const ConsoleMenuContainer = styled.div.attrs<{ width: number }>(({width}) => {
 	return {
@@ -49,29 +49,29 @@ const ConsoleMenuContainer = styled.div.attrs<{ width: number }>(({width}) => {
 		style: {width}
 	};
 })<{ width: number }>`
-	display: flex;
-	position: relative;
-	flex-direction: column;
-	align-items: flex-start;
-	min-width: var(--console-menu-width);
-	height: 100vh;
-	top: 0;
-	left: 0;
-	border-right: var(--border);
-	background-color: var(--invert-color);
-	overflow: hidden;
+	display          : flex;
+	position         : relative;
+	flex-direction   : column;
+	align-items      : flex-start;
+	min-width        : var(--console-menu-width);
+	height           : 100vh;
+	top              : 0;
+	left             : 0;
+	border-right     : var(--border);
+	background-color : var(--invert-color);
+	overflow         : hidden;
 	+ main {
-		max-width: ${({width}) => `calc(100vw - ${width}px)`};
+		max-width : ${({width}) => `calc(100vw - ${width}px)`};
 		div[data-widget="full-width-page"] {
-			max-width: ${({width}) => `calc(100vw - ${width}px)`};
+			max-width : ${({width}) => `calc(100vw - ${width}px)`};
 		}
 	}
 	@media print {
-		display: none;
+		display : none;
 		+ main {
-			max-width: unset;
+			max-width : unset;
 			div[data-widget="full-width-page"] {
-				max-width: unset;
+				max-width : unset;
 			}
 		}
 	}
@@ -120,7 +120,7 @@ export const ConsoleMenu = () => {
 					history.push(toDashboard(firstDashboardId));
 					try {
 						await saveLastSnapshot({lastDashboardId: firstDashboardId});
-					} catch (e) {
+					} catch (e: any) {
 						// ignore
 					}
 				} else {

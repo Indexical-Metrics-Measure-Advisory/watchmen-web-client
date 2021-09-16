@@ -1,5 +1,5 @@
 import React from 'react';
-import {Lang} from '../../../../../langs';
+import {Lang} from '@/langs';
 import {
 	isBarChart,
 	isDoughnutChart,
@@ -7,8 +7,8 @@ import {
 	isNightingaleChart,
 	isPieChart,
 	isSunburstChart
-} from '../../../../../services/tuples/chart-utils';
-import {Report} from '../../../../../services/tuples/report-types';
+} from '@/services/tuples/chart-utils';
+import {Report} from '@/services/tuples/report-types';
 import {SettingsTruncationPropNames, TruncationSettings} from '../echarts/truncation';
 import {TruncationChartStylePropNames} from '../prop-defs/chart-styles/truncation-chart-style-props';
 import {useReportEditEventBus} from '../report-edit-event-bus';

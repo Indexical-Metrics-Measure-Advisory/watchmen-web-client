@@ -11,15 +11,15 @@ import {getActionType} from '../../../utils';
 import {ActionRunStatusCell} from './action-run-status-cell';
 import {useRunAction} from './use-run-action';
 import {useCompleted} from './use-completed';
-import {ButtonInk} from '../../../../../basic-widgets/types';
+import {ButtonInk} from '@/basic-widgets/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_SEARCH} from '../../../../../basic-widgets/constants';
+import {ICON_SEARCH} from '@/basic-widgets/constants';
 import {useDoRunAction} from './use-do-run-action';
 import {findRuntimeData} from './utils';
 import {TopicsData} from '../../state/types';
-import {EventTypes} from '../../../../../events/types';
+import {EventTypes} from '@/events/types';
 import {DataDialog} from '../data-dialog';
-import {useEventBus} from '../../../../../events/event-bus';
+import {useEventBus} from '@/events/event-bus';
 import {isActionCompleted} from '../utils';
 
 export const ActionRun = (props: {

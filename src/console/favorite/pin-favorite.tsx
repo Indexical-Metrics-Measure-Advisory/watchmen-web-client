@@ -1,9 +1,9 @@
 import {faArrowAltCircleLeft, faArrowAltCircleRight} from '@fortawesome/free-regular-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, RefObject, useEffect, useRef, useState} from 'react';
-import {BASE_MARGIN, ICON_DELETE, SIDE_MENU_MIN_WIDTH} from '../../basic-widgets/constants';
-import {Lang} from '../../langs';
-import {saveLastSnapshot} from '../../services/account/last-snapshot';
+import {BASE_MARGIN, ICON_DELETE, SIDE_MENU_MIN_WIDTH} from '@/basic-widgets/constants';
+import {Lang} from '@/langs';
+import {saveLastSnapshot} from '@/services/account/last-snapshot';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes, FavoriteState} from '../console-event-bus-types';
 import {useFavoriteState} from './use-favorite-state';
@@ -20,8 +20,8 @@ import {
 	PinFavoriteTitle,
 	UnpinFavoriteButton
 } from './widgets';
-import {useEventBus} from '../../events/event-bus';
-import {EventTypes} from '../../events/types';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
 
 interface ScrollState {
 	scrollable: boolean;
@@ -71,7 +71,7 @@ export const PinFavorite = (props: {
 		fire(ConsoleEventTypes.UNPIN_FAVORITE);
 		try {
 			await saveLastSnapshot({favoritePin: false});
-		} catch (e) {
+		} catch (e: any) {
 			// ignore
 			console.info(e);
 		}

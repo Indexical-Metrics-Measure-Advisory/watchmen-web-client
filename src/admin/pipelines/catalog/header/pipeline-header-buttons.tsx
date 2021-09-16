@@ -1,13 +1,13 @@
 import React from 'react';
-import {PageHeaderButtons, PageHeaderButtonSeparator} from '../../../../basic-widgets/page-header-buttons';
+import {PageHeaderButtons, PageHeaderButtonSeparator} from '@/basic-widgets/page-header-buttons';
 import {AssembledPipelinesGraphics} from '../types';
 import {HeaderSwitchGraphicsButton} from './header-switch-graphics-button';
-import {PipelinesGraphics} from '../../../../services/tuples/pipeline-types';
+import {PipelinesGraphics} from '@/services/tuples/pipeline-types';
 import {HeaderCreateGraphicsButton} from './header-create-graphics-button';
 import {HeaderPickTopicsButton} from './header-pick-topics-button';
-import {Topic} from '../../../../services/tuples/topic-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {HeaderDeleteMeButton} from './header-delete-me-buttton';
-import {isPipelinesDownloadEnabled} from '../../../../feature-switch';
+import {isPipelinesDownloadEnabled} from '@/feature-switch';
 import {HeaderExportButton} from './header-export-buttton';
 import {HeaderImportButton} from './header-import-buttton';
 

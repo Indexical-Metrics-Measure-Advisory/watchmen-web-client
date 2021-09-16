@@ -51,7 +51,7 @@ const computeLayouts = (layout: DataPanelLayouts, which: DataPanels, how: DataPa
 				layout[DataPanels.WEEKLY].spanColumn = 3;
 				layout[DataPanels.WEEKLY].spanRow = 3;
 				layout[DataPanels.FREE_WALK].column = 2;
-				layout[DataPanels.FREE_WALK].spanColumn = 3
+				layout[DataPanels.FREE_WALK].spanColumn = 3;
 				layout[DataPanels.FREE_WALK].row = 4;
 				layout[DataPanels.FREE_WALK].spanRow = 1;
 				break;
@@ -75,7 +75,7 @@ const computeLayouts = (layout: DataPanelLayouts, which: DataPanels, how: DataPa
 				layout[DataPanels.WEEKLY].spanColumn = 3;
 				layout[DataPanels.WEEKLY].spanRow = 1;
 				layout[DataPanels.FREE_WALK].column = 2;
-				layout[DataPanels.FREE_WALK].spanColumn = 3
+				layout[DataPanels.FREE_WALK].spanColumn = 3;
 				layout[DataPanels.FREE_WALK].row = 2;
 				layout[DataPanels.FREE_WALK].spanRow = 3;
 				break;

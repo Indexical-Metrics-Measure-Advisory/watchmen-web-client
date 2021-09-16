@@ -1,6 +1,6 @@
-import {Report} from '../../../services/tuples/report-types';
-import {Subject} from '../../../services/tuples/subject-types';
-import {Topic} from '../../../services/tuples/topic-types';
+import {Report} from '@/services/tuples/report-types';
+import {Subject} from '@/services/tuples/subject-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {AssembledReportGraphics, AssembledSubjectGraphics, AssembledTopicGraphics} from './types';
 
 export enum CatalogEventTypes {

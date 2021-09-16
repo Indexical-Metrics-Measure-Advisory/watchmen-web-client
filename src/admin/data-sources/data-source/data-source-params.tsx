@@ -1,6 +1,6 @@
-import {DataSource, DataSourceParam} from '../../../services/tuples/data-source-types';
+import {DataSource, DataSourceParam} from '@/services/tuples/data-source-types';
 import {useDataSourceEventBus} from '../data-source-event-bus';
-import {useForceUpdate} from '../../../basic-widgets/utils';
+import {useForceUpdate} from '@/basic-widgets/utils';
 import {DataSourceEventTypes} from '../data-source-event-bus-types';
 import React from 'react';
 import {TuplePropertyInput, TuplePropertyLabel} from '../../widgets/tuple-workbench/tuple-editor';

@@ -1,4 +1,4 @@
-import {Factor} from '../../services/tuples/factor-types';
+import {Factor} from '@/services/tuples/factor-types';
 import {MonitorRuleDef, MonitorRuleParameterType, RuleDefs} from '../rule-defs';
 import {
 	MonitorRule,
@@ -6,7 +6,7 @@ import {
 	MonitorRuleCompareOperator,
 	MonitorRuleSeverity,
 	MonitorRuleStatisticalInterval
-} from '../../services/data-quality/rule-types';
+} from '@/services/data-quality/rule-types';
 
 export const transformRuleDefsToDisplay = (codes: Array<MonitorRuleCode>): Array<MonitorRuleDef> => {
 	return codes.filter(code => {

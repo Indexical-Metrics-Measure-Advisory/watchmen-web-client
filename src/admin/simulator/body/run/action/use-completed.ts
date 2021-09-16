@@ -9,7 +9,7 @@ import {
 } from '../types';
 import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
-import {connectSimulatorDB} from '../../../../../local-persist/db';
+import {connectSimulatorDB} from '@/local-persist/db';
 import dayjs from 'dayjs';
 import {buildContextBody, createLogWriter} from './utils';
 

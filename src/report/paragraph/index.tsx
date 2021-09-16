@@ -1,5 +1,5 @@
 import React from 'react';
-import {Paragraph} from '../../services/tuples/paragraph';
+import {Paragraph} from '@/services/tuples/paragraph';
 import {Container} from './container';
 
 export const ParagraphPanel = (props: {

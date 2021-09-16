@@ -10,13 +10,13 @@ import {
 } from '../../widgets/cli/execution/widgets';
 import {useDataQualityCacheData} from '../../cache/use-cache-data';
 import {ExecutionDelegate} from '../../widgets/cli/execution/execution-delegate';
-import {Topic} from '../../../services/tuples/topic-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {DQCCacheData} from '../../cache/types';
 import {getPipelineName, getTopicName} from '../../utils';
 import {FactorName, FactorNotUsedReason, NotUsedFactorsGroup, PipelineGroup, PipelineName, TopicName} from './widgets';
 import {buildViewPipelineCommand} from '../pipeline/commands';
-import {Pipeline} from '../../../services/tuples/pipeline-types';
-import {TopicRelation} from '../../../services/pipeline/pipeline-relations';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {TopicRelation} from '@/services/pipeline/pipeline-relations';
 
 const TopicView = (props: { relation: TopicRelation }) => {
 	const {relation} = props;

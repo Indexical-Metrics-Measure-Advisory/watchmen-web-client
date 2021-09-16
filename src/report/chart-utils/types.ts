@@ -1,6 +1,6 @@
-import {ChartDef} from '../../services/tuples/chart-def/chart-def-types';
-import {ChartDataSet} from '../../services/tuples/chart-types';
-import {Report} from '../../services/tuples/report-types';
+import {ChartDef} from '@/services/tuples/chart-def/chart-def-types';
+import {ChartDataSet} from '@/services/tuples/chart-types';
+import {Report} from '@/services/tuples/report-types';
 
 export type ChartEChartOptions = any;
 export type ChartOptions = ChartEChartOptions | JSX.Element;

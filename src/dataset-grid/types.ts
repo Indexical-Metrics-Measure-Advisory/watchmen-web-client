@@ -1,4 +1,4 @@
-import {DataSetPage} from '../services/console/dataset';
+import {DataSetPage} from '@/services/console/dataset';
 
 export enum ColumnSortBy {
 	NONE = 'none',

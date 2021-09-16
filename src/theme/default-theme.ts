@@ -14,7 +14,7 @@ import {
 	PIN_FAVORITE_HEIGHT,
 	SIDE_MENU_MIN_WIDTH,
 	TOGGLE_HEIGHT
-} from '../basic-widgets/constants';
+} from '@/basic-widgets/constants';
 
 const DefaultTheme = {
 	code: 'light',

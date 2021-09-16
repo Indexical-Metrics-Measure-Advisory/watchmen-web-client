@@ -12,16 +12,16 @@ import {
 import {ColumnDefs, DataSetState} from '../types';
 import {GridEventTypes} from '../grid-event-bus-types';
 import {useGridEventBus} from '../grid-event-bus';
-import {DataSetPage} from '../../services/console/dataset';
-import {ButtonInk, TooltipAlignment} from '../../basic-widgets/types';
+import {DataSetPage} from '@/services/console/dataset';
+import {ButtonInk, TooltipAlignment} from '@/basic-widgets/types';
 import {
 	ICON_COMPRESS_COLUMNS,
 	ICON_DOWNLOAD,
 	ICON_DOWNLOAD_PAGE,
 	ICON_NEXT_PAGE,
 	ICON_PREVIOUS_PAGE
-} from '../../basic-widgets/constants';
-import {Lang} from '../../langs';
+} from '@/basic-widgets/constants';
+import {Lang} from '@/langs';
 
 export const GridHeader = (props: {
 	data: DataSetState;

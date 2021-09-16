@@ -10,7 +10,7 @@ import {
 	listMockDataSourcesForHolder,
 	saveMockDataSource
 } from '../mock/tuples/mock-data-source';
-import {isMultipleDataSourcesEnabled} from '../../feature-switch';
+import {isMultipleDataSourcesEnabled} from '@/feature-switch';
 
 export const listDataSources = async (options: {
 	search: string;

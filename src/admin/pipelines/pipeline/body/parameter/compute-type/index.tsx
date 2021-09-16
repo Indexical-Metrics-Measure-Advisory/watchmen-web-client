@@ -1,12 +1,8 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useRef, useState} from 'react';
-import {ICON_EDIT} from '../../../../../../basic-widgets/constants';
-import {useCollapseFixedThing} from '../../../../../../basic-widgets/utils';
-import {
-	ComputedParameter,
-	ParameterComputeType,
-	ValueTypes
-} from '../../../../../../services/tuples/factor-calculator-types';
+import {ICON_EDIT} from '@/basic-widgets/constants';
+import {useCollapseFixedThing} from '@/basic-widgets/utils';
+import {ComputedParameter, ParameterComputeType, ValueTypes} from '@/services/tuples/factor-calculator-types';
 import {useParameterEventBus} from '../parameter/parameter-event-bus';
 import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';
 import {
@@ -17,8 +13,8 @@ import {
 	ParameterComputeTypeLabel,
 	ParameterComputeTypeOption
 } from './widgets';
-import {isComputeTypeValid} from '../../../../../../services/tuples/factor-calculator-utils';
-import {defendComputedParameter} from '../../../../../../services/tuples/parameter-utils';
+import {isComputeTypeValid} from '@/services/tuples/factor-calculator-utils';
+import {defendComputedParameter} from '@/services/tuples/parameter-utils';
 
 const AvailableComputeTypes = [
 	ParameterComputeType.ADD,

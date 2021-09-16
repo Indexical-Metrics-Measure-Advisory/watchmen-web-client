@@ -1,15 +1,15 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components';
-import {Button} from '../../../../basic-widgets/button';
-import {ButtonInk} from '../../../../basic-widgets/types';
-import {DialogBody, DialogFooter, DialogLabel} from '../../../../dialog/widgets';
-import {useEventBus} from '../../../../events/event-bus';
-import {EventTypes} from '../../../../events/types';
-import {Lang} from '../../../../langs';
-import {useReportEventBus} from '../../../../report/report-event-bus';
-import {ReportEventTypes} from '../../../../report/report-event-bus-types';
-import {Dashboard} from '../../../../services/tuples/dashboard-types';
-import {Paragraph} from '../../../../services/tuples/paragraph';
+import {Button} from '@/basic-widgets/button';
+import {ButtonInk} from '@/basic-widgets/types';
+import {DialogBody, DialogFooter, DialogLabel} from '@/dialog/widgets';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Lang} from '@/langs';
+import {useReportEventBus} from '@/report/report-event-bus';
+import {ReportEventTypes} from '@/report/report-event-bus-types';
+import {Dashboard} from '@/services/tuples/dashboard-types';
+import {Paragraph} from '@/services/tuples/paragraph';
 import {useDashboardEventBus} from '../../dashboard-event-bus';
 import {DashboardEventTypes} from '../../dashboard-event-bus-types';
 

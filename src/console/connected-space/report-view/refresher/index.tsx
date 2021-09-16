@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
-import {useReportEventBus} from '../../../../report/report-event-bus';
-import {ReportEventTypes} from '../../../../report/report-event-bus-types';
+import {useReportEventBus} from '@/report/report-event-bus';
+import {ReportEventTypes} from '@/report/report-event-bus-types';
 import {useReportViewEventBus} from '../report-view-event-bus';
 import {ReportViewEventTypes} from '../report-view-event-bus-types';
-import {Report} from '../../../../services/tuples/report-types';
+import {Report} from '@/services/tuples/report-types';
 
 export const ReportRefresher = (props: { report: Report }) => {
 	const {report} = props;

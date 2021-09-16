@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Report} from '../../../../../services/tuples/report-types';
-import {Subject} from '../../../../../services/tuples/subject-types';
+import {Report} from '@/services/tuples/report-types';
+import {Subject} from '@/services/tuples/subject-types';
+// noinspection ES6PreferShortImport
 import {useConsoleEventBus} from '../../../../console-event-bus';
+// noinspection ES6PreferShortImport
 import {ConsoleEventTypes, FavoriteState} from '../../../../console-event-bus-types';
 import {ChartTruncationSettings} from '../chart-truncation-settings';
 import {DimensionsSection} from '../dimensions';

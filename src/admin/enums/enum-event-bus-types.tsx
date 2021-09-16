@@ -1,4 +1,4 @@
-import {Enum} from '../../services/tuples/enum-types';
+import {Enum} from '@/services/tuples/enum-types';
 
 export enum EnumEventTypes {
 	ENUM_NAME_CHANGED = 'enum-name-changed',

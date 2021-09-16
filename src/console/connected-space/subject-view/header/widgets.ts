@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import {PageHeaderHolderContainer} from '../../../../basic-widgets/page-header';
+import {PageHeaderHolderContainer} from '@/basic-widgets/page-header';
 
 export const PageHeaderHolder = styled(PageHeaderHolderContainer)`
 	grid-template-columns : auto auto 1fr;
 	@media print {
-		display: none;
+		display : none;
 	}
 `;
 export const ConnectedSpaceNameLabel = styled.div.attrs({'data-widget': 'page-header-connected-space-label'})`

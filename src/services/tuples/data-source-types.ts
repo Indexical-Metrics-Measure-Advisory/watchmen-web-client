@@ -8,7 +8,7 @@ export enum DataSourceType {
 
 export interface DataSourceParam {
 	name: string;
-	value: string
+	value: string;
 }
 
 export interface DataSource extends Tuple {
@@ -21,6 +21,6 @@ export interface DataSource extends Tuple {
 	username: string;
 	password: string;
 	url: string;
-	params: Array<DataSourceParam>
+	params: Array<DataSourceParam>;
 	tenantId?: string;
 }

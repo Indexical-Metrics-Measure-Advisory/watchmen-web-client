@@ -1,13 +1,13 @@
-import {BarChartSettings} from '../../services/tuples/chart-def/chart-bar';
-import {PieChartSettings} from '../../services/tuples/chart-def/chart-pie';
+import {BarChartSettings} from '@/services/tuples/chart-def/chart-bar';
+import {PieChartSettings} from '@/services/tuples/chart-def/chart-pie';
 import {
 	isBarChart,
 	isDoughnutChart,
 	isNightingaleChart,
 	isPieChart,
 	isSunburstChart
-} from '../../services/tuples/chart-utils';
-import {ECharts} from '../../services/tuples/echarts/echarts-types';
+} from '@/services/tuples/chart-utils';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
 
 export const buildDecal = (chart: ECharts, aria?: any) => {
 	if (isBarChart(chart) || isPieChart(chart) || isDoughnutChart(chart) || isNightingaleChart(chart) || isSunburstChart(chart)) {

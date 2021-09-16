@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {DialogFooter, DialogLabel} from '../../../../dialog/widgets';
-import {Pipeline} from '../../../../services/tuples/pipeline-types';
-import {Topic} from '../../../../services/tuples/topic-types';
+import {DialogFooter, DialogLabel} from '@/dialog/widgets';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {
 	buildPipelinesRelation,
 	buildTopicsMap,
@@ -10,18 +10,20 @@ import {
 	PipelinesMap,
 	TopicRelationMap,
 	TopicsMap
-} from '../../../../services/pipeline/pipeline-relations';
+} from '@/services/pipeline/pipeline-relations';
 import {AssembledPipelinesGraphics} from '../types';
-import {useEventBus} from '../../../../events/event-bus';
+import {useEventBus} from '@/events/event-bus';
 import JSZip from 'jszip';
-import {PageHeaderButton} from '../../../../basic-widgets/page-header-buttons';
+import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
 import dayjs from 'dayjs';
+// noinspection ES6PreferShortImport
 import {useAdminCacheEventBus} from '../../../cache/cache-event-bus';
-import {ICON_EXPORT} from '../../../../basic-widgets/constants';
-import {AdminCacheData} from '../../../../local-persist/types';
-import {Button} from '../../../../basic-widgets/button';
-import {ButtonInk} from '../../../../basic-widgets/types';
-import {EventTypes} from '../../../../events/types';
+import {ICON_EXPORT} from '@/basic-widgets/constants';
+import {AdminCacheData} from '@/local-persist/types';
+import {Button} from '@/basic-widgets/button';
+import {ButtonInk} from '@/basic-widgets/types';
+import {EventTypes} from '@/events/types';
+// noinspection ES6PreferShortImport
 import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
 import {TopicPickerTable} from './topic-picker-table';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';

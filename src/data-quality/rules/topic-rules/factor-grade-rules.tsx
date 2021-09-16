@@ -1,7 +1,5 @@
-import {Topic} from '../../../services/tuples/topic-types';
-import {
-	isRuleOnFactor
-} from '../../../services/data-quality/rules';
+import {Topic} from '@/services/tuples/topic-types';
+import {isRuleOnFactor} from '@/services/data-quality/rules';
 import {transformRuleDefsToDisplay} from '../utils';
 import React, {useEffect} from 'react';
 import {RuleMap} from './types';
@@ -9,7 +7,7 @@ import {FactorRulesRows} from './factor-rules-rows';
 import {AddFactorRules} from './add-factor-rules';
 import {useRulesEventBus} from '../rules-event-bus';
 import {RulesEventTypes} from '../rules-event-bus-types';
-import {MonitorRule, MonitorRuleOnFactor, MonitorRules, TopicRuleDefs} from '../../../services/data-quality/rule-types';
+import {MonitorRule, MonitorRuleOnFactor, MonitorRules, TopicRuleDefs} from '@/services/data-quality/rule-types';
 
 const buildRuleMap = (rules: MonitorRules): RuleMap => {
 	return rules.filter(rule => isRuleOnFactor(rule)).reduce((map, rule) => {

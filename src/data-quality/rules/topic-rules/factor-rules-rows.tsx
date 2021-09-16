@@ -1,12 +1,12 @@
-import {Topic} from '../../../services/tuples/topic-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {sortFactors, transformRuleDefsToDisplay} from '../utils';
 import React, {useEffect, useState} from 'react';
 import {RuleMap} from './types';
 import {FactorRulesRow} from './factor-rules-row';
 import {RulesEventTypes} from '../rules-event-bus-types';
 import {useRulesEventBus} from '../rules-event-bus';
-import {Factor} from '../../../services/tuples/factor-types';
-import {FactorRuleDefs} from '../../../services/data-quality/rule-types';
+import {Factor} from '@/services/tuples/factor-types';
+import {FactorRuleDefs} from '@/services/data-quality/rule-types';
 
 export const FactorRulesRows = (props: {
 	topic: Topic;

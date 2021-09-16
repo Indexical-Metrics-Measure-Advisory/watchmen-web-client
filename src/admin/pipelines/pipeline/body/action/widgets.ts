@@ -29,24 +29,24 @@ export const ActionContainer = styled.div.attrs({'data-widget': 'action'})`
 		border-radius    : var(--param-height);
 	}
 	&:after {
-		content: '';
-		display: block;
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		border-radius: var(--param-height);
-		border-width: calc(var(--border-width) * 2);
-		border-color: var(--danger-color);
-		border-style: solid;
-		opacity: 0;
-		transition: all 300ms ease-in-out;
-		z-index: -1;
+		content       : '';
+		display       : block;
+		position      : absolute;
+		top           : 0;
+		left          : 0;
+		width         : 100%;
+		height        : 100%;
+		border-radius : var(--param-height);
+		border-width  : calc(var(--border-width) * 2);
+		border-color  : var(--danger-color);
+		border-style  : solid;
+		opacity       : 0;
+		transition    : all 300ms ease-in-out;
+		z-index       : -1;
 	}
 	&:hover {
 		&:after {
-			opacity: 0.3;
+			opacity : 0.3;
 		}
 	}
 	> div[data-widget="header-buttons"] {
@@ -56,7 +56,7 @@ export const ActionContainer = styled.div.attrs({'data-widget': 'action'})`
 `;
 export const ActionLeadLabel = styled(LeadLabel)`
 	font-weight : var(--font-boldest);
-	color: var(--warn-color);
+	color       : var(--warn-color);
 `;
 export const ActionLeadLabelThin = styled(LeadLabel)`
 	font-weight : normal;

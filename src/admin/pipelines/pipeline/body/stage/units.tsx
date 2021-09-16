@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
-import {useForceUpdate} from '../../../../../basic-widgets/utils';
-import {PipelineStage} from '../../../../../services/tuples/pipeline-stage-types';
-import {Pipeline} from '../../../../../services/tuples/pipeline-types';
-import {Topic} from '../../../../../services/tuples/topic-types';
-import {generateUuid} from '../../../../../services/tuples/utils';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
+import {generateUuid} from '@/services/tuples/utils';
 import {UnitEditor} from '../unit';
 import {UnitEventBusProvider} from '../unit/unit-event-bus';
 import {useStageEventBus} from './stage-event-bus';

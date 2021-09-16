@@ -1,5 +1,5 @@
-import {Pipeline} from '../../../../services/tuples/pipeline-types';
-import {Topic} from '../../../../services/tuples/topic-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {
 	SimulatorBodyPart,
 	SimulatorBodyPartHeader,
@@ -15,13 +15,13 @@ import {useSimulatorEventBus} from '../../simulator-event-bus';
 import {getPipelineName} from '../../utils';
 import {Runs} from './runs';
 import {AllTopics} from './types';
-import {Button} from '../../../../basic-widgets/button';
-import {ButtonInk} from '../../../../basic-widgets/types';
+import {Button} from '@/basic-widgets/button';
+import {ButtonInk} from '@/basic-widgets/types';
 import {RunsEventBusProvider, useRunsEventBus} from './runs-event-bus';
 import {RunsEventTypes} from './runs-event-bus-types';
-import {useEventBus} from '../../../../events/event-bus';
-import {EventTypes} from '../../../../events/types';
-import {AlertLabel} from '../../../../alert/widgets';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {AlertLabel} from '@/alert/widgets';
 import dayjs from 'dayjs';
 
 interface State {

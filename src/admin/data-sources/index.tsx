@@ -1,25 +1,25 @@
 import {TupleEventBusProvider, useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import React, {useEffect} from 'react';
-import {useEventBus} from '../../events/event-bus';
-import {EventTypes} from '../../events/types';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
 import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
-import {TUPLE_SEARCH_PAGE_SIZE} from '../../basic-widgets/constants';
-import {DataPage} from '../../services/query/data-page';
-import {QueryTuple} from '../../services/tuples/tuple-types';
-import {AlertLabel} from '../../alert/widgets';
+import {TUPLE_SEARCH_PAGE_SIZE} from '@/basic-widgets/constants';
+import {DataPage} from '@/services/query/data-page';
+import {QueryTuple} from '@/services/tuples/tuple-types';
+import {AlertLabel} from '@/alert/widgets';
 import {TupleWorkbench} from '../widgets/tuple-workbench';
 import DataSourceBackground from '../../assets/data-source-background.svg';
-import {DataSource} from '../../services/tuples/data-source-types';
-import {QueryDataSource} from '../../services/tuples/query-data-source-types';
+import {DataSource} from '@/services/tuples/data-source-types';
+import {QueryDataSource} from '@/services/tuples/query-data-source-types';
 import {createDataSource} from './utils';
-import {fetchDataSource, listDataSources, saveDataSource} from '../../services/tuples/data-source';
+import {fetchDataSource, listDataSources, saveDataSource} from '@/services/tuples/data-source';
 import {renderCard} from './card';
 import {renderEditor} from './editor';
-import {listTenants} from '../../services/tuples/tenant';
-import {isMultipleDataSourcesEnabled} from '../../feature-switch';
+import {listTenants} from '@/services/tuples/tenant';
+import {isMultipleDataSourcesEnabled} from '@/feature-switch';
 import {useHistory} from 'react-router-dom';
-import {isSuperAdmin} from '../../services/account';
-import {Router} from '../../routes/types';
+import {isSuperAdmin} from '@/services/account';
+import {Router} from '@/routes/types';
 
 const fetchDataSourceAndCodes = async (queryDataSource: QueryDataSource) => {
 	const {dataSource} = await fetchDataSource(queryDataSource.dataSourceId);

@@ -1,10 +1,10 @@
 import React from 'react';
-import {PipelineStage} from '../../../../../../services/tuples/pipeline-stage-types';
-import {PipelineStageUnitAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {isWriteFactorAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
-import {PipelineStageUnit} from '../../../../../../services/tuples/pipeline-stage-unit-types';
-import {Pipeline} from '../../../../../../services/tuples/pipeline-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
+import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {isWriteFactorAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {useActionType} from '../action-effect/use-action-type';
 import {useActionEventBus} from '../action-event-bus';
 import {ActionEventTypes} from '../action-event-bus-types';
@@ -13,7 +13,7 @@ import {FindByCondition} from '../find-by';
 import {SingleParameter} from '../single-parameter';
 import {TopicFactorPicker} from '../topic-factor-picker';
 import {ActionLeadLabelThin} from '../widgets';
-import {AnyFactorType} from '../../../../../../services/tuples/factor-calculator-types';
+import {AnyFactorType} from '@/services/tuples/factor-calculator-types';
 
 export const WriteFactor = (props: {
 	pipeline: Pipeline;

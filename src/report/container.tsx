@@ -1,10 +1,10 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useRef, useState} from 'react';
-import {ICON_DELETE, ICON_DRAG_HANDLE, ICON_LOADING} from '../basic-widgets/constants';
-import {useForceUpdate} from '../basic-widgets/utils';
-import {fetchChartData, fetchChartDataTemporary} from '../services/console/report';
-import {ChartDataSet} from '../services/tuples/chart-types';
-import {Report, ReportRect} from '../services/tuples/report-types';
+import {ICON_DELETE, ICON_DRAG_HANDLE, ICON_LOADING} from '@/basic-widgets/constants';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {fetchChartData, fetchChartDataTemporary} from '@/services/console/report';
+import {ChartDataSet} from '@/services/tuples/chart-types';
+import {Report, ReportRect} from '@/services/tuples/report-types';
 import {Diagram} from './diagram';
 import {DiagramLoading} from './diagram/widgets';
 import {useDragAndResize} from './drag-and-resize/use-drag-and-resize';
@@ -12,8 +12,8 @@ import {useReportEventBus} from './report-event-bus';
 import {ReportEventTypes} from './report-event-bus-types';
 import {DragType} from './types';
 import {ChartButton, ChartButtons, ChartContainer, ChartDragHandle, ChartDragHandlePart} from './widgets';
-import {useEventBus} from '../events/event-bus';
-import {EventTypes} from '../events/types';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
 
 enum DiagramLoadState {
 	FALSE = 'false',

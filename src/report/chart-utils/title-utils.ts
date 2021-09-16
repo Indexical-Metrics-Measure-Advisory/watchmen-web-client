@@ -1,5 +1,5 @@
 import {TitleComponentOption} from 'echarts/components';
-import {ECharts} from '../../services/tuples/echarts/echarts-types';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
 import {cleanUselessValues} from './data-utils';
 
 export const buildEChartsTitle = (chart: ECharts): TitleComponentOption | undefined => {

@@ -5,8 +5,8 @@ import {
 	ParameterJoint,
 	ParameterJointType,
 	ParameterKind
-} from '../../services/tuples/factor-calculator-types';
-import {PipelineStage} from '../../services/tuples/pipeline-stage-types';
+} from '@/services/tuples/factor-calculator-types';
+import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
 import {
 	FindBy,
 	FromFactor,
@@ -16,7 +16,7 @@ import {
 	SystemActionType,
 	ToFactor,
 	ToTopic
-} from '../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {
 	isAlarmAction,
 	isCopyToMemoryAction,
@@ -28,38 +28,38 @@ import {
 	isReadRowAction,
 	isReadRowsAction,
 	isWriteFactorAction
-} from '../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {
 	ExistsAction,
 	ReadFactorAction,
 	ReadFactorsAction,
 	ReadRowAction,
 	ReadRowsAction
-} from '../../services/tuples/pipeline-stage-unit-action/read-topic-actions-types';
+} from '@/services/tuples/pipeline-stage-unit-action/read-topic-actions-types';
 import {
 	AlarmAction,
 	AlarmActionSeverity,
 	CopyToMemoryAction
-} from '../../services/tuples/pipeline-stage-unit-action/system-actions-types';
+} from '@/services/tuples/pipeline-stage-unit-action/system-actions-types';
 import {
 	InsertRowAction,
 	MappingFactor,
 	MappingRow,
 	MergeRowAction,
 	WriteFactorAction
-} from '../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
-import {PipelineStageUnit} from '../../services/tuples/pipeline-stage-unit-types';
-import {Pipeline, PipelineTriggerType} from '../../services/tuples/pipeline-types';
-import {generateUuid} from '../../services/tuples/utils';
-import {getCurrentTime} from '../../services/utils';
+} from '@/services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
+import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
+import {Pipeline, PipelineTriggerType} from '@/services/tuples/pipeline-types';
+import {generateUuid} from '@/services/tuples/utils';
+import {getCurrentTime} from '@/services/utils';
 import {
 	createConstantParameter,
 	createTopicFactorParameter,
 	defendParameter,
 	isExpressionParameter,
 	isJointParameter
-} from '../../services/tuples/parameter-utils';
-import {AggregateArithmetic} from '../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
+} from '@/services/tuples/parameter-utils';
+import {AggregateArithmetic} from '@/services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
 
 export const createAction = (): AlarmAction => {
 	return {

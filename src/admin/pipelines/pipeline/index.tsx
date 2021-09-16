@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory, useParams} from 'react-router-dom';
-import {AlertLabel} from '../../../alert/widgets';
-import {useEventBus} from '../../../events/event-bus';
-import {EventTypes} from '../../../events/types';
-import {Router} from '../../../routes/types';
-import {Pipeline} from '../../../services/tuples/pipeline-types';
-import {Topic} from '../../../services/tuples/topic-types';
+import {AlertLabel} from '@/alert/widgets';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Router} from '@/routes/types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {usePipelinesEventBus} from '../pipelines-event-bus';
 import {PipelinesEventTypes} from '../pipelines-event-bus-types';
 import {PipelineBody} from './body';
@@ -13,7 +13,7 @@ import {PipelineDataSaver} from './data-saver';
 import {PipelineHeader} from './header';
 import {PipelineEventBusProvider} from './pipeline-event-bus';
 import {PipelineState} from './state';
-import {fetchPipeline} from '../../../services/tuples/pipeline';
+import {fetchPipeline} from '@/services/tuples/pipeline';
 import {AdminCacheEventTypes} from '../../cache/cache-event-bus-types';
 import {useAdminCacheEventBus} from '../../cache/cache-event-bus';
 

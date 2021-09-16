@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {Parameter, ParameterExpressionOperator} from '../../../../../../services/tuples/factor-calculator-types';
-import {SubjectDataSetFilterExpression} from '../../../../../../services/tuples/subject-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {Parameter, ParameterExpressionOperator} from '@/services/tuples/factor-calculator-types';
+import {SubjectDataSetFilterExpression} from '@/services/tuples/subject-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {useFilterEventBus} from '../filter-event-bus';
 import {FilterEventTypes} from '../filter-event-bus-types';
 import {Expression} from './expression';

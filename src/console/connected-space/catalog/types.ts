@@ -1,8 +1,8 @@
-import {AvailableSpaceInConsole} from '../../../services/console/settings-types';
-import {ConnectedSpaceBlockGraphics} from '../../../services/tuples/connected-space-types';
-import {Report} from '../../../services/tuples/report-types';
-import {Subject} from '../../../services/tuples/subject-types';
-import {Topic} from '../../../services/tuples/topic-types';
+import {AvailableSpaceInConsole} from '@/services/console/settings-types';
+import {ConnectedSpaceBlockGraphics} from '@/services/tuples/connected-space-types';
+import {Report} from '@/services/tuples/report-types';
+import {Subject} from '@/services/tuples/subject-types';
+import {Topic} from '@/services/tuples/topic-types';
 
 export enum GraphicsRole {
 	TOPIC = 'topic',
@@ -54,5 +54,5 @@ export interface CatalogData {
 	initialized: boolean;
 	space?: AvailableSpaceInConsole;
 	topics: Array<Topic>;
-	graphics?: AssembledConnectedSpaceGraphics
+	graphics?: AssembledConnectedSpaceGraphics;
 }

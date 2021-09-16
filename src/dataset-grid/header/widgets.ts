@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import {Button} from '../../basic-widgets/button';
-import {TooltipButton} from '../../basic-widgets/tooltip-button';
+import {Button} from '@/basic-widgets/button';
+import {TooltipButton} from '@/basic-widgets/tooltip-button';
 
 export const DataSetHeaderContainer = styled.div.attrs({'data-widget': 'dataset-header'})`
 	display: flex;

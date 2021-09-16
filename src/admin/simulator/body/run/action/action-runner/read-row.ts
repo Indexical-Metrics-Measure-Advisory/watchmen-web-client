@@ -1,5 +1,5 @@
 import {ActionRuntimeContext, InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
-import {isReadRowAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {isReadRowAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {prepareBy, prepareTopic, prepareVariable} from './utils';
 import {computeJoint} from '../../compute/condition-compute';
 

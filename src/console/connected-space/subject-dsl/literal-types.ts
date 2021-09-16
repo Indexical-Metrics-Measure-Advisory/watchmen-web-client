@@ -1,6 +1,6 @@
-import {ParameterComputeType, ParameterKind} from '../../../services/tuples/factor-calculator-types';
-import {Factor} from '../../../services/tuples/factor-types';
-import {Topic} from '../../../services/tuples/topic-types';
+import {ParameterComputeType, ParameterKind} from '@/services/tuples/factor-calculator-types';
+import {Factor} from '@/services/tuples/factor-types';
+import {Topic} from '@/services/tuples/topic-types';
 
 export interface PrettyConstant {
 	is: ParameterKind.CONSTANT;
@@ -16,11 +16,11 @@ export interface PrettyFactor {
 		topic?: Topic;
 		topicPicked: boolean;
 		factor?: Factor;
-	}
+	};
 }
 
 export interface PrettyComputed {
 	is: ParameterKind.COMPUTED;
 	type: ParameterComputeType;
-	data: Array<PrettyConstant | PrettyFactor | PrettyComputed | null>
+	data: Array<PrettyConstant | PrettyFactor | PrettyComputed | null>;
 }

@@ -1,11 +1,11 @@
 import {TopicRuleCell, TopicRuleRow, TopicRuleSeqCell} from './widgets';
-import {Dropdown} from '../../../basic-widgets/dropdown';
+import {Dropdown} from '@/basic-widgets/dropdown';
 import React, {useEffect, useState} from 'react';
 import {RuleMap} from './types';
-import {Topic} from '../../../services/tuples/topic-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {sortFactors} from '../utils';
-import {DropdownOption} from '../../../basic-widgets/types';
-import {useForceUpdate} from '../../../basic-widgets/utils';
+import {DropdownOption} from '@/basic-widgets/types';
+import {useForceUpdate} from '@/basic-widgets/utils';
 import {useRulesEventBus} from '../rules-event-bus';
 import {RulesEventTypes} from '../rules-event-bus-types';
 

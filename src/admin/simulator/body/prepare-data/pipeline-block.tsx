@@ -15,19 +15,19 @@ import {
 	ICON_COLLAPSE_CONTENT,
 	ICON_EXPAND_CONTENT,
 	ICON_UNCHECK
-} from '../../../../basic-widgets/constants';
+} from '@/basic-widgets/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {Pipeline} from '../../../../services/tuples/pipeline-types';
-import {Topic} from '../../../../services/tuples/topic-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {TopicBlock} from './topic-block';
-import {TooltipAlignment} from '../../../../basic-widgets/types';
+import {TooltipAlignment} from '@/basic-widgets/types';
 import {useSimulatorEventBus} from '../../simulator-event-bus';
 import {SimulatorEventTypes} from '../../simulator-event-bus-types';
 import {FlowTreePipelineNode} from './utils';
-import {useForceUpdate} from '../../../../basic-widgets/utils';
-import {useEventBus} from '../../../../events/event-bus';
-import {EventTypes} from '../../../../events/types';
-import {AlertLabel} from '../../../../alert/widgets';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {AlertLabel} from '@/alert/widgets';
 
 export const PipelineBlock = (props: {
 	node: FlowTreePipelineNode;

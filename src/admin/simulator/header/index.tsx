@@ -1,6 +1,6 @@
 import React from 'react';
 import {PageHeaderHolder} from './widgets';
-import {PageTitle} from '../../../basic-widgets/page-header';
+import {PageTitle} from '@/basic-widgets/page-header';
 
 export const SimulatorHeader = () => {
 	return <PageHeaderHolder>

@@ -1,5 +1,5 @@
-import {isWriteTopicAction} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
-import {Pipeline} from '../../../../services/tuples/pipeline-types';
+import {isWriteTopicAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {Pipeline} from '@/services/tuples/pipeline-types';
 
 export const computeRelatedTopicIds = (pipeline: Pipeline): Array<{ source: string, target: string }> => {
 	const sourceTopicId = pipeline.topicId;

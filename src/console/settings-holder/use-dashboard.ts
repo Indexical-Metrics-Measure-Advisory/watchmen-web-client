@@ -1,5 +1,5 @@
 import {Dispatch, SetStateAction, useEffect} from 'react';
-import {Dashboard} from '../../services/tuples/dashboard-types';
+import {Dashboard} from '@/services/tuples/dashboard-types';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes} from '../console-event-bus-types';
 import {HoldSettings} from './types';

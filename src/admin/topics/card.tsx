@@ -1,8 +1,8 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent} from 'react';
-import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT, ICON_TOPIC_PROFILE} from '../../basic-widgets/constants';
-import {TooltipAlignment} from '../../basic-widgets/types';
-import {QueryTopic} from '../../services/tuples/query-topic-types';
+import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT, ICON_TOPIC_PROFILE} from '@/basic-widgets/constants';
+import {TooltipAlignment} from '@/basic-widgets/types';
+import {QueryTopic} from '@/services/tuples/query-topic-types';
 import {
 	TupleCard,
 	TupleCardDescription,
@@ -16,10 +16,10 @@ import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types'
 import {useTopicProfileEventBus} from '../topic-profile/topic-profile-event-bus';
 import {TopicProfileEventTypes} from '../topic-profile/topic-profile-event-bus-types';
 import dayjs from 'dayjs';
-import {fetchTopic} from '../../services/tuples/topic';
-import {TopicType} from '../../services/tuples/topic-types';
-import {isDataQualityCenterEnabled} from '../../feature-switch';
-import {prettifyDateTimeToMinute} from '../../services/tuples/utils';
+import {fetchTopic} from '@/services/tuples/topic';
+import {TopicType} from '@/services/tuples/topic-types';
+import {isDataQualityCenterEnabled} from '@/feature-switch';
+import {prettifyDateTimeToMinute} from '@/services/tuples/utils';
 
 const TopicCard = (props: { topic: QueryTopic }) => {
 	const {topic} = props;

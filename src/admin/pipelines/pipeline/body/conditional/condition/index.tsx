@@ -1,12 +1,12 @@
-import {ParameterCondition} from '../../../../../../services/tuples/factor-calculator-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {ParameterCondition} from '@/services/tuples/factor-calculator-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {ExpressionEventBusProvider} from '../event-bus/expression-event-bus';
 import {JointEventBusProvider} from '../event-bus/joint-event-bus';
 import {Expression} from '../expression';
 import {Joint} from '../joint';
 import {Expression2ParentBridge} from './expression-2-parent-bridge';
 import {Joint2ParentBridge} from './joint-2-parent-bridge';
-import {isExpressionParameter, isJointParameter} from '../../../../../../services/tuples/parameter-utils';
+import {isExpressionParameter, isJointParameter} from '@/services/tuples/parameter-utils';
 
 export const Condition = (props: {
 	condition: ParameterCondition;

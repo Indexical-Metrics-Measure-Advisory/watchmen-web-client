@@ -1,5 +1,5 @@
 import React, {ChangeEvent, ForwardedRef, forwardRef, useEffect, useState} from 'react';
-import {QueryTupleForHolder} from '../../../../services/tuples/tuple-types';
+import {QueryTupleForHolder} from '@/services/tuples/tuple-types';
 import {useTupleItemPickerEventBus} from './tuple-item-picker-event-bus';
 import {
 	PickerDropdownPosition,
@@ -52,7 +52,7 @@ export const TupleItemOperatorsSearch = forwardRef(<QTH extends QueryTupleForHol
 				try {
 					const candidates = await listCandidates(value.trim());
 					fire(TupleItemPickerEventTypes.CHANGE_SEARCH_STATE, PickerSearchState.DONE, candidates);
-				} catch (e) {
+				} catch (e: any) {
 					// ignore
 					fire(TupleItemPickerEventTypes.CHANGE_SEARCH_STATE, PickerSearchState.DONE, []);
 				}

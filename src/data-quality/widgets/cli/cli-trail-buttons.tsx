@@ -1,7 +1,7 @@
 import {CommandLineButton, CommandLineButtons} from './widgets';
-import {TooltipAlignment} from '../../../basic-widgets/types';
+import {TooltipAlignment} from '@/basic-widgets/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_CLEAR_SCREEN, ICON_HELP} from '../../../basic-widgets/constants';
+import {ICON_CLEAR_SCREEN, ICON_HELP} from '@/basic-widgets/constants';
 import React from 'react';
 import {useCliEventBus} from './events/cli-event-bus';
 import {Command} from '../../command/types';

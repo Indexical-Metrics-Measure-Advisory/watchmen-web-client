@@ -35,7 +35,7 @@ import {ChartEChartOptions} from '../chart-utils/types';
 import {EChartDiagramContainer} from './widgets';
 import {useReportEventBus} from '../report-event-bus';
 import {ReportEventTypes} from '../report-event-bus-types';
-import {Report} from '../../services/tuples/report-types';
+import {Report} from '@/services/tuples/report-types';
 
 echarts.use([
 	TitleComponent, TooltipComponent, GridComponent, AxisPointerComponent, DataZoomComponent,

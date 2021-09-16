@@ -1,5 +1,5 @@
 import {GridComponentOption} from 'echarts/components';
-import {ECharts} from '../../services/tuples/echarts/echarts-types';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
 import {cleanUselessValues} from './data-utils';
 
 export const buildEChartsGrid = (chart: ECharts): GridComponentOption | undefined => {

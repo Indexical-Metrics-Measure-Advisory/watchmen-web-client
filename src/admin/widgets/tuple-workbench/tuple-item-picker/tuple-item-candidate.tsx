@@ -1,7 +1,7 @@
 import React from 'react';
-import {ICON_SELECTED} from '../../../../basic-widgets/constants';
-import {useForceUpdate} from '../../../../basic-widgets/utils';
-import {QueryTupleForHolder} from '../../../../services/tuples/tuple-types';
+import {ICON_SELECTED} from '@/basic-widgets/constants';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {QueryTupleForHolder} from '@/services/tuples/tuple-types';
 import {TupleItemPickerDropdownCandidate, TupleItemPickerDropdownCandidateIcon} from './widgets';
 
 export const TupleItemCandidate = <QTH extends QueryTupleForHolder>(props: {

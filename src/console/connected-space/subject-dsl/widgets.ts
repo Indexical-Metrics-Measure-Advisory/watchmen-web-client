@@ -6,7 +6,7 @@ export const LeadKeyword = styled.div.attrs({'data-widget': 'lead-keyword'})`
 	font-variant : petite-caps;
 `;
 export const PartContent = styled.div.attrs({'data-widget': 'part-content'})`
-	margin-top     : calc(var(--margin) / 2 - 2px);
+	margin-top : calc(var(--margin) / 2 - 2px);
 `;
 export const EmptyPart = styled.div.attrs({'data-widget': 'part-content-empty'})`
 	font-variant : petite-caps;

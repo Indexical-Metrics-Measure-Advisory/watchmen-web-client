@@ -1,6 +1,6 @@
-import {ChartDef} from '../../services/tuples/chart-def/chart-def-types';
-import {ChartDataSet, ChartDataSetRow, ChartDataSetRows, ChartType} from '../../services/tuples/chart-types';
-import {Report, ReportIndicatorArithmetic} from '../../services/tuples/report-types';
+import {ChartDef} from '@/services/tuples/chart-def/chart-def-types';
+import {ChartDataSet, ChartDataSetRow, ChartDataSetRows, ChartType} from '@/services/tuples/chart-types';
+import {Report, ReportIndicatorArithmetic} from '@/services/tuples/report-types';
 import {getDimensionColumnIndexOffset} from './dimension-utils';
 import {createNumberFormat} from './number-format';
 import {buildTreeData} from './tree-data-builder';
@@ -8,7 +8,7 @@ import {ChartOptions, ChartUtils} from './types';
 
 export interface Legend {
 	name: string;
-	rows: ChartDataSetRows
+	rows: ChartDataSetRows;
 }
 
 export type ReportValidator = (report: Report, def: ChartDef) => ReportValidationSuccess | ReportValidationFailure;

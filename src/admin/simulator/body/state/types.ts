@@ -1,5 +1,5 @@
-import {Pipeline} from '../../../../services/tuples/pipeline-types';
-import {Topic} from '../../../../services/tuples/topic-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {DataRow} from '../../types';
 
 export enum StartFrom {

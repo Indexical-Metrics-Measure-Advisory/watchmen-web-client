@@ -5,7 +5,7 @@ import {
 	ParameterComputeType,
 	TopicFactorParameter,
 	VariablePredefineFunctions
-} from '../../../../../services/tuples/factor-calculator-types';
+} from '@/services/tuples/factor-calculator-types';
 import {InternalUnitRuntimeContext, PipelineRuntimeContext} from '../types';
 import {
 	castParameterValueType,
@@ -18,11 +18,7 @@ import {
 import {ParameterShouldBe} from './types';
 import dayjs from 'dayjs';
 import {computeJoint} from './condition-compute';
-import {
-	isComputedParameter,
-	isConstantParameter,
-	isTopicFactorParameter
-} from '../../../../../services/tuples/parameter-utils';
+import {isComputedParameter, isConstantParameter, isTopicFactorParameter} from '@/services/tuples/parameter-utils';
 import {DataRow} from '../../../types';
 
 const HALF_YEAR_FIRST: number = 1;

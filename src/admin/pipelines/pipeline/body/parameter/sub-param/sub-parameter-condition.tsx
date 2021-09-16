@@ -1,11 +1,7 @@
 import React from 'react';
-import {
-	ComputedParameter,
-	Parameter,
-	ParameterComputeType
-} from '../../../../../../services/tuples/factor-calculator-types';
-import {Conditional} from '../../../../../../services/tuples/pipeline-super-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {ComputedParameter, Parameter, ParameterComputeType} from '@/services/tuples/factor-calculator-types';
+import {Conditional} from '@/services/tuples/pipeline-super-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {ConditionalEditor} from '../../conditional';
 import {useParameterEventBus} from '../parameter/parameter-event-bus';
 import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';

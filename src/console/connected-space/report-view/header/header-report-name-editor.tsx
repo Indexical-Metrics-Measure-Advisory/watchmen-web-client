@@ -1,13 +1,13 @@
 import React from 'react';
-import {PageTitleEditor} from '../../../../basic-widgets/page-title-editor';
-import {useForceUpdate} from '../../../../basic-widgets/utils';
-import {useLanguage} from '../../../../langs';
-import {ConnectedSpace} from '../../../../services/tuples/connected-space-types';
-import {Subject} from '../../../../services/tuples/subject-types';
-import {Report} from '../../../../services/tuples/report-types';
-import {EventTypes} from '../../../../events/types';
-import {saveReport} from '../../../../services/tuples/report';
-import {useEventBus} from '../../../../events/event-bus';
+import {PageTitleEditor} from '@/basic-widgets/page-title-editor';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {useLanguage} from '@/langs';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
+import {Subject} from '@/services/tuples/subject-types';
+import {Report} from '@/services/tuples/report-types';
+import {EventTypes} from '@/events/types';
+import {saveReport} from '@/services/tuples/report';
+import {useEventBus} from '@/events/event-bus';
 
 export const HeaderReportNameEditor = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
 	const {report} = props;

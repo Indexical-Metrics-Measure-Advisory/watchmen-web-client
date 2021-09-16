@@ -1,5 +1,5 @@
-import {ChartDataSet, ChartDataSetRows} from '../../services/tuples/chart-types';
-import {Report} from '../../services/tuples/report-types';
+import {ChartDataSet, ChartDataSetRows} from '@/services/tuples/chart-types';
+import {Report} from '@/services/tuples/report-types';
 import {getDimensionColumnIndexOffset} from './dimension-utils';
 
 export interface IntermediateTreeNode {

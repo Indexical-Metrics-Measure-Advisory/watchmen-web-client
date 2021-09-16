@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
-import {useForceUpdate} from '../../../../basic-widgets/utils';
+import {useForceUpdate} from '@/basic-widgets/utils';
 import {findSvgRoot} from '../../../utils/in-svg';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {AssembledReportGraphics, GraphicsRole} from '../types';
 import {OpenSubjectButton, OpenSubjectButtonIcon, ReportBlock, ReportContainer, ReportNameText} from './widgets';
-import {ICON_EDIT} from '../../../../basic-widgets/constants';
-import {toSubjectReport} from '../../../../routes/utils';
+import {ICON_EDIT} from '@/basic-widgets/constants';
+import {toSubjectReport} from '@/routes/utils';
 import {useHistory} from 'react-router-dom';
-import {ConnectedSpace} from '../../../../services/tuples/connected-space-types';
-import {Subject} from '../../../../services/tuples/subject-types';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
+import {Subject} from '@/services/tuples/subject-types';
 
 export const ReportRect = (props: { connectedSpace: ConnectedSpace; subject: Subject, report: AssembledReportGraphics }) => {
 	const {connectedSpace, subject, report: reportGraphics} = props;

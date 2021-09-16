@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {FactorTypeLabel} from '../../../../basic-widgets/factor-type-label';
+import {FactorTypeLabel} from '@/basic-widgets/factor-type-label';
 
 export const TopicBodyContainer = styled.div.attrs({
 	'data-widget': 'connected-space-navigator-topic',

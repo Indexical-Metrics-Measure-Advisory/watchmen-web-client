@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
-import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {PipelineStageUnitAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {useActionEventBus} from '../action-event-bus';
 import {ActionEventTypes} from '../action-event-bus-types';
 

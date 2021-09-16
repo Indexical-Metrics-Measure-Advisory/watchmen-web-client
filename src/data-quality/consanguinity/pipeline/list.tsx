@@ -9,11 +9,11 @@ import {
 import {getPipelineName} from '../../utils';
 import {ExecutionDelegate} from '../../widgets/cli/execution/execution-delegate';
 import React, {useState} from 'react';
-import {DataQualityCacheData} from '../../../local-persist/types';
+import {DataQualityCacheData} from '@/local-persist/types';
 import {useDataQualityCacheData} from '../../cache/use-cache-data';
 import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
 import {CliEventTypes} from '../../widgets/cli/events/cli-event-bus-types';
-import {Pipeline} from '../../../services/tuples/pipeline-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
 import {
 	buildViewPipelineCommand,
 	CMD_ARGUMENT_DISABLED,

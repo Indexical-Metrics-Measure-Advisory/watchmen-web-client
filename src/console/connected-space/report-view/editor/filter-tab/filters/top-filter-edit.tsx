@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import {FilterEventBusProvider, useFilterEventBus} from './filter-event-bus';
 import {FilterEventTypes} from './filter-event-bus-types';
 import {JointEdit} from './joint-filter/joint-edit';
-import {Report, ReportFilter, ReportFilterJoint} from '../../../../../../services/tuples/report-types';
-import {Subject} from '../../../../../../services/tuples/subject-types';
+import {Report, ReportFilter, ReportFilterJoint} from '@/services/tuples/report-types';
+import {Subject} from '@/services/tuples/subject-types';
 import {useReportEditEventBus} from '../../report-edit-event-bus';
 import {ReportEditEventTypes} from '../../report-edit-event-bus-types';
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import {Lang} from '../../../../langs';
-import {Subject} from '../../../../services/tuples/subject-types';
+import {Lang} from '@/langs';
+import {Subject} from '@/services/tuples/subject-types';
 import {SubjectDataSetNoColumn} from './widgets';
 
 export const NoColumn = (props: { subject: Subject }) => {

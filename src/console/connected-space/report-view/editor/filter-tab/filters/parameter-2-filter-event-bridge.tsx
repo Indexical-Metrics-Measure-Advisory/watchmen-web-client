@@ -1,9 +1,9 @@
 import React, {Fragment, useEffect} from 'react';
 import {useFilterEventBus} from './filter-event-bus';
 import {FilterEventTypes} from './filter-event-bus-types';
-import {ReportFilterExpression} from '../../../../../../services/tuples/report-types';
-import {useParameterEventBus} from '../../../../../../data-filter/parameter-event-bus';
-import {ParameterEventTypes} from '../../../../../../data-filter/parameter-event-bus-types';
+import {ReportFilterExpression} from '@/services/tuples/report-types';
+import {useParameterEventBus} from '@/data-filter/parameter-event-bus';
+import {ParameterEventTypes} from '@/data-filter/parameter-event-bus-types';
 
 export const Parameter2FilterEventBridge = (props: { filter: ReportFilterExpression }) => {
 	const {filter} = props;

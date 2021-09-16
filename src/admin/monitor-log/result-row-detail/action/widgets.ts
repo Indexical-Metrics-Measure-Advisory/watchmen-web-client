@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {InputLines} from '../../../../basic-widgets/input-lines';
+import {InputLines} from '@/basic-widgets/input-lines';
 import {SectionTitle} from '../widgets';
 
 export const DetailProcessActionContainer = styled.div.attrs({'data-widget': 'monitor-log-detail-process-action'})`

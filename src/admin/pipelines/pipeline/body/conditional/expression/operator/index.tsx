@@ -1,11 +1,8 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useRef, useState} from 'react';
-import {ICON_EDIT} from '../../../../../../../basic-widgets/constants';
-import {useCollapseFixedThing} from '../../../../../../../basic-widgets/utils';
-import {
-	ParameterExpression,
-	ParameterExpressionOperator
-} from '../../../../../../../services/tuples/factor-calculator-types';
+import {ICON_EDIT} from '@/basic-widgets/constants';
+import {useCollapseFixedThing} from '@/basic-widgets/utils';
+import {ParameterExpression, ParameterExpressionOperator} from '@/services/tuples/factor-calculator-types';
 import {useExpressionEventBus} from '../../event-bus/expression-event-bus';
 import {ExpressionEventTypes} from '../../event-bus/expression-event-bus-types';
 import {

@@ -11,12 +11,12 @@ import {
 	saveAdminTopic
 } from './db';
 import {AdminCacheData} from './types';
-import {fetchPipelinesSettingsData, fetchUpdatedPipelinesSettingsData} from '../services/pipeline/settings';
+import {fetchPipelinesSettingsData, fetchUpdatedPipelinesSettingsData} from '@/services/pipeline/settings';
 import dayjs, {Dayjs} from 'dayjs';
-import {Tuple} from '../services/tuples/tuple-types';
-import {Pipeline, PipelinesGraphics} from '../services/tuples/pipeline-types';
-import {Topic} from '../services/tuples/topic-types';
-import {findAccount} from '../services/account';
+import {Tuple} from '@/services/tuples/tuple-types';
+import {Pipeline, PipelinesGraphics} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
+import {findAccount} from '@/services/account';
 
 export const prepareAdminDB = () => {
 	connectAdminDB();

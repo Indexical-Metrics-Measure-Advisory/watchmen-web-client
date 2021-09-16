@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import {TopFilterEdit} from './top-filter-edit';
 import {FiltersEditContainer} from './widgets';
-import {Report} from '../../../../../../services/tuples/report-types';
+import {Report} from '@/services/tuples/report-types';
 import {useReportEditEventBus} from '../../report-edit-event-bus';
 import {ReportEditEventTypes} from '../../report-edit-event-bus-types';
-import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {Subject} from '../../../../../../services/tuples/subject-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {Subject} from '@/services/tuples/subject-types';
 
 export const FiltersEdit = (props: { subject: Subject; report: Report; }) => {
 	const {subject, report} = props;

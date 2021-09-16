@@ -1,4 +1,4 @@
-import {isAlarmLog, MonitorLogAction} from '../../../../services/admin/logs';
+import {isAlarmLog, MonitorLogAction} from '@/services/admin/logs';
 import {BodyLabel, BodyValue} from './widgets';
 
 export const AlarmLog = (props: { log: MonitorLogAction }) => {

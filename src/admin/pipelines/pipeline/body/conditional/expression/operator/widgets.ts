@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {DROPDOWN_Z_INDEX} from '../../../../../../../basic-widgets/constants';
+import {DROPDOWN_Z_INDEX} from '@/basic-widgets/constants';
 
 export const ExpressionOperatorContainer = styled.div.attrs({'data-widget': 'expression-operator'})<{ hasRight: boolean }>`
 	display          : flex;

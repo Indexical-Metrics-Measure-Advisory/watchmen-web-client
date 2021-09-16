@@ -1,8 +1,8 @@
 import {PipelineRunStatus} from '../types';
 import {CellButton, StatusLabel} from '../widgets';
-import {ButtonInk} from '../../../../../basic-widgets/types';
+import {ButtonInk} from '@/basic-widgets/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_PLAY} from '../../../../../basic-widgets/constants';
+import {ICON_PLAY} from '@/basic-widgets/constants';
 import React from 'react';
 
 export const PipelineRunStatusCell = (props: {

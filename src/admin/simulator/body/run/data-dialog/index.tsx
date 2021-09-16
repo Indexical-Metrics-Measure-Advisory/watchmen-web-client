@@ -1,12 +1,12 @@
 import {DialogBodyContent, DialogHeader, DialogTitle} from './widgets';
 import React from 'react';
-import {DialogBody, DialogFooter} from '../../../../../dialog/widgets';
-import {Button} from '../../../../../basic-widgets/button';
-import {ButtonInk} from '../../../../../basic-widgets/types';
-import {useEventBus} from '../../../../../events/event-bus';
-import {EventTypes} from '../../../../../events/types';
+import {DialogBody, DialogFooter} from '@/dialog/widgets';
+import {Button} from '@/basic-widgets/button';
+import {ButtonInk} from '@/basic-widgets/types';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
 import {TopicsData} from '../../state/types';
-import {Topic} from '../../../../../services/tuples/topic-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {TriggerData} from './trigger-data';
 import {AllTopics, ChangedDataRow} from '../types';
 import {AllData} from './all-data';

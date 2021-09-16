@@ -1,6 +1,6 @@
 import React from 'react';
-import {PipelineStage} from '../../../../../../services/tuples/pipeline-stage-types';
-import {Pipeline} from '../../../../../../services/tuples/pipeline-types';
+import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
 import {useExpanded} from '../stage-effect/use-expanded';
 import {StageLeadLabel} from './widgets';
 

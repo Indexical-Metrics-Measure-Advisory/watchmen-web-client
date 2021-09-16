@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
-import {useForceUpdate} from '../../../../basic-widgets/utils';
-import {Report} from '../../../../services/tuples/report-types';
-import {Subject} from '../../../../services/tuples/subject-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {Report} from '@/services/tuples/report-types';
+import {Subject} from '@/services/tuples/subject-types';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {computeRelationPoints} from '../graphics-utils';

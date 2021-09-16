@@ -1,12 +1,12 @@
 import React, {CSSProperties, useEffect, useState} from 'react';
-import {useEventBus} from '../events/event-bus';
-import {EventTypes} from '../events/types';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
 import {DialogContainer, DialogWrapper} from './widgets';
 
 interface DialogState {
 	visible: boolean;
 	content?: ((props: any) => React.ReactNode) | React.ReactNode;
-	wrapperStyle?: CSSProperties
+	wrapperStyle?: CSSProperties;
 }
 
 export const Dialog = () => {

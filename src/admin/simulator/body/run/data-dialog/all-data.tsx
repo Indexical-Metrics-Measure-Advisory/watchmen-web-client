@@ -12,7 +12,7 @@ import React, {Fragment} from 'react';
 import {TopicsData} from '../../state/types';
 import {AllTopics} from '../types';
 import {getTopicName} from '../../../utils';
-import {ButtonInk} from '../../../../../basic-widgets/types';
+import {ButtonInk} from '@/basic-widgets/types';
 import {toString} from './utils';
 
 export const AllData = (props: {

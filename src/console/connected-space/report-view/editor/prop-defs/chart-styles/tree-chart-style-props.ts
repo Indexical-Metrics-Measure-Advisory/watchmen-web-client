@@ -1,6 +1,6 @@
-import {DropdownOption} from '../../../../../../basic-widgets/types';
-import {Lang} from '../../../../../../langs';
-import {TreeLayout, TreeOrient} from '../../../../../../services/tuples/chart-def/chart-tree';
+import {DropdownOption} from '@/basic-widgets/types';
+import {Lang} from '@/langs';
+import {TreeLayout, TreeOrient} from '@/services/tuples/chart-def/chart-tree';
 
 export const TreeLayoutOptions: Array<DropdownOption> = [
 	{value: TreeLayout.ORTHOGONAL, label: Lang.CHART.TREE_LAYOUT_ORTHOGONAL},

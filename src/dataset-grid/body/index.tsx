@@ -1,5 +1,5 @@
 import React, {RefObject, useEffect, useRef, useState} from 'react';
-import {useForceUpdate} from '../../basic-widgets/utils';
+import {useForceUpdate} from '@/basic-widgets/utils';
 import {Grid} from './grid';
 import {GridDragColumn} from './grid-drag-column';
 import {useGridEventBus} from '../grid-event-bus';
@@ -39,7 +39,7 @@ interface PickColumnOptions {
 	wrapperLeft: number;
 	table: HTMLDivElement;
 	mouseClientX: number;
-	columnDefs: ColumnDefs
+	columnDefs: ColumnDefs;
 	isFixTable: boolean;
 	rowNoColumnWidth: number;
 }

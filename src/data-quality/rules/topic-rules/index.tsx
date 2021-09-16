@@ -1,8 +1,8 @@
 import React from 'react';
 import {TopicGradeRules} from './topic-grade-rules';
-import {Topic} from '../../../services/tuples/topic-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {FactorGradeRules} from './factor-grade-rules';
-import {MonitorRules} from '../../../services/data-quality/rule-types';
+import {MonitorRules} from '@/services/data-quality/rule-types';
 
 export const TopicRules = (props: { topic: Topic; rules: MonitorRules }) => {
 	const {topic, rules} = props;

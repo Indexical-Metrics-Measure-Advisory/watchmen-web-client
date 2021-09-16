@@ -5,9 +5,9 @@ export const TopicFactorFinderContainer = styled.div.attrs({'data-widget': 'topi
 	position              : relative;
 	grid-template-columns : auto 1fr;
 	> div[data-widget="parameter-topic-factor-edit"] {
-		margin-left: 0;
+		margin-left : 0;
 		&:before {
-			display: none;
+			display : none;
 		}
 	}
 `;

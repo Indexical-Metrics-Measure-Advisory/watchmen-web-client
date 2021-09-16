@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {Button} from '../basic-widgets/button';
-import {ButtonInk} from '../basic-widgets/types';
-import {useEventBus} from '../events/event-bus';
-import {EventTypes} from '../events/types';
-import {Lang} from '../langs';
+import {Button} from '@/basic-widgets/button';
+import {ButtonInk} from '@/basic-widgets/types';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Lang} from '@/langs';
 import {AlertBody, AlertContainer, AlertDialog, AlertFooter} from './widgets';
 
 interface AlertState {
 	visible: boolean;
-	content?: ((props: any) => React.ReactNode) | React.ReactNode
+	content?: ((props: any) => React.ReactNode) | React.ReactNode;
 }
 
 export const Alert = () => {

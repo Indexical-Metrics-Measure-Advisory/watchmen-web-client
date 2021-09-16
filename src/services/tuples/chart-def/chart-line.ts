@@ -20,7 +20,7 @@ export interface LineChartSettingsSeries extends BarChartSettingsSeries {
 }
 
 export interface LineChartSettings extends Omit<BarChartSettings, 'decal'> {
-	series?: LineChartSettingsSeries
+	series?: LineChartSettingsSeries;
 }
 
 export interface LineChart extends ECharts {

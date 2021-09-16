@@ -1,8 +1,8 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {ChangeEvent, useState} from 'react';
-import {ICON_SEARCH} from '../../../basic-widgets/constants';
-import {Input} from '../../../basic-widgets/input';
-import {Enum} from '../../../services/tuples/enum-types';
+import {ICON_SEARCH} from '@/basic-widgets/constants';
+import {Input} from '@/basic-widgets/input';
+import {Enum} from '@/services/tuples/enum-types';
 import {useEnumEventBus} from '../enum-event-bus';
 import {EnumEventTypes} from '../enum-event-bus-types';
 import {ItemsTableHeaderCell, ItemsTableHeaderContainer} from './widgets';

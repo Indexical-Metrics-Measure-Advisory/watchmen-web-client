@@ -1,11 +1,11 @@
 import React from 'react';
-import {DropdownOption} from '../../../basic-widgets/types';
-import {useForceUpdate} from '../../../basic-widgets/utils';
+import {DropdownOption} from '@/basic-widgets/types';
+import {useForceUpdate} from '@/basic-widgets/utils';
 import {TuplePropertyDropdown} from '../../widgets/tuple-workbench/tuple-editor';
 import {useDataSourceEventBus} from '../data-source-event-bus';
 import {DataSourceEventTypes} from '../data-source-event-bus-types';
-import {DataSource} from '../../../services/tuples/data-source-types';
-import {QueryTenantForHolder} from '../../../services/tuples/query-tenant-types';
+import {DataSource} from '@/services/tuples/data-source-types';
+import {QueryTenantForHolder} from '@/services/tuples/query-tenant-types';
 
 export const DataSourceTenantInput = (props: { dataSource: DataSource, tenants: Array<QueryTenantForHolder> }) => {
 	const {dataSource, tenants} = props;

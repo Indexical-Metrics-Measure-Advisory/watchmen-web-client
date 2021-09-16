@@ -1,5 +1,5 @@
-import {Pipeline, PipelineBlockGraphics, PipelinesGraphics} from '../../../services/tuples/pipeline-types';
-import {Topic} from '../../../services/tuples/topic-types';
+import {Pipeline, PipelineBlockGraphics, PipelinesGraphics} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
 
 export enum GraphicsRole {
 	TOPIC = 'topic',
@@ -32,5 +32,5 @@ export interface CatalogData {
 	topics: Array<Topic>;
 	pipelines: Array<Pipeline>;
 	allGraphics: Array<PipelinesGraphics>;
-	graphics?: AssembledPipelinesGraphics
+	graphics?: AssembledPipelinesGraphics;
 }

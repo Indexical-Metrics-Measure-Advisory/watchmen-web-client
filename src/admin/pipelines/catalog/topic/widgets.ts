@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import {BlockCoordinate, BlockFrame, BlockName} from '../../../../services/graphics/graphics-types';
-import {TopicKind, TopicType} from '../../../../services/tuples/topic-types';
+import {BlockCoordinate, BlockFrame, BlockName} from '@/services/graphics/graphics-types';
+import {TopicKind, TopicType} from '@/services/tuples/topic-types';
 
 const STROKES: { [key in TopicType]: string } = {
 	[TopicType.DISTINCT]: 'var(--distinct-topic-color)',

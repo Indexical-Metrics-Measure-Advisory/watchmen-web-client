@@ -1,9 +1,9 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {ICON_PARAGRAPH} from '../../../basic-widgets/constants';
-import {PageHeaderButton} from '../../../basic-widgets/page-header-buttons';
-import {Lang} from '../../../langs';
-import {Dashboard} from '../../../services/tuples/dashboard-types';
+import {ICON_PARAGRAPH} from '@/basic-widgets/constants';
+import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
+import {Lang} from '@/langs';
+import {Dashboard} from '@/services/tuples/dashboard-types';
 import {useDashboardEventBus} from '../dashboard-event-bus';
 import {DashboardEventTypes} from '../dashboard-event-bus-types';
 

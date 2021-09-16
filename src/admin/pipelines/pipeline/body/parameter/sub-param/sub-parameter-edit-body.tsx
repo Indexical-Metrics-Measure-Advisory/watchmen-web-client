@@ -1,16 +1,16 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {AlertLabel} from '../../../../../../alert/widgets';
-import {ICON_DELETE} from '../../../../../../basic-widgets/constants';
-import {useEventBus} from '../../../../../../events/event-bus';
-import {EventTypes} from '../../../../../../events/types';
-import {ComputedParameter, Parameter, ValueTypes} from '../../../../../../services/tuples/factor-calculator-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {AlertLabel} from '@/alert/widgets';
+import {ICON_DELETE} from '@/basic-widgets/constants';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {ComputedParameter, Parameter, ValueTypes} from '@/services/tuples/factor-calculator-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {ComputedEditor} from '../compute';
 import {ConstantEditor} from '../constant';
 import {TopicFactorEditor} from '../topic-factor';
 import {RemoveMeButton} from './widgets';
-import {canDeleteAnyParameter} from '../../../../../../services/tuples/parameter-utils';
+import {canDeleteAnyParameter} from '@/services/tuples/parameter-utils';
 
 export const SubParameterEditBody = (props: {
 	parentParameter: ComputedParameter;

@@ -1,11 +1,11 @@
 import {ActionRuntimeContext, InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
-import {isReadFactorAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {isReadFactorAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {prepareBy, prepareFactor, prepareTopic, prepareVariable} from './utils';
 import {computeJoint} from '../../compute/condition-compute';
 import {computeTopicFactor} from '../../compute/parameter-compute';
-import {ParameterKind, TopicFactorParameter} from '../../../../../../services/tuples/factor-calculator-types';
+import {ParameterKind, TopicFactorParameter} from '@/services/tuples/factor-calculator-types';
 import {ParameterShouldBe} from '../../compute/types';
-import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
+import {AggregateArithmetic} from '@/services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
 
 export const runReadFactor = async (options: {
 	pipelineContext: PipelineRuntimeContext,

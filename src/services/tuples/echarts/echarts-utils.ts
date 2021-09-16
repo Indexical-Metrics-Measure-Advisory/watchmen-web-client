@@ -1,4 +1,4 @@
-import {ChartHelper} from '../../../report/chart-utils';
+import {ChartHelper} from '@/report/chart-utils';
 import {Chart} from '../chart-types';
 import {ECharts} from './echarts-types';
 

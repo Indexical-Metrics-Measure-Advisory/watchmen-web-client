@@ -1,7 +1,7 @@
 import {PipelineRuntimeContext} from '../types';
 import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
 import {useEffect} from 'react';
-import {PipelineTriggerType} from '../../../../../services/tuples/pipeline-types';
+import {PipelineTriggerType} from '@/services/tuples/pipeline-types';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
 import {createLogWriter} from './utils';
 

@@ -5,10 +5,10 @@ export enum ChartTruncationType {
 }
 
 export interface ChartTruncation {
-	type?: ChartTruncationType
-	count?: number
+	type?: ChartTruncationType;
+	count?: number;
 }
 
 export interface ChartTruncationHolder {
-	truncation?: ChartTruncation
+	truncation?: ChartTruncation;
 }

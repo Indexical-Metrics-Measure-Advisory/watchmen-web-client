@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import {useForceUpdate} from '../../../../../basic-widgets/utils';
-import {Chart} from '../../../../../report';
-import {Report} from '../../../../../services/tuples/report-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {Chart} from '@/report';
+import {Report} from '@/services/tuples/report-types';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {ChartWrapper, EditChartContainer} from './widgets';

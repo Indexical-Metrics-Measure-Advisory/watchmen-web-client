@@ -1,5 +1,5 @@
-import {Paragraph} from '../services/tuples/paragraph';
-import {Report} from '../services/tuples/report-types';
+import {Paragraph} from '@/services/tuples/paragraph';
+import {Report} from '@/services/tuples/report-types';
 
 export enum ReportEventTypes {
 	DO_RELOAD_DATA_ON_EDITING = 'do-reload-data-on-editing',

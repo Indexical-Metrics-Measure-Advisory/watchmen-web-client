@@ -1,8 +1,8 @@
 import {useEffect} from 'react';
-import {useEventBus} from '../../../../../events/event-bus';
-import {useReportEventBus} from '../../../../../report/report-event-bus';
-import {ReportEventTypes} from '../../../../../report/report-event-bus-types';
-import {Report} from '../../../../../services/tuples/report-types';
+import {useEventBus} from '@/events/event-bus';
+import {useReportEventBus} from '@/report/report-event-bus';
+import {ReportEventTypes} from '@/report/report-event-bus-types';
+import {Report} from '@/services/tuples/report-types';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 

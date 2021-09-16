@@ -1,9 +1,9 @@
 import React from 'react';
-import {PageTitleEditor} from '../../../../basic-widgets/page-title-editor';
-import {useForceUpdate} from '../../../../basic-widgets/utils';
-import {useLanguage} from '../../../../langs';
-import {ConnectedSpace} from '../../../../services/tuples/connected-space-types';
-import {Subject} from '../../../../services/tuples/subject-types';
+import {PageTitleEditor} from '@/basic-widgets/page-title-editor';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {useLanguage} from '@/langs';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
+import {Subject} from '@/services/tuples/subject-types';
 import {useSubjectEventBus} from '../subject-event-bus';
 import {SubjectEventTypes} from '../subject-event-bus-types';
 

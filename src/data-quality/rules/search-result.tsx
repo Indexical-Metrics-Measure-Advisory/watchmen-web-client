@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {useEventBus} from '../../events/event-bus';
-import {EventTypes} from '../../events/types';
-import {Topic} from '../../services/tuples/topic-types';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Topic} from '@/services/tuples/topic-types';
 import {
 	SearchResultBody,
 	SearchResultContainer,
@@ -10,22 +10,19 @@ import {
 	SearchResultHeaderSeqCell,
 	SearchResultTargetLabel
 } from './widgets';
-import {
-	fetchMonitorRules,
-	saveMonitorRules
-} from '../../services/data-quality/rules';
+import {fetchMonitorRules, saveMonitorRules} from '@/services/data-quality/rules';
 import {RulesEventTypes} from './rules-event-bus-types';
 import {useRulesEventBus} from './rules-event-bus';
 import {getTopicName} from '../utils';
 import {GlobalRules} from './global-rules';
 import {TopicRules} from './topic-rules';
-import {Button} from '../../basic-widgets/button';
-import {ButtonInk, DropdownOption} from '../../basic-widgets/types';
+import {Button} from '@/basic-widgets/button';
+import {ButtonInk, DropdownOption} from '@/basic-widgets/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_LOADING, ICON_SAVE, ICON_SORT_ASC} from '../../basic-widgets/constants';
-import {Dropdown} from '../../basic-widgets/dropdown';
-import {Factor} from '../../services/tuples/factor-types';
-import {MonitorRuleGrade, MonitorRules, MonitorRulesCriteria} from '../../services/data-quality/rule-types';
+import {ICON_LOADING, ICON_SAVE, ICON_SORT_ASC} from '@/basic-widgets/constants';
+import {Dropdown} from '@/basic-widgets/dropdown';
+import {Factor} from '@/services/tuples/factor-types';
+import {MonitorRuleGrade, MonitorRules, MonitorRulesCriteria} from '@/services/data-quality/rule-types';
 
 interface State {
 	grade: MonitorRuleGrade.GLOBAL | MonitorRuleGrade.TOPIC;

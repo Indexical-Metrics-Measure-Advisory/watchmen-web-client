@@ -1,11 +1,11 @@
 import {AdminMain} from '../pipelines/widgets';
-import {FullWidthPage} from '../../basic-widgets/page';
+import {FullWidthPage} from '@/basic-widgets/page';
 import React, {useEffect, useState} from 'react';
 import {SimulatorHeader} from './header';
 import {SimulatorEventBusProvider} from './simulator-event-bus';
 import {SimulatorBody} from './body';
 import {AdminCacheEventTypes} from '../cache/cache-event-bus-types';
-import {AdminCacheData} from '../../local-persist/types';
+import {AdminCacheData} from '@/local-persist/types';
 import {CacheState} from '../cache';
 import {useAdminCacheEventBus} from '../cache/cache-event-bus';
 import {SimulatorLoading} from './simulator-loading';

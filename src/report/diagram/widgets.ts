@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {ChartSettings} from '../../services/tuples/chart-types';
+import {ChartSettings} from '@/services/tuples/chart-types';
 
 export const DiagramContainer = styled.div.attrs<{ settings?: ChartSettings }>(({settings = {}}) => {
 	return {

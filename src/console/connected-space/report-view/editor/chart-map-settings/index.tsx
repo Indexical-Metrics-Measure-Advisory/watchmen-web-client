@@ -1,8 +1,8 @@
 import React from 'react';
-import {Lang} from '../../../../../langs';
-import {MapChartRegion} from '../../../../../services/tuples/chart-def/chart-map';
-import {isMapChart} from '../../../../../services/tuples/chart-utils';
-import {Report} from '../../../../../services/tuples/report-types';
+import {Lang} from '@/langs';
+import {MapChartRegion} from '@/services/tuples/chart-def/chart-map';
+import {isMapChart} from '@/services/tuples/chart-utils';
+import {Report} from '@/services/tuples/report-types';
 import {onDropdownValueChange} from '../data-utils';
 import {MapChartStylePropNames, MapRegionOptions} from '../prop-defs/chart-styles/map-chart-style-props';
 import {useReportEditEventBus} from '../report-edit-event-bus';

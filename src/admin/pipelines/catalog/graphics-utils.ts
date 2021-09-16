@@ -1,11 +1,11 @@
-import {BlockFrame} from '../../../services/graphics/graphics-types';
+import {BlockFrame} from '@/services/graphics/graphics-types';
 import {
 	PipelineBlockGraphics,
 	PipelineBlockGraphicsRect,
 	PipelinesGraphics,
 	TopicGraphics
-} from '../../../services/tuples/pipeline-types';
-import {Topic, TopicType} from '../../../services/tuples/topic-types';
+} from '@/services/tuples/pipeline-types';
+import {Topic, TopicType} from '@/services/tuples/topic-types';
 import {
 	BLOCK_FULL_PADDING_HORIZONTAL,
 	BLOCK_FULL_PADDING_VERTICAL,
@@ -20,7 +20,7 @@ import {
 	SELECTION_GAP
 } from './constants';
 import {AssembledPipelinesGraphics, AssembledTopicGraphics, GraphicsRole, RelationCurvePoints} from './types';
-import {getCurrentTime} from '../../../services/utils';
+import {getCurrentTime} from '@/services/utils';
 
 const dependRectData = (rect: PipelineBlockGraphicsRect): PipelineBlockGraphicsRect => {
 	const {

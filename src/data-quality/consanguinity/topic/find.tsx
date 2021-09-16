@@ -1,7 +1,7 @@
 import {ExecutionContent} from '../../widgets/cli/types';
 import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
 import React, {useState} from 'react';
-import {DataQualityCacheData} from '../../../local-persist/types';
+import {DataQualityCacheData} from '@/local-persist/types';
 import {CliEventTypes} from '../../widgets/cli/events/cli-event-bus-types';
 import {
 	ExecutionCommandLineArgument,
@@ -14,7 +14,7 @@ import {getTopicName} from '../../utils';
 import {useDataQualityCacheData} from '../../cache/use-cache-data';
 import {ExecutionDelegate} from '../../widgets/cli/execution/execution-delegate';
 import {buildViewTopicCommand} from './commands';
-import {Topic} from '../../../services/tuples/topic-types';
+import {Topic} from '@/services/tuples/topic-types';
 
 export const TopicFindExecution = (props: { content: ExecutionContent }) => {
 	const {content} = props;

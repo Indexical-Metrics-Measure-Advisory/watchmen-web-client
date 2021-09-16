@@ -1,10 +1,10 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {ConnectedSpace} from '../../../../../services/tuples/connected-space-types';
-import {Subject} from '../../../../../services/tuples/subject-types';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
+import {Subject} from '@/services/tuples/subject-types';
 import {useSubjectDataSetEventBus} from '../subject-dataset-event-bus';
 import {SubjectDataSetEventTypes} from '../subject-dataset-event-bus-types';
-import {ColumnDefs, ColumnSortBy} from '../../../../../dataset-grid/types';
-import {DEFAULT_COLUMN_WIDTH} from '../../../../../dataset-grid/constants';
+import {ColumnDefs, ColumnSortBy} from '@/dataset-grid/types';
+import {DEFAULT_COLUMN_WIDTH} from '@/dataset-grid/constants';
 
 export const TopicsHolder = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const {subject} = props;

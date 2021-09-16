@@ -2,9 +2,9 @@ import {v4} from 'uuid';
 import {useFilterEventBus} from '../filter-event-bus';
 import {FilterEventTypes} from '../filter-event-bus-types';
 import {FilterEdit} from './filter-edit';
-import {Subject} from '../../../../../../../services/tuples/subject-types';
-import {Report, ReportFilter, ReportFilterJoint} from '../../../../../../../services/tuples/report-types';
-import {useForceUpdate} from '../../../../../../../basic-widgets/utils';
+import {Subject} from '@/services/tuples/subject-types';
+import {Report, ReportFilter, ReportFilterJoint} from '@/services/tuples/report-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
 
 export const SubFilters = (props: {
 	subject: Subject;

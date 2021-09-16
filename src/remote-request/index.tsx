@@ -1,13 +1,13 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import {AlertLabel} from '../alert/widgets';
-import {ICON_LOADING} from '../basic-widgets/constants';
-import {useForceUpdate} from '../basic-widgets/utils';
-import {useEventBus} from '../events/event-bus';
-import {EventTypes} from '../events/types';
-import {Lang} from '../langs';
-import {Router} from '../routes/types';
+import {AlertLabel} from '@/alert/widgets';
+import {ICON_LOADING} from '@/basic-widgets/constants';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Lang} from '@/langs';
+import {Router} from '@/routes/types';
 import {RemoteRequestContainer} from './widgets';
 
 export const RemoteRequest = () => {
@@ -35,7 +35,7 @@ export const RemoteRequest = () => {
 			try {
 				const data = await request();
 				success(data);
-			} catch (e) {
+			} catch (e: any) {
 				console.error(e);
 				if (e.status === 401) {
 					on401();

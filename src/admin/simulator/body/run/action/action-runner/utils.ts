@@ -5,16 +5,16 @@ import {
 	FromTopic,
 	MemoryWriter,
 	ToFactor
-} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
-import {Factor} from '../../../../../../services/tuples/factor-types';
-import {Parameter, ParameterJoint} from '../../../../../../services/tuples/factor-calculator-types';
+} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {Topic} from '@/services/tuples/topic-types';
+import {Factor} from '@/services/tuples/factor-types';
+import {Parameter, ParameterJoint} from '@/services/tuples/factor-calculator-types';
 import {
 	MappingFactor,
 	MappingRow,
 	WriteFactorAction
-} from '../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
-import {CopyToMemoryAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/system-actions-types';
+} from '@/services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
+import {CopyToMemoryAction} from '@/services/tuples/pipeline-stage-unit-action/system-actions-types';
 import {computeParameter} from '../../compute/parameter-compute';
 import {DataRow} from '../../../../types';
 

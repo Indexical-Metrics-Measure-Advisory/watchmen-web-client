@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
-import {useCollapseFixedThing} from '../../../../basic-widgets/utils';
-import {QueryTupleForHolder, TupleHolder} from '../../../../services/tuples/tuple-types';
+import {useCollapseFixedThing} from '@/basic-widgets/utils';
+import {QueryTupleForHolder, TupleHolder} from '@/services/tuples/tuple-types';
 import {TupleItemCandidates} from './tuple-item-candidates';
 import {TupleItemOperatorsButton} from './tuple-item-operators-button';
 import {TupleItemOperatorsSearch} from './tuple-item-operators-search';

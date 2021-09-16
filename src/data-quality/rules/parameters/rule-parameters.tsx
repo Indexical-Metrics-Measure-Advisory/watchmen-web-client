@@ -4,12 +4,12 @@ import {PercentageParameter} from './percentage-parameter';
 import {NumberParameter} from './number-parameter';
 import {RegexpParameter} from './regexp-parameter';
 import {CompareOperatorParameter} from './compare-operator-parameter';
-import {Topic} from '../../../services/tuples/topic-types';
-import {Factor} from '../../../services/tuples/factor-types';
+import {Topic} from '@/services/tuples/topic-types';
+import {Factor} from '@/services/tuples/factor-types';
 import {AnotherTopicParameter} from './another-topic-parameter';
 import {AnotherFactorParameter} from './another-factor-parameter';
 import {MonitorRuleParameterType} from '../../rule-defs';
-import {MonitorRuleParameters} from '../../../services/data-quality/rule-types';
+import {MonitorRuleParameters} from '@/services/data-quality/rule-types';
 
 export const RuleParameter = (props: {
 	params: MonitorRuleParameters;

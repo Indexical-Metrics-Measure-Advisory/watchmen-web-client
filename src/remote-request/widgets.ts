@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {REMOTE_REQUEST_INDEX} from '../basic-widgets/constants';
+import {REMOTE_REQUEST_INDEX} from '@/basic-widgets/constants';
 
 export const RemoteRequestContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
 	return {

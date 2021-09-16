@@ -1,24 +1,24 @@
 import React, {useEffect} from 'react';
-import {AlertLabel} from '../../alert/widgets';
+import {AlertLabel} from '@/alert/widgets';
 import TenantBackground from '../../assets/tenant-background.svg';
-import {TUPLE_SEARCH_PAGE_SIZE} from '../../basic-widgets/constants';
-import {useEventBus} from '../../events/event-bus';
-import {EventTypes} from '../../events/types';
-import {DataPage} from '../../services/query/data-page';
-import {QueryTuple} from '../../services/tuples/tuple-types';
-import {generateUuid} from '../../services/tuples/utils';
-import {getCurrentTime} from '../../services/utils';
+import {TUPLE_SEARCH_PAGE_SIZE} from '@/basic-widgets/constants';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {DataPage} from '@/services/query/data-page';
+import {QueryTuple} from '@/services/tuples/tuple-types';
+import {generateUuid} from '@/services/tuples/utils';
+import {getCurrentTime} from '@/services/utils';
 import {TupleWorkbench} from '../widgets/tuple-workbench';
 import {TupleEventBusProvider, useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
 import {renderCard} from './card';
 import {renderEditor} from './editor';
-import {Tenant} from '../../services/tuples/tenant-types';
-import {QueryTenant} from '../../services/tuples/query-tenant-types';
-import {listTenants, saveTenant} from '../../services/tuples/tenant';
+import {Tenant} from '@/services/tuples/tenant-types';
+import {QueryTenant} from '@/services/tuples/query-tenant-types';
+import {listTenants, saveTenant} from '@/services/tuples/tenant';
 import {useHistory} from 'react-router-dom';
-import {isSuperAdmin} from '../../services/account';
-import {Router} from '../../routes/types';
+import {isSuperAdmin} from '@/services/account';
+import {Router} from '@/routes/types';
 
 const createTenant = (): Tenant => {
 	return {

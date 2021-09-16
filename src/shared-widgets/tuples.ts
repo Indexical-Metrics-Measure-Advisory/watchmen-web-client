@@ -1,5 +1,5 @@
-import {Factor} from '../services/tuples/factor-types';
-import {Topic} from '../services/tuples/topic-types';
+import {Factor} from '@/services/tuples/factor-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {ReactNode} from 'react';
 
 export const buildTopicOptions = (options: {

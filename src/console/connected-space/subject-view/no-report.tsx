@@ -1,12 +1,12 @@
 import React from 'react';
-import {Lang} from '../../../langs';
+import {Lang} from '@/langs';
 import {createReport} from '../../utils/tuples';
-import {EventTypes} from '../../../events/types';
-import {saveNewReport} from '../../../services/tuples/report';
-import {useEventBus} from '../../../events/event-bus';
-import {Subject} from '../../../services/tuples/subject-types';
-import {ConnectedSpace} from '../../../services/tuples/connected-space-types';
-import {toSubjectReport} from '../../../routes/utils';
+import {EventTypes} from '@/events/types';
+import {saveNewReport} from '@/services/tuples/report';
+import {useEventBus} from '@/events/event-bus';
+import {Subject} from '@/services/tuples/subject-types';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
+import {toSubjectReport} from '@/routes/utils';
 import {useHistory} from 'react-router-dom';
 import {SubjectNoReport, SubjectNoReportCreateButton} from './widgets';
 

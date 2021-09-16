@@ -19,11 +19,11 @@ import {
 import {getTopicName} from '../../utils';
 import {ExecutionDelegate} from '../../widgets/cli/execution/execution-delegate';
 import React, {useState} from 'react';
-import {DataQualityCacheData} from '../../../local-persist/types';
+import {DataQualityCacheData} from '@/local-persist/types';
 import {useDataQualityCacheData} from '../../cache/use-cache-data';
 import {CliEventTypes} from '../../widgets/cli/events/cli-event-bus-types';
 import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
-import {Topic, TopicKind, TopicType} from '../../../services/tuples/topic-types';
+import {Topic, TopicKind, TopicType} from '@/services/tuples/topic-types';
 import {Command} from '../../command/types';
 
 const buildFilter = (command: Command) => {

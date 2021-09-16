@@ -1,16 +1,16 @@
 import styled from 'styled-components';
-import {BlockCoordinate, BlockFrame, BlockName} from '../../../../services/graphics/graphics-types';
+import {BlockCoordinate, BlockFrame, BlockName} from '@/services/graphics/graphics-types';
 
 export const ReportContainer = styled.g.attrs<{ coordinate: BlockCoordinate }>(({coordinate: {x, y}}) => {
 	return {transform: `translate(${x}, ${y})`};
 })<{ coordinate: BlockCoordinate }>`
 	&:hover {
 		> rect:nth-child(3) {
-			opacity: 1;
-			pointer-events: auto;
+			opacity        : 1;
+			pointer-events : auto;
 		}
 		> path {
-			opacity: 1;
+			opacity : 1;
 		}
 	}
 `;
@@ -47,17 +47,17 @@ export const OpenSubjectButton = styled.rect.attrs<{ frame: BlockFrame }>(
 			ry: size / 2
 		};
 	})<{ frame: BlockFrame }>`
-	stroke: var(--success-color);
-	stroke-width: 2px;
-	fill: var(--invert-color);
-	pointer-events: none;
-	opacity: 0;
-	transition: fill 300ms ease-in-out, opacity 300ms ease-in-out;
-	cursor: pointer;
+	stroke         : var(--success-color);
+	stroke-width   : 2px;
+	fill           : var(--invert-color);
+	pointer-events : none;
+	opacity        : 0;
+	transition     : fill 300ms ease-in-out, opacity 300ms ease-in-out;
+	cursor         : pointer;
 	&:hover {
-		fill: var(--success-color);
+		fill : var(--success-color);
 		+ path {
-			fill: var(--invert-color);
+			fill : var(--invert-color);
 		}
 	}
 `;
@@ -70,9 +70,9 @@ export const OpenSubjectButtonIcon = styled.path.attrs<{ frame: BlockFrame }>(
 			transform: `translate(${width + x - height / 2.8}, ${y + height - height / 2.8}) scale(0.03)`
 		};
 	})<{ frame: BlockFrame }>`
-	fill: var(--success-color);
-	pointer-events: none;
-	opacity: 0;
-	transition: fill 300ms ease-in-out, opacity 300ms ease-in-out;
-	cursor: pointer;
+	fill           : var(--success-color);
+	pointer-events : none;
+	opacity        : 0;
+	transition     : fill 300ms ease-in-out, opacity 300ms ease-in-out;
+	cursor         : pointer;
 `;

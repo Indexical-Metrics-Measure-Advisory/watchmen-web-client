@@ -1,4 +1,4 @@
-import {Topic} from '../../../../../services/tuples/topic-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {
 	DataTable,
 	DataTableBodyCell,
@@ -11,7 +11,7 @@ import {
 } from './widgets';
 import React from 'react';
 import {getTopicName} from '../../../utils';
-import {ButtonInk} from '../../../../../basic-widgets/types';
+import {ButtonInk} from '@/basic-widgets/types';
 import {toString} from './utils';
 import {DataRow} from '../../../types';
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import {canHoldTitle, isEChart} from '../../../../../../services/tuples/echarts/echarts-utils';
-import {Report} from '../../../../../../services/tuples/report-types';
+import {canHoldTitle, isEChart} from '@/services/tuples/echarts/echarts-utils';
+import {Report} from '@/services/tuples/report-types';
 import {useChartType} from '../../settings-effect/use-chart-type';
 import {EChartsTitleTextSettings} from './text';
 

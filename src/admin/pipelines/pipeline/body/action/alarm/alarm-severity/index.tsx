@@ -1,10 +1,7 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useState} from 'react';
-import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '../../../../../../../basic-widgets/constants';
-import {
-	AlarmAction,
-	AlarmActionSeverity
-} from '../../../../../../../services/tuples/pipeline-stage-unit-action/system-actions-types';
+import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '@/basic-widgets/constants';
+import {AlarmAction, AlarmActionSeverity} from '@/services/tuples/pipeline-stage-unit-action/system-actions-types';
 import {useActionEventBus} from '../../action-event-bus';
 import {ActionEventTypes} from '../../action-event-bus-types';
 import {SeverityButton, SeverityContainer, SeverityOption} from './widgets';

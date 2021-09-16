@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import {useForceUpdate} from '../../../basic-widgets/utils';
-import {Factor} from '../../../services/tuples/factor-types';
-import {Topic, TopicType} from '../../../services/tuples/topic-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {Factor} from '@/services/tuples/factor-types';
+import {Topic, TopicType} from '@/services/tuples/topic-types';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';
 import {FactorFlattenCellContainer, FactorPropCheckBox, FactorPropLabel} from './widgets';

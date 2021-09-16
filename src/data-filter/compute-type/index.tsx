@@ -1,8 +1,8 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useRef, useState} from 'react';
-import {ICON_EDIT} from '../../basic-widgets/constants';
-import {useCollapseFixedThing} from '../../basic-widgets/utils';
-import {ComputedParameter, ParameterComputeType} from '../../services/tuples/factor-calculator-types';
+import {ICON_EDIT} from '@/basic-widgets/constants';
+import {useCollapseFixedThing} from '@/basic-widgets/utils';
+import {ComputedParameter, ParameterComputeType} from '@/services/tuples/factor-calculator-types';
 import {ParameterComputeTypeLabels} from '../constants';
 import {useParameterEventBus} from '../parameter-event-bus';
 import {ParameterEventTypes} from '../parameter-event-bus-types';
@@ -14,7 +14,7 @@ import {
 	ParameterComputeTypeLabel,
 	ParameterComputeTypeOption
 } from './widgets';
-import {defendComputedParameter} from '../../services/tuples/parameter-utils';
+import {defendComputedParameter} from '@/services/tuples/parameter-utils';
 
 const AvailableComputeTypes = [
 	ParameterComputeType.ADD,

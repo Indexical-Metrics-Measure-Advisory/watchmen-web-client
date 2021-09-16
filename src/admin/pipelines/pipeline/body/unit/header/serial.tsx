@@ -1,7 +1,7 @@
 import React from 'react';
-import {PipelineStage} from '../../../../../../services/tuples/pipeline-stage-types';
-import {PipelineStageUnit} from '../../../../../../services/tuples/pipeline-stage-unit-types';
-import {Pipeline} from '../../../../../../services/tuples/pipeline-types';
+import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
+import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
 import {useExpanded} from '../unit-effect/use-expanded';
 import {UnitLeadLabel} from './widgets';
 

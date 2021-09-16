@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import {Button} from '../basic-widgets/button';
-import {CHART_DRAG_Z_INDEX} from '../basic-widgets/constants';
-import {ReportRect} from '../services/tuples/report-types';
+import {Button} from '@/basic-widgets/button';
+import {CHART_DRAG_Z_INDEX} from '@/basic-widgets/constants';
+import {ReportRect} from '@/services/tuples/report-types';
 import {DragType} from './types';
 
 export const ChartContainer = styled.div.attrs<{ rect: ReportRect, fixed: boolean }>(({rect, fixed}) => {

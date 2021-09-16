@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {v4} from 'uuid';
-import {useForceUpdate} from '../../../../../basic-widgets/utils';
-import {Subject} from '../../../../../services/tuples/subject-types';
-import {Topic} from '../../../../../services/tuples/topic-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {Subject} from '@/services/tuples/subject-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {useJoinsDataVisible} from '../data/use-joins-data-visible';
 import {useSubjectDefEventBus} from '../subject-def-event-bus';
 import {SubjectDefEventTypes} from '../subject-def-event-bus-types';

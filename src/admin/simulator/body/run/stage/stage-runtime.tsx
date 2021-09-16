@@ -7,15 +7,15 @@ import {useRunStage} from './use-run-stage';
 import {useCompleted} from './use-completed';
 import {useConditionCheck} from './use-condition-check';
 import {useRunUnits} from './use-run-units';
-import {ButtonInk} from '../../../../../basic-widgets/types';
+import {ButtonInk} from '@/basic-widgets/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_SEARCH} from '../../../../../basic-widgets/constants';
+import {ICON_SEARCH} from '@/basic-widgets/constants';
 import {isStageCompleted} from '../utils';
 import {TopicsData} from '../../state/types';
 import {findRuntimeData} from './utils';
-import {EventTypes} from '../../../../../events/types';
+import {EventTypes} from '@/events/types';
 import {DataDialog} from '../data-dialog';
-import {useEventBus} from '../../../../../events/event-bus';
+import {useEventBus} from '@/events/event-bus';
 
 export const StageRuntime = (props: {
 	pipelineContext: PipelineRuntimeContext;

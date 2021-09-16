@@ -1,6 +1,6 @@
 import React from 'react';
-import {FullWidthPage} from '../../basic-widgets/page';
-import {FullWidthPageHeaderContainer, PageTitle} from '../../basic-widgets/page-header';
+import {FullWidthPage} from '@/basic-widgets/page';
+import {FullWidthPageHeaderContainer, PageTitle} from '@/basic-widgets/page-header';
 import {StatisticsEventBusProvider} from './statistics-event-bus';
 import {StatisticsPageBody} from './body';
 import {DailyPanel} from './daily';

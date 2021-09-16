@@ -9,18 +9,18 @@ import {
 	SimulatorBodyPartLabel,
 	SimulatorBodyPartRow
 } from '../widgets';
-import {Dropdown} from '../../../../basic-widgets/dropdown';
-import {ButtonInk, DropdownOption} from '../../../../basic-widgets/types';
+import {Dropdown} from '@/basic-widgets/dropdown';
+import {ButtonInk, DropdownOption} from '@/basic-widgets/types';
 import {ActiveStep, SimulateStart, SimulatorState, StartFrom} from '../state/types';
 import {useSimulatorEventBus} from '../../simulator-event-bus';
 import {SimulatorEventTypes} from '../../simulator-event-bus-types';
-import {Pipeline} from '../../../../services/tuples/pipeline-types';
-import {Topic} from '../../../../services/tuples/topic-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {getPipelineName, getTopicName} from '../../utils';
-import {Button} from '../../../../basic-widgets/button';
-import {useEventBus} from '../../../../events/event-bus';
-import {EventTypes} from '../../../../events/types';
-import {AlertLabel} from '../../../../alert/widgets';
+import {Button} from '@/basic-widgets/button';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {AlertLabel} from '@/alert/widgets';
 import {useActiveStep} from '../use-active-step';
 
 type State = SimulateStart & Pick<SimulatorState, 'step'>

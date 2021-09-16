@@ -1,5 +1,5 @@
-import {Pipeline} from '../../../../services/tuples/pipeline-types';
-import {Topic} from '../../../../services/tuples/topic-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {
 	SimulatorBodyPart,
 	SimulatorBodyPartHeader,
@@ -14,8 +14,8 @@ import {SimulatorEventTypes} from '../../simulator-event-bus-types';
 import {TopicBlock} from './topic-block';
 import {PrepareDataBodyPartBody, PrepareDataBodyPartRow, TopicBlockType} from './widgets';
 import {buildTopicNode} from './utils';
-import {Button} from '../../../../basic-widgets/button';
-import {ButtonInk} from '../../../../basic-widgets/types';
+import {Button} from '@/basic-widgets/button';
+import {ButtonInk} from '@/basic-widgets/types';
 
 interface State {
 	step: ActiveStep;

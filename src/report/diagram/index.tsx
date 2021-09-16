@@ -1,6 +1,6 @@
 import React from 'react';
-import {ChartDataSet} from '../../services/tuples/chart-types';
-import {Report} from '../../services/tuples/report-types';
+import {ChartDataSet} from '@/services/tuples/chart-types';
+import {Report} from '@/services/tuples/report-types';
 import {ChartDiagram} from './chart-diagram';
 import {DiagramContainer} from './widgets';
 

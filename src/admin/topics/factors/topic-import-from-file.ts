@@ -1,5 +1,5 @@
 import parseCSV from 'csv-parse';
-import {Factor, FactorType} from '../../../services/tuples/factor-types';
+import {Factor, FactorType} from '@/services/tuples/factor-types';
 import {createFactor, createTopic} from '../utils';
 
 const asFactors = async (data: any): Promise<Array<Factor>> => {
@@ -57,7 +57,7 @@ export const parseFromCsv = async (content: string): Promise<Array<Factor>> => {
 
 			try {
 				resolve(asFactors(data));
-			} catch (e) {
+			} catch (e: any) {
 				reject(e);
 			}
 		});
@@ -70,10 +70,10 @@ export const parseFromJson = async (content: string): Promise<Array<Factor>> => 
 			const data = JSON.parse(content);
 			try {
 				resolve(asFactors(data));
-			} catch (e) {
+			} catch (e: any) {
 				reject(e);
 			}
-		} catch (e) {
+		} catch (e: any) {
 			console.group('Error occurred on parse JSON.');
 			console.error(e);
 			console.groupEnd();

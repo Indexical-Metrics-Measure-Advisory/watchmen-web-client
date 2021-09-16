@@ -10,11 +10,12 @@ import {
 	ExpressionOperatorLabel,
 	ExpressionOperatorOption
 } from './widgets';
-import {ParameterExpressionOperator} from '../../../../../../../services/tuples/factor-calculator-types';
-import {ReportFilterExpression} from '../../../../../../../services/tuples/report-types';
-import {useCollapseFixedThing} from '../../../../../../../basic-widgets/utils';
+import {ParameterExpressionOperator} from '@/services/tuples/factor-calculator-types';
+import {ReportFilterExpression} from '@/services/tuples/report-types';
+import {useCollapseFixedThing} from '@/basic-widgets/utils';
+// noinspection ES6PreferShortImport
 import {FilterExpressionOperatorLabels} from '../../../../../../constants/parameter-constants';
-import {ICON_EDIT} from '../../../../../../../basic-widgets/constants';
+import {ICON_EDIT} from '@/basic-widgets/constants';
 
 const AvailableOperators = [
 	ParameterExpressionOperator.EMPTY,

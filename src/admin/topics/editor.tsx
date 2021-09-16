@@ -1,6 +1,6 @@
 import React from 'react';
-import {QueryEnumForHolder} from '../../services/tuples/query-enum-types';
-import {Topic} from '../../services/tuples/topic-types';
+import {QueryEnumForHolder} from '@/services/tuples/query-enum-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {TuplePropertyLabel} from '../widgets/tuple-workbench/tuple-editor';
 import {Factors} from './factors';
 import {TopicEventBusProvider} from './topic-event-bus';
@@ -9,8 +9,8 @@ import {TopicKindInput} from './topic/topic-kind-input';
 import {TopicNameInput} from './topic/topic-name-input';
 import {TopicTypeInput} from './topic/topic-type-input';
 import {HoldByTopic} from './types';
-import {isMultipleDataSourcesEnabled} from '../../feature-switch';
-import {QueryDataSourceForHolder} from '../../services/tuples/query-data-source-types';
+import {isMultipleDataSourcesEnabled} from '@/feature-switch';
+import {QueryDataSourceForHolder} from '@/services/tuples/query-data-source-types';
 import {TopicDataSourceInput} from './topic/topic-data-source-input';
 
 const TopicEditor = (props: { topic: Topic, enums: Array<QueryEnumForHolder>, dataSources: Array<QueryDataSourceForHolder> }) => {

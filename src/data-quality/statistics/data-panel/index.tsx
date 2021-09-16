@@ -7,8 +7,8 @@ import {
 	DataPanelHeaderTitle
 } from './widgets';
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome';
-import {ICON_MAXIMIZE_PANEL, ICON_MINIMIZE_PANEL, ICON_RESTORE_PANEL} from '../../../basic-widgets/constants';
-import {TooltipAlignment} from '../../../basic-widgets/types';
+import {ICON_MAXIMIZE_PANEL, ICON_MINIMIZE_PANEL, ICON_RESTORE_PANEL} from '@/basic-widgets/constants';
+import {TooltipAlignment} from '@/basic-widgets/types';
 import {DataPanelLayout, DataPanelResize, DataPanels} from '../types';
 import {useStatisticsEventBus} from '../statistics-event-bus';
 import {StatisticsEventTypes} from '../statistics-event-bus-types';

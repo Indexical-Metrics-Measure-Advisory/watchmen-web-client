@@ -1,7 +1,7 @@
 import React from 'react';
-import {PageTitleEditor} from '../../../../basic-widgets/page-title-editor';
-import {useForceUpdate} from '../../../../basic-widgets/utils';
-import {Pipeline} from '../../../../services/tuples/pipeline-types';
+import {PageTitleEditor} from '@/basic-widgets/page-title-editor';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {Pipeline} from '@/services/tuples/pipeline-types';
 import {usePipelineEventBus} from '../pipeline-event-bus';
 import {PipelineEventTypes} from '../pipeline-event-bus-types';
 

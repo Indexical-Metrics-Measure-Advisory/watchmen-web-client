@@ -1,12 +1,7 @@
 import React, {useEffect} from 'react';
-import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {
-	ComputedParameter,
-	Parameter,
-	ParameterKind,
-	ValueTypes
-} from '../../../../../../services/tuples/factor-calculator-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {ComputedParameter, Parameter, ParameterKind, ValueTypes} from '@/services/tuples/factor-calculator-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {ParameterFromEditor} from '../param-from';
 import {useParameterEventBus} from '../parameter/parameter-event-bus';
 import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';

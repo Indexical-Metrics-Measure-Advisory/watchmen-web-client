@@ -1,18 +1,18 @@
 import styled from 'styled-components';
-import {BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR} from '../../../../../admin/pipelines/pipeline/header/widgets';
-import {ReportRect} from '../../../../../services/tuples/report-types';
+import {BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR} from '../../header/widgets';
+import {ReportRect} from '@/services/tuples/report-types';
 
 export const EditChartContainer = styled.div.attrs({
 	'data-widget': 'report-chart-editor',
 	'data-v-scroll': '',
 	'data-h-scroll': ''
 })`
-	display: flex;
-	position: relative;
-	align-items: center;
-	justify-content: center;
-	overflow: auto;
-	max-height: ${BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR};
+	display         : flex;
+	position        : relative;
+	align-items     : center;
+	justify-content : center;
+	overflow        : auto;
+	max-height      : ${BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR};
 `;
 export const ChartWrapper = styled.div.attrs<{ rect: ReportRect, applyRect: boolean }>(
 	({rect: {width, height}, applyRect}) => {
@@ -26,12 +26,12 @@ export const ChartWrapper = styled.div.attrs<{ rect: ReportRect, applyRect: bool
 			}
 		};
 	})<{ rect: ReportRect, applyRect: boolean }>`
-	display: block;
-	position: absolute;
+	display    : block;
+	position   : absolute;
 	//border-radius: var(--border-radius);
-	box-shadow: var(--param-border);
-	overflow: auto;
+	box-shadow : var(--param-border);
+	overflow   : auto;
 	&:hover {
-		box-shadow: var(--hover-shadow);
+		box-shadow : var(--hover-shadow);
 	}
 `;

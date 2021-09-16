@@ -1,6 +1,6 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
-import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL} from '../../../../../basic-widgets/constants';
+import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL} from '@/basic-widgets/constants';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {SectionContainer} from './widgets';

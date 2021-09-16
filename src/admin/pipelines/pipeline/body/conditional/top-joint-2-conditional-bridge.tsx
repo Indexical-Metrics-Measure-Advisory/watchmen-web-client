@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Conditional} from '../../../../../services/tuples/pipeline-super-types';
+import {Conditional} from '@/services/tuples/pipeline-super-types';
 import {useConditionalEventBus} from './conditional-event-bus';
 import {ConditionalEventTypes} from './conditional-event-bus-types';
 import {useJointEventBus} from './event-bus/joint-event-bus';

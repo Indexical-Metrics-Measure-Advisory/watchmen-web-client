@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dashboard} from '../../../services/tuples/dashboard-types';
+import {Dashboard} from '@/services/tuples/dashboard-types';
 import {HeaderButtons} from './header-buttons';
 import {HeaderNameEditor} from './header-name-editor';
 import {DashboardPageHeaderHolder} from './widgets';

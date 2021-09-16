@@ -1,8 +1,8 @@
-import {BASE_COLORS_24} from '../../basic-widgets/colors';
-import {BAR} from '../../services/tuples/chart-def/chart-bar';
-import {ChartDataSet} from '../../services/tuples/chart-types';
-import {ECharts} from '../../services/tuples/echarts/echarts-types';
-import {Report} from '../../services/tuples/report-types';
+import {BASE_COLORS_24} from '@/basic-widgets/colors';
+import {BAR} from '@/services/tuples/chart-def/chart-bar';
+import {ChartDataSet} from '@/services/tuples/chart-types';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
+import {Report} from '@/services/tuples/report-types';
 import {buildAxis, buildLabel, buildSeriesData} from './bar-utils';
 import {cleanUselessValues} from './data-utils';
 import {buildDecal} from './decal-utils';

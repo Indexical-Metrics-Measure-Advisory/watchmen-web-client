@@ -1,9 +1,6 @@
 import React, {useRef, useState} from 'react';
 import styled from 'styled-components';
-import {
-	CHART_SETTINGS_RESIZE_HANDLE_WIDTH,
-	CHART_SETTINGS_RESIZE_HANDLE_Z_INDEX
-} from '../../../../../basic-widgets/constants';
+import {CHART_SETTINGS_RESIZE_HANDLE_WIDTH, CHART_SETTINGS_RESIZE_HANDLE_Z_INDEX} from '@/basic-widgets/constants';
 
 export enum ResizeHandleAlignment {
 	LEFT, RIGHT

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {DwarfButton} from '../../../../../basic-widgets/button';
+import {DwarfButton} from '@/basic-widgets/button';
 import {COLLAPSE_WIDTH, computeColumnWidths} from '../widgets';
 
 export const SubjectDefHeader = styled.div.attrs<{ activeIndex: number }>(({activeIndex}) => {

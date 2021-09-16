@@ -7,9 +7,9 @@ import {
 	UnitRunStatus,
 	UnitRuntimeContext
 } from '../../types';
-import {useForceUpdate} from '../../../../../../basic-widgets/utils';
+import {useForceUpdate} from '@/basic-widgets/utils';
 import {buildContextBody, createLogWriter} from './utils';
-import {connectSimulatorDB} from '../../../../../../local-persist/db';
+import {connectSimulatorDB} from '@/local-persist/db';
 import dayjs from 'dayjs';
 import {generateRuntimeId} from '../../utils';
 import {RuntimeEventTypes} from '../../runtime/runtime-event-bus-types';

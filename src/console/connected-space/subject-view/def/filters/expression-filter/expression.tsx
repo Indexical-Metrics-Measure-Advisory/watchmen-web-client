@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
-import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {Parameter, ParameterKind} from '../../../../../../services/tuples/factor-calculator-types';
-import {SubjectDataSetFilterExpression} from '../../../../../../services/tuples/subject-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
-import {ComputedEditor} from '../../../../../../data-filter/computed';
-import {ConstantValueEditor} from '../../../../../../data-filter/constant';
-import {ParameterEventBusProvider, useParameterEventBus} from '../../../../../../data-filter/parameter-event-bus';
-import {ParameterEventTypes} from '../../../../../../data-filter/parameter-event-bus-types';
-import {TopicFactorEditor} from '../../../../../../data-filter/topic-factor';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {Parameter, ParameterKind} from '@/services/tuples/factor-calculator-types';
+import {SubjectDataSetFilterExpression} from '@/services/tuples/subject-types';
+import {Topic} from '@/services/tuples/topic-types';
+import {ComputedEditor} from '@/data-filter/computed';
+import {ConstantValueEditor} from '@/data-filter/constant';
+import {ParameterEventBusProvider, useParameterEventBus} from '@/data-filter/parameter-event-bus';
+import {ParameterEventTypes} from '@/data-filter/parameter-event-bus-types';
+import {TopicFactorEditor} from '@/data-filter/topic-factor';
 import {Parameter2FilterEventBridge} from '../parameter-2-filter-event-bridge';
 import {ExpressionSide, ParameterFromEditorForExpression} from './widgets';
 

@@ -1,8 +1,8 @@
-import {BASE_COLORS_24} from '../../basic-widgets/colors';
-import {LINE, LineChartSettings} from '../../services/tuples/chart-def/chart-line';
-import {ChartDataSet} from '../../services/tuples/chart-types';
-import {ECharts} from '../../services/tuples/echarts/echarts-types';
-import {Report} from '../../services/tuples/report-types';
+import {BASE_COLORS_24} from '@/basic-widgets/colors';
+import {LINE, LineChartSettings} from '@/services/tuples/chart-def/chart-line';
+import {ChartDataSet} from '@/services/tuples/chart-types';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
+import {Report} from '@/services/tuples/report-types';
 import {buildLabel, buildSeriesData} from './bar-utils';
 import {DefaultChartUtils} from './default-chart-utils';
 import {buildEChartsGrid} from './grid-utils';

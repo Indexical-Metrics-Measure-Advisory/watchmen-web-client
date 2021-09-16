@@ -1,5 +1,5 @@
 import {v4} from 'uuid';
-import {Pipeline} from '../../../../services/tuples/pipeline-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
 import {asTopicGraphicsMap} from '../graphics-utils';
 import {AssembledPipelinesGraphics} from '../types';
 import {computeRelatedTopicIds} from '../utils/data-utils';

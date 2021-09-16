@@ -1,8 +1,8 @@
 import React from 'react';
-import {Lang} from '../../../../../../langs';
-import {EChartsLegendOrient} from '../../../../../../services/tuples/echarts/echarts-legend-types';
-import {canHoldLegend, isEChart} from '../../../../../../services/tuples/echarts/echarts-utils';
-import {Report} from '../../../../../../services/tuples/report-types';
+import {Lang} from '@/langs';
+import {EChartsLegendOrient} from '@/services/tuples/echarts/echarts-legend-types';
+import {canHoldLegend, isEChart} from '@/services/tuples/echarts/echarts-utils';
+import {Report} from '@/services/tuples/report-types';
 import {onBooleanChange, onColorChange, onDropdownValueChange, onNumberChange, validateNumber} from '../../data-utils';
 import {EChartsLegendPropNames, LegendOrientOptions} from '../../prop-defs/echart-styles/echarts-legend-props';
 import {useReportEditEventBus} from '../../report-edit-event-bus';

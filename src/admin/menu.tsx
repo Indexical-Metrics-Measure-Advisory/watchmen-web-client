@@ -23,19 +23,19 @@ import {
 	MOCK_ACCOUNT_NAME,
 	SIDE_MENU_MAX_WIDTH,
 	SIDE_MENU_MIN_WIDTH
-} from '../basic-widgets/constants';
-import {SideMenuItem} from '../basic-widgets/side-menu/side-menu-item';
-import {SideMenuLogo} from '../basic-widgets/side-menu/side-menu-logo';
-import {SideMenuPlaceholder} from '../basic-widgets/side-menu/side-menu-placeholder';
-import {SideMenuResizeHandle} from '../basic-widgets/side-menu/side-menu-resize-handle';
-import {SideMenuSeparator} from '../basic-widgets/side-menu/side-menu-separator';
-import {SideMenuUser} from '../basic-widgets/side-menu/side-menu-user';
-import {useEventBus} from '../events/event-bus';
-import {EventTypes} from '../events/types';
-import {Router} from '../routes/types';
+} from '@/basic-widgets/constants';
+import {SideMenuItem} from '@/basic-widgets/side-menu/side-menu-item';
+import {SideMenuLogo} from '@/basic-widgets/side-menu/side-menu-logo';
+import {SideMenuPlaceholder} from '@/basic-widgets/side-menu/side-menu-placeholder';
+import {SideMenuResizeHandle} from '@/basic-widgets/side-menu/side-menu-resize-handle';
+import {SideMenuSeparator} from '@/basic-widgets/side-menu/side-menu-separator';
+import {SideMenuUser} from '@/basic-widgets/side-menu/side-menu-user';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Router} from '@/routes/types';
 import {findAccount, isSuperAdmin, quit} from '../services/account';
-import {SideMenuSwitchWorkbench} from '../basic-widgets/side-menu/side-menu-switch-workbench';
-import {isDataQualityCenterEnabled, isMultipleDataSourcesEnabled} from '../feature-switch';
+import {SideMenuSwitchWorkbench} from '@/basic-widgets/side-menu/side-menu-switch-workbench';
+import {isDataQualityCenterEnabled, isMultipleDataSourcesEnabled} from '@/feature-switch';
 
 const AdminMenuContainer = styled.div.attrs<{ width: number }>(({width}) => {
 	return {
@@ -43,21 +43,21 @@ const AdminMenuContainer = styled.div.attrs<{ width: number }>(({width}) => {
 		style: {width}
 	};
 })<{ width: number }>`
-	display: flex;
-	position: relative;
-	flex-direction: column;
-	align-items: flex-start;
-	min-width: var(--console-menu-width);
-	height: 100vh;
-	top: 0;
-	left: 0;
-	border-right: var(--border);
-	background-color: var(--invert-color);
-	overflow: hidden;
+	display          : flex;
+	position         : relative;
+	flex-direction   : column;
+	align-items      : flex-start;
+	min-width        : var(--console-menu-width);
+	height           : 100vh;
+	top              : 0;
+	left             : 0;
+	border-right     : var(--border);
+	background-color : var(--invert-color);
+	overflow         : hidden;
 	+ main {
-		max-width: ${({width}) => `calc(100vw - ${width}px)`};
+		max-width : ${({width}) => `calc(100vw - ${width}px)`};
 		div[data-widget="full-width-page"] {
-			max-width: ${({width}) => `calc(100vw - ${width}px)`};
+			max-width : ${({width}) => `calc(100vw - ${width}px)`};
 		}
 	}
 `;

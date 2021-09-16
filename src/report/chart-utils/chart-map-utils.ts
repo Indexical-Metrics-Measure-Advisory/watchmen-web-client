@@ -1,9 +1,9 @@
 import {EChartOption} from 'echarts';
-import {BASE_COLORS_24, BASE_COLORS_6} from '../../basic-widgets/colors';
-import {MAP, MapChartRegion, MapChartSettings} from '../../services/tuples/chart-def/chart-map';
-import {ChartDataSet} from '../../services/tuples/chart-types';
-import {ECharts} from '../../services/tuples/echarts/echarts-types';
-import {Report} from '../../services/tuples/report-types';
+import {BASE_COLORS_24, BASE_COLORS_6} from '@/basic-widgets/colors';
+import {MAP, MapChartRegion, MapChartSettings} from '@/services/tuples/chart-def/chart-map';
+import {ChartDataSet} from '@/services/tuples/chart-types';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
+import {Report} from '@/services/tuples/report-types';
 import {DefaultChartUtils} from './default-chart-utils';
 import {JapanCoordinatesL1} from './map-geo-data/japan-l1';
 import {MapCoordinate} from './map-geo-data/types';

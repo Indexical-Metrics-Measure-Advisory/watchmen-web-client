@@ -1,14 +1,9 @@
-import {
-	PipelineRelationMap,
-	PipelinesMap,
-	TopicRelationMap,
-	TopicsMap
-} from '../../../../services/pipeline/pipeline-relations';
+import {PipelineRelationMap, PipelinesMap, TopicRelationMap, TopicsMap} from '@/services/pipeline/pipeline-relations';
 import {EnumsMap} from './types';
 import dayjs from 'dayjs';
 import {generateTopicMarkdown} from './topic';
 import {generatePipelineMarkdown} from './pipeline';
-import {listAllEnums} from '../../../../services/tuples/enum';
+import {listAllEnums} from '@/services/tuples/enum';
 import {generateGraphics} from './graphics';
 
 export const generateMarkdown = async (options: {

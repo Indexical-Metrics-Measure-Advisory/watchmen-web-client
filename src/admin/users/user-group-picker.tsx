@@ -1,7 +1,7 @@
 import React from 'react';
-import {QueryUserGroupForHolder} from '../../services/tuples/query-user-group-types';
-import {listUserGroupsForHolder} from '../../services/tuples/user-group';
-import {User} from '../../services/tuples/user-types';
+import {QueryUserGroupForHolder} from '@/services/tuples/query-user-group-types';
+import {listUserGroupsForHolder} from '@/services/tuples/user-group';
+import {User} from '@/services/tuples/user-types';
 import {TupleItemPicker} from '../widgets/tuple-workbench/tuple-item-picker';
 
 const hasUserGroup = (user: User) => !!user.userGroupIds && user.userGroupIds.length > 0;

@@ -1,8 +1,8 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {ICON_ADD} from '../../../../basic-widgets/constants';
-import {useEventBus} from '../../../../events/event-bus';
-import {EventTypes} from '../../../../events/types';
+import {ICON_ADD} from '@/basic-widgets/constants';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
 import {useTupleEventBus} from '../tuple-event-bus';
 import {TupleEventTypes, TupleState} from '../tuple-event-bus-types';
 import {TupleCreateButton} from './widgets';

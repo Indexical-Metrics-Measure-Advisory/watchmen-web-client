@@ -1,5 +1,5 @@
 import {ActionRuntimeContext, InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
-import {isInsertRowAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {isInsertRowAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {
 	AGGREGATE_ASSIST_FACTOR_NAME,
 	AGGREGATE_AVG_COUNT_PROP_NAME,
@@ -7,13 +7,11 @@ import {
 	prepareTopic,
 	pushToChangeData
 } from './utils';
-import {
-	MappingFactor
-} from '../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
+import {MappingFactor} from '@/services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import {computeParameter} from '../../compute/parameter-compute';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {DataRow} from '../../../../types';
-import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
+import {AggregateArithmetic} from '@/services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
 
 export const doInsertRow = async (
 	mapping: Array<MappingFactor>,

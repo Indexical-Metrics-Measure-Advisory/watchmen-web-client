@@ -4,15 +4,11 @@ import {
 	Parameter,
 	ParameterKind,
 	TopicFactorParameter
-} from '../../../services/tuples/factor-calculator-types';
-import {Factor} from '../../../services/tuples/factor-types';
-import {Topic} from '../../../services/tuples/topic-types';
+} from '@/services/tuples/factor-calculator-types';
+import {Factor} from '@/services/tuples/factor-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {PrettyComputed, PrettyConstant, PrettyFactor} from './literal-types';
-import {
-	isComputedParameter,
-	isConstantParameter,
-	isTopicFactorParameter
-} from '../../../services/tuples/parameter-utils';
+import {isComputedParameter, isConstantParameter, isTopicFactorParameter} from '@/services/tuples/parameter-utils';
 
 export const buildTopicsMap = (options: {
 	availableTopics: Array<Topic>;

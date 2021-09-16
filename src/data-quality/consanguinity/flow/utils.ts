@@ -1,9 +1,9 @@
 import {DQCMaps, DQCRelations} from '../../cache/types';
-import {Topic, TopicType} from '../../../services/tuples/topic-types';
+import {Topic, TopicType} from '@/services/tuples/topic-types';
 import {getPipelineName, getTopicName} from '../../utils';
-import {getCurrentTheme} from '../../../theme/theme-wrapper';
-import {Pipeline} from '../../../services/tuples/pipeline-types';
-import {MappedTopic, MappedTopicsMap} from '../../../services/pipeline/pipeline-relations';
+import {getCurrentTheme} from '@/theme/theme-wrapper';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {MappedTopic, MappedTopicsMap} from '@/services/pipeline/pipeline-relations';
 
 interface Link {
 	source: Topic;

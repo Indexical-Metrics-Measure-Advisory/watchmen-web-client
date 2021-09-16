@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {DataPage} from '../../../../services/query/data-page';
-import {QueryTuple} from '../../../../services/tuples/tuple-types';
+import {DataPage} from '@/services/query/data-page';
+import {QueryTuple} from '@/services/tuples/tuple-types';
 import {useTupleEventBus} from '../tuple-event-bus';
 import {TupleEventTypes} from '../tuple-event-bus-types';
 import {
@@ -12,7 +12,7 @@ import {
 
 interface State<QT extends QueryTuple> {
 	visible: boolean;
-	page?: DataPage<QT>
+	page?: DataPage<QT>;
 	search: string;
 }
 

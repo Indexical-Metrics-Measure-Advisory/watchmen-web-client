@@ -1,7 +1,7 @@
-import {Factor, FactorType} from '../../services/tuples/factor-types';
-import {Topic, TopicKind, TopicType} from '../../services/tuples/topic-types';
-import {generateUuid, removeFakeIdPrefix} from '../../services/tuples/utils';
-import {getCurrentTime} from '../../services/utils';
+import {Factor, FactorType} from '@/services/tuples/factor-types';
+import {Topic, TopicKind, TopicType} from '@/services/tuples/topic-types';
+import {generateUuid, removeFakeIdPrefix} from '@/services/tuples/utils';
+import {getCurrentTime} from '@/services/utils';
 
 export const createTopic = (): Topic => {
 	return {

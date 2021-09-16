@@ -2,27 +2,27 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
-import {AlertLabel} from '../../../../alert/widgets';
-import {Button} from '../../../../basic-widgets/button';
-import {ICON_SWITCH} from '../../../../basic-widgets/constants';
-import {Dropdown} from '../../../../basic-widgets/dropdown';
-import {PageHeaderButton} from '../../../../basic-widgets/page-header-buttons';
-import {ButtonInk, DropdownOption} from '../../../../basic-widgets/types';
-import {DialogBody, DialogFooter, DialogLabel} from '../../../../dialog/widgets';
-import {useEventBus} from '../../../../events/event-bus';
-import {EventTypes} from '../../../../events/types';
-import {Lang} from '../../../../langs';
-import {toSubjectReport} from '../../../../routes/utils';
-import {ConnectedSpace} from '../../../../services/tuples/connected-space-types';
-import {Subject} from '../../../../services/tuples/subject-types';
-import {Report} from '../../../../services/tuples/report-types';
+import {AlertLabel} from '@/alert/widgets';
+import {Button} from '@/basic-widgets/button';
+import {ICON_SWITCH} from '@/basic-widgets/constants';
+import {Dropdown} from '@/basic-widgets/dropdown';
+import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
+import {ButtonInk, DropdownOption} from '@/basic-widgets/types';
+import {DialogBody, DialogFooter, DialogLabel} from '@/dialog/widgets';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Lang} from '@/langs';
+import {toSubjectReport} from '@/routes/utils';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
+import {Subject} from '@/services/tuples/subject-types';
+import {Report} from '@/services/tuples/report-types';
 
 const SwitchDialogBody = styled(DialogBody)`
-	flex-direction: column;
-	margin-bottom: var(--margin);
+	flex-direction : column;
+	margin-bottom  : var(--margin);
 `;
 const SubjectDropdown = styled(Dropdown)`
-	margin-top: calc(var(--margin) / 4);
+	margin-top : calc(var(--margin) / 4);
 `;
 
 const ReportSwitch = (props: { reports: Array<Report>, switchTo: (report: Report) => void }) => {

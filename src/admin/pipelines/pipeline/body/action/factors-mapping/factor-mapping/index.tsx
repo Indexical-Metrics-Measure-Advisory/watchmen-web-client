@@ -1,19 +1,19 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {ICON_DELETE} from '../../../../../../../basic-widgets/constants';
+import {ICON_DELETE} from '@/basic-widgets/constants';
 import {
 	MappingFactor,
 	MappingRow,
 	WriteTopicAction
-} from '../../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
-import {Topic} from '../../../../../../../services/tuples/topic-types';
+} from '@/services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {AggregateArithmeticEditor} from '../../aggregate-arithmetic';
 import {FactorPicker} from '../../factor-picker';
 import {SingleParameter} from '../../single-parameter';
 import {useFactorsMappingEventBus} from '../factors-mapping-event-bus';
 import {FactorsMappingEventTypes} from '../factors-mapping-event-bus-types';
 import {FactorMappingContainer, FactorMappingLeadLabel, RemoveMeButton} from './widgets';
-import {AnyFactorType} from '../../../../../../../services/tuples/factor-calculator-types';
+import {AnyFactorType} from '@/services/tuples/factor-calculator-types';
 
 export const FactorMapping = (props: {
 	action: WriteTopicAction & MappingRow;

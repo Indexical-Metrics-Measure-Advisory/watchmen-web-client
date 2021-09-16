@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {CarveButton} from '../../../../basic-widgets/button';
+import {CarveButton} from '@/basic-widgets/button';
 
 export const TupleSearchContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
 	return {
@@ -24,7 +24,7 @@ export const NoData = styled.div.attrs<{ visible: boolean }>(({visible}) => {
 		style: {display: visible ? (void 0) : 'none'}
 	};
 })<{ visible: boolean }>`
-	display        : flex;
+	display         : flex;
 	position        : relative;
 	align-items     : center;
 	justify-content : center;

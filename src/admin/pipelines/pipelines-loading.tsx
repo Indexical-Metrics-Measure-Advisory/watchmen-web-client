@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, {keyframes} from 'styled-components';
-import {Logo} from '../../basic-widgets/logo';
+import {Logo} from '@/basic-widgets/logo';
 
 const Container = styled.div.attrs({'data-widget': 'pipelines-loading'})`
 	display               : grid;

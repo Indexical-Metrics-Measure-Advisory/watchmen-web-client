@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from 'react';
-import {useForceUpdate} from '../../../../../../../basic-widgets/utils';
-import {AlarmAction} from '../../../../../../../services/tuples/pipeline-stage-unit-action/system-actions-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {AlarmAction} from '@/services/tuples/pipeline-stage-unit-action/system-actions-types';
 import {useActionEventBus} from '../../action-event-bus';
 import {ActionEventTypes} from '../../action-event-bus-types';
 import {MessageInput, MessageInputContainer, MessageInputLabel} from './widgets';

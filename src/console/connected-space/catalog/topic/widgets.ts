@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {BlockCoordinate, BlockFrame, BlockName} from '../../../../services/graphics/graphics-types';
+import {BlockCoordinate, BlockFrame, BlockName} from '@/services/graphics/graphics-types';
 
 export const TopicContainer = styled.g.attrs<{ coordinate: BlockCoordinate }>(({coordinate: {x, y}}) => {
 	return {transform: `translate(${x}, ${y})`};

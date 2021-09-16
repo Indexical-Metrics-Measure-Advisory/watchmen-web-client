@@ -1,8 +1,8 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {ICON_DISABLE} from '../../../../basic-widgets/constants';
-import {PageHeaderButton} from '../../../../basic-widgets/page-header-buttons';
-import {Pipeline} from '../../../../services/tuples/pipeline-types';
+import {ICON_DISABLE} from '@/basic-widgets/constants';
+import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
+import {Pipeline} from '@/services/tuples/pipeline-types';
 import {usePipelineEventBus} from '../pipeline-event-bus';
 import {PipelineEventTypes} from '../pipeline-event-bus-types';
 

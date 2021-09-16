@@ -1,12 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {v4} from 'uuid';
-import {DwarfButton} from '../../../basic-widgets/button';
-import {ButtonInk} from '../../../basic-widgets/types';
-import {MonitorLogRow, MonitorLogStatus} from '../../../services/admin/logs';
-import {PipelineStage} from '../../../services/tuples/pipeline-stage-types';
-import {Pipeline} from '../../../services/tuples/pipeline-types';
-import {Topic} from '../../../services/tuples/topic-types';
-import {isMockService} from '../../../services/utils';
+import {DwarfButton} from '@/basic-widgets/button';
+import {ButtonInk} from '@/basic-widgets/types';
+import {MonitorLogRow, MonitorLogStatus} from '@/services/admin/logs';
+import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
+import {isMockService} from '@/services/utils';
 import demoData from './pipeline.json';
 import {DetailProcessStage} from './stage';
 import {

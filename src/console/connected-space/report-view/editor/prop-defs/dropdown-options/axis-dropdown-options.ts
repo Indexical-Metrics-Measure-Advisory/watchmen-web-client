@@ -1,7 +1,7 @@
-import {DropdownOption} from '../../../../../../basic-widgets/types';
-import {Lang} from '../../../../../../langs';
-import {EChartsAxisSplitLineStyle} from '../../../../../../services/tuples/echarts/echarts-axis-split-line-types';
-import {EChartsXAxisType} from '../../../../../../services/tuples/echarts/echarts-xaxis-types';
+import {DropdownOption} from '@/basic-widgets/types';
+import {Lang} from '@/langs';
+import {EChartsAxisSplitLineStyle} from '@/services/tuples/echarts/echarts-axis-split-line-types';
+import {EChartsXAxisType} from '@/services/tuples/echarts/echarts-xaxis-types';
 
 export const AxisTypeOptions: Array<DropdownOption> = [
 	{value: EChartsXAxisType.CATEGORY, label: Lang.CHART.AXIS_TYPE_CATEGORY},

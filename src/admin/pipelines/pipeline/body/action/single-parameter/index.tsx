@@ -1,7 +1,7 @@
 import React from 'react';
-import {Parameter, ValueTypes} from '../../../../../../services/tuples/factor-calculator-types';
-import {PipelineStageUnitAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {Parameter, ValueTypes} from '@/services/tuples/factor-calculator-types';
+import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {ComputedEditor} from '../../parameter/compute';
 import {ConstantEditor} from '../../parameter/constant';
 import {ParameterFromEditor} from '../../parameter/param-from';

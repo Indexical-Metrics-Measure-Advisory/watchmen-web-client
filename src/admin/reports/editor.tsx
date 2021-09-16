@@ -1,5 +1,5 @@
 import React from 'react';
-import {Report} from '../../services/tuples/report-types';
+import {Report} from '@/services/tuples/report-types';
 import {Explanation, ExplanationOl, ExplanationOlLi, ExplanationUl, ExplanationUlLi} from './widgets';
 
 const ReportEditor = (props: { report: Report }) => {

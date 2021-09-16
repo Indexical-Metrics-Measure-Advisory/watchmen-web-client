@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
 import {v4} from 'uuid';
-import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {ParameterCondition, ParameterJoint} from '../../../../../../services/tuples/factor-calculator-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {ParameterCondition, ParameterJoint} from '@/services/tuples/factor-calculator-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {Condition} from '../condition';
 import {useJointEventBus} from '../event-bus/joint-event-bus';
 import {JointEventTypes} from '../event-bus/joint-event-bus-types';
 import {JointElementsContainer} from './widgets';
-import {isExpressionParameter, isJointParameter} from '../../../../../../services/tuples/parameter-utils';
+import {isExpressionParameter, isJointParameter} from '@/services/tuples/parameter-utils';
 
 export const JointElements = (props: { joint: ParameterJoint, topics: Array<Topic> }) => {
 	const {joint, topics} = props;

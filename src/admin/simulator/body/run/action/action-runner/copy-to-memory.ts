@@ -1,5 +1,5 @@
 import {ActionRuntimeContext, InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
-import {isCopyToMemoryAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {isCopyToMemoryAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {computeParameter} from '../../compute/parameter-compute';
 import {prepareSource, prepareVariable} from './utils';
 

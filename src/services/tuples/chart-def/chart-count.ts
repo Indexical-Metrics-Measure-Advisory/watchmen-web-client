@@ -23,7 +23,7 @@ export interface CountChartSettingsText {
 }
 
 export interface CountChartSettings extends EChartsSettings {
-	countText?: CountChartSettingsText
+	countText?: CountChartSettingsText;
 }
 
 export interface CountChart extends Chart {

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Dropdown} from '../../../../../../basic-widgets/dropdown';
+import {Dropdown} from '@/basic-widgets/dropdown';
 
 export const FactorFinderContainer = styled.div.attrs({'data-widget': 'factor-finder'})`
 	display               : grid;

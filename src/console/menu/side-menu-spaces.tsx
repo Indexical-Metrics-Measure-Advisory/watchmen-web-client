@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
-import {ICON_CONNECTED_SPACE} from '../../basic-widgets/constants';
-import {SideMenuItem} from '../../basic-widgets/side-menu/side-menu-item';
-import {useForceUpdate} from '../../basic-widgets/utils';
-import {isConnectedSpaceOpened, toConnectedSpace} from '../../routes/utils';
-import {ConnectedSpace} from '../../services/tuples/connected-space-types';
+import {ICON_CONNECTED_SPACE} from '@/basic-widgets/constants';
+import {SideMenuItem} from '@/basic-widgets/side-menu/side-menu-item';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {isConnectedSpaceOpened, toConnectedSpace} from '@/routes/utils';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes} from '../console-event-bus-types';
 

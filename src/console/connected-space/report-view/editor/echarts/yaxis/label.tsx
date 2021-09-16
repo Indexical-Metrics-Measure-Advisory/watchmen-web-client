@@ -1,7 +1,7 @@
 import React from 'react';
-import {Lang} from '../../../../../../langs';
-import {ECharts} from '../../../../../../services/tuples/echarts/echarts-types';
-import {Report} from '../../../../../../services/tuples/report-types';
+import {Lang} from '@/langs';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
+import {Report} from '@/services/tuples/report-types';
 import {isANumberAndInRange, onBooleanChange, onColorChange, onNumberChange, validateNumber} from '../../data-utils';
 import {EChartsYAxisPropNames} from '../../prop-defs/echart-styles/echarts-yaxis-props';
 import {useReportEditEventBus} from '../../report-edit-event-bus';

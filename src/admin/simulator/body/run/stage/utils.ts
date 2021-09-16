@@ -1,7 +1,7 @@
 import {PipelineRuntimeContext, StageRuntimeContext} from '../types';
-import {connectSimulatorDB} from '../../../../../local-persist/db';
+import {connectSimulatorDB} from '@/local-persist/db';
 import dayjs from 'dayjs';
-import {StageRuntimeTable} from '../../../../../local-persist/db/simulator';
+import {StageRuntimeTable} from '@/local-persist/db/simulator';
 
 export const createLogWriter = (
 	pipelineContext: PipelineRuntimeContext,

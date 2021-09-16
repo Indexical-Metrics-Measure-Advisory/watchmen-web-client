@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
-import {useForceUpdate} from '../../../../../basic-widgets/utils';
-import {Report} from '../../../../../services/tuples/report-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {Report} from '@/services/tuples/report-types';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 

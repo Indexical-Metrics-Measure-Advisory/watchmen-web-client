@@ -1,11 +1,11 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {DwarfButton} from '../../../basic-widgets/button';
-import {ICON_UPLOAD} from '../../../basic-widgets/constants';
-import {ButtonInk} from '../../../basic-widgets/types';
-import {useEventBus} from '../../../events/event-bus';
-import {EventTypes} from '../../../events/types';
-import {Enum} from '../../../services/tuples/enum-types';
+import {DwarfButton} from '@/basic-widgets/button';
+import {ICON_UPLOAD} from '@/basic-widgets/constants';
+import {ButtonInk} from '@/basic-widgets/types';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Enum} from '@/services/tuples/enum-types';
 import {useEnumEventBus} from '../enum-event-bus';
 import {EnumEventTypes} from '../enum-event-bus-types';
 import {parseFromCsv, parseFromJson} from './enum-import-from-file';

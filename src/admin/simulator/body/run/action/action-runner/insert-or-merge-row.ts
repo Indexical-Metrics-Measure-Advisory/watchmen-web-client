@@ -1,5 +1,5 @@
 import {ActionRuntimeContext, InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
-import {isMergeRowAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {isMergeRowAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {prepareBy, prepareMapping, prepareTopic} from './utils';
 import {computeJoint} from '../../compute/condition-compute';
 import {doMergeRow} from './merge-row';

@@ -1,6 +1,6 @@
 import {ExecutionCommandLine, ExecutionContainer, ExecutionPrompt, ExecutionPromptFlicker} from './widgets';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_CMD_PROMPT} from '../../../../basic-widgets/constants';
+import {ICON_CMD_PROMPT} from '@/basic-widgets/constants';
 import React, {useEffect, useRef, useState} from 'react';
 import {CliEventTypes} from '../events/cli-event-bus-types';
 import {useCliEventBus} from '../events/cli-event-bus';

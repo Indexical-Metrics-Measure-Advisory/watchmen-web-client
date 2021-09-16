@@ -1,11 +1,8 @@
 import React from 'react';
-import {Lang} from '../../../../../langs';
-import {isCountChart} from '../../../../../services/tuples/chart-utils';
-import {
-	EChartsToolboxHolder,
-	EChartsToolboxOrient
-} from '../../../../../services/tuples/echarts/echarts-toolbox-types';
-import {Report} from '../../../../../services/tuples/report-types';
+import {Lang} from '@/langs';
+import {isCountChart} from '@/services/tuples/chart-utils';
+import {EChartsToolboxHolder, EChartsToolboxOrient} from '@/services/tuples/echarts/echarts-toolbox-types';
+import {Report} from '@/services/tuples/report-types';
 import {onBooleanChange, onDropdownValueChange} from '../data-utils';
 import {PositionSettings, SettingsPositionPropNames} from '../echarts/position';
 import {EChartsTooltipPropNames, ToolboxOrientOptions} from '../prop-defs/echart-styles/echarts-tooltip-props';

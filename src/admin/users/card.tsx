@@ -1,10 +1,10 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
-import {Avatar} from '../../basic-widgets/avatar';
-import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT} from '../../basic-widgets/constants';
-import {TooltipAlignment} from '../../basic-widgets/types';
-import {QueryUser} from '../../services/tuples/query-user-types';
+import {Avatar} from '@/basic-widgets/avatar';
+import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT} from '@/basic-widgets/constants';
+import {TooltipAlignment} from '@/basic-widgets/types';
+import {QueryUser} from '@/services/tuples/query-user-types';
 import {
 	TupleCard,
 	TupleCardStatistics,
@@ -13,13 +13,13 @@ import {
 } from '../widgets/tuple-workbench/tuple-card';
 import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
-import {prettifyDateTimeToMinute} from '../../services/tuples/utils';
+import {prettifyDateTimeToMinute} from '@/services/tuples/utils';
 
 const Title = styled(TupleCardTitle)`
-	justify-content: space-between;
+	justify-content : space-between;
 `;
 const UserAvatar = styled(Avatar)`
-	font-size: calc(1.3 * var(--font-size));
+	font-size : calc(1.3 * var(--font-size));
 `;
 
 const UserCard = (props: { user: QueryUser }) => {

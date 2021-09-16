@@ -1,5 +1,5 @@
-import {ECharts} from '../../services/tuples/echarts/echarts-types';
-import {EChartsYAxisType} from '../../services/tuples/echarts/echarts-yaxis-types';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
+import {EChartsYAxisType} from '@/services/tuples/echarts/echarts-yaxis-types';
 import {cleanUselessValues} from './data-utils';
 
 export const buildEChartsYAxis = (chart: ECharts): any | undefined => {

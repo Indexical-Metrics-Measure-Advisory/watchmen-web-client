@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {TooltipButton} from '../../../basic-widgets/tooltip-button';
+import {TooltipButton} from '@/basic-widgets/tooltip-button';
 import {DataPanelLayout} from '../types';
 import Color from 'color';
 
@@ -16,13 +16,13 @@ export const DataPanelContainer = styled.div
 			}
 		};
 	})<{ layout: DataPanelLayout }>`
-	display: flex;
-	border-radius: calc(var(--border-radius) * 2);
-	border: var(--border);
-	overflow: hidden;
-	transition: all 300ms ease-in-out;
+	display       : flex;
+	border-radius : calc(var(--border-radius) * 2);
+	border        : var(--border);
+	overflow      : hidden;
+	transition    : all 300ms ease-in-out;
 	&:hover {
-		box-shadow: var(--primary-hover-shadow);
+		box-shadow : var(--primary-hover-shadow);
 	}
 `;
 export const DataPanelHeader = styled.div.attrs<{ layout: DataPanelLayout }>(({layout}) => {
@@ -38,8 +38,8 @@ export const DataPanelHeader = styled.div.attrs<{ layout: DataPanelLayout }>(({l
 		}
 	};
 })<{ layout: DataPanelLayout }>`
-	display: grid;
-	border-bottom: var(--border);
+	display       : grid;
+	border-bottom : var(--border);
 `;
 export const DataPanelHeaderTitle = styled.div.attrs<{ layout: DataPanelLayout }>(({layout}) => {
 	return {
@@ -49,13 +49,13 @@ export const DataPanelHeaderTitle = styled.div.attrs<{ layout: DataPanelLayout }
 		}
 	};
 })<{ layout: DataPanelLayout }>`
-	display: flex;
-	align-items: center;
-	font-family: var(--title-font-family);
-	font-size: 1.4em;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+	display       : flex;
+	align-items   : center;
+	font-family   : var(--title-font-family);
+	font-size     : 1.4em;
+	white-space   : nowrap;
+	overflow      : hidden;
+	text-overflow : ellipsis;
 `;
 export const DataPanelHeaderButtons = styled.div.attrs<{ layout: DataPanelLayout }>(({layout}) => {
 	return {
@@ -65,21 +65,21 @@ export const DataPanelHeaderButtons = styled.div.attrs<{ layout: DataPanelLayout
 		}
 	};
 })<{ layout: DataPanelLayout }>`
-	display: flex;
-	align-items: center;
+	display     : flex;
+	align-items : center;
 `;
 export const DataPanelHeaderButton = styled(TooltipButton)`
-	width: var(--height);
-	padding: 0;
+	width   : var(--height);
+	padding : 0;
 `;
 export const DataPanelBody = styled.div.attrs({
 	'data-widget': 'data-panel-body',
 	'data-v-scroll': ''
 })`
-	display: flex;
-	position: relative;
-	flex-direction: column;
-	overflow-y: auto;
+	display        : flex;
+	position       : relative;
+	flex-direction : column;
+	overflow-y     : auto;
 `;
 export const DataPanelBodyHeader = styled.div.attrs<{ columns: string }>(({columns}) => {
 	return {
@@ -89,29 +89,29 @@ export const DataPanelBodyHeader = styled.div.attrs<{ columns: string }>(({colum
 		}
 	};
 })<{ columns: string }>`
-	display: grid;
-	position: sticky;
-	top: 0;
-	grid-template-rows: 1fr;
-	width: 100%;
-	border-bottom: var(--border);
-	background-color: var(--bg-color);
-	z-index: 1;
+	display            : grid;
+	position           : sticky;
+	top                : 0;
+	grid-template-rows : 1fr;
+	width              : 100%;
+	border-bottom      : var(--border);
+	background-color   : var(--bg-color);
+	z-index            : 1;
 `;
 export const DataPanelBodyHeaderCell = styled.div.attrs({'data-widget': 'data-panel-body-header-cell'})`
-	display: flex;
-	align-items: center;
-	min-height: calc(var(--height) * 1.1);
-	font-variant: petite-caps;
-	font-weight: var(--font-bold);
-	font-size: 1.1em;
-	padding: 0 calc(var(--margin) / 4);
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+	display       : flex;
+	align-items   : center;
+	min-height    : calc(var(--height) * 1.1);
+	font-variant  : petite-caps;
+	font-weight   : var(--font-bold);
+	font-size     : 1.1em;
+	padding       : 0 calc(var(--margin) / 4);
+	white-space   : nowrap;
+	overflow      : hidden;
+	text-overflow : ellipsis;
 `;
 export const DataPanelBodyHeaderSeqCell = styled(DataPanelBodyHeaderCell)`
-	width: ${SEQ_WIDTH}px;
+	width : ${SEQ_WIDTH}px;
 `;
 export const DataPanelBodyDataRow = styled.div.attrs<{ columns: string }>(({columns}) => {
 	return {
@@ -121,37 +121,37 @@ export const DataPanelBodyDataRow = styled.div.attrs<{ columns: string }>(({colu
 		}
 	};
 })<{ columns: string }>`
-	display: grid;
-	grid-template-rows: 1fr;
-	width: 100%;
-	background-color: var(--bg-color);
+	display            : grid;
+	grid-template-rows : 1fr;
+	width              : 100%;
+	background-color   : var(--bg-color);
 	&:nth-child(2n + 1) {
-		background-color: var(--grid-rib-bg-color);
+		background-color : var(--grid-rib-bg-color);
 	}
 	&:hover {
-		background-color: var(--hover-color);
+		background-color : var(--hover-color);
 	}
 `;
 export const DataPanelBodyDataCell = styled.div.attrs({'data-widget': 'data-panel-body-data-cell'})`
-	display: flex;
-	align-items: center;
-	min-height: var(--height);
-	padding: 0 calc(var(--margin) / 4);
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+	display       : flex;
+	align-items   : center;
+	min-height    : var(--height);
+	padding       : 0 calc(var(--margin) / 4);
+	white-space   : nowrap;
+	overflow      : hidden;
+	text-overflow : ellipsis;
 `;
 export const DataPanelBodyNoDataCell = styled(DataPanelBodyDataCell)`
-	grid-column: span 4;
+	grid-column : span 4;
 `;
 export const DataPanelBodyBreakdownCell = styled(DataPanelBodyDataCell).attrs<{ breakdown: boolean }>({})<{ breakdown: boolean }>`
 	&:hover > span {
-		text-decoration: underline;
-		cursor: pointer;
+		text-decoration : underline;
+		cursor          : pointer;
 	}
 `;
 export const DataPanelBodyDataSeqCell = styled(DataPanelBodyDataCell)`
-	width: ${SEQ_WIDTH}px;
+	width : ${SEQ_WIDTH}px;
 `;
 const start = Color({r: 223, g: 27, b: 46});
 const end = Color({r: 128, g: 128, b: 128});
@@ -170,17 +170,17 @@ export const HorizontalValueBar = styled.div.attrs<{ value: number }>(({value}) 
 		}
 	};
 })<{ value: number }>`
-	display: flex;
-	align-items: center;
-	height: calc(var(--height) * 0.6);
-	border-radius: calc(var(--border-radius) / 2) calc(var(--height) * 0.3) calc(var(--height) * 0.3) calc(var(--border-radius) / 2);
-	padding: 0 calc(var(--margin) / 4);
-	overflow: hidden;
+	display       : flex;
+	align-items   : center;
+	height        : calc(var(--height) * 0.6);
+	border-radius : calc(var(--border-radius) / 2) calc(var(--height) * 0.3) calc(var(--height) * 0.3) calc(var(--border-radius) / 2);
+	padding       : 0 calc(var(--margin) / 4);
+	overflow      : hidden;
 `;
 export const HorizontalValue = styled.div.attrs({'data-widget': 'horizontal-value'})`
-	display: flex;
-	align-items: center;
-	height: calc(var(--height) * 0.6);
-	margin-left: calc(var(--margin) / 2);
-	overflow: hidden;
+	display     : flex;
+	align-items : center;
+	height      : calc(var(--height) * 0.6);
+	margin-left : calc(var(--margin) / 2);
+	overflow    : hidden;
 `;

@@ -7,7 +7,7 @@ export enum EChartsToolboxOrient {
 
 export interface EChartsToolbox extends EChartsPositionHolder {
 	show?: boolean;
-	orient?: EChartsToolboxOrient
+	orient?: EChartsToolboxOrient;
 }
 
 export interface EChartsToolboxHolder {

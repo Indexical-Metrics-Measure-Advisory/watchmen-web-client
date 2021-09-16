@@ -1,13 +1,8 @@
-import {BarChartSettings} from '../../services/tuples/chart-def/chart-bar';
-import {
-	PieChartSettings,
-	PieLabelAlignTo,
-	PieLabelPosition,
-	PieRoseType
-} from '../../services/tuples/chart-def/chart-pie';
-import {ChartDataSetRow, ChartType} from '../../services/tuples/chart-types';
-import {EChartsVerticalAlignment} from '../../services/tuples/echarts/echarts-alignment-types';
-import {ECharts} from '../../services/tuples/echarts/echarts-types';
+import {BarChartSettings} from '@/services/tuples/chart-def/chart-bar';
+import {PieChartSettings, PieLabelAlignTo, PieLabelPosition, PieRoseType} from '@/services/tuples/chart-def/chart-pie';
+import {ChartDataSetRow, ChartType} from '@/services/tuples/chart-types';
+import {EChartsVerticalAlignment} from '@/services/tuples/echarts/echarts-alignment-types';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
 import {cleanUselessValues} from './data-utils';
 import {PREDEFINED_GROUPING_FORMATS} from './number-format';
 import {TreeNode} from './tree-data-builder';

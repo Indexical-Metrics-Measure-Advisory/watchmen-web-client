@@ -1,10 +1,10 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useState} from 'react';
-import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL} from '../../../../basic-widgets/constants';
-import {TooltipAlignment} from '../../../../basic-widgets/types';
-import {MonitorLogAction, MonitorLogStatus} from '../../../../services/admin/logs';
-import {PipelineStageUnitAction} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {Topic} from '../../../../services/tuples/topic-types';
+import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL} from '@/basic-widgets/constants';
+import {TooltipAlignment} from '@/basic-widgets/types';
+import {MonitorLogAction, MonitorLogStatus} from '@/services/admin/logs';
+import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {ExpandToggleButton, TitleExecutionLabel, TitleLabel, TitleNameLabel} from '../widgets';
 import {AlarmLog} from './alarm-log';
 import {CopyToMemoryLog} from './copy-to-memory-log';

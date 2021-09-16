@@ -1,8 +1,8 @@
 import {ToolboxComponentOption} from 'echarts/components';
-import {ChartDataSet} from '../../services/tuples/chart-types';
-import {isBarChart, isLineChart, isScatterChart} from '../../services/tuples/chart-utils';
-import {ECharts} from '../../services/tuples/echarts/echarts-types';
-import {Report} from '../../services/tuples/report-types';
+import {ChartDataSet} from '@/services/tuples/chart-types';
+import {isBarChart, isLineChart, isScatterChart} from '@/services/tuples/chart-utils';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
+import {Report} from '@/services/tuples/report-types';
 import {cleanUselessValues} from './data-utils';
 
 // noinspection JSUnusedLocalSymbols

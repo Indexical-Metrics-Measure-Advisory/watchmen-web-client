@@ -1,4 +1,4 @@
-import {Topic} from '../../services/tuples/topic-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {Dayjs} from 'dayjs';
 
 export enum TopicProfileEventTypes {

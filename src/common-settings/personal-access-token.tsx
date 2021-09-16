@@ -1,17 +1,17 @@
 import React, {Fragment, useEffect, useRef, useState} from 'react';
-import {useForceUpdate} from '../basic-widgets/utils';
-import {SettingsSection, SettingsSectionBody, SettingsSectionTitle} from '../basic-widgets/settings/settings-section';
-import {ButtonInk} from '../basic-widgets/types';
-import {Button} from '../basic-widgets/button';
-import {PAT} from '../services/account/pat-types';
-import {createPAT, deletePAT, fetchPATs} from '../services/account/pat';
-import {ICON_DELETE} from '../basic-widgets/constants';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {SettingsSection, SettingsSectionBody, SettingsSectionTitle} from '@/basic-widgets/settings/settings-section';
+import {ButtonInk} from '@/basic-widgets/types';
+import {Button} from '@/basic-widgets/button';
+import {PAT} from '@/services/account/pat-types';
+import {createPAT, deletePAT, fetchPATs} from '@/services/account/pat';
+import {ICON_DELETE} from '@/basic-widgets/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
-import {useEventBus} from '../events/event-bus';
-import {EventTypes} from '../events/types';
-import {Input} from '../basic-widgets/input';
-import {AlertLabel} from '../alert/widgets';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Input} from '@/basic-widgets/input';
+import {AlertLabel} from '@/alert/widgets';
 
 const PATSectionBody = styled(SettingsSectionBody)`
 	grid-template-columns: 1fr auto;

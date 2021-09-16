@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {Topic} from '../../../../services/tuples/topic-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {
 	BlockContainer,
 	ChildrenBlock,
@@ -18,28 +18,22 @@ import {
 	TopicEditButton
 } from './widgets';
 import {getTopicName} from '../../utils';
-import {
-	ICON_COLLAPSE_CONTENT,
-	ICON_DELETE,
-	ICON_EXPAND_CONTENT,
-	ICON_LOOP,
-	ICON_PLAY
-} from '../../../../basic-widgets/constants';
+import {ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EXPAND_CONTENT, ICON_LOOP, ICON_PLAY} from '@/basic-widgets/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {Pipeline} from '../../../../services/tuples/pipeline-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
 import {PipelineBlock} from './pipeline-block';
-import {ButtonInk, TooltipAlignment} from '../../../../basic-widgets/types';
+import {ButtonInk, TooltipAlignment} from '@/basic-widgets/types';
 import {FlowTreeTopicNode} from './utils';
-import {useEventBus} from '../../../../events/event-bus';
-import {EventTypes} from '../../../../events/types';
-import {DialogBody, DialogFooter} from '../../../../dialog/widgets';
-import {Button} from '../../../../basic-widgets/button';
-import {Input} from '../../../../basic-widgets/input';
-import {Factor} from '../../../../services/tuples/factor-types';
-import {useForceUpdate} from '../../../../basic-widgets/utils';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {DialogBody, DialogFooter} from '@/dialog/widgets';
+import {Button} from '@/basic-widgets/button';
+import {Input} from '@/basic-widgets/input';
+import {Factor} from '@/services/tuples/factor-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
 import {useSimulatorEventBus} from '../../simulator-event-bus';
 import {SimulatorEventTypes} from '../../simulator-event-bus-types';
-import {AlertLabel} from '../../../../alert/widgets';
+import {AlertLabel} from '@/alert/widgets';
 import {ActiveStep} from '../state/types';
 import {v4} from 'uuid';
 import JSON5 from 'json5';

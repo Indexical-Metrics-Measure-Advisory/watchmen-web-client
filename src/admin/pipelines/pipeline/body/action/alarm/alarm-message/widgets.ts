@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Input} from '../../../../../../../basic-widgets/input';
+import {Input} from '@/basic-widgets/input';
 
 export const MessageInputContainer = styled.div.attrs({'data-widget': 'alarm-message'})`
 	display               : grid;

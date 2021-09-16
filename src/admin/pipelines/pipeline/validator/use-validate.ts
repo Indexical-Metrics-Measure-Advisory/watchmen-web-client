@@ -1,6 +1,6 @@
-import {Pipeline} from '../../../../services/tuples/pipeline-types';
-import {Topic} from '../../../../services/tuples/topic-types';
-import {validatePipeline} from '../../../../services/pipeline/pipeline-validate';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
+import {validatePipeline} from '@/services/pipeline/pipeline-validate';
 
 export interface Validation {
 	pass: boolean;

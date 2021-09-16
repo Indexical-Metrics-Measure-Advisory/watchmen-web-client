@@ -1,4 +1,4 @@
-import {Subject} from '../../services/tuples/subject-types';
+import {Subject} from '@/services/tuples/subject-types';
 
 export enum ConnectedSpaceEventTypes {
 	SUBJECT_ADDED = 'subject-added',

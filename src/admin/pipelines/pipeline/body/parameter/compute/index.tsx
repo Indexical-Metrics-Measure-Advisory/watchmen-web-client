@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
-import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {Parameter, ValueTypes} from '../../../../../../services/tuples/factor-calculator-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {Parameter, ValueTypes} from '@/services/tuples/factor-calculator-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {ParameterComputeTypeEditor} from '../compute-type';
 import {useParameterEventBus} from '../parameter/parameter-event-bus';
 import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';
 import {SubParameters} from './sub-parameters';
 import {ComputedEditContainer} from './widgets';
-import {isComputedParameter} from '../../../../../../services/tuples/parameter-utils';
+import {isComputedParameter} from '@/services/tuples/parameter-utils';
 
 export const ComputedEditor = (props: {
 	parameter: Parameter;

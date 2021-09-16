@@ -1,6 +1,6 @@
-import {DropdownOption} from '../../../../../../basic-widgets/types';
-import {Lang} from '../../../../../../langs';
-import {EChartsLegendOrient} from '../../../../../../services/tuples/echarts/echarts-legend-types';
+import {DropdownOption} from '@/basic-widgets/types';
+import {Lang} from '@/langs';
+import {EChartsLegendOrient} from '@/services/tuples/echarts/echarts-legend-types';
 
 export const LegendOrientOptions: Array<DropdownOption> = [
 	{value: EChartsLegendOrient.HORIZONTAL, label: Lang.CHART.LEGEND_ORIENT_HORIZONTAL},

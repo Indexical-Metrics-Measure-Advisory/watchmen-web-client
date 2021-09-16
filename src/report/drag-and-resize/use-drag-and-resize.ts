@@ -1,5 +1,5 @@
 import React, {RefObject, useState} from 'react';
-import {GraphicsPosition, GraphicsSize} from '../../services/graphics/graphics-types';
+import {GraphicsPosition, GraphicsSize} from '@/services/graphics/graphics-types';
 import {CHART_MIN_HEIGHT, CHART_MIN_WIDTH} from '../constants';
 import {DragType} from '../types';
 

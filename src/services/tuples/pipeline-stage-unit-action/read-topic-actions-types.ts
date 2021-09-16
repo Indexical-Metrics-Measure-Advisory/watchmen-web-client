@@ -17,7 +17,7 @@ export interface ReadRowAction extends ReadTopicAction {
 }
 
 export interface ReadRowsAction extends ReadTopicAction {
-	type: ReadTopicActionType.READ_ROWS
+	type: ReadTopicActionType.READ_ROWS;
 }
 
 export interface ReadFactorAction extends FromFactor, ReadTopicAction, AggregateArithmeticHolder {

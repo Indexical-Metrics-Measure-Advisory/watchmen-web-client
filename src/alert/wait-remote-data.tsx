@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {useEventBus} from '../events/event-bus';
-import {EventTypes} from '../events/types';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
 import {AlertContainer, WaitRemoteDataBody, WaitRemoveDataDialog} from './widgets';
 
 interface WaitRemoteDataState {
 	visible: boolean;
 	request?: () => Promise<any>;
-	content?: ((props: any) => React.ReactNode) | React.ReactNode
+	content?: ((props: any) => React.ReactNode) | React.ReactNode;
 }
 
 export const WaitRemoteData = () => {

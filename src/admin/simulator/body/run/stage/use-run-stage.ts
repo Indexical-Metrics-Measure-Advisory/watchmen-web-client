@@ -3,9 +3,9 @@ import {useEffect} from 'react';
 import {PipelineRuntimeContext, StageRunStatus, StageRuntimeContext} from '../types';
 import {generateRuntimeId} from '../utils';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
-import {useForceUpdate} from '../../../../../basic-widgets/utils';
+import {useForceUpdate} from '@/basic-widgets/utils';
 import {buildContextBody, createLogWriter} from './utils';
-import {connectSimulatorDB} from '../../../../../local-persist/db';
+import {connectSimulatorDB} from '@/local-persist/db';
 import dayjs from 'dayjs';
 
 export const useRunStage = (

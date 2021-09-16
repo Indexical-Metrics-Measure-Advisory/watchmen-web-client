@@ -1,5 +1,5 @@
-import {Input} from '../../../../basic-widgets/input';
-import {CheckBox} from '../../../../basic-widgets/checkbox';
+import {Input} from '@/basic-widgets/input';
+import {CheckBox} from '@/basic-widgets/checkbox';
 import React, {ChangeEvent, useState} from 'react';
 import {
 	PickerTableBody,
@@ -8,8 +8,8 @@ import {
 	PickerTableHeader,
 	PickerTableHeaderCell
 } from './widgets';
-import {Topic} from '../../../../services/tuples/topic-types';
-import {useForceUpdate} from '../../../../basic-widgets/utils';
+import {Topic} from '@/services/tuples/topic-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
 
 interface Filter {
 	value: string;

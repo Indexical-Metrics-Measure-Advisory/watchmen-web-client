@@ -1,11 +1,11 @@
-import {ConnectedSpace} from '../../../../../services/tuples/connected-space-types';
-import {Subject} from '../../../../../services/tuples/subject-types';
-import {Report} from '../../../../../services/tuples/report-types';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
+import {Subject} from '@/services/tuples/subject-types';
+import {Report} from '@/services/tuples/report-types';
 import {ReportDataSetAndPaletteContainer, TabHeader, TabHeaders} from './widget';
 import {useReportViewEventBus} from '../../report-view-event-bus';
 import React, {useEffect, useState} from 'react';
 import {ReportViewEventTypes} from '../../report-view-event-bus-types';
-import {Lang} from '../../../../../langs';
+import {Lang} from '@/langs';
 import {
 	canHoldLegend,
 	canHoldTitle,
@@ -13,7 +13,7 @@ import {
 	canUseXAxis,
 	canUseYAxis,
 	isEChart
-} from '../../../../../services/tuples/echarts/echarts-utils';
+} from '@/services/tuples/echarts/echarts-utils';
 import {BasicStyleSection} from '../basic-style';
 import {TabBody} from './tab-body';
 import {EChartsTitleSettings} from '../echarts/title';
@@ -33,7 +33,7 @@ import {
 	isSunburstChart,
 	isTreeChart,
 	isTreemapChart
-} from '../../../../../services/tuples/chart-utils';
+} from '@/services/tuples/chart-utils';
 import {ChartBarSettings} from '../chart-bar-settings';
 import {ChartPieSettings} from '../chart-pie-settings';
 import {ChartTreeSettings} from '../chart-tree-settings';
@@ -43,7 +43,7 @@ import {EChartsXAxisSettings} from '../echarts/xaxis';
 import {EChartsYAxisSettings} from '../echarts/yaxis';
 import {DataSetTab} from '../dataset-tab';
 import {FilterTab} from '../filter-tab';
-import {isReportFilterEnabled} from '../../../../../feature-switch';
+import {isReportFilterEnabled} from '@/feature-switch';
 
 enum TABS {
 	DATASET = 'dataset',

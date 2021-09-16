@@ -65,10 +65,10 @@ const AButton = styled.button`
 		}
 	}
 	&[disabled] {
-		cursor: default;
-		background-color: var(--waive-color);
+		cursor           : default;
+		background-color : var(--waive-color);
 		&:hover {
-			box-shadow: none;
+			box-shadow : none;
 		}
 	}
 	&:hover {

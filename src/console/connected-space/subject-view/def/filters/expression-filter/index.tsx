@@ -1,12 +1,9 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent} from 'react';
-import {ICON_DELETE} from '../../../../../../basic-widgets/constants';
-import {Lang} from '../../../../../../langs';
-import {
-	SubjectDataSetFilterExpression,
-	SubjectDataSetFilterJoint
-} from '../../../../../../services/tuples/subject-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {ICON_DELETE} from '@/basic-widgets/constants';
+import {Lang} from '@/langs';
+import {SubjectDataSetFilterExpression, SubjectDataSetFilterJoint} from '@/services/tuples/subject-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {FilterEventBusProvider} from '../filter-event-bus';
 import {HierarchicalFilterEventBridge} from '../hierarchical-filter-event-bridge';
 import {RemoveFilterIcon} from '../widgets';

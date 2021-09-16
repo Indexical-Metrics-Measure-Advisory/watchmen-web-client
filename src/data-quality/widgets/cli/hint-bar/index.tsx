@@ -12,7 +12,7 @@ import {CliEventTypes} from '../events/cli-event-bus-types';
 import {Command} from '../../../command/types';
 import {matchCommand} from '../utils';
 import {MatchedCommands} from '../types';
-import {ICON_SEND} from '../../../../basic-widgets/constants';
+import {ICON_SEND} from '@/basic-widgets/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 interface Hints {

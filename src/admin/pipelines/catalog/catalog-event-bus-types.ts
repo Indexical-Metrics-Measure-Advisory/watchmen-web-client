@@ -1,6 +1,6 @@
-import {Topic} from '../../../services/tuples/topic-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {AssembledPipelinesGraphics, AssembledTopicGraphics} from './types';
-import {PipelinesGraphics} from '../../../services/tuples/pipeline-types';
+import {PipelinesGraphics} from '@/services/tuples/pipeline-types';
 
 export enum CatalogEventTypes {
 	TOPIC_SELECTED = 'topic-selected',

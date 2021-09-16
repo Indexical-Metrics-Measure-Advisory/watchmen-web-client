@@ -15,5 +15,5 @@ export interface ConsoleSettings {
 	dashboards: Array<Dashboard>;
 	favorite: Favorite;
 
-	lastSnapshot: LastSnapshot
+	lastSnapshot: LastSnapshot;
 }

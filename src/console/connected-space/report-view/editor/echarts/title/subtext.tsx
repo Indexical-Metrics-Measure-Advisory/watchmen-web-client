@@ -1,6 +1,6 @@
 import React from 'react';
-import {Lang} from '../../../../../../langs';
-import {Report} from '../../../../../../services/tuples/report-types';
+import {Lang} from '@/langs';
+import {Report} from '@/services/tuples/report-types';
 import {onTextValueChange} from '../../data-utils';
 import {EChartsTitlePropNames} from '../../prop-defs/echart-styles/echarts-title-props';
 import {useReportEditEventBus} from '../../report-edit-event-bus';
@@ -8,7 +8,7 @@ import {ReportEditEventTypes} from '../../report-edit-event-bus-types';
 import {TextValue} from '../../settings-widgets/text-value';
 import {FontSettings, SettingsFontPropNames} from '../font';
 import {useChartType} from '../../settings-effect/use-chart-type';
-import {canHoldTitle, isEChart} from '../../../../../../services/tuples/echarts/echarts-utils';
+import {canHoldTitle, isEChart} from '@/services/tuples/echarts/echarts-utils';
 import {TabBodySection, TabBodySectionBody, TabBodySectionTitle} from '../../dataset-and-palette/widget';
 
 export const EChartsTitleSubtextSettings = (props: { report: Report }) => {

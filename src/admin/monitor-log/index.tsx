@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {FullWidthPage} from '../../basic-widgets/page';
-import {fetchAllPipelines} from '../../services/pipeline/all-pipelines';
-import {fetchAllTopics} from '../../services/pipeline/all-topics';
-import {Pipeline} from '../../services/tuples/pipeline-types';
-import {Topic} from '../../services/tuples/topic-types';
+import {FullWidthPage} from '@/basic-widgets/page';
+import {fetchAllPipelines} from '@/services/pipeline/all-pipelines';
+import {fetchAllTopics} from '@/services/pipeline/all-topics';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {MonitorLogEventBusProvider} from './monitor-log-event-bus';
 import {SearchCriteria} from './search-criteria';
 import {SearchResult} from './search-result';
 import {Body} from './widgets';
-import {FullWidthPageHeaderContainer, PageTitle} from '../../basic-widgets/page-header';
+import {FullWidthPageHeaderContainer, PageTitle} from '@/basic-widgets/page-header';
 
 interface State {
 	topics: Array<Topic>;

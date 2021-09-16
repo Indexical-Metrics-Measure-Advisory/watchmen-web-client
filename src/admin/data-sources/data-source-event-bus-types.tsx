@@ -1,4 +1,4 @@
-import {DataSource} from '../../services/tuples/data-source-types';
+import {DataSource} from '@/services/tuples/data-source-types';
 
 export enum DataSourceEventTypes {
 	DATASOURCE_CODE_CHANGED = 'data-source-name-changed',

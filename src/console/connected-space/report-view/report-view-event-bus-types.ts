@@ -1,4 +1,4 @@
-import {Report} from '../../../services/tuples/report-types';
+import {Report} from '@/services/tuples/report-types';
 
 export enum ReportViewEventTypes {
 	REFRESH_REPORTS = 'refresh-reports',

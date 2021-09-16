@@ -25,11 +25,11 @@ export interface Pipeline extends Tuple, Conditional {
 export interface PipelineBlockGraphicsRect {
 	coordinate: BlockCoordinate;
 	frame: BlockFrame;
-	name: BlockName
+	name: BlockName;
 }
 
 export interface PipelineBlockGraphics {
-	rect: PipelineBlockGraphicsRect
+	rect: PipelineBlockGraphicsRect;
 }
 
 export interface TopicGraphics extends PipelineBlockGraphics {

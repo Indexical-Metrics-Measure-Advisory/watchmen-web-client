@@ -1,9 +1,9 @@
 import {ActionRuntimeContext, InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
-import {isReadFactorsAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {isReadFactorsAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {prepareBy, prepareFactor, prepareTopic, prepareVariable} from './utils';
 import {computeJoint} from '../../compute/condition-compute';
 import {computeTopicFactor} from '../../compute/parameter-compute';
-import {ParameterKind, TopicFactorParameter} from '../../../../../../services/tuples/factor-calculator-types';
+import {ParameterKind, TopicFactorParameter} from '@/services/tuples/factor-calculator-types';
 import {ParameterShouldBe} from '../../compute/types';
 
 export const runReadFactors = async (options: {

@@ -1,8 +1,8 @@
 import React from 'react';
-import {Lang} from '../../../../../langs';
-import {BarLabelPosition} from '../../../../../services/tuples/chart-def/chart-bar';
-import {isBarChart, isLineChart} from '../../../../../services/tuples/chart-utils';
-import {Report} from '../../../../../services/tuples/report-types';
+import {Lang} from '@/langs';
+import {BarLabelPosition} from '@/services/tuples/chart-def/chart-bar';
+import {isBarChart, isLineChart} from '@/services/tuples/chart-utils';
+import {Report} from '@/services/tuples/report-types';
 import {
 	isANumberAndInRange,
 	onBooleanChange,

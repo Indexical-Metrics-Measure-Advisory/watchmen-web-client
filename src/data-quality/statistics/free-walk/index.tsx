@@ -15,22 +15,22 @@ import {
 	HorizontalValue,
 	HorizontalValueBar
 } from '../data-panel/widgets';
-import {MonitorRuleCode, MonitorRuleLog, MonitorRuleLogs} from '../../../services/data-quality/rule-types';
+import {MonitorRuleCode, MonitorRuleLog, MonitorRuleLogs} from '@/services/data-quality/rule-types';
 import {RuleDefs} from '../../rule-defs';
-import {ICON_REFRESH} from '../../../basic-widgets/constants';
-import {useEventBus} from '../../../events/event-bus';
+import {ICON_REFRESH} from '@/basic-widgets/constants';
+import {useEventBus} from '@/events/event-bus';
 import {DataPanelCriteria, DataPanelCriteriaLabel} from './widgets';
-import {Calendar} from '../../../basic-widgets/calendar';
-import {Dropdown} from '../../../basic-widgets/dropdown';
-import {DropdownOption} from '../../../basic-widgets/types';
-import {Topic} from '../../../services/tuples/topic-types';
+import {Calendar} from '@/basic-widgets/calendar';
+import {Dropdown} from '@/basic-widgets/dropdown';
+import {DropdownOption} from '@/basic-widgets/types';
+import {Topic} from '@/services/tuples/topic-types';
 import {useDataQualityCacheEventBus} from '../../cache/cache-event-bus';
 import {DataQualityCacheEventTypes} from '../../cache/cache-event-bus-types';
 import {DQCCacheData} from '../../cache/types';
 import {getTopicName} from '../../utils';
 import dayjs from 'dayjs';
-import {EventTypes} from '../../../events/types';
-import {fetchMonitorRuleLogs} from '../../../services/data-quality/rules';
+import {EventTypes} from '@/events/types';
+import {fetchMonitorRuleLogs} from '@/services/data-quality/rules';
 
 const GRID_ALL_COLUMNS = '20% 15% 20% 1fr 150px';
 const GRID_COLUMNS_NO_FACTOR = '20% 20% 1fr 150px';

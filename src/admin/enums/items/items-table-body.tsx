@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {v4} from 'uuid';
-import {Dropdown} from '../../../basic-widgets/dropdown';
-import {DropdownOption} from '../../../basic-widgets/types';
-import {useForceUpdate} from '../../../basic-widgets/utils';
-import {fetchEnum} from '../../../services/tuples/enum';
-import {Enum, EnumItem} from '../../../services/tuples/enum-types';
+import {Dropdown} from '@/basic-widgets/dropdown';
+import {DropdownOption} from '@/basic-widgets/types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {fetchEnum} from '@/services/tuples/enum';
+import {Enum, EnumItem} from '@/services/tuples/enum-types';
 import {useEnumEventBus} from '../enum-event-bus';
 import {EnumEventTypes} from '../enum-event-bus-types';
 import {
@@ -16,7 +16,7 @@ import {
 
 interface EnumItemDelegate extends EnumItem {
 	parentLabel?: string;
-	original: EnumItem
+	original: EnumItem;
 }
 
 const PAGE_SIZE = 100;

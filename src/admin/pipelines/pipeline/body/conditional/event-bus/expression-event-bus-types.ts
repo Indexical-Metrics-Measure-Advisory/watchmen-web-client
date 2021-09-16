@@ -1,4 +1,4 @@
-import {ParameterExpression} from '../../../../../../services/tuples/factor-calculator-types';
+import {ParameterExpression} from '@/services/tuples/factor-calculator-types';
 
 export enum ExpressionEventTypes {
 	LEFT_CHANGED = 'left-changed',

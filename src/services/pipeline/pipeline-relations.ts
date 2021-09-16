@@ -10,7 +10,7 @@ import {
 	isWriteFactorAction,
 	isWriteTopicAction
 } from '../tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
-import {getTopicName} from '../../data-quality/utils';
+import {getTopicName} from '@/data-quality/utils';
 import {
 	ComputedParameter,
 	ConstantParameter,
@@ -59,7 +59,7 @@ export interface TopicRelation {
 	trigger: Array<Pipeline>;
 	readMe: Array<Pipeline>;
 	writeMe: Array<Pipeline>;
-	notUsedFactors: Array<NotUsedFactor>
+	notUsedFactors: Array<NotUsedFactor>;
 }
 
 export type TopicRelationMap = { [key in string]: TopicRelation };

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Button} from '../../../../basic-widgets/button';
+import {Button} from '@/basic-widgets/button';
 
 export const TupleCreateButton = styled(Button).attrs({'data-widget': 'tuple-create-button'})`
 	font-variant     : petite-caps;
@@ -24,7 +24,7 @@ export const TupleCreateButton = styled(Button).attrs({'data-widget': 'tuple-cre
 		z-index : 1;
 	}
 	&:not(:last-child) {
-		border-radius    : 0;
+		border-radius : 0;
 	}
 	> svg {
 		font-size    : 0.7em;

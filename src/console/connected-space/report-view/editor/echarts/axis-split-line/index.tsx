@@ -1,13 +1,13 @@
 import React from 'react';
-import {Lang} from '../../../../../../langs';
+import {Lang} from '@/langs';
 import {
 	EChartsAxisMinorSplitLineHolder,
 	EChartsAxisSplitLine,
 	EChartsAxisSplitLineHolder,
 	EChartsAxisSplitLineStyle
-} from '../../../../../../services/tuples/echarts/echarts-axis-split-line-types';
-import {ECharts} from '../../../../../../services/tuples/echarts/echarts-types';
-import {Report} from '../../../../../../services/tuples/report-types';
+} from '@/services/tuples/echarts/echarts-axis-split-line-types';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
+import {Report} from '@/services/tuples/report-types';
 import {onBooleanChange, onColorChange, onDropdownValueChange, onNumberChange, validateNumber} from '../../data-utils';
 import {AxisSplitLineStyleOptions} from '../../prop-defs/dropdown-options/axis-dropdown-options';
 import {EChartsXAxisPropNames} from '../../prop-defs/echart-styles/echarts-xaxis-props';

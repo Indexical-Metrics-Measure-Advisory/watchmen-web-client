@@ -30,7 +30,7 @@ export interface TopicProfileCategoricalFactor extends TopicProfileFactor {
 		counts: Array<number>;
 		bin_edges: Array<number>;
 	};
-	first_rows: { [key in string]: string }
+	first_rows: { [key in string]: string };
 	mode: string;
 }
 
@@ -113,5 +113,5 @@ export interface TopicProfileData {
 		pandas_profiling_config: string;
 	};
 	sample: [];
-	duplicates: 'None'
+	duplicates: 'None';
 }

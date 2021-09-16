@@ -5,8 +5,8 @@ export const PipelineEditor = styled.div.attrs({'data-widget': 'pipeline-editor'
 	//position       : relative;
 	//flex-grow      : 1;
 	//flex-direction : column;
-	display: block;
-	padding: calc(var(--margin) / 2) var(--margin);
-	overflow-y: auto;
-	max-height: 100%;
+	display    : block;
+	padding    : calc(var(--margin) / 2) var(--margin);
+	overflow-y : auto;
+	max-height : 100%;
 `;

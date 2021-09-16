@@ -1,6 +1,6 @@
-import {DropdownOption} from '../../../../../../basic-widgets/types';
-import {Lang} from '../../../../../../langs';
-import {BarLabelPosition} from '../../../../../../services/tuples/chart-def/chart-bar';
+import {DropdownOption} from '@/basic-widgets/types';
+import {Lang} from '@/langs';
+import {BarLabelPosition} from '@/services/tuples/chart-def/chart-bar';
 
 export const BarLabelPositionOptions: Array<DropdownOption> = [
 	{value: BarLabelPosition.TOP, label: Lang.CHART.LABEL_POSITION_TOP},

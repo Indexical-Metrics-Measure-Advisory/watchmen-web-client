@@ -1,5 +1,5 @@
 import React from 'react';
-import {Report} from '../services/tuples/report-types';
+import {Report} from '@/services/tuples/report-types';
 import {Container} from './container';
 
 export const Chart = (props: {

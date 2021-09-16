@@ -1,9 +1,9 @@
 import React, {Fragment, useEffect} from 'react';
-import {Button} from '../basic-widgets/button';
-import {ButtonInk} from '../basic-widgets/types';
-import {useEventBus} from '../events/event-bus';
-import {EventTypes} from '../events/types';
-import {Lang} from '../langs';
+import {Button} from '@/basic-widgets/button';
+import {ButtonInk} from '@/basic-widgets/types';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Lang} from '@/langs';
 import {DialogBody, DialogFooter, DialogLabel} from './widgets';
 
 const YesNoContent = (props: {

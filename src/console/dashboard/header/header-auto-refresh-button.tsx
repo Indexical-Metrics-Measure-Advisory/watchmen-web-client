@@ -1,11 +1,11 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useState} from 'react';
-import {ICON_AUTO_REFRESH} from '../../../basic-widgets/constants';
-import {PageHeaderButton} from '../../../basic-widgets/page-header-buttons';
-import {ButtonInk} from '../../../basic-widgets/types';
-import {useForceUpdate} from '../../../basic-widgets/utils';
-import {Lang} from '../../../langs';
-import {Dashboard} from '../../../services/tuples/dashboard-types';
+import {ICON_AUTO_REFRESH} from '@/basic-widgets/constants';
+import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
+import {ButtonInk} from '@/basic-widgets/types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {Lang} from '@/langs';
+import {Dashboard} from '@/services/tuples/dashboard-types';
 import {REPORT_AUTO_REFRESH_INTERVAL} from '../constants';
 import {useDashboardEventBus} from '../dashboard-event-bus';
 import {DashboardEventTypes} from '../dashboard-event-bus-types';

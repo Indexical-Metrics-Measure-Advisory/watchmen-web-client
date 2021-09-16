@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
-import {PipelineStage} from '../../../../../services/tuples/pipeline-stage-types';
-import {Pipeline} from '../../../../../services/tuples/pipeline-types';
+import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
 import {usePipelineEventBus} from '../../pipeline-event-bus';
 import {PipelineEventTypes} from '../../pipeline-event-bus-types';
 import {useStageEventBus} from '../stage/stage-event-bus';

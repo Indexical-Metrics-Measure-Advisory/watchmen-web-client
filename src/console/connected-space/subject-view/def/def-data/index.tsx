@@ -1,15 +1,17 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import {AlertLabel} from '../../../../../alert/widgets';
-import {useEventBus} from '../../../../../events/event-bus';
-import {EventTypes} from '../../../../../events/types';
-import {Lang} from '../../../../../langs';
-import {Router} from '../../../../../routes/types';
-import {AvailableSpaceInConsole} from '../../../../../services/console/settings-types';
-import {ConnectedSpace} from '../../../../../services/tuples/connected-space-types';
-import {Subject} from '../../../../../services/tuples/subject-types';
-import {Topic} from '../../../../../services/tuples/topic-types';
+import {AlertLabel} from '@/alert/widgets';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Lang} from '@/langs';
+import {Router} from '@/routes/types';
+import {AvailableSpaceInConsole} from '@/services/console/settings-types';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
+import {Subject} from '@/services/tuples/subject-types';
+import {Topic} from '@/services/tuples/topic-types';
+// noinspection ES6PreferShortImport
 import {useConsoleEventBus} from '../../../../console-event-bus';
+// noinspection ES6PreferShortImport
 import {ConsoleEventTypes} from '../../../../console-event-bus-types';
 import {computeRelatedTopicIds} from '../../../subject-data-utils';
 import {useSubjectDefEventBus} from '../subject-def-event-bus';

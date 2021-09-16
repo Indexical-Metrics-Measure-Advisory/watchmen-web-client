@@ -1,11 +1,11 @@
-import {isCopyToMemoryLog, MonitorLogAction} from '../../../../services/admin/logs';
+import {isCopyToMemoryLog, MonitorLogAction} from '@/services/admin/logs';
 import {
 	PipelineStageUnitAction,
 	SystemActionType
-} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {isCopyToMemoryAction} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
-import {CopyToMemoryAction} from '../../../../services/tuples/pipeline-stage-unit-action/system-actions-types';
-import {isMockService} from '../../../../services/utils';
+} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {isCopyToMemoryAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {CopyToMemoryAction} from '@/services/tuples/pipeline-stage-unit-action/system-actions-types';
+import {isMockService} from '@/services/utils';
 import {BodyLabel, BodyValue} from './widgets';
 
 const redressAction = (action: any): CopyToMemoryAction => {

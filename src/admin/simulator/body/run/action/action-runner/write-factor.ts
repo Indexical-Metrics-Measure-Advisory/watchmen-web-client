@@ -1,5 +1,5 @@
 import {ActionRuntimeContext, InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
-import {isWriteFactorAction} from '../../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {isWriteFactorAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {
 	AGGREGATE_ASSIST_FACTOR_NAME,
 	AGGREGATE_AVG_COUNT_PROP_NAME,
@@ -13,7 +13,7 @@ import {
 } from './utils';
 import {computeJoint} from '../../compute/condition-compute';
 import {computeParameter} from '../../compute/parameter-compute';
-import {AggregateArithmetic} from '../../../../../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
+import {AggregateArithmetic} from '@/services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
 
 export const runWriteFactor = async (options: {
 	pipelineContext: PipelineRuntimeContext,

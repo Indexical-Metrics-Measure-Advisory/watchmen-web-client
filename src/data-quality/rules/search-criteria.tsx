@@ -1,19 +1,19 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useState} from 'react';
-import {Button} from '../../basic-widgets/button';
-import {ICON_SEARCH, ICON_SELECTED} from '../../basic-widgets/constants';
-import {Dropdown} from '../../basic-widgets/dropdown';
-import {ButtonInk, DropdownOption} from '../../basic-widgets/types';
+import {Button} from '@/basic-widgets/button';
+import {ICON_SEARCH, ICON_SELECTED} from '@/basic-widgets/constants';
+import {Dropdown} from '@/basic-widgets/dropdown';
+import {ButtonInk, DropdownOption} from '@/basic-widgets/types';
 import {GradePickerContainer, SearchCriteriaContainer, SearchLabel} from './widgets';
 import {useRulesEventBus} from './rules-event-bus';
 import {RulesEventTypes} from './rules-event-bus-types';
 import {useDataQualityCacheData} from '../cache/use-cache-data';
 import {DQCCacheData} from '../cache/types';
-import {Topic} from '../../services/tuples/topic-types';
-import {EventTypes} from '../../events/types';
-import {AlertLabel} from '../../alert/widgets';
-import {useEventBus} from '../../events/event-bus';
-import {MonitorRuleGrade, MonitorRulesCriteria} from '../../services/data-quality/rule-types';
+import {Topic} from '@/services/tuples/topic-types';
+import {EventTypes} from '@/events/types';
+import {AlertLabel} from '@/alert/widgets';
+import {useEventBus} from '@/events/event-bus';
+import {MonitorRuleGrade, MonitorRulesCriteria} from '@/services/data-quality/rule-types';
 
 export const SearchCriteria = () => {
 	const {fire: fireGlobal} = useEventBus();

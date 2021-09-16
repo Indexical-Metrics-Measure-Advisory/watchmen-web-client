@@ -1,5 +1,5 @@
-import {ConnectedSpace} from '../../../../services/tuples/connected-space-types';
-import {Subject} from '../../../../services/tuples/subject-types';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
+import {Subject} from '@/services/tuples/subject-types';
 import {
 	ReportCard,
 	ReportCardDescription,
@@ -9,14 +9,14 @@ import {
 	ReportListContainer,
 	ReportListScroller
 } from './widgets';
-import {TooltipAlignment} from '../../../../basic-widgets/types';
+import {TooltipAlignment} from '@/basic-widgets/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_DIMENSION, ICON_FILTER, ICON_INDICATOR} from '../../../../basic-widgets/constants';
+import {ICON_DIMENSION, ICON_FILTER, ICON_INDICATOR} from '@/basic-widgets/constants';
 import React from 'react';
-import {Report} from '../../../../services/tuples/report-types';
+import {Report} from '@/services/tuples/report-types';
 import {useHistory} from 'react-router-dom';
-import {toSubjectReport} from '../../../../routes/utils';
-import {Lang} from '../../../../langs';
+import {toSubjectReport} from '@/routes/utils';
+import {Lang} from '@/langs';
 
 export const ReportList = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const {connectedSpace, subject} = props;

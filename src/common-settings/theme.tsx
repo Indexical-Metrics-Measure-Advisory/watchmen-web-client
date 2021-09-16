@@ -1,12 +1,12 @@
 import React from 'react';
-import {DropdownOption} from '../basic-widgets/types';
-import {useForceUpdate} from '../basic-widgets/utils';
-import {Dropdown} from '../basic-widgets/dropdown';
-import {getCurrentThemeCode} from '../theme/theme-wrapper';
-import {EventTypes} from '../events/types';
-import {useEventBus} from '../events/event-bus';
-import {saveLastSnapshot} from '../services/account/last-snapshot';
-import {SettingsSection, SettingsSectionBody, SettingsSectionTitle} from '../basic-widgets/settings/settings-section';
+import {DropdownOption} from '@/basic-widgets/types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {Dropdown} from '@/basic-widgets/dropdown';
+import {getCurrentThemeCode} from '@/theme/theme-wrapper';
+import {EventTypes} from '@/events/types';
+import {useEventBus} from '@/events/event-bus';
+import {saveLastSnapshot} from '@/services/account/last-snapshot';
+import {SettingsSection, SettingsSectionBody, SettingsSectionTitle} from '@/basic-widgets/settings/settings-section';
 
 export const ThemeSettings = (props: {
 	title?: string;
@@ -30,7 +30,7 @@ export const ThemeSettings = (props: {
 		(async () => {
 			try {
 				await saveLastSnapshot({theme: code});
-			} catch (e) {
+			} catch (e: any) {
 				// ignore
 				console.info(e);
 			}

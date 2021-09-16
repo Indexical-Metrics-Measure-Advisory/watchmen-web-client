@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
-import {Report} from '../../../../../services/tuples/report-types';
+import {Report} from '@/services/tuples/report-types';
 import {ReportNoFilter, ReportNoFilterCreateButton} from './widgets';
-import {Lang} from '../../../../../langs';
+import {Lang} from '@/langs';
 import {useReportEditEventBus} from '../report-edit-event-bus';
-import {ParameterExpressionOperator, ParameterJointType} from '../../../../../services/tuples/factor-calculator-types';
+import {ParameterExpressionOperator, ParameterJointType} from '@/services/tuples/factor-calculator-types';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
-import {createConstantParameter, createTopicFactorParameter} from '../../../../../services/tuples/parameter-utils';
-import {useForceUpdate} from '../../../../../basic-widgets/utils';
+import {createConstantParameter, createTopicFactorParameter} from '@/services/tuples/parameter-utils';
+import {useForceUpdate} from '@/basic-widgets/utils';
 
 export const NoFilter = (props: { report: Report }) => {
 	const {report} = props;

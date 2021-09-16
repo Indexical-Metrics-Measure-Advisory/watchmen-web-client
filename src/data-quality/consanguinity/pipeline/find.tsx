@@ -1,8 +1,8 @@
 import {ExecutionContent} from '../../widgets/cli/types';
 import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
 import React, {useState} from 'react';
-import {DataQualityCacheData} from '../../../local-persist/types';
-import {Pipeline} from '../../../services/tuples/pipeline-types';
+import {DataQualityCacheData} from '@/local-persist/types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
 import {CliEventTypes} from '../../widgets/cli/events/cli-event-bus-types';
 import {buildViewPipelineCommand} from './commands';
 import {

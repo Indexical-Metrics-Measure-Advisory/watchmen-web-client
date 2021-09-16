@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {TooltipButton} from '../../../basic-widgets/tooltip-button';
+import {TooltipButton} from '@/basic-widgets/tooltip-button';
 
 export const CLIContainer = styled.div.attrs({'data-widget': 'cli'})`
 	display: flex;

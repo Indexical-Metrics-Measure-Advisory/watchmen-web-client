@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {DROPDOWN_Z_INDEX} from '../../../../../basic-widgets/constants';
+import {DROPDOWN_Z_INDEX} from '@/basic-widgets/constants';
 
 export const JoinsContainer = styled.div.attrs<{ active: boolean }>(({active}) => {
 	return {

@@ -1,13 +1,13 @@
-import {Topic} from '../../services/tuples/topic-types';
-import {useEventBus} from '../../events/event-bus';
+import {Topic} from '@/services/tuples/topic-types';
+import {useEventBus} from '@/events/event-bus';
 import React, {ChangeEvent, useState} from 'react';
-import {EventTypes} from '../../events/types';
-import {DialogBody, DialogFooter} from '../../dialog/widgets';
-import {CheckBox} from '../../basic-widgets/checkbox';
-import {Button} from '../../basic-widgets/button';
-import {ButtonInk} from '../../basic-widgets/types';
+import {EventTypes} from '@/events/types';
+import {DialogBody, DialogFooter} from '@/dialog/widgets';
+import {CheckBox} from '@/basic-widgets/checkbox';
+import {Button} from '@/basic-widgets/button';
+import {ButtonInk} from '@/basic-widgets/types';
 import styled from 'styled-components';
-import {AlertLabel} from '../../alert/widgets';
+import {AlertLabel} from '@/alert/widgets';
 import JSZip from 'jszip';
 import {generateMySQLCreateSQLScripts} from './script-generation/mysql-sql-creation';
 import dayjs from 'dayjs';
@@ -15,7 +15,7 @@ import {generateOracleCreateSQLScripts} from './script-generation/oracle-sql-cre
 import {generateMySQLAlterSQLScripts} from './script-generation/mysql-sql-alteration';
 import {generateOracleAlterSQLScripts} from './script-generation/oracle-sql-alteration';
 import {generateLiquibaseScripts} from './script-generation/liquibase';
-import {Input} from '../../basic-widgets/input';
+import {Input} from '@/basic-widgets/input';
 
 interface Filter {
 	value: string;
@@ -23,91 +23,91 @@ interface Filter {
 }
 
 const SwitchDialogBody = styled(DialogBody)`
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: auto auto 1fr auto auto auto;
-	margin-bottom: var(--margin);
+	display               : grid;
+	grid-template-columns : 1fr;
+	grid-template-rows    : auto auto 1fr auto auto auto;
+	margin-bottom         : var(--margin);
 `;
 const TopicTableHeader = styled.div`
-	display: grid;
-	position: relative;
-	grid-template-columns: 40px 60px 1fr;
+	display               : grid;
+	position              : relative;
+	grid-template-columns : 40px 60px 1fr;
 `;
 const HeaderCell = styled.div`
-	display: flex;
-	align-items: center;
-	height: var(--height);
-	font-weight: var(--font-bold);
-	font-variant: petite-caps;
-	padding: 0 calc(var(--margin) / 4);
+	display      : flex;
+	align-items  : center;
+	height       : var(--height);
+	font-weight  : var(--font-bold);
+	font-variant : petite-caps;
+	padding      : 0 calc(var(--margin) / 4);
 	> input {
-		border-top: 0;
-		border-left: 0;
-		border-right: 0;
-		border-radius: 0;
-		height: calc(var(--height) * 0.8);
-		width: 100%;
-		padding: 0;
-		margin-bottom: -1px;
-		margin-left: calc(var(--margin) / 2);
+		border-top    : 0;
+		border-left   : 0;
+		border-right  : 0;
+		border-radius : 0;
+		height        : calc(var(--height) * 0.8);
+		width         : 100%;
+		padding       : 0;
+		margin-bottom : -1px;
+		margin-left   : calc(var(--margin) / 2);
 	}
 `;
 const TopicTableBody = styled.div.attrs({'data-v-scroll': ''})`
-	display: block;
-	position: relative;
-	overflow-y: auto;
+	display    : block;
+	position   : relative;
+	overflow-y : auto;
 `;
 const BodyRow = styled.div`
-	display: grid;
-	position: relative;
-	grid-template-columns: 40px 60px 1fr;
+	display               : grid;
+	position              : relative;
+	grid-template-columns : 40px 60px 1fr;
 	&:nth-child(2n) {
-		background-color: var(--grid-rib-bg-color);
+		background-color : var(--grid-rib-bg-color);
 	}
 	&:hover {
-		background-color: var(--hover-color);
+		background-color : var(--hover-color);
 	}
 `;
 const BodyCell = styled.div`
-	display: flex;
-	align-items: center;
-	height: var(--height);
-	padding: 0 calc(var(--margin) / 4);
+	display     : flex;
+	align-items : center;
+	height      : var(--height);
+	padding     : 0 calc(var(--margin) / 4);
 `;
 const DownloadOptionsBar = styled.div`
-	display: flex;
-	flex-direction: column;
+	display        : flex;
+	flex-direction : column;
 `;
 const DatabaseBar = styled.div`
-	display: grid;
-	grid-template-columns: 120px auto auto auto auto 1fr;
-	align-items: center;
-	height: calc(var(--height) * 1.5);
+	display               : grid;
+	grid-template-columns : 120px auto auto auto auto 1fr;
+	align-items           : center;
+	height                : calc(var(--height) * 1.5);
 `;
 const ScriptTypeBar = styled.div`
-	display: grid;
-	grid-template-columns: 120px auto auto auto auto 1fr;
-	align-items: center;
-	height: calc(var(--height) * 1.5);
+	display               : grid;
+	grid-template-columns : 120px auto auto auto auto 1fr;
+	align-items           : center;
+	height                : calc(var(--height) * 1.5);
 `;
 const ScriptFormatBar = styled.div`
-	display: grid;
-	grid-template-columns: 120px auto auto auto auto 1fr;
-	align-items: center;
-	height: calc(var(--height) * 1.5);
+	display               : grid;
+	grid-template-columns : 120px auto auto auto auto 1fr;
+	align-items           : center;
+	height                : calc(var(--height) * 1.5);
 `;
 const DownloadOptionLeadLabel = styled.div`
-	display: flex;
-	align-items: center;
-	height: var(--height);
-	font-variant: petite-caps;
-	font-weight: var(--font-bold);
+	display      : flex;
+	align-items  : center;
+	height       : var(--height);
+	font-variant : petite-caps;
+	font-weight  : var(--font-bold);
 `;
 const DownloadOptionLabel = styled.div`
-	display: flex;
-	align-items: center;
-	height: var(--height);
-	margin: 0 calc(var(--margin) / 2);
+	display     : flex;
+	align-items : center;
+	height      : var(--height);
+	margin      : 0 calc(var(--margin) / 2);
 `;
 
 enum Database {

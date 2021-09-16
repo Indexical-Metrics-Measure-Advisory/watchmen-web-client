@@ -1,13 +1,10 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect} from 'react';
 import {v4} from 'uuid';
-import {ICON_ADD} from '../../../../../../basic-widgets/constants';
-import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {
-	MappingRow,
-	WriteTopicAction
-} from '../../../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {ICON_ADD} from '@/basic-widgets/constants';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {MappingRow, WriteTopicAction} from '@/services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {createMapping} from '../../../../data-utils';
 import {useActionEventBus} from '../action-event-bus';
 import {ActionEventTypes} from '../action-event-bus-types';

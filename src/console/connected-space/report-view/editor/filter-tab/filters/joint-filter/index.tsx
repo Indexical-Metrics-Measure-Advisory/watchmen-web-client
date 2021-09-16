@@ -3,8 +3,8 @@ import {FilterEventBusProvider} from '../filter-event-bus';
 import {HierarchicalFilterEventBridge} from '../hierarchical-filter-event-bridge';
 import {JointEdit} from './joint-edit';
 import {NonTopJointFilterContainer} from './widgets';
-import {Subject} from '../../../../../../../services/tuples/subject-types';
-import {Report, ReportFilterJoint} from '../../../../../../../services/tuples/report-types';
+import {Subject} from '@/services/tuples/subject-types';
+import {Report, ReportFilterJoint} from '@/services/tuples/report-types';
 
 export const JointFilterEdit = (props: {
 	subject: Subject;

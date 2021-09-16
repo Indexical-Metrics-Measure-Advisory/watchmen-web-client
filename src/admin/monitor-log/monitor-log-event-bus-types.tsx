@@ -1,4 +1,4 @@
-import {MonitorLogCriteria} from '../../services/admin/logs';
+import {MonitorLogCriteria} from '@/services/admin/logs';
 
 export enum MonitorLogEventTypes {
 	DO_SEARCH = 'do-search',

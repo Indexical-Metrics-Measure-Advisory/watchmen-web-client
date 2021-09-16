@@ -1,14 +1,14 @@
 import React, {useEffect} from 'react';
-import {PipelineStageUnitAction} from '../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {PipelineStageUnit} from '../../../../../services/tuples/pipeline-stage-unit-types';
+import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
 import {useActionEventBus} from '../action/action-event-bus';
 import {ActionEventTypes} from '../action/action-event-bus-types';
 import {useUnitEventBus} from './unit-event-bus';
 import {UnitEventTypes} from './unit-event-bus-types';
 import {usePipelineEventBus} from '../../pipeline-event-bus';
-import {Pipeline} from '../../../../../services/tuples/pipeline-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
 import {PipelineEventTypes} from '../../pipeline-event-bus-types';
-import {PipelineStage} from '../../../../../services/tuples/pipeline-stage-types';
+import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
 
 export const Action2UnitBridge = (props: {
 	pipeline: Pipeline;

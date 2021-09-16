@@ -13,10 +13,10 @@ import {
 	savePipelinesGraphics,
 	saveTopic
 } from './admin';
-import {Pipeline, PipelinesGraphics} from '../../services/tuples/pipeline-types';
-import {Topic} from '../../services/tuples/topic-types';
+import {Pipeline, PipelinesGraphics} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {deleteSimulatorDatabase, SimulatorDatabase} from './simulator';
-import {AdminLastSnapshot} from '../../services/admin/last-snapshot-types';
+import {AdminLastSnapshot} from '@/services/admin/last-snapshot-types';
 
 const adminDB = new AdminDatabase();
 let simulatorDB = new SimulatorDatabase();

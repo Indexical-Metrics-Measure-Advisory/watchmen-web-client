@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect} from 'react';
-import {ConnectedSpace} from '../../../../../services/tuples/connected-space-types';
-import {Subject} from '../../../../../services/tuples/subject-types';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
+import {Subject} from '@/services/tuples/subject-types';
 import {useSubjectEventBus} from '../../subject-event-bus';
 import {SubjectEventTypes} from '../../subject-event-bus-types';
 import {useSubjectDefEventBus} from '../subject-def-event-bus';

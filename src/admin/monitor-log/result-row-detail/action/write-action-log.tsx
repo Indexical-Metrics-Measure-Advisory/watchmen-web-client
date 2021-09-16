@@ -1,18 +1,18 @@
-import {isWriteLog, MonitorLogAction} from '../../../../services/admin/logs';
+import {isWriteLog, MonitorLogAction} from '@/services/admin/logs';
 import {
 	PipelineStageUnitAction,
 	WriteTopicActionType
-} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {
 	isWriteFactorAction,
 	isWriteTopicAction
-} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {
 	WriteFactorAction,
 	WriteTopicAction
-} from '../../../../services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
-import {Topic} from '../../../../services/tuples/topic-types';
-import {isMockService} from '../../../../services/utils';
+} from '@/services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
+import {Topic} from '@/services/tuples/topic-types';
+import {isMockService} from '@/services/utils';
 import {ImpactRows} from './impact-rows';
 import {BodyLabel, BodyValue, ObjectValue} from './widgets';
 

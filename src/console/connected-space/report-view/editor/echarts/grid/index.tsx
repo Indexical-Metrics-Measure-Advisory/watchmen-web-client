@@ -1,7 +1,7 @@
 import React from 'react';
-import {Lang} from '../../../../../../langs';
-import {canUseGrid, isEChart} from '../../../../../../services/tuples/echarts/echarts-utils';
-import {Report} from '../../../../../../services/tuples/report-types';
+import {Lang} from '@/langs';
+import {canUseGrid, isEChart} from '@/services/tuples/echarts/echarts-utils';
+import {Report} from '@/services/tuples/report-types';
 import {onBooleanChange, onColorChange} from '../../data-utils';
 import {EChartsGridPropNames} from '../../prop-defs/echart-styles/echarts-grid-props';
 import {useReportEditEventBus} from '../../report-edit-event-bus';
@@ -13,12 +13,14 @@ import {BorderSettings, SettingsBorderPropNames} from '../border';
 import {PositionSettings, SettingsPositionPropNames} from '../position';
 import {TabBodySection, TabBodySectionBody, TabBodySectionTitle} from '../../dataset-and-palette/widget';
 import {
-	isDoughnutChart, isMapChart,
+	isDoughnutChart,
+	isMapChart,
 	isNightingaleChart,
 	isPieChart,
 	isSunburstChart,
-	isTreeChart, isTreemapChart
-} from '../../../../../../services/tuples/chart-utils';
+	isTreeChart,
+	isTreemapChart
+} from '@/services/tuples/chart-utils';
 
 export const EChartsGridSettings = (props: { report: Report }) => {
 	const {report} = props;

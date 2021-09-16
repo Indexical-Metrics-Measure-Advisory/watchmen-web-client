@@ -1,6 +1,6 @@
 import {ActionRunStatus} from '../types';
 import {StatusLabel} from '../widgets';
-import {ButtonInk} from '../../../../../basic-widgets/types';
+import {ButtonInk} from '@/basic-widgets/types';
 import React from 'react';
 
 export const ActionRunStatusCell = (props: {

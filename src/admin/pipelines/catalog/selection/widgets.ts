@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {GraphicsPosition, GraphicsSize} from '../../../../services/graphics/graphics-types';
+import {GraphicsPosition, GraphicsSize} from '@/services/graphics/graphics-types';
 
 export const Container = styled.g.attrs<{ visible: boolean }>(({visible}) => {
 	return {style: {display: visible ? 'block' : 'none'}};

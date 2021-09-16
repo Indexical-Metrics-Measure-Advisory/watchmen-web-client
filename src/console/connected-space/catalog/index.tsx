@@ -1,19 +1,19 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import {AlertLabel} from '../../../alert/widgets';
-import {useForceUpdate} from '../../../basic-widgets/utils';
-import {useEventBus} from '../../../events/event-bus';
-import {EventTypes} from '../../../events/types';
-import {Lang} from '../../../langs';
-import {Router} from '../../../routes/types';
-import {AvailableSpaceInConsole} from '../../../services/console/settings-types';
-import {GraphicsSize} from '../../../services/graphics/graphics-types';
+import {AlertLabel} from '@/alert/widgets';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Lang} from '@/langs';
+import {Router} from '@/routes/types';
+import {AvailableSpaceInConsole} from '@/services/console/settings-types';
+import {GraphicsSize} from '@/services/graphics/graphics-types';
 import {
 	ConnectedSpace,
 	ConnectedSpaceBlockGraphics,
 	ConnectedSpaceGraphics
-} from '../../../services/tuples/connected-space-types';
-import {Topic} from '../../../services/tuples/topic-types';
+} from '@/services/tuples/connected-space-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {useConsoleEventBus} from '../../console-event-bus';
 import {ConsoleEventTypes} from '../../console-event-bus-types';
 import {CatalogEventBusProvider, useCatalogEventBus} from './catalog-event-bus';

@@ -1,9 +1,9 @@
 import {EChartOption} from 'echarts';
-import {BASE_COLORS_24} from '../../basic-widgets/colors';
-import {SCATTER} from '../../services/tuples/chart-def/chart-scatter';
-import {ChartDataSet} from '../../services/tuples/chart-types';
-import {ECharts} from '../../services/tuples/echarts/echarts-types';
-import {Report} from '../../services/tuples/report-types';
+import {BASE_COLORS_24} from '@/basic-widgets/colors';
+import {SCATTER} from '@/services/tuples/chart-def/chart-scatter';
+import {ChartDataSet} from '@/services/tuples/chart-types';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
+import {Report} from '@/services/tuples/report-types';
 import {DefaultChartUtils, Legend} from './default-chart-utils';
 import {buildEChartsGrid} from './grid-utils';
 import {buildEChartsLegend} from './legend-utils';

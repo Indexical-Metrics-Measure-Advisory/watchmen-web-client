@@ -6,14 +6,14 @@ import {
 	ParsedVariablePredefineFunctions,
 	TopicFactorParameter,
 	VariablePredefineFunctions
-} from '../../../../../services/tuples/factor-calculator-types';
+} from '@/services/tuples/factor-calculator-types';
 import {AllTopics} from '../types';
-import {Topic} from '../../../../../services/tuples/topic-types';
-import {Factor} from '../../../../../services/tuples/factor-types';
+import {Topic} from '@/services/tuples/topic-types';
+import {Factor} from '@/services/tuples/factor-types';
 import {ParameterShouldBe} from './types';
 import dayjs from 'dayjs';
 import {DataRow} from '../../../types';
-import {isDateDiffConstant} from '../../../../../services/tuples/factor-calculator-utils';
+import {isDateDiffConstant} from '@/services/tuples/factor-calculator-utils';
 
 export const readTopicFactorParameter = (options: {
 	parameter: TopicFactorParameter,

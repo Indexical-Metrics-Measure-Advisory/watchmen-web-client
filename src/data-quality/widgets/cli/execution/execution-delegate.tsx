@@ -9,9 +9,9 @@ import {
 	ExecutionTimeLine
 } from './widgets';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_CMD_PROMPT, ICON_LOADING, ICON_LOCK, ICON_UNLOCK} from '../../../../basic-widgets/constants';
+import {ICON_CMD_PROMPT, ICON_LOADING, ICON_LOCK, ICON_UNLOCK} from '@/basic-widgets/constants';
 import React from 'react';
-import {useForceUpdate} from '../../../../basic-widgets/utils';
+import {useForceUpdate} from '@/basic-widgets/utils';
 import {ExecutionContent} from '../types';
 
 const ExecutionOperators = (props: {

@@ -1,14 +1,10 @@
-import {ButtonInk} from '../../basic-widgets/types';
-import {
-	SettingsSection,
-	SettingsSectionBody,
-	SettingsSectionTitle
-} from '../../basic-widgets/settings/settings-section';
+import {ButtonInk} from '@/basic-widgets/types';
+import {SettingsSection, SettingsSectionBody, SettingsSectionTitle} from '@/basic-widgets/settings/settings-section';
 import React, {useState} from 'react';
-import {Button} from '../../basic-widgets/button';
-import {clearSimulatorDB} from '../../local-persist/db';
+import {Button} from '@/basic-widgets/button';
+import {clearSimulatorDB} from '@/local-persist/db';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_LOADING} from '../../basic-widgets/constants';
+import {ICON_LOADING} from '@/basic-widgets/constants';
 
 export const SimulatorLogsSettings = () => {
 	const [reloading, setReloading] = useState(false);

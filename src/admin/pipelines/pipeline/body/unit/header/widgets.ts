@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Input} from '../../../../../../basic-widgets/input';
+import {Input} from '@/basic-widgets/input';
 import {GRID_COLUMN_GAP, GRID_UNIT_HEADER} from '../../constants';
 import {LeadLabel} from '../../widgets';
 
@@ -20,7 +20,7 @@ export const UnitHeaderContainer = styled.div.attrs({'data-widget': 'unit-header
 `;
 export const UnitLeadLabel = styled(LeadLabel)`
 	font-weight : var(--font-boldest);
-	color: var(--warn-color);
+	color       : var(--warn-color);
 `;
 export const UnitNameEditor = styled.div.attrs({'data-widget': 'unit-name'})`
 	display     : flex;

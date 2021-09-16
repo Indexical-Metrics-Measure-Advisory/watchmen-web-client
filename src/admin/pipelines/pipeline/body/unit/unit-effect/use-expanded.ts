@@ -3,9 +3,9 @@ import {usePipelineEventBus} from '../../../pipeline-event-bus';
 import {PipelineEventTypes, PipelineFocusMode} from '../../../pipeline-event-bus-types';
 import {useUnitEventBus} from '../unit-event-bus';
 import {UnitEventTypes} from '../unit-event-bus-types';
-import {Pipeline} from '../../../../../../services/tuples/pipeline-types';
-import {PipelineStage} from '../../../../../../services/tuples/pipeline-stage-types';
-import {PipelineStageUnit} from '../../../../../../services/tuples/pipeline-stage-unit-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
+import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
 
 export const useExpanded = (pipeline: Pipeline, stage: PipelineStage, unit: PipelineStageUnit) => {
 	const {once: oncePipeline, on: onPipeline, off: offPipeline, fire: firePipeline} = usePipelineEventBus();

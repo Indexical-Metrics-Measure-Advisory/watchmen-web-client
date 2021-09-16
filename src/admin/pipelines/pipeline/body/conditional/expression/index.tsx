@@ -1,14 +1,14 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {ICON_DELETE} from '../../../../../../basic-widgets/constants';
+import {ICON_DELETE} from '@/basic-widgets/constants';
 import {
 	ConstantParameter,
 	ParameterExpression,
 	ParameterExpressionOperator,
 	ParameterKind,
 	TopicFactorParameter
-} from '../../../../../../services/tuples/factor-calculator-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+} from '@/services/tuples/factor-calculator-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {ParameterEventBusProvider} from '../../parameter/parameter/parameter-event-bus';
 import {useExpressionEventBus} from '../event-bus/expression-event-bus';
 import {ExpressionEventTypes} from '../event-bus/expression-event-bus-types';
@@ -50,7 +50,8 @@ export const Expression = (props: { expression: ParameterExpression, topics: Arr
 		</ExpressionHeader>
 		<ParameterEventBusProvider>
 			<Parameter2ExpressionBridge onChange={onLeftParameterChanged}/>
-			<ExpressionSide base={expression} parameter={expression.left} topics={topics} leftSide={true} expectArray={false}/>
+			<ExpressionSide base={expression} parameter={expression.left} topics={topics} leftSide={true}
+			                expectArray={false}/>
 		</ParameterEventBusProvider>
 		<ExpressionOperator expression={expression}/>
 		<RightPart expression={expression} topics={topics}/>

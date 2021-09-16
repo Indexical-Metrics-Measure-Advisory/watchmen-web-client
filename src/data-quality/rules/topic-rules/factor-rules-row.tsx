@@ -1,8 +1,8 @@
-import {Topic} from '../../../services/tuples/topic-types';
-import {Factor} from '../../../services/tuples/factor-types';
+import {Topic} from '@/services/tuples/topic-types';
+import {Factor} from '@/services/tuples/factor-types';
 import {prepareRuleParams, SeverityOptions} from '../utils';
-import {useForceUpdate} from '../../../basic-widgets/utils';
-import {DropdownOption} from '../../../basic-widgets/types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {DropdownOption} from '@/basic-widgets/types';
 import {
 	FactorRow,
 	FactorRuleNameCell,
@@ -12,7 +12,7 @@ import {
 	TopicRuleEnablementCell
 } from './widgets';
 import {ColorfulCheckBox} from '../widgets';
-import {Dropdown} from '../../../basic-widgets/dropdown';
+import {Dropdown} from '@/basic-widgets/dropdown';
 import React from 'react';
 import {RuleMap} from './types';
 import {RulesEventTypes} from '../rules-event-bus-types';
@@ -24,7 +24,7 @@ import {
 	MonitorRuleGrade,
 	MonitorRuleOnFactor,
 	MonitorRuleSeverity
-} from '../../../services/data-quality/rule-types';
+} from '@/services/data-quality/rule-types';
 
 export const FactorRulesRow = (props: {
 	topic: Topic;

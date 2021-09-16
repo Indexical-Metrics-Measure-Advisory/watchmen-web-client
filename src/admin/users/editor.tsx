@@ -1,15 +1,15 @@
 import React from 'react';
-import {useForceUpdate} from '../../basic-widgets/utils';
-import {QueryUserGroupForHolder} from '../../services/tuples/query-user-group-types';
-import {User, UserRole} from '../../services/tuples/user-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {QueryUserGroupForHolder} from '@/services/tuples/query-user-group-types';
+import {User, UserRole} from '@/services/tuples/user-types';
 import {TuplePropertyDropdown, TuplePropertyInput, TuplePropertyLabel} from '../widgets/tuple-workbench/tuple-editor';
 import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes, TupleState} from '../widgets/tuple-workbench/tuple-event-bus-types';
 import {HoldByUser} from './types';
 import {UserGroupPicker} from './user-group-picker';
-import {QueryTenant} from '../../services/tuples/query-tenant-types';
-import {DropdownOption} from '../../basic-widgets/types';
-import {isSuperAdmin} from '../../services/account';
+import {QueryTenant} from '@/services/tuples/query-tenant-types';
+import {DropdownOption} from '@/basic-widgets/types';
+import {isSuperAdmin} from '@/services/account';
 
 const UserEditor = (props: { user: User, codes?: HoldByUser }) => {
 	const {

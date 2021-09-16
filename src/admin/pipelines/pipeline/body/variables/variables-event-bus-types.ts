@@ -1,5 +1,5 @@
-import {Topic} from '../../../../../services/tuples/topic-types';
-import {DeclaredVariables} from '../../../../../services/tuples/factor-calculator-types';
+import {Topic} from '@/services/tuples/topic-types';
+import {DeclaredVariables} from '@/services/tuples/factor-calculator-types';
 
 export enum VariablesEventTypes {
 	ASK_VARIABLES = 'ask-variables',

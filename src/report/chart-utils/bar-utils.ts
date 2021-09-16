@@ -1,7 +1,7 @@
-import {BarChartSettings, BarLabelPosition} from '../../services/tuples/chart-def/chart-bar';
-import {ChartDataSetRow} from '../../services/tuples/chart-types';
-import {EChartsVerticalAlignment} from '../../services/tuples/echarts/echarts-alignment-types';
-import {ECharts} from '../../services/tuples/echarts/echarts-types';
+import {BarChartSettings, BarLabelPosition} from '@/services/tuples/chart-def/chart-bar';
+import {ChartDataSetRow} from '@/services/tuples/chart-types';
+import {EChartsVerticalAlignment} from '@/services/tuples/echarts/echarts-alignment-types';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
 import {cleanUselessValues} from './data-utils';
 import {PREDEFINED_GROUPING_FORMATS} from './number-format';
 import {buildEChartsXAxis} from './xaxis-utils';

@@ -1,15 +1,15 @@
 import {ChangedDataRow, PipelineRunStatus, PipelineRuntimeContext} from '../types';
 import {getPipelineName} from '../../../utils';
-import {ButtonInk} from '../../../../../basic-widgets/types';
-import {ICON_SEARCH} from '../../../../../basic-widgets/constants';
+import {ButtonInk} from '@/basic-widgets/types';
+import {ICON_SEARCH} from '@/basic-widgets/constants';
 import React, {useEffect, useState} from 'react';
 import {TopicsData} from '../../state/types';
 import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
 import {generateRuntimeId} from '../utils';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
-import {connectSimulatorDB} from '../../../../../local-persist/db';
+import {connectSimulatorDB} from '@/local-persist/db';
 import dayjs from 'dayjs';
-import {useForceUpdate} from '../../../../../basic-widgets/utils';
+import {useForceUpdate} from '@/basic-widgets/utils';
 import {useTriggerTypeCheck} from './use-trigger-type-check';
 import {useCompleted} from './use-completed';
 import {useConditionCheck} from './use-condition-check';
@@ -17,10 +17,10 @@ import {buildContextBody, createLogWriter, findRuntimeData} from './utils';
 import {useRunStages} from './use-run-stages';
 import {RunsEventTypes} from '../runs-event-bus-types';
 import {useRunsEventBus} from '../runs-event-bus';
-import {Pipeline} from '../../../../../services/tuples/pipeline-types';
-import {useEventBus} from '../../../../../events/event-bus';
-import {EventTypes} from '../../../../../events/types';
-import {Factor} from '../../../../../services/tuples/factor-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Factor} from '@/services/tuples/factor-types';
 import {DataDialog} from '../data-dialog';
 import {CellButton, PipelineElementType, RunTableBodyCell, RunTablePipelineRow} from '../widgets';
 import {PipelineRunStatusCell} from './pipeline-run-status-cell';
@@ -147,7 +147,7 @@ export const PipelineRuntime = (props: {
 					forceUpdate();
 					fire(RuntimeEventTypes.DO_PIPELINE_TRIGGER_TYPE_CHECK, context);
 				});
-			} catch (e) {
+			} catch (e: any) {
 				await (createLogWriter(context)(e.message));
 				fire(RuntimeEventTypes.PIPELINE_FAILED, context);
 			}
@@ -164,7 +164,7 @@ export const PipelineRuntime = (props: {
 				forceUpdate();
 				fire(RuntimeEventTypes.DO_PIPELINE_TRIGGER_TYPE_CHECK, context);
 			});
-		} catch (e) {
+		} catch (e: any) {
 			await (createLogWriter(context)(e.message));
 			fire(RuntimeEventTypes.PIPELINE_FAILED, context);
 		}

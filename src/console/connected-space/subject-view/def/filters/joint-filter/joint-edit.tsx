@@ -1,11 +1,11 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useState} from 'react';
-import {ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EDIT} from '../../../../../../basic-widgets/constants';
-import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {Lang} from '../../../../../../langs';
-import {ParameterJointType} from '../../../../../../services/tuples/factor-calculator-types';
-import {SubjectDataSetFilterJoint} from '../../../../../../services/tuples/subject-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+import {ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EDIT} from '@/basic-widgets/constants';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {Lang} from '@/langs';
+import {ParameterJointType} from '@/services/tuples/factor-calculator-types';
+import {SubjectDataSetFilterJoint} from '@/services/tuples/subject-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {createSubjectDataSetFilter, createSubjectDataSetJoint} from '../../data-utils';
 import {useFilterEventBus} from '../filter-event-bus';
 import {FilterEventTypes} from '../filter-event-bus-types';

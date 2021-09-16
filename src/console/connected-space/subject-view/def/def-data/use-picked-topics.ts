@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {Topic} from '../../../../../services/tuples/topic-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {useSubjectDefEventBus} from '../subject-def-event-bus';
 import {SubjectDefEventTypes} from '../subject-def-event-bus-types';
 

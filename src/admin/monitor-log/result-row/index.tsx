@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {MonitorLogRow} from '../../../services/admin/logs';
-import {Pipeline} from '../../../services/tuples/pipeline-types';
-import {Topic} from '../../../services/tuples/topic-types';
+import {MonitorLogRow} from '@/services/admin/logs';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {ResultRowDetail} from '../result-row-detail';
 import {
 	SearchResultBodyCell,

@@ -1,6 +1,6 @@
-import {DropdownOption} from '../../../../../../basic-widgets/types';
-import {Lang} from '../../../../../../langs';
-import {ChartBorderStyle} from '../../../../../../services/tuples/chart-types';
+import {DropdownOption} from '@/basic-widgets/types';
+import {Lang} from '@/langs';
+import {ChartBorderStyle} from '@/services/tuples/chart-types';
 
 export const BorderStyleOptions: Array<DropdownOption> = [
 	{value: ChartBorderStyle.NONE, label: Lang.CHART.BORDER_STYLE_NONE},

@@ -1,5 +1,5 @@
-import {ChartDataSet} from '../../services/tuples/chart-types';
-import {Report} from '../../services/tuples/report-types';
+import {ChartDataSet} from '@/services/tuples/chart-types';
+import {Report} from '@/services/tuples/report-types';
 import {ChartHelper} from '../chart-utils';
 import {ChartOptions} from '../chart-utils/types';
 import {EChartDiagram} from './echart-diagram';

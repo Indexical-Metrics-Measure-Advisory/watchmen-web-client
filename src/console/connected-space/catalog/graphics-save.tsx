@@ -1,8 +1,8 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {useEventBus} from '../../../events/event-bus';
-import {EventTypes} from '../../../events/types';
-import {saveConnectedSpaceGraphics} from '../../../services/tuples/connected-space';
-import {ConnectedSpace} from '../../../services/tuples/connected-space-types';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {saveConnectedSpaceGraphics} from '@/services/tuples/connected-space';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
 import {useConsoleEventBus} from '../../console-event-bus';
 import {ConsoleEventTypes} from '../../console-event-bus-types';
 import {SAVE_TIMEOUT} from '../constants';

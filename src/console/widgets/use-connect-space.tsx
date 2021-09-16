@@ -1,67 +1,67 @@
 import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
-import {AlertLabel} from '../../alert/widgets';
-import {Button} from '../../basic-widgets/button';
-import {Dropdown} from '../../basic-widgets/dropdown';
-import {ButtonInk, DropdownOption} from '../../basic-widgets/types';
-import {DialogBody, DialogFooter, DialogLabel} from '../../dialog/widgets';
-import {useEventBus} from '../../events/event-bus';
-import {EventTypes} from '../../events/types';
-import {Lang} from '../../langs';
-import {toConnectedSpace} from '../../routes/utils';
-import {AvailableSpaceInConsole} from '../../services/console/settings-types';
-import {listTemplateConnectedSpaces, saveConnectedSpace} from '../../services/tuples/connected-space';
-import {ConnectedSpace, ConnectedSpaceTemplate} from '../../services/tuples/connected-space-types';
-import {Space} from '../../services/tuples/space-types';
+import {AlertLabel} from '@/alert/widgets';
+import {Button} from '@/basic-widgets/button';
+import {Dropdown} from '@/basic-widgets/dropdown';
+import {ButtonInk, DropdownOption} from '@/basic-widgets/types';
+import {DialogBody, DialogFooter, DialogLabel} from '@/dialog/widgets';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Lang} from '@/langs';
+import {toConnectedSpace} from '@/routes/utils';
+import {AvailableSpaceInConsole} from '@/services/console/settings-types';
+import {listTemplateConnectedSpaces, saveConnectedSpace} from '@/services/tuples/connected-space';
+import {ConnectedSpace, ConnectedSpaceTemplate} from '@/services/tuples/connected-space-types';
+import {Space} from '@/services/tuples/space-types';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes} from '../console-event-bus-types';
 import {createConnectedSpace} from '../utils/tuples';
-import {CheckBox} from '../../basic-widgets/checkbox';
+import {CheckBox} from '@/basic-widgets/checkbox';
 
 const ShareDialogBody = styled(DialogBody)`
-	flex-direction: column;
-	margin-bottom: var(--margin);
+	flex-direction : column;
+	margin-bottom  : var(--margin);
 `;
 
 const AvailableTemplateTable = styled.div.attrs({'data-v-scroll': ''})`
-	display: flex;
-	flex-direction: column;
-	grid-template-columns: 40px 60px 1fr auto;
-	margin-top: calc(var(--margin) / 4);
-	max-height: calc(var(--height) * 9);
-	overflow-y: auto;
+	display               : flex;
+	flex-direction        : column;
+	grid-template-columns : 40px 60px 1fr auto;
+	margin-top            : calc(var(--margin) / 4);
+	max-height            : calc(var(--height) * 9);
+	overflow-y            : auto;
 `;
 const AvailableTemplateTableRow = styled.div`
-	display: grid;
-	grid-template-columns: 40px 60px 1fr auto;
+	display               : grid;
+	grid-template-columns : 40px 60px 1fr auto;
 	&:nth-child(2n) {
-		background-color: var(--grid-rib-bg-color);
+		background-color : var(--grid-rib-bg-color);
 	}
 	&:first-child {
-		position: sticky;
-		top: 0;
-		background-color: var(--bg-color);
-		z-index: 1;
+		position         : sticky;
+		top              : 0;
+		background-color : var(--bg-color);
+		z-index          : 1;
 	}
 	&:not(:first-child):hover {
-		background-color: var(--hover-color);
+		background-color : var(--hover-color);
 	}
 `;
 const AvailableTemplateTableHeaderCell = styled.div`
-	display: flex;
-	align-items: center;
-	padding: 0 calc(var(--margin) / 4);
-	font-size: 1.1em;
-	font-weight: var(--font-bold);
-	border-bottom: var(--border);
-	height: var(--height);
+	display       : flex;
+	align-items   : center;
+	padding       : 0 calc(var(--margin) / 4);
+	font-size     : 1.1em;
+	font-weight   : var(--font-bold);
+	border-bottom : var(--border);
+	height        : var(--height);
 `;
 const AvailableTemplateTableCell = styled.div`
-	display: flex;
-	align-items: center;
-	padding: 0 calc(var(--margin) / 4);
-	height: var(--height);
+	display     : flex;
+	align-items : center;
+	padding     : 0 calc(var(--margin) / 4);
+	height      : var(--height);
 `;
 const AvailableTemplatesSelector = (props: { spaceId: string, templates: Array<ConnectedSpaceTemplate>, switchTo: (connectedSpace: ConnectedSpace) => void }) => {
 	const {spaceId, templates, switchTo} = props;
@@ -119,7 +119,7 @@ const AvailableTemplatesSelector = (props: { spaceId: string, templates: Array<C
 };
 
 const AvailableSpaceDropdown = styled(Dropdown)`
-	margin-top: calc(var(--margin) / 4);
+	margin-top : calc(var(--margin) / 4);
 `;
 
 const AvailableSpacesSelector = (props: { spaces: Array<AvailableSpaceInConsole>, switchTo: (connectedSpace: ConnectedSpace) => void }) => {

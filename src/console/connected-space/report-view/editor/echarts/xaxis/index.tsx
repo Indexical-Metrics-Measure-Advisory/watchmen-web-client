@@ -1,8 +1,8 @@
 import React from 'react';
-import {Lang} from '../../../../../../langs';
-import {canUseXAxis, isEChart} from '../../../../../../services/tuples/echarts/echarts-utils';
-import {EChartsXAxisPosition, EChartsXAxisType} from '../../../../../../services/tuples/echarts/echarts-xaxis-types';
-import {Report} from '../../../../../../services/tuples/report-types';
+import {Lang} from '@/langs';
+import {canUseXAxis, isEChart} from '@/services/tuples/echarts/echarts-utils';
+import {EChartsXAxisPosition, EChartsXAxisType} from '@/services/tuples/echarts/echarts-xaxis-types';
+import {Report} from '@/services/tuples/report-types';
 import {isANumber, onBooleanChange, onDropdownValueChange, onNumberChange} from '../../data-utils';
 import {AxisTypeOptions} from '../../prop-defs/dropdown-options/axis-dropdown-options';
 import {EChartsXAxisPropNames, XAxisPositionOptions} from '../../prop-defs/echart-styles/echarts-xaxis-props';

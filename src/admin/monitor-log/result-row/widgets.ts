@@ -16,7 +16,7 @@ export const SearchResultBodyRow = styled.div.attrs<{ detail: boolean }>(({detai
 	border-bottom         : var(--border);
 	cursor                : pointer;
 	${({detail}) => {
-	return detail ? '' : `&:hover {
+		return detail ? '' : `&:hover {
 			background-color : var(--hover-color);
 			&:before,
 			&:after {
@@ -38,7 +38,7 @@ export const SearchResultBodyRow = styled.div.attrs<{ detail: boolean }>(({detai
 				border-top-color   : var(--invert-color);
 			}
 		}`;
-}}
+	}}
 `;
 export const SearchResultBodyCell = styled.div.attrs({'data-widget': 'monitor-logs-result-body-cell'})`
 	display      : flex;

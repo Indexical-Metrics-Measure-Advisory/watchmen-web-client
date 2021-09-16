@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Lang} from '../../../../../langs';
-import {Subject} from '../../../../../services/tuples/subject-types';
+import {Lang} from '@/langs';
+import {Subject} from '@/services/tuples/subject-types';
 import {createSubjectDataSetFilter} from '../data-utils';
 import {useFiltersDataVisible} from '../data/use-filters-data-visible';
 import {useSubjectDefEventBus} from '../subject-def-event-bus';

@@ -2,10 +2,10 @@ import {useEffect} from 'react';
 import {ChangedDataRow, PipelineRunStatus, PipelineRuntimeContext} from '../types';
 import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
-import {connectSimulatorDB} from '../../../../../local-persist/db';
+import {connectSimulatorDB} from '@/local-persist/db';
 import dayjs from 'dayjs';
 import {buildContextBody, createLogWriter} from './utils';
-import {Pipeline} from '../../../../../services/tuples/pipeline-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
 import {buildPipelineRuntimeContext} from '../utils';
 import {voteNextDynamicPipeline} from './vote';
 

@@ -2,37 +2,37 @@ import styled from 'styled-components';
 import {GRID_COLUMN_GAP, GRID_COLUMNS, GRID_ROW_GAP} from '../constants';
 
 export const StageContainer = styled.div.attrs({'data-widget': 'stage'})`
-	display: grid;
-	position: relative;
-	grid-template-columns: ${GRID_COLUMNS};
-	grid-column-gap: ${GRID_COLUMN_GAP};
-	grid-row-gap: ${GRID_ROW_GAP};
-	grid-auto-rows: minmax(var(--height), auto);
-	margin: calc(var(--margin) / 4) calc(var(--margin) / -2) 0 calc(var(--margin) / -2);
-	padding: calc(var(--margin) / 4) calc(var(--margin) / 2) 0 calc(var(--margin) / 2);
+	display               : grid;
+	position              : relative;
+	grid-template-columns : ${GRID_COLUMNS};
+	grid-column-gap       : ${GRID_COLUMN_GAP};
+	grid-row-gap          : ${GRID_ROW_GAP};
+	grid-auto-rows        : minmax(var(--height), auto);
+	margin                : calc(var(--margin) / 4) calc(var(--margin) / -2) 0 calc(var(--margin) / -2);
+	padding               : calc(var(--margin) / 4) calc(var(--margin) / 2) 0 calc(var(--margin) / 2);
 	&:before {
-		content: '';
-		display: block;
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: calc(100% + var(--margin) / 8);
-		border-top: var(--border);
-		border-top-style: dashed;
-		border-top-color: var(--primary-color);
-		opacity: 0.3;
-		transition: all 300ms ease-in-out;
+		content          : '';
+		display          : block;
+		position         : absolute;
+		top              : 0;
+		left             : 0;
+		width            : 100%;
+		height           : calc(100% + var(--margin) / 8);
+		border-top       : var(--border);
+		border-top-style : dashed;
+		border-top-color : var(--primary-color);
+		opacity          : 0.3;
+		transition       : all 300ms ease-in-out;
 	}
-	&:hover{
+	&:hover {
 		&:before {
-			left: calc(var(--margin) / -8);
-			width: calc(100% + var(--margin) / 4);
-			height: calc(100% + var(--margin) / 8);
-			border-radius: var(--param-height);
-			border-width: calc(var(--border-width) * 2);
-			border-color: var(--info-color);
-			border-style: solid;
+			left          : calc(var(--margin) / -8);
+			width         : calc(100% + var(--margin) / 4);
+			height        : calc(100% + var(--margin) / 8);
+			border-radius : var(--param-height);
+			border-width  : calc(var(--border-width) * 2);
+			border-color  : var(--info-color);
+			border-style  : solid;
 		}
 	}
 	//> div[data-widget="stage-header"] > div[data-widget="header-buttons"],
@@ -49,6 +49,6 @@ export const StageContainer = styled.div.attrs({'data-widget': 'stage'})`
 	//	}
 	//}
 	input[data-widget="parameter-constant-input"] {
-		background-color: var(--bg-color);
+		background-color : var(--bg-color);
 	}
 `;

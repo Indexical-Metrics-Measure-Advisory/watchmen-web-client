@@ -9,7 +9,7 @@ import {
 	ReadTopicActionType,
 	SystemActionType,
 	WriteTopicActionType
-} from '../../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
 import {useEffect} from 'react';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
@@ -85,10 +85,10 @@ export const useDoRunAction = (
 						throw new Error(`Unsupported type of action[${action}].`);
 				}
 				fire(RuntimeEventTypes.ACTION_DONE, context);
-			} catch (e) {
+			} catch (e: unknown) {
 				console.error(e);
-				await logWrite(`Error occurred.`, e);
-				fire(RuntimeEventTypes.ACTION_FAILED, context, e);
+				await logWrite(`Error occurred.`, e as Error);
+				fire(RuntimeEventTypes.ACTION_FAILED, context, e as Error);
 			}
 		};
 		on(RuntimeEventTypes.DO_RUN_ACTION, onDoRunAction);

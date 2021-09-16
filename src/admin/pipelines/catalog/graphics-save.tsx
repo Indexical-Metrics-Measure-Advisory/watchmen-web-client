@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {useEventBus} from '../../../events/event-bus';
-import {EventTypes} from '../../../events/types';
-import {savePipelinesGraphics} from '../../../services/tuples/pipeline';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {savePipelinesGraphics} from '@/services/tuples/pipeline';
 import {SAVE_TIMEOUT} from '../constants';
 import {usePipelinesEventBus} from '../pipelines-event-bus';
 import {PipelinesEventTypes} from '../pipelines-event-bus-types';

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, {keyframes} from 'styled-components';
-import {Logo} from '../basic-widgets/logo';
-import {Lang} from '../langs';
+import {Logo} from '@/basic-widgets/logo';
+import {Lang} from '@/langs';
 
 const Container = styled.div.attrs({'data-widget': 'share-nothing'})`
 	display               : grid;

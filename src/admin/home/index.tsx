@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {ConsoleEventBusProvider} from '../../console/console-event-bus';
-import {DashboardBody} from '../../console/dashboard/body';
-import {DashboardEventBusProvider} from '../../console/dashboard/dashboard-event-bus';
-import {fetchAdminDashboard} from '../../services/admin/home';
-import {Dashboard} from '../../services/tuples/dashboard-types';
-import {Report} from '../../services/tuples/report-types';
+import {ConsoleEventBusProvider} from '@/console/console-event-bus';
+import {DashboardBody} from '@/console/dashboard/body';
+import {DashboardEventBusProvider} from '@/console/dashboard/dashboard-event-bus';
+import {fetchAdminDashboard} from '@/services/admin/home';
+import {Dashboard} from '@/services/tuples/dashboard-types';
+import {Report} from '@/services/tuples/report-types';
 import {AdminLoading} from './admin-loading';
 import {SimulateConsole} from './simulate-console';
 import {AdminDashboardContainer} from './widgets';
@@ -32,7 +32,7 @@ const AdminHomeIndex = () => {
 			try {
 				const {dashboard, reports} = await fetchAdminDashboard();
 				setState({initialized: true, dashboard, reports});
-			} catch (e) {
+			} catch (e: any) {
 				console.error(e);
 				setState({initialized: true});
 			}

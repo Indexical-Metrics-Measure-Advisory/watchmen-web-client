@@ -1,11 +1,11 @@
 import {useEffect} from 'react';
-import {useEventBus} from '../../../../events/event-bus';
-import {EventTypes} from '../../../../events/types';
-import {useReportEventBus} from '../../../../report/report-event-bus';
-import {ReportEventTypes} from '../../../../report/report-event-bus-types';
-import {saveDashboard} from '../../../../services/tuples/dashboard';
-import {Dashboard} from '../../../../services/tuples/dashboard-types';
-import {Report} from '../../../../services/tuples/report-types';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {useReportEventBus} from '@/report/report-event-bus';
+import {ReportEventTypes} from '@/report/report-event-bus-types';
+import {saveDashboard} from '@/services/tuples/dashboard';
+import {Dashboard} from '@/services/tuples/dashboard-types';
+import {Report} from '@/services/tuples/report-types';
 
 export const ReportMoveOrResizeMonitor = (props: { dashboard: Dashboard }) => {
 	const {dashboard} = props;

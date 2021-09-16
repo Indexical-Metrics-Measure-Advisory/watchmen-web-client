@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
-import {Subject, SubjectDataSetFilter, SubjectDataSetFilterJoint} from '../../../../../services/tuples/subject-types';
-import {Topic} from '../../../../../services/tuples/topic-types';
+import {Subject, SubjectDataSetFilter, SubjectDataSetFilterJoint} from '@/services/tuples/subject-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {useSubjectDefEventBus} from '../subject-def-event-bus';
 import {SubjectDefEventTypes} from '../subject-def-event-bus-types';
 import {FilterEventBusProvider, useFilterEventBus} from './filter-event-bus';

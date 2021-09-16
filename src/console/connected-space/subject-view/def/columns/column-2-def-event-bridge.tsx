@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect} from 'react';
-import {Subject, SubjectDataSetColumn} from '../../../../../services/tuples/subject-types';
+import {Subject, SubjectDataSetColumn} from '@/services/tuples/subject-types';
 import {useSubjectDefEventBus} from '../subject-def-event-bus';
 import {SubjectDefEventTypes} from '../subject-def-event-bus-types';
 import {useColumnEventBus} from './column-event-bus';

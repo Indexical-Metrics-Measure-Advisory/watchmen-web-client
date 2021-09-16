@@ -1,7 +1,7 @@
 import React, {MouseEvent} from 'react';
-import {ButtonInk} from '../../../../../basic-widgets/types';
-import {Lang} from '../../../../../langs';
-import {Subject} from '../../../../../services/tuples/subject-types';
+import {ButtonInk} from '@/basic-widgets/types';
+import {Lang} from '@/langs';
+import {Subject} from '@/services/tuples/subject-types';
 import {createSubjectDataSetColumn, createSubjectDataSetJoin} from '../data-utils';
 import {useSubjectDefEventBus} from '../subject-def-event-bus';
 import {SubjectDefEventTypes} from '../subject-def-event-bus-types';

@@ -2,8 +2,8 @@ import {faCaretDown, faCaretLeft, faCaretRight, faCaretUp} from '@fortawesome/fr
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, RefObject, useEffect, useState} from 'react';
 import styled from 'styled-components';
-import {useEventBus} from '../events/event-bus';
-import {EventTypes, TooltipParam} from '../events/types';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes, TooltipParam} from '@/events/types';
 import {TOOLTIP_CARET_OFFSET, TOOLTIP_MAX_WIDTH, TOOLTIP_Z_INDEX} from './constants';
 import {TooltipAlignment, TooltipPosition} from './types';
 

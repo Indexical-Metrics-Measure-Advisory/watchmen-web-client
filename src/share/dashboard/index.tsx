@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {ConsoleEventBusProvider} from '../../console/console-event-bus';
-import {DashboardBody} from '../../console/dashboard/body';
-import {DashboardEventBusProvider} from '../../console/dashboard/dashboard-event-bus';
-import {Lang} from '../../langs';
-import {fetchSharedDashboard} from '../../services/share/dashboard';
-import {Dashboard} from '../../services/tuples/dashboard-types';
-import {Report} from '../../services/tuples/report-types';
+import {ConsoleEventBusProvider} from '@/console/console-event-bus';
+import {DashboardBody} from '@/console/dashboard/body';
+import {DashboardEventBusProvider} from '@/console/dashboard/dashboard-event-bus';
+import {Lang} from '@/langs';
+import {fetchSharedDashboard} from '@/services/share/dashboard';
+import {Dashboard} from '@/services/tuples/dashboard-types';
+import {Report} from '@/services/tuples/report-types';
 import {ShareNothing} from '../share-nothing';
 import {SimulateConsole} from './simulate-console';
 import {ShareDashboardContainer} from './widgets';
@@ -36,7 +36,7 @@ const ShareDashboardIndex = () => {
 			try {
 				const {dashboard, reports} = await fetchSharedDashboard(dashboardId, token);
 				setState({initialized: true, dashboardId, dashboard, reports});
-			} catch (e) {
+			} catch (e: any) {
 				console.error(e);
 				setState({initialized: true, dashboardId});
 			}

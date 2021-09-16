@@ -1,9 +1,6 @@
-import {DropdownOption} from '../../../../../../basic-widgets/types';
-import {Lang} from '../../../../../../langs';
-import {
-	EChartsYAxisNameLocation,
-	EChartsYAxisPosition
-} from '../../../../../../services/tuples/echarts/echarts-yaxis-types';
+import {DropdownOption} from '@/basic-widgets/types';
+import {Lang} from '@/langs';
+import {EChartsYAxisNameLocation, EChartsYAxisPosition} from '@/services/tuples/echarts/echarts-yaxis-types';
 
 export const YAxisPositionOptions: Array<DropdownOption> = [
 	{value: EChartsYAxisPosition.LEFT, label: Lang.CHART.POSITION_LEFT},

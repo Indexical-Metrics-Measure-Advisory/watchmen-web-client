@@ -1,6 +1,6 @@
-import {AdminCacheData} from '../../local-persist/types';
-import {Pipeline, PipelinesGraphics} from '../../services/tuples/pipeline-types';
-import {Topic} from '../../services/tuples/topic-types';
+import {AdminCacheData} from '@/local-persist/types';
+import {Pipeline, PipelinesGraphics} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
 
 export enum AdminCacheEventTypes {
 	DATA_LOADED = 'data-loaded',

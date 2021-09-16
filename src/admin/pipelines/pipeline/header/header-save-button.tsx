@@ -1,21 +1,21 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
-import {Button} from '../../../../basic-widgets/button';
-import {ICON_SAVE} from '../../../../basic-widgets/constants';
-import {ButtonInk} from '../../../../basic-widgets/types';
-import {DialogBody, DialogFooter, DialogLabel} from '../../../../dialog/widgets';
-import {useEventBus} from '../../../../events/event-bus';
-import {EventTypes} from '../../../../events/types';
-import {Lang} from '../../../../langs';
-import {Pipeline} from '../../../../services/tuples/pipeline-types';
-import {Topic} from '../../../../services/tuples/topic-types';
+import {Button} from '@/basic-widgets/button';
+import {ICON_SAVE} from '@/basic-widgets/constants';
+import {ButtonInk} from '@/basic-widgets/types';
+import {DialogBody, DialogFooter, DialogLabel} from '@/dialog/widgets';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Lang} from '@/langs';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {usePipelinesEventBus} from '../../pipelines-event-bus';
 import {PipelinesEventTypes} from '../../pipelines-event-bus-types';
 import {usePipelineEventBus} from '../pipeline-event-bus';
 import {PipelineEventTypes} from '../pipeline-event-bus-types';
 import {useValidate} from '../validator/use-validate';
 import {PipelineChangeLabel, PipelineSaveButton} from './widgets';
-import {AlertLabel} from '../../../../alert/widgets';
+import {AlertLabel} from '@/alert/widgets';
 
 const StillSaveDialog = (props: { message: string, onSave: () => void }) => {
 	const {message, onSave} = props;

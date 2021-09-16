@@ -12,19 +12,13 @@ import {
 	FilterJointTypeIcon,
 	FirstAddSubFilterIcon
 } from './widgets';
-import {Subject} from '../../../../../../../services/tuples/subject-types';
-import {Report, ReportFilterJoint} from '../../../../../../../services/tuples/report-types';
-import {ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EDIT} from '../../../../../../../basic-widgets/constants';
-import {Lang} from '../../../../../../../langs';
-import {
-	ParameterExpressionOperator,
-	ParameterJointType
-} from '../../../../../../../services/tuples/factor-calculator-types';
-import {
-	createConstantParameter,
-	createTopicFactorParameter
-} from '../../../../../../../services/tuples/parameter-utils';
-import {useForceUpdate} from '../../../../../../../basic-widgets/utils';
+import {Subject} from '@/services/tuples/subject-types';
+import {Report, ReportFilterJoint} from '@/services/tuples/report-types';
+import {ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EDIT} from '@/basic-widgets/constants';
+import {Lang} from '@/langs';
+import {ParameterExpressionOperator, ParameterJointType} from '@/services/tuples/factor-calculator-types';
+import {createConstantParameter, createTopicFactorParameter} from '@/services/tuples/parameter-utils';
+import {useForceUpdate} from '@/basic-widgets/utils';
 
 export const JointEdit = (props: {
 	subject: Subject;

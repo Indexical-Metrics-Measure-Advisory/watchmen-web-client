@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Input} from '../../../../../../basic-widgets/input';
+import {Input} from '@/basic-widgets/input';
 import {GRID_COLUMN_GAP, GRID_STAGE_HEADER} from '../../constants';
 import {LeadLabel} from '../../widgets';
 
@@ -20,7 +20,7 @@ export const StageHeaderContainer = styled.div.attrs({'data-widget': 'stage-head
 `;
 export const StageLeadLabel = styled(LeadLabel)`
 	font-weight : var(--font-boldest);
-	color: var(--warn-color);
+	color       : var(--warn-color);
 `;
 export const StageNameEditor = styled.div.attrs({'data-widget': 'stage-name'})`
 	display     : flex;

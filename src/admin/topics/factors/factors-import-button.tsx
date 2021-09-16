@@ -1,11 +1,11 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {DwarfButton} from '../../../basic-widgets/button';
-import {ICON_UPLOAD} from '../../../basic-widgets/constants';
-import {ButtonInk} from '../../../basic-widgets/types';
-import {useEventBus} from '../../../events/event-bus';
-import {EventTypes} from '../../../events/types';
-import {Topic} from '../../../services/tuples/topic-types';
+import {DwarfButton} from '@/basic-widgets/button';
+import {ICON_UPLOAD} from '@/basic-widgets/constants';
+import {ButtonInk} from '@/basic-widgets/types';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Topic} from '@/services/tuples/topic-types';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';
 import {parseFromCsv, parseFromJson} from './topic-import-from-file';

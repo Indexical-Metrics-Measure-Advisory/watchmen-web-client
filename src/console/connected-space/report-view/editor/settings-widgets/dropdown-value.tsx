@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {DropdownOption} from '../../../../../basic-widgets/types';
+import {DropdownOption} from '@/basic-widgets/types';
 import {PropName, PropValue, PropValueDropdown} from './widgets';
 
 export const DropdownValue = (props: {

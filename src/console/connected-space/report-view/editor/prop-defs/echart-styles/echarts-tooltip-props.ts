@@ -1,6 +1,6 @@
-import {DropdownOption} from '../../../../../../basic-widgets/types';
-import {Lang} from '../../../../../../langs';
-import {EChartsToolboxOrient} from '../../../../../../services/tuples/echarts/echarts-toolbox-types';
+import {DropdownOption} from '@/basic-widgets/types';
+import {Lang} from '@/langs';
+import {EChartsToolboxOrient} from '@/services/tuples/echarts/echarts-toolbox-types';
 
 export const ToolboxOrientOptions: Array<DropdownOption> = [
 	{value: EChartsToolboxOrient.HORIZONTAL, label: Lang.CHART.TOOLBOX_ORIENT_HORIZONTAL},

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Lang} from '../../../../../langs';
-import {Subject} from '../../../../../services/tuples/subject-types';
+import {Lang} from '@/langs';
+import {Subject} from '@/services/tuples/subject-types';
 import {createSubjectDataSetJoin} from '../data-utils';
 import {useJoinsDataVisible} from '../data/use-joins-data-visible';
 import {useSubjectDefEventBus} from '../subject-def-event-bus';

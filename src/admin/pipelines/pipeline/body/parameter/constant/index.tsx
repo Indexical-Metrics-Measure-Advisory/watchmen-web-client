@@ -1,19 +1,14 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {
-	ConstantParameter,
-	DeclaredVariables,
-	Parameter,
-	ValueTypes
-} from '../../../../../../services/tuples/factor-calculator-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {ConstantParameter, DeclaredVariables, Parameter, ValueTypes} from '@/services/tuples/factor-calculator-types';
 import {useParameterEventBus} from '../parameter/parameter-event-bus';
 import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';
 import {ConstantContainer, ConstantInput} from './widgets';
 import {useVariablesEventBus} from '../../variables/variables-event-bus';
 import {VariablesEventTypes} from '../../variables/variables-event-bus-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
-import {isConstantParameter} from '../../../../../../services/tuples/parameter-utils';
-import {isConstantParameterValid} from '../../../../../../services/tuples/pipeline-validation-utils';
+import {Topic} from '@/services/tuples/topic-types';
+import {isConstantParameter} from '@/services/tuples/parameter-utils';
+import {isConstantParameterValid} from '@/services/tuples/pipeline-validation-utils';
 
 const computeTypes = (options: {
 	parameter: ConstantParameter;

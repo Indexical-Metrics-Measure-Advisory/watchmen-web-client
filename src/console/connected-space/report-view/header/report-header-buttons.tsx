@@ -1,12 +1,12 @@
 import React from 'react';
-import {PageHeaderButtons, PageHeaderButtonSeparator} from '../../../../basic-widgets/page-header-buttons';
-import {ConnectedSpace} from '../../../../services/tuples/connected-space-types';
-import {Subject} from '../../../../services/tuples/subject-types';
+import {PageHeaderButtons, PageHeaderButtonSeparator} from '@/basic-widgets/page-header-buttons';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
+import {Subject} from '@/services/tuples/subject-types';
 import {HeaderCatalogButton} from '../../header/header-catalog-button';
 import {HeaderDeleteReportButton} from './header-delete-report-buttton';
 import {HeaderSwitchReportButton} from './header-switch-report-button';
 import {HeaderAddReportButton} from './header-add-report-button';
-import {Report} from '../../../../services/tuples/report-types';
+import {Report} from '@/services/tuples/report-types';
 import {HeaderSaveReportButton} from './header-save-report-buttton';
 import {HeaderSubjectButton} from '../../header/header-subject-button';
 

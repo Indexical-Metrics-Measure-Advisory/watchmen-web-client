@@ -1,8 +1,8 @@
 import React, {Fragment} from 'react';
 import {v4} from 'uuid';
-import {PipelineStage} from '../../../services/tuples/pipeline-stage-types';
-import {Pipeline} from '../../../services/tuples/pipeline-types';
-import {Topic} from '../../../services/tuples/topic-types';
+import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {LineComment, PropName} from './dsl-widgets';
 import {UnitPart} from './unit-part';
 

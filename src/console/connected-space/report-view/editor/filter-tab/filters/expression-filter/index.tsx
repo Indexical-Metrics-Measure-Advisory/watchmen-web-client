@@ -7,11 +7,11 @@ import {Expression} from './expression';
 import {ExpressionOperator} from './expression-operator';
 import {ExpressionRight} from './expression-right';
 import {ExpressionFilterContainer, ExpressionLeadLabel} from './widgets';
-import {Report, ReportFilterExpression, ReportFilterJoint} from '../../../../../../../services/tuples/report-types';
-import {Subject} from '../../../../../../../services/tuples/subject-types';
-import {Lang} from '../../../../../../../langs';
-import {ICON_DELETE} from '../../../../../../../basic-widgets/constants';
-import {ParameterKind} from '../../../../../../../services/tuples/factor-calculator-types';
+import {Report, ReportFilterExpression, ReportFilterJoint} from '@/services/tuples/report-types';
+import {Subject} from '@/services/tuples/subject-types';
+import {Lang} from '@/langs';
+import {ICON_DELETE} from '@/basic-widgets/constants';
+import {ParameterKind} from '@/services/tuples/factor-calculator-types';
 
 export const ExpressionFilterEdit = (props: {
 	subject: Subject;

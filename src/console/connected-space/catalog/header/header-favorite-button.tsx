@@ -1,14 +1,14 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import {ICON_FAVORITE} from '../../../../basic-widgets/constants';
-import {PageHeaderButton} from '../../../../basic-widgets/page-header-buttons';
-import {useEventBus} from '../../../../events/event-bus';
-import {EventTypes} from '../../../../events/types';
-import {Lang} from '../../../../langs';
-import {saveFavorite} from '../../../../services/console/favorite';
-import {Favorite} from '../../../../services/console/favorite-types';
-import {ConnectedSpace} from '../../../../services/tuples/connected-space-types';
+import {ICON_FAVORITE} from '@/basic-widgets/constants';
+import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Lang} from '@/langs';
+import {saveFavorite} from '@/services/console/favorite';
+import {Favorite} from '@/services/console/favorite-types';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
 import {useConsoleEventBus} from '../../../console-event-bus';
 import {ConsoleEventTypes} from '../../../console-event-bus-types';
 

@@ -1,10 +1,7 @@
 import React, {useEffect} from 'react';
-import {useForceUpdate} from '../../../../../../../basic-widgets/utils';
-import {
-	ParameterExpression,
-	ParameterExpressionOperator
-} from '../../../../../../../services/tuples/factor-calculator-types';
-import {Topic} from '../../../../../../../services/tuples/topic-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {ParameterExpression, ParameterExpressionOperator} from '@/services/tuples/factor-calculator-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {ParameterEventBusProvider} from '../../../parameter/parameter/parameter-event-bus';
 import {useExpressionEventBus} from '../../event-bus/expression-event-bus';
 import {ExpressionEventTypes} from '../../event-bus/expression-event-bus-types';

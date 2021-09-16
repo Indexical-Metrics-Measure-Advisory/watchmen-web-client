@@ -1,9 +1,9 @@
 import Dexie from 'dexie';
-import {Pipeline, PipelinesGraphics} from '../../services/tuples/pipeline-types';
-import {Topic} from '../../services/tuples/topic-types';
+import {Pipeline, PipelinesGraphics} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
 import dayjs from 'dayjs';
-import {findAccount} from '../../services/account';
-import {AdminLastSnapshot} from '../../services/admin/last-snapshot-types';
+import {findAccount} from '@/services/account';
+import {AdminLastSnapshot} from '@/services/admin/last-snapshot-types';
 
 interface PipelinesTable {
 	id: string;

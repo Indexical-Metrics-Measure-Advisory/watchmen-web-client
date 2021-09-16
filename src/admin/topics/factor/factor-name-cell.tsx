@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import {useForceUpdate} from '../../../basic-widgets/utils';
-import {Factor, FactorType} from '../../../services/tuples/factor-types';
-import {Topic} from '../../../services/tuples/topic-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {Factor, FactorType} from '@/services/tuples/factor-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';
 import {FactorNameCellContainer, FactorPropInput} from './widgets';

@@ -3,7 +3,7 @@ import {AllTopics, PipelineRuntimeContext} from '../types';
 import {RuntimeEventBusProvider, useRuntimeEventBus} from '../runtime/runtime-event-bus';
 import {PipelineRuntime} from './pipeline-runtime';
 import {StagesRuntime} from './stages-runtime';
-import {Pipeline} from '../../../../../services/tuples/pipeline-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
 import {RunNextPipeline} from './run-next-pipeline';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
 import {useRunsEventBus} from '../runs-event-bus';

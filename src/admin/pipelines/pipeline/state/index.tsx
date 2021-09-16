@@ -1,4 +1,4 @@
-import {Pipeline} from '../../../../services/tuples/pipeline-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
 import {usePipelineEventBus} from '../pipeline-event-bus';
 import {useEffect, useState} from 'react';
 import {PipelineEventTypes, PipelineFocusMode} from '../pipeline-event-bus-types';

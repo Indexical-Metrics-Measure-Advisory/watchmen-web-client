@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import {useForceUpdate} from '../../../../../basic-widgets/utils';
-import {Parameter, ParameterKind, TopicFactorParameter} from '../../../../../services/tuples/factor-calculator-types';
-import {Subject, SubjectDataSetJoin} from '../../../../../services/tuples/subject-types';
-import {Topic} from '../../../../../services/tuples/topic-types';
-import {useParameterEventBus} from '../../../../../data-filter/parameter-event-bus';
-import {ParameterEventTypes} from '../../../../../data-filter/parameter-event-bus-types';
-import {TopicFactorEditor} from '../../../../../data-filter/topic-factor';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {Parameter, ParameterKind, TopicFactorParameter} from '@/services/tuples/factor-calculator-types';
+import {Subject, SubjectDataSetJoin} from '@/services/tuples/subject-types';
+import {Topic} from '@/services/tuples/topic-types';
+import {useParameterEventBus} from '@/data-filter/parameter-event-bus';
+import {ParameterEventTypes} from '@/data-filter/parameter-event-bus-types';
+import {TopicFactorEditor} from '@/data-filter/topic-factor';
 import {useJoinEventBus} from './join-event-bus';
 import {JoinEventTypes} from './join-event-bus-types';
 import {JoinTopicFactorEditContainer} from './widgets';

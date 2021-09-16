@@ -1,15 +1,15 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
-import {ICON_LOADING} from '../../../../../basic-widgets/constants';
-import {useEventBus} from '../../../../../events/event-bus';
-import {EventTypes} from '../../../../../events/types';
-import {fetchSubjectData} from '../../../../../services/console/subject';
-import {Subject} from '../../../../../services/tuples/subject-types';
+import {ICON_LOADING} from '@/basic-widgets/constants';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {fetchSubjectData} from '@/services/console/subject';
+import {Subject} from '@/services/tuples/subject-types';
 import {DEFAULT_SUBJECT_DATASET_PAGE_SIZE} from '../constants';
 import {useSubjectDataSetEventBus} from '../subject-dataset-event-bus';
 import {SubjectDataSetEventTypes} from '../subject-dataset-event-bus-types';
 import {SubjectDataSetLoading} from '../widgets';
-import {ColumnDefs} from '../../../../../dataset-grid/types';
+import {ColumnDefs} from '@/dataset-grid/types';
 
 const fetchData = async (options: { subject: Subject; pageNumber?: number; }) => {
 	const {subject, pageNumber = 1} = options;

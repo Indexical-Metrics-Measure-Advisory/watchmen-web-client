@@ -1,5 +1,5 @@
 import {LegendComponentOption} from 'echarts/components';
-import {ECharts} from '../../services/tuples/echarts/echarts-types';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
 import {cleanUselessValues} from './data-utils';
 
 export const buildEChartsLegend = (chart: ECharts, legendNames: Array<string>): LegendComponentOption | undefined => {

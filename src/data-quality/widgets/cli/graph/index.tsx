@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import * as echarts from 'echarts/core';
 import {EChartsType} from 'echarts/core';
 import {ChartContainer, FullscreenButton, GraphContainer} from './widgets';
-import {ButtonInk} from '../../../../basic-widgets/types';
+import {ButtonInk} from '@/basic-widgets/types';
 
 // noinspection DuplicatedCode
 export const GraphDiagram = (props: { options: any }) => {

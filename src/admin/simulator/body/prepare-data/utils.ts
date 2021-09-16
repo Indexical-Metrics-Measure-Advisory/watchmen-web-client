@@ -1,10 +1,10 @@
-import {Topic} from '../../../../services/tuples/topic-types';
-import {Pipeline} from '../../../../services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
 import {getPipelineName} from '../../utils';
 import {
 	isReadTopicAction,
 	isWriteTopicAction
-} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 
 export interface FlowTreePipelineNode {
 	pipeline: Pipeline;

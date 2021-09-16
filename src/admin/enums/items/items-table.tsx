@@ -1,5 +1,5 @@
 import React from 'react';
-import {Enum} from '../../../services/tuples/enum-types';
+import {Enum} from '@/services/tuples/enum-types';
 import {ItemsExportButton} from './items-export-button';
 import {ItemsImportButton} from './items-import-button';
 import {ItemsTableBody} from './items-table-body';

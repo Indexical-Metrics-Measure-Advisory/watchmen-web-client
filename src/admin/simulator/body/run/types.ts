@@ -1,8 +1,8 @@
-import {Pipeline} from '../../../../services/tuples/pipeline-types';
-import {PipelineStage} from '../../../../services/tuples/pipeline-stage-types';
-import {Topic} from '../../../../services/tuples/topic-types';
-import {PipelineStageUnit} from '../../../../services/tuples/pipeline-stage-unit-types';
-import {PipelineStageUnitAction} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
+import {Topic} from '@/services/tuples/topic-types';
+import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
+import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {TopicsData} from '../state/types';
 import {DataRow} from '../../types';
 
@@ -46,6 +46,7 @@ export interface ChangedDataRow {
 
 export type AllTopics = { [key in string]: Topic };
 export type InMemoryVariables = { [key in string]: any };
+
 export interface DefeatedPipeline {
 	triggerData: ChangedDataRow;
 	pipelines: Array<string>;

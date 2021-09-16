@@ -1,23 +1,23 @@
 import React, {useEffect} from 'react';
-import {AlertLabel} from '../../alert/widgets';
+import {AlertLabel} from '@/alert/widgets';
 import UserBackground from '../../assets/user-background.svg';
-import {TUPLE_SEARCH_PAGE_SIZE} from '../../basic-widgets/constants';
-import {useEventBus} from '../../events/event-bus';
-import {EventTypes} from '../../events/types';
-import {DataPage} from '../../services/query/data-page';
-import {QueryUser} from '../../services/tuples/query-user-types';
-import {QueryTuple} from '../../services/tuples/tuple-types';
-import {fetchUser, listUsers, saveUser} from '../../services/tuples/user';
-import {User, UserRole} from '../../services/tuples/user-types';
-import {generateUuid} from '../../services/tuples/utils';
-import {getCurrentTime} from '../../services/utils';
+import {TUPLE_SEARCH_PAGE_SIZE} from '@/basic-widgets/constants';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {DataPage} from '@/services/query/data-page';
+import {QueryUser} from '@/services/tuples/query-user-types';
+import {QueryTuple} from '@/services/tuples/tuple-types';
+import {fetchUser, listUsers, saveUser} from '@/services/tuples/user';
+import {User, UserRole} from '@/services/tuples/user-types';
+import {generateUuid} from '@/services/tuples/utils';
+import {getCurrentTime} from '@/services/utils';
 import {TupleWorkbench} from '../widgets/tuple-workbench';
 import {TupleEventBusProvider, useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
 import {renderCard} from './card';
 import {renderEditor} from './editor';
-import {listTenants} from '../../services/tuples/tenant';
-import {isSuperAdmin} from '../../services/account';
+import {listTenants} from '@/services/tuples/tenant';
+import {isSuperAdmin} from '@/services/account';
 
 const createUser = (): User => {
 	return {

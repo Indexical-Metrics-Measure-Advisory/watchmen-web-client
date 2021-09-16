@@ -1,6 +1,6 @@
-import {Dashboard} from '../../services/tuples/dashboard-types';
-import {Paragraph} from '../../services/tuples/paragraph';
-import {Report} from '../../services/tuples/report-types';
+import {Dashboard} from '@/services/tuples/dashboard-types';
+import {Paragraph} from '@/services/tuples/paragraph';
+import {Report} from '@/services/tuples/report-types';
 
 export enum DashboardEventTypes {
 	REFRESH_INTERVAL_CHANGED = 'refresh-interval-changed',

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {QueryTuple} from '../../../../services/tuples/tuple-types';
+import {QueryTuple} from '@/services/tuples/tuple-types';
 import {useTupleEventBus} from '../tuple-event-bus';
 import {TupleEventTypes} from '../tuple-event-bus-types';
 import {SearchList} from './search-list';

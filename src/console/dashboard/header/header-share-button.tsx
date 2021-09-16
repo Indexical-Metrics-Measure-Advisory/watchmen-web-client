@@ -1,16 +1,16 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import {Button} from '../../../basic-widgets/button';
-import {ICON_SHARE} from '../../../basic-widgets/constants';
-import {PageHeaderButton} from '../../../basic-widgets/page-header-buttons';
-import {ButtonInk} from '../../../basic-widgets/types';
-import {DialogBody, DialogFooter, DialogLabel} from '../../../dialog/widgets';
-import {useEventBus} from '../../../events/event-bus';
-import {EventTypes} from '../../../events/types';
-import {Lang} from '../../../langs';
-import {buildDashboardShareUrl} from '../../../services/console/dashboard';
-import {Dashboard} from '../../../services/tuples/dashboard-types';
+import {Button} from '@/basic-widgets/button';
+import {ICON_SHARE} from '@/basic-widgets/constants';
+import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
+import {ButtonInk} from '@/basic-widgets/types';
+import {DialogBody, DialogFooter, DialogLabel} from '@/dialog/widgets';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Lang} from '@/langs';
+import {buildDashboardShareUrl} from '@/services/console/dashboard';
+import {Dashboard} from '@/services/tuples/dashboard-types';
 
 const ShareDialogBody = styled(DialogBody)`
 	flex-direction : column;

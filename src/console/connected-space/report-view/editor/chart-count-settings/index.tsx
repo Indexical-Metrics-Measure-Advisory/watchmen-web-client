@@ -1,7 +1,7 @@
 import React from 'react';
-import {Lang} from '../../../../../langs';
-import {isCountChart} from '../../../../../services/tuples/chart-utils';
-import {Report} from '../../../../../services/tuples/report-types';
+import {Lang} from '@/langs';
+import {isCountChart} from '@/services/tuples/chart-utils';
+import {Report} from '@/services/tuples/report-types';
 import {onBooleanChange} from '../data-utils';
 import {FontSettings, SettingsFontPropNames} from '../echarts/font';
 import {CountChartStylePropNames} from '../prop-defs/chart-styles/count-chart-style-props';

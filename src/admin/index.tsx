@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
-import {Router} from '../routes/types';
+import {Router} from '@/routes/types';
 import {isAdmin, isSuperAdmin} from '../services/account';
 import AdminEnums from './enums';
 import AdminHome from './home';
@@ -20,10 +20,10 @@ import AdminDebug from './simulator';
 import {TopicProfileEventBusProvider} from './topic-profile/topic-profile-event-bus';
 import {TopicProfile} from './topic-profile';
 import AdminDataSources from './data-sources';
-import {isMultipleDataSourcesEnabled} from '../feature-switch';
+import {isMultipleDataSourcesEnabled} from '@/feature-switch';
 
 const AdminContainer = styled.div.attrs({'data-widget': 'admin'})`
-	display: flex;
+	display : flex;
 `;
 const AdminMain = styled.main.attrs<{ scrollable?: boolean }>(({scrollable = true}) => {
 	return {
@@ -35,11 +35,11 @@ const AdminMain = styled.main.attrs<{ scrollable?: boolean }>(({scrollable = tru
 		}
 	};
 })<{ scrollable?: boolean }>`
-	flex-grow: 1;
-	display: flex;
-	height: 100vh;
-	min-height: 100vh;
-	overflow-y: scroll;
+	flex-grow  : 1;
+	display    : flex;
+	height     : 100vh;
+	min-height : 100vh;
+	overflow-y : scroll;
 `;
 
 const AdminIndex = () => {

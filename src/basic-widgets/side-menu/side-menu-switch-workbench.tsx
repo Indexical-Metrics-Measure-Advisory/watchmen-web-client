@@ -59,7 +59,7 @@ export const SideMenuItemLabel = styled.div.attrs({'data-widget': 'side-menu-ite
 export interface Workbench {
 	icon: IconProp;
 	label: string;
-	action: () => void
+	action: () => void;
 }
 
 export const SideMenuSwitchWorkbench = (props: {

@@ -1,10 +1,10 @@
-import {MonitorRuleParameters} from '../../../services/data-quality/rule-types';
-import {useForceUpdate} from '../../../basic-widgets/utils';
-import {DropdownOption} from '../../../basic-widgets/types';
-import {Dropdown} from '../../../basic-widgets/dropdown';
+import {MonitorRuleParameters} from '@/services/data-quality/rule-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {DropdownOption} from '@/basic-widgets/types';
+import {Dropdown} from '@/basic-widgets/dropdown';
 import React from 'react';
-import {Topic} from '../../../services/tuples/topic-types';
-import {Factor} from '../../../services/tuples/factor-types';
+import {Topic} from '@/services/tuples/topic-types';
+import {Factor} from '@/services/tuples/factor-types';
 
 export const AnotherFactorParameter = (props: { params: MonitorRuleParameters, topic?: Topic, factor?: Factor }) => {
 	const {params, topic, factor} = props;

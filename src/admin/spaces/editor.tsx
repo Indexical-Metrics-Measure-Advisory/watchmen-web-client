@@ -1,8 +1,8 @@
 import React from 'react';
-import {useForceUpdate} from '../../basic-widgets/utils';
-import {QueryTopicForHolder} from '../../services/tuples/query-topic-types';
-import {QueryUserGroupForHolder} from '../../services/tuples/query-user-group-types';
-import {Space} from '../../services/tuples/space-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {QueryTopicForHolder} from '@/services/tuples/query-topic-types';
+import {QueryUserGroupForHolder} from '@/services/tuples/query-user-group-types';
+import {Space} from '@/services/tuples/space-types';
 import {TuplePropertyInput, TuplePropertyInputLines, TuplePropertyLabel} from '../widgets/tuple-workbench/tuple-editor';
 import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes, TupleState} from '../widgets/tuple-workbench/tuple-event-bus-types';

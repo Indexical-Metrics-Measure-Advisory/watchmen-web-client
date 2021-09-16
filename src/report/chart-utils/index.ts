@@ -1,4 +1,4 @@
-import {ChartType} from '../../services/tuples/chart-types';
+import {ChartType} from '@/services/tuples/chart-types';
 import {ChartBarUtils} from './chart-bar-utils';
 import {ChartCountUtils} from './chart-count-utils';
 import {ChartDoughnutUtils} from './chart-doughnut-utils';

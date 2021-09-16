@@ -5,20 +5,20 @@ import {
 	CHART_SETTINGS_MIN_WIDTH,
 	ICON_COLLAPSE_CONTENT,
 	ICON_EXPAND_CONTENT
-} from '../../../../../basic-widgets/constants';
-import {TooltipAlignment} from '../../../../../basic-widgets/types';
-import {Lang} from '../../../../../langs';
-import {ConnectedSpace} from '../../../../../services/tuples/connected-space-types';
-import {Report} from '../../../../../services/tuples/report-types';
-import {Subject} from '../../../../../services/tuples/subject-types';
+} from '@/basic-widgets/constants';
+import {TooltipAlignment} from '@/basic-widgets/types';
+import {Lang} from '@/langs';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
+import {Report} from '@/services/tuples/report-types';
+import {Subject} from '@/services/tuples/subject-types';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {SettingsBody} from '../settings-body';
 import {ResizeHandleAlignment, SettingsResizeHandle} from './settings-resize-handle';
 import {SettingsSaver} from './settings-saver';
 import {SettingsContainer, SettingsHeader, SettingsHeaderButton, SettingsHeaderTitle} from './widgets';
-import {useEventBus} from '../../../../../events/event-bus';
-import {EventTypes} from '../../../../../events/types';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
 import {ReportViewEventTypes} from '../../report-view-event-bus-types';
 import {useReportViewEventBus} from '../../report-view-event-bus';
 

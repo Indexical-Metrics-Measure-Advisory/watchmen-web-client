@@ -1,8 +1,8 @@
-import {BASE_COLORS_24} from '../../basic-widgets/colors';
-import {TREEMAP, TreemapChartSettings} from '../../services/tuples/chart-def/chart-treemap';
-import {ChartDataSet} from '../../services/tuples/chart-types';
-import {ECharts} from '../../services/tuples/echarts/echarts-types';
-import {Report} from '../../services/tuples/report-types';
+import {BASE_COLORS_24} from '@/basic-widgets/colors';
+import {TREEMAP, TreemapChartSettings} from '@/services/tuples/chart-def/chart-treemap';
+import {ChartDataSet} from '@/services/tuples/chart-types';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
+import {Report} from '@/services/tuples/report-types';
 import {cleanUselessValues} from './data-utils';
 import {DefaultChartUtils} from './default-chart-utils';
 import {buildEChartsTitle} from './title-utils';

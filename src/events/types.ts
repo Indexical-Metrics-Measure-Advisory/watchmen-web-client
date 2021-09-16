@@ -1,5 +1,5 @@
-import {ReactContent, TooltipAlignment, TooltipPosition} from '../basic-widgets/types';
-import {LanguageObjectType} from '../langs/types';
+import {ReactContent, TooltipAlignment, TooltipPosition} from '@/basic-widgets/types';
+import {LanguageObjectType} from '@/langs/types';
 import {CSSProperties} from 'react';
 
 export enum EventTypes {

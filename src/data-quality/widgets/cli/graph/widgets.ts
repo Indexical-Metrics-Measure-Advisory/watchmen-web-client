@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Button} from '../../../../basic-widgets/button';
+import {Button} from '@/basic-widgets/button';
 
 export const GraphContainer = styled.div.attrs({'data-widget': 'cli-graph'})`
 	display: block;

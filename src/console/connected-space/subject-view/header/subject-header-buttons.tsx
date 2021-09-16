@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
-import {PageHeaderButtons, PageHeaderButtonSeparator} from '../../../../basic-widgets/page-header-buttons';
-import {ConnectedSpace} from '../../../../services/tuples/connected-space-types';
-import {Subject} from '../../../../services/tuples/subject-types';
+import {PageHeaderButtons, PageHeaderButtonSeparator} from '@/basic-widgets/page-header-buttons';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
+import {Subject} from '@/services/tuples/subject-types';
 import {HeaderCatalogButton} from '../../header/header-catalog-button';
 import {HeaderDeleteSubjectButton} from './header-delete-subject-buttton';
 import {HeaderSubjectDataButton} from './header-subject-data-button';

@@ -1,12 +1,12 @@
 import {MouseEvent, useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import {ICON_CONNECTED_SPACE, ICON_DASHBOARD} from '../../basic-widgets/constants';
-import {useForceUpdate} from '../../basic-widgets/utils';
-import {isConnectedSpaceOpened, isDashboardOpened, toConnectedSpace, toDashboard} from '../../routes/utils';
-import {saveFavorite} from '../../services/console/favorite';
-import {Favorite} from '../../services/console/favorite-types';
-import {ConnectedSpace} from '../../services/tuples/connected-space-types';
-import {Dashboard} from '../../services/tuples/dashboard-types';
+import {ICON_CONNECTED_SPACE, ICON_DASHBOARD} from '@/basic-widgets/constants';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {isConnectedSpaceOpened, isDashboardOpened, toConnectedSpace, toDashboard} from '@/routes/utils';
+import {saveFavorite} from '@/services/console/favorite';
+import {Favorite} from '@/services/console/favorite-types';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
+import {Dashboard} from '@/services/tuples/dashboard-types';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes} from '../console-event-bus-types';
 import {RenderItem, StateData} from './types';
@@ -195,7 +195,7 @@ export const useFavoriteState = () => {
 				connectedSpaceIds: connectedSpaceIds || [],
 				dashboardIds: dashboardIds || []
 			});
-		} catch (e) {
+		} catch (e: any) {
 			// ignore
 			console.info(e);
 		}

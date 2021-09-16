@@ -1,30 +1,32 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
-import {DialogBody, DialogFooter, DialogLabel} from '../../../../dialog/widgets';
+import {DialogBody, DialogFooter, DialogLabel} from '@/dialog/widgets';
 import {AssembledPipelinesGraphics} from '../types';
-import {useEventBus} from '../../../../events/event-bus';
-import {EventTypes} from '../../../../events/types';
-import {deletePipelineGraphics} from '../../../../services/tuples/pipeline';
-import {Button} from '../../../../basic-widgets/button';
-import {ButtonInk} from '../../../../basic-widgets/types';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {deletePipelineGraphics} from '@/services/tuples/pipeline';
+import {Button} from '@/basic-widgets/button';
+import {ButtonInk} from '@/basic-widgets/types';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
-import {PageHeaderButton} from '../../../../basic-widgets/page-header-buttons';
-import {ICON_THROW_AWAY} from '../../../../basic-widgets/constants';
+import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
+import {ICON_THROW_AWAY} from '@/basic-widgets/constants';
+// noinspection ES6PreferShortImport
 import {useAdminCacheEventBus} from '../../../cache/cache-event-bus';
+// noinspection ES6PreferShortImport
 import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
 
 const DeleteDialogBody = styled(DialogBody)`
-	flex-direction: column;
-	margin-bottom: var(--margin);
+	flex-direction : column;
+	margin-bottom  : var(--margin);
 `;
 const NameUrl = styled.div`
-	color: var(--info-color);
-	font-weight: var(--font-bold);
-	padding-top: calc(var(--margin) / 2);
-	word-break: break-all;
-	line-height: var(--line-height);
+	color       : var(--info-color);
+	font-weight : var(--font-bold);
+	padding-top : calc(var(--margin) / 2);
+	word-break  : break-all;
+	line-height : var(--line-height);
 `;
 
 const PipelineGraphicsDelete = (props: { graphics: AssembledPipelinesGraphics, onRemoved: () => void }) => {

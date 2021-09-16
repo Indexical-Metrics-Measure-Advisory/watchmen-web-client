@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
-import {DropdownOption} from '../../../basic-widgets/types';
-import {useForceUpdate} from '../../../basic-widgets/utils';
-import {En} from '../../../langs/en';
-import {Factor, FactorType} from '../../../services/tuples/factor-types';
-import {Topic, TopicType} from '../../../services/tuples/topic-types';
+import {DropdownOption} from '@/basic-widgets/types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {En} from '@/langs/en';
+import {Factor, FactorType} from '@/services/tuples/factor-types';
+import {Topic, TopicType} from '@/services/tuples/topic-types';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';
 import {FactorPropDropdown, FactorTypeCellContainer, IncorrectFactorType} from './widgets';

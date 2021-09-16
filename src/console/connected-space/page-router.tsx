@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {Redirect, Route, Switch, useHistory, useParams} from 'react-router-dom';
-import {Router} from '../../routes/types';
-import {toConnectedSpace, toConnectedSpaceCatalog, toSubject} from '../../routes/utils';
-import {ConnectedSpace} from '../../services/tuples/connected-space-types';
+import {Router} from '@/routes/types';
+import {toConnectedSpace, toConnectedSpaceCatalog, toSubject} from '@/routes/utils';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
 import {Catalog} from './catalog';
 import {SubjectView} from './subject-view';
-import {useEventBus} from '../../events/event-bus';
-import {Lang} from '../../langs';
-import {EventTypes} from '../../events/types';
-import {Subject} from '../../services/tuples/subject-types';
-import {Report} from '../../services/tuples/report-types';
+import {useEventBus} from '@/events/event-bus';
+import {Lang} from '@/langs';
+import {EventTypes} from '@/events/types';
+import {Subject} from '@/services/tuples/subject-types';
+import {Report} from '@/services/tuples/report-types';
 import {ReportView} from './report-view';
-import {AlertLabel} from '../../alert/widgets';
+import {AlertLabel} from '@/alert/widgets';
 
 const ReportRouter = (props: { connectedSpace: ConnectedSpace }) => {
 	const {connectedSpace} = props;

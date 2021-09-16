@@ -1,8 +1,8 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT} from '../../basic-widgets/constants';
-import {TooltipAlignment} from '../../basic-widgets/types';
-import {QueryUserGroup} from '../../services/tuples/query-user-group-types';
+import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT} from '@/basic-widgets/constants';
+import {TooltipAlignment} from '@/basic-widgets/types';
+import {QueryUserGroup} from '@/services/tuples/query-user-group-types';
 import {
 	TupleCard,
 	TupleCardDescription,
@@ -12,7 +12,7 @@ import {
 } from '../widgets/tuple-workbench/tuple-card';
 import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
-import {prettifyDateTimeToMinute} from '../../services/tuples/utils';
+import {prettifyDateTimeToMinute} from '@/services/tuples/utils';
 
 const UserGroupCard = (props: { userGroup: QueryUserGroup }) => {
 	const {userGroup} = props;

@@ -1,8 +1,8 @@
 import React from 'react';
-import {Lang} from '../../../../../../langs';
-import {ECharts} from '../../../../../../services/tuples/echarts/echarts-types';
-import {EChartsYAxisNameLocation} from '../../../../../../services/tuples/echarts/echarts-yaxis-types';
-import {Report} from '../../../../../../services/tuples/report-types';
+import {Lang} from '@/langs';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
+import {EChartsYAxisNameLocation} from '@/services/tuples/echarts/echarts-yaxis-types';
+import {Report} from '@/services/tuples/report-types';
 import {
 	isANumberAndInRange,
 	onColorChange,

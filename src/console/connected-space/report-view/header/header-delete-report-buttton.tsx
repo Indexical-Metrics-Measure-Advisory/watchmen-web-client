@@ -2,30 +2,30 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
-import {Button} from '../../../../basic-widgets/button';
-import {ICON_THROW_AWAY} from '../../../../basic-widgets/constants';
-import {PageHeaderButton} from '../../../../basic-widgets/page-header-buttons';
-import {ButtonInk} from '../../../../basic-widgets/types';
-import {DialogBody, DialogFooter, DialogLabel} from '../../../../dialog/widgets';
-import {useEventBus} from '../../../../events/event-bus';
-import {EventTypes} from '../../../../events/types';
-import {Lang} from '../../../../langs';
-import {toSubjectReport, toSubjectReports} from '../../../../routes/utils';
-import {ConnectedSpace} from '../../../../services/tuples/connected-space-types';
-import {Subject} from '../../../../services/tuples/subject-types';
-import {Report} from '../../../../services/tuples/report-types';
-import {deleteReport} from '../../../../services/tuples/report';
+import {Button} from '@/basic-widgets/button';
+import {ICON_THROW_AWAY} from '@/basic-widgets/constants';
+import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
+import {ButtonInk} from '@/basic-widgets/types';
+import {DialogBody, DialogFooter, DialogLabel} from '@/dialog/widgets';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Lang} from '@/langs';
+import {toSubjectReport, toSubjectReports} from '@/routes/utils';
+import {ConnectedSpace} from '@/services/tuples/connected-space-types';
+import {Subject} from '@/services/tuples/subject-types';
+import {Report} from '@/services/tuples/report-types';
+import {deleteReport} from '@/services/tuples/report';
 
 const DeleteDialogBody = styled(DialogBody)`
-	flex-direction: column;
-	margin-bottom: var(--margin);
+	flex-direction : column;
+	margin-bottom  : var(--margin);
 `;
 const NameUrl = styled.div`
-	color: var(--info-color);
-	font-weight: var(--font-bold);
-	padding-top: calc(var(--margin) / 2);
-	word-break: break-all;
-	line-height: var(--line-height);
+	color       : var(--info-color);
+	font-weight : var(--font-bold);
+	padding-top : calc(var(--margin) / 2);
+	word-break  : break-all;
+	line-height : var(--line-height);
 `;
 
 const ReportDelete = (props: { report: Report, onRemoved: () => void }) => {

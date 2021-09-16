@@ -1,7 +1,7 @@
 import React from 'react';
-import {QueryTopicForHolder} from '../../services/tuples/query-topic-types';
-import {Space} from '../../services/tuples/space-types';
-import {listTopicsForHolder} from '../../services/tuples/topic';
+import {QueryTopicForHolder} from '@/services/tuples/query-topic-types';
+import {Space} from '@/services/tuples/space-types';
+import {listTopicsForHolder} from '@/services/tuples/topic';
 import {TupleItemPicker} from '../widgets/tuple-workbench/tuple-item-picker';
 
 const hasTopic = (space: Space) => !!space.topicIds && space.topicIds.length > 0;

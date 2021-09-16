@@ -1,5 +1,5 @@
 import parseCSV from 'csv-parse';
-import {EnumItem} from '../../../services/tuples/enum-types';
+import {EnumItem} from '@/services/tuples/enum-types';
 
 const asEnumItems = async (data: any): Promise<Array<EnumItem>> => {
 	if (data == null || !Array.isArray(data) || data.length === 0) {
@@ -29,7 +29,7 @@ export const parseFromCsv = async (content: string): Promise<Array<EnumItem>> =>
 
 			try {
 				resolve(asEnumItems(data));
-			} catch (e) {
+			} catch (e: any) {
 				reject(e);
 			}
 		});
@@ -42,10 +42,10 @@ export const parseFromJson = async (content: string): Promise<Array<EnumItem>> =
 			const data = JSON.parse(content);
 			try {
 				resolve(asEnumItems(data));
-			} catch (e) {
+			} catch (e: any) {
 				reject(e);
 			}
-		} catch (e) {
+		} catch (e: any) {
 			console.group('Error occurred on parse JSON.');
 			console.error(e);
 			console.groupEnd();

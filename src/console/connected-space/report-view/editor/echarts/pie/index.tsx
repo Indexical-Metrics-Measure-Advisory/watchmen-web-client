@@ -1,9 +1,9 @@
 import React from 'react';
-import {Lang} from '../../../../../../langs';
-import {PieChartSettingsSeries, PieRoseType} from '../../../../../../services/tuples/chart-def/chart-pie';
-import {ChartType} from '../../../../../../services/tuples/chart-types';
-import {ECharts} from '../../../../../../services/tuples/echarts/echarts-types';
-import {Report} from '../../../../../../services/tuples/report-types';
+import {Lang} from '@/langs';
+import {PieChartSettingsSeries, PieRoseType} from '@/services/tuples/chart-def/chart-pie';
+import {ChartType} from '@/services/tuples/chart-types';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
+import {Report} from '@/services/tuples/report-types';
 import {onBooleanChange, onDropdownValueChange, onNumberChange, validateNumber} from '../../data-utils';
 import {PieChartStylePropNames, PieRoseTypeOptions} from '../../prop-defs/chart-styles/pie-chart-style-props';
 import {useChartType} from '../../settings-effect/use-chart-type';

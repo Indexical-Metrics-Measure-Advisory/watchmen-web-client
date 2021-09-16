@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
-import {useForceUpdate} from '../../../../../../basic-widgets/utils';
-import {Conditional} from '../../../../../../services/tuples/pipeline-super-types';
+import {useForceUpdate} from '@/basic-widgets/utils';
+import {Conditional} from '@/services/tuples/pipeline-super-types';
 import {useConditionalEventBus} from '../conditional-event-bus';
 import {ConditionalEventTypes} from '../conditional-event-bus-types';
 import {JointFold} from '../joint-fold';

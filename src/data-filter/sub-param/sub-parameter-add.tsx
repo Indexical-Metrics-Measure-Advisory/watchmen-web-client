@@ -1,13 +1,13 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {AlertLabel} from '../../alert/widgets';
-import {ICON_ADD} from '../../basic-widgets/constants';
-import {useEventBus} from '../../events/event-bus';
-import {EventTypes} from '../../events/types';
-import {Lang} from '../../langs';
-import {ComputedParameter, Parameter} from '../../services/tuples/factor-calculator-types';
+import {AlertLabel} from '@/alert/widgets';
+import {ICON_ADD} from '@/basic-widgets/constants';
+import {useEventBus} from '@/events/event-bus';
+import {EventTypes} from '@/events/types';
+import {Lang} from '@/langs';
+import {ComputedParameter, Parameter} from '@/services/tuples/factor-calculator-types';
 import {ParameterAddButton, ParameterAddContainer} from './widgets';
-import {canAddMoreParameter, createTopicFactorParameter} from '../../services/tuples/parameter-utils';
+import {canAddMoreParameter, createTopicFactorParameter} from '@/services/tuples/parameter-utils';
 
 export const SubParameterAdd = (props: {
 	parentParameter: ComputedParameter;

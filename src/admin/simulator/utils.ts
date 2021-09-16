@@ -1,8 +1,8 @@
-import {Pipeline} from '../../services/tuples/pipeline-types';
-import {Topic} from '../../services/tuples/topic-types';
-import {PipelineStage} from '../../services/tuples/pipeline-stage-types';
-import {PipelineStageUnit} from '../../services/tuples/pipeline-stage-unit-types';
-import {PipelineStageUnitAction} from '../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {Topic} from '@/services/tuples/topic-types';
+import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
+import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
+import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 
 export const getPipelineName = (pipeline: Pipeline): string => {
 	return pipeline.name || `Noname Pipeline (#${pipeline.pipelineId})`;

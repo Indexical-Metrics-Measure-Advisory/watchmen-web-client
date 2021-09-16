@@ -16,17 +16,17 @@ import {
 	HorizontalValue,
 	HorizontalValueBar
 } from './widgets';
-import {fetchMonitorRuleLogs} from '../../../services/data-quality/rules';
-import {MonitorRuleCode, MonitorRuleLog, MonitorRuleLogs} from '../../../services/data-quality/rule-types';
+import {fetchMonitorRuleLogs} from '@/services/data-quality/rules';
+import {MonitorRuleCode, MonitorRuleLog, MonitorRuleLogs} from '@/services/data-quality/rule-types';
 import {RuleDefs} from '../../rule-defs';
-import {EventTypes} from '../../../events/types';
-import {useEventBus} from '../../../events/event-bus';
+import {EventTypes} from '@/events/types';
+import {useEventBus} from '@/events/event-bus';
 import {useDataQualityCacheEventBus} from '../../cache/cache-event-bus';
 import {DataQualityCacheEventTypes} from '../../cache/cache-event-bus-types';
 import {DQCCacheData} from '../../cache/types';
 import {getTopicName} from '../../utils';
-import {Topic} from '../../../services/tuples/topic-types';
-import {ICON_BACK, ICON_REFRESH} from '../../../basic-widgets/constants';
+import {Topic} from '@/services/tuples/topic-types';
+import {ICON_BACK, ICON_REFRESH} from '@/basic-widgets/constants';
 
 const GRID_COLUMN_ALL = '35% 1fr 150px';
 

@@ -77,7 +77,7 @@ export const Zh = {
 		FIX_COLUMN: '锁定至本列',
 		COMPRESS_COLUMNS: '全部缩小列宽',
 		DOWNLOAD_PAGE: '下载本页数据',
-		DOWNLOAD_ALL: '下载所有数据',
+		DOWNLOAD_ALL: '下载所有数据'
 	},
 	CONSOLE: {
 		LOADING: '努力加载个人数据...',
@@ -239,7 +239,7 @@ export const Zh = {
 			EXPAND_REPORT_SETTINGS_SECTIONS: '展开所有',
 			REPORT_NO_FILTER: '没有定义过滤条件, 现在就',
 			CREATE_REPORT_FILTER: '开始',
-			REPORT_NO_FILTER_2: '吗?',
+			REPORT_NO_FILTER_2: '吗?'
 		},
 		SETTINGS: {
 			TITLE: '设置',

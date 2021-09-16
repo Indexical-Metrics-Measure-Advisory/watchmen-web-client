@@ -1,20 +1,20 @@
 import React, {useEffect} from 'react';
 import {v4} from 'uuid';
-import {useForceUpdate} from '../../../../../../basic-widgets/utils';
+import {useForceUpdate} from '@/basic-widgets/utils';
 import {
 	ComputedParameter,
 	Parameter,
 	ParameterComputeType,
 	ValueTypes
-} from '../../../../../../services/tuples/factor-calculator-types';
-import {Topic} from '../../../../../../services/tuples/topic-types';
+} from '@/services/tuples/factor-calculator-types';
+import {Topic} from '@/services/tuples/topic-types';
 import {ParameterEventBusProvider, useParameterEventBus} from '../parameter/parameter-event-bus';
 import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';
 import {SubParameterEditor} from '../sub-param';
 import {SubParameterAdd} from '../sub-param/sub-parameter-add';
 import {HierarchicalParameterEventBridge} from './hierarchical-parameter-event-bridge';
 import {SubParametersContainer} from './widgets';
-import {computeValidTypesForSubParameter} from '../../../../../../services/tuples/factor-calculator-utils';
+import {computeValidTypesForSubParameter} from '@/services/tuples/factor-calculator-utils';
 
 export const SubParameters = (props: {
 	parameter: ComputedParameter;

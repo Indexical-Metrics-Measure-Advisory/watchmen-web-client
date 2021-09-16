@@ -1,5 +1,5 @@
 import {Command, CommandPublishedBehaviorBackward, CommandPublishedBehaviorType} from '../../command/types';
-import {Pipeline} from '../../../services/tuples/pipeline-types';
+import {Pipeline} from '@/services/tuples/pipeline-types';
 import {getPipelineName} from '../../utils';
 import {CMD_ARGUMENT_INSPECT, CMD_ARGUMENT_LIST, CMD_ARGUMENT_VIEW} from '../../command';
 

@@ -1,9 +1,9 @@
 import React, {Fragment} from 'react';
 import {v4} from 'uuid';
-import {Factor} from '../../../../services/tuples/factor-types';
-import {PipelineStageUnitAction} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {isMergeRowAction} from '../../../../services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
-import {Topic} from '../../../../services/tuples/topic-types';
+import {Factor} from '@/services/tuples/factor-types';
+import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {isMergeRowAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {Topic} from '@/services/tuples/topic-types';
 import {
 	AggregateArithmeticValue,
 	FactorName,
@@ -14,7 +14,7 @@ import {
 } from '../dsl-widgets';
 import {JointLine} from '../joint/joint';
 import {ParameterLines} from '../parameter';
-import {AggregateArithmetic} from '../../../../services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
+import {AggregateArithmetic} from '@/services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
 
 export const MergeRow = (props: { action: PipelineStageUnitAction, topicsMap: Map<string, Topic> }) => {
 	const {action, topicsMap} = props;

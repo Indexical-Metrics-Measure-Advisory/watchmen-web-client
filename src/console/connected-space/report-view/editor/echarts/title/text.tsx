@@ -1,7 +1,7 @@
 import React from 'react';
-import {Lang} from '../../../../../../langs';
-import {ECharts} from '../../../../../../services/tuples/echarts/echarts-types';
-import {Report} from '../../../../../../services/tuples/report-types';
+import {Lang} from '@/langs';
+import {ECharts} from '@/services/tuples/echarts/echarts-types';
+import {Report} from '@/services/tuples/report-types';
 import {onColorChange, onNumberChange, onTextValueChange, validateNumber} from '../../data-utils';
 import {TabBodySection, TabBodySectionBody, TabBodySectionTitle} from '../../dataset-and-palette/widget';
 import {EChartsTitlePropNames} from '../../prop-defs/echart-styles/echarts-title-props';
