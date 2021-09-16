@@ -58,57 +58,51 @@ export abstract class DefaultChartUtils implements ChartUtils {
 	protected get def(): ChartDef {
 		return this._def;
 	}
-
+	protected get indicatorCountValidator(): ReportValidator {
+		return DEFAULT_INDICATOR_COUNT_VALIDATOR;
+	}
+	protected get dimensionCountValidator(): ReportValidator {
+		return DEFAULT_DIMENSION_COUNT_VALIDATOR;
+	}
 	getDef(): ChartDef {
 		return this.def;
 	}
-
 	getType(): ChartType {
 		return this.def.type;
 	}
-
 	shouldHasDimension(): boolean {
 		return true;
 	}
-
 	getMaxDimensionCount(): number {
 		const {maxDimensionCount = Infinity} = this.def;
 		return maxDimensionCount;
 	}
-
 	shouldHasIndicator(): boolean {
 		return true;
 	}
-
 	getMaxIndicatorCount(): number {
 		const {maxIndicatorCount = Infinity} = this.def;
 		return maxIndicatorCount;
 	}
-
 	canAppendDimensions(report: Report): boolean {
 		const currentCount = report.dimensions?.length || 0;
 		return currentCount < this.getMaxDimensionCount();
 	}
-
 	canReduceDimensions(report: Report): boolean {
 		const currentCount = report.dimensions?.length || 0;
 		const {minDimensionCount = 1} = this.def;
 		return currentCount > minDimensionCount;
 	}
-
 	canAppendIndicators(report: Report): boolean {
 		const currentCount = report.indicators?.length || 0;
 		return currentCount < this.getMaxIndicatorCount();
 	}
-
 	canReduceIndicators(report: Report): boolean {
 		const currentCount = report.indicators?.length || 0;
 		const {minIndicatorCount = 1} = this.def;
 		return currentCount > minIndicatorCount;
 	}
-
 	abstract buildOptions(report: Report, dataset: ChartDataSet): ChartOptions;
-
 	defendIndicatorMinCount(report: Report): void {
 		// make indicators not null
 		if (!report.indicators) {
@@ -124,7 +118,6 @@ export abstract class DefaultChartUtils implements ChartUtils {
 				arithmetic: ReportIndicatorArithmetic.NONE
 			}));
 	}
-
 	defendIndicatorMaxCount(report: Report): void {
 		// make indicators not null
 		if (!report.indicators) {
@@ -136,7 +129,6 @@ export abstract class DefaultChartUtils implements ChartUtils {
 			report.indicators.length = maxIndicatorCount;
 		}
 	}
-
 	defendDimensionMinCount(report: Report): void {
 		// make dimensions not null
 		if (!report.dimensions) {
@@ -148,7 +140,6 @@ export abstract class DefaultChartUtils implements ChartUtils {
 			.fill(1)
 			.forEach(() => report.dimensions.push({columnId: '', name: ''}));
 	}
-
 	defendDimensionMaxCount(report: Report): void {
 		// make dimensions not null
 		if (!report.dimensions) {
@@ -160,29 +151,12 @@ export abstract class DefaultChartUtils implements ChartUtils {
 			report.dimensions.length = maxDimensionCount;
 		}
 	}
-
 	defend(report: Report): void {
 		this.defendIndicatorMinCount(report);
 		this.defendIndicatorMaxCount(report);
 		this.defendDimensionMinCount(report);
 		this.defendDimensionMaxCount(report);
 	}
-
-	protected get indicatorCountValidator(): ReportValidator {
-		return DEFAULT_INDICATOR_COUNT_VALIDATOR;
-	}
-
-	protected get dimensionCountValidator(): ReportValidator {
-		return DEFAULT_DIMENSION_COUNT_VALIDATOR;
-	}
-
-	protected getValidators(): Array<ReportValidator> {
-		return [
-			this.indicatorCountValidator,
-			this.dimensionCountValidator
-		];
-	}
-
 	validate(report: Report): boolean | string {
 		const validationResult = this.getValidators().reduce((prev: ReportValidationSuccess | ReportValidationFailure, validate) => {
 			if (!prev.pass) {
@@ -194,7 +168,6 @@ export abstract class DefaultChartUtils implements ChartUtils {
 		}, {pass: true});
 		return validationResult.pass || validationResult.error;
 	}
-
 	findColumnExtremum(dataset: ChartDataSet, columnIndex: number): { min: number, max: number } {
 		return dataset.data.reduce((extremum, row) => {
 			// must be number, otherwise throw exception
@@ -208,7 +181,12 @@ export abstract class DefaultChartUtils implements ChartUtils {
 			return extremum;
 		}, {max: -Infinity, min: Infinity});
 	};
-
+	protected getValidators(): Array<ReportValidator> {
+		return [
+			this.indicatorCountValidator,
+			this.dimensionCountValidator
+		];
+	}
 	protected formatNumber(value: any, decimal: number = 0): any {
 		if (typeof value === 'number') {
 			return createNumberFormat(decimal)(value);

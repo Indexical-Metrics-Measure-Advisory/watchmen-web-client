@@ -12,26 +12,18 @@ export enum FilterEventTypes {
 
 export interface FilterEventBus {
 	fire(type: FilterEventTypes.JOINT_TYPE_CHANGED, joint: SubjectDataSetFilterJoint): this;
-
 	on(type: FilterEventTypes.JOINT_TYPE_CHANGED, listener: (joint: SubjectDataSetFilterJoint) => void): this;
-
 	off(type: FilterEventTypes.JOINT_TYPE_CHANGED, listener: (joint: SubjectDataSetFilterJoint) => void): this;
 
 	fire(type: FilterEventTypes.FILTER_ADDED, filter: SubjectDataSetFilter): this;
-
 	on(type: FilterEventTypes.FILTER_ADDED, listener: (filter: SubjectDataSetFilter) => void): this;
-
 	off(type: FilterEventTypes.FILTER_ADDED, listener: (filter: SubjectDataSetFilter) => void): this;
 
 	fire(type: FilterEventTypes.FILTER_REMOVED, filter: SubjectDataSetFilter): this;
-
 	on(type: FilterEventTypes.FILTER_REMOVED, listener: (filter: SubjectDataSetFilter) => void): this;
-
 	off(type: FilterEventTypes.FILTER_REMOVED, listener: (filter: SubjectDataSetFilter) => void): this;
 
 	fire(type: FilterEventTypes.CONTENT_CHANGED, filter: SubjectDataSetFilter): this;
-
 	on(type: FilterEventTypes.CONTENT_CHANGED, listener: (filter: SubjectDataSetFilter) => void): this;
-
 	off(type: FilterEventTypes.CONTENT_CHANGED, listener: (filter: SubjectDataSetFilter) => void): this;
 }

@@ -25,38 +25,26 @@ export enum TupleItemPickerEventTypes {
 
 export interface TupleItemPickerEventBus {
 	fire(type: TupleItemPickerEventTypes.SEARCH_STARTED): this;
-
 	on(type: TupleItemPickerEventTypes.SEARCH_STARTED, listener: () => void): this;
-
 	off(type: TupleItemPickerEventTypes.SEARCH_STARTED, listener: () => void): this;
 
 	fire(type: TupleItemPickerEventTypes.SEARCH_DONE): this;
-
 	on(type: TupleItemPickerEventTypes.SEARCH_DONE, listener: () => void): this;
-
 	off(type: TupleItemPickerEventTypes.SEARCH_DONE, listener: () => void): this;
 
 	fire<QTH extends QueryTupleForHolder>(type: TupleItemPickerEventTypes.CHANGE_SEARCH_STATE, state: PickerSearchState, candidates: Array<QTH>): this;
-
 	on<QTH extends QueryTupleForHolder>(type: TupleItemPickerEventTypes.CHANGE_SEARCH_STATE, listener: (state: PickerSearchState, candidates: Array<QTH>) => void): this;
-
 	off<QTH extends QueryTupleForHolder>(type: TupleItemPickerEventTypes.CHANGE_SEARCH_STATE, listener: (state: PickerSearchState, candidates: Array<QTH>) => void): this;
 
 	fire(type: TupleItemPickerEventTypes.CHANGE_DROPDOWN_POSITION, dropdownPosition: PickerDropdownPosition): this;
-
 	on(type: TupleItemPickerEventTypes.CHANGE_DROPDOWN_POSITION, listener: (dropdownPosition: PickerDropdownPosition) => void): this;
-
 	off(type: TupleItemPickerEventTypes.CHANGE_DROPDOWN_POSITION, listener: (dropdownPosition: PickerDropdownPosition) => void): this;
 
 	fire(type: TupleItemPickerEventTypes.ITEM_ADDED): this;
-
 	on(type: TupleItemPickerEventTypes.ITEM_ADDED, listener: () => void): this;
-
 	off(type: TupleItemPickerEventTypes.ITEM_ADDED, listener: () => void): this;
 
 	fire(type: TupleItemPickerEventTypes.ITEM_REMOVED): this;
-
 	on(type: TupleItemPickerEventTypes.ITEM_REMOVED, listener: () => void): this;
-
 	off(type: TupleItemPickerEventTypes.ITEM_REMOVED, listener: () => void): this;
 }

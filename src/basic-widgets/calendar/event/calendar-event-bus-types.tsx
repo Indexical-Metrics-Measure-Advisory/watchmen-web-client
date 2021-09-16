@@ -16,48 +16,33 @@ export enum CalendarEventTypes {
 
 export interface CalendarEventBus {
 	fire(type: CalendarEventTypes.OPEN_YEAR_MONTH_PICKER): this;
-
 	on(type: CalendarEventTypes.OPEN_YEAR_MONTH_PICKER, listener: () => void): this;
-
 	off(type: CalendarEventTypes.OPEN_YEAR_MONTH_PICKER, listener: () => void): this;
 
 	fire(type: CalendarEventTypes.YEAR_MONTH_PICKER_CLOSED): this;
-
 	on(type: CalendarEventTypes.YEAR_MONTH_PICKER_CLOSED, listener: () => void): this;
-
 	off(type: CalendarEventTypes.YEAR_MONTH_PICKER_CLOSED, listener: () => void): this;
 
 	fire(type: CalendarEventTypes.OPEN_TIME_PICKER): this;
-
 	on(type: CalendarEventTypes.OPEN_TIME_PICKER, listener: () => void): this;
-
 	off(type: CalendarEventTypes.OPEN_TIME_PICKER, listener: () => void): this;
 
 	fire(type: CalendarEventTypes.TIME_PICKER_CLOSED): this;
-
 	on(type: CalendarEventTypes.TIME_PICKER_CLOSED, listener: () => void): this;
-
 	off(type: CalendarEventTypes.TIME_PICKER_CLOSED, listener: () => void): this;
 
 	fire(type: CalendarEventTypes.DATE_CHANGED, value: Dayjs): this;
-
 	on(type: CalendarEventTypes.DATE_CHANGED, listener: (value: Dayjs) => void): this;
-
 	off(type: CalendarEventTypes.DATE_CHANGED, listener: (value: Dayjs) => void): this;
 
 	fire(type: CalendarEventTypes.TIME_CHANGED, value: Dayjs): this;
-
 	on(type: CalendarEventTypes.TIME_CHANGED, listener: (value: Dayjs) => void): this;
-
 	off(type: CalendarEventTypes.TIME_CHANGED, listener: (value: Dayjs) => void): this;
 
 	fire(type: CalendarEventTypes.ASK_VALUE): this;
-
 	on(type: CalendarEventTypes.ASK_VALUE, listener: () => void): this;
-
 	off(type: CalendarEventTypes.ASK_VALUE, listener: () => void): this;
 
 	fire(type: CalendarEventTypes.REPLY_VALUE, value: Dayjs): this;
-
 	once(type: CalendarEventTypes.REPLY_VALUE, listener: (value: Dayjs) => void): this;
 }
