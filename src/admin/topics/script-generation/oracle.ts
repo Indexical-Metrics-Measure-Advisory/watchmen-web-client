@@ -24,9 +24,9 @@ export const OracleFactorTypeMap: { [key in FactorType]: string } = {
 
 	// contact electronic
 	[FactorType.EMAIL]: 'VARCHAR2(100)',
-	[FactorType.PHONE]: 'VARCHAR2(50)',
-	[FactorType.MOBILE]: 'VARCHAR2(50)',
-	[FactorType.FAX]: 'VARCHAR2(50)',
+	[FactorType.PHONE]: 'VARCHAR2(64)',
+	[FactorType.MOBILE]: 'VARCHAR2(64)',
+	[FactorType.FAX]: 'VARCHAR2(64)',
 
 	// date time related
 	[FactorType.DATETIME]: 'DATE',
@@ -57,7 +57,7 @@ export const OracleFactorTypeMap: { [key in FactorType]: string } = {
 	[FactorType.OCCUPATION]: 'VARCHAR2(10)',
 	[FactorType.DATE_OF_BIRTH]: 'DATE',
 	[FactorType.AGE]: 'NUMBER(5)',
-	[FactorType.ID_NO]: 'VARCHAR2(50)',
+	[FactorType.ID_NO]: 'VARCHAR2(64)',
 	[FactorType.RELIGION]: 'VARCHAR2(10)',
 	[FactorType.NATIONALITY]: 'VARCHAR2(10)',
 

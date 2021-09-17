@@ -174,9 +174,8 @@ export const CompatibleTypes: { [key in FactorType]: SourceTypes } = {
 export enum FactorEncryptMethod {
 	NONE = 'none',
 	AES256_PKCS5_PADDING = 'AES256-PKCS5-PADDING',
-	AES256_PKCS7_PADDING = 'AES256-PKCS7-PADDING',
 	MD5 = 'MD5',
-	SHA256_1 = 'SHA256-1',
+	SHA256 = 'SHA256',
 	MASK_MAIL = 'MASK-MAIL',
 	MASK_CENTER_3 = 'MASK-CENTER-3',
 	MASK_CENTER_5 = 'MASK-CENTER-5',
@@ -211,21 +210,21 @@ export const CompatibleEncryptMethods: { [key in FactorType]: Array<FactorEncryp
 	[FactorType.RESIDENTIAL_AREA]: [],
 
 	// contact electronic
-	[FactorType.EMAIL]: [FactorEncryptMethod.MASK_MAIL, FactorEncryptMethod.AES256_PKCS5_PADDING, FactorEncryptMethod.AES256_PKCS7_PADDING],
+	[FactorType.EMAIL]: [FactorEncryptMethod.MASK_MAIL, FactorEncryptMethod.AES256_PKCS5_PADDING],
 	[FactorType.PHONE]: [
 		FactorEncryptMethod.MASK_CENTER_3, FactorEncryptMethod.MASK_CENTER_5,
 		FactorEncryptMethod.MASK_LAST_3, FactorEncryptMethod.MASK_LAST_6,
-		FactorEncryptMethod.AES256_PKCS5_PADDING, FactorEncryptMethod.AES256_PKCS7_PADDING
+		FactorEncryptMethod.AES256_PKCS5_PADDING
 	],
 	[FactorType.MOBILE]: [
 		FactorEncryptMethod.MASK_CENTER_3, FactorEncryptMethod.MASK_CENTER_5,
 		FactorEncryptMethod.MASK_LAST_3, FactorEncryptMethod.MASK_LAST_6,
-		FactorEncryptMethod.AES256_PKCS5_PADDING, FactorEncryptMethod.AES256_PKCS7_PADDING
+		FactorEncryptMethod.AES256_PKCS5_PADDING
 	],
 	[FactorType.FAX]: [
 		FactorEncryptMethod.MASK_CENTER_3, FactorEncryptMethod.MASK_CENTER_5,
 		FactorEncryptMethod.MASK_LAST_3, FactorEncryptMethod.MASK_LAST_6,
-		FactorEncryptMethod.AES256_PKCS5_PADDING, FactorEncryptMethod.AES256_PKCS7_PADDING
+		FactorEncryptMethod.AES256_PKCS5_PADDING
 	],
 
 	// date time related
@@ -260,8 +259,8 @@ export const CompatibleEncryptMethods: { [key in FactorType]: Array<FactorEncryp
 	[FactorType.ID_NO]: [
 		FactorEncryptMethod.MASK_CENTER_5,
 		FactorEncryptMethod.MASK_LAST_3, FactorEncryptMethod.MASK_LAST_6,
-		FactorEncryptMethod.MD5, FactorEncryptMethod.SHA256_1,
-		FactorEncryptMethod.AES256_PKCS5_PADDING, FactorEncryptMethod.AES256_PKCS7_PADDING
+		FactorEncryptMethod.MD5, FactorEncryptMethod.SHA256,
+		FactorEncryptMethod.AES256_PKCS5_PADDING
 	],
 	[FactorType.RELIGION]: [],
 	[FactorType.NATIONALITY]: [],
@@ -281,9 +280,8 @@ export const CompatibleEncryptMethods: { [key in FactorType]: Array<FactorEncryp
 export const FactorEncryptMethodLabels = {
 	[FactorEncryptMethod.NONE]: 'None',
 	[FactorEncryptMethod.AES256_PKCS5_PADDING]: 'AES256 PKCS5 Padding',
-	[FactorEncryptMethod.AES256_PKCS7_PADDING]: 'AES256 PKCS7 Padding',
 	[FactorEncryptMethod.MD5]: 'Md5',
-	[FactorEncryptMethod.SHA256_1]: 'SHA256-1',
+	[FactorEncryptMethod.SHA256]: 'SHA256',
 	[FactorEncryptMethod.MASK_MAIL]: 'Mask Mail',
 	[FactorEncryptMethod.MASK_CENTER_3]: 'Mask Center 3 Digits',
 	[FactorEncryptMethod.MASK_CENTER_5]: 'Mask Center 5 Digits',
