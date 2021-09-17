@@ -55,5 +55,4 @@ export const buildFactorOptions = (options: {
 				key: factor.factorId
 			};
 		});
-
 };

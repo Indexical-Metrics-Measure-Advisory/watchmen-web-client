@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
 import {useForceUpdate} from '@/basic-widgets/utils';
 import {Subject} from '@/services/tuples/subject-types';
 import {Topic} from '@/services/tuples/topic-types';
+import {computeRelationPoints} from '@/shared-widgets/graphics';
+import React, {useEffect, useState} from 'react';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
-import {computeRelationPoints} from '../graphics-utils';
 import {AssembledConnectedSpaceGraphics, GraphicsRole} from '../types';
 import {RelationAnimationDot} from './widgets';
 
