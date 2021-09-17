@@ -1,6 +1,9 @@
-import {RelationCurvePoints} from '@/admin/pipelines/catalog/types';
 import {ConnectedSpaceBlockGraphics} from '@/services/tuples/connected-space-types';
 import {PipelineBlockGraphics} from '@/services/tuples/pipeline-types';
+
+export interface RelationCurvePoints {
+	drawn: string;
+}
 
 const computeFramePoints = (frameGraphics: PipelineBlockGraphics | ConnectedSpaceBlockGraphics) => {
 	const {rect: {coordinate, frame}} = frameGraphics;

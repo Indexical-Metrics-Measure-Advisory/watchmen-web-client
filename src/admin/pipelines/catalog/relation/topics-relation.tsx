@@ -1,11 +1,11 @@
 import {useForceUpdate} from '@/basic-widgets/utils';
 import {Topic} from '@/services/tuples/topic-types';
 import {computeRelationPoints} from '@/shared-widgets/graphics';
+import {Curve} from '@/shared-widgets/graphics-widgets';
 import React, {useEffect, useRef} from 'react';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {AssembledPipelinesGraphics, GraphicsRole} from '../types';
-import {Curve} from './widgets';
 
 export const TopicsRelation = (props: { graphics: AssembledPipelinesGraphics, source: Topic, target: Topic }) => {
 	const {graphics, source, target} = props;

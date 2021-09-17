@@ -2,11 +2,11 @@ import {useForceUpdate} from '@/basic-widgets/utils';
 import {Subject} from '@/services/tuples/subject-types';
 import {Topic} from '@/services/tuples/topic-types';
 import {computeRelationPoints} from '@/shared-widgets/graphics';
+import {RelationAnimationDot} from '@/shared-widgets/graphics-widgets';
 import React, {useEffect, useState} from 'react';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {AssembledConnectedSpaceGraphics, GraphicsRole} from '../types';
-import {RelationAnimationDot} from './widgets';
 
 export const SubjectTopicRelationAnimation = (props: { graphics: AssembledConnectedSpaceGraphics, topic: Topic, subject: Subject }) => {
 	const {graphics, topic, subject} = props;

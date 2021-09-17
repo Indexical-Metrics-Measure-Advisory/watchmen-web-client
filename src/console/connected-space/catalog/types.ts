@@ -46,10 +46,6 @@ export interface AssembledConnectedSpaceGraphics {
 	reports: Array<AssembledReportGraphics>;
 }
 
-export interface RelationCurvePoints {
-	drawn: string;
-}
-
 export interface CatalogData {
 	initialized: boolean;
 	space?: AvailableSpaceInConsole;

@@ -2,11 +2,11 @@ import {useForceUpdate} from '@/basic-widgets/utils';
 import {Report} from '@/services/tuples/report-types';
 import {Subject} from '@/services/tuples/subject-types';
 import {computeRelationPoints} from '@/shared-widgets/graphics';
+import {Curve} from '@/shared-widgets/graphics-widgets';
 import React, {useEffect, useRef} from 'react';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {AssembledConnectedSpaceGraphics, GraphicsRole} from '../types';
-import {Curve} from './widgets';
 
 export const ReportSubjectRelation = (props: { graphics: AssembledConnectedSpaceGraphics, subject: Subject, report: Report }) => {
 	const {graphics, subject, report} = props;

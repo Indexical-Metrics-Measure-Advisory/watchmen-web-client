@@ -23,10 +23,6 @@ export interface AssembledPipelinesGraphics {
 	topics: Array<AssembledTopicGraphics>;
 }
 
-export interface RelationCurvePoints {
-	drawn: string;
-}
-
 export interface CatalogData {
 	initialized: boolean;
 	topics: Array<Topic>;

@@ -1,5 +1,5 @@
 import styled, {keyframes} from 'styled-components';
-import {RelationCurvePoints} from '../types';
+import {RelationCurvePoints} from './graphics';
 
 export const Curve = styled.path.attrs<{ lattice: RelationCurvePoints }>(({lattice: {drawn}}) => {
 	return {d: drawn};
