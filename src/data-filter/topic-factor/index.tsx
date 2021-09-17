@@ -1,4 +1,3 @@
-import {useTopicFactor} from '@/data-filter/topic-factor/use-topic-factor';
 import {Lang} from '@/langs';
 import {Parameter, TopicFactorParameter} from '@/services/tuples/factor-calculator-types';
 import {findSelectedFactor, findSelectedTopic} from '@/services/tuples/factor-calculator-utils';
@@ -8,6 +7,7 @@ import {Topic} from '@/services/tuples/topic-types';
 import {buildFactorOptions, buildTopicOptions} from '@/shared-widgets/tuples';
 import React from 'react';
 import styled from 'styled-components';
+import {useTopicFactor} from './use-topic-factor';
 import {FactorDropdown, IncorrectOptionLabel, TopicDropdown, TopicFactorEditContainer} from './widgets';
 
 const RealTopicFactorEdit = (props: {

@@ -1,8 +1,8 @@
-import {useParameterEventBus} from '@/data-filter/parameter-event-bus';
-import {ParameterEventTypes} from '@/data-filter/parameter-event-bus-types';
 import {Parameter, ParameterKind} from '@/services/tuples/factor-calculator-types';
 import {defendParameterAndRemoveUnnecessary} from '@/services/tuples/parameter-utils';
 import {MouseEvent, useState} from 'react';
+import {useParameterEventBus} from '../parameter-event-bus';
+import {ParameterEventTypes} from '../parameter-event-bus-types';
 
 export const useParamFrom = (parameter: Parameter) => {
 	const {fire} = useParameterEventBus();

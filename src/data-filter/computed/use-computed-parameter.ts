@@ -1,8 +1,8 @@
 import {useForceUpdate} from '@/basic-widgets/utils';
-import {useParameterEventBus} from '@/data-filter/parameter-event-bus';
-import {ParameterEventTypes} from '@/data-filter/parameter-event-bus-types';
 import {Parameter} from '@/services/tuples/factor-calculator-types';
 import {useEffect} from 'react';
+import {useParameterEventBus} from '../parameter-event-bus';
+import {ParameterEventTypes} from '../parameter-event-bus-types';
 
 export const useComputedParameterFromChanged = () => {
 	const {on, off} = useParameterEventBus();

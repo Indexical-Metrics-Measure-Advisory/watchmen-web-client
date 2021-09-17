@@ -1,8 +1,8 @@
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {MouseEvent, useState} from 'react';
 import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '@/basic-widgets/constants';
 import {ParameterJointType} from '@/services/tuples/factor-calculator-types';
 import {Conditional} from '@/services/tuples/pipeline-super-types';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import React, {MouseEvent, useState} from 'react';
 import {createTopicEqualsConstantParameter} from '../../../../data-utils';
 import {useConditionalEventBus} from '../conditional-event-bus';
 import {ConditionalEventTypes} from '../conditional-event-bus-types';
@@ -17,7 +17,7 @@ const OptionsLabel = {
 	'anyway': 'Anyway'
 };
 
-const defectConditionOn = (conditional: Conditional, jointType?: ParameterJointType) => {
+const defendConditionOn = (conditional: Conditional, jointType?: ParameterJointType) => {
 	if (!conditional.on) {
 		conditional.on = {
 			jointType: jointType || ParameterJointType.AND,
@@ -34,7 +34,7 @@ const defendConditional = (conditional: Conditional) => {
 		delete conditional.on;
 	} else {
 		conditional.conditional = true;
-		defectConditionOn(conditional);
+		defendConditionOn(conditional);
 	}
 };
 
@@ -64,8 +64,10 @@ export const TopType = (props: { conditional: Conditional, force: boolean }) => 
 			fireConditional(ConditionalEventTypes.TOP_TYPE_CHANGED, conditional);
 		} else {
 			conditional.conditional = true;
-			defectConditionOn(conditional, newType);
-			conditional.on?.filters.push(createTopicEqualsConstantParameter());
+			defendConditionOn(conditional, newType);
+			if ((conditional.on?.filters.length || 0) === 0) {
+				conditional.on?.filters.push(createTopicEqualsConstantParameter());
+			}
 			setExpanded(false);
 			fireConditional(ConditionalEventTypes.TOP_TYPE_CHANGED, conditional);
 			fire(JointEventTypes.JOINT_TYPE_CHANGED, conditional.on!);

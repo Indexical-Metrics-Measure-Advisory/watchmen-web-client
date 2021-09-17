@@ -1,6 +1,10 @@
 import {ICON_EDIT} from '@/basic-widgets/constants';
-import {useComputeType} from '@/data-filter/compute-type/use-compute-type';
-import {AvailableComputeTypes, ComputedParameter} from '@/services/tuples/factor-calculator-types';
+import {useComputeType} from './use-compute-type';
+import {
+	AvailableComputeTypes,
+	ComputedParameter,
+	ParameterComputeType
+} from '@/services/tuples/factor-calculator-types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {ParameterComputeTypeLabels} from '../constants';
@@ -11,6 +15,8 @@ import {
 	ParameterComputeTypeLabel,
 	ParameterComputeTypeOption
 } from './widgets';
+
+const TidyComputeTypes = AvailableComputeTypes.filter(type => type !== ParameterComputeType.CASE_THEN);
 
 export const ParameterComputeTypeEdit = (props: { parameter: ComputedParameter }) => {
 	const {parameter} = props;
@@ -26,7 +32,7 @@ export const ParameterComputeTypeEdit = (props: { parameter: ComputedParameter }
 			<FontAwesomeIcon icon={ICON_EDIT}/>
 		</ParameterComputeTypeIcon>
 		<ParameterComputeTypeDropdown {...dropdownState}>
-			{AvailableComputeTypes.map(computeType => {
+			{TidyComputeTypes.map(computeType => {
 				return <ParameterComputeTypeOption selected={computeType === parameter.type}
 				                                   onClick={onComputeTypeClicked(computeType)}
 				                                   key={computeType}>

@@ -1,5 +1,4 @@
 import {getTopicName} from '@/data-quality/utils';
-import {isRawTopic} from '@/services/tuples/topic';
 import {
 	ComputedParameter,
 	ConstantParameter,
@@ -26,6 +25,7 @@ import {
 	isWriteTopicAction
 } from '../tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {Pipeline} from '../tuples/pipeline-types';
+import {isRawTopic} from '../tuples/topic';
 import {Topic} from '../tuples/topic-types';
 
 export type FactorsMap = { [key in string]: Factor };
