@@ -1,11 +1,11 @@
-import {CommandLineButton, CommandLineButtons} from './widgets';
-import {TooltipAlignment} from '@/basic-widgets/types';
+import {ICON_CLEAR_SCREEN, ICON_HELP} from '@/widgets/basic/constants';
+import {TooltipAlignment} from '@/widgets/basic/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_CLEAR_SCREEN, ICON_HELP} from '@/basic-widgets/constants';
 import React from 'react';
-import {useCliEventBus} from './events/cli-event-bus';
 import {Command} from '../../command/types';
+import {useCliEventBus} from './events/cli-event-bus';
 import {CliEventTypes} from './events/cli-event-bus-types';
+import {CommandLineButton, CommandLineButtons} from './widgets';
 
 export const CLITrailButtons = (props: { helpCommand: Command }) => {
 	const {helpCommand} = props;

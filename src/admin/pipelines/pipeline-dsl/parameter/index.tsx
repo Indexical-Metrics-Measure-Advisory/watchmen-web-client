@@ -1,6 +1,6 @@
+import {Parameter} from '@/services/data/tuples/factor-calculator-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
-import {Parameter} from '@/services/tuples/factor-calculator-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {ParamFrom, PropName} from '../dsl-widgets';
 import {ComputeParameterLine} from './compute-parameter';
 import {ConstantParameterLine} from './constant-parameter';

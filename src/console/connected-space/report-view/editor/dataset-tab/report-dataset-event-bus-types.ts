@@ -1,5 +1,5 @@
-import {Report} from '@/services/tuples/report-types';
-import {ChartDataSet} from '@/services/tuples/chart-types';
+import {ChartDataSet} from '@/services/data/tuples/chart-types';
+import {Report} from '@/services/data/tuples/report-types';
 
 export enum ReportDataSetEventTypes {
 	ASK_LOAD_DATA = 'ask-load-data',

@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import {Input} from '@/widgets/basic/input';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {Input} from '@/basic-widgets/input';
+import styled from 'styled-components';
 
 export const ParameterEditorContainer = styled.div.attrs({'data-widget': 'rule-parameter-editor'})`
 	flex-grow   : 1;

@@ -1,21 +1,21 @@
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {Button} from '@/widgets/basic/button';
+import {ButtonInk} from '@/widgets/basic/types';
+import React, {useEffect, useState} from 'react';
+import {useSimulatorEventBus} from '../../simulator-event-bus';
+import {SimulatorEventTypes} from '../../simulator-event-bus-types';
+import {ActiveStep, SimulateStart, StartFrom} from '../state/types';
+import {useActiveStep} from '../use-active-step';
 import {
 	SimulatorBodyPart,
 	SimulatorBodyPartHeader,
 	SimulatorBodyPartHeaderButtons,
 	SimulatorBodyPartHeaderTitle
 } from '../widgets';
-import React, {useEffect, useState} from 'react';
-import {ActiveStep, SimulateStart, StartFrom} from '../state/types';
-import {useActiveStep} from '../use-active-step';
-import {useSimulatorEventBus} from '../../simulator-event-bus';
-import {SimulatorEventTypes} from '../../simulator-event-bus-types';
 import {TopicBlock} from './topic-block';
-import {PrepareDataBodyPartBody, PrepareDataBodyPartRow, TopicBlockType} from './widgets';
 import {buildTopicNode} from './utils';
-import {Button} from '@/basic-widgets/button';
-import {ButtonInk} from '@/basic-widgets/types';
+import {PrepareDataBodyPartBody, PrepareDataBodyPartRow, TopicBlockType} from './widgets';
 
 interface State {
 	step: ActiveStep;

@@ -1,4 +1,4 @@
-import {Conditional} from '@/services/tuples/pipeline-super-types';
+import {Conditional} from '@/services/data/tuples/pipeline-super-types';
 
 export enum ConditionalEventTypes {
 	TOP_TYPE_CHANGED = 'top-type-changed',

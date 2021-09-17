@@ -1,15 +1,15 @@
+import {MonitorRuleParameters} from '@/services/data/data-quality/rule-types';
+import {Factor} from '@/services/data/tuples/factor-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
-import {StatisticalIntervalParameter} from './statistical-interval-parameter';
-import {PercentageParameter} from './percentage-parameter';
-import {NumberParameter} from './number-parameter';
-import {RegexpParameter} from './regexp-parameter';
-import {CompareOperatorParameter} from './compare-operator-parameter';
-import {Topic} from '@/services/tuples/topic-types';
-import {Factor} from '@/services/tuples/factor-types';
-import {AnotherTopicParameter} from './another-topic-parameter';
-import {AnotherFactorParameter} from './another-factor-parameter';
 import {MonitorRuleParameterType} from '../../rule-defs';
-import {MonitorRuleParameters} from '@/services/data-quality/rule-types';
+import {AnotherFactorParameter} from './another-factor-parameter';
+import {AnotherTopicParameter} from './another-topic-parameter';
+import {CompareOperatorParameter} from './compare-operator-parameter';
+import {NumberParameter} from './number-parameter';
+import {PercentageParameter} from './percentage-parameter';
+import {RegexpParameter} from './regexp-parameter';
+import {StatisticalIntervalParameter} from './statistical-interval-parameter';
 
 export const RuleParameter = (props: {
 	params: MonitorRuleParameters;

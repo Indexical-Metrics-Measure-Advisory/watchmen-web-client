@@ -1,10 +1,10 @@
+import {Topic} from '@/services/data/tuples/topic-types';
+import {AlertLabel} from '@/widgets/alert/widgets';
+import {ButtonInk} from '@/widgets/basic/types';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
 import React, {useEffect, useState} from 'react';
-import {AlertLabel} from '@/alert/widgets';
-import {ButtonInk} from '@/basic-widgets/types';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {Lang} from '@/langs';
-import {Topic} from '@/services/tuples/topic-types';
 import {useSubjectDefEventBus} from '../subject-def-event-bus';
 import {SubjectDefData, SubjectDefEventTypes} from '../subject-def-event-bus-types';
 import {DefHeaderCell, DefHeaderIndex, DefHeaderLabel, DefHeaderNextButton} from './widgets';

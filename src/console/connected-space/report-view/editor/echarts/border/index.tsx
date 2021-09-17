@@ -1,9 +1,9 @@
+import {ChartBorderStyle} from '@/services/data/tuples/chart-types';
+import {EChartsBorderHolder} from '@/services/data/tuples/echarts/echarts-border-type';
+import {ECharts} from '@/services/data/tuples/echarts/echarts-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {Lang} from '@/widgets/langs';
 import React from 'react';
-import {Lang} from '@/langs';
-import {ChartBorderStyle} from '@/services/tuples/chart-types';
-import {EChartsBorderHolder} from '@/services/tuples/echarts/echarts-border-type';
-import {ECharts} from '@/services/tuples/echarts/echarts-types';
-import {Report} from '@/services/tuples/report-types';
 import {onColorChange, onDropdownValueChange, onNumberChange, validateNumber} from '../../data-utils';
 import {BarChartStylePropNames} from '../../prop-defs/chart-styles/bar-chart-style-props';
 import {PieChartStylePropNames} from '../../prop-defs/chart-styles/pie-chart-style-props';

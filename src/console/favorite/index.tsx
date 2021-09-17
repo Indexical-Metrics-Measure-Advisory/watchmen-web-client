@@ -1,5 +1,5 @@
+import {LastSnapshot} from '@/services/data/account/last-snapshot-types';
 import {useEffect, useState} from 'react';
-import {LastSnapshot} from '@/services/account/last-snapshot-types';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes, FavoriteState} from '../console-event-bus-types';
 import {FloatFavorite} from './float-favorite';

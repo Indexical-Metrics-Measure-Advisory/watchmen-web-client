@@ -1,9 +1,9 @@
+import {Tenant} from '@/services/data/tuples/tenant-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React from 'react';
-import {useForceUpdate} from '@/basic-widgets/utils';
 import {TuplePropertyInput, TuplePropertyLabel} from '../widgets/tuple-workbench/tuple-editor';
 import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes, TupleState} from '../widgets/tuple-workbench/tuple-event-bus-types';
-import {Tenant} from '@/services/tuples/tenant-types';
 
 const TenantEditor = (props: { tenant: Tenant }) => {
 	const {tenant} = props;

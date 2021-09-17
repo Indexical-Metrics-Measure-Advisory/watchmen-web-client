@@ -1,8 +1,4 @@
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {PipelineRelationMap, TopicRelationMap, TopicsMap} from '@/services/pipeline/pipeline-relations';
-import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
-import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
-import {Conditional} from '@/services/tuples/pipeline-super-types';
+import {PipelineRelationMap, TopicRelationMap, TopicsMap} from '@/services/data/pipeline/pipeline-relations';
 import {
 	Parameter,
 	ParameterComputeType,
@@ -12,15 +8,17 @@ import {
 	ParameterJointType,
 	ParameterKind,
 	TopicFactorParameter
-} from '@/services/tuples/factor-calculator-types';
+} from '@/services/data/tuples/factor-calculator-types';
 import {
 	isComputedParameter,
 	isConstantParameter,
 	isExpressionParameter,
 	isJointParameter,
 	isTopicFactorParameter
-} from '@/services/tuples/parameter-utils';
-import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+} from '@/services/data/tuples/parameter-utils';
+import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
+import {AggregateArithmetic} from '@/services/data/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
+import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {
 	isAlarmAction,
 	isCopyToMemoryAction,
@@ -34,8 +32,10 @@ import {
 	isReadTopicAction,
 	isWriteFactorAction,
 	isWriteTopicAction
-} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
-import {AggregateArithmetic} from '@/services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
+} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
+import {Conditional} from '@/services/data/tuples/pipeline-super-types';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
 
 const generateComputeType = (type: ParameterComputeType): string => {
 	return type.split('')

@@ -1,12 +1,12 @@
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Subject} from '@/services/data/tuples/subject-types';
 import React from 'react';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Subject} from '@/services/tuples/subject-types';
 import {DataLoading} from './data/data-loading';
 import {TopicsHolder} from './data/topics-holder';
+import {SubjectDataGrid} from './grid';
 import {NoColumn} from './no-column';
 import {SubjectDataSetEventBusProvider} from './subject-dataset-event-bus';
 import {SubjectDataSetContainer} from './widgets';
-import {SubjectDataGrid} from './grid';
 
 export const SubjectDataSet = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {
 	const {connectedSpace, subject} = props;

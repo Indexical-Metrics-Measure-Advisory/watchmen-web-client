@@ -1,28 +1,28 @@
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {AlertLabel} from '@/widgets/alert/widgets';
+import {Button} from '@/widgets/basic/button';
+import {ButtonInk} from '@/widgets/basic/types';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import dayjs from 'dayjs';
+import React, {useEffect, useState} from 'react';
+import {useSimulatorEventBus} from '../../simulator-event-bus';
+import {SimulatorEventTypes} from '../../simulator-event-bus-types';
+import {getPipelineName} from '../../utils';
+import {ActiveStep, SimulateStart, StartFrom, TopicsData} from '../state/types';
+import {useActiveStep} from '../use-active-step';
 import {
 	SimulatorBodyPart,
 	SimulatorBodyPartHeader,
 	SimulatorBodyPartHeaderButtons,
 	SimulatorBodyPartHeaderTitle
 } from '../widgets';
-import React, {useEffect, useState} from 'react';
-import {ActiveStep, SimulateStart, StartFrom, TopicsData} from '../state/types';
-import {useActiveStep} from '../use-active-step';
-import {RunBody, RunTable, RunTableHeader, RunTableHeaderCell} from './widgets';
-import {SimulatorEventTypes} from '../../simulator-event-bus-types';
-import {useSimulatorEventBus} from '../../simulator-event-bus';
-import {getPipelineName} from '../../utils';
 import {Runs} from './runs';
-import {AllTopics} from './types';
-import {Button} from '@/basic-widgets/button';
-import {ButtonInk} from '@/basic-widgets/types';
 import {RunsEventBusProvider, useRunsEventBus} from './runs-event-bus';
 import {RunsEventTypes} from './runs-event-bus-types';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {AlertLabel} from '@/alert/widgets';
-import dayjs from 'dayjs';
+import {AllTopics} from './types';
+import {RunBody, RunTable, RunTableHeader, RunTableHeaderCell} from './widgets';
 
 interface State {
 	step: ActiveStep;

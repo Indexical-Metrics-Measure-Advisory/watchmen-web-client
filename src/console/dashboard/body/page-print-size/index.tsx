@@ -1,6 +1,6 @@
+import {Dashboard} from '@/services/data/tuples/dashboard-types';
+import {LandscapeA3, LandscapeA4, PortraitA3, PortraitA4} from '@/widgets/basic/print-page-size';
 import React, {useEffect, useState} from 'react';
-import {LandscapeA3, LandscapeA4, PortraitA3, PortraitA4} from '@/basic-widgets/print-page-size';
-import {Dashboard} from '@/services/tuples/dashboard-types';
 import {useDashboardEventBus} from '../../dashboard-event-bus';
 import {DashboardEventTypes} from '../../dashboard-event-bus-types';
 

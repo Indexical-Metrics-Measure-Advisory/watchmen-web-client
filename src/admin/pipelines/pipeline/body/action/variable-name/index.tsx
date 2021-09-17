@@ -1,6 +1,6 @@
+import {MemoryWriter} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {ChangeEvent} from 'react';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {MemoryWriter} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {useActionEventBus} from '../action-event-bus';
 import {ActionEventTypes} from '../action-event-bus-types';
 import {VariableNameInput, VariableNameInputContainer, VariableNameInputLabel} from './widgets';

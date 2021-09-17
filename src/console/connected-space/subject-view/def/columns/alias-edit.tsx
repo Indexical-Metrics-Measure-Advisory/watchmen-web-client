@@ -1,11 +1,11 @@
+import {Parameter} from '@/services/data/tuples/factor-calculator-types';
+import {Factor} from '@/services/data/tuples/factor-types';
+import {SubjectDataSetColumn} from '@/services/data/tuples/subject-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {Lang} from '@/widgets/langs';
+import {useParameterEventBus} from '@/widgets/parameter/parameter-event-bus';
+import {ParameterEventTypes} from '@/widgets/parameter/parameter-event-bus-types';
 import React, {ChangeEvent, useEffect, useRef} from 'react';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {Lang} from '@/langs';
-import {Parameter} from '@/services/tuples/factor-calculator-types';
-import {Factor} from '@/services/tuples/factor-types';
-import {SubjectDataSetColumn} from '@/services/tuples/subject-types';
-import {useParameterEventBus} from '@/data-filter/parameter-event-bus';
-import {ParameterEventTypes} from '@/data-filter/parameter-event-bus-types';
 import {useColumnEventBus} from './column-event-bus';
 import {ColumnEventTypes} from './column-event-bus-types';
 import {AliasEdit, AliasEditInput, AliasLabel} from './widgets';

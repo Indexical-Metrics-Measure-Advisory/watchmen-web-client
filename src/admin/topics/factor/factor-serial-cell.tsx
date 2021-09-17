@@ -1,6 +1,6 @@
+import {Factor} from '@/services/data/tuples/factor-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
-import {Factor} from '@/services/tuples/factor-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {FactorSerialCellContainer} from './widgets';
 
 export const FactorSerialCell = (props: { topic: Topic, factor: Factor }) => {

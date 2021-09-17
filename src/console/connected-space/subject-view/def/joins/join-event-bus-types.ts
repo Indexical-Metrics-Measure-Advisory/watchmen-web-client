@@ -1,4 +1,4 @@
-import {SubjectDataSetJoin} from '@/services/tuples/subject-types';
+import {SubjectDataSetJoin} from '@/services/data/tuples/subject-types';
 
 export enum JoinEventTypes {
 	JOIN_TYPE_CHANGED = 'join-type-changed',

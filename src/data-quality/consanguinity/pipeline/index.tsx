@@ -1,11 +1,11 @@
-import {ExecutionContent} from '../../widgets/cli/types';
 import React from 'react';
-import {CMD_PIPELINE} from './commands';
-import {PipelineListExecution} from './list';
-import {PipelineFindExecution} from './find';
-import {PipelineViewExecution} from './view';
 import {CMD_ARGUMENT_INSPECT, CMD_ARGUMENT_LIST, CMD_ARGUMENT_VIEW} from '../../command';
+import {ExecutionContent} from '../../widgets/cli/types';
+import {CMD_PIPELINE} from './commands';
+import {PipelineFindExecution} from './find';
 import {PipelineInspectExecution} from './inspect';
+import {PipelineListExecution} from './list';
+import {PipelineViewExecution} from './view';
 
 export const isPipelineExecution = (content: ExecutionContent) => {
 	const {commands} = content;

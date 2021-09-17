@@ -1,6 +1,6 @@
-import {FactorType} from '@/services/tuples/factor-types';
-import {isAggregationTopic, isNotAggregationTopic, isRawTopic} from '@/services/tuples/topic';
-import {Topic} from '@/services/tuples/topic-types';
+import {FactorType} from '@/services/data/tuples/factor-types';
+import {isAggregationTopic, isNotAggregationTopic, isRawTopic} from '@/services/data/tuples/topic';
+import {Topic} from '@/services/data/tuples/topic-types';
 import JSZip from 'jszip';
 import {v4} from 'uuid';
 import {MySQLFactorTypeMap} from './mysql';

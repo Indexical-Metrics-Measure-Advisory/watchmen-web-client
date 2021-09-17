@@ -1,7 +1,7 @@
+import {ParameterJoint, ParameterJointType} from '@/services/data/tuples/factor-calculator-types';
+import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '@/widgets/basic/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useState} from 'react';
-import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '@/basic-widgets/constants';
-import {ParameterJoint, ParameterJointType} from '@/services/tuples/factor-calculator-types';
 import {useJointEventBus} from '../event-bus/joint-event-bus';
 import {JointEventTypes} from '../event-bus/joint-event-bus-types';
 import {JointTypeButton, JointTypeContainer, JointTypeOption} from './widgets';

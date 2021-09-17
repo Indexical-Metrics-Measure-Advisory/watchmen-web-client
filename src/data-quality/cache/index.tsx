@@ -1,9 +1,9 @@
+import {clearAdminData, loadAdminData, prepareAdminDB} from '@/services/local-persist';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import React, {useEffect, useState} from 'react';
-import {clearAdminData, loadAdminData, prepareAdminDB} from '../../local-persist';
 import {useDataQualityCacheEventBus} from './cache-event-bus';
 import {DataQualityCacheEventTypes} from './cache-event-bus-types';
-import {EventTypes} from '@/events/types';
-import {useEventBus} from '@/events/event-bus';
 import {DQCCacheData} from './types';
 import {buildRelations} from './utils';
 

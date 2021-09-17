@@ -1,7 +1,7 @@
 import React from 'react';
 import {PipelineRuntimeContext, StageRuntimeContext, UnitRuntimeContext} from '../types';
-import {UnitRuntime} from './unit-runtime';
 import {InternalUnitsRuntime} from './internal-units-runtime';
+import {UnitRuntime} from './unit-runtime';
 
 export const UnitRun = (props: {
 	pipelineContext: PipelineRuntimeContext;

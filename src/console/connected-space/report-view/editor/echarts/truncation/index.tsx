@@ -1,8 +1,8 @@
+import {ChartTruncation, ChartTruncationType} from '@/services/data/tuples/chart-def/truncation';
+import {ECharts} from '@/services/data/tuples/echarts/echarts-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {Lang} from '@/widgets/langs';
 import React from 'react';
-import {Lang} from '@/langs';
-import {ChartTruncation, ChartTruncationType} from '../../../../../../services/tuples/chart-def/truncation';
-import {ECharts} from '@/services/tuples/echarts/echarts-types';
-import {Report} from '@/services/tuples/report-types';
 import {onDropdownValueChange, onNumberChange, validateNumber} from '../../data-utils';
 import {
 	TruncationChartStylePropNames,

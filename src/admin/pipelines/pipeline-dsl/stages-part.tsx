@@ -1,7 +1,7 @@
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React, {Fragment} from 'react';
 import {v4} from 'uuid';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {EmptyLine, LineComment} from './dsl-widgets';
 import {StagePart} from './stage-part';
 

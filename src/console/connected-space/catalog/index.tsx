@@ -1,19 +1,19 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {useHistory} from 'react-router-dom';
-import {AlertLabel} from '@/alert/widgets';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {Lang} from '@/langs';
 import {Router} from '@/routes/types';
-import {AvailableSpaceInConsole} from '@/services/console/settings-types';
-import {GraphicsSize} from '@/services/graphics/graphics-types';
+import {AvailableSpaceInConsole} from '@/services/data/console/settings-types';
+import {GraphicsSize} from '@/services/data/graphics/graphics-types';
 import {
 	ConnectedSpace,
 	ConnectedSpaceBlockGraphics,
 	ConnectedSpaceGraphics
-} from '@/services/tuples/connected-space-types';
-import {Topic} from '@/services/tuples/topic-types';
+} from '@/services/data/tuples/connected-space-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {AlertLabel} from '@/widgets/alert/widgets';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
+import React, {useEffect, useRef, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import {useConsoleEventBus} from '../../console-event-bus';
 import {ConsoleEventTypes} from '../../console-event-bus-types';
 import {CatalogEventBusProvider, useCatalogEventBus} from './catalog-event-bus';

@@ -1,14 +1,14 @@
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {AlertLabel} from '@/widgets/alert/widgets';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import React, {useEffect, useState} from 'react';
-import {Pipeline} from '@/services/tuples/pipeline-types';
 import {TopicsData} from '../state/types';
-import {AllTopics, PipelineRunStatus, PipelineRuntimeContext} from './types';
 import {PipelineRun} from './pipeline';
-import {buildPipelineRuntimeContext} from './utils';
 import {useRunsEventBus} from './runs-event-bus';
 import {RunsEventTypes} from './runs-event-bus-types';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {AlertLabel} from '@/alert/widgets';
+import {AllTopics, PipelineRunStatus, PipelineRuntimeContext} from './types';
+import {buildPipelineRuntimeContext} from './utils';
 
 interface State {
 	runs: Array<PipelineRuntimeContext>;

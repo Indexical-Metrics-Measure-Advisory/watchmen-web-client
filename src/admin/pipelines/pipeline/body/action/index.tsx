@@ -1,15 +1,15 @@
+import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
+import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
-import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
-import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
+import {VariablesEventBusProvider} from '../variables/variables-event-bus';
+import {VariablesHelper} from '../variables/variables-helper';
 import {ActionTypeEditor} from './action-type';
 import {ActionBody} from './body';
 import {Operators} from './operators';
 import {ActionContainer, ActionFooterLeadLabel, ActionLeadLabel} from './widgets';
-import {VariablesHelper} from '../variables/variables-helper';
-import {VariablesEventBusProvider} from '../variables/variables-event-bus';
 
 export const ActionEditor = (props: {
 	pipeline: Pipeline;

@@ -1,5 +1,5 @@
+import {Input} from '@/widgets/basic/input';
 import styled from 'styled-components';
-import {Input} from '@/basic-widgets/input';
 
 export const ConstantContainer = styled.div.attrs({'data-widget': 'parameter-constant'})`
 	display     : flex;

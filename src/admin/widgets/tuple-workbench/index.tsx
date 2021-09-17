@@ -1,12 +1,12 @@
+import {QueryTuple, Tuple} from '@/services/data/tuples/tuple-types';
+import {FixWidthPage} from '@/widgets/basic/page';
+import {PageHeader} from '@/widgets/basic/page-header';
+import {IconProp} from '@fortawesome/fontawesome-svg-core';
 import React, {ReactNode} from 'react';
-import {FixWidthPage} from '@/basic-widgets/page';
-import {PageHeader} from '@/basic-widgets/page-header';
-import {QueryTuple, Tuple} from '@/services/tuples/tuple-types';
 import {TupleEdit} from './tuple-edit';
 import {HoldByTuple} from './tuple-event-bus-types';
 import {TupleSearch} from './tuple-search';
 import {TupleWorkbenchHeader} from './tuple-workbench-header';
-import {IconProp} from '@fortawesome/fontawesome-svg-core';
 
 export const TupleWorkbench = <T extends Tuple, QT extends QueryTuple, HBT extends HoldByTuple>(props: {
 	// for report-workbench

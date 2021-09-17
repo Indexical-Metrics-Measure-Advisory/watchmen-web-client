@@ -1,7 +1,7 @@
-import {ICON_DELETE} from '@/basic-widgets/constants';
-import {useSubParamDelete} from '@/data-filter/sub-param/use-sub-param-delete';
-import {ComputedParameter, Parameter, ValueTypes} from '@/services/tuples/factor-calculator-types';
-import {Topic} from '@/services/tuples/topic-types';
+import {ComputedParameter, Parameter, ValueTypes} from '@/services/data/tuples/factor-calculator-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {ICON_DELETE} from '@/widgets/basic/constants';
+import {useSubParamDelete} from '@/widgets/parameter/sub-param/use-sub-param-delete';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {ComputedEditor} from '../computed';

@@ -1,16 +1,16 @@
+import {Factor} from '@/services/data/tuples/factor-types';
+import {QueryEnumForHolder} from '@/services/data/tuples/query-enum-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
-import {Factor} from '@/services/tuples/factor-types';
-import {QueryEnumForHolder} from '@/services/tuples/query-enum-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {FactorButtons} from './factor-buttons';
 import {FactorDefaultValueCell} from './factor-default-value-cell';
 import {FactorEnumCell} from './factor-enum-cell';
+import {FactorFlattenCell} from './factor-flatten-cell';
 import {FactorIndexGroupCell} from './factor-index-group-cell';
 import {FactorLabelCell} from './factor-label-cell';
 import {FactorNameCell} from './factor-name-cell';
 import {FactorTypeCell} from './factor-type-cell';
 import {FactorPropLabel, FactorRowContainer} from './widgets';
-import {FactorFlattenCell} from './factor-flatten-cell';
 
 export const FactorRow = (props: {
 	topic: Topic;

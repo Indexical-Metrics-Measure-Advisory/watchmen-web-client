@@ -1,8 +1,8 @@
-import {Pipeline} from '@/services/tuples/pipeline-types';
 import {
 	isReadTopicAction,
 	isWriteTopicAction
-} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
 
 interface PipelineIO {
 	pipeline: Pipeline;

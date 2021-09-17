@@ -1,17 +1,17 @@
+import {savePipelinesGraphics} from '@/services/data/tuples/pipeline';
+import {PipelinesGraphics} from '@/services/data/tuples/pipeline-types';
+import {generateUuid} from '@/services/data/tuples/utils';
+import {getCurrentTime} from '@/services/data/utils';
+import {ICON_PIPELINE} from '@/widgets/basic/constants';
+import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {ICON_PIPELINE} from '@/basic-widgets/constants';
-import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
-import {PipelinesGraphics} from '@/services/tuples/pipeline-types';
-import {generateUuid} from '@/services/tuples/utils';
-import {getCurrentTime} from '@/services/utils';
-import {savePipelinesGraphics} from '@/services/tuples/pipeline';
-import {EventTypes} from '@/events/types';
-// noinspection ES6PreferShortImport
-import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
-import {useEventBus} from '@/events/event-bus';
 // noinspection ES6PreferShortImport
 import {useAdminCacheEventBus} from '../../../cache/cache-event-bus';
+// noinspection ES6PreferShortImport
+import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 

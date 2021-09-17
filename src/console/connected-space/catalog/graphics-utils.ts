@@ -1,4 +1,4 @@
-import {BlockFrame} from '@/services/graphics/graphics-types';
+import {BlockFrame} from '@/services/data/graphics/graphics-types';
 import {
 	ConnectedSpace,
 	ConnectedSpaceBlockGraphics,
@@ -7,10 +7,10 @@ import {
 	ReportGraphics,
 	SubjectGraphics,
 	TopicGraphics
-} from '@/services/tuples/connected-space-types';
-import {Report} from '@/services/tuples/report-types';
-import {Subject} from '@/services/tuples/subject-types';
-import {Topic} from '@/services/tuples/topic-types';
+} from '@/services/data/tuples/connected-space-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import {
 	BLOCK_FULL_PADDING_HORIZONTAL,
 	BLOCK_FULL_PADDING_VERTICAL,

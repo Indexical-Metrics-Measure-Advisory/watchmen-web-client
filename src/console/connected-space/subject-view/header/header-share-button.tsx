@@ -1,17 +1,17 @@
+import {buildSubjectShareUrl} from '@/services/data/console/connected-space';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {Button} from '@/widgets/basic/button';
+import {ICON_SHARE} from '@/widgets/basic/constants';
+import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
+import {ButtonInk} from '@/widgets/basic/types';
+import {DialogBody, DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import {Button} from '@/basic-widgets/button';
-import {ICON_SHARE} from '@/basic-widgets/constants';
-import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
-import {ButtonInk} from '@/basic-widgets/types';
-import {DialogBody, DialogFooter, DialogLabel} from '@/dialog/widgets';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {Lang} from '@/langs';
-import {buildSubjectShareUrl} from '@/services/console/connected-space';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Subject} from '@/services/tuples/subject-types';
 
 const ShareDialogBody = styled(DialogBody)`
 	flex-direction : column;

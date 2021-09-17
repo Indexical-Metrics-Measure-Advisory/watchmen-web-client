@@ -1,10 +1,10 @@
-import {ExecutionContent} from '../../widgets/cli/types';
-import {CMD_TOPIC} from './commands';
 import React from 'react';
 import {CMD_ARGUMENT_LIST, CMD_ARGUMENT_VIEW} from '../../command';
+import {ExecutionContent} from '../../widgets/cli/types';
+import {CMD_TOPIC} from './commands';
+import {TopicFindExecution} from './find';
 import {TopicListExecution} from './list';
 import {TopicViewExecution} from './view';
-import {TopicFindExecution} from './find';
 
 export const isTopicExecution = (content: ExecutionContent) => {
 	const {commands} = content;

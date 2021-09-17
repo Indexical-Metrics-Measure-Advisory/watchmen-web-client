@@ -1,7 +1,7 @@
-import {PipelineRuntimeContext} from '../types';
-import {connectSimulatorDB} from '@/local-persist/db';
+import {connectSimulatorDB} from '@/services/local-persist/db';
+import {PipelineRuntimeTable} from '@/services/local-persist/db/simulator';
 import dayjs from 'dayjs';
-import {PipelineRuntimeTable} from '@/local-persist/db/simulator';
+import {PipelineRuntimeContext} from '../types';
 
 export const createLogWriter = (context: PipelineRuntimeContext, callback?: (message: string, error?: Error) => void) => {
 	return async (message: string, error?: Error) => {

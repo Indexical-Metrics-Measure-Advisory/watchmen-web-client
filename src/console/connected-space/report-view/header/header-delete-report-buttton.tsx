@@ -1,20 +1,20 @@
+import {toSubjectReport, toSubjectReports} from '@/routes/utils';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {deleteReport} from '@/services/data/tuples/report';
+import {Report} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {Button} from '@/widgets/basic/button';
+import {ICON_THROW_AWAY} from '@/widgets/basic/constants';
+import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
+import {ButtonInk} from '@/widgets/basic/types';
+import {DialogBody, DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
-import {Button} from '@/basic-widgets/button';
-import {ICON_THROW_AWAY} from '@/basic-widgets/constants';
-import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
-import {ButtonInk} from '@/basic-widgets/types';
-import {DialogBody, DialogFooter, DialogLabel} from '@/dialog/widgets';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {Lang} from '@/langs';
-import {toSubjectReport, toSubjectReports} from '@/routes/utils';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Subject} from '@/services/tuples/subject-types';
-import {Report} from '@/services/tuples/report-types';
-import {deleteReport} from '@/services/tuples/report';
 
 const DeleteDialogBody = styled(DialogBody)`
 	flex-direction : column;

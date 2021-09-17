@@ -1,8 +1,8 @@
+import {ICON_SEARCH} from '@/widgets/basic/constants';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useRef, useState} from 'react';
-import {ICON_SEARCH} from '@/basic-widgets/constants';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
 import {useTupleEventBus} from '../tuple-event-bus';
 import {TupleEventTypes, TupleState} from '../tuple-event-bus-types';
 import {TupleSearchBarContainer, TupleSearchButton, TupleSearchInput} from './widgets';

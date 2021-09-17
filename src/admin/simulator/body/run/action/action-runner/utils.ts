@@ -1,22 +1,22 @@
-import {InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
+import {Parameter, ParameterJoint} from '@/services/data/tuples/factor-calculator-types';
+import {Factor} from '@/services/data/tuples/factor-types';
 import {
 	FindBy,
 	FromFactor,
 	FromTopic,
 	MemoryWriter,
 	ToFactor
-} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {Topic} from '@/services/tuples/topic-types';
-import {Factor} from '@/services/tuples/factor-types';
-import {Parameter, ParameterJoint} from '@/services/tuples/factor-calculator-types';
+} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {CopyToMemoryAction} from '@/services/data/tuples/pipeline-stage-unit-action/system-actions-types';
 import {
 	MappingFactor,
 	MappingRow,
 	WriteFactorAction
-} from '@/services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
-import {CopyToMemoryAction} from '@/services/tuples/pipeline-stage-unit-action/system-actions-types';
-import {computeParameter} from '../../compute/parameter-compute';
+} from '@/services/data/tuples/pipeline-stage-unit-action/write-topic-actions-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import {DataRow} from '../../../../types';
+import {computeParameter} from '../../compute/parameter-compute';
+import {InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
 
 export const AGGREGATE_ASSIST_FACTOR_NAME = 'aggregate_assist_';
 export const DEFAULT_AGGREGATE_ASSIST_FACTOR_VALUE = '{}';

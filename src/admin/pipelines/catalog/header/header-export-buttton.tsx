@@ -1,7 +1,3 @@
-import React, {useState} from 'react';
-import {DialogFooter, DialogLabel} from '@/dialog/widgets';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {
 	buildPipelinesRelation,
 	buildTopicsMap,
@@ -10,26 +6,30 @@ import {
 	PipelinesMap,
 	TopicRelationMap,
 	TopicsMap
-} from '@/services/pipeline/pipeline-relations';
-import {AssembledPipelinesGraphics} from '../types';
-import {useEventBus} from '@/events/event-bus';
-import JSZip from 'jszip';
-import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
+} from '@/services/data/pipeline/pipeline-relations';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {AdminCacheData} from '@/services/local-persist/types';
+import {Button} from '@/widgets/basic/button';
+import {ICON_EXPORT} from '@/widgets/basic/constants';
+import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
+import {ButtonInk} from '@/widgets/basic/types';
+import {DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
+import JSZip from 'jszip';
+import React, {useState} from 'react';
 // noinspection ES6PreferShortImport
 import {useAdminCacheEventBus} from '../../../cache/cache-event-bus';
-import {ICON_EXPORT} from '@/basic-widgets/constants';
-import {AdminCacheData} from '@/local-persist/types';
-import {Button} from '@/basic-widgets/button';
-import {ButtonInk} from '@/basic-widgets/types';
-import {EventTypes} from '@/events/types';
 // noinspection ES6PreferShortImport
 import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
-import {TopicPickerTable} from './topic-picker-table';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {generateMarkdown} from '../markdown';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
+import {generateMarkdown} from '../markdown';
+import {AssembledPipelinesGraphics} from '../types';
+import {TopicPickerTable} from './topic-picker-table';
 import {PickerDialogBody} from './widgets';
 
 const findPipelinesWriteMe = (topics: Array<Topic>, topicRelations: TopicRelationMap): Array<Pipeline> => {

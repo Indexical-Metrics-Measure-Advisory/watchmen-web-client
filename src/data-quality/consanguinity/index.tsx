@@ -1,18 +1,18 @@
+import {FullWidthPage} from '@/widgets/basic/page';
+import {FullWidthPageHeaderContainer, PageTitle} from '@/widgets/basic/page-header';
 import React from 'react';
-import {FullWidthPage} from '@/basic-widgets/page';
-import {FullWidthPageHeaderContainer, PageTitle} from '@/basic-widgets/page-header';
+import {createHelpCmd} from '../command';
+import {Command} from '../command/types';
 import {CLIWrapper} from '../widgets/cli';
 import {Execution} from './execution';
-import {Command} from '../command/types';
-import {PipelineCmd} from './pipeline/commands';
-import {TopicCmd} from './topic/commands';
-import {createHelpCmd} from '../command';
-import {PipelineHelpCmd} from './pipeline/help';
-import {TopicHelpCmd} from './topic/help';
 import {FlowCmd} from './flow/commands';
 import {FlowHelpCmd} from './flow/help';
 import {GraphCmd} from './graph/commands';
 import {GraphHelpCmd} from './graph/help';
+import {PipelineCmd} from './pipeline/commands';
+import {PipelineHelpCmd} from './pipeline/help';
+import {TopicCmd} from './topic/commands';
+import {TopicHelpCmd} from './topic/help';
 
 export const CONSANGUINITY_COMMANDS: Array<Command> = [PipelineCmd, TopicCmd, FlowCmd, GraphCmd];
 

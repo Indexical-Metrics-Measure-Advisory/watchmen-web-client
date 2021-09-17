@@ -1,10 +1,10 @@
+import {DataSource, DataSourceType} from '@/services/data/tuples/data-source-types';
+import {DropdownOption} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React from 'react';
-import {DropdownOption} from '@/basic-widgets/types';
-import {useForceUpdate} from '@/basic-widgets/utils';
 import {TuplePropertyDropdown} from '../../widgets/tuple-workbench/tuple-editor';
 import {useDataSourceEventBus} from '../data-source-event-bus';
 import {DataSourceEventTypes} from '../data-source-event-bus-types';
-import {DataSource, DataSourceType} from '@/services/tuples/data-source-types';
 
 export const DataSourceTypeInput = (props: { dataSource: DataSource }) => {
 	const {dataSource} = props;

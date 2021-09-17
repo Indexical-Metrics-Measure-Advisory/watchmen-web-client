@@ -1,3 +1,9 @@
+import {ButtonInk} from '@/widgets/basic/types';
+import React, {Fragment} from 'react';
+import {getTopicName} from '../../../utils';
+import {TopicsData} from '../../state/types';
+import {AllTopics} from '../types';
+import {toString} from './utils';
 import {
 	AllDataNoDataCell,
 	DataTable,
@@ -8,12 +14,6 @@ import {
 	SectionTitle,
 	TriggerDataFirstHeaderCell
 } from './widgets';
-import React, {Fragment} from 'react';
-import {TopicsData} from '../../state/types';
-import {AllTopics} from '../types';
-import {getTopicName} from '../../../utils';
-import {ButtonInk} from '@/basic-widgets/types';
-import {toString} from './utils';
 
 export const AllData = (props: {
 	topics: AllTopics;

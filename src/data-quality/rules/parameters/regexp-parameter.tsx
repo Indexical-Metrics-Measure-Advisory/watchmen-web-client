@@ -1,4 +1,4 @@
-import {MonitorRuleParameters} from '@/services/data-quality/rule-types';
+import {MonitorRuleParameters} from '@/services/data/data-quality/rule-types';
 import React, {ChangeEvent} from 'react';
 import {NumberInput} from './widgets';
 

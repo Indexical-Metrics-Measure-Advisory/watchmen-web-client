@@ -1,8 +1,8 @@
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {DropdownOption} from '@/basic-widgets/types';
-import {Dropdown} from '@/basic-widgets/dropdown';
+import {MonitorRuleCompareOperator, MonitorRuleParameters} from '@/services/data/data-quality/rule-types';
+import {Dropdown} from '@/widgets/basic/dropdown';
+import {DropdownOption} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React from 'react';
-import {MonitorRuleCompareOperator, MonitorRuleParameters} from '@/services/data-quality/rule-types';
 
 const CompareOperatorOptions = [
 	{value: MonitorRuleCompareOperator.EQUAL, label: 'Equals'},

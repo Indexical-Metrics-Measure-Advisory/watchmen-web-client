@@ -1,6 +1,6 @@
+import {Button} from '@/widgets/basic/button';
 import styled from 'styled-components';
 import {BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR} from '../header/widgets';
-import {Button} from '@/basic-widgets/button';
 
 export const EditorContainer = styled.div.attrs<{ editable: boolean }>(({editable}) => {
 	return {

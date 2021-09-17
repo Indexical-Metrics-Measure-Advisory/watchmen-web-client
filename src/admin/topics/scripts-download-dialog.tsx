@@ -1,21 +1,21 @@
-import {Topic} from '@/services/tuples/topic-types';
-import {useEventBus} from '@/events/event-bus';
-import React, {ChangeEvent, useState} from 'react';
-import {EventTypes} from '@/events/types';
-import {DialogBody, DialogFooter} from '@/dialog/widgets';
-import {CheckBox} from '@/basic-widgets/checkbox';
-import {Button} from '@/basic-widgets/button';
-import {ButtonInk} from '@/basic-widgets/types';
-import styled from 'styled-components';
-import {AlertLabel} from '@/alert/widgets';
-import JSZip from 'jszip';
-import {generateMySQLCreateSQLScripts} from './script-generation/mysql-sql-creation';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {AlertLabel} from '@/widgets/alert/widgets';
+import {Button} from '@/widgets/basic/button';
+import {CheckBox} from '@/widgets/basic/checkbox';
+import {Input} from '@/widgets/basic/input';
+import {ButtonInk} from '@/widgets/basic/types';
+import {DialogBody, DialogFooter} from '@/widgets/dialog/widgets';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import dayjs from 'dayjs';
-import {generateOracleCreateSQLScripts} from './script-generation/oracle-sql-creation';
-import {generateMySQLAlterSQLScripts} from './script-generation/mysql-sql-alteration';
-import {generateOracleAlterSQLScripts} from './script-generation/oracle-sql-alteration';
+import JSZip from 'jszip';
+import React, {ChangeEvent, useState} from 'react';
+import styled from 'styled-components';
 import {generateLiquibaseScripts} from './script-generation/liquibase';
-import {Input} from '@/basic-widgets/input';
+import {generateMySQLAlterSQLScripts} from './script-generation/mysql-sql-alteration';
+import {generateMySQLCreateSQLScripts} from './script-generation/mysql-sql-creation';
+import {generateOracleAlterSQLScripts} from './script-generation/oracle-sql-alteration';
+import {generateOracleCreateSQLScripts} from './script-generation/oracle-sql-creation';
 
 interface Filter {
 	value: string;

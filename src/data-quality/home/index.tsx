@@ -1,6 +1,6 @@
+import {FullWidthPage} from '@/widgets/basic/page';
+import {FullWidthPageHeaderContainer, PageTitle} from '@/widgets/basic/page-header';
 import React from 'react';
-import {FullWidthPage} from '@/basic-widgets/page';
-import {FullWidthPageHeaderContainer, PageTitle} from '@/basic-widgets/page-header';
 
 const DataQualityHomeIndex = () => {
 

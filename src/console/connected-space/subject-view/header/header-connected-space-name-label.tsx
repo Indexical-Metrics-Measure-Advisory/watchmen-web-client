@@ -1,5 +1,5 @@
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import React from 'react';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
 import {ConnectedSpaceNameLabel} from './widgets';
 
 export const HeaderConnectedSpaceNameLabel = (props: { connectedSpace: ConnectedSpace }) => {

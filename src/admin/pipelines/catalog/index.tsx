@@ -1,20 +1,20 @@
+import {savePipelinesGraphics} from '@/services/data/tuples/pipeline';
+import {Pipeline, PipelinesGraphics} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {generateUuid, isFakedUuidForGraphics} from '@/services/data/tuples/utils';
+import {getCurrentTime} from '@/services/data/utils';
+import {loadAdminLastSnapshot, saveAdminLastSnapshot} from '@/services/local-persist/db';
 import React, {useEffect, useState} from 'react';
-import {CatalogBody} from './body';
-import {CatalogEventBusProvider, useCatalogEventBus} from './catalog-event-bus';
-import {CatalogHeader} from './header';
-import {PipelinesEventTypes} from '../pipelines-event-bus-types';
-import {Topic} from '@/services/tuples/topic-types';
-import {Pipeline, PipelinesGraphics} from '@/services/tuples/pipeline-types';
-import {loadAdminLastSnapshot, saveAdminLastSnapshot} from '../../../local-persist/db';
-import {createInitGraphics, transformGraphicsToSave} from './graphics-utils';
-import {usePipelinesEventBus} from '../pipelines-event-bus';
-import {AssembledPipelinesGraphics, CatalogData} from './types';
-import {CatalogEventTypes} from './catalog-event-bus-types';
-import {generateUuid, isFakedUuidForGraphics} from '@/services/tuples/utils';
-import {getCurrentTime} from '@/services/utils';
-import {savePipelinesGraphics} from '@/services/tuples/pipeline';
 import {useAdminCacheEventBus} from '../../cache/cache-event-bus';
 import {AdminCacheEventTypes} from '../../cache/cache-event-bus-types';
+import {usePipelinesEventBus} from '../pipelines-event-bus';
+import {PipelinesEventTypes} from '../pipelines-event-bus-types';
+import {CatalogBody} from './body';
+import {CatalogEventBusProvider, useCatalogEventBus} from './catalog-event-bus';
+import {CatalogEventTypes} from './catalog-event-bus-types';
+import {createInitGraphics, transformGraphicsToSave} from './graphics-utils';
+import {CatalogHeader} from './header';
+import {AssembledPipelinesGraphics, CatalogData} from './types';
 
 const saveAndPutIntoState = async (
 	currentGraphics: PipelinesGraphics,

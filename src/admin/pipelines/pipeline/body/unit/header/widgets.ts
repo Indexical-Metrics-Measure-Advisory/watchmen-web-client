@@ -1,5 +1,5 @@
+import {Input} from '@/widgets/basic/input';
 import styled from 'styled-components';
-import {Input} from '@/basic-widgets/input';
 import {GRID_COLUMN_GAP, GRID_UNIT_HEADER} from '../../constants';
 import {LeadLabel} from '../../widgets';
 

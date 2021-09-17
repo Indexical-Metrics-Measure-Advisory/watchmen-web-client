@@ -1,13 +1,13 @@
-import {AdminMain} from '../pipelines/widgets';
-import {FullWidthPage} from '@/basic-widgets/page';
+import {AdminCacheData} from '@/services/local-persist/types';
+import {FullWidthPage} from '@/widgets/basic/page';
 import React, {useEffect, useState} from 'react';
-import {SimulatorHeader} from './header';
-import {SimulatorEventBusProvider} from './simulator-event-bus';
-import {SimulatorBody} from './body';
-import {AdminCacheEventTypes} from '../cache/cache-event-bus-types';
-import {AdminCacheData} from '@/local-persist/types';
 import {CacheState} from '../cache';
 import {useAdminCacheEventBus} from '../cache/cache-event-bus';
+import {AdminCacheEventTypes} from '../cache/cache-event-bus-types';
+import {AdminMain} from '../pipelines/widgets';
+import {SimulatorBody} from './body';
+import {SimulatorHeader} from './header';
+import {SimulatorEventBusProvider} from './simulator-event-bus';
 import {SimulatorLoading} from './simulator-loading';
 
 const AdminDebugIndex = () => {

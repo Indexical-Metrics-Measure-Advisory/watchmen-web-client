@@ -1,5 +1,5 @@
+import {HEADER_HEIGHT} from '@/widgets/basic/constants';
 import styled from 'styled-components';
-import {HEADER_HEIGHT} from '@/basic-widgets/constants';
 
 const ITEMS_TABLE_HEADER_HEIGHT = HEADER_HEIGHT;
 const ITEMS_TABLE_FOOTER_HEIGHT = HEADER_HEIGHT;

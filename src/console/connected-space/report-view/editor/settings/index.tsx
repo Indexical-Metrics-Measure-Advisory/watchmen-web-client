@@ -1,26 +1,26 @@
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {useEffect, useRef, useState} from 'react';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
 import {
 	CHART_SETTINGS_MAX_WIDTH,
 	CHART_SETTINGS_MIN_WIDTH,
 	ICON_COLLAPSE_CONTENT,
 	ICON_EXPAND_CONTENT
-} from '@/basic-widgets/constants';
-import {TooltipAlignment} from '@/basic-widgets/types';
-import {Lang} from '@/langs';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Report} from '@/services/tuples/report-types';
-import {Subject} from '@/services/tuples/subject-types';
+} from '@/widgets/basic/constants';
+import {TooltipAlignment} from '@/widgets/basic/types';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import React, {useEffect, useRef, useState} from 'react';
+import {useReportViewEventBus} from '../../report-view-event-bus';
+import {ReportViewEventTypes} from '../../report-view-event-bus-types';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {SettingsBody} from '../settings-body';
 import {ResizeHandleAlignment, SettingsResizeHandle} from './settings-resize-handle';
 import {SettingsSaver} from './settings-saver';
 import {SettingsContainer, SettingsHeader, SettingsHeaderButton, SettingsHeaderTitle} from './widgets';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {ReportViewEventTypes} from '../../report-view-event-bus-types';
-import {useReportViewEventBus} from '../../report-view-event-bus';
 
 interface ResizeHandleState {
 	width: number;

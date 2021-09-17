@@ -1,8 +1,8 @@
-import {MappedTopic, MappedTopicsMap} from '@/services/pipeline/pipeline-relations';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {isRawTopic} from '@/services/tuples/topic';
-import {Topic} from '@/services/tuples/topic-types';
-import {getCurrentTheme} from '@/theme/theme-wrapper';
+import {MappedTopic, MappedTopicsMap} from '@/services/data/pipeline/pipeline-relations';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {isRawTopic} from '@/services/data/tuples/topic';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {getCurrentTheme} from '@/widgets/theme/theme-wrapper';
 import {DQCMaps, DQCRelations} from '../../cache/types';
 import {getPipelineName, getTopicName} from '../../utils';
 

@@ -1,5 +1,5 @@
+import {Button} from '@/widgets/basic/button';
 import styled from 'styled-components';
-import {Button} from '@/basic-widgets/button';
 import {GRID_ROW_GAP} from '../../constants';
 
 export const FactorsMappingContainer = styled.div.attrs({'data-widget': 'factors-mapping'})`

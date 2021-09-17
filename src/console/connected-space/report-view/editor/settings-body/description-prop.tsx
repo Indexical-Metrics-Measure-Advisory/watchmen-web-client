@@ -1,7 +1,7 @@
+import {Report} from '@/services/data/tuples/report-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {Lang} from '@/widgets/langs';
 import React, {ChangeEvent} from 'react';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {Lang} from '@/langs';
-import {Report} from '@/services/tuples/report-types';
 import {PropExclusiveValue, PropValueInputLines, SectionContainer} from '../settings-widgets/widgets';
 
 export const DescriptionPropEditor = (props: { report: Report }) => {

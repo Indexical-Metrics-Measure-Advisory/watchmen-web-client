@@ -1,10 +1,10 @@
+import {GraphicsSize} from '@/services/data/graphics/graphics-types';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {ICON_CLOSE, ICON_EXPAND_PANEL} from '@/widgets/basic/constants';
+import {ButtonInk} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useEffect, useRef, useState} from 'react';
-import {ICON_CLOSE, ICON_EXPAND_PANEL} from '@/basic-widgets/constants';
-import {ButtonInk} from '@/basic-widgets/types';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {GraphicsSize} from '@/services/graphics/graphics-types';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {BlockRelations} from '../relation/block-relations';

@@ -1,5 +1,5 @@
+import {Dropdown} from '@/widgets/basic/dropdown';
 import styled from 'styled-components';
-import {Dropdown} from '@/basic-widgets/dropdown';
 
 export const TopicFinderContainer = styled.div.attrs({'data-widget': 'topic-finder'})`
 	display               : grid;

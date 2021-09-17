@@ -5,8 +5,12 @@ import {
 	ParameterComputeType,
 	TopicFactorParameter,
 	VariablePredefineFunctions
-} from '@/services/tuples/factor-calculator-types';
+} from '@/services/data/tuples/factor-calculator-types';
+import {isComputedParameter, isConstantParameter, isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
+import dayjs from 'dayjs';
+import {DataRow} from '../../../types';
 import {InternalUnitRuntimeContext, PipelineRuntimeContext} from '../types';
+import {computeJoint} from './condition-compute';
 import {
 	castParameterValueType,
 	checkShouldBe,
@@ -16,10 +20,6 @@ import {
 	readTopicFactorParameter
 } from './parameter-kits';
 import {ParameterShouldBe} from './types';
-import dayjs from 'dayjs';
-import {computeJoint} from './condition-compute';
-import {isComputedParameter, isConstantParameter, isTopicFactorParameter} from '@/services/tuples/parameter-utils';
-import {DataRow} from '../../../types';
 
 const HALF_YEAR_FIRST: number = 1;
 const HALF_YEAR_SECOND: number = 2;

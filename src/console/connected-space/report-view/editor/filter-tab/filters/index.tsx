@@ -1,12 +1,12 @@
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useEffect} from 'react';
+import {useReportEditEventBus} from '../../report-edit-event-bus';
+import {ReportEditEventTypes} from '../../report-edit-event-bus-types';
 import {FiltersEdit} from './filters-edit';
 import {FiltersContainer} from './widgets';
-import {Report} from '@/services/tuples/report-types';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Subject} from '@/services/tuples/subject-types';
-import {useReportEditEventBus} from '../../report-edit-event-bus';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {ReportEditEventTypes} from '../../report-edit-event-bus-types';
 
 export const Filters = (props: { connectedSpace: ConnectedSpace; subject: Subject; report: Report; }) => {
 	const {subject, report} = props;

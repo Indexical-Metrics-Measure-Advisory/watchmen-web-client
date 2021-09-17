@@ -1,8 +1,22 @@
-import {Topic} from '@/services/tuples/topic-types';
-import {Factor} from '@/services/tuples/factor-types';
+import {
+	MonitorRule,
+	MonitorRuleGrade,
+	MonitorRuleOnFactor,
+	MonitorRuleSeverity
+} from '@/services/data/data-quality/rule-types';
+import {Factor} from '@/services/data/tuples/factor-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {Dropdown} from '@/widgets/basic/dropdown';
+import {DropdownOption} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import React from 'react';
+import {MonitorRuleDef} from '../../rule-defs';
+import {RuleParameters} from '../parameters';
+import {useRulesEventBus} from '../rules-event-bus';
+import {RulesEventTypes} from '../rules-event-bus-types';
 import {prepareRuleParams, SeverityOptions} from '../utils';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {DropdownOption} from '@/basic-widgets/types';
+import {ColorfulCheckBox} from '../widgets';
+import {RuleMap} from './types';
 import {
 	FactorRow,
 	FactorRuleNameCell,
@@ -11,20 +25,6 @@ import {
 	TopicRuleCell,
 	TopicRuleEnablementCell
 } from './widgets';
-import {ColorfulCheckBox} from '../widgets';
-import {Dropdown} from '@/basic-widgets/dropdown';
-import React from 'react';
-import {RuleMap} from './types';
-import {RulesEventTypes} from '../rules-event-bus-types';
-import {useRulesEventBus} from '../rules-event-bus';
-import {RuleParameters} from '../parameters';
-import {MonitorRuleDef} from '../../rule-defs';
-import {
-	MonitorRule,
-	MonitorRuleGrade,
-	MonitorRuleOnFactor,
-	MonitorRuleSeverity
-} from '@/services/data-quality/rule-types';
 
 export const FactorRulesRow = (props: {
 	topic: Topic;

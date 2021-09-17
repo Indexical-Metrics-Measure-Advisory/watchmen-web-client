@@ -1,6 +1,6 @@
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Subject} from '@/services/data/tuples/subject-types';
 import React, {useState} from 'react';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Subject} from '@/services/tuples/subject-types';
 import {Columns} from './columns';
 import {SubjectDefDataHolder} from './def-data';
 import {SubjectDefSaver} from './def-data/def-saver';

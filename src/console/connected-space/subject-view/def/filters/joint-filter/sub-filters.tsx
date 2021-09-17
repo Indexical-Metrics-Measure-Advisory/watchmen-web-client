@@ -1,7 +1,7 @@
+import {SubjectDataSetFilter, SubjectDataSetFilterJoint} from '@/services/data/tuples/subject-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import {v4} from 'uuid';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {SubjectDataSetFilter, SubjectDataSetFilterJoint} from '@/services/tuples/subject-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {useFilterEventBus} from '../filter-event-bus';
 import {FilterEventTypes} from '../filter-event-bus-types';
 import {FilterEdit} from './filter-edit';

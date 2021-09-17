@@ -1,8 +1,8 @@
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {ICON_CLOSE} from '@/widgets/basic/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useReducer, useState} from 'react';
-import {ICON_CLOSE} from '@/basic-widgets/constants';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {usePipelineEventBus} from '../pipeline/pipeline-event-bus';
 import {PipelineEventTypes} from '../pipeline/pipeline-event-bus-types';
 import {Dsl, EmptyLine, LineComment} from './dsl-widgets';

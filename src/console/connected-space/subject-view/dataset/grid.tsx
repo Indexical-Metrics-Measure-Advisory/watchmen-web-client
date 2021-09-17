@@ -1,17 +1,17 @@
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Subject} from '@/services/tuples/subject-types';
-import {Grid} from '@/dataset-grid';
-import {GridEventBusProvider, useGridEventBus} from '@/dataset-grid/grid-event-bus';
-import {SubjectDataSetEventTypes} from './subject-dataset-event-bus-types';
-import {useSubjectDataSetEventBus} from './subject-dataset-event-bus';
-import {EventTypes} from '@/events/types';
-import {fetchSubjectData} from '@/services/console/subject';
-import {MAX_SUBJECT_DATASET_SIZE} from './constants';
-import {useEventBus} from '@/events/event-bus';
-import {DataSetPage} from '@/services/console/dataset';
+import {DataSetPage} from '@/services/data/console/dataset';
+import {fetchSubjectData} from '@/services/data/console/subject';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {Grid} from '@/widgets/dataset-grid';
+import {GridEventBusProvider, useGridEventBus} from '@/widgets/dataset-grid/grid-event-bus';
+import {GridEventTypes} from '@/widgets/dataset-grid/grid-event-bus-types';
+import {ColumnDefs, DataPage} from '@/widgets/dataset-grid/types';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import {useEffect} from 'react';
-import {ColumnDefs, DataPage} from '@/dataset-grid/types';
-import {GridEventTypes} from '@/dataset-grid/grid-event-bus-types';
+import {MAX_SUBJECT_DATASET_SIZE} from './constants';
+import {useSubjectDataSetEventBus} from './subject-dataset-event-bus';
+import {SubjectDataSetEventTypes} from './subject-dataset-event-bus-types';
 
 const SubjectDataGridController = () => {
 	const {fire: fireGrid} = useGridEventBus();

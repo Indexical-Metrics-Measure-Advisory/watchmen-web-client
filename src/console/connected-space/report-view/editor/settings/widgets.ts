@@ -1,6 +1,6 @@
+import {CHART_SETTINGS_MAX_WIDTH, CHART_SETTINGS_MIN_WIDTH} from '@/widgets/basic/constants';
+import {TooltipButton} from '@/widgets/basic/tooltip-button';
 import styled from 'styled-components';
-import {CHART_SETTINGS_MAX_WIDTH, CHART_SETTINGS_MIN_WIDTH} from '@/basic-widgets/constants';
-import {TooltipButton} from '@/basic-widgets/tooltip-button';
 
 export const SettingsContainer = styled.div.attrs<{ visible: boolean, width?: number }>(({visible, width}) => {
 	return {

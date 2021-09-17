@@ -1,22 +1,22 @@
-import {ExecutionContent} from '../../widgets/cli/types';
-import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
+import {TopicRelation} from '@/services/data/pipeline/pipeline-relations';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React, {Fragment, useState} from 'react';
+import {DQCCacheData} from '../../cache/types';
+import {useDataQualityCacheData} from '../../cache/use-cache-data';
+import {getPipelineName, getTopicName} from '../../utils';
+import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
 import {CliEventTypes} from '../../widgets/cli/events/cli-event-bus-types';
+import {ExecutionDelegate} from '../../widgets/cli/execution/execution-delegate';
 import {
 	ExecutionCommandLineArgument,
 	ExecutionCommandLinePrimary,
 	ExecutionResultItemTable,
 	ExecutionResultNoData
 } from '../../widgets/cli/execution/widgets';
-import {useDataQualityCacheData} from '../../cache/use-cache-data';
-import {ExecutionDelegate} from '../../widgets/cli/execution/execution-delegate';
-import {Topic} from '@/services/tuples/topic-types';
-import {DQCCacheData} from '../../cache/types';
-import {getPipelineName, getTopicName} from '../../utils';
-import {FactorName, FactorNotUsedReason, NotUsedFactorsGroup, PipelineGroup, PipelineName, TopicName} from './widgets';
+import {ExecutionContent} from '../../widgets/cli/types';
 import {buildViewPipelineCommand} from '../pipeline/commands';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {TopicRelation} from '@/services/pipeline/pipeline-relations';
+import {FactorName, FactorNotUsedReason, NotUsedFactorsGroup, PipelineGroup, PipelineName, TopicName} from './widgets';
 
 const TopicView = (props: { relation: TopicRelation }) => {
 	const {relation} = props;

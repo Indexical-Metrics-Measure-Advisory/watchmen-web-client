@@ -1,6 +1,6 @@
+import {Button} from '@/widgets/basic/button';
+import {Input} from '@/widgets/basic/input';
 import styled from 'styled-components';
-import {Button} from '@/basic-widgets/button';
-import {Input} from '@/basic-widgets/input';
 
 export const TupleSearchBarContainer = styled.div.attrs<{ noIndent: boolean }>(({noIndent}) => {
 	return {

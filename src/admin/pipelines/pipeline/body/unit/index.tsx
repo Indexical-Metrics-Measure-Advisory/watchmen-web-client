@@ -1,17 +1,17 @@
+import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
+import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
-import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
-import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
+import {VariablesEventBusProvider} from '../variables/variables-event-bus';
+import {VariablesHelper} from '../variables/variables-helper';
 import {Actions} from './actions';
 import {UnitBody} from './body';
 import {UnitFooter} from './footer';
 import {UnitHeader} from './header';
+import {UnitLoopVariableName} from './loop';
 import {UnitPrerequisite} from './prerequisite';
 import {UnitContainer} from './widgets';
-import {UnitLoopVariableName} from './loop';
-import {VariablesHelper} from '../variables/variables-helper';
-import {VariablesEventBusProvider} from '../variables/variables-event-bus';
 
 export const UnitEditor = (props: {
 	pipeline: Pipeline;

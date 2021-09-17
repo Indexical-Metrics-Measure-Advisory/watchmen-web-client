@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {Redirect, Route, Switch, useHistory} from 'react-router-dom';
 import {Router} from '@/routes/types';
 import {toSubjectDef, toSubjectReports} from '@/routes/utils';
-import {AvailableSpaceInConsole} from '@/services/console/settings-types';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Subject} from '@/services/tuples/subject-types';
-import {Topic} from '@/services/tuples/topic-types';
+import {AvailableSpaceInConsole} from '@/services/data/console/settings-types';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import React, {useEffect, useState} from 'react';
+import {Redirect, Route, Switch, useHistory} from 'react-router-dom';
 import {useConsoleEventBus} from '../../console-event-bus';
 import {ConsoleEventTypes} from '../../console-event-bus-types';
 import {isDefValid} from './data-validator';

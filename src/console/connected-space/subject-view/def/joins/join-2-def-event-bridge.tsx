@@ -1,5 +1,5 @@
+import {Subject, SubjectDataSetJoin} from '@/services/data/tuples/subject-types';
 import React, {Fragment, useEffect} from 'react';
-import {Subject, SubjectDataSetJoin} from '@/services/tuples/subject-types';
 import {useSubjectDefEventBus} from '../subject-def-event-bus';
 import {SubjectDefEventTypes} from '../subject-def-event-bus-types';
 import {useJoinEventBus} from './join-event-bus';

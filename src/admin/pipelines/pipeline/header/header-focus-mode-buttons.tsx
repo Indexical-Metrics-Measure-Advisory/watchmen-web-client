@@ -1,11 +1,11 @@
-import {Pipeline} from '@/services/tuples/pipeline-types';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL, ICON_FREE_WALK, ICON_STAGE, ICON_UNIT} from '@/widgets/basic/constants';
+import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
+import {ButtonInk} from '@/widgets/basic/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL, ICON_FREE_WALK, ICON_STAGE, ICON_UNIT} from '@/basic-widgets/constants';
-import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
 import React, {useEffect, useState} from 'react';
-import {PipelineEventTypes, PipelineFocusMode} from '../pipeline-event-bus-types';
 import {usePipelineEventBus} from '../pipeline-event-bus';
-import {ButtonInk} from '@/basic-widgets/types';
+import {PipelineEventTypes, PipelineFocusMode} from '../pipeline-event-bus-types';
 
 export const HeaderFocusModeButtons = (props: { pipeline: Pipeline }) => {
 	const {pipeline} = props;

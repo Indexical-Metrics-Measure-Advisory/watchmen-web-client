@@ -1,10 +1,10 @@
+import {Parameter, ValueTypes} from '@/services/data/tuples/factor-calculator-types';
+import {isComputedParameter} from '@/services/data/tuples/parameter-utils';
+import {Topic} from '@/services/data/tuples/topic-types';
 import {
 	useComputedParameterFromChanged,
 	useDelegateComputedParameterChildChangedToMe
-} from '@/data-filter/computed/use-computed-parameter';
-import {Parameter, ValueTypes} from '@/services/tuples/factor-calculator-types';
-import {isComputedParameter} from '@/services/tuples/parameter-utils';
-import {Topic} from '@/services/tuples/topic-types';
+} from '@/widgets/parameter/computed/use-computed-parameter';
 import React from 'react';
 import {ParameterComputeTypeEditor} from '../compute-type';
 import {SubParameters} from './sub-parameters';

@@ -1,7 +1,7 @@
+import {Factor} from '@/services/data/tuples/factor-types';
+import {DropdownOption} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React from 'react';
-import {DropdownOption} from '@/basic-widgets/types';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {Factor} from '@/services/tuples/factor-types';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';
 import {FactorIndexGroupCellContainer, FactorPropDropdown} from './widgets';

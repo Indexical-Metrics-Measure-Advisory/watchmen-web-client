@@ -1,5 +1,5 @@
-import {Factor} from '@/services/tuples/factor-types';
-import {Topic} from '@/services/tuples/topic-types';
+import {Factor} from '@/services/data/tuples/factor-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 
 export type IndexGroups = { [key in string]: Array<Factor> };
 

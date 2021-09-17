@@ -1,3 +1,9 @@
+import {Topic} from '@/services/data/tuples/topic-types';
+import {ButtonInk} from '@/widgets/basic/types';
+import React, {Fragment} from 'react';
+import {getTopicName} from '../../../utils';
+import {AllTopics, ChangedDataRow} from '../types';
+import {toString} from './utils';
 import {
 	ChangedDataFirstHeaderCell,
 	ChangedDataNoDataCell,
@@ -8,12 +14,6 @@ import {
 	DataTableHeaderCell,
 	SectionTitle
 } from './widgets';
-import React, {Fragment} from 'react';
-import {AllTopics, ChangedDataRow} from '../types';
-import {getTopicName} from '../../../utils';
-import {Topic} from '@/services/tuples/topic-types';
-import {ButtonInk} from '@/basic-widgets/types';
-import {toString} from './utils';
 
 export const ChangedData = (props: {
 	topics: AllTopics;

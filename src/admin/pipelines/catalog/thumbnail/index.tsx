@@ -1,9 +1,11 @@
+import {GraphicsSize} from '@/services/data/graphics/graphics-types';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {ICON_CLOSE, ICON_EXPAND_PANEL} from '@/widgets/basic/constants';
+import {ButtonInk} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useEffect, useRef, useState} from 'react';
-import {ICON_CLOSE, ICON_EXPAND_PANEL} from '@/basic-widgets/constants';
-import {ButtonInk} from '@/basic-widgets/types';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {GraphicsSize} from '@/services/graphics/graphics-types';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {BlockRelations} from '../relation/block-relations';
@@ -12,8 +14,6 @@ import {TopicRect} from '../topic/topic-rect';
 import {AssembledPipelinesGraphics, AssembledTopicGraphics} from '../types';
 import {Current} from './current';
 import {BodyThumbnail, CloseButton, THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH, ThumbnailBodySvg} from './widgets';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
 
 export const Thumbnail = (props: {
 	pipelines: Array<Pipeline>;

@@ -1,4 +1,10 @@
+import {ICON_MAXIMIZE_PANEL, ICON_MINIMIZE_PANEL, ICON_RESTORE_PANEL} from '@/widgets/basic/constants';
+import {TooltipAlignment} from '@/widgets/basic/types';
+import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome';
 import React from 'react';
+import {useStatisticsEventBus} from '../statistics-event-bus';
+import {StatisticsEventTypes} from '../statistics-event-bus-types';
+import {DataPanelLayout, DataPanelResize, DataPanels} from '../types';
 import {
 	DataPanelContainer,
 	DataPanelHeader,
@@ -6,12 +12,6 @@ import {
 	DataPanelHeaderButtons,
 	DataPanelHeaderTitle
 } from './widgets';
-import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome';
-import {ICON_MAXIMIZE_PANEL, ICON_MINIMIZE_PANEL, ICON_RESTORE_PANEL} from '@/basic-widgets/constants';
-import {TooltipAlignment} from '@/basic-widgets/types';
-import {DataPanelLayout, DataPanelResize, DataPanels} from '../types';
-import {useStatisticsEventBus} from '../statistics-event-bus';
-import {StatisticsEventTypes} from '../statistics-event-bus-types';
 
 const sameLayout = (l1: DataPanelLayout, l2: DataPanelLayout): boolean => {
 	return l1.column === l2.column

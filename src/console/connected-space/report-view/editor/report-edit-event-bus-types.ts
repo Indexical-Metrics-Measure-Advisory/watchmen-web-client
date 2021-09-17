@@ -4,7 +4,7 @@ import {
 	ReportFilter,
 	ReportFilterJoint,
 	ReportIndicator
-} from '@/services/tuples/report-types';
+} from '@/services/data/tuples/report-types';
 
 export enum ReportEditEventTypes {
 	DESCRIPTION_CHANGED = 'description-changed',

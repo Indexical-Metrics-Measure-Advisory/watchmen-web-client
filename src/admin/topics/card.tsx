@@ -1,9 +1,9 @@
-import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT, ICON_TOPIC_PROFILE} from '@/basic-widgets/constants';
-import {TooltipAlignment} from '@/basic-widgets/types';
 import {isDataQualityCenterEnabled} from '@/feature-switch';
-import {QueryTopic} from '@/services/tuples/query-topic-types';
-import {fetchTopic, isNotRawTopic} from '@/services/tuples/topic';
-import {prettifyDateTimeToMinute} from '@/services/tuples/utils';
+import {QueryTopic} from '@/services/data/tuples/query-topic-types';
+import {fetchTopic, isNotRawTopic} from '@/services/data/tuples/topic';
+import {prettifyDateTimeToMinute} from '@/services/data/tuples/utils';
+import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT, ICON_TOPIC_PROFILE} from '@/widgets/basic/constants';
+import {TooltipAlignment} from '@/widgets/basic/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import React, {MouseEvent} from 'react';

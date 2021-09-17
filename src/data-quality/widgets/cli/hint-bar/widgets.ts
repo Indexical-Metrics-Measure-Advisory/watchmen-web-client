@@ -1,5 +1,5 @@
+import {Button} from '@/widgets/basic/button';
 import styled from 'styled-components';
-import {Button} from '@/basic-widgets/button';
 
 export const HintBarContainer = styled.div.attrs({'data-widget': 'cli-hint-bar'})`
 	display: flex;

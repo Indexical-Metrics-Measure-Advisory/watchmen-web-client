@@ -1,4 +1,4 @@
-import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 
 export enum ActionEventTypes {
 	ACTION_TYPE_CHANGED = 'action-type-changed',

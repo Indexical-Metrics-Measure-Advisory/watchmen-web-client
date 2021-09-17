@@ -1,8 +1,8 @@
-import {useStatisticsEventBus} from '../statistics-event-bus';
 import {useEffect, useState} from 'react';
+import {DEFAULT_LAYOUTS} from '../constants';
+import {useStatisticsEventBus} from '../statistics-event-bus';
 import {StatisticsEventTypes} from '../statistics-event-bus-types';
 import {DataPanelLayouts, DataPanelResize, DataPanels} from '../types';
-import {DEFAULT_LAYOUTS} from '../constants';
 
 const computeLayouts = (layout: DataPanelLayouts, which: DataPanels, how: DataPanelResize): DataPanelLayouts => {
 	layout = JSON.parse(JSON.stringify(layout));

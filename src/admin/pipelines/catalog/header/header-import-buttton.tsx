@@ -1,30 +1,30 @@
+import {tryToImportTopicsAndPipelines} from '@/services/data/data-import/import-data';
+import {ImportDataResponse} from '@/services/data/data-import/import-data-types';
+import {savePipelinesGraphics} from '@/services/data/tuples/pipeline';
+import {Pipeline, PipelinesGraphics, TopicGraphics} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {generateUuid} from '@/services/data/tuples/utils';
+import {getCurrentTime} from '@/services/data/utils';
+import {AdminCacheData} from '@/services/local-persist/types';
+import {AlertLabel} from '@/widgets/alert/widgets';
+import {Button} from '@/widgets/basic/button';
+import {ICON_IMPORT} from '@/widgets/basic/constants';
+import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
+import {ButtonInk} from '@/widgets/basic/types';
+import {DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import dayjs from 'dayjs';
 import React, {useState} from 'react';
-import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
-import {ICON_IMPORT} from '@/basic-widgets/constants';
-import {useEventBus} from '@/events/event-bus';
-import {Pipeline, PipelinesGraphics, TopicGraphics} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
 // noinspection ES6PreferShortImport
 import {useAdminCacheEventBus} from '../../../cache/cache-event-bus';
 // noinspection ES6PreferShortImport
 import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
-import {AdminCacheData} from '@/local-persist/types';
-import {EventTypes} from '@/events/types';
-import {PickerDialogBody} from './widgets';
-import {DialogFooter, DialogLabel} from '@/dialog/widgets';
-import {Button} from '@/basic-widgets/button';
-import {ButtonInk} from '@/basic-widgets/types';
-import {ImportPickerTable} from './import-picker-table';
-import {tryToImportTopicsAndPipelines} from '@/services/data-import/import-data';
-import {AlertLabel} from '@/alert/widgets';
-import {ImportDataResponse} from '@/services/data-import/import-data-types';
-import {generateUuid} from '@/services/tuples/utils';
-import {getCurrentTime} from '@/services/utils';
-import {savePipelinesGraphics} from '@/services/tuples/pipeline';
-import {CatalogEventTypes} from '../catalog-event-bus-types';
-import dayjs from 'dayjs';
 import {useCatalogEventBus} from '../catalog-event-bus';
+import {CatalogEventTypes} from '../catalog-event-bus-types';
+import {ImportPickerTable} from './import-picker-table';
+import {PickerDialogBody} from './widgets';
 
 const PipelinesImport = (props: {
 	topics: Array<Topic>;

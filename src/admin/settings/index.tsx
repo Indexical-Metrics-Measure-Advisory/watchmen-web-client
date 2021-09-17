@@ -1,11 +1,11 @@
+import {VerticalMarginOneUnit} from '@/widgets/basic/margin';
+import {FixWidthPage} from '@/widgets/basic/page';
+import {PageHeader} from '@/widgets/basic/page-header';
+import {PersonalAccessToken} from '@/widgets/common-settings/personal-access-token';
+import {ThemeSettings} from '@/widgets/common-settings/theme';
 import React from 'react';
-import {VerticalMarginOneUnit} from '@/basic-widgets/margin';
-import {FixWidthPage} from '@/basic-widgets/page';
-import {PageHeader} from '@/basic-widgets/page-header';
 import {CacheSettings} from './cache';
 import {SimulatorLogsSettings} from './simulator-logs';
-import {ThemeSettings} from '@/common-settings/theme';
-import {PersonalAccessToken} from '@/common-settings/personal-access-token';
 
 export const AdminSettings = () => {
 	return <FixWidthPage>

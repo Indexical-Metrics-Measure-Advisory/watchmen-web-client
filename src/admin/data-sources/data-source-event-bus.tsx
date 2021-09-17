@@ -1,8 +1,8 @@
 import EventEmitter from 'events';
 import React, {useContext, useState} from 'react';
-import {DataSourceEventBus} from './data-source-event-bus-types';
 import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes, TupleState} from '../widgets/tuple-workbench/tuple-event-bus-types';
+import {DataSourceEventBus} from './data-source-event-bus-types';
 
 const Context = React.createContext<DataSourceEventBus>({} as DataSourceEventBus);
 Context.displayName = 'DataSourceEventBus';

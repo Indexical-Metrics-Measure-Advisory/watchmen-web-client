@@ -1,6 +1,6 @@
+import React from 'react';
 import {PipelineRuntimeContext, StageRuntimeContext} from '../types';
 import {UnitRun} from '../unit';
-import React from 'react';
 
 export const UnitsRuntime = (props: {
 	pipelineContext: PipelineRuntimeContext;

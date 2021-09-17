@@ -1,5 +1,11 @@
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
+import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
+import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {v4} from 'uuid';
+import {DataRow} from '../../types';
+import {TopicsData} from '../state/types';
 import {
 	ActionRunStatus,
 	ActionRuntimeContext,
@@ -14,12 +20,6 @@ import {
 	UnitRunStatus,
 	UnitRuntimeContext
 } from './types';
-import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
-import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
-import {TopicsData} from '../state/types';
-import {v4} from 'uuid';
-import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {DataRow} from '../../types';
 
 export const buildActionRuntimeContext = (action: PipelineStageUnitAction, index: number): ActionRuntimeContext => {
 	return {

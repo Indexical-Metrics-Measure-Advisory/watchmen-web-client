@@ -1,6 +1,6 @@
+import {Logo} from '@/widgets/basic/logo';
 import React from 'react';
 import styled, {keyframes} from 'styled-components';
-import {Logo} from '@/basic-widgets/logo';
 
 const Container = styled.div.attrs({'data-widget': 'simulator-loading'})`
 	display               : grid;

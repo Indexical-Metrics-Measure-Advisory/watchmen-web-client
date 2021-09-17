@@ -1,5 +1,5 @@
+import {DROPDOWN_Z_INDEX} from '@/widgets/basic/constants';
 import styled from 'styled-components';
-import {DROPDOWN_Z_INDEX} from '@/basic-widgets/constants';
 
 export const ActionTypeContainer = styled.div.attrs({'data-widget': 'action-type'})`
 	display          : flex;

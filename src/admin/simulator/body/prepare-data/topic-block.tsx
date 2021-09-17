@@ -1,5 +1,26 @@
+import {Factor} from '@/services/data/tuples/factor-types';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {AlertLabel} from '@/widgets/alert/widgets';
+import {Button} from '@/widgets/basic/button';
+import {ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EXPAND_CONTENT, ICON_LOOP, ICON_PLAY} from '@/widgets/basic/constants';
+import {Input} from '@/widgets/basic/input';
+import {ButtonInk, TooltipAlignment} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {DialogBody, DialogFooter} from '@/widgets/dialog/widgets';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import JSON5 from 'json5';
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {Topic} from '@/services/tuples/topic-types';
+import {v4} from 'uuid';
+import {useSimulatorEventBus} from '../../simulator-event-bus';
+import {SimulatorEventTypes} from '../../simulator-event-bus-types';
+import {DataRow} from '../../types';
+import {getTopicName} from '../../utils';
+import {ActiveStep} from '../state/types';
+import {PipelineBlock} from './pipeline-block';
+import {FlowTreeTopicNode} from './utils';
 import {
 	BlockContainer,
 	ChildrenBlock,
@@ -17,27 +38,6 @@ import {
 	TopicBlockType,
 	TopicEditButton
 } from './widgets';
-import {getTopicName} from '../../utils';
-import {ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EXPAND_CONTENT, ICON_LOOP, ICON_PLAY} from '@/basic-widgets/constants';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {PipelineBlock} from './pipeline-block';
-import {ButtonInk, TooltipAlignment} from '@/basic-widgets/types';
-import {FlowTreeTopicNode} from './utils';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {DialogBody, DialogFooter} from '@/dialog/widgets';
-import {Button} from '@/basic-widgets/button';
-import {Input} from '@/basic-widgets/input';
-import {Factor} from '@/services/tuples/factor-types';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {useSimulatorEventBus} from '../../simulator-event-bus';
-import {SimulatorEventTypes} from '../../simulator-event-bus-types';
-import {AlertLabel} from '@/alert/widgets';
-import {ActiveStep} from '../state/types';
-import {v4} from 'uuid';
-import JSON5 from 'json5';
-import {DataRow} from '../../types';
 
 const DataCell = (props: { row: DataRow, factor: Factor }) => {
 	const {row, factor} = props;

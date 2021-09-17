@@ -1,14 +1,14 @@
-import {useTopicFactor} from '@/data-filter/topic-factor/use-topic-factor';
-import {Parameter, TopicFactorParameter, ValueTypes} from '@/services/tuples/factor-calculator-types';
+import {Parameter, TopicFactorParameter, ValueTypes} from '@/services/data/tuples/factor-calculator-types';
 import {
 	findSelectedFactor,
 	findSelectedTopic,
 	isFactorTypeCompatibleWith
-} from '@/services/tuples/factor-calculator-utils';
-import {Factor} from '@/services/tuples/factor-types';
-import {isTopicFactorParameter} from '@/services/tuples/parameter-utils';
-import {Topic} from '@/services/tuples/topic-types';
-import {buildFactorOptions, buildTopicOptions} from '@/shared-widgets/tuples';
+} from '@/services/data/tuples/factor-calculator-utils';
+import {Factor} from '@/services/data/tuples/factor-types';
+import {isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {useTopicFactor} from '@/widgets/parameter/topic-factor/use-topic-factor';
+import {buildFactorOptions, buildTopicOptions} from '@/widgets/tuples';
 import React from 'react';
 import {FactorDropdown, IncorrectOptionLabel, TopicDropdown, TopicFactorEditContainer} from './widgets';
 

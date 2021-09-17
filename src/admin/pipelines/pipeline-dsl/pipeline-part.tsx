@@ -1,6 +1,6 @@
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {ConditionalLine} from './conditonal';
 import {BooleanValue, LineComment, PropName, PropValue, TopicName, TriggerOn} from './dsl-widgets';
 

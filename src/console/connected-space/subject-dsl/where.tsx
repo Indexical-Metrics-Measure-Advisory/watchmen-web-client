@@ -1,15 +1,15 @@
-import React, {Fragment} from 'react';
-import {v4} from 'uuid';
-import {Lang} from '@/langs';
-import {ParameterJointType} from '@/services/tuples/factor-calculator-types';
+import {ParameterJointType} from '@/services/data/tuples/factor-calculator-types';
 import {
 	Subject,
 	SubjectDataSetFilter,
 	SubjectDataSetFilterExpression,
 	SubjectDataSetFilterJoint
-} from '@/services/tuples/subject-types';
-import {isExpressionFilter, isJointFilter} from '@/services/tuples/subject-utils';
-import {Topic} from '@/services/tuples/topic-types';
+} from '@/services/data/tuples/subject-types';
+import {isExpressionFilter, isJointFilter} from '@/services/data/tuples/subject-utils';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {Lang} from '@/widgets/langs';
+import React, {Fragment} from 'react';
+import {v4} from 'uuid';
 import {FilterExpressionOperatorLabels} from '../../constants/parameter-constants';
 import {JointAnd, JointOr, NewLine, NoStatement, ParameterLine, UnknownFilter} from './literal';
 import {buildTopicsMap, fromParameter} from './literal-utils';

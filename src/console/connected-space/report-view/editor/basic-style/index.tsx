@@ -1,17 +1,19 @@
-import React from 'react';
-import {Lang} from '@/langs';
 // import {CHART_MIN_HEIGHT, CHART_MIN_WIDTH} from '../../../../../report/constants';
-import {ChartBorderStyle} from '@/services/tuples/chart-types';
+import {ChartBorderStyle} from '@/services/data/tuples/chart-types';
 import {
 	isBarChart,
 	isDoughnutChart,
 	isNightingaleChart,
 	isPieChart,
 	isSunburstChart
-} from '@/services/tuples/chart-utils';
-import {Report} from '@/services/tuples/report-types';
-import {getCurrentTheme} from '@/theme/theme-wrapper';
+} from '@/services/data/tuples/chart-utils';
+import {Report} from '@/services/data/tuples/report-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {Lang} from '@/widgets/langs';
+import {getCurrentTheme} from '@/widgets/theme/theme-wrapper';
+import React from 'react';
 import {onBooleanChange, onColorChange, onDropdownValueChange, onNumberChange, validateNumber} from '../data-utils';
+import {TabBodySection, TabBodySectionBody, TabBodySectionTitle} from '../dataset-and-palette/widget';
 import {BorderStyleOptions} from '../prop-defs/dropdown-options/border-dropdown-options';
 import {PeripheralStylePropNames} from '../prop-defs/peripheral-style-props';
 import {useReportEditEventBus} from '../report-edit-event-bus';
@@ -21,8 +23,6 @@ import {BooleanValue} from '../settings-widgets/boolean-value';
 import {ColorValue} from '../settings-widgets/color-value';
 import {DropdownValue} from '../settings-widgets/dropdown-value';
 import {NumberValue} from '../settings-widgets/number-value';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {TabBodySection, TabBodySectionBody, TabBodySectionTitle} from '../dataset-and-palette/widget';
 
 export const BasicStyleSection = (props: { report: Report }) => {
 	const {report} = props;

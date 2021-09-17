@@ -1,14 +1,14 @@
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {usePipelineEventBus} from '../../pipeline-event-bus';
 import {PipelineEventTypes} from '../../pipeline-event-bus-types';
 import {ConditionalEditor} from '../conditional';
+import {VariablesEventBusProvider} from '../variables/variables-event-bus';
+import {VariablesHelper} from '../variables/variables-helper';
 import {LeadLabel} from '../widgets';
 import {TriggerOnButton} from './trigger-on-button';
 import {PipelinePartContainer, TopicName} from './widgets';
-import {VariablesHelper} from '../variables/variables-helper';
-import {VariablesEventBusProvider} from '../variables/variables-event-bus';
 
 export const PipelinePart = (props: {
 	pipeline: Pipeline;

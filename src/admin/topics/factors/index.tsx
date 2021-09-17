@@ -1,6 +1,6 @@
+import {QueryEnumForHolder} from '@/services/data/tuples/query-enum-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React, {Fragment} from 'react';
-import {QueryEnumForHolder} from '@/services/tuples/query-enum-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {FactorsButton} from './factors-button';
 import {FactorsTable} from './factors-table';
 

@@ -1,6 +1,6 @@
+import {DwarfButton} from '@/widgets/basic/button';
+import {Dropdown} from '@/widgets/basic/dropdown';
 import styled from 'styled-components';
-import {DwarfButton} from '@/basic-widgets/button';
-import {Dropdown} from '@/basic-widgets/dropdown';
 
 export const Body = styled.div.attrs({'data-widget': 'monitor-logs-body'})`
 	display        : flex;

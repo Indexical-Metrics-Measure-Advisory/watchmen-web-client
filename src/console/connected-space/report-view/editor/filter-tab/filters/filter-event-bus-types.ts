@@ -1,4 +1,4 @@
-import {ReportFilter, ReportFilterJoint} from '@/services/tuples/report-types';
+import {ReportFilter, ReportFilterJoint} from '@/services/data/tuples/report-types';
 
 export enum FilterEventTypes {
 	JOINT_TYPE_CHANGED = 'joint-type-changed',

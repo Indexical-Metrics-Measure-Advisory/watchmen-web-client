@@ -1,5 +1,5 @@
+import {QueryTupleForHolder} from '@/services/data/tuples/tuple-types';
 import React, {ChangeEvent, ForwardedRef, forwardRef, useEffect, useState} from 'react';
-import {QueryTupleForHolder} from '@/services/tuples/tuple-types';
 import {useTupleItemPickerEventBus} from './tuple-item-picker-event-bus';
 import {
 	PickerDropdownPosition,

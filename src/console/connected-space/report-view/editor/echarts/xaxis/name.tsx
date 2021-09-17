@@ -1,8 +1,8 @@
+import {ECharts} from '@/services/data/tuples/echarts/echarts-types';
+import {EChartsXAxisNameLocation} from '@/services/data/tuples/echarts/echarts-xaxis-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {Lang} from '@/widgets/langs';
 import React from 'react';
-import {Lang} from '@/langs';
-import {ECharts} from '@/services/tuples/echarts/echarts-types';
-import {EChartsXAxisNameLocation} from '@/services/tuples/echarts/echarts-xaxis-types';
-import {Report} from '@/services/tuples/report-types';
 import {
 	isANumberAndInRange,
 	onColorChange,
@@ -11,6 +11,7 @@ import {
 	onTextValueChange,
 	validateNumber
 } from '../../data-utils';
+import {TabBodySectionBody, TabBodySectionTitle} from '../../dataset-and-palette/widget';
 import {EChartsXAxisPropNames, XAxisNameLocationOptions} from '../../prop-defs/echart-styles/echarts-xaxis-props';
 import {useReportEditEventBus} from '../../report-edit-event-bus';
 import {ReportEditEventTypes} from '../../report-edit-event-bus-types';
@@ -21,7 +22,6 @@ import {TextValue} from '../../settings-widgets/text-value';
 import {AlignmentSettings, SettingsAlignmentPropNames} from '../alignment';
 import {BorderSettings, SettingsBorderPropNames} from '../border';
 import {FontSettings, SettingsFontPropNames} from '../font';
-import {TabBodySectionBody, TabBodySectionTitle} from '../../dataset-and-palette/widget';
 
 export const EChartsXAxisNameSettings = (props: { report: Report, chart: ECharts }) => {
 	const {report, chart} = props;

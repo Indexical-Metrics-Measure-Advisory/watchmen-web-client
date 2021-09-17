@@ -1,16 +1,18 @@
-import {useTopicProfileEventBus} from './topic-profile-event-bus';
-import {useEffect, useState} from 'react';
-import {TopicProfileEventTypes} from './topic-profile-event-bus-types';
-import {Topic} from '@/services/tuples/topic-types';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
+import {fetchTopicProfileData} from '@/services/data/data-quality/topic-profile';
 import {
 	TopicProfileData,
 	TopicProfileFactor,
 	TopicProfileFactorType
-} from '@/services/data-quality/topic-profile-types';
-import {fetchTopicProfileData} from '@/services/data-quality/topic-profile';
+} from '@/services/data/data-quality/topic-profile-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {Button} from '@/widgets/basic/button';
+import {ButtonInk} from '@/widgets/basic/types';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import dayjs, {Dayjs} from 'dayjs';
+import {useEffect, useState} from 'react';
+import {useTopicProfileEventBus} from './topic-profile-event-bus';
+import {TopicProfileEventTypes} from './topic-profile-event-bus-types';
 import {
 	Block,
 	BlockItem,
@@ -31,8 +33,6 @@ import {
 	ValuePercentage,
 	WarningBadge
 } from './widgets';
-import {Button} from '@/basic-widgets/button';
-import {ButtonInk} from '@/basic-widgets/types';
 
 interface Data {
 	topic: Topic;

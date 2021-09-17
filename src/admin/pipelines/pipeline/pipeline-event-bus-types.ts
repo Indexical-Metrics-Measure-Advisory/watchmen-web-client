@@ -1,7 +1,7 @@
-import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
-import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
+import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
 
 export enum PipelineFocusMode {
 	STAGE = 'stage',

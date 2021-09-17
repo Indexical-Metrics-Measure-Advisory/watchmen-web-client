@@ -1,8 +1,10 @@
+import {GraphicsSize} from '@/services/data/graphics/graphics-types';
+import {Pipeline, PipelinesGraphics} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {generateUuid} from '@/services/data/tuples/utils';
+import {getCurrentTime} from '@/services/data/utils';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useEffect, useRef, useState} from 'react';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {GraphicsSize} from '@/services/graphics/graphics-types';
-import {Pipeline, PipelinesGraphics} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {useCatalogEventBus} from './catalog-event-bus';
 import {CatalogEventTypes} from './catalog-event-bus-types';
 import {GraphicsSave} from './graphics-save';
@@ -21,8 +23,6 @@ import {
 	BodySvgRelationsAnimationContainer,
 	MarkdownBodySvgContainer
 } from './widgets';
-import {generateUuid} from '@/services/tuples/utils';
-import {getCurrentTime} from '@/services/utils';
 
 const MarkdownSvgPalette = (props: { pipelines: Array<Pipeline> }) => {
 	const {pipelines} = props;

@@ -1,14 +1,14 @@
+import {DataSource} from '@/services/data/tuples/data-source-types';
+import {QueryTenantForHolder} from '@/services/data/tuples/query-tenant-types';
 import React from 'react';
 import {TuplePropertyLabel} from '../widgets/tuple-workbench/tuple-editor';
-import {HoldByDataSource} from './types';
-import {DataSource} from '@/services/tuples/data-source-types';
-import {DataSourceCodeInput} from './data-source/data-source-code-input';
 import {DataSourceEventBusProvider} from './data-source-event-bus';
-import {DataSourceTenantInput} from './data-source/data-source-tenant-input';
-import {QueryTenantForHolder} from '@/services/tuples/query-tenant-types';
-import {DataSourceTypeInput} from './data-source/data-source-type-input';
+import {DataSourceCodeInput} from './data-source/data-source-code-input';
 import {DataSourceConnectInput} from './data-source/data-source-connection-input';
 import {DataSourceParams} from './data-source/data-source-params';
+import {DataSourceTenantInput} from './data-source/data-source-tenant-input';
+import {DataSourceTypeInput} from './data-source/data-source-type-input';
+import {HoldByDataSource} from './types';
 
 const DataSourceEditor = (props: { dataSource: DataSource; tenants: Array<QueryTenantForHolder>; }) => {
 	const {dataSource, tenants} = props;

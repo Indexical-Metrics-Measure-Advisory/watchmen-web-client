@@ -1,14 +1,14 @@
+import {Parameter, ParameterExpression} from '@/services/data/tuples/factor-calculator-types';
+import {computeValidTypesByExpressionOperator} from '@/services/data/tuples/factor-calculator-utils';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React, {useEffect, useState} from 'react';
-import {Parameter, ParameterExpression} from '@/services/tuples/factor-calculator-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {ComputedEditor} from '../../parameter/computed';
 import {ConstantEditor} from '../../parameter/constant';
 import {ParameterFromEditor} from '../../parameter/param-from';
 import {TopicFactorEditor} from '../../parameter/topic-factor';
-import {ExpressionSideContainer} from './widgets';
-import {ExpressionEventTypes} from '../event-bus/expression-event-bus-types';
 import {useExpressionEventBus} from '../event-bus/expression-event-bus';
-import {computeValidTypesByExpressionOperator} from '@/services/tuples/factor-calculator-utils';
+import {ExpressionEventTypes} from '../event-bus/expression-event-bus-types';
+import {ExpressionSideContainer} from './widgets';
 
 export const ExpressionSide = (props: {
 	base: ParameterExpression;

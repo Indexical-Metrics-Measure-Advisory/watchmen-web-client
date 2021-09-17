@@ -1,3 +1,8 @@
+import {ICON_CMD_PROMPT, ICON_LOADING, ICON_LOCK, ICON_UNLOCK} from '@/widgets/basic/constants';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import React from 'react';
+import {ExecutionContent} from '../types';
 import {
 	ExecutionCommandLine,
 	ExecutionContainer,
@@ -8,11 +13,6 @@ import {
 	ExecutionTimeLabel,
 	ExecutionTimeLine
 } from './widgets';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_CMD_PROMPT, ICON_LOADING, ICON_LOCK, ICON_UNLOCK} from '@/basic-widgets/constants';
-import React from 'react';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {ExecutionContent} from '../types';
 
 const ExecutionOperators = (props: {
 	content: ExecutionContent;

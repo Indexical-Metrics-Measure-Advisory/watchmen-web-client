@@ -1,19 +1,19 @@
+import {MonitorRuleGrade, MonitorRulesCriteria} from '@/services/data/data-quality/rule-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {AlertLabel} from '@/widgets/alert/widgets';
+import {Button} from '@/widgets/basic/button';
+import {ICON_SEARCH, ICON_SELECTED} from '@/widgets/basic/constants';
+import {Dropdown} from '@/widgets/basic/dropdown';
+import {ButtonInk, DropdownOption} from '@/widgets/basic/types';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useState} from 'react';
-import {Button} from '@/basic-widgets/button';
-import {ICON_SEARCH, ICON_SELECTED} from '@/basic-widgets/constants';
-import {Dropdown} from '@/basic-widgets/dropdown';
-import {ButtonInk, DropdownOption} from '@/basic-widgets/types';
-import {GradePickerContainer, SearchCriteriaContainer, SearchLabel} from './widgets';
+import {DQCCacheData} from '../cache/types';
+import {useDataQualityCacheData} from '../cache/use-cache-data';
 import {useRulesEventBus} from './rules-event-bus';
 import {RulesEventTypes} from './rules-event-bus-types';
-import {useDataQualityCacheData} from '../cache/use-cache-data';
-import {DQCCacheData} from '../cache/types';
-import {Topic} from '@/services/tuples/topic-types';
-import {EventTypes} from '@/events/types';
-import {AlertLabel} from '@/alert/widgets';
-import {useEventBus} from '@/events/event-bus';
-import {MonitorRuleGrade, MonitorRulesCriteria} from '@/services/data-quality/rule-types';
+import {GradePickerContainer, SearchCriteriaContainer, SearchLabel} from './widgets';
 
 export const SearchCriteria = () => {
 	const {fire: fireGlobal} = useEventBus();

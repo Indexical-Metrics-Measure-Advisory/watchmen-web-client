@@ -1,10 +1,10 @@
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
-import {Topic} from '@/services/tuples/topic-types';
-import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
-import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {TopicsData} from '../state/types';
+import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
+import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import {DataRow} from '../../types';
+import {TopicsData} from '../state/types';
 
 export enum PipelineRunStatus {
 	WAIT = 'wait',

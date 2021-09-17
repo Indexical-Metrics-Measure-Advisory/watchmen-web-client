@@ -1,12 +1,12 @@
-import {getCurrentLanguage} from '@/langs';
-import {ChartType} from '@/services/tuples/chart-types';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Dashboard} from '@/services/tuples/dashboard-types';
-import {ParameterJointType} from '@/services/tuples/factor-calculator-types';
-import {Report} from '@/services/tuples/report-types';
-import {Subject} from '@/services/tuples/subject-types';
-import {generateUuid} from '@/services/tuples/utils';
-import {getCurrentTime} from '@/services/utils';
+import {ChartType} from '@/services/data/tuples/chart-types';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Dashboard} from '@/services/data/tuples/dashboard-types';
+import {ParameterJointType} from '@/services/data/tuples/factor-calculator-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {generateUuid} from '@/services/data/tuples/utils';
+import {getCurrentTime} from '@/services/data/utils';
+import {getCurrentLanguage} from '@/widgets/langs';
 
 export const createDashboard = (name?: string): Dashboard => {
 	const dashboardId = generateUuid();

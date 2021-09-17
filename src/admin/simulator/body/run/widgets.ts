@@ -1,7 +1,7 @@
+import {Button} from '@/widgets/basic/button';
+import {ButtonInk} from '@/widgets/basic/types';
 import styled from 'styled-components';
-import {Button} from '@/basic-widgets/button';
 import {SimulatorBodyPartBody} from '../widgets';
-import {ButtonInk} from '@/basic-widgets/types';
 
 const COLUMNS = '400px repeat(2, 100px) 600px';
 const COLUMNS_WIDTH = '1200px';

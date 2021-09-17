@@ -1,7 +1,7 @@
+import {Report} from '@/services/data/tuples/report-types';
+import {Lang} from '@/widgets/langs';
 import React from 'react';
-import {Report} from '@/services/tuples/report-types';
 import {ReportDataSetNoColumn} from './widgets';
-import {Lang} from '@/langs';
 
 export const NoColumn = (props: { report: Report }) => {
 	const {report} = props;

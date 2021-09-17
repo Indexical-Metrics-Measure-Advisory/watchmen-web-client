@@ -1,8 +1,8 @@
-import {useParameterEventBus} from '@/data-filter/parameter-event-bus';
-import {ParameterEventTypes} from '@/data-filter/parameter-event-bus-types';
-import {ComputedParameter, Parameter, ParameterComputeType} from '@/services/tuples/factor-calculator-types';
-import {Conditional} from '@/services/tuples/pipeline-super-types';
-import {Topic} from '@/services/tuples/topic-types';
+import {ComputedParameter, Parameter, ParameterComputeType} from '@/services/data/tuples/factor-calculator-types';
+import {Conditional} from '@/services/data/tuples/pipeline-super-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {useParameterEventBus} from '@/widgets/parameter/parameter-event-bus';
+import {ParameterEventTypes} from '@/widgets/parameter/parameter-event-bus-types';
 import React from 'react';
 import {ConditionalEditor} from '../../conditional';
 import {SubParameterConditionContainer} from './widgets';

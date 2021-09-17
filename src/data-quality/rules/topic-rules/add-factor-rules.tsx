@@ -1,13 +1,13 @@
-import {TopicRuleCell, TopicRuleRow, TopicRuleSeqCell} from './widgets';
-import {Dropdown} from '@/basic-widgets/dropdown';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {Dropdown} from '@/widgets/basic/dropdown';
+import {DropdownOption} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useEffect, useState} from 'react';
-import {RuleMap} from './types';
-import {Topic} from '@/services/tuples/topic-types';
-import {sortFactors} from '../utils';
-import {DropdownOption} from '@/basic-widgets/types';
-import {useForceUpdate} from '@/basic-widgets/utils';
 import {useRulesEventBus} from '../rules-event-bus';
 import {RulesEventTypes} from '../rules-event-bus-types';
+import {sortFactors} from '../utils';
+import {RuleMap} from './types';
+import {TopicRuleCell, TopicRuleRow, TopicRuleSeqCell} from './widgets';
 
 export const AddFactorRules = (props: {
 	topic: Topic;

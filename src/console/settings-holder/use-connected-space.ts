@@ -1,5 +1,5 @@
+import {ConnectedSpace, ConnectedSpaceGraphics} from '@/services/data/tuples/connected-space-types';
 import {Dispatch, SetStateAction, useEffect} from 'react';
-import {ConnectedSpace, ConnectedSpaceGraphics} from '@/services/tuples/connected-space-types';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes} from '../console-event-bus-types';
 import {HoldSettings} from './types';

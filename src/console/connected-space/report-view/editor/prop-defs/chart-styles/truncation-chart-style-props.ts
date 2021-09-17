@@ -1,6 +1,6 @@
-import {DropdownOption} from '@/basic-widgets/types';
-import {Lang} from '@/langs';
-import {ChartTruncationType} from '@/services/tuples/chart-def/truncation';
+import {ChartTruncationType} from '@/services/data/tuples/chart-def/truncation';
+import {DropdownOption} from '@/widgets/basic/types';
+import {Lang} from '@/widgets/langs';
 
 export const TruncationTypeOptions: Array<DropdownOption> = [
 	{value: ChartTruncationType.NONE, label: Lang.CHART.TRUNCATION_NONE},

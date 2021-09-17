@@ -1,16 +1,16 @@
+import {deleteDashboard} from '@/services/data/tuples/dashboard';
+import {Dashboard} from '@/services/data/tuples/dashboard-types';
+import {Button} from '@/widgets/basic/button';
+import {ICON_THROW_AWAY} from '@/widgets/basic/constants';
+import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
+import {ButtonInk} from '@/widgets/basic/types';
+import {DialogBody, DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
-import {Button} from '@/basic-widgets/button';
-import {ICON_THROW_AWAY} from '@/basic-widgets/constants';
-import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
-import {ButtonInk} from '@/basic-widgets/types';
-import {DialogBody, DialogFooter, DialogLabel} from '@/dialog/widgets';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {Lang} from '@/langs';
-import {deleteDashboard} from '@/services/tuples/dashboard';
-import {Dashboard} from '@/services/tuples/dashboard-types';
 import {useConsoleEventBus} from '../../console-event-bus';
 import {ConsoleEventTypes} from '../../console-event-bus-types';
 

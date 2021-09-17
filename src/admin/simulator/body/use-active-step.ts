@@ -1,5 +1,5 @@
-import {useSimulatorEventBus} from '../simulator-event-bus';
 import {useEffect} from 'react';
+import {useSimulatorEventBus} from '../simulator-event-bus';
 import {SimulatorEventTypes} from '../simulator-event-bus-types';
 import {ActiveStep} from './state/types';
 

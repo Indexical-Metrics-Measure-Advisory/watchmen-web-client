@@ -1,19 +1,19 @@
+import {AnyFactorType} from '@/services/data/tuples/factor-calculator-types';
+import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
+import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {isReadFactorAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
-import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
-import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {isReadFactorAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
-import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {useActionType} from '../action-effect/use-action-type';
+import {useActionEventBus} from '../action-event-bus';
+import {ActionEventTypes} from '../action-event-bus-types';
+import {AggregateArithmeticEditor} from '../aggregate-arithmetic';
 import {FindByCondition} from '../find-by';
 import {TopicFactorPicker} from '../topic-factor-picker';
 import {VariableName} from '../variable-name';
 import {ActionLeadLabelThin} from '../widgets';
-import {AnyFactorType} from '@/services/tuples/factor-calculator-types';
-import {AggregateArithmeticEditor} from '../aggregate-arithmetic';
-import {ActionEventTypes} from '../action-event-bus-types';
-import {useActionEventBus} from '../action-event-bus';
 
 export const ReadFactor = (props: {
 	pipeline: Pipeline;

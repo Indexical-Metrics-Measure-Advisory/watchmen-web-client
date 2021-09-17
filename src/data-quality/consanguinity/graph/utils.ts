@@ -1,11 +1,11 @@
+import {MappedTopicsMap} from '@/services/data/pipeline/pipeline-relations';
+import {Factor} from '@/services/data/tuples/factor-types';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic, TopicType} from '@/services/data/tuples/topic-types';
+import {getCurrentTheme} from '@/widgets/theme/theme-wrapper';
+import {Theme} from '@/widgets/theme/types';
 import {DQCMaps, DQCRelations} from '../../cache/types';
-import {Topic, TopicType} from '@/services/tuples/topic-types';
 import {getPipelineName, getTopicName} from '../../utils';
-import {getCurrentTheme} from '@/theme/theme-wrapper';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Theme} from '@/theme/types';
-import {Factor} from '@/services/tuples/factor-types';
-import {MappedTopicsMap} from '@/services/pipeline/pipeline-relations';
 
 enum LinkType {
 	TRIGGER = 'trigger',

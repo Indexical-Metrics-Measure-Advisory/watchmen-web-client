@@ -1,13 +1,13 @@
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Subject} from '@/services/tuples/subject-types';
-import {Report} from '@/services/tuples/report-types';
-import {ReportDataSetEventBusProvider, useReportDataSetEventBus} from './report-dataset-event-bus';
-import {ReportDataSetContainer} from './widgets';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
 import React, {useEffect} from 'react';
-import {NoColumn} from './no-column';
 import {DataLoading} from './data-loading';
 import {ReportDataGrid} from './grid';
+import {NoColumn} from './no-column';
+import {ReportDataSetEventBusProvider, useReportDataSetEventBus} from './report-dataset-event-bus';
 import {ReportDataSetEventTypes} from './report-dataset-event-bus-types';
+import {ReportDataSetContainer} from './widgets';
 
 const DataInitializer = (props: { report: Report }) => {
 	const {report} = props;

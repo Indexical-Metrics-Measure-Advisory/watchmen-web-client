@@ -1,4 +1,4 @@
-import {SubjectDataSetColumn} from '@/services/tuples/subject-types';
+import {SubjectDataSetColumn} from '@/services/data/tuples/subject-types';
 
 export enum ColumnEventTypes {
 	ALIAS_CHANGED = 'alias-changed',

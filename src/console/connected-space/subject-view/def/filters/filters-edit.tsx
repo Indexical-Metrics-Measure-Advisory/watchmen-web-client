@@ -1,7 +1,7 @@
+import {Subject} from '@/services/data/tuples/subject-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useEffect, useState} from 'react';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {Subject} from '@/services/tuples/subject-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {createSubjectDataSetTopFilter} from '../data-utils';
 import {useFiltersDataVisible} from '../data/use-filters-data-visible';
 import {useSubjectDefEventBus} from '../subject-def-event-bus';

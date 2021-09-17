@@ -1,14 +1,14 @@
+import {renamePipeline, savePipeline} from '@/services/data/tuples/pipeline';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import React, {Fragment, useEffect} from 'react';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {renamePipeline, savePipeline} from '@/services/tuples/pipeline';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {usePipelineEventBus} from '../pipeline-event-bus';
-import {PipelineEventTypes} from '../pipeline-event-bus-types';
 // noinspection ES6PreferShortImport
 import {useAdminCacheEventBus} from '../../../cache/cache-event-bus';
 // noinspection ES6PreferShortImport
 import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
+import {usePipelineEventBus} from '../pipeline-event-bus';
+import {PipelineEventTypes} from '../pipeline-event-bus-types';
 
 export const PipelineDataSaver = () => {
 	const {fire: fireGlobal} = useEventBus();

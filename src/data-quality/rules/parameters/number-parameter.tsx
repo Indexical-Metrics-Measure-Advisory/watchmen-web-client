@@ -1,7 +1,7 @@
-import {MonitorRuleParameters} from '@/services/data-quality/rule-types';
+import {MonitorRuleParameters} from '@/services/data/data-quality/rule-types';
 import React, {ChangeEvent, useState} from 'react';
-import {NumberInput} from './widgets';
 import {MonitorRuleParameterType} from '../../rule-defs';
+import {NumberInput} from './widgets';
 
 const getValue = (params: MonitorRuleParameters, propName: 'length' | 'max' | 'min'): number | null => {
 	return params[propName] ?? null;

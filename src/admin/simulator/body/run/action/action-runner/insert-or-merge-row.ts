@@ -1,9 +1,9 @@
-import {ActionRuntimeContext, InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
-import {isMergeRowAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
-import {prepareBy, prepareMapping, prepareTopic} from './utils';
+import {isMergeRowAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {computeJoint} from '../../compute/condition-compute';
-import {doMergeRow} from './merge-row';
+import {ActionRuntimeContext, InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
 import {doInsertRow} from './insert-row';
+import {doMergeRow} from './merge-row';
+import {prepareBy, prepareMapping, prepareTopic} from './utils';
 
 export const runInsertOrMergeRow = async (options: {
 	pipelineContext: PipelineRuntimeContext,

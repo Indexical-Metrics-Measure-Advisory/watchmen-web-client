@@ -1,6 +1,6 @@
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React from 'react';
-import {AlertLabel} from '@/alert/widgets';
+import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {AlertLabel} from '@/widgets/alert/widgets';
 import {
 	ICON_APPEND,
 	ICON_COLLAPSE_PANEL,
@@ -9,12 +9,12 @@ import {
 	ICON_MOVE_DOWN,
 	ICON_MOVE_UP,
 	ICON_PREPEND
-} from '@/basic-widgets/constants';
-import {ButtonInk} from '@/basic-widgets/types';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
-import {Pipeline} from '@/services/tuples/pipeline-types';
+} from '@/widgets/basic/constants';
+import {ButtonInk} from '@/widgets/basic/types';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import React from 'react';
 import {createStage} from '../../../../data-utils';
 import {usePipelineEventBus} from '../../../pipeline-event-bus';
 import {PipelineEventTypes} from '../../../pipeline-event-bus-types';

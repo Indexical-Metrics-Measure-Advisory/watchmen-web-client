@@ -1,12 +1,12 @@
-import {ExecutionContent} from '../types';
+import React, {Fragment, useEffect, useState} from 'react';
+import {v4} from 'uuid';
 import {CMD_HELP} from '../../../command';
+import {HelpCommand} from '../../../command/types';
+import {useCliEventBus} from '../events/cli-event-bus';
+import {CliEventTypes} from '../events/cli-event-bus-types';
+import {ExecutionContent} from '../types';
 import {ExecutionDelegate} from './execution-delegate';
 import {ExecutionCommandLineArgument, ExecutionCommandLinePrimary, HelpTable} from './widgets';
-import React, {Fragment, useEffect, useState} from 'react';
-import {HelpCommand} from '../../../command/types';
-import {v4} from 'uuid';
-import {CliEventTypes} from '../events/cli-event-bus-types';
-import {useCliEventBus} from '../events/cli-event-bus';
 
 export const isHelpExecution = (content: ExecutionContent) => {
 	const {commands} = content;

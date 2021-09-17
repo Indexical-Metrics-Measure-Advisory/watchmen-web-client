@@ -1,12 +1,12 @@
+import {LastSnapshot} from '@/services/data/account/last-snapshot-types';
+import {ICON_FAVORITE, TOOLTIP_CARET_OFFSET} from '@/widgets/basic/constants';
+import {SideMenuItemContainer, SideMenuItemIcon, SideMenuItemLabel} from '@/widgets/basic/side-menu/side-menu-item';
+import {useTooltip} from '@/widgets/basic/tooltip';
+import {TooltipAlignment} from '@/widgets/basic/types';
+import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
-import {ICON_FAVORITE, TOOLTIP_CARET_OFFSET} from '@/basic-widgets/constants';
-import {SideMenuItemContainer, SideMenuItemIcon, SideMenuItemLabel} from '@/basic-widgets/side-menu/side-menu-item';
-import {useTooltip} from '@/basic-widgets/tooltip';
-import {TooltipAlignment} from '@/basic-widgets/types';
-import {Lang} from '@/langs';
-import {LastSnapshot} from '@/services/account/last-snapshot-types';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes, FavoriteState} from '../console-event-bus-types';
 

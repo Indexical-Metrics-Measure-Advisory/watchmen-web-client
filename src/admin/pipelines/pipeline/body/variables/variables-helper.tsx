@@ -1,18 +1,18 @@
-import {useVariablesEventBus} from './variables-event-bus';
-import {useEffect} from 'react';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
-import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
-import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {VariablesEventTypes} from './variables-event-bus-types';
+import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
+import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {
 	isCopyToMemoryAction,
 	isReadTopicAction
-} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
-import {Topic} from '@/services/tuples/topic-types';
+} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {buildVariables} from '@/services/data/tuples/pipeline-validation-utils';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {useEffect} from 'react';
 import {usePipelineEventBus} from '../../pipeline-event-bus';
 import {PipelineEventTypes} from '../../pipeline-event-bus-types';
-import {buildVariables} from '@/services/tuples/pipeline-validation-utils';
+import {useVariablesEventBus} from './variables-event-bus';
+import {VariablesEventTypes} from './variables-event-bus-types';
 
 export const VariablesHelper = (props: {
 	pipeline: Pipeline;

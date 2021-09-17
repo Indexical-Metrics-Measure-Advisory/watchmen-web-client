@@ -1,9 +1,9 @@
+import {Router} from '@/routes/types';
+import {ICON_PIPELINES_CATALOG} from '@/widgets/basic/constants';
+import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {useHistory} from 'react-router-dom';
-import {ICON_PIPELINES_CATALOG} from '@/basic-widgets/constants';
-import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
-import {Router} from '@/routes/types';
 
 export const HeaderCatalogButton = () => {
 	const history = useHistory();

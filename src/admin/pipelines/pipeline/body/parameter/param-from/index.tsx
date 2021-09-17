@@ -1,6 +1,6 @@
-import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '@/basic-widgets/constants';
-import {useParamFrom} from '@/data-filter/param-from/use-param-from';
-import {Parameter, ParameterKind} from '@/services/tuples/factor-calculator-types';
+import {Parameter, ParameterKind} from '@/services/data/tuples/factor-calculator-types';
+import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '@/widgets/basic/constants';
+import {useParamFrom} from '@/widgets/parameter/param-from/use-param-from';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {ParameterFromEditContainer, ParameterFromIcon, ParameterTypeButton} from './widgets';

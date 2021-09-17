@@ -1,5 +1,5 @@
+import {DwarfButton} from '@/widgets/basic/button';
 import styled from 'styled-components';
-import {DwarfButton} from '@/basic-widgets/button';
 
 export const HomeSection = styled.div.attrs({'data-widget': 'console-home-section'})`
 	display        : flex;

@@ -1,14 +1,14 @@
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {MouseEvent, useRef, useState} from 'react';
-import {ICON_EDIT} from '@/basic-widgets/constants';
-import {useCollapseFixedThing} from '@/basic-widgets/utils';
 import {
 	PipelineStageUnitAction,
 	PipelineStageUnitActionType,
 	ReadTopicActionType,
 	SystemActionType,
 	WriteTopicActionType
-} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {ICON_EDIT} from '@/widgets/basic/constants';
+import {useCollapseFixedThing} from '@/widgets/basic/utils';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import React, {MouseEvent, useRef, useState} from 'react';
 import {defendAction} from '../../../../data-utils';
 import {useActionEventBus} from '../action-event-bus';
 import {ActionEventTypes} from '../action-event-bus-types';

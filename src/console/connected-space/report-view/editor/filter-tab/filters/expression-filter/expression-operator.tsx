@@ -1,5 +1,11 @@
+import {ParameterExpressionOperator} from '@/services/data/tuples/factor-calculator-types';
+import {ReportFilterExpression} from '@/services/data/tuples/report-types';
+import {ICON_EDIT} from '@/widgets/basic/constants';
+import {useCollapseFixedThing} from '@/widgets/basic/utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useRef, useState} from 'react';
+// noinspection ES6PreferShortImport
+import {FilterExpressionOperatorLabels} from '../../../../../../constants/parameter-constants';
 import {useFilterEventBus} from '../filter-event-bus';
 import {FilterEventTypes} from '../filter-event-bus-types';
 import {
@@ -10,12 +16,6 @@ import {
 	ExpressionOperatorLabel,
 	ExpressionOperatorOption
 } from './widgets';
-import {ParameterExpressionOperator} from '@/services/tuples/factor-calculator-types';
-import {ReportFilterExpression} from '@/services/tuples/report-types';
-import {useCollapseFixedThing} from '@/basic-widgets/utils';
-// noinspection ES6PreferShortImport
-import {FilterExpressionOperatorLabels} from '../../../../../../constants/parameter-constants';
-import {ICON_EDIT} from '@/basic-widgets/constants';
 
 const AvailableOperators = [
 	ParameterExpressionOperator.EMPTY,

@@ -1,7 +1,7 @@
-import {ActionRuntimeContext, InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
-import {isReadRowsAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
-import {prepareBy, prepareTopic, prepareVariable} from './utils';
+import {isReadRowsAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {computeJoint} from '../../compute/condition-compute';
+import {ActionRuntimeContext, InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
+import {prepareBy, prepareTopic, prepareVariable} from './utils';
 
 export const runReadRows = async (options: {
 	pipelineContext: PipelineRuntimeContext,

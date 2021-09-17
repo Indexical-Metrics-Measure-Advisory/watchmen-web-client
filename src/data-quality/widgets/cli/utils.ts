@@ -1,5 +1,5 @@
-import {MatchedCommand, MatchedCommands} from './types';
 import {Command} from '../../command/types';
+import {MatchedCommand, MatchedCommands} from './types';
 
 const findNextQuote = (text: string, quote: string, startPosition: number): number => {
 	const index = text.indexOf(quote, startPosition);

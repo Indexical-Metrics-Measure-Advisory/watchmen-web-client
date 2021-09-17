@@ -1,9 +1,9 @@
+import {Router} from '@/routes/types';
+import {findAccount, isSuperAdmin} from '@/services/data/account';
+import {LastSnapshot} from '@/services/data/account/last-snapshot-types';
 import React, {useEffect, useState} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
-import {Router} from '@/routes/types';
-import {findAccount, isSuperAdmin} from '../services/account';
-import {LastSnapshot} from '@/services/account/last-snapshot-types';
 import ConsoleConnectedSpace from './connected-space';
 import {ConsoleEventBusProvider, useConsoleEventBus} from './console-event-bus';
 import {ConsoleEventTypes} from './console-event-bus-types';

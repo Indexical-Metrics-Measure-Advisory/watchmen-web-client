@@ -1,14 +1,14 @@
-import {Greeting} from '../greeting';
 import React, {ReactNode} from 'react';
-import {CLIContainer, CommandArea, CommandLine, CommandLineSeparator, WorkingArea} from './widgets';
-import {ExecutionContent} from './types';
-import {CliEventBusProvider} from './events/cli-event-bus';
-import {Executions} from './execution/executions';
-import {CLITrailButtons} from './cli-trail-buttons';
-import {Workbench} from './workbench';
-import {HintBar} from './hint-bar';
 import {ClearCmd} from '../../command';
 import {Command} from '../../command/types';
+import {Greeting} from '../greeting';
+import {CLITrailButtons} from './cli-trail-buttons';
+import {CliEventBusProvider} from './events/cli-event-bus';
+import {Executions} from './execution/executions';
+import {HintBar} from './hint-bar';
+import {ExecutionContent} from './types';
+import {CLIContainer, CommandArea, CommandLine, CommandLineSeparator, WorkingArea} from './widgets';
+import {Workbench} from './workbench';
 
 const CLI = (props: {
 	greeting: string;

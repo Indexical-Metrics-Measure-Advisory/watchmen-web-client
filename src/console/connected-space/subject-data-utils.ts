@@ -1,12 +1,12 @@
-import {Computed, Parameter} from '@/services/tuples/factor-calculator-types';
+import {Computed, Parameter} from '@/services/data/tuples/factor-calculator-types';
+import {isComputedParameter, isConstantParameter, isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
 import {
 	SubjectDataSet,
 	SubjectDataSetColumn,
 	SubjectDataSetFilter,
 	SubjectDataSetJoin
-} from '@/services/tuples/subject-types';
-import {isExpressionFilter, isJointFilter} from '@/services/tuples/subject-utils';
-import {isComputedParameter, isConstantParameter, isTopicFactorParameter} from '@/services/tuples/parameter-utils';
+} from '@/services/data/tuples/subject-types';
+import {isExpressionFilter, isJointFilter} from '@/services/data/tuples/subject-utils';
 
 const computeRelatedTopicIdsByComputed = (computed: Computed): Array<string> => {
 	const topicIds: Array<string> = computed.parameters.reduce<Array<string>>((topicIds, param) => {

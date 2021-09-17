@@ -1,6 +1,6 @@
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {usePipelineEventBus} from '../pipeline-event-bus';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
 import {useEffect, useState} from 'react';
+import {usePipelineEventBus} from '../pipeline-event-bus';
 import {PipelineEventTypes, PipelineFocusMode} from '../pipeline-event-bus-types';
 
 export const PipelineState = (props: { pipeline: Pipeline }) => {

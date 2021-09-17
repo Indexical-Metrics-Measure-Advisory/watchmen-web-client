@@ -1,7 +1,7 @@
+import {Conditional} from '@/services/data/tuples/pipeline-super-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useEffect} from 'react';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {Conditional} from '@/services/tuples/pipeline-super-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {useConditionalEventBus} from '../conditional-event-bus';
 import {ConditionalEventTypes} from '../conditional-event-bus-types';
 import {JointBody} from '../joint-body';

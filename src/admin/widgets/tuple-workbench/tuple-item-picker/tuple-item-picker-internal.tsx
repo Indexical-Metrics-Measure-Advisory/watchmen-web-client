@@ -1,5 +1,5 @@
+import {QueryTupleForHolder, TupleHolder} from '@/services/data/tuples/tuple-types';
 import React from 'react';
-import {QueryTupleForHolder, TupleHolder} from '@/services/tuples/tuple-types';
 import {TupleItemExists} from './tuple-item-exists';
 import {TupleItemOperators} from './tuple-item-operators';
 import {TupleItemPickerContainer} from './widgets';

@@ -1,27 +1,4 @@
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Subject} from '@/services/tuples/subject-types';
-import {Report} from '@/services/tuples/report-types';
-import {ReportDataSetAndPaletteContainer, TabHeader, TabHeaders} from './widget';
-import {useReportViewEventBus} from '../../report-view-event-bus';
-import React, {useEffect, useState} from 'react';
-import {ReportViewEventTypes} from '../../report-view-event-bus-types';
-import {Lang} from '@/langs';
-import {
-	canHoldLegend,
-	canHoldTitle,
-	canUseGrid,
-	canUseXAxis,
-	canUseYAxis,
-	isEChart
-} from '@/services/tuples/echarts/echarts-utils';
-import {BasicStyleSection} from '../basic-style';
-import {TabBody} from './tab-body';
-import {EChartsTitleSettings} from '../echarts/title';
-import {EChartsTitleSubtextSettings} from '../echarts/title/subtext';
-import {EChartsLegendSettings} from '../echarts/legend';
-import {useChartType} from '../settings-effect/use-chart-type';
-import {EChartsGridSettings} from '../echarts/grid';
-import {ChartCountSettings} from '../chart-count-settings';
+import {isReportFilterEnabled} from '@/feature-switch';
 import {
 	isBarChart,
 	isCountChart,
@@ -33,17 +10,40 @@ import {
 	isSunburstChart,
 	isTreeChart,
 	isTreemapChart
-} from '@/services/tuples/chart-utils';
+} from '@/services/data/tuples/chart-utils';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {
+	canHoldLegend,
+	canHoldTitle,
+	canUseGrid,
+	canUseXAxis,
+	canUseYAxis,
+	isEChart
+} from '@/services/data/tuples/echarts/echarts-utils';
+import {Report} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {Lang} from '@/widgets/langs';
+import React, {useEffect, useState} from 'react';
+import {useReportViewEventBus} from '../../report-view-event-bus';
+import {ReportViewEventTypes} from '../../report-view-event-bus-types';
+import {BasicStyleSection} from '../basic-style';
 import {ChartBarSettings} from '../chart-bar-settings';
+import {ChartCountSettings} from '../chart-count-settings';
+import {ChartMapSettings} from '../chart-map-settings';
 import {ChartPieSettings} from '../chart-pie-settings';
 import {ChartTreeSettings} from '../chart-tree-settings';
 import {ChartTreemapSettings} from '../chart-treemap-settings';
-import {ChartMapSettings} from '../chart-map-settings';
+import {DataSetTab} from '../dataset-tab';
+import {EChartsGridSettings} from '../echarts/grid';
+import {EChartsLegendSettings} from '../echarts/legend';
+import {EChartsTitleSettings} from '../echarts/title';
+import {EChartsTitleSubtextSettings} from '../echarts/title/subtext';
 import {EChartsXAxisSettings} from '../echarts/xaxis';
 import {EChartsYAxisSettings} from '../echarts/yaxis';
-import {DataSetTab} from '../dataset-tab';
 import {FilterTab} from '../filter-tab';
-import {isReportFilterEnabled} from '@/feature-switch';
+import {useChartType} from '../settings-effect/use-chart-type';
+import {TabBody} from './tab-body';
+import {ReportDataSetAndPaletteContainer, TabHeader, TabHeaders} from './widget';
 
 enum TABS {
 	DATASET = 'dataset',

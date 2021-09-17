@@ -1,6 +1,6 @@
+import {Report} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
 import React, {useEffect, useState} from 'react';
-import {Report} from '@/services/tuples/report-types';
-import {Subject} from '@/services/tuples/subject-types';
 // noinspection ES6PreferShortImport
 import {useConsoleEventBus} from '../../../../console-event-bus';
 // noinspection ES6PreferShortImport

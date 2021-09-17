@@ -1,6 +1,6 @@
+import {MonitorRuleGrade} from '@/services/data/data-quality/rule-types';
+import {CheckBox} from '@/widgets/basic/checkbox';
 import styled from 'styled-components';
-import {CheckBox} from '@/basic-widgets/checkbox';
-import {MonitorRuleGrade} from '@/services/data-quality/rule-types';
 
 export const Body = styled.div.attrs({'data-widget': 'rules-body'})`
 	display        : flex;

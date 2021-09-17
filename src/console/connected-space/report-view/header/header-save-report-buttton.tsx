@@ -1,17 +1,17 @@
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {saveReport} from '@/services/data/tuples/report';
+import {Report} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {ICON_SAVE} from '@/widgets/basic/constants';
+import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
+import {ButtonInk} from '@/widgets/basic/types';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
+import {useReportEventBus} from '@/widgets/report/report-event-bus';
+import {ReportEventTypes} from '@/widgets/report/report-event-bus-types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
-import {ICON_SAVE} from '@/basic-widgets/constants';
-import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {Lang} from '@/langs';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Subject} from '@/services/tuples/subject-types';
-import {Report} from '@/services/tuples/report-types';
-import {saveReport} from '@/services/tuples/report';
-import {ButtonInk} from '@/basic-widgets/types';
-import {useReportEventBus} from '@/report/report-event-bus';
-import {ReportEventTypes} from '@/report/report-event-bus-types';
 
 interface SaveState {
 	styleChanged: boolean;

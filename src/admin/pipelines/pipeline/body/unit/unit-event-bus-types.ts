@@ -1,5 +1,5 @@
-import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
+import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
 
 export enum UnitEventTypes {
 	RENAME_UNIT = 'rename-unit',

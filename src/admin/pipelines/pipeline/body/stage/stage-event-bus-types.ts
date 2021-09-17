@@ -1,5 +1,5 @@
-import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
-import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
+import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
+import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
 
 export enum StageEventTypes {
 	RENAME_STAGE = 'rename-stage',

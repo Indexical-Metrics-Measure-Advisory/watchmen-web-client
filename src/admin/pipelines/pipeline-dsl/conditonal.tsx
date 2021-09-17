@@ -1,6 +1,6 @@
+import {Conditional} from '@/services/data/tuples/pipeline-super-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
-import {Conditional} from '@/services/tuples/pipeline-super-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {BooleanValue, PropName} from './dsl-widgets';
 import {JointLine} from './joint/joint';
 

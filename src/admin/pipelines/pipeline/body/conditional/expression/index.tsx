@@ -1,13 +1,13 @@
-import {ICON_DELETE} from '@/basic-widgets/constants';
-import {ParameterEventBusProvider} from '@/data-filter/parameter-event-bus';
 import {
 	ConstantParameter,
 	ParameterExpression,
 	ParameterExpressionOperator,
 	ParameterKind,
 	TopicFactorParameter
-} from '@/services/tuples/factor-calculator-types';
-import {Topic} from '@/services/tuples/topic-types';
+} from '@/services/data/tuples/factor-calculator-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {ICON_DELETE} from '@/widgets/basic/constants';
+import {ParameterEventBusProvider} from '@/widgets/parameter/parameter-event-bus';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {useExpressionEventBus} from '../event-bus/expression-event-bus';

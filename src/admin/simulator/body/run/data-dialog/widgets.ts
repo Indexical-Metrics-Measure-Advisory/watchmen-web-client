@@ -1,5 +1,5 @@
+import {ButtonInk} from '@/widgets/basic/types';
 import styled from 'styled-components';
-import {ButtonInk} from '@/basic-widgets/types';
 
 export const DialogHeader = styled.div`
 	display     : flex;

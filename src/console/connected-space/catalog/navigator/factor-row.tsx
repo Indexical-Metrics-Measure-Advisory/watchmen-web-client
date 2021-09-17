@@ -1,6 +1,6 @@
+import {Factor} from '@/services/data/tuples/factor-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
-import {Factor} from '@/services/tuples/factor-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {FactorName, FactorRowContainer, FactorTypeSmall} from './topic-widgets';
 
 export const FactorRow = (props: { topic: Topic, factor: Factor }) => {

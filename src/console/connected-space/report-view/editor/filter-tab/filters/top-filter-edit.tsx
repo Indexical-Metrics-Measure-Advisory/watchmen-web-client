@@ -1,11 +1,11 @@
+import {Report, ReportFilter, ReportFilterJoint} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
 import React, {useEffect} from 'react';
+import {useReportEditEventBus} from '../../report-edit-event-bus';
+import {ReportEditEventTypes} from '../../report-edit-event-bus-types';
 import {FilterEventBusProvider, useFilterEventBus} from './filter-event-bus';
 import {FilterEventTypes} from './filter-event-bus-types';
 import {JointEdit} from './joint-filter/joint-edit';
-import {Report, ReportFilter, ReportFilterJoint} from '@/services/tuples/report-types';
-import {Subject} from '@/services/tuples/subject-types';
-import {useReportEditEventBus} from '../../report-edit-event-bus';
-import {ReportEditEventTypes} from '../../report-edit-event-bus-types';
 
 const TopFilter = (props: { subject: Subject; report: Report; joint: ReportFilterJoint }) => {
 	const {subject, report, joint} = props;

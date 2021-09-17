@@ -1,5 +1,5 @@
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useState} from 'react';
-import {useForceUpdate} from '@/basic-widgets/utils';
 import {findSvgRoot} from '../../../utils/in-svg';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';

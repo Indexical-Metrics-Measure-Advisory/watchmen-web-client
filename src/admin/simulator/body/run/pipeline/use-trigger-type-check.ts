@@ -1,8 +1,8 @@
-import {PipelineRuntimeContext} from '../types';
-import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
+import {PipelineTriggerType} from '@/services/data/tuples/pipeline-types';
 import {useEffect} from 'react';
-import {PipelineTriggerType} from '@/services/tuples/pipeline-types';
+import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
+import {PipelineRuntimeContext} from '../types';
 import {createLogWriter} from './utils';
 
 export const useTriggerTypeCheck = (

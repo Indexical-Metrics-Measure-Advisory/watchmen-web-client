@@ -1,7 +1,7 @@
+import {TupleHolder} from '@/services/data/tuples/tuple-types';
+import {ICON_ADD, ICON_DISCARD, ICON_EDIT} from '@/widgets/basic/constants';
+import {ButtonInk} from '@/widgets/basic/types';
 import React, {RefObject, useEffect, useState} from 'react';
-import {ICON_ADD, ICON_DISCARD, ICON_EDIT} from '@/basic-widgets/constants';
-import {ButtonInk} from '@/basic-widgets/types';
-import {TupleHolder} from '@/services/tuples/tuple-types';
 import {useTupleItemPickerEventBus} from './tuple-item-picker-event-bus';
 import {TupleItemPickerEventTypes} from './tuple-item-picker-event-bus-types';
 import {TupleItemPickerButton, TupleItemPickerButtonIcon, TupleItemPickerButtonLabel} from './widgets';

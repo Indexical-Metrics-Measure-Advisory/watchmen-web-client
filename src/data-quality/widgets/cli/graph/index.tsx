@@ -1,8 +1,8 @@
-import React, {useEffect, useRef, useState} from 'react';
+import {ButtonInk} from '@/widgets/basic/types';
 import * as echarts from 'echarts/core';
 import {EChartsType} from 'echarts/core';
+import React, {useEffect, useRef, useState} from 'react';
 import {ChartContainer, FullscreenButton, GraphContainer} from './widgets';
-import {ButtonInk} from '@/basic-widgets/types';
 
 // noinspection DuplicatedCode
 export const GraphDiagram = (props: { options: any }) => {

@@ -1,6 +1,6 @@
+import {GRID_ROW_HEIGHT} from '@/widgets/basic/constants';
+import {TooltipButton} from '@/widgets/basic/tooltip-button';
 import styled from 'styled-components';
-import {GRID_ROW_HEIGHT} from '@/basic-widgets/constants';
-import {TooltipButton} from '@/basic-widgets/tooltip-button';
 import {
 	TuplePropertyCheckBox,
 	TuplePropertyDropdown,

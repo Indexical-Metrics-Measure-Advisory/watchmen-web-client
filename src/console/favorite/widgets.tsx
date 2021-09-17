@@ -1,8 +1,8 @@
+import {Button} from '@/widgets/basic/button';
+import {FAVORITE_Z_INDEX, PIN_FAVORITE_Z_INDEX} from '@/widgets/basic/constants';
+import {TooltipButton} from '@/widgets/basic/tooltip-button';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
-import {Button} from '@/basic-widgets/button';
-import {FAVORITE_Z_INDEX, PIN_FAVORITE_Z_INDEX} from '@/basic-widgets/constants';
-import {TooltipButton} from '@/basic-widgets/tooltip-button';
 
 export const FloatFavoriteContainer = styled.div.attrs<{ visible: boolean, top: number, left: number }>(
 	({visible, top, left}) => {

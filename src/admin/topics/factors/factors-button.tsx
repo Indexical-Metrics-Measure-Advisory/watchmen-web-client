@@ -1,7 +1,7 @@
+import {Topic} from '@/services/data/tuples/topic-types';
+import {ButtonInk} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useEffect} from 'react';
-import {ButtonInk} from '@/basic-widgets/types';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {Topic} from '@/services/tuples/topic-types';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';
 import {FactorsTableButton} from './widgets';

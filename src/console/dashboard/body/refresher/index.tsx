@@ -1,8 +1,8 @@
+import {Dashboard} from '@/services/data/tuples/dashboard-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {useReportEventBus} from '@/widgets/report/report-event-bus';
+import {ReportEventTypes} from '@/widgets/report/report-event-bus-types';
 import React, {useEffect} from 'react';
-import {useReportEventBus} from '@/report/report-event-bus';
-import {ReportEventTypes} from '@/report/report-event-bus-types';
-import {Dashboard} from '@/services/tuples/dashboard-types';
-import {Report} from '@/services/tuples/report-types';
 import {useDashboardEventBus} from '../../dashboard-event-bus';
 import {DashboardEventTypes} from '../../dashboard-event-bus-types';
 

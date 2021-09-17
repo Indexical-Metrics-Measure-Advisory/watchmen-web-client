@@ -1,6 +1,6 @@
+import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL, ICON_SECONDARY_SECTION} from '@/widgets/basic/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
-import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL, ICON_SECONDARY_SECTION} from '@/basic-widgets/constants';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {SecondarySectionContainer} from './widgets';

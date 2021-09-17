@@ -1,6 +1,9 @@
-import {DropdownOption} from '@/basic-widgets/types';
-import {Lang} from '@/langs';
-import {EChartsHorizontalAlignment, EChartsVerticalAlignment} from '@/services/tuples/echarts/echarts-alignment-types';
+import {
+	EChartsHorizontalAlignment,
+	EChartsVerticalAlignment
+} from '@/services/data/tuples/echarts/echarts-alignment-types';
+import {DropdownOption} from '@/widgets/basic/types';
+import {Lang} from '@/widgets/langs';
 
 export const HorizontalAlignmentOptions: Array<DropdownOption> = [
 	{value: EChartsHorizontalAlignment.AUTO, label: Lang.CHART.HORIZONTAL_ALIGNMENT_AUTO},

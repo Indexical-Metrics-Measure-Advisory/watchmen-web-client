@@ -1,7 +1,7 @@
+import {Button} from '@/widgets/basic/button';
+import {TooltipButton} from '@/widgets/basic/tooltip-button';
 import styled from 'styled-components';
 import {NextStepButton, SimulatorBodyPartBody, SimulatorBodyPartRow} from '../widgets';
-import {TooltipButton} from '@/basic-widgets/tooltip-button';
-import {Button} from '@/basic-widgets/button';
 
 export enum TopicBlockType {
 	ROOT = 'trigger by',

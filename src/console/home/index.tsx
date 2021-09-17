@@ -1,8 +1,8 @@
+import {VerticalMarginOneUnit} from '@/widgets/basic/margin';
+import {FixWidthPage} from '@/widgets/basic/page';
+import {PageHeader} from '@/widgets/basic/page-header';
+import {Lang} from '@/widgets/langs';
 import React from 'react';
-import {VerticalMarginOneUnit} from '@/basic-widgets/margin';
-import {FixWidthPage} from '@/basic-widgets/page';
-import {PageHeader} from '@/basic-widgets/page-header';
-import {Lang} from '@/langs';
 import {ConnectedSpacesSection} from './connected-spaces-section';
 import {DashboardsSection} from './dashboards-section';
 

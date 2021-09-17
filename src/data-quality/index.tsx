@@ -1,14 +1,14 @@
+import {Router} from '@/routes/types';
+import {isAdmin, isSuperAdmin} from '@/services/data/account';
 import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
-import {Router} from '@/routes/types';
-import {isAdmin, isSuperAdmin} from '../services/account';
+import {DataQualityCache} from './cache';
+import {DataQualityCacheEventBusProvider} from './cache/cache-event-bus';
 import DataQualityConsanguinity from './consanguinity';
 import {DataQualityMenu} from './menu';
-import DataQualitySettings from './settings';
-import {DataQualityCacheEventBusProvider} from './cache/cache-event-bus';
-import {DataQualityCache} from './cache';
 import DataQualityMonitorRules from './rules';
+import DataQualitySettings from './settings';
 import DataQualityStatistics from './statistics';
 
 const DataQualityContainer = styled.div.attrs({'data-widget': 'data-quality'})`

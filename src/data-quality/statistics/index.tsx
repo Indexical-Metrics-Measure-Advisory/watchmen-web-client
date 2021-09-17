@@ -1,11 +1,11 @@
+import {FullWidthPage} from '@/widgets/basic/page';
+import {FullWidthPageHeaderContainer, PageTitle} from '@/widgets/basic/page-header';
 import React from 'react';
-import {FullWidthPage} from '@/basic-widgets/page';
-import {FullWidthPageHeaderContainer, PageTitle} from '@/basic-widgets/page-header';
-import {StatisticsEventBusProvider} from './statistics-event-bus';
 import {StatisticsPageBody} from './body';
 import {DailyPanel} from './daily';
-import {WeeklyPanel} from './weekly';
 import {FreeWalkPanel} from './free-walk';
+import {StatisticsEventBusProvider} from './statistics-event-bus';
+import {WeeklyPanel} from './weekly';
 
 const DataQualityStatisticsIndex = () => {
 	return <FullWidthPage>

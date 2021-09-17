@@ -1,5 +1,5 @@
-import {useDataQualityCacheEventBus} from './cache-event-bus';
 import {useEffect} from 'react';
+import {useDataQualityCacheEventBus} from './cache-event-bus';
 import {DataQualityCacheEventTypes} from './cache-event-bus-types';
 import {DQCCacheData} from './types';
 

@@ -1,15 +1,15 @@
+import {fetchSubjectData} from '@/services/data/console/subject';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {ICON_LOADING} from '@/widgets/basic/constants';
+import {ColumnDefs} from '@/widgets/dataset-grid/types';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
-import {ICON_LOADING} from '@/basic-widgets/constants';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {fetchSubjectData} from '@/services/console/subject';
-import {Subject} from '@/services/tuples/subject-types';
 import {DEFAULT_SUBJECT_DATASET_PAGE_SIZE} from '../constants';
 import {useSubjectDataSetEventBus} from '../subject-dataset-event-bus';
 import {SubjectDataSetEventTypes} from '../subject-dataset-event-bus-types';
 import {SubjectDataSetLoading} from '../widgets';
-import {ColumnDefs} from '@/dataset-grid/types';
 
 const fetchData = async (options: { subject: Subject; pageNumber?: number; }) => {
 	const {subject, pageNumber = 1} = options;

@@ -1,7 +1,7 @@
+import {Pipeline, PipelineTriggerType} from '@/services/data/tuples/pipeline-types';
+import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '@/widgets/basic/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useState} from 'react';
-import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '@/basic-widgets/constants';
-import {Pipeline, PipelineTriggerType} from '@/services/tuples/pipeline-types';
 import {usePipelineEventBus} from '../../pipeline-event-bus';
 import {PipelineEventTypes} from '../../pipeline-event-bus-types';
 import {TriggerButton, TriggerContainer, TriggerOn} from './trigger-widgets';

@@ -1,21 +1,21 @@
+import {deletePipelineGraphics} from '@/services/data/tuples/pipeline';
+import {Button} from '@/widgets/basic/button';
+import {ICON_THROW_AWAY} from '@/widgets/basic/constants';
+import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
+import {ButtonInk} from '@/widgets/basic/types';
+import {DialogBody, DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
-import {DialogBody, DialogFooter, DialogLabel} from '@/dialog/widgets';
-import {AssembledPipelinesGraphics} from '../types';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {deletePipelineGraphics} from '@/services/tuples/pipeline';
-import {Button} from '@/basic-widgets/button';
-import {ButtonInk} from '@/basic-widgets/types';
-import {useCatalogEventBus} from '../catalog-event-bus';
-import {CatalogEventTypes} from '../catalog-event-bus-types';
-import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
-import {ICON_THROW_AWAY} from '@/basic-widgets/constants';
 // noinspection ES6PreferShortImport
 import {useAdminCacheEventBus} from '../../../cache/cache-event-bus';
 // noinspection ES6PreferShortImport
 import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
+import {useCatalogEventBus} from '../catalog-event-bus';
+import {CatalogEventTypes} from '../catalog-event-bus-types';
+import {AssembledPipelinesGraphics} from '../types';
 
 const DeleteDialogBody = styled(DialogBody)`
 	flex-direction : column;

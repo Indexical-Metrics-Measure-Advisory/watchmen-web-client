@@ -1,9 +1,9 @@
-import {useForceUpdate} from '@/basic-widgets/utils';
+import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {ChangeEvent} from 'react';
-import {VariableInput, VariableInputContainer, VariableInputLabel} from './widgets';
-import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
 import {useUnitEventBus} from '../unit-event-bus';
 import {UnitEventTypes} from '../unit-event-bus-types';
+import {VariableInput, VariableInputContainer, VariableInputLabel} from './widgets';
 
 export const Variable = (props: { unit: PipelineStageUnit }) => {
 	const {unit} = props;

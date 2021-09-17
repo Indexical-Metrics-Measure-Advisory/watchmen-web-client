@@ -1,5 +1,5 @@
+import {MonitorLogAction} from '@/services/data/admin/logs';
 import React from 'react';
-import {MonitorLogAction} from '@/services/admin/logs';
 import {BodyLabel, BodyValue} from './widgets';
 
 export const ImpactRows = (props: { log: MonitorLogAction }) => {

@@ -1,5 +1,5 @@
-import {SubjectDataSetColumn, SubjectDataSetFilter, SubjectDataSetJoin} from '@/services/tuples/subject-types';
-import {Topic} from '@/services/tuples/topic-types';
+import {SubjectDataSetColumn, SubjectDataSetFilter, SubjectDataSetJoin} from '@/services/data/tuples/subject-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 
 export interface SubjectDefData {
 	availableTopics: Array<Topic>;

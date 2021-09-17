@@ -1,5 +1,5 @@
-import {DataPage} from '@/services/query/data-page';
-import {QueryTuple, QueryTupleForHolder, Tuple} from '@/services/tuples/tuple-types';
+import {DataPage} from '@/services/data/query/data-page';
+import {QueryTuple, QueryTupleForHolder, Tuple} from '@/services/data/tuples/tuple-types';
 
 export enum TupleState {
 	NONE = 'none',

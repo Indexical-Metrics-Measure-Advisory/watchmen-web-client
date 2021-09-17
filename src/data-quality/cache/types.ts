@@ -1,10 +1,10 @@
-import {DataQualityCacheData} from '@/local-persist/types';
 import {
 	MappedTopicsMap,
 	PipelineRelationMap,
 	PipelinesMap,
 	TopicRelationMap
-} from '@/services/pipeline/pipeline-relations';
+} from '@/services/data/pipeline/pipeline-relations';
+import {DataQualityCacheData} from '@/services/local-persist/types';
 
 export interface DQCMaps {
 	topics: MappedTopicsMap;

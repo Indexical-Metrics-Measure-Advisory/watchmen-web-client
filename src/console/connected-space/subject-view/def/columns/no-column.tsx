@@ -1,6 +1,6 @@
+import {Subject} from '@/services/data/tuples/subject-types';
+import {Lang} from '@/widgets/langs';
 import React, {useState} from 'react';
-import {Lang} from '@/langs';
-import {Subject} from '@/services/tuples/subject-types';
 import {createSubjectDataSetColumn} from '../data-utils';
 import {useColumnsDataVisible} from '../data/use-columns-data-visible';
 import {useSubjectDefEventBus} from '../subject-def-event-bus';

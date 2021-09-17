@@ -1,13 +1,13 @@
-import React from 'react';
-import {Lang} from '@/langs';
-import {createReport} from '../../utils/tuples';
-import {EventTypes} from '@/events/types';
-import {saveNewReport} from '@/services/tuples/report';
-import {useEventBus} from '@/events/event-bus';
-import {Subject} from '@/services/tuples/subject-types';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
 import {toSubjectReport} from '@/routes/utils';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {saveNewReport} from '@/services/data/tuples/report';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
+import React from 'react';
 import {useHistory} from 'react-router-dom';
+import {createReport} from '../../utils/tuples';
 import {SubjectNoReport, SubjectNoReportCreateButton} from './widgets';
 
 export const NoReport = (props: { connectedSpace: ConnectedSpace; subject: Subject }) => {

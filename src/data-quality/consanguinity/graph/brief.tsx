@@ -1,7 +1,7 @@
-import {HelpCommandDescription, HelpCommandName} from '../../widgets/cli/execution/widgets';
 import React from 'react';
 import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
 import {CliEventTypes} from '../../widgets/cli/events/cli-event-bus-types';
+import {HelpCommandDescription, HelpCommandName} from '../../widgets/cli/execution/widgets';
 import {CONSANGUINITY_HELP_COMMAND} from '../index';
 import {GraphHelpCmd} from './help';
 

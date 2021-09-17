@@ -1,14 +1,15 @@
-import React from 'react';
-import {Lang} from '@/langs';
 import {
 	EChartsAxisMinorSplitLineHolder,
 	EChartsAxisSplitLine,
 	EChartsAxisSplitLineHolder,
 	EChartsAxisSplitLineStyle
-} from '@/services/tuples/echarts/echarts-axis-split-line-types';
-import {ECharts} from '@/services/tuples/echarts/echarts-types';
-import {Report} from '@/services/tuples/report-types';
+} from '@/services/data/tuples/echarts/echarts-axis-split-line-types';
+import {ECharts} from '@/services/data/tuples/echarts/echarts-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {Lang} from '@/widgets/langs';
+import React from 'react';
 import {onBooleanChange, onColorChange, onDropdownValueChange, onNumberChange, validateNumber} from '../../data-utils';
+import {TabBodySectionBody, TabBodySectionTitle} from '../../dataset-and-palette/widget';
 import {AxisSplitLineStyleOptions} from '../../prop-defs/dropdown-options/axis-dropdown-options';
 import {EChartsXAxisPropNames} from '../../prop-defs/echart-styles/echarts-xaxis-props';
 import {EChartsYAxisPropNames} from '../../prop-defs/echart-styles/echarts-yaxis-props';
@@ -16,7 +17,6 @@ import {BooleanValue} from '../../settings-widgets/boolean-value';
 import {ColorValue} from '../../settings-widgets/color-value';
 import {DropdownValue} from '../../settings-widgets/dropdown-value';
 import {NumberValue} from '../../settings-widgets/number-value';
-import {TabBodySectionBody, TabBodySectionTitle} from '../../dataset-and-palette/widget';
 
 export interface SettingsAxisSplitLinePropNames {
 	show: EChartsXAxisPropNames.SPLIT_LINE_SHOW

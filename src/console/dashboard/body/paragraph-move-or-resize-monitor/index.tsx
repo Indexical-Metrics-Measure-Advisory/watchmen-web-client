@@ -1,10 +1,10 @@
+import {saveDashboard} from '@/services/data/tuples/dashboard';
+import {Dashboard} from '@/services/data/tuples/dashboard-types';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {useReportEventBus} from '@/widgets/report/report-event-bus';
+import {ReportEventTypes} from '@/widgets/report/report-event-bus-types';
 import {useEffect} from 'react';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {useReportEventBus} from '@/report/report-event-bus';
-import {ReportEventTypes} from '@/report/report-event-bus-types';
-import {saveDashboard} from '@/services/tuples/dashboard';
-import {Dashboard} from '@/services/tuples/dashboard-types';
 
 export const ParagraphMoveOrResizeMonitor = (props: { dashboard: Dashboard }) => {
 	const {dashboard} = props;

@@ -1,10 +1,10 @@
+import {Dashboard} from '@/services/data/tuples/dashboard-types';
+import {ICON_PAGE_SIZE} from '@/widgets/basic/constants';
+import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
+import {ButtonInk} from '@/widgets/basic/types';
+import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
-import {ICON_PAGE_SIZE} from '@/basic-widgets/constants';
-import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
-import {ButtonInk} from '@/basic-widgets/types';
-import {Lang} from '@/langs';
-import {Dashboard} from '@/services/tuples/dashboard-types';
 import {useDashboardEventBus} from '../dashboard-event-bus';
 import {DashboardEventTypes} from '../dashboard-event-bus-types';
 

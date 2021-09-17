@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
 import {ConsoleEventBusProvider} from '@/console/console-event-bus';
 import {DashboardBody} from '@/console/dashboard/body';
 import {DashboardEventBusProvider} from '@/console/dashboard/dashboard-event-bus';
-import {fetchAdminDashboard} from '@/services/admin/home';
-import {Dashboard} from '@/services/tuples/dashboard-types';
-import {Report} from '@/services/tuples/report-types';
+import {fetchAdminDashboard} from '@/services/data/admin/home';
+import {Dashboard} from '@/services/data/tuples/dashboard-types';
+import {Report} from '@/services/data/tuples/report-types';
+import React, {useEffect, useState} from 'react';
 import {AdminLoading} from './admin-loading';
 import {SimulateConsole} from './simulate-console';
 import {AdminDashboardContainer} from './widgets';

@@ -1,8 +1,8 @@
+import {Topic} from '@/services/data/tuples/topic-types';
+import {ICON_SEARCH} from '@/widgets/basic/constants';
+import {Input} from '@/widgets/basic/input';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {ChangeEvent, useState} from 'react';
-import {ICON_SEARCH} from '@/basic-widgets/constants';
-import {Input} from '@/basic-widgets/input';
-import {Topic} from '@/services/tuples/topic-types';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';
 import {FactorsTableHeaderContainer} from './widgets';

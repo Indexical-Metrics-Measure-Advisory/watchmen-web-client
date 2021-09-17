@@ -1,6 +1,6 @@
+import {PageHeaderHolderContainer} from '@/widgets/basic/page-header';
+import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
 import styled from 'styled-components';
-import {PageHeaderHolderContainer} from '@/basic-widgets/page-header';
-import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
 
 export const BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR = 'calc(100vh - 57px)';
 export const PageHeaderHolder = styled(PageHeaderHolderContainer)`

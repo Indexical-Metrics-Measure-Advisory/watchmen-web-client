@@ -1,9 +1,9 @@
+import {DataSource} from '@/services/data/tuples/data-source-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React from 'react';
-import {useForceUpdate} from '@/basic-widgets/utils';
 import {TuplePropertyInput} from '../../widgets/tuple-workbench/tuple-editor';
 import {useDataSourceEventBus} from '../data-source-event-bus';
 import {DataSourceEventTypes} from '../data-source-event-bus-types';
-import {DataSource} from '@/services/tuples/data-source-types';
 
 export const DataSourceConnectInput = (props: { dataSource: DataSource, propName: 'host' | 'port' | 'username' | 'password' | 'name' }) => {
 	const {dataSource, propName} = props;

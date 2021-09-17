@@ -1,5 +1,5 @@
-import {Lang} from '@/langs';
-import {ParameterExpressionOperator} from '@/services/tuples/factor-calculator-types';
+import {ParameterExpressionOperator} from '@/services/data/tuples/factor-calculator-types';
+import {Lang} from '@/widgets/langs';
 
 export const FilterExpressionOperatorLabels: { [key in ParameterExpressionOperator]: string } = {
 	[ParameterExpressionOperator.EMPTY]: Lang.PARAMETER.EXPRESSION_OPERATOR.EMPTY,

@@ -1,7 +1,7 @@
-import {PipelineRelationMap, PipelinesMap, TopicRelationMap} from '@/services/pipeline/pipeline-relations';
-import {Factor} from '@/services/tuples/factor-types';
-import {isRawTopic} from '@/services/tuples/topic';
-import {Topic} from '@/services/tuples/topic-types';
+import {PipelineRelationMap, PipelinesMap, TopicRelationMap} from '@/services/data/pipeline/pipeline-relations';
+import {Factor} from '@/services/data/tuples/factor-types';
+import {isRawTopic} from '@/services/data/tuples/topic';
+import {Topic} from '@/services/data/tuples/topic-types';
 import {EnumsMap} from './types';
 
 const canBeFlatten = (topic: Topic, factor?: Factor) => {

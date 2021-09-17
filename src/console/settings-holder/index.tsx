@@ -1,7 +1,7 @@
+import {fetchConsoleSettingsData} from '@/services/data/console/settings';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import React, {Fragment, useEffect, useState} from 'react';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {fetchConsoleSettingsData} from '@/services/console/settings';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes} from '../console-event-bus-types';
 import {HoldSettings} from './types';

@@ -1,9 +1,9 @@
+import {SubjectDataSetJoin, TopicJoinType} from '@/services/data/tuples/subject-types';
+import {BASE_HEIGHT, ICON_EDIT} from '@/widgets/basic/constants';
+import {useCollapseFixedThing} from '@/widgets/basic/utils';
+import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useRef, useState} from 'react';
-import {BASE_HEIGHT, ICON_EDIT} from '@/basic-widgets/constants';
-import {useCollapseFixedThing} from '@/basic-widgets/utils';
-import {Lang} from '@/langs';
-import {SubjectDataSetJoin, TopicJoinType} from '@/services/tuples/subject-types';
 import {useJoinEventBus} from './join-event-bus';
 import {JoinEventTypes} from './join-event-bus-types';
 import {JoinTypeDropdown, JoinTypeDropdownContainer, JoinTypeDropdownOption} from './widgets';

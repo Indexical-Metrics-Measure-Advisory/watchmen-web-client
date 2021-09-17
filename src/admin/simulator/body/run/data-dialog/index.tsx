@@ -1,17 +1,17 @@
-import {DialogBodyContent, DialogHeader, DialogTitle} from './widgets';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {Button} from '@/widgets/basic/button';
+import {ButtonInk} from '@/widgets/basic/types';
+import {DialogBody, DialogFooter} from '@/widgets/dialog/widgets';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import React from 'react';
-import {DialogBody, DialogFooter} from '@/dialog/widgets';
-import {Button} from '@/basic-widgets/button';
-import {ButtonInk} from '@/basic-widgets/types';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
+import {DataRow} from '../../../types';
 import {TopicsData} from '../../state/types';
-import {Topic} from '@/services/tuples/topic-types';
-import {TriggerData} from './trigger-data';
 import {AllTopics, ChangedDataRow} from '../types';
 import {AllData} from './all-data';
 import {ChangedData} from './changed-data';
-import {DataRow} from '../../../types';
+import {TriggerData} from './trigger-data';
+import {DialogBodyContent, DialogHeader, DialogTitle} from './widgets';
 
 export const DataDialog = (props: {
 	title: string;

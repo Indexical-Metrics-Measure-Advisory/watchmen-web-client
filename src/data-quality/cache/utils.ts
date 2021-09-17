@@ -1,12 +1,12 @@
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
-import {DQCCacheData} from './types';
 import {
 	buildPipelinesMap,
 	buildPipelinesRelation,
 	buildTopicsMap,
 	buildTopicsRelation
-} from '@/services/pipeline/pipeline-relations';
+} from '@/services/data/pipeline/pipeline-relations';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {DQCCacheData} from './types';
 
 export const buildRelations = (options: {
 	pipelines: Array<Pipeline>;

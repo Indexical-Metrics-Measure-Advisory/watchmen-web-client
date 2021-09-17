@@ -1,4 +1,9 @@
-import {Topic} from '@/services/tuples/topic-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {ButtonInk} from '@/widgets/basic/types';
+import React from 'react';
+import {DataRow} from '../../../types';
+import {getTopicName} from '../../../utils';
+import {toString} from './utils';
 import {
 	DataTable,
 	DataTableBodyCell,
@@ -9,11 +14,6 @@ import {
 	TriggerDataFirstHeaderCell,
 	TriggerDataNoOldCell
 } from './widgets';
-import React from 'react';
-import {getTopicName} from '../../../utils';
-import {ButtonInk} from '@/basic-widgets/types';
-import {toString} from './utils';
-import {DataRow} from '../../../types';
 
 export const TriggerData = (props: {
 	topic: Topic;

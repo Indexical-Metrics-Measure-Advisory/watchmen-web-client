@@ -1,9 +1,9 @@
+import {AggregateArithmetic} from '@/services/data/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
+import {AggregateArithmeticHolder} from '@/services/data/tuples/pipeline-stage-unit-action/write-topic-actions-types';
+import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '@/widgets/basic/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useState} from 'react';
-import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '@/basic-widgets/constants';
-import {AggregateArithmeticHolder} from '@/services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import {AggregateArithmeticButton, AggregateArithmeticContainer, AggregateArithmeticOption} from './widgets';
-import {AggregateArithmetic} from '@/services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
 
 const OptionsLabel: { [key in AggregateArithmetic]: string } = {
 	[AggregateArithmetic.NONE]: 'As Is',

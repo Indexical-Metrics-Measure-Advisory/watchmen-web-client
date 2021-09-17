@@ -1,7 +1,7 @@
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {Factor} from '@/services/tuples/factor-types';
-import {isNotRawTopic} from '@/services/tuples/topic';
-import {Topic} from '@/services/tuples/topic-types';
+import {Factor} from '@/services/data/tuples/factor-types';
+import {isNotRawTopic} from '@/services/data/tuples/topic';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useEffect} from 'react';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';

@@ -1,20 +1,20 @@
+import {toSubject} from '@/routes/utils';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {AlertLabel} from '@/widgets/alert/widgets';
+import {Button} from '@/widgets/basic/button';
+import {ICON_SWITCH} from '@/widgets/basic/constants';
+import {Dropdown} from '@/widgets/basic/dropdown';
+import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
+import {ButtonInk, DropdownOption} from '@/widgets/basic/types';
+import {DialogBody, DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
-import {AlertLabel} from '@/alert/widgets';
-import {Button} from '@/basic-widgets/button';
-import {ICON_SWITCH} from '@/basic-widgets/constants';
-import {Dropdown} from '@/basic-widgets/dropdown';
-import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
-import {ButtonInk, DropdownOption} from '@/basic-widgets/types';
-import {DialogBody, DialogFooter, DialogLabel} from '@/dialog/widgets';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {Lang} from '@/langs';
-import {toSubject} from '@/routes/utils';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Subject} from '@/services/tuples/subject-types';
 
 const SwitchDialogBody = styled(DialogBody)`
 	flex-direction : column;

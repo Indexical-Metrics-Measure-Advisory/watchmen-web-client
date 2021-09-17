@@ -1,9 +1,9 @@
-import {ButtonInk} from '@/basic-widgets/types';
-import {SettingsSection, SettingsSectionBody, SettingsSectionTitle} from '@/basic-widgets/settings/settings-section';
-import React, {useState} from 'react';
-import {Button} from '@/basic-widgets/button';
+import {Button} from '@/widgets/basic/button';
+import {ICON_LOADING} from '@/widgets/basic/constants';
+import {SettingsSection, SettingsSectionBody, SettingsSectionTitle} from '@/widgets/basic/settings/settings-section';
+import {ButtonInk} from '@/widgets/basic/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_LOADING} from '@/basic-widgets/constants';
+import React, {useState} from 'react';
 import {useDataQualityCacheEventBus} from '../cache/cache-event-bus';
 import {DataQualityCacheEventTypes} from '../cache/cache-event-bus-types';
 

@@ -1,11 +1,14 @@
-import {isReadLog, MonitorLogAction} from '@/services/admin/logs';
+import {isReadLog, MonitorLogAction} from '@/services/data/admin/logs';
 import {
 	PipelineStageUnitAction,
 	ReadTopicActionType
-} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {isReadTopicAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
-import {ReadRowAction, ReadTopicAction} from '@/services/tuples/pipeline-stage-unit-action/read-topic-actions-types';
-import {isMockService} from '@/services/utils';
+} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {isReadTopicAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {
+	ReadRowAction,
+	ReadTopicAction
+} from '@/services/data/tuples/pipeline-stage-unit-action/read-topic-actions-types';
+import {isMockService} from '@/services/data/utils';
 import {BodyLabel, BodyValue, ObjectValue} from './widgets';
 
 const redressAction = (action: any): ReadTopicAction => {

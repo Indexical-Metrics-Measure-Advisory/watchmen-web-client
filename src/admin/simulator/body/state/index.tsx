@@ -1,10 +1,10 @@
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import {useEffect, useState} from 'react';
-import {ActiveStep, SimulatorState, StartFrom} from './types';
 import {useSimulatorEventBus} from '../../simulator-event-bus';
 import {SimulatorEventTypes} from '../../simulator-event-bus-types';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {DataRow} from '../../types';
+import {ActiveStep, SimulatorState, StartFrom} from './types';
 
 export const SimulatorStates = () => {
 	const {on, off, fire} = useSimulatorEventBus();

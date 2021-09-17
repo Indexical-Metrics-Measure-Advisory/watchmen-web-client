@@ -1,23 +1,23 @@
+import {toConnectedSpace} from '@/routes/utils';
+import {AvailableSpaceInConsole} from '@/services/data/console/settings-types';
+import {listTemplateConnectedSpaces, saveConnectedSpace} from '@/services/data/tuples/connected-space';
+import {ConnectedSpace, ConnectedSpaceTemplate} from '@/services/data/tuples/connected-space-types';
+import {Space} from '@/services/data/tuples/space-types';
+import {AlertLabel} from '@/widgets/alert/widgets';
+import {Button} from '@/widgets/basic/button';
+import {CheckBox} from '@/widgets/basic/checkbox';
+import {Dropdown} from '@/widgets/basic/dropdown';
+import {ButtonInk, DropdownOption} from '@/widgets/basic/types';
+import {DialogBody, DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
 import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
-import {AlertLabel} from '@/alert/widgets';
-import {Button} from '@/basic-widgets/button';
-import {Dropdown} from '@/basic-widgets/dropdown';
-import {ButtonInk, DropdownOption} from '@/basic-widgets/types';
-import {DialogBody, DialogFooter, DialogLabel} from '@/dialog/widgets';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {Lang} from '@/langs';
-import {toConnectedSpace} from '@/routes/utils';
-import {AvailableSpaceInConsole} from '@/services/console/settings-types';
-import {listTemplateConnectedSpaces, saveConnectedSpace} from '@/services/tuples/connected-space';
-import {ConnectedSpace, ConnectedSpaceTemplate} from '@/services/tuples/connected-space-types';
-import {Space} from '@/services/tuples/space-types';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes} from '../console-event-bus-types';
 import {createConnectedSpace} from '../utils/tuples';
-import {CheckBox} from '@/basic-widgets/checkbox';
 
 const ShareDialogBody = styled(DialogBody)`
 	flex-direction : column;

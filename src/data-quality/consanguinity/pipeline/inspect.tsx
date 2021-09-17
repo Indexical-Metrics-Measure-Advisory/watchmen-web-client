@@ -1,19 +1,19 @@
-import {ExecutionContent} from '../../widgets/cli/types';
-import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
+import {PipelineValidateResult, validatePipeline} from '@/services/data/pipeline/pipeline-validate';
 import React, {useState} from 'react';
+import {DQCCacheData} from '../../cache/types';
+import {useDataQualityCacheData} from '../../cache/use-cache-data';
+import {getPipelineName} from '../../utils';
+import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
 import {CliEventTypes} from '../../widgets/cli/events/cli-event-bus-types';
+import {ExecutionDelegate} from '../../widgets/cli/execution/execution-delegate';
 import {
 	ExecutionCommandLineArgument,
 	ExecutionCommandLinePrimary,
 	ExecutionResultItemTable,
 	ExecutionResultNoData
 } from '../../widgets/cli/execution/widgets';
-import {useDataQualityCacheData} from '../../cache/use-cache-data';
-import {ExecutionDelegate} from '../../widgets/cli/execution/execution-delegate';
-import {getPipelineName} from '../../utils';
+import {ExecutionContent} from '../../widgets/cli/types';
 import {InspectItem, InspectItems, InspectPipelineName, InspectResult} from './widgets';
-import {DQCCacheData} from '../../cache/types';
-import {PipelineValidateResult, validatePipeline} from '@/services/pipeline/pipeline-validate';
 
 const PipelineIssues = (props: { inspects: Array<PipelineValidateResult> }) => {
 	const {inspects} = props;

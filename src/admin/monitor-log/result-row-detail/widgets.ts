@@ -1,7 +1,7 @@
+import {DwarfButton} from '@/widgets/basic/button';
+import {InputLines} from '@/widgets/basic/input-lines';
+import {TooltipButton} from '@/widgets/basic/tooltip-button';
 import styled from 'styled-components';
-import {DwarfButton} from '@/basic-widgets/button';
-import {InputLines} from '@/basic-widgets/input-lines';
-import {TooltipButton} from '@/basic-widgets/tooltip-button';
 
 export const RowDetailContainer = styled.div.attrs({'data-widget': 'monitor-log-detail'})`
 	display               : grid;

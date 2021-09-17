@@ -1,7 +1,7 @@
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Subject} from '@/services/data/tuples/subject-types';
 import React from 'react';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
 import {SubjectNameLabel} from './widgets';
-import {Subject} from '@/services/tuples/subject-types';
 
 export const HeaderSubjectNameLabel = (props: { connectedSpace: ConnectedSpace; subject: Subject }) => {
 	const {connectedSpace, subject} = props;

@@ -1,8 +1,8 @@
+import {QuerySpaceForHolder} from '@/services/data/tuples/query-space-types';
+import {QueryUserForHolder} from '@/services/data/tuples/query-user-types';
+import {UserGroup} from '@/services/data/tuples/user-group-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React from 'react';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {QuerySpaceForHolder} from '@/services/tuples/query-space-types';
-import {QueryUserForHolder} from '@/services/tuples/query-user-types';
-import {UserGroup} from '@/services/tuples/user-group-types';
 import {TuplePropertyInput, TuplePropertyInputLines, TuplePropertyLabel} from '../widgets/tuple-workbench/tuple-editor';
 import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes, TupleState} from '../widgets/tuple-workbench/tuple-event-bus-types';

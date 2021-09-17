@@ -1,8 +1,8 @@
-import {AvailableSpaceInConsole} from '@/services/console/settings-types';
-import {ConnectedSpaceBlockGraphics} from '@/services/tuples/connected-space-types';
-import {Report} from '@/services/tuples/report-types';
-import {Subject} from '@/services/tuples/subject-types';
-import {Topic} from '@/services/tuples/topic-types';
+import {AvailableSpaceInConsole} from '@/services/data/console/settings-types';
+import {ConnectedSpaceBlockGraphics} from '@/services/data/tuples/connected-space-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 
 export enum GraphicsRole {
 	TOPIC = 'topic',

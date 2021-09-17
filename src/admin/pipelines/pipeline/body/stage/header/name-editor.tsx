@@ -1,6 +1,6 @@
+import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {ChangeEvent} from 'react';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
 import {useStageEventBus} from '../stage-event-bus';
 import {StageEventTypes} from '../stage-event-bus-types';
 import {StageNameEditor, StageNameInput, StageNameLabel} from './widgets';

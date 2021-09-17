@@ -1,6 +1,6 @@
+import {ReportRect} from '@/services/data/tuples/report-types';
 import styled from 'styled-components';
 import {BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR} from '../../header/widgets';
-import {ReportRect} from '@/services/tuples/report-types';
 
 export const EditChartContainer = styled.div.attrs({
 	'data-widget': 'report-chart-editor',

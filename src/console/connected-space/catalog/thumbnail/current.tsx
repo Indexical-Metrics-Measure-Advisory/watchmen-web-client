@@ -1,5 +1,5 @@
+import {GraphicsPosition, GraphicsSize} from '@/services/data/graphics/graphics-types';
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
-import {GraphicsPosition, GraphicsSize} from '@/services/graphics/graphics-types';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {CurrentRect} from './widgets';

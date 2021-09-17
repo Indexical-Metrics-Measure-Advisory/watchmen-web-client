@@ -1,4 +1,4 @@
-import {SubjectDataSetFilter, SubjectDataSetFilterJoint} from '@/services/tuples/subject-types';
+import {SubjectDataSetFilter, SubjectDataSetFilterJoint} from '@/services/data/tuples/subject-types';
 
 export enum FilterEventTypes {
 	JOINT_TYPE_CHANGED = 'joint-type-changed',

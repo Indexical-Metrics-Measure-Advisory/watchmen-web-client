@@ -1,5 +1,5 @@
-import {PipelineRuntimeContext} from './types';
 import {TopicsData} from '../state/types';
+import {PipelineRuntimeContext} from './types';
 
 export enum RunsEventTypes {
 	RUN_PIPELINE = 'run-pipeline',

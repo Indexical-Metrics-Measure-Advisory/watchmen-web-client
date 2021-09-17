@@ -1,7 +1,7 @@
+import {SubjectDataSetFilter, SubjectDataSetFilterJoint} from '@/services/data/tuples/subject-types';
+import {isExpressionFilter, isJointFilter} from '@/services/data/tuples/subject-utils';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
-import {SubjectDataSetFilter, SubjectDataSetFilterJoint} from '@/services/tuples/subject-types';
-import {isExpressionFilter, isJointFilter} from '@/services/tuples/subject-utils';
-import {Topic} from '@/services/tuples/topic-types';
 import {ExpressionFilterEdit} from '../expression-filter';
 import {JointFilterEdit} from './index';
 

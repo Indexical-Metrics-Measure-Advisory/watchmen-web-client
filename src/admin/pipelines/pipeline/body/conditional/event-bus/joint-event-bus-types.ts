@@ -1,4 +1,4 @@
-import {ParameterCondition, ParameterExpression, ParameterJoint} from '@/services/tuples/factor-calculator-types';
+import {ParameterCondition, ParameterExpression, ParameterJoint} from '@/services/data/tuples/factor-calculator-types';
 
 export enum JointEventTypes {
 	JOINT_TYPE_CHANGED = 'joint-type-changed',

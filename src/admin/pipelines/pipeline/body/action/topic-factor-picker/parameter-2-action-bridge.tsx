@@ -1,8 +1,8 @@
-import {useParameterEventBus} from '@/data-filter/parameter-event-bus';
-import {ParameterEventTypes} from '@/data-filter/parameter-event-bus-types';
-import {Parameter} from '@/services/tuples/factor-calculator-types';
-import {isTopicFactorParameter} from '@/services/tuples/parameter-utils';
-import {FromFactor, ToFactor} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {Parameter} from '@/services/data/tuples/factor-calculator-types';
+import {isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
+import {FromFactor, ToFactor} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {useParameterEventBus} from '@/widgets/parameter/parameter-event-bus';
+import {ParameterEventTypes} from '@/widgets/parameter/parameter-event-bus-types';
 import React, {useEffect} from 'react';
 import {useActionEventBus} from '../action-event-bus';
 import {ActionEventTypes} from '../action-event-bus-types';

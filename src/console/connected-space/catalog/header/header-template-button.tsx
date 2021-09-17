@@ -1,14 +1,14 @@
+import {saveConnectedSpace} from '@/services/data/tuples/connected-space';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {ICON_TEMPLATE} from '@/widgets/basic/constants';
+import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
-import {ICON_TEMPLATE} from '@/basic-widgets/constants';
-import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {Lang} from '@/langs';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {saveConnectedSpace} from '@/services/tuples/connected-space';
-import {useForceUpdate} from '@/basic-widgets/utils';
 
 const TemplateIcon = styled(FontAwesomeIcon).attrs<{ 'data-template': boolean }>(({'data-template': template}) => {
 	return {

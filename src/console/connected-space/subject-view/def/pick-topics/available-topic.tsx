@@ -1,6 +1,6 @@
+import {Topic} from '@/services/data/tuples/topic-types';
+import {ICON_SELECTED} from '@/widgets/basic/constants';
 import React from 'react';
-import {ICON_SELECTED} from '@/basic-widgets/constants';
-import {Topic} from '@/services/tuples/topic-types';
 import {useSubjectDefEventBus} from '../subject-def-event-bus';
 import {SubjectDefEventTypes} from '../subject-def-event-bus-types';
 import {AvailableTopicCard, TopicName, TopicPicked} from './widgets';

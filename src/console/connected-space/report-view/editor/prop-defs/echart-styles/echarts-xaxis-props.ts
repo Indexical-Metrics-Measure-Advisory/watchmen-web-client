@@ -1,6 +1,6 @@
-import {DropdownOption} from '@/basic-widgets/types';
-import {Lang} from '@/langs';
-import {EChartsXAxisNameLocation, EChartsXAxisPosition} from '@/services/tuples/echarts/echarts-xaxis-types';
+import {EChartsXAxisNameLocation, EChartsXAxisPosition} from '@/services/data/tuples/echarts/echarts-xaxis-types';
+import {DropdownOption} from '@/widgets/basic/types';
+import {Lang} from '@/widgets/langs';
 
 export const XAxisPositionOptions: Array<DropdownOption> = [
 	{value: EChartsXAxisPosition.TOP, label: Lang.CHART.POSITION_TOP},

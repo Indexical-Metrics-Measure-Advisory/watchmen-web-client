@@ -1,12 +1,12 @@
+import {toPipeline} from '@/routes/utils';
+import {isWriteTopicAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {ICON_PIPELINE} from '@/widgets/basic/constants';
+import {TooltipAlignment} from '@/widgets/basic/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {useHistory} from 'react-router-dom';
-import {ICON_PIPELINE} from '@/basic-widgets/constants';
-import {TooltipAlignment} from '@/basic-widgets/types';
-import {toPipeline} from '@/routes/utils';
-import {isWriteTopicAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {
 	NoPipelines,
 	PipelineButton,

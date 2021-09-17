@@ -1,12 +1,12 @@
-import React from 'react';
-import {Lang} from '@/langs';
 import {
 	EChartsAlignmentHolder,
 	EChartsHorizontalAlignment,
 	EChartsVerticalAlignment
-} from '@/services/tuples/echarts/echarts-alignment-types';
-import {ECharts} from '@/services/tuples/echarts/echarts-types';
-import {Report} from '@/services/tuples/report-types';
+} from '@/services/data/tuples/echarts/echarts-alignment-types';
+import {ECharts} from '@/services/data/tuples/echarts/echarts-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {Lang} from '@/widgets/langs';
+import React from 'react';
 import {onDropdownValueChange} from '../../data-utils';
 import {BarChartStylePropNames} from '../../prop-defs/chart-styles/bar-chart-style-props';
 import {PieChartStylePropNames} from '../../prop-defs/chart-styles/pie-chart-style-props';

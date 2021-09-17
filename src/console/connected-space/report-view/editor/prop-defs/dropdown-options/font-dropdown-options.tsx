@@ -1,7 +1,7 @@
-import {DropdownOption} from '@/basic-widgets/types';
-import {Lang} from '@/langs';
-import {ChartFontStyle, ChartFontWeight} from '@/services/tuples/chart-types';
-import {Theme} from '@/theme/types';
+import {ChartFontStyle, ChartFontWeight} from '@/services/data/tuples/chart-types';
+import {DropdownOption} from '@/widgets/basic/types';
+import {Lang} from '@/widgets/langs';
+import {Theme} from '@/widgets/theme/types';
 
 export const FontStyleOptions: Array<DropdownOption> = [
 	{value: ChartFontStyle.NORMAL, label: Lang.CHART.FONT_STYLE_NORMAL},

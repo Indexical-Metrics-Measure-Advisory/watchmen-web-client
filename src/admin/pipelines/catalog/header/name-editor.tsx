@@ -1,9 +1,9 @@
+import {PageTitleEditor} from '@/widgets/basic/page-title-editor';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React from 'react';
-import {PageTitleEditor} from '@/basic-widgets/page-title-editor';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {AssembledPipelinesGraphics} from '../types';
-import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {useCatalogEventBus} from '../catalog-event-bus';
+import {CatalogEventTypes} from '../catalog-event-bus-types';
+import {AssembledPipelinesGraphics} from '../types';
 
 export const NameEditor = (props: { graphics: AssembledPipelinesGraphics }) => {
 	const {graphics} = props;

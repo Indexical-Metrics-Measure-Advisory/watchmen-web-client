@@ -1,5 +1,5 @@
+import {FactorTypeLabel} from '@/widgets/basic/factor-type-label';
 import styled from 'styled-components';
-import {FactorTypeLabel} from '@/basic-widgets/factor-type-label';
 
 export const TopicBodyContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
 	return {

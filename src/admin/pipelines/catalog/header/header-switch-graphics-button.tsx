@@ -1,18 +1,18 @@
+import {PipelinesGraphics} from '@/services/data/tuples/pipeline-types';
+import {Button} from '@/widgets/basic/button';
+import {ICON_SWITCH} from '@/widgets/basic/constants';
+import {Dropdown} from '@/widgets/basic/dropdown';
+import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
+import {ButtonInk, DropdownOption} from '@/widgets/basic/types';
+import {DialogBody, DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useState} from 'react';
-import {ICON_SWITCH} from '@/basic-widgets/constants';
-import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
-import {PipelinesGraphics} from '@/services/tuples/pipeline-types';
-import {useCatalogEventBus} from '../catalog-event-bus';
-import {AssembledPipelinesGraphics} from '../types';
-import {EventTypes} from '@/events/types';
-import {useEventBus} from '@/events/event-bus';
 import styled from 'styled-components';
-import {DialogBody, DialogFooter, DialogLabel} from '@/dialog/widgets';
-import {Dropdown} from '@/basic-widgets/dropdown';
-import {ButtonInk, DropdownOption} from '@/basic-widgets/types';
-import {Button} from '@/basic-widgets/button';
+import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
+import {AssembledPipelinesGraphics} from '../types';
 
 const SwitchDialogBody = styled(DialogBody)`
 	flex-direction : column;

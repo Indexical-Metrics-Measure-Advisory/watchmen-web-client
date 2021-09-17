@@ -1,7 +1,7 @@
+import {Report} from '@/services/data/tuples/report-types';
 import React, {useEffect, useState} from 'react';
 import {useReportViewEventBus} from '../report-view-event-bus';
 import {ReportViewEventTypes} from '../report-view-event-bus-types';
-import {Report} from '@/services/tuples/report-types';
 
 export const ReportPartController = (props: { report: Report }) => {
 	const {report} = props;

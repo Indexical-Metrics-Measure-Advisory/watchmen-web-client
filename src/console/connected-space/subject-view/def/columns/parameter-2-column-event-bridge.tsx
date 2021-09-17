@@ -1,7 +1,7 @@
+import {Subject, SubjectDataSetColumn} from '@/services/data/tuples/subject-types';
+import {useParameterEventBus} from '@/widgets/parameter/parameter-event-bus';
+import {ParameterEventTypes} from '@/widgets/parameter/parameter-event-bus-types';
 import React, {Fragment, useEffect} from 'react';
-import {Subject, SubjectDataSetColumn} from '@/services/tuples/subject-types';
-import {useParameterEventBus} from '@/data-filter/parameter-event-bus';
-import {ParameterEventTypes} from '@/data-filter/parameter-event-bus-types';
 import {useColumnEventBus} from './column-event-bus';
 import {ColumnEventTypes} from './column-event-bus-types';
 

@@ -1,9 +1,9 @@
-import {ExecutionCommandLine, ExecutionContainer, ExecutionPrompt, ExecutionPromptFlicker} from './widgets';
+import {ICON_CMD_PROMPT} from '@/widgets/basic/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_CMD_PROMPT} from '@/basic-widgets/constants';
 import React, {useEffect, useRef, useState} from 'react';
-import {CliEventTypes} from '../events/cli-event-bus-types';
 import {useCliEventBus} from '../events/cli-event-bus';
+import {CliEventTypes} from '../events/cli-event-bus-types';
+import {ExecutionCommandLine, ExecutionContainer, ExecutionPrompt, ExecutionPromptFlicker} from './widgets';
 
 export const ExecutionWaiter = () => {
 	const {on, off} = useCliEventBus();

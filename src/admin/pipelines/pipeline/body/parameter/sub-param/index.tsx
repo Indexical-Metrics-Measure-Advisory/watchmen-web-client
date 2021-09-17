@@ -1,13 +1,13 @@
+import {ComputedParameter, Parameter, ParameterKind, ValueTypes} from '@/services/data/tuples/factor-calculator-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {useParameterEventBus} from '@/widgets/parameter/parameter-event-bus';
+import {ParameterEventTypes} from '@/widgets/parameter/parameter-event-bus-types';
 import React, {useEffect} from 'react';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {ComputedParameter, Parameter, ParameterKind, ValueTypes} from '@/services/tuples/factor-calculator-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {ParameterFromEditor} from '../param-from';
 import {SubParameterCondition} from './sub-parameter-condition';
 import {SubParameterEditBody} from './sub-parameter-edit-body';
 import {SubParameterEditContainer} from './widgets';
-import { ParameterEventTypes } from '@/data-filter/parameter-event-bus-types';
-import { useParameterEventBus } from '@/data-filter/parameter-event-bus';
 
 export const SubParameterEditor = (props: {
 	parentParameter: ComputedParameter;

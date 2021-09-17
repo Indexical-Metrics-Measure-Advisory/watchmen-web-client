@@ -1,10 +1,10 @@
-import {PickedCommand, PickedCommands, WorkbenchContainer, WorkbenchInput} from './widgets';
 import React, {ChangeEvent, KeyboardEvent, useEffect, useRef, useState} from 'react';
 import {isClearCommand, isClearScreenCommand, isFirstCommand, isHelpCommand} from '../../../command';
-import {CliEventTypes} from '../events/cli-event-bus-types';
-import {useCliEventBus} from '../events/cli-event-bus';
 import {Command, CommandPublishedBehaviorBackward, CommandPublishedBehaviorType} from '../../../command/types';
+import {useCliEventBus} from '../events/cli-event-bus';
+import {CliEventTypes} from '../events/cli-event-bus-types';
 import {matchCommandText} from '../utils';
+import {PickedCommand, PickedCommands, WorkbenchContainer, WorkbenchInput} from './widgets';
 
 const DEFAULT_PLACEHOLDER = 'Send a command...';
 

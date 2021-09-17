@@ -1,15 +1,15 @@
-import React from 'react';
-import {PageHeaderButtons, PageHeaderButtonSeparator} from '@/basic-widgets/page-header-buttons';
-import {AssembledPipelinesGraphics} from '../types';
-import {HeaderSwitchGraphicsButton} from './header-switch-graphics-button';
-import {PipelinesGraphics} from '@/services/tuples/pipeline-types';
-import {HeaderCreateGraphicsButton} from './header-create-graphics-button';
-import {HeaderPickTopicsButton} from './header-pick-topics-button';
-import {Topic} from '@/services/tuples/topic-types';
-import {HeaderDeleteMeButton} from './header-delete-me-buttton';
 import {isPipelinesDownloadEnabled} from '@/feature-switch';
+import {PipelinesGraphics} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {PageHeaderButtons, PageHeaderButtonSeparator} from '@/widgets/basic/page-header-buttons';
+import React from 'react';
+import {AssembledPipelinesGraphics} from '../types';
+import {HeaderCreateGraphicsButton} from './header-create-graphics-button';
+import {HeaderDeleteMeButton} from './header-delete-me-buttton';
 import {HeaderExportButton} from './header-export-buttton';
 import {HeaderImportButton} from './header-import-buttton';
+import {HeaderPickTopicsButton} from './header-pick-topics-button';
+import {HeaderSwitchGraphicsButton} from './header-switch-graphics-button';
 
 export const PipelineHeaderButtons = (props: {
 		topics: Array<Topic>;

@@ -1,14 +1,14 @@
+import {Pipeline, PipelinesGraphics} from '@/services/data/tuples/pipeline-types';
+import {generateUuid} from '@/services/data/tuples/utils';
+import {getCurrentTime} from '@/services/data/utils';
+import {AdminCacheData} from '@/services/local-persist/types';
 import React, {Fragment, useEffect, useState} from 'react';
-import {Pipeline, PipelinesGraphics} from '@/services/tuples/pipeline-types';
+import {useAdminCacheEventBus} from '../../cache/cache-event-bus';
+import {AdminCacheEventTypes} from '../../cache/cache-event-bus-types';
 import {usePipelinesEventBus} from '../pipelines-event-bus';
 import {PipelinesEventTypes} from '../pipelines-event-bus-types';
 import {HoldSettings} from './types';
 import {useReplier} from './use-replier';
-import {getCurrentTime} from '@/services/utils';
-import {useAdminCacheEventBus} from '../../cache/cache-event-bus';
-import {AdminCacheEventTypes} from '../../cache/cache-event-bus-types';
-import {AdminCacheData} from '@/local-persist/types';
-import {generateUuid} from '@/services/tuples/utils';
 
 export const SettingsHolder = () => {
 	const {once: onceCache} = useAdminCacheEventBus();

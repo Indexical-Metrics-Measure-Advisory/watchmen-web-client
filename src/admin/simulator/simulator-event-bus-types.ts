@@ -1,5 +1,5 @@
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import {ActiveStep, SimulateStart, StartFrom, TopicsData} from './body/state/types';
 import {DataRow} from './types';
 

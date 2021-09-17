@@ -1,5 +1,5 @@
+import {BlockCoordinate, BlockFrame, BlockName} from '@/services/data/graphics/graphics-types';
 import styled from 'styled-components';
-import {BlockCoordinate, BlockFrame, BlockName} from '@/services/graphics/graphics-types';
 
 export const ReportContainer = styled.g.attrs<{ coordinate: BlockCoordinate }>(({coordinate: {x, y}}) => {
 	return {transform: `translate(${x}, ${y})`};

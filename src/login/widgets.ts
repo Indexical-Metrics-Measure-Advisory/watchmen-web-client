@@ -1,10 +1,10 @@
+import {LoadingButton} from '@/widgets/basic/button';
+import {Input} from '@/widgets/basic/input';
+import {Logo} from '@/widgets/basic/logo';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 import Background2 from '../assets/login-background.svg';
 import Background1 from '../assets/login-background.svg';
-import {LoadingButton} from '@/basic-widgets/button';
-import {Input} from '@/basic-widgets/input';
-import {Logo} from '@/basic-widgets/logo';
 
 export const LoginContainer = styled.div.attrs({'data-widget': 'login'})`
 	display        : flex;

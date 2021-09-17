@@ -1,9 +1,9 @@
+import {Factor} from '@/services/data/tuples/factor-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {ICON_DELETE, ICON_ROW_PREPEND_ON_RIGHT} from '@/widgets/basic/constants';
+import {ButtonInk, TooltipAlignment} from '@/widgets/basic/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {ICON_DELETE, ICON_ROW_PREPEND_ON_RIGHT} from '@/basic-widgets/constants';
-import {ButtonInk, TooltipAlignment} from '@/basic-widgets/types';
-import {Factor} from '@/services/tuples/factor-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';
 import {createFactor} from '../utils';

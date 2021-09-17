@@ -1,9 +1,9 @@
+import {CheckBox} from '@/widgets/basic/checkbox';
+import {ColorPicker} from '@/widgets/basic/color-picker';
+import {Dropdown} from '@/widgets/basic/dropdown';
+import {Input} from '@/widgets/basic/input';
+import {InputLines} from '@/widgets/basic/input-lines';
 import styled from 'styled-components';
-import {CheckBox} from '@/basic-widgets/checkbox';
-import {ColorPicker} from '@/basic-widgets/color-picker';
-import {Dropdown} from '@/basic-widgets/dropdown';
-import {Input} from '@/basic-widgets/input';
-import {InputLines} from '@/basic-widgets/input-lines';
 
 export const SectionContainer = styled.div.attrs<{ expanded: boolean }>({'data-widget': 'chart-settings-section'})<{ expanded: boolean }>`
 	display      : flex;

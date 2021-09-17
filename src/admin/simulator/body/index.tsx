@@ -1,11 +1,11 @@
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
-import {SimulatorBodyContainer} from './widgets';
-import {Select} from './select';
-import {SimulatorStates} from './state';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {PrepareData} from './prepare-data';
 import {RunningPlan} from './run';
+import {Select} from './select';
+import {SimulatorStates} from './state';
+import {SimulatorBodyContainer} from './widgets';
 
 export const SimulatorBody = (props: {
 	pipelines: Array<Pipeline>;

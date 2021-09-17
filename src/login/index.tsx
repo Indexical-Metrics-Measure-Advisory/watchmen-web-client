@@ -1,13 +1,13 @@
+import {Router} from '@/routes/types';
+import {saveAccountIntoSession} from '@/services/data/account';
+import {login} from '@/services/data/login';
+import {Account} from '@/services/data/login/types';
+import {ButtonInk} from '@/widgets/basic/types';
+import {Lang} from '@/widgets/langs';
 import {faKey, faUserAstronaut} from '@fortawesome/free-solid-svg-icons';
 import dayjs from 'dayjs';
 import React, {useEffect, useRef, useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import {ButtonInk} from '@/basic-widgets/types';
-import {Lang} from '@/langs';
-import {Router} from '@/routes/types';
-import {saveAccountIntoSession} from '@/services/account';
-import {login} from '@/services/login';
-import {Account} from '@/services/login/types';
 import {
 	Error,
 	Form,

@@ -1,14 +1,14 @@
+import {toSubject} from '@/routes/utils';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {ICON_EDIT} from '@/widgets/basic/constants';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useState} from 'react';
-import {useForceUpdate} from '@/basic-widgets/utils';
+import {useHistory} from 'react-router-dom';
 import {findSvgRoot} from '../../../utils/in-svg';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {AssembledSubjectGraphics, GraphicsRole} from '../types';
 import {OpenSubjectButton, OpenSubjectButtonIcon, SubjectBlock, SubjectContainer, SubjectNameText} from './widgets';
-import {ICON_EDIT} from '@/basic-widgets/constants';
-import {toSubject} from '@/routes/utils';
-import {useHistory} from 'react-router-dom';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
 
 export const SubjectRect = (props: { connectedSpace: ConnectedSpace; subject: AssembledSubjectGraphics }) => {
 	const {connectedSpace, subject: subjectGraphics} = props;

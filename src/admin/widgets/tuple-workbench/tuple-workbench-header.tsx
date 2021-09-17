@@ -1,9 +1,9 @@
+import {IconProp} from '@fortawesome/fontawesome-svg-core';
 import React from 'react';
 import {TupleCreate} from './tuple-create';
+import {TupleMoreButton} from './tuple-more-action-button';
 import {TupleSearchBar} from './tuple-search-bar';
 import {TupleWorkbenchHeaderContainer} from './widgets';
-import {TupleMoreButton} from './tuple-more-action-button';
-import {IconProp} from '@fortawesome/fontawesome-svg-core';
 
 export const TupleWorkbenchHeader = (props: {
 	createButtonLabel?: string;

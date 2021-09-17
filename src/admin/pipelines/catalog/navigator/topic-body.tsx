@@ -1,5 +1,5 @@
+import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
-import {Topic} from '@/services/tuples/topic-types';
 import {FactorRow} from './factor-row';
 import {NoFactor, TopicBodyContainer} from './topic-widgets';
 

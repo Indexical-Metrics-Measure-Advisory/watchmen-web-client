@@ -1,12 +1,12 @@
+import {MonitorLogUnit} from '@/services/data/admin/logs';
+import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL} from '@/widgets/basic/constants';
+import {TooltipAlignment} from '@/widgets/basic/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useState} from 'react';
 import {v4} from 'uuid';
-import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL} from '@/basic-widgets/constants';
-import {TooltipAlignment} from '@/basic-widgets/types';
-import {MonitorLogUnit} from '@/services/admin/logs';
-import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {PipelineStageUnit} from '@/services/tuples/pipeline-stage-unit-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {DetailProcessAction} from '../action';
 import {ExpandToggleButton, SectionTitle, TitleExecutionLabel, TitleLabel, TitleNameLabel} from '../widgets';
 import {DetailProcessUnitContainer} from './widgets';

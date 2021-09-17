@@ -1,11 +1,11 @@
-import {useCliEventBus} from '../events/cli-event-bus';
-import {useEffect, useState} from 'react';
-import {ExecutionContent} from '../types';
-import {v4} from 'uuid';
-import {CliEventTypes} from '../events/cli-event-bus-types';
-import {ExecutionWaiter} from './execution-waiter';
 import dayjs from 'dayjs';
+import {useEffect, useState} from 'react';
+import {v4} from 'uuid';
 import {Command} from '../../../command/types';
+import {useCliEventBus} from '../events/cli-event-bus';
+import {CliEventTypes} from '../events/cli-event-bus-types';
+import {ExecutionContent} from '../types';
+import {ExecutionWaiter} from './execution-waiter';
 
 export const Executions = (props: {
 	execution: (props: { content: ExecutionContent }) => JSX.Element;

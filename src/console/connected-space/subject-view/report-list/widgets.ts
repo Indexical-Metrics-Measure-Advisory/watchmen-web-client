@@ -1,5 +1,5 @@
+import {TooltipButton} from '@/widgets/basic/tooltip-button';
 import styled from 'styled-components';
-import {TooltipButton} from '@/basic-widgets/tooltip-button';
 
 export const ReportListScroller = styled.div.attrs({'data-widget': 'report-list-scroller', 'data-v-scroll': ''})`
 	display    : block;

@@ -1,6 +1,6 @@
-import {DataQualityCacheData} from '@/local-persist/types';
-import {isBusinessTopic, isDistinctTopic, isMetaTopic, isRawTopic, isSystemTopic} from '@/services/tuples/topic';
-import {Topic, TopicType} from '@/services/tuples/topic-types';
+import {isBusinessTopic, isDistinctTopic, isMetaTopic, isRawTopic, isSystemTopic} from '@/services/data/tuples/topic';
+import {Topic, TopicType} from '@/services/data/tuples/topic-types';
+import {DataQualityCacheData} from '@/services/local-persist/types';
 import React, {useState} from 'react';
 import {useDataQualityCacheData} from '../../cache/use-cache-data';
 import {Command} from '../../command/types';

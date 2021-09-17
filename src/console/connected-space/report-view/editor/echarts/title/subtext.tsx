@@ -1,15 +1,15 @@
+import {canHoldTitle, isEChart} from '@/services/data/tuples/echarts/echarts-utils';
+import {Report} from '@/services/data/tuples/report-types';
+import {Lang} from '@/widgets/langs';
 import React from 'react';
-import {Lang} from '@/langs';
-import {Report} from '@/services/tuples/report-types';
 import {onTextValueChange} from '../../data-utils';
+import {TabBodySection, TabBodySectionBody, TabBodySectionTitle} from '../../dataset-and-palette/widget';
 import {EChartsTitlePropNames} from '../../prop-defs/echart-styles/echarts-title-props';
 import {useReportEditEventBus} from '../../report-edit-event-bus';
 import {ReportEditEventTypes} from '../../report-edit-event-bus-types';
+import {useChartType} from '../../settings-effect/use-chart-type';
 import {TextValue} from '../../settings-widgets/text-value';
 import {FontSettings, SettingsFontPropNames} from '../font';
-import {useChartType} from '../../settings-effect/use-chart-type';
-import {canHoldTitle, isEChart} from '@/services/tuples/echarts/echarts-utils';
-import {TabBodySection, TabBodySectionBody, TabBodySectionTitle} from '../../dataset-and-palette/widget';
 
 export const EChartsTitleSubtextSettings = (props: { report: Report }) => {
 	const {report} = props;

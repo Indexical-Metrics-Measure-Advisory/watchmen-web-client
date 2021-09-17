@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react';
-import {useForceUpdate} from '@/basic-widgets/utils';
 import {
 	FindBy,
 	FromTopic,
 	ToTopic
-} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {Conditional} from '@/services/tuples/pipeline-super-types';
-import {Topic} from '@/services/tuples/topic-types';
+} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {Conditional} from '@/services/data/tuples/pipeline-super-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import React, {useEffect} from 'react';
 import {ConditionalEditor} from '../../conditional';
 import {useActionEventBus} from '../action-event-bus';
 import {ActionEventTypes} from '../action-event-bus-types';

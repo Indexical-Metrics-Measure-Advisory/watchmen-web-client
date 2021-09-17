@@ -1,4 +1,4 @@
-import {QueryTupleForHolder} from '@/services/tuples/tuple-types';
+import {QueryTupleForHolder} from '@/services/data/tuples/tuple-types';
 
 export enum PickerDropdownPosition {
 	TOP = 'top',

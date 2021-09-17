@@ -1,5 +1,5 @@
+import {Factor, FactorType} from '@/services/data/tuples/factor-types';
 import parseCSV from 'csv-parse';
-import {Factor, FactorType} from '@/services/tuples/factor-types';
 import {createFactor, createTopic} from '../utils';
 
 const asFactors = async (data: any): Promise<Array<Factor>> => {

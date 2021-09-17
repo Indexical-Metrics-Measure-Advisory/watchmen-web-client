@@ -1,4 +1,5 @@
-import {ParameterExpressionOperator, ParameterJointType} from '@/services/tuples/factor-calculator-types';
+import {ParameterExpressionOperator, ParameterJointType} from '@/services/data/tuples/factor-calculator-types';
+import {createConstantParameter, createTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
 import {
 	Subject,
 	SubjectDataSetColumn,
@@ -6,9 +7,8 @@ import {
 	SubjectDataSetFilterJoint,
 	SubjectDataSetJoin,
 	TopicJoinType
-} from '@/services/tuples/subject-types';
-import {generateUuid} from '@/services/tuples/utils';
-import {createConstantParameter, createTopicFactorParameter} from '@/services/tuples/parameter-utils';
+} from '@/services/data/tuples/subject-types';
+import {generateUuid} from '@/services/data/tuples/utils';
 
 export const createSubjectDataSetColumn = (subject: Subject): SubjectDataSetColumn => {
 	const {columns} = subject.dataset;

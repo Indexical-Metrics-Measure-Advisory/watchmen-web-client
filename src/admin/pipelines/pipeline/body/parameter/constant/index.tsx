@@ -1,10 +1,15 @@
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {useParameterEventBus} from '@/data-filter/parameter-event-bus';
-import {ParameterEventTypes} from '@/data-filter/parameter-event-bus-types';
-import {ConstantParameter, DeclaredVariables, Parameter, ValueTypes} from '@/services/tuples/factor-calculator-types';
-import {isConstantParameter} from '@/services/tuples/parameter-utils';
-import {isConstantParameterValid} from '@/services/tuples/pipeline-validation-utils';
-import {Topic} from '@/services/tuples/topic-types';
+import {
+	ConstantParameter,
+	DeclaredVariables,
+	Parameter,
+	ValueTypes
+} from '@/services/data/tuples/factor-calculator-types';
+import {isConstantParameter} from '@/services/data/tuples/parameter-utils';
+import {isConstantParameterValid} from '@/services/data/tuples/pipeline-validation-utils';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {useParameterEventBus} from '@/widgets/parameter/parameter-event-bus';
+import {ParameterEventTypes} from '@/widgets/parameter/parameter-event-bus-types';
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useVariablesEventBus} from '../../variables/variables-event-bus';
 import {VariablesEventTypes} from '../../variables/variables-event-bus-types';

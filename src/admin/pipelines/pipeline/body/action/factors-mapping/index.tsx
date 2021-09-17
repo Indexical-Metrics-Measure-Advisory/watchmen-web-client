@@ -1,6 +1,9 @@
+import {
+	MappingRow,
+	WriteTopicAction
+} from '@/services/data/tuples/pipeline-stage-unit-action/write-topic-actions-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
-import {MappingRow, WriteTopicAction} from '@/services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {Factors} from './factors';
 import {FactorsMappingEventBusProvider} from './factors-mapping-event-bus';
 

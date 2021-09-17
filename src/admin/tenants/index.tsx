@@ -1,24 +1,24 @@
+import {Router} from '@/routes/types';
+import {isSuperAdmin} from '@/services/data/account';
+import {DataPage} from '@/services/data/query/data-page';
+import {QueryTenant} from '@/services/data/tuples/query-tenant-types';
+import {listTenants, saveTenant} from '@/services/data/tuples/tenant';
+import {Tenant} from '@/services/data/tuples/tenant-types';
+import {QueryTuple} from '@/services/data/tuples/tuple-types';
+import {generateUuid} from '@/services/data/tuples/utils';
+import {getCurrentTime} from '@/services/data/utils';
+import {AlertLabel} from '@/widgets/alert/widgets';
+import {TUPLE_SEARCH_PAGE_SIZE} from '@/widgets/basic/constants';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import React, {useEffect} from 'react';
-import {AlertLabel} from '@/alert/widgets';
+import {useHistory} from 'react-router-dom';
 import TenantBackground from '../../assets/tenant-background.svg';
-import {TUPLE_SEARCH_PAGE_SIZE} from '@/basic-widgets/constants';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {DataPage} from '@/services/query/data-page';
-import {QueryTuple} from '@/services/tuples/tuple-types';
-import {generateUuid} from '@/services/tuples/utils';
-import {getCurrentTime} from '@/services/utils';
 import {TupleWorkbench} from '../widgets/tuple-workbench';
 import {TupleEventBusProvider, useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
 import {renderCard} from './card';
 import {renderEditor} from './editor';
-import {Tenant} from '@/services/tuples/tenant-types';
-import {QueryTenant} from '@/services/tuples/query-tenant-types';
-import {listTenants, saveTenant} from '@/services/tuples/tenant';
-import {useHistory} from 'react-router-dom';
-import {isSuperAdmin} from '@/services/account';
-import {Router} from '@/routes/types';
 
 const createTenant = (): Tenant => {
 	return {

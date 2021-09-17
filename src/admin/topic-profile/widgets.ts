@@ -1,5 +1,5 @@
+import {DIALOG_Z_INDEX} from '@/widgets/basic/constants';
 import styled, {keyframes} from 'styled-components';
-import {DIALOG_Z_INDEX} from '@/basic-widgets/constants';
 
 const ShowDialog = keyframes`
 	from {

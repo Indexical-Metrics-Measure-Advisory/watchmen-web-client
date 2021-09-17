@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import {TooltipButton} from '@/basic-widgets/tooltip-button';
-import {DataPanelLayout} from '../types';
+import {TooltipButton} from '@/widgets/basic/tooltip-button';
 import Color from 'color';
+import styled from 'styled-components';
+import {DataPanelLayout} from '../types';
 
 const SEQ_WIDTH = 40;
 

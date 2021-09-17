@@ -1,9 +1,9 @@
+import {Report, ReportFilter, ReportFilterJoint} from '@/services/data/tuples/report-types';
+import {isExpressionFilter, isJointFilter} from '@/services/data/tuples/report-utils';
+import {Subject} from '@/services/data/tuples/subject-types';
 import React from 'react';
 import {ExpressionFilterEdit} from '../expression-filter';
 import {JointFilterEdit} from './index';
-import {Subject} from '@/services/tuples/subject-types';
-import {Report, ReportFilter, ReportFilterJoint} from '@/services/tuples/report-types';
-import {isExpressionFilter, isJointFilter} from '@/services/tuples/report-utils';
 
 export const FilterEdit = (props: {
 	subject: Subject;

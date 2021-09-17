@@ -1,10 +1,10 @@
-import {DataSource, DataSourceParam} from '@/services/tuples/data-source-types';
-import {useDataSourceEventBus} from '../data-source-event-bus';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {DataSourceEventTypes} from '../data-source-event-bus-types';
+import {DataSource, DataSourceParam} from '@/services/data/tuples/data-source-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React from 'react';
-import {TuplePropertyInput, TuplePropertyLabel} from '../../widgets/tuple-workbench/tuple-editor';
 import styled from 'styled-components';
+import {TuplePropertyInput, TuplePropertyLabel} from '../../widgets/tuple-workbench/tuple-editor';
+import {useDataSourceEventBus} from '../data-source-event-bus';
+import {DataSourceEventTypes} from '../data-source-event-bus-types';
 
 const ExtraParams = styled.div`
 	display: grid;

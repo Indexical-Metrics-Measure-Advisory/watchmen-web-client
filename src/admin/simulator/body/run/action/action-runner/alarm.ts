@@ -1,8 +1,8 @@
-import {ActionRuntimeContext, InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
-import {isAlarmAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {ConstantParameter, ParameterKind} from '@/services/data/tuples/factor-calculator-types';
+import {isAlarmAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {computeJoint} from '../../compute/condition-compute';
-import {ConstantParameter, ParameterKind} from '@/services/tuples/factor-calculator-types';
 import {computeParameter} from '../../compute/parameter-compute';
+import {ActionRuntimeContext, InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
 
 export const runAlarm = async (options: {
 	pipelineContext: PipelineRuntimeContext,

@@ -1,13 +1,13 @@
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
 import React, {useEffect, useState} from 'react';
-import {AllTopics, PipelineRuntimeContext} from '../types';
-import {RuntimeEventBusProvider, useRuntimeEventBus} from '../runtime/runtime-event-bus';
-import {PipelineRuntime} from './pipeline-runtime';
-import {StagesRuntime} from './stages-runtime';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {RunNextPipeline} from './run-next-pipeline';
-import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
 import {useRunsEventBus} from '../runs-event-bus';
 import {RunsEventTypes} from '../runs-event-bus-types';
+import {RuntimeEventBusProvider, useRuntimeEventBus} from '../runtime/runtime-event-bus';
+import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
+import {AllTopics, PipelineRuntimeContext} from '../types';
+import {PipelineRuntime} from './pipeline-runtime';
+import {RunNextPipeline} from './run-next-pipeline';
+import {StagesRuntime} from './stages-runtime';
 
 export const DynamicPipelineRunAutoTrigger = (props: { context: PipelineRuntimeContext }) => {
 	const {context} = props;

@@ -1,9 +1,10 @@
+import {canUseXAxis, isEChart} from '@/services/data/tuples/echarts/echarts-utils';
+import {EChartsXAxisPosition, EChartsXAxisType} from '@/services/data/tuples/echarts/echarts-xaxis-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {Lang} from '@/widgets/langs';
 import React from 'react';
-import {Lang} from '@/langs';
-import {canUseXAxis, isEChart} from '@/services/tuples/echarts/echarts-utils';
-import {EChartsXAxisPosition, EChartsXAxisType} from '@/services/tuples/echarts/echarts-xaxis-types';
-import {Report} from '@/services/tuples/report-types';
 import {isANumber, onBooleanChange, onDropdownValueChange, onNumberChange} from '../../data-utils';
+import {TabBodySection, TabBodySectionBody, TabBodySectionTitle} from '../../dataset-and-palette/widget';
 import {AxisTypeOptions} from '../../prop-defs/dropdown-options/axis-dropdown-options';
 import {EChartsXAxisPropNames, XAxisPositionOptions} from '../../prop-defs/echart-styles/echarts-xaxis-props';
 import {useReportEditEventBus} from '../../report-edit-event-bus';
@@ -13,10 +14,9 @@ import {BooleanValue} from '../../settings-widgets/boolean-value';
 import {DropdownValue} from '../../settings-widgets/dropdown-value';
 import {NumberValue} from '../../settings-widgets/number-value';
 import {EChartsXAxisLabelSettings} from './label';
+import {EChartsXAxisMinorSplitLineSettings} from './minor-split-line';
 import {EChartsXAxisNameSettings} from './name';
 import {EChartsXAxisSplitLineSettings} from './split-line';
-import {TabBodySection, TabBodySectionBody, TabBodySectionTitle} from '../../dataset-and-palette/widget';
-import {EChartsXAxisMinorSplitLineSettings} from './minor-split-line';
 
 export const EChartsXAxisSettings = (props: { report: Report }) => {
 	const {report} = props;

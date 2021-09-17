@@ -1,3 +1,4 @@
+import React from 'react';
 import {CommandPublishedBehaviorType, HelpCommand} from '../../command/types';
 import {
 	HelpCommandDescription,
@@ -5,7 +6,6 @@ import {
 	HelpCommandName,
 	LeadHelpCommandName
 } from '../../widgets/cli/execution/widgets';
-import React from 'react';
 import {TopicBrief} from './brief';
 
 export const TopicHelpCmd: HelpCommand = {

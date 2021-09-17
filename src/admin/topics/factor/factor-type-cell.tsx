@@ -1,9 +1,9 @@
-import {DropdownOption} from '@/basic-widgets/types';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {En} from '@/langs/en';
-import {Factor, FactorType} from '@/services/tuples/factor-types';
-import {isNotRawTopic} from '@/services/tuples/topic';
-import {Topic} from '@/services/tuples/topic-types';
+import {Factor, FactorType} from '@/services/data/tuples/factor-types';
+import {isNotRawTopic} from '@/services/data/tuples/topic';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {DropdownOption} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {En} from '@/widgets/langs/en';
 import React, {useEffect} from 'react';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';

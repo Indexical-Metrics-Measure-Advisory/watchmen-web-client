@@ -1,6 +1,6 @@
-import {ICON_CONNECTED_SPACE, ICON_DASHBOARD} from '@/basic-widgets/constants';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Dashboard} from '@/services/tuples/dashboard-types';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Dashboard} from '@/services/data/tuples/dashboard-types';
+import {ICON_CONNECTED_SPACE, ICON_DASHBOARD} from '@/widgets/basic/constants';
 
 export interface StateData {
 	connectedSpaces: Array<ConnectedSpace>;

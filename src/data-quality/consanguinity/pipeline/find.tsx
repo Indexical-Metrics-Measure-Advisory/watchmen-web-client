@@ -1,10 +1,11 @@
-import {ExecutionContent} from '../../widgets/cli/types';
-import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {DataQualityCacheData} from '@/services/local-persist/types';
 import React, {useState} from 'react';
-import {DataQualityCacheData} from '@/local-persist/types';
-import {Pipeline} from '@/services/tuples/pipeline-types';
+import {useDataQualityCacheData} from '../../cache/use-cache-data';
+import {getPipelineName} from '../../utils';
+import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
 import {CliEventTypes} from '../../widgets/cli/events/cli-event-bus-types';
-import {buildViewPipelineCommand} from './commands';
+import {ExecutionDelegate} from '../../widgets/cli/execution/execution-delegate';
 import {
 	ExecutionCommandLineArgument,
 	ExecutionCommandLinePrimary,
@@ -12,9 +13,8 @@ import {
 	ExecutionResultItemTable,
 	ExecutionResultNoData
 } from '../../widgets/cli/execution/widgets';
-import {getPipelineName} from '../../utils';
-import {useDataQualityCacheData} from '../../cache/use-cache-data';
-import {ExecutionDelegate} from '../../widgets/cli/execution/execution-delegate';
+import {ExecutionContent} from '../../widgets/cli/types';
+import {buildViewPipelineCommand} from './commands';
 
 export const PipelineFindExecution = (props: { content: ExecutionContent }) => {
 	const {content} = props;

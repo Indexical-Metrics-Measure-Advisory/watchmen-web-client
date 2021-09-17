@@ -1,6 +1,6 @@
-import {PipelinesSettings} from '@/services/pipeline/settings-types';
-import {Pipeline, PipelinesGraphics} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
+import {PipelinesSettings} from '@/services/data/pipeline/settings-types';
+import {Pipeline, PipelinesGraphics} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 
 export enum PipelinesEventTypes {
 	SETTINGS_LOADED = 'settings-loaded',

@@ -1,9 +1,9 @@
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {PageTitleEditor} from '@/widgets/basic/page-title-editor';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {useLanguage} from '@/widgets/langs';
 import React from 'react';
-import {PageTitleEditor} from '@/basic-widgets/page-title-editor';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {useLanguage} from '@/langs';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Subject} from '@/services/tuples/subject-types';
 import {useSubjectEventBus} from '../subject-event-bus';
 import {SubjectEventTypes} from '../subject-event-bus-types';
 

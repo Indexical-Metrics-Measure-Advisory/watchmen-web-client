@@ -1,7 +1,20 @@
+import {MonitorRuleGrade, MonitorRules, MonitorRulesCriteria} from '@/services/data/data-quality/rule-types';
+import {fetchMonitorRules, saveMonitorRules} from '@/services/data/data-quality/rules';
+import {Factor} from '@/services/data/tuples/factor-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {Button} from '@/widgets/basic/button';
+import {ICON_LOADING, ICON_SAVE, ICON_SORT_ASC} from '@/widgets/basic/constants';
+import {Dropdown} from '@/widgets/basic/dropdown';
+import {ButtonInk, DropdownOption} from '@/widgets/basic/types';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {Topic} from '@/services/tuples/topic-types';
+import {getTopicName} from '../utils';
+import {GlobalRules} from './global-rules';
+import {useRulesEventBus} from './rules-event-bus';
+import {RulesEventTypes} from './rules-event-bus-types';
+import {TopicRules} from './topic-rules';
 import {
 	SearchResultBody,
 	SearchResultContainer,
@@ -10,19 +23,6 @@ import {
 	SearchResultHeaderSeqCell,
 	SearchResultTargetLabel
 } from './widgets';
-import {fetchMonitorRules, saveMonitorRules} from '@/services/data-quality/rules';
-import {RulesEventTypes} from './rules-event-bus-types';
-import {useRulesEventBus} from './rules-event-bus';
-import {getTopicName} from '../utils';
-import {GlobalRules} from './global-rules';
-import {TopicRules} from './topic-rules';
-import {Button} from '@/basic-widgets/button';
-import {ButtonInk, DropdownOption} from '@/basic-widgets/types';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_LOADING, ICON_SAVE, ICON_SORT_ASC} from '@/basic-widgets/constants';
-import {Dropdown} from '@/basic-widgets/dropdown';
-import {Factor} from '@/services/tuples/factor-types';
-import {MonitorRuleGrade, MonitorRules, MonitorRulesCriteria} from '@/services/data-quality/rule-types';
 
 interface State {
 	grade: MonitorRuleGrade.GLOBAL | MonitorRuleGrade.TOPIC;

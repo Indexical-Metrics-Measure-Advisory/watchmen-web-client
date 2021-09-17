@@ -1,7 +1,7 @@
-import React from 'react';
-import {TupleMoreActionButton} from './widgets';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import React from 'react';
+import {TupleMoreActionButton} from './widgets';
 
 export const TupleMoreButton = (props: {
 	label: string;

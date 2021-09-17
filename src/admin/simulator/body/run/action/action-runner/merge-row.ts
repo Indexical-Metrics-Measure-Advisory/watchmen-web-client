@@ -1,5 +1,11 @@
+import {AggregateArithmetic} from '@/services/data/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
+import {isMergeRowAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {MappingFactor} from '@/services/data/tuples/pipeline-stage-unit-action/write-topic-actions-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {DataRow} from '../../../../types';
+import {computeJoint} from '../../compute/condition-compute';
+import {computeParameter} from '../../compute/parameter-compute';
 import {ActionRuntimeContext, InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
-import {isMergeRowAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {
 	AGGREGATE_ASSIST_FACTOR_NAME,
 	AGGREGATE_AVG_COUNT_PROP_NAME,
@@ -10,12 +16,6 @@ import {
 	prepareTopic,
 	pushToChangeData
 } from './utils';
-import {MappingFactor} from '@/services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
-import {computeParameter} from '../../compute/parameter-compute';
-import {computeJoint} from '../../compute/condition-compute';
-import {Topic} from '@/services/tuples/topic-types';
-import {DataRow} from '../../../../types';
-import {AggregateArithmetic} from '@/services/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
 
 export const doMergeRow = async (
 	row: DataRow,

@@ -1,10 +1,10 @@
+import {Tuple} from '@/services/data/tuples/tuple-types';
+import {isFakedUuid} from '@/services/data/tuples/utils';
+import {AlertLabel} from '@/widgets/alert/widgets';
+import {ButtonInk} from '@/widgets/basic/types';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import React, {ReactNode, useEffect, useState} from 'react';
-import {AlertLabel} from '@/alert/widgets';
-import {ButtonInk} from '@/basic-widgets/types';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {Tuple} from '@/services/tuples/tuple-types';
-import {isFakedUuid} from '@/services/tuples/utils';
 import {useTupleEventBus} from '../tuple-event-bus';
 import {HoldByTuple, TupleEventTypes, TupleState} from '../tuple-event-bus-types';
 import {TupleBackgroundImage} from './background-image';

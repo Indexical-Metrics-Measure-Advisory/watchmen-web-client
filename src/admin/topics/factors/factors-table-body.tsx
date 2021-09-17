@@ -1,10 +1,10 @@
+import {Factor} from '@/services/data/tuples/factor-types';
+import {QueryEnumForHolder} from '@/services/data/tuples/query-enum-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {Dropdown} from '@/widgets/basic/dropdown';
+import {DropdownOption} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useEffect, useState} from 'react';
-import {Dropdown} from '@/basic-widgets/dropdown';
-import {DropdownOption} from '@/basic-widgets/types';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {Factor} from '@/services/tuples/factor-types';
-import {QueryEnumForHolder} from '@/services/tuples/query-enum-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {FactorRow} from '../factor/factor-row';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';

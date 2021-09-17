@@ -1,8 +1,8 @@
+import {RoundDwarfButton} from '@/widgets/basic/button';
+import {DROPDOWN_Z_INDEX} from '@/widgets/basic/constants';
+import {Input} from '@/widgets/basic/input';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
-import {RoundDwarfButton} from '@/basic-widgets/button';
-import {DROPDOWN_Z_INDEX} from '@/basic-widgets/constants';
-import {Input} from '@/basic-widgets/input';
 import {PickerDropdownPosition} from './tuple-item-picker-event-bus-types';
 
 export const TupleItemPickerContainer = styled.div.attrs<{ 'data-widget'?: string }>(({'data-widget': widget}) => {

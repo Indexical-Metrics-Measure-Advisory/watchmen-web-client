@@ -1,6 +1,6 @@
+import {GraphicsPosition, GraphicsSize} from '@/services/data/graphics/graphics-types';
+import {Button} from '@/widgets/basic/button';
 import styled from 'styled-components';
-import {Button} from '@/basic-widgets/button';
-import {GraphicsPosition, GraphicsSize} from '@/services/graphics/graphics-types';
 import {CatalogSvg} from '../widgets';
 
 export const THUMBNAIL_WIDTH = 300;

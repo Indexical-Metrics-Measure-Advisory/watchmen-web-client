@@ -1,5 +1,5 @@
-import {isAggregationTopic, isRawTopic} from '@/services/tuples/topic';
-import {Topic} from '@/services/tuples/topic-types';
+import {isAggregationTopic, isRawTopic} from '@/services/data/tuples/topic';
+import {Topic} from '@/services/data/tuples/topic-types';
 import JSZip from 'jszip';
 import {MySQLFactorTypeMap} from './mysql';
 import {

@@ -1,6 +1,6 @@
+import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL} from '@/widgets/basic/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
-import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL} from '@/basic-widgets/constants';
 import {useJointEventBus} from '../event-bus/joint-event-bus';
 import {JointEventTypes} from '../event-bus/joint-event-bus-types';
 import {JointFoldContainer, JointFoldOperator} from './widgets';

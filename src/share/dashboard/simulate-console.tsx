@@ -1,10 +1,10 @@
-import {useEffect} from 'react';
 import {useConsoleEventBus} from '@/console/console-event-bus';
 import {ConsoleEventTypes} from '@/console/console-event-bus-types';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {ParameterJointType} from '@/services/tuples/factor-calculator-types';
-import {Report} from '@/services/tuples/report-types';
-import {getCurrentTime} from '@/services/utils';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {ParameterJointType} from '@/services/data/tuples/factor-calculator-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {getCurrentTime} from '@/services/data/utils';
+import {useEffect} from 'react';
 
 export const SimulateConsole = (props: { reports: Array<Report> }) => {
 	const {reports} = props;

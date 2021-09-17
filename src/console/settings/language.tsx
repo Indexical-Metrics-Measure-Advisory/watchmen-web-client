@@ -1,12 +1,12 @@
+import {saveLastSnapshot} from '@/services/data/account/last-snapshot';
+import {Dropdown} from '@/widgets/basic/dropdown';
+import {SettingsSection, SettingsSectionBody, SettingsSectionTitle} from '@/widgets/basic/settings/settings-section';
+import {DropdownOption} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {getCurrentLanguageCode, Lang, SupportedLanguages} from '@/widgets/langs';
 import React from 'react';
-import {Dropdown} from '@/basic-widgets/dropdown';
-import {SettingsSection, SettingsSectionBody, SettingsSectionTitle} from '@/basic-widgets/settings/settings-section';
-import {DropdownOption} from '@/basic-widgets/types';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {getCurrentLanguageCode, Lang, SupportedLanguages} from '../../langs';
-import {saveLastSnapshot} from '@/services/account/last-snapshot';
 
 export const LanguageSettings = () => {
 	const {fire} = useEventBus();

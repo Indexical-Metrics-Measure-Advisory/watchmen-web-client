@@ -1,11 +1,11 @@
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Subject} from '@/services/tuples/subject-types';
-import {Report} from '@/services/tuples/report-types';
-import {ReportDataSetEventBusProvider} from '../dataset-tab/report-dataset-event-bus';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
 import React from 'react';
-import {ReportFilterContainer} from './widgets';
-import {NoFilter} from './no-filter';
+import {ReportDataSetEventBusProvider} from '../dataset-tab/report-dataset-event-bus';
 import {Filters} from './filters';
+import {NoFilter} from './no-filter';
+import {ReportFilterContainer} from './widgets';
 
 export const FilterTab = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report, active: boolean }) => {
 	const {connectedSpace, subject, report, active} = props;

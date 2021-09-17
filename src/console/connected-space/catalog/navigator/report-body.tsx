@@ -1,5 +1,5 @@
+import {Report} from '@/services/data/tuples/report-types';
 import React from 'react';
-import {Report} from '@/services/tuples/report-types';
 import {ReportBodyContainer, ReportTypeLabel} from './report-widgets';
 
 export const ReportBody = (props: { report: Report }) => {

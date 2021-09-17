@@ -1,5 +1,5 @@
-import {Pipeline, PipelineBlockGraphics, PipelinesGraphics} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
+import {Pipeline, PipelineBlockGraphics, PipelinesGraphics} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 
 export enum GraphicsRole {
 	TOPIC = 'topic',

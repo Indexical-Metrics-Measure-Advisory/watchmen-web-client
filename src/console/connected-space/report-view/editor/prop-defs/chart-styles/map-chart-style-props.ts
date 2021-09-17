@@ -1,6 +1,6 @@
-import {DropdownOption} from '@/basic-widgets/types';
-import {Lang} from '@/langs';
-import {MapChartRegion} from '@/services/tuples/chart-def/chart-map';
+import {MapChartRegion} from '@/services/data/tuples/chart-def/chart-map';
+import {DropdownOption} from '@/widgets/basic/types';
+import {Lang} from '@/widgets/langs';
 
 export const MapRegionOptions: Array<DropdownOption> = [
 	{value: MapChartRegion.JAPAN_L1, label: Lang.CHART.MAP_REGION_JAPAN_L1},

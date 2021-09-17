@@ -1,9 +1,9 @@
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {renameSubject, saveSubject} from '@/services/data/tuples/subject';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import React, {Fragment, useEffect} from 'react';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {renameSubject, saveSubject} from '@/services/tuples/subject';
-import {Subject} from '@/services/tuples/subject-types';
 import {useSubjectEventBus} from '../subject-event-bus';
 import {SubjectEventTypes} from '../subject-event-bus-types';
 

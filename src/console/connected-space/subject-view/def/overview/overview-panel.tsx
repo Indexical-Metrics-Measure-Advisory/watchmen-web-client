@@ -1,6 +1,6 @@
+import {Subject} from '@/services/data/tuples/subject-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
-import {Subject} from '@/services/tuples/subject-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {SubjectDsl} from '../../../subject-dsl';
 import {OverviewPanelContainer} from './widgets';
 

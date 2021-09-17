@@ -1,7 +1,7 @@
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {Lang} from '@/widgets/langs';
 import React, {useEffect, useRef} from 'react';
-import {Lang} from '@/langs';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Subject} from '@/services/tuples/subject-types';
 import {useTopicData} from '../data/use-topic-data';
 import {SubjectDefBodyCover} from '../widgets';
 import {OverviewPanel} from './overview-panel';

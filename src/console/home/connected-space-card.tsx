@@ -1,9 +1,9 @@
+import {toConnectedSpace} from '@/routes/utils';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {ICON_CONNECTED_SPACE} from '@/widgets/basic/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {useHistory} from 'react-router-dom';
-import {ICON_CONNECTED_SPACE} from '@/basic-widgets/constants';
-import {toConnectedSpace} from '@/routes/utils';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
 import {ConnectedSpaceCardContainer, ConnectedSpaceLastVisit, ConnectedSpaceName} from './widgets';
 
 export const ConnectedSpaceCard = (props: {

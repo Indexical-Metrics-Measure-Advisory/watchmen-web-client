@@ -1,8 +1,8 @@
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {Report} from '@/services/tuples/report-types';
-import {Subject} from '@/services/tuples/subject-types';
-import {computeRelationPoints} from '@/shared-widgets/graphics';
-import {Curve} from '@/shared-widgets/graphics-widgets';
+import {Report} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {computeRelationPoints} from '@/widgets/graphics';
+import {Curve} from '@/widgets/graphics/widgets';
 import React, {useEffect, useRef} from 'react';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';

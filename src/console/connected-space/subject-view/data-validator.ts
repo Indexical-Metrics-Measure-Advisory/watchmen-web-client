@@ -1,13 +1,13 @@
-import {AnyFactorType, Parameter, ParameterExpressionOperator} from '@/services/tuples/factor-calculator-types';
-import {Subject, SubjectDataSetFilterJoint} from '@/services/tuples/subject-types';
-import {isExpressionFilter, isJointFilter} from '@/services/tuples/subject-utils';
-import {Topic} from '@/services/tuples/topic-types';
 import {
 	isExpressionValid4DataSet,
 	isJointValid4DataSet,
 	isParameterValid4DataSet
-} from '@/services/tuples/dataset-validation-utils';
-import {isComputedParameter, isTopicFactorParameter} from '@/services/tuples/parameter-utils';
+} from '@/services/data/tuples/dataset-validation-utils';
+import {AnyFactorType, Parameter, ParameterExpressionOperator} from '@/services/data/tuples/factor-calculator-types';
+import {isComputedParameter, isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
+import {Subject, SubjectDataSetFilterJoint} from '@/services/data/tuples/subject-types';
+import {isExpressionFilter, isJointFilter} from '@/services/data/tuples/subject-utils';
+import {Topic} from '@/services/data/tuples/topic-types';
 
 const getTopicIdsFromParameter = (parameter: Parameter): Array<string> => {
 	if (isTopicFactorParameter(parameter)) {

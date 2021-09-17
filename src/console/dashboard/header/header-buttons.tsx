@@ -1,6 +1,6 @@
+import {Dashboard} from '@/services/data/tuples/dashboard-types';
+import {PageHeaderButtons, PageHeaderButtonSeparator} from '@/widgets/basic/page-header-buttons';
 import React from 'react';
-import {PageHeaderButtons, PageHeaderButtonSeparator} from '@/basic-widgets/page-header-buttons';
-import {Dashboard} from '@/services/tuples/dashboard-types';
 import {HeaderAddParagraphButton} from './header-add-paragraph-button';
 import {HeaderAddReportButton} from './header-add-report-button';
 import {HeaderAutoRefreshButton} from './header-auto-refresh-button';

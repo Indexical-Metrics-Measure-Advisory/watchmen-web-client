@@ -1,6 +1,6 @@
-import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '@/basic-widgets/constants';
-import {ParameterJointType} from '@/services/tuples/factor-calculator-types';
-import {Conditional} from '@/services/tuples/pipeline-super-types';
+import {ParameterJointType} from '@/services/data/tuples/factor-calculator-types';
+import {Conditional} from '@/services/data/tuples/pipeline-super-types';
+import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '@/widgets/basic/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useState} from 'react';
 import {createTopicEqualsConstantParameter} from '../../../../data-utils';

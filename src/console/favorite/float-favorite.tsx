@@ -1,10 +1,10 @@
+import {saveLastSnapshot} from '@/services/data/account/last-snapshot';
+import {ICON_DELETE, ICON_PIN} from '@/widgets/basic/constants';
+import {TooltipAlignment} from '@/widgets/basic/types';
+import {useCollapseFixedThing} from '@/widgets/basic/utils';
+import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useRef} from 'react';
-import {ICON_DELETE, ICON_PIN} from '@/basic-widgets/constants';
-import {TooltipAlignment} from '@/basic-widgets/types';
-import {useCollapseFixedThing} from '@/basic-widgets/utils';
-import {Lang} from '@/langs';
-import {saveLastSnapshot} from '@/services/account/last-snapshot';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes, FavoriteState} from '../console-event-bus-types';
 import {useFavoriteState} from './use-favorite-state';

@@ -1,6 +1,6 @@
+import {RoundDwarfButton} from '@/widgets/basic/button';
+import {HEADER_HEIGHT} from '@/widgets/basic/constants';
 import styled from 'styled-components';
-import {RoundDwarfButton} from '@/basic-widgets/button';
-import {HEADER_HEIGHT} from '@/basic-widgets/constants';
 
 export const FactorsTableButton = styled(RoundDwarfButton).attrs({'data-widget': 'factors-table-button'})`
 	align-self   : center;

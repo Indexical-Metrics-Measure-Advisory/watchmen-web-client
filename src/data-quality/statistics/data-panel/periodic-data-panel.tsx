@@ -1,8 +1,19 @@
-import {AdditionalDataPanelHeaderButton, DataPanel} from './index';
+import {MonitorRuleCode, MonitorRuleLog, MonitorRuleLogs} from '@/services/data/data-quality/rule-types';
+import {fetchMonitorRuleLogs} from '@/services/data/data-quality/rules';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {ICON_BACK, ICON_REFRESH} from '@/widgets/basic/constants';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import React, {useEffect, useState} from 'react';
-import {DataPanels} from '../types';
-import {useLayout} from './use-layout';
+import {useDataQualityCacheEventBus} from '../../cache/cache-event-bus';
+import {DataQualityCacheEventTypes} from '../../cache/cache-event-bus-types';
+import {DQCCacheData} from '../../cache/types';
+import {RuleDefs} from '../../rule-defs';
+import {getTopicName} from '../../utils';
 import {DEFAULT_LAYOUTS} from '../constants';
+import {DataPanels} from '../types';
+import {AdditionalDataPanelHeaderButton, DataPanel} from './index';
+import {useLayout} from './use-layout';
 import {
 	DataPanelBody,
 	DataPanelBodyBreakdownCell,
@@ -16,17 +27,6 @@ import {
 	HorizontalValue,
 	HorizontalValueBar
 } from './widgets';
-import {fetchMonitorRuleLogs} from '@/services/data-quality/rules';
-import {MonitorRuleCode, MonitorRuleLog, MonitorRuleLogs} from '@/services/data-quality/rule-types';
-import {RuleDefs} from '../../rule-defs';
-import {EventTypes} from '@/events/types';
-import {useEventBus} from '@/events/event-bus';
-import {useDataQualityCacheEventBus} from '../../cache/cache-event-bus';
-import {DataQualityCacheEventTypes} from '../../cache/cache-event-bus-types';
-import {DQCCacheData} from '../../cache/types';
-import {getTopicName} from '../../utils';
-import {Topic} from '@/services/tuples/topic-types';
-import {ICON_BACK, ICON_REFRESH} from '@/basic-widgets/constants';
 
 const GRID_COLUMN_ALL = '35% 1fr 150px';
 

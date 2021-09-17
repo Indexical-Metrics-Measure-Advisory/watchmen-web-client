@@ -1,8 +1,8 @@
+import {EChartsPositionHolder} from '@/services/data/tuples/echarts/echarts-position-types';
+import {ECharts} from '@/services/data/tuples/echarts/echarts-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {Lang} from '@/widgets/langs';
 import React from 'react';
-import {Lang} from '@/langs';
-import {EChartsPositionHolder} from '@/services/tuples/echarts/echarts-position-types';
-import {ECharts} from '@/services/tuples/echarts/echarts-types';
-import {Report} from '@/services/tuples/report-types';
 import {onPercentageChange, validatePercentage} from '../../data-utils';
 import {MapChartStylePropNames} from '../../prop-defs/chart-styles/map-chart-style-props';
 import {PieChartStylePropNames} from '../../prop-defs/chart-styles/pie-chart-style-props';

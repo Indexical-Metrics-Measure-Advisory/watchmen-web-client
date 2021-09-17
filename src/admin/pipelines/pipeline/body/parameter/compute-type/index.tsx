@@ -1,13 +1,13 @@
-import {ICON_EDIT} from '@/basic-widgets/constants';
-import {useComputeType} from '@/data-filter/compute-type/use-compute-type';
-import {ParameterComputeTypeDropdown, ParameterComputeTypeOption} from '@/data-filter/compute-type/widgets';
 import {
 	AvailableComputeTypes,
 	ComputedParameter,
 	ParameterComputeType,
 	ValueTypes
-} from '@/services/tuples/factor-calculator-types';
-import {isComputeTypeValid} from '@/services/tuples/factor-calculator-utils';
+} from '@/services/data/tuples/factor-calculator-types';
+import {isComputeTypeValid} from '@/services/data/tuples/factor-calculator-utils';
+import {ICON_EDIT} from '@/widgets/basic/constants';
+import {useComputeType} from '@/widgets/parameter/compute-type/use-compute-type';
+import {ParameterComputeTypeDropdown, ParameterComputeTypeOption} from '@/widgets/parameter/compute-type/widgets';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {ParameterComputeTypeContainer, ParameterComputeTypeIcon, ParameterComputeTypeLabel} from './widgets';

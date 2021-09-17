@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {clearAdminData, loadAdminData, prepareAdminDB} from '@/local-persist';
-import {useAdminCacheEventBus} from './cache-event-bus';
-import {AdminCacheData} from '@/local-persist/types';
-import {AdminCacheEventTypes} from './cache-event-bus-types';
-import {EventTypes} from '@/events/types';
-import {useEventBus} from '@/events/event-bus';
-import {Pipeline, PipelinesGraphics} from '@/services/tuples/pipeline-types';
+import {Pipeline, PipelinesGraphics} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {clearAdminData, loadAdminData, prepareAdminDB} from '@/services/local-persist';
 import {
 	deleteAdminPipelineGraphics,
 	saveAdminPipeline,
 	saveAdminPipelinesGraphics,
 	saveAdminTopic
-} from '@/local-persist/db';
-import {Topic} from '@/services/tuples/topic-types';
+} from '@/services/local-persist/db';
+import {AdminCacheData} from '@/services/local-persist/types';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import React, {useEffect, useState} from 'react';
+import {useAdminCacheEventBus} from './cache-event-bus';
+import {AdminCacheEventTypes} from './cache-event-bus-types';
 
 export interface CacheState {
 	initialized: boolean;

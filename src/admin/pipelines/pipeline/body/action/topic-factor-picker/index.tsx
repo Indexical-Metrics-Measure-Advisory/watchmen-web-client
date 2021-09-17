@@ -1,7 +1,7 @@
-import {ParameterEventBusProvider} from '@/data-filter/parameter-event-bus';
-import {ParameterKind, ValueTypes} from '@/services/tuples/factor-calculator-types';
-import {FromFactor, ToFactor} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {Topic} from '@/services/tuples/topic-types';
+import {ParameterKind, ValueTypes} from '@/services/data/tuples/factor-calculator-types';
+import {FromFactor, ToFactor} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {ParameterEventBusProvider} from '@/widgets/parameter/parameter-event-bus';
 import React from 'react';
 import {TopicFactorEditor} from '../../parameter/topic-factor';
 import {Parameter2ActionBridge} from './parameter-2-action-bridge';

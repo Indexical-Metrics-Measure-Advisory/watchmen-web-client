@@ -1,9 +1,9 @@
+import {ParameterExpressionOperator} from '@/services/data/tuples/factor-calculator-types';
+import {SubjectDataSetFilterExpression} from '@/services/data/tuples/subject-types';
+import {ICON_EDIT} from '@/widgets/basic/constants';
+import {useCollapseFixedThing} from '@/widgets/basic/utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useRef, useState} from 'react';
-import {ICON_EDIT} from '@/basic-widgets/constants';
-import {useCollapseFixedThing} from '@/basic-widgets/utils';
-import {ParameterExpressionOperator} from '@/services/tuples/factor-calculator-types';
-import {SubjectDataSetFilterExpression} from '@/services/tuples/subject-types';
 // noinspection ES6PreferShortImport
 import {FilterExpressionOperatorLabels} from '../../../../../constants/parameter-constants';
 import {useFilterEventBus} from '../filter-event-bus';

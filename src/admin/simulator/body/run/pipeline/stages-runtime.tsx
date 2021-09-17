@@ -1,5 +1,5 @@
-import {StageRun} from '../stage';
 import React from 'react';
+import {StageRun} from '../stage';
 import {PipelineRuntimeContext} from '../types';
 
 export const StagesRuntime = (props: { context: PipelineRuntimeContext }) => {

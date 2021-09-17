@@ -1,12 +1,12 @@
+import {findSelectedFactor} from '@/services/data/tuples/factor-calculator-utils';
+import {Factor} from '@/services/data/tuples/factor-types';
+import {FromFactor, ToFactor} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {DropdownOption} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {buildFactorOptions} from '@/widgets/tuples';
 import React from 'react';
-import {DropdownOption} from '@/basic-widgets/types';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {Factor} from '@/services/tuples/factor-types';
-import {FromFactor, ToFactor} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {FactorDropdown, FactorFinderContainer, IncorrectOptionLabel} from './widgets';
-import {findSelectedFactor} from '@/services/tuples/factor-calculator-utils';
-import {buildFactorOptions} from '@/shared-widgets/tuples';
 
 export const FactorPicker = (props: { holder: FromFactor | ToFactor | { factorId: string }, topic?: Topic, }) => {
 	const {holder, topic} = props;

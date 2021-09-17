@@ -1,5 +1,5 @@
+import {EnumItem} from '@/services/data/tuples/enum-types';
 import parseCSV from 'csv-parse';
-import {EnumItem} from '@/services/tuples/enum-types';
 
 const asEnumItems = async (data: any): Promise<Array<EnumItem>> => {
 	if (data == null || !Array.isArray(data) || data.length === 0) {

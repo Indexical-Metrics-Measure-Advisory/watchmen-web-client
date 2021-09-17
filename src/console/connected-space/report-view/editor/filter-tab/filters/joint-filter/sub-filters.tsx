@@ -1,10 +1,10 @@
+import {Report, ReportFilter, ReportFilterJoint} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import {v4} from 'uuid';
 import {useFilterEventBus} from '../filter-event-bus';
 import {FilterEventTypes} from '../filter-event-bus-types';
 import {FilterEdit} from './filter-edit';
-import {Subject} from '@/services/tuples/subject-types';
-import {Report, ReportFilter, ReportFilterJoint} from '@/services/tuples/report-types';
-import {useForceUpdate} from '@/basic-widgets/utils';
 
 export const SubFilters = (props: {
 	subject: Subject;

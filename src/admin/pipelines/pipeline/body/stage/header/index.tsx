@@ -1,6 +1,6 @@
+import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
 import React from 'react';
-import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
-import {Pipeline} from '@/services/tuples/pipeline-types';
 import {HeaderButtons} from '../../widgets';
 import {HeaderOperators, HeaderOperatorsPosition} from '../header-operators';
 import {NameEditor} from './name-editor';

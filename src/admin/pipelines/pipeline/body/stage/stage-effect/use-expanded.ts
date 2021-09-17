@@ -1,10 +1,10 @@
+import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
 import {useEffect, useState} from 'react';
-import {useStageEventBus} from '../stage-event-bus';
-import {StageEventTypes} from '../stage-event-bus-types';
 import {usePipelineEventBus} from '../../../pipeline-event-bus';
 import {PipelineEventTypes, PipelineFocusMode} from '../../../pipeline-event-bus-types';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {PipelineStage} from '@/services/tuples/pipeline-stage-types';
+import {useStageEventBus} from '../stage-event-bus';
+import {StageEventTypes} from '../stage-event-bus-types';
 
 export const useExpanded = (pipeline: Pipeline, stage: PipelineStage) => {
 	const {fire: firePipeline, once: oncePipeline, on: onPipeline, off: offPipeline} = usePipelineEventBus();

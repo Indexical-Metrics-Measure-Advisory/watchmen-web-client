@@ -1,3 +1,10 @@
+import {ParameterExpressionOperator, ParameterJointType} from '@/services/data/tuples/factor-calculator-types';
+import {createConstantParameter, createTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
+import {Report, ReportFilterJoint} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EDIT} from '@/widgets/basic/constants';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useState} from 'react';
 import {useFilterEventBus} from '../filter-event-bus';
@@ -12,13 +19,6 @@ import {
 	FilterJointTypeIcon,
 	FirstAddSubFilterIcon
 } from './widgets';
-import {Subject} from '@/services/tuples/subject-types';
-import {Report, ReportFilterJoint} from '@/services/tuples/report-types';
-import {ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EDIT} from '@/basic-widgets/constants';
-import {Lang} from '@/langs';
-import {ParameterExpressionOperator, ParameterJointType} from '@/services/tuples/factor-calculator-types';
-import {createConstantParameter, createTopicFactorParameter} from '@/services/tuples/parameter-utils';
-import {useForceUpdate} from '@/basic-widgets/utils';
 
 export const JointEdit = (props: {
 	subject: Subject;

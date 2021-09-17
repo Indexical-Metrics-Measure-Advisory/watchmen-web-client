@@ -1,8 +1,8 @@
-import {useStatisticsEventBus} from '../statistics-event-bus';
 import {useEffect, useState} from 'react';
-import {DataPanelLayout, DataPanelLayouts, DataPanels} from '../types';
 import {DEFAULT_LAYOUTS} from '../constants';
+import {useStatisticsEventBus} from '../statistics-event-bus';
 import {StatisticsEventTypes} from '../statistics-event-bus-types';
+import {DataPanelLayout, DataPanelLayouts, DataPanels} from '../types';
 
 export const useLayout = (which: DataPanels) => {
 	const {on, off} = useStatisticsEventBus();

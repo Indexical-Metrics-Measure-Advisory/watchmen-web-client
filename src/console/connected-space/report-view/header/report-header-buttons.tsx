@@ -1,14 +1,14 @@
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {PageHeaderButtons, PageHeaderButtonSeparator} from '@/widgets/basic/page-header-buttons';
 import React from 'react';
-import {PageHeaderButtons, PageHeaderButtonSeparator} from '@/basic-widgets/page-header-buttons';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Subject} from '@/services/tuples/subject-types';
 import {HeaderCatalogButton} from '../../header/header-catalog-button';
-import {HeaderDeleteReportButton} from './header-delete-report-buttton';
-import {HeaderSwitchReportButton} from './header-switch-report-button';
-import {HeaderAddReportButton} from './header-add-report-button';
-import {Report} from '@/services/tuples/report-types';
-import {HeaderSaveReportButton} from './header-save-report-buttton';
 import {HeaderSubjectButton} from '../../header/header-subject-button';
+import {HeaderAddReportButton} from './header-add-report-button';
+import {HeaderDeleteReportButton} from './header-delete-report-buttton';
+import {HeaderSaveReportButton} from './header-save-report-buttton';
+import {HeaderSwitchReportButton} from './header-switch-report-button';
 
 export const ReportHeaderButtons = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
 	const {connectedSpace, subject, report} = props;

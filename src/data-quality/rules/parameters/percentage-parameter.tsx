@@ -1,10 +1,10 @@
-import {MonitorRuleParameters} from '@/services/data-quality/rule-types';
-import React, {ChangeEvent, useState} from 'react';
-import {PercentageContainer} from './widgets';
-import {Input} from '@/basic-widgets/input';
+import {MonitorRuleParameters} from '@/services/data/data-quality/rule-types';
+import {ICON_PERCENTAGE} from '@/widgets/basic/constants';
+import {Input} from '@/widgets/basic/input';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ICON_PERCENTAGE} from '@/basic-widgets/constants';
+import React, {ChangeEvent, useState} from 'react';
 import {MonitorRuleParameterType} from '../../rule-defs';
+import {PercentageContainer} from './widgets';
 
 const getValue = (params: MonitorRuleParameters, propName: 'coverageRate' | 'aggregation' | 'quantile'): number | null => {
 	return params[propName] ?? null;

@@ -1,6 +1,6 @@
+import {GraphicsPosition, GraphicsSize} from '@/services/data/graphics/graphics-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import React, {useEffect, useState} from 'react';
-import {GraphicsPosition, GraphicsSize} from '@/services/graphics/graphics-types';
-import {Topic} from '@/services/tuples/topic-types';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {computeTopicSelection} from '../graphics-utils';

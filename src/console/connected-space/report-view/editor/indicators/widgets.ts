@@ -1,5 +1,5 @@
+import {Button, DwarfButton} from '@/widgets/basic/button';
 import styled from 'styled-components';
-import {Button, DwarfButton} from '@/basic-widgets/button';
 import {PropValue} from '../settings-widgets/widgets';
 
 export const IndicatorContainer = styled.div.attrs({'data-widget': 'report-indicator'})`

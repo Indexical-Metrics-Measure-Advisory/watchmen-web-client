@@ -1,9 +1,9 @@
-import {ExecutionContent} from '../widgets/cli/types';
-import {isPipelineExecution, PipelineExecution} from './pipeline';
-import {isTopicExecution, TopicExecution} from './topic';
 import {HelpExecution, isHelpExecution} from '../widgets/cli/execution/help';
+import {ExecutionContent} from '../widgets/cli/types';
 import {FlowExecution, isFlowExecution} from './flow';
 import {GraphExecution, isGraphExecution} from './graph';
+import {isPipelineExecution, PipelineExecution} from './pipeline';
+import {isTopicExecution, TopicExecution} from './topic';
 
 export const Execution = (props: {
 	content: ExecutionContent;

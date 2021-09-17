@@ -1,6 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {matchPath, useHistory, useLocation} from 'react-router-dom';
-import styled from 'styled-components';
+import {isDataQualityCenterEnabled} from '@/feature-switch';
+import {Router} from '@/routes/types';
+import {toDashboard} from '@/routes/utils';
+import {findAccount, isAdmin, quit} from '@/services/data/account';
+import {saveLastSnapshot} from '@/services/data/account/last-snapshot';
+import {LastSnapshot} from '@/services/data/account/last-snapshot-types';
+import {saveDashboard} from '@/services/data/tuples/dashboard';
+import {Dashboard} from '@/services/data/tuples/dashboard-types';
 import {
 	ICON_ADD,
 	ICON_ADMIN,
@@ -16,32 +21,27 @@ import {
 	MOCK_ACCOUNT_NAME,
 	SIDE_MENU_MAX_WIDTH,
 	SIDE_MENU_MIN_WIDTH
-} from '@/basic-widgets/constants';
-import {SideMenuConnectSpace} from '@/basic-widgets/side-menu/side-menu-connect-space';
-import {SideMenuItem} from '@/basic-widgets/side-menu/side-menu-item';
-import {SideMenuLogo} from '@/basic-widgets/side-menu/side-menu-logo';
-import {SideMenuPlaceholder} from '@/basic-widgets/side-menu/side-menu-placeholder';
-import {SideMenuResizeHandle} from '@/basic-widgets/side-menu/side-menu-resize-handle';
-import {SideMenuSeparator} from '@/basic-widgets/side-menu/side-menu-separator';
-import {SideMenuUser} from '@/basic-widgets/side-menu/side-menu-user';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {Lang} from '@/langs';
-import {Router} from '@/routes/types';
-import {toDashboard} from '@/routes/utils';
-import {findAccount, isAdmin, quit} from '../../services/account';
-import {saveLastSnapshot} from '@/services/account/last-snapshot';
-import {LastSnapshot} from '@/services/account/last-snapshot-types';
-import {saveDashboard} from '@/services/tuples/dashboard';
-import {Dashboard} from '@/services/tuples/dashboard-types';
+} from '@/widgets/basic/constants';
+import {SideMenuConnectSpace} from '@/widgets/basic/side-menu/side-menu-connect-space';
+import {SideMenuItem} from '@/widgets/basic/side-menu/side-menu-item';
+import {SideMenuLogo} from '@/widgets/basic/side-menu/side-menu-logo';
+import {SideMenuPlaceholder} from '@/widgets/basic/side-menu/side-menu-placeholder';
+import {SideMenuResizeHandle} from '@/widgets/basic/side-menu/side-menu-resize-handle';
+import {SideMenuSeparator} from '@/widgets/basic/side-menu/side-menu-separator';
+import {SideMenuSwitchWorkbench} from '@/widgets/basic/side-menu/side-menu-switch-workbench';
+import {SideMenuUser} from '@/widgets/basic/side-menu/side-menu-user';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
+import React, {useEffect, useState} from 'react';
+import {matchPath, useHistory, useLocation} from 'react-router-dom';
+import styled from 'styled-components';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes} from '../console-event-bus-types';
 import {createDashboard} from '../utils/tuples';
 import {useConnectSpace} from '../widgets/use-connect-space';
 import {FavoriteMenu} from './side-menu-favorite';
 import {SideMenuSpaces} from './side-menu-spaces';
-import {SideMenuSwitchWorkbench} from '@/basic-widgets/side-menu/side-menu-switch-workbench';
-import {isDataQualityCenterEnabled} from '@/feature-switch';
 
 const ConsoleMenuContainer = styled.div.attrs<{ width: number }>(({width}) => {
 	return {

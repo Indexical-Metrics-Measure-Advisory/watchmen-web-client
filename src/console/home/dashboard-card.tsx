@@ -1,9 +1,9 @@
+import {toDashboard} from '@/routes/utils';
+import {Dashboard} from '@/services/data/tuples/dashboard-types';
+import {ICON_DASHBOARD} from '@/widgets/basic/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {useHistory} from 'react-router-dom';
-import {ICON_DASHBOARD} from '@/basic-widgets/constants';
-import {toDashboard} from '@/routes/utils';
-import {Dashboard} from '@/services/tuples/dashboard-types';
 import {ConnectedSpaceCardContainer, ConnectedSpaceLastVisit, ConnectedSpaceName} from './widgets';
 
 export const DashboardCard = (props: {

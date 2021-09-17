@@ -1,4 +1,24 @@
+import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {AlertLabel} from '@/widgets/alert/widgets';
+import {
+	ICON_CHECK,
+	ICON_CHECK_ALL,
+	ICON_COLLAPSE_CONTENT,
+	ICON_EXPAND_CONTENT,
+	ICON_UNCHECK
+} from '@/widgets/basic/constants';
+import {TooltipAlignment} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
+import {useSimulatorEventBus} from '../../simulator-event-bus';
+import {SimulatorEventTypes} from '../../simulator-event-bus-types';
+import {getPipelineName, getTopicName} from '../../utils';
+import {TopicBlock} from './topic-block';
+import {FlowTreePipelineNode} from './utils';
 import {
 	BlockContainer,
 	ChildrenBlock,
@@ -8,26 +28,6 @@ import {
 	PipelineName,
 	TopicBlockType
 } from './widgets';
-import {getPipelineName, getTopicName} from '../../utils';
-import {
-	ICON_CHECK,
-	ICON_CHECK_ALL,
-	ICON_COLLAPSE_CONTENT,
-	ICON_EXPAND_CONTENT,
-	ICON_UNCHECK
-} from '@/basic-widgets/constants';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic} from '@/services/tuples/topic-types';
-import {TopicBlock} from './topic-block';
-import {TooltipAlignment} from '@/basic-widgets/types';
-import {useSimulatorEventBus} from '../../simulator-event-bus';
-import {SimulatorEventTypes} from '../../simulator-event-bus-types';
-import {FlowTreePipelineNode} from './utils';
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {AlertLabel} from '@/alert/widgets';
 
 export const PipelineBlock = (props: {
 	node: FlowTreePipelineNode;

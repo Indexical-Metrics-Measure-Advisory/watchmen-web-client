@@ -1,3 +1,11 @@
+import {ICON_SEND} from '@/widgets/basic/constants';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import React, {useEffect, useState} from 'react';
+import {Command} from '../../../command/types';
+import {useCliEventBus} from '../events/cli-event-bus';
+import {CliEventTypes} from '../events/cli-event-bus-types';
+import {MatchedCommands} from '../types';
+import {matchCommand} from '../utils';
 import {
 	HintBarContainer,
 	HintCommandButton,
@@ -6,14 +14,6 @@ import {
 	HintSendButton,
 	Placeholder
 } from './widgets';
-import React, {useEffect, useState} from 'react';
-import {useCliEventBus} from '../events/cli-event-bus';
-import {CliEventTypes} from '../events/cli-event-bus-types';
-import {Command} from '../../../command/types';
-import {matchCommand} from '../utils';
-import {MatchedCommands} from '../types';
-import {ICON_SEND} from '@/basic-widgets/constants';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 interface Hints {
 	commands: Array<Command>;

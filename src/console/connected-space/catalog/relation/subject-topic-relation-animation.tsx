@@ -1,8 +1,8 @@
-import {useForceUpdate} from '@/basic-widgets/utils';
-import {Subject} from '@/services/tuples/subject-types';
-import {Topic} from '@/services/tuples/topic-types';
-import {computeRelationPoints} from '@/shared-widgets/graphics';
-import {RelationAnimationDot} from '@/shared-widgets/graphics-widgets';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {computeRelationPoints} from '@/widgets/graphics';
+import {RelationAnimationDot} from '@/widgets/graphics/widgets';
 import React, {useEffect, useState} from 'react';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';

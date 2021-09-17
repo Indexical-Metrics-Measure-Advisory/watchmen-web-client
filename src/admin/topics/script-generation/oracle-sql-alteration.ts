@@ -1,5 +1,5 @@
-import {isNotAggregationTopic, isRawTopic} from '@/services/tuples/topic';
-import {Topic} from '@/services/tuples/topic-types';
+import {isNotAggregationTopic, isRawTopic} from '@/services/data/tuples/topic';
+import {Topic} from '@/services/data/tuples/topic-types';
 import JSZip from 'jszip';
 import {OracleFactorTypeMap} from './oracle';
 import {

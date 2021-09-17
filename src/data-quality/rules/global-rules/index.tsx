@@ -1,17 +1,17 @@
-import React from 'react';
-import {GlobalRuleCell, GlobalRuleEnablementCell, GlobalRuleRow, GlobalRuleSeqCell} from './widgets';
-import {Dropdown} from '@/basic-widgets/dropdown';
-import {prepareRuleParams, SeverityOptions, transformRuleDefsToDisplay} from '../utils';
-import {useEnabledAndSeverity} from '../use-enabled-and-severity';
-import {ColorfulCheckBox} from '../widgets';
-import {RuleParameters} from '../parameters';
 import {
 	GlobalRuleDefs,
 	MonitorRule,
 	MonitorRuleGrade,
 	MonitorRules,
 	MonitorRuleSeverity
-} from '@/services/data-quality/rule-types';
+} from '@/services/data/data-quality/rule-types';
+import {Dropdown} from '@/widgets/basic/dropdown';
+import React from 'react';
+import {RuleParameters} from '../parameters';
+import {useEnabledAndSeverity} from '../use-enabled-and-severity';
+import {prepareRuleParams, SeverityOptions, transformRuleDefsToDisplay} from '../utils';
+import {ColorfulCheckBox} from '../widgets';
+import {GlobalRuleCell, GlobalRuleEnablementCell, GlobalRuleRow, GlobalRuleSeqCell} from './widgets';
 
 export const GlobalRules = (props: { rules: MonitorRules }) => {
 	const {rules} = props;

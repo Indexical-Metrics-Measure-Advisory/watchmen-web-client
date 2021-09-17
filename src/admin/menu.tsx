@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {matchPath, useHistory, useLocation} from 'react-router-dom';
-import styled from 'styled-components';
+import {isDataQualityCenterEnabled, isMultipleDataSourcesEnabled} from '@/feature-switch';
+import {Router} from '@/routes/types';
+import {findAccount, isSuperAdmin, quit} from '@/services/data/account';
 import {
 	ICON_CONSOLE,
 	ICON_DATA_QUALITY,
@@ -23,19 +23,19 @@ import {
 	MOCK_ACCOUNT_NAME,
 	SIDE_MENU_MAX_WIDTH,
 	SIDE_MENU_MIN_WIDTH
-} from '@/basic-widgets/constants';
-import {SideMenuItem} from '@/basic-widgets/side-menu/side-menu-item';
-import {SideMenuLogo} from '@/basic-widgets/side-menu/side-menu-logo';
-import {SideMenuPlaceholder} from '@/basic-widgets/side-menu/side-menu-placeholder';
-import {SideMenuResizeHandle} from '@/basic-widgets/side-menu/side-menu-resize-handle';
-import {SideMenuSeparator} from '@/basic-widgets/side-menu/side-menu-separator';
-import {SideMenuUser} from '@/basic-widgets/side-menu/side-menu-user';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {Router} from '@/routes/types';
-import {findAccount, isSuperAdmin, quit} from '../services/account';
-import {SideMenuSwitchWorkbench} from '@/basic-widgets/side-menu/side-menu-switch-workbench';
-import {isDataQualityCenterEnabled, isMultipleDataSourcesEnabled} from '@/feature-switch';
+} from '@/widgets/basic/constants';
+import {SideMenuItem} from '@/widgets/basic/side-menu/side-menu-item';
+import {SideMenuLogo} from '@/widgets/basic/side-menu/side-menu-logo';
+import {SideMenuPlaceholder} from '@/widgets/basic/side-menu/side-menu-placeholder';
+import {SideMenuResizeHandle} from '@/widgets/basic/side-menu/side-menu-resize-handle';
+import {SideMenuSeparator} from '@/widgets/basic/side-menu/side-menu-separator';
+import {SideMenuSwitchWorkbench} from '@/widgets/basic/side-menu/side-menu-switch-workbench';
+import {SideMenuUser} from '@/widgets/basic/side-menu/side-menu-user';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import React, {useEffect, useState} from 'react';
+import {matchPath, useHistory, useLocation} from 'react-router-dom';
+import styled from 'styled-components';
 
 const AdminMenuContainer = styled.div.attrs<{ width: number }>(({width}) => {
 	return {

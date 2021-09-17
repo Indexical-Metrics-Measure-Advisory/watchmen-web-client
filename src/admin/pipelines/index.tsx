@@ -1,7 +1,7 @@
+import {Router} from '@/routes/types';
+import {FullWidthPage} from '@/widgets/basic/page';
 import React, {useEffect, useState} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
-import {FullWidthPage} from '@/basic-widgets/page';
-import {Router} from '@/routes/types';
 import {PipelinesCatalog} from './catalog';
 import {PipelineWorkbench} from './pipeline';
 import {PipelinesEventBusProvider, usePipelinesEventBus} from './pipelines-event-bus';

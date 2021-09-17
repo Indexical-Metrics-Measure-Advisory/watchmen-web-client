@@ -1,6 +1,6 @@
-import {DropdownOption} from '@/basic-widgets/types';
-import {Lang} from '@/langs';
-import {PieLabelAlignTo, PieLabelPosition, PieRoseType} from '@/services/tuples/chart-def/chart-pie';
+import {PieLabelAlignTo, PieLabelPosition, PieRoseType} from '@/services/data/tuples/chart-def/chart-pie';
+import {DropdownOption} from '@/widgets/basic/types';
+import {Lang} from '@/widgets/langs';
 
 export const PieRoseTypeOptions: Array<DropdownOption> = [
 	{value: PieRoseType.NONE, label: Lang.CHART.PIE_ROSE_TYPE_NONE},

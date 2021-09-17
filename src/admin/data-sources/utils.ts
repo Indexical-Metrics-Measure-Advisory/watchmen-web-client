@@ -1,6 +1,6 @@
-import {generateUuid} from '@/services/tuples/utils';
-import {getCurrentTime} from '@/services/utils';
-import {DataSource, DataSourceType} from '@/services/tuples/data-source-types';
+import {DataSource, DataSourceType} from '@/services/data/tuples/data-source-types';
+import {generateUuid} from '@/services/data/tuples/utils';
+import {getCurrentTime} from '@/services/data/utils';
 
 export const createDataSource = (): DataSource => {
 	return {

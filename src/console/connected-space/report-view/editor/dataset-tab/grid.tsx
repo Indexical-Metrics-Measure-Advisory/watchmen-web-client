@@ -1,15 +1,15 @@
-import {GridEventBusProvider, useGridEventBus} from '@/dataset-grid/grid-event-bus';
-import {Subject} from '@/services/tuples/subject-types';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
-import {Report} from '@/services/tuples/report-types';
-import {Grid} from '@/dataset-grid';
+import {ChartDataSet} from '@/services/data/tuples/chart-types';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
+import {Grid} from '@/widgets/dataset-grid';
+import {DEFAULT_COLUMN_WIDTH} from '@/widgets/dataset-grid/constants';
+import {GridEventBusProvider, useGridEventBus} from '@/widgets/dataset-grid/grid-event-bus';
+import {GridEventTypes} from '@/widgets/dataset-grid/grid-event-bus-types';
+import {ColumnSortBy} from '@/widgets/dataset-grid/types';
 import {useEffect} from 'react';
-import {ReportDataSetEventTypes} from './report-dataset-event-bus-types';
 import {useReportDataSetEventBus} from './report-dataset-event-bus';
-import {GridEventTypes} from '@/dataset-grid/grid-event-bus-types';
-import {ChartDataSet} from '@/services/tuples/chart-types';
-import {ColumnSortBy} from '@/dataset-grid/types';
-import {DEFAULT_COLUMN_WIDTH} from '@/dataset-grid/constants';
+import {ReportDataSetEventTypes} from './report-dataset-event-bus-types';
 
 const SubjectDataGridController = () => {
 	const {fire: fireGrid} = useGridEventBus();

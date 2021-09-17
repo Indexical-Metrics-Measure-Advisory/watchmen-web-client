@@ -1,14 +1,14 @@
+import {isAdmin} from '@/services/data/account';
+import {saveLastSnapshot} from '@/services/data/account/last-snapshot';
+import {Dashboard} from '@/services/data/tuples/dashboard-types';
+import {AlertLabel} from '@/widgets/alert/widgets';
+import {ICON_AS_ADMIN_HOME} from '@/widgets/basic/constants';
+import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {AlertLabel} from '@/alert/widgets';
-import {ICON_AS_ADMIN_HOME} from '@/basic-widgets/constants';
-import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {Lang} from '@/langs';
-import {isAdmin} from '@/services/account';
-import {saveLastSnapshot} from '@/services/account/last-snapshot';
-import {Dashboard} from '@/services/tuples/dashboard-types';
 
 export const HeaderSetAdminHomeButton = (props: { dashboard: Dashboard }) => {
 	const {dashboard} = props;

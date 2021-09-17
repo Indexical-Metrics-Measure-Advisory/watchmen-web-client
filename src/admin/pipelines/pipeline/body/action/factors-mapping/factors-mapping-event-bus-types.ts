@@ -1,4 +1,4 @@
-import {MappingFactor} from '@/services/tuples/pipeline-stage-unit-action/write-topic-actions-types';
+import {MappingFactor} from '@/services/data/tuples/pipeline-stage-unit-action/write-topic-actions-types';
 
 export enum FactorsMappingEventTypes {
 	MAPPING_ADDED = 'mapping-added',

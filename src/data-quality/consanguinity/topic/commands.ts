@@ -1,7 +1,7 @@
-import {Command, CommandPublishedBehaviorBackward, CommandPublishedBehaviorType} from '../../command/types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import {CMD_ARGUMENT_LIST, CMD_ARGUMENT_VIEW} from '../../command';
+import {Command, CommandPublishedBehaviorBackward, CommandPublishedBehaviorType} from '../../command/types';
 import {getTopicName} from '../../utils';
-import {Topic} from '@/services/tuples/topic-types';
 
 export const CMD_TOPIC = '/topic';
 

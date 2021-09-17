@@ -1,13 +1,13 @@
+import {Router} from '@/routes/types';
+import {toConnectedSpaceCatalog} from '@/routes/utils';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {ICON_CONNECTED_SPACE_CATALOG} from '@/widgets/basic/constants';
+import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
+import {ButtonInk} from '@/widgets/basic/types';
+import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {matchPath, useHistory} from 'react-router-dom';
-import {ICON_CONNECTED_SPACE_CATALOG} from '@/basic-widgets/constants';
-import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
-import {ButtonInk} from '@/basic-widgets/types';
-import {Lang} from '@/langs';
-import {Router} from '@/routes/types';
-import {toConnectedSpaceCatalog} from '@/routes/utils';
-import {ConnectedSpace} from '@/services/tuples/connected-space-types';
 
 const isCatalogNow = () => !!matchPath(window.location.pathname, Router.CONSOLE_CONNECTED_SPACE_CATALOG);
 

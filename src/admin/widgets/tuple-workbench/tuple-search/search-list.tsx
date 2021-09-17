@@ -1,6 +1,6 @@
+import {DataPage} from '@/services/data/query/data-page';
+import {QueryTuple} from '@/services/data/tuples/tuple-types';
 import React, {Fragment, useEffect, useState} from 'react';
-import {DataPage} from '@/services/query/data-page';
-import {QueryTuple} from '@/services/tuples/tuple-types';
 import {useTupleEventBus} from '../tuple-event-bus';
 import {TupleEventTypes} from '../tuple-event-bus-types';
 import {

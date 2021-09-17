@@ -1,17 +1,17 @@
+import {Topic} from '@/services/data/tuples/topic-types';
+import {Button} from '@/widgets/basic/button';
+import {ICON_TOPIC} from '@/widgets/basic/constants';
+import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
+import {ButtonInk} from '@/widgets/basic/types';
+import {DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useState} from 'react';
-import {ICON_TOPIC} from '@/basic-widgets/constants';
-import {PageHeaderButton} from '@/basic-widgets/page-header-buttons';
 import {useCatalogEventBus} from '../catalog-event-bus';
-import {AssembledPipelinesGraphics} from '../types';
-import {EventTypes} from '@/events/types';
-import {useEventBus} from '@/events/event-bus';
-import {DialogFooter, DialogLabel} from '@/dialog/widgets';
-import {ButtonInk} from '@/basic-widgets/types';
-import {Button} from '@/basic-widgets/button';
-import {Topic} from '@/services/tuples/topic-types';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {createInitTopicRect} from '../graphics-utils';
+import {AssembledPipelinesGraphics} from '../types';
 import {TopicPickerTable} from './topic-picker-table';
 import {PickerDialogBody} from './widgets';
 

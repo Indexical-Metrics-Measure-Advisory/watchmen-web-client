@@ -1,21 +1,21 @@
-import {isRuleOnTopic} from '@/services/data-quality/rules';
-import {prepareRuleParams, SeverityOptions, transformRuleDefsToDisplay} from '../utils';
-import {TopicRuleCell, TopicRuleEnablementCell, TopicRuleRow, TopicRuleSeqCell} from './widgets';
-import {Dropdown} from '@/basic-widgets/dropdown';
-import React, {useEffect, useState} from 'react';
-import {Topic} from '@/services/tuples/topic-types';
-import {useEnabledAndSeverity} from '../use-enabled-and-severity';
-import {ColorfulCheckBox} from '../widgets';
-import {useRulesEventBus} from '../rules-event-bus';
-import {RulesEventTypes} from '../rules-event-bus-types';
-import {RuleParameters} from '../parameters';
 import {
 	MonitorRuleGrade,
 	MonitorRuleOnTopic,
 	MonitorRules,
 	MonitorRuleSeverity,
 	TopicRuleDefs
-} from '@/services/data-quality/rule-types';
+} from '@/services/data/data-quality/rule-types';
+import {isRuleOnTopic} from '@/services/data/data-quality/rules';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {Dropdown} from '@/widgets/basic/dropdown';
+import React, {useEffect, useState} from 'react';
+import {RuleParameters} from '../parameters';
+import {useRulesEventBus} from '../rules-event-bus';
+import {RulesEventTypes} from '../rules-event-bus-types';
+import {useEnabledAndSeverity} from '../use-enabled-and-severity';
+import {prepareRuleParams, SeverityOptions, transformRuleDefsToDisplay} from '../utils';
+import {ColorfulCheckBox} from '../widgets';
+import {TopicRuleCell, TopicRuleEnablementCell, TopicRuleRow, TopicRuleSeqCell} from './widgets';
 
 export const TopicGradeRules = (props: { topic: Topic; rules: MonitorRules }) => {
 	const {topic, rules} = props;

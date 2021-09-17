@@ -1,6 +1,6 @@
-import {QueryEnumForHolder} from '@/services/tuples/query-enum-types';
+import {QueryDataSourceForHolder} from '@/services/data/tuples/query-data-source-types';
+import {QueryEnumForHolder} from '@/services/data/tuples/query-enum-types';
 import {HoldByTuple} from '../widgets/tuple-workbench/tuple-event-bus-types';
-import {QueryDataSourceForHolder} from '@/services/tuples/query-data-source-types';
 
 export interface HoldByTopic extends HoldByTuple {
 	enums?: Array<QueryEnumForHolder>;

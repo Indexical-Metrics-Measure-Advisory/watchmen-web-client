@@ -1,5 +1,5 @@
-import {Subject} from '@/services/tuples/subject-types';
-import {Report} from '@/services/tuples/report-types';
+import {Report} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
 import React from 'react';
 import {TabBodyContainer} from './widget';
 

@@ -1,7 +1,7 @@
-import {ICON_ADD} from '@/basic-widgets/constants';
-import {useSubParamAdd} from '@/data-filter/sub-param/use-sub-param-add';
-import {ComputedParameter, Parameter} from '@/services/tuples/factor-calculator-types';
-import {canAddMoreParameter} from '@/services/tuples/parameter-utils';
+import {ComputedParameter, Parameter} from '@/services/data/tuples/factor-calculator-types';
+import {canAddMoreParameter} from '@/services/data/tuples/parameter-utils';
+import {ICON_ADD} from '@/widgets/basic/constants';
+import {useSubParamAdd} from '@/widgets/parameter/sub-param/use-sub-param-add';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {ParameterAddButton, ParameterAddContainer} from './widgets';

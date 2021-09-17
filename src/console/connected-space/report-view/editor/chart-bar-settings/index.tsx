@@ -1,8 +1,8 @@
+import {BarLabelPosition} from '@/services/data/tuples/chart-def/chart-bar';
+import {isBarChart, isLineChart} from '@/services/data/tuples/chart-utils';
+import {Report} from '@/services/data/tuples/report-types';
+import {Lang} from '@/widgets/langs';
 import React from 'react';
-import {Lang} from '@/langs';
-import {BarLabelPosition} from '@/services/tuples/chart-def/chart-bar';
-import {isBarChart, isLineChart} from '@/services/tuples/chart-utils';
-import {Report} from '@/services/tuples/report-types';
 import {
 	isANumberAndInRange,
 	onBooleanChange,
@@ -11,6 +11,7 @@ import {
 	onNumberChange,
 	validateNumber
 } from '../data-utils';
+import {TabBodySection, TabBodySectionBody, TabBodySectionTitle} from '../dataset-and-palette/widget';
 import {AlignmentSettings, SettingsAlignmentPropNames} from '../echarts/alignment';
 import {BarSettings, SettingsBarPropNames} from '../echarts/bar';
 import {BorderSettings, SettingsBorderPropNames} from '../echarts/border';
@@ -25,7 +26,6 @@ import {BooleanValue} from '../settings-widgets/boolean-value';
 import {ColorValue} from '../settings-widgets/color-value';
 import {DropdownValue} from '../settings-widgets/dropdown-value';
 import {NumberValue} from '../settings-widgets/number-value';
-import {TabBodySection, TabBodySectionBody, TabBodySectionTitle} from '../dataset-and-palette/widget';
 
 export const ChartBarSettings = (props: { report: Report }) => {
 	const {report} = props;

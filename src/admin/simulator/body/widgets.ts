@@ -1,5 +1,5 @@
+import {Button} from '@/widgets/basic/button';
 import styled from 'styled-components';
-import {Button} from '@/basic-widgets/button';
 
 export const PART_MAX_HEIGHT = 'calc(100vh - 57px - 3 * 40px)';
 

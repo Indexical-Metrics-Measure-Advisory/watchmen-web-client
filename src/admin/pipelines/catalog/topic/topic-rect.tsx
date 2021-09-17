@@ -1,5 +1,5 @@
+import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useState} from 'react';
-import {useForceUpdate} from '@/basic-widgets/utils';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {AssembledTopicGraphics, GraphicsRole} from '../types';
