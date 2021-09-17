@@ -1,3 +1,20 @@
+import {DataQualityCacheData} from '@/local-persist/types';
+import {isBusinessTopic, isDistinctTopic, isRawTopic, isSystemTopic} from '@/services/tuples/topic';
+import {Topic, TopicType} from '@/services/tuples/topic-types';
+import React, {useState} from 'react';
+import {useDataQualityCacheData} from '../../cache/use-cache-data';
+import {Command} from '../../command/types';
+import {getTopicName} from '../../utils';
+import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
+import {CliEventTypes} from '../../widgets/cli/events/cli-event-bus-types';
+import {ExecutionDelegate} from '../../widgets/cli/execution/execution-delegate';
+import {
+	ExecutionCommandLineArgument,
+	ExecutionCommandLinePrimary,
+	ExecutionResultClickableItem,
+	ExecutionResultItemTable,
+	ExecutionResultNoData
+} from '../../widgets/cli/execution/widgets';
 import {ExecutionContent} from '../../widgets/cli/types';
 import {
 	buildViewTopicCommand,
@@ -9,22 +26,6 @@ import {
 	CMD_ARGUMENT_SYSTEM,
 	CMD_ARGUMENT_TIME
 } from './commands';
-import {
-	ExecutionCommandLineArgument,
-	ExecutionCommandLinePrimary,
-	ExecutionResultClickableItem,
-	ExecutionResultItemTable,
-	ExecutionResultNoData
-} from '../../widgets/cli/execution/widgets';
-import {getTopicName} from '../../utils';
-import {ExecutionDelegate} from '../../widgets/cli/execution/execution-delegate';
-import React, {useState} from 'react';
-import {DataQualityCacheData} from '@/local-persist/types';
-import {useDataQualityCacheData} from '../../cache/use-cache-data';
-import {CliEventTypes} from '../../widgets/cli/events/cli-event-bus-types';
-import {useCliEventBus} from '../../widgets/cli/events/cli-event-bus';
-import {Topic, TopicKind, TopicType} from '@/services/tuples/topic-types';
-import {Command} from '../../command/types';
 
 const buildFilter = (command: Command) => {
 	if (!command) {
@@ -33,13 +34,13 @@ const buildFilter = (command: Command) => {
 
 	switch (command.command) {
 		case CMD_ARGUMENT_SYSTEM:
-			return (topic: Topic) => topic.kind === TopicKind.SYSTEM;
+			return (topic: Topic) => isSystemTopic(topic);
 		case CMD_ARGUMENT_BIZ:
-			return (topic: Topic) => topic.kind === TopicKind.BUSINESS;
+			return (topic: Topic) => isBusinessTopic(topic);
 		case CMD_ARGUMENT_RAW:
-			return (topic: Topic) => topic.type === TopicType.RAW;
+			return (topic: Topic) => isRawTopic(topic);
 		case CMD_ARGUMENT_DISTINCT:
-			return (topic: Topic) => topic.type === TopicType.DISTINCT;
+			return (topic: Topic) => isDistinctTopic(topic);
 		case CMD_ARGUMENT_AGGREGATE:
 			return (topic: Topic) => topic.type === TopicType.AGGREGATE;
 		case CMD_ARGUMENT_TIME:

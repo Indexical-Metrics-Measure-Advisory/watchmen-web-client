@@ -1,8 +1,14 @@
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {MouseEvent} from 'react';
 import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT, ICON_TOPIC_PROFILE} from '@/basic-widgets/constants';
 import {TooltipAlignment} from '@/basic-widgets/types';
+import {isDataQualityCenterEnabled} from '@/feature-switch';
 import {QueryTopic} from '@/services/tuples/query-topic-types';
+import {fetchTopic, isNotRawTopic} from '@/services/tuples/topic';
+import {prettifyDateTimeToMinute} from '@/services/tuples/utils';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import dayjs from 'dayjs';
+import React, {MouseEvent} from 'react';
+import {useTopicProfileEventBus} from '../topic-profile/topic-profile-event-bus';
+import {TopicProfileEventTypes} from '../topic-profile/topic-profile-event-bus-types';
 import {
 	TupleCard,
 	TupleCardDescription,
@@ -13,13 +19,6 @@ import {
 } from '../widgets/tuple-workbench/tuple-card';
 import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
-import {useTopicProfileEventBus} from '../topic-profile/topic-profile-event-bus';
-import {TopicProfileEventTypes} from '../topic-profile/topic-profile-event-bus-types';
-import dayjs from 'dayjs';
-import {fetchTopic} from '@/services/tuples/topic';
-import {TopicType} from '@/services/tuples/topic-types';
-import {isDataQualityCenterEnabled} from '@/feature-switch';
-import {prettifyDateTimeToMinute} from '@/services/tuples/utils';
 
 const TopicCard = (props: { topic: QueryTopic }) => {
 	const {topic} = props;
@@ -40,7 +39,7 @@ const TopicCard = (props: { topic: QueryTopic }) => {
 	return <TupleCard key={topic.topicId} onClick={onEditClicked}>
 		<TupleCardTitle>
 			<span>{topic.name}</span>
-			{isDataQualityCenterEnabled() && topic.type !== TopicType.RAW
+			{isDataQualityCenterEnabled() && isNotRawTopic(topic)
 				? <TupleProfileButton tooltip={{label: 'Profile', alignment: TooltipAlignment.CENTER}}
 				                      onClick={onProfileClicked}>
 					<FontAwesomeIcon icon={ICON_TOPIC_PROFILE}/>

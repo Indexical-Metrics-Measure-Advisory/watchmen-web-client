@@ -1,14 +1,21 @@
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {MouseEvent, useEffect, useState} from 'react';
-import {useHistory} from 'react-router-dom';
 import {ICON_ADD, ICON_CLOSE, ICON_TOPIC_PROFILE} from '@/basic-widgets/constants';
 import {TooltipAlignment} from '@/basic-widgets/types';
 import {useEventBus} from '@/events/event-bus';
 import {EventTypes} from '@/events/types';
+import {isDataQualityCenterEnabled} from '@/feature-switch';
 import {toPipeline} from '@/routes/utils';
 import {savePipeline} from '@/services/tuples/pipeline';
 import {Pipeline} from '@/services/tuples/pipeline-types';
-import {Topic, TopicType} from '@/services/tuples/topic-types';
+import {isNotRawTopic} from '@/services/tuples/topic';
+import {Topic} from '@/services/tuples/topic-types';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import dayjs from 'dayjs';
+import React, {MouseEvent, useEffect, useState} from 'react';
+import {useHistory} from 'react-router-dom';
+// noinspection ES6PreferShortImport
+import {useTopicProfileEventBus} from '../../../topic-profile/topic-profile-event-bus';
+// noinspection ES6PreferShortImport
+import {TopicProfileEventTypes} from '../../../topic-profile/topic-profile-event-bus-types';
 import {createPipeline} from '../../data-utils';
 import {usePipelinesEventBus} from '../../pipelines-event-bus';
 import {PipelinesEventTypes} from '../../pipelines-event-bus-types';
@@ -17,12 +24,6 @@ import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {PipelinesBody} from './pipelines-body';
 import {TopicBody} from './topic-body';
 import {NavigatorContainer, NavigatorHeader, NavigatorHeaderButton, NavigatorHeaderTitle} from './widgets';
-// noinspection ES6PreferShortImport
-import {TopicProfileEventTypes} from '../../../topic-profile/topic-profile-event-bus-types';
-import dayjs from 'dayjs';
-// noinspection ES6PreferShortImport
-import {useTopicProfileEventBus} from '../../../topic-profile/topic-profile-event-bus';
-import {isDataQualityCenterEnabled} from '@/feature-switch';
 
 enum OpenPanel {
 	TOPIC, INCOMING, OUTGOING
@@ -96,7 +97,7 @@ export const Navigator = (props: {
 	return <NavigatorContainer visible={visible}>
 		<NavigatorHeader onClick={onHeaderClicked(OpenPanel.TOPIC)}>
 			<NavigatorHeaderTitle>{name}</NavigatorHeaderTitle>
-			{isDataQualityCenterEnabled() && topic != null && topic.type !== TopicType.RAW
+			{isDataQualityCenterEnabled() && topic != null && isNotRawTopic(topic)
 				? <NavigatorHeaderButton tooltip={{label: 'Profile', alignment: TooltipAlignment.CENTER}}
 				                         onClick={onProfileClicked}>
 					<FontAwesomeIcon icon={ICON_TOPIC_PROFILE}/>

@@ -1,5 +1,7 @@
-import {Topic, TopicType} from '@/services/tuples/topic-types';
+import {isNotAggregationTopic, isRawTopic} from '@/services/tuples/topic';
+import {Topic} from '@/services/tuples/topic-types';
 import JSZip from 'jszip';
+import {OracleFactorTypeMap} from './oracle';
 import {
 	asFactorName,
 	asFullTopicName,
@@ -13,10 +15,8 @@ import {
 	getRawTopicDataColumnName,
 	getTenantIdColumnName,
 	getUpdateTimeColumnName,
-	getVersionColumnName,
-	isAggregateTopic
+	getVersionColumnName
 } from './utils';
-import {OracleFactorTypeMap} from './oracle';
 
 const buildColumn = (topic: Topic, columnName: string, columnType: string) => {
 	const tableName = asFullTopicName(topic);
@@ -30,7 +30,7 @@ const buildColumn = (topic: Topic, columnName: string, columnType: string) => {
 	END IF;`;
 };
 const buildFactors = (topic: Topic) => {
-	if (topic.type === TopicType.RAW) {
+	if (isRawTopic(topic)) {
 		return [
 			...topic.factors.filter(factor => {
 				return factor.name.indexOf('.') === -1 && factor.flatten === true;
@@ -47,14 +47,14 @@ const buildFactors = (topic: Topic) => {
 };
 
 const buildAggregateAssist = (topic: Topic) => {
-	if (!isAggregateTopic(topic)) {
+	if (isNotAggregationTopic(topic)) {
 		return '';
 	}
 
 	return buildColumn(topic, getAggregateAssistColumnName(), 'VARCHAR2(1024)');
 };
 const buildVersionAssist = (topic: Topic) => {
-	if (!isAggregateTopic(topic)) {
+	if (isNotAggregationTopic(topic)) {
 		return '';
 	}
 

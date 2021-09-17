@@ -1,9 +1,10 @@
-import {DQCMaps, DQCRelations} from '../../cache/types';
-import {Topic, TopicType} from '@/services/tuples/topic-types';
-import {getPipelineName, getTopicName} from '../../utils';
-import {getCurrentTheme} from '@/theme/theme-wrapper';
-import {Pipeline} from '@/services/tuples/pipeline-types';
 import {MappedTopic, MappedTopicsMap} from '@/services/pipeline/pipeline-relations';
+import {Pipeline} from '@/services/tuples/pipeline-types';
+import {isRawTopic} from '@/services/tuples/topic';
+import {Topic} from '@/services/tuples/topic-types';
+import {getCurrentTheme} from '@/theme/theme-wrapper';
+import {DQCMaps, DQCRelations} from '../../cache/types';
+import {getPipelineName, getTopicName} from '../../utils';
 
 interface Link {
 	source: Topic;
@@ -96,7 +97,7 @@ export const compute = (options: {
 	let links: Array<Link> = [];
 	Object.values(maps.topics).filter(({topic}: MappedTopic) => {
 		// no start topic given then use all raw topics
-		return (!startTopic && topic.type === TopicType.RAW) || topic === startTopic;
+		return (!startTopic && isRawTopic(topic)) || topic === startTopic;
 	}).forEach(({topic}) => {
 		buildLinks({source: topic, processedTopics, relations, links, stops: stopTopic});
 	});

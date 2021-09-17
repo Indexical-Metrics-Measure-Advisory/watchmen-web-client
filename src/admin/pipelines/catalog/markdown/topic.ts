@@ -1,10 +1,11 @@
-import {Topic, TopicType} from '@/services/tuples/topic-types';
 import {PipelineRelationMap, PipelinesMap, TopicRelationMap} from '@/services/pipeline/pipeline-relations';
 import {Factor} from '@/services/tuples/factor-types';
+import {isRawTopic} from '@/services/tuples/topic';
+import {Topic} from '@/services/tuples/topic-types';
 import {EnumsMap} from './types';
 
 const canBeFlatten = (topic: Topic, factor?: Factor) => {
-	return topic.type === TopicType.RAW && (factor ? (factor.name || '').indexOf('.') !== -1 : true);
+	return isRawTopic(topic) && (factor ? (factor.name || '').indexOf('.') !== -1 : true);
 };
 
 export const generateTopicMarkdown = (options: {

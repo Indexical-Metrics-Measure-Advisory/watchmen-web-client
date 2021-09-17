@@ -1,6 +1,21 @@
+import {getTopicName} from '@/data-quality/utils';
+import {isRawTopic} from '@/services/tuples/topic';
+import {
+	ComputedParameter,
+	ConstantParameter,
+	Parameter,
+	ParameterJoint,
+	TopicFactorParameter,
+	VariablePredefineFunctions
+} from '../tuples/factor-calculator-types';
 import {Factor} from '../tuples/factor-types';
-import {Topic, TopicType} from '../tuples/topic-types';
-import {Pipeline} from '../tuples/pipeline-types';
+import {
+	isComputedParameter,
+	isConstantParameter,
+	isExpressionParameter,
+	isJointParameter,
+	isTopicFactorParameter
+} from '../tuples/parameter-utils';
 import {
 	isAlarmAction,
 	isCopyToMemoryAction,
@@ -10,22 +25,8 @@ import {
 	isWriteFactorAction,
 	isWriteTopicAction
 } from '../tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
-import {getTopicName} from '@/data-quality/utils';
-import {
-	ComputedParameter,
-	ConstantParameter,
-	Parameter,
-	ParameterJoint,
-	TopicFactorParameter,
-	VariablePredefineFunctions
-} from '../tuples/factor-calculator-types';
-import {
-	isComputedParameter,
-	isConstantParameter,
-	isExpressionParameter,
-	isJointParameter,
-	isTopicFactorParameter
-} from '../tuples/parameter-utils';
+import {Pipeline} from '../tuples/pipeline-types';
+import {Topic} from '../tuples/topic-types';
 
 export type FactorsMap = { [key in string]: Factor };
 export type TopicsMap = { [key in string]: Topic };
@@ -288,7 +289,7 @@ export const buildTopicsRelation = (topics: Array<Topic>, pipelineRelations: Pip
 				.filter(relation => relation.outgoing.some(({topic: write}) => write === topic))
 				.map(relation => relation.pipeline)
 		};
-		const alwaysWritten = topic.type === TopicType.RAW;
+		const alwaysWritten = isRawTopic(topic);
 		relations[topic.topicId] = {
 			...part,
 			notUsedFactors: topic.factors.map(factor => {

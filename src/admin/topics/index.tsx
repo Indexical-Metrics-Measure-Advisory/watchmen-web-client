@@ -1,28 +1,28 @@
-import React, {useEffect} from 'react';
 import {AlertLabel} from '@/alert/widgets';
-import TopicBackground from '../../assets/topic-background.svg';
 import {ICON_DOWNLOAD, TUPLE_SEARCH_PAGE_SIZE} from '@/basic-widgets/constants';
 import {useEventBus} from '@/events/event-bus';
 import {EventTypes} from '@/events/types';
+import {isMultipleDataSourcesEnabled} from '@/feature-switch';
+import {AdminCacheData} from '@/local-persist/types';
 import {DataPage} from '@/services/query/data-page';
+import {listDataSourcesForHolder} from '@/services/tuples/data-source';
 import {listEnumsForHolder} from '@/services/tuples/enum';
 import {FactorType} from '@/services/tuples/factor-types';
 import {QueryTopic} from '@/services/tuples/query-topic-types';
-import {fetchTopic, listTopics, saveTopic} from '@/services/tuples/topic';
-import {Topic, TopicType} from '@/services/tuples/topic-types';
+import {fetchTopic, isNotRawTopic, listTopics, saveTopic} from '@/services/tuples/topic';
+import {Topic} from '@/services/tuples/topic-types';
 import {QueryTuple} from '@/services/tuples/tuple-types';
+import React, {useEffect} from 'react';
+import TopicBackground from '../../assets/topic-background.svg';
+import {useAdminCacheEventBus} from '../cache/cache-event-bus';
+import {AdminCacheEventTypes} from '../cache/cache-event-bus-types';
 import {TupleWorkbench} from '../widgets/tuple-workbench';
 import {TupleEventBusProvider, useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
 import {renderCard} from './card';
 import {renderEditor} from './editor';
-import {createTopic} from './utils';
-import {useAdminCacheEventBus} from '../cache/cache-event-bus';
-import {AdminCacheEventTypes} from '../cache/cache-event-bus-types';
 import {ScriptsDownloadDialog} from './scripts-download-dialog';
-import {AdminCacheData} from '@/local-persist/types';
-import {listDataSourcesForHolder} from '@/services/tuples/data-source';
-import {isMultipleDataSourcesEnabled} from '@/feature-switch';
+import {createTopic} from './utils';
 
 const fetchTopicAndCodes = async (queryTopic: QueryTopic) => {
 	const {topic} = await fetchTopic(queryTopic.topicId);
@@ -100,7 +100,7 @@ const AdminTopics = () => {
 						Please use camel case or snake case for factor name.
 					</AlertLabel>);
 				return;
-			} else if (topic.type !== TopicType.RAW && topic.factors.some(f => f.type === FactorType.OBJECT || f.type === FactorType.ARRAY)) {
+			} else if (isNotRawTopic(topic) && topic.factors.some(f => f.type === FactorType.OBJECT || f.type === FactorType.ARRAY)) {
 				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
 					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
 				}).fire(EventTypes.SHOW_ALERT,

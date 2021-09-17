@@ -1,5 +1,10 @@
+import {FactorType} from '@/services/tuples/factor-types';
+import {isAggregationTopic, isNotAggregationTopic, isRawTopic} from '@/services/tuples/topic';
+import {Topic} from '@/services/tuples/topic-types';
 import JSZip from 'jszip';
-import {Topic, TopicType} from '@/services/tuples/topic-types';
+import {v4} from 'uuid';
+import {MySQLFactorTypeMap} from './mysql';
+import {OracleFactorTypeMap} from './oracle';
 import {
 	asFactorName,
 	asFullTopicName,
@@ -14,13 +19,8 @@ import {
 	getRawTopicDataColumnName,
 	getTenantIdColumnName,
 	getUpdateTimeColumnName,
-	getVersionColumnName,
-	isAggregateTopic
+	getVersionColumnName
 } from './utils';
-import {OracleFactorTypeMap} from './oracle';
-import {FactorType} from '@/services/tuples/factor-types';
-import {MySQLFactorTypeMap} from './mysql';
-import {v4} from 'uuid';
 
 const buildColumnOnCreate = (options: { topic: Topic, columnName: string, columnType: string, should?: (topic: Topic) => boolean }) => {
 	const {topic, columnName, columnType, should} = options;
@@ -31,7 +31,7 @@ const buildColumnOnCreate = (options: { topic: Topic, columnName: string, column
 	}
 };
 const buildFactorsOnCreate = (topic: Topic) => {
-	if (topic.type === TopicType.RAW) {
+	if (isRawTopic(topic)) {
 		return [
 			...topic.factors.filter(factor => {
 				return factor.name.indexOf('.') === -1 && factor.flatten === true;
@@ -59,7 +59,7 @@ const buildAggregateAssistOnCreate = (topic: Topic) => {
 		topic,
 		columnName: getAggregateAssistColumnName(),
 		columnType: 'aggregate-assist-column.type',
-		should: isAggregateTopic
+		should: isAggregationTopic
 	});
 };
 const buildVersionOnCreate = (topic: Topic) => {
@@ -67,7 +67,7 @@ const buildVersionOnCreate = (topic: Topic) => {
 		topic,
 		columnName: getVersionColumnName(),
 		columnType: 'version-column.type',
-		should: isAggregateTopic
+		should: isAggregationTopic
 	});
 };
 const buildTenantIdColumnOnCreate = (topic: Topic) => {
@@ -108,7 +108,7 @@ const buildColumnOnModify = (options: { topic: Topic; columnName: string; column
     </changSet>`;
 };
 const buildFactorsOnModify = (topic: Topic) => {
-	if (topic.type === TopicType.RAW) {
+	if (isRawTopic(topic)) {
 		return [
 			...topic.factors.filter(factor => {
 				return factor.name.indexOf('.') === -1 && factor.flatten === true;
@@ -129,7 +129,7 @@ const buildFactorsOnModify = (topic: Topic) => {
 };
 
 const buildAggregateAssistOnModify = (topic: Topic) => {
-	if (!isAggregateTopic(topic)) {
+	if (isNotAggregationTopic(topic)) {
 		return '';
 	}
 
@@ -140,7 +140,7 @@ const buildAggregateAssistOnModify = (topic: Topic) => {
 	});
 };
 const buildVersionOnModify = (topic: Topic) => {
-	if (!isAggregateTopic(topic)) {
+	if (isNotAggregationTopic(topic)) {
 		return '';
 	}
 	return buildColumnOnModify({topic, columnName: getVersionColumnName(), columnType: 'version-column.type'});

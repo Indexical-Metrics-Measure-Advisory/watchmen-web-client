@@ -1,5 +1,5 @@
-import {Topic, TopicType} from '@/services/tuples/topic-types';
 import {Factor} from '@/services/tuples/factor-types';
+import {Topic} from '@/services/tuples/topic-types';
 
 export type IndexGroups = { [key in string]: Array<Factor> };
 
@@ -23,7 +23,6 @@ export const gatherIndexes = (topic: Topic): IndexGroups => {
 	return collectIndexes(topic, 'i-');
 };
 
-export const isAggregateTopic = (topic: Topic) => [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type);
 export const asTopicName = (topic: Topic) => {
 	return topic.name.toLowerCase().replaceAll('-', '_').replaceAll(' ', '_');
 };

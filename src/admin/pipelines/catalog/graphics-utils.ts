@@ -5,7 +5,9 @@ import {
 	PipelinesGraphics,
 	TopicGraphics
 } from '@/services/tuples/pipeline-types';
+import {isDistinctTopic, isRawTopic} from '@/services/tuples/topic';
 import {Topic, TopicType} from '@/services/tuples/topic-types';
+import {getCurrentTime} from '@/services/utils';
 import {
 	BLOCK_FULL_PADDING_HORIZONTAL,
 	BLOCK_FULL_PADDING_VERTICAL,
@@ -20,7 +22,6 @@ import {
 	SELECTION_GAP
 } from './constants';
 import {AssembledPipelinesGraphics, AssembledTopicGraphics, GraphicsRole, RelationCurvePoints} from './types';
-import {getCurrentTime} from '@/services/utils';
 
 const dependRectData = (rect: PipelineBlockGraphicsRect): PipelineBlockGraphicsRect => {
 	const {
@@ -115,8 +116,8 @@ const computeTopicsGraphics = (graphics: AssembledPipelinesGraphics, svg: SVGSVG
 		}
 	});
 	const allTopics = Array.from(topicMap.values());
-	const rawTopics = allTopics.filter(({topic}) => topic.type === TopicType.RAW);
-	const distinctTopics = allTopics.filter(({topic}) => topic.type === TopicType.DISTINCT);
+	const rawTopics = allTopics.filter(({topic}) => isRawTopic(topic));
+	const distinctTopics = allTopics.filter(({topic}) => isDistinctTopic(topic));
 	const aggregateTopics = allTopics.filter(({topic}) => topic.type === TopicType.AGGREGATE);
 	const timeTopics = allTopics.filter(({topic}) => topic.type === TopicType.TIME);
 	const ratioTopics = allTopics.filter(({topic}) => topic.type === TopicType.RATIO);

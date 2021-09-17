@@ -1,6 +1,7 @@
-import {Topic, TopicType} from '@/services/tuples/topic-types';
-import {Factor, FactorType} from '@/services/tuples/factor-types';
 import {MonitorRuleCode, MonitorRuleSeverity} from '@/services/data-quality/rule-types';
+import {Factor, FactorType} from '@/services/tuples/factor-types';
+import {isNotRawTopic, isRawTopic} from '@/services/tuples/topic';
+import {Topic} from '@/services/tuples/topic-types';
 
 export interface MonitorRuleDef {
 	code: MonitorRuleCode;
@@ -34,7 +35,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		code: MonitorRuleCode.RAW_MISMATCH_STRUCTURE,
 		name: 'Row of raw topic mismatches structure',
 		severity: MonitorRuleSeverity.WARN,
-		canApply: (topic: Topic) => topic.type === TopicType.RAW,
+		canApply: (topic: Topic) => isRawTopic(topic),
 		enabled: false
 	},
 	{
@@ -83,7 +84,7 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 		code: MonitorRuleCode.ROWS_COUNT_MISMATCH_AND_ANOTHER,
 		severity: MonitorRuleSeverity.FATAL,
 		name: 'Rows count mismatches another topic\'s',
-		canApply: (topic: Topic) => topic.type !== TopicType.RAW,
+		canApply: (topic: Topic) => isNotRawTopic(topic),
 		parameters: [MonitorRuleParameterType.TOPIC, MonitorRuleParameterType.STATISTICAL_INTERVAL],
 		enabled: true
 	},

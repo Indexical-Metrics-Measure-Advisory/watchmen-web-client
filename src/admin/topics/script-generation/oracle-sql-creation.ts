@@ -1,5 +1,7 @@
-import {Topic, TopicType} from '@/services/tuples/topic-types';
+import {isAggregationTopic, isRawTopic} from '@/services/tuples/topic';
+import {Topic} from '@/services/tuples/topic-types';
 import JSZip from 'jszip';
+import {OracleFactorTypeMap} from './oracle';
 import {
 	asFactorName,
 	asFullTopicName,
@@ -16,10 +18,9 @@ import {
 	getUpdateTimeColumnName,
 	getVersionColumnName
 } from './utils';
-import {OracleFactorTypeMap} from './oracle';
 
 const buildFactors = (topic: Topic) => {
-	if (topic.type === TopicType.RAW) {
+	if (isRawTopic(topic)) {
 		return [
 			...topic.factors.filter(factor => {
 				return factor.name.indexOf('.') === -1 && factor.flatten === true;
@@ -36,10 +37,10 @@ const buildFactors = (topic: Topic) => {
 };
 
 const buildAggregateAssist = (topic: Topic) => {
-	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `\t${getAggregateAssistColumnName()} VARCHAR2(1024),` : '';
+	return isAggregationTopic(topic) ? `\t${getAggregateAssistColumnName()} VARCHAR2(1024),` : '';
 };
 const buildVersion = (topic: Topic) => {
-	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type) ? `\t${getVersionColumnName()} NUMBER(8),` : '';
+	return isAggregationTopic(topic) ? `\t${getVersionColumnName()} NUMBER(8),` : '';
 };
 
 const createSQL = (topic: Topic): string => {

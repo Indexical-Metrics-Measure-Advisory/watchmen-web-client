@@ -1,7 +1,8 @@
-import React, {useEffect} from 'react';
 import {useForceUpdate} from '@/basic-widgets/utils';
 import {Factor} from '@/services/tuples/factor-types';
-import {Topic, TopicType} from '@/services/tuples/topic-types';
+import {isNotRawTopic} from '@/services/tuples/topic';
+import {Topic} from '@/services/tuples/topic-types';
+import React, {useEffect} from 'react';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';
 import {FactorFlattenCellContainer, FactorPropCheckBox, FactorPropLabel} from './widgets';
@@ -13,7 +14,7 @@ export const FactorFlattenCell = (props: { topic: Topic, factor: Factor }) => {
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const onTopicTypeChanged = () => {
-			if (topic.type !== TopicType.RAW) {
+			if (isNotRawTopic(topic)) {
 				delete factor.flatten;
 			}
 			forceUpdate();
@@ -62,7 +63,7 @@ export const FactorFlattenCell = (props: { topic: Topic, factor: Factor }) => {
 		fire(TopicEventTypes.FACTOR_FLATTEN_CHANGED, factor);
 	};
 
-	if (topic.type !== TopicType.RAW || factor.name.includes('.')) {
+	if (isNotRawTopic(topic) || factor.name.includes('.')) {
 		return null;
 	}
 
