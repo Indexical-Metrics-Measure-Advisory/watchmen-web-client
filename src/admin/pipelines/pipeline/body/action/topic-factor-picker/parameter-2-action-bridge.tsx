@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
+import {useParameterEventBus} from '@/data-filter/parameter-event-bus';
+import {ParameterEventTypes} from '@/data-filter/parameter-event-bus-types';
 import {Parameter} from '@/services/tuples/factor-calculator-types';
+import {isTopicFactorParameter} from '@/services/tuples/parameter-utils';
 import {FromFactor, ToFactor} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {useParameterEventBus} from '../../parameter/parameter/parameter-event-bus';
-import {ParameterEventTypes} from '../../parameter/parameter/parameter-event-bus-types';
+import React, {useEffect} from 'react';
 import {useActionEventBus} from '../action-event-bus';
 import {ActionEventTypes} from '../action-event-bus-types';
-import {isTopicFactorParameter} from '@/services/tuples/parameter-utils';
 
 export const Parameter2ActionBridge = (props: { action: FromFactor | ToFactor }) => {
 	const {action} = props;

@@ -1,6 +1,5 @@
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React from 'react';
 import {ICON_DELETE} from '@/basic-widgets/constants';
+import {ParameterEventBusProvider} from '@/data-filter/parameter-event-bus';
 import {
 	ConstantParameter,
 	ParameterExpression,
@@ -9,7 +8,8 @@ import {
 	TopicFactorParameter
 } from '@/services/tuples/factor-calculator-types';
 import {Topic} from '@/services/tuples/topic-types';
-import {ParameterEventBusProvider} from '../../parameter/parameter/parameter-event-bus';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import React from 'react';
 import {useExpressionEventBus} from '../event-bus/expression-event-bus';
 import {ExpressionEventTypes} from '../event-bus/expression-event-bus-types';
 import {RemoveMeButton} from '../widgets';

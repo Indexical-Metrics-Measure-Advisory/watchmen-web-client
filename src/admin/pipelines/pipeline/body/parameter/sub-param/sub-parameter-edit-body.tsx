@@ -1,16 +1,13 @@
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React from 'react';
-import {AlertLabel} from '@/alert/widgets';
 import {ICON_DELETE} from '@/basic-widgets/constants';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
+import {useSubParamDelete} from '@/data-filter/sub-param/use-sub-param-delete';
 import {ComputedParameter, Parameter, ValueTypes} from '@/services/tuples/factor-calculator-types';
 import {Topic} from '@/services/tuples/topic-types';
-import {ComputedEditor} from '../compute';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import React from 'react';
+import {ComputedEditor} from '../computed';
 import {ConstantEditor} from '../constant';
 import {TopicFactorEditor} from '../topic-factor';
 import {RemoveMeButton} from './widgets';
-import {canDeleteAnyParameter} from '@/services/tuples/parameter-utils';
 
 export const SubParameterEditBody = (props: {
 	parentParameter: ComputedParameter;
@@ -26,21 +23,8 @@ export const SubParameterEditBody = (props: {
 		onDeleted
 	} = props;
 
-	const {fire: fireGlobal} = useEventBus();
-
-	const onDeleteClicked = () => {
-		const canDelete = canDeleteAnyParameter(parentParameter);
-		if (!canDelete) {
-			fireGlobal(EventTypes.SHOW_ALERT,
-				<AlertLabel>Cannot delete this because of reach minimum parameter(s).</AlertLabel>);
-		} else {
-			const index = parentParameter.parameters.findIndex(child => child === parameter);
-			if (index !== -1) {
-				parentParameter.parameters.splice(index, 1);
-				onDeleted();
-			}
-		}
-	};
+	const onDeleteClicked = useSubParamDelete(parentParameter, parameter, onDeleted,
+		'Cannot delete this because of reach minimum parameter(s).');
 
 	// sub parameters valid factor types should be defined according to compute type
 	return <>

@@ -1,11 +1,11 @@
-import React from 'react';
+import {ParameterEventBusProvider} from '@/data-filter/parameter-event-bus';
 import {Parameter, ValueTypes} from '@/services/tuples/factor-calculator-types';
 import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {Topic} from '@/services/tuples/topic-types';
-import {ComputedEditor} from '../../parameter/compute';
+import React from 'react';
+import {ComputedEditor} from '../../parameter/computed';
 import {ConstantEditor} from '../../parameter/constant';
 import {ParameterFromEditor} from '../../parameter/param-from';
-import {ParameterEventBusProvider} from '../../parameter/parameter/parameter-event-bus';
 import {TopicFactorEditor} from '../../parameter/topic-factor';
 import {Parameter2ActionBridge} from './parameter-2-action-bridge';
 import {SingleParameterContainer} from './widgets';

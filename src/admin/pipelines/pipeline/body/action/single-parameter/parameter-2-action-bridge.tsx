@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import {useParameterEventBus} from '@/data-filter/parameter-event-bus';
+import {ParameterEventTypes} from '@/data-filter/parameter-event-bus-types';
 import {PipelineStageUnitAction} from '@/services/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {useParameterEventBus} from '../../parameter/parameter/parameter-event-bus';
-import {ParameterEventTypes} from '../../parameter/parameter/parameter-event-bus-types';
+import React, {useEffect} from 'react';
 import {useActionEventBus} from '../action-event-bus';
 import {ActionEventTypes} from '../action-event-bus-types';
 

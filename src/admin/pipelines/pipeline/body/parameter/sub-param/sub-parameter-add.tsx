@@ -1,12 +1,10 @@
+import {ICON_ADD} from '@/basic-widgets/constants';
+import {useSubParamAdd} from '@/data-filter/sub-param/use-sub-param-add';
+import {ComputedParameter, Parameter} from '@/services/tuples/factor-calculator-types';
+import {canAddMoreParameter} from '@/services/tuples/parameter-utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {AlertLabel} from '@/alert/widgets';
-import {ICON_ADD} from '@/basic-widgets/constants';
-import {useEventBus} from '@/events/event-bus';
-import {EventTypes} from '@/events/types';
-import {ComputedParameter, Parameter} from '@/services/tuples/factor-calculator-types';
 import {ParameterAddButton, ParameterAddContainer} from './widgets';
-import {canAddMoreParameter, createTopicFactorParameter} from '@/services/tuples/parameter-utils';
 
 export const SubParameterAdd = (props: {
 	parentParameter: ComputedParameter;
@@ -14,24 +12,12 @@ export const SubParameterAdd = (props: {
 }) => {
 	const {parentParameter, onAdded} = props;
 
-	const {fire: fireGlobal} = useEventBus();
+	const onAddClicked = useSubParamAdd(parentParameter, onAdded, 'Cannot add more because of reach maximum parameter(s).');
 
 	const canAdd = canAddMoreParameter(parentParameter);
 	if (!canAdd) {
 		return null;
 	}
-
-	const onAddClicked = () => {
-		const canAdd = canAddMoreParameter(parentParameter);
-		if (!canAdd) {
-			fireGlobal(EventTypes.SHOW_ALERT,
-				<AlertLabel>Cannot add more because of reach maximum parameter(s).</AlertLabel>);
-		} else {
-			const parameter = createTopicFactorParameter();
-			parentParameter.parameters.push(parameter);
-			onAdded(parameter);
-		}
-	};
 
 	return <ParameterAddContainer>
 		<ParameterAddButton onClick={onAddClicked}>

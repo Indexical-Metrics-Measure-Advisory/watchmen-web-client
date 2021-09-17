@@ -1,37 +1,16 @@
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {MouseEvent, useRef, useState} from 'react';
 import {ICON_EDIT} from '@/basic-widgets/constants';
-import {useCollapseFixedThing} from '@/basic-widgets/utils';
-import {ComputedParameter, ParameterComputeType, ValueTypes} from '@/services/tuples/factor-calculator-types';
-import {useParameterEventBus} from '../parameter/parameter-event-bus';
-import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';
+import {useComputeType} from '@/data-filter/compute-type/use-compute-type';
+import {ParameterComputeTypeDropdown, ParameterComputeTypeOption} from '@/data-filter/compute-type/widgets';
 import {
-	PARAMETER_TYPE_DROPDOWN_HEIGHT,
-	ParameterComputeTypeContainer,
-	ParameterComputeTypeDropdown,
-	ParameterComputeTypeIcon,
-	ParameterComputeTypeLabel,
-	ParameterComputeTypeOption
-} from './widgets';
+	AvailableComputeTypes,
+	ComputedParameter,
+	ParameterComputeType,
+	ValueTypes
+} from '@/services/tuples/factor-calculator-types';
 import {isComputeTypeValid} from '@/services/tuples/factor-calculator-utils';
-import {defendComputedParameter} from '@/services/tuples/parameter-utils';
-
-const AvailableComputeTypes = [
-	ParameterComputeType.ADD,
-	ParameterComputeType.SUBTRACT,
-	ParameterComputeType.MULTIPLY,
-	ParameterComputeType.DIVIDE,
-	ParameterComputeType.MODULUS,
-	ParameterComputeType.YEAR_OF,
-	ParameterComputeType.HALF_YEAR_OF,
-	ParameterComputeType.QUARTER_OF,
-	ParameterComputeType.MONTH_OF,
-	ParameterComputeType.WEEK_OF_YEAR,
-	ParameterComputeType.WEEK_OF_MONTH,
-	ParameterComputeType.DAY_OF_MONTH,
-	ParameterComputeType.DAY_OF_WEEK,
-	ParameterComputeType.CASE_THEN
-];
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import React from 'react';
+import {ParameterComputeTypeContainer, ParameterComputeTypeIcon, ParameterComputeTypeLabel} from './widgets';
 
 const ParameterComputeTypeLabels: { [key in ParameterComputeType]: string } = {
 	[ParameterComputeType.NONE]: 'None',
@@ -51,56 +30,16 @@ const ParameterComputeTypeLabels: { [key in ParameterComputeType]: string } = {
 	[ParameterComputeType.CASE_THEN]: 'Case Then'
 };
 
-interface DropdownState {
-	visible: boolean;
-	top?: number;
-	bottom?: number;
-	left: number;
-}
-
-// noinspection DuplicatedCode
 export const ParameterComputeTypeEditor = (props: {
 	parameter: ComputedParameter;
 	expectedTypes: ValueTypes;
 }) => {
 	const {parameter, expectedTypes} = props;
 
-	// noinspection TypeScriptValidateTypes
-	const containerRef = useRef<HTMLDivElement>(null);
-	const {fire} = useParameterEventBus();
-	const [state, setState] = useState<DropdownState>({visible: false, top: 0, left: 0});
-	useCollapseFixedThing({
-		containerRef,
-		visible: state.visible,
-		hide: () => setState({visible: false, top: 0, left: 0})
-	});
-
-	const onTypeClicked = () => {
-		if (!containerRef.current) {
-			return;
-		}
-
-		const {top, left, height} = containerRef.current.getBoundingClientRect();
-		if (top + height + 4 + PARAMETER_TYPE_DROPDOWN_HEIGHT > window.innerHeight) {
-			// at top
-			setState({visible: true, bottom: window.innerHeight - top + 4, left});
-		} else {
-			setState({visible: true, top: top + height + 4, left});
-		}
-	};
-	const onComputeTypeClick = (computeType: ParameterComputeType) => (event: MouseEvent<HTMLDivElement>) => {
-		event.preventDefault();
-		event.stopPropagation();
-
-		if (parameter.type === computeType) {
-			return;
-		} else {
-			parameter.type = computeType;
-			defendComputedParameter(parameter);
-			fire(ParameterEventTypes.COMPUTE_TYPE_CHANGED, parameter);
-			setState({visible: false, top: 0, left: 0});
-		}
-	};
+	const {
+		containerRef, dropdownState,
+		onTypeClicked, onComputeTypeClicked
+	} = useComputeType(parameter);
 
 	const computeTypeValid = isComputeTypeValid(parameter.type, expectedTypes);
 
@@ -110,10 +49,10 @@ export const ParameterComputeTypeEditor = (props: {
 		<ParameterComputeTypeIcon>
 			<FontAwesomeIcon icon={ICON_EDIT}/>
 		</ParameterComputeTypeIcon>
-		<ParameterComputeTypeDropdown {...state}>
+		<ParameterComputeTypeDropdown {...dropdownState}>
 			{AvailableComputeTypes.map(computeType => {
 				return <ParameterComputeTypeOption selected={computeType === parameter.type}
-				                                   onClick={onComputeTypeClick(computeType)}
+				                                   onClick={onComputeTypeClicked(computeType)}
 				                                   key={computeType}>
 					{ParameterComputeTypeLabels[computeType]}
 				</ParameterComputeTypeOption>;

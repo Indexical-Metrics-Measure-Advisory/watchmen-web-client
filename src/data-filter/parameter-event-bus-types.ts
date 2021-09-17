@@ -44,9 +44,9 @@ export interface ParameterEventBus {
 	on(type: ParameterEventTypes.TOPIC_CHANGED, listener: (parameter: Parameter, topic: Topic) => void): this;
 	off(type: ParameterEventTypes.TOPIC_CHANGED, listener: (parameter: Parameter, topic: Topic) => void): this;
 
-	fire(type: ParameterEventTypes.FACTOR_CHANGED, parameter: Parameter, factor: Factor): this;
-	on(type: ParameterEventTypes.FACTOR_CHANGED, listener: (parameter: Parameter, factor: Factor) => void): this;
-	off(type: ParameterEventTypes.FACTOR_CHANGED, listener: (parameter: Parameter, factor: Factor) => void): this;
+	fire(type: ParameterEventTypes.FACTOR_CHANGED, parameter: Parameter, factor?: Factor): this;
+	on(type: ParameterEventTypes.FACTOR_CHANGED, listener: (parameter: Parameter, factor?: Factor) => void): this;
+	off(type: ParameterEventTypes.FACTOR_CHANGED, listener: (parameter: Parameter, factor?: Factor) => void): this;
 
 	fire(type: ParameterEventTypes.COMPUTE_TYPE_CHANGED, parameter: Parameter): this;
 	on(type: ParameterEventTypes.COMPUTE_TYPE_CHANGED, listener: (parameter: Parameter) => void): this;

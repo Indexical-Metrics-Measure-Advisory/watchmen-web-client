@@ -24,9 +24,9 @@ export const AliasEditor = (props: { column: SubjectDataSetColumn }) => {
 	const {on, off} = useParameterEventBus();
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
-		const onFactorChanged = (parameter: Parameter, factor: Factor) => {
+		const onFactorChanged = (parameter: Parameter, factor?: Factor) => {
 			if (!column.alias || !column.alias.trim()) {
-				column.alias = rebuildName(factor.label || factor.name);
+				column.alias = rebuildName(factor?.label || factor?.name || '');
 				forceUpdate();
 				fireColumn(ColumnEventTypes.ALIAS_CHANGED, column);
 			}

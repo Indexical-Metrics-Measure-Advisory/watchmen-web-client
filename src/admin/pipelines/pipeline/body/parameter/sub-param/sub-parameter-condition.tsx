@@ -1,10 +1,10 @@
-import React from 'react';
+import {useParameterEventBus} from '@/data-filter/parameter-event-bus';
+import {ParameterEventTypes} from '@/data-filter/parameter-event-bus-types';
 import {ComputedParameter, Parameter, ParameterComputeType} from '@/services/tuples/factor-calculator-types';
 import {Conditional} from '@/services/tuples/pipeline-super-types';
 import {Topic} from '@/services/tuples/topic-types';
+import React from 'react';
 import {ConditionalEditor} from '../../conditional';
-import {useParameterEventBus} from '../parameter/parameter-event-bus';
-import {ParameterEventTypes} from '../parameter/parameter-event-bus-types';
 import {SubParameterConditionContainer} from './widgets';
 
 export const SubParameterCondition = (props: {

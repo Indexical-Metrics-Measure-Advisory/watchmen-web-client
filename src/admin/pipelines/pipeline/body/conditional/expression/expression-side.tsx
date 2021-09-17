@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Parameter, ParameterExpression} from '@/services/tuples/factor-calculator-types';
 import {Topic} from '@/services/tuples/topic-types';
-import {ComputedEditor} from '../../parameter/compute';
+import {ComputedEditor} from '../../parameter/computed';
 import {ConstantEditor} from '../../parameter/constant';
 import {ParameterFromEditor} from '../../parameter/param-from';
 import {TopicFactorEditor} from '../../parameter/topic-factor';

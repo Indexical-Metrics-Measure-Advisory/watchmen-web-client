@@ -31,6 +31,23 @@ export enum ParameterComputeType {
 	CASE_THEN = 'case-then'
 }
 
+export const AvailableComputeTypes = [
+	ParameterComputeType.ADD,
+	ParameterComputeType.SUBTRACT,
+	ParameterComputeType.MULTIPLY,
+	ParameterComputeType.DIVIDE,
+	ParameterComputeType.MODULUS,
+	ParameterComputeType.YEAR_OF,
+	ParameterComputeType.HALF_YEAR_OF,
+	ParameterComputeType.QUARTER_OF,
+	ParameterComputeType.MONTH_OF,
+	ParameterComputeType.WEEK_OF_YEAR,
+	ParameterComputeType.WEEK_OF_MONTH,
+	ParameterComputeType.DAY_OF_MONTH,
+	ParameterComputeType.DAY_OF_WEEK,
+	ParameterComputeType.CASE_THEN
+];
+
 export interface TopicFactorParameter extends Parameter {
 	kind: ParameterKind.TOPIC;
 	topicId: string;
