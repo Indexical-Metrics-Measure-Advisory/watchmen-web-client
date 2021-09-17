@@ -11,6 +11,7 @@ export const isSystemTopic = (topic: Topic): boolean => topic.kind === TopicKind
 export const isBusinessTopic = (topic: Topic): boolean => topic.kind === TopicKind.BUSINESS;
 export const isRawTopic = (topic: Topic | QueryTopic): boolean => topic.type === TopicType.RAW;
 export const isNotRawTopic = (topic: Topic | QueryTopic): boolean => !isRawTopic(topic);
+export const isMetaTopic = (topic: Topic): boolean => topic.type === TopicType.META;
 export const isDistinctTopic = (topic: Topic): boolean => topic.type === TopicType.DISTINCT;
 export const isNotDistinctTopic = (topic: Topic): boolean => !isDistinctTopic(topic);
 export const isAggregationTopic = (topic: Topic): boolean => {

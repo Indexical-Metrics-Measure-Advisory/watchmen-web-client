@@ -8,6 +8,7 @@ export const CMD_TOPIC = '/topic';
 export const CMD_ARGUMENT_SYSTEM = 'sys';
 export const CMD_ARGUMENT_BIZ = 'biz';
 export const CMD_ARGUMENT_RAW = 'raw';
+export const CMD_ARGUMENT_META = 'meta';
 export const CMD_ARGUMENT_DISTINCT = 'distinct';
 export const CMD_ARGUMENT_AGGREGATE = 'aggregate';
 export const CMD_ARGUMENT_TIME = 'time';
@@ -25,33 +26,37 @@ const TopicFindCmd: Command = {
 const TopicListByKind = [
 	{
 		label: 'System', command: CMD_ARGUMENT_SYSTEM,
-		reminder: 'Press "enter" to list all noname pipelines'
+		reminder: 'Press "enter" to list all system topics'
 	},
 	{
 		label: 'Business', command: CMD_ARGUMENT_BIZ,
-		reminder: 'Press "enter" to list all pipelines still failed on validation'
+		reminder: 'Press "enter" to list all business topics'
 	}
 ];
 const TopicListByType = [
 	{
 		label: 'Raw', command: CMD_ARGUMENT_RAW,
-		reminder: 'Press "enter" to list all pipelines passed validation'
+		reminder: 'Press "enter" to list all raw topics'
+	},
+	{
+		label: 'Meta', command: CMD_ARGUMENT_META,
+		reminder: 'Press "enter" to list all meta topics'
 	},
 	{
 		label: 'Distinct', command: CMD_ARGUMENT_DISTINCT,
-		reminder: 'Press "enter" to list all enabled pipelines'
+		reminder: 'Press "enter" to list all distinct topics'
 	},
 	{
 		label: 'Aggregate', command: CMD_ARGUMENT_AGGREGATE,
-		reminder: 'Press "enter" to list all disabled pipelines'
+		reminder: 'Press "enter" to list all aggregation topics'
 	},
 	{
 		label: 'Time', command: CMD_ARGUMENT_TIME,
-		reminder: 'Press "enter" to list all disabled pipelines'
+		reminder: 'Press "enter" to list all time aggregation topics'
 	},
 	{
 		label: 'Ratio', command: CMD_ARGUMENT_RATIO,
-		reminder: 'Press "enter" to list all disabled pipelines'
+		reminder: 'Press "enter" to list all ratio aggregation topics'
 	}
 ];
 const buildCommands = (template: Array<Pick<Command, 'label' | 'command' | 'reminder'>>, trails: Array<Command>): Array<Command> => {

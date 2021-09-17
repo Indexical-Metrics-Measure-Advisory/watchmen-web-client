@@ -8,6 +8,7 @@ import {TopicEventTypes} from '../topic-event-bus-types';
 
 const TopicTypeOptions: Array<DropdownOption> = [
 	{value: TopicType.RAW, label: 'Raw'},
+	{value: TopicType.META, label: 'Meta'},
 	{value: TopicType.DISTINCT, label: 'Distinct'},
 	{value: TopicType.AGGREGATE, label: 'Aggregate'},
 	{value: TopicType.TIME, label: 'Time'},

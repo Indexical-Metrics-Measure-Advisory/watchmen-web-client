@@ -8,6 +8,7 @@ export enum TopicKind {
 
 export enum TopicType {
 	RAW = 'raw',
+	META = 'meta',
 	DISTINCT = 'distinct',
 	AGGREGATE = 'aggregate',
 	TIME = 'time',

@@ -1,5 +1,5 @@
 import {DataQualityCacheData} from '@/local-persist/types';
-import {isBusinessTopic, isDistinctTopic, isRawTopic, isSystemTopic} from '@/services/tuples/topic';
+import {isBusinessTopic, isDistinctTopic, isMetaTopic, isRawTopic, isSystemTopic} from '@/services/tuples/topic';
 import {Topic, TopicType} from '@/services/tuples/topic-types';
 import React, {useState} from 'react';
 import {useDataQualityCacheData} from '../../cache/use-cache-data';
@@ -21,6 +21,7 @@ import {
 	CMD_ARGUMENT_AGGREGATE,
 	CMD_ARGUMENT_BIZ,
 	CMD_ARGUMENT_DISTINCT,
+	CMD_ARGUMENT_META,
 	CMD_ARGUMENT_RATIO,
 	CMD_ARGUMENT_RAW,
 	CMD_ARGUMENT_SYSTEM,
@@ -39,6 +40,8 @@ const buildFilter = (command: Command) => {
 			return (topic: Topic) => isBusinessTopic(topic);
 		case CMD_ARGUMENT_RAW:
 			return (topic: Topic) => isRawTopic(topic);
+		case CMD_ARGUMENT_META:
+			return (topic: Topic) => isMetaTopic(topic);
 		case CMD_ARGUMENT_DISTINCT:
 			return (topic: Topic) => isDistinctTopic(topic);
 		case CMD_ARGUMENT_AGGREGATE:

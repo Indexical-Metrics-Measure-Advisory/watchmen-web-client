@@ -4,6 +4,7 @@ import {TopicKind, TopicType} from '@/services/tuples/topic-types';
 
 const STROKES: { [key in TopicType]: string } = {
 	[TopicType.DISTINCT]: 'var(--distinct-topic-color)',
+	[TopicType.META]: 'var(--meta-topic-color)',
 	[TopicType.RAW]: 'var(--raw-topic-color)',
 	[TopicType.TIME]: 'var(--time-topic-color)',
 	[TopicType.AGGREGATE]: 'var(--aggregate-topic-color)',

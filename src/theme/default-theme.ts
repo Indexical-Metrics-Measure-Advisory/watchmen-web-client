@@ -144,6 +144,7 @@ const DefaultTheme = {
 
 	// topic color
 	rawTopicColor: 'var(--waive-color)',
+	metaTopicColor: 'var(--waive-color)',
 	distinctTopicColor: 'var(--primary-color)',
 	aggregateTopicColor: 'var(--info-color)',
 	timeTopicColor: 'var(--success-color)',
