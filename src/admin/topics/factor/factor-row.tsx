@@ -1,3 +1,4 @@
+import {FactorEncryptCell} from '@/admin/topics/factor/factor-encrypt-cell';
 import {Factor} from '@/services/data/tuples/factor-types';
 import {QueryEnumForHolder} from '@/services/data/tuples/query-enum-types';
 import {Topic} from '@/services/data/tuples/topic-types';
@@ -33,6 +34,7 @@ export const FactorRow = (props: {
 		<FactorPropLabel>Index Group</FactorPropLabel>
 		<FactorIndexGroupCell factor={factor}/>
 		<FactorFlattenCell topic={topic} factor={factor}/>
+		<FactorEncryptCell topic={topic} factor={factor}/>
 		<FactorButtons topic={topic} factor={factor}/>
 	</FactorRowContainer>;
 };

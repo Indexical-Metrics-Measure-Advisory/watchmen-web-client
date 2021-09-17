@@ -1,5 +1,5 @@
 import {PipelineRelationMap, PipelinesMap, TopicRelationMap} from '@/services/data/pipeline/pipeline-relations';
-import {Factor} from '@/services/data/tuples/factor-types';
+import {Factor, FactorEncryptMethod, FactorEncryptMethodLabels} from '@/services/data/tuples/factor-types';
 import {isRawTopic} from '@/services/data/tuples/topic';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {EnumsMap} from './types';
@@ -24,7 +24,7 @@ ${topic.description || ''}
 - Type: ${topic.type?.toUpperCase() ?? ''}
 
 ### 1.${index + 1}.2. Factors
-${['Name', 'Type', 'Label', 'Enumeration', 'Default Value', canBeFlatten(topic) ? 'Flatten' : null, 'Description'].filter(x => x != null).join(' | ')}
+${['Name', 'Type', 'Label', 'Enumeration', 'Default Value', canBeFlatten(topic) ? 'Flatten' : null, 'Encryption & Mask', 'Description'].filter(x => x != null).join(' | ')}
 ${new Array(canBeFlatten(topic) ? 7 : 6).fill('---').join(' | ')}
 ${topic.factors.sort((f1, f2) => {
 		return (f1.name || '').toUpperCase().localeCompare((f2.name || '').toUpperCase());
@@ -36,6 +36,7 @@ ${topic.factors.sort((f1, f2) => {
 			enumsMap[factor.enumId || ''] ?? '',
 			factor.defaultValue || '',
 			canBeFlatten(topic, factor) ? (factor.flatten ? 'Y' : 'N') : null,
+			FactorEncryptMethodLabels[factor.encrypt || FactorEncryptMethod.NONE] || FactorEncryptMethodLabels[FactorEncryptMethod.NONE],
 			factor.description || ''
 		].filter(x => x != null).join(' | ');
 	}).join('\n')}

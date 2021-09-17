@@ -19,6 +19,7 @@ export enum TopicEventTypes {
 	FACTOR_INDEX_GROUP_CHANGED = 'factor-index-group-changed',
 	FACTOR_DEFAULT_VALUE_CHANGED = 'factor-default-value-changed',
 	FACTOR_FLATTEN_CHANGED = 'factor-flatten-changed',
+	FACTOR_ENCRYPT_CHANGED = 'factor-encrypt-changed',
 	FACTOR_DESCRIPTION_CHANGE = 'factor-description-changed',
 	FACTOR_VALUE_RULE_CHANGED = 'factor-value-rule-changed',
 
@@ -85,6 +86,10 @@ export interface TopicEventBus {
 	fire(type: TopicEventTypes.FACTOR_FLATTEN_CHANGED, factor: Factor): this;
 	on(type: TopicEventTypes.FACTOR_FLATTEN_CHANGED, listener: (factor: Factor) => void): this;
 	off(type: TopicEventTypes.FACTOR_FLATTEN_CHANGED, listener: (factor: Factor) => void): this;
+
+	fire(type: TopicEventTypes.FACTOR_ENCRYPT_CHANGED, factor: Factor): this;
+	on(type: TopicEventTypes.FACTOR_ENCRYPT_CHANGED, listener: (factor: Factor) => void): this;
+	off(type: TopicEventTypes.FACTOR_ENCRYPT_CHANGED, listener: (factor: Factor) => void): this;
 
 	fire(type: TopicEventTypes.FACTOR_DESCRIPTION_CHANGE, factor: Factor): this;
 	on(type: TopicEventTypes.FACTOR_DESCRIPTION_CHANGE, listener: (factor: Factor) => void): this;

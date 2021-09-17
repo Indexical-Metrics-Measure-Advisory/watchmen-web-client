@@ -171,6 +171,129 @@ export const CompatibleTypes: { [key in FactorType]: SourceTypes } = {
 	[FactorType.ARRAY]: {includes: [FactorType.ARRAY]}
 };
 
+export enum FactorEncryptMethod {
+	NONE = 'none',
+	AES256_PKCS5_PADDING = 'AES256-PKCS5-PADDING',
+	AES256_PKCS7_PADDING = 'AES256-PKCS7-PADDING',
+	MD5 = 'MD5',
+	SHA256_1 = 'SHA256-1',
+	MASK_MAIL = 'MASK-MAIL',
+	MASK_CENTER_3 = 'MASK-CENTER-3',
+	MASK_CENTER_5 = 'MASK-CENTER-5',
+	MASK_LAST_3 = 'MASK-LAST-3',
+	MASK_LAST_6 = 'MASK-LAST-6',
+	MASK_DAY = 'MASK-DAY',
+	MASK_MONTH = 'MASK-MONTH',
+	MASK_MONTH_DAY = 'MASK-MONTH-DAY'
+}
+
+export const CompatibleEncryptMethods: { [key in FactorType]: Array<FactorEncryptMethod> } = {
+	[FactorType.SEQUENCE]: [],
+
+	[FactorType.NUMBER]: [],
+	[FactorType.UNSIGNED]: [],
+
+	// any type can be written to text except object and array
+	[FactorType.TEXT]: [],
+
+	// address
+	[FactorType.ADDRESS]: [],
+	[FactorType.CONTINENT]: [],
+	[FactorType.REGION]: [],
+	[FactorType.COUNTRY]: [],
+	[FactorType.PROVINCE]: [],
+	[FactorType.CITY]: [],
+	[FactorType.DISTRICT]: [],
+	[FactorType.ROAD]: [],
+	[FactorType.COMMUNITY]: [],
+	[FactorType.FLOOR]: [],
+	[FactorType.RESIDENCE_TYPE]: [],
+	[FactorType.RESIDENTIAL_AREA]: [],
+
+	// contact electronic
+	[FactorType.EMAIL]: [FactorEncryptMethod.MASK_MAIL, FactorEncryptMethod.AES256_PKCS5_PADDING, FactorEncryptMethod.AES256_PKCS7_PADDING],
+	[FactorType.PHONE]: [
+		FactorEncryptMethod.MASK_CENTER_3, FactorEncryptMethod.MASK_CENTER_5,
+		FactorEncryptMethod.MASK_LAST_3, FactorEncryptMethod.MASK_LAST_6,
+		FactorEncryptMethod.AES256_PKCS5_PADDING, FactorEncryptMethod.AES256_PKCS7_PADDING
+	],
+	[FactorType.MOBILE]: [
+		FactorEncryptMethod.MASK_CENTER_3, FactorEncryptMethod.MASK_CENTER_5,
+		FactorEncryptMethod.MASK_LAST_3, FactorEncryptMethod.MASK_LAST_6,
+		FactorEncryptMethod.AES256_PKCS5_PADDING, FactorEncryptMethod.AES256_PKCS7_PADDING
+	],
+	[FactorType.FAX]: [
+		FactorEncryptMethod.MASK_CENTER_3, FactorEncryptMethod.MASK_CENTER_5,
+		FactorEncryptMethod.MASK_LAST_3, FactorEncryptMethod.MASK_LAST_6,
+		FactorEncryptMethod.AES256_PKCS5_PADDING, FactorEncryptMethod.AES256_PKCS7_PADDING
+	],
+
+	// date time related
+	[FactorType.DATETIME]: [],
+	[FactorType.FULL_DATETIME]: [],
+	[FactorType.DATE]: [],
+	[FactorType.TIME]: [],
+	[FactorType.YEAR]: [],
+	[FactorType.HALF_YEAR]: [],
+	[FactorType.QUARTER]: [],
+	[FactorType.MONTH]: [],
+	[FactorType.HALF_MONTH]: [],
+	[FactorType.TEN_DAYS]: [],
+	[FactorType.WEEK_OF_YEAR]: [],
+	[FactorType.WEEK_OF_MONTH]: [],
+	[FactorType.HALF_WEEK]: [],
+	[FactorType.DAY_OF_MONTH]: [],
+	[FactorType.DAY_OF_WEEK]: [],
+	[FactorType.DAY_KIND]: [],
+	[FactorType.HOUR]: [],
+	[FactorType.HOUR_KIND]: [],
+	[FactorType.MINUTE]: [],
+	[FactorType.SECOND]: [],
+	[FactorType.MILLISECOND]: [],
+	[FactorType.AM_PM]: [],
+
+	// individual
+	[FactorType.GENDER]: [],
+	[FactorType.OCCUPATION]: [],
+	[FactorType.DATE_OF_BIRTH]: [FactorEncryptMethod.MASK_DAY, FactorEncryptMethod.MASK_MONTH, FactorEncryptMethod.MASK_MONTH_DAY],
+	[FactorType.AGE]: [],
+	[FactorType.ID_NO]: [
+		FactorEncryptMethod.MASK_CENTER_5,
+		FactorEncryptMethod.MASK_LAST_3, FactorEncryptMethod.MASK_LAST_6,
+		FactorEncryptMethod.MD5, FactorEncryptMethod.SHA256_1,
+		FactorEncryptMethod.AES256_PKCS5_PADDING, FactorEncryptMethod.AES256_PKCS7_PADDING
+	],
+	[FactorType.RELIGION]: [],
+	[FactorType.NATIONALITY]: [],
+
+	// organization
+	[FactorType.BIZ_TRADE]: [],
+	[FactorType.BIZ_SCALE]: [],
+
+	[FactorType.BOOLEAN]: [],
+
+	[FactorType.ENUM]: [],
+
+	[FactorType.OBJECT]: [],
+	[FactorType.ARRAY]: []
+};
+
+export const FactorEncryptMethodLabels = {
+	[FactorEncryptMethod.NONE]: 'None',
+	[FactorEncryptMethod.AES256_PKCS5_PADDING]: 'AES256 PKCS5 Padding',
+	[FactorEncryptMethod.AES256_PKCS7_PADDING]: 'AES256 PKCS7 Padding',
+	[FactorEncryptMethod.MD5]: 'Md5',
+	[FactorEncryptMethod.SHA256_1]: 'SHA256-1',
+	[FactorEncryptMethod.MASK_MAIL]: 'Mask Mail',
+	[FactorEncryptMethod.MASK_CENTER_3]: 'Mask Center 3 Digits',
+	[FactorEncryptMethod.MASK_CENTER_5]: 'Mask Center 5 Digits',
+	[FactorEncryptMethod.MASK_LAST_3]: 'Mask Last 3 Digits',
+	[FactorEncryptMethod.MASK_LAST_6]: 'Mask Last 6 Digits',
+	[FactorEncryptMethod.MASK_DAY]: 'Mask Day',
+	[FactorEncryptMethod.MASK_MONTH]: 'Mask Month',
+	[FactorEncryptMethod.MASK_MONTH_DAY]: 'Mask Month & Day'
+};
+
 export interface Factor {
 	factorId: string;
 	name: string;
@@ -181,6 +304,7 @@ export interface Factor {
 	indexGroup?: string;
 	// will be flatten to table column or not, only used in raw topic, and must be top level factor
 	flatten?: boolean;
+	encrypt?: FactorEncryptMethod;
 	description?: string;
 	createTime: string;
 	lastModified: string;

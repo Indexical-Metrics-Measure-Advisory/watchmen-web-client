@@ -56,6 +56,7 @@ export const FactorDefaultValueCellContainer = styled(FactorCell).attrs({'data-w
 `;
 export const FactorIndexGroupCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-index-group-cell'})``;
 export const FactorFlattenCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-flatten-cell'})``;
+export const FactorEncryptCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-encrypt-cell'})``;
 
 export const FactorPropInput = styled(TuplePropertyInput)`
 	width : 100%;

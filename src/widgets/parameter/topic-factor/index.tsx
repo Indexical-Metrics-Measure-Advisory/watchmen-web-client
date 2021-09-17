@@ -46,7 +46,8 @@ const RealTopicFactorEdit = (props: {
 		<FactorDropdown value={selectedFactor} options={factorOptions} onChange={onFactorChange}/>
 	</TopicFactorEditContainer>;
 };
-export const TopicFactorEdit = (props: {
+
+const TopicFactorEdit = (props: {
 	availableTopics: Array<Topic>;
 	pickedTopics: Array<Topic>;
 	parameter: Parameter;
