@@ -1,13 +1,13 @@
 import {Parameter, ParameterKind} from '@/services/data/tuples/factor-calculator-types';
+import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '@/widgets/basic/constants';
+import {Lang} from '@/widgets/langs';
+import {useParamFrom} from '@/widgets/parameter/param-from/use-param-from';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
-import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '../../basic/constants';
-import {Lang} from '../../langs';
-import {useParamFrom} from './use-param-from';
 import {ParameterFromEditContainer, ParameterFromIcon, ParameterFromLabel, ParameterTypeButton} from './widgets';
 
-export const ParameterFromEdit = (props: { parameter: Parameter; availableKinds?: Array<ParameterKind> }) => {
+const ParameterFromEdit = (props: { parameter: Parameter; availableKinds?: Array<ParameterKind> }) => {
 	const {
 		parameter,
 		availableKinds = [ParameterKind.TOPIC, ParameterKind.CONSTANT, ParameterKind.COMPUTED],

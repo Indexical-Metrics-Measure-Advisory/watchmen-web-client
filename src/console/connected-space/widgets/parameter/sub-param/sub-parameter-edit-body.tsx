@@ -1,14 +1,14 @@
 import {ComputedParameter, Parameter} from '@/services/data/tuples/factor-calculator-types';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {ICON_DELETE} from '@/widgets/basic/constants';
+import {Lang} from '@/widgets/langs';
+import {useSubParamDelete} from '@/widgets/parameter/sub-param/use-sub-param-delete';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {ICON_DELETE} from '../../basic/constants';
-import {Lang} from '../../langs';
 import {ComputedEditor} from '../computed';
 import {ConstantValueEditor} from '../constant';
 import {TopicFactorEditor} from '../topic-factor';
 import {DeleteMeButton} from '../widgets';
-import {useSubParamDelete} from './use-sub-param-delete';
 
 export const SubParameterEditBody = (props: {
 	availableTopics: Array<Topic>;
@@ -35,5 +35,4 @@ export const SubParameterEditBody = (props: {
 		</DeleteMeButton>
 		<ComputedEditor parameter={parameter} availableTopics={availableTopics} pickedTopics={pickedTopics}/>
 	</>;
-
 };

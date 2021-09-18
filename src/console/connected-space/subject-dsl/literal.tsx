@@ -3,9 +3,9 @@ import {Factor} from '@/services/data/tuples/factor-types';
 import {TopicJoinType} from '@/services/data/tuples/subject-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {Lang} from '@/widgets/langs';
-import {ParameterComputeTypeLabels} from '@/widgets/parameter/constants';
 import React, {Fragment} from 'react';
 import {v4} from 'uuid';
+import { ParameterComputeTypeLabels } from '../widgets/parameter/constants';
 import {PrettyComputed, PrettyConstant, PrettyFactor} from './literal-types';
 import {
 	AliasNode,

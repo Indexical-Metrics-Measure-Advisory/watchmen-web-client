@@ -43,6 +43,7 @@ const SpaceEditor = (props: { space: Space, codes?: HoldBySpace }) => {
 		<TopicPicker label="Assign Topic" space={space} codes={topics}/>
 		<TuplePropertyLabel>Groups:</TuplePropertyLabel>
 		<UserGroupPicker label="Grant to User Group" space={space} codes={groups}/>
+		<TuplePropertyLabel>Restrictions:</TuplePropertyLabel>
 	</>;
 };
 export const renderEditor = (space: Space, codes?: HoldBySpace) => {

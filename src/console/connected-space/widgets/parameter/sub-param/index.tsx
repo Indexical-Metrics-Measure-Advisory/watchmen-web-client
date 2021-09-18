@@ -1,10 +1,10 @@
 import {ComputedParameter, Parameter, ParameterKind} from '@/services/data/tuples/factor-calculator-types';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {useParameterEventBus} from '@/widgets/parameter/parameter-event-bus';
+import {ParameterEventTypes} from '@/widgets/parameter/parameter-event-bus-types';
 import React, {useEffect} from 'react';
-import {useForceUpdate} from '../../basic/utils';
 import {ParameterFromEditor} from '../param-from';
-import {useParameterEventBus} from '../parameter-event-bus';
-import {ParameterEventTypes} from '../parameter-event-bus-types';
 import {SubParameterEditBody} from './sub-parameter-edit-body';
 import {SubParameterEditContainer} from './widgets';
 

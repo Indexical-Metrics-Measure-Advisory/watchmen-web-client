@@ -3,18 +3,13 @@ import {
 	ComputedParameter,
 	ParameterComputeType
 } from '@/services/data/tuples/factor-calculator-types';
+import {ICON_EDIT} from '@/widgets/basic/constants';
+import {useComputeType} from '@/widgets/parameter/compute-type/use-compute-type';
+import {ParameterComputeTypeDropdown, ParameterComputeTypeOption} from '@/widgets/parameter/compute-type/widgets';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {ICON_EDIT} from '../../basic/constants';
 import {ParameterComputeTypeLabels} from '../constants';
-import {useComputeType} from './use-compute-type';
-import {
-	ParameterComputeTypeContainer,
-	ParameterComputeTypeDropdown,
-	ParameterComputeTypeIcon,
-	ParameterComputeTypeLabel,
-	ParameterComputeTypeOption
-} from './widgets';
+import {ParameterComputeTypeContainer, ParameterComputeTypeIcon, ParameterComputeTypeLabel} from './widgets';
 
 const TidyComputeTypes = AvailableComputeTypes.filter(type => type !== ParameterComputeType.CASE_THEN);
 

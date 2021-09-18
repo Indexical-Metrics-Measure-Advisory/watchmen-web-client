@@ -1,5 +1,5 @@
+import {Input} from '@/widgets/basic/input';
 import styled from 'styled-components';
-import {Input} from '../../basic/input';
 
 export const ConstantInput = styled(Input).attrs({'data-widget': 'parameter-constant-input'})`
 	height     : var(--param-height);

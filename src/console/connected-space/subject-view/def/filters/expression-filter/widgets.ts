@@ -1,6 +1,6 @@
 import {DROPDOWN_Z_INDEX} from '@/widgets/basic/constants';
-import {ParameterFromEditor} from '@/widgets/parameter/param-from';
 import styled from 'styled-components';
+import {ParameterFromEditor} from '../../../../widgets/parameter/param-from';
 
 export const ExpressionFilterContainer = styled.div.attrs({'data-widget': 'filter-expression'})`
 	display               : grid;

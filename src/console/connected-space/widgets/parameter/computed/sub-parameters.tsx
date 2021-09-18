@@ -1,12 +1,12 @@
 import {ComputedParameter} from '@/services/data/tuples/factor-calculator-types';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {HierarchicalParameterEventBridge} from '@/widgets/parameter/computed/hierarchical-parameter-event-bridge';
+import {useSubParameterChanged} from '@/widgets/parameter/computed/use-computed-parameter';
+import {ParameterEventBusProvider} from '@/widgets/parameter/parameter-event-bus';
 import React from 'react';
 import {v4} from 'uuid';
-import {ParameterEventBusProvider} from '../parameter-event-bus';
 import {SubParameterEdit} from '../sub-param';
 import {SubParameterAdd} from '../sub-param/sub-parameter-add';
-import {HierarchicalParameterEventBridge} from './hierarchical-parameter-event-bridge';
-import {useSubParameterChanged} from './use-computed-parameter';
 import {SubParametersContainer} from './widgets';
 
 export const SubParameters = (props: {

@@ -3,11 +3,11 @@ import {findSelectedFactor, findSelectedTopic} from '@/services/data/tuples/fact
 import {Factor} from '@/services/data/tuples/factor-types';
 import {isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {Lang} from '@/widgets/langs';
+import {useTopicFactor} from '@/widgets/parameter/topic-factor/use-topic-factor';
+import {buildFactorOptions, buildTopicOptions} from '@/widgets/tuples';
 import React from 'react';
 import styled from 'styled-components';
-import {Lang} from '../../langs';
-import {buildFactorOptions, buildTopicOptions} from '../../tuples';
-import {useTopicFactor} from './use-topic-factor';
 import {FactorDropdown, IncorrectOptionLabel, TopicDropdown, TopicFactorEditContainer} from './widgets';
 
 const RealTopicFactorEdit = (props: {

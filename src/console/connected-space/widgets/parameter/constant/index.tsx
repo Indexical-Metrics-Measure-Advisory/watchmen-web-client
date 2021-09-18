@@ -1,14 +1,14 @@
 import {Parameter} from '@/services/data/tuples/factor-calculator-types';
 import {isConstantParameter} from '@/services/data/tuples/parameter-utils';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {Lang} from '@/widgets/langs';
+import {useParameterEventBus} from '@/widgets/parameter/parameter-event-bus';
+import {ParameterEventTypes} from '@/widgets/parameter/parameter-event-bus-types';
 import React, {ChangeEvent, useEffect} from 'react';
 import styled from 'styled-components';
-import {useForceUpdate} from '../../basic/utils';
-import {Lang} from '../../langs';
-import {useParameterEventBus} from '../parameter-event-bus';
-import {ParameterEventTypes} from '../parameter-event-bus-types';
 import {ConstantInput} from './widgets';
 
-export const ConstantEdit = (props: { parameter: Parameter }) => {
+const ConstantEdit = (props: { parameter: Parameter }) => {
 	const {parameter, ...rest} = props;
 
 	const {on, off, fire} = useParameterEventBus();

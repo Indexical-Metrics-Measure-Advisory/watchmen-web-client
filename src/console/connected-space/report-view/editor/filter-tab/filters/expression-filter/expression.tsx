@@ -4,11 +4,11 @@ import {Report, ReportFilterExpression} from '@/services/data/tuples/report-type
 import {Subject} from '@/services/data/tuples/subject-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
-import {ConstantValueEditor} from '@/widgets/parameter/constant';
 import {ParameterEventBusProvider, useParameterEventBus} from '@/widgets/parameter/parameter-event-bus';
 import {ParameterEventTypes} from '@/widgets/parameter/parameter-event-bus-types';
-import {TopicFactorEditor} from '@/widgets/parameter/topic-factor';
 import React, {useEffect} from 'react';
+import {ConstantValueEditor} from '../../../../../widgets/parameter/constant';
+import {TopicFactorEditor} from '../../../../../widgets/parameter/topic-factor';
 import {Parameter2FilterEventBridge} from '../parameter-2-filter-event-bridge';
 import {ExpressionSide, ParameterFromEditorForExpression} from './widgets';
 

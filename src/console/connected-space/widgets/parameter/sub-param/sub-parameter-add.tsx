@@ -1,10 +1,10 @@
 import {ComputedParameter, Parameter} from '@/services/data/tuples/factor-calculator-types';
 import {canAddMoreParameter} from '@/services/data/tuples/parameter-utils';
+import {ICON_ADD} from '@/widgets/basic/constants';
+import {Lang} from '@/widgets/langs';
+import {useSubParamAdd} from '@/widgets/parameter/sub-param/use-sub-param-add';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {ICON_ADD} from '../../basic/constants';
-import {Lang} from '../../langs';
-import {useSubParamAdd} from './use-sub-param-add';
 import {ParameterAddButton, ParameterAddContainer} from './widgets';
 
 export const SubParameterAdd = (props: {

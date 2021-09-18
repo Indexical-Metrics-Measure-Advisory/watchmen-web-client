@@ -1,14 +1,17 @@
 import {Parameter} from '@/services/data/tuples/factor-calculator-types';
 import {isComputedParameter} from '@/services/data/tuples/parameter-utils';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {
+	useComputedParameterFromChanged,
+	useDelegateComputedParameterChildChangedToMe
+} from '@/widgets/parameter/computed/use-computed-parameter';
 import React from 'react';
 import styled from 'styled-components';
 import {ParameterComputeTypeEdit} from '../compute-type';
 import {SubParameters} from './sub-parameters';
-import {useComputedParameterFromChanged, useDelegateComputedParameterChildChangedToMe} from './use-computed-parameter';
 import {ComputedEditContainer} from './widgets';
 
-export const ComputedEdit = (props: {
+const ComputedEdit = (props: {
 	availableTopics: Array<Topic>;
 	pickedTopics: Array<Topic>;
 	parameter: Parameter
