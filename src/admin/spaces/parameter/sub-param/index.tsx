@@ -9,17 +9,12 @@ import {SubParameterEditBody} from './sub-parameter-edit-body';
 import {SubParameterEditContainer} from './widgets';
 
 export const SubParameterEdit = (props: {
-	availableTopics: Array<Topic>;
-	pickedTopics: Array<Topic>;
+	topic: Topic;
 	parentParameter: ComputedParameter;
 	parameter: Parameter;
 	onDeleted: () => void;
 }) => {
-	const {
-		availableTopics, pickedTopics,
-		parameter, parentParameter,
-		onDeleted
-	} = props;
+	const {topic, parameter, parentParameter, onDeleted} = props;
 
 	const {on, off} = useParameterEventBus();
 	const forceUpdate = useForceUpdate();
@@ -34,7 +29,7 @@ export const SubParameterEdit = (props: {
 		<ParameterFromEditor shorten={parameter.kind === ParameterKind.COMPUTED}
 		                     parameter={parameter}/>
 		<SubParameterEditBody parameter={parameter} parentParameter={parentParameter}
-		                      availableTopics={availableTopics} pickedTopics={pickedTopics}
+		                      topic={topic}
 		                      onDeleted={onDeleted}/>
 	</SubParameterEditContainer>;
 };

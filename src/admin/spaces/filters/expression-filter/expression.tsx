@@ -10,13 +10,13 @@ import {Parameter2FilterEventBridge} from '../parameter-2-filter-event-bridge';
 import {ExpressionSide, ParameterFromEditorForExpression} from './widgets';
 
 export const ExpressionBody = (props: {
-	topics: Array<Topic>;
+	topic: Topic;
 	expression: ParameterExpression;
 	parameter: Parameter;
 	availableKinds: Array<ParameterKind>;
 	visible: boolean;
 }) => {
-	const {topics, expression, parameter, availableKinds, visible} = props;
+	const {topic, expression, parameter, availableKinds, visible} = props;
 
 	const {on, off} = useParameterEventBus();
 	const forceUpdate = useForceUpdate();
@@ -31,14 +31,14 @@ export const ExpressionBody = (props: {
 		<ParameterFromEditorForExpression shorten={parameter.kind === ParameterKind.COMPUTED}
 		                                  parameter={parameter} availableKinds={availableKinds}/>
 		<ConstantValueEditor parameter={parameter}/>
-		<TopicFactorEditor parameter={parameter} availableTopics={topics} pickedTopics={topics}/>
+		<TopicFactorEditor parameter={parameter} topic={topic}/>
 		{/*<ComputedEditor parameter={parameter} availableTopics={availableTopics} pickedTopics={pickedTopics}/>*/}
 		<Parameter2FilterEventBridge expression={expression}/>
 	</ExpressionSide>;
 };
 
 export const Expression = (props: {
-	topics: Array<Topic>;
+	topic: Topic;
 	expression: ParameterExpression;
 	parameter: Parameter;
 	availableKinds: Array<ParameterKind>;

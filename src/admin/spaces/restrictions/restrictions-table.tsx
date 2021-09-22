@@ -100,7 +100,7 @@ export const RestrictionsTable = (props: { space: Space }) => {
 					<RestrictionEnablementCell>
 						<Toggle value={filter.enabled} onChange={onFilterEnabledChanged(filter)}/>
 					</RestrictionEnablementCell>
-					{filter.enabled ? <RestrictionFilter filter={filter} topics={[topic]}/> : null}
+					{filter.enabled ? <RestrictionFilter filter={filter} topic={topic}/> : null}
 				</RestrictionRowContainer>;
 			})}
 		</RestrictionsTableBodyContainer>

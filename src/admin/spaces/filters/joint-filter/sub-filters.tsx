@@ -7,10 +7,10 @@ import {FilterEventTypes} from '../filter-event-bus-types';
 import {FilterEdit} from './filter-edit';
 
 export const SubFilters = (props: {
-	topics: Array<Topic>;
+	topic: Topic;
 	joint: ParameterJoint;
 }) => {
-	const {joint, topics} = props;
+	const {joint, topic} = props;
 
 	const {fire} = useFilterEventBus();
 	const forceUpdate = useForceUpdate();
@@ -29,7 +29,7 @@ export const SubFilters = (props: {
 
 	return <>
 		{joint.filters.map(filter => {
-			return <FilterEdit topics={topics} filter={filter}
+			return <FilterEdit topic={topic} filter={filter}
 			                   parentJoint={joint} onRemoveMe={onRemove(filter)}
 			                   notifyChangeToParent={notifyChangeToParent}
 			                   key={v4()}/>;

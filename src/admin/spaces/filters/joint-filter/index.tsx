@@ -7,18 +7,18 @@ import {JointEdit} from './joint-edit';
 import {NonTopJointFilterContainer} from './widgets';
 
 export const JointFilterEdit = (props: {
-	topics: Array<Topic>;
+	topic: Topic;
 	parentJoint: ParameterJoint;
 	onRemoveMe: () => void;
 	joint: ParameterJoint;
 	notifyChangeToParent: () => void;
 }) => {
-	const {topics, parentJoint, onRemoveMe, joint, notifyChangeToParent} = props;
+	const {topic, parentJoint, onRemoveMe, joint, notifyChangeToParent} = props;
 
 	return <FilterEventBusProvider>
 		<NonTopJointFilterContainer>
 			<JointEdit parentJoint={parentJoint} onRemoveMe={onRemoveMe}
-			           topics={topics} joint={joint}/>
+			           topic={topic} joint={joint}/>
 			<HierarchicalFilterEventBridge notifyChangeToParent={notifyChangeToParent}/>
 		</NonTopJointFilterContainer>
 	</FilterEventBusProvider>;

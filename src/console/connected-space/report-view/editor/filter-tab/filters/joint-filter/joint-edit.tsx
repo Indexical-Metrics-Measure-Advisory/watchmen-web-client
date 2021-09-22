@@ -64,7 +64,7 @@ export const JointEdit = (props: {
 		event.preventDefault();
 		event.stopPropagation();
 		const newFilter = {
-			left: createTopicFactorParameter(),
+			left: createTopicFactorParameter('1'),
 			operator: ParameterExpressionOperator.EQUALS,
 			right: createConstantParameter()
 		};

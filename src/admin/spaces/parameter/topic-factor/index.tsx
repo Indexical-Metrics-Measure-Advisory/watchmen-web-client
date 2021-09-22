@@ -10,25 +10,24 @@ import styled from 'styled-components';
 import {FactorDropdown, IncorrectOptionLabel, TopicDropdown, TopicFactorEditContainer} from './widgets';
 
 const RealTopicFactorEdit = (props: {
-	availableTopics: Array<Topic>;
-	pickedTopics: Array<Topic>;
+	topic: Topic;
 	parameter: TopicFactorParameter;
 }) => {
-	const {parameter, availableTopics, pickedTopics, ...rest} = props;
+	const {parameter, topic, ...rest} = props;
 
 	const {onTopicChange, onFactorChange, topicId, factorId} = useTopicFactor(parameter);
 
 	const {
 		selected: selectedTopic,
 		extra: extraTopic
-	} = findSelectedTopic(pickedTopics, topicId, 'Unknown Topic');
+	} = findSelectedTopic([topic], topicId, 'Unknown Topic');
 	const {
 		selected: selectedFactor,
 		extra: extraFactor
 	} = findSelectedFactor(selectedTopic, factorId, 'Unknown Factor');
 
 	const topicOptions = buildTopicOptions({
-		topics: pickedTopics, extraTopic, toExtraNode: (topic: Topic) => {
+		topics: [topic], extraTopic, toExtraNode: (topic: Topic) => {
 			return <IncorrectOptionLabel>{topic.name}</IncorrectOptionLabel>;
 		}
 	});
@@ -47,18 +46,16 @@ const RealTopicFactorEdit = (props: {
 };
 
 const TopicFactorEdit = (props: {
-	availableTopics: Array<Topic>;
-	pickedTopics: Array<Topic>;
+	topic: Topic;
 	parameter: Parameter;
 }) => {
-	const {parameter, availableTopics, pickedTopics, ...rest} = props;
+	const {parameter, topic, ...rest} = props;
 
 	if (!isTopicFactorParameter(parameter)) {
 		return null;
 	}
 
-	return <RealTopicFactorEdit availableTopics={availableTopics} pickedTopics={pickedTopics}
-	                            parameter={parameter} {...rest}/>;
+	return <RealTopicFactorEdit topic={topic} parameter={parameter} {...rest}/>;
 };
 
 export const TopicFactorEditor = styled(TopicFactorEdit)`

@@ -7,7 +7,6 @@ import {createConstantParameter, createTopicFactorParameter} from '@/services/da
 import {Topic} from '@/services/data/tuples/topic-types';
 import {ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EDIT} from '@/widgets/basic/constants';
 import {useForceUpdate} from '@/widgets/basic/utils';
-import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useState} from 'react';
 import {useFilterEventBus} from '../filter-event-bus';
@@ -24,7 +23,7 @@ import {
 } from './widgets';
 
 export const JointEdit = (props: {
-	topics: Array<Topic>;
+	topic: Topic;
 	/**
 	 * if parent joint exists, means current joint is not in top level.
 	 * otherwise, current is top level, which means cannot be removed.
@@ -33,7 +32,7 @@ export const JointEdit = (props: {
 	onRemoveMe?: () => void;
 	joint: ParameterJoint;
 }) => {
-	const {topics, parentJoint, onRemoveMe, joint} = props;
+	const {topic, parentJoint, onRemoveMe, joint} = props;
 
 	const {fire} = useFilterEventBus();
 	const [editing, setEditing] = useState(false);
@@ -62,7 +61,7 @@ export const JointEdit = (props: {
 		event.preventDefault();
 		event.stopPropagation();
 		const newFilter = {
-			left: createTopicFactorParameter(),
+			left: createTopicFactorParameter(topic.topicId),
 			operator: ParameterExpressionOperator.EQUALS,
 			right: createConstantParameter()
 		};
@@ -77,7 +76,7 @@ export const JointEdit = (props: {
 			jointType: joint.jointType === ParameterJointType.AND ? ParameterJointType.OR : ParameterJointType.AND,
 			filters: [{
 				// 1 is factor, always be subject itself
-				left: createTopicFactorParameter('1'),
+				left: createTopicFactorParameter(topic.topicId),
 				operator: ParameterExpressionOperator.EQUALS,
 				right: createConstantParameter()
 			}]
@@ -106,29 +105,25 @@ export const JointEdit = (props: {
 	return <FilterJointContainer>
 		<FilterJointTypeEditContainer onClick={onStartEditing} tabIndex={0} onBlur={onBlur}>
 			<FilterJointTypeButton active={joint.jointType === ParameterJointType.AND} edit={editing}
-			                       onClick={onJointChange(ParameterJointType.AND)}>
-				{Lang.JOINT.AND}
-			</FilterJointTypeButton>
+			                       onClick={onJointChange(ParameterJointType.AND)}>And</FilterJointTypeButton>
 			<FilterJointTypeButton active={joint.jointType === ParameterJointType.OR} edit={editing}
-			                       onClick={onJointChange(ParameterJointType.OR)}>
-				{Lang.JOINT.OR}
-			</FilterJointTypeButton>
+			                       onClick={onJointChange(ParameterJointType.OR)}>Or</FilterJointTypeButton>
 			<FilterJointTypeIcon onClick={onIconClicked}>
 				{editing ? <FontAwesomeIcon icon={ICON_COLLAPSE_CONTENT}/> : <FontAwesomeIcon icon={ICON_EDIT}/>}
 			</FilterJointTypeIcon>
 
 		</FilterJointTypeEditContainer>
 		<FirstAddSubFilterIcon singleton={false} onClick={onAddSubExpressionClicked}>
-			<span>{Lang.CONSOLE.CONNECTED_SPACE.ADD_SUB_EXPRESSION_FILTER}</span>
+			<span>Add Sub Expression</span>
 		</FirstAddSubFilterIcon>
 		<AddSubFilterIcon singleton={!removable} onClick={onAddSubJointClicked}>
-			<span>{Lang.CONSOLE.CONNECTED_SPACE.ADD_SUB_JOINT_FILTER}</span>
+			<span>Add Sub Joint</span>
 		</AddSubFilterIcon>
 		{removable
 			? <RemoveFilterIcon onClick={onRemoveClicked}>
 				<FontAwesomeIcon icon={ICON_DELETE}/>
 			</RemoveFilterIcon>
 			: null}
-		<SubFilters joint={joint} topics={topics}/>
+		<SubFilters joint={joint} topic={topic}/>
 	</FilterJointContainer>;
 };

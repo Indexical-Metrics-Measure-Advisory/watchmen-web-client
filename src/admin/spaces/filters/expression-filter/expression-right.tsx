@@ -12,11 +12,11 @@ import {FilterEventTypes} from '../filter-event-bus-types';
 import {Expression} from './expression';
 
 export const ExpressionRight = (props: {
-	topics: Array<Topic>;
+	topic: Topic;
 	expression: ParameterExpression;
 	right: Parameter
 }) => {
-	const {topics, expression, right} = props;
+	const {topic, expression, right} = props;
 
 	const {on, off} = useFilterEventBus();
 	const forceUpdate = useForceUpdate();
@@ -30,7 +30,7 @@ export const ExpressionRight = (props: {
 	const visible = expression.operator !== ParameterExpressionOperator.NOT_EMPTY
 		&& expression.operator !== ParameterExpressionOperator.EMPTY;
 
-	return <Expression topics={topics}
+	return <Expression topic={topic}
 	                   expression={expression} parameter={right} availableKinds={[ParameterKind.CONSTANT]}
 	                   visible={visible}/>;
 };

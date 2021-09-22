@@ -4,10 +4,10 @@ import React from 'react';
 import {TopFilterEdit} from './top-filter-edit';
 import {SpaceFilterContainer} from './widgets';
 
-export const RestrictionFilter = (props: { filter: SpaceFilter; topics: Array<Topic> }) => {
-	const {filter, topics} = props;
+export const RestrictionFilter = (props: { filter: SpaceFilter; topic: Topic; }) => {
+	const {filter, topic} = props;
 
 	return <SpaceFilterContainer>
-		<TopFilterEdit topics={topics} filter={filter}/>
+		<TopFilterEdit topic={topic} filter={filter}/>
 	</SpaceFilterContainer>;
 };

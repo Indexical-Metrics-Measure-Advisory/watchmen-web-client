@@ -10,12 +10,11 @@ import {SubParameterAdd} from '../sub-param/sub-parameter-add';
 import {SubParametersContainer} from './widgets';
 
 export const SubParameters = (props: {
-	availableTopics: Array<Topic>;
-	pickedTopics: Array<Topic>;
+	topic: Topic;
 	parameter: ComputedParameter;
 	notifyChangeToParent: () => void;
 }) => {
-	const {availableTopics, pickedTopics, parameter, notifyChangeToParent} = props;
+	const {topic, parameter, notifyChangeToParent} = props;
 
 	const {onDeleted, onAdded} = useSubParameterChanged();
 
@@ -23,9 +22,7 @@ export const SubParameters = (props: {
 		{parameter.parameters.map(sub => {
 			return <ParameterEventBusProvider key={v4()}>
 				<HierarchicalParameterEventBridge notifyChangeToParent={notifyChangeToParent}/>
-				<SubParameterEdit parameter={sub} parentParameter={parameter}
-				                  availableTopics={availableTopics} pickedTopics={pickedTopics}
-				                  onDeleted={onDeleted(sub)}/>
+				<SubParameterEdit parameter={sub} parentParameter={parameter} topic={topic} onDeleted={onDeleted(sub)}/>
 			</ParameterEventBusProvider>;
 		})}
 		<SubParameterAdd parentParameter={parameter} onAdded={onAdded()}/>

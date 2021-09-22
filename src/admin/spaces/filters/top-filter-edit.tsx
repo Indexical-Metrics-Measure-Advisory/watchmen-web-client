@@ -7,8 +7,8 @@ import {FilterEventBusProvider, useFilterEventBus} from './filter-event-bus';
 import {FilterEventTypes} from './filter-event-bus-types';
 import {JointEdit} from './joint-filter/joint-edit';
 
-const TopFilter = (props: { filter: SpaceFilter; topics: Array<Topic> }) => {
-	const {filter, topics} = props;
+const TopFilter = (props: { filter: SpaceFilter; topic: Topic; }) => {
+	const {filter, topic} = props;
 
 	const {fire: fireTuple} = useTupleEventBus();
 	const {on, off} = useFilterEventBus();
@@ -29,13 +29,13 @@ const TopFilter = (props: { filter: SpaceFilter; topics: Array<Topic> }) => {
 		};
 	}, [on, off, fireTuple, filter]);
 
-	return <JointEdit joint={filter.joint} topics={topics}/>;
+	return <JointEdit joint={filter.joint} topic={topic}/>;
 };
 
-export const TopFilterEdit = (props: { filter: SpaceFilter; topics: Array<Topic> }) => {
-	const {filter, topics} = props;
+export const TopFilterEdit = (props: { filter: SpaceFilter; topic: Topic; }) => {
+	const {filter, topic} = props;
 
 	return <FilterEventBusProvider>
-		<TopFilter filter={filter} topics={topics}/>
+		<TopFilter filter={filter} topic={topic}/>
 	</FilterEventBusProvider>;
 };

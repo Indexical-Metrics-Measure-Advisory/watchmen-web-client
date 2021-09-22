@@ -12,11 +12,10 @@ import {SubParameters} from './sub-parameters';
 import {ComputedEditContainer} from './widgets';
 
 const ComputedEdit = (props: {
-	availableTopics: Array<Topic>;
-	pickedTopics: Array<Topic>;
+	topic: Topic;
 	parameter: Parameter
 }) => {
-	const {availableTopics, pickedTopics, parameter, ...rest} = props;
+	const {topic, parameter, ...rest} = props;
 
 	useComputedParameterFromChanged();
 	const notifyChangeToParent = useDelegateComputedParameterChildChangedToMe(parameter);
@@ -27,9 +26,7 @@ const ComputedEdit = (props: {
 
 	return <ComputedEditContainer {...rest}>
 		<ParameterComputeTypeEdit parameter={parameter}/>
-		<SubParameters parameter={parameter}
-		               availableTopics={availableTopics} pickedTopics={pickedTopics}
-		               notifyChangeToParent={notifyChangeToParent}/>
+		<SubParameters parameter={parameter} topic={topic} notifyChangeToParent={notifyChangeToParent}/>
 	</ComputedEditContainer>;
 };
 

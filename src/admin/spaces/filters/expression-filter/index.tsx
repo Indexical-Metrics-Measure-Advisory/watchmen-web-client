@@ -12,13 +12,13 @@ import {ExpressionRight} from './expression-right';
 import {ExpressionFilterContainer, ExpressionLeadLabel} from './widgets';
 
 export const ExpressionFilterEdit = (props: {
-	topics: Array<Topic>;
+	topic: Topic;
 	parentJoint: ParameterJoint;
 	onRemoveMe: () => void;
 	notifyChangeToParent: () => void;
 	expression: ParameterExpression;
 }) => {
-	const {parentJoint, onRemoveMe, notifyChangeToParent, topics, expression} = props;
+	const {parentJoint, onRemoveMe, notifyChangeToParent, topic, expression} = props;
 
 	const onRemoveClicked = (event: MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
@@ -38,10 +38,10 @@ export const ExpressionFilterEdit = (props: {
 				<FontAwesomeIcon icon={ICON_DELETE}/>
 			</RemoveFilterIcon>
 			<Expression expression={expression} parameter={expression.left} availableKinds={[ParameterKind.TOPIC]}
-			            topics={topics}
+			            topic={topic}
 			            visible={true}/>
 			<ExpressionOperator expression={expression}/>
-			<ExpressionRight expression={expression} right={expression.right} topics={topics}/>
+			<ExpressionRight expression={expression} right={expression.right} topic={topic}/>
 		</ExpressionFilterContainer>
 		<HierarchicalFilterEventBridge notifyChangeToParent={notifyChangeToParent}/>
 	</FilterEventBusProvider>;

@@ -10,28 +10,22 @@ import {TopicFactorEditor} from '../topic-factor';
 import {DeleteMeButton} from '../widgets';
 
 export const SubParameterEditBody = (props: {
-	availableTopics: Array<Topic>;
-	pickedTopics: Array<Topic>;
+	topic: Topic;
 	parentParameter: ComputedParameter;
 	parameter: Parameter;
 	onDeleted: () => void;
 }) => {
-	const {
-		availableTopics, pickedTopics,
-		parameter, parentParameter,
-		onDeleted
-	} = props;
+	const {topic, parameter, parentParameter, onDeleted} = props;
 
 	const onDeleteClicked = useSubParamDelete(parentParameter, parameter, onDeleted,
 		'Cannot delete this because of reach minimum parameter(s).');
 
 	return <>
 		<ConstantValueEditor parameter={parameter}/>
-		<TopicFactorEditor parameter={parameter}
-		                   availableTopics={availableTopics} pickedTopics={pickedTopics}/>
+		<TopicFactorEditor parameter={parameter} topic={topic}/>
 		<DeleteMeButton onClick={onDeleteClicked}>
 			<FontAwesomeIcon icon={ICON_DELETE}/>
 		</DeleteMeButton>
-		<ComputedEditor parameter={parameter} availableTopics={availableTopics} pickedTopics={pickedTopics}/>
+		<ComputedEditor parameter={parameter} topic={topic}/>
 	</>;
 };
