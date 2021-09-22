@@ -9,9 +9,9 @@ import {useAdminCacheEventBus} from '../../cache/cache-event-bus';
 import {AdminCacheEventTypes} from '../../cache/cache-event-bus-types';
 import {useTupleEventBus} from '../../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes, TupleState} from '../../widgets/tuple-workbench/tuple-event-bus-types';
+import {RestrictionFilter} from '../filters';
 import {useSpaceEventBus} from '../space-event-bus';
 import {SpaceEventTypes} from '../space-event-bus-types';
-import {RestrictionFilter} from '../filters';
 import {
 	RestrictionEnablementCell,
 	RestrictionIndexLabel,
@@ -24,6 +24,28 @@ import {
 
 type TemporaryFilters = { [key in string]: SpaceFilter };
 
+const redressFilters = (space: Space, tempFilters: TemporaryFilters): Array<string> => {
+	if (!space.filters) {
+		space.filters = [];
+	}
+	return (space.topicIds || []).map(topicId => {
+		// eslint-disable-next-line
+		const filter = space.filters?.find(filter => filter.topicId == topicId);
+		if (!filter) {
+			if (tempFilters[topicId]) {
+				space.filters?.push(tempFilters[topicId]);
+			} else {
+				space.filters?.push({
+					topicId,
+					joint: {jointType: ParameterJointType.AND, filters: []},
+					enabled: false
+				});
+			}
+		}
+		return topicId;
+	});
+};
+
 export const RestrictionsTable = (props: { space: Space }) => {
 	const {space} = props;
 
@@ -35,22 +57,8 @@ export const RestrictionsTable = (props: { space: Space }) => {
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const onTopicChanged = () => {
-			if (!space.filters) {
-				space.filters = [];
-			}
-			(space.topicIds || []).forEach(topicId => {
-				// eslint-disable-next-line
-				const filter = space.filters?.find(filter => filter.topicId == topicId) ?? tempFilters[topicId];
-				if (!filter) {
-					space.filters?.push({
-						topicId,
-						joint: {jointType: ParameterJointType.AND, filters: []},
-						enabled: false
-					});
-				}
-				delete tempFilters[topicId];
-			});
-			const built = space.filters?.reduce((all, filter) => {
+			redressFilters(space, tempFilters).forEach(topicId => delete tempFilters[topicId]);
+			const built = space.filters!.reduce((all, filter) => {
 				// eslint-disable-next-line
 				if ((space.topicIds || []).some(topicId => filter.topicId == topicId)) {
 					all.filters.push(filter);
@@ -83,6 +91,7 @@ export const RestrictionsTable = (props: { space: Space }) => {
 		fireTuple(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.CHANGED);
 	};
 
+	redressFilters(space, tempFilters).forEach(topicId => delete tempFilters[topicId]);
 	const filters = space.filters || [];
 
 	return <RestrictionsTableContainer>

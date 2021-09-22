@@ -50,6 +50,7 @@ const AdminSpaces = () => {
 				(page: DataPage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
 		const onDoSaveSpace = async (space: Space) => {
+			console.log(space)
 			if (!space.name || !space.name.trim()) {
 				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
 					fire(TupleEventTypes.TUPLE_SAVED, space, false);
