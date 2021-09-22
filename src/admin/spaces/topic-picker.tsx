@@ -1,10 +1,10 @@
-import {useSpaceEventBus} from '@/admin/spaces/space-event-bus';
-import {SpaceEventTypes} from '@/admin/spaces/space-event-bus-types';
 import {QueryTopicForHolder} from '@/services/data/tuples/query-topic-types';
 import {Space} from '@/services/data/tuples/space-types';
 import {listTopicsForHolder} from '@/services/data/tuples/topic';
 import React from 'react';
 import {TupleItemPicker} from '../widgets/tuple-workbench/tuple-item-picker';
+import {useSpaceEventBus} from './space-event-bus';
+import {SpaceEventTypes} from './space-event-bus-types';
 
 const hasTopic = (space: Space) => !!space.topicIds && space.topicIds.length > 0;
 const getTopicIds = (space: Space): Array<string> => space.topicIds;
@@ -32,7 +32,7 @@ export const TopicPicker = (props: {
 		const index = space.topicIds.findIndex(id => id == topicId);
 		if (index === -1) {
 			space.topicIds.push(topicId);
-			fire(SpaceEventTypes.TOPIC_ADDED, topicId)
+			fire(SpaceEventTypes.TOPIC_ADDED, topicId);
 		}
 	};
 	const removeTopic = (space: Space) => (topicOrId: string | QueryTopicForHolder) => {
@@ -46,7 +46,7 @@ export const TopicPicker = (props: {
 		const index = space.topicIds.findIndex(id => id == topicId);
 		if (index !== -1) {
 			space.topicIds.splice(index, 1);
-			fire(SpaceEventTypes.TOPIC_REMOVED, topicId)
+			fire(SpaceEventTypes.TOPIC_REMOVED, topicId);
 		}
 	};
 

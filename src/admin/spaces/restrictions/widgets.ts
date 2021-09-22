@@ -1,5 +1,5 @@
-import {TuplePropertyLabel} from '@/admin/widgets/tuple-workbench/tuple-editor';
 import styled from 'styled-components';
+import {TuplePropertyLabel} from '../../widgets/tuple-workbench/tuple-editor';
 
 export const RestrictionsTableContainer = styled.div.attrs({'data-widget': 'restrictions-table'})`
 	grid-column    : span 2;
@@ -38,5 +38,5 @@ export const RestrictionIndexLabel = styled.span`
 export const RestrictionNameLabel = styled.span`
 `;
 export const RestrictionEnablementCell = styled.div`
-	padding     : 0 calc(var(--margin) / 4);
-`
+	padding : 0 calc(var(--margin) / 4);
+`;

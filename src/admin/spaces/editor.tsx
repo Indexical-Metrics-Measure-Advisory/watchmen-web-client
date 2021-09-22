@@ -1,4 +1,3 @@
-import {SpaceEventBusProvider} from '@/admin/spaces/space-event-bus';
 import {isSpaceFilterEnabled} from '@/feature-switch';
 import {QueryTopicForHolder} from '@/services/data/tuples/query-topic-types';
 import {QueryUserGroupForHolder} from '@/services/data/tuples/query-user-group-types';
@@ -9,6 +8,7 @@ import {TuplePropertyInput, TuplePropertyInputLines, TuplePropertyLabel} from '.
 import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes, TupleState} from '../widgets/tuple-workbench/tuple-event-bus-types';
 import {Restrictions} from './restrictions';
+import {SpaceEventBusProvider} from './space-event-bus';
 import {TopicPicker} from './topic-picker';
 import {HoldBySpace} from './types';
 import {UserGroupPicker} from './user-group-picker';

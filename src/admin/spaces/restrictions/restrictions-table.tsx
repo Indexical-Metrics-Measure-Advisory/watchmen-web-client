@@ -7,8 +7,11 @@ import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useEffect, useState} from 'react';
 import {useAdminCacheEventBus} from '../../cache/cache-event-bus';
 import {AdminCacheEventTypes} from '../../cache/cache-event-bus-types';
+import {useTupleEventBus} from '../../widgets/tuple-workbench/tuple-event-bus';
+import {TupleEventTypes, TupleState} from '../../widgets/tuple-workbench/tuple-event-bus-types';
 import {useSpaceEventBus} from '../space-event-bus';
 import {SpaceEventTypes} from '../space-event-bus-types';
+import {RestrictionFilter} from '../filters';
 import {
 	RestrictionEnablementCell,
 	RestrictionIndexLabel,
@@ -19,12 +22,16 @@ import {
 	RestrictionsTableContainer
 } from './widgets';
 
+type TemporaryFilters = { [key in string]: SpaceFilter };
+
 export const RestrictionsTable = (props: { space: Space }) => {
 	const {space} = props;
 
 	const {once: onceCache} = useAdminCacheEventBus();
+	const {fire: fireTuple} = useTupleEventBus();
 	const {on, off} = useSpaceEventBus();
 	const [topics, setTopics] = useState<Array<Topic>>([]);
+	const [tempFilters, setTempFilters] = useState<TemporaryFilters>({});
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const onTopicChanged = () => {
@@ -33,7 +40,7 @@ export const RestrictionsTable = (props: { space: Space }) => {
 			}
 			(space.topicIds || []).forEach(topicId => {
 				// eslint-disable-next-line
-				const filter = space.filters?.find(filter => filter.topicId == topicId);
+				const filter = space.filters?.find(filter => filter.topicId == topicId) ?? tempFilters[topicId];
 				if (!filter) {
 					space.filters?.push({
 						topicId,
@@ -41,12 +48,20 @@ export const RestrictionsTable = (props: { space: Space }) => {
 						enabled: false
 					});
 				}
+				delete tempFilters[topicId];
 			});
-			space.filters?.filter(filter => {
+			const built = space.filters?.reduce((all, filter) => {
 				// eslint-disable-next-line
-				return (space.topicIds || []).every(topicId => topicId != filter.topicId);
-			}).forEach(filter => filter.enabled = false);
-			forceUpdate();
+				if ((space.topicIds || []).some(topicId => filter.topicId == topicId)) {
+					all.filters.push(filter);
+				} else {
+					filter.enabled = false;
+					tempFilters[filter.topicId] = filter;
+				}
+				return all;
+			}, {filters: [] as Array<SpaceFilter>, temp: {...tempFilters}});
+			space.filters = built.filters;
+			setTempFilters(built.temp);
 		};
 		on(SpaceEventTypes.TOPIC_ADDED, onTopicChanged);
 		on(SpaceEventTypes.TOPIC_REMOVED, onTopicChanged);
@@ -54,7 +69,7 @@ export const RestrictionsTable = (props: { space: Space }) => {
 			off(SpaceEventTypes.TOPIC_ADDED, onTopicChanged);
 			off(SpaceEventTypes.TOPIC_REMOVED, onTopicChanged);
 		};
-	}, [on, off, forceUpdate, space]);
+	}, [on, off, space, tempFilters]);
 	useEffect(() => {
 		onceCache(AdminCacheEventTypes.REPLY_DATA, (data?: AdminCacheData) => {
 			const {topics} = data || {};
@@ -65,12 +80,13 @@ export const RestrictionsTable = (props: { space: Space }) => {
 	const onFilterEnabledChanged = (filter: SpaceFilter) => (value: boolean) => {
 		filter.enabled = value;
 		forceUpdate();
+		fireTuple(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.CHANGED);
 	};
 
 	const filters = space.filters || [];
 
 	return <RestrictionsTableContainer>
-		<RestrictionsPropLabel>Restrictions:</RestrictionsPropLabel>
+		<RestrictionsPropLabel>{filters.length !== 0 ? 'Restrictions:' : 'No Restriction Defined.'}</RestrictionsPropLabel>
 		<RestrictionsTableBodyContainer>
 			{filters.map((filter, index) => {
 				// eslint-disable-next-line
@@ -84,6 +100,7 @@ export const RestrictionsTable = (props: { space: Space }) => {
 					<RestrictionEnablementCell>
 						<Toggle value={filter.enabled} onChange={onFilterEnabledChanged(filter)}/>
 					</RestrictionEnablementCell>
+					{filter.enabled ? <RestrictionFilter filter={filter} topics={[topic]}/> : null}
 				</RestrictionRowContainer>;
 			})}
 		</RestrictionsTableBodyContainer>
