@@ -1,3 +1,5 @@
+import {SpaceEventBusProvider} from '@/admin/spaces/space-event-bus';
+import {isSpaceFilterEnabled} from '@/feature-switch';
 import {QueryTopicForHolder} from '@/services/data/tuples/query-topic-types';
 import {QueryUserGroupForHolder} from '@/services/data/tuples/query-user-group-types';
 import {Space} from '@/services/data/tuples/space-types';
@@ -6,6 +8,7 @@ import React from 'react';
 import {TuplePropertyInput, TuplePropertyInputLines, TuplePropertyLabel} from '../widgets/tuple-workbench/tuple-editor';
 import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes, TupleState} from '../widgets/tuple-workbench/tuple-event-bus-types';
+import {Restrictions} from './restrictions';
 import {TopicPicker} from './topic-picker';
 import {HoldBySpace} from './types';
 import {UserGroupPicker} from './user-group-picker';
@@ -34,7 +37,7 @@ const SpaceEditor = (props: { space: Space, codes?: HoldBySpace }) => {
 	space.topicIds = space.topicIds || [];
 	space.userGroupIds = space.userGroupIds || [];
 
-	return <>
+	return <SpaceEventBusProvider>
 		<TuplePropertyLabel>Space Name:</TuplePropertyLabel>
 		<TuplePropertyInput value={space.name || ''} onChange={onPropChange('name')}/>
 		<TuplePropertyLabel>Description:</TuplePropertyLabel>
@@ -43,8 +46,8 @@ const SpaceEditor = (props: { space: Space, codes?: HoldBySpace }) => {
 		<TopicPicker label="Assign Topic" space={space} codes={topics}/>
 		<TuplePropertyLabel>Groups:</TuplePropertyLabel>
 		<UserGroupPicker label="Grant to User Group" space={space} codes={groups}/>
-		<TuplePropertyLabel>Restrictions:</TuplePropertyLabel>
-	</>;
+		{isSpaceFilterEnabled() ? <Restrictions space={space}/> : null}
+	</SpaceEventBusProvider>;
 };
 export const renderEditor = (space: Space, codes?: HoldBySpace) => {
 	return <SpaceEditor space={space} codes={codes}/>;

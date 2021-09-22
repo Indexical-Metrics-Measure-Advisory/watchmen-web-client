@@ -1,3 +1,5 @@
+import {useSpaceEventBus} from '@/admin/spaces/space-event-bus';
+import {SpaceEventTypes} from '@/admin/spaces/space-event-bus-types';
 import {QueryTopicForHolder} from '@/services/data/tuples/query-topic-types';
 import {Space} from '@/services/data/tuples/space-types';
 import {listTopicsForHolder} from '@/services/data/tuples/topic';
@@ -10,27 +12,6 @@ const findNameFromTopics = (topicId: string, topics: Array<QueryTopicForHolder>)
 	// eslint-disable-next-line
 	return topics.find(topic => topic.topicId == topicId)!.name;
 };
-const removeTopic = (space: Space) => (topicOrId: string | QueryTopicForHolder) => {
-	let topicId: string;
-	if (typeof topicOrId === 'string') {
-		topicId = topicOrId;
-	} else {
-		topicId = topicOrId.topicId;
-	}
-	// eslint-disable-next-line
-	const index = space.topicIds.findIndex(id => id == topicId);
-	if (index !== -1) {
-		space.topicIds.splice(index, 1);
-	}
-};
-const addTopic = (space: Space) => (topic: QueryTopicForHolder) => {
-	const {topicId} = topic;
-	// eslint-disable-next-line
-	const index = space.topicIds.findIndex(id => id == topicId);
-	if (index === -1) {
-		space.topicIds.push(topicId);
-	}
-};
 const getIdOfTopic = (topic: QueryTopicForHolder) => topic.topicId;
 const getNameOfTopic = (topic: QueryTopicForHolder) => topic.name;
 // eslint-disable-next-line
@@ -42,6 +23,32 @@ export const TopicPicker = (props: {
 	codes: Array<QueryTopicForHolder>;
 }) => {
 	const {label, space, codes} = props;
+
+	const {fire} = useSpaceEventBus();
+
+	const addTopic = (space: Space) => (topic: QueryTopicForHolder) => {
+		const {topicId} = topic;
+		// eslint-disable-next-line
+		const index = space.topicIds.findIndex(id => id == topicId);
+		if (index === -1) {
+			space.topicIds.push(topicId);
+			fire(SpaceEventTypes.TOPIC_ADDED, topicId)
+		}
+	};
+	const removeTopic = (space: Space) => (topicOrId: string | QueryTopicForHolder) => {
+		let topicId: string;
+		if (typeof topicOrId === 'string') {
+			topicId = topicOrId;
+		} else {
+			topicId = topicOrId.topicId;
+		}
+		// eslint-disable-next-line
+		const index = space.topicIds.findIndex(id => id == topicId);
+		if (index !== -1) {
+			space.topicIds.splice(index, 1);
+			fire(SpaceEventTypes.TOPIC_REMOVED, topicId)
+		}
+	};
 
 	return <TupleItemPicker actionLabel={label}
 	                        holder={space} codes={codes}

@@ -1,15 +1,11 @@
-import {ParameterCondition, ParameterExpression, ParameterJoint} from './factor-calculator-types';
+import {ParameterJoint} from './factor-calculator-types';
 import {TopicHolder, Tuple, UserGroupHolder} from './tuple-types';
 
 /** filter */
-export interface SpaceFilter extends ParameterCondition {
-}
-
-export interface SpaceFilterJoint extends SpaceFilter, ParameterJoint {
-	filters: Array<SpaceFilter>;
-}
-
-export interface SpaceFilterExpression extends SpaceFilter, ParameterExpression {
+export interface SpaceFilter {
+	topicId: string;
+	joint: ParameterJoint;
+	enabled: boolean;
 }
 
 export interface Space extends Tuple, TopicHolder, UserGroupHolder {
@@ -17,5 +13,5 @@ export interface Space extends Tuple, TopicHolder, UserGroupHolder {
 	name: string;
 	description?: string;
 	tenantId?: string;
-	filters?: SpaceFilterJoint;
+	filters?: Array<SpaceFilter>;
 }
