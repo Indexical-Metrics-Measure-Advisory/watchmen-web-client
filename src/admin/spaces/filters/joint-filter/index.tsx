@@ -1,4 +1,4 @@
-import {ReportFilterJoint} from '@/services/data/tuples/report-types';
+import {ParameterJoint} from '@/services/data/tuples/factor-calculator-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
 import {FilterEventBusProvider} from '../filter-event-bus';
@@ -8,9 +8,9 @@ import {NonTopJointFilterContainer} from './widgets';
 
 export const JointFilterEdit = (props: {
 	topics: Array<Topic>;
-	parentJoint: ReportFilterJoint;
+	parentJoint: ParameterJoint;
 	onRemoveMe: () => void;
-	joint: ReportFilterJoint;
+	joint: ParameterJoint;
 	notifyChangeToParent: () => void;
 }) => {
 	const {topics, parentJoint, onRemoveMe, joint, notifyChangeToParent} = props;

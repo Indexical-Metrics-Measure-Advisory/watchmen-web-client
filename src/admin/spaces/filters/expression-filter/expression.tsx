@@ -1,5 +1,4 @@
-import {Parameter, ParameterKind} from '@/services/data/tuples/factor-calculator-types';
-import {ReportFilterExpression} from '@/services/data/tuples/report-types';
+import {Parameter, ParameterExpression, ParameterKind} from '@/services/data/tuples/factor-calculator-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {ParameterEventBusProvider, useParameterEventBus} from '@/widgets/parameter/parameter-event-bus';
@@ -12,12 +11,12 @@ import {ExpressionSide, ParameterFromEditorForExpression} from './widgets';
 
 export const ExpressionBody = (props: {
 	topics: Array<Topic>;
-	filter: ReportFilterExpression;
+	expression: ParameterExpression;
 	parameter: Parameter;
 	availableKinds: Array<ParameterKind>;
 	visible: boolean;
 }) => {
-	const {topics, filter, parameter, availableKinds, visible} = props;
+	const {topics, expression, parameter, availableKinds, visible} = props;
 
 	const {on, off} = useParameterEventBus();
 	const forceUpdate = useForceUpdate();
@@ -34,13 +33,13 @@ export const ExpressionBody = (props: {
 		<ConstantValueEditor parameter={parameter}/>
 		<TopicFactorEditor parameter={parameter} availableTopics={topics} pickedTopics={topics}/>
 		{/*<ComputedEditor parameter={parameter} availableTopics={availableTopics} pickedTopics={pickedTopics}/>*/}
-		<Parameter2FilterEventBridge filter={filter}/>
+		<Parameter2FilterEventBridge expression={expression}/>
 	</ExpressionSide>;
 };
 
 export const Expression = (props: {
 	topics: Array<Topic>;
-	filter: ReportFilterExpression;
+	expression: ParameterExpression;
 	parameter: Parameter;
 	availableKinds: Array<ParameterKind>;
 	visible: boolean;

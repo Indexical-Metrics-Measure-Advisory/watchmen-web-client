@@ -1,5 +1,9 @@
-import {Parameter, ParameterExpressionOperator, ParameterKind} from '@/services/data/tuples/factor-calculator-types';
-import {ReportFilterExpression} from '@/services/data/tuples/report-types';
+import {
+	Parameter,
+	ParameterExpression,
+	ParameterExpressionOperator,
+	ParameterKind
+} from '@/services/data/tuples/factor-calculator-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useEffect} from 'react';
@@ -9,10 +13,10 @@ import {Expression} from './expression';
 
 export const ExpressionRight = (props: {
 	topics: Array<Topic>;
-	filter: ReportFilterExpression;
-	parameter: Parameter
+	expression: ParameterExpression;
+	right: Parameter
 }) => {
-	const {topics, filter, parameter} = props;
+	const {topics, expression, right} = props;
 
 	const {on, off} = useFilterEventBus();
 	const forceUpdate = useForceUpdate();
@@ -23,10 +27,10 @@ export const ExpressionRight = (props: {
 		};
 	}, [on, off, forceUpdate]);
 
-	const visible = filter.operator !== ParameterExpressionOperator.NOT_EMPTY
-		&& filter.operator !== ParameterExpressionOperator.EMPTY;
+	const visible = expression.operator !== ParameterExpressionOperator.NOT_EMPTY
+		&& expression.operator !== ParameterExpressionOperator.EMPTY;
 
 	return <Expression topics={topics}
-	                   filter={filter} parameter={parameter} availableKinds={[ParameterKind.CONSTANT]}
+	                   expression={expression} parameter={right} availableKinds={[ParameterKind.CONSTANT]}
 	                   visible={visible}/>;
 };

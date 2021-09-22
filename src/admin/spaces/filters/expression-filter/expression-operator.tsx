@@ -1,5 +1,4 @@
-import {ParameterExpressionOperator} from '@/services/data/tuples/factor-calculator-types';
-import {ReportFilterExpression} from '@/services/data/tuples/report-types';
+import {ParameterExpression, ParameterExpressionOperator} from '@/services/data/tuples/factor-calculator-types';
 import {ICON_EDIT} from '@/widgets/basic/constants';
 import {useCollapseFixedThing} from '@/widgets/basic/utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -49,8 +48,8 @@ interface DropdownState {
 	left: number;
 }
 
-export const ExpressionOperator = (props: { filter: ReportFilterExpression }) => {
-	const {filter} = props;
+export const ExpressionOperator = (props: { expression: ParameterExpression }) => {
+	const {expression} = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const {fire} = useFilterEventBus();
@@ -78,26 +77,26 @@ export const ExpressionOperator = (props: { filter: ReportFilterExpression }) =>
 		event.preventDefault();
 		event.stopPropagation();
 
-		if (filter.operator === operator) {
+		if (expression.operator === operator) {
 			return;
 		} else {
-			filter.operator = operator;
-			fire(FilterEventTypes.CONTENT_CHANGED, filter);
+			expression.operator = operator;
+			fire(FilterEventTypes.CONTENT_CHANGED, expression);
 			setState({visible: false, top: 0, left: 0});
 		}
 	};
 
-	const hasRight = filter.operator !== ParameterExpressionOperator.EMPTY
-		&& filter.operator !== ParameterExpressionOperator.NOT_EMPTY;
+	const hasRight = expression.operator !== ParameterExpressionOperator.EMPTY
+		&& expression.operator !== ParameterExpressionOperator.NOT_EMPTY;
 
 	return <ExpressionOperatorContainer hasRight={hasRight} onClick={onStartClicked} ref={containerRef}>
-		<ExpressionOperatorLabel>{FilterExpressionOperatorLabels[filter.operator]}</ExpressionOperatorLabel>
+		<ExpressionOperatorLabel>{FilterExpressionOperatorLabels[expression.operator]}</ExpressionOperatorLabel>
 		<ExpressionOperatorIcon>
 			<FontAwesomeIcon icon={ICON_EDIT}/>
 		</ExpressionOperatorIcon>
 		<ExpressionOperatorDropdown {...state}>
 			{AvailableOperators.map(operator => {
-				return <ExpressionOperatorOption selected={operator === filter.operator}
+				return <ExpressionOperatorOption selected={operator === expression.operator}
 				                                 onClick={onOperatorClick(operator)}
 				                                 key={operator}>
 					{FilterExpressionOperatorLabels[operator]}

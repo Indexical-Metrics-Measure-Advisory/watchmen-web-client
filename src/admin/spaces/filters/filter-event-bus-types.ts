@@ -1,4 +1,4 @@
-import {ReportFilter, ReportFilterJoint} from '@/services/data/tuples/report-types';
+import {ParameterCondition, ParameterJoint} from '@/services/data/tuples/factor-calculator-types';
 
 export enum FilterEventTypes {
 	JOINT_TYPE_CHANGED = 'joint-type-changed',
@@ -11,19 +11,19 @@ export enum FilterEventTypes {
 }
 
 export interface FilterEventBus {
-	fire(type: FilterEventTypes.JOINT_TYPE_CHANGED, joint: ReportFilterJoint): this;
-	on(type: FilterEventTypes.JOINT_TYPE_CHANGED, listener: (joint: ReportFilterJoint) => void): this;
-	off(type: FilterEventTypes.JOINT_TYPE_CHANGED, listener: (joint: ReportFilterJoint) => void): this;
+	fire(type: FilterEventTypes.JOINT_TYPE_CHANGED, joint: ParameterJoint): this;
+	on(type: FilterEventTypes.JOINT_TYPE_CHANGED, listener: (joint: ParameterJoint) => void): this;
+	off(type: FilterEventTypes.JOINT_TYPE_CHANGED, listener: (joint: ParameterJoint) => void): this;
 
-	fire(type: FilterEventTypes.FILTER_ADDED, filter: ReportFilter): this;
-	on(type: FilterEventTypes.FILTER_ADDED, listener: (filter: ReportFilter) => void): this;
-	off(type: FilterEventTypes.FILTER_ADDED, listener: (filter: ReportFilter) => void): this;
+	fire(type: FilterEventTypes.FILTER_ADDED, filter: ParameterCondition): this;
+	on(type: FilterEventTypes.FILTER_ADDED, listener: (filter: ParameterCondition) => void): this;
+	off(type: FilterEventTypes.FILTER_ADDED, listener: (filter: ParameterCondition) => void): this;
 
-	fire(type: FilterEventTypes.FILTER_REMOVED, filter: ReportFilter): this;
-	on(type: FilterEventTypes.FILTER_REMOVED, listener: (filter: ReportFilter) => void): this;
-	off(type: FilterEventTypes.FILTER_REMOVED, listener: (filter: ReportFilter) => void): this;
+	fire(type: FilterEventTypes.FILTER_REMOVED, filter: ParameterCondition): this;
+	on(type: FilterEventTypes.FILTER_REMOVED, listener: (filter: ParameterCondition) => void): this;
+	off(type: FilterEventTypes.FILTER_REMOVED, listener: (filter: ParameterCondition) => void): this;
 
-	fire(type: FilterEventTypes.CONTENT_CHANGED, filter: ReportFilter): this;
-	on(type: FilterEventTypes.CONTENT_CHANGED, listener: (filter: ReportFilter) => void): this;
-	off(type: FilterEventTypes.CONTENT_CHANGED, listener: (filter: ReportFilter) => void): this;
+	fire(type: FilterEventTypes.CONTENT_CHANGED, filter: ParameterCondition): this;
+	on(type: FilterEventTypes.CONTENT_CHANGED, listener: (filter: ParameterCondition) => void): this;
+	off(type: FilterEventTypes.CONTENT_CHANGED, listener: (filter: ParameterCondition) => void): this;
 }

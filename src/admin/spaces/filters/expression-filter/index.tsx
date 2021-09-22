@@ -37,11 +37,11 @@ export const ExpressionFilterEdit = (props: {
 			<RemoveFilterIcon onClick={onRemoveClicked}>
 				<FontAwesomeIcon icon={ICON_DELETE}/>
 			</RemoveFilterIcon>
-			<Expression filter={expression} parameter={expression.left} availableKinds={[ParameterKind.TOPIC]}
+			<Expression expression={expression} parameter={expression.left} availableKinds={[ParameterKind.TOPIC]}
 			            topics={topics}
 			            visible={true}/>
-			<ExpressionOperator filter={expression}/>
-			<ExpressionRight filter={expression} parameter={expression.right} topics={topics}/>
+			<ExpressionOperator expression={expression}/>
+			<ExpressionRight expression={expression} right={expression.right} topics={topics}/>
 		</ExpressionFilterContainer>
 		<HierarchicalFilterEventBridge notifyChangeToParent={notifyChangeToParent}/>
 	</FilterEventBusProvider>;

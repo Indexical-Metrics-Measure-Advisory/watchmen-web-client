@@ -1,5 +1,5 @@
-import {ReportFilter, ReportFilterJoint} from '@/services/data/tuples/report-types';
-import {isExpressionFilter, isJointFilter} from '@/services/data/tuples/report-utils';
+import {ParameterCondition, ParameterJoint} from '@/services/data/tuples/factor-calculator-types';
+import {isExpressionParameter, isJointParameter} from '@/services/data/tuples/parameter-utils';
 import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
 import {ExpressionFilterEdit} from '../expression-filter';
@@ -7,18 +7,18 @@ import {JointFilterEdit} from './index';
 
 export const FilterEdit = (props: {
 	topics: Array<Topic>;
-	parentJoint: ReportFilterJoint;
+	parentJoint: ParameterJoint;
 	onRemoveMe: () => void;
 	notifyChangeToParent: () => void;
-	filter: ReportFilter;
+	filter: ParameterCondition;
 }) => {
 	const {topics, parentJoint, onRemoveMe, notifyChangeToParent, filter} = props;
 
-	if (isJointFilter(filter)) {
+	if (isJointParameter(filter)) {
 		return <JointFilterEdit topics={topics} joint={filter}
 		                        parentJoint={parentJoint} onRemoveMe={onRemoveMe}
 		                        notifyChangeToParent={notifyChangeToParent}/>;
-	} else if (isExpressionFilter(filter)) {
+	} else if (isExpressionParameter(filter)) {
 		return <ExpressionFilterEdit topics={topics} expression={filter}
 		                             parentJoint={parentJoint} onRemoveMe={onRemoveMe}
 		                             notifyChangeToParent={notifyChangeToParent}/>;

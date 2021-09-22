@@ -1,5 +1,4 @@
-import {ParameterJoint} from '@/services/data/tuples/factor-calculator-types';
-import {ReportFilter} from '@/services/data/tuples/report-types';
+import {ParameterCondition, ParameterJoint} from '@/services/data/tuples/factor-calculator-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {v4} from 'uuid';
@@ -17,7 +16,7 @@ export const SubFilters = (props: {
 	const forceUpdate = useForceUpdate();
 
 	// when sub filter removed, fire this event
-	const onRemove = (filter: ReportFilter) => () => {
+	const onRemove = (filter: ParameterCondition) => () => {
 		forceUpdate();
 		// delegate to parent
 		fire(FilterEventTypes.FILTER_REMOVED, filter);
