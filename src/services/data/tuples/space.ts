@@ -15,8 +15,12 @@ const transformFromServer = (space: SpaceOnServer): Space => {
 	return {userGroupIds: groupIds, ...rest};
 };
 const transformToServer = (space: Space): SpaceOnServer => {
-	const {userGroupIds, ...rest} = space;
-	return {groupIds: userGroupIds, ...rest};
+	const {userGroupIds, filters, ...rest} = space;
+	return {
+		groupIds: userGroupIds,
+		filters: (filters || []).filter(filter => filter.enabled),
+		...rest
+	};
 };
 
 export const listSpaces = async (options: {
