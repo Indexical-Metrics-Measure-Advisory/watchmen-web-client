@@ -1,5 +1,3 @@
-import {useAdminCacheEventBus} from '@/admin/cache/cache-event-bus';
-import {AdminCacheEventTypes} from '@/admin/cache/cache-event-bus-types';
 import {DataPage} from '@/services/data/query/data-page';
 import {
 	ParameterCondition,
@@ -22,6 +20,8 @@ import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import React, {useEffect} from 'react';
 import SpaceBackground from '../../assets/space-background.svg';
+import {useAdminCacheEventBus} from '../cache/cache-event-bus';
+import {AdminCacheEventTypes} from '../cache/cache-event-bus-types';
 import {TupleWorkbench} from '../widgets/tuple-workbench';
 import {TupleEventBusProvider, useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
