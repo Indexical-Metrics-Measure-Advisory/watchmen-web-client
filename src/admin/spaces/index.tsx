@@ -1,13 +1,8 @@
 import {DataPage} from '@/services/data/query/data-page';
-import {
-	ParameterCondition,
-	ParameterJoint,
-	ParameterJointType,
-	TopicFactorParameter
-} from '@/services/data/tuples/factor-calculator-types';
+import {ParameterCondition, TopicFactorParameter} from '@/services/data/tuples/factor-calculator-types';
 import {isExpressionParameter, isJointParameter} from '@/services/data/tuples/parameter-utils';
 import {QuerySpace} from '@/services/data/tuples/query-space-types';
-import {fetchSpace, listSpaces, saveSpace} from '@/services/data/tuples/space';
+import {fetchSpace, listSpaces, saveSpace, strictSpaceJointFilter} from '@/services/data/tuples/space';
 import {Space} from '@/services/data/tuples/space-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {QueryTuple} from '@/services/data/tuples/tuple-types';
@@ -43,25 +38,6 @@ const fetchSpaceAndCodes = async (querySpace: QuerySpace) => {
 
 const getKeyOfSpace = (space: QuerySpace) => space.spaceId;
 
-const strict = (joint: ParameterJoint): ParameterJoint => {
-	if (!joint.filters || joint.filters.length === 0) {
-		return {jointType: joint.jointType || ParameterJointType.AND, filters: joint.filters || []};
-	}
-
-	return {
-		...joint,
-		filters: joint.filters.filter(filter => {
-			if (isExpressionParameter(filter)) {
-				return filter;
-			} else if (isJointParameter(filter)) {
-				return strict(filter);
-			}
-			// never occurs
-			throw new Error('Unsupported filter type.');
-		})
-	};
-};
-
 const validateFilter = (filter: ParameterCondition, topic: Topic): boolean => {
 	if (isExpressionParameter(filter)) {
 		// left is topic factor, right is constant
@@ -89,7 +65,7 @@ const validateSpaceFilters = (space: Space, topics: Array<Topic>): { pass: boole
 			return true;
 		}
 
-		return strict(joint).filters.some(filter => !validateFilter(filter, topic));
+		return strictSpaceJointFilter(joint).filters.some(filter => !validateFilter(filter, topic));
 	});
 
 	return {pass: !failed, message: 'Space filter is incorrect.'};
