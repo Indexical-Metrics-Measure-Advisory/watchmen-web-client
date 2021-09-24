@@ -20,7 +20,13 @@ const transformToServer = (space: Space): SpaceOnServer => {
 	const {userGroupIds, filters, ...rest} = space;
 	return {
 		groupIds: userGroupIds,
-		filters: (filters || []).filter(filter => filter.enabled),
+		filters: (filters || []).filter(filter => {
+			return filter.enabled;
+		}).map(({topicId, joint, enabled}) => {
+			return {topicId, enabled, joint: strictSpaceJointFilter(joint)};
+		}).filter(filter => {
+			return filter.joint.filters.length !== 0;
+		}),
 		...rest
 	};
 };
@@ -75,7 +81,7 @@ export const strictSpaceJointFilter = (joint: ParameterJoint): ParameterJoint =>
 
 	return {
 		...joint,
-		filters: joint.filters.filter(filter => {
+		filters: joint.filters.map(filter => {
 			if (isExpressionParameter(filter)) {
 				return filter;
 			} else if (isJointParameter(filter)) {
@@ -83,6 +89,11 @@ export const strictSpaceJointFilter = (joint: ParameterJoint): ParameterJoint =>
 			}
 			// never occurs
 			throw new Error('Unsupported filter type.');
+		}).filter(filter => {
+			if (isJointParameter(filter)) {
+				return filter.filters.length !== 0;
+			}
+			return true;
 		})
 	};
 };
@@ -90,6 +101,7 @@ export const strictSpaceJointFilter = (joint: ParameterJoint): ParameterJoint =>
 export const saveSpace = async (space: Space): Promise<void> => {
 	space.tenantId = findAccount()?.tenantId;
 	if (isMockService()) {
+		console.log(transformToServer(space));
 		return saveMockSpace(space);
 	} else if (isFakedUuid(space)) {
 		const data = await post({api: Apis.SPACE_CREATE, data: transformToServer(space)});
