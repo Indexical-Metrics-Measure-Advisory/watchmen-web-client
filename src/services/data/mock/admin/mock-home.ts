@@ -26,6 +26,7 @@ export const fetchMockAdminDashboard = async (): Promise<AdminDashboard> => {
 						name: '',
 						indicators: [],
 						dimensions: [],
+						funnels: [],
 						rect: {x: 320, y: 320, width: 480, height: 300},
 						chart: {
 							type: ChartType.COUNT

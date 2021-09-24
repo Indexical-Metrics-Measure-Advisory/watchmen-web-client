@@ -70,28 +70,13 @@ export abstract class DefaultChartUtils implements ChartUtils {
 	getType(): ChartType {
 		return this.def.type;
 	}
-	shouldHasDimension(): boolean {
-		return true;
-	}
-	getMaxDimensionCount(): number {
-		const {maxDimensionCount = Infinity} = this.def;
-		return maxDimensionCount;
-	}
+
 	shouldHasIndicator(): boolean {
 		return true;
 	}
 	getMaxIndicatorCount(): number {
 		const {maxIndicatorCount = Infinity} = this.def;
 		return maxIndicatorCount;
-	}
-	canAppendDimensions(report: Report): boolean {
-		const currentCount = report.dimensions?.length || 0;
-		return currentCount < this.getMaxDimensionCount();
-	}
-	canReduceDimensions(report: Report): boolean {
-		const currentCount = report.dimensions?.length || 0;
-		const {minDimensionCount = 1} = this.def;
-		return currentCount > minDimensionCount;
 	}
 	canAppendIndicators(report: Report): boolean {
 		const currentCount = report.indicators?.length || 0;
@@ -102,7 +87,6 @@ export abstract class DefaultChartUtils implements ChartUtils {
 		const {minIndicatorCount = 1} = this.def;
 		return currentCount > minIndicatorCount;
 	}
-	abstract buildOptions(report: Report, dataset: ChartDataSet): ChartOptions;
 	defendIndicatorMinCount(report: Report): void {
 		// make indicators not null
 		if (!report.indicators) {
@@ -129,6 +113,23 @@ export abstract class DefaultChartUtils implements ChartUtils {
 			report.indicators.length = maxIndicatorCount;
 		}
 	}
+
+	shouldHasDimension(): boolean {
+		return true;
+	}
+	getMaxDimensionCount(): number {
+		const {maxDimensionCount = Infinity} = this.def;
+		return maxDimensionCount;
+	}
+	canAppendDimensions(report: Report): boolean {
+		const currentCount = report.dimensions?.length || 0;
+		return currentCount < this.getMaxDimensionCount();
+	}
+	canReduceDimensions(report: Report): boolean {
+		const currentCount = report.dimensions?.length || 0;
+		const {minDimensionCount = 1} = this.def;
+		return currentCount > minDimensionCount;
+	}
 	defendDimensionMinCount(report: Report): void {
 		// make dimensions not null
 		if (!report.dimensions) {
@@ -151,6 +152,11 @@ export abstract class DefaultChartUtils implements ChartUtils {
 			report.dimensions.length = maxDimensionCount;
 		}
 	}
+
+	shouldHasFunnel(): boolean {
+		return true;
+	}
+
 	defend(report: Report): void {
 		this.defendIndicatorMinCount(report);
 		this.defendIndicatorMaxCount(report);
@@ -168,6 +174,8 @@ export abstract class DefaultChartUtils implements ChartUtils {
 		}, {pass: true});
 		return validationResult.pass || validationResult.error;
 	}
+	abstract buildOptions(report: Report, dataset: ChartDataSet): ChartOptions;
+
 	findColumnExtremum(dataset: ChartDataSet, columnIndex: number): { min: number, max: number } {
 		return dataset.data.reduce((extremum, row) => {
 			// must be number, otherwise throw exception

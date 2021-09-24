@@ -5,7 +5,7 @@ import {
 	ParameterComputeType,
 	ParameterCondition,
 	ParameterExpression,
-	ParameterJoint,
+	ParameterJoint, ParameterJointType,
 	ParameterKind,
 	TopicFactorParameter
 } from './factor-calculator-types';
@@ -125,4 +125,31 @@ export const canDeleteAnyParameter = (parent: ComputedParameter) => {
 	const minParamCount = calculatorDef.minParameterCount || calculatorDef.parameterCount || 1;
 	const currentCount = parent.parameters.length;
 	return currentCount > minParamCount;
+};
+
+/**
+ * remove joint which has no filters
+ */
+export const strictParameterJoint = (joint: ParameterJoint): ParameterJoint => {
+	if (!joint.filters || joint.filters.length === 0) {
+		return {jointType: joint.jointType || ParameterJointType.AND, filters: joint.filters || []};
+	}
+
+	return {
+		...joint,
+		filters: joint.filters.map(filter => {
+			if (isExpressionParameter(filter)) {
+				return filter;
+			} else if (isJointParameter(filter)) {
+				return strictParameterJoint(filter);
+			}
+			// never occurs
+			throw new Error('Unsupported filter type.');
+		}).filter(filter => {
+			if (isJointParameter(filter)) {
+				return filter.filters.length !== 0;
+			}
+			return true;
+		})
+	};
 };

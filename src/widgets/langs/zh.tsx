@@ -239,7 +239,8 @@ export const Zh = {
 			EXPAND_REPORT_SETTINGS_SECTIONS: '展开所有',
 			REPORT_NO_FILTER: '没有定义过滤条件, 现在就',
 			CREATE_REPORT_FILTER: '开始',
-			REPORT_NO_FILTER_2: '吗?'
+			REPORT_NO_FILTER_2: '吗?',
+			INCORRECT_REPORT_FILTER: '存在不正确的过滤条件定义.'
 		},
 		SETTINGS: {
 			TITLE: '设置',
@@ -383,9 +384,11 @@ export const Zh = {
 		SECTION_TITLE_PADDING: '边距',
 		SECTION_TITLE_GAP_AND_PADDING: '间隔和边距',
 		SECTION_TITLE_VALUE_FORMAT: '值格式',
+		SECTION_TITLE_FUNNEL: '动态漏斗',
 		DIMENSIONS: '统计维度',
 		INDICATORS: '统计指标',
 		FILTERS: '过滤器',
+		NO_FUNNEL_DETECTED: '没有侦测到可用的漏斗',
 		NAME: '名称',
 		DESCRIPTION: '描述',
 		WIDTH: '宽度',

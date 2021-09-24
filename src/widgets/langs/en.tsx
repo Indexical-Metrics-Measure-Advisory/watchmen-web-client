@@ -239,7 +239,8 @@ export const En = {
 			EXPAND_REPORT_SETTINGS_SECTIONS: 'Expand All Sections',
 			REPORT_NO_FILTER: 'No filter defined, do you want ',
 			CREATE_REPORT_FILTER: 'create now',
-			REPORT_NO_FILTER_2: '?'
+			REPORT_NO_FILTER_2: '?',
+			INCORRECT_REPORT_FILTER: 'Incorrect filter found.'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',
@@ -383,9 +384,11 @@ export const En = {
 		SECTION_TITLE_PADDING: 'Padding',
 		SECTION_TITLE_GAP_AND_PADDING: 'Gap & Padding',
 		SECTION_TITLE_VALUE_FORMAT: 'Value Format',
+		SECTION_TITLE_FUNNEL: 'Dynamic Funnel',
 		DIMENSIONS: 'Dimensions',
 		INDICATORS: 'Indicators',
 		FILTERS: 'Filters',
+		NO_FUNNEL_DETECTED: 'No available funnel detected',
 		NAME: 'Name',
 		DESCRIPTION: 'Description',
 		WIDTH: 'Width',

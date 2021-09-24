@@ -239,7 +239,8 @@ export const Jp = {
 			EXPAND_REPORT_SETTINGS_SECTIONS: 'すべてのセクションを表示する',
 			REPORT_NO_FILTER: 'フィルタは定義されていません。定義しますか',
 			CREATE_REPORT_FILTER: '始める',
-			REPORT_NO_FILTER_2: 'か？'
+			REPORT_NO_FILTER_2: 'か？',
+			INCORRECT_REPORT_FILTER: 'フィルタ条件の定義が正しくありません。'
 		},
 		SETTINGS: {
 			TITLE: '設定',
@@ -383,9 +384,11 @@ export const Jp = {
 		SECTION_TITLE_PADDING: '余白',
 		SECTION_TITLE_GAP_AND_PADDING: '間隔、余白',
 		SECTION_TITLE_VALUE_FORMAT: '値形式',
+		SECTION_TITLE_FUNNEL: 'ダイナミック じょうご',
 		DIMENSIONS: 'ディメンション',
 		INDICATORS: '指標',
 		FILTERS: 'フィルタ',
+		NO_FUNNEL_DETECTED: '使用可能なじょうごは検出されていません',
 		NAME: '名称',
 		DESCRIPTION: '説明',
 		WIDTH: '幅',

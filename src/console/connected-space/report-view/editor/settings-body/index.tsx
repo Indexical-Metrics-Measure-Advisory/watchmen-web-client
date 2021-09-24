@@ -7,6 +7,7 @@ import {useConsoleEventBus} from '../../../../console-event-bus';
 import {ConsoleEventTypes, FavoriteState} from '../../../../console-event-bus-types';
 import {ChartTruncationSettings} from '../chart-truncation-settings';
 import {DimensionsSection} from '../dimensions';
+import {Funnel} from '../funnel';
 import {IndicatorsSection} from '../indicators';
 import {ChartTypeEditor} from './chart-type';
 import {SettingsBodyContainer} from './widgets';
@@ -36,8 +37,8 @@ export const SettingsBody = (props: { subject: Subject, report: Report }) => {
 		<ChartTypeEditor report={report}/>
 		<IndicatorsSection subject={subject} report={report}/>
 		<DimensionsSection subject={subject} report={report}/>
-
 		<ChartTruncationSettings report={report}/>
+		<Funnel subject={subject} report={report}/>
 		{/*<ToolboxSection report={report}/>*/}
 		{/*<DescriptionPropEditor report={report}/>*/}
 	</SettingsBodyContainer>;

@@ -3,8 +3,7 @@ import {Apis, get, page, post} from '../apis';
 import {fetchMockSpace, listMockSpaces, listMockSpacesForHolder, saveMockSpace} from '../mock/tuples/mock-space';
 import {DataPage} from '../query/data-page';
 import {isMockService} from '../utils';
-import {ParameterJoint, ParameterJointType} from './factor-calculator-types';
-import {isExpressionParameter, isJointParameter} from './parameter-utils';
+import {strictParameterJoint} from './parameter-utils';
 import {QuerySpace, QuerySpaceForHolder} from './query-space-types';
 import {QueryTopicForHolder} from './query-topic-types';
 import {QueryUserGroupForHolder} from './query-user-group-types';
@@ -23,7 +22,7 @@ const transformToServer = (space: Space): SpaceOnServer => {
 		filters: (filters || []).filter(filter => {
 			return filter.enabled;
 		}).map(({topicId, joint, enabled}) => {
-			return {topicId, enabled, joint: strictSpaceJointFilter(joint)};
+			return {topicId, enabled, joint: strictParameterJoint(joint)};
 		}).filter(filter => {
 			return filter.joint.filters.length !== 0;
 		}),
@@ -73,29 +72,6 @@ export const fetchSpace = async (
 
 		return {space: transformFromServer(space), groups, topics};
 	}
-};
-export const strictSpaceJointFilter = (joint: ParameterJoint): ParameterJoint => {
-	if (!joint.filters || joint.filters.length === 0) {
-		return {jointType: joint.jointType || ParameterJointType.AND, filters: joint.filters || []};
-	}
-
-	return {
-		...joint,
-		filters: joint.filters.map(filter => {
-			if (isExpressionParameter(filter)) {
-				return filter;
-			} else if (isJointParameter(filter)) {
-				return strictSpaceJointFilter(filter);
-			}
-			// never occurs
-			throw new Error('Unsupported filter type.');
-		}).filter(filter => {
-			if (isJointParameter(filter)) {
-				return filter.filters.length !== 0;
-			}
-			return true;
-		})
-	};
 };
 
 export const saveSpace = async (space: Space): Promise<void> => {

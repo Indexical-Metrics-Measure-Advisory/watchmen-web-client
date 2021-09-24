@@ -1,8 +1,8 @@
 import {DataPage} from '@/services/data/query/data-page';
 import {ParameterCondition, TopicFactorParameter} from '@/services/data/tuples/factor-calculator-types';
-import {isExpressionParameter, isJointParameter} from '@/services/data/tuples/parameter-utils';
+import {isExpressionParameter, isJointParameter, strictParameterJoint} from '@/services/data/tuples/parameter-utils';
 import {QuerySpace} from '@/services/data/tuples/query-space-types';
-import {fetchSpace, listSpaces, saveSpace, strictSpaceJointFilter} from '@/services/data/tuples/space';
+import {fetchSpace, listSpaces, saveSpace} from '@/services/data/tuples/space';
 import {Space} from '@/services/data/tuples/space-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {QueryTuple} from '@/services/data/tuples/tuple-types';
@@ -65,10 +65,10 @@ const validateSpaceFilters = (space: Space, topics: Array<Topic>): { pass: boole
 			return true;
 		}
 
-		return strictSpaceJointFilter(joint).filters.some(filter => !validateFilter(filter, topic));
+		return strictParameterJoint(joint).filters.some(filter => !validateFilter(filter, topic));
 	});
 
-	return {pass: !failed, message: 'Space filter is incorrect.'};
+	return {pass: !failed, message: 'Incorrect filter found.'};
 };
 
 const AdminSpaces = () => {

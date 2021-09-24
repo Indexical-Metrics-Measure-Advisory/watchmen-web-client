@@ -22,7 +22,9 @@ import {
 } from '@/services/data/tuples/echarts/echarts-utils';
 import {Report} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
+import {ICON_CLOSE} from '@/widgets/basic/constants';
 import {Lang} from '@/widgets/langs';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
 import {useReportViewEventBus} from '../../report-view-event-bus';
 import {ReportViewEventTypes} from '../../report-view-event-bus-types';
@@ -124,6 +126,9 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 
 		setActiveTab(tab);
 	};
+	const onCloseClicked = () => {
+		setVisible(false);
+	};
 
 	const echart = isEChart(chart);
 	const holdTitle = canHoldTitle(chart);
@@ -133,6 +138,9 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 	// @ts-ignore
 	return <ReportDataSetAndPaletteContainer visible={visible}>
 		<TabHeaders>
+			<TabHeader active={false} zIndex={1000} onClick={onCloseClicked}>
+				<FontAwesomeIcon icon={ICON_CLOSE}/>
+			</TabHeader>
 			<TabHeader active={activeTab === TABS.DATASET} zIndex={101} onClick={onTabClicked(TABS.DATASET)}>
 				{Lang.CONSOLE.CONNECTED_SPACE.REPORT_DATA}
 			</TabHeader>

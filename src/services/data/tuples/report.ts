@@ -2,9 +2,25 @@ import {Apis, get, page, post} from '../apis';
 import {deleteMockReport, listMockReports, saveMockReport} from '../mock/tuples/mock-report';
 import {DataPage} from '../query/data-page';
 import {isMockService} from '../utils';
+import {strictParameterJoint} from './parameter-utils';
 import {QueryReport} from './query-report-types';
 import {Report} from './report-types';
 import {isFakedUuid} from './utils';
+
+const transformToServer = (report: Report): Report => {
+	const {filters, ...rest} = report;
+
+	if (filters) {
+		const strictJoint = strictParameterJoint(filters);
+		if (strictJoint.filters.length === 0) {
+			return {...rest};
+		} else {
+			return {filters: strictJoint, ...rest};
+		}
+	} else {
+		return report;
+	}
+};
 
 export const listReports = async (options: {
 	search: string;
@@ -24,7 +40,7 @@ export const saveNewReport = async (report: Report, subjectId: string): Promise<
 	if (isMockService()) {
 		return saveMockReport(report);
 	} else {
-		const data = await post({api: Apis.REPORT_CREATE, search: {subjectId}, data: report});
+		const data = await post({api: Apis.REPORT_CREATE, search: {subjectId}, data: transformToServer(report)});
 		report.reportId = data.reportId;
 		report.lastVisitTime = data.lastModified;
 	}
@@ -36,7 +52,7 @@ export const saveReport = async (report: Report): Promise<void> => {
 	} else if (isFakedUuid(report)) {
 		throw new Error('Incorrect api called, should be "saveNewReport".');
 	} else {
-		const data = await post({api: Apis.REPORT_SAVE, data: report});
+		const data = await post({api: Apis.REPORT_SAVE, data: transformToServer(report)});
 		report.reportId = data.reportId;
 		report.lastModified = data.lastModified;
 	}
