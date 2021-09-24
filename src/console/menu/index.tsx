@@ -199,7 +199,7 @@ export const ConsoleMenu = () => {
 		                         workbenches={workbenches}
 		                         visible={isAdmin()}/>
 		<SideMenuSeparator width={menuWidth}/>
-		<SideMenuItem icon={ICON_LOGOUT} label={'Logout'} showTooltip={showTooltip}
+		<SideMenuItem icon={ICON_LOGOUT} label={Lang.CONSOLE.MENU.LOGOUT} showTooltip={showTooltip}
 		              onClick={onLogoutClicked}/>
 		<SideMenuUser name={account.name}/>
 		<SideMenuResizeHandle width={menuWidth} onResize={onResize}/>

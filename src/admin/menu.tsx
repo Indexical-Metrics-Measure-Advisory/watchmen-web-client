@@ -154,7 +154,7 @@ export const AdminMenu = () => {
 		              active={!!matchPath(location.pathname, Router.ADMIN_USERS)}
 		              onClick={onMenuClicked(Router.ADMIN_USERS)}/>
 		<SideMenuSeparator width={menuWidth} visible={!isSuperAdmin()}/>
-		<SideMenuItem icon={ICON_PIPELINE_DEBUG} label="Simulator (experimental)" showTooltip={showTooltip}
+		<SideMenuItem icon={ICON_PIPELINE_DEBUG} label="Simulator" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_SIMULATOR)}
 		              onClick={onMenuClicked(Router.ADMIN_SIMULATOR)}
 		              visible={!isSuperAdmin()}/>

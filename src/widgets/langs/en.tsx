@@ -99,7 +99,8 @@ export const En = {
 			CONNECT_SPACE: 'Connect Space',
 			SETTINGS: 'Settings',
 			TO_ADMIN: 'To Admin',
-			TO_DATA_QUALITY: 'To Data Quality Center'
+			TO_DATA_QUALITY: 'To Data Quality Center',
+			LOGOUT: 'Logout'
 		},
 		FAVORITE: {
 			TITLE: 'My Favorite',

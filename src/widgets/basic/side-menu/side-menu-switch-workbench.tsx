@@ -27,8 +27,11 @@ export const SideMenuItemLabel = styled.div.attrs({'data-widget': 'side-menu-ite
 	display      : flex;
 	position     : relative;
 	align-items  : center;
-	height       : calc(var(--side-menu-item-height) - 2px);
+	height       : var(--side-menu-item-height);
 	font-variant : petite-caps;
+	border       : var(--border);
+	border-color : transparent;
+	margin-top   : -1px;
 	> button {
 		padding       : 0;
 		min-width     : var(--margin);
@@ -45,14 +48,16 @@ export const SideMenuItemLabel = styled.div.attrs({'data-widget': 'side-menu-ite
 		position         : fixed;
 		background-color : var(--invert-color);
 		height           : var(--side-menu-item-height);
-		left             : ${SIDE_MENU_MIN_WIDTH - 1}px;
-		margin           : -1px 0 1px -11px;
+		left             : ${SIDE_MENU_MIN_WIDTH}px;
+		margin           : 0 0 0 -11px;
 		padding          : 0 11px;
 		opacity          : 0;
 		pointer-events   : none;
 		z-index          : ${SIDE_MENU_RESIZE_HANDLE_Z_INDEX + 1};
 		border-radius    : calc(var(--side-menu-item-height) / 2);
 		border           : var(--border);
+		box-shadow       : var(--primary-hover-shadow);
+		transition       : all 300ms ease-in-out;
 	}
 `;
 

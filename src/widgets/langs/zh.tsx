@@ -99,7 +99,8 @@ export const Zh = {
 			CONNECT_SPACE: '连接工作空间',
 			SETTINGS: '设置',
 			TO_ADMIN: '转到管理台',
-			TO_DATA_QUALITY: '转到数据质量中心'
+			TO_DATA_QUALITY: '转到数据质量中心',
+			LOGOUT: '登出'
 		},
 		FAVORITE: {
 			TITLE: '我的收藏',

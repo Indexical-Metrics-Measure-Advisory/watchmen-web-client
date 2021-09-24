@@ -99,7 +99,8 @@ export const Jp = {
 			CONNECT_SPACE: '連結空間に接続',
 			SETTINGS: '設定',
 			TO_ADMIN: '管理者に切り替える',
-			TO_DATA_QUALITY: 'データ品質センターに切り替える'
+			TO_DATA_QUALITY: 'データ品質センターに切り替える',
+			LOGOUT: 'ログアウト'
 		},
 		FAVORITE: {
 			TITLE: 'お気に入り',
