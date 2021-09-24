@@ -15,28 +15,27 @@ export const SearchResultBodyRow = styled.div.attrs<{ detail: boolean }>(({detai
 	height                : var(--height);
 	border-bottom         : var(--border);
 	cursor                : pointer;
-	${({detail}) => detail ? '' : `&:hover {
-			background-color : var(--hover-color);
-			&:before,
-			&:after {
-				content          : '';
-				display          : block;
-				position         : absolute;
-				width            : 100%;
-				height           : 1px;
-				background-color : var(--invert-color);
-				top              : 0;
-				left             : 0;
-			}
-			&:after {
-				top    : unset;
-				bottom : 0;
-			}
-			> div {
-				border-right-color : var(--invert-color);
-				border-top-color   : var(--invert-color);
-			}
-		}`
+	&:hover {
+		background-color : ${({detail}) => detail ? (void 0) : 'var(--hover-color)'};
+	}
+	&:before,
+	&:after {
+		content          : '';
+		display          : ${({detail}) => detail ? 'none' : 'block'};
+		position         : absolute;
+		width            : 100%;
+		height           : 1px;
+		background-color : var(--invert-color);
+		top              : 0;
+		left             : 0;
+	}
+	&:after {
+		top    : unset;
+		bottom : 0;
+	}
+	> div {
+		border-right-color : ${({detail}) => detail ? (void 0) : 'var(--invert-color)'};
+		border-top-color   : ${({detail}) => detail ? (void 0) : 'var(--invert-color)'};
 	}
 `;
 export const SearchResultBodyCell = styled.div.attrs({'data-widget': 'monitor-logs-result-body-cell'})`

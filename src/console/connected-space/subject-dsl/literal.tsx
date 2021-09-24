@@ -5,7 +5,7 @@ import {Topic} from '@/services/data/tuples/topic-types';
 import {Lang} from '@/widgets/langs';
 import React, {Fragment} from 'react';
 import {v4} from 'uuid';
-import { ParameterComputeTypeLabels } from '../widgets/parameter/constants';
+import {ParameterComputeTypeLabels} from '../widgets/parameter/constants';
 import {PrettyComputed, PrettyConstant, PrettyFactor} from './literal-types';
 import {
 	AliasNode,

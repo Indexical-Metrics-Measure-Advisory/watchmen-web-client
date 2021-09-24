@@ -1,5 +1,5 @@
-import {Subject} from './subject-types';
 import {Report, ReportFilter, ReportFilterExpression, ReportFilterJoint} from './report-types';
+import {Subject} from './subject-types';
 
 export const isJointFilter = (filter: ReportFilter): filter is ReportFilterJoint => {
 	return !!(filter as any).jointType;

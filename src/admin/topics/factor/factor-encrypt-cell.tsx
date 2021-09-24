@@ -1,4 +1,9 @@
-import {CompatibleEncryptMethods, Factor, FactorEncryptMethod, FactorEncryptMethodLabels} from '@/services/data/tuples/factor-types';
+import {
+	CompatibleEncryptMethods,
+	Factor,
+	FactorEncryptMethod,
+	FactorEncryptMethodLabels
+} from '@/services/data/tuples/factor-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
