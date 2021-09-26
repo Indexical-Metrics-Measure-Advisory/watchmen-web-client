@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {PropName, PropValue, PropValueDropdown} from './widgets';
 
 export const DropdownValue = (props: {
-	label: string;
+	label?: string;
 	options: Array<DropdownOption>
 	placeholder?: string;
 	value?: string;
@@ -23,7 +23,7 @@ export const DropdownValue = (props: {
 	};
 
 	return <>
-		<PropName>{label}</PropName>
+		{label ? <PropName>{label}</PropName> : null}
 		<PropValue>
 			<PropValueDropdown value={selection} options={options}
 			                   onChange={onPropChange}

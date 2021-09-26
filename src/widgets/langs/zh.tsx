@@ -243,7 +243,7 @@ export const Zh = {
 			CREATE_REPORT_FILTER: '开始',
 			REPORT_NO_FILTER_2: '吗?',
 			INCORRECT_REPORT_FILTER: '存在不正确的过滤条件定义.',
-			REPORT_NO_FUNNEL: '没有启用数据漏斗.',
+			REPORT_NO_FUNNEL: '没有启用数据漏斗.'
 		},
 		SETTINGS: {
 			TITLE: '设置',
@@ -591,6 +591,7 @@ export const Zh = {
 		ADD_INDICATOR: '添加指标',
 		PLEASE_SELECT_DIMENSION: '请选择...',
 		PLEASE_SELECT_INDICATOR: '请选择...',
+		PLEASE_SELECT_FUNNEL_VALUE: '请选择...',
 		ARITHMETIC_NONE: '原始值',
 		ARITHMETIC_SUMMARY: '合计',
 		ARITHMETIC_AVERAGE: '平均值',
@@ -620,5 +621,25 @@ export const Zh = {
 	},
 	SHARE: {
 		NOTHING: '找不到任何适合的内容, 请联系管理员以获取帮助.'
+	},
+	CALENDAR: {
+		JAN: '一月',
+		FEB: '二月',
+		MAR: '三月',
+		APR: '四月',
+		MAY: '五月',
+		JUN: '六月',
+		JUL: '七月',
+		AUG: '八月',
+		SEP: '九月',
+		OCT: '十月',
+		NOV: '十一月',
+		DEC: '十二月',
+		WEEK_0: '第〇周 (不满7天)',
+		WEEK_1: '第一周',
+		WEEK_2: '第二周',
+		WEEK_3: '第三周',
+		WEEK_4: '第四周',
+		WEEK_5: '第五周 (不满7天)'
 	}
 };

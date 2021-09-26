@@ -591,6 +591,7 @@ export const Jp = {
 		ADD_INDICATOR: '指標を追加する',
 		PLEASE_SELECT_DIMENSION: '...を選択してください',
 		PLEASE_SELECT_INDICATOR: '...を選択してください',
+		PLEASE_SELECT_FUNNEL_VALUE: '...を選択してください',
 		ARITHMETIC_NONE: 'デフォルト',
 		ARITHMETIC_SUMMARY: '合計',
 		ARITHMETIC_AVERAGE: '平均値',
@@ -620,5 +621,25 @@ export const Jp = {
 	},
 	SHARE: {
 		NOTHING: '内容が見つかりません。詳細については、管理者にお問い合わせください。'
+	},
+	CALENDAR: {
+		JAN: '1月',
+		FEB: '2月',
+		MAR: '3月',
+		APR: '4月',
+		MAY: '5月',
+		JUN: '6月',
+		JUL: '7月',
+		AUG: '8月',
+		SEP: '9月',
+		OCT: '10月',
+		NOV: '11月',
+		DEC: '12月',
+		WEEK_0: '第0週 (7日未満)',
+		WEEK_1: '第1週',
+		WEEK_2: '第2週',
+		WEEK_3: '第3週',
+		WEEK_4: '第4週',
+		WEEK_5: '第5週 (7日未満)'
 	}
 };

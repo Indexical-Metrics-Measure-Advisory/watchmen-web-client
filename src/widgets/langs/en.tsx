@@ -243,7 +243,7 @@ export const En = {
 			CREATE_REPORT_FILTER: 'create now',
 			REPORT_NO_FILTER_2: '?',
 			INCORRECT_REPORT_FILTER: 'Incorrect filter found.',
-			REPORT_NO_FUNNEL: 'No funnel enabled.',
+			REPORT_NO_FUNNEL: 'No funnel enabled.'
 		},
 		SETTINGS: {
 			TITLE: 'Settings',
@@ -591,6 +591,7 @@ export const En = {
 		ADD_INDICATOR: 'Add Indicator',
 		PLEASE_SELECT_DIMENSION: 'Please select...',
 		PLEASE_SELECT_INDICATOR: 'Please select...',
+		PLEASE_SELECT_FUNNEL_VALUE: 'Please select...',
 		ARITHMETIC_NONE: 'As Is',
 		ARITHMETIC_SUMMARY: 'Sum',
 		ARITHMETIC_AVERAGE: 'Avg',
@@ -620,5 +621,25 @@ export const En = {
 	},
 	SHARE: {
 		NOTHING: 'No content can be found, contact administrator for more information.'
+	},
+	CALENDAR: {
+		JAN: 'January',
+		FEB: 'February',
+		MAR: 'March',
+		APR: 'April',
+		MAY: 'May',
+		JUN: 'June',
+		JUL: 'July',
+		AUG: 'August',
+		SEP: 'September',
+		OCT: 'October',
+		NOV: 'November',
+		DEC: 'December',
+		WEEK_0: '0th Week (Incomplete week)',
+		WEEK_1: '1st Week',
+		WEEK_2: '2nd Week',
+		WEEK_3: '3rd Week',
+		WEEK_4: '4th Week',
+		WEEK_5: '5th Week (Incomplete week)'
 	}
 };
