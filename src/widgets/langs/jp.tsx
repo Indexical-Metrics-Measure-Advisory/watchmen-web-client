@@ -153,6 +153,7 @@ export const Jp = {
 			SUBJECT_REPORT: 'レポート',
 			REPORT_DATA: 'データセット',
 			REPORT_FILTER: 'フィルタ',
+			REPORT_FUNNEL: 'じょうご',
 			SHARE: '共有',
 			PRINT: 'プリント',
 			REFRESH: '更新',
@@ -241,7 +242,8 @@ export const Jp = {
 			REPORT_NO_FILTER: 'フィルタは定義されていません。定義しますか',
 			CREATE_REPORT_FILTER: '始める',
 			REPORT_NO_FILTER_2: 'か？',
-			INCORRECT_REPORT_FILTER: 'フィルタ条件の定義が正しくありません。'
+			INCORRECT_REPORT_FILTER: 'フィルタ条件の定義が正しくありません。',
+			REPORT_NO_FUNNEL: 'じょうごが有効になっていない。'
 		},
 		SETTINGS: {
 			TITLE: '設定',

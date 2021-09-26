@@ -13,7 +13,7 @@ const asString = (value?: number, defaultValue?: number): string => {
 	}
 };
 export const NumberValue = (props: {
-	label: string;
+	label?: string;
 	unitLabel?: string;
 	placeholder?: string;
 	value?: number;
@@ -57,7 +57,7 @@ export const NumberValue = (props: {
 	};
 
 	return <>
-		<PropName>{label}</PropName>
+		{label ? <PropName>{label}</PropName> : null}
 		<PropValue>
 			<PropValueInput value={delegate.value}
 			                onChange={onPropChange} onKeyPress={onKeyPressed} onBlur={onConfirm}

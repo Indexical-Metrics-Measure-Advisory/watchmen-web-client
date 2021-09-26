@@ -153,6 +153,7 @@ export const En = {
 			SUBJECT_REPORT: 'Report',
 			REPORT_DATA: 'Dataset',
 			REPORT_FILTER: 'Filter',
+			REPORT_FUNNEL: 'Funnel',
 			SHARE: 'Share',
 			PRINT: 'Print',
 			REFRESH: 'Refresh',
@@ -241,7 +242,8 @@ export const En = {
 			REPORT_NO_FILTER: 'No filter defined, do you want ',
 			CREATE_REPORT_FILTER: 'create now',
 			REPORT_NO_FILTER_2: '?',
-			INCORRECT_REPORT_FILTER: 'Incorrect filter found.'
+			INCORRECT_REPORT_FILTER: 'Incorrect filter found.',
+			REPORT_NO_FUNNEL: 'No funnel enabled.',
 		},
 		SETTINGS: {
 			TITLE: 'Settings',

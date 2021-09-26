@@ -57,7 +57,8 @@ export const SettingsSaver = (props: { report: Report }) => {
 		on(ReportEditEventTypes.FILTER_CHANGED, onStructureChanged);
 		on(ReportEditEventTypes.FILTER_ADDED, onStructureChanged);
 		on(ReportEditEventTypes.FILTER_REMOVED, onStructureChanged);
-		on(ReportEditEventTypes.FUNNEL_CHANGED, onStructureChanged);
+		on(ReportEditEventTypes.FUNNEL_RANGE_CHANGED, onStructureChanged);
+		on(ReportEditEventTypes.FUNNEL_VALUE_CHANGED, onStructureChanged);
 		on(ReportEditEventTypes.FUNNEL_ADDED, onStructureChanged);
 		on(ReportEditEventTypes.FUNNEL_REMOVED, onStructureChanged);
 
@@ -93,7 +94,8 @@ export const SettingsSaver = (props: { report: Report }) => {
 			off(ReportEditEventTypes.FILTER_CHANGED, onStructureChanged);
 			off(ReportEditEventTypes.FILTER_ADDED, onStructureChanged);
 			off(ReportEditEventTypes.FILTER_REMOVED, onStructureChanged);
-			off(ReportEditEventTypes.FUNNEL_CHANGED, onStructureChanged);
+			off(ReportEditEventTypes.FUNNEL_RANGE_CHANGED, onStructureChanged);
+			off(ReportEditEventTypes.FUNNEL_VALUE_CHANGED, onStructureChanged);
 			off(ReportEditEventTypes.FUNNEL_ADDED, onStructureChanged);
 			off(ReportEditEventTypes.FUNNEL_REMOVED, onStructureChanged);
 		};

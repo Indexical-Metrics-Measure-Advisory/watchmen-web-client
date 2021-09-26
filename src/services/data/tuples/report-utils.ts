@@ -1,10 +1,10 @@
-import {ParameterComputeType} from '@/services/data/tuples/factor-calculator-types';
-import {FactorType} from '@/services/data/tuples/factor-types';
-import {generateUuid} from '@/services/data/tuples/utils';
+import {ParameterComputeType} from './factor-calculator-types';
+import {FactorType} from './factor-types';
 import {isComputedParameter, isConstantParameter, isTopicFactorParameter} from './parameter-utils';
 import {ReportFilter, ReportFilterExpression, ReportFilterJoint, ReportFunnel, ReportFunnelType} from './report-types';
 import {Subject} from './subject-types';
 import {Topic} from './topic-types';
+import {generateUuid} from './utils';
 
 export const isJointFilter = (filter: ReportFilter): filter is ReportFilterJoint => {
 	return !!(filter as any).jointType;

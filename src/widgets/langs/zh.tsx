@@ -153,6 +153,7 @@ export const Zh = {
 			SUBJECT_REPORT: '图表',
 			REPORT_DATA: '图表数据',
 			REPORT_FILTER: '过滤条件',
+			REPORT_FUNNEL: '数据漏斗',
 			SHARE: '分享',
 			PRINT: '打印',
 			REFRESH: '刷新',
@@ -241,7 +242,8 @@ export const Zh = {
 			REPORT_NO_FILTER: '没有定义过滤条件, 现在就',
 			CREATE_REPORT_FILTER: '开始',
 			REPORT_NO_FILTER_2: '吗?',
-			INCORRECT_REPORT_FILTER: '存在不正确的过滤条件定义.'
+			INCORRECT_REPORT_FILTER: '存在不正确的过滤条件定义.',
+			REPORT_NO_FUNNEL: '没有启用数据漏斗.',
 		},
 		SETTINGS: {
 			TITLE: '设置',

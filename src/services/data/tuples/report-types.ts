@@ -40,6 +40,7 @@ export interface ReportFunnel {
 	type: ReportFunnelType;
 	range: boolean;
 	enabled: boolean;
+	values?: Array<string>;
 }
 
 /** filter */

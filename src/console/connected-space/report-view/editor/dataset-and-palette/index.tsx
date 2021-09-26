@@ -1,4 +1,4 @@
-import {isReportFilterEnabled} from '@/feature-switch';
+import {isReportFilterEnabled, isReportFunnelEnabled} from '@/feature-switch';
 import {
 	isBarChart,
 	isCountChart,
@@ -43,6 +43,7 @@ import {EChartsTitleSubtextSettings} from '../echarts/title/subtext';
 import {EChartsXAxisSettings} from '../echarts/xaxis';
 import {EChartsYAxisSettings} from '../echarts/yaxis';
 import {FilterTab} from '../filter-tab';
+import {FunnelTab} from '../funnel-tab';
 import {useChartType} from '../settings-effect/use-chart-type';
 import {TabBody} from './tab-body';
 import {ReportDataSetAndPaletteContainer, TabHeader, TabHeaders} from './widget';
@@ -50,6 +51,7 @@ import {ReportDataSetAndPaletteContainer, TabHeader, TabHeaders} from './widget'
 enum TABS {
 	DATASET = 'dataset',
 	FILTER = 'filter',
+	FUNNEL = 'funnel',
 	BASIC_STYLE = 'basic-style',
 	TITLE = 'title',
 	SUBTITLE = 'subtitle',
@@ -149,6 +151,11 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 					{Lang.CONSOLE.CONNECTED_SPACE.REPORT_FILTER}
 				</TabHeader>
 				: null}
+			{isReportFunnelEnabled()
+				? <TabHeader active={activeTab === TABS.FUNNEL} zIndex={99} onClick={onTabClicked(TABS.FUNNEL)}>
+					{Lang.CONSOLE.CONNECTED_SPACE.REPORT_FUNNEL}
+				</TabHeader>
+				: null}
 			<TabHeader active={activeTab === TABS.BASIC_STYLE} zIndex={90} onClick={onTabClicked(TABS.BASIC_STYLE)}>
 				{Lang.CHART.SECTION_TITLE_BASIC_STYLE}
 			</TabHeader>
@@ -226,6 +233,10 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 		{isReportFilterEnabled()
 			? <FilterTab connectedSpace={connectedSpace} subject={subject} report={report}
 			             active={activeTab === TABS.FILTER}/>
+			: null}
+		{isReportFunnelEnabled()
+			? <FunnelTab connectedSpace={connectedSpace} subject={subject} report={report}
+			             active={activeTab === TABS.FUNNEL}/>
 			: null}
 		<TabBody subject={subject} report={report} active={activeTab === TABS.BASIC_STYLE}>
 			<BasicStyleSection report={report}/>

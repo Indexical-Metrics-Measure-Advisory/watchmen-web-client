@@ -41,7 +41,8 @@ export enum ReportEditEventTypes {
 	FILTER_REMOVED = 'filter-removed',
 	FUNNEL_ADDED = 'funnel-added',
 	FUNNEL_REMOVED = 'funnel-removed',
-	FUNNEL_CHANGED = 'funnel-changed',
+	FUNNEL_RANGE_CHANGED = 'funnel-range-changed',
+	FUNNEL_VALUE_CHANGED = 'funnel-value-changed',
 
 	EXPAND_ALL_SECTIONS = 'expand-all-sections',
 	COLLAPSE_ALL_SECTIONS = 'collapse-all-sections'
@@ -160,9 +161,13 @@ export interface ReportEditEventBus {
 	on(type: ReportEditEventTypes.FILTER_REMOVED, listener: (report: Report, filter: ReportFilter) => void): this;
 	off(type: ReportEditEventTypes.FILTER_REMOVED, listener: (report: Report, filter: ReportFilter) => void): this;
 
-	fire(type: ReportEditEventTypes.FUNNEL_CHANGED, report: Report, funnel: ReportFunnel): this;
-	on(type: ReportEditEventTypes.FUNNEL_CHANGED, listener: (report: Report, funnel: ReportFunnel) => void): this;
-	off(type: ReportEditEventTypes.FUNNEL_CHANGED, listener: (report: Report, funnel: ReportFunnel) => void): this;
+	fire(type: ReportEditEventTypes.FUNNEL_RANGE_CHANGED, report: Report, funnel: ReportFunnel): this;
+	on(type: ReportEditEventTypes.FUNNEL_RANGE_CHANGED, listener: (report: Report, funnel: ReportFunnel) => void): this;
+	off(type: ReportEditEventTypes.FUNNEL_RANGE_CHANGED, listener: (report: Report, funnel: ReportFunnel) => void): this;
+
+	fire(type: ReportEditEventTypes.FUNNEL_VALUE_CHANGED, report: Report, funnel: ReportFunnel): this;
+	on(type: ReportEditEventTypes.FUNNEL_VALUE_CHANGED, listener: (report: Report, funnel: ReportFunnel) => void): this;
+	off(type: ReportEditEventTypes.FUNNEL_VALUE_CHANGED, listener: (report: Report, funnel: ReportFunnel) => void): this;
 
 	fire(type: ReportEditEventTypes.FUNNEL_ADDED, report: Report, funnel: ReportFunnel): this;
 	on(type: ReportEditEventTypes.FUNNEL_ADDED, listener: (report: Report, funnel: ReportFunnel) => void): this;
