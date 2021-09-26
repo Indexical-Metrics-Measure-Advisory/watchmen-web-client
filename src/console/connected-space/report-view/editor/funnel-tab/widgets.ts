@@ -33,7 +33,7 @@ export const FunnelsContainer = styled.div.attrs({'data-widget': 'report-funnels
 export const FunnelItemContainer = styled.div.attrs({'data-widget': 'report-funnel-item'})`
 	display               : grid;
 	position              : relative;
-	grid-template-columns : 200px auto 200px;
+	grid-template-columns : minmax(auto, 300px) auto minmax(auto, 300px);
 	grid-column-gap       : calc(var(--margin) / 2);
 	padding               : 0 calc(var(--margin) / 2);
 	div[data-widget=calendar] {
