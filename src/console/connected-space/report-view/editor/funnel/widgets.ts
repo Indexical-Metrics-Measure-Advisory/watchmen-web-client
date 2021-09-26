@@ -7,8 +7,14 @@ export const NoFunnel = styled(PropName).attrs({'data-widget': 'no-funnel'})`
 `;
 export const FunnelDescription = styled(PropName).attrs({'data-widget': 'funnel-description'})`
 	grid-column : 1 / span 2;
+	line-height : var(--line-height);
+	height      : auto;
+	padding     : calc(var(--margin) / 4) calc(var(--margin) / 2);
 	white-space : normal;
-	//font-variant: normal;
+	overflow    : unset;
+	&:last-child {
+		margin-bottom : var(--margin);
+	}
 `;
 export const FunnelTable = styled.div.attrs({'data-widget': 'funnel-table'})`
 	display               : grid;

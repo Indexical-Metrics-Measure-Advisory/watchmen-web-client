@@ -41,7 +41,7 @@ export const Funnel = (props: { subject: Subject, report: Report }) => {
 
 	const funnels = report.funnels || [];
 
-	return <Section title={Lang.CHART.SECTION_TITLE_FUNNEL} defaultExpanded={true}>
+	return <Section title={Lang.CHART.SECTION_TITLE_FUNNEL_DEFINITION} defaultExpanded={true}>
 		{funnels.length === 0
 			? <NoFunnel>{Lang.CHART.NO_FUNNEL_DETECTED}</NoFunnel>
 			: <>
@@ -57,5 +57,6 @@ export const Funnel = (props: { subject: Subject, report: Report }) => {
 				</FunnelTable>
 			</>}
 		<FunnelDescription>{Lang.CHART.FUNNEL_DESCRIPTION}</FunnelDescription>
+		<FunnelDescription>{Lang.CHART.FUNNEL_INSTANCE_DESCRIPTION}</FunnelDescription>
 	</Section>;
 };
