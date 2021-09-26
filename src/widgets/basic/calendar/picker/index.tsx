@@ -8,16 +8,17 @@ import {CalendarState} from '../types';
 import {YearMonthPicker} from '../year-month-picker';
 
 export const CalendarPicker = (props: {
+	showTime: boolean;
 	state: CalendarState;
 	confirm: (value: Dayjs) => void;
 	clear: () => void;
 }) => {
-	const {state, confirm, clear} = props;
+	const {showTime, state, confirm, clear} = props;
 
 	return <CalendarPickerContainer {...state}>
-		<CalendarPickerHeader/>
+		<CalendarPickerHeader showTime={showTime}/>
 		<DatePicker confirm={confirm} clear={clear}/>
-		<TimePicker/>
+		{showTime ? <TimePicker/> : null}
 		<YearMonthPicker/>
 	</CalendarPickerContainer>;
 

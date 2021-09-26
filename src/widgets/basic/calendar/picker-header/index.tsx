@@ -14,7 +14,9 @@ import {
 	CalendarPickerHeaderTimeLabel
 } from './widgets';
 
-export const CalendarPickerHeader = () => {
+export const CalendarPickerHeader = (props: { showTime: boolean }) => {
+	const {showTime} = props;
+
 	const {fire} = useCalendarEventBus();
 	const [value, setValue] = useState<Dayjs>(dayjs());
 	useValueChange(setValue);
@@ -38,15 +40,21 @@ export const CalendarPickerHeader = () => {
 		<CalendarPickerHeaderDateLabel onClick={onYearMonthClicked}>
 			{currentDisplayDate}
 		</CalendarPickerHeaderDateLabel>
-		<CalendarPickerHeaderTimeLabel onClick={onTimeClicked}>
-			{currentDisplayTime}
-		</CalendarPickerHeaderTimeLabel>
+		{showTime
+			? <CalendarPickerHeaderTimeLabel onClick={onTimeClicked}>
+				{currentDisplayTime}
+			</CalendarPickerHeaderTimeLabel>
+			: null}
 		<CalendarPickerHeaderPlaceholder/>
-		<CalendarPickerHeaderTimeButton onClick={onToDayStartClicked}>
-			Start
-		</CalendarPickerHeaderTimeButton>
-		<CalendarPickerHeaderTimeButton onClick={onToDayEndClicked}>
-			End
-		</CalendarPickerHeaderTimeButton>
+		{showTime
+			? <>
+				<CalendarPickerHeaderTimeButton onClick={onToDayStartClicked}>
+					Start
+				</CalendarPickerHeaderTimeButton>
+				<CalendarPickerHeaderTimeButton onClick={onToDayEndClicked}>
+					End
+				</CalendarPickerHeaderTimeButton>
+			</>
+			: null}
 	</CalendarPickerHeaderContainer>;
 };

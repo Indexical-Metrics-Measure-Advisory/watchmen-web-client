@@ -36,4 +36,9 @@ export const FunnelItemContainer = styled.div.attrs({'data-widget': 'report-funn
 	grid-template-columns : 200px auto 200px;
 	grid-column-gap       : calc(var(--margin) / 2);
 	padding               : 0 calc(var(--margin) / 2);
+	div[data-widget=calendar] {
+		flex-grow: 1;
+		width: 0;
+		height: 60%;
+	}
 `;

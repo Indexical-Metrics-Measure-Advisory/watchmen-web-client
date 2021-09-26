@@ -1,3 +1,4 @@
+import {DateEditor} from '@/console/connected-space/report-view/editor/funnel-tab/value-editor/date-editor';
 import {Report, ReportFunnel} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
 import {ReportFunnelLabels} from '../../../widgets/funnel/widgets';
@@ -19,6 +20,7 @@ export const FunnelItem = (props: { subject: Subject, report: Report, funnel: Re
 		<PropName>{column?.alias} - {ReportFunnelLabels[funnel.type]}</PropName>
 		<FunnelItemContainer>
 			<NumericEditor report={report} funnel={funnel}/>
+			<DateEditor report={report} funnel={funnel}/>
 			<YearEditor report={report} funnel={funnel}/>
 			<MonthEditor report={report} funnel={funnel}/>
 			<WeekOfMonthEditor report={report} funnel={funnel}/>

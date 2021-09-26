@@ -21,9 +21,10 @@ const getPosition = (container: HTMLDivElement) => {
 
 const Picker = (props: {
 	onChange: (value?: string) => (void | { active: boolean });
-	value?: string,
+	value?: string;
+	showTime?: boolean;
 }) => {
-	const {onChange, value, ...rest} = props;
+	const {onChange, value, showTime = true, ...rest} = props;
 
 	const {once, fire} = useCalendarEventBus();
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -102,7 +103,7 @@ const Picker = (props: {
 	                          onClick={onClicked} onBlur={onBlurred}>
 		<CalendarLabel>{value}</CalendarLabel>
 		<CalendarCaret icon={faCaretDown}/>
-		<CalendarPicker state={state} confirm={onConfirm} clear={onClear}/>
+		<CalendarPicker showTime={showTime} state={state} confirm={onConfirm} clear={onClear}/>
 		<CalendarValueHolder/>
 	</CalendarContainer>;
 };
@@ -110,6 +111,7 @@ const Picker = (props: {
 export const Calendar = (props: {
 	onChange: (value?: string) => (void | { active: boolean });
 	value?: string,
+	showTime?: boolean;
 }) => {
 	return <CalendarEventBusProvider>
 		<Picker {...props}/>

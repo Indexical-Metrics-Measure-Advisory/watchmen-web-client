@@ -1,5 +1,7 @@
 import {ReportFunnel} from '@/services/data/tuples/report-types';
+import {CALENDAR_DATE_FORMAT} from '@/widgets/basic/calendar';
 import {DropdownOption} from '@/widgets/basic/types';
+import dayjs from 'dayjs';
 
 export const tryCastToNumeric = (value?: string): number | undefined => {
 	const numberValue = value ? parseFloat(value) : (void 0);
@@ -19,6 +21,24 @@ export const getAsNumeric = (funnel: ReportFunnel): number | undefined => {
 	}
 	try {
 		return Number(funnel.values[0]);
+	} catch {
+		return (void 0);
+	}
+};
+export const getAsDate = (funnel: ReportFunnel): string | undefined => {
+	if (funnel.values == null || funnel.values[0] == null) {
+		return (void 0);
+	}
+	try {
+		if (funnel.values[0].trim().length === 0) {
+			return (void 0);
+		}
+		const date = dayjs(funnel.values[0]);
+		if (date.isValid()) {
+			return date.format(CALENDAR_DATE_FORMAT);
+		} else {
+			return (void 0);
+		}
 	} catch {
 		return (void 0);
 	}
@@ -61,6 +81,19 @@ export const onDropdownValueChange = (funnel: ReportFunnel, onChange: () => void
 	}
 	// eslint-disable-next-line
 	if (newValue != orgValue) {
+		onChange();
+	}
+};
+
+export const onDateValueChange = (funnel: ReportFunnel, onChange: () => void) => (value?: string) => {
+	const orgValue = getAsString(funnel);
+	if (!value) {
+		delete funnel.values;
+	} else {
+		funnel.values = [value];
+	}
+	// eslint-disable-next-line
+	if (value != orgValue) {
 		onChange();
 	}
 };
