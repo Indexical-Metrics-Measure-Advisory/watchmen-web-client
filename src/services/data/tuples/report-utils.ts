@@ -3,6 +3,7 @@ import {Factor, FactorType} from './factor-types';
 import {isComputedParameter, isConstantParameter, isTopicFactorParameter} from './parameter-utils';
 import {ReportFilter, ReportFilterExpression, ReportFilterJoint, ReportFunnel, ReportFunnelType} from './report-types';
 import {Subject} from './subject-types';
+import {isDateFactor, isEnumFactor, isNumericFactor} from './topic';
 import {Topic} from './topic-types';
 import {generateUuid} from './utils';
 
@@ -18,53 +19,38 @@ const createFunnel = (columnId: string, type: ReportFunnelType): ReportFunnel =>
 };
 
 export const detectFunnelTypeOnFactor = (factor: Factor): ReportFunnelType | Array<ReportFunnelType> | undefined => {
-	switch (factor.type) {
-		case FactorType.NUMBER:
-		case FactorType.UNSIGNED:
-		case FactorType.RESIDENTIAL_AREA:
-		case FactorType.AGE:
-		case FactorType.BIZ_SCALE:
+	switch (true) {
+		case isNumericFactor(factor):
 			return ReportFunnelType.NUMERIC;
-		case FactorType.CONTINENT:
-		case FactorType.REGION:
-		case FactorType.COUNTRY:
-		case FactorType.PROVINCE:
-		case FactorType.CITY:
-		case FactorType.RESIDENCE_TYPE:
-		case FactorType.GENDER:
-		case FactorType.OCCUPATION:
-		case FactorType.RELIGION:
-		case FactorType.NATIONALITY:
-		case FactorType.BIZ_TRADE:
-		case FactorType.ENUM:
+		case isEnumFactor(factor):
 			return ReportFunnelType.ENUM;
-		case FactorType.FULL_DATETIME:
-		case FactorType.DATETIME:
-		case FactorType.DATE_OF_BIRTH:
+		case isDateFactor(factor):
 			return [ReportFunnelType.DATE, ReportFunnelType.YEAR, ReportFunnelType.MONTH];
-		case FactorType.YEAR:
+		case factor.type === FactorType.YEAR:
 			return ReportFunnelType.YEAR;
-		case FactorType.HALF_YEAR:
+		case factor.type === FactorType.HALF_YEAR:
 			return ReportFunnelType.HALF_YEAR;
-		case FactorType.QUARTER:
+		case factor.type === FactorType.QUARTER:
 			return ReportFunnelType.QUARTER;
-		case FactorType.MONTH:
+		case factor.type === FactorType.MONTH:
 			return ReportFunnelType.MONTH;
-		case FactorType.HALF_MONTH:
+		case factor.type === FactorType.HALF_MONTH:
 			return ReportFunnelType.HALF_MONTH;
-		case FactorType.TEN_DAYS:
+		case factor.type === FactorType.TEN_DAYS:
 			return ReportFunnelType.TEN_DAYS;
-		case FactorType.WEEK_OF_MONTH:
+		case factor.type === FactorType.WEEK_OF_MONTH:
 			return ReportFunnelType.WEEK_OF_MONTH;
-		case FactorType.DAY_KIND:
+		case factor.type === FactorType.DAY_KIND:
 			return ReportFunnelType.DAY_KIND;
-		case FactorType.DAY_OF_WEEK:
+		case factor.type === FactorType.DAY_OF_WEEK:
 			return ReportFunnelType.DAY_OF_WEEK;
-		case FactorType.HOUR:
+		case factor.type === FactorType.TIME:
+			return [ReportFunnelType.HOUR];
+		case factor.type === FactorType.HOUR:
 			return ReportFunnelType.HOUR;
-		case FactorType.HOUR_KIND:
+		case factor.type === FactorType.HOUR_KIND:
 			return ReportFunnelType.HOUR_KIND;
-		case FactorType.AM_PM:
+		case factor.type === FactorType.AM_PM:
 			return ReportFunnelType.AM_PM;
 		default:
 			return (void 0);

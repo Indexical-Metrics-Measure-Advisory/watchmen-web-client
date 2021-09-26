@@ -1,5 +1,6 @@
-import {Factor, FactorType} from '@/services/data/tuples/factor-types';
+import {Factor} from '@/services/data/tuples/factor-types';
 import {QueryEnumForHolder} from '@/services/data/tuples/query-enum-types';
+import {isEnumFactor} from '@/services/data/tuples/topic';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useEffect} from 'react';
@@ -33,7 +34,7 @@ export const FactorEnumCell = (props: { factor: Factor, enums: Array<QueryEnumFo
 		fire(TopicEventTypes.FACTOR_ENUM_CHANGED, factor);
 	};
 
-	if (factor.type !== FactorType.ENUM) {
+	if (!isEnumFactor(factor)) {
 		return null;
 	}
 
