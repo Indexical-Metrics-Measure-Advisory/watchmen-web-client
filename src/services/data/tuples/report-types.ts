@@ -28,9 +28,18 @@ export enum ReportFunnelType {
 	NUMERIC = 'numeric',
 	DATE = 'date',
 	YEAR = 'year',
+	HALF_YEAR = 'half-year',
+	QUARTER = 'quarter',
 	MONTH = 'month',
+	HALF_MONTH = 'half-month',
+	TEN_DAYS = 'ten-days',
 	WEEK_OF_MONTH = 'week-of-month',
+	HALF_WEEK = 'half-week',
+	DAY_KIND = 'day-kind',
 	DAY_OF_WEEK = 'day-of-week',
+	HOUR = 'hour',
+	HOUR_KIND = 'hour-kind',
+	AM_PM = 'am-pm',
 	ENUM = 'enum'
 }
 
