@@ -364,6 +364,18 @@ export const Zh = {
 		LEFT: '左侧优先',
 		RIGHT: '右侧优先'
 	},
+	FUNNEL: {
+		COLUMN: '列 - 类型',
+		RANGE: '范围?',
+		ENABLED: '启用?',
+		NUMERIC: '数字',
+		DATE: '日期',
+		YEAR: '年',
+		MONTH: '月',
+		WEEK_OF_MONTH: '周(按月度)',
+		DAY_OF_WEEK: '天(按月度)',
+		ENUM: '枚举'
+	},
 	PAGINATION: {
 		TOTAL: '共',
 		ROWS: '行数据',
@@ -390,6 +402,7 @@ export const Zh = {
 		INDICATORS: '统计指标',
 		FILTERS: '过滤器',
 		NO_FUNNEL_DETECTED: '没有侦测到可用的漏斗',
+		FUNNEL_DESCRIPTION: '可用的动态漏斗会被自动侦测, 启用他们后可以在图标和仪表盘中动态调整数据.',
 		NAME: '名称',
 		DESCRIPTION: '描述',
 		WIDTH: '宽度',

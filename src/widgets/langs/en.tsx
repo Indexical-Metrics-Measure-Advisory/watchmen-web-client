@@ -364,6 +364,18 @@ export const En = {
 		LEFT: 'Left Side Prioritized',
 		RIGHT: 'Right Side Prioritized'
 	},
+	FUNNEL: {
+		COLUMN: 'Column - Type',
+		RANGE: 'Range?',
+		ENABLED: 'Enable?',
+		NUMERIC: 'Numeric',
+		DATE: 'Date',
+		YEAR: 'Year',
+		MONTH: 'Month',
+		WEEK_OF_MONTH: 'Week of Month',
+		DAY_OF_WEEK: 'Day of Week',
+		ENUM: 'Enumeration'
+	},
 	PAGINATION: {
 		TOTAL: '',
 		ROWS: 'Row(s) Total',
@@ -390,6 +402,7 @@ export const En = {
 		INDICATORS: 'Indicators',
 		FILTERS: 'Filters',
 		NO_FUNNEL_DETECTED: 'No available funnel detected',
+		FUNNEL_DESCRIPTION: 'Available funnels are auto detected, enable them to adjust report data dynamically here and in dashboard.',
 		NAME: 'Name',
 		DESCRIPTION: 'Description',
 		WIDTH: 'Width',

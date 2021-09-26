@@ -28,17 +28,14 @@ export enum ReportFunnelType {
 	NUMERIC = 'numeric',
 	DATE = 'date',
 	YEAR = 'year',
-	HALF_YEAR = 'half-year',
-	QUARTER = 'quarter',
 	MONTH = 'month',
-	WEEK_OF_YEAR = 'week-of-year',
 	WEEK_OF_MONTH = 'week-of-month',
-	DAY_OF_MONTH = 'day-of-month',
 	DAY_OF_WEEK = 'day-of-week',
 	ENUM = 'enum'
 }
 
 export interface ReportFunnel {
+	funnelId: string;
 	columnId: string;
 	type: ReportFunnelType;
 	range: boolean;

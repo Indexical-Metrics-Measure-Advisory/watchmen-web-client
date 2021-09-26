@@ -1,13 +1,61 @@
-import {Report} from '@/services/data/tuples/report-types';
+import {Report, ReportFunnel} from '@/services/data/tuples/report-types';
+import {detectFunnels} from '@/services/data/tuples/report-utils';
 import {Subject} from '@/services/data/tuples/subject-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import {Lang} from '@/widgets/langs';
+import React, {useEffect} from 'react';
+// noinspection ES6PreferShortImport
+import {useConsoleEventBus} from '../../../../console-event-bus';
+// noinspection ES6PreferShortImport
+import {ConsoleEventTypes} from '../../../../console-event-bus-types';
 import {Section} from '../settings-widgets/section';
-import {NoFunnel} from './widgets';
+import {FunnelItem} from './funnel-item';
+import {FunnelDescription, FunnelTable, FunnelTableHeaderCell, NoFunnel} from './widgets';
+
+const merge = (existed: Array<ReportFunnel>, detected: Array<ReportFunnel>): Array<ReportFunnel> => {
+	return detected.map(funnel => {
+		const {columnId, type} = funnel;
+		// eslint-disable-next-line
+		const exist = existed.find(funnel => funnel.columnId == columnId && funnel.type === type);
+		if (exist) {
+			// replaced with existed one
+			return exist;
+		} else {
+			// use detected one
+			return funnel;
+		}
+	});
+};
 
 export const Funnel = (props: { subject: Subject, report: Report }) => {
 	const {subject, report} = props;
 
+	const {once: onceConsole} = useConsoleEventBus();
+	useEffect(() => {
+		onceConsole(ConsoleEventTypes.REPLY_AVAILABLE_TOPICS, (availableTopics: Array<Topic>) => {
+			const existedFunnels = report.funnels || [];
+			const detectedFunnels = detectFunnels(subject, availableTopics);
+			report.funnels = merge(existedFunnels, detectedFunnels);
+		}).fire(ConsoleEventTypes.ASK_AVAILABLE_TOPICS);
+	}, [onceConsole, subject, report]);
+
+	const funnels = report.funnels || [];
+
 	return <Section title={Lang.CHART.SECTION_TITLE_FUNNEL} defaultExpanded={true}>
-		<NoFunnel>{Lang.CHART.NO_FUNNEL_DETECTED}</NoFunnel>
+		{funnels.length === 0
+			? <NoFunnel>{Lang.CHART.NO_FUNNEL_DETECTED}</NoFunnel>
+			: <>
+				<FunnelTable>
+					<FunnelTableHeaderCell/>
+					<FunnelTableHeaderCell>{Lang.FUNNEL.COLUMN}</FunnelTableHeaderCell>
+					<FunnelTableHeaderCell>{Lang.FUNNEL.RANGE}</FunnelTableHeaderCell>
+					<FunnelTableHeaderCell>{Lang.FUNNEL.ENABLED}</FunnelTableHeaderCell>
+					{funnels.map((funnel, index) => {
+						return <FunnelItem key={funnel.funnelId}
+						                   subject={subject} report={report} funnel={funnel} index={index + 1}/>;
+					})}
+				</FunnelTable>
+			</>}
+		<FunnelDescription>{Lang.CHART.FUNNEL_DESCRIPTION}</FunnelDescription>
 	</Section>;
 };
