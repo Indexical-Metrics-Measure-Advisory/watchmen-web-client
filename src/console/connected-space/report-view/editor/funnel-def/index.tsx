@@ -27,7 +27,7 @@ const merge = (existed: Array<ReportFunnel>, detected: Array<ReportFunnel>): Arr
 	});
 };
 
-export const Funnel = (props: { subject: Subject, report: Report }) => {
+export const FunnelDef = (props: { subject: Subject, report: Report }) => {
 	const {subject, report} = props;
 
 	const {once: onceConsole} = useConsoleEventBus();

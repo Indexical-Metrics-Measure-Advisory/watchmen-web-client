@@ -27,12 +27,14 @@ export const FunnelTable = styled.div.attrs({'data-widget': 'funnel-table'})`
 	margin-right          : calc(var(--margin) / 2);
 `;
 export const FunnelTableHeaderCell = styled.div.attrs({'data-widget': 'funnel-header-cell'})`
-	display     : flex;
-	position    : relative;
-	align-items : center;
-	height      : calc(var(--height) * 1.4);
-	padding     : 0 calc(var(--margin) / 8);
-	font-weight : var(--font-demi-bold);
+	display      : flex;
+	position     : relative;
+	align-items  : center;
+	height       : calc(var(--height) * 1.4);
+	padding      : 0 calc(var(--margin) / 8);
+	font-weight  : var(--font-demi-bold);
+	font-variant : petite-caps;
+	opacity      : 0.7;
 	&:after {
 		content       : '';
 		display       : block;
