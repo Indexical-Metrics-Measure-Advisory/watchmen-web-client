@@ -1,3 +1,4 @@
+import {EnumEditor} from '@/console/connected-space/report-view/editor/funnel-tab/value-editor/enum-editor';
 import {Report, ReportFunnel} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
 import {ReportFunnelLabels} from '../../../widgets/funnel/widgets';
@@ -45,6 +46,7 @@ export const FunnelItem = (props: { subject: Subject, report: Report, funnel: Re
 			<HourEditor report={report} funnel={funnel}/>
 			<HourKindEditor report={report} funnel={funnel}/>
 			<AmPmEditor report={report} funnel={funnel}/>
+			<EnumEditor subject={subject} report={report} funnel={funnel}/>
 		</FunnelItemContainer>
 	</>;
 };

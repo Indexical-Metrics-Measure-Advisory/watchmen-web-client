@@ -1,3 +1,4 @@
+import {Enum} from '@/services/data/tuples/enum-types';
 import {LastSnapshot} from '../account/last-snapshot-types';
 import {ConnectedSpace, ConnectedSpaceGraphics} from '../tuples/connected-space-types';
 import {Dashboard} from '../tuples/dashboard-types';
@@ -13,6 +14,7 @@ export interface ConsoleSettings {
 	availableSpaces: Array<AvailableSpaceInConsole>;
 	availableTopics: Array<Topic>;
 	dashboards: Array<Dashboard>;
+	enums: Array<Enum>;
 	favorite: Favorite;
 
 	lastSnapshot: LastSnapshot;

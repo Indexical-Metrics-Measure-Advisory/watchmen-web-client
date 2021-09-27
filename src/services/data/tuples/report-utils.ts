@@ -68,8 +68,9 @@ export const detectFunnelTypeOnParameter = (parameter: ComputedParameter): Repor
 		case ParameterComputeType.YEAR_OF:
 			return ReportFunnelType.YEAR;
 		case ParameterComputeType.HALF_YEAR_OF:
+			return ReportFunnelType.HALF_YEAR;
 		case ParameterComputeType.QUARTER_OF:
-			return ReportFunnelType.ENUM;
+			return ReportFunnelType.QUARTER;
 		case ParameterComputeType.MONTH_OF:
 			return ReportFunnelType.MONTH;
 		case ParameterComputeType.WEEK_OF_MONTH:

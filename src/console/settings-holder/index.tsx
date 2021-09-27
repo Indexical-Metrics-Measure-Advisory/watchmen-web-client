@@ -18,6 +18,7 @@ export const SettingsHolder = () => {
 		connectedSpaceGraphics: [],
 		availableSpaces: [],
 		availableTopics: [],
+		enums: [],
 		dashboards: [],
 
 		favorite: {

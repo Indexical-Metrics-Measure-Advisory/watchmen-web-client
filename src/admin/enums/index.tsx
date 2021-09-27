@@ -1,5 +1,5 @@
 import {DataPage} from '@/services/data/query/data-page';
-import {fetchEnum, listEnums, listEnumsForHolder, saveEnum} from '@/services/data/tuples/enum';
+import {fetchEnumAndParents, listEnums, listEnumsForHolder, saveEnum} from '@/services/data/tuples/enum';
 import {Enum} from '@/services/data/tuples/enum-types';
 import {QueryEnum} from '@/services/data/tuples/query-enum-types';
 import {QueryTuple} from '@/services/data/tuples/tuple-types';
@@ -17,7 +17,7 @@ import {renderEditor} from './editor';
 import {createEnum} from './utils';
 
 const fetchEnumAndCodes = async (queryEnum: QueryEnum) => {
-	const {enumeration, parents} = await fetchEnum(queryEnum.enumId);
+	const {enumeration, parents} = await fetchEnumAndParents(queryEnum.enumId);
 	return {tuple: enumeration, parents};
 };
 

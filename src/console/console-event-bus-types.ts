@@ -3,6 +3,7 @@ import {Favorite} from '@/services/data/console/favorite-types';
 import {AvailableSpaceInConsole, ConsoleSettings} from '@/services/data/console/settings-types';
 import {ConnectedSpace, ConnectedSpaceGraphics} from '@/services/data/tuples/connected-space-types';
 import {Dashboard} from '@/services/data/tuples/dashboard-types';
+import {Enum} from '@/services/data/tuples/enum-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 
 export enum FavoriteState {
@@ -60,6 +61,9 @@ export enum ConsoleEventTypes {
 
 	ASK_AVAILABLE_TOPICS = 'ask-available-topics',
 	REPLY_AVAILABLE_TOPICS = 'reply-available-topics',
+
+	ASK_ENUM = 'ask-enum',
+	REPLY_ENUM = 'reply-enum'
 }
 
 export interface ConsoleEventBus {
@@ -194,4 +198,12 @@ export interface ConsoleEventBus {
 
 	fire(type: ConsoleEventTypes.REPLY_AVAILABLE_TOPICS, availableTopics: Array<Topic>): this;
 	once(type: ConsoleEventTypes.REPLY_AVAILABLE_TOPICS, listener: (availableTopics: Array<Topic>) => void): this;
+
+	fire(type: ConsoleEventTypes.ASK_ENUM, enumId: string, ticket: string): this;
+	on(type: ConsoleEventTypes.ASK_ENUM, listener: (enumId: string, ticket: string) => void): this;
+	off(type: ConsoleEventTypes.ASK_ENUM, listener: (enumId: string, ticket: string) => void): this;
+
+	fire(type: ConsoleEventTypes.REPLY_ENUM, ticket: string, enumeration?: Enum): this;
+	on(type: ConsoleEventTypes.REPLY_ENUM, listener: (ticket: string, enumeration?: Enum) => void): this;
+	off(type: ConsoleEventTypes.REPLY_ENUM, listener: (ticket: string, enumeration?: Enum) => void): this;
 }
