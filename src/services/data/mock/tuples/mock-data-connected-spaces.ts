@@ -146,6 +146,15 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 								factorId: '306'
 							} as TopicFactorParameter,
 							alias: 'Gender'
+						},
+						{
+							columnId: generateUuid(),
+							parameter: {
+								kind: ParameterKind.TOPIC,
+								topicId: '3',
+								factorId: '307'
+							} as TopicFactorParameter,
+							alias: 'BornCity'
 						}
 					],
 					joins: [

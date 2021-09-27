@@ -1,3 +1,4 @@
+import {MOCK_ENUM_CITY_ID, MOCK_ENUM_GENDER_ID} from './mock-enum';
 import {FactorType} from '../../tuples/factor-types';
 import {QueryTopic} from '../../tuples/query-topic-types';
 import {Topic, TopicKind, TopicType} from '../../tuples/topic-types';
@@ -133,12 +134,13 @@ export const Participant: Topic = {
 		},
 		{
 			factorId: '306', name: 'gender', label: 'Gender', type: FactorType.ENUM,
-			enumId: '3',
+			enumId: MOCK_ENUM_GENDER_ID,
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()
 		},
 		{
 			factorId: '307', name: 'city', label: 'City', type: FactorType.ENUM,
+			enumId: MOCK_ENUM_CITY_ID,
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()
 		}

@@ -601,6 +601,7 @@ export const En = {
 		PLEASE_SELECT_DIMENSION: 'Please select...',
 		PLEASE_SELECT_INDICATOR: 'Please select...',
 		PLEASE_SELECT_FUNNEL_VALUE: 'Please select...',
+		NO_ENUM_FUNNEL_VALUE: 'No value selected',
 		ARITHMETIC_NONE: 'As Is',
 		ARITHMETIC_SUMMARY: 'Sum',
 		ARITHMETIC_AVERAGE: 'Avg',

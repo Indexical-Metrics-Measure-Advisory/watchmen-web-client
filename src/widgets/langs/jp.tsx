@@ -601,6 +601,7 @@ export const Jp = {
 		PLEASE_SELECT_DIMENSION: '...を選択してください',
 		PLEASE_SELECT_INDICATOR: '...を選択してください',
 		PLEASE_SELECT_FUNNEL_VALUE: '...を選択してください',
+		NO_ENUM_FUNNEL_VALUE: '選択値がありません',
 		ARITHMETIC_NONE: 'デフォルト',
 		ARITHMETIC_SUMMARY: '合計',
 		ARITHMETIC_AVERAGE: '平均値',

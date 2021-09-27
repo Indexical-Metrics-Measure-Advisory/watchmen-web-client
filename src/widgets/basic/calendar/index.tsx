@@ -1,6 +1,6 @@
-import {faCaretDown} from '@fortawesome/free-solid-svg-icons';
 import dayjs, {Dayjs} from 'dayjs';
 import React, {useEffect, useRef, useState} from 'react';
+import {ICON_DROPDOWN} from '../constants';
 import {CALENDAR_DATE_FORMAT, CALENDAR_FORMAT, CALENDAR_TIME_FORMAT} from './constants';
 import {CalendarEventBusProvider, useCalendarEventBus} from './event/calendar-event-bus';
 import {CalendarEventTypes} from './event/calendar-event-bus-types';
@@ -102,7 +102,7 @@ const Picker = (props: {
 	                          role="input" tabIndex={0} ref={containerRef}
 	                          onClick={onClicked} onBlur={onBlurred}>
 		<CalendarLabel>{value}</CalendarLabel>
-		<CalendarCaret icon={faCaretDown}/>
+		<CalendarCaret icon={ICON_DROPDOWN}/>
 		<CalendarPicker showTime={showTime} state={state} confirm={onConfirm} clear={onClear}/>
 		<CalendarValueHolder/>
 	</CalendarContainer>;

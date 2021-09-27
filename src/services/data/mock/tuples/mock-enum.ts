@@ -4,6 +4,11 @@ import {QueryEnum, QueryEnumForHolder} from '../../tuples/query-enum-types';
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
 
+export const MOCK_ENUM_COUNTRY_ID = '1';
+export const MOCK_ENUM_STATE_ID = '2';
+export const MOCK_ENUM_CITY_ID = '3';
+export const MOCK_ENUM_GENDER_ID = '4';
+
 export const listMockEnums = async (options: {
 	search: string;
 	pageNumber?: number;
@@ -14,9 +19,30 @@ export const listMockEnums = async (options: {
 		setTimeout(() => {
 			resolve({
 				data: [
-					{enumId: '1', name: 'Mock State', createTime: getCurrentTime(), lastModified: getCurrentTime()},
-					{enumId: '2', name: 'Mock Country', createTime: getCurrentTime(), lastModified: getCurrentTime()},
-					{enumId: '3', name: 'Mock Gender', createTime: getCurrentTime(), lastModified: getCurrentTime()}
+					{
+						enumId: MOCK_ENUM_CITY_ID,
+						name: 'Mock City',
+						createTime: getCurrentTime(),
+						lastModified: getCurrentTime()
+					},
+					{
+						enumId: MOCK_ENUM_COUNTRY_ID,
+						name: 'Mock Country',
+						createTime: getCurrentTime(),
+						lastModified: getCurrentTime()
+					},
+					{
+						enumId: MOCK_ENUM_GENDER_ID,
+						name: 'Mock Gender',
+						createTime: getCurrentTime(),
+						lastModified: getCurrentTime()
+					},
+					{
+						enumId: MOCK_ENUM_STATE_ID,
+						name: 'Mock State',
+						createTime: getCurrentTime(),
+						lastModified: getCurrentTime()
+					}
 				],
 				itemCount: 1,
 				pageNumber,
@@ -28,9 +54,9 @@ export const listMockEnums = async (options: {
 };
 
 export const fetchMockEnum = async (enumId: string): Promise<{ enumeration: Enum }> => {
-	if (enumId === '1') {
+	if (enumId === MOCK_ENUM_STATE_ID) {
 		const enumeration: Enum = {
-			enumId: '1',
+			enumId: MOCK_ENUM_STATE_ID,
 			name: 'Mock State',
 			parentEnumId: '2',
 			items: [
@@ -46,9 +72,9 @@ export const fetchMockEnum = async (enumId: string): Promise<{ enumeration: Enum
 			lastModified: getCurrentTime()
 		};
 		return {enumeration};
-	} else if (enumId === '2') {
+	} else if (enumId === MOCK_ENUM_COUNTRY_ID) {
 		const enumeration: Enum = {
-			enumId: '2',
+			enumId: MOCK_ENUM_COUNTRY_ID,
 			name: 'Mock Country',
 			items: [
 				{code: '001', label: 'United States'},
@@ -58,9 +84,21 @@ export const fetchMockEnum = async (enumId: string): Promise<{ enumeration: Enum
 			lastModified: getCurrentTime()
 		};
 		return {enumeration};
+	} else if (enumId === MOCK_ENUM_CITY_ID) {
+		const enumeration: Enum = {
+			enumId: MOCK_ENUM_CITY_ID,
+			name: 'Mock City',
+			items: [
+				{code: '001', label: 'Boston'},
+				{code: '002', label: 'Worcester'}
+			],
+			createTime: getCurrentTime(),
+			lastModified: getCurrentTime()
+		};
+		return {enumeration};
 	} else {
 		const enumeration: Enum = {
-			enumId: '3',
+			enumId: MOCK_ENUM_GENDER_ID,
 			name: 'Mock Gender',
 			items: [
 				{code: 'F', label: 'Female'},

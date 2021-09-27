@@ -1,8 +1,7 @@
-import {faCaretDown} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {KeyboardEvent, MouseEvent, useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
-import {BASE_HEIGHT, DROPDOWN_Z_INDEX} from './constants';
+import {BASE_HEIGHT, DROPDOWN_Z_INDEX, ICON_DROPDOWN} from './constants';
 import {DropdownOption, DropdownOptionLabel, DropdownProps} from './types';
 
 interface State {
@@ -273,7 +272,7 @@ export const Dropdown = (props: DropdownProps) => {
 	                          onKeyUp={onKeyUp}
 	                          onClick={onClicked} onBlur={onBlurred}>
 		<Label data-please={!selection}>{label}</Label>
-		<Caret icon={faCaretDown}/>
+		<Caret icon={ICON_DROPDOWN}/>
 		<Options {...state} ref={optionsRef}>
 			<OptionFilter {...{...state, active: !!filter}}>
 				<span>?:</span>

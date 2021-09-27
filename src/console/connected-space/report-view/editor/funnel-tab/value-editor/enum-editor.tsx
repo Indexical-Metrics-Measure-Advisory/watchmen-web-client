@@ -3,14 +3,82 @@ import {isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
 import {Report, ReportFunnel, ReportFunnelType} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {Button} from '@/widgets/basic/button';
+import {ICON_DELETE} from '@/widgets/basic/constants';
 import {DropdownOption} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {Lang} from '@/widgets/langs';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
 import {v4} from 'uuid';
 // noinspection ES6PreferShortImport
 import {ConsoleEventTypes} from '../../../../..//console-event-bus-types';
 // noinspection ES6PreferShortImport
 import {useConsoleEventBus} from '../../../../../console-event-bus';
+import {useReportEditEventBus} from '../../report-edit-event-bus';
+import {ReportEditEventTypes} from '../../report-edit-event-bus-types';
+import {DropdownValue} from '../../settings-widgets/dropdown-value';
+import {useFunnelRange} from '../use-funnel-range';
+import {EnumValue, MultipleEnumValues} from '../widgets';
 import {SingleEditor} from './dropdown-editor';
+
+const RangeEnumEditor = (props: { report: Report, funnel: ReportFunnel, options: Array<DropdownOption> }) => {
+	const {report, funnel, options} = props;
+
+	const {fire} = useReportEditEventBus();
+	const forceUpdate = useForceUpdate();
+	useFunnelRange(report, funnel);
+
+	if (!funnel.enabled || funnel.type !== ReportFunnelType.ENUM || !funnel.range) {
+		return null;
+	}
+
+	const onValueChange = (option: DropdownOption) => {
+		const value = option.value;
+		if (value === '') {
+			return;
+		}
+
+		funnel.values = funnel.values || [];
+		if (!funnel.values.includes(value)) {
+			funnel.values = [...funnel.values, value];
+			fire(ReportEditEventTypes.FUNNEL_VALUE_CHANGED, report, funnel);
+		}
+		forceUpdate();
+	};
+	const onValueRemove = (value: string) => () => {
+		funnel.values = funnel.values?.filter(v => v != value);
+		fire(ReportEditEventTypes.FUNNEL_VALUE_CHANGED, report, funnel);
+		forceUpdate();
+	};
+
+	const values = (funnel.values || []).filter(value => value);
+	const valueMap = values.reduce((map, value) => {
+		map[`${value}`] = true;
+		return map;
+	}, {} as { [key in string]: true });
+	const availableOptions = options.filter(option => !valueMap[`${option.value}`]);
+
+	return <>
+		<MultipleEnumValues>
+			{values.length === 0
+				? <EnumValue>{Lang.CHART.NO_ENUM_FUNNEL_VALUE}</EnumValue>
+				: null}
+			{values.map(value => {
+				const option = options.find(option => option.value == value);
+				return <EnumValue key={value}>
+					<span>{option?.label}</span>
+					<Button onClick={onValueRemove(value!)}>
+						<FontAwesomeIcon icon={ICON_DELETE}/>
+					</Button>
+				</EnumValue>;
+			})}
+		</MultipleEnumValues>
+		<DropdownValue value={''}
+		               onValueChange={onValueChange}
+		               options={[{value: '', label: Lang.CHART.PLEASE_SELECT_FUNNEL_VALUE}, ...availableOptions]}/>
+	</>;
+};
 
 export const EnumEditor = (props: { subject: Subject, report: Report, funnel: ReportFunnel }) => {
 	const {subject, report, funnel} = props;
@@ -77,5 +145,6 @@ export const EnumEditor = (props: { subject: Subject, report: Report, funnel: Re
 
 	return <>
 		<SingleEditor report={report} funnel={funnel} acceptedType={ReportFunnelType.ENUM} options={options}/>
+		<RangeEnumEditor report={report} funnel={funnel} options={options}/>
 	</>;
 };
