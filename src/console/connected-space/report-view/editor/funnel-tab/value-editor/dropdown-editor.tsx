@@ -1,16 +1,13 @@
-import {useFunnelRange} from '@/console/connected-space/report-view/editor/funnel-tab/use-funnel-range';
-import {
-	getAsString,
-	onDropdownValueChange
-} from '@/console/connected-space/report-view/editor/funnel-tab/value-editor/value-utils';
-import {PairToLabel} from '@/console/connected-space/report-view/editor/funnel-tab/widgets';
-import {useReportEditEventBus} from '@/console/connected-space/report-view/editor/report-edit-event-bus';
-import {ReportEditEventTypes} from '@/console/connected-space/report-view/editor/report-edit-event-bus-types';
-import {DropdownValue} from '@/console/connected-space/report-view/editor/settings-widgets/dropdown-value';
 import {Report, ReportFunnel, ReportFunnelType} from '@/services/data/tuples/report-types';
 import {DropdownOption} from '@/widgets/basic/types';
 import {Lang} from '@/widgets/langs';
 import React from 'react';
+import {useReportEditEventBus} from '../../report-edit-event-bus';
+import {ReportEditEventTypes} from '../../report-edit-event-bus-types';
+import {DropdownValue} from '../../settings-widgets/dropdown-value';
+import {useFunnelRange} from '../use-funnel-range';
+import {PairToLabel} from '../widgets';
+import {getAsString, onDropdownValueChange} from './value-utils';
 
 const Editor = (props: {
 	report: Report;

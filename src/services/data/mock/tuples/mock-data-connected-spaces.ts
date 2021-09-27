@@ -1,5 +1,6 @@
 import {ConnectedSpace} from '../../tuples/connected-space-types';
 import {ParameterJointType, ParameterKind, TopicFactorParameter} from '../../tuples/factor-calculator-types';
+import {TopicJoinType} from '../../tuples/subject-types';
 import {generateUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
 
@@ -135,10 +136,25 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 								topicId: '1',
 								factorId: '103'
 							} as TopicFactorParameter,
-							alias: 'Column2'
+							alias: 'QuoteDate'
+						},
+						{
+							columnId: generateUuid(),
+							parameter: {
+								kind: ParameterKind.TOPIC,
+								topicId: '3',
+								factorId: '306'
+							} as TopicFactorParameter,
+							alias: 'Gender'
 						}
 					],
-					joins: []
+					joins: [
+						{
+							topicId: '1', factorId: '106', secondaryTopicId: '3', secondaryFactorId: '301',
+							type: TopicJoinType.INNER
+
+						}
+					]
 				},
 				lastVisitTime: '2020/11/02 20:25:01',
 				createTime: getCurrentTime(),

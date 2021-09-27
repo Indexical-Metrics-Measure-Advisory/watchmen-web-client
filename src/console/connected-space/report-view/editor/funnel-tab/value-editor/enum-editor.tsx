@@ -1,5 +1,3 @@
-import {useConsoleEventBus} from '@/console/console-event-bus';
-import {ConsoleEventTypes} from '@/console/console-event-bus-types';
 import {Enum} from '@/services/data/tuples/enum-types';
 import {isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
 import {Report, ReportFunnel, ReportFunnelType} from '@/services/data/tuples/report-types';
@@ -8,6 +6,10 @@ import {Topic} from '@/services/data/tuples/topic-types';
 import {DropdownOption} from '@/widgets/basic/types';
 import React, {useEffect, useState} from 'react';
 import {v4} from 'uuid';
+// noinspection ES6PreferShortImport
+import {ConsoleEventTypes} from '../../../../..//console-event-bus-types';
+// noinspection ES6PreferShortImport
+import {useConsoleEventBus} from '../../../../../console-event-bus';
 import {SingleEditor} from './dropdown-editor';
 
 export const EnumEditor = (props: { subject: Subject, report: Report, funnel: ReportFunnel }) => {
@@ -36,7 +38,7 @@ export const EnumEditor = (props: { subject: Subject, report: Report, funnel: Re
 		return () => {
 			offConsole(ConsoleEventTypes.REPLY_ENUM, onReplyEnum);
 		};
-	}, [onConsole, offConsole]);
+	}, [onConsole, offConsole, ticket]);
 	useEffect(() => {
 		const columnId = funnel.columnId;
 		// eslint-disable-next-line
@@ -70,7 +72,7 @@ export const EnumEditor = (props: { subject: Subject, report: Report, funnel: Re
 			}
 
 			fireConsole(ConsoleEventTypes.ASK_ENUM, enumId, ticket);
-		}).fire(ConsoleEventTypes.ASK_AVAILABLE_SPACES);
+		}).fire(ConsoleEventTypes.ASK_AVAILABLE_TOPICS);
 	}, [funnel, fireConsole, onceConsole, subject.dataset.columns, ticket]);
 
 	return <>

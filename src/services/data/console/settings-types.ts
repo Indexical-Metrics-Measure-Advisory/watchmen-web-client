@@ -1,7 +1,7 @@
-import {Enum} from '@/services/data/tuples/enum-types';
 import {LastSnapshot} from '../account/last-snapshot-types';
 import {ConnectedSpace, ConnectedSpaceGraphics} from '../tuples/connected-space-types';
 import {Dashboard} from '../tuples/dashboard-types';
+import {Enum} from '../tuples/enum-types';
 import {Space} from '../tuples/space-types';
 import {Topic} from '../tuples/topic-types';
 import {Favorite} from './favorite-types';

@@ -1,9 +1,9 @@
-import {EnumEditor} from '@/console/connected-space/report-view/editor/funnel-tab/value-editor/enum-editor';
 import {Report, ReportFunnel} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
 import {ReportFunnelLabels} from '../../../widgets/funnel/widgets';
 import {PropName} from '../settings-widgets/widgets';
 import {DateEditor} from './value-editor/date-editor';
+import {EnumEditor} from './value-editor/enum-editor';
 import {
 	AmPmEditor,
 	DayKindEditor,

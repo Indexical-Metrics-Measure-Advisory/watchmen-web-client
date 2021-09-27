@@ -37,7 +37,7 @@ export const SettingsHolder = () => {
 				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 					async () => await fetchConsoleSettingsData(),
 					(settings) => {
-						setHoldSettings({initialized: true, ...settings});
+						setHoldSettings({initialized: true, ...settings, enums: []});
 						if (settings.lastSnapshot && settings.lastSnapshot.language) {
 							fireGlobal(EventTypes.CHANGE_LANGUAGE, settings.lastSnapshot.language);
 						}

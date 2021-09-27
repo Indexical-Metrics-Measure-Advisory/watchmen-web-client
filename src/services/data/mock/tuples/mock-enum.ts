@@ -13,9 +13,11 @@ export const listMockEnums = async (options: {
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve({
-				data: [{
-					enumId: '1', name: 'Mock State', createTime: getCurrentTime(), lastModified: getCurrentTime()
-				}],
+				data: [
+					{enumId: '1', name: 'Mock State', createTime: getCurrentTime(), lastModified: getCurrentTime()},
+					{enumId: '2', name: 'Mock Country', createTime: getCurrentTime(), lastModified: getCurrentTime()},
+					{enumId: '3', name: 'Mock Gender', createTime: getCurrentTime(), lastModified: getCurrentTime()}
+				],
 				itemCount: 1,
 				pageNumber,
 				pageSize,
@@ -44,13 +46,25 @@ export const fetchMockEnum = async (enumId: string): Promise<{ enumeration: Enum
 			lastModified: getCurrentTime()
 		};
 		return {enumeration};
-	} else {
+	} else if (enumId === '2') {
 		const enumeration: Enum = {
 			enumId: '2',
 			name: 'Mock Country',
 			items: [
 				{code: '001', label: 'United States'},
 				{code: '002', label: 'Japan'}
+			],
+			createTime: getCurrentTime(),
+			lastModified: getCurrentTime()
+		};
+		return {enumeration};
+	} else {
+		const enumeration: Enum = {
+			enumId: '3',
+			name: 'Mock Gender',
+			items: [
+				{code: 'F', label: 'Female'},
+				{code: 'M', label: 'Male'}
 			],
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()
@@ -75,6 +89,7 @@ export const listMockEnumsForHolder = async (): Promise<Array<QueryEnumForHolder
 			resolve(
 				[
 					{enumId: '2', name: 'Mock Country'},
+					{enumId: '3', name: 'Mock Gender'},
 					{enumId: '1', name: 'Mock State'}
 				]
 			);

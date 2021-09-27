@@ -133,6 +133,7 @@ export const Participant: Topic = {
 		},
 		{
 			factorId: '306', name: 'gender', label: 'Gender', type: FactorType.ENUM,
+			enumId: '3',
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()
 		},
