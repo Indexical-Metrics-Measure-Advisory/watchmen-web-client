@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {PropName} from '../settings-widgets/widgets';
 
 export const ReportFunnelContainer = styled.div.attrs({
 	'data-widget': 'report-funnel',
@@ -33,12 +34,23 @@ export const FunnelsContainer = styled.div.attrs({'data-widget': 'report-funnels
 export const FunnelItemContainer = styled.div.attrs({'data-widget': 'report-funnel-item'})`
 	display               : grid;
 	position              : relative;
-	grid-template-columns : minmax(auto, 300px) auto minmax(auto, 300px);
+	grid-template-columns : 300px auto 300px 1fr;
 	grid-column-gap       : calc(var(--margin) / 2);
 	padding               : 0 calc(var(--margin) / 2);
+	> div[data-widget=chart-settings-prop-value] {
+		margin-right : 0;
+	}
 	div[data-widget=calendar] {
 		flex-grow : 1;
 		width     : 0;
 		height    : 60%;
 	}
+`;
+export const PairToLabel = styled(PropName)`
+	position    : relative;
+	padding     : 0 calc(var(--margin) / 2);
+	font-family : var(--title-font-family);
+	font-weight : var(--font-bold);
+	font-size   : 1.4em;
+	opacity     : 0.7;
 `;
