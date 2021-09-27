@@ -1,8 +1,8 @@
-import {MOCK_ENUM_CITY_ID, MOCK_ENUM_GENDER_ID} from './mock-enum';
 import {FactorType} from '../../tuples/factor-types';
 import {QueryTopic} from '../../tuples/query-topic-types';
 import {Topic, TopicKind, TopicType} from '../../tuples/topic-types';
 import {getCurrentTime} from '../../utils';
+import {MOCK_ENUM_CITY_ID, MOCK_ENUM_GENDER_ID} from './mock-enum';
 
 export const Quotation: Topic = {
 	topicId: '1', name: 'Quotation', kind: TopicKind.BUSINESS, type: TopicType.DISTINCT,
