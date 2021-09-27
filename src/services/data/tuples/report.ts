@@ -2,24 +2,40 @@ import {Apis, get, page, post} from '../apis';
 import {deleteMockReport, listMockReports, saveMockReport} from '../mock/tuples/mock-report';
 import {DataPage} from '../query/data-page';
 import {isMockService} from '../utils';
+import {ParameterJoint} from './factor-calculator-types';
 import {strictParameterJoint} from './parameter-utils';
 import {QueryReport} from './query-report-types';
-import {Report} from './report-types';
+import {Report, ReportFunnel} from './report-types';
 import {isFakedUuid} from './utils';
 
-const transformToServer = (report: Report): Report => {
-	const {filters, ...rest} = report;
-
-	if (filters) {
-		const strictJoint = strictParameterJoint(filters);
-		if (strictJoint.filters.length === 0) {
-			return {...rest};
-		} else {
-			return {filters: strictJoint, ...rest};
-		}
-	} else {
-		return report;
+const strictReportFilters = (filters?: ParameterJoint): ParameterJoint | undefined => {
+	if (!filters) {
+		return (void 0);
 	}
+
+	const strictJoint = strictParameterJoint(filters);
+	if (strictJoint.filters.length === 0) {
+		return (void 0);
+	} else {
+		return strictJoint;
+	}
+};
+const strictReportFunnels = (funnels?: Array<ReportFunnel>): Array<ReportFunnel> | undefined => {
+	if (!funnels) {
+		return (void 0);
+	}
+
+	const strictFunnels = funnels.filter(funnel => funnel.enabled);
+	if (strictFunnels.length === 0) {
+		return (void 0);
+	} else {
+		return strictFunnels;
+	}
+};
+const transformToServer = (report: Report): Report => {
+	const {filters, funnels, ...rest} = report;
+
+	return {filters: strictReportFilters(filters), funnels: strictReportFunnels(funnels), ...rest};
 };
 
 export const listReports = async (options: {

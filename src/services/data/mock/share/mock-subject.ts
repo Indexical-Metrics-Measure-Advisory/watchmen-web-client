@@ -17,7 +17,6 @@ export const fetchMockSharedSubject = async (subjectId: string, token: string): 
 							name: '',
 							indicators: [],
 							dimensions: [],
-							funnels: [],
 							rect: {x: 64, y: 64, width: 480, height: 300},
 							chart: {
 								type: ChartType.COUNT

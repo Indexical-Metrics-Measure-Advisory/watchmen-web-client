@@ -73,7 +73,7 @@ export interface Report extends Tuple {
 	name: string;
 	indicators: Array<ReportIndicator>;
 	dimensions: Array<ReportDimension>;
-	funnels: Array<ReportFunnel>;
+	funnels?: Array<ReportFunnel>;
 	filters?: ReportFilterJoint;
 	description?: string;
 	rect: ReportRect;
