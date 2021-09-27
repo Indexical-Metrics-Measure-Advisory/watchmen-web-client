@@ -47,6 +47,7 @@ const RangeEnumEditor = (props: { report: Report, funnel: ReportFunnel, options:
 		forceUpdate();
 	};
 	const onValueRemove = (value: string) => () => {
+		// eslint-disable-next-line
 		funnel.values = funnel.values?.filter(v => v != value);
 		fire(ReportEditEventTypes.FUNNEL_VALUE_CHANGED, report, funnel);
 		forceUpdate();
@@ -65,6 +66,7 @@ const RangeEnumEditor = (props: { report: Report, funnel: ReportFunnel, options:
 				? <EnumValue>{Lang.CHART.NO_ENUM_FUNNEL_VALUE}</EnumValue>
 				: null}
 			{values.map(value => {
+				// eslint-disable-next-line
 				const option = options.find(option => option.value == value);
 				return <EnumValue key={value}>
 					<span>{option?.label}</span>
