@@ -6,6 +6,7 @@ import {
 	ICON_DATA_QUALITY,
 	ICON_DATA_SOURCE,
 	ICON_ENUM,
+	ICON_EXTERNAL_WRITERS,
 	ICON_HOME,
 	ICON_LOGOUT,
 	ICON_MONITOR_LOGS,
@@ -149,6 +150,10 @@ export const AdminMenu = () => {
 		<SideMenuItem icon={ICON_DATA_SOURCE} label="Data Sources" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_DATA_SOURCES)}
 		              onClick={onMenuClicked(Router.ADMIN_DATA_SOURCES)}
+		              visible={isSuperAdmin() && isMultipleDataSourcesEnabled()}/>
+		<SideMenuItem icon={ICON_EXTERNAL_WRITERS} label="External Writers" showTooltip={showTooltip}
+		              active={!!matchPath(location.pathname, Router.ADMIN_EXTERNAL_WRITERS)}
+		              onClick={onMenuClicked(Router.ADMIN_EXTERNAL_WRITERS)}
 		              visible={isSuperAdmin() && isMultipleDataSourcesEnabled()}/>
 		<SideMenuItem icon={ICON_USER} label="Users" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_USERS)}

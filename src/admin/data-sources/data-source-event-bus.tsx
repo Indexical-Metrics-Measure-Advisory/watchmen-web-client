@@ -20,7 +20,7 @@ export const DataSourceEventBusProvider = (props: { children?: ((props: any) => 
 		},
 		on: (type: string, listener: (...data: Array<any>) => void): DataSourceEventBus => {
 			if (emitter.rawListeners(type).includes(listener)) {
-				console.error(`Listener on [${type}] was added into DataSource event bus, check it.`);
+				console.error(`Listener on [${type}] was added into data source event bus, check it.`);
 			}
 			emitter.on(type, listener);
 			return bus;

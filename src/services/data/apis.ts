@@ -66,6 +66,12 @@ export const Apis = {
 	DATASOURCE_SAVE: 'datasource',
 	DATASOURCE_LOAD_ALL: 'datasource/all',
 
+	EXTERNAL_WRITER_LIST_BY_NAME: 'external_writer/name?query_name=:search',
+	EXTERNAL_WRITER_GET: 'external_writer/id?writer_id=:writerId',
+	EXTERNAL_WRITER_CREATE: 'external_writer',
+	EXTERNAL_WRITER_SAVE: 'external_writer',
+	EXTERNAL_WRITER_LOAD_ALL: 'external_writer/all',
+
 	DASHBOARD_FOR_ADMIN: 'home/dashboard',
 
 	// authenticated

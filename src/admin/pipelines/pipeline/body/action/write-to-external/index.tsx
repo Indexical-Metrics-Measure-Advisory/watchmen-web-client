@@ -1,4 +1,4 @@
-import {getWriteExternalAdapters, isWriteExternalEnabled} from '@/feature-switch';
+import {isWriteExternalEnabled} from '@/feature-switch';
 import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
 import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {isWriteToExternalAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
@@ -26,7 +26,7 @@ const RealWriteToExternal = (props: {
 	const {action} = props;
 
 	const {fire} = useActionEventBus();
-	const [adapters] = useState<Array<string>>(getWriteExternalAdapters());
+	const [adapters] = useState<Array<string>>([]);
 	const forceUpdate = useForceUpdate();
 
 	const onAdapterChange = ({value}: DropdownOption) => {

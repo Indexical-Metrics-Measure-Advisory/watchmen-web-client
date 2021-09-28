@@ -1,4 +1,4 @@
-import {isMultipleDataSourcesEnabled} from '@/feature-switch';
+import {isMultipleDataSourcesEnabled, isWriteExternalEnabled} from '@/feature-switch';
 import {Router} from '@/routes/types';
 import {isAdmin, isSuperAdmin} from '@/services/data/account';
 import React from 'react';
@@ -8,6 +8,7 @@ import {AdminCache} from './cache';
 import {AdminCacheEventBusProvider} from './cache/cache-event-bus';
 import AdminDataSources from './data-sources';
 import AdminEnums from './enums';
+import AdminExternalWriters from './external-writers';
 import AdminHome from './home';
 import {AdminMenu} from './menu';
 import AdminMonitorLogs from './monitor-log';
@@ -59,6 +60,9 @@ const AdminIndex = () => {
 						<Route path={Router.ADMIN_TENANTS}><AdminMain><AdminTenants/></AdminMain></Route>
 						{isMultipleDataSourcesEnabled()
 							? <Route path={Router.ADMIN_DATA_SOURCES}><AdminMain><AdminDataSources/></AdminMain></Route>
+							: null}
+						{isWriteExternalEnabled()
+							? <Route path={Router.ADMIN_EXTERNAL_WRITERS}><AdminMain><AdminExternalWriters/></AdminMain></Route>
 							: null}
 						<Route path="*">
 							<Redirect to={Router.ADMIN_TENANTS}/>

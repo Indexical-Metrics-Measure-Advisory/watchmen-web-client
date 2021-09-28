@@ -1,3 +1,4 @@
+import {ExternalWriter} from '@/services/data/tuples/external-writer-types';
 import dayjs from 'dayjs';
 import {v4} from 'uuid';
 import {ConnectedSpace} from './connected-space-types';
@@ -56,6 +57,9 @@ export const isTenant = (tuple: Tuple): tuple is Tenant => {
 export const isDataSource = (tuple: Tuple): tuple is DataSource => {
 	return !!(tuple as any).dataSourceId;
 };
+export const isExternalWriter = (tuple: Tuple): tuple is ExternalWriter => {
+	return !!(tuple as any).writerId;
+};
 
 export const generateUuid = (): string => `${FAKE_ID_PREFIX}${v4().replace(/-/g, '')}`;
 export const isFakedUuidForGraphics = (graphics: PipelinesGraphics): boolean => {
@@ -90,6 +94,8 @@ export const isFakedUuid = (tuple: Tuple): boolean => {
 		return tuple.tenantId.startsWith(FAKE_ID_PREFIX);
 	} else if (isDataSource(tuple)) {
 		return tuple.dataSourceId.startsWith(FAKE_ID_PREFIX);
+	} else if (isExternalWriter(tuple)) {
+		return tuple.writerId.startsWith(FAKE_ID_PREFIX);
 	}
 
 	console.groupCollapsed('Unsupported tuple type');
