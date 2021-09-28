@@ -95,7 +95,7 @@ export const Navigator = (props: {
 	}
 
 	return <NavigatorContainer visible={visible}>
-		<NavigatorHeader onClick={onHeaderClicked(OpenPanel.TOPIC)}>
+		<NavigatorHeader>
 			<NavigatorHeaderTitle>{name}</NavigatorHeaderTitle>
 			{isDataQualityCenterEnabled() && topic != null && isNotRawTopic(topic)
 				? <NavigatorHeaderButton tooltip={{label: 'Profile', alignment: TooltipAlignment.CENTER}}
@@ -109,9 +109,6 @@ export const Navigator = (props: {
 				<FontAwesomeIcon icon={ICON_CLOSE}/>
 			</NavigatorHeaderButton>
 		</NavigatorHeader>
-		{topic != null
-			? <TopicBody topic={topic} visible={openPanel === OpenPanel.TOPIC}/>
-			: null}
 		<NavigatorHeader onClick={onHeaderClicked(OpenPanel.INCOMING)}>
 			<NavigatorHeaderTitle>Incoming Pipelines</NavigatorHeaderTitle>
 		</NavigatorHeader>
@@ -129,5 +126,13 @@ export const Navigator = (props: {
 		<PipelinesBody pipelines={pipelines} topics={topics} topic={topic}
 		               incoming={false}
 		               visible={openPanel === OpenPanel.OUTGOING}/>
+		{topic != null
+			? <>
+				<NavigatorHeader onClick={onHeaderClicked(OpenPanel.TOPIC)}>
+					<NavigatorHeaderTitle>Factors</NavigatorHeaderTitle>
+				</NavigatorHeader>
+				<TopicBody topic={topic} visible={openPanel === OpenPanel.TOPIC}/>
+			</>
+			: null}
 	</NavigatorContainer>;
 };

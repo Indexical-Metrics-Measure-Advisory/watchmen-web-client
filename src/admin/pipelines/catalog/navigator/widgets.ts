@@ -29,7 +29,7 @@ export const NavigatorHeader = styled.div.attrs({'data-widget': 'pipelines-navig
 	border-bottom   : var(--border);
 	font-family     : var(--title-font-family);
 	font-size       : 1.2em;
-	cursor          : pointer;
+	cursor          : ${({onClick}) => onClick ? 'pointer' : (void 0)};
 `;
 export const NavigatorHeaderTitle = styled.div.attrs({'data-widget': 'pipelines-navigator-header-title'})`
 	flex-grow : 1;
