@@ -24,7 +24,8 @@ import {
 	isReadFactorsAction,
 	isReadRowsAction,
 	isReadTopicAction,
-	isWriteFactorAction
+	isWriteFactorAction,
+	isWriteToExternalAction
 } from '../tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {Pipeline} from '../tuples/pipeline-types';
 import {buildVariable, isJointValid4Pipeline, isParameterValid4Pipeline} from '../tuples/pipeline-validation-utils';
@@ -282,6 +283,10 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 					if (!built) {
 						// cannot build variable, return true as failed.
 						messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] source is incorrect.`);
+					}
+				} else if (isWriteToExternalAction(action)) {
+					if (!action.adapter) {
+						messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] adapter is not given yet.`);
 					}
 				} else if (isReadTopicAction(action)) {
 					const {topicId, variableName, by} = action;

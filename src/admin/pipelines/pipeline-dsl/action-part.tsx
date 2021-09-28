@@ -12,6 +12,7 @@ import {ReadFactor} from './actions/read-factor';
 import {ReadRow} from './actions/read-row';
 import {RowExists} from './actions/row-exists';
 import {WriteFactor} from './actions/write-factor';
+import {WriteToExternal} from './actions/write-to-external';
 import {ActionType, PropName, PropNameInListFirst} from './dsl-widgets';
 
 export const ActionPart = (props: {
@@ -29,6 +30,7 @@ export const ActionPart = (props: {
 		<ActionType>{action.type}</ActionType>
 		<Alarm action={action} topicsMap={topicsMap}/>
 		<CopyToMemory action={action} topicsMap={topicsMap}/>
+		<WriteToExternal action={action} topicsMap={topicsMap}/>
 		<ReadFactor action={action} topicsMap={topicsMap}/>
 		<ReadRow action={action} topicsMap={topicsMap}/>
 		<RowExists action={action} topicsMap={topicsMap}/>

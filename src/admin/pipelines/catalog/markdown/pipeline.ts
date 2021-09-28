@@ -31,6 +31,7 @@ import {
 	isReadRowsAction,
 	isReadTopicAction,
 	isWriteFactorAction,
+	isWriteToExternalAction,
 	isWriteTopicAction
 } from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
@@ -175,6 +176,12 @@ const generateActionBody = (action: PipelineStageUnitAction, topicsMap: TopicsMa
 		return `${condition}\n\t.message('${action.message || ''}').severity('${action.severity?.toUpperCase() || ''}')`;
 	} else if (isCopyToMemoryAction(action)) {
 		return `\n\t.from(${generateParameter(action.source, topicsMap)}).to('${action.variableName || 'Noname Variable'}')`;
+	} else if (isWriteToExternalAction(action)) {
+		if (action.adapter) {
+			return `\n\t.external(${action.adapter})`;
+		} else {
+			return `\n\t.external(missed())`;
+		}
 	} else if (isReadTopicAction(action)) {
 		let by;
 		if (action.by) {
