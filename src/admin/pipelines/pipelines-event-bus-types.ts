@@ -19,7 +19,7 @@ export enum PipelinesEventTypes {
 	REPLY_TOPICS = 'reply-topics',
 
 	ASK_GRAPHICS = 'ask-graphics',
-	REPLY_GRAPHICS = 'reply-graphics'
+	REPLY_GRAPHICS = 'reply-graphics',
 }
 
 export interface PipelinesEventBus {

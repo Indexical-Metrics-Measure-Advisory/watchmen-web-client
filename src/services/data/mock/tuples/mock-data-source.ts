@@ -4,6 +4,21 @@ import {QueryDataSource, QueryDataSourceForHolder} from '../../tuples/query-data
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
 
+const DefaultOne: DataSource = {
+	dataSourceId: '1',
+	dataSourceCode: 'DEFAULT_ONE',
+	dataSourceType: DataSourceType.MYSQL,
+	tenantId: '1',
+	host: '',
+	port: '',
+	name: '',
+	username: '',
+	password: '',
+	url: '',
+	params: [],
+	createTime: getCurrentTime(),
+	lastModified: getCurrentTime()
+};
 export const listMockDataSources = async (options: {
 	search: string;
 	pageNumber?: number;
@@ -13,14 +28,9 @@ export const listMockDataSources = async (options: {
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve({
-				data: [{
-					dataSourceId: '1',
-					dataSourceCode: 'DEFAULT_ONE',
-					dataSourceType: DataSourceType.MYSQL,
-					tenantName: 'X World',
-					createTime: getCurrentTime(),
-					lastModified: getCurrentTime()
-				}],
+				data: [DefaultOne].map(writer => {
+					return {tenantName: 'X World', ...writer};
+				}),
 				itemCount: 1,
 				pageNumber,
 				pageSize,
@@ -62,11 +72,9 @@ export const saveMockDataSource = async (dataSource: DataSource): Promise<void> 
 export const listMockDataSourcesForHolder = async (): Promise<Array<QueryDataSourceForHolder>> => {
 	return new Promise((resolve) => {
 		setTimeout(() => {
-			resolve(
-				[
-					{dataSourceId: '1', dataSourceCode: 'DEFAULT_ONE'}
-				]
-			);
+			resolve([DefaultOne]);
 		}, 500);
 	});
 };
+
+export const DemoDataSources = [DefaultOne];

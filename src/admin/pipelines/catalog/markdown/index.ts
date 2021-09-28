@@ -9,14 +9,24 @@ import dayjs from 'dayjs';
 import {generateGraphics} from './graphics';
 import {generatePipelineMarkdown} from './pipeline';
 import {generateTopicMarkdown} from './topic';
-import {EnumsMap} from './types';
+import {DataSourceMap, EnumsMap, ExternalWriterMap} from './types';
 
 export const generateMarkdown = async (options: {
 	topicsMap: TopicsMap, pipelinesMap: PipelinesMap,
+	dataSourceMap: DataSourceMap, externalWriterMap: ExternalWriterMap,
 	topicRelations: TopicRelationMap, pipelineRelations: PipelineRelationMap,
 	selectedSvg: string, allSvg: string
 }): Promise<string> => {
-	const {topicsMap, pipelinesMap, topicRelations, pipelineRelations, selectedSvg, allSvg} = options;
+	const {
+		topicsMap,
+		pipelinesMap,
+		dataSourceMap,
+		externalWriterMap,
+		topicRelations,
+		pipelineRelations,
+		selectedSvg,
+		allSvg
+	} = options;
 
 	const enums = await listAllEnums();
 	const enumsMap: EnumsMap = enums.reduce((map, enumeration) => {
@@ -31,7 +41,15 @@ export const generateMarkdown = async (options: {
 ${Object.values(topicsMap).sort((t1, t2) => {
 		return (t1.name || '').toLowerCase().localeCompare((t2.name || '').toLowerCase());
 	}).map((topic, index) => {
-		return generateTopicMarkdown({topic, pipelinesMap, enumsMap, index, topicRelations, pipelineRelations});
+		return generateTopicMarkdown({
+			topic,
+			pipelinesMap,
+			dataSourceMap,
+			enumsMap,
+			index,
+			topicRelations,
+			pipelineRelations
+		});
 	}).join('\n')}
 
 # 2. Pipelines
@@ -40,6 +58,7 @@ ${Object.values(pipelinesMap).sort((p1, p2) => {
 	}).map((pipeline, index) => generatePipelineMarkdown({
 		pipeline,
 		topicsMap,
+		externalWriterMap,
 		index,
 		topicRelations,
 		pipelineRelations

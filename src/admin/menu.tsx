@@ -1,4 +1,4 @@
-import {isDataQualityCenterEnabled, isMultipleDataSourcesEnabled} from '@/feature-switch';
+import {isDataQualityCenterEnabled, isMultipleDataSourcesEnabled, isWriteExternalEnabled} from '@/feature-switch';
 import {Router} from '@/routes/types';
 import {findAccount, isSuperAdmin, quit} from '@/services/data/account';
 import {
@@ -154,7 +154,7 @@ export const AdminMenu = () => {
 		<SideMenuItem icon={ICON_EXTERNAL_WRITERS} label="External Writers" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_EXTERNAL_WRITERS)}
 		              onClick={onMenuClicked(Router.ADMIN_EXTERNAL_WRITERS)}
-		              visible={isSuperAdmin() && isMultipleDataSourcesEnabled()}/>
+		              visible={isSuperAdmin() && isWriteExternalEnabled()}/>
 		<SideMenuItem icon={ICON_USER} label="Users" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.ADMIN_USERS)}
 		              onClick={onMenuClicked(Router.ADMIN_USERS)}/>

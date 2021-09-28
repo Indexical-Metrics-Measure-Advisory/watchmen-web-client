@@ -149,6 +149,16 @@ export const FactorName = styled(PropValue).attrs({'data-widget': 'dsl-factor-na
 		}
 	}
 `;
+export const ExternalWriterName = styled(PropValue).attrs({'data-widget': 'dsl-external-writer-name'})`
+	color           : var(--warn-color);
+	font-weight     : var(--font-boldest);
+	text-decoration : underline;
+	&:empty {
+		:after {
+			content : 'writer?';
+		}
+	}
+`;
 export const VariableName = styled(PropValue).attrs({'data-widget': 'dsl-variable-name'})`
 	color           : var(--success-color);
 	font-weight     : var(--font-boldest);

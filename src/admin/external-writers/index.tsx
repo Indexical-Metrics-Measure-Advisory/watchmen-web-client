@@ -82,7 +82,7 @@ const AdminExternalWriters = () => {
 				async () => await saveExternalWriter(externalWriter),
 				() => {
 					fire(TupleEventTypes.TUPLE_SAVED, externalWriter, true);
-					fireCache(AdminCacheEventTypes.SAVE_EXTERNAL_WRITERS, externalWriter);
+					fireCache(AdminCacheEventTypes.SAVE_EXTERNAL_WRITER, externalWriter);
 				},
 				() => fire(TupleEventTypes.TUPLE_SAVED, externalWriter, false));
 		};

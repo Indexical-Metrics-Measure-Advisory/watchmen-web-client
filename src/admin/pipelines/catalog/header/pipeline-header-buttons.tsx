@@ -12,40 +12,39 @@ import {HeaderPickTopicsButton} from './header-pick-topics-button';
 import {HeaderSwitchGraphicsButton} from './header-switch-graphics-button';
 
 export const PipelineHeaderButtons = (props: {
-		topics: Array<Topic>;
-		allGraphics: Array<PipelinesGraphics>;
-		graphics: AssembledPipelinesGraphics
-	}) => {
-		const {topics, allGraphics, graphics} = props;
+	topics: Array<Topic>;
+	allGraphics: Array<PipelinesGraphics>;
+	graphics: AssembledPipelinesGraphics
+}) => {
+	const {topics, allGraphics, graphics} = props;
 
-		const showSwitch = allGraphics.length > 1;
-		const showPickTopics = allGraphics.length > 1;
-		const canRemove = allGraphics.length > 1;
+	const showSwitch = allGraphics.length > 1;
+	const showPickTopics = allGraphics.length > 1;
+	const canRemove = allGraphics.length > 1;
 
-		const canDownloadPipelines = isPipelinesDownloadEnabled() && (graphics.topics || []).length !== 0;
+	const canDownloadPipelines = isPipelinesDownloadEnabled() && (graphics.topics || []).length !== 0;
 
-		return <PageHeaderButtons>
-			<HeaderCreateGraphicsButton/>
-			{showSwitch ? <HeaderSwitchGraphicsButton graphics={graphics} allGraphics={allGraphics}/> : null}
-			{showPickTopics
-				? <>
-					<PageHeaderButtonSeparator/>
-					<HeaderPickTopicsButton topics={topics} graphics={graphics}/>
-				</>
-				: null}
-			{canRemove
-				? <>
-					<PageHeaderButtonSeparator/>
-					<HeaderDeleteMeButton graphics={graphics}/>
-				</>
-				: null}
-			{canDownloadPipelines
-				? <>
-					<PageHeaderButtonSeparator/>
-					<HeaderImportButton/>
-					<HeaderExportButton graphics={graphics}/>
-				</>
-				: null}
-		</PageHeaderButtons>;
-	}
-;
+	return <PageHeaderButtons>
+		<HeaderCreateGraphicsButton/>
+		{showSwitch ? <HeaderSwitchGraphicsButton graphics={graphics} allGraphics={allGraphics}/> : null}
+		{showPickTopics
+			? <>
+				<PageHeaderButtonSeparator/>
+				<HeaderPickTopicsButton topics={topics} graphics={graphics}/>
+			</>
+			: null}
+		{canRemove
+			? <>
+				<PageHeaderButtonSeparator/>
+				<HeaderDeleteMeButton graphics={graphics}/>
+			</>
+			: null}
+		{canDownloadPipelines
+			? <>
+				<PageHeaderButtonSeparator/>
+				<HeaderImportButton/>
+				<HeaderExportButton graphics={graphics}/>
+			</>
+			: null}
+	</PageHeaderButtons>;
+};

@@ -14,6 +14,8 @@ import {EventTypes} from '@/widgets/events/types';
 import React, {useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import DataSourceBackground from '../../assets/data-source-background.svg';
+import {useAdminCacheEventBus} from '../cache/cache-event-bus';
+import {AdminCacheEventTypes} from '../cache/cache-event-bus-types';
 import {TupleWorkbench} from '../widgets/tuple-workbench';
 import {TupleEventBusProvider, useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
@@ -31,6 +33,7 @@ const getKeyOfDataSource = (dataSource: QueryDataSource) => dataSource.dataSourc
 
 const AdminDataSources = () => {
 	const {once: onceGlobal, fire: fireGlobal} = useEventBus();
+	const {fire: fireCache} = useAdminCacheEventBus();
 	const {on, off, fire} = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateDataSource = () => {
@@ -88,7 +91,10 @@ const AdminDataSources = () => {
 						});
 					return await saveDataSource(dataSource);
 				},
-				() => fire(TupleEventTypes.TUPLE_SAVED, dataSource, true),
+				() => {
+					fire(TupleEventTypes.TUPLE_SAVED, dataSource, true);
+					fireCache(AdminCacheEventTypes.SAVE_DATA_SOURCE, dataSource);
+				},
 				() => fire(TupleEventTypes.TUPLE_SAVED, dataSource, false));
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateDataSource);
@@ -101,7 +107,7 @@ const AdminDataSources = () => {
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchDataSource);
 			off(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveDataSource);
 		};
-	}, [on, off, fire, onceGlobal, fireGlobal]);
+	}, [on, off, fire, fireCache, onceGlobal, fireGlobal]);
 
 	return <TupleWorkbench title="Data Sources"
 	                       createButtonLabel="Create Data Source" canCreate={true}

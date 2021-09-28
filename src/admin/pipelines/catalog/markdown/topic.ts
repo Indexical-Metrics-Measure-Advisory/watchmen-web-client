@@ -1,18 +1,19 @@
+import {isMultipleDataSourcesEnabled} from '@/feature-switch';
 import {PipelineRelationMap, PipelinesMap, TopicRelationMap} from '@/services/data/pipeline/pipeline-relations';
 import {Factor, FactorEncryptMethod, FactorEncryptMethodLabels} from '@/services/data/tuples/factor-types';
 import {isRawTopic} from '@/services/data/tuples/topic';
 import {Topic} from '@/services/data/tuples/topic-types';
-import {EnumsMap} from './types';
+import {DataSourceMap, EnumsMap} from './types';
 
 const canBeFlatten = (topic: Topic, factor?: Factor) => {
 	return isRawTopic(topic) && (factor ? (factor.name || '').indexOf('.') !== -1 : true);
 };
 
 export const generateTopicMarkdown = (options: {
-	topic: Topic, pipelinesMap: PipelinesMap, enumsMap: EnumsMap, index: number,
+	topic: Topic, pipelinesMap: PipelinesMap, dataSourceMap: DataSourceMap, enumsMap: EnumsMap, index: number,
 	topicRelations: TopicRelationMap, pipelineRelations: PipelineRelationMap
 }): string => {
-	const {topic, enumsMap, index, pipelineRelations} = options;
+	const {topic, dataSourceMap, enumsMap, index, pipelineRelations} = options;
 
 	return `## 1.${index + 1}. ${topic.name || 'Noname Topic'} #${topic.topicId}<span id="topic-${topic.topicId}"/>
 ${topic.description || ''}
@@ -22,10 +23,11 @@ ${topic.description || ''}
 ### 1.${index + 1}.1. Basic Information
 - Kind: ${topic.kind?.toUpperCase() ?? ''}
 - Type: ${topic.type?.toUpperCase() ?? ''}
+${isMultipleDataSourcesEnabled() ? `- Data Source: ${dataSourceMap[topic.dataSourceId ?? '']?.dataSourceCode ?? ''}` : ''}
 
 ### 1.${index + 1}.2. Factors
 ${['Name', 'Type', 'Label', 'Enumeration', 'Default Value', canBeFlatten(topic) ? 'Flatten' : null, 'Encryption & Mask', 'Description'].filter(x => x != null).join(' | ')}
-${new Array(canBeFlatten(topic) ? 7 : 6).fill('---').join(' | ')}
+${new Array(canBeFlatten(topic) ? 8 : 7).fill('---').join(' | ')}
 ${topic.factors.sort((f1, f2) => {
 		return (f1.name || '').toUpperCase().localeCompare((f2.name || '').toUpperCase());
 	}).map(factor => {

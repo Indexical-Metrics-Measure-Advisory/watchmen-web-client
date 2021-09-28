@@ -7,6 +7,8 @@ import {
 	TopicRelationMap,
 	TopicsMap
 } from '@/services/data/pipeline/pipeline-relations';
+import {DataSource} from '@/services/data/tuples/data-source-types';
+import {ExternalWriter} from '@/services/data/tuples/external-writer-types';
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {AdminCacheData} from '@/services/local-persist/types';
@@ -28,6 +30,7 @@ import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {generateMarkdown} from '../markdown';
+import {DataSourceMap, ExternalWriterMap} from '../markdown/types';
 import {AssembledPipelinesGraphics} from '../types';
 import {TopicPickerTable} from './topic-picker-table';
 import {PickerDialogBody} from './widgets';
@@ -86,9 +89,11 @@ const PipelinesDownload = (props: {
 	pipelines: Array<Pipeline>;
 	topics: Array<Topic>;
 	graphics: AssembledPipelinesGraphics;
+	dataSources: Array<DataSource>;
+	externalWriters: Array<ExternalWriter>;
 	askSvg: (topics: Array<Topic>) => Promise<string>
 }) => {
-	const {pipelines, topics, graphics, askSvg} = props;
+	const {pipelines, topics, graphics, dataSources, externalWriters, askSvg} = props;
 
 	const {fire} = useEventBus();
 	const [candidates] = useState(() => {
@@ -121,6 +126,14 @@ const PipelinesDownload = (props: {
 		const markdown = await generateMarkdown({
 			topicsMap: finalTopicMap,
 			pipelinesMap: finalPipelineMap,
+			dataSourceMap: dataSources.reduce((map, dataSource) => {
+				map[dataSource.dataSourceId] = dataSource;
+				return map;
+			}, {} as DataSourceMap),
+			externalWriterMap: externalWriters.reduce((map, writer) => {
+				map[writer.writerId] = writer;
+				return map;
+			}, {} as ExternalWriterMap),
 			topicRelations, pipelineRelations,
 			selectedSvg, allSvg
 		});
@@ -168,9 +181,10 @@ export const HeaderExportButton = (props: { graphics: AssembledPipelinesGraphics
 	};
 	const onExportClicked = () => {
 		onceCache(AdminCacheEventTypes.REPLY_DATA, (data?: AdminCacheData) => {
-			const {pipelines, topics} = data!;
+			const {pipelines, topics, dataSources, externalWriters} = data!;
 			fireGlobal(EventTypes.SHOW_DIALOG,
 				<PipelinesDownload pipelines={pipelines} topics={topics} graphics={graphics}
+				                   dataSources={dataSources} externalWriters={externalWriters}
 				                   askSvg={askSvg}/>);
 		}).fire(AdminCacheEventTypes.ASK_DATA);
 	};

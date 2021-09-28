@@ -1,3 +1,4 @@
+import {DataSource} from '@/services/data/tuples/data-source-types';
 import {ExternalWriter} from '@/services/data/tuples/external-writer-types';
 import {Pipeline, PipelinesGraphics} from '@/services/data/tuples/pipeline-types';
 import {Topic} from '@/services/data/tuples/topic-types';
@@ -74,6 +75,7 @@ export const AdminCache = () => {
 							...(data.data?.pipelines || []).filter(p => p.pipelineId != pipeline.pipelineId)
 						],
 						graphics: data.data?.graphics || [],
+						dataSources: data.data?.dataSources || [],
 						externalWriters: data.data?.externalWriters || []
 					}
 				};
@@ -92,6 +94,7 @@ export const AdminCache = () => {
 						],
 						pipelines: data.data?.pipelines || [],
 						graphics: data.data?.graphics || [],
+						dataSources: data.data?.dataSources || [],
 						externalWriters: data.data?.externalWriters || []
 					}
 				};
@@ -110,6 +113,7 @@ export const AdminCache = () => {
 							// eslint-disable-next-line
 							...(data.data?.graphics || []).filter(g => g.pipelineGraphId != graphics.pipelineGraphId)
 						],
+						dataSources: data.data?.dataSources || [],
 						externalWriters: data.data?.externalWriters || []
 					}
 				};
@@ -125,12 +129,13 @@ export const AdminCache = () => {
 						pipelines: data.data?.pipelines || [],
 						// eslint-disable-next-line
 						graphics: (data.data?.graphics || []).filter(g => g.pipelineGraphId != pipelineGraphId),
+						dataSources: data.data?.dataSources || [],
 						externalWriters: data.data?.externalWriters || []
 					}
 				};
 			});
 		};
-		const onSaveExternalWriters = async (writer: ExternalWriter) => {
+		const onSaveDataSource = async (dataSource: DataSource) => {
 			setData(data => {
 				return {
 					initialized: data.initialized,
@@ -138,6 +143,25 @@ export const AdminCache = () => {
 						topics: data.data?.topics || [],
 						pipelines: data.data?.pipelines || [],
 						graphics: data.data?.graphics || [],
+						dataSources: [
+							dataSource,
+							// eslint-disable-next-line
+							...(data.data?.dataSources || []).filter(w => w.dataSourceId != dataSource.dataSourceId)
+						],
+						externalWriters: data.data?.externalWriters || []
+					}
+				};
+			});
+		};
+		const onSaveExternalWriter = async (writer: ExternalWriter) => {
+			setData(data => {
+				return {
+					initialized: data.initialized,
+					data: {
+						topics: data.data?.topics || [],
+						pipelines: data.data?.pipelines || [],
+						graphics: data.data?.graphics || [],
+						dataSources: data.data?.dataSources || [],
 						externalWriters: [
 							writer,
 							// eslint-disable-next-line
@@ -152,7 +176,8 @@ export const AdminCache = () => {
 		on(AdminCacheEventTypes.SAVE_TOPIC, onSaveTopic);
 		on(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, onSavePipelinesGraphics);
 		on(AdminCacheEventTypes.REMOVE_PIPELINES_GRAPHICS, onRemovePipelinesGraphics);
-		on(AdminCacheEventTypes.SAVE_EXTERNAL_WRITERS, onSaveExternalWriters);
+		on(AdminCacheEventTypes.SAVE_DATA_SOURCE, onSaveDataSource);
+		on(AdminCacheEventTypes.SAVE_EXTERNAL_WRITER, onSaveExternalWriter);
 		on(AdminCacheEventTypes.TOPIC_LOADED, onSaveTopic);
 		on(AdminCacheEventTypes.PIPELINE_LOADED, onSavePipeline);
 		return () => {
@@ -160,7 +185,8 @@ export const AdminCache = () => {
 			off(AdminCacheEventTypes.SAVE_TOPIC, onSaveTopic);
 			off(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, onSavePipelinesGraphics);
 			off(AdminCacheEventTypes.REMOVE_PIPELINES_GRAPHICS, onRemovePipelinesGraphics);
-			off(AdminCacheEventTypes.SAVE_EXTERNAL_WRITERS, onSaveExternalWriters);
+			off(AdminCacheEventTypes.SAVE_DATA_SOURCE, onSaveDataSource);
+			off(AdminCacheEventTypes.SAVE_EXTERNAL_WRITER, onSaveExternalWriter);
 			off(AdminCacheEventTypes.TOPIC_LOADED, onSaveTopic);
 			off(AdminCacheEventTypes.PIPELINE_LOADED, onSavePipeline);
 		};
