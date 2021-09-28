@@ -93,7 +93,7 @@ export const loadAdminData = async (): Promise<AdminCacheData> => {
 	const tenantId = findAccount()?.tenantId;
 	if (!tenantId) {
 		// no tenant of current user
-		return {pipelines: [], topics: [], graphics: []};
+		return {pipelines: [], topics: [], graphics: [], externalWriters: []};
 	}
 
 	const [pipelines, topics, graphics] = await Promise.all([
@@ -128,14 +128,16 @@ export const loadAdminData = async (): Promise<AdminCacheData> => {
 		return {
 			pipelines: settings.pipelines,
 			topics: settings.topics,
-			graphics: settings.graphics
+			graphics: settings.graphics,
+			externalWriters: settings.externalWriters
 		};
 	} else {
 		const {
 			pipelines: updatedPipelines,
 			topics: updatedTopics,
 			graphics: updatedGraphics,
-			removedGraphics
+			removedGraphics,
+			externalWriters
 		} = await fetchUpdatedPipelinesSettingsData({
 			lastModifiedTimeOfPipelines: getLastModifiedAt(pipelines),
 			lastModifiedTimeOfTopics: getLastModifiedAt(topics),
@@ -154,7 +156,8 @@ export const loadAdminData = async (): Promise<AdminCacheData> => {
 		return {
 			pipelines: await mergePipelines(pipelines, updatedPipelines),
 			topics: await mergeTopics(topics, updatedTopics),
-			graphics: await mergePipelineGraphics(graphics, updatedGraphics, removedGraphics)
+			graphics: await mergePipelineGraphics(graphics, updatedGraphics, removedGraphics),
+			externalWriters: externalWriters || []
 		};
 	}
 };

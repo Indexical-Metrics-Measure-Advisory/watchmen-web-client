@@ -14,7 +14,7 @@ export const runWriteToExternal = async (options: {
 		throw new Error(`Not a write-to-external action[${action}].`);
 	}
 
-	const adapter = action.adapter;
+	const adapter = action.externalWriterId;
 	const value = pipelineContext.triggerData;
 
 	await logWrite(`Value[${value}] written to external through adapter[${adapter}].`);

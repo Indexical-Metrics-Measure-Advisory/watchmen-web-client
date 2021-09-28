@@ -14,6 +14,8 @@ import {EventTypes} from '@/widgets/events/types';
 import React, {useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import ExternalWriterBackground from '../../assets/external-writer-background.svg';
+import {useAdminCacheEventBus} from '../cache/cache-event-bus';
+import {AdminCacheEventTypes} from '../cache/cache-event-bus-types';
 import {TupleWorkbench} from '../widgets/tuple-workbench';
 import {TupleEventBusProvider, useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
@@ -31,6 +33,7 @@ const getKeyOfExternalWriter = (externalWriter: QueryExternalWriter) => external
 
 const AdminExternalWriters = () => {
 	const {once: onceGlobal, fire: fireGlobal} = useEventBus();
+	const {fire: fireCache} = useAdminCacheEventBus();
 	const {on, off, fire} = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateExternalWriter = () => {
@@ -77,7 +80,10 @@ const AdminExternalWriters = () => {
 			}
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await saveExternalWriter(externalWriter),
-				() => fire(TupleEventTypes.TUPLE_SAVED, externalWriter, true),
+				() => {
+					fire(TupleEventTypes.TUPLE_SAVED, externalWriter, true);
+					fireCache(AdminCacheEventTypes.SAVE_EXTERNAL_WRITERS, externalWriter);
+				},
 				() => fire(TupleEventTypes.TUPLE_SAVED, externalWriter, false));
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateExternalWriter);
@@ -90,7 +96,7 @@ const AdminExternalWriters = () => {
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchExternalWriter);
 			off(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveExternalWriter);
 		};
-	}, [on, off, fire, onceGlobal, fireGlobal]);
+	}, [on, off, fire, fireCache, onceGlobal, fireGlobal]);
 
 	return <TupleWorkbench title="External Writers"
 	                       createButtonLabel="Create External Writer" canCreate={true}

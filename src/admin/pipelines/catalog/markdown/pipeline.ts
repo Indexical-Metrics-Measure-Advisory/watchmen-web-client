@@ -177,8 +177,8 @@ const generateActionBody = (action: PipelineStageUnitAction, topicsMap: TopicsMa
 	} else if (isCopyToMemoryAction(action)) {
 		return `\n\t.from(${generateParameter(action.source, topicsMap)}).to('${action.variableName || 'Noname Variable'}')`;
 	} else if (isWriteToExternalAction(action)) {
-		if (action.adapter) {
-			return `\n\t.external(${action.adapter})`;
+		if (action.externalWriterId) {
+			return `\n\t.external(${action.externalWriterId})`;
 		} else {
 			return `\n\t.external(missed())`;
 		}

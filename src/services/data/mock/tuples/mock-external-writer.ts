@@ -52,10 +52,10 @@ export const fetchMockExternalWriter = async (writerId: string): Promise<{ write
 };
 
 let newExternalWriterId = 10000;
-export const saveMockExternalWriter = async (dataSource: ExternalWriter): Promise<void> => {
+export const saveMockExternalWriter = async (externalWriter: ExternalWriter): Promise<void> => {
 	return new Promise((resolve) => {
-		if (isFakedUuid(dataSource)) {
-			dataSource.writerId = `${newExternalWriterId++}`;
+		if (isFakedUuid(externalWriter)) {
+			externalWriter.writerId = `${newExternalWriterId++}`;
 		}
 		setTimeout(() => resolve(), 500);
 	});
@@ -68,3 +68,5 @@ export const listMockExternalWritersForHolder = async (): Promise<Array<QueryExt
 		}, 500);
 	});
 };
+
+export const DemoExternalWriters: Array<ExternalWriter> = [StandardWriter, EsWriter];

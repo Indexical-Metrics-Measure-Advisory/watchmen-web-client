@@ -13,6 +13,6 @@ export const WriteToExternal = (props: { action: PipelineStageUnitAction, topics
 
 	return <>
 		<PropName indent={7}>adapter</PropName>
-		<VariableName>{action.adapter}</VariableName>
+		<VariableName>{action.externalWriterId}</VariableName>
 	</>;
 };

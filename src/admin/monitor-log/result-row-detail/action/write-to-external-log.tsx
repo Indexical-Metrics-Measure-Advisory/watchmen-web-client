@@ -40,7 +40,7 @@ export const WriteToExternalLog = (props: {
 	}
 
 	return <>
-		<BodyLabel>{action.adapter} ↢</BodyLabel>
+		<BodyLabel>{action.externalWriterId} ↢</BodyLabel>
 		<BodyValue>{displayValue}</BodyValue>
 	</>;
 };

@@ -285,7 +285,7 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 						messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] source is incorrect.`);
 					}
 				} else if (isWriteToExternalAction(action)) {
-					if (!action.adapter) {
+					if (!action.externalWriterId) {
 						messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] adapter is not given yet.`);
 					}
 				} else if (isReadTopicAction(action)) {

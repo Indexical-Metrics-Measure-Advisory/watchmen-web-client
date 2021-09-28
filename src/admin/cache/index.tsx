@@ -1,3 +1,4 @@
+import {ExternalWriter} from '@/services/data/tuples/external-writer-types';
 import {Pipeline, PipelinesGraphics} from '@/services/data/tuples/pipeline-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {clearAdminData, loadAdminData, prepareAdminDB} from '@/services/local-persist';
@@ -72,7 +73,8 @@ export const AdminCache = () => {
 							// eslint-disable-next-line
 							...(data.data?.pipelines || []).filter(p => p.pipelineId != pipeline.pipelineId)
 						],
-						graphics: data.data?.graphics || []
+						graphics: data.data?.graphics || [],
+						externalWriters: data.data?.externalWriters || []
 					}
 				};
 			});
@@ -89,7 +91,8 @@ export const AdminCache = () => {
 							...(data.data?.topics || []).filter(t => t.topicId != topic.topicId)
 						],
 						pipelines: data.data?.pipelines || [],
-						graphics: data.data?.graphics || []
+						graphics: data.data?.graphics || [],
+						externalWriters: data.data?.externalWriters || []
 					}
 				};
 			});
@@ -106,7 +109,8 @@ export const AdminCache = () => {
 							graphics,
 							// eslint-disable-next-line
 							...(data.data?.graphics || []).filter(g => g.pipelineGraphId != graphics.pipelineGraphId)
-						]
+						],
+						externalWriters: data.data?.externalWriters || []
 					}
 				};
 			});
@@ -120,15 +124,35 @@ export const AdminCache = () => {
 						topics: data.data?.topics || [],
 						pipelines: data.data?.pipelines || [],
 						// eslint-disable-next-line
-						graphics: (data.data?.graphics || []).filter(g => g.pipelineGraphId != pipelineGraphId)
+						graphics: (data.data?.graphics || []).filter(g => g.pipelineGraphId != pipelineGraphId),
+						externalWriters: data.data?.externalWriters || []
 					}
 				};
 			});
 		};
+		const onSaveExternalWriters = async (writer: ExternalWriter) => {
+			setData(data => {
+				return {
+					initialized: data.initialized,
+					data: {
+						topics: data.data?.topics || [],
+						pipelines: data.data?.pipelines || [],
+						graphics: data.data?.graphics || [],
+						externalWriters: [
+							writer,
+							// eslint-disable-next-line
+							...(data.data?.externalWriters || []).filter(w => w.writerId != writer.writerId)
+						]
+					}
+				};
+			});
+		};
+
 		on(AdminCacheEventTypes.SAVE_PIPELINE, onSavePipeline);
 		on(AdminCacheEventTypes.SAVE_TOPIC, onSaveTopic);
 		on(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, onSavePipelinesGraphics);
 		on(AdminCacheEventTypes.REMOVE_PIPELINES_GRAPHICS, onRemovePipelinesGraphics);
+		on(AdminCacheEventTypes.SAVE_EXTERNAL_WRITERS, onSaveExternalWriters);
 		on(AdminCacheEventTypes.TOPIC_LOADED, onSaveTopic);
 		on(AdminCacheEventTypes.PIPELINE_LOADED, onSavePipeline);
 		return () => {
@@ -136,6 +160,7 @@ export const AdminCache = () => {
 			off(AdminCacheEventTypes.SAVE_TOPIC, onSaveTopic);
 			off(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, onSavePipelinesGraphics);
 			off(AdminCacheEventTypes.REMOVE_PIPELINES_GRAPHICS, onRemovePipelinesGraphics);
+			off(AdminCacheEventTypes.SAVE_EXTERNAL_WRITERS, onSaveExternalWriters);
 			off(AdminCacheEventTypes.TOPIC_LOADED, onSaveTopic);
 			off(AdminCacheEventTypes.PIPELINE_LOADED, onSavePipeline);
 		};
