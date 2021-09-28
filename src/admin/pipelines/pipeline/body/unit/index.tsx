@@ -18,18 +18,18 @@ export const UnitEditor = (props: {
 	stage: PipelineStage;
 	unit: PipelineStageUnit;
 	topics: Array<Topic>;
-	topic: Topic;
+	triggerTopic: Topic;
 }) => {
-	const {pipeline, stage, unit, topics, topic} = props;
+	const {pipeline, stage, unit, topics, triggerTopic} = props;
 
 	return <UnitContainer>
 		<UnitHeader pipeline={pipeline} stage={stage} unit={unit}/>
 		<UnitBody pipeline={pipeline} stage={stage} unit={unit}>
 			<VariablesEventBusProvider>
-				<VariablesHelper pipeline={pipeline} stage={stage} unit={unit} topics={[topic]}/>
-				<UnitLoopVariableName unit={unit} topic={topic}/>
-				<UnitPrerequisite unit={unit} topic={topic}/>
-				<Actions pipeline={pipeline} stage={stage} unit={unit} topics={topics} topic={topic}/>
+				<VariablesHelper pipeline={pipeline} stage={stage} unit={unit} topics={[triggerTopic]}/>
+				<UnitLoopVariableName unit={unit} triggerTopic={triggerTopic}/>
+				<UnitPrerequisite unit={unit} triggerTopic={triggerTopic}/>
+				<Actions pipeline={pipeline} stage={stage} unit={unit} topics={topics} triggerTopic={triggerTopic}/>
 				<UnitFooter pipeline={pipeline} stage={stage} unit={unit}/>
 			</VariablesEventBusProvider>
 		</UnitBody>

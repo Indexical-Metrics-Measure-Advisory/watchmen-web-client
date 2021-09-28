@@ -17,9 +17,9 @@ export const CopyToMemory = (props: {
 	unit: PipelineStageUnit;
 	action: PipelineStageUnitAction;
 	topics: Array<Topic>;
-	topic: Topic;
+	triggerTopic: Topic;
 }) => {
-	const {action, topic} = props;
+	const {action, triggerTopic} = props;
 
 	useActionType(action);
 
@@ -32,7 +32,7 @@ export const CopyToMemory = (props: {
 		<VariableName action={action}/>
 		<ActionLeadLabelThin>Value From:</ActionLeadLabelThin>
 		{/* any type can be copied to memory variable */}
-		<SingleParameter action={action} parameter={action.source} topics={[topic]}
+		<SingleParameter action={action} parameter={action.source} topics={[triggerTopic]}
 		                 expectedTypes={[AnyFactorType.ANY]}/>
 	</>;
 };

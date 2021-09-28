@@ -19,6 +19,7 @@ import {
 	DetailProcessActionContainer
 } from './widgets';
 import {WriteActionLog} from './write-action-log';
+import {WriteToExternalLog} from './write-to-external-log';
 
 export const DetailProcessAction = (props: {
 	action: PipelineStageUnitAction;
@@ -66,6 +67,7 @@ export const DetailProcessAction = (props: {
 					? <>
 						<AlarmLog log={log}/>
 						<CopyToMemoryLog action={action} log={log}/>
+						<WriteToExternalLog action={action} log={log}/>
 						<ReadActionLog action={action} log={log}/>
 						<WriteActionLog action={action} log={log} topicsMap={topicsMap}/>
 					</>

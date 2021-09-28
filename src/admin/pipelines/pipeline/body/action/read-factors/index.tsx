@@ -18,9 +18,9 @@ export const ReadFactors = (props: {
 	unit: PipelineStageUnit;
 	action: PipelineStageUnitAction;
 	topics: Array<Topic>;
-	topic: Topic;
+	triggerTopic: Topic;
 }) => {
-	const {action, topics, topic} = props;
+	const {action, topics, triggerTopic} = props;
 
 	useActionType(action);
 
@@ -35,6 +35,6 @@ export const ReadFactors = (props: {
 		{/* any type can be read and copied to memory variable */}
 		<TopicFactorPicker action={action} topics={topics} expectedTypes={[AnyFactorType.ANY]}/>
 		<ActionLeadLabelThin>By:</ActionLeadLabelThin>
-		<FindByCondition action={action} topics={topics} topic={topic}/>
+		<FindByCondition action={action} topics={topics} topic={triggerTopic}/>
 	</>;
 };

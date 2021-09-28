@@ -3,6 +3,7 @@ import {ParameterJoint} from '../factor-calculator-types';
 export enum SystemActionType {
 	ALARM = 'alarm',
 	COPY_TO_MEMORY = 'copy-to-memory',
+	WRITE_TO_EXTERNAL = 'write-to-external'
 }
 
 export enum ReadTopicActionType {

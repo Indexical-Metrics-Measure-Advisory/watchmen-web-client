@@ -56,6 +56,11 @@ export interface CopyToMemoryAction extends MonitorLogAction {
 	value?: any;
 }
 
+export interface WriteToExternalAction extends MonitorLogAction {
+	type: SystemActionType.WRITE_TO_EXTERNAL;
+	value?: any;
+}
+
 export interface MonitorLogUnit {
 	conditionResult: boolean;
 	actions: Array<MonitorLogAction>;
@@ -113,6 +118,9 @@ export const isAlarmLog = (log: MonitorLogAction): log is AlarmAction => {
 };
 export const isCopyToMemoryLog = (log: MonitorLogAction): log is CopyToMemoryAction => {
 	return log.type === SystemActionType.COPY_TO_MEMORY;
+};
+export const isWriteToExternalLog = (log: MonitorLogAction): log is WriteToExternalAction => {
+	return log.type === SystemActionType.WRITE_TO_EXTERNAL;
 };
 export const isReadLog = (log: MonitorLogAction): log is ReadAction => {
 	return (

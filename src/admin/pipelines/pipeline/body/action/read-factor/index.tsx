@@ -21,9 +21,9 @@ export const ReadFactor = (props: {
 	unit: PipelineStageUnit;
 	action: PipelineStageUnitAction;
 	topics: Array<Topic>;
-	topic: Topic;
+	triggerTopic: Topic;
 }) => {
-	const {action, topics, topic} = props;
+	const {action, topics, triggerTopic} = props;
 
 	const {fire} = useActionEventBus();
 	useActionType(action);
@@ -45,6 +45,6 @@ export const ReadFactor = (props: {
 		<ActionLeadLabelThin>Aggregate:</ActionLeadLabelThin>
 		<AggregateArithmeticEditor holder={action} onChange={onArithmeticChanged}/>
 		<ActionLeadLabelThin>By:</ActionLeadLabelThin>
-		<FindByCondition action={action} topics={topics} topic={topic}/>
+		<FindByCondition action={action} topics={topics} topic={triggerTopic}/>
 	</>;
 };

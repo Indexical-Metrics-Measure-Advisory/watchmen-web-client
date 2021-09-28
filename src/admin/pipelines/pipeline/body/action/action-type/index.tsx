@@ -25,6 +25,7 @@ import {
 const ActionTypeLabels: { [key in PipelineStageUnitActionType]: string } = {
 	[SystemActionType.ALARM]: 'Alarm',
 	[SystemActionType.COPY_TO_MEMORY]: 'Copy to Variable',
+	[SystemActionType.WRITE_TO_EXTERNAL]: 'Write to External',
 	[ReadTopicActionType.EXISTS]: 'Exists',
 	[ReadTopicActionType.READ_FACTOR]: 'Read Factor',
 	[ReadTopicActionType.READ_FACTORS]: 'Read Factors',
@@ -89,7 +90,7 @@ export const ActionTypeEditor = (props: { action: PipelineStageUnitAction }) => 
 		</ActionTypeIcon>
 		<ActionTypeDropdown {...state}>
 			<ActionTypeOptions>
-				{[SystemActionType.ALARM, SystemActionType.COPY_TO_MEMORY].map(actionType => {
+				{[SystemActionType.ALARM, SystemActionType.COPY_TO_MEMORY, SystemActionType.WRITE_TO_EXTERNAL].map(actionType => {
 					return <ActionTypeOption selected={actionType === action.type}
 					                         onClick={onActionTypeClicked(actionType)}
 					                         key={actionType}>

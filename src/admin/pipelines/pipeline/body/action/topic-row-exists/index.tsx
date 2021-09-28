@@ -17,9 +17,9 @@ export const TopicRowExists = (props: {
 	unit: PipelineStageUnit;
 	action: PipelineStageUnitAction;
 	topics: Array<Topic>;
-	topic: Topic;
+	triggerTopic: Topic;
 }) => {
-	const {action, topics, topic} = props;
+	const {action, topics, triggerTopic} = props;
 
 	useActionType(action);
 
@@ -33,6 +33,6 @@ export const TopicRowExists = (props: {
 		<ActionLeadLabelThin>Source Topic:</ActionLeadLabelThin>
 		<TopicPicker action={action} topics={topics}/>
 		<ActionLeadLabelThin>By:</ActionLeadLabelThin>
-		<FindByCondition action={action} topics={topics} topic={topic}/>
+		<FindByCondition action={action} topics={topics} topic={triggerTopic}/>
 	</>;
 };

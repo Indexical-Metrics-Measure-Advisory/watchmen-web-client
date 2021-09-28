@@ -6,7 +6,7 @@ import {Variable} from './variable';
 
 export const UnitLoopVariableName = (props: {
 	unit: PipelineStageUnit;
-	topic: Topic;
+	triggerTopic: Topic;
 }) => {
 	const {unit} = props;
 

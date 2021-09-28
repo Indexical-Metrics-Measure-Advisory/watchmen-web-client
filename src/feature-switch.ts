@@ -4,3 +4,12 @@ export const isMultipleDataSourcesEnabled = () => process.env.REACT_APP_MULTIPLE
 export const isReportFilterEnabled = () => process.env.REACT_APP_REPORT_FILTER === 'true';
 export const isReportFunnelEnabled = () => process.env.REACT_APP_REPORT_FUNNEL === 'true';
 export const isSpaceFilterEnabled = () => process.env.REACT_APP_SPACE_FILTER === 'true';
+
+const EXTERNAL_WRITER_ADAPTERS = (() => {
+	return (process.env.REACT_APP_EXTERNAL_WRITER_ADAPTERS || '')
+		.split(',')
+		.map(adapter => adapter.trim())
+		.filter(adapter => adapter);
+})();
+export const isWriteExternalEnabled = () => EXTERNAL_WRITER_ADAPTERS.length !== 0;
+export const getWriteExternalAdapters = () => EXTERNAL_WRITER_ADAPTERS;

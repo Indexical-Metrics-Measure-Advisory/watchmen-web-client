@@ -15,17 +15,17 @@ export const StageEditor = (props: {
 	pipeline: Pipeline;
 	stage: PipelineStage;
 	topics: Array<Topic>;
-	topic: Topic;
+	triggerTopic: Topic;
 }) => {
-	const {pipeline, stage, topics, topic} = props;
+	const {pipeline, stage, topics, triggerTopic} = props;
 
 	return <StageContainer>
 		<StageHeader pipeline={pipeline} stage={stage}/>
 		<StageBody pipeline={pipeline} stage={stage}>
 			<VariablesEventBusProvider>
-				<VariablesHelper pipeline={pipeline} stage={stage} topics={[topic]}/>
-				<StagePrerequisite stage={stage} topic={topic}/>
-				<Units pipeline={pipeline} stage={stage} topics={topics} topic={topic}/>
+				<VariablesHelper pipeline={pipeline} stage={stage} topics={[triggerTopic]}/>
+				<StagePrerequisite stage={stage} triggerTopic={triggerTopic}/>
+				<Units pipeline={pipeline} stage={stage} topics={topics} triggerTopic={triggerTopic}/>
 				<StageFooter pipeline={pipeline} stage={stage}/>
 			</VariablesEventBusProvider>
 		</StageBody>

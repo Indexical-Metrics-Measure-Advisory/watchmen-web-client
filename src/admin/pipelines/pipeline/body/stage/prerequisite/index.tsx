@@ -8,9 +8,9 @@ import {StageEventTypes} from '../stage-event-bus-types';
 
 export const StagePrerequisite = (props: {
 	stage: PipelineStage;
-	topic: Topic;
+	triggerTopic: Topic;
 }) => {
-	const {stage, topic} = props;
+	const {stage, triggerTopic} = props;
 
 	const {fire} = useStageEventBus();
 
@@ -20,6 +20,6 @@ export const StagePrerequisite = (props: {
 
 	return <>
 		<LeadLabel>Stage Prerequisite:</LeadLabel>
-		<ConditionalEditor conditional={stage} topics={[topic]} onChange={onConditionTypeChange}/>
+		<ConditionalEditor conditional={stage} topics={[triggerTopic]} onChange={onConditionTypeChange}/>
 	</>;
 };

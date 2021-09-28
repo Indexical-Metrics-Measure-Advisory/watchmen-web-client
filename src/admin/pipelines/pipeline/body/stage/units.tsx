@@ -14,9 +14,9 @@ export const Units = (props: {
 	pipeline: Pipeline;
 	stage: PipelineStage;
 	topics: Array<Topic>;
-	topic: Topic;
+	triggerTopic: Topic;
 }) => {
-	const {pipeline, stage, topics, topic} = props;
+	const {pipeline, stage, topics, triggerTopic} = props;
 
 	const {on, off} = useStageEventBus();
 	const forceUpdate = useForceUpdate();
@@ -39,7 +39,7 @@ export const Units = (props: {
 			return <UnitEventBusProvider key={unit.unitId}>
 				<Unit2StageBridge stage={stage} unit={unit}/>
 				<UnitEditor pipeline={pipeline} stage={stage} unit={unit}
-				            topics={topics} topic={topic}/>
+				            topics={topics} triggerTopic={triggerTopic}/>
 			</UnitEventBusProvider>;
 		})}
 	</>;

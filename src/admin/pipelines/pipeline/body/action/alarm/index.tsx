@@ -17,9 +17,9 @@ export const Alarm = (props: {
 	unit: PipelineStageUnit;
 	action: PipelineStageUnitAction;
 	topics: Array<Topic>;
-	topic: Topic;
+	triggerTopic: Topic;
 }) => {
-	const {action, topic} = props;
+	const {action, triggerTopic} = props;
 
 	useActionType(action);
 
@@ -29,7 +29,7 @@ export const Alarm = (props: {
 
 	return <>
 		<ActionLeadLabelThin>Alarm Prerequisite:</ActionLeadLabelThin>
-		<AlarmPrerequisite action={action} topic={topic}/>
+		<AlarmPrerequisite action={action} topic={triggerTopic}/>
 		<ActionLeadLabelThin>Severity:</ActionLeadLabelThin>
 		<AlarmSeverity action={action}/>
 		<ActionLeadLabelThin>Message:</ActionLeadLabelThin>

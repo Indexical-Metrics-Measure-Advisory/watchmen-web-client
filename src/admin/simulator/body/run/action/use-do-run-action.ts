@@ -24,6 +24,7 @@ import {runReadFactors} from './action-runner/read-factors';
 import {runReadRow} from './action-runner/read-row';
 import {runReadRows} from './action-runner/read-rows';
 import {runWriteFactor} from './action-runner/write-factor';
+import {runWriteToExternal} from './action-runner/write-to-external';
 import {createLogWriter} from './utils';
 
 export const useDoRunAction = (
@@ -52,6 +53,9 @@ export const useDoRunAction = (
 						break;
 					case SystemActionType.COPY_TO_MEMORY:
 						await runCopyToMemory({pipelineContext, internalUnitContext, context, logWrite});
+						break;
+					case SystemActionType.WRITE_TO_EXTERNAL:
+						await runWriteToExternal({pipelineContext, internalUnitContext, context, logWrite});
 						break;
 					case ReadTopicActionType.EXISTS:
 						await runExists({pipelineContext, internalUnitContext, context, logWrite});

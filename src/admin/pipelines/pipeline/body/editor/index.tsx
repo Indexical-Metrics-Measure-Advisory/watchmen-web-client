@@ -22,7 +22,7 @@ export const Editor = (props: {
 
 	return <PipelineEditor>
 		<PipelinePart pipeline={pipeline} topic={topic}/>
-		<Stages pipeline={pipeline} topics={topics} topic={topic}/>
+		<Stages pipeline={pipeline} topics={topics} triggerTopic={topic}/>
 		<PipelineFooterLeadLabel>End of Pipeline</PipelineFooterLeadLabel>
 	</PipelineEditor>;
 };

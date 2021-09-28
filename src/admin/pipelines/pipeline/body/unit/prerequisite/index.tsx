@@ -8,9 +8,9 @@ import {UnitEventTypes} from '../unit-event-bus-types';
 
 export const UnitPrerequisite = (props: {
 	unit: PipelineStageUnit;
-	topic: Topic;
+	triggerTopic: Topic;
 }) => {
-	const {unit, topic} = props;
+	const {unit, triggerTopic} = props;
 
 	const {fire} = useUnitEventBus();
 
@@ -20,6 +20,6 @@ export const UnitPrerequisite = (props: {
 
 	return <>
 		<LeadLabel>Unit Prerequisite:</LeadLabel>
-		<ConditionalEditor conditional={unit} topics={[topic]} onChange={onConditionTypeChange}/>
+		<ConditionalEditor conditional={unit} topics={[triggerTopic]} onChange={onConditionTypeChange}/>
 	</>;
 };

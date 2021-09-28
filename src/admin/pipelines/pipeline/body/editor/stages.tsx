@@ -12,9 +12,9 @@ import {Stage2PipelineBridge} from './stage-2-pipeline-bridge';
 export const Stages = (props: {
 	pipeline: Pipeline;
 	topics: Array<Topic>;
-	topic: Topic;
+	triggerTopic: Topic;
 }) => {
-	const {pipeline, topics, topic} = props;
+	const {pipeline, topics, triggerTopic} = props;
 
 	const {on, off} = usePipelineEventBus();
 	const forceUpdate = useForceUpdate();
@@ -37,7 +37,7 @@ export const Stages = (props: {
 			return <StageEventBusProvider key={stage.stageId}>
 				<Stage2PipelineBridge pipeline={pipeline} stage={stage}/>
 				<StageEditor pipeline={pipeline} stage={stage}
-				             topics={topics} topic={topic}/>
+				             topics={topics} triggerTopic={triggerTopic}/>
 			</StageEventBusProvider>;
 		})}
 	</>;

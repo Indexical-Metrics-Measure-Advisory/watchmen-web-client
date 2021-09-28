@@ -21,9 +21,9 @@ export const WriteFactor = (props: {
 	unit: PipelineStageUnit;
 	action: PipelineStageUnitAction;
 	topics: Array<Topic>;
-	topic: Topic;
+	triggerTopic: Topic;
 }) => {
-	const {action, topics, topic} = props;
+	const {action, topics, triggerTopic} = props;
 
 	const {fire} = useActionEventBus();
 	useActionType(action);
@@ -40,7 +40,7 @@ export const WriteFactor = (props: {
 		<ActionLeadLabelThin>Value From:</ActionLeadLabelThin>
 		{/*TODO expected types of source parameter and target factor should be matched */}
 		{/* assume any type is valid now */}
-		<SingleParameter action={action} parameter={action.source} topics={[topic]}
+		<SingleParameter action={action} parameter={action.source} topics={[triggerTopic]}
 		                 expectedTypes={[AnyFactorType.ANY]}/>
 		<ActionLeadLabelThin>Write As:</ActionLeadLabelThin>
 		<AggregateArithmeticEditor holder={action} onChange={onArithmeticChanged}/>
@@ -48,6 +48,6 @@ export const WriteFactor = (props: {
 		{/* any type is valid here, factor has high priority here */}
 		<TopicFactorPicker action={action} topics={topics} expectedTypes={[AnyFactorType.ANY]}/>
 		<ActionLeadLabelThin>By:</ActionLeadLabelThin>
-		<FindByCondition action={action} topics={topics} topic={topic}/>
+		<FindByCondition action={action} topics={topics} topic={triggerTopic}/>
 	</>;
 };

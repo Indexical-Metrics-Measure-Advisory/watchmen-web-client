@@ -16,9 +16,9 @@ export const InsertRow = (props: {
 	unit: PipelineStageUnit;
 	action: PipelineStageUnitAction;
 	topics: Array<Topic>;
-	topic: Topic;
+	triggerTopic: Topic;
 }) => {
-	const {action, topics, topic} = props;
+	const {action, topics, triggerTopic} = props;
 
 	useActionType(action);
 
@@ -30,6 +30,6 @@ export const InsertRow = (props: {
 		<ActionLeadLabelThin>Target Topic:</ActionLeadLabelThin>
 		<TopicPicker action={action} topics={topics}/>
 		<ActionLeadLabelThin>Use Mapping:</ActionLeadLabelThin>
-		<FactorsMapping action={action} topics={topics} topic={topic}/>
+		<FactorsMapping action={action} topics={topics} topic={triggerTopic}/>
 	</>;
 };

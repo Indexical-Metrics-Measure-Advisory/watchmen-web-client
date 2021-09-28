@@ -17,9 +17,9 @@ export const ActionEditor = (props: {
 	unit: PipelineStageUnit;
 	action: PipelineStageUnitAction;
 	topics: Array<Topic>;
-	topic: Topic;
+	triggerTopic: Topic;
 }) => {
-	const {pipeline, stage, unit, action, topics, topic} = props;
+	const {pipeline, stage, unit, action, topics, triggerTopic} = props;
 
 	const stageIndex = pipeline.stages.indexOf(stage) + 1;
 	const unitIndex = stage.units.indexOf(unit) + 1;
@@ -27,12 +27,12 @@ export const ActionEditor = (props: {
 
 	return <ActionContainer>
 		<VariablesEventBusProvider>
-			<VariablesHelper pipeline={pipeline} stage={stage} unit={unit} action={action} topics={[topic]}/>
+			<VariablesHelper pipeline={pipeline} stage={stage} unit={unit} action={action} topics={[triggerTopic]}/>
 			<Operators action={action} unit={unit}/>
 			<ActionLeadLabel>Action #{stageIndex}.{unitIndex}.{actionIndex}:</ActionLeadLabel>
 			<ActionTypeEditor action={action}/>
 			<ActionBody pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics}
-			            topic={topic}/>
+			            triggerTopic={triggerTopic}/>
 			<ActionFooterLeadLabel>End of Action #{stageIndex}.{unitIndex}.{actionIndex}</ActionFooterLeadLabel>
 		</VariablesEventBusProvider>
 	</ActionContainer>;

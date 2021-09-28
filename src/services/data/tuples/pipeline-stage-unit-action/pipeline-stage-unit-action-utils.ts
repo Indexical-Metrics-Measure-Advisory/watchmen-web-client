@@ -12,7 +12,7 @@ import {
 	ReadRowsAction,
 	ReadTopicAction
 } from './read-topic-actions-types';
-import {AlarmAction, CopyToMemoryAction} from './system-actions-types';
+import {AlarmAction, CopyToMemoryAction, WriteToExternalAction} from './system-actions-types';
 import {InsertRowAction, MergeRowAction, WriteFactorAction, WriteTopicAction} from './write-topic-actions-types';
 
 export const isWriteTopicAction = (action: PipelineStageUnitAction): action is WriteTopicAction => {
@@ -24,6 +24,9 @@ export const isAlarmAction = (action: PipelineStageUnitAction): action is AlarmA
 };
 export const isCopyToMemoryAction = (action: PipelineStageUnitAction): action is CopyToMemoryAction => {
 	return action.type === SystemActionType.COPY_TO_MEMORY;
+};
+export const isWriteToExternalAction = (action: PipelineStageUnitAction): action is WriteToExternalAction => {
+	return action.type === SystemActionType.WRITE_TO_EXTERNAL;
 };
 
 export const isReadTopicAction = (action: PipelineStageUnitAction): action is ReadTopicAction => {
