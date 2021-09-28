@@ -164,7 +164,7 @@ const createXML = (topic: Topic) => {
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"  
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-	<property dbms="oracle" name="pk-column.type" value="VARCHAR2(60)"/>
+	<property dbms="oracle" name="pk-column.type" value="NUMBER(20)"/>
 	<property dbms="oracle" name="json-column.type" value="CLOB"/>
 	<property dbms="oracle" name="aggregate-assist-column.type" value="VARCHAR2(1024)"/>
 	<property dbms="oracle" name="version-column.type" value="NUMBER(8)"/>
@@ -173,7 +173,7 @@ const createXML = (topic: Topic) => {
 ${Object.keys(OracleFactorTypeMap).map(factorType => {
 		return `\t<property dbms="oracle" name="${factorType}.type" value="${OracleFactorTypeMap[factorType as FactorType]}"/>`;
 	}).join('\n')}
-	<property dbms="mysql" name="pk-column.type" value="VARCHAR(60)"/>
+	<property dbms="mysql" name="pk-column.type" value="BIGINT"/>
 	<property dbms="mysql" name="json-column.type" value="JSON"/>
 	<property dbms="mysql" name="aggregate-assist-column.type" value="JSON"/>
 	<property dbms="mysql" name="version-column.type" value="INT"/>

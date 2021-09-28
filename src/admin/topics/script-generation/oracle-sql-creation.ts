@@ -56,7 +56,7 @@ const createSQL = (topic: Topic): string => {
 
 -- create 
 CREATE TABLE ${tableName}(
-	${getIdColumnName()} VARCHAR2(60),
+	${getIdColumnName()} NUMBER(20),
 ${buildFactors(topic)}
 ${buildAggregateAssist(topic)}
 ${buildVersion(topic)}

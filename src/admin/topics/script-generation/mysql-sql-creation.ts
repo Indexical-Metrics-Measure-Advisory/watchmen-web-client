@@ -52,7 +52,7 @@ const createSQL = (topic: Topic): string => {
 
 -- create 
 CREATE TABLE ${tableName}(
-	${getIdColumnName()} VARCHAR(60),
+	${getIdColumnName()} BIGINT,
 ${buildFactors(topic)}
 ${buildAggregateAssist(topic)}
 ${buildVersion(topic)}
