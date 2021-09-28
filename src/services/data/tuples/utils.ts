@@ -1,10 +1,10 @@
-import {ExternalWriter} from '@/services/data/tuples/external-writer-types';
 import dayjs from 'dayjs';
 import {v4} from 'uuid';
 import {ConnectedSpace} from './connected-space-types';
 import {Dashboard} from './dashboard-types';
 import {DataSource} from './data-source-types';
 import {Enum} from './enum-types';
+import {ExternalWriter} from './external-writer-types';
 import {Pipeline, PipelinesGraphics} from './pipeline-types';
 import {Report} from './report-types';
 import {Space} from './space-types';
