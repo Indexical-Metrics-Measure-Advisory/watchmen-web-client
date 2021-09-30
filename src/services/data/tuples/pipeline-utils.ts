@@ -1,4 +1,7 @@
-import {isWriteTopicAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {
+	isWriteToExternalAction,
+	isWriteTopicAction
+} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {Pipeline} from './pipeline-types';
 import {Topic} from './topic-types';
 
@@ -20,4 +23,19 @@ export const findPipelinesWriteToTopic = (pipelines: Array<Pipeline>, topic: Top
 export const findPipelinesTriggerByTopic = (pipelines: Array<Pipeline>, topic: Topic): Array<Pipeline> => {
 	// eslint-disable-next-line
 	return pipelines.filter(pipeline => pipeline.topicId == topic.topicId);
+};
+export const findExternalWriterIds = (pipelines: Array<Pipeline>, topic: Topic): Array<string> => {
+	const externalWriterIds: Array<string> = [];
+	findPipelinesTriggerByTopic(pipelines, topic).forEach(({stages}: Pipeline) => {
+		stages.forEach(({units}) => {
+			units.forEach(({do: actions}) => {
+				return actions.forEach(action => {
+					if (isWriteToExternalAction(action)) {
+						externalWriterIds.push(action.externalWriterId);
+					}
+				});
+			});
+		});
+	});
+	return [...new Set(externalWriterIds)];
 };

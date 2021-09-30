@@ -1,8 +1,12 @@
-import {isDataQualityCenterEnabled} from '@/feature-switch';
+import {isDataQualityCenterEnabled, isWriteExternalEnabled} from '@/feature-switch';
 import {toPipeline} from '@/routes/utils';
 import {savePipeline} from '@/services/data/tuples/pipeline';
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
-import {findPipelinesTriggerByTopic, findPipelinesWriteToTopic} from '@/services/data/tuples/pipeline-utils';
+import {
+	findExternalWriterIds,
+	findPipelinesTriggerByTopic,
+	findPipelinesWriteToTopic
+} from '@/services/data/tuples/pipeline-utils';
 import {isNotRawTopic} from '@/services/data/tuples/topic';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {ICON_ADD, ICON_CLOSE, ICON_TOPIC_PROFILE} from '@/widgets/basic/constants';
@@ -22,12 +26,13 @@ import {usePipelinesEventBus} from '../../pipelines-event-bus';
 import {PipelinesEventTypes} from '../../pipelines-event-bus-types';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
+import {ExternalWriterBody} from './external-writer-body';
 import {PipelinesBody} from './pipelines-body';
 import {TopicBody} from './topic-body';
 import {CountBadge, NavigatorContainer, NavigatorHeader, NavigatorHeaderButton, NavigatorHeaderTitle} from './widgets';
 
 enum OpenPanel {
-	TOPIC, INCOMING, OUTGOING
+	TOPIC, INCOMING, OUTGOING, EXTERNAL_WRITER
 }
 
 export const Navigator = (props: {
@@ -133,6 +138,18 @@ export const Navigator = (props: {
 		<PipelinesBody pipelines={pipelines} topics={topics} topic={topic}
 		               incoming={false}
 		               visible={openPanel === OpenPanel.OUTGOING}/>
+		{isWriteExternalEnabled() && topic != null
+			? <>
+				<NavigatorHeader onClick={onHeaderClicked(OpenPanel.EXTERNAL_WRITER)}>
+					<NavigatorHeaderTitle>
+						<span>External Writers</span>
+						<CountBadge>{findExternalWriterIds(pipelines, topic).length}</CountBadge>
+					</NavigatorHeaderTitle>
+				</NavigatorHeader>
+				<ExternalWriterBody pipelines={pipelines} topic={topic}
+				                    visible={openPanel === OpenPanel.EXTERNAL_WRITER}/>
+			</>
+			: null}
 		{topic != null
 			? <>
 				<NavigatorHeader onClick={onHeaderClicked(OpenPanel.TOPIC)}>
