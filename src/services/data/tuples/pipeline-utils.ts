@@ -1,7 +1,7 @@
 import {
 	isWriteToExternalAction,
 	isWriteTopicAction
-} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+} from './pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {Pipeline} from './pipeline-types';
 import {Topic} from './topic-types';
 

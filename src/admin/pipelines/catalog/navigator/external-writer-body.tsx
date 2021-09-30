@@ -1,8 +1,9 @@
-import {useExternalWriters} from '@/admin/cache/use-external-writers';
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
 import {findExternalWriterIds} from '@/services/data/tuples/pipeline-utils';
 import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
+// noinspection ES6PreferShortImport
+import {useExternalWriters} from '../../../cache/use-external-writers';
 import {ExternalWriterBodyContainer, NoExternalWriter, WriterRow} from './external-writer-widgets';
 
 export const ExternalWriterBody = (props: { pipelines: Array<Pipeline>, topic: Topic, visible: boolean }) => {
