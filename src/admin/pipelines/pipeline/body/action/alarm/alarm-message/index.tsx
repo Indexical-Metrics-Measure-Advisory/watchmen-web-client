@@ -20,6 +20,7 @@ export const AlarmMessage = (props: { action: AlarmAction }) => {
 		forceUpdate();
 		fire(ActionEventTypes.ACTION_CONTENT_CHANGED, action);
 	};
+
 	return <MessageInputContainer>
 		<MessageInputLabel>{action.message}</MessageInputLabel>
 		<MessageInput value={action.message || ''} onChange={onChange}

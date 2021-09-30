@@ -8,14 +8,21 @@ import {Pipeline} from '@/services/data/tuples/pipeline-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 // noinspection ES6PreferShortImport
 import {useExternalWriters} from '../../../../../cache/use-external-writers';
 import {useActionType} from '../action-effect/use-action-type';
 import {useActionEventBus} from '../action-event-bus';
 import {ActionEventTypes} from '../action-event-bus-types';
 import {ActionLeadLabelThin} from '../widgets';
-import {AdapterDropdown, AdapterFinderContainer, IncorrectOptionLabel} from './widgets';
+import {
+	AdapterDropdown,
+	AdapterFinderContainer,
+	EventCodeInput,
+	EventCodeInputContainer,
+	EventCodeLabel,
+	IncorrectOptionLabel
+} from './widgets';
 
 const RealWriteToExternal = (props: {
 	pipeline: Pipeline;
@@ -37,6 +44,16 @@ const RealWriteToExternal = (props: {
 		}
 
 		action.externalWriterId = value;
+		forceUpdate();
+		fire(ActionEventTypes.ACTION_CONTENT_CHANGED, action);
+	};
+	const onEventCodeChange = (event: ChangeEvent<HTMLInputElement>) => {
+		const {value} = event.target;
+		if (value === action.eventCode) {
+			return;
+		}
+
+		action.eventCode = value;
 		forceUpdate();
 		fire(ActionEventTypes.ACTION_CONTENT_CHANGED, action);
 	};
@@ -62,6 +79,11 @@ const RealWriteToExternal = (props: {
 			<AdapterDropdown value={action.externalWriterId || ''} options={options} onChange={onAdapterChange}
 			                 please="External Writer?"/>
 		</AdapterFinderContainer>
+		<ActionLeadLabelThin>Event Code:</ActionLeadLabelThin>
+		<EventCodeInputContainer>
+			<EventCodeLabel>{action.eventCode || ''}</EventCodeLabel>
+			<EventCodeInput value={action.eventCode || ''} onChange={onEventCodeChange}/>
+		</EventCodeInputContainer>
 	</>;
 };
 

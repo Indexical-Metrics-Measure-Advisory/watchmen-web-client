@@ -24,4 +24,5 @@ export interface CopyToMemoryAction extends PipelineStageUnitAction, MemoryWrite
 export interface WriteToExternalAction extends PipelineStageUnitAction {
 	type: SystemActionType.WRITE_TO_EXTERNAL;
 	externalWriterId: string;
+	eventCode?: string;
 }
