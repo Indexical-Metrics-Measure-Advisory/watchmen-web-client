@@ -2,6 +2,7 @@ import {isDataQualityCenterEnabled} from '@/feature-switch';
 import {toPipeline} from '@/routes/utils';
 import {savePipeline} from '@/services/data/tuples/pipeline';
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {findPipelinesTriggerByTopic, findPipelinesWriteToTopic} from '@/services/data/tuples/pipeline-utils';
 import {isNotRawTopic} from '@/services/data/tuples/topic';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {ICON_ADD, ICON_CLOSE, ICON_TOPIC_PROFILE} from '@/widgets/basic/constants';
@@ -23,7 +24,7 @@ import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {PipelinesBody} from './pipelines-body';
 import {TopicBody} from './topic-body';
-import {NavigatorContainer, NavigatorHeader, NavigatorHeaderButton, NavigatorHeaderTitle} from './widgets';
+import {CountBadge, NavigatorContainer, NavigatorHeader, NavigatorHeaderButton, NavigatorHeaderTitle} from './widgets';
 
 enum OpenPanel {
 	TOPIC, INCOMING, OUTGOING
@@ -110,13 +111,19 @@ export const Navigator = (props: {
 			</NavigatorHeaderButton>
 		</NavigatorHeader>
 		<NavigatorHeader onClick={onHeaderClicked(OpenPanel.INCOMING)}>
-			<NavigatorHeaderTitle>Incoming Pipelines</NavigatorHeaderTitle>
+			<NavigatorHeaderTitle>
+				<span>Incoming Pipelines</span>
+				{topic != null ? <CountBadge>{findPipelinesWriteToTopic(pipelines, topic).length}</CountBadge> : null}
+			</NavigatorHeaderTitle>
 		</NavigatorHeader>
 		<PipelinesBody pipelines={pipelines} topics={topics} topic={topic}
 		               incoming={true}
 		               visible={openPanel === OpenPanel.INCOMING}/>
 		<NavigatorHeader onClick={onHeaderClicked(OpenPanel.OUTGOING)}>
-			<NavigatorHeaderTitle>Outgoing Pipelines</NavigatorHeaderTitle>
+			<NavigatorHeaderTitle>
+				<span>Outgoing Pipelines</span>
+				{topic != null ? <CountBadge>{findPipelinesTriggerByTopic(pipelines, topic).length}</CountBadge> : null}
+			</NavigatorHeaderTitle>
 			<NavigatorHeaderButton
 				tooltip={{label: 'Create Outgoing Pipeline', alignment: TooltipAlignment.RIGHT, offsetX: 4}}
 				onClick={onCreateClicked}>
@@ -129,7 +136,10 @@ export const Navigator = (props: {
 		{topic != null
 			? <>
 				<NavigatorHeader onClick={onHeaderClicked(OpenPanel.TOPIC)}>
-					<NavigatorHeaderTitle>Factors</NavigatorHeaderTitle>
+					<NavigatorHeaderTitle>
+						<span>Factors</span>
+						<CountBadge>{topic.factors.length}</CountBadge>
+					</NavigatorHeaderTitle>
 				</NavigatorHeader>
 				<TopicBody topic={topic} visible={openPanel === OpenPanel.TOPIC}/>
 			</>

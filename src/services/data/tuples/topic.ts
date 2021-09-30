@@ -16,7 +16,9 @@ export const isMetaTopic = (topic: Topic): boolean => topic.type === TopicType.M
 export const isDistinctTopic = (topic: Topic): boolean => topic.type === TopicType.DISTINCT;
 export const isNotDistinctTopic = (topic: Topic): boolean => !isDistinctTopic(topic);
 export const isAggregationTopic = (topic: Topic): boolean => {
-	return [TopicType.AGGREGATE, TopicType.TIME, TopicType.RATIO].includes(topic.type);
+	return TopicType.AGGREGATE === topic.type
+		|| TopicType.TIME === topic.type
+		|| TopicType.RATIO === topic.type;
 };
 export const isNotAggregationTopic = (topic: Topic): boolean => !isAggregationTopic(topic);
 
@@ -25,7 +27,7 @@ export const isNumericFactor = (factorOrType: Factor | FactorType): boolean => {
 	if (typeof factorOrType === 'string') {
 		type = factorOrType;
 	} else {
-		type = factorOrType.type;
+		type = (factorOrType as Factor).type;
 	}
 	return [
 		FactorType.NUMBER, FactorType.UNSIGNED,
@@ -39,7 +41,7 @@ export const isDateFactor = (factorOrType: Factor | FactorType): boolean => {
 	if (typeof factorOrType === 'string') {
 		type = factorOrType;
 	} else {
-		type = factorOrType.type;
+		type = (factorOrType as Factor).type;
 	}
 	return [FactorType.FULL_DATETIME, FactorType.DATETIME, FactorType.DATE, FactorType.DATE_OF_BIRTH].includes(type);
 };
@@ -48,7 +50,7 @@ export const isDateTimeFactor = (factorOrType: Factor | FactorType): boolean => 
 	if (typeof factorOrType === 'string') {
 		type = factorOrType;
 	} else {
-		type = factorOrType.type;
+		type = (factorOrType as Factor).type;
 	}
 	return [FactorType.FULL_DATETIME, FactorType.DATETIME].includes(type);
 };
@@ -57,7 +59,7 @@ export const isEnumFactor = (factorOrType: Factor | FactorType): boolean => {
 	if (typeof factorOrType === 'string') {
 		type = factorOrType;
 	} else {
-		type = factorOrType.type;
+		type = (factorOrType as Factor).type;
 	}
 	return [
 		FactorType.ENUM,

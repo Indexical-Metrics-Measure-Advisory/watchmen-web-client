@@ -32,7 +32,23 @@ export const NavigatorHeader = styled.div.attrs({'data-widget': 'pipelines-navig
 	cursor          : ${({onClick}) => onClick ? 'pointer' : (void 0)};
 `;
 export const NavigatorHeaderTitle = styled.div.attrs({'data-widget': 'pipelines-navigator-header-title'})`
-	flex-grow : 1;
+	display     : flex;
+	position    : relative;
+	align-items : center;
+	flex-grow   : 1;
+`;
+export const CountBadge = styled.span`
+	display          : flex;
+	position         : relative;
+	align-items      : center;
+	height           : calc(var(--header-height) * 0.5);
+	padding          : 0 calc(var(--margin) / 4);
+	margin-left      : calc(var(--margin) / 2);
+	border-radius    : calc(var(--header-height) * 0.25);
+	color            : var(--invert-color);
+	background-color : var(--primary-color);
+	font-size        : 0.8em;
+	opacity          : 0.5;
 `;
 export const NavigatorHeaderButton = styled(TooltipButton).attrs({'data-widget': 'pipelines-navigator-header-button'})`
 	padding : 0;

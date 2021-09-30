@@ -1,6 +1,7 @@
 import {toPipeline} from '@/routes/utils';
 import {isWriteTopicAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {findPipelinesTriggerByTopic, findPipelinesWriteToTopic} from '@/services/data/tuples/pipeline-utils';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {ICON_PIPELINE} from '@/widgets/basic/constants';
 import {TooltipAlignment} from '@/widgets/basic/types';
@@ -63,22 +64,9 @@ export const PipelinesBody = (props: {
 	if (!topic) {
 		pipelines = [];
 	} else if (incoming) {
-		pipelines = allPipelines.filter(({stages}: Pipeline) => {
-			return stages.some(({units}) => {
-				return units.some(({do: actions}) => {
-					return actions.some(action => {
-						if (!isWriteTopicAction(action)) {
-							return false;
-						}
-						// eslint-disable-next-line
-						return action.topicId == topic.topicId;
-					});
-				});
-			});
-		}).map(assemblePipeline(topicsMap));
+		pipelines = findPipelinesWriteToTopic(allPipelines, topic).map(assemblePipeline(topicsMap));
 	} else {
-		// eslint-disable-next-line
-		pipelines = allPipelines.filter(pipeline => pipeline.topicId == topic.topicId).map(assemblePipeline(topicsMap));
+		pipelines = findPipelinesTriggerByTopic(allPipelines, topic).map(assemblePipeline(topicsMap));
 	}
 
 	const onPipelineClicked = (pipeline: Pipeline) => () => {
