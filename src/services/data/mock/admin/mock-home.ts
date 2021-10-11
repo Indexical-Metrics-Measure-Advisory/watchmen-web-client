@@ -4,7 +4,7 @@ import {Dashboard} from '../../tuples/dashboard-types';
 import {getCurrentTime} from '../../utils';
 
 export const fetchMockAdminDashboard = async (): Promise<AdminDashboard> => {
-	return new Promise((resolve) => {
+	return new Promise<AdminDashboard>((resolve) => {
 		setTimeout(() => {
 			resolve({
 				dashboard: {
