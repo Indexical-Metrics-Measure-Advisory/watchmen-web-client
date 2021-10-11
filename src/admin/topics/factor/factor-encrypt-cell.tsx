@@ -42,7 +42,7 @@ export const FactorEncryptCell = (props: { topic: Topic, factor: Factor }) => {
 		}
 	};
 
-	const methods = CompatibleEncryptMethods[factor.type];
+	const methods = CompatibleEncryptMethods[factor.type] ?? [];
 	const options = [
 		{value: FactorEncryptMethod.NONE, label: FactorEncryptMethodLabels[FactorEncryptMethod.NONE]},
 		...methods.map((method) => {
