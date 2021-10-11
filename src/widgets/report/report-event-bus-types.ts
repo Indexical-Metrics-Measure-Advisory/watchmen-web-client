@@ -2,6 +2,7 @@ import {Paragraph} from '@/services/data/tuples/paragraph';
 import {Report} from '@/services/data/tuples/report-types';
 
 export enum ReportEventTypes {
+	/** use report structure in client side */
 	DO_RELOAD_DATA_ON_EDITING = 'do-reload-data-on-editing',
 
 	DO_DELETE_REPORT = 'do-delete-report',
@@ -16,6 +17,7 @@ export enum ReportEventTypes {
 	ASK_REPORT_STRUCTURE_CHANGED = 'ask-report-structure-changed',
 	REPLY_REPORT_STRUCTURE_CHANGED = 'reply-report-structure-changed',
 
+	/** use report structure in server side */
 	DO_REFRESH = 'do-refresh',
 
 	CHART_BASE64_READY = 'chart-base64-ready',

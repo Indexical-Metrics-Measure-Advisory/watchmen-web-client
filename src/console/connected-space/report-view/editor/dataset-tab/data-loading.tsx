@@ -45,9 +45,11 @@ export const DataLoading = (props: { report: Report }) => {
 			}).fire(ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, report);
 		};
 		on(ReportDataSetEventTypes.ASK_LOAD_DATA, onLoadData);
+		onReport(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onLoadData);
 		onReport(ReportEventTypes.DO_REFRESH, onLoadData);
 		return () => {
 			off(ReportDataSetEventTypes.ASK_LOAD_DATA, onLoadData);
+			offReport(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onLoadData);
 			offReport(ReportEventTypes.DO_REFRESH, onLoadData);
 		};
 	}, [fireGlobal, on, off, fire, onceReport, onReport, offReport, report]);

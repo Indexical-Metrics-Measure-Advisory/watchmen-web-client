@@ -5,6 +5,9 @@ import React, {useEffect} from 'react';
 import {useReportViewEventBus} from '../report-view-event-bus';
 import {ReportViewEventTypes} from '../report-view-event-bus-types';
 
+/**
+ * @deprecated never used now
+ */
 export const ReportRefresher = (props: { report: Report }) => {
 	const {report} = props;
 

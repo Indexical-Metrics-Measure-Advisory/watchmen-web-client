@@ -25,7 +25,7 @@ export const ReportEditor = (props: { connectedSpace: ConnectedSpace, subject: S
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const {fire: fireGlobal} = useEventBus();
-	const {once: onceReport} = useReportEventBus();
+	const {once: onceReport, fire: fireReport} = useReportEventBus();
 	const {fire: fireView} = useReportViewEventBus();
 
 	const onToggleSettingsClicked = () => {
@@ -51,7 +51,8 @@ export const ReportEditor = (props: { connectedSpace: ConnectedSpace, subject: S
 		}).fire(ReportEventTypes.ASK_DOWNLOAD_CHART, report);
 	};
 	const onManualRefreshClicked = () => {
-		fireView(ReportViewEventTypes.REFRESH_REPORTS, report);
+		// treat as structure changed anyway
+		fireReport(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, report);
 	};
 
 	return <ReportEditEventBusProvider>

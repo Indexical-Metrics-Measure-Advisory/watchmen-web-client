@@ -5,7 +5,6 @@ import {ReportEventBusProvider} from '@/widgets/report/report-event-bus';
 import React from 'react';
 import {ReportHeader} from './header';
 import {ReportPartController} from './part-controller';
-import {ReportRefresher} from './refresher';
 import {ReportViewEventBusProvider} from './report-view-event-bus';
 import {ReportWorkbench} from './report-workbench';
 
@@ -21,7 +20,7 @@ export const ReportView = (props: {
 		<ReportEventBusProvider>
 			<ReportHeader connectedSpace={connectedSpace} subject={subject} report={report}/>
 			<ReportWorkbench connectedSpace={connectedSpace} subject={subject} report={report} editable={editable}/>
-			<ReportRefresher report={report}/>
+			{/*<ReportRefresher report={report}/>*/}
 			<ReportPartController report={report}/>
 		</ReportEventBusProvider>
 	</ReportViewEventBusProvider>;

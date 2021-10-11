@@ -1,6 +1,7 @@
 import {Report} from '@/services/data/tuples/report-types';
 
 export enum ReportViewEventTypes {
+	/** @deprecated never used now */
 	REFRESH_REPORTS = 'refresh-reports',
 
 	TOGGLE_SETTINGS = 'toggle-settings',
