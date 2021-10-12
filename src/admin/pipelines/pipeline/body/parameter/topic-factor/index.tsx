@@ -7,9 +7,12 @@ import {
 import {Factor} from '@/services/data/tuples/factor-types';
 import {isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {useParameterEventBus} from '@/widgets/parameter/parameter-event-bus';
+import {ParameterEventTypes} from '@/widgets/parameter/parameter-event-bus-types';
 import {useTopicFactor} from '@/widgets/parameter/topic-factor/use-topic-factor';
 import {buildFactorOptions, buildTopicOptions} from '@/widgets/tuples';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FactorDropdown, IncorrectOptionLabel, TopicDropdown, TopicFactorEditContainer} from './widgets';
 
 const RealTopicFactorEditor = (props: {
@@ -60,6 +63,15 @@ export const TopicFactorEditor = (props: {
 	expectedTypes: ValueTypes;
 }) => {
 	const {parameter, topics, expectedTypes} = props;
+
+	const {on, off} = useParameterEventBus();
+	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		on(ParameterEventTypes.FROM_CHANGED, forceUpdate);
+		return () => {
+			off(ParameterEventTypes.FROM_CHANGED, forceUpdate);
+		};
+	}, [on, off, forceUpdate]);
 
 	if (!isTopicFactorParameter(parameter)) {
 		return null;
