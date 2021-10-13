@@ -88,16 +88,27 @@ const AdminTopics = () => {
 				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>At least one factor in topic.</AlertLabel>);
 				return;
 			} else if (topic.factors.some(f => !f.name || !f.name.trim())) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Factor name is required for each one.</AlertLabel>);
-				return;
-			} else if (topic.factors.some(f => isNameInvalid(f.name))) {
+				const indexes = topic.factors
+					.map((f, index) => (!f.name || !f.name.trim()) ? (index + 1) : -1)
+					.filter(index => index !== -1)
+					.map(index => `#${index}`);
 				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
 					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
 				}).fire(EventTypes.SHOW_ALERT,
 					<AlertLabel>
-						Please use camel case or snake case for factor name.
+						Factor name is required, please check {indexes.join(', ')}.
+					</AlertLabel>);
+				return;
+			} else if (topic.factors.some(f => isNameInvalid(f.name))) {
+				const indexes = topic.factors
+					.map((f, index) => isNameInvalid(f.name) ? (index + 1) : -1)
+					.filter(index => index !== -1)
+					.map(index => `#${index}`);
+				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
+				}).fire(EventTypes.SHOW_ALERT,
+					<AlertLabel>
+						Use camel case or snake case for factor name, please check {indexes.join(', ')}.
 					</AlertLabel>);
 				return;
 			} else if (isNotRawTopic(topic) && topic.factors.some(f => f.type === FactorType.OBJECT || f.type === FactorType.ARRAY)) {
@@ -107,10 +118,26 @@ const AdminTopics = () => {
 					<AlertLabel>Object or array factor is allowed in raw topic only.</AlertLabel>);
 				return;
 			} else if (new Set(topic.factors.map(factor => factor.name.toUpperCase())).size !== topic.factors.length) {
+				const indexes = topic.factors
+					.reduce((all, f, index) => {
+						if (all.names[(f.name || '').toUpperCase()]) {
+							all.invalid.push(index + 1);
+						} else {
+							all.names[(f.name || '').toUpperCase()] = true;
+						}
+						return all;
+					}, {
+						names: {},
+						invalid: []
+					} as { names: { [key in string]: true }, invalid: Array<number> })
+					.invalid
+					.map(index => `#${index}`);
 				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
 					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
 				}).fire(EventTypes.SHOW_ALERT,
-					<AlertLabel>Each factor should have its unique name.</AlertLabel>);
+					<AlertLabel>
+						Each factor should have its unique name, please check {indexes.join(', ')}.
+					</AlertLabel>);
 				return;
 			}
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
