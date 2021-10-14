@@ -92,14 +92,17 @@ export const isFactorTypeCompatibleWith = (options: {
 		return true;
 	}
 
-	const pass = expectedTypes.some(expectedType => {
+	const passed = expectedTypes.some(expectedType => {
 		const {includes = [], excludes = []} = CompatibleTypes[expectedType as FactorType] || {};
 		return (includes.length === 0 || includes.includes(factorType)) && !excludes.includes(factorType);
 	});
 
-	reasons(ParameterInvalidReason.FACTOR_TYPE_NOT_MATCHED);
+	if (!passed) {
+		console.log('xyz', expectedTypes, factorType);
+		reasons(ParameterInvalidReason.FACTOR_TYPE_NOT_MATCHED);
+	}
 
-	return pass;
+	return passed;
 };
 
 /**

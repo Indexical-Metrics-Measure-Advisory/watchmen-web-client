@@ -80,7 +80,7 @@ export interface SourceTypes {
  * compatible compatible means types in value can be write into type in key
  */
 export const CompatibleTypes: { [key in FactorType]: SourceTypes } = {
-	[FactorType.SEQUENCE]: {includes: [FactorType.SEQUENCE]},
+	[FactorType.SEQUENCE]: {includes: [FactorType.SEQUENCE, FactorType.NUMBER, FactorType.UNSIGNED]},
 
 	[FactorType.NUMBER]: {
 		includes: [
