@@ -3,7 +3,12 @@ import {
 	isJointValid4DataSet,
 	isParameterValid4DataSet
 } from '@/services/data/tuples/dataset-validation-utils';
-import {AnyFactorType, Parameter, ParameterExpressionOperator} from '@/services/data/tuples/factor-calculator-types';
+import {
+	AnyFactorType,
+	Parameter,
+	ParameterExpressionOperator,
+	ParameterInvalidReasonsLabels
+} from '@/services/data/tuples/factor-calculator-types';
 import {isComputedParameter, isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
 import {Subject, SubjectDataSetFilterJoint} from '@/services/data/tuples/subject-types';
 import {isExpressionFilter, isJointFilter} from '@/services/data/tuples/subject-utils';
@@ -57,7 +62,7 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>): { valid: boo
 			expectedTypes: [AnyFactorType.ANY],
 			array: false,
 			reasons: (reason) => {
-				columnInvalidMessage = `Column[#${index + 1}] is incorrect caused by ${reason}.`;
+				columnInvalidMessage = `Column[#${index + 1}] is incorrect caused by ${ParameterInvalidReasonsLabels[reason]}.`;
 			}
 		});
 	});
@@ -75,13 +80,13 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>): { valid: boo
 			if (isJointFilter(filter)) {
 				return !isJointValid4DataSet({
 					joint: filter, topics, reasons: (reason) => {
-						filterInvalidMessage = `Filter is incorrect caused by ${reason}.`;
+						filterInvalidMessage = `Filter is incorrect caused by ${ParameterInvalidReasonsLabels[reason]}.`;
 					}
 				});
 			} else if (isExpressionFilter(filter)) {
 				return !isExpressionValid4DataSet({
 					expression: filter, topics, reasons: (reason) => {
-						filterInvalidMessage = `Filter is incorrect caused by ${reason}.`;
+						filterInvalidMessage = `Filter is incorrect caused by ${ParameterInvalidReasonsLabels[reason]}.`;
 					}
 				});
 			} else {

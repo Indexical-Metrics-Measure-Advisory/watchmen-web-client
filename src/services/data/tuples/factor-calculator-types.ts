@@ -126,6 +126,32 @@ export enum ParameterInvalidReason {
 	EXPRESSION_RIGHT_NOT_DEFINED = 'expression-right-not-defined'
 }
 
+export const ParameterInvalidReasonsLabels: { [key in ParameterInvalidReason]: string } = {
+	[ParameterInvalidReason.TOPIC_NOT_DEFINED]: 'topic not defined',
+	[ParameterInvalidReason.TOPIC_NOT_FOUND]: 'topic not found',
+
+	[ParameterInvalidReason.FACTOR_NOT_DEFINED]: 'factor not defined',
+	[ParameterInvalidReason.FACTOR_NOT_FOUND]: 'factor not found',
+	[ParameterInvalidReason.FACTOR_TYPE_NOT_MATCHED]: 'factor type doesn\'t match expected',
+
+	[ParameterInvalidReason.PARAMETER_NOT_DEFINED]: 'parameter not defined',
+
+	[ParameterInvalidReason.COMPUTE_TYPE_NOT_DEFINED]: 'compute type not defined',
+	[ParameterInvalidReason.COMPUTE_RETURN_TYPE_NOT_MATCHED]: 'computed return type doesn\'t match expected',
+	[ParameterInvalidReason.COMPUTE_PARAMETER_COUNT_NOT_MATCHED]: 'parameter count of compute not matched',
+	[ParameterInvalidReason.COMPUTE_PARAMETER_HAS_NOT_DEFINED]: 'at least one parameter not defined in compute',
+	[ParameterInvalidReason.COMPUTE_CASES_TOO_MANY_UNCONDITIONAL]: 'too many unconditional forks in cases',
+
+	[ParameterInvalidReason.CONSTANT_TYPE_NOT_MATCHED]: 'constant return type doesn\'t match expected',
+
+	[ParameterInvalidReason.JOINT_TYPE_NOT_DEFINED]: 'joint type not defined',
+	[ParameterInvalidReason.JOINT_FILTERS_NOT_DEFINED]: 'no filters defined of joint',
+
+	[ParameterInvalidReason.EXPRESSION_LEFT_NOT_DEFINED]: 'left part of expression not defined',
+	[ParameterInvalidReason.EXPRESSION_OPERATOR_NOT_DEFINED]: 'expression operator not defined',
+	[ParameterInvalidReason.EXPRESSION_RIGHT_NOT_DEFINED]: 'right part of expression not defined'
+};
+
 export enum VariablePredefineFunctions {
 	NEXT_SEQ = '&nextSeq',
 	COUNT = '&count',

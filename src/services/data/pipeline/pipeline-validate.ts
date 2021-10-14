@@ -4,6 +4,7 @@ import {
 	Parameter,
 	ParameterCondition,
 	ParameterExpressionOperator,
+	ParameterInvalidReasonsLabels,
 	TopicFactorParameter
 } from '../tuples/factor-calculator-types';
 import {
@@ -171,7 +172,7 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 			triggerTopic,
 			variables,
 			reasons: (reason) => {
-				messages.push(`Pipeline prerequisite is incorrect caused by ${reason}.`);
+				messages.push(`Pipeline prerequisite is incorrect caused by ${ParameterInvalidReasonsLabels[reason]}.`);
 			}
 		})) {
 			// do nothing, reason already be added by passed function
@@ -218,7 +219,7 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 				triggerTopic,
 				variables,
 				reasons: (reason) => {
-					messages.push(`Stage[#${stageIndex + 1}] prerequisite is incorrect caused by ${reason}.`);
+					messages.push(`Stage[#${stageIndex + 1}] prerequisite is incorrect caused by ${ParameterInvalidReasonsLabels[reason]}.`);
 				}
 			})) {
 				// do nothing, reason already be added by passed function
@@ -243,7 +244,7 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 					triggerTopic,
 					variables,
 					reasons: (reason) => {
-						messages.push(`Unit[#${stageIndex + 1}.${unitIndex + 1}] prerequisite is incorrect caused by ${reason}.`);
+						messages.push(`Unit[#${stageIndex + 1}.${unitIndex + 1}] prerequisite is incorrect caused by ${ParameterInvalidReasonsLabels[reason]}.`);
 					}
 				})) {
 					// do nothing, reason already be added by passed function
@@ -265,7 +266,7 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 							triggerTopic,
 							variables,
 							reasons: (reason) => {
-								messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] prerequisite is incorrect caused by ${reason}.`);
+								messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] prerequisite is incorrect caused by ${ParameterInvalidReasonsLabels[reason]}.`);
 							}
 						})) {
 							// do nothing, reason already be added by passed function
@@ -288,7 +289,7 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 							expectedTypes: [AnyFactorType.ANY],
 							array: false,
 							reasons: (reason) => {
-								messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] source is incorrect caused by ${reason}.`);
+								messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] source is incorrect caused by ${ParameterInvalidReasonsLabels[reason]}.`);
 							}
 						})) {
 							// do nothing, reason already be added by passed function
@@ -330,7 +331,7 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 						triggerTopic,
 						variables,
 						reasons: (reason) => {
-							messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] read by is incorrect caused by ${reason}.`);
+							messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] read by is incorrect caused by ${ParameterInvalidReasonsLabels[reason]}.`);
 						}
 					})) {
 						// do nothing, reason already be added by passed function
@@ -373,7 +374,7 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 								expectedTypes: [factor.type],
 								array: false,
 								reasons: (reason) => {
-									messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] mapping[${index + 1}] source is incorrect caused by ${reason}.`);
+									messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] mapping[${index + 1}] source is incorrect caused by ${ParameterInvalidReasonsLabels[reason]}.`);
 								}
 							})) {
 								// do nothing, reason already be added by passed function
@@ -397,7 +398,7 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 							triggerTopic,
 							variables,
 							reasons: (reason) => {
-								messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] merge by is incorrect caused by ${reason}.`);
+								messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] merge by is incorrect caused by ${ParameterInvalidReasonsLabels[reason]}.`);
 							}
 						})) {
 							// do nothing, reason already be added by passed function
@@ -427,7 +428,7 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 						triggerTopic,
 						variables,
 						reasons: (reason) => {
-							messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] merge by is incorrect caused by ${reason}.`);
+							messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] merge by is incorrect caused by ${ParameterInvalidReasonsLabels[reason]}.`);
 						}
 					})) {
 						// do nothing, reason already be added by passed function
