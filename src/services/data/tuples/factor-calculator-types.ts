@@ -100,6 +100,32 @@ export interface ParameterJoint extends ParameterCondition {
 	filters: Array<ParameterCondition>;
 }
 
+export enum ParameterInvalidReason {
+	TOPIC_NOT_DEFINED = 'topic-not-defined',
+	TOPIC_NOT_FOUND = 'topic-not-found',
+
+	FACTOR_NOT_DEFINED = 'factor-not-defined',
+	FACTOR_NOT_FOUND = 'factor-not-found',
+	FACTOR_TYPE_NOT_MATCHED = 'factor-type-not-matched',
+
+	PARAMETER_NOT_DEFINED = 'parameter-not-defined',
+
+	COMPUTE_TYPE_NOT_DEFINED = 'compute-type-not-defined',
+	COMPUTE_RETURN_TYPE_NOT_MATCHED = 'compute-return-type-not-matched',
+	COMPUTE_PARAMETER_COUNT_NOT_MATCHED = 'compute-parameter-count-not-matched',
+	COMPUTE_PARAMETER_HAS_NOT_DEFINED = 'compute-parameter-has-not-defined',
+	COMPUTE_CASES_TOO_MANY_UNCONDITIONAL = 'compute-cases-too-many-unconditional',
+
+	CONSTANT_TYPE_NOT_MATCHED = 'constant-type-not-matched',
+
+	JOINT_TYPE_NOT_DEFINED = 'joint-type-not-defined',
+	JOINT_FILTERS_NOT_DEFINED = 'joint-filters-not-defined',
+
+	EXPRESSION_LEFT_NOT_DEFINED = 'expression-left-not-defined',
+	EXPRESSION_OPERATOR_NOT_DEFINED = 'expression-operator-not-defined',
+	EXPRESSION_RIGHT_NOT_DEFINED = 'expression-right-not-defined'
+}
+
 export enum VariablePredefineFunctions {
 	NEXT_SEQ = '&nextSeq',
 	COUNT = '&count',

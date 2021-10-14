@@ -5,6 +5,7 @@ import {
 	Parameter,
 	ParameterComputeType,
 	ParameterExpressionOperator,
+	ParameterInvalidReason,
 	ParsedVariablePredefineFunctions,
 	ValueTypeOfParameter,
 	ValueTypes,
@@ -73,7 +74,13 @@ export const findSelectedFactor = (topic?: Topic | null, factorId?: string, extr
 /**
  * factor type can write to one of given expected types or not
  */
-export const isFactorTypeCompatibleWith = (factorType: FactorType, expectedTypes: ValueTypes): boolean => {
+export const isFactorTypeCompatibleWith = (options: {
+	factorType: FactorType;
+	expectedTypes: ValueTypes;
+	reasons: (reason: ParameterInvalidReason) => void;
+}): boolean => {
+	const {factorType, expectedTypes, reasons} = options;
+
 	if (expectedTypes.includes(AnyFactorType.ANY)) {
 		return true;
 	} else if (expectedTypes.includes(AnyFactorType.ERROR)) {
@@ -85,17 +92,31 @@ export const isFactorTypeCompatibleWith = (factorType: FactorType, expectedTypes
 		return true;
 	}
 
-	return expectedTypes.some(expectedType => {
+	const pass = expectedTypes.some(expectedType => {
 		const {includes = [], excludes = []} = CompatibleTypes[expectedType as FactorType] || {};
 		return (includes.length === 0 || includes.includes(factorType)) && !excludes.includes(factorType);
 	});
+
+	reasons(ParameterInvalidReason.FACTOR_TYPE_NOT_MATCHED);
+
+	return pass;
 };
 
 /**
- * @param computeType compute type of compute parameter
- * @param expectedTypes expected types after compute
+ * @param options
+ * @param options.computeType compute type of compute parameter
+ * @param options.expectedTypes expected types after compute
  */
-export const isComputeTypeValid = (computeType: ParameterComputeType, expectedTypes: ValueTypes): boolean => {
+export const isComputeTypeValid = (options: {
+	computeType: ParameterComputeType;
+	expectedTypes: ValueTypes;
+	reasons: (reason: ParameterInvalidReason) => void;
+}): boolean => {
+	const {computeType, expectedTypes, reasons} = options;
+
+	// delegate reason to compute type not matched
+	const delegate = () => reasons(ParameterInvalidReason.COMPUTE_RETURN_TYPE_NOT_MATCHED);
+
 	switch (computeType) {
 		case ParameterComputeType.CASE_THEN:
 			// case then can returns any type
@@ -105,23 +126,23 @@ export const isComputeTypeValid = (computeType: ParameterComputeType, expectedTy
 		case ParameterComputeType.MULTIPLY:
 		case ParameterComputeType.DIVIDE:
 		case ParameterComputeType.MODULUS:
-			return isFactorTypeCompatibleWith(FactorType.NUMBER, expectedTypes);
+			return isFactorTypeCompatibleWith({factorType: FactorType.NUMBER, expectedTypes, reasons: delegate});
 		case ParameterComputeType.YEAR_OF:
-			return isFactorTypeCompatibleWith(FactorType.YEAR, expectedTypes);
+			return isFactorTypeCompatibleWith({factorType: FactorType.YEAR, expectedTypes, reasons: delegate});
 		case ParameterComputeType.HALF_YEAR_OF:
-			return isFactorTypeCompatibleWith(FactorType.HALF_YEAR, expectedTypes);
+			return isFactorTypeCompatibleWith({factorType: FactorType.HALF_YEAR, expectedTypes, reasons: delegate});
 		case ParameterComputeType.QUARTER_OF:
-			return isFactorTypeCompatibleWith(FactorType.QUARTER, expectedTypes);
+			return isFactorTypeCompatibleWith({factorType: FactorType.QUARTER, expectedTypes, reasons: delegate});
 		case ParameterComputeType.MONTH_OF:
-			return isFactorTypeCompatibleWith(FactorType.MONTH, expectedTypes);
+			return isFactorTypeCompatibleWith({factorType: FactorType.MONTH, expectedTypes, reasons: delegate});
 		case ParameterComputeType.WEEK_OF_YEAR:
-			return isFactorTypeCompatibleWith(FactorType.WEEK_OF_YEAR, expectedTypes);
+			return isFactorTypeCompatibleWith({factorType: FactorType.WEEK_OF_YEAR, expectedTypes, reasons: delegate});
 		case ParameterComputeType.WEEK_OF_MONTH:
-			return isFactorTypeCompatibleWith(FactorType.WEEK_OF_MONTH, expectedTypes);
+			return isFactorTypeCompatibleWith({factorType: FactorType.WEEK_OF_MONTH, expectedTypes, reasons: delegate});
 		case ParameterComputeType.DAY_OF_MONTH:
-			return isFactorTypeCompatibleWith(FactorType.DAY_OF_MONTH, expectedTypes);
+			return isFactorTypeCompatibleWith({factorType: FactorType.DAY_OF_MONTH, expectedTypes, reasons: delegate});
 		case ParameterComputeType.DAY_OF_WEEK:
-			return isFactorTypeCompatibleWith(FactorType.DAY_OF_WEEK, expectedTypes);
+			return isFactorTypeCompatibleWith({factorType: FactorType.DAY_OF_WEEK, expectedTypes, reasons: delegate});
 		case ParameterComputeType.NONE:
 		default:
 			return true;

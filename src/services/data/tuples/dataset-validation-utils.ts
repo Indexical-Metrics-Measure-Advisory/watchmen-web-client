@@ -9,6 +9,7 @@ import {
 	ParameterComputeType,
 	ParameterExpression,
 	ParameterExpressionOperator,
+	ParameterInvalidReason,
 	ParameterJoint,
 	TopicFactorParameter,
 	ValueType,
@@ -31,41 +32,64 @@ import {
 } from './parameter-utils';
 import {Topic} from './topic-types';
 
-export const isJointValid4DataSet = (joint: ParameterJoint, topics: Array<Topic>): boolean => {
+export const isJointValid4DataSet = (options: {
+	joint: ParameterJoint;
+	topics: Array<Topic>;
+	reasons: (reason: ParameterInvalidReason) => void;
+}): boolean => {
+	const {joint, topics, reasons} = options;
+
 	const {jointType, filters} = joint;
 	if (!jointType) {
+		reasons(ParameterInvalidReason.JOINT_TYPE_NOT_DEFINED);
 		return false;
 	}
 	if (!filters || filters.length === 0) {
+		reasons(ParameterInvalidReason.JOINT_FILTERS_NOT_DEFINED);
 		return false;
 	}
 
 	return !filters.some(filter => {
 		if (isJointParameter(filter)) {
-			return !isJointValid4DataSet(filter, topics);
+			return !isJointValid4DataSet({joint: filter, topics, reasons});
 		} else if (isExpressionParameter(filter)) {
-			return !isExpressionValid4DataSet(filter, topics);
+			return !isExpressionValid4DataSet({expression: filter, topics, reasons});
 		}
 		return true;
 	});
 };
 
-export const isExpressionValid4DataSet = (expression: ParameterExpression, topics: Array<Topic>): boolean => {
+export const isExpressionValid4DataSet = (options: {
+	expression: ParameterExpression;
+	topics: Array<Topic>;
+	reasons: (reason: ParameterInvalidReason) => void;
+}): boolean => {
+	const {expression, topics, reasons} = options;
+
 	const {left, operator, right} = expression;
 
 	if (!operator) {
+		reasons(ParameterInvalidReason.EXPRESSION_OPERATOR_NOT_DEFINED);
 		return false;
 	}
 
 	const expectedTypes = computeValidTypesByExpressionOperator(operator);
 
-	if (!left || !isParameterValid4DataSet({parameter: left, topics, expectedTypes, array: false})) {
+	if (!left) {
+		reasons(ParameterInvalidReason.EXPRESSION_LEFT_NOT_DEFINED);
+		return false;
+	}
+	if (!isParameterValid4DataSet({parameter: left, topics, expectedTypes, array: false, reasons})) {
 		return false;
 	}
 
 	if (operator !== ParameterExpressionOperator.NOT_EMPTY && operator !== ParameterExpressionOperator.EMPTY) {
 		const array = operator === ParameterExpressionOperator.IN || operator === ParameterExpressionOperator.NOT_IN;
-		if (!right || !isParameterValid4DataSet({parameter: right, topics, expectedTypes, array})) {
+		if (!right) {
+			reasons(ParameterInvalidReason.EXPRESSION_RIGHT_NOT_DEFINED);
+			return false;
+		}
+		if (!isParameterValid4DataSet({parameter: right, topics, expectedTypes, array, reasons})) {
 			return false;
 		}
 	}
@@ -78,21 +102,24 @@ export const isParameterValid4DataSet = (options: {
 	topics: Array<Topic>;
 	expectedTypes: ValueTypes;
 	array?: boolean;
+	reasons: (reason: ParameterInvalidReason) => void;
 }): boolean => {
-	const {parameter, topics, expectedTypes, array = false} = options;
+	const {parameter, topics, expectedTypes, array = false, reasons} = options;
 	if (!parameter) {
+		reasons(ParameterInvalidReason.PARAMETER_NOT_DEFINED);
 		return false;
 	}
 	if (isTopicFactorParameter(parameter)) {
 		if (array) {
+			reasons(ParameterInvalidReason.FACTOR_TYPE_NOT_MATCHED);
 			return false;
 		} else {
-			return isTopicFactorParameterValid(parameter, topics, expectedTypes);
+			return isTopicFactorParameterValid({parameter, topics, expectedTypes, reasons});
 		}
 	} else if (isConstantParameter(parameter)) {
-		return isConstantParameterValid(parameter, expectedTypes, array);
+		return isConstantParameterValid({parameter, expectedTypes, array, reasons});
 	} else if (isComputedParameter(parameter)) {
-		return isComputedParameterValid(parameter, topics, expectedTypes, array);
+		return isComputedParameterValid({parameter, topics, expectedTypes, array, reasons});
 	} else {
 		return false;
 	}
@@ -215,7 +242,14 @@ const isValueValid = (value: string, type: ValueType): boolean => {
 /**
  * constant parameter in dataset-and-palette doesn't support {} syntax, just check value
  */
-const isConstantParameterValid = (parameter: ConstantParameter, expectedTypes: ValueTypes, array: boolean): boolean => {
+const isConstantParameterValid = (options: {
+	parameter: ConstantParameter;
+	expectedTypes: ValueTypes;
+	array: boolean;
+	reasons: (reason: ParameterInvalidReason) => void;
+}): boolean => {
+	const {parameter, expectedTypes, array, reasons} = options;
+
 	const value = (parameter.value || '').trim();
 	if (/^.*{.+}.*$/.test(value)) {
 		return true;
@@ -225,31 +259,58 @@ const isConstantParameterValid = (parameter: ConstantParameter, expectedTypes: V
 		const values = value.split(',').map(x => x.trim());
 		check = (type: ValueType) => values.every(value => isValueValid(value, type));
 	}
-	return expectedTypes.some(expectedType => expectedType === AnyFactorType.ANY || check(expectedType));
+	const passed = expectedTypes.some(expectedType => expectedType === AnyFactorType.ANY || check(expectedType));
+	if (!passed) {
+		reasons(ParameterInvalidReason.CONSTANT_TYPE_NOT_MATCHED);
+	}
+	return passed;
 };
 
-const isTopicFactorParameterValid = (parameter: TopicFactorParameter, topics: Array<Topic>, expectedTypes: ValueTypes): boolean => {
-	if (!parameter.topicId || !parameter.factorId) {
-		// no topic or no factor, failure
+const isTopicFactorParameterValid = (options: {
+	parameter: TopicFactorParameter;
+	topics: Array<Topic>;
+	expectedTypes: ValueTypes;
+	reasons: (reason: ParameterInvalidReason) => void;
+}): boolean => {
+	const {parameter, topics, expectedTypes, reasons} = options;
+
+	if (!parameter.topicId) {
+		// no topic, failure
+		reasons(ParameterInvalidReason.TOPIC_NOT_DEFINED);
+		return false;
+	}
+	if (!parameter.factorId) {
+		// no factor, failure
+		reasons(ParameterInvalidReason.FACTOR_NOT_DEFINED);
 		return false;
 	}
 	// eslint-disable-next-line
 	const topic = topics.find(topic => topic.topicId == parameter.topicId);
 	if (!topic) {
 		// topic not found, failure
+		reasons(ParameterInvalidReason.TOPIC_NOT_FOUND);
 		return false;
 	}
 	// eslint-disable-next-line
 	const factor = topic.factors.find(factor => factor.factorId == parameter.factorId);
 	if (!factor) {
 		// factor not found, failure
+		reasons(ParameterInvalidReason.FACTOR_NOT_FOUND);
 		return false;
 	}
 
-	return isFactorTypeCompatibleWith(factor.type, expectedTypes);
+	return isFactorTypeCompatibleWith({factorType: factor.type, expectedTypes, reasons});
 };
 
-const isComputedParameterValid = (parameter: ComputedParameter, topics: Array<Topic>, expectedTypes: ValueTypes, array: boolean): boolean => {
+const isComputedParameterValid = (options: {
+	parameter: ComputedParameter;
+	topics: Array<Topic>;
+	expectedTypes: ValueTypes;
+	array: boolean;
+	reasons: (reason: ParameterInvalidReason) => void;
+}): boolean => {
+	const {parameter, topics, expectedTypes, array, reasons} = options;
+
 	const {type: computeType, parameters} = parameter;
 	if (!computeType) {
 		// type must exists
@@ -259,32 +320,37 @@ const isComputedParameterValid = (parameter: ComputedParameter, topics: Array<To
 	// no calculator
 	if (calculatorDef.parameterCount && parameters.length !== calculatorDef.parameterCount) {
 		// parameters length mismatch
+		reasons(ParameterInvalidReason.COMPUTE_PARAMETER_COUNT_NOT_MATCHED);
 		return false;
 	}
 	if (calculatorDef.minParameterCount && parameters.length < calculatorDef.minParameterCount) {
 		// parameters length mismatch
+		reasons(ParameterInvalidReason.COMPUTE_PARAMETER_COUNT_NOT_MATCHED);
 		return false;
 	}
 	if (calculatorDef.maxParameterCount && parameters.length > calculatorDef.maxParameterCount) {
 		// parameters length mismatch
+		reasons(ParameterInvalidReason.COMPUTE_PARAMETER_COUNT_NOT_MATCHED);
 		return false;
 	}
 	const hasEmptyParameter = parameters.some(param => !param);
 	if (hasEmptyParameter) {
+		reasons(ParameterInvalidReason.COMPUTE_PARAMETER_HAS_NOT_DEFINED);
 		return false;
 	}
 
 	if (array && computeType !== ParameterComputeType.CASE_THEN) {
 		// only case-then can produce array result
+		reasons(ParameterInvalidReason.COMPUTE_RETURN_TYPE_NOT_MATCHED);
 		return false;
 	}
 
-	if (!isComputeTypeValid(computeType, expectedTypes)) {
+	if (!isComputeTypeValid({computeType, expectedTypes, reasons})) {
 		return false;
 	}
 
 	const subTypes = computeValidTypesForSubParameter(computeType, expectedTypes);
 	return parameters.every(parameter => {
-		return isParameterValid4DataSet({parameter, topics, expectedTypes: subTypes, array});
+		return isParameterValid4DataSet({parameter, topics, expectedTypes: subTypes, array, reasons});
 	});
 };

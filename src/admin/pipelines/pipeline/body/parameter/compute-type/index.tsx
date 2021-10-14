@@ -41,7 +41,11 @@ export const ParameterComputeTypeEditor = (props: {
 		onTypeClicked, onComputeTypeClicked
 	} = useComputeType(parameter);
 
-	const computeTypeValid = isComputeTypeValid(parameter.type, expectedTypes);
+	const computeTypeValid = isComputeTypeValid({
+		computeType: parameter.type, expectedTypes, reasons: () => {
+			// don't need reason here, ignored
+		}
+	});
 
 	return <ParameterComputeTypeContainer onClick={onTypeClicked} valid={computeTypeValid}
 	                                      ref={containerRef}>

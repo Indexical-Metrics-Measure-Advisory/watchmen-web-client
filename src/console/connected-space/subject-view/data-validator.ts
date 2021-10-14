@@ -49,16 +49,20 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>): { valid: boo
 	if (!columns || columns.length === 0) {
 		return {valid: false, messages: ['No columns defined.']};
 	}
-	const hasInvalidColumn = columns.some(({parameter, alias}) => {
+	let columnInvalidMessage = '';
+	const hasInvalidColumn = columns.some(({parameter, alias}, index) => {
 		return !alias || alias.trim().length === 0 || !isParameterValid4DataSet({
 			parameter,
 			topics,
 			expectedTypes: [AnyFactorType.ANY],
-			array: false
+			array: false,
+			reasons: (reason) => {
+				columnInvalidMessage = `Column[#${index + 1}] is incorrect caused by ${reason}.`;
+			}
 		});
 	});
 	if (hasInvalidColumn) {
-		return {valid: false, messages: ['Invalid column defined.']};
+		return {valid: false, messages: [columnInvalidMessage]};
 	}
 
 	const {filters} = dataset;
@@ -66,17 +70,26 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>): { valid: boo
 		return {valid: false, messages: ['No filter defined.']};
 	}
 	if (filters.filters.length !== 0) {
+		let filterInvalidMessage = '';
 		const hasInvalidFilter = filters.filters.some(filter => {
 			if (isJointFilter(filter)) {
-				return !isJointValid4DataSet(filter, topics);
+				return !isJointValid4DataSet({
+					joint: filter, topics, reasons: (reason) => {
+						filterInvalidMessage = `Filter is incorrect caused by ${reason}.`;
+					}
+				});
 			} else if (isExpressionFilter(filter)) {
-				return !isExpressionValid4DataSet(filter, topics);
+				return !isExpressionValid4DataSet({
+					expression: filter, topics, reasons: (reason) => {
+						filterInvalidMessage = `Filter is incorrect caused by ${reason}.`;
+					}
+				});
 			} else {
 				return true;
 			}
 		});
 		if (hasInvalidFilter) {
-			return {valid: false, messages: ['Invalid filter defined.']};
+			return {valid: false, messages: [filterInvalidMessage]};
 		}
 	}
 

@@ -169,9 +169,12 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 			joint: on,
 			allTopics: triggerTopic ? [triggerTopic] : [],
 			triggerTopic,
-			variables
+			variables,
+			reasons: (reason) => {
+				messages.push(`Pipeline prerequisite is incorrect caused by ${reason}.`);
+			}
 		})) {
-			messages.push('Pipeline prerequisite is incorrect.');
+			// do nothing, reason already be added by passed function
 		}
 	}
 
@@ -213,9 +216,12 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 				joint: on,
 				allTopics: triggerTopic ? [triggerTopic] : [],
 				triggerTopic,
-				variables
+				variables,
+				reasons: (reason) => {
+					messages.push(`Stage[#${stageIndex + 1}] prerequisite is incorrect caused by ${reason}.`);
+				}
 			})) {
-				messages.push(`Stage[#${stageIndex + 1}] prerequisite is incorrect.`);
+				// do nothing, reason already be added by passed function
 			}
 		}
 
@@ -235,9 +241,12 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 					joint: on,
 					allTopics: triggerTopic ? [triggerTopic] : [],
 					triggerTopic,
-					variables
+					variables,
+					reasons: (reason) => {
+						messages.push(`Unit[#${stageIndex + 1}.${unitIndex + 1}] prerequisite is incorrect caused by ${reason}.`);
+					}
 				})) {
-					messages.push(`Unit[#${stageIndex + 1}.${unitIndex + 1}] prerequisite is incorrect.`);
+					// do nothing, reason already be added by passed function
 				}
 			}
 			actions.forEach((action, actionIndex) => {
@@ -254,9 +263,12 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 							joint: on,
 							allTopics: triggerTopic ? [triggerTopic] : [],
 							triggerTopic,
-							variables
+							variables,
+							reasons: (reason) => {
+								messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] prerequisite is incorrect caused by ${reason}.`);
+							}
 						})) {
-							messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] prerequisite is incorrect.`);
+							// do nothing, reason already be added by passed function
 							return true;
 						}
 					}
@@ -267,15 +279,20 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 					}
 					if (!source) {
 						messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] source is not given yet.`);
-					} else if (!isParameterValid4Pipeline({
-						parameter: source,
-						allTopics: topics,
-						triggerTopic,
-						variables,
-						expectedTypes: [AnyFactorType.ANY],
-						array: false
-					})) {
-						messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] source is incorrect.`);
+					} else {
+						if (!isParameterValid4Pipeline({
+							parameter: source,
+							allTopics: topics,
+							triggerTopic,
+							variables,
+							expectedTypes: [AnyFactorType.ANY],
+							array: false,
+							reasons: (reason) => {
+								messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] source is incorrect caused by ${reason}.`);
+							}
+						})) {
+							// do nothing, reason already be added by passed function
+						}
 					}
 
 					// pass validate
@@ -311,9 +328,12 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 						joint: by,
 						allTopics: [topic, triggerTopic].filter(x => x) as Array<Topic>,
 						triggerTopic,
-						variables
+						variables,
+						reasons: (reason) => {
+							messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] read by is incorrect caused by ${reason}.`);
+						}
 					})) {
-						messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] read by is incorrect.`);
+						// do nothing, reason already be added by passed function
 					}
 
 					const built = tryToBuildVariable({action, variables, topics, triggerTopic});
@@ -337,20 +357,32 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 						messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] mapping doesn't be defined yet.`);
 					}
 					if (topic) {
-						const fail = mapping.some(({factorId, source}) => {
+						const passed = mapping.some(({factorId, source}, index) => {
 							// eslint-disable-next-line
 							const factor = topic.factors.find(factor => factor.factorId == factorId);
-							return !factor || !isParameterValid4Pipeline({
+							if (!factor) {
+								messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] mapping[${index + 1}] factor is missed.`);
+								return true;
+							}
+
+							if (!isParameterValid4Pipeline({
 								parameter: source,
 								allTopics: topics,
 								triggerTopic,
 								variables,
 								expectedTypes: [factor.type],
-								array: false
-							});
+								array: false,
+								reasons: (reason) => {
+									messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] mapping[${index + 1}] source is incorrect caused by ${reason}.`);
+								}
+							})) {
+								// do nothing, reason already be added by passed function
+							}
+
+							// false means pass the mapping validation
+							return false;
 						});
-						if (fail) {
-							messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] mapping has incorrect definition.`);
+						if (!passed) {
 							return true;
 						}
 					}
@@ -363,9 +395,12 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 							joint: by,
 							allTopics: [topic, triggerTopic].filter(x => x) as Array<Topic>,
 							triggerTopic,
-							variables
+							variables,
+							reasons: (reason) => {
+								messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] merge by is incorrect caused by ${reason}.`);
+							}
 						})) {
-							messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] merge by is incorrect.`);
+							// do nothing, reason already be added by passed function
 						}
 
 						if (topic && !isIndexUsed(action, topic)) {
@@ -390,9 +425,12 @@ export const validatePipeline = (pipeline: Pipeline, topics: Array<Topic>): Pipe
 						joint: by,
 						allTopics: [topic, triggerTopic].filter(x => x) as Array<Topic>,
 						triggerTopic,
-						variables
+						variables,
+						reasons: (reason) => {
+							messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] merge by is incorrect caused by ${reason}.`);
+						}
 					})) {
-						messages.push(`Action[#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}] merge by is incorrect.`);
+						// do nothing, reason already be added by passed function
 					}
 					if (topic && !isIndexUsed(action, topic)) {
 						missIndexed.push(`#${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}`);

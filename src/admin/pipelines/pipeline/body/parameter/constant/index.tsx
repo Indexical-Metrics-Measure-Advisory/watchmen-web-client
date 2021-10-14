@@ -32,7 +32,10 @@ const computeTypes = (options: {
 		triggerTopic,
 		variables,
 		expectedTypes,
-		array: expectArray
+		array: expectArray,
+		reasons: () => {
+			// don't need reason here, ignore it
+		}
 	});
 	matched ? onMatch() : onMismatch();
 };

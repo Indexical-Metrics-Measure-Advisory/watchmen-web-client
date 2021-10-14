@@ -28,7 +28,15 @@ const RealTopicFactorEditor = (props: {
 	const {selected: selectedFactor, extra: extraFactor} = findSelectedFactor(selectedTopic, factorId);
 
 	const isValid = (factor: Factor) => {
-		return selectedTopic !== extraTopic && factor !== extraFactor && isFactorTypeCompatibleWith(factor.type, expectedTypes);
+		return selectedTopic !== extraTopic
+			&& factor !== extraFactor
+			&& isFactorTypeCompatibleWith({
+				factorType: factor.type,
+				expectedTypes,
+				reasons: () => {
+					// don't need reason here, ignore it
+				}
+			});
 	};
 
 	const topicOptions = buildTopicOptions({
