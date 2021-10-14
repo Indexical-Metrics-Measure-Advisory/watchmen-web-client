@@ -38,12 +38,14 @@ import {
 	faEdit,
 	faEthernet,
 	faExpand,
-	faExpandArrowsAlt, faExternalLinkSquareAlt,
+	faExpandArrowsAlt,
+	faExternalLinkSquareAlt,
 	faFeather,
 	faFileCsv,
 	faFileExport,
 	faFileImport,
 	faFilter,
+	faGaugeSimple,
 	faGlobe,
 	faGripVertical,
 	faHandSparkles,
@@ -84,7 +86,6 @@ import {
 	faSyncAlt,
 	faTable,
 	faTablets,
-	faTachometerAlt,
 	faTags,
 	faTasks,
 	faTenge,
@@ -179,7 +180,7 @@ export const ICON_PIPELINE = faWaveSquare;
 export const ICON_STAGE = faObjectGroup;
 export const ICON_UNIT = faFeather;
 
-export const ICON_DASHBOARD = faTachometerAlt;
+export const ICON_DASHBOARD = faGaugeSimple;
 export const ICON_FAVORITE = faStar;
 export const ICON_TEMPLATE = faTablets;
 export const ICON_TASK = faTasks;
