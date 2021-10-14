@@ -8,8 +8,12 @@ import {buildFactorOptions} from '@/widgets/tuples';
 import React from 'react';
 import {FactorDropdown, FactorFinderContainer, IncorrectOptionLabel} from './widgets';
 
-export const FactorPicker = (props: { holder: FromFactor | ToFactor | { factorId: string }, topic?: Topic, }) => {
-	const {holder, topic} = props;
+export const FactorPicker = (props: {
+	holder: FromFactor | ToFactor | { factorId: string };
+	topic?: Topic;
+	onChange: () => void;
+}) => {
+	const {holder, topic, onChange} = props;
 
 	const {factorId} = holder;
 
@@ -22,6 +26,7 @@ export const FactorPicker = (props: { holder: FromFactor | ToFactor | { factorId
 		}
 		holder.factorId = selectedFactor.factorId;
 		forceUpdate();
+		onChange();
 	};
 
 	const {selected: selectedFactor, extra: extraFactor} = findSelectedFactor(topic, factorId);

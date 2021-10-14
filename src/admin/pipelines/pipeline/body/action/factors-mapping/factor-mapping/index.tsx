@@ -28,6 +28,9 @@ export const FactorMapping = (props: {
 	const onArithmeticChanged = () => {
 		fire(FactorsMappingEventTypes.MAPPING_CHANGED, mapping);
 	};
+	const onFactorChanged = () => {
+		fire(FactorsMappingEventTypes.MAPPING_CHANGED, mapping);
+	}
 	const onRemoveClicked = () => {
 		const index = action.mapping.indexOf(mapping);
 		if (index !== -1) {
@@ -45,7 +48,7 @@ export const FactorMapping = (props: {
 		<SingleParameter action={action} parameter={mapping.source} topics={[source]}
 		                 expectedTypes={[AnyFactorType.ANY]}/>
 		<AggregateArithmeticEditor holder={mapping} onChange={onArithmeticChanged}/>
-		<FactorPicker holder={mapping} topic={target}/>
+		<FactorPicker holder={mapping} topic={target} onChange={onFactorChanged}/>
 		<RemoveMeButton onClick={onRemoveClicked}>
 			<FontAwesomeIcon icon={ICON_DELETE}/>
 		</RemoveMeButton>

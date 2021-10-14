@@ -31,7 +31,9 @@ export const Factors = (props: { action: WriteTopicAction & MappingRow, topics: 
 			forceUpdate();
 			fireAction(ActionEventTypes.ACTION_CONTENT_CHANGED, action);
 		};
-		const onMappingChanged = () => fireAction(ActionEventTypes.ACTION_CONTENT_CHANGED, action);
+		const onMappingChanged = () => {
+			fireAction(ActionEventTypes.ACTION_CONTENT_CHANGED, action);
+		};
 		onAction(ActionEventTypes.TOPIC_CHANGED, forceUpdate);
 		on(FactorsMappingEventTypes.MAPPING_ADDED, onMappingAdded);
 		on(FactorsMappingEventTypes.MAPPING_REMOVED, onMappingRemoved);
