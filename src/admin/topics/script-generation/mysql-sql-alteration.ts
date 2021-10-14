@@ -112,7 +112,9 @@ ${Object.values(uniqueIndexes).map((factors, index) => {
 ${Object.values(indexes).map((factors, index) => {
 		return `	CREATE INDEX ${indexName}_${index + 1} ON ${tableName} (${factors.map(factor => asFactorName(factor)).join(', ')});`;
 	}).join('\n')}
-
+	CREATE INDEX ${indexName}_${getTenantIdColumnName()} ON ${tableName} (${getTenantIdColumnName()});
+	CREATE INDEX ${indexName}_${getInsertTimeColumnName()} ON ${tableName} (${getInsertTimeColumnName()});
+	CREATE INDEX ${indexName}_${getUpdateTimeColumnName()} ON ${tableName} (${getUpdateTimeColumnName()});
 END $$
 DELIMITER ;
 CALL \`SCHEMA_CHANGE\`();

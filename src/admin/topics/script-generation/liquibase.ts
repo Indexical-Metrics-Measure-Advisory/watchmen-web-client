@@ -249,7 +249,7 @@ ${buildAuditColumnOnModify(topic, getUpdateTimeColumnName())}
 		<sql dbms="oracle">CALL SCHEMA_CHANGE();</sql>
 		<sql dbms="mysql">CALL \`SCHEMA_CHANGE\`();</sql>
 		<dropProcedure procedureName="SCHEMA_CHANGE"/>
-	</changSet>
+	</changeSet>
 	<changeSet id="${v4()}" author="watchmen">
 ${Object.values(uniqueIndexes).map((factors, index) => {
 		return `		<!-- unique index -->
@@ -263,6 +263,15 @@ ${Object.values(indexes).map((factors, index) => {
 ${factors.map(factor => `			<column name="${asFactorName(factor)}"/>`)}
 		</createIndex>`;
 	}).join('\n')}
+		<createIndex indexName="${indexName}_${getTenantIdColumnName()}" table="${tableName}">
+			<column name="${getTenantIdColumnName()}"/>
+		</createIndex>
+		<createIndex indexName="${indexName}_${getInsertTimeColumnName()}" table="${tableName}">
+			<column name="${getInsertTimeColumnName()}"/>
+		</createIndex>
+		<createIndex indexName="${indexName}_${getUpdateTimeColumnName()}" table="${tableName}">
+			<column name="${getUpdateTimeColumnName()}"/>
+		</createIndex>
 	</changeSet>
 </databaseChangeLog>`;
 };

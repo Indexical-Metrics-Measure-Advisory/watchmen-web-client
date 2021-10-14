@@ -69,6 +69,9 @@ ${Object.values(uniqueIndexes).map(factors => {
 ${Object.values(indexes).map(factors => {
 		return `    INDEX (${factors.map(factor => asFactorName(factor)).join(', ')}),`;
 	}).join('\n')}
+	INDEX (${getTenantIdColumnName()}),
+	INDEX (${getInsertTimeColumnName()}),
+	INDEX (${getUpdateTimeColumnName()}),
 
 	-- primary key
 	PRIMARY KEY (${getIdColumnName()})

@@ -107,7 +107,9 @@ ${Object.values(uniqueIndexes).map((factors, index) => {
 ${Object.values(indexes).map((factors, index) => {
 		return `	EXECUTE IMMEDIATE 'CREATE INDEX ${indexName}_${index + 1} ON ${tableName} (${factors.map(factor => asFactorName(factor)).join(', ')})';`;
 	}).join('\n')}
-
+	EXECUTE IMMEDIATE 'CREATE INDEX ${indexName}_${getTenantIdColumnName()} ON ${tableName} (${getTenantIdColumnName()})';
+	EXECUTE IMMEDIATE 'CREATE INDEX ${indexName}_${getInsertTimeColumnName()} ON ${tableName} (${getInsertTimeColumnName()})';
+	EXECUTE IMMEDIATE 'CREATE INDEX ${indexName}_${getUpdateTimeColumnName()} ON ${tableName} (${getUpdateTimeColumnName()})';
 END;
 CALL SCHEMA_CHANGE();
 DROP PROCEDURE SCHEMA_CHANGE;
