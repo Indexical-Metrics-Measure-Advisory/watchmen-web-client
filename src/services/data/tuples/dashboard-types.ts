@@ -1,11 +1,12 @@
 import {Paragraph} from './paragraph';
-import {ReportRect} from './report-types';
+import {ReportFunnel, ReportRect} from './report-types';
 import {Tuple} from './tuple-types';
 
 export type DashboardReportRect = ReportRect;
 
 export interface DashboardReport {
 	reportId: string;
+	funnels?: Array<ReportFunnel>;
 	rect: DashboardReportRect;
 }
 

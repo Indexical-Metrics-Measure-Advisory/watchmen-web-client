@@ -1,26 +1,18 @@
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {saveDashboard} from '@/services/data/tuples/dashboard';
 import {Dashboard} from '@/services/data/tuples/dashboard-types';
-import {Report} from '@/services/data/tuples/report-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
-import {Chart} from '@/widgets/report';
-import {ParagraphPanel} from '@/widgets/report/paragraph';
 import {ReportEventBusProvider} from '@/widgets/report/report-event-bus';
 import React, {useEffect, useState} from 'react';
-import {v4} from 'uuid';
 import {useConsoleEventBus} from '../../console-event-bus';
 import {ConsoleEventTypes} from '../../console-event-bus-types';
 import {useDashboardEventBus} from '../dashboard-event-bus';
 import {DashboardEventTypes} from '../dashboard-event-bus-types';
-import {PagePrintSize} from './page-print-size';
-import {ParagraphMoveOrResizeMonitor} from './paragraph-move-or-resize-monitor';
-import {ParagraphRemover} from './paragraph-remover';
-import {ReportRefresher} from './refresher';
-import {ReportMoveOrResizeMonitor} from './report-move-or-resize-monitor';
-import {ReportRemover} from './report-remover';
+import {Paragraphs} from './paragraphs';
+import {Reports} from './reports';
 import {DashboardBodyContainer, DashboardNoReport} from './widgets';
 
 export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean, transient?: boolean }) => {
@@ -67,21 +59,7 @@ export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean
 		};
 	}, [on, off, fireGlobal, forceUpdate, dashboard]);
 
-	const reportMap = connectedSpaces.reduce((map, connectedSpace) => {
-		connectedSpace.subjects.forEach(subject => (subject.reports || []).map(report => map.set(report.reportId, report)));
-		return map;
-	}, new Map<string, Report>());
-	const reports = (dashboard.reports || []).map(dashboardReport => {
-		const report = reportMap.get(dashboardReport.reportId);
-		if (report != null) {
-			return {
-				...report,
-				rect: dashboardReport.rect
-			};
-		} else {
-			return null;
-		}
-	}).filter(x => !!x) as Array<Report>;
+	const reports = dashboard.reports || [];
 	const paragraphs = dashboard.paragraphs || [];
 
 	return <ReportEventBusProvider>
@@ -89,28 +67,9 @@ export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean
 			{reports.length !== 0 || paragraphs.length !== 0
 				? null
 				: <DashboardNoReport><span>{Lang.CONSOLE.DASHBOARD.NO_REPORT}</span></DashboardNoReport>}
-			{reports.length !== 0
-				? reports.map(report => {
-					return <Chart report={report} fixed={false}
-					              editable={false} editing={false}
-					              removable={removable}
-					              key={report.reportId}/>;
-				})
-				: null}
-			{paragraphs.length !== 0
-				? paragraphs.map(paragraph => {
-					return <ParagraphPanel paragraph={paragraph} fixed={false}
-					                       editable={true}
-					                       removable={removable}
-					                       key={v4()}/>;
-				})
-				: null}
-			<PagePrintSize dashboard={dashboard}/>
-			<ReportRefresher dashboard={dashboard} reports={reports}/>
+			<Reports connectedSpaces={connectedSpaces} dashboard={dashboard}
+			         transient={transient} removable={removable}/>
+			<Paragraphs dashboard={dashboard} transient={transient} removable={removable}/>
 		</DashboardBodyContainer>
-		{transient ? null : <ReportMoveOrResizeMonitor dashboard={dashboard}/>}
-		{transient ? null : <ParagraphMoveOrResizeMonitor dashboard={dashboard}/>}
-		<ReportRemover dashboard={dashboard}/>
-		<ParagraphRemover dashboard={dashboard}/>
 	</ReportEventBusProvider>;
 };
