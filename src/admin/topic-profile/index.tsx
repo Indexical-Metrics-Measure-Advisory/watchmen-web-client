@@ -5,6 +5,7 @@ import {
 	TopicProfileFactorType
 } from '@/services/data/data-quality/topic-profile-types';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {AlertLabel} from '@/widgets/alert/widgets';
 import {Button} from '@/widgets/basic/button';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
@@ -47,7 +48,7 @@ const getTopicName = (topic: Topic): string => {
 export const TopicProfile = () => {
 	const {fire: fireGlobal} = useEventBus();
 	const {on, off} = useTopicProfileEventBus();
-	const [destroy, setDestroy] = useState(true);
+	const [destroyed, setDestroyed] = useState(true);
 	const [visible, setVisible] = useState(false);
 	const [data, setData] = useState<Data | null>(null);
 
@@ -57,9 +58,15 @@ export const TopicProfile = () => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await fetchTopicProfileData({topicId: topic.topicId, date: profileDate}),
 				(data?: TopicProfileData) => {
-					setData({topic, date: profileDate, data});
-					setVisible(true);
-					setDestroy(false);
+					if (data == null) {
+						fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+							No profile data of given topic.
+						</AlertLabel>);
+					} else {
+						setData({topic, date: profileDate, data});
+						setVisible(true);
+						setDestroyed(false);
+					}
 				});
 		};
 		on(TopicProfileEventTypes.SHOW_PROFILE, onShowProfile);
@@ -68,23 +75,18 @@ export const TopicProfile = () => {
 		};
 	}, [on, off, fireGlobal]);
 
-	if (destroy) {
+	if (destroyed || data == null) {
 		return null;
 	}
 
 	const onAnimationEnd = () => {
 		if (!visible) {
-			setDestroy(true);
+			setDestroyed(true);
 		}
 	};
 	const onCloseClicked = () => {
 		setVisible(false);
 	};
-
-	if (!data) {
-		// TODO
-		return null;
-	}
 
 	const parseWarning = (warning: string) => {
 		const [type, , , , name] = warning.split(' ');

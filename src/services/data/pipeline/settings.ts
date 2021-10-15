@@ -24,7 +24,7 @@ const fetchUpdatedPipelinesGraphics = async (lastModifiedTime: Dayjs, existsGrap
 	if (isMockService()) {
 		return {updated: [], removed: []};
 	} else {
-		// TODO fetch updated pipeline graphics
+		// TODO fetch updated pipeline graphics, not implemented yet. use fetch whole data instead now.
 		return {
 			updated: await fetchPipelinesGraphics(),
 			removed: []

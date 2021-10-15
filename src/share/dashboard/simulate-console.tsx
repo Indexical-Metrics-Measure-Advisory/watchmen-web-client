@@ -6,6 +6,7 @@ import {Report} from '@/services/data/tuples/report-types';
 import {getCurrentTime} from '@/services/data/utils';
 import {useEffect} from 'react';
 
+// TODO USE REAL DATA HERE, HAVE TO FETCH CONNECTED SPACES SINCE REPORT FUNNELS USING THEM
 export const SimulateConsole = (props: { reports: Array<Report> }) => {
 	const {reports} = props;
 

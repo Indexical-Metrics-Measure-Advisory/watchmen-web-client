@@ -1,10 +1,10 @@
-import {Palette} from '@/console/dashboard/body/reports/palette';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Dashboard} from '@/services/data/tuples/dashboard-types';
 import {Report} from '@/services/data/tuples/report-types';
 import React, {useEffect, useState} from 'react';
 import {Controllers} from './controllers';
 import {Funnels} from './funnels';
+import {Palette} from './palette';
 
 export const Reports = (props: {
 	connectedSpaces: Array<ConnectedSpace>;

@@ -1,4 +1,3 @@
-import {DashboardEventTypes} from '@/console/dashboard/dashboard-event-bus-types';
 import {isReportFunnelEnabled} from '@/feature-switch';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {saveDashboard} from '@/services/data/tuples/dashboard';
@@ -13,6 +12,7 @@ import {EventTypes} from '@/widgets/events/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useEffect, useState} from 'react';
 import {useDashboardEventBus} from '../../dashboard-event-bus';
+import {DashboardEventTypes} from '../../dashboard-event-bus-types';
 import {FunnelDefs, FunnelsState, GroupedFunnel} from './types';
 import {
 	buildFunnelDefsFromDashboard,

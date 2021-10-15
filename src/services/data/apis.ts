@@ -92,7 +92,10 @@ export const Apis = {
 	SUBJECT_SAVE: 'console_space/subject/save',
 	SUBJECT_RENAME: 'console_space/subject/rename?subject_id=:subjectId&name=:name',
 	SUBJECT_DELETE: 'console_space/subject/delete?subject_id=:subjectId',
-	SUBJECT_SHARE: 'subject/share', // TODO
+	/**
+	 * @deprecated Subject share is deprecated and removed from frontend implementation, not supported anymore
+	 */
+	SUBJECT_SHARE: 'subject/share',
 	SUBJECT_DATA: 'console_space/subject/dataset?subject_id=:subjectId',
 
 	REPORT_CREATE: 'console_space/subject/report/save?subject_id=:subjectId',
@@ -101,7 +104,8 @@ export const Apis = {
 	REPORT_TEMPORARY: 'console_space/dataset/chart/temporary',
 	REPORT_DATA: 'console_space/dataset/chart?report_id=:reportId',
 
-	DASHBOARD_SHARE: 'dashboard/share', // TODO
+	/** TODO api to retrieve dashboard share url from server side, not implemented yet */
+	DASHBOARD_SHARE: 'dashboard/share',
 	DASHBOARD_MINE: 'dashboard/me',
 	DASHBOARD_CREATE: 'dashboard/create?name=:name',
 	DASHBOARD_SAVE: 'dashboard/save',
