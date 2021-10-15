@@ -4,6 +4,7 @@ import {Report, ReportFilterExpression} from '@/services/data/tuples/report-type
 import {Subject} from '@/services/data/tuples/subject-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
+import {Lang} from '@/widgets/langs';
 import {ParameterEventBusProvider, useParameterEventBus} from '@/widgets/parameter/parameter-event-bus';
 import {ParameterEventTypes} from '@/widgets/parameter/parameter-event-bus-types';
 import React, {useEffect} from 'react';
@@ -38,7 +39,7 @@ export const ExpressionBody = (props: {
 		factors: (subject.dataset.columns || []).map(column => {
 			return {
 				factorId: column.columnId,
-				name: column.alias || 'Noname Column'
+				name: column.alias || Lang.CHART.NONAME_COLUMN
 			} as Factor;
 		})
 	} as Topic];

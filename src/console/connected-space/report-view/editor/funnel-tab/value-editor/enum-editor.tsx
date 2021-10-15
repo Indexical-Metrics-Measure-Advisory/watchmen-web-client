@@ -12,9 +12,9 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
 import {v4} from 'uuid';
 // noinspection ES6PreferShortImport
-import {ConsoleEventTypes} from '../../../../..//console-event-bus-types';
-// noinspection ES6PreferShortImport
 import {useConsoleEventBus} from '../../../../../console-event-bus';
+// noinspection ES6PreferShortImport
+import {ConsoleEventTypes} from '../../../../../console-event-bus-types';
 import {useReportEditEventBus} from '../../report-edit-event-bus';
 import {ReportEditEventTypes} from '../../report-edit-event-bus-types';
 import {DropdownValue} from '../../settings-widgets/dropdown-value';

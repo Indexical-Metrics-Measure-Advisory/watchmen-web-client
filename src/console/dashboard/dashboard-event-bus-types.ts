@@ -12,7 +12,9 @@ export enum DashboardEventTypes {
 	PARAGRAPH_REMOVED = 'paragraph-removed',
 
 	TOGGLE_PRINT_PAGE_SIZE = 'toggle-print-page-size',
-	REFRESH_REPORTS = 'refresh-reports'
+	REFRESH_REPORTS = 'refresh-reports',
+
+	REPAINT_REPORTS = 'repaint-reports'
 }
 
 export interface DashboardEventBus {
@@ -43,4 +45,8 @@ export interface DashboardEventBus {
 	fire(type: DashboardEventTypes.REFRESH_REPORTS, dashboard: Dashboard): this;
 	on(type: DashboardEventTypes.REFRESH_REPORTS, listener: (dashboard: Dashboard) => void): this;
 	off(type: DashboardEventTypes.REFRESH_REPORTS, listener: (dashboard: Dashboard) => void): this;
+
+	fire(type: DashboardEventTypes.REPAINT_REPORTS, dashboard: Dashboard): this;
+	on(type: DashboardEventTypes.REPAINT_REPORTS, listener: (dashboard: Dashboard) => void): this;
+	off(type: DashboardEventTypes.REPAINT_REPORTS, listener: (dashboard: Dashboard) => void): this;
 }

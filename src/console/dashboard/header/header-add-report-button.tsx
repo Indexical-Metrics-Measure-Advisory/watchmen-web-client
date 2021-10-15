@@ -92,6 +92,7 @@ export const HeaderAddReportButton = (props: { dashboard: Dashboard }) => {
 		}
 		dashboard.reports.push({
 			reportId: report.reportId,
+			funnels: report.funnels,
 			rect: {
 				x: 32,
 				y: 32,

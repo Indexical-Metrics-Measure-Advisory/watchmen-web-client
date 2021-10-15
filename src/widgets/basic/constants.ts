@@ -65,6 +65,7 @@ import {
 	faPalette,
 	faPaperPlane,
 	faParagraph,
+	faPaste,
 	faPercentage,
 	faPlay,
 	faPlus,
@@ -85,7 +86,6 @@ import {
 	faStream,
 	faSyncAlt,
 	faTable,
-	faTablets,
 	faTags,
 	faTasks,
 	faTenge,
@@ -182,7 +182,7 @@ export const ICON_UNIT = faFeather;
 
 export const ICON_DASHBOARD = faGaugeSimple;
 export const ICON_FAVORITE = faStar;
-export const ICON_TEMPLATE = faTablets;
+export const ICON_TEMPLATE = faPaste;
 export const ICON_TASK = faTasks;
 export const ICON_NOTIFICATION = faBell;
 export const ICON_MAIL = faInbox;
