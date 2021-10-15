@@ -36,10 +36,6 @@ export const Reports = (props: {
 		setDisplayReports(displayReports);
 	}, [connectedSpaces, dashboard.reports]);
 
-	if (displayReports.length === 0) {
-		return null;
-	}
-
 	return <>
 		<Palette dashboard={dashboard} reports={displayReports} removable={removable}/>
 		<Funnels connectedSpaces={connectedSpaces} dashboard={dashboard} reports={displayReports}

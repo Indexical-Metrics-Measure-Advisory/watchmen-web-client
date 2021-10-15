@@ -1,13 +1,13 @@
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Dashboard} from '@/services/data/tuples/dashboard-types';
-import {Lang} from '@/widgets/langs';
 import {ReportEventBusProvider} from '@/widgets/report/report-event-bus';
 import React, {useEffect, useState} from 'react';
 import {useConsoleEventBus} from '../../console-event-bus';
 import {ConsoleEventTypes} from '../../console-event-bus-types';
+import {NoReportOrParagraph} from './no-report-or-paragraph';
 import {Paragraphs} from './paragraphs';
 import {Reports} from './reports';
-import {DashboardBodyContainer, DashboardNoReport} from './widgets';
+import {DashboardBodyContainer} from './widgets';
 
 export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean, transient?: boolean }) => {
 	const {dashboard, removable = true, transient = false} = props;
@@ -20,14 +20,9 @@ export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean
 		}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
 	}, [onceConsole]);
 
-	const reports = dashboard.reports || [];
-	const paragraphs = dashboard.paragraphs || [];
-
 	return <ReportEventBusProvider>
 		<DashboardBodyContainer>
-			{reports.length !== 0 || paragraphs.length !== 0
-				? null
-				: <DashboardNoReport><span>{Lang.CONSOLE.DASHBOARD.NO_REPORT}</span></DashboardNoReport>}
+			<NoReportOrParagraph dashboard={dashboard}/>
 			<Reports connectedSpaces={connectedSpaces} dashboard={dashboard}
 			         transient={transient} removable={removable}/>
 			<Paragraphs dashboard={dashboard} transient={transient} removable={removable}/>

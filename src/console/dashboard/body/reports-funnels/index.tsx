@@ -165,14 +165,13 @@ export const ReportsFunnels = (props: {
 		fireGlobal, on, off, fire,
 		connectedSpaces, dashboard, reports,
 		state.topics, state.enums, state.groups
-	])
-	;
+	]);
 
 	if (!isReportFunnelEnabled() || !state.initialized || state.groups.length === 0) {
 		return null;
 	}
 
-// synchronize values from grouped funnel to funnel in report object
+	// synchronize values from grouped funnel to funnel in report object
 	const onFunnelChanged = async (group: GroupedFunnel) => {
 		group.reports.forEach(({report, funnel}) => {
 			// copy values from grouped funnel (values collected from ui input) to original funnel
