@@ -64,7 +64,7 @@ const tryToWriteValues = (funnel: ReportFunnel, index: number, value?: string): 
 			// both not null/empty
 			funnel.values[index] = value!;
 			// eslint-disable-next-line
-			return value == oldValue;
+			return value != oldValue;
 	}
 };
 
