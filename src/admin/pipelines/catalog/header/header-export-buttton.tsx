@@ -33,7 +33,7 @@ import {generateMarkdown} from '../markdown';
 import {DataSourceMap, ExternalWriterMap} from '../markdown/types';
 import {AssembledPipelinesGraphics} from '../types';
 import {TopicPickerTable} from './topic-picker-table';
-import {PickerDialogBody} from './widgets';
+import {PICKER_DIALOG_HEIGHT, PickerDialogBody} from './widgets';
 
 const findPipelinesWriteMe = (topics: Array<Topic>, topicRelations: TopicRelationMap): Array<Pipeline> => {
 	return topics.reduce((found, topic) => {
@@ -185,7 +185,12 @@ export const HeaderExportButton = (props: { graphics: AssembledPipelinesGraphics
 			fireGlobal(EventTypes.SHOW_DIALOG,
 				<PipelinesDownload pipelines={pipelines} topics={topics} graphics={graphics}
 				                   dataSources={dataSources} externalWriters={externalWriters}
-				                   askSvg={askSvg}/>);
+				                   askSvg={askSvg}/>, {
+					marginTop: '10vh',
+					marginLeft: '20%',
+					width: '60%',
+					height: PICKER_DIALOG_HEIGHT
+				});
 		}).fire(AdminCacheEventTypes.ASK_DATA);
 	};
 
