@@ -24,7 +24,7 @@ import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {ImportPickerTable} from './import-picker-table';
-import {PickerDialogBody} from './widgets';
+import {PICKER_DIALOG_HEIGHT, PickerDialogBody} from './widgets';
 
 const PipelinesImport = (props: {
 	topics: Array<Topic>;
@@ -142,7 +142,8 @@ export const HeaderImportButton = () => {
 				                 pipelines={pipelines} cachedPipelines={cachedPipelines || []}
 				                 onSuccess={onImportSuccess}/>, {
 					marginLeft: '25vw',
-					width: '50vw'
+					width: '50vw',
+					height: PICKER_DIALOG_HEIGHT
 				});
 		}).fire(AdminCacheEventTypes.ASK_DATA);
 	};

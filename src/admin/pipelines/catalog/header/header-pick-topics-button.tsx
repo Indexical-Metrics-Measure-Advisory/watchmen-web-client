@@ -13,7 +13,7 @@ import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {createInitTopicRect} from '../graphics-utils';
 import {AssembledPipelinesGraphics} from '../types';
 import {TopicPickerTable} from './topic-picker-table';
-import {PickerDialogBody} from './widgets';
+import {PICKER_DIALOG_HEIGHT, PickerDialogBody} from './widgets';
 
 const TopicPicker = (props: {
 	topics: Array<Topic>;
@@ -89,7 +89,7 @@ export const HeaderPickTopicsButton = (props: {
 				marginTop: '10vh',
 				marginLeft: '20%',
 				width: '60%',
-				height: '50vh'
+				height: PICKER_DIALOG_HEIGHT
 			});
 	};
 

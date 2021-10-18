@@ -2,13 +2,20 @@ import {PageHeaderHolderContainer} from '@/widgets/basic/page-header';
 import {DialogBody} from '@/widgets/dialog/widgets';
 import styled from 'styled-components';
 
+export const PICKER_DIALOG_HEIGHT = '50vh';
+const DIALOG_MARGIN = 'var(--margin) * 1.5';
+const DIALOG_LABEL_HEIGHT = 'var(--line-height)';
+const TABLE_HEADER_HEIGHT = 'var(--height) + var(--border-width)';
+const TABLE_MARGIN = 'var(--margin) / 2';
+const FOOTER_HEIGHT = 'var(--height)';
+
 export const PageHeaderHolder = styled(PageHeaderHolderContainer)`
 	grid-template-columns : auto auto 1fr;
 `;
 
 export const PickerDialogBody = styled(DialogBody)`
 	flex-direction : column;
-	margin-bottom  : var(--margin);
+	margin-bottom  : calc(${TABLE_MARGIN});
 `;
 
 export const PickerTableHeader = styled.div`
@@ -16,6 +23,8 @@ export const PickerTableHeader = styled.div`
 	position              : relative;
 	grid-template-columns : 40px 60px 1fr;
 	border-bottom         : var(--border);
+	height                : calc(${TABLE_HEADER_HEIGHT});
+	min-height            : calc(${TABLE_HEADER_HEIGHT});
 `;
 export const PickerTableHeaderCell = styled.div`
 	display      : flex;
@@ -40,7 +49,7 @@ export const PickerTableBody = styled.div.attrs({'data-v-scroll': ''})`
 	display    : block;
 	position   : relative;
 	overflow-y : auto;
-	max-height : calc(50vh - var(--margin) - var(--line-height));
+	max-height : calc(${PICKER_DIALOG_HEIGHT} - ${DIALOG_MARGIN} - ${DIALOG_LABEL_HEIGHT} - (${TABLE_HEADER_HEIGHT}) - ${TABLE_MARGIN} - ${FOOTER_HEIGHT});
 `;
 export const PickerTableBodyRow = styled.div.attrs<{ columns?: number }>(({columns = 3}) => {
 	return {

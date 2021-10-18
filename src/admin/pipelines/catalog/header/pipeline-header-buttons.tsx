@@ -22,6 +22,7 @@ export const PipelineHeaderButtons = (props: {
 	const showPickTopics = allGraphics.length > 1;
 	const canRemove = allGraphics.length > 1;
 
+	const canUploadPipelines = isPipelinesDownloadEnabled();
 	const canDownloadPipelines = isPipelinesDownloadEnabled() && (graphics.topics || []).length !== 0;
 
 	return <PageHeaderButtons>
@@ -39,11 +40,11 @@ export const PipelineHeaderButtons = (props: {
 				<HeaderDeleteMeButton graphics={graphics}/>
 			</>
 			: null}
-		{canDownloadPipelines
+		{canUploadPipelines
 			? <>
 				<PageHeaderButtonSeparator/>
 				<HeaderImportButton/>
-				<HeaderExportButton graphics={graphics}/>
+				{canDownloadPipelines ? <HeaderExportButton graphics={graphics}/> : null}
 			</>
 			: null}
 	</PageHeaderButtons>;
