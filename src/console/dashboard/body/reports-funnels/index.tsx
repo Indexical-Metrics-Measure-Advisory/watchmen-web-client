@@ -184,7 +184,7 @@ export const ReportsFunnels = (props: {
 			}
 		});
 
-		fire(DashboardEventTypes.REPAINT_REPORTS, dashboard);
+		fire(DashboardEventTypes.REPAINT_REPORTS, dashboard, group.reports.map(r => r.report));
 		if (!transient) {
 			// in transient, funnel values change will not save to server side
 			fire(DashboardEventTypes.SAVE_DASHBOARD, dashboard);

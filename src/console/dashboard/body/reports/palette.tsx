@@ -15,7 +15,7 @@ export const Palette = (props: { dashboard: Dashboard; reports: Array<Report>; r
 	const {fire: fireReport} = useReportEventBus();
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
-		const onRepaintReports = (d: Dashboard) => {
+		const onRepaintReports = (d: Dashboard, repaintReports: Array<Report>) => {
 			// eslint-disable-next-line
 			if (d.dashboardId != dashboard.dashboardId) {
 				return;
@@ -27,6 +27,10 @@ export const Palette = (props: { dashboard: Dashboard; reports: Array<Report>; r
 				return map;
 			}, new Map<string, Report>());
 			(dashboard.reports || []).forEach(({reportId}) => {
+				// eslint-disable-next-line
+				if (repaintReports.every(r => r.reportId != reportId)) {
+					return;
+				}
 				const report = reportsMap.get(reportId);
 				if (report) {
 					fireReport(ReportEventTypes.DO_RELOAD_DATA_BY_CLIENT, report);

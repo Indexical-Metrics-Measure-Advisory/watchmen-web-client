@@ -53,9 +53,9 @@ export interface DashboardEventBus {
 	on(type: DashboardEventTypes.REFRESH_REPORTS, listener: (dashboard: Dashboard) => void): this;
 	off(type: DashboardEventTypes.REFRESH_REPORTS, listener: (dashboard: Dashboard) => void): this;
 
-	fire(type: DashboardEventTypes.REPAINT_REPORTS, dashboard: Dashboard): this;
-	on(type: DashboardEventTypes.REPAINT_REPORTS, listener: (dashboard: Dashboard) => void): this;
-	off(type: DashboardEventTypes.REPAINT_REPORTS, listener: (dashboard: Dashboard) => void): this;
+	fire(type: DashboardEventTypes.REPAINT_REPORTS, dashboard: Dashboard, reports: Array<Report>): this;
+	on(type: DashboardEventTypes.REPAINT_REPORTS, listener: (dashboard: Dashboard, reports: Array<Report>) => void): this;
+	off(type: DashboardEventTypes.REPAINT_REPORTS, listener: (dashboard: Dashboard, reports: Array<Report>) => void): this;
 
 	fire(type: DashboardEventTypes.REPAINT_REPORTS_ON_ADDED, dashboard: Dashboard): this;
 	on(type: DashboardEventTypes.REPAINT_REPORTS_ON_ADDED, listener: (dashboard: Dashboard) => void): this;
