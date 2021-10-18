@@ -2,8 +2,8 @@ import {ConsoleEventBusProvider} from '@/console/console-event-bus';
 import {DashboardBody} from '@/console/dashboard/body';
 import {DashboardEventBusProvider} from '@/console/dashboard/dashboard-event-bus';
 import {fetchSharedDashboard} from '@/services/data/share/dashboard';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Dashboard} from '@/services/data/tuples/dashboard-types';
-import {Report} from '@/services/data/tuples/report-types';
 import {Lang} from '@/widgets/langs';
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
@@ -15,7 +15,7 @@ interface ShareDashboardState {
 	initialized: boolean;
 	dashboardId?: string;
 	dashboard?: Dashboard;
-	reports?: Array<Report>;
+	connectedSpaces?: Array<ConnectedSpace>;
 }
 
 const ShareDashboard = (props: { dashboard: Dashboard }) => {
@@ -34,8 +34,8 @@ const ShareDashboardIndex = () => {
 	useEffect(() => {
 		(async () => {
 			try {
-				const {dashboard, reports} = await fetchSharedDashboard(dashboardId, token);
-				setState({initialized: true, dashboardId, dashboard, reports});
+				const {dashboard, connectedSpaces} = await fetchSharedDashboard(dashboardId, token);
+				setState({initialized: true, dashboardId, dashboard, connectedSpaces});
 			} catch (e: any) {
 				console.error(e);
 				setState({initialized: true, dashboardId});
@@ -48,12 +48,12 @@ const ShareDashboardIndex = () => {
 		return <ShareNothing label={Lang.CONSOLE.LOADING}/>;
 	}
 
-	if (state.initialized && state.dashboard == null) {
+	if (state.initialized && (state.dashboard == null || state.connectedSpaces == null || state.connectedSpaces.length === 0)) {
 		return <ShareNothing label={Lang.CONSOLE.ERROR.DASHBOARD_NOT_FOUND}/>;
 	}
 
 	return <ConsoleEventBusProvider>
-		<SimulateConsole reports={state.reports!}/>
+		<SimulateConsole connectedSpaces={state.connectedSpaces!}/>
 		<ShareDashboard dashboard={state.dashboard!}/>
 	</ConsoleEventBusProvider>;
 };

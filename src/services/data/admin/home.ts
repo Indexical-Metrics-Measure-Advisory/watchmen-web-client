@@ -1,12 +1,12 @@
 import {Apis, get} from '../apis';
 import {fetchMockAdminDashboard} from '../mock/admin/mock-home';
+import {ConnectedSpace} from '../tuples/connected-space-types';
 import {Dashboard} from '../tuples/dashboard-types';
-import {Report} from '../tuples/report-types';
 import {isMockService} from '../utils';
 
 export interface AdminDashboard {
 	dashboard?: Dashboard;
-	reports: Array<Report>;
+	connectedSpaces: Array<ConnectedSpace>;
 }
 
 export const fetchAdminDashboard = async (): Promise<AdminDashboard> => {

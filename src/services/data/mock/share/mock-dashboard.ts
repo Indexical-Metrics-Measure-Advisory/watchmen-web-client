@@ -1,6 +1,8 @@
 import {SharedDashboard} from '../../share/dashboard';
 import {ChartType} from '../../tuples/chart-types';
+import {ConnectedSpace} from '../../tuples/connected-space-types';
 import {Dashboard} from '../../tuples/dashboard-types';
+import {ParameterJointType} from '../../tuples/factor-calculator-types';
 import {getCurrentTime} from '../../utils';
 
 export const fetchMockSharedDashboard = async (dashboardId: string, token: string): Promise<SharedDashboard> => {
@@ -20,21 +22,44 @@ export const fetchMockSharedDashboard = async (dashboardId: string, token: strin
 					createTime: getCurrentTime(),
 					lastModified: getCurrentTime()
 				} as Dashboard,
-				reports: [
+				connectedSpaces: [
 					{
-						reportId: '1',
+						connectId: '',
 						name: '',
-						indicators: [],
-						dimensions: [],
-						funnels: [],
-						rect: {x: 320, y: 320, width: 480, height: 300},
-						chart: {
-							type: ChartType.COUNT
-						},
+						spaceId: '',
+						subjects: [{
+							subjectId: '',
+							name: '',
+							reports: [
+								{
+									reportId: '1',
+									name: '',
+									indicators: [],
+									dimensions: [],
+									funnels: [],
+									rect: {x: 320, y: 320, width: 480, height: 300},
+									chart: {
+										type: ChartType.COUNT
+									},
+									lastVisitTime: getCurrentTime(),
+									createTime: getCurrentTime(),
+									lastModified: getCurrentTime()
+								}
+							],
+							dataset: {
+								filters: {jointType: ParameterJointType.AND, filters: []},
+								columns: [],
+								joins: []
+							},
+							lastVisitTime: getCurrentTime(),
+							lastModified: getCurrentTime(),
+							createTime: getCurrentTime()
+						}],
+						isTemplate: false,
 						lastVisitTime: getCurrentTime(),
-						createTime: getCurrentTime(),
-						lastModified: getCurrentTime()
-					}
+						lastModified: getCurrentTime(),
+						createTime: getCurrentTime()
+					} as ConnectedSpace
 				]
 			});
 		}, 500);
