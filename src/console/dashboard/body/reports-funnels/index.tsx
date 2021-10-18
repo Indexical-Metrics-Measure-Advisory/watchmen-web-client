@@ -11,9 +11,10 @@ import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useEffect, useState} from 'react';
+import {v4} from 'uuid';
 import {useDashboardEventBus} from '../../dashboard-event-bus';
 import {DashboardEventTypes} from '../../dashboard-event-bus-types';
-import { FunnelEditor } from './funnel-editor';
+import {FunnelEditorWrapper} from './funnel-editor';
 import {FunnelDefs, FunnelsState, GroupedFunnel} from './types';
 import {
 	buildFunnelDefsFromDashboard,
@@ -208,7 +209,7 @@ export const ReportsFunnels = (props: {
 			</DashboardReportsFunnelsButton>
 			<DashboardReportsFunnelEditors expanded={expanded}>
 				{state.groups.map(group => {
-					return <FunnelEditor funnel={group}/>
+					return <FunnelEditorWrapper group={group} onChange={onFunnelChanged} key={v4()}/>;
 				})}
 			</DashboardReportsFunnelEditors>
 		</DashboardReportsFunnels>
