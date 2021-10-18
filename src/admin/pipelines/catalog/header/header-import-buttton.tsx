@@ -141,8 +141,9 @@ export const HeaderImportButton = () => {
 				<PipelinesImport topics={topics} cachedTopics={cachedTopics || []}
 				                 pipelines={pipelines} cachedPipelines={cachedPipelines || []}
 				                 onSuccess={onImportSuccess}/>, {
-					marginLeft: '25vw',
-					width: '50vw',
+					marginTop: '10vh',
+					marginLeft: '20%',
+					width: '60%',
 					height: PICKER_DIALOG_HEIGHT
 				});
 		}).fire(AdminCacheEventTypes.ASK_DATA);

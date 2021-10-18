@@ -2,7 +2,7 @@ import {PageHeaderHolderContainer} from '@/widgets/basic/page-header';
 import {DialogBody} from '@/widgets/dialog/widgets';
 import styled from 'styled-components';
 
-export const PICKER_DIALOG_HEIGHT = '50vh';
+export const PICKER_DIALOG_HEIGHT = '70vh';
 const DIALOG_MARGIN = 'var(--margin) * 1.5';
 const DIALOG_LABEL_HEIGHT = 'var(--line-height)';
 const TABLE_HEADER_HEIGHT = 'var(--height) + var(--border-width)';
