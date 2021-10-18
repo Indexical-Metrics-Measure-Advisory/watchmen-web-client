@@ -4,7 +4,7 @@ import {FunnelEditor} from '@/widgets/funnel';
 import {FunnelEventBusProvider, useFunnelEventBus} from '@/widgets/funnel/funnel-event-bus';
 import {FunnelEventTypes} from '@/widgets/funnel/funnel-event-bus-types';
 import {ReportFunnelLabels} from '@/widgets/funnel/widgets';
-import React, {ReactNode, useEffect} from 'react';
+import React, {Fragment, ReactNode, useEffect} from 'react';
 import {GroupedFunnel} from './types';
 import {FunnelItemContainer, FunnelName, FunnelValues, PairToLabel} from './widgets';
 
@@ -12,6 +12,35 @@ const PairJoint = () => {
 	return <PairToLabel>~</PairToLabel>;
 };
 
+const FunnelEnumHandler = (props: {
+	group: GroupedFunnel;
+	enums: Array<Enum>;
+	funnel: ReportFunnel;
+}) => {
+	const {group, enums, funnel} = props;
+
+	const {on, off, fire} = useFunnelEventBus();
+	useEffect(() => {
+		const onAskEnum = (aFunnel: ReportFunnel, ticket: string) => {
+			if (aFunnel !== funnel) {
+				return;
+			}
+
+			// eslint-disable-next-line
+			const enumeration = enums.find(e => e.enumId == group.funnel.enumId) ?? {
+				enumId: group.funnel.enumId, name: '', items: [] as Array<EnumItem>
+			} as Enum;
+
+			fire(FunnelEventTypes.REPLY_ENUM, funnel, ticket, enumeration);
+		};
+		on(FunnelEventTypes.ASK_ENUM, onAskEnum);
+		return () => {
+			off(FunnelEventTypes.ASK_ENUM, onAskEnum);
+		};
+	}, [fire, on, off, funnel, enums, group.funnel.enumId]);
+
+	return <Fragment/>;
+};
 const FunnelEditorDelegate = (props: {
 	group: GroupedFunnel;
 	enums: Array<Enum>;
@@ -21,7 +50,7 @@ const FunnelEditorDelegate = (props: {
 }) => {
 	const {group, enums, funnel, pairJoint, onChange} = props;
 
-	const {on, off, fire} = useFunnelEventBus();
+	const {on, off} = useFunnelEventBus();
 	useEffect(() => {
 		const onValueChanged = (aFunnel: ReportFunnel) => {
 			if (aFunnel !== funnel) {
@@ -36,30 +65,15 @@ const FunnelEditorDelegate = (props: {
 			off(FunnelEventTypes.VALUE_CHANGED, onValueChanged);
 		};
 	}, [on, off, group, funnel, onChange]);
-	useEffect(() => {
-		const onAskEnum = (aFunnel: ReportFunnel, ticket: string) => {
-			if (aFunnel !== funnel) {
-				return;
-			}
-
-			const enumeration = enums.find(e => e.enumId == group.funnel.enumId) ?? {
-				enumId: group.funnel.enumId, name: '', items: [] as Array<EnumItem>
-			} as Enum;
-
-			fire(FunnelEventTypes.REPLY_ENUM, funnel, ticket, enumeration);
-		};
-		on(FunnelEventTypes.ASK_ENUM, onAskEnum);
-		return () => {
-			off(FunnelEventTypes.ASK_ENUM, onAskEnum);
-		};
-	}, [fire, on, off, funnel]);
 
 	const name = group.funnel.name
 		?? (group.funnel.enumId
+			// eslint-disable-next-line
 			? (enums.find(e => e.enumId == group.funnel.enumId)?.name ?? ReportFunnelLabels[funnel.type])
 			: ReportFunnelLabels[funnel.type]);
 
 	return <>
+		<FunnelEnumHandler group={group} enums={enums} funnel={funnel}/>
 		<FunnelName>{name}</FunnelName>
 		<FunnelItemContainer>
 			<FunnelValues>
