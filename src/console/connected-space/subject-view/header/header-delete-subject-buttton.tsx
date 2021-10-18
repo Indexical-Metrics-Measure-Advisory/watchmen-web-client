@@ -77,21 +77,14 @@ export const HeaderDeleteSubjectButton = (props: { connectedSpace: ConnectedSpac
 			setTimeout(timeout => {
 				timeout && window.clearTimeout(timeout);
 				return window.setTimeout(() => {
-					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-						async () => {
-							// reset state
-							await saveSubject(subject, connectedSpace.connectId);
-						},
-						() => {
-						});
+					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
+						await saveSubject(subject, connectedSpace.connectId);
+					});
 				}, SAVE_TIMEOUT);
 			});
 		};
 		const onSubjectRenamed = async (subject: Subject) => {
-			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-				async () => await renameSubject(subject),
-				() => {
-				});
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => await renameSubject(subject));
 		};
 		on(SubjectEventTypes.SUBJECT_DEF_CHANGED, onSubjectDefChanged);
 		on(SubjectEventTypes.SUBJECT_RENAMED, onSubjectRenamed);

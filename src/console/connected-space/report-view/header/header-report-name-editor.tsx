@@ -23,10 +23,7 @@ export const HeaderReportNameEditor = (props: { connectedSpace: ConnectedSpace, 
 	const onNameChangeComplete = async (name: string) => {
 		report.name = name.trim() || language.PLAIN.DEFAULT_REPORT_NAME;
 		forceUpdate();
-		fire(EventTypes.INVOKE_REMOTE_REQUEST,
-			async () => await saveReport(report),
-			() => {
-			});
+		fire(EventTypes.INVOKE_REMOTE_REQUEST, async () => await saveReport(report));
 	};
 
 	return <PageTitleEditor title={report.name}

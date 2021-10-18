@@ -26,10 +26,7 @@ export const HeaderConnectedSpaceNameEditor = (props: { connectedSpace: Connecte
 		connectedSpace.name = name.trim() || language.PLAIN.DEFAULT_CONNECTED_SPACE_NAME;
 		forceUpdate();
 		fire(ConsoleEventTypes.CONNECTED_SPACE_RENAMED, connectedSpace);
-		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-			async () => await renameConnectedSpace(connectedSpace),
-			() => {
-			});
+		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => await renameConnectedSpace(connectedSpace));
 	};
 
 	return <PageTitleEditor title={connectedSpace.name}

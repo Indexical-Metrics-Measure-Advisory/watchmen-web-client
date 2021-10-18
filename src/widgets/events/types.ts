@@ -112,7 +112,7 @@ export interface EventBus {
 	fire(type: EventTypes.REPLY_SIDE_MENU_WIDTH, width: number): this;
 	once(type: EventTypes.REPLY_SIDE_MENU_WIDTH, listener: (width: number) => void): this;
 
-	fire(type: EventTypes.INVOKE_REMOTE_REQUEST, request: () => Promise<any>, success: (data?: any) => void, failure?: (error?: any) => void): this;
-	on(type: EventTypes.INVOKE_REMOTE_REQUEST, listener: (request: () => Promise<any>, success: (data?: any) => void, failure?: (error?: any) => void) => void): this;
-	off(type: EventTypes.INVOKE_REMOTE_REQUEST, listener: (request: () => Promise<any>, success: (data?: any) => void, failure?: (error?: any) => void) => void): this;
+	fire(type: EventTypes.INVOKE_REMOTE_REQUEST, request: () => Promise<any>, success?: (data?: any) => void, failure?: (error?: any) => void): this;
+	on(type: EventTypes.INVOKE_REMOTE_REQUEST, listener: (request: () => Promise<any>, success?: (data?: any) => void, failure?: (error?: any) => void) => void): this;
+	off(type: EventTypes.INVOKE_REMOTE_REQUEST, listener: (request: () => Promise<any>, success?: (data?: any) => void, failure?: (error?: any) => void) => void): this;
 }

@@ -75,9 +75,7 @@ export const HeaderDeleteConnectedSpaceButton = (props: { connectedSpace: Connec
 				timeout && window.clearTimeout(timeout);
 				return window.setTimeout(() => {
 					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-						async () => await saveConnectedSpaceGraphics(connectedSpace, graphics),
-						() => {
-						});
+						async () => await saveConnectedSpaceGraphics(connectedSpace, graphics));
 				}, SAVE_TIMEOUT);
 			});
 		};

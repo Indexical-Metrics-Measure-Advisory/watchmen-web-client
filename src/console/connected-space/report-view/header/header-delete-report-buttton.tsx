@@ -124,8 +124,8 @@ export const HeaderDeleteReportButton = (props: { connectedSpace: ConnectedSpace
 						await saveReport(report);
 					},
 					() => {
-						setChanged({styleChanged: false, structureChanged: false});
 						fire(ReportEventTypes.DATA_SAVED, report);
+						setChanged({styleChanged: false, structureChanged: false});
 					});
 			}, SAVE_TIMEOUT);
 		});

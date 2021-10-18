@@ -29,13 +29,13 @@ export const RemoteRequest = () => {
 		const onOtherError = () => {
 			fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.ERROR.UNPREDICTED}</AlertLabel>);
 		};
-		const onInvokeRemoteRequest = async (request: () => Promise<any>, success: (data?: any) => void, failure?: (error?: any) => void) => {
+		const onInvokeRemoteRequest = async (request: () => Promise<any>, success?: (data?: any) => void, failure?: (error?: any) => void) => {
 			// console.trace();
 			setCount(count => count + 1);
 			forceUpdate();
 			try {
 				const data = await request();
-				success(data);
+				success && success(data);
 			} catch (e: any) {
 				console.error(e);
 				if (e.status === 401) {
@@ -46,9 +46,7 @@ export const RemoteRequest = () => {
 				} else {
 					onOtherError();
 				}
-				if (failure) {
-					failure(e);
-				}
+				failure && failure(e);
 			} finally {
 				setCount(count => count - 1);
 			}

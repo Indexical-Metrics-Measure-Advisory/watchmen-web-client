@@ -69,10 +69,7 @@ export const HeaderDeleteMeButton = (props: { dashboard: Dashboard }) => {
 			setTimeout(timeout => {
 				timeout && window.clearTimeout(timeout);
 				return window.setTimeout(() => {
-					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
-						await saveDashboard(d);
-					}, () => {
-					});
+					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => await saveDashboard(d));
 				}, SAVE_TIMEOUT);
 			});
 		};
