@@ -5,8 +5,8 @@ export const DashboardReportsFunnels = styled.div.attrs<{ expanded: boolean }>(
 		return {
 			'data-widget': 'dashboard-reports-funnels',
 			style: {
-				width: expanded ? 400 : 'calc(var(--margin) * 2)',
-				maxWidth: expanded ? 400 : 'calc(var(--margin) * 2)',
+				width: expanded ? (void 0) : 'calc(var(--margin) * 2)',
+				maxWidth: expanded ? 600 : 'calc(var(--margin) * 2)',
 				borderBottom: expanded ? 'var(--border)' : (void 0),
 				borderRight: expanded ? 'var(--border)' : (void 0),
 				backgroundColor: expanded ? 'var(--bg-color)' : (void 0)
@@ -113,7 +113,8 @@ export const FunnelValues = styled.div.attrs({'data-widget': 'dashboard-report-f
 		min-height : calc((var(--height) * 1.4 + 1px) * 0.8);
 	}
 	> div[data-widget=funnel-enum-values] {
-		margin-top : calc(var(--height) * 0.2);
+		grid-column : 1 / span 3;
+		margin-top  : calc(var(--height) * 0.2);
 		> div[data-widget=funnel-enum-value] {
 			min-height : calc((var(--height) * 1.4 + 1px) * 0.8);
 		}
