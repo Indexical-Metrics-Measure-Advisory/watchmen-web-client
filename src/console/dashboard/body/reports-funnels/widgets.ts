@@ -103,9 +103,8 @@ export const FunnelValues = styled.div.attrs({'data-widget': 'dashboard-report-f
 	position              : relative;
 	flex-grow             : 1;
 	grid-template-columns : 100px auto 100px;
-	grid-row-gap          : calc(var(--margin) / 8);
 	margin-right          : 0;
-	height                : calc(var(--height) * 1.4 + 1px);
+	min-height            : calc(var(--height) * 1.4 + 1px);
 	> input,
 	> div[data-widget=dropdown],
 	> div[data-widget=calendar],
@@ -115,6 +114,12 @@ export const FunnelValues = styled.div.attrs({'data-widget': 'dashboard-report-f
 	}
 	> div[data-widget=funnel-enum-values] {
 		margin-top : calc(var(--height) * 0.2);
+		> div[data-widget=funnel-enum-value] {
+			min-height : calc((var(--height) * 1.4 + 1px) * 0.8);
+		}
+		+ div[data-widget=dropdown] {
+			grid-column : 1 / span 3;
+		}
 	}
 	> *:first-child:last-child {
 		grid-column : 1 / span 3;

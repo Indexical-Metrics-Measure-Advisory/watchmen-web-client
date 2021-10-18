@@ -41,7 +41,6 @@ export const FunnelValues = styled(PropValue)`
 	display               : grid;
 	grid-template-columns : 300px auto 300px 1fr;
 	grid-column-gap       : calc(var(--margin) / 2);
-	grid-row-gap          : calc(var(--margin) / 8);
 	margin-right          : 0;
 	height                : unset;
 	> input,
@@ -53,6 +52,9 @@ export const FunnelValues = styled(PropValue)`
 	}
 	> div[data-widget=funnel-enum-values] {
 		margin-top : calc(var(--height) * 0.4);
+		> div[data-widget=funnel-enum-value] {
+			min-height : calc((var(--height) * 1.8 + 1px) * 0.6);
+		}
 	}
 `;
 export const PairToLabel = styled(PropName)`

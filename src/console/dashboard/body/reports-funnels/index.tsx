@@ -209,7 +209,8 @@ export const ReportsFunnels = (props: {
 			</DashboardReportsFunnelsButton>
 			<DashboardReportsFunnelEditors expanded={expanded}>
 				{state.groups.map(group => {
-					return <FunnelEditorWrapper group={group} onChange={onFunnelChanged} key={v4()}/>;
+					return <FunnelEditorWrapper group={group} enums={state.enums} onChange={onFunnelChanged}
+					                            key={v4()}/>;
 				})}
 			</DashboardReportsFunnelEditors>
 		</DashboardReportsFunnels>
