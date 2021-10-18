@@ -5,3 +5,4 @@ export const isReportFilterEnabled = () => process.env.REACT_APP_REPORT_FILTER =
 export const isReportFunnelEnabled = () => process.env.REACT_APP_REPORT_FUNNEL === 'true';
 export const isSpaceFilterEnabled = () => process.env.REACT_APP_SPACE_FILTER === 'true';
 export const isWriteExternalEnabled = () => process.env.REACT_APP_EXTERNAL_WRITER_ADAPTERS === 'true';
+export const isIndicatorWorkbenchEnabled = () => process.env.REACT_APP_INDICATOR_WORKBENCH === 'true';

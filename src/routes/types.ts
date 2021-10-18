@@ -43,6 +43,8 @@ export enum Router {
 	DATA_QUALITY_END_USER = '/data-quality/end-user',
 	DATA_QUALITY_SETTINGS = '/data-quality/settings',
 
+	INDICATOR_WORKBENCH = '/indicator-workbench',
+
 	SHARE = '/share',
 	SHARE_DASHBOARD = '/share/dashboard/:dashboardId/:token',
 }

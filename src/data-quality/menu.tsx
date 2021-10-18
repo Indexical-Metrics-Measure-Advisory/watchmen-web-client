@@ -1,3 +1,4 @@
+import {isIndicatorWorkbenchEnabled} from '@/feature-switch';
 import {Router} from '@/routes/types';
 import {findAccount, quit} from '@/services/data/account';
 import {
@@ -6,6 +7,7 @@ import {
 	ICON_CONSOLE,
 	ICON_END_USER,
 	ICON_HOME,
+	ICON_INDICATOR_WORKBENCH,
 	ICON_LOGOUT,
 	ICON_RULE_DEFINE,
 	ICON_SETTINGS,
@@ -96,6 +98,13 @@ export const DataQualityMenu = () => {
 		{label: 'To Console', icon: ICON_CONSOLE, action: () => onMenuClicked(Router.CONSOLE)()},
 		{label: 'To Admin', icon: ICON_ADMIN, action: () => onMenuClicked(Router.ADMIN)()}
 	];
+	if (isIndicatorWorkbenchEnabled()) {
+		workbenches.push({
+			label: 'To Indicator Workbench',
+			icon: ICON_INDICATOR_WORKBENCH,
+			action: () => onMenuClicked(Router.INDICATOR_WORKBENCH)()
+		});
+	}
 
 	return <DataQualityMenuContainer width={menuWidth}>
 		<SideMenuLogo title="Data Quality Center"/>

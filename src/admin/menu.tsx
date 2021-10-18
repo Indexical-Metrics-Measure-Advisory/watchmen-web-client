@@ -1,4 +1,9 @@
-import {isDataQualityCenterEnabled, isMultipleDataSourcesEnabled, isWriteExternalEnabled} from '@/feature-switch';
+import {
+	isDataQualityCenterEnabled,
+	isIndicatorWorkbenchEnabled,
+	isMultipleDataSourcesEnabled,
+	isWriteExternalEnabled
+} from '@/feature-switch';
 import {Router} from '@/routes/types';
 import {findAccount, isSuperAdmin, quit} from '@/services/data/account';
 import {
@@ -8,6 +13,7 @@ import {
 	ICON_ENUM,
 	ICON_EXTERNAL_WRITERS,
 	ICON_HOME,
+	ICON_INDICATOR_WORKBENCH,
 	ICON_LOGOUT,
 	ICON_MONITOR_LOGS,
 	ICON_PIPELINE,
@@ -104,6 +110,13 @@ export const AdminMenu = () => {
 	const workbenches = [
 		{label: 'To Console', icon: ICON_CONSOLE, action: () => onMenuClicked(Router.CONSOLE)()}
 	];
+	if (isIndicatorWorkbenchEnabled()) {
+		workbenches.push({
+			label: 'To Indicator Workbench',
+			icon: ICON_INDICATOR_WORKBENCH,
+			action: () => onMenuClicked(Router.INDICATOR_WORKBENCH)()
+		});
+	}
 	if (isDataQualityCenterEnabled()) {
 		workbenches.push({
 			label: 'To Data Quality Center',

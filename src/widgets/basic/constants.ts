@@ -6,7 +6,7 @@ import {
 	faArrowDown,
 	faArrowUp,
 	faBan,
-	faBell,
+	faBell, faBusinessTime,
 	faCalendarPlus,
 	faCaretDown,
 	faCaretRight,
@@ -153,6 +153,7 @@ export const ICON_SWITCH_WORKBENCH = faIgloo;
 export const ICON_CONSOLE = faChalkboard;
 export const ICON_ADMIN = faTools;
 export const ICON_DATA_QUALITY = faCoins;
+export const ICON_INDICATOR_WORKBENCH = faBusinessTime;
 export const ICON_HOME = faHome;
 export const ICON_LOGOUT = faPowerOff;
 

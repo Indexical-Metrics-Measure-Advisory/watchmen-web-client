@@ -1,4 +1,4 @@
-import {isDataQualityCenterEnabled} from '@/feature-switch';
+import {isDataQualityCenterEnabled, isIndicatorWorkbenchEnabled} from '@/feature-switch';
 import {Router} from '@/routes/types';
 import {toDashboard} from '@/routes/utils';
 import {findAccount, isAdmin, quit} from '@/services/data/account';
@@ -12,6 +12,7 @@ import {
 	ICON_DASHBOARD,
 	ICON_DATA_QUALITY,
 	ICON_HOME,
+	ICON_INDICATOR_WORKBENCH,
 	ICON_LOGOUT,
 	ICON_MAIL,
 	ICON_NOTIFICATION,
@@ -152,6 +153,13 @@ export const ConsoleMenu = () => {
 	const workbenches = [
 		{label: Lang.CONSOLE.MENU.TO_ADMIN, icon: ICON_ADMIN, action: () => onMenuClicked(Router.ADMIN)()}
 	];
+	if (isIndicatorWorkbenchEnabled()) {
+		workbenches.push({
+			label: 'To Indicator Workbench',
+			icon: ICON_INDICATOR_WORKBENCH,
+			action: () => onMenuClicked(Router.INDICATOR_WORKBENCH)()
+		});
+	}
 	if (isDataQualityCenterEnabled()) {
 		workbenches.push({
 			label: Lang.CONSOLE.MENU.TO_DATA_QUALITY,
