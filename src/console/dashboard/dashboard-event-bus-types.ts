@@ -15,7 +15,9 @@ export enum DashboardEventTypes {
 	TOGGLE_PRINT_PAGE_SIZE = 'toggle-print-page-size',
 	REFRESH_REPORTS = 'refresh-reports',
 
-	REPAINT_REPORTS = 'repaint-reports'
+	REPAINT_REPORTS = 'repaint-reports',
+	REPAINT_REPORTS_ON_ADDED = 'repaint-reports-on-added',
+	REPAINT_REPORTS_ON_REMOVED = 'repaint-reports-on-removed',
 }
 
 export interface DashboardEventBus {
@@ -54,4 +56,12 @@ export interface DashboardEventBus {
 	fire(type: DashboardEventTypes.REPAINT_REPORTS, dashboard: Dashboard): this;
 	on(type: DashboardEventTypes.REPAINT_REPORTS, listener: (dashboard: Dashboard) => void): this;
 	off(type: DashboardEventTypes.REPAINT_REPORTS, listener: (dashboard: Dashboard) => void): this;
+
+	fire(type: DashboardEventTypes.REPAINT_REPORTS_ON_ADDED, dashboard: Dashboard): this;
+	on(type: DashboardEventTypes.REPAINT_REPORTS_ON_ADDED, listener: (dashboard: Dashboard) => void): this;
+	off(type: DashboardEventTypes.REPAINT_REPORTS_ON_ADDED, listener: (dashboard: Dashboard) => void): this;
+
+	fire(type: DashboardEventTypes.REPAINT_REPORTS_ON_REMOVED, dashboard: Dashboard): this;
+	on(type: DashboardEventTypes.REPAINT_REPORTS_ON_REMOVED, listener: (dashboard: Dashboard) => void): this;
+	off(type: DashboardEventTypes.REPAINT_REPORTS_ON_REMOVED, listener: (dashboard: Dashboard) => void): this;
 }

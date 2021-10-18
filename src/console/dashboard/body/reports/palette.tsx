@@ -33,9 +33,20 @@ export const Palette = (props: { dashboard: Dashboard; reports: Array<Report>; r
 				}
 			});
 		};
+		const onRepaintAll = (d: Dashboard) => {
+			// eslint-disable-next-line
+			if (d.dashboardId != dashboard.dashboardId) {
+				return;
+			}
+			forceUpdate();
+		};
 		on(DashboardEventTypes.REPAINT_REPORTS, onRepaintReports);
+		on(DashboardEventTypes.REPAINT_REPORTS_ON_ADDED, onRepaintAll);
+		on(DashboardEventTypes.REPAINT_REPORTS_ON_REMOVED, onRepaintAll);
 		return () => {
 			off(DashboardEventTypes.REPAINT_REPORTS, onRepaintReports);
+			off(DashboardEventTypes.REPAINT_REPORTS_ON_ADDED, onRepaintAll);
+			off(DashboardEventTypes.REPAINT_REPORTS_ON_REMOVED, onRepaintAll);
 		};
 	}, [on, off, fireReport, forceUpdate, dashboard.dashboardId, dashboard.reports, reports]);
 

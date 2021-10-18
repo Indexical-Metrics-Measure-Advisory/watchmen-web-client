@@ -41,7 +41,7 @@ export const HeaderSaveReportButton = (props: { connectedSpace: ConnectedSpace, 
 
 	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useReportEventBus();
-	const [, setTimeoutHandler] = useState<number | null>(null);
+	const [, setTimeout] = useState<number | null>(null);
 	const [changed, setChanged] = useState<SaveState>({styleChanged: false, structureChanged: false});
 	useEffect(() => {
 		const onStyleChanged = (aReport: Report) => {
@@ -85,13 +85,12 @@ export const HeaderSaveReportButton = (props: { connectedSpace: ConnectedSpace, 
 			return;
 		}
 
-		setTimeoutHandler(timeout => {
+		setTimeout(timeout => {
 			timeout && window.clearTimeout(timeout);
 			return window.setTimeout(() => {
 				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 					async () => {
 						// reset timeout handler
-						setTimeoutHandler(null);
 						await saveReport(report);
 					},
 					() => {

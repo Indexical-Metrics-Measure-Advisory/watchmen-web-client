@@ -91,7 +91,7 @@ export const ReportsFunnels = (props: {
 				if (!report.funnels || report.funnels.length === 0 || report.funnels.every(funnel => !funnel.enabled)) {
 					// do nothing, since added report has not funnels defined
 					// repaint
-					fire(DashboardEventTypes.REPAINT_REPORTS, dashboard);
+					fire(DashboardEventTypes.REPAINT_REPORTS_ON_ADDED, dashboard);
 				} else {
 					// eslint-disable-next-line
 					const defs = buildFunnelDefsFromDashboard(connectedSpaces);
@@ -123,7 +123,7 @@ export const ReportsFunnels = (props: {
 							defs, groups: groupFunnels([displayReport], defs, state.groups),
 							initialized: true
 						});
-						fire(DashboardEventTypes.REPAINT_REPORTS, dashboard);
+						fire(DashboardEventTypes.REPAINT_REPORTS_ON_ADDED, dashboard);
 					});
 				}
 			});
@@ -139,7 +139,7 @@ export const ReportsFunnels = (props: {
 					const groups = state.groups.filter(group => {
 						// remove report from group
 						// eslint-disable-next-line
-						group.reports = group.reports.filter(({report: r}) => r.reportId == report.reportId);
+						group.reports = group.reports.filter(({report: r}) => r.reportId != report.reportId);
 						return group.reports.length !== 0;
 					});
 					// one or more groups are removed since report removed
@@ -149,7 +149,7 @@ export const ReportsFunnels = (props: {
 						});
 					}
 				}
-				fire(DashboardEventTypes.REPAINT_REPORTS, dashboard);
+				fire(DashboardEventTypes.REPAINT_REPORTS_ON_REMOVED, dashboard);
 			});
 		};
 		on(DashboardEventTypes.REPORT_ADDED, onReportAdded);

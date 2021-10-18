@@ -60,17 +60,16 @@ export const HeaderDeleteMeButton = (props: { dashboard: Dashboard }) => {
 	const {fire: fireGlobal} = useEventBus();
 	const {fire: fireConsole} = useConsoleEventBus();
 	const {on, off} = useDashboardEventBus();
-	const [timeoutHandler, setTimeoutHandler] = useState<number | null>(null);
+	const [timeout, setTimeout] = useState<number | null>(null);
 	useEffect(() => {
 		const onSaveDashboard = (d: Dashboard) => {
 			if (d !== dashboard) {
 				return;
 			}
-			setTimeoutHandler(timeout => {
+			setTimeout(timeout => {
 				timeout && window.clearTimeout(timeout);
 				return window.setTimeout(() => {
 					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
-						setTimeoutHandler(null);
 						await saveDashboard(d);
 					}, () => {
 					});
@@ -84,9 +83,7 @@ export const HeaderDeleteMeButton = (props: { dashboard: Dashboard }) => {
 	}, [on, off, fireGlobal, dashboard]);
 
 	const onDeleted = async () => {
-		if (timeoutHandler) {
-			window.clearTimeout(timeoutHandler);
-		}
+		timeout && window.clearTimeout(timeout);
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => await deleteDashboard(dashboard), () => {
 			fireConsole(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, dashboard.dashboardId);
 			fireConsole(ConsoleEventTypes.DASHBOARD_REMOVED, dashboard);
