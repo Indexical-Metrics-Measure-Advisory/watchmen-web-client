@@ -12,7 +12,7 @@ export const ReportMoveOrResizeMonitor = (props: { dashboard: Dashboard }) => {
 	const {fire: fireDashboard} = useDashboardEventBus();
 	const {on, off} = useReportEventBus();
 	useEffect(() => {
-		const onMoveOrResize = async (report: Report) => {
+		const onMoveOrResize = (report: Report) => {
 			// eslint-disable-next-line
 			const dashboardReport = (dashboard.reports || []).find(dashboardReport => dashboardReport.reportId == report.reportId);
 			if (!dashboardReport) {

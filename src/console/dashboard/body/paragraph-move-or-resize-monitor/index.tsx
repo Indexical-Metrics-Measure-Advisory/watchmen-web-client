@@ -11,7 +11,7 @@ export const ParagraphMoveOrResizeMonitor = (props: { dashboard: Dashboard }) =>
 	const {fire: fireDashboard} = useDashboardEventBus();
 	const {on, off} = useReportEventBus();
 	useEffect(() => {
-		const onMoveOrResize = async () => {
+		const onMoveOrResize = () => {
 			fireDashboard(DashboardEventTypes.SAVE_DASHBOARD, dashboard);
 		};
 		on(ReportEventTypes.PARAGRAPH_MOVE_OR_RESIZE_COMPLETED, onMoveOrResize);

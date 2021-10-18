@@ -55,6 +55,12 @@ export const Container = (props: {
 					setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
 				});
 		}
+		const onDoReloadDataByClient = (editReport: Report) => {
+			if (report !== editReport) {
+				return;
+			}
+			setDiagramState({loaded: DiagramLoadState.RELOAD});
+		};
 		const onDoReloadDataOnEditing = (editReport: Report) => {
 			if (report !== editReport || !editing) {
 				return;
@@ -69,9 +75,11 @@ export const Container = (props: {
 			// force reload data
 			setDiagramState({loaded: DiagramLoadState.FALSE});
 		};
+		on(ReportEventTypes.DO_RELOAD_DATA_BY_CLIENT, onDoReloadDataByClient);
 		on(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onDoReloadDataOnEditing);
 		on(ReportEventTypes.DO_REFRESH, onDoRefresh);
 		return () => {
+			off(ReportEventTypes.DO_RELOAD_DATA_BY_CLIENT, onDoReloadDataByClient);
 			off(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onDoReloadDataOnEditing);
 			off(ReportEventTypes.DO_REFRESH, onDoRefresh);
 		};

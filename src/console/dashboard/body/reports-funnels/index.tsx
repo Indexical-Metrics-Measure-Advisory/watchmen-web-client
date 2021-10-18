@@ -70,13 +70,8 @@ export const ReportsFunnels = (props: {
 	}, [fireGlobal, state.initialized, connectedSpaces, reports]);
 	useEffect(() => {
 		const save = (before: () => void) => {
-			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-				async () => {
-					before();
-					fire(DashboardEventTypes.SAVE_DASHBOARD, dashboard);
-				},
-				() => {
-				});
+			before();
+			fire(DashboardEventTypes.SAVE_DASHBOARD, dashboard);
 		};
 		const onReportAdded = (report: Report) => {
 			// eslint-disable-next-line
@@ -189,15 +184,10 @@ export const ReportsFunnels = (props: {
 			}
 		});
 
+		fire(DashboardEventTypes.REPAINT_REPORTS, dashboard);
 		if (!transient) {
 			// in transient, funnel values change will not save to server side
-			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-				async () => {
-					fire(DashboardEventTypes.SAVE_DASHBOARD, dashboard);
-				},
-				() => {
-					fire(DashboardEventTypes.REPAINT_REPORTS, dashboard);
-				});
+			fire(DashboardEventTypes.SAVE_DASHBOARD, dashboard);
 		}
 	};
 

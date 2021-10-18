@@ -2,8 +2,10 @@ import {Paragraph} from '@/services/data/tuples/paragraph';
 import {Report} from '@/services/data/tuples/report-types';
 
 export enum ReportEventTypes {
-	/** use report structure in client side */
+	/** use report structure in client side, only works on editing */
 	DO_RELOAD_DATA_ON_EDITING = 'do-reload-data-on-editing',
+	/** use report structure in client side, force do */
+	DO_RELOAD_DATA_BY_CLIENT = 'do-reload-data-by-client',
 
 	DO_DELETE_REPORT = 'do-delete-report',
 	DO_DELETE_PARAGRAPH = 'do-delete-paragraph',
@@ -28,6 +30,10 @@ export interface ReportEventBus {
 	fire(type: ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, report: Report): this;
 	on(type: ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, listener: (report: Report) => void): this;
 	off(type: ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, listener: (report: Report) => void): this;
+
+	fire(type: ReportEventTypes.DO_RELOAD_DATA_BY_CLIENT, report: Report): this;
+	on(type: ReportEventTypes.DO_RELOAD_DATA_BY_CLIENT, listener: (report: Report) => void): this;
+	off(type: ReportEventTypes.DO_RELOAD_DATA_BY_CLIENT, listener: (report: Report) => void): this;
 
 	fire(type: ReportEventTypes.DO_DELETE_REPORT, report: Report): this;
 	on(type: ReportEventTypes.DO_DELETE_REPORT, listener: (report: Report) => void): this;

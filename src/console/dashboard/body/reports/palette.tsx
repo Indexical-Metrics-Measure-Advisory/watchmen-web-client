@@ -29,7 +29,7 @@ export const Palette = (props: { dashboard: Dashboard; reports: Array<Report>; r
 			(dashboard.reports || []).forEach(({reportId}) => {
 				const report = reportsMap.get(reportId);
 				if (report) {
-					fireReport(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, report);
+					fireReport(ReportEventTypes.DO_RELOAD_DATA_BY_CLIENT, report);
 				}
 			});
 		};
