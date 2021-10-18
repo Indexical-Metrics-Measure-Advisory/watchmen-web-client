@@ -96,6 +96,7 @@ export const GridHeaderCell = styled.div
 	align-items      : center;
 	font-size        : 0.8em;
 	font-family      : var(--title-font-family);
+	height           : ${HEADER_HEIGHT}px;
 	background-color : var(--bg-color);
 	padding          : 0 8px;
 	border-right     : var(--border);
