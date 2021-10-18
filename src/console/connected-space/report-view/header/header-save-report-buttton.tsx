@@ -1,20 +1,15 @@
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {ParameterCondition, TopicFactorParameter} from '@/services/data/tuples/factor-calculator-types';
-import {isExpressionParameter, isJointParameter, strictParameterJoint} from '@/services/data/tuples/parameter-utils';
+import {isExpressionParameter, isJointParameter} from '@/services/data/tuples/parameter-utils';
 import {saveReport} from '@/services/data/tuples/report';
 import {Report} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
-import {AlertLabel} from '@/widgets/alert/widgets';
-import {ICON_SAVE} from '@/widgets/basic/constants';
-import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
-import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
-import {Lang} from '@/widgets/langs';
 import {useReportEventBus} from '@/widgets/report/report-event-bus';
 import {ReportEventTypes} from '@/widgets/report/report-event-bus-types';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
+import {SAVE_TIMEOUT} from '../../constants';
 
 interface SaveState {
 	styleChanged: boolean;
@@ -35,19 +30,20 @@ const validateFilter = (filter: ParameterCondition, subject: Subject): boolean =
 	throw new Error('Unsupported filter type.');
 };
 
-const validateReportFilters = (report: Report, subject: Subject): boolean => {
-	if (report.filters == null) {
-		return true;
-	}
-
-	return strictParameterJoint(report.filters).filters.every(filter => validateFilter(filter, subject));
-};
+// const validateReportFilters = (report: Report, subject: Subject): boolean => {
+// 	if (report.filters == null) {
+// 		return true;
+// 	}
+//
+// 	return strictParameterJoint(report.filters).filters.every(filter => validateFilter(filter, subject));
+// };
 
 export const HeaderSaveReportButton = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
-	const {subject, report} = props;
+	const {report} = props;
 
 	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useReportEventBus();
+	const [, setTimeoutHandler] = useState<number | null>(null);
 	const [changed, setChanged] = useState<SaveState>({styleChanged: false, structureChanged: false});
 	useEffect(() => {
 		const onStyleChanged = (aReport: Report) => {
@@ -85,28 +81,52 @@ export const HeaderSaveReportButton = (props: { connectedSpace: ConnectedSpace, 
 			off(ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, onAskReportChanged);
 		};
 	}, [on, off, fire, report, changed]);
+	useEffect(() => {
+		if (!changed.styleChanged && !changed.structureChanged) {
+			// nothing changed
+			return;
+		}
 
-	const onSaveClicked = () => {
-		if (changed.styleChanged || changed.structureChanged) {
-			if (!validateReportFilters(report, subject)) {
-				fireGlobal(EventTypes.SHOW_ALERT,
-					<AlertLabel>{Lang.CONSOLE.CONNECTED_SPACE.INCORRECT_REPORT_FILTER}</AlertLabel>);
-			} else {
-				// structure changed
+		setTimeoutHandler(timeout => {
+			timeout && window.clearTimeout(timeout);
+			return window.setTimeout(() => {
 				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-					async () => await saveReport(report),
+					async () => {
+						// reset timeout handler
+						setTimeoutHandler(null);
+						await saveReport(report);
+					},
 					() => {
 						setChanged({styleChanged: false, structureChanged: false});
 						fire(ReportEventTypes.DATA_SAVED, report);
 					});
-			}
-		}
-	};
+			}, SAVE_TIMEOUT);
+		});
+	}, [changed.styleChanged, changed.structureChanged]);
 
-	const hasChange = changed.styleChanged || changed.structureChanged;
+	return <Fragment/>;
 
-	return <PageHeaderButton tooltip={Lang.ACTIONS.SAVE} onClick={onSaveClicked}
-	                         ink={hasChange ? ButtonInk.DANGER : (void 0)}>
-		<FontAwesomeIcon icon={ICON_SAVE}/>
-	</PageHeaderButton>;
+	// const onSaveClicked = () => {
+	// 	if (changed.styleChanged || changed.structureChanged) {
+	// 		if (!validateReportFilters(report, subject)) {
+	// 			fireGlobal(EventTypes.SHOW_ALERT,
+	// 				<AlertLabel>{Lang.CONSOLE.CONNECTED_SPACE.INCORRECT_REPORT_FILTER}</AlertLabel>);
+	// 		} else {
+	// 			// structure changed
+	// 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+	// 				async () => await saveReport(report),
+	// 				() => {
+	// 					setChanged({styleChanged: false, structureChanged: false});
+	// 					fire(ReportEventTypes.DATA_SAVED, report);
+	// 				});
+	// 		}
+	// 	}
+	// };
+	//
+	// const hasChange = changed.styleChanged || changed.structureChanged;
+	//
+	// return <PageHeaderButton tooltip={Lang.ACTIONS.SAVE} onClick={onSaveClicked}
+	//                          ink={hasChange ? ButtonInk.DANGER : (void 0)}>
+	// 	<FontAwesomeIcon icon={ICON_SAVE}/>
+	// </PageHeaderButton>;
 };

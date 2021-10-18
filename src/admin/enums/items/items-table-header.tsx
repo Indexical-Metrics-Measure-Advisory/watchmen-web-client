@@ -21,7 +21,7 @@ export const ItemsTableHeader = (props: { enumeration: Enum }) => {
 		}
 		setText(value);
 		if (handle) {
-			clearTimeout(handle);
+			window.clearTimeout(handle);
 		}
 		setHandle(window.setTimeout(() => {
 			fire(EnumEventTypes.ITEM_SEARCH_TEXT_CHANGED, enumeration, value.trim());
@@ -32,7 +32,7 @@ export const ItemsTableHeader = (props: { enumeration: Enum }) => {
 			return;
 		}
 		if (handle) {
-			clearTimeout(handle);
+			window.clearTimeout(handle);
 			setHandle(null);
 		}
 		fire(EnumEventTypes.ITEM_SEARCH_TEXT_CHANGED, enumeration, text.trim());

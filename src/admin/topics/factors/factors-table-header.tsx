@@ -21,7 +21,7 @@ export const FactorsTableHeader = (props: { topic: Topic }) => {
 		}
 		setText(value);
 		if (handle) {
-			clearTimeout(handle);
+			window.clearTimeout(handle);
 		}
 		setHandle(window.setTimeout(() => {
 			fire(TopicEventTypes.FACTOR_SEARCH_TEXT_CHANGED, topic, value.trim());
@@ -32,7 +32,7 @@ export const FactorsTableHeader = (props: { topic: Topic }) => {
 			return;
 		}
 		if (handle) {
-			clearTimeout(handle);
+			window.clearTimeout(handle);
 			setHandle(null);
 		}
 		fire(TopicEventTypes.FACTOR_SEARCH_TEXT_CHANGED, topic, text.trim());

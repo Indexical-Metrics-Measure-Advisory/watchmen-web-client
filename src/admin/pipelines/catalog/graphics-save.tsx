@@ -32,7 +32,7 @@ export const GraphicsSave = (props: { graphics?: AssembledPipelinesGraphics }) =
 				setState(({handle}) => {
 					// eslint-disable-next-line
 					if (handle) {
-						clearTimeout(handle);
+						window.clearTimeout(handle);
 					}
 					return {
 						handle: window.setTimeout(() => {

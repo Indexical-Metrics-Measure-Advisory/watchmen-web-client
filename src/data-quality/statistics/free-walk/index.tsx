@@ -94,7 +94,7 @@ export const FreeWalkPanel = () => {
 
 	const changeCriteria = (newCriteria: Partial<Criteria>) => {
 		if (state.loader) {
-			clearTimeout(state.loader);
+			window.clearTimeout(state.loader);
 		}
 		setCriteria({...criteria, ...newCriteria});
 		setState({...state, loader: window.setTimeout(() => fetchData({...criteria, ...newCriteria}), 500)});

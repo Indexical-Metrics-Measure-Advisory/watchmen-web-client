@@ -14,5 +14,4 @@ export const Funnels = (props: {
 
 	return <ReportsFunnels connectedSpaces={connectedSpaces} dashboard={dashboard} reports={reports}
 	                       transient={transient}/>;
-
 };

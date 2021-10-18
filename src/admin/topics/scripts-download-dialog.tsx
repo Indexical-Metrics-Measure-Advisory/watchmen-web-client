@@ -141,7 +141,7 @@ export const ScriptsDownloadDialog = (props: {
 	const onFilterTextChanged = (event: ChangeEvent<HTMLInputElement>) => {
 		const {value} = event.target;
 		if (filter.handler) {
-			clearTimeout(filter.handler);
+			window.clearTimeout(filter.handler);
 		}
 		setFilter({
 			value, handler: window.setTimeout(() => {

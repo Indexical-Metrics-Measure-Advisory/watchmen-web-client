@@ -37,7 +37,7 @@ export const GraphicsSave = (props: {
 					// eslint-disable-next-line
 					if (connectSpaceId == connectedSpace.connectId) {
 						if (handle) {
-							clearTimeout(handle);
+							window.clearTimeout(handle);
 						}
 					}
 					return {

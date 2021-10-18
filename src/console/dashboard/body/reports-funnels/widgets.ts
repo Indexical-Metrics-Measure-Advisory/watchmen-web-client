@@ -67,6 +67,7 @@ export const DashboardReportsFunnelEditors = styled.div.attrs<{ expanded: boolea
 })<{ expanded: boolean }>`
 	display               : grid;
 	position              : relative;
+	flex-grow             : 1;
 	grid-template-columns : auto 1fr;
 	padding-right         : var(--margin);
 `;

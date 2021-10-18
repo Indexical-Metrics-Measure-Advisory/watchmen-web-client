@@ -50,7 +50,7 @@ export const ImportPickerTable = (props: { candidates: Candidate; cachedTopics: 
 	const onFilterTextChanged = (event: ChangeEvent<HTMLInputElement>) => {
 		const {value} = event.target;
 		if (filter.handler) {
-			clearTimeout(filter.handler);
+			window.clearTimeout(filter.handler);
 		}
 		setFilter({
 			value, handler: window.setTimeout(() => {

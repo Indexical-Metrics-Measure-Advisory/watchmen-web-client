@@ -1,4 +1,4 @@
-import {Enum} from '@/services/data/tuples/enum-types';
+import {Enum, EnumItem} from '@/services/data/tuples/enum-types';
 import {isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
 import {Report, ReportFunnel} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
@@ -27,13 +27,19 @@ const FunnelEnumHandler = (props: { subject: Subject; funnel: ReportFunnel }) =>
 	const {once: onceConsole, on: onConsole, off: offConsole, fire: fireConsole} = useConsoleEventBus();
 	const {on, off, fire} = useFunnelEventBus();
 	useEffect(() => {
+		const replyEnumNoItems = (ticket: string, enumId: string) => {
+			fire(FunnelEventTypes.REPLY_ENUM, funnel, ticket, {
+				enumId, name: '', items: [] as Array<EnumItem>
+			} as Enum);
+		};
 		const onReplyEnum = (returnTicket: string, enumeration?: Enum) => {
 			if (!enumeration) {
-				return;
+				// reply a mock one with no enum id and items
+				replyEnumNoItems(returnTicket, '');
+			} else {
+				// bridge event to funnel bus
+				fire(FunnelEventTypes.REPLY_ENUM, funnel, returnTicket, enumeration);
 			}
-
-			// bridge event to funnel bus
-			fire(FunnelEventTypes.REPLY_ENUM, funnel, returnTicket, enumeration);
 		};
 		const onAskEnum = (aFunnel: ReportFunnel, ticket: string) => {
 			if (aFunnel !== funnel) {
@@ -44,11 +50,15 @@ const FunnelEnumHandler = (props: { subject: Subject; funnel: ReportFunnel }) =>
 			// eslint-disable-next-line
 			const column = subject.dataset.columns.find(column => column.columnId == columnId);
 			if (column == null) {
+				// reply a mock one with no enum id and items
+				replyEnumNoItems(ticket, '');
 				return;
 			}
 
 			if (!isTopicFactorParameter(column.parameter)) {
 				// assume parameter is link to a factor, otherwise do nothing
+				// reply a mock one with no enum id and items
+				replyEnumNoItems(ticket, '');
 				return;
 			}
 
@@ -57,17 +67,23 @@ const FunnelEnumHandler = (props: { subject: Subject; funnel: ReportFunnel }) =>
 				// eslint-disable-next-line
 				const topic = availableTopics.find(topic => topic.topicId == topicId);
 				if (topic == null) {
+					// reply a mock one with no enum id and items
+					replyEnumNoItems(ticket, '');
 					return;
 				}
 
 				// eslint-disable-next-line
 				const factor = topic.factors.find(factor => factor.factorId == factorId);
 				if (factor == null) {
+					// reply a mock one with no enum id and items
+					replyEnumNoItems(ticket, '');
 					return;
 				}
 
 				const enumId = factor.enumId;
 				if (!enumId) {
+					// reply a mock one with no enum id and items
+					replyEnumNoItems(ticket, '');
 					return;
 				}
 

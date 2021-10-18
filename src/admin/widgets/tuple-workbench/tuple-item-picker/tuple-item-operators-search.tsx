@@ -38,7 +38,7 @@ export const TupleItemOperatorsSearch = forwardRef(<QTH extends QueryTupleForHol
 		const value = event.target.value;
 
 		if (searchHandle) {
-			clearTimeout(searchHandle);
+			window.clearTimeout(searchHandle);
 		}
 
 		if (value.trim().length === 0) {
