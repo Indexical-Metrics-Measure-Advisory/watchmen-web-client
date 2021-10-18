@@ -28,16 +28,27 @@ export const ActionBody = (props: {
 	const {pipeline, stage, unit, action, topics, triggerTopic} = props;
 
 	return <ActionBodyContainer>
-		<Alarm pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} triggerTopic={triggerTopic}/>
-		<CopyToMemory pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} triggerTopic={triggerTopic}/>
-		<WriteToExternal pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} triggerTopic={triggerTopic}/>
-		<TopicRowExists pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} triggerTopic={triggerTopic}/>
-		<ReadRow pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} triggerTopic={triggerTopic}/>
-		<ReadRows pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} triggerTopic={triggerTopic}/>
-		<ReadFactor pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} triggerTopic={triggerTopic}/>
-		<ReadFactors pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} triggerTopic={triggerTopic}/>
-		<WriteFactor pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} triggerTopic={triggerTopic}/>
-		<InsertRow pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} triggerTopic={triggerTopic}/>
-		<MergeRow pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics} triggerTopic={triggerTopic}/>
+		<Alarm pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics}
+		       triggerTopic={triggerTopic}/>
+		<CopyToMemory pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics}
+		              triggerTopic={triggerTopic}/>
+		<WriteToExternal pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics}
+		                 triggerTopic={triggerTopic}/>
+		<TopicRowExists pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics}
+		                triggerTopic={triggerTopic}/>
+		<ReadRow pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics}
+		         triggerTopic={triggerTopic}/>
+		<ReadRows pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics}
+		          triggerTopic={triggerTopic}/>
+		<ReadFactor pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics}
+		            triggerTopic={triggerTopic}/>
+		<ReadFactors pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics}
+		             triggerTopic={triggerTopic}/>
+		<WriteFactor pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics}
+		             triggerTopic={triggerTopic}/>
+		<InsertRow pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics}
+		           triggerTopic={triggerTopic}/>
+		<MergeRow pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics}
+		          triggerTopic={triggerTopic}/>
 	</ActionBodyContainer>;
 };

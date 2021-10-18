@@ -30,7 +30,7 @@ export const FactorMapping = (props: {
 	};
 	const onFactorChanged = () => {
 		fire(FactorsMappingEventTypes.MAPPING_CHANGED, mapping);
-	}
+	};
 	const onRemoveClicked = () => {
 		const index = action.mapping.indexOf(mapping);
 		if (index !== -1) {

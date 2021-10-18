@@ -52,7 +52,7 @@ export const FunnelValues = styled(PropValue)`
 	}
 	> div[data-widget=funnel-enum-values] {
 		grid-column : 1 / span 3;
-		margin-top : calc(var(--height) * 0.4);
+		margin-top  : calc(var(--height) * 0.4);
 		> div[data-widget=funnel-enum-value] {
 			min-height : calc((var(--height) * 1.8 + 1px) * 0.6);
 		}
