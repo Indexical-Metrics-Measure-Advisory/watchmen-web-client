@@ -1,8 +1,5 @@
-import {saveDashboard} from '@/services/data/tuples/dashboard';
 import {Dashboard} from '@/services/data/tuples/dashboard-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
-import {useEventBus} from '@/widgets/events/event-bus';
-import {EventTypes} from '@/widgets/events/types';
 import {ParagraphPanel} from '@/widgets/report/paragraph';
 import React, {useEffect} from 'react';
 import {v4} from 'uuid';
@@ -19,14 +16,11 @@ export const Paragraphs = (props: {
 }) => {
 	const {dashboard, transient, removable} = props;
 
-	const {fire: fireGlobal} = useEventBus();
-	const {on, off} = useDashboardEventBus();
+	const {on, off, fire} = useDashboardEventBus();
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const onParagraphChanged = () => {
-			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-				async () => await saveDashboard(dashboard),
-				() => forceUpdate());
+			fire(DashboardEventTypes.SAVE_DASHBOARD, dashboard);
 		};
 		on(DashboardEventTypes.PARAGRAPH_ADDED, onParagraphChanged);
 		on(DashboardEventTypes.PARAGRAPH_REMOVED, onParagraphChanged);
@@ -34,7 +28,7 @@ export const Paragraphs = (props: {
 			off(DashboardEventTypes.PARAGRAPH_ADDED, onParagraphChanged);
 			off(DashboardEventTypes.PARAGRAPH_REMOVED, onParagraphChanged);
 		};
-	}, [on, off, fireGlobal, forceUpdate, dashboard]);
+	}, [on, off, fire, forceUpdate, dashboard]);
 
 	const paragraphs = dashboard.paragraphs || [];
 

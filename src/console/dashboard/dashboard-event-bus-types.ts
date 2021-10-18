@@ -3,6 +3,7 @@ import {Paragraph} from '@/services/data/tuples/paragraph';
 import {Report} from '@/services/data/tuples/report-types';
 
 export enum DashboardEventTypes {
+	SAVE_DASHBOARD = 'save-dashboard',
 	REFRESH_INTERVAL_CHANGED = 'refresh-interval-changed',
 
 	REPORT_ADDED = 'report-added',
@@ -18,6 +19,10 @@ export enum DashboardEventTypes {
 }
 
 export interface DashboardEventBus {
+	fire(type: DashboardEventTypes.SAVE_DASHBOARD, dashboard: Dashboard): this;
+	on(type: DashboardEventTypes.SAVE_DASHBOARD, listener: (dashboard: Dashboard) => void): this;
+	off(type: DashboardEventTypes.SAVE_DASHBOARD, listener: (dashboard: Dashboard) => void): this;
+
 	fire(type: DashboardEventTypes.REFRESH_INTERVAL_CHANGED, dashboard: Dashboard): this;
 	on(type: DashboardEventTypes.REFRESH_INTERVAL_CHANGED, listener: (dashboard: Dashboard) => void): this;
 	off(type: DashboardEventTypes.REFRESH_INTERVAL_CHANGED, listener: (dashboard: Dashboard) => void): this;

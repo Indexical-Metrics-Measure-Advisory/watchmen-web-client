@@ -1,8 +1,5 @@
-import {saveDashboard} from '@/services/data/tuples/dashboard';
 import {Dashboard} from '@/services/data/tuples/dashboard-types';
 import {Report} from '@/services/data/tuples/report-types';
-import {useEventBus} from '@/widgets/events/event-bus';
-import {EventTypes} from '@/widgets/events/types';
 import React, {useEffect} from 'react';
 import {useDashboardEventBus} from '../../dashboard-event-bus';
 import {DashboardEventTypes} from '../../dashboard-event-bus-types';
@@ -17,20 +14,16 @@ export const Controllers = (props: {
 }) => {
 	const {dashboard, reports, transient} = props;
 
-	const {fire: fireGlobal} = useEventBus();
-	const {on, off} = useDashboardEventBus();
+	const {on, off, fire} = useDashboardEventBus();
 	useEffect(() => {
 		const onRefreshIntervalChanged = () => {
-			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-				async () => await saveDashboard(dashboard),
-				() => {
-				});
+			fire(DashboardEventTypes.SAVE_DASHBOARD, dashboard);
 		};
 		on(DashboardEventTypes.REFRESH_INTERVAL_CHANGED, onRefreshIntervalChanged);
 		return () => {
 			off(DashboardEventTypes.REFRESH_INTERVAL_CHANGED, onRefreshIntervalChanged);
 		};
-	}, [on, off, fireGlobal, dashboard]);
+	}, [on, off, fire, dashboard]);
 
 	return <>
 		<ReportRefresher dashboard={dashboard} reports={reports}/>

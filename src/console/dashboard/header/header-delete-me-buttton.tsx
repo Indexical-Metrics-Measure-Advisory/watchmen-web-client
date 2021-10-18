@@ -1,4 +1,4 @@
-import {deleteDashboard} from '@/services/data/tuples/dashboard';
+import {deleteDashboard, saveDashboard} from '@/services/data/tuples/dashboard';
 import {Dashboard} from '@/services/data/tuples/dashboard-types';
 import {Button} from '@/widgets/basic/button';
 import {ICON_THROW_AWAY} from '@/widgets/basic/constants';
@@ -9,10 +9,13 @@ import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useConsoleEventBus} from '../../console-event-bus';
 import {ConsoleEventTypes} from '../../console-event-bus-types';
+import {SAVE_TIMEOUT} from '../constants';
+import {useDashboardEventBus} from '../dashboard-event-bus';
+import {DashboardEventTypes} from '../dashboard-event-bus-types';
 
 const DeleteDialogBody = styled(DialogBody)`
 	flex-direction : column;
@@ -33,9 +36,7 @@ const DashboardDelete = (props: { dashboard: Dashboard, onRemoved: () => void })
 
 	const onDeleteClicked = async () => {
 		fire(EventTypes.HIDE_DIALOG);
-		fire(EventTypes.INVOKE_REMOTE_REQUEST,
-			async () => await deleteDashboard(dashboard),
-			() => onRemoved());
+		onRemoved();
 	};
 	const onCancelClicked = () => {
 		fire(EventTypes.HIDE_DIALOG);
@@ -55,12 +56,41 @@ const DashboardDelete = (props: { dashboard: Dashboard, onRemoved: () => void })
 
 export const HeaderDeleteMeButton = (props: { dashboard: Dashboard }) => {
 	const {dashboard} = props;
+
 	const {fire: fireGlobal} = useEventBus();
-	const {fire} = useConsoleEventBus();
+	const {fire: fireConsole} = useConsoleEventBus();
+	const {on, off} = useDashboardEventBus();
+	const [timeoutHandler, setTimeoutHandler] = useState<number | null>(null);
+	useEffect(() => {
+		const onSaveDashboard = (d: Dashboard) => {
+			if (d !== dashboard) {
+				return;
+			}
+			setTimeoutHandler(timeout => {
+				timeout && window.clearTimeout(timeout);
+				return window.setTimeout(() => {
+					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
+						setTimeoutHandler(null);
+						await saveDashboard(d);
+					}, () => {
+					});
+				}, SAVE_TIMEOUT);
+			});
+		};
+		on(DashboardEventTypes.SAVE_DASHBOARD, onSaveDashboard);
+		return () => {
+			off(DashboardEventTypes.SAVE_DASHBOARD, onSaveDashboard);
+		};
+	}, [on, off, fireGlobal, dashboard]);
 
 	const onDeleted = async () => {
-		fire(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, dashboard.dashboardId);
-		fire(ConsoleEventTypes.DASHBOARD_REMOVED, dashboard);
+		if (timeoutHandler) {
+			window.clearTimeout(timeoutHandler);
+		}
+		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => await deleteDashboard(dashboard), () => {
+			fireConsole(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, dashboard.dashboardId);
+			fireConsole(ConsoleEventTypes.DASHBOARD_REMOVED, dashboard);
+		});
 	};
 	const onDeleteClicked = () => {
 		fireGlobal(EventTypes.SHOW_DIALOG,

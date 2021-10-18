@@ -1,3 +1,11 @@
+export const SAVE_TIMEOUT = (() => {
+	try {
+		const x = parseInt(process.env.REACT_APP_CLIENT_SAVE_INTERVAL || '10000');
+		return Math.max(x, 10000);
+	} catch {
+		return 10000;
+	}
+})();
 export const REPORT_AUTO_REFRESH_INTERVAL = (() => {
 	try {
 		const x = parseInt(process.env.REACT_APP_CLIENT_REPORT_AUTO_REFRESH_INTERVAL || '300000');

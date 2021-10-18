@@ -1,6 +1,5 @@
 import {isReportFunnelEnabled} from '@/feature-switch';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
-import {saveDashboard} from '@/services/data/tuples/dashboard';
 import {Dashboard} from '@/services/data/tuples/dashboard-types';
 import {fetchEnum} from '@/services/data/tuples/enum';
 import {Enum} from '@/services/data/tuples/enum-types';
@@ -74,7 +73,7 @@ export const ReportsFunnels = (props: {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => {
 					before();
-					await saveDashboard(dashboard);
+					fire(DashboardEventTypes.SAVE_DASHBOARD, dashboard);
 				},
 				() => {
 				});
@@ -193,8 +192,11 @@ export const ReportsFunnels = (props: {
 		if (!transient) {
 			// in transient, funnel values change will not save to server side
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-				async () => await saveDashboard(dashboard),
+				async () => {
+					fire(DashboardEventTypes.SAVE_DASHBOARD, dashboard);
+				},
 				() => {
+					fire(DashboardEventTypes.REPAINT_REPORTS, dashboard);
 				});
 		}
 	};
