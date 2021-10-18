@@ -7,7 +7,6 @@ import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
 import React, {useEffect, useState} from 'react';
 import {useHistory, useParams} from 'react-router-dom';
-import {SubjectDataSaver} from './data-saver';
 import {SubjectHeader} from './header';
 import {SubjectBodyRouter} from './subject-body-router';
 import {SubjectEventBusProvider} from './subject-event-bus';
@@ -38,7 +37,6 @@ export const SubjectView = (props: { connectedSpace: ConnectedSpace }) => {
 	}
 
 	return <SubjectEventBusProvider>
-		<SubjectDataSaver connectedSpace={connectedSpace} subject={subject}/>
 		<SubjectHeader connectedSpace={connectedSpace} subject={subject}/>
 		<SubjectBodyRouter connectedSpace={connectedSpace} subject={subject}/>
 	</SubjectEventBusProvider>;

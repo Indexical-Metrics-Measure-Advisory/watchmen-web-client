@@ -1,6 +1,6 @@
 import {toSubjectReport, toSubjectReports} from '@/routes/utils';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
-import {deleteReport} from '@/services/data/tuples/report';
+import {deleteReport, saveReport} from '@/services/data/tuples/report';
 import {Report} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
 import {Button} from '@/widgets/basic/button';
@@ -11,10 +11,13 @@ import {DialogBody, DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
+import {useReportEventBus} from '@/widgets/report/report-event-bus';
+import {ReportEventTypes} from '@/widgets/report/report-event-bus-types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
+import {SAVE_TIMEOUT} from '../../constants';
 
 const DeleteDialogBody = styled(DialogBody)`
 	flex-direction : column;
@@ -35,9 +38,7 @@ const ReportDelete = (props: { report: Report, onRemoved: () => void }) => {
 
 	const onDeleteClicked = async () => {
 		fire(EventTypes.HIDE_DIALOG);
-		fire(EventTypes.INVOKE_REMOTE_REQUEST,
-			async () => await deleteReport(report),
-			() => onRemoved());
+		onRemoved();
 	};
 	const onCancelClicked = () => {
 		fire(EventTypes.HIDE_DIALOG);
@@ -60,21 +61,95 @@ export const HeaderDeleteReportButton = (props: { connectedSpace: ConnectedSpace
 
 	const history = useHistory();
 	const {fire: fireGlobal} = useEventBus();
-
-	const onDeleted = async () => {
-		if (!subject.reports) {
+	const {on, off, fire} = useReportEventBus();
+	const [timeout, setTimeout] = useState<number | null>(null);
+	const [changed, setChanged] = useState<{ styleChanged: boolean; structureChanged: boolean; }>({
+		styleChanged: false,
+		structureChanged: false
+	});
+	useEffect(() => {
+		if (report != null) {
+			// release timeout for previous report,
+			// there might be a saving
+			setTimeout(null);
+		}
+	}, [report]);
+	useEffect(() => {
+		const onStyleChanged = (aReport: Report) => {
+			if (aReport !== report) {
+				return;
+			}
+			setChanged(state => {
+				return {...state, styleChanged: true};
+			});
+		};
+		const onStructureChanged = (aReport: Report) => {
+			if (aReport !== report) {
+				return;
+			}
+			setChanged(state => {
+				return {...state, structureChanged: true};
+			});
+		};
+		on(ReportEventTypes.STYLE_CHANGED, onStyleChanged);
+		on(ReportEventTypes.STRUCTURE_CHANGED, onStructureChanged);
+		return () => {
+			off(ReportEventTypes.STYLE_CHANGED, onStyleChanged);
+			off(ReportEventTypes.STRUCTURE_CHANGED, onStructureChanged);
+		};
+	}, [on, off, report]);
+	useEffect(() => {
+		const onAskReportChanged = (aReport: Report) => {
+			if (aReport !== report) {
+				return;
+			}
+			fire(ReportEventTypes.REPLY_REPORT_STRUCTURE_CHANGED, report, changed.structureChanged);
+		};
+		on(ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, onAskReportChanged);
+		return () => {
+			off(ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, onAskReportChanged);
+		};
+	}, [on, off, fire, report, changed]);
+	useEffect(() => {
+		if (!changed.styleChanged && !changed.structureChanged) {
+			// nothing changed
 			return;
 		}
-		// eslint-disable-next-line
-		const index = subject.reports.findIndex(r => r.reportId == report.reportId);
-		if (index !== -1) {
-			subject.reports.splice(index, 1);
-		}
-		if (subject.reports.length === 0) {
-			history.replace(toSubjectReports(connectedSpace.connectId, subject.subjectId));
-		} else {
-			history.replace(toSubjectReport(connectedSpace.connectId, subject.subjectId, subject.reports[0].reportId));
-		}
+
+		setTimeout(timeout => {
+			timeout && window.clearTimeout(timeout);
+			return window.setTimeout(() => {
+				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+					async () => {
+						await saveReport(report);
+					},
+					() => {
+						setChanged({styleChanged: false, structureChanged: false});
+						fire(ReportEventTypes.DATA_SAVED, report);
+					});
+			}, SAVE_TIMEOUT);
+		});
+	}, [fireGlobal, fire, report, changed.styleChanged, changed.structureChanged]);
+
+	const onDeleted = async () => {
+		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
+			timeout && window.clearTimeout(timeout);
+			await deleteReport(report);
+		}, () => {
+			if (!subject.reports) {
+				return;
+			}
+			// eslint-disable-next-line
+			const index = subject.reports.findIndex(r => r.reportId == report.reportId);
+			if (index !== -1) {
+				subject.reports.splice(index, 1);
+			}
+			if (subject.reports.length === 0) {
+				history.replace(toSubjectReports(connectedSpace.connectId, subject.subjectId));
+			} else {
+				history.replace(toSubjectReport(connectedSpace.connectId, subject.subjectId, subject.reports[0].reportId));
+			}
+		});
 	};
 	const onDeleteClicked = () => {
 		fireGlobal(EventTypes.SHOW_DIALOG, <ReportDelete report={report} onRemoved={onDeleted}/>);

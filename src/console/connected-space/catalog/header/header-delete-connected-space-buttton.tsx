@@ -1,5 +1,5 @@
-import {deleteConnectedSpace} from '@/services/data/tuples/connected-space';
-import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {deleteConnectedSpace, saveConnectedSpaceGraphics} from '@/services/data/tuples/connected-space';
+import {ConnectedSpace, ConnectedSpaceGraphics} from '@/services/data/tuples/connected-space-types';
 import {Button} from '@/widgets/basic/button';
 import {ICON_THROW_AWAY} from '@/widgets/basic/constants';
 import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
@@ -9,10 +9,11 @@ import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useConsoleEventBus} from '../../../console-event-bus';
 import {ConsoleEventTypes} from '../../../console-event-bus-types';
+import {SAVE_TIMEOUT} from '../../constants';
 
 const DeleteDialogBody = styled(DialogBody)`
 	flex-direction : column;
@@ -33,9 +34,7 @@ const ConnectedSpaceDelete = (props: { connectedSpace: ConnectedSpace, onRemoved
 
 	const onDeleteClicked = async () => {
 		fire(EventTypes.HIDE_DIALOG);
-		fire(EventTypes.INVOKE_REMOTE_REQUEST,
-			async () => await deleteConnectedSpace(connectedSpace),
-			() => onRemoved());
+		onRemoved();
 	};
 	const onCancelClicked = () => {
 		fire(EventTypes.HIDE_DIALOG);
@@ -55,12 +54,47 @@ const ConnectedSpaceDelete = (props: { connectedSpace: ConnectedSpace, onRemoved
 
 export const HeaderDeleteConnectedSpaceButton = (props: { connectedSpace: ConnectedSpace }) => {
 	const {connectedSpace} = props;
+
 	const {fire: fireGlobal} = useEventBus();
-	const {fire} = useConsoleEventBus();
+	const {on, off, fire} = useConsoleEventBus();
+	const [timeout, setTimeout] = useState<number | null>(null);
+	useEffect(() => {
+		if (connectedSpace != null) {
+			// release timeout for previous connected space,
+			// there might be a saving
+			setTimeout(null);
+		}
+	}, [connectedSpace]);
+	useEffect(() => {
+		const onSpaceGraphicsChanged = (graphics: ConnectedSpaceGraphics) => {
+			// eslint-disable-next-line
+			if (graphics.connectId != connectedSpace.connectId) {
+				return;
+			}
+			setTimeout(timeout => {
+				timeout && window.clearTimeout(timeout);
+				return window.setTimeout(() => {
+					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+						async () => await saveConnectedSpaceGraphics(connectedSpace, graphics),
+						() => {
+						});
+				}, SAVE_TIMEOUT);
+			});
+		};
+		on(ConsoleEventTypes.CONNECTED_SPACE_GRAPHICS_CHANGED, onSpaceGraphicsChanged);
+		return () => {
+			off(ConsoleEventTypes.CONNECTED_SPACE_GRAPHICS_CHANGED, onSpaceGraphicsChanged);
+		};
+	}, [fireGlobal, on, off, connectedSpace]);
 
 	const onDeleted = async () => {
-		fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, connectedSpace.connectId);
-		fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, connectedSpace);
+		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
+			timeout && window.clearTimeout(timeout);
+			await deleteConnectedSpace(connectedSpace);
+		}, () => {
+			fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, connectedSpace.connectId);
+			fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, connectedSpace);
+		});
 	};
 	const onDeleteClicked = () => {
 		fireGlobal(EventTypes.SHOW_DIALOG,

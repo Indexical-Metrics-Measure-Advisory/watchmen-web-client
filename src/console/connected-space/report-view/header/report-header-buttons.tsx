@@ -7,7 +7,6 @@ import {HeaderCatalogButton} from '../../header/header-catalog-button';
 import {HeaderSubjectButton} from '../../header/header-subject-button';
 import {HeaderAddReportButton} from './header-add-report-button';
 import {HeaderDeleteReportButton} from './header-delete-report-buttton';
-import {HeaderSaveReportButton} from './header-save-report-buttton';
 import {HeaderSwitchReportButton} from './header-switch-report-button';
 
 export const ReportHeaderButtons = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
@@ -17,7 +16,6 @@ export const ReportHeaderButtons = (props: { connectedSpace: ConnectedSpace, sub
 		<HeaderCatalogButton connectedSpace={connectedSpace}/>
 		<HeaderSubjectButton connectedSpace={connectedSpace} subject={subject}/>
 		<PageHeaderButtonSeparator/>
-		<HeaderSaveReportButton connectedSpace={connectedSpace} subject={subject} report={report}/>
 		<HeaderAddReportButton connectedSpace={connectedSpace} subject={subject}/>
 		<PageHeaderButtonSeparator/>
 		{/*<HeaderReportDataButton connectedSpace={connectedSpace} subject={subject} report={report}/>*/}

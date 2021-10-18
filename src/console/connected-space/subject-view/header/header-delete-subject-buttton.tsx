@@ -1,6 +1,6 @@
 import {toConnectedSpace} from '@/routes/utils';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
-import {deleteSubject} from '@/services/data/tuples/subject';
+import {deleteSubject, renameSubject, saveSubject} from '@/services/data/tuples/subject';
 import {Subject} from '@/services/data/tuples/subject-types';
 import {Button} from '@/widgets/basic/button';
 import {ICON_THROW_AWAY} from '@/widgets/basic/constants';
@@ -11,11 +11,14 @@ import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 import {useConnectedSpaceEventBus} from '../../connected-space-event-bus';
 import {ConnectedSpaceEventTypes} from '../../connected-space-event-bus-types';
+import {SAVE_TIMEOUT} from '../../constants';
+import {useSubjectEventBus} from '../subject-event-bus';
+import {SubjectEventTypes} from '../subject-event-bus-types';
 
 const DeleteDialogBody = styled(DialogBody)`
 	flex-direction : column;
@@ -35,12 +38,8 @@ const SubjectDelete = (props: { subject: Subject, onRemoved: () => void }) => {
 	const {fire} = useEventBus();
 
 	const onDeleteClicked = async () => {
-		fire(EventTypes.INVOKE_REMOTE_REQUEST,
-			async () => await deleteSubject(subject),
-			() => {
-				fire(EventTypes.HIDE_DIALOG);
-				onRemoved();
-			});
+		fire(EventTypes.HIDE_DIALOG);
+		onRemoved();
 	};
 	const onCancelClicked = () => {
 		fire(EventTypes.HIDE_DIALOG);
@@ -63,17 +62,61 @@ export const HeaderDeleteSubjectButton = (props: { connectedSpace: ConnectedSpac
 
 	const history = useHistory();
 	const {fire: fireGlobal} = useEventBus();
-	const {fire} = useConnectedSpaceEventBus();
+	const {fire: fireSpace} = useConnectedSpaceEventBus();
+	const {on, off} = useSubjectEventBus();
+	const [timeout, setTimeout] = useState<number | null>(null);
+	useEffect(() => {
+		if (subject != null) {
+			// release timeout for previous subject,
+			// there might be a saving
+			setTimeout(null);
+		}
+	}, [subject]);
+	useEffect(() => {
+		const onSubjectDefChanged = (subject: Subject) => {
+			setTimeout(timeout => {
+				timeout && window.clearTimeout(timeout);
+				return window.setTimeout(() => {
+					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+						async () => {
+							// reset state
+							await saveSubject(subject, connectedSpace.connectId);
+						},
+						() => {
+						});
+				}, SAVE_TIMEOUT);
+			});
+		};
+		const onSubjectRenamed = async (subject: Subject) => {
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await renameSubject(subject),
+				() => {
+				});
+		};
+		on(SubjectEventTypes.SUBJECT_DEF_CHANGED, onSubjectDefChanged);
+		on(SubjectEventTypes.SUBJECT_RENAMED, onSubjectRenamed);
+		return () => {
+			off(SubjectEventTypes.SUBJECT_DEF_CHANGED, onSubjectDefChanged);
+			off(SubjectEventTypes.SUBJECT_RENAMED, onSubjectRenamed);
+		};
+	}, [on, off, fireGlobal, connectedSpace, subject]);
 
 	const onDeleted = async () => {
-		// eslint-disable-next-line
-		const index = connectedSpace.subjects.findIndex(s => s.subjectId == subject.subjectId);
-		if (index !== -1) {
-			connectedSpace.subjects.splice(index, 1);
-		}
-		fire(ConnectedSpaceEventTypes.SUBJECT_REMOVED, subject);
-		// back to catalog
-		history.replace(toConnectedSpace(connectedSpace.connectId));
+		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => {
+				timeout && window.clearTimeout(timeout);
+				await deleteSubject(subject);
+			},
+			() => {
+				// eslint-disable-next-line
+				const index = connectedSpace.subjects.findIndex(s => s.subjectId == subject.subjectId);
+				if (index !== -1) {
+					connectedSpace.subjects.splice(index, 1);
+				}
+				fireSpace(ConnectedSpaceEventTypes.SUBJECT_REMOVED, subject);
+				// back to catalog
+				history.replace(toConnectedSpace(connectedSpace.connectId));
+			});
 	};
 	const onDeleteClicked = () => {
 		fireGlobal(EventTypes.SHOW_DIALOG,
