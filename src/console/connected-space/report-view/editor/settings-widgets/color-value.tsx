@@ -1,24 +1,18 @@
-import React, {useState} from 'react';
-import {ChartColorPicker, PropName, PropValue} from './widgets';
+import React from 'react';
+import {PropName, PropValue, PropValueColorPicker} from './widgets';
 
 export const ColorValue = (props: {
-	label: string;
+	label?: string;
 	value?: string;
 	defaultValue?: string;
 	onValueChange: (value?: string) => void;
 }) => {
 	const {label, value, defaultValue = 'rgba(255,255,255,0)', onValueChange} = props;
 
-	const [color, setColor] = useState(value || defaultValue);
-	const onColorChange = (color?: string) => {
-		onValueChange(color);
-		setColor(color || defaultValue);
-	};
-
 	return <>
-		<PropName>{label}</PropName>
+		{label ? <PropName>{label}</PropName> : null}
 		<PropValue>
-			<ChartColorPicker color={color} onChange={onColorChange}/>
+			<PropValueColorPicker defaultValue={defaultValue} value={value} onValueChange={onValueChange}/>
 		</PropValue>
 	</>;
 };

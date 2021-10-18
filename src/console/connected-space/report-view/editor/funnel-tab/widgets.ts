@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {PropName} from '../settings-widgets/widgets';
+import {PropName, PropValue} from '../settings-widgets/widgets';
 
 export const ReportFunnelContainer = styled.div.attrs({
 	'data-widget': 'report-funnel',
@@ -32,18 +32,27 @@ export const FunnelsContainer = styled.div.attrs({'data-widget': 'report-funnels
 	grid-template-columns : auto 1fr;
 `;
 export const FunnelItemContainer = styled.div.attrs({'data-widget': 'report-funnel-item'})`
+	display     : flex;
+	position    : relative;
+	align-items : center;
+	padding     : 0 calc(var(--margin) / 2);
+`;
+export const FunnelValues = styled(PropValue)`
 	display               : grid;
-	position              : relative;
 	grid-template-columns : 300px auto 300px 1fr;
 	grid-column-gap       : calc(var(--margin) / 2);
-	padding               : 0 calc(var(--margin) / 2);
-	> div[data-widget=chart-settings-prop-value] {
-		margin-right : 0;
+	grid-row-gap          : calc(var(--margin) / 8);
+	margin-right          : 0;
+	height                : unset;
+	> input,
+	> div[data-widget=dropdown],
+	> div[data-widget=calendar],
+	> div[data-widget=funnel-enum-values] {
+		flex-grow  : 1;
+		min-height : calc((var(--height) * 1.8 + 1px) * 0.6);
 	}
-	div[data-widget=calendar] {
-		flex-grow : 1;
-		width     : 0;
-		height    : 60%;
+	> div[data-widget=funnel-enum-values] {
+		margin-top : calc(var(--height) * 0.4);
 	}
 `;
 export const PairToLabel = styled(PropName)`
@@ -53,35 +62,4 @@ export const PairToLabel = styled(PropName)`
 	font-weight : var(--font-bold);
 	font-size   : 1.4em;
 	opacity     : 0.7;
-`;
-export const MultipleEnumValues = styled.div.attrs({'data-widget': 'report-funnel-enum-values'})`
-	display     : flex;
-	position    : relative;
-	grid-column : 1 / span 4;
-	margin-top  : calc(var(--height) * 0.4);
-`;
-export const EnumValue = styled.div.attrs({'data-widget': 'report-funnel-enum-value'})`
-	display       : flex;
-	position      : relative;
-	align-items   : center;
-	padding       : 0 calc(var(--margin) / 2);
-	margin-right  : calc(var(--margin) / 2);
-	height        : calc(var(--height) * 1.8 * 0.6);
-	line-height   : calc(var(--height) * 1.8 * 0.6 - 2px);
-	border        : var(--border);
-	border-radius : var(--border-radius);
-	> button {
-		height        : calc(var(--height) * 0.8);
-		width         : calc(var(--height) * 0.8);
-		border-radius : var(--border-radius);
-		padding       : 0;
-		margin-left   : calc(var(--margin) / 2);
-		margin-top    : -1px;
-		margin-right  : calc(var(--margin) / 8 * -3);
-		&:hover {
-			background-color : var(--danger-color);
-			color            : var(--invert-color);
-			box-shadow       : var(--danger-hover-shadow);
-		}
-	}
 `;

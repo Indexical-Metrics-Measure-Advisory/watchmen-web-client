@@ -1,27 +1,18 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {PropName, PropValue, PropValueCheckBox} from './widgets';
 
 export const BooleanValue = (props: {
-	label: string;
+	label?: string;
 	value?: boolean;
 	defaultValue?: boolean;
 	onValueChange: (value: boolean) => void;
 }) => {
-	const {
-		label,
-		value, defaultValue, onValueChange
-	} = props;
-
-	const [delegate, setDelegate] = useState<{ value: boolean }>({value: value || defaultValue || false});
-	const onPropChange = (value: boolean) => {
-		onValueChange(value);
-		setDelegate({value});
-	};
+	const {label, value, defaultValue, onValueChange} = props;
 
 	return <>
-		<PropName>{label}</PropName>
+		{label ? <PropName>{label}</PropName> : null}
 		<PropValue>
-			<PropValueCheckBox value={delegate.value} onChange={onPropChange}/>
+			<PropValueCheckBox value={value} defaultValue={defaultValue} onValueChange={onValueChange}/>
 		</PropValue>
 	</>;
 };

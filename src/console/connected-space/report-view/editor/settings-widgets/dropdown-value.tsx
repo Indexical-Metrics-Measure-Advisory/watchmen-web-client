@@ -1,5 +1,5 @@
 import {DropdownOption} from '@/widgets/basic/types';
-import React, {useState} from 'react';
+import React from 'react';
 import {PropName, PropValue, PropValueDropdown} from './widgets';
 
 export const DropdownValue = (props: {
@@ -10,24 +10,13 @@ export const DropdownValue = (props: {
 	defaultValue?: string;
 	onValueChange: (option: DropdownOption) => void;
 }) => {
-	const {
-		label, options, placeholder,
-		value, defaultValue, onValueChange
-	} = props;
-
-	const [selection, setSelection] = useState(value || defaultValue);
-
-	const onPropChange = (option: DropdownOption) => {
-		onValueChange(option);
-		setSelection(option.value);
-	};
+	const {label, options, placeholder, value, defaultValue, onValueChange} = props;
 
 	return <>
 		{label ? <PropName>{label}</PropName> : null}
 		<PropValue>
-			<PropValueDropdown value={selection} options={options}
-			                   onChange={onPropChange}
-			                   please={placeholder}/>
+			<PropValueDropdown value={value} defaultValue={defaultValue} options={options}
+			                   placeholder={placeholder} onValueChange={onValueChange}/>
 		</PropValue>
 	</>;
 };

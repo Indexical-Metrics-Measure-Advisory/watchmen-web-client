@@ -1,8 +1,8 @@
 import {Report, ReportFunnel} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
+import { ReportFunnelLabels } from '@/widgets/funnel/widgets';
 import React, {useState} from 'react';
-import {ReportFunnelLabels} from '../../../widgets/funnel/widgets';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {FunnelCheckBox, FunnelCheckBoxContainer, FunnelColumnLabel, FunnelIndexLabel} from './widgets';

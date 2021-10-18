@@ -1,5 +1,5 @@
 import {ReportFunnelType} from '@/services/data/tuples/report-types';
-import {Lang} from '@/widgets/langs';
+import {Lang} from '../langs';
 
 export const ReportFunnelLabels: { [key in ReportFunnelType]: string } = {
 	[ReportFunnelType.NUMERIC]: Lang.FUNNEL.NUMERIC,

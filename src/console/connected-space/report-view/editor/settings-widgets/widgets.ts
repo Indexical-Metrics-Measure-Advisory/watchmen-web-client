@@ -1,8 +1,11 @@
-import {CheckBox} from '@/widgets/basic/checkbox';
-import {ColorPicker} from '@/widgets/basic/color-picker';
-import {Dropdown} from '@/widgets/basic/dropdown';
 import {Input} from '@/widgets/basic/input';
 import {InputLines} from '@/widgets/basic/input-lines';
+import {BooleanValueEditor} from '@/widgets/value-editor/boolean-value-editor';
+import {ColorValueEditor} from '@/widgets/value-editor/color-value-editor';
+import {DropdownValueEditor} from '@/widgets/value-editor/dropdown-value-editor';
+import {NumberValueEditor} from '@/widgets/value-editor/number-value-editor';
+import {PercentageValueEditor} from '@/widgets/value-editor/percentage-value-editor';
+import {TextValueEditor} from '@/widgets/value-editor/text-value-editor';
 import styled from 'styled-components';
 
 export const SectionContainer = styled.div.attrs<{ expanded: boolean }>({'data-widget': 'chart-settings-section'})<{ expanded: boolean }>`
@@ -124,6 +127,21 @@ export const PropValueInput = styled(Input)`
 	width     : 0;
 	height    : 60%;
 `;
+export const PropTextInput = styled(TextValueEditor)`
+	flex-grow : 1;
+	width     : 0;
+	height    : 60%;
+`;
+export const PropNumberInput = styled(NumberValueEditor)`
+	flex-grow : 1;
+	width     : 0;
+	height    : 60%;
+`;
+export const PropPercentageInput = styled(PercentageValueEditor)`
+	flex-grow : 1;
+	width     : 0;
+	height    : 60%;
+`;
 export const PropValueInputLines = styled(InputLines)`
 	flex-grow     : 1;
 	width         : 0;
@@ -132,16 +150,16 @@ export const PropValueInputLines = styled(InputLines)`
 	padding-left  : calc(var(--margin) / 2);
 	padding-right : calc(var(--margin) / 2);
 `;
-export const PropValueDropdown = styled(Dropdown)`
-	flex-grow : 1;
-	width     : 0;
-	height    : 60%;
-`;
-export const PropValueCheckBox = styled(CheckBox)`
+export const PropValueCheckBox = styled(BooleanValueEditor)`
 	height        : var(--height);
 	width         : var(--height);
 	border-radius : var(--border-radius);
 `;
-export const ChartColorPicker = styled(ColorPicker)`
+export const PropValueColorPicker = styled(ColorValueEditor)`
 	height : 60%;
+`;
+export const PropValueDropdown = styled(DropdownValueEditor)`
+	flex-grow : 1;
+	width     : 0;
+	height    : 60%;
 `;

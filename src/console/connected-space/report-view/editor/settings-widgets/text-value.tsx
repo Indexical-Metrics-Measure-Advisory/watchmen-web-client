@@ -1,54 +1,29 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
-import {PropName, PropValue, PropValueInput} from './widgets';
+import React from 'react';
+import {PropName, PropTextInput, PropValue} from './widgets';
 
 export const TextValue = (props: {
-	label: string;
+	label?: string;
 	placeholder?: string;
 	value?: string;
 	defaultValue?: string;
 	validate?: (value: string) => boolean;
 	onValueChange: (value: string) => void;
 }) => {
-	const {
-		label, placeholder,
-		value, defaultValue, validate, onValueChange
-	} = props;
+	const {label, placeholder, value, defaultValue, validate, onValueChange} = props;
 
-	const [delegate, setDelegate] = useState<{ value: string, previousValidValue: string }>({
-		value: value || defaultValue || '',
-		previousValidValue: value || defaultValue || ''
-	});
-	useEffect(() => {
-		setDelegate({value: value || defaultValue || '', previousValidValue: value || defaultValue || ''});
-	}, [value, defaultValue]);
-
-	const onPropChange = (event: ChangeEvent<HTMLInputElement>) => {
-		const {value} = event.target;
-		setDelegate({...delegate, value});
+	const onValidate = (value: string): boolean => {
+		return validate ? validate(value) : true;
 	};
-	const onKeyPressed = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-		if (event.key !== 'Enter') {
-			return;
-		}
-		onConfirm();
-	};
-	const onConfirm = () => {
-		const {value: newValue} = delegate;
-		if (!validate || validate(newValue)) {
-			onValueChange(newValue);
-			setDelegate({value: newValue || defaultValue || '', previousValidValue: newValue || defaultValue || ''});
-		} else {
-			// reset to original value
-			setDelegate({...delegate, value: delegate.previousValidValue});
-		}
+	const onChange = (value?: string): string | undefined => {
+		onValueChange(value ?? '');
+		return value ?? '';
 	};
 
 	return <>
-		<PropName>{label}</PropName>
+		{label ? <PropName>{label}</PropName> : null}
 		<PropValue>
-			<PropValueInput value={delegate.value}
-			                onChange={onPropChange} onKeyPress={onKeyPressed} onBlur={onConfirm}
-			                placeholder={placeholder}/>
+			<PropTextInput defaultValue={defaultValue} value={value} placeholder={placeholder}
+			               validate={onValidate} onValueChange={onChange}/>
 		</PropValue>
 	</>;
 };

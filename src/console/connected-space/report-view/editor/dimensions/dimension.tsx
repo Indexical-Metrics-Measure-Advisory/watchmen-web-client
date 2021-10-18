@@ -82,8 +82,8 @@ export const DimensionEditor = (props: {
 		<DimensionIndexLabel>{index}</DimensionIndexLabel>
 		<PropValue>
 			<PropValueDropdown value={columnId} options={dimensionOptions}
-			                   onChange={onColumnChange}
-			                   please={Lang.CHART.PLEASE_SELECT_DIMENSION}/>
+			                   placeholder={Lang.CHART.PLEASE_SELECT_DIMENSION}
+			                   onValueChange={onColumnChange}/>
 		</PropValue>
 		<DeleteMeContainer>
 			<DeleteMeButton onClick={onDeleteClicked}>

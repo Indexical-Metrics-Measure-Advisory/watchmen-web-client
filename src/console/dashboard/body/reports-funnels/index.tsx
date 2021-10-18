@@ -6,13 +6,14 @@ import {fetchEnum} from '@/services/data/tuples/enum';
 import {Enum} from '@/services/data/tuples/enum-types';
 import {Report} from '@/services/data/tuples/report-types';
 import {Topic} from '@/services/data/tuples/topic-types';
-import {ICON_FILTER} from '@/widgets/basic/constants';
+import {ICON_CLOSE, ICON_FILTER} from '@/widgets/basic/constants';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useEffect, useState} from 'react';
 import {useDashboardEventBus} from '../../dashboard-event-bus';
 import {DashboardEventTypes} from '../../dashboard-event-bus-types';
+import { FunnelEditor } from './funnel-editor';
 import {FunnelDefs, FunnelsState, GroupedFunnel} from './types';
 import {
 	buildFunnelDefsFromDashboard,
@@ -21,7 +22,7 @@ import {
 	gatherTopicIds,
 	groupFunnels
 } from './utils';
-import {DashboardReportsFunnels, DashboardReportsFunnelsButton} from './widgets';
+import {DashboardReportsFunnelEditors, DashboardReportsFunnels, DashboardReportsFunnelsButton} from './widgets';
 
 export const ReportsFunnels = (props: {
 	connectedSpaces: Array<ConnectedSpace>;
@@ -34,6 +35,7 @@ export const ReportsFunnels = (props: {
 	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useDashboardEventBus();
 
+	const [expanded, setExpanded] = useState(false);
 	const [state, setState] = useState<FunnelsState>({
 		initialized: false,
 		topics: [],
@@ -196,11 +198,19 @@ export const ReportsFunnels = (props: {
 		}
 	};
 
+	const onFilterClicked = () => setExpanded(!expanded);
+
 	return <>
-		<DashboardReportsFunnels>
-			<DashboardReportsFunnelsButton>
-				<FontAwesomeIcon icon={ICON_FILTER}/>
+		<DashboardReportsFunnels expanded={expanded}>
+			<DashboardReportsFunnelsButton expanded={expanded}
+			                               onClick={onFilterClicked}>
+				<FontAwesomeIcon icon={expanded ? ICON_CLOSE : ICON_FILTER}/>
 			</DashboardReportsFunnelsButton>
+			<DashboardReportsFunnelEditors expanded={expanded}>
+				{state.groups.map(group => {
+					return <FunnelEditor funnel={group}/>
+				})}
+			</DashboardReportsFunnelEditors>
 		</DashboardReportsFunnels>
 	</>;
 };

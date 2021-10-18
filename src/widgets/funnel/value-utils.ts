@@ -1,7 +1,7 @@
 import {ReportFunnel} from '@/services/data/tuples/report-types';
-import {CALENDAR_DATE_FORMAT} from '@/widgets/basic/calendar';
-import {DropdownOption} from '@/widgets/basic/types';
 import dayjs from 'dayjs';
+import {CALENDAR_DATE_FORMAT} from '../basic/calendar';
+import {DropdownOption} from '../basic/types';
 
 export const tryCastToNumeric = (value?: string): number | undefined => {
 	const numberValue = value ? parseFloat(value) : (void 0);

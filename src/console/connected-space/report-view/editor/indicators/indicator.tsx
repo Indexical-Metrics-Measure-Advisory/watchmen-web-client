@@ -97,10 +97,10 @@ export const IndicatorEditor = (props: {
 		<IndicatorIndexLabel>{index}</IndicatorIndexLabel>
 		<IndicatorPropValue>
 			<PropValueDropdown value={columnId} options={indicatorOptions}
-			                   onChange={onColumnChange}
-			                   please={Lang.CHART.PLEASE_SELECT_INDICATOR}/>
+			                   placeholder={Lang.CHART.PLEASE_SELECT_INDICATOR}
+			                   onValueChange={onColumnChange}/>
 			<PropValueDropdown value={arithmetic || ReportIndicatorArithmetic.NONE} options={arithmeticOptions}
-			                   onChange={onArithmeticChange}/>
+			                   onValueChange={onArithmeticChange}/>
 		</IndicatorPropValue>
 		<DeleteMeContainer>
 			<DeleteMeButton onClick={onDeleteClicked}>

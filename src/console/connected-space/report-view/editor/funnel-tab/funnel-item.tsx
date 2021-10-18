@@ -1,26 +1,126 @@
+import {Enum} from '@/services/data/tuples/enum-types';
+import {isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
 import {Report, ReportFunnel} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
-import {ReportFunnelLabels} from '../../../widgets/funnel/widgets';
+import {Topic} from '@/services/data/tuples/topic-types';
+import {FunnelEditor} from '@/widgets/funnel';
+import {FunnelEventBusProvider, useFunnelEventBus} from '@/widgets/funnel/funnel-event-bus';
+import {FunnelEventTypes} from '@/widgets/funnel/funnel-event-bus-types';
+import {ReportFunnelLabels} from '@/widgets/funnel/widgets';
+import React, {ReactNode, useEffect} from 'react';
+// noinspection ES6PreferShortImport
+import {useConsoleEventBus} from '../../../../console-event-bus';
+// noinspection ES6PreferShortImport
+import {ConsoleEventTypes} from '../../../../console-event-bus-types';
+import {useReportEditEventBus} from '../report-edit-event-bus';
+import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {PropName} from '../settings-widgets/widgets';
-import {DateEditor} from './value-editor/date-editor';
-import {EnumEditor} from './value-editor/enum-editor';
-import {
-	AmPmEditor,
-	DayKindEditor,
-	DayOfWeekEditor,
-	HalfMonthEditor,
-	HalfWeekEditor,
-	HalfYearEditor,
-	HourEditor,
-	HourKindEditor,
-	MonthEditor,
-	QuarterEditor,
-	TenDaysEditor,
-	WeekOfMonthEditor
-} from './value-editor/fixed-dropdown-editor';
-import {NumericEditor} from './value-editor/numeric-editor';
-import {YearEditor} from './value-editor/year-editor';
-import {FunnelItemContainer} from './widgets';
+import {FunnelItemContainer, FunnelValues, PairToLabel} from './widgets';
+
+const PairJoint = () => {
+	return <PairToLabel>~</PairToLabel>;
+};
+
+const FunnelEnumHandler = (props: { subject: Subject; funnel: ReportFunnel }) => {
+	const {subject, funnel} = props;
+
+	const {once: onceConsole, on: onConsole, off: offConsole, fire: fireConsole} = useConsoleEventBus();
+	const {on, off, fire} = useFunnelEventBus();
+	useEffect(() => {
+		const onReplyEnum = (returnTicket: string, enumeration?: Enum) => {
+			if (!enumeration) {
+				return;
+			}
+
+			// bridge event to funnel bus
+			fire(FunnelEventTypes.REPLY_ENUM, funnel, returnTicket, enumeration);
+		};
+		const onAskEnum = (aFunnel: ReportFunnel, ticket: string) => {
+			if (aFunnel !== funnel) {
+				return;
+			}
+
+			const columnId = funnel.columnId;
+			// eslint-disable-next-line
+			const column = subject.dataset.columns.find(column => column.columnId == columnId);
+			if (column == null) {
+				return;
+			}
+
+			if (!isTopicFactorParameter(column.parameter)) {
+				// assume parameter is link to a factor, otherwise do nothing
+				return;
+			}
+
+			const {topicId, factorId} = column.parameter;
+			onceConsole(ConsoleEventTypes.REPLY_AVAILABLE_TOPICS, (availableTopics: Array<Topic>) => {
+				// eslint-disable-next-line
+				const topic = availableTopics.find(topic => topic.topicId == topicId);
+				if (topic == null) {
+					return;
+				}
+
+				// eslint-disable-next-line
+				const factor = topic.factors.find(factor => factor.factorId == factorId);
+				if (factor == null) {
+					return;
+				}
+
+				const enumId = factor.enumId;
+				if (!enumId) {
+					return;
+				}
+
+				fireConsole(ConsoleEventTypes.ASK_ENUM, enumId, ticket);
+			}).fire(ConsoleEventTypes.ASK_AVAILABLE_TOPICS);
+		};
+		onConsole(ConsoleEventTypes.REPLY_ENUM, onReplyEnum);
+		on(FunnelEventTypes.ASK_ENUM, onAskEnum);
+		return () => {
+			offConsole(ConsoleEventTypes.REPLY_ENUM, onReplyEnum);
+			off(FunnelEventTypes.ASK_ENUM, onAskEnum);
+		};
+	}, [fire, on, off, fireConsole, onceConsole, onConsole, offConsole, subject.dataset.columns, funnel]);
+
+	return <></>;
+};
+
+const FunnelEditorDelegate = (props: { subject: Subject; report: Report; funnel: ReportFunnel; pairJoint: ReactNode }) => {
+	const {subject, report, funnel, pairJoint} = props;
+
+	const {on: onReport, off: offReport, fire: fireReport} = useReportEditEventBus();
+	const {on, off, fire} = useFunnelEventBus();
+	useEffect(() => {
+		const onFunnelRangeChanged = (aReport: Report, aFunnel: ReportFunnel) => {
+			if (aReport !== report || aFunnel !== funnel) {
+				return;
+			}
+
+			fire(FunnelEventTypes.RANGE_CHANGED, funnel);
+		};
+		onReport(ReportEditEventTypes.FUNNEL_RANGE_CHANGED, onFunnelRangeChanged);
+		return () => {
+			offReport(ReportEditEventTypes.FUNNEL_RANGE_CHANGED, onFunnelRangeChanged);
+		};
+	}, [fire, on, off, onReport, offReport, report, funnel]);
+	useEffect(() => {
+		const onValueChanged = (funnel: ReportFunnel) => {
+			// raise to report level
+			fireReport(ReportEditEventTypes.FUNNEL_VALUE_CHANGED, report, funnel);
+		};
+		on(FunnelEventTypes.VALUE_CHANGED, onValueChanged);
+		return () => {
+			off(FunnelEventTypes.VALUE_CHANGED, onValueChanged);
+		};
+	}, [on, off, fireReport, report]);
+
+	return <>
+		<FunnelEnumHandler subject={subject} funnel={funnel}/>
+		<FunnelValues>
+			<FunnelEditor funnel={funnel} pairJoint={pairJoint}/>
+		</FunnelValues>
+	</>;
+};
 
 export const FunnelItem = (props: { subject: Subject, report: Report, funnel: ReportFunnel }) => {
 	const {subject, report, funnel} = props;
@@ -31,22 +131,9 @@ export const FunnelItem = (props: { subject: Subject, report: Report, funnel: Re
 	return <>
 		<PropName>{column?.alias} - {ReportFunnelLabels[funnel.type]}</PropName>
 		<FunnelItemContainer>
-			<NumericEditor report={report} funnel={funnel}/>
-			<DateEditor report={report} funnel={funnel}/>
-			<YearEditor report={report} funnel={funnel}/>
-			<HalfYearEditor report={report} funnel={funnel}/>
-			<QuarterEditor report={report} funnel={funnel}/>
-			<MonthEditor report={report} funnel={funnel}/>
-			<HalfMonthEditor report={report} funnel={funnel}/>
-			<TenDaysEditor report={report} funnel={funnel}/>
-			<WeekOfMonthEditor report={report} funnel={funnel}/>
-			<HalfWeekEditor report={report} funnel={funnel}/>
-			<DayKindEditor report={report} funnel={funnel}/>
-			<DayOfWeekEditor report={report} funnel={funnel}/>
-			<HourEditor report={report} funnel={funnel}/>
-			<HourKindEditor report={report} funnel={funnel}/>
-			<AmPmEditor report={report} funnel={funnel}/>
-			<EnumEditor subject={subject} report={report} funnel={funnel}/>
+			<FunnelEventBusProvider>
+				<FunnelEditorDelegate subject={subject} report={report} funnel={funnel} pairJoint={<PairJoint/>}/>
+			</FunnelEventBusProvider>
 		</FunnelItemContainer>
 	</>;
 };
