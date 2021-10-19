@@ -51,10 +51,10 @@ export const PickerTableBody = styled.div.attrs({'data-v-scroll': ''})`
 	overflow-y : auto;
 	max-height : calc(${PICKER_DIALOG_HEIGHT} - ${DIALOG_MARGIN} - ${DIALOG_LABEL_HEIGHT} - (${TABLE_HEADER_HEIGHT}) - ${TABLE_MARGIN} - ${FOOTER_HEIGHT});
 `;
-export const PickerTableBodyRow = styled.div.attrs<{ columns?: number }>(({columns = 3}) => {
+export const PickerTableBodyRow = styled.div.attrs<{ columns?: number }>(({columns = 4}) => {
 	return {
 		style: {
-			gridTemplateColumns: columns === 3 ? '40px 60px 100px 1fr' : '40px 60px 100px auto 1fr'
+			gridTemplateColumns: columns === 4 ? '40px 60px 100px 1fr' : '40px 60px 100px 1fr auto'
 		}
 	};
 })<{ columns?: number }>`

@@ -69,13 +69,13 @@ const PipelinesImport = (props: {
 
 	return <>
 		<PickerDialogBody>
-			<DialogLabel>Picked topics to download, related pipelines will be included as well.</DialogLabel>
+			<DialogLabel>Pick topics/spaces to import, related pipelines/connected spaces will be included as well.</DialogLabel>
 			<ImportPickerTable candidates={candidates}
 			                   cachedTopics={cachedTopics} cachedPipelines={cachedPipelines}/>
 		</PickerDialogBody>
 		<DialogFooter>
-			<Button ink={ButtonInk.DANGER} onClick={onImportClicked}>Try to Import</Button>
-			<Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>Cancel</Button>
+			<Button ink={ButtonInk.PRIMARY} onClick={onImportClicked}>Try to Import</Button>
+			<Button ink={ButtonInk.WAIVE} onClick={onCancelClicked}>Cancel</Button>
 		</DialogFooter>
 	</>;
 };

@@ -173,12 +173,12 @@ const PipelinesDownload = (props: {
 
 	return <>
 		<PickerDialogBody>
-			<DialogLabel>Pick topics/spaces to download, related pipelines will be included as well.</DialogLabel>
+			<DialogLabel>Pick topics/spaces to export, related pipelines will be included as well.</DialogLabel>
 			<TopicPickerTable candidates={candidates}/>
 		</PickerDialogBody>
 		<DialogFooter>
-			<Button ink={ButtonInk.DANGER} onClick={onDownloadClicked}>Download</Button>
-			<Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>Cancel</Button>
+			<Button ink={ButtonInk.PRIMARY} onClick={onDownloadClicked}>Export</Button>
+			<Button ink={ButtonInk.WAIVE} onClick={onCancelClicked}>Cancel</Button>
 		</DialogFooter>
 	</>;
 };

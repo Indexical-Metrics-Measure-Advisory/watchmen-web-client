@@ -68,7 +68,7 @@ const DashboardShare = (props: { dashboard: Dashboard }) => {
 		<DialogFooter>
 			<CopiedLabel visible={copied}>{Lang.CONSOLE.DASHBOARD.URL_COPIED}</CopiedLabel>
 			<Button ink={ButtonInk.PRIMARY} onClick={onCopyClicked}>{Lang.ACTIONS.COPY}</Button>
-			<Button ink={ButtonInk.PRIMARY} onClick={onCloseClicked}>{Lang.ACTIONS.CLOSE}</Button>
+			<Button ink={ButtonInk.WAIVE} onClick={onCloseClicked}>{Lang.ACTIONS.CLOSE}</Button>
 		</DialogFooter>
 	</>;
 };

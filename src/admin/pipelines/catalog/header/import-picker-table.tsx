@@ -6,7 +6,7 @@ import {Input} from '@/widgets/basic/input';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {ChangeEvent, useState} from 'react';
 import {PipelineCandidate, TopicCandidate} from './types';
-import {getCandidateName, isPipelineCandidate, isTopicCandidate} from './utils';
+import {getCandidateKey, getCandidateName, getCandidateType, isPipelineCandidate, isTopicCandidate} from './utils';
 import {
 	PickerTableBody,
 	PickerTableBodyCell,
@@ -82,38 +82,34 @@ export const ImportPickerTable = (props: { candidates: Candidates; cachedTopics:
 			<PickerTableHeaderCell>
 				<CheckBox value={allSelected} onChange={onAllSelectionChange}/>
 			</PickerTableHeaderCell>
+			<PickerTableHeaderCell>Tuple Type</PickerTableHeaderCell>
 			<PickerTableHeaderCell>
-				<span>Topic</span>
+				<span>Name</span>
 				<Input placeholder="Filter by name..."
 				       value={filter.value} onChange={onFilterTextChanged}/>
 			</PickerTableHeaderCell>
 		</PickerTableHeader>
 		<PickerTableBody>
 			{items.map((candidate, index) => {
-				let key;
-				let name;
 				let comment;
 				if (isTopicCandidate(candidate)) {
-					key = `t-${candidate.topic.topicId}`;
-					name = candidate.topic.name || 'Noname Topic';
 					if (topicsMap[candidate.topic.topicId] != null) {
 						comment = 'Already exists.';
 					}
 				} else if (isPipelineCandidate(candidate)) {
-					key = `p-${candidate.pipeline.pipelineId}`;
-					name = candidate.pipeline.name || 'Noname Pipeline';
 					if (pipelinesMap[candidate.pipeline.pipelineId] != null) {
 						comment = 'Already exists.';
 					}
 				} else {
 					return null;
 				}
-				return <PickerTableBodyRow columns={4} key={key}>
+				return <PickerTableBodyRow columns={5} key={getCandidateKey(candidate)}>
 					<PickerTableBodyCell>{index + 1}</PickerTableBodyCell>
 					<PickerTableBodyCell>
 						<CheckBox value={candidate.picked} onChange={onSelectionChange(candidate)}/>
 					</PickerTableBodyCell>
-					<PickerTableBodyCell>{name}</PickerTableBodyCell>
+					<PickerTableBodyCell>{getCandidateType(candidate)}</PickerTableBodyCell>
+					<PickerTableBodyCell>{getCandidateName(candidate)}</PickerTableBodyCell>
 					<PickerTableBodyCell>{comment}</PickerTableBodyCell>
 				</PickerTableBodyRow>;
 			}).filter(x => x)}

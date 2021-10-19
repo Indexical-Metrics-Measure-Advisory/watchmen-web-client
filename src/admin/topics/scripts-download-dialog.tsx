@@ -294,7 +294,7 @@ export const ScriptsDownloadDialog = (props: {
 			<Button ink={ButtonInk.PRIMARY} onClick={onSelectAllClicked}>Select All</Button>
 			<Button ink={ButtonInk.PRIMARY} onClick={onDeselectAllClicked}>Deselect All</Button>
 			<Button ink={ButtonInk.PRIMARY} onClick={onDownloadClicked}>Download</Button>
-			<Button ink={ButtonInk.PRIMARY} onClick={onCloseClicked}>Close</Button>
+			<Button ink={ButtonInk.WAIVE} onClick={onCloseClicked}>Close</Button>
 		</DialogFooter>
 	</>;
 };

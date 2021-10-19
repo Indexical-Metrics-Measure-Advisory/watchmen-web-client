@@ -54,7 +54,7 @@ const GraphicsSwitch = (props: { graphics: Array<PipelinesGraphics>, switchTo: (
 		</SwitchDialogBody>
 		<DialogFooter>
 			<Button ink={ButtonInk.PRIMARY} onClick={onConfirmClicked}>Confirm</Button>
-			<Button ink={ButtonInk.PRIMARY} onClick={onCancelClicked}>Cancel</Button>
+			<Button ink={ButtonInk.WAIVE} onClick={onCancelClicked}>Cancel</Button>
 		</DialogFooter>
 	</>;
 };

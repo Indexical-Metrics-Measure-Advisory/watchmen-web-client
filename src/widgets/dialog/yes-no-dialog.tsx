@@ -19,7 +19,7 @@ const YesNoContent = (props: {
 		</DialogBody>
 		<DialogFooter>
 			<Button ink={ButtonInk.PRIMARY} onClick={onYes}>{Lang.DIALOG.BUTTON_YES}</Button>
-			<Button ink={ButtonInk.DANGER} onClick={onNo}>{Lang.DIALOG.BUTTON_NO}</Button>
+			<Button ink={ButtonInk.WAIVE} onClick={onNo}>{Lang.DIALOG.BUTTON_NO}</Button>
 		</DialogFooter>
 	</>;
 };
