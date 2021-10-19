@@ -1,9 +1,4 @@
-import {
-	isDataQualityCenterEnabled,
-	isIndicatorWorkbenchEnabled,
-	isMultipleDataSourcesEnabled,
-	isWriteExternalEnabled
-} from '@/feature-switch';
+import {isMultipleDataSourcesEnabled, isWriteExternalEnabled} from '@/feature-switch';
 import {Router} from '@/routes/types';
 import {findAccount, isSuperAdmin, quit} from '@/services/data/account';
 import {
@@ -38,6 +33,11 @@ import {SideMenuResizeHandle} from '@/widgets/basic/side-menu/side-menu-resize-h
 import {SideMenuSeparator} from '@/widgets/basic/side-menu/side-menu-separator';
 import {SideMenuSwitchWorkbench} from '@/widgets/basic/side-menu/side-menu-switch-workbench';
 import {SideMenuUser} from '@/widgets/basic/side-menu/side-menu-user';
+import {
+	isConsoleAvailable,
+	isDataQualityAvailable,
+	isIndicatorWorkbenchAvailable
+} from '@/widgets/common-settings/workbench-utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import React, {useEffect, useState} from 'react';
@@ -107,17 +107,18 @@ export const AdminMenu = () => {
 
 	const account = findAccount() || {name: MOCK_ACCOUNT_NAME};
 	const showTooltip = menuWidth / SIDE_MENU_MIN_WIDTH <= 1.5;
-	const workbenches = [
-		{label: 'To Console', icon: ICON_CONSOLE, action: () => onMenuClicked(Router.CONSOLE)()}
-	];
-	if (isIndicatorWorkbenchEnabled()) {
+	const workbenches = [];
+	if (isConsoleAvailable()) {
+		workbenches.push({label: 'To Console', icon: ICON_CONSOLE, action: () => onMenuClicked(Router.CONSOLE)()});
+	}
+	if (isIndicatorWorkbenchAvailable()) {
 		workbenches.push({
 			label: 'To Indicator Workbench',
 			icon: ICON_INDICATOR_WORKBENCH,
 			action: () => onMenuClicked(Router.INDICATOR_WORKBENCH)()
 		});
 	}
-	if (isDataQualityCenterEnabled()) {
+	if (isDataQualityAvailable()) {
 		workbenches.push({
 			label: 'To Data Quality Center',
 			icon: ICON_DATA_QUALITY,

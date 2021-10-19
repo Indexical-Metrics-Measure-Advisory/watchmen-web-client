@@ -6,7 +6,8 @@ import {
 	faArrowDown,
 	faArrowUp,
 	faBan,
-	faBell, faBusinessTime,
+	faBell,
+	faBusinessTime,
 	faCalendarPlus,
 	faCaretDown,
 	faCaretRight,
@@ -81,6 +82,7 @@ import {
 	faSortAmountDown,
 	faSortAmountUpAlt,
 	faSpinner,
+	faSquarePollVertical,
 	faStar,
 	faStickyNote,
 	faStream,
@@ -94,6 +96,7 @@ import {
 	faThumbtack,
 	faTimes,
 	faTimesCircle,
+	faToolbox,
 	faTools,
 	faTrashAlt,
 	faUndoAlt,
@@ -195,6 +198,9 @@ export const ICON_CONSANGUINITY = faDna;
 export const ICON_RULE_DEFINE = faRobot;
 export const ICON_STATISTICS = faCompass;
 export const ICON_END_USER = faChalkboardTeacher;
+
+export const ICON_INDICATOR_WORKBENCH_PREPARE = faSquarePollVertical;
+export const ICON_INDICATOR_WORKBENCH_INSPECTION = faToolbox;
 
 export const ICON_SECONDARY_SECTION = faCaretRight;
 

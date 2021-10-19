@@ -1,16 +1,14 @@
+import {isDataQualityCenterEnabled} from '@/feature-switch';
 import {Router} from '@/routes/types';
 import {findAccount, quit} from '@/services/data/account';
 import {
 	ICON_ADMIN,
-	ICON_CONSANGUINITY,
 	ICON_CONSOLE,
-	ICON_END_USER,
-	ICON_HOME,
-	ICON_INDICATOR_WORKBENCH,
+	ICON_DATA_QUALITY,
+	ICON_INDICATOR_WORKBENCH_INSPECTION,
+	ICON_INDICATOR_WORKBENCH_PREPARE,
 	ICON_LOGOUT,
-	ICON_RULE_DEFINE,
 	ICON_SETTINGS,
-	ICON_STATISTICS,
 	ICON_SWITCH_WORKBENCH,
 	MOCK_ACCOUNT_NAME,
 	SIDE_MENU_MAX_WIDTH,
@@ -23,20 +21,17 @@ import {SideMenuResizeHandle} from '@/widgets/basic/side-menu/side-menu-resize-h
 import {SideMenuSeparator} from '@/widgets/basic/side-menu/side-menu-separator';
 import {SideMenuSwitchWorkbench} from '@/widgets/basic/side-menu/side-menu-switch-workbench';
 import {SideMenuUser} from '@/widgets/basic/side-menu/side-menu-user';
-import {
-	isAdminAvailable,
-	isConsoleAvailable,
-	isIndicatorWorkbenchAvailable
-} from '@/widgets/common-settings/workbench-utils';
+import {isAdminAvailable, isConsoleAvailable} from '@/widgets/common-settings/workbench-utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
 import React, {useEffect, useState} from 'react';
 import {matchPath, useHistory, useLocation} from 'react-router-dom';
 import styled from 'styled-components';
 
-const DataQualityMenuContainer = styled.div.attrs<{ width: number }>(({width}) => {
+const IndicatorWorkbenchMenuContainer = styled.div.attrs<{ width: number }>(({width}) => {
 	return {
-		'data-widget': 'data-quality-menu',
+		'data-widget': 'indicator-workbench-menu',
 		style: {width}
 	};
 })<{ width: number }>`
@@ -59,7 +54,7 @@ const DataQualityMenuContainer = styled.div.attrs<{ width: number }>(({width}) =
 	}
 `;
 
-export const DataQualityMenu = () => {
+export const IndicatorWorkbenchMenu = () => {
 	const history = useHistory();
 	const location = useLocation();
 	const {on, off, fire} = useEventBus();
@@ -100,49 +95,48 @@ export const DataQualityMenu = () => {
 
 	const workbenches = [];
 	if (isConsoleAvailable()) {
-		workbenches.push({label: 'To Console', icon: ICON_CONSOLE, action: () => onMenuClicked(Router.CONSOLE)()});
+		workbenches.push({
+			label: Lang.CONSOLE.MENU.TO_CONSOLE,
+			icon: ICON_CONSOLE,
+			action: () => onMenuClicked(Router.CONSOLE)()
+		});
 	}
 	if (isAdminAvailable()) {
-		workbenches.push({label: 'To Admin', icon: ICON_ADMIN, action: () => onMenuClicked(Router.ADMIN)()});
-	}
-	if (isIndicatorWorkbenchAvailable()) {
 		workbenches.push({
-			label: 'To Indicator Workbench',
-			icon: ICON_INDICATOR_WORKBENCH,
-			action: () => onMenuClicked(Router.INDICATOR_WORKBENCH)()
+			label: Lang.CONSOLE.MENU.TO_ADMIN,
+			icon: ICON_ADMIN,
+			action: () => onMenuClicked(Router.ADMIN)()
+		});
+	}
+	if (isDataQualityCenterEnabled()) {
+		workbenches.push({
+			label: Lang.CONSOLE.MENU.TO_DATA_QUALITY,
+			icon: ICON_DATA_QUALITY,
+			action: () => onMenuClicked(Router.DATA_QUALITY)()
 		});
 	}
 
-	return <DataQualityMenuContainer width={menuWidth}>
-		<SideMenuLogo title="Data Quality Center"/>
-		<SideMenuItem icon={ICON_HOME} label="Home" showTooltip={showTooltip}
-		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_HOME)}
-		              onClick={onMenuClicked(Router.DATA_QUALITY_HOME)}
-		              visible={false}/>
-		<SideMenuItem icon={ICON_STATISTICS} label="Run Statistics" showTooltip={showTooltip}
-		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_STATISTICS)}
-		              onClick={onMenuClicked(Router.DATA_QUALITY_STATISTICS)}/>
-		<SideMenuItem icon={ICON_CONSANGUINITY} label="Consanguinity" showTooltip={showTooltip}
-		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_CONSANGUINITY)}
-		              onClick={onMenuClicked(Router.DATA_QUALITY_CONSANGUINITY)}/>
-		<SideMenuItem icon={ICON_RULE_DEFINE} label="Monitor Rules" showTooltip={showTooltip}
-		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_RULES)}
-		              onClick={onMenuClicked(Router.DATA_QUALITY_RULES)}/>
-		<SideMenuItem icon={ICON_END_USER} label="End User's Console" showTooltip={showTooltip}
-		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_END_USER)}
-		              onClick={onMenuClicked(Router.DATA_QUALITY_END_USER)}
-		              visible={false}/>
+	return <IndicatorWorkbenchMenuContainer width={menuWidth}>
+		<SideMenuLogo title={Lang.INDICATOR_WORKBENCH.MENU.TITLE}/>
+		<SideMenuItem icon={ICON_INDICATOR_WORKBENCH_PREPARE} label={Lang.INDICATOR_WORKBENCH.MENU.PREPARE}
+		              showTooltip={showTooltip}
+		              active={!!matchPath(location.pathname, Router.INDICATOR_WORKBENCH_PREPARE)}
+		              onClick={onMenuClicked(Router.INDICATOR_WORKBENCH_PREPARE)}/>
+		<SideMenuItem icon={ICON_INDICATOR_WORKBENCH_INSPECTION} label={Lang.INDICATOR_WORKBENCH.MENU.INSPECTION}
+		              showTooltip={showTooltip}
+		              active={!!matchPath(location.pathname, Router.INDICATOR_WORKBENCH_INSPECTION)}
+		              onClick={onMenuClicked(Router.INDICATOR_WORKBENCH_INSPECTION)}/>
 		<SideMenuPlaceholder/>
 		<SideMenuSeparator width={menuWidth}/>
-		<SideMenuItem icon={ICON_SETTINGS} label={'Settings'} showTooltip={showTooltip}
-		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_SETTINGS)}
-		              onClick={onMenuClicked(Router.DATA_QUALITY_SETTINGS)}/>
+		<SideMenuItem icon={ICON_SETTINGS} label={Lang.INDICATOR_WORKBENCH.MENU.SETTINGS} showTooltip={showTooltip}
+		              active={!!matchPath(location.pathname, Router.INDICATOR_WORKBENCH_SETTINGS)}
+		              onClick={onMenuClicked(Router.INDICATOR_WORKBENCH_SETTINGS)}/>
 		<SideMenuSwitchWorkbench icon={ICON_SWITCH_WORKBENCH}
 		                         workbenches={workbenches}/>
 		<SideMenuSeparator width={menuWidth}/>
-		<SideMenuItem icon={ICON_LOGOUT} label={'Logout'} showTooltip={showTooltip}
+		<SideMenuItem icon={ICON_LOGOUT} label={Lang.INDICATOR_WORKBENCH.MENU.LOGOUT} showTooltip={showTooltip}
 		              onClick={onLogoutClicked}/>
 		<SideMenuUser name={account.name}/>
 		<SideMenuResizeHandle width={menuWidth} onResize={onResize}/>
-	</DataQualityMenuContainer>;
+	</IndicatorWorkbenchMenuContainer>;
 };

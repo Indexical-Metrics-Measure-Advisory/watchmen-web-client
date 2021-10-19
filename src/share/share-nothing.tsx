@@ -1,7 +1,7 @@
 import {Logo} from '@/widgets/basic/logo';
 import {Lang} from '@/widgets/langs';
-import React from 'react';
-import styled, {keyframes} from 'styled-components';
+import React, {ReactNode} from 'react';
+import styled, {css, keyframes} from 'styled-components';
 
 const Container = styled.div.attrs({'data-widget': 'share-nothing'})`
 	display               : grid;
@@ -19,15 +19,18 @@ const Spin = keyframes`
 		transform : rotate(360deg);
 	}
 `;
-const Icon = styled.div.attrs({'data-widget': 'share-nothing-icon'})`
+const SpinSvg = css`
+	animation : ${Spin} 60s linear infinite;
+`;
+const Icon = styled.div.attrs<{ spin: boolean }>({'data-widget': 'share-nothing-icon'})<{ spin: boolean }>`
 	display         : flex;
 	position        : relative;
 	align-items     : center;
 	justify-content : center;
 	> svg {
-		height    : 70%;
-		filter    : drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.7));
-		animation : ${Spin} 60s linear infinite;
+		height : 70%;
+		filter : drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.7));
+		${({spin}) => spin ? SpinSvg : (void 0)};
 	}
 `;
 const Label = styled.div.attrs({'data-widget': 'share-nothing-label'})`
@@ -42,11 +45,11 @@ const Label = styled.div.attrs({'data-widget': 'share-nothing-label'})`
 	opacity       : 0.7;
 `;
 
-export const ShareNothing = (props: { label?: string }) => {
-	const {label} = props;
+export const ShareNothing = (props: { label?: string; spin?: boolean; children?: ReactNode }) => {
+	const {label, spin = true, children} = props;
 	return <Container>
-		<Icon>
-			<Logo/>
+		<Icon spin={spin}>
+			{children ?? <Logo/>}
 		</Icon>
 		<Label>{label || Lang.SHARE.NOTHING}</Label>
 	</Container>;

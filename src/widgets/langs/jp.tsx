@@ -98,8 +98,10 @@ export const Jp = {
 			TIMELINE: 'タイムラインを表示する',
 			CONNECT_SPACE: '連結空間に接続',
 			SETTINGS: '設定',
+			TO_CONSOLE: 'ワークベンチに切り替える',
 			TO_ADMIN: '管理者に切り替える',
 			TO_DATA_QUALITY: 'データ品質センターに切り替える',
+			TO_INDICATOR_WORKBENCH: 'インジケーターワークベンチに切り替える',
 			LOGOUT: 'ログアウト'
 		},
 		FAVORITE: {
@@ -244,21 +246,30 @@ export const Jp = {
 			REPORT_NO_FILTER_2: 'か？',
 			INCORRECT_REPORT_FILTER: 'フィルタ条件の定義が正しくありません。',
 			REPORT_NO_FUNNEL: 'じょうごが有効になっていない。'
-		},
-		SETTINGS: {
-			TITLE: '設定',
-			LANGUAGE: '言語',
-			THEME: 'テーマ',
-			THEME_LIGHT: '標準',
-			THEME_DARK: 'ダーク',
-			PAT: {
-				TITLE: 'パーソナルアクセストークン',
-				CREATE: '新しいトークンを生成する',
-				DESCRIPTION: 'Watchmen APIへのアクセスに使用できる生成したトークン。',
-				DELETE_CONFIRM: 'トークンを削除してもよろしいですか？ 削除したものは復元できませんので、ご注意ください。',
-				INPUT_PLACEHOLDER: 'トークンの目的を特定するためのメモ',
-				NOTE_REQUIRED: 'トークンには注意が必要です。'
-			}
+		}
+	},
+	INDICATOR_WORKBENCH: {
+		MENU: {
+			TITLE: 'インジケーターワークベンチ',
+			PREPARE: '準備係数',
+			INSPECTION: 'インジケーターの構造',
+			SETTINGS: '設定',
+			LOGOUT: 'ログアウト'
+		}
+	},
+	SETTINGS: {
+		TITLE: '設定',
+		LANGUAGE: '言語',
+		THEME: 'テーマ',
+		THEME_LIGHT: '標準',
+		THEME_DARK: 'ダーク',
+		PAT: {
+			TITLE: 'パーソナルアクセストークン',
+			CREATE: '新しいトークンを生成する',
+			DESCRIPTION: 'Watchmen APIへのアクセスに使用できる生成したトークン。',
+			DELETE_CONFIRM: 'トークンを削除してもよろしいですか？ 削除したものは復元できませんので、ご注意ください。',
+			INPUT_PLACEHOLDER: 'トークンの目的を特定するためのメモ',
+			NOTE_REQUIRED: 'トークンには注意が必要です。'
 		}
 	},
 	PARAM: {

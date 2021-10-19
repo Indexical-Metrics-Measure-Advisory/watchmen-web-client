@@ -1,4 +1,3 @@
-import {isDataQualityCenterEnabled, isIndicatorWorkbenchEnabled} from '@/feature-switch';
 import {Router} from '@/routes/types';
 import {toDashboard} from '@/routes/utils';
 import {findAccount, isAdmin, quit} from '@/services/data/account';
@@ -31,6 +30,11 @@ import {SideMenuResizeHandle} from '@/widgets/basic/side-menu/side-menu-resize-h
 import {SideMenuSeparator} from '@/widgets/basic/side-menu/side-menu-separator';
 import {SideMenuSwitchWorkbench} from '@/widgets/basic/side-menu/side-menu-switch-workbench';
 import {SideMenuUser} from '@/widgets/basic/side-menu/side-menu-user';
+import {
+	isAdminAvailable,
+	isDataQualityAvailable,
+	isIndicatorWorkbenchAvailable
+} from '@/widgets/common-settings/workbench-utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
@@ -150,17 +154,22 @@ export const ConsoleMenu = () => {
 
 	const account = findAccount() || {name: MOCK_ACCOUNT_NAME};
 	const showTooltip = menuWidth / SIDE_MENU_MIN_WIDTH <= 1.5;
-	const workbenches = [
-		{label: Lang.CONSOLE.MENU.TO_ADMIN, icon: ICON_ADMIN, action: () => onMenuClicked(Router.ADMIN)()}
-	];
-	if (isIndicatorWorkbenchEnabled()) {
+	const workbenches = [];
+	if (isAdminAvailable()) {
 		workbenches.push({
-			label: 'To Indicator Workbench',
+			label: Lang.CONSOLE.MENU.TO_ADMIN,
+			icon: ICON_ADMIN,
+			action: () => onMenuClicked(Router.ADMIN)()
+		});
+	}
+	if (isIndicatorWorkbenchAvailable()) {
+		workbenches.push({
+			label: Lang.CONSOLE.MENU.TO_INDICATOR_WORKBENCH,
 			icon: ICON_INDICATOR_WORKBENCH,
 			action: () => onMenuClicked(Router.INDICATOR_WORKBENCH)()
 		});
 	}
-	if (isDataQualityCenterEnabled()) {
+	if (isDataQualityAvailable()) {
 		workbenches.push({
 			label: Lang.CONSOLE.MENU.TO_DATA_QUALITY,
 			icon: ICON_DATA_QUALITY,

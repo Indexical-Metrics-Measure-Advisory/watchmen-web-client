@@ -1,0 +1,54 @@
+import {Router} from '@/routes/types';
+import {isAdmin} from '@/services/data/account';
+import React from 'react';
+import {Redirect, Route, Switch} from 'react-router-dom';
+import styled from 'styled-components';
+import {IndicatorWorkbenchMenu} from './menu';
+import IndicatorWorkbenchPrepareIndex from './prepare';
+import IndicatorWorkbenchSettingsIndex from './settings';
+import IndicatorWorkbenchInspectionIndex from './inspection';
+
+const IndicatorWorkbenchContainer = styled.div.attrs({'data-widget': 'indicator-workbench'})`
+	display : flex;
+`;
+const IndicatorWorkbenchMain = styled.main.attrs<{ scrollable?: boolean }>(({scrollable = true}) => {
+	return {
+		'data-widget': 'indicator-workbench-main',
+		'data-v-scroll': scrollable ? '' : (void 0),
+		style: {
+			overflowY: scrollable ? (void 0) : 'hidden',
+			overflowX: scrollable ? (void 0) : 'hidden'
+		}
+	};
+})<{ scrollable?: boolean }>`
+	flex-grow  : 1;
+	display    : flex;
+	height     : 100vh;
+	min-height : 100vh;
+	overflow-y : scroll;
+`;
+
+const IndicatorWorkbenchIndex = () => {
+	return <IndicatorWorkbenchContainer>
+		<IndicatorWorkbenchMenu/>
+
+		<Switch>
+			{isAdmin()
+				? <Route path={Router.INDICATOR_WORKBENCH_PREPARE}>
+					<IndicatorWorkbenchMain><IndicatorWorkbenchPrepareIndex/></IndicatorWorkbenchMain>
+				</Route>
+				: null}
+			<Route path={Router.INDICATOR_WORKBENCH_INSPECTION}>
+				<IndicatorWorkbenchMain><IndicatorWorkbenchInspectionIndex/></IndicatorWorkbenchMain>
+			</Route>
+			<Route path={Router.INDICATOR_WORKBENCH_SETTINGS}>
+				<IndicatorWorkbenchMain><IndicatorWorkbenchSettingsIndex/></IndicatorWorkbenchMain>
+			</Route>
+			<Route path="*">
+				<Redirect to={Router.INDICATOR_WORKBENCH_INSPECTION}/>
+			</Route>
+		</Switch>
+	</IndicatorWorkbenchContainer>;
+};
+
+export default IndicatorWorkbenchIndex;

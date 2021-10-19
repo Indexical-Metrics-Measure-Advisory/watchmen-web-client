@@ -74,7 +74,7 @@ export const SideMenuSwitchWorkbench = (props: {
 }) => {
 	const {icon, visible = true, workbenches, ...rest} = props;
 
-	if (!visible) {
+	if (!visible || workbenches.length === 0) {
 		return null;
 	}
 

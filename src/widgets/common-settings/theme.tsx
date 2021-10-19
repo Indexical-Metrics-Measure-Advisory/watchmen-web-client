@@ -6,19 +6,24 @@ import {DropdownOption} from '../basic/types';
 import {useForceUpdate} from '../basic/utils';
 import {useEventBus} from '../events/event-bus';
 import {EventTypes} from '../events/types';
+import {Lang} from '../langs';
 import {getCurrentThemeCode} from '../theme/theme-wrapper';
 
-export const ThemeSettings = (props: {
-	title?: string;
-	themeOptions?: Array<DropdownOption>;
-}) => {
-	const {
-		title = 'Theme',
-		themeOptions = [
+export const SupportedThemes: Array<DropdownOption> = [
+	{value: 'light', label: Lang.SETTINGS.THEME_LIGHT},
+	{value: 'dark', label: Lang.SETTINGS.THEME_DARK}
+];
+
+export const ThemeSettings = (props: { en?: boolean }) => {
+	const {en = true} = props;
+
+	const title = en ? 'Theme' : Lang.SETTINGS.THEME;
+	const options = en
+		? [
 			{value: 'light', label: 'Light'},
 			{value: 'dark', label: 'Dark'}
 		]
-	} = props;
+		: SupportedThemes;
 
 	const {fire} = useEventBus();
 	const forceUpdate = useForceUpdate();
@@ -40,7 +45,7 @@ export const ThemeSettings = (props: {
 	return <SettingsSection>
 		<SettingsSectionTitle>{title}</SettingsSectionTitle>
 		<SettingsSectionBody>
-			<Dropdown value={getCurrentThemeCode()} options={themeOptions} onChange={onThemeChange}/>
+			<Dropdown value={getCurrentThemeCode()} options={options} onChange={onThemeChange}/>
 		</SettingsSectionBody>
 	</SettingsSection>;
 };

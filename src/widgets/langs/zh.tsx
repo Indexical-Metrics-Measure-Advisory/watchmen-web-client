@@ -98,8 +98,10 @@ export const Zh = {
 			TIMELINE: '朋友圈',
 			CONNECT_SPACE: '连接工作空间',
 			SETTINGS: '设置',
+			TO_CONSOLE: '转到工作台',
 			TO_ADMIN: '转到管理台',
 			TO_DATA_QUALITY: '转到数据质量中心',
+			TO_INDICATOR_WORKBENCH: '转到指标工作台',
 			LOGOUT: '登出'
 		},
 		FAVORITE: {
@@ -244,21 +246,30 @@ export const Zh = {
 			REPORT_NO_FILTER_2: '吗?',
 			INCORRECT_REPORT_FILTER: '存在不正确的过滤条件定义.',
 			REPORT_NO_FUNNEL: '没有启用数据漏斗.'
-		},
-		SETTINGS: {
-			TITLE: '设置',
-			LANGUAGE: '语言',
-			THEME: '外观',
-			THEME_LIGHT: '标准',
-			THEME_DARK: '暗色',
-			PAT: {
-				TITLE: 'Personal Access Token',
-				CREATE: '创建新Token',
-				DESCRIPTION: 'Token在使用API访问Watchmen的后台服务的过程中, 用于认证服务.',
-				DELETE_CONFIRM: '确认要删除Token吗? 请注意删除动作不能被恢复.',
-				INPUT_PLACEHOLDER: '请赋予token一个名字, 以便进行识别',
-				NOTE_REQUIRED: 'Token需要有一个名字.'
-			}
+		}
+	},
+	INDICATOR_WORKBENCH: {
+		MENU: {
+			TITLE: '指标工作台',
+			PREPARE: '准备指标因子',
+			INSPECTION: '指标构建',
+			SETTINGS: '设置',
+			LOGOUT: '登出'
+		}
+	},
+	SETTINGS: {
+		TITLE: '设置',
+		LANGUAGE: '语言',
+		THEME: '外观',
+		THEME_LIGHT: '标准',
+		THEME_DARK: '暗色',
+		PAT: {
+			TITLE: 'Personal Access Token',
+			CREATE: '创建新Token',
+			DESCRIPTION: 'Token在使用API访问Watchmen的后台服务的过程中, 用于认证服务.',
+			DELETE_CONFIRM: '确认要删除Token吗? 请注意删除动作不能被恢复.',
+			INPUT_PLACEHOLDER: '请赋予token一个名字, 以便进行识别',
+			NOTE_REQUIRED: 'Token需要有一个名字.'
 		}
 	},
 	PARAM: {

@@ -1,3 +1,4 @@
+import TopicBackground from '@/assets/topic-background.svg';
 import {isMultipleDataSourcesEnabled} from '@/feature-switch';
 import {DataPage} from '@/services/data/query/data-page';
 import {listDataSourcesForHolder} from '@/services/data/tuples/data-source';
@@ -13,7 +14,6 @@ import {ICON_DOWNLOAD, TUPLE_SEARCH_PAGE_SIZE} from '@/widgets/basic/constants';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import React, {useEffect} from 'react';
-import TopicBackground from '../../assets/topic-background.svg';
 import {useAdminCacheEventBus} from '../cache/cache-event-bus';
 import {AdminCacheEventTypes} from '../cache/cache-event-bus-types';
 import {TupleWorkbench} from '../widgets/tuple-workbench';

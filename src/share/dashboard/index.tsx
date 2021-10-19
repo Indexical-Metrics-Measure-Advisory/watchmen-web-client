@@ -1,3 +1,4 @@
+import NoDataImage from '@/assets/dashboard-no-data.svg';
 import {ConsoleEventBusProvider} from '@/console/console-event-bus';
 import {DashboardBody} from '@/console/dashboard/body';
 import {DashboardEventBusProvider} from '@/console/dashboard/dashboard-event-bus';
@@ -9,7 +10,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {ShareNothing} from '../share-nothing';
 import {SimulateConsole} from './simulate-console';
-import {ShareDashboardContainer} from './widgets';
+import {NoData, ShareDashboardContainer} from './widgets';
 
 interface ShareDashboardState {
 	initialized: boolean;
@@ -49,7 +50,9 @@ const ShareDashboardIndex = () => {
 	}
 
 	if (state.initialized && (state.dashboard == null || state.connectedSpaces == null || state.connectedSpaces.length === 0)) {
-		return <ShareNothing label={Lang.CONSOLE.ERROR.DASHBOARD_NOT_FOUND}/>;
+		return <ShareNothing label={Lang.CONSOLE.ERROR.DASHBOARD_NOT_FOUND} spin={false}>
+			<NoData background={NoDataImage}/>
+		</ShareNothing>;
 	}
 
 	return <ConsoleEventBusProvider>
