@@ -1,4 +1,5 @@
 import {Topic} from '@/services/data/tuples/topic-types';
+import {AlertLabel} from '@/widgets/alert/widgets';
 import {DwarfButton} from '@/widgets/basic/button';
 import {ICON_UPLOAD} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
@@ -25,22 +26,28 @@ export const FactorsImportButton = (props: { topic: Topic }) => {
 			return;
 		}
 		const name = file.name;
-		switch (true) {
-			case name.endsWith('.txt'):
-			case name.endsWith('.csv'): {
-				const content = await file.text();
-				topic.factors = await parseFromCsv(content);
-				fire(TopicEventTypes.FACTORS_IMPORTED, topic.factors);
-				break;
+		try {
+			switch (true) {
+				case name.endsWith('.txt'):
+				case name.endsWith('.csv'): {
+					const content = await file.text();
+					topic.factors = await parseFromCsv(content);
+					fire(TopicEventTypes.FACTORS_IMPORTED, topic.factors);
+					break;
+				}
+				case name.endsWith('.json'): {
+					const content = await file.text();
+					topic.factors = await parseFromJson(content);
+					fire(TopicEventTypes.FACTORS_IMPORTED, topic.factors);
+					break;
+				}
+				default:
+					fireGlobal(EventTypes.SHOW_NOT_IMPLEMENT);
 			}
-			case name.endsWith('.json'): {
-				const content = await file.text();
-				topic.factors = await parseFromJson(content);
-				fire(TopicEventTypes.FACTORS_IMPORTED, topic.factors);
-				break;
-			}
-			default:
-				fireGlobal(EventTypes.SHOW_NOT_IMPLEMENT);
+		} catch {
+			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+				Failed to import factors, check file format please.
+			</AlertLabel>);
 		}
 	};
 	const onImportClicked = () => {

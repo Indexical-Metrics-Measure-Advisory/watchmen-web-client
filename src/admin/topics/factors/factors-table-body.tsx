@@ -99,7 +99,6 @@ export const FactorsTableBody = (props: { topic: Topic, enums: Array<QueryEnumFo
 		const onFactorRemoved = () => {
 			const count = filterFactors(topic, searchText).length;
 			const pages = Math.ceil(count / PAGE_SIZE);
-			console.log(pageNumber, pages);
 			if (pageNumber > pages) {
 				setPageNumber(pages);
 			} else {

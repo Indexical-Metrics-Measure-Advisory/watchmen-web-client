@@ -1,7 +1,15 @@
-import {Factor, FactorType} from '@/services/data/tuples/factor-types';
+import {CompatibleEncryptMethods, Factor, FactorEncryptMethod, FactorType} from '@/services/data/tuples/factor-types';
+import {isEnumFactor} from '@/services/data/tuples/topic';
 import parseCSV from 'csv-parse';
 import {createFactor, createTopic} from '../utils';
 
+const ValidIndexGroups = [
+	...new Array(10).fill(1).map((_, index) => `i-${index + 1}`),
+	...new Array(10).fill(1).map((_, index) => `u-${index + 1}`)
+];
+const isIndexGroupValid = (indexGroup?: string): boolean => {
+	return !indexGroup || ValidIndexGroups.includes(indexGroup);
+};
 const asFactors = async (data: any): Promise<Array<Factor>> => {
 	if (data == null || !Array.isArray(data) || data.length === 0) {
 		console.error('Cannot parse data to factors.', data);
@@ -9,31 +17,43 @@ const asFactors = async (data: any): Promise<Array<Factor>> => {
 	}
 
 	const mockTopic = createTopic();
-	const columnMap: Map<string, Factor> = new Map();
+	// const columnMap: Map<string, Factor> = new Map();
 	return data.reduce<Array<Factor>>((columns, row) => {
-		Object.keys(row)
-			.forEach(name => {
-				let factor = columnMap.get(name);
-				if (!factor) {
-					factor = createFactor(mockTopic);
-					mockTopic.factors.push(factor);
-					factor.name = name;
-					columnMap.set(name, factor);
-					columns.push(factor);
-				}
-				if (factor.type === FactorType.TEXT) {
-					// already detected as text
-					return;
-				}
-				const value = row[name];
-				if ((typeof value === 'number' || !isNaN(Number(value))) && !factor.type) {
-					factor.type = FactorType.NUMBER;
-				} else if ((typeof value === 'boolean' || value.toLowerCase() === 'true' || value.toLowerCase() === 'false') && !factor.type) {
-					factor.type = FactorType.BOOLEAN;
-				} else {
-					factor.type = FactorType.TEXT;
-				}
-			});
+		const factor = createFactor(mockTopic);
+
+		factor.name = `${row.name || ''}`;
+		factor.label = row.label ? `${row.label}` : factor.name;
+		factor.type = row.type ? (`${row.type}` as FactorType) : FactorType.TEXT;
+		if (Object.values(FactorType).includes(`${factor.type}`.toLowerCase() as FactorType)) {
+			factor.type = `${factor.type}`.toLowerCase() as FactorType;
+		} else {
+			factor.type = FactorType.TEXT;
+		}
+		if (isEnumFactor(factor.type)) {
+			factor.enumId = row.enumId ? `${row.enumId}` : (void 0);
+		}
+		factor.defaultValue = row.defaultValue ? `${row.defaultValue}` : (void 0);
+		factor.indexGroup = row.indexGroup ? `${row.indexGroup}` : (void 0);
+		if (!isIndexGroupValid(factor.indexGroup)) {
+			delete factor.indexGroup;
+		}
+		factor.flatten = row.flatten === true ? true : (`${row.flatten}`.toLowerCase() === 'true');
+		if (factor.name.indexOf('.') === -1) {
+			delete factor.flatten;
+		}
+		factor.encrypt = row.encrypt ? (`${row.encrypt}` as FactorEncryptMethod) : (void 0);
+		if (Object.values(FactorEncryptMethod).includes(`${factor.encrypt}`.toUpperCase() as FactorEncryptMethod)) {
+			factor.encrypt = `${factor.encrypt}`.toUpperCase() as FactorEncryptMethod;
+			if (!CompatibleEncryptMethods[factor.type].includes(factor.encrypt)) {
+				delete factor.encrypt;
+			}
+		} else {
+			delete factor.encrypt;
+		}
+
+		factor.description = `${row.description || ''}`;
+
+		columns.push(factor);
 		return columns;
 	}, []);
 };

@@ -230,7 +230,7 @@ export const ScriptsDownloadDialog = (props: {
 		const link = document.createElement('a');
 		link.href = 'data:application/zip;base64,' + base64;
 		link.target = '_blank';
-		//provide the name for the CSV file to be downloaded
+		//provide the name for the zip file to be downloaded
 		link.download = `scripts-${dayjs().format('YYYYMMDDHHmmss')}.zip`;
 		link.click();
 	};
