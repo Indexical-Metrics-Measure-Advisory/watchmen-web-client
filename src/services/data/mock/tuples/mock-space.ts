@@ -5,6 +5,7 @@ import {QueryUserGroupForHolder} from '../../tuples/query-user-group-types';
 import {Space} from '../../tuples/space-types';
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
+import {Participant, Policy, Quotation} from './mock-data-topics';
 
 export const listMockSpaces = async (options: {
 	search: string;
@@ -34,22 +35,39 @@ export const listMockSpaces = async (options: {
 	});
 };
 
+export const listMockSpacesForExport = async (): Promise<Array<Space>> => {
+	return new Promise<Array<Space>>(resolve => {
+		setTimeout(() => {
+			resolve([
+				{
+					spaceId: '1',
+					name: 'Quotation & Policy',
+					topicIds: [Quotation.topicId, Policy.topicId],
+					userGroupIds: [],
+					createTime: getCurrentTime(),
+					lastModified: getCurrentTime()
+				}
+			]);
+		}, 500);
+	});
+};
+
 export const fetchMockSpace = async (spaceId: string): Promise<{ space: Space; groups: Array<QueryUserGroupForHolder>; topics: Array<QueryTopicForHolder> }> => {
 	return {
 		space: {
 			spaceId,
 			name: 'Quotation & Policy',
 			description: 'All Sales Data',
-			topicIds: ['1', '2'],
+			topicIds: [Quotation.topicId, Policy.topicId],
 			userGroupIds: [],
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()
 		},
 		groups: [{userGroupId: '1', name: 'Oklahoma'}],
 		topics: [
-			{topicId: '1', name: 'Quotation'},
-			{topicId: '2', name: 'Policy'},
-			{topicId: '3', name: 'Participant'}
+			{topicId: Quotation.topicId, name: Quotation.name},
+			{topicId: Policy.topicId, name: Policy.name},
+			{topicId: Participant.topicId, name: Participant.name}
 		]
 	};
 };

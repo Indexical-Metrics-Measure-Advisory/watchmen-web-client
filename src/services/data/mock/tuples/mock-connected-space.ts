@@ -8,6 +8,12 @@ export const fetchMockConnectedSpaces = async (): Promise<Array<ConnectedSpace>>
 	});
 };
 
+export const listMockConnectedSpacesForExport = async (): Promise<Array<ConnectedSpace>> => {
+	return new Promise(resolve => {
+		setTimeout(() => resolve(DemoConnectedSpaces), 500);
+	});
+};
+
 export const fetchMockConnectedSpaceGraphics = async (): Promise<Array<ConnectedSpaceGraphics>> => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve([{

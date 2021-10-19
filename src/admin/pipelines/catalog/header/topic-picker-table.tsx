@@ -1,8 +1,9 @@
-import {Topic} from '@/services/data/tuples/topic-types';
 import {CheckBox} from '@/widgets/basic/checkbox';
 import {Input} from '@/widgets/basic/input';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {ChangeEvent, useState} from 'react';
+import {SpaceCandidate, TopicCandidate} from './types';
+import {getCandidateKey, getCandidateName, getCandidateType, isSpaceCandidate, isTopicCandidate} from './utils';
 import {
 	PickerTableBody,
 	PickerTableBodyCell,
@@ -16,12 +17,7 @@ interface Filter {
 	handler?: number;
 }
 
-interface TopicCandidate {
-	topic: Topic;
-	picked: boolean;
-}
-
-export const TopicPickerTable = (props: { candidates: Array<TopicCandidate> }) => {
+export const TopicPickerTable = (props: { candidates: Array<TopicCandidate | SpaceCandidate> }) => {
 	const {candidates} = props;
 
 	const [items, setItems] = useState(candidates);
@@ -40,7 +36,7 @@ export const TopicPickerTable = (props: { candidates: Array<TopicCandidate> }) =
 				if (text === '') {
 					setItems(candidates);
 				} else {
-					setItems(candidates.filter(({topic}) => (topic.name || 'Noname Topic').toLowerCase().includes(text)));
+					setItems(candidates.filter(candidate => getCandidateName(candidate).toLowerCase().includes(text)));
 				}
 			}, 300)
 		});
@@ -54,8 +50,25 @@ export const TopicPickerTable = (props: { candidates: Array<TopicCandidate> }) =
 		}
 		forceUpdate();
 	};
-	const onSelectionChange = (candidate: TopicCandidate) => (value: boolean) => {
+	const onSelectionChange = (candidate: TopicCandidate | SpaceCandidate) => (value: boolean) => {
 		candidate.picked = value;
+		if (isTopicCandidate(candidate) && !candidate.picked) {
+			// unpick a topic, unpick related spaces as well
+			candidates.filter(isSpaceCandidate).forEach(spaceCandidate => {
+				// eslint-disable-next-line
+				if ((spaceCandidate.space.topicIds || []).some(topicId => topicId == candidate.topic.topicId)) {
+					spaceCandidate.picked = false;
+				}
+			});
+		} else if (isSpaceCandidate(candidate) && candidate.picked) {
+			// pick a space, pick related topics as well
+			candidates.filter(isTopicCandidate).forEach(topicCandidate => {
+				// eslint-disable-next-line
+				if ((candidate.space.topicIds || []).some(topicId => topicId == topicCandidate.topic.topicId)) {
+					topicCandidate.picked = true;
+				}
+			});
+		}
 		forceUpdate();
 	};
 
@@ -67,20 +80,22 @@ export const TopicPickerTable = (props: { candidates: Array<TopicCandidate> }) =
 			<PickerTableHeaderCell>
 				<CheckBox value={allSelected} onChange={onAllSelectionChange}/>
 			</PickerTableHeaderCell>
+			<PickerTableHeaderCell>Tuple Type</PickerTableHeaderCell>
 			<PickerTableHeaderCell>
-				<span>Topic</span>
+				<span>Name</span>
 				<Input placeholder="Filter by name..."
 				       value={filter.value} onChange={onFilterTextChanged}/>
 			</PickerTableHeaderCell>
 		</PickerTableHeader>
 		<PickerTableBody>
 			{items.map((candidate, index) => {
-				return <PickerTableBodyRow key={candidate.topic.topicId}>
+				return <PickerTableBodyRow key={getCandidateKey(candidate)}>
 					<PickerTableBodyCell>{index + 1}</PickerTableBodyCell>
 					<PickerTableBodyCell>
 						<CheckBox value={candidate.picked} onChange={onSelectionChange(candidate)}/>
 					</PickerTableBodyCell>
-					<PickerTableBodyCell>{candidate.topic.name || 'Noname Topic'}</PickerTableBodyCell>
+					<PickerTableBodyCell>{getCandidateType(candidate)}</PickerTableBodyCell>
+					<PickerTableBodyCell>{getCandidateName(candidate)}</PickerTableBodyCell>
 				</PickerTableBodyRow>;
 			})}
 		</PickerTableBody>

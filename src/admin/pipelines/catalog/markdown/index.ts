@@ -4,7 +4,9 @@ import {
 	TopicRelationMap,
 	TopicsMap
 } from '@/services/data/pipeline/pipeline-relations';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {listAllEnums} from '@/services/data/tuples/enum';
+import {Space} from '@/services/data/tuples/space-types';
 import dayjs from 'dayjs';
 import {generateGraphics} from './graphics';
 import {generatePipelineMarkdown} from './pipeline';
@@ -12,20 +14,17 @@ import {generateTopicMarkdown} from './topic';
 import {DataSourceMap, EnumsMap, ExternalWriterMap} from './types';
 
 export const generateMarkdown = async (options: {
-	topicsMap: TopicsMap, pipelinesMap: PipelinesMap,
-	dataSourceMap: DataSourceMap, externalWriterMap: ExternalWriterMap,
-	topicRelations: TopicRelationMap, pipelineRelations: PipelineRelationMap,
-	selectedSvg: string, allSvg: string
+	topicsMap: TopicsMap; pipelinesMap: PipelinesMap;
+	dataSourceMap: DataSourceMap; externalWriterMap: ExternalWriterMap;
+	topicRelations: TopicRelationMap; pipelineRelations: PipelineRelationMap;
+	spaces: Array<Space>; connectedSpaces: Array<ConnectedSpace>;
+	selectedSvg: string; allSvg: string;
 }): Promise<string> => {
 	const {
-		topicsMap,
-		pipelinesMap,
-		dataSourceMap,
-		externalWriterMap,
-		topicRelations,
-		pipelineRelations,
-		selectedSvg,
-		allSvg
+		topicsMap, pipelinesMap, dataSourceMap, externalWriterMap,
+		topicRelations, pipelineRelations,
+		spaces, connectedSpaces,
+		selectedSvg, allSvg
 	} = options;
 
 	const enums = await listAllEnums();

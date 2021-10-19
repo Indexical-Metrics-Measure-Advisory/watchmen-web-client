@@ -21,7 +21,7 @@ export const PickerDialogBody = styled(DialogBody)`
 export const PickerTableHeader = styled.div`
 	display               : grid;
 	position              : relative;
-	grid-template-columns : 40px 60px 1fr;
+	grid-template-columns : 40px 60px 100px 1fr;
 	border-bottom         : var(--border);
 	height                : calc(${TABLE_HEADER_HEIGHT});
 	min-height            : calc(${TABLE_HEADER_HEIGHT});
@@ -54,7 +54,7 @@ export const PickerTableBody = styled.div.attrs({'data-v-scroll': ''})`
 export const PickerTableBodyRow = styled.div.attrs<{ columns?: number }>(({columns = 3}) => {
 	return {
 		style: {
-			gridTemplateColumns: columns === 3 ? '40px 60px 1fr' : '40px 60px auto 1fr'
+			gridTemplateColumns: columns === 3 ? '40px 60px 100px 1fr' : '40px 60px 100px auto 1fr'
 		}
 	};
 })<{ columns?: number }>`

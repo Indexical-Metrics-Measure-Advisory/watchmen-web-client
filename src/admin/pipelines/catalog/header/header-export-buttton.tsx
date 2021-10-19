@@ -7,9 +7,13 @@ import {
 	TopicRelationMap,
 	TopicsMap
 } from '@/services/data/pipeline/pipeline-relations';
+import {listConnectedSpacesForExport} from '@/services/data/tuples/connected-space';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {DataSource} from '@/services/data/tuples/data-source-types';
 import {ExternalWriter} from '@/services/data/tuples/external-writer-types';
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {listSpacesForExport} from '@/services/data/tuples/space';
+import {Space} from '@/services/data/tuples/space-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {AdminCacheData} from '@/services/local-persist/types';
 import {Button} from '@/widgets/basic/button';
@@ -33,6 +37,8 @@ import {generateMarkdown} from '../markdown';
 import {DataSourceMap, ExternalWriterMap} from '../markdown/types';
 import {AssembledPipelinesGraphics} from '../types';
 import {TopicPickerTable} from './topic-picker-table';
+import {SpaceCandidate, TopicCandidate} from './types';
+import {isSpaceCandidate, isTopicCandidate} from './utils';
 import {PICKER_DIALOG_HEIGHT, PickerDialogBody} from './widgets';
 
 const findPipelinesWriteMe = (topics: Array<Topic>, topicRelations: TopicRelationMap): Array<Pipeline> => {
@@ -91,20 +97,30 @@ const PipelinesDownload = (props: {
 	graphics: AssembledPipelinesGraphics;
 	dataSources: Array<DataSource>;
 	externalWriters: Array<ExternalWriter>;
+	spaces: Array<Space>;
+	connectedSpaces: Array<ConnectedSpace>;
 	askSvg: (topics: Array<Topic>) => Promise<string>
 }) => {
-	const {pipelines, topics, graphics, dataSources, externalWriters, askSvg} = props;
+	const {pipelines, topics, graphics, dataSources, externalWriters, spaces, connectedSpaces, askSvg} = props;
 
 	const {fire} = useEventBus();
 	const [candidates] = useState(() => {
 		const inGraphicsTopics = graphics.topics.map(t => t.topic);
-		return topics.map(topic => {
-			return {topic, picked: inGraphicsTopics.includes(topic)};
-		});
+		return [
+			...topics.map(topic => {
+				return {topic, picked: inGraphicsTopics.includes(topic)};
+			}),
+			...spaces.map(space => {
+				return {space, picked: false};
+			})
+		];
 	});
 
 	const onDownloadClicked = async () => {
-		const selectedTopics = candidates.filter(c => c.picked).map(({topic}) => topic);
+		const selectedTopics = candidates.filter<TopicCandidate>(isTopicCandidate).filter(c => c.picked).map(({topic}) => topic);
+		const selectedSpaces = candidates.filter<SpaceCandidate>(isSpaceCandidate).filter(c => c.picked).map(({space}) => space);
+		// eslint-disable-next-line
+		const selectedConnectedSpaces = connectedSpaces.filter(connectedSpace => selectedSpaces.some(space => space.spaceId == connectedSpace.spaceId));
 
 		// use these topics to find upstream
 		const topicsMap = buildTopicsMap(topics);
@@ -135,6 +151,7 @@ const PipelinesDownload = (props: {
 				return map;
 			}, {} as ExternalWriterMap),
 			topicRelations, pipelineRelations,
+			spaces: selectedSpaces, connectedSpaces: selectedConnectedSpaces,
 			selectedSvg, allSvg
 		});
 
@@ -156,7 +173,7 @@ const PipelinesDownload = (props: {
 
 	return <>
 		<PickerDialogBody>
-			<DialogLabel>Picked topics to download, related pipelines will be included as well.</DialogLabel>
+			<DialogLabel>Pick topics/spaces to download, related pipelines will be included as well.</DialogLabel>
 			<TopicPickerTable candidates={candidates}/>
 		</PickerDialogBody>
 		<DialogFooter>
@@ -182,15 +199,42 @@ export const HeaderExportButton = (props: { graphics: AssembledPipelinesGraphics
 	const onExportClicked = () => {
 		onceCache(AdminCacheEventTypes.REPLY_DATA, (data?: AdminCacheData) => {
 			const {pipelines, topics, dataSources, externalWriters} = data!;
-			fireGlobal(EventTypes.SHOW_DIALOG,
-				<PipelinesDownload pipelines={pipelines} topics={topics} graphics={graphics}
-				                   dataSources={dataSources} externalWriters={externalWriters}
-				                   askSvg={askSvg}/>, {
-					marginTop: '10vh',
-					marginLeft: '20%',
-					width: '60%',
-					height: PICKER_DIALOG_HEIGHT
-				});
+
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
+				const [spaces, connectedSpaces] = await Promise.all([listSpacesForExport(), listConnectedSpacesForExport()]);
+				// drop spaces has no topic
+				const availableSpaces = spaces.filter(space => space.topicIds != null && space.topicIds.length !== 0);
+				// drop connected spaces is not template, has no subject, and not belongs to available spaces
+				const availableConnectedSpaces = connectedSpaces.filter(connectedSpace => connectedSpace.isTemplate)
+					.filter(connectedSpace => connectedSpace.subjects != null && connectedSpace.subjects.length !== 0)
+					// eslint-disable-next-line
+					.filter(connectedSpace => availableSpaces.some(space => space.spaceId == connectedSpace.spaceId));
+
+				return {spaces: availableSpaces, connectedSpaces: availableConnectedSpaces};
+			}, ({spaces, connectedSpaces}: { spaces: Array<Space>, connectedSpaces: Array<ConnectedSpace> }) => {
+				fireGlobal(EventTypes.SHOW_DIALOG,
+					<PipelinesDownload pipelines={pipelines} topics={topics} graphics={graphics}
+					                   dataSources={dataSources} externalWriters={externalWriters}
+					                   spaces={spaces} connectedSpaces={connectedSpaces}
+					                   askSvg={askSvg}/>, {
+						marginTop: '10vh',
+						marginLeft: '20%',
+						width: '60%',
+						height: PICKER_DIALOG_HEIGHT
+					});
+			}, () => {
+				fireGlobal(EventTypes.SHOW_DIALOG,
+					<PipelinesDownload pipelines={pipelines} topics={topics} graphics={graphics}
+					                   dataSources={dataSources} externalWriters={externalWriters}
+					                   spaces={[]} connectedSpaces={[]}
+					                   askSvg={askSvg}/>, {
+						marginTop: '10vh',
+						marginLeft: '20%',
+						width: '60%',
+						height: PICKER_DIALOG_HEIGHT
+					});
+			});
+
 		}).fire(AdminCacheEventTypes.ASK_DATA);
 	};
 

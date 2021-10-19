@@ -1,6 +1,12 @@
 import {findAccount} from '../account';
 import {Apis, get, page, post} from '../apis';
-import {fetchMockSpace, listMockSpaces, listMockSpacesForHolder, saveMockSpace} from '../mock/tuples/mock-space';
+import {
+	fetchMockSpace,
+	listMockSpaces,
+	listMockSpacesForExport,
+	listMockSpacesForHolder,
+	saveMockSpace
+} from '../mock/tuples/mock-space';
 import {DataPage} from '../query/data-page';
 import {isMockService} from '../utils';
 import {strictParameterJoint} from './parameter-utils';
@@ -42,6 +48,27 @@ export const listSpaces = async (options: {
 	} else {
 		return await page({api: Apis.SPACE_LIST_BY_NAME, search: {search}, pageable: {pageNumber, pageSize}});
 	}
+};
+
+export const listSpacesForExport = async (): Promise<Array<Space>> => {
+	return new Promise<Array<Space>>(async resolve => {
+		let spaces: Array<Space> = [];
+		try {
+			if (isMockService()) {
+				spaces = await listMockSpacesForExport();
+			} else {
+				spaces = await get({api: Apis.SPACES_EXPORT});
+			}
+		} catch {
+			// do nothing, returns an empty array
+		}
+		// remove user group data
+		resolve(spaces.map(space => {
+			space.userGroupIds = [];
+			return space;
+		}));
+	});
+
 };
 
 export const fetchSpace = async (

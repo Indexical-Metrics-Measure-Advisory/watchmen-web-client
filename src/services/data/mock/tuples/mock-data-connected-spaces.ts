@@ -3,6 +3,7 @@ import {ParameterJointType, ParameterKind, TopicFactorParameter} from '../../tup
 import {TopicJoinType} from '../../tuples/subject-types';
 import {generateUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
+import {Quotation} from './mock-data-topics';
 
 export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 	{
@@ -30,7 +31,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 							columnId: generateUuid(),
 							parameter: {
 								kind: ParameterKind.TOPIC,
-								topicId: '1',
+								topicId: Quotation.topicId,
 								factorId: '102'
 							} as TopicFactorParameter,
 							alias: 'Column1'
@@ -170,7 +171,7 @@ export const DemoConnectedSpaces: Array<ConnectedSpace> = [
 				lastModified: getCurrentTime()
 			}
 		],
-		isTemplate: false,
+		isTemplate: true,
 		lastVisitTime: '2020/11/05 15:14:11',
 		createTime: getCurrentTime(),
 		lastModified: getCurrentTime()

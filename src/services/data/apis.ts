@@ -23,6 +23,7 @@ export const Apis = {
 	SPACE_GET: 'space?space_id=:spaceId',
 	SPACE_CREATE: 'space',
 	SPACE_SAVE: 'update/space?space_id=:spaceId',
+	SPACES_EXPORT: 'space/export',
 
 	TOPIC_ALL: 'topic/all',
 	TOPIC_UPDATED: 'topic/updated',
@@ -87,6 +88,7 @@ export const Apis = {
 	CONNECTED_SPACE_DELETE: 'console_space/delete?connect_id=:connectId',
 	CONNECTED_SPACE_GRAPHICS_SAVE: 'console_space/graphics',
 	CONNECTED_SPACES_TEMPLATE_LIST: 'console_space/template/list?space_id=:spaceId',
+	CONNECTED_SPACES_EXPORT: 'console_space/export',
 
 	SUBJECT_CREATE: 'console_space/subject?connect_id=:connectId',
 	SUBJECT_SAVE: 'console_space/subject/save',

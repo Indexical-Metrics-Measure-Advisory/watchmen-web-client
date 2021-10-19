@@ -5,6 +5,8 @@ import {CheckBox} from '@/widgets/basic/checkbox';
 import {Input} from '@/widgets/basic/input';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {ChangeEvent, useState} from 'react';
+import {PipelineCandidate, TopicCandidate} from './types';
+import {getCandidateName, isPipelineCandidate, isTopicCandidate} from './utils';
 import {
 	PickerTableBody,
 	PickerTableBodyCell,
@@ -18,29 +20,12 @@ interface Filter {
 	handler?: number;
 }
 
-interface TopicCandidate {
-	topic: Topic;
-	picked: boolean;
-}
-
-interface PipelineCandidate {
-	pipeline: Pipeline;
-	picked: boolean;
-}
-
-interface Candidate {
+interface Candidates {
 	topics: Array<TopicCandidate>;
 	pipelines: Array<PipelineCandidate>;
 }
 
-const isTopicCandidate = (candidate: any): candidate is TopicCandidate => {
-	return candidate.topic != null;
-};
-const isPipelineCandidate = (candidate: any): candidate is PipelineCandidate => {
-	return candidate.pipeline != null;
-};
-
-export const ImportPickerTable = (props: { candidates: Candidate; cachedTopics: Array<Topic>; cachedPipelines: Array<Pipeline>; }) => {
+export const ImportPickerTable = (props: { candidates: Candidates; cachedTopics: Array<Topic>; cachedPipelines: Array<Pipeline>; }) => {
 	const {candidates: {topics: topicCandidates, pipelines: pipelineCandidates}, cachedTopics, cachedPipelines} = props;
 
 	const [items, setItems] = useState([...topicCandidates, ...pipelineCandidates]);
@@ -60,13 +45,7 @@ export const ImportPickerTable = (props: { candidates: Candidate; cachedTopics: 
 					setItems([...topicCandidates, ...pipelineCandidates]);
 				} else {
 					setItems([...topicCandidates, ...pipelineCandidates].filter(candidate => {
-						if (isTopicCandidate(candidate)) {
-							return (candidate.topic.name || 'Noname Topic').toLowerCase().includes(text);
-						} else if (isPipelineCandidate(candidate)) {
-							return (candidate.pipeline.name || 'Noname Pipeline').toLowerCase().includes(text);
-						} else {
-							return false;
-						}
+						return getCandidateName(candidate).toLowerCase().includes(text);
 					}));
 				}
 			}, 300)

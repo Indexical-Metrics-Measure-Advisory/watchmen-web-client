@@ -3,6 +3,7 @@ import {
 	deleteMockConnectedSpace,
 	fetchMockConnectedSpaceGraphics,
 	fetchMockConnectedSpaces,
+	listMockConnectedSpacesForExport,
 	renameMockConnectedSpace,
 	saveMockConnectedSpace,
 	saveMockConnectedSpaceGraphics
@@ -16,6 +17,14 @@ export const fetchConnectedSpaces = async (): Promise<Array<ConnectedSpace>> => 
 		return fetchMockConnectedSpaces();
 	} else {
 		return await get({api: Apis.CONNECTED_SPACES_MINE});
+	}
+};
+
+export const listConnectedSpacesForExport = async (): Promise<Array<ConnectedSpace>> => {
+	if (isMockService()) {
+		return listMockConnectedSpacesForExport();
+	} else {
+		return await get({api: Apis.CONNECTED_SPACES_EXPORT});
 	}
 };
 
