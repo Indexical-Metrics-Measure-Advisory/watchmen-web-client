@@ -4,7 +4,7 @@ import React from 'react';
 import {Bracket, ExpressionOperator, JointContainer, Whitespace} from '../dsl-widgets';
 import {ParameterLines} from '../parameter';
 
-const Labels: { [key in ParameterExpressionOperator]: string } = {
+const Labels: Record<ParameterExpressionOperator, string> = {
 	[ParameterExpressionOperator.EMPTY]: 'Is Empty',
 	[ParameterExpressionOperator.NOT_EMPTY]: 'Is Not Empty',
 	[ParameterExpressionOperator.EQUALS]: '=',

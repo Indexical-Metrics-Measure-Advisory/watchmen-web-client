@@ -9,7 +9,7 @@ import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';
 import {FactorPropDropdown, FactorTypeCellContainer, IncorrectFactorType} from './widgets';
 
-const AllTypeOptions: { [key in FactorType]: { label: string, order: number } } = {
+const AllTypeOptions: Record<FactorType, { label: string, order: number }> = {
 	[FactorType.SEQUENCE]: {label: En.FACTOR.SEQUENCE, order: 99999},
 
 	[FactorType.NUMBER]: {label: En.FACTOR.NUMBER, order: 10001},

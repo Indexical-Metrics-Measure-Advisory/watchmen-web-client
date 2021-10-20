@@ -5,7 +5,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {ParameterFromEditContainer, ParameterFromIcon, ParameterTypeButton} from './widgets';
 
-const OptionsLabel: { [key in ParameterKind]: string } = {
+const OptionsLabel: Record<ParameterKind, string> = {
 	[ParameterKind.TOPIC]: 'Topic',
 	[ParameterKind.CONSTANT]: 'Constant',
 	[ParameterKind.COMPUTED]: 'Compute'

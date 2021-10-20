@@ -1,7 +1,7 @@
 import {ParameterComputeType} from '@/services/data/tuples/factor-calculator-types';
 import {Lang} from '@/widgets/langs';
 
-export const ParameterComputeTypeLabels: { [key in ParameterComputeType]: string } = {
+export const ParameterComputeTypeLabels: Record<ParameterComputeType, string> = {
 	[ParameterComputeType.NONE]: Lang.PARAMETER.COMPUTE_TYPE.NONE,
 	[ParameterComputeType.ADD]: Lang.PARAMETER.COMPUTE_TYPE.ADD,
 	[ParameterComputeType.SUBTRACT]: Lang.PARAMETER.COMPUTE_TYPE.SUBTRACT,

@@ -79,7 +79,7 @@ export interface SourceTypes {
 /**
  * compatible compatible means types in value can be write into type in key
  */
-export const CompatibleTypes: { [key in FactorType]: SourceTypes } = {
+export const CompatibleTypes: Record<FactorType, SourceTypes> = {
 	[FactorType.SEQUENCE]: {includes: [FactorType.SEQUENCE, FactorType.NUMBER, FactorType.UNSIGNED]},
 
 	[FactorType.NUMBER]: {
@@ -186,7 +186,7 @@ export enum FactorEncryptMethod {
 	MASK_MONTH_DAY = 'MASK-MONTH-DAY'
 }
 
-export const CompatibleEncryptMethods: { [key in FactorType]: Array<FactorEncryptMethod> } = {
+export const CompatibleEncryptMethods: Record<FactorType, Array<FactorEncryptMethod>> = {
 	[FactorType.SEQUENCE]: [],
 
 	[FactorType.NUMBER]: [],

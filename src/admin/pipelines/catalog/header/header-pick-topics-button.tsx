@@ -63,11 +63,11 @@ export const HeaderPickTopicsButton = (props: {
 		const selection = topics.reduce((map, topic) => {
 			map[topic.topicId] = topic;
 			return map;
-		}, {} as { [key in string]: Topic });
+		}, {} as Record<string, Topic>);
 		const exists = graphics.topics.reduce((map, {topic}) => {
 			map[topic.topicId] = topic;
 			return map;
-		}, {} as { [key in string]: Topic });
+		}, {} as Record<string, Topic>);
 		graphics.topics = [
 			// remove unpicked
 			...graphics.topics.filter(({topic}) => selection[topic.topicId]),

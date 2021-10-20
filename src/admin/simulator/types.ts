@@ -1,1 +1,1 @@
-export type DataRow = { [key in string]: any };
+export type DataRow = Record<string, any>;

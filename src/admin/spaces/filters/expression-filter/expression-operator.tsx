@@ -28,7 +28,7 @@ const AvailableOperators = [
 	ParameterExpressionOperator.NOT_IN
 ];
 
-const FilterExpressionOperatorLabels: { [key in ParameterExpressionOperator]: string } = {
+const FilterExpressionOperatorLabels: Record<ParameterExpressionOperator, string> = {
 	[ParameterExpressionOperator.EMPTY]: 'Is Empty',
 	[ParameterExpressionOperator.NOT_EMPTY]: 'Is Not Empty',
 	[ParameterExpressionOperator.EQUALS]: 'Equals',

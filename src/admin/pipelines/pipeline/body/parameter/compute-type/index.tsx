@@ -12,7 +12,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {ParameterComputeTypeContainer, ParameterComputeTypeIcon, ParameterComputeTypeLabel} from './widgets';
 
-const ParameterComputeTypeLabels: { [key in ParameterComputeType]: string } = {
+const ParameterComputeTypeLabels: Record<ParameterComputeType, string> = {
 	[ParameterComputeType.NONE]: 'None',
 	[ParameterComputeType.ADD]: 'Add',
 	[ParameterComputeType.SUBTRACT]: 'Subtract',

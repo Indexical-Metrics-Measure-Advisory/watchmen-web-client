@@ -126,7 +126,7 @@ export enum ParameterInvalidReason {
 	EXPRESSION_RIGHT_NOT_DEFINED = 'expression-right-not-defined'
 }
 
-export const ParameterInvalidReasonsLabels: { [key in ParameterInvalidReason]: string } = {
+export const ParameterInvalidReasonsLabels: Record<ParameterInvalidReason, string> = {
 	[ParameterInvalidReason.TOPIC_NOT_DEFINED]: 'topic not defined',
 	[ParameterInvalidReason.TOPIC_NOT_FOUND]: 'topic not found',
 

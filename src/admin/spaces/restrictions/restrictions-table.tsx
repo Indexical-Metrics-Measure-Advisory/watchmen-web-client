@@ -22,7 +22,7 @@ import {
 	RestrictionsTableContainer
 } from './widgets';
 
-type TemporaryFilters = { [key in string]: SpaceFilter };
+type TemporaryFilters = Record<string, SpaceFilter>;
 
 const redressFilters = (space: Space, tempFilters: TemporaryFilters): Array<string> => {
 	if (!space.filters) {

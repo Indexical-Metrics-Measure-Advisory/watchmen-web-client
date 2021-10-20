@@ -129,7 +129,7 @@ const AdminTopics = () => {
 					}, {
 						names: {},
 						invalid: []
-					} as { names: { [key in string]: true }, invalid: Array<number> })
+					} as { names: Record<string, true>, invalid: Array<number> })
 					.invalid
 					.map(index => `#${index}`);
 				onceGlobal(EventTypes.ALERT_HIDDEN, () => {

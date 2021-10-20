@@ -87,7 +87,7 @@ export const RunningPlanHeader = (props: {
 	const topicsMap = topics.reduce((map, topic) => {
 		map[topic.topicId] = topic;
 		return map;
-	}, {} as { [key in string]: Topic });
+	}, {} as Record<string, Topic>);
 
 	const onExportClicked = () => {
 		console.log('2');

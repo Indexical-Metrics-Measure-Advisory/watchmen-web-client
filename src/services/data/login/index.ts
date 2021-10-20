@@ -16,7 +16,7 @@ export const login = async (account: Account): Promise<LoginResponse> => {
 	if (isMockService()) {
 		return mockLogin(account);
 	} else {
-		const data: { [key in string]: string } = {
+		const data: Record<string, string> = {
 			username: account.name || '',
 			password: account.credential || '',
 			grant_type: 'password'

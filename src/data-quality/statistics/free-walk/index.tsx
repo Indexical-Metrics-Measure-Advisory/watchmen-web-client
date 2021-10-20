@@ -148,7 +148,7 @@ export const FreeWalkPanel = () => {
 	const topicMap = topics.reduce((map, topic) => {
 		map[topic.topicId] = topic;
 		return map;
-	}, {} as { [key in string]: Topic });
+	}, {} as Record<string, Topic>);
 	const topicOptions = [
 		{value: '', label: 'Any Topic'},
 		...topics.map(topic => {

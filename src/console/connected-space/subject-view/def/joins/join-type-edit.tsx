@@ -15,7 +15,7 @@ interface DropdownState {
 	left: number;
 }
 
-const Labels: { [key in TopicJoinType]: string } = {
+const Labels: Record<TopicJoinType, string> = {
 	[TopicJoinType.INNER]: Lang.JOIN.INNER,
 	[TopicJoinType.LEFT]: Lang.JOIN.LEFT,
 	[TopicJoinType.RIGHT]: Lang.JOIN.RIGHT

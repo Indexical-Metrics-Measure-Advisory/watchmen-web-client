@@ -124,7 +124,6 @@ const PipelinesDownload = (props: {
 
 		// use these topics to find upstream
 		const topicsMap = buildTopicsMap(topics);
-		// const pipelinesMap = buildPipelinesMap(pipelines);
 		const pipelineRelations = buildPipelinesRelation(pipelines, topicsMap);
 		const topicRelations = buildTopicsRelation(topics, pipelineRelations);
 

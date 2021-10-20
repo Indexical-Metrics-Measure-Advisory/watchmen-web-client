@@ -44,8 +44,8 @@ export interface ChangedDataRow {
 	after: DataRow;
 }
 
-export type AllTopics = { [key in string]: Topic };
-export type InMemoryVariables = { [key in string]: any };
+export type AllTopics = Record<string, Topic>;
+export type InMemoryVariables = Record<string, any>;
 
 export interface DefeatedPipeline {
 	triggerData: ChangedDataRow;

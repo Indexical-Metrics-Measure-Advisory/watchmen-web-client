@@ -1,6 +1,6 @@
 import {ParameterComputeType} from '@/services/data/tuples/factor-calculator-types';
 
-export const ParameterComputeTypeLabels: { [key in ParameterComputeType]: string } = {
+export const ParameterComputeTypeLabels: Record<ParameterComputeType, string> = {
 	[ParameterComputeType.NONE]: 'None',
 	[ParameterComputeType.ADD]: 'Add',
 	[ParameterComputeType.SUBTRACT]: 'Subtract',

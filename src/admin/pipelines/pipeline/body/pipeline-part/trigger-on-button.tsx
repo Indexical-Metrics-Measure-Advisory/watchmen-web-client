@@ -6,7 +6,7 @@ import {usePipelineEventBus} from '../../pipeline-event-bus';
 import {PipelineEventTypes} from '../../pipeline-event-bus-types';
 import {TriggerButton, TriggerContainer, TriggerOn} from './trigger-widgets';
 
-const TriggersLabel: { [key in PipelineTriggerType]: string } = {
+const TriggersLabel: Record<PipelineTriggerType, string> = {
 	[PipelineTriggerType.INSERT_OR_MERGE]: 'Insert or Merge',
 	[PipelineTriggerType.INSERT]: 'Insert',
 	[PipelineTriggerType.MERGE]: 'Merge',

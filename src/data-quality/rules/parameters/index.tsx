@@ -46,7 +46,7 @@ const ParametersLabel = (props: {
 		return null;
 	}
 
-	const compareOperators: { [key in string]: string } = {
+	const compareOperators: Record<string, string> = {
 		[MonitorRuleCompareOperator.EQUAL]: 'equal',
 		[MonitorRuleCompareOperator.LESS_THAN]: 'less than',
 		[MonitorRuleCompareOperator.LESS_THAN_OR_EQUAL]: 'less than or equal',

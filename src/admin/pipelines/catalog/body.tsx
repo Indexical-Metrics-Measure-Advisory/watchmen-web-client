@@ -24,7 +24,7 @@ import {
 	MarkdownBodySvgContainer
 } from './widgets';
 
-const getCSSVariables = (): { [key in string]: string } => {
+const getCSSVariables = (): Record<string, string> => {
 	const styles = window.getComputedStyle(document.documentElement);
 	return [
 		'--distinct-topic-color',
@@ -41,7 +41,7 @@ const getCSSVariables = (): { [key in string]: string } => {
 	].reduce((variables, key) => {
 		variables[key] = styles.getPropertyValue(key);
 		return variables;
-	}, {} as { [key in string]: string });
+	}, {} as Record<string, string>);
 };
 
 const isCSSStyleRule = (rule: CSSRule): rule is CSSStyleRule => {

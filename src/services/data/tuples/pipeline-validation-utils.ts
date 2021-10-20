@@ -439,5 +439,5 @@ export const buildVariables = (
 			temp.exists[v.name] = true;
 		}
 		return temp;
-	}, {exists: {}, all: []} as { exists: { [key in string]: any }, all: DeclaredVariables }).all.reverse();
+	}, {exists: {}, all: []} as { exists: Record<string, any>, all: DeclaredVariables }).all.reverse();
 };

@@ -24,7 +24,7 @@ export interface ParameterCalculatorDef {
 	maxParameterCount?: number;
 }
 
-export const ParameterCalculatorDefsMap: { [key in ParameterComputeType]: ParameterCalculatorDef } = {
+export const ParameterCalculatorDefsMap: Record<ParameterComputeType, ParameterCalculatorDef> = {
 	[ParameterComputeType.NONE]: {name: ParameterComputeType.NONE, parameterCount: 1},
 	[ParameterComputeType.ADD]: {name: ParameterComputeType.ADD, minParameterCount: 2},
 	[ParameterComputeType.SUBTRACT]: {name: ParameterComputeType.SUBTRACT, minParameterCount: 2},

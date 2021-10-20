@@ -28,11 +28,11 @@ import {Pipeline} from '../tuples/pipeline-types';
 import {isRawTopic} from '../tuples/topic';
 import {Topic} from '../tuples/topic-types';
 
-export type FactorsMap = { [key in string]: Factor };
-export type TopicsMap = { [key in string]: Topic };
+export type FactorsMap = Record<string, Factor>;
+export type TopicsMap = Record<string, Topic>;
 export type MappedTopic = { topic: Topic; factors: FactorsMap };
-export type MappedTopicsMap = { [key in string]: MappedTopic };
-export type PipelinesMap = { [key in string]: Pipeline };
+export type MappedTopicsMap = Record<string, MappedTopic>;
+export type PipelinesMap = Record<string, Pipeline>;
 
 export interface RelevantTopic {
 	topic: Topic;
@@ -46,7 +46,7 @@ export interface PipelineRelation {
 	outgoing: Array<RelevantTopic>;
 }
 
-export type PipelineRelationMap = { [key in string]: PipelineRelation }
+export type PipelineRelationMap = Record<string, PipelineRelation>
 /**
  * a factor which is treated as used, means it is read somewhere.
  * some factor even not be written, just defined there only.
@@ -63,10 +63,10 @@ export interface TopicRelation {
 	notUsedFactors: Array<NotUsedFactor>;
 }
 
-export type TopicRelationMap = { [key in string]: TopicRelation };
+export type TopicRelationMap = Record<string, TopicRelation>;
 
 // key is topicId, value is array of factorId
-type UsedFactors = { [key in string]: Array<string> }
+type UsedFactors = Record<string, Array<string>>
 
 const findOnTopicFactorParameter = (parameter: TopicFactorParameter, result: UsedFactors) => {
 	let factors = result[parameter.topicId];

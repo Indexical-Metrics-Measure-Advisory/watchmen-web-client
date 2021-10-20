@@ -6,7 +6,7 @@ import {useJointEventBus} from '../event-bus/joint-event-bus';
 import {JointEventTypes} from '../event-bus/joint-event-bus-types';
 import {JointTypeButton, JointTypeContainer, JointTypeOption} from './widgets';
 
-const OptionsLabel: { [key in ParameterJointType]: string } = {
+const OptionsLabel: Record<ParameterJointType, string> = {
 	[ParameterJointType.AND]: 'And',
 	[ParameterJointType.OR]: 'Or'
 };

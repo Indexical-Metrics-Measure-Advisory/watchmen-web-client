@@ -22,7 +22,7 @@ export interface FunnelDef {
 }
 
 export type FunnelId = string;
-export type FunnelDefs = { [key in FunnelId]: FunnelDef };
+export type FunnelDefs = Record<FunnelId, FunnelDef>;
 
 export interface FunnelsState {
 	initialized: boolean;

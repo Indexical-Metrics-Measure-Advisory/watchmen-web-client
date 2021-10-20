@@ -1,7 +1,11 @@
 import {tryToImportTopicsAndPipelines} from '@/services/data/data-import/import-data';
 import {ImportDataResponse} from '@/services/data/data-import/import-data-types';
+import {listConnectedSpacesForExport} from '@/services/data/tuples/connected-space';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {savePipelinesGraphics} from '@/services/data/tuples/pipeline';
 import {Pipeline, PipelinesGraphics, TopicGraphics} from '@/services/data/tuples/pipeline-types';
+import {listSpacesForExport} from '@/services/data/tuples/space';
+import {Space} from '@/services/data/tuples/space-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {generateUuid} from '@/services/data/tuples/utils';
 import {getCurrentTime} from '@/services/data/utils';
@@ -27,19 +31,29 @@ import {ImportPickerTable} from './import-picker-table';
 import {PICKER_DIALOG_HEIGHT, PickerDialogBody} from './widgets';
 
 const PipelinesImport = (props: {
-	topics: Array<Topic>;
-	cachedTopics: Array<Topic>;
-	pipelines: Array<Pipeline>;
-	cachedPipelines: Array<Pipeline>;
+	topics: Array<Topic>; cachedTopics: Array<Topic>;
+	pipelines: Array<Pipeline>; cachedPipelines: Array<Pipeline>;
+	spaces: Array<Space>; cachedSpaces: Array<Space>;
+	connectedSpaces: Array<ConnectedSpace>; cachedConnectedSpaces: Array<ConnectedSpace>;
 	onSuccess: (options: { topics: Array<Topic>, pipelines: Array<Pipeline> }) => void
 }) => {
-	const {topics, cachedTopics, pipelines, cachedPipelines, onSuccess} = props;
+	const {
+		topics, cachedTopics,
+		pipelines, cachedPipelines,
+		spaces, cachedSpaces,
+		connectedSpaces, cachedConnectedSpaces,
+		onSuccess
+	} = props;
 
 	const {fire: fireGlobal} = useEventBus();
 	const [candidates] = useState(() => {
 		return {
 			topics: topics.map(topic => ({topic, picked: true})),
-			pipelines: pipelines.map(pipeline => ({pipeline, picked: true}))
+			pipelines: pipelines.map(pipeline => ({pipeline, picked: true})),
+			spaces: spaces.map(space => ({space, picked: true})),
+			connectedSpaces: connectedSpaces.map(connectedSpace => ({connectedSpace, picked: true})),
+			subjects: connectedSpaces.map(connectedSpace => connectedSpace.subjects || [])
+				.flat().map(subject => ({subject, picked: true}))
 		};
 	});
 
@@ -69,9 +83,10 @@ const PipelinesImport = (props: {
 
 	return <>
 		<PickerDialogBody>
-			<DialogLabel>Pick topics/spaces to import, related pipelines/connected spaces will be included as well.</DialogLabel>
+			<DialogLabel>Pick items to import.</DialogLabel>
 			<ImportPickerTable candidates={candidates}
-			                   cachedTopics={cachedTopics} cachedPipelines={cachedPipelines}/>
+			                   cachedTopics={cachedTopics} cachedPipelines={cachedPipelines}
+			                   cachedSpaces={cachedSpaces} cachedConnectedSpaces={cachedConnectedSpaces}/>
 		</PickerDialogBody>
 		<DialogFooter>
 			<Button ink={ButtonInk.PRIMARY} onClick={onImportClicked}>Try to Import</Button>
@@ -121,7 +136,7 @@ export const HeaderImportButton = () => {
 			return;
 		}
 		const content = await file.text();
-		const {topics, pipelines} = content.split('\n')
+		const {topics, pipelines, spaces, connectedSpaces} = content.split('\n')
 			.map(x => x.trim())
 			.filter(x => x.startsWith('<a href="data:application/json;base64,'))
 			.map(x => x.replace('<a href="data:application/json;base64,', ''))
@@ -132,14 +147,26 @@ export const HeaderImportButton = () => {
 					all.pipelines.push(item as Pipeline);
 				} else if (item.topicId) {
 					all.topics.push(item as Topic);
+				} else if (item.connectId) {
+					all.connectedSpaces.push(item as ConnectedSpace);
+				} else if (item.spaceId) {
+					all.spaces.push(item as Space);
 				}
 				return all;
-			}, {topics: [] as Array<Topic>, pipelines: [] as Array<Pipeline>});
-		onceCache(AdminCacheEventTypes.REPLY_DATA, (data?: AdminCacheData) => {
+			}, {
+				topics: [] as Array<Topic>,
+				pipelines: [] as Array<Pipeline>,
+				spaces: [] as Array<Space>,
+				connectedSpaces: [] as Array<ConnectedSpace>
+			});
+		onceCache(AdminCacheEventTypes.REPLY_DATA, async (data?: AdminCacheData) => {
 			const {topics: cachedTopics, pipelines: cachedPipelines} = data || {};
+			const [cachedSpaces, cachedConnectedSpaces] = await Promise.all([listSpacesForExport(), listConnectedSpacesForExport()]);
 			fireGlobal(EventTypes.SHOW_DIALOG,
 				<PipelinesImport topics={topics} cachedTopics={cachedTopics || []}
 				                 pipelines={pipelines} cachedPipelines={cachedPipelines || []}
+				                 spaces={spaces} cachedSpaces={cachedSpaces}
+				                 connectedSpaces={connectedSpaces} cachedConnectedSpaces={cachedConnectedSpaces}
 				                 onSuccess={onImportSuccess}/>, {
 					marginTop: '10vh',
 					marginLeft: '20%',

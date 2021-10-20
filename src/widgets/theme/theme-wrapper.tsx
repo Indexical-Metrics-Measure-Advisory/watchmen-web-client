@@ -92,7 +92,7 @@ const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
 	}
 `;
 
-const THEMES: { [key in string]: Theme } = {
+const THEMES: Record<string, Theme> = {
 	[DarkTheme.code]: DarkTheme,
 	[DefaultTheme.code]: DefaultTheme
 };

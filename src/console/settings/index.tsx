@@ -1,7 +1,7 @@
 import {VerticalMarginOneUnit} from '@/widgets/basic/margin';
 import {FixWidthPage} from '@/widgets/basic/page';
 import {PageHeader} from '@/widgets/basic/page-header';
-import { LanguageSettings } from '@/widgets/common-settings/language';
+import {LanguageSettings} from '@/widgets/common-settings/language';
 import {PersonalAccessToken} from '@/widgets/common-settings/personal-access-token';
 import {ThemeSettings} from '@/widgets/common-settings/theme';
 import {Lang} from '@/widgets/langs';

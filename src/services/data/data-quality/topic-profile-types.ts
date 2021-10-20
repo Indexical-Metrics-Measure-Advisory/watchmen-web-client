@@ -14,8 +14,8 @@ export interface TopicProfileFactor {
 	p_unique: number;
 	type: TopicProfileFactorType;
 	hashable: boolean;
-	value_counts_without_nan: { [key in string]: number };
-	value_counts_index_sorted: { [key in string]: number };
+	value_counts_without_nan: Record<string, number>;
+	value_counts_index_sorted: Record<string, number>;
 	ordering: boolean;
 	n_missing: number;
 	n: number;
@@ -30,7 +30,7 @@ export interface TopicProfileCategoricalFactor extends TopicProfileFactor {
 		counts: Array<number>;
 		bin_edges: Array<number>;
 	};
-	first_rows: { [key in string]: string };
+	first_rows: Record<string, string>;
 	mode: string;
 }
 
@@ -101,9 +101,9 @@ export interface TopicProfileData {
 		n_vars_with_missing: number;
 		n_vars_all_missing: number;
 		p_cells_missing: number;
-		types: { [key in TopicProfileFactorType]: number }
+		types: Record<TopicProfileFactorType, number>
 	};
-	variables: { [key in string]: TopicProfileFactor };
+	variables: Record<string, TopicProfileFactor>;
 	scatter: {};
 	correlations: {};
 	missing: {};

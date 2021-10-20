@@ -5,7 +5,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useState} from 'react';
 import {AggregateArithmeticButton, AggregateArithmeticContainer, AggregateArithmeticOption} from './widgets';
 
-const OptionsLabel: { [key in AggregateArithmetic]: string } = {
+const OptionsLabel: Record<AggregateArithmetic, string> = {
 	[AggregateArithmetic.NONE]: 'As Is',
 	[AggregateArithmetic.SUM]: 'Sum',
 	[AggregateArithmetic.AVG]: 'Avg',

@@ -12,7 +12,7 @@ import {ChartTreeUtils} from './chart-tree-utils';
 import {ChartTreemapUtils} from './chart-treemap-utils';
 import {ChartUtils} from './types';
 
-export const ChartHelper: { [key in ChartType]: ChartUtils } = {
+export const ChartHelper: Record<ChartType, ChartUtils> = {
 	[ChartType.BAR]: new ChartBarUtils(),
 	[ChartType.LINE]: new ChartLineUtils(),
 

@@ -22,7 +22,7 @@ import {
 	ActionTypeOptions
 } from './widgets';
 
-const ActionTypeLabels: { [key in PipelineStageUnitActionType]: string } = {
+const ActionTypeLabels: Record<PipelineStageUnitActionType, string> = {
 	[SystemActionType.ALARM]: 'Alarm',
 	[SystemActionType.COPY_TO_MEMORY]: 'Copy to Variable',
 	[SystemActionType.WRITE_TO_EXTERNAL]: 'Write to External',

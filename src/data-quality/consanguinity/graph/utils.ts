@@ -76,7 +76,7 @@ const build = (options: {
 	processedTopics: Array<Topic>;
 	factorsMap: MappedTopicsMap;
 	links: Array<Link>;
-	linkTimes: { [key in string]: number }
+	linkTimes: Record<string, number>
 
 	pipeline: Pipeline;
 	pipelineNodeId: string;
@@ -137,7 +137,7 @@ export const compute = (options: {
 	let processedTopics: Array<Topic> = [];
 	const factorsMap: MappedTopicsMap = {};
 	const links: Array<Link> = [];
-	const linkTimes: { [key in string]: number } = {};
+	const linkTimes: Record<string, number> = {};
 
 	Object.values(relations.pipelines).forEach(pipelineRelation => {
 		const {pipeline, trigger, incoming, outgoing} = pipelineRelation;

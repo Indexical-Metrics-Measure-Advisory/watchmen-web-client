@@ -32,7 +32,7 @@ import {
 	UnknownParameterNode
 } from './literal-widgets';
 
-export const JoinLabels: { [key in TopicJoinType]: string } = {
+export const JoinLabels: Record<TopicJoinType, string> = {
 	[TopicJoinType.INNER]: Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_INNER,
 	[TopicJoinType.LEFT]: Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_LEFT,
 	[TopicJoinType.RIGHT]: Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_JOIN_RIGHT

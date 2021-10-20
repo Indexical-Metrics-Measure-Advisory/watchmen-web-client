@@ -19,7 +19,7 @@ export interface SimulateStart {
 	startPipeline: Pipeline | null;
 }
 
-export type TopicsData = { [key in string]: Array<DataRow> };
+export type TopicsData = Record<string, Array<DataRow>>;
 
 export interface SimulatorState extends SimulateStart {
 	step: ActiveStep;

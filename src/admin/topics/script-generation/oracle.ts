@@ -1,6 +1,6 @@
 import {FactorType} from '@/services/data/tuples/factor-types';
 
-export const OracleFactorTypeMap: { [key in FactorType]: string } = {
+export const OracleFactorTypeMap: Record<FactorType, string> = {
 	[FactorType.SEQUENCE]: 'NUMBER(30)',
 
 	[FactorType.NUMBER]: 'NUMBER(32,6)',

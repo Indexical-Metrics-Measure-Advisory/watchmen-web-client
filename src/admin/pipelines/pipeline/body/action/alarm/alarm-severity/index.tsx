@@ -6,7 +6,7 @@ import {useActionEventBus} from '../../action-event-bus';
 import {ActionEventTypes} from '../../action-event-bus-types';
 import {SeverityButton, SeverityContainer, SeverityOption} from './widgets';
 
-const OptionsLabel: { [key in AlarmActionSeverity]: string } = {
+const OptionsLabel: Record<AlarmActionSeverity, string> = {
 	[AlarmActionSeverity.CRITICAL]: 'Critical',
 	[AlarmActionSeverity.HIGH]: 'High',
 	[AlarmActionSeverity.MEDIUM]: 'Medium',

@@ -1,12 +1,37 @@
-import {PipelinesMap, TopicsMap} from '@/services/data/pipeline/pipeline-relations';
+import {
+	buildPipelinesRelation,
+	buildTopicsMap,
+	buildTopicsRelation,
+	PipelinesMap,
+	TopicsMap
+} from '@/services/data/pipeline/pipeline-relations';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Space} from '@/services/data/tuples/space-types';
+import {Subject} from '@/services/data/tuples/subject-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {CheckBox} from '@/widgets/basic/checkbox';
 import {Input} from '@/widgets/basic/input';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {ChangeEvent, useState} from 'react';
-import {PipelineCandidate, TopicCandidate} from './types';
-import {getCandidateKey, getCandidateName, getCandidateType, isPipelineCandidate, isTopicCandidate} from './utils';
+import {
+	Candidate,
+	ConnectedSpaceCandidate,
+	PipelineCandidate,
+	SpaceCandidate,
+	SubjectCandidate,
+	TopicCandidate
+} from './types';
+import {
+	getCandidateKey,
+	getCandidateName,
+	getCandidateType,
+	isConnectedSpaceCandidate,
+	isPipelineCandidate,
+	isSpaceCandidate,
+	isSubjectCandidate,
+	isTopicCandidate
+} from './utils';
 import {
 	PickerTableBody,
 	PickerTableBodyCell,
@@ -23,12 +48,175 @@ interface Filter {
 interface Candidates {
 	topics: Array<TopicCandidate>;
 	pipelines: Array<PipelineCandidate>;
+	spaces: Array<SpaceCandidate>;
+	connectedSpaces: Array<ConnectedSpaceCandidate>;
+	subjects: Array<SubjectCandidate>;
 }
 
-export const ImportPickerTable = (props: { candidates: Candidates; cachedTopics: Array<Topic>; cachedPipelines: Array<Pipeline>; }) => {
-	const {candidates: {topics: topicCandidates, pipelines: pipelineCandidates}, cachedTopics, cachedPipelines} = props;
+type SpacesMap = Record<string, Space>;
+type ConnectedSpacesMap = Record<string, ConnectedSpace>;
+type SubjectsMap = Record<string, Subject>;
 
-	const [items, setItems] = useState([...topicCandidates, ...pipelineCandidates]);
+interface TopicRelations {
+	pipelines: Array<PipelineCandidate>;
+	spaces: Array<SpaceCandidate>;
+	connectedSpaces: Array<ConnectedSpaceCandidate>;
+	subjects: Array<SubjectCandidate>;
+}
+
+interface PipelineRelations {
+	topics: Array<TopicCandidate>;
+}
+
+interface SpaceRelations {
+	topics: Array<TopicCandidate>;
+	connectedSpaces: Array<ConnectedSpaceCandidate>;
+	subjects: Array<SubjectCandidate>;
+}
+
+interface ConnectedSpaceRelations {
+	subjects: Array<SubjectCandidate>;
+}
+
+interface SubjectRelations {
+	connectedSpaces: Array<ConnectedSpaceCandidate>;
+}
+
+const isCandidateExisted = (candidate: Candidate, existsMap: { topics: TopicsMap; pipelines: PipelinesMap; spaces: SpacesMap, connectedSpaces: ConnectedSpacesMap; subjects: SubjectsMap }): boolean => {
+	if (isTopicCandidate(candidate)) {
+		if (existsMap.topics[candidate.topic.topicId] != null) {
+			return true;
+		}
+	} else if (isPipelineCandidate(candidate)) {
+		if (existsMap.pipelines[candidate.pipeline.pipelineId] != null) {
+			return true;
+		}
+	} else if (isSpaceCandidate(candidate)) {
+		if (existsMap.spaces[candidate.space.spaceId] != null) {
+			return true;
+		}
+	} else if (isConnectedSpaceCandidate(candidate)) {
+		if (existsMap.connectedSpaces[candidate.connectedSpace.spaceId] != null) {
+			return true;
+		}
+	} else if (isSubjectCandidate(candidate)) {
+		if (existsMap.subjects[candidate.subject.subjectId] != null) {
+			return true;
+		}
+	}
+	return false;
+};
+
+const buildCandidatesRelationship = (candidates: Candidates) => {
+	const topics = (candidates.topics || []).map(({topic}) => topic);
+	const pipelines = (candidates.pipelines || []).map(({pipeline}) => pipeline);
+	const topicsMap = buildTopicsMap(topics);
+	const pipelineRelations = buildPipelinesRelation(pipelines, topicsMap);
+	const topicRelations = buildTopicsRelation(topics, pipelineRelations);
+	const topicCandidatesMap = candidates.topics.reduce((map, topic) => {
+		map[topic.topic.topicId] = topic;
+		return map;
+	}, {} as Record<string, TopicCandidate>);
+	const pipelineCandidatesMap = candidates.pipelines.reduce((map, pipeline) => {
+		map[pipeline.pipeline.pipelineId] = pipeline;
+		return map;
+	}, {} as Record<string, PipelineCandidate>);
+
+	return {
+		topics: (candidates.topics || []).reduce((map, {topic}) => {
+			const r: TopicRelations = map[topic.topicId] ?? {
+				pipelines: [],
+				spaces: [],
+				connectedSpaces: [],
+				subjects: []
+			};
+			map[topic.topicId] = r;
+			r.pipelines = [...new Set([
+				...(topicRelations[topic.topicId].readMe || []),
+				...(topicRelations[topic.topicId].writeMe || []),
+				// eslint-disable-next-line
+				...(candidates.pipelines || []).filter(({pipeline}) => pipeline.topicId == topic.topicId).map(({pipeline}) => pipeline)
+			])].map(pipeline => pipelineCandidatesMap[pipeline.pipelineId]).filter(x => !!x);
+			// eslint-disable-next-line
+			r.spaces = (candidates.spaces || []).filter(({space}) => (space.topicIds || []).some(topicId => topicId == topic.topicId));
+			// eslint-disable-next-line
+			r.connectedSpaces = (candidates.connectedSpaces || []).filter(({connectedSpace}) => r.spaces.some(({space}) => connectedSpace.spaceId == space.spaceId));
+			r.subjects = (candidates.subjects || []).filter(({subject}) => {
+				return r.connectedSpaces.some(({connectedSpace}) => (connectedSpace.subjects || []).includes(subject));
+			});
+			return map;
+		}, {} as Record<string, TopicRelations>),
+		pipelines: (candidates.pipelines || []).reduce((map, {pipeline}) => {
+			const r: PipelineRelations = map[pipeline.pipelineId] ?? {topics: []};
+			map[pipeline.pipelineId] = r;
+			r.topics = [...new Set([
+				pipelineRelations[pipeline.pipelineId].trigger,
+				...(pipelineRelations[pipeline.pipelineId].incoming || []),
+				...(pipelineRelations[pipeline.pipelineId].outgoing || [])
+			])].filter(x => !!x).map(topic => topic ? topicCandidatesMap[topic.topic.topicId] : null).filter(x => !!x) as Array<TopicCandidate>;
+			return map;
+		}, {} as Record<string, PipelineRelations>),
+		spaces: (candidates.spaces || []).reduce((map, {space}) => {
+			const r: SpaceRelations = map[space.spaceId] ?? {topics: [], connectedSpaces: [], subjects: []};
+			map[space.spaceId] = r;
+			// eslint-disable-next-line
+			r.topics = (candidates.topics || []).filter(({topic}) => (space.topicIds || []).some(topicId => topicId == topic.topicId));
+			// eslint-disable-next-line
+			r.connectedSpaces = (candidates.connectedSpaces || []).filter(({connectedSpace}) => connectedSpace.spaceId == space.spaceId);
+			r.subjects = (candidates.subjects || []).filter(({subject}) => {
+				return r.connectedSpaces.some(({connectedSpace}) => (connectedSpace.subjects || []).includes(subject));
+			});
+			return map;
+		}, {} as Record<string, SpaceRelations>),
+		connectedSpaces: (candidates.connectedSpaces || []).reduce((map, {connectedSpace}) => {
+			const r: ConnectedSpaceRelations = map[connectedSpace.connectId] ?? {subjects: []};
+			map[connectedSpace.connectId] = r;
+			r.subjects = (candidates.subjects || []).filter(({subject}) => (connectedSpace.subjects || []).includes(subject));
+			return map;
+		}, {} as Record<string, ConnectedSpaceRelations>),
+		subjects: (candidates.subjects || []).reduce((map, {subject}) => {
+			const r: SubjectRelations = map[subject.subjectId] ?? {connectedSpaces: []};
+			map[subject.subjectId] = r;
+			r.connectedSpaces = (candidates.connectedSpaces || []).filter(({connectedSpace}) => (connectedSpace.subjects || []).includes(subject));
+			return map;
+		}, {} as Record<string, SubjectRelations>)
+	};
+};
+
+export const ImportPickerTable = (props: {
+	candidates: Candidates;
+	cachedTopics: Array<Topic>; cachedPipelines: Array<Pipeline>;
+	cachedSpaces: Array<Space>; cachedConnectedSpaces: Array<ConnectedSpace>;
+}) => {
+	const {candidates, cachedTopics, cachedPipelines, cachedSpaces, cachedConnectedSpaces} = props;
+	const {
+		topics: topicCandidates, pipelines: pipelineCandidates,
+		spaces: spaceCandidates, connectedSpaces: connectedSpaceCandidates,
+		subjects: subjectCandidates
+	} = candidates;
+
+	console.log(connectedSpaceCandidates);
+
+	const [items] = useState(() => {
+		return [...topicCandidates, ...pipelineCandidates, ...spaceCandidates.map(spaceCandidate => {
+			const spaceId = spaceCandidate.space.spaceId;
+			return [
+				spaceCandidate,
+				...connectedSpaceCandidates
+					// eslint-disable-next-line
+					.filter(connectedSpaceCandidate => connectedSpaceCandidate.connectedSpace.spaceId == spaceId)
+					.map(connectedSpaceCandidate => {
+						const subjectIds = (connectedSpaceCandidate.connectedSpace.subjects || []).map(subject => subject.subjectId);
+						return [
+							connectedSpaceCandidate,
+							// eslint-disable-next-line
+							...subjectCandidates.filter(subjectCandidate => subjectIds.some(subjectId => subjectId == subjectCandidate.subject.subjectId))
+						];
+					}).flat()];
+		}).flat()];
+	});
+	const [relations] = useState(buildCandidatesRelationship(candidates));
+	const [displayItems, setDisplayItems] = useState(items);
 	const [filter, setFilter] = useState<Filter>({value: ''});
 	const forceUpdate = useForceUpdate();
 
@@ -42,9 +230,10 @@ export const ImportPickerTable = (props: { candidates: Candidates; cachedTopics:
 				delete filter.handler;
 				const text = value.trim().toLowerCase();
 				if (text === '') {
-					setItems([...topicCandidates, ...pipelineCandidates]);
+					// show all
+					setDisplayItems(items);
 				} else {
-					setItems([...topicCandidates, ...pipelineCandidates].filter(candidate => {
+					setDisplayItems(items.filter(candidate => {
 						return getCandidateName(candidate).toLowerCase().includes(text);
 					}));
 				}
@@ -52,20 +241,55 @@ export const ImportPickerTable = (props: { candidates: Candidates; cachedTopics:
 		});
 	};
 	const onAllSelectionChange = () => {
-		const allSelected = items.every(item => item.picked);
+		const allSelected = displayItems.every(item => item.picked);
 		if (allSelected) {
-			items.forEach(item => item.picked = false);
+			displayItems.forEach(item => item.picked = false);
 		} else {
-			items.forEach(item => item.picked = true);
+			displayItems.forEach(item => item.picked = true);
 		}
 		forceUpdate();
 	};
-	const onSelectionChange = (candidate: TopicCandidate | PipelineCandidate) => (value: boolean) => {
+	const onSelectionChange = (candidate: TopicCandidate | PipelineCandidate | SpaceCandidate | ConnectedSpaceCandidate | SubjectCandidate) => (value: boolean) => {
 		candidate.picked = value;
+		if (isTopicCandidate(candidate) && !candidate.picked) {
+			// unpick a topic, unpick related pipelines/spaces/connected spaces/subjects as well
+			const {pipelines, spaces, connectedSpaces, subjects} = relations.topics[candidate.topic.topicId] || {};
+			[...pipelines, ...spaces, ...connectedSpaces, ...subjects].filter(x => !!x)
+				.forEach(candidate => candidate.picked = false);
+		} else if (isPipelineCandidate(candidate) && candidate.picked) {
+			// pick a pipeline, pick related topics
+			const {topics} = relations.pipelines[candidate.pipeline.pipelineId] || {};
+			(topics || []).forEach(candidate => candidate.picked = true);
+		} else if (isSpaceCandidate(candidate)) {
+			if (candidate.picked) {
+				// pick a space, pick related topics
+				const {topics} = relations.spaces[candidate.space.spaceId] || {};
+				(topics || []).forEach(candidate => candidate.picked = true);
+			} else {
+				// unpick a space, unpick related connected spaces and subjects
+				const {connectedSpaces, subjects} = relations.spaces[candidate.space.spaceId] || {};
+				[...connectedSpaces, ...subjects].filter(x => !!x).forEach(candidate => candidate.picked = false);
+			}
+		} else if (isConnectedSpaceCandidate(candidate)) {
+			const {subjects} = relations.connectedSpaces[candidate.connectedSpace.connectId] || {};
+			if (candidate.picked) {
+				// pick a connected spaces, pick all subjects
+				(subjects || []).forEach(subjectCandidate => subjectCandidate.picked = true);
+			} else {
+				// unpick a connected space, unpick all subjects
+				(subjects || []).forEach(subjectCandidate => subjectCandidate.picked = false);
+			}
+		} else if (isSubjectCandidate(candidate)) {
+			const {connectedSpaces} = relations.subjects[candidate.subject.subjectId] || {};
+			(connectedSpaces || []).forEach(connectedSpaceCandidate => {
+				const {subjects} = relations.connectedSpaces[connectedSpaceCandidate.connectedSpace.connectId] || {};
+				connectedSpaceCandidate.picked = (subjects || []).every(subject => subject.picked);
+			});
+		}
 		forceUpdate();
 	};
 
-	const allSelected = items.every(item => item.picked);
+	const allSelected = displayItems.every(item => item.picked);
 
 	const topicsMap: TopicsMap = cachedTopics.reduce((map, topic) => {
 		map[topic.topicId] = topic;
@@ -75,6 +299,15 @@ export const ImportPickerTable = (props: { candidates: Candidates; cachedTopics:
 		map[pipeline.pipelineId] = pipeline;
 		return map;
 	}, {} as PipelinesMap);
+	const spacesMap: SpacesMap = cachedSpaces.reduce((map, space) => {
+		map[space.spaceId] = space;
+		return map;
+	}, {} as SpacesMap);
+	const {connectedSpacesMap, subjectsMap} = cachedConnectedSpaces.reduce((map, connectedSpace) => {
+		map.connectedSpacesMap[connectedSpace.connectId] = connectedSpace;
+		(connectedSpace.subjects || []).forEach(subject => map.subjectsMap[subject.subjectId] = subject);
+		return map;
+	}, {connectedSpacesMap: {} as ConnectedSpacesMap, subjectsMap: {} as SubjectsMap});
 
 	return <>
 		<PickerTableHeader>
@@ -90,19 +323,7 @@ export const ImportPickerTable = (props: { candidates: Candidates; cachedTopics:
 			</PickerTableHeaderCell>
 		</PickerTableHeader>
 		<PickerTableBody>
-			{items.map((candidate, index) => {
-				let comment;
-				if (isTopicCandidate(candidate)) {
-					if (topicsMap[candidate.topic.topicId] != null) {
-						comment = 'Already exists.';
-					}
-				} else if (isPipelineCandidate(candidate)) {
-					if (pipelinesMap[candidate.pipeline.pipelineId] != null) {
-						comment = 'Already exists.';
-					}
-				} else {
-					return null;
-				}
+			{displayItems.map((candidate, index) => {
 				return <PickerTableBodyRow columns={5} key={getCandidateKey(candidate)}>
 					<PickerTableBodyCell>{index + 1}</PickerTableBodyCell>
 					<PickerTableBodyCell>
@@ -110,7 +331,13 @@ export const ImportPickerTable = (props: { candidates: Candidates; cachedTopics:
 					</PickerTableBodyCell>
 					<PickerTableBodyCell>{getCandidateType(candidate)}</PickerTableBodyCell>
 					<PickerTableBodyCell>{getCandidateName(candidate)}</PickerTableBodyCell>
-					<PickerTableBodyCell>{comment}</PickerTableBodyCell>
+					<PickerTableBodyCell>{isCandidateExisted(candidate, {
+						topics: topicsMap,
+						pipelines: pipelinesMap,
+						spaces: spacesMap,
+						connectedSpaces: connectedSpacesMap,
+						subjects: subjectsMap
+					}) ? 'Already exists.' : ''}</PickerTableBodyCell>
 				</PickerTableBodyRow>;
 			}).filter(x => x)}
 		</PickerTableBody>

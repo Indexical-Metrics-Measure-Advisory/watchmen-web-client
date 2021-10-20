@@ -47,7 +47,7 @@ export const RangeEnumEditor = (props: { funnel: ReportFunnel, options: Array<Dr
 	const valueMap = values.reduce((map, value) => {
 		map[`${value}`] = true;
 		return map;
-	}, {} as { [key in string]: true });
+	}, {} as Record<string, true>);
 	const availableOptions = [
 		{value: '', label: Lang.CHART.PLEASE_SELECT_FUNNEL_VALUE},
 		...options.filter(option => !valueMap[`${option.value}`])

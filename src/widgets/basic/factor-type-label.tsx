@@ -8,7 +8,7 @@ const FactorTypeContainer = styled.span.attrs({'data-widget': 'factor-type'})`
 	align-items : center;
 `;
 
-const Labels: { [key in FactorType]: string } = {
+const Labels: Record<FactorType, string> = {
 	[FactorType.SEQUENCE]: Lang.FACTOR.SEQUENCE,
 
 	[FactorType.NUMBER]: Lang.FACTOR.NUMBER,

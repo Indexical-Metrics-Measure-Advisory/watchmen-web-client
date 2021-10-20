@@ -1,7 +1,7 @@
 import {ParameterExpressionOperator} from '@/services/data/tuples/factor-calculator-types';
 import {Lang} from '@/widgets/langs';
 
-export const FilterExpressionOperatorLabels: { [key in ParameterExpressionOperator]: string } = {
+export const FilterExpressionOperatorLabels: Record<ParameterExpressionOperator, string> = {
 	[ParameterExpressionOperator.EMPTY]: Lang.PARAMETER.EXPRESSION_OPERATOR.EMPTY,
 	[ParameterExpressionOperator.NOT_EMPTY]: Lang.PARAMETER.EXPRESSION_OPERATOR.NOT_EMPTY,
 	[ParameterExpressionOperator.EQUALS]: Lang.PARAMETER.EXPRESSION_OPERATOR.EQUALS,

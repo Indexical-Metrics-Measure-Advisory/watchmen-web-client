@@ -3,10 +3,10 @@ import {isAdmin} from '@/services/data/account';
 import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
+import IndicatorWorkbenchInspectionIndex from './inspection';
 import {IndicatorWorkbenchMenu} from './menu';
 import IndicatorWorkbenchPrepareIndex from './prepare';
 import IndicatorWorkbenchSettingsIndex from './settings';
-import IndicatorWorkbenchInspectionIndex from './inspection';
 
 const IndicatorWorkbenchContainer = styled.div.attrs({'data-widget': 'indicator-workbench'})`
 	display : flex;

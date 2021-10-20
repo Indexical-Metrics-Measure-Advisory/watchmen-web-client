@@ -5,7 +5,7 @@ import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes} from '../console-event-bus-types';
 import {HoldSettings} from './types';
 
-type EnumerationPromises = { [key in string]: Promise<Enum> };
+type EnumerationPromises = Record<string, Promise<Enum>>;
 
 export const useReplier = (options: { holdSettings: HoldSettings }) => {
 	const {holdSettings} = options;

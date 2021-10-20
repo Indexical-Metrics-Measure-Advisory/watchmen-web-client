@@ -74,7 +74,7 @@ export const PeriodicPanel = (props: {
 						const topicMap = topics.reduce((map, topic) => {
 							map[topic.topicId] = topic;
 							return map;
-						}, {} as { [key in string]: Topic });
+						}, {} as Record<string, Topic>);
 						setData(logs.sort((r1, r2) => r1.count === r2.count ? 0 : (r1.count < r2.count) ? 1 : -1)
 							.map(row => {
 								const {topicId, factorId} = row;

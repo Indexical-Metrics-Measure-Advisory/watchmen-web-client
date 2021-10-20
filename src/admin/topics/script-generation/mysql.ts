@@ -1,6 +1,6 @@
 import {FactorType} from '@/services/data/tuples/factor-types';
 
-export const MySQLFactorTypeMap: { [key in FactorType]: string } = {
+export const MySQLFactorTypeMap: Record<FactorType, string> = {
 	[FactorType.SEQUENCE]: 'BIGINT',
 
 	[FactorType.NUMBER]: 'DECIMAL(32,6)',

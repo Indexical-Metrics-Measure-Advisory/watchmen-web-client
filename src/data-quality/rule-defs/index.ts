@@ -30,7 +30,7 @@ export enum MonitorRuleParameterType {
 
 const supportFactorType = (types: Array<FactorType>, type: FactorType) => types.includes(type);
 
-export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
+export const RuleDefs: Record<MonitorRuleCode, MonitorRuleDef> = [
 	{
 		code: MonitorRuleCode.RAW_MISMATCH_STRUCTURE,
 		name: 'Row of raw topic mismatches structure',
@@ -275,4 +275,4 @@ export const RuleDefs: { [key in MonitorRuleCode]: MonitorRuleDef } = [
 ].reduce((map, def) => {
 	map[def.code] = def;
 	return map;
-}, {} as { [key in MonitorRuleCode]: MonitorRuleDef });
+}, {} as Record<MonitorRuleCode, MonitorRuleDef>);

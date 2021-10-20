@@ -57,7 +57,7 @@ export const listSpacesForExport = async (): Promise<Array<Space>> => {
 			if (isMockService()) {
 				spaces = await listMockSpacesForExport();
 			} else {
-				spaces = await get({api: Apis.SPACES_EXPORT});
+				spaces = (await get({api: Apis.SPACES_EXPORT}) || []).map((space: SpaceOnServer) => transformFromServer(space));
 			}
 		} catch {
 			// do nothing, returns an empty array

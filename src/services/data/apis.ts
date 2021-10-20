@@ -135,7 +135,7 @@ export const Apis = {
 	IMPORT_TOPICS_AND_PIPELINES: 'import'
 };
 
-const buildApi = (api: string, args?: { [key in string]: any }): string => {
+const buildApi = (api: string, args?: Record<string, any>): string => {
 	if (!args) {
 		return api;
 	}
@@ -148,7 +148,7 @@ const buildApi = (api: string, args?: { [key in string]: any }): string => {
 const request = async (options: {
 	api: string;
 	method: 'POST' | 'GET';
-	search?: { [key in string]: any };
+	search?: Record<string, any>;
 	auth?: boolean;
 	pageable?: { pageNumber: number; pageSize: number };
 	data?: any;
@@ -175,19 +175,19 @@ const request = async (options: {
 	return await response.json();
 };
 
-export const get = async (options: { api: string; search?: { [key in string]: any }; auth?: boolean }) => {
+export const get = async (options: { api: string; search?: Record<string, any>; auth?: boolean }) => {
 	const {api, search, auth} = options;
 	return await request({api, method: 'GET', search, auth});
 };
 
-export const post = async (options: { api: string; search?: { [key in string]: any }; auth?: boolean; data?: any }) => {
+export const post = async (options: { api: string; search?: Record<string, any>; auth?: boolean; data?: any }) => {
 	const {api, search, auth, data} = options;
 	return await request({api, method: 'POST', search, auth, data});
 };
 
 export const page = async (options: {
 	api: string;
-	search?: { [key in string]: any };
+	search?: Record<string, any>;
 	auth?: boolean;
 	pageable?: { pageNumber: number; pageSize: number };
 }) => {

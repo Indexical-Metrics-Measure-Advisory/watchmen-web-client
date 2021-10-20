@@ -63,7 +63,7 @@ const filterByTargets = (links: Array<Link>, targets: Array<Topic>) => {
 		}
 		exists.push(link);
 		return map;
-	}, {} as { [key in string]: Array<Link> });
+	}, {} as Record<string, Array<Link>>);
 
 	const pickedLinks: Array<Link> = [];
 	const findLinksToTargets = (targets: Array<Topic>) => {
@@ -112,7 +112,7 @@ export const compute = (options: {
 		map[source.topicId] = source;
 		map[target.topicId] = target;
 		return map;
-	}, {} as { [key in string]: Topic });
+	}, {} as Record<string, Topic>);
 	processedTopics = processedTopics.filter(topic => !!existsMap[topic.topicId]);
 
 	if (!processedTopics || processedTopics.length === 0) {

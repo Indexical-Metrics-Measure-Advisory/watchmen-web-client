@@ -76,7 +76,7 @@ const isParameterCanBeComputedInMemory = (parameter: Parameter, topic: Topic): b
 	}
 };
 
-const countIndex = (one: TopicFactorParameter, another: Parameter, topic: Topic, usedIndexGroups: { [key in string]: Array<string> }) => {
+const countIndex = (one: TopicFactorParameter, another: Parameter, topic: Topic, usedIndexGroups: Record<string, Array<string>>) => {
 	if (isParameterCanBeComputedInMemory(another, topic)) {
 		// eslint-disable-next-line
 		const factor = topic.factors.find(factor => factor.factorId == one.factorId);
@@ -96,7 +96,7 @@ const isIndexUsed = (action: FindBy, topic: Topic): boolean => {
 
 	const unique = !isReadFactorsAction(action) && !isReadRowsAction(action) && !isExistsAction(action);
 
-	const definedIndexes: { [key in string]: Array<string> } = topic.factors.reduce((indexes, factor) => {
+	const definedIndexes: Record<string, Array<string>> = topic.factors.reduce((indexes, factor) => {
 		if (factor.indexGroup) {
 			const group = indexes[factor.indexGroup];
 			if (!group) {
@@ -106,8 +106,8 @@ const isIndexUsed = (action: FindBy, topic: Topic): boolean => {
 			}
 		}
 		return indexes;
-	}, {} as { [key in string]: Array<string> });
-	const usedIndexGroups: { [key in string]: Array<string> } = {};
+	}, {} as Record<string, Array<string>>);
+	const usedIndexGroups: Record<string, Array<string>> = {};
 	by.filters.forEach(condition => {
 		if (!isExpressionParameter(condition)) {
 			return;

@@ -1,7 +1,7 @@
 import {Factor} from '@/services/data/tuples/factor-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 
-export type IndexGroups = { [key in string]: Array<Factor> };
+export type IndexGroups = Record<string, Array<Factor>>;
 
 const collectIndexes = (topic: Topic, prefix: string): IndexGroups => {
 	return topic.factors.reduce((map, factor) => {

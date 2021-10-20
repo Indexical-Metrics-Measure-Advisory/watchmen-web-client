@@ -2,7 +2,7 @@ import {BlockCoordinate, BlockFrame, BlockName} from '@/services/data/graphics/g
 import {TopicKind, TopicType} from '@/services/data/tuples/topic-types';
 import styled from 'styled-components';
 
-const STROKES: { [key in TopicType]: string } = {
+const STROKES: Record<TopicType, string> = {
 	[TopicType.DISTINCT]: 'var(--distinct-topic-color)',
 	[TopicType.META]: 'var(--meta-topic-color)',
 	[TopicType.RAW]: 'var(--raw-topic-color)',
