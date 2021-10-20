@@ -1,7 +1,8 @@
 import {CompatibleEncryptMethods, Factor, FactorEncryptMethod, FactorType} from '@/services/data/tuples/factor-types';
 import {isEnumFactor} from '@/services/data/tuples/topic';
+import {Topic} from '@/services/data/tuples/topic-types';
 import parseCSV from 'csv-parse';
-import {createFactor, createTopic} from '../utils';
+import {createFactor, createTopic, isFactorCanBeFlatten} from '../utils';
 
 const ValidIndexGroups = [
 	...new Array(10).fill(1).map((_, index) => `i-${index + 1}`),
@@ -10,7 +11,7 @@ const ValidIndexGroups = [
 const isIndexGroupValid = (indexGroup?: string): boolean => {
 	return !indexGroup || ValidIndexGroups.includes(indexGroup);
 };
-const asFactors = async (data: any): Promise<Array<Factor>> => {
+const asFactors = async (topic: Topic, data: any): Promise<Array<Factor>> => {
 	if (data == null || !Array.isArray(data) || data.length === 0) {
 		console.error('Cannot parse data to factors.', data);
 		throw new Error('Parsed data is not an array.');
@@ -38,7 +39,7 @@ const asFactors = async (data: any): Promise<Array<Factor>> => {
 			delete factor.indexGroup;
 		}
 		factor.flatten = row.flatten === true ? true : (`${row.flatten}`.toLowerCase() === 'true');
-		if (factor.name.indexOf('.') === -1) {
+		if (!isFactorCanBeFlatten(topic, factor)) {
 			delete factor.flatten;
 		}
 		factor.encrypt = row.encrypt ? (`${row.encrypt}` as FactorEncryptMethod) : (void 0);
@@ -58,7 +59,7 @@ const asFactors = async (data: any): Promise<Array<Factor>> => {
 	}, []);
 };
 
-export const parseFromCsv = async (content: string): Promise<Array<Factor>> => {
+export const parseFromCsv = async (topic: Topic, content: string): Promise<Array<Factor>> => {
 	return new Promise((resolve, reject) => {
 		parseCSV(content, {
 			columns: true,
@@ -76,7 +77,7 @@ export const parseFromCsv = async (content: string): Promise<Array<Factor>> => {
 			}
 
 			try {
-				resolve(asFactors(data));
+				resolve(asFactors(topic, data));
 			} catch (e: any) {
 				reject(e);
 			}
@@ -84,12 +85,12 @@ export const parseFromCsv = async (content: string): Promise<Array<Factor>> => {
 	});
 };
 
-export const parseFromJson = async (content: string): Promise<Array<Factor>> => {
+export const parseFromJson = async (topic: Topic, content: string): Promise<Array<Factor>> => {
 	return new Promise((resolve, reject) => {
 		try {
 			const data = JSON.parse(content);
 			try {
-				resolve(asFactors(data));
+				resolve(asFactors(topic, data));
 			} catch (e: any) {
 				reject(e);
 			}

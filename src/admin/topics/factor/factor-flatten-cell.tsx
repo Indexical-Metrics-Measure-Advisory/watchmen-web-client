@@ -1,45 +1,11 @@
-import {Factor, FactorType} from '@/services/data/tuples/factor-types';
-import {isNotRawTopic} from '@/services/data/tuples/topic';
+import {Factor} from '@/services/data/tuples/factor-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useEffect} from 'react';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';
+import {isFactorCanBeFlatten} from '../utils';
 import {FactorFlattenCellContainer, FactorPropCheckBox, FactorPropLabel} from './widgets';
-
-const isSubFactorCanBeFlatten = (topic: Topic, parentFactorName: string): boolean => {
-	const parentFactor = (topic.factors || []).find(factor => factor.name === parentFactorName);
-	if (!parentFactor) {
-		return true;
-	} else if (parentFactor.type === FactorType.ARRAY) {
-		return false;
-	} else if (!parentFactorName.includes('.')) {
-		return true;
-	} else {
-		const [, ...names] = parentFactorName.split('.').reverse();
-		return isSubFactorCanBeFlatten(topic, names.reverse().join('.'));
-	}
-};
-const isFactorCanBeFlatten = (topic: Topic, factor: Factor): boolean => {
-	if (isNotRawTopic(topic)) {
-		return false;
-	}
-
-	if (!factor.name.includes('.')) {
-		return false;
-	}
-	if (factor.type === FactorType.OBJECT || factor.type === FactorType.ARRAY) {
-		return false;
-	}
-
-	const name = factor.name || '';
-	if (!name) {
-		return true;
-	}
-
-	const [, ...names] = name.split('.').reverse();
-	return isSubFactorCanBeFlatten(topic, names.reverse().join('.'));
-};
 
 export const FactorFlattenCell = (props: { topic: Topic, factor: Factor }) => {
 	const {topic, factor} = props;
@@ -85,7 +51,7 @@ export const FactorFlattenCell = (props: { topic: Topic, factor: Factor }) => {
 		return () => {
 			off(TopicEventTypes.FACTOR_TYPE_CHANGED, onFactorTypeChanged);
 		};
-	}, [on, off, factor, forceUpdate]);
+	}, [on, off, topic, factor, forceUpdate]);
 
 	const onFactorFlattenChange = (value: boolean) => {
 		if (value) {

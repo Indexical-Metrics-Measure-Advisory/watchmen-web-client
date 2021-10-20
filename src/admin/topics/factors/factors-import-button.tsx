@@ -31,13 +31,13 @@ export const FactorsImportButton = (props: { topic: Topic }) => {
 				case name.endsWith('.txt'):
 				case name.endsWith('.csv'): {
 					const content = await file.text();
-					topic.factors = await parseFromCsv(content);
+					topic.factors = await parseFromCsv(topic, content);
 					fire(TopicEventTypes.FACTORS_IMPORTED, topic.factors);
 					break;
 				}
 				case name.endsWith('.json'): {
 					const content = await file.text();
-					topic.factors = await parseFromJson(content);
+					topic.factors = await parseFromJson(topic, content);
 					fire(TopicEventTypes.FACTORS_IMPORTED, topic.factors);
 					break;
 				}
