@@ -10,6 +10,7 @@ import {Space} from '@/services/data/tuples/space-types';
 import dayjs from 'dayjs';
 import {generateGraphics} from './graphics';
 import {generatePipelineMarkdown} from './pipeline';
+import {generateSpaces} from './space';
 import {generateTopicMarkdown} from './topic';
 import {DataSourceMap, EnumsMap, ExternalWriterMap} from './types';
 
@@ -65,5 +66,8 @@ ${Object.values(pipelinesMap).sort((p1, p2) => {
 
 # 3. Relations
 ${generateGraphics(selectedSvg, allSvg)}
+
+# 4. Spaces
+${generateSpaces(spaces, connectedSpaces)}
 `;
 };

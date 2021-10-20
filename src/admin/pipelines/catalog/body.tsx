@@ -24,6 +24,66 @@ import {
 	MarkdownBodySvgContainer
 } from './widgets';
 
+const getCSSVariables = (): { [key in string]: string } => {
+	const styles = window.getComputedStyle(document.documentElement);
+	return [
+		'--distinct-topic-color',
+		'--meta-topic-color',
+		'--raw-topic-color',
+		'--time-topic-color',
+		'--aggregate-topic-color',
+		'--ratio-topic-color',
+		'--invert-color',
+		'--waive-color',
+		'--font-color',
+		'--font-size',
+		'--title-font-family'
+	].reduce((variables, key) => {
+		variables[key] = styles.getPropertyValue(key);
+		return variables;
+	}, {} as { [key in string]: string });
+};
+
+const isCSSStyleRule = (rule: CSSRule): rule is CSSStyleRule => {
+	const r = rule as any;
+	return r.selectorText && r.style != null;
+};
+const getStyleRuleValue = (selector: string) => {
+	const rules = [...(document.styleSheets || [])].filter(styleSheet => {
+		return styleSheet.cssRules != null && styleSheet.cssRules.length !== 0;
+	}).map(styleSheet => {
+		return [...styleSheet.cssRules].find(rule => {
+			if (isCSSStyleRule(rule) && rule.cssText) {
+				return rule.selectorText.split(',').map(s => s.trim()).includes(selector);
+			} else {
+				return false;
+			}
+		});
+	}).flat().filter<CSSStyleRule>((x): x is CSSStyleRule => !!x);
+	return rules.map(rule => rule.cssText).join(';');
+};
+
+const strictStyles = (styles: string) => {
+	styles = styles.trim();
+	if (styles.startsWith(';')) {
+		styles = styles.substr(1);
+	}
+	styles = styles.trim();
+	styles = styles.replace(/\..+ {/, '');
+	if (styles.endsWith('}')) {
+		styles = styles.substring(0, styles.length - 2);
+	}
+	return styles.replace('font-size: 1.2em;', '');
+};
+const copyCSSFromClassName = (element: SVGElement) => {
+	const stylesFromClass = strictStyles([...(element.classList || [])].map(selector => {
+		return getStyleRuleValue(`.${selector}`);
+	}).join(';'));
+	if (stylesFromClass.trim()) {
+		element.style.cssText = [stylesFromClass, element.style.cssText].filter(x => !!x).join(';');
+	}
+};
+
 const MarkdownSvgPalette = (props: { pipelines: Array<Pipeline> }) => {
 	const {pipelines} = props;
 
@@ -64,7 +124,18 @@ const MarkdownSvgPalette = (props: { pipelines: Array<Pipeline> }) => {
 
 	useEffect(() => {
 		if (state.assembled && !state.toComputeGraphics) {
-			fire(CatalogEventTypes.REPLY_GRAPHICS_SVG, ref.current!.innerHTML);
+			const svgContainer = ref.current!;
+			const cssVariables = getCSSVariables();
+			Object.keys(cssVariables).map(key => svgRef.current!.style.setProperty(key, cssVariables[key].replace(/"/g, '&quot;')));
+			[...svgContainer.querySelectorAll('*')].filter((element): element is SVGElement => {
+				return element instanceof SVGElement;
+			}).forEach(element => {
+				copyCSSFromClassName(element);
+			});
+
+			svgRef.current!.style.fontSize = 'var(--font-size)';
+
+			fire(CatalogEventTypes.REPLY_GRAPHICS_SVG, svgContainer!.innerHTML);
 			setState({topics: [], assembled: null, toComputeGraphics: false, svgSize: {}});
 		}
 	}, [fire, state.assembled, state.toComputeGraphics]);
@@ -76,7 +147,7 @@ const MarkdownSvgPalette = (props: { pipelines: Array<Pipeline> }) => {
 	const topicGraphicsMap: Map<string, AssembledTopicGraphics> = asTopicGraphicsMap(state.assembled);
 
 	return <MarkdownBodySvgContainer ref={ref}>
-		<BodySvg {...state.svgSize} ref={svgRef}>
+		<BodySvg {...state.svgSize} viewBox={`0 0 ${state.svgSize.width} ${state.svgSize.height}`} ref={svgRef}>
 			<BlockRelations graphics={state.assembled} pipelines={pipelines}/>
 			{state.topics.map(topic => {
 				const topicGraphics = topicGraphicsMap.get(topic.topicId);

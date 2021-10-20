@@ -18,7 +18,10 @@ export const BodySvgContainer = styled.div.attrs({
 	flex-grow : 1;
 	overflow  : scroll;
 `;
-export const BodySvg = styled.svg.attrs({'data-widget': 'pipelines-catalog-svg'})`
+export const BodySvg = styled.svg.attrs({
+	'data-widget': 'pipelines-catalog-svg',
+	xmlns: 'http://www.w3.org/2000/svg'
+})`
 	display    : block;
 	min-width  : 100%;
 	min-height : 100%;
