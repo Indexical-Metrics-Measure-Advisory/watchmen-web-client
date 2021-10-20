@@ -1,19 +1,24 @@
 import {isMultipleDataSourcesEnabled} from '@/feature-switch';
-import {PipelineRelationMap, PipelinesMap, TopicRelationMap} from '@/services/data/pipeline/pipeline-relations';
+import {
+	PipelineRelationMap,
+	PipelinesMap,
+	TopicRelationMap,
+	TopicsMap
+} from '@/services/data/pipeline/pipeline-relations';
 import {Factor, FactorEncryptMethod, FactorEncryptMethodLabels} from '@/services/data/tuples/factor-types';
 import {isRawTopic} from '@/services/data/tuples/topic';
 import {Topic} from '@/services/data/tuples/topic-types';
-import {DataSourceMap, EnumsMap} from './types';
+import {DataSourcesMap, EnumsMap} from './types';
 
 const canBeFlatten = (topic: Topic, factor?: Factor) => {
 	return isRawTopic(topic) && (factor ? (factor.name || '').indexOf('.') !== -1 : true);
 };
 
-export const generateTopicMarkdown = (options: {
-	topic: Topic, pipelinesMap: PipelinesMap, dataSourceMap: DataSourceMap, enumsMap: EnumsMap, index: number,
+const generateTopicMarkdown = (options: {
+	topic: Topic, pipelinesMap: PipelinesMap, dataSourcesMap: DataSourcesMap, enumsMap: EnumsMap, index: number,
 	topicRelations: TopicRelationMap, pipelineRelations: PipelineRelationMap
 }): string => {
-	const {topic, dataSourceMap, enumsMap, index, pipelineRelations} = options;
+	const {topic, dataSourcesMap, enumsMap, index, pipelineRelations} = options;
 
 	return `## 1.${index + 1}. ${topic.name || 'Noname Topic'} #${topic.topicId}<span id="topic-${topic.topicId}"/>
 ${topic.description || ''}
@@ -23,7 +28,7 @@ ${topic.description || ''}
 ### 1.${index + 1}.1. Basic Information
 - Kind: ${topic.kind?.toUpperCase() ?? ''}
 - Type: ${topic.type?.toUpperCase() ?? ''}
-${isMultipleDataSourcesEnabled() ? `- Data Source: ${dataSourceMap[topic.dataSourceId ?? '']?.dataSourceCode ?? ''}` : ''}
+${isMultipleDataSourcesEnabled() ? `- Data Source: ${dataSourcesMap[topic.dataSourceId ?? '']?.dataSourceCode ?? ''}` : ''}
 
 ### 1.${index + 1}.2. Factors
 ${['Name', 'Type', 'Label', 'Enumeration', 'Default Value', canBeFlatten(topic) ? 'Flatten' : null, 'Encryption & Mask', 'Description'].filter(x => x != null).join(' | ')}
@@ -59,4 +64,29 @@ ${Object.values(pipelineRelations).filter(relation => relation.incoming.filter(r
 		return `- <a href="#pipeline-${relation.pipeline.pipelineId}">${relation.pipeline.name || 'Noname Pipeline'}</a>`;
 	}).join('\n')}
 `;
+};
+
+export const generateTopics = (options: {
+	topicsMap: TopicsMap; pipelinesMap: PipelinesMap; dataSourcesMap: DataSourcesMap; enumsMap: EnumsMap;
+	topicRelations: TopicRelationMap; pipelineRelations: PipelineRelationMap;
+}): string => {
+	const {topicsMap, pipelinesMap, dataSourcesMap, enumsMap, topicRelations, pipelineRelations} = options;
+
+	if (Object.values(topicsMap).length === 0) {
+		return '> No topics.';
+	}
+
+	return Object.values(topicsMap).sort((t1, t2) => {
+		return (t1.name || '').toLowerCase().localeCompare((t2.name || '').toLowerCase());
+	}).map((topic, index) => {
+		return generateTopicMarkdown({
+			topic,
+			pipelinesMap,
+			dataSourcesMap,
+			enumsMap,
+			index,
+			topicRelations,
+			pipelineRelations
+		});
+	}).join('\n');
 };

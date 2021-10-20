@@ -147,7 +147,8 @@ const MarkdownSvgPalette = (props: { pipelines: Array<Pipeline> }) => {
 	const topicGraphicsMap: Map<string, AssembledTopicGraphics> = asTopicGraphicsMap(state.assembled);
 
 	return <MarkdownBodySvgContainer ref={ref}>
-		<BodySvg {...state.svgSize} viewBox={`0 0 ${state.svgSize.width} ${state.svgSize.height}`} ref={svgRef}>
+		<BodySvg {...state.svgSize} viewBox={`0 0 ${state.svgSize.width || 0} ${state.svgSize.height || 0}`}
+		         ref={svgRef}>
 			<BlockRelations graphics={state.assembled} pipelines={pipelines}/>
 			{state.topics.map(topic => {
 				const topicGraphics = topicGraphicsMap.get(topic.topicId);

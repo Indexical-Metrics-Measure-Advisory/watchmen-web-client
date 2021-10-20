@@ -1,4 +1,9 @@
-import {PipelineRelationMap, TopicRelationMap, TopicsMap} from '@/services/data/pipeline/pipeline-relations';
+import {
+	PipelineRelationMap,
+	PipelinesMap,
+	TopicRelationMap,
+	TopicsMap
+} from '@/services/data/pipeline/pipeline-relations';
 import {
 	Parameter,
 	ParameterComputeType,
@@ -37,7 +42,7 @@ import {
 import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
 import {Conditional} from '@/services/data/tuples/pipeline-super-types';
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
-import {ExternalWriterMap} from './types';
+import {ExternalWritersMap} from './types';
 
 const generateComputeType = (type: ParameterComputeType): string => {
 	return type.split('')
@@ -168,8 +173,8 @@ const generateArithmetic = (arithmetic: AggregateArithmetic): string => {
 		return `.${arithmetic}()`;
 	}
 };
-const generateActionBody = (options: { action: PipelineStageUnitAction, topicsMap: TopicsMap, externalWriterMap: ExternalWriterMap }): string => {
-	const {action, topicsMap, externalWriterMap} = options;
+const generateActionBody = (options: { action: PipelineStageUnitAction, topicsMap: TopicsMap, externalWritersMap: ExternalWritersMap }): string => {
+	const {action, topicsMap, externalWritersMap} = options;
 
 	if (isAlarmAction(action)) {
 		let condition = generateCondition(action, topicsMap);
@@ -181,7 +186,7 @@ const generateActionBody = (options: { action: PipelineStageUnitAction, topicsMa
 		return `\n\t.from(${generateParameter(action.source, topicsMap)}).to('${action.variableName || 'Noname Variable'}')`;
 	} else if (isWriteToExternalAction(action)) {
 		if (action.externalWriterId) {
-			return `\n\t.external(${externalWriterMap[action.externalWriterId]?.writerCode ?? ''})`;
+			return `\n\t.external(${externalWritersMap[action.externalWriterId]?.writerCode ?? ''})`;
 		} else {
 			return `\n\t.external(missed())`;
 		}
@@ -267,18 +272,18 @@ const generateActionBody = (options: { action: PipelineStageUnitAction, topicsMa
 	}
 };
 
-const generateActions = (options: { actions: Array<PipelineStageUnitAction>, topicsMap: TopicsMap, externalWriterMap: ExternalWriterMap, stageIndex: number, unitIndex: number }): string => {
-	const {actions, topicsMap, externalWriterMap, stageIndex, unitIndex} = options;
+const generateActions = (options: { actions: Array<PipelineStageUnitAction>, topicsMap: TopicsMap, externalWritersMap: ExternalWritersMap, stageIndex: number, unitIndex: number }): string => {
+	const {actions, topicsMap, externalWritersMap, stageIndex, unitIndex} = options;
 
 	return actions.map((action, actionIndex) => {
 		return `// Action #${stageIndex + 1}.${unitIndex + 1}.${actionIndex + 1}
-.${generateActionType(action)}()${generateActionBody({action, topicsMap, externalWriterMap})}
+.${generateActionType(action)}()${generateActionBody({action, topicsMap, externalWritersMap})}
 .end()`;
 	}).map(part => part.split('\n').map(line => `\t${line}`).join('\n')).join('\n');
 };
 
-const generateUnits = (options: { units: Array<PipelineStageUnit>, topicsMap: TopicsMap, externalWriterMap: ExternalWriterMap, stageIndex: number }): string => {
-	const {units, topicsMap, externalWriterMap, stageIndex} = options;
+const generateUnits = (options: { units: Array<PipelineStageUnit>, topicsMap: TopicsMap, externalWritersMap: ExternalWritersMap, stageIndex: number }): string => {
+	const {units, topicsMap, externalWritersMap, stageIndex} = options;
 
 	return units.map((unit, unitIndex) => {
 		let loop = '';
@@ -292,13 +297,13 @@ const generateUnits = (options: { units: Array<PipelineStageUnit>, topicsMap: To
 
 		return `// Unit #${stageIndex + 1}.${unitIndex + 1}
 .unit('${unit.name || 'Noname Unit'}')${loop}${condition}
-${generateActions({actions: unit.do || [], topicsMap, externalWriterMap, stageIndex, unitIndex})}
+${generateActions({actions: unit.do || [], topicsMap, externalWritersMap, stageIndex, unitIndex})}
 .end()`;
 	}).map(part => part.split('\n').map(line => `\t${line}`).join('\n')).join('\n');
 };
 
-const generateStages = (options: { stages: Array<PipelineStage>, topicsMap: TopicsMap, externalWriterMap: ExternalWriterMap }): string => {
-	const {stages, topicsMap, externalWriterMap} = options;
+const generateStages = (options: { stages: Array<PipelineStage>, topicsMap: TopicsMap, externalWritersMap: ExternalWritersMap }): string => {
+	const {stages, topicsMap, externalWritersMap} = options;
 
 	return stages.map((stage, stageIndex) => {
 		let condition = generateCondition(stage, topicsMap);
@@ -308,16 +313,16 @@ const generateStages = (options: { stages: Array<PipelineStage>, topicsMap: Topi
 
 		return `// Stage #${stageIndex + 1}
 .stage('${stage.name || 'Noname Stage'}')${condition}
-${generateUnits({units: stage.units || [], topicsMap, externalWriterMap, stageIndex})}
+${generateUnits({units: stage.units || [], topicsMap, externalWritersMap, stageIndex})}
 .end()`;
 	}).map(part => part.split('\n').map(line => `\t${line}`).join('\n')).join('\n');
 };
 
-export const generatePipelineMarkdown = (options: {
-	pipeline: Pipeline, topicsMap: TopicsMap, externalWriterMap: ExternalWriterMap, index: number,
+const generatePipelineMarkdown = (options: {
+	pipeline: Pipeline, topicsMap: TopicsMap, externalWritersMap: ExternalWritersMap, index: number,
 	topicRelations: TopicRelationMap, pipelineRelations: PipelineRelationMap
 }): string => {
-	const {pipeline, topicsMap, externalWriterMap, index} = options;
+	const {pipeline, topicsMap, externalWritersMap, index} = options;
 
 	const triggerTopic = topicsMap[pipeline.topicId];
 	const triggerTopicName = triggerTopic ? (triggerTopic.name || 'Noname Topic') : 'Missed';
@@ -332,7 +337,29 @@ Pipeline.id('${pipeline.pipelineId}')
 	.triggerBy('${triggerTopicName}').when(${pipeline.type ? `'${pipeline.type.toUpperCase()}'` : 'Missed'})
 	.enabled(${pipeline.enabled ?? true})
 	.createdAt('${pipeline.createTime}').lastModifiedAt('${pipeline.lastModified}')
-${generateStages({stages: pipeline.stages || [], topicsMap, externalWriterMap})}
+${generateStages({stages: pipeline.stages || [], topicsMap, externalWritersMap})}
 ${'```'}
 `;
+};
+
+export const generatePipelines = (options: {
+	topicsMap: TopicsMap; pipelinesMap: PipelinesMap; externalWritersMap: ExternalWritersMap;
+	topicRelations: TopicRelationMap; pipelineRelations: PipelineRelationMap;
+}): string => {
+	const {topicsMap, pipelinesMap, externalWritersMap, topicRelations, pipelineRelations} = options;
+
+	if (Object.values(pipelinesMap).length === 0) {
+		return '> No pipelines.';
+	}
+
+	return Object.values(pipelinesMap).sort((p1, p2) => {
+		return (p1.name || '').toLowerCase().localeCompare((p2.name || '').toLowerCase());
+	}).map((pipeline, index) => generatePipelineMarkdown({
+		pipeline,
+		topicsMap,
+		externalWritersMap,
+		index,
+		topicRelations,
+		pipelineRelations
+	})).join('\n');
 };

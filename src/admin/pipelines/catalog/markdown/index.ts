@@ -9,20 +9,20 @@ import {listAllEnums} from '@/services/data/tuples/enum';
 import {Space} from '@/services/data/tuples/space-types';
 import dayjs from 'dayjs';
 import {generateGraphics} from './graphics';
-import {generatePipelineMarkdown} from './pipeline';
+import {generatePipelines} from './pipeline';
 import {generateSpaces} from './space';
-import {generateTopicMarkdown} from './topic';
-import {DataSourceMap, EnumsMap, ExternalWriterMap} from './types';
+import {generateTopics} from './topic';
+import {DataSourcesMap, EnumsMap, ExternalWritersMap} from './types';
 
 export const generateMarkdown = async (options: {
 	topicsMap: TopicsMap; pipelinesMap: PipelinesMap;
-	dataSourceMap: DataSourceMap; externalWriterMap: ExternalWriterMap;
+	dataSourcesMap: DataSourcesMap; externalWritersMap: ExternalWritersMap;
 	topicRelations: TopicRelationMap; pipelineRelations: PipelineRelationMap;
 	spaces: Array<Space>; connectedSpaces: Array<ConnectedSpace>;
 	selectedSvg: string; allSvg: string;
 }): Promise<string> => {
 	const {
-		topicsMap, pipelinesMap, dataSourceMap, externalWriterMap,
+		topicsMap, pipelinesMap, dataSourcesMap, externalWritersMap,
 		topicRelations, pipelineRelations,
 		spaces, connectedSpaces,
 		selectedSvg, allSvg
@@ -38,36 +38,15 @@ export const generateMarkdown = async (options: {
 ------------------------------------------
 
 # 1. Topics
-${Object.values(topicsMap).sort((t1, t2) => {
-		return (t1.name || '').toLowerCase().localeCompare((t2.name || '').toLowerCase());
-	}).map((topic, index) => {
-		return generateTopicMarkdown({
-			topic,
-			pipelinesMap,
-			dataSourceMap,
-			enumsMap,
-			index,
-			topicRelations,
-			pipelineRelations
-		});
-	}).join('\n')}
+${generateTopics({topicsMap, pipelinesMap, dataSourcesMap, enumsMap, topicRelations, pipelineRelations})}
 
 # 2. Pipelines
-${Object.values(pipelinesMap).sort((p1, p2) => {
-		return (p1.name || '').toLowerCase().localeCompare((p2.name || '').toLowerCase());
-	}).map((pipeline, index) => generatePipelineMarkdown({
-		pipeline,
-		topicsMap,
-		externalWriterMap,
-		index,
-		topicRelations,
-		pipelineRelations
-	})).join('\n')}
+${generatePipelines({topicsMap, pipelinesMap, externalWritersMap, topicRelations, pipelineRelations})}
 
 # 3. Relations
 ${generateGraphics(selectedSvg, allSvg)}
 
 # 4. Spaces
-${generateSpaces(spaces, connectedSpaces)}
+${generateSpaces({spaces, connectedSpaces, topicsMap})}
 `;
 };

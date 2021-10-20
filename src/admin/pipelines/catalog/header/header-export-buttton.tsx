@@ -34,7 +34,7 @@ import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {generateMarkdown} from '../markdown';
-import {DataSourceMap, ExternalWriterMap} from '../markdown/types';
+import {DataSourcesMap, ExternalWritersMap} from '../markdown/types';
 import {AssembledPipelinesGraphics} from '../types';
 import {TopicPickerTable} from './topic-picker-table';
 import {SpaceCandidate, TopicCandidate} from './types';
@@ -142,14 +142,14 @@ const PipelinesDownload = (props: {
 		const markdown = await generateMarkdown({
 			topicsMap: finalTopicMap,
 			pipelinesMap: finalPipelineMap,
-			dataSourceMap: dataSources.reduce((map, dataSource) => {
+			dataSourcesMap: dataSources.reduce((map, dataSource) => {
 				map[dataSource.dataSourceId] = dataSource;
 				return map;
-			}, {} as DataSourceMap),
-			externalWriterMap: externalWriters.reduce((map, writer) => {
+			}, {} as DataSourcesMap),
+			externalWritersMap: externalWriters.reduce((map, writer) => {
 				map[writer.writerId] = writer;
 				return map;
-			}, {} as ExternalWriterMap),
+			}, {} as ExternalWritersMap),
 			topicRelations, pipelineRelations,
 			spaces: selectedSpaces, connectedSpaces: selectedConnectedSpaces,
 			selectedSvg, allSvg
