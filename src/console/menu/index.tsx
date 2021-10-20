@@ -1,10 +1,5 @@
 import {Router} from '@/routes/types';
-import {toDashboard} from '@/routes/utils';
 import {findAccount, isAdmin, quit} from '@/services/data/account';
-import {saveLastSnapshot} from '@/services/data/account/last-snapshot';
-import {LastSnapshot} from '@/services/data/account/last-snapshot-types';
-import {saveDashboard} from '@/services/data/tuples/dashboard';
-import {Dashboard} from '@/services/data/tuples/dashboard-types';
 import {
 	ICON_ADD,
 	ICON_ADMIN,
@@ -41,9 +36,6 @@ import {Lang} from '@/widgets/langs';
 import React, {useEffect, useState} from 'react';
 import {matchPath, useHistory, useLocation} from 'react-router-dom';
 import styled from 'styled-components';
-import {useConsoleEventBus} from '../console-event-bus';
-import {ConsoleEventTypes} from '../console-event-bus-types';
-import {createDashboard} from '../utils/tuples';
 import {useConnectSpace} from '../widgets/use-connect-space';
 import {FavoriteMenu} from './side-menu-favorite';
 import {SideMenuSpaces} from './side-menu-spaces';
@@ -86,7 +78,6 @@ export const ConsoleMenu = () => {
 	const history = useHistory();
 	const location = useLocation();
 	const {on: onGlobal, off: offGlobal, fire: fireGlobal} = useEventBus();
-	const {once, fire} = useConsoleEventBus();
 	const [menuWidth, setMenuWidth] = useState(SIDE_MENU_MIN_WIDTH);
 	const onConnectSpaceClicked = useConnectSpace();
 	useEffect(() => {
@@ -108,38 +99,6 @@ export const ConsoleMenu = () => {
 		if (!matchPath(location.pathname, path)) {
 			history.push(path);
 		}
-	};
-	const onDashboardClicked = () => {
-		once(ConsoleEventTypes.REPLY_DASHBOARDS, (dashboards: Array<Dashboard>) => {
-			const allDashboardIds = [...dashboards].map(dashboard => dashboard.dashboardId);
-			once(ConsoleEventTypes.REPLY_LAST_SNAPSHOT, async ({lastDashboardId}: LastSnapshot) => {
-				// eslint-disable-next-line
-				if (lastDashboardId && allDashboardIds.some(id => id == lastDashboardId)) {
-					// exists and found in list
-					history.push(toDashboard(lastDashboardId));
-				} else if (dashboards && dashboards.length > 0) {
-					// pick the latest visited one
-					const {dashboardId: firstDashboardId} = [...dashboards].sort((d1, d2) => {
-						return (d2.lastVisitTime || '').localeCompare((d1.lastVisitTime || ''));
-					})[0];
-					history.push(toDashboard(firstDashboardId));
-					try {
-						await saveLastSnapshot({lastDashboardId: firstDashboardId});
-					} catch (e: any) {
-						// ignore
-					}
-				} else {
-					// no dashboards created
-					const dashboard = createDashboard();
-					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-						async () => await saveDashboard(dashboard),
-						() => {
-							fire(ConsoleEventTypes.DASHBOARD_CREATED, dashboard);
-							history.push(toDashboard(dashboard.dashboardId));
-						});
-				}
-			}).fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT);
-		}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
 	};
 	const onLogoutClicked = () => {
 		fireGlobal(EventTypes.SHOW_YES_NO_DIALOG,
@@ -183,8 +142,8 @@ export const ConsoleMenu = () => {
 		              active={!!matchPath(location.pathname, Router.CONSOLE_HOME)}
 		              onClick={onMenuClicked(Router.CONSOLE_HOME)}/>
 		<SideMenuItem icon={ICON_DASHBOARD} label={Lang.CONSOLE.MENU.DASHBOARDS} showTooltip={showTooltip}
-		              active={!!matchPath(location.pathname, Router.CONSOLE_DASHBOARD)}
-		              onClick={onDashboardClicked}/>
+		              active={!!matchPath(location.pathname, Router.CONSOLE_DASHBOARD_AUTO)}
+		              onClick={onMenuClicked(Router.CONSOLE_DASHBOARD_AUTO)}/>
 		<FavoriteMenu showTooltip={showTooltip}/>
 		{/* FEAT hide message menus */}
 		<SideMenuSeparator width={menuWidth} visible={false}/>

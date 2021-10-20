@@ -23,12 +23,10 @@ export const toSubjectReports = (connectedSpaceId: string, subjectId: string) =>
 export const toSubjectReport = (connectedSpaceId: string, subjectId: string, reportId: string) => {
 	return Router.CONSOLE_CONNECTED_SPACE_SUBJECT_REPORT.replace(':connectId', connectedSpaceId).replace(':subjectId', subjectId).replace(':reportId', reportId);
 };
-
 export const isDashboardOpened = (dashboardId: string): boolean => {
 	const match = matchPath<{ dashboardId: string }>(window.location.pathname, Router.CONSOLE_DASHBOARD);
 	// eslint-disable-next-line
 	return !!match && match.params.dashboardId == dashboardId;
 };
 export const toDashboard = (dashboardId: string) => Router.CONSOLE_DASHBOARD.replace(':dashboardId', dashboardId);
-
 export const toPipeline = (pipelineId: string) => Router.ADMIN_PIPELINE.replace(':pipelineId', pipelineId);
