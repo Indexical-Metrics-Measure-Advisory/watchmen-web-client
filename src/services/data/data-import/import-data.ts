@@ -1,3 +1,5 @@
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Space} from '@/services/data/tuples/space-types';
 import {Apis, post} from '../apis';
 import {tryToMockImportTopicsAndPipelines} from '../mock/data-import/import-data';
 import {Pipeline} from '../tuples/pipeline-types';
@@ -8,6 +10,8 @@ import {ImportDataResponse} from './import-data-types';
 export const tryToImportTopicsAndPipelines = async (options: {
 	topics: Array<Topic>;
 	pipelines: Array<Pipeline>;
+	spaces: Array<Space>;
+	connectedSpaces: Array<ConnectedSpace>;
 }): Promise<ImportDataResponse> => {
 	if (isMockService()) {
 		return await tryToMockImportTopicsAndPipelines(options);

@@ -54,7 +54,7 @@ export const PickerTableBody = styled.div.attrs({'data-v-scroll': ''})`
 export const PickerTableBodyRow = styled.div.attrs<{ columns?: number }>(({columns = 4}) => {
 	return {
 		style: {
-			gridTemplateColumns: columns === 4 ? '40px 60px 100px 1fr' : '40px 60px 100px 1fr auto'
+			gridTemplateColumns: columns === 4 ? '40px 60px 120px 1fr' : '40px 60px 120px 1fr auto'
 		}
 	};
 })<{ columns?: number }>`

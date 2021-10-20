@@ -37,7 +37,7 @@ export const getCandidateKey = (candidate: Candidate): string => {
 	} else if (isConnectedSpaceCandidate(candidate)) {
 		return `connected-space-${candidate.connectedSpace.connectId}`;
 	} else if (isSubjectCandidate(candidate)) {
-		return `connected-space-${candidate.subject.subjectId}`;
+		return `subject-${candidate.subject.subjectId}`;
 	} else {
 		throw new Error('Never occurred.');
 	}
@@ -53,7 +53,7 @@ export const getCandidateName = (candidate: Candidate, askDefault: boolean = tru
 	} else if (isConnectedSpaceCandidate(candidate)) {
 		return candidate.connectedSpace.name || (askDefault ? 'Noname Connected Space' : '');
 	} else if (isSubjectCandidate(candidate)) {
-		return '&nbsp;&nbsp;' + candidate.subject.name || (askDefault ? 'Noname Subject' : '');
+		return candidate.subject.name || (askDefault ? 'Noname Subject' : '');
 	} else {
 		throw new Error('Never occurred.');
 	}

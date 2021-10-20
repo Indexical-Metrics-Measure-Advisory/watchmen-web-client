@@ -66,7 +66,13 @@ const PipelinesImport = (props: {
 		}
 
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
-			return await tryToImportTopicsAndPipelines({topics: selectedTopics, pipelines: selectedPipelines});
+			return await tryToImportTopicsAndPipelines({
+				topics: selectedTopics,
+				pipelines: selectedPipelines,
+				// TODO
+				spaces: [],
+				connectedSpaces: []
+			});
 		}, (response: ImportDataResponse) => {
 			if (!response || !response.passed) {
 				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>

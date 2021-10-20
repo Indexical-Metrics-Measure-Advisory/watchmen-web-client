@@ -195,8 +195,6 @@ export const ImportPickerTable = (props: {
 		subjects: subjectCandidates
 	} = candidates;
 
-	console.log(connectedSpaceCandidates);
-
 	const [items] = useState(() => {
 		return [...topicCandidates, ...pipelineCandidates, ...spaceCandidates.map(spaceCandidate => {
 			const spaceId = spaceCandidate.space.spaceId;
