@@ -29,7 +29,7 @@ import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {ImportPickerTable} from './import-picker-table';
-import {ImportType, ImportTypes, PICKER_DIALOG_HEIGHT, PickerDialogBody} from './widgets';
+import {ImportType, ImportTypes, ImportTypesLabel, PICKER_DIALOG_HEIGHT, PickerDialogBody} from './widgets';
 
 const PipelinesImport = (props: {
 	topics: Array<Topic>; cachedTopics: Array<Topic>;
@@ -59,6 +59,11 @@ const PipelinesImport = (props: {
 	});
 	const [importType, setImportType] = useState<ImportTPSCSType>(ImportTPSCSType.NON_REDUNDANT);
 
+	const onImportTypeChange = (type: ImportTPSCSType) => () => {
+		setImportType(type);
+	};
+	const onCheckValueChange = () => {
+	};
 	const onImportClicked = () => {
 		const selectedTopics = candidates.topics.filter(x => x.picked).map(x => x.topic);
 		const selectedPipelines = candidates.pipelines.filter(x => x.picked).map(x => x.pipeline);
@@ -98,12 +103,6 @@ const PipelinesImport = (props: {
 			}
 		});
 	};
-	const onImportTypeChange = (type: ImportTPSCSType) => (value: boolean) => {
-		if (!value) {
-			return;
-		}
-		setImportType(type);
-	};
 	const onCancelClicked = () => {
 		fireGlobal(EventTypes.HIDE_DIALOG);
 	};
@@ -117,19 +116,17 @@ const PipelinesImport = (props: {
 		</PickerDialogBody>
 		<DialogFooter>
 			<ImportTypes>
-				<ImportType>
-					<CheckBox value={importType === ImportTPSCSType.NON_REDUNDANT}
-					          onChange={onImportTypeChange(ImportTPSCSType.NON_REDUNDANT)}/>
+				<ImportTypesLabel>Import Type:</ImportTypesLabel>
+				<ImportType onClick={onImportTypeChange(ImportTPSCSType.NON_REDUNDANT)}>
+					<CheckBox value={importType === ImportTPSCSType.NON_REDUNDANT} onChange={onCheckValueChange}/>
 					<span>Non Redundant</span>
 				</ImportType>
-				<ImportType>
-					<CheckBox value={importType === ImportTPSCSType.REPLACE}
-					          onChange={onImportTypeChange(ImportTPSCSType.REPLACE)}/>
+				<ImportType onClick={onImportTypeChange(ImportTPSCSType.REPLACE)}>
+					<CheckBox value={importType === ImportTPSCSType.REPLACE} onChange={onCheckValueChange}/>
 					<span>Replace</span>
 				</ImportType>
-				<ImportType>
-					<CheckBox value={importType === ImportTPSCSType.FORCE_NEW}
-					          onChange={onImportTypeChange(ImportTPSCSType.FORCE_NEW)}/>
+				<ImportType onClick={onImportTypeChange(ImportTPSCSType.FORCE_NEW)}>
+					<CheckBox value={importType === ImportTPSCSType.FORCE_NEW} onChange={onCheckValueChange}/>
 					<span>Force New</span>
 				</ImportType>
 			</ImportTypes>

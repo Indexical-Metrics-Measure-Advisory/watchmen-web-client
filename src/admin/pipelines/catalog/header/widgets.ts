@@ -80,14 +80,29 @@ export const ImportTypes = styled.div`
 	align-items : center;
 	flex-grow   : 1;
 `;
+export const ImportTypesLabel = styled.div`
+	display      : flex;
+	position     : relative;
+	align-items  : center;
+	font-variant : petite-caps;
+	font-weight  : var(--font-demi-bold);
+	white-space  : nowrap;
+`;
 export const ImportType = styled.div`
-	display     : flex;
-	position    : relative;
-	align-items : center;
+	display         : flex;
+	position        : relative;
+	align-items     : center;
+	justify-content : start;
+	cursor          : pointer;
+	transition      : color 300ms ease-in-out;
 	&:not(:first-child) {
 		margin-left : calc(var(--margin) / 4);
 	}
+	&:hover {
+		color : var(--primary-color);
+	}
 	> span:last-child {
 		margin-left : calc(var(--margin) / 4);
+		white-space : nowrap;
 	}
 `;
