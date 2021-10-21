@@ -7,11 +7,18 @@ import {Topic} from '../tuples/topic-types';
 import {isMockService} from '../utils';
 import {ImportDataResponse} from './import-data-types';
 
+export enum ImportTPSCSType {
+	NON_REDUNDANT = 'non-redundant',
+	REPLACE = 'replace',
+	FORCE_NEW = 'force-new'
+}
+
 export const tryToImportTopicsAndPipelines = async (options: {
 	topics: Array<Topic>;
 	pipelines: Array<Pipeline>;
 	spaces: Array<Space>;
 	connectedSpaces: Array<ConnectedSpace>;
+	importType: ImportTPSCSType;
 }): Promise<ImportDataResponse> => {
 	if (isMockService()) {
 		return await tryToMockImportTopicsAndPipelines(options);

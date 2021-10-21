@@ -69,7 +69,25 @@ export const PickerTableBodyRow = styled.div.attrs<{ columns?: number }>(({colum
 `;
 export const PickerTableBodyCell = styled.div`
 	display     : flex;
+	position    : relative;
 	align-items : center;
 	height      : var(--height);
 	padding     : 0 calc(var(--margin) / 4);
+`;
+export const ImportTypes = styled.div`
+	display     : flex;
+	position    : relative;
+	align-items : center;
+	flex-grow   : 1;
+`;
+export const ImportType = styled.div`
+	display     : flex;
+	position    : relative;
+	align-items : center;
+	&:not(:first-child) {
+		margin-left : calc(var(--margin) / 4);
+	}
+	> span:last-child {
+		margin-left : calc(var(--margin) / 4);
+	}
 `;

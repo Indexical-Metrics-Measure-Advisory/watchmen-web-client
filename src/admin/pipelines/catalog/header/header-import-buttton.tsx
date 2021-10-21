@@ -1,4 +1,4 @@
-import {tryToImportTopicsAndPipelines} from '@/services/data/data-import/import-data';
+import {ImportTPSCSType, tryToImportTopicsAndPipelines} from '@/services/data/data-import/import-data';
 import {ImportDataResponse} from '@/services/data/data-import/import-data-types';
 import {listConnectedSpacesForExport} from '@/services/data/tuples/connected-space';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
@@ -12,6 +12,7 @@ import {getCurrentTime} from '@/services/data/utils';
 import {AdminCacheData} from '@/services/local-persist/types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {Button} from '@/widgets/basic/button';
+import {CheckBox} from '@/widgets/basic/checkbox';
 import {ICON_IMPORT} from '@/widgets/basic/constants';
 import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
 import {ButtonInk} from '@/widgets/basic/types';
@@ -28,7 +29,7 @@ import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {ImportPickerTable} from './import-picker-table';
-import {PICKER_DIALOG_HEIGHT, PickerDialogBody} from './widgets';
+import {ImportType, ImportTypes, PICKER_DIALOG_HEIGHT, PickerDialogBody} from './widgets';
 
 const PipelinesImport = (props: {
 	topics: Array<Topic>; cachedTopics: Array<Topic>;
@@ -56,6 +57,7 @@ const PipelinesImport = (props: {
 				.flat().map(subject => ({subject, picked: true}))
 		};
 	});
+	const [importType, setImportType] = useState<ImportTPSCSType>(ImportTPSCSType.NON_REDUNDANT);
 
 	const onImportClicked = () => {
 		const selectedTopics = candidates.topics.filter(x => x.picked).map(x => x.topic);
@@ -83,7 +85,8 @@ const PipelinesImport = (props: {
 							return null;
 						}
 						return connectedSpace;
-					}).filter(x => !!x) as Array<ConnectedSpace>
+					}).filter(x => !!x) as Array<ConnectedSpace>,
+				importType
 			});
 		}, (response: ImportDataResponse) => {
 			if (!response || !response.passed) {
@@ -94,6 +97,12 @@ const PipelinesImport = (props: {
 				onSuccess({topics: selectedTopics, pipelines: selectedPipelines});
 			}
 		});
+	};
+	const onImportTypeChange = (type: ImportTPSCSType) => (value: boolean) => {
+		if (!value) {
+			return;
+		}
+		setImportType(type);
 	};
 	const onCancelClicked = () => {
 		fireGlobal(EventTypes.HIDE_DIALOG);
@@ -107,6 +116,23 @@ const PipelinesImport = (props: {
 			                   cachedSpaces={cachedSpaces} cachedConnectedSpaces={cachedConnectedSpaces}/>
 		</PickerDialogBody>
 		<DialogFooter>
+			<ImportTypes>
+				<ImportType>
+					<CheckBox value={importType === ImportTPSCSType.NON_REDUNDANT}
+					          onChange={onImportTypeChange(ImportTPSCSType.NON_REDUNDANT)}/>
+					<span>Non Redundant</span>
+				</ImportType>
+				<ImportType>
+					<CheckBox value={importType === ImportTPSCSType.REPLACE}
+					          onChange={onImportTypeChange(ImportTPSCSType.REPLACE)}/>
+					<span>Replace</span>
+				</ImportType>
+				<ImportType>
+					<CheckBox value={importType === ImportTPSCSType.FORCE_NEW}
+					          onChange={onImportTypeChange(ImportTPSCSType.FORCE_NEW)}/>
+					<span>Force New</span>
+				</ImportType>
+			</ImportTypes>
 			<Button ink={ButtonInk.PRIMARY} onClick={onImportClicked}>Try to Import</Button>
 			<Button ink={ButtonInk.WAIVE} onClick={onCancelClicked}>Cancel</Button>
 		</DialogFooter>
