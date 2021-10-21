@@ -78,7 +78,7 @@ export const TopicPickerTable = (props: { candidates: Array<TopicCandidate | Spa
 		<PickerTableHeader>
 			<PickerTableHeaderCell>#</PickerTableHeaderCell>
 			<PickerTableHeaderCell>
-				<CheckBox value={allSelected} onChange={onAllSelectionChange}/>
+				<CheckBox value={allSelected} data-checked={allSelected} onChange={onAllSelectionChange}/>
 			</PickerTableHeaderCell>
 			<PickerTableHeaderCell>Tuple Type</PickerTableHeaderCell>
 			<PickerTableHeaderCell>
@@ -92,7 +92,8 @@ export const TopicPickerTable = (props: { candidates: Array<TopicCandidate | Spa
 				return <PickerTableBodyRow key={getCandidateKey(candidate)}>
 					<PickerTableBodyCell>{index + 1}</PickerTableBodyCell>
 					<PickerTableBodyCell>
-						<CheckBox value={candidate.picked} onChange={onSelectionChange(candidate)}/>
+						<CheckBox value={candidate.picked} data-checked={candidate.picked}
+						          onChange={onSelectionChange(candidate)}/>
 					</PickerTableBodyCell>
 					<PickerTableBodyCell>{getCandidateType(candidate)}</PickerTableBodyCell>
 					<PickerTableBodyCell>{getCandidateName(candidate)}</PickerTableBodyCell>

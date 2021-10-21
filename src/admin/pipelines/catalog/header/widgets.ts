@@ -33,6 +33,14 @@ export const PickerTableHeaderCell = styled.div`
 	font-weight  : var(--font-bold);
 	font-variant : petite-caps;
 	padding      : 0 calc(var(--margin) / 4);
+	> div[data-checked=true] {
+		color        : var(--primary-color);
+		border-color : var(--primary-color);
+	}
+	> div[data-checked=false] {
+		color        : var(--warn-color);
+		border-color : var(--warn-color);
+	}
 	> input {
 		border-top    : 0;
 		border-left   : 0;
@@ -73,6 +81,14 @@ export const PickerTableBodyCell = styled.div`
 	align-items : center;
 	height      : var(--height);
 	padding     : 0 calc(var(--margin) / 4);
+	> div[data-checked=true] {
+		color        : var(--primary-color);
+		border-color : var(--primary-color);
+	}
+	> div[data-checked=false] {
+		color        : var(--warn-color);
+		border-color : var(--warn-color);
+	}
 `;
 export const SubItemPrefix = styled.div`
 	display  : block;

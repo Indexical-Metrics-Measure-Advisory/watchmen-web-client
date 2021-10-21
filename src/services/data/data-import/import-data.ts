@@ -1,8 +1,8 @@
-import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
-import {Space} from '@/services/data/tuples/space-types';
 import {Apis, post} from '../apis';
 import {tryToMockImportTopicsAndPipelines} from '../mock/data-import/import-data';
+import {ConnectedSpace} from '../tuples/connected-space-types';
 import {Pipeline} from '../tuples/pipeline-types';
+import {Space} from '../tuples/space-types';
 import {Topic} from '../tuples/topic-types';
 import {isMockService} from '../utils';
 import {ImportDataResponse} from './import-data-types';

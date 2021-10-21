@@ -110,6 +110,7 @@ const PipelinesDownload = (props: {
 		const selectedSpaces = spaces.map(space => {
 			return {
 				space,
+				// eslint-disable-next-line
 				picked: (space.topicIds || []).every(topicId => selectedTopics.some(({topic}) => topic.topicId == topicId))
 			};
 		});
