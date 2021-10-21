@@ -74,6 +74,22 @@ export const PickerTableBodyCell = styled.div`
 	height      : var(--height);
 	padding     : 0 calc(var(--margin) / 4);
 `;
+export const SubItemPrefix = styled.div`
+	display  : block;
+	position : relative;
+	width    : calc(var(--height) / 2);
+	height   : var(--height);
+	&:before {
+		content          : '';
+		display          : block;
+		position         : absolute;
+		top              : 50%;
+		left             : 0;
+		height           : 1px;
+		width            : 40%;
+		background-color : var(--waive-color);
+	}
+`;
 export const ImportTypes = styled.div`
 	display     : flex;
 	position    : relative;

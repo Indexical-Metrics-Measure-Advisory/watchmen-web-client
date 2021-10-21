@@ -13,7 +13,7 @@ import {Topic} from '@/services/data/tuples/topic-types';
 import {CheckBox} from '@/widgets/basic/checkbox';
 import {Input} from '@/widgets/basic/input';
 import {useForceUpdate} from '@/widgets/basic/utils';
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, Fragment, useState} from 'react';
 import {
 	Candidate,
 	ConnectedSpaceCandidate,
@@ -37,7 +37,8 @@ import {
 	PickerTableBodyCell,
 	PickerTableBodyRow,
 	PickerTableHeader,
-	PickerTableHeaderCell
+	PickerTableHeaderCell,
+	SubItemPrefix
 } from './widgets';
 
 interface Filter {
@@ -197,6 +198,21 @@ const buildCandidatesRelationship = (candidates: Candidates) => {
 	};
 };
 
+const CandidatePrefix = (props: { me: Candidate, items: Array<Candidate> }) => {
+	const {me} = props;
+
+	if (isConnectedSpaceCandidate(me)) {
+		return <SubItemPrefix/>;
+	} else if (isSubjectCandidate(me)) {
+		return <>
+			<SubItemPrefix/>
+			<SubItemPrefix/>
+		</>;
+	}
+
+	return <Fragment/>;
+};
+
 export const ImportPickerTable = (props: {
 	candidates: Candidates;
 	cachedTopics: Array<Topic>; cachedPipelines: Array<Pipeline>;
@@ -333,13 +349,17 @@ export const ImportPickerTable = (props: {
 		</PickerTableHeader>
 		<PickerTableBody>
 			{displayItems.map((candidate, index) => {
+
 				return <PickerTableBodyRow columns={5} key={getCandidateKey(candidate)}>
 					<PickerTableBodyCell>{index + 1}</PickerTableBodyCell>
 					<PickerTableBodyCell>
 						<CheckBox value={candidate.picked} onChange={onSelectionChange(candidate)}/>
 					</PickerTableBodyCell>
 					<PickerTableBodyCell>{getCandidateType(candidate)}</PickerTableBodyCell>
-					<PickerTableBodyCell>{getCandidateName(candidate)}</PickerTableBodyCell>
+					<PickerTableBodyCell>
+						<CandidatePrefix me={candidate} items={displayItems}/>
+						<span>{getCandidateName(candidate)}</span>
+					</PickerTableBodyCell>
 					<PickerTableBodyCell>{isCandidateExisted(candidate, {
 						topics: topicsMap,
 						pipelines: pipelinesMap,
