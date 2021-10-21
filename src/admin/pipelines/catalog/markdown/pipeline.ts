@@ -173,7 +173,9 @@ const generateArithmetic = (arithmetic: AggregateArithmetic): string => {
 		return `.${arithmetic}()`;
 	}
 };
-const generateActionBody = (options: { action: PipelineStageUnitAction, topicsMap: TopicsMap, externalWritersMap: ExternalWritersMap }): string => {
+const generateActionBody = (options: {
+	action: PipelineStageUnitAction; topicsMap: TopicsMap; externalWritersMap: ExternalWritersMap;
+}): string => {
 	const {action, topicsMap, externalWritersMap} = options;
 
 	if (isAlarmAction(action)) {
@@ -272,7 +274,10 @@ const generateActionBody = (options: { action: PipelineStageUnitAction, topicsMa
 	}
 };
 
-const generateActions = (options: { actions: Array<PipelineStageUnitAction>, topicsMap: TopicsMap, externalWritersMap: ExternalWritersMap, stageIndex: number, unitIndex: number }): string => {
+const generateActions = (options: {
+	actions: Array<PipelineStageUnitAction>; topicsMap: TopicsMap; externalWritersMap: ExternalWritersMap;
+	stageIndex: number; unitIndex: number;
+}): string => {
 	const {actions, topicsMap, externalWritersMap, stageIndex, unitIndex} = options;
 
 	return actions.map((action, actionIndex) => {
@@ -282,7 +287,10 @@ const generateActions = (options: { actions: Array<PipelineStageUnitAction>, top
 	}).map(part => part.split('\n').map(line => `\t${line}`).join('\n')).join('\n');
 };
 
-const generateUnits = (options: { units: Array<PipelineStageUnit>, topicsMap: TopicsMap, externalWritersMap: ExternalWritersMap, stageIndex: number }): string => {
+const generateUnits = (options: {
+	units: Array<PipelineStageUnit>; topicsMap: TopicsMap; externalWritersMap: ExternalWritersMap;
+	stageIndex: number;
+}): string => {
 	const {units, topicsMap, externalWritersMap, stageIndex} = options;
 
 	return units.map((unit, unitIndex) => {
@@ -302,7 +310,9 @@ ${generateActions({actions: unit.do || [], topicsMap, externalWritersMap, stageI
 	}).map(part => part.split('\n').map(line => `\t${line}`).join('\n')).join('\n');
 };
 
-const generateStages = (options: { stages: Array<PipelineStage>, topicsMap: TopicsMap, externalWritersMap: ExternalWritersMap }): string => {
+const generateStages = (options: {
+	stages: Array<PipelineStage>, topicsMap: TopicsMap, externalWritersMap: ExternalWritersMap;
+}): string => {
 	const {stages, topicsMap, externalWritersMap} = options;
 
 	return stages.map((stage, stageIndex) => {
@@ -320,17 +330,18 @@ ${generateUnits({units: stage.units || [], topicsMap, externalWritersMap, stageI
 
 const generatePipelineMarkdown = (options: {
 	pipeline: Pipeline, topicsMap: TopicsMap, externalWritersMap: ExternalWritersMap, index: number,
-	topicRelations: TopicRelationMap, pipelineRelations: PipelineRelationMap
+	topicRelations: TopicRelationMap, pipelineRelations: PipelineRelationMap;
+	sectionIndex: number;
 }): string => {
-	const {pipeline, topicsMap, externalWritersMap, index} = options;
+	const {pipeline, topicsMap, externalWritersMap, index, sectionIndex} = options;
 
 	const triggerTopic = topicsMap[pipeline.topicId];
 	const triggerTopicName = triggerTopic ? (triggerTopic.name || 'Noname Topic') : 'Missed';
-	return `## 2.${index + 1}. ${pipeline.name || 'Noname Pipeline'} #${pipeline.pipelineId}<span id="pipeline-${pipeline.pipelineId}"/>
+	return `## ${sectionIndex}.${index + 1}. ${pipeline.name || 'Noname Pipeline'} #${pipeline.pipelineId}<span id="pipeline-${pipeline.pipelineId}"/>
 
 <a href="data:application/json;base64,${window.btoa(JSON.stringify(pipeline))}" target="_blank" download="${pipeline.name || 'Noname Pipeline'}-${pipeline.pipelineId}.json">Download Meta File</a>
 
-### 2.${index + 1}.1. Definition
+### ${sectionIndex}.${index + 1}.1. Definition
 ${'```ts'}
 Pipeline.id('${pipeline.pipelineId}')
 	.name('${pipeline.name || 'Noname Pipeline'}')
@@ -345,8 +356,13 @@ ${'```'}
 export const generatePipelines = (options: {
 	topicsMap: TopicsMap; pipelinesMap: PipelinesMap; externalWritersMap: ExternalWritersMap;
 	topicRelations: TopicRelationMap; pipelineRelations: PipelineRelationMap;
+	sectionIndex: number;
 }): string => {
-	const {topicsMap, pipelinesMap, externalWritersMap, topicRelations, pipelineRelations} = options;
+	const {
+		topicsMap, pipelinesMap, externalWritersMap,
+		topicRelations, pipelineRelations,
+		sectionIndex
+	} = options;
 
 	if (Object.values(pipelinesMap).length === 0) {
 		return '> No pipelines.';
@@ -356,10 +372,9 @@ export const generatePipelines = (options: {
 		return (p1.name || '').toLowerCase().localeCompare((p2.name || '').toLowerCase());
 	}).map((pipeline, index) => generatePipelineMarkdown({
 		pipeline,
-		topicsMap,
-		externalWritersMap,
+		topicsMap, externalWritersMap,
 		index,
-		topicRelations,
-		pipelineRelations
+		topicRelations, pipelineRelations,
+		sectionIndex
 	})).join('\n');
 };

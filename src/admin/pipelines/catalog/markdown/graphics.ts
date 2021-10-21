@@ -1,10 +1,10 @@
-export const generateGraphics = (selectedSvg: string, allSvg: string) => {
+export const generateGraphics = (selectedSvg: string, allSvg: string, sectionIndex: number) => {
 	if (allSvg) {
 		return `
-## 3.1 User Selection Graphics
+## ${sectionIndex}.1 User Selection Graphics
 ${selectedSvg}
 
-## 3.2 All Relevant Graphics
+## ${sectionIndex}.2 All Relevant Graphics
 ${allSvg}
 `;
 	} else {

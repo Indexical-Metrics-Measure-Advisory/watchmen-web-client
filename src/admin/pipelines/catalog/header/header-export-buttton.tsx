@@ -106,14 +106,14 @@ const PipelinesDownload = (props: {
 	const {fire} = useEventBus();
 	const [candidates] = useState(() => {
 		const inGraphicsTopics = graphics.topics.map(t => t.topic);
-		return [
-			...topics.map(topic => {
-				return {topic, picked: inGraphicsTopics.includes(topic)};
-			}),
-			...spaces.map(space => {
-				return {space, picked: false};
-			})
-		];
+		const selectedTopics = topics.map(topic => ({topic, picked: inGraphicsTopics.includes(topic)}));
+		const selectedSpaces = spaces.map(space => {
+			return {
+				space,
+				picked: (space.topicIds || []).every(topicId => selectedTopics.some(({topic}) => topic.topicId == topicId))
+			};
+		});
+		return [...selectedTopics, ...selectedSpaces];
 	});
 
 	const onDownloadClicked = async () => {

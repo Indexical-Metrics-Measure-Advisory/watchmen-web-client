@@ -36,17 +36,20 @@ export const generateMarkdown = async (options: {
 
 	return `Exported Topics & Pipelines on ${dayjs().format('YYYY/MM/DD')}
 ------------------------------------------
+# 1. Relations
+${generateGraphics(selectedSvg, allSvg, 1)}
 
-# 1. Topics
-${generateTopics({topicsMap, pipelinesMap, dataSourcesMap, enumsMap, topicRelations, pipelineRelations})}
+# 2. Topics
+${generateTopics({
+		topicsMap, pipelinesMap, dataSourcesMap, enumsMap,
+		topicRelations, pipelineRelations,
+		sectionIndex: 2
+	})}
 
-# 2. Pipelines
-${generatePipelines({topicsMap, pipelinesMap, externalWritersMap, topicRelations, pipelineRelations})}
-
-# 3. Relations
-${generateGraphics(selectedSvg, allSvg)}
+# 3. Pipelines
+${generatePipelines({topicsMap, pipelinesMap, externalWritersMap, topicRelations, pipelineRelations, sectionIndex: 3})}
 
 # 4. Spaces
-${generateSpaces({spaces, connectedSpaces, topicsMap})}
+${generateSpaces({spaces, connectedSpaces, topicsMap, sectionIndex: 4})}
 `;
 };
