@@ -75,10 +75,14 @@ interface SpaceRelations {
 }
 
 interface ConnectedSpaceRelations {
+	topics: Array<TopicCandidate>;
+	spaces: Array<SpaceCandidate>;
 	subjects: Array<SubjectCandidate>;
 }
 
 interface SubjectRelations {
+	topics: Array<TopicCandidate>;
+	spaces: Array<SpaceCandidate>;
 	connectedSpaces: Array<ConnectedSpaceCandidate>;
 }
 
@@ -171,6 +175,11 @@ const buildCandidatesRelationship = (candidates: Candidates) => {
 		connectedSpaces: (candidates.connectedSpaces || []).reduce((map, {connectedSpace}) => {
 			const r: ConnectedSpaceRelations = map[connectedSpace.connectId] ?? {subjects: []};
 			map[connectedSpace.connectId] = r;
+			// eslint-disable-next-line
+			r.spaces = (candidates.spaces || []).filter(({space}) => space.spaceId == connectedSpace.spaceId);
+			const allTopicIds = [...new Set(r.spaces.map(({space}) => space.topicIds || []).flat())];
+			// eslint-disable-next-line
+			r.topics = (candidates.topics || []).filter(({topic}) => allTopicIds.some(topicId => topicId == topic.topicId));
 			r.subjects = (candidates.subjects || []).filter(({subject}) => (connectedSpace.subjects || []).includes(subject));
 			return map;
 		}, {} as Record<string, ConnectedSpaceRelations>),
@@ -178,6 +187,11 @@ const buildCandidatesRelationship = (candidates: Candidates) => {
 			const r: SubjectRelations = map[subject.subjectId] ?? {connectedSpaces: []};
 			map[subject.subjectId] = r;
 			r.connectedSpaces = (candidates.connectedSpaces || []).filter(({connectedSpace}) => (connectedSpace.subjects || []).includes(subject));
+			// eslint-disable-next-line
+			r.spaces = (candidates.spaces || []).filter(({space}) => r.connectedSpaces.some(({connectedSpace}) => connectedSpace.spaceId == space.spaceId));
+			const allTopicIds = [...new Set(r.spaces.map(({space}) => space.topicIds || []).flat())];
+			// eslint-disable-next-line
+			r.topics = (candidates.topics || []).filter(({topic}) => allTopicIds.some(topicId => topicId == topic.topicId));
 			return map;
 		}, {} as Record<string, SubjectRelations>)
 	};
@@ -252,37 +266,34 @@ export const ImportPickerTable = (props: {
 		if (isTopicCandidate(candidate) && !candidate.picked) {
 			// unpick a topic, unpick related pipelines/spaces/connected spaces/subjects as well
 			const {pipelines, spaces, connectedSpaces, subjects} = relations.topics[candidate.topic.topicId] || {};
-			[...pipelines, ...spaces, ...connectedSpaces, ...subjects].filter(x => !!x)
-				.forEach(candidate => candidate.picked = false);
+			[...pipelines, ...spaces, ...connectedSpaces, ...subjects].forEach(candidate => candidate.picked = false);
 		} else if (isPipelineCandidate(candidate) && candidate.picked) {
 			// pick a pipeline, pick related topics
 			const {topics} = relations.pipelines[candidate.pipeline.pipelineId] || {};
-			(topics || []).forEach(candidate => candidate.picked = true);
+			topics.forEach(candidate => candidate.picked = true);
 		} else if (isSpaceCandidate(candidate)) {
 			if (candidate.picked) {
 				// pick a space, pick related topics
 				const {topics} = relations.spaces[candidate.space.spaceId] || {};
-				(topics || []).forEach(candidate => candidate.picked = true);
+				topics.forEach(candidate => candidate.picked = true);
 			} else {
 				// unpick a space, unpick related connected spaces and subjects
 				const {connectedSpaces, subjects} = relations.spaces[candidate.space.spaceId] || {};
 				[...connectedSpaces, ...subjects].filter(x => !!x).forEach(candidate => candidate.picked = false);
 			}
 		} else if (isConnectedSpaceCandidate(candidate)) {
-			const {subjects} = relations.connectedSpaces[candidate.connectedSpace.connectId] || {};
+			const {topics, spaces, subjects} = relations.connectedSpaces[candidate.connectedSpace.connectId] || {};
 			if (candidate.picked) {
-				// pick a connected spaces, pick all subjects
-				(subjects || []).forEach(subjectCandidate => subjectCandidate.picked = true);
+				// pick a connected spaces, pick all subjects, its space and topics
+				[...topics, ...spaces, ...subjects].forEach(candidate => candidate.picked = true);
 			} else {
 				// unpick a connected space, unpick all subjects
-				(subjects || []).forEach(subjectCandidate => subjectCandidate.picked = false);
+				subjects.forEach(candidate => candidate.picked = false);
 			}
-		} else if (isSubjectCandidate(candidate)) {
-			const {connectedSpaces} = relations.subjects[candidate.subject.subjectId] || {};
-			(connectedSpaces || []).forEach(connectedSpaceCandidate => {
-				const {subjects} = relations.connectedSpaces[connectedSpaceCandidate.connectedSpace.connectId] || {};
-				connectedSpaceCandidate.picked = (subjects || []).every(subject => subject.picked);
-			});
+		} else if (isSubjectCandidate(candidate) && candidate.picked) {
+			// pick a subject, pick its connected space, space and topics
+			const {topics, spaces, connectedSpaces} = relations.subjects[candidate.subject.subjectId] || {};
+			[...topics, ...spaces, ...connectedSpaces].forEach(candidate => candidate.picked = true);
 		}
 		forceUpdate();
 	};

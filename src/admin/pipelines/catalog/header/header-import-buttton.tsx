@@ -60,18 +60,30 @@ const PipelinesImport = (props: {
 	const onImportClicked = () => {
 		const selectedTopics = candidates.topics.filter(x => x.picked).map(x => x.topic);
 		const selectedPipelines = candidates.pipelines.filter(x => x.picked).map(x => x.pipeline);
-		if (selectedTopics.length + selectedPipelines.length === 0) {
+		const selectedSpaces = candidates.spaces.filter(x => x.picked).map(x => x.space);
+		if ([...selectedTopics, ...selectedPipelines, ...selectedSpaces].length === 0) {
 			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>No item selected.</AlertLabel>);
 			return;
 		}
+
+		const selectedConnectedSpaces = candidates.connectedSpaces.filter(x => x.picked).map(x => x.connectedSpace);
+		const selectedSubjects = candidates.subjects.filter(x => x.picked).map(x => x.subject);
 
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
 			return await tryToImportTopicsAndPipelines({
 				topics: selectedTopics,
 				pipelines: selectedPipelines,
-				// TODO
-				spaces: [],
-				connectedSpaces: []
+				spaces: selectedSpaces,
+				connectedSpaces: selectedConnectedSpaces.map(connectedSpace => JSON.parse(JSON.stringify(connectedSpace)) as ConnectedSpace)
+					.map(connectedSpace => {
+						connectedSpace.subjects = (connectedSpace.subjects || [])
+							// eslint-disable-next-line
+							.filter(subject => selectedSubjects.some(selectedSubject => selectedSubject.subjectId == subject.subjectId));
+						if (connectedSpace.subjects.length === 0) {
+							return null;
+						}
+						return connectedSpace;
+					}).filter(x => !!x) as Array<ConnectedSpace>
 			});
 		}, (response: ImportDataResponse) => {
 			if (!response || !response.passed) {
