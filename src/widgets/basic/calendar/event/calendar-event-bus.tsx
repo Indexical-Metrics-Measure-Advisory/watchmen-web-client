@@ -1,5 +1,5 @@
-import EventEmitter from 'events';
-import React, {ReactNode, useContext, useState} from 'react';
+import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
+import React, {ReactNode, useContext} from 'react';
 import {CalendarEventBus} from './calendar-event-bus-types';
 
 const Context = React.createContext<CalendarEventBus>({} as CalendarEventBus);
@@ -8,28 +8,7 @@ Context.displayName = 'CalendarEventBus';
 export const CalendarEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
-	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
-	const [bus] = useState<CalendarEventBus>({
-		fire: (type: string, ...data: Array<any>): CalendarEventBus => {
-			emitter.emit(type, ...data);
-			return bus;
-		},
-		once: (type: string, listener: (...data: Array<any>) => void): CalendarEventBus => {
-			emitter.once(type, listener);
-			return bus;
-		},
-		on: (type: string, listener: (...data: Array<any>) => void): CalendarEventBus => {
-			if (emitter.rawListeners(type).includes(listener)) {
-				console.error(`Listener on [${type}] was added into calendar event bus, check it.`);
-			}
-			emitter.on(type, listener);
-			return bus;
-		},
-		off: (type: string, listener: (...data: Array<any>) => void): CalendarEventBus => {
-			emitter.off(type, listener);
-			return bus;
-		}
-	});
+	const bus = useCreateEventBus<CalendarEventBus>('calendar');
 
 	return <Context.Provider value={bus}>
 		{children}

@@ -1,6 +1,6 @@
-import EventEmitter from 'events';
-import React, {ReactNode, useContext, useState} from 'react';
-import {ParameterEventBus, ParameterEventTypes} from './parameter-event-bus-types';
+import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
+import React, {ReactNode, useContext} from 'react';
+import {ParameterEventBus} from './parameter-event-bus-types';
 
 const Context = React.createContext<ParameterEventBus>({} as ParameterEventBus);
 Context.displayName = 'ParameterEventBus';
@@ -8,25 +8,7 @@ Context.displayName = 'ParameterEventBus';
 export const ParameterEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
-	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
-	const [bus] = useState<ParameterEventBus>({
-		fire: (type: string, ...data: Array<any>): ParameterEventBus => {
-			emitter.emit(type, ...data);
-			emitter.emit(ParameterEventTypes.PARAM_CHANGED);
-			return bus;
-		},
-		on: (type: string, listener: (...data: Array<any>) => void): ParameterEventBus => {
-			if (emitter.rawListeners(type).includes(listener)) {
-				console.error(`Listener on [${type}] was added into parameter event bus, check it.`);
-			}
-			emitter.on(type, listener);
-			return bus;
-		},
-		off: (type: string, listener: (...data: Array<any>) => void): ParameterEventBus => {
-			emitter.off(type, listener);
-			return bus;
-		}
-	});
+	const bus = useCreateEventBus<ParameterEventBus>('parameter');
 
 	return <Context.Provider value={bus}>
 		{children}

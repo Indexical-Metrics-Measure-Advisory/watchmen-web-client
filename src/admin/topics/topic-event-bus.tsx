@@ -1,5 +1,5 @@
-import EventEmitter from 'events';
-import React, {ReactNode, useContext, useState} from 'react';
+import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
+import React, {ReactNode, useContext} from 'react';
 import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes, TupleState} from '../widgets/tuple-workbench/tuple-event-bus-types';
 import {TopicEventBus, TopicEventTypes} from './topic-event-bus-types';
@@ -11,25 +11,11 @@ export const TopicEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const {fire} = useTupleEventBus();
-	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));
-	const [bus] = useState<TopicEventBus>({
-		fire: (type: string, ...data: Array<any>): TopicEventBus => {
+	const bus = useCreateEventBus<TopicEventBus>('topic', {
+		beforeFire: (type: string) => {
 			if (type !== TopicEventTypes.FACTOR_SEARCH_TEXT_CHANGED) {
 				fire(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.CHANGED);
 			}
-			emitter.emit(type, ...data);
-			return bus;
-		},
-		on: (type: string, listener: (...data: Array<any>) => void): TopicEventBus => {
-			if (emitter.rawListeners(type).includes(listener)) {
-				console.error(`Listener on [${type}] was added into topic event bus, check it.`);
-			}
-			emitter.on(type, listener);
-			return bus;
-		},
-		off: (type: string, listener: (...data: Array<any>) => void): TopicEventBus => {
-			emitter.off(type, listener);
-			return bus;
 		}
 	});
 
