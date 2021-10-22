@@ -99,7 +99,7 @@ const DataDialog = (props: {
 					return data;
 				}, {} as DataRow);
 			});
-		console.log(validRows);
+		// console.log(validRows);
 		setRows(rows => {
 			return [...rows, ...validRows];
 		});
