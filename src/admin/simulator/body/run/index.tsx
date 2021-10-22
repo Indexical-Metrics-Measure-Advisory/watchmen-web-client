@@ -90,7 +90,6 @@ export const RunningPlanHeader = (props: {
 	}, {} as Record<string, Topic>);
 
 	const onExportClicked = () => {
-		console.log('2');
 		once(RunsEventTypes.REPLY_RUNTIME_DATA, (started: boolean, done: boolean, runtimeData: TopicsData) => {
 			if (!started) {
 				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>

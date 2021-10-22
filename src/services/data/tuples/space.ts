@@ -104,7 +104,7 @@ export const fetchSpace = async (
 export const saveSpace = async (space: Space): Promise<void> => {
 	space.tenantId = findAccount()?.tenantId;
 	if (isMockService()) {
-		console.log(transformToServer(space));
+		// console.log(transformToServer(space));
 		return saveMockSpace(space);
 	} else if (isFakedUuid(space)) {
 		const data = await post({api: Apis.SPACE_CREATE, data: transformToServer(space)});

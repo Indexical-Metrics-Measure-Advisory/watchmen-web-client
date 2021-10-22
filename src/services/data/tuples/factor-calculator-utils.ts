@@ -98,7 +98,6 @@ export const isFactorTypeCompatibleWith = (options: {
 	});
 
 	if (!passed) {
-		console.log('xyz', expectedTypes, factorType);
 		reasons(ParameterInvalidReason.FACTOR_TYPE_NOT_MATCHED);
 	}
 
