@@ -1,5 +1,5 @@
 import {Conditional} from '@/services/data/tuples/pipeline-super-types';
-import React, {useEffect} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {useConditionalEventBus} from './conditional-event-bus';
 import {ConditionalEventTypes} from './conditional-event-bus-types';
 import {useJointEventBus} from './event-bus/joint-event-bus';
@@ -26,5 +26,5 @@ export const TopJoint2ConditionalBridge = (props: { conditional: Conditional }) 
 		};
 	}, [fireConditional, on, off, conditional]);
 
-	return <></>;
+	return <Fragment/>;
 };

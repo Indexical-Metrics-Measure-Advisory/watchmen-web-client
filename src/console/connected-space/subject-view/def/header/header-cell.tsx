@@ -4,7 +4,7 @@ import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
-import React, {useEffect, useState} from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 import {useSubjectDefEventBus} from '../subject-def-event-bus';
 import {SubjectDefData, SubjectDefEventTypes} from '../subject-def-event-bus-types';
 import {DefHeaderCell, DefHeaderIndex, DefHeaderLabel, DefHeaderNextButton} from './widgets';
@@ -17,7 +17,7 @@ export const HeaderCell = (props: {
 	checkPickedTopicBeforeActive?: boolean;
 	next?: boolean;
 	checkPickedTopicBeforeNext?: boolean;
-	children?: ((props: any) => React.ReactNode) | React.ReactNode;
+	children?: ReactNode;
 }) => {
 	const {
 		activeIndex, label, onClick,

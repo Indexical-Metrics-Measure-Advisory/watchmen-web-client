@@ -1,11 +1,11 @@
 import EventEmitter from 'events';
-import React, {useContext, useState} from 'react';
+import React, {ReactNode, useContext, useState} from 'react';
 import {JointEventBus} from './joint-event-bus-types';
 
 const Context = React.createContext<JointEventBus>({} as JointEventBus);
 Context.displayName = 'JointEventBus';
 
-export const JointEventBusProvider = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const JointEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));

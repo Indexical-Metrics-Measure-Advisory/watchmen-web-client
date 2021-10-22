@@ -7,7 +7,7 @@ import {FunnelEditor} from '@/widgets/funnel';
 import {FunnelEventBusProvider, useFunnelEventBus} from '@/widgets/funnel/funnel-event-bus';
 import {FunnelEventTypes} from '@/widgets/funnel/funnel-event-bus-types';
 import {ReportFunnelLabels} from '@/widgets/funnel/widgets';
-import React, {ReactNode, useEffect} from 'react';
+import React, {Fragment, ReactNode, useEffect} from 'react';
 // noinspection ES6PreferShortImport
 import {useConsoleEventBus} from '../../../../console-event-bus';
 // noinspection ES6PreferShortImport
@@ -98,7 +98,7 @@ const FunnelEnumHandler = (props: { subject: Subject; funnel: ReportFunnel }) =>
 		};
 	}, [fire, on, off, fireConsole, onceConsole, onConsole, offConsole, subject.dataset.columns, funnel]);
 
-	return <></>;
+	return <Fragment/>;
 };
 
 const FunnelEditorDelegate = (props: { subject: Subject; report: Report; funnel: ReportFunnel; pairJoint: ReactNode }) => {

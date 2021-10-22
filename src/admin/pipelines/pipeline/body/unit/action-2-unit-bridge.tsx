@@ -2,7 +2,7 @@ import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
 import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
-import React, {useEffect} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {usePipelineEventBus} from '../../pipeline-event-bus';
 import {PipelineEventTypes} from '../../pipeline-event-bus-types';
 import {useActionEventBus} from '../action/action-event-bus';
@@ -34,5 +34,5 @@ export const Action2UnitBridge = (props: {
 		};
 	}, [firePipeline, on, off, fireUnit, pipeline, stage, unit, action]);
 
-	return <></>;
+	return <Fragment/>;
 };

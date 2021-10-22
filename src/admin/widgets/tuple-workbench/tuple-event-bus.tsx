@@ -1,11 +1,11 @@
 import EventEmitter from 'events';
-import React, {useContext, useState} from 'react';
+import React, {ReactNode, useContext, useState} from 'react';
 import {TupleEventBus} from './tuple-event-bus-types';
 
 const Context = React.createContext<TupleEventBus>({} as TupleEventBus);
 Context.displayName = 'TupleEventBus';
 
-export const TupleEventBusProvider = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const TupleEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));

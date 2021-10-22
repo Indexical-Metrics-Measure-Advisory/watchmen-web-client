@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {Fragment, useEffect} from 'react';
 import {useRuntimeEventBus} from '../runtime/runtime-event-bus';
 import {RuntimeEventTypes} from '../runtime/runtime-event-bus-types';
 
@@ -14,5 +14,5 @@ export const RunNextPipeline = (props: { runNext: () => void }) => {
 		};
 	}, [on, off, runNext]);
 
-	return <></>;
+	return <Fragment/>;
 };

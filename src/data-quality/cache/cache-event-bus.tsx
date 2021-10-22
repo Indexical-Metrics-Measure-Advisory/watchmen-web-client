@@ -1,11 +1,11 @@
 import EventEmitter from 'events';
-import React, {useContext, useState} from 'react';
+import React, {ReactNode, useContext, useState} from 'react';
 import {DataQualityCacheEventBus} from './cache-event-bus-types';
 
 const Context = React.createContext<DataQualityCacheEventBus>({} as DataQualityCacheEventBus);
 Context.displayName = 'CacheEventBus';
 
-export const DataQualityCacheEventBusProvider = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const DataQualityCacheEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));

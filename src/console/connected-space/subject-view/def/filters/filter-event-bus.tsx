@@ -1,11 +1,11 @@
 import EventEmitter from 'events';
-import React, {useContext, useState} from 'react';
+import React, {ReactNode, useContext, useState} from 'react';
 import {FilterEventBus} from './filter-event-bus-types';
 
 const Context = React.createContext<FilterEventBus>({} as FilterEventBus);
 Context.displayName = 'FilterEventBus';
 
-export const FilterEventBusProvider = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const FilterEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));

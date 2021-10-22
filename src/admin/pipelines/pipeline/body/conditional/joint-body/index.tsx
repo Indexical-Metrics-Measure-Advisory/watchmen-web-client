@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 import {useJointEventBus} from '../event-bus/joint-event-bus';
 import {JointEventTypes} from '../event-bus/joint-event-bus-types';
 import {JointBodyContainer} from './widgets';
 
-export const JointBody = (props: { children: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const JointBody = (props: { children: ReactNode }) => {
 	const {children} = props;
 
 	const {on, off} = useJointEventBus();

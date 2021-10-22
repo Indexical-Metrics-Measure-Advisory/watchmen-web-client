@@ -1,5 +1,5 @@
 import EventEmitter from 'events';
-import React, {useContext, useState} from 'react';
+import React, {ReactNode, useContext, useState} from 'react';
 import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes, TupleState} from '../widgets/tuple-workbench/tuple-event-bus-types';
 import {ExternalWriterEventBus} from './external-writer-event-bus-types';
@@ -7,7 +7,7 @@ import {ExternalWriterEventBus} from './external-writer-event-bus-types';
 const Context = React.createContext<ExternalWriterEventBus>({} as ExternalWriterEventBus);
 Context.displayName = 'ExternalWriterEventBus';
 
-export const ExternalWriterEventBusProvider = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const ExternalWriterEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const {fire} = useTupleEventBus();

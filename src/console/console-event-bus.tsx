@@ -1,11 +1,11 @@
 import EventEmitter from 'events';
-import React, {useContext, useState} from 'react';
+import React, {ReactNode, useContext, useState} from 'react';
 import {ConsoleEventBus} from './console-event-bus-types';
 
 const Context = React.createContext<ConsoleEventBus>({} as ConsoleEventBus);
 Context.displayName = 'ConsoleEventBus';
 
-export const ConsoleEventBusProvider = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const ConsoleEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));

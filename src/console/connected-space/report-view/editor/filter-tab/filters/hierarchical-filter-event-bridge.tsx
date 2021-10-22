@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {useFilterEventBus} from './filter-event-bus';
 import {FilterEventTypes} from './filter-event-bus-types';
 
@@ -25,5 +25,5 @@ export const HierarchicalFilterEventBridge = (props: { notifyChangeToParent: () 
 		};
 	}, [on, off, notifyChangeToParent]);
 
-	return <></>;
+	return <Fragment/>;
 };

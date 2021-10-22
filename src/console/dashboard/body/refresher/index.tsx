@@ -2,7 +2,7 @@ import {Dashboard} from '@/services/data/tuples/dashboard-types';
 import {Report} from '@/services/data/tuples/report-types';
 import {useReportEventBus} from '@/widgets/report/report-event-bus';
 import {ReportEventTypes} from '@/widgets/report/report-event-bus-types';
-import React, {useEffect} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {useDashboardEventBus} from '../../dashboard-event-bus';
 import {DashboardEventTypes} from '../../dashboard-event-bus-types';
 
@@ -35,5 +35,5 @@ export const ReportRefresher = (props: { dashboard: Dashboard; reports: Array<Re
 		};
 	}, [on, off, fireReport, dashboard.dashboardId, dashboard.reports, reports]);
 
-	return <></>;
+	return <Fragment/>;
 };

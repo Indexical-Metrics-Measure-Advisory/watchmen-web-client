@@ -4,7 +4,7 @@ import {AvailableSpaceInConsole} from '@/services/data/console/settings-types';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Subject} from '@/services/data/tuples/subject-types';
 import {Topic} from '@/services/data/tuples/topic-types';
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {Redirect, Route, Switch, useHistory} from 'react-router-dom';
 import {useConsoleEventBus} from '../../console-event-bus';
 import {ConsoleEventTypes} from '../../console-event-bus-types';
@@ -49,7 +49,7 @@ export const SubjectBodyRouter = (props: { connectedSpace: ConnectedSpace, subje
 	});
 
 	if (!initialized) {
-		return <></>;
+		return <Fragment/>;
 	}
 
 	return <Switch>

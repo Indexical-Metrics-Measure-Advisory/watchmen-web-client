@@ -1,5 +1,5 @@
 import {Report} from '@/services/data/tuples/report-types';
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {useReportViewEventBus} from '../report-view-event-bus';
 import {ReportViewEventTypes} from '../report-view-event-bus-types';
 
@@ -29,5 +29,5 @@ export const ReportPartController = (props: { report: Report }) => {
 		};
 	}, [on, off, fire, report, state.settings]);
 
-	return <></>;
+	return <Fragment/>;
 };

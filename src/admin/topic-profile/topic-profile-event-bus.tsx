@@ -1,11 +1,11 @@
 import EventEmitter from 'events';
-import React, {useContext, useState} from 'react';
+import React, {ReactNode, useContext, useState} from 'react';
 import {TopicProfileEventBus} from './topic-profile-event-bus-types';
 
 const Context = React.createContext<TopicProfileEventBus>({} as TopicProfileEventBus);
 Context.displayName = 'TopicProfileEventBus';
 
-export const TopicProfileEventBusProvider = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const TopicProfileEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));

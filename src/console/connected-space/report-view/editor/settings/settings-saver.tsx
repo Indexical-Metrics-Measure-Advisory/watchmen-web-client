@@ -2,7 +2,7 @@ import {Report} from '@/services/data/tuples/report-types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {useReportEventBus} from '@/widgets/report/report-event-bus';
 import {ReportEventTypes} from '@/widgets/report/report-event-bus-types';
-import {useEffect} from 'react';
+import {Fragment, useEffect} from 'react';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 
@@ -101,5 +101,5 @@ export const SettingsSaver = (props: { report: Report }) => {
 		};
 	}, [on, off, fireReport, fireGlobal, report]);
 
-	return <></>;
+	return <Fragment/>;
 };

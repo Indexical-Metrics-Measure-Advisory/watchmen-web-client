@@ -1,11 +1,11 @@
 import EventEmitter from 'events';
-import React, {useContext, useState} from 'react';
+import React, {ReactNode, useContext, useState} from 'react';
 import {ExpressionEventBus} from './expression-event-bus-types';
 
 const Context = React.createContext<ExpressionEventBus>({} as ExpressionEventBus);
 Context.displayName = 'ExpressionEventBus';
 
-export const ExpressionEventBusProvider = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const ExpressionEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));

@@ -1,7 +1,7 @@
 import {Dashboard} from '@/services/data/tuples/dashboard-types';
 import {useReportEventBus} from '@/widgets/report/report-event-bus';
 import {ReportEventTypes} from '@/widgets/report/report-event-bus-types';
-import {useEffect} from 'react';
+import {Fragment, useEffect} from 'react';
 import {useDashboardEventBus} from '../../dashboard-event-bus';
 import {DashboardEventTypes} from '../../dashboard-event-bus-types';
 
@@ -19,5 +19,5 @@ export const ParagraphMoveOrResizeMonitor = (props: { dashboard: Dashboard }) =>
 			off(ReportEventTypes.PARAGRAPH_MOVE_OR_RESIZE_COMPLETED, onMoveOrResize);
 		};
 	}, [on, off, fireDashboard, dashboard]);
-	return <></>;
+	return <Fragment/>;
 };

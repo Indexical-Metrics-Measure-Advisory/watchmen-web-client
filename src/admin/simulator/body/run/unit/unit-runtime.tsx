@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {PipelineRuntimeContext, StageRuntimeContext, UnitRuntimeContext} from '../types';
 import {useCompleted} from './use-completed';
 import {useRunInternalUnits} from './use-run-internal-units';
@@ -15,5 +15,5 @@ export const UnitRuntime = (props: {
 	useCompleted(pipelineContext, stageContext, context);
 	useRunInternalUnits(pipelineContext, stageContext, context);
 
-	return <></>;
+	return <Fragment/>;
 };

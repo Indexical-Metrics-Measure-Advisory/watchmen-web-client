@@ -8,7 +8,7 @@ import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-type
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
 import {buildVariables} from '@/services/data/tuples/pipeline-validation-utils';
 import {Topic} from '@/services/data/tuples/topic-types';
-import {useEffect} from 'react';
+import {Fragment, useEffect} from 'react';
 import {usePipelineEventBus} from '../../pipeline-event-bus';
 import {PipelineEventTypes} from '../../pipeline-event-bus-types';
 import {useVariablesEventBus} from './variables-event-bus';
@@ -86,5 +86,5 @@ export const VariablesHelper = (props: {
 		};
 	}, [onPipeline, offPipeline, fire, pipeline, stage, unit, action]);
 
-	return <></>;
+	return <Fragment/>;
 };

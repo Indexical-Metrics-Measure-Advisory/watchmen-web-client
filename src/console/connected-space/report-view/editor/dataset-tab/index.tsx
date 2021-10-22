@@ -1,7 +1,7 @@
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Report} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
-import React, {useEffect} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {DataLoading} from './data-loading';
 import {ReportDataGrid} from './grid';
 import {NoColumn} from './no-column';
@@ -18,7 +18,7 @@ const DataInitializer = (props: { report: Report }) => {
 		// eslint-disable-next-line
 	}, []);
 
-	return <></>;
+	return <Fragment/>;
 };
 export const DataSetTab = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report, active: boolean }) => {
 	const {connectedSpace, subject, report, active} = props;

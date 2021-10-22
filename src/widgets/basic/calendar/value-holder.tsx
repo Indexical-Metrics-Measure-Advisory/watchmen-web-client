@@ -1,5 +1,5 @@
 import dayjs, {Dayjs} from 'dayjs';
-import {useEffect, useState} from 'react';
+import {Fragment, useEffect, useState} from 'react';
 import {useCalendarEventBus} from './event/calendar-event-bus';
 import {CalendarEventTypes} from './event/calendar-event-bus-types';
 import {useValueChange} from './use-value-change';
@@ -16,5 +16,5 @@ export const CalendarValueHolder = () => {
 		};
 	}, [on, off, fire, value]);
 
-	return <></>;
+	return <Fragment/>;
 };

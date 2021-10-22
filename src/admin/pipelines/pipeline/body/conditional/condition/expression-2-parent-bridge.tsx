@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {useExpressionEventBus} from '../event-bus/expression-event-bus';
 import {ExpressionEventTypes} from '../event-bus/expression-event-bus-types';
 
@@ -17,5 +17,5 @@ export const Expression2ParentBridge = (props: { onChange: () => void }) => {
 		};
 	}, [on, off, onChange]);
 
-	return <></>;
+	return <Fragment/>;
 };

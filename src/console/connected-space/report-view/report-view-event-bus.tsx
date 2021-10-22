@@ -1,11 +1,11 @@
 import EventEmitter from 'events';
-import React, {useContext, useState} from 'react';
+import React, {ReactNode, useContext, useState} from 'react';
 import {ReportViewEventBus} from './report-view-event-bus-types';
 
 const Context = React.createContext<ReportViewEventBus>({} as ReportViewEventBus);
 Context.displayName = 'ReportViewEventBus';
 
-export const ReportViewEventBusProvider = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const ReportViewEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));

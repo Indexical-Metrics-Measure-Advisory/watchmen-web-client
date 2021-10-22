@@ -1,6 +1,6 @@
 import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL} from '@/widgets/basic/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {useEffect, useState} from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {SectionContainer} from './widgets';
@@ -8,7 +8,7 @@ import {SectionContainer} from './widgets';
 export const Section = (props: {
 	title: string;
 	defaultExpanded?: boolean;
-	children: ((props: any) => React.ReactNode) | React.ReactNode
+	children: ReactNode
 }) => {
 	const {title, defaultExpanded = false, children} = props;
 

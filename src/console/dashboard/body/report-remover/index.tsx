@@ -8,7 +8,7 @@ import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
 import {useReportEventBus} from '@/widgets/report/report-event-bus';
 import {ReportEventTypes} from '@/widgets/report/report-event-bus-types';
-import React, {useEffect} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import styled from 'styled-components';
 import {useDashboardEventBus} from '../../dashboard-event-bus';
 import {DashboardEventTypes} from '../../dashboard-event-bus-types';
@@ -77,5 +77,5 @@ export const ReportRemover = (props: { dashboard: Dashboard }) => {
 			off(ReportEventTypes.DO_DELETE_REPORT, onDelete);
 		};
 	});
-	return <></>;
+	return <Fragment/>;
 };

@@ -1,7 +1,7 @@
 import {clearAdminData, loadAdminData, prepareAdminDB} from '@/services/local-persist';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {useDataQualityCacheEventBus} from './cache-event-bus';
 import {DataQualityCacheEventTypes} from './cache-event-bus-types';
 import {DQCCacheData} from './types';
@@ -56,5 +56,5 @@ export const DataQualityCache = () => {
 		};
 	}, [on, off, fire]);
 
-	return <></>;
+	return <Fragment/>;
 };

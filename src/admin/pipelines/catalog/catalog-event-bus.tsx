@@ -1,11 +1,11 @@
 import EventEmitter from 'events';
-import React, {useContext, useState} from 'react';
+import React, {ReactNode, useContext, useState} from 'react';
 import {CatalogEventBus} from './catalog-event-bus-types';
 
 const Context = React.createContext<CatalogEventBus>({} as CatalogEventBus);
 Context.displayName = 'CatalogEventBus';
 
-export const CatalogEventBusProvider = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const CatalogEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));

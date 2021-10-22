@@ -1,5 +1,5 @@
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {useRunsEventBus} from '../runs-event-bus';
 import {RunsEventTypes} from '../runs-event-bus-types';
 import {RuntimeEventBusProvider, useRuntimeEventBus} from '../runtime/runtime-event-bus';
@@ -18,7 +18,7 @@ export const DynamicPipelineRunAutoTrigger = (props: { context: PipelineRuntimeC
 		// eslint-disable-next-line
 	}, []);
 
-	return <></>;
+	return <Fragment/>;
 };
 
 export const DynamicPipelineRun = (props: {

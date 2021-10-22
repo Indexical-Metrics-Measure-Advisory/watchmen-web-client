@@ -1,5 +1,5 @@
 import EventEmitter from 'events';
-import React, {useContext, useState} from 'react';
+import React, {ReactNode, useContext, useState} from 'react';
 import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes, TupleState} from '../widgets/tuple-workbench/tuple-event-bus-types';
 import {EnumEventBus, EnumEventTypes} from './enum-event-bus-types';
@@ -7,7 +7,7 @@ import {EnumEventBus, EnumEventTypes} from './enum-event-bus-types';
 const Context = React.createContext<EnumEventBus>({} as EnumEventBus);
 Context.displayName = 'EnumEventBus';
 
-export const EnumEventBusProvider = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const EnumEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const {fire} = useTupleEventBus();

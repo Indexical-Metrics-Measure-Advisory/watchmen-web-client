@@ -1,6 +1,6 @@
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
 import {Topic} from '@/services/data/tuples/topic-types';
-import {useEffect, useState} from 'react';
+import {Fragment, useEffect, useState} from 'react';
 import {useSimulatorEventBus} from '../../simulator-event-bus';
 import {SimulatorEventTypes} from '../../simulator-event-bus-types';
 import {DataRow} from '../../types';
@@ -128,5 +128,5 @@ export const SimulatorStates = () => {
 		};
 	}, [on, off, fire, state.topicsData, state.runPipelines]);
 
-	return <></>;
+	return <Fragment/>;
 };

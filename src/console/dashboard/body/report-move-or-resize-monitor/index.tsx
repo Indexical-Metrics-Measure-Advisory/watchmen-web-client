@@ -2,7 +2,7 @@ import {Dashboard} from '@/services/data/tuples/dashboard-types';
 import {Report} from '@/services/data/tuples/report-types';
 import {useReportEventBus} from '@/widgets/report/report-event-bus';
 import {ReportEventTypes} from '@/widgets/report/report-event-bus-types';
-import {useEffect} from 'react';
+import {Fragment, useEffect} from 'react';
 import {useDashboardEventBus} from '../../dashboard-event-bus';
 import {DashboardEventTypes} from '../../dashboard-event-bus-types';
 
@@ -30,5 +30,5 @@ export const ReportMoveOrResizeMonitor = (props: { dashboard: Dashboard }) => {
 			off(ReportEventTypes.REPORT_MOVE_OR_RESIZE_COMPLETED, onMoveOrResize);
 		};
 	}, [on, off, fireDashboard, dashboard]);
-	return <></>;
+	return <Fragment/>;
 };

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {useParameterEventBus} from '../parameter-event-bus';
 import {ParameterEventTypes} from '../parameter-event-bus-types';
 
@@ -16,5 +16,5 @@ export const HierarchicalParameterEventBridge = (props: { notifyChangeToParent: 
 		};
 	}, [on, off, notifyChangeToParent]);
 
-	return <></>;
+	return <Fragment/>;
 };

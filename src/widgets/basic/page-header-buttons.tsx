@@ -13,7 +13,7 @@ const PageHeaderButtonsContainer = styled.div.attrs({'data-widget': 'page-header
 	margin      : auto var(--margin) calc((57px - 3.9em) / 2) var(--margin);
 `;
 
-export const PageHeaderButtons = (props: { children: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const PageHeaderButtons = (props: { children: ReactNode }) => {
 	const {children} = props;
 
 	return <PageHeaderButtonsContainer>

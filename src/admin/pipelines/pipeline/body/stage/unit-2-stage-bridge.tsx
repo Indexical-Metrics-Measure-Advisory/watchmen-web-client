@@ -1,6 +1,6 @@
 import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
 import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
-import React, {useEffect} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {useUnitEventBus} from '../unit/unit-event-bus';
 import {UnitEventTypes} from '../unit/unit-event-bus-types';
 import {useStageEventBus} from './stage-event-bus';
@@ -33,5 +33,5 @@ export const Unit2StageBridge = (props: { stage: PipelineStage, unit: PipelineSt
 		};
 	}, [on, off, fireStage, stage, unit]);
 
-	return <></>;
+	return <Fragment/>;
 };

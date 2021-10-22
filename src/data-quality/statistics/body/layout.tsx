@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {Fragment, useEffect, useState} from 'react';
 import {DEFAULT_LAYOUTS} from '../constants';
 import {useStatisticsEventBus} from '../statistics-event-bus';
 import {StatisticsEventTypes} from '../statistics-event-bus-types';
@@ -104,5 +104,5 @@ export const BodyLayout = () => {
 		};
 	}, [on, off, fire, state]);
 
-	return <></>;
+	return <Fragment/>;
 };

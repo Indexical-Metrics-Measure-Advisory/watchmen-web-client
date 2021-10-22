@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {useJointEventBus} from '../event-bus/joint-event-bus';
 import {JointEventTypes} from '../event-bus/joint-event-bus-types';
 
@@ -21,5 +21,5 @@ export const Joint2ParentBridge = (props: { onChange: () => void }) => {
 		};
 	}, [on, off, onChange]);
 
-	return <></>;
+	return <Fragment/>;
 };

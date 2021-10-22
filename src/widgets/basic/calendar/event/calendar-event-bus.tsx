@@ -1,11 +1,11 @@
 import EventEmitter from 'events';
-import React, {useContext, useState} from 'react';
+import React, {ReactNode, useContext, useState} from 'react';
 import {CalendarEventBus} from './calendar-event-bus-types';
 
 const Context = React.createContext<CalendarEventBus>({} as CalendarEventBus);
 Context.displayName = 'CalendarEventBus';
 
-export const CalendarEventBusProvider = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const CalendarEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));

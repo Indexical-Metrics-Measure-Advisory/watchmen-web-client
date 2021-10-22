@@ -1,5 +1,5 @@
 import Color from 'color';
-import {useEffect, useState} from 'react';
+import {Fragment, useEffect, useState} from 'react';
 import {useColorPickerEventBus} from './color-picker-event-bus';
 import {ColorPickerEventTypes} from './color-picker-event-bus-types';
 import {hex2rgb, hsb2hsl, hsl2rgb, rgb2hex} from './utils';
@@ -82,5 +82,5 @@ export const ColorCalculator = (props: { color: string }) => {
 		};
 	}, [on, off, fire, factors]);
 
-	return <></>;
+	return <Fragment/>;
 };

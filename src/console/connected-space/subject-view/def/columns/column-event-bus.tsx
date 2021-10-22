@@ -1,11 +1,11 @@
 import EventEmitter from 'events';
-import React, {useContext, useState} from 'react';
+import React, {ReactNode, useContext, useState} from 'react';
 import {ColumnEventBus} from './column-event-bus-types';
 
 const Context = React.createContext<ColumnEventBus>({} as ColumnEventBus);
 Context.displayName = 'ColumnEventBus';
 
-export const ColumnEventBusProvider = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const ColumnEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));

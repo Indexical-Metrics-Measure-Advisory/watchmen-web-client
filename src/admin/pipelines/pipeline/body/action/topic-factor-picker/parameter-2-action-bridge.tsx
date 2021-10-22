@@ -3,7 +3,7 @@ import {isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
 import {FromFactor, ToFactor} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {useParameterEventBus} from '@/widgets/parameter/parameter-event-bus';
 import {ParameterEventTypes} from '@/widgets/parameter/parameter-event-bus-types';
-import React, {useEffect} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {useActionEventBus} from '../action-event-bus';
 import {ActionEventTypes} from '../action-event-bus-types';
 
@@ -34,5 +34,5 @@ export const Parameter2ActionBridge = (props: { action: FromFactor | ToFactor })
 		};
 	}, [on, off, fireAction, action]);
 
-	return <></>;
+	return <Fragment/>;
 };

@@ -1,11 +1,11 @@
 import EventEmitter from 'events';
-import React, {useContext, useState} from 'react';
+import React, {ReactNode, useContext, useState} from 'react';
 import {SubjectEventBus} from './subject-event-bus-types';
 
 const Context = React.createContext<SubjectEventBus>({} as SubjectEventBus);
 Context.displayName = 'SubjectEventBus';
 
-export const SubjectEventBusProvider = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const SubjectEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));

@@ -3,7 +3,7 @@ import {Factor} from '@/services/data/tuples/factor-types';
 import {TopicJoinType} from '@/services/data/tuples/subject-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {Lang} from '@/widgets/langs';
-import React, {Fragment} from 'react';
+import React, {Fragment, ReactNode} from 'react';
 import {v4} from 'uuid';
 import {ParameterComputeTypeLabels} from '../widgets/parameter/constants';
 import {PrettyComputed, PrettyConstant, PrettyFactor} from './literal-types';
@@ -81,7 +81,7 @@ export const ConstantValue = (props: { value: string }) => {
 };
 export const UnknownParameter = () =>
 	<UnknownParameterNode>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_UNKNOWN_PARAMETER}</UnknownParameterNode>;
-export const ComputeStatement = (props: { type: ParameterComputeType, children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const ComputeStatement = (props: { type: ParameterComputeType, children?: ReactNode }) => {
 	const {type, children} = props;
 	return <>
 		<ComputeStatementTypeNode>{ParameterComputeTypeLabels[type]}</ComputeStatementTypeNode>

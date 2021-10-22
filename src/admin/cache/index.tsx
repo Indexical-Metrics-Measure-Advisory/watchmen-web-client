@@ -12,7 +12,7 @@ import {
 import {AdminCacheData} from '@/services/local-persist/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {useAdminCacheEventBus} from './cache-event-bus';
 import {AdminCacheEventTypes} from './cache-event-bus-types';
 
@@ -192,5 +192,5 @@ export const AdminCache = () => {
 		};
 	}, [on, off]);
 
-	return <></>;
+	return <Fragment/>;
 };

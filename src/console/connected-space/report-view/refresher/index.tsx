@@ -1,7 +1,7 @@
 import {Report} from '@/services/data/tuples/report-types';
 import {useReportEventBus} from '@/widgets/report/report-event-bus';
 import {ReportEventTypes} from '@/widgets/report/report-event-bus-types';
-import React, {useEffect} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {useReportViewEventBus} from '../report-view-event-bus';
 import {ReportViewEventTypes} from '../report-view-event-bus-types';
 
@@ -28,5 +28,5 @@ export const ReportRefresher = (props: { report: Report }) => {
 		};
 	}, [on, off, fireReport, report]);
 
-	return <></>;
+	return <Fragment/>;
 };

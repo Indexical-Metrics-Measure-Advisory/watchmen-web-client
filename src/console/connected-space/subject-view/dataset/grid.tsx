@@ -8,7 +8,7 @@ import {GridEventTypes} from '@/widgets/dataset-grid/grid-event-bus-types';
 import {ColumnDefs, DataPage} from '@/widgets/dataset-grid/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
-import {useEffect} from 'react';
+import {Fragment, useEffect} from 'react';
 import {MAX_SUBJECT_DATASET_SIZE} from './constants';
 import {useSubjectDataSetEventBus} from './subject-dataset-event-bus';
 import {SubjectDataSetEventTypes} from './subject-dataset-event-bus-types';
@@ -27,7 +27,7 @@ const SubjectDataGridController = () => {
 		};
 	}, [on, off, fireGrid]);
 
-	return <></>;
+	return <Fragment/>;
 };
 
 const SubjectDataGridDelegate = (props: { connectedSpace: ConnectedSpace, subject: Subject }) => {

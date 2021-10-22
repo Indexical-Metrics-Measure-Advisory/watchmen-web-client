@@ -1,11 +1,11 @@
 import EventEmitter from 'events';
-import React, {useContext, useState} from 'react';
+import React, {ReactNode, useContext, useState} from 'react';
 import {PipelineEventBus} from './pipeline-event-bus-types';
 
 const Context = React.createContext<PipelineEventBus>({} as PipelineEventBus);
 Context.displayName = 'PipelineEventBus';
 
-export const PipelineEventBusProvider = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const PipelineEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));

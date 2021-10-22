@@ -1,5 +1,5 @@
 import {fetchLanguageFromSession} from '@/services/data/account/last-snapshot';
-import React, {isValidElement, useEffect, useState} from 'react';
+import React, {isValidElement, ReactNode, useEffect, useState} from 'react';
 import {useForceUpdate} from '../basic/utils';
 import {useEventBus} from '../events/event-bus';
 import {EventTypes} from '../events/types';
@@ -22,7 +22,7 @@ const findLanguage = (lang: string) => {
 
 let currentLanguage = findLanguage(fetchLanguageFromSession() || En.$$settings.code);
 
-export const Languages = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const Languages = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const {on, off, fire} = useEventBus();

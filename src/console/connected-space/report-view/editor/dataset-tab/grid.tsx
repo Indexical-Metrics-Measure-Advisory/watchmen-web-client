@@ -7,7 +7,7 @@ import {DEFAULT_COLUMN_WIDTH} from '@/widgets/dataset-grid/constants';
 import {GridEventBusProvider, useGridEventBus} from '@/widgets/dataset-grid/grid-event-bus';
 import {GridEventTypes} from '@/widgets/dataset-grid/grid-event-bus-types';
 import {ColumnSortBy} from '@/widgets/dataset-grid/types';
-import {useEffect} from 'react';
+import {Fragment, useEffect} from 'react';
 import {useReportDataSetEventBus} from './report-dataset-event-bus';
 import {ReportDataSetEventTypes} from './report-dataset-event-bus-types';
 
@@ -54,7 +54,7 @@ const SubjectDataGridController = () => {
 		};
 	}, [on, off, fireGrid]);
 
-	return <></>;
+	return <Fragment/>;
 };
 
 const SubjectDataGridDelegate = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {

@@ -1,13 +1,11 @@
 import {EventEmitter} from 'events';
-import React, {useState} from 'react';
+import React, {ReactNode, useState} from 'react';
 import {GridEventBus} from './grid-event-bus-types';
 
 const Context = React.createContext<GridEventBus>({} as GridEventBus);
 Context.displayName = 'GridEventBus';
 
-export const GridEventBusProvider = (props: {
-	children?: ((props: any) => React.ReactNode) | React.ReactNode;
-}) => {
+export const GridEventBusProvider = (props: { children?: ReactNode; }) => {
 	const {children} = props;
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));

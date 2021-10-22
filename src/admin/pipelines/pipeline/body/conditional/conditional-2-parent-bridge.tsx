@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {useConditionalEventBus} from './conditional-event-bus';
 import {ConditionalEventTypes} from './conditional-event-bus-types';
 
@@ -17,5 +17,5 @@ export const Conditional2ParentBridge = (props: {
 		};
 	}, [on, off, onChange]);
 
-	return <></>;
+	return <Fragment/>;
 };

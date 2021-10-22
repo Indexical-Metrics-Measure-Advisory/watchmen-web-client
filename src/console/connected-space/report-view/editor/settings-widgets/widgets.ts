@@ -61,13 +61,6 @@ export const SectionContainer = styled.div.attrs<{ expanded: boolean }>({'data-w
 		transition : opacity 300ms ease-in-out, color 300ms ease-in-out;
 	}
 `;
-export const SecondarySectionContainer = styled(SectionContainer)`
-	> span:first-child > svg {
-		font-size    : 0.8em;
-		opacity      : 0.5;
-		margin-right : calc(var(--margin) / 4);
-	}
-`;
 export const PropName = styled.div.attrs({'data-widget': 'chart-settings-prop-name'})`
 	display       : flex;
 	position      : relative;

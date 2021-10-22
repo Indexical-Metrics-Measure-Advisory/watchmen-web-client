@@ -1,7 +1,7 @@
 import {useConsoleEventBus} from '@/console/console-event-bus';
 import {ConsoleEventTypes} from '@/console/console-event-bus-types';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
-import {useEffect} from 'react';
+import {Fragment, useEffect} from 'react';
 
 export const SimulateConsole = (props: { connectedSpaces: Array<ConnectedSpace> }) => {
 	const {connectedSpaces} = props;
@@ -17,5 +17,5 @@ export const SimulateConsole = (props: { connectedSpaces: Array<ConnectedSpace> 
 		};
 	}, [on, off, fire, connectedSpaces]);
 
-	return <></>;
+	return <Fragment/>;
 };

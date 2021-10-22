@@ -1,5 +1,5 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, {ReactNode} from 'react';
 import styled from 'styled-components';
 import {ICON_SETTINGS} from './constants';
 import {TooltipButton} from './tooltip-button';
@@ -69,7 +69,7 @@ export const PageHeaderHolderContainer = styled.div.attrs({'data-widget': 'page-
 	border-bottom         : var(--border);
 `;
 
-export const PageHeaderHolder = (props: { children: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const PageHeaderHolder = (props: { children: ReactNode }) => {
 	const {children} = props;
 	return <PageHeaderHolderContainer>
 		{children}

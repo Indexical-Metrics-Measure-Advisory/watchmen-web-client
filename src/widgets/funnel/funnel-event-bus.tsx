@@ -1,11 +1,11 @@
 import EventEmitter from 'events';
-import React, {useContext, useState} from 'react';
+import React, {ReactNode, useContext, useState} from 'react';
 import {FunnelEventBus} from './funnel-event-bus-types';
 
 const Context = React.createContext<FunnelEventBus>({} as FunnelEventBus);
 Context.displayName = 'FunnelEventBus';
 
-export const FunnelEventBusProvider = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const FunnelEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));

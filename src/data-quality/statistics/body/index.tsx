@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {BodyLayout} from './layout';
 import {StatisticsBodyContainer} from './widgets';
 
-export const StatisticsPageBody = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const StatisticsPageBody = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	return <StatisticsBodyContainer>

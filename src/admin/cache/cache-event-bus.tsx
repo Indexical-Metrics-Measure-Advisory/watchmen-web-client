@@ -1,11 +1,11 @@
 import EventEmitter from 'events';
-import React, {useContext, useState} from 'react';
+import React, {ReactNode, useContext, useState} from 'react';
 import {AdminCacheEventBus} from './cache-event-bus-types';
 
 const Context = React.createContext<AdminCacheEventBus>({} as AdminCacheEventBus);
 Context.displayName = 'CacheEventBus';
 
-export const AdminCacheEventBusProvider = (props: { children?: ((props: any) => React.ReactNode) | React.ReactNode }) => {
+export const AdminCacheEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
 	const [emitter] = useState(new EventEmitter().setMaxListeners(999999));

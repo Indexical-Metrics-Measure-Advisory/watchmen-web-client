@@ -1,7 +1,7 @@
 import {ICON_MAXIMIZE_PANEL, ICON_MINIMIZE_PANEL, ICON_RESTORE_PANEL} from '@/widgets/basic/constants';
 import {TooltipAlignment} from '@/widgets/basic/types';
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {useStatisticsEventBus} from '../statistics-event-bus';
 import {StatisticsEventTypes} from '../statistics-event-bus-types';
 import {DataPanelLayout, DataPanelResize, DataPanels} from '../types';
@@ -32,7 +32,7 @@ export const DataPanel = (props: {
 	layout: DataPanelLayout;
 	defaultLayout: DataPanelLayout;
 	buttons?: Array<AdditionalDataPanelHeaderButton>;
-	children?: ((props: any) => React.ReactNode) | React.ReactNode;
+	children?: ReactNode;
 }) => {
 	const {which, title, layout, defaultLayout, buttons = [], children} = props;
 
