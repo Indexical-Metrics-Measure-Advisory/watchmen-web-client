@@ -173,6 +173,8 @@ const computeVariable = (options: { variable: string, getFirstValue: (propertyNa
 			return currentSnowflakeId++;
 		} else if (index === 0) {
 			return getFirstValue(part);
+		} else if (value == null) {
+			return null;
 		} else if (part === VariablePredefineFunctions.COUNT && Array.isArray(value)) {
 			return value.length;
 		} else if (part === VariablePredefineFunctions.COUNT && typeof value === 'object') {
