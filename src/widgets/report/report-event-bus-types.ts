@@ -1,3 +1,4 @@
+import {ChartDataSet} from '@/services/data/tuples/chart-types';
 import {Paragraph} from '@/services/data/tuples/paragraph';
 import {Report} from '@/services/data/tuples/report-types';
 
@@ -23,7 +24,10 @@ export enum ReportEventTypes {
 	DO_REFRESH = 'do-refresh',
 
 	CHART_BASE64_READY = 'chart-base64-ready',
-	ASK_DOWNLOAD_CHART = 'ask-download-chart'
+	ASK_DOWNLOAD_CHART = 'ask-download-chart',
+
+	DATA_LOADED = 'data-loaded',
+	REPAINTED = 'repainted'
 }
 
 export interface ReportEventBus {
@@ -80,4 +84,12 @@ export interface ReportEventBus {
 	fire(type: ReportEventTypes.ASK_DOWNLOAD_CHART, report: Report): this;
 	on(type: ReportEventTypes.ASK_DOWNLOAD_CHART, listener: (report: Report) => void): this;
 	off(type: ReportEventTypes.ASK_DOWNLOAD_CHART, listener: (report: Report) => void): this;
+
+	fire(type: ReportEventTypes.DATA_LOADED, report: Report, dataset: ChartDataSet): this;
+	on(type: ReportEventTypes.DATA_LOADED, listener: (report: Report, dataset: ChartDataSet) => void): this;
+	off(type: ReportEventTypes.DATA_LOADED, listener: (report: Report, dataset: ChartDataSet) => void): this;
+
+	fire(type: ReportEventTypes.REPAINTED, report: Report): this;
+	on(type: ReportEventTypes.REPAINTED, listener: (report: Report) => void): this;
+	off(type: ReportEventTypes.REPAINTED, listener: (report: Report) => void): this;
 }

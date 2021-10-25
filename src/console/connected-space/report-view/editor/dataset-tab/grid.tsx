@@ -70,11 +70,13 @@ const SubjectDataGridDelegate = (props: { connectedSpace: ConnectedSpace, subjec
 		const onSimulatorSwitched = (on: boolean) => {
 			report.simulating = on;
 			forceUpdate();
+			// fire event to editor
 			fireReport(ReportEditEventTypes.SIMULATOR_SWITCHED, report, on);
 		};
 		const onSimulateDataUploaded = (page: DataPage) => {
 			report.simulateData = page.data;
 			forceUpdate();
+			// fire event to editor
 			fireReport(ReportEditEventTypes.SIMULATE_DATA_UPLOADED, report, report.simulateData);
 		};
 		on(GridEventTypes.SIMULATOR_SWITCHED, onSimulatorSwitched);

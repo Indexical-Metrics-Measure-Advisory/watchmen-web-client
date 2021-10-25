@@ -1,7 +1,6 @@
 import {fetchChartData, fetchChartDataTemporary} from '@/services/data/console/report';
 import {ChartDataSet} from '@/services/data/tuples/chart-types';
 import {Report} from '@/services/data/tuples/report-types';
-import {Subject} from '@/services/data/tuples/subject-types';
 import {ICON_LOADING} from '@/widgets/basic/constants';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
@@ -13,8 +12,8 @@ import {useReportDataSetEventBus} from './report-dataset-event-bus';
 import {ReportDataSetEventTypes} from './report-dataset-event-bus-types';
 import {ReportDataSetLoading} from './widgets';
 
-export const DataLoading = (props: { subject: Subject; report: Report }) => {
-	const {subject, report} = props;
+export const DataLoading = (props: { report: Report }) => {
+	const {report} = props;
 
 	const {fire: fireGlobal} = useEventBus();
 	const {once: onceReport, on: onReport, off: offReport} = useReportEventBus();
@@ -29,7 +28,6 @@ export const DataLoading = (props: { subject: Subject; report: Report }) => {
 			setVisible(true);
 			if (report.simulating) {
 				fire(ReportDataSetEventTypes.DATA_LOADED, report, {
-					columns: (subject.dataset?.columns || []).map(column => column.alias || 'Noname Column'),
 					data: report.simulateData ?? []
 				});
 				setVisible(false);
@@ -61,7 +59,7 @@ export const DataLoading = (props: { subject: Subject; report: Report }) => {
 			offReport(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onLoadData);
 			offReport(ReportEventTypes.DO_REFRESH, onLoadData);
 		};
-	}, [fireGlobal, on, off, fire, onceReport, onReport, offReport, subject.dataset?.columns, report]);
+	}, [fireGlobal, on, off, fire, onceReport, onReport, offReport, report]);
 
 	return <ReportDataSetLoading visible={visible}>
 		<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>

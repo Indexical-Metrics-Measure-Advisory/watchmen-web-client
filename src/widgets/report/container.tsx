@@ -43,23 +43,24 @@ export const Container = (props: {
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		if (report.simulating) {
-			setDiagramState({
-				loaded: DiagramLoadState.TRUE, dataset: {
-					// columns: (subject.dataset?.columns || []).map(column => column.alias || 'Noname Column'),
-					data: report.simulateData ?? []
-				}
-			});
+			setTimeout(() => {
+				const dataset = {data: report.simulateData ?? []};
+				fire(ReportEventTypes.DATA_LOADED, report, dataset);
+				setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
+			}, 200);
 		} else {
 			if (diagramState.loaded === DiagramLoadState.FALSE) {
 				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 					async () => await fetchChartData(report.reportId, report.chart.type),
 					(dataset: ChartDataSet) => {
+						fire(ReportEventTypes.DATA_LOADED, report, dataset);
 						setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
 					});
 			} else if (diagramState.loaded === DiagramLoadState.RELOAD) {
 				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 					async () => await fetchChartDataTemporary(report),
 					(dataset: ChartDataSet) => {
+						fire(ReportEventTypes.DATA_LOADED, report, dataset);
 						setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
 					});
 			}
@@ -92,7 +93,12 @@ export const Container = (props: {
 			off(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onDoReloadDataOnEditing);
 			off(ReportEventTypes.DO_REFRESH, onDoRefresh);
 		};
-	}, [fireGlobal, on, off, forceUpdate, report, diagramState.loaded, editing]);
+	}, [fireGlobal, on, off, fire, forceUpdate, report, diagramState.loaded, editing]);
+	useEffect(() => {
+		if (diagramState.loaded === DiagramLoadState.TRUE) {
+			fire(ReportEventTypes.REPAINTED, report);
+		}
+	}, [fire, report, diagramState.loaded]);
 
 	const writeToRect = (rect: ReportRect) => report.rect = rect;
 	const onDrop = () => fire(ReportEventTypes.REPORT_MOVE_OR_RESIZE_COMPLETED, report);

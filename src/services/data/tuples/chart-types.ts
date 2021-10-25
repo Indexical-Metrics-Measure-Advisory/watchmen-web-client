@@ -75,6 +75,7 @@ export type ChartDataSetRow = RowOfAny;
 export type ChartDataSetRows = Array<ChartDataSetRow>;
 
 export interface ChartDataSet {
-	columns?: Array<string>;
+	// not use now, ignore this
+	// columns?: Array<string>;
 	data: ChartDataSetRows;
 }
