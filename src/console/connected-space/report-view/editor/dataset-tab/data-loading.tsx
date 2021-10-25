@@ -27,10 +27,12 @@ export const DataLoading = (props: { report: Report }) => {
 
 			setVisible(true);
 			if (report.simulating) {
-				fire(ReportDataSetEventTypes.DATA_LOADED, report, {
-					data: report.simulateData ?? []
-				});
-				setVisible(false);
+				setTimeout(() => {
+					fire(ReportDataSetEventTypes.DATA_LOADED, report, {
+						data: report.simulateData ?? []
+					});
+					setVisible(false);
+				}, 500);
 			} else {
 				onceReport(ReportEventTypes.REPLY_REPORT_STRUCTURE_CHANGED, (report: Report, changed: boolean) => {
 					if (!changed) {
