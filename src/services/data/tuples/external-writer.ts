@@ -6,7 +6,7 @@ import {
 	saveMockExternalWriter
 } from '../../data/mock/tuples/mock-external-writer';
 import {Apis, get, page, post} from '../apis';
-import {DataPage} from '../query/data-page';
+import {TuplePage} from '../query/tuple-page';
 import {isMockService} from '../utils';
 import {ExternalWriter} from './external-writer-types';
 import {QueryExternalWriter, QueryExternalWriterForHolder} from './query-external-writer-types';
@@ -16,7 +16,7 @@ export const listExternalWriters = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
-}): Promise<DataPage<QueryExternalWriter>> => {
+}): Promise<TuplePage<QueryExternalWriter>> => {
 	const {search = '', pageNumber = 1, pageSize = 9} = options;
 
 	if (isMockService()) {

@@ -1,5 +1,5 @@
 import {isSuperAdmin} from '@/services/data/account';
-import {DataPage} from '@/services/data/query/data-page';
+import {TuplePage} from '@/services/data/query/tuple-page';
 import {QueryUser} from '@/services/data/tuples/query-user-types';
 import {listTenants} from '@/services/data/tuples/tenant';
 import {QueryTuple} from '@/services/data/tuples/tuple-types';
@@ -53,7 +53,7 @@ const AdminUsers = () => {
 		const onDoSearchUser = async (searchText: string, pageNumber: number) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await listUsers({search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE}),
-				(page: DataPage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
+				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
 		const onDoSaveUser = async (user: User) => {
 			if (!user.name || !user.name.trim()) {

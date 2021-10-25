@@ -1,4 +1,4 @@
-import {DataPage} from '../../query/data-page';
+import {TuplePage} from '../../query/tuple-page';
 import {DataSource, DataSourceType} from '../../tuples/data-source-types';
 import {QueryDataSource, QueryDataSourceForHolder} from '../../tuples/query-data-source-types';
 import {isFakedUuid} from '../../tuples/utils';
@@ -23,7 +23,7 @@ export const listMockDataSources = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
-}): Promise<DataPage<QueryDataSource>> => {
+}): Promise<TuplePage<QueryDataSource>> => {
 	const {pageNumber = 1, pageSize = 9} = options;
 	return new Promise((resolve) => {
 		setTimeout(() => {

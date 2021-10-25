@@ -42,7 +42,7 @@ export const Container = (props: {
 	const [diagramState, setDiagramState] = useState<DiagramState>({loaded: DiagramLoadState.FALSE});
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
-		if (report.simulated) {
+		if (report.simulating) {
 			setDiagramState({
 				loaded: DiagramLoadState.TRUE, dataset: {
 					// columns: (subject.dataset?.columns || []).map(column => column.alias || 'Noname Column'),

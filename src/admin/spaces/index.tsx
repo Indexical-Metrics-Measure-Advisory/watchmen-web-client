@@ -1,4 +1,4 @@
-import {DataPage} from '@/services/data/query/data-page';
+import {TuplePage} from '@/services/data/query/tuple-page';
 import {ParameterCondition, TopicFactorParameter} from '@/services/data/tuples/factor-calculator-types';
 import {isExpressionParameter, isJointParameter, strictParameterJoint} from '@/services/data/tuples/parameter-utils';
 import {QuerySpace} from '@/services/data/tuples/query-space-types';
@@ -87,7 +87,7 @@ const AdminSpaces = () => {
 		const onDoSearchSpace = async (searchText: string, pageNumber: number) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await listSpaces({search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE}),
-				(page: DataPage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
+				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
 		const onDoSaveSpace = async (space: Space) => {
 			if (!space.name || !space.name.trim()) {

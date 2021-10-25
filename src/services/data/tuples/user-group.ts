@@ -6,7 +6,7 @@ import {
 	listMockUserGroupsForSpace,
 	saveMockUserGroup
 } from '../mock/tuples/mock-user-group';
-import {DataPage} from '../query/data-page';
+import {TuplePage} from '../query/tuple-page';
 import {isMockService} from '../utils';
 import {QuerySpaceForHolder} from './query-space-types';
 import {QueryUserGroup, QueryUserGroupForHolder} from './query-user-group-types';
@@ -18,7 +18,7 @@ export const listUserGroups = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
-}): Promise<DataPage<QueryUserGroup>> => {
+}): Promise<TuplePage<QueryUserGroup>> => {
 	const {search = '', pageNumber = 1, pageSize = 9} = options;
 
 	if (isMockService()) {

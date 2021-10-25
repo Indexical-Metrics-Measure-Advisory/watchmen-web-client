@@ -7,7 +7,7 @@ import {
 	listMockSpacesForHolder,
 	saveMockSpace
 } from '../mock/tuples/mock-space';
-import {DataPage} from '../query/data-page';
+import {TuplePage} from '../query/tuple-page';
 import {isMockService} from '../utils';
 import {strictParameterJoint} from './parameter-utils';
 import {QuerySpace, QuerySpaceForHolder} from './query-space-types';
@@ -40,7 +40,7 @@ export const listSpaces = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
-}): Promise<DataPage<QuerySpace>> => {
+}): Promise<TuplePage<QuerySpace>> => {
 	const {search = '', pageNumber = 1, pageSize = 9} = options;
 
 	if (isMockService()) {

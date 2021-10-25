@@ -1,6 +1,6 @@
 import {Apis, get, page, post} from '../apis';
 import {deleteMockReport, listMockReports, saveMockReport} from '../mock/tuples/mock-report';
-import {DataPage} from '../query/data-page';
+import {TuplePage} from '../query/tuple-page';
 import {isMockService} from '../utils';
 import {ParameterJoint} from './factor-calculator-types';
 import {strictParameterJoint} from './parameter-utils';
@@ -42,7 +42,7 @@ export const listReports = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
-}): Promise<DataPage<QueryReport>> => {
+}): Promise<TuplePage<QueryReport>> => {
 	const {search = '', pageNumber = 1, pageSize = 9} = options;
 
 	if (isMockService()) {

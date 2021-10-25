@@ -1,6 +1,6 @@
 import {DataSetPage} from '@/services/data/console/dataset';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {useState} from 'react';
+import React from 'react';
 import {AlertLabel} from '../../alert/widgets';
 import {
 	ICON_COMPRESS_COLUMNS,
@@ -33,15 +33,15 @@ import {
 
 export const GridHeader = (props: {
 	data: DataSetState;
-	simulate?: boolean;
-	simulated?: boolean;
+	canSimulate?: boolean;
+	simulating?: boolean;
 	pageable?: boolean;
 	onPageChange?: (pageNumber: number, columnDefs: ColumnDefs) => void;
-	downloadAll?: () => Promise<DataSetPage<Array<any>>>
+	downloadAll?: () => Promise<DataSetPage>
 	languagesSupport: boolean;
 }) => {
 	const {
-		data, simulate = false, simulated = false, pageable = true,
+		data, canSimulate = false, simulating = false, pageable = true,
 		onPageChange = () => {
 		},
 		downloadAll, languagesSupport
@@ -49,7 +49,6 @@ export const GridHeader = (props: {
 
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useGridEventBus();
-	const [simulateEnabled, setSimulateEnabled] = useState(simulated);
 
 	const onPreviousPageClicked = () => {
 		onPageChange(data.pageNumber - 1, data.columnDefs);
@@ -64,7 +63,7 @@ export const GridHeader = (props: {
 		fire(GridEventTypes.COMPRESS_COLUMN_WIDTH);
 	};
 
-	const download = (page: DataSetPage<Array<any>>) => {
+	const download = (page: DataSetPage) => {
 		const header = [
 			'""',
 			...data.columnDefs.fixed.map(column => `"${(column.name || '').replace(/"/g, '""')}"`),
@@ -87,7 +86,6 @@ export const GridHeader = (props: {
 		}
 	};
 	const onSimulateEnabledChange = (value: boolean) => {
-		setSimulateEnabled(value);
 		fire(GridEventTypes.SIMULATOR_SWITCHED, value);
 	};
 	const onDownloadTemplateClicked = async () => {
@@ -134,13 +132,13 @@ export const GridHeader = (props: {
 	};
 
 	return <DataSetHeaderContainer>
-		{simulate
+		{canSimulate
 			? <DataSetSimulateSwitch>
 				<DataSetSimulateSwitchLabel>{languagesSupport ? Lang.DATASET.SIMULATE_DATA : 'Simulate'}</DataSetSimulateSwitchLabel>
-				<Toggle value={simulateEnabled} onChange={onSimulateEnabledChange}/>
+				<Toggle value={simulating} onChange={onSimulateEnabledChange}/>
 			</DataSetSimulateSwitch>
 			: null}
-		{simulateEnabled
+		{simulating
 			? <>
 				<DataSetHeaderButton ink={ButtonInk.PRIMARY} onClick={onDownloadTemplateClicked}>
 					<FontAwesomeIcon icon={ICON_DOWNLOAD}/>
@@ -152,13 +150,13 @@ export const GridHeader = (props: {
 				</DataSetHeaderButton>
 			</>
 			: null}
-		{!simulateEnabled
+		{!simulating
 			? <DataSetHeaderButton ink={ButtonInk.PRIMARY} onClick={onDownloadCurrentClicked}>
 				<FontAwesomeIcon icon={ICON_DOWNLOAD_PAGE}/>
 				<span>{languagesSupport ? Lang.DATASET.DOWNLOAD_PAGE : 'Download This Page'}</span>
 			</DataSetHeaderButton>
 			: null}
-		{!simulateEnabled && pageable
+		{!simulating && pageable
 			? <DataSetHeaderButton ink={ButtonInk.PRIMARY} onClick={onDownloadAllClicked}>
 				<FontAwesomeIcon icon={ICON_DOWNLOAD}/>
 				<span>{languagesSupport ? Lang.DATASET.DOWNLOAD_ALL : 'Download All'}</span>
@@ -168,7 +166,7 @@ export const GridHeader = (props: {
 			<FontAwesomeIcon icon={ICON_COMPRESS_COLUMNS} transform={{rotate: 45}}/>
 			<span>{languagesSupport ? Lang.DATASET.COMPRESS_COLUMNS : 'Compress Columns'}</span>
 		</DataSetHeaderButton>
-		{!simulateEnabled && pageable
+		{!simulating && pageable
 			? <DataSetHeaderPagination>
 				{data.pageNumber !== 1
 					? <DataSetHeaderPaginationButton

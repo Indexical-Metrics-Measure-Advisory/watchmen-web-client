@@ -1,4 +1,4 @@
-import {DataPage} from '@/services/data/query/data-page';
+import {TuplePage} from '@/services/data/query/tuple-page';
 import {QueryUserGroup} from '@/services/data/tuples/query-user-group-types';
 import {QueryTuple} from '@/services/data/tuples/tuple-types';
 import {fetchUserGroup, listUserGroups, saveUserGroup} from '@/services/data/tuples/user-group';
@@ -47,7 +47,7 @@ const AdminUserGroups = () => {
 		const onDoSearchUserGroup = async (searchText: string, pageNumber: number) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await listUserGroups({search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE}),
-				(page: DataPage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
+				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
 		const onDoSaveUserGroup = async (userGroup: UserGroup) => {
 			if (!userGroup.name || !userGroup.name.trim()) {

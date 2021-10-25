@@ -1,7 +1,7 @@
 import {findAccount} from '../account';
 import {Apis, get, page, post} from '../apis';
 import {fetchMockTopic, listMockTopics, listMockTopicsForHolder, saveMockTopic} from '../mock/tuples/mock-topic';
-import {DataPage} from '../query/data-page';
+import {TuplePage} from '../query/tuple-page';
 import {isMockService} from '../utils';
 import {Factor, FactorType} from './factor-types';
 import {QueryTopic, QueryTopicForHolder} from './query-topic-types';
@@ -74,7 +74,7 @@ export const listTopics = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
-}): Promise<DataPage<QueryTopic>> => {
+}): Promise<TuplePage<QueryTopic>> => {
 	const {search = '', pageNumber = 1, pageSize = 9} = options;
 
 	if (isMockService()) {

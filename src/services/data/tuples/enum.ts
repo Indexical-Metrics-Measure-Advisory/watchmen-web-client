@@ -1,7 +1,7 @@
 import {findAccount} from '../account';
 import {Apis, get, page, post} from '../apis';
 import {fetchMockEnum, listMockEnums, listMockEnumsForHolder, saveMockEnum} from '../mock/tuples/mock-enum';
-import {DataPage} from '../query/data-page';
+import {TuplePage} from '../query/tuple-page';
 import {isMockService} from '../utils';
 import {Enum} from './enum-types';
 import {QueryEnum, QueryEnumForHolder} from './query-enum-types';
@@ -11,7 +11,7 @@ export const listEnums = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
-}): Promise<DataPage<QueryEnum>> => {
+}): Promise<TuplePage<QueryEnum>> => {
 	const {search = '', pageNumber = 1, pageSize = 9} = options;
 
 	if (isMockService()) {

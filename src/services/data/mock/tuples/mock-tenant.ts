@@ -1,4 +1,4 @@
-import {DataPage} from '../../query/data-page';
+import {TuplePage} from '../../query/tuple-page';
 import {QueryTenant} from '../../tuples/query-tenant-types';
 import {Tenant} from '../../tuples/tenant-types';
 import {getCurrentTime} from '../../utils';
@@ -7,7 +7,7 @@ export const listMockTenants = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
-}): Promise<DataPage<QueryTenant>> => {
+}): Promise<TuplePage<QueryTenant>> => {
 	const {pageNumber = 1, pageSize = 9} = options;
 	return new Promise((resolve) => {
 		setTimeout(() => {

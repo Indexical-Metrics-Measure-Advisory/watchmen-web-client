@@ -1,4 +1,4 @@
-import {DataPage} from '../../query/data-page';
+import {TuplePage} from '../../query/tuple-page';
 import {QuerySpace, QuerySpaceForHolder} from '../../tuples/query-space-types';
 import {QueryTopicForHolder} from '../../tuples/query-topic-types';
 import {QueryUserGroupForHolder} from '../../tuples/query-user-group-types';
@@ -11,7 +11,7 @@ export const listMockSpaces = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
-}): Promise<DataPage<QuerySpace>> => {
+}): Promise<TuplePage<QuerySpace>> => {
 	const {pageNumber = 1, pageSize = 9} = options;
 
 	return new Promise((resolve) => {

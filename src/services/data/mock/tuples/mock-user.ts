@@ -1,5 +1,5 @@
 import {isSuperAdmin} from '../../account';
-import {DataPage} from '../../query/data-page';
+import {TuplePage} from '../../query/tuple-page';
 import {QueryTenant} from '../../tuples/query-tenant-types';
 import {QueryUserGroupForHolder} from '../../tuples/query-user-group-types';
 import {QueryUser, QueryUserForHolder} from '../../tuples/query-user-types';
@@ -10,10 +10,10 @@ export const listMockUsers = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
-}): Promise<DataPage<QueryUser>> => {
+}): Promise<TuplePage<QueryUser>> => {
 	const {pageNumber = 1, pageSize = 9} = options;
 
-	return new Promise<DataPage<QueryUser>>((resolve) => {
+	return new Promise<TuplePage<QueryUser>>((resolve) => {
 		setTimeout(() => {
 			resolve({
 				data: [

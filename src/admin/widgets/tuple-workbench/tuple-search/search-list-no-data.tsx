@@ -1,4 +1,4 @@
-import {DataPage} from '@/services/data/query/data-page';
+import {TuplePage} from '@/services/data/query/tuple-page';
 import {QueryTuple} from '@/services/data/tuples/tuple-types';
 import React, {useEffect, useState} from 'react';
 import {useTupleEventBus} from '../tuple-event-bus';
@@ -10,7 +10,7 @@ export const SearchListNoData = <QT extends QueryTuple>() => {
 	const [visible, setVisible] = useState(false);
 
 	useEffect(() => {
-		const onTupleSearched = (page: DataPage<QT>) => {
+		const onTupleSearched = (page: TuplePage<QT>) => {
 			const {data} = page;
 			if (!data || data.length === 0) {
 				setVisible(true);

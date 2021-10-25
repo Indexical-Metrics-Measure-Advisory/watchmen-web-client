@@ -39,8 +39,8 @@ const SubjectDataGridDelegate = (props: { connectedSpace: ConnectedSpace, subjec
 	const onPageChange = (pageNumber: number, columnDefs: ColumnDefs) => {
 		fire(SubjectDataSetEventTypes.PAGE_CHANGE, pageNumber, columnDefs);
 	};
-	const downloadAll = async (): Promise<DataSetPage<Array<any>>> => {
-		return new Promise<DataSetPage<Array<any>>>(resolve => {
+	const downloadAll = async (): Promise<DataSetPage> => {
+		return new Promise<DataSetPage>(resolve => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await fetchSubjectData({
 					subjectId: subject.subjectId,

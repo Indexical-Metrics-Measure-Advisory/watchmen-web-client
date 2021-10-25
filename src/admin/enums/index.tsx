@@ -1,4 +1,4 @@
-import {DataPage} from '@/services/data/query/data-page';
+import {TuplePage} from '@/services/data/query/tuple-page';
 import {fetchEnumAndParents, listEnums, listEnumsForHolder, saveEnum} from '@/services/data/tuples/enum';
 import {Enum} from '@/services/data/tuples/enum-types';
 import {QueryEnum} from '@/services/data/tuples/query-enum-types';
@@ -41,7 +41,7 @@ const AdminEnums = () => {
 		const onDoSearchEnum = async (searchText: string, pageNumber: number) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await listEnums({search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE}),
-				(page: DataPage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
+				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
 		const onDoSaveEnum = async (enumeration: Enum) => {
 			if (!enumeration.name || !enumeration.name.trim()) {

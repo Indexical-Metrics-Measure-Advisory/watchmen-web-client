@@ -1,4 +1,4 @@
-import {DataPage} from '../../query/data-page';
+import {TuplePage} from '../../query/tuple-page';
 import {Enum} from '../../tuples/enum-types';
 import {QueryEnum, QueryEnumForHolder} from '../../tuples/query-enum-types';
 import {isFakedUuid} from '../../tuples/utils';
@@ -13,7 +13,7 @@ export const listMockEnums = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
-}): Promise<DataPage<QueryEnum>> => {
+}): Promise<TuplePage<QueryEnum>> => {
 	const {pageNumber = 1, pageSize = 9} = options;
 	return new Promise((resolve) => {
 		setTimeout(() => {

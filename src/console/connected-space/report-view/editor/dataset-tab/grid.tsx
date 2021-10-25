@@ -2,6 +2,7 @@ import {ChartDataSet} from '@/services/data/tuples/chart-types';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Report} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import {Grid} from '@/widgets/dataset-grid';
 import {DEFAULT_COLUMN_WIDTH} from '@/widgets/dataset-grid/constants';
 import {GridEventBusProvider, useGridEventBus} from '@/widgets/dataset-grid/grid-event-bus';
@@ -64,13 +65,16 @@ const SubjectDataGridDelegate = (props: { connectedSpace: ConnectedSpace, subjec
 
 	const {fire: fireReport} = useReportEditEventBus();
 	const {on, off} = useGridEventBus();
+	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const onSimulatorSwitched = (on: boolean) => {
-			report.simulated = on;
+			report.simulating = on;
+			forceUpdate();
 			fireReport(ReportEditEventTypes.SIMULATOR_SWITCHED, report, on);
 		};
 		const onSimulateDataUploaded = (page: DataPage) => {
 			report.simulateData = page.data;
+			forceUpdate();
 			fireReport(ReportEditEventTypes.SIMULATE_DATA_UPLOADED, report, report.simulateData);
 		};
 		on(GridEventTypes.SIMULATOR_SWITCHED, onSimulatorSwitched);
@@ -79,11 +83,11 @@ const SubjectDataGridDelegate = (props: { connectedSpace: ConnectedSpace, subjec
 			off(GridEventTypes.SIMULATOR_SWITCHED, onSimulatorSwitched);
 			off(GridEventTypes.SIMULATE_DATA_UPLOADED, onSimulateDataUploaded);
 		};
-	}, [fireReport, on, off, report]);
+	}, [forceUpdate, fireReport, on, off, report]);
 
 	const hasColumns = report.indicators.length > 0 || report.dimensions.length > 0;
 
-	return <Grid hasColumns={hasColumns} simulate={connectedSpace.isTemplate} simulated={report.simulated}
+	return <Grid hasColumns={hasColumns} simulateEnabled={connectedSpace.isTemplate} simulating={report.simulating}
 	             pageable={false}/>;
 };
 

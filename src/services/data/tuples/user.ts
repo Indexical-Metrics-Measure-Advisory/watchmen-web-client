@@ -1,7 +1,7 @@
 import {findAccount, isSuperAdmin} from '../account';
 import {Apis, get, page, post} from '../apis';
 import {fetchMockUser, listMockUsers, listMockUsersForHolder, saveMockUser} from '../mock/tuples/mock-user';
-import {DataPage} from '../query/data-page';
+import {TuplePage} from '../query/tuple-page';
 import {isMockService} from '../utils';
 import {QueryTenant} from './query-tenant-types';
 import {QueryUserGroupForHolder} from './query-user-group-types';
@@ -27,7 +27,7 @@ export const listUsers = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
-}): Promise<DataPage<QueryUser>> => {
+}): Promise<TuplePage<QueryUser>> => {
 	const {search = '', pageNumber = 1, pageSize = 9} = options;
 
 	if (isMockService()) {

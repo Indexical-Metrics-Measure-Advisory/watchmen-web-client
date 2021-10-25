@@ -5,7 +5,7 @@ export const fetchMockSubjectData = async (options: {
 	subjectId: string;
 	pageNumber?: number;
 	pageSize?: number;
-}): Promise<DataSetPage<Array<any>>> => {
+}): Promise<DataSetPage> => {
 	const {pageNumber = 1, pageSize = 100} = options;
 	return new Promise((resolve) => {
 		setTimeout(() => {

@@ -1,4 +1,4 @@
-import {DataPage} from '@/services/data/query/data-page';
+import {TuplePage} from '@/services/data/query/tuple-page';
 import {QueryTuple} from '@/services/data/tuples/tuple-types';
 import React, {Fragment, useEffect, useState} from 'react';
 import {useTupleEventBus} from '../tuple-event-bus';
@@ -12,7 +12,7 @@ import {
 
 interface State<QT extends QueryTuple> {
 	visible: boolean;
-	page?: DataPage<QT>;
+	page?: TuplePage<QT>;
 	search: string;
 }
 
@@ -25,7 +25,7 @@ export const SearchList = <QT extends QueryTuple>(props: {
 	const {on, off, fire} = useTupleEventBus();
 	const [state, setState] = useState<State<QT>>({visible: false, search: ''});
 	useEffect(() => {
-		const onTupleSearched = (page: DataPage<QT>, searchText: string) => {
+		const onTupleSearched = (page: TuplePage<QT>, searchText: string) => {
 			if (page.data && page.data.length > 0) {
 				setState({visible: true, page, search: searchText});
 			} else {

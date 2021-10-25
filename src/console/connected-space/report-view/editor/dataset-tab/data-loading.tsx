@@ -27,7 +27,7 @@ export const DataLoading = (props: { subject: Subject; report: Report }) => {
 			}
 
 			setVisible(true);
-			if (report.simulated) {
+			if (report.simulating) {
 				fire(ReportDataSetEventTypes.DATA_LOADED, report, {
 					columns: (subject.dataset?.columns || []).map(column => column.alias || 'Noname Column'),
 					data: report.simulateData ?? []

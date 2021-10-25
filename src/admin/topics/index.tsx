@@ -1,6 +1,6 @@
 import TopicBackground from '@/assets/topic-background.svg';
 import {isMultipleDataSourcesEnabled} from '@/feature-switch';
-import {DataPage} from '@/services/data/query/data-page';
+import {TuplePage} from '@/services/data/query/tuple-page';
 import {listDataSourcesForHolder} from '@/services/data/tuples/data-source';
 import {listEnumsForHolder} from '@/services/data/tuples/enum';
 import {FactorType} from '@/services/data/tuples/factor-types';
@@ -58,7 +58,7 @@ const AdminTopics = () => {
 		const onDoSearchTopic = async (searchText: string, pageNumber: number) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await listTopics({search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE}),
-				(page: DataPage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
+				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
 		const onDoSaveTopic = async (topic: Topic) => {
 			if (!topic.name || !topic.name.trim()) {

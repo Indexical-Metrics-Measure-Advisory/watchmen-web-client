@@ -1,6 +1,6 @@
 import {Apis, page, post} from '../apis';
 import {listMockTenants, saveMockTenant} from '../mock/tuples/mock-tenant';
-import {DataPage} from '../query/data-page';
+import {TuplePage} from '../query/tuple-page';
 import {isMockService} from '../utils';
 import {QueryTenant} from './query-tenant-types';
 import {Tenant} from './tenant-types';
@@ -10,7 +10,7 @@ export const listTenants = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
-}): Promise<DataPage<QueryTenant>> => {
+}): Promise<TuplePage<QueryTenant>> => {
 	const {search = '', pageNumber = 1, pageSize = 9} = options;
 
 	if (isMockService()) {

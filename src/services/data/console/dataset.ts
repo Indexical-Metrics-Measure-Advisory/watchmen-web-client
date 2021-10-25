@@ -1,7 +1,4 @@
-export interface DataSetPage<T> {
-	data: Array<T>;
-	itemCount: number;
-	pageNumber: number;
-	pageSize: number;
-	pageCount: number;
+import {Page, RowOfAny} from '../types';
+
+export interface DataSetPage extends Page<RowOfAny> {
 }

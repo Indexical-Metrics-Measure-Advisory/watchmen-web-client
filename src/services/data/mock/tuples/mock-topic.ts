@@ -1,4 +1,4 @@
-import {DataPage} from '../../query/data-page';
+import {TuplePage} from '../../query/tuple-page';
 import {QueryTopic, QueryTopicForHolder} from '../../tuples/query-topic-types';
 import {Topic, TopicKind, TopicType} from '../../tuples/topic-types';
 import {isFakedUuid} from '../../tuples/utils';
@@ -9,9 +9,9 @@ export const listMockTopics = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
-}): Promise<DataPage<QueryTopic>> => {
+}): Promise<TuplePage<QueryTopic>> => {
 	const {pageNumber = 1, pageSize = 9} = options;
-	return new Promise<DataPage<QueryTopic>>((resolve) => {
+	return new Promise<TuplePage<QueryTopic>>((resolve) => {
 		setTimeout(() => {
 			resolve({
 				data: DemoQueryTopics,

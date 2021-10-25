@@ -6,7 +6,7 @@ import {
 	listMockDataSourcesForHolder,
 	saveMockDataSource
 } from '../mock/tuples/mock-data-source';
-import {DataPage} from '../query/data-page';
+import {TuplePage} from '../query/tuple-page';
 import {isMockService} from '../utils';
 import {DataSource} from './data-source-types';
 import {QueryDataSource, QueryDataSourceForHolder} from './query-data-source-types';
@@ -16,7 +16,7 @@ export const listDataSources = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
-}): Promise<DataPage<QueryDataSource>> => {
+}): Promise<TuplePage<QueryDataSource>> => {
 	const {search = '', pageNumber = 1, pageSize = 9} = options;
 
 	if (isMockService()) {

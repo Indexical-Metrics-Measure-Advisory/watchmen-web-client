@@ -78,7 +78,8 @@ export interface Report extends Tuple {
 	description?: string;
 	rect: ReportRect;
 	chart: Chart;
-	simulated?: boolean;
+	simulating?: boolean;
 	simulateData?: Array<any>;
+	simulateThumbnail?: string;
 	lastVisitTime: string;
 }

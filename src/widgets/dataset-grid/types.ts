@@ -25,7 +25,7 @@ export interface ColumnDefs {
 	data: Array<DataColumnDef>;
 }
 
-export type DataPage = DataSetPage<Array<string | number | boolean | null | undefined>>;
+export type DataPage = DataSetPage;
 
 export interface DataSetState extends DataPage {
 	loaded: boolean;

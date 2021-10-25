@@ -42,7 +42,7 @@ const ManualRefresh = (props: { report: Report }) => {
 		};
 	});
 
-	if (report.simulated) {
+	if (report.simulating) {
 		return null;
 	}
 

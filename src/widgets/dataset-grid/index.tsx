@@ -4,34 +4,35 @@ import {GridWrapper} from './body';
 import {useGridEventBus} from './grid-event-bus';
 import {GridEventTypes} from './grid-event-bus-types';
 import {GridHeader} from './header';
-import {ColumnDefs, DataPage, DataSetState, SimulateDataSetState} from './types';
+import {ColumnDefs, DataPage, DataSetState} from './types';
 import {DataSetGridContainer} from './widgets';
 
 /**
  * structure and data of grid are passed to this component through event {@link GridEventTypes.DATA_LOADED}.
  * if pagination feature is on, handle {@link props.onPageChange} to provide data, also via event {@link GridEventTypes.DATA_LOADED}.
+ * for {@link props.simulateEnabled} and {@link props.simulating}, UI
  *
  * @param props.hasColumns columns exists or not.
- * @param props.simulate enable simulate feature, disable pageable related features when simulate is on. default false(feature off).
- * @param props.simulated currently is simulated or not
- * @param props.pageable enable pagination, default true(feature on). will be ignored when {@link props.simulate} is on.
+ * @param props.simulateEnabled enable simulate feature, disable pageable related features when simulate is on. default false(feature off).
+ * @param props.simulating currently is simulated or not
+ * @param props.pageable enable pagination, default true(feature on). will be ignored when {@link props.simulateEnabled} is on.
  * @param props.onPageChange invokes when page change, must pass this parameter when pagination is on.
  * @param props.downloadAll invokes when download all button clicked, must pass this parameter when pagination is on.
  * @param props.languagesSupport enable i18n supporting, default true(feature on).
  */
 export const Grid = (props: {
 	hasColumns: boolean;
-	simulate?: boolean;
-	simulated?: boolean;
+	simulateEnabled?: boolean;
+	simulating?: boolean;
 	pageable?: boolean;
 	onPageChange?: (pageNumber: number, columnDefs: ColumnDefs) => void;
-	downloadAll?: () => Promise<DataSetPage<Array<any>>>;
+	downloadAll?: () => Promise<DataSetPage>;
 	languagesSupport?: boolean;
 }) => {
 	const {
 		hasColumns,
-		simulate,
-		simulated = false,
+		simulateEnabled,
+		simulating = false,
 		pageable,
 		onPageChange,
 		downloadAll,
@@ -48,15 +49,6 @@ export const Grid = (props: {
 		loaded: false,
 		columnDefs: {fixed: [], data: []}
 	});
-	const [simulateData, setSimulateData] = useState<SimulateDataSetState>({
-		enabled: false,
-		itemCount: 0,
-		pageNumber: 1,
-		pageSize: 1,
-		pageCount: 1,
-		data: [],
-		columnDefs: {fixed: [], data: []}
-	});
 	useEffect(() => {
 		if (!hasColumns) {
 			return;
@@ -64,22 +56,11 @@ export const Grid = (props: {
 
 		const onDataLoaded = (page: DataPage, columnDefs: ColumnDefs) => {
 			setData({...page, loaded: true, columnDefs});
-			setSimulateData(data => ({...data, columnDefs}));
-		};
-		const onSimulatorSwitched = (on: boolean) => {
-			setSimulateData(data => ({...data, enabled: on}));
-		};
-		const onSimulateDataUploaded = (page: DataPage) => {
-			setSimulateData(data => ({...page, enabled: data.enabled, columnDefs: data.columnDefs}));
 		};
 
 		on(GridEventTypes.DATA_LOADED, onDataLoaded);
-		on(GridEventTypes.SIMULATOR_SWITCHED, onSimulatorSwitched);
-		on(GridEventTypes.SIMULATE_DATA_UPLOADED, onSimulateDataUploaded);
 		return () => {
 			off(GridEventTypes.DATA_LOADED, onDataLoaded);
-			off(GridEventTypes.SIMULATOR_SWITCHED, onSimulatorSwitched);
-			off(GridEventTypes.SIMULATE_DATA_UPLOADED, onSimulateDataUploaded);
 		};
 	}, [on, off, hasColumns]);
 
@@ -87,12 +68,10 @@ export const Grid = (props: {
 		return null;
 	}
 
-	const gridData = simulateData.enabled ? ({...simulateData, loaded: true}) : data;
-
 	return <DataSetGridContainer>
-		<GridHeader data={data} simulate={simulate} simulated={simulated}
+		<GridHeader data={data} canSimulate={simulateEnabled} simulating={simulating}
 		            pageable={pageable} onPageChange={onPageChange}
 		            downloadAll={downloadAll} languagesSupport={languagesSupport}/>
-		<GridWrapper data={gridData} languagesSupport={languagesSupport}/>
+		<GridWrapper data={data} languagesSupport={languagesSupport}/>
 	</DataSetGridContainer>;
 };

@@ -1,6 +1,6 @@
 import {Router} from '@/routes/types';
 import {isSuperAdmin} from '@/services/data/account';
-import {DataPage} from '@/services/data/query/data-page';
+import {TuplePage} from '@/services/data/query/tuple-page';
 import {QueryTenant} from '@/services/data/tuples/query-tenant-types';
 import {listTenants, saveTenant} from '@/services/data/tuples/tenant';
 import {Tenant} from '@/services/data/tuples/tenant-types';
@@ -49,7 +49,7 @@ const AdminTenants = () => {
 		const onDoSearchTenant = async (searchText: string, pageNumber: number) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await listTenants({search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE}),
-				(page: DataPage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
+				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
 		const onDoSaveTenant = async (tenant: Tenant) => {
 			if (!tenant.name || !tenant.name.trim()) {

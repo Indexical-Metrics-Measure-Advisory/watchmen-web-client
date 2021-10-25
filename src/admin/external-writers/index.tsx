@@ -1,7 +1,7 @@
 import {isWriteExternalEnabled} from '@/feature-switch';
 import {Router} from '@/routes/types';
 import {isSuperAdmin} from '@/services/data/account';
-import {DataPage} from '@/services/data/query/data-page';
+import {TuplePage} from '@/services/data/query/tuple-page';
 import {fetchExternalWriter, listExternalWriters, saveExternalWriter} from '@/services/data/tuples/external-writer';
 import {ExternalWriter} from '@/services/data/tuples/external-writer-types';
 import {QueryExternalWriter} from '@/services/data/tuples/query-external-writer-types';
@@ -57,7 +57,7 @@ const AdminExternalWriters = () => {
 					pageNumber,
 					pageSize: TUPLE_SEARCH_PAGE_SIZE
 				}),
-				(page: DataPage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
+				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
 		const onDoSaveExternalWriter = async (externalWriter: ExternalWriter) => {
 			if (!externalWriter.writerCode || !externalWriter.writerCode.trim()) {

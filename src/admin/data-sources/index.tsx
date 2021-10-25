@@ -1,7 +1,7 @@
 import {isMultipleDataSourcesEnabled} from '@/feature-switch';
 import {Router} from '@/routes/types';
 import {isSuperAdmin} from '@/services/data/account';
-import {DataPage} from '@/services/data/query/data-page';
+import {TuplePage} from '@/services/data/query/tuple-page';
 import {fetchDataSource, listDataSources, saveDataSource} from '@/services/data/tuples/data-source';
 import {DataSource} from '@/services/data/tuples/data-source-types';
 import {QueryDataSource} from '@/services/data/tuples/query-data-source-types';
@@ -53,7 +53,7 @@ const AdminDataSources = () => {
 		const onDoSearchDataSource = async (searchText: string, pageNumber: number) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await listDataSources({search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE}),
-				(page: DataPage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
+				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
 		const onDoSaveDataSource = async (dataSource: DataSource) => {
 			if (!dataSource.dataSourceCode || !dataSource.dataSourceCode.trim()) {

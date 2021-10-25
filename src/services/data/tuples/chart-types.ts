@@ -1,3 +1,5 @@
+import {RowOfAny} from '../types';
+
 export enum PredefinedChartColorSeries {
 	REGULAR = 'regular',
 	DARK = 'dark',
@@ -69,7 +71,7 @@ export interface Chart {
 	settings?: ChartSettings;
 }
 
-export type ChartDataSetRow = Array<string | number | boolean | null | undefined>;
+export type ChartDataSetRow = RowOfAny;
 export type ChartDataSetRows = Array<ChartDataSetRow>;
 
 export interface ChartDataSet {

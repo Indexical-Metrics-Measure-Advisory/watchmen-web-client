@@ -1,4 +1,4 @@
-import {DataPage} from '../../query/data-page';
+import {TuplePage} from '../../query/tuple-page';
 import {QueryReport} from '../../tuples/query-report-types';
 import {Report} from '../../tuples/report-types';
 import {isFakedUuid} from '../../tuples/utils';
@@ -8,7 +8,7 @@ export const listMockReports = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
-}): Promise<DataPage<QueryReport>> => {
+}): Promise<TuplePage<QueryReport>> => {
 	const {pageNumber = 1, pageSize = 9} = options;
 
 	return new Promise(resolve => {

@@ -1,4 +1,4 @@
-import {DataPage} from '../../query/data-page';
+import {TuplePage} from '../../query/tuple-page';
 import {ExternalWriter, ExternalWriterType} from '../../tuples/external-writer-types';
 import {QueryExternalWriter, QueryExternalWriterForHolder} from '../../tuples/query-external-writer-types';
 import {isFakedUuid} from '../../tuples/utils';
@@ -27,7 +27,7 @@ export const listMockExternalWriters = async (options: {
 	search: string;
 	pageNumber?: number;
 	pageSize?: number;
-}): Promise<DataPage<QueryExternalWriter>> => {
+}): Promise<TuplePage<QueryExternalWriter>> => {
 	const {pageNumber = 1, pageSize = 9} = options;
 	return new Promise((resolve) => {
 		setTimeout(() => {

@@ -1,4 +1,4 @@
-import {DataPage} from '@/services/data/query/data-page';
+import {TuplePage} from '@/services/data/query/tuple-page';
 import {ChartType, PredefinedChartColorSeries} from '@/services/data/tuples/chart-types';
 import {QueryReport} from '@/services/data/tuples/query-report-types';
 import {listReports} from '@/services/data/tuples/report';
@@ -51,7 +51,7 @@ const AdminReports = () => {
 		const onDoSearchReport = async (searchText: string, pageNumber: number) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await listReports({search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE}),
-				(page: DataPage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
+				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateReport);
 		on(TupleEventTypes.DO_EDIT_TUPLE, onDoEditReport);

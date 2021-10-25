@@ -1,4 +1,4 @@
-import {DataPage} from '@/services/data/query/data-page';
+import {TuplePage} from '@/services/data/query/tuple-page';
 import {QueryTuple, QueryTupleForHolder, Tuple} from '@/services/data/tuples/tuple-types';
 
 export enum TupleState {
@@ -71,7 +71,7 @@ export interface TupleEventBus {
 	on(type: TupleEventTypes.DO_SEARCH_TUPLE, listener: (searchText: string, pageNumber: number) => void): this;
 	off(type: TupleEventTypes.DO_SEARCH_TUPLE, listener: (searchText: string, pageNumber: number) => void): this;
 
-	fire<T extends QueryTuple>(type: TupleEventTypes.TUPLE_SEARCHED, page: DataPage<T>, searchText: string): this;
-	on<T extends QueryTuple>(type: TupleEventTypes.TUPLE_SEARCHED, listener: (page: DataPage<T>, searchText: string) => void): this;
-	off<T extends QueryTuple>(type: TupleEventTypes.TUPLE_SEARCHED, listener: (page: DataPage<T>, searchText: string) => void): this;
+	fire<T extends QueryTuple>(type: TupleEventTypes.TUPLE_SEARCHED, page: TuplePage<T>, searchText: string): this;
+	on<T extends QueryTuple>(type: TupleEventTypes.TUPLE_SEARCHED, listener: (page: TuplePage<T>, searchText: string) => void): this;
+	off<T extends QueryTuple>(type: TupleEventTypes.TUPLE_SEARCHED, listener: (page: TuplePage<T>, searchText: string) => void): this;
 }
