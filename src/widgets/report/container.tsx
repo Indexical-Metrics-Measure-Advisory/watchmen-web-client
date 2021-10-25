@@ -47,7 +47,8 @@ export const Container = (props: {
 				const dataset = {data: report.simulateData ?? []};
 				fire(ReportEventTypes.DATA_LOADED, report, dataset);
 				setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
-			}, 200);
+				// delay 500 milliseconds
+			}, 500);
 		} else {
 			if (diagramState.loaded === DiagramLoadState.FALSE) {
 				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
@@ -55,11 +56,19 @@ export const Container = (props: {
 					(dataset: ChartDataSet) => {
 						fire(ReportEventTypes.DATA_LOADED, report, dataset);
 						setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
+					}, () => {
+						const dataset = {data: []};
+						fire(ReportEventTypes.DATA_LOADED, report, dataset);
+						setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
 					});
 			} else if (diagramState.loaded === DiagramLoadState.RELOAD) {
 				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 					async () => await fetchChartDataTemporary(report),
 					(dataset: ChartDataSet) => {
+						fire(ReportEventTypes.DATA_LOADED, report, dataset);
+						setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
+					}, () => {
+						const dataset = {data: []};
 						fire(ReportEventTypes.DATA_LOADED, report, dataset);
 						setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
 					});

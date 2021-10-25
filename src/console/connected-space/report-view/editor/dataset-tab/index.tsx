@@ -20,6 +20,7 @@ const DataInitializer = (props: { report: Report }) => {
 
 	return <Fragment/>;
 };
+
 export const DataSetTab = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report, active: boolean }) => {
 	const {connectedSpace, subject, report, active} = props;
 

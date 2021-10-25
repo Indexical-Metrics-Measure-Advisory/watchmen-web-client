@@ -27,7 +27,7 @@ export enum ReportEventTypes {
 	ASK_DOWNLOAD_CHART = 'ask-download-chart',
 
 	DATA_LOADED = 'data-loaded',
-	REPAINTED = 'repainted'
+	REPAINTED = 'repainted',
 }
 
 export interface ReportEventBus {

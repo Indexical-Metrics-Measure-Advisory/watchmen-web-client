@@ -39,11 +39,19 @@ export const DataLoading = (props: { report: Report }) => {
 							(dataset: ChartDataSet) => {
 								fire(ReportDataSetEventTypes.DATA_LOADED, report, dataset);
 								setVisible(false);
+							}, () => {
+								const dataset = {data: []};
+								fire(ReportDataSetEventTypes.DATA_LOADED, report, dataset);
+								setVisible(false);
 							});
 					} else if (changed) {
 						fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 							async () => await fetchChartDataTemporary(report),
 							(dataset: ChartDataSet) => {
+								fire(ReportDataSetEventTypes.DATA_LOADED, report, dataset);
+								setVisible(false);
+							}, () => {
+								const dataset = {data: []};
 								fire(ReportDataSetEventTypes.DATA_LOADED, report, dataset);
 								setVisible(false);
 							});

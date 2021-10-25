@@ -75,7 +75,6 @@ const SubjectDataGridDelegate = (props: { connectedSpace: ConnectedSpace, subjec
 		};
 		const onSimulateDataUploaded = (page: DataPage) => {
 			report.simulateData = page.data;
-			forceUpdate();
 			// fire event to editor
 			fireReport(ReportEditEventTypes.SIMULATE_DATA_UPLOADED, report, report.simulateData);
 		};

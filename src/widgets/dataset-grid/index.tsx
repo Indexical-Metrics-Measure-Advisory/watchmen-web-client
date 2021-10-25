@@ -8,9 +8,11 @@ import {ColumnDefs, DataPage, DataSetState} from './types';
 import {DataSetGridContainer} from './widgets';
 
 /**
- * structure and data of grid are passed to this component through event {@link GridEventTypes.DATA_LOADED}.
- * if pagination feature is on, handle {@link props.onPageChange} to provide data, also via event {@link GridEventTypes.DATA_LOADED}.
- * for {@link props.simulateEnabled} and {@link props.simulating}, UI
+ * structure and data of grid are passed to this component through event {@link GridEventTypes.DATA_LOADED}.<br>
+ * if pagination feature is on, handle {@link props.onPageChange} to provide data, also via event {@link GridEventTypes.DATA_LOADED}.<br>
+ * for {@link props.simulating}, through toggle and upload button is in grid itself,
+ * switch value will be sent by {@link GridEventTypes.SIMULATOR_SWITCHED}, handle it and repaint grid, otherwise ui will not be changed.<br>
+ * for {@link GridEventTypes.SIMULATE_DATA_UPLOADED} fired by upload button, handle it and notify grid via event {@link GridEventTypes.DATA_LOADED}.
  *
  * @param props.hasColumns columns exists or not.
  * @param props.simulateEnabled enable simulate feature, disable pageable related features when simulate is on. default false(feature off).
