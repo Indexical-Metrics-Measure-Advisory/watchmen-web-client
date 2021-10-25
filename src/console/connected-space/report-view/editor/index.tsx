@@ -4,6 +4,7 @@ import {Subject} from '@/services/data/tuples/subject-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {ICON_DOWNLOAD, ICON_PALETTE, ICON_REFRESH, ICON_REPORT_DATA, ICON_SETTINGS} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
@@ -11,7 +12,7 @@ import {useReportEventBus} from '@/widgets/report/report-event-bus';
 import {ReportEventTypes} from '@/widgets/report/report-event-bus-types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useReportViewEventBus} from '../report-view-event-bus';
 import {ReportViewEventTypes} from '../report-view-event-bus-types';
 import {ChartPart} from './chart-part';
@@ -26,14 +27,14 @@ const ManualRefresh = (props: { report: Report }) => {
 
 	const {fire} = useReportEventBus();
 	const {on, off} = useReportEditEventBus();
-	const [simulated, setSimulated] = useState(false);
+	const forceUpdate = useForceUpdate();
 	useEffect(() => {
-		const onSimulatorSwitched = (aReport: Report, on: boolean) => {
+		const onSimulatorSwitched = (aReport: Report) => {
 			if (aReport !== report) {
 				return;
 			}
 
-			setSimulated(on);
+			forceUpdate();
 		};
 		on(ReportEditEventTypes.SIMULATOR_SWITCHED, onSimulatorSwitched);
 		return () => {
@@ -41,7 +42,7 @@ const ManualRefresh = (props: { report: Report }) => {
 		};
 	});
 
-	if (simulated) {
+	if (report.simulated) {
 		return null;
 	}
 
