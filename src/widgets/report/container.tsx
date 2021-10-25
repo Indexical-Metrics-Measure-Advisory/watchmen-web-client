@@ -22,9 +22,13 @@ enum DiagramLoadState {
 }
 
 interface DiagramState {
-	loaded: DiagramLoadState;
+	loadState: DiagramLoadState;
 	dataset?: ChartDataSet;
 }
+
+const shouldLoadData = (state: DiagramLoadState): boolean => {
+	return [DiagramLoadState.FALSE, DiagramLoadState.RELOAD].includes(state);
+};
 
 export const Container = (props: {
 	report: Report;
@@ -39,52 +43,55 @@ export const Container = (props: {
 	const dndRef = useRef<HTMLDivElement>(null);
 	const {fire: fireGlobal} = useEventBus();
 	const {fire, on, off} = useReportEventBus();
-	const [diagramState, setDiagramState] = useState<DiagramState>({loaded: DiagramLoadState.FALSE});
+	const [diagramState, setDiagramState] = useState<DiagramState>({loadState: DiagramLoadState.FALSE});
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
-		if (report.simulating) {
-			setTimeout(() => {
-				const dataset = {data: report.simulateData ?? []};
-				fire(ReportEventTypes.DATA_LOADED, report, dataset);
-				setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
-				// delay 500 milliseconds
-			}, 500);
-		} else {
-			if (diagramState.loaded === DiagramLoadState.FALSE) {
-				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-					async () => await fetchChartData(report.reportId, report.chart.type),
-					(dataset: ChartDataSet) => {
-						fire(ReportEventTypes.DATA_LOADED, report, dataset);
-						setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
-					}, () => {
-						const dataset = {data: []};
-						fire(ReportEventTypes.DATA_LOADED, report, dataset);
-						setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
-					});
-			} else if (diagramState.loaded === DiagramLoadState.RELOAD) {
-				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-					async () => await fetchChartDataTemporary(report),
-					(dataset: ChartDataSet) => {
-						fire(ReportEventTypes.DATA_LOADED, report, dataset);
-						setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
-					}, () => {
-						const dataset = {data: []};
-						fire(ReportEventTypes.DATA_LOADED, report, dataset);
-						setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
-					});
+		if (shouldLoadData(diagramState.loadState)) {
+			if (report.simulating) {
+				setTimeout(() => {
+					const dataset = {data: report.simulateData ?? []};
+					fire(ReportEventTypes.DATA_LOADED, report, dataset);
+					setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
+					// delay 500 milliseconds
+				}, 500);
+			} else {
+				if (diagramState.loadState === DiagramLoadState.FALSE) {
+					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+						async () => await fetchChartData(report.reportId, report.chart.type),
+						(dataset: ChartDataSet) => {
+							fire(ReportEventTypes.DATA_LOADED, report, dataset);
+							setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
+						}, () => {
+							const dataset = {data: []};
+							fire(ReportEventTypes.DATA_LOADED, report, dataset);
+							setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
+						});
+				} else if (diagramState.loadState === DiagramLoadState.RELOAD) {
+					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+						async () => await fetchChartDataTemporary(report),
+						(dataset: ChartDataSet) => {
+							fire(ReportEventTypes.DATA_LOADED, report, dataset);
+							setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
+						}, () => {
+							const dataset = {data: []};
+							fire(ReportEventTypes.DATA_LOADED, report, dataset);
+							setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
+						});
+				}
 			}
 		}
+
 		const onDoReloadDataByClient = (editReport: Report) => {
 			if (report !== editReport) {
 				return;
 			}
-			setDiagramState({loaded: DiagramLoadState.RELOAD});
+			setDiagramState({loadState: DiagramLoadState.RELOAD});
 		};
 		const onDoReloadDataOnEditing = (editReport: Report) => {
 			if (report !== editReport || !editing) {
 				return;
 			}
-			setDiagramState({loaded: DiagramLoadState.RELOAD});
+			setDiagramState({loadState: DiagramLoadState.RELOAD});
 		};
 		const onDoRefresh = (refreshReport: Report) => {
 			// eslint-disable-next-line
@@ -92,7 +99,7 @@ export const Container = (props: {
 				return;
 			}
 			// force reload data
-			setDiagramState({loaded: DiagramLoadState.FALSE});
+			setDiagramState({loadState: DiagramLoadState.FALSE});
 		};
 		on(ReportEventTypes.DO_RELOAD_DATA_BY_CLIENT, onDoReloadDataByClient);
 		on(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onDoReloadDataOnEditing);
@@ -102,12 +109,12 @@ export const Container = (props: {
 			off(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onDoReloadDataOnEditing);
 			off(ReportEventTypes.DO_REFRESH, onDoRefresh);
 		};
-	}, [fireGlobal, on, off, fire, forceUpdate, report, diagramState.loaded, editing]);
+	}, [fireGlobal, on, off, fire, forceUpdate, report, diagramState.loadState, editing]);
 	useEffect(() => {
-		if (diagramState.loaded === DiagramLoadState.TRUE) {
+		if (diagramState.loadState === DiagramLoadState.TRUE) {
 			fire(ReportEventTypes.REPAINTED, report);
 		}
-	}, [fire, report, diagramState.loaded]);
+	}, [fire, report, diagramState.loadState]);
 
 	const writeToRect = (rect: ReportRect) => report.rect = rect;
 	const onDrop = () => fire(ReportEventTypes.REPORT_MOVE_OR_RESIZE_COMPLETED, report);
@@ -121,7 +128,7 @@ export const Container = (props: {
 	const onRemoveClicked = () => fire(ReportEventTypes.DO_DELETE_REPORT, report);
 
 	return <ChartContainer rect={report.rect} fixed={fixed} ref={containerRef}>
-		{diagramState.loaded === DiagramLoadState.TRUE
+		{diagramState.loadState === DiagramLoadState.TRUE
 			? <Diagram report={report} dataset={diagramState.dataset!}/>
 			: <DiagramLoading>
 				<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>
