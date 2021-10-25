@@ -17,12 +17,13 @@ export const GridDatColumnHeaderCell = (props: {
 	sortColumnAsc: (event: React.MouseEvent<HTMLButtonElement>) => void;
 	sortColumnDesc: (event: React.MouseEvent<HTMLButtonElement>) => void;
 	dragging: boolean;
+	languagesSupport: boolean;
 }) => {
 	const {
 		column, isFixTable,
 		last, gridColumnIndex,
 		selectColumn, fixColumn, unfixColumn, sortColumnAsc, sortColumnDesc,
-		dragging
+		dragging, languagesSupport
 	} = props;
 
 	const cellRef = useRef<HTMLDivElement>(null);
@@ -35,25 +36,33 @@ export const GridDatColumnHeaderCell = (props: {
 		<span>{column.name}</span>
 		<GridHeaderCellButtons>
 			<GridHeaderCellButton
-				tooltip={{label: Lang.ACTIONS.SORT_ASC, alignment: TooltipAlignment.RIGHT, offsetX: 6}}
+				tooltip={{
+					label: languagesSupport ? Lang.ACTIONS.SORT_ASC : 'Sort Ascending',
+					alignment: TooltipAlignment.RIGHT,
+					offsetX: 6
+				}}
 				onClick={sortColumnAsc}>
 				<FontAwesomeIcon icon={ICON_SORT_ASC}/>
 			</GridHeaderCellButton>
 			<GridHeaderCellButton
-				tooltip={{label: Lang.ACTIONS.SORT_DESC, alignment: TooltipAlignment.RIGHT, offsetX: 6}}
+				tooltip={{
+					label: languagesSupport ? Lang.ACTIONS.SORT_DESC : 'Sort Descending',
+					alignment: TooltipAlignment.RIGHT,
+					offsetX: 6
+				}}
 				onClick={sortColumnDesc}>
 				<FontAwesomeIcon icon={ICON_SORT_DESC}/>
 			</GridHeaderCellButton>
 			{isFixTable
 				? <GridHeaderCellButton tooltip={{
-					label: Lang.DATASET.UNFIX_COLUMN,
+					label: languagesSupport ? Lang.DATASET.UNFIX_COLUMN : 'Unfix Me and Follows',
 					alignment: TooltipAlignment.RIGHT,
 					offsetX: 6
 				}} onClick={unfixColumn}>
 					<FontAwesomeIcon icon={ICON_UNFIX_COLUMN}/>
 				</GridHeaderCellButton>
 				: <GridHeaderCellButton tooltip={{
-					label: Lang.DATASET.FIX_COLUMN,
+					label: languagesSupport ? Lang.DATASET.FIX_COLUMN : 'Fix Columns to Here',
 					alignment: TooltipAlignment.RIGHT,
 					offsetX: 6
 				}} onClick={fixColumn}>

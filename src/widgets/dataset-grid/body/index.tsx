@@ -198,8 +198,8 @@ const useDecorateFixStyle = (options: {
 	return arrangeFixedTableStyle;
 };
 
-export const GridWrapper = (props: { data: DataSetState }) => {
-	const {data} = props;
+export const GridWrapper = (props: { data: DataSetState; languagesSupport: boolean; }) => {
+	const {data, languagesSupport} = props;
 	const {columnDefs} = data;
 
 	const {once, on, off, fire} = useGridEventBus();
@@ -778,12 +778,14 @@ export const GridWrapper = (props: { data: DataSetState }) => {
 		      data={data}
 		      onColumnFixChange={onColumnFixChange} onColumnSort={onColumnSort}
 		      dragColumn={behavior === Behavior.DRAGGING ? pickedColumn?.column : (void 0)}
+		      languagesSupport={languagesSupport}
 		      ref={fixTableRef}/>
 		<Grid displayColumns={columnDefs.data}
 		      isFixTable={false} rowNoColumnWidth={rowNoColumnWidth}
 		      data={data}
 		      onColumnFixChange={onColumnFixChange} onColumnSort={onColumnSort}
 		      dragColumn={behavior === Behavior.DRAGGING ? pickedColumn?.column : (void 0)}
+		      languagesSupport={languagesSupport}
 		      ref={dataTableRef}/>
 		<GridSelection data={data} columnDefs={columnDefs}
 		               rowNoColumnWidth={rowNoColumnWidth}

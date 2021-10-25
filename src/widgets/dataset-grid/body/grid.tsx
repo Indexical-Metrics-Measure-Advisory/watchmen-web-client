@@ -13,6 +13,7 @@ export const Grid = forwardRef((props: {
 	onColumnFixChange: (column: DataColumnDef, fix: boolean) => void;
 	onColumnSort: (column: DataColumnDef, asc: boolean) => void;
 	dragColumn?: DataColumnDef;
+	languagesSupport: boolean;
 }, ref: ForwardedRef<HTMLDivElement>) => {
 	const {
 		displayColumns,
@@ -20,7 +21,7 @@ export const Grid = forwardRef((props: {
 		rowNoColumnWidth,
 		data: {data, pageNumber, pageSize},
 		onColumnFixChange, onColumnSort,
-		dragColumn
+		dragColumn, languagesSupport
 	} = props;
 
 	const {fire} = useGridEventBus();
@@ -69,6 +70,7 @@ export const Grid = forwardRef((props: {
 				                                sortColumnAsc={sortColumn(true, column)}
 				                                sortColumnDesc={sortColumn(false, column)}
 				                                dragging={column === dragColumn}
+				                                languagesSupport={languagesSupport}
 				                                key={`0-${columnIndex}`}/>;
 			})}
 			{autoFill

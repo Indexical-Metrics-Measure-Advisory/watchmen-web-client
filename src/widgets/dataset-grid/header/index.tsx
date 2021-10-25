@@ -28,12 +28,13 @@ export const GridHeader = (props: {
 	pageable?: boolean;
 	onPageChange?: (pageNumber: number, columnDefs: ColumnDefs) => void;
 	downloadAll?: () => Promise<DataSetPage<Array<any>>>
+	languagesSupport: boolean;
 }) => {
 	const {
 		data, pageable = true,
 		onPageChange = () => {
 		},
-		downloadAll
+		downloadAll, languagesSupport
 	} = props;
 
 	const {fire} = useGridEventBus();
@@ -80,46 +81,54 @@ export const GridHeader = (props: {
 	return <DataSetHeaderContainer>
 		<DataSetHeaderButton ink={ButtonInk.PRIMARY} onClick={onDownloadCurrentClicked}>
 			<FontAwesomeIcon icon={ICON_DOWNLOAD_PAGE}/>
-			<span>{Lang.DATASET.DOWNLOAD_PAGE}</span>
+			<span>{languagesSupport ? Lang.DATASET.DOWNLOAD_PAGE : 'Download This Page'}</span>
 		</DataSetHeaderButton>
 		{pageable
 			? <DataSetHeaderButton ink={ButtonInk.PRIMARY} onClick={onDownloadAllClicked}>
 				<FontAwesomeIcon icon={ICON_DOWNLOAD}/>
-				<span>{Lang.DATASET.DOWNLOAD_ALL}</span>
+				<span>{languagesSupport ? Lang.DATASET.DOWNLOAD_ALL : 'Download All'}</span>
 			</DataSetHeaderButton>
 			: null}
 		<DataSetHeaderButton ink={ButtonInk.PRIMARY} onClick={onCompressColumnsWidthClicked}>
 			<FontAwesomeIcon icon={ICON_COMPRESS_COLUMNS} transform={{rotate: 45}}/>
-			<span>{Lang.DATASET.COMPRESS_COLUMNS}</span>
+			<span>{languagesSupport ? Lang.DATASET.COMPRESS_COLUMNS : 'Compress Columns'}</span>
 		</DataSetHeaderButton>
 		{pageable
 			? <DataSetHeaderPagination>
 				{data.pageNumber !== 1
 					? <DataSetHeaderPaginationButton
-						tooltip={{label: Lang.ACTIONS.PREVIOUS_PAGE, alignment: TooltipAlignment.RIGHT, offsetX: 3}}
+						tooltip={{
+							label: languagesSupport ? Lang.ACTIONS.PREVIOUS_PAGE : 'Previous Page',
+							alignment: TooltipAlignment.RIGHT,
+							offsetX: 3
+						}}
 						onClick={onPreviousPageClicked}>
 						<FontAwesomeIcon icon={ICON_PREVIOUS_PAGE}/>
 					</DataSetHeaderPaginationButton>
 					: null}
 				<DataSetHeaderPaginationLabel>
-					{Lang.PAGINATION.TOTAL}
+					{languagesSupport ? Lang.PAGINATION.TOTAL : ''}
 					<DataSetHeaderPaginationLabelBlank/>
 					{data.itemCount}
 					<DataSetHeaderPaginationLabelBlank/>
-					{Lang.PAGINATION.ROWS},
+					{languagesSupport ? Lang.PAGINATION.ROWS : 'Row(s) Total'},
 					<DataSetHeaderPaginationLabelBlank/>
 					<DataSetHeaderPaginationLabelBlank>#</DataSetHeaderPaginationLabelBlank>
 					{data.pageNumber}
 					<DataSetHeaderPaginationLabelBlank/>
-					{Lang.PAGINATION.OF_PAGES}
+					{languagesSupport ? Lang.PAGINATION.OF_PAGES : 'of'}
 					<DataSetHeaderPaginationLabelBlank/>
 					{data.pageCount}
 					<DataSetHeaderPaginationLabelBlank/>
-					{Lang.PAGINATION.PAGES}
+					{languagesSupport ? Lang.PAGINATION.PAGES : 'Pages'}
 				</DataSetHeaderPaginationLabel>
 				{data.pageNumber !== data.pageCount
 					? <DataSetHeaderPaginationButton
-						tooltip={{label: Lang.ACTIONS.NEXT_PAGE, alignment: TooltipAlignment.RIGHT, offsetX: 3}}
+						tooltip={{
+							label: languagesSupport ? Lang.ACTIONS.NEXT_PAGE : 'Next Page',
+							alignment: TooltipAlignment.RIGHT,
+							offsetX: 3
+						}}
 						onClick={onNextPageClicked}>
 						<FontAwesomeIcon icon={ICON_NEXT_PAGE}/>
 					</DataSetHeaderPaginationButton>

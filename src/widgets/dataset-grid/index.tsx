@@ -11,9 +11,10 @@ export const Grid = (props: {
 	hasColumns: boolean;
 	pageable?: boolean;
 	onPageChange?: (pageNumber: number, columnDefs: ColumnDefs) => void;
-	downloadAll?: () => Promise<DataSetPage<Array<any>>>
+	downloadAll?: () => Promise<DataSetPage<Array<any>>>;
+	languagesSupport?: boolean;
 }) => {
-	const {hasColumns, pageable, onPageChange, downloadAll} = props;
+	const {hasColumns, pageable, onPageChange, downloadAll, languagesSupport = true} = props;
 
 	const {on, off} = useGridEventBus();
 	const [data, setData] = useState<DataSetState>({
@@ -46,8 +47,9 @@ export const Grid = (props: {
 
 	return <GridEventBusProvider>
 		<DataSetGridContainer>
-			<GridHeader data={data} pageable={pageable} onPageChange={onPageChange} downloadAll={downloadAll}/>
-			<GridWrapper data={data}/>
+			<GridHeader data={data} pageable={pageable} onPageChange={onPageChange}
+			            downloadAll={downloadAll} languagesSupport={languagesSupport}/>
+			<GridWrapper data={data} languagesSupport={languagesSupport}/>
 		</DataSetGridContainer>
 	</GridEventBusProvider>;
 };
