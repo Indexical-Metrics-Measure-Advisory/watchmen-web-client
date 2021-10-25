@@ -2,16 +2,18 @@ import EventEmitter from 'events';
 import {useState} from 'react';
 
 export const useCreateEventBus = <T extends any>(name: string, options?: {
-	beforeFire?: (type: string) => void;
+	beforeFire?: (type: string, emitter: EventEmitter) => void;
+	afterFire?: (type: string, emitter: EventEmitter) => void;
 }) => {
-	const {beforeFire} = options ?? {};
+	const {beforeFire, afterFire} = options ?? {};
 
 	const [bus] = useState<T>(() => {
 		const emitter = new EventEmitter().setMaxListeners(999999);
 		return {
 			fire: (type: string, ...data: Array<any>): T => {
-				beforeFire && beforeFire(type);
+				beforeFire && beforeFire(type, emitter);
 				emitter.emit(type, ...data);
+				afterFire && afterFire(type, emitter);
 				return bus;
 			},
 			once: (type: string, listener: (...data: Array<any>) => void): T => {
