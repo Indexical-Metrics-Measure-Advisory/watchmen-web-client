@@ -1,5 +1,6 @@
 import {EnumItem} from '@/services/data/tuples/enum-types';
 import parseCSV from 'csv-parse';
+import JSON5 from 'json5';
 
 const asEnumItems = async (data: any): Promise<Array<EnumItem>> => {
 	if (data == null || !Array.isArray(data) || data.length === 0) {
@@ -39,7 +40,7 @@ export const parseFromCsv = async (content: string): Promise<Array<EnumItem>> =>
 export const parseFromJson = async (content: string): Promise<Array<EnumItem>> => {
 	return new Promise((resolve, reject) => {
 		try {
-			const data = JSON.parse(content);
+			const data = JSON5.parse(content);
 			try {
 				resolve(asEnumItems(data));
 			} catch (e: any) {

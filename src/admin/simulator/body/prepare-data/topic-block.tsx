@@ -6,7 +6,7 @@ import {Button} from '@/widgets/basic/button';
 import {ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EXPAND_CONTENT, ICON_LOOP, ICON_PLAY} from '@/widgets/basic/constants';
 import {Input} from '@/widgets/basic/input';
 import {ButtonInk, TooltipAlignment} from '@/widgets/basic/types';
-import {useForceUpdate} from '@/widgets/basic/utils';
+import {uploadFile, UploadFileTypeJson, useForceUpdate} from '@/widgets/basic/utils';
 import {DialogBody, DialogFooter} from '@/widgets/dialog/widgets';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
@@ -104,14 +104,7 @@ const DataDialog = (props: {
 			return [...rows, ...validRows];
 		});
 	};
-	const onFileSelected = (input: HTMLInputElement) => async () => {
-		if (!input.files || input.files.length === 0) {
-			return;
-		}
-		const file = input.files.item(0);
-		if (!file) {
-			return;
-		}
+	const onFileSelected = async (file: File) => {
 		const content = await file.text();
 		try {
 			const data = JSON5.parse(content);
@@ -131,12 +124,7 @@ const DataDialog = (props: {
 		}
 	};
 	const onUploadClicked = () => {
-		const input = document.createElement('input');
-		input.type = 'file';
-		input.multiple = false;
-		input.accept = '.json,.json5';
-		input.onchange = onFileSelected(input);
-		input.click();
+		uploadFile(UploadFileTypeJson, onFileSelected);
 	};
 	const onDownloadClicked = () => {
 		const content = [topic.factors.reduce((data, factor) => {

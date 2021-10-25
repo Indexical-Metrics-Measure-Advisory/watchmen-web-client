@@ -85,3 +85,35 @@ export const downloadAsCSV = (content: string, fileName: string | Array<string>,
 	link.download = fileName;
 	link.click();
 };
+
+export enum UploadFileType {
+	TXT = 'txt',
+	CSV = 'csv',
+	JSON = 'json',
+	JSON5 = 'json5',
+	MARKDOWN = 'md'
+}
+
+export const UploadFileTypeJson = [UploadFileType.JSON, UploadFileType.JSON5];
+export const UploadFileAcceptsTxtCsvJson = [UploadFileType.TXT, UploadFileType.CSV, UploadFileType.JSON, UploadFileType.JSON5];
+
+export const uploadFile = (accepts: UploadFileType | Array<UploadFileType>, onSelected: (file: File) => void) => {
+	if (!Array.isArray(accepts)) {
+		accepts = [accepts];
+	}
+	const input = document.createElement('input');
+	input.type = 'file';
+	input.multiple = false;
+	input.accept = accepts.map(accept => `.${accept}`).join(',');
+	input.onchange = () => {
+		if (!input.files || input.files.length === 0) {
+			return;
+		}
+		const file = input.files.item(0);
+		if (!file) {
+			return;
+		}
+		onSelected(file);
+	};
+	input.click();
+};

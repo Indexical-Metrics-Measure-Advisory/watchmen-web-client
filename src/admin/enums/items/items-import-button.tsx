@@ -2,6 +2,7 @@ import {Enum} from '@/services/data/tuples/enum-types';
 import {DwarfButton} from '@/widgets/basic/button';
 import {ICON_UPLOAD} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
+import {uploadFile, UploadFileAcceptsTxtCsvJson} from '@/widgets/basic/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -16,14 +17,7 @@ export const ItemsImportButton = (props: { enumeration: Enum }) => {
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useEnumEventBus();
 
-	const onFileSelected = (input: HTMLInputElement) => async () => {
-		if (!input.files || input.files.length === 0) {
-			return;
-		}
-		const file = input.files.item(0);
-		if (!file) {
-			return;
-		}
+	const onFileSelected = async (file: File) => {
 		const name = file.name;
 		switch (true) {
 			case name.endsWith('.txt'):
@@ -44,12 +38,7 @@ export const ItemsImportButton = (props: { enumeration: Enum }) => {
 		}
 	};
 	const onImportClicked = () => {
-		const input = document.createElement('input');
-		input.type = 'file';
-		input.multiple = false;
-		input.accept = '.txt,.csv,.json';
-		input.onchange = onFileSelected(input);
-		input.click();
+		uploadFile(UploadFileAcceptsTxtCsvJson, onFileSelected);
 	};
 
 	return <DwarfButton ink={ButtonInk.INFO} onClick={onImportClicked}>

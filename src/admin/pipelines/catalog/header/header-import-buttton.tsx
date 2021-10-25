@@ -16,6 +16,7 @@ import {CheckBox} from '@/widgets/basic/checkbox';
 import {ICON_IMPORT} from '@/widgets/basic/constants';
 import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
 import {ButtonInk} from '@/widgets/basic/types';
+import {uploadFile, UploadFileType} from '@/widgets/basic/utils';
 import {DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
@@ -168,14 +169,7 @@ export const HeaderImportButton = () => {
 			}
 		);
 	};
-	const onFileSelected = (input: HTMLInputElement) => async () => {
-		if (!input.files || input.files.length === 0) {
-			return;
-		}
-		const file = input.files.item(0);
-		if (!file) {
-			return;
-		}
+	const onFileSelected = async (file: File) => {
 		const content = await file.text();
 		const {topics, pipelines, spaces, connectedSpaces} = content.split('\n')
 			.map(x => x.trim())
@@ -217,12 +211,7 @@ export const HeaderImportButton = () => {
 		}).fire(AdminCacheEventTypes.ASK_DATA);
 	};
 	const onImportClicked = () => {
-		const input = document.createElement('input');
-		input.type = 'file';
-		input.multiple = false;
-		input.accept = '.md';
-		input.onchange = onFileSelected(input);
-		input.click();
+		uploadFile(UploadFileType.MARKDOWN, onFileSelected);
 	};
 
 	return <PageHeaderButton tooltip="Import" onClick={onImportClicked}>
