@@ -15,7 +15,6 @@ export const Container = styled(SideMenuItemContainer)`
 	border-color  : transparent;
 	width         : 100%;
 	&:hover {
-		//border-color: var(--border-color);
 		> div[data-widget='side-menu-item-label'] + div[data-widget='side-menu-item-label'] {
 			opacity        : 1;
 			pointer-events : auto;

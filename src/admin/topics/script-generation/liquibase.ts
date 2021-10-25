@@ -1,7 +1,7 @@
 import {FactorType} from '@/services/data/tuples/factor-types';
 import {isAggregationTopic, isNotAggregationTopic, isRawTopic} from '@/services/data/tuples/topic';
 import {Topic} from '@/services/data/tuples/topic-types';
-import JSZip from 'jszip';
+import {ZipFiles} from '@/widgets/basic/utils';
 import {v4} from 'uuid';
 import {MySQLFactorTypeMap} from './mysql';
 import {OracleFactorTypeMap} from './oracle';
@@ -276,9 +276,9 @@ ${factors.map(factor => `			<column name="${asFactorName(factor)}"/>`)}
 </databaseChangeLog>`;
 };
 
-export const generateLiquibaseScripts = (zip: JSZip, topics: Array<Topic>) => {
+export const generateLiquibaseScripts = (zip: ZipFiles, topics: Array<Topic>) => {
 	topics.forEach(topic => {
 		const filename = asTopicName(topic);
-		zip.file(`liquibase/${filename}.xml`, createXML(topic));
+		zip[`liquibase/${filename}.xml`] = createXML(topic);
 	});
 };

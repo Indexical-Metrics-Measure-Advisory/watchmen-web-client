@@ -56,9 +56,6 @@ export const FactorsTableBodyPageableContainer = styled.div.attrs({'data-widget'
 	}
 	> div[data-widget=dropdown] {
 		width : 150px;
-		//border        : 0;
-		//border-bottom : var(--border);
-		//border-radius : 0;
 	}
 `;
 

@@ -77,7 +77,10 @@ export const Jp = {
 		FIX_COLUMN: 'このカラムに固定する',
 		COMPRESS_COLUMNS: 'カラムの幅を狭める',
 		DOWNLOAD_PAGE: 'このページをダウンロードする',
-		DOWNLOAD_ALL: 'すべてをダウンロードする'
+		DOWNLOAD_ALL: 'すべてをダウンロードする',
+		SIMULATE_DATA: 'シミュレート',
+		UPLOAD_DATA: 'データをアップロードする',
+		DOWNLOAD_TEMPLATE: 'テンプレートのダウンロード'
 	},
 	CONSOLE: {
 		LOADING: '個人データ読み込み中...',

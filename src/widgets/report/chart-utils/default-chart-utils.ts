@@ -204,7 +204,9 @@ export abstract class DefaultChartUtils implements ChartUtils {
 	};
 
 	/**
-	 * get dimension column index offset from starting
+	 * get dimension column index offset from starting.
+	 * in dataset, order of columns as below,
+	 * indicator 1, indicator 2, ..., indicator n, dimension 1, dimension 2, ..., dimension n.
 	 */
 	protected getDimensionColumnIndexOffset(report: Report) {
 		// there are some unnecessary indicators remained because chart type changed

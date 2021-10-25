@@ -58,11 +58,11 @@ const SubjectDataGridController = () => {
 };
 
 const SubjectDataGridDelegate = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
-	const {report} = props;
+	const {connectedSpace, report} = props;
 
 	const hasColumns = report.indicators.length > 0 || report.dimensions.length > 0;
 
-	return <Grid hasColumns={hasColumns} pageable={false}/>;
+	return <Grid hasColumns={hasColumns} simulate={connectedSpace.isTemplate} pageable={false}/>;
 };
 
 export const ReportDataGrid = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {

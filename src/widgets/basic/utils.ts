@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+import JSZip from 'jszip';
 import {DispatchWithoutAction, RefObject, useEffect, useReducer} from 'react';
 
 export const useForceUpdate = (): DispatchWithoutAction => {
@@ -48,4 +50,38 @@ export const useCollapseFixedThing = (options: {
 			});
 		};
 	}, [containerRef, events, visible, hide]);
+};
+
+export type ZipFiles = { [name in string]: string }
+export const downloadAsZip = async (files: ZipFiles, zipName: string) => {
+	const zip = new JSZip();
+	Object.keys(files).forEach(name => zip.file(name, files[name]));
+	const base64 = await zip.generateAsync({type: 'base64'});
+	const link = document.createElement('a');
+	link.href = 'data:application/zip;base64,' + base64;
+	link.target = '_blank';
+	link.download = zipName;
+	link.click();
+};
+
+export const downloadAsCSV = (content: string, fileName: string | Array<string>, options?: { date?: true, datetime?: true }) => {
+	const {date = false, datetime = false} = options ?? {};
+	const link = document.createElement('a');
+	link.href = 'data:text/csv;charset=utf-8,' + encodeURI(content);
+	link.target = '_blank';
+	// provide the name for the CSV file to be downloaded
+	if (Array.isArray(fileName)) {
+		fileName = fileName.filter(part => !!part).join('-');
+	}
+	if (!fileName.endsWith('.csv')) {
+		fileName = fileName + '.csv';
+	}
+	if (datetime) {
+		fileName = fileName.substring(0, fileName.length - 4) + '-' + dayjs().format('YYYYMMDDHHmmss') + '.csv';
+	} else if (date) {
+		fileName = fileName.substring(0, fileName.length - 4) + '-' + dayjs().format('YYYYMMDD') + '.csv';
+	}
+
+	link.download = fileName;
+	link.click();
 };

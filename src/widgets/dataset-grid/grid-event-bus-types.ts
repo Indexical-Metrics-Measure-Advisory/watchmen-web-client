@@ -11,6 +11,9 @@ export enum GridEventTypes {
 	REPLY_DRAG_COLUMN_VISIBLE = 'reply-drag-column-visible',
 	ASK_DRAG_COLUMN_VISIBLE = 'determine-drag-column-visible',
 	DRAG_COLUMN_STATE_CHANGED = 'drag-column-state-changed',
+
+	SIMULATOR_SWITCHED = 'simulator-switched',
+	SIMULATE_DATA_UPLOADED = 'simulate-data-uploaded'
 }
 
 export interface GridEventBus {
@@ -48,4 +51,12 @@ export interface GridEventBus {
 	fire(type: GridEventTypes.DRAG_COLUMN_STATE_CHANGED, state: Partial<DragColumnState>): this;
 	on(type: GridEventTypes.DRAG_COLUMN_STATE_CHANGED, listener: (state: Partial<DragColumnState>) => void): this;
 	off(type: GridEventTypes.DRAG_COLUMN_STATE_CHANGED, listener: (state: Partial<DragColumnState>) => void): this;
+
+	fire(type: GridEventTypes.SIMULATOR_SWITCHED, on: boolean): this;
+	on(type: GridEventTypes.SIMULATOR_SWITCHED, listener: (on: boolean) => void): this;
+	off(type: GridEventTypes.SIMULATOR_SWITCHED, listener: (on: boolean) => void): this;
+
+	fire(type: GridEventTypes.SIMULATE_DATA_UPLOADED, page: DataPage): this;
+	on(type: GridEventTypes.SIMULATE_DATA_UPLOADED, listener: (page: DataPage) => void): this;
+	off(type: GridEventTypes.SIMULATE_DATA_UPLOADED, listener: (page: DataPage) => void): this;
 }

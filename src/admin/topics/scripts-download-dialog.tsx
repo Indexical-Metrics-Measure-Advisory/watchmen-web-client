@@ -4,11 +4,11 @@ import {Button} from '@/widgets/basic/button';
 import {CheckBox} from '@/widgets/basic/checkbox';
 import {Input} from '@/widgets/basic/input';
 import {ButtonInk} from '@/widgets/basic/types';
+import {downloadAsZip, ZipFiles} from '@/widgets/basic/utils';
 import {DialogBody, DialogFooter} from '@/widgets/dialog/widgets';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import dayjs from 'dayjs';
-import JSZip from 'jszip';
 import React, {ChangeEvent, useState} from 'react';
 import styled from 'styled-components';
 import {generateLiquibaseScripts} from './script-generation/liquibase';
@@ -209,7 +209,7 @@ export const ScriptsDownloadDialog = (props: {
 			return;
 		}
 
-		const zip = new JSZip();
+		const zip: ZipFiles = {};
 		if (databases.includes(Database.MYSQL) && scriptTypes.includes(ScriptType.CREATE) && scriptFormats.includes(ScriptFormat.SQL)) {
 			generateMySQLCreateSQLScripts(zip, selection);
 		}
@@ -226,13 +226,7 @@ export const ScriptsDownloadDialog = (props: {
 			generateLiquibaseScripts(zip, selection);
 		}
 
-		const base64 = await zip.generateAsync({type: 'base64'});
-		const link = document.createElement('a');
-		link.href = 'data:application/zip;base64,' + base64;
-		link.target = '_blank';
-		//provide the name for the zip file to be downloaded
-		link.download = `scripts-${dayjs().format('YYYYMMDDHHmmss')}.zip`;
-		link.click();
+		await downloadAsZip(zip, `scripts-${dayjs().format('YYYYMMDDHHmmss')}.zip`);
 	};
 	const onCloseClicked = () => {
 		fire(EventTypes.HIDE_DIALOG);

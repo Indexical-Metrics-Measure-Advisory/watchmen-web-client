@@ -7,7 +7,6 @@ export const SubjectBodyContainer = styled.div.attrs({
 	display               : grid;
 	position              : relative;
 	grid-template-columns : 1fr;
-	//grid-auto-rows        : var(--tall-height);
 	flex-grow             : 1;
 	align-content         : start;
 	padding               : calc(var(--margin) / 2);

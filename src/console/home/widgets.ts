@@ -85,8 +85,6 @@ export const ConnectedSpaceCardContainer = styled.div.attrs({'data-widget': 'con
 `;
 export const ConnectedSpaceLastVisit = styled.div.attrs({'data-widget': 'connected-space-card-last-visit'})`
 	font-variant : petite-caps;
-	//transform        : scale(0.8);
-	//transform-origin : left;
 	opacity      : 0.7;
 `;
 export const ConnectedSpaceName = styled.div.attrs({'data-widget': 'connected-space-card-name'})`

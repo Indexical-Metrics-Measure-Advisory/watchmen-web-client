@@ -1,6 +1,6 @@
 import {isNotAggregationTopic, isRawTopic} from '@/services/data/tuples/topic';
 import {Topic} from '@/services/data/tuples/topic-types';
-import JSZip from 'jszip';
+import {ZipFiles} from '@/widgets/basic/utils';
 import {MySQLFactorTypeMap} from './mysql';
 import {
 	asFactorName,
@@ -127,9 +127,9 @@ DROP PROCEDURE IF EXISTS SCHEMA_CHANGE;
 // FROM INFORMATION_SCHEMA.STATISTICS STAT
 // WHERE TABLE_SCHEMA = '?' AND STAT.INDEX_NAME <> 'PRIMARY';
 
-export const generateMySQLAlterSQLScripts = (zip: JSZip, topics: Array<Topic>) => {
+export const generateMySQLAlterSQLScripts = (zip: ZipFiles, topics: Array<Topic>) => {
 	topics.forEach(topic => {
 		const filename = asTopicName(topic);
-		zip.file(`mysql/alteration/${filename}.sql`, createSQL(topic));
+		zip[`mysql/alteration/${filename}.sql`] = createSQL(topic);
 	});
 };

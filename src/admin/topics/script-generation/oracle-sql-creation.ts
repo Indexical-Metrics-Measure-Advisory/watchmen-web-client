@@ -1,6 +1,6 @@
 import {isAggregationTopic, isRawTopic} from '@/services/data/tuples/topic';
 import {Topic} from '@/services/data/tuples/topic-types';
-import JSZip from 'jszip';
+import {ZipFiles} from '@/widgets/basic/utils';
 import {OracleFactorTypeMap} from './oracle';
 import {
 	asFactorName,
@@ -83,9 +83,9 @@ CREATE INDEX ${indexName}_${getUpdateTimeColumnName()} ON ${tableName} (${getUpd
 `;
 };
 
-export const generateOracleCreateSQLScripts = (zip: JSZip, topics: Array<Topic>) => {
+export const generateOracleCreateSQLScripts = (zip: ZipFiles, topics: Array<Topic>) => {
 	topics.forEach(topic => {
 		const filename = asTopicName(topic);
-		zip.file(`oracle/creation/${filename}.sql`, createSQL(topic));
+		zip[`oracle/creation/${filename}.sql`] = createSQL(topic);
 	});
 };

@@ -1,8 +1,8 @@
 import {DwarfButton} from '@/widgets/basic/button';
 import {ICON_DOWNLOAD} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
+import {downloadAsZip} from '@/widgets/basic/utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import JSZip from 'jszip';
 import React from 'react';
 import SampleFactorsJSON from './sample-factors.json';
 
@@ -25,15 +25,10 @@ Factor.Name2,Factor Label 2,text,,,i-1,true,,`;
 
 export const FactorsDownloadTemplateButton = () => {
 	const onDownloadClicked = async () => {
-		const zip = new JSZip();
-		zip.file('factors-template.csv', SampleFactorsCSV);
-		zip.file('factors-template.json', JSON.stringify(SampleFactorsJSON, null, '\t'));
-		const base64 = await zip.generateAsync({type: 'base64'});
-		const link = document.createElement('a');
-		link.href = 'data:application/zip;base64,' + base64;
-		link.target = '_blank';
-		link.download = `factors-template.zip`;
-		link.click();
+		await downloadAsZip({
+			'factors-template.csv': SampleFactorsCSV,
+			'factors-template.json': JSON.stringify(SampleFactorsJSON, null, '\t')
+		}, 'factors-template.zip');
 	};
 
 	return <DwarfButton ink={ButtonInk.INFO} onClick={onDownloadClicked}>

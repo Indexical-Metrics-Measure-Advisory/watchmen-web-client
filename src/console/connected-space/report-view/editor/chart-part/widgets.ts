@@ -28,7 +28,6 @@ export const ChartWrapper = styled.div.attrs<{ rect: ReportRect, applyRect: bool
 	})<{ rect: ReportRect, applyRect: boolean }>`
 	display    : block;
 	position   : absolute;
-	//border-radius: var(--border-radius);
 	box-shadow : var(--param-border);
 	overflow   : auto;
 	&:hover {

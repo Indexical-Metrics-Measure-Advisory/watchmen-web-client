@@ -10,6 +10,20 @@ export const DataSetHeaderContainer = styled.div.attrs({'data-widget': 'dataset-
 	border-bottom : var(--border);
 	transition    : all 300ms ease-in-out;
 `;
+export const DataSetSimulateSwitch = styled.div.attrs({'data-widget': 'dataset-simulate-switch'})`
+	display      : flex;
+	position     : relative;
+	align-items  : center;
+	margin-right : calc(var(--margin) / 4);
+`;
+export const DataSetSimulateSwitchLabel = styled.span.attrs({'data-widget': 'dataset-simulate-switch-label'})`
+	display      : flex;
+	position     : relative;
+	align-items  : center;
+	margin-right : calc(var(--margin) / 4);
+	font-variant : petite-caps;
+	font-weight  : var(--font-demi-bold);
+`;
 export const DataSetHeaderButton = styled(Button)`
 	height       : var(--button-height-in-form);
 	margin-right : calc(var(--margin) / 4);

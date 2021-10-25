@@ -53,7 +53,6 @@ export const FunnelIndexLabel = styled.div.attrs({'data-widget': 'report-funnel-
 	font-weight               : var(--font-demi-bold);
 	height                    : 100%;
 	padding                   : 0 calc(var(--margin) / 8);
-	//margin-left               : calc(var(--margin) / -4);
 	border-top-left-radius    : var(--border-radius);
 	border-bottom-left-radius : var(--border-radius);
 	white-space               : nowrap;

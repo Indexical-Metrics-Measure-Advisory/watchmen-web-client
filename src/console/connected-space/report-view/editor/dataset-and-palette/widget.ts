@@ -94,7 +94,6 @@ export const TabBodySectionTitle = styled.div.attrs({'data-widget': 'tab-body-se
 		margin-right      : calc(var(--margin) / 4);
 		font-size         : 0.8em;
 		font-weight       : var(--font-bold);
-		//text-decoration: underline;
 		color             : var(--invert-color);
 		background-color  : var(--primary-color);
 		padding           : 0 calc(var(--margin) / 4);

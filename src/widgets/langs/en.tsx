@@ -77,7 +77,10 @@ export const En = {
 		FIX_COLUMN: 'Fix Columns to Here',
 		COMPRESS_COLUMNS: 'Compress Columns',
 		DOWNLOAD_PAGE: 'Download This Page',
-		DOWNLOAD_ALL: 'Download All'
+		DOWNLOAD_ALL: 'Download All',
+		SIMULATE_DATA: 'Simulate',
+		UPLOAD_DATA: 'Upload Data',
+		DOWNLOAD_TEMPLATE: 'Download Template'
 	},
 	CONSOLE: {
 		LOADING: 'Loading Personal Data...',

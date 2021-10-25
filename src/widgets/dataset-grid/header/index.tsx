@@ -1,13 +1,15 @@
 import {DataSetPage} from '@/services/data/console/dataset';
+import {Toggle} from '@/widgets/basic/toggle';
+import {downloadAsCSV, downloadAsZip} from '@/widgets/basic/utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import dayjs from 'dayjs';
-import React from 'react';
+import React, {useState} from 'react';
 import {
 	ICON_COMPRESS_COLUMNS,
 	ICON_DOWNLOAD,
 	ICON_DOWNLOAD_PAGE,
 	ICON_NEXT_PAGE,
-	ICON_PREVIOUS_PAGE
+	ICON_PREVIOUS_PAGE,
+	ICON_UPLOAD
 } from '../../basic/constants';
 import {ButtonInk, TooltipAlignment} from '../../basic/types';
 import {Lang} from '../../langs';
@@ -20,24 +22,28 @@ import {
 	DataSetHeaderPagination,
 	DataSetHeaderPaginationButton,
 	DataSetHeaderPaginationLabel,
-	DataSetHeaderPaginationLabelBlank
+	DataSetHeaderPaginationLabelBlank,
+	DataSetSimulateSwitch,
+	DataSetSimulateSwitchLabel
 } from './widgets';
 
 export const GridHeader = (props: {
 	data: DataSetState;
+	simulate?: boolean;
 	pageable?: boolean;
 	onPageChange?: (pageNumber: number, columnDefs: ColumnDefs) => void;
 	downloadAll?: () => Promise<DataSetPage<Array<any>>>
 	languagesSupport: boolean;
 }) => {
 	const {
-		data, pageable = true,
+		data, simulate = false, pageable = true,
 		onPageChange = () => {
 		},
 		downloadAll, languagesSupport
 	} = props;
 
 	const {fire} = useGridEventBus();
+	const [simulateEnabled, setSimulateEnabled] = useState(false);
 
 	const onPreviousPageClicked = () => {
 		onPageChange(data.pageNumber - 1, data.columnDefs);
@@ -54,18 +60,15 @@ export const GridHeader = (props: {
 
 	const download = (page: DataSetPage<Array<any>>) => {
 		const header = [
-			'',
-			...data.columnDefs.fixed.map(column => column.name),
-			...data.columnDefs.data.map(column => column.name)
-		].join('\t');
-		const body = page.data.map((row, rowIndex) => `${rowIndex + 1}\t${row.join('\t')}`).join('\n');
+			'""',
+			...data.columnDefs.fixed.map(column => `"${(column.name || '').replace(/"/g, '""')}"`),
+			...data.columnDefs.data.map(column => `"${(column.name || '').replace(/"/g, '""')}"`)
+		].join(',');
+		const body = page.data.map((row, rowIndex) => {
+			return `${rowIndex + 1},${row.map(cell => `"${(cell || '').toString().replace(/"/g, '""')}"`).join(',')}`;
+		}).join('\n');
 		const content = `${header}\n${body}\n`;
-		const link = document.createElement('a');
-		link.href = 'data:text/csv;charset=utf-8,' + encodeURI(content);
-		link.target = '_blank';
-		//provide the name for the CSV file to be downloaded
-		link.download = `Dataset-${pageable ? `Page${page.pageNumber}-` : ''}TotalItemCount${page.data.length}-${dayjs().format('YYYYMMDDHHmmss')}.csv`;
-		link.click();
+		downloadAsCSV(content, 'dataset', {date: true});
 	};
 
 	const onDownloadCurrentClicked = () => {
@@ -77,13 +80,53 @@ export const GridHeader = (props: {
 			download(data);
 		}
 	};
+	const onSimulateEnabledChange = (value: boolean) => {
+		setSimulateEnabled(value);
+		fire(GridEventTypes.SIMULATOR_SWITCHED, value);
+	};
+	const onDownloadTemplateClicked = async () => {
+		const headers = [
+			...data.columnDefs.fixed.map(column => `"${(column.name || '').replace(/"/g, '""')}"`),
+			...data.columnDefs.data.map(column => `"${(column.name || '').replace(/"/g, '""')}"`)
+		];
+		await downloadAsZip({
+			'dataset-template.csv': headers.join(','),
+			'dataset-template.json': JSON.stringify([headers.reduce((item, header) => {
+				item[header] = null;
+				return item;
+			}, {} as { [key in string]: any })], null, '\t')
+		}, 'dataset-template.zip');
+	};
+	const onUploadClicked = () => {
+		// TODO
+	};
 
 	return <DataSetHeaderContainer>
-		<DataSetHeaderButton ink={ButtonInk.PRIMARY} onClick={onDownloadCurrentClicked}>
-			<FontAwesomeIcon icon={ICON_DOWNLOAD_PAGE}/>
-			<span>{languagesSupport ? Lang.DATASET.DOWNLOAD_PAGE : 'Download This Page'}</span>
-		</DataSetHeaderButton>
-		{pageable
+		{simulate
+			? <DataSetSimulateSwitch>
+				<DataSetSimulateSwitchLabel>{languagesSupport ? Lang.DATASET.SIMULATE_DATA : 'Simulate'}</DataSetSimulateSwitchLabel>
+				<Toggle value={simulateEnabled} onChange={onSimulateEnabledChange}/>
+			</DataSetSimulateSwitch>
+			: null}
+		{simulateEnabled
+			? <>
+				<DataSetHeaderButton ink={ButtonInk.PRIMARY} onClick={onDownloadTemplateClicked}>
+					<FontAwesomeIcon icon={ICON_DOWNLOAD}/>
+					<span>{languagesSupport ? Lang.DATASET.DOWNLOAD_TEMPLATE : 'Download Template'}</span>
+				</DataSetHeaderButton>
+				<DataSetHeaderButton ink={ButtonInk.PRIMARY} onClick={onUploadClicked}>
+					<FontAwesomeIcon icon={ICON_UPLOAD}/>
+					<span>{languagesSupport ? Lang.DATASET.UPLOAD_DATA : 'Upload Data'}</span>
+				</DataSetHeaderButton>
+			</>
+			: null}
+		{!simulateEnabled
+			? <DataSetHeaderButton ink={ButtonInk.PRIMARY} onClick={onDownloadCurrentClicked}>
+				<FontAwesomeIcon icon={ICON_DOWNLOAD_PAGE}/>
+				<span>{languagesSupport ? Lang.DATASET.DOWNLOAD_PAGE : 'Download This Page'}</span>
+			</DataSetHeaderButton>
+			: null}
+		{!simulateEnabled && pageable
 			? <DataSetHeaderButton ink={ButtonInk.PRIMARY} onClick={onDownloadAllClicked}>
 				<FontAwesomeIcon icon={ICON_DOWNLOAD}/>
 				<span>{languagesSupport ? Lang.DATASET.DOWNLOAD_ALL : 'Download All'}</span>
@@ -93,7 +136,7 @@ export const GridHeader = (props: {
 			<FontAwesomeIcon icon={ICON_COMPRESS_COLUMNS} transform={{rotate: 45}}/>
 			<span>{languagesSupport ? Lang.DATASET.COMPRESS_COLUMNS : 'Compress Columns'}</span>
 		</DataSetHeaderButton>
-		{pageable
+		{!simulateEnabled && pageable
 			? <DataSetHeaderPagination>
 				{data.pageNumber !== 1
 					? <DataSetHeaderPaginationButton

@@ -1,6 +1,6 @@
 import {isAggregationTopic, isRawTopic} from '@/services/data/tuples/topic';
 import {Topic} from '@/services/data/tuples/topic-types';
-import JSZip from 'jszip';
+import {ZipFiles} from '@/widgets/basic/utils';
 import {MySQLFactorTypeMap} from './mysql';
 import {
 	asFactorName,
@@ -80,9 +80,9 @@ ${Object.values(indexes).map(factors => {
 `;
 };
 
-export const generateMySQLCreateSQLScripts = (zip: JSZip, topics: Array<Topic>) => {
+export const generateMySQLCreateSQLScripts = (zip: ZipFiles, topics: Array<Topic>) => {
 	topics.forEach(topic => {
 		const filename = asTopicName(topic);
-		zip.file(`mysql/creation/${filename}.sql`, createSQL(topic));
+		zip[`mysql/creation/${filename}.sql`] = createSQL(topic);
 	});
 };

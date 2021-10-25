@@ -1,6 +1,6 @@
 import {isNotAggregationTopic, isRawTopic} from '@/services/data/tuples/topic';
 import {Topic} from '@/services/data/tuples/topic-types';
-import JSZip from 'jszip';
+import {ZipFiles} from '@/widgets/basic/utils';
 import {OracleFactorTypeMap} from './oracle';
 import {
 	asFactorName,
@@ -116,9 +116,9 @@ DROP PROCEDURE SCHEMA_CHANGE;
 `;
 };
 
-export const generateOracleAlterSQLScripts = (zip: JSZip, topics: Array<Topic>) => {
+export const generateOracleAlterSQLScripts = (zip: ZipFiles, topics: Array<Topic>) => {
 	topics.forEach(topic => {
 		const filename = asTopicName(topic);
-		zip.file(`oracle/alteration/${filename}.sql`, createSQL(topic));
+		zip[`oracle/alteration/${filename}.sql`] = createSQL(topic);
 	});
 };

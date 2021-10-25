@@ -192,7 +192,6 @@ export const FactorBlock = styled.div.attrs({'data-widget': 'factor-block'})`
 export const FactorBlockColumn = styled.div.attrs({'data-widget': 'factor-block-column'})`
 	display        : flex;
 	flex-direction : column;
-	//align-items: center;
 	padding        : calc(var(--margin) / 2) 0;
 	> span[data-widget=warning-badge] {
 		margin-left : 0;

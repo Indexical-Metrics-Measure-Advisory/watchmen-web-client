@@ -32,6 +32,11 @@ export interface DataSetState extends DataPage {
 	columnDefs: ColumnDefs;
 }
 
+export interface SimulateDataSetState extends DataPage {
+	enabled: boolean;
+	columnDefs: ColumnDefs;
+}
+
 export interface TableSelection {
 	inFixTable: boolean;
 	row: number;

@@ -55,5 +55,4 @@ export const FactorDropdown = styled(TFDropdown)`
 `;
 export const IncorrectOptionLabel = styled.span.attrs({'data-widget': 'incorrect-option'})`
 	color : var(--danger-color);
-	//text-decoration: line-through;
 `;

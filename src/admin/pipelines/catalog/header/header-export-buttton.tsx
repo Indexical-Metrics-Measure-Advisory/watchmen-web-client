@@ -20,12 +20,12 @@ import {Button} from '@/widgets/basic/button';
 import {ICON_EXPORT} from '@/widgets/basic/constants';
 import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
 import {ButtonInk} from '@/widgets/basic/types';
+import {downloadAsZip} from '@/widgets/basic/utils';
 import {DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
-import JSZip from 'jszip';
 import React, {useState} from 'react';
 // noinspection ES6PreferShortImport
 import {useAdminCacheEventBus} from '../../../cache/cache-event-bus';
@@ -155,15 +155,9 @@ const PipelinesDownload = (props: {
 			selectedSvg, allSvg
 		});
 
-		const zip = new JSZip();
-		zip.file(`${graphics.name || 'Noname Pipelines Group'}.md`, markdown);
-		const base64 = await zip.generateAsync({type: 'base64'});
-		const link = document.createElement('a');
-		link.href = 'data:application/zip;base64,' + base64;
-		link.target = '_blank';
-		//provide the name for the CSV file to be downloaded
-		link.download = `export-${graphics.name || 'Noname Pipelines Group'}-${dayjs().format('YYYYMMDD')}.zip`;
-		link.click();
+		await downloadAsZip({
+			[`${graphics.name || 'Noname Pipelines Group'}.md`]: markdown
+		}, `export-${graphics.name || 'Noname Pipelines Group'}-${dayjs().format('YYYYMMDD')}.zip`);
 
 		fire(EventTypes.HIDE_DIALOG);
 	};

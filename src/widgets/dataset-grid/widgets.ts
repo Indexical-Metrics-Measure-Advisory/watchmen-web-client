@@ -9,6 +9,5 @@ export const DataSetGridContainer = styled.div.attrs({'data-widget': 'dataset-gr
 	width            : 100%;
 	height           : 100%;
 	background-color : var(--bg-color);
-	//transition       : top 300ms ease-in-out, height 300ms ease-in-out, opacity 300ms ease-in-out;
 	overflow         : hidden;
 `;

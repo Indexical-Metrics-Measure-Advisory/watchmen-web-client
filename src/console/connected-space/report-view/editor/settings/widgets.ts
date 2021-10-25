@@ -35,7 +35,6 @@ export const SettingsHeader = styled.div.attrs({'data-widget': 'report-editor-se
 	align-items     : center;
 	justify-content : space-between;
 	padding         : 0 calc(var(--margin) / 4) 0 calc(var(--margin) / 2);
-	//font-family: var(--title-font-family);
 	font-weight     : var(--font-demi-bold);
 	font-size       : 1.2em;
 	white-space     : nowrap;

@@ -77,7 +77,10 @@ export const Zh = {
 		FIX_COLUMN: '锁定至本列',
 		COMPRESS_COLUMNS: '全部缩小列宽',
 		DOWNLOAD_PAGE: '下载本页数据',
-		DOWNLOAD_ALL: '下载所有数据'
+		DOWNLOAD_ALL: '下载所有数据',
+		SIMULATE_DATA: '数据模拟',
+		UPLOAD_DATA: '上传数据',
+		DOWNLOAD_TEMPLATE: '下载模板'
 	},
 	CONSOLE: {
 		LOADING: '努力加载个人数据...',
