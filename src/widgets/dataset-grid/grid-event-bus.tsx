@@ -1,5 +1,5 @@
-import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
 import React, {ReactNode} from 'react';
+import {useCreateEventBus} from '../events/use-create-event-bus';
 import {GridEventBus} from './grid-event-bus-types';
 
 const Context = React.createContext<GridEventBus>({} as GridEventBus);

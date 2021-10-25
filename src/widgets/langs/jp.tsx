@@ -80,6 +80,7 @@ export const Jp = {
 		DOWNLOAD_ALL: 'すべてをダウンロードする',
 		SIMULATE_DATA: 'シミュレート',
 		UPLOAD_DATA: 'データをアップロードする',
+		UPLOAD_DATA_FAILURE: 'データのアップロードに失敗しました、データ形式を確認してください。',
 		DOWNLOAD_TEMPLATE: 'テンプレートのダウンロード'
 	},
 	CONSOLE: {

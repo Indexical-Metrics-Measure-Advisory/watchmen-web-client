@@ -11,21 +11,56 @@ import {useReportEventBus} from '@/widgets/report/report-event-bus';
 import {ReportEventTypes} from '@/widgets/report/report-event-bus-types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
-import React, {useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useReportViewEventBus} from '../report-view-event-bus';
 import {ReportViewEventTypes} from '../report-view-event-bus-types';
 import {ChartPart} from './chart-part';
 import {ReportDataSetAndPalette} from './dataset-and-palette';
-import {ReportEditEventBusProvider} from './report-edit-event-bus';
+import {ReportEditEventBusProvider, useReportEditEventBus} from './report-edit-event-bus';
+import {ReportEditEventTypes} from './report-edit-event-bus-types';
 import {ReportSettings} from './settings';
 import {ChartContainer, EditorContainer, ReportPartButton} from './widgets';
+
+const ManualRefresh = (props: { report: Report }) => {
+	const {report} = props;
+
+	const {fire} = useReportEventBus();
+	const {on, off} = useReportEditEventBus();
+	const [simulated, setSimulated] = useState(false);
+	useEffect(() => {
+		const onSimulatorSwitched = (aReport: Report, on: boolean) => {
+			if (aReport !== report) {
+				return;
+			}
+
+			setSimulated(on);
+		};
+		on(ReportEditEventTypes.SIMULATOR_SWITCHED, onSimulatorSwitched);
+		return () => {
+			off(ReportEditEventTypes.SIMULATOR_SWITCHED, onSimulatorSwitched);
+		};
+	});
+
+	if (simulated) {
+		return null;
+	}
+
+	const onManualRefreshClicked = () => {
+		// treat as structure changed anyway
+		fire(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, report);
+	};
+
+	return <ReportPartButton ink={ButtonInk.PRIMARY} onClick={onManualRefreshClicked}>
+		<FontAwesomeIcon icon={ICON_REFRESH}/>
+	</ReportPartButton>;
+};
 
 export const ReportEditor = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report, editable: boolean }) => {
 	const {connectedSpace, subject, report, editable} = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const {fire: fireGlobal} = useEventBus();
-	const {once: onceReport, fire: fireReport} = useReportEventBus();
+	const {once: onceReport} = useReportEventBus();
 	const {fire: fireView} = useReportViewEventBus();
 
 	const onToggleSettingsClicked = () => {
@@ -50,10 +85,6 @@ export const ReportEditor = (props: { connectedSpace: ConnectedSpace, subject: S
 			}
 		}).fire(ReportEventTypes.ASK_DOWNLOAD_CHART, report);
 	};
-	const onManualRefreshClicked = () => {
-		// treat as structure changed anyway
-		fireReport(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, report);
-	};
 
 	return <ReportEditEventBusProvider>
 		<EditorContainer editable={editable} ref={containerRef}>
@@ -71,9 +102,7 @@ export const ReportEditor = (props: { connectedSpace: ConnectedSpace, subject: S
 				<ReportPartButton ink={ButtonInk.PRIMARY} onClick={onDownloadClicked}>
 					<FontAwesomeIcon icon={ICON_DOWNLOAD}/>
 				</ReportPartButton>
-				<ReportPartButton ink={ButtonInk.PRIMARY} onClick={onManualRefreshClicked}>
-					<FontAwesomeIcon icon={ICON_REFRESH}/>
-				</ReportPartButton>
+				<ManualRefresh report={report}/>
 				<ChartPart report={report} applyRect={false}/>
 			</ChartContainer>
 			<ReportDataSetAndPalette connectedSpace={connectedSpace} subject={subject} report={report}/>

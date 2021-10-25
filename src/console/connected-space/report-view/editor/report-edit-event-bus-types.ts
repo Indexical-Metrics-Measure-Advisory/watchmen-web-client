@@ -45,7 +45,10 @@ export enum ReportEditEventTypes {
 	FUNNEL_VALUE_CHANGED = 'funnel-value-changed',
 
 	EXPAND_ALL_SECTIONS = 'expand-all-sections',
-	COLLAPSE_ALL_SECTIONS = 'collapse-all-sections'
+	COLLAPSE_ALL_SECTIONS = 'collapse-all-sections',
+
+	SIMULATOR_SWITCHED = 'simulator-switched',
+	SIMULATE_DATA_UPLOADED = 'simulate-data-uploaded'
 }
 
 export interface ReportEditEventBus {
@@ -184,4 +187,12 @@ export interface ReportEditEventBus {
 	fire(type: ReportEditEventTypes.COLLAPSE_ALL_SECTIONS, report: Report): this;
 	on(type: ReportEditEventTypes.COLLAPSE_ALL_SECTIONS, listener: (report: Report) => void): this;
 	off(type: ReportEditEventTypes.COLLAPSE_ALL_SECTIONS, listener: (report: Report) => void): this;
+
+	fire(type: ReportEditEventTypes.SIMULATOR_SWITCHED, report: Report, on: boolean): this;
+	on(type: ReportEditEventTypes.SIMULATOR_SWITCHED, listener: (report: Report, on: boolean) => void): this;
+	off(type: ReportEditEventTypes.SIMULATOR_SWITCHED, listener: (report: Report, on: boolean) => void): this;
+
+	fire(type: ReportEditEventTypes.SIMULATE_DATA_UPLOADED, report: Report, data: Array<any>): this;
+	on(type: ReportEditEventTypes.SIMULATE_DATA_UPLOADED, listener: (report: Report, data: Array<any>) => void): this;
+	off(type: ReportEditEventTypes.SIMULATE_DATA_UPLOADED, listener: (report: Report, data: Array<any>) => void): this;
 }

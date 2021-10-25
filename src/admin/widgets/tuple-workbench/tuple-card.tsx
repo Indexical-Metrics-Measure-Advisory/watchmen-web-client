@@ -1,5 +1,3 @@
-import {useTupleEventBus} from '@/admin/widgets/tuple-workbench/tuple-event-bus';
-import {TupleEventTypes} from '@/admin/widgets/tuple-workbench/tuple-event-bus-types';
 import {Tuple} from '@/services/data/tuples/tuple-types';
 import {prettifyDateTimeToMinute} from '@/services/data/tuples/utils';
 import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT} from '@/widgets/basic/constants';
@@ -8,6 +6,8 @@ import {TooltipAlignment} from '@/widgets/basic/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
+import {useTupleEventBus} from '../tuple-workbench/tuple-event-bus';
+import {TupleEventTypes} from '../tuple-workbench/tuple-event-bus-types';
 
 export const TupleCard = styled.div.attrs({'data-widget': 'tuple-card'})`
 	display        : flex;

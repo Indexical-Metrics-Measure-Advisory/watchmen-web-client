@@ -94,7 +94,7 @@ export enum UploadFileType {
 	MARKDOWN = 'md'
 }
 
-export const UploadFileTypeJson = [UploadFileType.JSON, UploadFileType.JSON5];
+export const UploadFileAcceptsJson = [UploadFileType.JSON, UploadFileType.JSON5];
 export const UploadFileAcceptsTxtCsvJson = [UploadFileType.TXT, UploadFileType.CSV, UploadFileType.JSON, UploadFileType.JSON5];
 
 export const uploadFile = (accepts: UploadFileType | Array<UploadFileType>, onSelected: (file: File) => void) => {

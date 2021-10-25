@@ -1,8 +1,7 @@
 import {DataSetPage} from '@/services/data/console/dataset';
-import {Toggle} from '@/widgets/basic/toggle';
-import {downloadAsCSV, downloadAsZip} from '@/widgets/basic/utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useState} from 'react';
+import {AlertLabel} from '../../alert/widgets';
 import {
 	ICON_COMPRESS_COLUMNS,
 	ICON_DOWNLOAD,
@@ -11,11 +10,16 @@ import {
 	ICON_PREVIOUS_PAGE,
 	ICON_UPLOAD
 } from '../../basic/constants';
+import {Toggle} from '../../basic/toggle';
 import {ButtonInk, TooltipAlignment} from '../../basic/types';
+import {downloadAsCSV, downloadAsZip, uploadFile, UploadFileAcceptsTxtCsvJson} from '../../basic/utils';
+import {useEventBus} from '../../events/event-bus';
+import {EventTypes} from '../../events/types';
 import {Lang} from '../../langs';
 import {useGridEventBus} from '../grid-event-bus';
 import {GridEventTypes} from '../grid-event-bus-types';
 import {ColumnDefs, DataSetState} from '../types';
+import {parseFromCsv, parseFromJson} from './dataset-import-from-file';
 import {
 	DataSetHeaderButton,
 	DataSetHeaderContainer,
@@ -30,20 +34,22 @@ import {
 export const GridHeader = (props: {
 	data: DataSetState;
 	simulate?: boolean;
+	simulated?: boolean;
 	pageable?: boolean;
 	onPageChange?: (pageNumber: number, columnDefs: ColumnDefs) => void;
 	downloadAll?: () => Promise<DataSetPage<Array<any>>>
 	languagesSupport: boolean;
 }) => {
 	const {
-		data, simulate = false, pageable = true,
+		data, simulate = false, simulated = false, pageable = true,
 		onPageChange = () => {
 		},
 		downloadAll, languagesSupport
 	} = props;
 
+	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useGridEventBus();
-	const [simulateEnabled, setSimulateEnabled] = useState(false);
+	const [simulateEnabled, setSimulateEnabled] = useState(simulated);
 
 	const onPreviousPageClicked = () => {
 		onPageChange(data.pageNumber - 1, data.columnDefs);
@@ -97,8 +103,34 @@ export const GridHeader = (props: {
 			}, {} as { [key in string]: any })], null, '\t')
 		}, 'dataset-template.zip');
 	};
+	const onFileSelected = async (file: File) => {
+		const name = file.name;
+		try {
+			switch (true) {
+				case name.endsWith('.txt'):
+				case name.endsWith('.csv'): {
+					const content = await file.text();
+					const page = await parseFromCsv(content, data.columnDefs);
+					fire(GridEventTypes.SIMULATE_DATA_UPLOADED, page);
+					break;
+				}
+				case name.endsWith('.json'): {
+					const content = await file.text();
+					const page = await parseFromJson(content, data.columnDefs);
+					fire(GridEventTypes.SIMULATE_DATA_UPLOADED, page);
+					break;
+				}
+				default:
+					fireGlobal(EventTypes.SHOW_NOT_IMPLEMENT);
+			}
+		} catch {
+			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+				{languagesSupport ? Lang.DATASET.UPLOAD_DATA_FAILURE : 'Failed to import dataset, check file format please.'}
+			</AlertLabel>);
+		}
+	};
 	const onUploadClicked = () => {
-		// TODO
+		uploadFile(UploadFileAcceptsTxtCsvJson, onFileSelected);
 	};
 
 	return <DataSetHeaderContainer>

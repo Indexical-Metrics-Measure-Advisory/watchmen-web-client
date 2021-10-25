@@ -6,8 +6,10 @@ import {Grid} from '@/widgets/dataset-grid';
 import {DEFAULT_COLUMN_WIDTH} from '@/widgets/dataset-grid/constants';
 import {GridEventBusProvider, useGridEventBus} from '@/widgets/dataset-grid/grid-event-bus';
 import {GridEventTypes} from '@/widgets/dataset-grid/grid-event-bus-types';
-import {ColumnSortBy} from '@/widgets/dataset-grid/types';
+import {ColumnSortBy, DataPage} from '@/widgets/dataset-grid/types';
 import {Fragment, useEffect} from 'react';
+import {useReportEditEventBus} from '../report-edit-event-bus';
+import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {useReportDataSetEventBus} from './report-dataset-event-bus';
 import {ReportDataSetEventTypes} from './report-dataset-event-bus-types';
 
@@ -60,9 +62,29 @@ const SubjectDataGridController = () => {
 const SubjectDataGridDelegate = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
 	const {connectedSpace, report} = props;
 
+	const {fire: fireReport} = useReportEditEventBus();
+	const {on, off} = useGridEventBus();
+	useEffect(() => {
+		const onSimulatorSwitched = (on: boolean) => {
+			report.simulated = on;
+			fireReport(ReportEditEventTypes.SIMULATOR_SWITCHED, report, on);
+		};
+		const onSimulateDataUploaded = (page: DataPage) => {
+			report.simulateData = page.data;
+			fireReport(ReportEditEventTypes.SIMULATE_DATA_UPLOADED, report, report.simulateData);
+		};
+		on(GridEventTypes.SIMULATOR_SWITCHED, onSimulatorSwitched);
+		on(GridEventTypes.SIMULATE_DATA_UPLOADED, onSimulateDataUploaded);
+		return () => {
+			off(GridEventTypes.SIMULATOR_SWITCHED, onSimulatorSwitched);
+			off(GridEventTypes.SIMULATE_DATA_UPLOADED, onSimulateDataUploaded);
+		};
+	}, [fireReport, on, off, report]);
+
 	const hasColumns = report.indicators.length > 0 || report.dimensions.length > 0;
 
-	return <Grid hasColumns={hasColumns} simulate={connectedSpace.isTemplate} pageable={false}/>;
+	return <Grid hasColumns={hasColumns} simulate={connectedSpace.isTemplate} simulated={report.simulated}
+	             pageable={false}/>;
 };
 
 export const ReportDataGrid = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {

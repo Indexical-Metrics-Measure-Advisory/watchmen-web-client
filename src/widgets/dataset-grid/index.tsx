@@ -13,6 +13,7 @@ import {DataSetGridContainer} from './widgets';
  *
  * @param props.hasColumns columns exists or not.
  * @param props.simulate enable simulate feature, disable pageable related features when simulate is on. default false(feature off).
+ * @param props.simulated currently is simulated or not
  * @param props.pageable enable pagination, default true(feature on). will be ignored when {@link props.simulate} is on.
  * @param props.onPageChange invokes when page change, must pass this parameter when pagination is on.
  * @param props.downloadAll invokes when download all button clicked, must pass this parameter when pagination is on.
@@ -21,12 +22,21 @@ import {DataSetGridContainer} from './widgets';
 export const Grid = (props: {
 	hasColumns: boolean;
 	simulate?: boolean;
+	simulated?: boolean;
 	pageable?: boolean;
 	onPageChange?: (pageNumber: number, columnDefs: ColumnDefs) => void;
 	downloadAll?: () => Promise<DataSetPage<Array<any>>>;
 	languagesSupport?: boolean;
 }) => {
-	const {hasColumns, simulate, pageable, onPageChange, downloadAll, languagesSupport = true} = props;
+	const {
+		hasColumns,
+		simulate,
+		simulated = false,
+		pageable,
+		onPageChange,
+		downloadAll,
+		languagesSupport = true
+	} = props;
 
 	const {on, off} = useGridEventBus();
 	const [data, setData] = useState<DataSetState>({
@@ -80,7 +90,7 @@ export const Grid = (props: {
 	const gridData = simulateData.enabled ? ({...simulateData, loaded: true}) : data;
 
 	return <DataSetGridContainer>
-		<GridHeader data={data} simulate={simulate}
+		<GridHeader data={data} simulate={simulate} simulated={simulated}
 		            pageable={pageable} onPageChange={onPageChange}
 		            downloadAll={downloadAll} languagesSupport={languagesSupport}/>
 		<GridWrapper data={gridData} languagesSupport={languagesSupport}/>

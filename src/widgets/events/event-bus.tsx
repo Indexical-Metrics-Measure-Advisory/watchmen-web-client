@@ -1,5 +1,5 @@
-import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
 import React, {ReactNode, useContext} from 'react';
+import {useCreateEventBus} from './use-create-event-bus';
 import {EventBus} from './types';
 
 const Context = React.createContext<EventBus>({} as EventBus);

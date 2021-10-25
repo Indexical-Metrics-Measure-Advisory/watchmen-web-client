@@ -62,6 +62,9 @@ export const SettingsSaver = (props: { report: Report }) => {
 		on(ReportEditEventTypes.FUNNEL_ADDED, onStructureChanged);
 		on(ReportEditEventTypes.FUNNEL_REMOVED, onStructureChanged);
 
+		on(ReportEditEventTypes.SIMULATOR_SWITCHED, onStructureChanged);
+		on(ReportEditEventTypes.SIMULATE_DATA_UPLOADED, onStructureChanged);
+
 		return () => {
 			off(ReportEditEventTypes.SIZE_CHANGED, onStyleChanged);
 			off(ReportEditEventTypes.DESCRIPTION_CHANGED, onStyleChanged);
@@ -98,6 +101,9 @@ export const SettingsSaver = (props: { report: Report }) => {
 			off(ReportEditEventTypes.FUNNEL_VALUE_CHANGED, onStructureChanged);
 			off(ReportEditEventTypes.FUNNEL_ADDED, onStructureChanged);
 			off(ReportEditEventTypes.FUNNEL_REMOVED, onStructureChanged);
+
+			off(ReportEditEventTypes.SIMULATOR_SWITCHED, onStructureChanged);
+			off(ReportEditEventTypes.SIMULATE_DATA_UPLOADED, onStructureChanged);
 		};
 	}, [on, off, fireReport, fireGlobal, report]);
 

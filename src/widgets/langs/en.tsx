@@ -80,6 +80,7 @@ export const En = {
 		DOWNLOAD_ALL: 'Download All',
 		SIMULATE_DATA: 'Simulate',
 		UPLOAD_DATA: 'Upload Data',
+		UPLOAD_DATA_FAILURE: 'Failed to import dataset, check file format please.',
 		DOWNLOAD_TEMPLATE: 'Download Template'
 	},
 	CONSOLE: {

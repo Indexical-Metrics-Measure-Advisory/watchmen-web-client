@@ -42,18 +42,27 @@ export const Container = (props: {
 	const [diagramState, setDiagramState] = useState<DiagramState>({loaded: DiagramLoadState.FALSE});
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
-		if (diagramState.loaded === DiagramLoadState.FALSE) {
-			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-				async () => await fetchChartData(report.reportId, report.chart.type),
-				(dataset: ChartDataSet) => {
-					setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
-				});
-		} else if (diagramState.loaded === DiagramLoadState.RELOAD) {
-			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-				async () => await fetchChartDataTemporary(report),
-				(dataset: ChartDataSet) => {
-					setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
-				});
+		if (report.simulated) {
+			setDiagramState({
+				loaded: DiagramLoadState.TRUE, dataset: {
+					// columns: (subject.dataset?.columns || []).map(column => column.alias || 'Noname Column'),
+					data: report.simulateData ?? []
+				}
+			});
+		} else {
+			if (diagramState.loaded === DiagramLoadState.FALSE) {
+				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+					async () => await fetchChartData(report.reportId, report.chart.type),
+					(dataset: ChartDataSet) => {
+						setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
+					});
+			} else if (diagramState.loaded === DiagramLoadState.RELOAD) {
+				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+					async () => await fetchChartDataTemporary(report),
+					(dataset: ChartDataSet) => {
+						setDiagramState({loaded: DiagramLoadState.TRUE, dataset});
+					});
+			}
 		}
 		const onDoReloadDataByClient = (editReport: Report) => {
 			if (report !== editReport) {

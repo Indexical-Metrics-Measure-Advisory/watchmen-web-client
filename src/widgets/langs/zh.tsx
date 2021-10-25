@@ -80,6 +80,7 @@ export const Zh = {
 		DOWNLOAD_ALL: '下载所有数据',
 		SIMULATE_DATA: '数据模拟',
 		UPLOAD_DATA: '上传数据',
+		UPLOAD_DATA_FAILURE: '上传数据失败, 请检查数据格式.',
 		DOWNLOAD_TEMPLATE: '下载模板'
 	},
 	CONSOLE: {

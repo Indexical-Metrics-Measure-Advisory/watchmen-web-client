@@ -1,6 +1,7 @@
 import {fetchChartData, fetchChartDataTemporary} from '@/services/data/console/report';
 import {ChartDataSet} from '@/services/data/tuples/chart-types';
 import {Report} from '@/services/data/tuples/report-types';
+import {Subject} from '@/services/data/tuples/subject-types';
 import {ICON_LOADING} from '@/widgets/basic/constants';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
@@ -12,8 +13,8 @@ import {useReportDataSetEventBus} from './report-dataset-event-bus';
 import {ReportDataSetEventTypes} from './report-dataset-event-bus-types';
 import {ReportDataSetLoading} from './widgets';
 
-export const DataLoading = (props: { report: Report }) => {
-	const {report} = props;
+export const DataLoading = (props: { subject: Subject; report: Report }) => {
+	const {subject, report} = props;
 
 	const {fire: fireGlobal} = useEventBus();
 	const {once: onceReport, on: onReport, off: offReport} = useReportEventBus();
@@ -26,23 +27,31 @@ export const DataLoading = (props: { report: Report }) => {
 			}
 
 			setVisible(true);
-			onceReport(ReportEventTypes.REPLY_REPORT_STRUCTURE_CHANGED, (report: Report, changed: boolean) => {
-				if (!changed) {
-					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-						async () => await fetchChartData(report.reportId, report.chart.type),
-						(dataset: ChartDataSet) => {
-							fire(ReportDataSetEventTypes.DATA_LOADED, report, dataset);
-							setVisible(false);
-						});
-				} else if (changed) {
-					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-						async () => await fetchChartDataTemporary(report),
-						(dataset: ChartDataSet) => {
-							fire(ReportDataSetEventTypes.DATA_LOADED, report, dataset);
-							setVisible(false);
-						});
-				}
-			}).fire(ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, report);
+			if (report.simulated) {
+				fire(ReportDataSetEventTypes.DATA_LOADED, report, {
+					columns: (subject.dataset?.columns || []).map(column => column.alias || 'Noname Column'),
+					data: report.simulateData ?? []
+				});
+				setVisible(false);
+			} else {
+				onceReport(ReportEventTypes.REPLY_REPORT_STRUCTURE_CHANGED, (report: Report, changed: boolean) => {
+					if (!changed) {
+						fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+							async () => await fetchChartData(report.reportId, report.chart.type),
+							(dataset: ChartDataSet) => {
+								fire(ReportDataSetEventTypes.DATA_LOADED, report, dataset);
+								setVisible(false);
+							});
+					} else if (changed) {
+						fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+							async () => await fetchChartDataTemporary(report),
+							(dataset: ChartDataSet) => {
+								fire(ReportDataSetEventTypes.DATA_LOADED, report, dataset);
+								setVisible(false);
+							});
+					}
+				}).fire(ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, report);
+			}
 		};
 		on(ReportDataSetEventTypes.ASK_LOAD_DATA, onLoadData);
 		onReport(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onLoadData);
@@ -52,7 +61,7 @@ export const DataLoading = (props: { report: Report }) => {
 			offReport(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onLoadData);
 			offReport(ReportEventTypes.DO_REFRESH, onLoadData);
 		};
-	}, [fireGlobal, on, off, fire, onceReport, onReport, offReport, report]);
+	}, [fireGlobal, on, off, fire, onceReport, onReport, offReport, subject.dataset?.columns, report]);
 
 	return <ReportDataSetLoading visible={visible}>
 		<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>

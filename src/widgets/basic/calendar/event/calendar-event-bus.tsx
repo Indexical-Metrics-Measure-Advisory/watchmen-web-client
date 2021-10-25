@@ -1,5 +1,5 @@
-import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
 import React, {ReactNode, useContext} from 'react';
+import {useCreateEventBus} from '../../../events/use-create-event-bus';
 import {CalendarEventBus} from './calendar-event-bus-types';
 
 const Context = React.createContext<CalendarEventBus>({} as CalendarEventBus);

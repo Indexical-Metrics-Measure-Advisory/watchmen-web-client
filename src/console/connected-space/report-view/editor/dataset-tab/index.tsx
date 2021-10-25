@@ -31,7 +31,7 @@ export const DataSetTab = (props: { connectedSpace: ConnectedSpace, subject: Sub
 		<ReportDataSetContainer>
 			<ReportDataGrid connectedSpace={connectedSpace} subject={subject} report={report}/>
 			<NoColumn report={report}/>
-			<DataLoading report={report}/>
+			<DataLoading subject={subject} report={report}/>
 			<DataInitializer report={report}/>
 		</ReportDataSetContainer>
 	</ReportDataSetEventBusProvider>;

@@ -6,7 +6,7 @@ import {Button} from '@/widgets/basic/button';
 import {ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EXPAND_CONTENT, ICON_LOOP, ICON_PLAY} from '@/widgets/basic/constants';
 import {Input} from '@/widgets/basic/input';
 import {ButtonInk, TooltipAlignment} from '@/widgets/basic/types';
-import {uploadFile, UploadFileTypeJson, useForceUpdate} from '@/widgets/basic/utils';
+import {uploadFile, UploadFileAcceptsJson, useForceUpdate} from '@/widgets/basic/utils';
 import {DialogBody, DialogFooter} from '@/widgets/dialog/widgets';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
@@ -124,7 +124,7 @@ const DataDialog = (props: {
 		}
 	};
 	const onUploadClicked = () => {
-		uploadFile(UploadFileTypeJson, onFileSelected);
+		uploadFile(UploadFileAcceptsJson, onFileSelected);
 	};
 	const onDownloadClicked = () => {
 		const content = [topic.factors.reduce((data, factor) => {

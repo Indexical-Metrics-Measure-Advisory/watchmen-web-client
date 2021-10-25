@@ -17,7 +17,7 @@ export class ChartCountUtils extends DefaultChartUtils {
 	}
 
 	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
-		let value: string | number = (dataset.data[0][0] as number | null | undefined) || 0;
+		let value: string | number = ((dataset.data[0] ?? [])[0] as number | null | undefined) || 0;
 		if (isNaN(value)) {
 			value = 0;
 		}
