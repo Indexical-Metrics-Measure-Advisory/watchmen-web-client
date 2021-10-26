@@ -101,7 +101,7 @@ export const HeaderDeleteReportButton = (props: { connectedSpace: ConnectedSpace
 			off(ReportEventTypes.STYLE_CHANGED, onStyleChanged);
 			off(ReportEventTypes.STRUCTURE_CHANGED, onStructureChanged);
 		};
-	}, [on, off, report]);
+	}, [on, off, fire, report]);
 	useEffect(() => {
 		const onAskReportChanged = (aReport: Report) => {
 			if (aReport !== report) {
