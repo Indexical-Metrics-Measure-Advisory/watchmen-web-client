@@ -11,7 +11,10 @@ export const CUSTOMIZED: ChartDef = {
 	canHoldLegend: false,
 	canUseGrid: false,
 	canUseXAxis: false,
-	canUseYAxis: false
+	canUseYAxis: false,
+
+	canUseScript: true,
+	canModifyScript: true
 };
 
 export interface CustomizedChartSettings extends EChartsSettings {

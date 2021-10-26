@@ -13,7 +13,10 @@ export const NIGHTINGALE: ChartDef = {
 	canHoldLegend: true,
 	canUseGrid: true,
 	canUseXAxis: false,
-	canUseYAxis: false
+	canUseYAxis: false,
+
+	canUseScript: false,
+	canModifyScript: false
 };
 
 export interface NightingaleChartSettings extends PieChartSettings {

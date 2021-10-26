@@ -12,4 +12,7 @@ export interface ChartDef {
 	readonly canUseGrid: boolean;
 	readonly canUseXAxis: boolean;
 	readonly canUseYAxis: boolean;
+
+	readonly canUseScript: boolean;
+	readonly canModifyScript: boolean;
 }

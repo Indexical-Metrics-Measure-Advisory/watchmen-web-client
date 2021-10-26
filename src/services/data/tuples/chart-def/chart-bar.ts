@@ -15,7 +15,10 @@ export const BAR: ChartDef = {
 	canHoldLegend: true,
 	canUseGrid: true,
 	canUseXAxis: true,
-	canUseYAxis: true
+	canUseYAxis: true,
+
+	canUseScript: false,
+	canModifyScript: false
 };
 
 export enum BarLabelPosition {

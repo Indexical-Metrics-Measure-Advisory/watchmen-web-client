@@ -13,7 +13,10 @@ export const TREE: ChartDef = {
 	canHoldLegend: false,
 	canUseGrid: true,
 	canUseXAxis: false,
-	canUseYAxis: false
+	canUseYAxis: false,
+
+	canUseScript: false,
+	canModifyScript: false
 };
 
 export enum TreeLayout {

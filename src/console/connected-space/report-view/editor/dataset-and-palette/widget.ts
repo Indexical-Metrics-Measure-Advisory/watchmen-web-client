@@ -12,11 +12,12 @@ export const ReportDataSetAndPaletteContainer = styled.div.attrs<{ visible: bool
 		}
 	};
 })<{ visible: boolean }>`
-	display    : block;
-	position   : relative;
-	min-height : ${HEIGHT}px;
-	max-height : ${HEIGHT}px;
-	transition : min-height 300ms ease-in-out, max-height 300ms ease-in-out;
+	display        : flex;
+	position       : relative;
+	flex-direction : column;
+	min-height     : ${HEIGHT}px;
+	max-height     : ${HEIGHT}px;
+	transition     : min-height 300ms ease-in-out, max-height 300ms ease-in-out;
 	@media print {
 		display : none;
 	}
@@ -68,6 +69,8 @@ export const TabHeader = styled.div.attrs<{ active: boolean, zIndex: number }>((
 `;
 export const TabBodyContainer = styled.div.attrs({'data-widget': 'tab-body-container', 'data-v-scroll': ''})`
 	display        : flex;
+	position       : relative;
+	flex-grow      : 1;
 	flex-direction : column;
 	max-height     : calc(${HEIGHT}px - var(--height) * 1.5);
 	counter-reset  : list-number;

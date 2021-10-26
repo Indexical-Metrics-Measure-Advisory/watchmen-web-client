@@ -21,3 +21,9 @@ export const canUseXAxis = (chart: Chart): boolean => {
 export const canUseYAxis = (chart: Chart): boolean => {
 	return ChartHelper[chart.type].getDef().canUseYAxis;
 };
+export const canUseScript = (chart: Chart): boolean => {
+	return ChartHelper[chart.type].getDef().canUseScript;
+};
+export const canModifyScript = (chart: Chart): boolean => {
+	return ChartHelper[chart.type].getDef().canModifyScript;
+};

@@ -17,7 +17,10 @@ export const PIE: ChartDef = {
 	canHoldLegend: true,
 	canUseGrid: true,
 	canUseXAxis: false,
-	canUseYAxis: false
+	canUseYAxis: false,
+
+	canUseScript: false,
+	canModifyScript: false
 };
 
 export enum PieRoseType {

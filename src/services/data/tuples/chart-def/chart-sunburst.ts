@@ -13,7 +13,10 @@ export const SUNBURST: ChartDef = {
 	canHoldLegend: false,
 	canUseGrid: true,
 	canUseXAxis: false,
-	canUseYAxis: false
+	canUseYAxis: false,
+
+	canUseScript: false,
+	canModifyScript: false
 };
 
 export interface SunburstChartSettings extends PieChartSettings {

@@ -25,7 +25,8 @@ export const En = {
 		REPORT_DATASET_GRID_TITLE: 'Report Dataset',
 		REPORT_DATASET_GRID_CLOSE: 'Close',
 		REPORT_DATASET_GRID_REFRESH: 'Refresh',
-		REPORT_DATASET_GRID_DOWNLOAD: 'Download'
+		REPORT_DATASET_GRID_DOWNLOAD: 'Download',
+		LOADING: 'Loading...'
 	},
 	STANDARD: {
 		YES: 'Yes',
@@ -603,6 +604,7 @@ export const En = {
 		SECTION_TITLE_ECHART_YAXIS_LABEL_GAP_AND_PADDING: 'Y-Axis Label - Gap & Padding',
 		SECTION_TITLE_ECHART_YAXIS_LINE: 'Y-Axis Split Line',
 		SECTION_TITLE_ECHART_YAXIS_MINOR_LINE: 'Y-Axis Minor Split Line',
+		SECTION_TITLE_ECHART_SCRIPT: 'Script',
 		SECTION_TITLE_TRUNCATION: 'Data Truncation',
 		SECTION_TITLE_TOOLBOX: 'Toolbox',
 		NONAME_COLUMN: 'Noname Column',

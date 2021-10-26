@@ -13,7 +13,10 @@ export const SCATTER: ChartDef = {
 	canHoldLegend: true,
 	canUseGrid: true,
 	canUseXAxis: true,
-	canUseYAxis: true
+	canUseYAxis: true,
+
+	canUseScript: false,
+	canModifyScript: false
 };
 
 export interface ScatterChartSettings extends EChartsSettings {

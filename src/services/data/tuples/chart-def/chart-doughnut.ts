@@ -13,7 +13,10 @@ export const DOUGHNUT: ChartDef = {
 	canHoldLegend: true,
 	canUseGrid: true,
 	canUseXAxis: false,
-	canUseYAxis: false
+	canUseYAxis: false,
+
+	canUseScript: false,
+	canModifyScript: false
 };
 
 export interface DoughnutChartSettings extends PieChartSettings {

@@ -16,6 +16,7 @@ import {
 	canHoldLegend,
 	canHoldTitle,
 	canUseGrid,
+	canUseScript,
 	canUseXAxis,
 	canUseYAxis,
 	isEChart
@@ -38,6 +39,7 @@ import {ChartTreemapSettings} from '../chart-treemap-settings';
 import {DataSetTab} from '../dataset-tab';
 import {EChartsGridSettings} from '../echarts/grid';
 import {EChartsLegendSettings} from '../echarts/legend';
+import {EChartsScriptSettings} from '../echarts/script';
 import {EChartsTitleSettings} from '../echarts/title';
 import {EChartsTitleSubtextSettings} from '../echarts/title/subtext';
 import {EChartsXAxisSettings} from '../echarts/xaxis';
@@ -66,7 +68,9 @@ enum TABS {
 	MAP_SETTINGS = 'map-settings',
 
 	X_AXIS = 'x-axis',
-	Y_AXIS = 'y-axis'
+	Y_AXIS = 'y-axis',
+
+	SCRIPT = 'script'
 }
 
 export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
@@ -227,6 +231,12 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 					{Lang.CHART.SECTION_TITLE_ECHART_YAXIS}
 				</TabHeader>
 				: null}
+			{echart && canUseScript(chart)
+				? <TabHeader active={activeTab === TABS.SCRIPT} zIndex={10}
+				             onClick={onTabClicked(TABS.SCRIPT)}>
+					{Lang.CHART.SECTION_TITLE_ECHART_SCRIPT}
+				</TabHeader>
+				: null}
 		</TabHeaders>
 		<DataSetTab connectedSpace={connectedSpace} subject={subject} report={report}
 		            active={activeTab === TABS.DATASET}/>
@@ -276,6 +286,9 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 		</TabBody>
 		<TabBody subject={subject} report={report} active={activeTab === TABS.Y_AXIS}>
 			<EChartsYAxisSettings report={report}/>
+		</TabBody>
+		<TabBody subject={subject} report={report} active={activeTab === TABS.SCRIPT}>
+			<EChartsScriptSettings report={report}/>
 		</TabBody>
 	</ReportDataSetAndPaletteContainer>;
 };
