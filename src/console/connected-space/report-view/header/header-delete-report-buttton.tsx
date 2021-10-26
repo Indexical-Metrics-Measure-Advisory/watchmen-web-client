@@ -90,6 +90,10 @@ export const HeaderDeleteReportButton = (props: { connectedSpace: ConnectedSpace
 			setChanged(state => {
 				return {...state, structureChanged: true};
 			});
+			window.setTimeout(() => {
+				fire(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, report);
+				// wait 30 milliseconds for state changed into component
+			}, 30);
 		};
 		on(ReportEventTypes.STYLE_CHANGED, onStyleChanged);
 		on(ReportEventTypes.STRUCTURE_CHANGED, onStructureChanged);
@@ -97,7 +101,7 @@ export const HeaderDeleteReportButton = (props: { connectedSpace: ConnectedSpace
 			off(ReportEventTypes.STYLE_CHANGED, onStyleChanged);
 			off(ReportEventTypes.STRUCTURE_CHANGED, onStructureChanged);
 		};
-	}, [on, off, report]);
+	}, [on, off, fire, report]);
 	useEffect(() => {
 		const onAskReportChanged = (aReport: Report) => {
 			if (aReport !== report) {

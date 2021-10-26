@@ -41,6 +41,8 @@ const ScriptTemplate = `// Follow script template as below,
 })();
 `;
 
+// https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.istandaloneeditorconstructionoptions.html
+// https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.ieditoroverrideservices.html
 export const EChartsScriptSettings = (props: { report: Report }) => {
 	const {report} = props;
 	const {chart} = report;
@@ -66,5 +68,8 @@ export const EChartsScriptSettings = (props: { report: Report }) => {
 	                     value={script || ScriptTemplate}
 	                     onChange={onValueChange}
 	                     theme={getCurrentTheme().codeEditorTheme}
-	                     loading={Lang.PLAIN.LOADING}/>;
+	                     loading={Lang.PLAIN.LOADING}
+	                     options={{
+		                     minimap: {enabled: false}
+	                     }}/>;
 };
