@@ -4,6 +4,7 @@ const DarkTheme = {
 	...DefaultTheme,
 
 	code: 'dark',
+	codeEditorTheme: 'vs-dark',
 
 	fontColor: 'rgba(255,255,255,0.8)',
 	placeholderColor: 'rgb(255,255,255,0.5)',

@@ -18,6 +18,7 @@ import {
 
 const DefaultTheme = {
 	code: 'light',
+	codeEditorTheme: 'light',
 	// font
 	fontColor: '#666666',
 	fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Roboto\', \'Tahoma\', \'Verdana\', \'Arial\', \'Times New Roman\', \'Simsun\', \'Microsoft YaHei\', \'MS Mincho\', \'MS PGMincho\', \'Oxygen\', \'Ubuntu\', \'Cantarell\', \'Fira Sans\', \'Droid Sans\', \'Helvetica Neue\', sans-serif',

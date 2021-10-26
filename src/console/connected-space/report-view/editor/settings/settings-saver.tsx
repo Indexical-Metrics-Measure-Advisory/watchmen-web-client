@@ -45,6 +45,8 @@ export const SettingsSaver = (props: { report: Report }) => {
 		on(ReportEditEventTypes.ECHART_XAXIS_CHANGED, onStyleChanged);
 		on(ReportEditEventTypes.ECHART_YAXIS_CHANGED, onStyleChanged);
 
+		on(ReportEditEventTypes.ECHART_SCRIPT_CHANGED, onStructureChanged);
+
 		on(ReportEditEventTypes.CHART_TYPE_CHANGED, onStructureChanged);
 		on(ReportEditEventTypes.DIMENSION_CHANGED, onStructureChanged);
 		on(ReportEditEventTypes.DIMENSION_ADDED, onStructureChanged);
@@ -84,6 +86,8 @@ export const SettingsSaver = (props: { report: Report }) => {
 			off(ReportEditEventTypes.ECHART_LABEL_CHANGED, onStyleChanged);
 			off(ReportEditEventTypes.ECHART_XAXIS_CHANGED, onStyleChanged);
 			off(ReportEditEventTypes.ECHART_YAXIS_CHANGED, onStyleChanged);
+
+			off(ReportEditEventTypes.ECHART_SCRIPT_CHANGED, onStructureChanged);
 
 			off(ReportEditEventTypes.CHART_TYPE_CHANGED, onStructureChanged);
 			off(ReportEditEventTypes.DIMENSION_CHANGED, onStructureChanged);
