@@ -27,6 +27,9 @@ export const ChartPart = (props: { report: Report, applyRect?: boolean }) => {
 		on(ReportEditEventTypes.ECHART_LABEL_CHANGED, forceUpdate);
 		on(ReportEditEventTypes.ECHART_XAXIS_CHANGED, forceUpdate);
 		on(ReportEditEventTypes.ECHART_YAXIS_CHANGED, forceUpdate);
+		on(ReportEditEventTypes.ECHART_SCRIPT_CHANGED, forceUpdate);
+		on(ReportEditEventTypes.ECHART_SCRIPT_VARS_DEFS_CHANGED, forceUpdate);
+		on(ReportEditEventTypes.ECHART_SCRIPT_VARS_CHANGED, forceUpdate);
 		/**
 		 * structure change will lead reload data which handled in settings-saver,
 		 * ignore here
@@ -47,6 +50,9 @@ export const ChartPart = (props: { report: Report, applyRect?: boolean }) => {
 			off(ReportEditEventTypes.ECHART_LABEL_CHANGED, forceUpdate);
 			off(ReportEditEventTypes.ECHART_XAXIS_CHANGED, forceUpdate);
 			off(ReportEditEventTypes.ECHART_YAXIS_CHANGED, forceUpdate);
+			off(ReportEditEventTypes.ECHART_SCRIPT_CHANGED, forceUpdate);
+			off(ReportEditEventTypes.ECHART_SCRIPT_VARS_DEFS_CHANGED, forceUpdate);
+			off(ReportEditEventTypes.ECHART_SCRIPT_VARS_CHANGED, forceUpdate);
 		};
 	}, [on, off, forceUpdate]);
 

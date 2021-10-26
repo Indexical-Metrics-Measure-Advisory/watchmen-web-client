@@ -25,6 +25,7 @@ export const SettingsSaver = (props: { report: Report }) => {
 			}
 			fireReport(ReportEventTypes.STRUCTURE_CHANGED, changedReport);
 		};
+
 		on(ReportEditEventTypes.SIZE_CHANGED, onStyleChanged);
 		on(ReportEditEventTypes.DESCRIPTION_CHANGED, onStyleChanged);
 
@@ -44,7 +45,9 @@ export const SettingsSaver = (props: { report: Report }) => {
 		on(ReportEditEventTypes.ECHART_XAXIS_CHANGED, onStyleChanged);
 		on(ReportEditEventTypes.ECHART_YAXIS_CHANGED, onStyleChanged);
 
-		on(ReportEditEventTypes.ECHART_SCRIPT_CHANGED, onStructureChanged);
+		on(ReportEditEventTypes.ECHART_SCRIPT_CHANGED, onStyleChanged);
+		on(ReportEditEventTypes.ECHART_SCRIPT_VARS_DEFS_CHANGED, onStyleChanged);
+		on(ReportEditEventTypes.ECHART_SCRIPT_VARS_CHANGED, onStyleChanged);
 
 		on(ReportEditEventTypes.CHART_TYPE_CHANGED, onStructureChanged);
 		on(ReportEditEventTypes.DIMENSION_CHANGED, onStructureChanged);
@@ -86,7 +89,9 @@ export const SettingsSaver = (props: { report: Report }) => {
 			off(ReportEditEventTypes.ECHART_XAXIS_CHANGED, onStyleChanged);
 			off(ReportEditEventTypes.ECHART_YAXIS_CHANGED, onStyleChanged);
 
-			off(ReportEditEventTypes.ECHART_SCRIPT_CHANGED, onStructureChanged);
+			off(ReportEditEventTypes.ECHART_SCRIPT_CHANGED, onStyleChanged);
+			off(ReportEditEventTypes.ECHART_SCRIPT_VARS_DEFS_CHANGED, onStyleChanged);
+			off(ReportEditEventTypes.ECHART_SCRIPT_VARS_CHANGED, onStyleChanged);
 
 			off(ReportEditEventTypes.CHART_TYPE_CHANGED, onStructureChanged);
 			off(ReportEditEventTypes.DIMENSION_CHANGED, onStructureChanged);

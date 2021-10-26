@@ -1,4 +1,4 @@
-import {isReportFilterEnabled, isReportFunnelEnabled} from '@/feature-switch';
+import {isChartScriptInConsoleEnabled, isReportFilterEnabled, isReportFunnelEnabled} from '@/feature-switch';
 import {
 	isBarChart,
 	isCountChart,
@@ -40,6 +40,8 @@ import {DataSetTab} from '../dataset-tab';
 import {EChartsGridSettings} from '../echarts/grid';
 import {EChartsLegendSettings} from '../echarts/legend';
 import {EChartsScriptSettings} from '../echarts/script';
+import {EChartsScriptVars} from '../echarts/script-vars';
+import {EChartsScriptVarsDefs} from '../echarts/script-vars-defs';
 import {EChartsTitleSettings} from '../echarts/title';
 import {EChartsTitleSubtextSettings} from '../echarts/title/subtext';
 import {EChartsXAxisSettings} from '../echarts/xaxis';
@@ -70,7 +72,9 @@ enum TABS {
 	X_AXIS = 'x-axis',
 	Y_AXIS = 'y-axis',
 
-	SCRIPT = 'script'
+	SCRIPT = 'script',
+	SCRIPT_VARS_DEF = 'script-vars-def',
+	SCRIPT_VARS = 'script-vars'
 }
 
 export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
@@ -140,6 +144,8 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 	const holdTitle = canHoldTitle(chart);
 	const holdLegend = canHoldLegend(chart);
 	const useGrid = canUseGrid(chart);
+	const chartScriptEnabled = (connectedSpace.isTemplate || isChartScriptInConsoleEnabled()) && echart && canUseScript(chart);
+	const useScriptVariables = echart && canUseScript(chart) && (chart.settings?.scriptVarsDefs ?? '').trim().length !== 0;
 
 	// @ts-ignore
 	return <ReportDataSetAndPaletteContainer visible={visible}>
@@ -231,10 +237,22 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 					{Lang.CHART.SECTION_TITLE_ECHART_YAXIS}
 				</TabHeader>
 				: null}
-			{echart && canUseScript(chart)
-				? <TabHeader active={activeTab === TABS.SCRIPT} zIndex={10}
+			{chartScriptEnabled
+				? <TabHeader active={activeTab === TABS.SCRIPT} zIndex={12}
 				             onClick={onTabClicked(TABS.SCRIPT)}>
 					{Lang.CHART.SECTION_TITLE_ECHART_SCRIPT}
+				</TabHeader>
+				: null}
+			{connectedSpace.isTemplate
+				? <TabHeader active={activeTab === TABS.SCRIPT_VARS_DEF} zIndex={11}
+				             onClick={onTabClicked(TABS.SCRIPT_VARS_DEF)}>
+					{Lang.CHART.SECTION_TITLE_ECHART_SCRIPT_VARS_DEF}
+				</TabHeader>
+				: null}
+			{useScriptVariables
+				? <TabHeader active={activeTab === TABS.SCRIPT_VARS} zIndex={10}
+				             onClick={onTabClicked(TABS.SCRIPT_VARS)}>
+					{Lang.CHART.SECTION_TITLE_ECHART_SCRIPT_VARS}
 				</TabHeader>
 				: null}
 		</TabHeaders>
@@ -287,8 +305,20 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 		<TabBody subject={subject} report={report} active={activeTab === TABS.Y_AXIS}>
 			<EChartsYAxisSettings report={report}/>
 		</TabBody>
-		<TabBody subject={subject} report={report} active={activeTab === TABS.SCRIPT}>
-			<EChartsScriptSettings report={report}/>
-		</TabBody>
+		{chartScriptEnabled ?
+			<TabBody subject={subject} report={report} active={activeTab === TABS.SCRIPT}>
+				<EChartsScriptSettings report={report}/>
+			</TabBody>
+			: null}
+		{connectedSpace.isTemplate
+			? <TabBody subject={subject} report={report} active={activeTab === TABS.SCRIPT_VARS_DEF}>
+				<EChartsScriptVarsDefs report={report}/>
+			</TabBody>
+			: null}
+		{useScriptVariables
+			? <TabBody subject={subject} report={report} active={activeTab === TABS.SCRIPT_VARS_DEF}>
+				<EChartsScriptVars report={report}/>
+			</TabBody>
+			: null}
 	</ReportDataSetAndPaletteContainer>;
 };

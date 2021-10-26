@@ -28,6 +28,8 @@ export enum ReportEditEventTypes {
 	ECHART_YAXIS_CHANGED = 'echart-yaxis-changed',
 
 	ECHART_SCRIPT_CHANGED = 'echart-script-changed',
+	ECHART_SCRIPT_VARS_DEFS_CHANGED = 'echart-script-vars-defs-changed',
+	ECHART_SCRIPT_VARS_CHANGED = 'echart-script-vars-changed',
 
 	CHART_TYPE_CHANGED = 'chart-type-changed',
 	DIMENSION_CHANGED = 'dimension-changed',
@@ -121,6 +123,14 @@ export interface ReportEditEventBus {
 	fire(type: ReportEditEventTypes.ECHART_SCRIPT_CHANGED, report: Report): this;
 	on(type: ReportEditEventTypes.ECHART_SCRIPT_CHANGED, listener: (report: Report) => void): this;
 	off(type: ReportEditEventTypes.ECHART_SCRIPT_CHANGED, listener: (report: Report) => void): this;
+
+	fire(type: ReportEditEventTypes.ECHART_SCRIPT_VARS_DEFS_CHANGED, report: Report): this;
+	on(type: ReportEditEventTypes.ECHART_SCRIPT_VARS_DEFS_CHANGED, listener: (report: Report) => void): this;
+	off(type: ReportEditEventTypes.ECHART_SCRIPT_VARS_DEFS_CHANGED, listener: (report: Report) => void): this;
+
+	fire(type: ReportEditEventTypes.ECHART_SCRIPT_VARS_CHANGED, report: Report): this;
+	on(type: ReportEditEventTypes.ECHART_SCRIPT_VARS_CHANGED, listener: (report: Report) => void): this;
+	off(type: ReportEditEventTypes.ECHART_SCRIPT_VARS_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.CHART_TYPE_CHANGED, report: Report): this;
 	on(type: ReportEditEventTypes.CHART_TYPE_CHANGED, listener: (report: Report) => void): this;
