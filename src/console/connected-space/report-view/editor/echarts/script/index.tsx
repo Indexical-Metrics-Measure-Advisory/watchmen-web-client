@@ -2,11 +2,16 @@ import {canUseScript, isEChart} from '@/services/data/tuples/echarts/echarts-uti
 import {Report} from '@/services/data/tuples/report-types';
 import {Lang} from '@/widgets/langs';
 import {getCurrentTheme} from '@/widgets/theme/theme-wrapper';
-import MonacoEditor from '@monaco-editor/react';
+import MonacoEditor, {loader} from '@monaco-editor/react';
 import React from 'react';
 import {useReportEditEventBus} from '../../report-edit-event-bus';
 import {ReportEditEventTypes} from '../../report-edit-event-bus-types';
 import {useChartType} from '../../settings-effect/use-chart-type';
+
+loader.config({
+	paths: {vs: `${process.env.REACT_APP_WEB_CONTEXT === '/' ? '' : process.env.REACT_APP_WEB_CONTEXT}/static/monaco-editor@0.29.1/min/vs`}
+	// 'vs/nls': {availableLanguages: {'*': ''}}
+});
 
 const ScriptTemplate = `// Follow script template as below,
 // 1. Script must follow the es5 syntax; asynchronized function is not allowed,
