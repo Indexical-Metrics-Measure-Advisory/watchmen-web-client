@@ -36,6 +36,8 @@ import {
 } from './utils';
 import {NoVariable} from './widgets';
 
+const NoVars = () => <NoVariable><span>{Lang.CHART.NO_SCRIPT_VARS}</span></NoVariable>;
+
 const SectionBodyItem = (props: { report: Report; item: InputItem }) => {
 	const {report, item} = props;
 	const {chart} = report;
@@ -156,7 +158,7 @@ export const EChartsScriptVars = (props: { report: Report }) => {
 
 	const defs = (chart.settings?.scriptVarsDefs ?? '').trim();
 	if (defs.length === 0) {
-		return <NoVariable>{Lang.CHART.NO_SCRIPT_VARS}</NoVariable>;
+		return <NoVars/>;
 	}
 
 	const items: Array<DefItem> = (() => {
@@ -170,11 +172,11 @@ export const EChartsScriptVars = (props: { report: Report }) => {
 	})();
 
 	if (!Array.isArray(items) || items.length === 0) {
-		return <NoVariable>{Lang.CHART.NO_SCRIPT_VARS}</NoVariable>;
+		return <NoVars/>;
 	}
 
 	if (items.filter(item => !!item).filter(item => item.type !== ItemType.SECTION).length === 0) {
-		return <NoVariable>{Lang.CHART.NO_SCRIPT_VARS}</NoVariable>;
+		return <NoVars/>;
 	}
 
 	const renderItems: Array<Array<DefItem>> = items.filter(item => !!item).reduce((items, item) => {
@@ -194,7 +196,7 @@ export const EChartsScriptVars = (props: { report: Report }) => {
 	});
 
 	if (renderItems.length === 0) {
-		return <NoVariable>{Lang.CHART.NO_SCRIPT_VARS}</NoVariable>;
+		return <NoVars/>;
 	}
 
 	return <TabBodySection>

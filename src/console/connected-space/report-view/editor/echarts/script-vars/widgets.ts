@@ -2,13 +2,17 @@ import styled from 'styled-components';
 
 export const NoVariable = styled.div.attrs({'data-widget': 'script-no-vars'})`
 	display         : flex;
-	position        : relative;
+	position        : absolute;
 	align-items     : center;
 	justify-content : center;
-	padding-top     : calc(var(--margin) / 2);
-	grid-column     : span 3;
+	top             : 0;
+	left            : 0;
+	width           : 100%;
+	height          : 100%;
 	font-family     : var(--title-font-family);
-	font-weight     : var(--font-demi-bold);
-	font-size       : 1.4em;
-	opacity         : 0.5;
+	font-size       : 2em;
+	opacity         : 0.7;
+	> span {
+		margin-top : -10%;
+	}
 `;
