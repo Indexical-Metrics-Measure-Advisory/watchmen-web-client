@@ -635,7 +635,8 @@ export const En = {
 			SUNBURST: 'Sunburst',
 			TREE: 'Tree',
 			TREEMAP: 'Treemap',
-			MAP: 'Map'
+			MAP: 'Map',
+			CUSTOMIZED: 'Customized'
 		},
 		COUNT: {
 			FORMAT_USING_GROUP: 'Using Group'

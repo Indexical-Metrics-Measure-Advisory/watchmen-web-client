@@ -1,13 +1,7 @@
-import {
-	isBarChart,
-	isDoughnutChart,
-	isLineChart,
-	isNightingaleChart,
-	isPieChart,
-	isSunburstChart
-} from '@/services/data/tuples/chart-utils';
+import {ChartTruncationHolder} from '@/services/data/tuples/chart-def/truncation';
 import {Report} from '@/services/data/tuples/report-types';
 import {Lang} from '@/widgets/langs';
+import {ChartHelper} from '@/widgets/report/chart-utils';
 import React from 'react';
 import {SettingsTruncationPropNames, TruncationSettings} from '../echarts/truncation';
 import {TruncationChartStylePropNames} from '../prop-defs/chart-styles/truncation-chart-style-props';
@@ -19,20 +13,19 @@ import {Section} from '../settings-widgets/section';
 export const ChartTruncationSettings = (props: { report: Report }) => {
 	const {report} = props;
 	const {chart} = report;
+	const {chart: {type}} = report;
 
 	const {fire} = useReportEditEventBus();
 	useChartType({report});
 
-	if (!isBarChart(chart)
-		&& !isLineChart(chart)
-		&& !isPieChart(chart)
-		&& !isDoughnutChart(chart)
-		&& !isNightingaleChart(chart)
-		&& !isSunburstChart(chart)) {
+	/** defend */
+	const chartUtils = ChartHelper[type];
+
+	if (!chartUtils.shouldHasDimension()) {
 		return null;
 	}
 
-	const settings = chart.settings;
+	const settings = chart.settings as ChartTruncationHolder;
 	const getTruncationHolder = () => settings?.truncation;
 	const propNames = {
 		truncation: {

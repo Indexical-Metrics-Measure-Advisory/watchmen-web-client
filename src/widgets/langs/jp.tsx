@@ -635,7 +635,8 @@ export const Jp = {
 			SUNBURST: 'サンバースト図',
 			TREE: '樹形図',
 			TREEMAP: 'ツリーマップ',
-			MAP: 'マップ'
+			MAP: 'マップ',
+			CUSTOMIZED: 'カスタマイズ'
 		},
 		COUNT: {
 			FORMAT_USING_GROUP: '小数第3位'

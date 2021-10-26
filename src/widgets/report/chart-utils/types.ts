@@ -22,6 +22,8 @@ export interface ChartUtils {
 	defendDimensionMinCount(report: Report): void;
 	defendDimensionMaxCount(report: Report): void;
 
+	shouldHasTruncation(): boolean;
+
 	shouldHasFunnel(): boolean;
 
 	defend(report: Report): void;

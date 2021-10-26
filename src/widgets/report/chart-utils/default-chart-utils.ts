@@ -153,6 +153,10 @@ export abstract class DefaultChartUtils implements ChartUtils {
 		}
 	}
 
+	shouldHasTruncation(): boolean {
+		return true;
+	}
+
 	shouldHasFunnel(): boolean {
 		return true;
 	}

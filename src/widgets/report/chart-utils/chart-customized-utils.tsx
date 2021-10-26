@@ -1,24 +1,18 @@
-import {COUNT, CountChartSettings} from '@/services/data/tuples/chart-def/chart-count';
+import {CUSTOMIZED} from '@/services/data/tuples/chart-def/chart-customized';
 import {ChartDataSet} from '@/services/data/tuples/chart-types';
 import {ECharts} from '@/services/data/tuples/echarts/echarts-types';
 import {Report} from '@/services/data/tuples/report-types';
+import {BASE_COLORS_24} from '../../basic/colors';
 import {cleanUselessValues} from './data-utils';
 import {DefaultChartUtils} from './default-chart-utils';
 import {buildEChartsTitle} from './title-utils';
 import {ChartOptions} from './types';
 
-export class ChartCountUtils extends DefaultChartUtils {
+export class ChartCustomizedUtils extends DefaultChartUtils {
 	constructor() {
-		super(COUNT);
+		super(CUSTOMIZED);
 	}
 
-	shouldHasDimension(): boolean {
-		return false;
-	}
-
-	shouldHasTruncation(): boolean {
-		return false;
-	}
 	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
 		let value: string | number = ((dataset.data[0] ?? [])[0] as number | null | undefined) || 0;
 		if (isNaN(value)) {
@@ -26,34 +20,17 @@ export class ChartCountUtils extends DefaultChartUtils {
 		}
 
 		const {chart} = report;
-		const {settings} = chart;
-		const {
-			countText: {
-				font = {},
-				formatUseGrouping
-			} = {}
-		} = (settings || {}) as CountChartSettings;
-
-		if (formatUseGrouping) {
-			value = new Intl.NumberFormat(undefined, {useGrouping: true}).format(value);
-		}
-
-		const {family, size, color, weight, style} = font;
+		// const {settings} = chart;
+		// const {} = (settings || {}) as CustomizedChartSettings;
 
 		return cleanUselessValues({
+			color: BASE_COLORS_24,
 			title: buildEChartsTitle(chart as ECharts),
 			graphic: [{
 				type: 'text',
 				top: 'middle',
 				left: 'center',
-				style: {
-					text: `${value}`,
-					fontFamily: family,
-					fontSize: size,
-					fontStyle: style,
-					fontWeight: weight,
-					fill: color
-				}
+				style: {}
 			}]
 		});
 	}

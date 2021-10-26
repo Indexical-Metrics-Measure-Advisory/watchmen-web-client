@@ -1,6 +1,7 @@
 import {ChartType} from '@/services/data/tuples/chart-types';
 import {ChartBarUtils} from './chart-bar-utils';
 import {ChartCountUtils} from './chart-count-utils';
+import {ChartCustomizedUtils} from './chart-customized-utils';
 import {ChartDoughnutUtils} from './chart-doughnut-utils';
 import {ChartLineUtils} from './chart-line-utils';
 import {ChartMapUtils} from './chart-map-utils';
@@ -27,5 +28,6 @@ export const ChartHelper: Record<ChartType, ChartUtils> = {
 	[ChartType.TREE]: new ChartTreeUtils(),
 	[ChartType.TREEMAP]: new ChartTreemapUtils(),
 
-	[ChartType.COUNT]: new ChartCountUtils()
+	[ChartType.COUNT]: new ChartCountUtils(),
+	[ChartType.CUSTOMIZED]: new ChartCustomizedUtils()
 };

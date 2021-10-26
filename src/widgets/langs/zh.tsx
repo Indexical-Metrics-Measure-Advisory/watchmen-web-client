@@ -635,7 +635,8 @@ export const Zh = {
 			SUNBURST: '旭日图',
 			TREE: '树图',
 			TREEMAP: '矩形树图',
-			MAP: '地图'
+			MAP: '地图',
+			CUSTOMIZED: '自定义'
 		},
 		COUNT: {
 			FORMAT_USING_GROUP: '千分位'

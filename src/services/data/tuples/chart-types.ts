@@ -63,7 +63,9 @@ export enum ChartType {
 	SUNBURST = 'sunburst',
 	TREE = 'tree',
 	TREEMAP = 'treemap',
-	MAP = 'map'
+	MAP = 'map',
+
+	CUSTOMIZED = 'customized'
 }
 
 export interface Chart {

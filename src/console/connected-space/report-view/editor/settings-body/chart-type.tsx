@@ -19,7 +19,8 @@ const ChartTypeOptions: Array<DropdownOption> = [
 	{value: ChartType.SUNBURST, label: Lang.CHART.TYPES.SUNBURST},
 	{value: ChartType.TREE, label: Lang.CHART.TYPES.TREE},
 	{value: ChartType.TREEMAP, label: Lang.CHART.TYPES.TREEMAP},
-	{value: ChartType.MAP, label: Lang.CHART.TYPES.MAP}
+	{value: ChartType.MAP, label: Lang.CHART.TYPES.MAP},
+	{value: ChartType.CUSTOMIZED, label: Lang.CHART.TYPES.CUSTOMIZED}
 ];
 
 export const ChartTypeEditor = (props: { report: Report }) => {
