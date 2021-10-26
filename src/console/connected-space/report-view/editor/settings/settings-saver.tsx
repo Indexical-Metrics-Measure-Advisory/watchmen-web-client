@@ -23,7 +23,6 @@ export const SettingsSaver = (props: { report: Report }) => {
 			if (changedReport !== report) {
 				return;
 			}
-			fireReport(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, report);
 			fireReport(ReportEventTypes.STRUCTURE_CHANGED, changedReport);
 		};
 		on(ReportEditEventTypes.SIZE_CHANGED, onStyleChanged);
