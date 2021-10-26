@@ -18,7 +18,7 @@ const ScriptVariablesTemplate = `// Follow script variables template as below,
 // 2. Define an anonymous and self-executing function, returns a variables configuration option JSON object,
 // 3. Use "const" or "let" to define variables. never use "var", it will expose variables to global and leads memory leak,
 // 4. There is a tab to input for end user, values of variables will be passed to script via "options",
-// 5. If you see this means there is no script defined, simply add a white space anywhere to see what happens.
+// 5. If you see this means there is no script defined, simply add a white space anywhere to see what happens in variables tab.
 
 (() => {
 	// here is a sample
@@ -26,13 +26,14 @@ const ScriptVariablesTemplate = `// Follow script variables template as below,
 	return [
 		{type: 'section', label: 'Section 1'},
 		// unit, placeholder is optional
-		{key: 'var1', type: 'number', placeholder: 'Number Variable...', label: 'V1', unit: 'px'},
+		{key: 'var1', type: 'number', placeholder: 'Number Variable...', label: 'V1', unit: 'px', defaultValue: 1},
 		// placeholder is optional
-		{key: 'var2', type: 'percentage', placeholder: 'Percentage Variable...', label: 'V2'},
-		{key: 'var3', type: 'boolean', label: 'V3'},
-		{key: 'var4', type: 'text', placeholder: 'Text Variable...', label: 'V4'},
-		{key: 'var5', type: 'color', label: 'V5'},
-		{key: 'var6', type: 'dropdown', placeholder: 'Dropdown Variable...', label: 'V6', options: [{value: '1', label: 'Option 1'}, {value: '2', label: 'Option 2'}]},
+		{key: 'var2', type: 'percentage', placeholder: 'Percentage Variable...', label: 'V2', defaultValue: 10},
+		{key: 'var3', type: 'boolean', label: 'V3', defaultValue: true},
+		{type: 'section', label: 'Section 2'},
+		{key: 'var4', type: 'text', placeholder: 'Text Variable...', label: 'V4', defaultValue: 'abc'},
+		{key: 'var5', type: 'color', label: 'V5', defaultValue: '#ff0000'},
+		{key: 'var6', type: 'dropdown', placeholder: 'Dropdown Variable...', label: 'V6', defaultValue: '1', options: [{value: '1', label: 'Option 1'}, {value: '2', label: 'Option 2'}]},
 	];
 	// your code ends
 })();

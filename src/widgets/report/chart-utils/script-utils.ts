@@ -6,6 +6,7 @@ import {ChartEChartOptions} from './types';
 export interface ScriptOptions {
 	color: Array<string>;
 	title?: TitleComponentOption;
+	vars?: { [key in string]: any };
 	data?: ChartDataSetRows;
 }
 

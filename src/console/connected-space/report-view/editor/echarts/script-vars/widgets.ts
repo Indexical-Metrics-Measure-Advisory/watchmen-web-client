@@ -10,4 +10,5 @@ export const NoVariable = styled.div.attrs({'data-widget': 'script-no-vars'})`
 	font-family     : var(--title-font-family);
 	font-weight     : var(--font-demi-bold);
 	font-size       : 1.4em;
+	opacity         : 0.5;
 `;

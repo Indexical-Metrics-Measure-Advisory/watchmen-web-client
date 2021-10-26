@@ -144,8 +144,12 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 	const holdTitle = canHoldTitle(chart);
 	const holdLegend = canHoldLegend(chart);
 	const useGrid = canUseGrid(chart);
-	const chartScriptEnabled = (connectedSpace.isTemplate || isChartScriptInConsoleEnabled()) && echart && canUseScript(chart);
-	const useScriptVariables = echart && canUseScript(chart) && (chart.settings?.scriptVarsDefs ?? '').trim().length !== 0;
+	// script is opened when connected is template or declared opened for all console
+	const useScript = (connectedSpace.isTemplate || isChartScriptInConsoleEnabled()) && echart && canUseScript(chart);
+	// variables defs always unopened for non-template connected space
+	const useScriptVarsDefs = connectedSpace.isTemplate && echart && canUseScript(chart);
+	// variables always opened when script is supported by chart
+	const useScriptVars = echart && canUseScript(chart);
 
 	// @ts-ignore
 	return <ReportDataSetAndPaletteContainer visible={visible}>
@@ -237,19 +241,19 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 					{Lang.CHART.SECTION_TITLE_ECHART_YAXIS}
 				</TabHeader>
 				: null}
-			{chartScriptEnabled
+			{useScript
 				? <TabHeader active={activeTab === TABS.SCRIPT} zIndex={12}
 				             onClick={onTabClicked(TABS.SCRIPT)}>
 					{Lang.CHART.SECTION_TITLE_ECHART_SCRIPT}
 				</TabHeader>
 				: null}
-			{connectedSpace.isTemplate
+			{useScriptVarsDefs
 				? <TabHeader active={activeTab === TABS.SCRIPT_VARS_DEF} zIndex={11}
 				             onClick={onTabClicked(TABS.SCRIPT_VARS_DEF)}>
 					{Lang.CHART.SECTION_TITLE_ECHART_SCRIPT_VARS_DEF}
 				</TabHeader>
 				: null}
-			{useScriptVariables
+			{useScriptVars
 				? <TabHeader active={activeTab === TABS.SCRIPT_VARS} zIndex={10}
 				             onClick={onTabClicked(TABS.SCRIPT_VARS)}>
 					{Lang.CHART.SECTION_TITLE_ECHART_SCRIPT_VARS}
@@ -305,18 +309,18 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 		<TabBody subject={subject} report={report} active={activeTab === TABS.Y_AXIS}>
 			<EChartsYAxisSettings report={report}/>
 		</TabBody>
-		{chartScriptEnabled ?
+		{useScript ?
 			<TabBody subject={subject} report={report} active={activeTab === TABS.SCRIPT}>
 				<EChartsScriptSettings report={report}/>
 			</TabBody>
 			: null}
-		{connectedSpace.isTemplate
+		{useScriptVarsDefs
 			? <TabBody subject={subject} report={report} active={activeTab === TABS.SCRIPT_VARS_DEF}>
 				<EChartsScriptVarsDefs report={report}/>
 			</TabBody>
 			: null}
-		{useScriptVariables
-			? <TabBody subject={subject} report={report} active={activeTab === TABS.SCRIPT_VARS_DEF}>
+		{useScriptVars
+			? <TabBody subject={subject} report={report} active={activeTab === TABS.SCRIPT_VARS}>
 				<EChartsScriptVars report={report}/>
 			</TabBody>
 			: null}

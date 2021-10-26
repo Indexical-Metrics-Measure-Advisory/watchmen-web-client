@@ -17,11 +17,12 @@ export class ChartCustomizedUtils extends DefaultChartUtils {
 	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
 		const {chart} = report;
 		const {settings} = chart;
-		const {script = ''} = (settings || {}) as EchartsScriptHolder;
+		const {script = '', scriptVars} = (settings || {}) as EchartsScriptHolder;
 
 		return buildOptionsByScript(script, {
 			color: BASE_COLORS_24,
 			title: buildEChartsTitle(chart as ECharts),
+			vars: scriptVars ?? {},
 			data: dataset.data
 		});
 	}

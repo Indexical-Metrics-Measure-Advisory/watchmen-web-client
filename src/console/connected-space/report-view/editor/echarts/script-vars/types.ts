@@ -27,28 +27,34 @@ export interface NumberItem extends InputItem {
 	type: ItemType.NUMBER;
 	placeholder?: string;
 	unit?: string;
+	defaultValue?: number;
 }
 
 export interface PercentageItem extends InputItem {
 	type: ItemType.PERCENTAGE;
 	placeholder?: string;
+	defaultValue?: number;
 }
 
 export interface BooleanItem extends InputItem {
 	type: ItemType.BOOLEAN;
+	defaultValue?: boolean;
 }
 
 export interface TextItem extends InputItem {
 	type: ItemType.TEXT;
 	placeholder?: string;
+	defaultValue?: string;
 }
 
 export interface ColorItem extends InputItem {
 	type: ItemType.COLOR;
+	defaultValue?: string;
 }
 
 export interface DropdownItem extends InputItem {
 	type: ItemType.DROPDOWN;
 	placeholder?: string;
 	options: Array<DropdownOption>;
+	defaultValue?: any;
 }
