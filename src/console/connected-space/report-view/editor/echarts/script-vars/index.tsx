@@ -127,7 +127,6 @@ const Section = (props: { report: Report; items: Array<DefItem> }) => {
 
 	const [first, ...rest] = items;
 	if (isSectionItem(first)) {
-
 		return <>
 			<TabBodySectionTitle>{first.label}</TabBodySectionTitle>
 			<TabBodySectionBody>
@@ -164,7 +163,8 @@ export const EChartsScriptVars = (props: { report: Report }) => {
 		try {
 			// eslint-disable-next-line
 			return eval(defs);
-		} catch {
+		} catch (e) {
+			console.error(e);
 			return [];
 		}
 	})();

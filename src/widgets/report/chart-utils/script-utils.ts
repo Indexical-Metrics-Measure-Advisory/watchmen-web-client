@@ -15,7 +15,8 @@ export const buildOptionsByScript = (script: string, options: ScriptOptions): Ch
 		try {
 			// eslint-disable-next-line
 			return cleanUselessValues(eval(script));
-		} catch {
+		} catch (e) {
+			console.error(e);
 			return cleanUselessValues(options);
 		}
 	} else {
