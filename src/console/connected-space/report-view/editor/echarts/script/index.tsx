@@ -13,10 +13,11 @@ const ScriptTemplate = `// Follow script template as below,
 // 2. Define an anonymous and self-executing function, returns an echarts configuration option JSON object,
 // 3. Variable "options" is in context, can be used in this script,
 // 4. Use "const" or "let" to define variables. never use "var", it will expose variables to global and leads memory leak,
-// 5. If you see this means there is no script defined, simple add a white space anywhere to see what happens.
+// 5. If you see this means there is no script defined, simply add a white space anywhere to see what happens.
 
 (() => {
-	// use following to watch what the options is.
+	// default color series, title and subtitle settings, data will be passed via variable "options".
+	// do whatever you want on it and use following to watch what the options is.
 	// console.log(options);
 	
 	// here is a sample to render a line chart, more examples can be found at https://echarts.apache.org/examples/en/index.html
