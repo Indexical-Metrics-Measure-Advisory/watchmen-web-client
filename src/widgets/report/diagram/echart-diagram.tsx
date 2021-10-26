@@ -1,4 +1,5 @@
 import {Report} from '@/services/data/tuples/report-types';
+import 'echarts-gl';
 import {
 	BarChart,
 	BoxplotChart,

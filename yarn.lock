@@ -4455,6 +4455,11 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
+claygl@^1.2.1:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/claygl/-/claygl-1.3.0.tgz#7a6e2903210519ac358848f5d78070ed211685f3"
+  integrity sha512-+gGtJjT6SSHD2l2yC3MCubW/sCV40tZuSs5opdtn79vFSGUgp/lH139RNEQ6Jy078/L0aV8odCw8RSrUcMfLaQ==
+
 clean-css@^4.2.3:
   version "4.2.3"
   resolved "https://registry.npmjs.org/clean-css/-/clean-css-4.2.3.tgz#507b5de7d97b48ee53d84adb0160ff6216380f78"
@@ -5500,6 +5505,14 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
+
+echarts-gl@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/echarts-gl/-/echarts-gl-2.0.8.tgz#81260be0891e5e30c1710311f8b764d65329b03c"
+  integrity sha512-ayFmjLxdF9pRpnh1Lz5aOgjnLqL3WIGu0t4Bt+oFwXGsViU2XcjCkHZARsZdv05lySow8eMD9JYZGXfLpuqYng==
+  dependencies:
+    claygl "^1.2.1"
+    zrender "^5.1.1"
 
 echarts@^5.2.0:
   version "5.2.0"
@@ -13949,6 +13962,13 @@ zrender@5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/zrender/-/zrender-5.2.0.tgz#f8abc484ac4a8a51b04c3ccd37beabe1def342cd"
   integrity sha512-87v3gvB0lcWy48ObA/DwrhQ95ADMMRhECVrXmHDFCBNvbxHFfEDZtrZh4VmVjLAeFAjimY4PyZ65rbLCivdszA==
+  dependencies:
+    tslib "2.3.0"
+
+zrender@^5.1.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/zrender/-/zrender-5.2.1.tgz#5f4bbda915ba6d412b0b19dc2431beaad05417bb"
+  integrity sha512-M3bPGZuyLTNBC6LiNKXJwSCtglMp8XUEqEBG+2MdICDI3d1s500Y4P0CzldQGsqpRVB7fkvf3BKQQRxsEaTlsw==
   dependencies:
     tslib "2.3.0"
 
