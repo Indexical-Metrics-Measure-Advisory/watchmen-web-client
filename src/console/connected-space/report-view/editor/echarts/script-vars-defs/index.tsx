@@ -18,22 +18,33 @@ const ScriptVariablesTemplate = `// Follow script variables template as below,
 // 2. Define an anonymous and self-executing function, returns a variables configuration option JSON object,
 // 3. Use "const" or "let" to define variables. never use "var", it will expose variables to global and leads memory leak,
 // 4. There is a tab to input for end user, values of variables will be passed to script via "options",
-// 5. If you see this means there is no script defined, simply add a white space anywhere to see what happens in variables tab.
+// 5. If you see this means there is no script defined, simply add a white space anywhere to see what happens.
 
 (() => {
 	// here is a sample
 	// your code starts
 	return [
-		{type: 'section', label: 'Section 1'},
-		// unit, placeholder is optional
+		// {type: 'section', label: 'Section 1'},
+		// unit/placeholder/defaultValue is optional, defaultValue must be a number
 		{key: 'var1', type: 'number', placeholder: 'Number Variable...', label: 'V1', unit: 'px', defaultValue: 1},
-		// placeholder is optional
+		// placeholder/defaultValue is optional, defaultValue must be a number
 		{key: 'var2', type: 'percentage', placeholder: 'Percentage Variable...', label: 'V2', defaultValue: 10},
+		// defaultValue is optional, defaultValue must be a boolean
 		{key: 'var3', type: 'boolean', label: 'V3', defaultValue: true},
 		{type: 'section', label: 'Section 2'},
+		// placeholder/defaultValue is optional
 		{key: 'var4', type: 'text', placeholder: 'Text Variable...', label: 'V4', defaultValue: 'abc'},
+		// defaultValue is optional, defaultValue must be css color
 		{key: 'var5', type: 'color', label: 'V5', defaultValue: '#ff0000'},
-		{key: 'var6', type: 'dropdown', placeholder: 'Dropdown Variable...', label: 'V6', defaultValue: '1', options: [{value: '1', label: 'Option 1'}, {value: '2', label: 'Option 2'}]},
+		// placeholder/defaultValue is optional, defaultValue must match one of options
+		{
+			key: 'var6',
+			type: 'dropdown',
+			placeholder: 'Dropdown Variable...',
+			label: 'V6',
+			defaultValue: '1',
+			options: [{value: '1', label: 'Option 1'}, {value: '2', label: 'Option 2'}]
+		}
 	];
 	// your code ends
 })();
@@ -68,6 +79,8 @@ export const EChartsScriptVarsDefs = (props: { report: Report }) => {
 	                     theme={getCurrentTheme().codeEditorTheme}
 	                     loading={Lang.PLAIN.LOADING}
 	                     options={{
-		                     minimap: {enabled: false}
+		                     minimap: {enabled: false},
+		                     wordWrap: 'bounded',
+		                     wordWrapColumn: 130
 	                     }}/>;
 };
