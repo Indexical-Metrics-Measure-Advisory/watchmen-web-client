@@ -8,6 +8,7 @@ export type GroupedReportFunnel =
 
 export interface GroupedFunnel {
 	funnel: GroupedReportFunnel;
+	/** funnel is one of funnels array form report */
 	reports: Array<{ report: Report; funnel: ReportFunnel }>;
 }
 

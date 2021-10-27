@@ -92,13 +92,12 @@ export const EChartDiagram = (props: { report: Report }) => {
 			if (aReport !== report) {
 				return;
 			}
-			if (!chartInstance) {
-				const instance = echarts.init(rootRef.current!);
-				instance.setOption(options, true);
-				setChartInstance(instance);
-			} else {
-				chartInstance.setOption(options, true);
+			if (chartInstance) {
+				chartInstance.dispose();
 			}
+			const instance = echarts.init(rootRef.current!);
+			instance.setOption(options, {notMerge: true});
+			setChartInstance(instance);
 		};
 		on(ReportEventTypes.CHART_OPTIONS_READY, onChartOptionsReady);
 		return () => {

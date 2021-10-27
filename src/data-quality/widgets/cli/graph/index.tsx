@@ -25,9 +25,7 @@ export const GraphDiagram = (props: { options: any }) => {
 		if (chartRef.current) {
 			// @ts-ignore
 			const resizeObserver = new ResizeObserver(() => {
-				if (chartInstance) {
-					chartInstance.resize();
-				}
+				chartInstance && chartInstance.resize();
 			});
 			resizeObserver.observe(chartRef.current);
 			return () => resizeObserver.disconnect();

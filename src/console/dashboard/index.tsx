@@ -84,36 +84,38 @@ const ConsoleDashboardAuto = () => {
 	const history = useHistory();
 	const {fire: fireGlobal} = useEventBus();
 	const {once, fire} = useConsoleEventBus();
-	once(ConsoleEventTypes.REPLY_DASHBOARDS, (dashboards: Array<Dashboard>) => {
-		const allDashboardIds = [...dashboards].map(dashboard => dashboard.dashboardId);
-		once(ConsoleEventTypes.REPLY_LAST_SNAPSHOT, async ({lastDashboardId}: LastSnapshot) => {
-			// eslint-disable-next-line
-			if (lastDashboardId && allDashboardIds.some(id => id == lastDashboardId)) {
-				// exists and found in list
-				history.push(toDashboard(lastDashboardId));
-			} else if (dashboards && dashboards.length > 0) {
-				// pick the latest visited one
-				const {dashboardId: firstDashboardId} = [...dashboards].sort((d1, d2) => {
-					return (d2.lastVisitTime || '').localeCompare((d1.lastVisitTime || ''));
-				})[0];
-				history.push(toDashboard(firstDashboardId));
-				try {
-					await saveLastSnapshot({lastDashboardId: firstDashboardId});
-				} catch (e: any) {
-					// ignore
+	useEffect(() => {
+		once(ConsoleEventTypes.REPLY_DASHBOARDS, (dashboards: Array<Dashboard>) => {
+			const allDashboardIds = [...dashboards].map(dashboard => dashboard.dashboardId);
+			once(ConsoleEventTypes.REPLY_LAST_SNAPSHOT, async ({lastDashboardId}: LastSnapshot) => {
+				// eslint-disable-next-line
+				if (lastDashboardId && allDashboardIds.some(id => id == lastDashboardId)) {
+					// exists and found in list
+					history.push(toDashboard(lastDashboardId));
+				} else if (dashboards && dashboards.length > 0) {
+					// pick the latest visited one
+					const {dashboardId: firstDashboardId} = [...dashboards].sort((d1, d2) => {
+						return (d2.lastVisitTime || '').localeCompare((d1.lastVisitTime || ''));
+					})[0];
+					history.push(toDashboard(firstDashboardId));
+					try {
+						await saveLastSnapshot({lastDashboardId: firstDashboardId});
+					} catch (e: any) {
+						// ignore
+					}
+				} else {
+					// no dashboards created
+					const dashboard = createDashboard();
+					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+						async () => await saveDashboard(dashboard),
+						() => {
+							fire(ConsoleEventTypes.DASHBOARD_CREATED, dashboard);
+							history.push(toDashboard(dashboard.dashboardId));
+						});
 				}
-			} else {
-				// no dashboards created
-				const dashboard = createDashboard();
-				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-					async () => await saveDashboard(dashboard),
-					() => {
-						fire(ConsoleEventTypes.DASHBOARD_CREATED, dashboard);
-						history.push(toDashboard(dashboard.dashboardId));
-					});
-			}
-		}).fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT);
-	}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
+			}).fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT);
+		}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
+	}, [fireGlobal, fire, once, history]);
 
 	return <Fragment/>;
 };

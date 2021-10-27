@@ -254,7 +254,8 @@ export const Dropdown = (props: DropdownProps) => {
 	if (value == null) {
 		label = please;
 	} else {
-		selection = options.find(option => option.value === value);
+		// eslint-disable-next-line
+		selection = options.find(option => option.value == value);
 		label = selection ? asLabel(selection) : please;
 	}
 	const directFromLabel = (option: DropdownOption): DropdownOptionLabel => {

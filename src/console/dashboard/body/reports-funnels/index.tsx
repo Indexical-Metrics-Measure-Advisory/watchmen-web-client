@@ -189,8 +189,7 @@ export const ReportsFunnels = (props: {
 		return null;
 	}
 
-	// synchronize values from grouped funnel to funnel in report object
-	const onFunnelChanged = async (group: GroupedFunnel) => {
+	const copyFunnelValues = (group: GroupedFunnel) => {
 		group.reports.forEach(({report, funnel}) => {
 			// copy values from grouped funnel (values collected from ui input) to original funnel
 			funnel.values = group.funnel.values;
@@ -200,11 +199,14 @@ export const ReportsFunnels = (props: {
 			// eslint-disable-next-line
 			const dashboardReport = (dashboard.reports ?? []).find(r => r.reportId == report.reportId);
 			if (dashboardReport) {
-				// copy funnels data
+				// copy funnels data to original report object, which will be persisted
 				dashboardReport.funnels = report.funnels;
 			}
 		});
-
+	};
+	// synchronize values from grouped funnel to funnel in report object
+	const onFunnelChanged = async (group: GroupedFunnel) => {
+		copyFunnelValues(group);
 		fire(DashboardEventTypes.REPAINT_REPORTS, dashboard, group.reports.map(r => r.report));
 		if (!transient) {
 			// in transient, funnel values change will not save to server side
@@ -214,6 +216,69 @@ export const ReportsFunnels = (props: {
 
 	const onFilterClicked = () => {
 		setEffective(!effective);
+		// console.log(JSON.stringify(state.groups.map(group => group.funnel).flat()));
+
+		if (effective) {
+			// original is effective, now remove all funnel's values, repaint related reports
+			const reports = state.groups.map(group => group.reports)
+				.flat()
+				.map(r => r.report)
+				.reduce((reports, report) => {
+					if (!reports.includes(report)) {
+						reports.push(report);
+					}
+					return reports;
+				}, [] as Array<Report>)
+				// find report with funnels
+				.filter(report => report.funnels != null && report.funnels.length !== 0)
+				// find report with funnel values
+				.filter(report => {
+					return (report.funnels || []).some(funnel => {
+						return funnel.enabled
+							&& funnel.values != null
+							&& funnel.values.length !== 0
+							&& funnel.values.some(value => value != null && value !== '');
+					});
+				})
+				.map(report => {
+					// clear funnel values
+					// will keep values from group funnel
+					(report.funnels || []).forEach(funnel => {
+						if (funnel.range) {
+							funnel.values = [null, null];
+						} else {
+							funnel.values = [null];
+						}
+					});
+					return report;
+				});
+			fire(DashboardEventTypes.REPAINT_REPORTS, dashboard, reports);
+			console.log(JSON.stringify(reports.map(report => report.funnels).flat()));
+		} else {
+			// original is not effective, now copy values to report funnels, and repaint reports
+			const reports = state.groups
+				.filter(({funnel}) => {
+					return funnel.values != null
+						&& funnel.values.length !== 0
+						&& funnel.values.some(value => value != null && value !== '');
+				})
+				.map(group => {
+					copyFunnelValues(group);
+					return group;
+				})
+				.map(group => group.reports)
+				.flat()
+				.map(r => r.report)
+				.reduce((reports, report) => {
+					if (!reports.includes(report)) {
+						reports.push(report);
+					}
+					return reports;
+				}, [] as Array<Report>);
+			fire(DashboardEventTypes.REPAINT_REPORTS, dashboard, reports);
+			console.log(JSON.stringify(reports.map(report => report.funnels).flat()));
+		}
+		// console.log(JSON.stringify(state.groups.map(group => group.funnel).flat()));
 	};
 
 	return <DashboardReportsFunnels rect={rect} ref={containerRef}>

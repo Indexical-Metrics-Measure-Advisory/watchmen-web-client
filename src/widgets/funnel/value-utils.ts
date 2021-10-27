@@ -50,11 +50,11 @@ const tryToWriteValues = (funnel: ReportFunnel, index: number, value?: string): 
 	switch (true) {
 		case (value == null || value === '') && (oldValue == null || oldValue === ''):
 			// both null/empty
-			funnel.values[index] = (value == null || value === '') ? null : value;
+			funnel.values[index] = null;
 			return false;
 		case (value == null || value === '') && (oldValue != null && oldValue !== ''):
 			// new value is null/empty, old value is not
-			funnel.values[index] = (value == null || value === '') ? null : value;
+			funnel.values[index] = null;
 			return true;
 		case (oldValue == null || oldValue === ''):
 			// new value is not null/empty, old value is
