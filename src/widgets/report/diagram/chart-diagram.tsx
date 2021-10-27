@@ -1,23 +1,27 @@
 import {ChartDataSet} from '@/services/data/tuples/chart-types';
 import {Report} from '@/services/data/tuples/report-types';
+import {useEffect} from 'react';
 import {ChartHelper} from '../chart-utils';
-import {ChartOptions} from '../chart-utils/types';
+import {useReportEventBus} from '../report-event-bus';
+import {ReportEventTypes} from '../report-event-bus-types';
 import {EChartDiagram} from './echart-diagram';
-
-const isJSXElement = (options: ChartOptions): options is JSX.Element => {
-	return !!(options as any).$$typeof;
-};
 
 export const ChartDiagram = (props: { report: Report, dataset: ChartDataSet }) => {
 	const {report, dataset} = props;
 	const {chart: {type: chartType}} = report;
 
-	const chartUtils = ChartHelper[chartType];
-	const options = chartUtils.buildOptions(report, dataset);
+	const {fire} = useReportEventBus();
+	useEffect((() => {
+		(async () => {
+			const chartUtils = ChartHelper[chartType];
+			try {
+				const options = await chartUtils.buildOptions(report, dataset);
+				fire(ReportEventTypes.CHART_OPTIONS_READY, report, options);
+			} catch (e) {
+				console.error(e);
+			}
+		})();
+	}));
 
-	if (isJSXElement(options)) {
-		return <>{options}</>;
-	} else {
-		return <EChartDiagram report={report} options={options}/>;
-	}
+	return <EChartDiagram report={report}/>;
 };

@@ -60,7 +60,7 @@ import * as echarts from 'echarts/core';
 import {EChartsType} from 'echarts/core';
 import {CanvasRenderer} from 'echarts/renderers';
 import React, {useEffect, useRef, useState} from 'react';
-import {ChartEChartOptions} from '../chart-utils/types';
+import {ChartOptions} from '../chart-utils/types';
 import {useReportEventBus} from '../report-event-bus';
 import {ReportEventTypes} from '../report-event-bus-types';
 import {EChartDiagramContainer} from './widgets';
@@ -79,8 +79,8 @@ echarts.use([
 	CanvasRenderer
 ]);
 
-export const EChartDiagram = (props: { report: Report, options: ChartEChartOptions }) => {
-	const {report, options} = props;
+export const EChartDiagram = (props: { report: Report }) => {
+	const {report} = props;
 	// console.log(JSON.stringify(options));
 
 	const {on, off, fire} = useReportEventBus();
@@ -88,19 +88,26 @@ export const EChartDiagram = (props: { report: Report, options: ChartEChartOptio
 	const rootRef = useRef<HTMLDivElement>(null);
 	const [chartInstance, setChartInstance] = useState<EChartsType | null>(null);
 	useEffect(() => {
-		if (!chartInstance) {
-			setChartInstance(echarts.init(rootRef.current!));
-		} else {
-			chartInstance.setOption(options, true);
-		}
-	}, [options, chartInstance]);
+		const onChartOptionsReady = (aReport: Report, options: ChartOptions) => {
+			if (aReport !== report) {
+				return;
+			}
+			if (!chartInstance) {
+				setChartInstance(echarts.init(rootRef.current!));
+			} else {
+				chartInstance.setOption(options, true);
+			}
+		};
+		on(ReportEventTypes.CHART_OPTIONS_READY, onChartOptionsReady);
+		return () => {
+			off(ReportEventTypes.CHART_OPTIONS_READY, onChartOptionsReady);
+		};
+	}, [on, off, report, chartInstance]);
 	useEffect(() => {
 		if (rootRef.current) {
 			// @ts-ignore
 			const resizeObserver = new ResizeObserver(() => {
-				if (chartInstance) {
-					chartInstance.resize();
-				}
+				chartInstance && chartInstance.resize();
 			});
 			resizeObserver.observe(rootRef.current);
 			return () => resizeObserver.disconnect();

@@ -1,6 +1,7 @@
 import {ChartDataSet} from '@/services/data/tuples/chart-types';
 import {Paragraph} from '@/services/data/tuples/paragraph';
 import {Report} from '@/services/data/tuples/report-types';
+import {ChartOptions} from './chart-utils/types';
 
 export enum ReportEventTypes {
 	/** use report structure in client side, only works on editing */
@@ -25,6 +26,7 @@ export enum ReportEventTypes {
 
 	CHART_BASE64_READY = 'chart-base64-ready',
 	ASK_DOWNLOAD_CHART = 'ask-download-chart',
+	CHART_OPTIONS_READY = 'chart-options-ready',
 
 	DATA_LOADED = 'data-loaded',
 	REPAINTED = 'repainted',
@@ -84,6 +86,10 @@ export interface ReportEventBus {
 	fire(type: ReportEventTypes.ASK_DOWNLOAD_CHART, report: Report): this;
 	on(type: ReportEventTypes.ASK_DOWNLOAD_CHART, listener: (report: Report) => void): this;
 	off(type: ReportEventTypes.ASK_DOWNLOAD_CHART, listener: (report: Report) => void): this;
+
+	fire(type: ReportEventTypes.CHART_OPTIONS_READY, report: Report, options: ChartOptions): this;
+	on(type: ReportEventTypes.CHART_OPTIONS_READY, listener: (report: Report, options: ChartOptions) => void): this;
+	off(type: ReportEventTypes.CHART_OPTIONS_READY, listener: (report: Report, options: ChartOptions) => void): this;
 
 	fire(type: ReportEventTypes.DATA_LOADED, report: Report, dataset: ChartDataSet): this;
 	on(type: ReportEventTypes.DATA_LOADED, listener: (report: Report, dataset: ChartDataSet) => void): this;

@@ -3,7 +3,7 @@ import {ChartDataSet} from '@/services/data/tuples/chart-types';
 import {Report} from '@/services/data/tuples/report-types';
 
 export type ChartEChartOptions = any;
-export type ChartOptions = ChartEChartOptions | JSX.Element;
+export type ChartOptions = ChartEChartOptions;
 
 export interface ChartUtils {
 	getDef(): ChartDef;
@@ -28,5 +28,5 @@ export interface ChartUtils {
 
 	defend(report: Report): void;
 	validate(report: Report): boolean | string;
-	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions;
+	buildOptions(report: Report, dataset: ChartDataSet): Promise<ChartOptions>;
 }
