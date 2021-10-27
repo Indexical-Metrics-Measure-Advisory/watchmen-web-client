@@ -17,7 +17,6 @@ export const DashboardReportsFunnels = styled.div.attrs<{ rect: ReportsFunnelsRe
 	align-items      : center;
 	max-width        : 600px;
 	min-width        : 400px;
-	max-height       : 400px;
 	padding          : 0 calc(var(--margin) / 2) calc(var(--margin) / 2);
 	border-radius    : calc(var(--border-radius) * 2);
 	background-color : var(--bg-color);
@@ -85,14 +84,19 @@ export const DashboardReportsFunnelsButton = styled.div.attrs({'data-widget': 'd
 		}
 	}
 `;
-export const DashboardReportsFunnelEditors = styled.div.attrs({'data-widget': 'dashboard-reports-funnels-editors'})`
+export const DashboardReportsFunnelEditors = styled.div.attrs({
+	'data-widget': 'dashboard-reports-funnels-editors',
+	'data-v-scroll': ''
+})`
 	display               : grid;
 	position              : relative;
 	flex-grow             : 1;
 	grid-template-columns : auto 1fr;
 	width                 : calc(100% + var(--margin) / 2);
+	max-height            : 400px;
 	margin-left           : calc(var(--margin) / -2);
 	margin-top            : calc(var(--margin) / 4);
+	overflow              : auto;
 `;
 export const FunnelName = styled.div.attrs({'data-widget': 'dashboard-report-funnel-name'})`
 	display       : flex;
