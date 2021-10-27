@@ -178,6 +178,7 @@ export const ICON_PARAGRAPH = faParagraph;
 export const ICON_INDICATOR = faTenge;
 export const ICON_DIMENSION = faRulerCombined;
 export const ICON_FILTER = faFilter;
+export const ICON_BAN = faBan;
 export const ICON_CSV = faFileCsv;
 export const ICON_AS_ADMIN_HOME = faLaptopHouse;
 export const ICON_PIPELINE = faWaveSquare;

@@ -5,7 +5,7 @@ import {fetchEnum} from '@/services/data/tuples/enum';
 import {Enum} from '@/services/data/tuples/enum-types';
 import {Report} from '@/services/data/tuples/report-types';
 import {Topic} from '@/services/data/tuples/topic-types';
-import {ICON_DRAG_HANDLE, ICON_FILTER} from '@/widgets/basic/constants';
+import {ICON_BAN, ICON_DRAG_HANDLE, ICON_FILTER} from '@/widgets/basic/constants';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
@@ -60,11 +60,12 @@ export const ReportsFunnels = (props: {
 
 	// initialize
 	useEffect(() => {
-		if (state.initialized) {
+		if (state.initialized || connectedSpaces.length === 0 || reports.length === 0) {
 			return;
 		}
 		// don't use console since dashboard can be shared and whole data is unnecessary
 		const defs = buildFunnelDefsFromDashboard(connectedSpaces);
+		console.log(defs);
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
 			const topics = await fetchTopics(gatherTopicIds(defs));
 			const {defs: completedDefs, enumIds} = fillFunnelDefsByEnumIds(defs, topics);
@@ -212,14 +213,19 @@ export const ReportsFunnels = (props: {
 	};
 
 	const onFilterClicked = () => {
-		// TODO
+		setEffective(!effective);
 	};
 
 	return <DashboardReportsFunnels rect={rect} ref={containerRef}>
 		<DashboardReportsFunnelsHeader>
 			<DashboardReportsFunnelsTitle>{Lang.CONSOLE.DASHBOARD.FUNNEL_TITLE}</DashboardReportsFunnelsTitle>
 			<DashboardReportsFunnelsButton onClick={onFilterClicked}>
-				<FontAwesomeIcon icon={ICON_FILTER}/>
+				{effective
+					? <FontAwesomeIcon icon={ICON_FILTER}/>
+					: <span className="fa-layers fa-fw">
+						<FontAwesomeIcon icon={ICON_BAN}/>
+						<FontAwesomeIcon icon={ICON_FILTER}/>
+					</span>}
 			</DashboardReportsFunnelsButton>
 		</DashboardReportsFunnelsHeader>
 		<DashboardReportsFunnelEditors>

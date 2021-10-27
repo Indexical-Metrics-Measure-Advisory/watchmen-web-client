@@ -75,6 +75,15 @@ export const DashboardReportsFunnelsButton = styled.div.attrs({'data-widget': 'd
 	> svg {
 		opacity : 0.5;
 	}
+	> span > svg {
+		&:last-child {
+			opacity : 0.5;
+			color   : var(--font-color);
+		}
+		&:first-child {
+			color : var(--danger-color);
+		}
+	}
 `;
 export const DashboardReportsFunnelEditors = styled.div.attrs({'data-widget': 'dashboard-reports-funnels-editors'})`
 	display               : grid;
