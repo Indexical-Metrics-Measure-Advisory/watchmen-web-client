@@ -17,7 +17,7 @@ export class ChartDoughnutUtils extends DefaultChartUtils {
 		super(DOUGHNUT);
 	}
 
-	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
+	async buildOptions(report: Report, dataset: ChartDataSet): Promise<ChartOptions> {
 		const {chart} = report;
 		// only one indicator allowed
 		// const { indicators: [ indicator ] } = report;

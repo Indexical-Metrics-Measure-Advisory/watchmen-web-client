@@ -17,8 +17,9 @@ const ScriptVariablesTemplate = `// Follow script variables template as below,
 // 1. Script must follow the es5 syntax; asynchronized function is not allowed,
 // 2. Define an anonymous and self-executing function, returns a variables configuration option JSON object,
 // 3. Use "const" or "let" to define variables. never use "var", it will expose variables to global and leads memory leak,
-// 4. There is a tab to input for end user, values of variables will be passed to script via "options",
-// 5. If you see this means there is no script defined, simply add a white space anywhere to see what happens.
+// 4. DO NOT use point in key, such as "vars.var1",
+// 5. There is a tab to input for end user, values of variables will be passed to script via "options",
+// 6. If you see this means there is no script defined, simply add a white space anywhere to see what happens.
 
 (() => {
 	// here is a sample

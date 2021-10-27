@@ -1,75 +1,89 @@
+import {GraphicsPosition, GraphicsSize} from '@/services/data/graphics/graphics-types';
+import {DragType} from '@/widgets/report/types';
 import styled from 'styled-components';
 
-export const DashboardReportsFunnels = styled.div.attrs<{ expanded: boolean }>(
-	({expanded}) => {
+export type ReportsFunnelsRect = GraphicsPosition & GraphicsSize;
+
+export const DashboardReportsFunnels = styled.div.attrs<{ rect: ReportsFunnelsRect }>(
+	({rect: {x, y, width, height}}) => {
 		return {
 			'data-widget': 'dashboard-reports-funnels',
-			style: {
-				width: expanded ? (void 0) : 'calc(var(--margin) * 2)',
-				maxWidth: expanded ? 600 : 'calc(var(--margin) * 2)',
-				borderBottom: expanded ? 'var(--border)' : (void 0),
-				borderRight: expanded ? 'var(--border)' : (void 0),
-				backgroundColor: expanded ? 'var(--bg-color)' : (void 0)
+			style: {top: y, left: x, width: width === 0 ? (void 0) : width, height: height === 0 ? (void 0) : height}
+		};
+	})<{ rect: ReportsFunnelsRect }>`
+	display          : flex;
+	position         : absolute;
+	flex-direction   : column;
+	align-items      : center;
+	max-width        : 600px;
+	min-width        : 400px;
+	max-height       : 400px;
+	padding          : 0 calc(var(--margin) / 2) calc(var(--margin) / 2);
+	border-radius    : calc(var(--border-radius) * 2);
+	background-color : var(--bg-color);
+	box-shadow       : var(--shadow);
+	transition       : width 300ms ease-in-out;
+	overflow         : hidden;
+	z-index          : 2;
+	&:hover {
+		box-shadow : var(--hover-shadow);
+		> div[data-widget="chart-drag-handle"] {
+			> div[data-position=${DragType.DND}]:not([data-part-type=dragging]) {
+				opacity : 1;
 			}
-		};
-	})<{ expanded: boolean }>`
-	display                    : flex;
-	position                   : absolute;
-	align-items                : center;
-	top                        : 0;
-	left                       : 0;
-	min-height                 : calc(var(--margin) * 1.5);
-	padding                    : calc(var(--margin) / 4) calc(var(--margin) / 2);
-	border-bottom-right-radius : calc(var(--border-radius) * 2);
-	transition                 : width 300ms ease-in-out;
-	overflow-x                 : hidden;
-	z-index                    : 2;
+			> div[data-widget="chart-buttons"] {
+				opacity : 1;
+			}
+		}
+	}
 `;
-export const DashboardReportsFunnelsButton = styled.div.attrs<{ expanded: boolean }>(
-	() => {
-		return {
-			'data-widget': 'dashboard-reports-funnels-button',
-			style: {}
-		};
-	})<{ expanded: boolean }>`
+export const DashboardReportsFunnelsHeader = styled.div.attrs({'data-widget': 'dashboard-reports-funnels-header'})`
+	display     : flex;
+	position    : relative;
+	height      : var(--height);
+	align-items : center;
+	width       : 100%;
+`;
+export const DashboardReportsFunnelsTitle = styled.div.attrs({'data-widget': 'dashboard-reports-funnels-title'})`
+	display      : flex;
+	position     : relative;
+	flex-grow    : 1;
+	font-variant : petite-caps;
+	font-weight  : var(--font-demi-bold);
+	font-size    : 1.1em;
+	padding-left : calc(var(--margin) / 2);
+	margin-top   : 6px;
+	opacity      : 0.7;
+`;
+export const DashboardReportsFunnelsButton = styled.div.attrs({'data-widget': 'dashboard-reports-funnels-button'})`
 	display         : flex;
-	position        : absolute;
+	position        : relative;
 	align-items     : center;
 	justify-content : center;
-	top             : calc(var(--margin) / 4);
-	right           : calc(var(--margin) / 2);
-	height          : var(--margin);
-	width           : var(--margin);
-	color           : var(--primary-color);
-	border-radius   : 100%;
-	box-shadow      : var(--primary-shadow);
+	height          : var(--height);
+	width           : var(--height);
+	margin-top      : 6px;
+	margin-right    : -12px;
+	border-radius   : calc(var(--border-radius) * 2);
 	cursor          : pointer;
-	transition      : box-shadow 300ms ease-in-out;
-	z-index         : 1;
+	transition      : box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+	z-index         : 2;
 	&:hover {
-		box-shadow : var(--primary-hover-shadow);
-		> svg {
-			opacity : 1;
-		}
+		box-shadow : var(--primary-shadow);
+		color      : var(--warn-color);
 	}
 	> svg {
-		opacity    : 0.5;
-		transition : opacity 300ms ease-in-out;
+		opacity : 0.5;
 	}
 `;
-export const DashboardReportsFunnelEditors = styled.div.attrs<{ expanded: boolean }>(({expanded}) => {
-	return {
-		'data-widget': 'dashboard-reports-funnels-editors',
-		style: {
-			display: expanded ? (void 0) : 'none'
-		}
-	};
-})<{ expanded: boolean }>`
+export const DashboardReportsFunnelEditors = styled.div.attrs({'data-widget': 'dashboard-reports-funnels-editors'})`
 	display               : grid;
 	position              : relative;
 	flex-grow             : 1;
 	grid-template-columns : auto 1fr;
-	padding-right         : var(--margin);
+	width                 : calc(100% + var(--margin) / 2);
+	margin-left           : calc(var(--margin) / -2);
+	margin-top            : calc(var(--margin) / 4);
 `;
 export const FunnelName = styled.div.attrs({'data-widget': 'dashboard-report-funnel-name'})`
 	display       : flex;

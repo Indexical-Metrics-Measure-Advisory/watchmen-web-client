@@ -178,7 +178,8 @@ export abstract class DefaultChartUtils implements ChartUtils {
 		}, {pass: true});
 		return validationResult.pass || validationResult.error;
 	}
-	abstract buildOptions(report: Report, dataset: ChartDataSet): ChartOptions;
+
+	abstract buildOptions(report: Report, dataset: ChartDataSet): Promise<ChartOptions>;
 
 	findColumnExtremum(dataset: ChartDataSet, columnIndex: number): { min: number, max: number } {
 		return dataset.data.reduce((extremum, row) => {

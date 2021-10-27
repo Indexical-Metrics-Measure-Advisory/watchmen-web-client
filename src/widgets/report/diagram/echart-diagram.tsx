@@ -93,7 +93,9 @@ export const EChartDiagram = (props: { report: Report }) => {
 				return;
 			}
 			if (!chartInstance) {
-				setChartInstance(echarts.init(rootRef.current!));
+				const instance = echarts.init(rootRef.current!);
+				instance.setOption(options, true);
+				setChartInstance(instance);
 			} else {
 				chartInstance.setOption(options, true);
 			}

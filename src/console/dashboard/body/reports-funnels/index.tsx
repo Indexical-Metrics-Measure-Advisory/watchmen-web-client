@@ -5,11 +5,15 @@ import {fetchEnum} from '@/services/data/tuples/enum';
 import {Enum} from '@/services/data/tuples/enum-types';
 import {Report} from '@/services/data/tuples/report-types';
 import {Topic} from '@/services/data/tuples/topic-types';
-import {ICON_CLOSE, ICON_FILTER} from '@/widgets/basic/constants';
+import {ICON_DRAG_HANDLE, ICON_FILTER} from '@/widgets/basic/constants';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
+import {useDragAndResize} from '@/widgets/report/drag-and-resize/use-drag-and-resize';
+import {DragType} from '@/widgets/report/types';
+import {ChartDragHandle, ChartDragHandlePart} from '@/widgets/report/widgets';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {v4} from 'uuid';
 import {useDashboardEventBus} from '../../dashboard-event-bus';
 import {DashboardEventTypes} from '../../dashboard-event-bus-types';
@@ -22,7 +26,14 @@ import {
 	gatherTopicIds,
 	groupFunnels
 } from './utils';
-import {DashboardReportsFunnelEditors, DashboardReportsFunnels, DashboardReportsFunnelsButton} from './widgets';
+import {
+	DashboardReportsFunnelEditors,
+	DashboardReportsFunnels,
+	DashboardReportsFunnelsButton,
+	DashboardReportsFunnelsHeader,
+	DashboardReportsFunnelsTitle,
+	ReportsFunnelsRect
+} from './widgets';
 
 export const ReportsFunnels = (props: {
 	connectedSpaces: Array<ConnectedSpace>;
@@ -32,10 +43,13 @@ export const ReportsFunnels = (props: {
 }) => {
 	const {connectedSpaces, dashboard, reports, transient} = props;
 
+	const containerRef = useRef<HTMLDivElement>(null);
+	const dndRef = useRef<HTMLDivElement>(null);
+
 	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useDashboardEventBus();
-
-	const [expanded, setExpanded] = useState(false);
+	const [effective, setEffective] = useState(true);
+	const [rect, setRect] = useState<ReportsFunnelsRect>({x: 16, y: 16, width: 0, height: 0});
 	const [state, setState] = useState<FunnelsState>({
 		initialized: false,
 		topics: [],
@@ -163,6 +177,12 @@ export const ReportsFunnels = (props: {
 		connectedSpaces, dashboard, reports,
 		state.topics, state.enums, state.groups
 	]);
+	const {onMouseUp, onMouseLeave, onMouseDown, onMouseMove, dragState} = useDragAndResize({
+		containerRef,
+		dndRef,
+		writeToRect: (rect) => setRect(rect),
+		onDrop: () => (void 0)
+	});
 
 	if (!isReportFunnelEnabled() || !state.initialized || state.groups.length === 0) {
 		return null;
@@ -191,20 +211,30 @@ export const ReportsFunnels = (props: {
 		}
 	};
 
-	const onFilterClicked = () => setExpanded(!expanded);
+	const onFilterClicked = () => {
+		// TODO
+	};
 
-	return <>
-		<DashboardReportsFunnels expanded={expanded}>
-			<DashboardReportsFunnelsButton expanded={expanded}
-			                               onClick={onFilterClicked}>
-				<FontAwesomeIcon icon={expanded ? ICON_CLOSE : ICON_FILTER}/>
+	return <DashboardReportsFunnels rect={rect} ref={containerRef}>
+		<DashboardReportsFunnelsHeader>
+			<DashboardReportsFunnelsTitle>{Lang.CONSOLE.DASHBOARD.FUNNEL_TITLE}</DashboardReportsFunnelsTitle>
+			<DashboardReportsFunnelsButton onClick={onFilterClicked}>
+				<FontAwesomeIcon icon={ICON_FILTER}/>
 			</DashboardReportsFunnelsButton>
-			<DashboardReportsFunnelEditors expanded={expanded}>
-				{state.groups.map(group => {
-					return <FunnelEditorWrapper group={group} enums={state.enums} onChange={onFunnelChanged}
-					                            key={v4()}/>;
-				})}
-			</DashboardReportsFunnelEditors>
-		</DashboardReportsFunnels>
-	</>;
+		</DashboardReportsFunnelsHeader>
+		<DashboardReportsFunnelEditors>
+			{state.groups.map(group => {
+				return <FunnelEditorWrapper group={group} enums={state.enums} onChange={onFunnelChanged}
+				                            key={v4()}/>;
+			})}
+		</DashboardReportsFunnelEditors>
+		<ChartDragHandle onMouseDown={onMouseDown} onMouseUp={onMouseUp}
+		                 onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}
+		                 dragging={dragState.type !== DragType.NONE}>
+			<ChartDragHandlePart data-part-type="dragging" data-position={dragState.type}/>
+			<ChartDragHandlePart data-position={DragType.DND} ref={dndRef}>
+				<FontAwesomeIcon icon={ICON_DRAG_HANDLE}/>
+			</ChartDragHandlePart>
+		</ChartDragHandle>
+	</DashboardReportsFunnels>;
 };

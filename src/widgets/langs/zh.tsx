@@ -150,7 +150,8 @@ export const Zh = {
 			NO_REPORT: '尚未定义图表.',
 			SHOW_PRINT_PAGE: '显示纸张尺寸',
 			HIDE_PRINT_PAGE: '隐藏纸张尺寸',
-			SET_AS_ADMIN_HOME: '设置为管理员首页'
+			SET_AS_ADMIN_HOME: '设置为管理员首页',
+			FUNNEL_TITLE: '数据焦点'
 		},
 		CONNECTED_SPACE: {
 			CATALOG: '目录',

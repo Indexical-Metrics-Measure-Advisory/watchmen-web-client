@@ -18,7 +18,7 @@ export class ChartLineUtils extends DefaultChartUtils {
 		super(LINE);
 	}
 
-	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
+	async buildOptions(report: Report, dataset: ChartDataSet): Promise<ChartOptions> {
 		const {chart} = report;
 		const {indicators} = report;
 

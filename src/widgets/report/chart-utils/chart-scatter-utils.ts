@@ -48,7 +48,7 @@ export class ChartScatterUtils extends DefaultChartUtils {
 		}
 	}
 
-	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
+	async buildOptions(report: Report, dataset: ChartDataSet): Promise<ChartOptions> {
 		const {chart} = report;
 		const {dimensions, indicators} = report;
 

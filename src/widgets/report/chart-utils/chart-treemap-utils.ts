@@ -14,7 +14,7 @@ export class ChartTreemapUtils extends DefaultChartUtils {
 		super(TREEMAP);
 	}
 
-	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
+	async buildOptions(report: Report, dataset: ChartDataSet): Promise<ChartOptions> {
 		const {chart} = report;
 		const {settings} = chart;
 		const {grid, series} = (settings || {}) as TreemapChartSettings;

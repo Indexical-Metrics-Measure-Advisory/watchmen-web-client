@@ -14,7 +14,7 @@ export class ChartCustomizedUtils extends DefaultChartUtils {
 		super(CUSTOMIZED);
 	}
 
-	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
+	async buildOptions(report: Report, dataset: ChartDataSet): Promise<ChartOptions> {
 		const {chart} = report;
 		const {settings} = chart;
 		const {script = '', scriptVars} = (settings || {}) as EchartsScriptHolder;

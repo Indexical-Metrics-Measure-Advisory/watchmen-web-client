@@ -18,7 +18,7 @@ export class ChartNightingaleUtils extends DefaultChartUtils {
 		super(NIGHTINGALE);
 	}
 
-	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
+	async buildOptions(report: Report, dataset: ChartDataSet): Promise<ChartOptions> {
 		const {chart} = report;
 		// only one indicator allowed
 		// const { indicators: [ indicator ] } = report;

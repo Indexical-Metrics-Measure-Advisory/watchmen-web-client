@@ -150,7 +150,8 @@ export const En = {
 			NO_REPORT: 'No report defined.',
 			SHOW_PRINT_PAGE: 'Show Page Size',
 			HIDE_PRINT_PAGE: 'Hide Page Size',
-			SET_AS_ADMIN_HOME: 'Set as Admin Home'
+			SET_AS_ADMIN_HOME: 'Set as Admin Home',
+			FUNNEL_TITLE: 'Funnels'
 		},
 		CONNECTED_SPACE: {
 			CATALOG: 'Catalog',

@@ -17,7 +17,7 @@ export class ChartMapUtils extends DefaultChartUtils {
 		super(MAP);
 	}
 
-	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
+	async buildOptions(report: Report, dataset: ChartDataSet): Promise<ChartOptions> {
 		const {chart} = report;
 
 		const settings = chart.settings as MapChartSettings;

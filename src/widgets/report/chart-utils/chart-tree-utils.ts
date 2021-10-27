@@ -14,7 +14,7 @@ export class ChartTreeUtils extends DefaultChartUtils {
 		super(TREE);
 	}
 
-	buildOptions(report: Report, dataset: ChartDataSet): ChartOptions {
+	async buildOptions(report: Report, dataset: ChartDataSet): Promise<ChartOptions> {
 		const {chart} = report;
 		const {settings} = chart;
 		const {grid, series} = (settings || {}) as TreeChartSettings;

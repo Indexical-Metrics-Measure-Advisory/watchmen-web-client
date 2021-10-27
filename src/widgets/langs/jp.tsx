@@ -150,7 +150,8 @@ export const Jp = {
 			NO_REPORT: 'レポートは定義されていません。',
 			SHOW_PRINT_PAGE: 'ページサイズを表示する',
 			HIDE_PRINT_PAGE: 'ページサイズを非表示する',
-			SET_AS_ADMIN_HOME: '管理者ホームとして設定する'
+			SET_AS_ADMIN_HOME: '管理者ホームとして設定する',
+			FUNNEL_TITLE: 'データフォーカス'
 		},
 		CONNECTED_SPACE: {
 			CATALOG: 'カタログ',
