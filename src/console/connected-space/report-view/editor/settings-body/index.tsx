@@ -1,3 +1,4 @@
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Report} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
 import React, {useEffect, useState} from 'react';
@@ -12,8 +13,8 @@ import {IndicatorsSection} from '../indicators';
 import {ChartTypeEditor} from './chart-type';
 import {SettingsBodyContainer} from './widgets';
 
-export const SettingsBody = (props: { subject: Subject, report: Report }) => {
-	const {subject, report} = props;
+export const SettingsBody = (props: { connectedSpace: ConnectedSpace; subject: Subject; report: Report }) => {
+	const {connectedSpace, subject, report} = props;
 
 	const {once, on, off} = useConsoleEventBus();
 	const [favoritePin, setFavoritePin] = useState(false);
@@ -34,7 +35,7 @@ export const SettingsBody = (props: { subject: Subject, report: Report }) => {
 	}, [on, off]);
 
 	return <SettingsBodyContainer favoritePin={favoritePin}>
-		<ChartTypeEditor report={report}/>
+		<ChartTypeEditor connectedSpace={connectedSpace} report={report}/>
 		<IndicatorsSection subject={subject} report={report}/>
 		<DimensionsSection subject={subject} report={report}/>
 		<ChartTruncationSettings report={report}/>

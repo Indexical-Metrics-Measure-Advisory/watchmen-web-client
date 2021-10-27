@@ -1,4 +1,6 @@
+import {isChartScriptInConsoleEnabled} from '@/feature-switch';
 import {ChartType} from '@/services/data/tuples/chart-types';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Report} from '@/services/data/tuples/report-types';
 import {DropdownOption} from '@/widgets/basic/types';
 import {Lang} from '@/widgets/langs';
@@ -23,8 +25,8 @@ const ChartTypeOptions: Array<DropdownOption> = [
 	{value: ChartType.CUSTOMIZED, label: Lang.CHART.TYPES.CUSTOMIZED}
 ];
 
-export const ChartTypeEditor = (props: { report: Report }) => {
-	const {report} = props;
+export const ChartTypeEditor = (props: { connectedSpace: ConnectedSpace; report: Report }) => {
+	const {connectedSpace, report} = props;
 
 	const {fire} = useReportEditEventBus();
 
@@ -36,7 +38,17 @@ export const ChartTypeEditor = (props: { report: Report }) => {
 		fire(ReportEditEventTypes.CHART_TYPE_CHANGED, report);
 	};
 
-	return <DropdownValue label={Lang.CHART.TYPE} options={ChartTypeOptions}
+	let options = ChartTypeOptions;
+	if (!isChartScriptInConsoleEnabled() && !connectedSpace.isTemplate) {
+		if (report.chart.type === ChartType.CUSTOMIZED) {
+			// when chart type is given and it is customized, can not be changed
+			options = [{value: ChartType.CUSTOMIZED, label: Lang.CHART.TYPES.CUSTOMIZED}];
+		} else {
+			options = options.filter(option => option.value !== ChartType.CUSTOMIZED);
+		}
+	}
+
+	return <DropdownValue label={Lang.CHART.TYPE} options={options}
 	                      value={report.chart.type}
 	                      onValueChange={onDropdownValueChange}/>;
 };

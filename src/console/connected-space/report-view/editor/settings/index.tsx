@@ -28,7 +28,7 @@ interface ResizeHandleState {
 }
 
 export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
-	const {subject, report} = props;
+	const {connectedSpace, subject, report} = props;
 
 	const {once: onceGlobal, on: onGlobal, off: offGlobal} = useEventBus();
 	const {on: onView, off: offView} = useReportViewEventBus();
@@ -102,7 +102,7 @@ export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject:
 					<FontAwesomeIcon icon={ICON_COLLAPSE_CONTENT}/>
 				</SettingsHeaderButton>
 			</SettingsHeader>
-			<SettingsBody subject={subject} report={report}/>
+			<SettingsBody connectedSpace={connectedSpace} subject={subject} report={report}/>
 		</SettingsContainer>
 		{visible
 			? <SettingsResizeHandle top={resizeState.top} width={resizeState.width + sideMenuWidth} onResize={onResize}
