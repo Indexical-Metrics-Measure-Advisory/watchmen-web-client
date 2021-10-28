@@ -7,7 +7,7 @@ const Container = styled.div.attrs({'data-widget': 'iw-prepare-loading'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : 1fr;
-	grid-template-rows    : 70% 30%;
+	grid-template-rows    : 75% 25%;
 	height                : calc(100vh - var(--page-header-height));
 	width                 : 100%;
 `;
