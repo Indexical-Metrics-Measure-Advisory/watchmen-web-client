@@ -1,6 +1,5 @@
 import {ReportRect} from '@/services/data/tuples/report-types';
 import styled from 'styled-components';
-import {BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR} from '../../header/widgets';
 
 export const EditChartContainer = styled.div.attrs({
 	'data-widget': 'report-chart-editor',
@@ -12,7 +11,7 @@ export const EditChartContainer = styled.div.attrs({
 	align-items     : center;
 	justify-content : center;
 	overflow        : auto;
-	max-height      : ${BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR};
+	max-height      : calc(100vh - var(--page-header-height));
 `;
 export const ChartWrapper = styled.div.attrs<{ rect: ReportRect, applyRect: boolean }>(
 	({rect: {width, height}, applyRect}) => {

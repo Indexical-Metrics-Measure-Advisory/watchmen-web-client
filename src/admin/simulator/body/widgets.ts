@@ -1,8 +1,6 @@
 import {Button} from '@/widgets/basic/button';
 import styled from 'styled-components';
 
-export const PART_MAX_HEIGHT = 'calc(100vh - 57px - 3 * 40px)';
-
 export const SimulatorBodyContainer = styled.div.attrs({
 	'data-widget': 'simulator-body'
 })`
@@ -63,7 +61,7 @@ export const SimulatorBodyPartBody = styled.div.attrs({
 	grid-auto-rows        : var(--grid-row-height);
 	padding               : calc(var(--margin) / 4);
 	border-bottom         : var(--border);
-	max-height            : ${PART_MAX_HEIGHT};
+	max-height            : calc(100vh - var(--page-header-height) - 3 * 40px);
 	overflow              : auto;
 `;
 export const SimulatorBodyPartRow = styled.div`

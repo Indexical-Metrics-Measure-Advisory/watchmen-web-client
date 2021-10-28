@@ -2,11 +2,10 @@ import {PageHeaderHolderContainer} from '@/widgets/basic/page-header';
 import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
 import styled from 'styled-components';
 
-export const BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR = 'calc(100vh - 57px)';
 export const PageHeaderHolder = styled(PageHeaderHolderContainer)`
 	grid-template-columns : auto auto 1fr;
 	+ div[data-widget="pipeline-body"] {
-		max-height : ${BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR};
+		max-height : calc(100vh - var(--page-header-height));
 	}
 `;
 

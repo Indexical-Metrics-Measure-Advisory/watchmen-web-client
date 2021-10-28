@@ -10,7 +10,7 @@ const PageHeaderButtonsContainer = styled.div.attrs({'data-widget': 'page-header
 	display     : flex;
 	align-self  : flex-end;
 	align-items : flex-end;
-	margin      : auto var(--margin) calc((57px - 3.9em) / 2) var(--margin);
+	margin      : auto var(--margin) calc((var(--page-header-height) - 3.9em) / 2) var(--margin);
 `;
 
 export const PageHeaderButtons = (props: { children: ReactNode }) => {

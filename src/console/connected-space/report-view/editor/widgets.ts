@@ -1,6 +1,5 @@
 import {Button} from '@/widgets/basic/button';
 import styled from 'styled-components';
-import {BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR} from '../header/widgets';
 
 export const EditorContainer = styled.div.attrs<{ editable: boolean }>(({editable}) => {
 	return {
@@ -14,7 +13,7 @@ export const EditorContainer = styled.div.attrs<{ editable: boolean }>(({editabl
 	position              : sticky;
 	top                   : 0;
 	width                 : 100%;
-	max-height            : ${BODY_MAX_HEIGHT_ON_HEADER_NAME_EDITOR};
+	max-height            : calc(100vh - var(--page-header-height));
 	grid-template-columns : auto 1fr;
 	grid-template-rows    : 1fr auto;
 	background-color      : var(--bg-color);

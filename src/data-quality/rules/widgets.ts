@@ -100,7 +100,7 @@ export const SearchResultBody = styled.div.attrs({
 	display        : flex;
 	flex-direction : column;
 	flex-grow      : 1;
-	height         : calc(100vh - 57px - 45px - 40px - var(--height) - 2px);
+	height         : calc(100vh - var(--page-header-height) - 45px - 40px - var(--height) - 2px);
 	overflow-y     : auto;
 	overflow-x     : hidden;
 `;

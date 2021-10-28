@@ -261,7 +261,8 @@ export const Zh = {
 			INSPECTION: '指标构建',
 			SETTINGS: '设置',
 			LOGOUT: '登出'
-		}
+		},
+		LOADING: '努力加载数据...'
 	},
 	SETTINGS: {
 		TITLE: '设置',

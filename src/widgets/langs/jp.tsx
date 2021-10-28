@@ -261,7 +261,8 @@ export const Jp = {
 			INSPECTION: 'インジケーターの構造',
 			SETTINGS: '設定',
 			LOGOUT: 'ログアウト'
-		}
+		},
+		LOADING: 'データ読み込み中...'
 	},
 	SETTINGS: {
 		TITLE: '設定',

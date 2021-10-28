@@ -148,6 +148,8 @@ export const CHART_SETTINGS_MIN_WIDTH = 350;
 export const CHART_SETTINGS_MAX_WIDTH = 500;
 export const CHART_SETTINGS_RESIZE_HANDLE_WIDTH = 6;
 
+export const PAGE_HEADER_HEIGHT = 57;
+
 // business related
 export const TUPLE_SEARCH_PAGE_SIZE = 9;
 

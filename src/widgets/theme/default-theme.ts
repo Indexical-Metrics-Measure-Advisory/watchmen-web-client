@@ -13,7 +13,8 @@ import {
 	PARAM_HEIGHT,
 	PIN_FAVORITE_HEIGHT,
 	SIDE_MENU_MIN_WIDTH,
-	TOGGLE_HEIGHT
+	TOGGLE_HEIGHT,
+	PAGE_HEADER_HEIGHT
 } from '../basic/constants';
 
 const DefaultTheme = {
@@ -103,6 +104,8 @@ const DefaultTheme = {
 	toggleNegativeSliderColor: 'var(--bg-color)',
 	togglePositiveBgColor: 'var(--primary-color)',
 	toggleNegativeBgColor: 'var(--border-color)',
+
+	pageHeaderHeight: PAGE_HEADER_HEIGHT,
 
 	// side menu
 	sideMenuMinWidth: SIDE_MENU_MIN_WIDTH,

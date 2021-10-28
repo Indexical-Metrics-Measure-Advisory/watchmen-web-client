@@ -88,7 +88,7 @@ export const SearchResultBody = styled.div.attrs({
 	display        : flex;
 	flex-direction : column;
 	flex-grow      : 1;
-	height         : calc(100vh - 57px - 81px - var(--height) * 2);
+	height         : calc(100vh - var(--page-header-height) - 81px - var(--height) * 2);
 	overflow-y     : auto;
 	overflow-x     : hidden;
 `;

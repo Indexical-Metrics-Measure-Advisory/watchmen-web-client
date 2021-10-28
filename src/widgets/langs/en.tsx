@@ -261,7 +261,8 @@ export const En = {
 			INSPECTION: 'Indicators Inspection',
 			SETTINGS: 'Settings',
 			LOGOUT: 'Logout'
-		}
+		},
+		LOADING: 'Loading Data...'
 	},
 	SETTINGS: {
 		TITLE: 'Settings',

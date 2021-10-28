@@ -6,7 +6,7 @@ export const CLIContainer = styled.div.attrs({'data-widget': 'cli'})`
 	flex-direction : column;
 	flex-grow      : 1;
 	padding        : calc(var(--margin) / 2);
-	height         : calc(100vh - 57px);
+	height         : calc(100vh - var(--page-header-height));
 `;
 
 export const WorkingArea = styled.div.attrs({
@@ -50,24 +50,24 @@ export const CommandLineButtons = styled.div`
 	}
 `;
 export const CommandLineButton = styled(TooltipButton)`
-	padding: 0;
-	height: var(--height);
-	width: var(--height);
+	padding : 0;
+	height  : var(--height);
+	width   : var(--height);
 	&[data-ink=waive] {
-		color: var(--border-color);
-		background-color: transparent;
-		cursor: default;
+		color            : var(--border-color);
+		background-color : transparent;
+		cursor           : default;
 		&:hover {
-			box-shadow: none;
-			background-color: transparent;
+			box-shadow       : none;
+			background-color : transparent;
 		}
 	}
 	&:hover {
-		box-shadow: none;
-		color: var(--invert-color);
-		background-color: var(--success-color);
+		box-shadow       : none;
+		color            : var(--invert-color);
+		background-color : var(--success-color);
 	}
 	> svg {
-		font-size: 1.2em;
+		font-size : 1.2em;
 	}
 `;
