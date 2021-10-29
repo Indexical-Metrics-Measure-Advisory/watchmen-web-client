@@ -4,7 +4,7 @@ import React, {Fragment, useState} from 'react';
 import {Loading} from './loading';
 
 const IndicatorWorkbenchPrepareIndex = () => {
-	const [initialized, setInitialized] = useState(false);
+	const [initialized] = useState(false);
 
 	return <FullWidthPage>
 		<FullWidthPageHeaderContainer>

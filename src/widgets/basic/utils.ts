@@ -117,3 +117,11 @@ export const uploadFile = (accepts: UploadFileType | Array<UploadFileType>, onSe
 	};
 	input.click();
 };
+
+export const downloadBase64AsFile = (base64: string, fileName: string) => {
+	const link = document.createElement('a');
+	link.href = base64;
+	link.target = '_blank';
+	link.download = fileName;
+	link.click();
+};

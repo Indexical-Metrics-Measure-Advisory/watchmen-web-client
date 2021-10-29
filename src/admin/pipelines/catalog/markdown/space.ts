@@ -73,6 +73,7 @@ const generateDataSetColumnType = (column: SubjectDataSetColumn, topicsMap: Topi
 		if (topic == null) {
 			return 'Unknown (Topic mismatched)';
 		}
+		// eslint-disable-next-line
 		const factor = (topic.factors || []).find(factor => factor.factorId == factorId);
 		if (factor == null) {
 			return 'Unknown (Factor mismatched)';

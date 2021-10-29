@@ -4,7 +4,7 @@ import {Subject} from '@/services/data/tuples/subject-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {ICON_DOWNLOAD, ICON_PALETTE, ICON_REFRESH, ICON_REPORT_DATA, ICON_SETTINGS} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
-import {useForceUpdate} from '@/widgets/basic/utils';
+import {downloadBase64AsFile, useForceUpdate} from '@/widgets/basic/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
@@ -76,11 +76,7 @@ export const ReportEditor = (props: { connectedSpace: ConnectedSpace, subject: S
 	const onDownloadClicked = () => {
 		onceReport(ReportEventTypes.CHART_BASE64_READY, (aReport: Report, base64?: string) => {
 			if (base64) {
-				const link = document.createElement('a');
-				link.href = base64;
-				link.target = '_blank';
-				link.download = `report-${encodeURI((report.name || '').replace(/\s/g, '-'))}-${dayjs().format('YYYYMMDDHHmm')}.png`;
-				link.click();
+				downloadBase64AsFile(base64, `report-${encodeURI((report.name || '').replace(/\s/g, '-'))}-${dayjs().format('YYYYMMDDHHmm')}.png`);
 			} else {
 				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.ERROR.UNPREDICTED}</AlertLabel>);
 			}
