@@ -1,6 +1,178 @@
 import {TopicsMap} from '@/services/data/pipeline/pipeline-relations';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {Parameter, ParameterComputeType, ParameterCondition} from '@/services/data/tuples/factor-calculator-types';
+import {FactorType} from '@/services/data/tuples/factor-types';
+import {
+	isComputedParameter,
+	isConstantParameter,
+	isExpressionParameter,
+	isJointParameter,
+	isTopicFactorParameter
+} from '@/services/data/tuples/parameter-utils';
 import {Space} from '@/services/data/tuples/space-types';
+import {Subject, SubjectDataSetColumn} from '@/services/data/tuples/subject-types';
+import {Topic} from '@/services/data/tuples/topic-types';
+
+const findTopicIdsOnParameter = (parameter: Parameter | null | undefined): Array<string> => {
+	if (parameter == null) {
+		return [];
+	}
+
+	if (isConstantParameter(parameter)) {
+		return [];
+	} else if (isTopicFactorParameter(parameter)) {
+		return [parameter.topicId].filter(x => !!x);
+	} else if (isComputedParameter(parameter)) {
+		return (parameter.parameters || []).map(sub => {
+			if (sub.on) {
+				return [
+					...findTopicIdsOnParameter(sub),
+					...(sub.on.filters || []).map(filter => findTopicIdsOnParameterCondition(filter))
+				];
+			} else {
+				return findTopicIdsOnParameter(sub);
+			}
+		}).flat(2);
+	} else {
+		return [];
+	}
+};
+const findTopicIdsOnParameterCondition = (condition: ParameterCondition): Array<string> => {
+	if (isExpressionParameter(condition)) {
+		return [...findTopicIdsOnParameter(condition.left), ...findTopicIdsOnParameter(condition.right)].filter(x => !!x);
+	} else if (isJointParameter(condition)) {
+		return (condition.filters || []).map(filter => findTopicIdsOnParameterCondition(filter)).flat().filter(x => !!x);
+	} else {
+		return [];
+	}
+};
+
+const findTopicsOnSubject = (subject: Subject, topicsMap: TopicsMap): Array<Topic> => {
+	const {filters: {filters = []} = {}, columns = [], joins = []} = subject.dataset ?? {};
+
+	return [
+		...new Set([
+			...filters.map(filter => findTopicIdsOnParameterCondition(filter).filter(x => !!x))
+				.flat(),
+			...columns.map(column => column.parameter)
+				.map(parameter => findTopicIdsOnParameter(parameter).filter(x => !!x))
+				.flat(),
+			// joins
+			...joins.map(join => [join.topicId, join.secondaryTopicId].filter(x => !!x)).flat()
+		])
+	].map(topicId => topicsMap[topicId])
+		.filter(topic => topic != null) as Array<Topic>;
+};
+
+const generateDataSetColumnType = (column: SubjectDataSetColumn, topicsMap: TopicsMap): string => {
+	const {parameter} = column;
+
+	if (isTopicFactorParameter(parameter)) {
+		const {topicId, factorId} = parameter;
+		const topic = topicsMap[topicId];
+		if (topic == null) {
+			return 'Unknown (Topic mismatched)';
+		}
+		const factor = (topic.factors || []).find(factor => factor.factorId == factorId);
+		if (factor == null) {
+			return 'Unknown (Factor mismatched)';
+		}
+
+		return (factor.type || '`Unknown Type`').toUpperCase().replaceAll('-', ' ');
+	} else if (isConstantParameter(parameter)) {
+		return 'Constant Value';
+	} else if (isComputedParameter(parameter)) {
+		switch (parameter.type) {
+			case ParameterComputeType.ADD:
+			case ParameterComputeType.SUBTRACT:
+			case ParameterComputeType.MULTIPLY:
+			case ParameterComputeType.DIVIDE:
+			case ParameterComputeType.MODULUS:
+				return FactorType.NUMBER.toUpperCase().replaceAll('-', ' ');
+			case ParameterComputeType.YEAR_OF:
+				return FactorType.YEAR.toUpperCase().replaceAll('-', ' ');
+			case ParameterComputeType.HALF_YEAR_OF:
+				return FactorType.HALF_YEAR.toUpperCase().replaceAll('-', ' ');
+			case ParameterComputeType.QUARTER_OF:
+				return FactorType.QUARTER.toUpperCase().replaceAll('-', ' ');
+			case ParameterComputeType.MONTH_OF:
+				return FactorType.MONTH.toUpperCase().replaceAll('-', ' ');
+			case ParameterComputeType.WEEK_OF_YEAR:
+				return FactorType.WEEK_OF_YEAR.toUpperCase().replaceAll('-', ' ');
+			case ParameterComputeType.WEEK_OF_MONTH:
+				return FactorType.WEEK_OF_MONTH.toUpperCase().replaceAll('-', ' ');
+			case ParameterComputeType.DAY_OF_MONTH:
+				return FactorType.DAY_OF_MONTH.toUpperCase().replaceAll('-', ' ');
+			case ParameterComputeType.DAY_OF_WEEK:
+				return FactorType.DAY_OF_WEEK.toUpperCase().replaceAll('-', ' ');
+			case ParameterComputeType.CASE_THEN:
+				return 'ANY';
+			case ParameterComputeType.NONE:
+				return 'Unknown (Compute type missed)';
+		}
+	} else {
+		return 'Unknown parameter type';
+	}
+};
+
+const generateDataSetColumnTable = (subject: Subject, topicsMap: TopicsMap): string => {
+	const {dataset: {columns = []} = {}} = subject;
+
+	if (columns.length === 0) {
+		return 'No columns defined.';
+	}
+
+	return `
+	|  | Name | Data Type |
+	| --- | --- | --- |
+${columns.map((column, index) => {
+		return `    | ${index + 1} | ${column.alias || 'Noname Column'} | ${generateDataSetColumnType(column, topicsMap)} |`;
+	}).join('\n')}
+`;
+};
+
+const generateSubject = (options: {
+	subject: Subject; index: number; topicsMap: TopicsMap;
+	connectedSpaceIndex: number, spaceIndex: number, sectionIndex: number;
+}): string => {
+	const {subject, index, topicsMap, connectedSpaceIndex, spaceIndex, sectionIndex} = options;
+
+	const topics = findTopicsOnSubject(subject, topicsMap);
+
+	return `#### ${sectionIndex}.${spaceIndex + 1}.2.${connectedSpaceIndex + 1}.${index + 1}. Subject: ${subject.name || 'Noname One'}
+- Related Topics
+${topics.length === 0 ? '> No related topic.' : ''}
+${topics.filter(x => !!x).map(topic => {
+		return `	- <a href="#topic-${topic.topicId}">${topic.name || 'Noname Topic'}</a>`;
+	}).join('\n')}
+- Dataset Structure
+${generateDataSetColumnTable(subject, topicsMap)}
+`;
+};
+
+const generateConnectedSpace = (options: {
+	connectedSpace: ConnectedSpace; index: number; topicsMap: TopicsMap;
+	spaceIndex: number; sectionIndex: number;
+}): string => {
+	const {connectedSpace, index, topicsMap, spaceIndex, sectionIndex} = options;
+
+	return `### ${sectionIndex}.${spaceIndex + 1}.2.${index + 1}. Space Template: ${connectedSpace.name || 'Noname One'}
+		
+<a href="data:application/json;base64,${window.btoa(JSON.stringify(connectedSpace))}" target="_blank" download="${connectedSpace.name || 'Noname Connected Space'}-${connectedSpace.connectId}.json">Download Meta File</a>
+
+${!connectedSpace.subjects || connectedSpace.subjects.length === 0 ? '> No subject.' : ''}
+${(connectedSpace.subjects || []).map((subject, subjectIndex) => {
+		return generateSubject({
+			subject,
+			index: subjectIndex,
+			topicsMap,
+			connectedSpaceIndex: index,
+			spaceIndex,
+			sectionIndex
+		});
+	}).join('\n')}
+`;
+};
 
 const generateSpaceMarkdown = (options: {
 	space: Space; connectedSpaces: Array<ConnectedSpace>; index: number; topicsMap: TopicsMap;
@@ -21,18 +193,16 @@ ${(space.topicIds || []).map(topicId => {
 		return `- <a href="#topic-${topic.topicId}">${topic.name || 'Noname Topic'}</a>`;
 	}).join('\n')}
 
-### ${sectionIndex}.${index + 1}.2. Connected Spaces and Subjects for Templates
-${!connectedSpaces || connectedSpaces.length === 0 ? '> No connected space or subject.' : ''}
+### ${sectionIndex}.${index + 1}.2. Space Templates
+${!connectedSpaces || connectedSpaces.length === 0 ? '> No space template.' : ''}
 ${(connectedSpaces || []).map((connectedSpace, connectedSpaceIndex) => {
-		return `### ${sectionIndex}.${index + 1}.2.${connectedSpaceIndex + 1}. Subjects of ${connectedSpace.name || 'Noname Connected Space'}
-		
-<a href="data:application/json;base64,${window.btoa(JSON.stringify(connectedSpace))}" target="_blank" download="${connectedSpace.name || 'Noname Connected Space'}-${connectedSpace.connectId}.json">Download Meta File</a>
-
-${!connectedSpace.subjects || connectedSpace.subjects.length === 0 ? '> No subject.' : ''}
-${(connectedSpace.subjects || []).map(subject => {
-			return `- ${subject.name || 'Noname Subject'}`;
-		}).join('\n')}
-`;
+		return generateConnectedSpace({
+			connectedSpace,
+			index: connectedSpaceIndex,
+			topicsMap,
+			spaceIndex: index,
+			sectionIndex
+		});
 	}).join('\n')}
 `;
 };
