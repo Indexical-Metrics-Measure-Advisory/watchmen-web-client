@@ -52,7 +52,7 @@ export const isFactorCanBeFlatten = (topic: Topic, factor: Factor): boolean => {
 	}
 
 	if (!factor.name.includes('.')) {
-		return false;
+		return true;
 	}
 	if (factor.type === FactorType.OBJECT || factor.type === FactorType.ARRAY) {
 		return false;
