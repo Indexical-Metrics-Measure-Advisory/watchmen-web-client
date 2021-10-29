@@ -21,8 +21,8 @@ const ScriptTemplate = `// Follow script template as below,
 // 5. If you see this means there is no script defined, simply add a white space anywhere to see what happens.
 
 (() => {
-	// default color series, title and subtitle settings, data will be passed via variable "options".
-	// do whatever you want on it and use following to watch what the options is.
+	// default color series, title and subtitle settings, dataset, variables(if exists) will be passed via variable "options".
+	// uncomment the follow line and open dev-tools to find what the options is.
 	// console.log(options);
 	
 	// here is a sample to render a line chart, more examples can be found at https://echarts.apache.org/examples/en/index.html
