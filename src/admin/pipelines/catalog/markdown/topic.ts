@@ -41,7 +41,7 @@ ${topic.factors.sort((f1, f2) => {
 			factor.name || 'Noname Factor',
 			(factor.type || '`Unknown Type`').toUpperCase().replaceAll('-', ' '),
 			factor.label || '',
-			enumsMap[factor.enumId || ''] ?? '',
+			enumsMap[factor.enumId || '']?.name ?? '',
 			factor.defaultValue || '',
 			canBeFlatten(topic, factor) ? (factor.flatten ? 'Y' : 'N') : null,
 			FactorEncryptMethodLabels[factor.encrypt || FactorEncryptMethod.NONE] || FactorEncryptMethodLabels[FactorEncryptMethod.NONE],

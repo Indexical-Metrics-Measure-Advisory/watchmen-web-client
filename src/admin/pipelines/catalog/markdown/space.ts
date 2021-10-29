@@ -123,10 +123,10 @@ const generateDataSetColumnTable = (subject: Subject, topicsMap: TopicsMap): str
 	}
 
 	return `
-	|  | Name | Data Type |
-	| --- | --- | --- |
+|  | Name | Data Type |
+| --- | --- | --- |
 ${columns.map((column, index) => {
-		return `    | ${index + 1} | ${column.alias || 'Noname Column'} | ${generateDataSetColumnType(column, topicsMap)} |`;
+		return `|${index + 1} | ${column.alias || 'Noname Column'} | ${generateDataSetColumnType(column, topicsMap)} |`;
 	}).join('\n')}
 `;
 };
@@ -140,12 +140,13 @@ const generateSubject = (options: {
 	const topics = findTopicsOnSubject(subject, topicsMap);
 
 	return `#### ${sectionIndex}.${spaceIndex + 1}.2.${connectedSpaceIndex + 1}.${index + 1}. Subject: ${subject.name || 'Noname One'}
-- Related Topics
+##### ${sectionIndex}.${spaceIndex + 1}.2.${connectedSpaceIndex + 1}.${index + 1}.1. Related Topics
 ${topics.length === 0 ? '> No related topic.' : ''}
 ${topics.filter(x => !!x).map(topic => {
-		return `	- <a href="#topic-${topic.topicId}">${topic.name || 'Noname Topic'}</a>`;
+		return `- <a href="#topic-${topic.topicId}">${topic.name || 'Noname Topic'}</a>`;
 	}).join('\n')}
-- Dataset Structure
+
+##### ${sectionIndex}.${spaceIndex + 1}.2.${connectedSpaceIndex + 1}.${index + 1}.2. Dataset Structure
 ${generateDataSetColumnTable(subject, topicsMap)}
 `;
 };
