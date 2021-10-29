@@ -139,7 +139,7 @@ const generateSubject = (options: {
 
 	const topics = findTopicsOnSubject(subject, topicsMap);
 
-	return `#### ${sectionIndex}.${spaceIndex + 1}.2.${connectedSpaceIndex + 1}.${index + 1}. Subject: ${subject.name || 'Noname One'}
+	return `#### ${sectionIndex}.${spaceIndex + 1}.2.${connectedSpaceIndex + 1}.${index + 1}. ${subject.name || 'Noname Subject'}
 ##### ${sectionIndex}.${spaceIndex + 1}.2.${connectedSpaceIndex + 1}.${index + 1}.1. Related Topics
 ${topics.length === 0 ? '> No related topic.' : ''}
 ${topics.filter(x => !!x).map(topic => {
@@ -157,7 +157,7 @@ const generateConnectedSpace = (options: {
 }): string => {
 	const {connectedSpace, index, topicsMap, spaceIndex, sectionIndex} = options;
 
-	return `### ${sectionIndex}.${spaceIndex + 1}.2.${index + 1}. Space Template: ${connectedSpace.name || 'Noname One'}
+	return `### ${sectionIndex}.${spaceIndex + 1}.2.${index + 1}. ${connectedSpace.name || 'Noname Connected Space'}
 		
 <a href="data:application/json;base64,${window.btoa(JSON.stringify(connectedSpace))}" target="_blank" download="${connectedSpace.name || 'Noname Connected Space'}-${connectedSpace.connectId}.json">Download Meta File</a>
 
@@ -194,8 +194,8 @@ ${(space.topicIds || []).map(topicId => {
 		return `- <a href="#topic-${topic.topicId}">${topic.name || 'Noname Topic'}</a>`;
 	}).join('\n')}
 
-### ${sectionIndex}.${index + 1}.2. Space Templates
-${!connectedSpaces || connectedSpaces.length === 0 ? '> No space template.' : ''}
+### ${sectionIndex}.${index + 1}.2. Connected Spaces as Templates
+${!connectedSpaces || connectedSpaces.length === 0 ? '> No connected space as template.' : ''}
 ${(connectedSpaces || []).map((connectedSpace, connectedSpaceIndex) => {
 		return generateConnectedSpace({
 			connectedSpace,
