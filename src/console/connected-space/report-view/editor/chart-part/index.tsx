@@ -1,3 +1,4 @@
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Report} from '@/services/data/tuples/report-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {Chart} from '@/widgets/report';
@@ -6,8 +7,8 @@ import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {ChartWrapper, EditChartContainer} from './widgets';
 
-export const ChartPart = (props: { report: Report, applyRect?: boolean }) => {
-	const {report, applyRect = true} = props;
+export const ChartPart = (props: { connectedSpace: ConnectedSpace; report: Report, applyRect?: boolean }) => {
+	const {connectedSpace, report, applyRect = true} = props;
 
 	const {on, off} = useReportEditEventBus();
 	const forceUpdate = useForceUpdate();
@@ -59,7 +60,7 @@ export const ChartPart = (props: { report: Report, applyRect?: boolean }) => {
 	return <EditChartContainer>
 		<ChartWrapper rect={report.rect} applyRect={applyRect}>
 			<Chart report={report} fixed={true} editable={false} removable={false}
-			       editing={true}/>
+			       editing={true} thumbnail={connectedSpace.isTemplate}/>
 		</ChartWrapper>
 	</EditChartContainer>;
 

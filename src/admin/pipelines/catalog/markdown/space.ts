@@ -139,16 +139,27 @@ const generateSubject = (options: {
 	const {subject, index, topicsMap, connectedSpaceIndex, spaceIndex, sectionIndex} = options;
 
 	const topics = findTopicsOnSubject(subject, topicsMap);
+	const thumbnails = (subject.reports || []).filter(report => report.simulateThumbnail).map(report => report.simulateThumbnail);
+	console.log(thumbnails);
 
-	return `#### ${sectionIndex}.${spaceIndex + 1}.2.${connectedSpaceIndex + 1}.${index + 1}. ${subject.name || 'Noname Subject'}
-##### ${sectionIndex}.${spaceIndex + 1}.2.${connectedSpaceIndex + 1}.${index + 1}.1. Related Topics
+	return `##### ${sectionIndex}.${spaceIndex + 1}.2.${connectedSpaceIndex + 1}.${index + 1}. ${subject.name || 'Noname Subject'}
+###### ${sectionIndex}.${spaceIndex + 1}.2.${connectedSpaceIndex + 1}.${index + 1}.1. Related Topics
 ${topics.length === 0 ? '> No related topic.' : ''}
 ${topics.filter(x => !!x).map(topic => {
 		return `- <a href="#topic-${topic.topicId}">${topic.name || 'Noname Topic'}</a>`;
 	}).join('\n')}
 
-##### ${sectionIndex}.${spaceIndex + 1}.2.${connectedSpaceIndex + 1}.${index + 1}.2. Dataset Structure
+###### ${sectionIndex}.${spaceIndex + 1}.2.${connectedSpaceIndex + 1}.${index + 1}.2. Dataset Structure
 ${generateDataSetColumnTable(subject, topicsMap)}
+
+###### ${sectionIndex}.${spaceIndex + 1}.2.${connectedSpaceIndex + 1}.${index + 1}.3. Thumbnails
+${thumbnails.length === 0
+		? '> No thumbnail.'
+		: `<div style="display: grid; grid-template-columns: repeat(2, minmax(400px, calc((100% - 64px) / 3))); grid-column-gap: 32px; grid-row-gap: 16px; background-color: #fff; margin: 16px 0;">
+${thumbnails.map(thumbnail => {
+			return `<img src="${thumbnail}" alt="" style="max-width: 400px; max-height: 300px; border-radius: 12px; border: 2px solid #f3f3f3;"/>`;
+		})}
+</div>`}
 `;
 };
 
@@ -158,7 +169,7 @@ const generateConnectedSpace = (options: {
 }): string => {
 	const {connectedSpace, index, topicsMap, spaceIndex, sectionIndex} = options;
 
-	return `### ${sectionIndex}.${spaceIndex + 1}.2.${index + 1}. ${connectedSpace.name || 'Noname Connected Space'}
+	return `#### ${sectionIndex}.${spaceIndex + 1}.2.${index + 1}. ${connectedSpace.name || 'Noname Connected Space'}
 		
 <a href="data:application/json;base64,${window.btoa(JSON.stringify(connectedSpace))}" target="_blank" download="${connectedSpace.name || 'Noname Connected Space'}-${connectedSpace.connectId}.json">Download Meta File</a>
 

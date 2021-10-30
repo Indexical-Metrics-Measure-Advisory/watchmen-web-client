@@ -6,8 +6,8 @@ import {useReportEventBus} from '../report-event-bus';
 import {ReportEventTypes} from '../report-event-bus-types';
 import {EChartDiagram} from './echart-diagram';
 
-export const ChartDiagram = (props: { report: Report, dataset: ChartDataSet }) => {
-	const {report, dataset} = props;
+export const ChartDiagram = (props: { report: Report, dataset: ChartDataSet; thumbnail: boolean }) => {
+	const {report, dataset, thumbnail} = props;
 	const {chart: {type: chartType}} = report;
 
 	const {fire} = useReportEventBus();
@@ -23,5 +23,5 @@ export const ChartDiagram = (props: { report: Report, dataset: ChartDataSet }) =
 		})();
 	}));
 
-	return <EChartDiagram report={report}/>;
+	return <EChartDiagram report={report} thumbnail={thumbnail}/>;
 };

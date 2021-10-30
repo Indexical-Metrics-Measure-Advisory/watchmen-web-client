@@ -79,8 +79,8 @@ echarts.use([
 	CanvasRenderer
 ]);
 
-export const EChartDiagram = (props: { report: Report }) => {
-	const {report} = props;
+export const EChartDiagram = (props: { report: Report; thumbnail: boolean }) => {
+	const {report, thumbnail} = props;
 	// console.log(JSON.stringify(options));
 
 	const {on, off, fire} = useReportEventBus();
@@ -97,27 +97,30 @@ export const EChartDiagram = (props: { report: Report }) => {
 			}
 			const instance = echarts.init(rootRef.current!);
 			const onFinished = () => {
+				fire(ReportEventTypes.REPAINTED, report);
 				instance.off('finished', onFinished);
-				const image = new Image();
-				image.onload = () => {
-					const canvas = document.createElement('canvas');
-					canvas.width = 400;
-					canvas.height = 300;
-					const ctx = canvas.getContext('2d');
-					let width = image.width;
-					let height = image.height;
-					if (width > canvas.width || height > canvas.height) {
-						const ratio = Math.min(canvas.width / width, canvas.height / height);
-						width = width * ratio;
-						height = height * ratio;
-					}
-					const dx = (canvas.width - width) / 2;
-					const dy = (canvas.height - height) / 2;
-					ctx?.drawImage(image, dx, dy, width, height);
-					// TODO save simulate thumbnail, 400 * 300
-					// report.simulateThumbnail = canvas.toDataURL('png');
-				};
-				image.src = instance.getDataURL({type: 'png', pixelRatio: window.devicePixelRatio});
+				if (thumbnail) {
+					const image = new Image();
+					image.onload = () => {
+						const canvas = document.createElement('canvas');
+						canvas.width = 400;
+						canvas.height = 300;
+						const ctx = canvas.getContext('2d');
+						let width = image.width;
+						let height = image.height;
+						if (width > canvas.width || height > canvas.height) {
+							const ratio = Math.min(canvas.width / width, canvas.height / height);
+							width = width * ratio;
+							height = height * ratio;
+						}
+						const dx = (canvas.width - width) / 2;
+						const dy = (canvas.height - height) / 2;
+						ctx?.drawImage(image, dx, dy, width, height);
+						report.simulateThumbnail = canvas.toDataURL('png');
+						fire(ReportEventTypes.THUMBNAIL_CAUGHT, report);
+					};
+					image.src = instance.getDataURL({type: 'png', pixelRatio: window.devicePixelRatio});
+				}
 			};
 			instance.on('finished', onFinished);
 			instance.setOption(options, {notMerge: true});
@@ -127,7 +130,7 @@ export const EChartDiagram = (props: { report: Report }) => {
 		return () => {
 			off(ReportEventTypes.CHART_OPTIONS_READY, onChartOptionsReady);
 		};
-	}, [on, off, report, chartInstance]);
+	}, [fire, on, off, report, thumbnail, chartInstance]);
 	useEffect(() => {
 		if (rootRef.current) {
 			// @ts-ignore

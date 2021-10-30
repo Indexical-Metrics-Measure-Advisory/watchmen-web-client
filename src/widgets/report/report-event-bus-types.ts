@@ -30,6 +30,7 @@ export enum ReportEventTypes {
 
 	DATA_LOADED = 'data-loaded',
 	REPAINTED = 'repainted',
+	THUMBNAIL_CAUGHT = 'thumbnail-caught'
 }
 
 export interface ReportEventBus {
@@ -98,4 +99,8 @@ export interface ReportEventBus {
 	fire(type: ReportEventTypes.REPAINTED, report: Report): this;
 	on(type: ReportEventTypes.REPAINTED, listener: (report: Report) => void): this;
 	off(type: ReportEventTypes.REPAINTED, listener: (report: Report) => void): this;
+
+	fire(type: ReportEventTypes.THUMBNAIL_CAUGHT, report: Report): this;
+	on(type: ReportEventTypes.THUMBNAIL_CAUGHT, listener: (report: Report) => void): this;
+	off(type: ReportEventTypes.THUMBNAIL_CAUGHT, listener: (report: Report) => void): this;
 }

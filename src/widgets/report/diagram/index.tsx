@@ -4,12 +4,12 @@ import React from 'react';
 import {ChartDiagram} from './chart-diagram';
 import {DiagramContainer} from './widgets';
 
-export const Diagram = (props: { report: Report, dataset: ChartDataSet }) => {
-	const {report, dataset} = props;
+export const Diagram = (props: { report: Report, dataset: ChartDataSet; thumbnail: boolean }) => {
+	const {report, dataset, thumbnail} = props;
 
 	const {chart: {settings}} = report;
 
 	return <DiagramContainer settings={settings}>
-		<ChartDiagram report={report} dataset={dataset!}/>
+		<ChartDiagram report={report} dataset={dataset!} thumbnail={thumbnail}/>
 	</DiagramContainer>;
 };

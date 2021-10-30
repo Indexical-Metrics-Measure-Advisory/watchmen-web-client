@@ -36,8 +36,9 @@ export const Container = (props: {
 	editable: boolean;
 	editing: boolean;
 	removable: boolean;
+	thumbnail: boolean;
 }) => {
-	const {report, fixed, editable, editing, removable} = props;
+	const {report, fixed, editable, editing, removable, thumbnail} = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const dndRef = useRef<HTMLDivElement>(null);
@@ -110,11 +111,6 @@ export const Container = (props: {
 			off(ReportEventTypes.DO_REFRESH, onDoRefresh);
 		};
 	}, [fireGlobal, on, off, fire, forceUpdate, report, diagramState.loadState, editing]);
-	useEffect(() => {
-		if (diagramState.loadState === DiagramLoadState.TRUE) {
-			fire(ReportEventTypes.REPAINTED, report);
-		}
-	}, [fire, report, diagramState.loadState]);
 
 	const writeToRect = (rect: ReportRect) => report.rect = rect;
 	const onDrop = () => fire(ReportEventTypes.REPORT_MOVE_OR_RESIZE_COMPLETED, report);
@@ -129,7 +125,7 @@ export const Container = (props: {
 
 	return <ChartContainer rect={report.rect} fixed={fixed} ref={containerRef}>
 		{diagramState.loadState === DiagramLoadState.TRUE
-			? <Diagram report={report} dataset={diagramState.dataset!}/>
+			? <Diagram report={report} dataset={diagramState.dataset!} thumbnail={thumbnail}/>
 			: <DiagramLoading>
 				<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>
 			</DiagramLoading>}

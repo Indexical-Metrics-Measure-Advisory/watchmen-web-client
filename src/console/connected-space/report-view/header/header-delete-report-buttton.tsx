@@ -19,6 +19,12 @@ import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 import {SAVE_TIMEOUT} from '../../constants';
 
+interface ReportDataState {
+	styleChanged: boolean;
+	structureChanged: boolean;
+	thumbnailChanged: boolean;
+}
+
 const DeleteDialogBody = styled(DialogBody)`
 	flex-direction : column;
 	margin-bottom  : var(--margin);
@@ -63,9 +69,10 @@ export const HeaderDeleteReportButton = (props: { connectedSpace: ConnectedSpace
 	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useReportEventBus();
 	const [timeout, setTimeout] = useState<number | null>(null);
-	const [changed, setChanged] = useState<{ styleChanged: boolean; structureChanged: boolean; }>({
+	const [changed, setChanged] = useState<ReportDataState>({
 		styleChanged: false,
-		structureChanged: false
+		structureChanged: false,
+		thumbnailChanged: false
 	});
 	useEffect(() => {
 		if (report != null) {
@@ -95,11 +102,23 @@ export const HeaderDeleteReportButton = (props: { connectedSpace: ConnectedSpace
 				// wait 30 milliseconds for state changed into component
 			}, 30);
 		};
+		const onThumbnailCaught = (aReport: Report) => {
+			if (aReport !== report) {
+				return;
+			}
+			console.log(report.simulateThumbnail);
+			setChanged(state => {
+				return {...state, thumbnailChanged: true};
+			});
+		};
+
 		on(ReportEventTypes.STYLE_CHANGED, onStyleChanged);
 		on(ReportEventTypes.STRUCTURE_CHANGED, onStructureChanged);
+		on(ReportEventTypes.THUMBNAIL_CAUGHT, onThumbnailCaught);
 		return () => {
 			off(ReportEventTypes.STYLE_CHANGED, onStyleChanged);
 			off(ReportEventTypes.STRUCTURE_CHANGED, onStructureChanged);
+			off(ReportEventTypes.THUMBNAIL_CAUGHT, onThumbnailCaught);
 		};
 	}, [on, off, fire, report]);
 	useEffect(() => {
@@ -115,7 +134,7 @@ export const HeaderDeleteReportButton = (props: { connectedSpace: ConnectedSpace
 		};
 	}, [on, off, fire, report, changed]);
 	useEffect(() => {
-		if (!changed.styleChanged && !changed.structureChanged) {
+		if (!changed.styleChanged && !changed.structureChanged && !changed.thumbnailChanged) {
 			// nothing changed
 			return;
 		}
@@ -124,16 +143,14 @@ export const HeaderDeleteReportButton = (props: { connectedSpace: ConnectedSpace
 			timeout && window.clearTimeout(timeout);
 			return window.setTimeout(() => {
 				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-					async () => {
-						await saveReport(report);
-					},
+					async () => await saveReport(report),
 					() => {
 						fire(ReportEventTypes.DATA_SAVED, report);
-						setChanged({styleChanged: false, structureChanged: false});
+						setChanged({styleChanged: false, structureChanged: false, thumbnailChanged: false});
 					});
 			}, SAVE_TIMEOUT);
 		});
-	}, [fireGlobal, fire, report, changed.styleChanged, changed.structureChanged]);
+	}, [fireGlobal, fire, report, changed.styleChanged, changed.structureChanged, changed.thumbnailChanged]);
 
 	const onDeleted = async () => {
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {

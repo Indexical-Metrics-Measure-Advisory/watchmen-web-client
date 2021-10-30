@@ -9,10 +9,12 @@ export const Chart = (props: {
 	/** chart can be readonly mode and editing mode */
 	editing: boolean;
 	removable: boolean;
+	thumbnail?: boolean;
 }) => {
-	const {report, fixed, editable, editing, removable} = props;
+	const {report, fixed, editable, editing, removable, thumbnail = false} = props;
 
 	return <Container report={report} fixed={fixed}
 	                  editable={editable} editing={editing}
-	                  removable={removable}/>;
+	                  removable={removable}
+	                  thumbnail={thumbnail}/>;
 };

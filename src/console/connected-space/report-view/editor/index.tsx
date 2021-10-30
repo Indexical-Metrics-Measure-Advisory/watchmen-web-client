@@ -100,7 +100,7 @@ export const ReportEditor = (props: { connectedSpace: ConnectedSpace, subject: S
 					<FontAwesomeIcon icon={ICON_DOWNLOAD}/>
 				</ReportPartButton>
 				<ManualRefresh report={report}/>
-				<ChartPart report={report} applyRect={false}/>
+				<ChartPart connectedSpace={connectedSpace} report={report} applyRect={false}/>
 			</ChartContainer>
 			<ReportDataSetAndPalette connectedSpace={connectedSpace} subject={subject} report={report}/>
 		</EditorContainer>
