@@ -9,17 +9,6 @@ export const IndicatorDetectButton = styled(Button).attrs({'data-widget': 'indic
 	background-color : var(--border-color);
 	padding          : 0 var(--margin);
 	border-radius    : 0 calc(var(--border-radius) * 2) calc(var(--border-radius) * 2) 0;
-	&:after {
-		content          : '';
-		display          : block;
-		position         : absolute;
-		top              : 30%;
-		right            : 0;
-		width            : 1px;
-		height           : 40%;
-		background-color : var(--invert-color);
-		opacity          : 0.7;
-	}
 	&:hover {
 		z-index : 1;
 	}

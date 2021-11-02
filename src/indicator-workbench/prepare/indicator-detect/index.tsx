@@ -47,6 +47,6 @@ export const IndicatorDetect = () => {
 
 	return <IndicatorDetectButton onClick={onDetectClicked}>
 		<FontAwesomeIcon icon={ICON_DETECT}/>
-		<span>Detect New Indicators</span>
+		<span>Detect Available Indicators</span>
 	</IndicatorDetectButton>;
 };
