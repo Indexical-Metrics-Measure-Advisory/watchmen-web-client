@@ -10,11 +10,13 @@ import {IndicatorsEventTypes} from '../indicators-event-bus-types';
 import {IndicatorDetectButton} from './widgets';
 
 export const IndicatorDetect = () => {
-	const {once: onceGlobal, fire: fireGlobal} = useEventBus();
+	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useIndicatorsEventBus();
 
 	const onDetectClicked = () => {
-		onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+		fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+			Request sent, will be notified once detecting is accomplished.
+		</AlertLabel>, () => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
 				// TODO send indicator detect request to remote
 				return new Promise<Array<Indicator>>(resolve => {
@@ -40,9 +42,7 @@ export const IndicatorDetect = () => {
 					Failed to detect new indicator, contact administrator for more information.
 				</AlertLabel>);
 			});
-		}).fire(EventTypes.SHOW_ALERT, <AlertLabel>
-			Request sent, will be notified once detecting is accomplished.
-		</AlertLabel>);
+		});
 	};
 
 	return <IndicatorDetectButton onClick={onDetectClicked}>

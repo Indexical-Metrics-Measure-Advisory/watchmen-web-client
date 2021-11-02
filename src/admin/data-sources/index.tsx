@@ -32,7 +32,7 @@ const fetchDataSourceAndCodes = async (queryDataSource: QueryDataSource) => {
 const getKeyOfDataSource = (dataSource: QueryDataSource) => dataSource.dataSourceId;
 
 const AdminDataSources = () => {
-	const {once: onceGlobal, fire: fireGlobal} = useEventBus();
+	const {fire: fireGlobal} = useEventBus();
 	const {fire: fireCache} = useAdminCacheEventBus();
 	const {on, off, fire} = useTupleEventBus();
 	useEffect(() => {
@@ -55,59 +55,56 @@ const AdminDataSources = () => {
 				async () => await listDataSources({search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE}),
 				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
-		const onDoSaveDataSource = async (dataSource: DataSource) => {
+		const onSaveDataSource = async (dataSource: DataSource, onSaved: (dataSource: DataSource, saved: boolean) => void) => {
 			if (!dataSource.dataSourceCode || !dataSource.dataSourceCode.trim()) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, dataSource, false);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Data source code is required.</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>Data source code is required.</AlertLabel>, () => {
+					onSaved(dataSource, false);
+				});
 				return;
 			}
 			if (!dataSource.dataSourceType) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, dataSource, false);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Data source type is required.</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>Data source type is required.</AlertLabel>, () => {
+					onSaved(dataSource, false);
+				});
 				return;
 			}
 			if (!dataSource.tenantId) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, dataSource, false);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Data zone is required.</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>Data zone is required.</AlertLabel>, () => {
+					onSaved(dataSource, false);
+				});
 				return;
 			}
 			const hasIncorrectParam = (dataSource.params || []).some(({name}) => {
 				return (name || '').trim().length === 0;
 			});
 			if (hasIncorrectParam) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, dataSource, false);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Extra parameter name is required.</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>Extra parameter name is required.</AlertLabel>, () => {
+					onSaved(dataSource, false);
+				});
 				return;
 			}
-			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-				async () => {
-					dataSource.params = (dataSource.params || [])
-						.filter(({name}) => {
-							return (name || '').trim().length !== 0;
-						});
-					return await saveDataSource(dataSource);
-				},
-				() => {
-					fire(TupleEventTypes.TUPLE_SAVED, dataSource, true);
-					fireCache(AdminCacheEventTypes.SAVE_DATA_SOURCE, dataSource);
-				},
-				() => fire(TupleEventTypes.TUPLE_SAVED, dataSource, false));
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
+				dataSource.params = (dataSource.params || [])
+					.filter(({name}) => {
+						return (name || '').trim().length !== 0;
+					});
+				return await saveDataSource(dataSource);
+			}, () => {
+				onSaved(dataSource, true);
+				fireCache(AdminCacheEventTypes.SAVE_DATA_SOURCE, dataSource);
+			}, () => onSaved(dataSource, false));
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateDataSource);
 		on(TupleEventTypes.DO_EDIT_TUPLE, onDoEditDataSource);
 		on(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchDataSource);
-		on(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveDataSource);
+		on(TupleEventTypes.SAVE_TUPLE, onSaveDataSource);
 		return () => {
 			off(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateDataSource);
 			off(TupleEventTypes.DO_EDIT_TUPLE, onDoEditDataSource);
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchDataSource);
-			off(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveDataSource);
+			off(TupleEventTypes.SAVE_TUPLE, onSaveDataSource);
 		};
-	}, [on, off, fire, fireCache, onceGlobal, fireGlobal]);
+	}, [on, off, fire, fireCache, fireGlobal]);
 
 	return <TupleWorkbench title="Data Sources"
 	                       createButtonLabel="Create Data Source" canCreate={true}

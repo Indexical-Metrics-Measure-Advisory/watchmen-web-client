@@ -26,20 +26,20 @@ export const PipelineWorkbench = () => {
 	const {pipelineId} = useParams<{ pipelineId: PipelineId }>();
 
 	const history = useHistory();
-	const {once: onceGlobal} = useEventBus();
+	const {fire: fireGlobal} = useEventBus();
 	const {fire: fireCache} = useAdminCacheEventBus();
-	const {once: oncePipelines} = usePipelinesEventBus();
+	const {fire: firePipelines} = usePipelinesEventBus();
 	const [data, setData] = useState<WorkbenchData>({topics: []});
 	useEffect(() => {
-		oncePipelines(PipelinesEventTypes.REPLY_TOPICS, async (topics: Array<Topic>) => {
+		firePipelines(PipelinesEventTypes.ASK_TOPICS, async (topics: Array<Topic>) => {
 			const pipeline = await (async () => {
 				return new Promise<Pipeline | undefined>(async resolve => {
 					const askFromCache = () => {
-						oncePipelines(PipelinesEventTypes.REPLY_PIPELINES, (pipelines: Array<Pipeline>) => {
+						firePipelines(PipelinesEventTypes.ASK_PIPELINES, (pipelines: Array<Pipeline>) => {
 							// eslint-disable-next-line
 							const pipeline = pipelines.find(pipeline => pipeline.pipelineId == pipelineId);
 							resolve(pipeline);
-						}).fire(PipelinesEventTypes.ASK_PIPELINES);
+						});
 					};
 
 					try {
@@ -56,14 +56,14 @@ export const PipelineWorkbench = () => {
 				});
 			})();
 			if (!pipeline) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>Given pipeline not found.</AlertLabel>, () => {
 					history.replace(Router.ADMIN);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Given pipeline not found.</AlertLabel>);
+				});
 			} else {
 				setData({topics, pipeline});
 			}
-		}).fire(PipelinesEventTypes.ASK_TOPICS);
-	}, [onceGlobal, fireCache, oncePipelines, pipelineId, history]);
+		});
+	}, [fireGlobal, fireCache, firePipelines, pipelineId, history]);
 
 	// eslint-disable-next-line
 	if (!data.pipeline || data.pipeline.pipelineId != pipelineId) {

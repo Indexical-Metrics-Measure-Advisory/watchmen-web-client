@@ -84,7 +84,7 @@ export const HeaderAddReportButton = (props: { dashboard: Dashboard }) => {
 	const {dashboard} = props;
 
 	const {fire: fireGlobal} = useEventBus();
-	const {once: onceConsole} = useConsoleEventBus();
+	const {fire: fireConsole} = useConsoleEventBus();
 	const {fire} = useDashboardEventBus();
 	const addReport = (report: Report) => {
 		if (!dashboard.reports) {
@@ -103,7 +103,7 @@ export const HeaderAddReportButton = (props: { dashboard: Dashboard }) => {
 		fire(DashboardEventTypes.REPORT_ADDED, report);
 	};
 	const onAddReportClicked = () => {
-		onceConsole(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
+		fireConsole(ConsoleEventTypes.ASK_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
 			const existsReportIds = (dashboard.reports || []).map(report => report.reportId);
 
 			const candidates = connectedSpaces.map(connectedSpace => {
@@ -130,7 +130,7 @@ export const HeaderAddReportButton = (props: { dashboard: Dashboard }) => {
 			} else {
 				fireGlobal(EventTypes.SHOW_DIALOG, <ReportSelect reports={candidates} open={addReport}/>);
 			}
-		}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
+		});
 	};
 
 	return <PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.ADD_REPORT} onClick={onAddReportClicked}>

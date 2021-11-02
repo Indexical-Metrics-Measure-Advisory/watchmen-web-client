@@ -1,3 +1,4 @@
+import {ReactContent} from '@/widgets/basic/types';
 import React, {useEffect, useState} from 'react';
 import {useEventBus} from '../events/event-bus';
 import {EventTypes} from '../events/types';
@@ -6,14 +7,15 @@ import {AlertContainer, WaitRemoteDataBody, WaitRemoveDataDialog} from './widget
 interface WaitRemoteDataState {
 	visible: boolean;
 	request?: () => Promise<any>;
-	content?: ((props: any) => React.ReactNode) | React.ReactNode;
+	content?: ReactContent;
+	onData?: (data: any) => void;
 }
 
 export const WaitRemoteData = () => {
 	const {on, off, fire} = useEventBus();
 	const [waiter, setWaiter] = useState<WaitRemoteDataState>({visible: false});
 	const [functions] = useState({
-		show: (request: () => Promise<void>, content?: ((props: any) => React.ReactNode) | React.ReactNode) => {
+		show: (request: () => Promise<void>, content?: ReactContent, onData?: (data: any) => void) => {
 			if (waiter.visible) {
 				return;
 			}
@@ -22,7 +24,7 @@ export const WaitRemoteData = () => {
 				document.body.style.paddingRight = `${padding}px`;
 			}
 			document.body.style.overflowY = 'hidden';
-			setWaiter({visible: true, request, content});
+			setWaiter({visible: true, request, content, onData});
 		},
 		hide: () => {
 			document.body.style.paddingRight = '';
@@ -42,10 +44,10 @@ export const WaitRemoteData = () => {
 		}
 		(async () => {
 			const data = await waiter.request!();
-			fire(EventTypes.REPLY_WAITING_DATA, data);
+			waiter.onData && waiter.onData(data);
 			functions.hide();
 		})();
-	}, [fire, functions, waiter.request]);
+	}, [fire, functions, waiter]);
 
 	return <AlertContainer visible={waiter.visible}>
 		<WaitRemoveDataDialog visible={waiter.visible}>

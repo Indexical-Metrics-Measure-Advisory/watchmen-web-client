@@ -70,13 +70,13 @@ export const HeaderSwitchDashboardButton = (props: { dashboard: Dashboard }) => 
 
 	const history = useHistory();
 	const {fire: fireGlobal} = useEventBus();
-	const {once} = useConsoleEventBus();
+	const {fire} = useConsoleEventBus();
 
 	const onSwitchTo = (dashboard: Dashboard) => {
 		history.push(toDashboard(dashboard.dashboardId));
 	};
 	const onSwitchDashboardClicked = () => {
-		once(ConsoleEventTypes.REPLY_DASHBOARDS, (dashboards: Array<Dashboard>) => {
+		fire(ConsoleEventTypes.ASK_DASHBOARDS, (dashboards: Array<Dashboard>) => {
 			// eslint-disable-next-line
 			const candidates = dashboards.sort((d1, d2) => {
 				return d1.name.toLowerCase().localeCompare(d2.name.toLowerCase());
@@ -87,7 +87,7 @@ export const HeaderSwitchDashboardButton = (props: { dashboard: Dashboard }) => 
 			} else {
 				fireGlobal(EventTypes.SHOW_DIALOG, <DashboardSwitch dashboards={candidates} switchTo={onSwitchTo}/>);
 			}
-		}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
+		});
 	};
 
 	return <PageHeaderButton tooltip={Lang.CONSOLE.DASHBOARD.SWITCH_DASHBOARD} onClick={onSwitchDashboardClicked}>

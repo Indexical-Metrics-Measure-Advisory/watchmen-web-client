@@ -1,6 +1,6 @@
 import React, {ReactNode, useContext} from 'react';
-import {useCreateEventBus} from './use-create-event-bus';
 import {EventBus} from './types';
+import {useCreateEventBus} from './use-create-event-bus';
 
 const Context = React.createContext<EventBus>({} as EventBus);
 Context.displayName = 'EventBus';

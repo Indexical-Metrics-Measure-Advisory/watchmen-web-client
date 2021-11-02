@@ -51,7 +51,7 @@ export const PeriodicPanel = (props: {
 	const {which, title: givenTitle, period: {start, end}} = props;
 
 	const {fire: fireGlobal} = useEventBus();
-	const {once: onceCache} = useDataQualityCacheEventBus();
+	const {fire: fireCache} = useDataQualityCacheEventBus();
 	const {layout} = useLayout(which);
 
 	const [title, setTitle] = useState(givenTitle);
@@ -69,7 +69,7 @@ export const PeriodicPanel = (props: {
 			}),
 			(logs: MonitorRuleLogs) => {
 				if (state.ruleCode) {
-					onceCache(DataQualityCacheEventTypes.REPLY_DATA, (data?: DQCCacheData) => {
+					fireCache(DataQualityCacheEventTypes.ASK_DATA, (data?: DQCCacheData) => {
 						const topics = data?.topics || [];
 						const topicMap = topics.reduce((map, topic) => {
 							map[topic.topicId] = topic;
@@ -104,7 +104,7 @@ export const PeriodicPanel = (props: {
 						} else {
 							setTitle(`${givenTitle} @ ${RuleDefs[state.ruleCode!].name}`);
 						}
-					}).fire(DataQualityCacheEventTypes.ASK_DATA);
+					});
 				} else {
 					setTitle(givenTitle);
 					setData(logs.sort((r1, r2) => r1.count === r2.count ? 0 : (r1.count < r2.count) ? 1 : -1));

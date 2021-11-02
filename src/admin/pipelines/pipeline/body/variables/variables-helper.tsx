@@ -1,3 +1,4 @@
+import {DeclaredVariables} from '@/services/data/tuples/factor-calculator-types';
 import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
 import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {
@@ -26,10 +27,10 @@ export const VariablesHelper = (props: {
 	const {on: onPipeline, off: offPipeline} = usePipelineEventBus();
 	const {fire, on, off} = useVariablesEventBus();
 	useEffect(() => {
-		const onAskVariables = () => {
+		const onAskVariables = (onData: (variables: DeclaredVariables, topics: Array<Topic>, triggerTopic?: Topic) => void) => {
 			// eslint-disable-next-line
 			const triggerTopic = topics.find(t => t.topicId == pipeline.topicId);
-			fire(VariablesEventTypes.REPLY_VARIABLES, buildVariables(topics, pipeline, stage, unit, action), topics, triggerTopic);
+			onData(buildVariables(topics, pipeline, stage, unit, action), topics, triggerTopic);
 		};
 		on(VariablesEventTypes.ASK_VARIABLES, onAskVariables);
 		return () => {

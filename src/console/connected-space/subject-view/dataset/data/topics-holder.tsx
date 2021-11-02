@@ -14,7 +14,7 @@ export const TopicsHolder = (props: { connectedSpace: ConnectedSpace, subject: S
 	const [columnDefs, setColumnDefs] = useState<ColumnDefs>({fixed: [], data: []});
 
 	useEffect(() => {
-		const onAskColumnDefs = () => fire(SubjectDataSetEventTypes.REPLY_COLUMN_DEFS, columnDefs);
+		const onAskColumnDefs = (onData: (columnDefs: ColumnDefs) => void) => onData(columnDefs);
 		on(SubjectDataSetEventTypes.ASK_COLUMN_DEFS, onAskColumnDefs);
 		return () => {
 			off(SubjectDataSetEventTypes.ASK_COLUMN_DEFS, onAskColumnDefs);

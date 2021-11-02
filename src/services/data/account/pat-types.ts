@@ -1,4 +1,4 @@
-import { Token } from "../types";
+import {Token} from '../types';
 
 export interface PAT {
 	patId: string;

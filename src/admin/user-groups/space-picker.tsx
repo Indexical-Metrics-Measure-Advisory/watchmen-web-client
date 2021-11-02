@@ -1,6 +1,6 @@
 import {QuerySpaceForHolder} from '@/services/data/tuples/query-space-types';
 import {listSpacesForHolder} from '@/services/data/tuples/space';
-import { SpaceId } from '@/services/data/tuples/space-types';
+import {SpaceId} from '@/services/data/tuples/space-types';
 import {UserGroup} from '@/services/data/tuples/user-group-types';
 import React from 'react';
 import {TupleItemPicker} from '../widgets/tuple-workbench/tuple-item-picker';

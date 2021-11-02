@@ -37,15 +37,15 @@ export const PipelineBlock = (props: {
 	const {node, pipelines, topics} = props;
 
 	const {fire: fireGlobal} = useEventBus();
-	const {once, fire} = useSimulatorEventBus();
+	const {fire} = useSimulatorEventBus();
 	const [expanded, setExpanded] = useState(true);
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
-		once(SimulatorEventTypes.REPLY_PIPELINE_RUN, (run: boolean) => {
+		fire(SimulatorEventTypes.ASK_PIPELINE_RUN, node.pipeline, (run: boolean) => {
 			node.checked = run;
 			forceUpdate();
-		}).fire(SimulatorEventTypes.ASK_PIPELINE_RUN, node.pipeline);
-	}, [once, forceUpdate, node]);
+		});
+	}, [fire, forceUpdate, node]);
 
 	const onNameClicked = () => {
 		setExpanded(!expanded);

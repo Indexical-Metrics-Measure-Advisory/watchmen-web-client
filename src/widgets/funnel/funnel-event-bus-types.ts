@@ -1,6 +1,5 @@
 import {Enum} from '@/services/data/tuples/enum-types';
 import {ReportFunnel} from '@/services/data/tuples/report-types';
-import {Ticket} from '@/services/data/types';
 
 export enum FunnelEventTypes {
 	VALUE_CHANGED = 'value-changed',
@@ -8,7 +7,6 @@ export enum FunnelEventTypes {
 	RANGE_CHANGED = 'range-changed',
 
 	ASK_ENUM = 'ask-enum',
-	REPLY_ENUM = 'reply-enum'
 }
 
 export interface FunnelEventBus {
@@ -20,10 +18,7 @@ export interface FunnelEventBus {
 	on(type: FunnelEventTypes.RANGE_CHANGED, listener: (funnel: ReportFunnel) => void): this;
 	off(type: FunnelEventTypes.RANGE_CHANGED, listener: (funnel: ReportFunnel) => void): this;
 
-	fire(type: FunnelEventTypes.ASK_ENUM, funnel: ReportFunnel, ticket: Ticket): this;
-	on(type: FunnelEventTypes.ASK_ENUM, listener: (funnel: ReportFunnel, ticket: Ticket) => void): this;
-	off(type: FunnelEventTypes.ASK_ENUM, listener: (funnel: ReportFunnel, ticket: Ticket) => void): this;
-
-	fire(type: FunnelEventTypes.REPLY_ENUM, funnel: ReportFunnel, ticket: Ticket, enumeration: Enum): this;
-	once(type: FunnelEventTypes.REPLY_ENUM, listener: (funnel: ReportFunnel, ticket: Ticket, enumeration: Enum) => void): this;
+	fire(type: FunnelEventTypes.ASK_ENUM, funnel: ReportFunnel, onData: (enumeration: Enum) => void): this;
+	on(type: FunnelEventTypes.ASK_ENUM, listener: (funnel: ReportFunnel, onData: (enumeration: Enum) => void) => void): this;
+	off(type: FunnelEventTypes.ASK_ENUM, listener: (funnel: ReportFunnel, onData: (enumeration: Enum) => void) => void): this;
 }

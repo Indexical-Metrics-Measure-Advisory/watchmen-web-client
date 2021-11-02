@@ -61,7 +61,7 @@ export const ReportEditor = (props: { connectedSpace: ConnectedSpace, subject: S
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const {fire: fireGlobal} = useEventBus();
-	const {once: onceReport} = useReportEventBus();
+	const {fire: fireReport} = useReportEventBus();
 	const {fire: fireView} = useReportViewEventBus();
 
 	const onToggleSettingsClicked = () => {
@@ -74,13 +74,13 @@ export const ReportEditor = (props: { connectedSpace: ConnectedSpace, subject: S
 		fireView(ReportViewEventTypes.TOGGLE_DATASET, report);
 	};
 	const onDownloadClicked = () => {
-		onceReport(ReportEventTypes.CHART_BASE64_READY, (aReport: Report, base64?: string) => {
+		fireReport(ReportEventTypes.ASK_DOWNLOAD_CHART, report, (base64?: string) => {
 			if (base64) {
 				downloadBase64AsFile(base64, `report-${encodeURI((report.name || '').replace(/\s/g, '-'))}-${dayjs().format('YYYYMMDDHHmm')}.png`);
 			} else {
 				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.ERROR.UNPREDICTED}</AlertLabel>);
 			}
-		}).fire(ReportEventTypes.ASK_DOWNLOAD_CHART, report);
+		});
 	};
 
 	return <ReportEditEventBusProvider>

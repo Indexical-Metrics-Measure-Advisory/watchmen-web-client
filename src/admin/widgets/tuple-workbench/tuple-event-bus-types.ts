@@ -19,10 +19,8 @@ export enum TupleEventTypes {
 	TUPLE_EDIT_DONE = 'tuple-edit-done',
 	CHANGE_TUPLE_STATE = 'change-tuple-state',
 	ASK_TUPLE_STATE = 'ask-tuple-state',
-	REPLY_TUPLE_STATE = 'reply-tuple-state',
 
-	DO_SAVE_TUPLE = 'do-save-tuple',
-	TUPLE_SAVED = 'tuple-saved',
+	SAVE_TUPLE = 'save-tuple',
 
 	DO_SEARCH_TUPLE = 'do-search-tuple',
 	TUPLE_SEARCHED = 'tuple-searched'
@@ -49,23 +47,17 @@ export interface TupleEventBus {
 	on(type: TupleEventTypes.CHANGE_TUPLE_STATE, listener: (state: TupleState) => void): this;
 	off(type: TupleEventTypes.CHANGE_TUPLE_STATE, listener: (state: TupleState) => void): this;
 
-	fire(type: TupleEventTypes.ASK_TUPLE_STATE): this;
-	on(type: TupleEventTypes.ASK_TUPLE_STATE, listener: () => void): this;
-	off(type: TupleEventTypes.ASK_TUPLE_STATE, listener: () => void): this;
-
-	fire(type: TupleEventTypes.REPLY_TUPLE_STATE, state: TupleState): this;
-	once(type: TupleEventTypes.REPLY_TUPLE_STATE, listener: (state: TupleState) => void): this;
+	fire(type: TupleEventTypes.ASK_TUPLE_STATE, onStateGot: (state: TupleState) => void): this;
+	on(type: TupleEventTypes.ASK_TUPLE_STATE, listener: (onStateGot: (state: TupleState) => void) => void): this;
+	off(type: TupleEventTypes.ASK_TUPLE_STATE, listener: (onStateGot: (state: TupleState) => void) => void): this;
 
 	fire(type: TupleEventTypes.TUPLE_EDIT_DONE): this;
 	on(type: TupleEventTypes.TUPLE_EDIT_DONE, listener: () => void): this;
 	off(type: TupleEventTypes.TUPLE_EDIT_DONE, listener: () => void): this;
 
-	fire<T extends Tuple>(type: TupleEventTypes.DO_SAVE_TUPLE, tuple: T): this;
-	on<T extends Tuple>(type: TupleEventTypes.DO_SAVE_TUPLE, listener: (tuple: T) => void): this;
-	off<T extends Tuple>(type: TupleEventTypes.DO_SAVE_TUPLE, listener: (tuple: T) => void): this;
-
-	fire<T extends Tuple>(type: TupleEventTypes.TUPLE_SAVED, tuple: T, saved: boolean): this;
-	once<T extends Tuple>(type: TupleEventTypes.TUPLE_SAVED, listener: (tuple: T, saved: boolean) => void): this;
+	fire<T extends Tuple>(type: TupleEventTypes.SAVE_TUPLE, tuple: T, onSaved: (tuple: T, saved: boolean) => void): this;
+	on<T extends Tuple>(type: TupleEventTypes.SAVE_TUPLE, listener: (tuple: T, onSaved: (tuple: T, saved: boolean) => void) => void): this;
+	off<T extends Tuple>(type: TupleEventTypes.SAVE_TUPLE, listener: (tuple: T, onSaved: (tuple: T, saved: boolean) => void) => void): this;
 
 	fire(type: TupleEventTypes.DO_SEARCH_TUPLE, searchText: string, pageNumber: number): this;
 	on(type: TupleEventTypes.DO_SEARCH_TUPLE, listener: (searchText: string, pageNumber: number) => void): this;

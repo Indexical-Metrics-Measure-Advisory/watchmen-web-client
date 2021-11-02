@@ -186,7 +186,7 @@ export const TopicDataEdit = (props: { node: FlowTreeTopicNode }) => {
 	const {node} = props;
 
 	const {fire: fireGlobal} = useEventBus();
-	const {once, on, off, fire} = useSimulatorEventBus();
+	const {on, off, fire} = useSimulatorEventBus();
 	const [dataRowsCount, setDataRowsCount] = useState(0);
 	useEffect(() => {
 		const onTopicDataChanged = (topic: Topic, rows: Array<DataRow>) => {
@@ -201,17 +201,17 @@ export const TopicDataEdit = (props: { node: FlowTreeTopicNode }) => {
 		};
 	}, [on, off, node.topic.topicId]);
 	useEffect(() => {
-		once(SimulatorEventTypes.REPLY_TOPIC_DATA, (rows: Array<DataRow>) => {
+		fire(SimulatorEventTypes.ASK_TOPIC_DATA, node.topic, (rows: Array<DataRow>) => {
 			setDataRowsCount(rows.length);
-		}).fire(SimulatorEventTypes.ASK_TOPIC_DATA, node.topic);
-	}, [once, node.topic]);
+		});
+	}, [fire, node.topic]);
 
 	const onConfirmClicked = (rows: Array<DataRow>) => {
 		fire(SimulatorEventTypes.TOPIC_DATA_CHANGED, node.topic, rows);
 		fireGlobal(EventTypes.HIDE_DIALOG);
 	};
 	const onDataClicked = () => {
-		once(SimulatorEventTypes.REPLY_TOPIC_DATA, (rows: Array<DataRow>) => {
+		fire(SimulatorEventTypes.ASK_TOPIC_DATA, node.topic, (rows: Array<DataRow>) => {
 			fireGlobal(EventTypes.SHOW_DIALOG,
 				<DataDialog topic={node.topic} rows={rows} onConfirm={onConfirmClicked}/>,
 				{
@@ -220,7 +220,7 @@ export const TopicDataEdit = (props: { node: FlowTreeTopicNode }) => {
 					width: '80%',
 					height: '90vh'
 				});
-		}).fire(SimulatorEventTypes.ASK_TOPIC_DATA, node.topic);
+		});
 	};
 
 	return <TopicEditButton onClick={onDataClicked}>{dataRowsCount}</TopicEditButton>;
@@ -234,7 +234,7 @@ export const TopicBlock = (props: {
 	const {node, pipelines, topics, type} = props;
 
 	const {fire: fireGlobal} = useEventBus();
-	const {once, fire} = useSimulatorEventBus();
+	const {fire} = useSimulatorEventBus();
 	const [expanded, setExpanded] = useState(true);
 
 	const onNameClicked = () => {
@@ -249,9 +249,9 @@ export const TopicBlock = (props: {
 				// previous is checked
 				return true;
 			}
-			once(SimulatorEventTypes.REPLY_PIPELINE_RUN, (run: boolean) => {
+			fire(SimulatorEventTypes.ASK_PIPELINE_RUN, p.pipeline, (run: boolean) => {
 				has = has || run;
-			}).fire(SimulatorEventTypes.ASK_PIPELINE_RUN, p.pipeline);
+			});
 			return false;
 		});
 
@@ -260,13 +260,13 @@ export const TopicBlock = (props: {
 			return;
 		}
 
-		once(SimulatorEventTypes.REPLY_TOPIC_DATA, (rows: Array<DataRow>) => {
+		fire(SimulatorEventTypes.ASK_TOPIC_DATA, node.topic, (rows: Array<DataRow>) => {
 			if (rows.length === 0) {
 				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>No trigger data prepared.</AlertLabel>);
 			} else {
 				fire(SimulatorEventTypes.ACTIVE_STEP_CHANGED, ActiveStep.RUN);
 			}
-		}).fire(SimulatorEventTypes.ASK_TOPIC_DATA, node.topic);
+		});
 	};
 
 	return <BlockContainer>

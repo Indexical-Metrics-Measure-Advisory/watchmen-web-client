@@ -26,9 +26,13 @@ export const AdminCache = () => {
 	const {on, off, fire} = useAdminCacheEventBus();
 	const [data, setData] = useState<CacheState>({initialized: false});
 	useEffect(() => {
-		const onAskDataLoaded = () => fire(AdminCacheEventTypes.REPLY_DATA_LOADED, data.initialized);
+		const onAskDataLoaded = (onDataLoadedGot: (loaded: boolean) => void) => {
+			onDataLoadedGot(data.initialized);
+		};
 		// noinspection TypeScriptValidateTypes
-		const onAskData = () => fire(AdminCacheEventTypes.REPLY_DATA, data.data);
+		const onAskData = (onData: (data?: AdminCacheData) => void) => {
+			onData(data.data);
+		};
 		on(AdminCacheEventTypes.ASK_DATA_LOADED, onAskDataLoaded);
 		on(AdminCacheEventTypes.ASK_DATA, onAskData);
 
@@ -49,11 +53,11 @@ export const AdminCache = () => {
 	}, [fireGlobal, on, off, fire, data.initialized, data.data]);
 
 	useEffect(() => {
-		const onAskReload = async () => {
+		const onAskReload = async (onReloaded: () => void) => {
 			await clearAdminData();
 			const data = await loadAdminData();
 			setData({initialized: true, data});
-			fire(AdminCacheEventTypes.REPLY_RELOAD);
+			onReloaded();
 		};
 		on(AdminCacheEventTypes.ASK_RELOAD, onAskReload);
 		return () => {

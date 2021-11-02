@@ -1,7 +1,7 @@
 import {v4} from 'uuid';
 import {Apis, get, post} from '../apis';
 import {generateUuid} from '../tuples/utils';
-import { Token } from '../types';
+import {Token} from '../types';
 import {isMockService} from '../utils';
 import {PAT} from './pat-types';
 

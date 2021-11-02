@@ -70,13 +70,13 @@ export const HeaderSwitchConnectedSpaceButton = (props: { connectedSpace: Connec
 
 	const history = useHistory();
 	const {fire: fireGlobal} = useEventBus();
-	const {once} = useConsoleEventBus();
+	const {fire} = useConsoleEventBus();
 
 	const onSwitchTo = (connectedSpace: ConnectedSpace) => {
 		history.push(toConnectedSpace(connectedSpace.connectId));
 	};
 	const onSwitchConnectedSpaceClicked = () => {
-		once(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
+		fire(ConsoleEventTypes.ASK_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
 			// eslint-disable-next-line
 			const candidates = connectedSpaces.sort((d1, d2) => {
 				return d1.name.toLowerCase().localeCompare(d2.name.toLowerCase());
@@ -89,7 +89,7 @@ export const HeaderSwitchConnectedSpaceButton = (props: { connectedSpace: Connec
 				fireGlobal(EventTypes.SHOW_DIALOG,
 					<ConnectedSpaceSwitch connectedSpaces={candidates} switchTo={onSwitchTo}/>);
 			}
-		}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
+		});
 	};
 
 	return <PageHeaderButton tooltip={Lang.CONSOLE.CONNECTED_SPACE.SWITCH_CONNECTED_SPACE}

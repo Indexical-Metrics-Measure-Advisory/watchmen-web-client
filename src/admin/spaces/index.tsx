@@ -72,8 +72,8 @@ const validateSpaceFilters = (space: Space, topics: Array<Topic>): { pass: boole
 };
 
 const AdminSpaces = () => {
-	const {once: onceGlobal, fire: fireGlobal} = useEventBus();
-	const {once: onceCache} = useAdminCacheEventBus();
+	const {fire: fireGlobal} = useEventBus();
+	const {fire: fireCache} = useAdminCacheEventBus();
 	const {on, off, fire} = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateSpace = () => {
@@ -89,40 +89,40 @@ const AdminSpaces = () => {
 				async () => await listSpaces({search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE}),
 				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
-		const onDoSaveSpace = async (space: Space) => {
+		const onSaveSpace = async (space: Space, onSaved: (space: Space, saved: boolean) => void) => {
 			if (!space.name || !space.name.trim()) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, space, false);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Space name is required.</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>Space name is required.</AlertLabel>, () => {
+					onSaved(space, false);
+				});
 				return;
 			}
 
-			onceCache(AdminCacheEventTypes.REPLY_DATA, (data?: AdminCacheData) => {
+			fireCache(AdminCacheEventTypes.ASK_DATA, (data?: AdminCacheData) => {
 				const {topics} = data || {};
 				const {pass, message} = validateSpaceFilters(space, topics || []);
 				if (!pass) {
-					onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-						fire(TupleEventTypes.TUPLE_SAVED, space, false);
-					}).fire(EventTypes.SHOW_ALERT, <AlertLabel>{message}</AlertLabel>);
+					fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{message}</AlertLabel>, () => {
+						onSaved(space, false);
+					});
 				} else {
 					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 						async () => await saveSpace(space),
-						() => fire(TupleEventTypes.TUPLE_SAVED, space, true),
-						() => fire(TupleEventTypes.TUPLE_SAVED, space, false));
+						() => onSaved(space, true),
+						() => onSaved(space, false));
 				}
-			}).fire(AdminCacheEventTypes.ASK_DATA);
+			});
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateSpace);
 		on(TupleEventTypes.DO_EDIT_TUPLE, onDoEditSpace);
 		on(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchSpace);
-		on(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveSpace);
+		on(TupleEventTypes.SAVE_TUPLE, onSaveSpace);
 		return () => {
 			off(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateSpace);
 			off(TupleEventTypes.DO_EDIT_TUPLE, onDoEditSpace);
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchSpace);
-			off(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveSpace);
+			off(TupleEventTypes.SAVE_TUPLE, onSaveSpace);
 		};
-	}, [on, off, fire, onceGlobal, fireGlobal, onceCache]);
+	}, [on, off, fire, fireGlobal, fireCache]);
 
 	return <TupleWorkbench title="Spaces"
 	                       createButtonLabel="Create Space" canCreate={true}

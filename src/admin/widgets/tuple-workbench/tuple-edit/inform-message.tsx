@@ -13,8 +13,8 @@ export const InformMessage = () => {
 		const onTupleStateChange = (state: TupleState) => {
 			setState(state);
 		};
-		const onAskTupleState = () => {
-			fire(TupleEventTypes.REPLY_TUPLE_STATE, state);
+		const onAskTupleState = (onStateGot: (state: TupleState) => void) => {
+			onStateGot(state);
 		};
 		on(TupleEventTypes.TUPLE_CREATED, onTupleChange);
 		on(TupleEventTypes.TUPLE_LOADED, onTupleChange);

@@ -38,8 +38,8 @@ const isNameInvalid = (name: string) => {
 		|| name.split(/[_.]/).some(part => !/^[A-Za-z0-9]+$/.test(part));
 };
 const AdminTopics = () => {
-	const {once: onceGlobal, fire: fireGlobal} = useEventBus();
-	const {once: onceCache, fire: fireCache} = useAdminCacheEventBus();
+	const {fire: fireGlobal} = useEventBus();
+	const {fire: fireCache} = useAdminCacheEventBus();
 	const {on, off, fire} = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateTopic = async () => {
@@ -60,62 +60,57 @@ const AdminTopics = () => {
 				async () => await listTopics({search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE}),
 				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
-		const onDoSaveTopic = async (topic: Topic) => {
+		const onSaveTopic = async (topic: Topic, onSaved: (topic: Topic, saved: boolean) => void) => {
 			if (!topic.name || !topic.name.trim()) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Topic name is required.</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>Topic name is required.</AlertLabel>, () => {
+					onSaved(topic, false);
+				});
 				return;
 			} else if (isNameInvalid(topic.name)) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
-				}).fire(EventTypes.SHOW_ALERT,
-					<AlertLabel>
-						Please use camel case or snake case for topic name.
-					</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+					Please use camel case or snake case for topic name.
+				</AlertLabel>, () => {
+					onSaved(topic, false);
+				});
 				return;
 			} else if (isMultipleDataSourcesEnabled() && !topic.dataSourceId) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
-				}).fire(EventTypes.SHOW_ALERT,
-					<AlertLabel>
-						Please select data source.
-					</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel> Please select data source. </AlertLabel>, () => {
+					onSaved(topic, false);
+				});
 				return;
 			} else if (!topic.factors || topic.factors.filter(f => !!f).length === 0) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>At least one factor in topic.</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>At least one factor in topic.</AlertLabel>, () => {
+					onSaved(topic, false);
+				});
 				return;
 			} else if (topic.factors.some(f => !f.name || !f.name.trim())) {
 				const indexes = topic.factors
 					.map((f, index) => (!f.name || !f.name.trim()) ? (index + 1) : -1)
 					.filter(index => index !== -1)
 					.map(index => `#${index}`);
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
-				}).fire(EventTypes.SHOW_ALERT,
-					<AlertLabel>
-						Factor name is required, please check {indexes.join(', ')}.
-					</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+					Factor name is required, please check {indexes.join(', ')}.
+				</AlertLabel>, () => {
+					onSaved(topic, false);
+				});
 				return;
 			} else if (topic.factors.some(f => isNameInvalid(f.name))) {
 				const indexes = topic.factors
 					.map((f, index) => isNameInvalid(f.name) ? (index + 1) : -1)
 					.filter(index => index !== -1)
 					.map(index => `#${index}`);
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
-				}).fire(EventTypes.SHOW_ALERT,
-					<AlertLabel>
-						Use camel case or snake case for factor name, please check {indexes.join(', ')}.
-					</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+					Use camel case or snake case for factor name, please check {indexes.join(', ')}.
+				</AlertLabel>, () => {
+					onSaved(topic, false);
+				});
 				return;
 			} else if (isNotRawTopic(topic) && topic.factors.some(f => f.type === FactorType.OBJECT || f.type === FactorType.ARRAY)) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
-				}).fire(EventTypes.SHOW_ALERT,
-					<AlertLabel>Object or array factor is allowed in raw topic only.</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+					Object or array factor is allowed in raw topic only.
+				</AlertLabel>, () => {
+					onSaved(topic, false);
+				});
 				return;
 			} else if (new Set(topic.factors.map(factor => factor.name.toUpperCase())).size !== topic.factors.length) {
 				const indexes = topic.factors
@@ -132,39 +127,38 @@ const AdminTopics = () => {
 					} as { names: Record<string, true>, invalid: Array<number> })
 					.invalid
 					.map(index => `#${index}`);
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, topic, false);
-				}).fire(EventTypes.SHOW_ALERT,
-					<AlertLabel>
-						Each factor should have its unique name, please check {indexes.join(', ')}.
-					</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+					Each factor should have its unique name, please check {indexes.join(', ')}.
+				</AlertLabel>, () => {
+					onSaved(topic, false);
+				});
 				return;
 			}
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await saveTopic(topic),
 				() => {
-					fire(TupleEventTypes.TUPLE_SAVED, topic, true);
+					onSaved(topic, true);
 					fireCache(AdminCacheEventTypes.SAVE_TOPIC, topic);
 				},
-				() => fire(TupleEventTypes.TUPLE_SAVED, topic, false));
+				() => onSaved(topic, false));
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateTopic);
 		on(TupleEventTypes.DO_EDIT_TUPLE, onDoEditTopic);
 		on(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchTopic);
-		on(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveTopic);
+		on(TupleEventTypes.SAVE_TUPLE, onSaveTopic);
 		return () => {
 			off(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateTopic);
 			off(TupleEventTypes.DO_EDIT_TUPLE, onDoEditTopic);
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchTopic);
-			off(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveTopic);
+			off(TupleEventTypes.SAVE_TUPLE, onSaveTopic);
 		};
-	}, [on, off, fire, onceGlobal, fireGlobal, fireCache]);
+	}, [on, off, fire, fireGlobal, fireCache]);
 
 	const onDownloadScriptsClicked = () => {
 		const askData = () => {
-			onceCache(AdminCacheEventTypes.REPLY_DATA_LOADED, (loaded: boolean) => {
+			fireCache(AdminCacheEventTypes.ASK_DATA_LOADED, (loaded: boolean) => {
 				if (loaded) {
-					onceCache(AdminCacheEventTypes.REPLY_DATA, (data?: AdminCacheData) => {
+					fireCache(AdminCacheEventTypes.ASK_DATA, (data?: AdminCacheData) => {
 						fireGlobal(EventTypes.SHOW_DIALOG, <ScriptsDownloadDialog topics={data?.topics || []}/>,
 							{
 								marginTop: '10vh',
@@ -172,11 +166,11 @@ const AdminTopics = () => {
 								width: '60%',
 								height: '80vh'
 							});
-					}).fire(AdminCacheEventTypes.ASK_DATA);
+					});
 				} else {
 					setTimeout(() => askData(), 100);
 				}
-			}).fire(AdminCacheEventTypes.ASK_DATA_LOADED);
+			});
 		};
 		askData();
 	};

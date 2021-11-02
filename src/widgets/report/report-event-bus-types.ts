@@ -19,12 +19,10 @@ export enum ReportEventTypes {
 	STYLE_CHANGED = 'styled-changed',
 	DATA_SAVED = 'data-saved',
 	ASK_REPORT_STRUCTURE_CHANGED = 'ask-report-structure-changed',
-	REPLY_REPORT_STRUCTURE_CHANGED = 'reply-report-structure-changed',
 
 	/** use report structure in server side */
 	DO_REFRESH = 'do-refresh',
 
-	CHART_BASE64_READY = 'chart-base64-ready',
 	ASK_DOWNLOAD_CHART = 'ask-download-chart',
 	CHART_OPTIONS_READY = 'chart-options-ready',
 
@@ -66,12 +64,9 @@ export interface ReportEventBus {
 	on(type: ReportEventTypes.STYLE_CHANGED, listener: (report: Report) => void): this;
 	off(type: ReportEventTypes.STYLE_CHANGED, listener: (report: Report) => void): this;
 
-	fire(type: ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, report: Report): this;
-	on(type: ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, listener: (report: Report) => void): this;
-	off(type: ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, listener: (report: Report) => void): this;
-
-	fire(type: ReportEventTypes.REPLY_REPORT_STRUCTURE_CHANGED, report: Report, changed: boolean): this;
-	once(type: ReportEventTypes.REPLY_REPORT_STRUCTURE_CHANGED, listener: (report: Report, changed: boolean) => void): this;
+	fire(type: ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, report: Report, onChangedGet: (changed: boolean) => void): this;
+	on(type: ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, listener: (report: Report, onChangedGet: (changed: boolean) => void) => void): this;
+	off(type: ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, listener: (report: Report, onChangedGet: (changed: boolean) => void) => void): this;
 
 	fire(type: ReportEventTypes.DATA_SAVED, report: Report): this;
 	on(type: ReportEventTypes.DATA_SAVED, listener: (report: Report) => void): this;
@@ -81,12 +76,9 @@ export interface ReportEventBus {
 	on(type: ReportEventTypes.DO_REFRESH, listener: (report: Report) => void): this;
 	off(type: ReportEventTypes.DO_REFRESH, listener: (report: Report) => void): this;
 
-	fire(type: ReportEventTypes.CHART_BASE64_READY, report: Report, base64?: string): this;
-	once(type: ReportEventTypes.CHART_BASE64_READY, listener: (report: Report, base64?: string) => void): this;
-
-	fire(type: ReportEventTypes.ASK_DOWNLOAD_CHART, report: Report): this;
-	on(type: ReportEventTypes.ASK_DOWNLOAD_CHART, listener: (report: Report) => void): this;
-	off(type: ReportEventTypes.ASK_DOWNLOAD_CHART, listener: (report: Report) => void): this;
+	fire(type: ReportEventTypes.ASK_DOWNLOAD_CHART, report: Report, onChartBase64Ready: (base64?: string) => void): this;
+	on(type: ReportEventTypes.ASK_DOWNLOAD_CHART, listener: (report: Report, onChartBase64Ready: (base64?: string) => void) => void): this;
+	off(type: ReportEventTypes.ASK_DOWNLOAD_CHART, listener: (report: Report, onChartBase64Ready: (base64?: string) => void) => void): this;
 
 	fire(type: ReportEventTypes.CHART_OPTIONS_READY, report: Report, options: ChartOptions): this;
 	on(type: ReportEventTypes.CHART_OPTIONS_READY, listener: (report: Report, options: ChartOptions) => void): this;

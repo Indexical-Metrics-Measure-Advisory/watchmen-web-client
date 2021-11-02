@@ -6,7 +6,7 @@ import {ParameterJoint} from './factor-calculator-types';
 import {strictParameterJoint} from './parameter-utils';
 import {QueryReport} from './query-report-types';
 import {Report, ReportFunnel} from './report-types';
-import { SubjectId } from './subject-types';
+import {SubjectId} from './subject-types';
 import {isFakedUuid} from './utils';
 
 const strictReportFilters = (filters?: ParameterJoint): ParameterJoint | undefined => {

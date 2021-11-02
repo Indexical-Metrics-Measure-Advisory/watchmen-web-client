@@ -34,8 +34,8 @@ const useRuleChanged = (topic?: Topic) => {
 	const [changed, setChanged] = useState(false);
 	const {on, off, fire} = useRulesEventBus();
 	useEffect(() => {
-		const onAskRuleChanged = () => {
-			fire(RulesEventTypes.REPLY_RULE_CHANGED, changed);
+		const onAskRuleChanged = (onChangedGet: (changed: boolean) => void) => {
+			onChangedGet(changed);
 		};
 		on(RulesEventTypes.ASK_RULE_CHANGED, onAskRuleChanged);
 		return () => {
@@ -159,11 +159,11 @@ const GlobalResultHeader = (props: { rules: MonitorRules }) => {
 
 export const SearchResult = () => {
 	const {fire: fireGlobal} = useEventBus();
-	const {once, on, off} = useRulesEventBus();
+	const {fire, on, off} = useRulesEventBus();
 	const [state, setState] = useState<State>({grade: MonitorRuleGrade.GLOBAL, rules: []});
 	useEffect(() => {
 		const onSearch = async (criteria: MonitorRulesCriteria, topic?: Topic) => {
-			once(RulesEventTypes.REPLY_RULE_CHANGED, (changed) => {
+			fire(RulesEventTypes.ASK_RULE_CHANGED, (changed) => {
 				if (changed) {
 					fireGlobal(EventTypes.SHOW_YES_NO_DIALOG,
 						'Data is changed, are you sure to discard them and load another?',
@@ -179,13 +179,13 @@ export const SearchResult = () => {
 						async () => await fetchMonitorRules({criteria}),
 						(data: MonitorRules) => setState({grade: criteria.grade, topic, rules: data}));
 				}
-			}).fire(RulesEventTypes.ASK_RULE_CHANGED);
+			});
 		};
 		on(RulesEventTypes.DO_SEARCH, onSearch);
 		return () => {
 			off(RulesEventTypes.DO_SEARCH, onSearch);
 		};
-	}, [once, on, off, fireGlobal]);
+	}, [fire, on, off, fireGlobal]);
 	useEffect(() => {
 		const onSaved = (rules: MonitorRules) => {
 			setState(state => {

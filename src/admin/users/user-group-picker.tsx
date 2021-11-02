@@ -1,6 +1,6 @@
 import {QueryUserGroupForHolder} from '@/services/data/tuples/query-user-group-types';
 import {listUserGroupsForHolder} from '@/services/data/tuples/user-group';
-import { UserGroupId } from '@/services/data/tuples/user-group-types';
+import {UserGroupId} from '@/services/data/tuples/user-group-types';
 import {User} from '@/services/data/tuples/user-types';
 import React from 'react';
 import {TupleItemPicker} from '../widgets/tuple-workbench/tuple-item-picker';

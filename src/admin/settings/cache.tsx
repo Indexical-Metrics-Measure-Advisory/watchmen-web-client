@@ -8,14 +8,12 @@ import {useAdminCacheEventBus} from '../cache/cache-event-bus';
 import {AdminCacheEventTypes} from '../cache/cache-event-bus-types';
 
 export const CacheSettings = () => {
-	const {once} = useAdminCacheEventBus();
+	const {fire} = useAdminCacheEventBus();
 
 	const [reloading, setReloading] = useState(false);
 	const onReloadClicked = () => {
 		setReloading(true);
-		once(AdminCacheEventTypes.REPLY_RELOAD, () => {
-			setReloading(false);
-		}).fire(AdminCacheEventTypes.ASK_RELOAD);
+		fire(AdminCacheEventTypes.ASK_RELOAD, () => setReloading(false));
 	};
 
 	return <SettingsSection>

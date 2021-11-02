@@ -27,18 +27,18 @@ import {
 export const DashboardsSection = () => {
 	const history = useHistory();
 	const {fire: fireGlobal} = useEventBus();
-	const {once, fire} = useConsoleEventBus();
+	const {fire} = useConsoleEventBus();
 	const bodyRef = useRef<HTMLDivElement>(null);
 	const [sortType, setSortType] = useState<SortType>(SortType.BY_VISIT_TIME);
 	const [viewType, setViewType] = useState<ViewType>(ViewType.ALL);
 	const [dashboards, setDashboards] = useState<Array<Dashboard>>([]);
 	useEffect(() => {
-		once(ConsoleEventTypes.REPLY_DASHBOARDS, (newDashboards) => {
+		fire(ConsoleEventTypes.ASK_DASHBOARDS, (newDashboards) => {
 			if (newDashboards !== dashboards) {
 				setDashboards(newDashboards);
 			}
-		}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
-	}, [dashboards, once]);
+		});
+	}, [dashboards, fire]);
 	const maxHeight = useMaxHeight(bodyRef);
 
 	const onCreateDashboardClicked = async () => {

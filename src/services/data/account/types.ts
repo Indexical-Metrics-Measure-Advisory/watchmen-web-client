@@ -1,4 +1,4 @@
-import { TenantId } from "../tuples/tenant-types";
+import {TenantId} from '../tuples/tenant-types';
 
 export interface SessionAccount {
 	name: string;

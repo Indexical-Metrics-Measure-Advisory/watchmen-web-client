@@ -1,3 +1,5 @@
+import {Pipeline, PipelinesGraphics} from '@/services/data/tuples/pipeline-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import {useEffect} from 'react';
 import {usePipelinesEventBus} from '../pipelines-event-bus';
 import {PipelinesEventTypes} from '../pipelines-event-bus-types';
@@ -10,9 +12,9 @@ export const useReplier = (options: {
 	const {on, off, fire} = usePipelinesEventBus();
 
 	useEffect(() => {
-		const onAskPipelines = () => fire(PipelinesEventTypes.REPLY_PIPELINES, holdSettings.pipelines);
-		const onAskTopics = () => fire(PipelinesEventTypes.REPLY_TOPICS, holdSettings.topics);
-		const onAskGraphics = () => fire(PipelinesEventTypes.REPLY_GRAPHICS, holdSettings.graphics);
+		const onAskPipelines = (onData: (pipelines: Array<Pipeline>) => void) => onData(holdSettings.pipelines);
+		const onAskTopics = (onData: (topics: Array<Topic>) => void) => onData(holdSettings.topics);
+		const onAskGraphics = (onData: (graphics: Array<PipelinesGraphics>) => void) => onData(holdSettings.graphics);
 
 		on(PipelinesEventTypes.ASK_PIPELINES, onAskPipelines);
 		on(PipelinesEventTypes.ASK_TOPICS, onAskTopics);

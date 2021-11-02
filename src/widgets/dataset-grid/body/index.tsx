@@ -202,7 +202,7 @@ export const GridWrapper = (props: { data: DataSetState; languagesSupport: boole
 	const {data, languagesSupport} = props;
 	const {columnDefs} = data;
 
-	const {once, on, off, fire} = useGridEventBus();
+	const {on, off, fire} = useGridEventBus();
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
 	const fixTableRef = useRef<HTMLDivElement | null>(null);
 	const dataTableRef = useRef<HTMLDivElement | null>(null);
@@ -489,7 +489,7 @@ export const GridWrapper = (props: { data: DataSetState; languagesSupport: boole
 		const {left: wrapperLeft} = wrapper.getBoundingClientRect();
 
 		const movementX = mouseClientX - wrapperLeft - pickedColumn.offsetX;
-		once(GridEventTypes.REPLY_DRAG_COLUMN_VISIBLE, (dragColumnVisible) => {
+		fire(GridEventTypes.ASK_DRAG_COLUMN_VISIBLE, (dragColumnVisible) => {
 			if (!dragColumnVisible && Math.abs(movementX) <= DRAG_DEVIATION) {
 				// start dragging when movement reach deviation
 				return;
@@ -521,7 +521,7 @@ export const GridWrapper = (props: { data: DataSetState; languagesSupport: boole
 			repaintWhenDragging({
 				mouseClientX, sourceTable, sourceColumns, targetTable, targetColumns, pickedColumn: pickedColumn.column
 			});
-		}).fire(GridEventTypes.ASK_DRAG_COLUMN_VISIBLE);
+		});
 	};
 
 	const onMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {

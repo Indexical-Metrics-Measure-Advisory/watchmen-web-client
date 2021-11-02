@@ -14,14 +14,14 @@ export const TupleCreate = (props: {
 	const {label = 'Create One', visible} = props;
 
 	const {fire: fireGlobal} = useEventBus();
-	const {once, fire} = useTupleEventBus();
+	const {fire} = useTupleEventBus();
 
 	if (!visible) {
 		return null;
 	}
 
 	const onCreateClicked = () => {
-		once(TupleEventTypes.REPLY_TUPLE_STATE, (state: TupleState) => {
+		fire(TupleEventTypes.ASK_TUPLE_STATE, (state: TupleState) => {
 			if (state !== TupleState.SAVED && state !== TupleState.NONE) {
 				fireGlobal(EventTypes.SHOW_YES_NO_DIALOG,
 					'Still in editing, all changes will be lost if interrupt. Are you sure to continue?',
@@ -33,7 +33,7 @@ export const TupleCreate = (props: {
 			} else {
 				fire(TupleEventTypes.DO_CREATE_TUPLE);
 			}
-		}).fire(TupleEventTypes.ASK_TUPLE_STATE);
+		});
 	};
 
 	return <TupleCreateButton onClick={onCreateClicked}>

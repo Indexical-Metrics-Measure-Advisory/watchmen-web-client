@@ -1,5 +1,5 @@
 import {ACCOUNT_KEY_IN_SESSION, ACCOUNT_TOKEN} from '../session-constants';
-import { Token } from '../types';
+import {Token} from '../types';
 import {SessionAccount} from './types';
 
 export const saveAccountIntoSession = ({name, admin, super: superAdmin, tenantId}: SessionAccount) => {

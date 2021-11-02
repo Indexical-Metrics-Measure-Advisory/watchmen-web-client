@@ -16,7 +16,7 @@ export const AddFactorRules = (props: {
 }) => {
 	const {topic, topicDefsCount, ruleMap} = props;
 
-	const {once, on, off} = useRulesEventBus();
+	const {fire, on, off} = useRulesEventBus();
 	const [visible, setVisible] = useState(true);
 	const forceUpdate = useForceUpdate();
 	useEffect(() => setVisible(true), [topic, ruleMap]);
@@ -42,7 +42,7 @@ export const AddFactorRules = (props: {
 		// eslint-disable-next-line
 		const factor = topic.factors.find(factor => factor.factorId == factorId)!;
 
-		once(RulesEventTypes.FACTOR_ADDED, () => forceUpdate()).fire(RulesEventTypes.ADD_FACTOR, factor);
+		fire(RulesEventTypes.ADD_FACTOR, factor, () => forceUpdate());
 	};
 
 	const candidatesOptions = candidates.map(factor => {

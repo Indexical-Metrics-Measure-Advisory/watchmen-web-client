@@ -56,7 +56,7 @@ export const Runs = (props: {
 }) => {
 	const {runPipelines, allPipelines, topics, data} = props;
 
-	const {on, off, fire} = useRunsEventBus();
+	const {on, off} = useRunsEventBus();
 	const [state] = useState<State>(() => {
 		// all run pipelines are triggered by same topic
 		const triggerDataRows = data[runPipelines[0].topicId];
@@ -98,15 +98,15 @@ export const Runs = (props: {
 		};
 	});
 	useEffect(() => {
-		const onAskRuntimeData = () => {
+		const onAskRuntimeData = (onData: (started: boolean, done: boolean, runtimeData: TopicsData) => void) => {
 			const first = state.runs[0];
 			const last = state.runs[state.runs.length - 1];
 			if (first.status === PipelineRunStatus.WAIT || first.status === PipelineRunStatus.READY) {
-				fire(RunsEventTypes.REPLY_RUNTIME_DATA, false, false, first.runtimeData);
+				onData(false, false, first.runtimeData);
 			} else if (last.status !== PipelineRunStatus.DONE && last.status !== PipelineRunStatus.FAIL && last.status !== PipelineRunStatus.IGNORED) {
-				fire(RunsEventTypes.REPLY_RUNTIME_DATA, true, false, first.runtimeData);
+				onData(true, false, first.runtimeData);
 			} else {
-				fire(RunsEventTypes.REPLY_RUNTIME_DATA, true, true, first.runtimeData);
+				onData(true, true, first.runtimeData);
 			}
 		};
 		on(RunsEventTypes.ASK_RUNTIME_DATA, onAskRuntimeData);

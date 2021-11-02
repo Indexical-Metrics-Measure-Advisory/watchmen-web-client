@@ -17,9 +17,13 @@ export const DataQualityCache = () => {
 	const {on, off, fire} = useDataQualityCacheEventBus();
 	const [data, setData] = useState<CacheState>({initialized: false});
 	useEffect(() => {
-		const onAskDataLoaded = () => fire(DataQualityCacheEventTypes.REPLY_DATA_LOADED, data.initialized);
+		const onAskDataLoaded = (onDataLoadedGet: (loaded: boolean) => void) => {
+			onDataLoadedGet(data.initialized);
+		};
 		// noinspection TypeScriptValidateTypes
-		const onAskData = () => fire(DataQualityCacheEventTypes.REPLY_DATA, data.data);
+		const onAskData = (onData: (data?: DQCCacheData) => void) => {
+			onData(data.data);
+		};
 		on(DataQualityCacheEventTypes.ASK_DATA_LOADED, onAskDataLoaded);
 		on(DataQualityCacheEventTypes.ASK_DATA, onAskData);
 
@@ -44,11 +48,11 @@ export const DataQualityCache = () => {
 	}, [fireGlobal, on, off, fire, data.initialized, data.data]);
 
 	useEffect(() => {
-		const onAskReload = async () => {
+		const onAskReload = async (onReloaded: () => void) => {
 			await clearAdminData();
 			const {pipelines, topics} = await loadAdminData();
 			setData({initialized: true, data: buildRelations({pipelines, topics})});
-			fire(DataQualityCacheEventTypes.REPLY_RELOAD);
+			onReloaded();
 		};
 		on(DataQualityCacheEventTypes.ASK_RELOAD, onAskReload);
 		return () => {

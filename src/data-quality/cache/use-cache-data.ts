@@ -11,23 +11,23 @@ export const useDataQualityCacheData = (options: {
 }) => {
 	const {onDataRetrieved} = options;
 
-	const {once} = useDataQualityCacheEventBus();
+	const {fire} = useDataQualityCacheEventBus();
 
 	useEffect(() => {
 		const askData = () => {
-			once(DataQualityCacheEventTypes.REPLY_DATA, (data?: DQCCacheData) => {
+			fire(DataQualityCacheEventTypes.ASK_DATA, (data?: DQCCacheData) => {
 				onDataRetrieved(data);
-			}).fire(DataQualityCacheEventTypes.ASK_DATA);
+			});
 		};
 		const askDataLoaded = (askData: () => void) => {
-			once(DataQualityCacheEventTypes.REPLY_DATA_LOADED, (loaded) => {
+			fire(DataQualityCacheEventTypes.ASK_DATA_LOADED, (loaded) => {
 				if (loaded) {
 					askData();
 				} else {
 					setTimeout(() => askDataLoaded(askData), 100);
 				}
-			}).fire(DataQualityCacheEventTypes.ASK_DATA_LOADED);
+			});
 		};
 		askDataLoaded(askData);
-	}, [once, onDataRetrieved]);
+	}, [fire, onDataRetrieved]);
 };

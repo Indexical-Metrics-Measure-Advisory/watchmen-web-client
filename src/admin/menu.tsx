@@ -75,8 +75,8 @@ export const AdminMenu = () => {
 	const {on, off, fire} = useEventBus();
 	const [menuWidth, setMenuWidth] = useState(SIDE_MENU_MIN_WIDTH);
 	useEffect(() => {
-		const onAskMenuWidth = () => {
-			fire(EventTypes.REPLY_SIDE_MENU_WIDTH, menuWidth);
+		const onAskMenuWidth = (onWidthGet: (width: number) => void) => {
+			onWidthGet(menuWidth);
 		};
 		on(EventTypes.ASK_SIDE_MENU_WIDTH, onAskMenuWidth);
 		return () => {

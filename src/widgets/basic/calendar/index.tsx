@@ -26,7 +26,7 @@ const Picker = (props: {
 }) => {
 	const {onChange, value, showTime = true, ...rest} = props;
 
-	const {once, fire} = useCalendarEventBus();
+	const {fire} = useCalendarEventBus();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [state, setState] = useState<CalendarState>(() => {
 		return {
@@ -67,7 +67,7 @@ const Picker = (props: {
 			return;
 		}
 
-		once(CalendarEventTypes.REPLY_VALUE, (newValue: Dayjs) => {
+		fire(CalendarEventTypes.ASK_VALUE, (newValue: Dayjs) => {
 			if (!value) {
 				onChange(newValue!.format(CALENDAR_FORMAT));
 				setState({...state, active: false});
@@ -80,7 +80,7 @@ const Picker = (props: {
 					setState({...state, active: false});
 				}
 			}
-		}).fire(CalendarEventTypes.ASK_VALUE);
+		});
 	};
 
 	const onClear = () => {

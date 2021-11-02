@@ -3,7 +3,6 @@ import {isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
 import {Report, ReportFunnel} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
 import {Topic} from '@/services/data/tuples/topic-types';
-import {Ticket} from '@/services/data/types';
 import {FunnelEditor} from '@/widgets/funnel';
 import {FunnelEventBusProvider, useFunnelEventBus} from '@/widgets/funnel/funnel-event-bus';
 import {FunnelEventTypes} from '@/widgets/funnel/funnel-event-bus-types';
@@ -25,24 +24,13 @@ const PairJoint = () => {
 const FunnelEnumHandler = (props: { subject: Subject; funnel: ReportFunnel }) => {
 	const {subject, funnel} = props;
 
-	const {once: onceConsole, on: onConsole, off: offConsole, fire: fireConsole} = useConsoleEventBus();
+	const {on: onConsole, off: offConsole, fire: fireConsole} = useConsoleEventBus();
 	const {on, off, fire} = useFunnelEventBus();
 	useEffect(() => {
-		const replyEnumNoItems = (ticket: Ticket, enumId: EnumId) => {
-			fire(FunnelEventTypes.REPLY_ENUM, funnel, ticket, {
-				enumId, name: '', items: [] as Array<EnumItem>
-			} as Enum);
+		const replyEnumNoItems = (onData: (enumeration: Enum) => void, enumId: EnumId) => {
+			onData({enumId, name: '', items: [] as Array<EnumItem>} as Enum);
 		};
-		const onReplyEnum = (returnTicket: string, enumeration?: Enum) => {
-			if (!enumeration) {
-				// reply a mock one with no enum id and items
-				replyEnumNoItems(returnTicket, '');
-			} else {
-				// bridge event to funnel bus
-				fire(FunnelEventTypes.REPLY_ENUM, funnel, returnTicket, enumeration);
-			}
-		};
-		const onAskEnum = (aFunnel: ReportFunnel, ticket: Ticket) => {
+		const onAskEnum = (aFunnel: ReportFunnel, onData: (enumeration: Enum) => void) => {
 			if (aFunnel !== funnel) {
 				return;
 			}
@@ -52,24 +40,24 @@ const FunnelEnumHandler = (props: { subject: Subject; funnel: ReportFunnel }) =>
 			const column = subject.dataset.columns.find(column => column.columnId == columnId);
 			if (column == null) {
 				// reply a mock one with no enum id and items
-				replyEnumNoItems(ticket, '');
+				replyEnumNoItems(onData, '');
 				return;
 			}
 
 			if (!isTopicFactorParameter(column.parameter)) {
 				// assume parameter is link to a factor, otherwise do nothing
 				// reply a mock one with no enum id and items
-				replyEnumNoItems(ticket, '');
+				replyEnumNoItems(onData, '');
 				return;
 			}
 
 			const {topicId, factorId} = column.parameter;
-			onceConsole(ConsoleEventTypes.REPLY_AVAILABLE_TOPICS, (availableTopics: Array<Topic>) => {
+			fireConsole(ConsoleEventTypes.ASK_AVAILABLE_TOPICS, (availableTopics: Array<Topic>) => {
 				// eslint-disable-next-line
 				const topic = availableTopics.find(topic => topic.topicId == topicId);
 				if (topic == null) {
 					// reply a mock one with no enum id and items
-					replyEnumNoItems(ticket, '');
+					replyEnumNoItems(onData, '');
 					return;
 				}
 
@@ -77,27 +65,33 @@ const FunnelEnumHandler = (props: { subject: Subject; funnel: ReportFunnel }) =>
 				const factor = topic.factors.find(factor => factor.factorId == factorId);
 				if (factor == null) {
 					// reply a mock one with no enum id and items
-					replyEnumNoItems(ticket, '');
+					replyEnumNoItems(onData, '');
 					return;
 				}
 
 				const enumId = factor.enumId;
 				if (!enumId) {
 					// reply a mock one with no enum id and items
-					replyEnumNoItems(ticket, '');
+					replyEnumNoItems(onData, '');
 					return;
 				}
 
-				fireConsole(ConsoleEventTypes.ASK_ENUM, enumId, ticket);
-			}).fire(ConsoleEventTypes.ASK_AVAILABLE_TOPICS);
+				fireConsole(ConsoleEventTypes.ASK_ENUM, enumId, (enumeration?: Enum) => {
+					if (!enumeration) {
+						// reply a mock one with no enum id and items
+						replyEnumNoItems(onData, '');
+					} else {
+						// bridge event to funnel bus
+						onData(enumeration);
+					}
+				});
+			});
 		};
-		onConsole(ConsoleEventTypes.REPLY_ENUM, onReplyEnum);
 		on(FunnelEventTypes.ASK_ENUM, onAskEnum);
 		return () => {
-			offConsole(ConsoleEventTypes.REPLY_ENUM, onReplyEnum);
 			off(FunnelEventTypes.ASK_ENUM, onAskEnum);
 		};
-	}, [fire, on, off, fireConsole, onceConsole, onConsole, offConsole, subject.dataset.columns, funnel]);
+	}, [fire, on, off, fireConsole, onConsole, offConsole, subject.dataset.columns, funnel]);
 
 	return <Fragment/>;
 };

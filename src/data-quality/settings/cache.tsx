@@ -8,14 +8,14 @@ import {useDataQualityCacheEventBus} from '../cache/cache-event-bus';
 import {DataQualityCacheEventTypes} from '../cache/cache-event-bus-types';
 
 export const CacheSettings = () => {
-	const {once} = useDataQualityCacheEventBus();
+	const {fire} = useDataQualityCacheEventBus();
 
 	const [reloading, setReloading] = useState(false);
 	const onReloadClicked = () => {
 		setReloading(true);
-		once(DataQualityCacheEventTypes.REPLY_RELOAD, () => {
+		fire(DataQualityCacheEventTypes.ASK_RELOAD, () => {
 			setReloading(false);
-		}).fire(DataQualityCacheEventTypes.ASK_RELOAD);
+		});
 	};
 
 	return <SettingsSection>

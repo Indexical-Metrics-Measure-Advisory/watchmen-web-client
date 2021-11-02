@@ -63,17 +63,17 @@ export const ColorCalculator = (props: { color: string }) => {
 	}, [color, fire]);
 
 	useEffect(() => {
-		const onAskColor = () => {
+		const onAskColor = (onData: (color?: string) => void) => {
 			const {alpha, brightness, hue, saturation} = factors;
 			if (typeof alpha !== 'undefined' && typeof brightness !== 'undefined' && typeof hue !== 'undefined' && typeof saturation !== 'undefined') {
 				const hsl = hsb2hsl(hue, saturation, brightness);
 				const rgb = hsl2rgb(hsl.hue, hsl.saturation, hsl.lightness);
 				const hex = rgb2hex(rgb.red, rgb.green, rgb.blue);
 				const rgba = {...hex2rgb(hex), alpha};
-				fire(ColorPickerEventTypes.REPLY_COLOR, `rgba(${rgba.red}, ${rgba.green}, ${rgba.blue}, ${alpha})`);
+				onData(`rgba(${rgba.red}, ${rgba.green}, ${rgba.blue}, ${alpha})`);
 			} else {
 				// cannot build color
-				fire(ColorPickerEventTypes.REPLY_COLOR);
+				onData();
 			}
 		};
 		on(ColorPickerEventTypes.ASK_COLOR, onAskColor);

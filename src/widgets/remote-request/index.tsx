@@ -12,19 +12,19 @@ import {RemoteRequestContainer} from './widgets';
 
 export const RemoteRequest = () => {
 	const history = useHistory();
-	const {once, on, off, fire} = useEventBus();
+	const {on, off, fire} = useEventBus();
 	const [count, setCount] = useState<number>(0);
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const on401 = () => {
-			once(EventTypes.ALERT_HIDDEN, () => {
+			fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.ERROR.UNAUTHORIZED}</AlertLabel>, () => {
 				history.replace(Router.LOGIN);
-			}).fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.ERROR.UNAUTHORIZED}</AlertLabel>);
+			});
 		};
 		const on403 = () => {
-			once(EventTypes.ALERT_HIDDEN, () => {
+			fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.ERROR.ACCESS_DENIED}</AlertLabel>, () => {
 				history.replace(Router.LOGIN);
-			}).fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.ERROR.ACCESS_DENIED}</AlertLabel>);
+			});
 		};
 		const onOtherError = () => {
 			fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.ERROR.UNPREDICTED}</AlertLabel>);
@@ -55,7 +55,7 @@ export const RemoteRequest = () => {
 		return () => {
 			off(EventTypes.INVOKE_REMOTE_REQUEST, onInvokeRemoteRequest);
 		};
-	}, [once, on, off, fire, history, forceUpdate, count]);
+	}, [on, off, fire, history, forceUpdate, count]);
 
 	return <RemoteRequestContainer visible={count > 0}>
 		<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>

@@ -18,8 +18,8 @@ export const usePickedTopics = (pickedTopics: Array<Topic>) => {
 				pickedTopics.splice(index, 1);
 			}
 		};
-		const onAskPickedTopics = () => {
-			fire(SubjectDefEventTypes.REPLY_PICKED_TOPICS, pickedTopics);
+		const onAskPickedTopics = (onData: (topics: Array<Topic>) => void) => {
+			onData(pickedTopics);
 		};
 
 		on(SubjectDefEventTypes.ASK_PICKED_TOPICS, onAskPickedTopics);

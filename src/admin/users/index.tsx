@@ -38,7 +38,7 @@ const fetchUserAndCodes = async (queryUser: QueryUser) => {
 const getKeyOfUser = (user: QueryUser) => user.userId;
 
 const AdminUsers = () => {
-	const {once: onceGlobal, fire: fireGlobal} = useEventBus();
+	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateUser = async () => {
@@ -55,35 +55,35 @@ const AdminUsers = () => {
 				async () => await listUsers({search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE}),
 				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
-		const onDoSaveUser = async (user: User) => {
+		const onSaveUser = async (user: User, onSaved: (user: User, saved: boolean) => void) => {
 			if (!user.name || !user.name.trim()) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, user, false);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>User name is required.</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>User name is required.</AlertLabel>, () => {
+					onSaved(user, false);
+				});
 				return;
 			}
 			if (isSuperAdmin() && !user.tenantId) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, user, false);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Tenant is required.</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>Tenant is required.</AlertLabel>, () => {
+					onSaved(user, false);
+				});
 				return;
 			}
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await saveUser(user),
-				() => fire(TupleEventTypes.TUPLE_SAVED, user, true),
-				() => fire(TupleEventTypes.TUPLE_SAVED, user, false));
+				() => onSaved(user, true),
+				() => onSaved(user, false));
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateUser);
 		on(TupleEventTypes.DO_EDIT_TUPLE, onDoEditUser);
 		on(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchUser);
-		on(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveUser);
+		on(TupleEventTypes.SAVE_TUPLE, onSaveUser);
 		return () => {
 			off(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateUser);
 			off(TupleEventTypes.DO_EDIT_TUPLE, onDoEditUser);
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchUser);
-			off(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveUser);
+			off(TupleEventTypes.SAVE_TUPLE, onSaveUser);
 		};
-	}, [on, off, fire, onceGlobal, fireGlobal]);
+	}, [on, off, fire, fireGlobal]);
 
 	return <TupleWorkbench title="Users"
 	                       createButtonLabel="Create User" canCreate={true}

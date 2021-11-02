@@ -1,6 +1,5 @@
 import {Enum, EnumItem} from '@/services/data/tuples/enum-types';
 import {ReportFunnel} from '@/services/data/tuples/report-types';
-import {Ticket} from '@/services/data/types';
 import {FunnelEditor} from '@/widgets/funnel';
 import {FunnelEventBusProvider, useFunnelEventBus} from '@/widgets/funnel/funnel-event-bus';
 import {FunnelEventTypes} from '@/widgets/funnel/funnel-event-bus-types';
@@ -22,7 +21,7 @@ const FunnelEnumHandler = (props: {
 
 	const {on, off, fire} = useFunnelEventBus();
 	useEffect(() => {
-		const onAskEnum = (aFunnel: ReportFunnel, ticket: Ticket) => {
+		const onAskEnum = (aFunnel: ReportFunnel, onData: (enumeration: Enum) => void) => {
 			if (aFunnel !== funnel) {
 				return;
 			}
@@ -32,7 +31,7 @@ const FunnelEnumHandler = (props: {
 				enumId: group.funnel.enumId, name: '', items: [] as Array<EnumItem>
 			} as Enum;
 
-			fire(FunnelEventTypes.REPLY_ENUM, funnel, ticket, enumeration);
+			onData(enumeration);
 		};
 		on(FunnelEventTypes.ASK_ENUM, onAskEnum);
 		return () => {

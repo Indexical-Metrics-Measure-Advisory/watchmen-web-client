@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import {DataSetPage} from '../../console/dataset';
-import { SubjectId } from '../../tuples/subject-types';
+import {SubjectId} from '../../tuples/subject-types';
 
 export const fetchMockSubjectData = async (options: {
 	subjectId: SubjectId;

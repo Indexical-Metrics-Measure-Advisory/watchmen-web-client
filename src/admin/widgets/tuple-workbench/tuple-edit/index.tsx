@@ -26,7 +26,7 @@ export const TupleEdit = <T extends Tuple, HBT extends HoldByTuple>(props: {
 	const {tupleLabel, tupleImage, tupleImagePosition, canEdit, renderEditor} = props;
 
 	const {fire: fireGlobal} = useEventBus();
-	const {once, on, off, fire} = useTupleEventBus();
+	const {on, off, fire} = useTupleEventBus();
 	const [state, setState] = useState<State<T, HBT>>({});
 	useEffect(() => {
 		const onTupleCreated = (tuple: T, codes?: HBT) => {
@@ -52,23 +52,23 @@ export const TupleEdit = <T extends Tuple, HBT extends HoldByTuple>(props: {
 	}, [on, off, fire]);
 
 	const onConfirmClicked = async () => {
-		once(TupleEventTypes.REPLY_TUPLE_STATE, async (tupleState: TupleState) => {
+		fire(TupleEventTypes.ASK_TUPLE_STATE, (tupleState: TupleState) => {
 			if (tupleState !== TupleState.CHANGED) {
 				return;
 			}
 
 			fire(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.SAVING);
-			once(TupleEventTypes.TUPLE_SAVED, (tuple: T, saved: boolean) => {
+			fire(TupleEventTypes.SAVE_TUPLE, state.tuple!, (tuple: T, saved: boolean) => {
 				if (saved) {
 					fire(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.SAVED);
 				} else {
 					fire(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.CHANGED);
 				}
-			}).fire(TupleEventTypes.DO_SAVE_TUPLE, state.tuple!);
-		}).fire(TupleEventTypes.ASK_TUPLE_STATE);
+			});
+		});
 	};
 	const onCloseClicked = () => {
-		once(TupleEventTypes.REPLY_TUPLE_STATE, async (tupleState: TupleState) => {
+		fire(TupleEventTypes.ASK_TUPLE_STATE, (tupleState: TupleState) => {
 			if (tupleState === TupleState.NONE || tupleState === TupleState.SAVED) {
 				setState({});
 				fire(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.NONE);
@@ -90,7 +90,7 @@ export const TupleEdit = <T extends Tuple, HBT extends HoldByTuple>(props: {
 					},
 					() => fireGlobal(EventTypes.HIDE_DIALOG));
 			}
-		}).fire(TupleEventTypes.ASK_TUPLE_STATE);
+		});
 	};
 
 	const onEditing = !!state.tuple && !isFakedUuid(state.tuple);

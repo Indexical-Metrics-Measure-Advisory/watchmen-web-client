@@ -21,7 +21,7 @@ const PipelinesRouter = () => {
 };
 
 const PipelinesContainerDelegate = () => {
-	const {once, on, off} = usePipelinesEventBus();
+	const {fire, on, off} = usePipelinesEventBus();
 	const [initialized, setInitialized] = useState(false);
 	// when data is loading from remote, it takes time. and SETTINGS_LOADED event should be fired by loader and listened here.
 	// in some cases, data might be already in cache, which means SETTINGS_LOADED is fired before its listener registered
@@ -39,19 +39,19 @@ const PipelinesContainerDelegate = () => {
 		};
 		on(PipelinesEventTypes.SETTINGS_LOADED, onSettingsLoaded);
 		const ask = () => {
-			once(PipelinesEventTypes.REPLY_SETTINGS_LOADED, (loaded: boolean) => {
+			fire(PipelinesEventTypes.ASK_SETTINGS_LOADED, (loaded: boolean) => {
 				if (loaded) {
 					setInitialized(true);
 				} else {
 					setTimeout(() => ask(), 100);
 				}
-			}).fire(PipelinesEventTypes.ASK_SETTINGS_LOADED);
+			});
 		};
 		ask();
 		return () => {
 			off(PipelinesEventTypes.SETTINGS_LOADED, onSettingsLoaded);
 		};
-	}, [once, on, off]);
+	}, [fire, on, off]);
 
 	return <AdminMain>
 		<FullWidthPage>

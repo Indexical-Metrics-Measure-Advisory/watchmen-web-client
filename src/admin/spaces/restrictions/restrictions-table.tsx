@@ -49,7 +49,7 @@ const redressFilters = (space: Space, tempFilters: TemporaryFilters): Array<Topi
 export const RestrictionsTable = (props: { space: Space }) => {
 	const {space} = props;
 
-	const {once: onceCache} = useAdminCacheEventBus();
+	const {fire: fireCache} = useAdminCacheEventBus();
 	const {fire: fireTuple} = useTupleEventBus();
 	const {on, off} = useSpaceEventBus();
 	const [topics, setTopics] = useState<Array<Topic>>([]);
@@ -79,11 +79,11 @@ export const RestrictionsTable = (props: { space: Space }) => {
 		};
 	}, [on, off, space, tempFilters]);
 	useEffect(() => {
-		onceCache(AdminCacheEventTypes.REPLY_DATA, (data?: AdminCacheData) => {
+		fireCache(AdminCacheEventTypes.ASK_DATA, (data?: AdminCacheData) => {
 			const {topics} = data || {};
 			setTopics(topics || []);
-		}).fire(AdminCacheEventTypes.ASK_DATA);
-	}, [onceCache]);
+		});
+	}, [fireCache]);
 
 	const onFilterEnabledChanged = (filter: SpaceFilter) => (value: boolean) => {
 		filter.enabled = value;

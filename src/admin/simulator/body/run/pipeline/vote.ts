@@ -3,7 +3,7 @@ import {
 	isWriteTopicAction
 } from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
-import { TopicId } from '@/services/data/tuples/topic-types';
+import {TopicId} from '@/services/data/tuples/topic-types';
 
 interface PipelineIO {
 	pipeline: Pipeline;

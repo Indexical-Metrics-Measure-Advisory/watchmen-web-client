@@ -17,22 +17,24 @@ const ConsoleConnectedSpaceIndex = () => {
 	const {connectId: connectedSpaceId} = useParams<{ connectId: ConnectedSpaceId }>();
 
 	const history = useHistory();
-	const {once: onceGlobal} = useEventBus();
-	const {once, on, off} = useConsoleEventBus();
+	const {fire: fireGlobal} = useEventBus();
+	const {fire, on, off} = useConsoleEventBus();
 	const [connectedSpace, setConnectedSpace] = useState<ConnectedSpace | null>(null);
 	useEffect(() => {
-		once(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
+		fire(ConsoleEventTypes.ASK_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
 			// eslint-disable-next-line
 			const connectedSpace = connectedSpaces.find(connectedSpace => connectedSpace.connectId == connectedSpaceId);
 			if (connectedSpace) {
 				setConnectedSpace(connectedSpace);
 			} else {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+					{Lang.CONSOLE.ERROR.CONNECTED_SPACE_NOT_FOUND}
+				</AlertLabel>, () => {
 					history.replace(Router.CONSOLE);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.CONSOLE.ERROR.CONNECTED_SPACE_NOT_FOUND}</AlertLabel>);
+				});
 			}
-		}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
-	}, [once, onceGlobal, history, connectedSpaceId]);
+		});
+	}, [fire, fireGlobal, history, connectedSpaceId]);
 	useEffect(() => {
 		const onConnectedSpaceRemoved = (connectedSpace: ConnectedSpace) => {
 			// eslint-disable-next-line
@@ -40,7 +42,7 @@ const ConsoleConnectedSpaceIndex = () => {
 				return;
 			}
 
-			once(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
+			fire(ConsoleEventTypes.ASK_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
 				// eslint-disable-next-line
 				const connectedSpace = connectedSpaces.sort((d1, d2) => {
 					return d1.name.toLowerCase().localeCompare(d2.name.toLowerCase());
@@ -53,13 +55,13 @@ const ConsoleConnectedSpaceIndex = () => {
 					// no connected space, to home
 					history.replace(Router.CONSOLE_HOME);
 				}
-			}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
+			});
 		};
 		on(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, onConnectedSpaceRemoved);
 		return () => {
 			off(ConsoleEventTypes.CONNECTED_SPACE_REMOVED, onConnectedSpaceRemoved);
 		};
-	}, [once, on, off, history, connectedSpaceId]);
+	}, [fire, on, off, history, connectedSpaceId]);
 
 	// eslint-disable-next-line
 	if (!connectedSpace || connectedSpace.connectId != connectedSpaceId) {

@@ -50,40 +50,43 @@ const CatalogBody = (props: { connectedSpace: ConnectedSpace }) => {
 	const svgContainerRef = useRef<HTMLDivElement>(null);
 	const svgRef = useRef<SVGSVGElement>(null);
 	const history = useHistory();
-	const {once: onceGlobal} = useEventBus();
-	const {once: onceConsole} = useConsoleEventBus();
+	const {fire: fireGlobal} = useEventBus();
+	const {fire: fireConsole} = useConsoleEventBus();
 	const {fire, on, off} = useCatalogEventBus();
 	const [data, setData] = useState<CatalogData>({initialized: false, topics: []});
 	const [svgSize, setSvgSize] = useState<Partial<GraphicsSize>>({});
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
-		onceConsole(ConsoleEventTypes.REPLY_AVAILABLE_SPACES, (availableSpaces: Array<AvailableSpaceInConsole>) => {
+		fireConsole(ConsoleEventTypes.ASK_AVAILABLE_SPACES, (availableSpaces: Array<AvailableSpaceInConsole>) => {
 			// eslint-disable-next-line
 			const space = availableSpaces.find(space => space.spaceId == connectedSpace.spaceId);
 			if (!space) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					history.replace(Router.CONSOLE);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.CONSOLE.CONNECTED_SPACE.SPACE_NOT_FOUND}</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT,
+					<AlertLabel>{Lang.CONSOLE.CONNECTED_SPACE.SPACE_NOT_FOUND}</AlertLabel>, () => {
+						history.replace(Router.CONSOLE);
+					});
 			} else {
 				const topicIds = Array.from(new Set(space.topicIds));
-				onceConsole(ConsoleEventTypes.REPLY_AVAILABLE_TOPICS, (availableTopics: Array<Topic>) => {
+				fireConsole(ConsoleEventTypes.ASK_AVAILABLE_TOPICS, (availableTopics: Array<Topic>) => {
 					const topicMap = availableTopics.reduce((map, topic) => {
 						map.set(topic.topicId, topic);
 						return map;
 					}, new Map<string, Topic>());
 					const topics = topicIds.map(topicId => topicMap.get(topicId)).filter(x => !!x) as Array<Topic>;
 					if (topics.length === 0) {
-						onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+						fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+							{Lang.CONSOLE.CONNECTED_SPACE.TOPICS_NOT_FOUND}
+						</AlertLabel>, () => {
 							history.replace(Router.CONSOLE);
-						}).fire(EventTypes.SHOW_ALERT,
-							<AlertLabel>{Lang.CONSOLE.CONNECTED_SPACE.TOPICS_NOT_FOUND}</AlertLabel>);
+						});
 					} else if (topics.length !== topicIds.length) {
-						onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+						fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+							{Lang.CONSOLE.CONNECTED_SPACE.TOPICS_COUNT_MISMATCH}
+						</AlertLabel>, () => {
 							history.replace(Router.CONSOLE);
-						}).fire(EventTypes.SHOW_ALERT,
-							<AlertLabel>{Lang.CONSOLE.CONNECTED_SPACE.TOPICS_COUNT_MISMATCH}</AlertLabel>);
+						});
 					} else {
-						onceConsole(ConsoleEventTypes.REPLY_CONNECTED_SPACE_GRAPHICS, (graphics: Array<ConnectedSpaceGraphics>) => {
+						fireConsole(ConsoleEventTypes.ASK_CONNECTED_SPACE_GRAPHICS, (graphics: Array<ConnectedSpaceGraphics>) => {
 							// eslint-disable-next-line
 							const thisGraphics = graphics.find(graphics => graphics.connectId == connectedSpace.connectId);
 							setData({
@@ -96,12 +99,12 @@ const CatalogBody = (props: { connectedSpace: ConnectedSpace }) => {
 									graphics: thisGraphics
 								})
 							});
-						}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACE_GRAPHICS);
+						});
 					}
-				}).fire(ConsoleEventTypes.ASK_AVAILABLE_TOPICS);
+				});
 			}
-		}).fire(ConsoleEventTypes.ASK_AVAILABLE_SPACES);
-	}, [connectedSpace.spaceId, connectedSpace.connectId, connectedSpace.subjects, history, onceGlobal, onceConsole]);
+		});
+	}, [connectedSpace.spaceId, connectedSpace.connectId, connectedSpace.subjects, history, fireGlobal, fireConsole]);
 	useEffect(() => {
 		if (data.graphics && svgContainerRef.current && svgRef.current) {
 			const {width, height} = computeGraphics({graphics: data.graphics, svg: svgRef.current});

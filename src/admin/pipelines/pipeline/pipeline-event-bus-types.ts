@@ -36,7 +36,6 @@ export enum PipelineEventTypes {
 	EXPAND_ALL = 'expand-all',
 
 	ASK_FOCUS_MODE = 'ask-focus-mode',
-	REPLY_FOCUS_MODE = 'reply-focus-mode',
 	FOCUS_MODE_CHANGED = 'focus-mode-changed'
 }
 
@@ -109,12 +108,9 @@ export interface PipelineEventBus {
 	on(type: PipelineEventTypes.EXPAND_ALL, listener: (pipeline: Pipeline) => void): this;
 	off(type: PipelineEventTypes.EXPAND_ALL, listener: (pipeline: Pipeline) => void): this;
 
-	fire(type: PipelineEventTypes.ASK_FOCUS_MODE, pipeline: Pipeline): this;
-	on(type: PipelineEventTypes.ASK_FOCUS_MODE, listener: (pipeline: Pipeline) => void): this;
-	off(type: PipelineEventTypes.ASK_FOCUS_MODE, listener: (pipeline: Pipeline) => void): this;
-
-	fire(type: PipelineEventTypes.REPLY_FOCUS_MODE, pipeline: Pipeline, mode: PipelineFocusMode): this;
-	once(type: PipelineEventTypes.REPLY_FOCUS_MODE, listener: (pipeline: Pipeline, mode: PipelineFocusMode) => void): this;
+	fire(type: PipelineEventTypes.ASK_FOCUS_MODE, pipeline: Pipeline, onModeGet: (mode: PipelineFocusMode) => void): this;
+	on(type: PipelineEventTypes.ASK_FOCUS_MODE, listener: (pipeline: Pipeline, onModeGet: (mode: PipelineFocusMode) => void) => void): this;
+	off(type: PipelineEventTypes.ASK_FOCUS_MODE, listener: (pipeline: Pipeline, onModeGet: (mode: PipelineFocusMode) => void) => void): this;
 
 	fire(type: PipelineEventTypes.FOCUS_MODE_CHANGED, pipeline: Pipeline, mode: PipelineFocusMode): this;
 	on(type: PipelineEventTypes.FOCUS_MODE_CHANGED, listener: (pipeline: Pipeline, mode: PipelineFocusMode) => void): this;

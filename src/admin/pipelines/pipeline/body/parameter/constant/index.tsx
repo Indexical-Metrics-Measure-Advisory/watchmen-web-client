@@ -56,7 +56,7 @@ export const ConstantEditor = (props: {
 }) => {
 	const {parameter, expectedTypes, expectArray} = props;
 
-	const {once: onceVariables, on: onVariables, off: offVariables} = useVariablesEventBus();
+	const {fire: fireVariables, on: onVariables, off: offVariables} = useVariablesEventBus();
 	const {on, off, fire} = useParameterEventBus();
 	const [valid, setValid] = useState<boolean>(true);
 	const forceUpdate = useForceUpdate();
@@ -70,33 +70,33 @@ export const ConstantEditor = (props: {
 		if (!isConstantParameter(parameter)) {
 			return;
 		}
-		onceVariables(VariablesEventTypes.REPLY_VARIABLES, (variables, topics, triggerTopic) => {
+		fireVariables(VariablesEventTypes.ASK_VARIABLES, (variables, topics, triggerTopic) => {
 			computeTypes({
 				parameter, topics, variables, triggerTopic, expectedTypes, expectArray,
 				onMismatch: () => setValid(false),
 				onMatch: () => setValid(true)
 			});
-		}).fire(VariablesEventTypes.ASK_VARIABLES);
-	}, [onceVariables, parameter, expectedTypes, expectArray]);
+		});
+	}, [fireVariables, parameter, expectedTypes, expectArray]);
 	useEffect(() => {
 		if (!isConstantParameter(parameter)) {
 			return;
 		}
 		const onVariableChanged = () => {
 			// noinspection DuplicatedCode
-			onceVariables(VariablesEventTypes.REPLY_VARIABLES, (variables, topics, triggerTopic) => {
+			fireVariables(VariablesEventTypes.ASK_VARIABLES, (variables, topics, triggerTopic) => {
 				computeTypes({
 					parameter, topics, variables, triggerTopic, expectedTypes, expectArray,
 					onMismatch: () => !valid ? forceUpdate() : setValid(false),
 					onMatch: () => valid ? forceUpdate() : setValid(true)
 				});
-			}).fire(VariablesEventTypes.ASK_VARIABLES);
+			});
 		};
 		onVariables(VariablesEventTypes.VARIABLE_CHANGED, onVariableChanged);
 		return () => {
 			offVariables(VariablesEventTypes.VARIABLE_CHANGED, onVariableChanged);
 		};
-	}, [onVariables, offVariables, onceVariables, forceUpdate, parameter, valid, expectedTypes, expectArray]);
+	}, [onVariables, offVariables, fireVariables, forceUpdate, parameter, valid, expectedTypes, expectArray]);
 
 	if (!isConstantParameter(parameter)) {
 		return null;
@@ -109,13 +109,13 @@ export const ConstantEditor = (props: {
 		}
 		parameter.value = value;
 		// noinspection DuplicatedCode
-		onceVariables(VariablesEventTypes.REPLY_VARIABLES, (variables, topics, triggerTopic) => {
+		fireVariables(VariablesEventTypes.ASK_VARIABLES, (variables, topics, triggerTopic) => {
 			computeTypes({
 				parameter, topics, variables, triggerTopic, expectedTypes, expectArray,
 				onMismatch: () => !valid ? forceUpdate() : setValid(false),
 				onMatch: () => valid ? forceUpdate() : setValid(true)
 			});
-		}).fire(VariablesEventTypes.ASK_VARIABLES);
+		});
 		fire(ParameterEventTypes.CONSTANT_VALUE_CHANGED, parameter);
 	};
 

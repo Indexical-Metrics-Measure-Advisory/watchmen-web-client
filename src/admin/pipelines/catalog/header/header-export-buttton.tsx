@@ -181,7 +181,7 @@ export const HeaderExportButton = (props: { graphics: AssembledPipelinesGraphics
 	const {graphics} = props;
 	const {fire: fireGlobal} = useEventBus();
 	const {once} = useCatalogEventBus();
-	const {once: onceCache} = useAdminCacheEventBus();
+	const {fire: fireCache} = useAdminCacheEventBus();
 
 	const askSvg = async (topics: Array<Topic>) => {
 		return new Promise<string>(resolve => {
@@ -191,7 +191,7 @@ export const HeaderExportButton = (props: { graphics: AssembledPipelinesGraphics
 		});
 	};
 	const onExportClicked = () => {
-		onceCache(AdminCacheEventTypes.REPLY_DATA, (data?: AdminCacheData) => {
+		fireCache(AdminCacheEventTypes.ASK_DATA, (data?: AdminCacheData) => {
 			const {pipelines, topics, dataSources, externalWriters} = data!;
 
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
@@ -229,7 +229,7 @@ export const HeaderExportButton = (props: { graphics: AssembledPipelinesGraphics
 					});
 			});
 
-		}).fire(AdminCacheEventTypes.ASK_DATA);
+		});
 	};
 
 	return <PageHeaderButton tooltip="Export" onClick={onExportClicked}>

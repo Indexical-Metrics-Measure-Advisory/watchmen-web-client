@@ -16,7 +16,7 @@ export const DataLoading = (props: { report: Report }) => {
 	const {report} = props;
 
 	const {fire: fireGlobal} = useEventBus();
-	const {once: onceReport, on: onReport, off: offReport} = useReportEventBus();
+	const {fire: fireReport, on: onReport, off: offReport} = useReportEventBus();
 	const {on, off, fire} = useReportDataSetEventBus();
 	const [visible, setVisible] = useState(false);
 	useEffect(() => {
@@ -34,7 +34,7 @@ export const DataLoading = (props: { report: Report }) => {
 					setVisible(false);
 				}, 500);
 			} else {
-				onceReport(ReportEventTypes.REPLY_REPORT_STRUCTURE_CHANGED, (report: Report, changed: boolean) => {
+				fireReport(ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, report, (changed: boolean) => {
 					if (!changed) {
 						fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 							async () => await fetchChartData(report.reportId, report.chart.type),
@@ -58,7 +58,7 @@ export const DataLoading = (props: { report: Report }) => {
 								setVisible(false);
 							});
 					}
-				}).fire(ReportEventTypes.ASK_REPORT_STRUCTURE_CHANGED, report);
+				});
 			}
 		};
 		on(ReportDataSetEventTypes.ASK_LOAD_DATA, onLoadData);
@@ -69,7 +69,7 @@ export const DataLoading = (props: { report: Report }) => {
 			offReport(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onLoadData);
 			offReport(ReportEventTypes.DO_REFRESH, onLoadData);
 		};
-	}, [fireGlobal, on, off, fire, onceReport, onReport, offReport, report]);
+	}, [fireGlobal, on, off, fire, fireReport, onReport, offReport, report]);
 
 	return <ReportDataSetLoading visible={visible}>
 		<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>

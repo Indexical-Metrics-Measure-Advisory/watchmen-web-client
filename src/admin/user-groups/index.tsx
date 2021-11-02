@@ -33,7 +33,7 @@ const fetchUserGroupAndCodes = async (queryUserGroup: QueryUserGroup) => {
 const getKeyOfUserGroup = (userGroup: QueryUserGroup) => userGroup.userGroupId;
 
 const AdminUserGroups = () => {
-	const {once: onceGlobal, fire: fireGlobal} = useEventBus();
+	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateUserGroup = () => {
@@ -49,29 +49,29 @@ const AdminUserGroups = () => {
 				async () => await listUserGroups({search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE}),
 				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
-		const onDoSaveUserGroup = async (userGroup: UserGroup) => {
+		const onSaveUserGroup = async (userGroup: UserGroup, onSaved: (userGroup: UserGroup, saved: boolean) => void) => {
 			if (!userGroup.name || !userGroup.name.trim()) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, userGroup, false);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>User group name is required.</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>User group name is required.</AlertLabel>, () => {
+					onSaved(userGroup, false);
+				});
 			} else {
 				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 					async () => await saveUserGroup(userGroup),
-					() => fire(TupleEventTypes.TUPLE_SAVED, userGroup, true),
-					() => fire(TupleEventTypes.TUPLE_SAVED, userGroup, false));
+					() => onSaved(userGroup, true),
+					() => onSaved(userGroup, false));
 			}
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateUserGroup);
 		on(TupleEventTypes.DO_EDIT_TUPLE, onDoEditUserGroup);
 		on(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchUserGroup);
-		on(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveUserGroup);
+		on(TupleEventTypes.SAVE_TUPLE, onSaveUserGroup);
 		return () => {
 			off(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateUserGroup);
 			off(TupleEventTypes.DO_EDIT_TUPLE, onDoEditUserGroup);
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchUserGroup);
-			off(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveUserGroup);
+			off(TupleEventTypes.SAVE_TUPLE, onSaveUserGroup);
 		};
-	}, [on, off, fire, onceGlobal, fireGlobal]);
+	}, [on, off, fire, fireGlobal]);
 
 	return <TupleWorkbench title="User Groups"
 	                       createButtonLabel="Create User Group" canCreate={true}

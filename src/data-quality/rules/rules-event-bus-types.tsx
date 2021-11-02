@@ -9,11 +9,9 @@ export enum RulesEventTypes {
 	SORT_FACTORS = 'sort-factors',
 
 	ADD_FACTOR = 'add-factor',
-	FACTOR_ADDED = 'factor-added',
 
 	RULE_CHANGED = 'rule-changed',
 	ASK_RULE_CHANGED = 'ask-rule-changed',
-	REPLY_RULE_CHANGED = 'reply-rule-changed',
 
 	SAVED = 'saved',
 }
@@ -31,23 +29,17 @@ export interface RulesEventBus {
 	on(type: RulesEventTypes.SORT_FACTORS, listener: () => void): this;
 	off(type: RulesEventTypes.SORT_FACTORS, listener: () => void): this;
 
-	fire(type: RulesEventTypes.ADD_FACTOR, factor: Factor): this;
-	on(type: RulesEventTypes.ADD_FACTOR, listener: (factor: Factor) => void): this;
-	off(type: RulesEventTypes.ADD_FACTOR, listener: (factor: Factor) => void): this;
-
-	fire(type: RulesEventTypes.FACTOR_ADDED): this;
-	once(type: RulesEventTypes.FACTOR_ADDED, listener: () => void): this;
+	fire(type: RulesEventTypes.ADD_FACTOR, factor: Factor, onAdded: () => void): this;
+	on(type: RulesEventTypes.ADD_FACTOR, listener: (factor: Factor, onAdded: () => void) => void): this;
+	off(type: RulesEventTypes.ADD_FACTOR, listener: (factor: Factor, onAdded: () => void) => void): this;
 
 	fire(type: RulesEventTypes.RULE_CHANGED, rule?: MonitorRule): this;
 	on(type: RulesEventTypes.RULE_CHANGED, listener: (rule?: MonitorRule) => void): this;
 	off(type: RulesEventTypes.RULE_CHANGED, listener: (rule?: MonitorRule) => void): this;
 
-	fire(type: RulesEventTypes.ASK_RULE_CHANGED): this;
-	on(type: RulesEventTypes.ASK_RULE_CHANGED, listener: () => void): this;
-	off(type: RulesEventTypes.ASK_RULE_CHANGED, listener: () => void): this;
-
-	fire(type: RulesEventTypes.REPLY_RULE_CHANGED, changed: boolean): this;
-	once(type: RulesEventTypes.REPLY_RULE_CHANGED, listener: (changed: boolean) => void): this;
+	fire(type: RulesEventTypes.ASK_RULE_CHANGED, onChangedGet: (changed: boolean) => void): this;
+	on(type: RulesEventTypes.ASK_RULE_CHANGED, listener: (onChangedGet: (changed: boolean) => void) => void): this;
+	off(type: RulesEventTypes.ASK_RULE_CHANGED, listener: (onChangedGet: (changed: boolean) => void) => void): this;
 
 	fire(type: RulesEventTypes.SAVED, rules: MonitorRules): this;
 	on(type: RulesEventTypes.SAVED, listener: (rules: MonitorRules) => void): this;

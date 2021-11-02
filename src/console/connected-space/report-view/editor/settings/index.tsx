@@ -30,7 +30,7 @@ interface ResizeHandleState {
 export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
 	const {connectedSpace, subject, report} = props;
 
-	const {once: onceGlobal, on: onGlobal, off: offGlobal} = useEventBus();
+	const {fire: fireGlobal, on: onGlobal, off: offGlobal} = useEventBus();
 	const {on: onView, off: offView} = useReportViewEventBus();
 	const {fire} = useReportEditEventBus();
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -40,12 +40,12 @@ export const ReportSettings = (props: { connectedSpace: ConnectedSpace, subject:
 	useEffect(() => {
 		if (containerRef.current) {
 			const {top, width} = containerRef.current.getBoundingClientRect();
-			onceGlobal(EventTypes.REPLY_SIDE_MENU_WIDTH, (sideMenuWidth: number) => {
+			fireGlobal(EventTypes.ASK_SIDE_MENU_WIDTH, (sideMenuWidth: number) => {
 				setSideMenuWidth(sideMenuWidth);
 				setResizeState({top, width});
-			}).fire(EventTypes.ASK_SIDE_MENU_WIDTH);
+			});
 		}
-	}, [onceGlobal]);
+	}, [fireGlobal]);
 	useEffect(() => {
 		const onSideMenuResized = (sideMenuWidth: number) => {
 			setSideMenuWidth(sideMenuWidth);

@@ -34,7 +34,7 @@ const saveAndPutIntoState = async (
 };
 const PipelineCatalogContainer = () => {
 	const {fire: fireCache} = useAdminCacheEventBus();
-	const {once: oncePipelines} = usePipelinesEventBus();
+	const {fire: firePipelines} = usePipelinesEventBus();
 	const {on, off} = useCatalogEventBus();
 	const [data, setData] = useState<CatalogData>({
 		initialized: false,
@@ -47,19 +47,19 @@ const PipelineCatalogContainer = () => {
 		(async () => {
 			const [topics, pipelines, allGraphics] = await Promise.all([
 				new Promise<Array<Topic>>(resolve => {
-					oncePipelines(PipelinesEventTypes.REPLY_TOPICS, (topics: Array<Topic>) => {
+					firePipelines(PipelinesEventTypes.ASK_TOPICS, (topics: Array<Topic>) => {
 						resolve(topics);
-					}).fire(PipelinesEventTypes.ASK_TOPICS);
+					});
 				}),
 				new Promise<Array<Pipeline>>(resolve => {
-					oncePipelines(PipelinesEventTypes.REPLY_PIPELINES, (pipelines: Array<Pipeline>) => {
+					firePipelines(PipelinesEventTypes.ASK_PIPELINES, (pipelines: Array<Pipeline>) => {
 						resolve(pipelines);
-					}).fire(PipelinesEventTypes.ASK_PIPELINES);
+					});
 				}),
 				new Promise<Array<PipelinesGraphics>>(resolve => {
-					oncePipelines(PipelinesEventTypes.REPLY_GRAPHICS, (allGraphics: Array<PipelinesGraphics>) => {
+					firePipelines(PipelinesEventTypes.ASK_GRAPHICS, (allGraphics: Array<PipelinesGraphics>) => {
 						resolve(allGraphics);
-					}).fire(PipelinesEventTypes.ASK_GRAPHICS);
+					});
 				})
 			]);
 
@@ -95,7 +95,7 @@ const PipelineCatalogContainer = () => {
 				graphics: assembled
 			});
 		})();
-	}, [oncePipelines, fireCache]);
+	}, [firePipelines, fireCache]);
 	useEffect(() => {
 		const onSwitchGraphics = async (graphics: PipelinesGraphics) => {
 			await saveAdminLastSnapshot({lastPipelineGraphId: graphics.pipelineGraphId});

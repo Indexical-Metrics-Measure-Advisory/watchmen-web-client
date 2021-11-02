@@ -10,16 +10,12 @@ export enum PipelinesEventTypes {
 
 	// ask data
 	ASK_SETTINGS_LOADED = 'ask-settings-loaded',
-	REPLY_SETTINGS_LOADED = 'reply-settings-loaded',
 
 	ASK_PIPELINES = 'ask-pipelines',
-	REPLY_PIPELINES = 'reply-pipelines',
 
 	ASK_TOPICS = 'ask-topics',
-	REPLY_TOPICS = 'reply-topics',
 
 	ASK_GRAPHICS = 'ask-graphics',
-	REPLY_GRAPHICS = 'reply-graphics',
 }
 
 export interface PipelinesEventBus {
@@ -37,31 +33,19 @@ export interface PipelinesEventBus {
 	off(type: PipelinesEventTypes.GRAPHICS_CHANGED, listener: (graphics: PipelinesGraphics) => void): this;
 
 	// ask state or data
-	fire(type: PipelinesEventTypes.ASK_SETTINGS_LOADED): this;
-	on(type: PipelinesEventTypes.ASK_SETTINGS_LOADED, listener: () => void): this;
-	off(type: PipelinesEventTypes.ASK_SETTINGS_LOADED, listener: () => void): this;
+	fire(type: PipelinesEventTypes.ASK_SETTINGS_LOADED, onSettingsLoadedGet: (loaded: boolean) => void): this;
+	on(type: PipelinesEventTypes.ASK_SETTINGS_LOADED, listener: (onSettingsLoadedGet: (loaded: boolean) => void) => void): this;
+	off(type: PipelinesEventTypes.ASK_SETTINGS_LOADED, listener: (onSettingsLoadedGet: (loaded: boolean) => void) => void): this;
 
-	fire(type: PipelinesEventTypes.REPLY_SETTINGS_LOADED, loaded: boolean): this;
-	once(type: PipelinesEventTypes.REPLY_SETTINGS_LOADED, listener: (loaded: boolean) => void): this;
+	fire(type: PipelinesEventTypes.ASK_PIPELINES, onData: (pipelines: Array<Pipeline>) => void): this;
+	on(type: PipelinesEventTypes.ASK_PIPELINES, listener: (onData: (pipelines: Array<Pipeline>) => void) => void): this;
+	off(type: PipelinesEventTypes.ASK_PIPELINES, listener: (onData: (pipelines: Array<Pipeline>) => void) => void): this;
 
-	fire(type: PipelinesEventTypes.ASK_PIPELINES): this;
-	on(type: PipelinesEventTypes.ASK_PIPELINES, listener: () => void): this;
-	off(type: PipelinesEventTypes.ASK_PIPELINES, listener: () => void): this;
+	fire(type: PipelinesEventTypes.ASK_TOPICS, onData: (topics: Array<Topic>) => void): this;
+	on(type: PipelinesEventTypes.ASK_TOPICS, listener: (onData: (topics: Array<Topic>) => void) => void): this;
+	off(type: PipelinesEventTypes.ASK_TOPICS, listener: (onData: (topics: Array<Topic>) => void) => void): this;
 
-	fire(type: PipelinesEventTypes.REPLY_PIPELINES, pipelines: Array<Pipeline>): this;
-	once(type: PipelinesEventTypes.REPLY_PIPELINES, listener: (pipelines: Array<Pipeline>) => void): this;
-
-	fire(type: PipelinesEventTypes.ASK_TOPICS): this;
-	on(type: PipelinesEventTypes.ASK_TOPICS, listener: () => void): this;
-	off(type: PipelinesEventTypes.ASK_TOPICS, listener: () => void): this;
-
-	fire(type: PipelinesEventTypes.REPLY_TOPICS, topics: Array<Topic>): this;
-	once(type: PipelinesEventTypes.REPLY_TOPICS, listener: (topics: Array<Topic>) => void): this;
-
-	fire(type: PipelinesEventTypes.ASK_GRAPHICS): this;
-	on(type: PipelinesEventTypes.ASK_GRAPHICS, listener: () => void): this;
-	off(type: PipelinesEventTypes.ASK_GRAPHICS, listener: () => void): this;
-
-	fire(type: PipelinesEventTypes.REPLY_GRAPHICS, graphics: Array<PipelinesGraphics>): this;
-	once(type: PipelinesEventTypes.REPLY_GRAPHICS, listener: (graphics: Array<PipelinesGraphics>) => void): this;
+	fire(type: PipelinesEventTypes.ASK_GRAPHICS, onData: (graphics: Array<PipelinesGraphics>) => void): this;
+	on(type: PipelinesEventTypes.ASK_GRAPHICS, listener: (onData: (graphics: Array<PipelinesGraphics>) => void) => void): this;
+	off(type: PipelinesEventTypes.ASK_GRAPHICS, listener: (onData: (graphics: Array<PipelinesGraphics>) => void) => void): this;
 }

@@ -11,7 +11,7 @@ import {HoldSettings} from './types';
 import {useReplier} from './use-replier';
 
 export const SettingsHolder = () => {
-	const {once: onceCache} = useAdminCacheEventBus();
+	const {fire: fireCache} = useAdminCacheEventBus();
 	const {on, off, fire} = usePipelinesEventBus();
 	const [holdSettings, setHoldSettings] = useState<HoldSettings>({
 		initialized: false,
@@ -30,22 +30,24 @@ export const SettingsHolder = () => {
 	useEffect(() => {
 		if (!holdSettings.initialized) {
 			const askData = () => {
-				onceCache(AdminCacheEventTypes.REPLY_DATA_LOADED, (loaded) => {
+				fireCache(AdminCacheEventTypes.ASK_DATA_LOADED, (loaded) => {
 					if (loaded) {
-						onceCache(AdminCacheEventTypes.REPLY_DATA, (data?: AdminCacheData) => {
+						fireCache(AdminCacheEventTypes.ASK_DATA, (data?: AdminCacheData) => {
 							setHoldSettings({initialized: true, ...data!});
 							fire(PipelinesEventTypes.SETTINGS_LOADED, data!);
-						}).fire(AdminCacheEventTypes.ASK_DATA);
+						});
 					} else {
 						setTimeout(() => askData(), 100);
 					}
-				}).fire(AdminCacheEventTypes.ASK_DATA_LOADED);
+				});
 			};
 			askData();
 		}
-	}, [fire, onceCache, holdSettings.initialized]);
+	}, [fire, fireCache, holdSettings.initialized]);
 	useEffect(() => {
-		const onAskSettingsLoaded = () => fire(PipelinesEventTypes.REPLY_SETTINGS_LOADED, holdSettings.initialized);
+		const onAskSettingsLoaded = (onSettingsLoadedGet: (loaded: boolean) => void) => {
+			onSettingsLoadedGet(holdSettings.initialized);
+		};
 		on(PipelinesEventTypes.ASK_SETTINGS_LOADED, onAskSettingsLoaded);
 		return () => {
 			off(PipelinesEventTypes.ASK_SETTINGS_LOADED, onAskSettingsLoaded);

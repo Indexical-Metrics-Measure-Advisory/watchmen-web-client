@@ -46,7 +46,7 @@ export const HeaderSaveButton = (props: { pipeline: Pipeline }) => {
 	const {pipeline} = props;
 
 	const {fire: fireGlobal} = useEventBus();
-	const {once: oncePipelines} = usePipelinesEventBus();
+	const {fire: firePipelines} = usePipelinesEventBus();
 	const {on, off, fire} = usePipelineEventBus();
 	const [changed, setChanged] = useState(false);
 	const validate = useValidate();
@@ -78,7 +78,7 @@ export const HeaderSaveButton = (props: { pipeline: Pipeline }) => {
 	}, [on, off]);
 
 	const onClicked = () => {
-		oncePipelines(PipelinesEventTypes.REPLY_TOPICS, async (topics: Array<Topic>) => {
+		firePipelines(PipelinesEventTypes.ASK_TOPICS, async (topics: Array<Topic>) => {
 			const result = await validate(pipeline, topics);
 			if (!result.pass) {
 				fireGlobal(EventTypes.SHOW_DIALOG,
@@ -91,7 +91,7 @@ export const HeaderSaveButton = (props: { pipeline: Pipeline }) => {
 					fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{result.message}</AlertLabel>);
 				}
 			}
-		}).fire(PipelinesEventTypes.ASK_TOPICS);
+		});
 	};
 
 	return <PipelineSaveButton tooltip="Save Pipeline"

@@ -12,13 +12,13 @@ import {DashboardBodyContainer} from './widgets';
 export const DashboardBody = (props: { dashboard: Dashboard, removable?: boolean, transient?: boolean }) => {
 	const {dashboard, removable = true, transient = false} = props;
 
-	const {once: onceConsole} = useConsoleEventBus();
+	const {fire: fireConsole} = useConsoleEventBus();
 	const [connectedSpaces, setConnectedSpaces] = useState<Array<ConnectedSpace>>([]);
 	useEffect(() => {
-		onceConsole(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
+		fireConsole(ConsoleEventTypes.ASK_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
 			setConnectedSpaces(connectedSpaces);
-		}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
-	}, [onceConsole]);
+		});
+	}, [fireConsole]);
 
 	return <ReportEventBusProvider>
 		<DashboardBodyContainer>

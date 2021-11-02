@@ -51,7 +51,7 @@ export const FreeWalkPanel = () => {
 	const {layout} = useLayout(DataPanels.FREE_WALK);
 
 	const {fire: fireGlobal} = useEventBus();
-	const {once: onceCache} = useDataQualityCacheEventBus();
+	const {fire: fireCache} = useDataQualityCacheEventBus();
 	const [criteria, setCriteria] = useState<Criteria>({
 		startDate: dayjs().subtract(3, 'day').startOf('date').format('YYYY/MM/DD HH:mm:ss'),
 		endDate: dayjs().startOf('date').subtract(1, 'millisecond').format('YYYY/MM/DD HH:mm:ss')
@@ -64,15 +64,15 @@ export const FreeWalkPanel = () => {
 	const [data, setData] = useState<Array<MonitorRuleLog>>([]);
 	useEffect(() => {
 		const ask = () => {
-			onceCache(DataQualityCacheEventTypes.REPLY_DATA_LOADED, (loaded: boolean) => {
+			fireCache(DataQualityCacheEventTypes.ASK_DATA_LOADED, (loaded: boolean) => {
 				if (loaded) {
-					onceCache(DataQualityCacheEventTypes.REPLY_DATA, (data?: DQCCacheData) => {
+					fireCache(DataQualityCacheEventTypes.ASK_DATA, (data?: DQCCacheData) => {
 						setTopics(data?.topics || []);
-					}).fire(DataQualityCacheEventTypes.ASK_DATA);
+					});
 				} else {
 					setTimeout(() => ask(), 100);
 				}
-			}).fire(DataQualityCacheEventTypes.ASK_DATA_LOADED);
+			});
 		};
 		ask();
 		// only once

@@ -1,5 +1,5 @@
 import {ParameterJoint} from './factor-calculator-types';
-import { TenantId } from './tenant-types';
+import {TenantId} from './tenant-types';
 import {TopicHolder, TopicId} from './topic-types';
 import {Tuple, TupleHolder} from './tuple-types';
 import {UserGroupHolder} from './user-group-types';

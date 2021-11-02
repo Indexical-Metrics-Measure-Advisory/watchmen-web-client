@@ -4,7 +4,7 @@ import {Fragment, useEffect, useState} from 'react';
 import {useSimulatorEventBus} from '../../simulator-event-bus';
 import {SimulatorEventTypes} from '../../simulator-event-bus-types';
 import {DataRow} from '../../types';
-import {ActiveStep, SimulatorState, StartFrom} from './types';
+import {ActiveStep, SimulateStart, SimulatorState, StartFrom, TopicsData} from './types';
 
 export const SimulatorStates = () => {
 	const {on, off, fire} = useSimulatorEventBus();
@@ -51,8 +51,8 @@ export const SimulatorStates = () => {
 	}, [on, off]);
 
 	useEffect(() => {
-		const onAskStart = () => {
-			fire(SimulatorEventTypes.REPLY_START, {
+		const onAskStart = (onStart: (start: SimulateStart) => void) => {
+			onStart({
 				startFrom: state.startFrom,
 				startTopic: state.startTopic,
 				startPipeline: state.startPipeline
@@ -65,8 +65,8 @@ export const SimulatorStates = () => {
 	}, [on, off, fire, state.startFrom, state.startTopic, state.startPipeline]);
 
 	useEffect(() => {
-		const onAskPipelineRun = (pipeline: Pipeline) => {
-			fire(SimulatorEventTypes.REPLY_PIPELINE_RUN, state.runPipelines.includes(pipeline));
+		const onAskPipelineRun = (pipeline: Pipeline, onRunGet: (run: boolean) => void) => {
+			onRunGet(state.runPipelines.includes(pipeline));
 		};
 		on(SimulatorEventTypes.ASK_PIPELINE_RUN, onAskPipelineRun);
 		return () => {
@@ -88,9 +88,9 @@ export const SimulatorStates = () => {
 	}, [on, off]);
 
 	useEffect(() => {
-		const onAskTopicData = (topic: Topic) => {
+		const onAskTopicData = (topic: Topic, onData: (rows: Array<DataRow>) => void) => {
 			const rows = state.topicsData[topic.topicId] || [];
-			fire(SimulatorEventTypes.REPLY_TOPIC_DATA, rows);
+			onData(rows);
 		};
 		on(SimulatorEventTypes.ASK_TOPIC_DATA, onAskTopicData);
 		return () => {
@@ -116,11 +116,9 @@ export const SimulatorStates = () => {
 	}, [on, off]);
 
 	useEffect(() => {
-		const onAskRunMaterial = () => {
-			fire(SimulatorEventTypes.REPLY_RUN_MATERIAL,
-				// serialize and deserialize rows to break relation with original data
-				JSON.parse(JSON.stringify(state.topicsData)),
-				state.runPipelines);
+		const onAskRunMaterial = (onMaterial: (topicData: TopicsData, pipelines: Array<Pipeline>) => void) => {
+			// serialize and deserialize rows to break relation with original data
+			onMaterial(JSON.parse(JSON.stringify(state.topicsData)), state.runPipelines);
 		};
 		on(SimulatorEventTypes.ASK_RUN_MATERIAL, onAskRunMaterial);
 		return () => {

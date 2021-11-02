@@ -142,12 +142,12 @@ export const EChartDiagram = (props: { report: Report; thumbnail: boolean }) => 
 		}
 	});
 	useEffect(() => {
-		const onAskDownloadChart = (aReport: Report) => {
+		const onAskDownloadChart = (aReport: Report, onChartBase64Ready: (base64?: string) => void) => {
 			if (report !== aReport) {
 				return;
 			}
 			const base64 = chartInstance?.getDataURL({type: 'png', pixelRatio: window.devicePixelRatio});
-			fire(ReportEventTypes.CHART_BASE64_READY, report, base64);
+			onChartBase64Ready(base64);
 		};
 		on(ReportEventTypes.ASK_DOWNLOAD_CHART, onAskDownloadChart);
 		return () => {

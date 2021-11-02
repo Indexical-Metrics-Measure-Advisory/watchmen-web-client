@@ -11,7 +11,6 @@ export enum CalendarEventTypes {
 	TIME_CHANGED = 'time-changed',
 
 	ASK_VALUE = 'ask-value',
-	REPLY_VALUE = 'reply-value'
 }
 
 export interface CalendarEventBus {
@@ -39,10 +38,7 @@ export interface CalendarEventBus {
 	on(type: CalendarEventTypes.TIME_CHANGED, listener: (value: Dayjs) => void): this;
 	off(type: CalendarEventTypes.TIME_CHANGED, listener: (value: Dayjs) => void): this;
 
-	fire(type: CalendarEventTypes.ASK_VALUE): this;
-	on(type: CalendarEventTypes.ASK_VALUE, listener: () => void): this;
-	off(type: CalendarEventTypes.ASK_VALUE, listener: () => void): this;
-
-	fire(type: CalendarEventTypes.REPLY_VALUE, value: Dayjs): this;
-	once(type: CalendarEventTypes.REPLY_VALUE, listener: (value: Dayjs) => void): this;
+	fire(type: CalendarEventTypes.ASK_VALUE, onData: (value: Dayjs) => void): this;
+	on(type: CalendarEventTypes.ASK_VALUE, listener: (onData: (value: Dayjs) => void) => void): this;
+	off(type: CalendarEventTypes.ASK_VALUE, listener: (onData: (value: Dayjs) => void) => void): this;
 }

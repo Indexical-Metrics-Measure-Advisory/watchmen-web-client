@@ -21,7 +21,7 @@ export const ColorDropdown = (props: {
 }) => {
 	const {state, color, onDiscard, onSelected} = props;
 
-	const {once, fire} = useColorPickerEventBus();
+	const {fire} = useColorPickerEventBus();
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
 	const onDiscardClicked = (event: MouseEvent<HTMLDivElement>) => {
@@ -32,8 +32,7 @@ export const ColorDropdown = (props: {
 	const onConfirmClicked = (event: MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
-		once(ColorPickerEventTypes.REPLY_COLOR, (color?: string) => onSelected(color));
-		fire(ColorPickerEventTypes.ASK_COLOR);
+		fire(ColorPickerEventTypes.ASK_COLOR, (color?: string) => onSelected(color));
 	};
 
 	return <ColorDropdownContainer {...state} ref={dropdownRef}>

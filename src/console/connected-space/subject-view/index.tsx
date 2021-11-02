@@ -17,7 +17,7 @@ export const SubjectView = (props: { connectedSpace: ConnectedSpace }) => {
 	const {subjectId} = useParams<{ subjectId: SubjectId }>();
 
 	const history = useHistory();
-	const {once: onceGlobal} = useEventBus();
+	const {fire: fireGlobal} = useEventBus();
 	const [subject, setSubject] = useState<Subject | null>(null);
 	useEffect(() => {
 		// eslint-disable-next-line
@@ -25,11 +25,11 @@ export const SubjectView = (props: { connectedSpace: ConnectedSpace }) => {
 		if (subject) {
 			setSubject(subject);
 		} else {
-			onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.CONSOLE.ERROR.SUBJECT_NOT_FOUND}</AlertLabel>, () => {
 				history.replace(toConnectedSpace(connectedSpace.connectId));
-			}).fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.CONSOLE.ERROR.SUBJECT_NOT_FOUND}</AlertLabel>);
+			});
 		}
-	}, [connectedSpace.connectId, connectedSpace.subjects, subjectId, onceGlobal, history]);
+	}, [connectedSpace.connectId, connectedSpace.subjects, subjectId, fireGlobal, history]);
 
 	// eslint-disable-next-line
 	if (!subject || subject.subjectId !== subjectId) {

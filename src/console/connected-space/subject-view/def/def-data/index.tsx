@@ -31,50 +31,50 @@ export const SubjectDefDataHolder = (props: { connectedSpace: ConnectedSpace, su
 	const {connectedSpace, subject} = props;
 
 	const history = useHistory();
-	const {once: onceGlobal} = useEventBus();
-	const {once: onceConsole} = useConsoleEventBus();
+	const {fire: fireGlobal} = useEventBus();
+	const {fire: fireConsole} = useConsoleEventBus();
 	const {fire} = useSubjectDefEventBus();
 	const [data, setData] = useState<SubjectDefData>({availableTopics: [], pickedTopics: []});
 
 	useEffect(() => {
-		onceConsole(ConsoleEventTypes.REPLY_AVAILABLE_SPACES, (spaces: Array<AvailableSpaceInConsole>) => {
+		fireConsole(ConsoleEventTypes.ASK_AVAILABLE_SPACES, (spaces: Array<AvailableSpaceInConsole>) => {
 			// eslint-disable-next-line
 			const space = spaces.find(space => space.spaceId == connectedSpace.spaceId);
 			if (!space) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+					{Lang.CONSOLE.CONNECTED_SPACE.SPACE_NOT_FOUND}
+				</AlertLabel>, () => {
 					history.replace(Router.CONSOLE);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.CONSOLE.CONNECTED_SPACE.SPACE_NOT_FOUND}</AlertLabel>);
+				});
 			} else {
 				const topicIds = Array.from(new Set(space.topicIds));
-				onceConsole(ConsoleEventTypes.REPLY_AVAILABLE_TOPICS, (availableTopics: Array<Topic>) => {
+				fireConsole(ConsoleEventTypes.ASK_AVAILABLE_TOPICS, (availableTopics: Array<Topic>) => {
 					const topicMap = availableTopics.reduce((map, topic) => {
 						map.set(topic.topicId, topic);
 						return map;
 					}, new Map<string, Topic>());
 					const topics = topicIds.map(topicId => topicMap.get(topicId)).filter(x => !!x) as Array<Topic>;
 					if (topics.length === 0) {
-						onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+						fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+							{Lang.CONSOLE.CONNECTED_SPACE.TOPICS_NOT_FOUND}
+						</AlertLabel>, () => {
 							history.replace(Router.CONSOLE);
-						}).fire(EventTypes.SHOW_ALERT,
-							<AlertLabel>{Lang.CONSOLE.CONNECTED_SPACE.TOPICS_NOT_FOUND}</AlertLabel>);
+						});
 					} else if (topics.length !== topicIds.length) {
-						onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+						fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+							{Lang.CONSOLE.CONNECTED_SPACE.TOPICS_COUNT_MISMATCH}
+						</AlertLabel>, () => {
 							history.replace(Router.CONSOLE);
-						}).fire(EventTypes.SHOW_ALERT,
-							<AlertLabel>{Lang.CONSOLE.CONNECTED_SPACE.TOPICS_COUNT_MISMATCH}</AlertLabel>);
+						});
 					} else {
 						const data = {availableTopics: topics, pickedTopics: computePickedTopics(subject, topics)};
 						setData(data);
 						fire(SubjectDefEventTypes.DATA_LOADED, data);
 					}
-				}).fire(ConsoleEventTypes.ASK_AVAILABLE_TOPICS);
+				});
 			}
-		}).fire(ConsoleEventTypes.ASK_AVAILABLE_SPACES);
-	}, [
-		history,
-		onceGlobal, onceConsole, fire,
-		connectedSpace.spaceId, subject
-	]);
+		});
+	}, [history, fireGlobal, fireConsole, fire, connectedSpace.spaceId, subject]);
 
 	usePickedTopics(data.pickedTopics);
 

@@ -10,17 +10,17 @@ import {PipelineEventTypes, PipelineFocusMode} from '../pipeline-event-bus-types
 export const HeaderFocusModeButtons = (props: { pipeline: Pipeline }) => {
 	const {pipeline} = props;
 
-	const {once, fire} = usePipelineEventBus();
+	const {fire} = usePipelineEventBus();
 	const [focusMode, setFocusMode] = useState<PipelineFocusMode>(PipelineFocusMode.UNIT);
 	// play this effect only on pipeline changed
 	useEffect(() => {
-		once(PipelineEventTypes.REPLY_FOCUS_MODE, (askedPipeline, mode) => {
-			if (pipeline === askedPipeline && focusMode !== mode) {
+		fire(PipelineEventTypes.ASK_FOCUS_MODE, pipeline, (mode) => {
+			if (focusMode !== mode) {
 				setFocusMode(mode);
 			}
-		}).fire(PipelineEventTypes.ASK_FOCUS_MODE, pipeline);
+		});
 		// eslint-disable-next-line
-	}, [once, pipeline]);
+	}, [fire, pipeline]);
 
 	const onFocusOnUnitClicked = () => {
 		if (focusMode === PipelineFocusMode.UNIT) {

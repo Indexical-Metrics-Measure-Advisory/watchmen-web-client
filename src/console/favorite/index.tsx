@@ -12,11 +12,11 @@ interface State {
 }
 
 export const Favorite = () => {
-	const {once, on, off, fire} = useConsoleEventBus();
+	const {on, off, fire} = useConsoleEventBus();
 	const [state, setState] = useState<State>({state: FavoriteState.HIDDEN, top: 0, left: 0});
 	useEffect(() => {
-		const onAskFavoriteState = () => {
-			fire(ConsoleEventTypes.REPLY_FAVORITE_STATE, state.state);
+		const onAskFavoriteState = (onStateGet: (state: FavoriteState) => void) => {
+			onStateGet(state.state);
 		};
 		const onShowFavorite = (({top, left}: { top: number, left: number }) => {
 			if (state.state === FavoriteState.HIDDEN) {
@@ -52,12 +52,12 @@ export const Favorite = () => {
 		};
 	}, [on, off, fire, state]);
 	useEffect(() => {
-		once(ConsoleEventTypes.REPLY_LAST_SNAPSHOT, ({favoritePin}: LastSnapshot) => {
+		fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT, ({favoritePin}: LastSnapshot) => {
 			if (favoritePin) {
 				setState(state => ({...state, state: FavoriteState.PIN}));
 			}
-		}).fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT);
-	}, [once]);
+		});
+	}, [fire]);
 
 	return <>
 		<FloatFavorite {...state}/>

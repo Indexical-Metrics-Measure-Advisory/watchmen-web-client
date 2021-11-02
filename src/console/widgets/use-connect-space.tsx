@@ -181,14 +181,14 @@ const AvailableSpacesSelector = (props: { spaces: Array<AvailableSpaceInConsole>
 export const useConnectSpace = () => {
 	const history = useHistory();
 	const {fire: fireGlobal} = useEventBus();
-	const {once, fire} = useConsoleEventBus();
+	const {fire} = useConsoleEventBus();
 
 	const onSwitchTo = (connectedSpace: ConnectedSpace) => {
 		fire(ConsoleEventTypes.CONNECTED_SPACE_CREATED, connectedSpace);
 		history.push(toConnectedSpace(connectedSpace.connectId));
 	};
 	return () => {
-		once(ConsoleEventTypes.REPLY_AVAILABLE_SPACES, (spaces: Array<AvailableSpaceInConsole>) => {
+		fire(ConsoleEventTypes.ASK_AVAILABLE_SPACES, (spaces: Array<AvailableSpaceInConsole>) => {
 			// eslint-disable-next-line
 			const candidates = spaces.sort((d1, d2) => {
 				return d1.name.toLowerCase().localeCompare(d2.name.toLowerCase());
@@ -201,6 +201,6 @@ export const useConnectSpace = () => {
 				fireGlobal(EventTypes.SHOW_DIALOG,
 					<AvailableSpacesSelector spaces={candidates} switchTo={onSwitchTo}/>);
 			}
-		}).fire(ConsoleEventTypes.ASK_AVAILABLE_SPACES);
+		});
 	};
 };

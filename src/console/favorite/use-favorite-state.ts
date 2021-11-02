@@ -41,7 +41,7 @@ const buildFavoriteItems = (data: StateData) => {
 
 export const useFavoriteState = () => {
 	const history = useHistory();
-	const {once, on, off, fire} = useConsoleEventBus();
+	const {on, off, fire} = useConsoleEventBus();
 	const [data, setData] = useState<StateData>({
 		connectedSpaces: [],
 		dashboards: [],
@@ -134,14 +134,14 @@ export const useFavoriteState = () => {
 		};
 	}, [on, off]);
 	useEffect(() => {
-		once(ConsoleEventTypes.REPLY_FAVORITE, ({dashboardIds, connectedSpaceIds}: Favorite) => {
-			once(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
-				once(ConsoleEventTypes.REPLY_DASHBOARDS, (dashboards: Array<Dashboard>) => {
+		fire(ConsoleEventTypes.ASK_FAVORITE, ({dashboardIds, connectedSpaceIds}: Favorite) => {
+			fire(ConsoleEventTypes.ASK_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
+				fire(ConsoleEventTypes.ASK_DASHBOARDS, (dashboards: Array<Dashboard>) => {
 					setData({connectedSpaces, dashboards, connectedSpaceIds, dashboardIds});
-				}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
-			}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
-		}).fire(ConsoleEventTypes.ASK_FAVORITE);
-	}, [once]);
+				});
+			});
+		});
+	}, [fire]);
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const onDashboardRenamed = (dashboard: Dashboard) => {

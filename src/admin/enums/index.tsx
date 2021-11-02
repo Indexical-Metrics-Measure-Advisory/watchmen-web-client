@@ -24,7 +24,7 @@ const fetchEnumAndCodes = async (queryEnum: QueryEnum) => {
 const getKeyOfEnum = (enumeration: QueryEnum) => enumeration.enumId;
 
 const AdminEnums = () => {
-	const {once: onceGlobal, fire: fireGlobal} = useEventBus();
+	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateEnum = () => {
@@ -43,29 +43,29 @@ const AdminEnums = () => {
 				async () => await listEnums({search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE}),
 				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
-		const onDoSaveEnum = async (enumeration: Enum) => {
+		const onSaveEnum = async (enumeration: Enum, onSaved: (enumeration: Enum, saved: boolean) => void) => {
 			if (!enumeration.name || !enumeration.name.trim()) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, enumeration, false);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Enumeration name is required.</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>Enumeration name is required.</AlertLabel>, () => {
+					onSaved(enumeration, false);
+				});
 				return;
 			}
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await saveEnum(enumeration),
-				() => fire(TupleEventTypes.TUPLE_SAVED, enumeration, true),
-				() => fire(TupleEventTypes.TUPLE_SAVED, enumeration, false));
+				() => onSaved(enumeration, true),
+				() => onSaved(enumeration, false));
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateEnum);
 		on(TupleEventTypes.DO_EDIT_TUPLE, onDoEditEnum);
 		on(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchEnum);
-		on(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveEnum);
+		on(TupleEventTypes.SAVE_TUPLE, onSaveEnum);
 		return () => {
 			off(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateEnum);
 			off(TupleEventTypes.DO_EDIT_TUPLE, onDoEditEnum);
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchEnum);
-			off(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveEnum);
+			off(TupleEventTypes.SAVE_TUPLE, onSaveEnum);
 		};
-	}, [on, off, fire, onceGlobal, fireGlobal]);
+	}, [on, off, fire, fireGlobal]);
 
 	return <TupleWorkbench title="Enumerations"
 	                       createButtonLabel="Create Enumeration" canCreate={true}

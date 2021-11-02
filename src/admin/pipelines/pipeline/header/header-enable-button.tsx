@@ -17,7 +17,7 @@ export const HeaderEnableButton = (props: { pipeline: Pipeline }) => {
 	const {pipeline} = props;
 
 	const {fire: fireGlobal} = useEventBus();
-	const {once: oncePipelines} = usePipelinesEventBus();
+	const {fire: firePipelines} = usePipelinesEventBus();
 	const {fire} = usePipelineEventBus();
 	const validate = useValidate();
 
@@ -25,7 +25,7 @@ export const HeaderEnableButton = (props: { pipeline: Pipeline }) => {
 		if (pipeline.enabled) {
 			fire(PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, pipeline);
 		} else {
-			oncePipelines(PipelinesEventTypes.REPLY_TOPICS, async (topics: Array<Topic>) => {
+			firePipelines(PipelinesEventTypes.ASK_TOPICS, async (topics: Array<Topic>) => {
 				const result = await validate(pipeline, topics);
 				if (!result.pass) {
 					pipeline.enabled = false;
@@ -38,7 +38,7 @@ export const HeaderEnableButton = (props: { pipeline: Pipeline }) => {
 						fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{result.message}</AlertLabel>);
 					}
 				}
-			}).fire(PipelinesEventTypes.ASK_TOPICS);
+			});
 		}
 	};
 

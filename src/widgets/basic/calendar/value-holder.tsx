@@ -9,7 +9,7 @@ export const CalendarValueHolder = () => {
 	const [value, setValue] = useState<Dayjs>(dayjs());
 	useValueChange(setValue);
 	useEffect(() => {
-		const onAskValue = () => fire(CalendarEventTypes.REPLY_VALUE, value);
+		const onAskValue = (onData: (value: Dayjs) => void) => onData(value);
 		on(CalendarEventTypes.ASK_VALUE, onAskValue);
 		return () => {
 			off(CalendarEventTypes.ASK_VALUE, onAskValue);

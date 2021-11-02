@@ -20,18 +20,18 @@ import {
 } from './widgets';
 
 export const ConnectedSpacesSection = () => {
-	const {once} = useConsoleEventBus();
+	const {fire} = useConsoleEventBus();
 	const bodyRef = useRef<HTMLDivElement>(null);
 	const [sortType, setSortType] = useState<SortType>(SortType.BY_VISIT_TIME);
 	const [viewType, setViewType] = useState<ViewType>(ViewType.ALL);
 	const [connectedSpaces, setConnectedSpaces] = useState<Array<ConnectedSpace>>([]);
 	useEffect(() => {
-		once(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (newConnectedSpaces) => {
+		fire(ConsoleEventTypes.ASK_CONNECTED_SPACES, (newConnectedSpaces) => {
 			if (newConnectedSpaces !== connectedSpaces) {
 				setConnectedSpaces(newConnectedSpaces);
 			}
-		}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
-	}, [once, connectedSpaces]);
+		});
+	}, [fire, connectedSpaces]);
 	const maxHeight = useMaxHeight(bodyRef);
 
 	const onConnectSpaceClicked = useConnectSpace();

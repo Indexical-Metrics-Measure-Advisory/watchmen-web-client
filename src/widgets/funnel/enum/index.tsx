@@ -11,14 +11,11 @@ import {RangeEnumEditor} from './range';
 export const EnumEditor = (props: { funnel: ReportFunnel }) => {
 	const {funnel} = props;
 
-	const {once} = useFunnelEventBus();
+	const {fire} = useFunnelEventBus();
 	const [ticket] = useState(v4());
 	const [options, setOptions] = useState<Array<DropdownOption>>([]);
 	useEffect(() => {
-		once(FunnelEventTypes.REPLY_ENUM, (aFunnel: ReportFunnel, returnTicket: string, enumeration?: Enum) => {
-			if (aFunnel !== funnel || returnTicket !== ticket) {
-				return;
-			}
+		fire(FunnelEventTypes.ASK_ENUM, funnel, (enumeration?: Enum) => {
 			if (!enumeration) {
 				return;
 			}
@@ -29,8 +26,8 @@ export const EnumEditor = (props: { funnel: ReportFunnel }) => {
 					return {value: item.code, label: `${item.code} - ${item.label}`};
 				}
 			}));
-		}).fire(FunnelEventTypes.ASK_ENUM, funnel, ticket);
-	}, [once, ticket, funnel]);
+		});
+	}, [fire, ticket, funnel]);
 
 	return <>
 		<SingleEditor funnel={funnel} acceptedType={ReportFunnelType.ENUM} options={options}/>

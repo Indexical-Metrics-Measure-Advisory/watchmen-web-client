@@ -104,7 +104,7 @@ export const RuleParameters = (props: {
 
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useRulesEventBus();
-	const {once} = useDataQualityCacheEventBus();
+	const {fire: fireCache} = useDataQualityCacheEventBus();
 
 	const forceUpdate = useForceUpdate();
 
@@ -117,7 +117,7 @@ export const RuleParameters = (props: {
 	const onCancelClicked = () => fireGlobal(EventTypes.HIDE_DIALOG);
 	const onClicked = () => {
 		const askData = () => {
-			once(DataQualityCacheEventTypes.REPLY_DATA, (data?: DQCCacheData) => {
+			fireCache(DataQualityCacheEventTypes.ASK_DATA, (data?: DQCCacheData) => {
 				const topics = data ? data.topics : [];
 
 				// clone, therefore cancel is possible
@@ -154,16 +154,16 @@ export const RuleParameters = (props: {
 						<Button ink={ButtonInk.WAIVE} onClick={onCancelClicked}>Cancel</Button>
 					</DialogFooter>
 				</>);
-			}).fire(DataQualityCacheEventTypes.ASK_DATA);
+			});
 		};
 		const askDataLoaded = (askData: () => void) => {
-			once(DataQualityCacheEventTypes.REPLY_DATA_LOADED, (loaded) => {
+			fireCache(DataQualityCacheEventTypes.ASK_DATA_LOADED, (loaded) => {
 				if (loaded) {
 					askData();
 				} else {
 					setTimeout(() => askDataLoaded(askData), 100);
 				}
-			}).fire(DataQualityCacheEventTypes.ASK_DATA_LOADED);
+			});
 		};
 		askDataLoaded(askData);
 	};

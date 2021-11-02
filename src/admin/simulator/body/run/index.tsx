@@ -81,8 +81,8 @@ export const RunningPlanHeader = (props: {
 	const {topic, topics, showExport} = props;
 
 	const {fire: fireGlobal} = useEventBus();
-	const {once: onceSimulator} = useSimulatorEventBus();
-	const {once} = useRunsEventBus();
+	const {fire: fireSimulator} = useSimulatorEventBus();
+	const {fire} = useRunsEventBus();
 
 	const topicsMap = topics.reduce((map, topic) => {
 		map[topic.topicId] = topic;
@@ -90,7 +90,7 @@ export const RunningPlanHeader = (props: {
 	}, {} as Record<TopicId, Topic>);
 
 	const onExportClicked = () => {
-		once(RunsEventTypes.REPLY_RUNTIME_DATA, (started: boolean, done: boolean, runtimeData: TopicsData) => {
+		fire(RunsEventTypes.ASK_RUNTIME_DATA, (started: boolean, done: boolean, runtimeData: TopicsData) => {
 			if (!started) {
 				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
 					Pipeline(s) doesn't start yet.
@@ -100,7 +100,7 @@ export const RunningPlanHeader = (props: {
 					Pipeline(s) still in running.
 				</AlertLabel>);
 			} else {
-				onceSimulator(SimulatorEventTypes.REPLY_RUN_MATERIAL, (topicsData: TopicsData) => {
+				fireSimulator(SimulatorEventTypes.ASK_RUN_MATERIAL, (topicsData: TopicsData) => {
 					const content = {
 						triggerData: {
 							topicId: topic!.topicId,
@@ -131,9 +131,9 @@ export const RunningPlanHeader = (props: {
 					link.target = '_blank';
 					link.download = `data-of-pipeline -${dayjs().format('YYYYMMDDHHmmss')}.json`;
 					link.click();
-				}).fire(SimulatorEventTypes.ASK_RUN_MATERIAL);
+				});
 			}
-		}).fire(RunsEventTypes.ASK_RUNTIME_DATA);
+		});
 	};
 
 	return <SimulatorBodyPartHeader>
@@ -152,7 +152,7 @@ export const RunningPlan = (props: {
 }) => {
 	const {topics} = props;
 
-	const {once, on, off} = useSimulatorEventBus();
+	const {on, off, fire} = useSimulatorEventBus();
 	const [state, setState] = useState<State>({
 		step: ActiveStep.SELECT,
 		// trigger topic
@@ -175,7 +175,7 @@ export const RunningPlan = (props: {
 	}, [on, off]);
 	useActiveStep((step) => {
 		if (step === ActiveStep.RUN) {
-			once(SimulatorEventTypes.REPLY_START, (start: SimulateStart) => {
+			fire(SimulatorEventTypes.ASK_START, (start: SimulateStart) => {
 				let topic: Topic | null = null;
 				if (start.startFrom === StartFrom.TOPIC) {
 					topic = start.startTopic!;
@@ -183,10 +183,10 @@ export const RunningPlan = (props: {
 					// eslint-disable-next-line
 					topic = topics.find(t => t.topicId == start.startPipeline!.topicId)!;
 				}
-				once(SimulatorEventTypes.REPLY_RUN_MATERIAL, (topicsData: TopicsData, pipelines: Array<Pipeline>) => {
+				fire(SimulatorEventTypes.ASK_RUN_MATERIAL, (topicsData: TopicsData, pipelines: Array<Pipeline>) => {
 					setState({step: ActiveStep.RUN, topic, topicsData, pipelines});
-				}).fire(SimulatorEventTypes.ASK_RUN_MATERIAL);
-			}).fire(SimulatorEventTypes.ASK_START);
+				});
+			});
 		} else {
 			setState(state => ({...state, step}));
 		}

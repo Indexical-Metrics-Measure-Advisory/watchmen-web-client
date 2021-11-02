@@ -32,7 +32,7 @@ const fetchExternalWriterAndCodes = async (queryExternalWriter: QueryExternalWri
 const getKeyOfExternalWriter = (externalWriter: QueryExternalWriter) => externalWriter.writerId;
 
 const AdminExternalWriters = () => {
-	const {once: onceGlobal, fire: fireGlobal} = useEventBus();
+	const {fire: fireGlobal} = useEventBus();
 	const {fire: fireCache} = useAdminCacheEventBus();
 	const {on, off, fire} = useTupleEventBus();
 	useEffect(() => {
@@ -59,44 +59,44 @@ const AdminExternalWriters = () => {
 				}),
 				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
-		const onDoSaveExternalWriter = async (externalWriter: ExternalWriter) => {
+		const onSaveExternalWriter = async (externalWriter: ExternalWriter, onSaved: (externalWriter: ExternalWriter, saved: boolean) => void) => {
 			if (!externalWriter.writerCode || !externalWriter.writerCode.trim()) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, externalWriter, false);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>External Writer code is required.</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>External Writer code is required.</AlertLabel>, () => {
+					onSaved(externalWriter, false);
+				});
 				return;
 			}
 			if (!externalWriter.type) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, externalWriter, false);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>External Writer type is required.</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>External Writer type is required.</AlertLabel>, () => {
+					onSaved(externalWriter, false);
+				});
 				return;
 			}
 			if (!externalWriter.tenantId) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, externalWriter, false);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Data zone is required.</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>Data zone is required.</AlertLabel>, () => {
+					onSaved(externalWriter, false);
+				});
 				return;
 			}
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await saveExternalWriter(externalWriter),
 				() => {
-					fire(TupleEventTypes.TUPLE_SAVED, externalWriter, true);
+					onSaved(externalWriter, true);
 					fireCache(AdminCacheEventTypes.SAVE_EXTERNAL_WRITER, externalWriter);
 				},
-				() => fire(TupleEventTypes.TUPLE_SAVED, externalWriter, false));
+				() => onSaved(externalWriter, false));
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateExternalWriter);
 		on(TupleEventTypes.DO_EDIT_TUPLE, onDoEditExternalWriter);
 		on(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchExternalWriter);
-		on(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveExternalWriter);
+		on(TupleEventTypes.SAVE_TUPLE, onSaveExternalWriter);
 		return () => {
 			off(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateExternalWriter);
 			off(TupleEventTypes.DO_EDIT_TUPLE, onDoEditExternalWriter);
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchExternalWriter);
-			off(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveExternalWriter);
+			off(TupleEventTypes.SAVE_TUPLE, onSaveExternalWriter);
 		};
-	}, [on, off, fire, fireCache, onceGlobal, fireGlobal]);
+	}, [on, off, fire, fireCache, fireGlobal]);
 
 	return <TupleWorkbench title="External Writers"
 	                       createButtonLabel="Create External Writer" canCreate={true}

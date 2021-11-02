@@ -1,6 +1,11 @@
+import {LastSnapshot} from '@/services/data/account/last-snapshot-types';
+import {Favorite} from '@/services/data/console/favorite-types';
+import {AvailableSpaceInConsole} from '@/services/data/console/settings-types';
+import {ConnectedSpace, ConnectedSpaceGraphics} from '@/services/data/tuples/connected-space-types';
+import {Dashboard} from '@/services/data/tuples/dashboard-types';
 import {fetchEnum} from '@/services/data/tuples/enum';
 import {Enum, EnumId} from '@/services/data/tuples/enum-types';
-import {Ticket} from '@/services/data/types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import {useEffect, useState} from 'react';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes} from '../console-event-bus-types';
@@ -15,44 +20,44 @@ export const useReplier = (options: { holdSettings: HoldSettings }) => {
 	const [enumPromises, setEnumPromises] = useState<EnumerationPromises>({});
 
 	useEffect(() => {
-		const onAskSettingsLoaded = () => {
-			fire(ConsoleEventTypes.REPLY_SETTINGS_LOADED, holdSettings.initialized);
+		const onAskSettingsLoaded = (onSettingsLoadedGet: (initialized: boolean) => void) => {
+			onSettingsLoadedGet(holdSettings.initialized);
 		};
-		const onAskLastSnapshot = () => {
-			fire(ConsoleEventTypes.REPLY_LAST_SNAPSHOT, holdSettings.lastSnapshot);
+		const onAskLastSnapshot = (onData: (lastSnapshot: LastSnapshot) => void) => {
+			onData(holdSettings.lastSnapshot);
 		};
-		const onAskFavorite = () => {
-			fire(ConsoleEventTypes.REPLY_FAVORITE, holdSettings.favorite);
+		const onAskFavorite = (onData: (favorite: Favorite) => void) => {
+			onData(holdSettings.favorite);
 		};
-		const onAskConnectedSpaces = () => {
-			fire(ConsoleEventTypes.REPLY_CONNECTED_SPACES, holdSettings.connectedSpaces);
+		const onAskConnectedSpaces = (onData: (connectedSpaces: Array<ConnectedSpace>) => void) => {
+			onData(holdSettings.connectedSpaces);
 		};
-		const onAskConnectedSpaceGraphics = () => {
-			fire(ConsoleEventTypes.REPLY_CONNECTED_SPACE_GRAPHICS, holdSettings.connectedSpaceGraphics);
+		const onAskConnectedSpaceGraphics = (onData: (connectedSpaceGraphics: Array<ConnectedSpaceGraphics>) => void) => {
+			onData(holdSettings.connectedSpaceGraphics);
 		};
-		const onAskDashboards = () => {
-			fire(ConsoleEventTypes.REPLY_DASHBOARDS, holdSettings.dashboards);
+		const onAskDashboards = (onData: (dashboards: Array<Dashboard>) => void) => {
+			onData(holdSettings.dashboards);
 		};
-		const onAskAvailableSpaces = () => {
-			fire(ConsoleEventTypes.REPLY_AVAILABLE_SPACES, holdSettings.availableSpaces);
+		const onAskAvailableSpaces = (onData: (availableSpaces: Array<AvailableSpaceInConsole>) => void) => {
+			onData(holdSettings.availableSpaces);
 		};
-		const onAskAvailableTopics = () => {
-			fire(ConsoleEventTypes.REPLY_AVAILABLE_TOPICS, holdSettings.availableTopics);
+		const onAskAvailableTopics = (onData: (availableTopics: Array<Topic>) => void) => {
+			onData(holdSettings.availableTopics);
 		};
-		const onAskEnum = (enumId: EnumId, ticket: Ticket) => {
+		const onAskEnum = (enumId: EnumId, onData: (enumeration?: Enum) => void) => {
 			// eslint-disable-next-line
 			const enumeration = holdSettings.enums.find(e => e.enumId == enumId);
 			if (enumeration != null) {
-				fire(ConsoleEventTypes.REPLY_ENUM, ticket, enumeration);
+				onData(enumeration);
 				return;
 			}
 			const promise = enumPromises[`${enumId}`];
 			if (promise != null) {
 				// use the existed promise to fetch enumeration data
 				promise.then(enumeration => {
-					fire(ConsoleEventTypes.REPLY_ENUM, ticket, enumeration);
+					onData(enumeration);
 				}).catch(() => {
-					fire(ConsoleEventTypes.REPLY_ENUM, ticket);
+					onData();
 				});
 				return;
 			}
@@ -65,9 +70,9 @@ export const useReplier = (options: { holdSettings: HoldSettings }) => {
 							// push to hold settings
 							holdSettings.enums.push(enumeration);
 							resolve(enumeration);
-							fire(ConsoleEventTypes.REPLY_ENUM, ticket, enumeration);
+							onData(enumeration);
 						} catch {
-							fire(ConsoleEventTypes.REPLY_ENUM, ticket);
+							onData();
 						} finally {
 							// remove me from state after done
 							setEnumPromises(promises => {

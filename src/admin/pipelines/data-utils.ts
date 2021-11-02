@@ -58,7 +58,7 @@ import {
 } from '@/services/data/tuples/pipeline-stage-unit-action/write-topic-actions-types';
 import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
 import {Pipeline, PipelineTriggerType} from '@/services/data/tuples/pipeline-types';
-import { TopicId } from '@/services/data/tuples/topic-types';
+import {TopicId} from '@/services/data/tuples/topic-types';
 import {generateUuid} from '@/services/data/tuples/utils';
 import {getCurrentTime} from '@/services/data/utils';
 

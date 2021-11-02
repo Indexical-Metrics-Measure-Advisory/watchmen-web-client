@@ -51,7 +51,7 @@ export const PrepareData = (props: {
 }) => {
 	const {pipelines, topics} = props;
 
-	const {once, on, off, fire} = useSimulatorEventBus();
+	const {on, off, fire} = useSimulatorEventBus();
 	const [state, setState] = useState<State>({
 		step: ActiveStep.SELECT,
 		topic: null,
@@ -70,7 +70,7 @@ export const PrepareData = (props: {
 	}, [on, off]);
 	useActiveStep((step) => {
 		if (step === ActiveStep.PREPARE_DATA) {
-			once(SimulatorEventTypes.REPLY_START, (start: SimulateStart) => {
+			fire(SimulatorEventTypes.ASK_START, (start: SimulateStart) => {
 				let topic: Topic | null = null;
 				let availablePipelines: Array<Pipeline> = [];
 				if (start.startFrom === StartFrom.TOPIC) {
@@ -83,7 +83,7 @@ export const PrepareData = (props: {
 					topic = topics.find(t => t.topicId == availablePipelines[0].topicId)!;
 				}
 				setState({step: ActiveStep.PREPARE_DATA, topic, pipelines: availablePipelines});
-			}).fire(SimulatorEventTypes.ASK_START);
+			});
 		} else {
 			setState(state => ({...state, step}));
 		}

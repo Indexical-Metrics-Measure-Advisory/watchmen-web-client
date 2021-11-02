@@ -23,10 +23,10 @@ const FavoriteIcon = styled(FontAwesomeIcon).attrs<{ 'data-favorite': boolean }>
 export const HeaderFavoriteButton = (props: { dashboard: Dashboard }) => {
 	const {dashboard} = props;
 	const {fire: fireGlobal} = useEventBus();
-	const {once, on, off, fire} = useConsoleEventBus();
+	const {on, off, fire} = useConsoleEventBus();
 	const [favorite, setFavorite] = useState(false);
 	useEffect(() => {
-		once(ConsoleEventTypes.REPLY_FAVORITE, ({dashboardIds}: Favorite) => {
+		fire(ConsoleEventTypes.ASK_FAVORITE, ({dashboardIds}: Favorite) => {
 			// eslint-disable-next-line
 			const found = dashboardIds.find(dashboardId => dashboardId == dashboard.dashboardId);
 			if (found) {
@@ -34,8 +34,8 @@ export const HeaderFavoriteButton = (props: { dashboard: Dashboard }) => {
 			} else if (!found) {
 				setFavorite(false);
 			}
-		}).fire(ConsoleEventTypes.ASK_FAVORITE);
-	}, [once, dashboard]);
+		});
+	}, [fire, dashboard]);
 	useEffect(() => {
 		const onDashboardAddedIntoFavorite = (addedDashboardId: string) => {
 			// eslint-disable-next-line
@@ -59,17 +59,17 @@ export const HeaderFavoriteButton = (props: { dashboard: Dashboard }) => {
 	}, [on, off, dashboard]);
 
 	const onAddIntoFavoriteClicked = () => {
-		once(ConsoleEventTypes.REPLY_FAVORITE, async (favorite: Favorite) => {
+		fire(ConsoleEventTypes.ASK_FAVORITE, (favorite: Favorite) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await saveFavorite({
 					...favorite,
 					dashboardIds: Array.from(new Set([...favorite.dashboardIds, dashboard.dashboardId]))
 				}),
 				() => fire(ConsoleEventTypes.DASHBOARD_ADDED_INTO_FAVORITE, dashboard.dashboardId));
-		}).fire(ConsoleEventTypes.ASK_FAVORITE);
+		});
 	};
 	const onRemoveFromFavoriteClicked = () => {
-		once(ConsoleEventTypes.REPLY_FAVORITE, async (favorite: Favorite) => {
+		fire(ConsoleEventTypes.ASK_FAVORITE, (favorite: Favorite) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await saveFavorite({
 					...favorite,
@@ -77,7 +77,7 @@ export const HeaderFavoriteButton = (props: { dashboard: Dashboard }) => {
 					dashboardIds: favorite.dashboardIds.filter(dashboardId => dashboardId != dashboard.dashboardId)
 				}),
 				() => fire(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, dashboard.dashboardId));
-		}).fire(ConsoleEventTypes.ASK_FAVORITE);
+		});
 	};
 
 	return <PageHeaderButton

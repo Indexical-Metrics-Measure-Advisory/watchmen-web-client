@@ -23,10 +23,10 @@ const FavoriteIcon = styled(FontAwesomeIcon).attrs<{ 'data-favorite': boolean }>
 export const HeaderFavoriteButton = (props: { connectedSpace: ConnectedSpace }) => {
 	const {connectedSpace} = props;
 	const {fire: fireGlobal} = useEventBus();
-	const {once, on, off, fire} = useConsoleEventBus();
+	const {on, off, fire} = useConsoleEventBus();
 	const [favorite, setFavorite] = useState(false);
 	useEffect(() => {
-		once(ConsoleEventTypes.REPLY_FAVORITE, ({connectedSpaceIds}: Favorite) => {
+		fire(ConsoleEventTypes.ASK_FAVORITE, ({connectedSpaceIds}: Favorite) => {
 			// eslint-disable-next-line
 			const found = connectedSpaceIds.find(connectedSpaceId => connectedSpaceId == connectedSpace.connectId);
 			if (found) {
@@ -34,8 +34,8 @@ export const HeaderFavoriteButton = (props: { connectedSpace: ConnectedSpace }) 
 			} else if (!found) {
 				setFavorite(false);
 			}
-		}).fire(ConsoleEventTypes.ASK_FAVORITE);
-	}, [once, connectedSpace]);
+		});
+	}, [fire, connectedSpace]);
 	useEffect(() => {
 		const onConnectedSpaceAddedIntoFavorite = (addedConnectedSpaceId: string) => {
 			// eslint-disable-next-line
@@ -59,17 +59,17 @@ export const HeaderFavoriteButton = (props: { connectedSpace: ConnectedSpace }) 
 	}, [on, off, connectedSpace]);
 
 	const onAddIntoFavoriteClicked = () => {
-		once(ConsoleEventTypes.REPLY_FAVORITE, async (favorite: Favorite) => {
+		fire(ConsoleEventTypes.ASK_FAVORITE, (favorite: Favorite) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await saveFavorite({
 					...favorite,
 					connectedSpaceIds: Array.from(new Set([...favorite.connectedSpaceIds, connectedSpace.connectId]))
 				}),
 				() => fire(ConsoleEventTypes.CONNECTED_SPACE_ADDED_INTO_FAVORITE, connectedSpace.connectId));
-		}).fire(ConsoleEventTypes.ASK_FAVORITE);
+		});
 	};
 	const onRemoveFromFavoriteClicked = () => {
-		once(ConsoleEventTypes.REPLY_FAVORITE, async (favorite: Favorite) => {
+		fire(ConsoleEventTypes.ASK_FAVORITE, (favorite: Favorite) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await saveFavorite({
 					...favorite,
@@ -77,7 +77,7 @@ export const HeaderFavoriteButton = (props: { connectedSpace: ConnectedSpace }) 
 					connectedSpaceIds: favorite.connectedSpaceIds.filter(connectedSpaceId => connectedSpaceId != connectedSpace.connectId)
 				}),
 				() => fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, connectedSpace.connectId));
-		}).fire(ConsoleEventTypes.ASK_FAVORITE);
+		});
 	};
 
 	return <PageHeaderButton

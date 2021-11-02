@@ -10,10 +10,8 @@ export enum EventTypes {
 
 	SHOW_ALERT = 'show-alert',
 	HIDE_ALERT = 'hide-alert',
-	ALERT_HIDDEN = 'alert-hidden',
 	SHOW_NOT_IMPLEMENT = 'show-not-implement',
 	SHOW_WAITING = 'show-waiting',
-	REPLY_WAITING_DATA = 'reply-waiting-data',
 
 	SHOW_TOOLTIP = 'show-tooltip',
 	HIDE_TOOLTIP = 'hide-tooltip',
@@ -24,7 +22,6 @@ export enum EventTypes {
 
 	SIDE_MENU_RESIZED = 'side-menu-resized',
 	ASK_SIDE_MENU_WIDTH = 'ask-side-menu-width',
-	REPLY_SIDE_MENU_WIDTH = 'reply-side-menu-width',
 
 	INVOKE_REMOTE_REQUEST = 'invoke-remote-request'
 }
@@ -57,27 +54,21 @@ export interface EventBus {
 	off(type: EventTypes.LANGUAGE_CHANGED, listener: (lang: LanguageObjectType) => void): this;
 
 	// alert
-	fire(type: EventTypes.SHOW_ALERT, content?: ReactContent): this;
-	on(type: EventTypes.SHOW_ALERT, listener: (content?: ReactContent) => void): this;
-	off(type: EventTypes.SHOW_ALERT, listener: (content?: ReactContent) => void): this;
+	fire(type: EventTypes.SHOW_ALERT, content?: ReactContent, onHide?: () => void): this;
+	on(type: EventTypes.SHOW_ALERT, listener: (content?: ReactContent, onHide?: () => void) => void): this;
+	off(type: EventTypes.SHOW_ALERT, listener: (content?: ReactContent, onHide?: () => void) => void): this;
 
 	fire(type: EventTypes.HIDE_ALERT): this;
 	on(type: EventTypes.HIDE_ALERT, listener: () => void): this;
 	off(type: EventTypes.HIDE_ALERT, listener: () => void): this;
 
-	fire(type: EventTypes.ALERT_HIDDEN): this;
-	once(type: EventTypes.ALERT_HIDDEN, listener: () => void): this;
-
 	fire(type: EventTypes.SHOW_NOT_IMPLEMENT): this;
 	on(type: EventTypes.SHOW_NOT_IMPLEMENT, listener: () => void): this;
 	off(type: EventTypes.SHOW_NOT_IMPLEMENT, listener: () => void): this;
 
-	fire(type: EventTypes.SHOW_WAITING, request: () => Promise<void>, content?: ReactContent): this;
-	on(type: EventTypes.SHOW_WAITING, listener: (request: () => Promise<void>, content?: ReactContent) => void): this;
-	off(type: EventTypes.SHOW_WAITING, listener: (request: () => Promise<void>, content?: ReactContent) => void): this;
-
-	fire(type: EventTypes.REPLY_WAITING_DATA, data: any): this;
-	once(type: EventTypes.REPLY_WAITING_DATA, listener: (data: any) => void): this;
+	fire(type: EventTypes.SHOW_WAITING, request: () => Promise<void>, content?: ReactContent, onData?: (data: any) => void): this;
+	on(type: EventTypes.SHOW_WAITING, listener: (request: () => Promise<void>, content?: ReactContent, onData?: (data: any) => void) => void): this;
+	off(type: EventTypes.SHOW_WAITING, listener: (request: () => Promise<void>, content?: ReactContent, onData?: (data: any) => void) => void): this;
 
 	// tooltip
 	fire(type: EventTypes.SHOW_TOOLTIP, tooltip: TooltipParam): this;
@@ -105,12 +96,9 @@ export interface EventBus {
 	on(type: EventTypes.SIDE_MENU_RESIZED, listener: (width: number) => void): this;
 	off(type: EventTypes.SIDE_MENU_RESIZED, listener: (width: number) => void): this;
 
-	fire(type: EventTypes.ASK_SIDE_MENU_WIDTH): this;
-	on(type: EventTypes.ASK_SIDE_MENU_WIDTH, listener: () => void): this;
-	off(type: EventTypes.ASK_SIDE_MENU_WIDTH, listener: () => void): this;
-
-	fire(type: EventTypes.REPLY_SIDE_MENU_WIDTH, width: number): this;
-	once(type: EventTypes.REPLY_SIDE_MENU_WIDTH, listener: (width: number) => void): this;
+	fire(type: EventTypes.ASK_SIDE_MENU_WIDTH, onWidthGet: (width: number) => void): this;
+	on(type: EventTypes.ASK_SIDE_MENU_WIDTH, listener: (onWidthGet: (width: number) => void) => void): this;
+	off(type: EventTypes.ASK_SIDE_MENU_WIDTH, listener: (onWidthGet: (width: number) => void) => void): this;
 
 	fire(type: EventTypes.INVOKE_REMOTE_REQUEST, request: () => Promise<any>, success?: (data?: any) => void, failure?: (error?: any) => void): this;
 	on(type: EventTypes.INVOKE_REMOTE_REQUEST, listener: (request: () => Promise<any>, success?: (data?: any) => void, failure?: (error?: any) => void) => void): this;

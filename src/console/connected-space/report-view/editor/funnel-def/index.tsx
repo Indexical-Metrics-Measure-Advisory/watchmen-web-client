@@ -30,14 +30,14 @@ const merge = (existed: Array<ReportFunnel>, detected: Array<ReportFunnel>): Arr
 export const FunnelDef = (props: { subject: Subject, report: Report }) => {
 	const {subject, report} = props;
 
-	const {once: onceConsole} = useConsoleEventBus();
+	const {fire: fireConsole} = useConsoleEventBus();
 	useEffect(() => {
-		onceConsole(ConsoleEventTypes.REPLY_AVAILABLE_TOPICS, (availableTopics: Array<Topic>) => {
+		fireConsole(ConsoleEventTypes.ASK_AVAILABLE_TOPICS, (availableTopics: Array<Topic>) => {
 			const existedFunnels = report.funnels || [];
 			const detectedFunnels = detectFunnels(subject, availableTopics);
 			report.funnels = merge(existedFunnels, detectedFunnels);
-		}).fire(ConsoleEventTypes.ASK_AVAILABLE_TOPICS);
-	}, [onceConsole, subject, report]);
+		});
+	}, [fireConsole, subject, report]);
 
 	const funnels = report.funnels || [];
 

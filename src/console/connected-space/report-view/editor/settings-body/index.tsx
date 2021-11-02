@@ -16,13 +16,13 @@ import {SettingsBodyContainer} from './widgets';
 export const SettingsBody = (props: { connectedSpace: ConnectedSpace; subject: Subject; report: Report }) => {
 	const {connectedSpace, subject, report} = props;
 
-	const {once, on, off} = useConsoleEventBus();
+	const {fire, on, off} = useConsoleEventBus();
 	const [favoritePin, setFavoritePin] = useState(false);
 	useEffect(() => {
-		once && once(ConsoleEventTypes.REPLY_FAVORITE_STATE, (state: FavoriteState) => {
+		fire && fire(ConsoleEventTypes.ASK_FAVORITE_STATE, (state: FavoriteState) => {
 			setFavoritePin(state === FavoriteState.PIN);
-		}).fire(ConsoleEventTypes.ASK_FAVORITE_STATE);
-	}, [once]);
+		});
+	}, [fire]);
 	useEffect(() => {
 		const onPinFavorite = () => setFavoritePin(true);
 		const onUnpinFavorite = () => setFavoritePin(false);

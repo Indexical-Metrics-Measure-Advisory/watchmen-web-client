@@ -1,6 +1,6 @@
 import {Apis, post} from '../apis';
 import {fetchMockSubjectData} from '../mock/console/mock-subject';
-import { SubjectId } from '../tuples/subject-types';
+import {SubjectId} from '../tuples/subject-types';
 import {isMockService} from '../utils';
 import {DataSetPage} from './dataset';
 

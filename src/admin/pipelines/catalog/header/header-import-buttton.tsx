@@ -139,7 +139,7 @@ const PipelinesImport = (props: {
 
 export const HeaderImportButton = () => {
 	const {fire: fireGlobal} = useEventBus();
-	const {once: onceCache, fire: fireCache} = useAdminCacheEventBus();
+	const {fire: fireCache} = useAdminCacheEventBus();
 	const {fire} = useCatalogEventBus();
 
 	const onImportSuccess = (options: { topics: Array<Topic>; pipelines: Array<Pipeline> }) => {
@@ -194,7 +194,7 @@ export const HeaderImportButton = () => {
 				spaces: [] as Array<Space>,
 				connectedSpaces: [] as Array<ConnectedSpace>
 			});
-		onceCache(AdminCacheEventTypes.REPLY_DATA, async (data?: AdminCacheData) => {
+		fireCache(AdminCacheEventTypes.ASK_DATA, async (data?: AdminCacheData) => {
 			const {topics: cachedTopics, pipelines: cachedPipelines} = data || {};
 			const [cachedSpaces, cachedConnectedSpaces] = await Promise.all([listSpacesForExport(), listConnectedSpacesForExport()]);
 			fireGlobal(EventTypes.SHOW_DIALOG,
@@ -208,7 +208,7 @@ export const HeaderImportButton = () => {
 					width: '60%',
 					height: PICKER_DIALOG_HEIGHT
 				});
-		}).fire(AdminCacheEventTypes.ASK_DATA);
+		});
 	};
 	const onImportClicked = () => {
 		uploadFile(UploadFileType.MARKDOWN, onFileSelected);

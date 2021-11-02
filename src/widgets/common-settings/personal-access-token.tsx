@@ -87,7 +87,7 @@ export const PersonalAccessToken = (props: {
 		noteRequired = 'Note is required for a token.'
 	} = props;
 
-	const {once, on, off, fire} = useEventBus();
+	const {on, off, fire} = useEventBus();
 	const noteRef = useRef<HTMLInputElement>(null);
 	const [tokens, setTokens] = useState<Array<PAT>>([]);
 	const forceUpdate = useForceUpdate();
@@ -110,9 +110,9 @@ export const PersonalAccessToken = (props: {
 	const onGenerateClicked = async () => {
 		const note = noteRef.current?.value || '';
 		if (note.trim().length === 0) {
-			once(EventTypes.ALERT_HIDDEN, () => {
+			fire(EventTypes.SHOW_ALERT, <AlertLabel>{noteRequired}</AlertLabel>, () => {
 				noteRef.current?.focus();
-			}).fire(EventTypes.SHOW_ALERT, <AlertLabel>{noteRequired}</AlertLabel>);
+			});
 			return;
 		}
 

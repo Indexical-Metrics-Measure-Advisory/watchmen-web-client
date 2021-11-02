@@ -8,7 +8,6 @@ export enum GridEventTypes {
 	FIX_COLUMN_CHANGED = 'fix-column-changed',
 	COMPRESS_COLUMN_WIDTH = 'compress-column-width',
 	DRAG_COLUMN_VISIBLE_CHANGED = 'drag-column-visible-changed',
-	REPLY_DRAG_COLUMN_VISIBLE = 'reply-drag-column-visible',
 	ASK_DRAG_COLUMN_VISIBLE = 'determine-drag-column-visible',
 	DRAG_COLUMN_STATE_CHANGED = 'drag-column-state-changed',
 
@@ -41,12 +40,9 @@ export interface GridEventBus {
 	on(type: GridEventTypes.DRAG_COLUMN_VISIBLE_CHANGED, listener: (visible: boolean) => void): this;
 	off(type: GridEventTypes.DRAG_COLUMN_VISIBLE_CHANGED, listener: (visible: boolean) => void): this;
 
-	fire(type: GridEventTypes.ASK_DRAG_COLUMN_VISIBLE): this;
-	on(type: GridEventTypes.ASK_DRAG_COLUMN_VISIBLE, listener: () => void): this;
-	off(type: GridEventTypes.ASK_DRAG_COLUMN_VISIBLE, listener: () => void): this;
-
-	fire(type: GridEventTypes.REPLY_DRAG_COLUMN_VISIBLE, visible: boolean): this;
-	once(type: GridEventTypes.REPLY_DRAG_COLUMN_VISIBLE, listener: (visible: boolean) => void): this;
+	fire(type: GridEventTypes.ASK_DRAG_COLUMN_VISIBLE, onVisibleGet: (visible: boolean) => void): this;
+	on(type: GridEventTypes.ASK_DRAG_COLUMN_VISIBLE, listener: (onVisibleGet: (visible: boolean) => void) => void): this;
+	off(type: GridEventTypes.ASK_DRAG_COLUMN_VISIBLE, listener: (onVisibleGet: (visible: boolean) => void) => void): this;
 
 	fire(type: GridEventTypes.DRAG_COLUMN_STATE_CHANGED, state: Partial<DragColumnState>): this;
 	on(type: GridEventTypes.DRAG_COLUMN_STATE_CHANGED, listener: (state: Partial<DragColumnState>) => void): this;

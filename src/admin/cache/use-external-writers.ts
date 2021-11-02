@@ -5,22 +5,22 @@ import {useAdminCacheEventBus} from './cache-event-bus';
 import {AdminCacheEventTypes} from './cache-event-bus-types';
 
 export const useExternalWriters = (): [Array<ExternalWriter>, Dispatch<SetStateAction<Array<ExternalWriter>>>] => {
-	const {once: onceCache} = useAdminCacheEventBus();
+	const {fire} = useAdminCacheEventBus();
 	const [externalWriters, setExternalWriters] = useState<Array<ExternalWriter>>([]);
 	useEffect(() => {
 		const askData = () => {
-			onceCache(AdminCacheEventTypes.REPLY_DATA_LOADED, (loaded) => {
+			fire(AdminCacheEventTypes.ASK_DATA_LOADED, (loaded) => {
 				if (loaded) {
-					onceCache(AdminCacheEventTypes.REPLY_DATA, (data?: AdminCacheData) => {
+					fire(AdminCacheEventTypes.ASK_DATA, (data?: AdminCacheData) => {
 						setExternalWriters(data?.externalWriters || []);
-					}).fire(AdminCacheEventTypes.ASK_DATA);
+					});
 				} else {
 					setTimeout(() => askData(), 100);
 				}
-			}).fire(AdminCacheEventTypes.ASK_DATA_LOADED);
+			});
 		};
 		askData();
-	}, [onceCache]);
+	}, [fire]);
 
 	return [externalWriters, setExternalWriters];
 };

@@ -58,7 +58,7 @@ const ConsoleWorkbench = styled.div.attrs({
 `;
 
 const ConsoleFavoritePlaceholder = () => {
-	const {once, on, off} = useConsoleEventBus();
+	const {fire, on, off} = useConsoleEventBus();
 	const [favorite, setFavorite] = useState(false);
 	useEffect(() => {
 		const onFavoritePin = () => setFavorite(true);
@@ -72,12 +72,12 @@ const ConsoleFavoritePlaceholder = () => {
 		};
 	}, [on, off]);
 	useEffect(() => {
-		once(ConsoleEventTypes.REPLY_LAST_SNAPSHOT, ({favoritePin}: LastSnapshot) => {
+		fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT, ({favoritePin}: LastSnapshot) => {
 			if (favoritePin) {
 				setFavorite(true);
 			}
-		}).fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT);
-	}, [once]);
+		});
+	}, [fire]);
 
 	return <ConsolePinFavoritePlaceholder favorite={favorite}/>;
 };

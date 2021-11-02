@@ -28,7 +28,7 @@ export const GridDragColumn = forwardRef((props: {
 		movementX: 0
 	});
 	useEffect(() => {
-		const onAskVisible = () => fire(GridEventTypes.REPLY_DRAG_COLUMN_VISIBLE, visible);
+		const onAskVisible = (onVisibleGet: (visible: boolean) => void) => onVisibleGet(visible);
 		const onStateChanged = (newState: Partial<DragColumnState>) => {
 			setState((previous) => {
 				return {...previous, ...newState};

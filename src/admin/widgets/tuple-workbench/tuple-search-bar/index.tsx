@@ -14,7 +14,7 @@ export const TupleSearchBar = (props: {
 	const {placeholder, canCreate} = props;
 
 	const {fire: fireGlobal} = useEventBus();
-	const {once, on, off, fire} = useTupleEventBus();
+	const {on, off, fire} = useTupleEventBus();
 	const searchRef = useRef<HTMLInputElement>(null);
 	const [onSearch, setOnSearch] = useState<boolean>(false);
 	const [searchText, setSearchText] = useState<string>('');
@@ -44,7 +44,7 @@ export const TupleSearchBar = (props: {
 			return;
 		}
 
-		once(TupleEventTypes.REPLY_TUPLE_STATE, (state: TupleState) => {
+		fire(TupleEventTypes.ASK_TUPLE_STATE, (state: TupleState) => {
 			if (state !== TupleState.SAVED && state !== TupleState.NONE) {
 				fireGlobal(EventTypes.SHOW_YES_NO_DIALOG,
 					'Still in editing, all changes will be lost if interrupt. Are you sure to continue?',
@@ -56,7 +56,7 @@ export const TupleSearchBar = (props: {
 			} else {
 				fire(TupleEventTypes.DO_SEARCH_TUPLE, searchText.trim(), 1);
 			}
-		}).fire(TupleEventTypes.ASK_TUPLE_STATE);
+		});
 	};
 
 	return <TupleSearchBarContainer noIndent={!canCreate}>

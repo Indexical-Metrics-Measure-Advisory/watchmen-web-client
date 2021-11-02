@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Button} from '../basic/button';
-import {ButtonInk} from '../basic/types';
+import {ButtonInk, ReactContent} from '../basic/types';
 import {useEventBus} from '../events/event-bus';
 import {EventTypes} from '../events/types';
 import {Lang} from '../langs';
@@ -8,14 +8,15 @@ import {AlertBody, AlertContainer, AlertDialog, AlertFooter} from './widgets';
 
 interface AlertState {
 	visible: boolean;
-	content?: ((props: any) => React.ReactNode) | React.ReactNode;
+	content?: ReactContent;
+	onHide?: () => void;
 }
 
 export const Alert = () => {
-	const {on, off, fire} = useEventBus();
+	const {on, off} = useEventBus();
 	const [alert, setAlert] = useState<AlertState>({visible: false});
 	const [functions] = useState({
-		show: (content?: ((props: any) => React.ReactNode) | React.ReactNode) => {
+		show: (content?: ReactContent, onHide?: () => void) => {
 			if (alert.visible) {
 				return;
 			}
@@ -24,13 +25,14 @@ export const Alert = () => {
 				document.body.style.paddingRight = `${padding}px`;
 			}
 			document.body.style.overflowY = 'hidden';
-			setAlert({visible: true, content});
+			setAlert({visible: true, content, onHide});
 		},
 		hide: () => {
 			document.body.style.paddingRight = '';
 			document.body.style.overflowY = '';
+			const onHide = alert.onHide;
 			setAlert({visible: false, content: alert.content});
-			fire(EventTypes.ALERT_HIDDEN);
+			onHide && onHide();
 		}
 	});
 	useEffect(() => {

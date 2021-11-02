@@ -24,7 +24,7 @@ export const FavoriteMenu = (props: {
 }) => {
 	const {showTooltip} = props;
 
-	const {once, on, off, fire} = useConsoleEventBus();
+	const {on, off, fire} = useConsoleEventBus();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const iconRef = useRef<HTMLDivElement>(null);
 	const [active, setActive] = useState(false);
@@ -38,10 +38,10 @@ export const FavoriteMenu = (props: {
 		};
 	}, [on, off]);
 	useEffect(() => {
-		once(ConsoleEventTypes.REPLY_LAST_SNAPSHOT, ({favoritePin}: LastSnapshot) => {
+		fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT, ({favoritePin}: LastSnapshot) => {
 			favoritePin && setActive(favoritePin);
-		}).fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT);
-	}, [once]);
+		});
+	}, [fire]);
 
 	const label = Lang.CONSOLE.MENU.FAVORITE;
 	const tooltip = useTooltip<HTMLDivElement>({
@@ -54,14 +54,14 @@ export const FavoriteMenu = (props: {
 	});
 
 	const onFavoriteClicked = () => {
-		once(ConsoleEventTypes.REPLY_FAVORITE_STATE, (state: FavoriteState) => {
+		fire(ConsoleEventTypes.ASK_FAVORITE_STATE, (state: FavoriteState) => {
 			// only response for show favorite, otherwise keep it
 			if (state === FavoriteState.HIDDEN) {
 				const {top, left, width, height} = iconRef.current!.getBoundingClientRect();
 				setActive(true);
 				fire(ConsoleEventTypes.SHOW_FAVORITE, {top: top + height / 2, left: left + width});
 			}
-		}).fire(ConsoleEventTypes.ASK_FAVORITE_STATE);
+		});
 	};
 
 	return <SideMenuItemContainer onClick={onFavoriteClicked} {...tooltip} ref={containerRef}>

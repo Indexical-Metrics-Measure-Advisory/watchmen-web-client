@@ -18,7 +18,7 @@ const ReportRouter = (props: { connectedSpace: ConnectedSpace }) => {
 
 	const {subjectId, reportId} = useParams<{ subjectId: SubjectId; reportId: ReportId }>();
 	const history = useHistory();
-	const {once: onceGlobal} = useEventBus();
+	const {fire: fireGlobal} = useEventBus();
 	const [data, setData] = useState<{ subject: Subject, report: Report } | null>(null);
 
 	useEffect(() => {
@@ -30,16 +30,17 @@ const ReportRouter = (props: { connectedSpace: ConnectedSpace }) => {
 			if (report) {
 				setData({subject, report});
 			} else {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					history.replace(toSubject(connectedSpace.connectId, subject.subjectId));
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.CONSOLE.ERROR.REPORT_NOT_FOUND}</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT,
+					<AlertLabel>{Lang.CONSOLE.ERROR.REPORT_NOT_FOUND}</AlertLabel>, () => {
+						history.replace(toSubject(connectedSpace.connectId, subject.subjectId));
+					});
 			}
 		} else {
-			onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.CONSOLE.ERROR.SUBJECT_NOT_FOUND}</AlertLabel>, () => {
 				history.replace(toConnectedSpace(connectedSpace.connectId));
-			}).fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.CONSOLE.ERROR.SUBJECT_NOT_FOUND}</AlertLabel>);
+			});
 		}
-	}, [connectedSpace.connectId, connectedSpace.subjects, subjectId, reportId, onceGlobal, history]);
+	}, [connectedSpace.connectId, connectedSpace.subjects, subjectId, reportId, fireGlobal, history]);
 
 	if (!data) {
 		return null;

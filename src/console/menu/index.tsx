@@ -81,8 +81,8 @@ export const ConsoleMenu = () => {
 	const [menuWidth, setMenuWidth] = useState(SIDE_MENU_MIN_WIDTH);
 	const onConnectSpaceClicked = useConnectSpace();
 	useEffect(() => {
-		const onAskMenuWidth = () => {
-			fireGlobal(EventTypes.REPLY_SIDE_MENU_WIDTH, menuWidth);
+		const onAskMenuWidth = (onWidthGet: (width: number) => void) => {
+			onWidthGet(menuWidth);
 		};
 		onGlobal(EventTypes.ASK_SIDE_MENU_WIDTH, onAskMenuWidth);
 		return () => {

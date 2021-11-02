@@ -19,7 +19,7 @@ export const SubjectBodyRouter = (props: { connectedSpace: ConnectedSpace, subje
 	const {connectedSpace, subject} = props;
 
 	const history = useHistory();
-	const {once: onceConsole} = useConsoleEventBus();
+	const {fire: fireConsole} = useConsoleEventBus();
 	const [initialized, setInitialized] = useState(false);
 	useEffect(() => {
 		const handle = ({valid}: { valid: boolean }) => {
@@ -29,23 +29,23 @@ export const SubjectBodyRouter = (props: { connectedSpace: ConnectedSpace, subje
 				setInitialized(true);
 			}
 		};
-		onceConsole(ConsoleEventTypes.REPLY_AVAILABLE_SPACES, (spaces: Array<AvailableSpaceInConsole>) => {
+		fireConsole(ConsoleEventTypes.ASK_AVAILABLE_SPACES, (spaces: Array<AvailableSpaceInConsole>) => {
 			// eslint-disable-next-line
 			const space = spaces.find(space => space.spaceId == connectedSpace.spaceId);
 			if (!space) {
 				handle(isDefValid(subject, []));
 			} else {
 				const topicIds = Array.from(new Set(space.topicIds));
-				onceConsole(ConsoleEventTypes.REPLY_AVAILABLE_TOPICS, (availableTopics: Array<Topic>) => {
+				fireConsole(ConsoleEventTypes.ASK_AVAILABLE_TOPICS, (availableTopics: Array<Topic>) => {
 					const topicMap = availableTopics.reduce((map, topic) => {
 						map.set(topic.topicId, topic);
 						return map;
 					}, new Map<string, Topic>());
 					const topics = topicIds.map(topicId => topicMap.get(topicId)).filter(x => !!x) as Array<Topic>;
 					handle(isDefValid(subject, topics));
-				}).fire(ConsoleEventTypes.ASK_AVAILABLE_TOPICS);
+				});
 			}
-		}).fire(ConsoleEventTypes.ASK_AVAILABLE_SPACES);
+		});
 	});
 
 	if (!initialized) {

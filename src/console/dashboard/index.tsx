@@ -22,22 +22,24 @@ const ConsoleDashboard = () => {
 	const {dashboardId} = useParams<{ dashboardId: DashboardId }>();
 
 	const history = useHistory();
-	const {once: onceGlobal} = useEventBus();
-	const {once, on, off} = useConsoleEventBus();
+	const {fire: fireGlobal} = useEventBus();
+	const {fire, on, off} = useConsoleEventBus();
 	const [dashboard, setDashboard] = useState<Dashboard | null>(null);
 	useEffect(() => {
-		once(ConsoleEventTypes.REPLY_DASHBOARDS, (dashboards: Array<Dashboard>) => {
+		fire(ConsoleEventTypes.ASK_DASHBOARDS, (dashboards: Array<Dashboard>) => {
 			// eslint-disable-next-line
 			const dashboard = dashboards.find(dashboard => dashboard.dashboardId == dashboardId);
 			if (dashboard) {
 				setDashboard(dashboard);
 			} else {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+					{Lang.CONSOLE.ERROR.DASHBOARD_NOT_FOUND}
+				</AlertLabel>, () => {
 					history.replace(Router.CONSOLE);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.CONSOLE.ERROR.DASHBOARD_NOT_FOUND}</AlertLabel>);
+				});
 			}
-		}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
-	}, [once, onceGlobal, history, dashboardId]);
+		});
+	}, [fire, fireGlobal, history, dashboardId]);
 	useEffect(() => {
 		const onDashboardRemoved = (dashboard: Dashboard) => {
 			// eslint-disable-next-line
@@ -45,7 +47,7 @@ const ConsoleDashboard = () => {
 				return;
 			}
 
-			once(ConsoleEventTypes.REPLY_DASHBOARDS, (dashboards: Array<Dashboard>) => {
+			fire(ConsoleEventTypes.ASK_DASHBOARDS, (dashboards: Array<Dashboard>) => {
 				// eslint-disable-next-line
 				const dashboard = dashboards.sort((d1, d2) => {
 					return d1.name.toLowerCase().localeCompare(d2.name.toLowerCase());
@@ -58,13 +60,13 @@ const ConsoleDashboard = () => {
 					// no dashboard, to home
 					history.replace(Router.CONSOLE_HOME);
 				}
-			}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
+			});
 		};
 		on(ConsoleEventTypes.DASHBOARD_REMOVED, onDashboardRemoved);
 		return () => {
 			off(ConsoleEventTypes.DASHBOARD_REMOVED, onDashboardRemoved);
 		};
-	}, [once, on, off, history, dashboardId]);
+	}, [fire, on, off, history, dashboardId]);
 
 	// eslint-disable-next-line
 	if (!dashboard || dashboard.dashboardId != dashboardId) {
@@ -83,11 +85,11 @@ const ConsoleDashboard = () => {
 const ConsoleDashboardAuto = () => {
 	const history = useHistory();
 	const {fire: fireGlobal} = useEventBus();
-	const {once, fire} = useConsoleEventBus();
+	const {fire} = useConsoleEventBus();
 	useEffect(() => {
-		once(ConsoleEventTypes.REPLY_DASHBOARDS, (dashboards: Array<Dashboard>) => {
+		fire(ConsoleEventTypes.ASK_DASHBOARDS, (dashboards: Array<Dashboard>) => {
 			const allDashboardIds = [...dashboards].map(dashboard => dashboard.dashboardId);
-			once(ConsoleEventTypes.REPLY_LAST_SNAPSHOT, async ({lastDashboardId}: LastSnapshot) => {
+			fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT, async ({lastDashboardId}: LastSnapshot) => {
 				// eslint-disable-next-line
 				if (lastDashboardId && allDashboardIds.some(id => id == lastDashboardId)) {
 					// exists and found in list
@@ -113,9 +115,9 @@ const ConsoleDashboardAuto = () => {
 							history.push(toDashboard(dashboard.dashboardId));
 						});
 				}
-			}).fire(ConsoleEventTypes.ASK_LAST_SNAPSHOT);
-		}).fire(ConsoleEventTypes.ASK_DASHBOARDS);
-	}, [fireGlobal, fire, once, history]);
+			});
+		});
+	}, [fireGlobal, fire, history]);
 
 	return <Fragment/>;
 };

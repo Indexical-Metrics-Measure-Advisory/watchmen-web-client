@@ -15,7 +15,7 @@ import {
 	ConnectedSpaceId,
 	ConnectedSpaceTemplate
 } from './connected-space-types';
-import { SpaceId } from './space-types';
+import {SpaceId} from './space-types';
 import {isFakedUuid} from './utils';
 
 export const fetchConnectedSpaces = async (): Promise<Array<ConnectedSpace>> => {

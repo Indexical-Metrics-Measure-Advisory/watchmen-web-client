@@ -8,8 +8,8 @@ export const SimulateConsole = (props: { connectedSpaces: Array<ConnectedSpace> 
 
 	const {on, off, fire} = useConsoleEventBus();
 	useEffect(() => {
-		const onAskConnectedSpaces = () => {
-			fire(ConsoleEventTypes.REPLY_CONNECTED_SPACES, connectedSpaces);
+		const onAskConnectedSpaces = (onData: (connectedSpaces: Array<ConnectedSpace>) => void) => {
+			onData(connectedSpaces);
 		};
 		on(ConsoleEventTypes.ASK_CONNECTED_SPACES, onAskConnectedSpaces);
 		return () => {

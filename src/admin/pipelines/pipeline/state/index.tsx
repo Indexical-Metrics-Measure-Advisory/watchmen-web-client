@@ -11,11 +11,11 @@ export const PipelineState = (props: { pipeline: Pipeline }) => {
 		setFocusMode(PipelineFocusMode.UNIT);
 	}, [pipeline]);
 	useEffect(() => {
-		const onAskFocusMode = (askPipeline: Pipeline) => {
+		const onAskFocusMode = (askPipeline: Pipeline, onModeGet: (mode: PipelineFocusMode) => void) => {
 			if (askPipeline !== pipeline) {
 				return;
 			}
-			fire(PipelineEventTypes.REPLY_FOCUS_MODE, pipeline, focusMode);
+			onModeGet(focusMode);
 		};
 		const onFocusModeChanged = (changedPipeline: Pipeline, mode: PipelineFocusMode) => {
 			if (changedPipeline !== pipeline) {

@@ -31,13 +31,13 @@ export const FactorRulesRows = (props: {
 		};
 	}, [on, off]);
 	useEffect(() => {
-		const onAddFactor = (factor: Factor) => {
+		const onAddFactor = (factor: Factor, onAdded: () => void) => {
 			// add in to rule map, just create a empty map
 			ruleMap[factor.factorId] = {};
 			setDefinedFactors(definedFactors => [...definedFactors, factor]);
 			// notify factor is added
 			fire(RulesEventTypes.RULE_CHANGED);
-			fire(RulesEventTypes.FACTOR_ADDED);
+			onAdded();
 		};
 		on(RulesEventTypes.ADD_FACTOR, onAddFactor);
 		return () => {

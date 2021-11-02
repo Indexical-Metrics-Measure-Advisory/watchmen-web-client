@@ -31,18 +31,19 @@ export const SideMenuSpaces = (props: { showTooltip: boolean }) => {
 	const {showTooltip} = props;
 
 	const history = useHistory();
-	const {once, on, off} = useConsoleEventBus();
+	const {fire, on, off} = useConsoleEventBus();
 	const [spaces, setSpaces] = useState<Array<ConnectedSpace>>([]);
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
-		once(ConsoleEventTypes.REPLY_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
+		fire(ConsoleEventTypes.ASK_CONNECTED_SPACES, (connectedSpaces: Array<ConnectedSpace>) => {
 			setSpaces(connectedSpaces || []);
-		}).fire(ConsoleEventTypes.ASK_CONNECTED_SPACES);
-	}, [once]);
+		});
+	}, [fire]);
 	useEffect(() => {
 		const onConnectedSpaceCreated = (connectedSpace: ConnectedSpace) => {
 			setSpaces(spaces => Array.from(new Set([...spaces, connectedSpace])));
 		};
+		// noinspection JSUnusedLocalSymbols
 		const onConnectedSpaceRenamed = (connectedSpace: ConnectedSpace) => {
 			forceUpdate();
 		};

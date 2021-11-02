@@ -3,7 +3,7 @@ import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Dashboard} from '@/services/data/tuples/dashboard-types';
 import {ParameterJointType} from '@/services/data/tuples/factor-calculator-types';
 import {Report} from '@/services/data/tuples/report-types';
-import { SpaceId } from '@/services/data/tuples/space-types';
+import {SpaceId} from '@/services/data/tuples/space-types';
 import {Subject} from '@/services/data/tuples/subject-types';
 import {generateUuid} from '@/services/data/tuples/utils';
 import {getCurrentTime} from '@/services/data/utils';

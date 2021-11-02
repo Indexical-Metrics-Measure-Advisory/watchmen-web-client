@@ -1,4 +1,4 @@
-import { TopicId } from "@/services/data/tuples/topic-types";
+import {TopicId} from '@/services/data/tuples/topic-types';
 
 export enum SpaceEventTypes {
 	TOPIC_ADDED = 'topic-added',

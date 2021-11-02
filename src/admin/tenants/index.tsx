@@ -35,7 +35,7 @@ const fetchTenant = async (queryTenant: QueryTenant) => {
 const getKeyOfTenant = (tenant: QueryTenant) => tenant.tenantId;
 
 const AdminTenants = () => {
-	const {once: onceGlobal, fire: fireGlobal} = useEventBus();
+	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateTenant = () => {
@@ -51,29 +51,29 @@ const AdminTenants = () => {
 				async () => await listTenants({search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE}),
 				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
-		const onDoSaveTenant = async (tenant: Tenant) => {
+		const onSaveTenant = async (tenant: Tenant, onSaved: (tenant: Tenant, saved: boolean) => void) => {
 			if (!tenant.name || !tenant.name.trim()) {
-				onceGlobal(EventTypes.ALERT_HIDDEN, () => {
-					fire(TupleEventTypes.TUPLE_SAVED, tenant, false);
-				}).fire(EventTypes.SHOW_ALERT, <AlertLabel>Tenant name is required.</AlertLabel>);
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>Tenant name is required.</AlertLabel>, () => {
+					onSaved(tenant, false);
+				});
 			} else {
 				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 					async () => await saveTenant(tenant),
-					() => fire(TupleEventTypes.TUPLE_SAVED, tenant, true),
-					() => fire(TupleEventTypes.TUPLE_SAVED, tenant, false));
+					() => onSaved(tenant, true),
+					() => onSaved(tenant, false));
 			}
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateTenant);
 		on(TupleEventTypes.DO_EDIT_TUPLE, onDoEditTenant);
 		on(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchTenant);
-		on(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveTenant);
+		on(TupleEventTypes.SAVE_TUPLE, onSaveTenant);
 		return () => {
 			off(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateTenant);
 			off(TupleEventTypes.DO_EDIT_TUPLE, onDoEditTenant);
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchTenant);
-			off(TupleEventTypes.DO_SAVE_TUPLE, onDoSaveTenant);
+			off(TupleEventTypes.SAVE_TUPLE, onSaveTenant);
 		};
-	}, [on, off, fire, onceGlobal, fireGlobal]);
+	}, [on, off, fire, fireGlobal]);
 
 	return <TupleWorkbench title="Data Zones"
 	                       createButtonLabel="Create Data Zone" canCreate={true}

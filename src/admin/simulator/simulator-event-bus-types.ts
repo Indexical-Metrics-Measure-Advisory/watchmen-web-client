@@ -14,16 +14,12 @@ export enum SimulatorEventTypes {
 	TOPIC_DATA_CHANGED = 'topic-data-changed',
 
 	ASK_START = 'ask-start',
-	REPLY_START = 'reply-start',
 
 	ASK_PIPELINE_RUN = 'ask-pipeline-run',
-	REPLY_PIPELINE_RUN = 'reply-pipeline-run',
 
 	ASK_TOPIC_DATA = 'ask-topic-data',
-	REPLY_TOPIC_DATA = 'reply-topic-data',
 
 	ASK_RUN_MATERIAL = 'ask-run-material',
-	REPLY_RUN_MATERIAL = 'reply-run-material'
 }
 
 export interface SimulatorEventBus {
@@ -51,31 +47,19 @@ export interface SimulatorEventBus {
 	on(type: SimulatorEventTypes.TOPIC_DATA_CHANGED, listener: (topic: Topic, rows: Array<DataRow>) => void): this;
 	off(type: SimulatorEventTypes.TOPIC_DATA_CHANGED, listener: (topic: Topic, rows: Array<DataRow>) => void): this;
 
-	fire(type: SimulatorEventTypes.ASK_START): this;
-	on(type: SimulatorEventTypes.ASK_START, listener: () => void): this;
-	off(type: SimulatorEventTypes.ASK_START, listener: () => void): this;
+	fire(type: SimulatorEventTypes.ASK_START, onStart: (start: SimulateStart) => void): this;
+	on(type: SimulatorEventTypes.ASK_START, listener: (onStart: (start: SimulateStart) => void) => void): this;
+	off(type: SimulatorEventTypes.ASK_START, listener: (onStart: (start: SimulateStart) => void) => void): this;
 
-	fire(type: SimulatorEventTypes.REPLY_START, start: SimulateStart): this;
-	once(type: SimulatorEventTypes.REPLY_START, listener: (start: SimulateStart) => void): this;
+	fire(type: SimulatorEventTypes.ASK_PIPELINE_RUN, pipeline: Pipeline, onRunGet: (run: boolean) => void): this;
+	on(type: SimulatorEventTypes.ASK_PIPELINE_RUN, listener: (pipeline: Pipeline, onRunGet: (run: boolean) => void) => void): this;
+	off(type: SimulatorEventTypes.ASK_PIPELINE_RUN, listener: (pipeline: Pipeline, onRunGet: (run: boolean) => void) => void): this;
 
-	fire(type: SimulatorEventTypes.ASK_PIPELINE_RUN, pipeline: Pipeline): this;
-	on(type: SimulatorEventTypes.ASK_PIPELINE_RUN, listener: (pipeline: Pipeline) => void): this;
-	off(type: SimulatorEventTypes.ASK_PIPELINE_RUN, listener: (pipeline: Pipeline) => void): this;
+	fire(type: SimulatorEventTypes.ASK_TOPIC_DATA, topic: Topic, onData: (rows: Array<DataRow>) => void): this;
+	on(type: SimulatorEventTypes.ASK_TOPIC_DATA, listener: (topic: Topic, onData: (rows: Array<DataRow>) => void) => void): this;
+	off(type: SimulatorEventTypes.ASK_TOPIC_DATA, listener: (topic: Topic, onData: (rows: Array<DataRow>) => void) => void): this;
 
-	fire(type: SimulatorEventTypes.REPLY_PIPELINE_RUN, run: boolean): this;
-	once(type: SimulatorEventTypes.REPLY_PIPELINE_RUN, listener: (run: boolean) => void): this;
-
-	fire(type: SimulatorEventTypes.ASK_TOPIC_DATA, topic: Topic): this;
-	on(type: SimulatorEventTypes.ASK_TOPIC_DATA, listener: (topic: Topic) => void): this;
-	off(type: SimulatorEventTypes.ASK_TOPIC_DATA, listener: (topic: Topic) => void): this;
-
-	fire(type: SimulatorEventTypes.REPLY_TOPIC_DATA, rows: Array<DataRow>): this;
-	once(type: SimulatorEventTypes.REPLY_TOPIC_DATA, listener: (rows: Array<DataRow>) => void): this;
-
-	fire(type: SimulatorEventTypes.ASK_RUN_MATERIAL): this;
-	on(type: SimulatorEventTypes.ASK_RUN_MATERIAL, listener: () => void): this;
-	off(type: SimulatorEventTypes.ASK_RUN_MATERIAL, listener: () => void): this;
-
-	fire(type: SimulatorEventTypes.REPLY_RUN_MATERIAL, topicData: TopicsData, pipelines: Array<Pipeline>): this;
-	once(type: SimulatorEventTypes.REPLY_RUN_MATERIAL, listener: (topicData: TopicsData, pipelines: Array<Pipeline>) => void): this;
+	fire(type: SimulatorEventTypes.ASK_RUN_MATERIAL, onMaterial: (topicData: TopicsData, pipelines: Array<Pipeline>) => void): this;
+	on(type: SimulatorEventTypes.ASK_RUN_MATERIAL, listener: (onMaterial: (topicData: TopicsData, pipelines: Array<Pipeline>) => void) => void): this;
+	off(type: SimulatorEventTypes.ASK_RUN_MATERIAL, listener: (onMaterial: (topicData: TopicsData, pipelines: Array<Pipeline>) => void) => void): this;
 }
