@@ -1,4 +1,9 @@
-import {Pipeline, PipelineBlockGraphics, PipelinesGraphics} from '@/services/data/tuples/pipeline-types';
+import {
+	Pipeline,
+	PipelineBlockGraphics,
+	PipelinesGraphics,
+	PipelinesGraphicsId
+} from '@/services/data/tuples/pipeline-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 
 export enum GraphicsRole {
@@ -18,7 +23,7 @@ export interface AssembledTopicGraphics extends PipelineBlockGraphics {
 }
 
 export interface AssembledPipelinesGraphics {
-	pipelineGraphId: string;
+	pipelineGraphId: PipelinesGraphicsId;
 	name: string;
 	topics: Array<AssembledTopicGraphics>;
 }

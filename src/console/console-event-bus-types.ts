@@ -5,6 +5,7 @@ import {ConnectedSpace, ConnectedSpaceGraphics, ConnectedSpaceId} from '@/servic
 import {Dashboard, DashboardId} from '@/services/data/tuples/dashboard-types';
 import {Enum, EnumId} from '@/services/data/tuples/enum-types';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {Ticket} from '@/services/data/types';
 
 export enum FavoriteState {
 	HIDDEN = 'hidden',
@@ -199,11 +200,11 @@ export interface ConsoleEventBus {
 	fire(type: ConsoleEventTypes.REPLY_AVAILABLE_TOPICS, availableTopics: Array<Topic>): this;
 	once(type: ConsoleEventTypes.REPLY_AVAILABLE_TOPICS, listener: (availableTopics: Array<Topic>) => void): this;
 
-	fire(type: ConsoleEventTypes.ASK_ENUM, enumId: EnumId, ticket: string): this;
-	on(type: ConsoleEventTypes.ASK_ENUM, listener: (enumId: EnumId, ticket: string) => void): this;
-	off(type: ConsoleEventTypes.ASK_ENUM, listener: (enumId: EnumId, ticket: string) => void): this;
+	fire(type: ConsoleEventTypes.ASK_ENUM, enumId: EnumId, ticket: Ticket): this;
+	on(type: ConsoleEventTypes.ASK_ENUM, listener: (enumId: EnumId, ticket: Ticket) => void): this;
+	off(type: ConsoleEventTypes.ASK_ENUM, listener: (enumId: EnumId, ticket: Ticket) => void): this;
 
-	fire(type: ConsoleEventTypes.REPLY_ENUM, ticket: string, enumeration?: Enum): this;
-	on(type: ConsoleEventTypes.REPLY_ENUM, listener: (ticket: string, enumeration?: Enum) => void): this;
-	off(type: ConsoleEventTypes.REPLY_ENUM, listener: (ticket: string, enumeration?: Enum) => void): this;
+	fire(type: ConsoleEventTypes.REPLY_ENUM, ticket: Ticket, enumeration?: Enum): this;
+	on(type: ConsoleEventTypes.REPLY_ENUM, listener: (ticket: Ticket, enumeration?: Enum) => void): this;
+	off(type: ConsoleEventTypes.REPLY_ENUM, listener: (ticket: Ticket, enumeration?: Enum) => void): this;
 }

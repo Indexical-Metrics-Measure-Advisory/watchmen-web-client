@@ -1,5 +1,6 @@
 import {Enum, EnumItem} from '@/services/data/tuples/enum-types';
 import {ReportFunnel} from '@/services/data/tuples/report-types';
+import {Ticket} from '@/services/data/types';
 import {FunnelEditor} from '@/widgets/funnel';
 import {FunnelEventBusProvider, useFunnelEventBus} from '@/widgets/funnel/funnel-event-bus';
 import {FunnelEventTypes} from '@/widgets/funnel/funnel-event-bus-types';
@@ -21,7 +22,7 @@ const FunnelEnumHandler = (props: {
 
 	const {on, off, fire} = useFunnelEventBus();
 	useEffect(() => {
-		const onAskEnum = (aFunnel: ReportFunnel, ticket: string) => {
+		const onAskEnum = (aFunnel: ReportFunnel, ticket: Ticket) => {
 			if (aFunnel !== funnel) {
 				return;
 			}

@@ -1,6 +1,6 @@
 import {DataSource} from '@/services/data/tuples/data-source-types';
 import {ExternalWriter} from '@/services/data/tuples/external-writer-types';
-import {Pipeline, PipelinesGraphics} from '@/services/data/tuples/pipeline-types';
+import {Pipeline, PipelinesGraphics, PipelinesGraphicsId} from '@/services/data/tuples/pipeline-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {clearAdminData, loadAdminData, prepareAdminDB} from '@/services/local-persist';
 import {
@@ -119,7 +119,7 @@ export const AdminCache = () => {
 				};
 			});
 		};
-		const onRemovePipelinesGraphics = async (pipelineGraphId: string) => {
+		const onRemovePipelinesGraphics = async (pipelineGraphId: PipelinesGraphicsId) => {
 			await deleteAdminPipelineGraphics(pipelineGraphId);
 			setData(data => {
 				return {

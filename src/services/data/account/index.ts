@@ -1,4 +1,5 @@
 import {ACCOUNT_KEY_IN_SESSION, ACCOUNT_TOKEN} from '../session-constants';
+import { Token } from '../types';
 import {SessionAccount} from './types';
 
 export const saveAccountIntoSession = ({name, admin, super: superAdmin, tenantId}: SessionAccount) => {
@@ -32,7 +33,7 @@ export const findToken = (): string | null => {
 	return sessionStorage.getItem(ACCOUNT_TOKEN);
 };
 
-export const saveTokenIntoSession = (token: string) => {
+export const saveTokenIntoSession = (token: Token) => {
 	sessionStorage.setItem(ACCOUNT_TOKEN, token);
 };
 

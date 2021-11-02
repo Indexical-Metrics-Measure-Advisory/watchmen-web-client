@@ -5,6 +5,7 @@ import {DashboardEventBusProvider} from '@/console/dashboard/dashboard-event-bus
 import {fetchSharedDashboard} from '@/services/data/share/dashboard';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Dashboard, DashboardId} from '@/services/data/tuples/dashboard-types';
+import {Token} from '@/services/data/types';
 import {Lang} from '@/widgets/langs';
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
@@ -30,7 +31,7 @@ const ShareDashboard = (props: { dashboard: Dashboard }) => {
 };
 
 const ShareDashboardIndex = () => {
-	const {dashboardId, token} = useParams<{ dashboardId: DashboardId, token: string }>();
+	const {dashboardId, token} = useParams<{ dashboardId: DashboardId, token: Token }>();
 	const [state, setState] = useState<ShareDashboardState>({initialized: false});
 	useEffect(() => {
 		(async () => {

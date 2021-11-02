@@ -1,3 +1,4 @@
+import {Token} from '../types';
 import {TenantId} from './tenant-types';
 import {Tuple} from './tuple-types';
 
@@ -12,7 +13,7 @@ export interface ExternalWriter extends Tuple {
 	writerId: ExternalWriterId;
 	writerCode: string;
 	type: ExternalWriterType;
-	pat?: string;
+	pat?: Token;
 	url: string;
 	tenantId?: TenantId;
 }

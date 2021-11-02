@@ -3,9 +3,10 @@ import {ChartType} from '../../tuples/chart-types';
 import {ConnectedSpace} from '../../tuples/connected-space-types';
 import {Dashboard, DashboardId} from '../../tuples/dashboard-types';
 import {ParameterJointType} from '../../tuples/factor-calculator-types';
+import {Token} from '../../types';
 import {getCurrentTime} from '../../utils';
 
-export const fetchMockSharedDashboard = async (dashboardId: DashboardId, token: string): Promise<SharedDashboard> => {
+export const fetchMockSharedDashboard = async (dashboardId: DashboardId, token: Token): Promise<SharedDashboard> => {
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve({

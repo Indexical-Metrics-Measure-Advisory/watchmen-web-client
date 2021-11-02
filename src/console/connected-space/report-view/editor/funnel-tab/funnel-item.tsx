@@ -3,6 +3,7 @@ import {isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
 import {Report, ReportFunnel} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {Ticket} from '@/services/data/types';
 import {FunnelEditor} from '@/widgets/funnel';
 import {FunnelEventBusProvider, useFunnelEventBus} from '@/widgets/funnel/funnel-event-bus';
 import {FunnelEventTypes} from '@/widgets/funnel/funnel-event-bus-types';
@@ -27,7 +28,7 @@ const FunnelEnumHandler = (props: { subject: Subject; funnel: ReportFunnel }) =>
 	const {once: onceConsole, on: onConsole, off: offConsole, fire: fireConsole} = useConsoleEventBus();
 	const {on, off, fire} = useFunnelEventBus();
 	useEffect(() => {
-		const replyEnumNoItems = (ticket: string, enumId: EnumId) => {
+		const replyEnumNoItems = (ticket: Ticket, enumId: EnumId) => {
 			fire(FunnelEventTypes.REPLY_ENUM, funnel, ticket, {
 				enumId, name: '', items: [] as Array<EnumItem>
 			} as Enum);
@@ -41,7 +42,7 @@ const FunnelEnumHandler = (props: { subject: Subject; funnel: ReportFunnel }) =>
 				fire(FunnelEventTypes.REPLY_ENUM, funnel, returnTicket, enumeration);
 			}
 		};
-		const onAskEnum = (aFunnel: ReportFunnel, ticket: string) => {
+		const onAskEnum = (aFunnel: ReportFunnel, ticket: Ticket) => {
 			if (aFunnel !== funnel) {
 				return;
 			}

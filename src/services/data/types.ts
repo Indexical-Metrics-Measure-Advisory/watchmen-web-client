@@ -10,3 +10,5 @@ export interface Page<T extends any> {
 }
 
 export type DateTime = string;
+export type Token = string;
+export type Ticket = string;

@@ -3,6 +3,7 @@ import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-uni
 import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
 import {Pipeline, PipelineId} from '@/services/data/tuples/pipeline-types';
 import {Topic, TopicId} from '@/services/data/tuples/topic-types';
+import {PipelineRuntimeId} from '@/services/local-persist/db/simulator';
 import {DataRow} from '../../types';
 import {TopicsData} from '../state/types';
 
@@ -65,7 +66,7 @@ export interface PipelineRuntimeContext {
 
 	allTopics: AllTopics;
 
-	pipelineRuntimeId?: string;
+	pipelineRuntimeId?: PipelineRuntimeId;
 	/** runtime data */
 	runtimeData: TopicsData;
 	// changed data rows

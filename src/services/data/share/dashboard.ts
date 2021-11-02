@@ -3,6 +3,7 @@ import {Apis, get} from '../apis';
 import {fetchMockSharedDashboard} from '../mock/share/mock-dashboard';
 import {ConnectedSpace} from '../tuples/connected-space-types';
 import {Dashboard, DashboardId} from '../tuples/dashboard-types';
+import {Token} from '../types';
 import {isMockService} from '../utils';
 
 export interface SharedDashboard {
@@ -10,7 +11,7 @@ export interface SharedDashboard {
 	connectedSpaces: Array<ConnectedSpace>;
 }
 
-export const fetchSharedDashboard = async (dashboardId: DashboardId, token: string): Promise<SharedDashboard> => {
+export const fetchSharedDashboard = async (dashboardId: DashboardId, token: Token): Promise<SharedDashboard> => {
 	if (isMockService()) {
 		return await fetchMockSharedDashboard(dashboardId, token);
 	} else {

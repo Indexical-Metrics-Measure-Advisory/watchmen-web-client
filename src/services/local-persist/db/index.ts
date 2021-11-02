@@ -1,5 +1,5 @@
 import {AdminLastSnapshot} from '../../data/admin/last-snapshot-types';
-import {Pipeline, PipelinesGraphics} from '../../data/tuples/pipeline-types';
+import {Pipeline, PipelinesGraphics, PipelinesGraphicsId} from '../../data/tuples/pipeline-types';
 import {Topic} from '../../data/tuples/topic-types';
 import {
 	AdminDatabase,
@@ -66,7 +66,7 @@ export const clearAdminPipelines = async () => {
 export const clearAdminTopics = async () => {
 	await clearTopics(adminDB);
 };
-export const deleteAdminPipelineGraphics = async (pipelineGraphId: string) => {
+export const deleteAdminPipelineGraphics = async (pipelineGraphId: PipelinesGraphicsId) => {
 	await deletePipelineGraphics(adminDB, pipelineGraphId);
 };
 export const clearAdminPipelinesGraphics = async () => {

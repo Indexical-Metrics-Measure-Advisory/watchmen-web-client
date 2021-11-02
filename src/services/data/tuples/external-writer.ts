@@ -8,7 +8,7 @@ import {
 import {Apis, get, page, post} from '../apis';
 import {TuplePage} from '../query/tuple-page';
 import {isMockService} from '../utils';
-import {ExternalWriter} from './external-writer-types';
+import {ExternalWriter, ExternalWriterId} from './external-writer-types';
 import {QueryExternalWriter, QueryExternalWriterForHolder} from './query-external-writer-types';
 import {isFakedUuid} from './utils';
 
@@ -26,7 +26,7 @@ export const listExternalWriters = async (options: {
 	}
 };
 
-export const fetchExternalWriter = async (writerId: string): Promise<{ externalWriter: ExternalWriter }> => {
+export const fetchExternalWriter = async (writerId: ExternalWriterId): Promise<{ externalWriter: ExternalWriter }> => {
 	if (isMockService()) {
 		const {writer: externalWriter} = await fetchMockExternalWriter(writerId);
 		return {externalWriter};

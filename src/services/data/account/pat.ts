@@ -1,13 +1,14 @@
 import {v4} from 'uuid';
 import {Apis, get, post} from '../apis';
 import {generateUuid} from '../tuples/utils';
+import { Token } from '../types';
 import {isMockService} from '../utils';
 import {PAT} from './pat-types';
 
 const createToken = () => {
 	return v4().replace(/-/g, '');
 };
-export const maskToken = (token: string = createToken()) => {
+export const maskToken = (token: Token = createToken()) => {
 	return token.split('').map((ch, index) => {
 		if (index < 6) {
 			return ch;
