@@ -9,7 +9,13 @@ import {
 	saveMockConnectedSpaceGraphics
 } from '../mock/tuples/mock-connected-space';
 import {isMockService} from '../utils';
-import {ConnectedSpace, ConnectedSpaceGraphics, ConnectedSpaceTemplate} from './connected-space-types';
+import {
+	ConnectedSpace,
+	ConnectedSpaceGraphics,
+	ConnectedSpaceId,
+	ConnectedSpaceTemplate
+} from './connected-space-types';
+import { SpaceId } from './space-types';
 import {isFakedUuid} from './utils';
 
 export const fetchConnectedSpaces = async (): Promise<Array<ConnectedSpace>> => {
@@ -36,7 +42,7 @@ export const fetchConnectedSpaceGraphics = async (): Promise<Array<ConnectedSpac
 	}
 };
 
-export const saveConnectedSpace = async (connectedSpace: ConnectedSpace, templateConnectedSpaceIds: Array<string> = []): Promise<void> => {
+export const saveConnectedSpace = async (connectedSpace: ConnectedSpace, templateConnectedSpaceIds: Array<ConnectedSpaceId> = []): Promise<void> => {
 	if (isMockService()) {
 		return saveMockConnectedSpace(connectedSpace);
 	} else if (isFakedUuid(connectedSpace)) {
@@ -88,7 +94,7 @@ export const saveConnectedSpaceGraphics = async (
 	}
 };
 
-export const listTemplateConnectedSpaces = async (spaceId: string): Promise<Array<ConnectedSpaceTemplate>> => {
+export const listTemplateConnectedSpaces = async (spaceId: SpaceId): Promise<Array<ConnectedSpaceTemplate>> => {
 	if (isMockService()) {
 		return [
 			{connectId: '1', name: 'Template One', createBy: 'Damon Lindelof'},

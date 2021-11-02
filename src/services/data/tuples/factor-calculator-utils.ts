@@ -12,11 +12,11 @@ import {
 	ValueTypesOfParameter,
 	VariablePredefineFunctions
 } from './factor-calculator-types';
-import {CompatibleTypes, Factor, FactorType} from './factor-types';
+import {CompatibleTypes, Factor, FactorId, FactorType} from './factor-types';
 import {isComputedParameter, isConstantParameter, isTopicFactorParameter} from './parameter-utils';
-import {Topic, TopicKind, TopicType} from './topic-types';
+import {Topic, TopicId, TopicKind, TopicType} from './topic-types';
 
-export const createUnknownTopic = (topicId: string, name: string = 'Unknown Topic'): Topic => {
+export const createUnknownTopic = (topicId: TopicId, name: string = 'Unknown Topic'): Topic => {
 	return {
 		topicId,
 		name,
@@ -27,7 +27,7 @@ export const createUnknownTopic = (topicId: string, name: string = 'Unknown Topi
 		lastModified: getCurrentTime()
 	};
 };
-export const createUnknownFactor = (factorId: string, name: string = 'Unknown Factor'): Factor => {
+export const createUnknownFactor = (factorId: FactorId, name: string = 'Unknown Factor'): Factor => {
 	return {
 		factorId,
 		name,
@@ -38,7 +38,7 @@ export const createUnknownFactor = (factorId: string, name: string = 'Unknown Fa
 	};
 };
 
-export const findSelectedTopic = (topics: Array<Topic>, topicId?: string, extraTopicName?: string): { selected: Topic | null, extra: Topic | null } => {
+export const findSelectedTopic = (topics: Array<Topic>, topicId?: TopicId, extraTopicName?: string): { selected: Topic | null, extra: Topic | null } => {
 	let selectedTopic: Topic | null = null, extraTopic: Topic | null = null;
 	if (topicId) {
 		// eslint-disable-next-line
@@ -54,7 +54,7 @@ export const findSelectedTopic = (topics: Array<Topic>, topicId?: string, extraT
  * find selected factor by given topic & factorId.
  * create extra factor when selection not found, and let selected to be extra one.
  */
-export const findSelectedFactor = (topic?: Topic | null, factorId?: string, extraFactorName?: string): { selected: Factor | null, extra: Factor | null } => {
+export const findSelectedFactor = (topic?: Topic | null, factorId?: FactorId, extraFactorName?: string): { selected: Factor | null, extra: Factor | null } => {
 	let selectedFactor: Factor | null = null;
 	let extraFactor: Factor | null = null;
 	if (factorId) {

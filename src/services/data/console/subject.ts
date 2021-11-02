@@ -1,10 +1,11 @@
 import {Apis, post} from '../apis';
 import {fetchMockSubjectData} from '../mock/console/mock-subject';
+import { SubjectId } from '../tuples/subject-types';
 import {isMockService} from '../utils';
 import {DataSetPage} from './dataset';
 
 export const fetchSubjectData = async (options: {
-	subjectId: string;
+	subjectId: SubjectId;
 	pageNumber?: number;
 	pageSize?: number;
 }): Promise<DataSetPage> => {

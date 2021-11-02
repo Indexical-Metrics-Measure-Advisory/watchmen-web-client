@@ -1,3 +1,4 @@
+import {TenantId} from './tenant-types';
 import {Tuple} from './tuple-types';
 
 export enum ExternalWriterType {
@@ -5,11 +6,13 @@ export enum ExternalWriterType {
 	ELASTIC_SEARCH_WRITER = 'elastic-search-writer'
 }
 
+export type ExternalWriterId = string;
+
 export interface ExternalWriter extends Tuple {
-	writerId: string;
+	writerId: ExternalWriterId;
 	writerCode: string;
 	type: ExternalWriterType;
 	pat?: string;
 	url: string;
-	tenantId?: string;
+	tenantId?: TenantId;
 }

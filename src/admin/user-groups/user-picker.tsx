@@ -1,17 +1,18 @@
 import {QueryUserForHolder} from '@/services/data/tuples/query-user-types';
 import {listUsersForHolder} from '@/services/data/tuples/user';
 import {UserGroup} from '@/services/data/tuples/user-group-types';
+import { UserId } from '@/services/data/tuples/user-types';
 import React from 'react';
 import {TupleItemPicker} from '../widgets/tuple-workbench/tuple-item-picker';
 
 const hasUser = (userGroup: UserGroup) => !!userGroup.userIds && userGroup.userIds.length > 0;
-const getUserIds = (userGroup: UserGroup): Array<string> => userGroup.userIds;
-const findNameFromUsers = (userId: string, users: Array<QueryUserForHolder>): string => {
+const getUserIds = (userGroup: UserGroup): Array<UserId> => userGroup.userIds;
+const findNameFromUsers = (userId: UserId, users: Array<QueryUserForHolder>): string => {
 	// eslint-disable-next-line
 	return users.find(user => user.userId == userId)!.name;
 };
 const removeUser = (userGroup: UserGroup) => (userOrId: string | QueryUserForHolder) => {
-	let userId: string;
+	let userId: UserId;
 	if (typeof userOrId === 'string') {
 		userId = userOrId;
 	} else {

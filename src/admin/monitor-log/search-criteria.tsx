@@ -1,6 +1,6 @@
 import {MonitorLogCriteria, MonitorLogStatus} from '@/services/data/admin/logs';
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 import {Button} from '@/widgets/basic/button';
 import {Calendar, CALENDAR_FORMAT} from '@/widgets/basic/calendar';
 import {ICON_SEARCH} from '@/widgets/basic/constants';
@@ -13,7 +13,7 @@ import {useMonitorLogEventBus} from './monitor-log-event-bus';
 import {MonitorLogEventTypes} from './monitor-log-event-bus-types';
 import {SearchCriteriaContainer, SearchLabel} from './widgets';
 
-const matchPipeline = (topicId: string) => (pipeline: Pipeline) => {
+const matchPipeline = (topicId: TopicId) => (pipeline: Pipeline) => {
 	// eslint-disable-next-line
 	if (pipeline.topicId == topicId) {
 		return true;
@@ -22,7 +22,7 @@ const matchPipeline = (topicId: string) => (pipeline: Pipeline) => {
 	return (pipeline.stages || []).some(stage => (stage.units || []).some(unit => (unit.do || []).some(action => (action as any).topicId == topicId)));
 };
 
-const findPipelinesByTopic = (pipelines: Array<Pipeline>, topicId?: string): Array<Pipeline> => {
+const findPipelinesByTopic = (pipelines: Array<Pipeline>, topicId?: TopicId): Array<Pipeline> => {
 	if (!topicId) {
 		return pipelines;
 	}

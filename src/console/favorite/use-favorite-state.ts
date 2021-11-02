@@ -1,8 +1,8 @@
 import {isConnectedSpaceOpened, isDashboardOpened, toConnectedSpace, toDashboard} from '@/routes/utils';
 import {saveFavorite} from '@/services/data/console/favorite';
 import {Favorite} from '@/services/data/console/favorite-types';
-import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
-import {Dashboard} from '@/services/data/tuples/dashboard-types';
+import {ConnectedSpace, ConnectedSpaceId} from '@/services/data/tuples/connected-space-types';
+import {Dashboard, DashboardId} from '@/services/data/tuples/dashboard-types';
 import {ICON_CONNECTED_SPACE, ICON_DASHBOARD} from '@/widgets/basic/constants';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {MouseEvent, useEffect, useState} from 'react';
@@ -49,12 +49,12 @@ export const useFavoriteState = () => {
 		dashboardIds: []
 	});
 	useEffect(() => {
-		const onDashboardAddedIntoFavorite = (dashboardId: string) => {
+		const onDashboardAddedIntoFavorite = (dashboardId: DashboardId) => {
 			setData(data => {
 				return {...data, dashboardIds: Array.from(new Set([...data.dashboardIds, dashboardId]))};
 			});
 		};
-		const onDashboardRemovedFromFavorite = (dashboardId: string) => {
+		const onDashboardRemovedFromFavorite = (dashboardId: DashboardId) => {
 			setData(data => {
 				// eslint-disable-next-line
 				return {...data, dashboardIds: data.dashboardIds.filter(id => id != dashboardId)};
@@ -69,7 +69,7 @@ export const useFavoriteState = () => {
 		};
 	}, [on, off]);
 	useEffect(() => {
-		const onConnectedSpaceAddedIntoFavorite = (connectedSpaceId: string) => {
+		const onConnectedSpaceAddedIntoFavorite = (connectedSpaceId: ConnectedSpaceId) => {
 			setData(data => {
 				return {
 					...data,
@@ -77,7 +77,7 @@ export const useFavoriteState = () => {
 				};
 			});
 		};
-		const onConnectedSpaceRemovedFromFavorite = (connectedSpaceId: string) => {
+		const onConnectedSpaceRemovedFromFavorite = (connectedSpaceId: ConnectedSpaceId) => {
 			setData(data => {
 				return {
 					...data,

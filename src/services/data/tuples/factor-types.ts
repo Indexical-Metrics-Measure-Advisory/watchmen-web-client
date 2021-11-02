@@ -1,3 +1,6 @@
+import {DateTime} from '../types';
+import {EnumId} from './enum-types';
+
 export enum FactorType {
 	SEQUENCE = 'sequence',
 
@@ -292,18 +295,24 @@ export const FactorEncryptMethodLabels = {
 	[FactorEncryptMethod.MASK_MONTH_DAY]: 'Mask Month & Day'
 };
 
+export type FactorId = string;
+
+export type FactorIndexGroup =
+	'i-1' | 'i-2' | 'i-3' | 'i-4' | 'i-5' | 'i-6' | 'i-7' | 'i-8' | 'i-9' | 'i-10'
+	| 'u-1' | 'u-2' | 'u-3' | 'u-4' | 'u-5' | 'u-6' | 'u-7' | 'u-8' | 'u-9' | 'u-10';
+
 export interface Factor {
-	factorId: string;
+	factorId: FactorId;
 	name: string;
 	label: string;
 	type: FactorType;
-	enumId?: string;
+	enumId?: EnumId;
 	defaultValue?: string;
-	indexGroup?: string;
+	indexGroup?: FactorIndexGroup;
 	// will be flatten to table column or not, only used in raw topic, and must be top level factor
 	flatten?: boolean;
 	encrypt?: FactorEncryptMethod;
 	description?: string;
-	createTime: string;
-	lastModified: string;
+	createTime: DateTime;
+	lastModified: DateTime;
 }

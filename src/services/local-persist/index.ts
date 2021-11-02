@@ -1,7 +1,7 @@
 import dayjs, {Dayjs} from 'dayjs';
 import {findAccount} from '../data/account';
 import {fetchPipelinesSettingsData, fetchUpdatedPipelinesSettingsData} from '../data/pipeline/settings';
-import {Pipeline, PipelinesGraphics} from '../data/tuples/pipeline-types';
+import {Pipeline, PipelinesGraphics, PipelinesGraphicsId} from '../data/tuples/pipeline-types';
 import {Topic} from '../data/tuples/topic-types';
 import {Tuple} from '../data/tuples/tuple-types';
 import {
@@ -71,7 +71,7 @@ const saveGraphics = async (graphics: Array<PipelinesGraphics>) => {
 		await saveAdminPipelinesGraphics(g);
 	}
 };
-const mergePipelineGraphics = async (graphics: Array<PipelinesGraphics>, updatedGraphics: Array<PipelinesGraphics> | undefined, removedGraphics: Array<string>): Promise<Array<PipelinesGraphics>> => {
+const mergePipelineGraphics = async (graphics: Array<PipelinesGraphics>, updatedGraphics: Array<PipelinesGraphics> | undefined, removedGraphics: Array<PipelinesGraphicsId>): Promise<Array<PipelinesGraphics>> => {
 	const existsMap = graphics.reduce((map, graphics) => {
 		map.set(graphics.pipelineGraphId, graphics);
 		return map;

@@ -2,7 +2,7 @@ import {toPipeline} from '@/routes/utils';
 import {isWriteTopicAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
 import {findPipelinesTriggerByTopic, findPipelinesWriteToTopic} from '@/services/data/tuples/pipeline-utils';
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 import {ICON_PIPELINE} from '@/widgets/basic/constants';
 import {TooltipAlignment} from '@/widgets/basic/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -37,7 +37,7 @@ const assemblePipeline = (topics: Map<string, Topic>) => (pipeline: Pipeline): A
 						return null;
 					}
 					return action.topicId;
-				}).filter(x => !!x) as Array<string>;
+				}).filter(x => !!x) as Array<TopicId>;
 			}).flat();
 		}).flat()
 			.map(topicId => topics.get(topicId))

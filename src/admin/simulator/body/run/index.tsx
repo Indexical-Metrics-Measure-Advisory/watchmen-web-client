@@ -1,5 +1,5 @@
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {Button} from '@/widgets/basic/button';
 import {ButtonInk} from '@/widgets/basic/types';
@@ -87,7 +87,7 @@ export const RunningPlanHeader = (props: {
 	const topicsMap = topics.reduce((map, topic) => {
 		map[topic.topicId] = topic;
 		return map;
-	}, {} as Record<string, Topic>);
+	}, {} as Record<TopicId, Topic>);
 
 	const onExportClicked = () => {
 		once(RunsEventTypes.REPLY_RUNTIME_DATA, (started: boolean, done: boolean, runtimeData: TopicsData) => {

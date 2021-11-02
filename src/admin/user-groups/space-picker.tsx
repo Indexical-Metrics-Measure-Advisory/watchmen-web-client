@@ -1,17 +1,18 @@
 import {QuerySpaceForHolder} from '@/services/data/tuples/query-space-types';
 import {listSpacesForHolder} from '@/services/data/tuples/space';
+import { SpaceId } from '@/services/data/tuples/space-types';
 import {UserGroup} from '@/services/data/tuples/user-group-types';
 import React from 'react';
 import {TupleItemPicker} from '../widgets/tuple-workbench/tuple-item-picker';
 
 const hasSpace = (userGroup: UserGroup) => !!userGroup.spaceIds && userGroup.spaceIds.length > 0;
-const getSpaceIds = (userGroup: UserGroup): Array<string> => userGroup.spaceIds;
-const findNameFromSpaces = (spaceId: string, spaces: Array<QuerySpaceForHolder>): string => {
+const getSpaceIds = (userGroup: UserGroup): Array<SpaceId> => userGroup.spaceIds;
+const findNameFromSpaces = (spaceId: SpaceId, spaces: Array<QuerySpaceForHolder>): string => {
 	// eslint-disable-next-line
 	return spaces.find(space => space.spaceId == spaceId)!.name;
 };
 const removeSpace = (userGroup: UserGroup) => (spaceOrId: string | QuerySpaceForHolder) => {
-	let spaceId: string;
+	let spaceId: SpaceId;
 	if (typeof spaceOrId === 'string') {
 		spaceId = spaceOrId;
 	} else {

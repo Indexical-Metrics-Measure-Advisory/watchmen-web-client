@@ -1,19 +1,13 @@
-import {FullWidthPage} from '@/widgets/basic/page';
-import {FullWidthPageHeaderContainer, PageTitle} from '@/widgets/basic/page-header';
-import React, {Fragment, useState} from 'react';
-import {Loading} from './loading';
+import {FixWidthPage} from '@/widgets/basic/page';
+import {PageHeader} from '@/widgets/basic/page-header';
+import React from 'react';
+import {Indicators} from './indicators';
 
 const IndicatorWorkbenchPrepareIndex = () => {
-	const [initialized] = useState(false);
-
-	return <FullWidthPage>
-		<FullWidthPageHeaderContainer>
-			<PageTitle>Prepare Indicators</PageTitle>
-		</FullWidthPageHeaderContainer>
-		{initialized
-			? <Fragment/>
-			: <Loading/>}
-	</FullWidthPage>;
+	return <FixWidthPage>
+		<PageHeader title="Prepare Indicators"/>
+		<Indicators/>
+	</FixWidthPage>;
 };
 
 export default IndicatorWorkbenchPrepareIndex;

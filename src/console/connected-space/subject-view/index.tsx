@@ -1,6 +1,6 @@
 import {toConnectedSpace} from '@/routes/utils';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
-import {Subject} from '@/services/data/tuples/subject-types';
+import {Subject, SubjectId} from '@/services/data/tuples/subject-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
@@ -14,7 +14,7 @@ import {SubjectEventBusProvider} from './subject-event-bus';
 export const SubjectView = (props: { connectedSpace: ConnectedSpace }) => {
 	const {connectedSpace} = props;
 
-	const {subjectId} = useParams<{ subjectId: string }>();
+	const {subjectId} = useParams<{ subjectId: SubjectId }>();
 
 	const history = useHistory();
 	const {once: onceGlobal} = useEventBus();

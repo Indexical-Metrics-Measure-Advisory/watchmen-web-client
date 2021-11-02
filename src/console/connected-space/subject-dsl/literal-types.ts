@@ -1,6 +1,6 @@
 import {ParameterComputeType, ParameterKind} from '@/services/data/tuples/factor-calculator-types';
-import {Factor} from '@/services/data/tuples/factor-types';
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Factor, FactorId} from '@/services/data/tuples/factor-types';
+import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 
 export interface PrettyConstant {
 	is: ParameterKind.CONSTANT;
@@ -10,8 +10,8 @@ export interface PrettyConstant {
 
 export interface PrettyFactor {
 	is: ParameterKind.TOPIC;
-	topicId: string;
-	factorId: string;
+	topicId: TopicId;
+	factorId: FactorId;
 	data: {
 		topic?: Topic;
 		topicPicked: boolean;

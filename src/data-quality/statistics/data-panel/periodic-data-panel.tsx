@@ -1,6 +1,6 @@
 import {MonitorRuleCode, MonitorRuleLog, MonitorRuleLogs} from '@/services/data/data-quality/rule-types';
 import {fetchMonitorRuleLogs} from '@/services/data/data-quality/rules';
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 import {ICON_BACK, ICON_REFRESH} from '@/widgets/basic/constants';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
@@ -32,7 +32,7 @@ const GRID_COLUMN_ALL = '35% 1fr 150px';
 
 interface State {
 	ruleCode?: MonitorRuleCode;
-	topicId?: string;
+	topicId?: TopicId;
 }
 
 interface DataRow extends MonitorRuleLog {
@@ -74,7 +74,7 @@ export const PeriodicPanel = (props: {
 						const topicMap = topics.reduce((map, topic) => {
 							map[topic.topicId] = topic;
 							return map;
-						}, {} as Record<string, Topic>);
+						}, {} as Record<TopicId, Topic>);
 						setData(logs.sort((r1, r2) => r1.count === r2.count ? 0 : (r1.count < r2.count) ? 1 : -1)
 							.map(row => {
 								const {topicId, factorId} = row;
@@ -115,7 +115,7 @@ export const PeriodicPanel = (props: {
 	}, [state]);
 
 	const canBreakdown = !state.topicId;
-	const onBreakdownClicked = (ruleCode: MonitorRuleCode, topicId?: string) => () => {
+	const onBreakdownClicked = (ruleCode: MonitorRuleCode, topicId?: TopicId) => () => {
 		setState({ruleCode, topicId});
 	};
 	const format = new Intl.NumberFormat(undefined, {useGrouping: true});

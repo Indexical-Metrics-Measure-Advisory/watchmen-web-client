@@ -1,8 +1,14 @@
 import Dexie from 'dexie';
+import {PipelineStageId} from '../../data/tuples/pipeline-stage-types';
+import {PipelineStageUnitActionId} from '../../data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {PipelineStageUnitId} from '../../data/tuples/pipeline-stage-unit-types';
+import {PipelineId} from '../../data/tuples/pipeline-types';
+
+export type PipelineRuntimeId = string;
 
 export interface PipelineRuntimeTable {
-	pipelineRuntimeId: string;
-	pipelineId: string;
+	pipelineRuntimeId: PipelineRuntimeId;
+	pipelineId: PipelineId;
 	status: string;
 	context: object;
 	dataBefore: object;
@@ -11,11 +17,13 @@ export interface PipelineRuntimeTable {
 	lastModifiedAt: Date;
 }
 
+export type StageRuntimeId = string;
+
 export interface StageRuntimeTable {
-	stageRuntimeId: string;
-	stageId: string;
-	pipelineRuntimeId: string;
-	pipelineId: string;
+	stageRuntimeId: StageRuntimeId;
+	stageId: PipelineStageId;
+	pipelineRuntimeId: PipelineRuntimeId;
+	pipelineId: PipelineId;
 	stageIndex: number;
 	status: string;
 	context: object;
@@ -24,13 +32,15 @@ export interface StageRuntimeTable {
 	lastModifiedAt: Date;
 }
 
+export type UnitRuntimeId = string;
+
 export interface UnitRuntimeTable {
-	unitRuntimeId: string;
-	unitId: string;
-	stageRuntimeId: string;
-	stageId: string;
-	pipelineRuntimeId: string;
-	pipelineId: string;
+	unitRuntimeId: UnitRuntimeId;
+	unitId: PipelineStageUnitId;
+	stageRuntimeId: StageRuntimeId;
+	stageId: PipelineStageId;
+	pipelineRuntimeId: PipelineRuntimeId;
+	pipelineId: PipelineId;
 	unitIndex: number;
 	status: string;
 	context: object;
@@ -39,14 +49,16 @@ export interface UnitRuntimeTable {
 	lastModifiedAt: Date;
 }
 
+export type InternalUnitRuntimeId = string;
+
 export interface InternalUnitRuntimeTable {
-	internalUnitRuntimeId: string;
-	unitRuntimeId: string;
-	unitId: string;
-	stageRuntimeId: string;
-	stageId: string;
-	pipelineRuntimeId: string;
-	pipelineId: string;
+	internalUnitRuntimeId: InternalUnitRuntimeId;
+	unitRuntimeId: UnitRuntimeId;
+	unitId: PipelineStageUnitId;
+	stageRuntimeId: StageRuntimeId;
+	stageId: PipelineStageId;
+	pipelineRuntimeId: PipelineRuntimeId;
+	pipelineId: PipelineId;
 	internalUnitIndex: number;
 	status: string;
 	context: object;
@@ -55,16 +67,18 @@ export interface InternalUnitRuntimeTable {
 	lastModifiedAt: Date;
 }
 
+export type ActionRuntimeId = string;
+
 export interface ActionRuntimeTable {
-	actionRuntimeId: string;
-	actionId: string;
-	internalUnitRuntimeId: string;
-	unitRuntimeId: string;
-	unitId: string;
-	stageRuntimeId: string;
-	stageId: string;
-	pipelineRuntimeId: string;
-	pipelineId: string;
+	actionRuntimeId: ActionRuntimeId;
+	actionId: PipelineStageUnitActionId;
+	internalUnitRuntimeId: InternalUnitRuntimeId;
+	unitRuntimeId: UnitRuntimeId;
+	unitId: PipelineStageUnitId;
+	stageRuntimeId: StageRuntimeId;
+	stageId: PipelineStageId;
+	pipelineRuntimeId: PipelineRuntimeId;
+	pipelineId: PipelineId;
 	actionIndex: number;
 	status: string;
 	context: object;
@@ -73,17 +87,19 @@ export interface ActionRuntimeTable {
 	lastModifiedAt: Date;
 }
 
+export type RuntimeLogsId = string;
+
 export interface RuntimeLogsTable {
-	logId?: number;
-	actionRuntimeId?: string;
-	actionId?: string;
-	internalUnitRuntimeId?: string;
-	unitRuntimeId?: string;
-	unitId?: string;
-	stageRuntimeId?: string;
-	stageId?: string;
-	pipelineRuntimeId: string;
-	pipelineId: string;
+	logId?: RuntimeLogsId;
+	actionRuntimeId?: ActionRuntimeId;
+	actionId?: PipelineStageUnitActionId;
+	internalUnitRuntimeId?: InternalUnitRuntimeId;
+	unitRuntimeId?: UnitRuntimeId;
+	unitId?: PipelineStageUnitId;
+	stageRuntimeId?: StageRuntimeId;
+	stageId?: PipelineStageId;
+	pipelineRuntimeId: PipelineRuntimeId;
+	pipelineId: PipelineId;
 	message: string;
 	error?: string;
 	createdAt: Date;

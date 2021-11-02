@@ -3,7 +3,7 @@ import {Apis, get, page, post} from '../apis';
 import {fetchMockEnum, listMockEnums, listMockEnumsForHolder, saveMockEnum} from '../mock/tuples/mock-enum';
 import {TuplePage} from '../query/tuple-page';
 import {isMockService} from '../utils';
-import {Enum} from './enum-types';
+import {Enum, EnumId} from './enum-types';
 import {QueryEnum, QueryEnumForHolder} from './query-enum-types';
 import {isFakedUuid} from './utils';
 
@@ -35,7 +35,7 @@ export const listAllEnums = async (): Promise<Array<QueryEnum>> => {
 	}
 };
 
-export const fetchEnum = async (enumId: string): Promise<Enum> => {
+export const fetchEnum = async (enumId: EnumId): Promise<Enum> => {
 	if (isMockService()) {
 		const {enumeration} = await fetchMockEnum(enumId);
 		return enumeration;
@@ -44,7 +44,7 @@ export const fetchEnum = async (enumId: string): Promise<Enum> => {
 	}
 };
 
-export const fetchEnumAndParents = async (enumId: string): Promise<{ enumeration: Enum; parents: Array<QueryEnumForHolder> }> => {
+export const fetchEnumAndParents = async (enumId: EnumId): Promise<{ enumeration: Enum; parents: Array<QueryEnumForHolder> }> => {
 	if (isMockService()) {
 		const {enumeration} = await fetchMockEnum(enumId);
 		const parents = await listEnumsForHolder();

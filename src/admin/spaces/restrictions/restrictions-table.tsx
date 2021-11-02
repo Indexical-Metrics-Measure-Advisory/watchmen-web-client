@@ -1,6 +1,6 @@
 import {ParameterJointType} from '@/services/data/tuples/factor-calculator-types';
 import {Space, SpaceFilter} from '@/services/data/tuples/space-types';
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 import {AdminCacheData} from '@/services/local-persist/types';
 import {Toggle} from '@/widgets/basic/toggle';
 import {useForceUpdate} from '@/widgets/basic/utils';
@@ -24,7 +24,7 @@ import {
 
 type TemporaryFilters = Record<string, SpaceFilter>;
 
-const redressFilters = (space: Space, tempFilters: TemporaryFilters): Array<string> => {
+const redressFilters = (space: Space, tempFilters: TemporaryFilters): Array<TopicId> => {
 	if (!space.filters) {
 		space.filters = [];
 	}

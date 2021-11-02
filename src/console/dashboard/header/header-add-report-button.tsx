@@ -1,7 +1,7 @@
 import {ChartType} from '@/services/data/tuples/chart-types';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Dashboard} from '@/services/data/tuples/dashboard-types';
-import {Report} from '@/services/data/tuples/report-types';
+import {Report, ReportId} from '@/services/data/tuples/report-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {Button} from '@/widgets/basic/button';
 import {ICON_REPORT} from '@/widgets/basic/constants';
@@ -29,7 +29,7 @@ const DashboardDropdown = styled(Dropdown)`
 `;
 
 interface ReportCandidate {
-	reportId: string;
+	reportId: ReportId;
 	subjectName: string;
 	reportName: string;
 	reportType: ChartType;

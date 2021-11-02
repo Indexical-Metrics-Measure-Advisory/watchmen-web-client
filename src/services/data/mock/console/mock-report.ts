@@ -1,6 +1,7 @@
 import {ChartDataSet} from '../../tuples/chart-types';
+import {ReportId} from '../../tuples/report-types';
 
-export const fetchMockCountChartData = async (reportId: string): Promise<ChartDataSet> => {
+export const fetchMockCountChartData = async (reportId: ReportId): Promise<ChartDataSet> => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve({
 				meta: [],
@@ -11,7 +12,7 @@ export const fetchMockCountChartData = async (reportId: string): Promise<ChartDa
 	});
 };
 
-export const fetchMockPieChartData = async (reportId: string): Promise<ChartDataSet> => {
+export const fetchMockPieChartData = async (reportId: ReportId): Promise<ChartDataSet> => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve({
 				meta: [],
@@ -25,7 +26,7 @@ export const fetchMockPieChartData = async (reportId: string): Promise<ChartData
 	});
 };
 
-export const fetchMockDoughnutChartData = async (reportId: string): Promise<ChartDataSet> => {
+export const fetchMockDoughnutChartData = async (reportId: ReportId): Promise<ChartDataSet> => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve({
 				meta: [],
@@ -39,7 +40,7 @@ export const fetchMockDoughnutChartData = async (reportId: string): Promise<Char
 	});
 };
 
-export const fetchMockNightingaleChartData = async (reportId: string): Promise<ChartDataSet> => {
+export const fetchMockNightingaleChartData = async (reportId: ReportId): Promise<ChartDataSet> => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve({
 				meta: [],
@@ -53,7 +54,7 @@ export const fetchMockNightingaleChartData = async (reportId: string): Promise<C
 	});
 };
 
-export const fetchMockBarChartData = async (reportId: string): Promise<ChartDataSet> => {
+export const fetchMockBarChartData = async (reportId: ReportId): Promise<ChartDataSet> => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve({
 				meta: [],
@@ -67,7 +68,7 @@ export const fetchMockBarChartData = async (reportId: string): Promise<ChartData
 	});
 };
 
-export const fetchMockLineChartData = async (reportId: string): Promise<ChartDataSet> => {
+export const fetchMockLineChartData = async (reportId: ReportId): Promise<ChartDataSet> => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve({
 				meta: [],
@@ -81,7 +82,7 @@ export const fetchMockLineChartData = async (reportId: string): Promise<ChartDat
 	});
 };
 
-export const fetchMockScatterChartData = async (reportId: string): Promise<ChartDataSet> => {
+export const fetchMockScatterChartData = async (reportId: ReportId): Promise<ChartDataSet> => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve({
 				meta: [],
@@ -97,7 +98,7 @@ export const fetchMockScatterChartData = async (reportId: string): Promise<Chart
 	});
 };
 
-export const fetchMockSunburstChartData = async (reportId: string): Promise<ChartDataSet> => {
+export const fetchMockSunburstChartData = async (reportId: ReportId): Promise<ChartDataSet> => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve({
 				meta: [],
@@ -114,7 +115,7 @@ export const fetchMockSunburstChartData = async (reportId: string): Promise<Char
 	});
 };
 
-export const fetchMockTreeChartData = async (reportId: string): Promise<ChartDataSet> => {
+export const fetchMockTreeChartData = async (reportId: ReportId): Promise<ChartDataSet> => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve({
 				meta: [],
@@ -129,7 +130,7 @@ export const fetchMockTreeChartData = async (reportId: string): Promise<ChartDat
 	});
 };
 
-export const fetchMockTreemapChartData = async (reportId: string): Promise<ChartDataSet> => {
+export const fetchMockTreemapChartData = async (reportId: ReportId): Promise<ChartDataSet> => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve({
 				meta: [],
@@ -146,7 +147,7 @@ export const fetchMockTreemapChartData = async (reportId: string): Promise<Chart
 	});
 };
 
-export const fetchMockMapChartData = async (reportId: string): Promise<ChartDataSet> => {
+export const fetchMockMapChartData = async (reportId: ReportId): Promise<ChartDataSet> => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve({
 				meta: [],
@@ -205,7 +206,7 @@ export const fetchMockMapChartData = async (reportId: string): Promise<ChartData
 	});
 };
 
-export const fetchMockChartData = async (reportId: string): Promise<ChartDataSet> => {
+export const fetchMockChartData = async (reportId: ReportId): Promise<ChartDataSet> => {
 	return new Promise((resolve) => {
 		setTimeout(
 			() =>

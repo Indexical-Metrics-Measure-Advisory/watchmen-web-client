@@ -1,6 +1,8 @@
 import {GraphicsPosition, GraphicsSize} from '../graphics/graphics-types';
+import {DateTime} from '../types';
 import {Chart} from './chart-types';
 import {ParameterCondition, ParameterExpression, ParameterJoint} from './factor-calculator-types';
+import {SubjectDataSetColumnId} from './subject-types';
 import {Tuple} from './tuple-types';
 
 export enum ReportIndicatorArithmetic {
@@ -14,13 +16,13 @@ export enum ReportIndicatorArithmetic {
 }
 
 export interface ReportIndicator {
-	columnId: string;
+	columnId: SubjectDataSetColumnId;
 	name: string;
 	arithmetic: ReportIndicatorArithmetic;
 }
 
 export interface ReportDimension {
-	columnId: string;
+	columnId: SubjectDataSetColumnId;
 	name: string;
 }
 
@@ -43,9 +45,11 @@ export enum ReportFunnelType {
 	ENUM = 'enum'
 }
 
+export type ReportFunnelId = string;
+
 export interface ReportFunnel {
-	funnelId: string;
-	columnId: string;
+	funnelId: ReportFunnelId;
+	columnId: SubjectDataSetColumnId;
 	type: ReportFunnelType;
 	range: boolean;
 	enabled: boolean;
@@ -68,8 +72,10 @@ export interface ReportFilterExpression extends ReportFilter, ParameterExpressio
 
 export type ReportRect = GraphicsPosition & GraphicsSize;
 
+export type ReportId = string;
+
 export interface Report extends Tuple {
-	reportId: string;
+	reportId: ReportId;
 	name: string;
 	indicators: Array<ReportIndicator>;
 	dimensions: Array<ReportDimension>;
@@ -81,5 +87,5 @@ export interface Report extends Tuple {
 	simulating?: boolean;
 	simulateData?: Array<any>;
 	simulateThumbnail?: string;
-	lastVisitTime: string;
+	lastVisitTime: DateTime;
 }

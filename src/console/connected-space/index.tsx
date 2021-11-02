@@ -1,6 +1,6 @@
 import {Router} from '@/routes/types';
 import {toConnectedSpace} from '@/routes/utils';
-import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {ConnectedSpace, ConnectedSpaceId} from '@/services/data/tuples/connected-space-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {FullWidthPage} from '@/widgets/basic/page';
 import {useEventBus} from '@/widgets/events/event-bus';
@@ -14,7 +14,7 @@ import {ConnectedSpaceEventBusProvider} from './connected-space-event-bus';
 import {PageRouter} from './page-router';
 
 const ConsoleConnectedSpaceIndex = () => {
-	const {connectId: connectedSpaceId} = useParams<{ connectId: string }>();
+	const {connectId: connectedSpaceId} = useParams<{ connectId: ConnectedSpaceId }>();
 
 	const history = useHistory();
 	const {once: onceGlobal} = useEventBus();

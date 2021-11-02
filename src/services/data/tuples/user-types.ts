@@ -1,4 +1,6 @@
-import {Tuple, UserGroupHolder} from './tuple-types';
+import {TenantId} from './tenant-types';
+import {Tuple, TupleHolder} from './tuple-types';
+import {UserGroupHolder} from './user-group-types';
 
 export enum UserRole {
 	CONSOLE = 'console',
@@ -6,12 +8,18 @@ export enum UserRole {
 	SUPER_ADMIN = 'superadmin'
 }
 
+export type UserId = string;
+
 export interface User extends Tuple, UserGroupHolder {
-	userId: string;
+	userId: UserId;
 	name: string;
 	role: UserRole;
 	nickName: string;
 	password: string;
 	// only works on super admin login. otherwise it is undefined
-	tenantId?: string;
+	tenantId?: TenantId;
+}
+
+export interface UserHolder extends TupleHolder {
+	userIds: Array<UserId>;
 }

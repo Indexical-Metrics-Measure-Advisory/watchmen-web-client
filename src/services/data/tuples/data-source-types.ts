@@ -1,3 +1,4 @@
+import {TenantId} from './tenant-types';
 import {Tuple} from './tuple-types';
 
 export enum DataSourceType {
@@ -11,8 +12,10 @@ export interface DataSourceParam {
 	value: string;
 }
 
+export type DataSourceId = string;
+
 export interface DataSource extends Tuple {
-	dataSourceId: string;
+	dataSourceId: DataSourceId;
 	dataSourceCode: string;
 	dataSourceType: DataSourceType;
 	host: string;
@@ -22,5 +25,5 @@ export interface DataSource extends Tuple {
 	password: string;
 	url: string;
 	params: Array<DataSourceParam>;
-	tenantId?: string;
+	tenantId?: TenantId;
 }

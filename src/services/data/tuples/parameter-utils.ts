@@ -10,6 +10,8 @@ import {
 	ParameterKind,
 	TopicFactorParameter
 } from './factor-calculator-types';
+import {FactorId} from './factor-types';
+import {TopicId} from './topic-types';
 
 export interface ParameterCalculatorDef {
 	/**
@@ -53,7 +55,7 @@ export const isExpressionParameter = (condition: ParameterCondition): condition 
 	return !isJointParameter(condition);
 };
 
-export const createTopicFactorParameter = (topicId?: string, factorId?: string): TopicFactorParameter => {
+export const createTopicFactorParameter = (topicId?: TopicId, factorId?: FactorId): TopicFactorParameter => {
 	return {kind: ParameterKind.TOPIC, topicId: topicId || '', factorId: factorId || ''};
 };
 export const createConstantParameter = (): ConstantParameter => {

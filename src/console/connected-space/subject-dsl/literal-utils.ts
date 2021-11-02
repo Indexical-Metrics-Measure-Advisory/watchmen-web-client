@@ -5,9 +5,9 @@ import {
 	ParameterKind,
 	TopicFactorParameter
 } from '@/services/data/tuples/factor-calculator-types';
-import {Factor} from '@/services/data/tuples/factor-types';
+import {Factor, FactorId} from '@/services/data/tuples/factor-types';
 import {isComputedParameter, isConstantParameter, isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 import {PrettyComputed, PrettyConstant, PrettyFactor} from './literal-types';
 
 export const buildTopicsMap = (options: {
@@ -28,8 +28,8 @@ export const buildTopicsMap = (options: {
 };
 
 export const findTopicAndFactor = (options: {
-	topicId: string;
-	factorId: string;
+	topicId: TopicId;
+	factorId: FactorId;
 	availableTopicsMap: Map<string, Topic>;
 	pickedTopicsMap: Map<string, Topic>;
 }): { topic?: Topic, topicPicked: boolean, factor?: Factor } => {

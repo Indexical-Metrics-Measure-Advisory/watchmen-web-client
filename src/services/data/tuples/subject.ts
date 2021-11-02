@@ -1,10 +1,11 @@
 import {Apis, get, post} from '../apis';
 import {deleteMockSubject, renameMockSubject, saveMockSubject} from '../mock/tuples/mock-subject';
 import {isMockService} from '../utils';
+import { ConnectedSpaceId } from './connected-space-types';
 import {Subject} from './subject-types';
 import {isFakedUuid} from './utils';
 
-export const saveSubject = async (subject: Subject, connectedSpaceId: string): Promise<void> => {
+export const saveSubject = async (subject: Subject, connectedSpaceId: ConnectedSpaceId): Promise<void> => {
 	if (isMockService()) {
 		return saveMockSubject(subject);
 	} else if (isFakedUuid(subject)) {

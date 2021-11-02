@@ -1,5 +1,5 @@
 import {TuplePage} from '../../query/tuple-page';
-import {DataSource, DataSourceType} from '../../tuples/data-source-types';
+import {DataSource, DataSourceId, DataSourceType} from '../../tuples/data-source-types';
 import {QueryDataSource, QueryDataSourceForHolder} from '../../tuples/query-data-source-types';
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
@@ -40,7 +40,7 @@ export const listMockDataSources = async (options: {
 	});
 };
 
-export const fetchMockDataSource = async (dataSourceId: string): Promise<{ dataSource: DataSource }> => {
+export const fetchMockDataSource = async (dataSourceId: DataSourceId): Promise<{ dataSource: DataSource }> => {
 	const dataSource: DataSource = {
 		dataSourceId,
 		dataSourceCode: 'DEFAULT_ONE',

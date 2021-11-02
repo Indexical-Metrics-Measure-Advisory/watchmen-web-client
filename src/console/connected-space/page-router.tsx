@@ -1,8 +1,8 @@
 import {Router} from '@/routes/types';
 import {toConnectedSpace, toConnectedSpaceCatalog, toSubject} from '@/routes/utils';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
-import {Report} from '@/services/data/tuples/report-types';
-import {Subject} from '@/services/data/tuples/subject-types';
+import {Report, ReportId} from '@/services/data/tuples/report-types';
+import {Subject, SubjectId} from '@/services/data/tuples/subject-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
@@ -16,7 +16,7 @@ import {SubjectView} from './subject-view';
 const ReportRouter = (props: { connectedSpace: ConnectedSpace }) => {
 	const {connectedSpace} = props;
 
-	const {subjectId, reportId} = useParams<{ subjectId: string; reportId: string }>();
+	const {subjectId, reportId} = useParams<{ subjectId: SubjectId; reportId: ReportId }>();
 	const history = useHistory();
 	const {once: onceGlobal} = useEventBus();
 	const [data, setData] = useState<{ subject: Subject, report: Report } | null>(null);

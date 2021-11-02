@@ -11,9 +11,9 @@ import {
 } from '@/services/data/tuples/parameter-utils';
 import {Space} from '@/services/data/tuples/space-types';
 import {Subject, SubjectDataSetColumn} from '@/services/data/tuples/subject-types';
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 
-const findTopicIdsOnParameter = (parameter: Parameter | null | undefined): Array<string> => {
+const findTopicIdsOnParameter = (parameter: Parameter | null | undefined): Array<TopicId> => {
 	if (parameter == null) {
 		return [];
 	}
@@ -37,7 +37,7 @@ const findTopicIdsOnParameter = (parameter: Parameter | null | undefined): Array
 		return [];
 	}
 };
-const findTopicIdsOnParameterCondition = (condition: ParameterCondition): Array<string> => {
+const findTopicIdsOnParameterCondition = (condition: ParameterCondition): Array<TopicId> => {
 	if (isExpressionParameter(condition)) {
 		return [...findTopicIdsOnParameter(condition.left), ...findTopicIdsOnParameter(condition.right)].filter(x => !!x);
 	} else if (isJointParameter(condition)) {

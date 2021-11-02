@@ -3,7 +3,7 @@ import {toDashboard} from '@/routes/utils';
 import {saveLastSnapshot} from '@/services/data/account/last-snapshot';
 import {LastSnapshot} from '@/services/data/account/last-snapshot-types';
 import {saveDashboard} from '@/services/data/tuples/dashboard';
-import {Dashboard} from '@/services/data/tuples/dashboard-types';
+import {Dashboard, DashboardId} from '@/services/data/tuples/dashboard-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {FullWidthPage} from '@/widgets/basic/page';
 import {useEventBus} from '@/widgets/events/event-bus';
@@ -19,7 +19,7 @@ import {DashboardEventBusProvider} from './dashboard-event-bus';
 import {DashboardHeader} from './header';
 
 const ConsoleDashboard = () => {
-	const {dashboardId} = useParams<{ dashboardId: string }>();
+	const {dashboardId} = useParams<{ dashboardId: DashboardId }>();
 
 	const history = useHistory();
 	const {once: onceGlobal} = useEventBus();

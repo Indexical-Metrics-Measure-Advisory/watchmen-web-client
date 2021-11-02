@@ -1,6 +1,6 @@
 import {MonitorRuleCode, MonitorRuleLog, MonitorRuleLogs} from '@/services/data/data-quality/rule-types';
 import {fetchMonitorRuleLogs} from '@/services/data/data-quality/rules';
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 import {Calendar} from '@/widgets/basic/calendar';
 import {ICON_REFRESH} from '@/widgets/basic/constants';
 import {Dropdown} from '@/widgets/basic/dropdown';
@@ -40,7 +40,7 @@ interface Criteria {
 	startDate: string;
 	endDate: string;
 	ruleCode?: MonitorRuleCode;
-	topicId?: string;
+	topicId?: TopicId;
 }
 
 interface State extends Criteria {
@@ -148,7 +148,7 @@ export const FreeWalkPanel = () => {
 	const topicMap = topics.reduce((map, topic) => {
 		map[topic.topicId] = topic;
 		return map;
-	}, {} as Record<string, Topic>);
+	}, {} as Record<TopicId, Topic>);
 	const topicOptions = [
 		{value: '', label: 'Any Topic'},
 		...topics.map(topic => {

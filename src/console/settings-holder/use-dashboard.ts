@@ -1,4 +1,4 @@
-import {Dashboard} from '@/services/data/tuples/dashboard-types';
+import {Dashboard, DashboardId} from '@/services/data/tuples/dashboard-types';
 import {Dispatch, SetStateAction, useEffect} from 'react';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes} from '../console-event-bus-types';
@@ -28,7 +28,7 @@ export const useDashboard = (options: {
 				}
 			}));
 		};
-		const onDashboardAddedIntoFavorite = (dashboardId: string) => {
+		const onDashboardAddedIntoFavorite = (dashboardId: DashboardId) => {
 			setHoldSettings(holdSettings => ({
 				...holdSettings,
 				favorite: {
@@ -37,7 +37,7 @@ export const useDashboard = (options: {
 				}
 			}));
 		};
-		const onDashboardRemovedFromFavorite = (dashboardId: string) => {
+		const onDashboardRemovedFromFavorite = (dashboardId: DashboardId) => {
 			setHoldSettings(holdSettings => ({
 				...holdSettings,
 				favorite: {

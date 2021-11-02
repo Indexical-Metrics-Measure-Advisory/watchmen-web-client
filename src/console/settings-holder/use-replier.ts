@@ -1,5 +1,5 @@
 import {fetchEnum} from '@/services/data/tuples/enum';
-import {Enum} from '@/services/data/tuples/enum-types';
+import {Enum, EnumId} from '@/services/data/tuples/enum-types';
 import {useEffect, useState} from 'react';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes} from '../console-event-bus-types';
@@ -38,7 +38,7 @@ export const useReplier = (options: { holdSettings: HoldSettings }) => {
 		const onAskAvailableTopics = () => {
 			fire(ConsoleEventTypes.REPLY_AVAILABLE_TOPICS, holdSettings.availableTopics);
 		};
-		const onAskEnum = (enumId: string, ticket: string) => {
+		const onAskEnum = (enumId: EnumId, ticket: string) => {
 			// eslint-disable-next-line
 			const enumeration = holdSettings.enums.find(e => e.enumId == enumId);
 			if (enumeration != null) {

@@ -2,7 +2,7 @@ import {TuplePage} from '../../query/tuple-page';
 import {QuerySpace, QuerySpaceForHolder} from '../../tuples/query-space-types';
 import {QueryTopicForHolder} from '../../tuples/query-topic-types';
 import {QueryUserGroupForHolder} from '../../tuples/query-user-group-types';
-import {Space} from '../../tuples/space-types';
+import {Space, SpaceId} from '../../tuples/space-types';
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
 import {Participant, Policy, Quotation} from './mock-data-topics';
@@ -52,7 +52,7 @@ export const listMockSpacesForExport = async (): Promise<Array<Space>> => {
 	});
 };
 
-export const fetchMockSpace = async (spaceId: string): Promise<{ space: Space; groups: Array<QueryUserGroupForHolder>; topics: Array<QueryTopicForHolder> }> => {
+export const fetchMockSpace = async (spaceId: SpaceId): Promise<{ space: Space; groups: Array<QueryUserGroupForHolder>; topics: Array<QueryTopicForHolder> }> => {
 	return {
 		space: {
 			spaceId,

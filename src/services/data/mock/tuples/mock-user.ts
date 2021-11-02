@@ -3,7 +3,7 @@ import {TuplePage} from '../../query/tuple-page';
 import {QueryTenant} from '../../tuples/query-tenant-types';
 import {QueryUserGroupForHolder} from '../../tuples/query-user-group-types';
 import {QueryUser, QueryUserForHolder} from '../../tuples/query-user-types';
-import {User, UserRole} from '../../tuples/user-types';
+import {User, UserId, UserRole} from '../../tuples/user-types';
 import {getCurrentTime} from '../../utils';
 
 export const listMockUsers = async (options: {
@@ -57,7 +57,7 @@ export const listMockUsers = async (options: {
 	});
 };
 
-export const fetchMockUser = async (userId: string): Promise<{ user: User; groups: Array<QueryUserGroupForHolder>; tenants: Array<QueryTenant> }> => {
+export const fetchMockUser = async (userId: UserId): Promise<{ user: User; groups: Array<QueryUserGroupForHolder>; tenants: Array<QueryTenant> }> => {
 	let user;
 	switch (userId) {
 		case '1':

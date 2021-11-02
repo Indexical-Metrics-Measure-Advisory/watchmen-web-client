@@ -1,8 +1,8 @@
 import {toConnectedSpace} from '@/routes/utils';
 import {AvailableSpaceInConsole} from '@/services/data/console/settings-types';
 import {listTemplateConnectedSpaces, saveConnectedSpace} from '@/services/data/tuples/connected-space';
-import {ConnectedSpace, ConnectedSpaceTemplate} from '@/services/data/tuples/connected-space-types';
-import {Space} from '@/services/data/tuples/space-types';
+import {ConnectedSpace, ConnectedSpaceId, ConnectedSpaceTemplate} from '@/services/data/tuples/connected-space-types';
+import {Space, SpaceId} from '@/services/data/tuples/space-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {Button} from '@/widgets/basic/button';
 import {CheckBox} from '@/widgets/basic/checkbox';
@@ -63,13 +63,13 @@ const AvailableTemplateTableCell = styled.div`
 	padding     : 0 calc(var(--margin) / 4);
 	height      : var(--height);
 `;
-const AvailableTemplatesSelector = (props: { spaceId: string, templates: Array<ConnectedSpaceTemplate>, switchTo: (connectedSpace: ConnectedSpace) => void }) => {
+const AvailableTemplatesSelector = (props: { spaceId: SpaceId, templates: Array<ConnectedSpaceTemplate>, switchTo: (connectedSpace: ConnectedSpace) => void }) => {
 	const {spaceId, templates, switchTo} = props;
 
 	const {fire} = useEventBus();
-	const [selectedConnectedSpaceIds, setSelectedConnectedSpaceIds] = useState<Array<string>>([]);
+	const [selectedConnectedSpaceIds, setSelectedConnectedSpaceIds] = useState<Array<ConnectedSpaceId>>([]);
 
-	const onTemplateSelected = (connectedSpaceId: string) => (value: boolean) => {
+	const onTemplateSelected = (connectedSpaceId: ConnectedSpaceId) => (value: boolean) => {
 		if (value) {
 			setSelectedConnectedSpaceIds([...new Set([...selectedConnectedSpaceIds, connectedSpaceId])]);
 		} else {

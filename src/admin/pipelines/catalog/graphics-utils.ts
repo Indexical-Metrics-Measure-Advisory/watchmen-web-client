@@ -1,7 +1,7 @@
 import {BlockFrame} from '@/services/data/graphics/graphics-types';
 import {PipelineBlockGraphicsRect, PipelinesGraphics, TopicGraphics} from '@/services/data/tuples/pipeline-types';
 import {isDistinctTopic, isMetaTopic, isRawTopic} from '@/services/data/tuples/topic';
-import {Topic, TopicType} from '@/services/data/tuples/topic-types';
+import {Topic, TopicId, TopicType} from '@/services/data/tuples/topic-types';
 import {getCurrentTime} from '@/services/data/utils';
 import {
 	BLOCK_FULL_PADDING_HORIZONTAL,
@@ -158,7 +158,7 @@ export const computeGraphics = (options: {
 	return {width: width + BLOCK_MARGIN_HORIZONTAL, height: height + BLOCK_MARGIN_VERTICAL};
 };
 
-export const computeTopicSelection = (options: { topicId: string; graphics: AssembledPipelinesGraphics }) => {
+export const computeTopicSelection = (options: { topicId: TopicId; graphics: AssembledPipelinesGraphics }) => {
 	const {graphics, topicId} = options;
 
 	// eslint-disable-next-line

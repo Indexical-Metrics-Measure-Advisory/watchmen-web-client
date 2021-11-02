@@ -1,6 +1,6 @@
 import {TuplePage} from '../../query/tuple-page';
 import {QueryTopic, QueryTopicForHolder} from '../../tuples/query-topic-types';
-import {Topic, TopicKind, TopicType} from '../../tuples/topic-types';
+import {Topic, TopicId, TopicKind, TopicType} from '../../tuples/topic-types';
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
 import {DemoQueryTopics, DemoTopics} from './mock-data-topics';
@@ -24,7 +24,7 @@ export const listMockTopics = async (options: {
 	});
 };
 
-export const fetchMockTopic = async (topicId: string): Promise<{ topic: Topic }> => {
+export const fetchMockTopic = async (topicId: TopicId): Promise<{ topic: Topic }> => {
 	let topic: Topic;
 
 	// eslint-disable-next-line

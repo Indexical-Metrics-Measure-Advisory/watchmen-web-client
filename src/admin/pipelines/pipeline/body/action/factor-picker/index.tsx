@@ -1,5 +1,5 @@
 import {findSelectedFactor} from '@/services/data/tuples/factor-calculator-utils';
-import {Factor} from '@/services/data/tuples/factor-types';
+import {Factor, FactorId} from '@/services/data/tuples/factor-types';
 import {FromFactor, ToFactor} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {DropdownOption} from '@/widgets/basic/types';
@@ -9,7 +9,7 @@ import React from 'react';
 import {FactorDropdown, FactorFinderContainer, IncorrectOptionLabel} from './widgets';
 
 export const FactorPicker = (props: {
-	holder: FromFactor | ToFactor | { factorId: string };
+	holder: FromFactor | ToFactor | { factorId: FactorId };
 	topic?: Topic;
 	onChange: () => void;
 }) => {

@@ -1,4 +1,4 @@
-import {ConnectedSpace, ConnectedSpaceGraphics} from '@/services/data/tuples/connected-space-types';
+import {ConnectedSpace, ConnectedSpaceGraphics, ConnectedSpaceId} from '@/services/data/tuples/connected-space-types';
 import {Dispatch, SetStateAction, useEffect} from 'react';
 import {useConsoleEventBus} from '../console-event-bus';
 import {ConsoleEventTypes} from '../console-event-bus-types';
@@ -36,7 +36,7 @@ export const useConnectedSpace = (options: {
 				}
 			}));
 		};
-		const onConnectedSpaceAddedIntoFavorite = (connectedSpaceId: string) => {
+		const onConnectedSpaceAddedIntoFavorite = (connectedSpaceId: ConnectedSpaceId) => {
 			setHoldSettings(holdSettings => ({
 				...holdSettings,
 				favorite: {
@@ -45,7 +45,7 @@ export const useConnectedSpace = (options: {
 				}
 			}));
 		};
-		const onConnectedSpaceRemovedFromFavorite = (connectedSpaceId: string) => {
+		const onConnectedSpaceRemovedFromFavorite = (connectedSpaceId: ConnectedSpaceId) => {
 			setHoldSettings(holdSettings => ({
 				...holdSettings,
 				favorite: {

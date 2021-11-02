@@ -1,8 +1,8 @@
 import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
 import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
-import {Pipeline} from '@/services/data/tuples/pipeline-types';
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Pipeline, PipelineId} from '@/services/data/tuples/pipeline-types';
+import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 import {DataRow} from '../../types';
 import {TopicsData} from '../state/types';
 
@@ -39,17 +39,17 @@ export enum ActionRunStatus {
 }
 
 export interface ChangedDataRow {
-	topicId: string;
+	topicId: TopicId;
 	before?: DataRow;
 	after: DataRow;
 }
 
-export type AllTopics = Record<string, Topic>;
+export type AllTopics = Record<TopicId, Topic>;
 export type InMemoryVariables = Record<string, any>;
 
 export interface DefeatedPipeline {
 	triggerData: ChangedDataRow;
-	pipelines: Array<string>;
+	pipelines: Array<PipelineId>;
 }
 
 export interface PipelineRuntimeContext {

@@ -1,5 +1,6 @@
 import {isWriteTopicAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {TopicId} from '@/services/data/tuples/topic-types';
 
 export const computeRelatedTopicIds = (pipeline: Pipeline): Array<{ source: string, target: string }> => {
 	const sourceTopicId = pipeline.topicId;
@@ -13,7 +14,7 @@ export const computeRelatedTopicIds = (pipeline: Pipeline): Array<{ source: stri
 
 				const {topicId} = action;
 				return topicId;
-			}).filter(x => !!x) as Array<string>;
+			}).filter(x => !!x) as Array<TopicId>;
 		}).flat();
 	}).flat().map(targetTopicId => {
 		return {source: sourceTopicId, target: targetTopicId};

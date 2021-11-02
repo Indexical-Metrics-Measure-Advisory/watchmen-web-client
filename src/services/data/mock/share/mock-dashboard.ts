@@ -1,11 +1,11 @@
 import {SharedDashboard} from '../../share/dashboard';
 import {ChartType} from '../../tuples/chart-types';
 import {ConnectedSpace} from '../../tuples/connected-space-types';
-import {Dashboard} from '../../tuples/dashboard-types';
+import {Dashboard, DashboardId} from '../../tuples/dashboard-types';
 import {ParameterJointType} from '../../tuples/factor-calculator-types';
 import {getCurrentTime} from '../../utils';
 
-export const fetchMockSharedDashboard = async (dashboardId: string, token: string): Promise<SharedDashboard> => {
+export const fetchMockSharedDashboard = async (dashboardId: DashboardId, token: string): Promise<SharedDashboard> => {
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve({

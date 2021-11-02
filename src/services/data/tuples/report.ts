@@ -6,6 +6,7 @@ import {ParameterJoint} from './factor-calculator-types';
 import {strictParameterJoint} from './parameter-utils';
 import {QueryReport} from './query-report-types';
 import {Report, ReportFunnel} from './report-types';
+import { SubjectId } from './subject-types';
 import {isFakedUuid} from './utils';
 
 const strictReportFilters = (filters?: ParameterJoint): ParameterJoint | undefined => {
@@ -52,7 +53,7 @@ export const listReports = async (options: {
 	}
 };
 
-export const saveNewReport = async (report: Report, subjectId: string): Promise<void> => {
+export const saveNewReport = async (report: Report, subjectId: SubjectId): Promise<void> => {
 	if (isMockService()) {
 		return saveMockReport(report);
 	} else {

@@ -1,4 +1,5 @@
 import {Parameter} from '../factor-calculator-types';
+import {FactorId} from '../factor-types';
 import {AggregateArithmetic} from './aggregate-arithmetic-types';
 import {
 	FindBy,
@@ -14,7 +15,7 @@ export interface AggregateArithmeticHolder {
 
 export interface MappingFactor extends AggregateArithmeticHolder {
 	source: Parameter;
-	factorId: string;
+	factorId: FactorId;
 }
 
 export interface MappingRow extends PipelineStageUnitAction {

@@ -1,4 +1,4 @@
-import {Pipeline, PipelinesGraphics} from '../../tuples/pipeline-types';
+import {Pipeline, PipelineId, PipelinesGraphics, PipelinesGraphicsId} from '../../tuples/pipeline-types';
 import {generateUuid, isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
 
@@ -21,7 +21,7 @@ export const saveMockPipelinesGraphics = async (graphics: PipelinesGraphics): Pr
 	});
 };
 
-export const deleteMockPipelineGraphics = async (pipelineGraphId: string): Promise<void> => {
+export const deleteMockPipelineGraphics = async (pipelineGraphId: PipelinesGraphicsId): Promise<void> => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve(), 500);
 	});
@@ -37,13 +37,13 @@ export const saveMockPipeline = async (pipeline: Pipeline): Promise<void> => {
 	});
 };
 
-export const renameMockPipeline = async (pipelineId: string, name: string): Promise<void> => {
+export const renameMockPipeline = async (pipelineId: PipelineId, name: string): Promise<void> => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve(), 500);
 	});
 };
 
-export const toggleMockPipelineEnabled = async (pipelineId: string, enabled: boolean): Promise<void> => {
+export const toggleMockPipelineEnabled = async (pipelineId: PipelineId, enabled: boolean): Promise<void> => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve(), 500);
 	});

@@ -2,7 +2,7 @@ import {TuplePage} from '../../query/tuple-page';
 import {QuerySpaceForHolder} from '../../tuples/query-space-types';
 import {QueryUserGroup, QueryUserGroupForHolder} from '../../tuples/query-user-group-types';
 import {QueryUserForHolder} from '../../tuples/query-user-types';
-import {UserGroup} from '../../tuples/user-group-types';
+import {UserGroup, UserGroupId} from '../../tuples/user-group-types';
 import {getCurrentTime} from '../../utils';
 
 export const listMockUserGroups = async (options: {
@@ -33,7 +33,7 @@ export const listMockUserGroups = async (options: {
 	});
 };
 
-export const fetchMockUserGroup = async (userGroupId: string): Promise<{ userGroup: UserGroup; users: Array<QueryUserForHolder>; spaces: Array<QuerySpaceForHolder> }> => {
+export const fetchMockUserGroup = async (userGroupId: UserGroupId): Promise<{ userGroup: UserGroup; users: Array<QueryUserForHolder>; spaces: Array<QuerySpaceForHolder> }> => {
 	let userGroup: UserGroup;
 	switch (userGroupId) {
 		case '1':

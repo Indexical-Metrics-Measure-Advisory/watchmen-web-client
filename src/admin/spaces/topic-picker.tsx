@@ -1,14 +1,15 @@
 import {QueryTopicForHolder} from '@/services/data/tuples/query-topic-types';
 import {Space} from '@/services/data/tuples/space-types';
 import {listTopicsForHolder} from '@/services/data/tuples/topic';
+import {TopicId} from '@/services/data/tuples/topic-types';
 import React from 'react';
 import {TupleItemPicker} from '../widgets/tuple-workbench/tuple-item-picker';
 import {useSpaceEventBus} from './space-event-bus';
 import {SpaceEventTypes} from './space-event-bus-types';
 
 const hasTopic = (space: Space) => !!space.topicIds && space.topicIds.length > 0;
-const getTopicIds = (space: Space): Array<string> => space.topicIds;
-const findNameFromTopics = (topicId: string, topics: Array<QueryTopicForHolder>): string => {
+const getTopicIds = (space: Space): Array<TopicId> => space.topicIds;
+const findNameFromTopics = (topicId: TopicId, topics: Array<QueryTopicForHolder>): string => {
 	// eslint-disable-next-line
 	return topics.find(topic => topic.topicId == topicId)!.name;
 };
@@ -36,7 +37,7 @@ export const TopicPicker = (props: {
 		}
 	};
 	const removeTopic = (space: Space) => (topicOrId: string | QueryTopicForHolder) => {
-		let topicId: string;
+		let topicId: TopicId;
 		if (typeof topicOrId === 'string') {
 			topicId = topicOrId;
 		} else {

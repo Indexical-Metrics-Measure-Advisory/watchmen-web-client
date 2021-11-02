@@ -1,10 +1,11 @@
-import {Enum} from '@/services/data/tuples/enum-types';
-import {Report, ReportFunnel} from '@/services/data/tuples/report-types';
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Enum, EnumId} from '@/services/data/tuples/enum-types';
+import {FactorId} from '@/services/data/tuples/factor-types';
+import {Report, ReportFunnel, ReportFunnelId} from '@/services/data/tuples/report-types';
+import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 
 export type GroupedReportFunnel =
 	Omit<ReportFunnel, 'funnelId' | 'columnId' | 'enabled'>
-	& { enumId?: string, name?: string };
+	& { enumId?: EnumId, name?: string };
 
 export interface GroupedFunnel {
 	funnel: GroupedReportFunnel;
@@ -15,15 +16,14 @@ export interface GroupedFunnel {
 export interface FunnelDef {
 	// when funnel is an enum, find topicId & factorId from subject dataset first,
 	// and ask topic definition for server side, to get the enumId
-	topicId?: string;
-	factorId?: string;
-	enumId?: string;
+	topicId?: TopicId;
+	factorId?: FactorId;
+	enumId?: EnumId;
 	// when funnel is a number
 	name?: string;
 }
 
-export type FunnelId = string;
-export type FunnelDefs = Record<FunnelId, FunnelDef>;
+export type FunnelDefs = Record<ReportFunnelId, FunnelDef>;
 
 export interface FunnelsState {
 	initialized: boolean;

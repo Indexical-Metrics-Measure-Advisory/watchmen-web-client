@@ -1,5 +1,5 @@
-import {Factor, FactorType} from './factor-types';
-import {Topic} from './topic-types';
+import {Factor, FactorId, FactorType} from './factor-types';
+import {Topic, TopicId} from './topic-types';
 
 export enum ParameterKind {
 	TOPIC = 'topic',
@@ -50,8 +50,8 @@ export const AvailableComputeTypes = [
 
 export interface TopicFactorParameter extends Parameter {
 	kind: ParameterKind.TOPIC;
-	topicId: string;
-	factorId: string;
+	topicId: TopicId;
+	factorId: FactorId;
 }
 
 export interface ConstantParameter extends Parameter {

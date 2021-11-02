@@ -1,7 +1,7 @@
 import {MappedTopic, MappedTopicsMap} from '@/services/data/pipeline/pipeline-relations';
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
 import {isRawTopic} from '@/services/data/tuples/topic';
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 import {getCurrentTheme} from '@/widgets/theme/theme-wrapper';
 import {DQCMaps, DQCRelations} from '../../cache/types';
 import {getPipelineName, getTopicName} from '../../utils';
@@ -112,7 +112,7 @@ export const compute = (options: {
 		map[source.topicId] = source;
 		map[target.topicId] = target;
 		return map;
-	}, {} as Record<string, Topic>);
+	}, {} as Record<TopicId, Topic>);
 	processedTopics = processedTopics.filter(topic => !!existsMap[topic.topicId]);
 
 	if (!processedTopics || processedTopics.length === 0) {

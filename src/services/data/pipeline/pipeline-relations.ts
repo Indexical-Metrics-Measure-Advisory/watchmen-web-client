@@ -7,7 +7,7 @@ import {
 	TopicFactorParameter,
 	VariablePredefineFunctions
 } from '../tuples/factor-calculator-types';
-import {Factor} from '../tuples/factor-types';
+import {Factor, FactorId} from '../tuples/factor-types';
 import {
 	isComputedParameter,
 	isConstantParameter,
@@ -26,10 +26,10 @@ import {
 } from '../tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {Pipeline} from '../tuples/pipeline-types';
 import {isRawTopic} from '../tuples/topic';
-import {Topic} from '../tuples/topic-types';
+import {Topic, TopicId} from '../tuples/topic-types';
 
-export type FactorsMap = Record<string, Factor>;
-export type TopicsMap = Record<string, Topic>;
+export type FactorsMap = Record<FactorId, Factor>;
+export type TopicsMap = Record<TopicId, Topic>;
 export type MappedTopic = { topic: Topic; factors: FactorsMap };
 export type MappedTopicsMap = Record<string, MappedTopic>;
 export type PipelinesMap = Record<string, Pipeline>;
@@ -63,10 +63,9 @@ export interface TopicRelation {
 	notUsedFactors: Array<NotUsedFactor>;
 }
 
-export type TopicRelationMap = Record<string, TopicRelation>;
+export type TopicRelationMap = Record<TopicId, TopicRelation>;
 
-// key is topicId, value is array of factorId
-type UsedFactors = Record<string, Array<string>>
+type UsedFactors = Record<TopicId, Array<FactorId>>;
 
 const findOnTopicFactorParameter = (parameter: TopicFactorParameter, result: UsedFactors) => {
 	let factors = result[parameter.topicId];
@@ -168,8 +167,8 @@ const findOnCondition = (condition: ParameterJoint, result: UsedFactors, variabl
 export const buildPipelineRelation = (options: { pipeline: Pipeline; topicsMap: MappedTopicsMap }): PipelineRelation => {
 	const {pipeline, topicsMap} = options;
 
-	const findFactorsByTrigger = (pipeline: Pipeline, topicsMap: MappedTopicsMap): { topic?: Topic; factorIds: Array<string> } => {
-		const triggerFactorIds: Array<string> = [];
+	const findFactorsByTrigger = (pipeline: Pipeline, topicsMap: MappedTopicsMap): { topic?: Topic; factorIds: Array<FactorId> } => {
+		const triggerFactorIds: Array<FactorId> = [];
 		const triggerTopic = topicsMap[pipeline.topicId]?.topic;
 		if (triggerTopic) {
 			// obviously, only when trigger topic existed
@@ -231,7 +230,7 @@ export const buildPipelineRelation = (options: { pipeline: Pipeline; topicsMap: 
 		});
 	});
 
-	const redressFactors = (factors: UsedFactors, topicFilter: (topicId: string) => boolean) => {
+	const redressFactors = (factors: UsedFactors, topicFilter: (topicId: TopicId) => boolean) => {
 		return Object.keys(factors)
 			.filter(topicFilter)
 			.map(topicId => {

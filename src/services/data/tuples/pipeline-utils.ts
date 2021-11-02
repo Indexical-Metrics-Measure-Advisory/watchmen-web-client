@@ -1,3 +1,4 @@
+import {ExternalWriterId} from './external-writer-types';
 import {
 	isWriteToExternalAction,
 	isWriteTopicAction
@@ -24,8 +25,8 @@ export const findPipelinesTriggerByTopic = (pipelines: Array<Pipeline>, topic: T
 	// eslint-disable-next-line
 	return pipelines.filter(pipeline => pipeline.topicId == topic.topicId);
 };
-export const findExternalWriterIds = (pipelines: Array<Pipeline>, topic: Topic): Array<string> => {
-	const externalWriterIds: Array<string> = [];
+export const findExternalWriterIds = (pipelines: Array<Pipeline>, topic: Topic): Array<ExternalWriterId> => {
+	const externalWriterIds: Array<ExternalWriterId> = [];
 	findPipelinesTriggerByTopic(pipelines, topic).forEach(({stages}: Pipeline) => {
 		stages.forEach(({units}) => {
 			units.forEach(({do: actions}) => {

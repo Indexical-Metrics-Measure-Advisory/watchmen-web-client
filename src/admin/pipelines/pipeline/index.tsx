@@ -1,6 +1,6 @@
 import {Router} from '@/routes/types';
 import {fetchPipeline} from '@/services/data/tuples/pipeline';
-import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {Pipeline, PipelineId} from '@/services/data/tuples/pipeline-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {useEventBus} from '@/widgets/events/event-bus';
@@ -23,7 +23,7 @@ interface WorkbenchData {
 }
 
 export const PipelineWorkbench = () => {
-	const {pipelineId} = useParams<{ pipelineId: string }>();
+	const {pipelineId} = useParams<{ pipelineId: PipelineId }>();
 
 	const history = useHistory();
 	const {once: onceGlobal} = useEventBus();

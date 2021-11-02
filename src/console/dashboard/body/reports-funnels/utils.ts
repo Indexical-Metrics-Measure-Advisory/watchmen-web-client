@@ -1,8 +1,9 @@
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {EnumId} from '@/services/data/tuples/enum-types';
 import {isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
 import {Report, ReportFunnel, ReportFunnelType} from '@/services/data/tuples/report-types';
 import {fetchTopic} from '@/services/data/tuples/topic';
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 import {FunnelDefs, GroupedFunnel} from './types';
 
 export const buildFunnelDefsFromDashboard = (connectedSpaces: Array<ConnectedSpace>): FunnelDefs => {
@@ -39,13 +40,13 @@ export const buildFunnelDefsFromDashboard = (connectedSpaces: Array<ConnectedSpa
 	return funnelDefs;
 };
 
-export const gatherTopicIds = (defs: FunnelDefs): Array<string> => {
+export const gatherTopicIds = (defs: FunnelDefs): Array<TopicId> => {
 	return [...new Set(
 		[...Object.values(defs).map(def => def.topicId).filter(topicId => !!topicId)]
-	)] as Array<string>;
+	)] as Array<TopicId>;
 };
 
-export const fillFunnelDefsByEnumIds = (funnelDefs: FunnelDefs, topics: Array<Topic>): { defs: FunnelDefs; enumIds: Array<string> } => {
+export const fillFunnelDefsByEnumIds = (funnelDefs: FunnelDefs, topics: Array<Topic>): { defs: FunnelDefs; enumIds: Array<EnumId> } => {
 	return Object.keys(funnelDefs).reduce((data, funnelId) => {
 		const def = funnelDefs[funnelId];
 		if (!def.topicId) {
@@ -68,9 +69,9 @@ export const fillFunnelDefsByEnumIds = (funnelDefs: FunnelDefs, topics: Array<To
 			}
 		}
 		return data;
-	}, {defs: {}, enumIds: []} as { defs: FunnelDefs; enumIds: Array<string> });
+	}, {defs: {}, enumIds: []} as { defs: FunnelDefs; enumIds: Array<EnumId> });
 };
-export const fetchTopics = async (topicIds: Array<string>): Promise<Array<Topic>> => {
+export const fetchTopics = async (topicIds: Array<TopicId>): Promise<Array<Topic>> => {
 	if (topicIds.length === 0) {
 		return [];
 	}
@@ -94,7 +95,7 @@ const findGroup = (groups: Array<GroupedFunnel>, type: ReportFunnelType, and?: (
 const putIntoGroup = (
 	groups: Array<GroupedFunnel>, report: Report, funnel: ReportFunnel,
 	and?: (group: GroupedFunnel) => boolean,
-	more?: (funnel: ReportFunnel) => { enumId?: string; name?: string }
+	more?: (funnel: ReportFunnel) => { enumId?: EnumId; name?: string }
 ) => {
 	const group = findGroup(groups, funnel.type, and);
 	if (group) {

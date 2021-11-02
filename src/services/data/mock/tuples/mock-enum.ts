@@ -1,5 +1,5 @@
 import {TuplePage} from '../../query/tuple-page';
-import {Enum} from '../../tuples/enum-types';
+import {Enum, EnumId} from '../../tuples/enum-types';
 import {QueryEnum, QueryEnumForHolder} from '../../tuples/query-enum-types';
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
@@ -53,7 +53,7 @@ export const listMockEnums = async (options: {
 	});
 };
 
-export const fetchMockEnum = async (enumId: string): Promise<{ enumeration: Enum }> => {
+export const fetchMockEnum = async (enumId: EnumId): Promise<{ enumeration: Enum }> => {
 	if (enumId === MOCK_ENUM_STATE_ID) {
 		const enumeration: Enum = {
 			enumId: MOCK_ENUM_STATE_ID,

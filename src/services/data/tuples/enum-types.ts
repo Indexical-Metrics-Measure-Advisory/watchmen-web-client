@@ -1,3 +1,4 @@
+import {TenantId} from './tenant-types';
 import {Tuple} from './tuple-types';
 
 export interface EnumItem {
@@ -7,11 +8,13 @@ export interface EnumItem {
 	parentCode?: string;
 }
 
+export type EnumId = string;
+
 export interface Enum extends Tuple {
-	enumId: string;
+	enumId: EnumId;
 	name: string;
 	description?: string;
-	parentEnumId?: string;
+	parentEnumId?: EnumId;
 	items: Array<EnumItem>;
-	tenantId?: string;
+	tenantId?: TenantId;
 }

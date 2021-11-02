@@ -13,10 +13,11 @@ import {strictParameterJoint} from './parameter-utils';
 import {QuerySpace, QuerySpaceForHolder} from './query-space-types';
 import {QueryTopicForHolder} from './query-topic-types';
 import {QueryUserGroupForHolder} from './query-user-group-types';
-import {Space} from './space-types';
+import {Space, SpaceId} from './space-types';
+import {UserGroupId} from './user-group-types';
 import {isFakedUuid} from './utils';
 
-type SpaceOnServer = Omit<Space, 'userGroupIds'> & { groupIds: Array<string> };
+type SpaceOnServer = Omit<Space, 'userGroupIds'> & { groupIds: Array<UserGroupId> };
 const transformFromServer = (space: SpaceOnServer): Space => {
 	const {groupIds, ...rest} = space;
 	return {userGroupIds: groupIds, ...rest};
@@ -72,7 +73,7 @@ export const listSpacesForExport = async (): Promise<Array<Space>> => {
 };
 
 export const fetchSpace = async (
-	spaceId: string
+	spaceId: SpaceId
 ): Promise<{ space: Space; groups: Array<QueryUserGroupForHolder>; topics: Array<QueryTopicForHolder> }> => {
 	if (isMockService()) {
 		return fetchMockSpace(spaceId);
@@ -129,3 +130,4 @@ export const listSpacesForHolder = async (search: string): Promise<Array<QuerySp
 		return await get({api: Apis.SPACE_LIST_FOR_HOLDER_BY_NAME, search: {search}});
 	}
 };
+

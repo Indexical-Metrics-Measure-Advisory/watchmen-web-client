@@ -7,9 +7,10 @@ import {
 	SubjectDataSetJoin
 } from '@/services/data/tuples/subject-types';
 import {isExpressionFilter, isJointFilter} from '@/services/data/tuples/subject-utils';
+import {TopicId} from '@/services/data/tuples/topic-types';
 
-const computeRelatedTopicIdsByComputed = (computed: Computed): Array<string> => {
-	const topicIds: Array<string> = computed.parameters.reduce<Array<string>>((topicIds, param) => {
+const computeRelatedTopicIdsByComputed = (computed: Computed): Array<TopicId> => {
+	const topicIds: Array<TopicId> = computed.parameters.reduce<Array<TopicId>>((topicIds, param) => {
 		if (isTopicFactorParameter(param)) {
 			topicIds.push(param.topicId);
 		} else if (isConstantParameter(param)) {
@@ -22,7 +23,7 @@ const computeRelatedTopicIdsByComputed = (computed: Computed): Array<string> => 
 	return Array.from(new Set(topicIds));
 };
 
-const computeTopicIdsByParameter = (parameter?: Parameter): Array<string> => {
+const computeTopicIdsByParameter = (parameter?: Parameter): Array<TopicId> => {
 	if (!parameter) {
 		return [];
 	}
@@ -37,7 +38,7 @@ const computeTopicIdsByParameter = (parameter?: Parameter): Array<string> => {
 	}
 };
 
-const computeRelatedTopicIdsByFilter = (filter: SubjectDataSetFilter): Array<string> => {
+const computeRelatedTopicIdsByFilter = (filter: SubjectDataSetFilter): Array<TopicId> => {
 	if (isJointFilter(filter)) {
 		const topicIds = filter.filters.map(filter => computeRelatedTopicIdsByFilter(filter)).flat().filter(x => !!x);
 		return Array.from(new Set(topicIds));
@@ -49,15 +50,15 @@ const computeRelatedTopicIdsByFilter = (filter: SubjectDataSetFilter): Array<str
 	}
 };
 
-const computeRelatedTopicIdsByColumn = (column: SubjectDataSetColumn): Array<string> => {
+const computeRelatedTopicIdsByColumn = (column: SubjectDataSetColumn): Array<TopicId> => {
 	return computeTopicIdsByParameter(column.parameter);
 };
 
-const computeRelatedTopicIdsByJoin = (join: SubjectDataSetJoin): Array<string> => {
+const computeRelatedTopicIdsByJoin = (join: SubjectDataSetJoin): Array<TopicId> => {
 	return [join.topicId, join.secondaryTopicId].filter(x => !!x);
 };
 
-export const computeRelatedTopicIds = (dataset: SubjectDataSet): Array<string> => {
+export const computeRelatedTopicIds = (dataset: SubjectDataSet): Array<TopicId> => {
 	const {filters, columns, joins} = dataset;
 
 	return Array.from(new Set([

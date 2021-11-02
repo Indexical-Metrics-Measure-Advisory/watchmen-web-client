@@ -11,7 +11,7 @@ import {isMockService} from '../utils';
 import {QuerySpaceForHolder} from './query-space-types';
 import {QueryUserGroup, QueryUserGroupForHolder} from './query-user-group-types';
 import {QueryUserForHolder} from './query-user-types';
-import {UserGroup} from './user-group-types';
+import {UserGroup, UserGroupId} from './user-group-types';
 import {isFakedUuid} from './utils';
 
 export const listUserGroups = async (options: {
@@ -33,7 +33,7 @@ export const listUserGroups = async (options: {
 };
 
 export const fetchUserGroup = async (
-	userGroupId: string
+	userGroupId: UserGroupId
 ): Promise<{ userGroup: UserGroup; users: Array<QueryUserForHolder>; spaces: Array<QuerySpaceForHolder> }> => {
 	if (isMockService()) {
 		return fetchMockUserGroup(userGroupId);

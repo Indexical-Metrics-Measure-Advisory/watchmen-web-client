@@ -1,6 +1,8 @@
 import {Tuple} from './tuple-types';
 
+export type TenantId = string;
+
 export interface Tenant extends Tuple {
-	tenantId: string;
+	tenantId: TenantId;
 	name: string;
 }

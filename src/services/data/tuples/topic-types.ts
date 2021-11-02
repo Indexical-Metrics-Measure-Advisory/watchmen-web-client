@@ -1,5 +1,7 @@
+import {DataSourceId} from './data-source-types';
 import {Factor} from './factor-types';
-import {Tuple} from './tuple-types';
+import {TenantId} from './tenant-types';
+import {Tuple, TupleHolder} from './tuple-types';
 
 export enum TopicKind {
 	SYSTEM = 'system',
@@ -15,13 +17,19 @@ export enum TopicType {
 	RATIO = 'ratio'
 }
 
+export type TopicId = string;
+
 export interface Topic extends Tuple {
-	topicId: string;
+	topicId: TopicId;
 	name: string;
 	kind: TopicKind;
 	type: TopicType;
 	description?: string;
 	factors: Array<Factor>;
-	tenantId?: string;
-	dataSourceId?: string;
+	tenantId?: TenantId;
+	dataSourceId?: DataSourceId;
+}
+
+export interface TopicHolder extends TupleHolder {
+	topicIds: Array<TopicId>;
 }

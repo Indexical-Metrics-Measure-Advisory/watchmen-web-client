@@ -1,9 +1,9 @@
 import {LastSnapshot} from '@/services/data/account/last-snapshot-types';
 import {Favorite} from '@/services/data/console/favorite-types';
 import {AvailableSpaceInConsole, ConsoleSettings} from '@/services/data/console/settings-types';
-import {ConnectedSpace, ConnectedSpaceGraphics} from '@/services/data/tuples/connected-space-types';
-import {Dashboard} from '@/services/data/tuples/dashboard-types';
-import {Enum} from '@/services/data/tuples/enum-types';
+import {ConnectedSpace, ConnectedSpaceGraphics, ConnectedSpaceId} from '@/services/data/tuples/connected-space-types';
+import {Dashboard, DashboardId} from '@/services/data/tuples/dashboard-types';
+import {Enum, EnumId} from '@/services/data/tuples/enum-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 
 export enum FavoriteState {
@@ -103,21 +103,21 @@ export interface ConsoleEventBus {
 	fire(type: ConsoleEventTypes.REPLY_FAVORITE_STATE, state: FavoriteState): this;
 	once(type: ConsoleEventTypes.REPLY_FAVORITE_STATE, listener: (state: FavoriteState) => void): this;
 
-	fire(type: ConsoleEventTypes.DASHBOARD_ADDED_INTO_FAVORITE, dashboardId: string): this;
-	on(type: ConsoleEventTypes.DASHBOARD_ADDED_INTO_FAVORITE, listener: (dashboardId: string) => void): this;
-	off(type: ConsoleEventTypes.DASHBOARD_ADDED_INTO_FAVORITE, listener: (dashboardId: string) => void): this;
+	fire(type: ConsoleEventTypes.DASHBOARD_ADDED_INTO_FAVORITE, dashboardId: DashboardId): this;
+	on(type: ConsoleEventTypes.DASHBOARD_ADDED_INTO_FAVORITE, listener: (dashboardId: DashboardId) => void): this;
+	off(type: ConsoleEventTypes.DASHBOARD_ADDED_INTO_FAVORITE, listener: (dashboardId: DashboardId) => void): this;
 
-	fire(type: ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, dashboardId: string): this;
-	on(type: ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, listener: (dashboardId: string) => void): this;
-	off(type: ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, listener: (dashboardId: string) => void): this;
+	fire(type: ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, dashboardId: DashboardId): this;
+	on(type: ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, listener: (dashboardId: DashboardId) => void): this;
+	off(type: ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, listener: (dashboardId: DashboardId) => void): this;
 
-	fire(type: ConsoleEventTypes.CONNECTED_SPACE_ADDED_INTO_FAVORITE, connectedSpaceId: string): this;
-	on(type: ConsoleEventTypes.CONNECTED_SPACE_ADDED_INTO_FAVORITE, listener: (connectedSpaceId: string) => void): this;
-	off(type: ConsoleEventTypes.CONNECTED_SPACE_ADDED_INTO_FAVORITE, listener: (connectedSpaceId: string) => void): this;
+	fire(type: ConsoleEventTypes.CONNECTED_SPACE_ADDED_INTO_FAVORITE, connectedSpaceId: ConnectedSpaceId): this;
+	on(type: ConsoleEventTypes.CONNECTED_SPACE_ADDED_INTO_FAVORITE, listener: (connectedSpaceId: ConnectedSpaceId) => void): this;
+	off(type: ConsoleEventTypes.CONNECTED_SPACE_ADDED_INTO_FAVORITE, listener: (connectedSpaceId: ConnectedSpaceId) => void): this;
 
-	fire(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, connectedSpaceId: string): this;
-	on(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, listener: (connectedSpaceId: string) => void): this;
-	off(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, listener: (connectedSpaceId: string) => void): this;
+	fire(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, connectedSpaceId: ConnectedSpaceId): this;
+	on(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, listener: (connectedSpaceId: ConnectedSpaceId) => void): this;
+	off(type: ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, listener: (connectedSpaceId: ConnectedSpaceId) => void): this;
 
 	// dashboard
 	fire(type: ConsoleEventTypes.DASHBOARD_CREATED, dashboard: Dashboard): this;
@@ -199,9 +199,9 @@ export interface ConsoleEventBus {
 	fire(type: ConsoleEventTypes.REPLY_AVAILABLE_TOPICS, availableTopics: Array<Topic>): this;
 	once(type: ConsoleEventTypes.REPLY_AVAILABLE_TOPICS, listener: (availableTopics: Array<Topic>) => void): this;
 
-	fire(type: ConsoleEventTypes.ASK_ENUM, enumId: string, ticket: string): this;
-	on(type: ConsoleEventTypes.ASK_ENUM, listener: (enumId: string, ticket: string) => void): this;
-	off(type: ConsoleEventTypes.ASK_ENUM, listener: (enumId: string, ticket: string) => void): this;
+	fire(type: ConsoleEventTypes.ASK_ENUM, enumId: EnumId, ticket: string): this;
+	on(type: ConsoleEventTypes.ASK_ENUM, listener: (enumId: EnumId, ticket: string) => void): this;
+	off(type: ConsoleEventTypes.ASK_ENUM, listener: (enumId: EnumId, ticket: string) => void): this;
 
 	fire(type: ConsoleEventTypes.REPLY_ENUM, ticket: string, enumeration?: Enum): this;
 	on(type: ConsoleEventTypes.REPLY_ENUM, listener: (ticket: string, enumeration?: Enum) => void): this;

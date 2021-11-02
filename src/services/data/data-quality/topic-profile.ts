@@ -1,6 +1,7 @@
 import {Dayjs} from 'dayjs';
 import {Apis, get} from '../apis';
 import {fetchMockTopicProfileData} from '../mock/data-quality/mock-topic-profile';
+import {TopicId} from '../tuples/topic-types';
 import {isMockService} from '../utils';
 import {
 	TopicProfileCategoricalFactor,
@@ -9,7 +10,7 @@ import {
 	TopicProfileFactorType
 } from './topic-profile-types';
 
-export const fetchTopicProfileData = async (options: { topicId: string; date: Dayjs }): Promise<TopicProfileData> => {
+export const fetchTopicProfileData = async (options: { topicId: TopicId; date: Dayjs }): Promise<TopicProfileData> => {
 	if (isMockService()) {
 		return await fetchMockTopicProfileData(options);
 	} else {

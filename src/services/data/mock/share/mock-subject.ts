@@ -1,10 +1,10 @@
 import {SharedSubject} from '../../share/subject';
 import {ChartType} from '../../tuples/chart-types';
 import {ParameterJointType} from '../../tuples/factor-calculator-types';
-import {Subject} from '../../tuples/subject-types';
+import {Subject, SubjectId} from '../../tuples/subject-types';
 import {getCurrentTime} from '../../utils';
 
-export const fetchMockSharedSubject = async (subjectId: string, token: string): Promise<SharedSubject> => {
+export const fetchMockSharedSubject = async (subjectId: SubjectId, token: string): Promise<SharedSubject> => {
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve({

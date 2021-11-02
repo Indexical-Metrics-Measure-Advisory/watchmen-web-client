@@ -1,14 +1,14 @@
 import {saveTokenIntoSession} from '../account';
 import {Apis, get} from '../apis';
 import {fetchMockSharedSubject} from '../mock/share/mock-subject';
-import {Subject} from '../tuples/subject-types';
+import {Subject, SubjectId} from '../tuples/subject-types';
 import {isMockService} from '../utils';
 
 export interface SharedSubject {
 	subject: Subject;
 }
 
-export const fetchSharedSubject = async (subjectId: string, token: string): Promise<SharedSubject> => {
+export const fetchSharedSubject = async (subjectId: SubjectId, token: string): Promise<SharedSubject> => {
 	if (isMockService()) {
 		return await fetchMockSharedSubject(subjectId, token);
 	} else {

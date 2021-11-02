@@ -7,6 +7,7 @@ import {
 	ParameterInvalidReasonsLabels,
 	TopicFactorParameter
 } from '../tuples/factor-calculator-types';
+import {FactorId, FactorIndexGroup} from '../tuples/factor-types';
 import {
 	isComputedParameter,
 	isConstantParameter,
@@ -76,7 +77,7 @@ const isParameterCanBeComputedInMemory = (parameter: Parameter, topic: Topic): b
 	}
 };
 
-const countIndex = (one: TopicFactorParameter, another: Parameter, topic: Topic, usedIndexGroups: Record<string, Array<string>>) => {
+const countIndex = (one: TopicFactorParameter, another: Parameter, topic: Topic, usedIndexGroups: Record<FactorIndexGroup, Array<FactorId>>) => {
 	if (isParameterCanBeComputedInMemory(another, topic)) {
 		// eslint-disable-next-line
 		const factor = topic.factors.find(factor => factor.factorId == one.factorId);
@@ -96,7 +97,7 @@ const isIndexUsed = (action: FindBy, topic: Topic): boolean => {
 
 	const unique = !isReadFactorsAction(action) && !isReadRowsAction(action) && !isExistsAction(action);
 
-	const definedIndexes: Record<string, Array<string>> = topic.factors.reduce((indexes, factor) => {
+	const definedIndexes: Record<FactorIndexGroup, Array<FactorId>> = topic.factors.reduce((indexes, factor) => {
 		if (factor.indexGroup) {
 			const group = indexes[factor.indexGroup];
 			if (!group) {
@@ -106,8 +107,8 @@ const isIndexUsed = (action: FindBy, topic: Topic): boolean => {
 			}
 		}
 		return indexes;
-	}, {} as Record<string, Array<string>>);
-	const usedIndexGroups: Record<string, Array<string>> = {};
+	}, {} as Record<FactorIndexGroup, Array<FactorId>>);
+	const usedIndexGroups: Record<FactorIndexGroup, Array<FactorId>> = {} as Record<FactorIndexGroup, Array<FactorId>>;
 	by.filters.forEach(condition => {
 		if (!isExpressionParameter(condition)) {
 			return;
@@ -131,9 +132,9 @@ const isIndexUsed = (action: FindBy, topic: Topic): boolean => {
 		return false;
 	}
 
-	const usefulIndexGroups = unique ? Object.keys(usedIndexGroups).filter(indexGroup => {
+	const usefulIndexGroups: Array<FactorIndexGroup> = (unique ? Object.keys(usedIndexGroups).filter(indexGroup => {
 		return indexGroup.startsWith('u-');
-	}) : Object.keys(usedIndexGroups);
+	}) : Object.keys(usedIndexGroups)) as Array<FactorIndexGroup>;
 
 	// compare useful with defined
 	return usefulIndexGroups.some(indexGroup => {

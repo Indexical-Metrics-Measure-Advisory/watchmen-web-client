@@ -1,4 +1,6 @@
 import {ParameterJoint} from '../factor-calculator-types';
+import {FactorId} from '../factor-types';
+import {TopicId} from '../topic-types';
 
 export enum SystemActionType {
 	ALARM = 'alarm',
@@ -23,8 +25,10 @@ export enum WriteTopicActionType {
 
 export type PipelineStageUnitActionType = WriteTopicActionType | ReadTopicActionType | SystemActionType;
 
+export type PipelineStageUnitActionId = string;
+
 export interface PipelineStageUnitAction {
-	actionId: string;
+	actionId: PipelineStageUnitActionId;
 	type: PipelineStageUnitActionType;
 }
 
@@ -33,19 +37,19 @@ export interface MemoryWriter extends PipelineStageUnitAction {
 }
 
 export interface FromTopic extends PipelineStageUnitAction {
-	topicId: string;
+	topicId: TopicId;
 }
 
 export interface FromFactor extends FromTopic {
-	factorId: string;
+	factorId: FactorId;
 }
 
 export interface ToTopic extends PipelineStageUnitAction {
-	topicId: string;
+	topicId: TopicId;
 }
 
 export interface ToFactor extends ToTopic {
-	factorId: string;
+	factorId: FactorId;
 }
 
 export interface FindBy extends PipelineStageUnitAction {

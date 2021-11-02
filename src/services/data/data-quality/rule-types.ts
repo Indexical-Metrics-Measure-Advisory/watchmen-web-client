@@ -1,3 +1,7 @@
+import {FactorId} from '../tuples/factor-types';
+import {TopicId} from '../tuples/topic-types';
+import {DateTime} from '../types';
+
 export enum MonitorRuleGrade {
 	GLOBAL = 'global',
 	TOPIC = 'topic',
@@ -6,7 +10,7 @@ export enum MonitorRuleGrade {
 
 export interface MonitorRulesCriteria {
 	grade: MonitorRuleGrade.GLOBAL | MonitorRuleGrade.TOPIC;
-	topicId?: string;
+	topicId?: TopicId;
 }
 
 export enum MonitorRuleCode {
@@ -82,12 +86,14 @@ export interface MonitorRuleParameters {
 	min?: number;
 	regexp?: string;
 	compareOperator?: MonitorRuleCompareOperator;
-	topicId?: string;
-	factorId?: string;
+	topicId?: TopicId;
+	factorId?: FactorId;
 }
 
+export type MonitorRuleId = string;
+
 export interface MonitorRule {
-	ruleId?: string;
+	ruleId?: MonitorRuleId;
 	code: MonitorRuleCode;
 	grade: MonitorRuleGrade;
 	severity: MonitorRuleSeverity;
@@ -96,11 +102,11 @@ export interface MonitorRule {
 }
 
 export interface MonitorRuleOnTopic extends MonitorRule {
-	topicId: string;
+	topicId: TopicId;
 }
 
 export interface MonitorRuleOnFactor extends MonitorRuleOnTopic {
-	factorId: string;
+	factorId: FactorId;
 }
 
 export type MonitorRules = Array<MonitorRule>;
@@ -156,16 +162,16 @@ export interface MonitorRuleLogCriteria {
 	startDate: string;
 	endDate: string;
 	ruleCode?: MonitorRuleCode;
-	topicId?: string;
-	factorId?: string;
+	topicId?: TopicId;
+	factorId?: FactorId;
 }
 
 export interface MonitorRuleLog {
 	ruleCode: MonitorRuleCode;
-	topicId?: string;
-	factorId?: string;
+	topicId?: TopicId;
+	factorId?: FactorId;
 	count: number;
-	lastOccurredTime: string;
+	lastOccurredTime: DateTime;
 }
 
 export type MonitorRuleLogs = Array<MonitorRuleLog>;

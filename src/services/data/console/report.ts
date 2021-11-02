@@ -14,7 +14,7 @@ import {
 	fetchMockTreemapChartData
 } from '../mock/console/mock-report';
 import {ChartDataSet, ChartType} from '../tuples/chart-types';
-import {Report} from '../tuples/report-types';
+import {Report, ReportId} from '../tuples/report-types';
 import {isMockService} from '../utils';
 
 export const fetchChartDataTemporary = async (report: Report): Promise<ChartDataSet> => {
@@ -24,7 +24,7 @@ export const fetchChartDataTemporary = async (report: Report): Promise<ChartData
 		return await post({api: Apis.REPORT_TEMPORARY, data: report});
 	}
 };
-export const fetchChartData = async (reportId: string, type: ChartType): Promise<ChartDataSet> => {
+export const fetchChartData = async (reportId: ReportId, type: ChartType): Promise<ChartDataSet> => {
 	if (isMockService()) {
 		if (type === ChartType.COUNT) {
 			return fetchMockCountChartData(reportId);

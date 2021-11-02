@@ -1,4 +1,4 @@
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 import {Button} from '@/widgets/basic/button';
 import {ICON_TOPIC} from '@/widgets/basic/constants';
 import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
@@ -63,11 +63,11 @@ export const HeaderPickTopicsButton = (props: {
 		const selection = topics.reduce((map, topic) => {
 			map[topic.topicId] = topic;
 			return map;
-		}, {} as Record<string, Topic>);
+		}, {} as Record<TopicId, Topic>);
 		const exists = graphics.topics.reduce((map, {topic}) => {
 			map[topic.topicId] = topic;
 			return map;
-		}, {} as Record<string, Topic>);
+		}, {} as Record<TopicId, Topic>);
 		graphics.topics = [
 			// remove unpicked
 			...graphics.topics.filter(({topic}) => selection[topic.topicId]),

@@ -1,4 +1,4 @@
-import {Enum, EnumItem} from '@/services/data/tuples/enum-types';
+import {Enum, EnumId, EnumItem} from '@/services/data/tuples/enum-types';
 import {isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
 import {Report, ReportFunnel} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
@@ -27,7 +27,7 @@ const FunnelEnumHandler = (props: { subject: Subject; funnel: ReportFunnel }) =>
 	const {once: onceConsole, on: onConsole, off: offConsole, fire: fireConsole} = useConsoleEventBus();
 	const {on, off, fire} = useFunnelEventBus();
 	useEffect(() => {
-		const replyEnumNoItems = (ticket: string, enumId: string) => {
+		const replyEnumNoItems = (ticket: string, enumId: EnumId) => {
 			fire(FunnelEventTypes.REPLY_ENUM, funnel, ticket, {
 				enumId, name: '', items: [] as Array<EnumItem>
 			} as Enum);

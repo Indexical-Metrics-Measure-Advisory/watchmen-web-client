@@ -9,7 +9,7 @@ import {
 	toggleMockPipelineEnabled
 } from '../mock/tuples/mock-pipeline';
 import {isMockService} from '../utils';
-import {Pipeline, PipelinesGraphics} from './pipeline-types';
+import {Pipeline, PipelineId, PipelinesGraphics, PipelinesGraphicsId} from './pipeline-types';
 import {isFakedUuid, isFakedUuidForGraphics} from './utils';
 
 export const fetchPipelinesGraphics = async (): Promise<Array<PipelinesGraphics>> => {
@@ -33,7 +33,7 @@ export const savePipelinesGraphics = async (graphics: PipelinesGraphics): Promis
 	}
 };
 
-export const deletePipelineGraphics = async (pipelineGraphId: string): Promise<void> => {
+export const deletePipelineGraphics = async (pipelineGraphId: PipelinesGraphicsId): Promise<void> => {
 	if (isMockService()) {
 		await deleteMockPipelineGraphics(pipelineGraphId);
 	} else {
@@ -41,7 +41,7 @@ export const deletePipelineGraphics = async (pipelineGraphId: string): Promise<v
 	}
 };
 
-export const fetchPipeline = async (pipelineId: string): Promise<{ pipeline: Pipeline }> => {
+export const fetchPipeline = async (pipelineId: PipelineId): Promise<{ pipeline: Pipeline }> => {
 	if (isMockService()) {
 		// return nothing
 		return {} as { pipeline: Pipeline };
@@ -67,7 +67,7 @@ export const savePipeline = async (pipeline: Pipeline): Promise<void> => {
 	}
 };
 
-export const renamePipeline = async (pipelineId: string, name: string): Promise<void> => {
+export const renamePipeline = async (pipelineId: PipelineId, name: string): Promise<void> => {
 	if (isMockService()) {
 		return renameMockPipeline(pipelineId, name);
 	} else {
@@ -75,7 +75,7 @@ export const renamePipeline = async (pipelineId: string, name: string): Promise<
 	}
 };
 
-export const togglePipelineEnabled = async (pipelineId: string, enabled: boolean): Promise<void> => {
+export const togglePipelineEnabled = async (pipelineId: PipelineId, enabled: boolean): Promise<void> => {
 	if (isMockService()) {
 		return toggleMockPipelineEnabled(pipelineId, enabled);
 	} else {

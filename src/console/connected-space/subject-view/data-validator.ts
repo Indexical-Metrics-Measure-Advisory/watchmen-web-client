@@ -12,9 +12,9 @@ import {
 import {isComputedParameter, isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
 import {Subject, SubjectDataSetFilterJoint} from '@/services/data/tuples/subject-types';
 import {isExpressionFilter, isJointFilter} from '@/services/data/tuples/subject-utils';
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 
-const getTopicIdsFromParameter = (parameter: Parameter): Array<string> => {
+const getTopicIdsFromParameter = (parameter: Parameter): Array<TopicId> => {
 	if (isTopicFactorParameter(parameter)) {
 		return [parameter.topicId];
 	} else if (isComputedParameter(parameter)) {
@@ -25,7 +25,7 @@ const getTopicIdsFromParameter = (parameter: Parameter): Array<string> => {
 	}
 };
 
-const getTopicIdsFromFilter = (joint: SubjectDataSetFilterJoint): Array<string> => {
+const getTopicIdsFromFilter = (joint: SubjectDataSetFilterJoint): Array<TopicId> => {
 	return joint.filters.map(filter => {
 		if (isJointFilter(filter)) {
 			return getTopicIdsFromFilter(filter);
@@ -133,7 +133,7 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>): { valid: boo
 	const topicIdsInJoins = Array.from(new Set((joins || []).reduce((topicIds, {topicId, secondaryTopicId}) => {
 		topicIds.push(topicId, secondaryTopicId);
 		return topicIds;
-	}, [] as Array<string>)));
+	}, [] as Array<TopicId>)));
 	const topicIdsInColumns = Array.from(new Set(columns.map(({parameter}) => getTopicIdsFromParameter(parameter)).flat()));
 	const topicIdsInFilters = Array.from(new Set(getTopicIdsFromFilter(filters)));
 	if (topicIdsInJoins.length === 0) {

@@ -1,14 +1,18 @@
 import {BlockCoordinate, BlockFrame, BlockName} from '../graphics/graphics-types';
-import {Subject} from './subject-types';
+import {DateTime} from '../types';
+import {ReportId} from './report-types';
+import {SpaceId} from './space-types';
+import {Subject, SubjectId} from './subject-types';
+import {TopicId} from './topic-types';
 import {Tuple} from './tuple-types';
 
 export interface ConnectedSpace extends Tuple {
-	connectId: string;
+	connectId: ConnectedSpaceId;
 	name: string;
-	spaceId: string;
+	spaceId: SpaceId;
 	subjects: Array<Subject>;
 	isTemplate: boolean;
-	lastVisitTime: string;
+	lastVisitTime: DateTime;
 }
 
 export interface ConnectedSpaceBlockGraphicsRect {
@@ -22,26 +26,28 @@ export interface ConnectedSpaceBlockGraphics {
 }
 
 export interface TopicGraphics extends ConnectedSpaceBlockGraphics {
-	topicId: string;
+	topicId: TopicId;
 }
 
 export interface SubjectGraphics extends ConnectedSpaceBlockGraphics {
-	subjectId: string;
+	subjectId: SubjectId;
 }
 
 export interface ReportGraphics extends ConnectedSpaceBlockGraphics {
-	reportId: string;
+	reportId: ReportId;
 }
 
+export type ConnectedSpaceId = string;
+
 export interface ConnectedSpaceGraphics {
-	connectId: string;
+	connectId: ConnectedSpaceId;
 	topics: Array<TopicGraphics>;
 	subjects: Array<SubjectGraphics>;
 	reports: Array<ReportGraphics>;
 }
 
 export interface ConnectedSpaceTemplate {
-	connectId: string;
+	connectId: ConnectedSpaceId;
 	name: string;
 	createBy: string;
 }

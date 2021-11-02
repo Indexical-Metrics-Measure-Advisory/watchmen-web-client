@@ -1,6 +1,6 @@
 import {Dayjs} from 'dayjs';
 import {fetchPipelinesGraphics} from '../tuples/pipeline';
-import {PipelinesGraphics} from '../tuples/pipeline-types';
+import {PipelinesGraphics, PipelinesGraphicsId} from '../tuples/pipeline-types';
 import {isMockService} from '../utils';
 import {fetchAllDataSources} from './all-data-sources';
 import {fetchAllExternalWriters} from './all-external-writers';
@@ -20,7 +20,7 @@ export const fetchPipelinesSettingsData = async (): Promise<PipelinesSettings> =
 	return {pipelines, topics, graphics, dataSources, externalWriters};
 };
 
-const fetchUpdatedPipelinesGraphics = async (lastModifiedTime: Dayjs, existsGraphicsIds: Array<string>): Promise<{ updated: Array<PipelinesGraphics>, removed: Array<string> }> => {
+const fetchUpdatedPipelinesGraphics = async (lastModifiedTime: Dayjs, existsGraphicsIds: Array<PipelinesGraphicsId>): Promise<{ updated: Array<PipelinesGraphics>, removed: Array<PipelinesGraphicsId> }> => {
 	if (isMockService()) {
 		return {updated: [], removed: []};
 	} else {
@@ -36,8 +36,8 @@ export const fetchUpdatedPipelinesSettingsData = async (options: {
 	lastModifiedTimeOfPipelines: Dayjs,
 	lastModifiedTimeOfTopics: Dayjs,
 	lastModifiedTimeOfGraphics: Dayjs,
-	existsGraphicsIds: Array<string>
-}): Promise<Partial<PipelinesSettings> & { removedGraphics: Array<string> }> => {
+	existsGraphicsIds: Array<PipelinesGraphicsId>
+}): Promise<Partial<PipelinesSettings> & { removedGraphics: Array<PipelinesGraphicsId> }> => {
 	const {
 		lastModifiedTimeOfPipelines,
 		lastModifiedTimeOfTopics,

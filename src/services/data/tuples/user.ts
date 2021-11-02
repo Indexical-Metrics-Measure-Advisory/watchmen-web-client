@@ -7,10 +7,11 @@ import {QueryTenant} from './query-tenant-types';
 import {QueryUserGroupForHolder} from './query-user-group-types';
 import {QueryUser, QueryUserForHolder} from './query-user-types';
 import {listTenants} from './tenant';
-import {User} from './user-types';
+import {UserGroupId} from './user-group-types';
+import {User, UserId} from './user-types';
 import {isFakedUuid} from './utils';
 
-type UserOnServer = Omit<User, 'userGroupIds'> & { groupIds: Array<string> };
+type UserOnServer = Omit<User, 'userGroupIds'> & { groupIds: Array<UserGroupId> };
 const transformFromServer = (user: UserOnServer): User => {
 	const {groupIds, ...rest} = user;
 	return {userGroupIds: groupIds, ...rest};
@@ -37,7 +38,7 @@ export const listUsers = async (options: {
 	}
 };
 
-export const fetchUser = async (userId: string): Promise<{ user: User; groups: Array<QueryUserGroupForHolder>; tenants: Array<QueryTenant> }> => {
+export const fetchUser = async (userId: UserId): Promise<{ user: User; groups: Array<QueryUserGroupForHolder>; tenants: Array<QueryTenant> }> => {
 	if (isMockService()) {
 		return fetchMockUser(userId);
 	} else {

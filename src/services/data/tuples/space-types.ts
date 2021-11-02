@@ -1,17 +1,26 @@
 import {ParameterJoint} from './factor-calculator-types';
-import {TopicHolder, Tuple, UserGroupHolder} from './tuple-types';
+import { TenantId } from './tenant-types';
+import {TopicHolder, TopicId} from './topic-types';
+import {Tuple, TupleHolder} from './tuple-types';
+import {UserGroupHolder} from './user-group-types';
 
 /** filter */
 export interface SpaceFilter {
-	topicId: string;
+	topicId: TopicId;
 	joint: ParameterJoint;
 	enabled: boolean;
 }
 
+export type SpaceId = string;
+
 export interface Space extends Tuple, TopicHolder, UserGroupHolder {
-	spaceId: string;
+	spaceId: SpaceId;
 	name: string;
 	description?: string;
-	tenantId?: string;
+	tenantId?: TenantId;
 	filters?: Array<SpaceFilter>;
+}
+
+export interface SpaceHolder extends TupleHolder {
+	spaceIds: Array<SpaceId>;
 }

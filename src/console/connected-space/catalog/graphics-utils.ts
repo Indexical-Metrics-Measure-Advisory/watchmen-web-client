@@ -8,9 +8,9 @@ import {
 	SubjectGraphics,
 	TopicGraphics
 } from '@/services/data/tuples/connected-space-types';
-import {Report} from '@/services/data/tuples/report-types';
-import {Subject} from '@/services/data/tuples/subject-types';
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Report, ReportId} from '@/services/data/tuples/report-types';
+import {Subject, SubjectId} from '@/services/data/tuples/subject-types';
+import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 import {
 	BLOCK_FULL_PADDING_HORIZONTAL,
 	BLOCK_FULL_PADDING_VERTICAL,
@@ -264,7 +264,7 @@ const computeBlockSelection = (blockGraphics: ConnectedSpaceBlockGraphics) => {
 		height: blockGraphics.rect.frame.height + SELECTION_FULL_GAP
 	};
 };
-export const computeTopicSelection = (options: { topicId: string; graphics: AssembledConnectedSpaceGraphics }) => {
+export const computeTopicSelection = (options: { topicId: TopicId; graphics: AssembledConnectedSpaceGraphics }) => {
 	const {graphics, topicId} = options;
 
 	// eslint-disable-next-line
@@ -272,7 +272,7 @@ export const computeTopicSelection = (options: { topicId: string; graphics: Asse
 	return computeBlockSelection(topicGraphics);
 };
 
-export const computeSubjectSelection = (options: { subjectId: string; graphics: AssembledConnectedSpaceGraphics }) => {
+export const computeSubjectSelection = (options: { subjectId: SubjectId; graphics: AssembledConnectedSpaceGraphics }) => {
 	const {graphics, subjectId} = options;
 
 	// eslint-disable-next-line
@@ -280,7 +280,7 @@ export const computeSubjectSelection = (options: { subjectId: string; graphics: 
 	return computeBlockSelection(subjectGraphics);
 };
 
-export const computeReportSelection = (options: { reportId: string; graphics: AssembledConnectedSpaceGraphics }) => {
+export const computeReportSelection = (options: { reportId: ReportId; graphics: AssembledConnectedSpaceGraphics }) => {
 	const {graphics, reportId} = options;
 
 	// eslint-disable-next-line

@@ -6,11 +6,14 @@ import {
 	SystemActionType,
 	WriteTopicActionType
 } from '../tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {PipelineId} from '../tuples/pipeline-types';
+import {TopicId} from '../tuples/topic-types';
+import {DateTime} from '../types';
 import {isMockService} from '../utils';
 
 export interface MonitorLogCriteria {
-	topicId?: string;
-	pipelineId?: string;
+	topicId?: TopicId;
+	pipelineId?: PipelineId;
 	startDate?: string;
 	endDate?: string;
 	status?: MonitorLogStatus;
@@ -21,11 +24,13 @@ export enum MonitorLogStatus {
 	ERROR = 'ERROR',
 }
 
+export type MonitorLogActionId = string;
+
 export interface MonitorLogAction {
-	uid: string;
+	uid: MonitorLogActionId;
 	type: PipelineStageUnitActionType;
 	status: MonitorLogStatus;
-	completeTime: string;
+	completeTime: DateTime;
 	error?: string;
 	insertCount: number;
 	updateCount: number;
@@ -73,11 +78,11 @@ export interface MonitorLogStage {
 
 export interface MonitorLogRow {
 	uid: string;
-	pipelineId: string;
-	topicId: string;
+	pipelineId: PipelineId;
+	topicId: TopicId;
 	status: MonitorLogStatus;
-	startTime: string;
-	completeTime: string;
+	startTime: DateTime;
+	completeTime: DateTime;
 	oldValue: any;
 	newValue: any;
 	conditionResult: boolean;

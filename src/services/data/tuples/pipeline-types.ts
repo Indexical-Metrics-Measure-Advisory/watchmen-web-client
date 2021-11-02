@@ -1,6 +1,9 @@
 import {BlockCoordinate, BlockFrame, BlockName} from '../graphics/graphics-types';
+import {DateTime} from '../types';
 import {PipelineStage} from './pipeline-stage-types';
 import {Conditional} from './pipeline-super-types';
+import {TenantId} from './tenant-types';
+import {TopicId} from './topic-types';
 import {Tuple} from './tuple-types';
 
 export enum PipelineTriggerType {
@@ -11,15 +14,17 @@ export enum PipelineTriggerType {
 	DELETE = 'delete',
 }
 
+export type PipelineId = string;
+
 export interface Pipeline extends Tuple, Conditional {
-	pipelineId: string;
-	topicId: string;
+	pipelineId: PipelineId;
+	topicId: TopicId;
 	name: string;
 	type: PipelineTriggerType;
 	stages: Array<PipelineStage>;
 	enabled: boolean;
 	validated: boolean;
-	tenantId?: string;
+	tenantId?: TenantId;
 }
 
 export interface PipelineBlockGraphicsRect {
@@ -33,13 +38,15 @@ export interface PipelineBlockGraphics {
 }
 
 export interface TopicGraphics extends PipelineBlockGraphics {
-	topicId: string;
+	topicId: TopicId;
 }
 
+export type PipelinesGraphicsId = string;
+
 export interface PipelinesGraphics {
-	pipelineGraphId: string;
+	pipelineGraphId: PipelinesGraphicsId;
 	name: string;
 	topics: Array<TopicGraphics>;
-	createTime: string;
-	lastModified: string;
+	createTime: DateTime;
+	lastModified: DateTime;
 }

@@ -8,3 +8,5 @@ export interface Page<T extends any> {
 	pageSize: number;
 	pageCount: number;
 }
+
+export type DateTime = string;

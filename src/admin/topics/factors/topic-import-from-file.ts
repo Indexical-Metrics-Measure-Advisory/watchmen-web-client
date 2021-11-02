@@ -1,4 +1,10 @@
-import {CompatibleEncryptMethods, Factor, FactorEncryptMethod, FactorType} from '@/services/data/tuples/factor-types';
+import {
+	CompatibleEncryptMethods,
+	Factor,
+	FactorEncryptMethod,
+	FactorIndexGroup,
+	FactorType
+} from '@/services/data/tuples/factor-types';
 import {isEnumFactor} from '@/services/data/tuples/topic';
 import {Topic} from '@/services/data/tuples/topic-types';
 import parseCSV from 'csv-parse';
@@ -34,7 +40,7 @@ const asFactors = async (topic: Topic, data: any): Promise<Array<Factor>> => {
 			factor.enumId = row.enumId ? `${row.enumId}` : (void 0);
 		}
 		factor.defaultValue = row.defaultValue ? `${row.defaultValue}` : (void 0);
-		factor.indexGroup = row.indexGroup ? `${row.indexGroup}` : (void 0);
+		factor.indexGroup = row.indexGroup ? (`${row.indexGroup}` as FactorIndexGroup) : (void 0);
 		if (!isIndexGroupValid(factor.indexGroup)) {
 			delete factor.indexGroup;
 		}

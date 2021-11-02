@@ -9,7 +9,7 @@ import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
 import {Space} from '@/services/data/tuples/space-types';
 import {Subject} from '@/services/data/tuples/subject-types';
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 import {CheckBox} from '@/widgets/basic/checkbox';
 import {Input} from '@/widgets/basic/input';
 import {useForceUpdate} from '@/widgets/basic/utils';
@@ -121,7 +121,7 @@ const buildCandidatesRelationship = (candidates: Candidates) => {
 	const topicCandidatesMap = candidates.topics.reduce((map, topic) => {
 		map[topic.topic.topicId] = topic;
 		return map;
-	}, {} as Record<string, TopicCandidate>);
+	}, {} as Record<TopicId, TopicCandidate>);
 	const pipelineCandidatesMap = candidates.pipelines.reduce((map, pipeline) => {
 		map[pipeline.pipeline.pipelineId] = pipeline;
 		return map;
@@ -150,7 +150,7 @@ const buildCandidatesRelationship = (candidates: Candidates) => {
 				return r.connectedSpaces.some(({connectedSpace}) => (connectedSpace.subjects || []).includes(subject));
 			});
 			return map;
-		}, {} as Record<string, TopicRelations>),
+		}, {} as Record<TopicId, TopicRelations>),
 		pipelines: (candidates.pipelines || []).reduce((map, {pipeline}) => {
 			const r: PipelineRelations = map[pipeline.pipelineId] ?? {topics: []};
 			map[pipeline.pipelineId] = r;

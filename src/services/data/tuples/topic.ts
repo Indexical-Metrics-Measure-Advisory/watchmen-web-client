@@ -5,7 +5,7 @@ import {TuplePage} from '../query/tuple-page';
 import {isMockService} from '../utils';
 import {Factor, FactorType} from './factor-types';
 import {QueryTopic, QueryTopicForHolder} from './query-topic-types';
-import {Topic, TopicKind, TopicType} from './topic-types';
+import {Topic, TopicId, TopicKind, TopicType} from './topic-types';
 import {isFakedUuid} from './utils';
 
 export const isSystemTopic = (topic: Topic): boolean => topic.kind === TopicKind.SYSTEM;
@@ -84,7 +84,7 @@ export const listTopics = async (options: {
 	}
 };
 
-export const fetchTopic = async (topicId: string): Promise<{ topic: Topic }> => {
+export const fetchTopic = async (topicId: TopicId): Promise<{ topic: Topic }> => {
 	if (isMockService()) {
 		return fetchMockTopic(topicId);
 	} else {

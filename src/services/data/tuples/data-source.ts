@@ -8,7 +8,7 @@ import {
 } from '../mock/tuples/mock-data-source';
 import {TuplePage} from '../query/tuple-page';
 import {isMockService} from '../utils';
-import {DataSource} from './data-source-types';
+import {DataSource, DataSourceId} from './data-source-types';
 import {QueryDataSource, QueryDataSourceForHolder} from './query-data-source-types';
 import {isFakedUuid} from './utils';
 
@@ -26,7 +26,7 @@ export const listDataSources = async (options: {
 	}
 };
 
-export const fetchDataSource = async (dataSourceId: string): Promise<{ dataSource: DataSource }> => {
+export const fetchDataSource = async (dataSourceId: DataSourceId): Promise<{ dataSource: DataSource }> => {
 	if (isMockService()) {
 		const {dataSource} = await fetchMockDataSource(dataSourceId);
 		return {dataSource};

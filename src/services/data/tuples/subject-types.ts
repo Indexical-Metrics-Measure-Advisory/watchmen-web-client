@@ -1,10 +1,15 @@
+import {DateTime} from '../types';
 import {Parameter, ParameterCondition, ParameterExpression, ParameterJoint} from './factor-calculator-types';
+import {FactorId} from './factor-types';
 import {Report} from './report-types';
+import {TopicId} from './topic-types';
 import {Tuple} from './tuple-types';
+
+export type SubjectDataSetColumnId = string;
 
 /** column */
 export interface SubjectDataSetColumn {
-	columnId: string;
+	columnId: SubjectDataSetColumnId;
 	parameter: Parameter;
 	alias?: string;
 }
@@ -28,10 +33,10 @@ export enum TopicJoinType {
 }
 
 export interface SubjectDataSetJoin {
-	topicId: string;
-	factorId: string;
-	secondaryTopicId: string;
-	secondaryFactorId: string;
+	topicId: TopicId;
+	factorId: FactorId;
+	secondaryTopicId: TopicId;
+	secondaryFactorId: FactorId;
 	type: TopicJoinType;
 }
 
@@ -41,11 +46,13 @@ export interface SubjectDataSet {
 	joins: Array<SubjectDataSetJoin>;
 }
 
+export type SubjectId = string;
+
 export interface Subject extends Tuple {
-	subjectId: string;
+	subjectId: SubjectId;
 	name: string;
 	autoRefreshInterval?: number;
 	reports?: Array<Report>;
 	dataset: SubjectDataSet;
-	lastVisitTime: string;
+	lastVisitTime: DateTime;
 }
