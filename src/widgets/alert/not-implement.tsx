@@ -8,7 +8,9 @@ export const NotImplement = () => {
 	const {fire, on, off} = useEventBus();
 
 	useEffect(() => {
-		const show = () => fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.ALERT.NOT_IMPLEMENT}</AlertLabel>);
+		const show = (onHide?: () => void) => {
+			fire(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.ALERT.NOT_IMPLEMENT}</AlertLabel>, onHide);
+		};
 		on(EventTypes.SHOW_NOT_IMPLEMENT, show);
 
 		return () => {

@@ -62,9 +62,9 @@ export interface EventBus {
 	on(type: EventTypes.HIDE_ALERT, listener: () => void): this;
 	off(type: EventTypes.HIDE_ALERT, listener: () => void): this;
 
-	fire(type: EventTypes.SHOW_NOT_IMPLEMENT): this;
-	on(type: EventTypes.SHOW_NOT_IMPLEMENT, listener: () => void): this;
-	off(type: EventTypes.SHOW_NOT_IMPLEMENT, listener: () => void): this;
+	fire(type: EventTypes.SHOW_NOT_IMPLEMENT, onHide?: () => void): this;
+	on(type: EventTypes.SHOW_NOT_IMPLEMENT, listener: (onHide?: () => void) => void): this;
+	off(type: EventTypes.SHOW_NOT_IMPLEMENT, listener: (onHide?: () => void) => void): this;
 
 	fire(type: EventTypes.SHOW_WAITING, request: () => Promise<void>, content?: ReactContent, onData?: (data: any) => void): this;
 	on(type: EventTypes.SHOW_WAITING, listener: (request: () => Promise<void>, content?: ReactContent, onData?: (data: any) => void) => void): this;
