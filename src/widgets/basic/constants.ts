@@ -7,6 +7,7 @@ import {
 	faArrowUp,
 	faBan,
 	faBell,
+	faBinoculars,
 	faBusinessTime,
 	faCalendarPlus,
 	faCaretDown,
@@ -277,6 +278,7 @@ export const ICON_CLEAR_SCREEN = faHandSparkles;
 export const ICON_MINIMIZE_PANEL = faWindowMinimize;
 export const ICON_MAXIMIZE_PANEL = faWindowMaximize;
 export const ICON_RESTORE_PANEL = faWindowRestore;
+export const ICON_DETECT = faBinoculars;
 
 export const ICON_COMMENTS = faCommentDots;
 export const ICON_CMD_PROMPT = faTerminal;

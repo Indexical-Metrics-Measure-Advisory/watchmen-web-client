@@ -9,4 +9,6 @@ export const IndicatorsHeaderContainer = styled.div.attrs({'data-widget': 'indic
 	grid-template-columns : 1fr auto;
 	margin-top            : var(--margin);
 	margin-bottom         : calc(var(--margin) * 2);
+	width                 : 100%;
 `;
+

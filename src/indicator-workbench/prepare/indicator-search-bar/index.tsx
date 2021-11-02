@@ -1,25 +1,23 @@
+import {Indicator} from '@/services/data/indicators/types';
 import {ICON_SEARCH} from '@/widgets/basic/constants';
-import {useEventBus} from '@/widgets/events/event-bus';
-import {EventTypes} from '@/widgets/events/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useRef, useState} from 'react';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
-import {IndicatorsEventTypes, IndicatorsState} from '../indicators-event-bus-types';
+import {IndicatorsEventTypes} from '../indicators-event-bus-types';
 import {IndicatorSearchBarContainer, IndicatorSearchButton, IndicatorSearchInput} from './widgets';
 
 export const IndicatorSearchBar = () => {
-	const {fire: fireGlobal} = useEventBus();
-	const {once, on, off, fire} = useIndicatorsEventBus();
+	const {on, off, fire} = useIndicatorsEventBus();
 	const searchRef = useRef<HTMLInputElement>(null);
 	const [onSearch, setOnSearch] = useState<boolean>(false);
 	const [searchText, setSearchText] = useState<string>('');
 	useEffect(() => {
-		const onIndicatorEdit = () => setOnSearch(false);
-		on(IndicatorsEventTypes.INDICATOR_CREATED, onIndicatorEdit);
-		on(IndicatorsEventTypes.INDICATOR_LOADED, onIndicatorEdit);
+		const onIndicatorEdit = (indicators: Array<Indicator>) => {
+			setOnSearch(false);
+		};
+		on(IndicatorsEventTypes.INDICATOR_DETECTED, onIndicatorEdit);
 		return () => {
-			off(IndicatorsEventTypes.INDICATOR_CREATED, onIndicatorEdit);
-			off(IndicatorsEventTypes.INDICATOR_LOADED, onIndicatorEdit);
+			off(IndicatorsEventTypes.INDICATOR_DETECTED, onIndicatorEdit);
 		};
 	}, [on, off]);
 	useEffect(() => {
@@ -39,26 +37,14 @@ export const IndicatorSearchBar = () => {
 			return;
 		}
 
-		once(IndicatorsEventTypes.REPLY_INDICATOR_STATE, (state: IndicatorsState) => {
-			if (state !== IndicatorsState.SAVED && state !== IndicatorsState.NONE) {
-				fireGlobal(EventTypes.SHOW_YES_NO_DIALOG,
-					'Still in editing, all changes will be lost if interrupt. Are you sure to continue?',
-					() => {
-						fire(IndicatorsEventTypes.DO_SEARCH_INDICATOR, searchText.trim(), 1);
-						fireGlobal(EventTypes.HIDE_DIALOG);
-					},
-					() => fireGlobal(EventTypes.HIDE_DIALOG));
-			} else {
-				fire(IndicatorsEventTypes.DO_SEARCH_INDICATOR, searchText.trim(), 1);
-			}
-		}).fire(IndicatorsEventTypes.ASK_INDICATOR_STATE);
+		fire(IndicatorsEventTypes.DO_SEARCH_INDICATOR, searchText.trim(), 1);
 	};
 
 	return <IndicatorSearchBarContainer>
 		<IndicatorSearchButton onClick={onSearchClicked}>
 			<FontAwesomeIcon icon={ICON_SEARCH}/>
 		</IndicatorSearchButton>
-		<IndicatorSearchInput placeholder="Search by topic name, indicator name, etc."
+		<IndicatorSearchInput placeholder="Search by topic name, indicator name, indicator type etc."
 		                      value={searchText} onChange={onSearchChanged}
 		                      onKeyPress={onSearchKeyPressed}
 		                      ref={searchRef}/>

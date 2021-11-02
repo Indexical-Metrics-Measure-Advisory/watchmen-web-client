@@ -6,17 +6,13 @@ export enum MeasureMethod {
 
 }
 
-export interface IndicatorMeasure {
-	factorId: FactorId;
-	methods: Array<MeasureMethod>;
-}
-
 export type IndicatorId = string;
 
 export interface Indicator {
 	indicatorId: IndicatorId;
 	topicId: TopicId;
-	measures: Array<IndicatorMeasure>;
+	factorId: FactorId;
+	measures: Array<MeasureMethod>;
 }
 
 export interface IndicatorsPage extends Page<Indicator> {

@@ -5,7 +5,7 @@ export const FixWidthPage = styled.div.attrs({'data-widget': 'fix-width-page'})`
 	display        : flex;
 	position       : relative;
 	flex-direction : column;
-	max-width      : 1000px;
+	max-width      : 80%;
 	min-width      : 1000px;
 	margin         : var(--margin) auto;
 `;
