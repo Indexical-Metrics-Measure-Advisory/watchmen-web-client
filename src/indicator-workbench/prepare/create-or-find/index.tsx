@@ -1,10 +1,11 @@
-import {useIndicatorsEventBus} from '@/indicator-workbench/prepare/indicators-event-bus';
-import {IndicatorsEventTypes} from '@/indicator-workbench/prepare/indicators-event-bus-types';
 import {Input} from '@/widgets/basic/input';
 import {ButtonInk} from '@/widgets/basic/types';
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent, useRef, useState} from 'react';
 import styled from 'styled-components';
-import {SinkingLabel, Step, StepTitle, StepTitleButton} from '../step-widgets';
+import {useIndicatorsEventBus} from '../indicators-event-bus';
+import {IndicatorsEventTypes} from '../indicators-event-bus-types';
+import {SinkingLabel, Step, StepTitle, StepTitleButton, useStep} from '../step-widgets';
+import {PrepareStep} from '../types';
 
 const Title = styled(StepTitle)`
 	> button:first-child {
@@ -48,16 +49,24 @@ const SearchInput = styled(Input).attrs<{ visible: boolean }>(({visible}) => {
 `;
 
 export const CreateOrFind = () => {
+	const inputRef = useRef<HTMLInputElement>(null);
 	const {fire} = useIndicatorsEventBus();
 	const [showSearchInput, setShowSearchInput] = useState(false);
 	const [searchText, setSearchText] = useState('');
+	const state = useStep(PrepareStep.CREATE_OR_FIND);
 
 	const onCreateClicked = () => {
 		setShowSearchInput(false);
-		fire(IndicatorsEventTypes.DO_CREATE_INDICATOR);
+		fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.PICK_TOPIC);
 	};
 	const onSearchClicked = () => {
-		setShowSearchInput(!showSearchInput);
+		if (!showSearchInput) {
+			setShowSearchInput(true);
+			inputRef.current?.focus();
+		} else {
+			setShowSearchInput(false);
+			inputRef.current?.blur();
+		}
 	};
 	const onSearchTextChanged = (event: ChangeEvent<HTMLInputElement>) => {
 		const {value} = event.target;
@@ -65,16 +74,21 @@ export const CreateOrFind = () => {
 	};
 
 	return <Step index={1}>
-		<Title>
+		<Title visible={state.current}>
 			<StepTitleButton ink={ButtonInk.PRIMARY} onClick={onCreateClicked}>
 				Create An Indicator
 			</StepTitleButton>
 			<Label>Or</Label>
 			<SearchInput value={searchText} onChange={onSearchTextChanged}
-			             visible={showSearchInput}/>
+			             visible={showSearchInput} ref={inputRef}/>
 			<SearchButton ink={ButtonInk.PRIMARY} finding={showSearchInput} onClick={onSearchClicked}>
 				{showSearchInput ? 'Discard Finding' : 'Find Existed Indicator'}
 			</SearchButton>
+		</Title>
+		<Title visible={state.done}>
+			<StepTitleButton ink={ButtonInk.SUCCESS} asLabel={true}>
+				On Creating An Indicator
+			</StepTitleButton>
 		</Title>
 	</Step>;
 };

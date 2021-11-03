@@ -1,11 +1,13 @@
+import {PrepareStep} from './types';
+
 export enum IndicatorsEventTypes {
-	DO_CREATE_INDICATOR = 'do-create-indicator',
+	SWITCH_STEP = 'switch-step',
 }
 
 export interface IndicatorsEventBus {
-	fire(type: IndicatorsEventTypes.DO_CREATE_INDICATOR): this;
-	on(type: IndicatorsEventTypes.DO_CREATE_INDICATOR, listener: () => void): this;
-	off(type: IndicatorsEventTypes.DO_CREATE_INDICATOR, listener: () => void): this;
+	fire(type: IndicatorsEventTypes.SWITCH_STEP, step: PrepareStep): this;
+	on(type: IndicatorsEventTypes.SWITCH_STEP, listener: (step: PrepareStep) => void): this;
+	off(type: IndicatorsEventTypes.SWITCH_STEP, listener: (step: PrepareStep) => void): this;
 
 	// fire(type: IndicatorsEventTypes.DO_SEARCH_INDICATOR, searchText: string, pageNumber: number): this;
 	// on(type: IndicatorsEventTypes.DO_SEARCH_INDICATOR, listener: (searchText: string, pageNumber: number) => void): this;

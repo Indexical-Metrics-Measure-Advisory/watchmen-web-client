@@ -1,5 +1,5 @@
-import {ReactContent} from '@/widgets/basic/types';
 import React, {useEffect, useState} from 'react';
+import {ReactContent} from '../basic/types';
 import {useEventBus} from '../events/event-bus';
 import {EventTypes} from '../events/types';
 import {AlertContainer, WaitRemoteDataBody, WaitRemoveDataDialog} from './widgets';

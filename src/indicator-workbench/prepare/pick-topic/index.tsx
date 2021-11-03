@@ -1,8 +1,7 @@
-import {useIndicatorsEventBus} from '@/indicator-workbench/prepare/indicators-event-bus';
-import {IndicatorsEventTypes} from '@/indicator-workbench/prepare/indicators-event-bus-types';
 import {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import {SinkingLabel, Step, StepTitle} from '../step-widgets';
+import {SinkingLabel, Step, StepTitle, useStep} from '../step-widgets';
+import {PrepareStep} from '../types';
 
 const Title = styled(StepTitle)`
 `;
@@ -11,18 +10,12 @@ const Label = styled(SinkingLabel)`
 `;
 
 export const PickTopic = () => {
-	const {on, off} = useIndicatorsEventBus();
 	const [constructed, setConstructed] = useState(false);
 	const [visible, setVisible] = useState(false);
-	useEffect(() => {
-		const onDoCreateIndicator = () => {
-			setConstructed(true);
-		};
-		on(IndicatorsEventTypes.DO_CREATE_INDICATOR, onDoCreateIndicator);
-		return () => {
-			off(IndicatorsEventTypes.DO_CREATE_INDICATOR, onDoCreateIndicator);
-		};
-	}, [on, off]);
+	useStep(PrepareStep.PICK_TOPIC, () => {
+		setConstructed(true);
+	}, () => {
+	});
 	useEffect(() => {
 		if (constructed) {
 			setVisible(true);
