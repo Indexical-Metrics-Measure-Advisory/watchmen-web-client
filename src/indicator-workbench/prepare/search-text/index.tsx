@@ -1,14 +1,29 @@
+import {ICON_LOADING} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
-import {ChangeEvent, useEffect, useRef, useState} from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {ChangeEvent, ReactNode, useEffect, useRef, useState} from 'react';
 import {useSearchTextEventBus} from './search-text-event-bus';
 import {SearchTextEventTypes} from './search-text-event-bus-types';
-import {SearchButton, SearchInput, SearchPart, SearchPopup} from './widgets';
+import {CandidateItem, OnSearching, SearchButton, SearchInput, SearchPart, SearchPopup} from './widgets';
+
+export interface SearchItem {
+	key: string;
+	text: ReactNode;
+}
+
+export type SearchItems = Array<SearchItem>;
+
+interface SearchResult {
+	searched: boolean;
+	items: SearchItems;
+}
 
 export const SearchText = () => {
 	const {on, off} = useSearchTextEventBus();
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [showSearchInput, setShowSearchInput] = useState(false);
 	const [searchText, setSearchText] = useState('');
+	const [result] = useState<SearchResult>({searched: false, items: []});
 	useEffect(() => {
 		const onHideSearch = () => {
 			setSearchText('');
@@ -43,7 +58,16 @@ export const SearchText = () => {
 			{showSearchInput ? 'Discard Finding' : 'Find Existed Indicator'}
 		</SearchButton>
 		<SearchPopup>
-
+			{result.searched
+				? result.items.map(item => {
+					return <CandidateItem key={item.key}>
+						{item.text}
+					</CandidateItem>;
+				})
+				: <OnSearching>
+					<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>
+					<span>Searching...</span>
+				</OnSearching>}
 		</SearchPopup>
 	</SearchPart>;
 };

@@ -46,7 +46,7 @@ const IndicatorWorkbenchIndex = () => {
 				<IndicatorWorkbenchMain><IndicatorWorkbenchSettingsIndex/></IndicatorWorkbenchMain>
 			</Route>
 			<Route path="*">
-				<Redirect to={Router.INDICATOR_WORKBENCH_INSPECTION}/>
+				<Redirect to={isAdmin() ? Router.INDICATOR_WORKBENCH_PREPARE : Router.INDICATOR_WORKBENCH_INSPECTION}/>
 			</Route>
 		</Switch>
 		<WaterMark/>

@@ -51,12 +51,16 @@ export const SearchButton = styled(StepTitleButton).attrs<{ finding: boolean }>(
 	};
 })<{ finding: boolean }>`
 `;
-export const SearchPopup = styled.div.attrs({'data-widget': 'search-popup'})`
+export const SearchPopup = styled.div.attrs({
+	'data-widget': 'search-popup',
+	'data-v-scroll': ''
+})`
 	display                    : flex;
 	position                   : absolute;
 	top                        : calc(100% + 18px);
 	width                      : 100%;
-	min-height                 : calc(var(--height) * 1.2);
+	min-height                 : calc(var(--height) * 1.2 + 4px);
+	max-height                 : calc(var(--height) * 1.2 * 8 + 4px);
 	background-color           : var(--bg-color);
 	border-width               : 2px;
 	border-color               : var(--primary-color);
@@ -65,5 +69,24 @@ export const SearchPopup = styled.div.attrs({'data-widget': 'search-popup'})`
 	border-bottom-right-radius : calc(var(--height) * 0.6);
 	opacity                    : 0;
 	pointer-events             : none;
+	overflow-y                 : auto;
+	overflow-x                 : hidden;
 	transition                 : top 300ms ease-in-out, opacity 300ms ease-in-out;
+`;
+export const CandidateItem = styled.div.attrs({'data-widget': 'search-candidate-item'})`
+	display     : flex;
+	position    : relative;
+	align-items : center;
+	min-height  : calc(var(--height) * 1.2);
+	padding     : 0 calc(var(--height) * 0.6);
+`;
+export const OnSearching = styled.div.attrs({'data-widget': 'search-on-searching'})`
+	display     : flex;
+	position    : relative;
+	align-items : center;
+	min-height  : calc(var(--height) * 1.2);
+	padding     : 0 calc(var(--height) * 0.6);
+	> span:last-child {
+		margin-left : calc(var(--margin) / 2);
+	}
 `;
