@@ -1,12 +1,16 @@
 import {ButtonInk} from '@/widgets/basic/types';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
 import {IndicatorsEventTypes} from '../indicators-event-bus-types';
-import {SearchText} from '../search-text';
+import {SearchItem, SearchText} from '../search-text';
 import {SearchTextEventBusProvider, useSearchTextEventBus} from '../search-text/search-text-event-bus';
 import {SearchTextEventTypes} from '../search-text/search-text-event-bus-types';
 import {Step, StepTitleButton, useStep} from '../step-widgets';
 import {PrepareStep} from '../types';
 import {Label, Title} from './widgets';
+
+interface IndicatorCandidate extends SearchItem {
+
+}
 
 const ActivePart = () => {
 	const {fire} = useIndicatorsEventBus();
@@ -17,13 +21,20 @@ const ActivePart = () => {
 		fireSearch(SearchTextEventTypes.HIDE_SEARCH);
 		fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.PICK_TOPIC);
 	};
+	const search = async (text: string): Promise<Array<IndicatorCandidate>> => {
+		// TODO
+		return new Promise(resolve => setTimeout(() => resolve([]), 1000));
+	};
+	const onSelectionChange = async (item: IndicatorCandidate) => {
+		// TODO
+	};
 
 	return <Title visible={state.current}>
 		<StepTitleButton ink={ButtonInk.PRIMARY} onClick={onCreateClicked}>
 			Create An Indicator
 		</StepTitleButton>
 		<Label>Or</Label>
-		<SearchText/>
+		<SearchText search={search} onSelectionChange={onSelectionChange}/>
 	</Title>;
 };
 
