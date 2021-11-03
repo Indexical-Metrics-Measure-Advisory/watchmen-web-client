@@ -257,7 +257,7 @@ export const En = {
 	INDICATOR_WORKBENCH: {
 		MENU: {
 			TITLE: 'Indicator Workbench',
-			PREPARE: 'Prepare Available Factors',
+			PREPARE: 'Prepare Indicator',
 			INSPECTION: 'Indicators Inspection',
 			SETTINGS: 'Settings',
 			LOGOUT: 'Logout'
