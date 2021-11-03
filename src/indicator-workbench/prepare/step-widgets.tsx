@@ -1,5 +1,7 @@
 import {Button, RoundDwarfButton} from '@/widgets/basic/button';
 import {ButtonInk} from '@/widgets/basic/types';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import {ReactNode, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useIndicatorsEventBus} from './indicators-event-bus';
@@ -111,11 +113,24 @@ export const DangerTitleButton = styled(RoundDwarfButton).attrs(() => {
 	pointer-events : none;
 	z-index        : 1;
 `;
-export const DropMeAndFollowingButton = (props: { onClick: () => void }) => {
-	const {onClick} = props;
+export const DropMeAndFollowingButton = (props: { stepIndex: number; previousStep: PrepareStep }) => {
+	const {stepIndex, previousStep} = props;
+
+	const {fire: fireGlobal} = useEventBus();
+	const {fire} = useIndicatorsEventBus();
+
+	const onDropMeAndFollowingClicked = () => {
+		fireGlobal(EventTypes.SHOW_YES_NO_DIALOG,
+			`Are you sure to drop this(#${stepIndex}) and following steps?`,
+			() => {
+				fire(IndicatorsEventTypes.SWITCH_STEP, previousStep);
+				fireGlobal(EventTypes.HIDE_DIALOG);
+			},
+			() => fireGlobal(EventTypes.HIDE_DIALOG));
+	};
 
 	return <DangerTitleButton ink={ButtonInk.DANGER} data-widget="drop-me-and-following-button"
-	                          onClick={onClick}>
+	                          onClick={onDropMeAndFollowingClicked}>
 		Drop Me & Following
 	</DangerTitleButton>;
 };
