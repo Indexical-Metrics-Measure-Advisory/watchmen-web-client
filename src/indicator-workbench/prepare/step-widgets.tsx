@@ -2,11 +2,19 @@ import {Button} from '@/widgets/basic/button';
 import {ReactNode} from 'react';
 import styled from 'styled-components';
 
-const StepContainer = styled.div.attrs({'data-widget': 'step'})`
+const StepContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+	return {
+		'data-widget': 'step',
+		style: {
+			opacity: visible ? 1 : 0
+		}
+	};
+})<{ visible: boolean }>`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : 64px 1fr;
 	width                 : 100%;
+	transition            : opacity 300ms ease-in-out;
 `;
 export const SinkingLabel = styled.span`
 	display       : flex;
@@ -33,14 +41,14 @@ const StepTitleSeparator = styled.div.attrs({'data-widget': 'step-title-separato
 	height           : 32px;
 	width            : calc(100% + 96px);
 	background-color : var(--border-color);
-	border-radius    : 16px 16px 8px 8px;
+	border-radius    : 16px 16px 4px 4px;
 	opacity          : 0.2;
 	z-index          : -1;
 `;
-export const Step = (props: { index: number; children: ReactNode }) => {
-	const {index, children} = props;
+export const Step = (props: { index: number; visible?: boolean; children: ReactNode }) => {
+	const {index, visible = true, children} = props;
 
-	return <StepContainer>
+	return <StepContainer visible={visible}>
 		<StepIndex>Step {index}.</StepIndex>
 		{children}
 	</StepContainer>;
