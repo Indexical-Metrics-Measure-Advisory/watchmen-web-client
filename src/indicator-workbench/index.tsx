@@ -1,5 +1,6 @@
 import {Router} from '@/routes/types';
 import {isAdmin} from '@/services/data/account';
+import {WaterMark} from '@/widgets/water-mark';
 import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
@@ -48,6 +49,7 @@ const IndicatorWorkbenchIndex = () => {
 				<Redirect to={Router.INDICATOR_WORKBENCH_INSPECTION}/>
 			</Route>
 		</Switch>
+		<WaterMark/>
 	</IndicatorWorkbenchContainer>;
 };
 

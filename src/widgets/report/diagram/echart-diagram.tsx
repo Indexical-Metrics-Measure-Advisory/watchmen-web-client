@@ -116,7 +116,7 @@ export const EChartDiagram = (props: { report: Report; thumbnail: boolean }) => 
 						const dx = (canvas.width - width) / 2;
 						const dy = (canvas.height - height) / 2;
 						ctx?.drawImage(image, dx, dy, width, height);
-						report.simulateThumbnail = canvas.toDataURL('png');
+						report.simulateThumbnail = canvas.toDataURL('png', {pixelRatio: window.devicePixelRatio});
 						fire(ReportEventTypes.THUMBNAIL_CAUGHT, report);
 					};
 					image.src = instance.getDataURL({type: 'png', pixelRatio: window.devicePixelRatio});
