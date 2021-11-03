@@ -1,9 +1,9 @@
-import {IndicatorsEventTypes} from '@/indicator-workbench/prepare/indicators-event-bus-types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
+import {IndicatorsEventTypes} from '../indicators-event-bus-types';
 import {DropMeAndFollowingButton, SinkingLabel, Step, StepTitle, useStep} from '../step-widgets';
 import {PrepareStep} from '../types';
 
@@ -44,7 +44,7 @@ export const PickTopic = () => {
 
 	const onDropMeAndFollowingClicked = () => {
 		fireGlobal(EventTypes.SHOW_YES_NO_DIALOG,
-			'Are you sure to drop this and following steps?',
+			'Are you sure to drop this(#2) and following steps?',
 			() => {
 				fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.CREATE_OR_FIND);
 				fireGlobal(EventTypes.HIDE_DIALOG);
