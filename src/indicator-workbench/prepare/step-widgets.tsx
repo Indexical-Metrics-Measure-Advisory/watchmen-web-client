@@ -1,4 +1,5 @@
-import {Button} from '@/widgets/basic/button';
+import {Button, RoundDwarfButton} from '@/widgets/basic/button';
+import {ButtonInk} from '@/widgets/basic/types';
 import {ReactNode, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useIndicatorsEventBus} from './indicators-event-bus';
@@ -46,6 +47,12 @@ const StepTitleContainer = styled.div.attrs<{ visible: boolean }>(({visible}) =>
 	height      : calc(var(--height) * 2);
 	width       : 100%;
 	transition  : opacity 300ms ease-in-out;
+	&:hover {
+		> button[data-widget=drop-me-and-following-button] {
+			opacity        : 1;
+			pointer-events : auto;
+		}
+	}
 `;
 const StepTitleSeparator = styled.div.attrs({'data-widget': 'step-title-separator'})`
 	display          : block;
@@ -92,29 +99,53 @@ export const StepTitleButton = styled(Button).attrs<{ asLabel?: boolean }>(({asL
 		box-shadow : ${({asLabel = false}) => asLabel ? 'none' : (void 0)};
 	}
 `;
+export const DangerTitleButton = styled(RoundDwarfButton).attrs(() => {
+	return {};
+})`
+	position       : absolute;
+	top            : 12px;
+	right          : 0;
+	font-size      : 0.8em;
+	border-radius  : calc(var(--height) * 0.6);
+	opacity        : 0;
+	pointer-events : none;
+	z-index        : 1;
+`;
+export const DropMeAndFollowingButton = (props: { onClick: () => void }) => {
+	const {onClick} = props;
+
+	return <DangerTitleButton ink={ButtonInk.DANGER} data-widget="drop-me-and-following-button"
+	                          onClick={onClick}>
+		Drop Me & Following
+	</DangerTitleButton>;
+};
 
 export interface StepState {
 	current: boolean;
 	done: boolean;
 }
 
-export const useStep = (step: PrepareStep, current?: () => void, done?: () => void): StepState => {
+export const useStep = (options: { step: PrepareStep, active?: () => void, done?: () => void, dropped?: () => void }): StepState => {
+	const {step, active, done, dropped} = options;
+
 	const {on, off} = useIndicatorsEventBus();
 	const [state, setState] = useState<StepState>({current: false, done: false});
 	useEffect(() => {
 		const onSwitchStep = (toStep: PrepareStep) => {
 			setState({current: toStep === step, done: step < toStep});
 			if (toStep === step) {
-				current && current();
+				active && active();
 			} else if (step < toStep) {
 				done && done();
+			} else {
+				dropped && dropped();
 			}
 		};
 		on(IndicatorsEventTypes.SWITCH_STEP, onSwitchStep);
 		return () => {
 			off(IndicatorsEventTypes.SWITCH_STEP, onSwitchStep);
 		};
-	}, [on, off, step, current, done]);
+	}, [on, off, step, active, done, dropped]);
 
 	return state;
 };

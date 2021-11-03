@@ -53,7 +53,7 @@ export const CreateOrFind = () => {
 	const {fire} = useIndicatorsEventBus();
 	const [showSearchInput, setShowSearchInput] = useState(false);
 	const [searchText, setSearchText] = useState('');
-	const state = useStep(PrepareStep.CREATE_OR_FIND);
+	const state = useStep({step: PrepareStep.CREATE_OR_FIND});
 
 	const onCreateClicked = () => {
 		setShowSearchInput(false);
