@@ -1,17 +1,17 @@
-import {Indicator, IndicatorId} from '@/services/data/tuples/indicator-types';
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Indicator, IndicatorId, TopicForIndicator} from '@/services/data/tuples/indicator-types';
 import {PrepareStep} from './types';
 
 export interface IndicatorsData {
 	indicator?: Indicator;
-	topic?: Topic;
+	topic?: TopicForIndicator;
 }
 
 export enum IndicatorsEventTypes {
 	SWITCH_STEP = 'switch-step',
 
 	CREATE_INDICATOR = 'create-indicator',
-	PICK_INDICATOR = 'pick-indicator'
+	PICK_INDICATOR = 'pick-indicator',
+	PICK_TOPIC = 'pick-topic'
 }
 
 export interface IndicatorsEventBus {
@@ -26,4 +26,8 @@ export interface IndicatorsEventBus {
 	fire(type: IndicatorsEventTypes.PICK_INDICATOR, indicatorId: IndicatorId, onData: (data: IndicatorsData) => void): this;
 	on(type: IndicatorsEventTypes.PICK_INDICATOR, listener: (indicatorId: IndicatorId, onData: (data: IndicatorsData) => void) => void): this;
 	off(type: IndicatorsEventTypes.PICK_INDICATOR, listener: (indicatorId: IndicatorId, onData: (data: IndicatorsData) => void) => void): this;
+
+	fire(type: IndicatorsEventTypes.PICK_TOPIC, data: IndicatorsData, onData: (data: IndicatorsData) => void): this;
+	on(type: IndicatorsEventTypes.PICK_TOPIC, listener: (data: IndicatorsData, onData: (data: IndicatorsData) => void) => void): this;
+	off(type: IndicatorsEventTypes.PICK_TOPIC, listener: (data: IndicatorsData, onData: (data: IndicatorsData) => void) => void): this;
 }

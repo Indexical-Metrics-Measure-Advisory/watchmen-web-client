@@ -379,7 +379,7 @@ export const computeParameterTypes = (
 	}
 };
 
-const getFactorType = (factorOrType: Factor | FactorType): FactorType => {
+export const getFactorType = (factorOrType: Factor | FactorType): FactorType => {
 	if (typeof factorOrType === 'string') {
 		return factorOrType;
 	} else {

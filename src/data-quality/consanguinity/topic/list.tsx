@@ -1,5 +1,12 @@
-import {isBusinessTopic, isDistinctTopic, isMetaTopic, isRawTopic, isSystemTopic} from '@/services/data/tuples/topic';
+
 import {Topic, TopicType} from '@/services/data/tuples/topic-types';
+import {
+	isBusinessTopic,
+	isDistinctTopic,
+	isMetaTopic,
+	isRawTopic,
+	isSystemTopic
+} from '@/services/data/tuples/topic-utils';
 import {DataQualityCacheData} from '@/services/local-persist/types';
 import React, {useState} from 'react';
 import {useDataQualityCacheData} from '../../cache/use-cache-data';

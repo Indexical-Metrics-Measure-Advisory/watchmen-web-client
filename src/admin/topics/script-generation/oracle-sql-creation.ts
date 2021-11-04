@@ -1,5 +1,6 @@
-import {isAggregationTopic, isRawTopic} from '@/services/data/tuples/topic';
+
 import {Topic} from '@/services/data/tuples/topic-types';
+import {isAggregationTopic, isRawTopic} from '@/services/data/tuples/topic-utils';
 import {ZipFiles} from '@/widgets/basic/utils';
 import {OracleFactorTypeMap} from './oracle';
 import {

@@ -1,6 +1,7 @@
 import {isDataQualityCenterEnabled} from '@/feature-switch';
 import {QueryTopic} from '@/services/data/tuples/query-topic-types';
-import {fetchTopic, isNotRawTopic} from '@/services/data/tuples/topic';
+import {fetchTopic} from '@/services/data/tuples/topic';
+import {isNotRawTopic} from '@/services/data/tuples/topic-utils';
 import {prettifyDateTimeToMinute} from '@/services/data/tuples/utils';
 import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT, ICON_TOPIC_PROFILE} from '@/widgets/basic/constants';
 import {TooltipAlignment} from '@/widgets/basic/types';

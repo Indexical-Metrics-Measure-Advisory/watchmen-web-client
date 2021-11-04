@@ -6,8 +6,8 @@ import {
 	TopicsMap
 } from '@/services/data/pipeline/pipeline-relations';
 import {Factor, FactorEncryptMethod, FactorEncryptMethodLabels} from '@/services/data/tuples/factor-types';
-import {isRawTopic} from '@/services/data/tuples/topic';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {isRawTopic} from '@/services/data/tuples/topic-utils';
 import {DataSourcesMap, EnumsMap} from './types';
 
 const canBeFlatten = (topic: Topic, factor?: Factor) => {

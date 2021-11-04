@@ -1,7 +1,7 @@
 import {BlockFrame} from '@/services/data/graphics/graphics-types';
 import {PipelineBlockGraphicsRect, PipelinesGraphics, TopicGraphics} from '@/services/data/tuples/pipeline-types';
-import {isDistinctTopic, isMetaTopic, isRawTopic} from '@/services/data/tuples/topic';
 import {Topic, TopicId, TopicType} from '@/services/data/tuples/topic-types';
+import {isDistinctTopic, isMetaTopic, isRawTopic} from '@/services/data/tuples/topic-utils';
 import {getCurrentTime} from '@/services/data/utils';
 import {
 	BLOCK_FULL_PADDING_HORIZONTAL,

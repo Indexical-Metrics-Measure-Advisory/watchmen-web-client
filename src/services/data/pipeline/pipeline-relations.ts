@@ -25,8 +25,8 @@ import {
 	isWriteTopicAction
 } from '../tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {Pipeline} from '../tuples/pipeline-types';
-import {isRawTopic} from '../tuples/topic';
 import {Topic, TopicId} from '../tuples/topic-types';
+import {isRawTopic} from '../tuples/topic-utils';
 
 export type FactorsMap = Record<FactorId, Factor>;
 export type TopicsMap = Record<TopicId, Topic>;

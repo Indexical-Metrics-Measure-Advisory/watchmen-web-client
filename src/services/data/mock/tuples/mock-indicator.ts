@@ -4,7 +4,7 @@ import {
 	IndicatorId,
 	MeasureMethod,
 	QueryIndicator,
-	QueryTopicForIndicator
+	TopicForIndicator
 } from '../../tuples/indicator-types';
 import {Topic} from '../../tuples/topic-types';
 import {getCurrentTime} from '../../utils';
@@ -41,8 +41,8 @@ export const fetchMockIndicatorsForSelection = async (text: string): Promise<Arr
 	});
 };
 
-export const fetchMockTopicsForIndicatorSelection = async (text: string): Promise<Array<QueryTopicForIndicator>> => {
-	return new Promise<Array<QueryTopicForIndicator>>(resolve => {
+export const fetchMockTopicsForIndicatorSelection = async (text: string): Promise<Array<TopicForIndicator>> => {
+	return new Promise<Array<TopicForIndicator>>(resolve => {
 		const matchedText = text.toUpperCase();
 		setTimeout(() => {
 			resolve(DemoTopics.filter(topic => {

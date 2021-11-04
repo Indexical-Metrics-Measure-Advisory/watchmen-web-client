@@ -308,12 +308,12 @@ export const WeeklyPolicyPremiumIncrement: Topic = {
 	topicId: '8', name: 'Weekly Policy Premium Increment', kind: TopicKind.BUSINESS, type: TopicType.RATIO,
 	factors: [
 		{
-			factorId: '801', name: 'year', label: 'Year', type: FactorType.NUMBER,
+			factorId: '801', name: 'year', label: 'Year', type: FactorType.YEAR,
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()
 		},
 		{
-			factorId: '802', name: 'week', label: 'Week', type: FactorType.NUMBER,
+			factorId: '802', name: 'week', label: 'Week', type: FactorType.WEEK_OF_YEAR,
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()
 		},

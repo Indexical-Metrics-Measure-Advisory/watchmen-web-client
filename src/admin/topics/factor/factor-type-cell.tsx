@@ -1,6 +1,6 @@
 import {Factor, FactorType} from '@/services/data/tuples/factor-types';
-import {isNotRawTopic} from '@/services/data/tuples/topic';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {isNotRawTopic} from '@/services/data/tuples/topic-utils';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {En} from '@/widgets/langs/en';

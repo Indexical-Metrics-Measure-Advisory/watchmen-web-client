@@ -7,8 +7,8 @@ import {
 	findPipelinesTriggerByTopic,
 	findPipelinesWriteToTopic
 } from '@/services/data/tuples/pipeline-utils';
-import {isNotRawTopic} from '@/services/data/tuples/topic';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {isNotRawTopic} from '@/services/data/tuples/topic-utils';
 import {ICON_ADD, ICON_CLOSE, ICON_TOPIC_PROFILE} from '@/widgets/basic/constants';
 import {TooltipAlignment} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';

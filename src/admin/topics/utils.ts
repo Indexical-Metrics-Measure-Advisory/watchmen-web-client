@@ -1,6 +1,6 @@
 import {Factor, FactorType} from '@/services/data/tuples/factor-types';
-import {isNotRawTopic} from '@/services/data/tuples/topic';
 import {Topic, TopicKind, TopicType} from '@/services/data/tuples/topic-types';
+import {isNotRawTopic} from '@/services/data/tuples/topic-utils';
 import {generateUuid, removeFakeIdPrefix} from '@/services/data/tuples/utils';
 import {getCurrentTime} from '@/services/data/utils';
 
