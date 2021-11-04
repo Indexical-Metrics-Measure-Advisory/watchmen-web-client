@@ -1,3 +1,4 @@
+import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Button, RoundDwarfButton} from '@/widgets/basic/button';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
@@ -145,18 +146,19 @@ export const DropMeAndFollowingButton = (props: { stepIndex: number; previousSte
 };
 
 export interface StepState {
-	current: boolean;
+	active: boolean;
 	done: boolean;
+	indicator?: Indicator;
 }
 
 export const useStep = (options: { step: PrepareStep, active?: () => void, done?: () => void, dropped?: () => void }): StepState => {
 	const {step, active, done, dropped} = options;
 
 	const {on, off} = useIndicatorsEventBus();
-	const [state, setState] = useState<StepState>({current: false, done: false});
+	const [state, setState] = useState<StepState>({active: false, done: false});
 	useEffect(() => {
-		const onSwitchStep = (toStep: PrepareStep) => {
-			setState({current: toStep === step, done: step < toStep});
+		const onSwitchStep = (toStep: PrepareStep, indicator?: Indicator) => {
+			setState({active: toStep === step, done: step < toStep, indicator});
 			if (toStep === step) {
 				active && active();
 			} else if (step < toStep) {

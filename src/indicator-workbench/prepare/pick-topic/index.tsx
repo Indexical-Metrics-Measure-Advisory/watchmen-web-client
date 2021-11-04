@@ -1,10 +1,12 @@
 import {FactorId} from '@/services/data/tuples/factor-types';
+import {Indicator} from '@/services/data/tuples/indicator-types';
 import {TopicId} from '@/services/data/tuples/topic-types';
+import {ButtonInk} from '@/widgets/basic/types';
 import {useEffect} from 'react';
 import {SearchItem, SearchText} from '../search-text';
 import {SearchTextEventBusProvider, useSearchTextEventBus} from '../search-text/search-text-event-bus';
 import {SearchTextEventTypes} from '../search-text/search-text-event-bus-types';
-import {DropMeAndFollowingButton, Step, StepTitle, useStep} from '../step-widgets';
+import {DropMeAndFollowingButton, Step, StepTitle, StepTitleButton, useStep} from '../step-widgets';
 import {PrepareStep} from '../types';
 import {useConstructed} from '../use-constructed';
 
@@ -13,7 +15,9 @@ interface TopicOrFactorCandidate extends SearchItem {
 	factorId?: FactorId;
 }
 
-const ActivePart = () => {
+const ActivePart = (props: { indicator?: Indicator; visible: boolean }) => {
+	const {indicator, visible} = props;
+
 	const {fire} = useSearchTextEventBus();
 	useEffect(() => {
 		fire(SearchTextEventTypes.FOCUS);
@@ -27,7 +31,8 @@ const ActivePart = () => {
 		// TODO
 	};
 
-	return <StepTitle buttons={<DropMeAndFollowingButton stepIndex={2} previousStep={PrepareStep.CREATE_OR_FIND}/>}>
+	return <StepTitle buttons={<DropMeAndFollowingButton stepIndex={2} previousStep={PrepareStep.CREATE_OR_FIND}/>}
+	                  visible={visible}>
 		<SearchText search={search} onSelectionChange={onSelectionChange}
 		            buttonFirst={true} alwaysShowSearchInput={true}
 		            openText="Pick a Topic or Factor"
@@ -35,9 +40,19 @@ const ActivePart = () => {
 	</StepTitle>;
 };
 
+const DonePart = (props: { indicator?: Indicator; visible: boolean }) => {
+	const {visible} = props;
+
+	return <StepTitle visible={visible}>
+		<StepTitleButton ink={ButtonInk.SUCCESS} asLabel={true}>
+			On Creating An Indicator
+		</StepTitleButton>
+	</StepTitle>;
+};
+
 export const PickTopic = () => {
 	const {constructed, setConstructed, visible, setVisible} = useConstructed();
-	useStep({
+	const {indicator, active, done} = useStep({
 		step: PrepareStep.PICK_TOPIC,
 		active: () => setConstructed(true),
 		done: () => setConstructed(true),
@@ -50,7 +65,8 @@ export const PickTopic = () => {
 
 	return <Step index={2} visible={visible}>
 		<SearchTextEventBusProvider>
-			<ActivePart/>
+			<ActivePart indicator={indicator} visible={active}/>
 		</SearchTextEventBusProvider>
+		<DonePart indicator={indicator} visible={done}/>
 	</Step>;
 };

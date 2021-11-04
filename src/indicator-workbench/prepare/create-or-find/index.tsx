@@ -1,5 +1,5 @@
 import {fetchIndicatorsForSelection} from '@/services/data/tuples/indicator';
-import {IndicatorId, QueryIndicator} from '@/services/data/tuples/indicator-types';
+import {Indicator, IndicatorId, QueryIndicator} from '@/services/data/tuples/indicator-types';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
@@ -23,8 +23,8 @@ const ActivePart = () => {
 	const state = useStep({step: PrepareStep.CREATE_OR_FIND});
 
 	const onCreateClicked = () => {
-		fire(IndicatorsEventTypes.CREATE_INDICATOR, () => {
-			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.PICK_TOPIC);
+		fire(IndicatorsEventTypes.CREATE_INDICATOR, (indicator: Indicator) => {
+			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.PICK_TOPIC, indicator);
 			fireSearch(SearchTextEventTypes.HIDE_SEARCH);
 		});
 	};
@@ -44,13 +44,13 @@ const ActivePart = () => {
 		});
 	};
 	const onSelectionChange = async (item: IndicatorCandidate) => {
-		fire(IndicatorsEventTypes.PICK_INDICATOR, item.indicatorId, () => {
-			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.MEASURE_METHODS);
+		fire(IndicatorsEventTypes.PICK_INDICATOR, item.indicatorId, (indicator: Indicator) => {
+			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.MEASURE_METHODS, indicator);
 			fireSearch(SearchTextEventTypes.HIDE_SEARCH);
 		});
 	};
 
-	return <Title visible={state.current}>
+	return <Title visible={state.active}>
 		<StepTitleButton ink={ButtonInk.PRIMARY} onClick={onCreateClicked}>
 			Create An Indicator
 		</StepTitleButton>

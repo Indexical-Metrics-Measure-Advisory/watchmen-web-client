@@ -9,9 +9,9 @@ export enum IndicatorsEventTypes {
 }
 
 export interface IndicatorsEventBus {
-	fire(type: IndicatorsEventTypes.SWITCH_STEP, step: PrepareStep): this;
-	on(type: IndicatorsEventTypes.SWITCH_STEP, listener: (step: PrepareStep) => void): this;
-	off(type: IndicatorsEventTypes.SWITCH_STEP, listener: (step: PrepareStep) => void): this;
+	fire(type: IndicatorsEventTypes.SWITCH_STEP, step: PrepareStep, indicator?: Indicator): this;
+	on(type: IndicatorsEventTypes.SWITCH_STEP, listener: (step: PrepareStep, indicator?: Indicator) => void): this;
+	off(type: IndicatorsEventTypes.SWITCH_STEP, listener: (step: PrepareStep, indicator?: Indicator) => void): this;
 
 	fire(type: IndicatorsEventTypes.CREATE_INDICATOR, onCreated: (indicator: Indicator) => void): this;
 	on(type: IndicatorsEventTypes.CREATE_INDICATOR, listener: (onCreated: (indicator: Indicator) => void) => void): this;
