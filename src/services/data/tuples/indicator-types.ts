@@ -1,5 +1,6 @@
-import {FactorId} from '../tuples/factor-types';
-import {TopicId} from '../tuples/topic-types';
+import {FactorId} from './factor-types';
+import {TopicId} from './topic-types';
+import {Tuple} from './tuple-types';
 
 export enum MeasureMethod {
 	YEAR = 'year',
@@ -9,7 +10,7 @@ export enum MeasureMethod {
 
 export type IndicatorId = string;
 
-export interface Indicator {
+export interface Indicator extends Tuple {
 	indicatorId: IndicatorId;
 	name: string;
 	topicId: TopicId;

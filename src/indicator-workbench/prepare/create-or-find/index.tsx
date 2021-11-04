@@ -1,5 +1,5 @@
-import {fetchIndicatorsForSelection} from '@/services/data/indicators/indicator';
-import {IndicatorId, QueryIndicator} from '@/services/data/indicators/types';
+import {fetchIndicatorsForSelection} from '@/services/data/tuples/indicator';
+import {IndicatorId, QueryIndicator} from '@/services/data/tuples/indicator-types';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
@@ -23,8 +23,10 @@ const ActivePart = () => {
 	const state = useStep({step: PrepareStep.CREATE_OR_FIND});
 
 	const onCreateClicked = () => {
-		fireSearch(SearchTextEventTypes.HIDE_SEARCH);
-		fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.PICK_TOPIC);
+		fire(IndicatorsEventTypes.CREATE_INDICATOR, () => {
+			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.PICK_TOPIC);
+			fireSearch(SearchTextEventTypes.HIDE_SEARCH);
+		});
 	};
 	const search = async (text: string): Promise<Array<IndicatorCandidate>> => {
 		return new Promise<Array<IndicatorCandidate>>(resolve => {
@@ -42,7 +44,10 @@ const ActivePart = () => {
 		});
 	};
 	const onSelectionChange = async (item: IndicatorCandidate) => {
-		// TODO
+		fire(IndicatorsEventTypes.PICK_INDICATOR, item.indicatorId, () => {
+			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.MEASURE_METHODS);
+			fireSearch(SearchTextEventTypes.HIDE_SEARCH);
+		});
 	};
 
 	return <Title visible={state.current}>

@@ -1,4 +1,5 @@
 export enum PrepareStep {
 	CREATE_OR_FIND = 1,
-	PICK_TOPIC
+	PICK_TOPIC,
+	MEASURE_METHODS
 }

@@ -134,7 +134,8 @@ export const Apis = {
 	SAVE_RULE_LIST: 'dqc/monitor/rules',
 	IMPORT_TOPICS_AND_PIPELINES: 'import',
 
-	INDICATORS_LIST_FOR_SELECTION: 'indicator/list/selection'
+	INDICATORS_LIST_FOR_SELECTION: 'indicator/list/selection',
+	INDICATOR_GET: 'indicator?indicator_id=:indicatorId'
 };
 
 const buildApi = (api: string, args?: Record<string, any>): string => {
