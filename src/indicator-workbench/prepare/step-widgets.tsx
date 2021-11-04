@@ -1,4 +1,3 @@
-import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Button, RoundDwarfButton} from '@/widgets/basic/button';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
@@ -6,7 +5,7 @@ import {EventTypes} from '@/widgets/events/types';
 import {ReactNode, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useIndicatorsEventBus} from './indicators-event-bus';
-import {IndicatorsEventTypes} from './indicators-event-bus-types';
+import {IndicatorsData, IndicatorsEventTypes} from './indicators-event-bus-types';
 import {PrepareStep} from './types';
 
 const StepContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
@@ -78,11 +77,12 @@ export const Step = (props: { index: number; visible?: boolean; children: ReactN
 	</StepContainer>;
 };
 
-export const StepTitle = (props: { visible?: boolean; children: ReactNode; buttons?: ReactNode }) => {
-	const {visible = true, children, buttons, ...rest} = props;
+export const StepTitle = (props: { visible?: boolean; children: ReactNode; buttons?: ReactNode; retractButtons?: boolean }) => {
+	const {visible = true, children, buttons, retractButtons = false, ...rest} = props;
 
 	return <StepTitleContainer visible={visible} {...rest}>
 		{children}
+		{retractButtons ? <StepTitleButtonsRetractor/> : null}
 		<StepTitleButtons>
 			{buttons}
 		</StepTitleButtons>
@@ -104,6 +104,9 @@ export const StepTitleButton = styled(Button).attrs<{ asLabel?: boolean }>(({asL
 	&[data-ink]:hover {
 		box-shadow : ${({asLabel = false}) => asLabel ? 'none' : (void 0)};
 	}
+`;
+export const StepTitleButtonsRetractor = styled.div.attrs({'data-widget': 'step-title-buttons-retractor'})`
+	flex-grow : 1;
 `;
 export const StepTitleButtons = styled.div.attrs({'data-widget': 'step-title-buttons'})`
 	display      : flex;
@@ -148,7 +151,7 @@ export const DropMeAndFollowingButton = (props: { stepIndex: number; previousSte
 export interface StepState {
 	active: boolean;
 	done: boolean;
-	indicator?: Indicator;
+	data?: IndicatorsData;
 }
 
 export const useStep = (options: { step: PrepareStep, active?: () => void, done?: () => void, dropped?: () => void }): StepState => {
@@ -157,8 +160,8 @@ export const useStep = (options: { step: PrepareStep, active?: () => void, done?
 	const {on, off} = useIndicatorsEventBus();
 	const [state, setState] = useState<StepState>({active: false, done: false});
 	useEffect(() => {
-		const onSwitchStep = (toStep: PrepareStep, indicator?: Indicator) => {
-			setState({active: toStep === step, done: step < toStep, indicator});
+		const onSwitchStep = (toStep: PrepareStep, data?: IndicatorsData) => {
+			setState({active: toStep === step, done: step < toStep, data});
 			if (toStep === step) {
 				active && active();
 			} else if (step < toStep) {

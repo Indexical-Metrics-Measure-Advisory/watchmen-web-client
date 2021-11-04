@@ -4,7 +4,7 @@ import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
-import {IndicatorsEventTypes} from '../indicators-event-bus-types';
+import {IndicatorsData, IndicatorsEventTypes} from '../indicators-event-bus-types';
 import {SearchItem, SearchText} from '../search-text';
 import {SearchTextEventBusProvider, useSearchTextEventBus} from '../search-text/search-text-event-bus';
 import {SearchTextEventTypes} from '../search-text/search-text-event-bus-types';
@@ -24,7 +24,7 @@ const ActivePart = () => {
 
 	const onCreateClicked = () => {
 		fire(IndicatorsEventTypes.CREATE_INDICATOR, (indicator: Indicator) => {
-			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.PICK_TOPIC, indicator);
+			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.PICK_TOPIC, {indicator});
 			fireSearch(SearchTextEventTypes.HIDE_SEARCH);
 		});
 	};
@@ -44,8 +44,8 @@ const ActivePart = () => {
 		});
 	};
 	const onSelectionChange = async (item: IndicatorCandidate) => {
-		fire(IndicatorsEventTypes.PICK_INDICATOR, item.indicatorId, (indicator: Indicator) => {
-			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.MEASURE_METHODS, indicator);
+		fire(IndicatorsEventTypes.PICK_INDICATOR, item.indicatorId, (data: IndicatorsData) => {
+			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.MEASURE_METHODS, data);
 			fireSearch(SearchTextEventTypes.HIDE_SEARCH);
 		});
 	};
