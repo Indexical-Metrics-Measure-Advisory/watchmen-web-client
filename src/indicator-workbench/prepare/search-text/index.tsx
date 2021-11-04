@@ -1,6 +1,6 @@
-import {ICON_LOADING} from '@/widgets/basic/constants';
+import {ICON_LOADING, ICON_WAIT_INPUT} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
-import {useForceUpdate} from '@/widgets/basic/utils';
+import {useCollapseFixedThing} from '@/widgets/basic/utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ChangeEvent, ReactNode, useEffect, useRef, useState} from 'react';
 import {useSearchTextEventBus} from './search-text-event-bus';
@@ -25,14 +25,16 @@ export const SearchText = <I extends SearchItem>(props: {
 }) => {
 	const {search, onSelectionChange} = props;
 
-	const {on, off, fire} = useSearchTextEventBus();
+	const containerRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
+	const {on, off, fire} = useSearchTextEventBus();
 	const [showSearchInput, setShowSearchInput] = useState(false);
+	const [showSearchPopup, setShowSearchPopup] = useState(false);
 	const [searchText, setSearchText] = useState('');
 	const [result, setResult] = useState<SearchResult<I>>({searched: false, items: []});
-	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const onHideSearch = () => {
+			setShowSearchPopup(false);
 			setShowSearchInput(false);
 			setSearchText('');
 			setResult({searched: false, items: []});
@@ -43,14 +45,19 @@ export const SearchText = <I extends SearchItem>(props: {
 			off(SearchTextEventTypes.HIDE_SEARCH, onHideSearch);
 		};
 	}, [on, off]);
+	useCollapseFixedThing({
+		containerRef,
+		visible: showSearchPopup,
+		hide: () => setShowSearchPopup(false)
+	});
 
 	const onSearchTextChanged = async (event: ChangeEvent<HTMLInputElement>) => {
 		const {value} = event.target;
 		setSearchText(value);
+		setShowSearchPopup(true);
 		const text = value.trim();
 		if (text.length === 0) {
 			setTimeout(() => setResult({searched: false, items: []}), 300);
-			forceUpdate();
 		} else {
 			try {
 				const items = await search(text);
@@ -58,6 +65,11 @@ export const SearchText = <I extends SearchItem>(props: {
 			} catch {
 				setResult({searched: true, items: []});
 			}
+		}
+	};
+	const onSearchTextFocused = () => {
+		if (searchText.trim().length !== 0) {
+			setShowSearchPopup(true);
 		}
 	};
 	const onSearchClicked = () => {
@@ -73,11 +85,10 @@ export const SearchText = <I extends SearchItem>(props: {
 		fire(SearchTextEventTypes.HIDE_SEARCH);
 	};
 
-	const searchPopupVisible = showSearchInput && searchText.trim() !== '';
-
-	return <SearchPart popupVisible={searchPopupVisible}>
-		<SearchInput value={searchText} onChange={onSearchTextChanged}
-		             visible={showSearchInput} placeholder="By indicator name, topic name or factor name."
+	return <SearchPart popupVisible={showSearchPopup} ref={containerRef}>
+		<SearchInput value={searchText} visible={showSearchInput}
+		             placeholder="By indicator name, topic name or factor name."
+		             onChange={onSearchTextChanged} onFocus={onSearchTextFocused}
 		             ref={inputRef}/>
 		<SearchButton ink={ButtonInk.PRIMARY} finding={showSearchInput} onClick={onSearchClicked}>
 			{showSearchInput ? 'Discard Finding' : 'Find Existed Indicator'}
@@ -92,8 +103,15 @@ export const SearchText = <I extends SearchItem>(props: {
 						</CandidateItem>;
 					}))
 				: <OnSearching>
-					<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>
-					<span>Searching...</span>
+					{searchText.trim().length === 0
+						? <>
+							<FontAwesomeIcon icon={ICON_WAIT_INPUT}/>
+							<span>Waiting for input...</span>
+						</>
+						: <>
+							<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>
+							<span>Searching...</span>
+						</>}
 				</OnSearching>}
 		</SearchPopup>
 	</SearchPart>;

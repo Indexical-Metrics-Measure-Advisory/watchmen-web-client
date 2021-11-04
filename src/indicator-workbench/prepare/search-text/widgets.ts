@@ -57,6 +57,7 @@ export const SearchPopup = styled.div.attrs({
 })`
 	display                    : flex;
 	position                   : absolute;
+	flex-direction             : column;
 	top                        : calc(100% + 18px);
 	width                      : 100%;
 	min-height                 : calc(var(--height) * 1.2 + 4px);
@@ -65,8 +66,8 @@ export const SearchPopup = styled.div.attrs({
 	border-width               : 2px;
 	border-color               : var(--primary-color);
 	border-style               : solid;
-	border-bottom-left-radius  : calc(var(--height) * 0.6);
-	border-bottom-right-radius : calc(var(--height) * 0.6);
+	border-bottom-left-radius  : calc(var(--height) * 0.3);
+	border-bottom-right-radius : calc(var(--height) * 0.3);
 	opacity                    : 0;
 	pointer-events             : none;
 	overflow-y                 : auto;
@@ -79,6 +80,10 @@ export const CandidateItem = styled.div.attrs({'data-widget': 'search-candidate-
 	align-items : center;
 	min-height  : calc(var(--height) * 1.2);
 	padding     : 0 calc(var(--height) * 0.6);
+	cursor      : pointer;
+	&:hover {
+		background-color : var(--hover-color);
+	}
 `;
 export const OnSearching = styled.div.attrs({'data-widget': 'search-on-searching'})`
 	display     : flex;

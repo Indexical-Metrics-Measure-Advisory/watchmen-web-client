@@ -1,6 +1,6 @@
 import {Fragment, useEffect} from 'react';
 
-const createWaterMarkImage = (text: string) => {
+const createWaterMarkImage = (text: string, text2: string) => {
 	const width = 400;
 	const height = width * 0.5;
 	const canvas = document.createElement('canvas');
@@ -16,6 +16,7 @@ const createWaterMarkImage = (text: string) => {
 	ctx.fillStyle = 'var(--primary-color)';
 	ctx.rotate(Math.PI / 180 * 15);
 	ctx.fillText(text, width / 2, 50);
+	ctx.fillText(text2, width / 2 + 30, 72);
 
 	return canvas.toDataURL('png', {pixelRatio: window.devicePixelRatio});
 };
@@ -26,8 +27,8 @@ let waterMark: HTMLDivElement | null = null;
  * water mark for demo enterprise features.
  * DO NOT REMOVE THIS FOR ANY PURPOSE UNTIL YOU GET COMMERCIAL PERMIT FROM MATRYOSHKA.
  */
-export const WaterMark = (props: { text?: string }) => {
-	const {text = 'Matryoshka Watchmen'} = props;
+export const WaterMark = (props: { text?: string; text2?: string }) => {
+	const {text = 'Watchmen Enterprise', text2 = '© Matryoshka'} = props;
 
 	useEffect(() => {
 		const observer = new MutationObserver((records: MutationRecord[]) => {
@@ -62,7 +63,7 @@ export const WaterMark = (props: { text?: string }) => {
 			style.left = '0';
 			style.width = '100%';
 			style.height = '100%';
-			style.backgroundImage = hideWaterMark ? '' : `url(${createWaterMarkImage(text)})`;
+			style.backgroundImage = hideWaterMark ? '' : `url(${createWaterMarkImage(text, text2)})`;
 			style.backgroundRepeat = 'repeat';
 			style.opacity = '0.08';
 			style.pointerEvents = 'none';
@@ -92,7 +93,7 @@ export const WaterMark = (props: { text?: string }) => {
 				waterMark.parentElement.removeChild(waterMark);
 			}
 		};
-	}, [text]);
+	}, [text, text2]);
 
 	return <Fragment/>;
 };
