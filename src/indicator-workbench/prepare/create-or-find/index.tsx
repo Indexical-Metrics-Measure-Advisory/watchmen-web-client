@@ -1,5 +1,5 @@
 import {fetchIndicatorsForSelection} from '@/services/data/indicators/indicator';
-import {QueryIndicator} from '@/services/data/indicators/types';
+import {IndicatorId, QueryIndicator} from '@/services/data/indicators/types';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
@@ -13,7 +13,7 @@ import {PrepareStep} from '../types';
 import {Label, Title} from './widgets';
 
 interface IndicatorCandidate extends SearchItem {
-
+	indicatorId: IndicatorId;
 }
 
 const ActivePart = () => {
@@ -33,6 +33,7 @@ const ActivePart = () => {
 				(candidates: Array<QueryIndicator>) => {
 					resolve(candidates.map(candidate => {
 						return {
+							indicatorId: candidate.indicatorId,
 							key: candidate.indicatorId,
 							text: candidate.name
 						};
@@ -49,7 +50,9 @@ const ActivePart = () => {
 			Create An Indicator
 		</StepTitleButton>
 		<Label>Or</Label>
-		<SearchText search={search} onSelectionChange={onSelectionChange}/>
+		<SearchText search={search} onSelectionChange={onSelectionChange}
+		            openText="Find Existed Indicator" closeText="Discard Finding"
+		            placeholder="By indicator name, topic name or factor name."/>
 	</Title>;
 };
 

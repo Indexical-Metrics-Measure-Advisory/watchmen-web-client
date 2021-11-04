@@ -22,8 +22,13 @@ interface SearchResult<I extends SearchItem> {
 export const SearchText = <I extends SearchItem>(props: {
 	search: (text: string) => Promise<SearchItems<I>>;
 	onSelectionChange: (item: I) => Promise<void>;
+	openText: string;
+	closeText?: string;
+	placeholder?: string;
+	buttonFirst?: boolean;
 }) => {
-	const {search, onSelectionChange} = props;
+	const {search, onSelectionChange, openText, placeholder, buttonFirst = false} = props;
+	const {closeText = openText} = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -85,13 +90,15 @@ export const SearchText = <I extends SearchItem>(props: {
 		fire(SearchTextEventTypes.HIDE_SEARCH);
 	};
 
-	return <SearchPart popupVisible={showSearchPopup} ref={containerRef}>
+	return <SearchPart buttonFirst={buttonFirst} popupVisible={showSearchPopup} ref={containerRef}>
 		<SearchInput value={searchText} visible={showSearchInput}
-		             placeholder="By indicator name, topic name or factor name."
+		             placeholder={placeholder}
 		             onChange={onSearchTextChanged} onFocus={onSearchTextFocused}
+		             buttonFirst={buttonFirst}
 		             ref={inputRef}/>
-		<SearchButton ink={ButtonInk.PRIMARY} finding={showSearchInput} onClick={onSearchClicked}>
-			{showSearchInput ? 'Discard Finding' : 'Find Existed Indicator'}
+		<SearchButton ink={ButtonInk.PRIMARY} buttonFirst={buttonFirst} finding={showSearchInput}
+		              onClick={onSearchClicked}>
+			{showSearchInput ? closeText : openText}
 		</SearchButton>
 		<SearchPopup>
 			{result.searched

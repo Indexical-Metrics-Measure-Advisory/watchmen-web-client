@@ -2,7 +2,14 @@ import {Input} from '@/widgets/basic/input';
 import styled from 'styled-components';
 import {StepTitleButton} from '../step-widgets';
 
-export const SearchPart = styled.div.attrs<{ popupVisible: boolean }>({})<{ popupVisible: boolean }>`
+export const SearchPart = styled.div.attrs<{ buttonFirst: boolean; popupVisible: boolean }>(({buttonFirst}) => {
+	return {
+		style: {
+			flexDirection: buttonFirst ? 'row-reverse' : (void 0),
+			justifyContent: buttonFirst ? 'flex-end' : (void 0)
+		}
+	};
+})<{ buttonFirst: boolean; popupVisible: boolean }>`
 	display   : flex;
 	position  : relative;
 	flex-grow : 1;
@@ -18,38 +25,45 @@ export const SearchPart = styled.div.attrs<{ popupVisible: boolean }>({})<{ popu
 		pointer-events : ${({popupVisible}) => popupVisible ? 'auto' : (void 0)};
 	}
 `;
-export const SearchInput = styled(Input).attrs<{ visible: boolean }>(({visible}) => {
+export const SearchInput = styled(Input).attrs<{ buttonFirst: boolean; visible: boolean }>(({buttonFirst, visible}) => {
 	return {
 		'data-widget': 'search-input',
 		style: {
 			width: visible ? (void 0) : 0,
 			padding: visible ? (void 0) : 0,
-			marginRight: visible ? (void 0) : 0,
+			marginLeft: buttonFirst && visible ? 'calc(var(--height) * -0.6)' : 0,
+			marginRight: !buttonFirst && visible ? 'calc(var(--height) * -0.6)' : 0,
+			paddingLeft: !buttonFirst && visible ? 'calc(var(--height) * 0.6)' : (buttonFirst && visible ? 'calc(var(--height) * 0.6 + var(--input-indent))' : 0),
+			paddingRight: !buttonFirst && visible ? 'calc(var(--height) * 0.6 + var(--input-indent))' : (buttonFirst && visible ? 'calc(var(--height) * 0.6)' : 0),
 			borderColor: visible ? (void 0) : 'transparent',
+			borderTopLeftRadius: buttonFirst ? 0 : (void 0),
+			borderBottomLeftRadius: buttonFirst ? 0 : (void 0),
+			borderTopRightRadius: buttonFirst ? (void 0) : 0,
+			borderBottomRightRadius: buttonFirst ? (void 0) : 0,
 			pointerEvents: visible ? (void 0) : 'none'
 		}
 	};
-})<{ visible: boolean }>`
-	width                     : 100%;
-	height                    : calc(var(--height) * 1.2);
-	line-height               : calc(var(--height) * 1.1);
-	margin-right              : calc(var(--height) * -0.6);
-	padding-left              : calc(var(--height) * 0.6);
-	border-width              : 2px;
-	border-color              : var(--primary-color);
-	border-top-left-radius    : calc(var(--height) * 0.6);
-	border-bottom-left-radius : calc(var(--height) * 0.6);
-	font-size                 : 1.2em;
+})<{ buttonFirst: boolean; visible: boolean }>`
+	width         : 100%;
+	height        : calc(var(--height) * 1.2);
+	line-height   : calc(var(--height) * 1.1);
+	border-width  : 2px;
+	border-color  : var(--primary-color);
+	border-radius : calc(var(--height) * 0.6);
+	font-size     : 1.2em;
 `;
-export const SearchButton = styled(StepTitleButton).attrs<{ finding: boolean }>(({finding}) => {
-	return {
-		'data-widget': 'search-button',
-		style: {
-			borderTopLeftRadius: finding ? 0 : (void 0),
-			borderBottomLeftRadius: finding ? 0 : (void 0)
-		}
-	};
-})<{ finding: boolean }>`
+export const SearchButton = styled(StepTitleButton).attrs<{ buttonFirst: boolean; finding: boolean }>(
+	({buttonFirst, finding}) => {
+		return {
+			'data-widget': 'search-button',
+			style: {
+				borderTopLeftRadius: !buttonFirst && finding ? 0 : (void 0),
+				borderBottomLeftRadius: !buttonFirst && finding ? 0 : (void 0),
+				borderTopRightRadius: buttonFirst && finding ? 0 : (void 0),
+				borderBottomRightRadius: buttonFirst && finding ? 0 : (void 0)
+			}
+		};
+	})<{ buttonFirst: boolean; finding: boolean }>`
 `;
 export const SearchPopup = styled.div.attrs({
 	'data-widget': 'search-popup',
