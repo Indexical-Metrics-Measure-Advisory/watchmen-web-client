@@ -60,8 +60,9 @@ const StepTitleSeparator = styled.div.attrs({'data-widget': 'step-title-separato
 	display          : block;
 	position         : absolute;
 	left             : -80px;
+	top              : 20px;
 	bottom           : 4px;
-	height           : 32px;
+	//height           : 32px;
 	width            : calc(100% + 96px);
 	background-color : var(--border-color);
 	border-radius    : 16px 16px 4px 4px;
