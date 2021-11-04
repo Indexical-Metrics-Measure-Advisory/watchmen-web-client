@@ -26,14 +26,19 @@ export const SearchText = <I extends SearchItem>(props: {
 	closeText?: string;
 	placeholder?: string;
 	buttonFirst?: boolean;
+	alwaysShowSearchInput?: boolean;
 }) => {
-	const {search, onSelectionChange, openText, placeholder, buttonFirst = false} = props;
+	const {
+		search, onSelectionChange,
+		openText, placeholder,
+		buttonFirst = false, alwaysShowSearchInput = false
+	} = props;
 	const {closeText = openText} = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
 	const {on, off, fire} = useSearchTextEventBus();
-	const [showSearchInput, setShowSearchInput] = useState(false);
+	const [showSearchInput, setShowSearchInput] = useState(alwaysShowSearchInput);
 	const [showSearchPopup, setShowSearchPopup] = useState(false);
 	const [searchText, setSearchText] = useState('');
 	const [result, setResult] = useState<SearchResult<I>>({searched: false, items: []});
@@ -45,9 +50,14 @@ export const SearchText = <I extends SearchItem>(props: {
 			setResult({searched: false, items: []});
 			inputRef.current?.blur();
 		};
+		const onFocus = () => {
+			inputRef.current?.focus();
+		};
 		on(SearchTextEventTypes.HIDE_SEARCH, onHideSearch);
+		on(SearchTextEventTypes.FOCUS, onFocus);
 		return () => {
 			off(SearchTextEventTypes.HIDE_SEARCH, onHideSearch);
+			off(SearchTextEventTypes.FOCUS, onFocus);
 		};
 	}, [on, off]);
 	useCollapseFixedThing({
@@ -78,6 +88,9 @@ export const SearchText = <I extends SearchItem>(props: {
 		}
 	};
 	const onSearchClicked = () => {
+		if (alwaysShowSearchInput) {
+			return;
+		}
 		if (!showSearchInput) {
 			setShowSearchInput(true);
 			inputRef.current?.focus();
@@ -96,7 +109,8 @@ export const SearchText = <I extends SearchItem>(props: {
 		             onChange={onSearchTextChanged} onFocus={onSearchTextFocused}
 		             buttonFirst={buttonFirst}
 		             ref={inputRef}/>
-		<SearchButton ink={ButtonInk.PRIMARY} buttonFirst={buttonFirst} finding={showSearchInput}
+		<SearchButton ink={ButtonInk.PRIMARY} buttonFirst={buttonFirst} alwaysShowSearchInput={alwaysShowSearchInput}
+		              finding={showSearchInput}
 		              onClick={onSearchClicked}>
 			{showSearchInput ? closeText : openText}
 		</SearchButton>

@@ -52,18 +52,22 @@ export const SearchInput = styled(Input).attrs<{ buttonFirst: boolean; visible: 
 	border-radius : calc(var(--height) * 0.6);
 	font-size     : 1.2em;
 `;
-export const SearchButton = styled(StepTitleButton).attrs<{ buttonFirst: boolean; finding: boolean }>(
-	({buttonFirst, finding}) => {
+export const SearchButton = styled(StepTitleButton).attrs<{ buttonFirst: boolean; alwaysShowSearchInput: boolean; finding: boolean }>(
+	({buttonFirst, alwaysShowSearchInput, finding}) => {
 		return {
 			'data-widget': 'search-button',
 			style: {
 				borderTopLeftRadius: !buttonFirst && finding ? 0 : (void 0),
 				borderBottomLeftRadius: !buttonFirst && finding ? 0 : (void 0),
 				borderTopRightRadius: buttonFirst && finding ? 0 : (void 0),
-				borderBottomRightRadius: buttonFirst && finding ? 0 : (void 0)
+				borderBottomRightRadius: buttonFirst && finding ? 0 : (void 0),
+				cursor: alwaysShowSearchInput ? 'default' : (void 0)
 			}
 		};
-	})<{ buttonFirst: boolean; finding: boolean }>`
+	})<{ buttonFirst: boolean; alwaysShowSearchInput: boolean; finding: boolean }>`
+	&&[data-ink]:hover {
+		box-shadow : ${({alwaysShowSearchInput}) => alwaysShowSearchInput ? 'none' : (void 0)};
+	}
 `;
 export const SearchPopup = styled.div.attrs({
 	'data-widget': 'search-popup',

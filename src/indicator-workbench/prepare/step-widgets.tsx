@@ -18,7 +18,7 @@ const StepContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
 })<{ visible: boolean }>`
 	display               : grid;
 	position              : relative;
-	grid-template-columns : 64px 1fr;
+	grid-template-columns : 64px 1fr auto;
 	width                 : 100%;
 	transition            : opacity 300ms ease-in-out;
 `;
@@ -50,7 +50,7 @@ const StepTitleContainer = styled.div.attrs<{ visible: boolean }>(({visible}) =>
 	width       : 100%;
 	transition  : opacity 300ms ease-in-out;
 	&:hover {
-		> button[data-widget=drop-me-and-following-button] {
+		button[data-widget=drop-me-and-following-button] {
 			opacity        : 1;
 			pointer-events : auto;
 		}
@@ -77,11 +77,14 @@ export const Step = (props: { index: number; visible?: boolean; children: ReactN
 	</StepContainer>;
 };
 
-export const StepTitle = (props: { visible?: boolean; children: ReactNode }) => {
-	const {visible = true, children, ...rest} = props;
+export const StepTitle = (props: { visible?: boolean; children: ReactNode; buttons?: ReactNode }) => {
+	const {visible = true, children, buttons, ...rest} = props;
 
 	return <StepTitleContainer visible={visible} {...rest}>
 		{children}
+		<StepTitleButtons>
+			{buttons}
+		</StepTitleButtons>
 		<StepTitleSeparator/>
 	</StepTitleContainer>;
 };
@@ -101,12 +104,18 @@ export const StepTitleButton = styled(Button).attrs<{ asLabel?: boolean }>(({asL
 		box-shadow : ${({asLabel = false}) => asLabel ? 'none' : (void 0)};
 	}
 `;
+export const StepTitleButtons = styled.div.attrs({'data-widget': 'step-title-buttons'})`
+	display      : flex;
+	position     : relative;
+	align-items  : flex-start;
+	height       : calc(var(--height) * 2);
+	padding-left : var(--margin);
+	padding-top  : 12px;
+`;
 export const DangerTitleButton = styled(RoundDwarfButton).attrs(() => {
 	return {};
 })`
-	position       : absolute;
-	top            : 12px;
-	right          : 0;
+	position       : relative;
 	font-size      : 0.8em;
 	border-radius  : calc(var(--height) * 0.6);
 	opacity        : 0;

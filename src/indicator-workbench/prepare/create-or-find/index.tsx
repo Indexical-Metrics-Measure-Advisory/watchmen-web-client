@@ -52,7 +52,7 @@ const ActivePart = () => {
 		<Label>Or</Label>
 		<SearchText search={search} onSelectionChange={onSelectionChange}
 		            openText="Find Existed Indicator" closeText="Discard Finding"
-		            placeholder="By indicator name, topic name or factor name."/>
+		            placeholder="Find by indicator name, topic name or factor name."/>
 	</Title>;
 };
 

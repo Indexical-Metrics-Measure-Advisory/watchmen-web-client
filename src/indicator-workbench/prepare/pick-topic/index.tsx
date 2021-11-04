@@ -2,7 +2,8 @@ import {FactorId} from '@/services/data/tuples/factor-types';
 import {TopicId} from '@/services/data/tuples/topic-types';
 import {useEffect, useState} from 'react';
 import {SearchItem, SearchText} from '../search-text';
-import {SearchTextEventBusProvider} from '../search-text/search-text-event-bus';
+import {SearchTextEventBusProvider, useSearchTextEventBus} from '../search-text/search-text-event-bus';
+import {SearchTextEventTypes} from '../search-text/search-text-event-bus-types';
 import {DropMeAndFollowingButton, Step, StepTitle, useStep} from '../step-widgets';
 import {PrepareStep} from '../types';
 
@@ -11,6 +12,25 @@ interface TopicOrFactorCandidate extends SearchItem {
 	factorId?: FactorId;
 }
 
+const SearchPart = () => {
+	const {fire} = useSearchTextEventBus();
+	useEffect(() => {
+		fire(SearchTextEventTypes.FOCUS);
+	}, [fire]);
+
+	const search = async (text: string): Promise<Array<TopicOrFactorCandidate>> => {
+		// TODO
+		return new Promise(resolve => setTimeout(() => resolve([]), 500));
+	};
+	const onSelectionChange = async (item: TopicOrFactorCandidate) => {
+		// TODO
+	};
+
+	return <SearchText search={search} onSelectionChange={onSelectionChange}
+	                   buttonFirst={true} alwaysShowSearchInput={true}
+	                   openText="Pick a Topic or Factor"
+	                   placeholder="Find by topic name, factor name."/>;
+};
 export const PickTopic = () => {
 	const [constructed, setConstructed] = useState(false);
 	const [visible, setVisible] = useState(false);
@@ -35,33 +55,11 @@ export const PickTopic = () => {
 		return null;
 	}
 
-	const search = async (text: string): Promise<Array<TopicOrFactorCandidate>> => {
-		// return new Promise<Array<IndicatorCandidate>>(resolve => {
-		// 	fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-		// 		async () => await fetchIndicatorsForSelection(text),
-		// 		(candidates: Array<QueryIndicator>) => {
-		// 			resolve(candidates.map(candidate => {
-		// 				return {
-		// 					key: candidate.indicatorId,
-		// 					text: candidate.name
-		// 				};
-		// 			}));
-		// 		}, () => resolve([]));
-		// });
-		return new Promise(resolve => setTimeout(() => resolve([]), 500));
-	};
-	const onSelectionChange = async (item: TopicOrFactorCandidate) => {
-		// TODO
-	};
-
 	return <Step index={2} visible={visible}>
-		<StepTitle>
+		<StepTitle buttons={<DropMeAndFollowingButton stepIndex={2} previousStep={PrepareStep.CREATE_OR_FIND}/>}>
 			<SearchTextEventBusProvider>
-				<SearchText search={search} onSelectionChange={onSelectionChange}
-				            buttonFirst={true}
-				            openText="Pick a Topic or Factor" placeholder="By topic name, factor name."/>
+				<SearchPart/>
 			</SearchTextEventBusProvider>
-			<DropMeAndFollowingButton stepIndex={2} previousStep={PrepareStep.CREATE_OR_FIND}/>
 		</StepTitle>
 	</Step>;
 };
