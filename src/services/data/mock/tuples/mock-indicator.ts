@@ -1,4 +1,11 @@
-import {Indicator, IndicatorId, MeasureMethod, QueryIndicator} from '../../tuples/indicator-types';
+import {isIndicatorFactor} from '../../tuples/factor-calculator-utils';
+import {
+	Indicator,
+	IndicatorId,
+	MeasureMethod,
+	QueryIndicator,
+	QueryTopicForIndicator
+} from '../../tuples/indicator-types';
 import {Topic} from '../../tuples/topic-types';
 import {getCurrentTime} from '../../utils';
 import {DemoTopics, MonthlyPolicyPremium, WeeklyPolicyPremium} from '../tuples/mock-data-topics';
@@ -27,8 +34,25 @@ const DemoIndicators = [PolicyPremiumIndicators].flat();
 
 export const fetchMockIndicatorsForSelection = async (text: string): Promise<Array<QueryIndicator>> => {
 	return new Promise<Array<QueryIndicator>>(resolve => {
+		const matchedText = text.toUpperCase();
 		setTimeout(() => {
-			resolve(PolicyPremiumIndicators.filter(indicator => indicator.name.toUpperCase().includes(text.toUpperCase())));
+			resolve(PolicyPremiumIndicators.filter(indicator => indicator.name.toUpperCase().includes(matchedText)));
+		}, 500);
+	});
+};
+
+export const fetchMockTopicsForIndicatorSelection = async (text: string): Promise<Array<QueryTopicForIndicator>> => {
+	return new Promise<Array<QueryTopicForIndicator>>(resolve => {
+		const matchedText = text.toUpperCase();
+		setTimeout(() => {
+			resolve(DemoTopics.filter(topic => {
+				return topic.name.toUpperCase().includes(matchedText)
+					|| (topic.factors || []).some(factor => {
+						return isIndicatorFactor(factor.type)
+							&& ((factor.label || '').toUpperCase().includes(matchedText)
+								|| (factor.name || '').toUpperCase().includes(matchedText));
+					});
+			}));
 		}, 500);
 	});
 };

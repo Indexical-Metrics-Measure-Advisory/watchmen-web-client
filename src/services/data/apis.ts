@@ -135,6 +135,7 @@ export const Apis = {
 	IMPORT_TOPICS_AND_PIPELINES: 'import',
 
 	INDICATORS_LIST_FOR_SELECTION: 'indicator/list/selection',
+	TOPIC_LIST_FOR_INDICATOR_SELECTION: 'indicator/topic/list/selection',
 	INDICATOR_GET: 'indicator?indicator_id=:indicatorId'
 };
 

@@ -1,3 +1,4 @@
+import {isEnumFactor} from '@/services/data/tuples/factor-calculator-utils';
 import {
 	CompatibleEncryptMethods,
 	Factor,
@@ -5,7 +6,6 @@ import {
 	FactorIndexGroup,
 	FactorType
 } from '@/services/data/tuples/factor-types';
-import {isEnumFactor} from '@/services/data/tuples/topic';
 import {Topic} from '@/services/data/tuples/topic-types';
 import parseCSV from 'csv-parse';
 import {createFactor, createTopic, isFactorCanBeFlatten} from '../utils';

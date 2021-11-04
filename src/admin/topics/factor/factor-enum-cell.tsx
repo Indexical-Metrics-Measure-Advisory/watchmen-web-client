@@ -1,6 +1,6 @@
+import {isEnumFactor} from '@/services/data/tuples/factor-calculator-utils';
 import {Factor} from '@/services/data/tuples/factor-types';
 import {QueryEnumForHolder} from '@/services/data/tuples/query-enum-types';
-import {isEnumFactor} from '@/services/data/tuples/topic';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useEffect} from 'react';

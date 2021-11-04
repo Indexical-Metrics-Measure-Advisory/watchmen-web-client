@@ -3,7 +3,6 @@ import {Apis, get, page, post} from '../apis';
 import {fetchMockTopic, listMockTopics, listMockTopicsForHolder, saveMockTopic} from '../mock/tuples/mock-topic';
 import {TuplePage} from '../query/tuple-page';
 import {isMockService} from '../utils';
-import {Factor, FactorType} from './factor-types';
 import {QueryTopic, QueryTopicForHolder} from './query-topic-types';
 import {Topic, TopicId, TopicKind, TopicType} from './topic-types';
 import {isFakedUuid} from './utils';
@@ -21,54 +20,6 @@ export const isAggregationTopic = (topic: Topic): boolean => {
 		|| TopicType.RATIO === topic.type;
 };
 export const isNotAggregationTopic = (topic: Topic): boolean => !isAggregationTopic(topic);
-
-export const isNumericFactor = (factorOrType: Factor | FactorType): boolean => {
-	let type;
-	if (typeof factorOrType === 'string') {
-		type = factorOrType;
-	} else {
-		type = (factorOrType as Factor).type;
-	}
-	return [
-		FactorType.NUMBER, FactorType.UNSIGNED,
-		FactorType.RESIDENTIAL_AREA,
-		FactorType.AGE,
-		FactorType.BIZ_SCALE
-	].includes(type);
-};
-export const isDateFactor = (factorOrType: Factor | FactorType): boolean => {
-	let type;
-	if (typeof factorOrType === 'string') {
-		type = factorOrType;
-	} else {
-		type = (factorOrType as Factor).type;
-	}
-	return [FactorType.FULL_DATETIME, FactorType.DATETIME, FactorType.DATE, FactorType.DATE_OF_BIRTH].includes(type);
-};
-export const isDateTimeFactor = (factorOrType: Factor | FactorType): boolean => {
-	let type;
-	if (typeof factorOrType === 'string') {
-		type = factorOrType;
-	} else {
-		type = (factorOrType as Factor).type;
-	}
-	return [FactorType.FULL_DATETIME, FactorType.DATETIME].includes(type);
-};
-export const isEnumFactor = (factorOrType: Factor | FactorType): boolean => {
-	let type;
-	if (typeof factorOrType === 'string') {
-		type = factorOrType;
-	} else {
-		type = (factorOrType as Factor).type;
-	}
-	return [
-		FactorType.ENUM,
-		FactorType.CONTINENT, FactorType.REGION, FactorType.COUNTRY, FactorType.PROVINCE, FactorType.CITY,
-		FactorType.RESIDENCE_TYPE,
-		FactorType.GENDER, FactorType.OCCUPATION, FactorType.RELIGION, FactorType.NATIONALITY,
-		FactorType.BIZ_TRADE
-	].includes(type);
-};
 
 export const listTopics = async (options: {
 	search: string;

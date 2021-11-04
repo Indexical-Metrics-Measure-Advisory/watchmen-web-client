@@ -1,9 +1,9 @@
 import {ComputedParameter, ParameterComputeType} from './factor-calculator-types';
+import {isDateFactor, isEnumFactor, isNumericFactor} from './factor-calculator-utils';
 import {Factor, FactorType} from './factor-types';
 import {isComputedParameter, isConstantParameter, isTopicFactorParameter} from './parameter-utils';
 import {ReportFilter, ReportFilterExpression, ReportFilterJoint, ReportFunnel, ReportFunnelType} from './report-types';
 import {Subject} from './subject-types';
-import {isDateFactor, isEnumFactor, isNumericFactor} from './topic';
 import {Topic} from './topic-types';
 import {generateUuid} from './utils';
 

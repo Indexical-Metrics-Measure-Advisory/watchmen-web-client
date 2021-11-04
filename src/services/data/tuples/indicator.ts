@@ -1,7 +1,7 @@
 import {Apis, get} from '../apis';
-import {fetchMockIndicator, fetchMockIndicatorsForSelection} from '../mock/tuples/mock-indicator';
+import {fetchMockIndicator, fetchMockIndicatorsForSelection, fetchMockTopicsForIndicatorSelection} from '../mock/tuples/mock-indicator';
 import {isMockService} from '../utils';
-import {Indicator, IndicatorId, QueryIndicator} from './indicator-types';
+import {Indicator, IndicatorId, QueryIndicator, QueryTopicForIndicator} from './indicator-types';
 import {Topic} from './topic-types';
 
 export const fetchIndicatorsForSelection = async (text: string): Promise<Array<QueryIndicator>> => {
@@ -9,6 +9,14 @@ export const fetchIndicatorsForSelection = async (text: string): Promise<Array<Q
 		return await fetchMockIndicatorsForSelection(text.trim());
 	} else {
 		return await get({api: Apis.INDICATORS_LIST_FOR_SELECTION});
+	}
+};
+
+export const fetchTopicsForIndicatorSelection = async (text: string): Promise<Array<QueryTopicForIndicator>> => {
+	if (isMockService()) {
+		return await fetchMockTopicsForIndicatorSelection(text.trim());
+	} else {
+		return await get({api: Apis.TOPIC_LIST_FOR_INDICATOR_SELECTION});
 	}
 };
 

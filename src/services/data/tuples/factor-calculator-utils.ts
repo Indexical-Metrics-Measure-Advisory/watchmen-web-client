@@ -379,3 +379,39 @@ export const computeParameterTypes = (
 	}
 };
 
+const getFactorType = (factorOrType: Factor | FactorType): FactorType => {
+	if (typeof factorOrType === 'string') {
+		return factorOrType;
+	} else {
+		return (factorOrType as Factor).type;
+	}
+};
+export const isNumericFactor = (factorOrType: Factor | FactorType): boolean => {
+	return [
+		FactorType.NUMBER, FactorType.UNSIGNED,
+		FactorType.RESIDENTIAL_AREA,
+		FactorType.AGE,
+		FactorType.BIZ_SCALE
+	].includes(getFactorType(factorOrType));
+};
+export const isDateFactor = (factorOrType: Factor | FactorType): boolean => {
+	return [
+		FactorType.FULL_DATETIME, FactorType.DATETIME,
+		FactorType.DATE, FactorType.DATE_OF_BIRTH
+	].includes(getFactorType(factorOrType));
+};
+export const isDateTimeFactor = (factorOrType: Factor | FactorType): boolean => {
+	return [FactorType.FULL_DATETIME, FactorType.DATETIME].includes(getFactorType(factorOrType));
+};
+export const isEnumFactor = (factorOrType: Factor | FactorType): boolean => {
+	return [
+		FactorType.ENUM,
+		FactorType.CONTINENT, FactorType.REGION, FactorType.COUNTRY, FactorType.PROVINCE, FactorType.CITY,
+		FactorType.RESIDENCE_TYPE,
+		FactorType.GENDER, FactorType.OCCUPATION, FactorType.RELIGION, FactorType.NATIONALITY,
+		FactorType.BIZ_TRADE
+	].includes(getFactorType(factorOrType));
+};
+export const isIndicatorFactor = (factorOrType: Factor | FactorType) => {
+	return [FactorType.NUMBER, FactorType.UNSIGNED].includes(getFactorType(factorOrType));
+};

@@ -1,5 +1,5 @@
 import {FactorId} from './factor-types';
-import {TopicId} from './topic-types';
+import {Topic, TopicId} from './topic-types';
 import {Tuple} from './tuple-types';
 
 export enum MeasureMethod {
@@ -18,4 +18,5 @@ export interface Indicator extends Tuple {
 	measures: Array<MeasureMethod>;
 }
 
-export type QueryIndicator = Pick<Indicator, 'indicatorId' | 'name'>
+export type QueryIndicator = Pick<Indicator, 'indicatorId' | 'name'>;
+export type QueryTopicForIndicator = Pick<Topic, 'topicId' | 'name' | 'type' | 'factors'>;
