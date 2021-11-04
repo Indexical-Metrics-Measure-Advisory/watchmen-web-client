@@ -3,6 +3,7 @@ import {Factor} from '@/services/data/tuples/factor-types';
 import {fetchTopicsForIndicatorSelection} from '@/services/data/tuples/indicator';
 import {TopicForIndicator} from '@/services/data/tuples/indicator-types';
 import {tryToTransformToMeasure} from '@/services/data/tuples/indicator-utils';
+import {FactorTypeLabel} from '@/widgets/basic/factor-type-label';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
@@ -15,11 +16,30 @@ import {SearchTextEventTypes} from '../search-text/search-text-event-bus-types';
 import {DropMeAndFollowingButton, Step, StepTitle, StepTitleButton, useStep} from '../step-widgets';
 import {PrepareStep} from '../types';
 import {useConstructed} from '../use-constructed';
+import {TopicOrFactorCandidateName, TopicOrFactorCandidateUsage} from './widgets';
 
 interface TopicOrFactorCandidate extends SearchItem {
 	topic: TopicForIndicator;
 	factor?: Factor;
 }
+
+const TopicOrFactorCandidateItem = (props: { topic: TopicForIndicator; factor?: Factor }) => {
+	const {topic, factor} = props;
+
+	if (factor == null) {
+		return <>
+			<TopicOrFactorCandidateName>{topic.name}</TopicOrFactorCandidateName>
+			<TopicOrFactorCandidateUsage>On Topic, Count Only</TopicOrFactorCandidateUsage>
+		</>;
+	} else {
+		return <>
+			<TopicOrFactorCandidateName>{topic.name}.{factor.name}</TopicOrFactorCandidateName>
+			<TopicOrFactorCandidateUsage>
+				<FactorTypeLabel factor={factor}/>
+			</TopicOrFactorCandidateUsage>
+		</>;
+	}
+};
 
 const ActivePart = (props: { data?: IndicatorsData; visible: boolean }) => {
 	const {data, visible} = props;
@@ -38,7 +58,11 @@ const ActivePart = (props: { data?: IndicatorsData; visible: boolean }) => {
 				(candidates: Array<TopicForIndicator>) => {
 					resolve(candidates.map(candidate => {
 						return [
-							{topic: candidate, key: `topic-${candidate.topicId}`, text: candidate.name},
+							{
+								topic: candidate,
+								key: `topic-${candidate.topicId}`,
+								text: <TopicOrFactorCandidateItem topic={candidate}/>
+							},
 							...(candidate.factors || []).filter(factor => {
 								return isIndicatorFactor(factor.type);
 							}).map(factor => {
@@ -46,7 +70,7 @@ const ActivePart = (props: { data?: IndicatorsData; visible: boolean }) => {
 									topic: candidate,
 									factor,
 									key: `factor-${candidate.topicId}-${factor.factorId}`,
-									text: `${candidate.name}.${factor.name}`
+									text: <TopicOrFactorCandidateItem topic={candidate} factor={factor}/>
 								};
 							})
 						];

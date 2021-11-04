@@ -100,6 +100,7 @@ export const CandidateItem = styled.div.attrs({'data-widget': 'search-candidate-
 	align-items : center;
 	min-height  : calc(var(--height) * 1.2);
 	padding     : 0 calc(var(--height) * 0.6);
+	font-size   : 1.2em;
 	cursor      : pointer;
 	&:hover {
 		background-color : var(--hover-color);
