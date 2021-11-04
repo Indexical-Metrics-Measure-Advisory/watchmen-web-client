@@ -45,6 +45,15 @@ const IndicatorState = () => {
 			off(IndicatorsEventTypes.PICK_INDICATOR, onPickIndicator);
 		};
 	}, [on, off, fireGlobal]);
+	useEffect(() => {
+		const onPickTopic = async (data: IndicatorsData, onData: (data: IndicatorsData) => void) => {
+			onData(data);
+		};
+		on(IndicatorsEventTypes.PICK_TOPIC, onPickTopic);
+		return () => {
+			off(IndicatorsEventTypes.PICK_TOPIC, onPickTopic);
+		};
+	}, [on, off]);
 
 	return <Fragment/>;
 };

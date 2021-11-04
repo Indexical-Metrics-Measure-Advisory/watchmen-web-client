@@ -14,9 +14,11 @@ export const SearchPart = styled.div.attrs<{ buttonFirst: boolean; popupVisible:
 	position  : relative;
 	flex-grow : 1;
 	> input[data-widget=search-input] {
-		border-bottom-left-radius : ${({popupVisible}) => popupVisible ? 0 : (void 0)};
+		border-bottom-left-radius  : ${({popupVisible}) => popupVisible ? 0 : (void 0)};
+		border-bottom-right-radius : ${({popupVisible}) => popupVisible ? 0 : (void 0)};
 	}
 	> button[data-widget=search-button] {
+		border-bottom-left-radius  : ${({popupVisible}) => popupVisible ? 0 : (void 0)};
 		border-bottom-right-radius : ${({popupVisible}) => popupVisible ? 0 : (void 0)};
 	}
 	> div[data-widget=search-popup] {
