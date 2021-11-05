@@ -18,7 +18,7 @@ const MeasuresItems = (props: { label: string; measures: Array<MeasureMethod> })
 		return null;
 	}
 
-	return <MeasuresItemsContainer>
+	return <>
 		<MeasuresItemsTitle>{label}</MeasuresItemsTitle>
 		<MeasuresItemsBlock>
 			{measures.map(measure => {
@@ -27,7 +27,7 @@ const MeasuresItems = (props: { label: string; measures: Array<MeasureMethod> })
 				</MeasureItem>;
 			})}
 		</MeasuresItemsBlock>
-	</MeasuresItemsContainer>;
+	</>;
 };
 
 export const MeasureMethods = () => {
@@ -62,11 +62,13 @@ export const MeasureMethods = () => {
 			</EmphaticSinkingLabel>
 		</StepTitle>
 		<StepBody>
-			{[geoMeasures, timePeriodMeasures, individualMeasures, organizationMeasures, categoryMeasures]
-				.map(({label, measures}) => {
-					return <MeasuresItems label={label} measures={measures} key={label}/>;
-				})}
-			<MeasuresItems label="Count" measures={[MeasureMethod.COUNT]}/>
+			<MeasuresItemsContainer>
+				{[geoMeasures, timePeriodMeasures, individualMeasures, organizationMeasures, categoryMeasures]
+					.map(({label, measures}) => {
+						return <MeasuresItems label={label} measures={measures} key={label}/>;
+					})}
+				<MeasuresItems label="Count" measures={[MeasureMethod.COUNT]}/>
+			</MeasuresItemsContainer>
 		</StepBody>
 	</Step>;
 };
