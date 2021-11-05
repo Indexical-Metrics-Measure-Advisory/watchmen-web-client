@@ -1,6 +1,7 @@
 import {ICON_LOADING, ICON_WAIT_INPUT} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useCollapseFixedThing} from '@/widgets/basic/utils';
+import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ChangeEvent, ReactNode, useEffect, useRef, useState} from 'react';
 import {useSearchTextEventBus} from './search-text-event-bus';
@@ -116,7 +117,7 @@ export const SearchText = <I extends SearchItem>(props: {
 		<SearchPopup>
 			{result.searched
 				? (result.items.length === 0
-					? <CandidateItem>No matching indicator found.</CandidateItem>
+					? <CandidateItem>{Lang.INDICATOR_WORKBENCH.PREPARE.NO_MATCHED}</CandidateItem>
 					: result.items.map(item => {
 						return <CandidateItem onClick={onCandidateClicked(item)} key={item.key}>
 							{item.text}
@@ -126,11 +127,11 @@ export const SearchText = <I extends SearchItem>(props: {
 					{searchText.trim().length === 0
 						? <>
 							<FontAwesomeIcon icon={ICON_WAIT_INPUT}/>
-							<span>Waiting for input...</span>
+							<span>{Lang.INDICATOR_WORKBENCH.PREPARE.WAIT_INPUT}</span>
 						</>
 						: <>
 							<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>
-							<span>Searching...</span>
+							<span>{Lang.INDICATOR_WORKBENCH.PREPARE.SEARCHING}</span>
 						</>}
 				</OnSearching>}
 		</SearchPopup>

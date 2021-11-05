@@ -59,7 +59,8 @@ export const SaveIndicator = () => {
 			return;
 		}
 		if (data!.indicator!.name == null || data!.indicator!.name.trim().length === 0) {
-			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>A human reading name for indicator is required.</AlertLabel>);
+			fireGlobal(EventTypes.SHOW_ALERT,
+				<AlertLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.REQUIRE_INDICATOR_NAME}</AlertLabel>);
 			return;
 		}
 
@@ -90,19 +91,19 @@ export const SaveIndicator = () => {
 	return <Step index={4} visible={visible}>
 		<StepTitle visible={visible && onEdit}>
 			<NameInput value={data.indicator.name || ''} onChange={onNameChanged}
-			           placeholder="A human reading name for indicator."
+			           placeholder={Lang.PLAIN.INDICATOR_NAME_PLACEHOLDER}
 			           ref={inputRef}/>
 			<SaveButton ink={ButtonInk.PRIMARY} onClick={onSaveClicked}>
 				{saving ? <FontAwesomeIcon icon={ICON_LOADING} spin={true}/> : null}
-				<span>{isOnCreate ? 'Save Indicator' : 'Save Name'}</span>
+				<span>{isOnCreate ? Lang.INDICATOR_WORKBENCH.PREPARE.SAVE_INDICATOR : Lang.INDICATOR_WORKBENCH.PREPARE.SAVE_NAME}</span>
 			</SaveButton>
 			<SaveButton ink={ButtonInk.PRIMARY} onClick={onDiscardClicked}>
-				Not Now
+				{Lang.INDICATOR_WORKBENCH.PREPARE.NOT_NOW}
 			</SaveButton>
 		</StepTitle>
 		<StepTitle visible={visible && !onEdit}>
 			<StepTitleButton ink={ButtonInk.PRIMARY} onClick={onChangeNameClicked}>
-				Change Name
+				{Lang.INDICATOR_WORKBENCH.PREPARE.CHANGE_NAME}
 			</StepTitleButton>
 		</StepTitle>
 	</Step>;

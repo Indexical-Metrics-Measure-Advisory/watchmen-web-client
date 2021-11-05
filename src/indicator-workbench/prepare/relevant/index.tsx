@@ -1,6 +1,7 @@
 import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
 import {EmphaticSinkingLabel, Step, StepBody, StepTitle, StepTitleButton, useStep} from '../step-widgets';
 import {PrepareStep} from '../types';
 import {useConstructed} from '../use-constructed';
@@ -27,12 +28,12 @@ export const Relevant = () => {
 	return <Step index={5} visible={visible}>
 		<StepTitle visible={visible}>
 			<EmphaticSinkingLabel>
-				Relevant indicators of current indicator were detected automatically.
+				{Lang.INDICATOR_WORKBENCH.PREPARE.RELEVANT_TITLE}
 			</EmphaticSinkingLabel>
 		</StepTitle>
 		<StepBody>
 			<StepTitleButton ink={ButtonInk.PRIMARY} onClick={onDetectClicked}>
-				Detect Potential Relevant Indicators
+				{Lang.INDICATOR_WORKBENCH.PREPARE.DETECT_RELEVANT}
 			</StepTitleButton>
 		</StepBody>
 	</Step>;

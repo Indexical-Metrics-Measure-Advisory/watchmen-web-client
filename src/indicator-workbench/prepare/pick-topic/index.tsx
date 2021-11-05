@@ -7,6 +7,7 @@ import {FactorTypeLabel} from '@/widgets/basic/factor-type-label';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
 import {useEffect} from 'react';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
 import {IndicatorsData, IndicatorsEventTypes} from '../indicators-event-bus-types';
@@ -29,7 +30,9 @@ const TopicOrFactorCandidateItem = (props: { topic: TopicForIndicator; factor?: 
 	if (factor == null) {
 		return <>
 			<TopicOrFactorCandidateName>{topic.name}</TopicOrFactorCandidateName>
-			<TopicOrFactorCandidateUsage>On Topic, Count Only</TopicOrFactorCandidateUsage>
+			<TopicOrFactorCandidateUsage>
+				{Lang.INDICATOR_WORKBENCH.PREPARE.INDICATOR_ON_TOPIC}
+			</TopicOrFactorCandidateUsage>
 		</>;
 	} else {
 		return <>
@@ -105,8 +108,8 @@ const ActivePart = (props: { data?: IndicatorsData; visible: boolean }) => {
 	return <StepTitle visible={visible}>
 		<SearchText search={search} onSelectionChange={onSelectionChange}
 		            buttonFirst={true} alwaysShowSearchInput={true}
-		            openText="Pick a Topic or Factor"
-		            placeholder="Find by topic name, factor name."/>
+		            openText={Lang.INDICATOR_WORKBENCH.PREPARE.PICK_TOPIC}
+		            placeholder={Lang.PLAIN.FIND_TOPIC_OR_FACTOR_PLACEHOLDER}/>
 	</StepTitle>;
 };
 
@@ -121,7 +124,7 @@ const DonePart = (props: { data?: IndicatorsData; visible: boolean }) => {
 
 	return <StepTitle visible={visible}>
 		<StepTitleButton ink={ButtonInk.SUCCESS} asLabel={true}>
-			Define on Topic [ {topicName}{factorName ? `.${factorName}` : ''} ]
+			{Lang.INDICATOR_WORKBENCH.PREPARE.DEFINE_ON_TOPIC} [ {topicName}{factorName ? `.${factorName}` : ''} ]
 		</StepTitleButton>
 		<StepTitleButtonsRetractor/>
 	</StepTitle>;

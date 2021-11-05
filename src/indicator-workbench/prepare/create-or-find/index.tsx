@@ -5,6 +5,7 @@ import {ButtonInk} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
 import {useEffect} from 'react';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
 import {IndicatorsData, IndicatorsEventTypes} from '../indicators-event-bus-types';
@@ -55,12 +56,13 @@ const ActivePart = () => {
 
 	return <Title visible={state.active}>
 		<StepTitleButton ink={ButtonInk.PRIMARY} onClick={onCreateClicked}>
-			Create An Indicator
+			{Lang.INDICATOR_WORKBENCH.PREPARE.CREATE_INDICATOR}
 		</StepTitleButton>
-		<Label>Or</Label>
+		<Label>{Lang.INDICATOR_WORKBENCH.PREPARE.OR}</Label>
 		<SearchText search={search} onSelectionChange={onSelectionChange}
-		            openText="Find Existed Indicator" closeText="Discard Finding"
-		            placeholder="Find by indicator name, topic name or factor name."/>
+		            openText={Lang.INDICATOR_WORKBENCH.PREPARE.FIND_INDICATOR}
+		            closeText={Lang.INDICATOR_WORKBENCH.PREPARE.DISCARD_FIND_INDICATOR}
+		            placeholder={Lang.PLAIN.FIND_INDICATOR_PLACEHOLDER}/>
 	</Title>;
 };
 
@@ -79,7 +81,7 @@ const DonePart = () => {
 
 	const onRestartClicked = () => {
 		fireGlobal(EventTypes.SHOW_YES_NO_DIALOG,
-			'Still in editing, all changes will be lost if interrupt. Are you sure to continue?',
+			Lang.INDICATOR_WORKBENCH.ON_EDIT,
 			() => {
 				fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.CREATE_OR_FIND);
 				fireGlobal(EventTypes.HIDE_DIALOG);
@@ -88,9 +90,12 @@ const DonePart = () => {
 
 	const label = (() => {
 		if (data?.indicator == null || isFakedUuid(data.indicator)) {
-			return 'Creating An Indicator';
+			return Lang.INDICATOR_WORKBENCH.PREPARE.ON_CREATE_INDICATOR;
 		} else {
-			return `View Indicator [ ${data.indicator.name} ]`;
+			return <>
+				{Lang.INDICATOR_WORKBENCH.PREPARE.ON_VIEW_INDICATOR}
+				[ {data.indicator.name} ]
+			</>;
 		}
 	})();
 
@@ -100,7 +105,7 @@ const DonePart = () => {
 		</StepTitleButton>
 		<Label>Or</Label>
 		<StepTitleButton ink={ButtonInk.DANGER} onClick={onRestartClicked}>
-			Restart
+			{Lang.INDICATOR_WORKBENCH.PREPARE.RESTART}
 		</StepTitleButton>
 	</Title>;
 };

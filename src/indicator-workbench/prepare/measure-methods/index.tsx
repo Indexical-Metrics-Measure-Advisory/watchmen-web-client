@@ -6,6 +6,7 @@ import {
 	isOrganizationMeasure,
 	isTimePeriodMeasure
 } from '@/services/data/tuples/indicator-utils';
+import {Lang} from '@/widgets/langs';
 import {EmphaticSinkingLabel, Step, StepBody, StepTitle, useStep} from '../step-widgets';
 import {PrepareStep} from '../types';
 import {useConstructed} from '../use-constructed';
@@ -74,18 +75,28 @@ export const MeasureMethods = () => {
 		return [...new Set((data?.indicator?.measures || []).filter(func))];
 	};
 
-	const geoMeasures = {label: 'GEO', measures: filterMeasures(isGeoMeasure)};
-	const timePeriodMeasures = {label: 'Time Period', measures: filterMeasures(isTimePeriodMeasure)};
-	const individualMeasures = {label: 'Individual', measures: filterMeasures(isIndividualMeasure)};
-	const organizationMeasures = {label: 'Organization', measures: filterMeasures(isOrganizationMeasure)};
+	const geoMeasures = {label: Lang.INDICATOR_WORKBENCH.PREPARE.GEO, measures: filterMeasures(isGeoMeasure)};
+	const timePeriodMeasures = {
+		label: Lang.INDICATOR_WORKBENCH.PREPARE.TIME_PERIOD,
+		measures: filterMeasures(isTimePeriodMeasure)
+	};
+	const individualMeasures = {
+		label: Lang.INDICATOR_WORKBENCH.PREPARE.INDIVIDUAL,
+		measures: filterMeasures(isIndividualMeasure)
+	};
+	const organizationMeasures = {
+		label: Lang.INDICATOR_WORKBENCH.PREPARE.ORGANIZATION,
+		measures: filterMeasures(isOrganizationMeasure)
+	};
 	// TODO to view boolean factor name and enum name when measure is categorized
-	const categoryMeasures = {label: 'Category', measures: filterMeasures(isCategoryMeasure)};
+	const categoryMeasures = {
+		label: Lang.INDICATOR_WORKBENCH.PREPARE.CATEGORY,
+		measures: filterMeasures(isCategoryMeasure)
+	};
 
 	return <Step index={3} visible={visible}>
 		<StepTitle visible={visible}>
-			<EmphaticSinkingLabel>
-				Available measures of current indicator were detected automatically.
-			</EmphaticSinkingLabel>
+			<EmphaticSinkingLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.MEASURE_METHODS_TITLE}</EmphaticSinkingLabel>
 		</StepTitle>
 		<StepBody>
 			<MeasureItemsContainer>
@@ -93,7 +104,7 @@ export const MeasureMethods = () => {
 					.map(({label, measures}) => {
 						return <MeasureItems label={label} measures={measures} key={label}/>;
 					})}
-				<AggregateItems label="Aggregate" aggregates={[
+				<AggregateItems label={Lang.INDICATOR_WORKBENCH.PREPARE.AGGREGATE} aggregates={[
 					IndicatorAggregateArithmetic.COUNT, IndicatorAggregateArithmetic.SUM, IndicatorAggregateArithmetic.AVG,
 					IndicatorAggregateArithmetic.MAX, IndicatorAggregateArithmetic.MIN
 				]}/>

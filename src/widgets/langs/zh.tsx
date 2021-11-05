@@ -26,7 +26,10 @@ export const Zh = {
 		REPORT_DATASET_GRID_CLOSE: '关闭',
 		REPORT_DATASET_GRID_REFRESH: '刷新',
 		REPORT_DATASET_GRID_DOWNLOAD: '下载',
-		LOADING: '加载中...'
+		LOADING: '加载中...',
+		FIND_INDICATOR_PLACEHOLDER: '根据指标名称, 主题名称或者数据因子名称查找.',
+		FIND_TOPIC_OR_FACTOR_PLACEHOLDER: '根据主题名称或数据因子名称查找.',
+		INDICATOR_NAME_PLACEHOLDER: '请输入用于阅读的名称.'
 	},
 	STANDARD: {
 		YES: '是',
@@ -262,7 +265,38 @@ export const Zh = {
 			SETTINGS: '设置',
 			LOGOUT: '登出'
 		},
-		LOADING: '努力加载数据...'
+		LOADING: '努力加载数据...',
+		ON_EDIT: '正在编辑中, 所有未保存的数据都将丢失. 是否确定放弃编辑?',
+		PREPARE: {
+			WAIT_INPUT: '等待输入...',
+			SEARCHING: '努力查找中...',
+			NO_MATCHED: '没有找到匹配的数据.',
+			OR: '或',
+			CREATE_INDICATOR: '定义一个新指标',
+			FIND_INDICATOR: '查找已定义的指标',
+			DISCARD_FIND_INDICATOR: '放弃查找',
+			ON_CREATE_INDICATOR: '正在定义新指标',
+			ON_VIEW_INDICATOR: '展示指标',
+			RESTART: '重新开始',
+			PICK_TOPIC: '选择一个主题或者数据因子',
+			DEFINE_ON_TOPIC: '基于主题',
+			INDICATOR_ON_TOPIC: '主题级',
+			MEASURE_METHODS_TITLE: '当前指标可使用的测量维度已经被自动侦测完毕.',
+			AGGREGATE: '聚合方式',
+			GEO: '地理位置相关',
+			TIME_PERIOD: '时间区间',
+			INDIVIDUAL: '个人',
+			ORGANIZATION: '机构',
+			CATEGORY: '指定分类',
+			CHANGE_NAME: '修改名称',
+			NOT_NOW: '放弃',
+			SAVE_INDICATOR: '保存指标数据',
+			SAVE_NAME: '保存指标名称',
+			REQUIRE_INDICATOR_NAME: '需要一个用于阅读的指标名称.',
+			RELEVANT_TITLE: '当前指标相关的指标可以被自动侦测.',
+			DETECT_RELEVANT: '侦测潜在的相关指标'
+		}
+
 	},
 	SETTINGS: {
 		TITLE: '设置',

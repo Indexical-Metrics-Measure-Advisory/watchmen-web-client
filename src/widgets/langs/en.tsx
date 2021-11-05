@@ -26,7 +26,10 @@ export const En = {
 		REPORT_DATASET_GRID_CLOSE: 'Close',
 		REPORT_DATASET_GRID_REFRESH: 'Refresh',
 		REPORT_DATASET_GRID_DOWNLOAD: 'Download',
-		LOADING: 'Loading...'
+		LOADING: 'Loading...',
+		FIND_INDICATOR_PLACEHOLDER: 'Find by indicator name, topic name or factor name.',
+		FIND_TOPIC_OR_FACTOR_PLACEHOLDER: 'Find by topic name, factor name.',
+		INDICATOR_NAME_PLACEHOLDER: 'A human reading name for indicator.'
 	},
 	STANDARD: {
 		YES: 'Yes',
@@ -262,7 +265,37 @@ export const En = {
 			SETTINGS: 'Settings',
 			LOGOUT: 'Logout'
 		},
-		LOADING: 'Loading Data...'
+		LOADING: 'Loading Data...',
+		ON_EDIT: 'Still in editing, all changes will be lost if interrupt. Are you sure to continue?',
+		PREPARE: {
+			WAIT_INPUT: 'Waiting for input...',
+			SEARCHING: 'Searching...',
+			NO_MATCHED: 'No matching data found.',
+			OR: 'or',
+			CREATE_INDICATOR: 'Create An Indicator',
+			FIND_INDICATOR: 'Find Existed Indicator',
+			DISCARD_FIND_INDICATOR: 'Discard Finding',
+			ON_CREATE_INDICATOR: 'Creating An Indicator',
+			ON_VIEW_INDICATOR: 'View Indicator',
+			RESTART: 'Restart',
+			PICK_TOPIC: 'Pick a Topic or Factor',
+			DEFINE_ON_TOPIC: 'Define on Topic',
+			INDICATOR_ON_TOPIC: 'On Topic',
+			MEASURE_METHODS_TITLE: 'Available measures of current indicator were detected automatically.',
+			AGGREGATE: 'Aggregate',
+			GEO: 'GEO',
+			TIME_PERIOD: 'Time Period',
+			INDIVIDUAL: 'Individual',
+			ORGANIZATION: 'Organization',
+			CATEGORY: 'Category',
+			CHANGE_NAME: 'Change Name',
+			NOT_NOW: 'Not Now',
+			SAVE_INDICATOR: 'Save Indicator',
+			SAVE_NAME: 'Save Name',
+			REQUIRE_INDICATOR_NAME: 'A human reading name for indicator is required.',
+			RELEVANT_TITLE: 'Relevant indicators of current indicator can be detected automatically.',
+			DETECT_RELEVANT: 'Detect Potential Relevant Indicators'
+		}
 	},
 	SETTINGS: {
 		TITLE: 'Settings',

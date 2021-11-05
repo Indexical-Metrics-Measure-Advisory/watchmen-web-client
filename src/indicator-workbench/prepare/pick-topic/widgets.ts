@@ -10,11 +10,7 @@ export const TopicOrFactorCandidateUsage = styled.span`
 	padding          : 2px calc(var(--margin) / 4);
 	border-radius    : var(--border-radius);
 	color            : var(--invert-color);
-	background-color : var(--warn-color);
+	background-color : var(--waive-color);
 	font-variant     : petite-caps;
-	font-family      : var(--title-font-family);
 	font-size        : var(--font-size);
-	overflow         : hidden;
-	pointer-events   : none;
-	z-index          : 1;
 `;
