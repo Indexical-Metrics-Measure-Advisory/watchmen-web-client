@@ -9,6 +9,7 @@ import {useIndicatorsEventBus} from './indicators-event-bus';
 import {IndicatorsData, IndicatorsEventTypes} from './indicators-event-bus-types';
 import {MeasureMethods} from './measure-methods';
 import {PickTopic} from './pick-topic';
+import {Relevant} from './relevant';
 import {SaveIndicator} from './save-indicator';
 import {PrepareStep} from './types';
 import {createIndicator} from './utils';
@@ -71,5 +72,6 @@ export const Indicators = () => {
 		<PickTopic/>
 		<MeasureMethods/>
 		<SaveIndicator/>
+		<Relevant/>
 	</IndicatorsContainer>;
 };

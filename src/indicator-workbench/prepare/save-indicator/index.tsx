@@ -23,10 +23,13 @@ export const SaveIndicator = () => {
 	const [saving, setSaving] = useState(false);
 	const [onEdit, setOnEdit] = useState(true);
 	const {constructed, setConstructed, visible, setVisible} = useConstructed();
-	const {data} = useStep({
-		step: PrepareStep.MEASURE_METHODS,
+	const {data, done} = useStep({
+		step: PrepareStep.SAVE,
 		active: () => setConstructed(true),
-		done: () => setConstructed(true),
+		done: () => {
+			setOnEdit(false);
+			setConstructed(true);
+		},
 		dropped: () => setVisible(false)
 	});
 	const forceUpdate = useForceUpdate();
@@ -36,7 +39,7 @@ export const SaveIndicator = () => {
 		}
 	}, [constructed, onEdit]);
 
-	if (!constructed) {
+	if (!constructed || data?.indicator == null) {
 		return null;
 	}
 
@@ -45,7 +48,16 @@ export const SaveIndicator = () => {
 		data!.indicator!.name = value;
 		forceUpdate();
 	};
+	const onDiscardClicked = () => {
+		if (saving) {
+			return;
+		}
+		setOnEdit(false);
+	};
 	const onSaveClicked = () => {
+		if (saving) {
+			return;
+		}
 		if (data!.indicator!.name == null || data!.indicator!.name.trim().length === 0) {
 			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>A human reading name for indicator is required.</AlertLabel>);
 			return;
@@ -60,6 +72,9 @@ export const SaveIndicator = () => {
 				inputRef.current?.blur();
 				setOnEdit(false);
 				setSaving(false);
+				if (!done) {
+					fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.RELEVANT, data);
+				}
 			},
 			() => {
 				setSaving(false);
@@ -70,19 +85,24 @@ export const SaveIndicator = () => {
 		setOnEdit(true);
 	};
 
+	const isOnCreate = isFakedUuid(data.indicator);
+
 	return <Step index={4} visible={visible}>
 		<StepTitle visible={visible && onEdit}>
-			<NameInput value={data?.indicator?.name || ''} onChange={onNameChanged}
+			<NameInput value={data.indicator.name || ''} onChange={onNameChanged}
 			           placeholder="A human reading name for indicator."
 			           ref={inputRef}/>
 			<SaveButton ink={ButtonInk.PRIMARY} onClick={onSaveClicked}>
 				{saving ? <FontAwesomeIcon icon={ICON_LOADING} spin={true}/> : null}
-				<span>{isFakedUuid(data!.indicator!) ? 'Save Indicator' : 'Save Name'}</span>
+				<span>{isOnCreate ? 'Save Indicator' : 'Save Name'}</span>
+			</SaveButton>
+			<SaveButton ink={ButtonInk.PRIMARY} onClick={onDiscardClicked}>
+				Not Now
 			</SaveButton>
 		</StepTitle>
 		<StepTitle visible={visible && !onEdit}>
 			<StepTitleButton ink={ButtonInk.PRIMARY} onClick={onChangeNameClicked}>
-				<span>Change Name</span>
+				Change Name
 			</StepTitleButton>
 		</StepTitle>
 	</Step>;

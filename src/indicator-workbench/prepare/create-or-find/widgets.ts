@@ -7,6 +7,7 @@ export const Title = styled(StepTitle)`
 	}
 `;
 export const Label = styled(SinkingLabel)`
-	text-transform : uppercase;
+	text-transform : lowercase;
+	font-variant   : petite-caps;
 	margin-right   : calc(var(--margin) / 2);
 `;

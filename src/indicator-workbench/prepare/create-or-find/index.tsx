@@ -48,7 +48,7 @@ const ActivePart = () => {
 	};
 	const onSelectionChange = async (item: IndicatorCandidate) => {
 		fire(IndicatorsEventTypes.PICK_INDICATOR, item.indicatorId, (data: IndicatorsData) => {
-			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.SAVE, data);
+			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.RELEVANT, data);
 			fireSearch(SearchTextEventTypes.HIDE_SEARCH);
 		});
 	};
@@ -65,7 +65,8 @@ const ActivePart = () => {
 };
 
 const DonePart = () => {
-	const {on, off} = useIndicatorsEventBus();
+	const {fire: fireGlobal} = useEventBus();
+	const {on, off, fire} = useIndicatorsEventBus();
 	const {data, done} = useStep({step: PrepareStep.CREATE_OR_FIND});
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
@@ -75,6 +76,15 @@ const DonePart = () => {
 			off(IndicatorsEventTypes.INDICATOR_SAVED, onIndicatorSaved);
 		};
 	}, [on, off, forceUpdate]);
+
+	const onRestartClicked = () => {
+		fireGlobal(EventTypes.SHOW_YES_NO_DIALOG,
+			'Still in editing, all changes will be lost if interrupt. Are you sure to continue?',
+			() => {
+				fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.CREATE_OR_FIND);
+				fireGlobal(EventTypes.HIDE_DIALOG);
+			}, () => fireGlobal(EventTypes.HIDE_DIALOG));
+	};
 
 	const label = (() => {
 		if (data?.indicator == null || isFakedUuid(data.indicator)) {
@@ -87,6 +97,10 @@ const DonePart = () => {
 	return <Title visible={done}>
 		<StepTitleButton ink={ButtonInk.SUCCESS} asLabel={true}>
 			{label}
+		</StepTitleButton>
+		<Label>Or</Label>
+		<StepTitleButton ink={ButtonInk.DANGER} onClick={onRestartClicked}>
+			Restart
 		</StepTitleButton>
 	</Title>;
 };

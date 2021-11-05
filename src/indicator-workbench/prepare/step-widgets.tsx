@@ -100,9 +100,9 @@ export const StepTitleButtonsRetractor = styled.div.attrs({'data-widget': 'step-
 `;
 
 export const StepBody = styled.div.attrs({'data-widget': 'step-body'})`
-	grid-column   : 2;
-	width         : 100%;
-	margin-bottom : calc(var(--margin) / 2);
+	grid-column : 2;
+	width       : 100%;
+	margin      : calc(var(--margin) / 2) 0 var(--margin);
 `;
 
 export interface StepState {

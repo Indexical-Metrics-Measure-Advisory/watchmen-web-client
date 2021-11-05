@@ -84,7 +84,7 @@ export const MeasureMethods = () => {
 	return <Step index={3} visible={visible}>
 		<StepTitle visible={visible}>
 			<EmphaticSinkingLabel>
-				Available measures of selected indicator were detected automatically.
+				Available measures of current indicator were detected automatically.
 			</EmphaticSinkingLabel>
 		</StepTitle>
 		<StepBody>
