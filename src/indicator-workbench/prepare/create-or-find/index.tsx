@@ -66,7 +66,7 @@ const DonePart = () => {
 
 	return <Title visible={state.done}>
 		<StepTitleButton ink={ButtonInk.SUCCESS} asLabel={true}>
-			On Creating An Indicator
+			Creating An Indicator
 		</StepTitleButton>
 	</Title>;
 };

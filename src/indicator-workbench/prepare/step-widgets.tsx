@@ -1,7 +1,4 @@
-import {Button, RoundDwarfButton} from '@/widgets/basic/button';
-import {ButtonInk} from '@/widgets/basic/types';
-import {useEventBus} from '@/widgets/events/event-bus';
-import {EventTypes} from '@/widgets/events/types';
+import {Button} from '@/widgets/basic/button';
 import {ReactNode, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useIndicatorsEventBus} from './indicators-event-bus';
@@ -30,8 +27,8 @@ export const SinkingLabel = styled.span`
 	font-size     : 1.2em;
 `;
 export const EmphaticSinkingLabel = styled(SinkingLabel)`
-	font-weight: var(--font-demi-bold);
-`
+	font-weight : var(--font-demi-bold);
+`;
 const StepIndex = styled(SinkingLabel).attrs({'data-widget': 'step-index'})`
 	font-variant : petite-caps;
 `;
@@ -52,12 +49,6 @@ const StepTitleContainer = styled.div.attrs<{ visible: boolean }>(({visible}) =>
 	height      : calc(var(--height) * 2);
 	width       : 100%;
 	transition  : opacity 300ms ease-in-out;
-	&:hover {
-		button[data-widget=drop-me-and-following-button] {
-			opacity        : 1;
-			pointer-events : auto;
-		}
-	}
 `;
 const StepBackground = styled.div.attrs({'data-widget': 'step-background'})`
 	display          : block;
@@ -81,15 +72,11 @@ export const Step = (props: { index: number; visible?: boolean; children: ReactN
 	</StepContainer>;
 };
 
-export const StepTitle = (props: { visible?: boolean; children: ReactNode; buttons?: ReactNode; retractButtons?: boolean }) => {
-	const {visible = true, children, buttons, retractButtons = false, ...rest} = props;
+export const StepTitle = (props: { visible?: boolean; children: ReactNode; }) => {
+	const {visible = true, children, ...rest} = props;
 
 	return <StepTitleContainer visible={visible} {...rest}>
 		{children}
-		{retractButtons ? <StepTitleButtonsRetractor/> : null}
-		<StepTitleButtons>
-			{buttons}
-		</StepTitleButtons>
 	</StepTitleContainer>;
 };
 
@@ -111,45 +98,6 @@ export const StepTitleButton = styled(Button).attrs<{ asLabel?: boolean }>(({asL
 export const StepTitleButtonsRetractor = styled.div.attrs({'data-widget': 'step-title-buttons-retractor'})`
 	flex-grow : 1;
 `;
-export const StepTitleButtons = styled.div.attrs({'data-widget': 'step-title-buttons'})`
-	display      : flex;
-	position     : relative;
-	align-items  : flex-start;
-	height       : calc(var(--height) * 2);
-	padding-left : var(--margin);
-	padding-top  : 12px;
-`;
-export const DangerTitleButton = styled(RoundDwarfButton).attrs(() => {
-	return {};
-})`
-	position       : relative;
-	font-size      : 0.8em;
-	border-radius  : calc(var(--height) * 0.6);
-	opacity        : 0;
-	pointer-events : none;
-	z-index        : 1;
-`;
-export const DropMeAndFollowingButton = (props: { stepIndex: number; previousStep: PrepareStep }) => {
-	const {stepIndex, previousStep} = props;
-
-	const {fire: fireGlobal} = useEventBus();
-	const {fire} = useIndicatorsEventBus();
-
-	const onDropMeAndFollowingClicked = () => {
-		fireGlobal(EventTypes.SHOW_YES_NO_DIALOG,
-			`Are you sure to drop this(#${stepIndex}) and following steps?`,
-			() => {
-				fire(IndicatorsEventTypes.SWITCH_STEP, previousStep);
-				fireGlobal(EventTypes.HIDE_DIALOG);
-			},
-			() => fireGlobal(EventTypes.HIDE_DIALOG));
-	};
-
-	return <DangerTitleButton ink={ButtonInk.DANGER} data-widget="drop-me-and-following-button"
-	                          onClick={onDropMeAndFollowingClicked}>
-		Drop Me & Following
-	</DangerTitleButton>;
-};
 
 export const StepBody = styled.div.attrs({'data-widget': 'step-body'})`
 	grid-column   : 2;

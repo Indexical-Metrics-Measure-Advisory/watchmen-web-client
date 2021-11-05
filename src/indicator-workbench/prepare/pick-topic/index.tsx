@@ -13,7 +13,7 @@ import {IndicatorsData, IndicatorsEventTypes} from '../indicators-event-bus-type
 import {SearchItem, SearchText} from '../search-text';
 import {SearchTextEventBusProvider, useSearchTextEventBus} from '../search-text/search-text-event-bus';
 import {SearchTextEventTypes} from '../search-text/search-text-event-bus-types';
-import {DropMeAndFollowingButton, Step, StepTitle, StepTitleButton, useStep} from '../step-widgets';
+import {Step, StepTitle, StepTitleButton, StepTitleButtonsRetractor, useStep} from '../step-widgets';
 import {PrepareStep} from '../types';
 import {useConstructed} from '../use-constructed';
 import {TopicOrFactorCandidateName, TopicOrFactorCandidateUsage} from './widgets';
@@ -99,15 +99,21 @@ const ActivePart = (props: { data?: IndicatorsData; visible: boolean }) => {
 
 		fire(IndicatorsEventTypes.PICK_TOPIC, data!, (data: IndicatorsData) => {
 			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.MEASURE_METHODS, data);
-			fireSearch(SearchTextEventTypes.HIDE_SEARCH);
+			// fireSearch(SearchTextEventTypes.HIDE_SEARCH);
 		});
 	};
 
-	return <StepTitle buttons={<DropMeAndFollowingButton stepIndex={2} previousStep={PrepareStep.CREATE_OR_FIND}/>}
-	                  visible={visible}>
+	let text = 'Pick a Topic or Factor';
+	if (data && data.indicator && data.indicator.topicId) {
+		if (data.indicator.factorId) {
+
+		}
+	}
+
+	return <StepTitle visible={visible}>
 		<SearchText search={search} onSelectionChange={onSelectionChange}
 		            buttonFirst={true} alwaysShowSearchInput={true}
-		            openText="Pick a Topic or Factor"
+		            openText={text}
 		            placeholder="Find by topic name, factor name."/>
 	</StepTitle>;
 };
@@ -121,12 +127,11 @@ const DonePart = (props: { data?: IndicatorsData; visible: boolean }) => {
 	const factor = indicator?.factorId == null ? null : ((topic?.factors || []).find(factor => factor.factorId == indicator.factorId) ?? null);
 	const factorName = factor?.name;
 
-	return <StepTitle buttons={<DropMeAndFollowingButton stepIndex={2} previousStep={PrepareStep.CREATE_OR_FIND}/>}
-	                  retractButtons={true}
-	                  visible={visible}>
+	return <StepTitle visible={visible}>
 		<StepTitleButton ink={ButtonInk.SUCCESS} asLabel={true}>
 			Define on Topic [ {topicName}{factorName ? `.${factorName}` : ''} ]
 		</StepTitleButton>
+		<StepTitleButtonsRetractor/>
 	</StepTitle>;
 };
 

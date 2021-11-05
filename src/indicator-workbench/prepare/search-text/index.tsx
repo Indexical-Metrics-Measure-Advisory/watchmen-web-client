@@ -100,7 +100,6 @@ export const SearchText = <I extends SearchItem>(props: {
 	};
 	const onCandidateClicked = (item: I) => async () => {
 		await onSelectionChange(item);
-		fire(SearchTextEventTypes.HIDE_SEARCH);
 	};
 
 	return <SearchPart buttonFirst={buttonFirst} popupVisible={showSearchPopup} ref={containerRef}>

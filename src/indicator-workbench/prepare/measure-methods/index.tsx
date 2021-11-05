@@ -6,7 +6,7 @@ import {
 	isOrganizationMeasure,
 	isTimePeriodMeasure
 } from '@/services/data/tuples/indicator-utils';
-import {DropMeAndFollowingButton, EmphaticSinkingLabel, Step, StepBody, StepTitle, useStep} from '../step-widgets';
+import {EmphaticSinkingLabel, Step, StepBody, StepTitle, useStep} from '../step-widgets';
 import {PrepareStep} from '../types';
 import {useConstructed} from '../use-constructed';
 import {MeasureItem, MeasuresItemsBlock, MeasuresItemsContainer, MeasuresItemsTitle} from './widgets';
@@ -54,9 +54,7 @@ export const MeasureMethods = () => {
 	const categoryMeasures = {label: 'Category', measures: filterMeasures(isCategoryMeasure)};
 
 	return <Step index={3} visible={visible}>
-		<StepTitle buttons={<DropMeAndFollowingButton stepIndex={3} previousStep={PrepareStep.PICK_TOPIC}/>}
-		           retractButtons={true}
-		           visible={visible}>
+		<StepTitle visible={visible}>
 			<EmphaticSinkingLabel>
 				Available measures of selected indicator were detected automatically.
 			</EmphaticSinkingLabel>
