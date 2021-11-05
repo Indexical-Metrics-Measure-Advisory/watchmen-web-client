@@ -24,7 +24,7 @@ export const SaveIndicator = () => {
 	const [onEdit, setOnEdit] = useState(true);
 	const {constructed, setConstructed, visible, setVisible} = useConstructed();
 	const {data, done} = useStep({
-		step: PrepareStep.SAVE,
+		step: PrepareStep.SAVE_INDICATOR,
 		active: () => setConstructed(true),
 		done: () => {
 			setOnEdit(false);
@@ -73,7 +73,7 @@ export const SaveIndicator = () => {
 				setOnEdit(false);
 				setSaving(false);
 				if (!done) {
-					fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.RELEVANT, data);
+					fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.RELEVANT_INDICATORS, data);
 				}
 			},
 			() => {

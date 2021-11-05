@@ -98,7 +98,7 @@ const ActivePart = (props: { data?: IndicatorsData; visible: boolean }) => {
 		});
 
 		fire(IndicatorsEventTypes.PICK_TOPIC, data!, (data: IndicatorsData) => {
-			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.SAVE, data);
+			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.SAVE_INDICATOR, data);
 		});
 	};
 

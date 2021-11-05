@@ -48,7 +48,7 @@ const ActivePart = () => {
 	};
 	const onSelectionChange = async (item: IndicatorCandidate) => {
 		fire(IndicatorsEventTypes.PICK_INDICATOR, item.indicatorId, (data: IndicatorsData) => {
-			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.RELEVANT, data);
+			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.RELEVANT_INDICATORS, data);
 			fireSearch(SearchTextEventTypes.HIDE_SEARCH);
 		});
 	};

@@ -9,7 +9,7 @@ export const Relevant = () => {
 	const {fire: fireGlobal} = useEventBus();
 	const {constructed, setConstructed, visible, setVisible} = useConstructed();
 	useStep({
-		step: PrepareStep.RELEVANT,
+		step: PrepareStep.RELEVANT_INDICATORS,
 		active: () => setConstructed(true),
 		done: () => setConstructed(true),
 		dropped: () => setVisible(false)
