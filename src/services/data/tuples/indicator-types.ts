@@ -46,7 +46,10 @@ export enum MeasureMethod {
 	BOOLEAN = 'boolean',
 
 	// enumeration
-	ENUM = 'enum'
+	ENUM = 'enum',
+
+	// count
+	COUNT = 'count'
 }
 
 export type IndicatorId = string;

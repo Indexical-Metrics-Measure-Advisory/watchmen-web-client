@@ -103,3 +103,35 @@ export const tryToTransformToMeasure = (factorOrType: Factor | FactorType): Arra
 			return (void 0);
 	}
 };
+
+export const isGeoMeasure = (measure: MeasureMethod): boolean => {
+	return [
+		MeasureMethod.CONTINENT, MeasureMethod.REGION, MeasureMethod.COUNTRY, MeasureMethod.PROVINCE,
+		MeasureMethod.CITY, MeasureMethod.DISTRICT,
+		MeasureMethod.FLOOR, MeasureMethod.RESIDENCE_TYPE, MeasureMethod.RESIDENTIAL_AREA
+	].includes(measure);
+};
+
+export const isTimePeriodMeasure = (measure: MeasureMethod): boolean => {
+	return [
+		MeasureMethod.YEAR, MeasureMethod.HALF_YEAR, MeasureMethod.QUARTER, MeasureMethod.MONTH, MeasureMethod.HALF_MONTH,
+		MeasureMethod.TEN_DAYS, MeasureMethod.WEEK_OF_YEAR, MeasureMethod.WEEK_OF_MONTH, MeasureMethod.HALF_WEEK,
+		MeasureMethod.DAY_OF_MONTH, MeasureMethod.DAY_OF_WEEK, MeasureMethod.DAY_KIND,
+		MeasureMethod.HOUR, MeasureMethod.HOUR_KIND, MeasureMethod.AM_PM
+	].includes(measure);
+};
+
+export const isIndividualMeasure = (measure: MeasureMethod): boolean => {
+	return [
+		MeasureMethod.GENDER, MeasureMethod.OCCUPATION, MeasureMethod.AGE,
+		MeasureMethod.RELIGION, MeasureMethod.NATIONALITY
+	].includes(measure);
+};
+
+export const isOrganizationMeasure = (measure: MeasureMethod): boolean => {
+	return [MeasureMethod.BIZ_TRADE, MeasureMethod.BIZ_SCALE].includes(measure);
+};
+
+export const isCategoryMeasure = (measure: MeasureMethod): boolean => {
+	return [MeasureMethod.BOOLEAN, MeasureMethod.ENUM].includes(measure);
+};

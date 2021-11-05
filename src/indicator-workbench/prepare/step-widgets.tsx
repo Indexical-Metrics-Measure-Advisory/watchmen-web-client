@@ -18,7 +18,7 @@ const StepContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
 })<{ visible: boolean }>`
 	display               : grid;
 	position              : relative;
-	grid-template-columns : 64px 1fr auto;
+	grid-template-columns : 64px 1fr;
 	width                 : 100%;
 	transition            : opacity 300ms ease-in-out;
 `;
@@ -27,10 +27,13 @@ export const SinkingLabel = styled.span`
 	position      : relative;
 	align-self    : flex-end;
 	margin-bottom : calc(var(--height) * 0.4);
+	font-size     : 1.2em;
 `;
+export const EmphaticSinkingLabel = styled(SinkingLabel)`
+	font-weight: var(--font-demi-bold);
+`
 const StepIndex = styled(SinkingLabel).attrs({'data-widget': 'step-index'})`
 	font-variant : petite-caps;
-	font-size    : 1.2em;
 `;
 const StepTitleContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
 	return {
@@ -56,14 +59,13 @@ const StepTitleContainer = styled.div.attrs<{ visible: boolean }>(({visible}) =>
 		}
 	}
 `;
-const StepTitleSeparator = styled.div.attrs({'data-widget': 'step-title-separator'})`
+const StepBackground = styled.div.attrs({'data-widget': 'step-background'})`
 	display          : block;
 	position         : absolute;
-	left             : -80px;
+	left             : calc(var(--margin) / -2);
 	top              : 20px;
 	bottom           : 4px;
-	//height           : 32px;
-	width            : calc(100% + 96px);
+	width            : calc(100% + var(--margin));
 	background-color : var(--border-color);
 	border-radius    : 16px 16px 4px 4px;
 	opacity          : 0.2;
@@ -75,6 +77,7 @@ export const Step = (props: { index: number; visible?: boolean; children: ReactN
 	return <StepContainer visible={visible}>
 		<StepIndex>Step {index}.</StepIndex>
 		{children}
+		<StepBackground/>
 	</StepContainer>;
 };
 
@@ -87,7 +90,6 @@ export const StepTitle = (props: { visible?: boolean; children: ReactNode; butto
 		<StepTitleButtons>
 			{buttons}
 		</StepTitleButtons>
-		<StepTitleSeparator/>
 	</StepTitleContainer>;
 };
 
@@ -148,6 +150,12 @@ export const DropMeAndFollowingButton = (props: { stepIndex: number; previousSte
 		Drop Me & Following
 	</DangerTitleButton>;
 };
+
+export const StepBody = styled.div.attrs({'data-widget': 'step-body'})`
+	grid-column   : 2;
+	width         : 100%;
+	margin-bottom : calc(var(--margin) / 2);
+`;
 
 export interface StepState {
 	active: boolean;
