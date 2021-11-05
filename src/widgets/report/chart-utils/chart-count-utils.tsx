@@ -1,7 +1,7 @@
 import {COUNT, CountChartSettings} from '@/services/data/tuples/chart-def/chart-count';
 import {ChartDataSet} from '@/services/data/tuples/chart-types';
 import {ECharts} from '@/services/data/tuples/echarts/echarts-types';
-import {Report} from '@/services/data/tuples/report-types';
+import {Report, ReportIndicatorArithmetic} from '@/services/data/tuples/report-types';
 import {cleanUselessValues} from './data-utils';
 import {DefaultChartUtils} from './default-chart-utils';
 import {buildEChartsTitle} from './title-utils';
@@ -19,6 +19,12 @@ export class ChartCountUtils extends DefaultChartUtils {
 	shouldHasTruncation(): boolean {
 		return false;
 	}
+
+	defendIndicatorMinCount(report: Report) {
+		super.defendIndicatorMinCount(report);
+		(report.indicators || []).forEach(indicator => indicator.arithmetic = ReportIndicatorArithmetic.COUNT)
+	}
+
 	async buildOptions(report: Report, dataset: ChartDataSet): Promise<ChartOptions> {
 		let value: string | number = ((dataset.data[0] ?? [])[0] as number | null | undefined) || 0;
 		if (isNaN(value)) {

@@ -632,7 +632,7 @@ export const Jp = {
 		ARITHMETIC_MIN: '最小値',
 		TYPE: 'タイプ',
 		TYPES: {
-			COUNT: '統計グラフ',
+			COUNT: '数値統計グラフ',
 			BAR: 'ヒストグラム',
 			LINE: '折れ線グラフ',
 			SCATTER: '散布図',

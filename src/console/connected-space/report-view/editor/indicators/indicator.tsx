@@ -1,3 +1,4 @@
+import {ChartType} from '@/services/data/tuples/chart-types';
 import {Report, ReportIndicator, ReportIndicatorArithmetic} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
@@ -85,13 +86,16 @@ export const IndicatorEditor = (props: {
 		});
 	}
 	const arithmeticOptions: Array<DropdownOption> = [
-		{value: ReportIndicatorArithmetic.NONE, label: Lang.CHART.ARITHMETIC_NONE},
+		chartType !== ChartType.COUNT ? {
+			value: ReportIndicatorArithmetic.NONE,
+			label: Lang.CHART.ARITHMETIC_NONE
+		} : null,
 		{value: ReportIndicatorArithmetic.SUMMARY, label: Lang.CHART.ARITHMETIC_SUMMARY},
 		{value: ReportIndicatorArithmetic.AVERAGE, label: Lang.CHART.ARITHMETIC_AVERAGE},
 		{value: ReportIndicatorArithmetic.COUNT, label: Lang.CHART.ARITHMETIC_COUNT},
 		{value: ReportIndicatorArithmetic.MAXIMUM, label: Lang.CHART.ARITHMETIC_MAX},
 		{value: ReportIndicatorArithmetic.MINIMUM, label: Lang.CHART.ARITHMETIC_MIN}
-	];
+	].filter(x => x) as Array<DropdownOption>;
 
 	return <IndicatorContainer>
 		<IndicatorIndexLabel>{index}</IndicatorIndexLabel>

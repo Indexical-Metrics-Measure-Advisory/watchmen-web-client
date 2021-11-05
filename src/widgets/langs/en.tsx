@@ -632,7 +632,7 @@ export const En = {
 		ARITHMETIC_MIN: 'Min',
 		TYPE: 'Type',
 		TYPES: {
-			COUNT: 'Count',
+			COUNT: 'Single Value',
 			BAR: 'Bar',
 			LINE: 'Line',
 			SCATTER: 'Scatter',
