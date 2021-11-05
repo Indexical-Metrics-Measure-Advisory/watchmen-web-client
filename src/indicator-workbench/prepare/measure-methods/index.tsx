@@ -51,7 +51,7 @@ export const MeasureMethods = () => {
 	const timePeriodMeasures = {label: 'Time Period', measures: filterMeasures(isTimePeriodMeasure)};
 	const individualMeasures = {label: 'Individual', measures: filterMeasures(isIndividualMeasure)};
 	const organizationMeasures = {label: 'Organization', measures: filterMeasures(isOrganizationMeasure)};
-	const categoryMeasures = {label: 'Organization', measures: filterMeasures(isCategoryMeasure)};
+	const categoryMeasures = {label: 'Category', measures: filterMeasures(isCategoryMeasure)};
 
 	return <Step index={3} visible={visible}>
 		<StepTitle buttons={<DropMeAndFollowingButton stepIndex={3} previousStep={PrepareStep.PICK_TOPIC}/>}
