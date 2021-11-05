@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-export const MeasuresItemsContainer = styled.div.attrs({'data-widget': 'measures-items'})`
+export const MeasureItemsContainer = styled.div.attrs({'data-widget': 'measure-items'})`
 	display               : grid;
 	grid-template-columns : auto 1fr;
 	position              : relative;
 	margin                : calc(var(--margin) / 2) 0;
 `;
-export const MeasuresItemsTitle = styled.span.attrs({'data-widget': 'measures-items-title'})`
+export const MeasureItemsTitle = styled.span.attrs({'data-widget': 'measure-items-title'})`
 	display         : flex;
 	position        : relative;
 	align-items     : center;
@@ -18,10 +18,10 @@ export const MeasuresItemsTitle = styled.span.attrs({'data-widget': 'measures-it
 	text-decoration : underline;
 	white-space     : nowrap;
 	&:after {
-		content: ':';
+		content : ':';
 	}
 `;
-export const MeasuresItemsBlock = styled.div.attrs({'data-widget': 'measures-items-block'})`
+export const MeasureItemsBlock = styled.div.attrs({'data-widget': 'measure-items-block'})`
 	display     : flex;
 	position    : relative;
 	flex-wrap   : wrap;
@@ -38,6 +38,7 @@ export const MeasureItem = styled.span.attrs({'data-widget': 'measure-item'})`
 	border-radius  : var(--border-radius);
 	text-transform : capitalize;
 	font-size      : 1.1em;
+	font-variant   : petite-caps;
 	overflow       : hidden;
 	&:after {
 		content          : '';
@@ -50,5 +51,12 @@ export const MeasureItem = styled.span.attrs({'data-widget': 'measure-item'})`
 		background-color : var(--primary-color);
 		opacity          : 0.3;
 		z-index          : -1;
+	}
+`;
+export const AggregateItemsTitle = MeasureItemsTitle;
+export const AggregateItemsBlock = MeasureItemsBlock;
+export const AggregateItem = styled(MeasureItem)`
+	&:after {
+		background-color : var(--success-color);
 	}
 `;

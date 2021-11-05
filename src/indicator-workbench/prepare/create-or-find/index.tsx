@@ -1,8 +1,11 @@
 import {fetchIndicatorsForSelection} from '@/services/data/tuples/indicator';
 import {Indicator, IndicatorId, QueryIndicator} from '@/services/data/tuples/indicator-types';
+import {isFakedUuid} from '@/services/data/tuples/utils';
 import {ButtonInk} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
+import {useEffect} from 'react';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
 import {IndicatorsData, IndicatorsEventTypes} from '../indicators-event-bus-types';
 import {SearchItem, SearchText} from '../search-text';
@@ -45,7 +48,7 @@ const ActivePart = () => {
 	};
 	const onSelectionChange = async (item: IndicatorCandidate) => {
 		fire(IndicatorsEventTypes.PICK_INDICATOR, item.indicatorId, (data: IndicatorsData) => {
-			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.MEASURE_METHODS, data);
+			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.SAVE, data);
 			fireSearch(SearchTextEventTypes.HIDE_SEARCH);
 		});
 	};
@@ -62,11 +65,28 @@ const ActivePart = () => {
 };
 
 const DonePart = () => {
-	const state = useStep({step: PrepareStep.CREATE_OR_FIND});
+	const {on, off} = useIndicatorsEventBus();
+	const {data, done} = useStep({step: PrepareStep.CREATE_OR_FIND});
+	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		const onIndicatorSaved = () => forceUpdate();
+		on(IndicatorsEventTypes.INDICATOR_SAVED, onIndicatorSaved);
+		return () => {
+			off(IndicatorsEventTypes.INDICATOR_SAVED, onIndicatorSaved);
+		};
+	}, [on, off, forceUpdate]);
 
-	return <Title visible={state.done}>
+	const label = (() => {
+		if (data?.indicator == null || isFakedUuid(data.indicator)) {
+			return 'Creating An Indicator';
+		} else {
+			return `View Indicator [ ${data.indicator.name} ]`;
+		}
+	})();
+
+	return <Title visible={done}>
 		<StepTitleButton ink={ButtonInk.SUCCESS} asLabel={true}>
-			Creating An Indicator
+			{label}
 		</StepTitleButton>
 	</Title>;
 };

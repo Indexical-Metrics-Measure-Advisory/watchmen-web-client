@@ -1,4 +1,4 @@
-import {MeasureMethod} from '@/services/data/tuples/indicator-types';
+import {IndicatorAggregateArithmetic, MeasureMethod} from '@/services/data/tuples/indicator-types';
 import {
 	isCategoryMeasure,
 	isGeoMeasure,
@@ -9,9 +9,17 @@ import {
 import {EmphaticSinkingLabel, Step, StepBody, StepTitle, useStep} from '../step-widgets';
 import {PrepareStep} from '../types';
 import {useConstructed} from '../use-constructed';
-import {MeasureItem, MeasuresItemsBlock, MeasuresItemsContainer, MeasuresItemsTitle} from './widgets';
+import {
+	AggregateItem,
+	AggregateItemsBlock,
+	AggregateItemsTitle,
+	MeasureItem,
+	MeasureItemsBlock,
+	MeasureItemsContainer,
+	MeasureItemsTitle
+} from './widgets';
 
-const MeasuresItems = (props: { label: string; measures: Array<MeasureMethod> }) => {
+const MeasureItems = (props: { label: string; measures: Array<MeasureMethod> }) => {
 	const {label, measures} = props;
 
 	if (measures.length === 0) {
@@ -19,14 +27,33 @@ const MeasuresItems = (props: { label: string; measures: Array<MeasureMethod> })
 	}
 
 	return <>
-		<MeasuresItemsTitle>{label}</MeasuresItemsTitle>
-		<MeasuresItemsBlock>
+		<MeasureItemsTitle>{label}</MeasureItemsTitle>
+		<MeasureItemsBlock>
 			{measures.map(measure => {
 				return <MeasureItem key={measure}>
 					{measure.replace(/-/g, ' ')}
 				</MeasureItem>;
 			})}
-		</MeasuresItemsBlock>
+		</MeasureItemsBlock>
+	</>;
+};
+
+const AggregateItems = (props: { label: string; aggregates: Array<IndicatorAggregateArithmetic> }) => {
+	const {label, aggregates} = props;
+
+	if (aggregates.length === 0) {
+		return null;
+	}
+
+	return <>
+		<AggregateItemsTitle>{label}</AggregateItemsTitle>
+		<AggregateItemsBlock>
+			{aggregates.map(aggregate => {
+				return <AggregateItem key={aggregate}>
+					{aggregate.replace(/-/g, ' ')}
+				</AggregateItem>;
+			})}
+		</AggregateItemsBlock>
 	</>;
 };
 
@@ -51,6 +78,7 @@ export const MeasureMethods = () => {
 	const timePeriodMeasures = {label: 'Time Period', measures: filterMeasures(isTimePeriodMeasure)};
 	const individualMeasures = {label: 'Individual', measures: filterMeasures(isIndividualMeasure)};
 	const organizationMeasures = {label: 'Organization', measures: filterMeasures(isOrganizationMeasure)};
+	// TODO to view boolean factor name and enum name when measure is categorized
 	const categoryMeasures = {label: 'Category', measures: filterMeasures(isCategoryMeasure)};
 
 	return <Step index={3} visible={visible}>
@@ -60,13 +88,16 @@ export const MeasureMethods = () => {
 			</EmphaticSinkingLabel>
 		</StepTitle>
 		<StepBody>
-			<MeasuresItemsContainer>
+			<MeasureItemsContainer>
 				{[geoMeasures, timePeriodMeasures, individualMeasures, organizationMeasures, categoryMeasures]
 					.map(({label, measures}) => {
-						return <MeasuresItems label={label} measures={measures} key={label}/>;
+						return <MeasureItems label={label} measures={measures} key={label}/>;
 					})}
-				<MeasuresItems label="Count" measures={[MeasureMethod.COUNT]}/>
-			</MeasuresItemsContainer>
+				<AggregateItems label="Aggregate" aggregates={[
+					IndicatorAggregateArithmetic.COUNT, IndicatorAggregateArithmetic.SUM, IndicatorAggregateArithmetic.AVG,
+					IndicatorAggregateArithmetic.MAX, IndicatorAggregateArithmetic.MIN
+				]}/>
+			</MeasureItemsContainer>
 		</StepBody>
 	</Step>;
 };

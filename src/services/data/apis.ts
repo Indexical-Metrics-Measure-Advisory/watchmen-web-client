@@ -136,7 +136,9 @@ export const Apis = {
 
 	INDICATORS_LIST_FOR_SELECTION: 'indicator/list/selection',
 	TOPIC_LIST_FOR_INDICATOR_SELECTION: 'indicator/topic/list/selection',
-	INDICATOR_GET: 'indicator?indicator_id=:indicatorId'
+	INDICATOR_GET: 'indicator?indicator_id=:indicatorId',
+	INDICATOR_CREATE: 'indicator',
+	INDICATOR_SAVE: 'update/indicator?indicator_id=:indicatorId'
 };
 
 const buildApi = (api: string, args?: Record<string, any>): string => {

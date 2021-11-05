@@ -1,12 +1,7 @@
 import {isIndicatorFactor} from '../../tuples/factor-calculator-utils';
-import {
-	Indicator,
-	IndicatorId,
-	MeasureMethod,
-	QueryIndicator,
-	TopicForIndicator
-} from '../../tuples/indicator-types';
+import {Indicator, IndicatorId, MeasureMethod, QueryIndicator, TopicForIndicator} from '../../tuples/indicator-types';
 import {Topic} from '../../tuples/topic-types';
+import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
 import {DemoTopics, MonthlyPolicyPremium, WeeklyPolicyPremium} from '../tuples/mock-data-topics';
 
@@ -73,4 +68,14 @@ export const fetchMockIndicator = async (indicatorId: IndicatorId): Promise<{ in
 			}, topic: MonthlyPolicyPremium
 		};
 	}
+};
+
+let newIndicatorId = 10000;
+export const saveMockIndicator = async (indicator: Indicator): Promise<void> => {
+	return new Promise<void>((resolve) => {
+		if (isFakedUuid(indicator)) {
+			indicator.indicatorId = `${newIndicatorId++}`;
+		}
+		setTimeout(() => resolve(), 500);
+	});
 };

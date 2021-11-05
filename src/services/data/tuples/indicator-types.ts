@@ -1,4 +1,5 @@
 import {FactorId} from './factor-types';
+import {TenantId} from './tenant-types';
 import {Topic, TopicId} from './topic-types';
 import {Tuple} from './tuple-types';
 
@@ -47,9 +48,15 @@ export enum MeasureMethod {
 
 	// enumeration
 	ENUM = 'enum',
+}
 
-	// count
-	COUNT = 'count'
+/** aggregate, not from factor, for each indicator (numeric type) */
+export enum IndicatorAggregateArithmetic {
+	COUNT = 'count',
+	SUM = 'sum',
+	AVG = 'avg',
+	MAX = 'max',
+	MIN = 'min'
 }
 
 export type IndicatorId = string;
@@ -60,6 +67,7 @@ export interface Indicator extends Tuple {
 	topicId: TopicId;
 	factorId?: FactorId;
 	measures: Array<MeasureMethod>;
+	tenantId?: TenantId;
 }
 
 export type QueryIndicator = Pick<Indicator, 'indicatorId' | 'name'>;

@@ -11,7 +11,9 @@ export enum IndicatorsEventTypes {
 
 	CREATE_INDICATOR = 'create-indicator',
 	PICK_INDICATOR = 'pick-indicator',
-	PICK_TOPIC = 'pick-topic'
+	PICK_TOPIC = 'pick-topic',
+
+	INDICATOR_SAVED = 'indicator-saved'
 }
 
 export interface IndicatorsEventBus {
@@ -30,4 +32,9 @@ export interface IndicatorsEventBus {
 	fire(type: IndicatorsEventTypes.PICK_TOPIC, data: IndicatorsData, onData: (data: IndicatorsData) => void): this;
 	on(type: IndicatorsEventTypes.PICK_TOPIC, listener: (data: IndicatorsData, onData: (data: IndicatorsData) => void) => void): this;
 	off(type: IndicatorsEventTypes.PICK_TOPIC, listener: (data: IndicatorsData, onData: (data: IndicatorsData) => void) => void): this;
+
+	fire(type: IndicatorsEventTypes.INDICATOR_SAVED, indicator: Indicator): this;
+	on(type: IndicatorsEventTypes.INDICATOR_SAVED, listener: (indicator: Indicator) => void): this;
+	off(type: IndicatorsEventTypes.INDICATOR_SAVED, listener: (indicator: Indicator) => void): this;
+
 }

@@ -98,22 +98,14 @@ const ActivePart = (props: { data?: IndicatorsData; visible: boolean }) => {
 		});
 
 		fire(IndicatorsEventTypes.PICK_TOPIC, data!, (data: IndicatorsData) => {
-			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.MEASURE_METHODS, data);
-			// fireSearch(SearchTextEventTypes.HIDE_SEARCH);
+			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.SAVE, data);
 		});
 	};
-
-	let text = 'Pick a Topic or Factor';
-	if (data && data.indicator && data.indicator.topicId) {
-		if (data.indicator.factorId) {
-
-		}
-	}
 
 	return <StepTitle visible={visible}>
 		<SearchText search={search} onSelectionChange={onSelectionChange}
 		            buttonFirst={true} alwaysShowSearchInput={true}
-		            openText={text}
+		            openText="Pick a Topic or Factor"
 		            placeholder="Find by topic name, factor name."/>
 	</StepTitle>;
 };
