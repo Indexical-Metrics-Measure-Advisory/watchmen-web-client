@@ -20,7 +20,7 @@ export const Relevant = () => {
 	}
 
 	const onDetectClicked = () => {
-		// TODO
+		// TODO detect relevant indicators
 		fireGlobal(EventTypes.SHOW_NOT_IMPLEMENT);
 	};
 
