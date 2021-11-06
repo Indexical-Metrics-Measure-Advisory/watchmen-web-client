@@ -6,6 +6,7 @@ import {
 	isOrganizationMeasure,
 	isTimePeriodMeasure
 } from '@/services/data/tuples/indicator-utils';
+import {MeasureMethodLabel} from '@/widgets/basic/measure-method-label';
 import {Lang} from '@/widgets/langs';
 import {EmphaticSinkingLabel, Step, StepBody, StepTitle, useStep} from '../step-widgets';
 import {PrepareStep} from '../types';
@@ -32,7 +33,7 @@ const MeasureItems = (props: { label: string; measures: Array<MeasureMethod> }) 
 		<MeasureItemsBlock>
 			{measures.map(measure => {
 				return <MeasureItem key={measure}>
-					{measure.replace(/-/g, ' ')}
+					<MeasureMethodLabel measureMethod={measure}/>
 				</MeasureItem>;
 			})}
 		</MeasureItemsBlock>
