@@ -103,7 +103,7 @@ const DonePart = () => {
 		<StepTitleButton ink={ButtonInk.SUCCESS} asLabel={true}>
 			{label}
 		</StepTitleButton>
-		<Label>Or</Label>
+		<Label>{Lang.INDICATOR_WORKBENCH.PREPARE.OR}</Label>
 		<StepTitleButton ink={ButtonInk.DANGER} onClick={onRestartClicked}>
 			{Lang.INDICATOR_WORKBENCH.PREPARE.RESTART}
 		</StepTitleButton>

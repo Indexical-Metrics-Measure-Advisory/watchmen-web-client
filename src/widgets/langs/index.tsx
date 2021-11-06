@@ -88,7 +88,7 @@ const KeyProxy = new Proxy<any>(TARGET, {
 		if (prop === '$$typeof') {
 			return obj[prop];
 		}
-		return proxyValue((En as any)[prop], prop);
+		return proxyValue((currentLanguage as any)[prop], prop);
 	}
 });
 export const useLanguage = () => {

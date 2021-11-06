@@ -76,21 +76,29 @@ export const MeasureMethods = () => {
 		return [...new Set((data?.indicator?.measures || []).filter(func))];
 	};
 
-	const geoMeasures = {label: Lang.INDICATOR_WORKBENCH.PREPARE.GEO, measures: filterMeasures(isGeoMeasure)};
+	const geoMeasures = {
+		key: 'geo',
+		label: Lang.INDICATOR_WORKBENCH.PREPARE.GEO,
+		measures: filterMeasures(isGeoMeasure)
+	};
 	const timePeriodMeasures = {
+		key: 'time-period',
 		label: Lang.INDICATOR_WORKBENCH.PREPARE.TIME_PERIOD,
 		measures: filterMeasures(isTimePeriodMeasure)
 	};
 	const individualMeasures = {
+		key: 'individual',
 		label: Lang.INDICATOR_WORKBENCH.PREPARE.INDIVIDUAL,
 		measures: filterMeasures(isIndividualMeasure)
 	};
 	const organizationMeasures = {
+		key: 'organization',
 		label: Lang.INDICATOR_WORKBENCH.PREPARE.ORGANIZATION,
 		measures: filterMeasures(isOrganizationMeasure)
 	};
 	// TODO to view boolean factor name and enum name when measure is categorized
 	const categoryMeasures = {
+		key: 'category',
 		label: Lang.INDICATOR_WORKBENCH.PREPARE.CATEGORY,
 		measures: filterMeasures(isCategoryMeasure)
 	};
@@ -102,8 +110,8 @@ export const MeasureMethods = () => {
 		<StepBody>
 			<MeasureItemsContainer>
 				{[geoMeasures, timePeriodMeasures, individualMeasures, organizationMeasures, categoryMeasures]
-					.map(({label, measures}) => {
-						return <MeasureItems label={label} measures={measures} key={label}/>;
+					.map(({key, label, measures}) => {
+						return <MeasureItems label={label} measures={measures} key={key}/>;
 					})}
 				<AggregateItems label={Lang.INDICATOR_WORKBENCH.PREPARE.AGGREGATE} aggregates={[
 					IndicatorAggregateArithmetic.COUNT, IndicatorAggregateArithmetic.SUM, IndicatorAggregateArithmetic.AVG,
