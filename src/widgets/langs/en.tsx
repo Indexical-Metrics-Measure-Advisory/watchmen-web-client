@@ -346,7 +346,6 @@ export const En = {
 		YEAR: 'Year',
 		HALF_YEAR: '1st/2nd Half Year',
 		QUARTER: 'Quarter',
-		SEASON: 'Season',
 		MONTH: 'Month',
 		HALF_MONTH: '1st/2nd Half Month',
 		TEN_DAYS: '1st/2nd/3rd Ten Days',
@@ -683,6 +682,43 @@ export const En = {
 		},
 		ECHART: {
 			TEXT: 'Text'
+		}
+	},
+	INDICATOR: {
+		MEASURE_METHOD: {
+			CONTINENT: 'Continent',
+			REGION: 'Region',
+			COUNTRY: 'Country',
+			PROVINCE: 'Province',
+			CITY: 'City',
+			DISTRICT: 'District',
+			FLOOR: 'Floor',
+			RESIDENCE_TYPE: 'Residence Type',
+			RESIDENTIAL_AREA: 'Residence Area',
+			YEAR: 'Year',
+			HALF_YEAR: '1st/2nd Half Year',
+			QUARTER: 'Quarter',
+			MONTH: 'Month',
+			HALF_MONTH: '1st/2nd Half Month',
+			TEN_DAYS: '1st/2nd/3rd Ten Days',
+			WEEK_OF_YEAR: 'Week of Year',
+			WEEK_OF_MONTH: 'Week of Month',
+			HALF_WEEK: '1st/2nd Half Week',
+			DAY_OF_MONTH: 'Day of Month',
+			DAY_OF_WEEK: 'Day of Week',
+			DAY_KIND: 'Workday/Weekday/Holiday',
+			HOUR: 'Hour',
+			HOUR_KIND: 'Work Time/Off Hours/Sleep Time',
+			AM_PM: 'AM/PM',
+			GENDER: 'Gender',
+			OCCUPATION: 'Occupation',
+			AGE: 'Age',
+			RELIGION: 'Religion',
+			NATIONALITY: 'Nationality',
+			TRADE: 'Business Trade',
+			SCALE: 'Business Scale',
+			BOOLEAN: 'Boolean',
+			ENUM: 'Enumeration'
 		}
 	},
 	SHARE: {

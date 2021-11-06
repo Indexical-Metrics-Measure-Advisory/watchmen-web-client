@@ -26,7 +26,10 @@ export const Jp = {
 		REPORT_DATASET_GRID_CLOSE: '閉じる',
 		REPORT_DATASET_GRID_REFRESH: '更新',
 		REPORT_DATASET_GRID_DOWNLOAD: 'ダウンロード',
-		LOADING: '読み込み中...'
+		LOADING: '読み込み中...',
+		FIND_INDICATOR_PLACEHOLDER: 'インジケータ名 トピック名または ファクター名に基づいて検索します。',
+		FIND_TOPIC_OR_FACTOR_PLACEHOLDER: 'トピック名または ファクター名に基づいて検索します。',
+		INDICATOR_NAME_PLACEHOLDER: '読むための名前を入力してください。'
 	},
 	STANDARD: {
 		YES: 'はい',
@@ -262,7 +265,37 @@ export const Jp = {
 			SETTINGS: '設定',
 			LOGOUT: 'ログアウト'
 		},
-		LOADING: 'データ読み込み中...'
+		LOADING: 'データ読み込み中...',
+		ON_EDIT: '編集中、保存されていないデータはすべて失われます。編集を破棄しますか?',
+		PREPARE: {
+			WAIT_INPUT: '入力を待っている...',
+			SEARCHING: '検索中...',
+			NO_MATCHED: '一致するデータが見つかりませんでした。',
+			OR: 'または',
+			CREATE_INDICATOR: '新しいインジケータを定義します',
+			FIND_INDICATOR: '定義されたインジケータを検索します',
+			DISCARD_FIND_INDICATOR: '捨てる',
+			ON_CREATE_INDICATOR: '新しいインジケータが定義されています',
+			ON_VIEW_INDICATOR: 'インジケータを表示',
+			RESTART: '再起動',
+			PICK_TOPIC: 'トピックまたはファクターを選択します',
+			DEFINE_ON_TOPIC: 'トピックに対する定義',
+			INDICATOR_ON_TOPIC: 'トピックに関する',
+			MEASURE_METHODS_TITLE: '現在のインジケータで使用できる測定ディメンションは、自動的に検出されます。',
+			AGGREGATE: '集計方法',
+			GEO: '地理的に関連しています',
+			TIME_PERIOD: '時間範囲',
+			INDIVIDUAL: '個人的に',
+			ORGANIZATION: '機関',
+			CATEGORY: '分類を指定します',
+			CHANGE_NAME: '名前を変更します',
+			NOT_NOW: '捨てる',
+			SAVE_INDICATOR: 'インジケータを保存',
+			SAVE_NAME: '名前を保存する',
+			REQUIRE_INDICATOR_NAME: '読み取りにはインジケータ名が必要です。',
+			RELEVANT_TITLE: '現在のインジケータに関連するインジケータは、自動的に検出できます。',
+			DETECT_RELEVANT: '潜在的な関連インジケータを検出します'
+		}
 	},
 	SETTINGS: {
 		TITLE: '設定',
@@ -313,7 +346,6 @@ export const Jp = {
 		YEAR: '年',
 		HALF_YEAR: '上半期/下半期',
 		QUARTER: '四半期',
-		SEASON: '季節',
 		MONTH: '月',
 		HALF_MONTH: '月の上半期/月の下半期',
 		TEN_DAYS: '上旬/中旬/下旬',
@@ -650,6 +682,43 @@ export const Jp = {
 		},
 		ECHART: {
 			TEXT: 'テキスト'
+		}
+	},
+	INDICATOR: {
+		MEASURE_METHOD: {
+			CONTINENT: '大陸',
+			REGION: '地域',
+			COUNTRY: '国',
+			PROVINCE: '州/省',
+			CITY: '市',
+			DISTRICT: '区',
+			FLOOR: '階',
+			RESIDENCE_TYPE: '住宅タイプ',
+			RESIDENTIAL_AREA: '住宅面積',
+			YEAR: '年',
+			HALF_YEAR: '上半期/下半期',
+			QUARTER: '四半期',
+			MONTH: '月',
+			HALF_MONTH: '月の上半期/月の下半期',
+			TEN_DAYS: '上旬/中旬/下旬',
+			WEEK_OF_YEAR: '年の週',
+			WEEK_OF_MONTH: '月の週',
+			HALF_WEEK: '週の上半期/週の下半期',
+			DAY_OF_MONTH: '月の日',
+			DAY_OF_WEEK: '週の日',
+			DAY_KIND: '勤務日/週末/祝日',
+			HOUR: '時間',
+			HOUR_KIND: '勤務時間/勤務時間外/睡眠時間',
+			AM_PM: '午前/午後',
+			GENDER: '性別',
+			OCCUPATION: '職業',
+			AGE: '年齢',
+			RELIGION: '宗教',
+			NATIONALITY: '国籍',
+			TRADE: '業界',
+			SCALE: '規模',
+			BOOLEAN: 'ブール値',
+			ENUM: '列挙'
 		}
 	},
 	SHARE: {

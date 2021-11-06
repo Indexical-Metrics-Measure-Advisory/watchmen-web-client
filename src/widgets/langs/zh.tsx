@@ -296,7 +296,6 @@ export const Zh = {
 			RELEVANT_TITLE: '当前指标相关的指标可以被自动侦测.',
 			DETECT_RELEVANT: '侦测潜在的相关指标'
 		}
-
 	},
 	SETTINGS: {
 		TITLE: '设置',
@@ -347,7 +346,6 @@ export const Zh = {
 		YEAR: '年',
 		HALF_YEAR: '上半年/下半年',
 		QUARTER: '季度',
-		SEASON: '季节',
 		MONTH: '月',
 		HALF_MONTH: '上半月/下半月',
 		TEN_DAYS: '上旬/中旬/下旬',
@@ -684,6 +682,43 @@ export const Zh = {
 		},
 		ECHART: {
 			TEXT: '文本'
+		}
+	},
+	INDICATOR: {
+		MEASURE_METHOD: {
+			CONTINENT: '洲',
+			REGION: '地区',
+			COUNTRY: '国家',
+			PROVINCE: '州/省',
+			CITY: '城市',
+			DISTRICT: '区县',
+			FLOOR: '楼层',
+			RESIDENCE_TYPE: '住宅类型',
+			RESIDENTIAL_AREA: '居住面积',
+			YEAR: '年',
+			HALF_YEAR: '上半年/下半年',
+			QUARTER: '季度',
+			MONTH: '月',
+			HALF_MONTH: '上半月/下半月',
+			TEN_DAYS: '上旬/中旬/下旬',
+			WEEK_OF_YEAR: '周(按年度)',
+			WEEK_OF_MONTH: '周(按月度)',
+			HALF_WEEK: '上半周/下半周',
+			DAY_OF_MONTH: '天(按月度)',
+			DAY_OF_WEEK: '天(按周)',
+			DAY_KIND: '工作日/周末/假日',
+			HOUR: '小时',
+			HOUR_KIND: '工作时间/业余时间/休息时间',
+			AM_PM: '上午/下午',
+			GENDER: '性别',
+			OCCUPATION: '职业',
+			AGE: '年龄',
+			RELIGION: '宗教',
+			NATIONALITY: '民族',
+			TRADE: '企业行业',
+			SCALE: '企业规模',
+			BOOLEAN: '布尔',
+			ENUM: '枚举'
 		}
 	},
 	SHARE: {
