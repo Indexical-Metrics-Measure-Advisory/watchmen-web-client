@@ -61,12 +61,17 @@ export enum IndicatorAggregateArithmetic {
 
 export type IndicatorId = string;
 
+export interface IndicatorMeasure {
+	factorId: FactorId;
+	method: MeasureMethod;
+}
+
 export interface Indicator extends Tuple {
 	indicatorId: IndicatorId;
 	name: string;
 	topicId: TopicId;
 	factorId?: FactorId;
-	measures: Array<MeasureMethod>;
+	measures: Array<IndicatorMeasure>;
 	tenantId?: TenantId;
 }
 

@@ -94,14 +94,14 @@ const ActivePart = (props: { data?: IndicatorsData; visible: boolean }) => {
 			if (measures == null) {
 				// ignore
 			} else if (Array.isArray(measures)) {
-				indicator!.measures.push(...measures);
+				indicator!.measures.push(...measures.map(measure => ({factorId: factor.factorId, method: measure})));
 			} else {
-				indicator!.measures.push(measures);
+				indicator!.measures.push({factorId: factor.factorId, method: measures});
 			}
 		});
 
 		fire(IndicatorsEventTypes.PICK_TOPIC, data!, (data: IndicatorsData) => {
-			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.SAVE_INDICATOR, data);
+			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.DEFINE_BUCKETS, data);
 		});
 	};
 

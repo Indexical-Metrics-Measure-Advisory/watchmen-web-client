@@ -14,6 +14,10 @@ export const NameInput = styled(Input)`
 	font-size     : 1.2em;
 	+ button {
 		border-radius : 0;
+		&:last-child {
+			border-top-right-radius    : calc(var(--height) * 0.6);
+			border-bottom-right-radius : calc(var(--height) * 0.6);
+		}
 	}
 	+ button + button {
 		border-top-left-radius    : 0;

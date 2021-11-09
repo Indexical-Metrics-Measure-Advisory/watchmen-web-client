@@ -49,7 +49,7 @@ const ActivePart = () => {
 	};
 	const onSelectionChange = async (item: IndicatorCandidate) => {
 		fire(IndicatorsEventTypes.PICK_INDICATOR, item.indicatorId, (data: IndicatorsData) => {
-			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.RELEVANT_INDICATORS, data);
+			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.LAST_STEP, data);
 			fireSearch(SearchTextEventTypes.HIDE_SEARCH);
 		});
 	};
@@ -69,7 +69,7 @@ const ActivePart = () => {
 const DonePart = () => {
 	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useIndicatorsEventBus();
-	const {data, done} = useStep({step: PrepareStep.CREATE_OR_FIND});
+	const {data, done, activeStep} = useStep({step: PrepareStep.CREATE_OR_FIND});
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const onIndicatorSaved = () => forceUpdate();
@@ -103,10 +103,14 @@ const DonePart = () => {
 		<StepTitleButton ink={ButtonInk.SUCCESS} asLabel={true}>
 			{label}
 		</StepTitleButton>
-		<StepTitleConjunctionLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.OR}</StepTitleConjunctionLabel>
-		<StepTitleButton ink={ButtonInk.DANGER} onClick={onRestartClicked}>
-			{Lang.INDICATOR_WORKBENCH.PREPARE.RESTART}
-		</StepTitleButton>
+		{activeStep !== PrepareStep.LAST_STEP && activeStep !== PrepareStep.CREATE_OR_FIND
+			? <>
+				<StepTitleConjunctionLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.OR}</StepTitleConjunctionLabel>
+				<StepTitleButton ink={ButtonInk.DANGER} onClick={onRestartClicked}>
+					{Lang.INDICATOR_WORKBENCH.PREPARE.RESTART}
+				</StepTitleButton>
+			</>
+			: null}
 	</Title>;
 };
 

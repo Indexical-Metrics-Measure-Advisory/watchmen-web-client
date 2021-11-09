@@ -10,7 +10,13 @@ const MonthlyPolicyPremiumIndicator: Indicator = {
 	name: 'Monthly Policy Premium',
 	topicId: MonthlyPolicyPremium.topicId,
 	factorId: MonthlyPolicyPremium.factors.find(factor => factor.name === 'premium')?.factorId,
-	measures: [MeasureMethod.YEAR, MeasureMethod.MONTH],
+	measures: [{
+		factorId: MonthlyPolicyPremium.factors.find(factor => factor.name === 'year')!.factorId,
+		method: MeasureMethod.YEAR
+	}, {
+		factorId: MonthlyPolicyPremium.factors.find(factor => factor.name === 'month')!.factorId,
+		method: MeasureMethod.MONTH
+	}],
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };
@@ -19,7 +25,13 @@ const WeeklyPolicyPremiumIndicator: Indicator = {
 	name: 'Weekly Policy Premium',
 	topicId: WeeklyPolicyPremium.topicId,
 	factorId: WeeklyPolicyPremium.factors.find(factor => factor.name === 'premium')?.factorId,
-	measures: [MeasureMethod.YEAR, MeasureMethod.WEEK_OF_YEAR],
+	measures: [{
+		factorId: WeeklyPolicyPremium.factors.find(factor => factor.name === 'year')!.factorId,
+		method: MeasureMethod.YEAR
+	}, {
+		factorId: WeeklyPolicyPremium.factors.find(factor => factor.name === 'week')!.factorId,
+		method: MeasureMethod.WEEK_OF_YEAR
+	}],
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };

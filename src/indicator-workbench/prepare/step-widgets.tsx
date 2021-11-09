@@ -32,7 +32,7 @@ export const ConjunctionLabel = styled(SinkingLabel).attrs({'data-widget': 'conj
 `;
 export const EmphaticSinkingLabel = styled(SinkingLabel)`
 	font-weight   : var(--font-demi-bold);
-	margin-bottom : 9px;
+	margin-bottom : calc(var(--height) * 0.4);
 `;
 const StepIndex = styled(SinkingLabel).attrs({'data-widget': 'step-index'})`
 	font-variant  : petite-caps;
@@ -123,6 +123,7 @@ export const StepBodyButtons = styled.div.attrs({'data-widget': 'step-body-butto
 `;
 
 export interface StepState {
+	activeStep?: PrepareStep;
 	active: boolean;
 	done: boolean;
 	data?: IndicatorsData;
@@ -135,7 +136,7 @@ export const useStep = (options: { step: PrepareStep, active?: () => void, done?
 	const [state, setState] = useState<StepState>({active: false, done: false});
 	useEffect(() => {
 		const onSwitchStep = (toStep: PrepareStep, data?: IndicatorsData) => {
-			setState({active: toStep === step, done: step < toStep, data});
+			setState({activeStep: toStep, active: toStep === step, done: step < toStep, data});
 			if (toStep === step) {
 				active && active();
 			} else if (step < toStep) {

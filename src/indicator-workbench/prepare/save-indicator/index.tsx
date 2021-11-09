@@ -27,7 +27,7 @@ export const SaveIndicator = () => {
 		step: PrepareStep.SAVE_INDICATOR,
 		active: () => {
 			setOnEdit(true);
-			setConstructed(true)
+			setConstructed(true);
 		},
 		done: () => {
 			setOnEdit(false);
@@ -100,9 +100,11 @@ export const SaveIndicator = () => {
 				{saving ? <FontAwesomeIcon icon={ICON_LOADING} spin={true}/> : null}
 				<span>{isOnCreate ? Lang.INDICATOR_WORKBENCH.PREPARE.SAVE_INDICATOR : Lang.INDICATOR_WORKBENCH.PREPARE.SAVE_NAME}</span>
 			</SaveButton>
-			<SaveButton ink={ButtonInk.PRIMARY} onClick={onDiscardClicked}>
-				{Lang.INDICATOR_WORKBENCH.PREPARE.NOT_NOW}
-			</SaveButton>
+			{isOnCreate
+				? null
+				: <SaveButton ink={ButtonInk.PRIMARY} onClick={onDiscardClicked}>
+					{Lang.INDICATOR_WORKBENCH.PREPARE.NOT_NOW}
+				</SaveButton>}
 		</StepTitle>
 		<StepTitle visible={visible && !onEdit}>
 			<StepTitleButton ink={ButtonInk.PRIMARY} onClick={onChangeNameClicked}>

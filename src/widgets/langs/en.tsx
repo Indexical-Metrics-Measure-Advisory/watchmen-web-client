@@ -288,6 +288,9 @@ export const En = {
 			INDIVIDUAL: 'Individual',
 			ORGANIZATION: 'Organization',
 			CATEGORY: 'Category',
+			DEFINE_BUCKETS_TITLE: 'Predefined buckets for better categorization and aggregation.',
+			DEFINE_BUCKET: 'Define Bucket',
+			IGNORE_DEFINE_BUCKETS: 'Ignore Buckets Definition',
 			CHANGE_NAME: 'Change Name',
 			NOT_NOW: 'Not Now',
 			SAVE_INDICATOR: 'Save Indicator',
@@ -295,7 +298,7 @@ export const En = {
 			REQUIRE_INDICATOR_NAME: 'A human reading name for indicator is required.',
 			RELEVANT_TITLE: 'Relevant indicators of current indicator can be detected automatically.',
 			DETECT_RELEVANT: 'Detect Potential Relevant Indicators',
-			DISCARD_DETECT_RELEVANT: 'Ignore Detect Now',
+			IGNORE_DETECT_RELEVANT: 'Ignore Detect Now',
 			LAST_STEP_TITLE: 'Indicator is ready.'
 		}
 	},

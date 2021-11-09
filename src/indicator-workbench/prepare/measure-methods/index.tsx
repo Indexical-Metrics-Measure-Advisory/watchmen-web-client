@@ -72,8 +72,8 @@ export const MeasureMethods = () => {
 		return null;
 	}
 
-	const filterMeasures = (func: (measure: MeasureMethod) => boolean) => {
-		return [...new Set((data?.indicator?.measures || []).filter(func))];
+	const filterMeasures = (func: (measure: MeasureMethod) => boolean): Array<MeasureMethod> => {
+		return [...new Set((data?.indicator?.measures || []).filter(({method}) => func(method)).map(({method}) => method))];
 	};
 
 	const geoMeasures = {

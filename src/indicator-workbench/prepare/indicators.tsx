@@ -5,6 +5,7 @@ import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import React, {Fragment, useEffect, useState} from 'react';
 import {CreateOrFind} from './create-or-find';
+import {DefineBuckets} from './define-buckets';
 import {useIndicatorsEventBus} from './indicators-event-bus';
 import {IndicatorsData, IndicatorsEventTypes} from './indicators-event-bus-types';
 import {LastStep} from './last-step';
@@ -72,6 +73,7 @@ export const Indicators = () => {
 		<CreateOrFind/>
 		<PickTopic/>
 		<MeasureMethods/>
+		<DefineBuckets/>
 		<SaveIndicator/>
 		<Relevant/>
 		<LastStep/>

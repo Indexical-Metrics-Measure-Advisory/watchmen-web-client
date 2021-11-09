@@ -288,6 +288,9 @@ export const Jp = {
 			INDIVIDUAL: '個人的に',
 			ORGANIZATION: '機関',
 			CATEGORY: '分類を指定します',
+			DEFINE_BUCKETS_TITLE: '分類と集計を改善するための事前定義されたバケット。',
+			DEFINE_BUCKET: 'バケットを定義する',
+			IGNORE_DEFINE_BUCKETS: 'バケット定義を無視する',
 			CHANGE_NAME: '名前を変更します',
 			NOT_NOW: '捨てる',
 			SAVE_INDICATOR: 'インジケータを保存',
@@ -295,7 +298,7 @@ export const Jp = {
 			REQUIRE_INDICATOR_NAME: '読み取りにはインジケータ名が必要です。',
 			RELEVANT_TITLE: '現在のインジケータに関連するインジケータは、自動的に検出できます。',
 			DETECT_RELEVANT: '潜在的な関連インジケータを検出します',
-			DISCARD_DETECT_RELEVANT: '今すぐ検出を無視',
+			IGNORE_DETECT_RELEVANT: '今すぐ検出を無視',
 			LAST_STEP_TITLE: 'インジケータの設定が完了しました.'
 		}
 	},

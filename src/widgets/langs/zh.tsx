@@ -288,6 +288,9 @@ export const Zh = {
 			INDIVIDUAL: '个人',
 			ORGANIZATION: '机构',
 			CATEGORY: '指定分类',
+			DEFINE_BUCKETS_TITLE: '为更好的分类和聚合数据, 可以使用预定义分桶.',
+			DEFINE_BUCKET: '定义分桶',
+			IGNORE_DEFINE_BUCKETS: '现在不定义分桶',
 			CHANGE_NAME: '修改名称',
 			NOT_NOW: '放弃',
 			SAVE_INDICATOR: '保存指标数据',
@@ -295,7 +298,7 @@ export const Zh = {
 			REQUIRE_INDICATOR_NAME: '需要一个用于阅读的指标名称.',
 			RELEVANT_TITLE: '当前指标相关的指标可以被自动侦测.',
 			DETECT_RELEVANT: '侦测潜在的相关指标',
-			DISCARD_DETECT_RELEVANT: '现在不侦测',
+			IGNORE_DETECT_RELEVANT: '现在不侦测',
 			LAST_STEP_TITLE: '指标设置完毕.'
 		}
 	},
