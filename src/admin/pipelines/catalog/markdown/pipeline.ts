@@ -42,6 +42,7 @@ import {
 import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
 import {Conditional} from '@/services/data/tuples/pipeline-super-types';
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
+import {base64Encode} from '@/services/utils';
 import {ExternalWritersMap} from './types';
 
 const generateComputeType = (type: ParameterComputeType): string => {
@@ -339,7 +340,7 @@ const generatePipelineMarkdown = (options: {
 	const triggerTopicName = triggerTopic ? (triggerTopic.name || 'Noname Topic') : 'Missed';
 	return `## ${sectionIndex}.${index + 1}. ${pipeline.name || 'Noname Pipeline'} #${pipeline.pipelineId}<span id="pipeline-${pipeline.pipelineId}"/>
 
-<a href="data:application/json;base64,${window.btoa(JSON.stringify(pipeline))}" target="_blank" download="${pipeline.name || 'Noname Pipeline'}-${pipeline.pipelineId}.json">Download Meta File</a>
+<a href="data:application/json;base64,${base64Encode(JSON.stringify(pipeline))}" target="_blank" download="${pipeline.name || 'Noname Pipeline'}-${pipeline.pipelineId}.json">Download Meta File</a>
 
 ### ${sectionIndex}.${index + 1}.1. Definition
 ${'```ts'}

@@ -12,6 +12,7 @@ import {
 import {Space} from '@/services/data/tuples/space-types';
 import {Subject, SubjectDataSetColumn} from '@/services/data/tuples/subject-types';
 import {Topic, TopicId} from '@/services/data/tuples/topic-types';
+import {base64Encode} from '@/services/utils';
 
 const findTopicIdsOnParameter = (parameter: Parameter | null | undefined): Array<TopicId> => {
 	if (parameter == null) {
@@ -171,7 +172,7 @@ const generateConnectedSpace = (options: {
 
 	return `#### ${sectionIndex}.${spaceIndex + 1}.2.${index + 1}. ${connectedSpace.name || 'Noname Connected Space'}
 		
-<a href="data:application/json;base64,${window.btoa(JSON.stringify(connectedSpace))}" target="_blank" download="${connectedSpace.name || 'Noname Connected Space'}-${connectedSpace.connectId}.json">Download Meta File</a>
+<a href="data:application/json;base64,${base64Encode(JSON.stringify(connectedSpace))}" target="_blank" download="${connectedSpace.name || 'Noname Connected Space'}-${connectedSpace.connectId}.json">Download Meta File</a>
 
 ${!connectedSpace.subjects || connectedSpace.subjects.length === 0 ? '> No subject.' : ''}
 ${(connectedSpace.subjects || []).map((subject, subjectIndex) => {
@@ -196,7 +197,7 @@ const generateSpaceMarkdown = (options: {
 	return `## ${sectionIndex}.${index + 1}. ${space.name || 'Noname Space'} #${space.spaceId}<span id="space-${space.spaceId}"/>
 ${space.description || ''}
 
-<a href="data:application/json;base64,${window.btoa(JSON.stringify(space))}" target="_blank" download="${space.name || 'Noname Space'}-${space.spaceId}.json">Download Meta File</a>
+<a href="data:application/json;base64,${base64Encode(JSON.stringify(space))}" target="_blank" download="${space.name || 'Noname Space'}-${space.spaceId}.json">Download Meta File</a>
 
 ### ${sectionIndex}.${index + 1}.1. Related Topics
 ${!space.topicIds || space.topicIds.length === 0 ? '> No related topic.' : ''}

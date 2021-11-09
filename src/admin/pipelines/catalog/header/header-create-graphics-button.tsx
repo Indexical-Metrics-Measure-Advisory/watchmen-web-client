@@ -2,6 +2,7 @@ import {savePipelinesGraphics} from '@/services/data/tuples/pipeline';
 import {PipelinesGraphics} from '@/services/data/tuples/pipeline-types';
 import {generateUuid} from '@/services/data/tuples/utils';
 import {getCurrentTime} from '@/services/data/utils';
+import {base64Encode} from '@/services/utils';
 import {ICON_PIPELINE} from '@/widgets/basic/constants';
 import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
 import {useEventBus} from '@/widgets/events/event-bus';
@@ -23,7 +24,7 @@ export const HeaderCreateGraphicsButton = () => {
 	const onCreatePipelineGraphicsClicked = async () => {
 		const graphics: PipelinesGraphics = {
 			pipelineGraphId: generateUuid(),
-			name: `Pipelines Group ${btoa(generateUuid()).substr(0, 12)}`,
+			name: `Pipelines Group ${base64Encode(generateUuid()).substr(0, 12)}`,
 			topics: [],
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()

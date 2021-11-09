@@ -1,3 +1,4 @@
+import {base64Decode, base64Encode} from '../../utils';
 import {Apis, get, post} from '../apis';
 import {fetchMockLastSnapshot} from '../mock/account/mock-last-snapshot';
 import {LAST_SNAPSHOT_TOKEN} from '../session-constants';
@@ -14,7 +15,7 @@ const fetchLastSnapshotFromSession = (): LastSnapshot | undefined => {
 	const value = localStorage.getItem(LAST_SNAPSHOT_TOKEN);
 	if (value) {
 		try {
-			return JSON.parse(atob(value));
+			return JSON.parse(base64Decode(value));
 		} catch {
 			return;
 		}
@@ -25,7 +26,7 @@ export const fetchLanguageFromSession = (): string | null => {
 	const value = localStorage.getItem(LAST_SNAPSHOT_TOKEN);
 	if (value) {
 		try {
-			return JSON.parse(atob(value)).language;
+			return JSON.parse(base64Decode(value)).language;
 		} catch {
 		}
 	}
@@ -35,14 +36,14 @@ export const fetchThemeFromSession = (): string | null => {
 	const value = localStorage.getItem(LAST_SNAPSHOT_TOKEN);
 	if (value) {
 		try {
-			return JSON.parse(atob(value)).theme;
+			return JSON.parse(base64Decode(value)).theme;
 		} catch {
 		}
 	}
 	return null;
 };
 const saveLastSnapshotToSession = (snapshot: LastSnapshot) => {
-	localStorage.setItem(LAST_SNAPSHOT_TOKEN, btoa(JSON.stringify(snapshot)));
+	localStorage.setItem(LAST_SNAPSHOT_TOKEN, base64Encode(JSON.stringify(snapshot)));
 };
 
 export const fetchLastSnapshot = async (): Promise<LastSnapshot> => {

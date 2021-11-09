@@ -10,6 +10,7 @@ import {Topic} from '@/services/data/tuples/topic-types';
 import {generateUuid} from '@/services/data/tuples/utils';
 import {getCurrentTime} from '@/services/data/utils';
 import {AdminCacheData} from '@/services/local-persist/types';
+import {base64Decode} from '@/services/utils';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {Button} from '@/widgets/basic/button';
 import {CheckBox} from '@/widgets/basic/checkbox';
@@ -176,7 +177,7 @@ export const HeaderImportButton = () => {
 			.filter(x => x.startsWith('<a href="data:application/json;base64,'))
 			.map(x => x.replace('<a href="data:application/json;base64,', ''))
 			.map(x => x.substring(0, x.indexOf('"')))
-			.map(x => JSON.parse(window.atob(x)))
+			.map(x => JSON.parse(base64Decode(x)))
 			.reduce((all, item) => {
 				if (item.pipelineId) {
 					all.pipelines.push(item as Pipeline);

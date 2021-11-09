@@ -8,6 +8,7 @@ import {
 import {Factor, FactorEncryptMethod, FactorEncryptMethodLabels} from '@/services/data/tuples/factor-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {isRawTopic} from '@/services/data/tuples/topic-utils';
+import {base64Encode} from '@/services/utils';
 import {DataSourcesMap, EnumsMap} from './types';
 
 const canBeFlatten = (topic: Topic, factor?: Factor) => {
@@ -24,7 +25,7 @@ const generateTopicMarkdown = (options: {
 	return `## ${sectionIndex}.${index + 1}. ${topic.name || 'Noname Topic'} #${topic.topicId}<span id="topic-${topic.topicId}"/>
 ${topic.description || ''}
 
-<a href="data:application/json;base64,${window.btoa(JSON.stringify(topic))}" target="_blank" download="${topic.name || 'Noname Topic'}-${topic.topicId}.json">Download Meta File</a>
+<a href="data:application/json;base64,${base64Encode(JSON.stringify(topic))}" target="_blank" download="${topic.name || 'Noname Topic'}-${topic.topicId}.json">Download Meta File</a>
 
 ### ${sectionIndex}.${index + 1}.1. Basic Information
 - Kind: ${topic.kind?.toUpperCase() ?? ''}

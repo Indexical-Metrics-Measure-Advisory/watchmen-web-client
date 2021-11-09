@@ -1,16 +1,22 @@
+import {base64Decode, base64Encode} from '../../utils';
 import {ACCOUNT_KEY_IN_SESSION, ACCOUNT_TOKEN} from '../session-constants';
 import {Token} from '../types';
 import {SessionAccount} from './types';
 
 export const saveAccountIntoSession = ({name, admin, super: superAdmin, tenantId}: SessionAccount) => {
-	sessionStorage.setItem(ACCOUNT_KEY_IN_SESSION, btoa(JSON.stringify({name, admin, super: superAdmin, tenantId})));
+	sessionStorage.setItem(ACCOUNT_KEY_IN_SESSION, base64Encode(JSON.stringify({
+		name,
+		admin,
+		super: superAdmin,
+		tenantId
+	})));
 };
 
 export const findAccount = (): SessionAccount | undefined => {
 	const value = sessionStorage.getItem(ACCOUNT_KEY_IN_SESSION);
 	if (value) {
 		try {
-			return JSON.parse(atob(value));
+			return JSON.parse(base64Decode(value));
 		} catch {
 			return (void 0);
 		}
