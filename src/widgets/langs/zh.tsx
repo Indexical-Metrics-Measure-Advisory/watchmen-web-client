@@ -294,7 +294,9 @@ export const Zh = {
 			SAVE_NAME: '保存指标名称',
 			REQUIRE_INDICATOR_NAME: '需要一个用于阅读的指标名称.',
 			RELEVANT_TITLE: '当前指标相关的指标可以被自动侦测.',
-			DETECT_RELEVANT: '侦测潜在的相关指标'
+			DETECT_RELEVANT: '侦测潜在的相关指标',
+			DISCARD_DETECT_RELEVANT: '现在不侦测',
+			LAST_STEP_TITLE: '指标设置完毕.'
 		}
 	},
 	SETTINGS: {

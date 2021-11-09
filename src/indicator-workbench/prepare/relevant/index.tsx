@@ -1,15 +1,27 @@
+import {useIndicatorsEventBus} from '@/indicator-workbench/prepare/indicators-event-bus';
+import {IndicatorsEventTypes} from '@/indicator-workbench/prepare/indicators-event-bus-types';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
-import {EmphaticSinkingLabel, Step, StepBody, StepTitle, StepTitleButton, useStep} from '../step-widgets';
+import {
+	EmphaticSinkingLabel,
+	Step,
+	StepBody,
+	StepBodyButtons,
+	StepBodyConjunctionLabel,
+	StepTitle,
+	StepTitleButton,
+	useStep
+} from '../step-widgets';
 import {PrepareStep} from '../types';
 import {useConstructed} from '../use-constructed';
 
 export const Relevant = () => {
 	const {fire: fireGlobal} = useEventBus();
+	const {fire} = useIndicatorsEventBus();
 	const {constructed, setConstructed, visible, setVisible} = useConstructed();
-	useStep({
+	const {data} = useStep({
 		step: PrepareStep.RELEVANT_INDICATORS,
 		active: () => setConstructed(true),
 		done: () => setConstructed(true),
@@ -24,6 +36,9 @@ export const Relevant = () => {
 		// TODO detect relevant indicators
 		fireGlobal(EventTypes.SHOW_NOT_IMPLEMENT);
 	};
+	const onIgnoreDetectClicked = () => {
+		fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.LAST_STEP, data);
+	};
 
 	return <Step index={5} visible={visible}>
 		<StepTitle visible={visible}>
@@ -32,9 +47,15 @@ export const Relevant = () => {
 			</EmphaticSinkingLabel>
 		</StepTitle>
 		<StepBody>
-			<StepTitleButton ink={ButtonInk.PRIMARY} onClick={onDetectClicked}>
-				{Lang.INDICATOR_WORKBENCH.PREPARE.DETECT_RELEVANT}
-			</StepTitleButton>
+			<StepBodyButtons>
+				<StepTitleButton ink={ButtonInk.PRIMARY} onClick={onDetectClicked}>
+					{Lang.INDICATOR_WORKBENCH.PREPARE.DETECT_RELEVANT}
+				</StepTitleButton>
+				<StepBodyConjunctionLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.OR}</StepBodyConjunctionLabel>
+				<StepTitleButton ink={ButtonInk.DANGER} onClick={onIgnoreDetectClicked}>
+					{Lang.INDICATOR_WORKBENCH.PREPARE.DISCARD_DETECT_RELEVANT}
+				</StepTitleButton>
+			</StepBodyButtons>
 		</StepBody>
 	</Step>;
 };

@@ -294,7 +294,9 @@ export const Jp = {
 			SAVE_NAME: '名前を保存する',
 			REQUIRE_INDICATOR_NAME: '読み取りにはインジケータ名が必要です。',
 			RELEVANT_TITLE: '現在のインジケータに関連するインジケータは、自動的に検出できます。',
-			DETECT_RELEVANT: '潜在的な関連インジケータを検出します'
+			DETECT_RELEVANT: '潜在的な関連インジケータを検出します',
+			DISCARD_DETECT_RELEVANT: '今すぐ検出を無視',
+			LAST_STEP_TITLE: 'インジケータの設定が完了しました.'
 		}
 	},
 	SETTINGS: {

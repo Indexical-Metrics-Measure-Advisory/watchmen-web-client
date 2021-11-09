@@ -1,3 +1,4 @@
+import {LastStep} from '@/indicator-workbench/prepare/last-step';
 import {fetchIndicator} from '@/services/data/tuples/indicator';
 import {Indicator, IndicatorId} from '@/services/data/tuples/indicator-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
@@ -73,5 +74,6 @@ export const Indicators = () => {
 		<MeasureMethods/>
 		<SaveIndicator/>
 		<Relevant/>
+		<LastStep/>
 	</IndicatorsContainer>;
 };

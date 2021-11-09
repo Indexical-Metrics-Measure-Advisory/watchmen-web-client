@@ -12,9 +12,9 @@ import {IndicatorsData, IndicatorsEventTypes} from '../indicators-event-bus-type
 import {SearchItem, SearchText} from '../search-text';
 import {SearchTextEventBusProvider, useSearchTextEventBus} from '../search-text/search-text-event-bus';
 import {SearchTextEventTypes} from '../search-text/search-text-event-bus-types';
-import {Step, StepTitleButton, useStep} from '../step-widgets';
+import {Step, StepTitleButton, StepTitleConjunctionLabel, useStep} from '../step-widgets';
 import {PrepareStep} from '../types';
-import {Label, Title} from './widgets';
+import {Title} from './widgets';
 
 interface IndicatorCandidate extends SearchItem {
 	indicatorId: IndicatorId;
@@ -58,7 +58,7 @@ const ActivePart = () => {
 		<StepTitleButton ink={ButtonInk.PRIMARY} onClick={onCreateClicked}>
 			{Lang.INDICATOR_WORKBENCH.PREPARE.CREATE_INDICATOR}
 		</StepTitleButton>
-		<Label>{Lang.INDICATOR_WORKBENCH.PREPARE.OR}</Label>
+		<StepTitleConjunctionLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.OR}</StepTitleConjunctionLabel>
 		<SearchText search={search} onSelectionChange={onSelectionChange}
 		            openText={Lang.INDICATOR_WORKBENCH.PREPARE.FIND_INDICATOR}
 		            closeText={Lang.INDICATOR_WORKBENCH.PREPARE.DISCARD_FIND_INDICATOR}
@@ -103,7 +103,7 @@ const DonePart = () => {
 		<StepTitleButton ink={ButtonInk.SUCCESS} asLabel={true}>
 			{label}
 		</StepTitleButton>
-		<Label>{Lang.INDICATOR_WORKBENCH.PREPARE.OR}</Label>
+		<StepTitleConjunctionLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.OR}</StepTitleConjunctionLabel>
 		<StepTitleButton ink={ButtonInk.DANGER} onClick={onRestartClicked}>
 			{Lang.INDICATOR_WORKBENCH.PREPARE.RESTART}
 		</StepTitleButton>

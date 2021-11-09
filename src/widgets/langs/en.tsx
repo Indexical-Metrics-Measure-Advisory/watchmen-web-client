@@ -294,7 +294,9 @@ export const En = {
 			SAVE_NAME: 'Save Name',
 			REQUIRE_INDICATOR_NAME: 'A human reading name for indicator is required.',
 			RELEVANT_TITLE: 'Relevant indicators of current indicator can be detected automatically.',
-			DETECT_RELEVANT: 'Detect Potential Relevant Indicators'
+			DETECT_RELEVANT: 'Detect Potential Relevant Indicators',
+			DISCARD_DETECT_RELEVANT: 'Ignore Detect Now',
+			LAST_STEP_TITLE: 'Indicator is ready.'
 		}
 	},
 	SETTINGS: {

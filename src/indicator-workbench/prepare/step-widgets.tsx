@@ -20,17 +20,22 @@ const StepContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
 	transition            : opacity 300ms ease-in-out;
 `;
 export const SinkingLabel = styled.span`
-	display       : flex;
-	position      : relative;
-	align-self    : flex-end;
-	margin-bottom : calc(var(--height) * 0.4);
-	font-size     : 1.2em;
+	display    : flex;
+	position   : relative;
+	align-self : flex-end;
+	font-size  : 1.2em;
+`;
+export const ConjunctionLabel = styled(SinkingLabel).attrs({'data-widget': 'conjunction-label'})`
+	text-transform : lowercase;
+	font-variant   : petite-caps;
+	margin-right   : calc(var(--margin) / 2);
 `;
 export const EmphaticSinkingLabel = styled(SinkingLabel)`
 	font-weight : var(--font-demi-bold);
 `;
 const StepIndex = styled(SinkingLabel).attrs({'data-widget': 'step-index'})`
-	font-variant : petite-caps;
+	font-variant  : petite-caps;
+	margin-bottom : calc(var(--height) * 0.4);
 `;
 const StepTitleContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
 	return {
@@ -62,6 +67,10 @@ const StepBackground = styled.div.attrs({'data-widget': 'step-background'})`
 	opacity          : 0.2;
 	z-index          : -1;
 `;
+export const StepTitleConjunctionLabel = styled(ConjunctionLabel)`
+	margin-bottom : calc(var(--height) * 0.4);
+`;
+
 export const Step = (props: { index: number; visible?: boolean; children: ReactNode }) => {
 	const {index, visible = true, children} = props;
 
@@ -103,6 +112,13 @@ export const StepBody = styled.div.attrs({'data-widget': 'step-body'})`
 	grid-column : 2;
 	width       : 100%;
 	margin      : calc(var(--margin) / 2) 0 var(--margin);
+`;
+export const StepBodyConjunctionLabel = styled(ConjunctionLabel)`
+	margin-left : calc(var(--margin) / 2);
+`;
+export const StepBodyButtons = styled.div.attrs({'data-widget': 'step-body-buttons'})`
+	display  : flex;
+	position : relative;
 `;
 
 export interface StepState {
