@@ -21,7 +21,7 @@ export const Relevant = () => {
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useIndicatorsEventBus();
 	const {constructed, setConstructed, visible, setVisible} = useConstructed();
-	const {data, done} = useStep({
+	const {data, active} = useStep({
 		step: PrepareStep.RELEVANT_INDICATORS,
 		active: () => setConstructed(true),
 		done: () => setConstructed(true),
@@ -51,14 +51,14 @@ export const Relevant = () => {
 				<StepTitleButton ink={ButtonInk.PRIMARY} onClick={onDetectClicked}>
 					{Lang.INDICATOR_WORKBENCH.PREPARE.DETECT_RELEVANT}
 				</StepTitleButton>
-				{done
-					? null
-					: <>
+				{active
+					? <>
 						<StepBodyConjunctionLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.OR}</StepBodyConjunctionLabel>
 						<StepTitleButton ink={ButtonInk.DANGER} onClick={onIgnoreDetectClicked}>
 							{Lang.INDICATOR_WORKBENCH.PREPARE.IGNORE_DETECT_RELEVANT}
 						</StepTitleButton>
-					</>}
+					</>
+					: null}
 			</StepBodyButtons>
 		</StepBody>
 	</Step>;
