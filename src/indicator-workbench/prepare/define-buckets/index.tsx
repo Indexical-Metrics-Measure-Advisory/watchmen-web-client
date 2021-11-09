@@ -21,7 +21,7 @@ export const DefineBuckets = () => {
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useIndicatorsEventBus();
 	const {constructed, setConstructed, visible, setVisible} = useConstructed();
-	const {data, active} = useStep({
+	const {data, done} = useStep({
 		step: PrepareStep.DEFINE_BUCKETS,
 		active: () => setConstructed(true),
 		done: () => setConstructed(true),
@@ -49,14 +49,14 @@ export const DefineBuckets = () => {
 				<StepTitleButton ink={ButtonInk.PRIMARY} onClick={onDefineClicked}>
 					{Lang.INDICATOR_WORKBENCH.PREPARE.DEFINE_BUCKET}
 				</StepTitleButton>
-				{active
-					? <>
+				{done
+					? null
+					: <>
 						<StepBodyConjunctionLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.OR}</StepBodyConjunctionLabel>
 						<StepTitleButton ink={ButtonInk.DANGER} onClick={onIgnoreDefineClicked}>
 							{Lang.INDICATOR_WORKBENCH.PREPARE.IGNORE_DEFINE_BUCKETS}
 						</StepTitleButton>
-					</>
-					: null}
+					</>}
 			</StepBodyButtons>
 		</StepBody>
 	</Step>;
