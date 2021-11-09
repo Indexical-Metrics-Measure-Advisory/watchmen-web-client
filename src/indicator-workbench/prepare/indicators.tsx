@@ -1,4 +1,3 @@
-import {LastStep} from '@/indicator-workbench/prepare/last-step';
 import {fetchIndicator} from '@/services/data/tuples/indicator';
 import {Indicator, IndicatorId} from '@/services/data/tuples/indicator-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
@@ -8,6 +7,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {CreateOrFind} from './create-or-find';
 import {useIndicatorsEventBus} from './indicators-event-bus';
 import {IndicatorsData, IndicatorsEventTypes} from './indicators-event-bus-types';
+import {LastStep} from './last-step';
 import {MeasureMethods} from './measure-methods';
 import {PickTopic} from './pick-topic';
 import {Relevant} from './relevant';

@@ -1,9 +1,9 @@
-import {useIndicatorsEventBus} from '@/indicator-workbench/prepare/indicators-event-bus';
-import {IndicatorsEventTypes} from '@/indicator-workbench/prepare/indicators-event-bus-types';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
+import {useIndicatorsEventBus} from '../indicators-event-bus';
+import {IndicatorsEventTypes} from '../indicators-event-bus-types';
 import {
 	EmphaticSinkingLabel,
 	Step,
