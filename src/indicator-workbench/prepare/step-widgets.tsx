@@ -31,7 +31,8 @@ export const ConjunctionLabel = styled(SinkingLabel).attrs({'data-widget': 'conj
 	margin-right   : calc(var(--margin) / 2);
 `;
 export const EmphaticSinkingLabel = styled(SinkingLabel)`
-	font-weight : var(--font-demi-bold);
+	font-weight   : var(--font-demi-bold);
+	margin-bottom : 9px;
 `;
 const StepIndex = styled(SinkingLabel).attrs({'data-widget': 'step-index'})`
 	font-variant  : petite-caps;

@@ -5,4 +5,5 @@ export const IndicatorsContainer = styled.div.attrs({'data-widget': 'indicators'
 	position       : relative;
 	flex-direction : column;
 	margin-top     : var(--margin);
+	padding-bottom : var(--margin);
 `;
