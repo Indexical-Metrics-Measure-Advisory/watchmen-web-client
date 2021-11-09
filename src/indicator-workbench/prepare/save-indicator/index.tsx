@@ -96,15 +96,15 @@ export const SaveIndicator = () => {
 			<NameInput value={data.indicator.name || ''} onChange={onNameChanged}
 			           placeholder={Lang.PLAIN.INDICATOR_NAME_PLACEHOLDER}
 			           ref={inputRef}/>
-			<SaveButton ink={ButtonInk.PRIMARY} onClick={onSaveClicked}>
-				{saving ? <FontAwesomeIcon icon={ICON_LOADING} spin={true}/> : null}
-				<span>{isOnCreate ? Lang.INDICATOR_WORKBENCH.PREPARE.SAVE_INDICATOR : Lang.INDICATOR_WORKBENCH.PREPARE.SAVE_NAME}</span>
-			</SaveButton>
 			{isOnCreate
 				? null
 				: <SaveButton ink={ButtonInk.PRIMARY} onClick={onDiscardClicked}>
 					{Lang.INDICATOR_WORKBENCH.PREPARE.NOT_NOW}
 				</SaveButton>}
+			<SaveButton ink={ButtonInk.PRIMARY} onClick={onSaveClicked}>
+				{saving ? <FontAwesomeIcon icon={ICON_LOADING} spin={true}/> : null}
+				<span>{isOnCreate ? Lang.INDICATOR_WORKBENCH.PREPARE.SAVE_INDICATOR : Lang.INDICATOR_WORKBENCH.PREPARE.SAVE_NAME}</span>
+			</SaveButton>
 		</StepTitle>
 		<StepTitle visible={visible && !onEdit}>
 			<StepTitleButton ink={ButtonInk.PRIMARY} onClick={onChangeNameClicked}>
