@@ -21,16 +21,15 @@ export const MeasureItemsTitle = styled.span.attrs({'data-widget': 'measure-item
 	}
 `;
 export const MeasureItemsBlock = styled.div.attrs({'data-widget': 'measure-items-block'})`
-	display     : flex;
-	position    : relative;
-	flex-wrap   : wrap;
-	margin-left : calc(var(--margin) / -2);
+	display               : grid;
+	position              : relative;
+	grid-template-columns : auto 1fr;
+	margin-left           : calc(var(--margin) / -2);
 `;
 export const MeasureItem = styled.span.attrs({'data-widget': 'measure-item'})`
 	display        : flex;
 	position       : relative;
 	align-items    : center;
-	//color          : var(--invert-color);
 	padding        : 0 calc(var(--margin) / 2);
 	margin         : calc(var(--height) * 0.2) 0 calc(var(--height) * 0.2) calc(var(--margin) / 2);
 	height         : calc(var(--height) * 0.8);
@@ -51,11 +50,62 @@ export const MeasureItem = styled.span.attrs({'data-widget': 'measure-item'})`
 		opacity          : 0.3;
 		z-index          : -1;
 	}
+	> svg {
+		margin-right : calc(var(--margin) / 4);
+		font-size    : 0.7em;
+		opacity      : 0.7;
+	}
+`;
+export const MeasureFactors = styled.div.attrs({'data-widget': 'measure-factors'})`
+	display   : flex;
+	position  : relative;
+	flex-wrap : wrap;
+`;
+export const MeasureFactorTooltip = styled.div.attrs({'data-widget': 'measure-factor-tooltip'})`
+	display               : grid;
+	grid-template-columns : auto 1fr;
+	grid-column-gap       : calc(var(--margin) / 2);
+	padding               : 0 calc(var(--margin) / 4);
+	> span:first-child {
+		grid-column     : 1 / span 2;
+		font-variant    : petite-caps;
+		font-size       : 1.2em;
+		text-decoration : underline;
+		margin-bottom   : calc(var(--margin) / 4);
+	}
+`;
+export const MeasureFactorLabel = styled.span.attrs({'data-widget': 'measure-factor'})`
+	display        : flex;
+	position       : relative;
+	align-items    : center;
+	padding        : 0 calc(var(--margin) / 2);
+	margin         : calc(var(--height) * 0.2) 0 calc(var(--height) * 0.2) calc(var(--margin) / 2);
+	height         : calc(var(--height) * 0.8);
+	border-radius  : var(--border-radius);
+	text-transform : capitalize;
+	font-size      : 1.1em;
+	font-variant   : petite-caps;
+	overflow       : hidden;
+	&:after {
+		content          : '';
+		display          : block;
+		position         : absolute;
+		top              : 0;
+		left             : 0;
+		width            : 100%;
+		height           : 100%;
+		background-color : var(--info-color);
+		opacity          : 0.3;
+		z-index          : -1;
+	}
 `;
 export const AggregateItemsTitle = MeasureItemsTitle;
-export const AggregateItemsBlock = MeasureItemsBlock;
+export const AggregateItemsBlock = styled(MeasureItemsBlock)`
+	display   : flex;
+	flex-wrap : wrap;
+`;
 export const AggregateItem = styled(MeasureItem)`
 	&:after {
-		background-color : var(--success-color);
+		background-color : var(--warn-color);
 	}
 `;

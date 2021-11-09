@@ -1,4 +1,5 @@
-import {IndicatorAggregateArithmetic, MeasureMethod} from '@/services/data/tuples/indicator-types';
+import {Factor} from '@/services/data/tuples/factor-types';
+import {IndicatorAggregateArithmetic, IndicatorMeasure, MeasureMethod} from '@/services/data/tuples/indicator-types';
 import {
 	isCategoryMeasure,
 	isGeoMeasure,
@@ -6,8 +7,15 @@ import {
 	isOrganizationMeasure,
 	isTimePeriodMeasure
 } from '@/services/data/tuples/indicator-utils';
+import {FactorTypeLabel} from '@/widgets/basic/factor-type-label';
 import {MeasureMethodLabel} from '@/widgets/basic/measure-method-label';
+import {useTooltip} from '@/widgets/basic/tooltip';
+import {TooltipAlignment} from '@/widgets/basic/types';
 import {Lang} from '@/widgets/langs';
+import {faSection} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {Fragment, useRef} from 'react';
+import {MeasureMethodSort} from '../../utils/sort';
 import {EmphaticSinkingLabel, Step, StepBody, StepTitle, useStep} from '../step-widgets';
 import {PrepareStep} from '../types';
 import {useConstructed} from '../use-constructed';
@@ -15,26 +23,87 @@ import {
 	AggregateItem,
 	AggregateItemsBlock,
 	AggregateItemsTitle,
+	MeasureFactorLabel,
+	MeasureFactors,
+	MeasureFactorTooltip,
 	MeasureItem,
 	MeasureItemsBlock,
 	MeasureItemsContainer,
 	MeasureItemsTitle
 } from './widgets';
 
-const MeasureItems = (props: { label: string; measures: Array<MeasureMethod> }) => {
-	const {label, measures} = props;
+interface AvailableMeasureFactor extends IndicatorMeasure {
+	factorName?: string;
+	factor?: Factor;
+}
 
-	if (measures.length === 0) {
+const MeasureFactor = (props: { factor: Factor }) => {
+	const {factor} = props;
+	const {name, label} = factor;
+
+	const ref = useRef<HTMLSpanElement>(null);
+	const tooltip = useTooltip<HTMLSpanElement>({
+		use: true,
+		alignment: TooltipAlignment.CENTER,
+		tooltip: <MeasureFactorTooltip>
+			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.FACTOR}</span>
+			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.FACTOR_NAME}:</span>
+			<span>{name}</span>
+			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.FACTOR_LABEL}:</span>
+			<span>{label}</span>
+			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.FACTOR_TYPE}:</span>
+			<span><FactorTypeLabel factor={factor}/></span>
+		</MeasureFactorTooltip>,
+		target: ref
+	});
+
+	return <MeasureFactorLabel {...tooltip} ref={ref}>
+		<span>{name || 'Noname Factor'}</span>
+	</MeasureFactorLabel>;
+};
+
+const MeasureItems = (props: { label: string; measureFactors: Array<AvailableMeasureFactor> }) => {
+	const {label, measureFactors} = props;
+
+	if (measureFactors.length === 0) {
 		return null;
 	}
+
+	const legal = (amf: AvailableMeasureFactor): amf is Required<AvailableMeasureFactor> => amf.factor != null;
+	const mfs: Array<Required<AvailableMeasureFactor>> = measureFactors.filter(legal);
+	if (mfs.length === 0) {
+		return null;
+	}
+
+	const methodGroups = mfs.reduce((map, measureFactor) => {
+		const {method, factor} = measureFactor;
+		let group = map[method];
+		if (group == null) {
+			group = [];
+			map[method] = group;
+		}
+		group.push(factor);
+		return map;
+	}, {} as Record<MeasureMethod, Array<Factor>>);
 
 	return <>
 		<MeasureItemsTitle>{label}</MeasureItemsTitle>
 		<MeasureItemsBlock>
-			{measures.map(measure => {
-				return <MeasureItem key={measure}>
-					<MeasureMethodLabel measureMethod={measure}/>
-				</MeasureItem>;
+			{Object.keys(methodGroups).sort((m1, m2) => {
+				return MeasureMethodSort[m1 as MeasureMethod] - MeasureMethodSort[m2 as MeasureMethod];
+			}).map(method => {
+				const factors = methodGroups[method as MeasureMethod];
+				return <Fragment key={method}>
+					<MeasureItem>
+						<FontAwesomeIcon icon={faSection}/>
+						<MeasureMethodLabel measureMethod={method as MeasureMethod}/>
+					</MeasureItem>
+					<MeasureFactors>
+						{factors.map(factor => {
+							return <MeasureFactor factor={factor} key={factor.factorId}/>;
+						})}
+					</MeasureFactors>
+				</Fragment>;
 			})}
 		</MeasureItemsBlock>
 	</>;
@@ -72,8 +141,17 @@ export const MeasureMethods = () => {
 		return null;
 	}
 
-	const filterMeasures = (func: (measure: MeasureMethod) => boolean): Array<MeasureMethod> => {
-		return [...new Set((data?.indicator?.measures || []).filter(({method}) => func(method)).map(({method}) => method))];
+	const filterMeasures = (func: (measure: MeasureMethod) => boolean): Array<AvailableMeasureFactor> => {
+		const {factors = []} = data?.topic || {};
+		return [
+			...new Set((data?.indicator?.measures || [])
+				.filter(({method}) => func(method))
+				.map(({factorId, method}) => {
+					// eslint-disable-next-line
+					const factor = factors.find(factor => factor.factorId == factorId);
+					return {factorId, factorName: factor?.name, factor, method};
+				}))
+		];
 	};
 
 	const geoMeasures = {
@@ -96,7 +174,6 @@ export const MeasureMethods = () => {
 		label: Lang.INDICATOR_WORKBENCH.PREPARE.ORGANIZATION,
 		measures: filterMeasures(isOrganizationMeasure)
 	};
-	// TODO to view boolean factor name and enum name when measure is categorized
 	const categoryMeasures = {
 		key: 'category',
 		label: Lang.INDICATOR_WORKBENCH.PREPARE.CATEGORY,
@@ -111,7 +188,7 @@ export const MeasureMethods = () => {
 			<MeasureItemsContainer>
 				{[geoMeasures, timePeriodMeasures, individualMeasures, organizationMeasures, categoryMeasures]
 					.map(({key, label, measures}) => {
-						return <MeasureItems label={label} measures={measures} key={key}/>;
+						return <MeasureItems label={label} measureFactors={measures} key={key}/>;
 					})}
 				<AggregateItems label={Lang.INDICATOR_WORKBENCH.PREPARE.AGGREGATE} aggregates={[
 					IndicatorAggregateArithmetic.COUNT, IndicatorAggregateArithmetic.SUM, IndicatorAggregateArithmetic.AVG,

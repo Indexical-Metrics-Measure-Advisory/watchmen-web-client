@@ -1,6 +1,6 @@
 import {faCaretDown, faCaretLeft, faCaretRight, faCaretUp} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {MouseEvent, RefObject, useEffect, useState} from 'react';
+import React, {MouseEvent, ReactNode, RefObject, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useEventBus} from '../events/event-bus';
 import {EventTypes, TooltipParam} from '../events/types';
@@ -21,7 +21,7 @@ export interface ComputedTooltipRect extends TooltipRect {
 }
 
 interface TooltipContent {
-	tooltip: string,
+	tooltip: ReactNode,
 	rect: ComputedTooltipRect
 }
 
@@ -143,7 +143,7 @@ const NOOP = () => {
 };
 export const useTooltip = <T extends HTMLElement>(options: TooltipRect & {
 	use?: boolean;
-	tooltip: string;
+	tooltip: ReactNode;
 	target: RefObject<T>;
 }) => {
 	const {use = true, tooltip, target, ...rect} = options;

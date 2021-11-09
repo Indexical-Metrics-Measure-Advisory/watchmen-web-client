@@ -1,4 +1,4 @@
-import {CSSProperties} from 'react';
+import {CSSProperties, ReactNode} from 'react';
 import {ReactContent, TooltipAlignment, TooltipPosition} from '../basic/types';
 import {LanguageObjectType} from '../langs/types';
 
@@ -28,7 +28,7 @@ export enum EventTypes {
 
 export interface TooltipParam {
 	target: HTMLElement;
-	text: string;
+	text: ReactNode;
 	alignment?: TooltipAlignment;
 	position?: TooltipPosition;
 	minWidth?: number;
