@@ -41,7 +41,7 @@ export const LastStep = () => {
 		<StepBody>
 			<StepBodyButtons>
 				<StepTitleButton ink={ButtonInk.DANGER} onClick={onRestartClicked}>
-					{Lang.INDICATOR_WORKBENCH.PREPARE.RESTART}
+					{Lang.INDICATOR_WORKBENCH.PREPARE.PREPARE_ANOTHER}
 				</StepTitleButton>
 			</StepBodyButtons>
 		</StepBody>

@@ -260,7 +260,7 @@ export const Jp = {
 	INDICATOR_WORKBENCH: {
 		MENU: {
 			TITLE: 'インジケーターワークベンチ',
-			PREPARE: '準備係数',
+			PREPARE: 'インジケータを準備',
 			INSPECTION: 'インジケーターの構造',
 			SETTINGS: '設定',
 			LOGOUT: 'ログアウト'
@@ -268,6 +268,7 @@ export const Jp = {
 		LOADING: 'データ読み込み中...',
 		ON_EDIT: '編集中、保存されていないデータはすべて失われます。編集を破棄しますか?',
 		PREPARE: {
+			TITLE: 'インジケータを準備',
 			WAIT_INPUT: '入力を待っている...',
 			SEARCHING: '検索中...',
 			NO_MATCHED: '一致するデータが見つかりませんでした。',
@@ -299,7 +300,8 @@ export const Jp = {
 			RELEVANT_TITLE: '現在のインジケータに関連するインジケータは、自動的に検出できます。',
 			DETECT_RELEVANT: '潜在的な関連インジケータを検出します',
 			IGNORE_DETECT_RELEVANT: '今すぐ検出を無視',
-			LAST_STEP_TITLE: 'インジケータの設定が完了しました.'
+			LAST_STEP_TITLE: 'インジケータの設定が完了しました。',
+			PREPARE_ANOTHER: '別のインジケータを定義します.'
 		}
 	},
 	SETTINGS: {

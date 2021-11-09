@@ -268,6 +268,7 @@ export const Zh = {
 		LOADING: '努力加载数据...',
 		ON_EDIT: '正在编辑中, 所有未保存的数据都将丢失. 是否确定放弃编辑?',
 		PREPARE: {
+			TITLE: '准备指标因子',
 			WAIT_INPUT: '等待输入...',
 			SEARCHING: '努力查找中...',
 			NO_MATCHED: '没有找到匹配的数据.',
@@ -299,7 +300,8 @@ export const Zh = {
 			RELEVANT_TITLE: '当前指标相关的指标可以被自动侦测.',
 			DETECT_RELEVANT: '侦测潜在的相关指标',
 			IGNORE_DETECT_RELEVANT: '现在不侦测',
-			LAST_STEP_TITLE: '指标设置完毕.'
+			LAST_STEP_TITLE: '指标设置完毕.',
+			PREPARE_ANOTHER: '定义另一个指标'
 		}
 	},
 	SETTINGS: {

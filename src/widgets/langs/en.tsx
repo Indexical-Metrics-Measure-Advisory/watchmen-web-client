@@ -268,6 +268,7 @@ export const En = {
 		LOADING: 'Loading Data...',
 		ON_EDIT: 'Still in editing, all changes will be lost if interrupt. Are you sure to continue?',
 		PREPARE: {
+			TITLE: 'Prepare Indicators',
 			WAIT_INPUT: 'Waiting for input...',
 			SEARCHING: 'Searching...',
 			NO_MATCHED: 'No matching data found.',
@@ -299,7 +300,8 @@ export const En = {
 			RELEVANT_TITLE: 'Relevant indicators of current indicator can be detected automatically.',
 			DETECT_RELEVANT: 'Detect Potential Relevant Indicators',
 			IGNORE_DETECT_RELEVANT: 'Ignore Detect Now',
-			LAST_STEP_TITLE: 'Indicator is ready.'
+			LAST_STEP_TITLE: 'Indicator is ready.',
+			PREPARE_ANOTHER: 'Prepare Another Indicator'
 		}
 	},
 	SETTINGS: {
