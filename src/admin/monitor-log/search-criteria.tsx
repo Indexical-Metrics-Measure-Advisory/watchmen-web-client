@@ -5,10 +5,11 @@ import {Button} from '@/widgets/basic/button';
 import {Calendar, CALENDAR_FORMAT} from '@/widgets/basic/calendar';
 import {ICON_SEARCH} from '@/widgets/basic/constants';
 import {Dropdown} from '@/widgets/basic/dropdown';
+import {Input} from '@/widgets/basic/input';
 import {ButtonInk, DropdownOption} from '@/widgets/basic/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {useMonitorLogEventBus} from './monitor-log-event-bus';
 import {MonitorLogEventTypes} from './monitor-log-event-bus-types';
 import {SearchCriteriaContainer, SearchLabel} from './widgets';
@@ -60,13 +61,20 @@ export const SearchCriteria = (props: {
 	const onStatusChanged = (option: DropdownOption) => {
 		setCriteria({...criteria, status: option.value});
 	};
+	const onTraceIdChanged = (event: ChangeEvent<HTMLInputElement>) => {
+		const {value} = event.target;
+		setCriteria(({...criteria, traceId: value}));
+	};
 	const onStartDateChanged = (value?: string) => {
 		setCriteria({...criteria, startDate: value});
 	};
 	const onEndDateChanged = (value?: string) => {
 		setCriteria({...criteria, endDate: value});
 	};
-	const onSearchClicked = () => fire(MonitorLogEventTypes.DO_SEARCH, criteria);
+	const onSearchClicked = () => fire(MonitorLogEventTypes.DO_SEARCH, {
+		...criteria,
+		traceId: criteria.traceId?.trim()
+	});
 
 	const topicOptions: Array<DropdownOption> = [
 		{value: '', label: 'Any Topic'},
@@ -94,6 +102,8 @@ export const SearchCriteria = (props: {
 
 	return <SearchCriteriaContainer>
 		<SearchLabel>Search By</SearchLabel>
+		<SearchLabel>Trace ID</SearchLabel>
+		<Input value={criteria.traceId} onChange={onTraceIdChanged}/>
 		<SearchLabel>Topic</SearchLabel>
 		<Dropdown options={topicOptions} value={criteria.topicId} onChange={onTopicChanged}/>
 		<SearchLabel>Pipeline</SearchLabel>

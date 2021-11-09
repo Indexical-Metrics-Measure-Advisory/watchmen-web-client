@@ -17,6 +17,7 @@ export interface MonitorLogCriteria {
 	startDate?: string;
 	endDate?: string;
 	status?: MonitorLogStatus;
+	traceId?: string;
 }
 
 export enum MonitorLogStatus {
@@ -78,6 +79,7 @@ export interface MonitorLogStage {
 
 export interface MonitorLogRow {
 	uid: string;
+	traceId: string;
 	pipelineId: PipelineId;
 	topicId: TopicId;
 	status: MonitorLogStatus;

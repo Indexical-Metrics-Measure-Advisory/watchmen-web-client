@@ -32,6 +32,7 @@ export const SearchResultRow = (props: {
 	                            onClick={onShowDetailClicked}>
 		<SearchResultBodySeqCell>{index}</SearchResultBodySeqCell>
 		<SearchResultBodyCell><span>{row.uid}</span></SearchResultBodyCell>
+		<SearchResultBodyCell><span>{row.traceId}</span></SearchResultBodyCell>
 		<SearchResultBodyCell><span>{pipeline?.name || row.pipelineId}</span></SearchResultBodyCell>
 		<SearchResultBodyCell><span>{topicsMap.get(row.topicId)?.name || row.topicId}</span></SearchResultBodyCell>
 		<SearchResultBodyStatusCell>{row.status}</SearchResultBodyStatusCell>

@@ -142,6 +142,7 @@ export const SearchResult = (props: {
 			</SearchResultHeaderOperators>
 			<SearchResultHeaderSeqCell>#</SearchResultHeaderSeqCell>
 			<SearchResultHeaderCell>Run ID.</SearchResultHeaderCell>
+			<SearchResultHeaderCell>Trace ID.</SearchResultHeaderCell>
 			<SearchResultHeaderCell>Pipeline Name</SearchResultHeaderCell>
 			<SearchResultHeaderCell>From Topic</SearchResultHeaderCell>
 			<SearchResultHeaderCell>Status</SearchResultHeaderCell>

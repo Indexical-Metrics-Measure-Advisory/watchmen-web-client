@@ -7,7 +7,7 @@ export const RowDetailContainer = styled.div.attrs({'data-widget': 'monitor-log-
 	display               : grid;
 	grid-template-columns : 50% 50%;
 	position              : relative;
-	grid-column           : 1 / span 7;
+	grid-column           : 1 / span 8;
 	height                : 400px;
 	border-top            : var(--border);
 `;

@@ -15,8 +15,9 @@ export const SearchCriteriaContainer = styled.div.attrs({'data-widget': 'monitor
 	border-bottom         : var(--border);
 	align-items           : center;
 	> button {
-		justify-self : end;
-		grid-column  : span 2;
+		min-width    : 200px;
+		justify-self : flex-start;
+		grid-column  : 3 / span 6;
 	}
 `;
 export const SearchLabel = styled.div.attrs({'data-widget': 'monitor-logs-search-label'})`
@@ -36,7 +37,7 @@ export const SearchResultContainer = styled.div.attrs({'data-widget': 'monitor-l
 `;
 export const SearchResultHeader = styled.div.attrs({'data-widget': 'monitor-logs-result-header'})`
 	display               : grid;
-	grid-template-columns : 40px 280px 280px 200px 200px 200px;
+	grid-template-columns : 40px 280px 280px 280px 200px 200px 200px;
 	grid-auto-rows        : var(--height);
 	border-bottom         : var(--border);
 	border-bottom-width   : 2px;
@@ -45,7 +46,7 @@ export const SearchResultHeader = styled.div.attrs({'data-widget': 'monitor-logs
 export const SearchResultHeaderOperators = styled.div.attrs({'data-widget': 'monitor-logs-result-header-operators'})`
 	display         : flex;
 	position        : relative;
-	grid-column     : 1 / span 7;
+	grid-column     : 1 / span 8;
 	justify-content : flex-end;
 	height          : var(--height);
 	padding         : 0 calc(var(--margin) / 2);
@@ -88,7 +89,8 @@ export const SearchResultBody = styled.div.attrs({
 	display        : flex;
 	flex-direction : column;
 	flex-grow      : 1;
-	height         : calc(100vh - var(--page-header-height) - 81px - var(--height) * 2);
+	height         : calc(100vh - var(--page-header-height) - var(--height) * 3 - var(--margin) - var(--height) * 2);
+	padding-bottom : 4px;
 	overflow-y     : auto;
 	overflow-x     : hidden;
 `;

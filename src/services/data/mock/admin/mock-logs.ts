@@ -14,6 +14,7 @@ export const fetchMockMonitorLogs = async (options: {
 				data: new Array(100).fill(1).map(() => {
 					return {
 						uid: generateUuid(),
+						traceId: generateUuid(),
 						pipelineId: '1',
 						topicId: '1',
 						status: MonitorLogStatus.DONE,

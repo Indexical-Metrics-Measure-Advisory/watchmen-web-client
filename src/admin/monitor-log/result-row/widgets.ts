@@ -11,7 +11,7 @@ export const SearchResultBodyRow = styled.div.attrs<{ detail: boolean }>(({detai
 })<{ detail: boolean }>`
 	display               : grid;
 	position              : relative;
-	grid-template-columns : 40px 280px 280px 200px 200px 200px;
+	grid-template-columns : 40px 280px 280px 280px 200px 200px 200px;
 	height                : var(--height);
 	border-bottom         : var(--border);
 	cursor                : pointer;
