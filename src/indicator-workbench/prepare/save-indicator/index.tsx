@@ -25,7 +25,10 @@ export const SaveIndicator = () => {
 	const {constructed, setConstructed, visible, setVisible} = useConstructed();
 	const {data, done} = useStep({
 		step: PrepareStep.SAVE_INDICATOR,
-		active: () => setConstructed(true),
+		active: () => {
+			setOnEdit(true);
+			setConstructed(true)
+		},
 		done: () => {
 			setOnEdit(false);
 			setConstructed(true);
