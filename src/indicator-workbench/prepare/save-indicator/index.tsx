@@ -91,7 +91,7 @@ export const SaveIndicator = () => {
 
 	const isOnCreate = isFakedUuid(data.indicator);
 
-	return <Step index={4} visible={visible}>
+	return <Step index={PrepareStep.SAVE_INDICATOR} visible={visible}>
 		<StepTitle visible={visible && onEdit}>
 			<NameInput value={data.indicator.name || ''} onChange={onNameChanged}
 			           placeholder={Lang.PLAIN.INDICATOR_NAME_PLACEHOLDER}

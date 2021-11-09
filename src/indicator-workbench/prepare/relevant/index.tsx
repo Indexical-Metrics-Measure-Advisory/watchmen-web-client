@@ -40,7 +40,7 @@ export const Relevant = () => {
 		fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.LAST_STEP, data);
 	};
 
-	return <Step index={5} visible={visible}>
+	return <Step index={PrepareStep.RELEVANT_INDICATORS} visible={visible}>
 		<StepTitle visible={visible}>
 			<EmphaticSinkingLabel>
 				{Lang.INDICATOR_WORKBENCH.PREPARE.RELEVANT_TITLE}

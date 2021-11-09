@@ -32,7 +32,7 @@ export const LastStep = () => {
 		fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.CREATE_OR_FIND);
 	};
 
-	return <Step index={6} visible={visible}>
+	return <Step index={PrepareStep.LAST_STEP} visible={visible}>
 		<StepTitle visible={visible}>
 			<EmphaticSinkingLabel>
 				{Lang.INDICATOR_WORKBENCH.PREPARE.LAST_STEP_TITLE}

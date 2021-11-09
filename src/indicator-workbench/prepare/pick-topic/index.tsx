@@ -143,7 +143,7 @@ export const PickTopic = () => {
 		return null;
 	}
 
-	return <Step index={2} visible={visible}>
+	return <Step index={PrepareStep.PICK_TOPIC} visible={visible}>
 		<SearchTextEventBusProvider>
 			<ActivePart data={data} visible={active}/>
 		</SearchTextEventBusProvider>

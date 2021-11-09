@@ -111,7 +111,7 @@ const DonePart = () => {
 };
 
 export const CreateOrFind = () => {
-	return <Step index={1}>
+	return <Step index={PrepareStep.CREATE_OR_FIND}>
 		<SearchTextEventBusProvider>
 			<ActivePart/>
 		</SearchTextEventBusProvider>

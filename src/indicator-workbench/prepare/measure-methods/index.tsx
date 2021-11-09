@@ -103,7 +103,7 @@ export const MeasureMethods = () => {
 		measures: filterMeasures(isCategoryMeasure)
 	};
 
-	return <Step index={3} visible={visible}>
+	return <Step index={PrepareStep.MEASURE_METHODS} visible={visible}>
 		<StepTitle visible={visible}>
 			<EmphaticSinkingLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.MEASURE_METHODS_TITLE}</EmphaticSinkingLabel>
 		</StepTitle>
