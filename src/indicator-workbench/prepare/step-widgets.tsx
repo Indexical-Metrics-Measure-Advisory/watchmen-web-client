@@ -17,7 +17,6 @@ const StepContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
 	position              : relative;
 	grid-template-columns : 64px 1fr;
 	width                 : 100%;
-	//transition            : opacity 300ms ease-in-out;
 `;
 export const SinkingLabel = styled.span`
 	display    : flex;
@@ -54,7 +53,6 @@ const StepTitleContainer = styled.div.attrs<{ visible: boolean }>(({visible}) =>
 	grid-row    : 1;
 	height      : calc(var(--height) * 2);
 	width       : 100%;
-	//transition  : opacity 300ms ease-in-out;
 `;
 const StepBackground = styled.div.attrs({'data-widget': 'step-background'})`
 	display          : block;

@@ -1,6 +1,6 @@
 import {isIndicatorFactor} from '../../tuples/factor-calculator-utils';
 import {Indicator, IndicatorId, MeasureMethod, QueryIndicator, TopicForIndicator} from '../../tuples/indicator-types';
-import {Topic} from '../../tuples/topic-types';
+import {Topic, TopicKind, TopicType} from '../../tuples/topic-types';
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
 import {DemoTopics, MonthlyPolicyPremium, WeeklyPolicyPremium} from '../tuples/mock-data-topics';
@@ -52,14 +52,16 @@ export const fetchMockTopicsForIndicatorSelection = async (text: string): Promis
 	return new Promise<Array<TopicForIndicator>>(resolve => {
 		const matchedText = text.toUpperCase();
 		setTimeout(() => {
-			resolve(DemoTopics.filter(topic => {
-				return topic.name.toUpperCase().includes(matchedText)
-					|| (topic.factors || []).some(factor => {
-						return isIndicatorFactor(factor.type)
-							&& ((factor.label || '').toUpperCase().includes(matchedText)
-								|| (factor.name || '').toUpperCase().includes(matchedText));
-					});
-			}));
+			resolve(DemoTopics.filter(topic => topic.kind !== TopicKind.SYSTEM)
+				.filter(topic => topic.type !== TopicType.RAW && topic.type !== TopicType.META)
+				.filter(topic => {
+					return topic.name.toUpperCase().includes(matchedText)
+						|| (topic.factors || []).some(factor => {
+							return isIndicatorFactor(factor.type)
+								&& ((factor.label || '').toUpperCase().includes(matchedText)
+									|| (factor.name || '').toUpperCase().includes(matchedText));
+						});
+				}));
 		}, 500);
 	});
 };

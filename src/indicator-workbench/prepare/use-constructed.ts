@@ -10,7 +10,7 @@ export const useConstructed = () => {
 	}, [constructed]);
 	useEffect(() => {
 		if (!visible) {
-			setTimeout(() => setConstructed(false), 310);
+			setConstructed(false);
 		}
 	}, [visible]);
 
