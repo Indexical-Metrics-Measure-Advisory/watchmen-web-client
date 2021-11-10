@@ -7,6 +7,7 @@ import {
 	VariablePredefineFunctions
 } from '@/services/data/tuples/factor-calculator-types';
 import {isComputedParameter, isConstantParameter, isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
+import {computeWeekOf} from '@/services/utils';
 import dayjs from 'dayjs';
 import {DataRow} from '../../../types';
 import {InternalUnitRuntimeContext, PipelineRuntimeContext} from '../types';
@@ -240,22 +241,10 @@ const computeComputed = (options: {
 				internalUnitContext,
 				alternativeTriggerData
 			});
-			// week starts from sunday
-			// noinspection DuplicatedCode
 			if (date == null) {
 				value = null;
 			} else {
-				const firstDayOfYear = dayjs(date).startOf('year');
-				const firstDayWeekday = firstDayOfYear.day() + 1;
-				const firstWeekDays = (8 - firstDayWeekday) % 7;
-				const thisDay = dayjs(date);
-				const daysDiff = thisDay.diff(firstDayOfYear, 'day', false);
-				if (daysDiff < firstWeekDays) {
-					// this is first week, maybe not a whole week
-					value = 0;
-				} else {
-					value = Math.ceil((daysDiff - firstWeekDays + 1) / 7);
-				}
+				value = computeWeekOf(date, 'year');
 			}
 			break;
 		}
@@ -267,22 +256,10 @@ const computeComputed = (options: {
 				internalUnitContext,
 				alternativeTriggerData
 			});
-			// week starts from sunday
-			// noinspection DuplicatedCode
 			if (date == null) {
 				value = null;
 			} else {
-				const firstDayOfMonth = dayjs(date).startOf('month');
-				const firstDayWeekday = firstDayOfMonth.day() + 1;
-				const firstWeekDays = (8 - firstDayWeekday) % 7;
-				const thisDay = dayjs(date);
-				const daysDiff = thisDay.diff(firstDayOfMonth, 'day', false);
-				if (daysDiff < firstWeekDays) {
-					// this is first week, maybe not a whole week
-					value = 0;
-				} else {
-					value = Math.ceil((daysDiff - firstWeekDays + 1) / 7);
-				}
+				value = computeWeekOf(date, 'month');
 			}
 			break;
 		}
