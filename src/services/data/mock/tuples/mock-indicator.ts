@@ -103,6 +103,7 @@ export const fetchMockTopicsForIndicatorSelection = async (text: string): Promis
 
 export const fetchMockEnumsForTopic = async (topicId: TopicId): Promise<Array<EnumForIndicator>> => {
 	return new Promise<Array<EnumForIndicator>>(async resolve => {
+		// eslint-disable-next-line
 		const topic = DemoTopics.find(topic => topic.topicId == topicId);
 		if (topic == null) {
 			resolve([]);
