@@ -134,8 +134,9 @@ export const Apis = {
 	SAVE_RULE_LIST: 'dqc/monitor/rules',
 	IMPORT_TOPICS_AND_PIPELINES: 'import',
 
-	INDICATORS_LIST_FOR_SELECTION: 'indicator/list/selection',
-	TOPIC_LIST_FOR_INDICATOR_SELECTION: 'indicator/topic/list/selection',
+	INDICATORS_LIST_FOR_SELECTION: 'indicator/list/selection?query_name=:search',
+	TOPIC_LIST_FOR_INDICATOR_SELECTION: 'indicator/topic/list/selection?query_name=:search',
+	ENUM_LIST_FOR_INDICATOR_TOPIC: 'indicator/enum/list/selection?topic_id=:topicId',
 	INDICATOR_GET: 'indicator?indicator_id=:indicatorId',
 	INDICATOR_CREATE: 'indicator',
 	INDICATOR_SAVE: 'update/indicator?indicator_id=:indicatorId'

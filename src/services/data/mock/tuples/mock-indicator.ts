@@ -7,7 +7,7 @@ import {
 	QueryIndicator,
 	TopicForIndicator
 } from '../../tuples/indicator-types';
-import {TopicKind, TopicType} from '../../tuples/topic-types';
+import {TopicId, TopicKind, TopicType} from '../../tuples/topic-types';
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
 import {DemoTopics, MonthlyPolicyPremium, Policy, WeeklyPolicyPremium} from '../tuples/mock-data-topics';
@@ -98,6 +98,22 @@ export const fetchMockTopicsForIndicatorSelection = async (text: string): Promis
 						});
 				}));
 		}, 500);
+	});
+};
+
+export const fetchMockEnumsForTopic = async (topicId: TopicId): Promise<Array<EnumForIndicator>> => {
+	return new Promise<Array<EnumForIndicator>>(async resolve => {
+		const topic = DemoTopics.find(topic => topic.topicId == topicId);
+		if (topic == null) {
+			resolve([]);
+		} else {
+			const {data: demoEnums} = await listMockEnums({search: ''});
+			const enums = (topic?.factors || []).filter(factor => factor.enumId)
+				// eslint-disable-next-line
+				.map(factor => demoEnums.find(enumeration => enumeration.enumId == factor.enumId))
+				.filter(enumeration => enumeration != null) as Array<EnumForIndicator>;
+			resolve(enums);
+		}
 	});
 };
 

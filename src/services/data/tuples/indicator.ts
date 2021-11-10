@@ -1,6 +1,7 @@
 import {findAccount} from '../account';
 import {Apis, get, post} from '../apis';
 import {
+	fetchMockEnumsForTopic,
 	fetchMockIndicator,
 	fetchMockIndicatorsForSelection,
 	fetchMockTopicsForIndicatorSelection,
@@ -8,21 +9,30 @@ import {
 } from '../mock/tuples/mock-indicator';
 import {isMockService} from '../utils';
 import {EnumForIndicator, Indicator, IndicatorId, QueryIndicator, TopicForIndicator} from './indicator-types';
+import {TopicId} from './topic-types';
 import {isFakedUuid} from './utils';
 
-export const fetchIndicatorsForSelection = async (text: string): Promise<Array<QueryIndicator>> => {
+export const fetchIndicatorsForSelection = async (search: string): Promise<Array<QueryIndicator>> => {
 	if (isMockService()) {
-		return await fetchMockIndicatorsForSelection(text.trim());
+		return await fetchMockIndicatorsForSelection(search.trim());
 	} else {
-		return await get({api: Apis.INDICATORS_LIST_FOR_SELECTION});
+		return await get({api: Apis.INDICATORS_LIST_FOR_SELECTION, search: {search}});
 	}
 };
 
-export const fetchTopicsForIndicatorSelection = async (text: string): Promise<Array<TopicForIndicator>> => {
+export const fetchTopicsForIndicatorSelection = async (search: string): Promise<Array<TopicForIndicator>> => {
 	if (isMockService()) {
-		return await fetchMockTopicsForIndicatorSelection(text.trim());
+		return await fetchMockTopicsForIndicatorSelection(search.trim());
 	} else {
-		return await get({api: Apis.TOPIC_LIST_FOR_INDICATOR_SELECTION});
+		return await get({api: Apis.TOPIC_LIST_FOR_INDICATOR_SELECTION, search: {search}});
+	}
+};
+
+export const fetchEnumsForTopic = async (topicId: TopicId): Promise<Array<EnumForIndicator>> => {
+	if (isMockService()) {
+		return await fetchMockEnumsForTopic(topicId);
+	} else {
+		return await get({api: Apis.ENUM_LIST_FOR_INDICATOR_TOPIC, search: {topicId}});
 	}
 };
 

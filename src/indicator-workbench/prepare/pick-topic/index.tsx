@@ -1,6 +1,6 @@
 import {isIndicatorFactor} from '@/services/data/tuples/factor-calculator-utils';
 import {Factor} from '@/services/data/tuples/factor-types';
-import {fetchTopicsForIndicatorSelection} from '@/services/data/tuples/indicator';
+import {fetchEnumsForTopic, fetchTopicsForIndicatorSelection} from '@/services/data/tuples/indicator';
 import {TopicForIndicator} from '@/services/data/tuples/indicator-types';
 import {tryToTransformToMeasure} from '@/services/data/tuples/indicator-utils';
 import {FactorTypeLabel} from '@/widgets/basic/factor-type-label';
@@ -86,6 +86,7 @@ const ActivePart = (props: { data?: IndicatorsData; visible: boolean }) => {
 		indicator!.topicId = item.topic.topicId;
 		indicator!.factorId = item.factor?.factorId;
 		data!.topic = item.topic;
+		data!.enums = await fetchEnumsForTopic(item.topic.topicId);
 
 		indicator!.measures = [];
 		// analysis topic to find measure dimensions
