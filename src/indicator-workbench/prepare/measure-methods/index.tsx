@@ -111,6 +111,7 @@ const MeasureItems = (props: { label: string; measureFactors: Array<AvailableMea
 					</MeasureItem>
 					<MeasureFactors>
 						{factors.map(factor => {
+							// eslint-disable-next-line
 							const enumeration = enums.find(enumeration => enumeration.enumId == factor.enumId);
 							return <MeasureFactor factor={factor} enum={enumeration}
 							                      key={factor.factorId}/>;

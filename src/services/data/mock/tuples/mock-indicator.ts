@@ -110,6 +110,7 @@ export const fetchMockIndicator = async (indicatorId: IndicatorId): Promise<{ in
 		const topic = indicator.topicId ? DemoTopics.find(({topicId: id}) => id == indicator.topicId) : (void 0);
 		const {data: demoEnums} = await listMockEnums({search: ''});
 		const enums = (topic?.factors || []).filter(factor => factor.enumId)
+			// eslint-disable-next-line
 			.map(factor => demoEnums.find(enumeration => enumeration.enumId == factor.enumId))
 			.filter(enumeration => enumeration != null) as Array<EnumForIndicator>;
 		return {indicator, topic, enums};
