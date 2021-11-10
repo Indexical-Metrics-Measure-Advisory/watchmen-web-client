@@ -287,6 +287,7 @@ export const En = {
 			FACTOR_NAME: 'Name',
 			FACTOR_LABEL: 'Label',
 			FACTOR_TYPE: 'Type',
+			FACTOR_ENUM: 'Enumeration',
 			AGGREGATE: 'Aggregate',
 			GEO: 'GEO',
 			TIME_PERIOD: 'Time Period',

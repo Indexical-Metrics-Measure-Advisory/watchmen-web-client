@@ -1,12 +1,47 @@
 import {isIndicatorFactor} from '../../tuples/factor-calculator-utils';
-import {Indicator, IndicatorId, MeasureMethod, QueryIndicator, TopicForIndicator} from '../../tuples/indicator-types';
-import {Topic, TopicKind, TopicType} from '../../tuples/topic-types';
+import {
+	EnumForIndicator,
+	Indicator,
+	IndicatorId,
+	MeasureMethod,
+	QueryIndicator,
+	TopicForIndicator
+} from '../../tuples/indicator-types';
+import {TopicKind, TopicType} from '../../tuples/topic-types';
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
-import {DemoTopics, MonthlyPolicyPremium, WeeklyPolicyPremium} from '../tuples/mock-data-topics';
+import {DemoTopics, MonthlyPolicyPremium, Policy, WeeklyPolicyPremium} from '../tuples/mock-data-topics';
+import {listMockEnums} from './mock-enum';
 
-const MonthlyPolicyPremiumIndicator: Indicator = {
+const PolicyPremiumIndicator: Indicator = {
 	indicatorId: '1',
+	name: 'Policy Premium',
+	topicId: Policy.topicId,
+	factorId: Policy.factors.find(factor => factor.name === 'premium')?.factorId,
+	measures: [{
+		factorId: Policy.factors.find(factor => factor.name === 'quoteDate')!.factorId,
+		method: MeasureMethod.YEAR
+	}, {
+		factorId: Policy.factors.find(factor => factor.name === 'quoteDate')!.factorId,
+		method: MeasureMethod.MONTH
+	}, {
+		factorId: Policy.factors.find(factor => factor.name === 'issueDate')!.factorId,
+		method: MeasureMethod.YEAR
+	}, {
+		factorId: Policy.factors.find(factor => factor.name === 'issueDate')!.factorId,
+		method: MeasureMethod.MONTH
+	}, {
+		factorId: Policy.factors.find(factor => factor.name === 'ensureProvince')!.factorId,
+		method: MeasureMethod.PROVINCE
+	}, {
+		factorId: Policy.factors.find(factor => factor.name === 'ensureCity')!.factorId,
+		method: MeasureMethod.ENUM
+	}],
+	createTime: getCurrentTime(),
+	lastModified: getCurrentTime()
+};
+const MonthlyPolicyPremiumIndicator: Indicator = {
+	indicatorId: '2',
 	name: 'Monthly Policy Premium',
 	topicId: MonthlyPolicyPremium.topicId,
 	factorId: MonthlyPolicyPremium.factors.find(factor => factor.name === 'premium')?.factorId,
@@ -21,7 +56,7 @@ const MonthlyPolicyPremiumIndicator: Indicator = {
 	lastModified: getCurrentTime()
 };
 const WeeklyPolicyPremiumIndicator: Indicator = {
-	indicatorId: '2',
+	indicatorId: '3',
 	name: 'Weekly Policy Premium',
 	topicId: WeeklyPolicyPremium.topicId,
 	factorId: WeeklyPolicyPremium.factors.find(factor => factor.name === 'premium')?.factorId,
@@ -36,7 +71,7 @@ const WeeklyPolicyPremiumIndicator: Indicator = {
 	lastModified: getCurrentTime()
 };
 
-const PolicyPremiumIndicators = [MonthlyPolicyPremiumIndicator, WeeklyPolicyPremiumIndicator];
+const PolicyPremiumIndicators = [PolicyPremiumIndicator, MonthlyPolicyPremiumIndicator, WeeklyPolicyPremiumIndicator];
 const DemoIndicators = [PolicyPremiumIndicators].flat();
 
 export const fetchMockIndicatorsForSelection = async (text: string): Promise<Array<QueryIndicator>> => {
@@ -66,20 +101,26 @@ export const fetchMockTopicsForIndicatorSelection = async (text: string): Promis
 	});
 };
 
-export const fetchMockIndicator = async (indicatorId: IndicatorId): Promise<{ indicator: Indicator; topic?: Topic }> => {
+export const fetchMockIndicator = async (indicatorId: IndicatorId): Promise<{ indicator: Indicator; topic?: TopicForIndicator; enums?: Array<EnumForIndicator>; }> => {
 	// eslint-disable-next-line
 	const found = DemoIndicators.find(({indicatorId: id}) => id == indicatorId);
 	if (found) {
 		const indicator = JSON.parse(JSON.stringify(found));
 		// eslint-disable-next-line
 		const topic = indicator.topicId ? DemoTopics.find(({topicId: id}) => id == indicator.topicId) : (void 0);
-		return {indicator, topic};
+		const {data: demoEnums} = await listMockEnums({search: ''});
+		const enums = (topic?.factors || []).filter(factor => factor.enumId)
+			.map(factor => demoEnums.find(enumeration => enumeration.enumId == factor.enumId))
+			.filter(enumeration => enumeration != null) as Array<EnumForIndicator>;
+		return {indicator, topic, enums};
 	} else {
 		return {
 			indicator: {
 				...MonthlyPolicyPremiumIndicator,
 				indicatorId
-			}, topic: MonthlyPolicyPremium
+			},
+			topic: MonthlyPolicyPremium,
+			enums: []
 		};
 	}
 };

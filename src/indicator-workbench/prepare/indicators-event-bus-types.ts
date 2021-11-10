@@ -1,9 +1,10 @@
-import {Indicator, IndicatorId, TopicForIndicator} from '@/services/data/tuples/indicator-types';
+import {EnumForIndicator, Indicator, IndicatorId, TopicForIndicator} from '@/services/data/tuples/indicator-types';
 import {PrepareStep} from './types';
 
 export interface IndicatorsData {
 	indicator?: Indicator;
 	topic?: TopicForIndicator;
+	enums?: Array<EnumForIndicator>;
 }
 
 export enum IndicatorsEventTypes {

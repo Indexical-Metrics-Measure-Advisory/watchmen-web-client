@@ -287,6 +287,7 @@ export const Jp = {
 			FACTOR_NAME: '名前',
 			FACTOR_LABEL: 'レベル',
 			FACTOR_TYPE: 'タイプ',
+			FACTOR_ENUM: '列挙',
 			AGGREGATE: '集計方法',
 			GEO: '地理的に関連しています',
 			TIME_PERIOD: '時間範囲',

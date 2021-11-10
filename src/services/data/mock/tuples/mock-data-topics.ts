@@ -95,6 +95,17 @@ export const Policy: Topic = {
 			factorId: '207', name: 'premium', label: 'Premium', type: FactorType.NUMBER,
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()
+		},
+		{
+			factorId: '208', name: 'ensureProvince', label: 'Ensure Province', type: FactorType.PROVINCE,
+			createTime: getCurrentTime(),
+			lastModified: getCurrentTime()
+		},
+		{
+			factorId: '209', name: 'ensureCity', label: 'Ensure City', type: FactorType.ENUM,
+			enumId: MOCK_ENUM_CITY_ID,
+			createTime: getCurrentTime(),
+			lastModified: getCurrentTime()
 		}
 	],
 	createTime: getCurrentTime(),

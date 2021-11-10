@@ -7,8 +7,7 @@ import {
 	saveMockIndicator
 } from '../mock/tuples/mock-indicator';
 import {isMockService} from '../utils';
-import {Indicator, IndicatorId, QueryIndicator, TopicForIndicator} from './indicator-types';
-import {Topic} from './topic-types';
+import {EnumForIndicator, Indicator, IndicatorId, QueryIndicator, TopicForIndicator} from './indicator-types';
 import {isFakedUuid} from './utils';
 
 export const fetchIndicatorsForSelection = async (text: string): Promise<Array<QueryIndicator>> => {
@@ -27,7 +26,7 @@ export const fetchTopicsForIndicatorSelection = async (text: string): Promise<Ar
 	}
 };
 
-export const fetchIndicator = async (indicatorId: IndicatorId): Promise<{ indicator: Indicator; topic?: Topic }> => {
+export const fetchIndicator = async (indicatorId: IndicatorId): Promise<{ indicator: Indicator; topic?: TopicForIndicator; enums?: Array<EnumForIndicator>; }> => {
 	if (isMockService()) {
 		return await fetchMockIndicator(indicatorId);
 	} else {

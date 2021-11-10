@@ -1,3 +1,4 @@
+import {Enum} from './enum-types';
 import {FactorId} from './factor-types';
 import {TenantId} from './tenant-types';
 import {Topic, TopicId} from './topic-types';
@@ -77,3 +78,4 @@ export interface Indicator extends Tuple {
 
 export type QueryIndicator = Pick<Indicator, 'indicatorId' | 'name'>;
 export type TopicForIndicator = Pick<Topic, 'topicId' | 'name' | 'type' | 'factors'>;
+export type EnumForIndicator = Pick<Enum, 'enumId' | 'name'>;

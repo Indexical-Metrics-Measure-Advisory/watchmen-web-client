@@ -1,5 +1,10 @@
 import {Factor} from '@/services/data/tuples/factor-types';
-import {IndicatorAggregateArithmetic, IndicatorMeasure, MeasureMethod} from '@/services/data/tuples/indicator-types';
+import {
+	EnumForIndicator,
+	IndicatorAggregateArithmetic,
+	IndicatorMeasure,
+	MeasureMethod
+} from '@/services/data/tuples/indicator-types';
 import {
 	isCategoryMeasure,
 	isGeoMeasure,
@@ -37,8 +42,8 @@ interface AvailableMeasureFactor extends IndicatorMeasure {
 	factor?: Factor;
 }
 
-const MeasureFactor = (props: { factor: Factor }) => {
-	const {factor} = props;
+const MeasureFactor = (props: { factor: Factor, enum?: EnumForIndicator }) => {
+	const {factor, enum: enumeration} = props;
 	const {name, label} = factor;
 
 	const ref = useRef<HTMLSpanElement>(null);
@@ -53,6 +58,12 @@ const MeasureFactor = (props: { factor: Factor }) => {
 			<span>{label}</span>
 			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.FACTOR_TYPE}:</span>
 			<span><FactorTypeLabel factor={factor}/></span>
+			{enumeration != null
+				? <>
+					<span>{Lang.INDICATOR_WORKBENCH.PREPARE.FACTOR_ENUM}:</span>
+					<span>{enumeration.name}</span>
+				</>
+				: null}
 		</MeasureFactorTooltip>,
 		target: ref
 	});
@@ -62,8 +73,8 @@ const MeasureFactor = (props: { factor: Factor }) => {
 	</MeasureFactorLabel>;
 };
 
-const MeasureItems = (props: { label: string; measureFactors: Array<AvailableMeasureFactor> }) => {
-	const {label, measureFactors} = props;
+const MeasureItems = (props: { label: string; measureFactors: Array<AvailableMeasureFactor>; enums: Array<EnumForIndicator> }) => {
+	const {label, measureFactors, enums} = props;
 
 	if (measureFactors.length === 0) {
 		return null;
@@ -100,7 +111,9 @@ const MeasureItems = (props: { label: string; measureFactors: Array<AvailableMea
 					</MeasureItem>
 					<MeasureFactors>
 						{factors.map(factor => {
-							return <MeasureFactor factor={factor} key={factor.factorId}/>;
+							const enumeration = enums.find(enumeration => enumeration.enumId == factor.enumId);
+							return <MeasureFactor factor={factor} enum={enumeration}
+							                      key={factor.factorId}/>;
 						})}
 					</MeasureFactors>
 				</Fragment>;
@@ -188,7 +201,8 @@ export const MeasureMethods = () => {
 			<MeasureItemsContainer>
 				{[geoMeasures, timePeriodMeasures, individualMeasures, organizationMeasures, categoryMeasures]
 					.map(({key, label, measures}) => {
-						return <MeasureItems label={label} measureFactors={measures} key={key}/>;
+						return <MeasureItems label={label} measureFactors={measures} enums={data?.enums || []}
+						                     key={key}/>;
 					})}
 				<AggregateItems label={Lang.INDICATOR_WORKBENCH.PREPARE.AGGREGATE} aggregates={[
 					IndicatorAggregateArithmetic.COUNT, IndicatorAggregateArithmetic.SUM, IndicatorAggregateArithmetic.AVG,

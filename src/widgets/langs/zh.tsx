@@ -287,6 +287,7 @@ export const Zh = {
 			FACTOR_NAME: '名称',
 			FACTOR_LABEL: '标签',
 			FACTOR_TYPE: '类型',
+			FACTOR_ENUM: '枚举',
 			AGGREGATE: '聚合方式',
 			GEO: '地理位置相关',
 			TIME_PERIOD: '时间区间',
