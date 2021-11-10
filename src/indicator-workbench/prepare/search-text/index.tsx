@@ -3,7 +3,7 @@ import {ButtonInk} from '@/widgets/basic/types';
 import {useCollapseFixedThing} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ChangeEvent, ReactNode, useEffect, useRef, useState} from 'react';
+import {ChangeEvent, KeyboardEvent, ReactNode, useEffect, useRef, useState} from 'react';
 import {useSearchTextEventBus} from './search-text-event-bus';
 import {SearchTextEventTypes} from './search-text-event-bus-types';
 import {CandidateItem, OnSearching, SearchButton, SearchInput, SearchPart, SearchPopup} from './widgets';
@@ -43,12 +43,14 @@ export const SearchText = <I extends SearchItem>(props: {
 	const [showSearchPopup, setShowSearchPopup] = useState(false);
 	const [searchText, setSearchText] = useState('');
 	const [result, setResult] = useState<SearchResult<I>>({searched: false, items: []});
+	const [activeItemIndex, setActiveItemIndex] = useState<number>(-1);
 	useEffect(() => {
 		const onHideSearch = () => {
 			setShowSearchPopup(false);
 			setShowSearchInput(false);
 			setSearchText('');
 			setResult({searched: false, items: []});
+			setActiveItemIndex(-1);
 			inputRef.current?.blur();
 		};
 		const onFocus = () => {
@@ -73,19 +75,52 @@ export const SearchText = <I extends SearchItem>(props: {
 		setShowSearchPopup(true);
 		const text = value.trim();
 		if (text.length === 0) {
-			setTimeout(() => setResult({searched: false, items: []}), 300);
+			setTimeout(() => {
+				setActiveItemIndex(-1);
+				setResult({searched: false, items: []});
+			}, 300);
 		} else {
 			try {
 				const items = await search(text);
+				setActiveItemIndex(items.length !== 0 ? 0 : -1);
 				setResult({searched: true, items});
 			} catch {
+				setActiveItemIndex(-1);
 				setResult({searched: true, items: []});
 			}
 		}
 	};
 	const onSearchTextFocused = () => {
 		if (searchText.trim().length !== 0) {
-			setShowSearchPopup(true);
+			if (!showSearchPopup) {
+				setActiveItemIndex(result.items.length !== 0 ? 0 : -1);
+				setShowSearchPopup(true);
+			}
+		}
+	};
+	const onSearchTextKeyDown = async (event: KeyboardEvent<HTMLInputElement>) => {
+		switch (event.key) {
+			case 'ArrowUp':
+				if (activeItemIndex !== 0 && activeItemIndex !== -1) {
+					setActiveItemIndex(activeItemIndex - 1);
+					containerRef.current?.querySelector(`div[data-widget=candidate-item-${activeItemIndex - 1}]`)?.scrollIntoView({behavior: 'smooth'});
+				}
+				event.preventDefault();
+				event.stopPropagation();
+				break;
+			case 'ArrowDown':
+				if (activeItemIndex !== -1 && activeItemIndex !== result.items.length - 1) {
+					setActiveItemIndex(activeItemIndex + 1);
+					containerRef.current?.querySelector(`div[data-widget=candidate-item-${activeItemIndex + 1}]`)?.scrollIntoView({behavior: 'smooth'});
+				}
+				event.preventDefault();
+				event.stopPropagation();
+				break;
+			case 'Enter':
+				if (activeItemIndex !== -1) {
+					await onSelectionChange(result.items[activeItemIndex]);
+				}
+				break;
 		}
 	};
 	const onSearchClicked = () => {
@@ -99,6 +134,7 @@ export const SearchText = <I extends SearchItem>(props: {
 			fire(SearchTextEventTypes.HIDE_SEARCH);
 		}
 	};
+	const onCandidateItemMouseEnter = (itemIndex: number) => () => setActiveItemIndex(itemIndex);
 	const onCandidateClicked = (item: I) => async () => {
 		await onSelectionChange(item);
 	};
@@ -107,6 +143,7 @@ export const SearchText = <I extends SearchItem>(props: {
 		<SearchInput value={searchText} visible={showSearchInput}
 		             placeholder={placeholder}
 		             onChange={onSearchTextChanged} onFocus={onSearchTextFocused}
+		             onKeyDown={onSearchTextKeyDown}
 		             buttonFirst={buttonFirst}
 		             ref={inputRef}/>
 		<SearchButton ink={ButtonInk.PRIMARY} buttonFirst={buttonFirst} alwaysShowSearchInput={alwaysShowSearchInput}
@@ -117,9 +154,13 @@ export const SearchText = <I extends SearchItem>(props: {
 		<SearchPopup>
 			{result.searched
 				? (result.items.length === 0
-					? <CandidateItem>{Lang.INDICATOR_WORKBENCH.PREPARE.NO_MATCHED}</CandidateItem>
-					: result.items.map(item => {
-						return <CandidateItem onClick={onCandidateClicked(item)} key={item.key}>
+					? <CandidateItem active={false}>{Lang.INDICATOR_WORKBENCH.PREPARE.NO_MATCHED}</CandidateItem>
+					: result.items.map((item, itemIndex) => {
+						return <CandidateItem active={itemIndex === activeItemIndex}
+						                      data-widget={`candidate-item-${itemIndex}`}
+						                      onMouseEnter={onCandidateItemMouseEnter(itemIndex)}
+						                      onClick={onCandidateClicked(item)}
+						                      key={item.key}>
 							{item.text}
 						</CandidateItem>;
 					}))

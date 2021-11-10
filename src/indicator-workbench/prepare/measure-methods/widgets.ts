@@ -31,6 +31,7 @@ export const MeasureItem = styled.span.attrs({'data-widget': 'measure-item'})`
 	display        : flex;
 	position       : relative;
 	align-items    : center;
+	justify-self   : start;
 	padding        : 0 calc(var(--margin) / 2);
 	margin         : calc(var(--height) * 0.2) 0 calc(var(--height) * 0.2) calc(var(--margin) / 2);
 	height         : calc(var(--height) * 0.8);

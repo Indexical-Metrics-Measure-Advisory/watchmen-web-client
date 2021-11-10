@@ -94,7 +94,14 @@ export const SearchPopup = styled.div.attrs({
 	overflow-x                 : hidden;
 	transition                 : top 300ms ease-in-out, opacity 300ms ease-in-out;
 `;
-export const CandidateItem = styled.div.attrs({'data-widget': 'search-candidate-item'})`
+export const CandidateItem = styled.div.attrs<{ active: boolean }>(({active}) => {
+	return {
+		'data-widget': 'search-candidate-item',
+		style: {
+			backgroundColor: active ? 'var(--hover-color)' : (void 0)
+		}
+	};
+})<{ active: boolean }>`
 	display     : flex;
 	position    : relative;
 	align-items : center;
@@ -102,9 +109,6 @@ export const CandidateItem = styled.div.attrs({'data-widget': 'search-candidate-
 	padding     : 0 calc(var(--height) * 0.6);
 	font-size   : 1.2em;
 	cursor      : pointer;
-	&:hover {
-		background-color : var(--hover-color);
-	}
 `;
 export const OnSearching = styled.div.attrs({'data-widget': 'search-on-searching'})`
 	display     : flex;
