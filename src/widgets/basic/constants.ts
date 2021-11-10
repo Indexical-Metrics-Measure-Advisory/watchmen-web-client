@@ -24,6 +24,7 @@ import {
 	faClock,
 	faCloudDownloadAlt,
 	faCode,
+	faCodeMerge,
 	faCog,
 	faCoins,
 	faCommentDots,
@@ -188,6 +189,7 @@ export const ICON_AS_ADMIN_HOME = faLaptopHouse;
 export const ICON_PIPELINE = faWaveSquare;
 export const ICON_STAGE = faObjectGroup;
 export const ICON_UNIT = faFeather;
+export const ICON_INDICATOR_MEASURE_METHOD = faCodeMerge;
 
 export const ICON_DASHBOARD = faGaugeSimple;
 export const ICON_FAVORITE = faStar;

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const MeasureItemsContainer = styled.div.attrs({'data-widget': 'measure-items'})`
 	display               : grid;
-	grid-template-columns : auto 1fr;
+	grid-template-columns : auto 1fr auto 1fr;
 	position              : relative;
 `;
 export const MeasureItemsTitle = styled.span.attrs({'data-widget': 'measure-items-title'})`
@@ -24,6 +24,7 @@ export const MeasureItemsBlock = styled.div.attrs({'data-widget': 'measure-items
 	display               : grid;
 	position              : relative;
 	grid-template-columns : auto 1fr;
+	align-content         : start;
 	margin-left           : calc(var(--margin) / -2);
 `;
 export const MeasureItem = styled.span.attrs({'data-widget': 'measure-item'})`
@@ -99,12 +100,17 @@ export const MeasureFactorLabel = styled.span.attrs({'data-widget': 'measure-fac
 		z-index          : -1;
 	}
 `;
-export const AggregateItemsTitle = MeasureItemsTitle;
-export const AggregateItemsBlock = styled(MeasureItemsBlock)`
-	display   : flex;
-	flex-wrap : wrap;
+export const AggregateItemsTitle = styled(MeasureItemsTitle).attrs({'data-widget': 'aggregate-items-title'})`
+	grid-column : 1;
 `;
-export const AggregateItem = styled(MeasureItem)`
+export const AggregateItemsBlock = styled.div.attrs({'data-widget': 'aggregate-items-block'})`
+	display     : flex;
+	position    : relative;
+	grid-column : 2 / span 3;
+	flex-wrap   : wrap;
+	margin-left : calc(var(--margin) / -2);
+`;
+export const AggregateItem = styled(MeasureItem).attrs({'data-widget': 'aggregate-item'})`
 	&:after {
 		background-color : var(--warn-color);
 	}

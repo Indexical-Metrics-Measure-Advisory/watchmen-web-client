@@ -7,12 +7,12 @@ import {
 	isOrganizationMeasure,
 	isTimePeriodMeasure
 } from '@/services/data/tuples/indicator-utils';
+import {ICON_INDICATOR_MEASURE_METHOD} from '@/widgets/basic/constants';
 import {FactorTypeLabel} from '@/widgets/basic/factor-type-label';
 import {MeasureMethodLabel} from '@/widgets/basic/measure-method-label';
 import {useTooltip} from '@/widgets/basic/tooltip';
 import {TooltipAlignment} from '@/widgets/basic/types';
 import {Lang} from '@/widgets/langs';
-import {faSection} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Fragment, useRef} from 'react';
 import {MeasureMethodSort} from '../../utils/sort';
@@ -95,7 +95,7 @@ const MeasureItems = (props: { label: string; measureFactors: Array<AvailableMea
 				const factors = methodGroups[method as MeasureMethod];
 				return <Fragment key={method}>
 					<MeasureItem>
-						<FontAwesomeIcon icon={faSection}/>
+						<FontAwesomeIcon icon={ICON_INDICATOR_MEASURE_METHOD}/>
 						<MeasureMethodLabel measureMethod={method as MeasureMethod}/>
 					</MeasureItem>
 					<MeasureFactors>
