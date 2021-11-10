@@ -103,7 +103,7 @@ export const SearchCriteria = (props: {
 	return <SearchCriteriaContainer>
 		<SearchLabel>Search By</SearchLabel>
 		<SearchLabel>Trace ID</SearchLabel>
-		<Input value={criteria.traceId} onChange={onTraceIdChanged}/>
+		<Input value={criteria.traceId || ''} onChange={onTraceIdChanged}/>
 		<SearchLabel>Topic</SearchLabel>
 		<Dropdown options={topicOptions} value={criteria.topicId} onChange={onTopicChanged}/>
 		<SearchLabel>Pipeline</SearchLabel>

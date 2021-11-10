@@ -50,11 +50,12 @@ export const SearchResult = (props: {
 	useEffect(() => {
 		const decorate = (criteria: MonitorLogCriteria): MonitorLogCriteria => {
 			const condition = {
-				topicId: criteria.topicId || undefined,
-				pipelineId: criteria.pipelineId || undefined,
-				startDate: criteria.startDate || undefined,
-				endDate: criteria.endDate || undefined,
-				status: criteria.status || undefined
+				topicId: criteria.topicId || (void 0),
+				pipelineId: criteria.pipelineId || (void 0),
+				startDate: criteria.startDate || (void 0),
+				endDate: criteria.endDate || (void 0),
+				status: criteria.status || (void 0),
+				traceId: criteria.traceId || (void 0)
 			};
 			// @ts-ignore
 			Object.keys(condition).filter(key => !condition[key]).forEach(key => delete condition[key]);
