@@ -1,5 +1,5 @@
 import {Button} from '@/widgets/basic/button';
-import {ReactNode, useEffect, useState} from 'react';
+import {ForwardedRef, forwardRef, ReactNode, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useIndicatorsEventBus} from './indicators-event-bus';
 import {IndicatorsData, IndicatorsEventTypes} from './indicators-event-bus-types';
@@ -70,15 +70,15 @@ export const StepTitleConjunctionLabel = styled(ConjunctionLabel)`
 	margin-bottom : calc(var(--height) * 0.4);
 `;
 
-export const Step = (props: { index: number; visible?: boolean; children: ReactNode }) => {
+export const Step = forwardRef((props: { index: number; visible?: boolean; children: ReactNode }, ref: ForwardedRef<HTMLDivElement>) => {
 	const {index, visible = true, children} = props;
 
-	return <StepContainer visible={visible}>
+	return <StepContainer visible={visible} ref={ref}>
 		<StepIndex>Step {index}.</StepIndex>
 		{children}
 		<StepBackground/>
 	</StepContainer>;
-};
+});
 
 export const StepTitle = (props: { visible?: boolean; children: ReactNode; }) => {
 	const {visible = true, children, ...rest} = props;
@@ -107,7 +107,14 @@ export const StepTitleButtonsRetractor = styled.div.attrs({'data-widget': 'step-
 	flex-grow : 1;
 `;
 
-export const StepBody = styled.div.attrs({'data-widget': 'step-body'})`
+export const StepBody = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+	return {
+		'data-widget': 'step-body',
+		style: {
+			opacity: visible ? 1 : 0
+		}
+	};
+})<{ visible: boolean }>`
 	grid-column : 2;
 	width       : 100%;
 	margin      : calc(var(--margin) / 2) 0 var(--margin);

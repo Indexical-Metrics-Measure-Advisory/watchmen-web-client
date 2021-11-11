@@ -8,7 +8,7 @@ import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
-import {useEffect} from 'react';
+import {useEffect, useRef} from 'react';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
 import {IndicatorsData, IndicatorsEventTypes} from '../indicators-event-bus-types';
 import {SearchItem, SearchText} from '../search-text';
@@ -132,7 +132,8 @@ const DonePart = (props: { data?: IndicatorsData; visible: boolean }) => {
 };
 
 export const PickTopic = () => {
-	const {constructed, setConstructed, visible, setVisible} = useConstructed();
+	const ref = useRef<HTMLDivElement>(null);
+	const {constructed, setConstructed, visible, setVisible} = useConstructed(ref);
 	const {data, active, done} = useStep({
 		step: PrepareStep.PICK_TOPIC,
 		active: () => setConstructed(true),
@@ -144,7 +145,7 @@ export const PickTopic = () => {
 		return null;
 	}
 
-	return <Step index={PrepareStep.PICK_TOPIC} visible={visible}>
+	return <Step index={PrepareStep.PICK_TOPIC} visible={visible} ref={ref}>
 		<SearchTextEventBusProvider>
 			<ActivePart data={data} visible={active}/>
 		</SearchTextEventBusProvider>

@@ -143,7 +143,8 @@ const AggregateItems = (props: { label: string; aggregates: Array<IndicatorAggre
 };
 
 export const MeasureMethods = () => {
-	const {constructed, setConstructed, visible, setVisible} = useConstructed();
+	const ref = useRef<HTMLDivElement>(null);
+	const {constructed, setConstructed, visible, setVisible} = useConstructed(ref);
 	const {data} = useStep({
 		step: PrepareStep.MEASURE_METHODS,
 		active: () => setConstructed(true),
@@ -194,11 +195,11 @@ export const MeasureMethods = () => {
 		measures: filterMeasures(isCategoryMeasure)
 	};
 
-	return <Step index={PrepareStep.MEASURE_METHODS} visible={visible}>
+	return <Step index={PrepareStep.MEASURE_METHODS} visible={visible} ref={ref}>
 		<StepTitle visible={visible}>
 			<EmphaticSinkingLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.MEASURE_METHODS_TITLE}</EmphaticSinkingLabel>
 		</StepTitle>
-		<StepBody>
+		<StepBody visible={visible}>
 			<MeasureItemsContainer>
 				{[geoMeasures, timePeriodMeasures, individualMeasures, organizationMeasures, categoryMeasures]
 					.map(({key, label, measures}) => {

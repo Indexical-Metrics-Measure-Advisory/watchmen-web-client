@@ -87,6 +87,7 @@ import {
 	faSpinner,
 	faSquarePollVertical,
 	faStar,
+	faStarOfLife,
 	faStickyNote,
 	faStream,
 	faSyncAlt,
@@ -283,6 +284,7 @@ export const ICON_MAXIMIZE_PANEL = faWindowMaximize;
 export const ICON_RESTORE_PANEL = faWindowRestore;
 export const ICON_DETECT = faBinoculars;
 export const ICON_WAIT_INPUT = faFeatherPointed;
+export const ICON_LIST_ICON_ASTERISK = faStarOfLife;
 
 export const ICON_COMMENTS = faCommentDots;
 export const ICON_CMD_PROMPT = faTerminal;

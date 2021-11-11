@@ -17,12 +17,13 @@ import {useConstructed} from '../use-constructed';
 import {NameInput, SaveButton} from './widgets';
 
 export const SaveIndicator = () => {
+	const ref = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useIndicatorsEventBus();
 	const [saving, setSaving] = useState(false);
 	const [onEdit, setOnEdit] = useState(true);
-	const {constructed, setConstructed, visible, setVisible} = useConstructed();
+	const {constructed, setConstructed, visible, setVisible} = useConstructed(ref);
 	const {data, done} = useStep({
 		step: PrepareStep.SAVE_INDICATOR,
 		active: () => {
@@ -91,7 +92,7 @@ export const SaveIndicator = () => {
 
 	const isOnCreate = isFakedUuid(data.indicator);
 
-	return <Step index={PrepareStep.SAVE_INDICATOR} visible={visible}>
+	return <Step index={PrepareStep.SAVE_INDICATOR} visible={visible} ref={ref}>
 		<StepTitle visible={visible && onEdit}>
 			<NameInput value={data.indicator.name || ''} onChange={onNameChanged}
 			           placeholder={Lang.PLAIN.INDICATOR_NAME_PLACEHOLDER}

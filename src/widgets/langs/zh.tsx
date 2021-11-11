@@ -296,6 +296,8 @@ export const Zh = {
 			CATEGORY: '指定分类',
 			DEFINE_BUCKETS_TITLE: '为更好的分类和聚合数据, 可以使用预定义分桶.',
 			DEFINE_BUCKET: '定义分桶',
+			SELF_VALUE_BUCKET_LABEL: '指标值可以被自由分桶.',
+			CREATE_SELF_VALUE_BUCKET: '创建新的指标值分桶设置',
 			IGNORE_DEFINE_BUCKETS: '现在不定义分桶',
 			CHANGE_NAME: '修改名称',
 			NOT_NOW: '放弃',

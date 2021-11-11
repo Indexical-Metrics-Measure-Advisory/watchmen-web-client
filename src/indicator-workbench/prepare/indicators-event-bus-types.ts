@@ -37,5 +37,4 @@ export interface IndicatorsEventBus {
 	fire(type: IndicatorsEventTypes.INDICATOR_SAVED, indicator: Indicator): this;
 	on(type: IndicatorsEventTypes.INDICATOR_SAVED, listener: (indicator: Indicator) => void): this;
 	off(type: IndicatorsEventTypes.INDICATOR_SAVED, listener: (indicator: Indicator) => void): this;
-
 }

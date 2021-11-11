@@ -67,12 +67,22 @@ export interface IndicatorMeasure {
 	method: MeasureMethod;
 }
 
+export interface NumericValueBucket {
+	min?: number;
+	includeMin?: boolean;
+	max?: number;
+	includeMax?: boolean;
+}
+
 export interface Indicator extends Tuple {
 	indicatorId: IndicatorId;
 	name: string;
 	topicId: TopicId;
+	/** is a count indicator when factor is not appointed */
 	factorId?: FactorId;
 	measures: Array<IndicatorMeasure>;
+	/** effective only when factorId is appointed */
+	valueBuckets?: Array<NumericValueBucket>;
 	tenantId?: TenantId;
 }
 

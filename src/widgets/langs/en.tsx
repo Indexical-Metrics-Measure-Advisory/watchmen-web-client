@@ -295,6 +295,8 @@ export const En = {
 			ORGANIZATION: 'Organization',
 			CATEGORY: 'Category',
 			DEFINE_BUCKETS_TITLE: 'Predefined buckets for better categorization and aggregation.',
+			SELF_VALUE_BUCKET_LABEL: 'Indicator value can be bucketing.',
+			CREATE_SELF_VALUE_BUCKET: 'Create New Bucket on Indicator Value',
 			DEFINE_BUCKET: 'Define Bucket',
 			IGNORE_DEFINE_BUCKETS: 'Ignore Buckets Definition',
 			CHANGE_NAME: 'Change Name',
