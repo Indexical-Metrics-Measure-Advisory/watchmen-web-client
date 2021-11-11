@@ -32,7 +32,7 @@ export const OrderedLabel = styled.div`
 		opacity : 0.7;
 	}
 `;
-export const FactorValueBucketContainer = styled.div.attrs({'data-widget': 'factor-value-bucket'})`
+export const BucketContainer = styled.div.attrs({'data-widget': 'bucket'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : 32px auto 1fr auto;
@@ -54,6 +54,8 @@ export const FactorValueBucketContainer = styled.div.attrs({'data-widget': 'fact
 		opacity          : 0.1;
 		z-index          : -1;
 	}
+`;
+export const FactorValueBucketContainer = styled(BucketContainer)`
 	&:hover > button:nth-child(4) {
 		opacity        : 1;
 		pointer-events : auto;
@@ -83,6 +85,19 @@ export const FactorValueBucketIndexLabel = styled(Label)`
 	font-weight       : var(--font-bold);
 	&:before {
 		content : counter(factor-value-bucket, lower-roman) ".";
+	}
+`;
+export const MeasureBucketsContainer = styled.div.attrs({'data-widget': 'measure-buckets'})`
+	display        : flex;
+	position       : relative;
+	flex-direction : column;
+	margin-top     : calc(var(--margin) / 2);
+	padding-left   : calc(var(--margin) / 2);
+	counter-reset  : factor-value-bucket;
+	> button:last-child {
+		margin-top    : calc(var(--margin) / 2);
+		align-self    : flex-start;
+		border-radius : calc(var(--height) / 2);
 	}
 `;
 

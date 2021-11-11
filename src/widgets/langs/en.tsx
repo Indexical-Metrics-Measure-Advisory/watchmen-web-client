@@ -269,6 +269,7 @@ export const En = {
 		ON_EDIT: 'Still in editing, all changes will be lost if interrupt. Are you sure to continue?',
 		PREPARE: {
 			TITLE: 'Prepare Indicators',
+			STEP: 'Step',
 			WAIT_INPUT: 'Waiting for input...',
 			SEARCHING: 'Searching...',
 			NO_MATCHED: 'No matching data found.',
@@ -296,8 +297,9 @@ export const En = {
 			ORGANIZATION: 'Organization',
 			CATEGORY: 'Category',
 			DEFINE_BUCKETS_TITLE: 'Predefined buckets for better categorization and aggregation.',
-			DEFINE_BUCKET: 'Define Bucket',
-			SELF_VALUE_BUCKET_LABEL: 'Indicator value can be bucketing.',
+			SELF_VALUE_BUCKET_ONLY_ON_FACTOR_LABEL: 'Value bucketing only available on factor indicator',
+			SELF_VALUE_BUCKET_LABEL: 'Indicator value bucketing',
+			MEASURE_BUCKET_LABEL: 'Measure bucketing',
 			BUCKET_NAME: 'Bucket Name',
 			CREATE_SELF_VALUE_BUCKET: 'Create New Bucket on Indicator Value',
 			IGNORE_DEFINE_BUCKETS: 'Ignore Buckets Definition',
@@ -315,7 +317,7 @@ export const En = {
 		BUCKET: {
 			RANGE_INCLUDING: 'Including',
 			RANGE_INCLUDE_MIN: 'Include Min Value, Exclude Max Value',
-			RANGE_INCLUDE_MAX: 'Exclude Max Value, Include Max Value',
+			RANGE_INCLUDE_MAX: 'Exclude Max Value, Include Max Value'
 		}
 	},
 	SETTINGS: {

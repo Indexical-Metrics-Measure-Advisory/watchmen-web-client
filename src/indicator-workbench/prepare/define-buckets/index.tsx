@@ -1,6 +1,6 @@
 import {ButtonInk} from '@/widgets/basic/types';
 import {Lang} from '@/widgets/langs';
-import {useRef, useState} from 'react';
+import {useRef} from 'react';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
 import {IndicatorsEventTypes} from '../indicators-event-bus-types';
 import {
@@ -8,7 +8,6 @@ import {
 	Step,
 	StepBody,
 	StepBodyButtons,
-	StepBodyConjunctionLabel,
 	StepTitle,
 	StepTitleButton,
 	useStep
@@ -28,15 +27,11 @@ export const DefineBuckets = () => {
 		done: () => setConstructed(true),
 		dropped: () => setVisible(false)
 	});
-	const [onDefine, setOnDefine] = useState(false);
 
 	if (!constructed) {
 		return null;
 	}
 
-	const onDefineClicked = () => {
-		setOnDefine(true);
-	};
 	const onIgnoreDefineClicked = () => {
 		fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.SAVE_INDICATOR, data);
 	};
@@ -47,29 +42,14 @@ export const DefineBuckets = () => {
 				<EmphaticSinkingLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.DEFINE_BUCKETS_TITLE}</EmphaticSinkingLabel>
 			</StepTitle>
 			<StepBody visible={visible}>
-				{data != null ? <BucketsDef data={data} visible={onDefine}/> : null}
-				{onDefine
-					? done
-						? null
-						: <StepBodyButtons>
-							<StepTitleButton ink={ButtonInk.DANGER} onClick={onIgnoreDefineClicked}>
-								{Lang.INDICATOR_WORKBENCH.PREPARE.IGNORE_DEFINE_BUCKETS}
-							</StepTitleButton>
-						</StepBodyButtons>
+				{data != null ? <BucketsDef data={data}/> : null}
+				{done
+					? null
 					: <StepBodyButtons>
-						<StepTitleButton ink={ButtonInk.PRIMARY} onClick={onDefineClicked}>
-							{Lang.INDICATOR_WORKBENCH.PREPARE.DEFINE_BUCKET}
+						<StepTitleButton ink={ButtonInk.DANGER} onClick={onIgnoreDefineClicked}>
+							{Lang.INDICATOR_WORKBENCH.PREPARE.IGNORE_DEFINE_BUCKETS}
 						</StepTitleButton>
-						{done
-							? null
-							: <>
-								<StepBodyConjunctionLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.OR}</StepBodyConjunctionLabel>
-								<StepTitleButton ink={ButtonInk.DANGER} onClick={onIgnoreDefineClicked}>
-									{Lang.INDICATOR_WORKBENCH.PREPARE.IGNORE_DEFINE_BUCKETS}
-								</StepTitleButton>
-							</>}
-					</StepBodyButtons>
-				}
+					</StepBodyButtons>}
 			</StepBody>
 		</Step>
 	</BucketsEventBusProvider>;

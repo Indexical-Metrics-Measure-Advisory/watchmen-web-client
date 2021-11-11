@@ -269,6 +269,7 @@ export const Jp = {
 		ON_EDIT: '編集中、保存されていないデータはすべて失われます。編集を破棄しますか?',
 		PREPARE: {
 			TITLE: '指標を準備',
+			STEP: 'ステップ',
 			WAIT_INPUT: '入力を待っている...',
 			SEARCHING: '検索中...',
 			NO_MATCHED: '一致するデータが見つかりませんでした。',
@@ -296,8 +297,9 @@ export const Jp = {
 			ORGANIZATION: '機関',
 			CATEGORY: '分類を指定します',
 			DEFINE_BUCKETS_TITLE: '分類と集計を改善するための事前定義されたバケット。',
-			DEFINE_BUCKET: 'バケットを定義する',
-			SELF_VALUE_BUCKET_LABEL: '指標値は自由に分岐することができます。',
+			SELF_VALUE_BUCKET_ONLY_ON_FACTOR_LABEL: '指標値バケットは、データファクタが選択されている場合にのみさらに定義できます',
+			SELF_VALUE_BUCKET_LABEL: '指標値はバケットで定義',
+			MEASURE_BUCKET_LABEL: '測定寸法のバケット定義',
 			BUCKET_NAME: 'バケット名',
 			CREATE_SELF_VALUE_BUCKET: '新しい指標値バケット設定を作成します',
 			IGNORE_DEFINE_BUCKETS: 'バケット定義を無視する',
@@ -310,7 +312,7 @@ export const Jp = {
 			DETECT_RELEVANT: '潜在的な関連指標を検出します',
 			IGNORE_DETECT_RELEVANT: '今すぐ検出を無視',
 			LAST_STEP_TITLE: '指標の設定が完了しました。',
-			PREPARE_ANOTHER: '別の指標を定義します.'
+			PREPARE_ANOTHER: '別の指標を定義します'
 		},
 		BUCKET: {
 			RANGE_INCLUDING: '値の格納方法',

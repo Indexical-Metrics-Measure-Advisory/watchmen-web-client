@@ -43,6 +43,8 @@ export const FactorValueBucket = (props: { indicator: Indicator; bucket: Numeric
 		}
 	];
 
+	// TODO min/max values table
+
 	return <FactorValueBucketContainer>
 		<FactorValueBucketIndexLabel/>
 		<Label>{Lang.INDICATOR_WORKBENCH.PREPARE.BUCKET_NAME}</Label>

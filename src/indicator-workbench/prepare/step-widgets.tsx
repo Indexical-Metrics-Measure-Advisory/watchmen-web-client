@@ -1,4 +1,5 @@
 import {Button} from '@/widgets/basic/button';
+import {Lang} from '@/widgets/langs';
 import {ForwardedRef, forwardRef, ReactNode, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useIndicatorsEventBus} from './indicators-event-bus';
@@ -15,7 +16,8 @@ const StepContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
 })<{ visible: boolean }>`
 	display               : grid;
 	position              : relative;
-	grid-template-columns : 64px 1fr;
+	grid-template-columns : auto 1fr;
+	grid-column-gap       : calc(var(--margin) / 2);
 	width                 : 100%;
 `;
 export const SinkingLabel = styled.span`
@@ -36,6 +38,7 @@ export const EmphaticSinkingLabel = styled(SinkingLabel)`
 const StepIndex = styled(SinkingLabel).attrs({'data-widget': 'step-index'})`
 	font-variant  : petite-caps;
 	margin-bottom : calc(var(--height) * 0.4);
+	white-space   : nowrap;
 `;
 const StepTitleContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
 	return {
@@ -74,7 +77,7 @@ export const Step = forwardRef((props: { index: number; visible?: boolean; child
 	const {index, visible = true, children} = props;
 
 	return <StepContainer visible={visible} ref={ref}>
-		<StepIndex>Step {index}.</StepIndex>
+		<StepIndex>{Lang.INDICATOR_WORKBENCH.PREPARE.STEP} {index}.</StepIndex>
 		{children}
 		<StepBackground/>
 	</StepContainer>;

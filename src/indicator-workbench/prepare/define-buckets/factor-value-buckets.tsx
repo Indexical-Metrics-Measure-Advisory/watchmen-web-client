@@ -34,7 +34,12 @@ export const FactorValueBuckets = (props: { indicator: Indicator }) => {
 	}, [on, off, forceUpdate]);
 
 	if (indicator.factorId == null) {
-		return null;
+		return <FactorValueBucketsContainer>
+			<OrderedLabel>
+				<FontAwesomeIcon icon={ICON_LIST_ICON_ASTERISK}/>
+				<span>{Lang.INDICATOR_WORKBENCH.PREPARE.SELF_VALUE_BUCKET_ONLY_ON_FACTOR_LABEL}</span>
+			</OrderedLabel>
+		</FactorValueBucketsContainer>;
 	}
 
 	const onCreateClicked = () => {
