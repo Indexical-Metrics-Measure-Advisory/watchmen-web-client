@@ -1,5 +1,5 @@
 import {IndicatorsData} from '../indicators-event-bus-types';
-import {FactorValueBucket} from './factor-value-bucket';
+import {FactorValueBuckets} from './factor-value-buckets';
 import {BucketsDefContainer} from './widgets';
 
 export const BucketsDef = (props: { data: IndicatorsData; visible: boolean }) => {
@@ -10,6 +10,6 @@ export const BucketsDef = (props: { data: IndicatorsData; visible: boolean }) =>
 	}
 
 	return <BucketsDefContainer>
-		<FactorValueBucket indicator={data.indicator}/>
+		<FactorValueBuckets indicator={data.indicator}/>
 	</BucketsDefContainer>;
 };

@@ -1,9 +1,9 @@
 export enum BucketsEventTypes {
-	// START_DEFINE = 'start-define'
+	VALUE_BUCKET_DELETED = 'value-bucket-deleted'
 }
 
 export interface BucketsEventBus {
-	// fire(type: BucketsEventTypes.START_DEFINE): this;
-	// on(type: BucketsEventTypes.START_DEFINE, listener: () => void): this;
-	// off(type: BucketsEventTypes.START_DEFINE, listener: () => void): this;
+	fire(type: BucketsEventTypes.VALUE_BUCKET_DELETED): this;
+	on(type: BucketsEventTypes.VALUE_BUCKET_DELETED, listener: () => void): this;
+	off(type: BucketsEventTypes.VALUE_BUCKET_DELETED, listener: () => void): this;
 }

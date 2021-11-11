@@ -298,6 +298,7 @@ export const Zh = {
 			DEFINE_BUCKETS_TITLE: '为更好的分类和聚合数据, 可以使用预定义分桶.',
 			DEFINE_BUCKET: '定义分桶',
 			SELF_VALUE_BUCKET_LABEL: '指标值可以被自由分桶.',
+			BUCKET_NAME: '桶名称',
 			CREATE_SELF_VALUE_BUCKET: '创建新的指标值分桶设置',
 			IGNORE_DEFINE_BUCKETS: '现在不定义分桶',
 			CHANGE_NAME: '修改名称',
@@ -310,6 +311,11 @@ export const Zh = {
 			IGNORE_DETECT_RELEVANT: '现在不侦测',
 			LAST_STEP_TITLE: '指标设置完毕.',
 			PREPARE_ANOTHER: '定义另一个指标'
+		},
+		BUCKET: {
+			RANGE_INCLUDING: '值包含方式',
+			RANGE_INCLUDE_MIN: '包含最小值, 不包含最大值',
+			RANGE_INCLUDE_MAX: '不包含最小值, 包含最大值'
 		}
 	},
 	SETTINGS: {

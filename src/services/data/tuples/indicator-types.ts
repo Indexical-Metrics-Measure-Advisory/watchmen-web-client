@@ -72,11 +72,15 @@ export interface Bucket {
 	name: string;
 }
 
+export enum RangeBucketValueIncluding {
+	INCLUDE_MIN = 'include-min',
+	INCLUDE_MAX = 'include-max'
+}
+
 export interface NumericValueBucket extends Bucket {
 	min?: number;
-	includeMin?: boolean;
 	max?: number;
-	includeMax?: boolean;
+	include: RangeBucketValueIncluding;
 }
 
 export interface Indicator extends Tuple {

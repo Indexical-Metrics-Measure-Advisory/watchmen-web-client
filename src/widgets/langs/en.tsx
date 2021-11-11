@@ -296,9 +296,10 @@ export const En = {
 			ORGANIZATION: 'Organization',
 			CATEGORY: 'Category',
 			DEFINE_BUCKETS_TITLE: 'Predefined buckets for better categorization and aggregation.',
-			SELF_VALUE_BUCKET_LABEL: 'Indicator value can be bucketing.',
-			CREATE_SELF_VALUE_BUCKET: 'Create New Bucket on Indicator Value',
 			DEFINE_BUCKET: 'Define Bucket',
+			SELF_VALUE_BUCKET_LABEL: 'Indicator value can be bucketing.',
+			BUCKET_NAME: 'Bucket Name',
+			CREATE_SELF_VALUE_BUCKET: 'Create New Bucket on Indicator Value',
 			IGNORE_DEFINE_BUCKETS: 'Ignore Buckets Definition',
 			CHANGE_NAME: 'Change Name',
 			NOT_NOW: 'Not Now',
@@ -310,6 +311,11 @@ export const En = {
 			IGNORE_DETECT_RELEVANT: 'Ignore Detect Now',
 			LAST_STEP_TITLE: 'Indicator is ready.',
 			PREPARE_ANOTHER: 'Prepare Another Indicator'
+		},
+		BUCKET: {
+			RANGE_INCLUDING: 'Including',
+			RANGE_INCLUDE_MIN: 'Include Min Value, Exclude Max Value',
+			RANGE_INCLUDE_MAX: 'Exclude Max Value, Include Max Value',
 		}
 	},
 	SETTINGS: {

@@ -1,29 +1,55 @@
-import {Indicator} from '@/services/data/tuples/indicator-types';
+import {Indicator, NumericValueBucket, RangeBucketValueIncluding} from '@/services/data/tuples/indicator-types';
 import {Button} from '@/widgets/basic/button';
-import {ICON_LIST_ICON_ASTERISK} from '@/widgets/basic/constants';
-import {ButtonInk} from '@/widgets/basic/types';
+import {Dropdown} from '@/widgets/basic/dropdown';
+import {Input} from '@/widgets/basic/input';
+import {ButtonInk, DropdownOption} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {FactorValueBucketContainer, OrderedLabel} from './widgets';
+import {ChangeEvent} from 'react';
+import {useBucketsEventBus} from './buckets-event-bus';
+import {BucketsEventTypes} from './buckets-event-bus-types';
+import {FactorValueBucketContainer, FactorValueBucketIndexLabel, Label} from './widgets';
 
-export const FactorValueBucket = (props: { indicator: Indicator; }) => {
-	const {indicator} = props;
+export const FactorValueBucket = (props: { indicator: Indicator; bucket: NumericValueBucket }) => {
+	const {indicator, bucket} = props;
 
-	if (indicator.factorId == null) {
-		return null;
-	}
+	const {fire} = useBucketsEventBus();
+	const forceUpdate = useForceUpdate();
 
-	const onCreateClicked = () => {
-		// TODO
+	const onNameChanged = (event: ChangeEvent<HTMLInputElement>) => {
+		const {value} = event.target;
+		bucket.name = value;
+	};
+	const onDeleteClicked = () => {
+		const index = indicator.valueBuckets!.indexOf(bucket);
+		indicator.valueBuckets!.splice(index, 1);
+		fire(BucketsEventTypes.VALUE_BUCKET_DELETED);
+	};
+	const onIncludingChange = (option: DropdownOption) => {
+		bucket.include = option.value as RangeBucketValueIncluding;
+		forceUpdate();
 	};
 
+	const includingOptions: Array<DropdownOption> = [
+		{
+			value: RangeBucketValueIncluding.INCLUDE_MIN,
+			key: 'include min',
+			label: Lang.INDICATOR_WORKBENCH.BUCKET.RANGE_INCLUDE_MIN
+		},
+		{
+			value: RangeBucketValueIncluding.INCLUDE_MAX,
+			key: 'include max',
+			label: Lang.INDICATOR_WORKBENCH.BUCKET.RANGE_INCLUDE_MAX
+		}
+	];
+
 	return <FactorValueBucketContainer>
-		<OrderedLabel>
-			<FontAwesomeIcon icon={ICON_LIST_ICON_ASTERISK}/>
-			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.SELF_VALUE_BUCKET_LABEL}</span>
-		</OrderedLabel>
-		<Button ink={ButtonInk.PRIMARY} onClick={onCreateClicked}>
-			{Lang.INDICATOR_WORKBENCH.PREPARE.CREATE_SELF_VALUE_BUCKET}
-		</Button>
+		<FactorValueBucketIndexLabel/>
+		<Label>{Lang.INDICATOR_WORKBENCH.PREPARE.BUCKET_NAME}</Label>
+		<Input value={bucket.name || ''} onChange={onNameChanged}/>
+		<Button ink={ButtonInk.DANGER} onClick={onDeleteClicked}>{Lang.ACTIONS.DELETE}</Button>
+		<Label>{Lang.INDICATOR_WORKBENCH.BUCKET.RANGE_INCLUDING}</Label>
+		<Dropdown value={bucket.include ?? RangeBucketValueIncluding.INCLUDE_MIN} options={includingOptions}
+		          onChange={onIncludingChange}/>
 	</FactorValueBucketContainer>;
 };

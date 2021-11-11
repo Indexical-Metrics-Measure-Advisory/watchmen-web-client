@@ -296,9 +296,10 @@ export const Jp = {
 			ORGANIZATION: '機関',
 			CATEGORY: '分類を指定します',
 			DEFINE_BUCKETS_TITLE: '分類と集計を改善するための事前定義されたバケット。',
-			SELF_VALUE_BUCKET_LABEL: '指標値は自由に分岐することができます。',
-			CREATE_SELF_VALUE_BUCKET: '新しい指標値バケット設定を作成します',
 			DEFINE_BUCKET: 'バケットを定義する',
+			SELF_VALUE_BUCKET_LABEL: '指標値は自由に分岐することができます。',
+			BUCKET_NAME: 'バケット名',
+			CREATE_SELF_VALUE_BUCKET: '新しい指標値バケット設定を作成します',
 			IGNORE_DEFINE_BUCKETS: 'バケット定義を無視する',
 			CHANGE_NAME: '名前を変更します',
 			NOT_NOW: '捨てる',
@@ -310,6 +311,11 @@ export const Jp = {
 			IGNORE_DETECT_RELEVANT: '今すぐ検出を無視',
 			LAST_STEP_TITLE: '指標の設定が完了しました。',
 			PREPARE_ANOTHER: '別の指標を定義します.'
+		},
+		BUCKET: {
+			RANGE_INCLUDING: '値の格納方法',
+			RANGE_INCLUDE_MIN: '最小値を含み、最大値は含まれません',
+			RANGE_INCLUDE_MAX: '最小値は含まれ、最大値は含まれません'
 		}
 	},
 	SETTINGS: {
