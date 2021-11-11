@@ -13,12 +13,16 @@ export const FactorValueBucket = (props: { indicator: Indicator; }) => {
 		return null;
 	}
 
+	const onCreateClicked = () => {
+		// TODO
+	};
+
 	return <FactorValueBucketContainer>
 		<OrderedLabel>
 			<FontAwesomeIcon icon={ICON_LIST_ICON_ASTERISK}/>
 			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.SELF_VALUE_BUCKET_LABEL}</span>
 		</OrderedLabel>
-		<Button ink={ButtonInk.PRIMARY}>
+		<Button ink={ButtonInk.PRIMARY} onClick={onCreateClicked}>
 			{Lang.INDICATOR_WORKBENCH.PREPARE.CREATE_SELF_VALUE_BUCKET}
 		</Button>
 	</FactorValueBucketContainer>;

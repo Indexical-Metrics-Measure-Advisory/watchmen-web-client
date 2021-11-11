@@ -67,7 +67,12 @@ export interface IndicatorMeasure {
 	method: MeasureMethod;
 }
 
-export interface NumericValueBucket {
+export interface Bucket {
+	bucketId: string;
+	name: string;
+}
+
+export interface NumericValueBucket extends Bucket {
 	min?: number;
 	includeMin?: boolean;
 	max?: number;

@@ -282,6 +282,7 @@ export const Zh = {
 			PICK_TOPIC: '选择一个主题或者数据因子',
 			DEFINE_ON_TOPIC: '基于主题',
 			INDICATOR_ON_TOPIC: '主题级',
+			FAILED_TO_LOAD_INDICATOR: '加载指标数据出现错误, 请联系您的系统管理员以获取更多信息.',
 			MEASURE_METHODS_TITLE: '当前指标可使用的测量维度已经被自动侦测完毕.',
 			FACTOR: '数据因子',
 			FACTOR_NAME: '名称',

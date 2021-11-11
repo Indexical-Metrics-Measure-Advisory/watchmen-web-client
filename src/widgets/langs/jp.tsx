@@ -282,6 +282,7 @@ export const Jp = {
 			PICK_TOPIC: 'トピックまたはファクターを選択します',
 			DEFINE_ON_TOPIC: 'トピックに対する定義',
 			INDICATOR_ON_TOPIC: 'トピックに関する',
+			FAILED_TO_LOAD_INDICATOR: '指標データの読み込みにエラーが発生しました。詳細については、管理者に問い合わせてください。',
 			MEASURE_METHODS_TITLE: '現在の指標で使用できる測定ディメンションは、自動的に検出されます。',
 			FACTOR: 'ファクター',
 			FACTOR_NAME: '名前',

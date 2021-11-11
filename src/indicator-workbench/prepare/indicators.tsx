@@ -3,6 +3,7 @@ import {Indicator, IndicatorId} from '@/services/data/tuples/indicator-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
+import {Lang} from '@/widgets/langs';
 import React, {Fragment, useEffect, useState} from 'react';
 import {CreateOrFind} from './create-or-find';
 import {DefineBuckets} from './define-buckets';
@@ -40,7 +41,7 @@ const IndicatorState = () => {
 				onData(data);
 			} catch {
 				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
-					Failed to load indicator, retry again or contact your administrator for more information.
+					{Lang.INDICATOR_WORKBENCH.PREPARE.FAILED_TO_LOAD_INDICATOR}
 				</AlertLabel>);
 			}
 		};

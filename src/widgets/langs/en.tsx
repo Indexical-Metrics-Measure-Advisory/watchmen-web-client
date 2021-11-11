@@ -282,6 +282,7 @@ export const En = {
 			PICK_TOPIC: 'Pick a Topic or Factor',
 			DEFINE_ON_TOPIC: 'Define on Topic',
 			INDICATOR_ON_TOPIC: 'On Topic',
+			FAILED_TO_LOAD_INDICATOR: 'Failed to load indicator, contact your administrator for more information.',
 			MEASURE_METHODS_TITLE: 'Available measures of current indicator were detected automatically.',
 			FACTOR: 'Factor',
 			FACTOR_NAME: 'Name',
