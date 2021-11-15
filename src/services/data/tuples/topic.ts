@@ -50,6 +50,6 @@ export const listTopicsForHolder = async (search: string): Promise<Array<QueryTo
 	if (isMockService()) {
 		return listMockTopicsForHolder(search);
 	} else {
-		return await get({api: Apis.TOPIC_LIST_FOR_HOLDER_BY_NAME, search: {search}});
+		return await get({api: Apis.TOPIC_LIST_FOR_HOLDER_BY_NAME_NON_RAW, search: {search}});
 	}
 };

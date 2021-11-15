@@ -29,6 +29,7 @@ export const Apis = {
 	TOPIC_UPDATED: 'topic/updated',
 	TOPIC_LIST_BY_NAME: 'topic/name?query_name=:search',
 	TOPIC_LIST_FOR_HOLDER_BY_NAME: 'query/topic/space?query_name=:search',
+	TOPIC_LIST_FOR_HOLDER_BY_NAME_NON_RAW: 'query/topic/space?query_name=:search&exclude=raw',
 	TOPIC_GET: 'topic?topic_id=:topicId',
 	TOPIC_CREATE: 'topic',
 	TOPIC_SAVE: 'update/topic?topic_id=:topicId',
