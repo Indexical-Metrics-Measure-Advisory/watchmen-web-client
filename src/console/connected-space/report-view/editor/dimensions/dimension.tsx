@@ -37,6 +37,8 @@ export const DimensionEditor = (props: {
 	const onColumnChange = (option: DropdownOption) => {
 		const {value} = option;
 		dimension.columnId = value;
+		// eslint-disable-next-line
+		dimension.name = subject.dataset.columns.find(column => column.columnId == value)?.alias ?? '';
 		fire(ReportEditEventTypes.DIMENSION_CHANGED, report, dimension);
 		forceUpdate();
 	};

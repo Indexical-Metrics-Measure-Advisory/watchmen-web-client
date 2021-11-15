@@ -40,9 +40,10 @@ export class ChartBarUtils extends DefaultChartUtils {
 			grid: buildEChartsGrid(chart as ECharts),
 			xAxis,
 			yAxis,
-			series: legends.map(({index: indicatorIndex}) => {
+			series: legends.map(({label, index: indicatorIndex}) => {
 				return {
 					type: 'bar',
+					name: label,
 					label: buildLabel(chart),
 					data: buildSeriesData(chart, groups, indicatorIndex, this.formatNumber)
 				};

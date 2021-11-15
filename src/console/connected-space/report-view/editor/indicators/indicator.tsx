@@ -39,6 +39,8 @@ export const IndicatorEditor = (props: {
 	const onColumnChange = (option: DropdownOption) => {
 		const {value} = option;
 		indicator.columnId = value;
+		// eslint-disable-next-line
+		indicator.name = subject.dataset.columns.find(column => column.columnId == value)?.alias ?? '';
 		fire(ReportEditEventTypes.INDICATOR_CHANGED, report, indicator);
 		forceUpdate();
 	};

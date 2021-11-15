@@ -20,7 +20,7 @@ export const buildEChartsLegend = (chart: ECharts, legendNames: Array<string>): 
 		show: legend.show,
 		type: 'plain',
 		orient: legend.orient,
-		data: legendNames,
+		data: legendNames.map(name => ({name})),
 		textStyle: {
 			color: legend.font?.color,
 			fontStyle: legend.font?.style,
