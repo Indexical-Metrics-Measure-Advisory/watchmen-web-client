@@ -106,7 +106,7 @@ export const HeaderDeleteReportButton = (props: { connectedSpace: ConnectedSpace
 			if (aReport !== report) {
 				return;
 			}
-			console.log(report.simulateThumbnail);
+			// console.log(report.simulateThumbnail);
 			setChanged(state => {
 				return {...state, thumbnailChanged: true};
 			});

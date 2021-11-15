@@ -49,36 +49,34 @@ export const Container = (props: {
 	useEffect(() => {
 		if (shouldLoadData(diagramState.loadState)) {
 			if (report.simulating) {
-				setTimeout(() => {
+				window.setTimeout(() => {
 					const dataset = {data: report.simulateData ?? []};
 					fire(ReportEventTypes.DATA_LOADED, report, dataset);
 					setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
 					// delay 500 milliseconds
 				}, 500);
-			} else {
-				if (diagramState.loadState === DiagramLoadState.FALSE) {
-					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-						async () => await fetchChartData(report.reportId, report.chart.type),
-						(dataset: ChartDataSet) => {
-							fire(ReportEventTypes.DATA_LOADED, report, dataset);
-							setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
-						}, () => {
-							const dataset = {data: []};
-							fire(ReportEventTypes.DATA_LOADED, report, dataset);
-							setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
-						});
-				} else if (diagramState.loadState === DiagramLoadState.RELOAD) {
-					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-						async () => await fetchChartDataTemporary(report),
-						(dataset: ChartDataSet) => {
-							fire(ReportEventTypes.DATA_LOADED, report, dataset);
-							setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
-						}, () => {
-							const dataset = {data: []};
-							fire(ReportEventTypes.DATA_LOADED, report, dataset);
-							setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
-						});
-				}
+			} else if (diagramState.loadState === DiagramLoadState.FALSE) {
+				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+					async () => await fetchChartData(report.reportId, report.chart.type),
+					(dataset: ChartDataSet) => {
+						fire(ReportEventTypes.DATA_LOADED, report, dataset);
+						setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
+					}, () => {
+						const dataset = {data: []};
+						fire(ReportEventTypes.DATA_LOADED, report, dataset);
+						setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
+					});
+			} else if (diagramState.loadState === DiagramLoadState.RELOAD) {
+				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+					async () => await fetchChartDataTemporary(report),
+					(dataset: ChartDataSet) => {
+						fire(ReportEventTypes.DATA_LOADED, report, dataset);
+						setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
+					}, () => {
+						const dataset = {data: []};
+						fire(ReportEventTypes.DATA_LOADED, report, dataset);
+						setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
+					});
 			}
 		}
 
@@ -111,6 +109,23 @@ export const Container = (props: {
 			off(ReportEventTypes.DO_REFRESH, onDoRefresh);
 		};
 	}, [fireGlobal, on, off, fire, forceUpdate, report, diagramState.loadState, editing]);
+	useEffect(() => {
+		const onAskData = (aReport: Report, onLoaded: (dataset: ChartDataSet) => void) => {
+			if (report !== aReport) {
+				return;
+			}
+
+			if (diagramState.loadState === DiagramLoadState.TRUE) {
+				onLoaded(diagramState.dataset!);
+			} else {
+				onLoaded({data: []});
+			}
+		};
+		on(ReportEventTypes.ASK_DATA, onAskData);
+		return () => {
+			off(ReportEventTypes.ASK_DATA, onAskData);
+		};
+	}, [on, off, diagramState.dataset, diagramState.loadState, report]);
 
 	const writeToRect = (rect: ReportRect) => report.rect = rect;
 	const onDrop = () => fire(ReportEventTypes.REPORT_MOVE_OR_RESIZE_COMPLETED, report);

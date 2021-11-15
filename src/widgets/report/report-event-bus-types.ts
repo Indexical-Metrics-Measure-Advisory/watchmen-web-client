@@ -26,6 +26,7 @@ export enum ReportEventTypes {
 	ASK_DOWNLOAD_CHART = 'ask-download-chart',
 	CHART_OPTIONS_READY = 'chart-options-ready',
 
+	ASK_DATA = 'ask-data',
 	DATA_LOADED = 'data-loaded',
 	REPAINTED = 'repainted',
 	THUMBNAIL_CAUGHT = 'thumbnail-caught'
@@ -83,6 +84,10 @@ export interface ReportEventBus {
 	fire(type: ReportEventTypes.CHART_OPTIONS_READY, report: Report, options: ChartOptions): this;
 	on(type: ReportEventTypes.CHART_OPTIONS_READY, listener: (report: Report, options: ChartOptions) => void): this;
 	off(type: ReportEventTypes.CHART_OPTIONS_READY, listener: (report: Report, options: ChartOptions) => void): this;
+
+	fire(type: ReportEventTypes.ASK_DATA, report: Report, onLoaded: (dataset: ChartDataSet) => void): this;
+	on(type: ReportEventTypes.ASK_DATA, listener: (report: Report, onLoaded: (dataset: ChartDataSet) => void) => void): this;
+	off(type: ReportEventTypes.ASK_DATA, listener: (report: Report, onLoaded: (dataset: ChartDataSet) => void) => void): this;
 
 	fire(type: ReportEventTypes.DATA_LOADED, report: Report, dataset: ChartDataSet): this;
 	on(type: ReportEventTypes.DATA_LOADED, listener: (report: Report, dataset: ChartDataSet) => void): this;
