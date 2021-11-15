@@ -4,6 +4,7 @@ import {WaterMark} from '@/widgets/water-mark';
 import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
+import IndicatorWorkbenchBucketsIndex from './buckets';
 import IndicatorWorkbenchInspectionIndex from './inspection';
 import {IndicatorWorkbenchMenu} from './menu';
 import IndicatorWorkbenchPrepareIndex from './prepare';
@@ -35,9 +36,14 @@ const IndicatorWorkbenchIndex = () => {
 
 		<Switch>
 			{isAdmin()
-				? <Route path={Router.INDICATOR_WORKBENCH_PREPARE}>
-					<IndicatorWorkbenchMain><IndicatorWorkbenchPrepareIndex/></IndicatorWorkbenchMain>
-				</Route>
+				? <>
+					<Route path={Router.INDICATOR_WORKBENCH_BUCKETS}>
+						<IndicatorWorkbenchMain><IndicatorWorkbenchBucketsIndex/></IndicatorWorkbenchMain>
+					</Route>
+					<Route path={Router.INDICATOR_WORKBENCH_PREPARE}>
+						<IndicatorWorkbenchMain><IndicatorWorkbenchPrepareIndex/></IndicatorWorkbenchMain>
+					</Route>
+				</>
 				: null}
 			<Route path={Router.INDICATOR_WORKBENCH_INSPECTION}>
 				<IndicatorWorkbenchMain><IndicatorWorkbenchInspectionIndex/></IndicatorWorkbenchMain>

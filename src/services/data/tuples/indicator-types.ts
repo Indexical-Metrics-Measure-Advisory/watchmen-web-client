@@ -1,4 +1,4 @@
-import {Enum} from './enum-types';
+import {Enum, EnumId} from './enum-types';
 import {FactorId} from './factor-types';
 import {TenantId} from './tenant-types';
 import {Topic, TopicId} from './topic-types';
@@ -51,6 +51,50 @@ export enum MeasureMethod {
 	ENUM = 'enum',
 }
 
+export type BucketId = string;
+
+export enum BucketType {
+	VALUE = 'value',
+	MEASURE = 'measure',
+	COMPOSITE = 'composite'
+}
+
+export interface Bucket {
+	bucketId: BucketId;
+	name: string;
+	type: BucketType;
+}
+
+export enum RangeBucketValueIncluding {
+	INCLUDE_MIN = 'include-min',
+	INCLUDE_MAX = 'include-max'
+}
+
+export interface NumericValueBucket extends Bucket {
+	type: BucketType.VALUE;
+	include: RangeBucketValueIncluding;
+	segments: Array<[null | undefined, number] | [number, number] | [number, null | undefined]>;
+}
+
+export interface MeasureBucket extends Bucket {
+	type: BucketType.MEASURE;
+	measure: MeasureMethod;
+}
+
+export interface NumericValueMeasureBucket extends MeasureBucket {
+	include: RangeBucketValueIncluding;
+	segments: Array<[null | undefined, number] | [number, number] | [number, null | undefined]>;
+}
+
+export interface CategoryMeasureBucket extends MeasureBucket {
+	segments: Array<Array<string> | 'other'>;
+}
+
+export interface EnumMeasureBucket extends MeasureBucket {
+	enumId: EnumId;
+	segments: Array<Array<string> | 'other'>;
+}
+
 /** aggregate, not from factor, for each indicator (numeric type) */
 export enum IndicatorAggregateArithmetic {
 	COUNT = 'count',
@@ -67,22 +111,6 @@ export interface IndicatorMeasure {
 	method: MeasureMethod;
 }
 
-export interface Bucket {
-	bucketId: string;
-	name: string;
-}
-
-export enum RangeBucketValueIncluding {
-	INCLUDE_MIN = 'include-min',
-	INCLUDE_MAX = 'include-max'
-}
-
-export interface NumericValueBucket extends Bucket {
-	min?: number;
-	max?: number;
-	include: RangeBucketValueIncluding;
-}
-
 export interface Indicator extends Tuple {
 	indicatorId: IndicatorId;
 	name: string;
@@ -91,7 +119,7 @@ export interface Indicator extends Tuple {
 	factorId?: FactorId;
 	measures: Array<IndicatorMeasure>;
 	/** effective only when factorId is appointed */
-	valueBuckets?: Array<NumericValueBucket>;
+	valueBuckets?: Array<BucketId>;
 	tenantId?: TenantId;
 }
 

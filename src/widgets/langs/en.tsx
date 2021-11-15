@@ -260,6 +260,7 @@ export const En = {
 	INDICATOR_WORKBENCH: {
 		MENU: {
 			TITLE: 'Indicator Workbench',
+			BUCKETS: 'Prepare Buckets',
 			PREPARE: 'Prepare Indicator',
 			INSPECTION: 'Indicators Inspection',
 			SETTINGS: 'Settings',
@@ -299,9 +300,10 @@ export const En = {
 			DEFINE_BUCKETS_TITLE: 'Predefined buckets for better categorization and aggregation.',
 			SELF_VALUE_BUCKET_ONLY_ON_FACTOR_LABEL: 'Value bucketing only available on factor indicator',
 			SELF_VALUE_BUCKET_LABEL: 'Indicator value bucketing',
-			MEASURE_BUCKET_LABEL: 'Measure bucketing',
 			BUCKET_NAME: 'Bucket Name',
-			CREATE_SELF_VALUE_BUCKET: 'Create New Bucket on Indicator Value',
+			LINK_SELF_VALUE_BUCKETS: 'Link Predefined Value Buckets with Indicator Value',
+			MEASURE_BUCKET_LABEL: 'Measure bucketing',
+			VIEW_MEASURE_BUCKETS: 'View Predefined Buckets on Measure',
 			IGNORE_DEFINE_BUCKETS: 'Ignore Buckets Definition',
 			CHANGE_NAME: 'Change Name',
 			NOT_NOW: 'Not Now',

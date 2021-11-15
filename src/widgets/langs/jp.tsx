@@ -260,6 +260,7 @@ export const Jp = {
 	INDICATOR_WORKBENCH: {
 		MENU: {
 			TITLE: '指標ーワークベンチ',
+			BUCKETS: 'バケットを準備',
 			PREPARE: '指標を準備',
 			INSPECTION: '指標ーの構造',
 			SETTINGS: '設定',
@@ -299,9 +300,10 @@ export const Jp = {
 			DEFINE_BUCKETS_TITLE: '分類と集計を改善するための事前定義されたバケット。',
 			SELF_VALUE_BUCKET_ONLY_ON_FACTOR_LABEL: '指標値バケットは、データファクタが選択されている場合にのみさらに定義できます',
 			SELF_VALUE_BUCKET_LABEL: '指標値はバケットで定義',
-			MEASURE_BUCKET_LABEL: '測定寸法のバケット定義',
 			BUCKET_NAME: 'バケット名',
-			CREATE_SELF_VALUE_BUCKET: '新しい指標値バケット設定を作成します',
+			LINK_SELF_VALUE_BUCKETS: '定義済みの指標値のバケットを関連付けます',
+			MEASURE_BUCKET_LABEL: '測定寸法のバケット定義',
+			VIEW_MEASURE_BUCKETS: '定義済みの測定寸法のバケットを表示します',
 			IGNORE_DEFINE_BUCKETS: 'バケット定義を無視する',
 			CHANGE_NAME: '名前を変更します',
 			NOT_NOW: '捨てる',

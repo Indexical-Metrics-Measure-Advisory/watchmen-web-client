@@ -1,6 +1,4 @@
-import {Indicator, RangeBucketValueIncluding} from '@/services/data/tuples/indicator-types';
-import {generateUuid} from '@/services/data/tuples/utils';
-import {RequiredBy} from '@/services/types';
+import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Button} from '@/widgets/basic/button';
 import {ICON_LIST_ICON_ASTERISK} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
@@ -10,15 +8,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useEffect} from 'react';
 import {useBucketsEventBus} from './buckets-event-bus';
 import {BucketsEventTypes} from './buckets-event-bus-types';
-import {FactorValueBucket} from './factor-value-bucket';
 import {FactorValueBucketsContainer, OrderedLabel} from './widgets';
-
-const initValueBuckets = (indicator: Indicator): RequiredBy<Indicator, 'valueBuckets'> => {
-	if (indicator.valueBuckets == null) {
-		indicator.valueBuckets = [];
-	}
-	return indicator as RequiredBy<Indicator, 'valueBuckets'>;
-};
 
 export const FactorValueBuckets = (props: { indicator: Indicator }) => {
 	const {indicator} = props;
@@ -42,12 +32,8 @@ export const FactorValueBuckets = (props: { indicator: Indicator }) => {
 		</FactorValueBucketsContainer>;
 	}
 
-	const onCreateClicked = () => {
-		initValueBuckets(indicator).valueBuckets.push({
-			bucketId: generateUuid(),
-			name: '',
-			include: RangeBucketValueIncluding.INCLUDE_MIN
-		});
+	const onLinkClicked = () => {
+		// TODO
 		forceUpdate();
 	};
 
@@ -56,11 +42,8 @@ export const FactorValueBuckets = (props: { indicator: Indicator }) => {
 			<FontAwesomeIcon icon={ICON_LIST_ICON_ASTERISK}/>
 			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.SELF_VALUE_BUCKET_LABEL}</span>
 		</OrderedLabel>
-		{(indicator.valueBuckets || []).map(bucket => {
-			return <FactorValueBucket indicator={indicator} bucket={bucket} key={bucket.bucketId}/>;
-		})}
-		<Button ink={ButtonInk.PRIMARY} onClick={onCreateClicked}>
-			{Lang.INDICATOR_WORKBENCH.PREPARE.CREATE_SELF_VALUE_BUCKET}
+		<Button ink={ButtonInk.PRIMARY} onClick={onLinkClicked}>
+			{Lang.INDICATOR_WORKBENCH.PREPARE.LINK_SELF_VALUE_BUCKETS}
 		</Button>
 	</FactorValueBucketsContainer>;
 };

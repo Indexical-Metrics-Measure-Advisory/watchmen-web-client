@@ -260,6 +260,7 @@ export const Zh = {
 	INDICATOR_WORKBENCH: {
 		MENU: {
 			TITLE: '指标工作台',
+			BUCKETS: '准备分桶',
 			PREPARE: '准备指标因子',
 			INSPECTION: '指标构建',
 			SETTINGS: '设置',
@@ -299,9 +300,10 @@ export const Zh = {
 			DEFINE_BUCKETS_TITLE: '为更好的分类和聚合数据, 可以使用预定义分桶.',
 			SELF_VALUE_BUCKET_ONLY_ON_FACTOR_LABEL: '指标值分桶只有在选择了数据因子时才可以进一步定义',
 			SELF_VALUE_BUCKET_LABEL: '指标值分桶定义',
-			MEASURE_BUCKET_LABEL: '测量维度分桶定义',
 			BUCKET_NAME: '桶名称',
-			CREATE_SELF_VALUE_BUCKET: '创建新的指标值分桶设置',
+			LINK_SELF_VALUE_BUCKETS: '关联预定义的指标值分桶',
+			MEASURE_BUCKET_LABEL: '测量维度分桶定义',
+			VIEW_MEASURE_BUCKETS: '查看预定义的测量维度分桶',
 			IGNORE_DEFINE_BUCKETS: '现在不定义分桶',
 			CHANGE_NAME: '修改名称',
 			NOT_NOW: '放弃',
