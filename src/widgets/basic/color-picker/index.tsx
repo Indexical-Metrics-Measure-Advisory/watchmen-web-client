@@ -5,8 +5,8 @@ import {State} from './types';
 import {atBottom, getPosition} from './utils';
 import {ColorBar, ColorPickerContainer} from './widgets';
 
-export const ColorPicker = (props: { color: string, onChange: (color?: string) => void }) => {
-	const {color = '', onChange, ...rest} = props;
+export const ColorPicker = (props: { color?: string, onChange: (color?: string) => void }) => {
+	const {color = 'rgba(255,255,255,1)', onChange, ...rest} = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [state, setState] = useState<State>({

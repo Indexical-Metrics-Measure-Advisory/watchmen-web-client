@@ -6,7 +6,7 @@ export const ColorValueEditor = (props: {
 	defaultValue?: string;
 	onValueChange: (value?: string) => void;
 }) => {
-	const {value, defaultValue = 'rgba(255,255,255,0)', onValueChange, ...rest} = props;
+	const {value, defaultValue, onValueChange, ...rest} = props;
 
 	const [color, setColor] = useState(value || defaultValue);
 	const onColorChange = (color?: string) => {

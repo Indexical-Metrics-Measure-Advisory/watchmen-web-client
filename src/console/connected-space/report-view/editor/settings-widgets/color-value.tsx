@@ -7,7 +7,7 @@ export const ColorValue = (props: {
 	defaultValue?: string;
 	onValueChange: (value?: string) => void;
 }) => {
-	const {label, value, defaultValue = 'rgba(255,255,255,0)', onValueChange} = props;
+	const {label, value, defaultValue, onValueChange} = props;
 
 	return <>
 		{label ? <PropName>{label}</PropName> : null}
