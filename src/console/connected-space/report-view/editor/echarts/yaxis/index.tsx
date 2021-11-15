@@ -1,11 +1,10 @@
 import {canUseYAxis, isEChart} from '@/services/data/tuples/echarts/echarts-utils';
-import {EChartsYAxisPosition, EChartsYAxisType} from '@/services/data/tuples/echarts/echarts-yaxis-types';
+import {EChartsYAxisPosition} from '@/services/data/tuples/echarts/echarts-yaxis-types';
 import {Report} from '@/services/data/tuples/report-types';
 import {Lang} from '@/widgets/langs';
 import React from 'react';
 import {isANumber, onBooleanChange, onDropdownValueChange, onNumberChange} from '../../data-utils';
 import {TabBodySection, TabBodySectionBody, TabBodySectionTitle} from '../../dataset-and-palette/widget';
-import {AxisTypeOptions} from '../../prop-defs/dropdown-options/axis-dropdown-options';
 import {EChartsYAxisPropNames, YAxisPositionOptions} from '../../prop-defs/echart-styles/echarts-yaxis-props';
 import {useReportEditEventBus} from '../../report-edit-event-bus';
 import {ReportEditEventTypes} from '../../report-edit-event-bus-types';
@@ -55,15 +54,15 @@ export const EChartsYAxisSettings = (props: { report: Report }) => {
 				               prop: EChartsYAxisPropNames.POSITION,
 				               done: onValueChange
 			               })}/>
-			<DropdownValue label={Lang.CHART.AXIS_TYPE}
-			               value={yaxis?.type} defaultValue={EChartsYAxisType.VALUE}
-			               options={AxisTypeOptions}
-			               onValueChange={onDropdownValueChange({
-				               report,
-				               chart,
-				               prop: EChartsYAxisPropNames.TYPE,
-				               done: onValueChange
-			               })}/>
+			{/*<DropdownValue label={Lang.CHART.AXIS_TYPE}*/}
+			{/*               value={yaxis?.type} defaultValue={EChartsYAxisType.VALUE}*/}
+			{/*               options={AxisTypeOptions}*/}
+			{/*               onValueChange={onDropdownValueChange({*/}
+			{/*	               report,*/}
+			{/*	               chart,*/}
+			{/*	               prop: EChartsYAxisPropNames.TYPE,*/}
+			{/*	               done: onValueChange*/}
+			{/*               })}/>*/}
 		</TabBodySectionBody>
 		<TabBodySectionTitle>{Lang.CHART.SECTION_TITLE_ECHART_YAXIS_RANGE}</TabBodySectionTitle>
 		<TabBodySectionBody>

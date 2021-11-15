@@ -2,7 +2,7 @@ import {ECharts} from '@/services/data/tuples/echarts/echarts-types';
 import {EChartsXAxisType} from '@/services/data/tuples/echarts/echarts-xaxis-types';
 import {cleanUselessValues} from './data-utils';
 
-export const buildEChartsXAxis = (chart: ECharts, data: any): any | undefined => {
+export const buildEChartsXAxis = (chart: ECharts, data: Array<string | number>): any | undefined => {
 	let {settings} = chart;
 
 	if (!settings) {
