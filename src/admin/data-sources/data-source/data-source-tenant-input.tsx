@@ -2,8 +2,8 @@ import {DataSource} from '@/services/data/tuples/data-source-types';
 import {QueryTenantForHolder} from '@/services/data/tuples/query-tenant-types';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
+import {TuplePropertyDropdown} from '@/widgets/tuple-workbench/tuple-editor';
 import React from 'react';
-import {TuplePropertyDropdown} from '../../widgets/tuple-workbench/tuple-editor';
 import {useDataSourceEventBus} from '../data-source-event-bus';
 import {DataSourceEventTypes} from '../data-source-event-bus-types';
 

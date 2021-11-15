@@ -1,7 +1,7 @@
 import {QueryTupleForHolder} from '@/services/data/tuples/tuple-types';
-import {BASE_HEIGHT, ICON_LOADING} from '@/widgets/basic/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {RefObject, useEffect, useState} from 'react';
+import {BASE_HEIGHT, ICON_LOADING} from '../../basic/constants';
 import {useTupleEventBus} from '../tuple-event-bus';
 import {TupleEventTypes, TupleState} from '../tuple-event-bus-types';
 import {TupleItemCandidate} from './tuple-item-candidate';

@@ -1,5 +1,5 @@
-import {Button} from '@/widgets/basic/button';
 import styled, {keyframes} from 'styled-components';
+import {Button} from '../../basic/button';
 
 export const TupleEditContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
 	return {

@@ -2,8 +2,8 @@ import {Enum} from '@/services/data/tuples/enum-types';
 import {QueryEnumForHolder} from '@/services/data/tuples/query-enum-types';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
+import {TuplePropertyDropdown} from '@/widgets/tuple-workbench/tuple-editor';
 import React from 'react';
-import {TuplePropertyDropdown} from '../../widgets/tuple-workbench/tuple-editor';
 import {useEnumEventBus} from '../enum-event-bus';
 import {EnumEventTypes} from '../enum-event-bus-types';
 

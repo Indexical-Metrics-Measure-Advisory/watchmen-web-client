@@ -1,7 +1,7 @@
 import {Enum} from '@/services/data/tuples/enum-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
+import {TuplePropertyInput} from '@/widgets/tuple-workbench/tuple-editor';
 import React from 'react';
-import {TuplePropertyInput} from '../../widgets/tuple-workbench/tuple-editor';
 import {useEnumEventBus} from '../enum-event-bus';
 import {EnumEventTypes} from '../enum-event-bus-types';
 

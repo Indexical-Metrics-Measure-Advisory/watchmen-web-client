@@ -1,8 +1,8 @@
 import {QueryTuple, Tuple} from '@/services/data/tuples/tuple-types';
-import {FixWidthPage} from '@/widgets/basic/page';
-import {PageHeader} from '@/widgets/basic/page-header';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 import React, {ReactNode} from 'react';
+import {FixWidthPage} from '../basic/page';
+import {PageHeader} from '../basic/page-header';
 import {TupleEdit} from './tuple-edit';
 import {HoldByTuple} from './tuple-event-bus-types';
 import {TupleSearch} from './tuple-search';

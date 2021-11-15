@@ -3,17 +3,17 @@ import {prettifyDateTimeToMinute} from '@/services/data/tuples/utils';
 import {Avatar} from '@/widgets/basic/avatar';
 import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT} from '@/widgets/basic/constants';
 import {TooltipAlignment} from '@/widgets/basic/types';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React from 'react';
-import styled from 'styled-components';
 import {
 	TupleCard,
 	TupleCardStatistics,
 	TupleCardStatisticsItem,
 	TupleCardTitle
-} from '../widgets/tuple-workbench/tuple-card';
-import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
-import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
+} from '@/widgets/tuple-workbench/tuple-card';
+import {useTupleEventBus} from '@/widgets/tuple-workbench/tuple-event-bus';
+import {TupleEventTypes} from '@/widgets/tuple-workbench/tuple-event-bus-types';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import React from 'react';
+import styled from 'styled-components';
 
 const Title = styled(TupleCardTitle)`
 	justify-content : space-between;

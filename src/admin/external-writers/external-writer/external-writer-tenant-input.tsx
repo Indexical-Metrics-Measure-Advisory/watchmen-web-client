@@ -2,8 +2,8 @@ import {ExternalWriter} from '@/services/data/tuples/external-writer-types';
 import {QueryTenantForHolder} from '@/services/data/tuples/query-tenant-types';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
+import {TuplePropertyDropdown} from '@/widgets/tuple-workbench/tuple-editor';
 import React from 'react';
-import {TuplePropertyDropdown} from '../../widgets/tuple-workbench/tuple-editor';
 import {useExternalWriterEventBus} from '../external-writer-event-bus';
 import {ExternalWriterEventTypes} from '../external-writer-event-bus-types';
 

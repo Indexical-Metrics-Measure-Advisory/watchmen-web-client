@@ -1,4 +1,3 @@
-
 import {Topic} from '@/services/data/tuples/topic-types';
 import {isNotAggregationTopic, isRawTopic} from '@/services/data/tuples/topic-utils';
 import {ZipFiles} from '@/widgets/basic/utils';

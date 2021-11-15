@@ -5,7 +5,7 @@ import {Dashboard} from './dashboard-types';
 import {DataSource} from './data-source-types';
 import {Enum} from './enum-types';
 import {ExternalWriter} from './external-writer-types';
-import {Indicator} from './indicator-types';
+import {Bucket, Indicator} from './indicator-types';
 import {Pipeline, PipelinesGraphics} from './pipeline-types';
 import {Report} from './report-types';
 import {Space} from './space-types';
@@ -64,6 +64,9 @@ export const isExternalWriter = (tuple: Tuple): tuple is ExternalWriter => {
 export const isIndicator = (tuple: Tuple): tuple is Indicator => {
 	return !!(tuple as any).indicatorId;
 };
+export const isBucket = (tuple: Tuple): tuple is Bucket => {
+	return !!(tuple as any).bucketId;
+};
 
 export const generateUuid = (): string => `${FAKE_ID_PREFIX}${v4().replace(/-/g, '')}`;
 export const isFakedUuidForGraphics = (graphics: PipelinesGraphics): boolean => {
@@ -74,6 +77,8 @@ export const isFakedUuid = (tuple: Tuple): boolean => {
 		// indicator check must before topic check
 		// since "topicId" also exists in pipeline object
 		return tuple.indicatorId.startsWith(FAKE_ID_PREFIX);
+	} else if (isBucket(tuple)) {
+		return tuple.bucketId.startsWith(FAKE_ID_PREFIX);
 	} else if (isPipeline(tuple)) {
 		// pipeline check must before topic check
 		// since "topicId" also exists in pipeline object

@@ -11,8 +11,8 @@ export const FixWidthPage = styled.div.attrs({'data-widget': 'fix-width-page'})`
 `;
 
 export const SettingsPage = styled(FixWidthPage)`
-	max-width: 1000px;
-`
+	max-width : 1000px;
+`;
 
 export const FullWidthPage = styled.div.attrs({'data-widget': 'full-width-page'})`
 	flex-grow      : 1;

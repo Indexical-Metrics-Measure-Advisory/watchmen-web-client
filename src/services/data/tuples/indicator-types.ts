@@ -59,7 +59,7 @@ export enum BucketType {
 	COMPOSITE = 'composite'
 }
 
-export interface Bucket {
+export interface Bucket extends Tuple {
 	bucketId: BucketId;
 	name: string;
 	type: BucketType;

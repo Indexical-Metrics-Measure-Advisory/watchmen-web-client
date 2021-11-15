@@ -2,8 +2,8 @@ import {QueryTopicForHolder} from '@/services/data/tuples/query-topic-types';
 import {Space} from '@/services/data/tuples/space-types';
 import {listTopicsForHolder} from '@/services/data/tuples/topic';
 import {TopicId} from '@/services/data/tuples/topic-types';
+import {TupleItemPicker} from '@/widgets/tuple-workbench/tuple-item-picker';
 import React from 'react';
-import {TupleItemPicker} from '../widgets/tuple-workbench/tuple-item-picker';
 import {useSpaceEventBus} from './space-event-bus';
 import {SpaceEventTypes} from './space-event-bus-types';
 

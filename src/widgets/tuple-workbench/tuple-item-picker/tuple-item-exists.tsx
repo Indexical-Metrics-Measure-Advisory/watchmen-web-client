@@ -1,8 +1,8 @@
 import {QueryTupleForHolder, TupleHolder} from '@/services/data/tuples/tuple-types';
-import {ICON_DELETE} from '@/widgets/basic/constants';
-import {useForceUpdate} from '@/widgets/basic/utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect} from 'react';
+import {ICON_DELETE} from '../../basic/constants';
+import {useForceUpdate} from '../../basic/utils';
 import {useTupleEventBus} from '../tuple-event-bus';
 import {TupleEventTypes, TupleState} from '../tuple-event-bus-types';
 import {useTupleItemPickerEventBus} from './tuple-item-picker-event-bus';

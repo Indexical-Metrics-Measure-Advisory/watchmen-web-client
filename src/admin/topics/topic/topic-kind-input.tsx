@@ -1,8 +1,8 @@
 import {Topic, TopicKind} from '@/services/data/tuples/topic-types';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
+import {TuplePropertyDropdown} from '@/widgets/tuple-workbench/tuple-editor';
 import React from 'react';
-import {TuplePropertyDropdown} from '../../widgets/tuple-workbench/tuple-editor';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';
 

@@ -1,4 +1,3 @@
-
 import {Topic, TopicType} from '@/services/data/tuples/topic-types';
 import {
 	isBusinessTopic,

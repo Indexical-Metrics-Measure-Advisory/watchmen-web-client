@@ -1,21 +1,21 @@
 import {DataSource, DataSourceParam} from '@/services/data/tuples/data-source-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
+import {TuplePropertyInput, TuplePropertyLabel} from '@/widgets/tuple-workbench/tuple-editor';
 import React from 'react';
 import styled from 'styled-components';
-import {TuplePropertyInput, TuplePropertyLabel} from '../../widgets/tuple-workbench/tuple-editor';
 import {useDataSourceEventBus} from '../data-source-event-bus';
 import {DataSourceEventTypes} from '../data-source-event-bus-types';
 
 const ExtraParams = styled.div`
-	display: grid;
-	grid-template-columns: 60% 32px calc(40% - 32px);
-	grid-auto-rows: minmax(var(--grid-tall-row-height), auto);
-	grid-row-gap: calc(var(--margin) / 4);
-	align-content: center;
+	display               : grid;
+	grid-template-columns : 60% 32px calc(40% - 32px);
+	grid-auto-rows        : minmax(var(--grid-tall-row-height), auto);
+	grid-row-gap          : calc(var(--margin) / 4);
+	align-content         : center;
 	> span {
-		align-self: center;
-		justify-self: center;
-		font-weight: var(--font-bold);
+		align-self   : center;
+		justify-self : center;
+		font-weight  : var(--font-bold);
 	}
 `;
 export const DataSourceParams = (props: { dataSource: DataSource }) => {

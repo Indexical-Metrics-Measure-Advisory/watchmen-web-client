@@ -1,7 +1,7 @@
 import {ExternalWriter} from '@/services/data/tuples/external-writer-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
+import {TuplePropertyInput} from '@/widgets/tuple-workbench/tuple-editor';
 import React from 'react';
-import {TuplePropertyInput} from '../../widgets/tuple-workbench/tuple-editor';
 import {useExternalWriterEventBus} from '../external-writer-event-bus';
 import {ExternalWriterEventTypes} from '../external-writer-event-bus-types';
 

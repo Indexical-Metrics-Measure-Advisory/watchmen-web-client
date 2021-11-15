@@ -1,11 +1,7 @@
 import {GRID_ROW_HEIGHT} from '@/widgets/basic/constants';
 import {TooltipButton} from '@/widgets/basic/tooltip-button';
+import {TuplePropertyCheckBox, TuplePropertyDropdown, TuplePropertyInput} from '@/widgets/tuple-workbench/tuple-editor';
 import styled from 'styled-components';
-import {
-	TuplePropertyCheckBox,
-	TuplePropertyDropdown,
-	TuplePropertyInput
-} from '../../widgets/tuple-workbench/tuple-editor';
 
 export const FactorRowContainer = styled.div`
 	display               : grid;

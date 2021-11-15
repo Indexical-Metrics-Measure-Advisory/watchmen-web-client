@@ -1,6 +1,6 @@
 import {QueryUserGroup} from '@/services/data/tuples/query-user-group-types';
+import {StandardTupleCard} from '@/widgets/tuple-workbench/tuple-card';
 import React from 'react';
-import {StandardTupleCard} from '../widgets/tuple-workbench/tuple-card';
 
 export const renderCard = (userGroup: QueryUserGroup) => {
 	return <StandardTupleCard key={userGroup.userGroupId} tuple={userGroup}

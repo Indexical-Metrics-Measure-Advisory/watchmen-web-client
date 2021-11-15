@@ -1,5 +1,5 @@
-import {CarveButton} from '@/widgets/basic/button';
 import styled from 'styled-components';
+import {CarveButton} from '../../basic/button';
 
 export const TupleSearchContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
 	return {

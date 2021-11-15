@@ -1,7 +1,7 @@
 import {Topic} from '@/services/data/tuples/topic-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
+import {TuplePropertyInputLines} from '@/widgets/tuple-workbench/tuple-editor';
 import React from 'react';
-import {TuplePropertyInputLines} from '../../widgets/tuple-workbench/tuple-editor';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';
 

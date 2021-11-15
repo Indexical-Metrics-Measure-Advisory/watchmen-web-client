@@ -4,10 +4,10 @@ import {QueryUserGroupForHolder} from '@/services/data/tuples/query-user-group-t
 import {User, UserRole} from '@/services/data/tuples/user-types';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
+import {TuplePropertyDropdown, TuplePropertyInput, TuplePropertyLabel} from '@/widgets/tuple-workbench/tuple-editor';
+import {useTupleEventBus} from '@/widgets/tuple-workbench/tuple-event-bus';
+import {TupleEventTypes, TupleState} from '@/widgets/tuple-workbench/tuple-event-bus-types';
 import React from 'react';
-import {TuplePropertyDropdown, TuplePropertyInput, TuplePropertyLabel} from '../widgets/tuple-workbench/tuple-editor';
-import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
-import {TupleEventTypes, TupleState} from '../widgets/tuple-workbench/tuple-event-bus-types';
 import {HoldByUser} from './types';
 import {UserGroupPicker} from './user-group-picker';
 

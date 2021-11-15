@@ -1,7 +1,7 @@
-import {Button} from '@/widgets/basic/button';
 import styled from 'styled-components';
+import {Button} from '../../basic/button';
 
-export const TupleMoreActionButton = styled(Button).attrs({'data-widget': 'tuple-more-action-button'})`
+export const TupleCreateButton = styled(Button).attrs({'data-widget': 'tuple-create-button'})`
 	font-variant     : petite-caps;
 	font-weight      : var(--font-bold);
 	font-size        : 1.4em;

@@ -1,7 +1,7 @@
 import {QueryTupleForHolder} from '@/services/data/tuples/tuple-types';
-import {ICON_SELECTED} from '@/widgets/basic/constants';
-import {useForceUpdate} from '@/widgets/basic/utils';
 import React from 'react';
+import {ICON_SELECTED} from '../../basic/constants';
+import {useForceUpdate} from '../../basic/utils';
 import {TupleItemPickerDropdownCandidate, TupleItemPickerDropdownCandidateIcon} from './widgets';
 
 export const TupleItemCandidate = <QTH extends QueryTupleForHolder>(props: {

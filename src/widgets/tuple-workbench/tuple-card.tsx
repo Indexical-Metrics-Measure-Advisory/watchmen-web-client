@@ -1,11 +1,11 @@
 import {Tuple} from '@/services/data/tuples/tuple-types';
 import {prettifyDateTimeToMinute} from '@/services/data/tuples/utils';
-import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT} from '@/widgets/basic/constants';
-import {TooltipButton} from '@/widgets/basic/tooltip-button';
-import {TooltipAlignment} from '@/widgets/basic/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
+import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT} from '../basic/constants';
+import {TooltipButton} from '../basic/tooltip-button';
+import {TooltipAlignment} from '../basic/types';
 import {useTupleEventBus} from '../tuple-workbench/tuple-event-bus';
 import {TupleEventTypes} from '../tuple-workbench/tuple-event-bus-types';
 

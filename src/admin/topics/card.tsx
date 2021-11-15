@@ -5,11 +5,6 @@ import {isNotRawTopic} from '@/services/data/tuples/topic-utils';
 import {prettifyDateTimeToMinute} from '@/services/data/tuples/utils';
 import {ICON_CREATED_AT, ICON_LAST_MODIFIED_AT, ICON_TOPIC_PROFILE} from '@/widgets/basic/constants';
 import {TooltipAlignment} from '@/widgets/basic/types';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import dayjs from 'dayjs';
-import React, {MouseEvent} from 'react';
-import {useTopicProfileEventBus} from '../topic-profile/topic-profile-event-bus';
-import {TopicProfileEventTypes} from '../topic-profile/topic-profile-event-bus-types';
 import {
 	TupleCard,
 	TupleCardDescription,
@@ -17,9 +12,14 @@ import {
 	TupleCardStatisticsItem,
 	TupleCardTitle,
 	TupleProfileButton
-} from '../widgets/tuple-workbench/tuple-card';
-import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
-import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
+} from '@/widgets/tuple-workbench/tuple-card';
+import {useTupleEventBus} from '@/widgets/tuple-workbench/tuple-event-bus';
+import {TupleEventTypes} from '@/widgets/tuple-workbench/tuple-event-bus-types';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import dayjs from 'dayjs';
+import React, {MouseEvent} from 'react';
+import {useTopicProfileEventBus} from '../topic-profile/topic-profile-event-bus';
+import {TopicProfileEventTypes} from '../topic-profile/topic-profile-event-bus-types';
 
 const TopicCard = (props: { topic: QueryTopic }) => {
 	const {topic} = props;

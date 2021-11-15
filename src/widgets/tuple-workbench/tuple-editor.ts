@@ -1,8 +1,8 @@
-import {CheckBox} from '@/widgets/basic/checkbox';
-import {Dropdown} from '@/widgets/basic/dropdown';
-import {Input} from '@/widgets/basic/input';
-import {InputLines} from '@/widgets/basic/input-lines';
 import styled from 'styled-components';
+import {CheckBox} from '../basic/checkbox';
+import {Dropdown} from '../basic/dropdown';
+import {Input} from '../basic/input';
+import {InputLines} from '../basic/input-lines';
 
 export const TuplePropertyLabel = styled.div.attrs({'data-widget': 'tuple-property-label'})`
 	display      : flex;

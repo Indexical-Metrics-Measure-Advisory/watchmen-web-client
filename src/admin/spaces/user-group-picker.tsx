@@ -2,8 +2,8 @@ import {QueryUserGroupForHolder} from '@/services/data/tuples/query-user-group-t
 import {Space} from '@/services/data/tuples/space-types';
 import {listUserGroupsForHolder} from '@/services/data/tuples/user-group';
 import {UserGroupId} from '@/services/data/tuples/user-group-types';
+import {TupleItemPicker} from '@/widgets/tuple-workbench/tuple-item-picker';
 import React from 'react';
-import {TupleItemPicker} from '../widgets/tuple-workbench/tuple-item-picker';
 
 const hasUserGroup = (space: Space) => !!space.userGroupIds && space.userGroupIds.length > 0;
 const getUserGroupIds = (space: Space): Array<UserGroupId> => space.userGroupIds;

@@ -1,7 +1,7 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
+import {useTupleEventBus} from '@/widgets/tuple-workbench/tuple-event-bus';
+import {TupleEventTypes, TupleState} from '@/widgets/tuple-workbench/tuple-event-bus-types';
 import React, {ReactNode, useContext} from 'react';
-import {useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
-import {TupleEventTypes, TupleState} from '../widgets/tuple-workbench/tuple-event-bus-types';
 import {TopicEventBus, TopicEventTypes} from './topic-event-bus-types';
 
 const Context = React.createContext<TopicEventBus>({} as TopicEventBus);

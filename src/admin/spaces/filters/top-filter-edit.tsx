@@ -1,8 +1,8 @@
 import {SpaceFilter} from '@/services/data/tuples/space-types';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {useTupleEventBus} from '@/widgets/tuple-workbench/tuple-event-bus';
+import {TupleEventTypes, TupleState} from '@/widgets/tuple-workbench/tuple-event-bus-types';
 import React, {useEffect} from 'react';
-import {useTupleEventBus} from '../../widgets/tuple-workbench/tuple-event-bus';
-import {TupleEventTypes, TupleState} from '../../widgets/tuple-workbench/tuple-event-bus-types';
 import {FilterEventBusProvider, useFilterEventBus} from './filter-event-bus';
 import {FilterEventTypes} from './filter-event-bus-types';
 import {JointEdit} from './joint-filter/joint-edit';

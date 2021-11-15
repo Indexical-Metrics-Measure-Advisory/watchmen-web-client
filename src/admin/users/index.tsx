@@ -11,11 +11,11 @@ import {AlertLabel} from '@/widgets/alert/widgets';
 import {TUPLE_SEARCH_PAGE_SIZE} from '@/widgets/basic/constants';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
+import {TupleWorkbench} from '@/widgets/tuple-workbench';
+import {TupleEventBusProvider, useTupleEventBus} from '@/widgets/tuple-workbench/tuple-event-bus';
+import {TupleEventTypes} from '@/widgets/tuple-workbench/tuple-event-bus-types';
 import React, {useEffect} from 'react';
 import UserBackground from '../../assets/user-background.svg';
-import {TupleWorkbench} from '../widgets/tuple-workbench';
-import {TupleEventBusProvider, useTupleEventBus} from '../widgets/tuple-workbench/tuple-event-bus';
-import {TupleEventTypes} from '../widgets/tuple-workbench/tuple-event-bus-types';
 import {renderCard} from './card';
 import {renderEditor} from './editor';
 
