@@ -65,7 +65,6 @@ export const ReportsFunnels = (props: {
 		}
 		// don't use console since dashboard can be shared and whole data is unnecessary
 		const defs = buildFunnelDefsFromDashboard(connectedSpaces);
-		console.log(defs);
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
 			const topics = await fetchTopics(gatherTopicIds(defs));
 			const {defs: completedDefs, enumIds} = fillFunnelDefsByEnumIds(defs, topics);
