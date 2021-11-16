@@ -98,7 +98,7 @@ export const fetchMockUserGroup = async (userGroupId: UserGroupId): Promise<{ us
 			{userId: '4', name: 'Walter Kovacs'},
 			{userId: '5', name: 'Jeffrey Dean Morgan'}
 		],
-		spaces: [{spaceId: '1', name: 'Quotation & Policy'}]
+		spaces: [{spaceId: '1', name: 'Quotation & Order'}]
 	};
 };
 

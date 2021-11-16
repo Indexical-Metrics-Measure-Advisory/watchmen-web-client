@@ -140,7 +140,12 @@ export const Apis = {
 	ENUM_LIST_FOR_INDICATOR_TOPIC: 'indicator/enum/list/selection?topic_id=:topicId',
 	INDICATOR_GET: 'indicator?indicator_id=:indicatorId',
 	INDICATOR_CREATE: 'indicator',
-	INDICATOR_SAVE: 'update/indicator?indicator_id=:indicatorId'
+	INDICATOR_SAVE: 'update/indicator?indicator_id=:indicatorId',
+
+	BUCKET_LIST_BY_NAME: 'bucket/name?query_name=:search',
+	BUCKET_CREATE: 'bucket',
+	BUCKET_SAVE: 'update/bucket?bucket_id=:bucketId',
+	BUCKET_GET: 'bucket?bucket_id=:bucketId'
 };
 
 const buildApi = (api: string, args?: Record<string, any>): string => {

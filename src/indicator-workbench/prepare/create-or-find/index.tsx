@@ -1,5 +1,6 @@
 import {fetchIndicatorsForSelection} from '@/services/data/tuples/indicator';
-import {Indicator, IndicatorId, QueryIndicator} from '@/services/data/tuples/indicator-types';
+import {Indicator, IndicatorId} from '@/services/data/tuples/indicator-types';
+import {QueryIndicator} from '@/services/data/tuples/query-indicator-types';
 import {isFakedUuid} from '@/services/data/tuples/utils';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';

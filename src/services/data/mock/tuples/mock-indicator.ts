@@ -1,84 +1,82 @@
+import {EnumForIndicator, QueryIndicator, TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {isIndicatorFactor} from '../../tuples/factor-calculator-utils';
 import {
-	EnumForIndicator,
 	Indicator,
 	IndicatorId,
-	MeasureMethod,
-	QueryIndicator,
-	TopicForIndicator
+	MeasureMethod
 } from '../../tuples/indicator-types';
 import {TopicId, TopicKind, TopicType} from '../../tuples/topic-types';
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
-import {DemoTopics, MonthlyPolicyPremium, Policy, WeeklyPolicyPremium} from '../tuples/mock-data-topics';
+import {DemoTopics, MonthlyOrderPremium, Order, WeeklyOrderPremium} from '../tuples/mock-data-topics';
 import {listMockEnums} from './mock-enum';
 
-const PolicyPremiumIndicator: Indicator = {
+const OrderPremiumIndicator: Indicator = {
 	indicatorId: '1',
-	name: 'Policy Premium',
-	topicId: Policy.topicId,
-	factorId: Policy.factors.find(factor => factor.name === 'premium')?.factorId,
+	name: 'Order Premium',
+	topicId: Order.topicId,
+	factorId: Order.factors.find(factor => factor.name === 'premium')?.factorId,
 	measures: [{
-		factorId: Policy.factors.find(factor => factor.name === 'quoteDate')!.factorId,
+		factorId: Order.factors.find(factor => factor.name === 'quoteDate')!.factorId,
 		method: MeasureMethod.YEAR
 	}, {
-		factorId: Policy.factors.find(factor => factor.name === 'quoteDate')!.factorId,
+		factorId: Order.factors.find(factor => factor.name === 'quoteDate')!.factorId,
 		method: MeasureMethod.MONTH
 	}, {
-		factorId: Policy.factors.find(factor => factor.name === 'issueDate')!.factorId,
+		factorId: Order.factors.find(factor => factor.name === 'issueDate')!.factorId,
 		method: MeasureMethod.YEAR
 	}, {
-		factorId: Policy.factors.find(factor => factor.name === 'issueDate')!.factorId,
+		factorId: Order.factors.find(factor => factor.name === 'issueDate')!.factorId,
 		method: MeasureMethod.MONTH
 	}, {
-		factorId: Policy.factors.find(factor => factor.name === 'ensureProvince')!.factorId,
+		factorId: Order.factors.find(factor => factor.name === 'ensureProvince')!.factorId,
 		method: MeasureMethod.PROVINCE
 	}, {
-		factorId: Policy.factors.find(factor => factor.name === 'ensureCity')!.factorId,
+		factorId: Order.factors.find(factor => factor.name === 'ensureCity')!.factorId,
 		method: MeasureMethod.ENUM
 	}],
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };
-const MonthlyPolicyPremiumIndicator: Indicator = {
+const MonthlyOrderPremiumIndicator: Indicator = {
 	indicatorId: '2',
-	name: 'Monthly Policy Premium',
-	topicId: MonthlyPolicyPremium.topicId,
-	factorId: MonthlyPolicyPremium.factors.find(factor => factor.name === 'premium')?.factorId,
+	name: 'Monthly Order Premium',
+	topicId: MonthlyOrderPremium.topicId,
+	factorId: MonthlyOrderPremium.factors.find(factor => factor.name === 'premium')?.factorId,
 	measures: [{
-		factorId: MonthlyPolicyPremium.factors.find(factor => factor.name === 'year')!.factorId,
+		factorId: MonthlyOrderPremium.factors.find(factor => factor.name === 'year')!.factorId,
 		method: MeasureMethod.YEAR
 	}, {
-		factorId: MonthlyPolicyPremium.factors.find(factor => factor.name === 'month')!.factorId,
+		factorId: MonthlyOrderPremium.factors.find(factor => factor.name === 'month')!.factorId,
 		method: MeasureMethod.MONTH
 	}],
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };
-const WeeklyPolicyPremiumIndicator: Indicator = {
+const WeeklyOrderPremiumIndicator: Indicator = {
 	indicatorId: '3',
-	name: 'Weekly Policy Premium',
-	topicId: WeeklyPolicyPremium.topicId,
-	factorId: WeeklyPolicyPremium.factors.find(factor => factor.name === 'premium')?.factorId,
+	name: 'Weekly Order Premium',
+	topicId: WeeklyOrderPremium.topicId,
+	factorId: WeeklyOrderPremium.factors.find(factor => factor.name === 'premium')?.factorId,
 	measures: [{
-		factorId: WeeklyPolicyPremium.factors.find(factor => factor.name === 'year')!.factorId,
+		factorId: WeeklyOrderPremium.factors.find(factor => factor.name === 'year')!.factorId,
 		method: MeasureMethod.YEAR
 	}, {
-		factorId: WeeklyPolicyPremium.factors.find(factor => factor.name === 'week')!.factorId,
+		factorId: WeeklyOrderPremium.factors.find(factor => factor.name === 'week')!.factorId,
 		method: MeasureMethod.WEEK_OF_YEAR
 	}],
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };
 
-const PolicyPremiumIndicators = [PolicyPremiumIndicator, MonthlyPolicyPremiumIndicator, WeeklyPolicyPremiumIndicator];
-const DemoIndicators = [PolicyPremiumIndicators].flat();
+const OrderPremiumIndicators = [OrderPremiumIndicator, MonthlyOrderPremiumIndicator, WeeklyOrderPremiumIndicator];
+const DemoIndicators = [OrderPremiumIndicators].flat();
 
 export const fetchMockIndicatorsForSelection = async (text: string): Promise<Array<QueryIndicator>> => {
 	return new Promise<Array<QueryIndicator>>(resolve => {
 		const matchedText = text.toUpperCase();
 		setTimeout(() => {
-			resolve(PolicyPremiumIndicators.filter(indicator => indicator.name.toUpperCase().includes(matchedText)));
+			resolve(OrderPremiumIndicators.filter(indicator => indicator.name.toUpperCase().includes(matchedText)));
 		}, 500);
 	});
 };
@@ -134,10 +132,10 @@ export const fetchMockIndicator = async (indicatorId: IndicatorId): Promise<{ in
 	} else {
 		return {
 			indicator: {
-				...MonthlyPolicyPremiumIndicator,
+				...MonthlyOrderPremiumIndicator,
 				indicatorId
 			},
-			topic: MonthlyPolicyPremium,
+			topic: MonthlyOrderPremium,
 			enums: []
 		};
 	}

@@ -29,7 +29,8 @@ export const Zh = {
 		LOADING: '加载中...',
 		FIND_INDICATOR_PLACEHOLDER: '根据指标名称, 主题名称或者数据因子名称查找.',
 		FIND_TOPIC_OR_FACTOR_PLACEHOLDER: '根据主题名称或数据因子名称查找.',
-		INDICATOR_NAME_PLACEHOLDER: '请输入用于阅读的名称.'
+		INDICATOR_NAME_PLACEHOLDER: '请输入用于阅读的名称.',
+		FIND_BUCKET_PLACEHOLDER: '根据分桶名称, 主题名称或者数据因子名称查找.'
 	},
 	STANDARD: {
 		YES: '是',
@@ -317,6 +318,18 @@ export const Zh = {
 			PREPARE_ANOTHER: '定义另一个指标'
 		},
 		BUCKET: {
+			TITLE: '分桶',
+			LABEL: '分桶',
+			CREATE_BUCKET: '创建分桶',
+			NAME_LABEL: '桶名称:',
+			TYPE_LABEL: '桶类型:',
+			DESCRIPTION_LABEL: '描述:',
+			CREATE_AT: '创建于',
+			LAST_MODIFIED_AT: '最后更新于',
+			BUCKET_NAME_IS_REQUIRED: '请填写分桶名称.',
+			BUCKET_TYPE_VALUE: '值分桶',
+			BUCKET_TYPE_MEASURE: '维度分桶',
+			BUCKET_TYPE_COMPOSITE: '组合分桶',
 			RANGE_INCLUDING: '值包含方式',
 			RANGE_INCLUDE_MIN: '包含最小值, 不包含最大值',
 			RANGE_INCLUDE_MAX: '不包含最小值, 包含最大值'

@@ -19,7 +19,7 @@ import {Pipeline, PipelineTriggerType} from '../../tuples/pipeline-types';
 import {generateUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
 
-const WriteRawQuotationPremiumToPolicy: WriteFactorAction = {
+const WriteRawQuotationPremiumToOrder: WriteFactorAction = {
 	actionId: generateUuid(),
 	type: WriteTopicActionType.WRITE_FACTOR, topicId: '2', factorId: '207',
 	source: {kind: ParameterKind.TOPIC, topicId: '4', factorId: '413'} as TopicFactorParameter,
@@ -33,7 +33,7 @@ const WriteRawQuotationPremiumToPolicy: WriteFactorAction = {
 		}]
 	}
 };
-const WriteRawEndorsementPremiumToPolicy: WriteFactorAction = {
+const WriteRawEndorsementPremiumToOrder: WriteFactorAction = {
 	actionId: generateUuid(),
 	type: WriteTopicActionType.WRITE_FACTOR, topicId: '2', factorId: '207',
 	source: {kind: ParameterKind.TOPIC, topicId: '7', factorId: '706'} as TopicFactorParameter,
@@ -150,7 +150,7 @@ export const DemoPipelines: Array<Pipeline> = [
 	{
 		pipelineId: '1', topicId: '4', type: PipelineTriggerType.INSERT,
 		conditional: false, enabled: true, validated: true,
-		name: 'Write Premium from Quotation to Policy',
+		name: 'Write Premium from Quotation to Order',
 		stages: [
 			{
 				stageId: generateUuid(),
@@ -168,7 +168,7 @@ export const DemoPipelines: Array<Pipeline> = [
 								right: {kind: ParameterKind.CONSTANT, value: ''}
 							}]
 						},
-						do: [WriteRawQuotationPremiumToPolicy]
+						do: [WriteRawQuotationPremiumToOrder]
 					}
 				]
 			}
@@ -179,7 +179,7 @@ export const DemoPipelines: Array<Pipeline> = [
 	{
 		pipelineId: '2', topicId: '7', type: PipelineTriggerType.INSERT_OR_MERGE,
 		conditional: false, enabled: true, validated: true,
-		name: 'Write Premium from Endorsement to Policy',
+		name: 'Write Premium from Endorsement to Order',
 		stages: [
 			{
 				stageId: generateUuid(),
@@ -188,7 +188,7 @@ export const DemoPipelines: Array<Pipeline> = [
 					{
 						unitId: generateUuid(),
 						name: '',
-						conditional: false, do: [WriteRawEndorsementPremiumToPolicy]
+						conditional: false, do: [WriteRawEndorsementPremiumToOrder]
 					}
 				]
 			}

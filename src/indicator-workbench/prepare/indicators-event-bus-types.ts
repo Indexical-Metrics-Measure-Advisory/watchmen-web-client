@@ -1,4 +1,5 @@
-import {EnumForIndicator, Indicator, IndicatorId, TopicForIndicator} from '@/services/data/tuples/indicator-types';
+import {Indicator, IndicatorId} from '@/services/data/tuples/indicator-types';
+import {EnumForIndicator, TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {PrepareStep} from './types';
 
 export interface IndicatorsData {

@@ -30,8 +30,8 @@ export const Quotation: Topic = {
 		},
 		{
 			factorId: '104',
-			name: 'policyHolderId',
-			label: 'Policy Holder Id',
+			name: 'orderHolderId',
+			label: 'Order Holder Id',
 			type: FactorType.SEQUENCE,
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()
@@ -50,11 +50,11 @@ export const Quotation: Topic = {
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };
-export const Policy: Topic = {
-	topicId: '2', name: 'Policy', kind: TopicKind.BUSINESS, type: TopicType.DISTINCT,
+export const Order: Topic = {
+	topicId: '2', name: 'Order', kind: TopicKind.BUSINESS, type: TopicType.DISTINCT,
 	factors: [
 		{
-			factorId: '201', name: 'policyId', label: 'Policy Sequence', type: FactorType.SEQUENCE,
+			factorId: '201', name: 'orderId', label: 'Order Sequence', type: FactorType.SEQUENCE,
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()
 		},
@@ -74,19 +74,19 @@ export const Policy: Topic = {
 			lastModified: getCurrentTime()
 		},
 		{
-			factorId: '204', name: 'policyNo', label: 'Policy No.', type: FactorType.TEXT,
+			factorId: '204', name: 'orderNo', label: 'Order No.', type: FactorType.TEXT,
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()
 		},
 		{
-			factorId: '205', name: 'issueDate', label: 'Policy Issue Date', type: FactorType.DATETIME,
+			factorId: '205', name: 'issueDate', label: 'Order Issue Date', type: FactorType.DATETIME,
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()
 		},
 		{
 			factorId: '206',
-			name: 'policyHolderId',
-			label: 'Policy Holder Id',
+			name: 'orderHolderId',
+			label: 'Order Holder Id',
 			type: FactorType.SEQUENCE,
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()
@@ -113,7 +113,7 @@ export const Policy: Topic = {
 };
 export const Participant: Topic = {
 	topicId: '3', name: 'Participant', kind: TopicKind.BUSINESS, type: TopicType.DISTINCT,
-	description: 'Participant of quotation or policy, including policy holder, insureds, etc.',
+	description: 'Participant of quotation or order, including order holder, insureds, etc.',
 	factors: [
 		{
 			factorId: '301',
@@ -178,7 +178,7 @@ export const RawQuotation: Topic = {
 			lastModified: getCurrentTime()
 		},
 		{
-			factorId: '404', name: 'policyNo', label: 'Policy No.', type: FactorType.TEXT,
+			factorId: '404', name: 'orderNo', label: 'Order No.', type: FactorType.TEXT,
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()
 		},
@@ -210,7 +210,7 @@ export const RawQuotation: Topic = {
 		{
 			factorId: '410',
 			name: 'holder.dateOfBirth',
-			label: 'Policy Holder Birth Date',
+			label: 'Order Holder Birth Date',
 			type: FactorType.DATE_OF_BIRTH,
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()
@@ -234,8 +234,8 @@ export const RawQuotation: Topic = {
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };
-export const WeeklyPolicyPremium: Topic = {
-	topicId: '5', name: 'Weekly Policy Premium', kind: TopicKind.BUSINESS, type: TopicType.TIME,
+export const WeeklyOrderPremium: Topic = {
+	topicId: '5', name: 'Weekly Order Premium', kind: TopicKind.BUSINESS, type: TopicType.TIME,
 	factors: [
 		{
 			factorId: '501', name: 'year', label: 'Year', type: FactorType.YEAR,
@@ -256,8 +256,8 @@ export const WeeklyPolicyPremium: Topic = {
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };
-export const MonthlyPolicyPremium: Topic = {
-	topicId: '6', name: 'Monthly Policy Premium', kind: TopicKind.BUSINESS, type: TopicType.TIME,
+export const MonthlyOrderPremium: Topic = {
+	topicId: '6', name: 'Monthly Order Premium', kind: TopicKind.BUSINESS, type: TopicType.TIME,
 	factors: [
 		{
 			factorId: '601', name: 'year', label: 'Year', type: FactorType.YEAR,
@@ -297,7 +297,7 @@ export const RawEndorsement: Topic = {
 			lastModified: getCurrentTime()
 		},
 		{
-			factorId: '704', name: 'policyNo', label: 'Policy No.', type: FactorType.TEXT,
+			factorId: '704', name: 'orderNo', label: 'Order No.', type: FactorType.TEXT,
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()
 		},
@@ -315,8 +315,8 @@ export const RawEndorsement: Topic = {
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };
-export const WeeklyPolicyPremiumIncrement: Topic = {
-	topicId: '8', name: 'Weekly Policy Premium Increment', kind: TopicKind.BUSINESS, type: TopicType.RATIO,
+export const WeeklyOrderPremiumIncrement: Topic = {
+	topicId: '8', name: 'Weekly Order Premium Increment', kind: TopicKind.BUSINESS, type: TopicType.RATIO,
 	factors: [
 		{
 			factorId: '801', name: 'year', label: 'Year', type: FactorType.YEAR,
@@ -338,8 +338,8 @@ export const WeeklyPolicyPremiumIncrement: Topic = {
 	lastModified: getCurrentTime()
 };
 export const DemoTopics: Array<Topic> = [
-	Quotation, Policy, Participant, RawQuotation,
-	WeeklyPolicyPremium, MonthlyPolicyPremium, RawEndorsement, WeeklyPolicyPremiumIncrement
+	Quotation, Order, Participant, RawQuotation,
+	WeeklyOrderPremium, MonthlyOrderPremium, RawEndorsement, WeeklyOrderPremiumIncrement
 ].map(t => ({...t, tenantId: '1'}));
 const asQueryTopic = (topic: Topic): QueryTopic => {
 	const {topicId, name, type, description, createTime, lastModified} = topic;
@@ -347,11 +347,11 @@ const asQueryTopic = (topic: Topic): QueryTopic => {
 };
 export const DemoQueryTopics: Array<QueryTopic> = [
 	asQueryTopic(Quotation),
-	asQueryTopic(Policy),
+	asQueryTopic(Order),
 	asQueryTopic(Participant),
 	asQueryTopic(RawQuotation),
-	asQueryTopic(WeeklyPolicyPremium),
-	asQueryTopic(MonthlyPolicyPremium),
+	asQueryTopic(WeeklyOrderPremium),
+	asQueryTopic(MonthlyOrderPremium),
 	asQueryTopic(RawEndorsement),
-	asQueryTopic(WeeklyPolicyPremiumIncrement)
+	asQueryTopic(WeeklyOrderPremiumIncrement)
 ];

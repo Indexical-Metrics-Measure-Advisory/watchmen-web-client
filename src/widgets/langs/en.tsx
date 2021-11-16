@@ -29,7 +29,8 @@ export const En = {
 		LOADING: 'Loading...',
 		FIND_INDICATOR_PLACEHOLDER: 'Find by indicator name, topic name or factor name.',
 		FIND_TOPIC_OR_FACTOR_PLACEHOLDER: 'Find by topic name, factor name.',
-		INDICATOR_NAME_PLACEHOLDER: 'A human reading name for indicator.'
+		INDICATOR_NAME_PLACEHOLDER: 'A human reading name for indicator.',
+		FIND_BUCKET_PLACEHOLDER: 'Search by bucket name, topic name, factor name.'
 	},
 	STANDARD: {
 		YES: 'Yes',
@@ -317,6 +318,18 @@ export const En = {
 			PREPARE_ANOTHER: 'Prepare Another Indicator'
 		},
 		BUCKET: {
+			TITLE: 'Buckets',
+			LABEL: 'Bucket',
+			CREATE_BUCKET: 'Create Bucket',
+			NAME_LABEL: 'Bucket Name:',
+			TYPE_LABEL: 'Bucket Type:',
+			DESCRIPTION_LABEL: 'Description:',
+			CREATE_AT: 'Created At',
+			LAST_MODIFIED_AT: 'Last Modified At',
+			BUCKET_NAME_IS_REQUIRED: 'Bucket name is required.',
+			BUCKET_TYPE_VALUE: 'Value',
+			BUCKET_TYPE_MEASURE: 'Measure',
+			BUCKET_TYPE_COMPOSITE: 'Composite',
 			RANGE_INCLUDING: 'Including',
 			RANGE_INCLUDE_MIN: 'Include Min Value, Exclude Max Value',
 			RANGE_INCLUDE_MAX: 'Exclude Max Value, Include Max Value'

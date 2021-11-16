@@ -62,7 +62,7 @@ export const listMockTopicsForHolder = async (search: string): Promise<Array<Que
 			resolve(
 				[
 					{topicId: '3', name: 'Participant'},
-					{topicId: '2', name: 'Policy'},
+					{topicId: '2', name: 'Order'},
 					{topicId: '1', name: 'Quotation'}
 				].filter((x) => x.name.toUpperCase().includes(search.toUpperCase()))
 			);

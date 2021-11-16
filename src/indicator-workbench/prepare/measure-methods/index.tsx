@@ -1,6 +1,5 @@
 import {Factor} from '@/services/data/tuples/factor-types';
 import {
-	EnumForIndicator,
 	IndicatorAggregateArithmetic,
 	IndicatorMeasure,
 	MeasureMethod
@@ -12,6 +11,7 @@ import {
 	isOrganizationMeasure,
 	isTimePeriodMeasure
 } from '@/services/data/tuples/indicator-utils';
+import {EnumForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {ICON_INDICATOR_MEASURE_METHOD} from '@/widgets/basic/constants';
 import {FactorTypeLabel} from '@/widgets/basic/factor-type-label';
 import {MeasureMethodLabel} from '@/widgets/basic/measure-method-label';

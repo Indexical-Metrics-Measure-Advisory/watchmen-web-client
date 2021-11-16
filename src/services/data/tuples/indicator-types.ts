@@ -1,7 +1,7 @@
-import {Enum, EnumId} from './enum-types';
+import {BucketId} from '@/services/data/tuples/bucket-types';
 import {FactorId} from './factor-types';
 import {TenantId} from './tenant-types';
-import {Topic, TopicId} from './topic-types';
+import {TopicId} from './topic-types';
 import {Tuple} from './tuple-types';
 
 export enum MeasureMethod {
@@ -51,50 +51,6 @@ export enum MeasureMethod {
 	ENUM = 'enum',
 }
 
-export type BucketId = string;
-
-export enum BucketType {
-	VALUE = 'value',
-	MEASURE = 'measure',
-	COMPOSITE = 'composite'
-}
-
-export interface Bucket extends Tuple {
-	bucketId: BucketId;
-	name: string;
-	type: BucketType;
-}
-
-export enum RangeBucketValueIncluding {
-	INCLUDE_MIN = 'include-min',
-	INCLUDE_MAX = 'include-max'
-}
-
-export interface NumericValueBucket extends Bucket {
-	type: BucketType.VALUE;
-	include: RangeBucketValueIncluding;
-	segments: Array<[null | undefined, number] | [number, number] | [number, null | undefined]>;
-}
-
-export interface MeasureBucket extends Bucket {
-	type: BucketType.MEASURE;
-	measure: MeasureMethod;
-}
-
-export interface NumericValueMeasureBucket extends MeasureBucket {
-	include: RangeBucketValueIncluding;
-	segments: Array<[null | undefined, number] | [number, number] | [number, null | undefined]>;
-}
-
-export interface CategoryMeasureBucket extends MeasureBucket {
-	segments: Array<Array<string> | 'other'>;
-}
-
-export interface EnumMeasureBucket extends MeasureBucket {
-	enumId: EnumId;
-	segments: Array<Array<string> | 'other'>;
-}
-
 /** aggregate, not from factor, for each indicator (numeric type) */
 export enum IndicatorAggregateArithmetic {
 	COUNT = 'count',
@@ -123,6 +79,3 @@ export interface Indicator extends Tuple {
 	tenantId?: TenantId;
 }
 
-export type QueryIndicator = Pick<Indicator, 'indicatorId' | 'name'>;
-export type TopicForIndicator = Pick<Topic, 'topicId' | 'name' | 'type' | 'factors'>;
-export type EnumForIndicator = Pick<Enum, 'enumId' | 'name'>;

@@ -1,4 +1,4 @@
-import {NumericValueBucket, RangeBucketValueIncluding} from '@/services/data/tuples/indicator-types';
+import {NumericValueBucket, RangeBucketValueIncluding} from '@/services/data/tuples/bucket-types';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';

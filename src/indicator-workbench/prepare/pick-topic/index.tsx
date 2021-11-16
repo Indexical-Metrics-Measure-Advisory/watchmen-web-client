@@ -1,8 +1,8 @@
 import {isIndicatorFactor} from '@/services/data/tuples/factor-calculator-utils';
 import {Factor} from '@/services/data/tuples/factor-types';
 import {fetchEnumsForTopic, fetchTopicsForIndicatorSelection} from '@/services/data/tuples/indicator';
-import {TopicForIndicator} from '@/services/data/tuples/indicator-types';
 import {tryToTransformToMeasure} from '@/services/data/tuples/indicator-utils';
+import {TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {FactorTypeLabel} from '@/widgets/basic/factor-type-label';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';

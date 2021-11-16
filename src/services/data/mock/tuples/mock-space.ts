@@ -5,7 +5,7 @@ import {QueryUserGroupForHolder} from '../../tuples/query-user-group-types';
 import {Space, SpaceId} from '../../tuples/space-types';
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
-import {Participant, Policy, Quotation} from './mock-data-topics';
+import {Participant, Order, Quotation} from './mock-data-topics';
 
 export const listMockSpaces = async (options: {
 	search: string;
@@ -20,7 +20,7 @@ export const listMockSpaces = async (options: {
 				data: [
 					{
 						spaceId: '1',
-						name: 'Quotation & Policy',
+						name: 'Quotation & Order',
 						description: 'All Sales Data',
 						createTime: getCurrentTime(),
 						lastModified: getCurrentTime()
@@ -41,8 +41,8 @@ export const listMockSpacesForExport = async (): Promise<Array<Space>> => {
 			resolve([
 				{
 					spaceId: '1',
-					name: 'Quotation & Policy',
-					topicIds: [Quotation.topicId, Policy.topicId],
+					name: 'Quotation & Order',
+					topicIds: [Quotation.topicId, Order.topicId],
 					userGroupIds: [],
 					createTime: getCurrentTime(),
 					lastModified: getCurrentTime()
@@ -56,9 +56,9 @@ export const fetchMockSpace = async (spaceId: SpaceId): Promise<{ space: Space; 
 	return {
 		space: {
 			spaceId,
-			name: 'Quotation & Policy',
+			name: 'Quotation & Order',
 			description: 'All Sales Data',
-			topicIds: [Quotation.topicId, Policy.topicId],
+			topicIds: [Quotation.topicId, Order.topicId],
 			userGroupIds: [],
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()
@@ -66,7 +66,7 @@ export const fetchMockSpace = async (spaceId: SpaceId): Promise<{ space: Space; 
 		groups: [{userGroupId: '1', name: 'Oklahoma'}],
 		topics: [
 			{topicId: Quotation.topicId, name: Quotation.name},
-			{topicId: Policy.topicId, name: Policy.name},
+			{topicId: Order.topicId, name: Order.name},
 			{topicId: Participant.topicId, name: Participant.name}
 		]
 	};
@@ -86,7 +86,7 @@ export const listMockSpacesForHolder = async (search: string): Promise<Array<Que
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve(
-				[{spaceId: '1', name: 'Quotation & Policy', description: 'All Sales Data'}].filter((x) =>
+				[{spaceId: '1', name: 'Quotation & Order', description: 'All Sales Data'}].filter((x) =>
 					x.name.toUpperCase().includes(search.toUpperCase())
 				)
 			);

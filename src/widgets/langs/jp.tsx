@@ -29,7 +29,8 @@ export const Jp = {
 		LOADING: '読み込み中...',
 		FIND_INDICATOR_PLACEHOLDER: '指標名 トピック名または ファクター名に基づいて検索します。',
 		FIND_TOPIC_OR_FACTOR_PLACEHOLDER: 'トピック名または ファクター名に基づいて検索します。',
-		INDICATOR_NAME_PLACEHOLDER: '読むための名前を入力してください。'
+		INDICATOR_NAME_PLACEHOLDER: '読むための名前を入力してください。',
+		FIND_BUCKET_PLACEHOLDER: 'バケット名 トピック名または ファクター名に基づいて検索します。'
 	},
 	STANDARD: {
 		YES: 'はい',
@@ -317,6 +318,18 @@ export const Jp = {
 			PREPARE_ANOTHER: '別の指標を定義します'
 		},
 		BUCKET: {
+			TITLE: 'バケット',
+			LABEL: 'バケット',
+			CREATE_BUCKET: 'バケットを作成',
+			NAME_LABEL: 'バケット名:',
+			TYPE_LABEL: 'バケットの種類:',
+			DESCRIPTION_LABEL: '説明:',
+			CREATE_AT: '作成先',
+			LAST_MODIFIED_AT: '最終更新日',
+			BUCKET_NAME_IS_REQUIRED: 'バケット名を記入してください。',
+			BUCKET_TYPE_VALUE: 'バリューバケット',
+			BUCKET_TYPE_MEASURE: '測定バケット',
+			BUCKET_TYPE_COMPOSITE: '複合バケット',
 			RANGE_INCLUDING: '値の格納方法',
 			RANGE_INCLUDE_MIN: '最小値を含み、最大値は含まれません',
 			RANGE_INCLUDE_MAX: '最小値は含まれ、最大値は含まれません'
