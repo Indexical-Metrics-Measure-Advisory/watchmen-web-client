@@ -65,8 +65,8 @@ const Labels: Record<FactorType, string> = {
 	[FactorType.RELIGION]: Lang.FACTOR.RELIGION,
 	[FactorType.NATIONALITY]: Lang.FACTOR.NATIONALITY,
 
-	[FactorType.BIZ_TRADE]: Lang.FACTOR.TRADE,
-	[FactorType.BIZ_SCALE]: Lang.FACTOR.SCALE,
+	[FactorType.BIZ_TRADE]: Lang.FACTOR.BIZ_TRADE,
+	[FactorType.BIZ_SCALE]: Lang.FACTOR.BIZ_SCALE,
 
 	[FactorType.BOOLEAN]: Lang.FACTOR.BOOLEAN,
 

@@ -45,8 +45,8 @@ const Labels: Record<MeasureMethod, string> = {
 	[MeasureMethod.NATIONALITY]: Lang.INDICATOR.MEASURE_METHOD.NATIONALITY,
 
 	// organization related
-	[MeasureMethod.BIZ_TRADE]: Lang.INDICATOR.MEASURE_METHOD.TRADE,
-	[MeasureMethod.BIZ_SCALE]: Lang.INDICATOR.MEASURE_METHOD.SCALE,
+	[MeasureMethod.BIZ_TRADE]: Lang.INDICATOR.MEASURE_METHOD.BIZ_TRADE,
+	[MeasureMethod.BIZ_SCALE]: Lang.INDICATOR.MEASURE_METHOD.BIZ_SCALE,
 
 	// boolean
 	[MeasureMethod.BOOLEAN]: Lang.INDICATOR.MEASURE_METHOD.BOOLEAN,

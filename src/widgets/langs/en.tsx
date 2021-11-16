@@ -342,7 +342,8 @@ export const En = {
 			VALUE_SEGMENT_MIN_LABEL: 'Minimum Value',
 			VALUE_SEGMENT_MAX_LABEL: 'Maximum Value',
 			ADD_VALUE_SEGMENTS: 'Add Segment',
-			SORT_VALUE_SEGMENTS: 'Sort Segments'
+			SORT_VALUE_SEGMENTS: 'Sort Segments',
+			MEASURE_METHOD_LABEL: 'Measure Method'
 		}
 	},
 	SETTINGS: {
@@ -416,8 +417,8 @@ export const En = {
 		ID_NO: 'ID No.',
 		RELIGION: 'Religion',
 		NATIONALITY: 'Nationality',
-		TRADE: 'Business Trade',
-		SCALE: 'Business Scale',
+		BIZ_TRADE: 'Business Trade',
+		BIZ_SCALE: 'Business Scale',
 		BOOLEAN: 'Boolean',
 		ENUM: 'Enumeration',
 		OBJECT: 'Object',
@@ -763,8 +764,8 @@ export const En = {
 			AGE: 'Age',
 			RELIGION: 'Religion',
 			NATIONALITY: 'Nationality',
-			TRADE: 'Business Trade',
-			SCALE: 'Business Scale',
+			BIZ_TRADE: 'Business Trade',
+			BIZ_SCALE: 'Business Scale',
 			BOOLEAN: 'Boolean',
 			ENUM: 'Enumeration'
 		}

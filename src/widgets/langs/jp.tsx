@@ -342,7 +342,8 @@ export const Jp = {
 			VALUE_SEGMENT_MIN_LABEL: '最小値',
 			VALUE_SEGMENT_MAX_LABEL: '最大値',
 			ADD_VALUE_SEGMENTS: '値のセグメンテーションを追加',
-			SORT_VALUE_SEGMENTS: '並べ替え'
+			SORT_VALUE_SEGMENTS: '並べ替え',
+			MEASURE_METHOD_LABEL: '寸法を測定'
 		}
 	},
 	SETTINGS: {
@@ -388,8 +389,8 @@ export const Jp = {
 		MOBILE: '携帯番号',
 		FAX: 'ファックス',
 		DATETIME: '日付時刻',
-		DATE: '日付',
 		FULL_DATETIME: '日付(ミリ秒)',
+		DATE: '日付',
 		TIME: '時刻',
 		YEAR: '年',
 		HALF_YEAR: '上半期/下半期',
@@ -416,8 +417,8 @@ export const Jp = {
 		ID_NO: 'ID',
 		RELIGION: '宗教',
 		NATIONALITY: '国籍',
-		TRADE: '業界',
-		SCALE: '規模',
+		BIZ_TRADE: '業界',
+		BIZ_SCALE: '規模',
 		BOOLEAN: 'ブール値',
 		ENUM: '列挙',
 		OBJECT: 'オブジェクト',
@@ -553,11 +554,11 @@ export const Jp = {
 		POSITION_RIGHT: '右側',
 		POSITION_LEFT: '左側',
 		POSITION_BOTTOM: '下側',
-		ALIGNMENT: '水平方向に整列',
-		ALIGNMENT_AUTO: 'オート',
-		ALIGNMENT_LEFT: '左揃え',
-		ALIGNMENT_CENTER: '中央揃え',
-		ALIGNMENT_RIGHT: '右揃え',
+		HORIZONTAL_ALIGNMENT: '水平方向に整列',
+		HORIZONTAL_ALIGNMENT_AUTO: 'オート',
+		HORIZONTAL_ALIGNMENT_LEFT: '左揃え',
+		HORIZONTAL_ALIGNMENT_CENTER: '中央揃え',
+		HORIZONTAL_ALIGNMENT_RIGHT: '右揃え',
 		VERTICAL_ALIGNMENT: '垂直方向に整列',
 		VERTICAL_ALIGNMENT_AUTO: 'オート',
 		VERTICAL_ALIGNMENT_TOP: '上揃え',
@@ -763,8 +764,8 @@ export const Jp = {
 			AGE: '年齢',
 			RELIGION: '宗教',
 			NATIONALITY: '国籍',
-			TRADE: '業界',
-			SCALE: '規模',
+			BIZ_TRADE: '業界',
+			BIZ_SCALE: '規模',
 			BOOLEAN: 'ブール値',
 			ENUM: '列挙'
 		}

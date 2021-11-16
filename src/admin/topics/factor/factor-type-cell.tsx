@@ -66,8 +66,8 @@ const AllTypeOptions: Record<FactorType, { label: string, order: number }> = {
 	[FactorType.RELIGION]: {label: En.FACTOR.RELIGION, order: 10506},
 	[FactorType.NATIONALITY]: {label: En.FACTOR.NATIONALITY, order: 10507},
 
-	[FactorType.BIZ_TRADE]: {label: En.FACTOR.TRADE, order: 10601},
-	[FactorType.BIZ_SCALE]: {label: En.FACTOR.SCALE, order: 10602},
+	[FactorType.BIZ_TRADE]: {label: En.FACTOR.BIZ_TRADE, order: 10601},
+	[FactorType.BIZ_SCALE]: {label: En.FACTOR.BIZ_SCALE, order: 10602},
 
 	[FactorType.BOOLEAN]: {label: En.FACTOR.BOOLEAN, order: 10701},
 

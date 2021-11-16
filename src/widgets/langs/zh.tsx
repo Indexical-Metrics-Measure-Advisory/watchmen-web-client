@@ -342,7 +342,8 @@ export const Zh = {
 			VALUE_SEGMENT_MIN_LABEL: '最小值',
 			VALUE_SEGMENT_MAX_LABEL: '最大值',
 			ADD_VALUE_SEGMENTS: '添加值分段',
-			SORT_VALUE_SEGMENTS: '排序'
+			SORT_VALUE_SEGMENTS: '排序',
+			MEASURE_METHOD_LABEL: '测量维度'
 		}
 	},
 	SETTINGS: {
@@ -388,8 +389,8 @@ export const Zh = {
 		MOBILE: '移动电话号码',
 		FAX: '传真号码',
 		DATETIME: '日期时间',
-		DATE: '日期',
 		FULL_DATETIME: '日期(毫秒)',
+		DATE: '日期',
 		TIME: '时间',
 		YEAR: '年',
 		HALF_YEAR: '上半年/下半年',
@@ -416,8 +417,8 @@ export const Zh = {
 		ID_NO: '证件号码',
 		RELIGION: '宗教',
 		NATIONALITY: '民族',
-		TRADE: '企业行业',
-		SCALE: '企业规模',
+		BIZ_TRADE: '企业行业',
+		BIZ_SCALE: '企业规模',
 		BOOLEAN: '布尔',
 		ENUM: '枚举',
 		OBJECT: '子对象',
@@ -763,8 +764,8 @@ export const Zh = {
 			AGE: '年龄',
 			RELIGION: '宗教',
 			NATIONALITY: '民族',
-			TRADE: '企业行业',
-			SCALE: '企业规模',
+			BIZ_TRADE: '企业行业',
+			BIZ_SCALE: '企业规模',
 			BOOLEAN: '布尔',
 			ENUM: '枚举'
 		}

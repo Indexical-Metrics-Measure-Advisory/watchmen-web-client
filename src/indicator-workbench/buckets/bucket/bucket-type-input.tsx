@@ -7,31 +7,29 @@ import React from 'react';
 import {useBucketEventBus} from '../bucket-event-bus';
 import {BucketEventTypes} from '../bucket-event-bus-types';
 
-const BucketTypeOptions: Array<DropdownOption> = [
-	{value: BucketType.VALUE, label: Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_TYPE_VALUE, key: 'Value'},
-	{
-		value: BucketType.VALUE_MEASURE,
-		label: Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_TYPE_VALUE_MEASURE,
-		key: 'Value Measure'
-	},
-	{
-		value: BucketType.CATEGORY_MEASURE,
-		label: Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_TYPE_CATEGORY_MEASURE,
-		key: 'Category Measure'
-	},
-	{
-		value: BucketType.ENUM_MEASURE,
-		label: Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_TYPE_ENUM_MEASURE,
-		key: 'Enumeration Measure'
-	},
-	{value: BucketType.COMPOSITE, label: Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_TYPE_COMPOSITE, key: 'Composite'}
-];
+const BucketTypes: Record<BucketType, string> = {
+	[BucketType.VALUE]: Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_TYPE_VALUE,
+	[BucketType.VALUE_MEASURE]: Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_TYPE_VALUE_MEASURE,
+	[BucketType.CATEGORY_MEASURE]: Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_TYPE_CATEGORY_MEASURE,
+	[BucketType.ENUM_MEASURE]: Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_TYPE_ENUM_MEASURE,
+	[BucketType.COMPOSITE]: Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_TYPE_COMPOSITE
+};
+const BucketTypeOptions: Array<DropdownOption> = Object.keys(BucketTypes).map(type => {
+	return {
+		value: type,
+		label: () => {
+			return {node: BucketTypes[type as BucketType], label: type};
+		},
+		key: type
+	};
+});
 
 export const BucketTypeInput = (props: { bucket: Bucket }) => {
 	const {bucket} = props;
 
 	const {fire} = useBucketEventBus();
 	const forceUpdate = useForceUpdate();
+
 	const onTypeChange = (option: DropdownOption) => {
 		bucket.type = option.value as BucketType;
 		fire(BucketEventTypes.BUCKET_TYPE_CHANGED, bucket);

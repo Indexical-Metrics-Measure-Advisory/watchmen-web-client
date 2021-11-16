@@ -6,11 +6,12 @@ export enum BucketEventTypes {
 	BUCKET_DESCRIPTION_CHANGED = 'bucket-description-changed',
 
 	BUCKET_RANGE_INCLUDE_CHANGED = 'bucket-range-include-changed',
-
 	NUMERIC_SEGMENT_ADDED = 'numeric-segment-added',
 	NUMERIC_SEGMENT_CHANGED = 'numeric-segment-changed',
 	NUMERIC_SEGMENT_REMOVED = 'numeric-segment-removed',
 	NUMERIC_SEGMENT_SORTED = 'numeric-segment-sorted',
+
+	BUCKET_MEASURE_METHOD_CHANGED = 'bucket-measure-method-changed'
 }
 
 export interface BucketEventBus {
@@ -45,4 +46,8 @@ export interface BucketEventBus {
 	fire(type: BucketEventTypes.NUMERIC_SEGMENT_SORTED, holder: NumericSegmentsHolder): this;
 	on(type: BucketEventTypes.NUMERIC_SEGMENT_SORTED, listener: (holder: NumericSegmentsHolder) => void): this;
 	off(type: BucketEventTypes.NUMERIC_SEGMENT_SORTED, listener: (holder: NumericSegmentsHolder) => void): this;
+
+	fire(type: BucketEventTypes.BUCKET_MEASURE_METHOD_CHANGED, bucket: Bucket): this;
+	on(type: BucketEventTypes.BUCKET_MEASURE_METHOD_CHANGED, listener: (bucket: Bucket) => void): this;
+	off(type: BucketEventTypes.BUCKET_MEASURE_METHOD_CHANGED, listener: (bucket: Bucket) => void): this;
 }
