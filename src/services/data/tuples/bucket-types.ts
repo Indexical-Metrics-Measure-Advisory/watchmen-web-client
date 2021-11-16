@@ -1,7 +1,7 @@
-import {EnumId} from '@/services/data/tuples/enum-types';
-import {MeasureMethod} from '@/services/data/tuples/indicator-types';
-import {TenantId} from '@/services/data/tuples/tenant-types';
-import {Tuple} from '@/services/data/tuples/tuple-types';
+import {EnumId} from './enum-types';
+import {MeasureMethod} from './indicator-types';
+import {TenantId} from './tenant-types';
+import {Tuple} from './tuple-types';
 
 export type BucketId = string;
 
@@ -24,10 +24,20 @@ export enum RangeBucketValueIncluding {
 	INCLUDE_MAX = 'include-max'
 }
 
-export interface NumericValueBucket extends Bucket {
-	type: BucketType.VALUE;
+export type NumericSegment =
+	[null | undefined, number]
+	| [number, number]
+	| [number, null | undefined]
+	// intermediate state
+	| [null | undefined, null | undefined]
+
+export interface NumericSegmentsHolder extends Bucket {
 	include: RangeBucketValueIncluding;
-	segments: Array<[null | undefined, number] | [number, number] | [number, null | undefined]>;
+	segments: Array<NumericSegment>;
+}
+
+export interface NumericValueBucket extends NumericSegmentsHolder, Bucket {
+	type: BucketType.VALUE;
 }
 
 export interface MeasureBucket extends Bucket {
@@ -35,9 +45,8 @@ export interface MeasureBucket extends Bucket {
 	measure: MeasureMethod;
 }
 
-export interface NumericValueMeasureBucket extends MeasureBucket {
-	include: RangeBucketValueIncluding;
-	segments: Array<[null | undefined, number] | [number, number] | [number, null | undefined]>;
+export interface NumericValueMeasureBucket extends MeasureBucket, NumericSegmentsHolder {
+	type: BucketType.MEASURE;
 }
 
 export interface CategoryMeasureBucket extends MeasureBucket {

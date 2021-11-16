@@ -2,7 +2,7 @@ import {ECharts} from '@/services/data/tuples/echarts/echarts-types';
 import {canUseScript, isEChart} from '@/services/data/tuples/echarts/echarts-utils';
 import {Report} from '@/services/data/tuples/report-types';
 import {Lang} from '@/widgets/langs';
-import React from 'react';
+import React, {Fragment} from 'react';
 import {v4} from 'uuid';
 import {
 	isANumber,
@@ -121,7 +121,7 @@ const SectionBodyItem = (props: { report: Report; item: InputItem }) => {
 		                      })}/>;
 	}
 
-	return <></>;
+	return <Fragment/>;
 };
 
 const Section = (props: { report: Report; items: Array<DefItem> }) => {

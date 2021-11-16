@@ -1,4 +1,4 @@
-import {BucketId} from '@/services/data/tuples/bucket-types';
+import {BucketId} from './bucket-types';
 import {FactorId} from './factor-types';
 import {TenantId} from './tenant-types';
 import {TopicId} from './topic-types';

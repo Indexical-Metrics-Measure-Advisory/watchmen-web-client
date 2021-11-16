@@ -327,12 +327,20 @@ export const En = {
 			CREATE_AT: 'Created At',
 			LAST_MODIFIED_AT: 'Last Modified At',
 			BUCKET_NAME_IS_REQUIRED: 'Bucket name is required.',
+			NO_NUMERIC_SEGMENT_DEFINED: 'No Segment Defined',
+			ONE_NUMERIC_SEGMENT_DEFINED: '1 Segment',
+			N_NUMERIC_SEGMENT_DEFINED: 'Segments',
 			BUCKET_TYPE_VALUE: 'Value',
 			BUCKET_TYPE_MEASURE: 'Measure',
 			BUCKET_TYPE_COMPOSITE: 'Composite',
-			RANGE_INCLUDING: 'Including',
-			RANGE_INCLUDE_MIN: 'Include Min Value, Exclude Max Value',
-			RANGE_INCLUDE_MAX: 'Exclude Max Value, Include Max Value'
+			RANGE_INCLUDING_LABEL: 'Value Inclusion Mode',
+			RANGE_INCLUDE_MIN: '[Include Min Value, Exclude Max Value)',
+			RANGE_INCLUDE_MAX: '(Exclude Max Value, Include Max Value]',
+			VALUE_SEGMENTS_LABEL: 'Value Segments',
+			VALUE_SEGMENT_MIN_LABEL: 'Minimum Value',
+			VALUE_SEGMENT_MAX_LABEL: 'Maximum Value',
+			ADD_VALUE_SEGMENTS: 'Add Segment',
+			SORT_VALUE_SEGMENTS: 'Sort Segments'
 		}
 	},
 	SETTINGS: {

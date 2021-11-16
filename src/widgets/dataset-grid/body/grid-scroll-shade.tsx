@@ -1,4 +1,4 @@
-import React, {Fragment, RefObject, useEffect, useRef} from 'react';
+import React, {RefObject, useEffect, useRef} from 'react';
 import {
 	GridBottomLeftPaster,
 	GridBottomRightPaster,
@@ -36,7 +36,7 @@ export const GridScrollShade = (props: {
 	const {clientWidth, clientHeight, scrollWidth, scrollHeight, offsetWidth, offsetHeight} = dataTable;
 	const {left: horizontalScrollLeft} = dataTable.getBoundingClientRect();
 
-	return <Fragment>
+	return <>
 		<GridScrollVerticalShade width={offsetWidth - clientWidth}
 		                         heightOffset={offsetHeight - clientHeight}
 		                         visible={visible}
@@ -53,5 +53,5 @@ export const GridScrollShade = (props: {
 		                      visible={visible}/>
 		<GridBottomRightPaster width={offsetWidth - clientWidth} height={offsetHeight - clientHeight}
 		                       visible={visible}/>
-	</Fragment>;
+	</>;
 };

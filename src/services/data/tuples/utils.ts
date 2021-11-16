@@ -1,6 +1,6 @@
-import {Bucket} from '@/services/data/tuples/bucket-types';
 import dayjs from 'dayjs';
 import {v4} from 'uuid';
+import {Bucket} from './bucket-types';
 import {ConnectedSpace} from './connected-space-types';
 import {Dashboard} from './dashboard-types';
 import {DataSource} from './data-source-types';

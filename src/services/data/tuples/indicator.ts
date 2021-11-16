@@ -1,4 +1,3 @@
-import {EnumForIndicator, QueryIndicator, TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {findAccount} from '../account';
 import {Apis, get, post} from '../apis';
 import {
@@ -10,6 +9,7 @@ import {
 } from '../mock/tuples/mock-indicator';
 import {isMockService} from '../utils';
 import {Indicator, IndicatorId} from './indicator-types';
+import {EnumForIndicator, QueryIndicator, TopicForIndicator} from './query-indicator-types';
 import {TopicId} from './topic-types';
 import {isFakedUuid} from './utils';
 

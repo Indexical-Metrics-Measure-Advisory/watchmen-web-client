@@ -94,7 +94,7 @@ export const TupleEdit = <T extends Tuple, HBT extends HoldByTuple>(props: {
 	};
 
 	const onEditing = !!state.tuple && !isFakedUuid(state.tuple);
-	const title = onEditing ? `An Exists ${tupleLabel}` : `A New ${tupleLabel}`;
+	const title = onEditing ? <>An Exists {tupleLabel}</> : <>A New {tupleLabel}</>;
 
 	return <TupleEditContainer visible={!!state.tuple}>
 		<TupleBackgroundImage tupleImage={tupleImage} tupleImagePosition={tupleImagePosition}/>

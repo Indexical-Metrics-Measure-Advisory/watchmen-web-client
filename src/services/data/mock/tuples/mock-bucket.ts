@@ -1,15 +1,9 @@
-import {DemoBuckets, DemoQueryBuckets} from '@/services/data/mock/tuples/mock-data-buckets';
-import {TuplePage} from '@/services/data/query/tuple-page';
-import {
-	Bucket,
-	BucketId,
-	BucketType,
-	NumericValueBucket,
-	RangeBucketValueIncluding
-} from '@/services/data/tuples/bucket-types';
-import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
-import {isFakedUuid} from '@/services/data/tuples/utils';
-import {getCurrentTime} from '@/services/data/utils';
+import {TuplePage} from '../../query/tuple-page';
+import {Bucket, BucketId, BucketType, NumericValueBucket, RangeBucketValueIncluding} from '../../tuples/bucket-types';
+import {QueryBucket} from '../../tuples/query-bucket-types';
+import {isFakedUuid} from '../../tuples/utils';
+import {getCurrentTime} from '../../utils';
+import {DemoBuckets, DemoQueryBuckets} from './mock-data-buckets';
 
 export const listMockBuckets = async (options: {
 	search: string;

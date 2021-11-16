@@ -327,12 +327,20 @@ export const Zh = {
 			CREATE_AT: '创建于',
 			LAST_MODIFIED_AT: '最后更新于',
 			BUCKET_NAME_IS_REQUIRED: '请填写分桶名称.',
+			NO_NUMERIC_SEGMENT_DEFINED: '没有定义分段.',
+			ONE_NUMERIC_SEGMENT_DEFINED: '1 分段',
+			N_NUMERIC_SEGMENT_DEFINED: '分段',
 			BUCKET_TYPE_VALUE: '值分桶',
 			BUCKET_TYPE_MEASURE: '维度分桶',
 			BUCKET_TYPE_COMPOSITE: '组合分桶',
-			RANGE_INCLUDING: '值包含方式',
-			RANGE_INCLUDE_MIN: '包含最小值, 不包含最大值',
-			RANGE_INCLUDE_MAX: '不包含最小值, 包含最大值'
+			RANGE_INCLUDING_LABEL: '值包含方式',
+			RANGE_INCLUDE_MIN: '[包含最小值, 不包含最大值)',
+			RANGE_INCLUDE_MAX: '(不包含最小值, 包含最大值]',
+			VALUE_SEGMENTS_LABEL: '值分段定义',
+			VALUE_SEGMENT_MIN_LABEL: '最小值',
+			VALUE_SEGMENT_MAX_LABEL: '最大值',
+			ADD_VALUE_SEGMENTS: '添加值分段',
+			SORT_VALUE_SEGMENTS: '排序'
 		}
 	},
 	SETTINGS: {

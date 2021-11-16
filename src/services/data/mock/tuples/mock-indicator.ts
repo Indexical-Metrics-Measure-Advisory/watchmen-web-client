@@ -1,10 +1,6 @@
-import {EnumForIndicator, QueryIndicator, TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {isIndicatorFactor} from '../../tuples/factor-calculator-utils';
-import {
-	Indicator,
-	IndicatorId,
-	MeasureMethod
-} from '../../tuples/indicator-types';
+import {Indicator, IndicatorId, MeasureMethod} from '../../tuples/indicator-types';
+import {EnumForIndicator, QueryIndicator, TopicForIndicator} from '../../tuples/query-indicator-types';
 import {TopicId, TopicKind, TopicType} from '../../tuples/topic-types';
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';

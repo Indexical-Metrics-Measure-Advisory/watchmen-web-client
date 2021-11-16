@@ -1,0 +1,36 @@
+import {NumericSegment, NumericSegmentsHolder} from '@/services/data/tuples/bucket-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import React from 'react';
+import {useBucketEventBus} from '../bucket-event-bus';
+import {BucketEventTypes} from '../bucket-event-bus-types';
+import {SegmentPropInput, SegmentValueCellContainer} from './widgets';
+
+export const SegmentValueCell = (props: { holder: NumericSegmentsHolder, segment: NumericSegment, index: 0 | 1 }) => {
+	const {holder, segment, index} = props;
+
+	const {fire} = useBucketEventBus();
+	const forceUpdate = useForceUpdate();
+
+	const onValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const {value} = event.target;
+
+		try {
+			if (value === '') {
+				segment[index] = null;
+			} else {
+				segment[index] = Number(value);
+			}
+		} catch {
+			// force set
+			// @ts-ignore
+			segment[index] = value;
+		}
+
+		forceUpdate();
+		fire(BucketEventTypes.NUMERIC_SEGMENT_CHANGED, holder, segment);
+	};
+
+	return <SegmentValueCellContainer>
+		<SegmentPropInput value={segment[index] == null ? '' : `${segment[index]}`} onChange={onValueChange}/>
+	</SegmentValueCellContainer>;
+};

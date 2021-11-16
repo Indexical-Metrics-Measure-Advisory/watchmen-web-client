@@ -1,13 +1,4 @@
-import React, {
-	ForwardedRef,
-	forwardRef,
-	Fragment,
-	RefObject,
-	useEffect,
-	useImperativeHandle,
-	useRef,
-	useState
-} from 'react';
+import React, {ForwardedRef, forwardRef, RefObject, useEffect, useImperativeHandle, useRef, useState} from 'react';
 import {HEADER_HEIGHT, ROW_HEIGHT} from '../constants';
 import {useGridEventBus} from '../grid-event-bus';
 import {GridEventTypes} from '../grid-event-bus-types';
@@ -322,7 +313,7 @@ export const GridSelection = forwardRef((props: {
 		// do not use dependencies here
 	});
 
-	return <Fragment>
+	return <>
 		<RowSelection index={selection.row}
 		              top={selection.rowTop} height={selection.rowHeight}
 		              scroll={selection.verticalScroll}
@@ -331,5 +322,5 @@ export const GridSelection = forwardRef((props: {
 		                 left={selection.columnLeft} width={selection.columnWidth} height={selection.columnHeight}
 		                 scroll={selection.horizontalScroll}
 		                 ref={columnSelectionRef}/>
-	</Fragment>;
+	</>;
 });

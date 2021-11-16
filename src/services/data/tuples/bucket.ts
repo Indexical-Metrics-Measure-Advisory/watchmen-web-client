@@ -1,11 +1,11 @@
-import {findAccount} from '@/services/data/account';
-import {Apis, get, page, post} from '@/services/data/apis';
-import {fetchMockBucket, listMockBuckets, saveMockBucket} from '@/services/data/mock/tuples/mock-bucket';
-import {TuplePage} from '@/services/data/query/tuple-page';
-import {Bucket, BucketId} from '@/services/data/tuples/bucket-types';
-import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
-import {isFakedUuid} from '@/services/data/tuples/utils';
-import {isMockService} from '@/services/data/utils';
+import {findAccount} from '../account';
+import {Apis, get, page, post} from '../apis';
+import {fetchMockBucket, listMockBuckets, saveMockBucket} from '../mock/tuples/mock-bucket';
+import {TuplePage} from '../query/tuple-page';
+import {isMockService} from '../utils';
+import {Bucket, BucketId} from './bucket-types';
+import {QueryBucket} from './query-bucket-types';
+import {isFakedUuid} from './utils';
 
 export const listBuckets = async (options: {
 	search: string;

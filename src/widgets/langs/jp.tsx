@@ -327,12 +327,20 @@ export const Jp = {
 			CREATE_AT: '作成先',
 			LAST_MODIFIED_AT: '最終更新日',
 			BUCKET_NAME_IS_REQUIRED: 'バケット名を記入してください。',
+			NO_NUMERIC_SEGMENT_DEFINED: '定義されていません',
+			ONE_NUMERIC_SEGMENT_DEFINED: '1 つの定義',
+			N_NUMERIC_SEGMENT_DEFINED: 'つの定義',
 			BUCKET_TYPE_VALUE: 'バリューバケット',
 			BUCKET_TYPE_MEASURE: '測定バケット',
 			BUCKET_TYPE_COMPOSITE: '複合バケット',
-			RANGE_INCLUDING: '値の格納方法',
-			RANGE_INCLUDE_MIN: '最小値を含み、最大値は含まれません',
-			RANGE_INCLUDE_MAX: '最小値は含まれ、最大値は含まれません'
+			RANGE_INCLUDING_LABEL: '値の格納方法',
+			RANGE_INCLUDE_MIN: '[最小値を含み、最大値は含まれません)',
+			RANGE_INCLUDE_MAX: '(最小値は含まれ、最大値は含まれません]',
+			VALUE_SEGMENTS_LABEL: '値のセグメンテーション',
+			VALUE_SEGMENT_MIN_LABEL: '最小値',
+			VALUE_SEGMENT_MAX_LABEL: '最大値',
+			ADD_VALUE_SEGMENTS: '値のセグメンテーションを追加',
+			SORT_VALUE_SEGMENTS: '並べ替え'
 		}
 	},
 	SETTINGS: {
