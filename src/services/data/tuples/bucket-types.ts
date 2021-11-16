@@ -7,7 +7,9 @@ export type BucketId = string;
 
 export enum BucketType {
 	VALUE = 'value',
-	MEASURE = 'measure',
+	VALUE_MEASURE = 'value-measure',
+	CATEGORY_MEASURE = 'category-measure',
+	ENUM_MEASURE = 'enum-measure',
 	COMPOSITE = 'composite'
 }
 
@@ -41,19 +43,27 @@ export interface NumericValueBucket extends NumericSegmentsHolder, Bucket {
 }
 
 export interface MeasureBucket extends Bucket {
-	type: BucketType.MEASURE;
 	measure: MeasureMethod;
 }
 
 export interface NumericValueMeasureBucket extends MeasureBucket, NumericSegmentsHolder {
-	type: BucketType.MEASURE;
+	type: BucketType.VALUE_MEASURE;
+	measure: MeasureMethod.FLOOR | MeasureMethod.RESIDENTIAL_AREA | MeasureMethod.AGE | MeasureMethod.BIZ_SCALE;
 }
 
 export interface CategoryMeasureBucket extends MeasureBucket {
+	type: BucketType.CATEGORY_MEASURE;
+	measure: MeasureMethod.CONTINENT | MeasureMethod.REGION | MeasureMethod.COUNTRY | MeasureMethod.PROVINCE | MeasureMethod.CITY | MeasureMethod.DISTRICT
+		| MeasureMethod.RESIDENCE_TYPE
+		| MeasureMethod.GENDER | MeasureMethod.OCCUPATION | MeasureMethod.RELIGION | MeasureMethod.NATIONALITY
+		| MeasureMethod.BIZ_TRADE
+		| MeasureMethod.BOOLEAN;
 	segments: Array<Array<string> | 'other'>;
 }
 
 export interface EnumMeasureBucket extends MeasureBucket {
+	type: BucketType.ENUM_MEASURE;
+	measure: MeasureMethod.ENUM;
 	enumId: EnumId;
 	segments: Array<Array<string> | 'other'>;
 }

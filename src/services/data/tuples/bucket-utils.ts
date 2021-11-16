@@ -1,10 +1,21 @@
-import {Bucket, BucketType, NumericValueBucket, RangeBucketValueIncluding} from './bucket-types';
+import {
+	Bucket,
+	BucketType,
+	NumericSegmentsHolder,
+	NumericValueBucket,
+	NumericValueMeasureBucket,
+	RangeBucketValueIncluding
+} from './bucket-types';
 
 export const isNumericValueBucket = (bucket: Bucket): bucket is NumericValueBucket => {
 	return bucket.type === BucketType.VALUE;
 };
 
-export const defendNumericValueBucket = (bucket: NumericValueBucket) => {
-	bucket.include = bucket.include ?? RangeBucketValueIncluding.INCLUDE_MIN;
-	bucket.segments = bucket.segments ?? [];
+export const isNumericValueMeasureBucket = (bucket: Bucket): bucket is NumericValueMeasureBucket => {
+	return bucket.type === BucketType.VALUE_MEASURE;
+};
+
+export const defendNumericValueBucket = (holder: NumericSegmentsHolder) => {
+	holder.include = holder.include ?? RangeBucketValueIncluding.INCLUDE_MIN;
+	holder.segments = holder.segments ?? [];
 };

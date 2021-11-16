@@ -9,7 +9,21 @@ import {BucketEventTypes} from '../bucket-event-bus-types';
 
 const BucketTypeOptions: Array<DropdownOption> = [
 	{value: BucketType.VALUE, label: Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_TYPE_VALUE, key: 'Value'},
-	{value: BucketType.MEASURE, label: Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_TYPE_MEASURE, key: 'Measure'},
+	{
+		value: BucketType.VALUE_MEASURE,
+		label: Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_TYPE_VALUE_MEASURE,
+		key: 'Value Measure'
+	},
+	{
+		value: BucketType.CATEGORY_MEASURE,
+		label: Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_TYPE_CATEGORY_MEASURE,
+		key: 'Category Measure'
+	},
+	{
+		value: BucketType.ENUM_MEASURE,
+		label: Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_TYPE_ENUM_MEASURE,
+		key: 'Enumeration Measure'
+	},
 	{value: BucketType.COMPOSITE, label: Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_TYPE_COMPOSITE, key: 'Composite'}
 ];
 

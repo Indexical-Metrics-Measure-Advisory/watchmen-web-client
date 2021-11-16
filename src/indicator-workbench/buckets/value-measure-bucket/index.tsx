@@ -1,12 +1,12 @@
-import {Bucket, NumericValueBucket} from '@/services/data/tuples/bucket-types';
-import {defendNumericValueBucket, isNumericValueBucket} from '@/services/data/tuples/bucket-utils';
+import {Bucket, NumericValueMeasureBucket} from '@/services/data/tuples/bucket-types';
+import {defendNumericValueBucket, isNumericValueMeasureBucket} from '@/services/data/tuples/bucket-utils';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useEffect} from 'react';
 import {useBucketEventBus} from '../bucket-event-bus';
 import {BucketEventTypes} from '../bucket-event-bus-types';
 import {SegmentHolderEditor} from '../segments-holder';
 
-export const NumericValueBucketEditor = (props: { bucket: Bucket }) => {
+export const NumericValueMeasureBucketEditor = (props: { bucket: Bucket }) => {
 	const {bucket} = props;
 
 	const {on, off} = useBucketEventBus();
@@ -16,7 +16,7 @@ export const NumericValueBucketEditor = (props: { bucket: Bucket }) => {
 			if (aBucket !== bucket) {
 				return;
 			}
-			defendNumericValueBucket(bucket as NumericValueBucket);
+			defendNumericValueBucket(bucket as NumericValueMeasureBucket);
 			forceUpdate();
 		};
 		on(BucketEventTypes.BUCKET_TYPE_CHANGED, onTypeChanged);
@@ -25,9 +25,11 @@ export const NumericValueBucketEditor = (props: { bucket: Bucket }) => {
 		};
 	}, [on, off, forceUpdate, bucket]);
 
-	if (!isNumericValueBucket(bucket)) {
+	if (!isNumericValueMeasureBucket(bucket)) {
 		return null;
 	}
 
-	return <SegmentHolderEditor holder={bucket}/>;
+	return <>
+		<SegmentHolderEditor holder={bucket}/>
+	</>;
 };

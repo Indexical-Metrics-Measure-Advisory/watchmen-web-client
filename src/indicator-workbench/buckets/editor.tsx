@@ -7,6 +7,7 @@ import {BucketDescriptionInput} from './bucket/bucket-description-input';
 import {BucketNameInput} from './bucket/bucket-name-input';
 import {BucketTypeInput} from './bucket/bucket-type-input';
 import {NumericValueBucketEditor} from './value-bucket';
+import {NumericValueMeasureBucketEditor} from './value-measure-bucket';
 
 const BucketEditor = (props: { bucket: Bucket }) => {
 	const {bucket} = props;
@@ -19,6 +20,7 @@ const BucketEditor = (props: { bucket: Bucket }) => {
 		<TuplePropertyLabel>{Lang.INDICATOR_WORKBENCH.BUCKET.DESCRIPTION_LABEL}</TuplePropertyLabel>
 		<BucketDescriptionInput bucket={bucket}/>
 		<NumericValueBucketEditor bucket={bucket}/>
+		<NumericValueMeasureBucketEditor bucket={bucket}/>
 	</BucketEventBusProvider>;
 };
 
