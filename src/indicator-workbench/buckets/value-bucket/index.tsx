@@ -1,5 +1,5 @@
 import {Bucket, NumericValueBucket} from '@/services/data/tuples/bucket-types';
-import {defendNumericValueBucket, isNumericValueBucket} from '@/services/data/tuples/bucket-utils';
+import {defendNumericValueSegmentsHolder, isNumericValueBucket} from '@/services/data/tuples/bucket-utils';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useEffect} from 'react';
 import {useBucketEventBus} from '../bucket-event-bus';
@@ -16,7 +16,7 @@ export const NumericValueBucketEditor = (props: { bucket: Bucket }) => {
 			if (aBucket !== bucket) {
 				return;
 			}
-			defendNumericValueBucket(bucket as NumericValueBucket);
+			defendNumericValueSegmentsHolder(bucket as NumericValueBucket);
 			forceUpdate();
 		};
 		on(BucketEventTypes.BUCKET_TYPE_CHANGED, onTypeChanged);

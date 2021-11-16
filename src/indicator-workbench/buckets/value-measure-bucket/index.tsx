@@ -1,5 +1,5 @@
 import {Bucket, NumericValueMeasureBucket} from '@/services/data/tuples/bucket-types';
-import {defendNumericValueBucket, isNumericValueMeasureBucket} from '@/services/data/tuples/bucket-utils';
+import {defendNumericValueSegmentsHolder, isNumericValueMeasureBucket} from '@/services/data/tuples/bucket-utils';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import React, {useEffect} from 'react';
 import {useBucketEventBus} from '../bucket-event-bus';
@@ -16,7 +16,7 @@ export const NumericValueMeasureBucketEditor = (props: { bucket: Bucket }) => {
 			if (aBucket !== bucket) {
 				return;
 			}
-			defendNumericValueBucket(bucket as NumericValueMeasureBucket);
+			defendNumericValueSegmentsHolder(bucket as NumericValueMeasureBucket);
 			forceUpdate();
 		};
 		on(BucketEventTypes.BUCKET_TYPE_CHANGED, onTypeChanged);

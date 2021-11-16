@@ -15,7 +15,7 @@ export const isNumericValueMeasureBucket = (bucket: Bucket): bucket is NumericVa
 	return bucket.type === BucketType.VALUE_MEASURE;
 };
 
-export const defendNumericValueBucket = (holder: NumericSegmentsHolder) => {
+export const defendNumericValueSegmentsHolder = (holder: NumericSegmentsHolder) => {
 	holder.include = holder.include ?? RangeBucketValueIncluding.INCLUDE_MIN;
 	holder.segments = holder.segments ?? [];
 };
