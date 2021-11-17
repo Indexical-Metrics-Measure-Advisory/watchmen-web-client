@@ -57,7 +57,14 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>): { valid: boo
 	}
 	let columnInvalidMessage = '';
 	const hasInvalidColumn = columns.some(({parameter, alias}, index) => {
-		return !alias || alias.trim().length === 0 || againstSnakeCaseName(alias.trim()) || !isParameterValid4DataSet({
+		if (!alias || alias.trim().length === 0) {
+			columnInvalidMessage = `Column[#${index + 1}] is incorrect caused by no name specified.`;
+			return true;
+		} else if (againstSnakeCaseName(alias.trim())) {
+			columnInvalidMessage = `Column[#${index + 1}] is incorrect caused by name cannot start with digit and must follow snake case.`;
+			return true;
+		}
+		return !isParameterValid4DataSet({
 			parameter,
 			topics,
 			expectedTypes: [AnyFactorType.ANY],

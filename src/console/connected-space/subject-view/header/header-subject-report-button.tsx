@@ -32,12 +32,16 @@ export const HeaderSubjectReportButton = (props: { connectedSpace: ConnectedSpac
 
 		const handle = ({valid, messages}: { valid: boolean, messages: Array<string> }) => {
 			if (!valid) {
+				messages = messages.filter(x => !!x.trim());
 				fireGlobal(EventTypes.SHOW_ALERT,
 					<>
-						{(messages || []).reduce((all, message) => {
-								return <SingleLineAlertLabel>{message}</SingleLineAlertLabel>;
-							},
-							<SingleLineAlertLabel>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_DEF_INVALID}</SingleLineAlertLabel>)}
+						{messages.length !== 0
+							? (messages || []).map(message => {
+								return <SingleLineAlertLabel key={message}>{message}</SingleLineAlertLabel>;
+							})
+							:
+							<SingleLineAlertLabel>{Lang.CONSOLE.CONNECTED_SPACE.SUBJECT_DEF_INVALID}</SingleLineAlertLabel>
+						}
 					</>);
 			} else {
 				history.push(toSubjectReports(connectedSpace.connectId, subject.subjectId));
