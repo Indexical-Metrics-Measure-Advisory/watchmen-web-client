@@ -339,6 +339,7 @@ export const Zh = {
 			RANGE_INCLUDE_MIN: '[包含最小值, 不包含最大值)',
 			RANGE_INCLUDE_MAX: '(不包含最小值, 包含最大值]',
 			VALUE_SEGMENTS_LABEL: '值分段定义',
+			SEGMENT_NAME: '分段名称',
 			VALUE_SEGMENT_MIN_LABEL: '最小值',
 			VALUE_SEGMENT_MAX_LABEL: '最大值',
 			ADD_VALUE_SEGMENTS: '添加值分段',

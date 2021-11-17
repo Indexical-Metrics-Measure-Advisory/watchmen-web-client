@@ -1,11 +1,11 @@
-import {NumericSegment, NumericSegmentsHolder} from '@/services/data/tuples/bucket-types';
+import {NumericSegmentsHolder, NumericValueSegment} from '@/services/data/tuples/bucket-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import React from 'react';
 import {useBucketEventBus} from '../bucket-event-bus';
 import {BucketEventTypes} from '../bucket-event-bus-types';
 import {SegmentPropInput, SegmentValueCellContainer} from './widgets';
 
-export const SegmentValueCell = (props: { holder: NumericSegmentsHolder, segment: NumericSegment, index: 0 | 1 }) => {
+export const SegmentValueCell = (props: { holder: NumericSegmentsHolder, segment: NumericValueSegment, index: 0 | 1 }) => {
 	const {holder, segment, index} = props;
 
 	const {fire} = useBucketEventBus();
@@ -16,9 +16,9 @@ export const SegmentValueCell = (props: { holder: NumericSegmentsHolder, segment
 
 		try {
 			if (value === '') {
-				segment[index] = null;
+				segment.value[index] = null;
 			} else {
-				segment[index] = Number(value);
+				segment.value[index] = Number(value);
 			}
 		} catch {
 			// force set
@@ -31,6 +31,7 @@ export const SegmentValueCell = (props: { holder: NumericSegmentsHolder, segment
 	};
 
 	return <SegmentValueCellContainer>
-		<SegmentPropInput value={segment[index] == null ? '' : `${segment[index]}`} onChange={onValueChange}/>
+		<SegmentPropInput value={segment.value[index] == null ? '' : `${segment.value[index]}`}
+		                  onChange={onValueChange}/>
 	</SegmentValueCellContainer>;
 };

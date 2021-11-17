@@ -12,6 +12,7 @@ export const SegmentsTable = (props: { holder: NumericSegmentsHolder }) => {
 	return <SegmentsTableContainer>
 		<SegmentTableHeader>
 			<SegmentTableHeaderLabel/>
+			<SegmentTableHeaderLabel>{Lang.INDICATOR_WORKBENCH.BUCKET.SEGMENT_NAME}</SegmentTableHeaderLabel>
 			<SegmentTableHeaderLabel>{Lang.INDICATOR_WORKBENCH.BUCKET.VALUE_SEGMENT_MIN_LABEL}</SegmentTableHeaderLabel>
 			<SegmentTableHeaderLabel>{Lang.INDICATOR_WORKBENCH.BUCKET.VALUE_SEGMENT_MAX_LABEL}</SegmentTableHeaderLabel>
 			<SegmentTableHeaderLabel/>

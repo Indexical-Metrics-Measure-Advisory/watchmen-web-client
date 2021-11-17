@@ -18,7 +18,7 @@ export const SegmentsTableContainer = styled.div.attrs({'data-widget': 'segments
 
 export const SegmentTableHeader = styled.div`
 	display               : grid;
-	grid-template-columns : 48px 1fr 1fr 1fr;
+	grid-template-columns : 48px 1fr 150px 150px 100px;
 	grid-column-gap       : calc(var(--margin) / 2);
 	align-items           : center;
 	padding               : calc(var(--margin) / 4) calc(var(--margin) / 2);
@@ -41,7 +41,7 @@ export const SegmentsTableBodyContainer = styled.div.attrs({'data-widget': 'segm
 
 export const SegmentRowContainer = styled.div`
 	display               : grid;
-	grid-template-columns : 48px 1fr 1fr 1fr;
+	grid-template-columns : 48px 1fr 150px 150px 100px;
 	grid-column-gap       : calc(var(--margin) / 2);
 	align-items           : center;
 	padding               : calc(var(--margin) / 8) calc(var(--margin) / 2);

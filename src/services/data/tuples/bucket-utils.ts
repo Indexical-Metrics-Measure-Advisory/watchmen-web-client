@@ -32,5 +32,9 @@ export const isMeasureBucket = (bucket: Bucket): bucket is MeasureBucket => {
 
 export const defendNumericValueSegmentsHolder = (holder: NumericSegmentsHolder) => {
 	holder.include = holder.include ?? RangeBucketValueIncluding.INCLUDE_MIN;
-	holder.segments = holder.segments ?? [];
+	holder.segments = [];
+};
+
+export const defendCategoryMeasureBucket = (bucket: CategoryMeasureBucket) => {
+	bucket.segments = [];
 };

@@ -14,7 +14,7 @@ export const SegmentSortButton = (props: { holder: NumericSegmentsHolder }) => {
 	const {fire} = useBucketEventBus();
 
 	const onFactorAddClicked = () => {
-		holder.segments = holder.segments.sort((s1, s2) => {
+		holder.segments.sort(({value: s1}, {value: s2}) => {
 			if (s1[0] == null) {
 				if (s2[0] != null) {
 					return -1;

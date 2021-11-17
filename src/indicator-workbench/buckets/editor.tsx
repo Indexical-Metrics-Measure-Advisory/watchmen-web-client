@@ -6,6 +6,7 @@ import {BucketEventBusProvider} from './bucket-event-bus';
 import {BucketDescriptionInput} from './bucket/bucket-description-input';
 import {BucketNameInput} from './bucket/bucket-name-input';
 import {BucketTypeInput} from './bucket/bucket-type-input';
+import {CategoryMeasureBucketEditor} from './category-measure-bucket';
 import {NumericValueBucketEditor} from './value-bucket';
 import {NumericValueMeasureBucketEditor} from './value-measure-bucket';
 
@@ -21,6 +22,7 @@ const BucketEditor = (props: { bucket: Bucket }) => {
 		<BucketDescriptionInput bucket={bucket}/>
 		<NumericValueBucketEditor bucket={bucket}/>
 		<NumericValueMeasureBucketEditor bucket={bucket}/>
+		<CategoryMeasureBucketEditor bucket={bucket}/>
 	</BucketEventBusProvider>;
 };
 

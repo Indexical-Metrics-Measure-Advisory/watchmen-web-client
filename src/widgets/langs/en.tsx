@@ -339,6 +339,7 @@ export const En = {
 			RANGE_INCLUDE_MIN: '[Include Min Value, Exclude Max Value)',
 			RANGE_INCLUDE_MAX: '(Exclude Max Value, Include Max Value]',
 			VALUE_SEGMENTS_LABEL: 'Value Segments',
+			SEGMENT_NAME: 'Segment Name',
 			VALUE_SEGMENT_MIN_LABEL: 'Minimum Value',
 			VALUE_SEGMENT_MAX_LABEL: 'Maximum Value',
 			ADD_VALUE_SEGMENTS: 'Add Segment',

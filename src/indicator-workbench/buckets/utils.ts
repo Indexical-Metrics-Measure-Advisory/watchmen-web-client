@@ -1,8 +1,8 @@
 import {
 	BucketType,
-	NumericSegment,
 	NumericSegmentsHolder,
 	NumericValueBucket,
+	NumericValueSegment,
 	RangeBucketValueIncluding
 } from '@/services/data/tuples/bucket-types';
 import {generateUuid} from '@/services/data/tuples/utils';
@@ -20,11 +20,11 @@ export const createBucket = (): NumericValueBucket => {
 	};
 };
 
-export const createNumericSegment = (holder: NumericSegmentsHolder): NumericSegment => {
+export const createNumericSegment = (holder: NumericSegmentsHolder): NumericValueSegment => {
 	const segments = holder.segments;
 	if (segments.length === 0) {
-		return [null, null];
+		return {name: '', value: [null, null]};
 	} else {
-		return [segments[segments.length - 1][1], null];
+		return {name: '', value: [segments[segments.length - 1].value[1], null]};
 	}
 };

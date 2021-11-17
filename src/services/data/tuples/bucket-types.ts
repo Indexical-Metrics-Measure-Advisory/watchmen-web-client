@@ -26,16 +26,25 @@ export enum RangeBucketValueIncluding {
 	INCLUDE_MAX = 'include-max'
 }
 
-export type NumericSegment =
+export interface BucketSegment {
+	name: string;
+	value: unknown;
+}
+
+export type NumericSegmentValue =
 	[null | undefined, number]
 	| [number, number]
 	| [number, null | undefined]
 	// intermediate state
 	| [null | undefined, null | undefined]
 
+export interface NumericValueSegment extends BucketSegment {
+	value: NumericSegmentValue;
+}
+
 export interface NumericSegmentsHolder extends Bucket {
 	include: RangeBucketValueIncluding;
-	segments: Array<NumericSegment>;
+	segments: Array<NumericValueSegment>;
 }
 
 export interface NumericValueBucket extends NumericSegmentsHolder, Bucket {
@@ -51,6 +60,12 @@ export interface NumericValueMeasureBucket extends MeasureBucket, NumericSegment
 	measure: MeasureMethod.FLOOR | MeasureMethod.RESIDENTIAL_AREA | MeasureMethod.AGE | MeasureMethod.BIZ_SCALE;
 }
 
+export type CategorySegmentValue = Array<string>;
+
+export interface CategorySegment extends BucketSegment {
+	value: CategorySegmentValue;
+}
+
 export interface CategoryMeasureBucket extends MeasureBucket {
 	type: BucketType.CATEGORY_MEASURE;
 	measure: MeasureMethod.CONTINENT | MeasureMethod.REGION | MeasureMethod.COUNTRY | MeasureMethod.PROVINCE | MeasureMethod.CITY | MeasureMethod.DISTRICT
@@ -58,12 +73,12 @@ export interface CategoryMeasureBucket extends MeasureBucket {
 		| MeasureMethod.GENDER | MeasureMethod.OCCUPATION | MeasureMethod.RELIGION | MeasureMethod.NATIONALITY
 		| MeasureMethod.BIZ_TRADE
 		| MeasureMethod.BOOLEAN;
-	segments: Array<Array<string> | 'other'>;
+	segments: Array<CategorySegment>;
 }
 
 export interface EnumMeasureBucket extends MeasureBucket {
 	type: BucketType.ENUM_MEASURE;
 	measure: MeasureMethod.ENUM;
 	enumId: EnumId;
-	segments: Array<Array<string> | 'other'>;
+	segments: Array<CategorySegment>;
 }

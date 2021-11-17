@@ -339,6 +339,7 @@ export const Jp = {
 			RANGE_INCLUDE_MIN: '[最小値を含み、最大値は含まれません)',
 			RANGE_INCLUDE_MAX: '(最小値は含まれ、最大値は含まれません]',
 			VALUE_SEGMENTS_LABEL: '値のセグメンテーション',
+			SEGMENT_NAME: 'セグメント名',
 			VALUE_SEGMENT_MIN_LABEL: '最小値',
 			VALUE_SEGMENT_MAX_LABEL: '最大値',
 			ADD_VALUE_SEGMENTS: '値のセグメンテーションを追加',

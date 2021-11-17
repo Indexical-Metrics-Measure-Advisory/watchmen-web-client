@@ -1,12 +1,11 @@
-import {Bucket, NumericValueMeasureBucket} from '@/services/data/tuples/bucket-types';
-import {defendNumericValueSegmentsHolder, isNumericValueMeasureBucket} from '@/services/data/tuples/bucket-utils';
+import {Bucket, CategoryMeasureBucket, NumericValueMeasureBucket} from '@/services/data/tuples/bucket-types';
+import {defendCategoryMeasureBucket, isCategoryMeasureBucket} from '@/services/data/tuples/bucket-utils';
 import {MeasureMethod} from '@/services/data/tuples/indicator-types';
 import {PropOf} from '@/services/types';
 import {DropdownOption} from '@/widgets/basic/types';
 import {Lang} from '@/widgets/langs';
 import React from 'react';
 import {MeasureMethodEditor} from '../measure-method';
-import {SegmentHolderEditor} from '../segments-holder';
 import {useBucketDefend} from '../use-bucket-defend';
 
 type MeasureMethodOfValueMeasureBucket = PropOf<NumericValueMeasureBucket, 'measure'>;
@@ -26,10 +25,10 @@ const MeasureMethodOptions: Array<DropdownOption> = Object.keys(MeasureMethods).
 		key: type
 	};
 });
-export const NumericValueMeasureBucketEditor = (props: { bucket: Bucket }) => {
+export const CategoryMeasureBucketEditor = (props: { bucket: Bucket }) => {
 	const {bucket} = props;
 
-	const typeCheck = useBucketDefend<NumericValueMeasureBucket>(bucket, defendNumericValueSegmentsHolder, isNumericValueMeasureBucket);
+	const typeCheck = useBucketDefend<CategoryMeasureBucket>(bucket, defendCategoryMeasureBucket, isCategoryMeasureBucket);
 
 	if (!typeCheck) {
 		return null;
@@ -37,6 +36,5 @@ export const NumericValueMeasureBucketEditor = (props: { bucket: Bucket }) => {
 
 	return <>
 		<MeasureMethodEditor bucket={bucket} methods={MeasureMethodOptions}/>
-		<SegmentHolderEditor holder={bucket}/>
 	</>;
 };
