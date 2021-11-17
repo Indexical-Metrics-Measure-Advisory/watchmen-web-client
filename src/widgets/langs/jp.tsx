@@ -320,6 +320,8 @@ export const Jp = {
 		BUCKET: {
 			TITLE: 'バケット',
 			LABEL: 'バケット',
+			NEW_BUCKET_PREFIX: '新しい',
+			EXISTING_BUCKET_PREFIX: '既存',
 			CREATE_BUCKET: 'バケットを作成',
 			NAME_LABEL: 'バケット名:',
 			TYPE_LABEL: 'バケットの種類:',

@@ -8,7 +8,7 @@ import {useBucketEventBus} from '../bucket-event-bus';
 import {BucketEventTypes} from '../bucket-event-bus-types';
 import {NumericSegments} from '../numeric-segments';
 
-export const SegmentHolderEditor = (props: { holder: NumericSegmentsHolder }) => {
+export const NumericSegmentHolderEditor = (props: { holder: NumericSegmentsHolder }) => {
 	const {holder} = props;
 
 	const {fire} = useBucketEventBus();

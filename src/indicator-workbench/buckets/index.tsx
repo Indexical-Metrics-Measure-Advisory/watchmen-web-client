@@ -70,9 +70,13 @@ const IndicatorWorkbenchBuckets = () => {
 	return <TupleWorkbench title={Lang.INDICATOR_WORKBENCH.BUCKET.TITLE}
 	                       createButtonLabel={Lang.INDICATOR_WORKBENCH.BUCKET.CREATE_BUCKET} canCreate={true}
 	                       searchPlaceholder={Lang.PLAIN.FIND_BUCKET_PLACEHOLDER}
-	                       tupleLabel={Lang.INDICATOR_WORKBENCH.BUCKET.LABEL} tupleImage={BucketBackground}
-	                       tupleImagePosition="left 120px"
+	                       tupleLabel={Lang.INDICATOR_WORKBENCH.BUCKET.LABEL}
+	                       newTupleLabelPrefix={Lang.INDICATOR_WORKBENCH.BUCKET.NEW_BUCKET_PREFIX}
+	                       existingTupleLabelPrefix={Lang.INDICATOR_WORKBENCH.BUCKET.EXISTING_BUCKET_PREFIX}
+	                       tupleImage={BucketBackground} tupleImagePosition="left 120px"
 	                       renderEditor={renderEditor}
+	                       confirmEditButtonLabel={Lang.ACTIONS.CONFIRM}
+	                       closeEditButtonLabel={Lang.ACTIONS.CLOSE}
 	                       renderCard={renderCard} getKeyOfTuple={getKeyOfBucket}
 	/>;
 };

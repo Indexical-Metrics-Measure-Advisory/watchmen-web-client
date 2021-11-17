@@ -6,7 +6,7 @@ import {DropdownOption} from '@/widgets/basic/types';
 import {Lang} from '@/widgets/langs';
 import React from 'react';
 import {MeasureMethodEditor} from '../measure-method';
-import {SegmentHolderEditor} from '../segments-holder';
+import {NumericSegmentHolderEditor} from '../numeric-segments-holder';
 import {useBucketDefend} from '../use-bucket-defend';
 
 type MeasureMethodOfValueMeasureBucket = PropOf<NumericValueMeasureBucket, 'measure'>;
@@ -37,6 +37,6 @@ export const NumericValueMeasureBucketEditor = (props: { bucket: Bucket }) => {
 
 	return <>
 		<MeasureMethodEditor bucket={bucket} methods={MeasureMethodOptions}/>
-		<SegmentHolderEditor holder={bucket}/>
+		<NumericSegmentHolderEditor holder={bucket}/>
 	</>;
 };

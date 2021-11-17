@@ -320,6 +320,8 @@ export const En = {
 		BUCKET: {
 			TITLE: 'Buckets',
 			LABEL: 'Bucket',
+			NEW_BUCKET_PREFIX: 'A New',
+			EXISTING_BUCKET_PREFIX: 'An Existing',
 			CREATE_BUCKET: 'Create Bucket',
 			NAME_LABEL: 'Bucket Name:',
 			TYPE_LABEL: 'Bucket Type:',

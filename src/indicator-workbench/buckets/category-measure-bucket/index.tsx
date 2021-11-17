@@ -1,4 +1,4 @@
-import {Bucket, CategoryMeasureBucket, NumericValueMeasureBucket} from '@/services/data/tuples/bucket-types';
+import {Bucket, CategoryMeasureBucket} from '@/services/data/tuples/bucket-types';
 import {defendCategoryMeasureBucket, isCategoryMeasureBucket} from '@/services/data/tuples/bucket-utils';
 import {MeasureMethod} from '@/services/data/tuples/indicator-types';
 import {PropOf} from '@/services/types';
@@ -8,13 +8,22 @@ import React from 'react';
 import {MeasureMethodEditor} from '../measure-method';
 import {useBucketDefend} from '../use-bucket-defend';
 
-type MeasureMethodOfValueMeasureBucket = PropOf<NumericValueMeasureBucket, 'measure'>;
+type MeasureMethodOfValueMeasureBucket = PropOf<CategoryMeasureBucket, 'measure'>;
 
 const MeasureMethods: Record<MeasureMethodOfValueMeasureBucket, string> = {
-	[MeasureMethod.FLOOR]: Lang.INDICATOR.MEASURE_METHOD.FLOOR,
-	[MeasureMethod.RESIDENTIAL_AREA]: Lang.INDICATOR.MEASURE_METHOD.RESIDENTIAL_AREA,
-	[MeasureMethod.AGE]: Lang.INDICATOR.MEASURE_METHOD.AGE,
-	[MeasureMethod.BIZ_SCALE]: Lang.INDICATOR.MEASURE_METHOD.BIZ_SCALE
+	[MeasureMethod.CONTINENT]: Lang.INDICATOR.MEASURE_METHOD.CONTINENT,
+	[MeasureMethod.REGION]: Lang.INDICATOR.MEASURE_METHOD.REGION,
+	[MeasureMethod.COUNTRY]: Lang.INDICATOR.MEASURE_METHOD.COUNTRY,
+	[MeasureMethod.PROVINCE]: Lang.INDICATOR.MEASURE_METHOD.PROVINCE,
+	[MeasureMethod.CITY]: Lang.INDICATOR.MEASURE_METHOD.CITY,
+	[MeasureMethod.DISTRICT]: Lang.INDICATOR.MEASURE_METHOD.DISTRICT,
+	[MeasureMethod.RESIDENCE_TYPE]: Lang.INDICATOR.MEASURE_METHOD.RESIDENCE_TYPE,
+	[MeasureMethod.GENDER]: Lang.INDICATOR.MEASURE_METHOD.GENDER,
+	[MeasureMethod.OCCUPATION]: Lang.INDICATOR.MEASURE_METHOD.OCCUPATION,
+	[MeasureMethod.RELIGION]: Lang.INDICATOR.MEASURE_METHOD.RELIGION,
+	[MeasureMethod.NATIONALITY]: Lang.INDICATOR.MEASURE_METHOD.NATIONALITY,
+	[MeasureMethod.BIZ_TRADE]: Lang.INDICATOR.MEASURE_METHOD.BIZ_TRADE,
+	[MeasureMethod.BOOLEAN]: Lang.INDICATOR.MEASURE_METHOD.BOOLEAN
 };
 const MeasureMethodOptions: Array<DropdownOption> = Object.keys(MeasureMethods).map(type => {
 	return {

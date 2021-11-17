@@ -1,7 +1,7 @@
 import {Bucket, NumericValueBucket} from '@/services/data/tuples/bucket-types';
 import {defendNumericValueSegmentsHolder, isNumericValueBucket} from '@/services/data/tuples/bucket-utils';
 import React from 'react';
-import {SegmentHolderEditor} from '../segments-holder';
+import {NumericSegmentHolderEditor} from '../numeric-segments-holder';
 import {useBucketDefend} from '../use-bucket-defend';
 
 export const NumericValueBucketEditor = (props: { bucket: Bucket }) => {
@@ -13,5 +13,5 @@ export const NumericValueBucketEditor = (props: { bucket: Bucket }) => {
 		return null;
 	}
 
-	return <SegmentHolderEditor holder={bucket}/>;
+	return <NumericSegmentHolderEditor holder={bucket}/>;
 };

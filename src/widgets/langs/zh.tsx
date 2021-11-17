@@ -320,6 +320,8 @@ export const Zh = {
 		BUCKET: {
 			TITLE: '分桶',
 			LABEL: '分桶',
+			NEW_BUCKET_PREFIX: '新',
+			EXISTING_BUCKET_PREFIX: '已存在的',
 			CREATE_BUCKET: '创建分桶',
 			NAME_LABEL: '桶名称:',
 			TYPE_LABEL: '桶类型:',

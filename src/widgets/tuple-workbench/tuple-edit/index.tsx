@@ -18,12 +18,20 @@ interface State<T, HBT> {
 
 export const TupleEdit = <T extends Tuple, HBT extends HoldByTuple>(props: {
 	tupleLabel: string;
+	newTupleLabelPrefix?: string;
+	existingTupleLabelPrefix?: string;
 	tupleImage: string;
 	tupleImagePosition?: string;
 	canEdit: boolean;
 	renderEditor: (tuple: T, codes?: HBT) => ReactNode;
+	confirmEditButtonLabel?: string;
+	closeEditButtonLabel?: string;
 }) => {
-	const {tupleLabel, tupleImage, tupleImagePosition, canEdit, renderEditor} = props;
+	const {
+		tupleLabel, newTupleLabelPrefix = 'A New', existingTupleLabelPrefix = 'An Existing',
+		tupleImage, tupleImagePosition,
+		canEdit, renderEditor, confirmEditButtonLabel = 'Confirm', closeEditButtonLabel = 'Close'
+	} = props;
 
 	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useTupleEventBus();
@@ -94,7 +102,7 @@ export const TupleEdit = <T extends Tuple, HBT extends HoldByTuple>(props: {
 	};
 
 	const onEditing = !!state.tuple && !isFakedUuid(state.tuple);
-	const title = onEditing ? <>An Exists {tupleLabel}</> : <>A New {tupleLabel}</>;
+	const title = onEditing ? <>{existingTupleLabelPrefix} {tupleLabel}</> : <>{newTupleLabelPrefix} {tupleLabel}</>;
 
 	return <TupleEditContainer visible={!!state.tuple}>
 		<TupleBackgroundImage tupleImage={tupleImage} tupleImagePosition={tupleImagePosition}/>
@@ -106,11 +114,11 @@ export const TupleEdit = <T extends Tuple, HBT extends HoldByTuple>(props: {
 			<InformMessage/>
 			{canEdit
 				? <TupleEditFooterButton ink={ButtonInk.PRIMARY} onClick={onConfirmClicked}>
-					<span>Confirm</span>
+					<span>{confirmEditButtonLabel}</span>
 				</TupleEditFooterButton>
 				: null}
 			<TupleEditFooterButton ink={ButtonInk.DANGER} onClick={onCloseClicked}>
-				<span>Close</span>
+				<span>{closeEditButtonLabel}</span>
 			</TupleEditFooterButton>
 		</TupleEditFooter>
 	</TupleEditContainer>;
