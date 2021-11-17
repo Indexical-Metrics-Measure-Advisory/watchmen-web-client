@@ -13,8 +13,6 @@ export const SegmentsTableContainer = styled.div.attrs({'data-widget': 'segments
 	display        : flex;
 	flex-direction : column;
 	font-size      : 0.8em;
-	// editor in grid layout, 30% 70%, column gap is 32px, table is second column in editor.
-	margin-left    : calc((100% + var(--margin)) / 0.7 * 0.3 * -1 - var(--margin));
 	margin-bottom  : var(--margin);
 `;
 
@@ -23,7 +21,6 @@ export const SegmentTableHeader = styled.div`
 	grid-template-columns : 48px 1fr 1fr 1fr;
 	grid-column-gap       : calc(var(--margin) / 2);
 	align-items           : center;
-	margin                : 0 calc(var(--margin) / -2);
 	padding               : calc(var(--margin) / 4) calc(var(--margin) / 2);
 	border-bottom         : var(--border);
 	border-width          : calc(var(--border-width) * 2);
@@ -39,8 +36,7 @@ export const SegmentsTableBodyContainer = styled.div.attrs({'data-widget': 'segm
 	display        : flex;
 	flex-direction : column;
 	position       : relative;
-	margin         : 0 calc(var(--margin) / -2) calc(var(--margin) / 2);
-	padding        : 0 calc(var(--margin) / 2);
+	margin-bottom  : calc(var(--margin) / 2);
 `;
 
 export const SegmentRowContainer = styled.div`
@@ -48,8 +44,7 @@ export const SegmentRowContainer = styled.div`
 	grid-template-columns : 48px 1fr 1fr 1fr;
 	grid-column-gap       : calc(var(--margin) / 2);
 	align-items           : center;
-	margin                : 0 calc(var(--margin) / -2);
-	padding               : calc(var(--margin) / 4) calc(var(--margin) / 2);
+	padding               : calc(var(--margin) / 8) calc(var(--margin) / 2);
 	border-radius         : var(--border-radius);
 	&:nth-child(2n + 1) {
 		background-color : var(--grid-rib-bg-color);
