@@ -30,7 +30,8 @@ export const Zh = {
 		FIND_INDICATOR_PLACEHOLDER: '根据指标名称, 主题名称或者数据因子名称查找.',
 		FIND_TOPIC_OR_FACTOR_PLACEHOLDER: '根据主题名称或数据因子名称查找.',
 		INDICATOR_NAME_PLACEHOLDER: '请输入用于阅读的名称.',
-		FIND_BUCKET_PLACEHOLDER: '根据分桶名称, 主题名称或者数据因子名称查找.'
+		FIND_BUCKET_PLACEHOLDER: '根据分桶名称, 主题名称或者数据因子名称查找.',
+		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: '输入分组值, 点击确认加入到分段中.'
 	},
 	STANDARD: {
 		YES: '是',
@@ -329,7 +330,7 @@ export const Zh = {
 			CREATE_AT: '创建于',
 			LAST_MODIFIED_AT: '最后更新于',
 			BUCKET_NAME_IS_REQUIRED: '请填写分桶名称.',
-			NO_SEGMENT_DEFINED: '没有定义分段.',
+			NO_SEGMENT_DEFINED: '尚未定义分段.',
 			BUCKET_MEASURE_IS_REQUIRED: '请选择测量维度.',
 			BUCKET_ENUM_IS_REQUIRED: '请选择枚举.',
 			BUCKET_SEGMENTS_IS_REQUIRED: '至少需要定义两个分段.',
@@ -349,7 +350,11 @@ export const Zh = {
 			VALUE_SEGMENT_MAX_LABEL: '最大值',
 			ADD_SEGMENT: '添加值分段',
 			SORT_SEGMENTS: '排序',
-			MEASURE_METHOD_LABEL: '测量维度'
+			MEASURE_METHOD_LABEL: '测量维度',
+			CATEGORY_SEGMENT_LABEL: '分组值',
+			DUPLICATE_CATEGORY_SEGMENT_VALUE: '分组值在这个分段中已经存在.',
+			DUPLICATE_CATEGORY_SEGMENT_VALUE_CASE_IGNORED: '分组值(不区分大小写)在这个分段中已经存在, 是否仍然需要添加?',
+			NO_SEGMENT_VALUE_DEFINED: '尚未定义分段值'
 		}
 	},
 	SETTINGS: {

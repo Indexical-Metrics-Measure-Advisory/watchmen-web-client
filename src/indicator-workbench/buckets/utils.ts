@@ -1,5 +1,7 @@
 import {
 	BucketType,
+	CategorySegment,
+	CategorySegmentsHolder,
 	NumericSegmentsHolder,
 	NumericValueBucket,
 	NumericValueSegment,
@@ -27,4 +29,9 @@ export const createNumericSegment = (holder: NumericSegmentsHolder): NumericValu
 	} else {
 		return {name: '', value: [segments[segments.length - 1].value[1], null]};
 	}
+};
+
+// noinspection JSUnusedLocalSymbols
+export const createCategorySegment = (holder: CategorySegmentsHolder): CategorySegment => {
+	return {name: '', value: []};
 };

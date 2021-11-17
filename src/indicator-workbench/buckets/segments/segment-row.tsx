@@ -5,10 +5,10 @@ import React, {ReactNode} from 'react';
 import {useBucketEventBus} from '../bucket-event-bus';
 import {BucketEventTypes} from '../bucket-event-bus-types';
 import {SegmentNameCell} from './segment-name-cell';
-import {SegmentButton, SegmentPropLabel, SegmentRowContainer} from './widgets';
+import {SegmentButton, SegmentIndexLabel, SegmentRowContainer} from './widgets';
 
-export const SegmentRow = <B extends Bucket, S extends BucketSegment>(props: { bucket: B; segment: S; cells: (segment: S) => ReactNode; }) => {
-	const {bucket, segment, cells} = props;
+export const SegmentRow = <B extends Bucket, S extends BucketSegment>(props: { bucket: B; segment: S; cells: (segment: S) => ReactNode; cellsWidth: string; }) => {
+	const {bucket, segment, cells, cellsWidth} = props;
 
 	const {fire} = useBucketEventBus();
 
@@ -18,8 +18,8 @@ export const SegmentRow = <B extends Bucket, S extends BucketSegment>(props: { b
 		fire(BucketEventTypes.SEGMENT_REMOVED, bucket, segment);
 	};
 
-	return <SegmentRowContainer>
-		<SegmentPropLabel><span>#{bucket.segments.indexOf(segment) + 1}</span></SegmentPropLabel>
+	return <SegmentRowContainer cells={cellsWidth}>
+		<SegmentIndexLabel>#{bucket.segments.indexOf(segment) + 1}</SegmentIndexLabel>
 		<SegmentNameCell bucket={bucket} segment={segment}/>
 		{cells(segment)}
 		<SegmentButton ink={ButtonInk.DANGER} onClick={onDeleteClicked}>

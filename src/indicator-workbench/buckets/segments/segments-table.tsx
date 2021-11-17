@@ -9,24 +9,25 @@ import {SegmentsTableContainer, SegmentsTableFooter, SegmentTableHeader, Segment
 export const SegmentsTable = <B extends Bucket, S extends BucketSegment>(props: {
 	bucket: B;
 	header: () => ReactNode;
-	bodyCells: (segment: S) => ReactNode;
+	cells: (segment: S) => ReactNode;
+	cellsWidth: string;
 	createSegment: (bucket: B) => S;
 	sortSegments?: (bucket: B) => void;
 }) => {
 	const {
 		bucket,
-		header, bodyCells,
+		header, cells, cellsWidth,
 		createSegment, sortSegments
 	} = props;
 
 	return <SegmentsTableContainer>
-		<SegmentTableHeader>
+		<SegmentTableHeader cells={cellsWidth}>
 			<SegmentTableHeaderLabel/>
 			<SegmentTableHeaderLabel>{Lang.INDICATOR_WORKBENCH.BUCKET.SEGMENT_NAME}</SegmentTableHeaderLabel>
 			{header()}
 			<SegmentTableHeaderLabel/>
 		</SegmentTableHeader>
-		<SegmentsTableBody bucket={bucket} cells={bodyCells}/>
+		<SegmentsTableBody bucket={bucket} cells={cells} cellsWidth={cellsWidth}/>
 		<SegmentsTableFooter>
 			<SegmentAddButton bucket={bucket} createSegment={createSegment}/>
 			<SegmentSortButton bucket={bucket} sortSegments={sortSegments}/>

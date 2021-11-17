@@ -30,7 +30,8 @@ export const Jp = {
 		FIND_INDICATOR_PLACEHOLDER: '指標名 トピック名または ファクター名に基づいて検索します。',
 		FIND_TOPIC_OR_FACTOR_PLACEHOLDER: 'トピック名または ファクター名に基づいて検索します。',
 		INDICATOR_NAME_PLACEHOLDER: '読むための名前を入力してください。',
-		FIND_BUCKET_PLACEHOLDER: 'バケット名 トピック名または ファクター名に基づいて検索します。'
+		FIND_BUCKET_PLACEHOLDER: 'バケット名 トピック名または ファクター名に基づいて検索します。',
+		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: 'カテゴリ値のキー、セグメントに追加することを確認します。'
 	},
 	STANDARD: {
 		YES: 'はい',
@@ -268,7 +269,7 @@ export const Jp = {
 			LOGOUT: 'ログアウト'
 		},
 		LOADING: 'データ読み込み中...',
-		ON_EDIT: '編集中、保存されていないデータはすべて失われます。編集を破棄しますか?',
+		ON_EDIT: '編集中、保存されていないデータはすべて失われます。編集を破棄しますか。',
 		PREPARE: {
 			TITLE: '指標を準備',
 			STEP: 'ステップ',
@@ -349,7 +350,11 @@ export const Jp = {
 			VALUE_SEGMENT_MAX_LABEL: '最大値',
 			ADD_SEGMENT: '値のセグメンテーションを追加',
 			SORT_SEGMENTS: '並べ替え',
-			MEASURE_METHOD_LABEL: '寸法を測定'
+			MEASURE_METHOD_LABEL: '寸法を測定',
+			CATEGORY_SEGMENT_LABEL: 'カテゴリ値',
+			DUPLICATE_CATEGORY_SEGMENT_VALUE: 'このセグメントには既に値が存在します。',
+			DUPLICATE_CATEGORY_SEGMENT_VALUE_CASE_IGNORED: '値 (大文字と小文字を区別しない) は、このセグメントに既に存在します。この方法を追加しますか。',
+			NO_SEGMENT_VALUE_DEFINED: '値が定義されていません'
 		}
 	},
 	SETTINGS: {

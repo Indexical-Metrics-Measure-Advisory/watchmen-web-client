@@ -49,6 +49,6 @@ export const NumericSegments = (props: { holder: NumericSegmentsHolder }) => {
 		</>;
 	};
 
-	return <Segments bucket={holder} header={header} bodyCells={cells}
+	return <Segments bucket={holder} header={header} cells={cells} cellsWidth="150px 150px"
 	                 createSegment={create} sortSegments={sort}/>;
 };

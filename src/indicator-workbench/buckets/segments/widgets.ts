@@ -1,4 +1,4 @@
-import {RoundDwarfButton} from '@/widgets/basic/button';
+import {Button, RoundDwarfButton} from '@/widgets/basic/button';
 import {GRID_ROW_HEIGHT, HEADER_HEIGHT} from '@/widgets/basic/constants';
 import {TuplePropertyInput} from '@/widgets/tuple-workbench/tuple-editor';
 import styled from 'styled-components';
@@ -14,17 +14,22 @@ export const SegmentsTableContainer = styled.div.attrs({'data-widget': 'segments
 	flex-direction : column;
 	font-size      : 0.8em;
 	// editor in grid layout, 30% 70%, column gap is 32px, table is second column in editor.
-	margin-left : calc((100% + var(--margin)) / 0.7 * 0.3 * -1 - var(--margin));
+	margin-left    : calc((100% + var(--margin)) / 0.7 * 0.3 * -1 - var(--margin));
 `;
 
-export const SegmentTableHeader = styled.div`
-	display               : grid;
-	grid-template-columns : 48px 1fr 150px 150px 100px;
-	grid-column-gap       : calc(var(--margin) / 2);
-	align-items           : center;
-	padding               : calc(var(--margin) / 4) calc(var(--margin) / 2);
-	border-bottom         : var(--border);
-	border-width          : calc(var(--border-width) * 2);
+export const SegmentTableHeader = styled.div.attrs<{ cells: string }>(({cells}) => {
+	return {
+		style: {
+			gridTemplateColumns: `48px 1fr ${cells} 80px`
+		}
+	};
+})<{ cells: string }>`
+	display         : grid;
+	grid-column-gap : calc(var(--margin) / 2);
+	align-items     : center;
+	padding         : calc(var(--margin) / 4) calc(var(--margin) / 2);
+	border-bottom   : var(--border);
+	border-width    : calc(var(--border-width) * 2);
 `;
 
 export const SegmentTableHeaderLabel = styled.span`
@@ -40,13 +45,18 @@ export const SegmentsTableBodyContainer = styled.div.attrs({'data-widget': 'segm
 	margin-bottom  : calc(var(--margin) / 2);
 `;
 
-export const SegmentRowContainer = styled.div`
-	display               : grid;
-	grid-template-columns : 48px 1fr 150px 150px 100px;
-	grid-column-gap       : calc(var(--margin) / 2);
-	align-items           : center;
-	padding               : calc(var(--margin) / 8) calc(var(--margin) / 2);
-	border-radius         : var(--border-radius);
+export const SegmentRowContainer = styled.div.attrs<{ cells: string }>(({cells}) => {
+	return {
+		style: {
+			gridTemplateColumns: `48px 1fr ${cells} 80px`
+		}
+	};
+})<{ cells: string }>`
+	display         : grid;
+	grid-column-gap : calc(var(--margin) / 2);
+	align-items     : center;
+	padding         : calc(var(--margin) / 8) calc(var(--margin) / 2);
+	border-radius   : var(--border-radius);
 	&:nth-child(2n + 1) {
 		background-color : var(--grid-rib-bg-color);
 	}
@@ -58,29 +68,33 @@ export const SegmentRowContainer = styled.div`
 	}
 `;
 
-export const SegmentPropLabel = styled.span`
-	> span:first-child {
-		color       : var(--warn-color);
-		font-weight : var(--font-bold);
-	}
+export const SegmentIndexLabel = styled.span`
+	display     : flex;
+	position    : relative;
+	align-self  : start;
+	align-items : center;
+	color       : var(--warn-color);
+	font-weight : var(--font-bold);
+	height      : ${GRID_ROW_HEIGHT}px;
 `;
 
 export const SegmentPropInput = styled(TuplePropertyInput)`
 	width : 100%;
 `;
-
-export const SegmentValueCellContainer = styled.div.attrs({'data-widget': 'segment-value-cell'})`
+export const SegmentNameCellContainer = styled.div`
 	display     : flex;
 	position    : relative;
 	align-items : center;
+	align-self  : start;
 	height      : ${GRID_ROW_HEIGHT}px;
 `;
 
-export const SegmentButton = styled(RoundDwarfButton).attrs({'data-widget': 'segment-button'})`
-	align-self     : center;
+export const SegmentButton = styled(Button).attrs({'data-widget': 'segment-button'})`
+	align-self     : start;
 	justify-self   : end;
 	opacity        : 0;
 	pointer-events : none;
+	margin-top     : calc((${GRID_ROW_HEIGHT}px - var(--height)) / 2);
 `;
 
 export const SegmentsTableFooter = styled.div.attrs({'data-widget': 'segments-table-footer'})`

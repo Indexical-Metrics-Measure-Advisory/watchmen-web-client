@@ -3,7 +3,7 @@ import {useForceUpdate} from '@/widgets/basic/utils';
 import React from 'react';
 import {useBucketEventBus} from '../bucket-event-bus';
 import {BucketEventTypes} from '../bucket-event-bus-types';
-import {SegmentPropInput, SegmentValueCellContainer} from './widgets';
+import {SegmentNameCellContainer, SegmentPropInput} from './widgets';
 
 export const SegmentNameCell = (props: { bucket: Bucket, segment: BucketSegment }) => {
 	const {bucket, segment} = props;
@@ -20,7 +20,7 @@ export const SegmentNameCell = (props: { bucket: Bucket, segment: BucketSegment 
 		fire(BucketEventTypes.SEGMENT_NAME_CHANGED, bucket, segment);
 	};
 
-	return <SegmentValueCellContainer>
+	return <SegmentNameCellContainer>
 		<SegmentPropInput value={segment.name ?? ''} onChange={onNameChange}/>
-	</SegmentValueCellContainer>;
+	</SegmentNameCellContainer>;
 };

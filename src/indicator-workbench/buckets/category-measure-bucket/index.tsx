@@ -7,6 +7,7 @@ import {Lang} from '@/widgets/langs';
 import React from 'react';
 import {MeasureMethodEditor} from '../measure-method';
 import {useBucketDefend} from '../use-bucket-defend';
+import {CategorySegments} from './category-segments';
 
 type MeasureMethodOfValueMeasureBucket = PropOf<CategoryMeasureBucket, 'measure'>;
 
@@ -45,5 +46,6 @@ export const CategoryMeasureBucketEditor = (props: { bucket: Bucket }) => {
 
 	return <>
 		<MeasureMethodEditor bucket={bucket} methods={MeasureMethodOptions}/>
+		<CategorySegments holder={bucket}/>
 	</>;
 };

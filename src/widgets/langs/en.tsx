@@ -30,7 +30,8 @@ export const En = {
 		FIND_INDICATOR_PLACEHOLDER: 'Find by indicator name, topic name or factor name.',
 		FIND_TOPIC_OR_FACTOR_PLACEHOLDER: 'Find by topic name, factor name.',
 		INDICATOR_NAME_PLACEHOLDER: 'A human reading name for indicator.',
-		FIND_BUCKET_PLACEHOLDER: 'Search by bucket name, topic name, factor name.'
+		FIND_BUCKET_PLACEHOLDER: 'Search by bucket name, topic name, factor name.',
+		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: 'Key in category value here, confirm to add into segment.'
 	},
 	STANDARD: {
 		YES: 'Yes',
@@ -349,7 +350,11 @@ export const En = {
 			VALUE_SEGMENT_MAX_LABEL: 'Maximum Value',
 			ADD_SEGMENT: 'Add Segment',
 			SORT_SEGMENTS: 'Sort Segments',
-			MEASURE_METHOD_LABEL: 'Measure Method'
+			MEASURE_METHOD_LABEL: 'Measure Method',
+			CATEGORY_SEGMENT_LABEL: 'Category Value',
+			DUPLICATE_CATEGORY_SEGMENT_VALUE: 'Value already exists in this segment.',
+			DUPLICATE_CATEGORY_SEGMENT_VALUE_CASE_IGNORED: 'Value (case insensitive) already exists in this segment, do you want to add it anyway?',
+			NO_SEGMENT_VALUE_DEFINED: 'No Value Defined'
 		}
 	},
 	SETTINGS: {
