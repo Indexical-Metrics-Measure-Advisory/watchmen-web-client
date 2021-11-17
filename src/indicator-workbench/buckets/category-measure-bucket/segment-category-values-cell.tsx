@@ -3,6 +3,7 @@ import {AlertLabel} from '@/widgets/alert/widgets';
 import {Button} from '@/widgets/basic/button';
 import {ICON_DELETE} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
@@ -19,6 +20,7 @@ export const SegmentCategoryValuesCell = (props: { holder: CategorySegmentsHolde
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useBucketEventBus();
 	const [value, setValue] = useState('');
+	const forceUpdate = useForceUpdate();
 
 	const onValueChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setValue(event.target.value);
@@ -60,17 +62,16 @@ export const SegmentCategoryValuesCell = (props: { holder: CategorySegmentsHolde
 		tryToAddValue();
 	};
 	const onConfirmClicked = () => tryToAddValue();
+	const onSegmentValueRemoveClicked = (value: string) => () => {
+		const index = segment.value.indexOf(value);
+		segment.value.splice(index, 1);
+		forceUpdate();
+		fire(BucketEventTypes.SEGMENT_CHANGED, holder, segment);
+	};
 
-	const values = segment.value.filter(v => !!v.trim())
-		.sort((a, b) => a.localeCompare(b, void 0, {sensitivity: 'base', numeric: true, caseFirst: 'lower'}));
+	const values = segment.value.filter(v => !!v.trim());
 
 	return <SegmentValueCellContainer>
-		<SegmentPropInput value={value}
-		                  onChange={onValueChange} onKeyPress={onKeyPressed}
-		                  placeholder={Lang.PLAIN.BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER}/>
-		<Button ink={ButtonInk.PRIMARY} onClick={onConfirmClicked}>
-			<span>{Lang.ACTIONS.CONFIRM}</span>
-		</Button>
 		<SegmentValues>
 			{values.length === 0
 				?
@@ -78,9 +79,15 @@ export const SegmentCategoryValuesCell = (props: { holder: CategorySegmentsHolde
 				: values.map(value => {
 					return <SegmentValue key={value}>
 						<span>{value}</span>
-						<span><FontAwesomeIcon icon={ICON_DELETE}/></span>
+						<span onClick={onSegmentValueRemoveClicked(value)}><FontAwesomeIcon icon={ICON_DELETE}/></span>
 					</SegmentValue>;
 				})}
 		</SegmentValues>
+		<SegmentPropInput value={value}
+		                  onChange={onValueChange} onKeyPress={onKeyPressed}
+		                  placeholder={Lang.PLAIN.BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER}/>
+		<Button ink={ButtonInk.PRIMARY} onClick={onConfirmClicked}>
+			<span>{Lang.ACTIONS.CONFIRM}</span>
+		</Button>
 	</SegmentValueCellContainer>;
 };

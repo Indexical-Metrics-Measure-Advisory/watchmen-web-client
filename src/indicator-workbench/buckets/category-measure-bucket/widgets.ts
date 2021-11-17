@@ -11,14 +11,22 @@ export const SegmentValueCellContainer = styled.div`
 	align-content         : start;
 	min-height            : ${GRID_ROW_HEIGHT * 2}px;
 	padding               : calc((${GRID_ROW_HEIGHT}px - var(--height)) / 2) 0;
+	&:hover {
+		> input,
+		> button {
+			opacity : 1;
+		}
+	}
 	> input {
 		border-right               : 0;
 		border-top-right-radius    : 0;
 		border-bottom-right-radius : 0;
+		opacity                    : 0;
 	}
 	> button {
 		border-top-left-radius    : 0;
 		border-bottom-left-radius : 0;
+		opacity                   : 0;
 	}
 `;
 export const SegmentValues = styled.div`
@@ -37,7 +45,7 @@ export const NoSegmentValueDefined = styled.span`
 	padding       : 0 calc(var(--margin) / 2);
 	margin-left   : calc(var(--margin) / 4);
 	margin-bottom : calc(var(--margin) / 4);
-	border-radius : calc(var(--height) / 2);
+	border-radius : var(--border-radius);
 	font-variant  : petite-caps;
 	overflow      : hidden;
 	&:after {
@@ -61,9 +69,7 @@ export const SegmentValue = styled.span`
 	padding       : 0 0 0 calc(var(--margin) / 2);
 	margin-left   : calc(var(--margin) / 4);
 	margin-bottom : calc(var(--margin) / 4);
-	//color            : var(--invert-color);
-	//background-color : var(--primary-color);
-	border-radius : calc(var(--height) / 2);
+	border-radius : var(--border-radius);
 	white-space   : nowrap;
 	text-overflow : ellipsis;
 	overflow      : hidden;
@@ -98,7 +104,7 @@ export const SegmentValue = styled.span`
 		background-color : var(--danger-color);
 		opacity          : 0.7;
 		cursor           : pointer;
-		border-radius    : 100%;
+		border-radius    : var(--border-radius);
 		transition       : background-color 300ms ease-in-out, left 300ms ease-in-out;
 		z-index          : 1;
 	}

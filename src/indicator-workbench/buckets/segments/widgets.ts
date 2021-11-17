@@ -90,11 +90,14 @@ export const SegmentNameCellContainer = styled.div`
 `;
 
 export const SegmentButton = styled(Button).attrs({'data-widget': 'segment-button'})`
-	align-self     : start;
-	justify-self   : end;
-	opacity        : 0;
-	pointer-events : none;
-	margin-top     : calc((${GRID_ROW_HEIGHT}px - var(--height)) / 2);
+	align-self      : start;
+	justify-self    : end;
+	padding         : 0;
+	margin-top      : calc((${GRID_ROW_HEIGHT}px - var(--height)) / 2);
+	width           : var(--height);
+	//border-radius   : 100%;
+	opacity         : 0;
+	pointer-events  : none;
 `;
 
 export const SegmentsTableFooter = styled.div.attrs({'data-widget': 'segments-table-footer'})`

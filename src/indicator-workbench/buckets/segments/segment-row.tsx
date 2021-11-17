@@ -1,6 +1,7 @@
 import {Bucket, BucketSegment} from '@/services/data/tuples/bucket-types';
+import {ICON_DELETE} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
-import {Lang} from '@/widgets/langs';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {ReactNode} from 'react';
 import {useBucketEventBus} from '../bucket-event-bus';
 import {BucketEventTypes} from '../bucket-event-bus-types';
@@ -23,7 +24,7 @@ export const SegmentRow = <B extends Bucket, S extends BucketSegment>(props: { b
 		<SegmentNameCell bucket={bucket} segment={segment}/>
 		{cells(segment)}
 		<SegmentButton ink={ButtonInk.DANGER} onClick={onDeleteClicked}>
-			{Lang.ACTIONS.DELETE}
+			<FontAwesomeIcon icon={ICON_DELETE}/>
 		</SegmentButton>
 	</SegmentRowContainer>;
 };
