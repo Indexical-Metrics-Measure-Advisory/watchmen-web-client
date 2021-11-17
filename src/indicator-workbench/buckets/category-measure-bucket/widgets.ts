@@ -22,11 +22,12 @@ export const SegmentValueCellContainer = styled.div`
 	}
 `;
 export const SegmentValues = styled.div`
-	display     : flex;
-	position    : relative;
-	flex-wrap   : wrap;
-	grid-column : 1 / span 2;
-	margin-left : calc(var(--margin) / -4);
+	display       : flex;
+	position      : relative;
+	flex-wrap     : wrap;
+	grid-column   : 1 / span 2;
+	margin-left   : calc(var(--margin) / -4);
+	margin-bottom : calc(var(--margin) / -4);
 `;
 export const NoSegmentValueDefined = styled.span`
 	display       : flex;
@@ -35,6 +36,7 @@ export const NoSegmentValueDefined = styled.span`
 	height        : var(--height);
 	padding       : 0 calc(var(--margin) / 2);
 	margin-left   : calc(var(--margin) / 4);
+	margin-bottom : calc(var(--margin) / 4);
 	border-radius : calc(var(--height) / 2);
 	font-variant  : petite-caps;
 	overflow      : hidden;
@@ -58,6 +60,7 @@ export const SegmentValue = styled.span`
 	height        : var(--height);
 	padding       : 0 0 0 calc(var(--margin) / 2);
 	margin-left   : calc(var(--margin) / 4);
+	margin-bottom : calc(var(--margin) / 4);
 	//color            : var(--invert-color);
 	//background-color : var(--primary-color);
 	border-radius : calc(var(--height) / 2);
