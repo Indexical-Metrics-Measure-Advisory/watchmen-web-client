@@ -71,8 +71,15 @@ const IndicatorWorkbenchBuckets = () => {
 					onSaved(bucket, false);
 				});
 				return;
+			} else if (bucket.segments.some(segment => (segment.name ?? '').trim().length === 0)) {
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+					{Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_SEGMENT_NAME_IS_REQUIRED}
+				</AlertLabel>, () => {
+					onSaved(bucket, false);
+				});
+				return;
 			} else if (isCategorySegmentsHolder(bucket)) {
-				
+				// TODO
 			}
 
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,

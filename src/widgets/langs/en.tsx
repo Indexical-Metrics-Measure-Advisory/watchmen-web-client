@@ -334,6 +334,7 @@ export const En = {
 			BUCKET_MEASURE_IS_REQUIRED: 'Please select the measure method.',
 			BUCKET_ENUM_IS_REQUIRED: 'Please select an enumeration.',
 			BUCKET_SEGMENTS_IS_REQUIRED: 'At least two segments should be defined.',
+			BUCKET_SEGMENT_NAME_IS_REQUIRED: 'A human reading name of segment is required.',
 			NO_SEGMENT_DEFINED: 'No Segment Defined',
 			ONE_SEGMENT_DEFINED: '1 Segment',
 			N_SEGMENT_DEFINED: 'Segments',

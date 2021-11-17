@@ -70,8 +70,8 @@ export const SegmentValue = styled.span`
 	margin-left   : calc(var(--margin) / 4);
 	margin-bottom : calc(var(--margin) / 4);
 	border-radius : var(--border-radius);
-	white-space   : nowrap;
-	text-overflow : ellipsis;
+	//white-space   : nowrap;
+	//text-overflow : ellipsis;
 	overflow      : hidden;
 	&:after {
 		content          : '';
@@ -90,6 +90,9 @@ export const SegmentValue = styled.span`
 	}
 	> span:first-child {
 		padding-right : calc(var(--margin) / 4);
+		white-space   : nowrap;
+		text-overflow : ellipsis;
+		overflow      : hidden;
 		z-index       : 1;
 	}
 	> span:last-child {
@@ -98,7 +101,7 @@ export const SegmentValue = styled.span`
 		align-items      : center;
 		justify-content  : center;
 		height           : calc(var(--height) * 0.8);
-		width            : calc(var(--height) * 0.8);
+		min-width        : calc(var(--height) * 0.8);
 		left             : var(--height);
 		color            : var(--invert-color);
 		background-color : var(--danger-color);

@@ -334,6 +334,7 @@ export const Jp = {
 			BUCKET_MEASURE_IS_REQUIRED: '測定寸法を選択してください。',
 			BUCKET_ENUM_IS_REQUIRED: '列挙型を選択してください。',
 			BUCKET_SEGMENTS_IS_REQUIRED: '少なくとも 2 つのセグメントを定義する必要があります。',
+			BUCKET_SEGMENT_NAME_IS_REQUIRED: 'セグメント名を入力してください。',
 			NO_SEGMENT_DEFINED: '定義されていません',
 			ONE_SEGMENT_DEFINED: '1 つの定義',
 			N_SEGMENT_DEFINED: 'つの定義',
