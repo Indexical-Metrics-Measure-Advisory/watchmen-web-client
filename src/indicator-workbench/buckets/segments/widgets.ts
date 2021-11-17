@@ -20,7 +20,7 @@ export const SegmentsTableContainer = styled.div.attrs({'data-widget': 'segments
 export const SegmentTableHeader = styled.div.attrs<{ cells: string }>(({cells}) => {
 	return {
 		style: {
-			gridTemplateColumns: `48px 1fr ${cells} 80px`
+			gridTemplateColumns: `48px 1fr ${cells} 40px`
 		}
 	};
 })<{ cells: string }>`
@@ -48,7 +48,7 @@ export const SegmentsTableBodyContainer = styled.div.attrs({'data-widget': 'segm
 export const SegmentRowContainer = styled.div.attrs<{ cells: string }>(({cells}) => {
 	return {
 		style: {
-			gridTemplateColumns: `48px 1fr ${cells} 80px`
+			gridTemplateColumns: `48px 1fr ${cells} 40px`
 		}
 	};
 })<{ cells: string }>`
@@ -90,14 +90,14 @@ export const SegmentNameCellContainer = styled.div`
 `;
 
 export const SegmentButton = styled(Button).attrs({'data-widget': 'segment-button'})`
-	align-self      : start;
-	justify-self    : end;
-	padding         : 0;
-	margin-top      : calc((${GRID_ROW_HEIGHT}px - var(--height)) / 2);
-	width           : var(--height);
-	//border-radius   : 100%;
-	opacity         : 0;
-	pointer-events  : none;
+	align-self     : start;
+	justify-self   : end;
+	padding        : 0;
+	margin-top     : calc((${GRID_ROW_HEIGHT}px - var(--height)) / 2 + 1px);
+	width          : calc(var(--height) - 2px);
+	height         : calc(var(--height) - 2px);
+	opacity        : 0;
+	pointer-events : none;
 `;
 
 export const SegmentsTableFooter = styled.div.attrs({'data-widget': 'segments-table-footer'})`

@@ -1,6 +1,7 @@
 import {Bucket} from '@/services/data/tuples/bucket-types';
 import {Lang} from '@/widgets/langs';
 import {TuplePropertyLabel} from '@/widgets/tuple-workbench/tuple-editor';
+import {TuplePropertyQuestionMark} from '@/widgets/tuple-workbench/tuple-property-question-mark';
 import React from 'react';
 import {BucketEventBusProvider} from './bucket-event-bus';
 import {BucketDescriptionInput} from './bucket/bucket-description-input';
@@ -16,7 +17,12 @@ const BucketEditor = (props: { bucket: Bucket }) => {
 	return <BucketEventBusProvider>
 		<TuplePropertyLabel>{Lang.INDICATOR_WORKBENCH.BUCKET.NAME_LABEL}</TuplePropertyLabel>
 		<BucketNameInput bucket={bucket}/>
-		<TuplePropertyLabel>{Lang.INDICATOR_WORKBENCH.BUCKET.TYPE_LABEL}</TuplePropertyLabel>
+		<TuplePropertyLabel>
+			<span>{Lang.INDICATOR_WORKBENCH.BUCKET.TYPE_LABEL}</span>
+			<TuplePropertyQuestionMark>
+				{Lang.INDICATOR_WORKBENCH.BUCKET.TYPE_IS_FIXED_ONCE_SAVE}
+			</TuplePropertyQuestionMark>
+		</TuplePropertyLabel>
 		<BucketTypeInput bucket={bucket}/>
 		<TuplePropertyLabel>{Lang.INDICATOR_WORKBENCH.BUCKET.DESCRIPTION_LABEL}</TuplePropertyLabel>
 		<BucketDescriptionInput bucket={bucket}/>

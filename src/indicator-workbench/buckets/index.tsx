@@ -2,7 +2,7 @@ import BucketBackground from '@/assets/bucket-background.svg';
 import {TuplePage} from '@/services/data/query/tuple-page';
 import {fetchBucket, listBuckets, saveBucket} from '@/services/data/tuples/bucket';
 import {Bucket} from '@/services/data/tuples/bucket-types';
-import {isEnumMeasureBucket, isMeasureBucket} from '@/services/data/tuples/bucket-utils';
+import {isCategorySegmentsHolder, isEnumMeasureBucket, isMeasureBucket} from '@/services/data/tuples/bucket-utils';
 import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
 import {QueryTuple} from '@/services/data/tuples/tuple-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
@@ -71,6 +71,8 @@ const IndicatorWorkbenchBuckets = () => {
 					onSaved(bucket, false);
 				});
 				return;
+			} else if (isCategorySegmentsHolder(bucket)) {
+				
 			}
 
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,

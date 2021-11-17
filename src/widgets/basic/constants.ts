@@ -293,6 +293,7 @@ export const ICON_CMD_PROMPT = faTerminal;
 export const ICON_LOCK = faLockOpen;
 export const ICON_UNLOCK = faLock;
 export const ICON_PERCENTAGE = faPercentage;
+export const ICON_QUESTION_MARK = faQuestionCircle;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

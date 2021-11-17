@@ -1,7 +1,7 @@
 import {
 	Bucket,
 	BucketType,
-	CategoryMeasureBucket,
+	CategoryMeasureBucket, CategorySegmentsHolder,
 	EnumMeasureBucket,
 	MeasureBucket,
 	NumericSegmentsHolder,
@@ -28,6 +28,14 @@ export const isEnumMeasureBucket = (bucket: Bucket): bucket is EnumMeasureBucket
 
 export const isMeasureBucket = (bucket: Bucket): bucket is MeasureBucket => {
 	return isNumericValueMeasureBucket(bucket) || isCategoryMeasureBucket(bucket) || isEnumMeasureBucket(bucket);
+};
+
+export const isNumericSegmentsHolder = (bucket: Bucket): bucket is NumericSegmentsHolder => {
+	return isNumericValueBucket(bucket) || isNumericValueMeasureBucket(bucket);
+};
+
+export const isCategorySegmentsHolder = (bucket: Bucket): bucket is CategorySegmentsHolder => {
+	return isCategoryMeasureBucket(bucket) || isEnumMeasureBucket(bucket);
 };
 
 export const defendNumericValueSegmentsHolder = (holder: NumericSegmentsHolder) => {
