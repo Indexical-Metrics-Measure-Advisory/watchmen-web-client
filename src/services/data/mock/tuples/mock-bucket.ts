@@ -30,8 +30,7 @@ export const fetchMockBucket = async (bucketId: BucketId): Promise<{ bucket: Buc
 	// eslint-disable-next-line
 	const found = DemoBuckets.find(({bucketId: id}) => id == bucketId);
 	if (found) {
-		const {bucketId, name, type, description, createTime, lastModified} = found;
-		bucket = {bucketId, name, type, description, createTime, lastModified};
+		bucket = JSON.parse(JSON.stringify(found));
 	} else {
 		bucket = {
 			bucketId,

@@ -2,6 +2,7 @@ import BucketBackground from '@/assets/bucket-background.svg';
 import {TuplePage} from '@/services/data/query/tuple-page';
 import {fetchBucket, listBuckets, saveBucket} from '@/services/data/tuples/bucket';
 import {Bucket} from '@/services/data/tuples/bucket-types';
+import {isEnumMeasureBucket, isMeasureBucket} from '@/services/data/tuples/bucket-utils';
 import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
 import {QueryTuple} from '@/services/data/tuples/tuple-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
@@ -49,7 +50,29 @@ const IndicatorWorkbenchBuckets = () => {
 					onSaved(bucket, false);
 				});
 				return;
+			} else if (isMeasureBucket(bucket) && bucket.measure == null) {
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+					{Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_MEASURE_IS_REQUIRED}
+				</AlertLabel>, () => {
+					onSaved(bucket, false);
+				});
+				return;
+			} else if (isEnumMeasureBucket(bucket) && (bucket.enumId || '').trim().length === 0) {
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+					{Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_ENUM_IS_REQUIRED}
+				</AlertLabel>, () => {
+					onSaved(bucket, false);
+				});
+				return;
+			} else if (bucket.segments == null || bucket.segments.length === 0) {
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+					{Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_SEGMENTS_IS_REQUIRED}
+				</AlertLabel>, () => {
+					onSaved(bucket, false);
+				});
+				return;
 			}
+
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await saveBucket(bucket),
 				() => onSaved(bucket, true),

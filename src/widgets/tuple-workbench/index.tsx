@@ -29,6 +29,8 @@ export const TupleWorkbench = <T extends Tuple, QT extends QueryTuple, HBT exten
 	renderEditor: (tuple: T, codes?: HBT) => ReactNode;
 	confirmEditButtonLabel?: string;
 	closeEditButtonLabel?: string;
+	pageMaxWidth?: string | number;
+	pageMinWidth?: string | number;
 }) => {
 	const {
 		title,
@@ -36,10 +38,11 @@ export const TupleWorkbench = <T extends Tuple, QT extends QueryTuple, HBT exten
 		renderCard, getKeyOfTuple,
 		tupleLabel, newTupleLabelPrefix, existingTupleLabelPrefix,
 		tupleImage, tupleImagePosition,
-		canEdit = true, renderEditor, confirmEditButtonLabel, closeEditButtonLabel
+		canEdit = true, renderEditor, confirmEditButtonLabel, closeEditButtonLabel,
+		pageMaxWidth, pageMinWidth
 	} = props;
 
-	return <FixWidthPage>
+	return <FixWidthPage maxWidth={pageMaxWidth} minWidth={pageMinWidth}>
 		<PageHeader title={title}/>
 		<TupleWorkbenchHeader createButtonLabel={createButtonLabel} canCreate={canCreate}
 		                      moreButtons={moreButtons}

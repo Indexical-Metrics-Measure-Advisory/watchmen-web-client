@@ -13,7 +13,8 @@ export const SegmentsTableContainer = styled.div.attrs({'data-widget': 'segments
 	display        : flex;
 	flex-direction : column;
 	font-size      : 0.8em;
-	margin-bottom  : var(--margin);
+	// editor in grid layout, 30% 70%, column gap is 32px, table is second column in editor.
+	margin-left : calc((100% + var(--margin)) / 0.7 * 0.3 * -1 - var(--margin));
 `;
 
 export const SegmentTableHeader = styled.div`

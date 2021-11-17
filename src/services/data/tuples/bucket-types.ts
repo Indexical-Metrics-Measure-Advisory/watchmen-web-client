@@ -13,10 +13,16 @@ export enum BucketType {
 	COMPOSITE = 'composite'
 }
 
+export interface BucketSegment {
+	name: string;
+	value: unknown;
+}
+
 export interface Bucket extends Tuple {
 	bucketId: BucketId;
 	name: string;
 	type: BucketType;
+	segments: Array<BucketSegment>;
 	description?: string;
 	tenantId?: TenantId;
 }
@@ -24,11 +30,6 @@ export interface Bucket extends Tuple {
 export enum RangeBucketValueIncluding {
 	INCLUDE_MIN = 'include-min',
 	INCLUDE_MAX = 'include-max'
-}
-
-export interface BucketSegment {
-	name: string;
-	value: unknown;
 }
 
 export type NumericSegmentValue =
@@ -47,7 +48,7 @@ export interface NumericSegmentsHolder extends Bucket {
 	segments: Array<NumericValueSegment>;
 }
 
-export interface NumericValueBucket extends NumericSegmentsHolder, Bucket {
+export interface NumericValueBucket extends NumericSegmentsHolder {
 	type: BucketType.VALUE;
 }
 
@@ -58,6 +59,7 @@ export interface MeasureBucket extends Bucket {
 export interface NumericValueMeasureBucket extends MeasureBucket, NumericSegmentsHolder {
 	type: BucketType.VALUE_MEASURE;
 	measure: MeasureMethod.FLOOR | MeasureMethod.RESIDENTIAL_AREA | MeasureMethod.AGE | MeasureMethod.BIZ_SCALE;
+	segments: Array<NumericValueSegment>;
 }
 
 export type CategorySegmentValue = Array<string>;
@@ -66,7 +68,11 @@ export interface CategorySegment extends BucketSegment {
 	value: CategorySegmentValue;
 }
 
-export interface CategoryMeasureBucket extends MeasureBucket {
+export interface CategorySegmentsHolder extends Bucket {
+	segments: Array<CategorySegment>;
+}
+
+export interface CategoryMeasureBucket extends CategorySegmentsHolder, MeasureBucket {
 	type: BucketType.CATEGORY_MEASURE;
 	measure: MeasureMethod.CONTINENT | MeasureMethod.REGION | MeasureMethod.COUNTRY | MeasureMethod.PROVINCE | MeasureMethod.CITY | MeasureMethod.DISTRICT
 		| MeasureMethod.RESIDENCE_TYPE
@@ -76,7 +82,7 @@ export interface CategoryMeasureBucket extends MeasureBucket {
 	segments: Array<CategorySegment>;
 }
 
-export interface EnumMeasureBucket extends MeasureBucket {
+export interface EnumMeasureBucket extends CategorySegmentsHolder, MeasureBucket {
 	type: BucketType.ENUM_MEASURE;
 	measure: MeasureMethod.ENUM;
 	enumId: EnumId;

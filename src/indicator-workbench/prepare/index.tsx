@@ -7,7 +7,7 @@ import {IndicatorsEventBusProvider} from './indicators-event-bus';
 
 const IndicatorWorkbenchPrepareIndex = () => {
 	return <IndicatorsEventBusProvider>
-		<FixWidthPage>
+		<FixWidthPage maxWidth="80%">
 			<PageHeader title={Lang.INDICATOR_WORKBENCH.PREPARE.TITLE}/>
 			<Indicators/>
 		</FixWidthPage>

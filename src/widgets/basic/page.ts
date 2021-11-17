@@ -1,11 +1,17 @@
 import styled from 'styled-components';
 
-export const FixWidthPage = styled.div.attrs({'data-widget': 'fix-width-page'})`
+export const FixWidthPage = styled.div.attrs<{ maxWidth?: string | number; minWidth?: string | number }>(
+	({maxWidth, minWidth}) => {
+		return {
+			'data-widget': 'fix-width-page',
+			style: {maxWidth, minWidth}
+		};
+	})<{ maxWidth?: string | number; minWidth?: string | number }>`
 	flex-grow      : 1;
 	display        : flex;
 	position       : relative;
 	flex-direction : column;
-	max-width      : 80%;
+	max-width      : 1000px;
 	min-width      : 1000px;
 	margin         : var(--margin) auto;
 `;
