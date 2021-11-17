@@ -10,7 +10,7 @@ import {Topic} from '@/services/data/tuples/topic-types';
 import {isNotRawTopic} from '@/services/data/tuples/topic-utils';
 import {QueryTuple} from '@/services/data/tuples/tuple-types';
 import {AdminCacheData} from '@/services/local-persist/types';
-import {isSnakeCaseName} from '@/services/utils';
+import {againstSnakeCaseName} from '@/services/utils';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {ICON_DOWNLOAD, TUPLE_SEARCH_PAGE_SIZE} from '@/widgets/basic/constants';
 import {useEventBus} from '@/widgets/events/event-bus';
@@ -35,7 +35,7 @@ const fetchTopicAndCodes = async (queryTopic: QueryTopic) => {
 
 const getKeyOfTopic = (topic: QueryTopic) => topic.topicId;
 
-const isNameInvalid = (name: string) => isSnakeCaseName(name, true);
+const isNameInvalid = (name: string) => againstSnakeCaseName(name, true);
 
 const AdminTopics = () => {
 	const {fire: fireGlobal} = useEventBus();
