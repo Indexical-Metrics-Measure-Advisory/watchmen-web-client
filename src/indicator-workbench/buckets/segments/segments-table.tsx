@@ -1,26 +1,35 @@
-import {NumericSegmentsHolder} from '@/services/data/tuples/bucket-types';
+import {Bucket, BucketSegment} from '@/services/data/tuples/bucket-types';
 import {Lang} from '@/widgets/langs';
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {SegmentAddButton} from './segment-add-button';
 import {SegmentSortButton} from './segment-sort-button';
 import {SegmentsTableBody} from './segments-table-body';
 import {SegmentsTableContainer, SegmentsTableFooter, SegmentTableHeader, SegmentTableHeaderLabel} from './widgets';
 
-export const SegmentsTable = (props: { holder: NumericSegmentsHolder }) => {
-	const {holder} = props;
+export const SegmentsTable = <B extends Bucket, S extends BucketSegment>(props: {
+	bucket: B;
+	header: () => ReactNode;
+	bodyCells: (segment: S) => ReactNode;
+	createSegment: (bucket: B) => S;
+	sortSegments?: (bucket: B) => void;
+}) => {
+	const {
+		bucket,
+		header, bodyCells,
+		createSegment, sortSegments
+	} = props;
 
 	return <SegmentsTableContainer>
 		<SegmentTableHeader>
 			<SegmentTableHeaderLabel/>
 			<SegmentTableHeaderLabel>{Lang.INDICATOR_WORKBENCH.BUCKET.SEGMENT_NAME}</SegmentTableHeaderLabel>
-			<SegmentTableHeaderLabel>{Lang.INDICATOR_WORKBENCH.BUCKET.VALUE_SEGMENT_MIN_LABEL}</SegmentTableHeaderLabel>
-			<SegmentTableHeaderLabel>{Lang.INDICATOR_WORKBENCH.BUCKET.VALUE_SEGMENT_MAX_LABEL}</SegmentTableHeaderLabel>
+			{header()}
 			<SegmentTableHeaderLabel/>
 		</SegmentTableHeader>
-		<SegmentsTableBody holder={holder}/>
+		<SegmentsTableBody bucket={bucket} cells={bodyCells}/>
 		<SegmentsTableFooter>
-			<SegmentAddButton holder={holder}/>
-			<SegmentSortButton holder={holder}/>
+			<SegmentAddButton bucket={bucket} createSegment={createSegment}/>
+			<SegmentSortButton bucket={bucket} sortSegments={sortSegments}/>
 		</SegmentsTableFooter>
 	</SegmentsTableContainer>;
 };

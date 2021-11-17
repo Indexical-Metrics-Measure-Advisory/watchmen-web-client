@@ -3,7 +3,7 @@ import {useForceUpdate} from '@/widgets/basic/utils';
 import React from 'react';
 import {useBucketEventBus} from '../bucket-event-bus';
 import {BucketEventTypes} from '../bucket-event-bus-types';
-import {SegmentPropInput, SegmentValueCellContainer} from './widgets';
+import {SegmentPropInput, SegmentValueCellContainer} from '../segments/widgets';
 
 export const SegmentValueCell = (props: { holder: NumericSegmentsHolder, segment: NumericValueSegment, index: 0 | 1 }) => {
 	const {holder, segment, index} = props;
@@ -27,7 +27,7 @@ export const SegmentValueCell = (props: { holder: NumericSegmentsHolder, segment
 		}
 
 		forceUpdate();
-		fire(BucketEventTypes.NUMERIC_SEGMENT_CHANGED, holder, segment);
+		fire(BucketEventTypes.SEGMENT_CHANGED, holder, segment);
 	};
 
 	return <SegmentValueCellContainer>

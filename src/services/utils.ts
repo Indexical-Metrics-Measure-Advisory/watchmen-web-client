@@ -56,3 +56,11 @@ export const computeWeekOf = (date: string | Dayjs, unit: 'year' | 'month'): num
 		return Math.ceil((daysDiff - firstWeekDays + 1) / 7);
 	}
 };
+
+const hierarchicalNameSplitting = /[_.]/;
+const nonHierarchicalNameSplitting = /_/;
+export const isSnakeCaseName = (name: string, hierarchical: boolean = false) => {
+	return /^\d.*$/.test(name)
+		|| name.split(hierarchical ? hierarchicalNameSplitting : nonHierarchicalNameSplitting)
+			.some(part => !/^[A-Za-z0-9]+$/.test(part));
+};

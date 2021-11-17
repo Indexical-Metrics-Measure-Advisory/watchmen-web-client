@@ -1,4 +1,4 @@
-import {Bucket, NumericValueSegment, NumericSegmentsHolder, BucketSegment} from '@/services/data/tuples/bucket-types';
+import {Bucket, BucketSegment} from '@/services/data/tuples/bucket-types';
 
 export enum BucketEventTypes {
 	BUCKET_NAME_CHANGED = 'bucket-name-changed',
@@ -9,10 +9,10 @@ export enum BucketEventTypes {
 
 	SEGMENT_NAME_CHANGED = 'segment-name-changed',
 
-	NUMERIC_SEGMENT_ADDED = 'numeric-segment-added',
-	NUMERIC_SEGMENT_CHANGED = 'numeric-segment-changed',
-	NUMERIC_SEGMENT_REMOVED = 'numeric-segment-removed',
-	NUMERIC_SEGMENT_SORTED = 'numeric-segment-sorted',
+	SEGMENT_ADDED = 'segment-added',
+	SEGMENT_CHANGED = 'segment-changed',
+	SEGMENT_REMOVED = 'segment-removed',
+	SEGMENT_SORTED = 'segment-sorted',
 
 	BUCKET_MEASURE_METHOD_CHANGED = 'bucket-measure-method-changed'
 }
@@ -38,21 +38,21 @@ export interface BucketEventBus {
 	on(type: BucketEventTypes.SEGMENT_NAME_CHANGED, listener: (bucket: Bucket, segment: BucketSegment) => void): this;
 	off(type: BucketEventTypes.SEGMENT_NAME_CHANGED, listener: (bucket: Bucket, segment: BucketSegment) => void): this;
 
-	fire(type: BucketEventTypes.NUMERIC_SEGMENT_ADDED, holder: NumericSegmentsHolder, segment: NumericValueSegment): this;
-	on(type: BucketEventTypes.NUMERIC_SEGMENT_ADDED, listener: (holder: NumericSegmentsHolder, segment: NumericValueSegment) => void): this;
-	off(type: BucketEventTypes.NUMERIC_SEGMENT_ADDED, listener: (holder: NumericSegmentsHolder, segment: NumericValueSegment) => void): this;
+	fire(type: BucketEventTypes.SEGMENT_ADDED, bucket: Bucket, segment: BucketSegment): this;
+	on(type: BucketEventTypes.SEGMENT_ADDED, listener: (bucket: Bucket, segment: BucketSegment) => void): this;
+	off(type: BucketEventTypes.SEGMENT_ADDED, listener: (bucket: Bucket, segment: BucketSegment) => void): this;
 
-	fire(type: BucketEventTypes.NUMERIC_SEGMENT_CHANGED, holder: NumericSegmentsHolder, segment: NumericValueSegment): this;
-	on(type: BucketEventTypes.NUMERIC_SEGMENT_CHANGED, listener: (holder: NumericSegmentsHolder, segment: NumericValueSegment) => void): this;
-	off(type: BucketEventTypes.NUMERIC_SEGMENT_CHANGED, listener: (holder: NumericSegmentsHolder, segment: NumericValueSegment) => void): this;
+	fire(type: BucketEventTypes.SEGMENT_CHANGED, bucket: Bucket, segment: BucketSegment): this;
+	on(type: BucketEventTypes.SEGMENT_CHANGED, listener: (bucket: Bucket, segment: BucketSegment) => void): this;
+	off(type: BucketEventTypes.SEGMENT_CHANGED, listener: (bucket: Bucket, segment: BucketSegment) => void): this;
 
-	fire(type: BucketEventTypes.NUMERIC_SEGMENT_REMOVED, holder: NumericSegmentsHolder, segment: NumericValueSegment): this;
-	on(type: BucketEventTypes.NUMERIC_SEGMENT_REMOVED, listener: (holder: NumericSegmentsHolder, segment: NumericValueSegment) => void): this;
-	off(type: BucketEventTypes.NUMERIC_SEGMENT_REMOVED, listener: (holder: NumericSegmentsHolder, segment: NumericValueSegment) => void): this;
+	fire(type: BucketEventTypes.SEGMENT_REMOVED, bucket: Bucket, segment: BucketSegment): this;
+	on(type: BucketEventTypes.SEGMENT_REMOVED, listener: (bucket: Bucket, segment: BucketSegment) => void): this;
+	off(type: BucketEventTypes.SEGMENT_REMOVED, listener: (bucket: Bucket, segment: BucketSegment) => void): this;
 
-	fire(type: BucketEventTypes.NUMERIC_SEGMENT_SORTED, holder: NumericSegmentsHolder): this;
-	on(type: BucketEventTypes.NUMERIC_SEGMENT_SORTED, listener: (holder: NumericSegmentsHolder) => void): this;
-	off(type: BucketEventTypes.NUMERIC_SEGMENT_SORTED, listener: (holder: NumericSegmentsHolder) => void): this;
+	fire(type: BucketEventTypes.SEGMENT_SORTED, bucket: Bucket): this;
+	on(type: BucketEventTypes.SEGMENT_SORTED, listener: (bucket: Bucket) => void): this;
+	off(type: BucketEventTypes.SEGMENT_SORTED, listener: (bucket: Bucket) => void): this;
 
 	fire(type: BucketEventTypes.BUCKET_MEASURE_METHOD_CHANGED, bucket: Bucket): this;
 	on(type: BucketEventTypes.BUCKET_MEASURE_METHOD_CHANGED, listener: (bucket: Bucket) => void): this;

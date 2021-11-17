@@ -13,6 +13,7 @@ import {isComputedParameter, isTopicFactorParameter} from '@/services/data/tuple
 import {Subject, SubjectDataSetFilterJoint} from '@/services/data/tuples/subject-types';
 import {isExpressionFilter, isJointFilter} from '@/services/data/tuples/subject-utils';
 import {Topic, TopicId} from '@/services/data/tuples/topic-types';
+import {isSnakeCaseName} from '@/services/utils';
 
 const getTopicIdsFromParameter = (parameter: Parameter): Array<TopicId> => {
 	if (isTopicFactorParameter(parameter)) {
@@ -56,7 +57,7 @@ export const isDefValid = (subject: Subject, topics: Array<Topic>): { valid: boo
 	}
 	let columnInvalidMessage = '';
 	const hasInvalidColumn = columns.some(({parameter, alias}, index) => {
-		return !alias || alias.trim().length === 0 || !isParameterValid4DataSet({
+		return !alias || alias.trim().length === 0 || !isSnakeCaseName(alias.trim()) || !isParameterValid4DataSet({
 			parameter,
 			topics,
 			expectedTypes: [AnyFactorType.ANY],

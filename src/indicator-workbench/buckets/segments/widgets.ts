@@ -74,8 +74,8 @@ export const SegmentValueCellContainer = styled.div.attrs({'data-widget': 'segme
 	position    : relative;
 	align-items : center;
 	height      : ${GRID_ROW_HEIGHT}px;
-	transition  : all 300ms ease-in-out;
 `;
+
 export const SegmentButton = styled(RoundDwarfButton).attrs({'data-widget': 'segment-button'})`
 	align-self     : center;
 	justify-self   : end;
