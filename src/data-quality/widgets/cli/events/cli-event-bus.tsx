@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {CliEventBus} from './cli-event-bus-types';
 
-const Context = React.createContext<CliEventBus>({} as CliEventBus);
+const Context = createContext<CliEventBus>({} as CliEventBus);
 Context.displayName = 'CliEventBus';
 
 export const CliEventBusProvider = (props: { children?: ReactNode }) => {

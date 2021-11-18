@@ -7,7 +7,7 @@ import {useForceUpdate} from '@/widgets/basic/utils';
 import {TuplePropertyDropdown, TuplePropertyInput, TuplePropertyLabel} from '@/widgets/tuple-workbench/tuple-editor';
 import {useTupleEventBus} from '@/widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes, TupleState} from '@/widgets/tuple-workbench/tuple-event-bus-types';
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import {HoldByUser} from './types';
 import {UserGroupPicker} from './user-group-picker';
 
@@ -23,7 +23,7 @@ const UserEditor = (props: { user: User, codes?: HoldByUser }) => {
 	const {fire} = useTupleEventBus();
 	const forceUpdate = useForceUpdate();
 
-	const onPropChange = (prop: 'name' | 'nickName' | 'password') => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+	const onPropChange = (prop: 'name' | 'nickName' | 'password') => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		if (user[prop] !== event.target.value) {
 			user[prop] = event.target.value;
 			fire(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.CHANGED);

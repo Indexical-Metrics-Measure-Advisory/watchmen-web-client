@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {FactorsMappingEventBus} from './factors-mapping-event-bus-types';
 
-const Context = React.createContext<FactorsMappingEventBus>({} as FactorsMappingEventBus);
+const Context = createContext<FactorsMappingEventBus>({} as FactorsMappingEventBus);
 Context.displayName = 'FactorsMappingEventBus';
 
 export const FactorsMappingEventBusProvider = (props: { children?: ReactNode }) => {

@@ -1,11 +1,11 @@
-import React, {CSSProperties, useEffect, useState} from 'react';
+import React, {CSSProperties, ReactNode, useEffect, useState} from 'react';
 import {useEventBus} from '../events/event-bus';
 import {EventTypes} from '../events/types';
 import {DialogContainer, DialogWrapper} from './widgets';
 
 interface DialogState {
 	visible: boolean;
-	content?: ((props: any) => React.ReactNode) | React.ReactNode;
+	content?: ((props: any) => ReactNode) | ReactNode;
 	wrapperStyle?: CSSProperties;
 }
 
@@ -13,7 +13,7 @@ export const Dialog = () => {
 	const {on, off} = useEventBus();
 	const [dialog, setDialog] = useState<DialogState>({visible: false});
 	const [functions] = useState({
-		show: (content?: ((props: any) => React.ReactNode) | React.ReactNode, wrapperStyle?: CSSProperties) => {
+		show: (content?: ((props: any) => ReactNode) | ReactNode, wrapperStyle?: CSSProperties) => {
 			if (dialog.visible) {
 				return;
 			}

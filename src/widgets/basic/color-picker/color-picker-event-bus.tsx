@@ -1,8 +1,8 @@
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {useCreateEventBus} from '../../events/use-create-event-bus';
 import {ColorPickerEventBus} from './color-picker-event-bus-types';
 
-const Context = React.createContext<ColorPickerEventBus>({} as ColorPickerEventBus);
+const Context = createContext<ColorPickerEventBus>({} as ColorPickerEventBus);
 Context.displayName = 'ColorPickerEventBus';
 
 export const ColorPickerEventBusProvider = (props: { children?: ReactNode }) => {

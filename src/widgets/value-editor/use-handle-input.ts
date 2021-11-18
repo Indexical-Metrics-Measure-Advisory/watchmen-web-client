@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import {ChangeEvent, KeyboardEvent, useEffect, useState} from 'react';
 
 const asString = (value?: string | number, defaultValue?: string | number): string => {
 	let v = value;
@@ -32,7 +32,7 @@ export const useHandleInput = <V extends string | number>(options: {
 		const {value} = event.target;
 		setDelegate({...delegate, value});
 	};
-	const onKeyPressed = async (event: React.KeyboardEvent<HTMLInputElement>) => {
+	const onKeyPressed = async (event: KeyboardEvent<HTMLInputElement>) => {
 		if (event.key !== 'Enter') {
 			return;
 		}

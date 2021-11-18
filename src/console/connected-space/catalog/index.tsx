@@ -12,7 +12,7 @@ import {useForceUpdate} from '@/widgets/basic/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {MouseEvent, useEffect, useRef, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useConsoleEventBus} from '../../console-event-bus';
 import {ConsoleEventTypes} from '../../console-event-bus-types';
@@ -155,7 +155,7 @@ const CatalogBody = (props: { connectedSpace: ConnectedSpace }) => {
 		fire(CatalogEventTypes.CLEAR_SELECTION);
 	};
 	const onBodyScroll = () => fire(CatalogEventTypes.SCROLL);
-	const onSvgMouseDown = (event: React.MouseEvent) => {
+	const onSvgMouseDown = (event: MouseEvent) => {
 		const {button, target} = event;
 		if (button === 2 || button === 1) {
 			return;

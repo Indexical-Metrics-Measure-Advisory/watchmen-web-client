@@ -1,11 +1,11 @@
-import React from 'react';
+import {FocusEvent} from 'react';
 import styled from 'styled-components';
 
 export const InputLines = styled.textarea.attrs<{ autoSelect?: boolean }>(({autoSelect = true, onFocus}) => {
 	return {
 		'data-v-scroll': '',
 		'data-h-scroll': '',
-		onFocus: autoSelect ? ((event: React.FocusEvent<HTMLTextAreaElement>) => {
+		onFocus: autoSelect ? ((event: FocusEvent<HTMLTextAreaElement>) => {
 			event.target.select();
 			onFocus && onFocus(event);
 		}) : onFocus

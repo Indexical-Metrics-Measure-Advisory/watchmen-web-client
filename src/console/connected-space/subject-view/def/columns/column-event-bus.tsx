@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {ColumnEventBus} from './column-event-bus-types';
 
-const Context = React.createContext<ColumnEventBus>({} as ColumnEventBus);
+const Context = createContext<ColumnEventBus>({} as ColumnEventBus);
 Context.displayName = 'ColumnEventBus';
 
 export const ColumnEventBusProvider = (props: { children?: ReactNode }) => {

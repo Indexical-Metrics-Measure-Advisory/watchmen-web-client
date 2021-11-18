@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {MonitorLogEventBus} from './monitor-log-event-bus-types';
 
-const Context = React.createContext<MonitorLogEventBus>({} as MonitorLogEventBus);
+const Context = createContext<MonitorLogEventBus>({} as MonitorLogEventBus);
 Context.displayName = 'MonitorLogEventBus';
 
 export const MonitorLogEventBusProvider = (props: { children?: ReactNode }) => {

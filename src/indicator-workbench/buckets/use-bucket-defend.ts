@@ -12,14 +12,16 @@ export const useBucketDefend = <B extends Bucket>(bucket: Bucket, defend: (bucke
 			if (aBucket !== bucket) {
 				return;
 			}
-			defend(bucket as B);
+			if (typeCheck(bucket)) {
+				defend(bucket as B);
+			}
 			forceUpdate();
 		};
 		on(BucketEventTypes.BUCKET_TYPE_CHANGED, onTypeChanged);
 		return () => {
 			off(BucketEventTypes.BUCKET_TYPE_CHANGED, onTypeChanged);
 		};
-	}, [on, off, forceUpdate, bucket, defend]);
+	}, [on, off, forceUpdate, bucket, typeCheck, defend]);
 
 	return typeCheck(bucket);
 };

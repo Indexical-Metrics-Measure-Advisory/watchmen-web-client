@@ -1,4 +1,4 @@
-import React, {ForwardedRef, forwardRef} from 'react';
+import React, {FocusEvent, ForwardedRef, forwardRef} from 'react';
 import styled from 'styled-components';
 import {InputProps} from './types';
 
@@ -8,7 +8,7 @@ const AnInput = styled.input.attrs<{ autoSelect: boolean }>(({autoSelect, onFocu
 	}
 
 	return {
-		onFocus: (event: React.FocusEvent<HTMLInputElement>) => {
+		onFocus: (event: FocusEvent<HTMLInputElement>) => {
 			event.target.select();
 			onFocus && onFocus(event);
 		}

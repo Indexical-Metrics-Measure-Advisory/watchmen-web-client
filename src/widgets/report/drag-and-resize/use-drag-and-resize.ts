@@ -1,5 +1,5 @@
 import {GraphicsPosition, GraphicsSize} from '@/services/data/graphics/graphics-types';
-import React, {RefObject, useState} from 'react';
+import {MouseEvent, RefObject, useState} from 'react';
 import {CHART_MIN_HEIGHT, CHART_MIN_WIDTH} from '../constants';
 import {DragType} from '../types';
 
@@ -115,7 +115,7 @@ export const useDragAndResize = (options: {
 		startY: 0
 	});
 
-	const onMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
+	const onMouseDown = (event: MouseEvent<HTMLDivElement>) => {
 		const {current: container} = containerRef;
 		if (!container) {
 			return;
@@ -158,7 +158,7 @@ export const useDragAndResize = (options: {
 	};
 	const onMouseUp = () => releaseDraggingIfCan();
 	const onMouseLeave = () => releaseDraggingIfCan();
-	const onMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+	const onMouseMove = (event: MouseEvent<HTMLDivElement>) => {
 		const {current: container} = containerRef;
 		if (dragState.type === DragType.NONE || !container) {
 			return;

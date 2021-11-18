@@ -1,7 +1,7 @@
 import '@/assets/fonts/oswald/oswald.css';
 import '@/assets/fonts/source-code-pro/source-code-pro.css';
 import {fetchThemeFromSession} from '@/services/data/account/last-snapshot';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {createGlobalStyle, ThemeProvider} from 'styled-components';
 import {useEventBus} from '../events/event-bus';
 import {EventTypes} from '../events/types';
@@ -106,7 +106,7 @@ export const getCurrentTheme = () => currentTheme;
 export const getCurrentThemeCode = () => currentTheme.code;
 
 export const ThemeWrapper = () => {
-	const [theme, setTheme] = React.useState(currentTheme);
+	const [theme, setTheme] = useState(currentTheme);
 
 	const {on, off} = useEventBus();
 	useEffect(() => {

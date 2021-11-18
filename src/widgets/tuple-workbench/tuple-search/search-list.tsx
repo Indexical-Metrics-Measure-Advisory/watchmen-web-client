@@ -1,6 +1,6 @@
 import {TuplePage} from '@/services/data/query/tuple-page';
 import {QueryTuple} from '@/services/data/tuples/tuple-types';
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {Fragment, ReactNode, useEffect, useState} from 'react';
 import {useTupleEventBus} from '../tuple-event-bus';
 import {TupleEventTypes} from '../tuple-event-bus-types';
 import {
@@ -17,7 +17,7 @@ interface State<QT extends QueryTuple> {
 }
 
 export const SearchList = <QT extends QueryTuple>(props: {
-	renderCard: (item: QT) => React.ReactNode;
+	renderCard: (item: QT) => ReactNode;
 	getKeyOfTuple: (item: QT) => string;
 }) => {
 	const {renderCard, getKeyOfTuple} = props;

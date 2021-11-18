@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {RulesEventBus} from './rules-event-bus-types';
 
-const Context = React.createContext<RulesEventBus>({} as RulesEventBus);
+const Context = createContext<RulesEventBus>({} as RulesEventBus);
 Context.displayName = 'RulesEventBus';
 
 export const RulesEventBusProvider = (props: { children?: ReactNode }) => {

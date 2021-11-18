@@ -1,7 +1,7 @@
 import {ExternalWriter} from '@/services/data/tuples/external-writer-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {TuplePropertyInput} from '@/widgets/tuple-workbench/tuple-editor';
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import {useExternalWriterEventBus} from '../external-writer-event-bus';
 import {ExternalWriterEventTypes} from '../external-writer-event-bus-types';
 
@@ -10,7 +10,7 @@ export const ExternalWriterConnectInput = (props: { writer: ExternalWriter, prop
 
 	const {fire} = useExternalWriterEventBus();
 	const forceUpdate = useForceUpdate();
-	const onCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const onCodeChange = (event: ChangeEvent<HTMLInputElement>) => {
 		if (writer[propName] !== event.target.value) {
 			writer[propName] = event.target.value;
 			fire(ExternalWriterEventTypes.EXTERNAL_WRITER_CONNECT_PROP_CHANGED, writer);

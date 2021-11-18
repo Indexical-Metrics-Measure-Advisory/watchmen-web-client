@@ -1,7 +1,7 @@
 import {DataSource, DataSourceParam} from '@/services/data/tuples/data-source-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {TuplePropertyInput, TuplePropertyLabel} from '@/widgets/tuple-workbench/tuple-editor';
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import styled from 'styled-components';
 import {useDataSourceEventBus} from '../data-source-event-bus';
 import {DataSourceEventTypes} from '../data-source-event-bus-types';
@@ -24,7 +24,7 @@ export const DataSourceParams = (props: { dataSource: DataSource }) => {
 	const {fire} = useDataSourceEventBus();
 	const forceUpdate = useForceUpdate();
 
-	const onParamNameChange = (param: DataSourceParam, prop: 'name' | 'value') => (event: React.ChangeEvent<HTMLInputElement>) => {
+	const onParamNameChange = (param: DataSourceParam, prop: 'name' | 'value') => (event: ChangeEvent<HTMLInputElement>) => {
 		if (param[prop] !== event.target.value) {
 			param[prop] = event.target.value;
 			fire(DataSourceEventTypes.DATASOURCE_PARAM_CHANGED, dataSource);

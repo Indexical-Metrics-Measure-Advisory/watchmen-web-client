@@ -6,7 +6,7 @@ import {useForceUpdate} from '@/widgets/basic/utils';
 import {TuplePropertyInput, TuplePropertyInputLines, TuplePropertyLabel} from '@/widgets/tuple-workbench/tuple-editor';
 import {useTupleEventBus} from '@/widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes, TupleState} from '@/widgets/tuple-workbench/tuple-event-bus-types';
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import {Restrictions} from './restrictions';
 import {SpaceEventBusProvider} from './space-event-bus';
 import {TopicPicker} from './topic-picker';
@@ -25,7 +25,7 @@ const SpaceEditor = (props: { space: Space, codes?: HoldBySpace }) => {
 	const {fire} = useTupleEventBus();
 	const forceUpdate = useForceUpdate();
 
-	const onPropChange = (prop: 'name' | 'description') => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+	const onPropChange = (prop: 'name' | 'description') => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		if (space[prop] !== event.target.value) {
 			space[prop] = event.target.value;
 			fire(TupleEventTypes.CHANGE_TUPLE_STATE, TupleState.CHANGED);

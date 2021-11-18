@@ -1,8 +1,8 @@
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {useCreateEventBus} from '../../../events/use-create-event-bus';
 import {CalendarEventBus} from './calendar-event-bus-types';
 
-const Context = React.createContext<CalendarEventBus>({} as CalendarEventBus);
+const Context = createContext<CalendarEventBus>({} as CalendarEventBus);
 Context.displayName = 'CalendarEventBus';
 
 export const CalendarEventBusProvider = (props: { children?: ReactNode }) => {

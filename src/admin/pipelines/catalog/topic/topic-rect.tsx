@@ -1,5 +1,5 @@
 import {useForceUpdate} from '@/widgets/basic/utils';
-import React, {useState} from 'react';
+import React, {MouseEvent, useState} from 'react';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {AssembledTopicGraphics, GraphicsRole} from '../types';
@@ -15,11 +15,11 @@ export const TopicRect = (props: { topic: AssembledTopicGraphics }) => {
 	const forceUpdate = useForceUpdate();
 	const [dnd, setDnd] = useState<boolean>(false);
 
-	const onMouseDown = (event: React.MouseEvent) => {
+	const onMouseDown = (event: MouseEvent) => {
 		if (event.button === 0) {
 			const {clientX, clientY} = event;
 			const [offsetX, offsetY] = [clientX - coordinate.x, clientY - coordinate.y];
-			const onMove = ({clientX: x, clientY: y}: MouseEvent) => {
+			const onMove = ({clientX: x, clientY: y}: { clientX: number; clientY: number }) => {
 				rect.coordinate = {x: x - offsetX, y: y - offsetY};
 				forceUpdate();
 				fire(CatalogEventTypes.TOPIC_MOVED, topic, topicGraphics);

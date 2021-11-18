@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {PipelineEventBus} from './pipeline-event-bus-types';
 
-const Context = React.createContext<PipelineEventBus>({} as PipelineEventBus);
+const Context = createContext<PipelineEventBus>({} as PipelineEventBus);
 Context.displayName = 'PipelineEventBus';
 
 export const PipelineEventBusProvider = (props: { children?: ReactNode }) => {

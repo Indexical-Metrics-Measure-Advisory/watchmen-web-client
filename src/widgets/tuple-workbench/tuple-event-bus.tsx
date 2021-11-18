@@ -1,8 +1,8 @@
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {useCreateEventBus} from '../events/use-create-event-bus';
 import {TupleEventBus} from './tuple-event-bus-types';
 
-const Context = React.createContext<TupleEventBus>({} as TupleEventBus);
+const Context = createContext<TupleEventBus>({} as TupleEventBus);
 Context.displayName = 'TupleEventBus';
 
 export const TupleEventBusProvider = (props: { children?: ReactNode }) => {

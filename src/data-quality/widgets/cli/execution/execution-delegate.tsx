@@ -1,7 +1,7 @@
 import {ICON_CMD_PROMPT, ICON_LOADING, ICON_LOCK, ICON_UNLOCK} from '@/widgets/basic/constants';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {ExecutionContent} from '../types';
 import {
 	ExecutionCommandLine,
@@ -39,8 +39,8 @@ const ExecutionOperators = (props: {
 
 export const ExecutionDelegate = (props: {
 	content: ExecutionContent;
-	commandLine: ((props: any) => React.ReactNode) | React.ReactNode;
-	result?: ((props: any) => React.ReactNode) | React.ReactNode;
+	commandLine: ((props: any) => ReactNode) | ReactNode;
+	result?: ((props: any) => ReactNode) | ReactNode;
 }) => {
 	const {content, commandLine, result} = props;
 

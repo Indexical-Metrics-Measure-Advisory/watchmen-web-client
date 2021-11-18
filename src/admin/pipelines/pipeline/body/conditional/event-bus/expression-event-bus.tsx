@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {ExpressionEventBus} from './expression-event-bus-types';
 
-const Context = React.createContext<ExpressionEventBus>({} as ExpressionEventBus);
+const Context = createContext<ExpressionEventBus>({} as ExpressionEventBus);
 Context.displayName = 'ExpressionEventBus';
 
 export const ExpressionEventBusProvider = (props: { children?: ReactNode }) => {

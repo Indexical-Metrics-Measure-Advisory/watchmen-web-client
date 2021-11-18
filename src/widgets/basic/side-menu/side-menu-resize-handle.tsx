@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {MouseEvent, useRef, useState} from 'react';
 import styled from 'styled-components';
 import {SIDE_MENU_RESIZE_HANDLE_WIDTH, SIDE_MENU_RESIZE_HANDLE_Z_INDEX} from '../constants';
 
@@ -60,7 +60,7 @@ export const SideMenuResizeHandle = (props: {
 	const [resizing, setResizing] = useState(false);
 
 	const canStartResize = (x: number) => Math.abs(x - width) <= 3;
-	const onMouseDown = ({target, button, clientX}: React.MouseEvent) => {
+	const onMouseDown = ({target, button, clientX}: MouseEvent) => {
 		const x = alignment === ResizeHandleAlignment.LEFT ? clientX : (window.innerWidth - clientX);
 		if (button === 0 && canStartResize(x)) {
 			setResizing(true);
@@ -74,7 +74,7 @@ export const SideMenuResizeHandle = (props: {
 			target.addEventListener('mouseleave', onResizeEnd);
 		}
 	};
-	const onMouseMove = ({clientX}: React.MouseEvent) => {
+	const onMouseMove = ({clientX}: MouseEvent) => {
 		const x = alignment === ResizeHandleAlignment.LEFT ? clientX : (window.innerWidth - clientX);
 		if (!resizing) {
 			if (canStartResize(x)) {

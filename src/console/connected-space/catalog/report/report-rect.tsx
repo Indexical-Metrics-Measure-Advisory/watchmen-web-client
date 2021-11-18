@@ -3,7 +3,7 @@ import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Subject} from '@/services/data/tuples/subject-types';
 import {ICON_EDIT} from '@/widgets/basic/constants';
 import {useForceUpdate} from '@/widgets/basic/utils';
-import React, {useState} from 'react';
+import React, {MouseEvent, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {findSvgRoot} from '../../../utils/in-svg';
 import {useCatalogEventBus} from '../catalog-event-bus';
@@ -21,11 +21,11 @@ export const ReportRect = (props: { connectedSpace: ConnectedSpace; subject: Sub
 	const forceUpdate = useForceUpdate();
 	const [dnd, setDnd] = useState<boolean>(false);
 
-	const onMouseDown = (event: React.MouseEvent) => {
+	const onMouseDown = (event: MouseEvent) => {
 		if (event.button === 0) {
 			const {clientX, clientY} = event;
 			const [offsetX, offsetY] = [clientX - coordinate.x, clientY - coordinate.y];
-			const onMove = ({clientX: x, clientY: y}: MouseEvent) => {
+			const onMove = ({clientX: x, clientY: y}: { clientX: number; clientY: number }) => {
 				rect.coordinate = {x: x - offsetX, y: y - offsetY};
 				forceUpdate();
 				fire(CatalogEventTypes.REPORT_MOVED, report, reportGraphics);

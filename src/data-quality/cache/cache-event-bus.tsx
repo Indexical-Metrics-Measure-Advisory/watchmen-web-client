@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {DataQualityCacheEventBus} from './cache-event-bus-types';
 
-const Context = React.createContext<DataQualityCacheEventBus>({} as DataQualityCacheEventBus);
+const Context = createContext<DataQualityCacheEventBus>({} as DataQualityCacheEventBus);
 Context.displayName = 'CacheEventBus';
 
 export const DataQualityCacheEventBusProvider = (props: { children?: ReactNode }) => {

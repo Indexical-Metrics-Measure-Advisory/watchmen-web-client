@@ -5,7 +5,7 @@ import {QueryUserGroupForHolder} from '../../tuples/query-user-group-types';
 import {Space, SpaceId} from '../../tuples/space-types';
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
-import {Participant, Order, Quotation} from './mock-data-topics';
+import {Order, Participant, Quotation} from './mock-data-topics';
 
 export const listMockSpaces = async (options: {
 	search: string;

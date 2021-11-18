@@ -1,5 +1,5 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {useRef} from 'react';
+import React, {MouseEvent, useRef} from 'react';
 import {ICON_FIX_COLUMN, ICON_SORT_ASC, ICON_SORT_DESC, ICON_UNFIX_COLUMN} from '../../basic/constants';
 import {TooltipAlignment} from '../../basic/types';
 import {Lang} from '../../langs';
@@ -11,11 +11,11 @@ export const GridDatColumnHeaderCell = (props: {
 	isFixTable: boolean;
 	last: boolean;
 	gridColumnIndex: number;
-	selectColumn: (event: React.MouseEvent<HTMLDivElement>) => void;
-	fixColumn: (event: React.MouseEvent<HTMLButtonElement>) => void;
-	unfixColumn: (event: React.MouseEvent<HTMLButtonElement>) => void;
-	sortColumnAsc: (event: React.MouseEvent<HTMLButtonElement>) => void;
-	sortColumnDesc: (event: React.MouseEvent<HTMLButtonElement>) => void;
+	selectColumn: (event: MouseEvent<HTMLDivElement>) => void;
+	fixColumn: (event: MouseEvent<HTMLButtonElement>) => void;
+	unfixColumn: (event: MouseEvent<HTMLButtonElement>) => void;
+	sortColumnAsc: (event: MouseEvent<HTMLButtonElement>) => void;
+	sortColumnDesc: (event: MouseEvent<HTMLButtonElement>) => void;
 	dragging: boolean;
 	languagesSupport: boolean;
 }) => {

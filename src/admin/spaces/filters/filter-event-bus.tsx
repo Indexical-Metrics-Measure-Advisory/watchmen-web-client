@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {FilterEventBus} from './filter-event-bus-types';
 
-const Context = React.createContext<FilterEventBus>({} as FilterEventBus);
+const Context = createContext<FilterEventBus>({} as FilterEventBus);
 Context.displayName = 'FilterEventBus';
 
 export const FilterEventBusProvider = (props: { children?: ReactNode }) => {

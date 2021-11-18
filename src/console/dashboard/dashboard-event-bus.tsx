@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {DashboardEventBus} from './dashboard-event-bus-types';
 
-const Context = React.createContext<DashboardEventBus>({} as DashboardEventBus);
+const Context = createContext<DashboardEventBus>({} as DashboardEventBus);
 Context.displayName = 'DashboardEventBus';
 
 export const DashboardEventBusProvider = (props: { children?: ReactNode }) => {

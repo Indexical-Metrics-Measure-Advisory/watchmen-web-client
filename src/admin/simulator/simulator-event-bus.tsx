@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {SimulatorEventBus} from './simulator-event-bus-types';
 
-const Context = React.createContext<SimulatorEventBus>({} as SimulatorEventBus);
+const Context = createContext<SimulatorEventBus>({} as SimulatorEventBus);
 Context.displayName = 'SimulatorEventBus';
 
 export const SimulatorEventBusProvider = (props: { children?: ReactNode }) => {

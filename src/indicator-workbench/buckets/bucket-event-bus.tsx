@@ -1,10 +1,10 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
 import {useTupleEventBus} from '@/widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes, TupleState} from '@/widgets/tuple-workbench/tuple-event-bus-types';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {BucketEventBus} from './bucket-event-bus-types';
 
-const Context = React.createContext<BucketEventBus>({} as BucketEventBus);
+const Context = createContext<BucketEventBus>({} as BucketEventBus);
 Context.displayName = 'BucketEventBus';
 
 export const BucketEventBusProvider = (props: { children?: ReactNode }) => {

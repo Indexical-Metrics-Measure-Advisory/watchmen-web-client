@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {BucketsEventBus} from './buckets-event-bus-types';
 
-const Context = React.createContext<BucketsEventBus>({} as BucketsEventBus);
+const Context = createContext<BucketsEventBus>({} as BucketsEventBus);
 Context.displayName = 'BucketsEventBus';
 
 export const BucketsEventBusProvider = (props: { children?: ReactNode }) => {

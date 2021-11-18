@@ -1,8 +1,8 @@
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {useCreateEventBus} from '../events/use-create-event-bus';
 import {ReportEventBus} from './report-event-bus-types';
 
-const Context = React.createContext<ReportEventBus>({} as ReportEventBus);
+const Context = createContext<ReportEventBus>({} as ReportEventBus);
 Context.displayName = 'ReportEventBus';
 
 export const ReportEventBusProvider = (props: { children?: ReactNode }) => {

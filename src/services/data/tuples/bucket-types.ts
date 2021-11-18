@@ -33,8 +33,8 @@ export enum RangeBucketValueIncluding {
 }
 
 export interface NumericSegmentValue {
-	min?: number;
-	max?: number;
+	min?: string;
+	max?: string;
 }
 
 export interface NumericValueSegment extends BucketSegment {

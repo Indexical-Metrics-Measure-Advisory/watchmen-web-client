@@ -6,7 +6,7 @@ import {ButtonInk} from '@/widgets/basic/types';
 import {Lang} from '@/widgets/langs';
 import {faKey, faUserAstronaut} from '@fortawesome/free-solid-svg-icons';
 import dayjs from 'dayjs';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {
 	Error,
@@ -40,7 +40,7 @@ const LoginIndex = () => {
 		nameRef.current && nameRef.current.focus() && nameRef.current.select();
 	}, []);
 
-	const onValueChange = (prop: keyof Account) => (event: React.ChangeEvent<HTMLInputElement>) => {
+	const onValueChange = (prop: keyof Account) => (event: ChangeEvent<HTMLInputElement>) => {
 		setAccount({...account, [prop]: event.target.value});
 	};
 	const onNameFocused = () => nameRef.current!.select();

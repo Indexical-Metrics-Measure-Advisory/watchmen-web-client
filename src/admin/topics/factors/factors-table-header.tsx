@@ -2,7 +2,7 @@ import {Topic} from '@/services/data/tuples/topic-types';
 import {ICON_SEARCH} from '@/widgets/basic/constants';
 import {Input} from '@/widgets/basic/input';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';
 import {FactorsTableHeaderContainer} from './widgets';
@@ -27,7 +27,7 @@ export const FactorsTableHeader = (props: { topic: Topic }) => {
 			fire(TopicEventTypes.FACTOR_SEARCH_TEXT_CHANGED, topic, value.trim());
 		}, 300));
 	};
-	const onSearchKeyPressed = async (event: React.KeyboardEvent<HTMLInputElement>) => {
+	const onSearchKeyPressed = async (event: KeyboardEvent<HTMLInputElement>) => {
 		if (event.key !== 'Enter') {
 			return;
 		}

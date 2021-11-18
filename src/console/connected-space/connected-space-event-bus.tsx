@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {ConnectedSpaceEventBus} from './connected-space-event-bus-types';
 
-const Context = React.createContext<ConnectedSpaceEventBus>({} as ConnectedSpaceEventBus);
+const Context = createContext<ConnectedSpaceEventBus>({} as ConnectedSpaceEventBus);
 Context.displayName = 'ConnectedSpaceEventBus';
 
 export const ConnectedSpaceEventBusProvider = (props: { children?: ReactNode }) => {

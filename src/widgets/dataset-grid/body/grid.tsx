@@ -1,4 +1,4 @@
-import React, {ForwardedRef, forwardRef, Fragment} from 'react';
+import React, {ForwardedRef, forwardRef, Fragment, MouseEvent} from 'react';
 import {useGridEventBus} from '../grid-event-bus';
 import {GridEventTypes} from '../grid-event-bus-types';
 import {ColumnDef, DataColumnDef, DataSetState, SequenceColumnDef} from '../types';
@@ -25,17 +25,17 @@ export const Grid = forwardRef((props: {
 	} = props;
 
 	const {fire} = useGridEventBus();
-	const onSelectionChanged = (rowIndex: number, columnIndex: number) => (event: React.MouseEvent<HTMLDivElement>) => {
+	const onSelectionChanged = (rowIndex: number, columnIndex: number) => (event: MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
 		fire(GridEventTypes.SELECTION_CHANGED, isFixTable, rowIndex, columnIndex);
 	};
-	const fixColumn = (fix: boolean, column: DataColumnDef) => (event: React.MouseEvent<HTMLButtonElement>) => {
+	const fixColumn = (fix: boolean, column: DataColumnDef) => (event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
 		onColumnFixChange(column, fix);
 	};
-	const sortColumn = (asc: boolean, column: DataColumnDef) => (event: React.MouseEvent<HTMLButtonElement>) => {
+	const sortColumn = (asc: boolean, column: DataColumnDef) => (event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
 		onColumnSort(column, asc);

@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {IndicatorsEventBus} from './indicators-event-bus-types';
 
-const Context = React.createContext<IndicatorsEventBus>({} as IndicatorsEventBus);
+const Context = createContext<IndicatorsEventBus>({} as IndicatorsEventBus);
 Context.displayName = 'IndicatorsEventBus';
 
 export const IndicatorsEventBusProvider = (props: { children?: ReactNode }) => {

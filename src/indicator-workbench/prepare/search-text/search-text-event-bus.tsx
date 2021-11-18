@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {SearchTextEventBus} from './search-text-event-bus-types';
 
-const Context = React.createContext<SearchTextEventBus>({} as SearchTextEventBus);
+const Context = createContext<SearchTextEventBus>({} as SearchTextEventBus);
 Context.displayName = 'SearchTextEventBus';
 
 export const SearchTextEventBusProvider = (props: { children?: ReactNode }) => {

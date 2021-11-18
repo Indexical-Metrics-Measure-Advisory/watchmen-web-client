@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {RuntimeEventBus} from './runtime-event-bus-types';
 
-const Context = React.createContext<RuntimeEventBus>({} as RuntimeEventBus);
+const Context = createContext<RuntimeEventBus>({} as RuntimeEventBus);
 Context.displayName = 'RuntimeEventBus';
 
 export const RuntimeEventBusProvider = (props: { children?: ReactNode }) => {

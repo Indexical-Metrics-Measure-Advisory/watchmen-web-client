@@ -1,7 +1,7 @@
 import {Factor, FactorType} from '@/services/data/tuples/factor-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
-import React, {useEffect} from 'react';
+import React, {ChangeEvent, useEffect} from 'react';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';
 import {FactorNameCellContainer, FactorPropInput} from './widgets';
@@ -34,7 +34,7 @@ export const FactorNameCell = (props: { topic: Topic, factor: Factor }) => {
 		};
 	}, [on, off, forceUpdate]);
 
-	const onFactorNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const onFactorNameChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const {value} = event.target;
 		if (value === factor.name) {
 			return;

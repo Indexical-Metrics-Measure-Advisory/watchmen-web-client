@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {MouseEvent, useRef} from 'react';
 import styled from 'styled-components';
 
 const ToggleButton = styled.div.attrs({'data-widget': 'toggle'})`
@@ -42,7 +42,7 @@ export const Toggle = (props: {
 
 	const toggleRef = useRef<HTMLDivElement>(null);
 
-	const onToggleClicked = (event: React.MouseEvent<HTMLDivElement>) => {
+	const onToggleClicked = (event: MouseEvent<HTMLDivElement>) => {
 		const {clientX} = event;
 		const {left, width} = toggleRef.current!.getBoundingClientRect();
 		if (clientX - left > width / 2) {

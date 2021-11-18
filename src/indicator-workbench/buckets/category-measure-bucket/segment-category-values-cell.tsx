@@ -8,7 +8,7 @@ import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {useBucketEventBus} from '../bucket-event-bus';
 import {BucketEventTypes} from '../bucket-event-bus-types';
 import {SegmentPropInput} from '../segments/widgets';
@@ -55,7 +55,7 @@ export const SegmentCategoryValuesCell = (props: { holder: CategorySegmentsHolde
 			add(categoryValue);
 		}
 	};
-	const onKeyPressed = (event: React.KeyboardEvent<HTMLInputElement>) => {
+	const onKeyPressed = (event: KeyboardEvent<HTMLInputElement>) => {
 		if (event.key !== 'Enter') {
 			return;
 		}

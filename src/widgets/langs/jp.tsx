@@ -31,7 +31,7 @@ export const Jp = {
 		FIND_TOPIC_OR_FACTOR_PLACEHOLDER: 'トピック名または ファクター名に基づいて検索します。',
 		INDICATOR_NAME_PLACEHOLDER: '読むための名前を入力してください。',
 		FIND_BUCKET_PLACEHOLDER: 'バケット名 トピック名または ファクター名に基づいて検索します。',
-		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: 'カテゴリ値のキー、セグメントに追加することを確認します。'
+		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: '分類値、セグメントに追加することを確認します。'
 	},
 	STANDARD: {
 		YES: 'はい',
@@ -335,6 +335,16 @@ export const Jp = {
 			BUCKET_ENUM_IS_REQUIRED: '列挙型を選択してください。',
 			BUCKET_SEGMENTS_IS_REQUIRED: '少なくとも 2 つのセグメントを定義する必要があります。',
 			BUCKET_SEGMENT_NAME_IS_REQUIRED: 'セグメント名を入力してください。',
+			BE_NUMERIC_OF_NUMERIC_SEGMENT: 'セグメント値は数値である必要があります。',
+			EMPTY_FIRST_MIN_OF_NUMERIC_SEGMENT: '最初のセグメントの最小値を入力しないでください。',
+			NOT_EMPTY_FIRST_MAX_OF_NUMERIC_SEGMENT: '最初のセグメントの最大値を入力してください。',
+			NOT_EMPTY_OF_NUMERIC_SEGMENT: '中間セグメントのセグメント値を入力してください。',
+			MIN_MAX_ORDER_OF_NUMERIC_SEGMENT: 'セグメントの最小値を最大値より小さくしてください。',
+			NOT_EMPTY_LAST_MIN_OF_NUMERIC_SEGMENT: '最後のセグメントの最小値を入力してください。',
+			EMPTY_LAST_MAX_OF_NUMERIC_SEGMENT: '最後のセグメントの最大値を入力しないでください。',
+			RANGE_LACK_EXISTS_OF_NUMERIC_SEGMENT: '数値区間はセグメントで覆う。',
+			RANGE_OVERLAP_EXISTS_OF_NUMERIC_SEGMENT: 'セグメント区間が重なる。',
+			NOT_EMPTY_OF_CATEGORY_SEGMENT: '少なくとも 1 つの分類値を定義してください。',
 			NO_SEGMENT_DEFINED: '定義されていません',
 			ONE_SEGMENT_DEFINED: '1 つの定義',
 			N_SEGMENT_DEFINED: 'つの定義',
@@ -354,7 +364,7 @@ export const Jp = {
 			SORT_SEGMENTS: '並べ替え',
 			MEASURE_METHOD_LABEL: '測定寸法:',
 			MEASURE_METHOD_IS_FIXED_ONCE_SAVE: '測定寸法は、バケットが最初に保存された後にロックされ、変更できなくなります。',
-			CATEGORY_SEGMENT_LABEL: 'カテゴリ値',
+			CATEGORY_SEGMENT_LABEL: '分類値',
 			DUPLICATE_CATEGORY_SEGMENT_VALUE: 'このセグメントには既に値が存在します。',
 			DUPLICATE_CATEGORY_SEGMENT_VALUE_CASE_IGNORED: '値 (大文字と小文字を区別しない) は、このセグメントに既に存在します。この方法を追加しますか。',
 			NO_SEGMENT_VALUE_DEFINED: '値が定義されていません'
@@ -592,7 +602,7 @@ export const Jp = {
 		LEGEND_ORIENT_VERTICAL: '垂直',
 		GRID_CONTAIN_LABEL: 'コンテナラベル',
 		AXIS_TYPE: '軸タイプ',
-		AXIS_TYPE_CATEGORY: 'カテゴリー',
+		AXIS_TYPE_CATEGORY: '分類',
 		AXIS_TYPE_VALUE: '値',
 		AXIS_TYPE_TIME: '時間',
 		AXIS_AUTO_MIN: '（オート）最小値',

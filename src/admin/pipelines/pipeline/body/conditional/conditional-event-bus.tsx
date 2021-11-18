@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {ConditionalEventBus} from './conditional-event-bus-types';
 
-const Context = React.createContext<ConditionalEventBus>({} as ConditionalEventBus);
+const Context = createContext<ConditionalEventBus>({} as ConditionalEventBus);
 Context.displayName = 'ConditionalEventBus';
 
 export const ConditionalEventBusProvider = (props: { children?: ReactNode }) => {

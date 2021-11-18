@@ -41,9 +41,10 @@ const validate = (bucket: Bucket): string | true => {
 		// check continuous
 		let message = null;
 		const lastIndex = bucket.segments.length - 1;
+		// clone array to keep original
 		[...bucket.segments.map(({value}) => value)]
 			.sort(({min: min1}, {min: min2}) => {
-				return min1 == null ? -1 : (min2 == null ? 1 : (min1 - min2));
+				return min1 == null ? -1 : (min2 == null ? 1 : min1.localeCompare(min2, void 0, {numeric: true}));
 			})
 			.some(({min, max}, index, values) => {
 				if (index === 0) {
@@ -55,6 +56,9 @@ const validate = (bucket: Bucket): string | true => {
 					if (max == null) {
 						message = Lang.INDICATOR_WORKBENCH.BUCKET.NOT_EMPTY_FIRST_MAX_OF_NUMERIC_SEGMENT;
 						return true;
+					} else if (isNaN(max as any)) {
+						message = Lang.INDICATOR_WORKBENCH.BUCKET.BE_NUMERIC_OF_NUMERIC_SEGMENT;
+						return true;
 					}
 					return false;
 				}
@@ -64,13 +68,21 @@ const validate = (bucket: Bucket): string | true => {
 						message = Lang.INDICATOR_WORKBENCH.BUCKET.NOT_EMPTY_OF_NUMERIC_SEGMENT;
 						return true;
 					}
-					if (min >= max) {
+					if (isNaN(min as any) || isNaN(max as any)) {
+						message = Lang.INDICATOR_WORKBENCH.BUCKET.BE_NUMERIC_OF_NUMERIC_SEGMENT;
+						return true;
+					}
+					if (min.localeCompare(max, void 0, {numeric: true}) >= 0) {
 						message = Lang.INDICATOR_WORKBENCH.BUCKET.MIN_MAX_ORDER_OF_NUMERIC_SEGMENT;
 						return true;
 					}
 				} else {
 					if (min == null) {
 						message = Lang.INDICATOR_WORKBENCH.BUCKET.NOT_EMPTY_LAST_MIN_OF_NUMERIC_SEGMENT;
+						return true;
+					}
+					if (isNaN(min as any)) {
+						message = Lang.INDICATOR_WORKBENCH.BUCKET.BE_NUMERIC_OF_NUMERIC_SEGMENT;
 						return true;
 					}
 					// last one, max must be empty
@@ -92,7 +104,9 @@ const validate = (bucket: Bucket): string | true => {
 			return message;
 		}
 	} else if (isCategorySegmentsHolder(bucket)) {
-		// TODO
+		if (bucket.segments.some(segment => segment.value == null || segment.value.length === 0)) {
+			return Lang.INDICATOR_WORKBENCH.BUCKET.NOT_EMPTY_OF_CATEGORY_SEGMENT;
+		}
 	}
 
 	return true;

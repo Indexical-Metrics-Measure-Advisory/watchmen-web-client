@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {VariablesEventBus} from './variables-event-bus-types';
 
-const Context = React.createContext<VariablesEventBus>({} as VariablesEventBus);
+const Context = createContext<VariablesEventBus>({} as VariablesEventBus);
 Context.displayName = 'VariablesEventBus';
 
 export const VariablesEventBusProvider = (props: { children?: ReactNode }) => {

@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {ReportEditEventBus} from './report-edit-event-bus-types';
 
-const Context = React.createContext<ReportEditEventBus>({} as ReportEditEventBus);
+const Context = createContext<ReportEditEventBus>({} as ReportEditEventBus);
 Context.displayName = 'ReportEditEventBus';
 
 export const ReportEditEventBusProvider = (props: { children?: ReactNode }) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {StrictMode} from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
 import * as serviceWorker from './serviceWorker';
@@ -20,9 +20,9 @@ console.info(`%c${process.env.REACT_APP_NAME}%cv${process.env.REACT_APP_VERSION}
 	`color:white;font-weight:bold;background-color:rgba(205,42,51,0.9);padding:2px 6px;border-top-right-radius:6px;border-bottom-right-radius:6px;`);
 
 ReactDOM.render(
-	<React.StrictMode>
+	<StrictMode>
 		<App/>
-	</React.StrictMode>,
+	</StrictMode>,
 	document.getElementById('root')
 );
 

@@ -4,7 +4,7 @@ import {Topic} from '@/services/data/tuples/topic-types';
 import {generateUuid} from '@/services/data/tuples/utils';
 import {getCurrentTime} from '@/services/data/utils';
 import {useForceUpdate} from '@/widgets/basic/utils';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {MouseEvent, useEffect, useRef, useState} from 'react';
 import {useCatalogEventBus} from './catalog-event-bus';
 import {CatalogEventTypes} from './catalog-event-bus-types';
 import {GraphicsSave} from './graphics-save';
@@ -237,7 +237,7 @@ export const CatalogBody = (props: {
 		fire(CatalogEventTypes.CLEAR_SELECTION);
 	};
 	const onBodyScroll = () => fire(CatalogEventTypes.SCROLL);
-	const onSvgMouseDown = (event: React.MouseEvent) => {
+	const onSvgMouseDown = (event: MouseEvent) => {
 		const {button, target} = event;
 		if (button === 2 || button === 1) {
 			return;

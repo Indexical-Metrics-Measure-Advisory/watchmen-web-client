@@ -1,5 +1,5 @@
 import {QueryTuple} from '@/services/data/tuples/tuple-types';
-import React, {useEffect, useState} from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 import {useTupleEventBus} from '../tuple-event-bus';
 import {TupleEventTypes} from '../tuple-event-bus-types';
 import {SearchList} from './search-list';
@@ -7,7 +7,7 @@ import {SearchListNoData} from './search-list-no-data';
 import {TupleSearchContainer} from './widgets';
 
 export const TupleSearch = <QT extends QueryTuple>(props: {
-	renderCard: (item: QT) => React.ReactNode;
+	renderCard: (item: QT) => ReactNode;
 	getKeyOfTuple: (item: QT) => string;
 }) => {
 	const {renderCard, getKeyOfTuple} = props;

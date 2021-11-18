@@ -12,7 +12,7 @@ export const NumericSegments = (props: { holder: NumericSegmentsHolder }) => {
 	const create = (bucket: NumericSegmentsHolder) => {
 		if (bucket.segments.length === 0) {
 			// no segment, append
-			const segment = {name: '', value: {max: 0}};
+			const segment = {name: '', value: {max: ''}};
 			bucket.segments.push(segment);
 			return segment;
 		} else if (bucket.segments[bucket.segments.length - 1].value.max == null) {
@@ -29,13 +29,20 @@ export const NumericSegments = (props: { holder: NumericSegmentsHolder }) => {
 			return segment;
 		} else {
 			// append
-			const segment = {name: '', value: {max: 0}};
+			const segment = {name: '', value: {max: ''}};
 			bucket.segments.push(segment);
 			return segment;
 		}
 	};
 	const sort = (bucket: NumericSegmentsHolder) => {
-		bucket.segments.sort((
+		if (bucket.segments.length <= 3) {
+			return;
+		}
+		const [first, ...rest] = bucket.segments;
+		const [last, ...others] = rest.reverse();
+		const middle = others.reverse();
+
+		bucket.segments = [first, ...middle.sort((
 			{value: {min: min1, max: max1}},
 			{value: {min: min2, max: max2}}
 		) => {
@@ -44,15 +51,15 @@ export const NumericSegments = (props: { holder: NumericSegmentsHolder }) => {
 			} else if (min2 == null) {
 				return 1;
 			} else if (min1 !== min2) {
-				return min1 - min2;
+				return min1.localeCompare(min2, void 0, {numeric: true});
 			} else if (max1 == null) {
 				return 1;
 			} else if (max2 == null) {
 				return -1;
 			} else {
-				return max1 - max2;
+				return max1.localeCompare(max2, void 0, {numeric: true});
 			}
-		});
+		}), last];
 	};
 	const canDelete = (segment: NumericValueSegment, index: number) => {
 		return index !== 0 && index !== holder.segments.length - 1;
@@ -65,7 +72,7 @@ export const NumericSegments = (props: { holder: NumericSegmentsHolder }) => {
 		</>;
 	};
 	const cells = (segment: NumericValueSegment, index: number) => {
-		if (index == 0) {
+		if (index === 0) {
 			return <>
 				<NotAvailableCell>N/A</NotAvailableCell>
 				<SegmentValueCell holder={holder} segment={segment} index={1}/>

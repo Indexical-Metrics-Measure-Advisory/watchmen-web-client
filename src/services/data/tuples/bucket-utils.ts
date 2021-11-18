@@ -42,8 +42,8 @@ export const isCategorySegmentsHolder = (bucket: Bucket): bucket is CategorySegm
 export const defendNumericValueSegmentsHolder = (holder: NumericSegmentsHolder) => {
 	holder.include = holder.include ?? RangeBucketValueIncluding.INCLUDE_MIN;
 	holder.segments = [
-		{name: '', value: {max: 0}},
-		{name: '', value: {min: 0}}
+		{name: '', value: {max: '0'}},
+		{name: '', value: {min: '0'}}
 	];
 };
 

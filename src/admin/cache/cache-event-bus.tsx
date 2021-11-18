@@ -1,8 +1,8 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {AdminCacheEventBus} from './cache-event-bus-types';
 
-const Context = React.createContext<AdminCacheEventBus>({} as AdminCacheEventBus);
+const Context = createContext<AdminCacheEventBus>({} as AdminCacheEventBus);
 Context.displayName = 'CacheEventBus';
 
 export const AdminCacheEventBusProvider = (props: { children?: ReactNode }) => {

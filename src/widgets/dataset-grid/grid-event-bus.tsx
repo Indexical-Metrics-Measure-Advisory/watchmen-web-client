@@ -1,8 +1,8 @@
-import React, {ReactNode} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {useCreateEventBus} from '../events/use-create-event-bus';
 import {GridEventBus} from './grid-event-bus-types';
 
-const Context = React.createContext<GridEventBus>({} as GridEventBus);
+const Context = createContext<GridEventBus>({} as GridEventBus);
 Context.displayName = 'GridEventBus';
 
 export const GridEventBusProvider = (props: { children?: ReactNode; }) => {
@@ -16,5 +16,5 @@ export const GridEventBusProvider = (props: { children?: ReactNode; }) => {
 };
 
 export const useGridEventBus = () => {
-	return React.useContext(Context);
+	return useContext(Context);
 };

@@ -1,7 +1,7 @@
 /**
  * behaviour of command sender when command published to executor
  */
-import React from 'react';
+import {ReactNode} from 'react';
 
 export enum CommandPublishedBehaviorType {
 	CLEAR_ALL = 'clear-all',
@@ -44,6 +44,6 @@ export interface Command {
 }
 
 export interface HelpCommand extends Command {
-	brief: ((props: any) => React.ReactNode) | React.ReactNode;
-	whole: ((props: any) => React.ReactNode) | React.ReactNode;
+	brief: ((props: any) => ReactNode) | ReactNode;
+	whole: ((props: any) => ReactNode) | ReactNode;
 }

@@ -1,8 +1,8 @@
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {useCreateEventBus} from '../../events/use-create-event-bus';
 import {TupleItemPickerEventBus} from './tuple-item-picker-event-bus-types';
 
-const Context = React.createContext<TupleItemPickerEventBus>({} as TupleItemPickerEventBus);
+const Context = createContext<TupleItemPickerEventBus>({} as TupleItemPickerEventBus);
 Context.displayName = 'TupleItemPickerEventBus';
 
 export const TupleItemPickerEventBusProvider = (props: { children?: ReactNode }) => {

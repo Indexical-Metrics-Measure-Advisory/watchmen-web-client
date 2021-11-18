@@ -1,6 +1,6 @@
 import {Bucket, BucketSegment} from '@/services/data/tuples/bucket-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import {useBucketEventBus} from '../bucket-event-bus';
 import {BucketEventTypes} from '../bucket-event-bus-types';
 import {SegmentNameCellContainer, SegmentPropInput} from './widgets';
@@ -11,7 +11,7 @@ export const SegmentNameCell = (props: { bucket: Bucket, segment: BucketSegment 
 	const {fire} = useBucketEventBus();
 	const forceUpdate = useForceUpdate();
 
-	const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const onNameChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const {value} = event.target;
 
 		segment.name = value;

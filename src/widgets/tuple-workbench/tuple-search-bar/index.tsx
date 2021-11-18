@@ -1,5 +1,5 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useEffect, useRef, useState} from 'react';
 import {ICON_SEARCH} from '../../basic/constants';
 import {useEventBus} from '../../events/event-bus';
 import {EventTypes} from '../../events/types';
@@ -36,10 +36,10 @@ export const TupleSearchBar = (props: {
 		searchRef.current!.focus();
 		searchRef.current!.select();
 	};
-	const onSearchChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const onSearchChanged = (event: ChangeEvent<HTMLInputElement>) => {
 		setSearchText(event.target.value);
 	};
-	const onSearchKeyPressed = async (event: React.KeyboardEvent<HTMLInputElement>) => {
+	const onSearchKeyPressed = async (event: KeyboardEvent<HTMLInputElement>) => {
 		if (event.key !== 'Enter') {
 			return;
 		}

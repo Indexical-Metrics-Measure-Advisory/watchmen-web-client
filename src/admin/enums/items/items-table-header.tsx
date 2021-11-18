@@ -2,7 +2,7 @@ import {Enum} from '@/services/data/tuples/enum-types';
 import {ICON_SEARCH} from '@/widgets/basic/constants';
 import {Input} from '@/widgets/basic/input';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {useEnumEventBus} from '../enum-event-bus';
 import {EnumEventTypes} from '../enum-event-bus-types';
 import {ItemsTableHeaderCell, ItemsTableHeaderContainer} from './widgets';
@@ -27,7 +27,7 @@ export const ItemsTableHeader = (props: { enumeration: Enum }) => {
 			fire(EnumEventTypes.ITEM_SEARCH_TEXT_CHANGED, enumeration, value.trim());
 		}, 300));
 	};
-	const onSearchKeyPressed = async (event: React.KeyboardEvent<HTMLInputElement>) => {
+	const onSearchKeyPressed = async (event: KeyboardEvent<HTMLInputElement>) => {
 		if (event.key !== 'Enter') {
 			return;
 		}

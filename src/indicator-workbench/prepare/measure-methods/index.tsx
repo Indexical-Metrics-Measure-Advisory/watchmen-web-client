@@ -1,9 +1,5 @@
 import {Factor} from '@/services/data/tuples/factor-types';
-import {
-	IndicatorAggregateArithmetic,
-	IndicatorMeasure,
-	MeasureMethod
-} from '@/services/data/tuples/indicator-types';
+import {IndicatorAggregateArithmetic, IndicatorMeasure, MeasureMethod} from '@/services/data/tuples/indicator-types';
 import {
 	isCategoryMeasure,
 	isGeoMeasure,

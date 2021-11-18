@@ -1,10 +1,10 @@
 import {useCreateEventBus} from '@/widgets/events/use-create-event-bus';
 import {useTupleEventBus} from '@/widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes, TupleState} from '@/widgets/tuple-workbench/tuple-event-bus-types';
-import React, {ReactNode, useContext} from 'react';
+import React, {createContext, ReactNode, useContext} from 'react';
 import {ExternalWriterEventBus} from './external-writer-event-bus-types';
 
-const Context = React.createContext<ExternalWriterEventBus>({} as ExternalWriterEventBus);
+const Context = createContext<ExternalWriterEventBus>({} as ExternalWriterEventBus);
 Context.displayName = 'ExternalWriterEventBus';
 
 export const ExternalWriterEventBusProvider = (props: { children?: ReactNode }) => {

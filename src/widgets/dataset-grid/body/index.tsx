@@ -1,4 +1,4 @@
-import React, {RefObject, useEffect, useRef, useState} from 'react';
+import React, {MouseEvent, RefObject, useEffect, useRef, useState} from 'react';
 import {useForceUpdate} from '../../basic/utils';
 import {
 	DRAG_DEVIATION,
@@ -524,7 +524,7 @@ export const GridWrapper = (props: { data: DataSetState; languagesSupport: boole
 		});
 	};
 
-	const onMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+	const onMouseMove = (event: MouseEvent<HTMLDivElement>) => {
 		if (behavior === Behavior.RESIZING && pickedColumn) {
 			resizeColumn(event.clientX);
 		} else if ((behavior === Behavior.READY_TO_DRAG || behavior === Behavior.DRAGGING) && pickedColumn) {
@@ -580,7 +580,7 @@ export const GridWrapper = (props: { data: DataSetState; languagesSupport: boole
 		setBehavior(Behavior.RESIZING);
 	};
 
-	const onMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
+	const onMouseDown = (event: MouseEvent<HTMLDivElement>) => {
 		if (behavior === Behavior.CAN_RESIZE) {
 			// start to resize column
 			prepareToResizeColumn(findDataTable(event.target as HTMLElement)!, event.clientX);
@@ -676,7 +676,7 @@ export const GridWrapper = (props: { data: DataSetState; languagesSupport: boole
 		const selection = selectionRef.current!.selection();
 		fire(GridEventTypes.SELECTION_CHANGED, toFixTable, selection.row, targetColumnIndex);
 	};
-	const onMouseUp = (event: React.MouseEvent<HTMLDivElement>) => {
+	const onMouseUp = (event: MouseEvent<HTMLDivElement>) => {
 		if (behavior === Behavior.RESIZING) {
 			// recover data table layout
 			const dataTable = dataTableRef.current!;
@@ -702,7 +702,7 @@ export const GridWrapper = (props: { data: DataSetState; languagesSupport: boole
 			releaseDragColumn(event.clientX);
 		}
 	};
-	const onMouseLeave = (event: React.MouseEvent<HTMLDivElement>) => {
+	const onMouseLeave = (event: MouseEvent<HTMLDivElement>) => {
 		if (behavior === Behavior.RESIZING) {
 			// recover data table layout
 			const dataTable = dataTableRef.current!;
