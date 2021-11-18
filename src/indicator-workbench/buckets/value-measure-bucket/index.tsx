@@ -1,5 +1,5 @@
 import {Bucket, NumericValueMeasureBucket} from '@/services/data/tuples/bucket-types';
-import {defendNumericValueSegmentsHolder, isNumericValueMeasureBucket} from '@/services/data/tuples/bucket-utils';
+import {defendNumericValueMeasureBucket, isNumericValueMeasureBucket} from '@/services/data/tuples/bucket-utils';
 import {MeasureMethod} from '@/services/data/tuples/indicator-types';
 import {PropOf} from '@/services/types';
 import {DropdownOption} from '@/widgets/basic/types';
@@ -29,7 +29,7 @@ const MeasureMethodOptions: Array<DropdownOption> = Object.keys(MeasureMethods).
 export const NumericValueMeasureBucketEditor = (props: { bucket: Bucket }) => {
 	const {bucket} = props;
 
-	const typeCheck = useBucketDefend<NumericValueMeasureBucket>(bucket, defendNumericValueSegmentsHolder, isNumericValueMeasureBucket);
+	const typeCheck = useBucketDefend<NumericValueMeasureBucket>(bucket, defendNumericValueMeasureBucket, isNumericValueMeasureBucket);
 
 	if (!typeCheck) {
 		return null;

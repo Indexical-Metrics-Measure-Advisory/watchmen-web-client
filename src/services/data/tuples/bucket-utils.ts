@@ -10,6 +10,7 @@ import {
 	NumericValueMeasureBucket,
 	RangeBucketValueIncluding
 } from './bucket-types';
+import {MeasureMethod} from './indicator-types';
 
 export const isNumericValueBucket = (bucket: Bucket): bucket is NumericValueBucket => {
 	return bucket.type === BucketType.VALUE;
@@ -47,6 +48,19 @@ export const defendNumericValueSegmentsHolder = (holder: NumericSegmentsHolder) 
 	];
 };
 
+export const defendNumericValueMeasureBucket = (bucket: NumericValueMeasureBucket) => {
+	// @ts-ignore
+	delete bucket.measure;
+	defendNumericValueSegmentsHolder(bucket);
+};
+
 export const defendCategoryMeasureBucket = (bucket: CategoryMeasureBucket) => {
+	// @ts-ignore
+	delete bucket.measure;
+	bucket.segments = [];
+};
+
+export const defendEnumMeasureBucket = (bucket: EnumMeasureBucket) => {
+	bucket.measure = MeasureMethod.ENUM;
 	bucket.segments = [];
 };
