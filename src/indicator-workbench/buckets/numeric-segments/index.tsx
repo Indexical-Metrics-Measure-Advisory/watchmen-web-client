@@ -18,7 +18,8 @@ export const NumericSegments = (props: { holder: NumericSegmentsHolder }) => {
 		} else if (bucket.segments[bucket.segments.length - 1].value.max == null) {
 			// before last one
 			const previous = bucket.segments.length === 1 ? null : bucket.segments[bucket.segments.length - 2];
-			const segment = {name: '',
+			const segment = {
+				name: '',
 				value: {
 					min: previous?.value.max ?? (void 0),
 					max: bucket.segments[bucket.segments.length - 1].value.min ?? (void 0)
@@ -53,6 +54,9 @@ export const NumericSegments = (props: { holder: NumericSegmentsHolder }) => {
 			}
 		});
 	};
+	const canDelete = (segment: NumericValueSegment, index: number) => {
+		return index !== 0 && index !== holder.segments.length - 1;
+	};
 
 	const header = () => {
 		return <>
@@ -79,6 +83,7 @@ export const NumericSegments = (props: { holder: NumericSegmentsHolder }) => {
 		}
 	};
 
-	return <Segments bucket={holder} header={header} cells={cells} cellsWidth="150px 150px"
+	return <Segments bucket={holder} header={header}
+	                 cells={cells} cellsWidth="150px 150px" canDelete={canDelete}
 	                 createSegment={create} sortSegments={sort}/>;
 };

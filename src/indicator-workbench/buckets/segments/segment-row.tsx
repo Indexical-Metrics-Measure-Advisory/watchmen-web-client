@@ -13,8 +13,9 @@ export const SegmentRow = <B extends Bucket, S extends BucketSegment>(props: {
 	segment: S;
 	cells: (segment: S) => ReactNode;
 	cellsWidth: string;
+	canDelete: (segment: S) => boolean;
 }) => {
-	const {bucket, segment, cells, cellsWidth} = props;
+	const {bucket, segment, cells, cellsWidth, canDelete} = props;
 
 	const {fire} = useBucketEventBus();
 
@@ -28,8 +29,10 @@ export const SegmentRow = <B extends Bucket, S extends BucketSegment>(props: {
 		<SegmentIndexLabel>#{bucket.segments.indexOf(segment) + 1}</SegmentIndexLabel>
 		<SegmentNameCell bucket={bucket} segment={segment}/>
 		{cells(segment)}
-		<SegmentButton ink={ButtonInk.DANGER} onClick={onDeleteClicked}>
-			<FontAwesomeIcon icon={ICON_DELETE}/>
-		</SegmentButton>
+		{canDelete(segment)
+			? <SegmentButton ink={ButtonInk.DANGER} onClick={onDeleteClicked}>
+				<FontAwesomeIcon icon={ICON_DELETE}/>
+			</SegmentButton>
+			: null}
 	</SegmentRowContainer>;
 };

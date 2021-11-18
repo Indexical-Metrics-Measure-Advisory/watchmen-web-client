@@ -11,8 +11,9 @@ export const SegmentsTableBody = <B extends Bucket, S extends BucketSegment>(pro
 	bucket: B;
 	cells: (segment: S, index: number) => ReactNode;
 	cellsWidth: string;
+	canDelete?: (segment: S, index: number) => boolean;
 }) => {
-	const {bucket, cells, cellsWidth} = props;
+	const {bucket, cells, cellsWidth, canDelete} = props;
 
 	const {on, off} = useBucketEventBus();
 	const forceUpdate = useForceUpdate();
@@ -35,6 +36,7 @@ export const SegmentsTableBody = <B extends Bucket, S extends BucketSegment>(pro
 		{(bucket.segments ?? []).map((segment, index) => {
 			return <SegmentRow bucket={bucket} segment={segment as S}
 			                   cells={(segment) => cells(segment, index)} cellsWidth={cellsWidth}
+			                   canDelete={(segment) => canDelete == null ? true : canDelete(segment, index)}
 			                   key={v4()}/>;
 		})}
 	</SegmentsTableBodyContainer>;
