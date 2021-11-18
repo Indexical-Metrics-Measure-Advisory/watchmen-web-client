@@ -7,7 +7,11 @@ import {BucketEventTypes} from '../bucket-event-bus-types';
 import {SegmentRow} from './segment-row';
 import {SegmentsTableBodyContainer} from './widgets';
 
-export const SegmentsTableBody = <B extends Bucket, S extends BucketSegment>(props: { bucket: B; cells: (segment: S) => ReactNode; cellsWidth: string; }) => {
+export const SegmentsTableBody = <B extends Bucket, S extends BucketSegment>(props: {
+	bucket: B;
+	cells: (segment: S, index: number) => ReactNode;
+	cellsWidth: string;
+}) => {
 	const {bucket, cells, cellsWidth} = props;
 
 	const {on, off} = useBucketEventBus();
@@ -28,8 +32,10 @@ export const SegmentsTableBody = <B extends Bucket, S extends BucketSegment>(pro
 	}, [on, off, forceUpdate, bucket]);
 
 	return <SegmentsTableBodyContainer>
-		{(bucket.segments ?? []).map(segment => {
-			return <SegmentRow bucket={bucket} segment={segment as S} cells={cells} cellsWidth={cellsWidth} key={v4()}/>;
+		{(bucket.segments ?? []).map((segment, index) => {
+			return <SegmentRow bucket={bucket} segment={segment as S}
+			                   cells={(segment) => cells(segment, index)} cellsWidth={cellsWidth}
+			                   key={v4()}/>;
 		})}
 	</SegmentsTableBodyContainer>;
 };

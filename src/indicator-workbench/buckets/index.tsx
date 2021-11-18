@@ -2,7 +2,12 @@ import BucketBackground from '@/assets/bucket-background.svg';
 import {TuplePage} from '@/services/data/query/tuple-page';
 import {fetchBucket, listBuckets, saveBucket} from '@/services/data/tuples/bucket';
 import {Bucket} from '@/services/data/tuples/bucket-types';
-import {isCategorySegmentsHolder, isEnumMeasureBucket, isMeasureBucket} from '@/services/data/tuples/bucket-utils';
+import {
+	isCategorySegmentsHolder,
+	isEnumMeasureBucket,
+	isMeasureBucket,
+	isNumericSegmentsHolder
+} from '@/services/data/tuples/bucket-utils';
 import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
 import {QueryTuple} from '@/services/data/tuples/tuple-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
@@ -19,6 +24,79 @@ import {renderEditor} from './editor';
 import {createBucket} from './utils';
 
 const getKeyOfBucket = (bucket: QueryBucket) => bucket.bucketId;
+
+const validate = (bucket: Bucket): string | true => {
+	if (!bucket.name || !bucket.name.trim()) {
+		return Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_NAME_IS_REQUIRED;
+	} else if (isMeasureBucket(bucket) && bucket.measure == null) {
+		return Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_MEASURE_IS_REQUIRED;
+	} else if (isEnumMeasureBucket(bucket) && (bucket.enumId || '').trim().length === 0) {
+		return Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_ENUM_IS_REQUIRED;
+	} else if (bucket.segments == null || bucket.segments.length === 0) {
+		return Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_SEGMENTS_IS_REQUIRED;
+	} else if (bucket.segments.some(segment => (segment.name ?? '').trim().length === 0)) {
+		return Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_SEGMENT_NAME_IS_REQUIRED;
+	} else if (isNumericSegmentsHolder(bucket)) {
+		// clone values
+		// check continuous
+		let message = null;
+		const lastIndex = bucket.segments.length - 1;
+		[...bucket.segments.map(({value}) => value)]
+			.sort(({min: min1}, {min: min2}) => {
+				return min1 == null ? -1 : (min2 == null ? 1 : (min1 - min2));
+			})
+			.some(({min, max}, index, values) => {
+				if (index === 0) {
+					// first one, min must be empty
+					if (min != null) {
+						message = Lang.INDICATOR_WORKBENCH.BUCKET.EMPTY_FIRST_MIN_OF_NUMERIC_SEGMENT;
+						return true;
+					}
+					if (max == null) {
+						message = Lang.INDICATOR_WORKBENCH.BUCKET.NOT_EMPTY_FIRST_MAX_OF_NUMERIC_SEGMENT;
+						return true;
+					}
+					return false;
+				}
+
+				if (index !== lastIndex) {
+					if (min == null || max == null) {
+						message = Lang.INDICATOR_WORKBENCH.BUCKET.NOT_EMPTY_OF_NUMERIC_SEGMENT;
+						return true;
+					}
+					if (min >= max) {
+						message = Lang.INDICATOR_WORKBENCH.BUCKET.MIN_MAX_ORDER_OF_NUMERIC_SEGMENT;
+						return true;
+					}
+				} else {
+					if (min == null) {
+						message = Lang.INDICATOR_WORKBENCH.BUCKET.NOT_EMPTY_LAST_MIN_OF_NUMERIC_SEGMENT;
+						return true;
+					}
+					// last one, max must be empty
+					if (max != null) {
+						message = Lang.INDICATOR_WORKBENCH.BUCKET.EMPTY_LAST_MAX_OF_NUMERIC_SEGMENT;
+						return true;
+					}
+				}
+				if (Number(min) > Number(values[index - 1].max)) {
+					message = Lang.INDICATOR_WORKBENCH.BUCKET.RANGE_LACK_EXISTS_OF_NUMERIC_SEGMENT;
+					return true;
+				} else if (Number(min) < Number(values[index - 1].max)) {
+					message = Lang.INDICATOR_WORKBENCH.BUCKET.RANGE_OVERLAP_EXISTS_OF_NUMERIC_SEGMENT;
+					return true;
+				}
+				return false;
+			});
+		if (message) {
+			return message;
+		}
+	} else if (isCategorySegmentsHolder(bucket)) {
+		// TODO
+	}
+
+	return true;
+};
 
 const IndicatorWorkbenchBuckets = () => {
 	const {fire: fireGlobal} = useEventBus();
@@ -43,43 +121,10 @@ const IndicatorWorkbenchBuckets = () => {
 				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
 		const onSaveTopic = async (bucket: Bucket, onSaved: (bucket: Bucket, saved: boolean) => void) => {
-			if (!bucket.name || !bucket.name.trim()) {
-				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
-					{Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_NAME_IS_REQUIRED}
-				</AlertLabel>, () => {
-					onSaved(bucket, false);
-				});
+			const validation = validate(bucket);
+			if (validation !== true) {
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{validation}</AlertLabel>, () => onSaved(bucket, false));
 				return;
-			} else if (isMeasureBucket(bucket) && bucket.measure == null) {
-				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
-					{Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_MEASURE_IS_REQUIRED}
-				</AlertLabel>, () => {
-					onSaved(bucket, false);
-				});
-				return;
-			} else if (isEnumMeasureBucket(bucket) && (bucket.enumId || '').trim().length === 0) {
-				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
-					{Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_ENUM_IS_REQUIRED}
-				</AlertLabel>, () => {
-					onSaved(bucket, false);
-				});
-				return;
-			} else if (bucket.segments == null || bucket.segments.length === 0) {
-				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
-					{Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_SEGMENTS_IS_REQUIRED}
-				</AlertLabel>, () => {
-					onSaved(bucket, false);
-				});
-				return;
-			} else if (bucket.segments.some(segment => (segment.name ?? '').trim().length === 0)) {
-				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
-					{Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_SEGMENT_NAME_IS_REQUIRED}
-				</AlertLabel>, () => {
-					onSaved(bucket, false);
-				});
-				return;
-			} else if (isCategorySegmentsHolder(bucket)) {
-				// TODO
 			}
 
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,

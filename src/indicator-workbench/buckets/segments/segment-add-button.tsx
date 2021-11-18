@@ -15,7 +15,6 @@ export const SegmentAddButton = <B extends Bucket, S extends BucketSegment>(prop
 
 	const onFactorAddClicked = () => {
 		const segment = createSegment(bucket);
-		bucket.segments.push(segment);
 		fire(BucketEventTypes.SEGMENT_ADDED, bucket, segment);
 	};
 

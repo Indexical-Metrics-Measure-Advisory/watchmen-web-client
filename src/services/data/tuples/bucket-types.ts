@@ -32,12 +32,10 @@ export enum RangeBucketValueIncluding {
 	INCLUDE_MAX = 'include-max'
 }
 
-export type NumericSegmentValue =
-	[null | undefined, number]
-	| [number, number]
-	| [number, null | undefined]
-	// intermediate state
-	| [null | undefined, null | undefined]
+export interface NumericSegmentValue {
+	min?: number;
+	max?: number;
+}
 
 export interface NumericValueSegment extends BucketSegment {
 	value: NumericSegmentValue;

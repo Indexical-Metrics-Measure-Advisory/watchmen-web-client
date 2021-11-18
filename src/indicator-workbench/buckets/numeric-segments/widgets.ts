@@ -7,3 +7,10 @@ export const SegmentValueCellContainer = styled.div`
 	align-items : center;
 	height      : ${GRID_ROW_HEIGHT}px;
 `;
+export const NotAvailableCell = styled.span`
+	display      : flex;
+	position     : relative;
+	align-items  : center;
+	font-variant : petite-caps;
+	font-weight  : var(--font-demi-bold);
+`;

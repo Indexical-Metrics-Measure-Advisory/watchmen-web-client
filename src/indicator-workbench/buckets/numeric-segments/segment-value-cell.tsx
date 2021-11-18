@@ -16,23 +16,22 @@ export const SegmentValueCell = (props: { holder: NumericSegmentsHolder, segment
 		const {value} = event.target;
 
 		try {
-			if (value === '') {
-				segment.value[index] = null;
+			if (value.trim() === '' || isNaN(value.trim() as any)) {
+				index === 0 ? (delete segment.value.min) : (delete segment.value.max);
 			} else {
-				segment.value[index] = Number(value);
+				index === 0 ? (segment.value.min = Number(value.trim())) : (segment.value.max = Number(value.trim()));
 			}
 		} catch {
-			// force set
-			// @ts-ignore
-			segment[index] = value;
+			// ignore
 		}
 
 		forceUpdate();
 		fire(BucketEventTypes.SEGMENT_CHANGED, holder, segment);
 	};
 
+	const value = index === 0 ? segment.value.min : segment.value.max;
+
 	return <SegmentValueCellContainer>
-		<SegmentPropInput value={segment.value[index] == null ? '' : `${segment.value[index]}`}
-		                  onChange={onValueChange}/>
+		<SegmentPropInput value={value ?? ''} onChange={onValueChange}/>
 	</SegmentValueCellContainer>;
 };

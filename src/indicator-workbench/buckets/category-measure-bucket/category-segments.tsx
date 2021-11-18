@@ -9,7 +9,11 @@ import {SegmentCategoryValuesCell} from './segment-category-values-cell';
 export const CategorySegments = (props: { holder: CategorySegmentsHolder }) => {
 	const {holder} = props;
 
-	const create = (bucket: CategorySegmentsHolder) => createCategorySegment(bucket);
+	const create = (bucket: CategorySegmentsHolder) => {
+		const segment = createCategorySegment(bucket);
+		bucket.segments.push(segment);
+		return segment;
+	};
 	const sort = (bucket: CategorySegmentsHolder) => {
 		bucket.segments.sort((s1, s2) => {
 			return s1.name.localeCompare(s2.name, void 0, {sensitivity: 'base', caseFirst: 'upper', numeric: true});

@@ -9,10 +9,10 @@ export const Floor: NumericValueMeasureBucket = {
 	measure: MeasureMethod.FLOOR,
 	include: RangeBucketValueIncluding.INCLUDE_MIN,
 	segments: [
-		{name: 'Ground', value: [void 0, 1]},
-		{name: 'Low Floor', value: [1, 7]},
-		{name: 'High Floor', value: [7, 21]},
-		{name: 'Sky Floor', value: [21, void 0]}
+		{name: 'Ground', value: {max: 1}},
+		{name: 'Low Floor', value: {min: 1, max: 7}},
+		{name: 'High Floor', value: {min: 7, max: 21}},
+		{name: 'Sky Floor', value: {min: 21}}
 	],
 	description: 'Floor of apartment',
 	createTime: getCurrentTime(),

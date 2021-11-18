@@ -8,7 +8,12 @@ import {BucketEventTypes} from '../bucket-event-bus-types';
 import {SegmentNameCell} from './segment-name-cell';
 import {SegmentButton, SegmentIndexLabel, SegmentRowContainer} from './widgets';
 
-export const SegmentRow = <B extends Bucket, S extends BucketSegment>(props: { bucket: B; segment: S; cells: (segment: S) => ReactNode; cellsWidth: string; }) => {
+export const SegmentRow = <B extends Bucket, S extends BucketSegment>(props: {
+	bucket: B;
+	segment: S;
+	cells: (segment: S) => ReactNode;
+	cellsWidth: string;
+}) => {
 	const {bucket, segment, cells, cellsWidth} = props;
 
 	const {fire} = useBucketEventBus();

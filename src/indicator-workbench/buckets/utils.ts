@@ -2,16 +2,15 @@ import {
 	BucketType,
 	CategorySegment,
 	CategorySegmentsHolder,
-	NumericSegmentsHolder,
 	NumericValueBucket,
-	NumericValueSegment,
 	RangeBucketValueIncluding
 } from '@/services/data/tuples/bucket-types';
+import {defendNumericValueSegmentsHolder} from '@/services/data/tuples/bucket-utils';
 import {generateUuid} from '@/services/data/tuples/utils';
 import {getCurrentTime} from '@/services/data/utils';
 
 export const createBucket = (): NumericValueBucket => {
-	return {
+	const bucket = {
 		bucketId: generateUuid(),
 		name: '',
 		type: BucketType.VALUE,
@@ -20,15 +19,8 @@ export const createBucket = (): NumericValueBucket => {
 		createTime: getCurrentTime(),
 		lastModified: getCurrentTime()
 	};
-};
-
-export const createNumericSegment = (holder: NumericSegmentsHolder): NumericValueSegment => {
-	const segments = holder.segments;
-	if (segments.length === 0) {
-		return {name: '', value: [null, null]};
-	} else {
-		return {name: '', value: [segments[segments.length - 1].value[1], null]};
-	}
+	defendNumericValueSegmentsHolder(bucket);
+	return bucket as NumericValueBucket;
 };
 
 // noinspection JSUnusedLocalSymbols
