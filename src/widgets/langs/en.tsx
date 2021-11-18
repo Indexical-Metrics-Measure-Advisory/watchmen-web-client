@@ -367,7 +367,9 @@ export const En = {
 			CATEGORY_SEGMENT_LABEL: 'Category Value',
 			DUPLICATE_CATEGORY_SEGMENT_VALUE: 'Value already exists in this segment.',
 			DUPLICATE_CATEGORY_SEGMENT_VALUE_CASE_IGNORED: 'Value (case insensitive) already exists in this segment, do you want to add it anyway?',
-			NO_SEGMENT_VALUE_DEFINED: 'No Value Defined'
+			OTHERS_IS_EXCLUSIVE_ON_CATEGORY_SEGMENT: 'Others is exclusive in segment, cannot be coexisting with other values.',
+			NO_SEGMENT_VALUE_DEFINED: 'No Value Defined',
+			ADD_OTHER_CATEGORY: 'Add Segment for Others'
 		}
 	},
 	SETTINGS: {

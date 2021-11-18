@@ -367,7 +367,9 @@ export const Zh = {
 			CATEGORY_SEGMENT_LABEL: '分组值',
 			DUPLICATE_CATEGORY_SEGMENT_VALUE: '分组值在这个分段中已经存在.',
 			DUPLICATE_CATEGORY_SEGMENT_VALUE_CASE_IGNORED: '分组值(不区分大小写)在这个分段中已经存在, 是否仍然需要添加?',
-			NO_SEGMENT_VALUE_DEFINED: '尚未定义分段值'
+			OTHERS_IS_EXCLUSIVE_ON_CATEGORY_SEGMENT: 'その他の値は排他的であり、他のセグメント値と同時に存在することはできません。',
+			NO_SEGMENT_VALUE_DEFINED: '尚未定义分段值',
+			ADD_OTHER_CATEGORY: '添加其他值分段'
 		}
 	},
 	SETTINGS: {

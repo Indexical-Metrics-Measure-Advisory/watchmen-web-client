@@ -17,12 +17,12 @@ export const SegmentSortButton = <B extends Bucket>(props: { bucket: B; sortSegm
 		return null;
 	}
 
-	const onFactorAddClicked = () => {
+	const onSortClicked = () => {
 		sortSegments(bucket);
 		fire(BucketEventTypes.SEGMENT_SORTED, bucket);
 	};
 
-	return <DwarfButton ink={ButtonInk.PRIMARY} onClick={onFactorAddClicked}>
+	return <DwarfButton ink={ButtonInk.PRIMARY} onClick={onSortClicked}>
 		<FontAwesomeIcon icon={ICON_SORT}/>
 		<span>{Lang.INDICATOR_WORKBENCH.BUCKET.SORT_SEGMENTS}</span>
 	</DwarfButton>;

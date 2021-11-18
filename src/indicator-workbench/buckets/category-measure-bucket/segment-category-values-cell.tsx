@@ -1,4 +1,4 @@
-import {CategorySegment, CategorySegmentsHolder} from '@/services/data/tuples/bucket-types';
+import {CategorySegment, CategorySegmentsHolder, OtherCategorySegmentValue} from '@/services/data/tuples/bucket-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {Button} from '@/widgets/basic/button';
 import {ICON_DELETE} from '@/widgets/basic/constants';
@@ -51,6 +51,11 @@ export const SegmentCategoryValuesCell = (props: { holder: CategorySegmentsHolde
 				},
 				() => fireGlobal(EventTypes.HIDE_DIALOG));
 			return;
+		} else if (categoryValue === OtherCategorySegmentValue && segment.value.length !== 0) {
+			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+				{Lang.INDICATOR_WORKBENCH.BUCKET.OTHERS_IS_EXCLUSIVE_ON_CATEGORY_SEGMENT}
+			</AlertLabel>);
+			return;
 		} else {
 			add(categoryValue);
 		}
@@ -70,24 +75,33 @@ export const SegmentCategoryValuesCell = (props: { holder: CategorySegmentsHolde
 	};
 
 	const values = segment.value.filter(v => !!v.trim());
+	const hasOthers = values.includes(OtherCategorySegmentValue);
 
-	return <SegmentValueCellContainer>
+	return <SegmentValueCellContainer isOthers={hasOthers}>
 		<SegmentValues>
 			{values.length === 0
 				?
 				<NoSegmentValueDefined>{Lang.INDICATOR_WORKBENCH.BUCKET.NO_SEGMENT_VALUE_DEFINED}</NoSegmentValueDefined>
 				: values.map(value => {
-					return <SegmentValue key={value}>
+					return <SegmentValue isOthers={hasOthers} key={value}>
 						<span>{value}</span>
-						<span onClick={onSegmentValueRemoveClicked(value)}><FontAwesomeIcon icon={ICON_DELETE}/></span>
+						{hasOthers
+							? null
+							: <span onClick={onSegmentValueRemoveClicked(value)}>
+								<FontAwesomeIcon icon={ICON_DELETE}/>
+						</span>}
 					</SegmentValue>;
 				})}
 		</SegmentValues>
-		<SegmentPropInput value={value}
-		                  onChange={onValueChange} onKeyPress={onKeyPressed}
-		                  placeholder={Lang.PLAIN.BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER}/>
-		<Button ink={ButtonInk.PRIMARY} onClick={onConfirmClicked}>
-			<span>{Lang.ACTIONS.CONFIRM}</span>
-		</Button>
+		{hasOthers
+			? null
+			: <>
+				<SegmentPropInput value={value}
+				                  onChange={onValueChange} onKeyPress={onKeyPressed}
+				                  placeholder={Lang.PLAIN.BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER}/>
+				<Button ink={ButtonInk.PRIMARY} onClick={onConfirmClicked}>
+					<span>{Lang.ACTIONS.CONFIRM}</span>
+				</Button>
+			</>}
 	</SegmentValueCellContainer>;
 };

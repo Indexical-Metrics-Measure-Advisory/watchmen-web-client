@@ -367,7 +367,9 @@ export const Jp = {
 			CATEGORY_SEGMENT_LABEL: '分類値',
 			DUPLICATE_CATEGORY_SEGMENT_VALUE: 'このセグメントには既に値が存在します。',
 			DUPLICATE_CATEGORY_SEGMENT_VALUE_CASE_IGNORED: '値 (大文字と小文字を区別しない) は、このセグメントに既に存在します。この方法を追加しますか。',
-			NO_SEGMENT_VALUE_DEFINED: '値が定義されていません'
+			OTHERS_IS_EXCLUSIVE_ON_CATEGORY_SEGMENT: 'Others is exclusive in segment, cannot be coexisting with other values.',
+			NO_SEGMENT_VALUE_DEFINED: '値が定義されていません',
+			ADD_OTHER_CATEGORY: 'その他を追加'
 		}
 	},
 	SETTINGS: {

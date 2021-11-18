@@ -1,7 +1,13 @@
 import {GRID_ROW_HEIGHT} from '@/widgets/basic/constants';
 import styled from 'styled-components';
 
-export const SegmentValueCellContainer = styled.div`
+export const SegmentValueCellContainer = styled.div.attrs<{ isOthers: boolean }>(({isOthers}) => {
+	return {
+		style: {
+			minHeight: isOthers ? GRID_ROW_HEIGHT : GRID_ROW_HEIGHT * 2
+		}
+	};
+})<{ isOthers: boolean }>`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : 1fr auto;
@@ -9,7 +15,6 @@ export const SegmentValueCellContainer = styled.div`
 	grid-row-gap          : calc(var(--margin) / 4);
 	align-items           : center;
 	align-content         : start;
-	min-height            : ${GRID_ROW_HEIGHT * 2}px;
 	padding               : calc((${GRID_ROW_HEIGHT}px - var(--height)) / 2) 0;
 	&:hover {
 		> input,
@@ -61,7 +66,7 @@ export const NoSegmentValueDefined = styled.span`
 		z-index          : 0;
 	}
 `;
-export const SegmentValue = styled.span`
+export const SegmentValue = styled.span<{ isOthers: boolean }>`
 	display       : flex;
 	position      : relative;
 	align-items   : center;
@@ -85,17 +90,23 @@ export const SegmentValue = styled.span`
 		opacity          : 0.2;
 		z-index          : 0;
 	}
-	&:hover > span:last-child {
+	&:hover > span:last-child:not(:first-child) {
 		left : calc(var(--height) * -0.1);
 	}
 	> span:first-child {
-		padding-right : calc(var(--margin) / 4);
-		white-space   : nowrap;
-		text-overflow : ellipsis;
-		overflow      : hidden;
-		z-index       : 1;
+		padding-right  : calc(var(--margin) / 4);
+		white-space    : nowrap;
+		text-overflow  : ellipsis;
+		overflow       : hidden;
+		z-index        : 1;
+		font-variant   : ${({isOthers}) => isOthers ? 'petite-caps' : (void 0)};
+		font-weight    : ${({isOthers}) => isOthers ? 'var(--font-demi-bold)' : (void 0)};
+		text-transform : ${({isOthers}) => isOthers ? 'capitalize' : (void 0)};
+		&:last-child {
+			margin-right : calc(var(--margin) / 2);
+		}
 	}
-	> span:last-child {
+	> span:last-child:not(:first-child) {
 		display          : flex;
 		position         : relative;
 		align-items      : center;
