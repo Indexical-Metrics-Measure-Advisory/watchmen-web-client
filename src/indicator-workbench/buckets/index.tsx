@@ -1,7 +1,7 @@
 import BucketBackground from '@/assets/bucket-background.svg';
 import {TuplePage} from '@/services/data/query/tuple-page';
 import {fetchBucket, listBuckets, saveBucket} from '@/services/data/tuples/bucket';
-import {Bucket} from '@/services/data/tuples/bucket-types';
+import {Bucket, OtherCategorySegmentValue} from '@/services/data/tuples/bucket-types';
 import {
 	isCategorySegmentsHolder,
 	isEnumMeasureBucket,
@@ -106,6 +106,27 @@ const validate = (bucket: Bucket): string | true => {
 	} else if (isCategorySegmentsHolder(bucket)) {
 		if (bucket.segments.some(segment => segment.value == null || segment.value.length === 0)) {
 			return Lang.INDICATOR_WORKBENCH.BUCKET.NOT_EMPTY_OF_CATEGORY_SEGMENT;
+		} else if (bucket.segments.some(segment => segment.value.length !== [...new Set(segment.value)].length)) {
+			return Lang.INDICATOR_WORKBENCH.BUCKET.NO_DUPLICATED_OF_CATEGORY_SEGMENT;
+		} else if (bucket.segments.filter(segment => segment.value.includes(OtherCategorySegmentValue)).length > 1) {
+			return Lang.INDICATOR_WORKBENCH.BUCKET.ONE_OTHERS_SEGMENT_OF_CATEGORY_SEGMENT;
+		} else if (bucket.segments.some(segment => segment.value.filter(v => v === OtherCategorySegmentValue).length > 1)) {
+			return Lang.INDICATOR_WORKBENCH.BUCKET.ONE_OTHERS_VALUE_OF_CATEGORY_SEGMENT;
+		}
+
+		const categories = bucket.segments.reduce((categories, segment) => {
+			segment.value.forEach(v => {
+				const key = `${v}`;
+				if (categories[key] != null) {
+					categories[key] = categories[key] + 1;
+				} else {
+					categories[key] = 1;
+				}
+			});
+			return categories;
+		}, {} as Record<string, number>);
+		if (Object.keys(categories).some(key => categories[key] > 1)) {
+			return Lang.INDICATOR_WORKBENCH.BUCKET.NO_SHARED_OF_CATEGORY_SEGMENT;
 		}
 	}
 

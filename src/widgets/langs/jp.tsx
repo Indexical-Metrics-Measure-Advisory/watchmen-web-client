@@ -345,6 +345,10 @@ export const Jp = {
 			RANGE_LACK_EXISTS_OF_NUMERIC_SEGMENT: '数値区間はセグメントで覆う。',
 			RANGE_OVERLAP_EXISTS_OF_NUMERIC_SEGMENT: 'セグメント区間が重なる。',
 			NOT_EMPTY_OF_CATEGORY_SEGMENT: '少なくとも 1 つの分類値を定義してください。',
+			NO_DUPLICATED_OF_CATEGORY_SEGMENT: '同じセグメント内に重複する分類は存在できません。',
+			ONE_OTHERS_SEGMENT_OF_CATEGORY_SEGMENT: '分類 (その他) を含めることができるセグメントは 1 つだけです。',
+			ONE_OTHERS_VALUE_OF_CATEGORY_SEGMENT: 'セグメント内に含めることができる分類 (その他) は 1 つだけである。',
+			NO_SHARED_OF_CATEGORY_SEGMENT: '同じカテゴリを複数のセグメントに存在させてはならない。',
 			NO_SEGMENT_DEFINED: '定義されていません',
 			ONE_SEGMENT_DEFINED: '1 つの定義',
 			N_SEGMENT_DEFINED: 'つの定義',
@@ -365,9 +369,9 @@ export const Jp = {
 			MEASURE_METHOD_LABEL: '測定寸法:',
 			MEASURE_METHOD_IS_FIXED_ONCE_SAVE: '測定寸法は、バケットが最初に保存された後にロックされ、変更できなくなります。',
 			CATEGORY_SEGMENT_LABEL: '分類値',
-			DUPLICATE_CATEGORY_SEGMENT_VALUE: 'このセグメントには既に値が存在します。',
-			DUPLICATE_CATEGORY_SEGMENT_VALUE_CASE_IGNORED: '値 (大文字と小文字を区別しない) は、このセグメントに既に存在します。この方法を追加しますか。',
-			OTHERS_IS_EXCLUSIVE_ON_CATEGORY_SEGMENT: 'Others is exclusive in segment, cannot be coexisting with other values.',
+			DUPLICATE_CATEGORY_SEGMENT_VALUE: '分類は既にこのセグメントに存在します。',
+			DUPLICATE_CATEGORY_SEGMENT_VALUE_CASE_IGNORED: '分類 (大文字と小文字を区別しない) は、このセグメントに既に存在します。',
+			OTHERS_IS_EXCLUSIVE_ON_CATEGORY_SEGMENT: '分類 (その他) は排他的であり、他のカテゴリと同時に存在することはできません。',
 			NO_SEGMENT_VALUE_DEFINED: '値が定義されていません',
 			ADD_OTHER_CATEGORY: 'その他を追加'
 		}

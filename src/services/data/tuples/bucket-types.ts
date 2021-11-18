@@ -60,7 +60,7 @@ export interface NumericValueMeasureBucket extends MeasureBucket, NumericSegment
 	segments: Array<NumericValueSegment>;
 }
 
-export const OtherCategorySegmentValue = '&other';
+export const OtherCategorySegmentValue = '&others';
 export type CategorySegmentValue = Array<string | typeof OtherCategorySegmentValue>;
 
 export interface CategorySegment extends BucketSegment {

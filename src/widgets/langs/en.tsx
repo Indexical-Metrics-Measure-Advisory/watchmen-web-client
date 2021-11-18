@@ -345,6 +345,10 @@ export const En = {
 			RANGE_LACK_EXISTS_OF_NUMERIC_SEGMENT: 'Range lack exists.',
 			RANGE_OVERLAP_EXISTS_OF_NUMERIC_SEGMENT: 'Range overlap exists.',
 			NOT_EMPTY_OF_CATEGORY_SEGMENT: 'At least one category should be defined.',
+			NO_DUPLICATED_OF_CATEGORY_SEGMENT: 'Duplicated categories are not allowed in segment.',
+			ONE_OTHERS_SEGMENT_OF_CATEGORY_SEGMENT: 'Only one segment can contains category "others".',
+			ONE_OTHERS_VALUE_OF_CATEGORY_SEGMENT: 'Only one category "others" in segment.',
+			NO_SHARED_OF_CATEGORY_SEGMENT: 'Same category in multiple segments is not allowed.',
 			NO_SEGMENT_DEFINED: 'No Segment Defined',
 			ONE_SEGMENT_DEFINED: '1 Segment',
 			N_SEGMENT_DEFINED: 'Segments',
@@ -365,9 +369,9 @@ export const En = {
 			MEASURE_METHOD_LABEL: 'Measure Method:',
 			MEASURE_METHOD_IS_FIXED_ONCE_SAVE: 'Measure method cannot be change once saved.',
 			CATEGORY_SEGMENT_LABEL: 'Category Value',
-			DUPLICATE_CATEGORY_SEGMENT_VALUE: 'Value already exists in this segment.',
-			DUPLICATE_CATEGORY_SEGMENT_VALUE_CASE_IGNORED: 'Value (case insensitive) already exists in this segment, do you want to add it anyway?',
-			OTHERS_IS_EXCLUSIVE_ON_CATEGORY_SEGMENT: 'Others is exclusive in segment, cannot be coexisting with other values.',
+			DUPLICATE_CATEGORY_SEGMENT_VALUE: 'Category already exists in this segment.',
+			DUPLICATE_CATEGORY_SEGMENT_VALUE_CASE_IGNORED: 'Category (case insensitive) already exists in this segment, do you want to add it anyway?',
+			OTHERS_IS_EXCLUSIVE_ON_CATEGORY_SEGMENT: 'Category "others" is exclusive in segment, cannot be coexisting with other values.',
 			NO_SEGMENT_VALUE_DEFINED: 'No Value Defined',
 			ADD_OTHER_CATEGORY: 'Add Segment for Others'
 		}
