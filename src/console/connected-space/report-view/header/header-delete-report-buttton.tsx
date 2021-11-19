@@ -14,6 +14,7 @@ import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
 import {useReportEventBus} from '@/widgets/report/report-event-bus';
 import {ReportEventTypes} from '@/widgets/report/report-event-bus-types';
+import {SaveTime, useSavingQueue} from '@/widgets/saving-queue';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
@@ -68,19 +69,13 @@ export const HeaderDeleteReportButton = (props: { connectedSpace: ConnectedSpace
 	const history = useHistory();
 	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useReportEventBus();
-	const [timeout, setTimeout] = useState<number | null>(null);
 	const [changed, setChanged] = useState<ReportDataState>({
 		styleChanged: false,
 		structureChanged: false,
 		thumbnailChanged: false
 	});
-	useEffect(() => {
-		if (report != null) {
-			// release timeout for previous report,
-			// there might be a saving
-			setTimeout(null);
-		}
-	}, [report]);
+	const saveQueue = useSavingQueue();
+	useEffect(() => saveQueue.clear(true), [report, saveQueue]);
 	useEffect(() => {
 		const onStyleChanged = (aReport: Report) => {
 			if (aReport !== report) {
@@ -139,22 +134,25 @@ export const HeaderDeleteReportButton = (props: { connectedSpace: ConnectedSpace
 			return;
 		}
 
-		setTimeout(timeout => {
-			timeout && window.clearTimeout(timeout);
-			return window.setTimeout(() => {
-				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-					async () => await saveReport(report),
-					() => {
-						fire(ReportEventTypes.DATA_SAVED, report);
+		saveQueue.replace((time: SaveTime) => {
+			console.log(time);
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await saveReport(report),
+				() => {
+					fire(ReportEventTypes.DATA_SAVED, report);
+					if (time !== SaveTime.UNMOUNT) {
 						setChanged({styleChanged: false, structureChanged: false, thumbnailChanged: false});
-					});
-			}, SAVE_TIMEOUT);
-		});
-	}, [fireGlobal, fire, report, changed.styleChanged, changed.structureChanged, changed.thumbnailChanged]);
+					}
+				});
+		}, SAVE_TIMEOUT);
+	}, [
+		fireGlobal, fire, report, saveQueue,
+		changed.styleChanged, changed.structureChanged, changed.thumbnailChanged
+	]);
 
 	const onDeleted = async () => {
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
-			timeout && window.clearTimeout(timeout);
+			saveQueue.clear(false);
 			await deleteReport(report);
 		}, () => {
 			if (!subject.reports) {

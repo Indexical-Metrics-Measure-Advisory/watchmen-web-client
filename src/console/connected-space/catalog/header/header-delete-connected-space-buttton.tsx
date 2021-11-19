@@ -9,8 +9,9 @@ import {DialogBody, DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
+import {useSavingQueue} from '@/widgets/saving-queue';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import {useConsoleEventBus} from '../../../console-event-bus';
 import {ConsoleEventTypes} from '../../../console-event-bus-types';
@@ -57,37 +58,27 @@ export const HeaderDeleteConnectedSpaceButton = (props: { connectedSpace: Connec
 
 	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useConsoleEventBus();
-	const [timeoutHandle, setTimeoutHandle] = useState<number | null>(null);
-	useEffect(() => {
-		if (connectedSpace != null) {
-			// release timeout for previous connected space,
-			// there might be a saving
-			setTimeoutHandle(null);
-		}
-	}, [connectedSpace]);
+	const saveQueue = useSavingQueue();
+	useEffect(() => saveQueue.clear(true), [connectedSpace, saveQueue]);
 	useEffect(() => {
 		const onSpaceGraphicsChanged = (graphics: ConnectedSpaceGraphics) => {
 			// eslint-disable-next-line
 			if (graphics.connectId != connectedSpace.connectId) {
 				return;
 			}
-			setTimeoutHandle(timeout => {
-				timeout && window.clearTimeout(timeout);
-				return window.setTimeout(() => {
-					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-						async () => await saveConnectedSpaceGraphics(connectedSpace, graphics));
-				}, SAVE_TIMEOUT);
-			});
+			saveQueue.replace(() => {
+				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => await saveConnectedSpaceGraphics(connectedSpace, graphics));
+			}, SAVE_TIMEOUT);
 		};
 		on(ConsoleEventTypes.CONNECTED_SPACE_GRAPHICS_CHANGED, onSpaceGraphicsChanged);
 		return () => {
 			off(ConsoleEventTypes.CONNECTED_SPACE_GRAPHICS_CHANGED, onSpaceGraphicsChanged);
 		};
-	}, [fireGlobal, on, off, connectedSpace]);
+	}, [fireGlobal, on, off, connectedSpace, saveQueue]);
 
 	const onDeleted = async () => {
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
-			timeoutHandle && window.clearTimeout(timeoutHandle);
+			saveQueue.clear(false);
 			await deleteConnectedSpace(connectedSpace);
 		}, () => {
 			fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, connectedSpace.connectId);

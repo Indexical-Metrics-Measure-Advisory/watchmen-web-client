@@ -9,8 +9,9 @@ import {DialogBody, DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
+import {useSavingQueue} from '@/widgets/saving-queue';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import {useConsoleEventBus} from '../../console-event-bus';
 import {ConsoleEventTypes} from '../../console-event-bus-types';
@@ -60,30 +61,25 @@ export const HeaderDeleteMeButton = (props: { dashboard: Dashboard }) => {
 	const {fire: fireGlobal} = useEventBus();
 	const {fire: fireConsole} = useConsoleEventBus();
 	const {on, off} = useDashboardEventBus();
-	const [timeoutHandle, setTimeoutHandle] = useState<number | null>(null);
+	const saveQueue = useSavingQueue();
 	useEffect(() => {
 		const onSaveDashboard = (d: Dashboard) => {
 			if (d !== dashboard) {
 				return;
 			}
-			setTimeoutHandle(timeout => {
-				timeout && window.clearTimeout(timeout);
-				return window.setTimeout(() => {
-					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => await saveDashboard(d));
-				}, SAVE_TIMEOUT);
-			});
+			saveQueue.replace(() => {
+				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => await saveDashboard(d));
+			}, SAVE_TIMEOUT);
 		};
 		on(DashboardEventTypes.SAVE_DASHBOARD, onSaveDashboard);
 		return () => {
 			off(DashboardEventTypes.SAVE_DASHBOARD, onSaveDashboard);
 		};
-	}, [on, off, fireGlobal, dashboard]);
+	}, [on, off, fireGlobal, dashboard, saveQueue]);
+	useEffect(() => saveQueue.clear(true), [dashboard, saveQueue]);
 
 	const onDeleted = async () => {
-		if (timeoutHandle) {
-			setTimeoutHandle(null);
-			window.clearTimeout(timeoutHandle);
-		}
+		saveQueue.clear(false);
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => await deleteDashboard(dashboard), () => {
 			fireConsole(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, dashboard.dashboardId);
 			fireConsole(ConsoleEventTypes.DASHBOARD_REMOVED, dashboard);

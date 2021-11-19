@@ -11,8 +11,9 @@ import {DialogBody, DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
+import {useSavingQueue} from '@/widgets/saving-queue';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 import {useConnectedSpaceEventBus} from '../../connected-space-event-bus';
@@ -64,24 +65,13 @@ export const HeaderDeleteSubjectButton = (props: { connectedSpace: ConnectedSpac
 	const {fire: fireGlobal} = useEventBus();
 	const {fire: fireSpace} = useConnectedSpaceEventBus();
 	const {on, off} = useSubjectEventBus();
-	const [timeout, setTimeout] = useState<number | null>(null);
-	useEffect(() => {
-		if (subject != null) {
-			// release timeout for previous subject,
-			// there might be a saving
-			setTimeout(null);
-		}
-	}, [subject]);
+	const saveQueue = useSavingQueue();
+	useEffect(() => saveQueue.clear(true), [subject, saveQueue]);
 	useEffect(() => {
 		const onSubjectDefChanged = (subject: Subject) => {
-			setTimeout(timeout => {
-				timeout && window.clearTimeout(timeout);
-				return window.setTimeout(() => {
-					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
-						await saveSubject(subject, connectedSpace.connectId);
-					});
-				}, SAVE_TIMEOUT);
-			});
+			saveQueue.replace(() => {
+				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => await saveSubject(subject, connectedSpace.connectId));
+			}, SAVE_TIMEOUT);
 		};
 		const onSubjectRenamed = async (subject: Subject) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => await renameSubject(subject));
@@ -92,12 +82,12 @@ export const HeaderDeleteSubjectButton = (props: { connectedSpace: ConnectedSpac
 			off(SubjectEventTypes.SUBJECT_DEF_CHANGED, onSubjectDefChanged);
 			off(SubjectEventTypes.SUBJECT_RENAMED, onSubjectRenamed);
 		};
-	}, [on, off, fireGlobal, connectedSpace, subject]);
+	}, [on, off, fireGlobal, connectedSpace, subject, saveQueue]);
 
 	const onDeleted = async () => {
+		saveQueue.clear(false);
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 			async () => {
-				timeout && window.clearTimeout(timeout);
 				await deleteSubject(subject);
 			},
 			() => {

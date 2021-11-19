@@ -2,7 +2,8 @@ import {SAVE_TIMEOUT} from '@/services/constants';
 import {savePipelinesGraphics} from '@/services/data/tuples/pipeline';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
-import React, {Fragment, useEffect, useState} from 'react';
+import {useSavingQueue} from '@/widgets/saving-queue';
+import React, {Fragment, useEffect} from 'react';
 import {useAdminCacheEventBus} from '../../cache/cache-event-bus';
 import {AdminCacheEventTypes} from '../../cache/cache-event-bus-types';
 import {usePipelinesEventBus} from '../pipelines-event-bus';
@@ -19,23 +20,18 @@ export const GraphicsSave = (props: { graphics?: AssembledPipelinesGraphics }) =
 	const {fire: fireCache} = useAdminCacheEventBus();
 	const {fire: firePipelines} = usePipelinesEventBus();
 	const {on, off} = useCatalogEventBus();
-	const [, setTimeoutHandle] = useState<number | null>(null);
+	const saveQueue = useSavingQueue();
 	useEffect(() => {
 		const onGraphicsChange = () => {
 			if (assembledGraphics) {
 				const graphics = transformGraphicsToSave(assembledGraphics);
 				firePipelines(PipelinesEventTypes.GRAPHICS_CHANGED, graphics);
-				setTimeoutHandle(timeoutHandle => {
-					if (timeoutHandle != null) {
-						window.clearTimeout(timeoutHandle);
-					}
-					return window.setTimeout(() => {
-						fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-							async () => await savePipelinesGraphics(graphics),
-							() => fireCache(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, graphics)
-						);
-					}, SAVE_TIMEOUT);
-				});
+				saveQueue.replace(() => {
+					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+						async () => await savePipelinesGraphics(graphics),
+						() => fireCache(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, graphics)
+					);
+				}, SAVE_TIMEOUT);
 			}
 		};
 		on(CatalogEventTypes.TOPIC_MOVED, onGraphicsChange);
@@ -46,7 +42,7 @@ export const GraphicsSave = (props: { graphics?: AssembledPipelinesGraphics }) =
 			off(CatalogEventTypes.NAME_CHANGED, onGraphicsChange);
 			off(CatalogEventTypes.TOPICS_REPAINTED, onGraphicsChange);
 		};
-	}, [on, off, firePipelines, fireGlobal, fireCache, assembledGraphics]);
+	}, [on, off, firePipelines, fireGlobal, fireCache, saveQueue, assembledGraphics]);
 
 	return <Fragment/>;
 };
