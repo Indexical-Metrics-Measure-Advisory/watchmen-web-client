@@ -764,7 +764,7 @@ export const Zh = {
 		ECHART: {
 			TEXT: '文本'
 		},
-		DEFINITION_BROKEN: '定义不正确, 暂时无法渲染图表.'
+		DEFINITION_BROKEN: '定义尚未完成, 暂时无法渲染图表.'
 	},
 	INDICATOR: {
 		MEASURE_METHOD: {

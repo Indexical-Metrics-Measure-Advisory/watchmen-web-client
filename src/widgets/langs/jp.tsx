@@ -764,7 +764,7 @@ export const Jp = {
 		ECHART: {
 			TEXT: 'テキスト'
 		},
-		DEFINITION_BROKEN: '定義が正しくないため、一時的にグラフをレンダリングできません。'
+		DEFINITION_BROKEN: '定義はまだ完了していませんが、現時点ではグラフをレンダリングできません。'
 	},
 	INDICATOR: {
 		MEASURE_METHOD: {

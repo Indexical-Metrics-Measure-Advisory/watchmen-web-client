@@ -764,7 +764,7 @@ export const En = {
 		ECHART: {
 			TEXT: 'Text'
 		},
-		DEFINITION_BROKEN: 'Definition is broken, cannot render chart for now.'
+		DEFINITION_BROKEN: 'Definition not complete, cannot render chart for now.'
 	},
 	INDICATOR: {
 		MEASURE_METHOD: {
