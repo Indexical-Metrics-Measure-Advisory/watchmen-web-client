@@ -373,7 +373,9 @@ export const Zh = {
 			DUPLICATE_CATEGORY_SEGMENT_VALUE_CASE_IGNORED: '类别(不区分大小写)在这个分段中已经存在, 是否仍然需要添加?',
 			OTHERS_IS_EXCLUSIVE_ON_CATEGORY_SEGMENT: '类别(其他)具有排他性, 不可与其他类别同时存在.',
 			NO_SEGMENT_VALUE_DEFINED: '尚未定义分段值',
-			ADD_OTHER_CATEGORY: '添加其他值分段'
+			ADD_OTHER_CATEGORY: '添加其他值分段',
+			ENUM_LABEL: '枚举:',
+			ENUM_IS_FIXED_ONCE_SAVE: '枚举在桶被第一次保存之后即锁定, 不再可以修改.'
 		}
 	},
 	SETTINGS: {

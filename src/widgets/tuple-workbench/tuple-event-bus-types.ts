@@ -1,4 +1,5 @@
 import {TuplePage} from '@/services/data/query/tuple-page';
+import {QueryEnum} from '@/services/data/tuples/query-enum-types';
 import {QueryTuple, QueryTupleForHolder, Tuple} from '@/services/data/tuples/tuple-types';
 
 export enum TupleState {
@@ -23,7 +24,9 @@ export enum TupleEventTypes {
 	SAVE_TUPLE = 'save-tuple',
 
 	DO_SEARCH_TUPLE = 'do-search-tuple',
-	TUPLE_SEARCHED = 'tuple-searched'
+	TUPLE_SEARCHED = 'tuple-searched',
+
+	ASK_ENUMS = 'ask-enums',
 }
 
 export interface TupleEventBus {
@@ -66,4 +69,8 @@ export interface TupleEventBus {
 	fire<T extends QueryTuple>(type: TupleEventTypes.TUPLE_SEARCHED, page: TuplePage<T>, searchText: string): this;
 	on<T extends QueryTuple>(type: TupleEventTypes.TUPLE_SEARCHED, listener: (page: TuplePage<T>, searchText: string) => void): this;
 	off<T extends QueryTuple>(type: TupleEventTypes.TUPLE_SEARCHED, listener: (page: TuplePage<T>, searchText: string) => void): this;
+
+	fire(type: TupleEventTypes.ASK_ENUMS, onData: (enums: Array<QueryEnum>) => void): this;
+	on(type: TupleEventTypes.ASK_ENUMS, listener: (onData: (enums: Array<QueryEnum>) => void) => void): this;
+	off(type: TupleEventTypes.ASK_ENUMS, listener: (onData: (enums: Array<QueryEnum>) => void) => void): this;
 }

@@ -1,4 +1,3 @@
-import {EnumMeasureBucketEditor} from '@/indicator-workbench/buckets/enum-measure-bucket';
 import {Bucket} from '@/services/data/tuples/bucket-types';
 import {Lang} from '@/widgets/langs';
 import {TuplePropertyLabel} from '@/widgets/tuple-workbench/tuple-editor';
@@ -9,6 +8,7 @@ import {BucketDescriptionInput} from './bucket/bucket-description-input';
 import {BucketNameInput} from './bucket/bucket-name-input';
 import {BucketTypeInput} from './bucket/bucket-type-input';
 import {CategoryMeasureBucketEditor} from './category-measure-bucket';
+import {EnumMeasureBucketEditor} from './enum-measure-bucket';
 import {NumericValueBucketEditor} from './value-bucket';
 import {NumericValueMeasureBucketEditor} from './value-measure-bucket';
 

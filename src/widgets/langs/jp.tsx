@@ -373,7 +373,9 @@ export const Jp = {
 			DUPLICATE_CATEGORY_SEGMENT_VALUE_CASE_IGNORED: '分類 (大文字と小文字を区別しない) は、このセグメントに既に存在します。',
 			OTHERS_IS_EXCLUSIVE_ON_CATEGORY_SEGMENT: '分類 (その他) は排他的であり、他のカテゴリと同時に存在することはできません。',
 			NO_SEGMENT_VALUE_DEFINED: '値が定義されていません',
-			ADD_OTHER_CATEGORY: 'その他を追加'
+			ADD_OTHER_CATEGORY: 'その他を追加',
+			ENUM_LABEL: '列挙:',
+			ENUM_IS_FIXED_ONCE_SAVE: '列挙は、バケットが最初に保存された後にロックされ、変更できなくなります。'
 		}
 	},
 	SETTINGS: {

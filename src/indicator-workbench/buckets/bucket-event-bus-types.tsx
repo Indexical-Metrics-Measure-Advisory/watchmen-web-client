@@ -14,7 +14,8 @@ export enum BucketEventTypes {
 	SEGMENT_REMOVED = 'segment-removed',
 	SEGMENT_SORTED = 'segment-sorted',
 
-	BUCKET_MEASURE_METHOD_CHANGED = 'bucket-measure-method-changed'
+	BUCKET_MEASURE_METHOD_CHANGED = 'bucket-measure-method-changed',
+	BUCKET_ENUM_CHANGED = 'bucket-enum-changed'
 }
 
 export interface BucketEventBus {
@@ -57,4 +58,8 @@ export interface BucketEventBus {
 	fire(type: BucketEventTypes.BUCKET_MEASURE_METHOD_CHANGED, bucket: Bucket): this;
 	on(type: BucketEventTypes.BUCKET_MEASURE_METHOD_CHANGED, listener: (bucket: Bucket) => void): this;
 	off(type: BucketEventTypes.BUCKET_MEASURE_METHOD_CHANGED, listener: (bucket: Bucket) => void): this;
+
+	fire(type: BucketEventTypes.BUCKET_ENUM_CHANGED, bucket: Bucket): this;
+	on(type: BucketEventTypes.BUCKET_ENUM_CHANGED, listener: (bucket: Bucket) => void): this;
+	off(type: BucketEventTypes.BUCKET_ENUM_CHANGED, listener: (bucket: Bucket) => void): this;
 }

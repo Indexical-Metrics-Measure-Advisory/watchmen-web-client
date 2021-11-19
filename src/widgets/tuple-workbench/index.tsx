@@ -3,6 +3,7 @@ import {IconProp} from '@fortawesome/fontawesome-svg-core';
 import React, {ReactNode} from 'react';
 import {FixWidthPage} from '../basic/page';
 import {PageHeader} from '../basic/page-header';
+import {EnumStore} from './enum-store';
 import {TupleEdit} from './tuple-edit';
 import {HoldByTuple} from './tuple-event-bus-types';
 import {TupleSearch} from './tuple-search';
@@ -43,6 +44,7 @@ export const TupleWorkbench = <T extends Tuple, QT extends QueryTuple, HBT exten
 	} = props;
 
 	return <FixWidthPage maxWidth={pageMaxWidth} minWidth={pageMinWidth}>
+		<EnumStore/>
 		<PageHeader title={title}/>
 		<TupleWorkbenchHeader createButtonLabel={createButtonLabel} canCreate={canCreate}
 		                      moreButtons={moreButtons}

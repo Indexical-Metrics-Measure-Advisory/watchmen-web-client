@@ -2,6 +2,7 @@ import {Bucket, EnumMeasureBucket} from '@/services/data/tuples/bucket-types';
 import {defendEnumMeasureBucket, isEnumMeasureBucket} from '@/services/data/tuples/bucket-utils';
 import React from 'react';
 import {useBucketDefend} from '../use-bucket-defend';
+import {EnumEditor} from './enum-editor';
 
 export const EnumMeasureBucketEditor = (props: { bucket: Bucket }) => {
 	const {bucket} = props;
@@ -13,5 +14,6 @@ export const EnumMeasureBucketEditor = (props: { bucket: Bucket }) => {
 	}
 
 	return <>
+		<EnumEditor bucket={bucket}/>
 	</>;
 };

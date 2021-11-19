@@ -373,7 +373,9 @@ export const En = {
 			DUPLICATE_CATEGORY_SEGMENT_VALUE_CASE_IGNORED: 'Category (case insensitive) already exists in this segment, do you want to add it anyway?',
 			OTHERS_IS_EXCLUSIVE_ON_CATEGORY_SEGMENT: 'Category "others" is exclusive in segment, cannot be coexisting with other values.',
 			NO_SEGMENT_VALUE_DEFINED: 'No Value Defined',
-			ADD_OTHER_CATEGORY: 'Add Segment for Others'
+			ADD_OTHER_CATEGORY: 'Add Segment for Others',
+			ENUM_LABEL: 'Enumeration:',
+			ENUM_IS_FIXED_ONCE_SAVE: 'Enumeration cannot be changed once saved.'
 		}
 	},
 	SETTINGS: {
