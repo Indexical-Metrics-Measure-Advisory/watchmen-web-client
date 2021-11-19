@@ -763,7 +763,8 @@ export const Jp = {
 		},
 		ECHART: {
 			TEXT: 'テキスト'
-		}
+		},
+		DEFINITION_BROKEN: '定義が正しくないため、一時的にグラフをレンダリングできません。'
 	},
 	INDICATOR: {
 		MEASURE_METHOD: {

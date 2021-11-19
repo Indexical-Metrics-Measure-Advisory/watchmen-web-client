@@ -763,7 +763,8 @@ export const En = {
 		},
 		ECHART: {
 			TEXT: 'Text'
-		}
+		},
+		DEFINITION_BROKEN: 'Definition is broken, cannot render chart for now.'
 	},
 	INDICATOR: {
 		MEASURE_METHOD: {

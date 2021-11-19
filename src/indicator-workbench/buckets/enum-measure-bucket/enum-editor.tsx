@@ -24,7 +24,7 @@ export const EnumEditor = (props: { bucket: EnumMeasureBucket }) => {
 		fireTuple(TupleEventTypes.ASK_ENUMS, (enums: Array<QueryEnum>) => {
 			setEnums(enums);
 		});
-	}, []);
+	}, [fireTuple]);
 
 	const onEnumChange = (option: DropdownOption) => {
 		bucket.enumId = option.value as EnumId;
@@ -48,7 +48,10 @@ export const EnumEditor = (props: { bucket: EnumMeasureBucket }) => {
 			                         options={options}
 			                         onChange={onEnumChange}/>
 			: <TuplePropertyLabel>
-				{options.find(option => bucket.enumId == option.value)?.label ?? 'Noname Enumeration'}
+				{options.find(option => {
+					// eslint-disable-next-line
+					return bucket.enumId == option.value;
+				})?.label ?? 'Noname Enumeration'}
 			</TuplePropertyLabel>}
 	</>;
 };

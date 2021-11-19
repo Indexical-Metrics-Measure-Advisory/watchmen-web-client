@@ -1,14 +1,17 @@
 import {fetchChartData, fetchChartDataTemporary} from '@/services/data/console/report';
 import {ChartDataSet} from '@/services/data/tuples/chart-types';
 import {Report, ReportRect} from '@/services/data/tuples/report-types';
+import {isReportDefValid} from '@/services/data/tuples/report-utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useRef, useState} from 'react';
 import {ICON_DELETE, ICON_DRAG_HANDLE, ICON_LOADING} from '../basic/constants';
 import {useForceUpdate} from '../basic/utils';
 import {useEventBus} from '../events/event-bus';
 import {EventTypes} from '../events/types';
+import {Lang} from '../langs';
+import {ChartHelper} from './chart-utils';
 import {Diagram} from './diagram';
-import {DiagramLoading} from './diagram/widgets';
+import {DiagramBroken, DiagramLoading} from './diagram/widgets';
 import {useDragAndResize} from './drag-and-resize/use-drag-and-resize';
 import {useReportEventBus} from './report-event-bus';
 import {ReportEventTypes} from './report-event-bus-types';
@@ -18,7 +21,9 @@ import {ChartButton, ChartButtons, ChartContainer, ChartDragHandle, ChartDragHan
 enum DiagramLoadState {
 	FALSE = 'false',
 	TRUE = 'true',
-	RELOAD = 'reload'
+	RELOAD = 'reload',
+
+	DEF_BROKEN = 'def-broken'
 }
 
 interface DiagramState {
@@ -48,6 +53,10 @@ export const Container = (props: {
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		if (shouldLoadData(diagramState.loadState)) {
+			if (!isReportDefValid(report, ChartHelper[report.chart.type]?.getDef(), report.simulating)) {
+				setDiagramState({loadState: DiagramLoadState.DEF_BROKEN, dataset: {data: []}});
+				return;
+			}
 			if (report.simulating) {
 				window.setTimeout(() => {
 					const dataset = {data: report.simulateData ?? []};
@@ -141,9 +150,13 @@ export const Container = (props: {
 	return <ChartContainer rect={report.rect} fixed={fixed} ref={containerRef}>
 		{diagramState.loadState === DiagramLoadState.TRUE
 			? <Diagram report={report} dataset={diagramState.dataset!} thumbnail={thumbnail}/>
-			: <DiagramLoading>
-				<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>
-			</DiagramLoading>}
+			: (diagramState.loadState === DiagramLoadState.DEF_BROKEN
+				? <DiagramBroken>
+					{Lang.CHART.DEFINITION_BROKEN}
+				</DiagramBroken>
+				: <DiagramLoading>
+					<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>
+				</DiagramLoading>)}
 		{
 			fixed
 				? null

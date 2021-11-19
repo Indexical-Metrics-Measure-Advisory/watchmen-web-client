@@ -19,6 +19,17 @@ export const DiagramContainer = styled.div.attrs<{ settings?: ChartSettings }>((
 	height   : 100%;
 	overflow : hidden;
 `;
+export const DiagramBroken = styled.div.attrs({'data-widget': 'chart-diagram-broken'})`
+	display         : flex;
+	align-items     : center;
+	justify-content : center;
+	font-size       : 3.5em;
+	font-family     : var(--title-font-family);
+	height          : 100%;
+	padding         : 0 calc(var(--margin) * 2);
+	color           : var(--font-color);
+	opacity         : 0.3;
+`;
 export const DiagramLoading = styled.div.attrs({'data-widget': 'chart-diagram-loading'})`
 	display         : flex;
 	align-items     : center;

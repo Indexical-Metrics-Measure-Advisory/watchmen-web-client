@@ -1,8 +1,16 @@
-import {ComputedParameter, ParameterComputeType} from './factor-calculator-types';
+import {ChartDef} from './chart-def/chart-def-types';
+import {ComputedParameter, ParameterComputeType, ParameterExpressionOperator} from './factor-calculator-types';
 import {isDateFactor, isEnumFactor, isNumericFactor} from './factor-calculator-utils';
 import {Factor, FactorType} from './factor-types';
 import {isComputedParameter, isConstantParameter, isTopicFactorParameter} from './parameter-utils';
-import {ReportFilter, ReportFilterExpression, ReportFilterJoint, ReportFunnel, ReportFunnelType} from './report-types';
+import {
+	Report,
+	ReportFilter,
+	ReportFilterExpression,
+	ReportFilterJoint,
+	ReportFunnel,
+	ReportFunnelType
+} from './report-types';
 import {Subject} from './subject-types';
 import {Topic} from './topic-types';
 import {generateUuid} from './utils';
@@ -118,4 +126,79 @@ export const detectFunnels = (subject: Subject, topics: Array<Topic>): Array<Rep
 			return null;
 		}
 	}).filter(x => x != null).flat() as Array<ReportFunnel>;
+};
+
+export const isReportDefValid = (report: Report, chartDef: ChartDef | null | undefined, ignoreFilter: boolean = false): boolean => {
+	if (chartDef == null) {
+		return false;
+	}
+
+	const indicators = report.indicators || [];
+	if (chartDef.minIndicatorCount && indicators.length < chartDef.minIndicatorCount) {
+		return false;
+	}
+	if (chartDef.maxIndicatorCount && indicators.length > chartDef.maxIndicatorCount) {
+		return false;
+	}
+	if (indicators.some(indicator => !indicator.columnId)) {
+		return false;
+	}
+
+	const dimensions = report.dimensions || [];
+	if (chartDef.minDimensionCount && dimensions.length < chartDef.minDimensionCount) {
+		return false;
+	}
+	if (chartDef.maxDimensionCount && dimensions.length > chartDef.maxDimensionCount) {
+		return false;
+	}
+	if (dimensions.some(dimension => !dimension.columnId)) {
+		return false;
+	}
+
+	if (ignoreFilter) {
+		return true;
+	}
+
+	if (report.filters) {
+		if (report.filters.jointType == null) {
+			return false;
+		}
+		if (report.filters.filters == null || report.filters.filters.length === 0) {
+			return true;
+		}
+
+		const isFilterValid = (filter: ReportFilter): boolean => {
+			if (isJointFilter(filter)) {
+				return filter.jointType != null
+					&& filter.filters != null && filter.filters.length !== 0
+					&& filter.filters.every(isFilterValid);
+			} else if (isExpressionFilter(filter)) {
+				if (!isTopicFactorParameter(filter.left)) {
+					return false;
+				}
+				if (!filter.left.factorId) {
+					return false;
+				}
+				if (filter.operator === ParameterExpressionOperator.EMPTY || filter.operator === ParameterExpressionOperator.NOT_EMPTY) {
+					return true;
+				}
+				if (!isConstantParameter(filter.right)) {
+					return false;
+				}
+				if (filter.operator === ParameterExpressionOperator.EQUALS || filter.operator === ParameterExpressionOperator.NOT_EQUALS) {
+					return true;
+				}
+				// noinspection RedundantIfStatementJS
+				if ((filter.right.value || '').trim().length === 0) {
+					return false;
+				}
+				return true;
+			} else {
+				return false;
+			}
+		};
+		return report.filters.filters.every(isFilterValid);
+	}
+
+	return true;
 };
