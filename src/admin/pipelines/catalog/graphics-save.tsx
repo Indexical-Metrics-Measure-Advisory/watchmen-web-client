@@ -12,10 +12,6 @@ import {CatalogEventTypes} from './catalog-event-bus-types';
 import {transformGraphicsToSave} from './graphics-utils';
 import {AssembledPipelinesGraphics} from './types';
 
-interface SaveState {
-	handle?: number;
-}
-
 export const GraphicsSave = (props: { graphics?: AssembledPipelinesGraphics }) => {
 	const {graphics: assembledGraphics} = props;
 
@@ -23,27 +19,22 @@ export const GraphicsSave = (props: { graphics?: AssembledPipelinesGraphics }) =
 	const {fire: fireCache} = useAdminCacheEventBus();
 	const {fire: firePipelines} = usePipelinesEventBus();
 	const {on, off} = useCatalogEventBus();
-	const [, setState] = useState<SaveState>({});
+	const [, setTimeoutHandle] = useState<number | null>(null);
 	useEffect(() => {
 		const onGraphicsChange = () => {
 			if (assembledGraphics) {
 				const graphics = transformGraphicsToSave(assembledGraphics);
 				firePipelines(PipelinesEventTypes.GRAPHICS_CHANGED, graphics);
-				setState(({handle}) => {
-					// eslint-disable-next-line
-					if (handle) {
-						window.clearTimeout(handle);
+				setTimeoutHandle(timeoutHandle => {
+					if (timeoutHandle != null) {
+						window.clearTimeout(timeoutHandle);
 					}
-					return {
-						handle: window.setTimeout(() => {
-							fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-								async () => await savePipelinesGraphics(graphics),
-								async () => {
-									fireCache(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, graphics);
-								}
-							);
-						}, SAVE_TIMEOUT)
-					};
+					return window.setTimeout(() => {
+						fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+							async () => await savePipelinesGraphics(graphics),
+							() => fireCache(AdminCacheEventTypes.SAVE_PIPELINES_GRAPHICS, graphics)
+						);
+					}, SAVE_TIMEOUT);
 				});
 			}
 		};
