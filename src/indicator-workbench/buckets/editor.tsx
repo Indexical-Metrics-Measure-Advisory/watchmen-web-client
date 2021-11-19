@@ -1,3 +1,4 @@
+import {EnumMeasureBucketEditor} from '@/indicator-workbench/buckets/enum-measure-bucket';
 import {Bucket} from '@/services/data/tuples/bucket-types';
 import {Lang} from '@/widgets/langs';
 import {TuplePropertyLabel} from '@/widgets/tuple-workbench/tuple-editor';
@@ -29,6 +30,7 @@ const BucketEditor = (props: { bucket: Bucket }) => {
 		<NumericValueBucketEditor bucket={bucket}/>
 		<NumericValueMeasureBucketEditor bucket={bucket}/>
 		<CategoryMeasureBucketEditor bucket={bucket}/>
+		<EnumMeasureBucketEditor bucket={bucket}/>
 	</BucketEventBusProvider>;
 };
 

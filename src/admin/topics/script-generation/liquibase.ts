@@ -83,13 +83,19 @@ const buildColumnOnModify = (options: { topic: Topic; columnName: string; column
 	return `\t<!-- add ${columnName} when column not exists -->
 	<changeSet id="${v4()}" author="watchmen">
 		<preConditions onFail="MARK_RAN">
-			<dbms type="mysql"/>
-			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}'</sqlCheck>
-        </preConditions>
-		<preConditions onFail="MARK_RAN">
-			<dbms type="oracle"/>
-			<sqlCheck expectedResult="0">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}'</sqlCheck>
-        </preConditions>
+			<or>
+				<and>
+					<dbms type="mysql"/>
+					<sqlCheck expectedResult="0">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}'</sqlCheck>
+				</and>
+			</or>
+			<or>
+				<and>
+					<dbms type="oracle"/>
+					<sqlCheck expectedResult="0">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}'</sqlCheck>
+				</and>
+			</or>
+       </preConditions>
         <addColumn tableName="${tableName}">
         	<column name="${columnName}" type="\${${columnType}}"/>
 		</addColumn>
@@ -97,12 +103,16 @@ const buildColumnOnModify = (options: { topic: Topic; columnName: string; column
     <!-- modify ${columnName} when column exists -->
     <changeSet id="${v4()}" author="watchmen">
 		<preConditions onFail="MARK_RAN">
-			<dbms type="mysql"/>
-			<sqlCheck expectedResult="1">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}'</sqlCheck>
-        </preConditions>
-		<preConditions onFail="MARK_RAN">
-			<dbms type="oracle"/>
-			<sqlCheck expectedResult="1">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}'</sqlCheck>
+			<or>
+				<and>
+					<dbms type="mysql"/>
+					<sqlCheck expectedResult="1">SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}'</sqlCheck>
+				</and>
+				<and>
+					<dbms type="oracle"/>
+					<sqlCheck expectedResult="1">SELECT COUNT(1) FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '${tableName}' AND COLUMN_NAME = '${columnName}'</sqlCheck>
+				</and>
+			</or>
         </preConditions>
         <modifyDataType tableName="${tableName}" columnName="${columnName}" newDataType="\${${columnType}}"/>
     </changSet>`;
