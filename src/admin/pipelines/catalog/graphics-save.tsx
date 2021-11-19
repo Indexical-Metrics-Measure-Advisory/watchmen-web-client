@@ -1,10 +1,10 @@
+import {SAVE_TIMEOUT} from '@/services/constants';
 import {savePipelinesGraphics} from '@/services/data/tuples/pipeline';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import React, {Fragment, useEffect, useState} from 'react';
 import {useAdminCacheEventBus} from '../../cache/cache-event-bus';
 import {AdminCacheEventTypes} from '../../cache/cache-event-bus-types';
-import {SAVE_TIMEOUT} from '../constants';
 import {usePipelinesEventBus} from '../pipelines-event-bus';
 import {PipelinesEventTypes} from '../pipelines-event-bus-types';
 import {useCatalogEventBus} from './catalog-event-bus';

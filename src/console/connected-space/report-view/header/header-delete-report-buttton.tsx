@@ -1,4 +1,5 @@
 import {toSubjectReport, toSubjectReports} from '@/routes/utils';
+import {SAVE_TIMEOUT} from '@/services/constants';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {deleteReport, saveReport} from '@/services/data/tuples/report';
 import {Report} from '@/services/data/tuples/report-types';
@@ -17,7 +18,6 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
-import {SAVE_TIMEOUT} from '../../constants';
 
 interface ReportDataState {
 	styleChanged: boolean;

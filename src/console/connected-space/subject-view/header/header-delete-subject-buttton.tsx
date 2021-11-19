@@ -1,4 +1,5 @@
 import {toConnectedSpace} from '@/routes/utils';
+import {SAVE_TIMEOUT} from '@/services/constants';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {deleteSubject, renameSubject, saveSubject} from '@/services/data/tuples/subject';
 import {Subject} from '@/services/data/tuples/subject-types';
@@ -16,7 +17,6 @@ import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 import {useConnectedSpaceEventBus} from '../../connected-space-event-bus';
 import {ConnectedSpaceEventTypes} from '../../connected-space-event-bus-types';
-import {SAVE_TIMEOUT} from '../../constants';
 import {useSubjectEventBus} from '../subject-event-bus';
 import {SubjectEventTypes} from '../subject-event-bus-types';
 

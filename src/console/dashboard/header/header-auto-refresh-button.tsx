@@ -1,3 +1,4 @@
+import {REPORT_AUTO_REFRESH_INTERVAL} from '@/services/constants';
 import {Dashboard} from '@/services/data/tuples/dashboard-types';
 import {ICON_AUTO_REFRESH} from '@/widgets/basic/constants';
 import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
@@ -6,7 +7,6 @@ import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useState} from 'react';
-import {REPORT_AUTO_REFRESH_INTERVAL} from '../constants';
 import {useDashboardEventBus} from '../dashboard-event-bus';
 import {DashboardEventTypes} from '../dashboard-event-bus-types';
 

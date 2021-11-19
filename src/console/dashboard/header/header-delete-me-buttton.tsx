@@ -1,3 +1,4 @@
+import {SAVE_TIMEOUT} from '@/services/constants';
 import {deleteDashboard, saveDashboard} from '@/services/data/tuples/dashboard';
 import {Dashboard} from '@/services/data/tuples/dashboard-types';
 import {Button} from '@/widgets/basic/button';
@@ -13,7 +14,6 @@ import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useConsoleEventBus} from '../../console-event-bus';
 import {ConsoleEventTypes} from '../../console-event-bus-types';
-import {SAVE_TIMEOUT} from '../constants';
 import {useDashboardEventBus} from '../dashboard-event-bus';
 import {DashboardEventTypes} from '../dashboard-event-bus-types';
 
@@ -60,13 +60,13 @@ export const HeaderDeleteMeButton = (props: { dashboard: Dashboard }) => {
 	const {fire: fireGlobal} = useEventBus();
 	const {fire: fireConsole} = useConsoleEventBus();
 	const {on, off} = useDashboardEventBus();
-	const [timeout, setTimeout] = useState<number | null>(null);
+	const [timeoutHandle, setTimeoutHandle] = useState<number | null>(null);
 	useEffect(() => {
 		const onSaveDashboard = (d: Dashboard) => {
 			if (d !== dashboard) {
 				return;
 			}
-			setTimeout(timeout => {
+			setTimeoutHandle(timeout => {
 				timeout && window.clearTimeout(timeout);
 				return window.setTimeout(() => {
 					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => await saveDashboard(d));
@@ -80,7 +80,10 @@ export const HeaderDeleteMeButton = (props: { dashboard: Dashboard }) => {
 	}, [on, off, fireGlobal, dashboard]);
 
 	const onDeleted = async () => {
-		timeout && window.clearTimeout(timeout);
+		if (timeoutHandle) {
+			setTimeoutHandle(null);
+			window.clearTimeout(timeoutHandle);
+		}
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => await deleteDashboard(dashboard), () => {
 			fireConsole(ConsoleEventTypes.DASHBOARD_REMOVED_FROM_FAVORITE, dashboard.dashboardId);
 			fireConsole(ConsoleEventTypes.DASHBOARD_REMOVED, dashboard);

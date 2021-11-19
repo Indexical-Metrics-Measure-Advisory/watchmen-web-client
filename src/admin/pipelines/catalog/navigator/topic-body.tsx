@@ -11,7 +11,12 @@ export const TopicBody = (props: { topic: Topic, visible: boolean }) => {
 
 	return <TopicBodyContainer visible={visible}>
 		{hasFactor
-			? factors.map(factor => {
+			? [...factors].sort((f1, f2) => {
+				return (f1.label || f1.name || '').localeCompare(f2.label || f2.name || '', void 0, {
+					sensitivity: 'base',
+					caseFirst: 'upper'
+				});
+			}).map(factor => {
 				return <FactorRow topic={topic} factor={factor} key={factor.factorId}/>;
 			})
 			: <NoFactor>No factor defined.</NoFactor>

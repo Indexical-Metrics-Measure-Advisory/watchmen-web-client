@@ -1,3 +1,4 @@
+import {SAVE_TIMEOUT} from '@/services/constants';
 import {deleteConnectedSpace, saveConnectedSpaceGraphics} from '@/services/data/tuples/connected-space';
 import {ConnectedSpace, ConnectedSpaceGraphics} from '@/services/data/tuples/connected-space-types';
 import {Button} from '@/widgets/basic/button';
@@ -13,7 +14,6 @@ import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useConsoleEventBus} from '../../../console-event-bus';
 import {ConsoleEventTypes} from '../../../console-event-bus-types';
-import {SAVE_TIMEOUT} from '../../constants';
 
 const DeleteDialogBody = styled(DialogBody)`
 	flex-direction : column;
@@ -57,12 +57,12 @@ export const HeaderDeleteConnectedSpaceButton = (props: { connectedSpace: Connec
 
 	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useConsoleEventBus();
-	const [timeout, setTimeout] = useState<number | null>(null);
+	const [timeoutHandle, setTimeoutHandle] = useState<number | null>(null);
 	useEffect(() => {
 		if (connectedSpace != null) {
 			// release timeout for previous connected space,
 			// there might be a saving
-			setTimeout(null);
+			setTimeoutHandle(null);
 		}
 	}, [connectedSpace]);
 	useEffect(() => {
@@ -71,7 +71,7 @@ export const HeaderDeleteConnectedSpaceButton = (props: { connectedSpace: Connec
 			if (graphics.connectId != connectedSpace.connectId) {
 				return;
 			}
-			setTimeout(timeout => {
+			setTimeoutHandle(timeout => {
 				timeout && window.clearTimeout(timeout);
 				return window.setTimeout(() => {
 					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
@@ -87,7 +87,7 @@ export const HeaderDeleteConnectedSpaceButton = (props: { connectedSpace: Connec
 
 	const onDeleted = async () => {
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
-			timeout && window.clearTimeout(timeout);
+			timeoutHandle && window.clearTimeout(timeoutHandle);
 			await deleteConnectedSpace(connectedSpace);
 		}, () => {
 			fire(ConsoleEventTypes.CONNECTED_SPACE_REMOVED_FROM_FAVORITE, connectedSpace.connectId);
