@@ -9,6 +9,7 @@ import {
 	ReadTopicAction
 } from '@/services/data/tuples/pipeline-stage-unit-action/read-topic-actions-types';
 import {isMockService} from '@/services/data/utils';
+import {toDisplayBy, toDisplayValue} from './utils';
 import {BodyLabel, BodyValue, ObjectValue} from './widgets';
 
 const redressAction = (action: any): ReadTopicAction => {
@@ -34,23 +35,20 @@ export const ReadActionLog = (props: {
 	}
 
 	const {value, by} = log;
-	let displayValue;
-	if (value === void 0) {
-		displayValue = 'Not be logged';
-	} else if (value == null) {
-		displayValue = 'null';
-	} else {
-		displayValue = JSON.stringify(value, null, 2);
-	}
+	const displayValue = toDisplayValue(value);
+	const displayBy = toDisplayBy(by);
 
-	const isObject = displayValue.startsWith('[') || displayValue.startsWith('{');
+	const valueIsObject = displayValue.startsWith('[') || displayValue.startsWith('{');
+	const byIsObject = displayBy.startsWith('[') || displayBy.startsWith('{');
 
 	return <>
 		<BodyLabel>{action.variableName} ↢</BodyLabel>
-		{isObject
+		{valueIsObject
 			? <ObjectValue value={displayValue} readOnly={true}/>
 			: <BodyValue>{displayValue}</BodyValue>}
 		<BodyLabel>Matched By</BodyLabel>
-		<BodyValue>{by || 'No be logged'}</BodyValue>
+		{byIsObject
+			? <ObjectValue value={displayBy} readOnly={true}/>
+			: <BodyValue>{by}</BodyValue>}
 	</>;
 };

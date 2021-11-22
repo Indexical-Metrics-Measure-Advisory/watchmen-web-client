@@ -14,6 +14,7 @@ import {
 import {Topic} from '@/services/data/tuples/topic-types';
 import {isMockService} from '@/services/data/utils';
 import {ImpactRows} from './impact-rows';
+import {toDisplayBy, toDisplayValue} from './utils';
 import {BodyLabel, BodyValue, ObjectValue} from './widgets';
 
 const redressAction = (action: any): WriteTopicAction => {
@@ -40,14 +41,8 @@ export const WriteActionLog = (props: {
 	}
 
 	const {value, by} = log;
-	let displayValue;
-	if (value === void 0) {
-		displayValue = 'Not be logged';
-	} else if (value == null) {
-		displayValue = 'null';
-	} else {
-		displayValue = JSON.stringify(value, null, 2);
-	}
+	const displayValue = toDisplayValue(value);
+	const displayBy = toDisplayBy(by);
 
 	let target;
 	const topic = topicsMap.get(action.topicId);
@@ -57,17 +52,20 @@ export const WriteActionLog = (props: {
 		const factor = topic?.factors.find(factor => factor.factorId == (action as WriteFactorAction).factorId);
 		target += `.${factor?.label || factor?.name || '?'}`;
 	}
-	const isObject = displayValue.startsWith('[') || displayValue.startsWith('{');
+	const valueIsObject = displayValue.startsWith('[') || displayValue.startsWith('{');
+	const byIsObject = displayBy.startsWith('[') || displayBy.startsWith('{');
 
 	return <>
 		<ImpactRows log={log}/>
 		<BodyLabel>Write To</BodyLabel>
 		<BodyValue>{target}</BodyValue>
 		<BodyLabel>Write Content</BodyLabel>
-		{isObject
+		{valueIsObject
 			? <ObjectValue value={displayValue} readOnly={true}/>
 			: <BodyValue>{displayValue}</BodyValue>}
 		<BodyLabel>Matched By</BodyLabel>
-		<BodyValue>{by || 'No be logged'}</BodyValue>
+		{byIsObject
+			? <ObjectValue value={displayBy} readOnly={true}/>
+			: <BodyValue>{by}</BodyValue>}
 	</>;
 };

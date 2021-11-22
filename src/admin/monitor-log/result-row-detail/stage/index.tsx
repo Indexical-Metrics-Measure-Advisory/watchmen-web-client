@@ -1,4 +1,4 @@
-import {MonitorLogStage} from '@/services/data/admin/logs';
+import {MonitorLogStage, MonitorLogUnit} from '@/services/data/admin/logs';
 import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
 import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
 import {Topic} from '@/services/data/tuples/topic-types';
@@ -10,6 +10,8 @@ import {v4} from 'uuid';
 import {DetailProcessUnit} from '../unit';
 import {ExpandToggleButton, TitleExecutionLabel, TitleLabel, TitleNameLabel} from '../widgets';
 import {DetailProcessStageContainer, StageSectionTitle} from './widgets';
+
+type UnitLogs = { units: Array<JSX.Element>; index: number; last: PipelineStageUnit | null };
 
 export const DetailProcessStage = (props: {
 	stage: PipelineStage;
@@ -39,14 +41,20 @@ export const DetailProcessStage = (props: {
 			</ExpandToggleButton>
 		</StageSectionTitle>
 		{expanded
-			? (log.units || []).map((unitLog, unitIndex) => {
-				const unit: PipelineStageUnit = (stage.units || [])[unitIndex] || {};
-				return <DetailProcessUnit unit={unit}
-				                          stageIndex={stageIndex} unitIndex={unitIndex + 1}
-				                          log={unitLog}
-				                          topicsMap={topicsMap}
-				                          key={unit.unitId || v4()}/>;
-			})
+			? (log.units || []).reduce((logs, log: MonitorLogUnit) => {
+				if (logs.last != null && logs.last.unitId != log.unitId) {
+					// move to next unit
+					logs.index = logs.index + 1;
+				}
+				const unit: PipelineStageUnit = (stage.units || [])[logs.index] || {};
+				logs.last = unit;
+				logs.units.push(<DetailProcessUnit unit={unit}
+				                                   stageIndex={stageIndex} unitIndex={logs.index + 1}
+				                                   log={log}
+				                                   topicsMap={topicsMap}
+				                                   key={unit.unitId || v4()}/>);
+				return logs;
+			}, {units: [], index: 0, last: null} as UnitLogs).units
 			: null}
 	</DetailProcessStageContainer>;
 };
