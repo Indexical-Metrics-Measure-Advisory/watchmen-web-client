@@ -64,12 +64,24 @@ export const AvailableEnumItems = (props: { bucket: EnumMeasureBucket; enum?: En
 			off(BucketEventTypes.SEGMENT_NAME_CHANGED, onSegmentChanged);
 		};
 	}, [on, off, forceUpdate, bucket, selectedSegment]);
+	useEffect(() => {
+		const onValueRemoved = (aBucket: Bucket) => {
+			if (aBucket !== bucket) {
+				return;
+			}
+			forceUpdate();
+		};
+		on(BucketEventTypes.CATEGORY_SEGMENT_VALUE_REMOVED, onValueRemoved);
+		return () => {
+			off(BucketEventTypes.CATEGORY_SEGMENT_VALUE_REMOVED, onValueRemoved);
+		};
+	}, [on, off, forceUpdate, bucket]);
 
 	const onEnumClicked = (item: EnumItem) => () => {
 		if (selection.includes(item)) {
-			setSelection([...selection, item]);
-		} else {
 			setSelection(selection.filter(exists => exists !== item));
+		} else {
+			setSelection([...selection, item]);
 		}
 	};
 	const onSegmentChanged = (option: DropdownOption) => {

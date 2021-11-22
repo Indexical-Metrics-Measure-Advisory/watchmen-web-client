@@ -85,7 +85,8 @@ export const AvailableItemOperator = styled.div`
 		margin-right : calc(var(--margin) / 2);
 	}
 	> div[data-widget=tuple-property-dropdown] {
-		width : auto;
+		width     : auto;
+		min-width : 300px;
 	}
 	> button:last-child {
 		margin-left : calc(var(--margin) / 2);
