@@ -42,6 +42,7 @@ export const DetailProcessStage = (props: {
 		</StageSectionTitle>
 		{expanded
 			? (log.units || []).reduce((logs, log: MonitorLogUnit) => {
+				// eslint-disable-next-line
 				if (logs.lastUnitId != null && logs.lastUnitId != log.unitId) {
 					// move to next unit
 					logs.index = logs.index + 1;
@@ -52,7 +53,7 @@ export const DetailProcessStage = (props: {
 				                                   stageIndex={stageIndex} unitIndex={logs.index + 1}
 				                                   log={log}
 				                                   topicsMap={topicsMap}
-				                                   key={unit.unitId || v4()}/>);
+				                                   key={v4()}/>);
 				return logs;
 			}, {units: [], index: 0} as UnitLogs).units
 			: null}
