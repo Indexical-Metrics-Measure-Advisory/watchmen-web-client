@@ -8,8 +8,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useState} from 'react';
 import {v4} from 'uuid';
 import {DetailProcessAction} from '../action';
-import {ExpandToggleButton, SectionTitle, TitleExecutionLabel, TitleLabel, TitleNameLabel} from '../widgets';
-import {DetailProcessUnitContainer} from './widgets';
+import {ExpandToggleButton, TitleExecutionLabel, TitleLabel, TitleNameLabel} from '../widgets';
+import {DetailProcessUnitContainer, UnitSectionTitle} from './widgets';
 
 export const DetailProcessUnit = (props: {
 	unit: PipelineStageUnit;
@@ -27,17 +27,18 @@ export const DetailProcessUnit = (props: {
 	const unitExecution = log.conditionResult ?? true;
 
 	return <DetailProcessUnitContainer>
-		<SectionTitle>
+		<UnitSectionTitle>
 			<TitleLabel>
 				<TitleNameLabel># {stageIndex}.{unitIndex}. Unit Execution</TitleNameLabel>
 				<TitleExecutionLabel data-ignored={!unitExecution}>{`${unitExecution}`}</TitleExecutionLabel>
+				<TitleNameLabel>[{log.name || unit.name || 'Noname Unit'}]</TitleNameLabel>
 			</TitleLabel>
 			<ExpandToggleButton
 				tooltip={{label: expanded ? 'Collapse' : 'Expand', alignment: TooltipAlignment.RIGHT, offsetX: 8}}
 				onClick={onExpandToggleClicked}>
 				<FontAwesomeIcon icon={expanded ? ICON_COLLAPSE_PANEL : ICON_EXPAND_PANEL}/>
 			</ExpandToggleButton>
-		</SectionTitle>
+		</UnitSectionTitle>
 		{expanded
 			? (log.actions || []).map((actionLog, actionIndex) => {
 				const action: PipelineStageUnitAction = (unit.do || [])[actionIndex] || {};

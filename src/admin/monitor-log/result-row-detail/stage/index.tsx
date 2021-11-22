@@ -8,8 +8,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useState} from 'react';
 import {v4} from 'uuid';
 import {DetailProcessUnit} from '../unit';
-import {ExpandToggleButton, SectionTitle, TitleExecutionLabel, TitleLabel, TitleNameLabel} from '../widgets';
-import {DetailProcessStageContainer} from './widgets';
+import {ExpandToggleButton, TitleExecutionLabel, TitleLabel, TitleNameLabel} from '../widgets';
+import {DetailProcessStageContainer, StageSectionTitle} from './widgets';
 
 export const DetailProcessStage = (props: {
 	stage: PipelineStage;
@@ -26,17 +26,18 @@ export const DetailProcessStage = (props: {
 	const stageExecution = log.conditionResult ?? true;
 
 	return <DetailProcessStageContainer>
-		<SectionTitle>
+		<StageSectionTitle>
 			<TitleLabel>
 				<TitleNameLabel># {stageIndex}. Stage Execution</TitleNameLabel>
 				<TitleExecutionLabel data-ignored={!stageExecution}>{`${stageExecution}`}</TitleExecutionLabel>
+				<TitleNameLabel>[{log.name || stage.name || 'Noname Stage'}]</TitleNameLabel>
 			</TitleLabel>
 			<ExpandToggleButton
 				tooltip={{label: expanded ? 'Collapse' : 'Expand', alignment: TooltipAlignment.RIGHT, offsetX: 8}}
 				onClick={onExpandToggleClicked}>
 				<FontAwesomeIcon icon={expanded ? ICON_COLLAPSE_PANEL : ICON_EXPAND_PANEL}/>
 			</ExpandToggleButton>
-		</SectionTitle>
+		</StageSectionTitle>
 		{expanded
 			? (log.units || []).map((unitLog, unitIndex) => {
 				const unit: PipelineStageUnit = (stage.units || [])[unitIndex] || {};

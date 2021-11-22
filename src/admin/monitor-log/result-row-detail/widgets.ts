@@ -144,10 +144,16 @@ export const SectionTitle = styled.div.attrs({'data-widget': 'monitor-log-detail
 	border-bottom         : var(--border);
 `;
 export const TitleLabel = styled.span`
+	white-space   : nowrap;
+	overflow      : hidden;
+	text-overflow : ellipsis;
 `;
 export const TitleNameLabel = styled.span`
 	font-weight  : var(--font-demi-bold);
 	margin-right : calc(var(--margin) / 2);
+	&:not(:first-child) {
+		margin-left : calc(var(--margin) / 2);
+	}
 `;
 export const TitleExecutionLabel = styled.span`
 	color       : var(--primary-color);

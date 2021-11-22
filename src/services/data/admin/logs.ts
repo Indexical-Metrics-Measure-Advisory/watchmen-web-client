@@ -1,11 +1,14 @@
 import {Apis, post} from '../apis';
 import {fetchMockMonitorLogs} from '../mock/admin/mock-logs';
+import {PipelineStageId} from '../tuples/pipeline-stage-types';
 import {
+	PipelineStageUnitActionId,
 	PipelineStageUnitActionType,
 	ReadTopicActionType,
 	SystemActionType,
 	WriteTopicActionType
 } from '../tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {PipelineStageUnitId} from '../tuples/pipeline-stage-unit-types';
 import {PipelineId} from '../tuples/pipeline-types';
 import {TopicId} from '../tuples/topic-types';
 import {DateTime} from '../types';
@@ -29,6 +32,7 @@ export type MonitorLogActionId = string;
 
 export interface MonitorLogAction {
 	uid: MonitorLogActionId;
+	actionId: PipelineStageUnitActionId;
 	type: PipelineStageUnitActionType;
 	status: MonitorLogStatus;
 	completeTime: DateTime;
@@ -68,11 +72,15 @@ export interface WriteToExternalAction extends MonitorLogAction {
 }
 
 export interface MonitorLogUnit {
+	unitId: PipelineStageUnitId;
+	name: string;
 	conditionResult: boolean;
 	actions: Array<MonitorLogAction>;
 }
 
 export interface MonitorLogStage {
+	stageId: PipelineStageId;
+	name: string;
 	conditionResult: boolean;
 	units: Array<MonitorLogUnit>;
 }
