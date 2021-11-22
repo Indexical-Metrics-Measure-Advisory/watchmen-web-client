@@ -73,13 +73,12 @@ export const AvailableEnumItem = styled.span.attrs<{ selected: boolean }>(({sele
 	}
 `;
 export const AvailableItemOperator = styled.div`
-	display             : flex;
-	position            : relative;
-	align-items         : center;
-	border-top          : var(--border);
-	border-bottom       : var(--border);
-	border-bottom-width : calc(var(--border-width) * 2);
-	margin-bottom       : calc(var(--margin) / 2);
+	display       : flex;
+	position      : relative;
+	align-items   : center;
+	border-top    : var(--border);
+	padding       : calc(var(--margin) / 4) 0;
+	margin-bottom : calc(var(--margin) / 2);
 	> div:first-child {
 		white-space  : nowrap;
 		margin-right : calc(var(--margin) / 2);

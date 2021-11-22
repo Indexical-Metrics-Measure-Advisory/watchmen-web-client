@@ -5,6 +5,7 @@ import {
 	OtherCategorySegmentValue
 } from '@/services/data/tuples/bucket-types';
 import {Enum} from '@/services/data/tuples/enum-types';
+import {isFakedUuid} from '@/services/data/tuples/utils';
 import {DwarfButton} from '@/widgets/basic/button';
 import {ICON_SORT} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
@@ -29,17 +30,10 @@ export const EnumSegments = (props: { bucket: EnumMeasureBucket }) => {
 
 	const {fire: fireTuple} = useTupleEventBus();
 	const {on, off, fire} = useBucketEventBus();
+	useCategorySegments(bucket);
 	const [enumeration, setEnumeration] = useState<EnumItems | null>(null);
 	useEffect(() => {
-		const onEnumChanged = (aBucket: Bucket) => {
-			if (aBucket !== bucket) {
-				return;
-			}
-
-			if (bucket.enumId == null) {
-				setEnumeration(null);
-			}
-
+		const askEnumData = () => {
 			fireTuple(TupleEventTypes.ASK_ENUM_DATA, bucket.enumId, (enumeration?: Enum) => {
 				if (enumeration != null) {
 					setEnumeration((enumeration.items ?? []).reduce((items, item) => {
@@ -51,12 +45,25 @@ export const EnumSegments = (props: { bucket: EnumMeasureBucket }) => {
 				}
 			});
 		};
+		if (!isFakedUuid(bucket) && bucket.enumId != null) {
+			askEnumData();
+		}
+		const onEnumChanged = (aBucket: Bucket) => {
+			if (aBucket !== bucket) {
+				return;
+			}
+
+			if (bucket.enumId == null) {
+				setEnumeration(null);
+			}
+
+			askEnumData();
+		};
 		on(BucketEventTypes.BUCKET_ENUM_CHANGED, onEnumChanged);
 		return () => {
 			off(BucketEventTypes.BUCKET_ENUM_CHANGED, onEnumChanged);
 		};
 	}, [on, off, fireTuple, bucket]);
-	useCategorySegments(bucket);
 
 	const sort = (sortType: SortType) => () => {
 		bucket.segments.sort(sortSegments).forEach(segment => {
@@ -88,8 +95,10 @@ export const EnumSegments = (props: { bucket: EnumMeasureBucket }) => {
 		</DwarfButton>
 	</>;
 
-	return <Segments bucket={bucket}
-	                 beforeHeader={<AvailableEnumItems bucket={bucket} enum={enumeration ?? (void 0)}/>}
-	                 header={<CategorySegmentsHeader/>} cells={cells} cellsWidth="500px"
-	                 createSegment={create} extraButtons={buttons}/>;
+	return <>
+		<Segments bucket={bucket}
+		          header={<CategorySegmentsHeader/>} cells={cells} cellsWidth="500px"
+		          createSegment={create} extraButtons={buttons}/>
+		<AvailableEnumItems bucket={bucket} enum={enumeration ?? (void 0)}/>
+	</>;
 };

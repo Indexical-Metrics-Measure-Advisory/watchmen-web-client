@@ -1,6 +1,12 @@
-import {BucketType, NumericValueMeasureBucket, RangeBucketValueIncluding} from '../../tuples/bucket-types';
+import {
+	BucketType,
+	EnumMeasureBucket,
+	NumericValueMeasureBucket,
+	RangeBucketValueIncluding
+} from '../../tuples/bucket-types';
 import {MeasureMethod} from '../../tuples/indicator-types';
 import {getCurrentTime} from '../../utils';
+import {MOCK_ENUM_CITY_ID} from './mock-enum';
 
 export const Floor: NumericValueMeasureBucket = {
 	bucketId: '1',
@@ -18,6 +24,20 @@ export const Floor: NumericValueMeasureBucket = {
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };
+export const Cities: EnumMeasureBucket = {
+	bucketId: '2',
+	name: 'Cities',
+	type: BucketType.ENUM_MEASURE,
+	measure: MeasureMethod.ENUM,
+	enumId: MOCK_ENUM_CITY_ID,
+	segments: [
+		{name: 'NY', value: ['001']},
+		{name: 'Others', value: ['&others']}
+	],
+	description: 'New York and others',
+	createTime: getCurrentTime(),
+	lastModified: getCurrentTime()
+};
 
-export const DemoBuckets = [Floor];
+export const DemoBuckets = [Floor, Cities];
 export const DemoQueryBuckets = DemoBuckets;

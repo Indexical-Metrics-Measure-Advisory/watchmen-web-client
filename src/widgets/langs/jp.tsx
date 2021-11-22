@@ -356,7 +356,6 @@ export const Jp = {
 			BUCKET_TYPE_VALUE_MEASURE: '測定寸法値のバケット',
 			BUCKET_TYPE_CATEGORY_MEASURE: '測定寸法値分類のバケット',
 			BUCKET_TYPE_ENUM_MEASURE: '測定寸法列挙のバケット',
-			BUCKET_TYPE_COMPOSITE: '複合バケット',
 			RANGE_INCLUDING_LABEL: '値の格納方法:',
 			RANGE_INCLUDE_MIN: '[最小値を含み、最大値は含まれません)',
 			RANGE_INCLUDE_MAX: '(最小値は含まれ、最大値は含まれません]',
@@ -380,7 +379,7 @@ export const Jp = {
 			SORT_SEGMENTS_BY_NAME: '名前で並べ替え',
 			AVAILABLE_ENUM_ITEMS_LABEL: '使用可能な列挙項目:',
 			NO_AVAILABLE_ENUM_ITEMS: '使用できるデータがありません。',
-			ADD_AVAILABLE_ITEMS_INTO_SEGMENT: 'セグメントに追加:',
+			ADD_AVAILABLE_ITEMS_INTO_SEGMENT: 'セグメントに追加',
 			SEGMENT_LABEL: 'セグメント',
 			PLEASE_SELECT_SEGMENT: '選択した列挙項目を含むセグメントを選択してください。',
 			PLEASE_SELECT_ENUM_ITEM: '少なくとも 1 つの列挙項目を選択してセグメント化に参加してください。'

@@ -150,12 +150,11 @@ export const AvailableEnumItems = (props: { bucket: EnumMeasureBucket; enum?: En
 				})}
 		</AvailableEnumItemSelectors>
 		<AvailableItemOperator>
-			<TuplePropertyLabel>{Lang.INDICATOR_WORKBENCH.BUCKET.ADD_AVAILABLE_ITEMS_INTO_SEGMENT}</TuplePropertyLabel>
 			<TuplePropertyDropdown value={selectedSegment} options={segmentOptions}
 			                       please={Lang.INDICATOR_WORKBENCH.BUCKET.PLEASE_SELECT_SEGMENT}
 			                       onChange={onSegmentChanged}/>
 			<Button ink={ButtonInk.PRIMARY} onClick={onConfirmAddClicked}>
-				{Lang.ACTIONS.CONFIRM}
+				{Lang.INDICATOR_WORKBENCH.BUCKET.ADD_AVAILABLE_ITEMS_INTO_SEGMENT}
 			</Button>
 		</AvailableItemOperator>
 	</AvailableEnumItemsContainer>;

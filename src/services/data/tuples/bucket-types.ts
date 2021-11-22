@@ -10,7 +10,6 @@ export enum BucketType {
 	VALUE_MEASURE = 'value-measure',
 	CATEGORY_MEASURE = 'category-measure',
 	ENUM_MEASURE = 'enum-measure',
-	COMPOSITE = 'composite'
 }
 
 export interface BucketSegment {

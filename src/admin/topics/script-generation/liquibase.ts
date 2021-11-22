@@ -240,7 +240,7 @@ ${buildAuditColumnOnModify(topic, getUpdateTimeColumnName())}
 				END LOOP;
 			END;
 		</createProcedure>
-		<createProcedure dbms="mysql" procedureName="SCHEMA_CHANGE">
+		<createProcedure dbms="mysql" procedureName="SCHEMA_CHANGE"><![CDATA[
 			DELIMITER $$
 			CREATE PROCEDURE SCHEMA_CHANGE() 
 			BEGIN 
@@ -255,7 +255,7 @@ ${buildAuditColumnOnModify(topic, getUpdateTimeColumnName())}
 				END WHILE;
 			END $$
 			DELIMITER ;
-		</createProcedure>
+		]]></createProcedure>
 		<sql dbms="oracle">CALL SCHEMA_CHANGE();</sql>
 		<sql dbms="mysql">CALL \`SCHEMA_CHANGE\`();</sql>
 		<dropProcedure procedureName="SCHEMA_CHANGE"/>
@@ -273,13 +273,13 @@ ${Object.values(indexes).map((factors, index) => {
 ${factors.map(factor => `			<column name="${asFactorName(factor)}"/>`)}
 		</createIndex>`;
 	}).join('\n')}
-		<createIndex indexName="${indexName}_${getTenantIdColumnName()}" table="${tableName}">
+		<createIndex indexName="${indexName}_${getTenantIdColumnName()}" tableName="${tableName}">
 			<column name="${getTenantIdColumnName()}"/>
 		</createIndex>
-		<createIndex indexName="${indexName}_${getInsertTimeColumnName()}" table="${tableName}">
+		<createIndex indexName="${indexName}_${getInsertTimeColumnName()}" tableName="${tableName}">
 			<column name="${getInsertTimeColumnName()}"/>
 		</createIndex>
-		<createIndex indexName="${indexName}_${getUpdateTimeColumnName()}" table="${tableName}">
+		<createIndex indexName="${indexName}_${getUpdateTimeColumnName()}" tableName="${tableName}">
 			<column name="${getUpdateTimeColumnName()}"/>
 		</createIndex>
 	</changeSet>

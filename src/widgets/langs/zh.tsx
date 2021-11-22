@@ -356,7 +356,6 @@ export const Zh = {
 			BUCKET_TYPE_VALUE_MEASURE: '维度值分桶',
 			BUCKET_TYPE_CATEGORY_MEASURE: '维度分类分桶',
 			BUCKET_TYPE_ENUM_MEASURE: '维度枚举分桶',
-			BUCKET_TYPE_COMPOSITE: '组合分桶',
 			RANGE_INCLUDING_LABEL: '值包含方式:',
 			RANGE_INCLUDE_MIN: '[包含最小值, 不包含最大值)',
 			RANGE_INCLUDE_MAX: '(不包含最小值, 包含最大值]',
@@ -380,7 +379,7 @@ export const Zh = {
 			SORT_SEGMENTS_BY_NAME: '按名称排序',
 			AVAILABLE_ENUM_ITEMS_LABEL: '可用枚举项:',
 			NO_AVAILABLE_ENUM_ITEMS: '没有可用的数据.',
-			ADD_AVAILABLE_ITEMS_INTO_SEGMENT: '添加到分组:',
+			ADD_AVAILABLE_ITEMS_INTO_SEGMENT: '添加到分组',
 			SEGMENT_LABEL: '分组',
 			PLEASE_SELECT_SEGMENT: '请选择包含已选择枚举项的分组.',
 			PLEASE_SELECT_ENUM_ITEM: '请至少选择一个枚举项加入到分组.'

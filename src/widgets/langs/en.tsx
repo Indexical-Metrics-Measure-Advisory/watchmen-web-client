@@ -356,7 +356,6 @@ export const En = {
 			BUCKET_TYPE_VALUE_MEASURE: 'Value Measure',
 			BUCKET_TYPE_CATEGORY_MEASURE: 'Category Measure',
 			BUCKET_TYPE_ENUM_MEASURE: 'Enumeration Measure',
-			BUCKET_TYPE_COMPOSITE: 'Composite',
 			RANGE_INCLUDING_LABEL: 'Value Inclusion Mode:',
 			RANGE_INCLUDE_MIN: '[Include Min Value, Exclude Max Value)',
 			RANGE_INCLUDE_MAX: '(Exclude Max Value, Include Max Value]',
@@ -380,7 +379,7 @@ export const En = {
 			SORT_SEGMENTS_BY_NAME: 'Sort Segments by Name',
 			AVAILABLE_ENUM_ITEMS_LABEL: 'Available Enumeration Items:',
 			NO_AVAILABLE_ENUM_ITEMS: 'No available items.',
-			ADD_AVAILABLE_ITEMS_INTO_SEGMENT: 'Add Into Segment:',
+			ADD_AVAILABLE_ITEMS_INTO_SEGMENT: 'Add Into Segment',
 			SEGMENT_LABEL: 'Segment',
 			PLEASE_SELECT_SEGMENT: 'Please pick a segment to include selected enumeration items.',
 			PLEASE_SELECT_ENUM_ITEM: 'Please select at lease one enumeration item to add into segment.'
