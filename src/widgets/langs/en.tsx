@@ -379,7 +379,10 @@ export const En = {
 			SORT_SEGMENTS_BY_CODE: 'Sort Segments by Code',
 			SORT_SEGMENTS_BY_NAME: 'Sort Segments by Name',
 			AVAILABLE_ENUM_ITEMS_LABEL: 'Available Enumeration Items:',
-			NO_AVAILABLE_ENUM_ITEMS: 'No available items.'
+			NO_AVAILABLE_ENUM_ITEMS: 'No available items.',
+			ADD_AVAILABLE_ITEMS_INTO_SEGMENT: 'Add Into Segment:',
+			SEGMENT_LABEL: 'Segment',
+			PLEASE_SELECT_SEGMENT: 'Please pick a segment to include above selected items.'
 		}
 	},
 	SETTINGS: {

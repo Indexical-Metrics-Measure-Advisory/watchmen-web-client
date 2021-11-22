@@ -379,7 +379,10 @@ export const Jp = {
 			SORT_SEGMENTS_BY_CODE: 'コードで並べ替え',
 			SORT_SEGMENTS_BY_NAME: '名前で並べ替え',
 			AVAILABLE_ENUM_ITEMS_LABEL: '使用可能な列挙項目:',
-			NO_AVAILABLE_ENUM_ITEMS: '使用できるデータがありません。'
+			NO_AVAILABLE_ENUM_ITEMS: '使用できるデータがありません。',
+			ADD_AVAILABLE_ITEMS_INTO_SEGMENT: 'セグメントに追加:',
+			SEGMENT_LABEL: 'セグメント',
+			PLEASE_SELECT_SEGMENT: '選択した列挙項目を含むセグメントを選択してください。'
 		}
 	},
 	SETTINGS: {

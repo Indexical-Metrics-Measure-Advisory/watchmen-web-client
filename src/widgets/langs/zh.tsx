@@ -379,7 +379,10 @@ export const Zh = {
 			SORT_SEGMENTS_BY_CODE: '按代码排序',
 			SORT_SEGMENTS_BY_NAME: '按名称排序',
 			AVAILABLE_ENUM_ITEMS_LABEL: '可用枚举项:',
-			NO_AVAILABLE_ENUM_ITEMS: '没有可用的数据.'
+			NO_AVAILABLE_ENUM_ITEMS: '没有可用的数据.',
+			ADD_AVAILABLE_ITEMS_INTO_SEGMENT: '添加到分组:',
+			SEGMENT_LABEL: '分组',
+			PLEASE_SELECT_SEGMENT: '请选择包含已选择枚举项的分组.'
 		}
 	},
 	SETTINGS: {
