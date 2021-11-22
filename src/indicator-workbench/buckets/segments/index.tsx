@@ -6,7 +6,6 @@ import {SegmentsTable} from './segments-table';
 
 export const Segments = <B extends Bucket, S extends BucketSegment>(props: {
 	bucket: B;
-	beforeHeader?: ReactNode;
 	header: ReactNode;
 	cells: (segment: S, index: number) => ReactNode;
 	cellsWidth: string;
@@ -17,13 +16,12 @@ export const Segments = <B extends Bucket, S extends BucketSegment>(props: {
 }) => {
 	const {
 		bucket,
-		beforeHeader, header, cells, cellsWidth, canDelete,
+		header, cells, cellsWidth, canDelete,
 		createSegment, sortSegments, extraButtons
 	} = props;
 
 	return <>
 		<SegmentsButton bucket={bucket}/>
-		{beforeHeader}
 		<SegmentsTable bucket={bucket} header={header}
 		               cells={cells} cellsWidth={cellsWidth} canDelete={canDelete}
 		               createSegment={createSegment} sortSegments={sortSegments}
