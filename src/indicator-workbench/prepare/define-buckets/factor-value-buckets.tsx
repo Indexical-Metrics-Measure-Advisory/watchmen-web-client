@@ -38,6 +38,7 @@ export const FactorValueBuckets = (props: { indicator: Indicator }) => {
 			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.INDICATOR_VALUE_BUCKET_LABEL}</span>
 		</OrderedLabel>
 		<SearchTextEventBusProvider>
+			{/*<LinkedFactorValueBuckets indicator={indicator}/>*/}
 			<FactorValueBucketsLink indicator={indicator}/>
 		</SearchTextEventBusProvider>
 	</FactorValueBucketsContainer>;

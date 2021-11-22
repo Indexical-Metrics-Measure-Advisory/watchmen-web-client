@@ -28,7 +28,11 @@ export const FactorValueBucketsLink = (props: { indicator: Indicator }) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await fetchBucketsForIndicatorValue(text),
 				(candidates: Array<QueryBucket>) => {
-					resolve(candidates.map(candidate => {
+					const linked = indicator.valueBuckets || [];
+					resolve(candidates.filter(candidate => {
+						// eslint-disable-next-line
+						return linked.some(bucketId => bucketId != candidate.bucketId);
+					}).map(candidate => {
 						return {
 							bucketId: candidate.bucketId,
 							key: candidate.bucketId,
@@ -40,6 +44,14 @@ export const FactorValueBucketsLink = (props: { indicator: Indicator }) => {
 		});
 	};
 	const onSelectionChange = async (item: BucketCandidate) => {
+		if (indicator.valueBuckets == null) {
+			indicator.valueBuckets = [];
+		}
+		// eslint-disable-next-line
+		if (indicator.valueBuckets.every(bucketId => bucketId != item.bucketId)) {
+			indicator.valueBuckets.push(item.bucketId);
+		}
+
 		fireIndicator(IndicatorsEventTypes.INDICATOR_VALUE_BUCKET_PICKED, indicator, item.bucket);
 		fireSearch(SearchTextEventTypes.HIDE_SEARCH);
 	};
