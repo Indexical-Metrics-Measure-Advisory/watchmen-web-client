@@ -1,6 +1,6 @@
 import {MonitorLogStage, MonitorLogUnit} from '@/services/data/admin/logs';
 import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
-import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
+import {PipelineStageUnit, PipelineStageUnitId} from '@/services/data/tuples/pipeline-stage-unit-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL} from '@/widgets/basic/constants';
 import {TooltipAlignment} from '@/widgets/basic/types';
@@ -11,7 +11,7 @@ import {DetailProcessUnit} from '../unit';
 import {ExpandToggleButton, TitleExecutionLabel, TitleLabel, TitleNameLabel} from '../widgets';
 import {DetailProcessStageContainer, StageSectionTitle} from './widgets';
 
-type UnitLogs = { units: Array<JSX.Element>; index: number; last: PipelineStageUnit | null };
+type UnitLogs = { units: Array<JSX.Element>; index: number; lastUnitId?: PipelineStageUnitId };
 
 export const DetailProcessStage = (props: {
 	stage: PipelineStage;
@@ -42,19 +42,19 @@ export const DetailProcessStage = (props: {
 		</StageSectionTitle>
 		{expanded
 			? (log.units || []).reduce((logs, log: MonitorLogUnit) => {
-				if (logs.last != null && logs.last.unitId != log.unitId) {
+				if (logs.lastUnitId != null && logs.lastUnitId != log.unitId) {
 					// move to next unit
 					logs.index = logs.index + 1;
 				}
 				const unit: PipelineStageUnit = (stage.units || [])[logs.index] || {};
-				logs.last = unit;
+				logs.lastUnitId = log.unitId;
 				logs.units.push(<DetailProcessUnit unit={unit}
 				                                   stageIndex={stageIndex} unitIndex={logs.index + 1}
 				                                   log={log}
 				                                   topicsMap={topicsMap}
 				                                   key={unit.unitId || v4()}/>);
 				return logs;
-			}, {units: [], index: 0, last: null} as UnitLogs).units
+			}, {units: [], index: 0} as UnitLogs).units
 			: null}
 	</DetailProcessStageContainer>;
 };
