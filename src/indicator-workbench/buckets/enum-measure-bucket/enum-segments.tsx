@@ -72,7 +72,7 @@ export const EnumSegments = (props: { bucket: EnumMeasureBucket }) => {
 	};
 
 	const cells = (segment: CategorySegment) => {
-		return <SegmentCategoryValuesCell holder={bucket} segment={segment}/>;
+		return <SegmentCategoryValuesCell bucket={bucket} segment={segment} enum={enumeration ?? (void 0)}/>;
 	};
 
 	const hasOthers = bucket.segments.some(segment => segment.value.length === 1 && segment.value[0] === OtherCategorySegmentValue);

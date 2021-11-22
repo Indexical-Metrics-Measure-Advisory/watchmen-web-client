@@ -6,16 +6,20 @@ import {
 	OtherCategorySegmentValue
 } from '@/services/data/tuples/bucket-types';
 import {EnumItem} from '@/services/data/tuples/enum-types';
+import {AlertLabel} from '@/widgets/alert/widgets';
 import {Button} from '@/widgets/basic/button';
 import {ICON_SELECTED} from '@/widgets/basic/constants';
 import {ButtonInk, DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
 import {TuplePropertyDropdown, TuplePropertyLabel} from '@/widgets/tuple-workbench/tuple-editor';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
 import {useBucketEventBus} from '../bucket-event-bus';
-import {BucketEventTypes, SortType} from '../bucket-event-bus-types';
+import {BucketEventTypes} from '../bucket-event-bus-types';
+import {useSortType} from './use-sort-type';
 import {EnumItems, renderBySortType} from './utils';
 import {
 	AvailableEnumItem,
@@ -28,23 +32,12 @@ import {
 export const AvailableEnumItems = (props: { bucket: EnumMeasureBucket; enum?: EnumItems; }) => {
 	const {bucket, enum: enumeration} = props;
 
-	const {on, off} = useBucketEventBus();
-	const [sortType, setSortType] = useState<SortType>(SortType.NAME);
-	const [selection] = useState<Array<EnumItem>>([]);
+	const {fire: fireGlobal} = useEventBus();
+	const {on, off, fire} = useBucketEventBus();
+	const [selection, setSelection] = useState<Array<EnumItem>>([]);
 	const [selectedSegment, setSelectedSegment] = useState<CategorySegment | null>(null);
+	const sortType = useSortType(bucket);
 	const forceUpdate = useForceUpdate();
-	useEffect(() => {
-		const onSegmentSorted = (aBucket: Bucket, toSortType: SortType) => {
-			if (aBucket !== bucket || sortType === toSortType) {
-				return;
-			}
-			setSortType(toSortType);
-		};
-		on(BucketEventTypes.SEGMENT_SORTED, onSegmentSorted);
-		return () => {
-			off(BucketEventTypes.SEGMENT_SORTED, onSegmentSorted);
-		};
-	}, [on, off, bucket, sortType]);
 	useEffect(() => {
 		const onSegmentChanged = (aBucket: Bucket) => {
 			if (aBucket !== bucket) {
@@ -73,19 +66,34 @@ export const AvailableEnumItems = (props: { bucket: EnumMeasureBucket; enum?: En
 	}, [on, off, forceUpdate, bucket, selectedSegment]);
 
 	const onEnumClicked = (item: EnumItem) => () => {
-		const index = selection.indexOf(item);
-		if (index === -1) {
-			selection.push(item);
+		if (selection.includes(item)) {
+			setSelection([...selection, item]);
 		} else {
-			selection.splice(index, 1);
+			setSelection(selection.filter(exists => exists !== item));
 		}
-		forceUpdate();
 	};
 	const onSegmentChanged = (option: DropdownOption) => {
 		const value = option.value as CategorySegment;
 		setSelectedSegment(value);
 	};
 	const onConfirmAddClicked = () => {
+		if (selectedSegment == null) {
+			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+				{Lang.INDICATOR_WORKBENCH.BUCKET.PLEASE_SELECT_SEGMENT}
+			</AlertLabel>);
+			return;
+		} else if (selection.length === 0) {
+			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+				{Lang.INDICATOR_WORKBENCH.BUCKET.PLEASE_SELECT_ENUM_ITEM}
+			</AlertLabel>);
+			return;
+		}
+
+		const newValues = selection.map(item => item.code);
+		selectedSegment.value = [...new Set([...selectedSegment.value, ...newValues])];
+		fire(BucketEventTypes.CATEGORY_SEGMENT_VALUES_ADDED, bucket, selectedSegment, newValues);
+		fire(BucketEventTypes.SEGMENT_CHANGED, bucket, selectedSegment);
+		setSelection([]);
 	};
 
 	const usedCodes = (bucket.segments || []).map(segment => segment.value || []).flat()

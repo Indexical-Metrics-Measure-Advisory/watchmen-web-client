@@ -21,6 +21,7 @@ export enum BucketEventTypes {
 	SEGMENT_SORTED = 'segment-sorted',
 
 	CATEGORY_SEGMENT_VALUE_ADDED = 'category-segment-value-added',
+	CATEGORY_SEGMENT_VALUES_ADDED = 'category-segment-values-added',
 	CATEGORY_SEGMENT_VALUE_REMOVED = 'category-segment-value-removed',
 
 	BUCKET_MEASURE_METHOD_CHANGED = 'bucket-measure-method-changed',
@@ -67,6 +68,10 @@ export interface BucketEventBus {
 	fire(type: BucketEventTypes.CATEGORY_SEGMENT_VALUE_ADDED, bucket: Bucket, segment: BucketSegment, value: string): this;
 	on(type: BucketEventTypes.CATEGORY_SEGMENT_VALUE_ADDED, listener: (bucket: Bucket, segment: BucketSegment, value: string) => void): this;
 	off(type: BucketEventTypes.CATEGORY_SEGMENT_VALUE_ADDED, listener: (bucket: Bucket, segment: BucketSegment, value: string) => void): this;
+
+	fire(type: BucketEventTypes.CATEGORY_SEGMENT_VALUES_ADDED, bucket: Bucket, segment: BucketSegment, values: Array<string>): this;
+	on(type: BucketEventTypes.CATEGORY_SEGMENT_VALUES_ADDED, listener: (bucket: Bucket, segment: BucketSegment, values: Array<string>) => void): this;
+	off(type: BucketEventTypes.CATEGORY_SEGMENT_VALUES_ADDED, listener: (bucket: Bucket, segment: BucketSegment, values: Array<string>) => void): this;
 
 	fire(type: BucketEventTypes.CATEGORY_SEGMENT_VALUE_REMOVED, bucket: Bucket, segment: BucketSegment, value: string): this;
 	on(type: BucketEventTypes.CATEGORY_SEGMENT_VALUE_REMOVED, listener: (bucket: Bucket, segment: BucketSegment, value: string) => void): this;

@@ -3,13 +3,13 @@ import {Lang} from '@/widgets/langs';
 import styled from 'styled-components';
 import {SegmentTableHeaderLabel} from '../segments/widgets';
 
-export const SegmentValueCellContainer = styled.div.attrs<{ isOthers: boolean }>(({isOthers}) => {
+export const SegmentValueCellContainer = styled.div.attrs<{ canAdd: boolean }>(({canAdd}) => {
 	return {
 		style: {
-			minHeight: isOthers ? GRID_ROW_HEIGHT : GRID_ROW_HEIGHT * 2
+			minHeight: canAdd ? GRID_ROW_HEIGHT * 2 : GRID_ROW_HEIGHT
 		}
 	};
-})<{ isOthers: boolean }>`
+})<{ canAdd: boolean }>`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : 1fr auto;

@@ -382,7 +382,8 @@ export const En = {
 			NO_AVAILABLE_ENUM_ITEMS: 'No available items.',
 			ADD_AVAILABLE_ITEMS_INTO_SEGMENT: 'Add Into Segment:',
 			SEGMENT_LABEL: 'Segment',
-			PLEASE_SELECT_SEGMENT: 'Please pick a segment to include above selected items.'
+			PLEASE_SELECT_SEGMENT: 'Please pick a segment to include selected enumeration items.',
+			PLEASE_SELECT_ENUM_ITEM: 'Please select at lease one enumeration item to add into segment.'
 		}
 	},
 	SETTINGS: {

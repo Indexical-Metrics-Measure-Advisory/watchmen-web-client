@@ -99,7 +99,7 @@ const buildColumnOnModify = (options: { topic: Topic; columnName: string; column
         <addColumn tableName="${tableName}">
         	<column name="${columnName}" type="\${${columnType}}"/>
 		</addColumn>
-    </changSet>
+    </changeSet>
     <!-- modify ${columnName} when column exists -->
     <changeSet id="${v4()}" author="watchmen">
 		<preConditions onFail="MARK_RAN">
@@ -115,7 +115,7 @@ const buildColumnOnModify = (options: { topic: Topic; columnName: string; column
 			</or>
         </preConditions>
         <modifyDataType tableName="${tableName}" columnName="${columnName}" newDataType="\${${columnType}}"/>
-    </changSet>`;
+    </changeSet>`;
 };
 const buildFactorsOnModify = (topic: Topic) => {
 	if (isRawTopic(topic)) {

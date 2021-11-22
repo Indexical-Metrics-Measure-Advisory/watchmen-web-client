@@ -72,15 +72,16 @@ export const SegmentCategoryValuesCell = (props: { holder: CategorySegmentsHolde
 	const values = segment.value.filter(v => !!v.trim());
 	const hasOthers = values.includes(OtherCategorySegmentValue);
 
-	return <SegmentValueCellContainer isOthers={hasOthers}>
+	return <SegmentValueCellContainer canAdd={!hasOthers}>
 		<SegmentValues>
 			{values.length === 0
 				?
 				<NoSegmentValueDefined>{Lang.INDICATOR_WORKBENCH.BUCKET.NO_SEGMENT_VALUE_DEFINED}</NoSegmentValueDefined>
 				: values.map(value => {
-					return <SegmentValue isOthers={hasOthers} key={value}>
+					const isOthers = value === OtherCategorySegmentValue;
+					return <SegmentValue isOthers={isOthers} key={value}>
 						<span>{value}</span>
-						{hasOthers
+						{isOthers
 							? null
 							: <span onClick={onRemoveValue(value)}>
 								<FontAwesomeIcon icon={ICON_DELETE}/>

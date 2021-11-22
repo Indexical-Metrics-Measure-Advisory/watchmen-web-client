@@ -382,7 +382,8 @@ export const Zh = {
 			NO_AVAILABLE_ENUM_ITEMS: '没有可用的数据.',
 			ADD_AVAILABLE_ITEMS_INTO_SEGMENT: '添加到分组:',
 			SEGMENT_LABEL: '分组',
-			PLEASE_SELECT_SEGMENT: '请选择包含已选择枚举项的分组.'
+			PLEASE_SELECT_SEGMENT: '请选择包含已选择枚举项的分组.',
+			PLEASE_SELECT_ENUM_ITEM: '请至少选择一个枚举项加入到分组.'
 		}
 	},
 	SETTINGS: {
