@@ -1,4 +1,3 @@
-import {useFixProperty} from '@/indicator-workbench/buckets/use-fix-property';
 import {MeasureBucket} from '@/services/data/tuples/bucket-types';
 import {MeasureMethod} from '@/services/data/tuples/indicator-types';
 import {DropdownOption} from '@/widgets/basic/types';
@@ -9,6 +8,7 @@ import {TuplePropertyQuestionMark} from '@/widgets/tuple-workbench/tuple-propert
 import React from 'react';
 import {useBucketEventBus} from '../bucket-event-bus';
 import {BucketEventTypes} from '../bucket-event-bus-types';
+import {useFixProperty} from '../use-fix-property';
 
 export const MeasureMethodEditor = (props: { bucket: MeasureBucket; methods: Array<DropdownOption> }) => {
 	const {bucket, methods} = props;

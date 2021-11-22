@@ -17,7 +17,7 @@ import {useBucketEventBus} from '../bucket-event-bus';
 import {BucketEventTypes} from '../bucket-event-bus-types';
 import {AddOtherButton} from '../category-measure-bucket/add-other-button';
 import {useCategorySegments} from '../category-measure-bucket/use-category-segments';
-import {create} from '../category-measure-bucket/utils';
+import {create, sortSegments, sortSegmentValues} from '../category-measure-bucket/utils';
 import {CategorySegmentsHeader} from '../category-measure-bucket/widgets';
 import {Segments} from '../segments';
 import {SegmentCategoryValuesCell} from './segment-category-values-cell';
@@ -63,23 +63,14 @@ export const EnumSegments = (props: { holder: EnumMeasureBucket }) => {
 	}, [on, off, fireTuple, holder]);
 
 	const sort = (sortType: SortType) => () => {
-		holder.segments.sort((s1, s2) => {
-			if (s1.value.includes(OtherCategorySegmentValue)) {
-				if (!s2.value.includes(OtherCategorySegmentValue)) {
-					return 1;
-				}
-			} else if (s2.value.includes(OtherCategorySegmentValue)) {
-				return -1;
-			}
-			return s1.name.localeCompare(s2.name, void 0, {sensitivity: 'base', caseFirst: 'upper', numeric: true});
-		}).forEach(segment => {
-			segment.value.sort((v1, v2) => {
+		holder.segments.sort(sortSegments).forEach(segment => {
+			segment.value.sort(sortSegmentValues(segment, (v1, v2) => {
 				const i1 = enumeration?.items[v1];
 				const i2 = enumeration?.items[v2];
 				const l1 = renderBySortType(sortType, v1, i1);
 				const l2 = renderBySortType(sortType, v2, i2);
 				return l1.localeCompare(l2, void 0, {sensitivity: 'base', caseFirst: 'upper'});
-			});
+			}));
 		});
 	};
 	const cells = (segment: CategorySegment) => {

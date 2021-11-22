@@ -1,7 +1,7 @@
-import {SegmentTableHeaderLabel} from '@/indicator-workbench/buckets/segments/widgets';
 import {GRID_ROW_HEIGHT} from '@/widgets/basic/constants';
-import { Lang } from '@/widgets/langs';
+import {Lang} from '@/widgets/langs';
 import styled from 'styled-components';
+import {SegmentTableHeaderLabel} from '../segments/widgets';
 
 export const SegmentValueCellContainer = styled.div.attrs<{ isOthers: boolean }>(({isOthers}) => {
 	return {

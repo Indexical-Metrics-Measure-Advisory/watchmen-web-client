@@ -1,4 +1,3 @@
-import {useFixProperty} from '@/indicator-workbench/buckets/use-fix-property';
 import {EnumMeasureBucket} from '@/services/data/tuples/bucket-types';
 import {EnumId} from '@/services/data/tuples/enum-types';
 import {QueryEnum} from '@/services/data/tuples/query-enum-types';
@@ -12,6 +11,7 @@ import {TuplePropertyQuestionMark} from '@/widgets/tuple-workbench/tuple-propert
 import React, {useEffect, useState} from 'react';
 import {useBucketEventBus} from '../bucket-event-bus';
 import {BucketEventTypes} from '../bucket-event-bus-types';
+import {useFixProperty} from '../use-fix-property';
 
 export const EnumEditor = (props: { bucket: EnumMeasureBucket }) => {
 	const {bucket} = props;

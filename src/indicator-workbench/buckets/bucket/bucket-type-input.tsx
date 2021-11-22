@@ -1,4 +1,3 @@
-import {useFixProperty} from '@/indicator-workbench/buckets/use-fix-property';
 import {Bucket, BucketType} from '@/services/data/tuples/bucket-types';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
@@ -7,6 +6,7 @@ import {TuplePropertyDropdown, TuplePropertyLabel} from '@/widgets/tuple-workben
 import React from 'react';
 import {useBucketEventBus} from '../bucket-event-bus';
 import {BucketEventTypes} from '../bucket-event-bus-types';
+import {useFixProperty} from '../use-fix-property';
 
 const BucketTypes: Record<BucketType, string> = {
 	[BucketType.VALUE]: Lang.INDICATOR_WORKBENCH.BUCKET.BUCKET_TYPE_VALUE,

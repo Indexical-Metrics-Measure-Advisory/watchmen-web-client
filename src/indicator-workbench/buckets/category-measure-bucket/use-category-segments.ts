@@ -1,5 +1,3 @@
-import {useBucketEventBus} from '@/indicator-workbench/buckets/bucket-event-bus';
-import {BucketEventTypes} from '@/indicator-workbench/buckets/bucket-event-bus-types';
 import {
 	Bucket,
 	BucketSegment,
@@ -9,6 +7,8 @@ import {
 } from '@/services/data/tuples/bucket-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {useEffect} from 'react';
+import {useBucketEventBus} from '../bucket-event-bus';
+import {BucketEventTypes} from '../bucket-event-bus-types';
 
 export const useCategorySegments = (holder: CategorySegmentsHolder) => {
 	const {on, off} = useBucketEventBus();

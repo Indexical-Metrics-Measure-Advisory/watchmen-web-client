@@ -1,11 +1,11 @@
-import {useCategorySegments} from '@/indicator-workbench/buckets/category-measure-bucket/use-category-segments';
-import {CategorySegmentsHeader} from '@/indicator-workbench/buckets/category-measure-bucket/widgets';
 import {CategorySegment, CategorySegmentsHolder, OtherCategorySegmentValue} from '@/services/data/tuples/bucket-types';
 import React from 'react';
 import {Segments} from '../segments';
 import {AddOtherButton} from './add-other-button';
 import {SegmentCategoryValuesCell} from './segment-category-values-cell';
+import {useCategorySegments} from './use-category-segments';
 import {create, sortSegments, sortSegmentValues} from './utils';
+import {CategorySegmentsHeader} from './widgets';
 
 export const CategorySegments = (props: { holder: CategorySegmentsHolder }) => {
 	const {holder} = props;
