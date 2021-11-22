@@ -191,6 +191,11 @@ export const MeasureMethods = () => {
 		measures: filterMeasures(isCategoryMeasure)
 	};
 
+	const aggregates = data?.indicator?.factorId == null
+		? [IndicatorAggregateArithmetic.COUNT]
+		: [IndicatorAggregateArithmetic.COUNT, IndicatorAggregateArithmetic.SUM, IndicatorAggregateArithmetic.AVG,
+			IndicatorAggregateArithmetic.MAX, IndicatorAggregateArithmetic.MIN];
+
 	return <Step index={PrepareStep.MEASURE_METHODS} visible={visible} ref={ref}>
 		<StepTitle visible={visible}>
 			<EmphaticSinkingLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.MEASURE_METHODS_TITLE}</EmphaticSinkingLabel>
@@ -202,10 +207,7 @@ export const MeasureMethods = () => {
 						return <MeasureItems label={label} measureFactors={measures} enums={data?.enums || []}
 						                     key={key}/>;
 					})}
-				<AggregateItems label={Lang.INDICATOR_WORKBENCH.PREPARE.AGGREGATE} aggregates={[
-					IndicatorAggregateArithmetic.COUNT, IndicatorAggregateArithmetic.SUM, IndicatorAggregateArithmetic.AVG,
-					IndicatorAggregateArithmetic.MAX, IndicatorAggregateArithmetic.MIN
-				]}/>
+				<AggregateItems label={Lang.INDICATOR_WORKBENCH.PREPARE.AGGREGATE} aggregates={aggregates}/>
 			</MeasureItemsContainer>
 		</StepBody>
 	</Step>;
