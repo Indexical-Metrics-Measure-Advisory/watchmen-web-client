@@ -1,6 +1,6 @@
+import {useFixProperty} from '@/indicator-workbench/buckets/use-fix-property';
 import {MeasureBucket} from '@/services/data/tuples/bucket-types';
 import {MeasureMethod} from '@/services/data/tuples/indicator-types';
-import {isFakedUuid} from '@/services/data/tuples/utils';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
@@ -15,6 +15,7 @@ export const MeasureMethodEditor = (props: { bucket: MeasureBucket; methods: Arr
 
 	const {fire} = useBucketEventBus();
 	const forceUpdate = useForceUpdate();
+	const canChangeMethod = useFixProperty(bucket);
 
 	const onMeasureMethodChange = (option: DropdownOption) => {
 		bucket.measure = option.value as MeasureMethod;
@@ -47,7 +48,7 @@ export const MeasureMethodEditor = (props: { bucket: MeasureBucket; methods: Arr
 				{Lang.INDICATOR_WORKBENCH.BUCKET.MEASURE_METHOD_IS_FIXED_ONCE_SAVE}
 			</TuplePropertyQuestionMark>
 		</TuplePropertyLabel>
-		{isFakedUuid(bucket)
+		{canChangeMethod
 			? <TuplePropertyDropdown value={bucket.measure}
 			                         options={methods}
 			                         onChange={onMeasureMethodChange}/>

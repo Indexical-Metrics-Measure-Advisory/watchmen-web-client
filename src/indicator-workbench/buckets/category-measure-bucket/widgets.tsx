@@ -1,4 +1,6 @@
+import {SegmentTableHeaderLabel} from '@/indicator-workbench/buckets/segments/widgets';
 import {GRID_ROW_HEIGHT} from '@/widgets/basic/constants';
+import { Lang } from '@/widgets/langs';
 import styled from 'styled-components';
 
 export const SegmentValueCellContainer = styled.div.attrs<{ isOthers: boolean }>(({isOthers}) => {
@@ -123,3 +125,7 @@ export const SegmentValue = styled.span<{ isOthers: boolean }>`
 		z-index          : 1;
 	}
 `;
+
+export const CategorySegmentsHeader = () => {
+	return <SegmentTableHeaderLabel>{Lang.INDICATOR_WORKBENCH.BUCKET.CATEGORY_SEGMENT_LABEL} </SegmentTableHeaderLabel>;
+};

@@ -375,7 +375,9 @@ export const Zh = {
 			NO_SEGMENT_VALUE_DEFINED: '尚未定义分段值',
 			ADD_OTHER_CATEGORY: '添加其他值分段',
 			ENUM_LABEL: '枚举:',
-			ENUM_IS_FIXED_ONCE_SAVE: '枚举在桶被第一次保存之后即锁定, 不再可以修改.'
+			ENUM_IS_FIXED_ONCE_SAVE: '枚举在桶被第一次保存之后即锁定, 不再可以修改.',
+			SORT_SEGMENTS_BY_CODE: '按代码排序',
+			SORT_SEGMENTS_BY_NAME: '按名称排序'
 		}
 	},
 	SETTINGS: {

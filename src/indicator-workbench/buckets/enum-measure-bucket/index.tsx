@@ -3,6 +3,7 @@ import {defendEnumMeasureBucket, isEnumMeasureBucket} from '@/services/data/tupl
 import React from 'react';
 import {useBucketDefend} from '../use-bucket-defend';
 import {EnumEditor} from './enum-editor';
+import {EnumSegments} from './enum-segments';
 
 export const EnumMeasureBucketEditor = (props: { bucket: Bucket }) => {
 	const {bucket} = props;
@@ -15,5 +16,6 @@ export const EnumMeasureBucketEditor = (props: { bucket: Bucket }) => {
 
 	return <>
 		<EnumEditor bucket={bucket}/>
+		<EnumSegments holder={bucket}/>
 	</>;
 };

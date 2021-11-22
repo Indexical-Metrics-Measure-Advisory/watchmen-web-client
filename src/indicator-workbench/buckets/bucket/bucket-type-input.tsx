@@ -1,5 +1,5 @@
+import {useFixProperty} from '@/indicator-workbench/buckets/use-fix-property';
 import {Bucket, BucketType} from '@/services/data/tuples/bucket-types';
-import {isFakedUuid} from '@/services/data/tuples/utils';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
@@ -30,6 +30,7 @@ export const BucketTypeInput = (props: { bucket: Bucket }) => {
 
 	const {fire} = useBucketEventBus();
 	const forceUpdate = useForceUpdate();
+	const canChangeType = useFixProperty(bucket);
 
 	const onTypeChange = (option: DropdownOption) => {
 		bucket.type = option.value as BucketType;
@@ -37,7 +38,7 @@ export const BucketTypeInput = (props: { bucket: Bucket }) => {
 		forceUpdate();
 	};
 
-	if (isFakedUuid(bucket)) {
+	if (canChangeType) {
 		return <TuplePropertyDropdown value={bucket.type} options={BucketTypeOptions} onChange={onTypeChange}/>;
 	} else {
 		return <TuplePropertyLabel>{BucketTypes[bucket.type]}</TuplePropertyLabel>;

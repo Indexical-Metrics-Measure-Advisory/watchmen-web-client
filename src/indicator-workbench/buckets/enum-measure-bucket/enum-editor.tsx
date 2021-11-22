@@ -1,7 +1,7 @@
+import {useFixProperty} from '@/indicator-workbench/buckets/use-fix-property';
 import {EnumMeasureBucket} from '@/services/data/tuples/bucket-types';
 import {EnumId} from '@/services/data/tuples/enum-types';
 import {QueryEnum} from '@/services/data/tuples/query-enum-types';
-import {isFakedUuid} from '@/services/data/tuples/utils';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
@@ -20,6 +20,7 @@ export const EnumEditor = (props: { bucket: EnumMeasureBucket }) => {
 	const {fire} = useBucketEventBus();
 	const [enums, setEnums] = useState<Array<QueryEnum>>([]);
 	const forceUpdate = useForceUpdate();
+	const canChangeEnum = useFixProperty(bucket);
 	useEffect(() => {
 		fireTuple(TupleEventTypes.ASK_ENUMS, (enums: Array<QueryEnum>) => {
 			setEnums(enums);
@@ -43,7 +44,7 @@ export const EnumEditor = (props: { bucket: EnumMeasureBucket }) => {
 				{Lang.INDICATOR_WORKBENCH.BUCKET.ENUM_IS_FIXED_ONCE_SAVE}
 			</TuplePropertyQuestionMark>
 		</TuplePropertyLabel>
-		{isFakedUuid(bucket)
+		{canChangeEnum
 			? <TuplePropertyDropdown value={bucket.enumId}
 			                         options={options}
 			                         onChange={onEnumChange}/>

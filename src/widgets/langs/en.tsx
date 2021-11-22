@@ -375,7 +375,9 @@ export const En = {
 			NO_SEGMENT_VALUE_DEFINED: 'No Value Defined',
 			ADD_OTHER_CATEGORY: 'Add Segment for Others',
 			ENUM_LABEL: 'Enumeration:',
-			ENUM_IS_FIXED_ONCE_SAVE: 'Enumeration cannot be changed once saved.'
+			ENUM_IS_FIXED_ONCE_SAVE: 'Enumeration cannot be changed once saved.',
+			SORT_SEGMENTS_BY_CODE: 'Sort Segments by Code',
+			SORT_SEGMENTS_BY_NAME: 'Sort Segments by Name'
 		}
 	},
 	SETTINGS: {

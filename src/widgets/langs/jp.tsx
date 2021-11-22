@@ -375,7 +375,9 @@ export const Jp = {
 			NO_SEGMENT_VALUE_DEFINED: '値が定義されていません',
 			ADD_OTHER_CATEGORY: 'その他を追加',
 			ENUM_LABEL: '列挙:',
-			ENUM_IS_FIXED_ONCE_SAVE: '列挙は、バケットが最初に保存された後にロックされ、変更できなくなります。'
+			ENUM_IS_FIXED_ONCE_SAVE: '列挙は、バケットが最初に保存された後にロックされ、変更できなくなります。',
+			SORT_SEGMENTS_BY_CODE: 'コードで並べ替え',
+			SORT_SEGMENTS_BY_NAME: '名前で並べ替え'
 		}
 	},
 	SETTINGS: {
