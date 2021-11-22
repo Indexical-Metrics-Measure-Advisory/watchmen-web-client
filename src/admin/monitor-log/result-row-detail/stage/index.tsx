@@ -23,7 +23,7 @@ export const DetailProcessStage = (props: {
 
 	const onExpandToggleClicked = () => setExpanded(!expanded);
 
-	const stageExecution = log.conditionResult || true;
+	const stageExecution = log.conditionResult ?? true;
 
 	return <DetailProcessStageContainer>
 		<SectionTitle>
