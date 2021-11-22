@@ -1,8 +1,9 @@
-import {EnumItem} from '@/services/data/tuples/enum-types';
+import {EnumId, EnumItem} from '@/services/data/tuples/enum-types';
+import {SortType} from '../bucket-event-bus-types';
 
-export enum SortType {
-	CODE = 'code',
-	NAME = 'name'
+export interface EnumItems {
+	enumId: EnumId;
+	items: Record<string, EnumItem>;
 }
 
 export const renderByCodeFirst = (item: EnumItem): string => {

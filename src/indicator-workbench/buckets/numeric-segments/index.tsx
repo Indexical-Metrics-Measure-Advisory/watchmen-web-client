@@ -1,6 +1,7 @@
 import {NumericSegmentsHolder, NumericValueSegment} from '@/services/data/tuples/bucket-types';
 import {Lang} from '@/widgets/langs';
 import React from 'react';
+import {SortType} from '../bucket-event-bus-types';
 import {Segments} from '../segments';
 import {SegmentTableHeaderLabel} from '../segments/widgets';
 import {SegmentValueCell} from './segment-value-cell';
@@ -36,7 +37,7 @@ export const NumericSegments = (props: { holder: NumericSegmentsHolder }) => {
 	};
 	const sort = (bucket: NumericSegmentsHolder) => {
 		if (bucket.segments.length <= 3) {
-			return;
+			return SortType.UNCONCERNED;
 		}
 		const [first, ...rest] = bucket.segments;
 		const [last, ...others] = rest.reverse();
@@ -60,17 +61,17 @@ export const NumericSegments = (props: { holder: NumericSegmentsHolder }) => {
 				return max1.localeCompare(max2, void 0, {numeric: true});
 			}
 		}), last];
+
+		return SortType.UNCONCERNED;
 	};
 	const canDelete = (segment: NumericValueSegment, index: number) => {
 		return index !== 0 && index !== holder.segments.length - 1;
 	};
 
-	const header = () => {
-		return <>
-			<SegmentTableHeaderLabel>{Lang.INDICATOR_WORKBENCH.BUCKET.VALUE_SEGMENT_MIN_LABEL}</SegmentTableHeaderLabel>
-			<SegmentTableHeaderLabel>{Lang.INDICATOR_WORKBENCH.BUCKET.VALUE_SEGMENT_MAX_LABEL}</SegmentTableHeaderLabel>
-		</>;
-	};
+	const header = <>
+		<SegmentTableHeaderLabel>{Lang.INDICATOR_WORKBENCH.BUCKET.VALUE_SEGMENT_MIN_LABEL}</SegmentTableHeaderLabel>
+		<SegmentTableHeaderLabel>{Lang.INDICATOR_WORKBENCH.BUCKET.VALUE_SEGMENT_MAX_LABEL}</SegmentTableHeaderLabel>
+	</>;
 	const cells = (segment: NumericValueSegment, index: number) => {
 		if (index === 0) {
 			return <>

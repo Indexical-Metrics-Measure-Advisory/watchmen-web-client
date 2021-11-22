@@ -46,6 +46,6 @@ export const CategoryMeasureBucketEditor = (props: { bucket: Bucket }) => {
 
 	return <>
 		<MeasureMethodEditor bucket={bucket} methods={MeasureMethodOptions}/>
-		<CategorySegments holder={bucket}/>
+		<CategorySegments bucket={bucket}/>
 	</>;
 };

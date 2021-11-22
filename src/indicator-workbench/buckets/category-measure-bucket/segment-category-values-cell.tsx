@@ -3,7 +3,6 @@ import {AlertLabel} from '@/widgets/alert/widgets';
 import {Button} from '@/widgets/basic/button';
 import {ICON_DELETE} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
-import {useForceUpdate} from '@/widgets/basic/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
@@ -12,6 +11,7 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {useBucketEventBus} from '../bucket-event-bus';
 import {BucketEventTypes} from '../bucket-event-bus-types';
 import {SegmentPropInput} from '../segments/widgets';
+import {useCategorySegmentValue} from './use-category-segment-value';
 import {NoSegmentValueDefined, SegmentValue, SegmentValueCellContainer, SegmentValues} from './widgets';
 
 export const SegmentCategoryValuesCell = (props: { holder: CategorySegmentsHolder, segment: CategorySegment }) => {
@@ -20,7 +20,7 @@ export const SegmentCategoryValuesCell = (props: { holder: CategorySegmentsHolde
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useBucketEventBus();
 	const [value, setValue] = useState('');
-	const forceUpdate = useForceUpdate();
+	const onRemoveValue = useCategorySegmentValue(holder, segment);
 
 	const onValueChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setValue(event.target.value);
@@ -33,6 +33,7 @@ export const SegmentCategoryValuesCell = (props: { holder: CategorySegmentsHolde
 		const add = (value: string) => {
 			segment.value.push(value);
 			setValue('');
+			fire(BucketEventTypes.CATEGORY_SEGMENT_VALUE_ADDED, holder, segment, value);
 			fire(BucketEventTypes.SEGMENT_CHANGED, holder, segment);
 		};
 
@@ -67,12 +68,6 @@ export const SegmentCategoryValuesCell = (props: { holder: CategorySegmentsHolde
 		tryToAddValue();
 	};
 	const onConfirmClicked = () => tryToAddValue();
-	const onSegmentValueRemoveClicked = (value: string) => () => {
-		const index = segment.value.indexOf(value);
-		segment.value.splice(index, 1);
-		forceUpdate();
-		fire(BucketEventTypes.SEGMENT_CHANGED, holder, segment);
-	};
 
 	const values = segment.value.filter(v => !!v.trim());
 	const hasOthers = values.includes(OtherCategorySegmentValue);
@@ -87,7 +82,7 @@ export const SegmentCategoryValuesCell = (props: { holder: CategorySegmentsHolde
 						<span>{value}</span>
 						{hasOthers
 							? null
-							: <span onClick={onSegmentValueRemoveClicked(value)}>
+							: <span onClick={onRemoveValue(value)}>
 								<FontAwesomeIcon icon={ICON_DELETE}/>
 						</span>}
 					</SegmentValue>;

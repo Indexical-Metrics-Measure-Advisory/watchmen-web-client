@@ -377,7 +377,9 @@ export const Jp = {
 			ENUM_LABEL: '列挙:',
 			ENUM_IS_FIXED_ONCE_SAVE: '列挙は、バケットが最初に保存された後にロックされ、変更できなくなります。',
 			SORT_SEGMENTS_BY_CODE: 'コードで並べ替え',
-			SORT_SEGMENTS_BY_NAME: '名前で並べ替え'
+			SORT_SEGMENTS_BY_NAME: '名前で並べ替え',
+			AVAILABLE_ENUM_ITEMS_LABEL: '使用可能な列挙項目:',
+			NO_AVAILABLE_ENUM_ITEMS: '使用できるデータがありません。'
 		}
 	},
 	SETTINGS: {

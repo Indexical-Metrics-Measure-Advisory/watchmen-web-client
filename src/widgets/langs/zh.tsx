@@ -377,7 +377,9 @@ export const Zh = {
 			ENUM_LABEL: '枚举:',
 			ENUM_IS_FIXED_ONCE_SAVE: '枚举在桶被第一次保存之后即锁定, 不再可以修改.',
 			SORT_SEGMENTS_BY_CODE: '按代码排序',
-			SORT_SEGMENTS_BY_NAME: '按名称排序'
+			SORT_SEGMENTS_BY_NAME: '按名称排序',
+			AVAILABLE_ENUM_ITEMS_LABEL: '可用枚举项:',
+			NO_AVAILABLE_ENUM_ITEMS: '没有可用的数据.'
 		}
 	},
 	SETTINGS: {

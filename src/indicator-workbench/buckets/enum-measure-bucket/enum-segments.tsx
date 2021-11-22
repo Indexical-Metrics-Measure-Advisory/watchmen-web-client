@@ -4,7 +4,7 @@ import {
 	EnumMeasureBucket,
 	OtherCategorySegmentValue
 } from '@/services/data/tuples/bucket-types';
-import {Enum, EnumId, EnumItem} from '@/services/data/tuples/enum-types';
+import {Enum} from '@/services/data/tuples/enum-types';
 import {DwarfButton} from '@/widgets/basic/button';
 import {ICON_SORT} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
@@ -14,43 +14,38 @@ import {TupleEventTypes} from '@/widgets/tuple-workbench/tuple-event-bus-types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
 import {useBucketEventBus} from '../bucket-event-bus';
-import {BucketEventTypes} from '../bucket-event-bus-types';
+import {BucketEventTypes, SortType} from '../bucket-event-bus-types';
 import {AddOtherButton} from '../category-measure-bucket/add-other-button';
 import {useCategorySegments} from '../category-measure-bucket/use-category-segments';
 import {create, sortSegments, sortSegmentValues} from '../category-measure-bucket/utils';
 import {CategorySegmentsHeader} from '../category-measure-bucket/widgets';
 import {Segments} from '../segments';
+import {AvailableEnumItems} from './available-enum-items';
 import {SegmentCategoryValuesCell} from './segment-category-values-cell';
-import {renderBySortType, SortType} from './utils';
+import {EnumItems, renderBySortType} from './utils';
 
-interface EnumItems {
-	enumId: EnumId;
-	items: Record<string, EnumItem>;
-}
-
-export const EnumSegments = (props: { holder: EnumMeasureBucket }) => {
-	const {holder} = props;
+export const EnumSegments = (props: { bucket: EnumMeasureBucket }) => {
+	const {bucket} = props;
 
 	const {fire: fireTuple} = useTupleEventBus();
-	const {on, off} = useBucketEventBus();
+	const {on, off, fire} = useBucketEventBus();
 	const [enumeration, setEnumeration] = useState<EnumItems | null>(null);
-	useCategorySegments(holder);
 	useEffect(() => {
-		const onEnumChanged = (bucket: Bucket) => {
-			if (bucket !== holder) {
+		const onEnumChanged = (aBucket: Bucket) => {
+			if (aBucket !== bucket) {
 				return;
 			}
 
-			if (holder.enumId == null) {
+			if (bucket.enumId == null) {
 				setEnumeration(null);
 			}
 
-			fireTuple(TupleEventTypes.ASK_ENUM_DATA, holder.enumId, (enumeration?: Enum) => {
+			fireTuple(TupleEventTypes.ASK_ENUM_DATA, bucket.enumId, (enumeration?: Enum) => {
 				if (enumeration != null) {
 					setEnumeration((enumeration.items ?? []).reduce((items, item) => {
 						items.items[item.code] = item;
 						return items;
-					}, {enumId: holder.enumId, items: {}} as EnumItems));
+					}, {enumId: bucket.enumId, items: {}} as EnumItems));
 				} else {
 					setEnumeration(null);
 				}
@@ -60,10 +55,11 @@ export const EnumSegments = (props: { holder: EnumMeasureBucket }) => {
 		return () => {
 			off(BucketEventTypes.BUCKET_ENUM_CHANGED, onEnumChanged);
 		};
-	}, [on, off, fireTuple, holder]);
+	}, [on, off, fireTuple, bucket]);
+	useCategorySegments(bucket);
 
 	const sort = (sortType: SortType) => () => {
-		holder.segments.sort(sortSegments).forEach(segment => {
+		bucket.segments.sort(sortSegments).forEach(segment => {
 			segment.value.sort(sortSegmentValues(segment, (v1, v2) => {
 				const i1 = enumeration?.items[v1];
 				const i2 = enumeration?.items[v2];
@@ -72,15 +68,16 @@ export const EnumSegments = (props: { holder: EnumMeasureBucket }) => {
 				return l1.localeCompare(l2, void 0, {sensitivity: 'base', caseFirst: 'upper'});
 			}));
 		});
+		fire(BucketEventTypes.SEGMENT_SORTED, bucket, sortType);
 	};
+
 	const cells = (segment: CategorySegment) => {
-		return <SegmentCategoryValuesCell holder={holder} segment={segment}/>;
+		return <SegmentCategoryValuesCell holder={bucket} segment={segment}/>;
 	};
 
-	const hasOthers = holder.segments.some(segment => segment.value.length === 1 && segment.value[0] === OtherCategorySegmentValue);
-
+	const hasOthers = bucket.segments.some(segment => segment.value.length === 1 && segment.value[0] === OtherCategorySegmentValue);
 	const buttons = <>
-		{hasOthers ? null : <AddOtherButton bucket={holder}/>}
+		{hasOthers ? null : <AddOtherButton bucket={bucket}/>}
 		<DwarfButton ink={ButtonInk.PRIMARY} onClick={sort(SortType.CODE)}>
 			<FontAwesomeIcon icon={ICON_SORT}/>
 			{Lang.INDICATOR_WORKBENCH.BUCKET.SORT_SEGMENTS_BY_CODE}
@@ -91,6 +88,8 @@ export const EnumSegments = (props: { holder: EnumMeasureBucket }) => {
 		</DwarfButton>
 	</>;
 
-	return <Segments bucket={holder} header={CategorySegmentsHeader} cells={cells} cellsWidth="500px"
+	return <Segments bucket={bucket}
+	                 beforeHeader={<AvailableEnumItems bucket={bucket} enum={enumeration ?? (void 0)}/>}
+	                 header={<CategorySegmentsHeader/>} cells={cells} cellsWidth="500px"
 	                 createSegment={create} extraButtons={buttons}/>;
 };

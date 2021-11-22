@@ -16,6 +16,6 @@ export const EnumMeasureBucketEditor = (props: { bucket: Bucket }) => {
 
 	return <>
 		<EnumEditor bucket={bucket}/>
-		<EnumSegments holder={bucket}/>
+		<EnumSegments bucket={bucket}/>
 	</>;
 };

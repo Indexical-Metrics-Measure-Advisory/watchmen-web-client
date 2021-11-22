@@ -6,9 +6,9 @@ import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {useBucketEventBus} from '../bucket-event-bus';
-import {BucketEventTypes} from '../bucket-event-bus-types';
+import {BucketEventTypes, SortType} from '../bucket-event-bus-types';
 
-export const SegmentSortButton = <B extends Bucket>(props: { bucket: B; sortSegments?: (bucket: B) => void; }) => {
+export const SegmentSortButton = <B extends Bucket>(props: { bucket: B; sortSegments?: (bucket: B) => SortType; }) => {
 	const {bucket, sortSegments} = props;
 
 	const {fire} = useBucketEventBus();
@@ -18,8 +18,8 @@ export const SegmentSortButton = <B extends Bucket>(props: { bucket: B; sortSegm
 	}
 
 	const onSortClicked = () => {
-		sortSegments(bucket);
-		fire(BucketEventTypes.SEGMENT_SORTED, bucket);
+		const sortType = sortSegments(bucket);
+		fire(BucketEventTypes.SEGMENT_SORTED, bucket, sortType);
 	};
 
 	return <DwarfButton ink={ButtonInk.PRIMARY} onClick={onSortClicked}>

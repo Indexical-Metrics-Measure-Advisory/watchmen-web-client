@@ -377,7 +377,9 @@ export const En = {
 			ENUM_LABEL: 'Enumeration:',
 			ENUM_IS_FIXED_ONCE_SAVE: 'Enumeration cannot be changed once saved.',
 			SORT_SEGMENTS_BY_CODE: 'Sort Segments by Code',
-			SORT_SEGMENTS_BY_NAME: 'Sort Segments by Name'
+			SORT_SEGMENTS_BY_NAME: 'Sort Segments by Name',
+			AVAILABLE_ENUM_ITEMS_LABEL: 'Available Enumeration Items:',
+			NO_AVAILABLE_ENUM_ITEMS: 'No available items.'
 		}
 	},
 	SETTINGS: {

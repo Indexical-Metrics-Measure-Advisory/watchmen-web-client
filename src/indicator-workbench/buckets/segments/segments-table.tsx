@@ -1,6 +1,7 @@
 import {Bucket, BucketSegment} from '@/services/data/tuples/bucket-types';
 import {Lang} from '@/widgets/langs';
 import React, {ReactNode} from 'react';
+import {SortType} from '../bucket-event-bus-types';
 import {SegmentAddButton} from './segment-add-button';
 import {SegmentSortButton} from './segment-sort-button';
 import {SegmentsTableBody} from './segments-table-body';
@@ -8,12 +9,12 @@ import {SegmentsTableContainer, SegmentsTableFooter, SegmentTableHeader, Segment
 
 export const SegmentsTable = <B extends Bucket, S extends BucketSegment>(props: {
 	bucket: B;
-	header: () => ReactNode;
+	header: ReactNode;
 	cells: (segment: S, index: number) => ReactNode;
 	cellsWidth: string;
 	canDelete?: (segment: S, index: number) => boolean;
 	createSegment: (bucket: B) => S;
-	sortSegments?: (bucket: B) => void;
+	sortSegments?: (bucket: B) => SortType;
 	extraButtons?: ReactNode;
 }) => {
 	const {
@@ -26,7 +27,7 @@ export const SegmentsTable = <B extends Bucket, S extends BucketSegment>(props: 
 		<SegmentTableHeader cells={cellsWidth}>
 			<SegmentTableHeaderLabel/>
 			<SegmentTableHeaderLabel>{Lang.INDICATOR_WORKBENCH.BUCKET.SEGMENT_NAME}</SegmentTableHeaderLabel>
-			{header()}
+			{header}
 			<SegmentTableHeaderLabel/>
 		</SegmentTableHeader>
 		<SegmentsTableBody bucket={bucket} cells={cells} cellsWidth={cellsWidth} canDelete={canDelete}/>
