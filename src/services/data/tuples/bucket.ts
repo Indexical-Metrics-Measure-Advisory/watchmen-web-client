@@ -1,6 +1,11 @@
 import {findAccount} from '../account';
 import {Apis, get, page, post} from '../apis';
-import {fetchMockBucket, listMockBuckets, saveMockBucket} from '../mock/tuples/mock-bucket';
+import {
+	fetchMockBucket,
+	fetchMockBucketsForIndicatorValue,
+	listMockBuckets,
+	saveMockBucket
+} from '../mock/tuples/mock-bucket';
 import {TuplePage} from '../query/tuple-page';
 import {isMockService} from '../utils';
 import {Bucket, BucketId} from './bucket-types';
@@ -43,5 +48,13 @@ export const saveBucket = async (bucket: Bucket): Promise<void> => {
 		const data = await post({api: Apis.BUCKET_SAVE, search: {bucketId: bucket.bucketId}, data: bucket});
 		bucket.tenantId = data.tenantId;
 		bucket.lastModified = data.lastModified;
+	}
+};
+
+export const fetchBucketsForIndicatorValue = async (search: string): Promise<Array<QueryBucket>> => {
+	if (isMockService()) {
+		return await fetchMockBucketsForIndicatorValue(search.trim());
+	} else {
+		return await get({api: Apis.BUCKET_LIST_FOR_INDICATOR_VALUE, search: {search}});
 	}
 };

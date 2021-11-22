@@ -31,7 +31,8 @@ export const Jp = {
 		FIND_TOPIC_OR_FACTOR_PLACEHOLDER: 'トピック名または ファクター名に基づいて検索します。',
 		INDICATOR_NAME_PLACEHOLDER: '読むための名前を入力してください。',
 		FIND_BUCKET_PLACEHOLDER: 'バケット名 トピック名または ファクター名に基づいて検索します。',
-		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: '分類値、セグメントに追加することを確認します。'
+		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: '分類値、セグメントに追加することを確認します。',
+		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: 'バケット名に基づいて検索します。'
 	},
 	STANDARD: {
 		YES: 'はい',
@@ -300,10 +301,11 @@ export const Jp = {
 			ORGANIZATION: '機関',
 			CATEGORY: '分類を指定します',
 			DEFINE_BUCKETS_TITLE: '分類と集計を改善するための事前定義されたバケット。',
-			SELF_VALUE_BUCKET_ONLY_ON_FACTOR_LABEL: '指標値バケットは、データファクタが選択されている場合にのみさらに定義できます',
-			SELF_VALUE_BUCKET_LABEL: '指標値はバケットで定義',
+			INDICATOR_VALUE_BUCKET_ONLY_ON_FACTOR_LABEL: '指標値バケットは、データファクタが選択されている場合にのみさらに定義できます',
+			INDICATOR_VALUE_BUCKET_LABEL: '指標値はバケットで定義',
 			BUCKET_NAME: 'バケット名',
-			LINK_SELF_VALUE_BUCKETS: '定義済みの指標値のバケットを関連付けます',
+			LINK_INDICATOR_VALUE_BUCKETS: '定義済みの指標値のバケットを関連付けます',
+			DISCARD_LINK_INDICATOR_VALUE_BUCKETS: '関連付けを破棄します',
 			MEASURE_BUCKET_LABEL: '測定寸法のバケット定義',
 			VIEW_MEASURE_BUCKETS: '定義済みの測定寸法のバケットを表示します',
 			IGNORE_DEFINE_BUCKETS: 'バケット定義を無視する',

@@ -1,9 +1,11 @@
+import {DROPDOWN_Z_INDEX} from '@/widgets/basic/constants';
 import {Input} from '@/widgets/basic/input';
 import styled from 'styled-components';
 import {StepTitleButton} from '../step-widgets';
 
 export const SearchPart = styled.div.attrs<{ buttonFirst: boolean; popupVisible: boolean }>(({buttonFirst}) => {
 	return {
+		'data-widget': 'search-text',
 		style: {
 			flexDirection: buttonFirst ? 'row-reverse' : (void 0),
 			justifyContent: buttonFirst ? 'flex-end' : (void 0)
@@ -93,6 +95,7 @@ export const SearchPopup = styled.div.attrs({
 	overflow-y                 : auto;
 	overflow-x                 : hidden;
 	transition                 : top 300ms ease-in-out, opacity 300ms ease-in-out;
+	z-index                    : ${DROPDOWN_Z_INDEX};
 `;
 export const CandidateItem = styled.div.attrs<{ active: boolean }>(({active}) => {
 	return {

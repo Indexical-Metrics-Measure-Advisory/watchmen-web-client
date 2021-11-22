@@ -14,10 +14,22 @@ export const FactorValueBucketsContainer = styled.div.attrs({'data-widget': 'fac
 	flex-direction : column;
 	padding-left   : calc(var(--margin) / 2);
 	counter-reset  : factor-value-bucket;
-	> button:last-child {
-		margin-top    : calc(var(--margin) / 2);
-		align-self    : flex-start;
-		border-radius : calc(var(--height) / 2);
+	> div[data-widget=search-text] {
+		margin-top : calc(var(--margin) / 2);
+		> input[data-widget=search-input],
+		> button[data-widget=search-button] {
+			font-size : 1em;
+			height    : var(--height);
+		}
+		> div[data-widget=search-popup] {
+			min-height : calc(var(--height) + 4px);
+			max-height : calc(var(--height) * 8 + 4px);
+			> div[data-widget=search-candidate-item],
+			> div[data-widget=search-on-searching] {
+				font-size  : 1em;
+				min-height : var(--height);
+			}
+		}
 	}
 `;
 export const OrderedLabel = styled.div`

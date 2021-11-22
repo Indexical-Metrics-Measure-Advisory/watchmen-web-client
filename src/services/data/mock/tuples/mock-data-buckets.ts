@@ -1,6 +1,7 @@
 import {
 	BucketType,
 	EnumMeasureBucket,
+	NumericValueBucket,
 	NumericValueMeasureBucket,
 	RangeBucketValueIncluding
 } from '../../tuples/bucket-types';
@@ -38,6 +39,20 @@ export const Cities: EnumMeasureBucket = {
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };
+export const Amounts: NumericValueBucket = {
+	bucketId: '3',
+	name: 'Amounts',
+	type: BucketType.VALUE,
+	include: RangeBucketValueIncluding.INCLUDE_MIN,
+	segments: [
+		{name: 'Small Order', value: {max: '10000'}},
+		{name: 'Typical Order', value: {min: '10000', max: '100000'}},
+		{name: 'VIP Order', value: {min: '100000'}}
+	],
+	description: '',
+	createTime: getCurrentTime(),
+	lastModified: getCurrentTime()
+};
 
-export const DemoBuckets = [Floor, Cities];
+export const DemoBuckets = [Floor, Cities, Amounts];
 export const DemoQueryBuckets = DemoBuckets;

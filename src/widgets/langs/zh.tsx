@@ -31,7 +31,8 @@ export const Zh = {
 		FIND_TOPIC_OR_FACTOR_PLACEHOLDER: '根据主题名称或数据因子名称查找.',
 		INDICATOR_NAME_PLACEHOLDER: '请输入用于阅读的名称.',
 		FIND_BUCKET_PLACEHOLDER: '根据分桶名称, 主题名称或者数据因子名称查找.',
-		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: '输入分组值, 点击确认加入到分段中.'
+		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: '输入分组值, 点击确认加入到分段中.',
+		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: '根据分桶名称查找.'
 	},
 	STANDARD: {
 		YES: '是',
@@ -300,10 +301,11 @@ export const Zh = {
 			ORGANIZATION: '机构',
 			CATEGORY: '指定分类',
 			DEFINE_BUCKETS_TITLE: '为更好的分类和聚合数据, 可以使用预定义分桶.',
-			SELF_VALUE_BUCKET_ONLY_ON_FACTOR_LABEL: '指标值分桶只有在选择了数据因子时才可以进一步定义',
-			SELF_VALUE_BUCKET_LABEL: '指标值分桶定义',
+			INDICATOR_VALUE_BUCKET_ONLY_ON_FACTOR_LABEL: '指标值分桶只有在选择了数据因子时才可以进一步定义',
+			INDICATOR_VALUE_BUCKET_LABEL: '指标值分桶定义',
 			BUCKET_NAME: '桶名称',
-			LINK_SELF_VALUE_BUCKETS: '关联预定义的指标值分桶',
+			LINK_INDICATOR_VALUE_BUCKETS: '关联预定义的指标值分桶',
+			DISCARD_LINK_INDICATOR_VALUE_BUCKETS: '放弃关联',
 			MEASURE_BUCKET_LABEL: '测量维度分桶定义',
 			VIEW_MEASURE_BUCKETS: '查看预定义的测量维度分桶',
 			IGNORE_DEFINE_BUCKETS: '现在不定义分桶',

@@ -1,13 +1,13 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
-import {Button} from '@/widgets/basic/button';
 import {ICON_LIST_ICON_ASTERISK} from '@/widgets/basic/constants';
-import {ButtonInk} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useEffect} from 'react';
+import {SearchTextEventBusProvider} from '../search-text/search-text-event-bus';
 import {useBucketsEventBus} from './buckets-event-bus';
 import {BucketsEventTypes} from './buckets-event-bus-types';
+import {FactorValueBucketsLink} from './factor-value-buckets-link';
 import {FactorValueBucketsContainer, OrderedLabel} from './widgets';
 
 export const FactorValueBuckets = (props: { indicator: Indicator }) => {
@@ -27,23 +27,18 @@ export const FactorValueBuckets = (props: { indicator: Indicator }) => {
 		return <FactorValueBucketsContainer>
 			<OrderedLabel>
 				<FontAwesomeIcon icon={ICON_LIST_ICON_ASTERISK}/>
-				<span>{Lang.INDICATOR_WORKBENCH.PREPARE.SELF_VALUE_BUCKET_ONLY_ON_FACTOR_LABEL}</span>
+				<span>{Lang.INDICATOR_WORKBENCH.PREPARE.INDICATOR_VALUE_BUCKET_ONLY_ON_FACTOR_LABEL}</span>
 			</OrderedLabel>
 		</FactorValueBucketsContainer>;
 	}
 
-	const onLinkClicked = () => {
-		// TODO
-		forceUpdate();
-	};
-
 	return <FactorValueBucketsContainer>
 		<OrderedLabel>
 			<FontAwesomeIcon icon={ICON_LIST_ICON_ASTERISK}/>
-			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.SELF_VALUE_BUCKET_LABEL}</span>
+			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.INDICATOR_VALUE_BUCKET_LABEL}</span>
 		</OrderedLabel>
-		<Button ink={ButtonInk.PRIMARY} onClick={onLinkClicked}>
-			{Lang.INDICATOR_WORKBENCH.PREPARE.LINK_SELF_VALUE_BUCKETS}
-		</Button>
+		<SearchTextEventBusProvider>
+			<FactorValueBucketsLink indicator={indicator}/>
+		</SearchTextEventBusProvider>
 	</FactorValueBucketsContainer>;
 };

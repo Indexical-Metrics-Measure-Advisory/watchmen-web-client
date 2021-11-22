@@ -31,7 +31,8 @@ export const En = {
 		FIND_TOPIC_OR_FACTOR_PLACEHOLDER: 'Find by topic name, factor name.',
 		INDICATOR_NAME_PLACEHOLDER: 'A human reading name for indicator.',
 		FIND_BUCKET_PLACEHOLDER: 'Search by bucket name, topic name, factor name.',
-		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: 'Key in category value here, confirm to add into segment.'
+		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: 'Key in category value here, confirm to add into segment.',
+		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: 'Search by bucket name.'
 	},
 	STANDARD: {
 		YES: 'Yes',
@@ -300,10 +301,11 @@ export const En = {
 			ORGANIZATION: 'Organization',
 			CATEGORY: 'Category',
 			DEFINE_BUCKETS_TITLE: 'Predefined buckets for better categorization and aggregation.',
-			SELF_VALUE_BUCKET_ONLY_ON_FACTOR_LABEL: 'Value bucketing only available on factor indicator',
-			SELF_VALUE_BUCKET_LABEL: 'Indicator value bucketing',
+			INDICATOR_VALUE_BUCKET_ONLY_ON_FACTOR_LABEL: 'Value bucketing only available on factor indicator',
+			INDICATOR_VALUE_BUCKET_LABEL: 'Indicator value bucketing',
 			BUCKET_NAME: 'Bucket Name',
-			LINK_SELF_VALUE_BUCKETS: 'Link Predefined Value Buckets with Indicator Value',
+			LINK_INDICATOR_VALUE_BUCKETS: 'Link Predefined Value Buckets with Indicator Value',
+			DISCARD_LINK_INDICATOR_VALUE_BUCKETS: 'Discard Link',
 			MEASURE_BUCKET_LABEL: 'Measure bucketing',
 			VIEW_MEASURE_BUCKETS: 'View Predefined Buckets on Measure',
 			IGNORE_DEFINE_BUCKETS: 'Ignore Buckets Definition',

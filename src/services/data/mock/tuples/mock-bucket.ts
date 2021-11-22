@@ -54,3 +54,15 @@ export const saveMockBucket = async (bucket: Bucket): Promise<void> => {
 		setTimeout(() => resolve(), 500);
 	});
 };
+
+export const fetchMockBucketsForIndicatorValue = async (search: string): Promise<Array<QueryBucket>> => {
+	return new Promise<Array<QueryBucket>>((resolve) => {
+		setTimeout(() => {
+			const text = (search || '').toUpperCase();
+			resolve(DemoQueryBuckets
+				.filter(bucket => bucket.type === BucketType.VALUE)
+				.filter(bucket => bucket.name.toUpperCase().includes(text))
+			);
+		}, 1000);
+	});
+};
