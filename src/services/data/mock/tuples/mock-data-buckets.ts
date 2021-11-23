@@ -12,6 +12,7 @@ import {MOCK_ENUM_CITY_ID} from './mock-enum';
 export const BUCKET_FLOOR_ID = '1';
 export const BUCKET_CITIES_ID = '2';
 export const BUCKET_AMOUNT_ID = '3';
+export const BUCKET_CITIES_ISLAND_ID = '4';
 
 export const Floor: NumericValueMeasureBucket = {
 	bucketId: BUCKET_FLOOR_ID,
@@ -58,7 +59,7 @@ export const Amounts: NumericValueBucket = {
 	lastModified: getCurrentTime()
 };
 export const CitiesIsland: EnumMeasureBucket = {
-	bucketId: BUCKET_CITIES_ID,
+	bucketId: BUCKET_CITIES_ISLAND_ID,
 	name: 'Cities of Island or not',
 	type: BucketType.ENUM_MEASURE,
 	measure: MeasureMethod.ENUM,
