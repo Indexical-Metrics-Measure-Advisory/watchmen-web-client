@@ -1,7 +1,6 @@
 import {isIndicatorFactor} from '@/services/data/tuples/factor-calculator-utils';
 import {Factor} from '@/services/data/tuples/factor-types';
 import {fetchEnumsForTopic, fetchTopicsForIndicatorSelection} from '@/services/data/tuples/indicator';
-import {tryToTransformToMeasure} from '@/services/data/tuples/indicator-utils';
 import {TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {FactorTypeLabel} from '@/widgets/basic/factor-type-label';
 import {ButtonInk} from '@/widgets/basic/types';
@@ -87,19 +86,6 @@ const ActivePart = (props: { data?: IndicatorsData; visible: boolean }) => {
 		indicator!.factorId = item.factor?.factorId;
 		data!.topic = item.topic;
 		data!.enums = await fetchEnumsForTopic(item.topic.topicId);
-
-		indicator!.measures = [];
-		// analysis topic to find measure dimensions
-		(data!.topic.factors || []).forEach(factor => {
-			const measures = tryToTransformToMeasure(factor);
-			if (measures == null) {
-				// ignore
-			} else if (Array.isArray(measures)) {
-				indicator!.measures.push(...measures.map(measure => ({factorId: factor.factorId, method: measure})));
-			} else {
-				indicator!.measures.push({factorId: factor.factorId, method: measures});
-			}
-		});
 
 		fire(IndicatorsEventTypes.PICK_TOPIC, data!, (data: IndicatorsData) => {
 			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.DEFINE_BUCKETS, data);

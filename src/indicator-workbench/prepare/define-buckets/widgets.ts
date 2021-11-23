@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {ItemBlock} from '../widgets';
 
 export const BucketsDefContainer = styled.div.attrs({'data-widget': 'buckets-def'})`
 	display        : flex;
@@ -50,52 +51,21 @@ export const LinkedIndicatorFactorBucketsContainer = styled.div.attrs({'data-wid
 	position    : relative;
 	flex-wrap   : wrap;
 	align-items : center;
-	padding     : calc(var(--margin) / 2) var(--margin) 0 calc(var(--margin) / 4);
+	padding     : calc(var(--margin) / 4) var(--margin) 0 0;
 	&:empty {
 		padding-top : 0;
 	}
 `;
-export const LinkedIndicatorFactorBucket = styled.span.attrs({'data-widget': 'linked-indicator-value-bucket'})`
-	display       : flex;
-	position      : relative;
-	align-items   : center;
-	padding       : 0 0 0 calc(var(--margin) / 2);
-	margin-left   : calc(var(--margin) / 4);
-	margin-bottom : calc(var(--margin) / 4);
-	height        : calc(var(--height) * 0.8);
-	border-radius : var(--border-radius);
-	overflow      : hidden;
+export const LinkedIndicatorFactorBucket = styled(ItemBlock).attrs({'data-widget': 'linked-indicator-value-bucket'})`
+	padding : 0 0 0 calc(var(--margin) / 2);
 	&:after {
-		content          : '';
-		display          : block;
-		position         : absolute;
-		top              : 0;
-		left             : 0;
-		width            : 100%;
-		height           : 100%;
-		background-color : var(--primary-color);
-		opacity          : 0.2;
-		z-index          : 0;
+		background-color : var(--danger-color);
 	}
 	&:hover > span:last-child {
 		left : calc(var(--height) * -0.1);
 	}
-	> svg {
-		margin-right : calc(var(--margin) / 4);
-		font-size    : 0.7em;
-		opacity      : 0.7;
-	}
 	> span:nth-child(2) {
 		padding-right : calc(var(--margin) / 2);
-		font-variant  : petite-caps;
-		font-weight   : var(--font-demi-bold);
-		white-space   : nowrap;
-		text-overflow : ellipsis;
-		overflow      : hidden;
-		z-index       : 1;
-		&:last-child {
-			margin-right : calc(var(--margin) / 2);
-		}
 	}
 	> span:last-child {
 		display          : flex;
@@ -111,7 +81,6 @@ export const LinkedIndicatorFactorBucket = styled.span.attrs({'data-widget': 'li
 		cursor           : pointer;
 		border-radius    : var(--border-radius);
 		transition       : background-color 300ms ease-in-out, left 300ms ease-in-out;
-		z-index          : 1;
 	}
 `;
 export const MeasureBucketsContainer = styled.div.attrs({'data-widget': 'measure-buckets'})`
@@ -132,37 +101,6 @@ export const MeasureBucketList = styled.div.attrs({'data-widget': 'measure-bucke
 	grid-template-columns : auto 1fr auto 1fr;
 	margin-top            : calc(var(--margin) / 4);
 	padding-right         : var(--margin);
-`;
-export const MeasurableFactor = styled.span.attrs({'data-widget': 'measurable-factor'})`
-	display        : flex;
-	position       : relative;
-	align-items    : center;
-	justify-self   : start;
-	padding        : 0 calc(var(--margin) / 2);
-	margin         : calc(var(--height) * 0.2) 0 calc(var(--height) * 0.2) calc(var(--margin) / 2);
-	height         : calc(var(--height) * 0.8);
-	border-radius  : var(--border-radius);
-	text-transform : capitalize;
-	font-variant   : petite-caps;
-	overflow       : hidden;
-	&:after {
-		content          : '';
-		display          : block;
-		position         : absolute;
-		top              : 0;
-		left             : 0;
-		width            : 100%;
-		height           : 100%;
-		background-color : var(--info-color);
-		opacity          : 0.3;
-		z-index          : -1;
-	}
-	> svg {
-		margin-top   : 2px;
-		margin-right : calc(var(--margin) / 4);
-		font-size    : 0.7em;
-		opacity      : 0.7;
-	}
 `;
 export const MatchedMeasureBuckets = styled.div.attrs({'data-widget': 'measure-buckets'})`
 	display   : flex;
@@ -188,7 +126,7 @@ export const MatchedMeasureBucketLabel = styled.span.attrs({'data-widget': 'meas
 		left             : 0;
 		width            : 100%;
 		height           : 100%;
-		background-color : var(--primary-color);
+		background-color : var(--danger-color);
 		opacity          : 0.3;
 		z-index          : -1;
 	}

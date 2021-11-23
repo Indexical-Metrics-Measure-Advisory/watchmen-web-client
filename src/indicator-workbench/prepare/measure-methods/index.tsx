@@ -1,6 +1,7 @@
 import {Factor} from '@/services/data/tuples/factor-types';
 import {IndicatorAggregateArithmetic, IndicatorMeasure, MeasureMethod} from '@/services/data/tuples/indicator-types';
 import {
+	detectMeasures,
 	isCategoryMeasure,
 	isGeoMeasure,
 	isIndividualMeasure,
@@ -8,15 +9,13 @@ import {
 	isTimePeriodMeasure
 } from '@/services/data/tuples/indicator-utils';
 import {EnumForIndicator} from '@/services/data/tuples/query-indicator-types';
-import {ICON_FACTOR, ICON_INDICATOR_MEASURE_METHOD} from '@/widgets/basic/constants';
-import {FactorTypeLabel} from '@/widgets/basic/factor-type-label';
+import {ICON_INDICATOR_MEASURE_METHOD} from '@/widgets/basic/constants';
 import {MeasureMethodLabel} from '@/widgets/basic/measure-method-label';
-import {useTooltip} from '@/widgets/basic/tooltip';
-import {TooltipAlignment} from '@/widgets/basic/types';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Fragment, useRef} from 'react';
 import {MeasureMethodSort} from '../../utils/sort';
+import {MeasureFactor} from '../measure-factor';
 import {EmphaticSinkingLabel, Step, StepBody, StepTitle, useStep} from '../step-widgets';
 import {PrepareStep} from '../types';
 import {useConstructed} from '../use-constructed';
@@ -24,51 +23,17 @@ import {
 	AggregateItem,
 	AggregateItemsBlock,
 	AggregateItemsTitle,
-	MeasureFactorLabel,
 	MeasureFactors,
-	MeasureFactorTooltip,
-	MeasureItem,
 	MeasureItemsBlock,
 	MeasureItemsContainer,
-	MeasureItemsTitle
+	MeasureItemsTitle,
+	MeasureMethodItem
 } from './widgets';
 
 interface AvailableMeasureFactor extends IndicatorMeasure {
 	factorName?: string;
 	factor?: Factor;
 }
-
-const MeasureFactor = (props: { factor: Factor, enum?: EnumForIndicator }) => {
-	const {factor, enum: enumeration} = props;
-	const {name, label} = factor;
-
-	const ref = useRef<HTMLSpanElement>(null);
-	const tooltip = useTooltip<HTMLSpanElement>({
-		use: true,
-		alignment: TooltipAlignment.CENTER,
-		tooltip: <MeasureFactorTooltip>
-			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.FACTOR}</span>
-			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.FACTOR_NAME}:</span>
-			<span>{name}</span>
-			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.FACTOR_LABEL}:</span>
-			<span>{label}</span>
-			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.FACTOR_TYPE}:</span>
-			<span><FactorTypeLabel factor={factor}/></span>
-			{enumeration != null
-				? <>
-					<span>{Lang.INDICATOR_WORKBENCH.PREPARE.FACTOR_ENUM}:</span>
-					<span>{enumeration.name}</span>
-				</>
-				: null}
-		</MeasureFactorTooltip>,
-		target: ref
-	});
-
-	return <MeasureFactorLabel {...tooltip} ref={ref}>
-		<FontAwesomeIcon icon={ICON_FACTOR}/>
-		<span>{name || 'Noname Factor'}</span>
-	</MeasureFactorLabel>;
-};
 
 const MeasureItems = (props: { label: string; measureFactors: Array<AvailableMeasureFactor>; enums: Array<EnumForIndicator> }) => {
 	const {label, measureFactors, enums} = props;
@@ -102,10 +67,10 @@ const MeasureItems = (props: { label: string; measureFactors: Array<AvailableMea
 			}).map(method => {
 				const factors = methodGroups[method as MeasureMethod];
 				return <Fragment key={method}>
-					<MeasureItem>
+					<MeasureMethodItem>
 						<FontAwesomeIcon icon={ICON_INDICATOR_MEASURE_METHOD}/>
 						<MeasureMethodLabel measureMethod={method as MeasureMethod}/>
-					</MeasureItem>
+					</MeasureMethodItem>
 					<MeasureFactors>
 						{factors.map(factor => {
 							// eslint-disable-next-line
@@ -153,17 +118,15 @@ export const MeasureMethods = () => {
 		return null;
 	}
 
+	const measures = detectMeasures(data?.topic);
 	const filterMeasures = (func: (measure: MeasureMethod) => boolean): Array<AvailableMeasureFactor> => {
 		const {factors = []} = data?.topic || {};
-		return [
-			...new Set((data?.indicator?.measures || [])
-				.filter(({method}) => func(method))
-				.map(({factorId, method}) => {
-					// eslint-disable-next-line
-					const factor = factors.find(factor => factor.factorId == factorId);
-					return {factorId, factorName: factor?.name, factor, method};
-				}))
-		];
+		return measures.filter(({method}) => func(method))
+			.map(({factorId, method}) => {
+				// eslint-disable-next-line
+				const factor = factors.find(factor => factor.factorId == factorId);
+				return {factorId, factorName: factor?.name, factor, method};
+			});
 	};
 
 	const geoMeasures = {

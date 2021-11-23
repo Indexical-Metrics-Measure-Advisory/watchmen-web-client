@@ -1,6 +1,9 @@
+import {isNotNull} from '../utils';
 import {getFactorType} from './factor-calculator-utils';
 import {Factor, FactorType} from './factor-types';
-import {MeasureMethod} from './indicator-types';
+import {IndicatorMeasure, MeasureMethod} from './indicator-types';
+import {TopicForIndicator} from './query-indicator-types';
+import {Topic} from './topic-types';
 
 export const tryToTransformToMeasure = (factorOrType: Factor | FactorType): Array<MeasureMethod> | MeasureMethod | undefined => {
 	switch (getFactorType(factorOrType)) {
@@ -102,6 +105,24 @@ export const tryToTransformToMeasure = (factorOrType: Factor | FactorType): Arra
 		case FactorType.ARRAY:
 			return (void 0);
 	}
+};
+
+export const detectMeasures = (topic?: Topic | TopicForIndicator): Array<IndicatorMeasure> => {
+	if (topic == null) {
+		return [];
+	}
+
+	return (topic.factors || []).map(factor => {
+		const measures = tryToTransformToMeasure(factor);
+		if (measures == null) {
+			// ignore
+			return null;
+		} else if (Array.isArray(measures)) {
+			return measures.map(measure => ({factorId: factor.factorId, method: measure}));
+		} else {
+			return [{factorId: factor.factorId, method: measures}];
+		}
+	}).filter(isNotNull).flat();
 };
 
 export const isGeoMeasure = (measure: MeasureMethod): boolean => {

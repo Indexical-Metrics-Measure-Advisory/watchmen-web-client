@@ -2,33 +2,34 @@ import {fetchBucketsByMethods} from '@/services/data/tuples/bucket';
 import {isEnumMeasureBucket, isMeasureBucket} from '@/services/data/tuples/bucket-utils';
 import {Factor, FactorId} from '@/services/data/tuples/factor-types';
 import {Indicator, MeasureMethod} from '@/services/data/tuples/indicator-types';
+import {detectMeasures} from '@/services/data/tuples/indicator-utils';
 import {
 	QueryBucket,
 	QueryByBucketMethod,
 	QueryByEnumMethod,
 	QueryByMeasureMethod
 } from '@/services/data/tuples/query-bucket-types';
-import {TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
+import {EnumForIndicator, TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {isNotNull} from '@/services/data/utils';
 import {Button} from '@/widgets/basic/button';
-import {ICON_BUCKET, ICON_FACTOR, ICON_LIST_ICON_ASTERISK} from '@/widgets/basic/constants';
+import {ICON_BUCKET, ICON_LIST_ICON_ASTERISK} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useState} from 'react';
+import {MeasureFactor} from '../measure-factor';
 import {
 	MatchedMeasureBucketLabel,
 	MatchedMeasureBuckets,
-	MeasurableFactor,
 	MeasureBucketList,
 	MeasureBucketsContainer,
 	OrderedLabel
 } from './widgets';
 
-const FactorMeasureBuckets = (props: { methods: Array<MeasureMethod>; factor: Factor; buckets: Array<QueryBucket> }) => {
-	const {methods, factor, buckets} = props;
+const FactorMeasureBuckets = (props: { methods: Array<MeasureMethod>; factor: Factor; buckets: Array<QueryBucket>; enum?: EnumForIndicator; }) => {
+	const {methods, factor, buckets, enum: enumeration} = props;
 
 	const matchedBuckets: Array<QueryBucket> = [...new Set(methods)].map(method => {
 		if (method === MeasureMethod.ENUM && factor.enumId != null) {
@@ -46,10 +47,7 @@ const FactorMeasureBuckets = (props: { methods: Array<MeasureMethod>; factor: Fa
 	}
 
 	return <>
-		<MeasurableFactor>
-			<FontAwesomeIcon icon={ICON_FACTOR}/>
-			<span>{factor.name || factor.label || 'Noname Factor'}</span>
-		</MeasurableFactor>
+		<MeasureFactor factor={factor} enum={enumeration}/>
 		<MatchedMeasureBuckets>
 			{matchedBuckets.map(bucket => {
 				return <MatchedMeasureBucketLabel key={bucket.bucketId}>
@@ -61,8 +59,8 @@ const FactorMeasureBuckets = (props: { methods: Array<MeasureMethod>; factor: Fa
 	</>;
 };
 
-export const MeasureBuckets = (props: { indicator: Indicator; topic?: TopicForIndicator }) => {
-	const {indicator, topic} = props;
+export const MeasureBuckets = (props: { indicator: Indicator; topic?: TopicForIndicator, enums?: Array<EnumForIndicator> }) => {
+	const {topic, enums} = props;
 
 	const {fire: fireGlobal} = useEventBus();
 	const [shown, setShown] = useState(false);
@@ -71,7 +69,7 @@ export const MeasureBuckets = (props: { indicator: Indicator; topic?: TopicForIn
 	const onViewClicked = () => {
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 			async () => {
-				const methods = [...new Set((indicator.measures || []).map(measure => {
+				const methods = detectMeasures(topic).map(measure => {
 					if (measure.method !== MeasureMethod.ENUM) {
 						return {method: measure.method} as QueryByMeasureMethod;
 					} else {
@@ -85,7 +83,7 @@ export const MeasureBuckets = (props: { indicator: Indicator; topic?: TopicForIn
 						}
 						return null;
 					}
-				}).filter(x => x) as Array<QueryByBucketMethod>)];
+				}).filter(x => x) as Array<QueryByBucketMethod>;
 				return await fetchBucketsByMethods(methods);
 			},
 			(buckets: Array<QueryBucket>) => {
@@ -94,7 +92,7 @@ export const MeasureBuckets = (props: { indicator: Indicator; topic?: TopicForIn
 			});
 	};
 
-	const factorGroups = (indicator.measures || []).reduce((groups, {method, factorId}) => {
+	const factorGroups = detectMeasures(topic).reduce((groups, {method, factorId}) => {
 		let methods = groups[factorId];
 		if (methods == null) {
 			methods = [];
@@ -125,7 +123,9 @@ export const MeasureBuckets = (props: { indicator: Indicator; topic?: TopicForIn
 						sensitivity: 'base'
 					});
 				}).map(({factor, methods}) => {
-					return <FactorMeasureBuckets methods={methods} factor={factor} buckets={buckets}
+					// eslint-disable-next-line
+					const enumeration = factor.enumId != null ? enums?.find(enumeration => enumeration.enumId == factor.enumId) : (void 0);
+					return <FactorMeasureBuckets methods={methods} factor={factor} buckets={buckets} enum={enumeration}
 					                             key={factor.factorId}/>;
 				})}
 			</MeasureBucketList>

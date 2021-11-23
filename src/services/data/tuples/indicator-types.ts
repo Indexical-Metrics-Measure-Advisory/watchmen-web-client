@@ -73,7 +73,6 @@ export interface Indicator extends Tuple {
 	topicId: TopicId;
 	/** is a count indicator when factor is not appointed */
 	factorId?: FactorId;
-	measures: Array<IndicatorMeasure>;
 	/** effective only when factorId is appointed */
 	valueBuckets?: Array<BucketId>;
 	tenantId?: TenantId;

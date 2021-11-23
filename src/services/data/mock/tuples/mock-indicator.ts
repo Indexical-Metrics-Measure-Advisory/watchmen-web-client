@@ -1,5 +1,5 @@
 import {isIndicatorFactor} from '../../tuples/factor-calculator-utils';
-import {Indicator, IndicatorId, MeasureMethod} from '../../tuples/indicator-types';
+import {Indicator, IndicatorId} from '../../tuples/indicator-types';
 import {EnumForIndicator, QueryIndicator, TopicForIndicator} from '../../tuples/query-indicator-types';
 import {TopicId, TopicKind, TopicType} from '../../tuples/topic-types';
 import {isFakedUuid} from '../../tuples/utils';
@@ -13,25 +13,6 @@ const OrderPremiumIndicator: Indicator = {
 	name: 'Order Premium',
 	topicId: Order.topicId,
 	factorId: Order.factors.find(factor => factor.name === 'premium')?.factorId,
-	measures: [{
-		factorId: Order.factors.find(factor => factor.name === 'quoteDate')!.factorId,
-		method: MeasureMethod.YEAR
-	}, {
-		factorId: Order.factors.find(factor => factor.name === 'quoteDate')!.factorId,
-		method: MeasureMethod.MONTH
-	}, {
-		factorId: Order.factors.find(factor => factor.name === 'issueDate')!.factorId,
-		method: MeasureMethod.YEAR
-	}, {
-		factorId: Order.factors.find(factor => factor.name === 'issueDate')!.factorId,
-		method: MeasureMethod.MONTH
-	}, {
-		factorId: Order.factors.find(factor => factor.name === 'ensureProvince')!.factorId,
-		method: MeasureMethod.PROVINCE
-	}, {
-		factorId: Order.factors.find(factor => factor.name === 'ensureCity')!.factorId,
-		method: MeasureMethod.ENUM
-	}],
 	valueBuckets: [BUCKET_AMOUNT_ID],
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
@@ -41,13 +22,6 @@ const MonthlyOrderPremiumIndicator: Indicator = {
 	name: 'Monthly Order Premium',
 	topicId: MonthlyOrderPremium.topicId,
 	factorId: MonthlyOrderPremium.factors.find(factor => factor.name === 'premium')?.factorId,
-	measures: [{
-		factorId: MonthlyOrderPremium.factors.find(factor => factor.name === 'year')!.factorId,
-		method: MeasureMethod.YEAR
-	}, {
-		factorId: MonthlyOrderPremium.factors.find(factor => factor.name === 'month')!.factorId,
-		method: MeasureMethod.MONTH
-	}],
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };
@@ -56,13 +30,6 @@ const WeeklyOrderPremiumIndicator: Indicator = {
 	name: 'Weekly Order Premium',
 	topicId: WeeklyOrderPremium.topicId,
 	factorId: WeeklyOrderPremium.factors.find(factor => factor.name === 'premium')?.factorId,
-	measures: [{
-		factorId: WeeklyOrderPremium.factors.find(factor => factor.name === 'year')!.factorId,
-		method: MeasureMethod.YEAR
-	}, {
-		factorId: WeeklyOrderPremium.factors.find(factor => factor.name === 'week')!.factorId,
-		method: MeasureMethod.WEEK_OF_YEAR
-	}],
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };
