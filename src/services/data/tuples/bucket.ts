@@ -2,6 +2,7 @@ import {findAccount} from '../account';
 import {Apis, get, page, post} from '../apis';
 import {
 	fetchMockBucket,
+	fetchMockBucketsByIds,
 	fetchMockBucketsForIndicatorValue,
 	listMockBuckets,
 	saveMockBucket
@@ -56,5 +57,13 @@ export const fetchBucketsForIndicatorValue = async (search: string): Promise<Arr
 		return await fetchMockBucketsForIndicatorValue(search.trim());
 	} else {
 		return await get({api: Apis.BUCKET_LIST_FOR_INDICATOR_VALUE, search: {search}});
+	}
+};
+
+export const fetchBucketsByIds = async (bucketIds: Array<BucketId>): Promise<Array<QueryBucket>> => {
+	if (isMockService()) {
+		return await fetchMockBucketsByIds(bucketIds);
+	} else {
+		return await get({api: Apis.BUCKET_LIST_BY_IDS, search: {bucketIds: bucketIds.join(',')}});
 	}
 };

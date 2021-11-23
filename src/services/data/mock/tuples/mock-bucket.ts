@@ -66,3 +66,14 @@ export const fetchMockBucketsForIndicatorValue = async (search: string): Promise
 		}, 1000);
 	});
 };
+
+export const fetchMockBucketsByIds = async (bucketIds: Array<BucketId>): Promise<Array<QueryBucket>> => {
+	return new Promise<Array<QueryBucket>>((resolve) => {
+		setTimeout(() => {
+			resolve(DemoQueryBuckets
+				// eslint-disable-next-line
+				.filter(bucket => bucketIds.some(bucketId => bucketId == bucket.bucketId))
+			);
+		}, 1000);
+	});
+};

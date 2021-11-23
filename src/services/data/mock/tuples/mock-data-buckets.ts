@@ -9,8 +9,12 @@ import {MeasureMethod} from '../../tuples/indicator-types';
 import {getCurrentTime} from '../../utils';
 import {MOCK_ENUM_CITY_ID} from './mock-enum';
 
+export const BUCKET_FLOOR_ID = '1';
+export const BUCKET_CITIES_ID = '2';
+export const BUCKET_AMOUNT_ID = '3';
+
 export const Floor: NumericValueMeasureBucket = {
-	bucketId: '1',
+	bucketId: BUCKET_FLOOR_ID,
 	name: 'Floor',
 	type: BucketType.VALUE_MEASURE,
 	measure: MeasureMethod.FLOOR,
@@ -26,7 +30,7 @@ export const Floor: NumericValueMeasureBucket = {
 	lastModified: getCurrentTime()
 };
 export const Cities: EnumMeasureBucket = {
-	bucketId: '2',
+	bucketId: BUCKET_CITIES_ID,
 	name: 'Cities',
 	type: BucketType.ENUM_MEASURE,
 	measure: MeasureMethod.ENUM,
@@ -40,7 +44,7 @@ export const Cities: EnumMeasureBucket = {
 	lastModified: getCurrentTime()
 };
 export const Amounts: NumericValueBucket = {
-	bucketId: '3',
+	bucketId: BUCKET_AMOUNT_ID,
 	name: 'Amounts',
 	type: BucketType.VALUE,
 	include: RangeBucketValueIncluding.INCLUDE_MIN,

@@ -4,6 +4,7 @@ import {EnumForIndicator, QueryIndicator, TopicForIndicator} from '../../tuples/
 import {TopicId, TopicKind, TopicType} from '../../tuples/topic-types';
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
+import {BUCKET_AMOUNT_ID} from '../tuples/mock-data-buckets';
 import {DemoTopics, MonthlyOrderPremium, Order, WeeklyOrderPremium} from '../tuples/mock-data-topics';
 import {listMockEnums} from './mock-enum';
 
@@ -31,6 +32,7 @@ const OrderPremiumIndicator: Indicator = {
 		factorId: Order.factors.find(factor => factor.name === 'ensureCity')!.factorId,
 		method: MeasureMethod.ENUM
 	}],
+	valueBuckets: [BUCKET_AMOUNT_ID],
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };
