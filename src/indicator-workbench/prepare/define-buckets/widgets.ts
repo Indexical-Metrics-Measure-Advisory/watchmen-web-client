@@ -20,7 +20,7 @@ export const IndicatorFactorBucketsContainer = styled.div.attrs({'data-widget': 
 		> button[data-widget=search-button] {
 			font-size   : 1em;
 			height      : var(--height);
-			line-height : var(--height);
+			line-height : calc(var(--height) * 0.9);
 		}
 		> div[data-widget=search-popup] {
 			min-height : calc(var(--height) + 4px);
