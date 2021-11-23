@@ -58,11 +58,7 @@ export const IndicatorState = () => {
 					fire(IndicatorsEventTypes.INDICATOR_SAVED, indicator);
 					onSaved(indicator, true);
 				},
-				() => {
-					fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.ERROR.UNPREDICTED}</AlertLabel>, () => {
-						onSaved(indicator, false);
-					});
-				});
+				() => onSaved(indicator, false));
 		};
 		on(IndicatorsEventTypes.SAVE_INDICATOR, onSaveIndicator);
 		return () => {
