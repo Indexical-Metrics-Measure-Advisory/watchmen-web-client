@@ -16,7 +16,7 @@ interface BucketCandidate extends SearchItem {
 	bucket: QueryBucket;
 }
 
-export const FactorValueBucketsLink = (props: { indicator: Indicator }) => {
+export const IndicatorFactorBucketsLink = (props: { indicator: Indicator }) => {
 	const {indicator} = props;
 
 	const {fire: fireGlobal} = useEventBus();
@@ -31,7 +31,7 @@ export const FactorValueBucketsLink = (props: { indicator: Indicator }) => {
 					const linked = indicator.valueBuckets || [];
 					resolve(candidates.filter(candidate => {
 						// eslint-disable-next-line
-						return linked.some(bucketId => bucketId != candidate.bucketId);
+						return linked.every(bucketId => bucketId != candidate.bucketId);
 					}).map(candidate => {
 						return {
 							bucketId: candidate.bucketId,

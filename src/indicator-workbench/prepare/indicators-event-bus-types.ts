@@ -1,3 +1,4 @@
+import {BucketId} from '@/services/data/tuples/bucket-types';
 import {Indicator, IndicatorId} from '@/services/data/tuples/indicator-types';
 import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
 import {EnumForIndicator, TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
@@ -17,6 +18,7 @@ export enum IndicatorsEventTypes {
 	PICK_TOPIC = 'pick-topic',
 
 	INDICATOR_VALUE_BUCKET_PICKED = 'indicator-value-bucket-picked',
+	INDICATOR_VALUE_BUCKET_UNPICKED = 'indicator-value-bucket-unpicked',
 
 	INDICATOR_SAVED = 'indicator-saved'
 }
@@ -41,6 +43,10 @@ export interface IndicatorsEventBus {
 	fire(type: IndicatorsEventTypes.INDICATOR_VALUE_BUCKET_PICKED, indicator: Indicator, bucket: QueryBucket): this;
 	on(type: IndicatorsEventTypes.INDICATOR_VALUE_BUCKET_PICKED, listener: (indicator: Indicator, bucket: QueryBucket) => void): this;
 	off(type: IndicatorsEventTypes.INDICATOR_VALUE_BUCKET_PICKED, listener: (indicator: Indicator, bucket: QueryBucket) => void): this;
+
+	fire(type: IndicatorsEventTypes.INDICATOR_VALUE_BUCKET_UNPICKED, indicator: Indicator, bucketId: BucketId): this;
+	on(type: IndicatorsEventTypes.INDICATOR_VALUE_BUCKET_UNPICKED, listener: (indicator: Indicator, bucketId: BucketId) => void): this;
+	off(type: IndicatorsEventTypes.INDICATOR_VALUE_BUCKET_UNPICKED, listener: (indicator: Indicator, bucketId: BucketId) => void): this;
 
 	fire(type: IndicatorsEventTypes.INDICATOR_SAVED, indicator: Indicator): this;
 	on(type: IndicatorsEventTypes.INDICATOR_SAVED, listener: (indicator: Indicator) => void): this;

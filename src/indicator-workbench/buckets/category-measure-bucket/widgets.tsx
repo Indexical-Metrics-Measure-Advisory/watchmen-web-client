@@ -77,8 +77,6 @@ export const SegmentValue = styled.span<{ isOthers: boolean }>`
 	margin-left   : calc(var(--margin) / 4);
 	margin-bottom : calc(var(--margin) / 4);
 	border-radius : var(--border-radius);
-	//white-space   : nowrap;
-	//text-overflow : ellipsis;
 	overflow      : hidden;
 	&:after {
 		content          : '';

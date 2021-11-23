@@ -8,7 +8,7 @@ export const BucketsDefContainer = styled.div.attrs({'data-widget': 'buckets-def
 		margin-top : var(--margin);
 	}
 `;
-export const FactorValueBucketsContainer = styled.div.attrs({'data-widget': 'factor-value-buckets'})`
+export const IndicatorFactorBucketsContainer = styled.div.attrs({'data-widget': 'indicator-factor-buckets'})`
 	display        : flex;
 	position       : relative;
 	flex-direction : column;
@@ -18,8 +18,9 @@ export const FactorValueBucketsContainer = styled.div.attrs({'data-widget': 'fac
 		margin-top : calc(var(--margin) / 2);
 		> input[data-widget=search-input],
 		> button[data-widget=search-button] {
-			font-size : 1em;
-			height    : var(--height);
+			font-size   : 1em;
+			height      : var(--height);
+			line-height : var(--height);
 		}
 		> div[data-widget=search-popup] {
 			min-height : calc(var(--height) + 4px);
@@ -44,16 +45,27 @@ export const OrderedLabel = styled.div`
 		opacity : 0.7;
 	}
 `;
-export const BucketContainer = styled.div.attrs({'data-widget': 'bucket'})`
-	display               : grid;
-	position              : relative;
-	grid-template-columns : 32px auto 1fr auto;
-	grid-column-gap       : var(--margin);
-	grid-row-gap          : calc(var(--margin) / 4);
-	margin-top            : calc(var(--margin) / 2);
-	padding               : calc(var(--margin) / 2);
-	border-radius         : calc(var(--border-radius) * 4);
-	overflow              : hidden;
+export const LinkedIndicatorFactorBucketsContainer = styled.div.attrs({'data-widget': 'linked-indicator-value-buckets'})`
+	display     : flex;
+	position    : relative;
+	flex-wrap   : wrap;
+	align-items : center;
+	margin-left : calc(var(--margin) / -4);
+	padding-top : calc(var(--margin) / 2);
+	&:empty {
+		padding-top : 0;
+	}
+`;
+export const LinkedIndicatorFactorBucket = styled.span.attrs({'data-widget': 'linked-indicator-value-bucket'})`
+	display       : flex;
+	position      : relative;
+	align-items   : center;
+	padding       : 0 0 0 calc(var(--margin) / 2);
+	margin-left   : calc(var(--margin) / 4);
+	margin-bottom : calc(var(--margin) / 4);
+	height        : var(--height);
+	border-radius : var(--border-radius);
+	overflow      : hidden;
 	&:after {
 		content          : '';
 		display          : block;
@@ -62,41 +74,40 @@ export const BucketContainer = styled.div.attrs({'data-widget': 'bucket'})`
 		left             : 0;
 		width            : 100%;
 		height           : 100%;
-		background-color : var(--warn-color);
-		opacity          : 0.1;
-		z-index          : -1;
+		background-color : var(--primary-color);
+		opacity          : 0.2;
+		z-index          : 0;
 	}
-`;
-export const FactorValueBucketContainer = styled(BucketContainer)`
-	&:hover > button:nth-child(4) {
-		opacity        : 1;
-		pointer-events : auto;
+	&:hover > span:last-child:not(:first-child) {
+		left : calc(var(--height) * -0.1);
 	}
-	> button:nth-child(4) {
-		opacity        : 0;
-		pointer-events : none;
-		border-radius  : calc(var(--height) / 2);
+	> span:first-child {
+		padding-right : calc(var(--margin) / 2);
+		font-variant  : petite-caps;
+		font-weight   : var(--font-demi-bold);
+		white-space   : nowrap;
+		text-overflow : ellipsis;
+		overflow      : hidden;
+		z-index       : 1;
+		&:last-child {
+			margin-right : calc(var(--margin) / 2);
+		}
 	}
-	> span:nth-child(5) {
-		grid-column : 2;
-	}
-	> div:nth-child(6) {
-		justify-self : start;
-		width        : auto;
-	}
-`;
-export const Label = styled.span`
-	display     : flex;
-	position    : relative;
-	align-items : center;
-	font-size   : 1.1em;
-	height      : var(--height);
-`;
-export const FactorValueBucketIndexLabel = styled(Label)`
-	counter-increment : factor-value-bucket;
-	font-weight       : var(--font-bold);
-	&:before {
-		content : counter(factor-value-bucket, lower-roman) ".";
+	> span:last-child:not(:first-child) {
+		display          : flex;
+		position         : relative;
+		align-items      : center;
+		justify-content  : center;
+		height           : calc(var(--height) * 0.8);
+		min-width        : calc(var(--height) * 0.8);
+		left             : var(--height);
+		color            : var(--invert-color);
+		background-color : var(--danger-color);
+		opacity          : 0.7;
+		cursor           : pointer;
+		border-radius    : var(--border-radius);
+		transition       : background-color 300ms ease-in-out, left 300ms ease-in-out;
+		z-index          : 1;
 	}
 `;
 export const MeasureBucketsContainer = styled.div.attrs({'data-widget': 'measure-buckets'})`

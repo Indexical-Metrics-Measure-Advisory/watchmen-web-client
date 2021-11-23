@@ -7,10 +7,11 @@ import {useEffect} from 'react';
 import {SearchTextEventBusProvider} from '../search-text/search-text-event-bus';
 import {useBucketsEventBus} from './buckets-event-bus';
 import {BucketsEventTypes} from './buckets-event-bus-types';
-import {FactorValueBucketsLink} from './factor-value-buckets-link';
-import {FactorValueBucketsContainer, OrderedLabel} from './widgets';
+import {IndicatorFactorBucketsLink} from './indicator-factor-buckets-link';
+import { LinkedIndicatorFactorBuckets } from './linked-indicator-factor-buckets';
+import {IndicatorFactorBucketsContainer, OrderedLabel} from './widgets';
 
-export const FactorValueBuckets = (props: { indicator: Indicator }) => {
+export const IndicatorFactorBuckets = (props: { indicator: Indicator }) => {
 	const {indicator} = props;
 
 	const {on, off} = useBucketsEventBus();
@@ -24,22 +25,22 @@ export const FactorValueBuckets = (props: { indicator: Indicator }) => {
 	}, [on, off, forceUpdate]);
 
 	if (indicator.factorId == null) {
-		return <FactorValueBucketsContainer>
+		return <IndicatorFactorBucketsContainer>
 			<OrderedLabel>
 				<FontAwesomeIcon icon={ICON_LIST_ICON_ASTERISK}/>
 				<span>{Lang.INDICATOR_WORKBENCH.PREPARE.INDICATOR_VALUE_BUCKET_ONLY_ON_FACTOR_LABEL}</span>
 			</OrderedLabel>
-		</FactorValueBucketsContainer>;
+		</IndicatorFactorBucketsContainer>;
 	}
 
-	return <FactorValueBucketsContainer>
+	return <IndicatorFactorBucketsContainer>
 		<OrderedLabel>
 			<FontAwesomeIcon icon={ICON_LIST_ICON_ASTERISK}/>
 			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.INDICATOR_VALUE_BUCKET_LABEL}</span>
 		</OrderedLabel>
 		<SearchTextEventBusProvider>
-			{/*<LinkedFactorValueBuckets indicator={indicator}/>*/}
-			<FactorValueBucketsLink indicator={indicator}/>
+			<LinkedIndicatorFactorBuckets indicator={indicator}/>
+			<IndicatorFactorBucketsLink indicator={indicator}/>
 		</SearchTextEventBusProvider>
-	</FactorValueBucketsContainer>;
+	</IndicatorFactorBucketsContainer>;
 };
