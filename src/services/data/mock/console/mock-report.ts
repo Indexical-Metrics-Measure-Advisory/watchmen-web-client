@@ -206,6 +206,19 @@ export const fetchMockMapChartData = async (reportId: ReportId): Promise<ChartDa
 	});
 };
 
+export const fetchMockCustomizeChartData = async (reportId: ReportId): Promise<ChartDataSet> => {
+	return new Promise((resolve) => {
+		setTimeout(
+			() =>
+				resolve({
+					meta: [],
+					data: []
+				} as ChartDataSet),
+			500
+		);
+	});
+};
+
 export const fetchMockChartData = async (reportId: ReportId): Promise<ChartDataSet> => {
 	return new Promise((resolve) => {
 		setTimeout(

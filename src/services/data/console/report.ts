@@ -3,6 +3,7 @@ import {
 	fetchMockBarChartData,
 	fetchMockChartData,
 	fetchMockCountChartData,
+	fetchMockCustomizeChartData,
 	fetchMockDoughnutChartData,
 	fetchMockLineChartData,
 	fetchMockMapChartData,
@@ -48,6 +49,8 @@ export const fetchChartData = async (reportId: ReportId, type: ChartType): Promi
 			return fetchMockTreemapChartData(reportId);
 		} else if (type === ChartType.MAP) {
 			return fetchMockMapChartData(reportId);
+		} else if (type === ChartType.CUSTOMIZED) {
+			return fetchMockCustomizeChartData(reportId);
 		} else {
 			return fetchMockChartData(reportId);
 		}
