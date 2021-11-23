@@ -143,7 +143,6 @@ export const MeasurableFactor = styled.span.attrs({'data-widget': 'measurable-fa
 	height         : calc(var(--height) * 0.8);
 	border-radius  : var(--border-radius);
 	text-transform : capitalize;
-	font-size      : 1.1em;
 	font-variant   : petite-caps;
 	overflow       : hidden;
 	&:after {
@@ -179,7 +178,6 @@ export const MatchedMeasureBucketLabel = styled.span.attrs({'data-widget': 'meas
 	height         : calc(var(--height) * 0.8);
 	border-radius  : var(--border-radius);
 	text-transform : capitalize;
-	font-size      : 1.1em;
 	font-variant   : petite-caps;
 	overflow       : hidden;
 	&:after {

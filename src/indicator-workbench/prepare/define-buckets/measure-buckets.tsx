@@ -112,6 +112,7 @@ export const MeasureBuckets = (props: { indicator: Indicator; topic?: TopicForIn
 		{shown
 			? <MeasureBucketList>
 				{Object.keys(factorGroups).map(factorId => {
+					// eslint-disable-next-line
 					const factor = (topic?.factors || []).find(factor => factor.factorId == factorId);
 					if (factor != null) {
 						return {factor, methods: factorGroups[factorId]};
@@ -124,7 +125,8 @@ export const MeasureBuckets = (props: { indicator: Indicator; topic?: TopicForIn
 						sensitivity: 'base'
 					});
 				}).map(({factor, methods}) => {
-					return <FactorMeasureBuckets methods={methods} factor={factor} buckets={buckets}/>;
+					return <FactorMeasureBuckets methods={methods} factor={factor} buckets={buckets}
+					                             key={factor.factorId}/>;
 				})}
 			</MeasureBucketList>
 			: null}
