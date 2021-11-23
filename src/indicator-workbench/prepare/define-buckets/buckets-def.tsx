@@ -12,6 +12,6 @@ export const BucketsDef = (props: { data: IndicatorsData }) => {
 
 	return <BucketsDefContainer>
 		<IndicatorFactorBuckets indicator={data.indicator}/>
-		<MeasureBuckets indicator={data.indicator}/>
+		<MeasureBuckets indicator={data.indicator} topic={data.topic}/>
 	</BucketsDefContainer>;
 };

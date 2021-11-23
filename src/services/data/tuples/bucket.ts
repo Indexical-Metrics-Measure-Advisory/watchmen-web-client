@@ -3,6 +3,7 @@ import {Apis, get, page, post} from '../apis';
 import {
 	fetchMockBucket,
 	fetchMockBucketsByIds,
+	fetchMockBucketsByMethods,
 	fetchMockBucketsForIndicatorValue,
 	listMockBuckets,
 	saveMockBucket
@@ -10,7 +11,7 @@ import {
 import {TuplePage} from '../query/tuple-page';
 import {isMockService} from '../utils';
 import {Bucket, BucketId} from './bucket-types';
-import {QueryBucket} from './query-bucket-types';
+import {QueryBucket, QueryByBucketMethod} from './query-bucket-types';
 import {isFakedUuid} from './utils';
 
 export const listBuckets = async (options: {
@@ -65,5 +66,13 @@ export const fetchBucketsByIds = async (bucketIds: Array<BucketId>): Promise<Arr
 		return await fetchMockBucketsByIds(bucketIds);
 	} else {
 		return await get({api: Apis.BUCKET_LIST_BY_IDS, search: {bucketIds: bucketIds.join(',')}});
+	}
+};
+
+export const fetchBucketsByMethods = async (methods: Array<QueryByBucketMethod>): Promise<Array<QueryBucket>> => {
+	if (isMockService()) {
+		return await fetchMockBucketsByMethods(methods);
+	} else {
+		return await post({api: Apis.BUCKET_LIST_BY_METHODS, data: {methods}});
 	}
 };

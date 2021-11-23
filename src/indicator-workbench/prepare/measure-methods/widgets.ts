@@ -4,6 +4,7 @@ export const MeasureItemsContainer = styled.div.attrs({'data-widget': 'measure-i
 	display               : grid;
 	grid-template-columns : auto 1fr auto 1fr;
 	position              : relative;
+	padding-right         : var(--margin);
 `;
 export const MeasureItemsTitle = styled.span.attrs({'data-widget': 'measure-items-title'})`
 	display         : flex;

@@ -148,7 +148,8 @@ export const Apis = {
 	BUCKET_GET: 'bucket?bucket_id=:bucketId',
 	BUCKET_LIST_FOR_INDICATOR_VALUE: 'bucket/numeric-value?query_name=:search',
 	/** bucketIds is joined by comma */
-	BUCKET_LIST_BY_IDS: 'bucket?bucket_ids=:bucketIds'
+	BUCKET_LIST_BY_IDS: 'buckets/ids?bucket_ids=:bucketIds',
+	BUCKET_LIST_BY_METHODS: 'buckets/methods'
 };
 
 const buildApi = (api: string, args?: Record<string, any>): string => {

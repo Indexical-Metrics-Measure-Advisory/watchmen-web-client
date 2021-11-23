@@ -1,6 +1,8 @@
 import {TuplePage} from '../../query/tuple-page';
 import {Bucket, BucketId, BucketType, NumericValueBucket, RangeBucketValueIncluding} from '../../tuples/bucket-types';
-import {QueryBucket} from '../../tuples/query-bucket-types';
+import {isEnumMeasureBucket, isMeasureBucket} from '../../tuples/bucket-utils';
+import {MeasureMethod} from '../../tuples/indicator-types';
+import {QueryBucket, QueryByBucketMethod} from '../../tuples/query-bucket-types';
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
 import {DemoBuckets, DemoQueryBuckets} from './mock-data-buckets';
@@ -73,6 +75,31 @@ export const fetchMockBucketsByIds = async (bucketIds: Array<BucketId>): Promise
 			resolve(DemoQueryBuckets
 				// eslint-disable-next-line
 				.filter(bucket => bucketIds.some(bucketId => bucketId == bucket.bucketId))
+			);
+		}, 1000);
+	});
+};
+
+export const fetchMockBucketsByMethods = async (methods: Array<QueryByBucketMethod>): Promise<Array<QueryBucket>> => {
+	return new Promise<Array<QueryBucket>>((resolve) => {
+		setTimeout(() => {
+			resolve(DemoQueryBuckets
+				// eslint-disable-next-line
+				.filter(bucket => {
+					if (!isMeasureBucket(bucket)) {
+						return false;
+					}
+					const matchedMethod = methods.find(({method}) => method === bucket.measure);
+					if (matchedMethod == null) {
+						return false;
+					}
+					if (matchedMethod.method === MeasureMethod.ENUM) {
+						// eslint-disable-next-line
+						return isEnumMeasureBucket(bucket) && bucket.enumId == (matchedMethod as any).enumId;
+					} else {
+						return true;
+					}
+				})
 			);
 		}, 1000);
 	});

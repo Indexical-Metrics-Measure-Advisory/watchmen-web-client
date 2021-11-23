@@ -15,7 +15,8 @@ export const IndicatorFactorBucketsContainer = styled.div.attrs({'data-widget': 
 	padding-left   : calc(var(--margin) / 2);
 	counter-reset  : factor-value-bucket;
 	> div[data-widget=search-text] {
-		margin-top : calc(var(--margin) / 2);
+		margin-top   : calc(var(--margin) / 2);
+		margin-right : var(--margin);
 		> input[data-widget=search-input],
 		> button[data-widget=search-button] {
 			font-size   : 1em;
@@ -50,8 +51,7 @@ export const LinkedIndicatorFactorBucketsContainer = styled.div.attrs({'data-wid
 	position    : relative;
 	flex-wrap   : wrap;
 	align-items : center;
-	margin-left : calc(var(--margin) / -4);
-	padding-top : calc(var(--margin) / 2);
+	padding     : calc(var(--margin) / 2) var(--margin) 0 calc(var(--margin) / 4);
 	&:empty {
 		padding-top : 0;
 	}
@@ -63,7 +63,7 @@ export const LinkedIndicatorFactorBucket = styled.span.attrs({'data-widget': 'li
 	padding       : 0 0 0 calc(var(--margin) / 2);
 	margin-left   : calc(var(--margin) / 4);
 	margin-bottom : calc(var(--margin) / 4);
-	height        : var(--height);
+	height        : calc(var(--height) * 0.8);
 	border-radius : var(--border-radius);
 	overflow      : hidden;
 	&:after {
@@ -98,8 +98,8 @@ export const LinkedIndicatorFactorBucket = styled.span.attrs({'data-widget': 'li
 		position         : relative;
 		align-items      : center;
 		justify-content  : center;
-		height           : calc(var(--height) * 0.8);
-		min-width        : calc(var(--height) * 0.8);
+		height           : calc(var(--height) * 0.64);
+		min-width        : calc(var(--height) * 0.64);
 		left             : var(--height);
 		color            : var(--invert-color);
 		background-color : var(--danger-color);
@@ -123,4 +123,71 @@ export const MeasureBucketsContainer = styled.div.attrs({'data-widget': 'measure
 		border-radius : calc(var(--height) / 2);
 	}
 `;
-
+export const MeasureBucketList = styled.div.attrs({'data-widget': 'measure-bucket-list'})`
+	display               : grid;
+	position              : relative;
+	grid-template-columns : auto 1fr auto 1fr;
+	margin-top            : calc(var(--margin) / 4);
+	padding-right         : var(--margin);
+`;
+export const MeasurableFactor = styled.span.attrs({'data-widget': 'measurable-factor'})`
+	display        : flex;
+	position       : relative;
+	align-items    : center;
+	justify-self   : start;
+	padding        : 0 calc(var(--margin) / 2);
+	margin         : calc(var(--height) * 0.2) 0 calc(var(--height) * 0.2) calc(var(--margin) / 2);
+	height         : calc(var(--height) * 0.8);
+	border-radius  : var(--border-radius);
+	text-transform : capitalize;
+	font-size      : 1.1em;
+	font-variant   : petite-caps;
+	overflow       : hidden;
+	&:after {
+		content          : '';
+		display          : block;
+		position         : absolute;
+		top              : 0;
+		left             : 0;
+		width            : 100%;
+		height           : 100%;
+		background-color : var(--primary-color);
+		opacity          : 0.3;
+		z-index          : -1;
+	}
+	> svg {
+		margin-right : calc(var(--margin) / 4);
+		font-size    : 0.7em;
+		opacity      : 0.7;
+	}
+`;
+export const MatchedMeasureBuckets = styled.div.attrs({'data-widget': 'measure-buckets'})`
+	display   : flex;
+	position  : relative;
+	flex-wrap : wrap;
+`;
+export const MatchedMeasureBucketLabel = styled.span.attrs({'data-widget': 'measure-bucket'})`
+	display        : flex;
+	position       : relative;
+	align-items    : center;
+	padding        : 0 calc(var(--margin) / 2);
+	margin         : calc(var(--height) * 0.2) 0 calc(var(--height) * 0.2) calc(var(--margin) / 2);
+	height         : calc(var(--height) * 0.8);
+	border-radius  : var(--border-radius);
+	text-transform : capitalize;
+	font-size      : 1.1em;
+	font-variant   : petite-caps;
+	overflow       : hidden;
+	&:after {
+		content          : '';
+		display          : block;
+		position         : absolute;
+		top              : 0;
+		left             : 0;
+		width            : 100%;
+		height           : 100%;
+		background-color : var(--info-color);
+		opacity          : 0.3;
+		z-index          : -1;
+	}
+`;
