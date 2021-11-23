@@ -20,6 +20,7 @@ export enum IndicatorsEventTypes {
 	INDICATOR_VALUE_BUCKET_PICKED = 'indicator-value-bucket-picked',
 	INDICATOR_VALUE_BUCKET_UNPICKED = 'indicator-value-bucket-unpicked',
 
+	SAVE_INDICATOR = 'save-indicator',
 	INDICATOR_SAVED = 'indicator-saved'
 }
 
@@ -47,6 +48,10 @@ export interface IndicatorsEventBus {
 	fire(type: IndicatorsEventTypes.INDICATOR_VALUE_BUCKET_UNPICKED, indicator: Indicator, bucketId: BucketId): this;
 	on(type: IndicatorsEventTypes.INDICATOR_VALUE_BUCKET_UNPICKED, listener: (indicator: Indicator, bucketId: BucketId) => void): this;
 	off(type: IndicatorsEventTypes.INDICATOR_VALUE_BUCKET_UNPICKED, listener: (indicator: Indicator, bucketId: BucketId) => void): this;
+
+	fire(type: IndicatorsEventTypes.SAVE_INDICATOR, indicator: Indicator, onSaved: (indicator: Indicator, saved: boolean) => void): this;
+	on(type: IndicatorsEventTypes.SAVE_INDICATOR, listener: (indicator: Indicator, onSaved: (indicator: Indicator, saved: boolean) => void) => void): this;
+	off(type: IndicatorsEventTypes.SAVE_INDICATOR, listener: (indicator: Indicator, onSaved: (indicator: Indicator, saved: boolean) => void) => void): this;
 
 	fire(type: IndicatorsEventTypes.INDICATOR_SAVED, indicator: Indicator): this;
 	on(type: IndicatorsEventTypes.INDICATOR_SAVED, listener: (indicator: Indicator) => void): this;

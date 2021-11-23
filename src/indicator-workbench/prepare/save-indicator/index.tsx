@@ -1,4 +1,4 @@
-import {saveIndicator} from '@/services/data/tuples/indicator';
+import {Indicator} from '@/services/data/tuples/indicator-types';
 import {isFakedUuid} from '@/services/data/tuples/utils';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {ICON_LOADING} from '@/widgets/basic/constants';
@@ -70,21 +70,16 @@ export const SaveIndicator = () => {
 
 		setSaving(true);
 		data!.indicator!.name = data!.indicator!.name.trim();
-		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-			async () => await saveIndicator(data!.indicator!),
-			() => {
-				fire(IndicatorsEventTypes.INDICATOR_SAVED, data!.indicator!);
+		fire(IndicatorsEventTypes.SAVE_INDICATOR, data!.indicator!, (indicator: Indicator, saved: boolean) => {
+			if (saved) {
 				inputRef.current?.blur();
 				setOnEdit(false);
-				setSaving(false);
 				if (!done) {
 					fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.RELEVANT_INDICATORS, data);
 				}
-			},
-			() => {
-				setSaving(false);
-				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{Lang.ERROR.UNPREDICTED}</AlertLabel>);
-			});
+			}
+			setSaving(false);
+		});
 	};
 	const onChangeNameClicked = () => {
 		setOnEdit(true);

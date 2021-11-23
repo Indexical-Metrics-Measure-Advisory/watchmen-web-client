@@ -1,5 +1,6 @@
 import dayjs, {Dayjs} from 'dayjs';
 
+export const noop = () => (void 0);
 export const base64Encode = (str: string): string => {
 	return Buffer.from(str, 'utf-8').toString('base64');
 };

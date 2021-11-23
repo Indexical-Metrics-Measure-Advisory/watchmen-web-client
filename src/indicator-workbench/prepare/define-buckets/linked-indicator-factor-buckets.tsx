@@ -2,6 +2,7 @@ import {fetchBucketsByIds} from '@/services/data/tuples/bucket';
 import {BucketId} from '@/services/data/tuples/bucket-types';
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
+import {noop} from '@/services/utils';
 import {ICON_BUCKET, ICON_DELETE} from '@/widgets/basic/constants';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
@@ -56,6 +57,7 @@ export const LinkedIndicatorFactorBuckets = (props: { indicator: Indicator }) =>
 			indicator.valueBuckets.splice(index, 1);
 			forceUpdate();
 			fire(IndicatorsEventTypes.INDICATOR_VALUE_BUCKET_UNPICKED, indicator, bucketId);
+			fire(IndicatorsEventTypes.SAVE_INDICATOR, indicator, noop);
 		}
 	};
 
