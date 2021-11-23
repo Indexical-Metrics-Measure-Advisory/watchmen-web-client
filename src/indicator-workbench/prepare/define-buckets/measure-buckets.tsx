@@ -8,7 +8,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {MeasureBucketsContainer, OrderedLabel} from './widgets';
 
 export const MeasureBuckets = (props: { indicator: Indicator }) => {
-	// const {indicator} = props;
+	const {indicator} = props;
 
 	const forceUpdate = useForceUpdate();
 

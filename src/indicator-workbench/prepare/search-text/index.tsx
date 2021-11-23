@@ -42,6 +42,7 @@ export const SearchText = <I extends SearchItem>(props: {
 	const [showSearchInput, setShowSearchInput] = useState(alwaysShowSearchInput);
 	const [showSearchPopup, setShowSearchPopup] = useState(false);
 	const [searchText, setSearchText] = useState('');
+	const [timeoutHandle, setTimeoutHandle] = useState<number | null>(null);
 	const [result, setResult] = useState<SearchResult<I>>({searched: false, items: []});
 	const [activeItemIndex, setActiveItemIndex] = useState<number>(-1);
 	useEffect(() => {
@@ -75,19 +76,31 @@ export const SearchText = <I extends SearchItem>(props: {
 		setShowSearchPopup(true);
 		const text = value.trim();
 		if (text.length === 0) {
-			setTimeout(() => {
-				setActiveItemIndex(-1);
-				setResult({searched: false, items: []});
-			}, 300);
+			setTimeoutHandle(handle => {
+				if (handle != null) {
+					window.clearTimeout(handle);
+				}
+				return window.setTimeout(() => {
+					setActiveItemIndex(-1);
+					setResult({searched: false, items: []});
+				}, 300);
+			});
 		} else {
-			try {
-				const items = await search(text);
-				setActiveItemIndex(items.length !== 0 ? 0 : -1);
-				setResult({searched: true, items});
-			} catch {
-				setActiveItemIndex(-1);
-				setResult({searched: true, items: []});
-			}
+			setTimeoutHandle(handle => {
+				if (handle != null) {
+					window.clearTimeout(handle);
+				}
+				return window.setTimeout(async () => {
+					try {
+						const items = await search(text);
+						setActiveItemIndex(items.length !== 0 ? 0 : -1);
+						setResult({searched: true, items});
+					} catch {
+						setActiveItemIndex(-1);
+						setResult({searched: true, items: []});
+					}
+				}, 150);
+			});
 		}
 	};
 	const onSearchTextFocused = () => {
@@ -118,6 +131,9 @@ export const SearchText = <I extends SearchItem>(props: {
 				break;
 			case 'Enter':
 				if (activeItemIndex !== -1) {
+					if (timeoutHandle != null) {
+						window.clearTimeout(timeoutHandle);
+					}
 					await onSelectionChange(result.items[activeItemIndex]);
 				}
 				break;
