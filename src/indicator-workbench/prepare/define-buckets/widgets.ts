@@ -13,7 +13,6 @@ export const IndicatorFactorBucketsContainer = styled.div.attrs({'data-widget': 
 	position       : relative;
 	flex-direction : column;
 	padding-left   : calc(var(--margin) / 2);
-	counter-reset  : factor-value-bucket;
 	> div[data-widget=search-text] {
 		margin-top   : calc(var(--margin) / 2);
 		margin-right : var(--margin);
@@ -78,10 +77,15 @@ export const LinkedIndicatorFactorBucket = styled.span.attrs({'data-widget': 'li
 		opacity          : 0.2;
 		z-index          : 0;
 	}
-	&:hover > span:last-child:not(:first-child) {
+	&:hover > span:last-child {
 		left : calc(var(--height) * -0.1);
 	}
-	> span:first-child {
+	> svg {
+		margin-right : calc(var(--margin) / 4);
+		font-size    : 0.7em;
+		opacity      : 0.7;
+	}
+	> span:nth-child(2) {
 		padding-right : calc(var(--margin) / 2);
 		font-variant  : petite-caps;
 		font-weight   : var(--font-demi-bold);
@@ -93,7 +97,7 @@ export const LinkedIndicatorFactorBucket = styled.span.attrs({'data-widget': 'li
 			margin-right : calc(var(--margin) / 2);
 		}
 	}
-	> span:last-child:not(:first-child) {
+	> span:last-child {
 		display          : flex;
 		position         : relative;
 		align-items      : center;
@@ -116,7 +120,6 @@ export const MeasureBucketsContainer = styled.div.attrs({'data-widget': 'measure
 	flex-direction : column;
 	margin-top     : calc(var(--margin) / 2);
 	padding-left   : calc(var(--margin) / 2);
-	counter-reset  : factor-value-bucket;
 	> button:last-child {
 		margin-top    : calc(var(--margin) / 2);
 		align-self    : flex-start;
@@ -151,11 +154,12 @@ export const MeasurableFactor = styled.span.attrs({'data-widget': 'measurable-fa
 		left             : 0;
 		width            : 100%;
 		height           : 100%;
-		background-color : var(--primary-color);
+		background-color : var(--info-color);
 		opacity          : 0.3;
 		z-index          : -1;
 	}
 	> svg {
+		margin-top   : 2px;
 		margin-right : calc(var(--margin) / 4);
 		font-size    : 0.7em;
 		opacity      : 0.7;
@@ -186,8 +190,13 @@ export const MatchedMeasureBucketLabel = styled.span.attrs({'data-widget': 'meas
 		left             : 0;
 		width            : 100%;
 		height           : 100%;
-		background-color : var(--info-color);
+		background-color : var(--primary-color);
 		opacity          : 0.3;
 		z-index          : -1;
+	}
+	> svg {
+		margin-right : calc(var(--margin) / 4);
+		font-size    : 0.7em;
+		opacity      : 0.7;
 	}
 `;

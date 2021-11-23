@@ -9,6 +9,7 @@ export const getServiceHost = (): string => {
 	}
 };
 
+export const isNotNull = <T>(x: T | null): x is T => !!x;
 export const getCurrentTime = () => dayjs().format('YYYY-MM-DD HH:mm:ss');
 
 export const doFetch = async (input: RequestInfo, init?: RequestInit): Promise<Response> => {

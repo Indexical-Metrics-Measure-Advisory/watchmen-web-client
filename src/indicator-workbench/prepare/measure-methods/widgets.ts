@@ -101,6 +101,12 @@ export const MeasureFactorLabel = styled.span.attrs({'data-widget': 'measure-fac
 		opacity          : 0.3;
 		z-index          : -1;
 	}
+	> svg {
+		margin-top   : 2px;
+		margin-right : calc(var(--margin) / 4);
+		font-size    : 0.7em;
+		opacity      : 0.7;
+	}
 `;
 export const AggregateItemsTitle = styled(MeasureItemsTitle).attrs({'data-widget': 'aggregate-items-title'})`
 	grid-column : 1;

@@ -8,7 +8,7 @@ import {
 	isTimePeriodMeasure
 } from '@/services/data/tuples/indicator-utils';
 import {EnumForIndicator} from '@/services/data/tuples/query-indicator-types';
-import {ICON_INDICATOR_MEASURE_METHOD} from '@/widgets/basic/constants';
+import {ICON_FACTOR, ICON_INDICATOR_MEASURE_METHOD} from '@/widgets/basic/constants';
 import {FactorTypeLabel} from '@/widgets/basic/factor-type-label';
 import {MeasureMethodLabel} from '@/widgets/basic/measure-method-label';
 import {useTooltip} from '@/widgets/basic/tooltip';
@@ -65,6 +65,7 @@ const MeasureFactor = (props: { factor: Factor, enum?: EnumForIndicator }) => {
 	});
 
 	return <MeasureFactorLabel {...tooltip} ref={ref}>
+		<FontAwesomeIcon icon={ICON_FACTOR}/>
 		<span>{name || 'Noname Factor'}</span>
 	</MeasureFactorLabel>;
 };

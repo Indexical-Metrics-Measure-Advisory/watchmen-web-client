@@ -57,6 +57,20 @@ export const Amounts: NumericValueBucket = {
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };
+export const CitiesIsland: EnumMeasureBucket = {
+	bucketId: BUCKET_CITIES_ID,
+	name: 'Cities of Island or not',
+	type: BucketType.ENUM_MEASURE,
+	measure: MeasureMethod.ENUM,
+	enumId: MOCK_ENUM_CITY_ID,
+	segments: [
+		{name: 'Island', value: ['005']},
+		{name: 'Others', value: ['&others']}
+	],
+	description: 'Island and others',
+	createTime: getCurrentTime(),
+	lastModified: getCurrentTime()
+};
 
-export const DemoBuckets = [Floor, Cities, Amounts];
+export const DemoBuckets = [Floor, Cities, Amounts, CitiesIsland];
 export const DemoQueryBuckets = DemoBuckets;

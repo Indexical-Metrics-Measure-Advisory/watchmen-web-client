@@ -99,7 +99,7 @@ export const StepTitleButton = styled(Button).attrs<{ asLabel?: boolean }>(({asL
 	};
 })<{ asLabel?: boolean }>`
 	height        : calc(var(--height) * 1.2);
-	line-height   : calc(var(--height) * 1.1);
+	//line-height   : calc(var(--height) * 1.1);
 	font-size     : 1.2em;
 	border-radius : calc(var(--height) * 0.6);
 	&[data-ink]:hover {

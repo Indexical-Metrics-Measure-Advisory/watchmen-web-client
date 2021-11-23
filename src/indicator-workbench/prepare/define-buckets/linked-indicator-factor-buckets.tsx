@@ -2,7 +2,7 @@ import {fetchBucketsByIds} from '@/services/data/tuples/bucket';
 import {BucketId} from '@/services/data/tuples/bucket-types';
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
-import {ICON_DELETE} from '@/widgets/basic/constants';
+import {ICON_BUCKET, ICON_DELETE} from '@/widgets/basic/constants';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
@@ -64,6 +64,7 @@ export const LinkedIndicatorFactorBuckets = (props: { indicator: Indicator }) =>
 			// eslint-disable-next-line
 			const bucket = buckets.find(bucket => bucket.bucketId == bucketId);
 			return <LinkedIndicatorFactorBucket key={bucketId}>
+				<FontAwesomeIcon icon={ICON_BUCKET}/>
 				<span>{bucket?.name || 'Noname Bucket'}</span>
 				<span onClick={onRemoveClicked(bucketId)}>
 					<FontAwesomeIcon icon={ICON_DELETE}/>

@@ -1,6 +1,7 @@
 import {fetchBucketsByMethods} from '@/services/data/tuples/bucket';
 import {isEnumMeasureBucket, isMeasureBucket} from '@/services/data/tuples/bucket-utils';
-import {Indicator, IndicatorMeasure, MeasureMethod} from '@/services/data/tuples/indicator-types';
+import {Factor, FactorId} from '@/services/data/tuples/factor-types';
+import {Indicator, MeasureMethod} from '@/services/data/tuples/indicator-types';
 import {
 	QueryBucket,
 	QueryByBucketMethod,
@@ -8,8 +9,9 @@ import {
 	QueryByMeasureMethod
 } from '@/services/data/tuples/query-bucket-types';
 import {TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
+import {isNotNull} from '@/services/data/utils';
 import {Button} from '@/widgets/basic/button';
-import {ICON_FACTOR, ICON_LIST_ICON_ASTERISK} from '@/widgets/basic/constants';
+import {ICON_BUCKET, ICON_FACTOR, ICON_LIST_ICON_ASTERISK} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
@@ -25,27 +27,19 @@ import {
 	OrderedLabel
 } from './widgets';
 
-const FactorMeasureBuckets = (props: { measure: IndicatorMeasure; topic?: TopicForIndicator; buckets: Array<QueryBucket> }) => {
-	const {measure: {method, factorId}, topic, buckets} = props;
+const FactorMeasureBuckets = (props: { methods: Array<MeasureMethod>; factor: Factor; buckets: Array<QueryBucket> }) => {
+	const {methods, factor, buckets} = props;
 
-	if (topic == null) {
-		return null;
-	}
-
-	// eslint-disable-next-line
-	const factor = (topic.factors || []).find(factor => factor.factorId == factorId);
-	if (factor == null) {
-		return null;
-	}
-
-	const matchedBuckets: Array<QueryBucket> = (() => {
+	const matchedBuckets: Array<QueryBucket> = [...new Set(methods)].map(method => {
 		if (method === MeasureMethod.ENUM && factor.enumId != null) {
 			// eslint-disable-next-line
 			return buckets.filter(bucket => isEnumMeasureBucket(bucket) && bucket.enumId == factor.enumId);
 		} else {
 			return buckets.filter(bucket => isMeasureBucket(bucket) && bucket.measure === method);
 		}
-	})();
+	}).flat().sort((b1, b2) => {
+		return (b1.name || '').localeCompare(b2.name || '', void 0, {sensitivity: 'base', caseFirst: 'upper'});
+	});
 
 	if (matchedBuckets.length === 0) {
 		return null;
@@ -59,7 +53,8 @@ const FactorMeasureBuckets = (props: { measure: IndicatorMeasure; topic?: TopicF
 		<MatchedMeasureBuckets>
 			{matchedBuckets.map(bucket => {
 				return <MatchedMeasureBucketLabel key={bucket.bucketId}>
-					{bucket.name || 'Noname Bucket'}
+					<FontAwesomeIcon icon={ICON_BUCKET}/>
+					<span>{bucket.name || 'Noname Bucket'}</span>
 				</MatchedMeasureBucketLabel>;
 			})}
 		</MatchedMeasureBuckets>
@@ -99,6 +94,16 @@ export const MeasureBuckets = (props: { indicator: Indicator; topic?: TopicForIn
 			});
 	};
 
+	const factorGroups = (indicator.measures || []).reduce((groups, {method, factorId}) => {
+		let methods = groups[factorId];
+		if (methods == null) {
+			methods = [];
+			groups[factorId] = methods;
+		}
+		methods.push(method);
+		return groups;
+	}, {} as Record<FactorId, Array<MeasureMethod>>);
+
 	return <MeasureBucketsContainer>
 		<OrderedLabel>
 			<FontAwesomeIcon icon={ICON_LIST_ICON_ASTERISK}/>
@@ -106,8 +111,20 @@ export const MeasureBuckets = (props: { indicator: Indicator; topic?: TopicForIn
 		</OrderedLabel>
 		{shown
 			? <MeasureBucketList>
-				{(indicator.measures || []).map(measure => {
-					return <FactorMeasureBuckets measure={measure} topic={topic} buckets={buckets}/>;
+				{Object.keys(factorGroups).map(factorId => {
+					const factor = (topic?.factors || []).find(factor => factor.factorId == factorId);
+					if (factor != null) {
+						return {factor, methods: factorGroups[factorId]};
+					} else {
+						return null;
+					}
+				}).filter(isNotNull).sort(({factor: f1}, {factor: f2}) => {
+					return (f1.name || '').localeCompare(f2.name || '', void 0, {
+						caseFirst: 'upper',
+						sensitivity: 'base'
+					});
+				}).map(({factor, methods}) => {
+					return <FactorMeasureBuckets methods={methods} factor={factor} buckets={buckets}/>;
 				})}
 			</MeasureBucketList>
 			: null}
