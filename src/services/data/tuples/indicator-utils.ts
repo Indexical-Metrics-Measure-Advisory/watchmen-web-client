@@ -107,7 +107,7 @@ export const tryToTransformToMeasure = (factorOrType: Factor | FactorType): Arra
 	}
 };
 
-export const detectMeasures = (topic?: Topic | TopicForIndicator): Array<IndicatorMeasure> => {
+export const detectMeasures = (topic?: Topic | TopicForIndicator, accept?: (measure: MeasureMethod) => boolean): Array<IndicatorMeasure> => {
 	if (topic == null) {
 		return [];
 	}
@@ -118,9 +118,17 @@ export const detectMeasures = (topic?: Topic | TopicForIndicator): Array<Indicat
 			// ignore
 			return null;
 		} else if (Array.isArray(measures)) {
-			return measures.map(measure => ({factorId: factor.factorId, method: measure}));
-		} else {
+			return measures.map(measure => {
+				if (accept == null || accept(measure)) {
+					return {factorId: factor.factorId, method: measure};
+				} else {
+					return null;
+				}
+			}).filter(isNotNull);
+		} else if (accept == null || accept(measures)) {
 			return [{factorId: factor.factorId, method: measures}];
+		} else {
+			return null;
 		}
 	}).filter(isNotNull).flat();
 };

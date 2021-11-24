@@ -101,6 +101,11 @@ export const MeasureBucketList = styled.div.attrs({'data-widget': 'measure-bucke
 	grid-template-columns : auto 1fr auto 1fr;
 	margin-top            : calc(var(--margin) / 4);
 	padding-right         : var(--margin);
+	&:not(:empty) {
+		+ div[data-widget=no-measure-bucket] {
+			display : none;
+		}
+	}
 `;
 export const MatchedMeasureBuckets = styled.div.attrs({'data-widget': 'measure-buckets'})`
 	display   : flex;
@@ -135,4 +140,11 @@ export const MatchedMeasureBucketLabel = styled.span.attrs({'data-widget': 'meas
 		font-size    : 0.7em;
 		opacity      : 0.7;
 	}
+`;
+export const NoMeasureBucket = styled.div.attrs({'data-widget': 'no-measure-bucket'})`
+	display     : flex;
+	position    : relative;
+	align-items : center;
+	font-size   : 1.1em;
+	min-height  : var(--height);
 `;

@@ -25,6 +25,7 @@ import {
 	MatchedMeasureBuckets,
 	MeasureBucketList,
 	MeasureBucketsContainer,
+	NoMeasureBucket,
 	OrderedLabel
 } from './widgets';
 
@@ -101,6 +102,20 @@ export const MeasureBuckets = (props: { indicator: Indicator; topic?: TopicForIn
 		methods.push(method);
 		return groups;
 	}, {} as Record<FactorId, Array<MeasureMethod>>);
+	const arranged = Object.keys(factorGroups).map(factorId => {
+		// eslint-disable-next-line
+		const factor = (topic?.factors || []).find(factor => factor.factorId == factorId);
+		if (factor != null) {
+			return {factor, methods: factorGroups[factorId]};
+		} else {
+			return null;
+		}
+	}).filter(isNotNull).sort(({factor: f1}, {factor: f2}) => {
+		return (f1.name || '').localeCompare(f2.name || '', void 0, {
+			caseFirst: 'upper',
+			sensitivity: 'base'
+		});
+	});
 
 	return <MeasureBucketsContainer>
 		<OrderedLabel>
@@ -108,27 +123,18 @@ export const MeasureBuckets = (props: { indicator: Indicator; topic?: TopicForIn
 			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.MEASURE_BUCKET_LABEL}</span>
 		</OrderedLabel>
 		{shown
-			? <MeasureBucketList>
-				{Object.keys(factorGroups).map(factorId => {
-					// eslint-disable-next-line
-					const factor = (topic?.factors || []).find(factor => factor.factorId == factorId);
-					if (factor != null) {
-						return {factor, methods: factorGroups[factorId]};
-					} else {
-						return null;
-					}
-				}).filter(isNotNull).sort(({factor: f1}, {factor: f2}) => {
-					return (f1.name || '').localeCompare(f2.name || '', void 0, {
-						caseFirst: 'upper',
-						sensitivity: 'base'
-					});
-				}).map(({factor, methods}) => {
-					// eslint-disable-next-line
-					const enumeration = factor.enumId != null ? enums?.find(enumeration => enumeration.enumId == factor.enumId) : (void 0);
-					return <FactorMeasureBuckets methods={methods} factor={factor} buckets={buckets} enum={enumeration}
-					                             key={factor.factorId}/>;
-				})}
-			</MeasureBucketList>
+			? <>
+				<MeasureBucketList>
+					{arranged.map(({factor, methods}) => {
+						// eslint-disable-next-line
+						const enumeration = factor.enumId != null ? enums?.find(enumeration => enumeration.enumId == factor.enumId) : (void 0);
+						return <FactorMeasureBuckets methods={methods} factor={factor} buckets={buckets}
+						                             enum={enumeration}
+						                             key={factor.factorId}/>;
+					})}
+				</MeasureBucketList>
+				<NoMeasureBucket>{Lang.INDICATOR_WORKBENCH.PREPARE.NO_MEASURE_BUCKET}</NoMeasureBucket>
+			</>
 			: null}
 		<Button ink={ButtonInk.PRIMARY} onClick={onViewClicked}>
 			{Lang.INDICATOR_WORKBENCH.PREPARE.VIEW_MEASURE_BUCKETS}

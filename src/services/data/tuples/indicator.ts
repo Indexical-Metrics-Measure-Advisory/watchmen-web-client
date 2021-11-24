@@ -4,6 +4,7 @@ import {
 	fetchMockEnumsForTopic,
 	fetchMockIndicator,
 	fetchMockIndicatorsForSelection,
+	fetchMockRelevantIndicators,
 	fetchMockTopicsForIndicatorSelection,
 	saveMockIndicator
 } from '../mock/tuples/mock-indicator';
@@ -68,5 +69,13 @@ export const saveIndicator = async (indicator: Indicator): Promise<void> => {
 		});
 		indicator.tenantId = data.tenantId;
 		indicator.lastModified = data.lastModified;
+	}
+};
+
+export const fetchRelevantIndicators = async (indicatorId: IndicatorId): Promise<Array<Indicator>> => {
+	if (isMockService()) {
+		return fetchMockRelevantIndicators(indicatorId);
+	} else {
+		return await get({api: Apis.RELEVANT_INDICATOR_LIST, search: {indicatorId}});
 	}
 };

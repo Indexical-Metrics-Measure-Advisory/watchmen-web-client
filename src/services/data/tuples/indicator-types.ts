@@ -69,12 +69,22 @@ export interface IndicatorMeasure {
 
 export enum RelevantIndicatorType {
 	SAME = 'same',
-	SAME_ORIGIN = 'same-origin',
-	VALUE_BUCKET_OVERLAP = 'value-bucket-overlap',
-	MEASURE_OVERLAP = 'measure-overlap',
-	TIME_BASED = 'time-based'
+	HIGH_CORRELATED = 'high-correlated',
+	WEAK_CORRELATED = 'weak-correlated',
+	/** this causes relevant */
+	THIS_CAUSES_RELEVANT = 'this-causes-relevant',
+	/** relevant causes this */
+	RELEVANT_CAUSES_THIS = 'relevant-causes-this'
 }
 
+/**
+ * indicator always be relevant with others, here are the typically scenarios:
+ * 1. indicators from different factors on same topic, flow to different topics, maybe through several pipelines,
+ * 2. indicators from same factor, flow to different topics by different computation,
+ * 3. indicators have no correlation, still can be relevant in reality.
+ *
+ * relevance has transitivity, it's very important.
+ */
 export interface RelevantIndicator {
 	indicatorId: IndicatorId;
 	type: RelevantIndicatorType;

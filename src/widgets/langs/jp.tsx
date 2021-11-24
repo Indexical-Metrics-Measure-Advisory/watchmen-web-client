@@ -307,6 +307,7 @@ export const Jp = {
 			LINK_INDICATOR_VALUE_BUCKETS: '定義済みの指標値のバケットを関連付けます',
 			DISCARD_LINK_INDICATOR_VALUE_BUCKETS: '関連付けを破棄します',
 			MEASURE_BUCKET_LABEL: '測定寸法のバケット定義',
+			NO_MEASURE_BUCKET: '適切な測定寸法のバケットは見つかりませんでした。',
 			VIEW_MEASURE_BUCKETS: '定義済みの測定寸法のバケットを表示します',
 			IGNORE_DEFINE_BUCKETS: 'バケット定義を無視する',
 			CHANGE_NAME: '名前を変更します',
@@ -315,6 +316,10 @@ export const Jp = {
 			SAVE_NAME: '名前を保存する',
 			REQUIRE_INDICATOR_NAME: '読み取りには指標名が必要です。',
 			RELEVANT_TITLE: '現在の指標に関連する指標は、自動的に検出できます。',
+			INDICATOR_NAME: '関連指標',
+			INDICATOR_RELEVANT_TYPE: '関連性',
+			IRRELEVANT: '何の関係もない',
+			NO_RELEVANT_DETECTED: '現在、関連指標は検出されていません。',
 			DETECT_RELEVANT: '潜在的な関連指標を検出します',
 			IGNORE_DETECT_RELEVANT: '今すぐ検出を無視',
 			LAST_STEP_TITLE: '指標の設定が完了しました。',
@@ -810,6 +815,13 @@ export const Jp = {
 			BIZ_SCALE: '規模',
 			BOOLEAN: 'ブール値',
 			ENUM: '列挙'
+		},
+		RELEVANT_TYPE: {
+			SAME: '同じ',
+			HIGH_CORRELATED: '高い関連性',
+			WEAK_CORRELATED: '弱い関連性',
+			THIS_CAUSES_RELEVANT: '現在の指標は、関連指標につながります',
+			RELEVANT_CAUSES_THIS: '関連指標は、現在の指標につながります'
 		}
 	},
 	SHARE: {

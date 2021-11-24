@@ -115,3 +115,11 @@ export const saveMockIndicator = async (indicator: Indicator): Promise<void> => 
 		setTimeout(() => resolve(), 500);
 	});
 };
+
+export const fetchMockRelevantIndicators = async (indicatorId: IndicatorId): Promise<Array<Indicator>> => {
+	return new Promise<Array<Indicator>>(resolve => {
+		setTimeout(() => {
+			resolve(DemoIndicators);
+		}, 500);
+	});
+};

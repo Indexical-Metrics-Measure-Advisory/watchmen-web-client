@@ -307,6 +307,7 @@ export const Zh = {
 			LINK_INDICATOR_VALUE_BUCKETS: '关联预定义的指标值分桶',
 			DISCARD_LINK_INDICATOR_VALUE_BUCKETS: '放弃关联',
 			MEASURE_BUCKET_LABEL: '测量维度分桶定义',
+			NO_MEASURE_BUCKET: '没有找到合适的测量维度分桶.',
 			VIEW_MEASURE_BUCKETS: '查看预定义的测量维度分桶',
 			IGNORE_DEFINE_BUCKETS: '现在不定义分桶',
 			CHANGE_NAME: '修改名称',
@@ -315,6 +316,10 @@ export const Zh = {
 			SAVE_NAME: '保存指标名称',
 			REQUIRE_INDICATOR_NAME: '需要一个用于阅读的指标名称.',
 			RELEVANT_TITLE: '当前指标相关的指标可以被自动侦测.',
+			INDICATOR_NAME: '相关指标',
+			INDICATOR_RELEVANT_TYPE: '相关性',
+			IRRELEVANT: '无关',
+			NO_RELEVANT_DETECTED: '目前没有侦测到相关的指标.',
 			DETECT_RELEVANT: '侦测潜在的相关指标',
 			IGNORE_DETECT_RELEVANT: '现在不侦测',
 			LAST_STEP_TITLE: '指标设置完毕.',
@@ -810,6 +815,13 @@ export const Zh = {
 			BIZ_SCALE: '企业规模',
 			BOOLEAN: '布尔',
 			ENUM: '枚举'
+		},
+		RELEVANT_TYPE: {
+			SAME: '相同',
+			HIGH_CORRELATED: '高关联性',
+			WEAK_CORRELATED: '弱关联性',
+			THIS_CAUSES_RELEVANT: '当前指标导致相关指标',
+			RELEVANT_CAUSES_THIS: '相关指标导致当前指标'
 		}
 	},
 	SHARE: {

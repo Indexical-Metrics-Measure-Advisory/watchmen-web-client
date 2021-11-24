@@ -141,6 +141,7 @@ export const Apis = {
 	INDICATOR_GET: 'indicator?indicator_id=:indicatorId',
 	INDICATOR_CREATE: 'indicator',
 	INDICATOR_SAVE: 'update/indicator?indicator_id=:indicatorId',
+	RELEVANT_INDICATOR_LIST: 'indicator/relevant?indicator_id=:indicatorId',
 
 	BUCKET_LIST_BY_NAME: 'bucket/name?query_name=:search',
 	BUCKET_CREATE: 'bucket',

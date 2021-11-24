@@ -307,6 +307,7 @@ export const En = {
 			LINK_INDICATOR_VALUE_BUCKETS: 'Link Predefined Value Buckets with Indicator Value',
 			DISCARD_LINK_INDICATOR_VALUE_BUCKETS: 'Discard Link',
 			MEASURE_BUCKET_LABEL: 'Measure bucketing',
+			NO_MEASURE_BUCKET: 'No appropriate measure bucket found.',
 			VIEW_MEASURE_BUCKETS: 'View Predefined Buckets on Measure',
 			IGNORE_DEFINE_BUCKETS: 'Ignore Buckets Definition',
 			CHANGE_NAME: 'Change Name',
@@ -315,6 +316,10 @@ export const En = {
 			SAVE_NAME: 'Save Name',
 			REQUIRE_INDICATOR_NAME: 'A human reading name for indicator is required.',
 			RELEVANT_TITLE: 'Relevant indicators of current indicator can be detected automatically.',
+			INDICATOR_NAME: 'Indicator',
+			INDICATOR_RELEVANT_TYPE: 'Relevant Type',
+			IRRELEVANT: 'Irrelevant',
+			NO_RELEVANT_DETECTED: 'No relevant indicator detected yet.',
 			DETECT_RELEVANT: 'Detect Potential Relevant Indicators',
 			IGNORE_DETECT_RELEVANT: 'Ignore Detect Now',
 			LAST_STEP_TITLE: 'Indicator is ready.',
@@ -810,6 +815,13 @@ export const En = {
 			BIZ_SCALE: 'Business Scale',
 			BOOLEAN: 'Boolean',
 			ENUM: 'Enumeration'
+		},
+		RELEVANT_TYPE: {
+			SAME: 'Same',
+			HIGH_CORRELATED: 'High Correlated',
+			WEAK_CORRELATED: 'Weak Correlated',
+			THIS_CAUSES_RELEVANT: 'Causes Relevant',
+			RELEVANT_CAUSES_THIS: 'Caused by Relevant'
 		}
 	},
 	SHARE: {
