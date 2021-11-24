@@ -2,6 +2,7 @@ import {fetchBucketsForIndicatorValue} from '@/services/data/tuples/bucket';
 import {BucketId} from '@/services/data/tuples/bucket-types';
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
+import {isFakedUuid} from '@/services/data/tuples/utils';
 import {noop} from '@/services/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
@@ -54,7 +55,9 @@ export const IndicatorFactorBucketsLink = (props: { indicator: Indicator }) => {
 		}
 
 		fireIndicator(IndicatorsEventTypes.INDICATOR_VALUE_BUCKET_PICKED, indicator, item.bucket);
-		fireIndicator(IndicatorsEventTypes.SAVE_INDICATOR, indicator, noop);
+		if (!isFakedUuid(indicator)) {
+			fireIndicator(IndicatorsEventTypes.SAVE_INDICATOR, indicator, noop);
+		}
 		fireSearch(SearchTextEventTypes.HIDE_SEARCH);
 	};
 

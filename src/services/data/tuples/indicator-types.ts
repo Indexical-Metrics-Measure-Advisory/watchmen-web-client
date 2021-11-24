@@ -67,6 +67,19 @@ export interface IndicatorMeasure {
 	method: MeasureMethod;
 }
 
+export enum RelevantIndicatorType {
+	SAME = 'same',
+	SAME_ORIGIN = 'same-origin',
+	VALUE_BUCKET_OVERLAP = 'value-bucket-overlap',
+	MEASURE_OVERLAP = 'measure-overlap',
+	TIME_BASED = 'time-based'
+}
+
+export interface RelevantIndicator {
+	indicatorId: IndicatorId;
+	type: RelevantIndicatorType;
+}
+
 export interface Indicator extends Tuple {
 	indicatorId: IndicatorId;
 	name: string;
@@ -75,6 +88,7 @@ export interface Indicator extends Tuple {
 	factorId?: FactorId;
 	/** effective only when factorId is appointed */
 	valueBuckets?: Array<BucketId>;
+	relevants?: Array<RelevantIndicator>;
 	tenantId?: TenantId;
 }
 
