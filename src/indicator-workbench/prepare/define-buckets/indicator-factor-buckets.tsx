@@ -8,7 +8,7 @@ import {SearchTextEventBusProvider} from '../search-text/search-text-event-bus';
 import {useBucketsEventBus} from './buckets-event-bus';
 import {BucketsEventTypes} from './buckets-event-bus-types';
 import {IndicatorFactorBucketsLink} from './indicator-factor-buckets-link';
-import { LinkedIndicatorFactorBuckets } from './linked-indicator-factor-buckets';
+import {LinkedIndicatorFactorBuckets} from './linked-indicator-factor-buckets';
 import {IndicatorFactorBucketsContainer, OrderedLabel} from './widgets';
 
 export const IndicatorFactorBuckets = (props: { indicator: Indicator }) => {
