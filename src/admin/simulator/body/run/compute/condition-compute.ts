@@ -6,6 +6,7 @@ import {
 	ParameterJointType
 } from '@/services/data/tuples/factor-calculator-types';
 import {isExpressionParameter, isJointParameter} from '@/services/data/tuples/parameter-utils';
+import {isXaNumber} from '@/services/utils';
 import dayjs, {Dayjs} from 'dayjs';
 import {DataRow} from '../../../types';
 import {InternalUnitRuntimeContext, PipelineRuntimeContext} from '../types';
@@ -101,8 +102,8 @@ const less = (value1?: any, value2?: any): boolean => {
 		// eslint-disable-next-line
 	} else if (value2 == null) {
 		return false;
-	} else if (!Number.isNaN(value1.toString()) && !Number.isNaN(value2.toString())) {
-		return value1 < value2;
+	} else if (isXaNumber(value1) && isXaNumber(value2)) {
+		return Number(value1) < Number(value2);
 	} else {
 		// noinspection TypeScriptValidateTypes
 		return compareWhenOneDateAtLeast(value1, value2, (date1: Dayjs, date2: Dayjs) => {
@@ -122,8 +123,8 @@ const more = (value1?: any, value2?: any): boolean => {
 		// eslint-disable-next-line
 	} else if (value1 == null) {
 		return false;
-	} else if (!Number.isNaN(value1.toString()) && !Number.isNaN(value2.toString())) {
-		return value1 > value2;
+	} else if (isXaNumber(value1) && isXaNumber(value2)) {
+		return Number(value1) > Number(value2);
 	} else {
 		// noinspection TypeScriptValidateTypes
 		return compareWhenOneDateAtLeast(value1, value2, (date1: Dayjs, date2: Dayjs) => {

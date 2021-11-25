@@ -44,7 +44,7 @@ export const buildSeriesData = (
 
 	return groups.map(({row}) => {
 		const value = parseFloat(`${row[indicatorIndex]}`);
-		if (!isNaN(value) && label?.valueAsPercentage) {
+		if (!Number.isNaN(value) && label?.valueAsPercentage) {
 			return formatNumber(value / 100, label.fractionDigits || 0);
 		} else {
 			return formatNumber(row[indicatorIndex]);

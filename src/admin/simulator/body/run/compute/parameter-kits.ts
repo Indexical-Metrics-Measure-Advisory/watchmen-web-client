@@ -10,6 +10,7 @@ import {
 import {isDateDiffConstant} from '@/services/data/tuples/factor-calculator-utils';
 import {Factor} from '@/services/data/tuples/factor-types';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {isXaNumber} from '@/services/utils';
 import dayjs from 'dayjs';
 import {DataRow} from '../../../types';
 import {AllTopics} from '../types';
@@ -88,7 +89,7 @@ const computeToCollection = (value?: any): Array<any> => {
 const computeToNumeric = (parameter: Parameter, value?: any): number | null => {
 	if (value == null) {
 		return value;
-	} else if (isNaN(value)) {
+	} else if (!isXaNumber(value)) {
 		throw new Error(`Cannot cast given value[${value}] to numeric, which is computed by parameter[${JSON.stringify(parameter)}].`);
 	} else {
 		return Number(value.toString());
@@ -185,7 +186,7 @@ const computeVariable = (options: { variable: string, getFirstValue: (propertyNa
 				if (v == null || v.toString().trim().length === 0) {
 					return sum;
 				}
-				if (isNaN(v)) {
+				if (!isXaNumber(v)) {
 					throws();
 				} else {
 					return sum + (v * 1);

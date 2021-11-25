@@ -1,6 +1,7 @@
 import {ParameterKind, TopicFactorParameter} from '@/services/data/tuples/factor-calculator-types';
 import {AggregateArithmetic} from '@/services/data/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
 import {isReadFactorAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {isXaNumber} from '@/services/utils';
 import {computeJoint} from '../../compute/condition-compute';
 import {computeTopicFactor} from '../../compute/parameter-compute';
 import {ParameterShouldBe} from '../../compute/types';
@@ -65,10 +66,10 @@ export const runReadFactor = async (options: {
 					value = values.length;
 					break;
 				case AggregateArithmetic.SUM:
-					value = values.reduce((sum, value) => (value != null && !isNaN(Number(value))) ? (sum + value) : sum, 0);
+					value = values.reduce((sum, value) => (value != null && isXaNumber(value)) ? (sum + Number(value)) : sum, 0);
 					break;
 				case AggregateArithmetic.AVG:
-					value = values.reduce((sum, value) => (value != null && !isNaN(Number(value))) ? (sum + value) : sum, 0) / values.length;
+					value = values.reduce((sum, value) => (value != null && isXaNumber(value)) ? (sum + Number(value)) : sum, 0) / values.length;
 					break;
 				default:
 					throw new Error('never occurs');

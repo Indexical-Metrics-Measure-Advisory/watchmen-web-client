@@ -27,9 +27,6 @@ export class ChartCountUtils extends DefaultChartUtils {
 
 	async buildOptions(report: Report, dataset: ChartDataSet): Promise<ChartOptions> {
 		let value: string | number = ((dataset.data[0] ?? [])[0] as number | null | undefined) || 0;
-		if (isNaN(value)) {
-			value = 0;
-		}
 
 		const {chart} = report;
 		const {settings} = chart;

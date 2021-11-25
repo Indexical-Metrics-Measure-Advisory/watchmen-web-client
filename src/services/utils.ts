@@ -65,3 +65,21 @@ export const againstSnakeCaseName = (name: string, hierarchical: boolean = false
 		|| name.split(hierarchical ? hierarchicalNameSplitting : nonHierarchicalNameSplitting)
 			.some(part => !/^[A-Za-z0-9]+$/.test(part));
 };
+
+export const isXaNumber = (x: any, negative: boolean = true): boolean => {
+	if (x == null) {
+		return false;
+	}
+	let testValue;
+	if (x.toString && typeof x.toString === 'function') {
+		testValue = x.toString();
+	} else {
+		testValue = `${x}`;
+	}
+
+	if (negative) {
+		return /^(-?)[0-9]+(.[0-9]*)?$/.test(testValue);
+	} else {
+		return /^[0-9]+(.[0-9]*)?$/.test(testValue);
+	}
+};

@@ -10,6 +10,7 @@ import {
 } from '@/services/data/tuples/bucket-utils';
 import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
 import {QueryTuple} from '@/services/data/tuples/tuple-types';
+import {isXaNumber} from '@/services/utils';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {TUPLE_SEARCH_PAGE_SIZE} from '@/widgets/basic/constants';
 import {useEventBus} from '@/widgets/events/event-bus';
@@ -56,7 +57,7 @@ const validate = (bucket: Bucket): string | true => {
 					if (max == null) {
 						message = Lang.INDICATOR_WORKBENCH.BUCKET.NOT_EMPTY_FIRST_MAX_OF_NUMERIC_SEGMENT;
 						return true;
-					} else if (isNaN(max as any)) {
+					} else if (!isXaNumber(max)) {
 						message = Lang.INDICATOR_WORKBENCH.BUCKET.BE_NUMERIC_OF_NUMERIC_SEGMENT;
 						return true;
 					}
@@ -68,7 +69,7 @@ const validate = (bucket: Bucket): string | true => {
 						message = Lang.INDICATOR_WORKBENCH.BUCKET.NOT_EMPTY_OF_NUMERIC_SEGMENT;
 						return true;
 					}
-					if (isNaN(min as any) || isNaN(max as any)) {
+					if (!isXaNumber(min) || !isXaNumber(max)) {
 						message = Lang.INDICATOR_WORKBENCH.BUCKET.BE_NUMERIC_OF_NUMERIC_SEGMENT;
 						return true;
 					}
@@ -81,7 +82,7 @@ const validate = (bucket: Bucket): string | true => {
 						message = Lang.INDICATOR_WORKBENCH.BUCKET.NOT_EMPTY_LAST_MIN_OF_NUMERIC_SEGMENT;
 						return true;
 					}
-					if (isNaN(min as any)) {
+					if (!isXaNumber(min)) {
 						message = Lang.INDICATOR_WORKBENCH.BUCKET.BE_NUMERIC_OF_NUMERIC_SEGMENT;
 						return true;
 					}

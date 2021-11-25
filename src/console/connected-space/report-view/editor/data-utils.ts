@@ -1,5 +1,6 @@
 import {Chart} from '@/services/data/tuples/chart-types';
 import {Report} from '@/services/data/tuples/report-types';
+import {isXaNumber} from '@/services/utils';
 import {DropdownOption} from '@/widgets/basic/types';
 import {BooleanPropNames} from './prop-defs/prop-types/boolean-props';
 import {ColorPropNames} from './prop-defs/prop-types/color-props';
@@ -53,8 +54,7 @@ export const validateNumber = (fractionDigits: number) => (value: string) => {
 	return new RegExp(`^\\d{1,${fractionDigits}}$`).test(value);
 };
 export const validatePercentage = (value: string): boolean => {
-	const numberValue = parseFloat(value);
-	return !isNaN(numberValue);
+	return isXaNumber(value);
 };
 export const isANumber = (value: string) => {
 	try {
@@ -78,8 +78,7 @@ export const onNumberChange = (options: {
 	done: (report: Report, chart: Chart, prop: string, value?: number) => void;
 }) => (value?: string): number | undefined => {
 	const {report, chart, prop, done} = options;
-	let numberValue = value ? parseFloat(value) : (void 0);
-	numberValue = isNaN(numberValue as any) ? (void 0) : numberValue;
+	const numberValue = isXaNumber(value) ? Number(value) : (void 0);
 	assignValue(chart, prop, numberValue, true);
 	done(report, chart, prop, numberValue);
 	return numberValue;

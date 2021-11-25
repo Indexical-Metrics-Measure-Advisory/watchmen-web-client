@@ -1,11 +1,11 @@
 import {ReportFunnel} from '@/services/data/tuples/report-types';
+import {isXaNumber} from '@/services/utils';
 import dayjs from 'dayjs';
 import {CALENDAR_DATE_FORMAT} from '../basic/calendar';
 import {DropdownOption} from '../basic/types';
 
 export const tryCastToNumeric = (value?: string): number | undefined => {
-	const numberValue = value ? parseFloat(value) : (void 0);
-	return isNaN(numberValue as any) ? (void 0) : numberValue;
+	return isXaNumber(value) ? Number(value) : (void 0);
 };
 
 export const getAsString = (funnel: ReportFunnel, index: number): string | undefined => {
