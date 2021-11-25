@@ -390,6 +390,9 @@ export const Jp = {
 			SEGMENT_LABEL: 'セグメント',
 			PLEASE_SELECT_SEGMENT: '選択した列挙項目を含むセグメントを選択してください。',
 			PLEASE_SELECT_ENUM_ITEM: '少なくとも 1 つの列挙項目を選択してセグメント化に参加してください。'
+		},
+		INSPECTION: {
+			TITLE: '指標の洞察'
 		}
 	},
 	SETTINGS: {

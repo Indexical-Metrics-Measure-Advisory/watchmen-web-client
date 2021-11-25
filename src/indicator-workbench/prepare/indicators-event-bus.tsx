@@ -8,7 +8,7 @@ Context.displayName = 'IndicatorsEventBus';
 export const IndicatorsEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
-	const bus = useCreateEventBus<IndicatorsEventBus>('tuple');
+	const bus = useCreateEventBus<IndicatorsEventBus>('indicators');
 
 	return <Context.Provider value={bus}>
 		{children}

@@ -390,6 +390,9 @@ export const Zh = {
 			SEGMENT_LABEL: '分组',
 			PLEASE_SELECT_SEGMENT: '请选择包含已选择枚举项的分组.',
 			PLEASE_SELECT_ENUM_ITEM: '请至少选择一个枚举项加入到分组.'
+		},
+		INSPECTION: {
+			TITLE: '指标洞察'
 		}
 	},
 	SETTINGS: {

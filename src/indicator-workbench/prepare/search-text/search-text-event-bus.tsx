@@ -8,7 +8,7 @@ Context.displayName = 'SearchTextEventBus';
 export const SearchTextEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
-	const bus = useCreateEventBus<SearchTextEventBus>('tuple');
+	const bus = useCreateEventBus<SearchTextEventBus>('search-text');
 
 	return <Context.Provider value={bus}>
 		{children}

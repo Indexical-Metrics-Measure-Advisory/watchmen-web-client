@@ -7,6 +7,7 @@ import {DataSource} from './data-source-types';
 import {Enum} from './enum-types';
 import {ExternalWriter} from './external-writer-types';
 import {Indicator} from './indicator-types';
+import {Inspection} from './inspection-types';
 import {Pipeline, PipelinesGraphics} from './pipeline-types';
 import {Report} from './report-types';
 import {Space} from './space-types';
@@ -68,15 +69,22 @@ export const isIndicator = (tuple: Tuple): tuple is Indicator => {
 export const isBucket = (tuple: Tuple): tuple is Bucket => {
 	return !!(tuple as any).bucketId;
 };
+export const isInspection = (tuple: Tuple): tuple is Inspection => {
+	return !!(tuple as any).inspectionId;
+};
 
 export const generateUuid = (): string => `${FAKE_ID_PREFIX}${v4().replace(/-/g, '')}`;
 export const isFakedUuidForGraphics = (graphics: PipelinesGraphics): boolean => {
 	return graphics.pipelineGraphId.startsWith(FAKE_ID_PREFIX);
 };
 export const isFakedUuid = (tuple: Tuple): boolean => {
-	if (isIndicator(tuple)) {
+	if (isInspection(tuple)) {
+		// inspection check must before indicator check
+		// since "indicatorId" also exists in inspection object
+		return tuple.inspectionId.startsWith(FAKE_ID_PREFIX);
+	} else if (isIndicator(tuple)) {
 		// indicator check must before topic check
-		// since "topicId" also exists in pipeline object
+		// since "topicId" also exists in indicator object
 		return tuple.indicatorId.startsWith(FAKE_ID_PREFIX);
 	} else if (isBucket(tuple)) {
 		return tuple.bucketId.startsWith(FAKE_ID_PREFIX);

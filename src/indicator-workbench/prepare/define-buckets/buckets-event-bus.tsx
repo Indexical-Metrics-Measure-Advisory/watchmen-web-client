@@ -8,7 +8,7 @@ Context.displayName = 'BucketsEventBus';
 export const BucketsEventBusProvider = (props: { children?: ReactNode }) => {
 	const {children} = props;
 
-	const bus = useCreateEventBus<BucketsEventBus>('tuple');
+	const bus = useCreateEventBus<BucketsEventBus>('buckets');
 
 	return <Context.Provider value={bus}>
 		{children}
