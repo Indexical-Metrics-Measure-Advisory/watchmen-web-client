@@ -9,6 +9,7 @@ import {Lang} from '@/widgets/langs';
 import {useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {InspectionEventTypes} from '../inspection-event-bus-types';
+import {createInspection} from '../utils';
 import {InspectionButton, InspectionDropdown, InspectionLabel, OrLabel} from '../widgets';
 import {CreateOrFindContainer} from './widgets';
 
@@ -53,6 +54,10 @@ export const CreateOrFind = () => {
 				setShown(false);
 			});
 	};
+	const onCreateClicked = () => {
+		fire(InspectionEventTypes.INSPECTION_PICKED, createInspection());
+		setShown(false);
+	};
 
 	const options = inspections.map(inspection => {
 		return {
@@ -69,7 +74,7 @@ export const CreateOrFind = () => {
 			{Lang.INDICATOR_WORKBENCH.INSPECTION.PICK_INSPECTION}
 		</InspectionButton>
 		<OrLabel>{Lang.INDICATOR_WORKBENCH.INSPECTION.OR}</OrLabel>
-		<InspectionButton ink={ButtonInk.PRIMARY}>
+		<InspectionButton ink={ButtonInk.PRIMARY} onClick={onCreateClicked}>
 			{Lang.INDICATOR_WORKBENCH.INSPECTION.CREATE_INSPECTION}
 		</InspectionButton>
 	</CreateOrFindContainer>;
