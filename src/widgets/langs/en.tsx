@@ -395,10 +395,14 @@ export const En = {
 		INSPECTION: {
 			TITLE: 'Inspection',
 			OR: 'or',
-			PICK_INSPECTION_LABEL: 'Pick an inspection:',
+			PICK_INSPECTION_LABEL: 'Pick an Inspection:',
 			PICK_INSPECTION: 'Pick Selection',
 			CREATE_INSPECTION: 'Create New Inspection',
-			INSPECTION_IS_REQUIRED: 'Please pick an inspection first.'
+			INSPECTION_IS_REQUIRED: 'Please pick an inspection.',
+			PICK_INDICATOR_LABEL: 'Pick an Indicator:',
+			PICK_INDICATOR: 'Pick Selection',
+			INDICATOR_IS_REQUIRED: 'Please pick an indicator.',
+			INSPECTING_ON_INDICATOR_LABEL: 'Inspecting on Indicator:'
 		}
 	},
 	SETTINGS: {

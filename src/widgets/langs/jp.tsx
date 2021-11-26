@@ -395,10 +395,14 @@ export const Jp = {
 		INSPECTION: {
 			TITLE: '指標の洞察',
 			OR: 'または',
-			PICK_INSPECTION_LABEL: '洞察を選択する:',
-			PICK_INSPECTION: '表示',
+			PICK_INSPECTION_LABEL: '洞察を選択:',
+			PICK_INSPECTION: '確認',
 			CREATE_INSPECTION: '新しい洞察を作成',
-			INSPECTION_IS_REQUIRED: '表示する必要がある洞察を選択してください。'
+			INSPECTION_IS_REQUIRED: '表示する必要がある洞察を選択してください。',
+			PICK_INDICATOR_LABEL: '指標を選択:',
+			PICK_INDICATOR: '確認',
+			INDICATOR_IS_REQUIRED: '新しい洞察を作成するための指標を選択してください。',
+			INSPECTING_ON_INDICATOR_LABEL: '洞察指標:'
 		}
 	},
 	SETTINGS: {

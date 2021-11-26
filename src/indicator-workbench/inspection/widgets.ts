@@ -14,6 +14,7 @@ export const InspectionLabel = styled.span.attrs({'data-widget': 'inspection-lab
 	display      : flex;
 	position     : relative;
 	align-items  : center;
+	min-height   : var(--tall-height);
 	font-weight  : var(--font-demi-bold);
 	font-variant : petite-caps;
 	white-space  : nowrap;
@@ -35,5 +36,5 @@ export const InspectionButton = styled(Button).attrs({'data-widget': 'inspection
 	height        : var(--tall-height);
 	border-radius : calc(var(--tall-height) / 2);
 	font-size     : calc(var(--font-size) * 1.2);
-	padding       : 0 calc(var(--margin) / 4 * 3);
+	padding       : 0 var(--margin);
 `;

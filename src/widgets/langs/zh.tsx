@@ -398,7 +398,11 @@ export const Zh = {
 			PICK_INSPECTION_LABEL: '选择洞察:',
 			PICK_INSPECTION: '查看',
 			CREATE_INSPECTION: '创建新洞察',
-			INSPECTION_IS_REQUIRED: '请选择需要查看的洞察.'
+			INSPECTION_IS_REQUIRED: '请选择需要查看的洞察.',
+			PICK_INDICATOR_LABEL: '选择指标:',
+			PICK_INDICATOR: '选择',
+			INDICATOR_IS_REQUIRED: '请选择指标用于创建新洞察.',
+			INSPECTING_ON_INDICATOR_LABEL: '洞察指标:'
 		}
 	},
 	SETTINGS: {
