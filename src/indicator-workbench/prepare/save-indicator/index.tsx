@@ -9,11 +9,12 @@ import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ChangeEvent, useEffect, useRef, useState} from 'react';
+import {Step, StepTitle, StepTitleButton} from '../../step-widgets';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
 import {IndicatorsEventTypes} from '../indicators-event-bus-types';
-import {Step, StepTitle, StepTitleButton, useStep} from '../step-widgets';
 import {PrepareStep} from '../types';
 import {useConstructed} from '../use-constructed';
+import {useStep} from '../use-step';
 import {NameInput, SaveButton} from './widgets';
 
 export const SaveIndicator = () => {

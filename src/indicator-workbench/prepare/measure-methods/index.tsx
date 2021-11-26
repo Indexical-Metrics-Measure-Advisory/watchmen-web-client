@@ -14,11 +14,12 @@ import {MeasureMethodLabel} from '@/widgets/basic/measure-method-label';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Fragment, useRef} from 'react';
+import {EmphaticSinkingLabel, Step, StepBody, StepTitle} from '../../step-widgets';
 import {MeasureMethodSort} from '../../utils/sort';
 import {MeasureFactor} from '../measure-factor';
-import {EmphaticSinkingLabel, Step, StepBody, StepTitle, useStep} from '../step-widgets';
 import {PrepareStep} from '../types';
 import {useConstructed} from '../use-constructed';
+import {useStep} from '../use-step';
 import {
 	AggregateItem,
 	AggregateItemsBlock,
