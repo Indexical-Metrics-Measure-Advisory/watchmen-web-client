@@ -32,7 +32,8 @@ export const En = {
 		INDICATOR_NAME_PLACEHOLDER: 'A human reading name for indicator.',
 		FIND_BUCKET_PLACEHOLDER: 'Search by bucket name, topic name, factor name.',
 		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: 'Key in category value here, confirm to add into segment.',
-		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: 'Search by bucket name.'
+		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: 'Search by bucket name.',
+		DROPDOWN_PLACEHOLDER: 'Please Select...'
 	},
 	STANDARD: {
 		YES: 'Yes',
@@ -392,7 +393,12 @@ export const En = {
 			PLEASE_SELECT_ENUM_ITEM: 'Please select at lease one enumeration item to add into segment.'
 		},
 		INSPECTION: {
-			TITLE: 'Inspection'
+			TITLE: 'Inspection',
+			OR: 'or',
+			PICK_INSPECTION_LABEL: 'Pick an inspection:',
+			PICK_INSPECTION: 'Pick Selection',
+			CREATE_INSPECTION: 'Create New Inspection',
+			INSPECTION_IS_REQUIRED: 'Please pick an inspection first.'
 		}
 	},
 	SETTINGS: {
