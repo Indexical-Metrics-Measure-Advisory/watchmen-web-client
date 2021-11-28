@@ -93,8 +93,10 @@ export const PickIndicator = () => {
 						return {indicator, topic, enums};
 					},
 					(inspectingIndicator: InspectingIndicator) => {
+						setInspection(inspection);
 						setInspectingIndicator(inspectingIndicator);
 						setReadOnly(true);
+						setShown(true);
 					});
 			} else {
 				setInspection(inspection);
