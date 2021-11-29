@@ -2,7 +2,7 @@ import React from 'react';
 import {CreateOrFind} from './create-or-find';
 import {InspectionState} from './inspection-state';
 import {PickIndicator} from './pick-indicator';
-import {SelectMeasure} from './select-measure';
+import {ValueOn} from './value-on';
 import {InspectionContainer} from './widgets';
 
 export const Inspection = () => {
@@ -10,6 +10,7 @@ export const Inspection = () => {
 		<InspectionState/>
 		<CreateOrFind/>
 		<PickIndicator/>
-		<SelectMeasure/>
+		<ValueOn/>
+		{/*<Perspective/>*/}
 	</InspectionContainer>;
 };

@@ -409,12 +409,13 @@ export const Zh = {
 			PICK_INDICATOR: '选择',
 			INDICATOR_IS_REQUIRED: '请选择指标用于创建新洞察.',
 			INSPECTING_ON_INDICATOR_LABEL: '洞察指标:',
+			VALUE_ON_LABEL: '指标值转换:',
+			VALUE_ON_COUNT: '个数合计',
+			VALUE_ON_SUM: '合计值',
+			VALUE_ON_AVG: '平均值',
+			VALUE_ON_MAX: '最大值',
+			VALUE_ON_MIN: '最小值',
 			SELECT_PERSPECTIVES: '选择视角:',
-			PERSPECTIVE_ON_VALUE_COUNT: '指标值 - COUNT',
-			PERSPECTIVE_ON_VALUE_SUM: '指标值 - SUM',
-			PERSPECTIVE_ON_VALUE_AVG: '指标值 - AVG',
-			PERSPECTIVE_ON_VALUE_MAX: '指标值 - MAX',
-			PERSPECTIVE_ON_VALUE_MIN: '指标值 - MIN'
 		}
 	},
 	SETTINGS: {

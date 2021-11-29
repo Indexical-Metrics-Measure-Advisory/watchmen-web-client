@@ -409,12 +409,13 @@ export const Jp = {
 			PICK_INDICATOR: '確認',
 			INDICATOR_IS_REQUIRED: '新しい洞察を作成するための指標を選択してください。',
 			INSPECTING_ON_INDICATOR_LABEL: '洞察指標:',
-			SELECT_PERSPECTIVES: '視野角を選択:',
-			PERSPECTIVE_ON_VALUE_COUNT: '指標値 - COUNT',
-			PERSPECTIVE_ON_VALUE_SUM: '指標値 - SUM',
-			PERSPECTIVE_ON_VALUE_AVG: '指標値 - AVG',
-			PERSPECTIVE_ON_VALUE_MAX: '指標値 - MAX',
-			PERSPECTIVE_ON_VALUE_MIN: '指標値 - MIN'
+			VALUE_ON_LABEL: '指標値を変換:',
+			VALUE_ON_COUNT: '個数の合計',
+			VALUE_ON_SUM: '合計値',
+			VALUE_ON_AVG: '平均',
+			VALUE_ON_MAX: '最大値',
+			VALUE_ON_MIN: '最小値',
+			SELECT_PERSPECTIVES: '視野角を選択:'
 		}
 	},
 	SETTINGS: {

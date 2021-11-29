@@ -409,12 +409,13 @@ export const En = {
 			PICK_INDICATOR: 'Pick Selection',
 			INDICATOR_IS_REQUIRED: 'Please pick an indicator.',
 			INSPECTING_ON_INDICATOR_LABEL: 'Inspecting on Indicator:',
-			SELECT_PERSPECTIVES: 'Pick Perspectives:',
-			PERSPECTIVE_ON_VALUE_COUNT: 'Indicator Value - COUNT',
-			PERSPECTIVE_ON_VALUE_SUM: 'Indicator Value - SUM',
-			PERSPECTIVE_ON_VALUE_AVG: 'Indicator Value - AVG',
-			PERSPECTIVE_ON_VALUE_MAX: 'Indicator Value - MAX',
-			PERSPECTIVE_ON_VALUE_MIN: 'Indicator Value - MIN'
+			VALUE_ON_LABEL: 'Value Transform:',
+			VALUE_ON_COUNT: 'Count',
+			VALUE_ON_SUM: 'Sum',
+			VALUE_ON_AVG: 'Avg',
+			VALUE_ON_MAX: 'Max',
+			VALUE_ON_MIN: 'Min',
+			SELECT_PERSPECTIVES: 'Pick Perspectives:'
 		}
 	},
 	SETTINGS: {
