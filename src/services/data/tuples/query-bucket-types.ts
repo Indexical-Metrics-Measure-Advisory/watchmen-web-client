@@ -15,3 +15,4 @@ export type QueryByMeasureMethod = { method: Omit<MeasureMethod, MeasureMethod.E
 export type QueryByEnumMethod = { method: MeasureMethod.ENUM, enumId: EnumId };
 
 export type QueryByBucketMethod = QueryByMeasureMethod | QueryByEnumMethod;
+    
