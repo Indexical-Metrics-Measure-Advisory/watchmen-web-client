@@ -31,7 +31,7 @@ export const Editor = (props: { inspection: Inspection }) => {
 		forceUpdate();
 	};
 	const onPickClicked = () => {
-		if (inspection?.indicatorId == null) {
+		if (!inspection?.indicatorId) {
 			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
 				{Lang.INDICATOR_WORKBENCH.INSPECTION.INDICATOR_IS_REQUIRED}
 			</AlertLabel>);
