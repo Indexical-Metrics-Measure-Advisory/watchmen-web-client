@@ -62,7 +62,7 @@ export const InspectionState = () => {
 		return () => {
 			off(InspectionEventTypes.ASK_INSPECTION, onAskInspection);
 		};
-	}, [on, off]);
+	}, [on, off, fireGlobal]);
 	useEffect(() => {
 		const onSaveInspection = (inspection: Inspection, onSaved: (inspection: Inspection, saved: boolean) => void) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
