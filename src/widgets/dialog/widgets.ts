@@ -35,6 +35,21 @@ export const DialogWrapper = styled.div.attrs({'data-widget': 'dialog-wrapper'})
 	box-shadow       : var(--dialog-box-shadow);
 `;
 
+export const DialogHeader = styled.div`
+	display     : flex;
+	position    : relative;
+	padding     : 0 var(--margin);
+	min-height  : calc(var(--header-height) * 1.5);
+	margin      : calc(var(--margin) * -1) calc(var(--margin) * -1) 0;
+	align-items : center;
+`;
+
+export const DialogTitle = styled.div`
+	font-family    : var(--title-font-family);
+	font-size      : 1.2em;
+	text-transform : uppercase;
+`;
+
 export const DialogBody = styled.div.attrs({'data-widget': 'dialog-body'})`
 	flex-grow  : 1;
 	min-height : 60px;
