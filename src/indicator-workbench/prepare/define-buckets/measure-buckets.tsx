@@ -71,24 +71,23 @@ export const MeasureBuckets = (props: { indicator: Indicator; topic?: TopicForIn
 	const onViewClicked = () => {
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 			async () => {
-				const methods = detectMeasures(topic).map(measure => {
-					if (isTimePeriodMeasure(measure.method)) {
-						return null;
-					}
-					if (measure.method !== MeasureMethod.ENUM) {
-						return {method: measure.method} as QueryByMeasureMethod;
-					} else {
-						const factorId = measure.factorId;
-						if (factorId != null) {
-							// eslint-disable-next-line
-							const factor = (topic?.factors || []).find(factor => factor.factorId == factorId);
-							if (factor != null && factor.enumId != null) {
-								return {method: MeasureMethod.ENUM, enumId: factor.enumId} as QueryByEnumMethod;
+				const methods = detectMeasures(topic, (method) => !isTimePeriodMeasure(method))
+					.map(measure => {
+						if (measure.method !== MeasureMethod.ENUM) {
+							return {method: measure.method} as QueryByMeasureMethod;
+						} else {
+							const factorId = measure.factorId;
+							if (factorId != null) {
+								// eslint-disable-next-line
+								const factor = (topic?.factors || []).find(factor => factor.factorId == factorId);
+								if (factor != null && factor.enumId != null) {
+									return {method: MeasureMethod.ENUM, enumId: factor.enumId} as QueryByEnumMethod;
+								}
 							}
+							return null;
 						}
-						return null;
-					}
-				}).filter(isNotNull) as Array<QueryByBucketMethod>;
+					})
+					.filter(isNotNull) as Array<QueryByBucketMethod>;
 				const uniqueMethods = Object.values(methods.reduce((all, method) => {
 					if (isQueryByEnum(method)) {
 						const enumId = method.enumId;

@@ -1,14 +1,16 @@
+import {fetchBucketsByIds, fetchBucketsByMethods} from '@/services/data/tuples/bucket';
 import {fetchIndicator, fetchIndicatorsForSelection} from '@/services/data/tuples/indicator';
 import {IndicatorId} from '@/services/data/tuples/indicator-types';
 import {fetchInspection, listInspections, saveInspection} from '@/services/data/tuples/inspection';
 import {Inspection, InspectionId} from '@/services/data/tuples/inspection-types';
+import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
 import {QueryIndicator} from '@/services/data/tuples/query-indicator-types';
 import {QueryInspection} from '@/services/data/tuples/query-inspection-types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import React, {Fragment, useEffect, useState} from 'react';
 import {useInspectionEventBus} from './inspection-event-bus';
-import {IndicatorForInspection, InspectionEventTypes} from './inspection-event-bus-types';
+import {AskBucketsParams, IndicatorForInspection, InspectionEventTypes} from './inspection-event-bus-types';
 
 interface LoadedInspections {
 	loaded: boolean;
@@ -136,6 +138,27 @@ export const InspectionState = () => {
 			off(InspectionEventTypes.ASK_INDICATOR, onAskIndicator);
 		};
 	}, [on, off, fireGlobal, indicatorsForInspections]);
+	// bucket related
+	useEffect(() => {
+		const onAskBuckets = (
+			{valueBucketIds, measureMethods}: AskBucketsParams,
+			onData: (buckets: Array<QueryBucket>) => void
+		) => {
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => {
+					const valueBuckets = valueBucketIds.length === 0 ? [] : await fetchBucketsByIds(valueBucketIds);
+					const measureBuckets = measureMethods.length === 0 ? [] : await fetchBucketsByMethods(measureMethods);
+					return [...valueBuckets, ...measureBuckets];
+				},
+				(buckets: Array<QueryBucket>) => {
+					onData(buckets);
+				});
+		};
+		on(InspectionEventTypes.ASK_BUCKETS, onAskBuckets);
+		return () => {
+			off(InspectionEventTypes.ASK_BUCKETS, onAskBuckets);
+		};
+	}, [on, off, fireGlobal]);
 
 	return <Fragment/>;
 };
