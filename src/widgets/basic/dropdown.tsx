@@ -1,3 +1,4 @@
+import {useCollapseFixedThing} from '@/widgets/basic/utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {ChangeEvent, KeyboardEvent, MouseEvent, useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
@@ -201,6 +202,12 @@ export const Dropdown = (props: DropdownProps) => {
 			window.removeEventListener('scroll', onScroll, true);
 		};
 	}, [state, options.length]);
+	useCollapseFixedThing({
+		containerRef, visible: state.active, hide: () => {
+			setState({...state, active: false});
+			setTimeout(() => setFilter(''), 300);
+		}
+	});
 
 	const onClicked = () => {
 		const {top, left, width, height} = getPosition(containerRef.current!);
@@ -209,10 +216,6 @@ export const Dropdown = (props: DropdownProps) => {
 	};
 	const onFocused = () => {
 		filterInputRef.current?.focus();
-	};
-	const onBlurred = () => {
-		setState({...state, active: false});
-		setFilter('');
 	};
 	const onKeyUp = (event: KeyboardEvent<HTMLDivElement>) => {
 		if (!state.active) {
@@ -232,11 +235,11 @@ export const Dropdown = (props: DropdownProps) => {
 		const ret = onChange(option);
 		if (!ret) {
 			setState({...state, active: false});
-			setFilter('');
+			setTimeout(() => setFilter(''), 300);
 		} else {
 			setState({...state, active: ret.active});
 			if (!ret.active) {
-				setFilter('');
+				setTimeout(() => setFilter(''), 300);
 			}
 		}
 	};
@@ -280,7 +283,7 @@ export const Dropdown = (props: DropdownProps) => {
 	                          ref={containerRef}
 	                          role="input" tabIndex={0}
 	                          {...rest}
-	                          onFocus={onFocused} onBlur={onBlurred}
+	                          onFocus={onFocused}
 	                          onClick={onClicked}>
 		<Label data-please={!selection}>{label}</Label>
 		<Caret icon={ICON_DROPDOWN}/>
