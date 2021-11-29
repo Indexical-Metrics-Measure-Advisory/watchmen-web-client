@@ -112,7 +112,7 @@ export const InspectionState = () => {
 		return () => {
 			off(InspectionEventTypes.ASK_INDICATOR, onAskIndicator);
 		};
-	}, [on, off]);
+	}, [on, off, fireGlobal]);
 
 	return <Fragment/>;
 };

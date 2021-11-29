@@ -1,6 +1,5 @@
 import {Inspection} from '@/services/data/tuples/inspection-types';
 import {isFakedUuid} from '@/services/data/tuples/utils';
-import {useEventBus} from '@/widgets/events/event-bus';
 import {useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {InspectionEventTypes} from '../inspection-event-bus-types';
@@ -9,7 +8,6 @@ import {Editor} from './editor';
 import {Viewer} from './viewer';
 
 export const PickIndicator = () => {
-	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useInspectionEventBus();
 	const [readOnly, setReadOnly] = useState(false);
 	const [inspection, setInspection] = useState<Inspection | null>(null);
@@ -30,7 +28,7 @@ export const PickIndicator = () => {
 		return () => {
 			off(InspectionEventTypes.INSPECTION_PICKED, onInspectionPicked);
 		};
-	}, [on, off, fireGlobal]);
+	}, [on, off, fire]);
 	useEffect(() => {
 		const onIndicatorPicked = (inspection: Inspection) => {
 			fire(InspectionEventTypes.ASK_INDICATOR, inspection.indicatorId!, (indicator, topic, enums) => {
