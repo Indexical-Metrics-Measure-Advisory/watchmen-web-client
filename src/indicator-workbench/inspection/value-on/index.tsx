@@ -53,9 +53,27 @@ export const ValueOn = () => {
 	};
 
 	const options = (indicator?.indicator.factorId == null)
-		? [{value: InspectValueOn.VALUE_COUNT, label: ValueOnLabel[InspectValueOn.VALUE_COUNT]}]
+		? [{
+			value: InspectValueOn.VALUE_COUNT,
+			label: () => {
+				return {
+					node: ValueOnLabel[InspectValueOn.VALUE_COUNT],
+					label: InspectValueOn.VALUE_COUNT
+				};
+			},
+			key: InspectValueOn.VALUE_COUNT
+		}]
 		: Object.values(InspectValueOn).map(on => {
-			return {value: on, label: ValueOnLabel[on as InspectValueOn]};
+			return {
+				value: on,
+				label: () => {
+					return {
+						node: ValueOnLabel[on],
+						label: on
+					};
+				},
+				key: on
+			};
 		});
 
 	const value = inspection?.valueOn ?? (options.length === 1 ? InspectValueOn.VALUE_COUNT : InspectValueOn.VALUE_SUM);
