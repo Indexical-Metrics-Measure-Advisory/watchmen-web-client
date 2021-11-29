@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import {InspectionLabel} from '../widgets';
 
 export const PickIndicatorContainer = styled.div.attrs({'date-widget': 'inspection-pick-indicator'})`
 	display               : grid;
@@ -9,11 +8,4 @@ export const PickIndicatorContainer = styled.div.attrs({'date-widget': 'inspecti
 	> div[data-widget=inspection-dropdown] {
 		min-width : 250px;
 	}
-`;
-
-export const InspectingIndicatorLabel = styled(InspectionLabel)`
-	color            : var(--invert-color);
-	background-color : var(--primary-color);
-	border-radius    : calc(var(--tall-height) / 2);
-	padding          : 0 var(--margin);
 `;
