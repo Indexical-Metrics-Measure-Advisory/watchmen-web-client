@@ -3,6 +3,12 @@ import {Inspection, InspectionId} from '@/services/data/tuples/inspection-types'
 import {EnumForIndicator, QueryIndicator, TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {QueryInspection} from '@/services/data/tuples/query-inspection-types';
 
+export interface IndicatorForInspection {
+	indicator: Indicator;
+	topic: TopicForIndicator;
+	enums: Array<EnumForIndicator>;
+}
+
 export enum InspectionEventTypes {
 	ASK_INSPECTIONS = 'ask-inspections',
 	ASK_INSPECTION = 'ask-inspection',
@@ -29,17 +35,17 @@ export interface InspectionEventBus {
 	on(type: InspectionEventTypes.ASK_INDICATORS, listener: (onData: (indicators: Array<QueryIndicator>) => void) => void): this;
 	off(type: InspectionEventTypes.ASK_INDICATORS, listener: (onData: (indicators: Array<QueryIndicator>) => void) => void): this;
 
-	fire(type: InspectionEventTypes.ASK_INDICATOR, indicatorId: IndicatorId, onData: (indicator: Indicator, topic?: TopicForIndicator, enums?: Array<EnumForIndicator>) => void): this;
-	on(type: InspectionEventTypes.ASK_INDICATOR, listener: (indicatorId: IndicatorId, onData: (indicator: Indicator, topic?: TopicForIndicator, enums?: Array<EnumForIndicator>) => void) => void): this;
-	off(type: InspectionEventTypes.ASK_INDICATOR, listener: (indicatorId: IndicatorId, onData: (indicator: Indicator, topic?: TopicForIndicator, enums?: Array<EnumForIndicator>) => void) => void): this;
+	fire(type: InspectionEventTypes.ASK_INDICATOR, indicatorId: IndicatorId, onData: (indicator: IndicatorForInspection) => void): this;
+	on(type: InspectionEventTypes.ASK_INDICATOR, listener: (indicatorId: IndicatorId, onData: (indicator: IndicatorForInspection) => void) => void): this;
+	off(type: InspectionEventTypes.ASK_INDICATOR, listener: (indicatorId: IndicatorId, onData: (indicator: IndicatorForInspection) => void) => void): this;
 
-	fire(type: InspectionEventTypes.INSPECTION_PICKED, inspection: Inspection): this;
-	on(type: InspectionEventTypes.INSPECTION_PICKED, listener: (inspection: Inspection) => void): this;
-	off(type: InspectionEventTypes.INSPECTION_PICKED, listener: (inspection: Inspection) => void): this;
+	fire(type: InspectionEventTypes.INSPECTION_PICKED, inspection: Inspection, indicator?: IndicatorForInspection): this;
+	on(type: InspectionEventTypes.INSPECTION_PICKED, listener: (inspection: Inspection, indicator?: IndicatorForInspection) => void): this;
+	off(type: InspectionEventTypes.INSPECTION_PICKED, listener: (inspection: Inspection, indicator?: IndicatorForInspection) => void): this;
 
-	fire(type: InspectionEventTypes.INDICATOR_PICKED, inspection: Inspection): this;
-	on(type: InspectionEventTypes.INDICATOR_PICKED, listener: (inspection: Inspection) => void): this;
-	off(type: InspectionEventTypes.INDICATOR_PICKED, listener: (inspection: Inspection) => void): this;
+	fire(type: InspectionEventTypes.INDICATOR_PICKED, indicator: IndicatorForInspection): this;
+	on(type: InspectionEventTypes.INDICATOR_PICKED, listener: (indicator: IndicatorForInspection) => void): this;
+	off(type: InspectionEventTypes.INDICATOR_PICKED, listener: (indicator: IndicatorForInspection) => void): this;
 
 	fire(type: InspectionEventTypes.SAVE_INSPECTION, inspection: Inspection, onSaved: (inspection: Inspection, saved: boolean) => void): this;
 	on(type: InspectionEventTypes.SAVE_INSPECTION, listener: (inspection: Inspection, onSaved: (inspection: Inspection, saved: boolean) => void) => void): this;

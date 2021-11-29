@@ -7,7 +7,7 @@ import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
 import {useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
-import {InspectionEventTypes} from '../inspection-event-bus-types';
+import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
 import {createInspection} from '../utils';
 import {InspectionButton, InspectionDropdown, InspectionLabel, OrLabel} from '../widgets';
 import {CreateOrFindContainer} from './widgets';
@@ -39,8 +39,10 @@ export const CreateOrFindEditor = () => {
 			return;
 		}
 		fire(InspectionEventTypes.ASK_INSPECTION, selectedInspectionId, (inspection: Inspection) => {
-			fire(InspectionEventTypes.INSPECTION_PICKED, inspection);
-			setVisible(false);
+			fire(InspectionEventTypes.ASK_INDICATOR, inspection.indicatorId, (indicator: IndicatorForInspection) => {
+				fire(InspectionEventTypes.INSPECTION_PICKED, inspection, indicator);
+				setVisible(false);
+			});
 		});
 	};
 	const onCreateClicked = () => {

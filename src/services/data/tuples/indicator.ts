@@ -38,17 +38,13 @@ export const fetchEnumsForTopic = async (topicId: TopicId): Promise<Array<EnumFo
 	}
 };
 
-export const fetchIndicator = async (indicatorId: IndicatorId): Promise<{ indicator: Indicator; topic?: TopicForIndicator; enums?: Array<EnumForIndicator>; }> => {
+export const fetchIndicator = async (indicatorId: IndicatorId): Promise<{ indicator: Indicator; topic: TopicForIndicator; enums?: Array<EnumForIndicator>; }> => {
 	if (isMockService()) {
 		return await fetchMockIndicator(indicatorId);
 	} else {
 		const indicator = await get({api: Apis.INDICATOR_GET, search: {indicatorId}});
-		if (indicator.topicId) {
-			const topic = await get({api: Apis.TOPIC_GET, search: {topicId: indicator.topicId}});
-			return {indicator, topic};
-		} else {
-			return {indicator};
-		}
+		const topic = await get({api: Apis.TOPIC_GET, search: {topicId: indicator.topicId}});
+		return {indicator, topic};
 	}
 };
 

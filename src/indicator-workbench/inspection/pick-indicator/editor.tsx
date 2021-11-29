@@ -3,42 +3,65 @@ import {Inspection} from '@/services/data/tuples/inspection-types';
 import {QueryIndicator} from '@/services/data/tuples/query-indicator-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {ButtonInk, DropdownOption} from '@/widgets/basic/types';
-import {useForceUpdate} from '@/widgets/basic/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
 import {useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
-import {InspectionEventTypes} from '../inspection-event-bus-types';
+import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
 import {InspectionButton, InspectionDropdown, InspectionLabel} from '../widgets';
 import {PickIndicatorContainer} from './widgets';
 
-export const Editor = (props: { inspection: Inspection }) => {
-	const {inspection} = props;
-
+export const PickIndicatorEditor = () => {
 	const {fire: fireGlobal} = useEventBus();
-	const {fire} = useInspectionEventBus();
+	const {on, off, fire} = useInspectionEventBus();
+	const [visible, setVisible] = useState(false);
+	const [inspection, setInspection] = useState<Inspection | null>(null);
 	const [indicators, setIndicators] = useState<Array<QueryIndicator>>([]);
-	const forceUpdate = useForceUpdate();
+	const [selectedIndicatorId, setSelectedIndicatorId] = useState<IndicatorId | null>(null);
 	useEffect(() => {
+		const onInspectionPicked = (inspection: Inspection) => {
+			setSelectedIndicatorId(inspection.indicatorId);
+			setInspection(inspection);
+			if (inspection.indicatorId == null) {
+				setVisible(true);
+			}
+		};
+		on(InspectionEventTypes.INSPECTION_PICKED, onInspectionPicked);
+		return () => {
+			off(InspectionEventTypes.INSPECTION_PICKED, onInspectionPicked);
+		};
+	});
+	useEffect(() => {
+		if (!visible) {
+			return;
+		}
+
 		fire(InspectionEventTypes.ASK_INDICATORS, (indicators) => {
 			setIndicators(indicators);
 		});
-	}, [fire]);
+	}, [fire, visible]);
+
+	if (!visible) {
+		return null;
+	}
 
 	const onChange = (option: DropdownOption) => {
-		inspection!.indicatorId = option.value as IndicatorId;
-		forceUpdate();
+		setSelectedIndicatorId(option.value as IndicatorId);
 	};
 	const onPickClicked = () => {
-		if (!inspection?.indicatorId) {
+		if (selectedIndicatorId == null) {
 			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
 				{Lang.INDICATOR_WORKBENCH.INSPECTION.INDICATOR_IS_REQUIRED}
 			</AlertLabel>);
 			return;
 		}
 
-		fire(InspectionEventTypes.INDICATOR_PICKED, inspection);
+		inspection!.indicatorId = selectedIndicatorId;
+		fire(InspectionEventTypes.ASK_INDICATOR, inspection!.indicatorId, (indicator: IndicatorForInspection) => {
+			fire(InspectionEventTypes.INDICATOR_PICKED, indicator);
+			setVisible(false);
+		});
 	};
 
 	const options = indicators.map(indicator => {
@@ -50,7 +73,7 @@ export const Editor = (props: { inspection: Inspection }) => {
 
 	return <PickIndicatorContainer>
 		<InspectionLabel>{Lang.INDICATOR_WORKBENCH.INSPECTION.PICK_INDICATOR_LABEL}</InspectionLabel>
-		<InspectionDropdown value={inspection.indicatorId} options={options} onChange={onChange}
+		<InspectionDropdown value={selectedIndicatorId} options={options} onChange={onChange}
 		                    please={Lang.PLAIN.DROPDOWN_PLACEHOLDER}/>
 		<InspectionButton ink={ButtonInk.PRIMARY} onClick={onPickClicked}>
 			{Lang.INDICATOR_WORKBENCH.INSPECTION.PICK_INDICATOR}

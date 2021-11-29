@@ -85,15 +85,15 @@ export const fetchMockEnumsForTopic = async (topicId: TopicId): Promise<Array<En
 	});
 };
 
-export const fetchMockIndicator = async (indicatorId: IndicatorId): Promise<{ indicator: Indicator; topic?: TopicForIndicator; enums?: Array<EnumForIndicator>; }> => {
+export const fetchMockIndicator = async (indicatorId: IndicatorId): Promise<{ indicator: Indicator; topic: TopicForIndicator; enums?: Array<EnumForIndicator>; }> => {
 	// eslint-disable-next-line
 	const found = DemoIndicators.find(({indicatorId: id}) => id == indicatorId);
 	if (found) {
 		const indicator = JSON.parse(JSON.stringify(found));
 		// eslint-disable-next-line
-		const topic = indicator.topicId ? DemoTopics.find(({topicId: id}) => id == indicator.topicId) : (void 0);
+		const topic = DemoTopics.find(({topicId: id}) => id == indicator.topicId)!;
 		const {data: demoEnums} = await listMockEnums({search: ''});
-		const enums = (topic?.factors || []).filter(factor => factor.enumId)
+		const enums = (topic.factors || []).filter(factor => factor.enumId)
 			// eslint-disable-next-line
 			.map(factor => demoEnums.find(enumeration => enumeration.enumId == factor.enumId))
 			.filter(enumeration => enumeration != null) as Array<EnumForIndicator>;

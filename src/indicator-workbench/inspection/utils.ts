@@ -6,8 +6,7 @@ export const createInspection = (): Inspection => {
 	return {
 		inspectionId: generateUuid(),
 		name: '',
-		indicatorId: '',
 		createTime: getCurrentTime(),
 		lastModified: getCurrentTime()
-	};
+	} as Inspection;
 };
