@@ -91,7 +91,7 @@ export const CreateOrFindViewer = () => {
 		return () => {
 			off(InspectionEventTypes.INDICATOR_PICKED, onIndicatorPicked);
 		};
-	}, [on, off]);
+	}, [on, off, forceUpdate]);
 
 	if (inspection == null) {
 		return null;
