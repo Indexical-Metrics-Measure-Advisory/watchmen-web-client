@@ -8,14 +8,15 @@ import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
 import {useEffect, useRef} from 'react';
+import {SearchItem, SearchText} from '../../search-text';
+import {SearchTextEventBusProvider, useSearchTextEventBus} from '../../search-text/search-text-event-bus';
+import {SearchTextEventTypes} from '../../search-text/search-text-event-bus-types';
+import {Step, StepTitle, StepTitleButton, StepTitleButtonsRetractor} from '../../step-widgets';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
 import {IndicatorsData, IndicatorsEventTypes} from '../indicators-event-bus-types';
-import {SearchItem, SearchText} from '../search-text';
-import {SearchTextEventBusProvider, useSearchTextEventBus} from '../search-text/search-text-event-bus';
-import {SearchTextEventTypes} from '../search-text/search-text-event-bus-types';
-import {Step, StepTitle, StepTitleButton, StepTitleButtonsRetractor, useStep} from '../step-widgets';
 import {PrepareStep} from '../types';
 import {useConstructed} from '../use-constructed';
+import { useStep } from '../use-step';
 import {TopicOrFactorCandidateName, TopicOrFactorCandidateUsage} from './widgets';
 
 interface TopicOrFactorCandidate extends SearchItem {

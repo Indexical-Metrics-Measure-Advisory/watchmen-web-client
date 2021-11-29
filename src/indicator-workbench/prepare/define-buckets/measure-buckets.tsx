@@ -2,13 +2,14 @@ import {fetchBucketsByMethods} from '@/services/data/tuples/bucket';
 import {isEnumMeasureBucket, isMeasureBucket} from '@/services/data/tuples/bucket-utils';
 import {Factor, FactorId} from '@/services/data/tuples/factor-types';
 import {Indicator, MeasureMethod} from '@/services/data/tuples/indicator-types';
-import {detectMeasures} from '@/services/data/tuples/indicator-utils';
+import {detectMeasures, isTimePeriodMeasure} from '@/services/data/tuples/indicator-utils';
 import {
 	QueryBucket,
 	QueryByBucketMethod,
 	QueryByEnumMethod,
 	QueryByMeasureMethod
 } from '@/services/data/tuples/query-bucket-types';
+import {isQueryByEnum} from '@/services/data/tuples/query-bucket-utils';
 import {EnumForIndicator, TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {isNotNull} from '@/services/data/utils';
 import {Button} from '@/widgets/basic/button';
@@ -70,22 +71,39 @@ export const MeasureBuckets = (props: { indicator: Indicator; topic?: TopicForIn
 	const onViewClicked = () => {
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 			async () => {
-				const methods = detectMeasures(topic).map(measure => {
-					if (measure.method !== MeasureMethod.ENUM) {
-						return {method: measure.method} as QueryByMeasureMethod;
-					} else {
-						const factorId = measure.factorId;
-						if (factorId != null) {
-							// eslint-disable-next-line
-							const factor = (topic?.factors || []).find(factor => factor.factorId == factorId);
-							if (factor != null && factor.enumId != null) {
-								return {method: MeasureMethod.ENUM, enumId: factor.enumId} as QueryByEnumMethod;
+				const methods = detectMeasures(topic, (method) => !isTimePeriodMeasure(method))
+					.map(measure => {
+						if (measure.method !== MeasureMethod.ENUM) {
+							return {method: measure.method} as QueryByMeasureMethod;
+						} else {
+							const factorId = measure.factorId;
+							if (factorId != null) {
+								// eslint-disable-next-line
+								const factor = (topic?.factors || []).find(factor => factor.factorId == factorId);
+								if (factor != null && factor.enumId != null) {
+									return {method: MeasureMethod.ENUM, enumId: factor.enumId} as QueryByEnumMethod;
+								}
 							}
+							return null;
 						}
-						return null;
+					})
+					.filter(isNotNull) as Array<QueryByBucketMethod>;
+				const uniqueMethods = Object.values(methods.reduce((all, method) => {
+					if (isQueryByEnum(method)) {
+						const enumId = method.enumId;
+						if (all[enumId] == null) {
+							all[enumId] = method;
+						}
+					} else if (all[method.method as MeasureMethod] == null) {
+						all[method.method as MeasureMethod] = method;
 					}
-				}).filter(x => x) as Array<QueryByBucketMethod>;
-				return await fetchBucketsByMethods(methods);
+					return all;
+				}, {} as Record<string, QueryByBucketMethod>));
+				if (uniqueMethods.length === 0) {
+					return [];
+				} else {
+					return await fetchBucketsByMethods(uniqueMethods);
+				}
 			},
 			(buckets: Array<QueryBucket>) => {
 				setBuckets(buckets);

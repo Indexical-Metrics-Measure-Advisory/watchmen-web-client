@@ -1,19 +1,12 @@
 import {ButtonInk} from '@/widgets/basic/types';
 import {Lang} from '@/widgets/langs';
 import {useRef} from 'react';
+import {EmphaticSinkingLabel, Step, StepBody, StepBodyButtons, StepTitle, StepTitleButton} from '../../step-widgets';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
 import {IndicatorsEventTypes} from '../indicators-event-bus-types';
-import {
-	EmphaticSinkingLabel,
-	Step,
-	StepBody,
-	StepBodyButtons,
-	StepTitle,
-	StepTitleButton,
-	useStep
-} from '../step-widgets';
 import {PrepareStep} from '../types';
 import {useConstructed} from '../use-constructed';
+import {useStep} from '../use-step';
 
 export const LastStep = () => {
 	const ref = useRef<HTMLDivElement>(null);

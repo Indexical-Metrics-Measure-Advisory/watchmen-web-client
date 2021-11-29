@@ -32,7 +32,8 @@ export const En = {
 		INDICATOR_NAME_PLACEHOLDER: 'A human reading name for indicator.',
 		FIND_BUCKET_PLACEHOLDER: 'Search by bucket name, topic name, factor name.',
 		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: 'Key in category value here, confirm to add into segment.',
-		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: 'Search by bucket name.'
+		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: 'Search by bucket name.',
+		DROPDOWN_PLACEHOLDER: 'Please Select...'
 	},
 	STANDARD: {
 		YES: 'Yes',
@@ -392,7 +393,29 @@ export const En = {
 			PLEASE_SELECT_ENUM_ITEM: 'Please select at lease one enumeration item to add into segment.'
 		},
 		INSPECTION: {
-			TITLE: 'Inspection'
+			TITLE: 'Inspection',
+			OR: 'or',
+			PICK_INSPECTION_LABEL: 'Pick an Inspection:',
+			PICKED_INSPECTION_LABEL: 'Picked Inspection:',
+			PICK_INSPECTION: 'Pick Selection',
+			CREATE_INSPECTION: 'Create New Inspection',
+			INSPECTION_IS_REQUIRED: 'Please pick an inspection.',
+			NONAME_ON_INSPECTION: 'Noname yet',
+			RENAME: 'Rename',
+			NEW_NAME: 'Name It Now',
+			SET_NAME_LABEL: 'Set Name',
+			NAME_IS_REQUIRED: 'Please assign a human reading name to inspection.',
+			PICK_INDICATOR_LABEL: 'Pick an Indicator:',
+			PICK_INDICATOR: 'Pick Selection',
+			INDICATOR_IS_REQUIRED: 'Please pick an indicator.',
+			INSPECTING_ON_INDICATOR_LABEL: 'Inspecting on Indicator:',
+			VALUE_ON_LABEL: 'Value Transform:',
+			VALUE_ON_COUNT: 'Count',
+			VALUE_ON_SUM: 'Sum',
+			VALUE_ON_AVG: 'Avg',
+			VALUE_ON_MAX: 'Max',
+			VALUE_ON_MIN: 'Min',
+			SELECT_PERSPECTIVES: 'Pick Perspectives:'
 		}
 	},
 	SETTINGS: {

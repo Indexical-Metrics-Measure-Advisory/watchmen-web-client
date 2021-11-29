@@ -152,8 +152,10 @@ export const Apis = {
 	BUCKET_LIST_BY_IDS: "indicator/buckets/ids?bucket_ids=:bucketIds",
 	BUCKET_LIST_BY_METHODS: "indicator/buckets/methods",
 
-	INSPECTION_CREATE: "indicator/inspection",
-	INSPECTION_SAVE: "indicator/update/inspection?inspection_id=:inspectionId",
+	INSPECTION_LIST: 'inspection/list',
+	INSPECTION_CREATE: 'inspection',
+	INSPECTION_GET: 'inspection?inspection_id=:inspectionId',
+	INSPECTION_SAVE: 'update/inspection?inspection_id=:inspectionId'
 };
 
 const buildApi = (api: string, args?: Record<string, any>): string => {

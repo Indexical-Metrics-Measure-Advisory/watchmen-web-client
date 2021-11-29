@@ -32,7 +32,8 @@ export const Jp = {
 		INDICATOR_NAME_PLACEHOLDER: '読むための名前を入力してください。',
 		FIND_BUCKET_PLACEHOLDER: 'バケット名 トピック名または ファクター名に基づいて検索します。',
 		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: '分類値、セグメントに追加することを確認します。',
-		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: 'バケット名に基づいて検索します。'
+		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: 'バケット名に基づいて検索します。',
+		DROPDOWN_PLACEHOLDER: '選択してください...'
 	},
 	STANDARD: {
 		YES: 'はい',
@@ -392,7 +393,29 @@ export const Jp = {
 			PLEASE_SELECT_ENUM_ITEM: '少なくとも 1 つの列挙項目を選択してセグメント化に参加してください。'
 		},
 		INSPECTION: {
-			TITLE: '指標の洞察'
+			TITLE: '指標の洞察',
+			OR: 'または',
+			PICK_INSPECTION_LABEL: '洞察を選択:',
+			PICKED_INSPECTION_LABEL: '洞察が選択:',
+			PICK_INSPECTION: '確認',
+			CREATE_INSPECTION: '新しい洞察を作成',
+			INSPECTION_IS_REQUIRED: '表示する必要がある洞察を選択してください。',
+			NONAME_ON_INSPECTION: '名前なし',
+			RENAME: '変更',
+			NEW_NAME: '名前を付け',
+			SET_NAME_LABEL: '名前を設定',
+			NAME_IS_REQUIRED: '読むための名前を入力してください。',
+			PICK_INDICATOR_LABEL: '指標を選択:',
+			PICK_INDICATOR: '確認',
+			INDICATOR_IS_REQUIRED: '新しい洞察を作成するための指標を選択してください。',
+			INSPECTING_ON_INDICATOR_LABEL: '洞察指標:',
+			VALUE_ON_LABEL: '指標値を変換:',
+			VALUE_ON_COUNT: '個数の合計',
+			VALUE_ON_SUM: '合計値',
+			VALUE_ON_AVG: '平均',
+			VALUE_ON_MAX: '最大値',
+			VALUE_ON_MIN: '最小値',
+			SELECT_PERSPECTIVES: '視野角を選択:'
 		}
 	},
 	SETTINGS: {

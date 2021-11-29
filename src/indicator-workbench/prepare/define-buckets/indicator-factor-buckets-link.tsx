@@ -7,11 +7,11 @@ import {noop} from '@/services/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
+import {SearchItem, SearchText} from '../../search-text';
+import {useSearchTextEventBus} from '../../search-text/search-text-event-bus';
+import {SearchTextEventTypes} from '../../search-text/search-text-event-bus-types';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
 import {IndicatorsEventTypes} from '../indicators-event-bus-types';
-import {SearchItem, SearchText} from '../search-text';
-import {useSearchTextEventBus} from '../search-text/search-text-event-bus';
-import {SearchTextEventTypes} from '../search-text/search-text-event-bus-types';
 
 interface BucketCandidate extends SearchItem {
 	bucketId: BucketId;

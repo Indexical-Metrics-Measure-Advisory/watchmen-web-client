@@ -8,8 +8,12 @@ import {BUCKET_AMOUNT_ID} from '../tuples/mock-data-buckets';
 import {DemoTopics, MonthlyOrderPremium, Order, WeeklyOrderPremium} from '../tuples/mock-data-topics';
 import {listMockEnums} from './mock-enum';
 
+export const INDICATOR_ORDER_PREMIUM_ID = '1';
+export const INDICATOR_MONTHLY_ORDER_PREMIUM_ID = '2';
+export const INDICATOR_WEEKLY_ORDER_PREMIUM_ID = '3';
+
 const OrderPremiumIndicator: Indicator = {
-	indicatorId: '1',
+	indicatorId: INDICATOR_ORDER_PREMIUM_ID,
 	name: 'Order Premium',
 	topicId: Order.topicId,
 	factorId: Order.factors.find(factor => factor.name === 'premium')?.factorId,
@@ -18,7 +22,7 @@ const OrderPremiumIndicator: Indicator = {
 	lastModified: getCurrentTime()
 };
 const MonthlyOrderPremiumIndicator: Indicator = {
-	indicatorId: '2',
+	indicatorId: INDICATOR_MONTHLY_ORDER_PREMIUM_ID,
 	name: 'Monthly Order Premium',
 	topicId: MonthlyOrderPremium.topicId,
 	factorId: MonthlyOrderPremium.factors.find(factor => factor.name === 'premium')?.factorId,
@@ -26,7 +30,7 @@ const MonthlyOrderPremiumIndicator: Indicator = {
 	lastModified: getCurrentTime()
 };
 const WeeklyOrderPremiumIndicator: Indicator = {
-	indicatorId: '3',
+	indicatorId: INDICATOR_WEEKLY_ORDER_PREMIUM_ID,
 	name: 'Weekly Order Premium',
 	topicId: WeeklyOrderPremium.topicId,
 	factorId: WeeklyOrderPremium.factors.find(factor => factor.name === 'premium')?.factorId,
@@ -81,15 +85,15 @@ export const fetchMockEnumsForTopic = async (topicId: TopicId): Promise<Array<En
 	});
 };
 
-export const fetchMockIndicator = async (indicatorId: IndicatorId): Promise<{ indicator: Indicator; topic?: TopicForIndicator; enums?: Array<EnumForIndicator>; }> => {
+export const fetchMockIndicator = async (indicatorId: IndicatorId): Promise<{ indicator: Indicator; topic: TopicForIndicator; enums?: Array<EnumForIndicator>; }> => {
 	// eslint-disable-next-line
 	const found = DemoIndicators.find(({indicatorId: id}) => id == indicatorId);
 	if (found) {
 		const indicator = JSON.parse(JSON.stringify(found));
 		// eslint-disable-next-line
-		const topic = indicator.topicId ? DemoTopics.find(({topicId: id}) => id == indicator.topicId) : (void 0);
+		const topic = DemoTopics.find(({topicId: id}) => id == indicator.topicId)!;
 		const {data: demoEnums} = await listMockEnums({search: ''});
-		const enums = (topic?.factors || []).filter(factor => factor.enumId)
+		const enums = (topic.factors || []).filter(factor => factor.enumId)
 			// eslint-disable-next-line
 			.map(factor => demoEnums.find(enumeration => enumeration.enumId == factor.enumId))
 			.filter(enumeration => enumeration != null) as Array<EnumForIndicator>;

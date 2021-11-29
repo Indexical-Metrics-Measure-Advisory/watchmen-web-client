@@ -4,7 +4,7 @@ import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useEffect} from 'react';
-import {SearchTextEventBusProvider} from '../search-text/search-text-event-bus';
+import {SearchTextEventBusProvider} from '../../search-text/search-text-event-bus';
 import {useBucketsEventBus} from './buckets-event-bus';
 import {BucketsEventTypes} from './buckets-event-bus-types';
 import {IndicatorFactorBucketsLink} from './indicator-factor-buckets-link';

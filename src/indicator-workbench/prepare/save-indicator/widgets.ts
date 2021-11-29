@@ -1,6 +1,6 @@
 import {Input} from '@/widgets/basic/input';
 import styled from 'styled-components';
-import {StepTitleButton} from '../step-widgets';
+import {StepTitleButton} from '../../step-widgets';
 
 export const NameInput = styled(Input)`
 	width         : 100%;

@@ -1,14 +1,17 @@
 import React from 'react';
+import {CreateOrFind} from './create-or-find';
 import {InspectionState} from './inspection-state';
+import {Perspective} from './perspective';
+import {PickIndicator} from './pick-indicator';
+import {ValueOn} from './value-on';
 import {InspectionContainer} from './widgets';
 
 export const Inspection = () => {
-	// const {fire} = useInspectionEventBus();
-	// useEffect(() => {
-	// 	fire(InspectionEventTypes.SWITCH_STEP, PrepareStep.CREATE_OR_FIND);
-	// }, [fire]);
-
 	return <InspectionContainer>
 		<InspectionState/>
+		<CreateOrFind/>
+		<PickIndicator/>
+		<ValueOn/>
+		<Perspective/>
 	</InspectionContainer>;
 };

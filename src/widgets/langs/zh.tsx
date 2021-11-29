@@ -32,7 +32,8 @@ export const Zh = {
 		INDICATOR_NAME_PLACEHOLDER: '请输入用于阅读的名称.',
 		FIND_BUCKET_PLACEHOLDER: '根据分桶名称, 主题名称或者数据因子名称查找.',
 		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: '输入分组值, 点击确认加入到分段中.',
-		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: '根据分桶名称查找.'
+		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: '根据分桶名称查找.',
+		DROPDOWN_PLACEHOLDER: '请选择...'
 	},
 	STANDARD: {
 		YES: '是',
@@ -392,7 +393,29 @@ export const Zh = {
 			PLEASE_SELECT_ENUM_ITEM: '请至少选择一个枚举项加入到分组.'
 		},
 		INSPECTION: {
-			TITLE: '指标洞察'
+			TITLE: '指标洞察',
+			OR: '或',
+			PICK_INSPECTION_LABEL: '选择洞察:',
+			PICKED_INSPECTION_LABEL: '已选择洞察:',
+			PICK_INSPECTION: '查看',
+			CREATE_INSPECTION: '创建新洞察',
+			INSPECTION_IS_REQUIRED: '请选择需要查看的洞察.',
+			NONAME_ON_INSPECTION: '未命名',
+			RENAME: '修改',
+			NEW_NAME: '命名',
+			SET_NAME_LABEL: '设置名称',
+			NAME_IS_REQUIRED: '请设置一个用于阅读的名称.',
+			PICK_INDICATOR_LABEL: '选择指标:',
+			PICK_INDICATOR: '选择',
+			INDICATOR_IS_REQUIRED: '请选择指标用于创建新洞察.',
+			INSPECTING_ON_INDICATOR_LABEL: '洞察指标:',
+			VALUE_ON_LABEL: '指标值转换:',
+			VALUE_ON_COUNT: '个数合计',
+			VALUE_ON_SUM: '合计值',
+			VALUE_ON_AVG: '平均值',
+			VALUE_ON_MAX: '最大值',
+			VALUE_ON_MIN: '最小值',
+			SELECT_PERSPECTIVES: '选择视角:',
 		}
 	},
 	SETTINGS: {
