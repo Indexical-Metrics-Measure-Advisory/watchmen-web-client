@@ -1,4 +1,3 @@
-import {fetchInspection} from '@/services/data/tuples/inspection';
 import {Inspection, InspectionId} from '@/services/data/tuples/inspection-types';
 import {QueryInspection} from '@/services/data/tuples/query-inspection-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
@@ -39,13 +38,10 @@ export const CreateOrFindEditor = () => {
 			</AlertLabel>);
 			return;
 		}
-
-		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-			async () => fetchInspection(selectedInspectionId),
-			(inspection: Inspection) => {
-				fire(InspectionEventTypes.INSPECTION_PICKED, inspection);
-				setVisible(false);
-			});
+		fire(InspectionEventTypes.ASK_INSPECTION, selectedInspectionId, (inspection: Inspection) => {
+			fire(InspectionEventTypes.INSPECTION_PICKED, inspection);
+			setVisible(false);
+		});
 	};
 	const onCreateClicked = () => {
 		const inspection = createInspection();

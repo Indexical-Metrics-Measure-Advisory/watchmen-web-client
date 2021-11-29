@@ -1,7 +1,7 @@
 import {fetchIndicator, fetchIndicatorsForSelection} from '@/services/data/tuples/indicator';
 import {Indicator, IndicatorId} from '@/services/data/tuples/indicator-types';
-import {listInspections, saveInspection} from '@/services/data/tuples/inspection';
-import {Inspection} from '@/services/data/tuples/inspection-types';
+import {fetchInspection, listInspections, saveInspection} from '@/services/data/tuples/inspection';
+import {Inspection, InspectionId} from '@/services/data/tuples/inspection-types';
 import {EnumForIndicator, QueryIndicator, TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {QueryInspection} from '@/services/data/tuples/query-inspection-types';
 import {useEventBus} from '@/widgets/events/event-bus';
@@ -50,6 +50,19 @@ export const InspectionState = () => {
 			off(InspectionEventTypes.ASK_INSPECTIONS, onAskInspections);
 		};
 	}, [on, off, fireGlobal, inspections.loaded, inspections.data]);
+	useEffect(() => {
+		const onAskInspection = (inspectionId: InspectionId, onData: (inspection: Inspection) => void) => {
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => fetchInspection(inspectionId),
+				(inspection: Inspection) => {
+					onData(inspection);
+				});
+		};
+		on(InspectionEventTypes.ASK_INSPECTION, onAskInspection);
+		return () => {
+			off(InspectionEventTypes.ASK_INSPECTION, onAskInspection);
+		};
+	}, [on, off]);
 	useEffect(() => {
 		const onSaveInspection = (inspection: Inspection, onSaved: (inspection: Inspection, saved: boolean) => void) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,

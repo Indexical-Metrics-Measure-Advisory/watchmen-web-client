@@ -1,10 +1,11 @@
 import {Indicator, IndicatorId} from '@/services/data/tuples/indicator-types';
-import {Inspection} from '@/services/data/tuples/inspection-types';
+import {Inspection, InspectionId} from '@/services/data/tuples/inspection-types';
 import {EnumForIndicator, QueryIndicator, TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {QueryInspection} from '@/services/data/tuples/query-inspection-types';
 
 export enum InspectionEventTypes {
 	ASK_INSPECTIONS = 'ask-inspections',
+	ASK_INSPECTION = 'ask-inspection',
 	ASK_INDICATORS = 'ask-indicators',
 	ASK_INDICATOR = 'ask-indicator',
 
@@ -19,6 +20,10 @@ export interface InspectionEventBus {
 	fire(type: InspectionEventTypes.ASK_INSPECTIONS, onData: (inspections: Array<QueryInspection>) => void): this;
 	on(type: InspectionEventTypes.ASK_INSPECTIONS, listener: (onData: (inspections: Array<QueryInspection>) => void) => void): this;
 	off(type: InspectionEventTypes.ASK_INSPECTIONS, listener: (onData: (inspections: Array<QueryInspection>) => void) => void): this;
+
+	fire(type: InspectionEventTypes.ASK_INSPECTION, inspectionId: InspectionId, onData: (inspection: Inspection) => void): this;
+	on(type: InspectionEventTypes.ASK_INSPECTION, listener: (inspectionId: InspectionId, onData: (inspection: Inspection) => void) => void): this;
+	off(type: InspectionEventTypes.ASK_INSPECTION, listener: (inspectionId: InspectionId, onData: (inspection: Inspection) => void) => void): this;
 
 	fire(type: InspectionEventTypes.ASK_INDICATORS, onData: (indicators: Array<QueryIndicator>) => void): this;
 	on(type: InspectionEventTypes.ASK_INDICATORS, listener: (onData: (indicators: Array<QueryIndicator>) => void) => void): this;
