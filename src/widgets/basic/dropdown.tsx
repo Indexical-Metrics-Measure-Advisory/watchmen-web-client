@@ -1,5 +1,5 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {KeyboardEvent, MouseEvent, useEffect, useRef, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, MouseEvent, useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
 import {BASE_HEIGHT, DROPDOWN_Z_INDEX, ICON_DROPDOWN} from './constants';
 import {DropdownOption, DropdownOptionLabel, DropdownProps} from './types';
@@ -140,6 +140,14 @@ const OptionFilter = styled.div.attrs<State>(({active, atBottom, top, left, heig
 		font-weight  : var(--font-demi-bold);
 		margin-right : 4px;
 	}
+	> input {
+		border           : 0;
+		outline          : none;
+		background-color : transparent;
+		color            : var(--font-color);
+		caret-color      : transparent;
+		caret-shape      : revert;
+	}
 `;
 const Option = styled.span.attrs({'data-widget': 'dropdown-option'})`
 	display       : flex;
@@ -163,6 +171,7 @@ export const Dropdown = (props: DropdownProps) => {
 	const {options = [], onChange, value, please = '', ...rest} = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
+	const filterInputRef = useRef<HTMLInputElement>(null);
 	const optionsRef = useRef<HTMLDivElement>(null);
 	const [state, setState] = useState<State>({
 		active: false,
@@ -198,6 +207,9 @@ export const Dropdown = (props: DropdownProps) => {
 		const bottom = atBottom(top, height, options.length);
 		setState({active: true, atBottom: bottom, top, left, width, height, minWidth: width});
 	};
+	const onFocused = () => {
+		filterInputRef.current?.focus();
+	};
 	const onBlurred = () => {
 		setState({...state, active: false});
 		setFilter('');
@@ -209,12 +221,10 @@ export const Dropdown = (props: DropdownProps) => {
 		const {key} = event;
 		if (key === 'Escape') {
 			setFilter('');
-		} else if (key === 'Backspace') {
-			setFilter(filter.substr(0, filter.length - 1));
-		} else if (key.length === 1) {
-			setFilter(filter + key);
 		}
-		// ignore other keys
+	};
+	const onFilterChanged = (event: ChangeEvent<HTMLInputElement>) => {
+		setFilter(event.target.value);
 	};
 	const onOptionClicked = (option: DropdownOption) => (event: MouseEvent<HTMLSpanElement>) => {
 		event.preventDefault();
@@ -270,14 +280,16 @@ export const Dropdown = (props: DropdownProps) => {
 	                          ref={containerRef}
 	                          role="input" tabIndex={0}
 	                          {...rest}
-	                          onKeyUp={onKeyUp}
-	                          onClick={onClicked} onBlur={onBlurred}>
+	                          onFocus={onFocused} onBlur={onBlurred}
+	                          onClick={onClicked}>
 		<Label data-please={!selection}>{label}</Label>
 		<Caret icon={ICON_DROPDOWN}/>
 		<Options {...state} ref={optionsRef}>
 			<OptionFilter {...{...state, active: !!filter}}>
 				<span>?:</span>
-				<span>{filter}</span>
+				<input value={filter} onChange={onFilterChanged}
+				       onKeyUp={onKeyUp}
+				       ref={filterInputRef}/>
 			</OptionFilter>
 			{options.map(option => {
 				const {label, key} = option;
