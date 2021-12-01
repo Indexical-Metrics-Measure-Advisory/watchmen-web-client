@@ -9,7 +9,7 @@ import {useInspectionEventBus} from '../inspection-event-bus';
 import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
 import {InspectionLabel} from '../widgets';
 import {buildBucketOptions, buildBucketsAskingParams, buildMeasureOnOptions} from './utils';
-import {InspectOnDropdown, GroupByContainer} from './widgets';
+import {BucketOnDropdown, BucketOnContainer} from './widgets';
 
 export const BucketOn = () => {
 	const {on, off, fire} = useInspectionEventBus();
@@ -78,11 +78,11 @@ export const BucketOn = () => {
 	const measureOn = inspection?.measureOn === InspectMeasureOn.VALUE ? InspectMeasureOn.VALUE : inspection?.measureFactorId;
 	const bucketOptions = buildBucketOptions(inspection!, indicator!.topic, buckets);
 
-	return <GroupByContainer>
+	return <BucketOnContainer>
 		<InspectionLabel>{Lang.INDICATOR_WORKBENCH.INSPECTION.SELECT_BUCKETING_ON_LABEL}</InspectionLabel>
-		<InspectOnDropdown value={measureOn} options={measureOnOptions} onChange={onMeasureOnChange}
-		                   please={Lang.PLAIN.DROPDOWN_PLACEHOLDER}/>
-		<InspectOnDropdown value={inspection?.bucketId} options={bucketOptions.options} onChange={onBucketChange}
-		                   please={bucketOptions.available ? Lang.PLAIN.DROPDOWN_PLACEHOLDER : Lang.INDICATOR_WORKBENCH.INSPECTION.SELECT_MEASURE_ON_FIRST}/>
-	</GroupByContainer>;
+		<BucketOnDropdown value={measureOn} options={measureOnOptions} onChange={onMeasureOnChange}
+		                  please={Lang.PLAIN.DROPDOWN_PLACEHOLDER}/>
+		<BucketOnDropdown value={inspection?.bucketId} options={bucketOptions.options} onChange={onBucketChange}
+		                  please={bucketOptions.available ? Lang.PLAIN.DROPDOWN_PLACEHOLDER : Lang.INDICATOR_WORKBENCH.INSPECTION.SELECT_MEASURE_ON_FIRST}/>
+	</BucketOnContainer>;
 };

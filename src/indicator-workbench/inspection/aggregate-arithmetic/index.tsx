@@ -1,12 +1,8 @@
 import {IndicatorAggregateArithmetic} from '@/services/data/tuples/indicator-types';
-import {Inspection} from '@/services/data/tuples/inspection-types';
-import {PropOf} from '@/services/types';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
-import {useEffect, useState} from 'react';
-import {useInspectionEventBus} from '../inspection-event-bus';
-import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
+import {useVisibleOnII} from '../use-visible-on-ii';
 import {InspectionLabel} from '../widgets';
 import {ValueTransformContainer, ValueTransformDropdown} from './widgets';
 
@@ -19,37 +15,15 @@ const AggregateArithmeticLabel: Record<IndicatorAggregateArithmetic, string> = {
 };
 
 export const AggregateArithmetic = () => {
-	const {on, off, fire} = useInspectionEventBus();
-	const [visible, setVisible] = useState(false);
-	const [inspection, setInspection] = useState<Inspection | null>(null);
-	const [indicator, setIndicator] = useState<IndicatorForInspection | null>(null);
+	const {visible, inspection, indicator} = useVisibleOnII();
 	const forceUpdate = useForceUpdate();
-	useEffect(() => {
-		const onInspectionPicked = (inspection: Inspection, indicator?: IndicatorForInspection) => {
-			setInspection(inspection);
-			if (inspection.indicatorId != null) {
-				setIndicator(indicator!);
-				setVisible(true);
-			}
-		};
-		const onIndicatorPicked = (indicator: IndicatorForInspection) => {
-			setIndicator(indicator);
-			setVisible(true);
-		};
-		on(InspectionEventTypes.INSPECTION_PICKED, onInspectionPicked);
-		on(InspectionEventTypes.INDICATOR_PICKED, onIndicatorPicked);
-		return () => {
-			off(InspectionEventTypes.INSPECTION_PICKED, onInspectionPicked);
-			off(InspectionEventTypes.INDICATOR_PICKED, onIndicatorPicked);
-		};
-	}, [on, off, fire]);
 
 	if (!visible) {
 		return null;
 	}
 
 	const onOnChange = (option: DropdownOption) => {
-		inspection!.aggregateArithmetic = option.value as PropOf<Inspection, 'aggregateArithmetic'>;
+		inspection!.aggregateArithmetic = option.value as IndicatorAggregateArithmetic;
 		forceUpdate();
 	};
 
