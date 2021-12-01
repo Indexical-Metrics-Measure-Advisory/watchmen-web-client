@@ -415,6 +415,7 @@ export const Zh = {
 			VALUE_ON_AVG: '平均值',
 			VALUE_ON_MAX: '最大值',
 			VALUE_ON_MIN: '最小值',
+			MEASURE_ON_VALUE: '指标值',
 			SELECT_PERSPECTIVES: '选择视角:',
 		}
 	},

@@ -1,4 +1,5 @@
 import {BucketId} from './bucket-types';
+import {FactorId} from './factor-types';
 import {IndicatorId} from './indicator-types';
 import {TenantId} from './tenant-types';
 import {Tuple} from './tuple-types';
@@ -18,6 +19,7 @@ export interface Inspection extends Tuple {
 	name: string;
 	indicatorId: IndicatorId;
 	valueOn?: InspectValueOn;
+	measureFactorId?: FactorId;
 	bucket?: BucketId;
 	tenantId?: TenantId;
 }

@@ -1,9 +1,9 @@
-import {useCollapseFixedThing} from '@/widgets/basic/utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {ChangeEvent, KeyboardEvent, MouseEvent, useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
 import {BASE_HEIGHT, DROPDOWN_Z_INDEX, ICON_DROPDOWN} from './constants';
 import {DropdownOption, DropdownOptionLabel, DropdownProps} from './types';
+import {useCollapseFixedThing} from './utils';
 
 interface State {
 	active: boolean;

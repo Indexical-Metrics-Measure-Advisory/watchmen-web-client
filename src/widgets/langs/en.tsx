@@ -415,6 +415,7 @@ export const En = {
 			VALUE_ON_AVG: 'Avg',
 			VALUE_ON_MAX: 'Max',
 			VALUE_ON_MIN: 'Min',
+			MEASURE_ON_VALUE: 'On Value',
 			SELECT_PERSPECTIVES: 'Pick Perspectives:'
 		}
 	},

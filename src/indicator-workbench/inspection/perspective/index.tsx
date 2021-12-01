@@ -1,5 +1,11 @@
+import {BucketType} from '@/services/data/tuples/bucket-types';
+import {
+	isCategoryMeasureBucket,
+	isEnumMeasureBucket,
+	isNumericValueMeasureBucket
+} from '@/services/data/tuples/bucket-utils';
 import {MeasureMethod} from '@/services/data/tuples/indicator-types';
-import {detectMeasures, isTimePeriodMeasure} from '@/services/data/tuples/indicator-utils';
+import {detectMeasures, isTimePeriodMeasure, tryToTransformToMeasures} from '@/services/data/tuples/indicator-utils';
 import {Inspection} from '@/services/data/tuples/inspection-types';
 import {
 	QueryBucket,
@@ -8,20 +14,22 @@ import {
 	QueryByMeasureMethod
 } from '@/services/data/tuples/query-bucket-types';
 import {isQueryByEnum, isQueryByMeasure} from '@/services/data/tuples/query-bucket-utils';
+import {DropdownOption} from '@/widgets/basic/types';
 import {Lang} from '@/widgets/langs';
 import {useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
 import {InspectionLabel} from '../widgets';
-import {SelectMeasureContainer} from './widgets';
+import {InspectOnDropdown, SelectMeasureContainer} from './widgets';
+
+const MEASURE_ON_VALUE = 'value';
 
 export const Perspective = () => {
 	const {on, off, fire} = useInspectionEventBus();
 	const [visible, setVisible] = useState(false);
-	const [, setInspection] = useState<Inspection | null>(null);
-	const [, setIndicator] = useState<IndicatorForInspection | null>(null);
-	const [, setBuckets] = useState<Array<QueryBucket>>([]);
-	// const forceUpdate = useForceUpdate();
+	const [inspection, setInspection] = useState<Inspection | null>(null);
+	const [indicator, setIndicator] = useState<IndicatorForInspection | null>(null);
+	const [buckets, setBuckets] = useState<Array<QueryBucket>>([]);
 	useEffect(() => {
 		const askBuckets = async ({indicator, topic}: IndicatorForInspection): Promise<Array<QueryBucket>> => {
 			return new Promise(resolve => {
@@ -83,6 +91,13 @@ export const Perspective = () => {
 		return null;
 	}
 
+	const onMeasureOnChange = (option: DropdownOption) => {
+		if (option.value === MEASURE_ON_VALUE) {
+			delete inspection?.measureFactorId;
+		} else {
+			inspection!.measureFactorId = option.value;
+		}
+	};
 	// const onOptions = Object.values(
 	// 	detectMeasures(indicator?.topic, (measure: MeasureMethod) => !isTimePeriodMeasure(measure))
 	// 		.reduce((all, {factorId}) => {
@@ -104,9 +119,53 @@ export const Perspective = () => {
 	// 	return {value: factor.factorId, label: factor.label || factor.name || ''};
 	// });
 
+	const canMeasureOnIndicatorValue = indicator?.indicator.factorId != null
+		&& indicator.indicator.valueBuckets != null
+		&& indicator.indicator.valueBuckets.length !== 0
+		&& buckets.some(bucket => bucket.type === BucketType.VALUE);
+	const measureOnOptions = [
+		...canMeasureOnIndicatorValue ? [{
+			value: MEASURE_ON_VALUE,
+			label: () => {
+				return {
+					node: Lang.INDICATOR_WORKBENCH.INSPECTION.MEASURE_ON_VALUE,
+					label: 'on value'
+				};
+			},
+			key: MEASURE_ON_VALUE
+		}] : [],
+		...(indicator?.topic.factors || []).filter(factor => {
+			if (factor.enumId != null) {
+				// eslint-disable-next-line
+				return buckets.some(bucket => isEnumMeasureBucket(bucket) && bucket.enumId == factor.enumId);
+			} else {
+				const measures = tryToTransformToMeasures(factor);
+				if (measures.length === 0) {
+					return false;
+				}
+
+				return measures.some(measure => {
+					return buckets.some(bucket => {
+						if (isNumericValueMeasureBucket(bucket)) {
+							return bucket.measure === measure;
+						} else if (isCategoryMeasureBucket(bucket)) {
+							return bucket.measure === measure;
+						}
+						return false;
+					});
+				});
+			}
+		}).map(factor => {
+			return {value: factor.factorId, label: factor.label || factor.name || 'Noname Factor'};
+		})
+	];
+	const measureOn = canMeasureOnIndicatorValue
+		? (inspection?.measureFactorId == null ? MEASURE_ON_VALUE : inspection.measureFactorId)
+		: inspection?.measureFactorId;
+
 	return <SelectMeasureContainer>
 		<InspectionLabel>{Lang.INDICATOR_WORKBENCH.INSPECTION.SELECT_PERSPECTIVES}</InspectionLabel>
-		{/*<InspectOnDropdown value={inspection?.valueOn ?? null} options={onOptions} onChange={onOnChange}*/}
-		{/*                   please={Lang.PLAIN.DROPDOWN_PLACEHOLDER}/>*/}
+		<InspectOnDropdown value={measureOn} options={measureOnOptions} onChange={onMeasureOnChange}
+		                   please={Lang.PLAIN.DROPDOWN_PLACEHOLDER}/>
 	</SelectMeasureContainer>;
 };
