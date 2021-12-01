@@ -24,6 +24,15 @@ export const InspectionLabel = styled.span.attrs({'data-widget': 'inspection-lab
 export const OrLabel = styled(InspectionLabel)`
 	opacity : 0.7;
 `;
+export const LoadingLabel = styled(InspectionLabel)`
+	opacity : 0.7;
+	> svg {
+		font-size : 0.8em;
+	}
+	> svg + span {
+		margin-left : calc(var(--margin) / 4);
+	}
+`;
 export const InspectionEntityLabel = styled.span.attrs({'data-widget': 'inspection-entity-label'})`
 	display          : flex;
 	position         : relative;

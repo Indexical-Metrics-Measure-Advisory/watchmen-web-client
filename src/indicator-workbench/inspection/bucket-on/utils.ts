@@ -113,11 +113,11 @@ export const buildBucketOptions = (inspection: Inspection, topic: TopicForIndica
 					return o1.label.localeCompare(o2.label, void 0, {sensitivity: 'base', caseFirst: 'upper'});
 				})
 		};
-	} else if (inspection.measureOn === InspectMeasureOn.OTHER && inspection.measureFactorId == null) {
+	} else if (inspection.measureOn === InspectMeasureOn.OTHER && inspection.measureOnFactorId == null) {
 		return {available: false, options: []};
-	} else if (inspection.measureOn === InspectMeasureOn.OTHER && inspection.measureFactorId != null) {
+	} else if (inspection.measureOn === InspectMeasureOn.OTHER && inspection.measureOnFactorId != null) {
 		// eslint-disable-next-line
-		const factor = (topic.factors || []).find(factor => factor.factorId == inspection.measureFactorId);
+		const factor = (topic.factors || []).find(factor => factor.factorId == inspection.measureOnFactorId);
 		if (factor == null) {
 			return {available: true, options: []};
 		}

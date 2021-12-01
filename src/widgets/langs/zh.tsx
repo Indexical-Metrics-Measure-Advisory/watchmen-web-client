@@ -417,7 +417,9 @@ export const Zh = {
 			VALUE_TRANSFORM_MIN: '最小值',
 			SELECT_BUCKETING_ON_LABEL: '分桶方式:',
 			MEASURE_ON_VALUE: '指标值',
-			SELECT_MEASURE_ON_FIRST: '请首先选择分桶基准...'
+			SELECT_MEASURE_ON_FIRST: '请首先选择分桶基准...',
+			TIME_PERIOD_LABEL: '时间区间:',
+			NO_TIME_MEASURE: '不使用时间分段'
 		}
 	},
 	SETTINGS: {

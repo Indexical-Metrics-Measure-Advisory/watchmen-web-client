@@ -417,7 +417,9 @@ export const En = {
 			VALUE_TRANSFORM_MIN: 'Min',
 			SELECT_BUCKETING_ON_LABEL: 'Bucketing On:',
 			MEASURE_ON_VALUE: 'On Indicator Value',
-			SELECT_MEASURE_ON_FIRST: 'Please select bucket base first...'
+			SELECT_MEASURE_ON_FIRST: 'Please select bucket base first...',
+			TIME_PERIOD_LABEL: 'Time Period:',
+			NO_TIME_MEASURE: 'No time measure'
 		}
 	},
 	SETTINGS: {

@@ -1,6 +1,6 @@
 import {BucketId} from './bucket-types';
 import {FactorId} from './factor-types';
-import {IndicatorAggregateArithmetic, IndicatorId} from './indicator-types';
+import {IndicatorAggregateArithmetic, IndicatorId, MeasureMethod} from './indicator-types';
 import {TenantId} from './tenant-types';
 import {Tuple} from './tuple-types';
 
@@ -20,8 +20,14 @@ export interface Inspection extends Tuple {
 	/** measure on indicator value or other factor */
 	measureOn?: InspectMeasureOn;
 	/** if measure on factor, factor id must be given */
-	measureFactorId?: FactorId;
+	measureOnFactorId?: FactorId;
 	/** bucket for any measure on type, or no bucket also allowed if measure on factor rather than indicator value */
-	bucketId?: BucketId;
+	measureOnBucketId?: BucketId;
+	/** time factor which used to filter data */
+	timeFactorId?: FactorId;
+	/**
+	 * time measure on factor.
+	 */
+	timeMeasure?: MeasureMethod;
 	tenantId?: TenantId;
 }
