@@ -115,5 +115,3 @@ dist
 # builds
 /build
 .vscode/settings.json
-.env.local
-.env.local

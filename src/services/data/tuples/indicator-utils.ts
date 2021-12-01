@@ -107,6 +107,17 @@ export const tryToTransformToMeasure = (factorOrType: Factor | FactorType): Arra
 	}
 };
 
+export const tryToTransformToMeasures = (factorOrType: Factor | FactorType): Array<MeasureMethod> => {
+	const result = tryToTransformToMeasure(factorOrType);
+	if (result == null) {
+		return [];
+	} else if (Array.isArray(result)) {
+		return result;
+	} else {
+		return [result];
+	}
+};
+
 export const detectMeasures = (topic?: Topic | TopicForIndicator, accept?: (measure: MeasureMethod) => boolean): Array<IndicatorMeasure> => {
 	if (topic == null) {
 		return [];

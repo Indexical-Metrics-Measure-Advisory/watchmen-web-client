@@ -415,6 +415,7 @@ export const Jp = {
 			VALUE_ON_AVG: '平均',
 			VALUE_ON_MAX: '最大値',
 			VALUE_ON_MIN: '最小値',
+			MEASURE_ON_VALUE: '指標値',
 			SELECT_PERSPECTIVES: '視野角を選択:'
 		}
 	},
