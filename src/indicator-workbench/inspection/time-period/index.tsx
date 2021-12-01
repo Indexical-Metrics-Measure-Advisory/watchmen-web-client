@@ -1,5 +1,6 @@
 import {FactorId} from '@/services/data/tuples/factor-types';
 import {MeasureMethod} from '@/services/data/tuples/indicator-types';
+import {tryToTransformToMeasures} from '@/services/data/tuples/indicator-utils';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
@@ -17,11 +18,28 @@ export const TimePeriod = () => {
 	}
 
 	const onTimeFactorChange = (option: DropdownOption) => {
-		inspection!.timeFactorId = option.value as FactorId;
+		const factorId = option.value as FactorId;
+		// eslint-disable-next-line
+		if (inspection?.timeFactorId == factorId) {
+			return;
+		}
+		inspection!.timeFactorId = factorId;
+		// eslint-disable-next-line
+		const factor = (indicator?.topic.factors || []).find(factor => factor.factorId == inspection?.timeFactorId);
+		if (factor != null) {
+			const measures = tryToTransformToMeasures(factor);
+			if (inspection?.timeMeasure != null && !measures.includes(inspection.timeMeasure)) {
+				delete inspection.timeMeasure;
+			}
+		}
 		forceUpdate();
 	};
 	const onTimeMeasureChange = (option: DropdownOption) => {
-		inspection!.timeMeasure = option.value as MeasureMethod;
+		const measure = option.value as MeasureMethod;
+		if (inspection?.timeMeasure === measure) {
+			return;
+		}
+		inspection!.timeMeasure = measure;
 		forceUpdate();
 	};
 
