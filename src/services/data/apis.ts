@@ -136,7 +136,7 @@ export const Apis = {
 	IMPORT_TOPICS_AND_PIPELINES: "import",
 
 	INDICATORS_LIST_FOR_SELECTION: "indicator/indicator/list/selection?query_name=:search",
-	TOPIC_LIST_FOR_INDICATOR_SELECTION: "query/topic/space?query_name=:search&exclude=raw",
+	TOPIC_LIST_FOR_INDICATOR_SELECTION: "query/topic/factor/index?query_name=:search",
 	ENUM_LIST_FOR_INDICATOR_TOPIC: "enum/list/selection?topic_id=:topicId",
 	INDICATOR_GET: "indicator/indicator?indicator_id=:indicatorId",
 	INDICATOR_CREATE: "indicator/indicator",
@@ -152,10 +152,10 @@ export const Apis = {
 	BUCKET_LIST_BY_IDS: "indicator/buckets/ids?bucket_ids=:bucketIds",
 	BUCKET_LIST_BY_METHODS: "indicator/buckets/methods",
 
-	INSPECTION_LIST: 'inspection/list',
-	INSPECTION_CREATE: 'inspection',
-	INSPECTION_GET: 'inspection?inspection_id=:inspectionId',
-	INSPECTION_SAVE: 'update/inspection?inspection_id=:inspectionId'
+	INSPECTION_LIST: "inspection/list",
+	INSPECTION_CREATE: "inspection",
+	INSPECTION_GET: "inspection?inspection_id=:inspectionId",
+	INSPECTION_SAVE: "update/inspection?inspection_id=:inspectionId",
 };
 
 const buildApi = (api: string, args?: Record<string, any>): string => {
