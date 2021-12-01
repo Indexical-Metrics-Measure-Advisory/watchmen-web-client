@@ -409,14 +409,15 @@ export const En = {
 			PICK_INDICATOR: 'Pick Selection',
 			INDICATOR_IS_REQUIRED: 'Please pick an indicator.',
 			INSPECTING_ON_INDICATOR_LABEL: 'Inspecting on Indicator:',
-			VALUE_ON_LABEL: 'Value Transform:',
-			VALUE_ON_COUNT: 'Count',
-			VALUE_ON_SUM: 'Sum',
-			VALUE_ON_AVG: 'Avg',
-			VALUE_ON_MAX: 'Max',
-			VALUE_ON_MIN: 'Min',
-			MEASURE_ON_VALUE: 'On Value',
-			SELECT_PERSPECTIVES: 'Pick Perspectives:'
+			VALUE_TRANSFORM_LABEL: 'Indicator Value Transform:',
+			VALUE_TRANSFORM_COUNT: 'Count',
+			VALUE_TRANSFORM_SUM: 'Sum',
+			VALUE_TRANSFORM_AVG: 'Avg',
+			VALUE_TRANSFORM_MAX: 'Max',
+			VALUE_TRANSFORM_MIN: 'Min',
+			SELECT_BUCKETING_ON_LABEL: 'Bucketing On:',
+			MEASURE_ON_VALUE: 'On Indicator Value',
+			SELECT_MEASURE_ON_FIRST: 'Please select bucket base first...'
 		}
 	},
 	SETTINGS: {

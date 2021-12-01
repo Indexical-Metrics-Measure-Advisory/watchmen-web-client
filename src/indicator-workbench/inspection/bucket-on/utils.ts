@@ -2,11 +2,12 @@ import {BucketType} from '@/services/data/tuples/bucket-types';
 import {
 	isCategoryMeasureBucket,
 	isEnumMeasureBucket,
+	isMeasureBucket,
 	isNumericValueMeasureBucket
 } from '@/services/data/tuples/bucket-utils';
 import {Indicator, MeasureMethod} from '@/services/data/tuples/indicator-types';
 import {detectMeasures, isTimePeriodMeasure, tryToTransformToMeasures} from '@/services/data/tuples/indicator-utils';
-import {InspectMeasureOn} from '@/services/data/tuples/inspection-types';
+import {Inspection, InspectMeasureOn} from '@/services/data/tuples/inspection-types';
 import {
 	QueryBucket,
 	QueryByBucketMethod,
@@ -44,7 +45,7 @@ export const buildMeasureOnOptions = (indicator: Indicator, topic: TopicForIndic
 				// eslint-disable-next-line
 				return buckets.some(bucket => isEnumMeasureBucket(bucket) && bucket.enumId == factor.enumId);
 			} else {
-				const measures = tryToTransformToMeasures(factor);
+				const measures = tryToTransformToMeasures(factor).filter(measure => !isTimePeriodMeasure(measure));
 				if (measures.length === 0) {
 					return false;
 				}
@@ -94,4 +95,51 @@ export const buildBucketsAskingParams = (indicator: Indicator, topic: TopicForIn
 				return all;
 			}, [] as Array<QueryByBucketMethod>)
 	};
+};
+
+export const buildBucketOptions = (inspection: Inspection, topic: TopicForIndicator, buckets: Array<QueryBucket>): { available: boolean, options: Array<DropdownOption> } => {
+	if (inspection.measureOn == null) {
+		return {available: false, options: []};
+	} else if (inspection.measureOn === InspectMeasureOn.VALUE) {
+		return {
+			available: true,
+			options: buckets.filter(bucket => bucket.type === BucketType.VALUE)
+				.map(bucket => {
+					return {
+						value: bucket.bucketId,
+						label: bucket.name || 'Noname Bucket'
+					};
+				}).sort((o1, o2) => {
+					return o1.label.localeCompare(o2.label, void 0, {sensitivity: 'base', caseFirst: 'upper'});
+				})
+		};
+	} else if (inspection.measureOn === InspectMeasureOn.OTHER && inspection.measureFactorId == null) {
+		return {available: false, options: []};
+	} else if (inspection.measureOn === InspectMeasureOn.OTHER && inspection.measureFactorId != null) {
+		// eslint-disable-next-line
+		const factor = (topic.factors || []).find(factor => factor.factorId == inspection.measureFactorId);
+		if (factor == null) {
+			return {available: true, options: []};
+		}
+		const measures = tryToTransformToMeasures(factor).filter(measure => !isTimePeriodMeasure(measure));
+		if (measures.length === 0) {
+			return {available: true, options: []};
+		}
+
+		return {
+			available: true,
+			options: [...new Set(measures.map(measure => buckets.filter(bucket => {
+				return isMeasureBucket(bucket) && bucket.measure === measure;
+			})).flat())].map(bucket => {
+				return {
+					value: bucket.bucketId,
+					label: bucket.name || 'Noname Bucket'
+				};
+			}).sort((o1, o2) => {
+				return o1.label.localeCompare(o2.label, void 0, {sensitivity: 'base', caseFirst: 'upper'});
+			})
+		};
+	} else {
+		return {available: true, options: []};
+	}
 };

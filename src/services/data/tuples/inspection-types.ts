@@ -1,18 +1,10 @@
 import {BucketId} from './bucket-types';
 import {FactorId} from './factor-types';
-import {IndicatorId} from './indicator-types';
+import {IndicatorAggregateArithmetic, IndicatorId} from './indicator-types';
 import {TenantId} from './tenant-types';
 import {Tuple} from './tuple-types';
 
 export type InspectionId = string;
-
-export enum InspectValueOn {
-	VALUE_COUNT = 'value-count',
-	VALUE_SUM = 'value-sum',
-	VALUE_AVG = 'value-avg',
-	VALUE_MAX = 'value-max',
-	VALUE_MIN = 'value-min'
-}
 
 export enum InspectMeasureOn {
 	VALUE = 'value',
@@ -23,8 +15,8 @@ export interface Inspection extends Tuple {
 	inspectionId: InspectionId;
 	name: string;
 	indicatorId: IndicatorId;
-	/** value aggregation */
-	valueOn?: InspectValueOn;
+	/** indicator value aggregate arithmetic */
+	aggregateArithmetic?: IndicatorAggregateArithmetic;
 	/** measure on indicator value or other factor */
 	measureOn?: InspectMeasureOn;
 	/** if measure on factor, factor id must be given */

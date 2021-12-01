@@ -1,3 +1,4 @@
+import {BucketId} from '@/services/data/tuples/bucket-types';
 import {Inspection, InspectMeasureOn} from '@/services/data/tuples/inspection-types';
 import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
 import {DropdownOption} from '@/widgets/basic/types';
@@ -7,10 +8,10 @@ import {useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
 import {InspectionLabel} from '../widgets';
-import {buildBucketsAskingParams, buildMeasureOnOptions} from './utils';
-import {InspectOnDropdown, SelectMeasureContainer} from './widgets';
+import {buildBucketOptions, buildBucketsAskingParams, buildMeasureOnOptions} from './utils';
+import {InspectOnDropdown, GroupByContainer} from './widgets';
 
-export const Perspective = () => {
+export const BucketOn = () => {
 	const {on, off, fire} = useInspectionEventBus();
 	const [visible, setVisible] = useState(false);
 	const [inspection, setInspection] = useState<Inspection | null>(null);
@@ -51,41 +52,37 @@ export const Perspective = () => {
 
 	const onMeasureOnChange = (option: DropdownOption) => {
 		if (option.value === InspectMeasureOn.VALUE) {
-			inspection!.measureOn = InspectMeasureOn.VALUE;
+			if (inspection?.measureOn === InspectMeasureOn.VALUE) {
+				return;
+			}
 			delete inspection?.measureFactorId;
+			inspection!.measureOn = InspectMeasureOn.VALUE;
+			delete inspection?.bucketId;
 		} else {
+			// eslint-disable-next-line
+			if (inspection?.measureOn === InspectMeasureOn.OTHER && inspection.measureFactorId == option.value) {
+				return;
+			}
 			inspection!.measureFactorId = option.value;
 			inspection!.measureOn = InspectMeasureOn.OTHER;
+			delete inspection?.bucketId;
 		}
 		forceUpdate();
 	};
-	// const onOptions = Object.values(
-	// 	detectMeasures(indicator?.topic, (measure: MeasureMethod) => !isTimePeriodMeasure(measure))
-	// 		.reduce((all, {factorId}) => {
-	// 			if (all[factorId] == null) {
-	// 				// eslint-disable-next-line
-	// 				const factor = indicator?.topic.factors.find(factor => factor.factorId == factorId);
-	// 				if (factor != null) {
-	// 					all[factorId] = factor;
-	// 				}
-	// 			}
-	// 			return all;
-	// 		}, {} as Record<FactorId, Factor>)
-	// ).sort((f1, f2) => {
-	// 	return (f1.label || f1.name || '').localeCompare(f2.label || f2.name || '', void 0, {
-	// 		sensitivity: 'base',
-	// 		caseFirst: 'upper'
-	// 	});
-	// }).map(factor => {
-	// 	return {value: factor.factorId, label: factor.label || factor.name || ''};
-	// });
+	const onBucketChange = (option: DropdownOption) => {
+		inspection!.bucketId = option.value as BucketId;
+		forceUpdate();
+	};
 
 	const measureOnOptions = buildMeasureOnOptions(indicator!.indicator, indicator!.topic, buckets);
 	const measureOn = inspection?.measureOn === InspectMeasureOn.VALUE ? InspectMeasureOn.VALUE : inspection?.measureFactorId;
+	const bucketOptions = buildBucketOptions(inspection!, indicator!.topic, buckets);
 
-	return <SelectMeasureContainer>
-		<InspectionLabel>{Lang.INDICATOR_WORKBENCH.INSPECTION.SELECT_PERSPECTIVES}</InspectionLabel>
+	return <GroupByContainer>
+		<InspectionLabel>{Lang.INDICATOR_WORKBENCH.INSPECTION.SELECT_BUCKETING_ON_LABEL}</InspectionLabel>
 		<InspectOnDropdown value={measureOn} options={measureOnOptions} onChange={onMeasureOnChange}
 		                   please={Lang.PLAIN.DROPDOWN_PLACEHOLDER}/>
-	</SelectMeasureContainer>;
+		<InspectOnDropdown value={inspection?.bucketId} options={bucketOptions.options} onChange={onBucketChange}
+		                   please={bucketOptions.available ? Lang.PLAIN.DROPDOWN_PLACEHOLDER : Lang.INDICATOR_WORKBENCH.INSPECTION.SELECT_MEASURE_ON_FIRST}/>
+	</GroupByContainer>;
 };

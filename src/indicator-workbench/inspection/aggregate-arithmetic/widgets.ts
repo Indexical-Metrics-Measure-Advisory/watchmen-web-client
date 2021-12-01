@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import {InspectionDropdown} from '../widgets';
 
-export const SelectMeasureContainer = styled.div.attrs({'date-widget': 'inspection-select-measure'})`
+export const ValueTransformContainer = styled.div.attrs({'date-widget': 'inspection-value-transform'})`
 	display               : grid;
 	position              : relative;;
-	grid-template-columns : auto auto auto auto auto 1fr;
+	grid-template-columns : auto auto 1fr;
 	grid-column-gap       : calc(var(--margin) / 2);
 `;
 
-export const InspectOnDropdown = styled(InspectionDropdown)`
+export const ValueTransformDropdown = styled(InspectionDropdown)`
 	min-width : 250px;
 `;
