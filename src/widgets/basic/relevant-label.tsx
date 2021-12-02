@@ -8,7 +8,7 @@ const LabelContainer = styled.span.attrs({'data-widget': 'relevant-type'})`
 	align-items : center;
 `;
 
-const TypeLabels: Record<RelevantIndicatorType, string> = {
+export const RelevantIndicatorTypeLabels: Record<RelevantIndicatorType, string> = {
 	[RelevantIndicatorType.SAME]: Lang.INDICATOR.RELEVANT_TYPE.SAME,
 	[RelevantIndicatorType.HIGH_CORRELATED]: Lang.INDICATOR.RELEVANT_TYPE.HIGH_CORRELATED,
 	[RelevantIndicatorType.WEAK_CORRELATED]: Lang.INDICATOR.RELEVANT_TYPE.WEAK_CORRELATED,
@@ -20,6 +20,6 @@ export const RelevantIndicatorTypeLabel = (props: { type: RelevantIndicatorType 
 	const {type, ...rest} = props;
 
 	return <LabelContainer {...rest}>
-		{TypeLabels[type] || ''}
+		{RelevantIndicatorTypeLabels[type] || ''}
 	</LabelContainer>;
 };

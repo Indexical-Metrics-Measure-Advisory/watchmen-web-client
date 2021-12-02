@@ -21,16 +21,8 @@ export const NumericSegmentHolderEditor = (props: { holder: NumericSegmentsHolde
 	};
 
 	const includingOptions: Array<DropdownOption> = [
-		{
-			value: RangeBucketValueIncluding.INCLUDE_MIN,
-			key: 'include min',
-			label: Lang.INDICATOR_WORKBENCH.BUCKET.RANGE_INCLUDE_MIN
-		},
-		{
-			value: RangeBucketValueIncluding.INCLUDE_MAX,
-			key: 'include max',
-			label: Lang.INDICATOR_WORKBENCH.BUCKET.RANGE_INCLUDE_MAX
-		}
+		{value: RangeBucketValueIncluding.INCLUDE_MIN, label: Lang.INDICATOR_WORKBENCH.BUCKET.RANGE_INCLUDE_MIN},
+		{value: RangeBucketValueIncluding.INCLUDE_MAX, label: Lang.INDICATOR_WORKBENCH.BUCKET.RANGE_INCLUDE_MAX}
 	];
 
 	return <>

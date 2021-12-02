@@ -57,7 +57,7 @@ const ReportSelect = (props: { reports: Array<ReportCandidate>, open: (report: R
 		return {
 			value: report,
 			label: `${report.subjectName} - ${report.reportName}`,
-			key: (option: DropdownOption) => (option.value as ReportCandidate).reportId
+			key: report.reportId
 		};
 	});
 

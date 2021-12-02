@@ -2,7 +2,7 @@ import {fetchRelevantIndicators} from '@/services/data/tuples/indicator';
 import {Indicator, IndicatorId, RelevantIndicator, RelevantIndicatorType} from '@/services/data/tuples/indicator-types';
 import {noop} from '@/services/utils';
 import {Dropdown} from '@/widgets/basic/dropdown';
-import {RelevantIndicatorTypeLabel} from '@/widgets/basic/relevant-label';
+import {RelevantIndicatorTypeLabels} from '@/widgets/basic/relevant-label';
 import {ButtonInk, DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
@@ -101,14 +101,7 @@ export const Relevant = () => {
 		].map(type => {
 			return {
 				value: type,
-				label: () => {
-					return {
-						// TODO label must support i18n
-						node: <RelevantIndicatorTypeLabel type={type}/>,
-						label: type
-					};
-				},
-				key: type
+				label: RelevantIndicatorTypeLabels[type]
 			};
 		})
 	];

@@ -46,7 +46,7 @@ const ReportSwitch = (props: { reports: Array<Report>, switchTo: (report: Report
 		return {
 			value: report,
 			label: report.name,
-			key: (option: DropdownOption) => (option.value as Report).reportId
+			key: report.reportId
 		};
 	});
 

@@ -46,7 +46,7 @@ const ConnectedSpaceSwitch = (props: { connectedSpaces: Array<ConnectedSpace>, s
 		return {
 			value: connectedSpace,
 			label: connectedSpace.name,
-			key: (option: DropdownOption) => (option.value as ConnectedSpace).connectId
+			key: connectedSpace.connectId
 		};
 	});
 

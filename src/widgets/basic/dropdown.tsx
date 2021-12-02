@@ -1,6 +1,7 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {ChangeEvent, KeyboardEvent, MouseEvent, useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
+import {getLangLabel} from '../langs';
 import {BASE_HEIGHT, DROPDOWN_Z_INDEX, ICON_DROPDOWN} from './constants';
 import {DropdownOption, DropdownOptionLabel, DropdownProps} from './types';
 import {useCollapseFixedThing} from './utils';
@@ -302,9 +303,15 @@ export const Dropdown = (props: DropdownProps) => {
 				const asLabel = typeof label === 'function' ? label : directFromLabel;
 				const computed = asLabel(option);
 				const display = typeof computed === 'string' ? computed : computed.node;
-				// label still might be a JSX element, because of i18n delegate logic
-				// in case of this, this option will be filtered no matter what filter text is given
-				const compare = typeof computed === 'string' ? computed : (typeof computed.label === 'string' ? computed.label : '');
+				let compare;
+				if (isJSXElement(display) && display.props.labelKey != null) {
+					// it is a i18n string, is delegated and now it is a JSX element
+					compare = getLangLabel(display.props.labelKey);
+				} else {
+					// label still might be a JSX element, because of i18n delegate logic
+					// in case of this, this option will be filtered no matter what filter text is given
+					compare = typeof computed === 'string' ? computed : (typeof computed.label === 'string' ? computed.label : '');
+				}
 				if (filter && compare.toLowerCase().indexOf(filter.toLowerCase()) === -1) {
 					return null;
 				}

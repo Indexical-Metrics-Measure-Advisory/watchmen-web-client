@@ -45,7 +45,7 @@ const SubjectSwitch = (props: { subjects: Array<Subject>, switchTo: (subject: Su
 		return {
 			value: subject,
 			label: subject.name,
-			key: (option: DropdownOption) => (option.value as Subject).subjectId
+			key: subject.subjectId
 		};
 	});
 

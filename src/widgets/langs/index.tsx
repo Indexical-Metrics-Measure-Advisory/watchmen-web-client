@@ -40,6 +40,20 @@ export const Languages = (props: { children?: ReactNode }) => {
 	return <>{children}</>;
 };
 
+export const getLangLabel = (key: string, lang: LanguageObjectType = currentLanguage) => {
+	const keys = key.split('.');
+	let value = keys.reduce((from: any, key) => from ? from[key] : undefined, lang);
+	// call fallback when label not found
+	while (value === (void 0)) {
+		const fallback = (lang as typeof En).$$settings.fallback;
+		if (!fallback) {
+			break;
+		}
+		value = keys.reduce((from: any, key) => from ? from[key] : undefined, LANGUAGES[fallback]);
+	}
+	return value;
+};
+
 const LangLabel = (props: { labelKey: string }) => {
 	const {labelKey} = props;
 
@@ -53,16 +67,7 @@ const LangLabel = (props: { labelKey: string }) => {
 		};
 	}, [on, off]);
 
-	const keys = labelKey.split('.');
-	let value = keys.reduce((from: any, key) => from ? from[key] : undefined, lang);
-	// call fallback when label not found
-	while (value === (void 0)) {
-		const fallback = (lang as typeof En).$$settings.fallback;
-		if (!fallback) {
-			break;
-		}
-		value = keys.reduce((from: any, key) => from ? from[key] : undefined, LANGUAGES[fallback]);
-	}
+	const value = getLangLabel(labelKey, lang);
 
 	return <>{value}</>;
 };

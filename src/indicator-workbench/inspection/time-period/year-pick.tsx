@@ -47,8 +47,7 @@ export const YearPicker = (props: { inspection: Inspection }) => {
 					</YearPickDropdownOption>,
 					label: `${year}`
 				};
-			},
-			key: `${year}`
+			}
 		};
 	});
 	const selection = () => {

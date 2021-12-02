@@ -159,7 +159,7 @@ const AvailableSpacesSelector = (props: { spaces: Array<AvailableSpaceInConsole>
 		return {
 			value: space,
 			label: space.name,
-			key: (option: DropdownOption) => (option.value as AvailableSpaceInConsole).spaceId
+			key: space.spaceId
 		};
 	});
 

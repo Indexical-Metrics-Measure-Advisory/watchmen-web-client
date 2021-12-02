@@ -20,11 +20,7 @@ const MeasureMethods: Record<MeasureMethodOfValueMeasureBucket, string> = {
 const MeasureMethodOptions: Array<DropdownOption> = Object.keys(MeasureMethods).map(type => {
 	return {
 		value: type,
-		label: () => {
-			// TODO label must support i18n
-			return {node: MeasureMethods[type as MeasureMethodOfValueMeasureBucket], label: type};
-		},
-		key: type
+		label: MeasureMethods[type as MeasureMethodOfValueMeasureBucket]
 	};
 });
 export const NumericValueMeasureBucketEditor = (props: { bucket: Bucket }) => {

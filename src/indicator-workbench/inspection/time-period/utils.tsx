@@ -5,7 +5,7 @@ import {Inspection, InspectionYearRange} from '@/services/data/tuples/inspection
 import {isInspectionYearRange} from '@/services/data/tuples/inspection-utils';
 import {TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {isNotNull} from '@/services/data/utils';
-import {MeasureMethodLabel} from '@/widgets/basic/measure-method-label';
+import {MeasureMethodLabels} from '@/widgets/basic/measure-method-label';
 import {DropdownOption} from '@/widgets/basic/types';
 import {Lang} from '@/widgets/langs';
 
@@ -46,27 +46,14 @@ export const isOneYearOnly = (inspection?: Inspection): boolean => {
 const buildNoTimeMeasureOption = (): DropdownOption => {
 	return {
 		value: '',
-		label: () => {
-			return {
-				// TODO label must support i18n
-				node: Lang.INDICATOR_WORKBENCH.INSPECTION.NO_TIME_MEASURE,
-				label: 'no time measure'
-			};
-		}, key: ''
+		label: Lang.INDICATOR_WORKBENCH.INSPECTION.NO_TIME_MEASURE
 	};
 };
 const buildMeasureOptions = (measures: Array<MeasureMethod>): Array<DropdownOption> => {
 	return measures.map(measure => {
 		return {
 			value: measure,
-			label: () => {
-				return {
-					// TODO label must support i18n
-					node: <MeasureMethodLabel measureMethod={measure}/>,
-					label: measure
-				};
-			},
-			key: measure
+			label: MeasureMethodLabels[measure]
 		};
 	});
 };

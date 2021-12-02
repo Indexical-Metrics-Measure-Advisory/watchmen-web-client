@@ -8,7 +8,7 @@ const MeasureMethodContainer = styled.span.attrs({'data-widget': 'measure-method
 	align-items : center;
 `;
 
-const Labels: Record<MeasureMethod, string> = {
+export const MeasureMethodLabels: Record<MeasureMethod, string> = {
 	// address related
 	[MeasureMethod.CONTINENT]: Lang.INDICATOR.MEASURE_METHOD.CONTINENT,
 	[MeasureMethod.REGION]: Lang.INDICATOR.MEASURE_METHOD.REGION,
@@ -59,6 +59,6 @@ export const MeasureMethodLabel = (props: { measureMethod: MeasureMethod }) => {
 	const {measureMethod, ...rest} = props;
 
 	return <MeasureMethodContainer {...rest}>
-		{Labels[measureMethod] || ''}
+		{MeasureMethodLabels[measureMethod] || ''}
 	</MeasureMethodContainer>;
 };

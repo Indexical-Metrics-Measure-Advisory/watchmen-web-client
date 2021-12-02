@@ -17,11 +17,7 @@ const BucketTypes: Record<BucketType, string> = {
 const BucketTypeOptions: Array<DropdownOption> = Object.keys(BucketTypes).map(type => {
 	return {
 		value: type,
-		label: () => {
-			// TODO label must support i18n
-			return {node: BucketTypes[type as BucketType], label: type};
-		},
-		key: type
+		label: BucketTypes[type as BucketType]
 	};
 });
 

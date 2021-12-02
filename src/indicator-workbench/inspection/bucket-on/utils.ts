@@ -32,14 +32,7 @@ export const buildMeasureOnOptions = (indicator: Indicator, topic: TopicForIndic
 	return [
 		...canMeasureOnIndicatorValue ? [{
 			value: InspectMeasureOn.VALUE,
-			label: () => {
-				return {
-					// TODO label must support i18n
-					node: Lang.INDICATOR_WORKBENCH.INSPECTION.MEASURE_ON_VALUE,
-					label: 'on value'
-				};
-			},
-			key: InspectMeasureOn.VALUE
+			label: Lang.INDICATOR_WORKBENCH.INSPECTION.MEASURE_ON_VALUE
 		}] : [],
 		...(topic.factors || []).filter(factor => {
 			if (factor.enumId != null) {
