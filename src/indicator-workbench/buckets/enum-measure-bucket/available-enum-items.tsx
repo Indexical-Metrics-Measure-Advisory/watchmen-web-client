@@ -125,7 +125,8 @@ export const AvailableEnumItems = (props: { bucket: EnumMeasureBucket; enum?: En
 	const segmentOptions = bucket.segments.filter(segment => !(segment.value || []).includes(OtherCategorySegmentValue))
 		.map((segment, segmentIndex) => {
 			return {
-				value: segment, label: () => {
+				value: segment,
+				label: () => {
 					return {
 						node: <>
 							{segment.name || <>{Lang.INDICATOR_WORKBENCH.BUCKET.SEGMENT_LABEL} # {segmentIndex + 1}</>}

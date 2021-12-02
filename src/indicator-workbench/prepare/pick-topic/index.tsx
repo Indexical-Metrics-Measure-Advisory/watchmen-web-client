@@ -16,7 +16,7 @@ import {useIndicatorsEventBus} from '../indicators-event-bus';
 import {IndicatorsData, IndicatorsEventTypes} from '../indicators-event-bus-types';
 import {PrepareStep} from '../types';
 import {useConstructed} from '../use-constructed';
-import { useStep } from '../use-step';
+import {useStep} from '../use-step';
 import {TopicOrFactorCandidateName, TopicOrFactorCandidateUsage} from './widgets';
 
 interface TopicOrFactorCandidate extends SearchItem {

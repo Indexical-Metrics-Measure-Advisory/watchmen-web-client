@@ -79,7 +79,8 @@ export const IndicatorEditor = (props: {
 	const selectionExists = !columnId || subject.dataset.columns.some(column => column.columnId == columnId);
 	if (!selectionExists) {
 		indicatorOptions.push({
-			value: columnId, label: () => {
+			value: columnId,
+			label: () => {
 				return {
 					node: <IncorrectOptionLabel>{Lang.CHART.UNKNOWN_COLUMN_NAME}</IncorrectOptionLabel>,
 					label: ''

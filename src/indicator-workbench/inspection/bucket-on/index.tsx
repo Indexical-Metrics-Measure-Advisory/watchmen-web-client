@@ -102,7 +102,8 @@ export const BucketOn = () => {
 		<InspectionLabel>{Lang.INDICATOR_WORKBENCH.INSPECTION.SELECT_BUCKETING_ON_LABEL}</InspectionLabel>
 		<BucketOnDropdown value={measureOn} options={measureOnOptions} onChange={onMeasureOnChange}
 		                  please={Lang.PLAIN.DROPDOWN_PLACEHOLDER}/>
-		<BucketOnDropdown value={inspection?.measureOnBucketId} options={bucketOptions.options} onChange={onBucketChange}
+		<BucketOnDropdown value={inspection?.measureOnBucketId} options={bucketOptions.options}
+		                  onChange={onBucketChange}
 		                  please={bucketOptions.available ? Lang.PLAIN.DROPDOWN_PLACEHOLDER : Lang.INDICATOR_WORKBENCH.INSPECTION.SELECT_MEASURE_ON_FIRST}/>
 	</BucketOnContainer>;
 };

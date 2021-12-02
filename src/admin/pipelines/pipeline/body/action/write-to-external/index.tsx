@@ -66,10 +66,12 @@ const RealWriteToExternal = (props: {
 	if (action.externalWriterId && externalWriters.every(writer => writer.writerId != action.externalWriterId)) {
 		options.push({
 			value: action.externalWriterId,
-			label: () => ({
-				node: <IncorrectOptionLabel>{action.externalWriterId}</IncorrectOptionLabel>,
-				label: action.externalWriterId
-			})
+			label: () => {
+				return {
+					node: <IncorrectOptionLabel>{action.externalWriterId}</IncorrectOptionLabel>,
+					label: action.externalWriterId
+				};
+			}
 		});
 	}
 

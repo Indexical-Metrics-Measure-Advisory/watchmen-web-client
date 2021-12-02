@@ -45,7 +45,8 @@ export const isOneYearOnly = (inspection?: Inspection): boolean => {
 
 const buildNoTimeMeasureOption = (): DropdownOption => {
 	return {
-		value: '', label: () => {
+		value: '',
+		label: () => {
 			return {
 				node: Lang.INDICATOR_WORKBENCH.INSPECTION.NO_TIME_MEASURE,
 				label: 'no time measure'
