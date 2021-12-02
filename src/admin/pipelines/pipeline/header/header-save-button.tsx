@@ -7,7 +7,6 @@ import {ButtonInk} from '@/widgets/basic/types';
 import {DialogBody, DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
-import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
 import {usePipelinesEventBus} from '../../pipelines-event-bus';
@@ -36,8 +35,8 @@ const StillSaveDialog = (props: { message: string, onSave: () => void }) => {
 			<DialogLabel style={{display: 'block'}}>Click "Confirm" to save it anyway.</DialogLabel>
 		</DialogBody>
 		<DialogFooter>
-			<Button ink={ButtonInk.PRIMARY} onClick={onConfirmClicked}>{Lang.ACTIONS.CONFIRM}</Button>
-			<Button ink={ButtonInk.WAIVE} onClick={onCancelClicked}>{Lang.ACTIONS.CANCEL}</Button>
+			<Button ink={ButtonInk.PRIMARY} onClick={onConfirmClicked}>Confirm</Button>
+			<Button ink={ButtonInk.WAIVE} onClick={onCancelClicked}>Cancel</Button>
 		</DialogFooter>
 	</>;
 };
