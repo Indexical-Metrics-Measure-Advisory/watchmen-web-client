@@ -54,6 +54,8 @@ export type DropdownProps = {
 	onChange: (option: DropdownOption) => (void | { active: boolean });
 	value?: any;
 	please?: string;
+	/** use this to display label when passed, replace default behaviour */
+	display?: () => ReactNode;
 }
 
 

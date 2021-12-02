@@ -8,6 +8,7 @@ import {useVisibleOnII} from '../use-visible-on-ii';
 import {InspectionLabel} from '../widgets';
 import {buildTimeMeasureOptions, buildTimePeriodOptions} from './utils';
 import {TimePeriodContainer, TimePeriodDropdown} from './widgets';
+import {YearPicker} from './year-pick';
 
 export const TimePeriod = () => {
 	const {visible, inspection, indicator} = useVisibleOnII();
@@ -49,7 +50,7 @@ export const TimePeriod = () => {
 		? (void 0)
 		// eslint-disable-next-line
 		: (topic.factors || []).find(factor => factor.factorId == inspection.timeFactorId);
-	const timeMeasureOptions = buildTimeMeasureOptions(factor);
+	const {annual, options: timeMeasureOptions} = buildTimeMeasureOptions(inspection!, factor);
 
 	// 1. show year picker when factor supporting measure year and another one which under year
 	// 2. show year picker only when factor only supporting measure year
@@ -59,8 +60,11 @@ export const TimePeriod = () => {
 		<TimePeriodDropdown value={inspection?.timeFactorId ?? null} options={timeFactorOptions}
 		                    onChange={onTimeFactorChange}
 		                    please={Lang.PLAIN.DROPDOWN_PLACEHOLDER}/>
-		<TimePeriodDropdown value={inspection?.timeMeasure ?? null} options={timeMeasureOptions}
-		                    onChange={onTimeMeasureChange}
-		                    please={Lang.PLAIN.DROPDOWN_PLACEHOLDER}/>
+		{annual ? <YearPicker inspection={inspection!}/> : null}
+		{timeMeasureOptions.length > 1
+			? <TimePeriodDropdown value={inspection?.timeMeasure ?? null} options={timeMeasureOptions}
+			                      onChange={onTimeMeasureChange}
+			                      please={Lang.PLAIN.DROPDOWN_PLACEHOLDER}/>
+			: null}
 	</TimePeriodContainer>;
 };

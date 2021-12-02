@@ -169,7 +169,7 @@ const getPosition = (container: HTMLDivElement) => {
 };
 
 export const Dropdown = (props: DropdownProps) => {
-	const {options = [], onChange, value, please = '', ...rest} = props;
+	const {options = [], onChange, value, please = '', display, ...rest} = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const filterInputRef = useRef<HTMLInputElement>(null);
@@ -264,7 +264,10 @@ export const Dropdown = (props: DropdownProps) => {
 	};
 	let label;
 	let selection = null;
-	if (value == null) {
+	if (display != null) {
+		label = display();
+		selection = false;
+	} else if (value == null) {
 		label = please;
 	} else {
 		// eslint-disable-next-line

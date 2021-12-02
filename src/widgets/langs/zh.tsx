@@ -419,6 +419,7 @@ export const Zh = {
 			MEASURE_ON_VALUE: '指标值',
 			SELECT_MEASURE_ON_FIRST: '请首先选择分桶基准...',
 			TIME_PERIOD_LABEL: '时间区间:',
+			ALL_TIME_PERIOD: '所有时间',
 			NO_TIME_MEASURE: '不使用时间分段'
 		}
 	},

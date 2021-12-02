@@ -11,6 +11,19 @@ export enum InspectMeasureOn {
 	OTHER = 'other'
 }
 
+export enum InspectionTimeRangeType {
+	YEAR = 'year'
+}
+
+export interface InspectionTimeRange {
+	type: InspectionTimeRangeType;
+}
+
+export interface InspectionYearRange extends InspectionTimeRange {
+	type: InspectionTimeRangeType.YEAR;
+	year: number;
+}
+
 export interface Inspection extends Tuple {
 	inspectionId: InspectionId;
 	name: string;
@@ -25,6 +38,7 @@ export interface Inspection extends Tuple {
 	measureOnBucketId?: BucketId;
 	/** time factor which used to filter data */
 	timeFactorId?: FactorId;
+	timeRange?: Array<InspectionTimeRange>;
 	/**
 	 * time measure on factor.
 	 */

@@ -419,6 +419,7 @@ export const Jp = {
 			MEASURE_ON_VALUE: '指標値',
 			SELECT_MEASURE_ON_FIRST: 'まず、バケットデータムを選択してください...',
 			TIME_PERIOD_LABEL: '時間範囲:',
+			ALL_TIME_PERIOD: 'すべての時間',
 			NO_TIME_MEASURE: '時間測定なし'
 		}
 	},

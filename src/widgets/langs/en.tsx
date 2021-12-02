@@ -419,6 +419,7 @@ export const En = {
 			MEASURE_ON_VALUE: 'On Indicator Value',
 			SELECT_MEASURE_ON_FIRST: 'Please select bucket base first...',
 			TIME_PERIOD_LABEL: 'Time Period:',
+			ALL_TIME_PERIOD: 'All Time',
 			NO_TIME_MEASURE: 'No time measure'
 		}
 	},
