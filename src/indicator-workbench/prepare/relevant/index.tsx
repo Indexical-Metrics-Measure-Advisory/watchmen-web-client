@@ -103,6 +103,7 @@ export const Relevant = () => {
 				value: type,
 				label: () => {
 					return {
+						// TODO label must support i18n
 						node: <RelevantIndicatorTypeLabel type={type}/>,
 						label: type
 					};

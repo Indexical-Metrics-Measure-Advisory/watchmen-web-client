@@ -44,10 +44,7 @@ const SubjectSwitch = (props: { subjects: Array<Subject>, switchTo: (subject: Su
 	const options = subjects.map(subject => {
 		return {
 			value: subject,
-			label: (option: DropdownOption) => ({
-				node: (option.value as Subject).name,
-				label: (option.value as Subject).name
-			}),
+			label: subject.name,
 			key: (option: DropdownOption) => (option.value as Subject).subjectId
 		};
 	});

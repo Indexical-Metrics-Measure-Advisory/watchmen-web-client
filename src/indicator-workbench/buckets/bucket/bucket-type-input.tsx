@@ -18,6 +18,7 @@ const BucketTypeOptions: Array<DropdownOption> = Object.keys(BucketTypes).map(ty
 	return {
 		value: type,
 		label: () => {
+			// TODO label must support i18n
 			return {node: BucketTypes[type as BucketType], label: type};
 		},
 		key: type

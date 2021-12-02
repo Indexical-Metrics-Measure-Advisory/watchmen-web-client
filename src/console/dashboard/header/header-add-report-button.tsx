@@ -56,14 +56,7 @@ const ReportSelect = (props: { reports: Array<ReportCandidate>, open: (report: R
 	const options = reports.map(report => {
 		return {
 			value: report,
-			label: (option: DropdownOption) => {
-				const report = option.value as ReportCandidate;
-				const name = `${report.subjectName} - ${report.reportName}`;
-				return {
-					node: name,
-					label: name
-				};
-			},
+			label: `${report.subjectName} - ${report.reportName}`,
 			key: (option: DropdownOption) => (option.value as ReportCandidate).reportId
 		};
 	});

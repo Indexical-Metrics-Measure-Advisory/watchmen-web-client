@@ -45,10 +45,7 @@ const DashboardSwitch = (props: { dashboards: Array<Dashboard>, switchTo: (dashb
 	const options = dashboards.map(dashboard => {
 		return {
 			value: dashboard,
-			label: (option: DropdownOption) => ({
-				node: (option.value as Dashboard).name,
-				label: (option.value as Dashboard).name
-			}),
+			label: dashboard.name,
 			key: (option: DropdownOption) => (option.value as Dashboard).dashboardId
 		};
 	});

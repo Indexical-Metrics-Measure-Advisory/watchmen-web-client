@@ -30,6 +30,7 @@ const MeasureMethodOptions: Array<DropdownOption> = Object.keys(MeasureMethods).
 	return {
 		value: type,
 		label: () => {
+			// TODO label must support i18n
 			return {node: MeasureMethods[type as MeasureMethodOfValueMeasureBucket], label: type};
 		},
 		key: type

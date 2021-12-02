@@ -34,6 +34,7 @@ export const buildMeasureOnOptions = (indicator: Indicator, topic: TopicForIndic
 			value: InspectMeasureOn.VALUE,
 			label: () => {
 				return {
+					// TODO label must support i18n
 					node: Lang.INDICATOR_WORKBENCH.INSPECTION.MEASURE_ON_VALUE,
 					label: 'on value'
 				};

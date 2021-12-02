@@ -45,10 +45,7 @@ const ReportSwitch = (props: { reports: Array<Report>, switchTo: (report: Report
 	const options = reports.map(report => {
 		return {
 			value: report,
-			label: (option: DropdownOption) => ({
-				node: (option.value as Subject).name,
-				label: (option.value as Subject).name
-			}),
+			label: report.name,
 			key: (option: DropdownOption) => (option.value as Report).reportId
 		};
 	});

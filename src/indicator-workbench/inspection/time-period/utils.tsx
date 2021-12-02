@@ -48,6 +48,7 @@ const buildNoTimeMeasureOption = (): DropdownOption => {
 		value: '',
 		label: () => {
 			return {
+				// TODO label must support i18n
 				node: Lang.INDICATOR_WORKBENCH.INSPECTION.NO_TIME_MEASURE,
 				label: 'no time measure'
 			};
@@ -60,6 +61,7 @@ const buildMeasureOptions = (measures: Array<MeasureMethod>): Array<DropdownOpti
 			value: measure,
 			label: () => {
 				return {
+					// TODO label must support i18n
 					node: <MeasureMethodLabel measureMethod={measure}/>,
 					label: measure
 				};
