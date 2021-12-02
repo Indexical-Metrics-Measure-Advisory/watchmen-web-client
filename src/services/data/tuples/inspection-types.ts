@@ -16,7 +16,7 @@ export interface Inspection extends Tuple {
 	name: string;
 	indicatorId: IndicatorId;
 	/** indicator value aggregate arithmetic */
-	aggregateArithmetic?: IndicatorAggregateArithmetic;
+	aggregateArithmetics?: Array<IndicatorAggregateArithmetic>;
 	/** measure on indicator value or other factor */
 	measureOn?: InspectMeasureOn;
 	/** if measure on factor, factor id must be given */
