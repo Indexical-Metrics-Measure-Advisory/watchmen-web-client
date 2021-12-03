@@ -4,7 +4,7 @@ import {InspectionButton, InspectionDropdown} from '../widgets';
 export const ValueTransformContainer = styled.div.attrs({'date-widget': 'inspection-value-transform'})`
 	display               : grid;
 	position              : relative;
-	grid-template-columns : auto auto auto auto auto auto 1fr;
+	grid-template-columns : 200px auto auto auto auto auto 1fr;
 	grid-column-gap       : calc(var(--margin) / 2);
 `;
 

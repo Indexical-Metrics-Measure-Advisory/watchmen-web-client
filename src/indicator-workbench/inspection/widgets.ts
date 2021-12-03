@@ -7,7 +7,7 @@ export const InspectionContainer = styled.div.attrs({'data-widget': 'inspection'
 	display               : grid;
 	position              : relative;
 	grid-template-columns : 1fr;
-	grid-row-gap          : calc(var(--margin));
+	grid-row-gap          : calc(var(--margin) / 2);
 	margin-top            : var(--margin);
 	padding-bottom        : var(--margin);
 	font-size             : calc(var(--font-size) * 1.2);

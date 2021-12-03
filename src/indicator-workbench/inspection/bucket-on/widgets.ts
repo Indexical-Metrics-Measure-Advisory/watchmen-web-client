@@ -4,7 +4,7 @@ import {InspectionDropdown} from '../widgets';
 export const BucketOnContainer = styled.div.attrs({'date-widget': 'inspection-bucket-on'})`
 	display               : grid;
 	position              : relative;
-	grid-template-columns : auto auto auto 1fr;
+	grid-template-columns : 200px auto auto 1fr;
 	grid-column-gap       : calc(var(--margin) / 2);
 `;
 
