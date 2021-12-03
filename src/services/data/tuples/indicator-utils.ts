@@ -152,7 +152,23 @@ export const isGeoMeasure = (measure: MeasureMethod): boolean => {
 	].includes(measure);
 };
 
-export const isTimePeriodMeasure = (measure: MeasureMethod): boolean => {
+export type TimePeriodMeasure =
+	MeasureMethod.YEAR
+	| MeasureMethod.HALF_YEAR
+	| MeasureMethod.QUARTER
+	| MeasureMethod.MONTH
+	| MeasureMethod.HALF_MONTH
+	| MeasureMethod.TEN_DAYS
+	| MeasureMethod.WEEK_OF_YEAR
+	| MeasureMethod.WEEK_OF_MONTH
+	| MeasureMethod.HALF_WEEK
+	| MeasureMethod.DAY_OF_MONTH
+	| MeasureMethod.DAY_OF_WEEK
+	| MeasureMethod.DAY_KIND
+	| MeasureMethod.HOUR
+	| MeasureMethod.HOUR_KIND
+	| MeasureMethod.AM_PM;
+export const isTimePeriodMeasure = (measure: MeasureMethod): measure is TimePeriodMeasure => {
 	return [
 		MeasureMethod.YEAR, MeasureMethod.HALF_YEAR, MeasureMethod.QUARTER, MeasureMethod.MONTH, MeasureMethod.HALF_MONTH,
 		MeasureMethod.TEN_DAYS, MeasureMethod.WEEK_OF_YEAR, MeasureMethod.WEEK_OF_MONTH, MeasureMethod.HALF_WEEK,

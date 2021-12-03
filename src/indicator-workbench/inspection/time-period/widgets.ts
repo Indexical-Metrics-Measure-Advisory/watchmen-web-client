@@ -12,14 +12,14 @@ export const TimePeriodDropdown = styled(InspectionDropdown)`
 	min-width : 250px;
 `;
 
-export const YearPickDropdown = styled(InspectionDropdown)`
+export const TimePeriodFilterDropdown = styled(InspectionDropdown)`
 	min-width : 250px;
 	max-width : 250px;
 	> span[data-widget=dropdown-label][data-please=true] {
 		opacity : 1;
 	}
 `;
-export const YearPickDropdownOption = styled.span`
+export const TimePeriodFilterDropdownOption = styled.span`
 	display     : flex;
 	position    : relative;
 	align-items : center;
@@ -31,10 +31,20 @@ export const YearPickDropdownOption = styled.span`
 		opacity : 0.7;
 	}
 `;
-export const YearPickDisplayLabel = styled.span`
-	display       : block;
+export const TimePeriodFilterDisplayLabel = styled.span`
+	display       : flex;
 	position      : relative;
+	flex-wrap     : nowrap;
 	overflow      : hidden;
 	white-space   : nowrap;
 	text-overflow : ellipsis;
+`;
+export const TimePeriodFilterDisplayLabelSegment = styled.span`
+	display     : flex;
+	position    : relative;
+	align-items : center;
+	&:not(:last-child):after {
+		content      : ',';
+		margin-right : 2px;
+	}
 `;
