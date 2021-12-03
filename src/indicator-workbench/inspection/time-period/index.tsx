@@ -35,6 +35,9 @@ export const TimePeriod = () => {
 		}
 		forceUpdate();
 	};
+	const onYearsChange = () => {
+		forceUpdate();
+	};
 	const onTimeMeasureChange = (option: DropdownOption) => {
 		const measure = option.value as MeasureMethod;
 		if (inspection?.timeMeasure === measure) {
@@ -60,7 +63,7 @@ export const TimePeriod = () => {
 		<TimePeriodDropdown value={inspection?.timeFactorId ?? null} options={timeFactorOptions}
 		                    onChange={onTimeFactorChange}
 		                    please={Lang.PLAIN.DROPDOWN_PLACEHOLDER}/>
-		{annual ? <YearPicker inspection={inspection!}/> : null}
+		{annual ? <YearPicker inspection={inspection!} onYearsChange={onYearsChange}/> : null}
 		{timeMeasureOptions.length > 1
 			? <TimePeriodDropdown value={inspection?.timeMeasure ?? null} options={timeMeasureOptions}
 			                      onChange={onTimeMeasureChange}

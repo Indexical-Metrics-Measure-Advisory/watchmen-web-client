@@ -7,8 +7,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {getValidYearRanges} from './utils';
 import {YearPickDropdown, YearPickDropdownOption} from './widgets';
 
-export const YearPicker = (props: { inspection: Inspection }) => {
-	const {inspection} = props;
+export const YearPicker = (props: { inspection: Inspection; onYearsChange: () => void }) => {
+	const {inspection, onYearsChange} = props;
 
 	const forceUpdate = useForceUpdate();
 
@@ -27,6 +27,7 @@ export const YearPicker = (props: { inspection: Inspection }) => {
 			}
 			inspection!.timeRange.push({type: InspectionTimeRangeType.YEAR, year} as InspectionYearRange);
 		}
+		onYearsChange();
 		forceUpdate();
 		return {active: true};
 	};
