@@ -12,6 +12,11 @@ export const InspectionContainer = styled.div.attrs({'data-widget': 'inspection'
 	padding-bottom        : var(--margin);
 	font-size             : calc(var(--font-size) * 1.2);
 `;
+export const IndicatorContainer = styled.div.attrs({'data-widget': 'indicator'})`
+	display               : grid;
+	position              : relative;
+	grid-template-columns : auto 1fr;
+`;
 export const InspectionLabel = styled.span.attrs({'data-widget': 'inspection-label'})`
 	display      : flex;
 	position     : relative;
