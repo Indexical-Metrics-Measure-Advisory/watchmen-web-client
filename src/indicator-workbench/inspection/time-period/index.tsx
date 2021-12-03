@@ -29,6 +29,9 @@ export const TimePeriod = () => {
 		const factor = (indicator?.topic.factors || []).find(factor => factor.factorId == inspection?.timeFactorId);
 		if (factor != null) {
 			const measures = tryToTransformToMeasures(factor);
+			if (!measures.includes(MeasureMethod.YEAR)) {
+				delete inspection?.timeRange;
+			}
 			if (inspection?.timeMeasure != null && !measures.includes(inspection.timeMeasure)) {
 				delete inspection.timeMeasure;
 			}
@@ -65,7 +68,7 @@ export const TimePeriod = () => {
 		                    please={Lang.PLAIN.DROPDOWN_PLACEHOLDER}/>
 		{annual ? <YearPicker inspection={inspection!} onYearsChange={onYearsChange}/> : null}
 		{timeMeasureOptions.length > 1
-			? <TimePeriodDropdown value={inspection?.timeMeasure ?? null} options={timeMeasureOptions}
+			? <TimePeriodDropdown value={inspection?.timeMeasure ?? ''} options={timeMeasureOptions}
 			                      onChange={onTimeMeasureChange}
 			                      please={Lang.PLAIN.DROPDOWN_PLACEHOLDER}/>
 			: null}
