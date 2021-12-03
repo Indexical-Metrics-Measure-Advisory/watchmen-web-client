@@ -30,6 +30,7 @@ export const buildMeasureOnOptions = (indicator: Indicator, topic: TopicForIndic
 	const canMeasureOnIndicatorValue = couldMeasureOnIndicatorValue(indicator, buckets);
 
 	return [
+		{value: InspectMeasureOn.NONE, label: Lang.INDICATOR_WORKBENCH.INSPECTION.NO_BUCKET_ON},
 		...canMeasureOnIndicatorValue ? [{
 			value: InspectMeasureOn.VALUE,
 			label: Lang.INDICATOR_WORKBENCH.INSPECTION.MEASURE_ON_VALUE
@@ -92,7 +93,7 @@ export const buildBucketsAskingParams = (indicator: Indicator, topic: TopicForIn
 };
 
 export const buildBucketOptions = (inspection: Inspection, topic: TopicForIndicator, buckets: Array<QueryBucket>): { available: boolean, options: Array<DropdownOption> } => {
-	if (inspection.measureOn == null) {
+	if (inspection.measureOn == null || inspection.measureOn === InspectMeasureOn.NONE) {
 		return {available: false, options: []};
 	} else if (inspection.measureOn === InspectMeasureOn.VALUE) {
 		return {
@@ -120,18 +121,29 @@ export const buildBucketOptions = (inspection: Inspection, topic: TopicForIndica
 			return {available: true, options: []};
 		}
 
+		const availableBuckets = [
+			...new Set(measures.map(measure => buckets.filter(bucket => {
+				return isMeasureBucket(bucket) && bucket.measure === measure;
+			})).flat())
+		];
+		const hasCategoryBucket = availableBuckets.some(bucket => isCategoryMeasureBucket(bucket) || isEnumMeasureBucket(bucket));
+
 		return {
 			available: true,
-			options: [...new Set(measures.map(measure => buckets.filter(bucket => {
-				return isMeasureBucket(bucket) && bucket.measure === measure;
-			})).flat())].map(bucket => {
-				return {
-					value: bucket.bucketId,
-					label: bucket.name || 'Noname Bucket'
-				};
-			}).sort((o1, o2) => {
-				return o1.label.localeCompare(o2.label, void 0, {sensitivity: 'base', caseFirst: 'upper'});
-			})
+			options: [
+				...(hasCategoryBucket ? [{
+					value: '',
+					label: Lang.INDICATOR_WORKBENCH.INSPECTION.MEASURE_ON_NATURALLY
+				}] : []),
+				...availableBuckets.map(bucket => {
+					return {
+						value: bucket.bucketId,
+						label: bucket.name || 'Noname Bucket'
+					};
+				}).sort((o1, o2) => {
+					return o1.label.localeCompare(o2.label, void 0, {sensitivity: 'base', caseFirst: 'upper'});
+				})
+			]
 		};
 	} else {
 		return {available: true, options: []};

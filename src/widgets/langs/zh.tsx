@@ -416,8 +416,10 @@ export const Zh = {
 			VALUE_TRANSFORM_MAX: '最大值',
 			VALUE_TRANSFORM_MIN: '最小值',
 			SELECT_BUCKETING_ON_LABEL: '分桶方式:',
+			NO_BUCKET_ON: '不使用分桶',
 			MEASURE_ON_VALUE: '指标值',
 			SELECT_MEASURE_ON_FIRST: '请首先选择分桶基准...',
+			MEASURE_ON_NATURALLY: '使用自然分类',
 			TIME_PERIOD_LABEL: '时间区间:',
 			ALL_TIME_PERIOD: '所有时间',
 			NO_TIME_MEASURE: '不使用时间分段'

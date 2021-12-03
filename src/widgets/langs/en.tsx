@@ -416,8 +416,10 @@ export const En = {
 			VALUE_TRANSFORM_MAX: 'Max',
 			VALUE_TRANSFORM_MIN: 'Min',
 			SELECT_BUCKETING_ON_LABEL: 'Bucketing On:',
+			NO_BUCKET_ON: 'Ignore Bucketing',
 			MEASURE_ON_VALUE: 'On Indicator Value',
 			SELECT_MEASURE_ON_FIRST: 'Please select bucket base first...',
+			MEASURE_ON_NATURALLY: 'Using Naturally Classification',
 			TIME_PERIOD_LABEL: 'Time Period:',
 			ALL_TIME_PERIOD: 'All Time',
 			NO_TIME_MEASURE: 'No time measure'

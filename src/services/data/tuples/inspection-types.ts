@@ -7,6 +7,7 @@ import {Tuple} from './tuple-types';
 export type InspectionId = string;
 
 export enum InspectMeasureOn {
+	NONE = 'none',
 	VALUE = 'value',
 	OTHER = 'other'
 }
@@ -30,7 +31,7 @@ export interface Inspection extends Tuple {
 	indicatorId: IndicatorId;
 	/** indicator value aggregate arithmetic */
 	aggregateArithmetics?: Array<IndicatorAggregateArithmetic>;
-	/** measure on indicator value or other factor */
+	/** none, measure on indicator value or other factor */
 	measureOn?: InspectMeasureOn;
 	/** if measure on factor, factor id must be given */
 	measureOnFactorId?: FactorId;

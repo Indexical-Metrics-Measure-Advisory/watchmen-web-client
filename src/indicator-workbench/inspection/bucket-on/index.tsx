@@ -18,6 +18,16 @@ interface Buckets {
 	data: Array<QueryBucket>;
 }
 
+const safeGetMeasureOn = (inspection?: Inspection) => {
+	if (inspection == null || inspection.measureOn == null) {
+		return InspectMeasureOn.NONE;
+	} else if (inspection.measureOn === InspectMeasureOn.OTHER) {
+		return inspection.measureOnFactorId;
+	} else {
+		return inspection.measureOn;
+	}
+};
+
 export const BucketOn = () => {
 	const {on, off, fire} = useInspectionEventBus();
 	const [visible, setVisible] = useState(false);
@@ -71,12 +81,19 @@ export const BucketOn = () => {
 	}
 
 	const onMeasureOnChange = (option: DropdownOption) => {
-		if (option.value === InspectMeasureOn.VALUE) {
+		if (option.value === InspectMeasureOn.NONE) {
+			if (inspection?.measureOn === InspectMeasureOn.NONE) {
+				return;
+			}
+			inspection!.measureOn = InspectMeasureOn.NONE;
+			delete inspection?.measureOnFactorId;
+			delete inspection?.measureOnBucketId;
+		} else if (option.value === InspectMeasureOn.VALUE) {
 			if (inspection?.measureOn === InspectMeasureOn.VALUE) {
 				return;
 			}
-			delete inspection?.measureOnFactorId;
 			inspection!.measureOn = InspectMeasureOn.VALUE;
+			delete inspection?.measureOnFactorId;
 			delete inspection?.measureOnBucketId;
 		} else {
 			// eslint-disable-next-line
@@ -95,15 +112,18 @@ export const BucketOn = () => {
 	};
 
 	const measureOnOptions = buildMeasureOnOptions(indicator!.indicator, indicator!.topic, buckets.data);
-	const measureOn = inspection?.measureOn === InspectMeasureOn.VALUE ? InspectMeasureOn.VALUE : inspection?.measureOnFactorId;
+	const measureOn = safeGetMeasureOn(inspection ?? (void 0));
 	const bucketOptions = buildBucketOptions(inspection!, indicator!.topic, buckets.data);
 
 	return <BucketOnContainer>
 		<InspectionLabel>{Lang.INDICATOR_WORKBENCH.INSPECTION.SELECT_BUCKETING_ON_LABEL}</InspectionLabel>
 		<BucketOnDropdown value={measureOn} options={measureOnOptions} onChange={onMeasureOnChange}
 		                  please={Lang.PLAIN.DROPDOWN_PLACEHOLDER}/>
-		<BucketOnDropdown value={inspection?.measureOnBucketId} options={bucketOptions.options}
-		                  onChange={onBucketChange}
-		                  please={bucketOptions.available ? Lang.PLAIN.DROPDOWN_PLACEHOLDER : Lang.INDICATOR_WORKBENCH.INSPECTION.SELECT_MEASURE_ON_FIRST}/>
+		{measureOn === InspectMeasureOn.NONE
+			? null
+			: <BucketOnDropdown value={inspection?.measureOnBucketId} options={bucketOptions.options}
+			                    onChange={onBucketChange}
+			                    please={bucketOptions.available ? Lang.PLAIN.DROPDOWN_PLACEHOLDER : Lang.INDICATOR_WORKBENCH.INSPECTION.SELECT_MEASURE_ON_FIRST}/>
+		}
 	</BucketOnContainer>;
 };
