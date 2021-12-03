@@ -28,11 +28,14 @@ export const TimePeriod = () => {
 		// eslint-disable-next-line
 		const factor = (indicator?.topic.factors || []).find(factor => factor.factorId == inspection?.timeFactorId);
 		if (factor != null) {
+			//TODO compare the top level measure with old factor
+			// clear it when doesn't match
 			const measures = tryToTransformToMeasures(factor);
-			// TODO only year filter is supported now
 			if (inspection?.timeRange != null && !measures.includes(MeasureMethod.YEAR)) {
 				delete inspection.timeRange;
 			}
+			//TODO compare measures / sub factors supported with old factor
+			// clear it when doesn't match
 			if (inspection?.timeMeasure != null && !measures.includes(inspection.timeMeasure)) {
 				delete inspection.timeMeasure;
 			}
@@ -57,11 +60,9 @@ export const TimePeriod = () => {
 		? (void 0)
 		// eslint-disable-next-line
 		: (topic.factors || []).find(factor => factor.factorId == inspection.timeFactorId);
+	// TODO measures and sub factors which can be used on time measure should be detected automatically
 	const {options: timeMeasureOptions} = buildTimeMeasureOptions(inspection!, factor);
 
-	// 1. show year picker when factor supporting measure year and another one which under year
-	// 2. show year picker only when factor only supporting measure year
-	// 3. show measure picker only when factor doesn't supporting year measure
 	return <TimePeriodContainer>
 		<InspectionLabel>{Lang.INDICATOR_WORKBENCH.INSPECTION.TIME_PERIOD_LABEL}</InspectionLabel>
 		<TimePeriodDropdown value={inspection?.timeFactorId ?? null} options={timeFactorOptions}
