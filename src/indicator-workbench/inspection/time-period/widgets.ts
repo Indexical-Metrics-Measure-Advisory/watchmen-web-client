@@ -14,6 +14,7 @@ export const TimePeriodDropdown = styled(InspectionDropdown)`
 
 export const YearPickDropdown = styled(InspectionDropdown)`
 	min-width : 250px;
+	max-width : 250px;
 	> span[data-widget=dropdown-label][data-please=true] {
 		opacity : 1;
 	}
@@ -23,11 +24,17 @@ export const YearPickDropdownOption = styled.span`
 	position    : relative;
 	align-items : center;
 	width       : 100%;
-	color       : var(--font-color);
 	> span:first-child {
 		flex-grow : 1;
 	}
 	> svg {
 		opacity : 0.7;
 	}
+`;
+export const YearPickDisplayLabel = styled.span`
+	display       : block;
+	position      : relative;
+	overflow      : hidden;
+	white-space   : nowrap;
+	text-overflow : ellipsis;
 `;

@@ -1,6 +1,6 @@
 import {Factor} from '@/services/data/tuples/factor-types';
 import {MeasureMethod} from '@/services/data/tuples/indicator-types';
-import {isTimePeriodMeasure, tryToTransformToMeasures} from '@/services/data/tuples/indicator-utils';
+import {tryToTransformToMeasures} from '@/services/data/tuples/indicator-utils';
 import {Inspection, InspectionYearRange} from '@/services/data/tuples/inspection-types';
 import {isInspectionYearRange} from '@/services/data/tuples/inspection-utils';
 import {TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
@@ -12,7 +12,8 @@ import {Lang} from '@/widgets/langs';
 export const buildTimePeriodOptions = (topic: TopicForIndicator): Array<DropdownOption> => {
 	return (topic.factors || []).filter(factor => {
 		const measures = tryToTransformToMeasures(factor);
-		return measures.some(measure => isTimePeriodMeasure(measure));
+		// TODO only year filter is supported now
+		return measures.some(measure => measure === MeasureMethod.YEAR);
 	}).map(factor => {
 		return {
 			value: factor.factorId,

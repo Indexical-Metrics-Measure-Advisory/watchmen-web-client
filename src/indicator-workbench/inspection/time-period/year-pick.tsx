@@ -5,7 +5,7 @@ import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {getValidYearRanges} from './utils';
-import {YearPickDropdown, YearPickDropdownOption} from './widgets';
+import {YearPickDisplayLabel, YearPickDropdown, YearPickDropdownOption} from './widgets';
 
 export const YearPicker = (props: { inspection: Inspection; onYearsChange: () => void }) => {
 	const {inspection, onYearsChange} = props;
@@ -17,7 +17,7 @@ export const YearPicker = (props: { inspection: Inspection; onYearsChange: () =>
 	const onValueChange = (option: DropdownOption) => {
 		const year = option.value as number;
 		if (year === -1) {
-			delete inspection.timeRange
+			delete inspection.timeRange;
 			onYearsChange();
 			forceUpdate();
 		} else {
@@ -67,7 +67,7 @@ export const YearPicker = (props: { inspection: Inspection; onYearsChange: () =>
 		if (displayRanges.length === 0) {
 			return Lang.INDICATOR_WORKBENCH.INSPECTION.ALL_TIME_PERIOD;
 		} else {
-			return <span>{displayRanges}</span>;
+			return <YearPickDisplayLabel>{displayRanges}</YearPickDisplayLabel>;
 		}
 	};
 

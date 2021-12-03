@@ -29,8 +29,9 @@ export const TimePeriod = () => {
 		const factor = (indicator?.topic.factors || []).find(factor => factor.factorId == inspection?.timeFactorId);
 		if (factor != null) {
 			const measures = tryToTransformToMeasures(factor);
-			if (!measures.includes(MeasureMethod.YEAR)) {
-				delete inspection?.timeRange;
+			// TODO only year filter is supported now
+			if (inspection?.timeRange != null && !measures.includes(MeasureMethod.YEAR)) {
+				delete inspection.timeRange;
 			}
 			if (inspection?.timeMeasure != null && !measures.includes(inspection.timeMeasure)) {
 				delete inspection.timeMeasure;
