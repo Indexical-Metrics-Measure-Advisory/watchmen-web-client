@@ -34,6 +34,17 @@ export const PickIndicatorViewer = () => {
 			off(InspectionEventTypes.INDICATOR_PICKED, onIndicatorPicked);
 		};
 	});
+	useEffect(() => {
+		const onInspectionCleared = () => {
+			setVisible(false);
+			setIndicator(null);
+			setInspection(null);
+		};
+		on(InspectionEventTypes.INSPECTION_CLEARED, onInspectionCleared);
+		return () => {
+			off(InspectionEventTypes.INSPECTION_CLEARED, onInspectionCleared);
+		};
+	}, [on, off]);
 
 	if (!visible) {
 		return null;

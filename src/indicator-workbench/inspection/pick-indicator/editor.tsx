@@ -41,6 +41,17 @@ export const PickIndicatorEditor = () => {
 			setIndicators(indicators);
 		});
 	}, [fire, visible]);
+	useEffect(() => {
+		const onInspectionCleared = () => {
+			setVisible(false);
+			setSelectedIndicatorId(null);
+			setInspection(null);
+		};
+		on(InspectionEventTypes.INSPECTION_CLEARED, onInspectionCleared);
+		return () => {
+			off(InspectionEventTypes.INSPECTION_CLEARED, onInspectionCleared);
+		};
+	}, [on, off]);
 
 	if (!visible) {
 		return null;

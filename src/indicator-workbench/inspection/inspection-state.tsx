@@ -159,6 +159,15 @@ export const InspectionState = () => {
 			off(InspectionEventTypes.ASK_BUCKETS, onAskBuckets);
 		};
 	}, [on, off, fireGlobal]);
+	useEffect(() => {
+		const onClearInspection = () => {
+			fire(InspectionEventTypes.INSPECTION_CLEARED);
+		};
+		on(InspectionEventTypes.CLEAR_INSPECTION, onClearInspection);
+		return () => {
+			off(InspectionEventTypes.CLEAR_INSPECTION, onClearInspection);
+		};
+	}, [on, off, fire]);
 
 	return <Fragment/>;
 };

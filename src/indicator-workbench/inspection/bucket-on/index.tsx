@@ -65,6 +65,18 @@ export const BucketOn = () => {
 			off(InspectionEventTypes.INSPECTION_PICKED, onInspectionPicked);
 		};
 	}, [on, off, fire]);
+	useEffect(() => {
+		const onInspectionCleared = () => {
+			setVisible(false);
+			setBuckets({loaded: false, data: []});
+			setIndicator(null);
+			setInspection(null);
+		};
+		on(InspectionEventTypes.INSPECTION_CLEARED, onInspectionCleared);
+		return () => {
+			off(InspectionEventTypes.INSPECTION_CLEARED, onInspectionCleared);
+		};
+	}, [on, off]);
 
 	if (!visible) {
 		return null;

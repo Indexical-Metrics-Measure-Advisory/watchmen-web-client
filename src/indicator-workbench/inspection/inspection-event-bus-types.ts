@@ -35,8 +35,13 @@ export enum InspectionEventTypes {
 
 	TIME_MEASURE_CHANGED = 'time-measure-changed',
 
+	REFRESH_DATA = 'refresh-data',
+
 	SAVE_INSPECTION = 'save-inspection',
-	INSPECTION_SAVED = 'inspection-saved'
+	INSPECTION_SAVED = 'inspection-saved',
+
+	CLEAR_INSPECTION = 'clear-inspection',
+	INSPECTION_CLEARED = 'inspection-cleared',
 }
 
 export interface InspectionEventBus {
@@ -88,6 +93,10 @@ export interface InspectionEventBus {
 	on(type: InspectionEventTypes.TIME_MEASURE_CHANGED, listener: (inspection: Inspection) => void): this;
 	off(type: InspectionEventTypes.TIME_MEASURE_CHANGED, listener: (inspection: Inspection) => void): this;
 
+	fire(type: InspectionEventTypes.REFRESH_DATA, inspection: Inspection): this;
+	on(type: InspectionEventTypes.REFRESH_DATA, listener: (inspection: Inspection) => void): this;
+	off(type: InspectionEventTypes.REFRESH_DATA, listener: (inspection: Inspection) => void): this;
+
 	fire(type: InspectionEventTypes.SAVE_INSPECTION, inspection: Inspection, onSaved: (inspection: Inspection, saved: boolean) => void): this;
 	on(type: InspectionEventTypes.SAVE_INSPECTION, listener: (inspection: Inspection, onSaved: (inspection: Inspection, saved: boolean) => void) => void): this;
 	off(type: InspectionEventTypes.SAVE_INSPECTION, listener: (inspection: Inspection, onSaved: (inspection: Inspection, saved: boolean) => void) => void): this;
@@ -95,4 +104,12 @@ export interface InspectionEventBus {
 	fire(type: InspectionEventTypes.INSPECTION_SAVED, inspection: Inspection): this;
 	on(type: InspectionEventTypes.INSPECTION_SAVED, listener: (inspection: Inspection) => void): this;
 	off(type: InspectionEventTypes.INSPECTION_SAVED, listener: (inspection: Inspection) => void): this;
+
+	fire(type: InspectionEventTypes.CLEAR_INSPECTION): this;
+	on(type: InspectionEventTypes.CLEAR_INSPECTION, listener: () => void): this;
+	off(type: InspectionEventTypes.CLEAR_INSPECTION, listener: () => void): this;
+
+	fire(type: InspectionEventTypes.INSPECTION_CLEARED): this;
+	on(type: InspectionEventTypes.INSPECTION_CLEARED, listener: () => void): this;
+	off(type: InspectionEventTypes.INSPECTION_CLEARED, listener: () => void): this;
 }

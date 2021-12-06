@@ -30,6 +30,17 @@ export const useVisibleOnII = () => {
 			off(InspectionEventTypes.INDICATOR_PICKED, onIndicatorPicked);
 		};
 	}, [on, off, fire]);
+	useEffect(() => {
+		const onInspectionCleared = () => {
+			setVisible(false);
+			setIndicator(null);
+			setInspection(null);
+		};
+		on(InspectionEventTypes.INSPECTION_CLEARED, onInspectionCleared);
+		return () => {
+			off(InspectionEventTypes.INSPECTION_CLEARED, onInspectionCleared);
+		};
+	}, [on, off]);
 
 	return {visible, inspection, indicator};
 };

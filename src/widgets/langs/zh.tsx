@@ -425,8 +425,11 @@ export const Zh = {
 			TIME_MEASURE_ON_LABEL: '时间分段:',
 			NO_TIME_MEASURE: '不使用时间分段',
 			REFRESH_DATA: '刷新数据',
-			PICK_ANOTHER: '查看其他指标',
-			AGGREGATE_ARITHMETICS_IS_REQUIRED: '请至少选择一种指标值转换方式.'
+			PICK_ANOTHER: '查看其他洞察',
+			AGGREGATE_ARITHMETICS_IS_REQUIRED: '请至少选择一种指标值转换方式.',
+			MEASURE_IS_REQUIRED: '请选择时间分段或者指标分桶.',
+			INDICATOR_BUCKET_IS_REQUIRED: '请选择指标值分桶.',
+			RESET_INSPECTION: '确认要切换到另一个洞察吗?'
 		}
 	},
 	SETTINGS: {

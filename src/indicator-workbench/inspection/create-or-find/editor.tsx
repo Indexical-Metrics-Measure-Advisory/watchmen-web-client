@@ -14,7 +14,7 @@ import {CreateOrFindContainer} from './widgets';
 
 export const CreateOrFindEditor = () => {
 	const {fire: fireGlobal} = useEventBus();
-	const {fire} = useInspectionEventBus();
+	const {on, off, fire} = useInspectionEventBus();
 	const [visible, setVisible] = useState(true);
 	const [selectedInspectionId, setSelectedInspectionId] = useState<InspectionId | null>(null);
 	const [inspections, setInspections] = useState<Array<QueryInspection>>([]);
@@ -23,6 +23,16 @@ export const CreateOrFindEditor = () => {
 			setInspections(inspections);
 		});
 	}, [fire]);
+	useEffect(() => {
+		const onInspectionCleared = () => {
+			setVisible(true);
+			setSelectedInspectionId(null);
+		};
+		on(InspectionEventTypes.INSPECTION_CLEARED, onInspectionCleared);
+		return () => {
+			off(InspectionEventTypes.INSPECTION_CLEARED, onInspectionCleared);
+		};
+	}, [on, off]);
 
 	if (!visible) {
 		return null;

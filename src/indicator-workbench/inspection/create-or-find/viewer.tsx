@@ -92,6 +92,15 @@ export const CreateOrFindViewer = () => {
 			off(InspectionEventTypes.INDICATOR_PICKED, onIndicatorPicked);
 		};
 	}, [on, off, forceUpdate]);
+	useEffect(() => {
+		const onInspectionCleared = () => {
+			setInspection(null);
+		};
+		on(InspectionEventTypes.INSPECTION_CLEARED, onInspectionCleared);
+		return () => {
+			off(InspectionEventTypes.INSPECTION_CLEARED, onInspectionCleared);
+		};
+	}, [on, off]);
 
 	if (inspection == null) {
 		return null;
