@@ -1,0 +1,16 @@
+import styled from 'styled-components';
+import {InspectionDropdown} from '../widgets';
+
+export const TimeMeasureOnContainer = styled.div.attrs({'date-widget': 'inspection-time-measure-on'})`
+	display               : grid;
+	position              : relative;
+	grid-template-columns : 200px auto 1fr;
+	grid-column-gap       : calc(var(--margin) / 2);
+`;
+
+export const TimeMeasureOnDropdown = styled(InspectionDropdown)`
+	min-width : 250px;
+	> span[data-widget=dropdown-label][data-please=true] {
+		opacity : 1;
+	}
+`;

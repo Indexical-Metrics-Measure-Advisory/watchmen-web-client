@@ -122,15 +122,15 @@ export interface Inspection extends Tuple {
 	measureOnFactorId?: FactorId;
 	/** bucket for any measure on type, or no bucket also allowed if measure on factor rather than indicator value */
 	measureOnBucketId?: BucketId;
-	/** time measure on first time factor */
-	firstTimeMeasure?: MeasureMethod;
-	/** first time factor */
-	firstTimeFactorId?: FactorId;
-	/** ranges on first time factor for filter data */
-	firstTimeRanges?: Array<InspectionTimeRange>;
+	/** time range */
+	timeRangeMeasure?: MeasureMethod;
+	/** time range factor */
+	timeRangeFactorId?: FactorId;
+	/** ranges on time factor for filter data */
+	timeRanges?: Array<InspectionTimeRange>;
 	/** time measure on factor. measure can use another factor or just measure on the same time factor */
-	secondaryTimeMeasure?: MeasureMethod;
+	measureOnTime?: MeasureMethod;
 	/** time measure on secondary factor */
-	secondaryTimeMeasureFactorId?: FactorId;
+	measureOnTimeFactorId?: FactorId;
 	tenantId?: TenantId;
 }

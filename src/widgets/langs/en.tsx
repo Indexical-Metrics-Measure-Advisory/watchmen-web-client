@@ -422,8 +422,8 @@ export const En = {
 			MEASURE_ON_NATURALLY: 'Using Naturally Classification',
 			TIME_PERIOD_LABEL: 'Time Period:',
 			ALL_TIME_PERIOD: 'All Time',
-			NO_TIME_MEASURE: 'No time measure',
-			DATA_LABEL: ''
+			TIME_MEASURE_ON_LABEL: 'Time Grouping:',
+			NO_TIME_MEASURE: 'No time grouping'
 		}
 	},
 	SETTINGS: {

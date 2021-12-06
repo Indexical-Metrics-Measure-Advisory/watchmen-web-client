@@ -422,6 +422,7 @@ export const Zh = {
 			MEASURE_ON_NATURALLY: '使用自然分类',
 			TIME_PERIOD_LABEL: '时间区间:',
 			ALL_TIME_PERIOD: '所有时间',
+			TIME_MEASURE_ON_LABEL: '时间分段:',
 			NO_TIME_MEASURE: '不使用时间分段'
 		}
 	},

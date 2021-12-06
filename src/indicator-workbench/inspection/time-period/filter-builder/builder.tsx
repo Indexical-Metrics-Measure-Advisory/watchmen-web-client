@@ -19,7 +19,7 @@ import {
 	getValidWeekOfMonthRanges,
 	getValidWeekOfYearRanges,
 	getValidYearRanges
-} from '../utils';
+} from '../../../utils/range';
 import {
 	TimePeriodFilterDisplayLabel,
 	TimePeriodFilterDisplayLabelSegment,
@@ -39,19 +39,19 @@ const buildOnValueChange = (options: {
 	return (option: DropdownOption) => {
 		const value = option.value as number;
 		if (value === -1) {
-			delete inspection.firstTimeRanges;
+			delete inspection.timeRanges;
 			onValueChanged();
 		} else {
 			const ranges = filterValid(inspection);
 			// eslint-disable-next-line
 			if (ranges.some(range => equals(range, value))) {
 				// eslint-disable-next-line
-				inspection.firstTimeRanges = ranges.filter(range => !equals(range, value));
+				inspection.timeRanges = ranges.filter(range => !equals(range, value));
 			} else {
-				if (inspection!.firstTimeRanges == null) {
-					inspection!.firstTimeRanges = [];
+				if (inspection!.timeRanges == null) {
+					inspection!.timeRanges = [];
 				}
-				inspection!.firstTimeRanges.push(create(value));
+				inspection!.timeRanges.push(create(value));
 			}
 			onValueChanged();
 			return {active: true};

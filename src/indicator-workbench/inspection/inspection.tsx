@@ -4,6 +4,7 @@ import {BucketOn} from './bucket-on';
 import {CreateOrFind} from './create-or-find';
 import {InspectionState} from './inspection-state';
 import {PickIndicator} from './pick-indicator';
+import {TimeMeasureOn} from './time-measure-on';
 import {TimePeriod} from './time-period';
 import {IndicatorContainer, InspectionContainer} from './widgets';
 
@@ -15,7 +16,8 @@ export const Inspection = () => {
 			<PickIndicator/>
 		</IndicatorContainer>
 		<AggregateArithmetic/>
-		<BucketOn/>
 		<TimePeriod/>
+		<TimeMeasureOn/>
+		<BucketOn/>
 	</InspectionContainer>;
 };

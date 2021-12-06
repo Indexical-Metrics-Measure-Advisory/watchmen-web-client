@@ -2,8 +2,8 @@ import {tryToTransformToMeasures} from '@/services/data/tuples/indicator-utils';
 import {Inspection} from '@/services/data/tuples/inspection-types';
 import {TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
+import {tryToGetTopTimeMeasure} from '../../utils/measure';
 import {FilterBuilders} from './filter-builder';
-import {tryToGetTopTimeMeasure} from './utils';
 import {TimePeriodFilterDropdown} from './widgets';
 
 export const TimePeriodFilterSelector = (props: { inspection: Inspection; topic: TopicForIndicator; valueChanged: () => void }) => {
@@ -11,10 +11,10 @@ export const TimePeriodFilterSelector = (props: { inspection: Inspection; topic:
 
 	const forceUpdate = useForceUpdate();
 
-	const factor = inspection.firstTimeFactorId == null
+	const factor = inspection.timeRangeFactorId == null
 		? null
 		// eslint-disable-next-line
-		: (topic.factors || []).find(factor => factor.factorId == inspection.firstTimeFactorId);
+		: (topic.factors || []).find(factor => factor.factorId == inspection.timeRangeFactorId);
 
 	if (factor == null) {
 		return null;

@@ -422,6 +422,7 @@ export const Jp = {
 			MEASURE_ON_NATURALLY: '自然分類を使用',
 			TIME_PERIOD_LABEL: '時間範囲:',
 			ALL_TIME_PERIOD: 'すべての時間',
+			TIME_MEASURE_ON_LABEL: '時間グループ化:',
 			NO_TIME_MEASURE: '時間測定なし'
 		}
 	},
