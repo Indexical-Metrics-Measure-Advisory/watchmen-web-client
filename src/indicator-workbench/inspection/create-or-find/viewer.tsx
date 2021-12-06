@@ -11,7 +11,7 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {InspectionEventTypes} from '../inspection-event-bus-types';
-import {InspectionEntityLabel, InspectionInput, InspectionLabel, MinorInspectionButton} from '../widgets';
+import {InspectionButton, InspectionEntityLabel, InspectionInput, InspectionLabel} from '../widgets';
 import {CreateOrFindContainer} from './widgets';
 
 const NameInput = styled(InspectionInput)`
@@ -119,9 +119,9 @@ export const CreateOrFindViewer = () => {
 		<InspectionLabel>{Lang.INDICATOR_WORKBENCH.INSPECTION.PICKED_INSPECTION_LABEL}</InspectionLabel>
 		<InspectionEntityLabel>{name}</InspectionEntityLabel>
 		{canSetName
-			? <MinorInspectionButton ink={ButtonInk.PRIMARY} onClick={onRenameClicked}>
+			? <InspectionButton ink={ButtonInk.PRIMARY} onClick={onRenameClicked}>
 				{hasName ? Lang.INDICATOR_WORKBENCH.INSPECTION.RENAME : Lang.INDICATOR_WORKBENCH.INSPECTION.NEW_NAME}
-			</MinorInspectionButton>
+			</InspectionButton>
 			: null}
 	</CreateOrFindContainer>;
 };

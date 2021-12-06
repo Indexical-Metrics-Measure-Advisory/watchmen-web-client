@@ -423,7 +423,10 @@ export const Jp = {
 			TIME_PERIOD_LABEL: '時間範囲:',
 			ALL_TIME_PERIOD: 'すべての時間',
 			TIME_MEASURE_ON_LABEL: '時間グループ化:',
-			NO_TIME_MEASURE: '時間測定なし'
+			NO_TIME_MEASURE: '時間測定なし',
+			REFRESH_DATA: 'データを更新',
+			PICK_ANOTHER: '他の指標を表示',
+			AGGREGATE_ARITHMETICS_IS_REQUIRED: '指標値の変換方法を少なくとも 1 つ選択してください。'
 		}
 	},
 	SETTINGS: {

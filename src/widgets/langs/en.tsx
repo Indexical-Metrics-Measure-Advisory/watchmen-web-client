@@ -423,7 +423,10 @@ export const En = {
 			TIME_PERIOD_LABEL: 'Time Period:',
 			ALL_TIME_PERIOD: 'All Time',
 			TIME_MEASURE_ON_LABEL: 'Time Grouping:',
-			NO_TIME_MEASURE: 'No time grouping'
+			NO_TIME_MEASURE: 'No time grouping',
+			REFRESH_DATA: 'Refresh Data',
+			PICK_ANOTHER: 'Pick Another Indicator',
+			AGGREGATE_ARITHMETICS_IS_REQUIRED: 'Please pick at least one value transforming.'
 		}
 	},
 	SETTINGS: {

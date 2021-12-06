@@ -14,7 +14,7 @@ import {buildTimeMeasureOptions} from './utils';
 import {TimeMeasureOnContainer, TimeMeasureOnDropdown} from './widgets';
 
 export const TimeMeasureOn = () => {
-	const {on, off} = useInspectionEventBus();
+	const {on, off, fire} = useInspectionEventBus();
 	const {visible, inspection, indicator} = useVisibleOnII();
 	const forceUpdate = useForceUpdate();
 
@@ -45,6 +45,7 @@ export const TimeMeasureOn = () => {
 		}
 		inspection!.measureOnTime = measure;
 		inspection!.measureOnTimeFactorId = factorId;
+		fire(InspectionEventTypes.TIME_MEASURE_CHANGED, inspection!);
 		forceUpdate();
 	};
 

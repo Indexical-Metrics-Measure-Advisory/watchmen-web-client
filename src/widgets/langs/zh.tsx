@@ -423,7 +423,10 @@ export const Zh = {
 			TIME_PERIOD_LABEL: '时间区间:',
 			ALL_TIME_PERIOD: '所有时间',
 			TIME_MEASURE_ON_LABEL: '时间分段:',
-			NO_TIME_MEASURE: '不使用时间分段'
+			NO_TIME_MEASURE: '不使用时间分段',
+			REFRESH_DATA: '刷新数据',
+			PICK_ANOTHER: '查看其他指标',
+			AGGREGATE_ARITHMETICS_IS_REQUIRED: '请至少选择一种指标值转换方式.'
 		}
 	},
 	SETTINGS: {

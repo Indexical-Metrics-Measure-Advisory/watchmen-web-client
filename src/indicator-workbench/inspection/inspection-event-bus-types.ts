@@ -26,8 +26,14 @@ export enum InspectionEventTypes {
 	INSPECTION_PICKED = 'inspection-picked',
 	INDICATOR_PICKED = 'indicator-picked',
 
+	AGGREGATE_ARITHMETICS_CHANGED = 'aggregate_arithmetics_changed',
+
+	BUCKET_ON_CHANGED = 'bucket-on-changed',
+
 	TIME_RANGE_ON_CHANGED = 'time-range-on-changed',
 	TIME_RANGE_VALUES_CHANGED = 'time-range-values-changed',
+
+	TIME_MEASURE_CHANGED = 'time-measure-changed',
 
 	SAVE_INSPECTION = 'save-inspection',
 	INSPECTION_SAVED = 'inspection-saved'
@@ -62,6 +68,14 @@ export interface InspectionEventBus {
 	on(type: InspectionEventTypes.INDICATOR_PICKED, listener: (indicator: IndicatorForInspection) => void): this;
 	off(type: InspectionEventTypes.INDICATOR_PICKED, listener: (indicator: IndicatorForInspection) => void): this;
 
+	fire(type: InspectionEventTypes.AGGREGATE_ARITHMETICS_CHANGED, inspection: Inspection): this;
+	on(type: InspectionEventTypes.AGGREGATE_ARITHMETICS_CHANGED, listener: (inspection: Inspection) => void): this;
+	off(type: InspectionEventTypes.AGGREGATE_ARITHMETICS_CHANGED, listener: (inspection: Inspection) => void): this;
+
+	fire(type: InspectionEventTypes.BUCKET_ON_CHANGED, inspection: Inspection): this;
+	on(type: InspectionEventTypes.BUCKET_ON_CHANGED, listener: (inspection: Inspection) => void): this;
+	off(type: InspectionEventTypes.BUCKET_ON_CHANGED, listener: (inspection: Inspection) => void): this;
+
 	fire(type: InspectionEventTypes.TIME_RANGE_ON_CHANGED, inspection: Inspection): this;
 	on(type: InspectionEventTypes.TIME_RANGE_ON_CHANGED, listener: (inspection: Inspection) => void): this;
 	off(type: InspectionEventTypes.TIME_RANGE_ON_CHANGED, listener: (inspection: Inspection) => void): this;
@@ -69,6 +83,10 @@ export interface InspectionEventBus {
 	fire(type: InspectionEventTypes.TIME_RANGE_VALUES_CHANGED, inspection: Inspection): this;
 	on(type: InspectionEventTypes.TIME_RANGE_VALUES_CHANGED, listener: (inspection: Inspection) => void): this;
 	off(type: InspectionEventTypes.TIME_RANGE_VALUES_CHANGED, listener: (inspection: Inspection) => void): this;
+
+	fire(type: InspectionEventTypes.TIME_MEASURE_CHANGED, inspection: Inspection): this;
+	on(type: InspectionEventTypes.TIME_MEASURE_CHANGED, listener: (inspection: Inspection) => void): this;
+	off(type: InspectionEventTypes.TIME_MEASURE_CHANGED, listener: (inspection: Inspection) => void): this;
 
 	fire(type: InspectionEventTypes.SAVE_INSPECTION, inspection: Inspection, onSaved: (inspection: Inspection, saved: boolean) => void): this;
 	on(type: InspectionEventTypes.SAVE_INSPECTION, listener: (inspection: Inspection, onSaved: (inspection: Inspection, saved: boolean) => void) => void): this;

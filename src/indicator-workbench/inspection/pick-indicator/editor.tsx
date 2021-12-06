@@ -1,4 +1,4 @@
-import {IndicatorId} from '@/services/data/tuples/indicator-types';
+import {IndicatorAggregateArithmetic, IndicatorId} from '@/services/data/tuples/indicator-types';
 import {Inspection} from '@/services/data/tuples/inspection-types';
 import {QueryIndicator} from '@/services/data/tuples/query-indicator-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
@@ -59,7 +59,14 @@ export const PickIndicatorEditor = () => {
 
 		inspection!.indicatorId = selectedIndicatorId;
 		fire(InspectionEventTypes.ASK_INDICATOR, inspection!.indicatorId, (indicator: IndicatorForInspection) => {
+			const {indicator: picked} = indicator;
+			if (picked.factorId == null) {
+				inspection!.aggregateArithmetics = [IndicatorAggregateArithmetic.COUNT];
+			} else {
+				inspection!.aggregateArithmetics = inspection?.aggregateArithmetics ?? [IndicatorAggregateArithmetic.SUM];
+			}
 			fire(InspectionEventTypes.INDICATOR_PICKED, indicator);
+
 			setVisible(false);
 		});
 	};

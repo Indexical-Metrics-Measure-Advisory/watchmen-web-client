@@ -1,6 +1,7 @@
 import React from 'react';
 import {AggregateArithmetic} from './aggregate-arithmetic';
 import {BucketOn} from './bucket-on';
+import {Buttons} from './buttons';
 import {CreateOrFind} from './create-or-find';
 import {InspectionState} from './inspection-state';
 import {PickIndicator} from './pick-indicator';
@@ -19,5 +20,6 @@ export const Inspection = () => {
 		<TimePeriod/>
 		<TimeMeasureOn/>
 		<BucketOn/>
+		<Buttons/>
 	</InspectionContainer>;
 };

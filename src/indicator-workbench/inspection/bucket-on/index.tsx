@@ -108,6 +108,7 @@ export const BucketOn = () => {
 	};
 	const onBucketChange = (option: DropdownOption) => {
 		inspection!.measureOnBucketId = option.value as BucketId;
+		fire(InspectionEventTypes.BUCKET_ON_CHANGED, inspection!);
 		forceUpdate();
 	};
 
