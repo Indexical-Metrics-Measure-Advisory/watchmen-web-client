@@ -10,6 +10,9 @@ export const TimePeriodContainer = styled.div.attrs({'date-widget': 'inspection-
 
 export const TimePeriodDropdown = styled(InspectionDropdown)`
 	min-width : 250px;
+	> span[data-widget=dropdown-label][data-please=true] {
+		opacity : 1;
+	}
 `;
 
 export const TimePeriodFilterDropdown = styled(InspectionDropdown)`

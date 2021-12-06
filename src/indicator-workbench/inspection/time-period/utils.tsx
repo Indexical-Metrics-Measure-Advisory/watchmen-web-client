@@ -1,4 +1,4 @@
-import {Factor} from '@/services/data/tuples/factor-types';
+import {Factor, FactorId} from '@/services/data/tuples/factor-types';
 import {MeasureMethod} from '@/services/data/tuples/indicator-types';
 import {isTimePeriodMeasure, TimePeriodMeasure, tryToTransformToMeasures} from '@/services/data/tuples/indicator-utils';
 import {
@@ -41,7 +41,8 @@ import {TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {isNotNull} from '@/services/data/utils';
 import {MeasureMethodLabels} from '@/widgets/basic/measure-method-label';
 import {DropdownOption} from '@/widgets/basic/types';
-import {Lang} from '@/widgets/langs';
+import {getLangLabel, Lang} from '@/widgets/langs';
+import {MeasureMethodSort} from '../../utils/sort';
 
 export const buildTimePeriodOptions = (topic: TopicForIndicator): Array<DropdownOption> => {
 	return (topic.factors || []).filter(factor => {
@@ -78,16 +79,29 @@ export const tryToGetTopTimeMeasure = (measures: Array<MeasureMethod>): TimePeri
 	})[0];
 };
 
+export const tryToGetTopTimeMeasureByFactor = (topic?: TopicForIndicator, factorId?: FactorId): TimePeriodMeasure | undefined => {
+	if (topic == null || factorId == null) {
+		return (void 0);
+	}
+	// eslint-disable-next-line
+	const factor = (topic?.factors || []).find(factor => factor.factorId == factorId);
+	if (factor != null) {
+		return tryToGetTopTimeMeasure(tryToTransformToMeasures(factor));
+	} else {
+		return (void 0);
+	}
+};
+
 export const getValidRanges = (inspection?: Inspection): Array<InspectionTimeRange> => {
 	if (inspection == null) {
 		return [];
 	}
 
-	if (inspection.timeRange == null || inspection.timeRange.length === 0) {
+	if (inspection.firstTimeRanges == null || inspection.firstTimeRanges.length === 0) {
 		return [];
 	}
 
-	return inspection.timeRange.filter(isNotNull);
+	return inspection.firstTimeRanges.filter(isNotNull);
 };
 const acceptAll = <R extends InspectionTimeRange>(range: InspectionTimeRange): range is R => true;
 export const getValidRangesByType = <R extends InspectionTimeRange>(inspection?: Inspection, accept: (range: InspectionTimeRange) => range is R = acceptAll): Array<R> => {
@@ -109,8 +123,8 @@ export const getValidHourRanges = (inspection?: Inspection): Array<InspectionHou
 export const getValidHourKindRanges = (inspection?: Inspection): Array<InspectionHourKindRange> => getValidRangesByType(inspection, isInspectionHourKindRange);
 export const getValidAmPmRanges = (inspection?: Inspection): Array<InspectionAmPmRange> => getValidRangesByType(inspection, isInspectionAmPmRange);
 
-export const isOneYearOnly = (inspection?: Inspection): boolean => {
-	const ranges = getValidYearRanges(inspection);
+const isOneRangeOnly = (inspection?: Inspection): boolean => {
+	const ranges = getValidRanges(inspection);
 	if (ranges.length === 0) {
 		return false;
 	}
@@ -119,42 +133,65 @@ export const isOneYearOnly = (inspection?: Inspection): boolean => {
 
 const buildNoTimeMeasureOption = (): DropdownOption => {
 	return {
-		value: '',
-		label: Lang.INDICATOR_WORKBENCH.INSPECTION.NO_TIME_MEASURE
+		value: {factorId: null, measure: null},
+		label: Lang.INDICATOR_WORKBENCH.INSPECTION.NO_TIME_MEASURE,
+		key: ''
 	};
 };
-const buildMeasureOptions = (measures: Array<MeasureMethod>): Array<DropdownOption> => {
+
+const buildMeasureOptions = (factor: Factor, measures: Array<MeasureMethod>): Array<DropdownOption> => {
 	return measures.map(measure => {
 		return {
-			value: measure,
-			label: MeasureMethodLabels[measure]
+			value: {factorId: factor.factorId, measure},
+			label: () => {
+				// @ts-ignore
+				const measureLabel = getLangLabel(MeasureMethodLabels[measure].props.labelKey);
+				const factorLabel = factor.label || factor.name || 'Noname Factor';
+				return {
+					node: <>{MeasureMethodLabels[measure]} - {factorLabel}</>,
+					label: [measureLabel, factorLabel].join(',')
+				};
+			},
+			key: `${factor.factorId}-${measure}`
 		};
 	});
 };
 
-export const buildTimeMeasureOptions = (inspection: Inspection, factor?: Factor): { annual: boolean, options: Array<DropdownOption> } => {
-	if (factor == null) {
-		return {annual: false, options: []};
+const buildMeasureOptionsOnOtherFactors = (topic: TopicForIndicator, firstFactor: Factor): Array<DropdownOption> => {
+	return (topic.factors || [])
+		.filter(factor => factor !== firstFactor)
+		.map(factor => ({factor, measures: tryToTransformToMeasures(factor)}))
+		.filter(({measures}) => measures.some(measure => isTimePeriodMeasure(measure)))
+		.map(({factor, measures}) => {
+			return {
+				factor,
+				measures: measures.filter(measure => isTimePeriodMeasure(measure))
+					.sort((m1, m2) => MeasureMethodSort[m1] - MeasureMethodSort[m2])
+			};
+		}).sort(({factor: f1}, {factor: f2}) => {
+			return (f1.label || f1.name || '').localeCompare(f2.label || f2.name || '', void 0, {
+				sensitivity: 'base',
+				caseFirst: 'upper'
+			});
+		}).map(({factor, measures}) => {
+			return buildMeasureOptions(factor, measures);
+		}).flat();
+};
+
+export const buildTimeMeasureOptions = (inspection: Inspection, topic: TopicForIndicator, firstFactor?: Factor): Array<DropdownOption> => {
+	if (topic == null || firstFactor == null) {
+		return [];
 	}
 
-	const measures = tryToTransformToMeasures(factor);
-	if (measures.includes(MeasureMethod.YEAR)) {
-		const oneYearOnly = isOneYearOnly(inspection);
-		const options = buildMeasureOptions(oneYearOnly ? measures.filter(measure => measure !== MeasureMethod.YEAR) : measures);
-		return {
-			annual: true,
-			options: [
-				buildNoTimeMeasureOption(),
-				...options
-			]
-		};
-	} else {
-		return {
-			annual: false,
-			options: [
-				buildNoTimeMeasureOption(),
-				...buildMeasureOptions(measures)
-			]
-		};
-	}
+	const availableFirstTimeMeasures = tryToTransformToMeasures(firstFactor);
+	const firstTimeMeasure = inspection.firstTimeMeasure;
+	const oneRangeOnly = isOneRangeOnly(inspection);
+	console.log(oneRangeOnly);
+	return [
+		buildNoTimeMeasureOption(),
+		// measure on factor itself.
+		// when filter is only one value, top time measure is not applicable since only one group will be addressed
+		...buildMeasureOptions(firstFactor, oneRangeOnly ? availableFirstTimeMeasures.filter(measure => measure !== firstTimeMeasure) : availableFirstTimeMeasures),
+		...buildMeasureOptionsOnOtherFactors(topic, firstFactor)
+	];
 };

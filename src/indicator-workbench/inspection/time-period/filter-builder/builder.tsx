@@ -39,19 +39,19 @@ const buildOnValueChange = (options: {
 	return (option: DropdownOption) => {
 		const value = option.value as number;
 		if (value === -1) {
-			delete inspection.timeRange;
+			delete inspection.firstTimeRanges;
 			onValueChanged();
 		} else {
 			const ranges = filterValid(inspection);
 			// eslint-disable-next-line
 			if (ranges.some(range => equals(range, value))) {
 				// eslint-disable-next-line
-				inspection.timeRange = ranges.filter(range => !equals(range, value));
+				inspection.firstTimeRanges = ranges.filter(range => !equals(range, value));
 			} else {
-				if (inspection!.timeRange == null) {
-					inspection!.timeRange = [];
+				if (inspection!.firstTimeRanges == null) {
+					inspection!.firstTimeRanges = [];
 				}
-				inspection!.timeRange.push(create(value));
+				inspection!.firstTimeRanges.push(create(value));
 			}
 			onValueChanged();
 			return {active: true};

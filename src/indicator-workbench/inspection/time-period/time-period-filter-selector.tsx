@@ -11,10 +11,10 @@ export const TimePeriodFilterSelector = (props: { inspection: Inspection; topic:
 
 	const forceUpdate = useForceUpdate();
 
-	const factor = inspection.timeFactorId == null
+	const factor = inspection.firstTimeFactorId == null
 		? null
 		// eslint-disable-next-line
-		: (topic.factors || []).find(factor => factor.factorId == inspection.timeFactorId);
+		: (topic.factors || []).find(factor => factor.factorId == inspection.firstTimeFactorId);
 
 	if (factor == null) {
 		return null;
