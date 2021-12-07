@@ -31,17 +31,23 @@ export const DataHandler = (props: { inspection: Inspection }) => {
 
 			askData(inspection);
 		};
+		const onInspectionChanged = (anInspection: Inspection) => {
+			if (anInspection !== inspection) {
+				return;
+			}
+			fire(InspectionEventTypes.REFRESH_DATA, inspection);
+		};
 		on(InspectionEventTypes.REFRESH_DATA, onRefreshData);
-		on(InspectionEventTypes.AGGREGATE_ARITHMETICS_CHANGED, onRefreshData);
-		on(InspectionEventTypes.BUCKET_ON_CHANGED, onRefreshData);
-		on(InspectionEventTypes.TIME_MEASURE_CHANGED, onRefreshData);
-		on(InspectionEventTypes.TIME_RANGE_ON_CHANGED, onRefreshData);
+		on(InspectionEventTypes.AGGREGATE_ARITHMETICS_CHANGED, onInspectionChanged);
+		on(InspectionEventTypes.BUCKET_ON_CHANGED, onInspectionChanged);
+		on(InspectionEventTypes.TIME_MEASURE_CHANGED, onInspectionChanged);
+		on(InspectionEventTypes.TIME_RANGE_ON_CHANGED, onInspectionChanged);
 		return () => {
 			off(InspectionEventTypes.REFRESH_DATA, onRefreshData);
-			off(InspectionEventTypes.AGGREGATE_ARITHMETICS_CHANGED, onRefreshData);
-			off(InspectionEventTypes.BUCKET_ON_CHANGED, onRefreshData);
-			off(InspectionEventTypes.TIME_MEASURE_CHANGED, onRefreshData);
-			off(InspectionEventTypes.TIME_RANGE_ON_CHANGED, onRefreshData);
+			off(InspectionEventTypes.AGGREGATE_ARITHMETICS_CHANGED, onInspectionChanged);
+			off(InspectionEventTypes.BUCKET_ON_CHANGED, onInspectionChanged);
+			off(InspectionEventTypes.TIME_MEASURE_CHANGED, onInspectionChanged);
+			off(InspectionEventTypes.TIME_RANGE_ON_CHANGED, onInspectionChanged);
 		};
 	}, [on, off, fire, askData, inspection]);
 	useEffect(() => {

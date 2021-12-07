@@ -1,3 +1,4 @@
+import {Inspection} from '@/services/data/tuples/inspection-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {ICON_LOADING} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
@@ -19,12 +20,25 @@ export const Buttons = () => {
 	const {visible, inspection} = useVisibleOnII();
 	const [loading, setLoading] = useState(false);
 	useEffect(() => {
-		const onDataLoaded = () => setLoading(false);
+		const onDataLoaded = (anInspection: Inspection) => {
+			if (anInspection !== inspection) {
+				return;
+			}
+			setLoading(false);
+		};
+		const onRefreshData = (anInspection: Inspection) => {
+			if (anInspection !== inspection) {
+				return;
+			}
+			setLoading(true);
+		};
 		on(InspectionEventTypes.DATA_LOADED, onDataLoaded);
+		on(InspectionEventTypes.REFRESH_DATA, onRefreshData);
 		return () => {
 			off(InspectionEventTypes.DATA_LOADED, onDataLoaded);
+			off(InspectionEventTypes.REFRESH_DATA, onRefreshData);
 		};
-	}, [on, off]);
+	}, [on, off, inspection]);
 
 	if (!visible) {
 		return null;
