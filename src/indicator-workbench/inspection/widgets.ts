@@ -69,6 +69,11 @@ export const InspectionButton = styled(Button).attrs({'data-widget': 'inspection
 	border-radius : calc(var(--tall-height) / 2);
 	font-size     : calc(var(--font-size) * 1.2);
 	padding       : 0 var(--margin);
+	> svg:first-child {
+		margin-top   : 2px;
+		margin-right : calc(var(--margin) / 4);
+		font-size    : 0.8em;
+	}
 `;
 
 export const InspectionInput = styled(Input).attrs({'data-widget': 'inspection-input'})`

@@ -51,14 +51,14 @@ export const DataGridHeaderCell = styled.div.attrs({'data-widget': 'inspection-g
 	opacity       : 0.9;
 `;
 export const DataGridNoData = styled.div.attrs({'data-widget': 'inspection-grid-no-data'})`
-	display                    : flex;
-	position                   : relative;
-	align-items                : center;
-	height                     : var(--header-height);
-	font-variant               : petite-caps;
-	font-weight                : var(--font-demi-bold);
-	padding                    : 0 calc(var(--margin) / 4) 0 calc(40px + var(--margin) / 4);
-	opacity                    : 0.7;
+	display      : flex;
+	position     : relative;
+	align-items  : center;
+	height       : var(--header-height);
+	font-variant : petite-caps;
+	font-weight  : var(--font-demi-bold);
+	padding      : 0 calc(var(--margin) / 4) 0 calc(40px + var(--margin) / 4);
+	opacity      : 0.7;
 `;
 export const DataGridBodyRow = styled.div.attrs<{ columns: Columns }>(({columns}) => {
 	return {
@@ -76,7 +76,26 @@ export const DataGridBodyRow = styled.div.attrs<{ columns: Columns }>(({columns}
 		border-bottom-width : 0;
 	}
 `;
-export const DataGridBodyRowCell = styled.div.attrs({'data-widget': 'inspection-grid-body-row-cell'})`
+export const DataGridBodyRowIndexCell = styled.div.attrs({'data-widget': 'inspection-grid-body-row-index-cell'})`
+	display      : flex;
+	position     : relative;
+	align-items  : center;
+	height       : var(--grid-row-height);
+	padding      : 0 calc(var(--margin) / 4);
+	border-right : var(--border);
+	font-size    : 0.8em;
+	overflow     : hidden;
+	white-space  : nowrap;
+	opacity      : 0.8;
+`;
+export const DataGridBodyRowCell = styled.div.attrs<{ isNumeric?: boolean }>(({isNumeric = false}) => {
+	return {
+		'data-widget': 'inspection-grid-body-row-cell',
+		style: {
+			justifyContent: isNumeric ? 'flex-end' : (void 0)
+		}
+	};
+})<{ isNumeric?: boolean }>`
 	display       : flex;
 	position      : relative;
 	align-items   : center;
@@ -88,3 +107,4 @@ export const DataGridBodyRowCell = styled.div.attrs({'data-widget': 'inspection-
 	text-overflow : ellipsis;
 	opacity       : 0.9;
 `;
+

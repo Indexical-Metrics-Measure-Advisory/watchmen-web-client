@@ -4,6 +4,7 @@ import {IndicatorAggregateArithmetic} from '@/services/data/tuples/indicator-typ
 import {Inspection, InspectMeasureOn} from '@/services/data/tuples/inspection-types';
 import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
 import {TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
+import {ReactNode} from 'react';
 import {IndicatorForInspection} from '../inspection-event-bus-types';
 
 export enum ColumnType {
@@ -134,4 +135,27 @@ export const buildColumnDefs = (options: {
 	});
 
 	return columns;
+};
+
+const NumberFormatter = new Intl.NumberFormat(undefined, {useGrouping: true});
+export const formatCellValue = (value: any, column: Column): ReactNode => {
+	if (value == null) {
+		return null;
+	}
+	if (typeof value === 'string' && value.trim().length === 0) {
+		return null;
+	}
+
+	if (column.type === ColumnType.TEXT) {
+		return value;
+	} else if (column.type === ColumnType.NUMERIC) {
+		if (typeof value === 'number') {
+			return NumberFormatter.format(value);
+		} else {
+			const v = NumberFormatter.format(Number(value));
+			return v === 'NaN' ? null : v;
+		}
+	} else if (column.type === ColumnType.TIME) {
+		return value;
+	}
 };

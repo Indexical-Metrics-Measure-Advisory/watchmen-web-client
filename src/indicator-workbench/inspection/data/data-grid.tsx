@@ -6,10 +6,11 @@ import {useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
 import {buildBucketsAskingParams} from '../utils';
-import {buildColumnDefs, Columns} from './utils';
+import {buildColumnDefs, Columns, ColumnType, formatCellValue} from './utils';
 import {
 	DataGridBodyRow,
 	DataGridBodyRowCell,
+	DataGridBodyRowIndexCell,
 	DataGridContainer,
 	DataGridHeader,
 	DataGridHeaderCell,
@@ -17,6 +18,7 @@ import {
 } from './widgets';
 
 interface GridDataState {
+	initialized: boolean;
 	columns: Columns;
 	data: Array<RowOfAny>;
 }
@@ -25,7 +27,7 @@ export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorFo
 	const {inspection, indicator} = props;
 
 	const {on, off, fire} = useInspectionEventBus();
-	const [state, setState] = useState<GridDataState>({columns: [], data: []});
+	const [state, setState] = useState<GridDataState>({initialized: false, columns: [], data: []});
 	useEffect(() => {
 		const onDataLoaded = async (anInspection: Inspection, data: Array<RowOfAny>) => {
 			if (anInspection !== inspection) {
@@ -42,13 +44,17 @@ export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorFo
 
 			const buckets = await askBuckets(indicator);
 			const columns = buildColumnDefs({inspection, indicator, buckets});
-			setState({columns, data});
+			setState({initialized: true, columns, data});
 		};
 		on(InspectionEventTypes.DATA_LOADED, onDataLoaded);
 		return () => {
 			off(InspectionEventTypes.DATA_LOADED, onDataLoaded);
 		};
 	}, [on, off, fire, inspection, indicator]);
+
+	if (!state.initialized) {
+		return null;
+	}
 
 	return <DataGridContainer>
 		<DataGridHeader columns={state.columns}>
@@ -57,14 +63,16 @@ export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorFo
 				return <DataGridHeaderCell key={`${column.name}-${index}`}>{column.name}</DataGridHeaderCell>;
 			})}
 		</DataGridHeader>
-		{state.data.length !== 0
+		{state.data.length === 0
 			? <DataGridNoData>{Lang.INDICATOR_WORKBENCH.INSPECTION.NO_DATA}</DataGridNoData>
 			: state.data.map((row, rowIndex) => {
 				return <DataGridBodyRow columns={state.columns}>
-					<DataGridBodyRowCell>{rowIndex + 1}</DataGridBodyRowCell>
+					<DataGridBodyRowIndexCell>{rowIndex + 1}</DataGridBodyRowIndexCell>
 					{row.map((cell, columnIndex) => {
-						return <DataGridBodyRowCell key={`${cell}-${columnIndex}`}>
-							{cell}
+						const column = state.columns[columnIndex];
+						return <DataGridBodyRowCell isNumeric={column.type === ColumnType.NUMERIC}
+						                            key={`${cell}-${columnIndex}`}>
+							{formatCellValue(cell, column)}
 						</DataGridBodyRowCell>;
 					})}
 				</DataGridBodyRow>;

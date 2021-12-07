@@ -1,8 +1,11 @@
 import {AlertLabel} from '@/widgets/alert/widgets';
+import {ICON_LOADING} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {InspectionEventTypes} from '../inspection-event-bus-types';
 import {useVisibleOnII} from '../use-visible-on-ii';
@@ -12,19 +15,36 @@ import {ButtonsContainer} from './widgets';
 
 export const Buttons = () => {
 	const {fire: fireGlobal} = useEventBus();
-	const {fire} = useInspectionEventBus();
+	const {on, off, fire} = useInspectionEventBus();
 	const {visible, inspection} = useVisibleOnII();
+	const [loading, setLoading] = useState(false);
+	useEffect(() => {
+		const onDataLoaded = () => setLoading(false);
+		on(InspectionEventTypes.DATA_LOADED, onDataLoaded);
+		return () => {
+			off(InspectionEventTypes.DATA_LOADED, onDataLoaded);
+		};
+	}, [on, off]);
 
 	if (!visible) {
 		return null;
 	}
 
 	const onLoadDataClicked = async () => {
+		if (loading) {
+			return;
+		}
+
+		setLoading(true);
 		validateInspection({
 			inspection: inspection ?? (void 0),
 			success: inspection => {
 				fire(InspectionEventTypes.SAVE_INSPECTION, inspection, (inspection, saved) => {
-					saved && fire(InspectionEventTypes.REFRESH_DATA, inspection);
+					if (saved) {
+						fire(InspectionEventTypes.REFRESH_DATA, inspection);
+					} else {
+						setLoading(false);
+					}
 				});
 			},
 			fail: reason => {
@@ -46,6 +66,7 @@ export const Buttons = () => {
 						message = Lang.INDICATOR_WORKBENCH.INSPECTION.MEASURE_BUCKET_IS_REQUIRED;
 						break;
 				}
+				setLoading(false);
 				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{message}</AlertLabel>);
 			}
 		});
@@ -63,6 +84,7 @@ export const Buttons = () => {
 	return <ButtonsContainer>
 		<span/>
 		<InspectionButton ink={ButtonInk.PRIMARY} onClick={onLoadDataClicked}>
+			{loading ? <FontAwesomeIcon icon={ICON_LOADING} spin={true}/> : null}
 			{Lang.INDICATOR_WORKBENCH.INSPECTION.REFRESH_DATA}
 		</InspectionButton>
 		<InspectionButton ink={ButtonInk.DANGER} onClick={onPickAnotherClicked}>
