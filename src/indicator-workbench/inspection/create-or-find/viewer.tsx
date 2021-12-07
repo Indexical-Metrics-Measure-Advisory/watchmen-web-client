@@ -1,5 +1,4 @@
 import {Inspection} from '@/services/data/tuples/inspection-types';
-import {AlertLabel} from '@/widgets/alert/widgets';
 import {Button} from '@/widgets/basic/button';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
@@ -110,13 +109,8 @@ export const CreateOrFindViewer = () => {
 	}
 
 	const onNamed = () => {
-		fire(InspectionEventTypes.SAVE_INSPECTION, inspection, (inspection, saved) => {
+		fire(InspectionEventTypes.SAVE_INSPECTION, inspection, () => {
 			fireGlobal(EventTypes.HIDE_DIALOG);
-			if (saved) {
-				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
-					{Lang.ERROR.UNPREDICTED}
-				</AlertLabel>);
-			}
 		});
 	};
 	const onRenameClicked = () => {
