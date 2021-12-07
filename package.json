@@ -1,6 +1,6 @@
 {
   "name": "watchmen-web-client",
-  "version": "14.1",
+  "version": "15.1",
   "private": false,
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.15.4",
