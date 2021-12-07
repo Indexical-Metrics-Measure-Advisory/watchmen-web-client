@@ -118,6 +118,7 @@ export const BucketOn = () => {
 			inspection!.measureOn = InspectMeasureOn.OTHER;
 			delete inspection?.measureOnBucketId;
 		}
+		fire(InspectionEventTypes.BUCKET_ON_CHANGED, inspection!);
 		forceUpdate();
 	};
 	const onBucketChange = (option: DropdownOption) => {

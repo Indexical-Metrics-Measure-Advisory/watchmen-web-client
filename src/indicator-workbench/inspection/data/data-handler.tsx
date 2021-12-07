@@ -1,5 +1,6 @@
 import {fetchInspectionData} from '@/services/data/tuples/inspection';
 import {Inspection} from '@/services/data/tuples/inspection-types';
+import {useSavingQueue} from '@/widgets/saving-queue';
 import {Fragment, useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {InspectionEventTypes} from '../inspection-event-bus-types';
@@ -9,6 +10,7 @@ export const DataHandler = (props: { inspection: Inspection }) => {
 	const {inspection} = props;
 
 	const {on, off, fire} = useInspectionEventBus();
+	const saveQueue = useSavingQueue();
 	const [askData] = useState(() => {
 		return (inspection: Inspection) => {
 			validateInspection({
@@ -24,12 +26,11 @@ export const DataHandler = (props: { inspection: Inspection }) => {
 		};
 	});
 	useEffect(() => {
-		const onRefreshData = async (anInspection: Inspection) => {
+		const onRefreshData = (anInspection: Inspection) => {
 			if (anInspection !== inspection) {
 				return;
 			}
-
-			askData(inspection);
+			saveQueue.replace(() => askData(inspection), 2000);
 		};
 		const onInspectionChanged = (anInspection: Inspection) => {
 			if (anInspection !== inspection) {
@@ -42,14 +43,16 @@ export const DataHandler = (props: { inspection: Inspection }) => {
 		on(InspectionEventTypes.BUCKET_ON_CHANGED, onInspectionChanged);
 		on(InspectionEventTypes.TIME_MEASURE_CHANGED, onInspectionChanged);
 		on(InspectionEventTypes.TIME_RANGE_ON_CHANGED, onInspectionChanged);
+		on(InspectionEventTypes.TIME_RANGE_VALUES_CHANGED, onInspectionChanged);
 		return () => {
 			off(InspectionEventTypes.REFRESH_DATA, onRefreshData);
 			off(InspectionEventTypes.AGGREGATE_ARITHMETICS_CHANGED, onInspectionChanged);
 			off(InspectionEventTypes.BUCKET_ON_CHANGED, onInspectionChanged);
 			off(InspectionEventTypes.TIME_MEASURE_CHANGED, onInspectionChanged);
 			off(InspectionEventTypes.TIME_RANGE_ON_CHANGED, onInspectionChanged);
+			off(InspectionEventTypes.TIME_RANGE_VALUES_CHANGED, onInspectionChanged);
 		};
-	}, [on, off, fire, askData, inspection]);
+	}, [on, off, fire, saveQueue, askData, inspection]);
 	useEffect(() => {
 		askData(inspection);
 	}, [fire, askData, inspection]);

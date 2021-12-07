@@ -128,6 +128,13 @@ export const buildColumnDefs = (options: {
 		}
 	}
 
+	if (inspection.timeRangeFactorId != null) {
+		const timeFactor = findFactor(topic, inspection.timeRangeFactorId);
+		if (timeFactor != null) {
+			appendColumnDef(columns, timeFactor.label || timeFactor.name || 'Noname Factor', ColumnType.TIME);
+		}
+	}
+
 	(inspection.aggregateArithmetics
 		?? [(factorId == null ? IndicatorAggregateArithmetic.COUNT : IndicatorAggregateArithmetic.SUM)]
 	).forEach(arithmetics => {

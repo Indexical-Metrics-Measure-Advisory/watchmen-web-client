@@ -5,7 +5,7 @@ import {Inspection} from '@/services/data/tuples/inspection-types';
 import {TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {MeasureMethodLabels} from '@/widgets/basic/measure-method-label';
 import {DropdownOption} from '@/widgets/basic/types';
-import {getLangLabel, Lang} from '@/widgets/langs';
+import {Lang} from '@/widgets/langs';
 import {getValidRanges} from '../../utils/range';
 import {MeasureMethodSort} from '../../utils/sort';
 
@@ -19,31 +19,26 @@ const isOneRangeOnly = (inspection?: Inspection): boolean => {
 
 const buildNoTimeMeasureOption = (): DropdownOption => {
 	return {
-		value: {factorId: null, measure: null},
-		label: Lang.INDICATOR_WORKBENCH.INSPECTION.NO_TIME_MEASURE,
-		key: ''
+		value: '',
+		label: Lang.INDICATOR_WORKBENCH.INSPECTION.NO_TIME_MEASURE
 	};
 };
 
-const buildMeasureOptions = (factor: Factor, measures: Array<MeasureMethod>): Array<DropdownOption> => {
-	return measures.map(measure => {
-		return {
-			value: {factorId: factor.factorId, measure},
-			label: () => {
-				// @ts-ignore
-				const measureLabel = getLangLabel(MeasureMethodLabels[measure].props.labelKey);
-				const factorLabel = factor.label || factor.name || 'Noname Factor';
-				return {
-					node: <>{MeasureMethodLabels[measure]} - {factorLabel}</>,
-					label: [measureLabel, factorLabel].join(',')
-				};
-			},
-			key: `${factor.factorId}-${measure}`
-		};
-	});
+const buildFirstFactorAsTimeFactor = (inspection: Inspection, firstFactor?: Factor): Array<DropdownOption> => {
+	if (firstFactor == null) {
+		return [];
+	}
+
+	const available = !isOneRangeOnly(inspection)
+		|| tryToTransformToMeasures(firstFactor).filter(measure => isDescendantOf(measure, inspection.timeRangeMeasure)).length !== 0;
+
+	return available ? [{
+		value: firstFactor.factorId,
+		label: firstFactor.label || firstFactor.name || 'Noname Factor'
+	}] : [];
 };
 
-const buildMeasureOptionsOnOtherFactors = (topic: TopicForIndicator, firstFactor?: Factor): Array<DropdownOption> => {
+const buildOtherAsTimeFactors = (topic: TopicForIndicator, firstFactor?: Factor): Array<DropdownOption> => {
 	return (topic.factors || [])
 		.filter(factor => factor !== firstFactor)
 		.map(factor => ({factor, measures: tryToTransformToMeasures(factor)}))
@@ -59,9 +54,23 @@ const buildMeasureOptionsOnOtherFactors = (topic: TopicForIndicator, firstFactor
 				sensitivity: 'base',
 				caseFirst: 'upper'
 			});
-		}).map(({factor, measures}) => {
-			return buildMeasureOptions(factor, measures);
-		}).flat();
+		}).map(({factor}) => {
+			return {value: factor.factorId, label: factor.label || factor.name || 'Noname Factor'};
+		});
+};
+
+export const buildTimeFactorOptions = (inspection: Inspection, topic: TopicForIndicator, firstFactor?: Factor): Array<DropdownOption> => {
+	if (topic == null) {
+		return [];
+	}
+
+	return [
+		buildNoTimeMeasureOption(),
+		// measure on factor itself.
+		// when filter is only one value, top time measure is not applicable since only one group will be addressed
+		...buildFirstFactorAsTimeFactor(inspection, firstFactor),
+		...buildOtherAsTimeFactors(topic, firstFactor)
+	];
 };
 
 const isDescendantOf = (measure: MeasureMethod, ancestor?: MeasureMethod): boolean => {
@@ -84,15 +93,29 @@ export const buildTimeMeasureOptions = (inspection: Inspection, topic: TopicForI
 		return [];
 	}
 
-	return [
-		buildNoTimeMeasureOption(),
-		// measure on factor itself.
-		// when filter is only one value, top time measure is not applicable since only one group will be addressed
-		...(firstFactor == null
-			? []
-			: buildMeasureOptions(firstFactor, isOneRangeOnly(inspection)
-				? tryToTransformToMeasures(firstFactor).filter(measure => isDescendantOf(measure, inspection.timeRangeMeasure))
-				: tryToTransformToMeasures(firstFactor))),
-		...buildMeasureOptionsOnOtherFactors(topic, firstFactor)
-	];
+	const measureOnTimeFactorId = inspection.measureOnTimeFactorId;
+	if (measureOnTimeFactorId == null) {
+		return [];
+	}
+
+	// eslint-disable-next-line
+	const factor = (topic.factors || []).find(factor => factor.factorId == measureOnTimeFactorId);
+	if (factor == null) {
+		return [];
+	}
+	let measures;
+	if (factor === firstFactor) {
+		measures = isOneRangeOnly(inspection)
+			? tryToTransformToMeasures(firstFactor).filter(measure => isDescendantOf(measure, inspection.timeRangeMeasure))
+			: tryToTransformToMeasures(firstFactor);
+	} else {
+		measures = tryToTransformToMeasures(factor);
+	}
+
+	return measures.map(measure => {
+		return {
+			value: measure,
+			label: MeasureMethodLabels[measure]
+		};
+	});
 };

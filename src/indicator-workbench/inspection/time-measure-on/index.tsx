@@ -1,7 +1,6 @@
 import {FactorId} from '@/services/data/tuples/factor-types';
 import {MeasureMethod} from '@/services/data/tuples/indicator-types';
 import {Inspection} from '@/services/data/tuples/inspection-types';
-import {MeasureMethodLabels} from '@/widgets/basic/measure-method-label';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
@@ -10,8 +9,8 @@ import {useInspectionEventBus} from '../inspection-event-bus';
 import {InspectionEventTypes} from '../inspection-event-bus-types';
 import {useVisibleOnII} from '../use-visible-on-ii';
 import {InspectionLabel} from '../widgets';
-import {buildTimeMeasureOptions} from './utils';
-import {TimeMeasureOnContainer, TimeMeasureOnDropdown} from './widgets';
+import {buildTimeFactorOptions, buildTimeMeasureOptions} from './utils';
+import {TimeMeasureOnContainer, TimeMeasureOnDropdown, TimePeriodDropdown} from './widgets';
 
 export const TimeMeasureOn = () => {
 	const {on, off, fire} = useInspectionEventBus();
@@ -37,14 +36,30 @@ export const TimeMeasureOn = () => {
 		return null;
 	}
 
-	const onTimeMeasureChange = (option: DropdownOption) => {
-		const {factorId, measure} = option.value as { factorId: FactorId, measure: MeasureMethod };
+	const onTimeFactorChange = (option: DropdownOption) => {
+		const factorId = option.value === '' ? null : (option.value as FactorId);
 		// eslint-disable-next-line
-		if (inspection?.measureOnTime === measure && inspection.measureOnTimeFactorId == factorId) {
+		if (inspection?.measureOnTimeFactorId == factorId) {
+			return;
+		}
+
+		if (factorId == null) {
+			delete inspection?.measureOnTime;
+			delete inspection?.measureOnTimeFactorId;
+		} else {
+			inspection!.measureOnTimeFactorId = factorId;
+		}
+
+		fire(InspectionEventTypes.TIME_MEASURE_CHANGED, inspection!);
+		forceUpdate();
+	};
+	const onTimeMeasureChange = (option: DropdownOption) => {
+		const measure = option.value as MeasureMethod;
+		// eslint-disable-next-line
+		if (inspection?.measureOnTime === measure) {
 			return;
 		}
 		inspection!.measureOnTime = measure;
-		inspection!.measureOnTimeFactorId = factorId;
 		fire(InspectionEventTypes.TIME_MEASURE_CHANGED, inspection!);
 		forceUpdate();
 	};
@@ -54,24 +69,18 @@ export const TimeMeasureOn = () => {
 		? (void 0)
 		// eslint-disable-next-line
 		: (topic.factors || []).find(factor => factor.factorId == inspection.timeRangeFactorId);
+	const timeFactorOptions = buildTimeFactorOptions(inspection!, topic, factor);
 	const timeMeasureOptions = buildTimeMeasureOptions(inspection!, topic, factor);
-	const timeMeasureSelection = () => {
-		if (inspection?.measureOnTime == null) {
-			return Lang.INDICATOR_WORKBENCH.INSPECTION.NO_TIME_MEASURE;
-		} else {
-			// eslint-disable-next-line
-			const factor = (topic.factors || []).find(factor => factor.factorId == inspection.measureOnTimeFactorId);
-			return <>
-				{MeasureMethodLabels[inspection.measureOnTime]} - {factor?.label || factor?.name || 'Noname Factor'}
-			</>;
-		}
-	};
 
 	return <TimeMeasureOnContainer>
 		<InspectionLabel>{Lang.INDICATOR_WORKBENCH.INSPECTION.TIME_MEASURE_ON_LABEL}</InspectionLabel>
-		<TimeMeasureOnDropdown value={inspection?.measureOnTime ?? ''} options={timeMeasureOptions}
-		                       onChange={onTimeMeasureChange}
-		                       display={timeMeasureSelection}
-		                       please={Lang.PLAIN.DROPDOWN_PLACEHOLDER}/>
+		<TimePeriodDropdown value={inspection?.measureOnTimeFactorId ?? ''} options={timeFactorOptions}
+		                    onChange={onTimeFactorChange}
+		                    please={Lang.PLAIN.DROPDOWN_PLACEHOLDER}/>
+		{inspection?.measureOnTimeFactorId == null
+			? null
+			: <TimeMeasureOnDropdown value={inspection?.measureOnTime ?? ''} options={timeMeasureOptions}
+			                         onChange={onTimeMeasureChange}
+			                         please={Lang.PLAIN.DROPDOWN_PLACEHOLDER}/>}
 	</TimeMeasureOnContainer>;
 };

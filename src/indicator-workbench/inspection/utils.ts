@@ -22,6 +22,7 @@ export enum InspectionInvalidReason {
 	INDICATOR_IS_REQUIRED = 'indicator-is-required',
 	AGGREGATE_ARITHMETICS_IS_REQUIRED = 'aggregate-arithmetics-is-required',
 	MEASURE_IS_REQUIRED = 'measure-is-required',
+	MEASURE_ON_TIME_IS_REQUIRED = 'measure-on-time-is-required',
 	INDICATOR_BUCKET_IS_REQUIRED = 'indicator-bucket-is-required',
 	MEASURE_BUCKET_IS_REQUIRED = 'measure-bucket-is-required'
 }
@@ -44,6 +45,10 @@ export const validateInspection = (options: {
 	if (inspection.measureOnTimeFactorId == null
 		&& (inspection.measureOn == null || inspection.measureOn === InspectMeasureOn.NONE)) {
 		fail(InspectionInvalidReason.MEASURE_IS_REQUIRED);
+		return;
+	}
+	if (inspection.measureOnTimeFactorId != null && inspection.measureOnTime == null) {
+		fail(InspectionInvalidReason.MEASURE_ON_TIME_IS_REQUIRED);
 		return;
 	}
 	if (inspection.measureOn === InspectMeasureOn.VALUE && inspection.measureOnBucketId == null) {

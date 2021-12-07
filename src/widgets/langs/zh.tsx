@@ -428,6 +428,7 @@ export const Zh = {
 			PICK_ANOTHER: '查看其他洞察',
 			AGGREGATE_ARITHMETICS_IS_REQUIRED: '请至少选择一种指标值转换方式.',
 			MEASURE_IS_REQUIRED: '请选择时间分段或者指标分桶.',
+			MEASURE_ON_TIME_IS_REQUIRED: '请选择时间分段.',
 			INDICATOR_BUCKET_IS_REQUIRED: '请选择指标值分桶.',
 			MEASURE_BUCKET_IS_REQUIRED: '请选择分桶.',
 			RESET_INSPECTION: '确认要切换到另一个洞察吗?',

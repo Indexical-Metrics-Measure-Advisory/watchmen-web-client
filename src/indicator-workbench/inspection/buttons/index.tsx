@@ -73,6 +73,9 @@ export const Buttons = () => {
 					case InspectionInvalidReason.MEASURE_IS_REQUIRED:
 						message = Lang.INDICATOR_WORKBENCH.INSPECTION.MEASURE_IS_REQUIRED;
 						break;
+					case InspectionInvalidReason.MEASURE_ON_TIME_IS_REQUIRED:
+						message = Lang.INDICATOR_WORKBENCH.INSPECTION.MEASURE_ON_TIME_IS_REQUIRED;
+						break;
 					case InspectionInvalidReason.INDICATOR_BUCKET_IS_REQUIRED:
 						message = Lang.INDICATOR_WORKBENCH.INSPECTION.INDICATOR_BUCKET_IS_REQUIRED;
 						break;
