@@ -2,7 +2,8 @@ import {Inspection} from '@/services/data/tuples/inspection-types';
 import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
 import {RowOfAny} from '@/services/data/types';
 import {Lang} from '@/widgets/langs';
-import {useEffect, useState} from 'react';
+import {MouseEvent, useEffect, useState} from 'react';
+import {v4} from 'uuid';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
 import {buildBucketsAskingParams} from '../utils';
@@ -17,17 +18,23 @@ import {
 	DataGridNoData
 } from './widgets';
 
+interface CellSelection {
+	row: RowOfAny;
+	columnIndex: number;
+}
+
 interface GridDataState {
 	initialized: boolean;
 	columns: Columns;
 	data: Array<RowOfAny>;
+	selection: Array<CellSelection>;
 }
 
 export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorForInspection }) => {
 	const {inspection, indicator} = props;
 
 	const {on, off, fire} = useInspectionEventBus();
-	const [state, setState] = useState<GridDataState>({initialized: false, columns: [], data: []});
+	const [state, setState] = useState<GridDataState>({initialized: false, columns: [], data: [], selection: []});
 	useEffect(() => {
 		const onDataLoaded = async (anInspection: Inspection, data: Array<RowOfAny>) => {
 			if (anInspection !== inspection) {
@@ -44,7 +51,7 @@ export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorFo
 
 			const buckets = await askBuckets(indicator);
 			const columns = buildColumnDefs({inspection, indicator, buckets});
-			setState({initialized: true, columns, data});
+			setState({initialized: true, columns, data, selection: []});
 		};
 		on(InspectionEventTypes.DATA_LOADED, onDataLoaded);
 		return () => {
@@ -56,21 +63,98 @@ export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorFo
 		return null;
 	}
 
+	const isColumnSelected = (columnIndex: number) => {
+		return state.selection.filter(s => s.columnIndex === columnIndex).length === state.data.length;
+	};
+	const isRowSelected = (row: RowOfAny) => {
+		return state.selection.filter(s => s.row === row).length === state.columns.length;
+	};
+	const isCellSelected = (row: RowOfAny, columnIndex: number) => {
+		return state.selection.some(s => s.row === row && s.columnIndex === columnIndex);
+	};
+	const onColumnClicked = (columnIndex: number) => (event: MouseEvent<HTMLDivElement>) => {
+		if (!event.metaKey) {
+			setState(state => {
+				return {...state, selection: state.data.map(row => ({row, columnIndex}))};
+			});
+		} else if (isColumnSelected(columnIndex)) {
+			setState(state => {
+				return {...state, selection: state.selection.filter(s => s.columnIndex !== columnIndex)};
+			});
+		} else {
+			setState(state => {
+				return {
+					...state,
+					selection: [
+						...state.selection.filter(s => s.columnIndex !== columnIndex),
+						...state.data.map(row => ({row, columnIndex}))
+					]
+				};
+			});
+		}
+	};
+	const onRowClicked = (row: RowOfAny) => (event: MouseEvent<HTMLDivElement>) => {
+		if (!event.metaKey) {
+			setState(state => {
+				return {...state, selection: state.columns.map((_, columnIndex) => ({row, columnIndex}))};
+			});
+		} else if (isRowSelected(row)) {
+			setState(state => {
+				return {...state, selection: state.selection.filter(s => s.row !== row)};
+			});
+		} else {
+			setState(state => {
+				return {
+					...state,
+					selection: [
+						...state.selection.filter(s => s.row !== row),
+						...state.columns.map((_, columnIndex) => ({row, columnIndex}))
+					]
+				};
+			});
+		}
+	};
+	const onCellClicked = (row: RowOfAny, columnIndex: number) => (event: MouseEvent<HTMLDivElement>) => {
+		if (!event.metaKey) {
+			setState(state => {
+				return {...state, selection: [{row, columnIndex}]};
+			});
+		} else if (isCellSelected(row, columnIndex)) {
+			setState(state => {
+				return {
+					...state,
+					selection: state.selection.filter(s => s.row !== row || s.columnIndex !== columnIndex)
+				};
+			});
+		} else {
+			setState(state => {
+				return {...state, selection: [...state.selection, {row, columnIndex}]};
+			});
+		}
+	};
+
 	return <DataGridContainer>
 		<DataGridHeader columns={state.columns}>
 			<DataGridHeaderCell/>
 			{state.columns.map((column, index) => {
-				return <DataGridHeaderCell key={`${column.name}-${index}`}>{column.name}</DataGridHeaderCell>;
+				return <DataGridHeaderCell onClick={onColumnClicked(index)}
+				                           isSelected={isColumnSelected(index)}
+				                           key={`${column.name}-${index}`}>
+					{column.name}
+				</DataGridHeaderCell>;
 			})}
 		</DataGridHeader>
 		{state.data.length === 0
 			? <DataGridNoData>{Lang.INDICATOR_WORKBENCH.INSPECTION.NO_DATA}</DataGridNoData>
 			: state.data.map((row, rowIndex) => {
-				return <DataGridBodyRow columns={state.columns}>
-					<DataGridBodyRowIndexCell>{rowIndex + 1}</DataGridBodyRowIndexCell>
+				const rowSelected = isRowSelected(row);
+				return <DataGridBodyRow columns={state.columns} isSelected={isRowSelected(row)} key={v4()}>
+					<DataGridBodyRowIndexCell onClick={onRowClicked(row)}>{rowIndex + 1}</DataGridBodyRowIndexCell>
 					{row.map((cell, columnIndex) => {
 						const column = state.columns[columnIndex];
 						return <DataGridBodyRowCell isNumeric={column.type === ColumnType.NUMERIC}
+						                            isSelected={!rowSelected && isCellSelected(row, columnIndex)}
+						                            onClick={onCellClicked(row, columnIndex)}
 						                            key={`${cell}-${columnIndex}`}>
 							{formatCellValue(cell, column)}
 						</DataGridBodyRowCell>;
