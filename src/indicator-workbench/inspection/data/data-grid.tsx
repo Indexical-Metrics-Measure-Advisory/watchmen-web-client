@@ -57,7 +57,7 @@ export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorFo
 				return <DataGridHeaderCell key={`${column.name}-${index}`}>{column.name}</DataGridHeaderCell>;
 			})}
 		</DataGridHeader>
-		{state.data.length === 0
+		{state.data.length !== 0
 			? <DataGridNoData>{Lang.INDICATOR_WORKBENCH.INSPECTION.NO_DATA}</DataGridNoData>
 			: state.data.map((row, rowIndex) => {
 				return <DataGridBodyRow columns={state.columns}>

@@ -58,11 +58,6 @@ export const DataGridNoData = styled.div.attrs({'data-widget': 'inspection-grid-
 	font-variant               : petite-caps;
 	font-weight                : var(--font-demi-bold);
 	padding                    : 0 calc(var(--margin) / 4) 0 calc(40px + var(--margin) / 4);
-	border                     : var(--border);
-	border-width               : calc(var(--border-width) * 2);
-	border-top                 : 0;
-	border-bottom-left-radius  : calc(var(--border-radius) * 2);
-	border-bottom-right-radius : calc(var(--border-radius) * 2);
 	opacity                    : 0.7;
 `;
 export const DataGridBodyRow = styled.div.attrs<{ columns: Columns }>(({columns}) => {
