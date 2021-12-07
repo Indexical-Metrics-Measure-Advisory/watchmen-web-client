@@ -216,6 +216,7 @@ export const GridWrapper = (props: { data: DataSetState; languagesSupport: boole
 		const onColumnWidthCompress = () => {
 			columnDefs.fixed.forEach(c => c.width = MIN_COLUMN_WIDTH);
 			columnDefs.data.forEach(c => c.width = MIN_COLUMN_WIDTH);
+			fire(GridEventTypes.REPAINT_SELECTION);
 			forceUpdate();
 		};
 		on(GridEventTypes.COMPRESS_COLUMN_WIDTH, onColumnWidthCompress);
