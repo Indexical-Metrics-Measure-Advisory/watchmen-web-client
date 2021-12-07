@@ -4,6 +4,7 @@ import {Inspection, InspectionId} from '@/services/data/tuples/inspection-types'
 import {QueryBucket, QueryByBucketMethod} from '@/services/data/tuples/query-bucket-types';
 import {EnumForIndicator, QueryIndicator, TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {QueryInspection} from '@/services/data/tuples/query-inspection-types';
+import {RowOfAny} from '@/services/data/types';
 
 export interface IndicatorForInspection {
 	indicator: Indicator;
@@ -36,6 +37,7 @@ export enum InspectionEventTypes {
 	TIME_MEASURE_CHANGED = 'time-measure-changed',
 
 	REFRESH_DATA = 'refresh-data',
+	DATA_LOADED = 'data-loaded',
 
 	SAVE_INSPECTION = 'save-inspection',
 	INSPECTION_SAVED = 'inspection-saved',
@@ -96,6 +98,10 @@ export interface InspectionEventBus {
 	fire(type: InspectionEventTypes.REFRESH_DATA, inspection: Inspection): this;
 	on(type: InspectionEventTypes.REFRESH_DATA, listener: (inspection: Inspection) => void): this;
 	off(type: InspectionEventTypes.REFRESH_DATA, listener: (inspection: Inspection) => void): this;
+
+	fire(type: InspectionEventTypes.DATA_LOADED, inspection: Inspection, data: Array<RowOfAny>): this;
+	on(type: InspectionEventTypes.DATA_LOADED, listener: (inspection: Inspection, data: Array<RowOfAny>) => void): this;
+	off(type: InspectionEventTypes.DATA_LOADED, listener: (inspection: Inspection, data: Array<RowOfAny>) => void): this;
 
 	fire(type: InspectionEventTypes.SAVE_INSPECTION, inspection: Inspection, onSaved: (inspection: Inspection, saved: boolean) => void): this;
 	on(type: InspectionEventTypes.SAVE_INSPECTION, listener: (inspection: Inspection, onSaved: (inspection: Inspection, saved: boolean) => void) => void): this;

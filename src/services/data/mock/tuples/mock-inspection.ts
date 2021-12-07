@@ -2,6 +2,7 @@ import {IndicatorAggregateArithmetic} from '../../tuples/indicator-types';
 import {Inspection, InspectionId, InspectMeasureOn} from '../../tuples/inspection-types';
 import {QueryInspection} from '../../tuples/query-inspection-types';
 import {isFakedUuid} from '../../tuples/utils';
+import {RowOfAny} from '../../types';
 import {getCurrentTime} from '../../utils';
 import {BUCKET_AMOUNT_ID} from './mock-data-buckets';
 import {INDICATOR_ORDER_PREMIUM_ID} from './mock-indicator';
@@ -46,5 +47,15 @@ export const saveMockInspection = async (inspection: Inspection): Promise<void> 
 			inspection.inspectionId = `${newInspectionId++}`;
 		}
 		setTimeout(() => resolve(), 500);
+	});
+};
+
+export const fetchMockInspectionData = async (inspectionId: InspectionId): Promise<Array<RowOfAny>> => {
+	return new Promise<Array<RowOfAny>>((resolve) => {
+		setTimeout(() => resolve([
+			['Small Order', 571234, 8737.5],
+			['Typical Order', 34569423, 47669.22],
+			['VIP Order', 3465697, 547390]
+		]), 500);
 	});
 };

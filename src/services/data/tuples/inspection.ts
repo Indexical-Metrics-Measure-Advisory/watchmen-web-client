@@ -1,6 +1,12 @@
 import {findAccount} from '../account';
 import {Apis, get, post} from '../apis';
-import {fetchMockInspection, listMockInspections, saveMockInspection} from '../mock/tuples/mock-inspection';
+import {
+	fetchMockInspection,
+	fetchMockInspectionData,
+	listMockInspections,
+	saveMockInspection
+} from '../mock/tuples/mock-inspection';
+import {RowOfAny} from '../types';
 import {isMockService} from '../utils';
 import {Inspection, InspectionId} from './inspection-types';
 import {QueryInspection} from './query-inspection-types';
@@ -39,5 +45,13 @@ export const saveInspection = async (inspection: Inspection): Promise<void> => {
 		});
 		inspection.tenantId = data.tenantId;
 		inspection.lastModified = data.lastModified;
+	}
+};
+
+export const fetchInspectionData = async (inspectionId: InspectionId): Promise<Array<RowOfAny>> => {
+	if (isMockService()) {
+		return fetchMockInspectionData(inspectionId);
+	} else {
+		return await get({api: Apis.INSPECTION_DATA, search: {inspectionId}});
 	}
 };

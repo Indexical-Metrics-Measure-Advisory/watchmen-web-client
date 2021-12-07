@@ -1,4 +1,3 @@
-import {GridEventBusProvider} from '@/widgets/dataset-grid/grid-event-bus';
 import {useVisibleOnII} from '../use-visible-on-ii';
 import {DataGrid} from './data-grid';
 import {DataHandler} from './data-handler';
@@ -11,10 +10,10 @@ export const Data = () => {
 		return null;
 	}
 
-	return <GridEventBusProvider>
+	return <>
 		<DataContainer>
-			<DataGrid inspection={inspection!}/>
+			<DataGrid inspection={inspection!} indicator={indicator!}/>
 		</DataContainer>
-		<DataHandler inspection={inspection!} indicator={indicator!}/>
-	</GridEventBusProvider>;
+		<DataHandler inspection={inspection!}/>
+	</>;
 };
