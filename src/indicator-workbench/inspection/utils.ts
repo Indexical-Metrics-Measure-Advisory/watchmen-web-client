@@ -19,6 +19,7 @@ export const createInspection = (): Inspection => {
 };
 
 export enum InspectionInvalidReason {
+	NAME_IS_REQUIRED = 'name-is-required',
 	INDICATOR_IS_REQUIRED = 'indicator-is-required',
 	AGGREGATE_ARITHMETICS_IS_REQUIRED = 'aggregate-arithmetics-is-required',
 	MEASURE_IS_REQUIRED = 'measure-is-required',
@@ -57,6 +58,11 @@ export const validateInspection = (options: {
 	}
 	if (inspection.measureOn === InspectMeasureOn.OTHER && inspection.measureOnFactorId == null) {
 		fail(InspectionInvalidReason.MEASURE_BUCKET_IS_REQUIRED);
+		return;
+	}
+
+	if (inspection.name == null || inspection.name.trim().length === 0) {
+		fail(InspectionInvalidReason.NAME_IS_REQUIRED);
 		return;
 	}
 	success(inspection);

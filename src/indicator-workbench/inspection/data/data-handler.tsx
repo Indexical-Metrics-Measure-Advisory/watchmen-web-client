@@ -1,5 +1,6 @@
 import {fetchInspectionData} from '@/services/data/tuples/inspection';
 import {Inspection} from '@/services/data/tuples/inspection-types';
+import {noop} from '@/services/utils';
 import {useSavingQueue} from '@/widgets/saving-queue';
 import {Fragment, useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
@@ -36,7 +37,11 @@ export const DataHandler = (props: { inspection: Inspection }) => {
 			if (anInspection !== inspection) {
 				return;
 			}
-			fire(InspectionEventTypes.REFRESH_DATA, inspection);
+			validateInspection({
+				inspection,
+				success: () => fire(InspectionEventTypes.REFRESH_DATA, inspection),
+				fail: noop
+			});
 		};
 		on(InspectionEventTypes.REFRESH_DATA, onRefreshData);
 		on(InspectionEventTypes.AGGREGATE_ARITHMETICS_CHANGED, onInspectionChanged);

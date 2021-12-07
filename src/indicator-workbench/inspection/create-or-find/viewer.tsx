@@ -25,6 +25,9 @@ const ErrorLabel = styled(InspectionLabel)`
 	&:empty {
 		opacity : 0;
 	}
+	&:not(:empty) {
+		margin-bottom : calc(var(--margin) / 2);
+	}
 `;
 
 const NameDialog = (props: { inspection: Inspection; onNamed: () => void; }) => {

@@ -82,6 +82,9 @@ export const Buttons = () => {
 					case InspectionInvalidReason.MEASURE_BUCKET_IS_REQUIRED:
 						message = Lang.INDICATOR_WORKBENCH.INSPECTION.MEASURE_BUCKET_IS_REQUIRED;
 						break;
+					case InspectionInvalidReason.NAME_IS_REQUIRED:
+						message = Lang.INDICATOR_WORKBENCH.INSPECTION.NAME_IS_REQUIRED;
+						break;
 				}
 				setLoading(false);
 				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{message}</AlertLabel>);
