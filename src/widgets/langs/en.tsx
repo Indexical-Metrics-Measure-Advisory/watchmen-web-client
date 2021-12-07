@@ -430,7 +430,8 @@ export const En = {
 			MEASURE_IS_REQUIRED: 'Please pick time grouping or value bucket.',
 			INDICATOR_BUCKET_IS_REQUIRED: 'Please pick indicator value bucket.',
 			MEASURE_BUCKET_IS_REQUIRED: 'Please pick a bucket.',
-			RESET_INSPECTION: 'Are you sure to switch to another inspection?'
+			RESET_INSPECTION: 'Are you sure to switch to another inspection?',
+			NO_DATA: 'No data found.'
 		}
 	},
 	SETTINGS: {

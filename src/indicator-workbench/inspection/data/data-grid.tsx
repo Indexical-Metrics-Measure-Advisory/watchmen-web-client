@@ -1,12 +1,20 @@
 import {Inspection} from '@/services/data/tuples/inspection-types';
 import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
 import {RowOfAny} from '@/services/data/types';
+import {Lang} from '@/widgets/langs';
 import {useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
 import {buildBucketsAskingParams} from '../utils';
 import {buildColumnDefs, Columns} from './utils';
-import {DataGridBody, DataGridContainer, DataGridHeader} from './widgets';
+import {
+	DataGridBodyRow,
+	DataGridBodyRowCell,
+	DataGridContainer,
+	DataGridHeader,
+	DataGridHeaderCell,
+	DataGridNoData
+} from './widgets';
 
 interface GridDataState {
 	columns: Columns;
@@ -43,11 +51,23 @@ export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorFo
 	}, [on, off, fire, inspection, indicator]);
 
 	return <DataGridContainer>
-		<DataGridHeader>
-
+		<DataGridHeader columns={state.columns}>
+			<DataGridHeaderCell/>
+			{state.columns.map((column, index) => {
+				return <DataGridHeaderCell key={`${column.name}-${index}`}>{column.name}</DataGridHeaderCell>;
+			})}
 		</DataGridHeader>
-		<DataGridBody>
-
-		</DataGridBody>
+		{state.data.length === 0
+			? <DataGridNoData>{Lang.INDICATOR_WORKBENCH.INSPECTION.NO_DATA}</DataGridNoData>
+			: state.data.map((row, rowIndex) => {
+				return <DataGridBodyRow columns={state.columns}>
+					<DataGridBodyRowCell>{rowIndex + 1}</DataGridBodyRowCell>
+					{row.map((cell, columnIndex) => {
+						return <DataGridBodyRowCell key={`${cell}-${columnIndex}`}>
+							{cell}
+						</DataGridBodyRowCell>;
+					})}
+				</DataGridBodyRow>;
+			})}
 	</DataGridContainer>;
 };
