@@ -1,7 +1,9 @@
-import {Inspection, InspectionId} from '../../tuples/inspection-types';
+import {IndicatorAggregateArithmetic} from '../../tuples/indicator-types';
+import {Inspection, InspectionId, InspectMeasureOn} from '../../tuples/inspection-types';
 import {QueryInspection} from '../../tuples/query-inspection-types';
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
+import {BUCKET_AMOUNT_ID} from './mock-data-buckets';
 import {INDICATOR_ORDER_PREMIUM_ID} from './mock-indicator';
 
 export const INSPECTION_ORDER_PREMIUM_ID = '1';
@@ -10,6 +12,9 @@ const OrderPremiumInspection: Inspection = {
 	inspectionId: INSPECTION_ORDER_PREMIUM_ID,
 	name: 'Order Premium',
 	indicatorId: INDICATOR_ORDER_PREMIUM_ID,
+	aggregateArithmetics: [IndicatorAggregateArithmetic.SUM, IndicatorAggregateArithmetic.AVG],
+	measureOn: InspectMeasureOn.VALUE,
+	measureOnBucketId: BUCKET_AMOUNT_ID,
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };

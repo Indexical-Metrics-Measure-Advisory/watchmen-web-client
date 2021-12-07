@@ -5,16 +5,10 @@ import {
 	isMeasureBucket,
 	isNumericValueMeasureBucket
 } from '@/services/data/tuples/bucket-utils';
-import {Indicator, MeasureMethod} from '@/services/data/tuples/indicator-types';
-import {detectMeasures, isTimePeriodMeasure, tryToTransformToMeasures} from '@/services/data/tuples/indicator-utils';
+import {Indicator} from '@/services/data/tuples/indicator-types';
+import {isTimePeriodMeasure, tryToTransformToMeasures} from '@/services/data/tuples/indicator-utils';
 import {Inspection, InspectMeasureOn} from '@/services/data/tuples/inspection-types';
-import {
-	QueryBucket,
-	QueryByBucketMethod,
-	QueryByEnumMethod,
-	QueryByMeasureMethod
-} from '@/services/data/tuples/query-bucket-types';
-import {isQueryByEnum, isQueryByMeasure} from '@/services/data/tuples/query-bucket-utils';
+import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
 import {TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {DropdownOption} from '@/widgets/basic/types';
 import {Lang} from '@/widgets/langs';
@@ -60,36 +54,6 @@ export const buildMeasureOnOptions = (indicator: Indicator, topic: TopicForIndic
 			return {value: factor.factorId, label: factor.label || factor.name || 'Noname Factor'};
 		})
 	];
-};
-
-export const buildBucketsAskingParams = (indicator: Indicator, topic: TopicForIndicator) => {
-	return {
-		valueBucketIds: indicator.valueBuckets ?? [],
-		measureMethods: detectMeasures(topic, (measure: MeasureMethod) => !isTimePeriodMeasure(measure))
-			.map(({factorId, method}) => {
-				if (method === MeasureMethod.ENUM) {
-					return {
-						method: MeasureMethod.ENUM,
-						// eslint-disable-next-line
-						enumId: topic.factors.find(factor => factor.factorId == factorId)?.enumId
-					} as QueryByEnumMethod;
-				} else {
-					return {method} as QueryByMeasureMethod;
-				}
-			}).reduce((all, method) => {
-				if (isQueryByEnum(method)) {
-					// eslint-disable-next-line
-					if (all.every(existing => !isQueryByEnum(existing) || existing.enumId != method.enumId)) {
-						all.push(method);
-					}
-				} else if (isQueryByMeasure(method)) {
-					if (all.every(existing => existing.method !== method.method)) {
-						all.push(method);
-					}
-				}
-				return all;
-			}, [] as Array<QueryByBucketMethod>)
-	};
 };
 
 export const buildBucketOptions = (inspection: Inspection, topic: TopicForIndicator, buckets: Array<QueryBucket>): { available: boolean, options: Array<DropdownOption> } => {

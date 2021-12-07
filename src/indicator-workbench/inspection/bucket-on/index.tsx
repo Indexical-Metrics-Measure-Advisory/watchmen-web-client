@@ -1,4 +1,5 @@
 import {BucketId} from '@/services/data/tuples/bucket-types';
+import {FactorId} from '@/services/data/tuples/factor-types';
 import {Inspection, InspectMeasureOn} from '@/services/data/tuples/inspection-types';
 import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
 import {ICON_LOADING} from '@/widgets/basic/constants';
@@ -9,8 +10,9 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
+import {buildBucketsAskingParams} from '../utils';
 import {InspectionLabel, LoadingLabel} from '../widgets';
-import {buildBucketOptions, buildBucketsAskingParams, buildMeasureOnOptions} from './utils';
+import {buildBucketOptions, buildMeasureOnOptions} from './utils';
 import {BucketOnContainer, BucketOnDropdown} from './widgets';
 
 interface Buckets {
@@ -18,7 +20,7 @@ interface Buckets {
 	data: Array<QueryBucket>;
 }
 
-const safeGetMeasureOn = (inspection?: Inspection) => {
+const safeGetMeasureOn = (inspection?: Inspection): InspectMeasureOn | FactorId | undefined => {
 	if (inspection == null || inspection.measureOn == null) {
 		return InspectMeasureOn.NONE;
 	} else if (inspection.measureOn === InspectMeasureOn.OTHER) {
@@ -127,6 +129,15 @@ export const BucketOn = () => {
 	const measureOnOptions = buildMeasureOnOptions(indicator!.indicator, indicator!.topic, buckets.data);
 	const measureOn = safeGetMeasureOn(inspection ?? (void 0));
 	const bucketOptions = buildBucketOptions(inspection!, indicator!.topic, buckets.data);
+	const selectedBucketId = (() => {
+		if (measureOn === InspectMeasureOn.NONE) {
+			return (void 0);
+		} else if (measureOn === InspectMeasureOn.VALUE) {
+			return inspection?.measureOnBucketId;
+		} else {
+			return inspection?.measureOnBucketId == null ? '' : inspection.measureOnBucketId;
+		}
+	})();
 
 	return <BucketOnContainer>
 		<InspectionLabel>{Lang.INDICATOR_WORKBENCH.INSPECTION.SELECT_BUCKETING_ON_LABEL}</InspectionLabel>
@@ -134,7 +145,8 @@ export const BucketOn = () => {
 		                  please={Lang.PLAIN.DROPDOWN_PLACEHOLDER}/>
 		{measureOn === InspectMeasureOn.NONE
 			? null
-			: <BucketOnDropdown value={inspection?.measureOnBucketId} options={bucketOptions.options}
+			: <BucketOnDropdown value={selectedBucketId}
+			                    options={bucketOptions.options}
 			                    onChange={onBucketChange}
 			                    please={bucketOptions.available ? Lang.PLAIN.DROPDOWN_PLACEHOLDER : Lang.INDICATOR_WORKBENCH.INSPECTION.SELECT_MEASURE_ON_FIRST}/>
 		}

@@ -1,4 +1,3 @@
-import {InspectMeasureOn} from '@/services/data/tuples/inspection-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
@@ -7,6 +6,7 @@ import {Lang} from '@/widgets/langs';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {InspectionEventTypes} from '../inspection-event-bus-types';
 import {useVisibleOnII} from '../use-visible-on-ii';
+import {InspectionInvalidReason, validateInspection} from '../utils';
 import {InspectionButton} from '../widgets';
 import {ButtonsContainer} from './widgets';
 
@@ -19,34 +19,35 @@ export const Buttons = () => {
 		return null;
 	}
 
-	const onLoadDataClicked = () => {
-		if (inspection?.indicatorId == null) {
-			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
-				{Lang.INDICATOR_WORKBENCH.INSPECTION.INDICATOR_IS_REQUIRED}
-			</AlertLabel>);
-			return;
-		}
-		if (inspection.aggregateArithmetics == null || inspection.aggregateArithmetics.length === 0) {
-			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
-				{Lang.INDICATOR_WORKBENCH.INSPECTION.AGGREGATE_ARITHMETICS_IS_REQUIRED}
-			</AlertLabel>);
-			return;
-		}
-		if (inspection.measureOnTimeFactorId == null && inspection.measureOn === InspectMeasureOn.NONE) {
-			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
-				{Lang.INDICATOR_WORKBENCH.INSPECTION.MEASURE_IS_REQUIRED}
-			</AlertLabel>);
-			return;
-		}
-		if (inspection.measureOn === InspectMeasureOn.VALUE && inspection.measureOnBucketId == null) {
-			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
-				{Lang.INDICATOR_WORKBENCH.INSPECTION.INDICATOR_BUCKET_IS_REQUIRED}
-			</AlertLabel>);
-			return;
-		}
-
-		fire(InspectionEventTypes.SAVE_INSPECTION, inspection, (inspection, saved) => {
-			saved && fire(InspectionEventTypes.REFRESH_DATA, inspection);
+	const onLoadDataClicked = async () => {
+		validateInspection({
+			inspection: inspection ?? (void 0),
+			success: inspection => {
+				fire(InspectionEventTypes.SAVE_INSPECTION, inspection, (inspection, saved) => {
+					saved && fire(InspectionEventTypes.REFRESH_DATA, inspection);
+				});
+			},
+			fail: reason => {
+				let message;
+				switch (reason) {
+					case InspectionInvalidReason.INDICATOR_IS_REQUIRED:
+						message = Lang.INDICATOR_WORKBENCH.INSPECTION.INDICATOR_IS_REQUIRED;
+						break;
+					case InspectionInvalidReason.AGGREGATE_ARITHMETICS_IS_REQUIRED:
+						message = Lang.INDICATOR_WORKBENCH.INSPECTION.AGGREGATE_ARITHMETICS_IS_REQUIRED;
+						break;
+					case InspectionInvalidReason.MEASURE_IS_REQUIRED:
+						message = Lang.INDICATOR_WORKBENCH.INSPECTION.MEASURE_IS_REQUIRED;
+						break;
+					case InspectionInvalidReason.INDICATOR_BUCKET_IS_REQUIRED:
+						message = Lang.INDICATOR_WORKBENCH.INSPECTION.INDICATOR_BUCKET_IS_REQUIRED;
+						break;
+					case InspectionInvalidReason.MEASURE_BUCKET_IS_REQUIRED:
+						message = Lang.INDICATOR_WORKBENCH.INSPECTION.MEASURE_BUCKET_IS_REQUIRED;
+						break;
+				}
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{message}</AlertLabel>);
+			}
 		});
 	};
 	const onPickAnotherClicked = () => {

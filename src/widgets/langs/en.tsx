@@ -427,8 +427,9 @@ export const En = {
 			REFRESH_DATA: 'Refresh Data',
 			PICK_ANOTHER: 'Pick Another Indicator',
 			AGGREGATE_ARITHMETICS_IS_REQUIRED: 'Please pick at least one value transforming.',
-			MEASURE_IS_REQUIRED: 'Please pick time grouping or value bucketing.',
-			INDICATOR_BUCKET_IS_REQUIRED: 'Please pick indicator value bucketing.',
+			MEASURE_IS_REQUIRED: 'Please pick time grouping or value bucket.',
+			INDICATOR_BUCKET_IS_REQUIRED: 'Please pick indicator value bucket.',
+			MEASURE_BUCKET_IS_REQUIRED: 'Please pick a bucket.',
 			RESET_INSPECTION: 'Are you sure to switch to another inspection?'
 		}
 	},

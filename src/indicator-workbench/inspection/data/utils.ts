@@ -1,0 +1,105 @@
+import {BucketId} from '@/services/data/tuples/bucket-types';
+import {Factor, FactorId} from '@/services/data/tuples/factor-types';
+import {IndicatorAggregateArithmetic} from '@/services/data/tuples/indicator-types';
+import {Inspection, InspectMeasureOn} from '@/services/data/tuples/inspection-types';
+import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
+import {TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
+import {ColumnDefs, ColumnSortBy, DataColumnDef} from '@/widgets/dataset-grid/types';
+import {IndicatorForInspection} from '../inspection-event-bus-types';
+
+const findFactor = (topic: TopicForIndicator, factorId?: FactorId): Factor | undefined => {
+	if (factorId == null) {
+		return (void 0);
+	}
+
+	// eslint-disable-next-line
+	return (topic.factors || []).find(factor => factor.factorId == factorId);
+};
+
+const findBucket = (buckets: Array<QueryBucket>, bucketId?: BucketId): QueryBucket | undefined => {
+	if (bucketId == null) {
+		return (void 0);
+	}
+
+	// eslint-disable-next-line
+	return buckets.find(bucket => bucket.bucketId == bucketId);
+};
+
+const buildColumnDef = (name: string, index: number): DataColumnDef => {
+	return {
+		name,
+		sort: ColumnSortBy.NONE,
+		fixed: false,
+		width: 150,
+		index
+	};
+};
+
+const appendColumnDef = (columns: Array<DataColumnDef>, name: string) => {
+	columns.push(buildColumnDef(name, columns.length - 1));
+};
+
+const asArithmeticsName = (arithmetics: IndicatorAggregateArithmetic): string => {
+	switch (arithmetics) {
+		case IndicatorAggregateArithmetic.COUNT:
+			return 'Count of';
+		case IndicatorAggregateArithmetic.SUM:
+			return 'Sum of';
+		case IndicatorAggregateArithmetic.AVG:
+			return 'Avg of';
+		case IndicatorAggregateArithmetic.MAX:
+			return 'Max of';
+		case IndicatorAggregateArithmetic.MIN:
+			return 'Min of';
+		default:
+			return '';
+	}
+};
+
+export const buildColumnDefs = (options: {
+	inspection: Inspection;
+	indicator: IndicatorForInspection;
+	buckets: Array<QueryBucket>;
+}): ColumnDefs => {
+	const {inspection, indicator, buckets} = options;
+	const {indicator: {factorId}, topic} = indicator;
+
+	const factor = findFactor(topic, factorId);
+	const factorName = factor?.label || factor?.name || 'Value';
+
+	const columns: Array<DataColumnDef> = [];
+	if (inspection.measureOn == null || inspection.measureOn === InspectMeasureOn.NONE) {
+		// no measure
+	} else if (inspection.measureOn === InspectMeasureOn.VALUE) {
+		// measure on value
+	} else if (inspection.measureOn === InspectMeasureOn.OTHER) {
+		const measureOnFactorId = inspection.measureOnFactorId;
+		const measureOnFactor = findFactor(topic, measureOnFactorId);
+		if (measureOnFactor != null) {
+			const measureOnBucketId = inspection.measureOnBucketId;
+			if (measureOnBucketId == null) {
+				// use naturally category, let column name to be factor name
+				appendColumnDef(columns, measureOnFactor.label || measureOnFactor.name || 'Noname Factor');
+			} else {
+				const bucket = findBucket(buckets, measureOnBucketId);
+				appendColumnDef(columns, bucket?.name || 'Noname Bucket');
+			}
+		}
+	}
+
+	if (inspection.measureOnTime != null) {
+		const timeFactor = findFactor(topic, inspection.measureOnTimeFactorId);
+		if (timeFactor != null) {
+			appendColumnDef(columns, timeFactor.label || timeFactor.name || 'Noname Factor');
+		}
+	}
+
+	(inspection.aggregateArithmetics ?? [(factorId == null ? IndicatorAggregateArithmetic.COUNT : IndicatorAggregateArithmetic.SUM)]).forEach(arithmetics => {
+		appendColumnDef(columns, `${asArithmeticsName(arithmetics)} ${factorName}`);
+	});
+
+	return {
+		fixed: [],
+		data: columns
+	};
+};

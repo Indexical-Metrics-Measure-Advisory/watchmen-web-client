@@ -1,8 +1,10 @@
 import React from 'react';
 import {AggregateArithmetic} from './aggregate-arithmetic';
 import {BucketOn} from './bucket-on';
+import {BucketsState} from './buckets-state';
 import {Buttons} from './buttons';
 import {CreateOrFind} from './create-or-find';
+import {Data} from './data';
 import {InspectionState} from './inspection-state';
 import {PickIndicator} from './pick-indicator';
 import {TimeMeasureOn} from './time-measure-on';
@@ -12,6 +14,7 @@ import {IndicatorContainer, InspectionContainer} from './widgets';
 export const Inspection = () => {
 	return <InspectionContainer>
 		<InspectionState/>
+		<BucketsState/>
 		<IndicatorContainer>
 			<CreateOrFind/>
 			<PickIndicator/>
@@ -21,5 +24,6 @@ export const Inspection = () => {
 		<TimeMeasureOn/>
 		<BucketOn/>
 		<Buttons/>
+		<Data/>
 	</InspectionContainer>;
 };

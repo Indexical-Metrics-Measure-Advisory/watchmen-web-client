@@ -429,6 +429,7 @@ export const Jp = {
 			AGGREGATE_ARITHMETICS_IS_REQUIRED: '指標値の変換方法を少なくとも 1 つ選択してください。',
 			MEASURE_IS_REQUIRED: '時間グループまたはバケットを選択してください。',
 			INDICATOR_BUCKET_IS_REQUIRED: '指標値をバケットで選択してください。',
+			MEASURE_BUCKET_IS_REQUIRED: 'バケットを選択してください。',
 			RESET_INSPECTION: '別の洞察に切り替えることを確認します。'
 		}
 	},
