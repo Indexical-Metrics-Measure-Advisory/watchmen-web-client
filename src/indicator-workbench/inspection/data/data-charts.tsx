@@ -5,6 +5,7 @@ import {useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
 import {Columns} from '../types';
+import {Bar} from './charts/bar';
 import {DataChartsContainer} from './widgets';
 
 interface ChartsDataState {
@@ -68,5 +69,6 @@ export const DataCharts = (props: { inspection: Inspection; indicator: Indicator
 
 	// hide charts anyway if there is no data found.
 	return <DataChartsContainer visible={visible && state.data.length !== 0}>
+		<Bar inspection={inspection} data={state.data} columns={state.columns}/>
 	</DataChartsContainer>;
 };

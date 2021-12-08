@@ -12,11 +12,7 @@ export interface ChartParams {
 	columns: Columns;
 }
 
-export const useEChart = <Opt extends any>(options: ChartParams & {
-	build: (params: ChartParams) => Opt;
-}) => {
-	const {inspection, data, columns, build} = options;
-
+export const useEChart = <Opt extends any>(params: ChartParams, build: (params: ChartParams) => Opt) => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [chartInstance, setChartInstance] = useState<EChartsType | null>(null);
 	useChartResize(containerRef, chartInstance);
@@ -25,10 +21,10 @@ export const useEChart = <Opt extends any>(options: ChartParams & {
 			chartInstance.dispose();
 		}
 		const instance = echarts.init(containerRef.current!);
-		const options: any = build({inspection, data, columns});
+		const options: any = build(params);
 		instance.setOption(options, {notMerge: true});
 		setChartInstance(instance);
-	}, [inspection, data, columns]);
+	}, Object.values(params));
 
 	return {containerRef, chartInstance};
 };
