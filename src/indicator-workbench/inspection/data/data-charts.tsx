@@ -1,10 +1,10 @@
 import {Inspection} from '@/services/data/tuples/inspection-types';
 import {useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
-import {InspectionEventTypes} from '../inspection-event-bus-types';
+import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
 import {DataChartsContainer} from './widgets';
 
-export const DataCharts = (props: { inspection: Inspection }) => {
+export const DataCharts = (props: { inspection: Inspection; indicator: IndicatorForInspection }) => {
 	const {inspection} = props;
 
 	const {on, off} = useInspectionEventBus();
@@ -20,7 +20,7 @@ export const DataCharts = (props: { inspection: Inspection }) => {
 		return () => {
 			off(InspectionEventTypes.SET_CHARTS_VISIBILITY, onSetVisibility);
 		};
-	}, [on, off]);
+	}, [on, off, inspection]);
 
 	return <DataChartsContainer visible={visible}>
 	</DataChartsContainer>;

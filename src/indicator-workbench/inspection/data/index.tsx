@@ -1,4 +1,5 @@
 import {useVisibleOnII} from '../use-visible-on-ii';
+import {DataCharts} from './data-charts';
 import {DataGrid} from './data-grid';
 import {DataHandler} from './data-handler';
 import {DataToolbar} from './data-toolbar';
@@ -14,6 +15,7 @@ export const Data = () => {
 	return <>
 		<DataContainer>
 			<DataToolbar inspection={inspection!}/>
+			<DataCharts inspection={inspection!} indicator={indicator!}/>
 			<DataGrid inspection={inspection!} indicator={indicator!}/>
 		</DataContainer>
 		<DataHandler inspection={inspection!}/>

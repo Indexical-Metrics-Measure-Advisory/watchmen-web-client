@@ -23,9 +23,9 @@ export const DataToolbar = (props: { inspection: Inspection }) => {
 
 			setVisible(data.length !== 0);
 		};
-		on(InspectionEventTypes.DATA_LOADED, onDataLoaded);
+		on(InspectionEventTypes.DISPLAY_DATA_READY, onDataLoaded);
 		return () => {
-			off(InspectionEventTypes.DATA_LOADED, onDataLoaded);
+			off(InspectionEventTypes.DISPLAY_DATA_READY, onDataLoaded);
 		};
 	}, [on, off, inspection]);
 

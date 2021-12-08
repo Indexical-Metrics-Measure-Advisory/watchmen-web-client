@@ -27,6 +27,7 @@ interface GridDataState {
 	initialized: boolean;
 	columns: Columns;
 	data: Array<RowOfAny>;
+	buckets: Array<QueryBucket>;
 	selection: Array<CellSelection>;
 }
 
@@ -35,7 +36,13 @@ export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorFo
 
 	const {on, off, fire} = useInspectionEventBus();
 	const [visible, setVisible] = useState(true);
-	const [state, setState] = useState<GridDataState>({initialized: false, columns: [], data: [], selection: []});
+	const [state, setState] = useState<GridDataState>({
+		initialized: false,
+		columns: [],
+		data: [],
+		buckets: [],
+		selection: []
+	});
 	useEffect(() => {
 		const onDataLoaded = async (anInspection: Inspection, data: Array<RowOfAny>) => {
 			if (anInspection !== inspection) {
@@ -52,7 +59,7 @@ export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorFo
 
 			const buckets = await askBuckets(indicator);
 			const columns = buildColumnDefs({inspection, indicator, buckets});
-			setState({initialized: true, columns, data, selection: []});
+			setState({initialized: true, columns, data, buckets, selection: []});
 		};
 		on(InspectionEventTypes.DATA_LOADED, onDataLoaded);
 		return () => {
@@ -70,7 +77,12 @@ export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorFo
 		return () => {
 			off(InspectionEventTypes.SET_DATA_GRID_VISIBILITY, onSetVisibility);
 		};
-	}, [on, off, inspection, visible]);
+	}, [on, off, inspection]);
+	useEffect(() => {
+		if (state.initialized) {
+			fire(InspectionEventTypes.DISPLAY_DATA_READY, inspection, state.data, state.buckets, state.columns);
+		}
+	}, [fire, state.initialized, state.data, state.buckets, state.columns, inspection]);
 
 	if (!state.initialized) {
 		return null;

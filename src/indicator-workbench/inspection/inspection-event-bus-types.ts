@@ -5,6 +5,7 @@ import {QueryBucket, QueryByBucketMethod} from '@/services/data/tuples/query-buc
 import {EnumForIndicator, QueryIndicator, TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {QueryInspection} from '@/services/data/tuples/query-inspection-types';
 import {RowOfAny} from '@/services/data/types';
+import {Columns} from './data/utils';
 
 export interface IndicatorForInspection {
 	indicator: Indicator;
@@ -38,6 +39,7 @@ export enum InspectionEventTypes {
 
 	REFRESH_DATA = 'refresh-data',
 	DATA_LOADED = 'data-loaded',
+	DISPLAY_DATA_READY = 'display-data-ready',
 
 	SAVE_INSPECTION = 'save-inspection',
 	INSPECTION_SAVED = 'inspection-saved',
@@ -105,6 +107,10 @@ export interface InspectionEventBus {
 	fire(type: InspectionEventTypes.DATA_LOADED, inspection: Inspection, data: Array<RowOfAny>): this;
 	on(type: InspectionEventTypes.DATA_LOADED, listener: (inspection: Inspection, data: Array<RowOfAny>) => void): this;
 	off(type: InspectionEventTypes.DATA_LOADED, listener: (inspection: Inspection, data: Array<RowOfAny>) => void): this;
+
+	fire(type: InspectionEventTypes.DISPLAY_DATA_READY, inspection: Inspection, data: Array<RowOfAny>, buckets: Array<QueryBucket>, columns: Columns): this;
+	on(type: InspectionEventTypes.DISPLAY_DATA_READY, listener: (inspection: Inspection, data: Array<RowOfAny>, buckets: Array<QueryBucket>, columns: Columns) => void): this;
+	off(type: InspectionEventTypes.DISPLAY_DATA_READY, listener: (inspection: Inspection, data: Array<RowOfAny>, buckets: Array<QueryBucket>, columns: Columns) => void): this;
 
 	fire(type: InspectionEventTypes.SAVE_INSPECTION, inspection: Inspection, onSaved: (inspection: Inspection, saved: boolean) => void): this;
 	on(type: InspectionEventTypes.SAVE_INSPECTION, listener: (inspection: Inspection, onSaved: (inspection: Inspection, saved: boolean) => void) => void): this;
