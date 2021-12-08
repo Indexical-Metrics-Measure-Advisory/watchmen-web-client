@@ -6,8 +6,9 @@ import {MouseEvent, useEffect, useState} from 'react';
 import {v4} from 'uuid';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
+import {Columns, ColumnType} from '../types';
 import {buildBucketsAskingParams} from '../utils';
-import {buildColumnDefs, Columns, ColumnType, formatCellValue} from './utils';
+import {buildColumnDefs, formatCellValue} from './utils';
 import {
 	DataGridBodyRow,
 	DataGridBodyRowCell,
@@ -158,7 +159,8 @@ export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorFo
 		}
 	};
 
-	return <DataGridContainer visible={visible}>
+	// show data grid anyway if there is no data found.
+	return <DataGridContainer visible={visible || state.data.length === 0}>
 		<DataGridHeader columns={state.columns}>
 			<DataGridHeaderCell/>
 			{state.columns.map((column, index) => {

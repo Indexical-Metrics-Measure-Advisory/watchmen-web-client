@@ -1,25 +1,12 @@
 import {BucketId} from '@/services/data/tuples/bucket-types';
 import {Factor, FactorId} from '@/services/data/tuples/factor-types';
-import {IndicatorAggregateArithmetic} from '@/services/data/tuples/indicator-types';
+import {IndicatorAggregateArithmetic, IndicatorAggregateArithmeticSort} from '@/services/data/tuples/indicator-types';
 import {Inspection, InspectMeasureOn} from '@/services/data/tuples/inspection-types';
 import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
 import {TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {ReactNode} from 'react';
 import {IndicatorForInspection} from '../inspection-event-bus-types';
-
-export enum ColumnType {
-	TEXT = 'text',
-	NUMERIC = 'numeric',
-	TIME = 'time'
-}
-
-export interface Column {
-	name: string;
-	type: ColumnType;
-	width?: number;
-}
-
-export type Columns = Array<Column>;
+import {Column, Columns, ColumnType} from '../types';
 
 const findFactor = (topic: TopicForIndicator, factorId?: FactorId): Factor | undefined => {
 	if (factorId == null) {
@@ -128,16 +115,18 @@ export const buildColumnDefs = (options: {
 		}
 	}
 
-	// if (inspection.timeRangeFactorId != null) {
-	// 	const timeFactor = findFactor(topic, inspection.timeRangeFactorId);
-	// 	if (timeFactor != null) {
-	// 		appendColumnDef(columns, timeFactor.label || timeFactor.name || 'Noname Factor', ColumnType.TIME);
-	// 	}
-	// }
+	if (inspection.timeRangeFactorId != null) {
+		const timeFactor = findFactor(topic, inspection.timeRangeFactorId);
+		if (timeFactor != null) {
+			appendColumnDef(columns, timeFactor.label || timeFactor.name || 'Noname Factor', ColumnType.TIME);
+		}
+	}
 
 	(inspection.aggregateArithmetics
 		?? [(factorId == null ? IndicatorAggregateArithmetic.COUNT : IndicatorAggregateArithmetic.SUM)]
-	).forEach(arithmetics => {
+	).sort((a1, a2) => {
+		return IndicatorAggregateArithmeticSort[a1] - IndicatorAggregateArithmeticSort[a2];
+	}).forEach(arithmetics => {
 		appendColumnDef(columns, `${asArithmeticsName(arithmetics)} ${factorName}`, ColumnType.NUMERIC);
 	});
 

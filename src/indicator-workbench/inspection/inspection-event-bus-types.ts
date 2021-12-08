@@ -5,7 +5,7 @@ import {QueryBucket, QueryByBucketMethod} from '@/services/data/tuples/query-buc
 import {EnumForIndicator, QueryIndicator, TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {QueryInspection} from '@/services/data/tuples/query-inspection-types';
 import {RowOfAny} from '@/services/data/types';
-import {Columns} from './data/utils';
+import {Columns} from './types';
 
 export interface IndicatorForInspection {
 	indicator: Indicator;

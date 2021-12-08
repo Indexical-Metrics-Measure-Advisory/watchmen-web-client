@@ -60,6 +60,14 @@ export enum IndicatorAggregateArithmetic {
 	MIN = 'min'
 }
 
+export const IndicatorAggregateArithmeticSort: Record<IndicatorAggregateArithmetic, number> = {
+	[IndicatorAggregateArithmetic.COUNT]: 0,
+	[IndicatorAggregateArithmetic.SUM]: 1,
+	[IndicatorAggregateArithmetic.AVG]: 2,
+	[IndicatorAggregateArithmetic.MAX]: 3,
+	[IndicatorAggregateArithmetic.MIN]: 4
+};
+
 export type IndicatorId = string;
 
 export interface IndicatorMeasure {

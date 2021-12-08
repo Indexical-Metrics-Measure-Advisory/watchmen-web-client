@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Columns} from './utils';
+import {Columns} from '../types';
 
 export const DataContainer = styled.div.attrs({'data-widget': 'inspection-data'})`
 	display               : grid;
@@ -39,14 +39,15 @@ export const DataGridHeader = styled.div.attrs<{ columns: Columns }>(({columns})
 	return {
 		'data-widget': 'inspection-grid-header',
 		style: {
-			gridTemplateColumns: `40px ${columns.map(column => column.width ?? 200).map(x => `${x}px`).join(' ')} 1fr`
+			gridTemplateColumns: `40px ${columns.map(column => column.width ?? 200).map(x => `${x}px`).join(' ')} 1fr`,
+			width: 40 + columns.reduce((width, column) => width + (column.width ?? 200), 0)
 		}
 	};
 })<{ columns: Columns }>`
 	display             : grid;
 	position            : sticky;
 	top                 : 0;
-	width               : 100%;
+	min-width           : 100%;
 	border-bottom       : var(--border);
 	border-bottom-width : calc(var(--border-width) * 2);
 	background-color    : var(--bg-color);
@@ -94,13 +95,14 @@ export const DataGridBodyRow = styled.div.attrs<{ columns: Columns; isSelected: 
 	return {
 		'data-widget': 'inspection-grid-body-row',
 		style: {
-			gridTemplateColumns: `40px ${columns.map(column => column.width ?? 200).map(x => `${x}px`).join(' ')} 1fr`
+			gridTemplateColumns: `40px ${columns.map(column => column.width ?? 200).map(x => `${x}px`).join(' ')} 1fr`,
+			width: 40 + columns.reduce((width, column) => width + (column.width ?? 200), 0)
 		}
 	};
 })<{ columns: Columns; isSelected: boolean }>`
 	display       : grid;
 	position      : relative;
-	width         : 100%;
+	min-width     : 100%;
 	border-bottom : var(--border);
 	&:last-child {
 		border-bottom-width : 0;
@@ -165,16 +167,13 @@ export const DataGridBodyRowCell = styled.div.attrs<{ isNumeric?: boolean; isSel
 `;
 export const DataChartsContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
 	return {
-		'data-widget': 'inspection-charts',
-		'data-v-scroll': '',
-		'data-h-scroll': '',
-		style: {
-			overflow: visible ? (void 0) : 'hidden'
-		}
+		'data-widget': 'inspection-charts'
 	};
 })<{ visible: boolean }>`
-	display        : flex;
-	position       : relative;
-	flex-direction : column;
-	overflow       : auto;
+	display         : grid;
+	position        : relative;
+	grid-column-gap : var(--margin);
+	&:empty {
+		display : none;
+	}
 `;

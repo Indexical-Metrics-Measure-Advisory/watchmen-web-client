@@ -1,14 +1,30 @@
 import {Inspection} from '@/services/data/tuples/inspection-types';
+import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
+import {RowOfAny} from '@/services/data/types';
 import {useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
+import {Columns} from '../types';
 import {DataChartsContainer} from './widgets';
+
+interface ChartsDataState {
+	initialized: boolean;
+	columns: Columns;
+	data: Array<RowOfAny>;
+	buckets: Array<QueryBucket>;
+}
 
 export const DataCharts = (props: { inspection: Inspection; indicator: IndicatorForInspection }) => {
 	const {inspection} = props;
 
 	const {on, off} = useInspectionEventBus();
 	const [visible, setVisible] = useState(false);
+	const [state, setState] = useState<ChartsDataState>({
+		initialized: false,
+		columns: [],
+		data: [],
+		buckets: []
+	});
 	useEffect(() => {
 		const onSetVisibility = (anInspection: Inspection, visible: boolean) => {
 			if (anInspection !== inspection) {
@@ -21,7 +37,24 @@ export const DataCharts = (props: { inspection: Inspection; indicator: Indicator
 			off(InspectionEventTypes.SET_CHARTS_VISIBILITY, onSetVisibility);
 		};
 	}, [on, off, inspection]);
+	useEffect(() => {
+		const onDisplayDataReady = (anInspection: Inspection, data: Array<RowOfAny>, buckets: Array<QueryBucket>, columns: Columns) => {
+			if (anInspection !== inspection) {
+				return;
+			}
+			setState({initialized: true, data, buckets, columns});
+		};
+		on(InspectionEventTypes.DISPLAY_DATA_READY, onDisplayDataReady);
+		return () => {
+			off(InspectionEventTypes.DISPLAY_DATA_READY, onDisplayDataReady);
+		};
+	});
 
-	return <DataChartsContainer visible={visible}>
+	if (!state.initialized) {
+		return null;
+	}
+
+	// hide charts anyway if there is no data found.
+	return <DataChartsContainer visible={visible && state.data.length !== 0}>
 	</DataChartsContainer>;
 };

@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import dayjs, {Dayjs} from 'dayjs';
 
 export const isMockService = (): boolean => process.env.REACT_APP_SERVICE_MOCK_FLAG === 'true';
 export const getServiceHost = (): string => {
@@ -10,6 +10,7 @@ export const getServiceHost = (): string => {
 };
 
 export const isNotNull = <T>(x: T | null): x is T => !!x;
+export const formatTime = (time: Dayjs) => time.format('YYYY-MM-DD HH:mm:ss');
 export const getCurrentTime = () => dayjs().format('YYYY-MM-DD HH:mm:ss');
 
 export const doFetch = async (input: RequestInfo, init?: RequestInit): Promise<Response> => {
