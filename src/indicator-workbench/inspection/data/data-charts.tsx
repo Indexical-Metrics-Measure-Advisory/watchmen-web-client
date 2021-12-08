@@ -54,6 +54,18 @@ export const DataCharts = (props: { inspection: Inspection; indicator: Indicator
 		return null;
 	}
 
+	// use first aggregate arithmetics to render the thumbnails
+	// supporting first 3 types: bar/line/pie
+	// 1. bar/line:
+	// 1.1. bucket: bucket as x axis, value as y axis
+	// 1.2. time group: time as x axis, value as y axis
+	// 1.3. bucket + time group: time as x axis, bucket + value as y axis
+	// 1.4. multiple time filter: apply increment ratio
+	// 2. pie:
+	// 2.1 bucket: simple pie
+	// 2.2 time group: simple pie
+	// 2.3 bucket + time group: sunburst, first is time group, secondary is bucket, and value
+
 	// hide charts anyway if there is no data found.
 	return <DataChartsContainer visible={visible && state.data.length !== 0}>
 	</DataChartsContainer>;
