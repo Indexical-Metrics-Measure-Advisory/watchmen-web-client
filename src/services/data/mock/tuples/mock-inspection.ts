@@ -50,7 +50,7 @@ export const saveMockInspection = async (inspection: Inspection): Promise<void> 
 	});
 };
 
-export const fetchMockInspectionData = async (inspectionId: InspectionId): Promise<Array<RowOfAny>> => {
+export const fetchMockInspectionData = async (inspection: Inspection): Promise<Array<RowOfAny>> => {
 	return new Promise<Array<RowOfAny>>((resolve) => {
 		setTimeout(() => resolve([
 			['Small Order', 571234, 8737.5],

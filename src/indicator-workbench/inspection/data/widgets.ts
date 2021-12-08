@@ -2,14 +2,29 @@ import styled from 'styled-components';
 import {Columns} from './utils';
 
 export const DataContainer = styled.div.attrs({'data-widget': 'inspection-data'})`
-	display  : block;
-	position : relative;
+	display               : grid;
+	position              : relative;
+	grid-template-columns : 1fr;
+	grid-row-gap          : calc(var(--margin) / 2);
 `;
-export const DataGridContainer = styled.div.attrs({
-	'data-widget': 'inspection-grid',
-	'data-v-scroll': '',
-	'data-h-scroll': ''
-})`
+export const DataToolbarContainer = styled.div.attrs({'data-widget': 'inspection-data-toolbar'})`
+	display               : grid;
+	position              : relative;
+	grid-template-columns : 200px auto auto auto 1fr;
+	grid-column-gap       : calc(var(--margin) / 2);
+`;
+export const DataGridContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+	return {
+		'data-widget': 'inspection-grid',
+		'data-v-scroll': '',
+		'data-h-scroll': '',
+		style: {
+			maxHeight: visible ? (void 0) : 0,
+			borderColor: visible ? (void 0) : 'transparent',
+			overflow: visible ? (void 0) : 'hidden'
+		}
+	};
+})<{ visible: boolean }>`
 	display        : flex;
 	position       : relative;
 	flex-direction : column;
@@ -18,6 +33,7 @@ export const DataGridContainer = styled.div.attrs({
 	border         : var(--border);
 	border-width   : calc(var(--border-width) * 2);
 	border-radius  : calc(var(--border-radius) * 2);
+	transition     : max-height 300ms ease-in-out, border-color 300ms ease-in-out;
 `;
 export const DataGridHeader = styled.div.attrs<{ columns: Columns }>(({columns}) => {
 	return {
@@ -42,7 +58,7 @@ export const DataGridHeaderCell = styled.div.attrs<{ isSelected?: boolean }>(
 	display       : flex;
 	position      : relative;
 	align-items   : center;
-	height        : var(--header-height);
+	min-height    : var(--header-height);
 	font-variant  : petite-caps;
 	font-weight   : var(--font-demi-bold);
 	padding       : 0 calc(var(--margin) / 4);
@@ -68,7 +84,7 @@ export const DataGridNoData = styled.div.attrs({'data-widget': 'inspection-grid-
 	display      : flex;
 	position     : relative;
 	align-items  : center;
-	height       : var(--header-height);
+	min-height   : var(--header-height);
 	font-variant : petite-caps;
 	font-weight  : var(--font-demi-bold);
 	padding      : 0 calc(var(--margin) / 4) 0 calc(40px + var(--margin) / 4);
@@ -107,7 +123,7 @@ export const DataGridBodyRowIndexCell = styled.div.attrs({'data-widget': 'inspec
 	position     : relative;
 	align-items  : center;
 	justify-self : stretch;
-	height       : var(--grid-row-height);
+	min-height   : var(--grid-row-height);
 	padding      : 0 calc(var(--margin) / 4);
 	border-right : var(--border);
 	font-size    : 0.8em;
@@ -127,7 +143,7 @@ export const DataGridBodyRowCell = styled.div.attrs<{ isNumeric?: boolean; isSel
 	display       : flex;
 	position      : relative;
 	align-items   : center;
-	height        : var(--grid-row-height);
+	min-height    : var(--grid-row-height);
 	padding       : 0 calc(var(--margin) / 4);
 	border-right  : var(--border);
 	overflow      : hidden;
@@ -147,4 +163,18 @@ export const DataGridBodyRowCell = styled.div.attrs<{ isNumeric?: boolean; isSel
 		z-index          : -1;
 	}
 `;
-
+export const DataChartsContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
+	return {
+		'data-widget': 'inspection-charts',
+		'data-v-scroll': '',
+		'data-h-scroll': '',
+		style: {
+			overflow: visible ? (void 0) : 'hidden'
+		}
+	};
+})<{ visible: boolean }>`
+	display        : flex;
+	position       : relative;
+	flex-direction : column;
+	overflow       : auto;
+`;

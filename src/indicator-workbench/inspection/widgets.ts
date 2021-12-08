@@ -64,6 +64,7 @@ export const InspectionDropdown = styled(Dropdown).attrs({'data-widget': 'inspec
 		}
 	}
 `;
+
 export const InspectionButton = styled(Button).attrs({'data-widget': 'inspection-button'})`
 	height        : var(--tall-height);
 	border-radius : calc(var(--tall-height) / 2);
@@ -73,6 +74,35 @@ export const InspectionButton = styled(Button).attrs({'data-widget': 'inspection
 		margin-top   : 2px;
 		margin-right : calc(var(--margin) / 4);
 		font-size    : 0.8em;
+	}
+`;
+
+export const InspectionButtons = styled.div.attrs({'data-widget': 'inspection-buttons'})`
+	display     : flex;
+	position    : relative;
+	align-items : center;
+	> button[data-widget=inspection-button] {
+		&:hover {
+			z-index : 1;
+		}
+		&:not(:first-child) {
+			border-top-left-radius    : 0;
+			border-bottom-left-radius : 0;
+			&:before {
+				content          : '';
+				display          : block;
+				position         : absolute;
+				top              : 30%;
+				left             : 0;
+				width            : 1px;
+				height           : 40%;
+				background-color : var(--invert-color);
+			}
+		}
+		&:not(:last-child) {
+			border-top-right-radius    : 0;
+			border-bottom-right-radius : 0;
+		}
 	}
 `;
 

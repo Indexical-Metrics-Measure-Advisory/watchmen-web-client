@@ -48,10 +48,10 @@ export const saveInspection = async (inspection: Inspection): Promise<void> => {
 	}
 };
 
-export const fetchInspectionData = async (inspectionId: InspectionId): Promise<Array<RowOfAny>> => {
+export const fetchInspectionData = async (inspection: Inspection): Promise<Array<RowOfAny>> => {
 	if (isMockService()) {
-		return fetchMockInspectionData(inspectionId);
+		return fetchMockInspectionData(inspection);
 	} else {
-		return await get({api: Apis.INSPECTION_DATA, search: {inspectionId}});
+		return await get({api: Apis.INSPECTION_DATA, search: {inspectionId: inspection.inspectionId}});
 	}
 };

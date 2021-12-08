@@ -34,6 +34,7 @@ export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorFo
 	const {inspection, indicator} = props;
 
 	const {on, off, fire} = useInspectionEventBus();
+	const [visible, setVisible] = useState(true);
 	const [state, setState] = useState<GridDataState>({initialized: false, columns: [], data: [], selection: []});
 	useEffect(() => {
 		const onDataLoaded = async (anInspection: Inspection, data: Array<RowOfAny>) => {
@@ -58,6 +59,18 @@ export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorFo
 			off(InspectionEventTypes.DATA_LOADED, onDataLoaded);
 		};
 	}, [on, off, fire, inspection, indicator]);
+	useEffect(() => {
+		const onSetVisibility = (anInspection: Inspection, visible: boolean) => {
+			if (anInspection !== inspection) {
+				return;
+			}
+			setVisible(visible);
+		};
+		on(InspectionEventTypes.SET_DATA_GRID_VISIBILITY, onSetVisibility);
+		return () => {
+			off(InspectionEventTypes.SET_DATA_GRID_VISIBILITY, onSetVisibility);
+		};
+	}, [on, off, inspection, visible]);
 
 	if (!state.initialized) {
 		return null;
@@ -133,7 +146,7 @@ export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorFo
 		}
 	};
 
-	return <DataGridContainer>
+	return <DataGridContainer visible={visible}>
 		<DataGridHeader columns={state.columns}>
 			<DataGridHeaderCell/>
 			{state.columns.map((column, index) => {

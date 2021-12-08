@@ -223,7 +223,7 @@ export const GridWrapper = (props: { data: DataSetState; languagesSupport: boole
 		return () => {
 			off(GridEventTypes.COMPRESS_COLUMN_WIDTH, onColumnWidthCompress);
 		};
-	}, [on, off, columnDefs.fixed, columnDefs.data, forceUpdate]);
+	}, [on, off, fire, columnDefs.fixed, columnDefs.data, forceUpdate]);
 
 	const manageCursor = (options: { table: HTMLDivElement | null, mouseClientX: number, mouseClientY: number, avoidResize: boolean }) => {
 		const {table} = options;

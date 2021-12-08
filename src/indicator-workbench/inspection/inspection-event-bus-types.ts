@@ -44,6 +44,9 @@ export enum InspectionEventTypes {
 
 	CLEAR_INSPECTION = 'clear-inspection',
 	INSPECTION_CLEARED = 'inspection-cleared',
+
+	SET_DATA_GRID_VISIBILITY = 'set-data-grid-visibility',
+	SET_CHARTS_VISIBILITY = 'set-charts-visibility'
 }
 
 export interface InspectionEventBus {
@@ -118,4 +121,12 @@ export interface InspectionEventBus {
 	fire(type: InspectionEventTypes.INSPECTION_CLEARED): this;
 	on(type: InspectionEventTypes.INSPECTION_CLEARED, listener: () => void): this;
 	off(type: InspectionEventTypes.INSPECTION_CLEARED, listener: () => void): this;
+
+	fire(type: InspectionEventTypes.SET_DATA_GRID_VISIBILITY, inspection: Inspection, visible: boolean): this;
+	on(type: InspectionEventTypes.SET_DATA_GRID_VISIBILITY, listener: (inspection: Inspection, visible: boolean) => void): this;
+	off(type: InspectionEventTypes.SET_DATA_GRID_VISIBILITY, listener: (inspection: Inspection, visible: boolean) => void): this;
+
+	fire(type: InspectionEventTypes.SET_CHARTS_VISIBILITY, inspection: Inspection, visible: boolean): this;
+	on(type: InspectionEventTypes.SET_CHARTS_VISIBILITY, listener: (inspection: Inspection, visible: boolean) => void): this;
+	off(type: InspectionEventTypes.SET_CHARTS_VISIBILITY, listener: (inspection: Inspection, visible: boolean) => void): this;
 }

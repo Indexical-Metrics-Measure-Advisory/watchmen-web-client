@@ -17,7 +17,7 @@ export const DataHandler = (props: { inspection: Inspection }) => {
 			validateInspection({
 				inspection,
 				success: async (inspection: Inspection) => {
-					const data = await fetchInspectionData(inspection.inspectionId);
+					const data = await fetchInspectionData(inspection);
 					fire(InspectionEventTypes.DATA_LOADED, inspection, data);
 				},
 				fail: () => {
