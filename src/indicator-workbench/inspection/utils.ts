@@ -6,6 +6,7 @@ import {isQueryByEnum, isQueryByMeasure} from '@/services/data/tuples/query-buck
 import {TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {generateUuid} from '@/services/data/tuples/utils';
 import {getCurrentTime} from '@/services/data/utils';
+import {Lang} from '@/widgets/langs';
 
 export const createInspection = (): Inspection => {
 	return {
@@ -18,10 +19,18 @@ export const createInspection = (): Inspection => {
 	} as Inspection;
 };
 
+export const AggregateArithmeticLabel: Record<IndicatorAggregateArithmetic, string> = {
+	[IndicatorAggregateArithmetic.COUNT]: Lang.INDICATOR_WORKBENCH.INSPECTION.VALUE_TRANSFORM_COUNT,
+	[IndicatorAggregateArithmetic.SUM]: Lang.INDICATOR_WORKBENCH.INSPECTION.VALUE_TRANSFORM_SUM,
+	[IndicatorAggregateArithmetic.AVG]: Lang.INDICATOR_WORKBENCH.INSPECTION.VALUE_TRANSFORM_AVG,
+	[IndicatorAggregateArithmetic.MAX]: Lang.INDICATOR_WORKBENCH.INSPECTION.VALUE_TRANSFORM_MAX,
+	[IndicatorAggregateArithmetic.MIN]: Lang.INDICATOR_WORKBENCH.INSPECTION.VALUE_TRANSFORM_MIN
+};
+
 export enum InspectionInvalidReason {
 	NAME_IS_REQUIRED = 'name-is-required',
 	INDICATOR_IS_REQUIRED = 'indicator-is-required',
-	AGGREGATE_ARITHMETICS_IS_REQUIRED = 'aggregate-arithmetics-is-required',
+	AGGREGATE_ARITHMETIC_IS_REQUIRED = 'aggregate-arithmetic-is-required',
 	MEASURE_IS_REQUIRED = 'measure-is-required',
 	MEASURE_ON_TIME_IS_REQUIRED = 'measure-on-time-is-required',
 	INDICATOR_BUCKET_IS_REQUIRED = 'indicator-bucket-is-required',
@@ -40,7 +49,7 @@ export const validateInspection = (options: {
 		return;
 	}
 	if (inspection.aggregateArithmetics == null || inspection.aggregateArithmetics.length === 0) {
-		fail(InspectionInvalidReason.AGGREGATE_ARITHMETICS_IS_REQUIRED);
+		fail(InspectionInvalidReason.AGGREGATE_ARITHMETIC_IS_REQUIRED);
 		return;
 	}
 	if (inspection.measureOnTimeFactorId == null

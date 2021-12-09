@@ -1,15 +1,14 @@
 import {Inspection} from '@/services/data/tuples/inspection-types';
 import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
 import {RowOfAny} from '@/services/data/types';
-import {Lang} from '@/widgets/langs';
-import {useEffect, useState} from 'react';
+import {Fragment, useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
 import {Columns} from '../types';
-import {InspectionLabel} from '../widgets';
+import {AggregateArithmeticLabel} from '../utils';
 import {Bar} from './charts/bar';
 import {Line} from './charts/line';
-import {ChartContainer, ChartLabel, Charts, DataChartsContainer} from './widgets';
+import {ChartContainer, ChartGroupTitle, ChartLabel, Charts, DataChartsContainer} from './widgets';
 
 interface ChartsDataState {
 	initialized: boolean;
@@ -58,7 +57,7 @@ export const DataCharts = (props: { inspection: Inspection; indicator: Indicator
 		return null;
 	}
 
-	// use first aggregate arithmetics to render the thumbnails
+	// use first aggregate arithmetic to render the thumbnails
 	// supporting first 3 types: bar/line/pie
 	// 1. bar/line:
 	// 1.1. bucket: bucket as x axis, value as y axis
@@ -72,16 +71,22 @@ export const DataCharts = (props: { inspection: Inspection; indicator: Indicator
 
 	// hide charts anyway if there is no data found.
 	return <DataChartsContainer>
-		<InspectionLabel>{Lang.INDICATOR_WORKBENCH.INSPECTION.VISUALIZATION_LABEL}</InspectionLabel>
 		<Charts>
-			<ChartContainer>
-				<Bar inspection={inspection} data={state.data} columns={state.columns}/>
-				<ChartLabel>Bar</ChartLabel>
-			</ChartContainer>
-			<ChartContainer>
-				<Line inspection={inspection} data={state.data} columns={state.columns}/>
-				<ChartLabel>Line</ChartLabel>
-			</ChartContainer>
+			{(inspection.aggregateArithmetics || []).map(arithmetic => {
+				return <Fragment key={arithmetic}>
+					<ChartGroupTitle>{AggregateArithmeticLabel[arithmetic]}</ChartGroupTitle>
+					<ChartContainer>
+						<Bar inspection={inspection} data={state.data} columns={state.columns}
+						     arithmetic={arithmetic}/>
+						<ChartLabel>Bar</ChartLabel>
+					</ChartContainer>
+					<ChartContainer>
+						<Line inspection={inspection} data={state.data} columns={state.columns}
+						      arithmetic={arithmetic}/>
+						<ChartLabel>Line</ChartLabel>
+					</ChartContainer>
+				</Fragment>;
+			})}
 		</Charts>
 	</DataChartsContainer>;
 };

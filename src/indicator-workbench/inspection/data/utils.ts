@@ -34,8 +34,8 @@ const appendColumnDef = (columns: Columns, name: string, type: ColumnType) => {
 	columns.push(buildColumnDef(name, type));
 };
 
-const asArithmeticsName = (arithmetics: IndicatorAggregateArithmetic): string => {
-	switch (arithmetics) {
+const asArithmeticName = (arithmetic: IndicatorAggregateArithmetic): string => {
+	switch (arithmetic) {
 		case IndicatorAggregateArithmetic.COUNT:
 			return 'Count of';
 		case IndicatorAggregateArithmetic.SUM:
@@ -126,8 +126,8 @@ export const buildColumnDefs = (options: {
 		?? [(factorId == null ? IndicatorAggregateArithmetic.COUNT : IndicatorAggregateArithmetic.SUM)]
 	).sort((a1, a2) => {
 		return IndicatorAggregateArithmeticSort[a1] - IndicatorAggregateArithmeticSort[a2];
-	}).forEach(arithmetics => {
-		appendColumnDef(columns, `${asArithmeticsName(arithmetics)} ${factorName}`, ColumnType.NUMERIC);
+	}).forEach(arithmetic => {
+		appendColumnDef(columns, `${asArithmeticName(arithmetic)} ${factorName}`, ColumnType.NUMERIC);
 	});
 
 	return columns;

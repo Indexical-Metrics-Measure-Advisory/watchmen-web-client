@@ -67,8 +67,8 @@ export const Buttons = () => {
 					case InspectionInvalidReason.INDICATOR_IS_REQUIRED:
 						message = Lang.INDICATOR_WORKBENCH.INSPECTION.INDICATOR_IS_REQUIRED;
 						break;
-					case InspectionInvalidReason.AGGREGATE_ARITHMETICS_IS_REQUIRED:
-						message = Lang.INDICATOR_WORKBENCH.INSPECTION.AGGREGATE_ARITHMETICS_IS_REQUIRED;
+					case InspectionInvalidReason.AGGREGATE_ARITHMETIC_IS_REQUIRED:
+						message = Lang.INDICATOR_WORKBENCH.INSPECTION.AGGREGATE_ARITHMETIC_IS_REQUIRED;
 						break;
 					case InspectionInvalidReason.MEASURE_IS_REQUIRED:
 						message = Lang.INDICATOR_WORKBENCH.INSPECTION.MEASURE_IS_REQUIRED;

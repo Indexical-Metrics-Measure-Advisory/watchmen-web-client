@@ -430,14 +430,13 @@ export const En = {
 			HIDE_AVAILABLE_CHARTS: 'Hide Visualizations',
 			SHOW_AVAILABLE_CHARTS: 'Show Visualizations',
 			PICK_ANOTHER: 'Pick Another Indicator',
-			AGGREGATE_ARITHMETICS_IS_REQUIRED: 'Please pick at least one value transforming.',
+			AGGREGATE_ARITHMETIC_IS_REQUIRED: 'Please pick at least one value transforming.',
 			MEASURE_IS_REQUIRED: 'Please pick time grouping or value bucket.',
 			MEASURE_ON_TIME_IS_REQUIRED: 'Please pick time grouping.',
 			INDICATOR_BUCKET_IS_REQUIRED: 'Please pick indicator value bucket.',
 			MEASURE_BUCKET_IS_REQUIRED: 'Please pick a bucket.',
 			RESET_INSPECTION: 'Are you sure to switch to another inspection?',
-			NO_DATA: 'No data found.',
-			VISUALIZATION_LABEL: 'Visualizations:'
+			NO_DATA: 'No data found.'
 		}
 	},
 	SETTINGS: {

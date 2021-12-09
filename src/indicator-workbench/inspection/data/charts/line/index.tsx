@@ -10,9 +10,9 @@ import {
 import {createChartComponent} from '../widgets/chart';
 
 export const Line = createChartComponent(params => {
-	const {inspection, data} = params;
+	const {inspection, data, arithmetic} = params;
 
-	const columnIndexMap = buildColumnIndexMap(inspection);
+	const columnIndexMap = buildColumnIndexMap(inspection, arithmetic);
 	const xAxis = buildXAxis(data, columnIndexMap);
 	const legend = buildLegend(data, columnIndexMap);
 

@@ -28,7 +28,7 @@ export enum InspectionEventTypes {
 	INSPECTION_PICKED = 'inspection-picked',
 	INDICATOR_PICKED = 'indicator-picked',
 
-	AGGREGATE_ARITHMETICS_CHANGED = 'aggregate_arithmetics_changed',
+	AGGREGATE_ARITHMETIC_CHANGED = 'aggregate_arithmetic_changed',
 
 	BUCKET_ON_CHANGED = 'bucket-on-changed',
 
@@ -80,9 +80,9 @@ export interface InspectionEventBus {
 	on(type: InspectionEventTypes.INDICATOR_PICKED, listener: (indicator: IndicatorForInspection) => void): this;
 	off(type: InspectionEventTypes.INDICATOR_PICKED, listener: (indicator: IndicatorForInspection) => void): this;
 
-	fire(type: InspectionEventTypes.AGGREGATE_ARITHMETICS_CHANGED, inspection: Inspection): this;
-	on(type: InspectionEventTypes.AGGREGATE_ARITHMETICS_CHANGED, listener: (inspection: Inspection) => void): this;
-	off(type: InspectionEventTypes.AGGREGATE_ARITHMETICS_CHANGED, listener: (inspection: Inspection) => void): this;
+	fire(type: InspectionEventTypes.AGGREGATE_ARITHMETIC_CHANGED, inspection: Inspection): this;
+	on(type: InspectionEventTypes.AGGREGATE_ARITHMETIC_CHANGED, listener: (inspection: Inspection) => void): this;
+	off(type: InspectionEventTypes.AGGREGATE_ARITHMETIC_CHANGED, listener: (inspection: Inspection) => void): this;
 
 	fire(type: InspectionEventTypes.BUCKET_ON_CHANGED, inspection: Inspection): this;
 	on(type: InspectionEventTypes.BUCKET_ON_CHANGED, listener: (inspection: Inspection) => void): this;

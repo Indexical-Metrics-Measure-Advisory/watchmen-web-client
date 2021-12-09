@@ -1,3 +1,4 @@
+import {IndicatorAggregateArithmetic} from '@/services/data/tuples/indicator-types';
 import {Inspection} from '@/services/data/tuples/inspection-types';
 import {RowOfAny} from '@/services/data/types';
 import {
@@ -67,6 +68,7 @@ export interface ChartParams {
 	inspection: Inspection;
 	data: Array<RowOfAny>;
 	columns: Columns;
+	arithmetic: IndicatorAggregateArithmetic;
 }
 
 echarts.use([

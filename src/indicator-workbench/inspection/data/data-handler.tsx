@@ -44,14 +44,14 @@ export const DataHandler = (props: { inspection: Inspection }) => {
 			});
 		};
 		on(InspectionEventTypes.REFRESH_DATA, onRefreshData);
-		on(InspectionEventTypes.AGGREGATE_ARITHMETICS_CHANGED, onInspectionChanged);
+		on(InspectionEventTypes.AGGREGATE_ARITHMETIC_CHANGED, onInspectionChanged);
 		on(InspectionEventTypes.BUCKET_ON_CHANGED, onInspectionChanged);
 		on(InspectionEventTypes.TIME_MEASURE_CHANGED, onInspectionChanged);
 		on(InspectionEventTypes.TIME_RANGE_ON_CHANGED, onInspectionChanged);
 		on(InspectionEventTypes.TIME_RANGE_VALUES_CHANGED, onInspectionChanged);
 		return () => {
 			off(InspectionEventTypes.REFRESH_DATA, onRefreshData);
-			off(InspectionEventTypes.AGGREGATE_ARITHMETICS_CHANGED, onInspectionChanged);
+			off(InspectionEventTypes.AGGREGATE_ARITHMETIC_CHANGED, onInspectionChanged);
 			off(InspectionEventTypes.BUCKET_ON_CHANGED, onInspectionChanged);
 			off(InspectionEventTypes.TIME_MEASURE_CHANGED, onInspectionChanged);
 			off(InspectionEventTypes.TIME_RANGE_ON_CHANGED, onInspectionChanged);

@@ -5,16 +5,9 @@ import {Lang} from '@/widgets/langs';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {InspectionEventTypes} from '../inspection-event-bus-types';
 import {useVisibleOnII} from '../use-visible-on-ii';
+import {AggregateArithmeticLabel} from '../utils';
 import {InspectionLabel} from '../widgets';
 import {ValueTransformButton, ValueTransformContainer} from './widgets';
-
-const AggregateArithmeticLabel: Record<IndicatorAggregateArithmetic, string> = {
-	[IndicatorAggregateArithmetic.COUNT]: Lang.INDICATOR_WORKBENCH.INSPECTION.VALUE_TRANSFORM_COUNT,
-	[IndicatorAggregateArithmetic.SUM]: Lang.INDICATOR_WORKBENCH.INSPECTION.VALUE_TRANSFORM_SUM,
-	[IndicatorAggregateArithmetic.AVG]: Lang.INDICATOR_WORKBENCH.INSPECTION.VALUE_TRANSFORM_AVG,
-	[IndicatorAggregateArithmetic.MAX]: Lang.INDICATOR_WORKBENCH.INSPECTION.VALUE_TRANSFORM_MAX,
-	[IndicatorAggregateArithmetic.MIN]: Lang.INDICATOR_WORKBENCH.INSPECTION.VALUE_TRANSFORM_MIN
-};
 
 export const AggregateArithmetic = () => {
 	const {fire} = useInspectionEventBus();
@@ -34,7 +27,7 @@ export const AggregateArithmetic = () => {
 		} else {
 			inspection!.aggregateArithmetics.push(arithmetic);
 		}
-		fire(InspectionEventTypes.AGGREGATE_ARITHMETICS_CHANGED, inspection!);
+		fire(InspectionEventTypes.AGGREGATE_ARITHMETIC_CHANGED, inspection!);
 		forceUpdate();
 	};
 

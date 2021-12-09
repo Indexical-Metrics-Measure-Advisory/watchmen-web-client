@@ -1,3 +1,4 @@
+import {IndicatorAggregateArithmetic} from '@/services/data/tuples/indicator-types';
 import {Inspection, InspectMeasureOn} from '@/services/data/tuples/inspection-types';
 import {RowOfAny} from '@/services/data/types';
 import {formatToKGB} from '@/services/utils';
@@ -39,7 +40,7 @@ export const isColumnIndexAssigned = (columnIndex: number) => {
 	return columnIndex !== COLUMN_INDEX_NOT_EXISTS;
 };
 
-export const buildColumnIndexMap = (inspection: Inspection) => {
+export const buildColumnIndexMap = (inspection: Inspection, arithmetic: IndicatorAggregateArithmetic) => {
 	const columnIndexMap: ColumnIndexMap = createInitialColumnIndexMap();
 	if (inspection.measureOnTimeFactorId != null) {
 		// has time measure
@@ -60,9 +61,10 @@ export const buildColumnIndexMap = (inspection: Inspection) => {
 		columnIndexMap.timeRange = isColumnIndexAssigned(columnIndexMap.timeGrouping) ? (columnIndexMap.timeGrouping + 1) : (columnIndexMap.bucketOn + 1);
 	}
 	// value columns follow
-	columnIndexMap.value = isColumnIndexAssigned(columnIndexMap.timeRange)
+	const firstValueColumnIndex = isColumnIndexAssigned(columnIndexMap.timeRange)
 		? (columnIndexMap.timeRange + 1)
 		: (isColumnIndexAssigned(columnIndexMap.timeGrouping) ? (columnIndexMap.timeGrouping + 1) : (columnIndexMap.bucketOn + 1));
+	columnIndexMap.value = firstValueColumnIndex + (inspection.aggregateArithmetics || []).indexOf(arithmetic);
 
 	return columnIndexMap;
 };
