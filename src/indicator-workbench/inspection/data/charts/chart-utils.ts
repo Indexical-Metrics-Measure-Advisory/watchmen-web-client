@@ -95,8 +95,8 @@ export const buildLegend = (data: Array<RowOfAny>, columnIndexMap: ColumnIndexMa
 };
 
 export const buildLegendOptions = (legend: LegendData) => {
-	return legend.existing ? {legend: {data: legend.data}} : {}
-}
+	return legend.existing ? {legend: {top: '5%', data: legend.data}} : {};
+};
 
 export const buildSeriesOptions = (options: {
 	data: Array<RowOfAny>;
