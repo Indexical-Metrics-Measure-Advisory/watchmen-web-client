@@ -436,7 +436,8 @@ export const Zh = {
 			INDICATOR_BUCKET_IS_REQUIRED: '请选择指标值分桶.',
 			MEASURE_BUCKET_IS_REQUIRED: '请选择分桶.',
 			RESET_INSPECTION: '确认要切换到另一个洞察吗?',
-			NO_DATA: '没有合适的数据.'
+			NO_DATA: '没有合适的数据.',
+			VISUALIZATION_LABEL: '可视化图表:'
 		}
 	},
 	SETTINGS: {

@@ -1,6 +1,7 @@
 import {Inspection} from '@/services/data/tuples/inspection-types';
 import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
 import {RowOfAny} from '@/services/data/types';
+import {Lang} from '@/widgets/langs';
 import {useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
@@ -71,7 +72,7 @@ export const DataCharts = (props: { inspection: Inspection; indicator: Indicator
 
 	// hide charts anyway if there is no data found.
 	return <DataChartsContainer>
-		<InspectionLabel>Visualizations:</InspectionLabel>
+		<InspectionLabel>{Lang.INDICATOR_WORKBENCH.INSPECTION.VISUALIZATION_LABEL}</InspectionLabel>
 		<Charts>
 			<ChartContainer>
 				<Bar inspection={inspection} data={state.data} columns={state.columns}/>

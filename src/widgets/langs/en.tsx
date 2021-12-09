@@ -436,7 +436,8 @@ export const En = {
 			INDICATOR_BUCKET_IS_REQUIRED: 'Please pick indicator value bucket.',
 			MEASURE_BUCKET_IS_REQUIRED: 'Please pick a bucket.',
 			RESET_INSPECTION: 'Are you sure to switch to another inspection?',
-			NO_DATA: 'No data found.'
+			NO_DATA: 'No data found.',
+			VISUALIZATION_LABEL: 'Visualizations:'
 		}
 	},
 	SETTINGS: {
