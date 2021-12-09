@@ -12,7 +12,7 @@ export const Bar = createChartComponent(params => {
 		tooltip: {trigger: 'axis', axisPointer: {type: 'shadow'}},
 		...(legend.existing ? {legend: {data: legend.data}} : {}),
 		xAxis: [{
-			type: 'category', axisTick: {show: false}, data: xAxis
+			type: 'category', axisTick: {show: false}, data: xAxis.data
 		}],
 		yAxis: [{type: 'value'}],
 		series: buildSeries({data, legend, xAxis, columnIndexMap, type: 'bar'})
