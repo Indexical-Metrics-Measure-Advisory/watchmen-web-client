@@ -16,6 +16,13 @@ export const IndicatorContainer = styled.div.attrs({'data-widget': 'indicator'})
 	display               : grid;
 	position              : relative;
 	grid-template-columns : auto 1fr;
+	@media print {
+		grid-template-columns : 1fr;
+		grid-row-gap          : calc(var(--margin) / 2);
+		> div[data-widget=inspection-pick-indicator] {
+			grid-template-columns : 200px auto auto auto auto 1fr;
+		}
+	}
 `;
 export const InspectionLabel = styled.span.attrs({'data-widget': 'inspection-label'})`
 	display      : flex;
@@ -70,6 +77,11 @@ export const InspectionButton = styled(Button).attrs({'data-widget': 'inspection
 	border-radius : calc(var(--tall-height) / 2);
 	font-size     : calc(var(--font-size) * 1.2);
 	padding       : 0 var(--margin);
+	&[data-hide-on-print=true] {
+		@media print {
+			display : none;
+		}
+	}
 	> svg:first-child {
 		margin-top   : 2px;
 		margin-right : calc(var(--margin) / 4);

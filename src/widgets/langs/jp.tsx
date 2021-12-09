@@ -136,7 +136,7 @@ export const Jp = {
 		},
 		DASHBOARD: {
 			SHARE: '共有',
-			PRINT: 'プリント',
+			PRINT: '印刷',
 			REFRESH: '更新',
 			AUTO_REFRESH: '自動更新(5分間隔)',
 			ADD_INTO_FAVORITE: 'お気に入りに追加',
@@ -170,7 +170,7 @@ export const Jp = {
 			REPORT_FILTER: 'フィルタ',
 			REPORT_FUNNEL: 'じょうご',
 			SHARE: '共有',
-			PRINT: 'プリント',
+			PRINT: '印刷',
 			REFRESH: '更新',
 			AUTO_REFRESH: '自動更新(5分間隔)',
 			SHOW_PRINT_PAGE: 'ページサイズを表示する',
@@ -429,6 +429,7 @@ export const Jp = {
 			SHOW_DATA_GRID: 'テーブルを表示',
 			HIDE_AVAILABLE_CHARTS: 'グラフを非表示',
 			SHOW_AVAILABLE_CHARTS: 'グラフを表示',
+			PRINT: '印刷',
 			PICK_ANOTHER: '他の洞察を表示',
 			AGGREGATE_ARITHMETIC_IS_REQUIRED: '指標値の変換方法を少なくとも 1 つ選択してください。',
 			MEASURE_IS_REQUIRED: '時間グループまたはバケットを選択してください。',
@@ -436,7 +437,8 @@ export const Jp = {
 			INDICATOR_BUCKET_IS_REQUIRED: '指標値をバケットで選択してください。',
 			MEASURE_BUCKET_IS_REQUIRED: 'バケットを選択してください。',
 			RESET_INSPECTION: '別の洞察に切り替えることを確認します。',
-			NO_DATA: '適切なデータがありません。'
+			NO_DATA: '適切なデータがありません。',
+			VISUALIZATION_LABEL: '視覚化'
 		}
 	},
 	SETTINGS: {

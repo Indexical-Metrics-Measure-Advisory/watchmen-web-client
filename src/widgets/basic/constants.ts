@@ -210,9 +210,11 @@ export const ICON_RULE_DEFINE = faRobot;
 export const ICON_STATISTICS = faCompass;
 export const ICON_END_USER = faChalkboardTeacher;
 
-export const ICON_INDICATOR_WORKBENCH_BUCKETS = faShapes;
-export const ICON_INDICATOR_WORKBENCH_PREPARE = faSquarePollVertical;
-export const ICON_INDICATOR_WORKBENCH_INSPECTION = faToolbox;
+export const ICON_BUCKETS = faShapes;
+export const ICON_PREPARE_INDICATOR = faSquarePollVertical;
+export const ICON_INSPECTION = faToolbox;
+export const ICON_TIME_GROUPING = faClock;
+export const ICON_BUCKET_ON = faShapes;
 
 export const ICON_SECONDARY_SECTION = faCaretRight;
 

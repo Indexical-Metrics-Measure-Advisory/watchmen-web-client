@@ -3,12 +3,12 @@ import {Router} from '@/routes/types';
 import {findAccount, quit} from '@/services/data/account';
 import {
 	ICON_ADMIN,
+	ICON_BUCKETS,
 	ICON_CONSOLE,
 	ICON_DATA_QUALITY,
-	ICON_INDICATOR_WORKBENCH_BUCKETS,
-	ICON_INDICATOR_WORKBENCH_INSPECTION,
-	ICON_INDICATOR_WORKBENCH_PREPARE,
+	ICON_INSPECTION,
 	ICON_LOGOUT,
+	ICON_PREPARE_INDICATOR,
 	ICON_SETTINGS,
 	ICON_SWITCH_WORKBENCH,
 	MOCK_ACCOUNT_NAME,
@@ -51,6 +51,16 @@ const IndicatorWorkbenchMenuContainer = styled.div.attrs<{ width: number }>(({wi
 		max-width : ${({width}) => `calc(100vw - ${width}px)`};
 		div[data-widget="full-width-page"] {
 			max-width : ${({width}) => `calc(100vw - ${width}px)`};
+		}
+	}
+	@media print {
+		display : none;
+		+ main {
+			max-width : unset;
+			height    : unset;
+			div[data-widget="full-width-page"] {
+				max-width : unset;
+			}
 		}
 	}
 `;
@@ -119,15 +129,15 @@ export const IndicatorWorkbenchMenu = () => {
 
 	return <IndicatorWorkbenchMenuContainer width={menuWidth}>
 		<SideMenuLogo title={Lang.INDICATOR_WORKBENCH.MENU.TITLE}/>
-		<SideMenuItem icon={ICON_INDICATOR_WORKBENCH_BUCKETS} label={Lang.INDICATOR_WORKBENCH.MENU.BUCKETS}
+		<SideMenuItem icon={ICON_BUCKETS} label={Lang.INDICATOR_WORKBENCH.MENU.BUCKETS}
 		              showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.INDICATOR_WORKBENCH_BUCKETS)}
 		              onClick={onMenuClicked(Router.INDICATOR_WORKBENCH_BUCKETS)}/>
-		<SideMenuItem icon={ICON_INDICATOR_WORKBENCH_PREPARE} label={Lang.INDICATOR_WORKBENCH.MENU.PREPARE}
+		<SideMenuItem icon={ICON_PREPARE_INDICATOR} label={Lang.INDICATOR_WORKBENCH.MENU.PREPARE}
 		              showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.INDICATOR_WORKBENCH_PREPARE)}
 		              onClick={onMenuClicked(Router.INDICATOR_WORKBENCH_PREPARE)}/>
-		<SideMenuItem icon={ICON_INDICATOR_WORKBENCH_INSPECTION} label={Lang.INDICATOR_WORKBENCH.MENU.INSPECTION}
+		<SideMenuItem icon={ICON_INSPECTION} label={Lang.INDICATOR_WORKBENCH.MENU.INSPECTION}
 		              showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.INDICATOR_WORKBENCH_INSPECTION)}
 		              onClick={onMenuClicked(Router.INDICATOR_WORKBENCH_INSPECTION)}/>

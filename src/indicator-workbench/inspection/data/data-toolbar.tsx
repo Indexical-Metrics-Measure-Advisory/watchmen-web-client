@@ -41,6 +41,9 @@ export const DataToolbar = (props: { inspection: Inspection }) => {
 		fire(InspectionEventTypes.SET_CHARTS_VISIBILITY, inspection, !chartsVisible);
 		setChartsVisible(!chartsVisible);
 	};
+	// const onPrintClicked = () => {
+	// 	window.print();
+	// };
 
 	return <DataToolbarContainer>
 		<span/>
@@ -51,5 +54,8 @@ export const DataToolbar = (props: { inspection: Inspection }) => {
 		                  onClick={onShowAvailableChartsClicked}>
 			{chartsVisible ? Lang.INDICATOR_WORKBENCH.INSPECTION.HIDE_AVAILABLE_CHARTS : Lang.INDICATOR_WORKBENCH.INSPECTION.SHOW_AVAILABLE_CHARTS}
 		</InspectionButton>
+		{/*<InspectionButton ink={ButtonInk.PRIMARY} onClick={onPrintClicked}>*/}
+		{/*	{Lang.INDICATOR_WORKBENCH.INSPECTION.PRINT}*/}
+		{/*</InspectionButton>*/}
 	</DataToolbarContainer>;
 };

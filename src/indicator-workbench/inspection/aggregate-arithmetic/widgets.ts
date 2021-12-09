@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {InspectionButton, InspectionDropdown} from '../widgets';
 
-export const ValueTransformContainer = styled.div.attrs({'date-widget': 'inspection-value-transform'})`
+export const ValueTransformContainer = styled.div.attrs({'data-widget': 'inspection-value-transform'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : 200px auto auto auto auto auto 1fr;

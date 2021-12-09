@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {InspectionDropdown} from '../widgets';
 
-export const TimeMeasureOnContainer = styled.div.attrs({'date-widget': 'inspection-time-measure-on'})`
+export const TimeMeasureOnContainer = styled.div.attrs({'data-widget': 'inspection-time-measure-on'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : 200px auto auto 1fr;

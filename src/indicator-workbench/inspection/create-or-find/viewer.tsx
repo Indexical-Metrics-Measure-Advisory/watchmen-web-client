@@ -125,7 +125,7 @@ export const CreateOrFindViewer = () => {
 		<InspectionLabel>{Lang.INDICATOR_WORKBENCH.INSPECTION.PICKED_INSPECTION_LABEL}</InspectionLabel>
 		<InspectionEntityLabel>{name}</InspectionEntityLabel>
 		{canSetName
-			? <InspectionButton ink={ButtonInk.PRIMARY} onClick={onRenameClicked}>
+			? <InspectionButton ink={ButtonInk.PRIMARY} onClick={onRenameClicked} data-hide-on-print={true}>
 				{hasName ? Lang.INDICATOR_WORKBENCH.INSPECTION.RENAME : Lang.INDICATOR_WORKBENCH.INSPECTION.NEW_NAME}
 			</InspectionButton>
 			: null}

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const PickIndicatorContainer = styled.div.attrs({'date-widget': 'inspection-pick-indicator'})`
+export const PickIndicatorContainer = styled.div.attrs({'data-widget': 'inspection-pick-indicator'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : auto auto auto auto auto 1fr;

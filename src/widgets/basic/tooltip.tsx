@@ -66,6 +66,9 @@ const TooltipContainer = styled.div //
 	user-select      : none;
 	transition       : opacity 300ms ease-in-out;
 	z-index          : ${TOOLTIP_Z_INDEX};
+	@media print {
+		display : none;
+	}
 `;
 
 const Caret = styled(FontAwesomeIcon)
