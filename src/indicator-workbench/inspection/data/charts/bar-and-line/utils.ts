@@ -17,8 +17,7 @@ export const buildXAxis = (data: Array<RowOfAny>, columnIndexMap: ColumnIndexMap
 	const columnIndex = isColumnIndexAssigned(columnIndexMap.timeGrouping) ? columnIndexMap.timeGrouping : columnIndexMap.bucketOn;
 	return {
 		columnIndex,
-		data: [
-			...new Set(data.map(row => row[columnIndex]))].sort((t1, t2) => {
+		data: [...new Set(data.map(row => row[columnIndex]))].sort((t1, t2) => {
 			return `${t1 || ''}`.localeCompare(`${t2 || ''}`, void 0, {numeric: true});
 		})
 	};

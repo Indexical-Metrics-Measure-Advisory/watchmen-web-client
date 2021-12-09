@@ -260,7 +260,7 @@ const gatherInspectionData = (inspection: Inspection): Array<RowOfAny> => {
 			row.orderSize, row.cityGroup, row.year, row.month, row.quoteYear, row.issueYear,
 			arithmetics.includes(IndicatorAggregateArithmetic.COUNT) ? row.count : null,
 			arithmetics.includes(IndicatorAggregateArithmetic.SUM) ? row.sum : null,
-			arithmetics.includes(IndicatorAggregateArithmetic.AVG) ? row.avg : null,
+			arithmetics.includes(IndicatorAggregateArithmetic.AVG) ? Number(Number(row.avg).toFixed(2)) : null,
 			arithmetics.includes(IndicatorAggregateArithmetic.MAX) ? row.max : null,
 			arithmetics.includes(IndicatorAggregateArithmetic.MIN) ? row.min : null
 		].filter(isNotNull);
