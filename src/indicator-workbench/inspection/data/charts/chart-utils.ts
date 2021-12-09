@@ -1,5 +1,6 @@
 import {Inspection, InspectMeasureOn} from '@/services/data/tuples/inspection-types';
 import {RowOfAny} from '@/services/data/types';
+import {formatToKGB} from '@/services/utils';
 
 const COLUMN_INDEX_NOT_EXISTS = -1;
 
@@ -20,6 +21,10 @@ export interface LegendData {
 	columnIndex: number;
 	data: RowOfAny;
 }
+
+export const buildAriaOptions = () => {
+	return {aria: {enabled: true, decal: {show: true}}};
+};
 
 const createInitialColumnIndexMap = () => {
 	return {
@@ -43,6 +48,7 @@ export const buildColumnIndexMap = (inspection: Inspection) => {
 			columnIndexMap.timeGrouping = 0;
 		} else {
 			// time measure is on column index 1
+			columnIndexMap.bucketOn = 0;
 			columnIndexMap.timeGrouping = 1;
 		}
 	} else {
@@ -72,8 +78,18 @@ export const buildXAxis = (data: Array<RowOfAny>, columnIndexMap: ColumnIndexMap
 	};
 };
 
+export const buildYAxis = () => {
+	return {
+		yAxis: [{
+			type: 'value', axisLabel: {
+				formatter: (value: any) => formatToKGB(value)
+			}
+		}]
+	};
+};
+
 export const buildLegend = (data: Array<RowOfAny>, columnIndexMap: ColumnIndexMap): LegendData => {
-	const existing = !isColumnIndexAssigned(columnIndexMap.timeGrouping) && !isColumnIndexAssigned(columnIndexMap.bucketOn);
+	const existing = isColumnIndexAssigned(columnIndexMap.timeGrouping) && isColumnIndexAssigned(columnIndexMap.bucketOn);
 	const columnIndex = columnIndexMap.bucketOn;
 	return {existing, columnIndex, data: [...new Set(data.map(row => row[columnIndex]))]};
 };

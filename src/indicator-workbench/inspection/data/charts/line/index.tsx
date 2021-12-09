@@ -1,4 +1,4 @@
-import {buildColumnIndexMap, buildLegend, buildSeries, buildXAxis} from '../chart-utils';
+import {buildAriaOptions, buildColumnIndexMap, buildLegend, buildSeries, buildXAxis, buildYAxis} from '../chart-utils';
 import {createChartComponent} from '../widgets/chart';
 
 export const Line = createChartComponent(params => {
@@ -14,7 +14,8 @@ export const Line = createChartComponent(params => {
 		xAxis: [{
 			type: 'category', axisTick: {show: false}, data: xAxis.data
 		}],
-		yAxis: [{type: 'value'}],
-		series: buildSeries({data, legend, xAxis, columnIndexMap, type: 'line'})
+		...buildYAxis(),
+		series: buildSeries({data, legend, xAxis, columnIndexMap, type: 'line'}),
+		...buildAriaOptions()
 	};
 });

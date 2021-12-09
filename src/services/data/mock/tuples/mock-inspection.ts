@@ -116,7 +116,6 @@ const buildMockInspectionData = (years: Array<number>): Array<OrderPremiumRow> =
 		return months().map(month => {
 			return randomRows(daysInMonth(year, month)).map(day => {
 				const createDate = dayjs().year(year).month(month - 1).date(day);
-				console.log(formatTime(createDate), createDate, year, month, day);
 				let issueDate = createDate.add(randomDays(), 'day');
 				if (issueDate.year() !== createDate.year()) {
 					issueDate = createDate.date(31);

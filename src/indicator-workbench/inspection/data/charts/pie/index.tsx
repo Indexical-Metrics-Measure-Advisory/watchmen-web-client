@@ -1,7 +1,7 @@
-import {buildAriaOptions, buildColumnIndexMap, buildLegend, buildSeries, buildXAxis, buildYAxis} from '../chart-utils';
+import {buildColumnIndexMap, buildLegend, buildSeries, buildXAxis} from '../chart-utils';
 import {createChartComponent} from '../widgets/chart';
 
-export const Bar = createChartComponent(params => {
+export const Pie = createChartComponent(params => {
 	const {inspection, data} = params;
 
 	const columnIndexMap = buildColumnIndexMap(inspection);
@@ -14,8 +14,7 @@ export const Bar = createChartComponent(params => {
 		xAxis: [{
 			type: 'category', axisTick: {show: false}, data: xAxis.data
 		}],
-		...buildYAxis(),
-		series: buildSeries({data, legend, xAxis, columnIndexMap, type: 'bar'}),
-		...buildAriaOptions()
+		yAxis: [{type: 'value'}],
+		series: buildSeries({data, legend, xAxis, columnIndexMap, type: 'line'})
 	};
 });

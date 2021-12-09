@@ -83,3 +83,16 @@ export const isXaNumber = (x: any, negative: boolean = true): boolean => {
 		return /^[0-9]+(.[0-9]*)?$/.test(testValue);
 	}
 };
+
+export const formatToKGB = (x: number): string => {
+	if (x >= 1_000_000_000) {
+		return (x / 1_000_000_000).toFixed(1).replace(/\.0$/, '') + 'b';
+	}
+	if (x >= 1_000_000) {
+		return (x / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'm';
+	}
+	if (x >= 1_000) {
+		return (x / 1_000).toFixed(1).replace(/\.0$/, '') + 'k';
+	}
+	return `${x}`;
+};
