@@ -3,7 +3,9 @@ import {
 	PipelineStageUnitAction,
 	SystemActionType
 } from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
-import {isWriteToExternalAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {
+	isWriteToExternalAction
+} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {WriteToExternalAction} from '@/services/data/tuples/pipeline-stage-unit-action/system-actions-types';
 import {isMockService} from '@/services/data/utils';
 import {BodyLabel, BodyValue} from './widgets';

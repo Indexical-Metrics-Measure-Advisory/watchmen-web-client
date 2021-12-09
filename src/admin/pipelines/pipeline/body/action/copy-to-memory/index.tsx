@@ -1,6 +1,8 @@
 import {AnyFactorType} from '@/services/data/tuples/factor-calculator-types';
 import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
-import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {
+	PipelineStageUnitAction
+} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {isCopyToMemoryAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
 import {Pipeline} from '@/services/data/tuples/pipeline-types';

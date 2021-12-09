@@ -1,5 +1,7 @@
 import {MonitorLogUnit} from '@/services/data/admin/logs';
-import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {
+	PipelineStageUnitAction
+} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL} from '@/widgets/basic/constants';

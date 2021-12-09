@@ -50,7 +50,7 @@ export const ChartGroupButtons = styled.div.attrs({'data-widget': 'inspection-ch
 	align-items     : center;
 	justify-content : flex-end;
 	@media print {
-		display: none;
+		display : none;
 	}
 `;
 

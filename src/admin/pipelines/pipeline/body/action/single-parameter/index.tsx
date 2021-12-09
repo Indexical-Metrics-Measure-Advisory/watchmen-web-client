@@ -1,5 +1,7 @@
 import {Parameter, ValueTypes} from '@/services/data/tuples/factor-calculator-types';
-import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {
+	PipelineStageUnitAction
+} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {ParameterEventBusProvider} from '@/widgets/parameter/parameter-event-bus';
 import React from 'react';

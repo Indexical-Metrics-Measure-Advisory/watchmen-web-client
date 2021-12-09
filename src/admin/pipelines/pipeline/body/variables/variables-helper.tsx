@@ -1,6 +1,8 @@
 import {DeclaredVariables} from '@/services/data/tuples/factor-calculator-types';
 import {PipelineStage} from '@/services/data/tuples/pipeline-stage-types';
-import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {
+	PipelineStageUnitAction
+} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {
 	isCopyToMemoryAction,
 	isReadTopicAction

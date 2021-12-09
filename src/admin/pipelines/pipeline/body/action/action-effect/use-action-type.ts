@@ -1,4 +1,6 @@
-import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {
+	PipelineStageUnitAction
+} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {useEffect} from 'react';
 import {useActionEventBus} from '../action-event-bus';

@@ -1,4 +1,6 @@
-import {isWriteToExternalAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
+import {
+	isWriteToExternalAction
+} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-utils';
 import {ActionRuntimeContext, InternalUnitRuntimeContext, PipelineRuntimeContext} from '../../types';
 
 export const runWriteToExternal = async (options: {

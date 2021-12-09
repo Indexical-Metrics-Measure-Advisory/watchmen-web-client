@@ -1,4 +1,6 @@
-import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {
+	PipelineStageUnitAction
+} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {PipelineStageUnit} from '@/services/data/tuples/pipeline-stage-unit-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {ICON_APPEND, ICON_DELETE, ICON_MOVE_DOWN, ICON_MOVE_UP, ICON_PREPEND} from '@/widgets/basic/constants';

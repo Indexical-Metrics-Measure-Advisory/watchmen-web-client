@@ -1,4 +1,6 @@
-import {PipelineStageUnitAction} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
+import {
+	PipelineStageUnitAction
+} from '@/services/data/tuples/pipeline-stage-unit-action/pipeline-stage-unit-action-types';
 import {useParameterEventBus} from '@/widgets/parameter/parameter-event-bus';
 import {ParameterEventTypes} from '@/widgets/parameter/parameter-event-bus-types';
 import React, {Fragment, useEffect} from 'react';

@@ -13,7 +13,7 @@ export const DataToolbarContainer = styled.div.attrs({'data-widget': 'inspection
 	grid-template-columns : 200px auto auto auto 1fr;
 	grid-column-gap       : calc(var(--margin) / 2);
 	@media print {
-		display: none;
+		display : none;
 	}
 `;
 export const DataGridContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
