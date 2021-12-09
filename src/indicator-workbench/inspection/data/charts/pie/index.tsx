@@ -26,13 +26,27 @@ export const Pie = createChartComponent(params => {
 				label: {
 					show: true,
 					position: 'outside',
-					alignTo: 'labelLine',
+					alignTo: 'edge',
+					minMargin: 5,
+					edgeDistance: 10,
+					lineHeight: 15,
 					formatter: ({data: {name, value}, percent}: any) => {
 						const v = Number(value);
 						return `${name}\n${isNaN(v) ? value : formatter.format(v)}, ${percent}%`;
 					}
 				},
-				labelLine: {show: true},
+				labelLine: {
+					length: 25,
+					length2: 0,
+					maxSurfaceAngle: 80
+				},
+				labelLayout: (params: any) => {
+					const isLeft = params.labelRect.x <= 50;
+					const points = params.labelLinePoints;
+					// Update the end point.
+					points[2][0] = isLeft ? params.labelRect.x : params.labelRect.x + params.labelRect.width;
+					return {labelLinePoints: points};
+				},
 				data: singleMeasureNames.data.map(name => {
 					// eslint-disable-next-line
 					const row = data.find(row => row[singleMeasureNames.columnIndex] == name);
