@@ -1,4 +1,12 @@
-import {buildAriaOptions, buildColumnIndexMap, buildLegend, buildSeries, buildXAxis, buildYAxis} from '../chart-utils';
+import {
+	buildAriaOptions,
+	buildColumnIndexMap,
+	buildLegend,
+	buildLegendOptions,
+	buildSeriesOptions,
+	buildXAxis,
+	buildYAxisOptions
+} from '../chart-utils';
 import {createChartComponent} from '../widgets/chart';
 
 export const Line = createChartComponent(params => {
@@ -10,12 +18,12 @@ export const Line = createChartComponent(params => {
 
 	return {
 		tooltip: {trigger: 'axis', axisPointer: {type: 'shadow'}},
-		...(legend.existing ? {legend: {data: legend.data}} : {}),
+		...buildLegendOptions(legend),
 		xAxis: [{
 			type: 'category', axisTick: {show: false}, data: xAxis.data
 		}],
-		...buildYAxis(),
-		series: buildSeries({data, legend, xAxis, columnIndexMap, type: 'line'}),
+		...buildYAxisOptions(),
+		series: buildSeriesOptions({data, legend, xAxis, columnIndexMap, type: 'line'}),
 		...buildAriaOptions()
 	};
 });

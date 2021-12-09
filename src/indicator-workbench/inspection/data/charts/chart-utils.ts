@@ -78,7 +78,7 @@ export const buildXAxis = (data: Array<RowOfAny>, columnIndexMap: ColumnIndexMap
 	};
 };
 
-export const buildYAxis = () => {
+export const buildYAxisOptions = () => {
 	return {
 		yAxis: [{
 			type: 'value', axisLabel: {
@@ -94,7 +94,11 @@ export const buildLegend = (data: Array<RowOfAny>, columnIndexMap: ColumnIndexMa
 	return {existing, columnIndex, data: [...new Set(data.map(row => row[columnIndex]))]};
 };
 
-export const buildSeries = (options: {
+export const buildLegendOptions = (legend: LegendData) => {
+	return legend.existing ? {legend: {data: legend.data}} : {}
+}
+
+export const buildSeriesOptions = (options: {
 	data: Array<RowOfAny>;
 	xAxis: XAxisData;
 	legend: LegendData;
