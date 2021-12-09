@@ -5,8 +5,10 @@ import {useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
 import {Columns} from '../types';
+import {InspectionLabel} from '../widgets';
 import {Bar} from './charts/bar';
-import {DataChartsContainer} from './widgets';
+import {Line} from './charts/line';
+import {ChartContainer, ChartLabel, Charts, DataChartsContainer} from './widgets';
 
 interface ChartsDataState {
 	initialized: boolean;
@@ -69,6 +71,16 @@ export const DataCharts = (props: { inspection: Inspection; indicator: Indicator
 
 	// hide charts anyway if there is no data found.
 	return <DataChartsContainer>
-		<Bar inspection={inspection} data={state.data} columns={state.columns}/>
+		<InspectionLabel>Visualizations:</InspectionLabel>
+		<Charts>
+			<ChartContainer>
+				<Bar inspection={inspection} data={state.data} columns={state.columns}/>
+				<ChartLabel>Bar</ChartLabel>
+			</ChartContainer>
+			<ChartContainer>
+				<Line inspection={inspection} data={state.data} columns={state.columns}/>
+				<ChartLabel>Line</ChartLabel>
+			</ChartContainer>
+		</Charts>
 	</DataChartsContainer>;
 };

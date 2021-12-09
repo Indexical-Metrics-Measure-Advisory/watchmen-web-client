@@ -168,10 +168,41 @@ export const DataGridBodyRowCell = styled.div.attrs<{ isNumeric?: boolean; isSel
 export const DataChartsContainer = styled.div.attrs({'data-widget': 'inspection-charts'})`
 	display               : grid;
 	position              : relative;
-	grid-template-columns : repeat(3, calc((100% - var(--margin) * 2) / 3));
-	grid-column-gap       : var(--margin);
-	grid-auto-rows        : 200px;
-	&:empty {
-		display : none;
+	grid-template-columns : 200px 1fr;
+	grid-column-gap       : calc(var(--margin) / 2);
+	> span[data-widget=inspection-label] {
+		align-self : start;
 	}
+`;
+export const Charts = styled.div.attrs({'data-widget': 'inspection-charts-content'})`
+	display               : grid;
+	position              : relative;
+	grid-template-columns : repeat(2, calc((100% - var(--margin)) / 2));
+	grid-column-gap       : var(--margin);
+`;
+export const ChartContainer = styled.div.attrs({'data-widget': 'inspection-chart'})`
+	display        : flex;
+	position       : relative;
+	flex-direction : column;
+	padding-top    : 75%;
+	> div[data-widget=inspection-chart-container] {
+		position      : absolute;
+		flex-grow     : 1;
+		margin-top    : -75%;
+		height        : calc(100% - var(--height) * 2);
+		width         : 100%;
+		border        : var(--border);
+		border-width  : calc(var(--border-width) * 2);
+		border-radius : calc(var(--border-radius) * 2);
+	}
+`;
+export const ChartLabel = styled.div.attrs({'data-widget': 'inspection-charts-sample'})`
+	display         : flex;
+	position        : relative;
+	align-items     : center;
+	justify-content : center;
+	font-variant    : petite-caps;
+	font-weight     : var(--font-demi-bold);
+	line-height     : calc(var(--height) * 2);
+	margin-top      : calc(var(--height) * -2);
 `;
