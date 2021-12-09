@@ -213,7 +213,7 @@ export const ChartContainer = styled.div.attrs({'data-widget': 'inspection-chart
 		position      : absolute;
 		flex-grow     : 1;
 		margin-top    : -75%;
-		height        : calc(100% - var(--height) * 2);
+		height        : calc(100% - var(--height));
 		width         : 100%;
 		border        : var(--border);
 		border-width  : calc(var(--border-width) * 2);

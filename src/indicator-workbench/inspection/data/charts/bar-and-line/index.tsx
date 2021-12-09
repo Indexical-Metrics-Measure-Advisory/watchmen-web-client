@@ -1,15 +1,8 @@
-import {
-	buildAriaOptions,
-	buildColumnIndexMap,
-	buildLegend,
-	buildLegendOptions,
-	buildSeriesOptions,
-	buildXAxis,
-	buildYAxisOptions
-} from '../chart-utils';
+import {buildAriaOptions, buildColumnIndexMap} from '../chart-utils';
 import {createChartComponent} from '../widgets/chart';
+import {buildLegend, buildLegendOptions, buildSeriesOptions, buildXAxis, buildYAxisOptions} from './utils';
 
-export const Bar = createChartComponent(params => {
+const createComponent = (type: 'bar' | 'line') => createChartComponent(params => {
 	const {inspection, data, arithmetic} = params;
 
 	const columnIndexMap = buildColumnIndexMap(inspection, arithmetic);
@@ -23,7 +16,10 @@ export const Bar = createChartComponent(params => {
 			type: 'category', axisTick: {show: false}, data: xAxis.data
 		}],
 		...buildYAxisOptions(),
-		series: buildSeriesOptions({data, legend, xAxis, columnIndexMap, type: 'bar'}),
+		series: buildSeriesOptions({data, legend, xAxis, columnIndexMap, type}),
 		...buildAriaOptions()
 	};
 });
+
+export const Bar = createComponent('bar');
+export const Line = createComponent('line');

@@ -6,9 +6,9 @@ import {useInspectionEventBus} from '../inspection-event-bus';
 import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
 import {Columns} from '../types';
 import {AggregateArithmeticLabel} from '../utils';
-import {Bar} from './charts/bar';
-import {Line} from './charts/line';
-import {ChartContainer, ChartGroupTitle, ChartLabel, Charts, DataChartsContainer} from './widgets';
+import {Bar, Line} from './charts/bar-and-line';
+import {Pie} from './charts/pie';
+import {ChartContainer, ChartGroupTitle, Charts, DataChartsContainer} from './widgets';
 
 interface ChartsDataState {
 	initialized: boolean;
@@ -78,12 +78,16 @@ export const DataCharts = (props: { inspection: Inspection; indicator: Indicator
 					<ChartContainer>
 						<Bar inspection={inspection} data={state.data} columns={state.columns}
 						     arithmetic={arithmetic}/>
-						<ChartLabel>Bar</ChartLabel>
+						{/*<ChartLabel>Bar</ChartLabel>*/}
 					</ChartContainer>
 					<ChartContainer>
 						<Line inspection={inspection} data={state.data} columns={state.columns}
 						      arithmetic={arithmetic}/>
-						<ChartLabel>Line</ChartLabel>
+						{/*<ChartLabel>Line</ChartLabel>*/}
+					</ChartContainer>
+					<ChartContainer>
+						<Pie inspection={inspection} data={state.data} columns={state.columns}
+						     arithmetic={arithmetic}/>
 					</ChartContainer>
 				</Fragment>;
 			})}
