@@ -115,10 +115,15 @@ const buildMockInspectionData = (years: Array<number>): Array<OrderPremiumRow> =
 	return years.map(year => {
 		return months().map(month => {
 			return randomRows(daysInMonth(year, month)).map(day => {
-				const date = dayjs().set({year, month: month - 1, day});
+				const createDate = dayjs().year(year).month(month - 1).date(day);
+				console.log(formatTime(createDate), createDate, year, month, day);
+				let issueDate = createDate.add(randomDays(), 'day');
+				if (issueDate.year() !== createDate.year()) {
+					issueDate = createDate.date(31);
+				}
 				return {
-					quoteCreateDate: formatTime(date),
-					orderIssueDate: formatTime(date.add(randomDays(), 'd')),
+					quoteCreateDate: formatTime(createDate),
+					orderIssueDate: formatTime(issueDate),
 					premium: randomPremium(),
 					city: randomCity().code
 				} as OrderPremiumRow;
@@ -260,7 +265,7 @@ const gatherInspectionData = (inspection: Inspection): Array<RowOfAny> => {
 			arithmetics.includes(IndicatorAggregateArithmetic.MAX) ? row.max : null,
 			arithmetics.includes(IndicatorAggregateArithmetic.MIN) ? row.min : null
 		].filter(isNotNull);
-	});
+	}) as Array<RowOfAny>;
 };
 
 export const fetchMockInspectionData = async (inspection: Inspection): Promise<Array<RowOfAny>> => {
