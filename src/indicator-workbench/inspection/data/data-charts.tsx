@@ -51,7 +51,7 @@ export const DataCharts = (props: { inspection: Inspection; indicator: Indicator
 		};
 	});
 
-	if (!state.initialized) {
+	if (!state.initialized || !visible) {
 		return null;
 	}
 
@@ -68,7 +68,7 @@ export const DataCharts = (props: { inspection: Inspection; indicator: Indicator
 	// 2.3 bucket + time group: sunburst, first is time group, secondary is bucket, and value
 
 	// hide charts anyway if there is no data found.
-	return <DataChartsContainer visible={visible && state.data.length !== 0}>
+	return <DataChartsContainer>
 		<Bar inspection={inspection} data={state.data} columns={state.columns}/>
 	</DataChartsContainer>;
 };

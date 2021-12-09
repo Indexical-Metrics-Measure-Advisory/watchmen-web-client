@@ -165,14 +165,12 @@ export const DataGridBodyRowCell = styled.div.attrs<{ isNumeric?: boolean; isSel
 		z-index          : -1;
 	}
 `;
-export const DataChartsContainer = styled.div.attrs<{ visible: boolean }>(({visible}) => {
-	return {
-		'data-widget': 'inspection-charts'
-	};
-})<{ visible: boolean }>`
-	display         : grid;
-	position        : relative;
-	grid-column-gap : var(--margin);
+export const DataChartsContainer = styled.div.attrs({'data-widget': 'inspection-charts'})`
+	display               : grid;
+	position              : relative;
+	grid-template-columns : repeat(3, calc((100% - var(--margin) * 2) / 3));
+	grid-column-gap       : var(--margin);
+	grid-auto-rows        : 200px;
 	&:empty {
 		display : none;
 	}
