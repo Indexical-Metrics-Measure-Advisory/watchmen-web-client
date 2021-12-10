@@ -2,12 +2,13 @@ import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL} from '@/widgets/basic/constants'
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useState} from 'react';
+import {v4} from 'uuid';
 import {AggregateArithmeticLabel} from '../../utils';
 import {Chart} from './chart';
 import {InspectionChartsEventBusProvider} from './inspection-charts-event-bus';
 import {MeasureSelectionButtons} from './measure-selection-buttons';
 import {ChartParams} from './types';
-import {buildChartUsings} from './utils';
+import {buildChartUsages} from './utils';
 import {ChartGroup, ChartGroupButton, ChartGroupButtons, ChartGroupTitle} from './widgets/widgets';
 
 // use first aggregate arithmetic to render the thumbnails
@@ -28,7 +29,7 @@ export const ArithmeticChart = (props: ChartParams) => {
 
 	const onToggleExpandClicked = () => setExpanded(!expanded);
 
-	const usings = buildChartUsings(inspection, arithmetic);
+	const usages = buildChartUsages(inspection, arithmetic);
 
 	return <InspectionChartsEventBusProvider>
 		<ChartGroup expanded={expanded}>
@@ -42,8 +43,8 @@ export const ArithmeticChart = (props: ChartParams) => {
 				</ChartGroupButtons>
 			</ChartGroupTitle>
 			{expanded
-				? usings.map(using => {
-					return <Chart {...props} using={using} key={using}/>;
+				? usages.map(usage => {
+					return <Chart {...props} usage={usage} usages={usages} key={v4()}/>;
 				})
 				: null}
 		</ChartGroup>

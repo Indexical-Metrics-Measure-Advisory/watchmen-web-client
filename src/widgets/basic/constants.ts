@@ -14,7 +14,7 @@ import {
 	faCaretRight,
 	faChalkboard,
 	faChalkboardTeacher,
-	faChartBar,
+	faChartBar, faChartColumn,
 	faChartLine,
 	faChartPie,
 	faCheck,
@@ -215,7 +215,7 @@ export const ICON_PREPARE_INDICATOR = faSquarePollVertical;
 export const ICON_INSPECTION = faToolbox;
 export const ICON_TIME_GROUPING = faClock;
 export const ICON_BUCKET_ON = faShapes;
-export const ICON_CHART_BAR = faChartBar;
+export const ICON_CHART_BAR = faChartColumn;
 export const ICON_CHART_LINE = faChartLine;
 export const ICON_CHART_PIE = faChartPie;
 

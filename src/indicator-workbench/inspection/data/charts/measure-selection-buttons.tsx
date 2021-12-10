@@ -4,7 +4,7 @@ import {useState} from 'react';
 import {buildColumnIndexMap, isColumnIndexAssigned} from './chart-utils';
 import {useInspectionChartsEventBus} from './inspection-charts-event-bus';
 import {InspectionChartsEventTypes} from './inspection-charts-event-bus-types';
-import {ChartParams} from './types';
+import {ChartParams, ChartUsage} from './types';
 import {ChartGroupButton, MeasureSelector} from './widgets/widgets';
 
 interface MeasureSelection {
@@ -32,21 +32,21 @@ export const MeasureSelectionButtons = (props: ChartParams) => {
 			...measureSelection,
 			timeGrouping: !measureSelection.timeGrouping
 		});
-		fire(InspectionChartsEventTypes.TOGGLE_TIME_GROUPING_CHART, !measureSelection.timeGrouping);
+		fire(InspectionChartsEventTypes.TOGGLE_CHART, inspection, ChartUsage.TIME_GROUPING, !measureSelection.timeGrouping);
 	};
 	const onBucketOnSelectionClicked = () => {
 		setMeasureSelection({
 			...measureSelection,
 			bucketOn: !measureSelection.bucketOn
 		});
-		fire(InspectionChartsEventTypes.TOGGLE_BUCKET_ON_CHART, !measureSelection.bucketOn);
+		fire(InspectionChartsEventTypes.TOGGLE_CHART, inspection, ChartUsage.BUCKET_ON, !measureSelection.bucketOn);
 	};
 	const onBothMeasureSelectionClicked = () => {
 		setMeasureSelection({
 			...measureSelection,
 			both: !measureSelection.both
 		});
-		fire(InspectionChartsEventTypes.TOGGLE_BOTH_CHART, !measureSelection.both);
+		fire(InspectionChartsEventTypes.TOGGLE_CHART, inspection, ChartUsage.BOTH, !measureSelection.both);
 	};
 
 	return hasTimeGrouping && hasBucketOn

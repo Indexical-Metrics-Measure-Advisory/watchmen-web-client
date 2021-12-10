@@ -3,7 +3,7 @@ import {Inspection} from '@/services/data/tuples/inspection-types';
 import {RowOfAny} from '@/services/data/types';
 import {Columns} from '../../types';
 
-export enum ChartUsing {
+export enum ChartUsage {
 	TIME_GROUPING = 'time-grouping',
 	BUCKET_ON = 'bucket-on',
 	BOTH = 'both'

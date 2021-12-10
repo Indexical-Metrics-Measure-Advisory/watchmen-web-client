@@ -11,7 +11,7 @@ export interface ColumnIndexMap {
 }
 
 export const buildAriaOptions = () => {
-	return {aria: {enabled: true, decal: {show: true}}};
+	return {aria: {enabled: false, decal: {show: true}}};
 };
 
 const createInitialColumnIndexMap = () => {

@@ -99,11 +99,11 @@ export const ChartContainer = styled.div.attrs({'data-widget': 'inspection-chart
 	position       : relative;
 	flex-direction : column;
 	padding-top    : 75%;
-	> div[data-widget=inspection-chart-container] {
+	> div[data-widget=inspection-chart-wrapper] {
 		position      : absolute;
 		flex-grow     : 1;
 		margin-top    : -75%;
-		height        : calc(100% - var(--header-height));
+		height        : calc(100% - var(--header-height) - var(--margin) / 4);
 		width         : 100%;
 		border        : var(--border);
 		border-width  : calc(var(--border-width) * 2);
@@ -115,6 +115,7 @@ export const ChartToolbar = styled.div.attrs({'data-widget': 'inspection-chart-t
 	display    : flex;
 	position   : relative;
 	min-height : calc(var(--header-height));
+	margin-top : calc(var(--margin) / 4);
 `;
 
 export const ChartTypeButtons = styled.div.attrs({'data-widget': 'inspection-chart-type-buttons'})`
@@ -156,8 +157,15 @@ export const ChartTypeButton = styled(Button)`
 	}
 `;
 
-export const ChartRootContainer = styled.div.attrs({'data-widget': 'inspection-chart-container'})`
+export const ChartWrapper = styled.div.attrs({'data-widget': 'inspection-chart-wrapper'})`
 	display  : block;
 	position : relative;
 	overflow : hidden;
+`;
+
+export const ChartPalette = styled.div.attrs({'data-widget': 'inspection-chart-palette'})`
+	display  : block;
+	position : relative;
+	width    : 100%;
+	height   : 100%;
 `;

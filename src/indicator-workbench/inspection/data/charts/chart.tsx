@@ -1,49 +1,77 @@
+import {Inspection} from '@/services/data/tuples/inspection-types';
 import {ICON_CHART_BAR, ICON_CHART_LINE, ICON_CHART_PIE} from '@/widgets/basic/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {barBuild, lineBuild} from './bar-and-line';
+import {useInspectionChartsEventBus} from './inspection-charts-event-bus';
+import {InspectionChartsEventTypes} from './inspection-charts-event-bus-types';
 import {pieBuild} from './pie';
-import {ChartOptionsBuilder, ChartParams, ChartType, ChartUsing} from './types';
+import {ChartOptionsBuilder, ChartParams, ChartType, ChartUsage} from './types';
 import {ChartBuilder} from './widgets/chart';
 import {ChartContainer, ChartToolbar, ChartTypeButton, ChartTypeButtons} from './widgets/widgets';
 
-export const Chart = (props: ChartParams & { using: ChartUsing }) => {
-	const {using, ...params} = props;
-	const [chartType, setChartType] = useState(ChartType.BAR);
-	const [build, setBuild] = useState<ChartOptionsBuilder<any>>(() => barBuild);
+interface ChartState {
+	type: ChartType;
+	build: ChartOptionsBuilder<any>;
+}
+
+export const Chart = (props: ChartParams & { usage: ChartUsage, usages: Array<ChartUsage> }) => {
+	const {usage, usages, ...params} = props;
+	const {inspection} = props;
+
+	const {on, off} = useInspectionChartsEventBus();
+	const [visible, setVisible] = useState(usage === usages[0]);
+	const [chartState, setChartState] = useState<ChartState>({type: ChartType.BAR, build: barBuild});
+	useEffect(() => {
+		const onToggleChart = (anInspection: Inspection, anUsage: ChartUsage, visible: boolean) => {
+			if (anInspection !== inspection || anUsage !== usage) {
+				return;
+			}
+			setVisible(visible);
+		};
+		on(InspectionChartsEventTypes.TOGGLE_CHART, onToggleChart);
+		return () => {
+			off(InspectionChartsEventTypes.TOGGLE_CHART, onToggleChart);
+		};
+	}, [on, off, inspection, usage]);
+
+	if (!visible) {
+		return null;
+	}
 
 	const onBarClicked = () => {
-		if (chartType !== ChartType.BAR) {
-			setChartType(ChartType.BAR);
-			setBuild(barBuild);
+		if (chartState.type !== ChartType.BAR) {
+			setChartState({type: ChartType.BAR, build: barBuild});
 		}
 	};
 	const onLineClicked = () => {
-		if (chartType !== ChartType.LINE) {
-			setChartType(ChartType.LINE);
-			setBuild(lineBuild);
+		if (chartState.type !== ChartType.LINE) {
+			setChartState({type: ChartType.LINE, build: lineBuild});
 		}
 	};
 	const onPieClicked = () => {
-		if (chartType !== ChartType.PIE) {
-			setChartType(ChartType.PIE);
-			setBuild(pieBuild);
+		if (chartState.type !== ChartType.PIE) {
+			setChartState({type: ChartType.PIE, build: pieBuild});
 		}
 	};
 
+	if (usages.includes(ChartUsage.BOTH) && usage === ChartUsage.BUCKET_ON) {
+
+	}
+
 	return <ChartContainer>
-		<ChartBuilder params={params} build={build}/>
+		<ChartBuilder params={params} build={chartState.build}/>
 		<ChartToolbar>
 			<ChartTypeButtons>
-				<ChartTypeButton data-selected={chartType === ChartType.BAR}
+				<ChartTypeButton data-selected={chartState.type === ChartType.BAR}
 				                 onClick={onBarClicked}>
 					<FontAwesomeIcon icon={ICON_CHART_BAR}/>
 				</ChartTypeButton>
-				<ChartTypeButton data-selected={chartType === ChartType.LINE}
+				<ChartTypeButton data-selected={chartState.type === ChartType.LINE}
 				                 onClick={onLineClicked}>
 					<FontAwesomeIcon icon={ICON_CHART_LINE}/>
 				</ChartTypeButton>
-				<ChartTypeButton data-selected={chartType === ChartType.PIE}
+				<ChartTypeButton data-selected={chartState.type === ChartType.PIE}
 				                 onClick={onPieClicked}>
 					<FontAwesomeIcon icon={ICON_CHART_PIE}/>
 				</ChartTypeButton>
