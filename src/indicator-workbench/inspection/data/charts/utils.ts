@@ -6,6 +6,11 @@ import {ChartUsage} from './types';
 export const buildChartUsages = (inspection: Inspection, arithmetic: IndicatorAggregateArithmetic): Array<ChartUsage> => {
 	const columnIndexMap = buildColumnIndexMap(inspection, arithmetic);
 	if (isColumnIndexAssigned(columnIndexMap.timeGrouping) && isColumnIndexAssigned(columnIndexMap.bucketOn)) {
+		const arithmetics = inspection.aggregateArithmetics || [];
+		if (arithmetic === IndicatorAggregateArithmetic.AVG && arithmetics.includes(IndicatorAggregateArithmetic.COUNT)) {
+			return [ChartUsage.BOTH];
+		}
+
 		return [ChartUsage.BOTH, ChartUsage.TIME_GROUPING, ChartUsage.BUCKET_ON];
 	}
 
