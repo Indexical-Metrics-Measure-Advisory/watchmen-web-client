@@ -1,5 +1,6 @@
 import {IndicatorAggregateArithmetic} from '@/services/data/tuples/indicator-types';
 import {Inspection, InspectMeasureOn} from '@/services/data/tuples/inspection-types';
+import {ChartParams, ChartUsage} from './types';
 
 const COLUMN_INDEX_NOT_EXISTS = -1;
 
@@ -54,4 +55,65 @@ export const buildColumnIndexMap = (inspection: Inspection, arithmetic: Indicato
 	columnIndexMap.value = firstValueColumnIndex + (inspection.aggregateArithmetics || []).indexOf(arithmetic);
 
 	return columnIndexMap;
+};
+
+const rebuildOnIgnoreOneColumn = (params: ChartParams, columnIndex: number): Pick<ChartParams, 'data' | 'columns'> => {
+	const {data, columns} = params;
+	return {
+		data: data.map(row => row.filter((_, index) => index !== columnIndex)),
+		columns: columns.filter((_, index) => index !== columnIndex)
+	};
+};
+
+/** remove time grouping column, which is column index 1 */
+const rebuildParamsForBucketOn = (params: ChartParams): ChartParams => {
+	const {data, columns} = rebuildOnIgnoreOneColumn(params, 1);
+	return {
+		data,
+		// rebuild inspection, remove time grouping properties
+		inspection: (() => {
+			const clone = {...params.inspection};
+			delete clone.measureOnTime;
+			delete clone.measureOnTimeFactorId;
+			return clone;
+		})(),
+		columns,
+		arithmetic: params.arithmetic
+	};
+};
+
+/** remove bucket on column, which is column index 0 */
+const rebuildParamsForTimeGrouping = (params: ChartParams): ChartParams => {
+	const {data, columns} = rebuildOnIgnoreOneColumn(params, 0);
+	return {
+		data,
+		// rebuild inspection, remove bucket on properties
+		inspection: (() => {
+			const {inspection} = params;
+			const clone = {...inspection};
+			delete clone.measureOn;
+			delete clone.measureOnFactorId;
+			delete clone.measureOnBucketId;
+			return clone;
+		})(),
+		columns,
+		arithmetic: params.arithmetic
+	};
+};
+
+export const rebuildParams = (params: ChartParams, usage: ChartUsage, usages: Array<ChartUsage>): ChartParams => {
+	switch (true) {
+		case usage === ChartUsage.BOTH:
+			return params;
+		case usage === ChartUsage.BUCKET_ON && usages.includes(ChartUsage.BOTH):
+			return rebuildParamsForBucketOn(params);
+		case usage === ChartUsage.BUCKET_ON:
+			return params;
+		case  usage === ChartUsage.TIME_GROUPING && usages.includes(ChartUsage.BOTH):
+			return rebuildParamsForTimeGrouping(params);
+		case usage === ChartUsage.TIME_GROUPING:
+			return params;
+		default:
+			return params;
+	}
 };

@@ -12,6 +12,9 @@ export const createChartComponent = <Opt extends any>(build: (params: ChartParam
 	};
 };
 
+/**
+ * do not compare inspection object with any event, it might be a faked one by parent.
+ */
 export const ChartBuilder = <Opt extends any>(props: { params: ChartParams, build: ChartOptionsBuilder<Opt> }) => {
 	const {params, build} = props;
 

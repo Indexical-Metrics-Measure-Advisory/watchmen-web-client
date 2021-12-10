@@ -3,6 +3,7 @@ import {ICON_CHART_BAR, ICON_CHART_LINE, ICON_CHART_PIE} from '@/widgets/basic/c
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useEffect, useState} from 'react';
 import {barBuild, lineBuild} from './bar-and-line';
+import {rebuildParams} from './chart-utils';
 import {useInspectionChartsEventBus} from './inspection-charts-event-bus';
 import {InspectionChartsEventTypes} from './inspection-charts-event-bus-types';
 import {pieBuild} from './pie';
@@ -55,12 +56,10 @@ export const Chart = (props: ChartParams & { usage: ChartUsage, usages: Array<Ch
 		}
 	};
 
-	if (usages.includes(ChartUsage.BOTH) && usage === ChartUsage.BUCKET_ON) {
-
-	}
+	const rebuiltParams = rebuildParams(params, usage, usages);
 
 	return <ChartContainer>
-		<ChartBuilder params={params} build={chartState.build}/>
+		<ChartBuilder params={rebuiltParams} build={chartState.build}/>
 		<ChartToolbar>
 			<ChartTypeButtons>
 				<ChartTypeButton data-selected={chartState.type === ChartType.BAR}
