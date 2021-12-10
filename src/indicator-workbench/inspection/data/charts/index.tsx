@@ -5,11 +5,11 @@ import {useEffect, useState} from 'react';
 import {v4} from 'uuid';
 import {AggregateArithmeticLabel} from '../../utils';
 import {Chart} from './chart';
+import {buildChartUsages} from './chart-utils';
 import {InspectionChartsEventBusProvider, useInspectionChartsEventBus} from './inspection-charts-event-bus';
 import {InspectionChartsEventTypes} from './inspection-charts-event-bus-types';
 import {ChartParams} from './types';
 import {UsageSelectionButtons} from './usage-selection-buttons';
-import {buildChartUsages} from './utils';
 import {ChartGroup, ChartGroupButton, ChartGroupButtons, ChartGroupTitle} from './widgets/widgets';
 
 // use first aggregate arithmetic to render the thumbnails

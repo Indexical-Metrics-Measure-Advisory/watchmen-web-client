@@ -1,10 +1,10 @@
 import {ICON_ADD, ICON_BUCKET_ON, ICON_TIME_GROUPING} from '@/widgets/basic/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useEffect, useState} from 'react';
+import {buildChartUsages} from './chart-utils';
 import {useInspectionChartsEventBus} from './inspection-charts-event-bus';
 import {InspectionChartsEventTypes} from './inspection-charts-event-bus-types';
 import {ChartParams, ChartUsage} from './types';
-import {buildChartUsages} from './utils';
 import {ChartGroupButton, MeasureSelector} from './widgets/widgets';
 
 interface Usages {
