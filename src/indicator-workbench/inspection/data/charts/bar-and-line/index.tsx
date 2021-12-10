@@ -7,7 +7,6 @@ const build = (type: 'bar' | 'line') => (params: ChartParams) => {
 	const {inspection, data, arithmetic} = params;
 
 	const columnIndexMap = buildColumnIndexMap(inspection, arithmetic);
-	console.log(columnIndexMap, arithmetic);
 	const xAxis = buildXAxis(data, columnIndexMap);
 	const legend = buildLegend(data, columnIndexMap);
 

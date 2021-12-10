@@ -20,8 +20,8 @@ export const Chart = (props: ChartParams & { usage: ChartUsage, usages: Array<Ch
 	const {usage, usages, ...params} = props;
 	const {inspection} = props;
 
-	const {on, off} = useInspectionChartsEventBus();
-	const [visible, setVisible] = useState(usage === usages[0]);
+	const {on, off, fire} = useInspectionChartsEventBus();
+	const [visible, setVisible] = useState(false);
 	const [chartState, setChartState] = useState<ChartState>({type: ChartType.BAR, build: barBuild});
 	useEffect(() => {
 		const onToggleChart = (anInspection: Inspection, anUsage: ChartUsage, visible: boolean) => {
@@ -35,6 +35,11 @@ export const Chart = (props: ChartParams & { usage: ChartUsage, usages: Array<Ch
 			off(InspectionChartsEventTypes.TOGGLE_CHART, onToggleChart);
 		};
 	}, [on, off, inspection, usage]);
+	useEffect(() => {
+		fire(InspectionChartsEventTypes.ASK_USAGE_USED, usage, used => {
+			(used !== visible) && setVisible(used);
+		});
+	}, [fire, visible, usage]);
 
 	if (!visible) {
 		return null;

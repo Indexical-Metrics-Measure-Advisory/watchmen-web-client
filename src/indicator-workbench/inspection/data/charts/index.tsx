@@ -7,8 +7,8 @@ import {AggregateArithmeticLabel} from '../../utils';
 import {Chart} from './chart';
 import {InspectionChartsEventBusProvider, useInspectionChartsEventBus} from './inspection-charts-event-bus';
 import {InspectionChartsEventTypes} from './inspection-charts-event-bus-types';
-import {MeasureSelectionButtons} from './measure-selection-buttons';
 import {ChartParams} from './types';
+import {UsageSelectionButtons} from './usage-selection-buttons';
 import {buildChartUsages} from './utils';
 import {ChartGroup, ChartGroupButton, ChartGroupButtons, ChartGroupTitle} from './widgets/widgets';
 
@@ -74,7 +74,7 @@ export const ArithmeticChart = (props: ChartParams) => {
 			<ChartGroupTitle>
 				<span>{Lang.INDICATOR_WORKBENCH.INSPECTION.VISUALIZATION_LABEL} - {AggregateArithmeticLabel[arithmetic]}</span>
 				<ChartGroupButtons>
-					<MeasureSelectionButtons {...props}/>
+					<UsageSelectionButtons {...props}/>
 					<ExpansionButton/>
 				</ChartGroupButtons>
 			</ChartGroupTitle>
