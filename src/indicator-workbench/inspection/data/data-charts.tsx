@@ -5,7 +5,7 @@ import {useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {IndicatorForInspection, InspectionEventTypes} from '../inspection-event-bus-types';
 import {Columns} from '../types';
-import {Chart} from './charts';
+import {ArithmeticChart} from './charts';
 import {DataChartsContainer} from './widgets';
 
 interface ChartsDataState {
@@ -57,9 +57,9 @@ export const DataCharts = (props: { inspection: Inspection; indicator: Indicator
 
 	return <DataChartsContainer>
 		{(inspection.aggregateArithmetics || []).map(arithmetic => {
-			return <Chart inspection={inspection} data={state.data} columns={state.columns}
-			              arithmetic={arithmetic}
-			              key={arithmetic}/>;
+			return <ArithmeticChart inspection={inspection} data={state.data} columns={state.columns}
+			                        arithmetic={arithmetic}
+			                        key={arithmetic}/>;
 		})}
 	</DataChartsContainer>;
 };

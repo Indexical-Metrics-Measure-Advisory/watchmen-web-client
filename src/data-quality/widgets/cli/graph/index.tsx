@@ -1,6 +1,5 @@
+import {echarts, EChartsType} from '@/widgets/basic/echarts';
 import {ButtonInk} from '@/widgets/basic/types';
-import * as echarts from 'echarts/core';
-import {EChartsType} from 'echarts/core';
 import React, {useEffect, useRef, useState} from 'react';
 import {ChartContainer, FullscreenButton, GraphContainer} from './widgets';
 

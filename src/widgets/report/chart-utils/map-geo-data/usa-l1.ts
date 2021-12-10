@@ -1,4 +1,4 @@
-import * as echarts from 'echarts/core';
+import {echarts} from '../../../basic/echarts';
 import usaJSON from './gadm36_USA_1.json';
 import {MapCoordinate} from './types';
 

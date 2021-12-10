@@ -1,4 +1,4 @@
-import * as echarts from 'echarts/core';
+import {echarts} from '../../../basic/echarts';
 import japanJson from './gadm36_JPN_1.json';
 import {MapCoordinate} from './types';
 

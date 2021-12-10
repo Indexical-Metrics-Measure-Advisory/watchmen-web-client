@@ -3,11 +3,12 @@ import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useState} from 'react';
 import {AggregateArithmeticLabel} from '../../utils';
-import {Bar} from './bar-and-line';
+import {Chart} from './chart';
 import {InspectionChartsEventBusProvider} from './inspection-charts-event-bus';
 import {MeasureSelectionButtons} from './measure-selection-buttons';
-import {ChartParams} from './widgets/use-echart';
-import {ChartContainer, ChartGroup, ChartGroupButton, ChartGroupButtons, ChartGroupTitle} from './widgets/widgets';
+import {ChartParams} from './types';
+import {buildChartUsings} from './utils';
+import {ChartGroup, ChartGroupButton, ChartGroupButtons, ChartGroupTitle} from './widgets/widgets';
 
 // use first aggregate arithmetic to render the thumbnails
 // supporting first 3 types: bar/line/pie
@@ -20,12 +21,14 @@ import {ChartContainer, ChartGroup, ChartGroupButton, ChartGroupButtons, ChartGr
 // 2.1 bucket: simple pie
 // 2.2 time group: simple pie
 // 2.3 bucket + time group: sunburst, first is time group, secondary is bucket, and value
-export const Chart = (props: ChartParams) => {
-	const {arithmetic} = props;
+export const ArithmeticChart = (props: ChartParams) => {
+	const {inspection, arithmetic} = props;
 
 	const [expanded, setExpanded] = useState(true);
 
 	const onToggleExpandClicked = () => setExpanded(!expanded);
+
+	const usings = buildChartUsings(inspection, arithmetic);
 
 	return <InspectionChartsEventBusProvider>
 		<ChartGroup expanded={expanded}>
@@ -39,11 +42,9 @@ export const Chart = (props: ChartParams) => {
 				</ChartGroupButtons>
 			</ChartGroupTitle>
 			{expanded
-				? <>
-					<ChartContainer>
-						<Bar {...props}/>
-					</ChartContainer>
-				</>
+				? usings.map(using => {
+					return <Chart {...props} using={using} key={using}/>;
+				})
 				: null}
 		</ChartGroup>
 	</InspectionChartsEventBusProvider>;

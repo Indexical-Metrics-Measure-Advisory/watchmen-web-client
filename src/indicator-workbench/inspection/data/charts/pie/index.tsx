@@ -1,9 +1,11 @@
+import {RowOfAny} from '@/services/data/types';
 import {buildAriaOptions, buildColumnIndexMap, isColumnIndexAssigned} from '../chart-utils';
+import {ChartParams} from '../types';
 import {createChartComponent} from '../widgets/chart';
 import {buildBucketOnNames, buildSingleMeasureNames, buildTimeGroupingNames} from './utils';
 
 const formatter = new Intl.NumberFormat(undefined, {useGrouping: true});
-export const Pie = createChartComponent(params => {
+const build = (params: ChartParams) => {
 	const {inspection, data, arithmetic} = params;
 
 	const columnIndexMap = buildColumnIndexMap(inspection, arithmetic);
@@ -23,7 +25,7 @@ export const Pie = createChartComponent(params => {
 					return {
 						name: timeGroup,
 						children: bucketOnNames.data.map(bucketOn => {
-							const row = data.find(row => {
+							const row = data.find((row: RowOfAny) => {
 								// eslint-disable-next-line
 								return row[timeGroupingNames.columnIndex] == timeGroup && row[bucketOnNames.columnIndex] == bucketOn;
 							});
@@ -89,7 +91,7 @@ export const Pie = createChartComponent(params => {
 				},
 				data: singleMeasureNames.data.map(name => {
 					// eslint-disable-next-line
-					const row = data.find(row => row[singleMeasureNames.columnIndex] == name);
+					const row = data.find((row: RowOfAny) => row[singleMeasureNames.columnIndex] == name);
 					const value = row == null ? null : row[columnIndexMap.value];
 					return {name, value};
 				})
@@ -97,4 +99,6 @@ export const Pie = createChartComponent(params => {
 			...buildAriaOptions()
 		};
 	}
-});
+};
+export const pieBuild = build;
+export const Pie = createChartComponent(build);

@@ -1,7 +1,3 @@
-import {SankeyChart} from 'echarts/charts';
-import {TooltipComponent} from 'echarts/components';
-import * as echarts from 'echarts/core';
-import {CanvasRenderer} from 'echarts/renderers';
 import React, {useState} from 'react';
 import {DQCCacheData} from '../../cache/types';
 import {useDataQualityCacheData} from '../../cache/use-cache-data';
@@ -18,8 +14,6 @@ import {GraphDiagram} from '../../widgets/cli/graph';
 import {ExecutionContent} from '../../widgets/cli/types';
 import {CMD_ARGUMENT_START, CMD_ARGUMENT_STOP, CMD_FLOW} from './commands';
 import {compute} from './utils';
-
-echarts.use([TooltipComponent, SankeyChart, CanvasRenderer]);
 
 export const isFlowExecution = (content: ExecutionContent) => {
 	const {commands} = content;

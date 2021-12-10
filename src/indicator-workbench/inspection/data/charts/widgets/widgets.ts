@@ -103,11 +103,56 @@ export const ChartContainer = styled.div.attrs({'data-widget': 'inspection-chart
 		position      : absolute;
 		flex-grow     : 1;
 		margin-top    : -75%;
-		height        : 100%;
+		height        : calc(100% - var(--header-height));
 		width         : 100%;
 		border        : var(--border);
 		border-width  : calc(var(--border-width) * 2);
 		border-radius : calc(var(--border-radius) * 2);
+	}
+`;
+
+export const ChartToolbar = styled.div.attrs({'data-widget': 'inspection-chart-toolbar'})`
+	display    : flex;
+	position   : relative;
+	min-height : calc(var(--header-height));
+`;
+
+export const ChartTypeButtons = styled.div.attrs({'data-widget': 'inspection-chart-type-buttons'})`
+	display     : flex;
+	position    : relative;
+	align-items : center;
+	> button {
+		border       : var(--border);
+		border-color : var(--primary-color);
+		opacity      : 0.5;
+		&:first-child {
+			border-top-right-radius    : 0;
+			border-bottom-right-radius : 0;
+		}
+		&:not(:first-child):not(:last-child) {
+			border-radius : 0;
+		}
+		&:last-child {
+			border-top-left-radius    : 0;
+			border-bottom-left-radius : 0;
+		}
+		&:not(:first-child) {
+			border-left : 0;
+		}
+		&[data-selected=true] {
+			color            : var(--invert-color);
+			background-color : var(--primary-color);
+		}
+	}
+`;
+
+export const ChartTypeButton = styled(Button)`
+	height    : calc(var(--header-height) * 0.7);
+	min-width : calc(var(--header-height) * 0.7);
+	padding   : 0 calc(var(--margin) / 4);
+	color     : var(--primary-color);
+	> svg:not(:last-child) {
+		margin-right : var(--button-icon-gap);
 	}
 `;
 

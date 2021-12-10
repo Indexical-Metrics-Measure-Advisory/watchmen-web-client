@@ -4,7 +4,7 @@ import {useState} from 'react';
 import {buildColumnIndexMap, isColumnIndexAssigned} from './chart-utils';
 import {useInspectionChartsEventBus} from './inspection-charts-event-bus';
 import {InspectionChartsEventTypes} from './inspection-charts-event-bus-types';
-import {ChartParams} from './widgets/use-echart';
+import {ChartParams} from './types';
 import {ChartGroupButton, MeasureSelector} from './widgets/widgets';
 
 interface MeasureSelection {
