@@ -7,7 +7,7 @@ export const buildChartUsages = (inspection: Inspection, arithmetic: IndicatorAg
 	const columnIndexMap = buildColumnIndexMap(inspection, arithmetic);
 	if (isColumnIndexAssigned(columnIndexMap.timeGrouping) && isColumnIndexAssigned(columnIndexMap.bucketOn)) {
 		const arithmetics = inspection.aggregateArithmetics || [];
-		if (arithmetic === IndicatorAggregateArithmetic.AVG && arithmetics.includes(IndicatorAggregateArithmetic.COUNT)) {
+		if (arithmetic === IndicatorAggregateArithmetic.AVG && !arithmetics.includes(IndicatorAggregateArithmetic.COUNT)) {
 			return [ChartUsage.BOTH];
 		}
 

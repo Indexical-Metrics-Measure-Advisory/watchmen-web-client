@@ -22,24 +22,44 @@ export const UsageSelectionButtons = (props: ChartParams) => {
 	});
 	const currentUsages = buildChartUsages(inspection, arithmetic);
 	useEffect(() => {
+		// must register event listener here, otherwise cannot reply the correct status
+		// when register listener in next lifecycle loop, outdated selected usages will be responded to asker
+		// seems lifecycle as below,
+		// 1. render UsageSelectionButtons (in lifecycle loop #1),
+		// 2. check currentUsages and state usages, if they are different, reset usages state (also in lifecycle loop #1).
+		//      in this case, the ASK_USAGE_USED event listener will be re-registered in next lifecycle loop (#2)
+		// 3. render Chart (in lifecycle loop #1)
+		// 4. after chart rendered, fire ASK_USAGE_USED event (in lifecycle loop #1)
+		//     in this case, the listener still is not re-registered yet, which means selected usages is outdated
+		// 5. do re-registered event listener (in lifecycle loop #2), selected usages updated.
+		// when inspection configuration data is changed, UsageSelectionButtons and all Chart component will be updated,
+		// selected usages will be reset because of measures changed,
+		// it will lead the lifecycle as above, which means event listener must be registered here.
 		if (currentUsages.length !== usages.all.length || currentUsages.some(usage => !usages.all.includes(usage))) {
 			// changed, reset state
+			const onAskUsageUsed = (usage: ChartUsage, onData: (used: boolean) => void) => {
+				onData(currentUsages[0] === usage);
+			};
+			on(InspectionChartsEventTypes.ASK_USAGE_USED, onAskUsageUsed);
 			setUsages({
 				all: currentUsages,
 				selected: [currentUsages[0]]
 			});
+			return () => {
+				off(InspectionChartsEventTypes.ASK_USAGE_USED, onAskUsageUsed);
+			};
+		} else {
+			// not changed
+			const onAskUsageUsed = (usage: ChartUsage, onData: (used: boolean) => void) => {
+				onData(usages.selected.includes(usage));
+			};
+			on(InspectionChartsEventTypes.ASK_USAGE_USED, onAskUsageUsed);
+			return () => {
+				off(InspectionChartsEventTypes.ASK_USAGE_USED, onAskUsageUsed);
+			};
 		}
 		// run on each time
-	}, [currentUsages, usages.all]);
-	useEffect(() => {
-		const onAskUsageUsed = (usage: ChartUsage, onData: (used: boolean) => void) => {
-			onData(usages.selected.includes(usage));
-		};
-		on(InspectionChartsEventTypes.ASK_USAGE_USED, onAskUsageUsed);
-		return () => {
-			off(InspectionChartsEventTypes.ASK_USAGE_USED, onAskUsageUsed);
-		};
-	}, [on, off, usages.selected]);
+	}, [on, off, currentUsages, usages]);
 
 	const isUsageSelected = (usage: ChartUsage) => usages.selected.includes(usage);
 	const onUsageSelectionClicked = (usage: ChartUsage) => () => {
