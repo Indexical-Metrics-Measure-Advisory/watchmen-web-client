@@ -1,5 +1,6 @@
 import {IndicatorAggregateArithmetic} from '@/services/data/tuples/indicator-types';
 import {Inspection, InspectMeasureOn} from '@/services/data/tuples/inspection-types';
+import {RowOfAny} from '@/services/data/types';
 import {ChartParams, ChartUsage} from './types';
 
 const COLUMN_INDEX_NOT_EXISTS = -1;
@@ -58,9 +59,68 @@ export const buildColumnIndexMap = (inspection: Inspection, arithmetic: Indicato
 };
 
 const rebuildOnIgnoreOneColumn = (params: ChartParams, columnIndex: number): Pick<ChartParams, 'data' | 'columns'> => {
-	const {data, columns} = params;
+	const {inspection, data, columns, arithmetic} = params;
+	const columnIndexMap = buildColumnIndexMap(inspection, arithmetic);
+	// assume one column is already removed
+	const firstValueIndex = isColumnIndexAssigned(columnIndexMap.timeRange) ? 2 : 1;
+	const arithmetics = inspection.aggregateArithmetics || [];
 	return {
-		data: data.map(row => row.filter((_, index) => index !== columnIndex)),
+		data: data
+			// remove the given measure on given column index
+			// which is bucket on or time grouping
+			.map(row => row.filter((_, index) => index !== columnIndex))
+			// group by first column, which is the measure remained now
+			.reduce((rows, row) => {
+				const key = row[0];
+				// eslint-disable-next-line
+				const groupedRow = rows.find(row => row[0] == key) ?? null;
+				if (groupedRow == null) {
+					rows.push([...row]);
+				} else {
+					arithmetics.map((arithmetic, index) => {
+						return {arithmetic, columnIndex: firstValueIndex + index};
+					}).sort(({arithmetic: a1}, {arithmetic: a2}) => {
+						// make sure avg is before count
+						// since original count value is used in avg calculation
+						// and count calculation will replace this value
+						if (a1 === IndicatorAggregateArithmetic.AVG) {
+							return -1;
+						} else if (a2 === IndicatorAggregateArithmetic.AVG) {
+							return 1;
+						} else {
+							return 0;
+						}
+					}).forEach(({arithmetic, columnIndex}) => {
+						switch (arithmetic) {
+							case IndicatorAggregateArithmetic.COUNT:
+							case IndicatorAggregateArithmetic.SUM:
+								groupedRow[columnIndex] = Number(groupedRow[columnIndex] ?? 0) + Number(row[columnIndex] ?? 0);
+								break;
+							case IndicatorAggregateArithmetic.MAX:
+								groupedRow[columnIndex] = Math.max(Number(groupedRow[columnIndex] ?? 0), Number(row[columnIndex] ?? 0));
+								break;
+							case IndicatorAggregateArithmetic.MIN:
+								groupedRow[columnIndex] = Math.min(Number(groupedRow[columnIndex] ?? 0), Number(row[columnIndex] ?? 0));
+								break;
+							case IndicatorAggregateArithmetic.AVG:
+								if (arithmetics.includes(IndicatorAggregateArithmetic.COUNT)) {
+									const countValueIndex = firstValueIndex + arithmetics.findIndex(arithmetic => arithmetic === IndicatorAggregateArithmetic.COUNT);
+									groupedRow[columnIndex] = (
+										Number(groupedRow[countValueIndex] ?? 0) * Number(groupedRow[columnIndex] ?? 0)
+										+ Number(row[countValueIndex] ?? 0) * Number(row[columnIndex] ?? 0)
+									) / (Number(groupedRow[countValueIndex] ?? 1) + Number(row[countValueIndex] ?? 1));
+								} else {
+									// let it be zero when no count column in dataset
+									groupedRow[columnIndex] = 0;
+								}
+								break;
+							default:
+							// do nothing
+						}
+					});
+				}
+				return rows;
+			}, [] as Array<RowOfAny>),
 		columns: columns.filter((_, index) => index !== columnIndex)
 	};
 };
@@ -116,4 +176,26 @@ export const rebuildParams = (params: ChartParams, usage: ChartUsage, usages: Ar
 		default:
 			return params;
 	}
+};
+
+export const buildChartUsages = (inspection: Inspection, arithmetic: IndicatorAggregateArithmetic): Array<ChartUsage> => {
+	const columnIndexMap = buildColumnIndexMap(inspection, arithmetic);
+	if (isColumnIndexAssigned(columnIndexMap.timeGrouping) && isColumnIndexAssigned(columnIndexMap.bucketOn)) {
+		const arithmetics = inspection.aggregateArithmetics || [];
+		if (arithmetic === IndicatorAggregateArithmetic.AVG && !arithmetics.includes(IndicatorAggregateArithmetic.COUNT)) {
+			return [ChartUsage.BOTH];
+		}
+
+		return [ChartUsage.BOTH, ChartUsage.TIME_GROUPING, ChartUsage.BUCKET_ON];
+	}
+
+	if (isColumnIndexAssigned(columnIndexMap.timeGrouping)) {
+		return [ChartUsage.TIME_GROUPING];
+	}
+
+	if (isColumnIndexAssigned(columnIndexMap.bucketOn)) {
+		return [ChartUsage.BUCKET_ON];
+	}
+
+	return [];
 };

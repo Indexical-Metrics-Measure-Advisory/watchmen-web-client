@@ -1,20 +1,13 @@
 import {Button} from '@/widgets/basic/button';
 import styled from 'styled-components';
 
-export const ChartGroup = styled.div.attrs<{ expanded: boolean }>(({expanded}) => {
-	return {
-		'data-widget': 'inspection-chart-group',
-		style: {
-			paddingBottom: expanded ? (void 0) : 0
-		}
-	};
-})<{ expanded: boolean }>`
+export const ChartGroup = styled.div.attrs({'data-widget': 'inspection-chart-group'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : repeat(2, calc((100% - var(--margin)) / 2));
 	grid-column-gap       : var(--margin);
 	grid-row-gap          : calc(var(--margin) / 2);
-	padding               : calc(var(--margin) / 2) 0;
+	padding-top           : calc(var(--margin) / 2);
 `;
 
 export const ChartGroupTitle = styled.div.attrs({'data-widget': 'inspection-chart-group-title'})`
