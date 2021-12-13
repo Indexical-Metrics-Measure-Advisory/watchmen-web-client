@@ -62,7 +62,8 @@ export const buildSeriesOptions = (options: {
 					// eslint-disable-next-line
 					const row = data.find(row => row[xAxis.columnIndex] == xValue && row[legend.columnIndex] == name);
 					return row == null ? null : row[columnIndexMap.value];
-				})
+				}),
+				label: {show: true, position: 'top', formatter: ({value}: any) => formatToKGB(value)}
 			};
 		})
 		: [{
@@ -72,7 +73,8 @@ export const buildSeriesOptions = (options: {
 				// eslint-disable-next-line
 				const row = data.find(row => row[xAxis.columnIndex] == xValue);
 				return row == null ? null : row[columnIndexMap.value];
-			})
+			}),
+			label: {show: true, position: 'top', formatter: ({value}: any) => formatToKGB(value)}
 		}];
 };
 
@@ -134,7 +136,8 @@ export const buildSeriesOptionsUseTimeGroupingGrowth = (options: {
 				data: data.reduce((data, value, index, array) => {
 					data.push(doComputeGrowth(value, index, array));
 					return data;
-				}, [] as RowOfAny)
+				}, [] as RowOfAny),
+				label: {show: true, position: 'top', formatter: ({value}: any) => `${value}%`}
 			};
 		})
 	];

@@ -41,7 +41,15 @@ const buildWithTimeGroupingGrowth = (params: ChartParams) => {
 		...buildLegendOptions(legend),
 		grid: [
 			{top: '15%', bottom: '35%', containLabel: true},
-			{top: '68%', bottom: '5%', containLabel: true}
+			{
+				top: '68%', bottom: '5%', containLabel: true,
+				tooltip: {
+					trigger: 'item', formatter: ({name, seriesName, value, marker = ''}: any) => {
+						seriesName = legend.existing ? `, ${seriesName}`: '';
+						return `${marker}${name}${seriesName} <b>${value}%</b>`;
+					}
+				}
+			}
 		],
 		xAxis: [
 			{type: 'category', gridIndex: 0, axisTick: {show: false}, data: xAxis.data},
