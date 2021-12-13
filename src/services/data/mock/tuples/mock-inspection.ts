@@ -82,8 +82,6 @@ interface OrderPremiumRow {
 	cityGroup?: string;
 	year?: number;
 	month?: number;
-	quoteYear?: number;
-	issueYear?: number;
 }
 
 interface GroupedOrderPremiumRow extends OrderPremiumRow {
@@ -209,19 +207,8 @@ const gatherInspectionData = (inspection: Inspection): Array<RowOfAny> => {
 		}
 	}
 
-	// time filter
-	if (inspection.timeRangeFactorId === '203') {
-		transformers.push((row: OrderPremiumRow) => {
-			return {...row, quoteYear: dayjs(row.quoteCreateDate).year()};
-		});
-	} else if (inspection.timeRangeFactorId === '205') {
-		transformers.push((row: OrderPremiumRow) => {
-			return {...row, quoteYear: dayjs(row.orderIssueDate).year()};
-		});
-	}
-
 	// arithmetics
-	const buildKey = (row: OrderPremiumRow) => [row.orderSize, row.cityGroup, row.year, row.month, row.quoteYear, row.issueYear].map(x => x ?? '').join('-');
+	const buildKey = (row: OrderPremiumRow) => [row.orderSize, row.cityGroup, row.year, row.month].map(x => x ?? '').join('-');
 	const data = dataset.map(row => transformers.reduce((row, transform) => transform(row), row))
 		.reduce((map, row) => {
 			const key = buildKey(row);
@@ -245,9 +232,7 @@ const gatherInspectionData = (inspection: Inspection): Array<RowOfAny> => {
 		(r1: GroupedOrderPremiumRow, r2: GroupedOrderPremiumRow) => (r1.orderSize || '').localeCompare(r2.orderSize || ''),
 		(r1: GroupedOrderPremiumRow, r2: GroupedOrderPremiumRow) => (r1.cityGroup || '').localeCompare(r2.cityGroup || ''),
 		(r1: GroupedOrderPremiumRow, r2: GroupedOrderPremiumRow) => (r1.year || 0) - (r2.year || 0),
-		(r1: GroupedOrderPremiumRow, r2: GroupedOrderPremiumRow) => (r1.month || 0) - (r2.month || 0),
-		(r1: GroupedOrderPremiumRow, r2: GroupedOrderPremiumRow) => (r1.quoteYear || 0) - (r2.quoteYear || 0),
-		(r1: GroupedOrderPremiumRow, r2: GroupedOrderPremiumRow) => (r1.issueYear || 0) - (r2.issueYear || 0)
+		(r1: GroupedOrderPremiumRow, r2: GroupedOrderPremiumRow) => (r1.month || 0) - (r2.month || 0)
 	];
 	const rows = Object.values(data).sort((r1, r2) => {
 		return sorters.reduce((r, sort) => r !== 0 ? r : sort(r1, r2), 0);
@@ -257,7 +242,7 @@ const gatherInspectionData = (inspection: Inspection): Array<RowOfAny> => {
 		.sort((a1, a2) => IndicatorAggregateArithmeticSort[a1] - IndicatorAggregateArithmeticSort[a2]);
 	return rows.map(row => {
 		return [
-			row.orderSize, row.cityGroup, row.year, row.month, row.quoteYear, row.issueYear,
+			row.orderSize, row.cityGroup, row.year, row.month,
 			arithmetics.includes(IndicatorAggregateArithmetic.COUNT) ? row.count : null,
 			arithmetics.includes(IndicatorAggregateArithmetic.SUM) ? row.sum : null,
 			arithmetics.includes(IndicatorAggregateArithmetic.AVG) ? Number(Number(row.avg).toFixed(2)) : null,

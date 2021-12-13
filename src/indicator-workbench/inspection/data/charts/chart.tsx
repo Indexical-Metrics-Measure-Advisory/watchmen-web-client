@@ -2,13 +2,12 @@ import {Inspection} from '@/services/data/tuples/inspection-types';
 import {
 	ICON_CHART_BAR,
 	ICON_CHART_GROWTH_OF_TIME_GROUPING,
-	ICON_CHART_GROWTH_OF_TIME_RANGE,
 	ICON_CHART_LINE,
 	ICON_CHART_PIE
 } from '@/widgets/basic/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useEffect, useState} from 'react';
-import {barBuild, barWithTimeGroupingGrowthBuild, barWithTimeRangeGrowthBuild, lineBuild} from './bar-and-line';
+import {barBuild, barWithTimeGroupingGrowthBuild, lineBuild} from './bar-and-line';
 import {buildChartGrowthTypes, rebuildParams} from './chart-utils';
 import {useInspectionChartsEventBus} from './inspection-charts-event-bus';
 import {InspectionChartsEventTypes} from './inspection-charts-event-bus-types';
@@ -33,8 +32,6 @@ const getChartBuild = (type: ChartType, growth: ChartGrowthType): ChartOptionsBu
 			return barBuild;
 		case  type === ChartType.BAR && growth === ChartGrowthType.TIME_GROUPING:
 			return barWithTimeGroupingGrowthBuild;
-		case  type === ChartType.BAR && growth === ChartGrowthType.TIME_RANGE:
-			return barWithTimeRangeGrowthBuild;
 	}
 	throw new Error(`Chart[type=${type}, growth=${growth}] is not supported yet.`);
 };
@@ -115,21 +112,6 @@ export const Chart = (props: ChartParams & { usage: ChartUsage, usages: Array<Ch
 			});
 		}
 	};
-	const onGrowthOfTimeRangeClicked = () => {
-		if (chartState.growth === ChartGrowthType.TIME_RANGE) {
-			setChartState({
-				type: ChartType.BAR,
-				growth: ChartGrowthType.NONE,
-				build: getChartBuild(ChartType.BAR, ChartGrowthType.NONE)
-			});
-		} else {
-			setChartState({
-				type: ChartType.BAR,
-				growth: ChartGrowthType.TIME_RANGE,
-				build: getChartBuild(ChartType.BAR, ChartGrowthType.TIME_RANGE)
-			});
-		}
-	};
 
 	const rebuiltParams = rebuildParams({params, usage, usages});
 	const growthTypes = buildChartGrowthTypes(inspection, chartState.type, usage);
@@ -157,12 +139,6 @@ export const Chart = (props: ChartParams & { usage: ChartUsage, usages: Array<Ch
 						? <ChartTypeButton data-selected={chartState.growth.includes(ChartGrowthType.TIME_GROUPING)}
 						                   onClick={onGrowthOfTimeGroupingClicked}>
 							<FontAwesomeIcon icon={ICON_CHART_GROWTH_OF_TIME_GROUPING}/>
-						</ChartTypeButton>
-						: null}
-					{growthTypes.includes(ChartGrowthType.TIME_RANGE)
-						? <ChartTypeButton data-selected={chartState.growth.includes(ChartGrowthType.TIME_RANGE)}
-						                   onClick={onGrowthOfTimeRangeClicked}>
-							<FontAwesomeIcon icon={ICON_CHART_GROWTH_OF_TIME_RANGE}/>
 						</ChartTypeButton>
 						: null}
 				</ChartTypeButtons>

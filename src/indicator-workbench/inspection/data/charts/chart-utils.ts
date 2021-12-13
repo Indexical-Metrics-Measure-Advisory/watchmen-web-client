@@ -10,7 +10,6 @@ export interface ColumnIndexMap {
 	timeGrouping: number;
 	bucketOn: number;
 	value: number;
-	timeRange: number;
 }
 
 export const buildAriaOptions = () => {
@@ -46,30 +45,24 @@ export const buildColumnIndexMap = (inspection: Inspection, arithmetic: Indicato
 		// no time measure, then has bucket measure
 		columnIndexMap.bucketOn = 0;
 	}
-	if (inspection.timeRangeFactorId != null) {
-		// time range column is following
-		columnIndexMap.timeRange = isColumnIndexAssigned(columnIndexMap.timeGrouping) ? (columnIndexMap.timeGrouping + 1) : (columnIndexMap.bucketOn + 1);
-	}
 	// value columns follow
-	const firstValueColumnIndex = isColumnIndexAssigned(columnIndexMap.timeRange)
-		? (columnIndexMap.timeRange + 1)
-		: (isColumnIndexAssigned(columnIndexMap.timeGrouping) ? (columnIndexMap.timeGrouping + 1) : (columnIndexMap.bucketOn + 1));
+	const firstValueColumnIndex = isColumnIndexAssigned(columnIndexMap.timeGrouping) ? (columnIndexMap.timeGrouping + 1) : (columnIndexMap.bucketOn + 1);
 	columnIndexMap.value = firstValueColumnIndex + (inspection.aggregateArithmetics || []).indexOf(arithmetic);
 
 	return columnIndexMap;
 };
 
-const rebuildOnIgnoreOneColumn = (params: ChartParams, columnIndex: number): Pick<ChartParams, 'data' | 'columns'> => {
-	const {inspection, data, columns, arithmetic} = params;
-	const columnIndexMap = buildColumnIndexMap(inspection, arithmetic);
+const rebuildOnIgnoreOneColumn = (params: ChartParams, ignoreColumnIndex: number): Pick<ChartParams, 'data' | 'columns'> => {
+	const {inspection, data, columns} = params;
+	// const columnIndexMap = buildColumnIndexMap(inspection, arithmetic);
 	// assume one column is already removed
-	const firstValueIndex = isColumnIndexAssigned(columnIndexMap.timeRange) ? 2 : 1;
+	const firstValueIndex = 1;
 	const arithmetics = inspection.aggregateArithmetics || [];
 	return {
 		data: data
 			// remove the given measure on given column index
 			// which is bucket on or time grouping
-			.map(row => row.filter((_, index) => index !== columnIndex))
+			.map(row => row.filter((_, index) => index !== ignoreColumnIndex))
 			// group by first column, which is the measure remained now
 			.reduce((rows, row) => {
 				const key = row[0];
@@ -122,7 +115,7 @@ const rebuildOnIgnoreOneColumn = (params: ChartParams, columnIndex: number): Pic
 				}
 				return rows;
 			}, [] as Array<RowOfAny>),
-		columns: columns.filter((_, index) => index !== columnIndex)
+		columns: columns.filter((_, index) => index !== ignoreColumnIndex)
 	};
 };
 
@@ -208,7 +201,7 @@ export const buildChartUsages = (inspection: Inspection, arithmetic: IndicatorAg
 };
 
 export const buildChartGrowthTypes = (inspection: Inspection, chartType: ChartType, usage: ChartUsage): Array<ChartGrowthType> => {
-	if (chartType !== ChartType.BAR) {
+	if (chartType !== ChartType.BAR || usage === ChartUsage.BUCKET_ON) {
 		return [];
 	}
 
@@ -216,11 +209,6 @@ export const buildChartGrowthTypes = (inspection: Inspection, chartType: ChartTy
 	const columnIndexMap = buildColumnIndexMap(inspection, IndicatorAggregateArithmetic.COUNT);
 
 	const supportTimeGrouping = isColumnIndexAssigned(columnIndexMap.timeGrouping);
-	const supportTimeRange = isColumnIndexAssigned(columnIndexMap.timeRange) &&
-		(inspection.timeRanges == null || inspection.timeRanges.length === 0 || inspection.timeRanges.length >= 2);
 
-	return [
-		supportTimeGrouping ? ChartGrowthType.TIME_GROUPING : null,
-		supportTimeRange ? ChartGrowthType.TIME_RANGE : null
-	].filter(isNotNull);
+	return [supportTimeGrouping ? ChartGrowthType.TIME_GROUPING : null].filter(isNotNull);
 };
