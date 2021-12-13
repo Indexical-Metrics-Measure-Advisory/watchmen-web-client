@@ -207,8 +207,8 @@ export const buildChartUsages = (inspection: Inspection, arithmetic: IndicatorAg
 	return [];
 };
 
-export const buildChartGrowthTypes = (inspection: Inspection, chartType: ChartType): Array<ChartGrowthType> => {
-	if (chartType !== ChartType.BAR) {
+export const buildChartGrowthTypes = (inspection: Inspection, chartType: ChartType, usage: ChartUsage): Array<ChartGrowthType> => {
+	if (chartType !== ChartType.BAR || usage === ChartUsage.BUCKET_ON) {
 		return [];
 	}
 

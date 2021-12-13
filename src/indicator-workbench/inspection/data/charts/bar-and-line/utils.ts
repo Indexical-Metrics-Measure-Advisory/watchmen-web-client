@@ -57,7 +57,6 @@ export const buildSeriesOptions = (options: {
 			return {
 				name,
 				type,
-				barGap: 0,
 				emphasis: {focus: 'series'},
 				data: xAxis.data.map(xValue => {
 					// eslint-disable-next-line
@@ -68,7 +67,6 @@ export const buildSeriesOptions = (options: {
 		})
 		: [{
 			type,
-			barGap: 0,
 			emphasis: {focus: 'series'},
 			data: xAxis.data.map(xValue => {
 				// eslint-disable-next-line
@@ -76,4 +74,69 @@ export const buildSeriesOptions = (options: {
 				return row == null ? null : row[columnIndexMap.value];
 			})
 		}];
+};
+
+export const buildYAxisUseTimeGroupingGrowth = () => {
+	return {
+		yAxis: [{
+			type: 'value', gridIndex: 0, axisLabel: {
+				formatter: (value: any) => formatToKGB(value)
+			}
+		}, {
+			type: 'value', gridIndex: 1, axisLabel: {
+				formatter: (value: any) => `${value}%`
+			}
+		}]
+	};
+};
+
+export const buildSeriesOptionsUseTimeGroupingGrowth = (options: {
+	data: Array<RowOfAny>;
+	xAxis: XAxisData;
+	legend: LegendData;
+	columnIndexMap: ColumnIndexMap;
+}) => {
+	const seriesArray = buildSeriesOptions({...options, type: 'bar'});
+
+	const computeGrowth = (value: any, index: number, array: RowOfAny): number | undefined => {
+		if (index === 0) {
+			return (void 0);
+		}
+
+		const prev = array[index - 1];
+		if (prev == null) {
+			return (void 0);
+		}
+
+		const prevValue = Number(prev);
+		if (prevValue === 0) {
+			return (void 0);
+		}
+
+		if (value == null) {
+			// totally decreased
+			return -1;
+		}
+
+		const currentValue = Number(value);
+		if (currentValue === 0) {
+			// totally decreased
+			return -1;
+		}
+
+		return Number(((currentValue - prevValue) / prevValue * 100).toFixed(1));
+	};
+
+	return [
+		...seriesArray,
+		...seriesArray.map(({data, ...rest}) => {
+			return {
+				...rest, xAxisIndex: 1, yAxisIndex: 1, type: 'line',
+				data: data.reduce((data, value, index, array) => {
+					data.push(computeGrowth(value, index, array));
+					return data;
+				}, [] as RowOfAny)
+			};
+		})
+	];
 };

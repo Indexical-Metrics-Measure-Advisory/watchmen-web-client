@@ -8,7 +8,7 @@ import {
 } from '@/widgets/basic/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useEffect, useState} from 'react';
-import {barBuild, lineBuild} from './bar-and-line';
+import {barBuild, barWithTimeGroupingGrowthBuild, lineBuild} from './bar-and-line';
 import {buildChartGrowthTypes, rebuildParams} from './chart-utils';
 import {useInspectionChartsEventBus} from './inspection-charts-event-bus';
 import {InspectionChartsEventTypes} from './inspection-charts-event-bus-types';
@@ -34,7 +34,7 @@ const getChartBuild = (type: ChartType, growth: Array<ChartGrowthType>): ChartOp
 		case  type === ChartType.BAR && growth.length === 2:
 			return barBuild;
 		case  type === ChartType.BAR && growth.includes(ChartGrowthType.TIME_GROUPING):
-			return barBuild;
+			return barWithTimeGroupingGrowthBuild;
 		case  type === ChartType.BAR && growth.includes(ChartGrowthType.TIME_RANGE):
 			return barBuild;
 	}
@@ -112,7 +112,7 @@ export const Chart = (props: ChartParams & { usage: ChartUsage, usages: Array<Ch
 	};
 
 	const rebuiltParams = rebuildParams({params, usage, usages});
-	const growthTypes = buildChartGrowthTypes(inspection, chartState.type);
+	const growthTypes = buildChartGrowthTypes(inspection, chartState.type, usage);
 
 	return <ChartContainer>
 		<ChartBuilder params={rebuiltParams} build={chartState.build}/>
