@@ -1,7 +1,6 @@
 import {RowOfAny} from '@/services/data/types';
 import {buildAriaOptions, buildColumnIndexMap, isColumnIndexAssigned} from '../chart-utils';
 import {ChartParams} from '../types';
-import {createChartComponent} from '../widgets/chart';
 import {buildBucketOnNames, buildSingleMeasureNames, buildTimeGroupingNames} from './utils';
 
 const formatter = new Intl.NumberFormat(undefined, {useGrouping: true});
@@ -100,5 +99,5 @@ const build = (params: ChartParams) => {
 		};
 	}
 };
+
 export const pieBuild = build;
-export const Pie = createChartComponent(build);

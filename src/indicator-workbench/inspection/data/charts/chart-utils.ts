@@ -1,7 +1,8 @@
 import {IndicatorAggregateArithmetic} from '@/services/data/tuples/indicator-types';
 import {Inspection, InspectMeasureOn} from '@/services/data/tuples/inspection-types';
 import {RowOfAny} from '@/services/data/types';
-import {ChartParams, ChartUsage} from './types';
+import {isNotNull} from '@/services/data/utils';
+import {ChartGrowthType, ChartParams, ChartType, ChartUsage} from './types';
 
 const COLUMN_INDEX_NOT_EXISTS = -1;
 
@@ -161,7 +162,13 @@ const rebuildParamsForTimeGrouping = (params: ChartParams): ChartParams => {
 	};
 };
 
-export const rebuildParams = (params: ChartParams, usage: ChartUsage, usages: Array<ChartUsage>): ChartParams => {
+export const rebuildParams = (options: {
+	params: ChartParams;
+	usage: ChartUsage;
+	usages: Array<ChartUsage>;
+}): ChartParams => {
+	const {params, usage, usages} = options;
+
 	switch (true) {
 		case usage === ChartUsage.BOTH:
 			return params;
@@ -198,4 +205,21 @@ export const buildChartUsages = (inspection: Inspection, arithmetic: IndicatorAg
 	}
 
 	return [];
+};
+
+export const buildChartGrowthTypes = (inspection: Inspection, chartType: ChartType): Array<ChartGrowthType> => {
+	if (chartType !== ChartType.BAR) {
+		return [];
+	}
+
+	// assign an arithmetic, no matter what it is
+	const columnIndexMap = buildColumnIndexMap(inspection, IndicatorAggregateArithmetic.COUNT);
+
+	const supportTimeGrouping = isColumnIndexAssigned(columnIndexMap.timeGrouping);
+	const supportTimeRange = isColumnIndexAssigned(columnIndexMap.timeRange);
+
+	return [
+		supportTimeGrouping ? ChartGrowthType.TIME_GROUPING : null,
+		supportTimeRange ? ChartGrowthType.TIME_RANGE : null
+	].filter(isNotNull);
 };

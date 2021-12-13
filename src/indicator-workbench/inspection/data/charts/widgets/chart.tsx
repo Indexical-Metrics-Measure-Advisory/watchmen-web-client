@@ -2,16 +2,6 @@ import {ChartOptionsBuilder, ChartParams} from '../types';
 import {useEChart} from './use-echart';
 import {ChartPalette, ChartWrapper} from './widgets';
 
-export const createChartComponent = <Opt extends any>(build: (params: ChartParams) => Opt) => {
-	return (props: ChartParams) => {
-		const {containerRef} = useEChart(props, build);
-
-		return <ChartWrapper>
-			<ChartPalette ref={containerRef}/>
-		</ChartWrapper>;
-	};
-};
-
 /**
  * do not compare inspection object with any event, it might be a faked one by parent.
  */

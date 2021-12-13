@@ -4,6 +4,7 @@ import {
 	faAngleRight,
 	faArrowAltCircleDown,
 	faArrowDown,
+	faArrowTrendUp,
 	faArrowUp,
 	faBan,
 	faBell,
@@ -14,7 +15,8 @@ import {
 	faCaretRight,
 	faChalkboard,
 	faChalkboardTeacher,
-	faChartBar, faChartColumn,
+	faChartBar,
+	faChartColumn,
 	faChartLine,
 	faChartPie,
 	faCheck,
@@ -25,6 +27,7 @@ import {
 	faCloudDownloadAlt,
 	faCode,
 	faCodeCommit,
+	faCodeCompare,
 	faCodeMerge,
 	faCog,
 	faCoins,
@@ -218,6 +221,8 @@ export const ICON_BUCKET_ON = faShapes;
 export const ICON_CHART_BAR = faChartColumn;
 export const ICON_CHART_LINE = faChartLine;
 export const ICON_CHART_PIE = faChartPie;
+export const ICON_CHART_GROWTH_OF_TIME_GROUPING = faCodeCompare;
+export const ICON_CHART_GROWTH_OF_TIME_RANGE = faArrowTrendUp;
 
 export const ICON_SECONDARY_SECTION = faCaretRight;
 

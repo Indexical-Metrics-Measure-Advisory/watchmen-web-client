@@ -6,13 +6,18 @@ import {Columns} from '../../types';
 export enum ChartUsage {
 	TIME_GROUPING = 'time-grouping',
 	BUCKET_ON = 'bucket-on',
-	BOTH = 'both'
+	BOTH = 'both',
 }
 
 export enum ChartType {
 	BAR = 'bar',
 	LINE = 'line',
 	PIE = 'pie'
+}
+
+export enum ChartGrowthType {
+	TIME_GROUPING = 'time-grouping',
+	TIME_RANGE = 'time-range'
 }
 
 export interface ChartParams {

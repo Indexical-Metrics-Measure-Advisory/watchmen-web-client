@@ -130,7 +130,7 @@ export interface Inspection extends Tuple {
 	timeRanges?: Array<InspectionTimeRange>;
 	/** time measure on factor. measure can use another factor or just measure on the same time factor */
 	measureOnTime?: MeasureMethod;
-	/** time measure on secondary factor */
+	/** time measure on factor */
 	measureOnTimeFactorId?: FactorId;
 	tenantId?: TenantId;
 }

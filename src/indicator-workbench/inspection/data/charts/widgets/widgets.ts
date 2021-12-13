@@ -119,14 +119,14 @@ export const ChartTypeButtons = styled.div.attrs({'data-widget': 'inspection-cha
 		border       : var(--border);
 		border-color : var(--primary-color);
 		opacity      : 0.5;
-		&:first-child {
+		&:first-child:not(:last-child) {
 			border-top-right-radius    : 0;
 			border-bottom-right-radius : 0;
 		}
 		&:not(:first-child):not(:last-child) {
 			border-radius : 0;
 		}
-		&:last-child {
+		&:last-child:not(:first-child) {
 			border-top-left-radius    : 0;
 			border-bottom-left-radius : 0;
 		}
@@ -138,11 +138,15 @@ export const ChartTypeButtons = styled.div.attrs({'data-widget': 'inspection-cha
 			background-color : var(--primary-color);
 		}
 	}
+	+ div[data-widget=inspection-chart-type-buttons] {
+		margin-left : calc(var(--margin) / 4);
+	}
 `;
 
 export const ChartTypeButton = styled(Button)`
 	height    : calc(var(--header-height) * 0.7);
 	min-width : calc(var(--header-height) * 0.7);
+	max-width : calc(var(--header-height) * 0.7);
 	padding   : 0 calc(var(--margin) / 4);
 	color     : var(--primary-color);
 	> svg:not(:last-child) {
