@@ -8,7 +8,7 @@ import {
 } from '@/widgets/basic/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useEffect, useState} from 'react';
-import {barBuild, barWithTimeGroupingGrowthBuild, lineBuild} from './bar-and-line';
+import {barBuild, barWithTimeGroupingGrowthBuild, barWithTimeRangeGrowthBuild, lineBuild} from './bar-and-line';
 import {buildChartGrowthTypes, rebuildParams} from './chart-utils';
 import {useInspectionChartsEventBus} from './inspection-charts-event-bus';
 import {InspectionChartsEventTypes} from './inspection-charts-event-bus-types';
@@ -19,24 +19,22 @@ import {ChartContainer, ChartToolbar, ChartTypeButton, ChartTypeButtons} from '.
 
 interface ChartState {
 	type: ChartType;
-	growth: Array<ChartGrowthType>;
+	growth: ChartGrowthType;
 	build: ChartOptionsBuilder<any>;
 }
 
-const getChartBuild = (type: ChartType, growth: Array<ChartGrowthType>): ChartOptionsBuilder<any> => {
+const getChartBuild = (type: ChartType, growth: ChartGrowthType): ChartOptionsBuilder<any> => {
 	switch (true) {
 		case type === ChartType.LINE:
 			return lineBuild;
 		case type === ChartType.PIE:
 			return pieBuild;
-		case  type === ChartType.BAR && growth.length === 0:
+		case  type === ChartType.BAR && growth === ChartGrowthType.NONE:
 			return barBuild;
-		case  type === ChartType.BAR && growth.length === 2:
-			return barBuild;
-		case  type === ChartType.BAR && growth.includes(ChartGrowthType.TIME_GROUPING):
+		case  type === ChartType.BAR && growth === ChartGrowthType.TIME_GROUPING:
 			return barWithTimeGroupingGrowthBuild;
-		case  type === ChartType.BAR && growth.includes(ChartGrowthType.TIME_RANGE):
-			return barBuild;
+		case  type === ChartType.BAR && growth === ChartGrowthType.TIME_RANGE:
+			return barWithTimeRangeGrowthBuild;
 	}
 	throw new Error(`Chart[type=${type}, growth=${growth}] is not supported yet.`);
 };
@@ -49,7 +47,7 @@ export const Chart = (props: ChartParams & { usage: ChartUsage, usages: Array<Ch
 	const [visible, setVisible] = useState(false);
 	const [chartState, setChartState] = useState<ChartState>({
 		type: ChartType.BAR,
-		growth: [],
+		growth: ChartGrowthType.NONE,
 		build: barBuild
 	});
 	useEffect(() => {
@@ -78,8 +76,8 @@ export const Chart = (props: ChartParams & { usage: ChartUsage, usages: Array<Ch
 		if (chartState.type !== ChartType.BAR) {
 			setChartState({
 				type: ChartType.BAR,
-				growth: [],
-				build: getChartBuild(ChartType.BAR, [])
+				growth: ChartGrowthType.NONE,
+				build: getChartBuild(ChartType.BAR, ChartGrowthType.NONE)
 			});
 		}
 	};
@@ -87,8 +85,8 @@ export const Chart = (props: ChartParams & { usage: ChartUsage, usages: Array<Ch
 		if (chartState.type !== ChartType.LINE) {
 			setChartState({
 				type: ChartType.LINE,
-				growth: [],
-				build: getChartBuild(ChartType.LINE, [])
+				growth: ChartGrowthType.NONE,
+				build: getChartBuild(ChartType.LINE, ChartGrowthType.NONE)
 			});
 		}
 	};
@@ -96,19 +94,41 @@ export const Chart = (props: ChartParams & { usage: ChartUsage, usages: Array<Ch
 		if (chartState.type !== ChartType.PIE) {
 			setChartState({
 				type: ChartType.PIE,
-				growth: [],
-				build: getChartBuild(ChartType.PIE, [])
+				growth: ChartGrowthType.NONE,
+				build: getChartBuild(ChartType.PIE, ChartGrowthType.NONE)
 			});
 		}
 	};
 
 	const onGrowthOfTimeGroupingClicked = () => {
-		const growth = chartState.growth.includes(ChartGrowthType.TIME_GROUPING)
-			? chartState.growth.filter(growth => growth !== ChartGrowthType.TIME_GROUPING)
-			: [...chartState.growth, ChartGrowthType.TIME_GROUPING];
-		setChartState({type: ChartType.BAR, growth, build: getChartBuild(ChartType.BAR, growth)});
+		if (chartState.growth === ChartGrowthType.TIME_GROUPING) {
+			setChartState({
+				type: ChartType.BAR,
+				growth: ChartGrowthType.NONE,
+				build: getChartBuild(ChartType.BAR, ChartGrowthType.NONE)
+			});
+		} else {
+			setChartState({
+				type: ChartType.BAR,
+				growth: ChartGrowthType.TIME_GROUPING,
+				build: getChartBuild(ChartType.BAR, ChartGrowthType.TIME_GROUPING)
+			});
+		}
 	};
 	const onGrowthOfTimeRangeClicked = () => {
+		if (chartState.growth === ChartGrowthType.TIME_RANGE) {
+			setChartState({
+				type: ChartType.BAR,
+				growth: ChartGrowthType.NONE,
+				build: getChartBuild(ChartType.BAR, ChartGrowthType.NONE)
+			});
+		} else {
+			setChartState({
+				type: ChartType.BAR,
+				growth: ChartGrowthType.TIME_RANGE,
+				build: getChartBuild(ChartType.BAR, ChartGrowthType.TIME_RANGE)
+			});
+		}
 	};
 
 	const rebuiltParams = rebuildParams({params, usage, usages});

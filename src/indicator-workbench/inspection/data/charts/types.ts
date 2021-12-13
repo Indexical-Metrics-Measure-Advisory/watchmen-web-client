@@ -16,6 +16,7 @@ export enum ChartType {
 }
 
 export enum ChartGrowthType {
+	NONE = 'none',
 	TIME_GROUPING = 'time-grouping',
 	TIME_RANGE = 'time-range'
 }

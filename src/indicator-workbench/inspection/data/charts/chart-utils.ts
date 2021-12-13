@@ -208,7 +208,7 @@ export const buildChartUsages = (inspection: Inspection, arithmetic: IndicatorAg
 };
 
 export const buildChartGrowthTypes = (inspection: Inspection, chartType: ChartType, usage: ChartUsage): Array<ChartGrowthType> => {
-	if (chartType !== ChartType.BAR || usage === ChartUsage.BUCKET_ON) {
+	if (chartType !== ChartType.BAR) {
 		return [];
 	}
 
@@ -216,7 +216,8 @@ export const buildChartGrowthTypes = (inspection: Inspection, chartType: ChartTy
 	const columnIndexMap = buildColumnIndexMap(inspection, IndicatorAggregateArithmetic.COUNT);
 
 	const supportTimeGrouping = isColumnIndexAssigned(columnIndexMap.timeGrouping);
-	const supportTimeRange = isColumnIndexAssigned(columnIndexMap.timeRange);
+	const supportTimeRange = isColumnIndexAssigned(columnIndexMap.timeRange) &&
+		(inspection.timeRanges == null || inspection.timeRanges.length === 0 || inspection.timeRanges.length >= 2);
 
 	return [
 		supportTimeGrouping ? ChartGrowthType.TIME_GROUPING : null,

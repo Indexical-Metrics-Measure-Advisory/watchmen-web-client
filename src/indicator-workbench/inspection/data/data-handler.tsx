@@ -17,8 +17,14 @@ export const DataHandler = (props: { inspection: Inspection }) => {
 			validateInspection({
 				inspection,
 				success: async (inspection: Inspection) => {
-					const data = await fetchInspectionData(inspection);
-					fire(InspectionEventTypes.DATA_LOADED, inspection, data);
+					fire(InspectionEventTypes.SAVE_INSPECTION, inspection, async (inspection, saved) => {
+						if (saved) {
+							const data = await fetchInspectionData(inspection);
+							fire(InspectionEventTypes.DATA_LOADED, inspection, data);
+						} else {
+							fire(InspectionEventTypes.DATA_LOADED, inspection, []);
+						}
+					});
 				},
 				fail: () => {
 					fire(InspectionEventTypes.DATA_LOADED, inspection, []);
