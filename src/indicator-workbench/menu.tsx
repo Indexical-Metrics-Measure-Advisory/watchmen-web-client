@@ -53,11 +53,16 @@ const IndicatorWorkbenchMenuContainer = styled.div.attrs<{ width: number }>(({wi
 			max-width : ${({width}) => `calc(100vw - ${width}px)`};
 		}
 	}
+	@page {
+		size   : A4 landscape;
+		margin : 0 15mm;
+	}
 	@media print {
 		display : none;
 		+ main {
-			max-width : unset;
-			height    : unset;
+			max-width  : unset;
+			height     : unset;
+			overflow-y : unset;
 			div[data-widget="full-width-page"] {
 				max-width : unset;
 			}

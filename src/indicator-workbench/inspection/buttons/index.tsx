@@ -91,6 +91,9 @@ export const Buttons = () => {
 			}
 		});
 	};
+	const onPrintClicked = () => {
+		window.print();
+	}
 	const onPickAnotherClicked = () => {
 		fireGlobal(EventTypes.SHOW_YES_NO_DIALOG,
 			Lang.INDICATOR_WORKBENCH.INSPECTION.RESET_INSPECTION,
@@ -106,6 +109,9 @@ export const Buttons = () => {
 		<InspectionButton ink={ButtonInk.PRIMARY} onClick={onLoadDataClicked}>
 			{loading ? <FontAwesomeIcon icon={ICON_LOADING} spin={true}/> : null}
 			{Lang.INDICATOR_WORKBENCH.INSPECTION.REFRESH_DATA}
+		</InspectionButton>
+		<InspectionButton ink={ButtonInk.PRIMARY} onClick={onPrintClicked}>
+			{Lang.INDICATOR_WORKBENCH.INSPECTION.PRINT}
 		</InspectionButton>
 		<InspectionButton ink={ButtonInk.DANGER} onClick={onPickAnotherClicked}>
 			{Lang.INDICATOR_WORKBENCH.INSPECTION.PICK_ANOTHER}

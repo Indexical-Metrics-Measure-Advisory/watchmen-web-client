@@ -37,6 +37,9 @@ export const DataGridContainer = styled.div.attrs<{ visible: boolean }>(({visibl
 	border-width   : calc(var(--border-width) * 2);
 	border-radius  : calc(var(--border-radius) * 2);
 	transition     : max-height 300ms ease-in-out, border-color 300ms ease-in-out;
+	@media print {
+		max-height : unset;
+	}
 `;
 export const DataGridHeader = styled.div.attrs<{ columns: Columns }>(({columns}) => {
 	return {

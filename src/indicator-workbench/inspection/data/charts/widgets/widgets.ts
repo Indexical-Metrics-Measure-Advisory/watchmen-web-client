@@ -92,6 +92,9 @@ export const ChartContainer = styled.div.attrs({'data-widget': 'inspection-chart
 	position       : relative;
 	flex-direction : column;
 	padding-top    : 75%;
+	@media print {
+		grid-column : 1 / span 2;
+	}
 	> div[data-widget=inspection-chart-wrapper] {
 		position      : absolute;
 		flex-grow     : 1;
@@ -101,6 +104,9 @@ export const ChartContainer = styled.div.attrs({'data-widget': 'inspection-chart
 		border        : var(--border);
 		border-width  : calc(var(--border-width) * 2);
 		border-radius : calc(var(--border-radius) * 2);
+		@media print {
+			height : calc(100% - var(--header-height));
+		}
 	}
 `;
 
@@ -109,6 +115,9 @@ export const ChartToolbar = styled.div.attrs({'data-widget': 'inspection-chart-t
 	position   : relative;
 	min-height : calc(var(--header-height));
 	margin-top : calc(var(--margin) / 4);
+	@media print {
+		display : none;
+	}
 `;
 
 export const ChartTypeButtons = styled.div.attrs({'data-widget': 'inspection-chart-type-buttons'})`
