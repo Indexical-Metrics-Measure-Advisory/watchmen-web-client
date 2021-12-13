@@ -221,8 +221,8 @@ export const ICON_BUCKET_ON = faShapes;
 export const ICON_CHART_BAR = faChartColumn;
 export const ICON_CHART_LINE = faChartLine;
 export const ICON_CHART_PIE = faChartPie;
-export const ICON_CHART_GROWTH_OF_TIME_GROUPING = faCodeCompare;
-export const ICON_CHART_GROWTH_OF_TIME_RANGE = faArrowTrendUp;
+export const ICON_CHART_GROWTH_OF_TIME_GROUPING = faArrowTrendUp;
+export const ICON_CHART_GROWTH_OF_TIME_RANGE = faCodeCompare;
 
 export const ICON_SECONDARY_SECTION = faCaretRight;
 
