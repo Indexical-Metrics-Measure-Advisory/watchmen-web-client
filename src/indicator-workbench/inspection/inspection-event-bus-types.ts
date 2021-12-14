@@ -1,4 +1,5 @@
 import {BucketId} from '@/services/data/tuples/bucket-types';
+import {Enum, EnumId} from '@/services/data/tuples/enum-types';
 import {Indicator, IndicatorId} from '@/services/data/tuples/indicator-types';
 import {Inspection, InspectionId} from '@/services/data/tuples/inspection-types';
 import {QueryBucket, QueryByBucketMethod} from '@/services/data/tuples/query-bucket-types';
@@ -24,6 +25,7 @@ export enum InspectionEventTypes {
 	ASK_INDICATORS = 'ask-indicators',
 	ASK_INDICATOR = 'ask-indicator',
 	ASK_BUCKETS = 'ask-buckets',
+	ASK_ENUM = 'ask-enum',
 
 	INSPECTION_PICKED = 'inspection-picked',
 	INDICATOR_PICKED = 'indicator-picked',
@@ -71,6 +73,10 @@ export interface InspectionEventBus {
 	fire(type: InspectionEventTypes.ASK_BUCKETS, params: AskBucketsParams, onData: (buckets: Array<QueryBucket>) => void): this;
 	on(type: InspectionEventTypes.ASK_BUCKETS, listener: (params: AskBucketsParams, onData: (buckets: Array<QueryBucket>) => void) => void): this;
 	off(type: InspectionEventTypes.ASK_BUCKETS, listener: (params: AskBucketsParams, onData: (buckets: Array<QueryBucket>) => void) => void): this;
+
+	fire(type: InspectionEventTypes.ASK_ENUM, enumId: EnumId, onData: (enumeration?: Enum) => void): this;
+	on(type: InspectionEventTypes.ASK_ENUM, listener: (enumId: EnumId, onData: (enumeration?: Enum) => void) => void): this;
+	off(type: InspectionEventTypes.ASK_ENUM, listener: (enumId: EnumId, onData: (enumeration?: Enum) => void) => void): this;
 
 	fire(type: InspectionEventTypes.INSPECTION_PICKED, inspection: Inspection, indicator?: IndicatorForInspection): this;
 	on(type: InspectionEventTypes.INSPECTION_PICKED, listener: (inspection: Inspection, indicator?: IndicatorForInspection) => void): this;

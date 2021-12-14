@@ -1,4 +1,5 @@
-import {Inspection} from '@/services/data/tuples/inspection-types';
+import {Enum} from '@/services/data/tuples/enum-types';
+import {Inspection, InspectMeasureOn} from '@/services/data/tuples/inspection-types';
 import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
 import {RowOfAny} from '@/services/data/types';
 import {Lang} from '@/widgets/langs';
@@ -58,7 +59,33 @@ export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorFo
 				});
 			};
 
-			const buckets = await askBuckets(indicator);
+			const askEnum = async ({topic}: IndicatorForInspection): Promise<Enum | undefined> => {
+				return new Promise(resolve => {
+					if (inspection.measureOnFactorId != null
+						&& inspection.measureOnFactorId === InspectMeasureOn.OTHER
+						&& inspection.measureOnBucketId == null) {
+						// measure on a factor and on naturally classification
+						const factor = (topic.factors || []).find(factor => factor.factorId == inspection.measureOnFactorId);
+						if (factor != null && factor.enumId != null) {
+							fire(InspectionEventTypes.ASK_ENUM, factor.enumId, (enumeration?: Enum) => {
+								resolve(enumeration);
+							});
+							return;
+						}
+					}
+					resolve(void 0);
+				});
+			};
+
+			const [buckets, enumeration] = await Promise.all([await askBuckets(indicator), await askEnum(indicator)]);
+			if (enumeration != null) {
+				// replace enumeration value of data
+				const enumItemMap = (enumeration.items || []).reduce((map, item) => {
+					map[item.code] = item.label;
+					return map;
+				}, {} as Record<string, string>);
+				data.map(row => row[0] = row[0] != null ? (enumItemMap[`${row[0]}`] ?? row[0]) : row[0]);
+			}
 			const columns = buildColumnDefs({inspection, indicator, buckets});
 			setState({initialized: true, columns, data, buckets, selection: []});
 		};
