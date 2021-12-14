@@ -62,9 +62,10 @@ export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorFo
 			const askEnum = async ({topic}: IndicatorForInspection): Promise<Enum | undefined> => {
 				return new Promise(resolve => {
 					if (inspection.measureOnFactorId != null
-						&& inspection.measureOnFactorId === InspectMeasureOn.OTHER
+						&& inspection.measureOn === InspectMeasureOn.OTHER
 						&& inspection.measureOnBucketId == null) {
 						// measure on a factor and on naturally classification
+						// eslint-disable-next-line
 						const factor = (topic.factors || []).find(factor => factor.factorId == inspection.measureOnFactorId);
 						if (factor != null && factor.enumId != null) {
 							fire(InspectionEventTypes.ASK_ENUM, factor.enumId, (enumeration?: Enum) => {
@@ -84,7 +85,9 @@ export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorFo
 					map[item.code] = item.label;
 					return map;
 				}, {} as Record<string, string>);
+				console.log(JSON.stringify(data));
 				data.map(row => row[0] = row[0] != null ? (enumItemMap[`${row[0]}`] ?? row[0]) : row[0]);
+				console.log(JSON.stringify(data));
 			}
 			const columns = buildColumnDefs({inspection, indicator, buckets});
 			setState({initialized: true, columns, data, buckets, selection: []});

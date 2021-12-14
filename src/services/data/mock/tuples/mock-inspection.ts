@@ -63,13 +63,13 @@ export const saveMockInspection = async (inspection: Inspection): Promise<void> 
 };
 
 const MockCities = [
-	{code: '001', label: 'New York'},
-	{code: '002', label: 'Maine'},
-	{code: '003', label: 'New Hampshire'},
-	{code: '004', label: 'Vermont'},
-	{code: '005', label: 'Rhode Island'},
-	{code: '006', label: 'Connecticut'},
-	{code: '007', label: 'Massachusetts'}
+	{code: '001', label: 'New York City'},
+	{code: '002', label: 'Portland'},
+	{code: '003', label: 'Manchester'},
+	{code: '004', label: 'Burlington'},
+	{code: '005', label: 'Providence'},
+	{code: '006', label: 'Bridgeport'},
+	{code: '007', label: 'Boston'}
 ];
 
 interface OrderPremiumRow {
@@ -177,7 +177,7 @@ const gatherInspectionData = (inspection: Inspection): Array<RowOfAny> => {
 			});
 		} else {
 			transformers.push((row: OrderPremiumRow) => {
-				return {...row, cityGroup: MockCities.find(city => city.code === row.city)?.label};
+				return {...row, cityGroup: MockCities.find(city => city.code === row.city)?.code};
 			});
 		}
 	}

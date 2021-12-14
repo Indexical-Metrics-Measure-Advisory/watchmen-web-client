@@ -89,8 +89,13 @@ export const fetchMockEnum = async (enumId: EnumId): Promise<{ enumeration: Enum
 			enumId: MOCK_ENUM_CITY_ID,
 			name: 'Mock City',
 			items: [
-				{code: '001', label: 'Boston'},
-				{code: '002', label: 'Worcester'}
+				{code: '001', label: 'New York City'},
+				{code: '002', label: 'Portland'},
+				{code: '003', label: 'Manchester'},
+				{code: '004', label: 'Burlington'},
+				{code: '005', label: 'Providence'},
+				{code: '006', label: 'Bridgeport'},
+				{code: '007', label: 'Boston'}
 			],
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()

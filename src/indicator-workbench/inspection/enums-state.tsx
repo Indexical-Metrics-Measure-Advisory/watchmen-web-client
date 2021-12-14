@@ -12,6 +12,7 @@ export const EnumsState = () => {
 	const [enums, setEnums] = useState<Array<Enum>>([]);
 	useEffect(() => {
 		const onAskEnum = async (enumId: EnumId, onData: (enumeration?: Enum) => void) => {
+			// eslint-disable-next-line
 			const existing = enums.find(e => e.enumId == enumId);
 			if (existing == null) {
 				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
@@ -28,6 +29,6 @@ export const EnumsState = () => {
 		return () => {
 			off(InspectionEventTypes.ASK_ENUM, onAskEnum);
 		};
-	}, [on, off, enums]);
+	}, [fireGlobal, on, off, enums]);
 	return <Fragment/>;
 };
