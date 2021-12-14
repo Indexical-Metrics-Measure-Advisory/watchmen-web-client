@@ -36,7 +36,7 @@ export const NavigationEdit = () => {
 				setNavigation(navigation);
 			}
 		});
-	}, [fire]);
+	}, [fire, fireGlobal, history]);
 
 	return navigation == null ? null : <InternalNavigationEdit navigation={navigation}/>;
 };
