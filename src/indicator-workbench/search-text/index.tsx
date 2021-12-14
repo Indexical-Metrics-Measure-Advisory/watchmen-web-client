@@ -21,6 +21,7 @@ interface SearchResult<I extends SearchItem> {
 }
 
 export const SearchText = <I extends SearchItem>(props: {
+	initSearchText?: string;
 	search: (text: string) => Promise<SearchItems<I>>;
 	onSelectionChange: (item: I) => Promise<string | void>;
 	openText?: string;
@@ -31,7 +32,7 @@ export const SearchText = <I extends SearchItem>(props: {
 	hideButton?: boolean;
 }) => {
 	const {
-		search, onSelectionChange,
+		initSearchText, search, onSelectionChange,
 		openText, placeholder,
 		buttonFirst = false, alwaysShowSearchInput = false, hideButton = false
 	} = props;
@@ -42,7 +43,7 @@ export const SearchText = <I extends SearchItem>(props: {
 	const {on, off, fire} = useSearchTextEventBus();
 	const [showSearchInput, setShowSearchInput] = useState(alwaysShowSearchInput);
 	const [showSearchPopup, setShowSearchPopup] = useState(false);
-	const [searchText, setSearchText] = useState('');
+	const [searchText, setSearchText] = useState(initSearchText ?? '');
 	const [timeoutHandle, setTimeoutHandle] = useState<number | null>(null);
 	const [result, setResult] = useState<SearchResult<I>>({searched: false, items: []});
 	const [activeItemIndex, setActiveItemIndex] = useState<number>(-1);
@@ -78,11 +79,7 @@ export const SearchText = <I extends SearchItem>(props: {
 		hide: () => setShowSearchPopup(false)
 	});
 
-	const onSearchTextChanged = async (event: ChangeEvent<HTMLInputElement>) => {
-		const {value} = event.target;
-		setSearchText(value);
-		setShowSearchPopup(true);
-		const text = value.trim();
+	const doSearch = (text: string) => {
 		if (text.length === 0) {
 			setTimeoutHandle(handle => {
 				if (handle != null) {
@@ -111,10 +108,20 @@ export const SearchText = <I extends SearchItem>(props: {
 			});
 		}
 	};
+	const onSearchTextChanged = async (event: ChangeEvent<HTMLInputElement>) => {
+		const {value} = event.target;
+		setSearchText(value);
+		setShowSearchPopup(true);
+		doSearch(value.trim());
+	};
 	const onSearchTextFocused = () => {
 		if (searchText.trim().length !== 0) {
 			if (!showSearchPopup) {
-				setActiveItemIndex(result.items.length !== 0 ? 0 : -1);
+				if (result.searched) {
+					setActiveItemIndex(result.items.length !== 0 ? 0 : -1);
+				} else {
+					doSearch(searchText.trim());
+				}
 				setShowSearchPopup(true);
 			}
 		}

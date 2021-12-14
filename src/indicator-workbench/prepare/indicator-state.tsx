@@ -1,5 +1,6 @@
 import {fetchIndicator, loadIndicatorCategories, saveIndicator} from '@/services/data/tuples/indicator';
 import {Indicator, IndicatorId} from '@/services/data/tuples/indicator-types';
+import {QueryIndicatorCategoryParams} from '@/services/data/tuples/query-indicator-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
@@ -107,7 +108,7 @@ export const IndicatorState = () => {
 		};
 	}, [on, off, fire, fireGlobal, categories]);
 	useEffect(() => {
-		const onAskIndicatorCategory = (indicator: Indicator, prefix: Array<string>, onData: (candidates: Array<string>) => void) => {
+		const onAskIndicatorCategory = (indicator: Indicator, prefix: QueryIndicatorCategoryParams, onData: (candidates: Array<string>) => void) => {
 			const candidates = findInCache(categories, prefix);
 			if (candidates != null) {
 				onData(candidates);

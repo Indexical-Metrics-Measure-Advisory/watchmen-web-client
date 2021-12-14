@@ -1,4 +1,5 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
+import {QueryIndicatorCategoryParams} from '@/services/data/tuples/query-indicator-types';
 import {noop} from '@/services/utils';
 import {useSavingQueue} from '@/widgets/saving-queue';
 import {SearchItem, SearchItems, SearchText} from '../../search-text';
@@ -22,7 +23,7 @@ export const CategoryInput = (props: {
 		fire(IndicatorsEventTypes.SAVE_INDICATOR, indicator, noop);
 	}, 500);
 	const searchNoX = (prop: 'category1' | 'category2' | 'category3') => async (text: string): Promise<SearchItems<SearchItem>> => {
-		indicator[prop] = text;
+		indicator[prop] = text.toLowerCase();
 		save();
 		return new Promise<SearchItems<SearchItem>>(resolve => {
 			fire(IndicatorsEventTypes.ASK_INDICATOR_CATEGORY,
@@ -36,7 +37,7 @@ export const CategoryInput = (props: {
 						case 'category3':
 							return [indicator.category1, indicator.category2].map(x => x ?? '');
 					}
-				})(),
+				})() as QueryIndicatorCategoryParams,
 				(candidates: Array<string>) => {
 					resolve((candidates || []).map(candidate => {
 						return {key: candidate, text: candidate};
@@ -46,7 +47,7 @@ export const CategoryInput = (props: {
 		});
 	};
 	const onNoXSelectionChange = (prop: 'category1' | 'category2' | 'category3') => async (item: SearchItem): Promise<string> => {
-		indicator![prop] = item.key;
+		indicator[prop] = item.key.toLowerCase();
 		save();
 		return new Promise(resolve => {
 			fireSearch(SearchTextEventTypes.HIDE_POPUP);
@@ -56,7 +57,7 @@ export const CategoryInput = (props: {
 
 	return <CategoryContainer>
 		<CategoryIndexLabel>#{index}</CategoryIndexLabel>
-		<SearchText search={searchNoX(name)}
+		<SearchText initSearchText={indicator[name] ?? ''} search={searchNoX(name)}
 		            onSelectionChange={onNoXSelectionChange(name)}
 		            alwaysShowSearchInput={true}
 		            hideButton={true}/>

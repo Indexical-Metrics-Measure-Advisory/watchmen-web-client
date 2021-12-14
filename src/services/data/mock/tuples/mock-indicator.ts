@@ -1,6 +1,11 @@
 import {isIndicatorFactor} from '../../tuples/factor-calculator-utils';
 import {Indicator, IndicatorId} from '../../tuples/indicator-types';
-import {EnumForIndicator, QueryIndicator, TopicForIndicator} from '../../tuples/query-indicator-types';
+import {
+	EnumForIndicator,
+	QueryIndicator,
+	QueryIndicatorCategoryParams,
+	TopicForIndicator
+} from '../../tuples/query-indicator-types';
 import {TopicId, TopicKind, TopicType} from '../../tuples/topic-types';
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
@@ -18,6 +23,7 @@ const OrderPremiumIndicator: Indicator = {
 	topicId: Order.topicId,
 	factorId: Order.factors.find(factor => factor.name === 'premium')?.factorId,
 	valueBuckets: [BUCKET_AMOUNT_ID],
+	category1: 'premium',
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };
@@ -128,7 +134,7 @@ export const fetchMockRelevantIndicators = async (indicatorId: IndicatorId): Pro
 	});
 };
 
-export const fetchMockIndicatorCategories = async (prefix: Array<string>): Promise<Array<string>> => {
+export const fetchMockIndicatorCategories = async (prefix: QueryIndicatorCategoryParams): Promise<Array<string>> => {
 	return new Promise<Array<string>>(resolve => {
 		setTimeout(() => {
 			resolve(['premium', 'order']);

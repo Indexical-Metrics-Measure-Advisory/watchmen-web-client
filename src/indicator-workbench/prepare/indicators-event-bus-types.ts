@@ -1,7 +1,11 @@
 import {BucketId} from '@/services/data/tuples/bucket-types';
 import {Indicator, IndicatorId} from '@/services/data/tuples/indicator-types';
 import {QueryBucket} from '@/services/data/tuples/query-bucket-types';
-import {EnumForIndicator, TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
+import {
+	EnumForIndicator,
+	QueryIndicatorCategoryParams,
+	TopicForIndicator
+} from '@/services/data/tuples/query-indicator-types';
 import {PrepareStep} from './types';
 
 export interface IndicatorsData {
@@ -59,7 +63,7 @@ export interface IndicatorsEventBus {
 	on(type: IndicatorsEventTypes.INDICATOR_SAVED, listener: (indicator: Indicator) => void): this;
 	off(type: IndicatorsEventTypes.INDICATOR_SAVED, listener: (indicator: Indicator) => void): this;
 
-	fire(type: IndicatorsEventTypes.ASK_INDICATOR_CATEGORY, indicator: Indicator, prefix: Array<string>, onData: (candidates: Array<string>) => void): this;
-	on(type: IndicatorsEventTypes.ASK_INDICATOR_CATEGORY, listener: (indicator: Indicator, prefix: Array<string>, onData: (candidates: Array<string>) => void) => void): this;
-	off(type: IndicatorsEventTypes.ASK_INDICATOR_CATEGORY, listener: (indicator: Indicator, prefix: Array<string>, onData: (candidates: Array<string>) => void) => void): this;
+	fire(type: IndicatorsEventTypes.ASK_INDICATOR_CATEGORY, indicator: Indicator, prefix: QueryIndicatorCategoryParams, onData: (candidates: Array<string>) => void): this;
+	on(type: IndicatorsEventTypes.ASK_INDICATOR_CATEGORY, listener: (indicator: Indicator, prefix: QueryIndicatorCategoryParams, onData: (candidates: Array<string>) => void) => void): this;
+	off(type: IndicatorsEventTypes.ASK_INDICATOR_CATEGORY, listener: (indicator: Indicator, prefix: QueryIndicatorCategoryParams, onData: (candidates: Array<string>) => void) => void): this;
 }

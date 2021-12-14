@@ -11,7 +11,12 @@ import {
 } from '../mock/tuples/mock-indicator';
 import {isMockService} from '../utils';
 import {Indicator, IndicatorId} from './indicator-types';
-import {EnumForIndicator, QueryIndicator, TopicForIndicator} from './query-indicator-types';
+import {
+	EnumForIndicator,
+	QueryIndicator,
+	QueryIndicatorCategoryParams,
+	TopicForIndicator
+} from './query-indicator-types';
 import {TopicId} from './topic-types';
 import {isFakedUuid} from './utils';
 
@@ -77,7 +82,11 @@ export const fetchRelevantIndicators = async (indicatorId: IndicatorId): Promise
 	}
 };
 
-export const loadIndicatorCategories = async (prefix: Array<string>): Promise<Array<string>> => {
+/**
+ * @param prefix {@code []} for load category1, {@code [string]} for load category2,
+ *              {@code [string, string]} for load category3
+ */
+export const loadIndicatorCategories = async (prefix: QueryIndicatorCategoryParams): Promise<Array<string>> => {
 	if (isMockService()) {
 		return fetchMockIndicatorCategories(prefix);
 	} else {
