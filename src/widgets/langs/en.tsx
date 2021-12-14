@@ -34,7 +34,8 @@ export const En = {
 		FIND_BUCKET_PLACEHOLDER: 'Search by bucket name, topic name, factor name.',
 		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: 'Key in category value here, confirm to add into segment.',
 		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: 'Search by bucket name.',
-		DROPDOWN_PLACEHOLDER: 'Please Select...'
+		DROPDOWN_PLACEHOLDER: 'Please Select...',
+		FIND_NAVIGATION_PLACEHOLDER: 'Search by navigation name.'
 	},
 	STANDARD: {
 		YES: 'Yes',
@@ -445,7 +446,13 @@ export const En = {
 			VISUALIZATION_LABEL: 'Visualization'
 		},
 		NAVIGATION: {
-			TITLE: 'Navigation'
+			TITLE: 'Navigations',
+			LABEL: 'Navigation',
+			CREATE_NAVIGATION: 'Create Navigation',
+			NEW_NAVIGATION_PREFIX: 'A New',
+			EXISTING_NAVIGATION_PREFIX: 'An Existing',
+			CREATE_AT: 'Created At',
+			LAST_MODIFIED_AT: 'Last Modified At'
 		}
 	},
 	SETTINGS: {

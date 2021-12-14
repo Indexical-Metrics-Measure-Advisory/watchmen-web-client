@@ -151,12 +151,12 @@ const IndicatorWorkbenchBuckets = () => {
 					fire(TupleEventTypes.TUPLE_LOADED, tuple);
 				});
 		};
-		const onDoSearchTopic = async (searchText: string, pageNumber: number) => {
+		const onDoSearchBucket = async (searchText: string, pageNumber: number) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await listBuckets({search: searchText, pageNumber, pageSize: TUPLE_SEARCH_PAGE_SIZE}),
 				(page: TuplePage<QueryTuple>) => fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText));
 		};
-		const onSaveTopic = async (bucket: Bucket, onSaved: (bucket: Bucket, saved: boolean) => void) => {
+		const onSaveBucket = async (bucket: Bucket, onSaved: (bucket: Bucket, saved: boolean) => void) => {
 			const validation = validate(bucket);
 			if (validation !== true) {
 				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{validation}</AlertLabel>, () => onSaved(bucket, false));
@@ -170,13 +170,13 @@ const IndicatorWorkbenchBuckets = () => {
 		};
 		on(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateBucket);
 		on(TupleEventTypes.DO_EDIT_TUPLE, onDoEditBucket);
-		on(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchTopic);
-		on(TupleEventTypes.SAVE_TUPLE, onSaveTopic);
+		on(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchBucket);
+		on(TupleEventTypes.SAVE_TUPLE, onSaveBucket);
 		return () => {
 			off(TupleEventTypes.DO_CREATE_TUPLE, onDoCreateBucket);
 			off(TupleEventTypes.DO_EDIT_TUPLE, onDoEditBucket);
-			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchTopic);
-			off(TupleEventTypes.SAVE_TUPLE, onSaveTopic);
+			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchBucket);
+			off(TupleEventTypes.SAVE_TUPLE, onSaveBucket);
 		};
 	}, [on, off, fire, fireGlobal]);
 

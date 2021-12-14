@@ -34,7 +34,8 @@ export const Jp = {
 		FIND_BUCKET_PLACEHOLDER: 'バケット名 トピック名または ファクター名に基づいて検索します。',
 		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: '分類値、セグメントに追加することを確認します。',
 		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: 'バケット名に基づいて検索します。',
-		DROPDOWN_PLACEHOLDER: '選択してください...'
+		DROPDOWN_PLACEHOLDER: '選択してください...',
+		FIND_NAVIGATION_PLACEHOLDER: '名前に基づいて検索します。'
 	},
 	STANDARD: {
 		YES: 'はい',
@@ -445,7 +446,13 @@ export const Jp = {
 			VISUALIZATION_LABEL: '視覚化'
 		},
 		NAVIGATION: {
-			TITLE: '航法'
+			TITLE: '航法',
+			LABEL: '航法',
+			CREATE_NAVIGATION: '航法を作成',
+			NEW_NAVIGATION_PREFIX: '新しい',
+			EXISTING_NAVIGATION_PREFIX: '既存',
+			CREATE_AT: '作成先',
+			LAST_MODIFIED_AT: '最終更新日'
 		}
 	},
 	SETTINGS: {

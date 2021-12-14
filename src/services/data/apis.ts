@@ -157,7 +157,9 @@ export const Apis = {
 	INSPECTION_CREATE: 'indicator/inspection',
 	INSPECTION_GET: 'indicator/inspection?inspection_id=:inspectionId',
 	INSPECTION_SAVE: 'indicator/update/inspection?inspection_id=:inspectionId',
-	INSPECTION_DATA: 'indicator/inspection/data?inspection_id=:inspectionId'
+	INSPECTION_DATA: 'indicator/inspection/data?inspection_id=:inspectionId',
+
+	NAVIGATION_LIST_BY_NAME: 'indicator/navigation/name?query_name=:search'
 };
 
 const buildApi = (api: string, args?: Record<string, any>): string => {

@@ -34,7 +34,8 @@ export const Zh = {
 		FIND_BUCKET_PLACEHOLDER: '根据分桶名称, 主题名称或者数据因子名称查找.',
 		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: '输入分组值, 点击确认加入到分段中.',
 		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: '根据分桶名称查找.',
-		DROPDOWN_PLACEHOLDER: '请选择...'
+		DROPDOWN_PLACEHOLDER: '请选择...',
+		FIND_NAVIGATION_PLACEHOLDER: '根据名称查找.'
 	},
 	STANDARD: {
 		YES: '是',
@@ -445,7 +446,13 @@ export const Zh = {
 			VISUALIZATION_LABEL: '可视化'
 		},
 		NAVIGATION: {
-			TITLE: '指标领航'
+			TITLE: '指标领航',
+			LABEL: '指标领航',
+			CREATE_NAVIGATION: '创建领航',
+			NEW_NAVIGATION_PREFIX: '新',
+			EXISTING_NAVIGATION_PREFIX: '已存在的',
+			CREATE_AT: '创建于',
+			LAST_MODIFIED_AT: '最后更新于'
 		}
 	},
 	SETTINGS: {

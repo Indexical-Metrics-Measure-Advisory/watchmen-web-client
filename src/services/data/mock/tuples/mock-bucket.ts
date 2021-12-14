@@ -20,7 +20,7 @@ export const listMockBuckets = async (options: {
 				itemCount: DemoQueryBuckets.length,
 				pageNumber,
 				pageSize,
-				pageCount: 3
+				pageCount: 1
 			});
 		}, 1000);
 	});
