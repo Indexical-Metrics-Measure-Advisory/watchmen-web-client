@@ -22,7 +22,7 @@ interface SearchResult<I extends SearchItem> {
 
 export const SearchText = <I extends SearchItem>(props: {
 	search: (text: string) => Promise<SearchItems<I>>;
-	onSelectionChange: (item: I) => Promise<void>;
+	onSelectionChange: (item: I) => Promise<string | void>;
 	openText?: string;
 	closeText?: string;
 	placeholder?: string;
@@ -55,13 +55,20 @@ export const SearchText = <I extends SearchItem>(props: {
 			setActiveItemIndex(-1);
 			inputRef.current?.blur();
 		};
+		const onHidePopup = () => {
+			setShowSearchPopup(false);
+			setResult({searched: false, items: []});
+			setActiveItemIndex(-1);
+		};
 		const onFocus = () => {
 			inputRef.current?.focus();
 		};
 		on(SearchTextEventTypes.HIDE_SEARCH, onHideSearch);
+		on(SearchTextEventTypes.HIDE_POPUP, onHidePopup);
 		on(SearchTextEventTypes.FOCUS, onFocus);
 		return () => {
 			off(SearchTextEventTypes.HIDE_SEARCH, onHideSearch);
+			off(SearchTextEventTypes.HIDE_POPUP, onHidePopup);
 			off(SearchTextEventTypes.FOCUS, onFocus);
 		};
 	}, [on, off]);
@@ -135,7 +142,10 @@ export const SearchText = <I extends SearchItem>(props: {
 					if (timeoutHandle != null) {
 						window.clearTimeout(timeoutHandle);
 					}
-					await onSelectionChange(result.items[activeItemIndex]);
+					const text = await onSelectionChange(result.items[activeItemIndex]);
+					if (text != null) {
+						setSearchText(text);
+					}
 				}
 				break;
 		}
@@ -153,7 +163,10 @@ export const SearchText = <I extends SearchItem>(props: {
 	};
 	const onCandidateItemMouseEnter = (itemIndex: number) => () => setActiveItemIndex(itemIndex);
 	const onCandidateClicked = (item: I) => async () => {
-		await onSelectionChange(item);
+		const text = await onSelectionChange(item);
+		if (text != null) {
+			setSearchText(text);
+		}
 	};
 
 	return <SearchPart buttonFirst={buttonFirst} buttonVisible={!hideButton} popupVisible={showSearchPopup}

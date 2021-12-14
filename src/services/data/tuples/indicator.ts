@@ -3,6 +3,7 @@ import {Apis, get, post} from '../apis';
 import {
 	fetchMockEnumsForTopic,
 	fetchMockIndicator,
+	fetchMockIndicatorCategories,
 	fetchMockIndicatorsForSelection,
 	fetchMockRelevantIndicators,
 	fetchMockTopicsForIndicatorSelection,
@@ -73,5 +74,13 @@ export const fetchRelevantIndicators = async (indicatorId: IndicatorId): Promise
 		return fetchMockRelevantIndicators(indicatorId);
 	} else {
 		return await get({api: Apis.RELEVANT_INDICATOR_LIST, search: {indicatorId}});
+	}
+};
+
+export const loadIndicatorCategories = async (prefix: Array<string>): Promise<Array<string>> => {
+	if (isMockService()) {
+		return fetchMockIndicatorCategories(prefix);
+	} else {
+		return await post({api: Apis.INDICATOR_CATEGORIES, data: prefix});
 	}
 };

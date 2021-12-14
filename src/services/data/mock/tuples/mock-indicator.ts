@@ -127,3 +127,11 @@ export const fetchMockRelevantIndicators = async (indicatorId: IndicatorId): Pro
 		}, 500);
 	});
 };
+
+export const fetchMockIndicatorCategories = async (prefix: Array<string>): Promise<Array<string>> => {
+	return new Promise<Array<string>>(resolve => {
+		setTimeout(() => {
+			resolve(['premium', 'order']);
+		}, 500);
+	});
+};
