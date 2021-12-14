@@ -48,6 +48,7 @@ export enum Router {
 	INDICATOR_WORKBENCH_BUCKETS = '/indicator-workbench/buckets',
 	INDICATOR_WORKBENCH_PREPARE = '/indicator-workbench/prepare',
 	INDICATOR_WORKBENCH_INSPECTION = '/indicator-workbench/inspection',
+	INDICATOR_WORKBENCH_NAVIGATOR = '/indicator-workbench/navigator',
 	INDICATOR_WORKBENCH_SETTINGS = '/indicator-workbench/settings',
 
 	SHARE = '/share',

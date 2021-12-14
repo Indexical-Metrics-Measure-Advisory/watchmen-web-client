@@ -6,7 +6,8 @@ import {
 	ICON_BUCKETS,
 	ICON_CONSOLE,
 	ICON_DATA_QUALITY,
-	ICON_INSPECTION,
+	ICON_INDICATOR_INSPECTION,
+	ICON_INDICATOR_NAVIGATION,
 	ICON_LOGOUT,
 	ICON_PREPARE_INDICATOR,
 	ICON_SETTINGS,
@@ -142,10 +143,14 @@ export const IndicatorWorkbenchMenu = () => {
 		              showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.INDICATOR_WORKBENCH_PREPARE)}
 		              onClick={onMenuClicked(Router.INDICATOR_WORKBENCH_PREPARE)}/>
-		<SideMenuItem icon={ICON_INSPECTION} label={Lang.INDICATOR_WORKBENCH.MENU.INSPECTION}
+		<SideMenuItem icon={ICON_INDICATOR_INSPECTION} label={Lang.INDICATOR_WORKBENCH.MENU.INSPECTION}
 		              showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.INDICATOR_WORKBENCH_INSPECTION)}
 		              onClick={onMenuClicked(Router.INDICATOR_WORKBENCH_INSPECTION)}/>
+		<SideMenuItem icon={ICON_INDICATOR_NAVIGATION} label={Lang.INDICATOR_WORKBENCH.MENU.NAVIGATION}
+		              showTooltip={showTooltip}
+		              active={!!matchPath(location.pathname, Router.INDICATOR_WORKBENCH_NAVIGATOR)}
+		              onClick={onMenuClicked(Router.INDICATOR_WORKBENCH_NAVIGATOR)}/>
 		<SideMenuPlaceholder/>
 		<SideMenuSeparator width={menuWidth}/>
 		<SideMenuItem icon={ICON_SETTINGS} label={Lang.INDICATOR_WORKBENCH.MENU.SETTINGS} showTooltip={showTooltip}

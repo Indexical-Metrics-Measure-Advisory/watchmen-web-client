@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import IndicatorWorkbenchBucketsIndex from './buckets';
 import IndicatorWorkbenchInspectionIndex from './inspection';
 import {IndicatorWorkbenchMenu} from './menu';
+import IndicatorWorkbenchNavigationIndex from './nagivation';
 import IndicatorWorkbenchPrepareIndex from './prepare';
 import IndicatorWorkbenchSettingsIndex from './settings';
 
@@ -46,6 +47,9 @@ const IndicatorWorkbenchIndex = () => {
 					</Route> : null}
 				<Route path={Router.INDICATOR_WORKBENCH_INSPECTION}>
 					<IndicatorWorkbenchInspectionIndex/>
+				</Route>
+				<Route path={Router.INDICATOR_WORKBENCH_NAVIGATOR}>
+					<IndicatorWorkbenchNavigationIndex/>
 				</Route>
 				<Route path={Router.INDICATOR_WORKBENCH_SETTINGS}>
 					<IndicatorWorkbenchSettingsIndex/>

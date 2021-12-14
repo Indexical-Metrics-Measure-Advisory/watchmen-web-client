@@ -266,7 +266,8 @@ export const Jp = {
 			TITLE: '指標ーワークベンチ',
 			BUCKETS: 'バケットを準備',
 			PREPARE: '指標を準備',
-			INSPECTION: '指標ーの構造',
+			INSPECTION: '指標を構造',
+			NAVIGATION: '指標航法',
 			SETTINGS: '設定',
 			LOGOUT: 'ログアウト'
 		},
@@ -439,6 +440,9 @@ export const Jp = {
 			RESET_INSPECTION: '別の洞察に切り替えることを確認します。',
 			NO_DATA: '適切なデータがありません。',
 			VISUALIZATION_LABEL: '視覚化'
+		},
+		NAVIGATION: {
+			TITLE: '航法'
 		}
 	},
 	SETTINGS: {

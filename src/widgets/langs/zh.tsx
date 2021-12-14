@@ -267,6 +267,7 @@ export const Zh = {
 			BUCKETS: '准备分桶',
 			PREPARE: '准备指标因子',
 			INSPECTION: '指标构建',
+			NAVIGATION: '指标领航',
 			SETTINGS: '设置',
 			LOGOUT: '登出'
 		},
@@ -439,6 +440,9 @@ export const Zh = {
 			RESET_INSPECTION: '确认要切换到另一个洞察吗?',
 			NO_DATA: '没有合适的数据.',
 			VISUALIZATION_LABEL: '可视化'
+		},
+		NAVIGATION: {
+			TITLE: '指标领航'
 		}
 	},
 	SETTINGS: {

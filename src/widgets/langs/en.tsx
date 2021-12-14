@@ -267,6 +267,7 @@ export const En = {
 			BUCKETS: 'Prepare Buckets',
 			PREPARE: 'Prepare Indicator',
 			INSPECTION: 'Indicators Inspection',
+			NAVIGATION: 'Indicators Navigation',
 			SETTINGS: 'Settings',
 			LOGOUT: 'Logout'
 		},
@@ -439,6 +440,9 @@ export const En = {
 			RESET_INSPECTION: 'Are you sure to switch to another inspection?',
 			NO_DATA: 'No data found.',
 			VISUALIZATION_LABEL: 'Visualization'
+		},
+		NAVIGATION: {
+			TITLE: 'Navigation'
 		}
 	},
 	SETTINGS: {
