@@ -40,7 +40,7 @@ export const NavigationState = () => {
 	}, [on, off]);
 	useEffect(() => {
 		if (navigation != null) {
-			history.push(Router.INDICATOR_WORKBENCH_NAVIGATION_EDIT);
+			history.replace(Router.INDICATOR_WORKBENCH_NAVIGATION_EDIT);
 		}
 	}, [fire, history, navigation]);
 	useEffect(() => {
