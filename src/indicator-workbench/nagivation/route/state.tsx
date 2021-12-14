@@ -80,6 +80,7 @@ export const NavigationState = () => {
 			if (!page.loaded || page.data == null) {
 				return;
 			}
+			// eslint-disable-next-line
 			const found = page.data.data.find(nav => (nav as QueryNavigation).navigationId == navigation.navigationId) as (QueryNavigation | undefined);
 			if (found != null) {
 				found.name = navigation.name;
@@ -90,7 +91,7 @@ export const NavigationState = () => {
 		return () => {
 			off(NavigationEventTypes.NAVIGATION_SAVED, onNavigationSaved);
 		};
-	}, [on, off]);
+	}, [on, off, page.loaded, page.data]);
 
 	return <Fragment/>;
 };
