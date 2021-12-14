@@ -1,11 +1,40 @@
+import {TuplePage} from '@/services/data/query/tuple-page';
 import {Navigation} from '@/services/data/tuples/navigation-types';
+import {QueryTuple} from '@/services/data/tuples/tuple-types';
 
 export enum NavigationEventTypes {
-	NAVIGATION_PICKED = 'navigation-picked'
+	NAVIGATION_PICKED = 'navigation-picked',
+	ASK_NAVIGATION = 'ask-navigation',
+
+	NAVIGATION_SEARCHED = 'navigation-searched',
+	ASK_NAVIGATION_PAGE = 'ask-navigation-page',
+	BACK_TO_QUERY = 'back-to-query',
+
+	NAVIGATION_SAVED = 'navigation-saved'
 }
 
 export interface NavigationEventBus {
 	fire(type: NavigationEventTypes.NAVIGATION_PICKED, navigation: Navigation): this;
 	on(type: NavigationEventTypes.NAVIGATION_PICKED, listener: (navigation: Navigation) => void): this;
 	off(type: NavigationEventTypes.NAVIGATION_PICKED, listener: (navigation: Navigation) => void): this;
+
+	fire(type: NavigationEventTypes.ASK_NAVIGATION, onData: (navigation?: Navigation) => void): this;
+	on(type: NavigationEventTypes.ASK_NAVIGATION, listener: (onData: (navigation?: Navigation) => void) => void): this;
+	off(type: NavigationEventTypes.ASK_NAVIGATION, listener: (onData: (navigation?: Navigation) => void) => void): this;
+
+	fire(type: NavigationEventTypes.NAVIGATION_SEARCHED, page: TuplePage<QueryTuple>, searchText: string): this;
+	on(type: NavigationEventTypes.NAVIGATION_SEARCHED, listener: (page: TuplePage<QueryTuple>, searchText: string) => void): this;
+	off(type: NavigationEventTypes.NAVIGATION_SEARCHED, listener: (page: TuplePage<QueryTuple>, searchText: string) => void): this;
+
+	fire(type: NavigationEventTypes.ASK_NAVIGATION_PAGE, onData: (page?: TuplePage<QueryTuple>, searchText?: string) => void): this;
+	on(type: NavigationEventTypes.ASK_NAVIGATION_PAGE, listener: (onData: (page?: TuplePage<QueryTuple>, searchText?: string) => void) => void): this;
+	off(type: NavigationEventTypes.ASK_NAVIGATION_PAGE, listener: (onData: (page?: TuplePage<QueryTuple>, searchText?: string) => void) => void): this;
+
+	fire(type: NavigationEventTypes.BACK_TO_QUERY): this;
+	on(type: NavigationEventTypes.BACK_TO_QUERY, listener: () => void): this;
+	off(type: NavigationEventTypes.BACK_TO_QUERY, listener: () => void): this;
+
+	fire(type: NavigationEventTypes.NAVIGATION_SAVED, navigation: Navigation): this;
+	on(type: NavigationEventTypes.NAVIGATION_SAVED, listener: (navigation: Navigation) => void): this;
+	off(type: NavigationEventTypes.NAVIGATION_SAVED, listener: (navigation: Navigation) => void): this;
 }

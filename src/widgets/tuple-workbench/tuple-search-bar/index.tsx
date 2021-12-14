@@ -28,6 +28,21 @@ export const TupleSearchBar = (props: {
 		};
 	}, [on, off]);
 	useEffect(() => {
+		const onTupleSearched = (_?: any, searchText?: string) => {
+			if (searchRef.current == null) {
+				return;
+			}
+			const text = searchRef.current!.value;
+			if (text === '') {
+				setSearchText(searchText ?? '');
+			}
+		};
+		on(TupleEventTypes.TUPLE_SEARCHED, onTupleSearched);
+		return () => {
+			off(TupleEventTypes.TUPLE_SEARCHED, onTupleSearched);
+		};
+	}, [on, off]);
+	useEffect(() => {
 		searchRef.current!.focus();
 	}, [searchRef]);
 

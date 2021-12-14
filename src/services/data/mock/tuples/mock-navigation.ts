@@ -1,5 +1,7 @@
 import {TuplePage} from '../../query/tuple-page';
+import {Navigation, NavigationId} from '../../tuples/navigation-types';
 import {QueryNavigation} from '../../tuples/query-navigation-types';
+import {getCurrentTime} from '../../utils';
 import {DemoQueryNavigations} from './mock-data-navigations';
 
 export const listMockNavigations = async (options: {
@@ -19,4 +21,22 @@ export const listMockNavigations = async (options: {
 			});
 		}, 1000);
 	});
+};
+
+export const fetchMockNavigation = async (navigationId: NavigationId): Promise<{ navigation: Navigation }> => {
+	let navigation: Navigation;
+
+	// eslint-disable-next-line
+	const found = DemoQueryNavigations.find(({navigationId: id}) => id == navigationId);
+	if (found) {
+		navigation = JSON.parse(JSON.stringify(found));
+	} else {
+		navigation = {
+			navigationId,
+			name: 'Mock Navigation',
+			createTime: getCurrentTime(),
+			lastModified: getCurrentTime()
+		} as Navigation;
+	}
+	return {navigation};
 };
