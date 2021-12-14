@@ -3,15 +3,16 @@ import {Input} from '@/widgets/basic/input';
 import styled from 'styled-components';
 import {StepTitleButton} from '../step-widgets';
 
-export const SearchPart = styled.div.attrs<{ buttonFirst: boolean; popupVisible: boolean }>(({buttonFirst}) => {
-	return {
-		'data-widget': 'search-text',
-		style: {
-			flexDirection: buttonFirst ? 'row-reverse' : (void 0),
-			justifyContent: buttonFirst ? 'flex-end' : (void 0)
-		}
-	};
-})<{ buttonFirst: boolean; popupVisible: boolean }>`
+export const SearchPart = styled.div.attrs<{ buttonFirst: boolean; buttonVisible: boolean; popupVisible: boolean }>(
+	({buttonFirst}) => {
+		return {
+			'data-widget': 'search-text',
+			style: {
+				flexDirection: buttonFirst ? 'row-reverse' : (void 0),
+				justifyContent: buttonFirst ? 'flex-end' : (void 0)
+			}
+		};
+	})<{ buttonFirst: boolean; buttonVisible: boolean; popupVisible: boolean }>`
 	display   : flex;
 	position  : relative;
 	flex-grow : 1;
@@ -29,25 +30,26 @@ export const SearchPart = styled.div.attrs<{ buttonFirst: boolean; popupVisible:
 		pointer-events : ${({popupVisible}) => popupVisible ? 'auto' : (void 0)};
 	}
 `;
-export const SearchInput = styled(Input).attrs<{ buttonFirst: boolean; visible: boolean }>(({buttonFirst, visible}) => {
-	return {
-		'data-widget': 'search-input',
-		style: {
-			width: visible ? (void 0) : 0,
-			padding: visible ? (void 0) : 0,
-			marginLeft: buttonFirst && visible ? 'calc(var(--height) * -0.6)' : 0,
-			marginRight: !buttonFirst && visible ? 'calc(var(--height) * -0.6)' : 0,
-			paddingLeft: !buttonFirst && visible ? 'calc(var(--height) * 0.6)' : (buttonFirst && visible ? 'calc(var(--height) * 0.6 + var(--input-indent))' : 0),
-			paddingRight: !buttonFirst && visible ? 'calc(var(--height) * 0.6 + var(--input-indent))' : (buttonFirst && visible ? 'calc(var(--height) * 0.6)' : 0),
-			borderColor: visible ? (void 0) : 'transparent',
-			borderTopLeftRadius: buttonFirst ? 0 : (void 0),
-			borderBottomLeftRadius: buttonFirst ? 0 : (void 0),
-			borderTopRightRadius: buttonFirst ? (void 0) : 0,
-			borderBottomRightRadius: buttonFirst ? (void 0) : 0,
-			pointerEvents: visible ? (void 0) : 'none'
-		}
-	};
-})<{ buttonFirst: boolean; visible: boolean }>`
+export const SearchInput = styled(Input).attrs<{ buttonFirst: boolean; buttonVisible: boolean; visible: boolean }>(
+	({buttonFirst, buttonVisible, visible}) => {
+		return {
+			'data-widget': 'search-input',
+			style: {
+				width: visible ? (void 0) : 0,
+				padding: visible ? (void 0) : 0,
+				marginLeft: buttonFirst && visible ? 'calc(var(--height) * -0.6)' : 0,
+				marginRight: !buttonFirst && visible ? 'calc(var(--height) * -0.6)' : 0,
+				paddingLeft: !buttonFirst && visible ? 'calc(var(--height) * 0.6)' : (buttonFirst && visible ? 'calc(var(--height) * 0.6 + var(--input-indent))' : 0),
+				paddingRight: !buttonFirst && visible ? 'calc(var(--height) * 0.6 + var(--input-indent))' : (buttonFirst && visible ? 'calc(var(--height) * 0.6)' : 0),
+				borderColor: visible ? (void 0) : 'transparent',
+				borderTopLeftRadius: buttonFirst ? 0 : (void 0),
+				borderBottomLeftRadius: buttonFirst ? 0 : (void 0),
+				borderTopRightRadius: (buttonFirst || !buttonVisible) ? (void 0) : 0,
+				borderBottomRightRadius: (buttonFirst || !buttonVisible) ? (void 0) : 0,
+				pointerEvents: visible ? (void 0) : 'none'
+			}
+		};
+	})<{ buttonFirst: boolean; buttonVisible: boolean; visible: boolean }>`
 	width         : 100%;
 	height        : calc(var(--height) * 1.2);
 	line-height   : calc(var(--height) * 1.1);

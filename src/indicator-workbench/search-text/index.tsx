@@ -23,16 +23,17 @@ interface SearchResult<I extends SearchItem> {
 export const SearchText = <I extends SearchItem>(props: {
 	search: (text: string) => Promise<SearchItems<I>>;
 	onSelectionChange: (item: I) => Promise<void>;
-	openText: string;
+	openText?: string;
 	closeText?: string;
 	placeholder?: string;
 	buttonFirst?: boolean;
 	alwaysShowSearchInput?: boolean;
+	hideButton?: boolean;
 }) => {
 	const {
 		search, onSelectionChange,
 		openText, placeholder,
-		buttonFirst = false, alwaysShowSearchInput = false
+		buttonFirst = false, alwaysShowSearchInput = false, hideButton = false
 	} = props;
 	const {closeText = openText} = props;
 
@@ -155,18 +156,22 @@ export const SearchText = <I extends SearchItem>(props: {
 		await onSelectionChange(item);
 	};
 
-	return <SearchPart buttonFirst={buttonFirst} popupVisible={showSearchPopup} ref={containerRef}>
+	return <SearchPart buttonFirst={buttonFirst} buttonVisible={!hideButton} popupVisible={showSearchPopup}
+	                   ref={containerRef}>
 		<SearchInput value={searchText} visible={showSearchInput}
 		             placeholder={placeholder}
 		             onChange={onSearchTextChanged} onFocus={onSearchTextFocused}
 		             onKeyDown={onSearchTextKeyDown}
-		             buttonFirst={buttonFirst}
+		             buttonFirst={buttonFirst} buttonVisible={!hideButton}
 		             ref={inputRef}/>
-		<SearchButton ink={ButtonInk.PRIMARY} buttonFirst={buttonFirst} alwaysShowSearchInput={alwaysShowSearchInput}
-		              finding={showSearchInput}
-		              onClick={onSearchClicked}>
-			{showSearchInput ? closeText : openText}
-		</SearchButton>
+		{hideButton
+			? null
+			: <SearchButton ink={ButtonInk.PRIMARY} buttonFirst={buttonFirst}
+			                alwaysShowSearchInput={alwaysShowSearchInput}
+			                finding={showSearchInput}
+			                onClick={onSearchClicked}>
+				{showSearchInput ? closeText : openText}
+			</SearchButton>}
 		<SearchPopup>
 			{result.searched
 				? (result.items.length === 0

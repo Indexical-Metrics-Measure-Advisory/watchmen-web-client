@@ -30,6 +30,7 @@ export const Jp = {
 		FIND_INDICATOR_PLACEHOLDER: '指標名 トピック名または ファクター名に基づいて検索します。',
 		FIND_TOPIC_OR_FACTOR_PLACEHOLDER: 'トピック名または ファクター名に基づいて検索します。',
 		INDICATOR_NAME_PLACEHOLDER: '読むための名前を入力してください。',
+		INDICATOR_DESCRIPTION_PLACEHOLDER: '指標の説明を入力してください。',
 		FIND_BUCKET_PLACEHOLDER: 'バケット名 トピック名または ファクター名に基づいて検索します。',
 		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: '分類値、セグメントに追加することを確認します。',
 		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: 'バケット名に基づいて検索します。',
@@ -324,6 +325,8 @@ export const Jp = {
 			NO_RELEVANT_DETECTED: '現在、関連指標は検出されていません。',
 			DETECT_RELEVANT: '潜在的な関連指標を検出します',
 			IGNORE_DETECT_RELEVANT: '今すぐ検出を無視',
+			CATEGORIES_TITLE: 'カテゴリ。',
+			DESCRIPTION_TITLE: '説明。',
 			LAST_STEP_TITLE: '指標の設定が完了しました。',
 			PREPARE_ANOTHER: '別の指標を定義します'
 		},

@@ -30,6 +30,7 @@ export const En = {
 		FIND_INDICATOR_PLACEHOLDER: 'Find by indicator name, topic name or factor name.',
 		FIND_TOPIC_OR_FACTOR_PLACEHOLDER: 'Find by topic name, factor name.',
 		INDICATOR_NAME_PLACEHOLDER: 'A human reading name for indicator.',
+		INDICATOR_DESCRIPTION_PLACEHOLDER: 'Indicator description here...',
 		FIND_BUCKET_PLACEHOLDER: 'Search by bucket name, topic name, factor name.',
 		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: 'Key in category value here, confirm to add into segment.',
 		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: 'Search by bucket name.',
@@ -324,6 +325,8 @@ export const En = {
 			NO_RELEVANT_DETECTED: 'No relevant indicator detected yet.',
 			DETECT_RELEVANT: 'Detect Potential Relevant Indicators',
 			IGNORE_DETECT_RELEVANT: 'Ignore Detect Now',
+			CATEGORIES_TITLE: 'Categories.',
+			DESCRIPTION_TITLE: 'Description.',
 			LAST_STEP_TITLE: 'Indicator is ready.',
 			PREPARE_ANOTHER: 'Prepare Another Indicator'
 		},

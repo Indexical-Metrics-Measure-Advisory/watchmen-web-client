@@ -30,6 +30,7 @@ export const Zh = {
 		FIND_INDICATOR_PLACEHOLDER: '根据指标名称, 主题名称或者数据因子名称查找.',
 		FIND_TOPIC_OR_FACTOR_PLACEHOLDER: '根据主题名称或数据因子名称查找.',
 		INDICATOR_NAME_PLACEHOLDER: '请输入用于阅读的名称.',
+		INDICATOR_DESCRIPTION_PLACEHOLDER: '请输入指标描述...',
 		FIND_BUCKET_PLACEHOLDER: '根据分桶名称, 主题名称或者数据因子名称查找.',
 		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: '输入分组值, 点击确认加入到分段中.',
 		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: '根据分桶名称查找.',
@@ -324,6 +325,8 @@ export const Zh = {
 			NO_RELEVANT_DETECTED: '目前没有侦测到相关的指标.',
 			DETECT_RELEVANT: '侦测潜在的相关指标',
 			IGNORE_DETECT_RELEVANT: '现在不侦测',
+			CATEGORIES_TITLE: '类别.',
+			DESCRIPTION_TITLE: '描述.',
 			LAST_STEP_TITLE: '指标设置完毕.',
 			PREPARE_ANOTHER: '定义另一个指标'
 		},

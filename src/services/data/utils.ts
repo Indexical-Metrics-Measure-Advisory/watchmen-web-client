@@ -9,7 +9,7 @@ export const getServiceHost = (): string => {
 	}
 };
 
-export const isNotNull = <T>(x: T | null): x is T => !!x;
+export const isNotNull = <T>(x: T | null | undefined): x is T => !!x;
 export const formatTime = (time: Dayjs) => time.format('YYYY-MM-DD HH:mm:ss');
 export const getCurrentTime = () => dayjs().format('YYYY-MM-DD HH:mm:ss');
 

@@ -107,6 +107,11 @@ export interface Indicator extends Tuple {
 	/** effective only when factorId is appointed */
 	valueBuckets?: Array<BucketId>;
 	relevants?: Array<RelevantIndicator>;
+	// categories, ordered
+	category1?: string;
+	category2?: string;
+	category3?: string;
+	description?: string;
 	tenantId?: TenantId;
 }
 
