@@ -12,27 +12,33 @@ import {TupleWorkbench} from '@/widgets/tuple-workbench';
 import {TupleEventBusProvider, useTupleEventBus} from '@/widgets/tuple-workbench/tuple-event-bus';
 import {TupleEventTypes} from '@/widgets/tuple-workbench/tuple-event-bus-types';
 import React, {Fragment, useEffect} from 'react';
+import {useNavigationEventBus} from '../navigation-event-bus';
+import {NavigationEventTypes} from '../navigation-event-bus-types';
+import {createNavigation} from '../utils';
 import {renderCard} from './card';
 
 const getKeyOfNavigation = (navigation: QueryNavigation) => navigation.navigationId;
 
 // editor never used here
-const InternalNavigationQuery = () => {
+const InternalNavigationQuery = (props: { data?: TuplePage<QueryTuple> }) => {
+	const {data} = props;
+
 	const {fire: fireGlobal} = useEventBus();
+	const {fire: fireNavigation} = useNavigationEventBus();
 	const {on, off, fire} = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateNavigation = async () => {
-			// fire(TupleEventTypes.TUPLE_CREATED, createNavigation());
+			fireNavigation(NavigationEventTypes.NAVIGATION_PICKED, createNavigation());
 		};
 		const onDoEditNavigation = async (queryNavigation: QueryNavigation) => {
-			// fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-			// 	async () => {
-			// 		const {navigation} = await fetchNavigation(queryNavigation.navigationId);
-			// 		return {tuple: navigation};
-			// 	},
-			// 	({tuple}) => {
-			// 		fire(TupleEventTypes.TUPLE_LOADED, tuple);
-			// 	});
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => {
+					// const {navigation} = await fetchNavigation(queryNavigation.navigationId);
+					// return {tuple: navigation};
+				},
+				({tuple}) => {
+					fireNavigation(NavigationEventTypes.NAVIGATION_PICKED, tuple as Navigation);
+				});
 		};
 		const onDoSearchNavigation = async (searchText: string, pageNumber: number) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
@@ -55,7 +61,7 @@ const InternalNavigationQuery = () => {
 			off(TupleEventTypes.DO_SEARCH_TUPLE, onDoSearchNavigation);
 			off(TupleEventTypes.SAVE_TUPLE, onSaveNavigation);
 		};
-	}, [on, off, fire, fireGlobal]);
+	}, [on, off, fire, fireGlobal, fireNavigation]);
 
 	return <TupleWorkbench title={Lang.INDICATOR_WORKBENCH.NAVIGATION.TITLE}
 	                       createButtonLabel={Lang.INDICATOR_WORKBENCH.NAVIGATION.CREATE_NAVIGATION} canCreate={true}
@@ -71,8 +77,10 @@ const InternalNavigationQuery = () => {
 	/>;
 };
 
-export const NavigationQuery = () => {
+export const NavigationQuery = (props: { data?: TuplePage<QueryTuple> }) => {
+	const {data} = props;
+
 	return <TupleEventBusProvider>
-		<InternalNavigationQuery/>
+		<InternalNavigationQuery data={data}/>
 	</TupleEventBusProvider>;
 };

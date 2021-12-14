@@ -31,7 +31,7 @@ const putIntoCache = (cache: IndicatorCategoryCache, key: Array<string>, categor
 };
 
 const putIfPresent = (cache: IndicatorCategoryCache, key: Array<string | undefined>, category: string = '') => {
-	if (category.trim().length === 0) {
+	if (category == null || category.trim().length === 0) {
 		return;
 	}
 
