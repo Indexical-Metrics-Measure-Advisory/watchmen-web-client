@@ -149,8 +149,8 @@ export const IndicatorWorkbenchMenu = () => {
 		              onClick={onMenuClicked(Router.INDICATOR_WORKBENCH_INSPECTION)}/>
 		<SideMenuItem icon={ICON_INDICATOR_NAVIGATION} label={Lang.INDICATOR_WORKBENCH.MENU.NAVIGATION}
 		              showTooltip={showTooltip}
-		              active={!!matchPath(location.pathname, Router.INDICATOR_WORKBENCH_NAVIGATOR)}
-		              onClick={onMenuClicked(Router.INDICATOR_WORKBENCH_NAVIGATOR)}/>
+		              active={!!matchPath(location.pathname, Router.INDICATOR_WORKBENCH_NAVIGATION)}
+		              onClick={onMenuClicked(Router.INDICATOR_WORKBENCH_NAVIGATION)}/>
 		<SideMenuPlaceholder/>
 		<SideMenuSeparator width={menuWidth}/>
 		<SideMenuItem icon={ICON_SETTINGS} label={Lang.INDICATOR_WORKBENCH.MENU.SETTINGS} showTooltip={showTooltip}

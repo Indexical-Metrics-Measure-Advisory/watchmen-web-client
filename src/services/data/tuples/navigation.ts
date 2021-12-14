@@ -1,8 +1,8 @@
-import {Apis, page} from '@/services/data/apis';
-import {TuplePage} from '@/services/data/query/tuple-page';
-import {QueryNavigation} from '@/services/data/tuples/query-navigation-types';
-import {isMockService} from '@/services/data/utils';
+import {Apis, page} from '../../data/apis';
+import {isMockService} from '../../data/utils';
 import {listMockNavigations} from '../mock/tuples/mock-navigation';
+import {TuplePage} from '../query/tuple-page';
+import {QueryNavigation} from './query-navigation-types';
 
 export const listNavigations = async (options: {
 	search: string;

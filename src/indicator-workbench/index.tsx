@@ -48,7 +48,7 @@ const IndicatorWorkbenchIndex = () => {
 				<Route path={Router.INDICATOR_WORKBENCH_INSPECTION}>
 					<IndicatorWorkbenchInspectionIndex/>
 				</Route>
-				<Route path={Router.INDICATOR_WORKBENCH_NAVIGATOR}>
+				<Route path={Router.INDICATOR_WORKBENCH_NAVIGATION}>
 					<IndicatorWorkbenchNavigationIndex/>
 				</Route>
 				<Route path={Router.INDICATOR_WORKBENCH_SETTINGS}>
