@@ -448,11 +448,12 @@ export const Zh = {
 		NAVIGATION: {
 			TITLE: '指标领航',
 			LABEL: '指标领航',
-			CREATE_NAVIGATION: '创建领航',
+			CREATE_NAVIGATION: '创建指标领航',
 			NEW_NAVIGATION_PREFIX: '新',
 			EXISTING_NAVIGATION_PREFIX: '已存在的',
 			CREATE_AT: '创建于',
-			LAST_MODIFIED_AT: '最后更新于'
+			LAST_MODIFIED_AT: '最后更新于',
+			NAVIGATION_NOT_FOUND: '需要的指标领航定义没有找到, 请联系您的系统管理员以获取更多信息.'
 		}
 	},
 	SETTINGS: {

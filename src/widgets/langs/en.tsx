@@ -452,7 +452,8 @@ export const En = {
 			NEW_NAVIGATION_PREFIX: 'A New',
 			EXISTING_NAVIGATION_PREFIX: 'An Existing',
 			CREATE_AT: 'Created At',
-			LAST_MODIFIED_AT: 'Last Modified At'
+			LAST_MODIFIED_AT: 'Last Modified At',
+			NAVIGATION_NOT_FOUND: 'Failed to load navigation, contact your administrator for more information.'
 		}
 	},
 	SETTINGS: {

@@ -452,7 +452,8 @@ export const Jp = {
 			NEW_NAVIGATION_PREFIX: '新しい',
 			EXISTING_NAVIGATION_PREFIX: '既存',
 			CREATE_AT: '作成先',
-			LAST_MODIFIED_AT: '最終更新日'
+			LAST_MODIFIED_AT: '最終更新日',
+			NAVIGATION_NOT_FOUND: '航法の定義が見つかりません。詳細については、管理者に問い合わせてください。'
 		}
 	},
 	SETTINGS: {
