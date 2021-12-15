@@ -1,8 +1,7 @@
 import {Router} from '@/routes/types';
 import {Navigation} from '@/services/data/tuples/navigation-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
-import {FixWidthPage} from '@/widgets/basic/page';
-import {PageHeader} from '@/widgets/basic/page-header';
+import {FullWidthPage} from '@/widgets/basic/page';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
@@ -10,12 +9,15 @@ import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useNavigationEventBus} from '../navigation-event-bus';
 import {NavigationEventTypes} from '../navigation-event-bus-types';
+import {NavigationEditPageBody} from './body';
+import {NavigationEditPageHeader} from './header';
 
 const InternalNavigationEdit = (props: { navigation: Navigation }) => {
 	const {navigation} = props;
-	return <FixWidthPage maxWidth="80%">
-		<PageHeader title={navigation.name || 'Noname'}/>
-	</FixWidthPage>;
+	return <FullWidthPage>
+		<NavigationEditPageHeader navigation={navigation}/>
+		<NavigationEditPageBody navigation={navigation}/>
+	</FullWidthPage>;
 };
 
 export const NavigationEdit = () => {

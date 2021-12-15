@@ -453,7 +453,9 @@ export const Zh = {
 			EXISTING_NAVIGATION_PREFIX: '已存在的',
 			CREATE_AT: '创建于',
 			LAST_MODIFIED_AT: '最后更新于',
-			NAVIGATION_NOT_FOUND: '需要的指标领航定义没有找到, 请联系您的系统管理员以获取更多信息.'
+			NAVIGATION_NOT_FOUND: '需要的指标领航定义没有找到, 请联系您的系统管理员以获取更多信息.',
+			BACK_TO_QUERY: '回查询页',
+			ROOT: '根'
 		}
 	},
 	SETTINGS: {

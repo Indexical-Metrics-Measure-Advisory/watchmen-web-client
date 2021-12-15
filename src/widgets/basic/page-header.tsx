@@ -48,9 +48,9 @@ const SettingsButton = styled(TooltipButton).attrs({'data-widget': 'page-header-
 `;
 
 export const PageHeader = (props: { title: string; onSettingsClicked?: () => void; }) => {
-	const {title, onSettingsClicked} = props;
+	const {title, onSettingsClicked, ...rest} = props;
 
-	return <PageHeaderContainer>
+	return <PageHeaderContainer {...rest}>
 		<PageTitle>{title}</PageTitle>
 		{onSettingsClicked
 			? <SettingsButton tooltip={{label: 'Settings', alignment: TooltipAlignment.CENTER}}

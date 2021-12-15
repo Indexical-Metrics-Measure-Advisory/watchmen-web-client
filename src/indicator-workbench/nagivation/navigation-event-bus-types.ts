@@ -10,6 +10,8 @@ export enum NavigationEventTypes {
 	ASK_NAVIGATION_PAGE = 'ask-navigation-page',
 	BACK_TO_QUERY = 'back-to-query',
 
+	NAME_CHANGED = 'name-changed',
+
 	NAVIGATION_SAVED = 'navigation-saved'
 }
 
@@ -33,6 +35,10 @@ export interface NavigationEventBus {
 	fire(type: NavigationEventTypes.BACK_TO_QUERY): this;
 	on(type: NavigationEventTypes.BACK_TO_QUERY, listener: () => void): this;
 	off(type: NavigationEventTypes.BACK_TO_QUERY, listener: () => void): this;
+
+	fire(type: NavigationEventTypes.NAME_CHANGED, navigation: Navigation): this;
+	on(type: NavigationEventTypes.NAME_CHANGED, listener: (navigation: Navigation) => void): this;
+	off(type: NavigationEventTypes.NAME_CHANGED, listener: (navigation: Navigation) => void): this;
 
 	fire(type: NavigationEventTypes.NAVIGATION_SAVED, navigation: Navigation): this;
 	on(type: NavigationEventTypes.NAVIGATION_SAVED, listener: (navigation: Navigation) => void): this;

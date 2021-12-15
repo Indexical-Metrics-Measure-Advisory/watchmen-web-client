@@ -453,7 +453,9 @@ export const En = {
 			EXISTING_NAVIGATION_PREFIX: 'An Existing',
 			CREATE_AT: 'Created At',
 			LAST_MODIFIED_AT: 'Last Modified At',
-			NAVIGATION_NOT_FOUND: 'Failed to load navigation, contact your administrator for more information.'
+			NAVIGATION_NOT_FOUND: 'Failed to load navigation, contact your administrator for more information.',
+			BACK_TO_QUERY: 'Back to Query',
+			ROOT: 'Root'
 		}
 	},
 	SETTINGS: {
