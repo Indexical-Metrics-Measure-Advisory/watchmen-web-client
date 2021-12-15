@@ -12,6 +12,7 @@ export enum NavigationEventTypes {
 
 	NAME_CHANGED = 'name-changed',
 
+	SAVE_NAVIGATION = 'save-navigation',
 	NAVIGATION_SAVED = 'navigation-saved'
 }
 
@@ -39,6 +40,10 @@ export interface NavigationEventBus {
 	fire(type: NavigationEventTypes.NAME_CHANGED, navigation: Navigation): this;
 	on(type: NavigationEventTypes.NAME_CHANGED, listener: (navigation: Navigation) => void): this;
 	off(type: NavigationEventTypes.NAME_CHANGED, listener: (navigation: Navigation) => void): this;
+
+	fire(type: NavigationEventTypes.SAVE_NAVIGATION, navigation: Navigation): this;
+	on(type: NavigationEventTypes.SAVE_NAVIGATION, listener: (navigation: Navigation) => void): this;
+	off(type: NavigationEventTypes.SAVE_NAVIGATION, listener: (navigation: Navigation) => void): this;
 
 	fire(type: NavigationEventTypes.NAVIGATION_SAVED, navigation: Navigation): this;
 	on(type: NavigationEventTypes.NAVIGATION_SAVED, listener: (navigation: Navigation) => void): this;

@@ -1,6 +1,7 @@
 import {TuplePage} from '../../query/tuple-page';
 import {Navigation, NavigationId} from '../../tuples/navigation-types';
 import {QueryNavigation} from '../../tuples/query-navigation-types';
+import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
 import {DemoQueryNavigations} from './mock-data-navigations';
 
@@ -39,4 +40,14 @@ export const fetchMockNavigation = async (navigationId: NavigationId): Promise<{
 		} as Navigation;
 	}
 	return {navigation};
+};
+
+let newNavigationId = 10000;
+export const saveMockNavigation = async (navigation: Navigation): Promise<void> => {
+	return new Promise<void>((resolve) => {
+		if (isFakedUuid(navigation)) {
+			navigation.navigationId = `${newNavigationId++}`;
+		}
+		setTimeout(() => resolve(), 500);
+	});
 };

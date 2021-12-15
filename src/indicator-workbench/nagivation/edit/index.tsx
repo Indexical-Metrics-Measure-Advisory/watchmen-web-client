@@ -11,12 +11,14 @@ import {useNavigationEventBus} from '../navigation-event-bus';
 import {NavigationEventTypes} from '../navigation-event-bus-types';
 import {NavigationEditPageBody} from './body';
 import {NavigationEditPageHeader} from './header';
+import {NavigationSaver} from './saver';
 
 const InternalNavigationEdit = (props: { navigation: Navigation }) => {
 	const {navigation} = props;
 	return <FullWidthPage>
 		<NavigationEditPageHeader navigation={navigation}/>
 		<NavigationEditPageBody navigation={navigation}/>
+		<NavigationSaver navigation={navigation}/>
 	</FullWidthPage>;
 };
 

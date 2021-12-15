@@ -1,9 +1,11 @@
-import {Apis, get, page} from '../../data/apis';
+import {findAccount} from '../../data/account';
+import {Apis, get, page, post} from '../../data/apis';
 import {isMockService} from '../../data/utils';
-import {fetchMockNavigation, listMockNavigations} from '../mock/tuples/mock-navigation';
+import {fetchMockNavigation, listMockNavigations, saveMockNavigation} from '../mock/tuples/mock-navigation';
 import {TuplePage} from '../query/tuple-page';
 import {Navigation, NavigationId} from './navigation-types';
 import {QueryNavigation} from './query-navigation-types';
+import {isFakedUuid} from './utils';
 
 export const listNavigations = async (options: {
 	search: string;
@@ -25,5 +27,25 @@ export const fetchNavigation = async (navigationId: NavigationId): Promise<{ nav
 	} else {
 		const navigation = await get({api: Apis.NAVIGATION_GET, search: {navigationId}});
 		return {navigation};
+	}
+};
+
+export const saveNavigation = async (navigation: Navigation): Promise<void> => {
+	navigation.tenantId = findAccount()?.tenantId;
+	if (isMockService()) {
+		return saveMockNavigation(navigation);
+	} else if (isFakedUuid(navigation)) {
+		const data = await post({api: Apis.NAVIGATION_CREATE, data: navigation});
+		navigation.navigationId = data.navigationId;
+		navigation.tenantId = data.tenantId;
+		navigation.lastModified = data.lastModified;
+	} else {
+		const data = await post({
+			api: Apis.NAVIGATION_SAVE,
+			search: {navigationId: navigation.navigationId},
+			data: navigation
+		});
+		navigation.tenantId = data.tenantId;
+		navigation.lastModified = data.lastModified;
 	}
 };

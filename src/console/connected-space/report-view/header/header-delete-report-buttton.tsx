@@ -135,7 +135,7 @@ export const HeaderDeleteReportButton = (props: { connectedSpace: ConnectedSpace
 		}
 
 		saveQueue.replace((time: SaveTime) => {
-			console.log(time);
+			// console.log(time);
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await saveReport(report),
 				() => {

@@ -8,6 +8,7 @@ import {Enum} from './enum-types';
 import {ExternalWriter} from './external-writer-types';
 import {Indicator} from './indicator-types';
 import {Inspection} from './inspection-types';
+import {Navigation} from './navigation-types';
 import {Pipeline, PipelinesGraphics} from './pipeline-types';
 import {Report} from './report-types';
 import {Space} from './space-types';
@@ -72,6 +73,9 @@ export const isBucket = (tuple: Tuple): tuple is Bucket => {
 export const isInspection = (tuple: Tuple): tuple is Inspection => {
 	return !!(tuple as any).inspectionId;
 };
+export const isNavigation = (tuple: Tuple): tuple is Navigation => {
+	return !!(tuple as any).navigationId;
+};
 
 export const generateUuid = (): string => `${FAKE_ID_PREFIX}${v4().replace(/-/g, '')}`;
 export const isFakedUuidForGraphics = (graphics: PipelinesGraphics): boolean => {
@@ -118,6 +122,8 @@ export const isFakedUuid = (tuple: Tuple): boolean => {
 		return tuple.dataSourceId.startsWith(FAKE_ID_PREFIX);
 	} else if (isExternalWriter(tuple)) {
 		return tuple.writerId.startsWith(FAKE_ID_PREFIX);
+	} else if (isNavigation(tuple)) {
+		return tuple.navigationId.startsWith(FAKE_ID_PREFIX);
 	}
 
 	console.groupCollapsed('Unsupported tuple type');
