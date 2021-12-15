@@ -3,24 +3,43 @@ import {useState} from 'react';
 import {v4} from 'uuid';
 import {IndicatorRoot} from './indicator-root';
 import {INDICATOR_UNCLASSIFIED, IndicatorCategoryContent} from './types';
-import {IndicatorCategoryColumn, IndicatorCategoryContainer, IndicatorCategoryNode} from './widgets';
+import {useCurve} from './use-curve';
+import {
+	IndicatorCategoryColumn,
+	IndicatorCategoryContainer,
+	IndicatorCategoryCurve,
+	IndicatorCategoryNode,
+	IndicatorCategoryNodeContainer
+} from './widgets';
 
-export const IndicatorCategory = (props: { category: IndicatorCategoryContent }) => {
-	const {category} = props;
+export const IndicatorCategory = (props: { paletteId: string; parentId: string; category: IndicatorCategoryContent }) => {
+	const {paletteId, parentId, category} = props;
 
 	const [categoryId] = useState(v4());
+	const {ref, curve} = useCurve(parentId);
 
 	const name = category.name === INDICATOR_UNCLASSIFIED ? Lang.INDICATOR_WORKBENCH.NAVIGATION.UNCLASSIFIED_CATEGORY : category.name;
 
 	return <IndicatorCategoryContainer>
 		<IndicatorCategoryColumn>
-			<IndicatorCategoryNode id={categoryId}>
-				{name}
-			</IndicatorCategoryNode>
+			<IndicatorCategoryNodeContainer>
+				<IndicatorCategoryNode id={categoryId} ref={ref}>
+					{name}
+				</IndicatorCategoryNode>
+				{curve == null
+					? null
+					: <IndicatorCategoryCurve rect={curve}>
+						<g>
+							<path
+								d={`M${curve.startX},${curve.startY} C${(curve.endX - curve.startX) / 4 * 3},${curve.startY} ${(curve.endX - curve.startX) / 4},${curve.endY} ${curve.endX},${curve.endY}`}/>
+						</g>
+					</IndicatorCategoryCurve>}
+			</IndicatorCategoryNodeContainer>
 		</IndicatorCategoryColumn>
 		<IndicatorCategoryColumn>
 			{(category.indicators || []).map(indicator => {
-				return <IndicatorRoot parentId={categoryId} indicator={indicator} key={indicator.indicatorId}/>;
+				return <IndicatorRoot paletteId={paletteId} parentId={categoryId} indicator={indicator}
+				                      key={indicator.indicatorId}/>;
 			})}
 		</IndicatorCategoryColumn>
 	</IndicatorCategoryContainer>;

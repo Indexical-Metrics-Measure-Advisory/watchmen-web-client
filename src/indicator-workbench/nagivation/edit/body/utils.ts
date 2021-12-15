@@ -2,7 +2,7 @@ import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation} from '@/services/data/tuples/navigation-types';
 import {v4} from 'uuid';
 import {
-	CategoryNodes,
+	CategoryNodes, CurveRect,
 	HierarchicalIndicatorCategoryContent,
 	INDICATOR_UNCLASSIFIED,
 	IndicatorCategoryContent
@@ -105,4 +105,10 @@ export const buildCategoryNodes = (navigation: Navigation, indicators: Array<Ind
 			}
 		})
 	};
+};
+
+export const isCurveChanged = (curve: CurveRect, newCurve: CurveRect): boolean => {
+	return curve.top !== newCurve.top || curve.width !== newCurve.width || curve.height !== newCurve.height
+		|| curve.startX !== newCurve.startX || curve.startY !== newCurve.startY
+		|| curve.endX !== newCurve.endX || curve.endY !== newCurve.endY;
 };

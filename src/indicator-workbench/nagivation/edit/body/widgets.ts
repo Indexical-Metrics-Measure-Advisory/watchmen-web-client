@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {CurveRect} from './types';
 
 export const BodyContainer = styled.div.attrs({
 	'data-widget': 'navigation-edit',
@@ -18,25 +19,6 @@ export const BodyPalette = styled.div.attrs({'data-widget': 'navigation-edit-pal
 	position              : relative;
 	flex-wrap             : nowrap;
 	grid-template-columns : repeat(100, auto);
-`;
-
-export const BlockCurvesContainer = styled.div.attrs({'data-widget': 'navigation-block-curves'})`
-	display  : block;
-	position : absolute;
-	top      : 0;
-	left     : 0;
-	width    : 100%;
-	height   : 100%;
-	z-index  : -1;
-	> svg {
-		display  : block;
-		position : absolute;
-		top      : 0;
-		left     : 0;
-		width    : 100%;
-		height   : 100%;
-		overflow : visible;
-	}
 `;
 
 export const PaletteColumn = styled.div.attrs({'data-widget': 'navigation-palette-column'})`
@@ -82,6 +64,25 @@ export const NavigationBlock = styled.div.attrs(() => {
 		opacity          : 0.1;
 	}
 `;
+export const NavigationBlockPairCurve = styled.svg.attrs<{ rect: CurveRect }>(({rect}) => {
+	return {
+		'xmlns': 'http://www.w3.org/2000/svg',
+		style: {
+			top: rect.top,
+			left: 0 - rect.width,
+			width: rect.width,
+			height: rect.height
+		}
+	};
+})<{ rect: CurveRect }>`
+	display  : block;
+	position : absolute;
+	> g > path {
+		stroke-width : 2px;
+		fill         : transparent;
+		opacity      : 0.5;
+	}
+`;
 
 export const NavigationRootNode = styled(NavigationBlock).attrs({'data-widget': 'navigation-root-node'})`
 `;
@@ -104,6 +105,10 @@ export const IndicatorCategoryColumn = styled(PaletteColumn).attrs({'data-widget
 		padding-right : 0;
 	}
 `;
+export const IndicatorCategoryNodeContainer = styled.div.attrs({'data-widget': 'indicator-category-node-container'})`
+	display  : block;
+	position : relative;
+`;
 export const IndicatorCategoryNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-category-node'})`
 	text-transform : capitalize;
 	border-color   : var(--info-color);
@@ -112,11 +117,29 @@ export const IndicatorCategoryNode = styled(NavigationBlock).attrs({'data-widget
 		background-color : var(--info-color);
 	}
 `;
+export const IndicatorCategoryCurve = styled(NavigationBlockPairCurve).attrs<{ rect: CurveRect }>({
+	'data-widget': 'indicator-category-curve'
+})<{ rect: CurveRect }>`
+	> g > path {
+		stroke : var(--info-color);
+	}
+`;
+export const IndicatorRootNodeContainer = styled.div.attrs({'data-widget': 'indicator-root-node-container'})`
+	display  : block;
+	position : relative;
+`;
 export const IndicatorRootNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-root-node'})`
 	border-color : var(--success-color);
 	color        : var(--success-color);
 	&:before {
 		background-color : var(--success-color);
+	}
+`;
+export const IndicatorCurve = styled(NavigationBlockPairCurve).attrs<{ rect: CurveRect }>({
+	'data-widget': 'indicator-curve'
+})<{ rect: CurveRect }>`
+	> g > path {
+		stroke : var(--success-color);
 	}
 `;
 export const MoreIndicatorsContainer = styled.div.attrs({'data-widget': 'more-indicators-container'})`
@@ -137,7 +160,11 @@ export const MoreIndicatorsColumn = styled(PaletteColumn).attrs({'data-widget': 
 		padding-right : 0;
 	}
 `;
-export const MoreIndicatorsNode = styled(NavigationBlock).attrs({'data-widget': 'more-indicators'})`
+export const MoreIndicatorsNodeContainer = styled.div.attrs({'data-widget': 'more-indicators-node-container'})`
+	display  : block;
+	position : relative;
+`;
+export const MoreIndicatorsNode = styled(NavigationBlock).attrs({'data-widget': 'more-indicators-node'})`
 	justify-content : center;
 	width           : var(--header-height);
 	min-width       : var(--header-height);
@@ -147,4 +174,11 @@ export const MoreIndicatorsNode = styled(NavigationBlock).attrs({'data-widget': 
 	color           : var(--primary-color);
 	font-size       : 1.4em;
 	cursor          : pointer;
+`;
+export const MoreIndicatorsCurve = styled(NavigationBlockPairCurve).attrs<{ rect: CurveRect }>({
+	'data-widget': 'more-indicators-curve'
+})<{ rect: CurveRect }>`
+	> g > path {
+		stroke : var(--primary-color);
+	}
 `;

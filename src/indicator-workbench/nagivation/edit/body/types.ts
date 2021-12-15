@@ -36,3 +36,13 @@ export interface CategoryNodes {
 	picked: Array<IndicatorNodeContent>;
 	candidates: Array<IndicatorCategoryContent>;
 }
+
+export interface CurveRect {
+	top: number;
+	width: number;
+	height: number;
+	startX: number;
+	startY: number;
+	endX: number;
+	endY: number;
+}

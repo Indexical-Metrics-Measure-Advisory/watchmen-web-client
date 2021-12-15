@@ -6,17 +6,27 @@ import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useState} from 'react';
+import {v4} from 'uuid';
 import {IndicatorCategory} from './indicator-category';
 import {useNavigationEditEventBus} from './navigation-edit-event-bus';
 import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {CategoryNodes} from './types';
-import {MoreIndicatorsColumn, MoreIndicatorsContainer, MoreIndicatorsNode} from './widgets';
+import {useCurve} from './use-curve';
+import {
+	MoreIndicatorsColumn,
+	MoreIndicatorsContainer,
+	MoreIndicatorsCurve,
+	MoreIndicatorsNode,
+	MoreIndicatorsNodeContainer
+} from './widgets';
 
-export const MoreIndicators = (props: { rootId: string; candidates: PropOf<CategoryNodes, 'candidates'> }) => {
-	const {rootId, candidates} = props;
+export const MoreIndicators = (props: { paletteId: string; rootId: string; candidates: PropOf<CategoryNodes, 'candidates'> }) => {
+	const {paletteId, rootId, candidates} = props;
 
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useNavigationEditEventBus();
+	const {ref, curve} = useCurve(rootId);
+	const [id] = useState(v4());
 	const [expanded, setExpanded] = useState(false);
 
 	const onMoreClicked = () => {
@@ -37,13 +47,24 @@ export const MoreIndicators = (props: { rootId: string; candidates: PropOf<Categ
 
 	return <MoreIndicatorsContainer>
 		<MoreIndicatorsColumn>
-			<MoreIndicatorsNode onClick={onMoreClicked}>
-				<FontAwesomeIcon icon={ICON_ADD}/>
-			</MoreIndicatorsNode>
+			<MoreIndicatorsNodeContainer>
+				<MoreIndicatorsNode id={id} onClick={onMoreClicked} ref={ref}>
+					<FontAwesomeIcon icon={ICON_ADD}/>
+				</MoreIndicatorsNode>
+				{curve == null
+					? null
+					: <MoreIndicatorsCurve rect={curve}>
+						<g>
+							<path
+								d={`M${curve.startX},${curve.startY} C${(curve.endX - curve.startX) / 4 * 3},${curve.startY} ${(curve.endX - curve.startX) / 4},${curve.endY} ${curve.endX},${curve.endY}`}/>
+						</g>
+					</MoreIndicatorsCurve>}
+			</MoreIndicatorsNodeContainer>
 		</MoreIndicatorsColumn>
 		<MoreIndicatorsColumn>
 			{candidates.map(candidate => {
-				return <IndicatorCategory category={candidate} key={candidate.name}/>;
+				return <IndicatorCategory paletteId={paletteId} parentId={id} category={candidate}
+				                          key={candidate.name}/>;
 			})}
 		</MoreIndicatorsColumn>
 	</MoreIndicatorsContainer>;

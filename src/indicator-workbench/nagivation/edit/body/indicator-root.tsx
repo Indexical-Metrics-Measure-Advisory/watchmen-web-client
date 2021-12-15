@@ -1,14 +1,24 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Lang} from '@/widgets/langs';
-import {useRef} from 'react';
-import {IndicatorRootNode} from './widgets';
+import {useCurve} from './use-curve';
+import {IndicatorCurve, IndicatorRootNodeContainer, IndicatorRootNode} from './widgets';
 
-export const IndicatorRoot = (props: { parentId: string; indicator?: Indicator }) => {
+export const IndicatorRoot = (props: { paletteId: string; parentId: string; indicator?: Indicator }) => {
 	const {parentId, indicator} = props;
 
-	const ref = useRef<HTMLDivElement>(null);
+	const {ref, curve} = useCurve(parentId);
 
-	return <IndicatorRootNode ref={ref}>
-		{indicator == null ? Lang.INDICATOR_WORKBENCH.NAVIGATION.MISSED_INDICATOR : (indicator.name || 'Noname Indicator')}
-	</IndicatorRootNode>;
+	return <IndicatorRootNodeContainer>
+		<IndicatorRootNode ref={ref}>
+			{indicator == null ? Lang.INDICATOR_WORKBENCH.NAVIGATION.MISSED_INDICATOR : (indicator.name || 'Noname Indicator')}
+		</IndicatorRootNode>
+		{curve == null
+			? null
+			: <IndicatorCurve rect={curve}>
+				<g>
+					<path
+						d={`M${curve.startX},${curve.startY} C${(curve.endX - curve.startX) / 4 * 3},${curve.startY} ${(curve.endX - curve.startX) / 4},${curve.endY} ${curve.endX},${curve.endY}`}/>
+				</g>
+			</IndicatorCurve>}
+	</IndicatorRootNodeContainer>;
 };
