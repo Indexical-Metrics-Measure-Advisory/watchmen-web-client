@@ -3,8 +3,8 @@ import {Lang} from '@/widgets/langs';
 import {useRef} from 'react';
 import {IndicatorRootNode} from './widgets';
 
-export const IndicatorRoot = (props: { indicator?: Indicator }) => {
-	const {indicator} = props;
+export const IndicatorRoot = (props: { parentId: string; indicator?: Indicator }) => {
+	const {parentId, indicator} = props;
 
 	const ref = useRef<HTMLDivElement>(null);
 

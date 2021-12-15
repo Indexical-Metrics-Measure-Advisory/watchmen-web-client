@@ -9,6 +9,7 @@ import {IndicatorRoot} from './indicator-root';
 import {MoreIndicators} from './more-indicators';
 import {NavigationEditEventBusProvider} from './navigation-edit-event-bus';
 import {NavigationRoot} from './navigation-root';
+import {CategoryNodes} from './types';
 import {buildCategoryNodes} from './utils';
 import {BodyContainer, BodyPalette, PaletteColumn} from './widgets';
 
@@ -21,30 +22,31 @@ export const NavigationEditPageBody = (props: { navigation: Navigation }) => {
 	const {navigation} = props;
 
 	const {fire} = useNavigationEventBus();
+	const [rootId] = useState(v4());
+	const [nodes, setNodes] = useState<CategoryNodes>({picked: [], candidates: []});
 	const [indicators, setIndicators] = useState<Indicators>({loaded: false, data: []});
 	useEffect(() => {
 		fire(NavigationEventTypes.ASK_INDICATORS, (indicators: Array<Indicator>) => {
+			setNodes(buildCategoryNodes(navigation, indicators));
 			setIndicators({loaded: true, data: indicators});
 		});
-	}, [fire]);
+	}, [fire, navigation]);
 
 	if (!indicators.loaded) {
 		return null;
 	}
 
-	const {picked, candidates} = buildCategoryNodes(navigation, indicators.data);
-
 	return <NavigationEditEventBusProvider>
 		<BodyContainer>
 			<BodyPalette>
 				<PaletteColumn>
-					<NavigationRoot navigation={navigation}/>
+					<NavigationRoot id={rootId} navigation={navigation}/>
 				</PaletteColumn>
 				<PaletteColumn>
-					{picked.map(picked => {
-						return <IndicatorRoot key={v4()} indicator={picked.indicator}/>;
+					{nodes.picked.map(picked => {
+						return <IndicatorRoot parentId={rootId} indicator={picked.indicator} key={picked.id}/>;
 					})}
-					<MoreIndicators candidates={candidates}/>
+					<MoreIndicators rootId={rootId} candidates={nodes.candidates}/>
 				</PaletteColumn>
 				<BlockCurves curves={[]}/>
 			</BodyPalette>

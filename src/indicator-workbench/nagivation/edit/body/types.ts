@@ -26,7 +26,13 @@ export interface HierarchicalIndicatorCategoryContent extends IndicatorCategoryC
 	categories: Array<IndicatorCategoryContent>;
 }
 
+export interface IndicatorNodeContent {
+	id: string;
+	nav: NavigationIndicator;
+	indicator?: Indicator;
+}
+
 export interface CategoryNodes {
-	picked: Array<NavigationIndicator & { indicator?: Indicator }>;
+	picked: Array<IndicatorNodeContent>;
 	candidates: Array<IndicatorCategoryContent>;
 }

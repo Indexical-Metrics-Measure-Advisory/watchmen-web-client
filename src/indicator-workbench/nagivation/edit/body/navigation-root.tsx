@@ -6,8 +6,8 @@ import {useNavigationEventBus} from '../../navigation-event-bus';
 import {NavigationEventTypes} from '../../navigation-event-bus-types';
 import {NavigationRootNode} from './widgets';
 
-export const NavigationRoot = (props: { navigation: Navigation }) => {
-	const {navigation} = props;
+export const NavigationRoot = (props: { id: string; navigation: Navigation }) => {
+	const {id, navigation} = props;
 
 	const ref = useRef<HTMLDivElement>(null);
 	const {on, off} = useNavigationEventBus();
@@ -25,7 +25,7 @@ export const NavigationRoot = (props: { navigation: Navigation }) => {
 		};
 	}, [on, off, forceUpdate, navigation]);
 
-	return <NavigationRootNode ref={ref}>
+	return <NavigationRootNode id={id} ref={ref}>
 		{navigation.name || Lang.INDICATOR_WORKBENCH.NAVIGATION.ROOT}
 	</NavigationRootNode>;
 };

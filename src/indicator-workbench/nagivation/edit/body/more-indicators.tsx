@@ -12,8 +12,8 @@ import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {CategoryNodes} from './types';
 import {MoreIndicatorsColumn, MoreIndicatorsContainer, MoreIndicatorsNode} from './widgets';
 
-export const MoreIndicators = (props: { candidates: PropOf<CategoryNodes, 'candidates'> }) => {
-	const {candidates} = props;
+export const MoreIndicators = (props: { rootId: string; candidates: PropOf<CategoryNodes, 'candidates'> }) => {
+	const {rootId, candidates} = props;
 
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useNavigationEditEventBus();

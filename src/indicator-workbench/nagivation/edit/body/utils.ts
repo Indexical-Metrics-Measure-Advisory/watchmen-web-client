@@ -1,5 +1,6 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation} from '@/services/data/tuples/navigation-types';
+import {v4} from 'uuid';
 import {
 	CategoryNodes,
 	HierarchicalIndicatorCategoryContent,
@@ -87,8 +88,12 @@ export const buildCategoryNodes = (navigation: Navigation, indicators: Array<Ind
 
 	return {
 		picked: (navigation.indicators || []).map(picked => {
-			// eslint-disable-next-line
-			return {...picked, indicator: indicators.find(indicator => indicator.indicatorId == picked.indicatorId)};
+			return {
+				id: v4(),
+				nav: picked,
+				// eslint-disable-next-line
+				indicator: indicators.find(indicator => indicator.indicatorId == picked.indicatorId)
+			};
 		}),
 		candidates: Object.values(categoryMap).sort(({name: n1}, {name: n2}) => {
 			if (n1 === INDICATOR_UNCLASSIFIED) {
