@@ -21,7 +21,7 @@ const asCategoryKey = (keys: Array<string>): string => {
 
 const putCategoryIntoCategoryMap = (map: Record<string, IndicatorCategoryContent>, category: IndicatorCategoryContent, keys: [string] | [string, string]) => {
 	let key = asCategoryKey(keys);
-	const name = isCategoryGiven(keys[keys.length - 1]) ? INDICATOR_UNCLASSIFIED : keys[keys.length - 1];
+	const name = isCategoryGiven(keys[keys.length - 1]) ? keys[keys.length - 1] : INDICATOR_UNCLASSIFIED;
 	let parent = map[key] as HierarchicalIndicatorCategoryContent;
 	if (parent == null) {
 		parent = {name, categories: [category], indicators: []} as HierarchicalIndicatorCategoryContent;
@@ -34,7 +34,7 @@ const putCategoryIntoCategoryMap = (map: Record<string, IndicatorCategoryContent
 
 const putIndicatorIntoCategoryMap = (map: Record<string, IndicatorCategoryContent>, indicator: Indicator, keys: [string] | [string, string] | [string, string, string]) => {
 	const key = asCategoryKey(keys);
-	const name = isCategoryGiven(keys[keys.length - 1]) ? INDICATOR_UNCLASSIFIED : keys[keys.length - 1];
+	const name = isCategoryGiven(keys[keys.length - 1]) ? keys[keys.length - 1] : INDICATOR_UNCLASSIFIED;
 	let existing: IndicatorCategoryContent = map[key];
 	if (existing == null) {
 		if (keys.length === 3) {

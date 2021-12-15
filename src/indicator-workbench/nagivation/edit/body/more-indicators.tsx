@@ -6,10 +6,11 @@ import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useState} from 'react';
+import {IndicatorCategory} from './indicator-category';
 import {useNavigationEditEventBus} from './navigation-edit-event-bus';
 import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {CategoryNodes} from './types';
-import {MoreIndicatorsNode} from './widgets';
+import {MoreIndicatorsColumn, MoreIndicatorsContainer, MoreIndicatorsNode} from './widgets';
 
 export const MoreIndicators = (props: { candidates: PropOf<CategoryNodes, 'candidates'> }) => {
 	const {candidates} = props;
@@ -34,7 +35,16 @@ export const MoreIndicators = (props: { candidates: PropOf<CategoryNodes, 'candi
 		}
 	};
 
-	return <MoreIndicatorsNode onClick={onMoreClicked}>
-		<FontAwesomeIcon icon={ICON_ADD}/>
-	</MoreIndicatorsNode>;
+	return <MoreIndicatorsContainer>
+		<MoreIndicatorsColumn>
+			<MoreIndicatorsNode onClick={onMoreClicked}>
+				<FontAwesomeIcon icon={ICON_ADD}/>
+			</MoreIndicatorsNode>
+		</MoreIndicatorsColumn>
+		<MoreIndicatorsColumn>
+			{candidates.map(candidate => {
+				return <IndicatorCategory category={candidate} key={candidate.name}/>;
+			})}
+		</MoreIndicatorsColumn>
+	</MoreIndicatorsContainer>;
 };

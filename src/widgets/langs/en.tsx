@@ -457,7 +457,8 @@ export const En = {
 			BACK_TO_QUERY: 'Back to Query',
 			ROOT: 'Root',
 			MISSED_INDICATOR: 'Missed Indicator',
-			NO_INDICATOR_CANDIDATE: 'No more available indicator.'
+			NO_INDICATOR_CANDIDATE: 'No more available indicator.',
+			UNCLASSIFIED_CATEGORY: 'Unclassified'
 		}
 	},
 	SETTINGS: {

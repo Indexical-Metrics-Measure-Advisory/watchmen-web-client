@@ -457,7 +457,8 @@ export const Zh = {
 			BACK_TO_QUERY: '回查询页',
 			ROOT: '根',
 			MISSED_INDICATOR: '丢失的指标',
-			NO_INDICATOR_CANDIDATE: '没有更多可以选择的指标.'
+			NO_INDICATOR_CANDIDATE: '没有更多可以选择的指标.',
+			UNCLASSIFIED_CATEGORY: '未分类'
 		}
 	},
 	SETTINGS: {

@@ -17,7 +17,7 @@ import {
 	Cities,
 	CitiesIsland
 } from './mock-data-buckets';
-import {INDICATOR_ORDER_PREMIUM_ID} from './mock-indicator';
+import {INDICATOR_ORDER_PREMIUM_ID} from './mock-data-indicators';
 
 export const INSPECTION_ORDER_PREMIUM_ID = '1';
 

@@ -457,7 +457,8 @@ export const Jp = {
 			BACK_TO_QUERY: 'クエリに戻る',
 			ROOT: '根',
 			MISSED_INDICATOR: '失われた指標',
-			NO_INDICATOR_CANDIDATE: 'これ以上の指標を選択することができます。'
+			NO_INDICATOR_CANDIDATE: 'これ以上の指標を選択することができます。',
+			UNCLASSIFIED_CATEGORY: '未分類'
 		}
 	},
 	SETTINGS: {

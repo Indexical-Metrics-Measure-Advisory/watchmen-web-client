@@ -1,12 +1,15 @@
 import {Navigation} from '../../tuples/navigation-types';
 import {getCurrentTime} from '../../utils';
+import {INDICATOR_ORDER_PREMIUM_ID} from './mock-data-indicators';
 
 export const NAVIGATION_PREMIUM_ID = '1';
 
 export const NavPremium: Navigation = {
 	navigationId: NAVIGATION_PREMIUM_ID,
 	name: 'Premium',
-	indicators: [],
+	indicators: [
+		{indicatorId: INDICATOR_ORDER_PREMIUM_ID}
+	],
 	description: 'Premium Navigation',
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
