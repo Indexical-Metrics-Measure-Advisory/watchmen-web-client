@@ -455,7 +455,9 @@ export const En = {
 			LAST_MODIFIED_AT: 'Last Modified At',
 			NAVIGATION_NOT_FOUND: 'Failed to load navigation, contact your administrator for more information.',
 			BACK_TO_QUERY: 'Back to Query',
-			ROOT: 'Root'
+			ROOT: 'Root',
+			MISSED_INDICATOR: 'Missed Indicator',
+			NO_INDICATOR_CANDIDATE: 'No more available indicator.'
 		}
 	},
 	SETTINGS: {

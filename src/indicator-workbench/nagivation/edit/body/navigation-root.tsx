@@ -1,14 +1,15 @@
 import {Navigation} from '@/services/data/tuples/navigation-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
-import {useEffect} from 'react';
+import {useEffect, useRef} from 'react';
 import {useNavigationEventBus} from '../../navigation-event-bus';
 import {NavigationEventTypes} from '../../navigation-event-bus-types';
-import {NavigationRoot} from './widgets';
+import {NavigationRootNode} from './widgets';
 
-export const RootNode = (props: { navigation: Navigation }) => {
+export const NavigationRoot = (props: { navigation: Navigation }) => {
 	const {navigation} = props;
 
+	const ref = useRef<HTMLDivElement>(null);
 	const {on, off} = useNavigationEventBus();
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
@@ -24,7 +25,7 @@ export const RootNode = (props: { navigation: Navigation }) => {
 		};
 	}, [on, off, forceUpdate, navigation]);
 
-	return <NavigationRoot>
+	return <NavigationRootNode ref={ref}>
 		{navigation.name || Lang.INDICATOR_WORKBENCH.NAVIGATION.ROOT}
-	</NavigationRoot>;
+	</NavigationRootNode>;
 };

@@ -3,10 +3,12 @@ import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import {NavigationEdit} from '../edit';
 import {NavigationQuery} from '../query';
+import {Indicators} from './indicators';
 import {NavigationState} from './state';
 
 export const NavigationRoute = () => {
 	return <>
+		<Indicators/>
 		<NavigationState/>
 		<Switch>
 			<Route path={Router.INDICATOR_WORKBENCH_NAVIGATION_QUERY}>

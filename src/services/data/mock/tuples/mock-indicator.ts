@@ -141,3 +141,11 @@ export const fetchMockIndicatorCategories = async (prefix: QueryIndicatorCategor
 		}, 500);
 	});
 };
+
+export const listMockIndicators = async (): Promise<Array<Indicator>> => {
+	return new Promise<Array<Indicator>>(resolve => {
+		setTimeout(() => {
+			resolve(DemoIndicators);
+		}, 500);
+	});
+};

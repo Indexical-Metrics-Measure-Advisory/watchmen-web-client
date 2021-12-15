@@ -1,4 +1,5 @@
 import {TuplePage} from '@/services/data/query/tuple-page';
+import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation} from '@/services/data/tuples/navigation-types';
 import {QueryTuple} from '@/services/data/tuples/tuple-types';
 
@@ -13,7 +14,9 @@ export enum NavigationEventTypes {
 	NAME_CHANGED = 'name-changed',
 
 	SAVE_NAVIGATION = 'save-navigation',
-	NAVIGATION_SAVED = 'navigation-saved'
+	NAVIGATION_SAVED = 'navigation-saved',
+
+	ASK_INDICATORS = 'ask-indicators'
 }
 
 export interface NavigationEventBus {
@@ -48,4 +51,8 @@ export interface NavigationEventBus {
 	fire(type: NavigationEventTypes.NAVIGATION_SAVED, navigation: Navigation): this;
 	on(type: NavigationEventTypes.NAVIGATION_SAVED, listener: (navigation: Navigation) => void): this;
 	off(type: NavigationEventTypes.NAVIGATION_SAVED, listener: (navigation: Navigation) => void): this;
+
+	fire(type: NavigationEventTypes.ASK_INDICATORS, onData: (indicators: Array<Indicator>) => void): this;
+	on(type: NavigationEventTypes.ASK_INDICATORS, listener: (onData: (indicators: Array<Indicator>) => void) => void): this;
+	off(type: NavigationEventTypes.ASK_INDICATORS, listener: (onData: (indicators: Array<Indicator>) => void) => void): this;
 }

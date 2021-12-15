@@ -143,6 +143,7 @@ export const Apis = {
 	INDICATOR_SAVE: 'indicator/update/indicator?indicator_id=:indicatorId',
 	RELEVANT_INDICATOR_LIST: 'indicator/indicator/relevant?indicator_id=:indicatorId',
 	INDICATOR_CATEGORIES: 'indicator/categories',
+	INDICATORS_LIST: '/indicator/indicator/list',
 
 	BUCKET_LIST_BY_NAME: 'indicator/bucket/name?query_name=:search',
 	BUCKET_CREATE: 'indicator/bucket',

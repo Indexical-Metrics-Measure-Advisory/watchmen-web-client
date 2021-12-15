@@ -455,7 +455,9 @@ export const Jp = {
 			LAST_MODIFIED_AT: '最終更新日',
 			NAVIGATION_NOT_FOUND: '航法の定義が見つかりません。詳細については、管理者に問い合わせてください。',
 			BACK_TO_QUERY: 'クエリに戻る',
-			ROOT: '根'
+			ROOT: '根',
+			MISSED_INDICATOR: '失われた指標',
+			NO_INDICATOR_CANDIDATE: 'これ以上の指標を選択することができます。'
 		}
 	},
 	SETTINGS: {

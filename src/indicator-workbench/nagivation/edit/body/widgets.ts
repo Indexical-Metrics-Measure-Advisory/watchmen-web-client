@@ -14,15 +14,27 @@ export const BodyPalette = styled.div.attrs({
 	'data-v-scroll': '',
 	'data-h-scroll': ''
 })`
-	display   : block;
+	display   : flex;
 	position  : relative;
 	flex-grow : 1;
+	flex-wrap : nowrap;
 	overflow  : scroll;
 `;
 
-export const NavigationBlock = styled.div`
+export const PaletteColumn = styled.div.attrs({'data-widget': 'navigation-palette-column'})`
+	display         : flex;
+	position        : relative;
+	flex-direction  : column;
+	padding         : var(--margin);
+	align-items     : center;
+	justify-content : center;
+`;
+
+export const NavigationBlock = styled.div.attrs(() => {
+	return {};
+})`
 	display       : flex;
-	position      : absolute;
+	position      : relative;
 	align-items   : center;
 	min-height    : var(--header-height);
 	padding       : 0 var(--margin);
@@ -46,5 +58,27 @@ export const NavigationBlock = styled.div`
 	}
 `;
 
-export const NavigationRoot = styled(NavigationBlock).attrs({'data-widget': 'navigation-root'})`
+export const NavigationRootNode = styled(NavigationBlock).attrs({'data-widget': 'navigation-root-node'})`
+`;
+export const IndicatorCategoryNode = styled(NavigationBlock).attrs({'data-widget': 'category-node'})`
+	border-color : var(--info-color);
+	&:before {
+		background-color : var(--info-color);
+	}
+`;
+export const IndicatorRootNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-root-node'})`
+	border-color : var(--success-color);
+	&:before {
+		background-color : var(--success-color);
+	}
+`;
+export const MoreIndicatorsNode = styled(NavigationBlock).attrs({'data-widget': 'more-indicators'})`
+	justify-content : center;
+	width           : var(--header-height);
+	height          : var(--header-height);
+	padding         : 0;
+	border-radius   : 100%;
+	color           : var(--primary-color);
+	font-size       : 1.4em;
+	cursor          : pointer;
 `;

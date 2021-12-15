@@ -7,6 +7,7 @@ import {
 	fetchMockIndicatorsForSelection,
 	fetchMockRelevantIndicators,
 	fetchMockTopicsForIndicatorSelection,
+	listMockIndicators,
 	saveMockIndicator
 } from '../mock/tuples/mock-indicator';
 import {isMockService} from '../utils';
@@ -91,5 +92,13 @@ export const loadIndicatorCategories = async (prefix: QueryIndicatorCategoryPara
 		return fetchMockIndicatorCategories(prefix);
 	} else {
 		return await post({api: Apis.INDICATOR_CATEGORIES, data: prefix});
+	}
+};
+
+export const listIndicators = async (): Promise<Array<Indicator>> => {
+	if (isMockService()) {
+		return listMockIndicators();
+	} else {
+		return await get({api: Apis.INDICATORS_LIST});
 	}
 };

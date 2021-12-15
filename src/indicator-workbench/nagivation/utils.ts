@@ -6,6 +6,7 @@ export const createNavigation = (): Navigation => {
 	return {
 		navigationId: generateUuid(),
 		name: '',
+		indicators: [],
 		createTime: getCurrentTime(),
 		lastModified: getCurrentTime()
 	};
