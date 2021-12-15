@@ -1,6 +1,7 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation} from '@/services/data/tuples/navigation-types';
 import {useEffect, useState} from 'react';
+import {v4} from 'uuid';
 import {useNavigationEventBus} from '../../navigation-event-bus';
 import {NavigationEventTypes} from '../../navigation-event-bus-types';
 import {IndicatorRoot} from './indicator-root';
@@ -40,7 +41,7 @@ export const NavigationEditPageBody = (props: { navigation: Navigation }) => {
 				</PaletteColumn>
 				<PaletteColumn>
 					{picked.map(picked => {
-						return <IndicatorRoot indicator={picked.indicator}/>;
+						return <IndicatorRoot key={v4()} indicator={picked.indicator}/>;
 					})}
 					<MoreIndicators candidates={candidates}/>
 				</PaletteColumn>
