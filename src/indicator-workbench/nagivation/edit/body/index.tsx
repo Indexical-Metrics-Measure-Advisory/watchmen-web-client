@@ -4,6 +4,7 @@ import {useEffect, useState} from 'react';
 import {v4} from 'uuid';
 import {useNavigationEventBus} from '../../navigation-event-bus';
 import {NavigationEventTypes} from '../../navigation-event-bus-types';
+import {BlockCurves} from './block-curves';
 import {IndicatorRoot} from './indicator-root';
 import {MoreIndicators} from './more-indicators';
 import {NavigationEditEventBusProvider} from './navigation-edit-event-bus';
@@ -45,6 +46,7 @@ export const NavigationEditPageBody = (props: { navigation: Navigation }) => {
 					})}
 					<MoreIndicators candidates={candidates}/>
 				</PaletteColumn>
+				<BlockCurves curves={[]}/>
 			</BodyPalette>
 		</BodyContainer>
 	</NavigationEditEventBusProvider>;

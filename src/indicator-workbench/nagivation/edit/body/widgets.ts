@@ -13,13 +13,30 @@ export const BodyContainer = styled.div.attrs({
 	overflow         : scroll;
 `;
 
-export const BodyPalette = styled.div.attrs({
-	'data-widget': 'navigation-edit-palette'
-})`
+export const BodyPalette = styled.div.attrs({'data-widget': 'navigation-edit-palette'})`
 	display               : grid;
 	position              : relative;
 	flex-wrap             : nowrap;
 	grid-template-columns : repeat(100, auto);
+`;
+
+export const BlockCurvesContainer = styled.div.attrs({'data-widget': 'navigation-block-curves'})`
+	display  : block;
+	position : absolute;
+	top      : 0;
+	left     : 0;
+	width    : 100%;
+	height   : 100%;
+	z-index  : -1;
+	> svg {
+		display  : block;
+		position : absolute;
+		top      : 0;
+		left     : 0;
+		width    : 100%;
+		height   : 100%;
+		overflow : visible;
+	}
 `;
 
 export const PaletteColumn = styled.div.attrs({'data-widget': 'navigation-palette-column'})`
