@@ -3,7 +3,7 @@ import {saveNavigation} from '@/services/data/tuples/navigation';
 import {Navigation} from '@/services/data/tuples/navigation-types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
-import {SaveTime, useSavingQueue} from '@/widgets/saving-queue';
+import {useSavingQueue} from '@/widgets/saving-queue';
 import {Fragment, useEffect} from 'react';
 import {useNavigationEventBus} from '../navigation-event-bus';
 import {NavigationEventTypes} from '../navigation-event-bus-types';
@@ -21,14 +21,10 @@ export const NavigationSaver = (props: { navigation: Navigation }) => {
 				return;
 			}
 
-			saveQueue.replace((saveTime) => {
+			saveQueue.replace(() => {
 				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 					async () => await saveNavigation(navigation),
-					() => {
-						if (saveTime !== SaveTime.TIMEOUT) {
-							fire(NavigationEventTypes.NAVIGATION_SAVED, navigation);
-						}
-					});
+					() => fire(NavigationEventTypes.NAVIGATION_SAVED, navigation));
 			}, SAVE_TIMEOUT);
 		};
 		on(NavigationEventTypes.NAME_CHANGED, onSaveNavigation);
