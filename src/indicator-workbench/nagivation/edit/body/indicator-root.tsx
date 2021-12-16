@@ -10,16 +10,17 @@ export const IndicatorRoot = (props: {
 	parentId: string;
 	navigation: Navigation;
 	id: string;
+	index: number;
 	navigationIndicator: NavigationIndicator;
 	indicator?: Indicator;
 }) => {
-	const {parentId, id, indicator} = props;
+	const {parentId, id, index, indicator} = props;
 
 	const {ref, curve} = useCurve(parentId);
 
 	return <IndicatorRootNodeContainer>
 		<IndicatorRootNode id={id} ref={ref}>
-			{indicator == null ? Lang.INDICATOR_WORKBENCH.NAVIGATION.MISSED_INDICATOR : (indicator.name || 'Noname Indicator')}
+			{index}. {indicator == null ? Lang.INDICATOR_WORKBENCH.NAVIGATION.MISSED_INDICATOR : (indicator.name || 'Noname Indicator')}
 		</IndicatorRootNode>
 		{curve == null
 			? null

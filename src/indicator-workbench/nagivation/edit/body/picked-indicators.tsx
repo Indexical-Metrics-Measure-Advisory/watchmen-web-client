@@ -83,10 +83,10 @@ export const PickedIndicators = (props: {
 	}, [fire, state.trigger, state.data]);
 
 	return <>
-		{state.data.map(picked => {
+		{state.data.map((picked, index) => {
 			return <IndicatorRoot paletteId={paletteId} parentId={rootId}
 			                      navigation={navigation} navigationIndicator={picked.nav} indicator={picked.indicator}
-			                      id={picked.id}
+			                      id={picked.id} index={index + 1}
 			                      key={picked.id}/>;
 		})}
 	</>;
