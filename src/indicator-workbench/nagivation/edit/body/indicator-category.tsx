@@ -12,7 +12,11 @@ import {
 	IndicatorCategoryNodeContainer
 } from './widgets';
 
-export const IndicatorCategory = (props: { paletteId: string; parentId: string; category: IndicatorCategoryContent }) => {
+export const IndicatorCategory = (props: {
+	paletteId: string;
+	parentId: string;
+	category: IndicatorCategoryContent;
+}) => {
 	const {paletteId, parentId, category} = props;
 
 	const [categoryId] = useState(v4());

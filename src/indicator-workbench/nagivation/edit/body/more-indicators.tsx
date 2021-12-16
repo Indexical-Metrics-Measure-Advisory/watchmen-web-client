@@ -8,8 +8,6 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useState} from 'react';
 import {v4} from 'uuid';
 import {IndicatorCategory} from './indicator-category';
-import {useNavigationEditEventBus} from './navigation-edit-event-bus';
-import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {CategoryNodes} from './types';
 import {useCurve} from './use-curve';
 import {
@@ -24,7 +22,6 @@ export const MoreIndicators = (props: { paletteId: string; rootId: string; candi
 	const {paletteId, rootId, candidates} = props;
 
 	const {fire: fireGlobal} = useEventBus();
-	const {fire} = useNavigationEditEventBus();
 	const {ref, curve} = useCurve(rootId);
 	const [id] = useState(v4());
 	const [expanded, setExpanded] = useState(false);
@@ -38,11 +35,6 @@ export const MoreIndicators = (props: { paletteId: string; rootId: string; candi
 		}
 
 		setExpanded(!expanded);
-		if (!expanded) {
-			fire(NavigationEditEventTypes.EXPAND_MORE_INDICATORS);
-		} else {
-			fire(NavigationEditEventTypes.COLLAPSE_MORE_INDICATORS);
-		}
 	};
 
 	return <MoreIndicatorsContainer>
