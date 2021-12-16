@@ -7,7 +7,12 @@ import {useNavigationEditEventBus} from './navigation-edit-event-bus';
 import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {useCurve} from './use-curve';
 import {computeCurvePath} from './utils';
-import {IndicatorCandidateRootNode, IndicatorCurve, IndicatorRootNodeContainer, UseIndicatorCandidate} from './widgets';
+import {
+	IndicatorCandidateCurve,
+	IndicatorCandidateRootNode,
+	IndicatorRootNodeContainer,
+	UseIndicatorCandidate
+} from './widgets';
 
 export const IndicatorCandidateRoot = (props: {
 	paletteId: string;
@@ -34,10 +39,10 @@ export const IndicatorCandidateRoot = (props: {
 		</IndicatorCandidateRootNode>
 		{curve == null
 			? null
-			: <IndicatorCurve rect={curve}>
+			: <IndicatorCandidateCurve rect={curve}>
 				<g>
 					<path d={computeCurvePath(curve)}/>
 				</g>
-			</IndicatorCurve>}
+			</IndicatorCandidateCurve>}
 	</IndicatorRootNodeContainer>;
 };

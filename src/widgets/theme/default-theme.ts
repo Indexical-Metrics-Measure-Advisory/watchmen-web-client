@@ -155,7 +155,13 @@ const DefaultTheme = {
 	ratioTopicColor: 'var(--warn-color)',
 
 	// data diff color
-	diffAddedBgColor: 'rgba(148,232,191,0.6)'
+	diffAddedBgColor: 'rgba(148,232,191,0.6)',
+
+	// navigation node color
+	navigationRootColor: 'var(--danger-color)',
+	navigationIndicatorColor: 'var(--primary-color)',
+	navigationCategoryColor: 'var(--info-color)',
+	navigationCandidateColor: 'var(--success-color)'
 };
 
 export default DefaultTheme;

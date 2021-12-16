@@ -83,6 +83,11 @@ export const NavigationBlockPairCurve = styled.svg.attrs<{ rect: CurveRect }>(({
 `;
 
 export const NavigationRootNode = styled(NavigationBlock).attrs({'data-widget': 'navigation-root-node'})`
+	border-color : var(--navigation-root-color);
+	color        : var(--navigation-root-color);
+	&:before {
+		background-color : var(--navigation-root-color);
+	}
 `;
 export const IndicatorCategoryContainer = styled.div.attrs({'data-widget': 'indicator-category-container'})`
 	display   : flex;
@@ -111,17 +116,17 @@ export const IndicatorCategoryNodeContainer = styled.div.attrs({'data-widget': '
 `;
 export const IndicatorCategoryNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-category-node'})`
 	text-transform : capitalize;
-	border-color   : var(--info-color);
-	color          : var(--info-color);
+	border-color   : var(--navigation-category-color);
+	color          : var(--navigation-category-color);
 	&:before {
-		background-color : var(--info-color);
+		background-color : var(--navigation-category-color);
 	}
 `;
 export const IndicatorCategoryCurve = styled(NavigationBlockPairCurve).attrs<{ rect: CurveRect }>({
 	'data-widget': 'indicator-category-curve'
 })<{ rect: CurveRect }>`
 	> g > path {
-		stroke : var(--info-color);
+		stroke : var(--navigation-category-color);
 	}
 `;
 export const IndicatorRootNodeContainer = styled.div.attrs({'data-widget': 'indicator-root-node-container'})`
@@ -132,14 +137,19 @@ export const IndicatorRootNodeContainer = styled.div.attrs({'data-widget': 'indi
 	}
 `;
 export const IndicatorRootNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-root-node'})`
-	border-color : var(--success-color);
-	color        : var(--success-color);
+	border-color : var(--navigation-indicator-color);
+	color        : var(--navigation-indicator-color);
 	&:before {
-		background-color : var(--success-color);
+		background-color : var(--navigation-indicator-color);
 	}
 `;
 export const IndicatorCandidateRootNode = styled(IndicatorRootNode)`
-	transition : padding-right 300ms ease-in-out;
+	border-color : var(--navigation-candidate-color);
+	color        : var(--navigation-candidate-color);
+	transition   : padding-right 300ms ease-in-out;
+	&:before {
+		background-color : var(--navigation-candidate-color);
+	}
 	&:hover {
 		padding-right : calc(var(--margin) / 2);
 		> span[data-widget=use-indicator-candidate] {
@@ -155,14 +165,14 @@ export const UseIndicatorCandidate = styled.span.attrs({'data-widget': 'use-indi
 	position         : relative;
 	align-items      : center;
 	justify-content  : center;
-	color            : var(--success-color);
+	color            : var(--navigation-candidate-color);
 	background-color : var(--bg-color);
 	height           : var(--height);
 	width            : var(--height);
 	margin-left      : calc((var(--height)) * -1);
 	border-radius    : calc(var(--border-radius) * 2);
 	border           : var(--border);
-	border-color     : var(--success-color);
+	border-color     : var(--navigation-candidate-color);
 	text-transform   : uppercase;
 	font-size        : 1.1em;
 	cursor           : pointer;
@@ -171,14 +181,21 @@ export const UseIndicatorCandidate = styled.span.attrs({'data-widget': 'use-indi
 	transition       : background-color 300ms ease-in-out, color 300ms ease-in-out, margin-left 300ms ease-in-out, opacity 150ms ease-in-out;
 	&:hover {
 		color            : var(--invert-color);
-		background-color : var(--success-color);
+		background-color : var(--navigation-candidate-color);
 	}
 `;
 export const IndicatorCurve = styled(NavigationBlockPairCurve).attrs<{ rect: CurveRect }>({
 	'data-widget': 'indicator-curve'
 })<{ rect: CurveRect }>`
 	> g > path {
-		stroke : var(--success-color);
+		stroke : var(--navigation-indicator-color);
+	}
+`;
+export const IndicatorCandidateCurve = styled(IndicatorCurve).attrs({
+	'data-widget': 'indicator-candidate-curve'
+})`
+	> g > path {
+		stroke : var(--navigation-candidate-color);
 	}
 `;
 export const MoreIndicatorsContainer = styled.div.attrs({'data-widget': 'more-indicators-container'})`
@@ -210,18 +227,18 @@ export const MoreIndicatorsNode = styled(NavigationBlock).attrs({'data-widget': 
 	height          : var(--header-height);
 	padding         : 0;
 	border-radius   : 100%;
-	color           : var(--info-color);
-	border-color    : var(--info-color);
+	color           : var(--navigation-category-color);
+	border-color    : var(--navigation-category-color);
 	font-size       : 1.4em;
 	cursor          : pointer;
 	&:before {
-		background-color : var(--info-color);
+		background-color : var(--navigation-category-color);
 	}
 `;
 export const MoreIndicatorsCurve = styled(NavigationBlockPairCurve).attrs<{ rect: CurveRect }>({
 	'data-widget': 'more-indicators-curve'
 })<{ rect: CurveRect }>`
 	> g > path {
-		stroke : var(--info-color);
+		stroke : var(--navigation-category-color);
 	}
 `;
