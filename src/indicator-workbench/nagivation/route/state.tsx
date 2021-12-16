@@ -1,4 +1,5 @@
 import {Router} from '@/routes/types';
+import {toNavigationEdit} from '@/routes/utils';
 import {TuplePage} from '@/services/data/query/tuple-page';
 import {Navigation} from '@/services/data/tuples/navigation-types';
 import {QueryNavigation} from '@/services/data/tuples/query-navigation-types';
@@ -40,7 +41,7 @@ export const NavigationState = () => {
 	}, [on, off]);
 	useEffect(() => {
 		if (navigation != null) {
-			history.replace(Router.INDICATOR_WORKBENCH_NAVIGATION_EDIT);
+			history.replace(toNavigationEdit(navigation.navigationId));
 		}
 	}, [fire, history, navigation]);
 	useEffect(() => {

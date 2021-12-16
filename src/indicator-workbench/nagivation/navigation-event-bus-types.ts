@@ -40,13 +40,13 @@ export interface NavigationEventBus {
 	on(type: NavigationEventTypes.BACK_TO_QUERY, listener: () => void): this;
 	off(type: NavigationEventTypes.BACK_TO_QUERY, listener: () => void): this;
 
-	fire(type: NavigationEventTypes.NAME_CHANGED, navigation: Navigation): this;
-	on(type: NavigationEventTypes.NAME_CHANGED, listener: (navigation: Navigation) => void): this;
-	off(type: NavigationEventTypes.NAME_CHANGED, listener: (navigation: Navigation) => void): this;
+	fire(type: NavigationEventTypes.NAME_CHANGED, navigation: Navigation, onSaved: (navigation: Navigation, saved: boolean) => void): this;
+	on(type: NavigationEventTypes.NAME_CHANGED, listener: (navigation: Navigation, onSaved: (navigation: Navigation, saved: boolean) => void) => void): this;
+	off(type: NavigationEventTypes.NAME_CHANGED, listener: (navigation: Navigation, onSaved: (navigation: Navigation, saved: boolean) => void) => void): this;
 
-	fire(type: NavigationEventTypes.SAVE_NAVIGATION, navigation: Navigation): this;
-	on(type: NavigationEventTypes.SAVE_NAVIGATION, listener: (navigation: Navigation) => void): this;
-	off(type: NavigationEventTypes.SAVE_NAVIGATION, listener: (navigation: Navigation) => void): this;
+	fire(type: NavigationEventTypes.SAVE_NAVIGATION, navigation: Navigation, onSaved: (navigation: Navigation, saved: boolean) => void): this;
+	on(type: NavigationEventTypes.SAVE_NAVIGATION, listener: (navigation: Navigation, onSaved: (navigation: Navigation, saved: boolean) => void) => void): this;
+	off(type: NavigationEventTypes.SAVE_NAVIGATION, listener: (navigation: Navigation, onSaved: (navigation: Navigation, saved: boolean) => void) => void): this;
 
 	fire(type: NavigationEventTypes.NAVIGATION_SAVED, navigation: Navigation): this;
 	on(type: NavigationEventTypes.NAVIGATION_SAVED, listener: (navigation: Navigation) => void): this;

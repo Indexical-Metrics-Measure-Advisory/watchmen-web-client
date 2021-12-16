@@ -27,7 +27,11 @@ const InternalNavigationQuery = () => {
 	const {on, off, fire} = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateNavigation = async () => {
-			fireNavigation(NavigationEventTypes.NAVIGATION_PICKED, createNavigation());
+			fireNavigation(NavigationEventTypes.SAVE_NAVIGATION, createNavigation(), (navigation: Navigation, saved: boolean) => {
+				if (saved) {
+					fireNavigation(NavigationEventTypes.NAVIGATION_PICKED, navigation);
+				}
+			});
 		};
 		const onDoEditNavigation = async (queryNavigation: QueryNavigation) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,

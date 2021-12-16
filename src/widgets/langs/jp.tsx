@@ -35,7 +35,8 @@ export const Jp = {
 		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: '分類値、セグメントに追加することを確認します。',
 		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: 'バケット名に基づいて検索します。',
 		DROPDOWN_PLACEHOLDER: '選択してください...',
-		FIND_NAVIGATION_PLACEHOLDER: '名前に基づいて検索します。'
+		FIND_NAVIGATION_PLACEHOLDER: '名前に基づいて検索します。',
+		NEW_NAVIGATION_NAME: '指標航法'
 	},
 	STANDARD: {
 		YES: 'はい',

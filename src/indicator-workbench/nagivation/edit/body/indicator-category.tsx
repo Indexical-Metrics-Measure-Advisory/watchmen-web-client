@@ -1,7 +1,7 @@
 import {Lang} from '@/widgets/langs';
 import {useState} from 'react';
 import {v4} from 'uuid';
-import {IndicatorRoot} from './indicator-root';
+import {IndicatorCandidateRoot} from './indicator-candidate-root';
 import {MoreIndicators} from './more-indicators';
 import {HierarchicalIndicatorCategoryContent, INDICATOR_UNCLASSIFIED, IndicatorCategoryContent} from './types';
 import {useCurve} from './use-curve';
@@ -47,8 +47,8 @@ export const IndicatorCategory = (props: {
 		</IndicatorCategoryColumn>
 		<IndicatorCategoryColumn>
 			{(category.indicators || []).map(indicator => {
-				return <IndicatorRoot paletteId={paletteId} parentId={categoryId} indicator={indicator}
-				                      key={indicator.indicatorId}/>;
+				return <IndicatorCandidateRoot paletteId={paletteId} parentId={categoryId} indicator={indicator}
+				                               key={indicator.indicatorId}/>;
 			})}
 			{hasSubCategories
 				? <MoreIndicators paletteId={paletteId} parentId={categoryId} candidates={subCategories}/>

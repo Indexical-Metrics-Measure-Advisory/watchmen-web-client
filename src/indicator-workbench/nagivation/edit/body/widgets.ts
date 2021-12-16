@@ -139,6 +139,9 @@ export const IndicatorRootNode = styled(NavigationBlock).attrs({'data-widget': '
 		background-color : var(--success-color);
 	}
 `;
+export const IndicatorCandidateRootNode = styled(IndicatorRootNode)`
+	cursor : pointer;
+`;
 export const IndicatorCurve = styled(NavigationBlockPairCurve).attrs<{ rect: CurveRect }>({
 	'data-widget': 'indicator-curve'
 })<{ rect: CurveRect }>`

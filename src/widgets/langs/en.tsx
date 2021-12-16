@@ -35,7 +35,8 @@ export const En = {
 		BUCKET_CATEGORY_SEGMENT_VALUE_PLACEHOLDER: 'Key in category value here, confirm to add into segment.',
 		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: 'Search by bucket name.',
 		DROPDOWN_PLACEHOLDER: 'Please Select...',
-		FIND_NAVIGATION_PLACEHOLDER: 'Search by navigation name.'
+		FIND_NAVIGATION_PLACEHOLDER: 'Search by navigation name.',
+		NEW_NAVIGATION_NAME: 'Navigation'
 	},
 	STANDARD: {
 		YES: 'Yes',

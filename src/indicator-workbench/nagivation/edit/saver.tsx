@@ -16,7 +16,7 @@ export const NavigationSaver = (props: { navigation: Navigation }) => {
 	const saveQueue = useSavingQueue();
 	useEffect(() => saveQueue.clear(true), [navigation, saveQueue]);
 	useEffect(() => {
-		const onSaveNavigation = (aNavigation: Navigation) => {
+		const onSaveNavigation = (aNavigation: Navigation, onSaved: (navigation: Navigation, saved: boolean) => void) => {
 			if (aNavigation !== navigation) {
 				return;
 			}
@@ -24,7 +24,12 @@ export const NavigationSaver = (props: { navigation: Navigation }) => {
 			saveQueue.replace(() => {
 				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 					async () => await saveNavigation(navigation),
-					() => fire(NavigationEventTypes.NAVIGATION_SAVED, navigation));
+					() => {
+						fire(NavigationEventTypes.NAVIGATION_SAVED, navigation);
+						onSaved(navigation, true);
+					}, () => {
+						onSaved(navigation, false);
+					});
 			}, SAVE_TIMEOUT);
 		};
 		on(NavigationEventTypes.NAME_CHANGED, onSaveNavigation);

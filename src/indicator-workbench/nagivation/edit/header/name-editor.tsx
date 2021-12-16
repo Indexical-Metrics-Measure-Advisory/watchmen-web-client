@@ -1,4 +1,5 @@
 import {Navigation} from '@/services/data/tuples/navigation-types';
+import {noop} from '@/services/utils';
 import {PageTitleEditor} from '@/widgets/basic/page-title-editor';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import React from 'react';
@@ -18,7 +19,7 @@ export const NameEditor = (props: { navigation: Navigation }) => {
 	const onNameChangeComplete = async (name: string) => {
 		navigation.name = name.trim() || 'Noname Navigation';
 		forceUpdate();
-		fire(NavigationEventTypes.NAME_CHANGED, navigation);
+		fire(NavigationEventTypes.NAME_CHANGED, navigation, noop);
 	};
 
 	return <PageTitleEditor title={navigation.name}
