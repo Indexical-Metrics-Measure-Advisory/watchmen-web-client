@@ -1,7 +1,10 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
+import {noop} from '@/services/utils';
 import {useEffect, useLayoutEffect, useState} from 'react';
 import {v4} from 'uuid';
+import {useNavigationEventBus} from '../../navigation-event-bus';
+import {NavigationEventTypes} from '../../navigation-event-bus-types';
 import {IndicatorRoot} from './indicator-root';
 import {useNavigationEditEventBus} from './navigation-edit-event-bus';
 import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
@@ -37,6 +40,7 @@ export const PickedIndicators = (props: {
 }) => {
 	const {rootId, paletteId, navigation, indicators} = props;
 
+	const {fire: fireNavigation} = useNavigationEventBus();
 	const {on, off, fire} = useNavigationEditEventBus();
 	const [state, setState] = useState<Nodes>({
 		trigger: NodesChangeTrigger.INITIALIZE,
@@ -51,6 +55,7 @@ export const PickedIndicators = (props: {
 				return;
 			}
 
+			fireNavigation(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
 			setState(state => {
 				return {
 					trigger: NodesChangeTrigger.ADD,
@@ -62,7 +67,7 @@ export const PickedIndicators = (props: {
 		return () => {
 			off(NavigationEditEventTypes.INDICATOR_ADDED, onIndicatorAdded);
 		};
-	}, [on, off, navigation]);
+	}, [on, off, fireNavigation, navigation]);
 	useLayoutEffect(() => {
 		if (state.trigger === NodesChangeTrigger.ADD) {
 			// show last node

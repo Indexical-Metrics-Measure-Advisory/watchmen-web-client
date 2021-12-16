@@ -1,7 +1,7 @@
 export const SAVE_TIMEOUT = (() => {
 	try {
 		const x = parseInt(process.env.REACT_APP_CLIENT_SAVE_INTERVAL || '2000');
-		return Math.max(x, 10000);
+		return Math.min(x, 10000);
 	} catch {
 		return 10000;
 	}

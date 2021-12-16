@@ -34,7 +34,9 @@ const Palette = (props: { navigation: Navigation }) => {
 		if (ref.current) {
 			// @ts-ignore
 			const resizeObserver = new ResizeObserver(() => {
-				fireEdit(NavigationEditEventTypes.REPAINT);
+				// must do await, or will not trigger repaint
+				// seems layout didn't finish yet
+				setTimeout(() => fireEdit(NavigationEditEventTypes.REPAINT), 100);
 			});
 			resizeObserver.observe(ref.current);
 			return () => resizeObserver.disconnect();
