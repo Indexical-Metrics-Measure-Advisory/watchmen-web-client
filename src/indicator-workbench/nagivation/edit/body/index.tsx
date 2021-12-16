@@ -1,4 +1,3 @@
-import {NavigationEditEventTypes} from '@/indicator-workbench/nagivation/edit/body/navigation-edit-event-bus-types';
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation} from '@/services/data/tuples/navigation-types';
 import {useEffect, useRef, useState} from 'react';
@@ -7,6 +6,7 @@ import {useNavigationEventBus} from '../../navigation-event-bus';
 import {NavigationEventTypes} from '../../navigation-event-bus-types';
 import {IndicatorCandidates} from './indicator-candidates';
 import {NavigationEditEventBusProvider, useNavigationEditEventBus} from './navigation-edit-event-bus';
+import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {NavigationRoot} from './navigation-root';
 import {PickedIndicators} from './picked-indicators';
 import {BodyContainer, BodyPalette, PaletteColumn} from './widgets';
