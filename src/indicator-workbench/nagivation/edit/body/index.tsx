@@ -1,11 +1,12 @@
+import {NavigationEditEventTypes} from '@/indicator-workbench/nagivation/edit/body/navigation-edit-event-bus-types';
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation} from '@/services/data/tuples/navigation-types';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {v4} from 'uuid';
 import {useNavigationEventBus} from '../../navigation-event-bus';
 import {NavigationEventTypes} from '../../navigation-event-bus-types';
 import {IndicatorCandidates} from './indicator-candidates';
-import {NavigationEditEventBusProvider} from './navigation-edit-event-bus';
+import {NavigationEditEventBusProvider, useNavigationEditEventBus} from './navigation-edit-event-bus';
 import {NavigationRoot} from './navigation-root';
 import {PickedIndicators} from './picked-indicators';
 import {BodyContainer, BodyPalette, PaletteColumn} from './widgets';
@@ -18,7 +19,9 @@ interface Indicators {
 const Palette = (props: { navigation: Navigation }) => {
 	const {navigation} = props;
 
+	const ref = useRef<HTMLDivElement>(null);
 	const {fire} = useNavigationEventBus();
+	const {fire: fireEdit} = useNavigationEditEventBus();
 	const [paletteId] = useState(v4());
 	const [rootId] = useState(v4());
 	const [indicators, setIndicators] = useState<Indicators>({loaded: false, data: []});
@@ -27,12 +30,22 @@ const Palette = (props: { navigation: Navigation }) => {
 			setIndicators({loaded: true, data: indicators});
 		});
 	}, [fire, navigation]);
+	useEffect(() => {
+		if (ref.current) {
+			// @ts-ignore
+			const resizeObserver = new ResizeObserver(() => {
+				fireEdit(NavigationEditEventTypes.REPAINT);
+			});
+			resizeObserver.observe(ref.current);
+			return () => resizeObserver.disconnect();
+		}
+	}, [fireEdit]);
 
 	if (!indicators.loaded) {
 		return null;
 	}
 
-	return <BodyPalette id={paletteId}>
+	return <BodyPalette id={paletteId} ref={ref}>
 		<PaletteColumn>
 			<NavigationRoot id={rootId} navigation={navigation}/>
 		</PaletteColumn>

@@ -1,6 +1,6 @@
 import NavigationBackground from '@/assets/navigation-background.svg';
 import {TuplePage} from '@/services/data/query/tuple-page';
-import {fetchNavigation, listNavigations} from '@/services/data/tuples/navigation';
+import {fetchNavigation, listNavigations, saveNavigation} from '@/services/data/tuples/navigation';
 import {Navigation} from '@/services/data/tuples/navigation-types';
 import {QueryNavigation} from '@/services/data/tuples/query-navigation-types';
 import {QueryTuple} from '@/services/data/tuples/tuple-types';
@@ -27,11 +27,15 @@ const InternalNavigationQuery = () => {
 	const {on, off, fire} = useTupleEventBus();
 	useEffect(() => {
 		const onDoCreateNavigation = async () => {
-			fireNavigation(NavigationEventTypes.SAVE_NAVIGATION, createNavigation(), (navigation: Navigation, saved: boolean) => {
-				if (saved) {
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => {
+					const navigation = createNavigation();
+					await saveNavigation(navigation);
+					return navigation;
+				},
+				(navigation: Navigation) => {
 					fireNavigation(NavigationEventTypes.NAVIGATION_PICKED, navigation);
-				}
-			});
+				});
 		};
 		const onDoEditNavigation = async (queryNavigation: QueryNavigation) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
