@@ -94,8 +94,7 @@ export const IndicatorCategoryContainer = styled.div.attrs({'data-widget': 'indi
 	}
 `;
 export const IndicatorCategoryColumn = styled(PaletteColumn).attrs({'data-widget': 'indicator-category-column'})`
-	padding-top    : 0;
-	padding-bottom : 0;
+	padding : 0 var(--margin);
 	&:first-child {
 		padding-left : 0;
 	}
@@ -140,7 +139,40 @@ export const IndicatorRootNode = styled(NavigationBlock).attrs({'data-widget': '
 	}
 `;
 export const IndicatorCandidateRootNode = styled(IndicatorRootNode)`
-	cursor : pointer;
+	transition : padding-right 300ms ease-in-out;
+	&:hover {
+		padding-right : calc(var(--margin) / 2);
+		> span[data-widget=use-indicator-candidate] {
+			opacity        : 1;
+			pointer-events : auto;
+			margin-left    : calc(var(--margin) / 2);
+			transition     : background-color 300ms ease-in-out, color 300ms ease-in-out, margin-left 300ms ease-in-out, opacity 150ms ease-in-out 150ms;
+		}
+	}
+`;
+export const UseIndicatorCandidate = styled.span.attrs({'data-widget': 'use-indicator-candidate'})`
+	display          : flex;
+	position         : relative;
+	align-items      : center;
+	justify-content  : center;
+	color            : var(--success-color);
+	background-color : var(--bg-color);
+	height           : var(--height);
+	width            : var(--height);
+	margin-left      : calc((var(--height)) * -1);
+	border-radius    : calc(var(--border-radius) * 2);
+	border           : var(--border);
+	border-color     : var(--success-color);
+	text-transform   : uppercase;
+	font-size        : 1.1em;
+	cursor           : pointer;
+	opacity          : 0;
+	pointer-events   : none;
+	transition       : background-color 300ms ease-in-out, color 300ms ease-in-out, margin-left 300ms ease-in-out, opacity 150ms ease-in-out;
+	&:hover {
+		color            : var(--invert-color);
+		background-color : var(--success-color);
+	}
 `;
 export const IndicatorCurve = styled(NavigationBlockPairCurve).attrs<{ rect: CurveRect }>({
 	'data-widget': 'indicator-curve'
@@ -159,8 +191,7 @@ export const MoreIndicatorsContainer = styled.div.attrs({'data-widget': 'more-in
 	}
 `;
 export const MoreIndicatorsColumn = styled(PaletteColumn).attrs({'data-widget': 'more-indicators-column'})`
-	padding-top    : 0;
-	padding-bottom : 0;
+	padding : 0 var(--margin);
 	&:first-child {
 		padding-left : 0;
 	}

@@ -41,7 +41,7 @@ export const NavigationState = () => {
 	}, [on, off]);
 	useEffect(() => {
 		if (navigation != null) {
-			history.replace(toNavigationEdit(navigation.navigationId));
+			history.push(toNavigationEdit(navigation.navigationId));
 		}
 	}, [fire, history, navigation]);
 	useEffect(() => {
@@ -69,7 +69,7 @@ export const NavigationState = () => {
 	useEffect(() => {
 		const onBackToQuery = () => {
 			setNavigation(null);
-			history.replace(Router.INDICATOR_WORKBENCH_NAVIGATION_QUERY);
+			history.push(Router.INDICATOR_WORKBENCH_NAVIGATION_QUERY);
 		};
 		on(NavigationEventTypes.BACK_TO_QUERY, onBackToQuery);
 		return () => {

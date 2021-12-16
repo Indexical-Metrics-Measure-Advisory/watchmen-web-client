@@ -1,4 +1,5 @@
-import {Navigation} from '@/services/data/tuples/navigation-types';
+import {Indicator} from '@/services/data/tuples/indicator-types';
+import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
 import {generateUuid} from '@/services/data/tuples/utils';
 import {getCurrentTime} from '@/services/data/utils';
 import {base64Encode} from '@/services/utils';
@@ -13,4 +14,13 @@ export const createNavigation = (name?: string): Navigation => {
 		createTime: getCurrentTime(),
 		lastModified: getCurrentTime()
 	};
+};
+
+export const createNavigationIndicator = (navigation: Navigation, indicator: Indicator): NavigationIndicator => {
+	const navigationIndicator = {indicatorId: indicator.indicatorId};
+	if (navigation.indicators == null) {
+		navigation.indicators = [];
+	}
+	navigation.indicators.push(navigationIndicator);
+	return navigationIndicator;
 };

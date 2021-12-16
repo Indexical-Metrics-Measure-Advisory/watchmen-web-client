@@ -32,11 +32,6 @@ export interface IndicatorNodeContent {
 	indicator?: Indicator;
 }
 
-export interface CategoryNodes {
-	picked: Array<IndicatorNodeContent>;
-	candidates: Array<IndicatorCategoryContent>;
-}
-
 export interface CurveRect {
 	top: number;
 	width: number;

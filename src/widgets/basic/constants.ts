@@ -68,6 +68,7 @@ import {
 	faLink,
 	faLock,
 	faLockOpen,
+	faMinus,
 	faObjectGroup,
 	faPalette,
 	faPaperPlane,
@@ -94,7 +95,8 @@ import {
 	faStar,
 	faStarOfLife,
 	faStickyNote,
-	faStream, faStreetView,
+	faStream,
+	faStreetView,
 	faSyncAlt,
 	faTable,
 	faTags,
@@ -300,6 +302,9 @@ export const ICON_RESTORE_PANEL = faWindowRestore;
 export const ICON_DETECT = faBinoculars;
 export const ICON_WAIT_INPUT = faFeatherPointed;
 export const ICON_LIST_ICON_ASTERISK = faStarOfLife;
+export const ICON_USE_INDICATOR = faHighlighter;
+export const ICON_EXPAND_NODES = faPlus;
+export const ICON_COLLAPSE_NODES = faMinus;
 
 export const ICON_COMMENTS = faCommentDots;
 export const ICON_CMD_PROMPT = faTerminal;

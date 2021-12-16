@@ -1,8 +1,5 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
-import {Navigation} from '@/services/data/tuples/navigation-types';
-import {v4} from 'uuid';
 import {
-	CategoryNodes,
 	CurveRect,
 	HierarchicalIndicatorCategoryContent,
 	INDICATOR_UNCLASSIFIED,
@@ -92,29 +89,19 @@ const buildCategoryMap = (indicators: Array<Indicator>): Array<IndicatorCategory
 	}))];
 };
 
-export const buildCategoryNodes = (navigation: Navigation, indicators: Array<Indicator>): CategoryNodes => {
+export const buildCategoryNodes = (indicators: Array<Indicator>): Array<IndicatorCategoryContent> => {
 	// indicators can be used multiple times
 	const categoryMap = buildCategoryMap(indicators);
 
-	return {
-		picked: (navigation.indicators || []).map(picked => {
-			return {
-				id: v4(),
-				nav: picked,
-				// eslint-disable-next-line
-				indicator: indicators.find(indicator => indicator.indicatorId == picked.indicatorId)
-			};
-		}),
-		candidates: Object.values(categoryMap).sort(({name: n1}, {name: n2}) => {
-			if (n1 === INDICATOR_UNCLASSIFIED) {
-				return 1;
-			} else if (n2 === INDICATOR_UNCLASSIFIED) {
-				return -1;
-			} else {
-				return n1.localeCompare(n2);
-			}
-		})
-	};
+	return Object.values(categoryMap).sort(({name: n1}, {name: n2}) => {
+		if (n1 === INDICATOR_UNCLASSIFIED) {
+			return 1;
+		} else if (n2 === INDICATOR_UNCLASSIFIED) {
+			return -1;
+		} else {
+			return n1.localeCompare(n2);
+		}
+	});
 };
 
 export const isCurveChanged = (curve: CurveRect, newCurve: CurveRect): boolean => {

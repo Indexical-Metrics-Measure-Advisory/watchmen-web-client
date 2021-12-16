@@ -1,3 +1,4 @@
+import {Navigation} from '@/services/data/tuples/navigation-types';
 import {Lang} from '@/widgets/langs';
 import {useState} from 'react';
 import {v4} from 'uuid';
@@ -17,9 +18,10 @@ import {
 export const IndicatorCategory = (props: {
 	paletteId: string;
 	parentId: string;
+	navigation: Navigation;
 	category: IndicatorCategoryContent;
 }) => {
-	const {paletteId, parentId, category} = props;
+	const {paletteId, parentId, navigation, category} = props;
 
 	const [categoryId] = useState(v4());
 	const {ref, curve} = useCurve(parentId);
@@ -47,11 +49,13 @@ export const IndicatorCategory = (props: {
 		</IndicatorCategoryColumn>
 		<IndicatorCategoryColumn>
 			{(category.indicators || []).map(indicator => {
-				return <IndicatorCandidateRoot paletteId={paletteId} parentId={categoryId} indicator={indicator}
+				return <IndicatorCandidateRoot paletteId={paletteId} parentId={categoryId}
+				                               navigation={navigation} indicator={indicator}
 				                               key={indicator.indicatorId}/>;
 			})}
 			{hasSubCategories
-				? <MoreIndicators paletteId={paletteId} parentId={categoryId} candidates={subCategories}/>
+				? <MoreIndicators paletteId={paletteId} parentId={categoryId}
+				                  navigation={navigation} candidates={subCategories}/>
 				: null}
 		</IndicatorCategoryColumn>
 	</IndicatorCategoryContainer>;
