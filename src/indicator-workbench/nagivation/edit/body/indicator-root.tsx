@@ -1,6 +1,7 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Lang} from '@/widgets/langs';
 import {useCurve} from './use-curve';
+import {computeCurvePath} from './utils';
 import {IndicatorCurve, IndicatorRootNode, IndicatorRootNodeContainer} from './widgets';
 
 export const IndicatorRoot = (props: { paletteId: string; parentId: string; indicator?: Indicator }) => {
@@ -16,8 +17,7 @@ export const IndicatorRoot = (props: { paletteId: string; parentId: string; indi
 			? null
 			: <IndicatorCurve rect={curve}>
 				<g>
-					<path
-						d={`M${curve.startX},${curve.startY} C${(curve.endX - curve.startX) / 4 * 3},${curve.startY} ${(curve.endX - curve.startX) / 4},${curve.endY} ${curve.endX},${curve.endY}`}/>
+					<path d={computeCurvePath(curve)}/>
 				</g>
 			</IndicatorCurve>}
 	</IndicatorRootNodeContainer>;

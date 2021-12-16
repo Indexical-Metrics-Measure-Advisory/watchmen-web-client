@@ -25,7 +25,7 @@ export const PaletteColumn = styled.div.attrs({'data-widget': 'navigation-palett
 	display         : flex;
 	position        : relative;
 	flex-direction  : column;
-	padding         : var(--margin);
+	padding         : calc(var(--margin) * 2);
 	align-items     : flex-start;
 	justify-content : center;
 `;
@@ -47,11 +47,9 @@ export const NavigationBlock = styled.div.attrs(() => {
 	color           : var(--primary-color);
 	font-size       : 1.2em;
 	font-variant    : petite-caps;
-	transition      : top 300ms ease-in-out, left 300ms ease-in-out, width 300ms ease-in-out, height 300ms ease-in-out;
+	white-space     : nowrap;
+	text-overflow   : ellipsis;
 	overflow        : hidden;
-	&:not(:last-child) {
-		margin-bottom : calc(var(--margin) / 2);
-	}
 	&:before {
 		content          : '';
 		display          : block;
@@ -108,6 +106,9 @@ export const IndicatorCategoryColumn = styled(PaletteColumn).attrs({'data-widget
 export const IndicatorCategoryNodeContainer = styled.div.attrs({'data-widget': 'indicator-category-node-container'})`
 	display  : block;
 	position : relative;
+	&:not(:last-child) {
+		margin-bottom : calc(var(--margin) / 2);
+	}
 `;
 export const IndicatorCategoryNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-category-node'})`
 	text-transform : capitalize;
@@ -127,6 +128,9 @@ export const IndicatorCategoryCurve = styled(NavigationBlockPairCurve).attrs<{ r
 export const IndicatorRootNodeContainer = styled.div.attrs({'data-widget': 'indicator-root-node-container'})`
 	display  : block;
 	position : relative;
+	&:not(:last-child) {
+		margin-bottom : calc(var(--margin) / 2);
+	}
 `;
 export const IndicatorRootNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-root-node'})`
 	border-color : var(--success-color);
@@ -143,12 +147,13 @@ export const IndicatorCurve = styled(NavigationBlockPairCurve).attrs<{ rect: Cur
 	}
 `;
 export const MoreIndicatorsContainer = styled.div.attrs({'data-widget': 'more-indicators-container'})`
-	display       : flex;
-	position      : relative;
-	flex-grow     : 1;
-	flex-wrap     : nowrap;
-	margin-top    : calc(var(--margin) / 2);
-	margin-bottom : calc(var(--margin) / 2);
+	display   : flex;
+	position  : relative;
+	flex-grow : 1;
+	flex-wrap : nowrap;
+	&:not(:first-child) {
+		margin-top : calc(var(--margin) / 2);
+	}
 `;
 export const MoreIndicatorsColumn = styled(PaletteColumn).attrs({'data-widget': 'more-indicators-column'})`
 	padding-top    : 0;

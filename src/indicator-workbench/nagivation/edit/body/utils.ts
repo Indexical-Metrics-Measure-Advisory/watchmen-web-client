@@ -29,7 +29,7 @@ const putCategoryIntoCategoryMap = (map: Record<string, IndicatorCategoryContent
 		parent = {name, categories: [category], indicators: []} as HierarchicalIndicatorCategoryContent;
 		map[key] = parent;
 	} else {
-		const existing = parent.categories.find(c => c.name === category.name)
+		const existing = parent.categories.find(c => c.name === category.name);
 		if (existing != null) {
 			// ignore, already added
 		} else {
@@ -121,4 +121,9 @@ export const isCurveChanged = (curve: CurveRect, newCurve: CurveRect): boolean =
 	return curve.top !== newCurve.top || curve.width !== newCurve.width || curve.height !== newCurve.height
 		|| curve.startX !== newCurve.startX || curve.startY !== newCurve.startY
 		|| curve.endX !== newCurve.endX || curve.endY !== newCurve.endY;
+};
+
+export const computeCurvePath = (points: { startX: number; startY: number; endX: number; endY: number }): string => {
+	const {startX, startY, endX, endY} = points;
+	return `M${startX},${startY} C${endX},${startY} ${(startX)},${endY} ${endX},${endY}`;
 };

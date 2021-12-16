@@ -35,31 +35,41 @@ const IndicatorWorkbenchIndex = () => {
 	return <IndicatorWorkbenchContainer>
 		<IndicatorWorkbenchMenu/>
 
-		<IndicatorWorkbenchMain>
-			<Switch>
-				{isAdmin()
-					? <Route path={Router.INDICATOR_WORKBENCH_BUCKETS}>
+
+		<Switch>
+			{isAdmin()
+				? <Route path={Router.INDICATOR_WORKBENCH_BUCKETS}>
+					<IndicatorWorkbenchMain>
 						<IndicatorWorkbenchBucketsIndex/>
-					</Route> : null}
-				{isAdmin()
-					? <Route path={Router.INDICATOR_WORKBENCH_PREPARE}>
+					</IndicatorWorkbenchMain>
+				</Route> : null}
+			{isAdmin()
+				? <Route path={Router.INDICATOR_WORKBENCH_PREPARE}>
+					<IndicatorWorkbenchMain>
 						<IndicatorWorkbenchPrepareIndex/>
-					</Route> : null}
-				<Route path={Router.INDICATOR_WORKBENCH_INSPECTION}>
+					</IndicatorWorkbenchMain>
+				</Route> : null}
+			<Route path={Router.INDICATOR_WORKBENCH_INSPECTION}>
+				<IndicatorWorkbenchMain>
 					<IndicatorWorkbenchInspectionIndex/>
-				</Route>
-				<Route path={Router.INDICATOR_WORKBENCH_NAVIGATION}>
+				</IndicatorWorkbenchMain>
+			</Route>
+			<Route path={Router.INDICATOR_WORKBENCH_NAVIGATION}>
+				<IndicatorWorkbenchMain scrollable={false}>
 					<IndicatorWorkbenchNavigationIndex/>
-				</Route>
-				<Route path={Router.INDICATOR_WORKBENCH_SETTINGS}>
+				</IndicatorWorkbenchMain>
+			</Route>
+			<Route path={Router.INDICATOR_WORKBENCH_SETTINGS}>
+				<IndicatorWorkbenchMain>
 					<IndicatorWorkbenchSettingsIndex/>
-				</Route>
-				<Route path="*">
-					<Redirect
-						to={isAdmin() ? Router.INDICATOR_WORKBENCH_PREPARE : Router.INDICATOR_WORKBENCH_INSPECTION}/>
-				</Route>
-			</Switch>
-		</IndicatorWorkbenchMain>
+				</IndicatorWorkbenchMain>
+			</Route>
+			<Route path="*">
+				<Redirect
+					to={isAdmin() ? Router.INDICATOR_WORKBENCH_PREPARE : Router.INDICATOR_WORKBENCH_INSPECTION}/>
+			</Route>
+		</Switch>
+
 		<WaterMark/>
 	</IndicatorWorkbenchContainer>;
 };

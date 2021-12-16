@@ -12,6 +12,7 @@ import {useNavigationEditEventBus} from './navigation-edit-event-bus';
 import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {CategoryNodes} from './types';
 import {useCurve} from './use-curve';
+import {computeCurvePath} from './utils';
 import {
 	MoreIndicatorsColumn,
 	MoreIndicatorsContainer,
@@ -57,8 +58,7 @@ export const MoreIndicators = (props: {
 					? null
 					: <MoreIndicatorsCurve rect={curve}>
 						<g>
-							<path
-								d={`M${curve.startX},${curve.startY} C${(curve.endX - curve.startX) / 4 * 3},${curve.startY} ${(curve.endX - curve.startX) / 4},${curve.endY} ${curve.endX},${curve.endY}`}/>
+							<path d={computeCurvePath(curve)}/>
 						</g>
 					</MoreIndicatorsCurve>}
 			</MoreIndicatorsNodeContainer>

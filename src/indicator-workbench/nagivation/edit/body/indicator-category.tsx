@@ -5,6 +5,7 @@ import {IndicatorRoot} from './indicator-root';
 import {MoreIndicators} from './more-indicators';
 import {HierarchicalIndicatorCategoryContent, INDICATOR_UNCLASSIFIED, IndicatorCategoryContent} from './types';
 import {useCurve} from './use-curve';
+import {computeCurvePath} from './utils';
 import {
 	IndicatorCategoryColumn,
 	IndicatorCategoryContainer,
@@ -39,8 +40,7 @@ export const IndicatorCategory = (props: {
 					? null
 					: <IndicatorCategoryCurve rect={curve}>
 						<g>
-							<path
-								d={`M${curve.startX},${curve.startY} C${(curve.endX - curve.startX) / 4 * 3},${curve.startY} ${(curve.endX - curve.startX) / 4},${curve.endY} ${curve.endX},${curve.endY}`}/>
+							<path d={computeCurvePath(curve)}/>
 						</g>
 					</IndicatorCategoryCurve>}
 			</IndicatorCategoryNodeContainer>
