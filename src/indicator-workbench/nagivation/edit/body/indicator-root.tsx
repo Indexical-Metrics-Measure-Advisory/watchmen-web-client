@@ -1,7 +1,7 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Lang} from '@/widgets/langs';
 import {useCurve} from './use-curve';
-import {IndicatorCurve, IndicatorRootNodeContainer, IndicatorRootNode} from './widgets';
+import {IndicatorCurve, IndicatorRootNode, IndicatorRootNodeContainer} from './widgets';
 
 export const IndicatorRoot = (props: { paletteId: string; parentId: string; indicator?: Indicator }) => {
 	const {parentId, indicator} = props;

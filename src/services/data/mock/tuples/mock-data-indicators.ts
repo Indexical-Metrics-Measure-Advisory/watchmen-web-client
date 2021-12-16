@@ -22,6 +22,9 @@ export const MonthlyOrderPremiumIndicator: Indicator = {
 	name: 'Monthly Order Premium',
 	topicId: MonthlyOrderPremium.topicId,
 	factorId: MonthlyOrderPremium.factors.find(factor => factor.name === 'premium')?.factorId,
+	category1: 'premium',
+	category2: 'short term',
+	category3: 'monthly',
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };
@@ -30,6 +33,9 @@ const WeeklyOrderPremiumIndicator: Indicator = {
 	name: 'Weekly Order Premium',
 	topicId: WeeklyOrderPremium.topicId,
 	factorId: WeeklyOrderPremium.factors.find(factor => factor.name === 'premium')?.factorId,
+	category1: 'premium',
+	category2: 'short term',
+	category3: 'weekly',
 	createTime: getCurrentTime(),
 	lastModified: getCurrentTime()
 };

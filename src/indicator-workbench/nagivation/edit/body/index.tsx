@@ -17,7 +17,7 @@ interface Indicators {
 	data: Array<Indicator>;
 }
 
-export const NavigationEditPageBody = (props: { navigation: Navigation }) => {
+const Palette = (props: { navigation: Navigation }) => {
 	const {navigation} = props;
 
 	const {fire} = useNavigationEventBus();
@@ -36,20 +36,26 @@ export const NavigationEditPageBody = (props: { navigation: Navigation }) => {
 		return null;
 	}
 
+	return <BodyPalette id={paletteId}>
+		<PaletteColumn>
+			<NavigationRoot id={rootId} navigation={navigation}/>
+		</PaletteColumn>
+		<PaletteColumn>
+			{nodes.picked.map(picked => {
+				return <IndicatorRoot paletteId={paletteId} parentId={rootId} indicator={picked.indicator}
+				                      key={picked.id}/>;
+			})}
+			<MoreIndicators paletteId={paletteId} parentId={rootId} candidates={nodes.candidates}/>
+		</PaletteColumn>
+	</BodyPalette>;
+};
+
+export const NavigationEditPageBody = (props: { navigation: Navigation }) => {
+	const {navigation} = props;
+
 	return <NavigationEditEventBusProvider>
 		<BodyContainer>
-			<BodyPalette id={paletteId}>
-				<PaletteColumn>
-					<NavigationRoot id={rootId} navigation={navigation}/>
-				</PaletteColumn>
-				<PaletteColumn>
-					{nodes.picked.map(picked => {
-						return <IndicatorRoot paletteId={paletteId} parentId={rootId} indicator={picked.indicator}
-						                      key={picked.id}/>;
-					})}
-					<MoreIndicators paletteId={paletteId} rootId={rootId} candidates={nodes.candidates}/>
-				</PaletteColumn>
-			</BodyPalette>
+			<Palette navigation={navigation}/>
 		</BodyContainer>
 	</NavigationEditEventBusProvider>;
 };

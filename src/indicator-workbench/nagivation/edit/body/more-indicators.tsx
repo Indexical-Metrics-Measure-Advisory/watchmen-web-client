@@ -5,9 +5,11 @@ import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {v4} from 'uuid';
 import {IndicatorCategory} from './indicator-category';
+import {useNavigationEditEventBus} from './navigation-edit-event-bus';
+import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {CategoryNodes} from './types';
 import {useCurve} from './use-curve';
 import {
@@ -18,13 +20,21 @@ import {
 	MoreIndicatorsNodeContainer
 } from './widgets';
 
-export const MoreIndicators = (props: { paletteId: string; rootId: string; candidates: PropOf<CategoryNodes, 'candidates'> }) => {
-	const {paletteId, rootId, candidates} = props;
+export const MoreIndicators = (props: {
+	paletteId: string;
+	parentId: string;
+	candidates: PropOf<CategoryNodes, 'candidates'>;
+}) => {
+	const {paletteId, parentId, candidates} = props;
 
 	const {fire: fireGlobal} = useEventBus();
-	const {ref, curve} = useCurve(rootId);
+	const {fire} = useNavigationEditEventBus();
+	const {ref, curve} = useCurve(parentId);
 	const [id] = useState(v4());
 	const [expanded, setExpanded] = useState(false);
+	useEffect(() => {
+		fire(NavigationEditEventTypes.REPAINT);
+	}, [fire, expanded]);
 
 	const onMoreClicked = () => {
 		if (candidates.length === 0) {
@@ -53,11 +63,13 @@ export const MoreIndicators = (props: { paletteId: string; rootId: string; candi
 					</MoreIndicatorsCurve>}
 			</MoreIndicatorsNodeContainer>
 		</MoreIndicatorsColumn>
-		<MoreIndicatorsColumn>
-			{candidates.map(candidate => {
-				return <IndicatorCategory paletteId={paletteId} parentId={id} category={candidate}
-				                          key={candidate.name}/>;
-			})}
-		</MoreIndicatorsColumn>
+		{expanded
+			? <MoreIndicatorsColumn>
+				{candidates.map(candidate => {
+					return <IndicatorCategory paletteId={paletteId} parentId={id} category={candidate}
+					                          key={candidate.name}/>;
+				})}
+			</MoreIndicatorsColumn>
+			: null}
 	</MoreIndicatorsContainer>;
 };

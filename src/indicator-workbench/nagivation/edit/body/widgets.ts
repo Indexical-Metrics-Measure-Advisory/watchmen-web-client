@@ -171,14 +171,18 @@ export const MoreIndicatorsNode = styled(NavigationBlock).attrs({'data-widget': 
 	height          : var(--header-height);
 	padding         : 0;
 	border-radius   : 100%;
-	color           : var(--primary-color);
+	color           : var(--info-color);
+	border-color    : var(--info-color);
 	font-size       : 1.4em;
 	cursor          : pointer;
+	&:before {
+		background-color : var(--info-color);
+	}
 `;
 export const MoreIndicatorsCurve = styled(NavigationBlockPairCurve).attrs<{ rect: CurveRect }>({
 	'data-widget': 'more-indicators-curve'
 })<{ rect: CurveRect }>`
 	> g > path {
-		stroke : var(--primary-color);
+		stroke : var(--info-color);
 	}
 `;

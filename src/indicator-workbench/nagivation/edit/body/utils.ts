@@ -2,7 +2,8 @@ import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation} from '@/services/data/tuples/navigation-types';
 import {v4} from 'uuid';
 import {
-	CategoryNodes, CurveRect,
+	CategoryNodes,
+	CurveRect,
 	HierarchicalIndicatorCategoryContent,
 	INDICATOR_UNCLASSIFIED,
 	IndicatorCategoryContent
@@ -20,7 +21,7 @@ const asCategoryKey = (keys: Array<string>): string => {
 	return keys.join(',');
 };
 
-const putCategoryIntoCategoryMap = (map: Record<string, IndicatorCategoryContent>, category: IndicatorCategoryContent, keys: [string] | [string, string]) => {
+const putCategoryIntoCategoryMap = (map: Record<string, IndicatorCategoryContent>, category: IndicatorCategoryContent, keys: [string] | [string, string]): HierarchicalIndicatorCategoryContent => {
 	let key = asCategoryKey(keys);
 	const name = isCategoryGiven(keys[keys.length - 1]) ? keys[keys.length - 1] : INDICATOR_UNCLASSIFIED;
 	let parent = map[key] as HierarchicalIndicatorCategoryContent;
@@ -28,12 +29,20 @@ const putCategoryIntoCategoryMap = (map: Record<string, IndicatorCategoryContent
 		parent = {name, categories: [category], indicators: []} as HierarchicalIndicatorCategoryContent;
 		map[key] = parent;
 	} else {
-		parent.categories = [...parent.categories, category];
+		const existing = parent.categories.find(c => c.name === category.name)
+		if (existing != null) {
+			// ignore, already added
+		} else {
+			parent.categories = [...parent.categories, category];
+		}
 	}
 	return parent;
 };
 
-const putIndicatorIntoCategoryMap = (map: Record<string, IndicatorCategoryContent>, indicator: Indicator, keys: [string] | [string, string] | [string, string, string]) => {
+/**
+ * return the level 1 category content
+ */
+const putIndicatorIntoCategoryMap = (map: Record<string, IndicatorCategoryContent>, indicator: Indicator, keys: [string] | [string, string] | [string, string, string]): HierarchicalIndicatorCategoryContent => {
 	const key = asCategoryKey(keys);
 	const name = isCategoryGiven(keys[keys.length - 1]) ? keys[keys.length - 1] : INDICATOR_UNCLASSIFIED;
 	let existing: IndicatorCategoryContent = map[key];
@@ -50,36 +59,37 @@ const putIndicatorIntoCategoryMap = (map: Record<string, IndicatorCategoryConten
 	if (keys.length === 3) {
 		const [key1, key2] = keys;
 		const l2 = putCategoryIntoCategoryMap(map, existing, [key1, key2]);
-		putCategoryIntoCategoryMap(map, l2, [key1]);
+		return putCategoryIntoCategoryMap(map, l2, [key1]);
 	} else if (keys.length === 2) {
 		const [key1] = keys;
-		putCategoryIntoCategoryMap(map, existing, [key1]);
+		return putCategoryIntoCategoryMap(map, existing, [key1]);
+	} else {
+		return existing as HierarchicalIndicatorCategoryContent;
 	}
 };
 
-const buildCategoryMap = (indicators: Array<Indicator>) => {
+const buildCategoryMap = (indicators: Array<Indicator>): Array<IndicatorCategoryContent> => {
 	const map: Record<string, IndicatorCategoryContent> = {};
 
-	indicators.forEach(indicator => {
+	return [...new Set(indicators.map(indicator => {
 		const key1 = asCategoryName(indicator, 'category1');
 		const key2 = asCategoryName(indicator, 'category2');
 		const key3 = asCategoryName(indicator, 'category3');
 
 		if (isCategoryGiven(key3)) {
 			// key 3 exists
-			putIndicatorIntoCategoryMap(map, indicator, [key1, key2, key3]);
+			return putIndicatorIntoCategoryMap(map, indicator, [key1, key2, key3]);
 		} else if (isCategoryGiven(key2)) {
 			// key 2 exists
-			putIndicatorIntoCategoryMap(map, indicator, [key1, key2]);
+			return putIndicatorIntoCategoryMap(map, indicator, [key1, key2]);
 		} else if (isCategoryGiven(key1)) {
 			// key 1 exists
-			putIndicatorIntoCategoryMap(map, indicator, [key1]);
+			return putIndicatorIntoCategoryMap(map, indicator, [key1]);
 		} else {
 			// no key
-			putIndicatorIntoCategoryMap(map, indicator, ['']);
+			return putIndicatorIntoCategoryMap(map, indicator, ['']);
 		}
-	});
-	return map;
+	}))];
 };
 
 export const buildCategoryNodes = (navigation: Navigation, indicators: Array<Indicator>): CategoryNodes => {
