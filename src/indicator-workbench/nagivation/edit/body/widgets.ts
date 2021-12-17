@@ -213,7 +213,7 @@ export const IndicatorCriteriaContent = styled.div.attrs<{ expanded: boolean }>(
 	border-radius         : calc(var(--border-radius) * 2);
 	border-color          : var(--navigation-indicator-color);
 	color                 : var(--navigation-indicator-color);
-	background-color      : var(--navigation-indicator-bg-color);
+	background-color      : var(--bg-color);
 	white-space           : nowrap;
 	text-overflow         : ellipsis;
 	overflow              : hidden;
@@ -228,7 +228,7 @@ export const IndicatorCriteriaContent = styled.div.attrs<{ expanded: boolean }>(
 		left             : 0;
 		width            : 100%;
 		height           : 100%;
-		background-color : var(--bg-color);
+		background-color : var(--navigation-indicator-bg-color);
 		z-index          : -1;
 	}
 `;

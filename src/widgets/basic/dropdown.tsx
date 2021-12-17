@@ -236,10 +236,12 @@ export const Dropdown = (props: DropdownProps) => {
 		const ret = onChange(option);
 		if (!ret) {
 			setState({...state, active: false});
-			setTimeout(() => setFilter(''), 300);
+			if (filter !== '') {
+				setTimeout(() => setFilter(''), 300);
+			}
 		} else {
 			setState({...state, active: ret.active});
-			if (!ret.active) {
+			if (!ret.active && filter !== '') {
 				setTimeout(() => setFilter(''), 300);
 			}
 		}

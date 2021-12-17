@@ -161,7 +161,7 @@ const DefaultTheme = {
 	// navigation node color
 	navigationRootColor: 'var(--danger-color)',
 	navigationIndicatorColor: 'var(--primary-color)',
-	navigationIndicatorBgColor: color('rgb(94,119,171)').lighten(0.1).rgb().string(),
+	navigationIndicatorBgColor: color('rgb(94,119,171)').alpha(0.1).toString(),
 	navigationCategoryColor: 'var(--info-color)',
 	navigationCandidateColor: 'var(--success-color)'
 };
