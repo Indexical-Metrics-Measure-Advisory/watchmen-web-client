@@ -122,11 +122,20 @@ export const NavigationIndicatorContent = (props: {
 		};
 	}, [onEdit, offEdit, navigation, navigationIndicator]);
 
+	if (!defData.loaded) {
+		return <>
+			<IndicatorPartRelationLine/>
+			<IndicatorCriteriaNode>
+				Loading...
+			</IndicatorCriteriaNode>
+		</>;
+	}
+
 	const onMouseEnter = () => {
 		setExpanded(true);
 		fireEdit(NavigationEditEventTypes.CRITERIA_EXPANDED, navigation, navigationIndicator);
 	};
-	const onCloseCriteriaContent = () => setExpanded(false);
+	// const onCloseCriteriaContent = () => setExpanded(false);
 	const onCriteriaFactorChanged = (criteria: NavigationIndicatorCriteria) => (option: DropdownOption) => {
 		criteria.factorId = option.value as FactorId;
 		if (navigationIndicator.criteria == null) {
@@ -164,6 +173,11 @@ export const NavigationIndicatorContent = (props: {
 	const criteriaFactorOptions = (defData.topic?.factors || []).filter(factor => {
 		// eslint-disable-next-line
 		return indicator.factorId == factor.factorId || isFactorSupported(factor);
+	}).sort((f1, f2) => {
+		return (f1.label || f1.name || '').localeCompare(f2.label || f2.name || '', void 0, {
+			sensitivity: 'base',
+			caseFirst: 'upper'
+		});
 	}).map(factor => {
 		return {
 			value: factor.factorId,

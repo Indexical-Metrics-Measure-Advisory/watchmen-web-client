@@ -13,6 +13,7 @@ import {NavigationSaver} from './saver';
 
 const InternalNavigationEdit = (props: { navigation: Navigation }) => {
 	const {navigation} = props;
+
 	return <FullWidthPage>
 		<NavigationEditPageHeader navigation={navigation}/>
 		<NavigationEditPageBody navigation={navigation}/>
