@@ -11,13 +11,13 @@ import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {IndicatorNodeContent} from './types';
 
 enum NodesChangeTrigger {
-	INITIALIZE = 'initialize',
 	ADD = 'add',
 	REMOVE = 'remove'
 }
 
 interface Nodes {
-	trigger: NodesChangeTrigger;
+	initialized: boolean;
+	trigger?: NodesChangeTrigger;
 	data: Array<IndicatorNodeContent>;
 }
 
@@ -42,12 +42,9 @@ export const PickedIndicators = (props: {
 
 	const {fire: fireNavigation} = useNavigationEventBus();
 	const {on, off, fire} = useNavigationEditEventBus();
-	const [state, setState] = useState<Nodes>({
-		trigger: NodesChangeTrigger.INITIALIZE,
-		data: buildNodes(navigation, indicators)
-	});
+	const [state, setState] = useState<Nodes>({initialized: false, data: []});
 	useEffect(() => {
-		setState({trigger: NodesChangeTrigger.INITIALIZE, data: buildNodes(navigation, indicators)});
+		setState({initialized: true, data: buildNodes(navigation, indicators)});
 	}, [navigation, indicators]);
 	useEffect(() => {
 		const onIndicatorAdded = (aNavigation: Navigation, navigationIndicator: NavigationIndicator, indicator: Indicator) => {
@@ -58,6 +55,7 @@ export const PickedIndicators = (props: {
 			fireNavigation(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
 			setState(state => {
 				return {
+					initialized: true,
 					trigger: NodesChangeTrigger.ADD,
 					data: [...state.data, {id: v4(), nav: navigationIndicator, indicator}]
 				};
@@ -67,7 +65,7 @@ export const PickedIndicators = (props: {
 		return () => {
 			off(NavigationEditEventTypes.INDICATOR_ADDED, onIndicatorAdded);
 		};
-	}, [on, off, fireNavigation, navigation]);
+	}, [on, off, fireNavigation, navigation, state.trigger]);
 	useLayoutEffect(() => {
 		if (state.trigger === NodesChangeTrigger.ADD) {
 			// show last node
@@ -77,10 +75,16 @@ export const PickedIndicators = (props: {
 				node != null && node.scrollIntoView({behavior: 'smooth'});
 			}
 			fire(NavigationEditEventTypes.REPAINT);
+			setState(state => ({initialized: true, data: state.data}));
 		} else if (state.trigger === NodesChangeTrigger.REMOVE) {
 			fire(NavigationEditEventTypes.REPAINT);
+			setState(state => ({initialized: true, data: state.data}));
 		}
 	}, [fire, state.trigger, state.data]);
+
+	if (!state.initialized) {
+		return null;
+	}
 
 	return <>
 		{state.data.map((picked, index) => {

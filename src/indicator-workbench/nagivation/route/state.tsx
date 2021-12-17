@@ -40,10 +40,15 @@ export const NavigationState = () => {
 		};
 	}, [on, off]);
 	useEffect(() => {
-		if (navigation != null) {
+		const onToEditNavigation = (navigation: Navigation) => {
+			setNavigation(navigation);
 			history.push(toNavigationEdit(navigation.navigationId));
 		}
-	}, [fire, history, navigation]);
+		on(NavigationEventTypes.TO_EDIT_NAVIGATION, onToEditNavigation);
+		return () => {
+			off(NavigationEventTypes.TO_EDIT_NAVIGATION, onToEditNavigation);
+		}
+	}, [on, off, fire, history]);
 	useEffect(() => {
 		const onAskNavigation = (onData: (navigation?: Navigation) => void) => {
 			onData(navigation == null ? (void 0) : navigation);
@@ -61,9 +66,9 @@ export const NavigationState = () => {
 				onData();
 			}
 		};
-		on(NavigationEventTypes.ASK_NAVIGATION_PAGE, onAskNavigationPage);
+		on(NavigationEventTypes.ASK_NAVIGATION_QUERY_PAGE_DATA, onAskNavigationPage);
 		return () => {
-			off(NavigationEventTypes.ASK_NAVIGATION_PAGE, onAskNavigationPage);
+			off(NavigationEventTypes.ASK_NAVIGATION_QUERY_PAGE_DATA, onAskNavigationPage);
 		};
 	}, [on, off, page.loaded, page.data, page.searchText]);
 	useEffect(() => {

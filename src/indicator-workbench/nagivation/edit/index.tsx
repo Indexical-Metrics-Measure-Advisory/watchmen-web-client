@@ -28,9 +28,16 @@ export const NavigationEdit = () => {
 	const {fire} = useNavigationEventBus();
 	const [navigation, setNavigation] = useState<Navigation | null>(null);
 	useEffect(() => {
-		fire(NavigationEventTypes.ASK_NAVIGATION, (navigation?: Navigation) => {
+		// eslint-disable-next-line
+		if (navigation != null && navigation.navigationId == navigationId) {
+			return;
+		}
+		fire(NavigationEventTypes.ASK_NAVIGATION, (aNavigation?: Navigation) => {
+			if (aNavigation === navigation) {
+				return;
+			}
 			// eslint-disable-next-line
-			if (navigation == null || navigation.navigationId != navigationId) {
+			if (aNavigation == null || aNavigation.navigationId != navigationId) {
 				// not in memory yet, or not same one
 				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 					async () => {
@@ -42,10 +49,10 @@ export const NavigationEdit = () => {
 						fire(NavigationEventTypes.NAVIGATION_PICKED, tuple as Navigation);
 					});
 			} else {
-				setNavigation(navigation);
+				setNavigation(aNavigation);
 			}
 		});
-	}, [fire, fireGlobal, history, navigationId]);
+	}, [fire, fireGlobal, history, navigation, navigationId]);
 
 	return navigation == null ? null : <InternalNavigationEdit navigation={navigation}/>;
 };

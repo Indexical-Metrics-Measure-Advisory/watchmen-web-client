@@ -34,7 +34,7 @@ const InternalNavigationQuery = () => {
 					return navigation;
 				},
 				(navigation: Navigation) => {
-					fireNavigation(NavigationEventTypes.NAVIGATION_PICKED, navigation);
+					fireNavigation(NavigationEventTypes.TO_EDIT_NAVIGATION, navigation);
 				});
 		};
 		const onDoEditNavigation = async (queryNavigation: QueryNavigation) => {
@@ -44,7 +44,7 @@ const InternalNavigationQuery = () => {
 					return {tuple: navigation};
 				},
 				({tuple}) => {
-					fireNavigation(NavigationEventTypes.NAVIGATION_PICKED, tuple as Navigation);
+					fireNavigation(NavigationEventTypes.TO_EDIT_NAVIGATION, tuple as Navigation);
 				});
 		};
 		const onDoSearchNavigation = async (searchText: string, pageNumber: number) => {
@@ -70,7 +70,7 @@ const InternalNavigationQuery = () => {
 		};
 	}, [on, off, fire, fireGlobal, fireNavigation]);
 	useEffect(() => {
-		fireNavigation(NavigationEventTypes.ASK_NAVIGATION_PAGE, (page?: TuplePage<QueryTuple>, searchText?: string) => {
+		fireNavigation(NavigationEventTypes.ASK_NAVIGATION_QUERY_PAGE_DATA, (page?: TuplePage<QueryTuple>, searchText?: string) => {
 			if (page != null) {
 				fire(TupleEventTypes.TUPLE_SEARCHED, page, searchText ?? '');
 			}
