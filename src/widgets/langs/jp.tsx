@@ -457,7 +457,11 @@ export const Jp = {
 			NAVIGATION_NOT_FOUND: '航法の定義が見つかりません。詳細については、管理者に問い合わせてください。',
 			BACK_TO_QUERY: 'クエリに戻る',
 			ROOT: '根',
-			MISSED_INDICATOR: '失われた指標',
+			MISSED_INDICATOR: '指標定義が見つかりませんで',
+			MISSED_INDICATOR_TOPIC: '指標に対応するトピック定義が見つかりませんで',
+			NO_INDICATOR_CRITERIA_DEFINED: 'フィルタが定義されていません',
+			INDICATOR_CRITERIA_DEFINED: '個の条件が定義されて',
+			PLEASE_SELECT_CRITERIA_FACTOR: 'ファクターを選択してください',
 			NO_INDICATOR_CANDIDATE: 'これ以上の指標を選択することができます。',
 			UNCLASSIFIED_CATEGORY: '未分類'
 		}

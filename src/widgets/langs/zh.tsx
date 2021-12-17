@@ -457,7 +457,11 @@ export const Zh = {
 			NAVIGATION_NOT_FOUND: '需要的指标领航定义没有找到, 请联系您的系统管理员以获取更多信息.',
 			BACK_TO_QUERY: '回查询页',
 			ROOT: '根',
-			MISSED_INDICATOR: '丢失的指标',
+			MISSED_INDICATOR: '未找到指标定义',
+			MISSED_INDICATOR_TOPIC: '未找到指标对应的主题定义',
+			NO_INDICATOR_CRITERIA_DEFINED: '尚未定义过滤条件',
+			INDICATOR_CRITERIA_DEFINED: '个条件已定义',
+			PLEASE_SELECT_CRITERIA_FACTOR: '请选择数据因子',
 			NO_INDICATOR_CANDIDATE: '没有更多可以选择的指标.',
 			UNCLASSIFIED_CATEGORY: '未分类'
 		}

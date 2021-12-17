@@ -1,3 +1,4 @@
+import color from 'color';
 import {
 	BASE_HEIGHT,
 	BASE_MARGIN,
@@ -160,6 +161,7 @@ const DefaultTheme = {
 	// navigation node color
 	navigationRootColor: 'var(--danger-color)',
 	navigationIndicatorColor: 'var(--primary-color)',
+	navigationIndicatorBgColor: color('rgb(94,119,171)').lighten(0.1).rgb().string(),
 	navigationCategoryColor: 'var(--info-color)',
 	navigationCandidateColor: 'var(--success-color)'
 };

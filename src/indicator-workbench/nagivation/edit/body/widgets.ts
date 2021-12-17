@@ -29,11 +29,13 @@ export const PaletteColumn = styled.div.attrs({'data-widget': 'navigation-palett
 	justify-content : center;
 `;
 
-export const NavigationBlock = styled.div.attrs<{ error?: boolean }>(({error}) => {
-	return {
-		'data-error': error ? 'true' : (void 0)
-	};
-})<{ error?: boolean }>`
+export const NavigationBlock = styled.div.attrs<{ error?: boolean; warn?: boolean }>(
+	({error, warn}) => {
+		return {
+			'data-error': error ? 'true' : (void 0),
+			'data-warn': warn ? 'true' : (void 0)
+		};
+	})<{ error?: boolean; warn?: boolean }>`
 	display         : flex;
 	position        : relative;
 	align-items     : center;
@@ -51,14 +53,24 @@ export const NavigationBlock = styled.div.attrs<{ error?: boolean }>(({error}) =
 	white-space     : nowrap;
 	text-overflow   : ellipsis;
 	overflow        : hidden;
-	&[data-error=true] {
-		border-color: var(--danger-color);
-		color: var(--danger-color);
+	&[data-warn=true] {
+		border-color : var(--warn-color);
+		color        : var(--warn-color);
 		&:before {
-			background-color: var(--danger-color);
+			background-color : var(--warn-color);
 		}
 		~ svg > g > path {
-			stroke: var(--danger-color);
+			stroke : var(--warn-color);
+		}
+	}
+	&[data-error=true] {
+		border-color : var(--danger-color);
+		color        : var(--danger-color);
+		&:before {
+			background-color : var(--danger-color);
+		}
+		~ svg > g > path {
+			stroke : var(--danger-color);
 		}
 	}
 	&:before {
@@ -174,9 +186,56 @@ export const IndicatorPartRelationLine = styled.span.attrs({'data-widget': 'indi
 export const IndicatorCriteriaNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-criteria-node'})`
 	border-color : var(--navigation-indicator-color);
 	color        : var(--navigation-indicator-color);
+	overflow     : visible;
 	&:before {
 		background-color : var(--navigation-indicator-color);
 	}
+`;
+export const IndicatorCriteriaContent = styled.div.attrs<{ expanded: boolean }>(({expanded}) => {
+	return {
+		'data-widget': 'indicator-criteria-content',
+		style: {
+			clipPath: expanded ? 'circle(150% at 0 0)' : (void 0)
+		}
+	};
+})<{ expanded: boolean }>`
+	display               : grid;
+	position              : absolute;
+	grid-template-columns : 32px auto auto auto;
+	grid-column-gap       : calc(var(--margin) / 4);
+	align-items           : center;
+	min-height            : var(--header-height);
+	top                   : calc(var(--border-width) * -2);
+	left                  : calc(var(--border-width) * -2);
+	padding               : 0 var(--margin);
+	border                : var(--border);
+	border-width          : calc(var(--border-width) * 2);
+	border-radius         : calc(var(--border-radius) * 2);
+	border-color          : var(--navigation-indicator-color);
+	color                 : var(--navigation-indicator-color);
+	background-color      : var(--navigation-indicator-bg-color);
+	white-space           : nowrap;
+	text-overflow         : ellipsis;
+	overflow              : hidden;
+	clip-path             : circle(0 at 0 0);
+	transition            : clip-path 300ms ease-in-out;
+	z-index               : 1;
+	&:before {
+		content          : '';
+		display          : block;
+		position         : absolute;
+		top              : 0;
+		left             : 0;
+		width            : 100%;
+		height           : 100%;
+		background-color : var(--bg-color);
+		z-index          : -1;
+	}
+`;
+export const IndicatorCriteriaIndex = styled.span.attrs({'data-widget': 'indicator-criteria-index'})`
+	font-size : 0.8em;
+`;
+export const IndicatorCriteriaFactor = styled.div.attrs({})`
 `;
 export const IndicatorCalculationNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-calculation-node'})`
 	border-color : var(--navigation-indicator-color);

@@ -458,6 +458,10 @@ export const En = {
 			BACK_TO_QUERY: 'Back to Query',
 			ROOT: 'Root',
 			MISSED_INDICATOR: 'Missed Indicator',
+			MISSED_INDICATOR_TOPIC: 'Missed Indicator Topic',
+			NO_INDICATOR_CRITERIA_DEFINED: 'No Criteria Defined Yet',
+			INDICATOR_CRITERIA_DEFINED: 'Criteria Applied',
+			PLEASE_SELECT_CRITERIA_FACTOR: 'Please pick a factor',
 			NO_INDICATOR_CANDIDATE: 'No more available indicator.',
 			UNCLASSIFIED_CATEGORY: 'Unclassified'
 		}

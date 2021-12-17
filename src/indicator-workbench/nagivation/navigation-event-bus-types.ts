@@ -1,4 +1,5 @@
 import {TuplePage} from '@/services/data/query/tuple-page';
+import {Bucket, BucketId} from '@/services/data/tuples/bucket-types';
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation} from '@/services/data/tuples/navigation-types';
 import {Topic, TopicId} from '@/services/data/tuples/topic-types';
@@ -18,7 +19,8 @@ export enum NavigationEventTypes {
 	NAVIGATION_SAVED = 'navigation-saved',
 
 	ASK_INDICATORS = 'ask-indicators',
-	ASK_TOPIC = 'ask-topic'
+	ASK_TOPIC = 'ask-topic',
+	ASK_BUCKETS = 'ask-buckets'
 }
 
 export interface NavigationEventBus {
@@ -61,4 +63,8 @@ export interface NavigationEventBus {
 	fire(type: NavigationEventTypes.ASK_TOPIC, topicId: TopicId, onData: (topic?: Topic) => void): this;
 	on(type: NavigationEventTypes.ASK_TOPIC, listener: (topicId: TopicId, onData: (topic?: Topic) => void) => void): this;
 	off(type: NavigationEventTypes.ASK_TOPIC, listener: (topicId: TopicId, onData: (topic?: Topic) => void) => void): this;
+
+	fire(type: NavigationEventTypes.ASK_BUCKETS, bucketIds: Array<BucketId>, onData: (buckets: Array<Bucket>) => void): this;
+	on(type: NavigationEventTypes.ASK_BUCKETS, listener: (bucketIds: Array<BucketId>, onData: (buckets: Array<Bucket>) => void) => void): this;
+	off(type: NavigationEventTypes.ASK_BUCKETS, listener: (bucketIds: Array<BucketId>, onData: (buckets: Array<Bucket>) => void) => void): this;
 }

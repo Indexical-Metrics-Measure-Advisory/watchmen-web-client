@@ -17,7 +17,7 @@ export const createNavigation = (name?: string): Navigation => {
 };
 
 export const createNavigationIndicator = (navigation: Navigation, indicator: Indicator): NavigationIndicator => {
-	const navigationIndicator = {indicatorId: indicator.indicatorId};
+	const navigationIndicator: NavigationIndicator = {indicatorId: indicator.indicatorId, criteria: []};
 	if (navigation.indicators == null) {
 		navigation.indicators = [];
 	}
