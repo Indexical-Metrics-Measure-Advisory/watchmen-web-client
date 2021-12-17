@@ -10,7 +10,7 @@ import {NavigationEventTypes} from '../navigation-event-bus-types';
 type AskingRequest = (bucket?: Bucket) => void;
 type AskingRequestQueue = Array<AskingRequest>;
 
-export const Buckets = () => {
+export const ValueBuckets = () => {
 	const {fire: fireGlobal} = useEventBus();
 	const {on, off} = useNavigationEventBus();
 	const [loadingQueue] = useState<Record<BucketId, AskingRequestQueue>>({});
@@ -66,9 +66,9 @@ export const Buckets = () => {
 					onData([...existingBuckets, ...loadedLackedBuckets.filter(isNotNull)]);
 				});
 			};
-			on(NavigationEventTypes.ASK_BUCKETS, onAskBuckets);
+			on(NavigationEventTypes.ASK_VALUE_BUCKETS, onAskBuckets);
 			return () => {
-				off(NavigationEventTypes.ASK_BUCKETS, onAskBuckets);
+				off(NavigationEventTypes.ASK_VALUE_BUCKETS, onAskBuckets);
 			};
 		}, [fireGlobal, on, off, loadingQueue, buckets]
 	);

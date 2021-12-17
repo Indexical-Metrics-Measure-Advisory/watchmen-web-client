@@ -3,15 +3,17 @@ import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import {NavigationEdit} from '../edit';
 import {NavigationQuery} from '../query';
-import {Buckets} from './buckets';
 import {Indicators} from './indicators';
+import {MeasureBuckets} from './measure-buckets';
 import {NavigationState} from './state';
 import {Topics} from './topics';
+import {ValueBuckets} from './value-buckets';
 
 export const NavigationRoute = () => {
 	return <>
 		<Topics/>
-		<Buckets/>
+		<ValueBuckets/>
+		<MeasureBuckets/>
 		<Indicators/>
 		<NavigationState/>
 		<Switch>

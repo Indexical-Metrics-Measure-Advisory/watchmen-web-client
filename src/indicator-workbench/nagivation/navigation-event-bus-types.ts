@@ -2,6 +2,7 @@ import {TuplePage} from '@/services/data/query/tuple-page';
 import {Bucket, BucketId} from '@/services/data/tuples/bucket-types';
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation} from '@/services/data/tuples/navigation-types';
+import {QueryByBucketMethod} from '@/services/data/tuples/query-bucket-types';
 import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 import {QueryTuple} from '@/services/data/tuples/tuple-types';
 
@@ -20,7 +21,8 @@ export enum NavigationEventTypes {
 
 	ASK_INDICATORS = 'ask-indicators',
 	ASK_TOPIC = 'ask-topic',
-	ASK_BUCKETS = 'ask-buckets'
+	ASK_VALUE_BUCKETS = 'ask-value-buckets',
+	ASK_MEASURE_BUCKETS = 'ask-measure-buckets'
 }
 
 export interface NavigationEventBus {
@@ -64,7 +66,11 @@ export interface NavigationEventBus {
 	on(type: NavigationEventTypes.ASK_TOPIC, listener: (topicId: TopicId, onData: (topic?: Topic) => void) => void): this;
 	off(type: NavigationEventTypes.ASK_TOPIC, listener: (topicId: TopicId, onData: (topic?: Topic) => void) => void): this;
 
-	fire(type: NavigationEventTypes.ASK_BUCKETS, bucketIds: Array<BucketId>, onData: (buckets: Array<Bucket>) => void): this;
-	on(type: NavigationEventTypes.ASK_BUCKETS, listener: (bucketIds: Array<BucketId>, onData: (buckets: Array<Bucket>) => void) => void): this;
-	off(type: NavigationEventTypes.ASK_BUCKETS, listener: (bucketIds: Array<BucketId>, onData: (buckets: Array<Bucket>) => void) => void): this;
+	fire(type: NavigationEventTypes.ASK_VALUE_BUCKETS, bucketIds: Array<BucketId>, onData: (buckets: Array<Bucket>) => void): this;
+	on(type: NavigationEventTypes.ASK_VALUE_BUCKETS, listener: (bucketIds: Array<BucketId>, onData: (buckets: Array<Bucket>) => void) => void): this;
+	off(type: NavigationEventTypes.ASK_VALUE_BUCKETS, listener: (bucketIds: Array<BucketId>, onData: (buckets: Array<Bucket>) => void) => void): this;
+
+	fire(type: NavigationEventTypes.ASK_MEASURE_BUCKETS, methods: Array<QueryByBucketMethod>, onData: (buckets: Array<Bucket>) => void): this;
+	on(type: NavigationEventTypes.ASK_MEASURE_BUCKETS, listener: (methods: Array<QueryByBucketMethod>, onData: (buckets: Array<Bucket>) => void) => void): this;
+	off(type: NavigationEventTypes.ASK_MEASURE_BUCKETS, listener: (methods: Array<QueryByBucketMethod>, onData: (buckets: Array<Bucket>) => void) => void): this;
 }

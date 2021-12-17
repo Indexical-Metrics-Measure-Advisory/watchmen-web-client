@@ -1,8 +1,10 @@
 import {Bucket} from '@/services/data/tuples/bucket-types';
-import {FactorId} from '@/services/data/tuples/factor-types';
-import {Indicator} from '@/services/data/tuples/indicator-types';
+import {isEnumMeasureBucket, isMeasureBucket} from '@/services/data/tuples/bucket-utils';
+import {Factor, FactorId} from '@/services/data/tuples/factor-types';
+import {Indicator, MeasureMethod} from '@/services/data/tuples/indicator-types';
 import {isTimePeriodMeasure, tryToTransformToMeasures} from '@/services/data/tuples/indicator-utils';
 import {Navigation, NavigationIndicator, NavigationIndicatorCriteria} from '@/services/data/tuples/navigation-types';
+import {QueryByBucketMethod, QueryByEnumMethod, QueryByMeasureMethod} from '@/services/data/tuples/query-bucket-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {noop} from '@/services/utils';
 import {Dropdown} from '@/widgets/basic/dropdown';
@@ -27,7 +29,8 @@ import {
 interface DefData {
 	loaded: boolean;
 	topic?: Topic;
-	buckets: Array<Bucket>;
+	valueBuckets: Array<Bucket>;
+	measureBuckets: Array<Bucket>;
 }
 
 const MissedTopic = (props: { topic?: Topic }) => {
@@ -42,8 +45,12 @@ const MissedTopic = (props: { topic?: Topic }) => {
 	</>;
 };
 
-const ExpressionCountLabel = (props: { navigationIndicator: NavigationIndicator }) => {
-	const {navigationIndicator: {criteria = []}} = props;
+const ExpressionCountLabel = (props: { navigationIndicator: NavigationIndicator, topic?: Topic }) => {
+	const {navigationIndicator: {criteria = []}, topic} = props;
+
+	if (topic == null) {
+		return null;
+	}
 
 	if (criteria.length === 0) {
 		return <>
@@ -66,23 +73,38 @@ export const NavigationIndicatorContent = (props: {
 	const {fire} = useNavigationEventBus();
 	const {on: onEdit, off: offEdit, fire: fireEdit} = useNavigationEditEventBus();
 	const [expanded, setExpanded] = useState(false);
-	const [defData, setDefData] = useState<DefData>({loaded: false, buckets: []});
+	const [defData, setDefData] = useState<DefData>({loaded: false, valueBuckets: [], measureBuckets: []});
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		(async () => {
-			const [topic, buckets] = await Promise.all([
+			const [topic, valueBuckets] = await Promise.all([
 				new Promise<Topic | undefined>(resolve => {
 					fire(NavigationEventTypes.ASK_TOPIC, indicator.topicId, (topic?: Topic) => {
 						resolve(topic);
 					});
 				}),
 				new Promise<Array<Bucket>>(resolve => {
-					fire(NavigationEventTypes.ASK_BUCKETS, indicator.valueBuckets || [], (buckets: Array<Bucket>) => {
+					fire(NavigationEventTypes.ASK_VALUE_BUCKETS, indicator.valueBuckets || [], (buckets: Array<Bucket>) => {
 						resolve(buckets);
 					});
 				})
 			]);
-			setDefData({loaded: true, topic, buckets});
+			if (topic != null) {
+				fire(NavigationEventTypes.ASK_MEASURE_BUCKETS, (topic.factors || []).reduce((measures, factor) => {
+					tryToTransformToMeasures(factor).forEach(method => {
+						if (method !== MeasureMethod.ENUM) {
+							measures.push({method} as QueryByMeasureMethod);
+						} else if (factor.enumId != null) {
+							measures.push({enumId: factor.enumId, method: MeasureMethod.ENUM} as QueryByEnumMethod);
+						}
+					});
+					return measures;
+				}, [] as Array<QueryByBucketMethod>), (buckets: Array<Bucket>) => {
+					setDefData({loaded: true, topic, valueBuckets, measureBuckets: buckets});
+				});
+			} else {
+				setDefData({loaded: true, topic, valueBuckets, measureBuckets: []});
+			}
 		})();
 	}, [fire, indicator]);
 	useEffect(() => {
@@ -125,11 +147,23 @@ export const NavigationIndicatorContent = (props: {
 
 	// factors which defined as buckets in indicator and factors which has time measure
 	// can be used as navigation indicator criteria
-	const factorsInIndicator = (indicator.valueBuckets || []).reduce((factors, buckedId) => {
-		return factors;
-	}, {} as Record<FactorId, boolean>);
+	const isFactorSupported = (factor: Factor): boolean => {
+		const measures = tryToTransformToMeasures(factor);
+		if (measures.some(isTimePeriodMeasure)) {
+			return true;
+		}
+		// eslint-disable-next-line
+		if (factor.enumId != null && defData.measureBuckets.some(bucket => isEnumMeasureBucket(bucket) && bucket.enumId == factor.enumId)) {
+			// enumeration factor, matches enumeration bucket
+			return true;
+		} else {
+			// not an enumeration factor, at least one bucket is matched
+			return factor.enumId == null && defData.measureBuckets.some(bucket => isMeasureBucket(bucket) && measures.includes(bucket.measure));
+		}
+	};
 	const criteriaFactorOptions = (defData.topic?.factors || []).filter(factor => {
-		return factorsInIndicator[factor.factorId] || tryToTransformToMeasures(factor).some(measure => isTimePeriodMeasure(measure));
+		// eslint-disable-next-line
+		return indicator.factorId == factor.factorId || isFactorSupported(factor);
 	}).map(factor => {
 		return {
 			value: factor.factorId,
@@ -141,7 +175,7 @@ export const NavigationIndicatorContent = (props: {
 		<IndicatorPartRelationLine/>
 		<IndicatorCriteriaNode error={error} warn={warn} onMouseEnter={onMouseEnter}>
 			<MissedTopic topic={defData.topic}/>
-			<ExpressionCountLabel navigationIndicator={navigationIndicator}/>
+			<ExpressionCountLabel navigationIndicator={navigationIndicator} topic={defData.topic}/>
 			<IndicatorCriteriaContent expanded={expanded}>
 				{displayCriteria.map((criteria, index) => {
 					return <Fragment key={v4()}>
