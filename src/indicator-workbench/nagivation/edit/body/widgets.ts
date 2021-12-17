@@ -29,9 +29,11 @@ export const PaletteColumn = styled.div.attrs({'data-widget': 'navigation-palett
 	justify-content : center;
 `;
 
-export const NavigationBlock = styled.div.attrs(() => {
-	return {};
-})`
+export const NavigationBlock = styled.div.attrs<{ error?: boolean }>(({error}) => {
+	return {
+		'data-error': error ? 'true' : (void 0)
+	};
+})<{ error?: boolean }>`
 	display         : flex;
 	position        : relative;
 	align-items     : center;
@@ -49,6 +51,16 @@ export const NavigationBlock = styled.div.attrs(() => {
 	white-space     : nowrap;
 	text-overflow   : ellipsis;
 	overflow        : hidden;
+	&[data-error=true] {
+		border-color: var(--danger-color);
+		color: var(--danger-color);
+		&:before {
+			background-color: var(--danger-color);
+		}
+		~ svg > g > path {
+			stroke: var(--danger-color);
+		}
+	}
 	&:before {
 		content          : '';
 		display          : block;
@@ -59,6 +71,7 @@ export const NavigationBlock = styled.div.attrs(() => {
 		height           : 100%;
 		background-color : var(--primary-color);
 		opacity          : 0.1;
+		z-index          : -1;
 	}
 `;
 export const NavigationBlockPairCurve = styled.svg.attrs<{ rect: CurveRect }>(({rect}) => {
@@ -129,13 +142,43 @@ export const IndicatorCategoryCurve = styled(NavigationBlockPairCurve).attrs<{ r
 	}
 `;
 export const IndicatorRootNodeContainer = styled.div.attrs({'data-widget': 'indicator-root-node-container'})`
-	display  : block;
-	position : relative;
+	display               : grid;
+	position              : relative;
+	grid-template-columns : repeat(7, auto);
+	align-items           : center;
 	&:not(:last-child) {
 		margin-bottom : calc(var(--margin) / 2);
 	}
 `;
 export const IndicatorRootNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-root-node'})`
+	border-color : var(--navigation-indicator-color);
+	color        : var(--navigation-indicator-color);
+	&:before {
+		background-color : var(--navigation-indicator-color);
+	}
+	> span:not(:last-child) {
+		margin-right : calc(var(--margin) / 4);
+	}
+	> svg:not(:last-child) {
+		margin-right : calc(var(--margin) / 4);
+	}
+`;
+export const IndicatorPartRelationLine = styled.span.attrs({'data-widget': 'indicator-part-relation-line'})`
+	display          : block;
+	position         : relative;
+	width            : 64px;
+	height           : 2px;
+	background-color : var(--navigation-indicator-color);
+	opacity          : 0.5;
+`;
+export const IndicatorCriteriaNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-criteria-node'})`
+	border-color : var(--navigation-indicator-color);
+	color        : var(--navigation-indicator-color);
+	&:before {
+		background-color : var(--navigation-indicator-color);
+	}
+`;
+export const IndicatorCalculationNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-calculation-node'})`
 	border-color : var(--navigation-indicator-color);
 	color        : var(--navigation-indicator-color);
 	&:before {
@@ -240,4 +283,12 @@ export const MoreIndicatorsCurve = styled(NavigationBlockPairCurve).attrs<{ rect
 	> g > path {
 		stroke : var(--navigation-category-color);
 	}
+`;
+export const MissedDefinitionIcon = styled.span.attrs({'data-widget': 'missed-def-icon'})`
+	color         : var(--danger-color);
+	border-radius : 100%;
+	margin-top    : 2px;
+	z-index       : 1;
+	cursor        : pointer;
+	overflow      : hidden;
 `;

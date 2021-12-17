@@ -22,6 +22,7 @@ import {
 	faCheck,
 	faCheckDouble,
 	faCheckSquare,
+	faCircleExclamation,
 	faCity,
 	faClock,
 	faCloudDownloadAlt,
@@ -312,6 +313,7 @@ export const ICON_LOCK = faLockOpen;
 export const ICON_UNLOCK = faLock;
 export const ICON_PERCENTAGE = faPercentage;
 export const ICON_QUESTION_MARK = faQuestionCircle;
+export const ICON_EXCLAMATION_MARK = faCircleExclamation;
 
 // mock data
 export const MOCK_ACCOUNT_NAME = 'Dr. X';

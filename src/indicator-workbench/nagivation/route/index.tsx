@@ -1,3 +1,4 @@
+import {Topics} from './topics';
 import {Router} from '@/routes/types';
 import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
@@ -8,6 +9,7 @@ import {NavigationState} from './state';
 
 export const NavigationRoute = () => {
 	return <>
+		<Topics/>
 		<Indicators/>
 		<NavigationState/>
 		<Switch>

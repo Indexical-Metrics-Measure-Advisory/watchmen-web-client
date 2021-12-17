@@ -1,6 +1,7 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
 import {Lang} from '@/widgets/langs';
+import {NavigationIndicatorContent} from './indicator-content';
 import {useCurve} from './use-curve';
 import {computeCurvePath} from './utils';
 import {IndicatorCurve, IndicatorRootNode, IndicatorRootNodeContainer} from './widgets';
@@ -14,13 +15,14 @@ export const IndicatorRoot = (props: {
 	navigationIndicator: NavigationIndicator;
 	indicator?: Indicator;
 }) => {
-	const {parentId, id, index, indicator} = props;
+	const {parentId, navigation, id, index, navigationIndicator, indicator} = props;
 
 	const {ref, curve} = useCurve(parentId);
 
 	return <IndicatorRootNodeContainer>
-		<IndicatorRootNode id={id} ref={ref}>
-			{index}. {indicator == null ? Lang.INDICATOR_WORKBENCH.NAVIGATION.MISSED_INDICATOR : (indicator.name || 'Noname Indicator')}
+		<IndicatorRootNode id={id} error={indicator == null} ref={ref}>
+			<span>{index}.</span>
+			<span>{indicator == null ? Lang.INDICATOR_WORKBENCH.NAVIGATION.MISSED_INDICATOR : (indicator.name || 'Noname Indicator')}</span>
 		</IndicatorRootNode>
 		{curve == null
 			? null
@@ -29,5 +31,9 @@ export const IndicatorRoot = (props: {
 					<path d={computeCurvePath(curve)}/>
 				</g>
 			</IndicatorCurve>}
+		{indicator == null
+			? null
+			: <NavigationIndicatorContent navigation={navigation} navigationIndicator={navigationIndicator}
+			                              indicator={indicator}/>}
 	</IndicatorRootNodeContainer>;
 };
