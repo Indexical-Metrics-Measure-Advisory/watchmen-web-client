@@ -1,37 +1,18 @@
 import {Bucket} from '@/services/data/tuples/bucket-types';
-import {isEnumMeasureBucket, isMeasureBucket} from '@/services/data/tuples/bucket-utils';
-import {Factor, FactorId} from '@/services/data/tuples/factor-types';
 import {Indicator, MeasureMethod} from '@/services/data/tuples/indicator-types';
-import {isTimePeriodMeasure, tryToTransformToMeasures} from '@/services/data/tuples/indicator-utils';
-import {Navigation, NavigationIndicator, NavigationIndicatorCriteria} from '@/services/data/tuples/navigation-types';
+import {tryToTransformToMeasures} from '@/services/data/tuples/indicator-utils';
+import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
 import {QueryByBucketMethod, QueryByEnumMethod, QueryByMeasureMethod} from '@/services/data/tuples/query-bucket-types';
 import {Topic} from '@/services/data/tuples/topic-types';
-import {noop} from '@/services/utils';
-import {Dropdown} from '@/widgets/basic/dropdown';
-import {DropdownOption} from '@/widgets/basic/types';
-import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
-import {Fragment, useEffect, useState} from 'react';
-import {v4} from 'uuid';
+import {useEffect, useState} from 'react';
 import {useNavigationEventBus} from '../../navigation-event-bus';
 import {NavigationEventTypes} from '../../navigation-event-bus-types';
+import {IndicatorCriteriaWrapper} from './indicator-criteria-wrapper';
 import {useNavigationEditEventBus} from './navigation-edit-event-bus';
 import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
-import {
-	IndicatorCalculationNode,
-	IndicatorCriteriaContent,
-	IndicatorCriteriaFactor,
-	IndicatorCriteriaIndex,
-	IndicatorCriteriaNode,
-	IndicatorPartRelationLine
-} from './widgets';
-
-interface DefData {
-	loaded: boolean;
-	topic?: Topic;
-	valueBuckets: Array<Bucket>;
-	measureBuckets: Array<Bucket>;
-}
+import {IndicatorCriteriaDefData} from './types';
+import {IndicatorCalculationNode, IndicatorCriteriaNode, IndicatorPartRelationLine} from './widgets';
 
 const MissedTopic = (props: { topic?: Topic }) => {
 	const {topic} = props;
@@ -71,10 +52,12 @@ export const NavigationIndicatorContent = (props: {
 	const {navigation, navigationIndicator, indicator} = props;
 
 	const {fire} = useNavigationEventBus();
-	const {on: onEdit, off: offEdit, fire: fireEdit} = useNavigationEditEventBus();
-	const [expanded, setExpanded] = useState(false);
-	const [defData, setDefData] = useState<DefData>({loaded: false, valueBuckets: [], measureBuckets: []});
-	const forceUpdate = useForceUpdate();
+	const {fire: fireEdit} = useNavigationEditEventBus();
+	const [defData, setDefData] = useState<IndicatorCriteriaDefData>({
+		loaded: false,
+		valueBuckets: [],
+		measureBuckets: []
+	});
 	useEffect(() => {
 		(async () => {
 			const [topic, valueBuckets] = await Promise.all([
@@ -107,101 +90,32 @@ export const NavigationIndicatorContent = (props: {
 			}
 		})();
 	}, [fire, indicator]);
-	useEffect(() => {
-		const onCriteriaExpanded = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
-			if (aNavigation !== navigation) {
-				return;
-			}
-			if (aNavigationIndicator !== navigationIndicator) {
-				setExpanded(false);
-			}
-		};
-		onEdit(NavigationEditEventTypes.CRITERIA_EXPANDED, onCriteriaExpanded);
-		return () => {
-			offEdit(NavigationEditEventTypes.CRITERIA_EXPANDED, onCriteriaExpanded);
-		};
-	}, [onEdit, offEdit, navigation, navigationIndicator]);
 
 	if (!defData.loaded) {
 		return <>
 			<IndicatorPartRelationLine/>
 			<IndicatorCriteriaNode>
-				Loading...
+				{Lang.INDICATOR_WORKBENCH.NAVIGATION.LOADING_CRITERIA_DEF}
 			</IndicatorCriteriaNode>
 		</>;
 	}
 
 	const onMouseEnter = () => {
-		setExpanded(true);
-		fireEdit(NavigationEditEventTypes.CRITERIA_EXPANDED, navigation, navigationIndicator);
-	};
-	// const onCloseCriteriaContent = () => setExpanded(false);
-	const onCriteriaFactorChanged = (criteria: NavigationIndicatorCriteria) => (option: DropdownOption) => {
-		criteria.factorId = option.value as FactorId;
-		if (navigationIndicator.criteria == null) {
-			navigationIndicator.criteria = [];
-		}
-		if (!navigationIndicator.criteria.includes(criteria)) {
-			navigationIndicator.criteria.push(criteria);
-		}
-		fire(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
-		forceUpdate();
+		fireEdit(NavigationEditEventTypes.EXPAND_CRITERIA, navigation, navigationIndicator);
 	};
 
 	const error = defData.loaded && defData.topic == null;
 	const criteria = (navigationIndicator.criteria || []);
 	const warn = criteria.length === 0;
 
-	const displayCriteria = [...criteria, {}];
-
-	// factors which defined as buckets in indicator and factors which has time measure
-	// can be used as navigation indicator criteria
-	const isFactorSupported = (factor: Factor): boolean => {
-		const measures = tryToTransformToMeasures(factor);
-		if (measures.some(isTimePeriodMeasure)) {
-			return true;
-		}
-		// eslint-disable-next-line
-		if (factor.enumId != null && defData.measureBuckets.some(bucket => isEnumMeasureBucket(bucket) && bucket.enumId == factor.enumId)) {
-			// enumeration factor, matches enumeration bucket
-			return true;
-		} else {
-			// not an enumeration factor, at least one bucket is matched
-			return factor.enumId == null && defData.measureBuckets.some(bucket => isMeasureBucket(bucket) && measures.includes(bucket.measure));
-		}
-	};
-	const criteriaFactorOptions = (defData.topic?.factors || []).filter(factor => {
-		// eslint-disable-next-line
-		return indicator.factorId == factor.factorId || isFactorSupported(factor);
-	}).sort((f1, f2) => {
-		return (f1.label || f1.name || '').localeCompare(f2.label || f2.name || '', void 0, {
-			sensitivity: 'base',
-			caseFirst: 'upper'
-		});
-	}).map(factor => {
-		return {
-			value: factor.factorId,
-			label: factor.label || factor.name || 'Noname Factor'
-		};
-	});
-
 	return <>
 		<IndicatorPartRelationLine/>
 		<IndicatorCriteriaNode error={error} warn={warn} onMouseEnter={onMouseEnter}>
 			<MissedTopic topic={defData.topic}/>
 			<ExpressionCountLabel navigationIndicator={navigationIndicator} topic={defData.topic}/>
-			<IndicatorCriteriaContent expanded={expanded}>
-				{displayCriteria.map((criteria, index) => {
-					return <Fragment key={v4()}>
-						<IndicatorCriteriaIndex>{index + 1}</IndicatorCriteriaIndex>
-						<IndicatorCriteriaFactor>
-							<Dropdown value={criteria.factorId} options={criteriaFactorOptions}
-							          onChange={onCriteriaFactorChanged(criteria)}
-							          please={Lang.INDICATOR_WORKBENCH.NAVIGATION.PLEASE_SELECT_CRITERIA_FACTOR}/>
-						</IndicatorCriteriaFactor>
-					</Fragment>;
-				})}
-			</IndicatorCriteriaContent>
+			<IndicatorCriteriaWrapper navigation={navigation} navigationIndicator={navigationIndicator}
+			                          indicator={indicator}
+			                          defData={defData}/>
 		</IndicatorCriteriaNode>
 		{error || warn
 			? null

@@ -463,7 +463,8 @@ export const Zh = {
 			INDICATOR_CRITERIA_DEFINED: '个条件已定义',
 			PLEASE_SELECT_CRITERIA_FACTOR: '请选择数据因子',
 			NO_INDICATOR_CANDIDATE: '没有更多可以选择的指标.',
-			UNCLASSIFIED_CATEGORY: '未分类'
+			UNCLASSIFIED_CATEGORY: '未分类',
+			LOADING_CRITERIA_DEF: '加载定义数据...'
 		}
 	},
 	SETTINGS: {

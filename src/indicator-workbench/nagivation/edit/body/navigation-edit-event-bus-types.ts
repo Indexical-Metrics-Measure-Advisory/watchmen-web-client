@@ -3,6 +3,7 @@ import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation
 
 export enum NavigationEditEventTypes {
 	REPAINT = 'repaint',
+	EXPAND_CRITERIA = 'expand-criteria',
 	CRITERIA_EXPANDED = 'criteria-expanded',
 
 	INDICATOR_ADDED = 'add-indicator'
@@ -12,6 +13,10 @@ export interface NavigationEditEventBus {
 	fire(type: NavigationEditEventTypes.REPAINT): this;
 	on(type: NavigationEditEventTypes.REPAINT, listener: () => void): this;
 	off(type: NavigationEditEventTypes.REPAINT, listener: () => void): this;
+
+	fire(type: NavigationEditEventTypes.EXPAND_CRITERIA, navigation: Navigation, navigationIndicator: NavigationIndicator): this;
+	on(type: NavigationEditEventTypes.EXPAND_CRITERIA, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
+	off(type: NavigationEditEventTypes.EXPAND_CRITERIA, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
 
 	fire(type: NavigationEditEventTypes.CRITERIA_EXPANDED, navigation: Navigation, navigationIndicator: NavigationIndicator): this;
 	on(type: NavigationEditEventTypes.CRITERIA_EXPANDED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;

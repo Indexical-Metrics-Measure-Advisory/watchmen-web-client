@@ -463,7 +463,8 @@ export const Jp = {
 			INDICATOR_CRITERIA_DEFINED: '個の条件が定義されて',
 			PLEASE_SELECT_CRITERIA_FACTOR: 'ファクターを選択してください',
 			NO_INDICATOR_CANDIDATE: 'これ以上の指標を選択することができます。',
-			UNCLASSIFIED_CATEGORY: '未分類'
+			UNCLASSIFIED_CATEGORY: '未分類',
+			LOADING_CRITERIA_DEF: '定義データを読み込みます。'
 		}
 	},
 	SETTINGS: {

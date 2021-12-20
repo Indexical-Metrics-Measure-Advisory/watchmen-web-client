@@ -237,6 +237,8 @@ export const IndicatorCriteriaIndex = styled.span.attrs({'data-widget': 'indicat
 `;
 export const IndicatorCriteriaFactor = styled.div.attrs({})`
 `;
+export const IndicatorCriteriaArithmetic = styled.div.attrs({})`
+`
 export const IndicatorCalculationNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-calculation-node'})`
 	border-color : var(--navigation-indicator-color);
 	color        : var(--navigation-indicator-color);

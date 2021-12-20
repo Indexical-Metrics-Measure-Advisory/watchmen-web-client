@@ -1,5 +1,7 @@
+import {Bucket} from '@/services/data/tuples/bucket-types';
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {NavigationIndicator} from '@/services/data/tuples/navigation-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 
 export interface NavigationBlockPosition {
 	top: number;
@@ -40,4 +42,11 @@ export interface CurveRect {
 	startY: number;
 	endX: number;
 	endY: number;
+}
+
+export interface IndicatorCriteriaDefData {
+	loaded: boolean;
+	topic?: Topic;
+	valueBuckets: Array<Bucket>;
+	measureBuckets: Array<Bucket>;
 }

@@ -463,7 +463,8 @@ export const En = {
 			INDICATOR_CRITERIA_DEFINED: 'Criteria Applied',
 			PLEASE_SELECT_CRITERIA_FACTOR: 'Please pick a factor',
 			NO_INDICATOR_CANDIDATE: 'No more available indicator.',
-			UNCLASSIFIED_CATEGORY: 'Unclassified'
+			UNCLASSIFIED_CATEGORY: 'Unclassified',
+			LOADING_CRITERIA_DEF: 'Loading...'
 		}
 	},
 	SETTINGS: {
