@@ -21,19 +21,21 @@ export const useIndicatorPartExpandable = (options: {
 	const [expanded, setExpanded] = useState(false);
 	useCollapseFixedThing({containerRef, visible: expanded, hide: () => setExpanded(false)});
 	useEffect(() => {
-		const onSomethingExpanded = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
+		const onSomethingExpanded = (avoid: Expandable) => (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
 			if (aNavigation !== navigation) {
 				return;
 			}
-			if (aNavigationIndicator !== navigationIndicator) {
+			if (aNavigationIndicator !== navigationIndicator || expandable === avoid) {
 				setExpanded(false);
 			}
 		};
-		on(NavigationEditEventTypes.CRITERIA_EXPANDED, onSomethingExpanded);
-		on(NavigationEditEventTypes.CALCULATION_EXPANDED, onSomethingExpanded);
+		const onCriteriaExpanded = onSomethingExpanded(Expandable.CALCULATION);
+		const onCalculationExpanded = onSomethingExpanded(Expandable.CRITERIA);
+		on(NavigationEditEventTypes.CRITERIA_EXPANDED, onCriteriaExpanded);
+		on(NavigationEditEventTypes.CALCULATION_EXPANDED, onCalculationExpanded);
 		return () => {
-			off(NavigationEditEventTypes.CRITERIA_EXPANDED, onSomethingExpanded);
-			off(NavigationEditEventTypes.CALCULATION_EXPANDED, onSomethingExpanded);
+			off(NavigationEditEventTypes.CRITERIA_EXPANDED, onCriteriaExpanded);
+			off(NavigationEditEventTypes.CALCULATION_EXPANDED, onCalculationExpanded);
 		};
 	}, [on, off, navigation, navigationIndicator]);
 	useEffect(() => {
