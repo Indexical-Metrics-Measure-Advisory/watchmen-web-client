@@ -21,11 +21,13 @@ import {
 } from '@/services/data/tuples/navigation-utils';
 import {isNotNull} from '@/services/data/utils';
 import {noop} from '@/services/utils';
+import {ICON_DELETE} from '@/widgets/basic/constants';
 import {Dropdown} from '@/widgets/basic/dropdown';
 import {Input} from '@/widgets/basic/input';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ChangeEvent} from 'react';
 import {useNavigationEventBus} from '../../navigation-event-bus';
 import {NavigationEventTypes} from '../../navigation-event-bus-types';
@@ -35,8 +37,11 @@ import {IndicatorCriteriaDefData} from './types';
 import {CriteriaArithmeticLabel} from './utils';
 import {
 	IndicatorCriteriaArithmetic,
+	IndicatorCriteriaButton,
+	IndicatorCriteriaButtons,
 	IndicatorCriteriaFactor,
 	IndicatorCriteriaIndex,
+	IndicatorCriteriaRow,
 	IndicatorCriteriaValue
 } from './widgets';
 
@@ -225,7 +230,7 @@ export const IndicatorCriteriaEditor = (props: {
 			}
 		})();
 
-	return <>
+	return <IndicatorCriteriaRow>
 		<IndicatorCriteriaIndex>{index + 1}</IndicatorCriteriaIndex>
 		<IndicatorCriteriaFactor>
 			<Dropdown value={criteria.factorId} options={factorCandidates}
@@ -249,5 +254,10 @@ export const IndicatorCriteriaEditor = (props: {
 					            onChange={onBucketSegmentChanged}/>)
 				: null}
 		</IndicatorCriteriaValue>
-	</>;
+		<IndicatorCriteriaButtons>
+			<IndicatorCriteriaButton>
+				<FontAwesomeIcon icon={ICON_DELETE}/>
+			</IndicatorCriteriaButton>
+		</IndicatorCriteriaButtons>
+	</IndicatorCriteriaRow>;
 };
