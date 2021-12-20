@@ -32,8 +32,9 @@ export interface NavigationIndicatorCriteriaOnExpression extends NavigationIndic
 
 export interface NavigationIndicator {
 	indicatorId: IndicatorId;
-	/** leave empty when no aggregation arithmetic applied */
-	aggregateArithmetics?: IndicatorAggregateArithmetic;
+	/** use sum when no aggregation arithmetic applied */
+	aggregateArithmetics: IndicatorAggregateArithmetic;
+	formula?: string;
 	criteria: Array<NavigationIndicatorCriteria>;
 }
 

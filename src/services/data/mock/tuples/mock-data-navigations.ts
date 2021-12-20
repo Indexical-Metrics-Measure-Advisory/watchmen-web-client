@@ -1,3 +1,4 @@
+import {IndicatorAggregateArithmetic} from '../../tuples/indicator-types';
 import {Navigation, NavigationTimeRangeType} from '../../tuples/navigation-types';
 import {getCurrentTime} from '../../utils';
 import {INDICATOR_ORDER_PREMIUM_ID} from './mock-data-indicators';
@@ -7,7 +8,11 @@ export const NAVIGATION_PREMIUM_ID = '1';
 export const NavPremium: Navigation = {
 	navigationId: NAVIGATION_PREMIUM_ID,
 	name: 'Premium',
-	indicators: [{indicatorId: INDICATOR_ORDER_PREMIUM_ID, criteria: []}],
+	indicators: [{
+		indicatorId: INDICATOR_ORDER_PREMIUM_ID,
+		criteria: [],
+		aggregateArithmetics: IndicatorAggregateArithmetic.SUM
+	}],
 	timeRangeType: NavigationTimeRangeType.YEAR,
 	timeRange: `${new Date().getFullYear() - 1}`,
 	compareWithPreviousTimeRange: true,

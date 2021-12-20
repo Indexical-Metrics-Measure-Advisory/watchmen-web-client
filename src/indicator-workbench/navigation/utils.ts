@@ -1,4 +1,4 @@
-import {Indicator} from '@/services/data/tuples/indicator-types';
+import {Indicator, IndicatorAggregateArithmetic} from '@/services/data/tuples/indicator-types';
 import {Navigation, NavigationIndicator, NavigationTimeRangeType} from '@/services/data/tuples/navigation-types';
 import {generateUuid} from '@/services/data/tuples/utils';
 import {getCurrentTime} from '@/services/data/utils';
@@ -20,7 +20,11 @@ export const createNavigation = (name?: string): Navigation => {
 };
 
 export const createNavigationIndicator = (navigation: Navigation, indicator: Indicator): NavigationIndicator => {
-	const navigationIndicator: NavigationIndicator = {indicatorId: indicator.indicatorId, criteria: []};
+	const navigationIndicator: NavigationIndicator = {
+		indicatorId: indicator.indicatorId,
+		criteria: [],
+		aggregateArithmetics: IndicatorAggregateArithmetic.SUM
+	};
 	if (navigation.indicators == null) {
 		navigation.indicators = [];
 	}

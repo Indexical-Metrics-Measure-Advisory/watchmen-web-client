@@ -462,7 +462,7 @@ export const Jp = {
 			NO_INDICATOR_CRITERIA_DEFINED: 'フィルタが定義されていません',
 			INDICATOR_CRITERIA_DEFINED: '個の条件が定義されて',
 			PLEASE_SELECT_CRITERIA_FACTOR: 'ファクターを選択してください',
-			PLEASE_SELECT_CRITERIA_ARITHMETIC: '一致する方法',
+			PLEASE_SELECT_CRITERIA_OPERATOR: '演算子',
 			NO_INDICATOR_CANDIDATE: 'これ以上の指標を選択することができます。',
 			UNCLASSIFIED_CATEGORY: '未分類',
 			LOADING_CRITERIA_DEF: '定義データを読み込みます。',
@@ -472,7 +472,12 @@ export const Jp = {
 			TIME_RANGE_COMPARE_WITH_PREVIOUS: '前のサイクルと比較するかどうか:',
 			CURRENT_VALUE: 'この',
 			PREVIOUS_VALUE: '前の',
-			INCREMENT_RATIO: '成長率'
+			INCREMENT_RATIO: '成長率',
+			VALUE_TRANSFORM_COUNT: '個数の合計',
+			VALUE_TRANSFORM_SUM: '合計値',
+			VALUE_TRANSFORM_AVG: '平均',
+			INDICATOR_AGGREGATE_ARITHMETIC_LABEL: '集計方法:',
+			INDICATOR_FORMULA_LABEL: '数式を計算:'
 		}
 	},
 	SETTINGS: {

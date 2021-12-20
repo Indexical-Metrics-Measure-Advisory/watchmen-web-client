@@ -462,7 +462,7 @@ export const En = {
 			NO_INDICATOR_CRITERIA_DEFINED: 'No Criteria Defined Yet',
 			INDICATOR_CRITERIA_DEFINED: 'Criteria Applied',
 			PLEASE_SELECT_CRITERIA_FACTOR: 'Please pick a factor',
-			PLEASE_SELECT_CRITERIA_ARITHMETIC: 'Arithmetic',
+			PLEASE_SELECT_CRITERIA_OPERATOR: 'Operator',
 			NO_INDICATOR_CANDIDATE: 'No more available indicator.',
 			UNCLASSIFIED_CATEGORY: 'Unclassified',
 			LOADING_CRITERIA_DEF: 'Loading...',
@@ -472,7 +472,12 @@ export const En = {
 			TIME_RANGE_COMPARE_WITH_PREVIOUS: 'Compare With Previous Period:',
 			CURRENT_VALUE: 'Current',
 			PREVIOUS_VALUE: 'Previous',
-			INCREMENT_RATIO: 'Increment'
+			INCREMENT_RATIO: 'Increment',
+			VALUE_TRANSFORM_COUNT: 'Count',
+			VALUE_TRANSFORM_SUM: 'Sum',
+			VALUE_TRANSFORM_AVG: 'Avg',
+			INDICATOR_AGGREGATE_ARITHMETIC_LABEL: 'Aggregation:',
+			INDICATOR_FORMULA_LABEL: 'Formula:'
 		}
 	},
 	SETTINGS: {

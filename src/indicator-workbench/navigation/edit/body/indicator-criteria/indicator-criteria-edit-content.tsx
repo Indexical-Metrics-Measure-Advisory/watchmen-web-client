@@ -3,12 +3,13 @@ import {Factor} from '@/services/data/tuples/factor-types';
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {isTimePeriodMeasure, tryToTransformToMeasures} from '@/services/data/tuples/indicator-utils';
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
-import {useCollapseFixedThing, useForceUpdate} from '@/widgets/basic/utils';
-import {useEffect, useRef, useState} from 'react';
+import {useForceUpdate} from '@/widgets/basic/utils';
+import {useEffect} from 'react';
 import {v4} from 'uuid';
 import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
 import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
 import {IndicatorCriteriaDefData} from '../types';
+import {Expandable, useIndicatorPartExpandable} from '../use-indicator-part-expandable';
 import {IndicatorCriteriaEditor} from './indicator-criteria-editor';
 import {IndicatorCriteriaEditContentContainer} from './widgets';
 
@@ -20,10 +21,12 @@ export const IndicatorCriteriaEditContent = (props: {
 }) => {
 	const {navigation, navigationIndicator, indicator, defData} = props;
 
-	const containerRef = useRef<HTMLDivElement>(null);
-	const {on: onEdit, off: offEdit, fire: fireEdit} = useNavigationEditEventBus();
-	const [expanded, setExpanded] = useState(false);
-	useCollapseFixedThing({containerRef, visible: expanded, hide: () => setExpanded(false)});
+	const {on: onEdit, off: offEdit} = useNavigationEditEventBus();
+	const {containerRef, expanded} = useIndicatorPartExpandable({
+		navigation,
+		navigationIndicator,
+		expandable: Expandable.CRITERIA
+	});
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const onIndicatorCriteriaChanged = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
@@ -39,33 +42,6 @@ export const IndicatorCriteriaEditContent = (props: {
 			offEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_REMOVED, onIndicatorCriteriaChanged);
 		};
 	});
-	useEffect(() => {
-		const onExpandCriteria = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
-			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
-				return;
-			}
-			setExpanded(true);
-			fireEdit(NavigationEditEventTypes.CRITERIA_EXPANDED, navigation, navigationIndicator);
-		};
-		onEdit(NavigationEditEventTypes.EXPAND_CRITERIA, onExpandCriteria);
-		return () => {
-			offEdit(NavigationEditEventTypes.EXPAND_CRITERIA, onExpandCriteria);
-		};
-	}, [onEdit, offEdit, fireEdit, navigation, navigationIndicator]);
-	useEffect(() => {
-		const onCriteriaExpanded = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
-			if (aNavigation !== navigation) {
-				return;
-			}
-			if (aNavigationIndicator !== navigationIndicator) {
-				setExpanded(false);
-			}
-		};
-		onEdit(NavigationEditEventTypes.CRITERIA_EXPANDED, onCriteriaExpanded);
-		return () => {
-			offEdit(NavigationEditEventTypes.CRITERIA_EXPANDED, onCriteriaExpanded);
-		};
-	}, [onEdit, offEdit, navigation, navigationIndicator]);
 
 	const criteria = (navigationIndicator.criteria || []);
 	const displayCriteria = [...criteria, {}];

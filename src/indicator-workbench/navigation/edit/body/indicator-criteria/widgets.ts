@@ -20,7 +20,6 @@ export const IndicatorCriteriaEditContentContainer = styled.div.attrs<{ expanded
 	display               : grid;
 	position              : absolute;
 	grid-template-columns : 1fr;
-	grid-column-gap       : 0;
 	grid-auto-rows        : calc(var(--header-height) - var(--border-width) * 2);
 	grid-row-gap          : calc(var(--border-width) * 2);
 	align-items           : center;

@@ -50,3 +50,10 @@ export interface IndicatorCriteriaDefData {
 	valueBuckets: Array<Bucket>;
 	measureBuckets: Array<Bucket>;
 }
+
+export interface IndicatorValues {
+	loaded: boolean;
+	failed: boolean;
+	current?: number;
+	previous?: number;
+}

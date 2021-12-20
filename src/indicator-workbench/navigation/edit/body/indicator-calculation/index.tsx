@@ -1,44 +1,38 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
-import {fetchNavigationIndicatorData} from '@/services/data/tuples/navigation';
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
-import {useEventBus} from '@/widgets/events/event-bus';
-import {EventTypes} from '@/widgets/events/types';
-import {SaveTime, useSavingQueue} from '@/widgets/saving-queue';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
 import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
 import {IndicatorCriteriaDefData} from '../types';
+import {Expandable, useIndicatorPartExpandable} from '../use-indicator-part-expandable';
 import {isReadyToCalculation} from '../utils';
-import {IndicatorPartRelationLine} from '../widgets';
-import {InternalIndicatorCalculation} from './internal';
-import {NavigationIndicatorData, Values} from './types';
+import {IndicatorCalculationFormula} from './formula';
+import {LineToParent} from './line-to-parent';
+import {IndicatorCalculationNodeContent} from './node-content';
+import {IndicatorCalculationNodeContainer} from './widgets';
 
-const askData = (options: {
-	fire: (type: EventTypes.INVOKE_REMOTE_REQUEST, ask: () => Promise<NavigationIndicatorData>, success: (data: NavigationIndicatorData) => void, fail: () => void) => void;
+const InternalIndicatorCalculation = (props: {
 	navigation: Navigation;
 	navigationIndicator: NavigationIndicator;
-	onData: (value: (((prevState: Values) => Values) | Values)) => void;
-	defData: IndicatorCriteriaDefData;
 }) => {
-	const {fire, navigation, navigationIndicator, onData, defData} = options;
+	const {navigation, navigationIndicator} = props;
 
-	if (!isReadyToCalculation(navigation, navigationIndicator, defData)) {
-		return () => onData({loaded: false, failed: false});
-	}
+	const {containerRef, expanded} = useIndicatorPartExpandable({
+		navigation,
+		navigationIndicator,
+		expandable: Expandable.CALCULATION
+	});
 
-	return (saveTime: SaveTime) => {
-		if (saveTime === SaveTime.UNMOUNT) {
-			return;
-		}
-		fire(EventTypes.INVOKE_REMOTE_REQUEST,
-			async () => await fetchNavigationIndicatorData(navigationIndicator, navigationIndicator),
-			({current, previous}) => {
-				onData({loaded: true, failed: false, current, previous});
-			}, () => {
-				onData({loaded: true, failed: true});
-			});
-	};
+	return <>
+		<LineToParent navigation={navigation} navigationIndicator={navigationIndicator}/>
+		<IndicatorCalculationNodeContainer ref={containerRef}>
+			<IndicatorCalculationNodeContent navigation={navigation} navigationIndicator={navigationIndicator}
+			                                 expanded={expanded}/>
+			<IndicatorCalculationFormula navigation={navigation} navigationIndicator={navigationIndicator}
+			                             expanded={expanded}/>
+		</IndicatorCalculationNodeContainer>
+	</>;
 };
 
 export const IndicatorCalculation = (props: {
@@ -49,46 +43,21 @@ export const IndicatorCalculation = (props: {
 }) => {
 	const {navigation, navigationIndicator, defData} = props;
 
-	const {fire: fireGlobal} = useEventBus();
 	const {on: onEdit, off: offEdit} = useNavigationEditEventBus();
-	const saveQueue = useSavingQueue();
-	const [values, setValues] = useState<Values>({loaded: false, failed: false});
 	const forceUpdate = useForceUpdate();
-	useEffect(() => {
-		saveQueue.replace(askData({
-			fire: fireGlobal,
-			navigation,
-			navigationIndicator,
-			onData: setValues,
-			defData
-		}), 300);
-	}, [fireGlobal, navigation, navigationIndicator, defData, defData.loaded, defData.topic, saveQueue]);
 	useEffect(() => {
 		const onIndicatorCriteriaChanged = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
 			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
 				return;
 			}
 
-			saveQueue.replace(askData({
-				fire: fireGlobal,
-				navigation,
-				navigationIndicator,
-				onData: setValues,
-				defData
-			}), 300);
+			forceUpdate();
 		};
 		const onTimeRangeChanged = (aNavigation: Navigation) => {
 			if (aNavigation !== navigation) {
 				return;
 			}
 
-			saveQueue.replace(askData({
-				fire: fireGlobal,
-				navigation,
-				navigationIndicator,
-				onData: setValues,
-				defData
-			}), 300);
 			forceUpdate();
 		};
 		onEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, onIndicatorCriteriaChanged);
@@ -101,15 +70,11 @@ export const IndicatorCalculation = (props: {
 			offEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_REMOVED, onIndicatorCriteriaChanged);
 			offEdit(NavigationEditEventTypes.TIME_RANGE_CHANGED, onTimeRangeChanged);
 		};
-	}, [fireGlobal, onEdit, offEdit, forceUpdate, navigation, navigationIndicator, defData, saveQueue]);
+	}, [onEdit, offEdit, forceUpdate, navigation, navigationIndicator]);
 
 	if (!isReadyToCalculation(navigation, navigationIndicator, defData)) {
 		return null;
 	}
 
-	return <>
-		<IndicatorPartRelationLine error={values.failed} warn={!values.loaded}/>
-		<InternalIndicatorCalculation navigation={navigation} navigationIndicator={navigationIndicator}
-		                              values={values}/>
-	</>;
+	return <InternalIndicatorCalculation navigation={navigation} navigationIndicator={navigationIndicator}/>;
 };

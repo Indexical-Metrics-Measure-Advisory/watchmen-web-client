@@ -263,7 +263,7 @@ export const IndicatorCriteriaEditor = (props: {
 			{isCriteriaArithmeticVisible(criteria)
 				? <Dropdown value={getCriteriaArithmetic(criteria)} options={arithmeticOptions}
 				            onChange={onCriteriaArithmeticChanged(criteria)}
-				            please={Lang.INDICATOR_WORKBENCH.NAVIGATION.PLEASE_SELECT_CRITERIA_ARITHMETIC}/>
+				            please={Lang.INDICATOR_WORKBENCH.NAVIGATION.PLEASE_SELECT_CRITERIA_OPERATOR}/>
 				: null}
 		</IndicatorCriteriaArithmetic>
 		<IndicatorCriteriaValue>

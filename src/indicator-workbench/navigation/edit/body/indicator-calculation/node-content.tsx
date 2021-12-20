@@ -1,22 +1,36 @@
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
 import {Lang} from '@/widgets/langs';
-import {Values} from './types';
+import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
+import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
+import {useIndicatorValues} from './use-indicator-values';
 import {computeRatio, formatToNumber} from './utils';
-import {IndicatorCalculationValue, IndicatorCalculationVariableName} from './widgets';
+import {IndicatorCalculationNode, IndicatorCalculationValue, IndicatorCalculationVariableName} from './widgets';
 
 export const IndicatorCalculationNodeContent = (props: {
 	navigation: Navigation;
 	navigationIndicator: NavigationIndicator;
-	values: Values;
+	expanded: boolean;
 }) => {
-	const {navigation, navigationIndicator, values} = props;
+	const {navigation, navigationIndicator, expanded} = props;
+
+	const {fire} = useNavigationEditEventBus();
+	const {values} = useIndicatorValues(navigation, navigationIndicator);
+
+	const onMouseEnter = () => {
+		fire(NavigationEditEventTypes.EXPAND_CALCULATION, navigation, navigationIndicator);
+	};
+	const onClicked = () => {
+		fire(NavigationEditEventTypes.EXPAND_CALCULATION, navigation, navigationIndicator);
+	};
 
 	const index = (navigation.indicators || []).indexOf(navigationIndicator) + 1;
 	const currentValue = formatToNumber(values.current);
 	const previousValue = formatToNumber(values.previous);
 	const ratio = computeRatio(values.current, values.previous);
 
-	return <>
+	return <IndicatorCalculationNode error={values.failed} warn={!values.loaded}
+	                                 onMouseEnter={onMouseEnter} onClick={onClicked}
+	                                 expanded={expanded}>
 		<IndicatorCalculationVariableName compact={true}>v{index}:</IndicatorCalculationVariableName>
 		<IndicatorCalculationVariableName>[</IndicatorCalculationVariableName>
 		<IndicatorCalculationVariableName>{Lang.INDICATOR_WORKBENCH.NAVIGATION.CURRENT_VALUE}=</IndicatorCalculationVariableName>
@@ -33,5 +47,5 @@ export const IndicatorCalculationNodeContent = (props: {
 			</>
 			: null}
 		<IndicatorCalculationVariableName>]</IndicatorCalculationVariableName>
-	</>;
+	</IndicatorCalculationNode>;
 };
