@@ -1,4 +1,4 @@
-export enum PrepareStep {
+export enum IndicatorDeclarationStep {
 	CREATE_OR_FIND = 1,
 	PICK_TOPIC,
 	MEASURE_METHODS,

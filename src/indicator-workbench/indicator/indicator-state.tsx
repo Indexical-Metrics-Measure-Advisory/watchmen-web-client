@@ -70,7 +70,7 @@ export const IndicatorState = () => {
 				onData(data);
 			} catch {
 				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
-					{Lang.INDICATOR_WORKBENCH.PREPARE.FAILED_TO_LOAD_INDICATOR}
+					{Lang.INDICATOR_WORKBENCH.INDICATOR.FAILED_TO_LOAD_INDICATOR}
 				</AlertLabel>);
 			}
 		};

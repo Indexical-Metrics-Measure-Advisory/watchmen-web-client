@@ -195,7 +195,7 @@ export const SearchText = <I extends SearchItem>(props: {
 		<SearchPopup>
 			{result.searched
 				? (result.items.length === 0
-					? <CandidateItem active={false}>{Lang.INDICATOR_WORKBENCH.PREPARE.NO_MATCHED}</CandidateItem>
+					? <CandidateItem active={false}>{Lang.INDICATOR_WORKBENCH.INDICATOR.NO_MATCHED}</CandidateItem>
 					: result.items.map((item, itemIndex) => {
 						return <CandidateItem active={itemIndex === activeItemIndex}
 						                      data-widget={`candidate-item-${itemIndex}`}
@@ -209,11 +209,11 @@ export const SearchText = <I extends SearchItem>(props: {
 					{searchText.trim().length === 0
 						? <>
 							<FontAwesomeIcon icon={ICON_WAIT_INPUT}/>
-							<span>{Lang.INDICATOR_WORKBENCH.PREPARE.WAIT_INPUT}</span>
+							<span>{Lang.INDICATOR_WORKBENCH.INDICATOR.WAIT_INPUT}</span>
 						</>
 						: <>
 							<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>
-							<span>{Lang.INDICATOR_WORKBENCH.PREPARE.SEARCHING}</span>
+							<span>{Lang.INDICATOR_WORKBENCH.INDICATOR.SEARCHING}</span>
 						</>}
 				</OnSearching>}
 		</SearchPopup>

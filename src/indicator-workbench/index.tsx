@@ -8,7 +8,7 @@ import IndicatorWorkbenchBucketsIndex from './buckets';
 import IndicatorWorkbenchInspectionIndex from './inspection';
 import {IndicatorWorkbenchMenu} from './menu';
 import IndicatorWorkbenchNavigationIndex from './nagivation';
-import IndicatorWorkbenchPrepareIndex from './prepare';
+import IndicatorWorkbenchIndicatorIndex from './indicator';
 import IndicatorWorkbenchSettingsIndex from './settings';
 
 const IndicatorWorkbenchContainer = styled.div.attrs({'data-widget': 'indicator-workbench'})`
@@ -46,7 +46,7 @@ const IndicatorWorkbenchIndex = () => {
 			{isAdmin()
 				? <Route path={Router.INDICATOR_WORKBENCH_PREPARE}>
 					<IndicatorWorkbenchMain>
-						<IndicatorWorkbenchPrepareIndex/>
+						<IndicatorWorkbenchIndicatorIndex/>
 					</IndicatorWorkbenchMain>
 				</Route> : null}
 			<Route path={Router.INDICATOR_WORKBENCH_INSPECTION}>

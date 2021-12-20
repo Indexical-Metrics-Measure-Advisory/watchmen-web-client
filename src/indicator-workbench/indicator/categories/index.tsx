@@ -2,7 +2,7 @@ import {Lang} from '@/widgets/langs';
 import {useRef} from 'react';
 import {SearchTextEventBusProvider} from '../../search-text/search-text-event-bus';
 import {EmphaticSinkingLabel, Step, StepBody, StepTitle} from '../../step-widgets';
-import {PrepareStep} from '../types';
+import {IndicatorDeclarationStep} from '../types';
 import {useConstructed} from '../use-constructed';
 import {useStep} from '../use-step';
 import {CategoryInput} from './category-input';
@@ -12,7 +12,7 @@ export const Categories = () => {
 	const ref = useRef<HTMLDivElement>(null);
 	const {constructed, setConstructed, visible, setVisible} = useConstructed(ref);
 	const {data} = useStep({
-		step: PrepareStep.CATEGORIES,
+		step: IndicatorDeclarationStep.CATEGORIES,
 		active: () => setConstructed(true),
 		done: () => setConstructed(true),
 		dropped: () => setVisible(false)
@@ -22,10 +22,10 @@ export const Categories = () => {
 		return null;
 	}
 
-	return <Step index={PrepareStep.CATEGORIES} visible={visible} ref={ref}>
+	return <Step index={IndicatorDeclarationStep.CATEGORIES} visible={visible} ref={ref}>
 		<StepTitle visible={visible}>
 			<EmphaticSinkingLabel>
-				{Lang.INDICATOR_WORKBENCH.PREPARE.CATEGORIES_TITLE}
+				{Lang.INDICATOR_WORKBENCH.INDICATOR.CATEGORIES_TITLE}
 			</EmphaticSinkingLabel>
 		</StepTitle>
 		<StepBody visible={visible}>

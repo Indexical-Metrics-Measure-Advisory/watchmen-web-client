@@ -17,7 +17,7 @@ import {Fragment, useRef} from 'react';
 import {EmphaticSinkingLabel, Step, StepBody, StepTitle} from '../../step-widgets';
 import {MeasureMethodSort} from '../../utils/sort';
 import {MeasureFactor} from '../measure-factor';
-import {PrepareStep} from '../types';
+import {IndicatorDeclarationStep} from '../types';
 import {useConstructed} from '../use-constructed';
 import {useStep} from '../use-step';
 import {
@@ -109,7 +109,7 @@ export const MeasureMethods = () => {
 	const ref = useRef<HTMLDivElement>(null);
 	const {constructed, setConstructed, visible, setVisible} = useConstructed(ref);
 	const {data} = useStep({
-		step: PrepareStep.MEASURE_METHODS,
+		step: IndicatorDeclarationStep.MEASURE_METHODS,
 		active: () => setConstructed(true),
 		done: () => setConstructed(true),
 		dropped: () => setVisible(false)
@@ -132,27 +132,27 @@ export const MeasureMethods = () => {
 
 	const geoMeasures = {
 		key: 'geo',
-		label: Lang.INDICATOR_WORKBENCH.PREPARE.GEO,
+		label: Lang.INDICATOR_WORKBENCH.INDICATOR.GEO,
 		measures: filterMeasures(isGeoMeasure)
 	};
 	const timePeriodMeasures = {
 		key: 'time-period',
-		label: Lang.INDICATOR_WORKBENCH.PREPARE.TIME_PERIOD,
+		label: Lang.INDICATOR_WORKBENCH.INDICATOR.TIME_PERIOD,
 		measures: filterMeasures(isTimePeriodMeasure)
 	};
 	const individualMeasures = {
 		key: 'individual',
-		label: Lang.INDICATOR_WORKBENCH.PREPARE.INDIVIDUAL,
+		label: Lang.INDICATOR_WORKBENCH.INDICATOR.INDIVIDUAL,
 		measures: filterMeasures(isIndividualMeasure)
 	};
 	const organizationMeasures = {
 		key: 'organization',
-		label: Lang.INDICATOR_WORKBENCH.PREPARE.ORGANIZATION,
+		label: Lang.INDICATOR_WORKBENCH.INDICATOR.ORGANIZATION,
 		measures: filterMeasures(isOrganizationMeasure)
 	};
 	const categoryMeasures = {
 		key: 'category',
-		label: Lang.INDICATOR_WORKBENCH.PREPARE.CATEGORY,
+		label: Lang.INDICATOR_WORKBENCH.INDICATOR.CATEGORY,
 		measures: filterMeasures(isCategoryMeasure)
 	};
 
@@ -161,9 +161,9 @@ export const MeasureMethods = () => {
 		: [IndicatorAggregateArithmetic.COUNT, IndicatorAggregateArithmetic.SUM, IndicatorAggregateArithmetic.AVG,
 			IndicatorAggregateArithmetic.MAX, IndicatorAggregateArithmetic.MIN];
 
-	return <Step index={PrepareStep.MEASURE_METHODS} visible={visible} ref={ref}>
+	return <Step index={IndicatorDeclarationStep.MEASURE_METHODS} visible={visible} ref={ref}>
 		<StepTitle visible={visible}>
-			<EmphaticSinkingLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.MEASURE_METHODS_TITLE}</EmphaticSinkingLabel>
+			<EmphaticSinkingLabel>{Lang.INDICATOR_WORKBENCH.INDICATOR.MEASURE_METHODS_TITLE}</EmphaticSinkingLabel>
 		</StepTitle>
 		<StepBody visible={visible}>
 			<MeasureItemsContainer>
@@ -172,7 +172,7 @@ export const MeasureMethods = () => {
 						return <MeasureItems label={label} measureFactors={measures} enums={data?.enums || []}
 						                     key={key}/>;
 					})}
-				<AggregateItems label={Lang.INDICATOR_WORKBENCH.PREPARE.AGGREGATE} aggregates={aggregates}/>
+				<AggregateItems label={Lang.INDICATOR_WORKBENCH.INDICATOR.AGGREGATE} aggregates={aggregates}/>
 			</MeasureItemsContainer>
 		</StepBody>
 	</Step>;

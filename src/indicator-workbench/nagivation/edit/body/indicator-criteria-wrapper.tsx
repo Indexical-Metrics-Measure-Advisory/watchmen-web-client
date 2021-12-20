@@ -3,7 +3,7 @@ import {Factor} from '@/services/data/tuples/factor-types';
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {isTimePeriodMeasure, tryToTransformToMeasures} from '@/services/data/tuples/indicator-utils';
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
-import {useCollapseFixedThing} from '@/widgets/basic/utils';
+import {useCollapseFixedThing, useForceUpdate} from '@/widgets/basic/utils';
 import {useEffect, useRef, useState} from 'react';
 import {v4} from 'uuid';
 import {IndicatorCriteriaEditor} from './indicator-criteria-editor';
@@ -24,6 +24,19 @@ export const IndicatorCriteriaWrapper = (props: {
 	const {on: onEdit, off: offEdit, fire: fireEdit} = useNavigationEditEventBus();
 	const [expanded, setExpanded] = useState(false);
 	useCollapseFixedThing({containerRef, visible: expanded, hide: () => setExpanded(false)});
+	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		const onIndicatorCriteriaAdded = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
+			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
+				return;
+			}
+			forceUpdate();
+		};
+		onEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, onIndicatorCriteriaAdded);
+		return () => {
+			offEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, onIndicatorCriteriaAdded);
+		};
+	});
 	useEffect(() => {
 		const onExpandCriteria = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
 			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
@@ -91,7 +104,8 @@ export const IndicatorCriteriaWrapper = (props: {
 		{displayCriteria.map((criteria, index) => {
 			return <IndicatorCriteriaEditor navigation={navigation} navigationIndicator={navigationIndicator}
 			                                criteria={criteria}
-			                                factorCandidates={criteriaFactorOptions}
+			                                indicator={indicator} factorCandidates={criteriaFactorOptions}
+			                                defData={defData}
 			                                index={index} key={v4()}/>;
 		})}
 	</IndicatorCriteriaContent>;

@@ -6,10 +6,10 @@ import {
 	ICON_BUCKETS,
 	ICON_CONSOLE,
 	ICON_DATA_QUALITY,
+	ICON_INDICATOR_INDICATOR,
 	ICON_INDICATOR_INSPECTION,
 	ICON_INDICATOR_NAVIGATION,
 	ICON_LOGOUT,
-	ICON_PREPARE_INDICATOR,
 	ICON_SETTINGS,
 	ICON_SWITCH_WORKBENCH,
 	MOCK_ACCOUNT_NAME,
@@ -139,7 +139,7 @@ export const IndicatorWorkbenchMenu = () => {
 		              showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.INDICATOR_WORKBENCH_BUCKETS)}
 		              onClick={onMenuClicked(Router.INDICATOR_WORKBENCH_BUCKETS)}/>
-		<SideMenuItem icon={ICON_PREPARE_INDICATOR} label={Lang.INDICATOR_WORKBENCH.MENU.PREPARE}
+		<SideMenuItem icon={ICON_INDICATOR_INDICATOR} label={Lang.INDICATOR_WORKBENCH.MENU.PREPARE}
 		              showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.INDICATOR_WORKBENCH_PREPARE)}
 		              onClick={onMenuClicked(Router.INDICATOR_WORKBENCH_PREPARE)}/>

@@ -11,12 +11,12 @@ export interface NavigationIndicatorCriteria {
 }
 
 /** fill when use predefined bucket */
-export interface NavigationIndicatorOnBucket extends NavigationIndicatorCriteria {
+export interface NavigationIndicatorCriteriaOnBucket extends NavigationIndicatorCriteria {
 	bucketId?: BucketId;
 	bucketSegmentName?: string;
 }
 
-export enum NavigationIndicatorOnExpressionOperator {
+export enum NavigationIndicatorCriteriaOperator {
 	EQUALS = 'equals',
 	NOT_EQUALS = 'not-equals',
 	LESS = 'less',
@@ -25,8 +25,8 @@ export enum NavigationIndicatorOnExpressionOperator {
 	MORE_EQUALS = 'more-equals',
 }
 
-export interface NavigationIndicatorOnExpression extends NavigationIndicatorCriteria {
-	operator?: NavigationIndicatorOnExpressionOperator;
+export interface NavigationIndicatorCriteriaOnExpression extends NavigationIndicatorCriteria {
+	operator?: NavigationIndicatorCriteriaOperator;
 	value?: string;
 }
 

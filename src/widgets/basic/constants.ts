@@ -217,7 +217,7 @@ export const ICON_STATISTICS = faCompass;
 export const ICON_END_USER = faChalkboardTeacher;
 
 export const ICON_BUCKETS = faShapes;
-export const ICON_PREPARE_INDICATOR = faSquarePollVertical;
+export const ICON_INDICATOR_INDICATOR = faSquarePollVertical;
 export const ICON_INDICATOR_INSPECTION = faToolbox;
 export const ICON_INDICATOR_NAVIGATION = faStreetView;
 export const ICON_TIME_GROUPING = faClock;

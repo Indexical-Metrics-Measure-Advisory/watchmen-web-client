@@ -12,7 +12,7 @@ import {ChangeEvent, useEffect, useRef, useState} from 'react';
 import {Step, StepTitle, StepTitleButton} from '../../step-widgets';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
 import {IndicatorsEventTypes} from '../indicators-event-bus-types';
-import {PrepareStep} from '../types';
+import {IndicatorDeclarationStep} from '../types';
 import {useConstructed} from '../use-constructed';
 import {useStep} from '../use-step';
 import {NameInput, SaveButton} from './widgets';
@@ -26,7 +26,7 @@ export const SaveIndicator = () => {
 	const [onEdit, setOnEdit] = useState(true);
 	const {constructed, setConstructed, visible, setVisible} = useConstructed(ref);
 	const {data, done} = useStep({
-		step: PrepareStep.SAVE_INDICATOR,
+		step: IndicatorDeclarationStep.SAVE_INDICATOR,
 		active: () => {
 			setOnEdit(true);
 			setConstructed(true);
@@ -65,7 +65,7 @@ export const SaveIndicator = () => {
 		}
 		if (data!.indicator!.name == null || data!.indicator!.name.trim().length === 0) {
 			fireGlobal(EventTypes.SHOW_ALERT,
-				<AlertLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.REQUIRE_INDICATOR_NAME}</AlertLabel>);
+				<AlertLabel>{Lang.INDICATOR_WORKBENCH.INDICATOR.REQUIRE_INDICATOR_NAME}</AlertLabel>);
 			return;
 		}
 
@@ -76,7 +76,7 @@ export const SaveIndicator = () => {
 				inputRef.current?.blur();
 				setOnEdit(false);
 				if (!done) {
-					fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.RELEVANT_INDICATORS, data);
+					fire(IndicatorsEventTypes.SWITCH_STEP, IndicatorDeclarationStep.RELEVANT_INDICATORS, data);
 				}
 			}
 			setSaving(false);
@@ -88,7 +88,7 @@ export const SaveIndicator = () => {
 
 	const isOnCreate = isFakedUuid(data.indicator);
 
-	return <Step index={PrepareStep.SAVE_INDICATOR} visible={visible} ref={ref}>
+	return <Step index={IndicatorDeclarationStep.SAVE_INDICATOR} visible={visible} ref={ref}>
 		<StepTitle visible={visible && onEdit}>
 			<NameInput value={data.indicator.name || ''} onChange={onNameChanged}
 			           placeholder={Lang.PLAIN.INDICATOR_NAME_PLACEHOLDER}
@@ -96,16 +96,16 @@ export const SaveIndicator = () => {
 			{isOnCreate
 				? null
 				: <SaveButton ink={ButtonInk.PRIMARY} onClick={onDiscardClicked}>
-					{Lang.INDICATOR_WORKBENCH.PREPARE.NOT_NOW}
+					{Lang.INDICATOR_WORKBENCH.INDICATOR.NOT_NOW}
 				</SaveButton>}
 			<SaveButton ink={ButtonInk.PRIMARY} onClick={onSaveClicked}>
 				{saving ? <FontAwesomeIcon icon={ICON_LOADING} spin={true}/> : null}
-				<span>{isOnCreate ? Lang.INDICATOR_WORKBENCH.PREPARE.SAVE_INDICATOR : Lang.INDICATOR_WORKBENCH.PREPARE.SAVE_NAME}</span>
+				<span>{isOnCreate ? Lang.INDICATOR_WORKBENCH.INDICATOR.SAVE_INDICATOR : Lang.INDICATOR_WORKBENCH.INDICATOR.SAVE_NAME}</span>
 			</SaveButton>
 		</StepTitle>
 		<StepTitle visible={visible && !onEdit}>
 			<StepTitleButton ink={ButtonInk.PRIMARY} onClick={onChangeNameClicked}>
-				{Lang.INDICATOR_WORKBENCH.PREPARE.CHANGE_NAME}
+				{Lang.INDICATOR_WORKBENCH.INDICATOR.CHANGE_NAME}
 			</StepTitleButton>
 		</StepTitle>
 	</Step>;

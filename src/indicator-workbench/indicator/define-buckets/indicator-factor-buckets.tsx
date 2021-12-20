@@ -28,7 +28,7 @@ export const IndicatorFactorBuckets = (props: { indicator: Indicator }) => {
 		return <IndicatorFactorBucketsContainer>
 			<OrderedLabel>
 				<FontAwesomeIcon icon={ICON_LIST_ICON_ASTERISK}/>
-				<span>{Lang.INDICATOR_WORKBENCH.PREPARE.INDICATOR_VALUE_BUCKET_ONLY_ON_FACTOR_LABEL}</span>
+				<span>{Lang.INDICATOR_WORKBENCH.INDICATOR.INDICATOR_VALUE_BUCKET_ONLY_ON_FACTOR_LABEL}</span>
 			</OrderedLabel>
 		</IndicatorFactorBucketsContainer>;
 	}
@@ -36,7 +36,7 @@ export const IndicatorFactorBuckets = (props: { indicator: Indicator }) => {
 	return <IndicatorFactorBucketsContainer>
 		<OrderedLabel>
 			<FontAwesomeIcon icon={ICON_LIST_ICON_ASTERISK}/>
-			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.INDICATOR_VALUE_BUCKET_LABEL}</span>
+			<span>{Lang.INDICATOR_WORKBENCH.INDICATOR.INDICATOR_VALUE_BUCKET_LABEL}</span>
 		</OrderedLabel>
 		<SearchTextEventBusProvider>
 			<LinkedIndicatorFactorBuckets indicator={indicator}/>

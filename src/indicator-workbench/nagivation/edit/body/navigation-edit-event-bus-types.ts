@@ -6,7 +6,8 @@ export enum NavigationEditEventTypes {
 	EXPAND_CRITERIA = 'expand-criteria',
 	CRITERIA_EXPANDED = 'criteria-expanded',
 
-	INDICATOR_ADDED = 'add-indicator'
+	INDICATOR_ADDED = 'indicator-added',
+	INDICATOR_CRITERIA_ADDED = 'indicator-criteria-added'
 }
 
 export interface NavigationEditEventBus {
@@ -22,7 +23,11 @@ export interface NavigationEditEventBus {
 	on(type: NavigationEditEventTypes.CRITERIA_EXPANDED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
 	off(type: NavigationEditEventTypes.CRITERIA_EXPANDED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
 
-	fire(type: NavigationEditEventTypes.INDICATOR_ADDED, navigtion: Navigation, navigationIndicator: NavigationIndicator, indicator: Indicator): this;
-	on(type: NavigationEditEventTypes.INDICATOR_ADDED, listener: (navigtion: Navigation, navigationIndicator: NavigationIndicator, indicator: Indicator) => void): this;
-	off(type: NavigationEditEventTypes.INDICATOR_ADDED, listener: (navigtion: Navigation, navigationIndicator: NavigationIndicator, indicator: Indicator) => void): this;
+	fire(type: NavigationEditEventTypes.INDICATOR_ADDED, navigation: Navigation, navigationIndicator: NavigationIndicator, indicator: Indicator): this;
+	on(type: NavigationEditEventTypes.INDICATOR_ADDED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, indicator: Indicator) => void): this;
+	off(type: NavigationEditEventTypes.INDICATOR_ADDED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, indicator: Indicator) => void): this;
+
+	fire(type: NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, navigation: Navigation, navigationIndicator: NavigationIndicator): this;
+	on(type: NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
+	off(type: NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
 }

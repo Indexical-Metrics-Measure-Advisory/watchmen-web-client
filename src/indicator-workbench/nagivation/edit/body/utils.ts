@@ -1,4 +1,6 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
+import {NavigationIndicatorCriteriaOperator} from '@/services/data/tuples/navigation-types';
+import {Lang} from '@/widgets/langs';
 import {
 	CurveRect,
 	HierarchicalIndicatorCategoryContent,
@@ -113,4 +115,13 @@ export const isCurveChanged = (curve: CurveRect, newCurve: CurveRect): boolean =
 export const computeCurvePath = (points: { startX: number; startY: number; endX: number; endY: number }): string => {
 	const {startX, startY, endX, endY} = points;
 	return `M${startX},${startY} C${endX},${startY} ${(startX)},${endY} ${endX},${endY}`;
+};
+
+export const CriteriaArithmeticLabel: Record<NavigationIndicatorCriteriaOperator, string> = {
+	[NavigationIndicatorCriteriaOperator.EQUALS]: Lang.PARAMETER.EXPRESSION_OPERATOR.EQUALS,
+	[NavigationIndicatorCriteriaOperator.NOT_EQUALS]: Lang.PARAMETER.EXPRESSION_OPERATOR.NOT_EQUALS,
+	[NavigationIndicatorCriteriaOperator.LESS]: Lang.PARAMETER.EXPRESSION_OPERATOR.LESS,
+	[NavigationIndicatorCriteriaOperator.LESS_EQUALS]: Lang.PARAMETER.EXPRESSION_OPERATOR.LESS_EQUALS,
+	[NavigationIndicatorCriteriaOperator.MORE]: Lang.PARAMETER.EXPRESSION_OPERATOR.MORE,
+	[NavigationIndicatorCriteriaOperator.MORE_EQUALS]: Lang.PARAMETER.EXPRESSION_OPERATOR.MORE_EQUALS
 };

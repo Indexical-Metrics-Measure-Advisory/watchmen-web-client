@@ -6,7 +6,7 @@ import {ChangeEvent, useRef} from 'react';
 import {EmphaticSinkingLabel, Step, StepBody, StepTitle} from '../../step-widgets';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
 import {IndicatorsEventTypes} from '../indicators-event-bus-types';
-import {PrepareStep} from '../types';
+import {IndicatorDeclarationStep} from '../types';
 import {useConstructed} from '../use-constructed';
 import {useStep} from '../use-step';
 import {DescriptionText} from './widgets';
@@ -17,7 +17,7 @@ export const Description = () => {
 	const saveQueue = useSavingQueue();
 	const {constructed, setConstructed, visible, setVisible} = useConstructed(ref);
 	const {data} = useStep({
-		step: PrepareStep.DESCRIPTION,
+		step: IndicatorDeclarationStep.DESCRIPTION,
 		active: () => setConstructed(true),
 		done: () => setConstructed(true),
 		dropped: () => setVisible(false)
@@ -44,10 +44,10 @@ export const Description = () => {
 		forceUpdate();
 	};
 
-	return <Step index={PrepareStep.DESCRIPTION} visible={visible} ref={ref}>
+	return <Step index={IndicatorDeclarationStep.DESCRIPTION} visible={visible} ref={ref}>
 		<StepTitle visible={visible}>
 			<EmphaticSinkingLabel>
-				{Lang.INDICATOR_WORKBENCH.PREPARE.DESCRIPTION_TITLE}
+				{Lang.INDICATOR_WORKBENCH.INDICATOR.DESCRIPTION_TITLE}
 			</EmphaticSinkingLabel>
 		</StepTitle>
 		<StepBody visible={visible}>

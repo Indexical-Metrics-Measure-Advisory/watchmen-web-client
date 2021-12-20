@@ -20,7 +20,7 @@ import {
 } from '../../step-widgets';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
 import {IndicatorsEventTypes} from '../indicators-event-bus-types';
-import {PrepareStep} from '../types';
+import {IndicatorDeclarationStep} from '../types';
 import {useConstructed} from '../use-constructed';
 import {useStep} from '../use-step';
 import {
@@ -41,7 +41,7 @@ export const Relevant = () => {
 	const [indicators, setIndicators] = useState<Array<Indicator>>([]);
 	const forceUpdate = useForceUpdate();
 	const {data, done} = useStep({
-		step: PrepareStep.RELEVANT_INDICATORS,
+		step: IndicatorDeclarationStep.RELEVANT_INDICATORS,
 		active: () => setConstructed(true),
 		done: () => setConstructed(true),
 		dropped: () => {
@@ -89,11 +89,11 @@ export const Relevant = () => {
 			});
 	};
 	const onIgnoreDetectClicked = () => {
-		fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.LAST_STEP, data);
+		fire(IndicatorsEventTypes.SWITCH_STEP, IndicatorDeclarationStep.LAST_STEP, data);
 	};
 
 	const relevantTypeOptions = [
-		{value: '', label: Lang.INDICATOR_WORKBENCH.PREPARE.IRRELEVANT},
+		{value: '', label: Lang.INDICATOR_WORKBENCH.INDICATOR.IRRELEVANT},
 		...[
 			RelevantIndicatorType.SAME,
 			RelevantIndicatorType.HIGH_CORRELATED, RelevantIndicatorType.WEAK_CORRELATED,
@@ -112,10 +112,10 @@ export const Relevant = () => {
 	}, {} as Record<IndicatorId, RelevantIndicator>);
 	const hasRelevantIndicator = indicators.length !== 0;
 
-	return <Step index={PrepareStep.RELEVANT_INDICATORS} visible={visible} ref={ref}>
+	return <Step index={IndicatorDeclarationStep.RELEVANT_INDICATORS} visible={visible} ref={ref}>
 		<StepTitle visible={visible}>
 			<EmphaticSinkingLabel>
-				{Lang.INDICATOR_WORKBENCH.PREPARE.RELEVANT_TITLE}
+				{Lang.INDICATOR_WORKBENCH.INDICATOR.RELEVANT_TITLE}
 			</EmphaticSinkingLabel>
 		</StepTitle>
 		<StepBody visible={visible}>
@@ -124,10 +124,10 @@ export const Relevant = () => {
 					<RelevantIndicatorsHeader>
 						<RelevantIndicatorsHeaderCell/>
 						<RelevantIndicatorsHeaderCell>
-							{Lang.INDICATOR_WORKBENCH.PREPARE.INDICATOR_NAME}
+							{Lang.INDICATOR_WORKBENCH.INDICATOR.INDICATOR_NAME}
 						</RelevantIndicatorsHeaderCell>
 						<RelevantIndicatorsHeaderCell>
-							{Lang.INDICATOR_WORKBENCH.PREPARE.INDICATOR_RELEVANT_TYPE}
+							{Lang.INDICATOR_WORKBENCH.INDICATOR.INDICATOR_RELEVANT_TYPE}
 						</RelevantIndicatorsHeaderCell>
 					</RelevantIndicatorsHeader>
 					{indicators.map((indicator, index) => {
@@ -144,19 +144,19 @@ export const Relevant = () => {
 				</RelevantIndicatorsContainer>
 				: (detected
 					? <NoRelevant>
-						{Lang.INDICATOR_WORKBENCH.PREPARE.NO_RELEVANT_DETECTED}
+						{Lang.INDICATOR_WORKBENCH.INDICATOR.NO_RELEVANT_DETECTED}
 					</NoRelevant>
 					: null)}
 			<StepBodyButtons>
 				<StepTitleButton ink={ButtonInk.PRIMARY} onClick={onDetectClicked}>
-					{Lang.INDICATOR_WORKBENCH.PREPARE.DETECT_RELEVANT}
+					{Lang.INDICATOR_WORKBENCH.INDICATOR.DETECT_RELEVANT}
 				</StepTitleButton>
 				{done
 					? null
 					: <>
-						<StepBodyConjunctionLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.OR}</StepBodyConjunctionLabel>
+						<StepBodyConjunctionLabel>{Lang.INDICATOR_WORKBENCH.INDICATOR.OR}</StepBodyConjunctionLabel>
 						<StepTitleButton ink={ButtonInk.DANGER} onClick={onIgnoreDetectClicked}>
-							{Lang.INDICATOR_WORKBENCH.PREPARE.IGNORE_DETECT_RELEVANT}
+							{Lang.INDICATOR_WORKBENCH.INDICATOR.IGNORE_DETECT_RELEVANT}
 						</StepTitleButton>
 					</>}
 			</StepBodyButtons>

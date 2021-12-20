@@ -276,7 +276,7 @@ export const Zh = {
 		},
 		LOADING: '努力加载数据...',
 		ON_EDIT: '正在编辑中, 所有未保存的数据都将丢失. 是否确定放弃编辑?',
-		PREPARE: {
+		INDICATOR: {
 			TITLE: '准备指标因子',
 			STEP: '步骤',
 			WAIT_INPUT: '等待输入...',
@@ -462,6 +462,7 @@ export const Zh = {
 			NO_INDICATOR_CRITERIA_DEFINED: '尚未定义过滤条件',
 			INDICATOR_CRITERIA_DEFINED: '个条件已定义',
 			PLEASE_SELECT_CRITERIA_FACTOR: '请选择数据因子',
+			PLEASE_SELECT_CRITERIA_ARITHMETIC: '匹配方式',
 			NO_INDICATOR_CANDIDATE: '没有更多可以选择的指标.',
 			UNCLASSIFIED_CATEGORY: '未分类',
 			LOADING_CRITERIA_DEF: '加载定义数据...'

@@ -195,14 +195,16 @@ export const IndicatorCriteriaContent = styled.div.attrs<{ expanded: boolean }>(
 	return {
 		'data-widget': 'indicator-criteria-content',
 		style: {
-			clipPath: expanded ? 'circle(150% at 0 0)' : (void 0)
+			clipPath: expanded ? 'polygon(0 -250px, 0 calc(100% + 250px), calc(100% + 200px) calc(100% + 250px), calc(100% + 200px) -250px)' : (void 0)
 		}
 	};
 })<{ expanded: boolean }>`
 	display               : grid;
 	position              : absolute;
-	grid-template-columns : 32px auto auto auto;
+	grid-template-columns : 32px minmax(200px, 250px) minmax(150px, 200px) 200px;
 	grid-column-gap       : calc(var(--margin) / 4);
+	grid-auto-rows        : calc(var(--header-height) - var(--border-width) * 2);
+	grid-row-gap          : calc(var(--border-width) * 2);
 	align-items           : center;
 	min-height            : var(--header-height);
 	top                   : calc(var(--border-width) * -2);
@@ -217,7 +219,7 @@ export const IndicatorCriteriaContent = styled.div.attrs<{ expanded: boolean }>(
 	white-space           : nowrap;
 	text-overflow         : ellipsis;
 	overflow              : hidden;
-	clip-path             : circle(0 at 0 0);
+	clip-path             : polygon(0 0, 0 0, 0 0, 0 0);
 	transition            : clip-path 300ms ease-in-out;
 	z-index               : 1;
 	&:before {
@@ -238,7 +240,12 @@ export const IndicatorCriteriaIndex = styled.span.attrs({'data-widget': 'indicat
 export const IndicatorCriteriaFactor = styled.div.attrs({})`
 `;
 export const IndicatorCriteriaArithmetic = styled.div.attrs({})`
-`
+`;
+export const IndicatorCriteriaValue = styled.div.attrs({})`
+	> * {
+		width : 100%;
+	}
+`;
 export const IndicatorCalculationNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-calculation-node'})`
 	border-color : var(--navigation-indicator-color);
 	color        : var(--navigation-indicator-color);

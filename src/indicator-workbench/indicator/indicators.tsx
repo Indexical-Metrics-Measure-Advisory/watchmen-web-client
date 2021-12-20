@@ -11,13 +11,13 @@ import {MeasureMethods} from './measure-methods';
 import {PickTopic} from './pick-topic';
 import {Relevant} from './relevant';
 import {SaveIndicator} from './save-indicator';
-import {PrepareStep} from './types';
+import {IndicatorDeclarationStep} from './types';
 import {IndicatorsContainer} from './widgets';
 
 export const Indicators = () => {
 	const {fire} = useIndicatorsEventBus();
 	useEffect(() => {
-		fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.CREATE_OR_FIND);
+		fire(IndicatorsEventTypes.SWITCH_STEP, IndicatorDeclarationStep.CREATE_OR_FIND);
 	}, [fire]);
 
 	return <IndicatorsContainer>

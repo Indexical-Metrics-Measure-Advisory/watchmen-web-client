@@ -138,7 +138,7 @@ export const MeasureBuckets = (props: { indicator: Indicator; topic?: TopicForIn
 	return <MeasureBucketsContainer>
 		<OrderedLabel>
 			<FontAwesomeIcon icon={ICON_LIST_ICON_ASTERISK}/>
-			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.MEASURE_BUCKET_LABEL}</span>
+			<span>{Lang.INDICATOR_WORKBENCH.INDICATOR.MEASURE_BUCKET_LABEL}</span>
 		</OrderedLabel>
 		{shown
 			? <>
@@ -151,11 +151,11 @@ export const MeasureBuckets = (props: { indicator: Indicator; topic?: TopicForIn
 						                             key={factor.factorId}/>;
 					})}
 				</MeasureBucketList>
-				<NoMeasureBucket>{Lang.INDICATOR_WORKBENCH.PREPARE.NO_MEASURE_BUCKET}</NoMeasureBucket>
+				<NoMeasureBucket>{Lang.INDICATOR_WORKBENCH.INDICATOR.NO_MEASURE_BUCKET}</NoMeasureBucket>
 			</>
 			: null}
 		<Button ink={ButtonInk.PRIMARY} onClick={onViewClicked}>
-			{Lang.INDICATOR_WORKBENCH.PREPARE.VIEW_MEASURE_BUCKETS}
+			{Lang.INDICATOR_WORKBENCH.INDICATOR.VIEW_MEASURE_BUCKETS}
 		</Button>
 	</MeasureBucketsContainer>;
 };

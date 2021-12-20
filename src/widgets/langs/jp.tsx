@@ -276,7 +276,7 @@ export const Jp = {
 		},
 		LOADING: 'データ読み込み中...',
 		ON_EDIT: '編集中、保存されていないデータはすべて失われます。編集を破棄しますか。',
-		PREPARE: {
+		INDICATOR: {
 			TITLE: '指標を準備',
 			STEP: 'ステップ',
 			WAIT_INPUT: '入力を待っている...',
@@ -462,6 +462,7 @@ export const Jp = {
 			NO_INDICATOR_CRITERIA_DEFINED: 'フィルタが定義されていません',
 			INDICATOR_CRITERIA_DEFINED: '個の条件が定義されて',
 			PLEASE_SELECT_CRITERIA_FACTOR: 'ファクターを選択してください',
+			PLEASE_SELECT_CRITERIA_ARITHMETIC: '一致する方法',
 			NO_INDICATOR_CANDIDATE: 'これ以上の指標を選択することができます。',
 			UNCLASSIFIED_CATEGORY: '未分類',
 			LOADING_CRITERIA_DEF: '定義データを読み込みます。'

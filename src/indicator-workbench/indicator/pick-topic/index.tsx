@@ -14,7 +14,7 @@ import {SearchTextEventTypes} from '../../search-text/search-text-event-bus-type
 import {Step, StepTitle, StepTitleButton, StepTitleButtonsRetractor} from '../../step-widgets';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
 import {IndicatorsData, IndicatorsEventTypes} from '../indicators-event-bus-types';
-import {PrepareStep} from '../types';
+import {IndicatorDeclarationStep} from '../types';
 import {useConstructed} from '../use-constructed';
 import {useStep} from '../use-step';
 import {TopicOrFactorCandidateName, TopicOrFactorCandidateUsage} from './widgets';
@@ -31,7 +31,7 @@ const TopicOrFactorCandidateItem = (props: { topic: TopicForIndicator; factor?: 
 		return <>
 			<TopicOrFactorCandidateName>{topic.name}</TopicOrFactorCandidateName>
 			<TopicOrFactorCandidateUsage>
-				{Lang.INDICATOR_WORKBENCH.PREPARE.INDICATOR_ON_TOPIC}
+				{Lang.INDICATOR_WORKBENCH.INDICATOR.INDICATOR_ON_TOPIC}
 			</TopicOrFactorCandidateUsage>
 		</>;
 	} else {
@@ -89,14 +89,14 @@ const ActivePart = (props: { data?: IndicatorsData; visible: boolean }) => {
 		data!.enums = await fetchEnumsForTopic(item.topic.topicId);
 
 		fire(IndicatorsEventTypes.PICK_TOPIC, data!, (data: IndicatorsData) => {
-			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.DEFINE_BUCKETS, data);
+			fire(IndicatorsEventTypes.SWITCH_STEP, IndicatorDeclarationStep.DEFINE_BUCKETS, data);
 		});
 	};
 
 	return <StepTitle visible={visible}>
 		<SearchText search={search} onSelectionChange={onSelectionChange}
 		            buttonFirst={true} alwaysShowSearchInput={true}
-		            openText={Lang.INDICATOR_WORKBENCH.PREPARE.PICK_TOPIC}
+		            openText={Lang.INDICATOR_WORKBENCH.INDICATOR.PICK_TOPIC}
 		            placeholder={Lang.PLAIN.FIND_TOPIC_OR_FACTOR_PLACEHOLDER}/>
 	</StepTitle>;
 };
@@ -112,7 +112,7 @@ const DonePart = (props: { data?: IndicatorsData; visible: boolean }) => {
 
 	return <StepTitle visible={visible}>
 		<StepTitleButton ink={ButtonInk.SUCCESS} asLabel={true}>
-			{Lang.INDICATOR_WORKBENCH.PREPARE.DEFINE_ON_TOPIC} [ {topicName}{factorName ? `.${factorName}` : ''} ]
+			{Lang.INDICATOR_WORKBENCH.INDICATOR.DEFINE_ON_TOPIC} [ {topicName}{factorName ? `.${factorName}` : ''} ]
 		</StepTitleButton>
 		<StepTitleButtonsRetractor/>
 	</StepTitle>;
@@ -122,7 +122,7 @@ export const PickTopic = () => {
 	const ref = useRef<HTMLDivElement>(null);
 	const {constructed, setConstructed, visible, setVisible} = useConstructed(ref);
 	const {data, active, done} = useStep({
-		step: PrepareStep.PICK_TOPIC,
+		step: IndicatorDeclarationStep.PICK_TOPIC,
 		active: () => setConstructed(true),
 		done: () => setConstructed(true),
 		dropped: () => setVisible(false)
@@ -132,7 +132,7 @@ export const PickTopic = () => {
 		return null;
 	}
 
-	return <Step index={PrepareStep.PICK_TOPIC} visible={visible} ref={ref}>
+	return <Step index={IndicatorDeclarationStep.PICK_TOPIC} visible={visible} ref={ref}>
 		<SearchTextEventBusProvider>
 			<ActivePart data={data} visible={active}/>
 		</SearchTextEventBusProvider>

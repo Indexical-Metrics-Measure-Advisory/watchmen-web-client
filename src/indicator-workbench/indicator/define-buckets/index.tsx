@@ -4,7 +4,7 @@ import {useRef} from 'react';
 import {EmphaticSinkingLabel, Step, StepBody, StepBodyButtons, StepTitle, StepTitleButton} from '../../step-widgets';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
 import {IndicatorsEventTypes} from '../indicators-event-bus-types';
-import {PrepareStep} from '../types';
+import {IndicatorDeclarationStep} from '../types';
 import {useConstructed} from '../use-constructed';
 import {useStep} from '../use-step';
 import {BucketsDef} from './buckets-def';
@@ -15,7 +15,7 @@ export const DefineBuckets = () => {
 	const {fire} = useIndicatorsEventBus();
 	const {constructed, setConstructed, visible, setVisible} = useConstructed(ref);
 	const {data, done} = useStep({
-		step: PrepareStep.DEFINE_BUCKETS,
+		step: IndicatorDeclarationStep.DEFINE_BUCKETS,
 		active: () => setConstructed(true),
 		done: () => setConstructed(true),
 		dropped: () => setVisible(false)
@@ -26,13 +26,13 @@ export const DefineBuckets = () => {
 	}
 
 	const onIgnoreDefineClicked = () => {
-		fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.SAVE_INDICATOR, data);
+		fire(IndicatorsEventTypes.SWITCH_STEP, IndicatorDeclarationStep.SAVE_INDICATOR, data);
 	};
 
 	return <BucketsEventBusProvider>
-		<Step index={PrepareStep.DEFINE_BUCKETS} visible={visible} ref={ref}>
+		<Step index={IndicatorDeclarationStep.DEFINE_BUCKETS} visible={visible} ref={ref}>
 			<StepTitle visible={visible}>
-				<EmphaticSinkingLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.DEFINE_BUCKETS_TITLE}</EmphaticSinkingLabel>
+				<EmphaticSinkingLabel>{Lang.INDICATOR_WORKBENCH.INDICATOR.DEFINE_BUCKETS_TITLE}</EmphaticSinkingLabel>
 			</StepTitle>
 			<StepBody visible={visible}>
 				{data != null ? <BucketsDef data={data}/> : null}
@@ -40,7 +40,7 @@ export const DefineBuckets = () => {
 					? null
 					: <StepBodyButtons>
 						<StepTitleButton ink={ButtonInk.DANGER} onClick={onIgnoreDefineClicked}>
-							{Lang.INDICATOR_WORKBENCH.PREPARE.IGNORE_DEFINE_BUCKETS}
+							{Lang.INDICATOR_WORKBENCH.INDICATOR.IGNORE_DEFINE_BUCKETS}
 						</StepTitleButton>
 					</StepBodyButtons>}
 			</StepBody>

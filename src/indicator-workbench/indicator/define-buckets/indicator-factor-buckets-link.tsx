@@ -62,7 +62,7 @@ export const IndicatorFactorBucketsLink = (props: { indicator: Indicator }) => {
 	};
 
 	return <SearchText search={search} onSelectionChange={onSelectionChange}
-	                   openText={Lang.INDICATOR_WORKBENCH.PREPARE.LINK_INDICATOR_VALUE_BUCKETS}
-	                   closeText={Lang.INDICATOR_WORKBENCH.PREPARE.DISCARD_LINK_INDICATOR_VALUE_BUCKETS}
+	                   openText={Lang.INDICATOR_WORKBENCH.INDICATOR.LINK_INDICATOR_VALUE_BUCKETS}
+	                   closeText={Lang.INDICATOR_WORKBENCH.INDICATOR.DISCARD_LINK_INDICATOR_VALUE_BUCKETS}
 	                   placeholder={Lang.PLAIN.FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER}/>;
 };

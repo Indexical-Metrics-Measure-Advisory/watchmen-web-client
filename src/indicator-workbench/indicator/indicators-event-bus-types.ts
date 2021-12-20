@@ -6,7 +6,7 @@ import {
 	QueryIndicatorCategoryParams,
 	TopicForIndicator
 } from '@/services/data/tuples/query-indicator-types';
-import {PrepareStep} from './types';
+import {IndicatorDeclarationStep} from './types';
 
 export interface IndicatorsData {
 	indicator?: Indicator;
@@ -31,9 +31,9 @@ export enum IndicatorsEventTypes {
 }
 
 export interface IndicatorsEventBus {
-	fire(type: IndicatorsEventTypes.SWITCH_STEP, step: PrepareStep, data?: IndicatorsData): this;
-	on(type: IndicatorsEventTypes.SWITCH_STEP, listener: (step: PrepareStep, data?: IndicatorsData) => void): this;
-	off(type: IndicatorsEventTypes.SWITCH_STEP, listener: (step: PrepareStep, data?: IndicatorsData) => void): this;
+	fire(type: IndicatorsEventTypes.SWITCH_STEP, step: IndicatorDeclarationStep, data?: IndicatorsData): this;
+	on(type: IndicatorsEventTypes.SWITCH_STEP, listener: (step: IndicatorDeclarationStep, data?: IndicatorsData) => void): this;
+	off(type: IndicatorsEventTypes.SWITCH_STEP, listener: (step: IndicatorDeclarationStep, data?: IndicatorsData) => void): this;
 
 	fire(type: IndicatorsEventTypes.CREATE_INDICATOR, onCreated: (indicator: Indicator) => void): this;
 	on(type: IndicatorsEventTypes.CREATE_INDICATOR, listener: (onCreated: (indicator: Indicator) => void) => void): this;

@@ -14,7 +14,7 @@ import {SearchTextEventTypes} from '../../search-text/search-text-event-bus-type
 import {Step, StepTitleButton, StepTitleConjunctionLabel} from '../../step-widgets';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
 import {IndicatorsData, IndicatorsEventTypes} from '../indicators-event-bus-types';
-import {PrepareStep} from '../types';
+import {IndicatorDeclarationStep} from '../types';
 import {useStep} from '../use-step';
 import {Title} from './widgets';
 
@@ -26,11 +26,11 @@ const ActivePart = () => {
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useIndicatorsEventBus();
 	const {fire: fireSearch} = useSearchTextEventBus();
-	const state = useStep({step: PrepareStep.CREATE_OR_FIND});
+	const state = useStep({step: IndicatorDeclarationStep.CREATE_OR_FIND});
 
 	const onCreateClicked = () => {
 		fire(IndicatorsEventTypes.CREATE_INDICATOR, (indicator: Indicator) => {
-			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.PICK_TOPIC, {indicator});
+			fire(IndicatorsEventTypes.SWITCH_STEP, IndicatorDeclarationStep.PICK_TOPIC, {indicator});
 			fireSearch(SearchTextEventTypes.HIDE_SEARCH);
 		});
 	};
@@ -51,19 +51,19 @@ const ActivePart = () => {
 	};
 	const onSelectionChange = async (item: IndicatorCandidate) => {
 		fire(IndicatorsEventTypes.PICK_INDICATOR, item.indicatorId, (data: IndicatorsData) => {
-			fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.LAST_STEP, data);
+			fire(IndicatorsEventTypes.SWITCH_STEP, IndicatorDeclarationStep.LAST_STEP, data);
 			fireSearch(SearchTextEventTypes.HIDE_SEARCH);
 		});
 	};
 
 	return <Title visible={state.active}>
 		<StepTitleButton ink={ButtonInk.PRIMARY} onClick={onCreateClicked}>
-			{Lang.INDICATOR_WORKBENCH.PREPARE.CREATE_INDICATOR}
+			{Lang.INDICATOR_WORKBENCH.INDICATOR.CREATE_INDICATOR}
 		</StepTitleButton>
-		<StepTitleConjunctionLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.OR}</StepTitleConjunctionLabel>
+		<StepTitleConjunctionLabel>{Lang.INDICATOR_WORKBENCH.INDICATOR.OR}</StepTitleConjunctionLabel>
 		<SearchText search={search} onSelectionChange={onSelectionChange}
-		            openText={Lang.INDICATOR_WORKBENCH.PREPARE.FIND_INDICATOR}
-		            closeText={Lang.INDICATOR_WORKBENCH.PREPARE.DISCARD_FIND_INDICATOR}
+		            openText={Lang.INDICATOR_WORKBENCH.INDICATOR.FIND_INDICATOR}
+		            closeText={Lang.INDICATOR_WORKBENCH.INDICATOR.DISCARD_FIND_INDICATOR}
 		            placeholder={Lang.PLAIN.FIND_INDICATOR_PLACEHOLDER}/>
 	</Title>;
 };
@@ -71,7 +71,7 @@ const ActivePart = () => {
 const DonePart = () => {
 	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useIndicatorsEventBus();
-	const {data, done, activeStep} = useStep({step: PrepareStep.CREATE_OR_FIND});
+	const {data, done, activeStep} = useStep({step: IndicatorDeclarationStep.CREATE_OR_FIND});
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const onIndicatorSaved = () => forceUpdate();
@@ -85,17 +85,17 @@ const DonePart = () => {
 		fireGlobal(EventTypes.SHOW_YES_NO_DIALOG,
 			Lang.INDICATOR_WORKBENCH.ON_EDIT,
 			() => {
-				fire(IndicatorsEventTypes.SWITCH_STEP, PrepareStep.CREATE_OR_FIND);
+				fire(IndicatorsEventTypes.SWITCH_STEP, IndicatorDeclarationStep.CREATE_OR_FIND);
 				fireGlobal(EventTypes.HIDE_DIALOG);
 			}, () => fireGlobal(EventTypes.HIDE_DIALOG));
 	};
 
 	const label = (() => {
 		if (data?.indicator == null || isFakedUuid(data.indicator)) {
-			return Lang.INDICATOR_WORKBENCH.PREPARE.ON_CREATE_INDICATOR;
+			return Lang.INDICATOR_WORKBENCH.INDICATOR.ON_CREATE_INDICATOR;
 		} else {
 			return <>
-				{Lang.INDICATOR_WORKBENCH.PREPARE.ON_VIEW_INDICATOR}
+				{Lang.INDICATOR_WORKBENCH.INDICATOR.ON_VIEW_INDICATOR}
 				[ {data.indicator.name} ]
 			</>;
 		}
@@ -105,11 +105,11 @@ const DonePart = () => {
 		<StepTitleButton ink={ButtonInk.SUCCESS} asLabel={true}>
 			{label}
 		</StepTitleButton>
-		{activeStep !== PrepareStep.LAST_STEP && activeStep !== PrepareStep.CREATE_OR_FIND
+		{activeStep !== IndicatorDeclarationStep.LAST_STEP && activeStep !== IndicatorDeclarationStep.CREATE_OR_FIND
 			? <>
-				<StepTitleConjunctionLabel>{Lang.INDICATOR_WORKBENCH.PREPARE.OR}</StepTitleConjunctionLabel>
+				<StepTitleConjunctionLabel>{Lang.INDICATOR_WORKBENCH.INDICATOR.OR}</StepTitleConjunctionLabel>
 				<StepTitleButton ink={ButtonInk.DANGER} onClick={onRestartClicked}>
-					{Lang.INDICATOR_WORKBENCH.PREPARE.RESTART}
+					{Lang.INDICATOR_WORKBENCH.INDICATOR.RESTART}
 				</StepTitleButton>
 			</>
 			: null}
@@ -117,7 +117,7 @@ const DonePart = () => {
 };
 
 export const CreateOrFind = () => {
-	return <Step index={PrepareStep.CREATE_OR_FIND}>
+	return <Step index={IndicatorDeclarationStep.CREATE_OR_FIND}>
 		<SearchTextEventBusProvider>
 			<ActivePart/>
 		</SearchTextEventBusProvider>

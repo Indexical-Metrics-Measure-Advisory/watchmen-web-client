@@ -74,7 +74,7 @@ export const Step = forwardRef((props: { index: number; visible?: boolean; child
 	const {index, visible = true, children} = props;
 
 	return <StepContainer visible={visible} ref={ref}>
-		<StepIndex>{Lang.INDICATOR_WORKBENCH.PREPARE.STEP} {index}.</StepIndex>
+		<StepIndex>{Lang.INDICATOR_WORKBENCH.INDICATOR.STEP} {index}.</StepIndex>
 		{children}
 		<StepBackground/>
 	</StepContainer>;

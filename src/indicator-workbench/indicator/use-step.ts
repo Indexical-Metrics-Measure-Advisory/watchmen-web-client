@@ -1,22 +1,22 @@
 import {useEffect, useState} from 'react';
 import {useIndicatorsEventBus} from './indicators-event-bus';
 import {IndicatorsData, IndicatorsEventTypes} from './indicators-event-bus-types';
-import {PrepareStep} from './types';
+import {IndicatorDeclarationStep} from './types';
 
 export interface StepState {
-	activeStep?: PrepareStep;
+	activeStep?: IndicatorDeclarationStep;
 	active: boolean;
 	done: boolean;
 	data?: IndicatorsData;
 }
 
-export const useStep = (options: { step: PrepareStep, active?: () => void, done?: () => void, dropped?: () => void }): StepState => {
+export const useStep = (options: { step: IndicatorDeclarationStep, active?: () => void, done?: () => void, dropped?: () => void }): StepState => {
 	const {step, active, done, dropped} = options;
 
 	const {on, off} = useIndicatorsEventBus();
 	const [state, setState] = useState<StepState>({active: false, done: false});
 	useEffect(() => {
-		const onSwitchStep = (toStep: PrepareStep, data?: IndicatorsData) => {
+		const onSwitchStep = (toStep: IndicatorDeclarationStep, data?: IndicatorsData) => {
 			setState({activeStep: toStep, active: toStep === step, done: step < toStep, data});
 			if (toStep === step) {
 				active && active();

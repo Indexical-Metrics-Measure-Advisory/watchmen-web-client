@@ -18,16 +18,16 @@ export const MeasureFactor = (props: { factor: Factor, enum?: EnumForIndicator }
 		use: true,
 		alignment: TooltipAlignment.CENTER,
 		tooltip: <MeasureFactorTooltip>
-			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.FACTOR}</span>
-			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.FACTOR_NAME}:</span>
+			<span>{Lang.INDICATOR_WORKBENCH.INDICATOR.FACTOR}</span>
+			<span>{Lang.INDICATOR_WORKBENCH.INDICATOR.FACTOR_NAME}:</span>
 			<span>{name}</span>
-			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.FACTOR_LABEL}:</span>
+			<span>{Lang.INDICATOR_WORKBENCH.INDICATOR.FACTOR_LABEL}:</span>
 			<span>{label}</span>
-			<span>{Lang.INDICATOR_WORKBENCH.PREPARE.FACTOR_TYPE}:</span>
+			<span>{Lang.INDICATOR_WORKBENCH.INDICATOR.FACTOR_TYPE}:</span>
 			<span><FactorTypeLabel factor={factor}/></span>
 			{enumeration != null
 				? <>
-					<span>{Lang.INDICATOR_WORKBENCH.PREPARE.FACTOR_ENUM}:</span>
+					<span>{Lang.INDICATOR_WORKBENCH.INDICATOR.FACTOR_ENUM}:</span>
 					<span>{enumeration.name}</span>
 				</>
 				: null}

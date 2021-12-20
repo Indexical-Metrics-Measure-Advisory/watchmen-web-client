@@ -276,7 +276,7 @@ export const En = {
 		},
 		LOADING: 'Loading Data...',
 		ON_EDIT: 'Still in editing, all changes will be lost if interrupt. Are you sure to continue?',
-		PREPARE: {
+		INDICATOR: {
 			TITLE: 'Prepare Indicators',
 			STEP: 'Step',
 			WAIT_INPUT: 'Waiting for input...',
@@ -462,6 +462,7 @@ export const En = {
 			NO_INDICATOR_CRITERIA_DEFINED: 'No Criteria Defined Yet',
 			INDICATOR_CRITERIA_DEFINED: 'Criteria Applied',
 			PLEASE_SELECT_CRITERIA_FACTOR: 'Please pick a factor',
+			PLEASE_SELECT_CRITERIA_ARITHMETIC: 'Arithmetic',
 			NO_INDICATOR_CANDIDATE: 'No more available indicator.',
 			UNCLASSIFIED_CATEGORY: 'Unclassified',
 			LOADING_CRITERIA_DEF: 'Loading...'
