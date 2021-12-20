@@ -71,6 +71,7 @@ export const IndicatorCalculationFormulaContainer = styled.div.attrs<{ expanded:
 	border-color          : var(--navigation-indicator-color);
 	color                 : var(--navigation-indicator-color);
 	background-color      : var(--bg-color);
+	font-size             : 1.2em;
 	clip-path             : polygon(0 0, 0 0, 100% 0, 100% 0);
 	transition            : clip-path 300ms ease-in-out;
 	z-index               : 1;
@@ -88,6 +89,7 @@ export const IndicatorCalculationFormulaContainer = styled.div.attrs<{ expanded:
 	> textarea {
 		font-size : 1em;
 		height    : calc(var(--height) * 5);
+		color     : var(--navigation-indicator-color);
 	}
 `;
 export const IndicatorCalculationFormulaLabel = styled.span.attrs({'data-widget': 'indicator-calculation-aggregation-label'})`

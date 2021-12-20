@@ -68,35 +68,35 @@ export const IndicatorCriteriaIndex = styled.span.attrs({'data-widget': 'indicat
 `;
 export const IndicatorCriteriaFactor = styled.div.attrs({'data-widget': 'indicator-criteria-factor'})`
 	> div[data-widget=dropdown] {
-		width        : 100%;
-		border-color : var(--navigation-indicator-color);
-		> div[data-widget=dropdown-options-container] {
-			border-color : var(--navigation-indicator-color);
-		}
+		width : 100%;
+		//border-color : var(--navigation-indicator-color);
+		//> div[data-widget=dropdown-options-container] {
+		//border-color : var(--navigation-indicator-color);
+		//}
 	}
 `;
 export const IndicatorCriteriaArithmetic = styled.div.attrs({'data-widget': 'indicator-criteria-arithmetic'})`
 	> div[data-widget=dropdown] {
-		width        : 100%;
-		border-color : var(--navigation-indicator-color);
-		> div[data-widget=dropdown-options-container] {
-			border-color : var(--navigation-indicator-color);
-		}
+		width : 100%;
+		//border-color : var(--navigation-indicator-color);
+		//> div[data-widget=dropdown-options-container] {
+		//	border-color : var(--navigation-indicator-color);
+		//}
 	}
 `;
 export const IndicatorCriteriaValue = styled.div.attrs({'data-widget': 'indicator-criteria-value'})`
 	> div[data-widget=dropdown] {
-		width        : 100%;
-		border-color : var(--navigation-indicator-color);
-		> div[data-widget=dropdown-options-container] {
-			border-color : var(--navigation-indicator-color);
-		}
+		width : 100%;
+		//border-color : var(--navigation-indicator-color);
+		//> div[data-widget=dropdown-options-container] {
+		//	border-color : var(--navigation-indicator-color);
+		//}
 	}
 	> input {
-		width        : 100%;
-		font-size    : 1em;
-		color        : var(--navigation-indicator-color);
-		border-color : var(--navigation-indicator-color);
+		width     : 100%;
+		font-size : 1em;
+		color     : var(--navigation-indicator-color);
+		//border-color : var(--navigation-indicator-color);
 	}
 `;
 export const IndicatorCriteriaButtons = styled.div.attrs({'data-widget': 'indicator-criteria-buttons'})`
