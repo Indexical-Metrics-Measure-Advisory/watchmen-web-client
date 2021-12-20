@@ -9,12 +9,15 @@ import {IndicatorCurve, IndicatorRootNode, IndicatorRootNodeContainer} from './w
 const IndicatorRootNodeWrapper = (props: {
 	parentId: string;
 	id: string;
-	index: number;
+	navigation: Navigation;
+	navigationIndicator: NavigationIndicator;
 	indicator?: Indicator;
 }) => {
-	const {parentId, id, index, indicator} = props;
+	const {parentId, id, navigation, navigationIndicator, indicator} = props;
 
 	const {ref, curve} = useCurve(parentId);
+
+	const index = navigation.indicators.indexOf(navigationIndicator) + 1;
 
 	return <>
 		<IndicatorRootNode id={id} error={indicator == null} ref={ref}>
@@ -36,14 +39,15 @@ export const IndicatorRoot = (props: {
 	parentId: string;
 	navigation: Navigation;
 	id: string;
-	index: number;
 	navigationIndicator: NavigationIndicator;
 	indicator?: Indicator;
 }) => {
-	const {parentId, navigation, id, index, navigationIndicator, indicator} = props;
+	const {parentId, navigation, id, navigationIndicator, indicator} = props;
 
 	return <IndicatorRootNodeContainer>
-		<IndicatorRootNodeWrapper parentId={parentId} id={id} index={index} indicator={indicator}/>
+		<IndicatorRootNodeWrapper parentId={parentId} id={id}
+		                          navigation={navigation} navigationIndicator={navigationIndicator}
+		                          indicator={indicator}/>
 		{indicator == null
 			? null
 			: <NavigationIndicatorContent navigation={navigation} navigationIndicator={navigationIndicator}

@@ -90,7 +90,7 @@ export const PickedIndicators = (props: {
 		{state.data.map((picked, index) => {
 			return <IndicatorRoot paletteId={paletteId} parentId={rootId}
 			                      navigation={navigation} navigationIndicator={picked.nav} indicator={picked.indicator}
-			                      id={picked.id} index={index + 1}
+			                      id={picked.id}
 			                      key={picked.id}/>;
 		})}
 	</>;
