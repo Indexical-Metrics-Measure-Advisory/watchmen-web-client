@@ -465,7 +465,11 @@ export const En = {
 			PLEASE_SELECT_CRITERIA_ARITHMETIC: 'Arithmetic',
 			NO_INDICATOR_CANDIDATE: 'No more available indicator.',
 			UNCLASSIFIED_CATEGORY: 'Unclassified',
-			LOADING_CRITERIA_DEF: 'Loading...'
+			LOADING_CRITERIA_DEF: 'Loading...',
+			TIME_RANGE: 'Time:',
+			TIME_RANGE_YEAR: 'By Year',
+			TIME_RANGE_MONTH: 'By Month',
+			TIME_RANGE_COMPARE_WITH_PREVIOUS: 'Compare With Previous Period:'
 		}
 	},
 	SETTINGS: {

@@ -113,6 +113,45 @@ export const NavigationRootNode = styled(NavigationBlock).attrs({'data-widget': 
 		background-color : var(--navigation-root-color);
 	}
 `;
+export const TimeRangeNodeContainer = styled.div.attrs({'data-widget': 'time-range-node-container'})`
+	display     : flex;
+	position    : relative;
+	align-items : center;
+	&:not(:last-child) {
+		margin-bottom : calc(var(--margin) / 2);
+	}
+`;
+export const TimeRangeNode = styled(NavigationBlock).attrs({'data-widget': 'time-range-node'})`
+	display               : grid;
+	grid-template-columns : repeat(5, auto);
+	grid-column-gap       : calc(var(--margin) / 4);
+	border-color          : var(--navigation-time-range-color);
+	color                 : var(--navigation-time-range-color);
+	&:before {
+		background-color : var(--navigation-time-range-color);
+	}
+	&:hover {
+		> div[data-widget=dropdown] {
+			border-color : var(--navigation-time-range-color);
+		}
+	}
+	> div[data-widget=dropdown] {
+		border-color : transparent;
+		> div[data-widget=dropdown-options-container] {
+			border-color : var(--navigation-time-range-color);
+		}
+	}
+	> div[data-widget=checkbox] {
+		border-color : var(--navigation-time-range-color);
+	}
+`;
+export const TimeRangeCurve = styled(NavigationBlockPairCurve).attrs<{ rect: CurveRect }>({
+	'data-widget': 'time-range-curve'
+})<{ rect: CurveRect }>`
+	> g > path {
+		stroke : var(--navigation-time-range-color);
+	}
+`;
 export const IndicatorCategoryContainer = styled.div.attrs({'data-widget': 'indicator-category-container'})`
 	display   : flex;
 	position  : relative;
@@ -239,22 +278,35 @@ export const IndicatorCriteriaIndex = styled.span.attrs({'data-widget': 'indicat
 `;
 export const IndicatorCriteriaFactor = styled.div.attrs({})`
 	> div[data-widget=dropdown] {
-		width : 100%;
+		width        : 100%;
+		border-color : var(--navigation-indicator-color);
+		> div[data-widget=dropdown-options-container] {
+			border-color : var(--navigation-indicator-color);
+		}
 	}
 `;
 export const IndicatorCriteriaArithmetic = styled.div.attrs({})`
 	> div[data-widget=dropdown] {
-		width : 100%;
+		width        : 100%;
+		border-color : var(--navigation-indicator-color);
+		> div[data-widget=dropdown-options-container] {
+			border-color : var(--navigation-indicator-color);
+		}
 	}
 `;
 export const IndicatorCriteriaValue = styled.div.attrs({})`
 	> div[data-widget=dropdown] {
-		width : 100%;
+		width        : 100%;
+		border-color : var(--navigation-indicator-color);
+		> div[data-widget=dropdown-options-container] {
+			border-color : var(--navigation-indicator-color);
+		}
 	}
 	> input {
-		width     : 100%;
-		font-size : 1em;
-		color     : var(--primary-color);
+		width        : 100%;
+		font-size    : 1em;
+		color        : var(--navigation-indicator-color);
+		border-color : var(--navigation-indicator-color);
 	}
 `;
 export const IndicatorCalculationNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-calculation-node'})`

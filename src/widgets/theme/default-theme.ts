@@ -160,6 +160,7 @@ const DefaultTheme = {
 
 	// navigation node color
 	navigationRootColor: 'var(--danger-color)',
+	navigationTimeRangeColor: 'rgba(174,113,109)',
 	navigationIndicatorColor: 'var(--primary-color)',
 	navigationIndicatorBgColor: color('rgb(94,119,171)').alpha(0.1).toString(),
 	navigationCategoryColor: 'var(--info-color)',

@@ -465,7 +465,11 @@ export const Jp = {
 			PLEASE_SELECT_CRITERIA_ARITHMETIC: '一致する方法',
 			NO_INDICATOR_CANDIDATE: 'これ以上の指標を選択することができます。',
 			UNCLASSIFIED_CATEGORY: '未分類',
-			LOADING_CRITERIA_DEF: '定義データを読み込みます。'
+			LOADING_CRITERIA_DEF: '定義データを読み込みます。',
+			TIME_RANGE: '時間:',
+			TIME_RANGE_YEAR: '年によって',
+			TIME_RANGE_MONTH: '月別',
+			TIME_RANGE_COMPARE_WITH_PREVIOUS: '前のサイクルと比較するかどうか:'
 		}
 	},
 	SETTINGS: {

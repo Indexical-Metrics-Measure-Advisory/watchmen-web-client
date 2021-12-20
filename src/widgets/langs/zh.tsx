@@ -465,7 +465,11 @@ export const Zh = {
 			PLEASE_SELECT_CRITERIA_ARITHMETIC: '匹配方式',
 			NO_INDICATOR_CANDIDATE: '没有更多可以选择的指标.',
 			UNCLASSIFIED_CATEGORY: '未分类',
-			LOADING_CRITERIA_DEF: '加载定义数据...'
+			LOADING_CRITERIA_DEF: '加载定义数据...',
+			TIME_RANGE: '时间:',
+			TIME_RANGE_YEAR: '按年',
+			TIME_RANGE_MONTH: '按月',
+			TIME_RANGE_COMPARE_WITH_PREVIOUS: '是否与上一个周期比较:'
 		}
 	},
 	SETTINGS: {

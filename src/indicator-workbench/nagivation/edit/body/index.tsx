@@ -9,6 +9,7 @@ import {NavigationEditEventBusProvider, useNavigationEditEventBus} from './navig
 import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {NavigationRoot} from './navigation-root';
 import {PickedIndicators} from './picked-indicators';
+import {TimeRange} from './time-range';
 import {BodyContainer, BodyPalette, PaletteColumn} from './widgets';
 
 interface Indicators {
@@ -52,6 +53,7 @@ const Palette = (props: { navigation: Navigation }) => {
 			<NavigationRoot id={rootId} navigation={navigation}/>
 		</PaletteColumn>
 		<PaletteColumn>
+			<TimeRange rootId={rootId} navigation={navigation}/>
 			<PickedIndicators rootId={rootId} paletteId={paletteId}
 			                  navigation={navigation} indicators={indicators.data}/>
 			<IndicatorCandidates paletteId={paletteId} rootId={rootId}

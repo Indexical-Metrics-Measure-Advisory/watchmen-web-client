@@ -37,10 +37,18 @@ export interface NavigationIndicator {
 	criteria: Array<NavigationIndicatorCriteria>;
 }
 
+export enum NavigationTimeRangeType {
+	YEAR = 'year',
+	MONTH = 'month'
+}
+
 export interface Navigation extends Tuple {
 	navigationId: NavigationId;
 	name: string;
 	description?: string;
+	timeRangeType: NavigationTimeRangeType;
+	timeRange?: string;
+	compareWithPreviousTimeRange: boolean;
 	indicators: Array<NavigationIndicator>;
 	tenantId?: TenantId;
 }

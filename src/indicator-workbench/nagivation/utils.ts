@@ -1,5 +1,5 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
-import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
+import {Navigation, NavigationIndicator, NavigationTimeRangeType} from '@/services/data/tuples/navigation-types';
 import {generateUuid} from '@/services/data/tuples/utils';
 import {getCurrentTime} from '@/services/data/utils';
 import {base64Encode} from '@/services/utils';
@@ -11,6 +11,9 @@ export const createNavigation = (name?: string): Navigation => {
 		navigationId,
 		name: name || `${getCurrentLanguage().PLAIN.NEW_NAVIGATION_NAME} ${base64Encode(navigationId).substr(0, 12)}`,
 		indicators: [],
+		timeRangeType: NavigationTimeRangeType.YEAR,
+		timeRange: `${new Date().getFullYear() - 1}`,
+		compareWithPreviousTimeRange: false,
 		createTime: getCurrentTime(),
 		lastModified: getCurrentTime()
 	};
