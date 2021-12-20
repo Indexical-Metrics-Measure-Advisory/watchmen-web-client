@@ -5,7 +5,7 @@ import {useEffect, useLayoutEffect, useState} from 'react';
 import {v4} from 'uuid';
 import {useNavigationEventBus} from '../../navigation-event-bus';
 import {NavigationEventTypes} from '../../navigation-event-bus-types';
-import {IndicatorRoot} from './indicator-root';
+import {PickedIndicator} from './indicator';
 import {useNavigationEditEventBus} from './navigation-edit-event-bus';
 import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {IndicatorNodeContent} from './types';
@@ -88,10 +88,11 @@ export const PickedIndicators = (props: {
 
 	return <>
 		{state.data.map((picked, index) => {
-			return <IndicatorRoot paletteId={paletteId} parentId={rootId}
-			                      navigation={navigation} navigationIndicator={picked.nav} indicator={picked.indicator}
-			                      id={picked.id}
-			                      key={picked.id}/>;
+			return <PickedIndicator paletteId={paletteId} parentId={rootId}
+			                        navigation={navigation} navigationIndicator={picked.nav}
+			                        indicator={picked.indicator}
+			                        id={picked.id}
+			                        key={picked.id}/>;
 		})}
 	</>;
 };

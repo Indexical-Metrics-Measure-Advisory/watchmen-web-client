@@ -1,35 +1,18 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {fetchNavigationIndicatorData} from '@/services/data/tuples/navigation';
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
-import {isXaNumber} from '@/services/utils';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
-import {Lang} from '@/widgets/langs';
 import {SaveTime, useSavingQueue} from '@/widgets/saving-queue';
 import {useEffect, useState} from 'react';
-import {useNavigationEditEventBus} from './navigation-edit-event-bus';
-import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
-import {IndicatorCriteriaDefData} from './types';
-import {isReadyToCalculation} from './utils';
-import {
-	IndicatorCalculationNode,
-	IndicatorCalculationValue,
-	IndicatorCalculationVariableName,
-	IndicatorPartRelationLine
-} from './widgets';
-
-interface Values {
-	loaded: boolean;
-	failed: boolean;
-	current?: number;
-	previous?: number;
-}
-
-interface NavigationIndicatorData {
-	current?: number;
-	previous?: number;
-}
+import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
+import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
+import {IndicatorCriteriaDefData} from '../types';
+import {isReadyToCalculation} from '../utils';
+import {IndicatorPartRelationLine} from '../widgets';
+import {InternalIndicatorCalculation} from './internal';
+import {NavigationIndicatorData, Values} from './types';
 
 const askData = (options: {
 	fire: (type: EventTypes.INVOKE_REMOTE_REQUEST, ask: () => Promise<NavigationIndicatorData>, success: (data: NavigationIndicatorData) => void, fail: () => void) => void;
@@ -56,22 +39,6 @@ const askData = (options: {
 				onData({loaded: true, failed: true});
 			});
 	};
-};
-
-const toNumber = (x: any): number | '' => {
-	if (x == null || !isXaNumber(x)) {
-		return '';
-	}
-	try {
-		const v = Number(x);
-		return Number.isNaN(v) ? '' : v;
-	} catch {
-		return '';
-	}
-};
-const formatToNumber = (x: any, fractionDigits: number = 2) => {
-	const v = toNumber(x);
-	return v === '' ? '' : v.toFixed(fractionDigits);
 };
 
 export const IndicatorCalculation = (props: {
@@ -140,40 +107,9 @@ export const IndicatorCalculation = (props: {
 		return null;
 	}
 
-	const index = (navigation.indicators || []).indexOf(navigationIndicator) + 1;
-	const currentValue = formatToNumber(values.current);
-	const previousValue = formatToNumber(values.previous);
-	const ratio = (() => {
-		const current = toNumber(values.current);
-		const previous = toNumber(values.previous);
-		if (current === '') {
-			return '0.00';
-		} else if (previous === '') {
-			return '100.00';
-		} else {
-			return ((current - previous) / previous * 100).toFixed(2);
-		}
-	})();
-
 	return <>
-		<IndicatorPartRelationLine/>
-		<IndicatorCalculationNode error={values.failed} warn={!values.loaded}>
-			<IndicatorCalculationVariableName compact={true}>v{index}:</IndicatorCalculationVariableName>
-			<IndicatorCalculationVariableName>[</IndicatorCalculationVariableName>
-			<IndicatorCalculationVariableName>{Lang.INDICATOR_WORKBENCH.NAVIGATION.CURRENT_VALUE}=</IndicatorCalculationVariableName>
-			<IndicatorCalculationValue>{currentValue}</IndicatorCalculationValue>
-			{navigation.compareWithPreviousTimeRange
-				? <>
-					<IndicatorCalculationVariableName compact={true}>,</IndicatorCalculationVariableName>
-					<IndicatorCalculationVariableName>{Lang.INDICATOR_WORKBENCH.NAVIGATION.PREVIOUS_VALUE}=</IndicatorCalculationVariableName>
-					<IndicatorCalculationValue>{previousValue}</IndicatorCalculationValue>
-					<IndicatorCalculationVariableName compact={true}>,</IndicatorCalculationVariableName>
-					<IndicatorCalculationVariableName>{Lang.INDICATOR_WORKBENCH.NAVIGATION.INCREMENT_RATIO}=</IndicatorCalculationVariableName>
-					<IndicatorCalculationValue>{ratio}</IndicatorCalculationValue>
-					<IndicatorCalculationValue>%</IndicatorCalculationValue>
-				</>
-				: null}
-			<IndicatorCalculationVariableName>]</IndicatorCalculationVariableName>
-		</IndicatorCalculationNode>
+		<IndicatorPartRelationLine error={values.failed} warn={!values.loaded}/>
+		<InternalIndicatorCalculation navigation={navigation} navigationIndicator={navigationIndicator}
+		                              values={values}/>
 	</>;
 };

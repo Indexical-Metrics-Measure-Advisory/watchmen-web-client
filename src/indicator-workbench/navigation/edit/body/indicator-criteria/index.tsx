@@ -1,21 +1,16 @@
-import {Bucket} from '@/services/data/tuples/bucket-types';
-import {Indicator, MeasureMethod} from '@/services/data/tuples/indicator-types';
-import {tryToTransformToMeasures} from '@/services/data/tuples/indicator-utils';
+import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
-import {QueryByBucketMethod, QueryByEnumMethod, QueryByMeasureMethod} from '@/services/data/tuples/query-bucket-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
-import {useEffect, useState} from 'react';
-import {useNavigationEventBus} from '../../navigation-event-bus';
-import {NavigationEventTypes} from '../../navigation-event-bus-types';
-import {IndicatorCalculation} from './indicator-calculation';
-import {IndicatorCriteriaWrapper} from './indicator-criteria-wrapper';
-import {useNavigationEditEventBus} from './navigation-edit-event-bus';
-import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
-import {IndicatorCriteriaDefData} from './types';
-import {isReadyToCalculation} from './utils';
-import {IndicatorCriteriaNode, IndicatorPartRelationLine} from './widgets';
+import {useEffect} from 'react';
+import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
+import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
+import {IndicatorCriteriaDefData} from '../types';
+import {isReadyToCalculation} from '../utils';
+import {IndicatorPartRelationLine} from '../widgets';
+import {IndicatorCriteriaEditContent} from './indicator-criteria-edit-content';
+import {IndicatorCriteriaNode} from './widgets';
 
 const MissedTopic = (props: { topic?: Topic }) => {
 	const {topic} = props;
@@ -52,7 +47,7 @@ const ExpressionCountLabel = (props: {
 	}
 };
 
-const IndicatorNodeWrapper = (props: {
+export const InternalIndicatorCriteria = (props: {
 	navigation: Navigation;
 	navigationIndicator: NavigationIndicator;
 	indicator: Indicator;
@@ -97,58 +92,20 @@ const IndicatorNodeWrapper = (props: {
 			<MissedTopic topic={defData.topic}/>
 			<ExpressionCountLabel navigation={navigation} navigationIndicator={navigationIndicator}
 			                      topic={defData.topic}/>
-			<IndicatorCriteriaWrapper navigation={navigation} navigationIndicator={navigationIndicator}
-			                          indicator={indicator}
-			                          defData={defData}/>
+			<IndicatorCriteriaEditContent navigation={navigation} navigationIndicator={navigationIndicator}
+			                              indicator={indicator}
+			                              defData={defData}/>
 		</IndicatorCriteriaNode>
 	</>;
 };
 
-export const NavigationIndicatorContent = (props: {
+export const IndicatorCriteria = (props: {
 	navigation: Navigation;
 	navigationIndicator: NavigationIndicator;
 	indicator: Indicator;
+	defData: IndicatorCriteriaDefData;
 }) => {
-	const {navigation, navigationIndicator, indicator} = props;
-
-	const {fire} = useNavigationEventBus();
-	const [defData, setDefData] = useState<IndicatorCriteriaDefData>({
-		loaded: false,
-		valueBuckets: [],
-		measureBuckets: []
-	});
-	useEffect(() => {
-		(async () => {
-			const [topic, valueBuckets] = await Promise.all([
-				new Promise<Topic | undefined>(resolve => {
-					fire(NavigationEventTypes.ASK_TOPIC, indicator.topicId, (topic?: Topic) => {
-						resolve(topic);
-					});
-				}),
-				new Promise<Array<Bucket>>(resolve => {
-					fire(NavigationEventTypes.ASK_VALUE_BUCKETS, indicator.valueBuckets || [], (buckets: Array<Bucket>) => {
-						resolve(buckets);
-					});
-				})
-			]);
-			if (topic != null) {
-				fire(NavigationEventTypes.ASK_MEASURE_BUCKETS, (topic.factors || []).reduce((measures, factor) => {
-					tryToTransformToMeasures(factor).forEach(method => {
-						if (method !== MeasureMethod.ENUM) {
-							measures.push({method} as QueryByMeasureMethod);
-						} else if (factor.enumId != null) {
-							measures.push({enumId: factor.enumId, method: MeasureMethod.ENUM} as QueryByEnumMethod);
-						}
-					});
-					return measures;
-				}, [] as Array<QueryByBucketMethod>), (buckets: Array<Bucket>) => {
-					setDefData({loaded: true, topic, valueBuckets, measureBuckets: buckets});
-				});
-			} else {
-				setDefData({loaded: true, topic, valueBuckets, measureBuckets: []});
-			}
-		})();
-	}, [fire, indicator]);
+	const {navigation, navigationIndicator, indicator, defData} = props;
 
 	if (!defData.loaded) {
 		return <>
@@ -159,12 +116,6 @@ export const NavigationIndicatorContent = (props: {
 		</>;
 	}
 
-	return <>
-		<IndicatorNodeWrapper navigation={navigation} navigationIndicator={navigationIndicator}
-		                      indicator={indicator}
-		                      defData={defData}/>
-		<IndicatorCalculation navigation={navigation} navigationIndicator={navigationIndicator}
-		                      indicator={indicator}
-		                      defData={defData}/>
-	</>;
+	return <InternalIndicatorCriteria navigation={navigation} navigationIndicator={navigationIndicator}
+	                                  indicator={indicator} defData={defData}/>;
 };

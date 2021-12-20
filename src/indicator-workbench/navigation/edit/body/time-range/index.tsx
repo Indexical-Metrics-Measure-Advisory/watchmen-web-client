@@ -5,12 +5,12 @@ import {Dropdown} from '@/widgets/basic/dropdown';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
-import {useNavigationEventBus} from '../../navigation-event-bus';
-import {NavigationEventTypes} from '../../navigation-event-bus-types';
-import {useNavigationEditEventBus} from './navigation-edit-event-bus';
-import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
-import {useCurve} from './use-curve';
-import {computeCurvePath} from './utils';
+import {useNavigationEventBus} from '../../../navigation-event-bus';
+import {NavigationEventTypes} from '../../../navigation-event-bus-types';
+import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
+import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
+import {useCurve} from '../use-curve';
+import {computeCurvePath} from '../utils';
 import {TimeRangeCurve, TimeRangeNode, TimeRangeNodeContainer} from './widgets';
 
 export const TimeRange = (props: { rootId: string; navigation: Navigation }) => {

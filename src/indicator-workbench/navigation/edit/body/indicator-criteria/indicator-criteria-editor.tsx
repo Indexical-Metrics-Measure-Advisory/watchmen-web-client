@@ -29,12 +29,12 @@ import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ChangeEvent} from 'react';
-import {useNavigationEventBus} from '../../navigation-event-bus';
-import {NavigationEventTypes} from '../../navigation-event-bus-types';
-import {useNavigationEditEventBus} from './navigation-edit-event-bus';
-import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
-import {IndicatorCriteriaDefData} from './types';
-import {CriteriaArithmeticLabel} from './utils';
+import {useNavigationEventBus} from '../../../navigation-event-bus';
+import {NavigationEventTypes} from '../../../navigation-event-bus-types';
+import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
+import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
+import {IndicatorCriteriaDefData} from '../types';
+import {CriteriaArithmeticLabel} from '../utils';
 import {
 	IndicatorCriteriaArithmetic,
 	IndicatorCriteriaButton,

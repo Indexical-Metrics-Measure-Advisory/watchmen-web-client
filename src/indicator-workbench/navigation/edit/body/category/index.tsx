@@ -2,11 +2,11 @@ import {Navigation} from '@/services/data/tuples/navigation-types';
 import {Lang} from '@/widgets/langs';
 import {useState} from 'react';
 import {v4} from 'uuid';
-import {IndicatorCandidateRoot} from './indicator-candidate-root';
-import {MoreIndicators} from './more-indicators';
-import {HierarchicalIndicatorCategoryContent, INDICATOR_UNCLASSIFIED, IndicatorCategoryContent} from './types';
-import {useCurve} from './use-curve';
-import {computeCurvePath} from './utils';
+import {IndicatorCandidate} from '../indicator-candidate';
+import {MoreIndicators} from '../more-indicators';
+import {HierarchicalIndicatorCategoryContent, INDICATOR_UNCLASSIFIED, IndicatorCategoryContent} from '../types';
+import {useCurve} from '../use-curve';
+import {computeCurvePath} from '../utils';
 import {
 	IndicatorCategoryColumn,
 	IndicatorCategoryContainer,
@@ -49,9 +49,9 @@ export const IndicatorCategory = (props: {
 		</IndicatorCategoryColumn>
 		<IndicatorCategoryColumn>
 			{(category.indicators || []).map(indicator => {
-				return <IndicatorCandidateRoot paletteId={paletteId} parentId={categoryId}
-				                               navigation={navigation} indicator={indicator}
-				                               key={indicator.indicatorId}/>;
+				return <IndicatorCandidate paletteId={paletteId} parentId={categoryId}
+				                           navigation={navigation} indicator={indicator}
+				                           key={indicator.indicatorId}/>;
 			})}
 			{hasSubCategories
 				? <MoreIndicators paletteId={paletteId} parentId={categoryId}

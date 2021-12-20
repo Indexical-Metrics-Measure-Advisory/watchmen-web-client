@@ -5,10 +5,10 @@ import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
 import IndicatorWorkbenchBucketsIndex from './buckets';
+import IndicatorWorkbenchIndicatorIndex from './indicator';
 import IndicatorWorkbenchInspectionIndex from './inspection';
 import {IndicatorWorkbenchMenu} from './menu';
-import IndicatorWorkbenchNavigationIndex from './nagivation';
-import IndicatorWorkbenchIndicatorIndex from './indicator';
+import IndicatorWorkbenchNavigationIndex from './navigation';
 import IndicatorWorkbenchSettingsIndex from './settings';
 
 const IndicatorWorkbenchContainer = styled.div.attrs({'data-widget': 'indicator-workbench'})`

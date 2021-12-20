@@ -37,7 +37,11 @@ const Palette = (props: { navigation: Navigation }) => {
 			const resizeObserver = new ResizeObserver(() => {
 				// must do await, or will not trigger repaint
 				// seems layout didn't finish yet
-				setTimeout(() => fireEdit(NavigationEditEventTypes.REPAINT), 100);
+				setTimeout(() => {
+					fireEdit(NavigationEditEventTypes.REPAINT);
+					// defending
+					setTimeout(() => fireEdit(NavigationEditEventTypes.REPAINT), 500);
+				}, 100);
 			});
 			resizeObserver.observe(ref.current);
 			return () => resizeObserver.disconnect();

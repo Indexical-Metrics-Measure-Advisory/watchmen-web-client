@@ -1,12 +1,12 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
 import {Lang} from '@/widgets/langs';
-import {NavigationIndicatorContent} from './indicator-content';
-import {useCurve} from './use-curve';
-import {computeCurvePath} from './utils';
-import {IndicatorCurve, IndicatorRootNode, IndicatorRootNodeContainer} from './widgets';
+import {IndicatorContent} from '../indicator-content';
+import {useCurve} from '../use-curve';
+import {computeCurvePath} from '../utils';
+import {IndicatorCurve, IndicatorNode, IndicatorNodeContainer} from './widgets';
 
-const IndicatorRootNodeWrapper = (props: {
+const InternalPickedIndicator = (props: {
 	parentId: string;
 	id: string;
 	navigation: Navigation;
@@ -20,10 +20,10 @@ const IndicatorRootNodeWrapper = (props: {
 	const index = navigation.indicators.indexOf(navigationIndicator) + 1;
 
 	return <>
-		<IndicatorRootNode id={id} error={indicator == null} ref={ref}>
+		<IndicatorNode id={id} error={indicator == null} ref={ref}>
 			<span>{index}.</span>
 			<span>{indicator == null ? Lang.INDICATOR_WORKBENCH.NAVIGATION.MISSED_INDICATOR : (indicator.name || 'Noname Indicator')}</span>
-		</IndicatorRootNode>
+		</IndicatorNode>
 		{curve == null
 			? null
 			: <IndicatorCurve rect={curve}>
@@ -34,7 +34,7 @@ const IndicatorRootNodeWrapper = (props: {
 	</>;
 };
 
-export const IndicatorRoot = (props: {
+export const PickedIndicator = (props: {
 	paletteId: string;
 	parentId: string;
 	navigation: Navigation;
@@ -44,13 +44,13 @@ export const IndicatorRoot = (props: {
 }) => {
 	const {parentId, navigation, id, navigationIndicator, indicator} = props;
 
-	return <IndicatorRootNodeContainer>
-		<IndicatorRootNodeWrapper parentId={parentId} id={id}
-		                          navigation={navigation} navigationIndicator={navigationIndicator}
-		                          indicator={indicator}/>
+	return <IndicatorNodeContainer>
+		<InternalPickedIndicator parentId={parentId} id={id}
+		                         navigation={navigation} navigationIndicator={navigationIndicator}
+		                         indicator={indicator}/>
 		{indicator == null
 			? null
-			: <NavigationIndicatorContent navigation={navigation} navigationIndicator={navigationIndicator}
-			                              indicator={indicator}/>}
-	</IndicatorRootNodeContainer>;
+			: <IndicatorContent navigation={navigation} navigationIndicator={navigationIndicator}
+			                    indicator={indicator}/>}
+	</IndicatorNodeContainer>;
 };

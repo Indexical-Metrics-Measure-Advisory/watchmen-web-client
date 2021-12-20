@@ -6,13 +6,13 @@ import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation
 import {useCollapseFixedThing, useForceUpdate} from '@/widgets/basic/utils';
 import {useEffect, useRef, useState} from 'react';
 import {v4} from 'uuid';
+import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
+import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
+import {IndicatorCriteriaDefData} from '../types';
 import {IndicatorCriteriaEditor} from './indicator-criteria-editor';
-import {useNavigationEditEventBus} from './navigation-edit-event-bus';
-import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
-import {IndicatorCriteriaDefData} from './types';
-import {IndicatorCriteriaContent} from './widgets';
+import {IndicatorCriteriaEditContentContainer} from './widgets';
 
-export const IndicatorCriteriaWrapper = (props: {
+export const IndicatorCriteriaEditContent = (props: {
 	navigation: Navigation;
 	navigationIndicator: NavigationIndicator;
 	indicator: Indicator;
@@ -102,7 +102,7 @@ export const IndicatorCriteriaWrapper = (props: {
 		};
 	});
 
-	return <IndicatorCriteriaContent expanded={expanded} ref={containerRef}>
+	return <IndicatorCriteriaEditContentContainer expanded={expanded} ref={containerRef}>
 		{displayCriteria.map((criteria, index) => {
 			return <IndicatorCriteriaEditor navigation={navigation} navigationIndicator={navigationIndicator}
 			                                criteria={criteria}
@@ -110,5 +110,5 @@ export const IndicatorCriteriaWrapper = (props: {
 			                                defData={defData}
 			                                index={index} key={v4()}/>;
 		})}
-	</IndicatorCriteriaContent>;
+	</IndicatorCriteriaEditContentContainer>;
 };

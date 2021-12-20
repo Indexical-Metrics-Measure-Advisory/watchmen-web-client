@@ -7,12 +7,12 @@ import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useEffect, useState} from 'react';
 import {v4} from 'uuid';
-import {IndicatorCategory} from './indicator-category';
-import {useNavigationEditEventBus} from './navigation-edit-event-bus';
-import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
-import {IndicatorCategoryContent} from './types';
-import {useCurve} from './use-curve';
-import {computeCurvePath} from './utils';
+import {IndicatorCategory} from '../category';
+import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
+import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
+import {IndicatorCategoryContent} from '../types';
+import {useCurve} from '../use-curve';
+import {computeCurvePath} from '../utils';
 import {
 	MoreIndicatorsColumn,
 	MoreIndicatorsContainer,
