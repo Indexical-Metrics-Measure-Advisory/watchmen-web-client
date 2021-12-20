@@ -55,7 +55,7 @@ export const Calculator = (props: {
 			onData: (values: IndicatorValues) => fireEdit(NavigationEditEventTypes.VALUES_CHANGED, navigation, navigationIndicator, values),
 			defData
 		}), 300);
-	}, [fireGlobal, navigation, navigationIndicator, defData, defData.loaded, defData.topic, saveQueue]);
+	}, [fireGlobal, fireEdit, navigation, navigationIndicator, defData, defData.loaded, defData.topic, saveQueue]);
 	useEffect(() => {
 		const onIndicatorCriteriaChanged = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
 			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
@@ -97,7 +97,7 @@ export const Calculator = (props: {
 			offEdit(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onIndicatorCriteriaChanged);
 			offEdit(NavigationEditEventTypes.TIME_RANGE_CHANGED, onTimeRangeChanged);
 		};
-	}, [fireGlobal, onEdit, offEdit, navigation, navigationIndicator, defData, saveQueue]);
+	}, [fireGlobal, onEdit, offEdit, fireEdit, navigation, navigationIndicator, defData, saveQueue]);
 
 	return <Fragment/>;
 };

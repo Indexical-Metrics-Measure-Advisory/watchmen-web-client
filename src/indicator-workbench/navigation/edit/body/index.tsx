@@ -40,7 +40,7 @@ const Palette = (props: { navigation: Navigation }) => {
 				setTimeout(() => {
 					fireEdit(NavigationEditEventTypes.REPAINT);
 					// defending
-					setTimeout(() => fireEdit(NavigationEditEventTypes.REPAINT), 500);
+					setTimeout(() => fireEdit(NavigationEditEventTypes.REPAINT), 1000);
 				}, 100);
 			});
 			resizeObserver.observe(ref.current);

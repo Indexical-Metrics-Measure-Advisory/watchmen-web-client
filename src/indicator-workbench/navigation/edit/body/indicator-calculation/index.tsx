@@ -1,3 +1,4 @@
+import {Calculator} from '@/indicator-workbench/navigation/edit/body/indicator-calculation/calculator';
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
@@ -15,8 +16,9 @@ import {IndicatorCalculationNodeContainer} from './widgets';
 const InternalIndicatorCalculation = (props: {
 	navigation: Navigation;
 	navigationIndicator: NavigationIndicator;
+	defData: IndicatorCriteriaDefData;
 }) => {
-	const {navigation, navigationIndicator} = props;
+	const {navigation, navigationIndicator, defData} = props;
 
 	const {containerRef, expanded} = useIndicatorPartExpandable({
 		navigation,
@@ -32,6 +34,7 @@ const InternalIndicatorCalculation = (props: {
 			<IndicatorCalculationFormula navigation={navigation} navigationIndicator={navigationIndicator}
 			                             expanded={expanded}/>
 		</IndicatorCalculationNodeContainer>
+		<Calculator navigation={navigation} navigationIndicator={navigationIndicator} defData={defData}/>
 	</>;
 };
 
@@ -76,5 +79,6 @@ export const IndicatorCalculation = (props: {
 		return null;
 	}
 
-	return <InternalIndicatorCalculation navigation={navigation} navigationIndicator={navigationIndicator}/>;
+	return <InternalIndicatorCalculation navigation={navigation} navigationIndicator={navigationIndicator}
+	                                     defData={defData}/>;
 };

@@ -37,7 +37,7 @@ export const useIndicatorPartExpandable = (options: {
 			off(NavigationEditEventTypes.CRITERIA_EXPANDED, onCriteriaExpanded);
 			off(NavigationEditEventTypes.CALCULATION_EXPANDED, onCalculationExpanded);
 		};
-	}, [on, off, navigation, navigationIndicator]);
+	}, [on, off, navigation, navigationIndicator, expandable]);
 	useEffect(() => {
 		const onExpandCriteria = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
 			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
