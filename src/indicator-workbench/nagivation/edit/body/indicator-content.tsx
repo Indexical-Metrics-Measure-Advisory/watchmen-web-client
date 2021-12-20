@@ -9,11 +9,12 @@ import {Lang} from '@/widgets/langs';
 import {useEffect, useState} from 'react';
 import {useNavigationEventBus} from '../../navigation-event-bus';
 import {NavigationEventTypes} from '../../navigation-event-bus-types';
+import {IndicatorCalculation} from './indicator-calculation';
 import {IndicatorCriteriaWrapper} from './indicator-criteria-wrapper';
 import {useNavigationEditEventBus} from './navigation-edit-event-bus';
 import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {IndicatorCriteriaDefData} from './types';
-import {IndicatorCalculationNode, IndicatorCriteriaNode, IndicatorPartRelationLine} from './widgets';
+import {IndicatorCriteriaNode, IndicatorPartRelationLine} from './widgets';
 
 const MissedTopic = (props: { topic?: Topic }) => {
 	const {topic} = props;
@@ -139,13 +140,8 @@ export const NavigationIndicatorContent = (props: {
 			                          indicator={indicator}
 			                          defData={defData}/>
 		</IndicatorCriteriaNode>
-		{error || warn
-			? null
-			: <>
-				<IndicatorPartRelationLine/>
-				<IndicatorCalculationNode>
-
-				</IndicatorCalculationNode>
-			</>}
+		<IndicatorCalculation navigation={navigation} navigationIndicator={navigationIndicator}
+		                      indicator={indicator}
+		                      defData={defData}/>
 	</>;
 };

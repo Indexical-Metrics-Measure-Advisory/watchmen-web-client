@@ -1,5 +1,5 @@
 import {TuplePage} from '../../query/tuple-page';
-import {Navigation, NavigationId} from '../../tuples/navigation-types';
+import {Navigation, NavigationId, NavigationIndicator} from '../../tuples/navigation-types';
 import {QueryNavigation} from '../../tuples/query-navigation-types';
 import {isFakedUuid} from '../../tuples/utils';
 import {getCurrentTime} from '../../utils';
@@ -49,5 +49,15 @@ export const saveMockNavigation = async (navigation: Navigation): Promise<void> 
 			navigation.navigationId = `${newNavigationId++}`;
 		}
 		setTimeout(() => resolve(), 500);
+	});
+};
+
+export const fetchMockNavigationIndicatorData = async (current: NavigationIndicator, previous?: NavigationIndicator): Promise<{ current?: number, previous?: number }> => {
+	return new Promise<{ current?: number, previous?: number }>(resolve => {
+		setTimeout(() => {
+			const current = 500 + Math.random() * 500;
+			const previous = current * (5 + Math.random() * 5) * 0.1;
+			resolve({current, previous});
+		}, 500);
 	});
 };

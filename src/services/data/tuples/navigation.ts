@@ -1,9 +1,14 @@
 import {findAccount} from '../../data/account';
 import {Apis, get, page, post} from '../../data/apis';
 import {isMockService} from '../../data/utils';
-import {fetchMockNavigation, listMockNavigations, saveMockNavigation} from '../mock/tuples/mock-navigation';
+import {
+	fetchMockNavigation,
+	fetchMockNavigationIndicatorData,
+	listMockNavigations,
+	saveMockNavigation
+} from '../mock/tuples/mock-navigation';
 import {TuplePage} from '../query/tuple-page';
-import {Navigation, NavigationId} from './navigation-types';
+import {Navigation, NavigationId, NavigationIndicator} from './navigation-types';
 import {QueryNavigation} from './query-navigation-types';
 import {isFakedUuid} from './utils';
 
@@ -47,5 +52,17 @@ export const saveNavigation = async (navigation: Navigation): Promise<void> => {
 		});
 		navigation.tenantId = data.tenantId;
 		navigation.lastModified = data.lastModified;
+	}
+};
+
+export const fetchNavigationIndicatorData = async (current: NavigationIndicator, previous?: NavigationIndicator): Promise<{ current?: number, previous?: number }> => {
+	if (isMockService()) {
+		return fetchMockNavigationIndicatorData(current, previous);
+	} else {
+		const {current: currentData, previous: previousData} = await post({
+			api: Apis.NAVIGATION_INDICATOR_DATA,
+			data: {current, previous}
+		});
+		return {current: currentData, previous: previousData};
 	}
 };
