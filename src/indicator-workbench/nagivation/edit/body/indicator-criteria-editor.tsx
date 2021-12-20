@@ -154,6 +154,8 @@ export const IndicatorCriteriaEditor = (props: {
 						criteria.bucketId = value as BucketId;
 						delete criteria.bucketSegmentName;
 					}
+				} else {
+					(criteria as NavigationIndicatorCriteriaOnBucket).bucketId = value as BucketId;
 				}
 				break;
 		}
@@ -164,6 +166,7 @@ export const IndicatorCriteriaEditor = (props: {
 		const {value} = event.target;
 		fire(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
 		(criteria as NavigationIndicatorCriteriaOnExpression).value = value;
+		forceUpdate();
 	};
 	const onBucketSegmentChanged = (option: DropdownOption) => {
 		(criteria as NavigationIndicatorCriteriaOnBucket).bucketSegmentName = option.value as string;

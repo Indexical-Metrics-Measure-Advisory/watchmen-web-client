@@ -4,6 +4,7 @@ import {tryToTransformToMeasures} from '@/services/data/tuples/indicator-utils';
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
 import {QueryByBucketMethod, QueryByEnumMethod, QueryByMeasureMethod} from '@/services/data/tuples/query-bucket-types';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
 import {useEffect, useState} from 'react';
 import {useNavigationEventBus} from '../../navigation-event-bus';
@@ -26,8 +27,28 @@ const MissedTopic = (props: { topic?: Topic }) => {
 	</>;
 };
 
-const ExpressionCountLabel = (props: { navigationIndicator: NavigationIndicator, topic?: Topic }) => {
-	const {navigationIndicator: {criteria = []}, topic} = props;
+const ExpressionCountLabel = (props: {
+	navigation: Navigation;
+	navigationIndicator: NavigationIndicator;
+	topic?: Topic;
+}) => {
+	const {navigation, navigationIndicator, topic} = props;
+	const {criteria = []} = navigationIndicator;
+
+	const {on, off} = useNavigationEditEventBus();
+	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		const onIndicatorCriteriaAdded = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
+			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
+				return;
+			}
+			forceUpdate();
+		};
+		on(NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, onIndicatorCriteriaAdded);
+		return () => {
+			off(NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, onIndicatorCriteriaAdded);
+		};
+	}, [on, off, forceUpdate, navigation, navigationIndicator]);
 
 	if (topic == null) {
 		return null;
@@ -112,7 +133,8 @@ export const NavigationIndicatorContent = (props: {
 		<IndicatorPartRelationLine/>
 		<IndicatorCriteriaNode error={error} warn={warn} onMouseEnter={onMouseEnter}>
 			<MissedTopic topic={defData.topic}/>
-			<ExpressionCountLabel navigationIndicator={navigationIndicator} topic={defData.topic}/>
+			<ExpressionCountLabel navigation={navigation} navigationIndicator={navigationIndicator}
+			                      topic={defData.topic}/>
 			<IndicatorCriteriaWrapper navigation={navigation} navigationIndicator={navigationIndicator}
 			                          indicator={indicator}
 			                          defData={defData}/>

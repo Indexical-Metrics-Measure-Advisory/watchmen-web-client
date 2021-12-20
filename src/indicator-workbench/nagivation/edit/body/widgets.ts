@@ -238,12 +238,23 @@ export const IndicatorCriteriaIndex = styled.span.attrs({'data-widget': 'indicat
 	font-size : 0.8em;
 `;
 export const IndicatorCriteriaFactor = styled.div.attrs({})`
+	> div[data-widget=dropdown] {
+		width : 100%;
+	}
 `;
 export const IndicatorCriteriaArithmetic = styled.div.attrs({})`
+	> div[data-widget=dropdown] {
+		width : 100%;
+	}
 `;
 export const IndicatorCriteriaValue = styled.div.attrs({})`
-	> * {
+	> div[data-widget=dropdown] {
 		width : 100%;
+	}
+	> input {
+		width     : 100%;
+		font-size : 1em;
+		color     : var(--primary-color);
 	}
 `;
 export const IndicatorCalculationNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-calculation-node'})`
