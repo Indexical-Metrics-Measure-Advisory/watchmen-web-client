@@ -469,7 +469,10 @@ export const En = {
 			TIME_RANGE: 'Time:',
 			TIME_RANGE_YEAR: 'By Year',
 			TIME_RANGE_MONTH: 'By Month',
-			TIME_RANGE_COMPARE_WITH_PREVIOUS: 'Compare With Previous Period:'
+			TIME_RANGE_COMPARE_WITH_PREVIOUS: 'Compare With Previous Period:',
+			CURRENT_VALUE: 'Current',
+			PREVIOUS_VALUE: 'Previous',
+			INCREMENT_RATIO: 'Increment'
 		}
 	},
 	SETTINGS: {

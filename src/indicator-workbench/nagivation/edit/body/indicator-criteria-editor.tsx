@@ -131,10 +131,18 @@ export const IndicatorCriteriaEditor = (props: {
 		} else {
 			// existing criteria
 			if (isNavigationIndicatorCriteriaOnExpression(criteria)) {
+				// operator and value is for all expression criteria
 				// do nothing
 			} else if (isNavigationIndicatorCriteriaOnBucket(criteria)) {
-
+				const availableBuckets = findAvailableBuckets(criteria, indicator, defData);
+				// eslint-disable-next-line
+				if (availableBuckets.every(bucket => bucket.bucketId != criteria.bucketId)) {
+					// bucket cannot be used on new factor, clear it
+					delete criteria.bucketId;
+					delete criteria.bucketSegmentName;
+				}
 			}
+			fireEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_CHANGED, navigation, navigationIndicator);
 		}
 		fire(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
 		forceUpdate();
@@ -173,17 +181,20 @@ export const IndicatorCriteriaEditor = (props: {
 				}
 				break;
 		}
+		fireEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_CHANGED, navigation, navigationIndicator);
 		fire(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
 		forceUpdate();
 	};
 	const onInputValueChanged = (event: ChangeEvent<HTMLInputElement>) => {
 		const {value} = event.target;
-		fire(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
 		(criteria as NavigationIndicatorCriteriaOnExpression).value = value;
+		fireEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_CHANGED, navigation, navigationIndicator);
+		fire(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
 		forceUpdate();
 	};
 	const onBucketSegmentChanged = (option: DropdownOption) => {
 		(criteria as NavigationIndicatorCriteriaOnBucket).bucketSegmentName = option.value as string;
+		fireEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_CHANGED, navigation, navigationIndicator);
 		fire(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
 		forceUpdate();
 	};

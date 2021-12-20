@@ -469,7 +469,10 @@ export const Zh = {
 			TIME_RANGE: '时间:',
 			TIME_RANGE_YEAR: '按年',
 			TIME_RANGE_MONTH: '按月',
-			TIME_RANGE_COMPARE_WITH_PREVIOUS: '是否与上一个周期比较:'
+			TIME_RANGE_COMPARE_WITH_PREVIOUS: '是否与上一个周期比较:',
+			CURRENT_VALUE: '本周期',
+			PREVIOUS_VALUE: '上周期',
+			INCREMENT_RATIO: '增长率'
 		}
 	},
 	SETTINGS: {

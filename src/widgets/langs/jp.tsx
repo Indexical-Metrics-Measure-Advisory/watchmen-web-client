@@ -469,7 +469,10 @@ export const Jp = {
 			TIME_RANGE: '時間:',
 			TIME_RANGE_YEAR: '年によって',
 			TIME_RANGE_MONTH: '月別',
-			TIME_RANGE_COMPARE_WITH_PREVIOUS: '前のサイクルと比較するかどうか:'
+			TIME_RANGE_COMPARE_WITH_PREVIOUS: '前のサイクルと比較するかどうか:',
+			CURRENT_VALUE: 'この',
+			PREVIOUS_VALUE: '前の',
+			INCREMENT_RATIO: '成長率'
 		}
 	},
 	SETTINGS: {

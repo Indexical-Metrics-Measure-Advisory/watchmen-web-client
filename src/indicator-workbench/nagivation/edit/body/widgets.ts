@@ -330,8 +330,8 @@ export const IndicatorCriteriaButton = styled.span.attrs({'data-widget': 'indica
 	position        : relative;
 	align-items     : center;
 	justify-content : center;
-	height          : calc(var(--height) * 0.8);
-	width           : calc(var(--height) * 0.8);
+	height          : var(--height);
+	width           : calc(var(--height) * 1.2);
 	border          : var(--border);
 	border-radius   : calc(var(--border-radius) * 2);
 	border-color    : var(--danger-color);
@@ -352,20 +352,26 @@ export const IndicatorCalculationNode = styled(NavigationBlock).attrs({'data-wid
 		background-color : var(--navigation-indicator-color);
 	}
 `;
-export const IndicatorCalculationVariableName = styled.span.attrs({'data-widget': 'indicator-calculation-variable-name'})`
+export const IndicatorCalculationVariableName = styled.span.attrs<{ compact?: boolean }>(
+	({compact = false}) => {
+		return {
+			'data-widget': 'indicator-calculation-variable-name',
+			style: {
+				paddingRight: compact ? 'calc(var(--margin) / 4)' : (void 0)
+			}
+		};
+	})<{ compact?: boolean }>`
 	display      : flex;
 	position     : relative;
 	align-items  : center;
 	font-variant : petite-caps;
-	margin-right : calc(var(--margin) / 4);
 `;
 export const IndicatorCalculationValue = styled.span.attrs({'data-widget': 'indicator-calculation-value'})`
-	display      : flex;
-	position     : relative;
-	align-items  : center;
-	margin-right : calc(var(--margin) / 4);
-	color        : var(--navigation-indicator-value-color);
-	font-weight  : var(--font-bold);
+	display     : flex;
+	position    : relative;
+	align-items : center;
+	color       : var(--navigation-indicator-value-color);
+	font-weight : var(--font-bold);
 `;
 export const IndicatorCandidateRootNode = styled(IndicatorRootNode)`
 	border-color : var(--navigation-candidate-color);

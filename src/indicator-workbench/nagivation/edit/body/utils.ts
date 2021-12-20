@@ -1,11 +1,20 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
-import {NavigationIndicatorCriteriaOperator} from '@/services/data/tuples/navigation-types';
+import {
+	Navigation,
+	NavigationIndicator,
+	NavigationIndicatorCriteriaOperator
+} from '@/services/data/tuples/navigation-types';
+import {
+	isNavigationIndicatorCriteriaOnBucket,
+	isNavigationIndicatorCriteriaOnExpression
+} from '@/services/data/tuples/navigation-utils';
 import {Lang} from '@/widgets/langs';
 import {
 	CurveRect,
 	HierarchicalIndicatorCategoryContent,
 	INDICATOR_UNCLASSIFIED,
-	IndicatorCategoryContent
+	IndicatorCategoryContent,
+	IndicatorCriteriaDefData
 } from './types';
 
 const asCategoryName = (indicator: Indicator, name: 'category1' | 'category2' | 'category3'): string => {
@@ -124,4 +133,31 @@ export const CriteriaArithmeticLabel: Record<NavigationIndicatorCriteriaOperator
 	[NavigationIndicatorCriteriaOperator.LESS_EQUALS]: Lang.PARAMETER.EXPRESSION_OPERATOR.LESS_EQUALS,
 	[NavigationIndicatorCriteriaOperator.MORE]: Lang.PARAMETER.EXPRESSION_OPERATOR.MORE,
 	[NavigationIndicatorCriteriaOperator.MORE_EQUALS]: Lang.PARAMETER.EXPRESSION_OPERATOR.MORE_EQUALS
+};
+
+export const isReadyToCalculation = (navigation: Navigation, navigationIndicator: NavigationIndicator, defData: IndicatorCriteriaDefData): boolean => {
+	if (!defData.loaded) {
+		return false;
+	}
+
+	if (defData.loaded && defData.topic == null) {
+		return false;
+	}
+
+	if ((navigationIndicator.criteria || []).length === 0) {
+		return false;
+	}
+
+	return (navigationIndicator.criteria || []).every(criteria => {
+		if (criteria.factorId == null) {
+			return false;
+		}
+		if (isNavigationIndicatorCriteriaOnBucket(criteria)) {
+			return criteria.bucketSegmentName != null;
+		} else if (isNavigationIndicatorCriteriaOnExpression(criteria)) {
+			return true;
+		}
+
+		return false;
+	});
 };

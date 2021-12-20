@@ -14,6 +14,7 @@ import {IndicatorCriteriaWrapper} from './indicator-criteria-wrapper';
 import {useNavigationEditEventBus} from './navigation-edit-event-bus';
 import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {IndicatorCriteriaDefData} from './types';
+import {isReadyToCalculation} from './utils';
 import {IndicatorCriteriaNode, IndicatorPartRelationLine} from './widgets';
 
 const MissedTopic = (props: { topic?: Topic }) => {
@@ -33,23 +34,8 @@ const ExpressionCountLabel = (props: {
 	navigationIndicator: NavigationIndicator;
 	topic?: Topic;
 }) => {
-	const {navigation, navigationIndicator, topic} = props;
+	const {navigationIndicator, topic} = props;
 	const {criteria = []} = navigationIndicator;
-
-	const {on, off} = useNavigationEditEventBus();
-	const forceUpdate = useForceUpdate();
-	useEffect(() => {
-		const onIndicatorCriteriaAdded = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
-			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
-				return;
-			}
-			forceUpdate();
-		};
-		on(NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, onIndicatorCriteriaAdded);
-		return () => {
-			off(NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, onIndicatorCriteriaAdded);
-		};
-	}, [on, off, forceUpdate, navigation, navigationIndicator]);
 
 	if (topic == null) {
 		return null;
@@ -66,6 +52,55 @@ const ExpressionCountLabel = (props: {
 	}
 };
 
+const IndicatorNodeWrapper = (props: {
+	navigation: Navigation;
+	navigationIndicator: NavigationIndicator;
+	indicator: Indicator;
+	defData: IndicatorCriteriaDefData;
+}) => {
+	const {navigation, navigationIndicator, indicator, defData} = props;
+
+	const {on, off} = useNavigationEditEventBus();
+	const {fire: fireEdit} = useNavigationEditEventBus();
+	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		const onIndicatorCriteriaChanged = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
+			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
+				return;
+			}
+			forceUpdate();
+		};
+		on(NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, onIndicatorCriteriaChanged);
+		on(NavigationEditEventTypes.INDICATOR_CRITERIA_CHANGED, onIndicatorCriteriaChanged);
+		on(NavigationEditEventTypes.INDICATOR_CRITERIA_REMOVED, onIndicatorCriteriaChanged);
+		return () => {
+			off(NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, onIndicatorCriteriaChanged);
+			off(NavigationEditEventTypes.INDICATOR_CRITERIA_CHANGED, onIndicatorCriteriaChanged);
+			off(NavigationEditEventTypes.INDICATOR_CRITERIA_REMOVED, onIndicatorCriteriaChanged);
+		};
+	}, [on, off, forceUpdate, navigation, navigationIndicator]);
+
+	const onMouseEnter = () => {
+		fireEdit(NavigationEditEventTypes.EXPAND_CRITERIA, navigation, navigationIndicator);
+	};
+	const onClicked = () => {
+		fireEdit(NavigationEditEventTypes.EXPAND_CRITERIA, navigation, navigationIndicator);
+	};
+
+	const error = defData.loaded && defData.topic == null;
+	const warn = !isReadyToCalculation(navigation, navigationIndicator, defData);
+
+	return <IndicatorCriteriaNode error={error} warn={warn}
+	                              onMouseEnter={onMouseEnter} onClick={onClicked}>
+		<MissedTopic topic={defData.topic}/>
+		<ExpressionCountLabel navigation={navigation} navigationIndicator={navigationIndicator}
+		                      topic={defData.topic}/>
+		<IndicatorCriteriaWrapper navigation={navigation} navigationIndicator={navigationIndicator}
+		                          indicator={indicator}
+		                          defData={defData}/>
+	</IndicatorCriteriaNode>;
+};
+
 export const NavigationIndicatorContent = (props: {
 	navigation: Navigation;
 	navigationIndicator: NavigationIndicator;
@@ -74,7 +109,6 @@ export const NavigationIndicatorContent = (props: {
 	const {navigation, navigationIndicator, indicator} = props;
 
 	const {fire} = useNavigationEventBus();
-	const {fire: fireEdit} = useNavigationEditEventBus();
 	const [defData, setDefData] = useState<IndicatorCriteriaDefData>({
 		loaded: false,
 		valueBuckets: [],
@@ -122,24 +156,11 @@ export const NavigationIndicatorContent = (props: {
 		</>;
 	}
 
-	const onMouseEnter = () => {
-		fireEdit(NavigationEditEventTypes.EXPAND_CRITERIA, navigation, navigationIndicator);
-	};
-
-	const error = defData.loaded && defData.topic == null;
-	const criteria = (navigationIndicator.criteria || []);
-	const warn = criteria.length === 0;
-
 	return <>
 		<IndicatorPartRelationLine/>
-		<IndicatorCriteriaNode error={error} warn={warn} onMouseEnter={onMouseEnter}>
-			<MissedTopic topic={defData.topic}/>
-			<ExpressionCountLabel navigation={navigation} navigationIndicator={navigationIndicator}
-			                      topic={defData.topic}/>
-			<IndicatorCriteriaWrapper navigation={navigation} navigationIndicator={navigationIndicator}
-			                          indicator={indicator}
-			                          defData={defData}/>
-		</IndicatorCriteriaNode>
+		<IndicatorNodeWrapper navigation={navigation} navigationIndicator={navigationIndicator}
+		                      indicator={indicator}
+		                      defData={defData}/>
 		<IndicatorCalculation navigation={navigation} navigationIndicator={navigationIndicator}
 		                      indicator={indicator}
 		                      defData={defData}/>
