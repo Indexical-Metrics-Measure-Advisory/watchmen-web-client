@@ -26,15 +26,17 @@ export const IndicatorCriteriaWrapper = (props: {
 	useCollapseFixedThing({containerRef, visible: expanded, hide: () => setExpanded(false)});
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
-		const onIndicatorCriteriaAdded = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
+		const onIndicatorCriteriaChanged = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
 			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
 				return;
 			}
 			forceUpdate();
 		};
-		onEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, onIndicatorCriteriaAdded);
+		onEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, onIndicatorCriteriaChanged);
+		onEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_REMOVED, onIndicatorCriteriaChanged);
 		return () => {
-			offEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, onIndicatorCriteriaAdded);
+			offEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, onIndicatorCriteriaChanged);
+			offEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_REMOVED, onIndicatorCriteriaChanged);
 		};
 	});
 	useEffect(() => {

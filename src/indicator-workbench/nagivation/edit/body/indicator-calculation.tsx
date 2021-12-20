@@ -1,7 +1,7 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {fetchNavigationIndicatorData} from '@/services/data/tuples/navigation';
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
-import {noop} from '@/services/utils';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {SaveTime, useSavingQueue} from '@/widgets/saving-queue';
@@ -9,10 +9,16 @@ import {useEffect, useState} from 'react';
 import {useNavigationEditEventBus} from './navigation-edit-event-bus';
 import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {IndicatorCriteriaDefData} from './types';
-import {IndicatorCalculationNode, IndicatorPartRelationLine} from './widgets';
+import {
+	IndicatorCalculationNode,
+	IndicatorCalculationValue,
+	IndicatorCalculationVariableName,
+	IndicatorPartRelationLine
+} from './widgets';
 
 interface Values {
 	loaded: boolean;
+	failed: boolean;
 	current?: number;
 	previous?: number;
 }
@@ -48,7 +54,7 @@ const askData = (options: {
 	const {fire, navigation, navigationIndicator, onData, defData} = options;
 
 	if (!isReadyToCalculation(navigation, navigationIndicator, defData)) {
-		return noop;
+		return () => onData({loaded: false, failed: false});
 	}
 
 	return (saveTime: SaveTime) => {
@@ -58,9 +64,9 @@ const askData = (options: {
 		fire(EventTypes.INVOKE_REMOTE_REQUEST,
 			async () => await fetchNavigationIndicatorData(navigationIndicator, navigationIndicator),
 			({current, previous}) => {
-				onData({loaded: true, current, previous});
+				onData({loaded: true, failed: false, current, previous});
 			}, () => {
-				onData({loaded: true});
+				onData({loaded: true, failed: true});
 			});
 	};
 };
@@ -71,12 +77,13 @@ export const IndicatorCalculation = (props: {
 	indicator: Indicator;
 	defData: IndicatorCriteriaDefData;
 }) => {
-	const {navigation, navigationIndicator, indicator, defData} = props;
+	const {navigation, navigationIndicator, defData} = props;
 
 	const {fire: fireGlobal} = useEventBus();
 	const {on: onEdit, off: offEdit} = useNavigationEditEventBus();
 	const saveQueue = useSavingQueue();
-	const [values, setValues] = useState<Values>({loaded: false});
+	const [values, setValues] = useState<Values>({loaded: false, failed: false});
+	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		saveQueue.replace(askData({
 			fire: fireGlobal,
@@ -112,6 +119,7 @@ export const IndicatorCalculation = (props: {
 				onData: setValues,
 				defData
 			}), 300);
+			forceUpdate();
 		};
 		onEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, onIndicatorCriteriaChanged);
 		onEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_CHANGED, onIndicatorCriteriaChanged);
@@ -123,16 +131,31 @@ export const IndicatorCalculation = (props: {
 			offEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_REMOVED, onIndicatorCriteriaChanged);
 			offEdit(NavigationEditEventTypes.TIME_RANGE_CHANGED, onTimeRangeChanged);
 		};
-	}, [fireGlobal, onEdit, offEdit, navigation, navigationIndicator, defData, saveQueue]);
+	}, [fireGlobal, onEdit, offEdit, forceUpdate, navigation, navigationIndicator, defData, saveQueue]);
 
 	if (!isReadyToCalculation(navigation, navigationIndicator, defData)) {
 		return null;
 	}
 
+	const index = (navigation.indicators || []).indexOf(navigationIndicator) + 1;
+	const currentValue = values.current == null ? '' : (isNaN(values.current) ? '' : values.current?.toFixed(2));
+	const previousValue = values.previous == null ? '' : (isNaN(values.previous) ? '' : values.previous?.toFixed(2));
+
 	return <>
 		<IndicatorPartRelationLine/>
-		<IndicatorCalculationNode>
-
+		<IndicatorCalculationNode error={values.failed} warn={!values.loaded}>
+			<IndicatorCalculationVariableName>v{index}:</IndicatorCalculationVariableName>
+			<IndicatorCalculationVariableName>[</IndicatorCalculationVariableName>
+			<IndicatorCalculationVariableName>current=</IndicatorCalculationVariableName>
+			<IndicatorCalculationValue>{currentValue}</IndicatorCalculationValue>
+			{navigation.compareWithPreviousTimeRange
+				? <>
+					<IndicatorCalculationVariableName>,</IndicatorCalculationVariableName>
+					<IndicatorCalculationVariableName>previous=</IndicatorCalculationVariableName>
+					<IndicatorCalculationValue>{previousValue}</IndicatorCalculationValue>
+				</>
+				: null}
+			<IndicatorCalculationVariableName>]</IndicatorCalculationVariableName>
 		</IndicatorCalculationNode>
 	</>;
 };

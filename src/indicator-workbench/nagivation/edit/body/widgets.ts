@@ -275,7 +275,7 @@ export const IndicatorCriteriaContent = styled.div.attrs<{ expanded: boolean }>(
 `;
 export const IndicatorCriteriaRow = styled.div.attrs({'data-widget': 'indicator-criteria-row'})`
 	display               : grid;
-	grid-template-columns : 32px minmax(200px, 250px) minmax(150px, 200px) 200px auto;
+	grid-template-columns : 32px 250px 220px 200px auto;
 	grid-column-gap       : calc(var(--margin) / 4);
 	align-items           : center;
 	&:hover {
@@ -330,10 +330,10 @@ export const IndicatorCriteriaButton = styled.span.attrs({'data-widget': 'indica
 	position        : relative;
 	align-items     : center;
 	justify-content : center;
-	height          : var(--height);
-	width           : var(--height);
+	height          : calc(var(--height) * 0.8);
+	width           : calc(var(--height) * 0.8);
 	border          : var(--border);
-	border-radius   : calc(var(--border-radius) * 3);
+	border-radius   : calc(var(--border-radius) * 2);
 	border-color    : var(--danger-color);
 	color           : var(--danger-color);
 	transition      : background-color 300ms ease-in-out, color 300ms ease-in-out, opacity 300ms ease-in-out;
@@ -351,6 +351,21 @@ export const IndicatorCalculationNode = styled(NavigationBlock).attrs({'data-wid
 	&:before {
 		background-color : var(--navigation-indicator-color);
 	}
+`;
+export const IndicatorCalculationVariableName = styled.span.attrs({'data-widget': 'indicator-calculation-variable-name'})`
+	display      : flex;
+	position     : relative;
+	align-items  : center;
+	font-variant : petite-caps;
+	margin-right : calc(var(--margin) / 4);
+`;
+export const IndicatorCalculationValue = styled.span.attrs({'data-widget': 'indicator-calculation-value'})`
+	display      : flex;
+	position     : relative;
+	align-items  : center;
+	margin-right : calc(var(--margin) / 4);
+	color        : var(--navigation-indicator-value-color);
+	font-weight  : var(--font-bold);
 `;
 export const IndicatorCandidateRootNode = styled(IndicatorRootNode)`
 	border-color : var(--navigation-candidate-color);

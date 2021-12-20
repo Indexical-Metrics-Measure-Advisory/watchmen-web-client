@@ -187,6 +187,16 @@ export const IndicatorCriteriaEditor = (props: {
 		fire(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
 		forceUpdate();
 	};
+	const onDeleteClicked = () => {
+		const index = (navigationIndicator.criteria || []).indexOf(criteria);
+		if (index === -1) {
+			return;
+		}
+
+		(navigationIndicator.criteria || []).splice(index, 1);
+		fireEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_REMOVED, navigation, navigationIndicator);
+		fire(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
+	};
 
 	const arithmeticOptions = [
 		...buildValueBucketOptions(criteria, indicator, defData),
@@ -229,6 +239,7 @@ export const IndicatorCriteriaEditor = (props: {
 				return [];
 			}
 		})();
+	const canBeDeleted = (navigationIndicator.criteria || []).includes(criteria);
 
 	return <IndicatorCriteriaRow>
 		<IndicatorCriteriaIndex>{index + 1}</IndicatorCriteriaIndex>
@@ -255,9 +266,11 @@ export const IndicatorCriteriaEditor = (props: {
 				: null}
 		</IndicatorCriteriaValue>
 		<IndicatorCriteriaButtons>
-			<IndicatorCriteriaButton>
-				<FontAwesomeIcon icon={ICON_DELETE}/>
-			</IndicatorCriteriaButton>
+			{canBeDeleted
+				? <IndicatorCriteriaButton onClick={onDeleteClicked}>
+					<FontAwesomeIcon icon={ICON_DELETE}/>
+				</IndicatorCriteriaButton>
+				: null}
 		</IndicatorCriteriaButtons>
 	</IndicatorCriteriaRow>;
 };
