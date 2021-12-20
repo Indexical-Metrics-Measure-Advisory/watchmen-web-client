@@ -86,7 +86,16 @@ const getCriteriaArithmetic = (criteria: NavigationIndicatorCriteria): BucketId 
 	return (void 0);
 };
 
-const useInputForValue = (criteria: NavigationIndicatorCriteria): boolean => {
+const isCriteriaArithmeticVisible = (criteria: NavigationIndicatorCriteria): boolean => {
+	return criteria.factorId != null;
+};
+const isCriteriaValueVisible = (criteria: NavigationIndicatorCriteria): boolean => {
+	return isCriteriaArithmeticVisible(criteria)
+		&& ((isNavigationIndicatorCriteriaOnBucket(criteria) && criteria.bucketId != null)
+			|| (isNavigationIndicatorCriteriaOnExpression(criteria) && criteria.operator != null));
+};
+
+const showInputForValue = (criteria: NavigationIndicatorCriteria): boolean => {
 	return !isNavigationIndicatorCriteriaOnBucket(criteria);
 };
 
@@ -201,7 +210,7 @@ export const IndicatorCriteriaEditor = (props: {
 			label: CriteriaArithmeticLabel[NavigationIndicatorCriteriaOperator.MORE_EQUALS]
 		}
 	];
-	const getBucketSegmentOptions: Array<DropdownOption> = useInputForValue(criteria)
+	const getBucketSegmentOptions: Array<DropdownOption> = showInputForValue(criteria)
 		? []
 		: (() => {
 			const bucketId = (criteria as NavigationIndicatorCriteriaOnBucket).bucketId;
@@ -224,17 +233,21 @@ export const IndicatorCriteriaEditor = (props: {
 			          please={Lang.INDICATOR_WORKBENCH.NAVIGATION.PLEASE_SELECT_CRITERIA_FACTOR}/>
 		</IndicatorCriteriaFactor>
 		<IndicatorCriteriaArithmetic>
-			<Dropdown value={getCriteriaArithmetic(criteria)} options={arithmeticOptions}
-			          onChange={onCriteriaArithmeticChanged(criteria)}
-			          please={Lang.INDICATOR_WORKBENCH.NAVIGATION.PLEASE_SELECT_CRITERIA_ARITHMETIC}/>
+			{isCriteriaArithmeticVisible(criteria)
+				? <Dropdown value={getCriteriaArithmetic(criteria)} options={arithmeticOptions}
+				            onChange={onCriteriaArithmeticChanged(criteria)}
+				            please={Lang.INDICATOR_WORKBENCH.NAVIGATION.PLEASE_SELECT_CRITERIA_ARITHMETIC}/>
+				: null}
 		</IndicatorCriteriaArithmetic>
 		<IndicatorCriteriaValue>
-			{useInputForValue(criteria)
-				? <Input value={(criteria as NavigationIndicatorCriteriaOnExpression).value || ''}
-				         onChange={onInputValueChanged}/>
-				: <Dropdown value={(criteria as NavigationIndicatorCriteriaOnBucket).bucketSegmentName}
-				            options={getBucketSegmentOptions}
-				            onChange={onBucketSegmentChanged}/>}
+			{isCriteriaValueVisible(criteria)
+				? (showInputForValue(criteria)
+					? <Input value={(criteria as NavigationIndicatorCriteriaOnExpression).value || ''}
+					         onChange={onInputValueChanged}/>
+					: <Dropdown value={(criteria as NavigationIndicatorCriteriaOnBucket).bucketSegmentName}
+					            options={getBucketSegmentOptions}
+					            onChange={onBucketSegmentChanged}/>)
+				: null}
 		</IndicatorCriteriaValue>
 	</>;
 };
