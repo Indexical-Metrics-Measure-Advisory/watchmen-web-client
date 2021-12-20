@@ -90,15 +90,18 @@ const IndicatorNodeWrapper = (props: {
 	const error = defData.loaded && defData.topic == null;
 	const warn = !isReadyToCalculation(navigation, navigationIndicator, defData);
 
-	return <IndicatorCriteriaNode error={error} warn={warn}
-	                              onMouseEnter={onMouseEnter} onClick={onClicked}>
-		<MissedTopic topic={defData.topic}/>
-		<ExpressionCountLabel navigation={navigation} navigationIndicator={navigationIndicator}
-		                      topic={defData.topic}/>
-		<IndicatorCriteriaWrapper navigation={navigation} navigationIndicator={navigationIndicator}
-		                          indicator={indicator}
-		                          defData={defData}/>
-	</IndicatorCriteriaNode>;
+	return <>
+		<IndicatorPartRelationLine error={error} warn={warn}/>
+		<IndicatorCriteriaNode error={error} warn={warn}
+		                       onMouseEnter={onMouseEnter} onClick={onClicked}>
+			<MissedTopic topic={defData.topic}/>
+			<ExpressionCountLabel navigation={navigation} navigationIndicator={navigationIndicator}
+			                      topic={defData.topic}/>
+			<IndicatorCriteriaWrapper navigation={navigation} navigationIndicator={navigationIndicator}
+			                          indicator={indicator}
+			                          defData={defData}/>
+		</IndicatorCriteriaNode>
+	</>;
 };
 
 export const NavigationIndicatorContent = (props: {
@@ -157,7 +160,6 @@ export const NavigationIndicatorContent = (props: {
 	}
 
 	return <>
-		<IndicatorPartRelationLine/>
 		<IndicatorNodeWrapper navigation={navigation} navigationIndicator={navigationIndicator}
 		                      indicator={indicator}
 		                      defData={defData}/>

@@ -105,6 +105,20 @@ export const NavigationBlockPairCurve = styled.svg.attrs<{ rect: CurveRect }>(({
 		opacity      : 0.5;
 	}
 `;
+export const NavigationBlockPairLine = styled.span.attrs<{ error?: boolean; warn?: boolean }>(
+	({error, warn}) => {
+		return {
+			'data-error': error ? 'true' : (void 0),
+			'data-warn': warn ? 'true' : (void 0)
+		};
+	})<{ error?: boolean; warn?: boolean }>`
+	&[data-warn=true] {
+		background-color : var(--warn-color);
+	}
+	&[data-error=true] {
+		background-color : var(--danger-color);
+	}
+`;
 
 export const NavigationRootNode = styled(NavigationBlock).attrs({'data-widget': 'navigation-root-node'})`
 	border-color : var(--navigation-root-color);
@@ -214,7 +228,7 @@ export const IndicatorRootNode = styled(NavigationBlock).attrs({'data-widget': '
 		margin-right : calc(var(--margin) / 4);
 	}
 `;
-export const IndicatorPartRelationLine = styled.span.attrs({'data-widget': 'indicator-part-relation-line'})`
+export const IndicatorPartRelationLine = styled(NavigationBlockPairLine).attrs({'data-widget': 'indicator-part-relation-line'})`
 	display          : block;
 	position         : relative;
 	width            : 64px;
