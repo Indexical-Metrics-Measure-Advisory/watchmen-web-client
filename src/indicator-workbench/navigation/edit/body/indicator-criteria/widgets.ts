@@ -1,5 +1,5 @@
-import {NavigationBlock} from '../widgets';
 import styled from 'styled-components';
+import {NavigationBlock} from '../widgets';
 
 export const IndicatorCriteriaNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-criteria-node'})`
 	border-color : var(--navigation-indicator-color);

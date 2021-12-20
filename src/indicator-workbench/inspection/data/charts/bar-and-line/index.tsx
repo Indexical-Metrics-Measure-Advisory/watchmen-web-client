@@ -45,7 +45,7 @@ const buildWithTimeGroupingGrowth = (params: ChartParams) => {
 				top: '68%', bottom: '5%', containLabel: true,
 				tooltip: {
 					trigger: 'item', formatter: ({name, seriesName, value, marker = ''}: any) => {
-						seriesName = legend.existing ? `, ${seriesName}`: '';
+						seriesName = legend.existing ? `, ${seriesName}` : '';
 						return `${marker}${name}${seriesName} <b>${value}%</b>`;
 					}
 				}

@@ -1,33 +1,33 @@
-import { BucketId } from "./bucket-types";
-import { FactorId } from "./factor-types";
-import { IndicatorAggregateArithmetic, IndicatorId, MeasureMethod } from "./indicator-types";
-import { TenantId } from "./tenant-types";
-import { Tuple } from "./tuple-types";
+import {BucketId} from './bucket-types';
+import {FactorId} from './factor-types';
+import {IndicatorAggregateArithmetic, IndicatorId, MeasureMethod} from './indicator-types';
+import {TenantId} from './tenant-types';
+import {Tuple} from './tuple-types';
 
 export type InspectionId = string;
 
 export enum InspectMeasureOn {
-	NONE = "none",
-	VALUE = "value",
-	OTHER = "other",
+	NONE = 'none',
+	VALUE = 'value',
+	OTHER = 'other',
 }
 
 export enum InspectionTimeRangeType {
-	YEAR = "year",
-	HALF_YEAR = "half-year",
-	QUARTER = "quarter",
-	MONTH = "month",
-	HALF_MONTH = "half-month",
-	TEN_DAYS = "ten-days",
-	WEEK_OF_YEAR = "week-of-year",
-	WEEK_OF_MONTH = "week-of-month",
-	HALF_WEEK = "half-week",
-	DAY_OF_MONTH = "day-of-month",
-	DAY_OF_WEEK = "day-of-week",
-	DAY_KIND = "day-kind",
-	HOUR = "hour",
-	HOUR_KIND = "hour-kind",
-	AM_PM = "am-pm",
+	YEAR = 'year',
+	HALF_YEAR = 'half-year',
+	QUARTER = 'quarter',
+	MONTH = 'month',
+	HALF_MONTH = 'half-month',
+	TEN_DAYS = 'ten-days',
+	WEEK_OF_YEAR = 'week-of-year',
+	WEEK_OF_MONTH = 'week-of-month',
+	HALF_WEEK = 'half-week',
+	DAY_OF_MONTH = 'day-of-month',
+	DAY_OF_WEEK = 'day-of-week',
+	DAY_KIND = 'day-kind',
+	HOUR = 'hour',
+	HOUR_KIND = 'hour-kind',
+	AM_PM = 'am-pm',
 }
 
 export interface InspectionTimeRange {

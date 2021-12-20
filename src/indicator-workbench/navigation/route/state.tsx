@@ -43,11 +43,11 @@ export const NavigationState = () => {
 		const onToEditNavigation = (navigation: Navigation) => {
 			setNavigation(navigation);
 			history.push(toNavigationEdit(navigation.navigationId));
-		}
+		};
 		on(NavigationEventTypes.TO_EDIT_NAVIGATION, onToEditNavigation);
 		return () => {
 			off(NavigationEventTypes.TO_EDIT_NAVIGATION, onToEditNavigation);
-		}
+		};
 	}, [on, off, fire, history]);
 	useEffect(() => {
 		const onAskNavigation = (onData: (navigation?: Navigation) => void) => {
