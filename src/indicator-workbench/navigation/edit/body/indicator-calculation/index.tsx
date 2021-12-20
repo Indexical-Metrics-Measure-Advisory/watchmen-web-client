@@ -1,13 +1,12 @@
-import {Calculator} from '@/indicator-workbench/navigation/edit/body/indicator-calculation/calculator';
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
-import {useForceUpdate} from '@/widgets/basic/utils';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
 import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
 import {IndicatorCriteriaDefData} from '../types';
 import {Expandable, useIndicatorPartExpandable} from '../use-indicator-part-expandable';
 import {isReadyToCalculation} from '../utils';
+import {Calculator} from './calculator';
 import {IndicatorCalculationFormula} from './formula';
 import {LineToParent} from './line-to-parent';
 import {IndicatorCalculationNodeContent} from './node-content';
@@ -47,21 +46,27 @@ export const IndicatorCalculation = (props: {
 	const {navigation, navigationIndicator, defData} = props;
 
 	const {on: onEdit, off: offEdit} = useNavigationEditEventBus();
-	const forceUpdate = useForceUpdate();
+	const [ready, setReady] = useState(isReadyToCalculation(navigation, navigationIndicator, defData));
 	useEffect(() => {
 		const onIndicatorCriteriaChanged = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
 			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
 				return;
 			}
 
-			forceUpdate();
+			const newReady = isReadyToCalculation(navigation, navigationIndicator, defData);
+			if (newReady !== ready) {
+				setReady(newReady);
+			}
 		};
 		const onTimeRangeChanged = (aNavigation: Navigation) => {
 			if (aNavigation !== navigation) {
 				return;
 			}
 
-			forceUpdate();
+			const newReady = isReadyToCalculation(navigation, navigationIndicator, defData);
+			if (newReady !== ready) {
+				setReady(newReady);
+			}
 		};
 		onEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, onIndicatorCriteriaChanged);
 		onEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_CHANGED, onIndicatorCriteriaChanged);
@@ -73,9 +78,9 @@ export const IndicatorCalculation = (props: {
 			offEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_REMOVED, onIndicatorCriteriaChanged);
 			offEdit(NavigationEditEventTypes.TIME_RANGE_CHANGED, onTimeRangeChanged);
 		};
-	}, [onEdit, offEdit, forceUpdate, navigation, navigationIndicator]);
+	}, [onEdit, offEdit, navigation, navigationIndicator, ready]);
 
-	if (!isReadyToCalculation(navigation, navigationIndicator, defData)) {
+	if (!ready) {
 		return null;
 	}
 
