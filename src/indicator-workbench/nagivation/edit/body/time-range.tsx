@@ -7,6 +7,8 @@ import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
 import {useNavigationEventBus} from '../../navigation-event-bus';
 import {NavigationEventTypes} from '../../navigation-event-bus-types';
+import {useNavigationEditEventBus} from './navigation-edit-event-bus';
+import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {useCurve} from './use-curve';
 import {computeCurvePath} from './utils';
 import {TimeRangeCurve, TimeRangeNode, TimeRangeNodeContainer} from './widgets';
@@ -15,6 +17,7 @@ export const TimeRange = (props: { rootId: string; navigation: Navigation }) => 
 	const {rootId, navigation} = props;
 
 	const {fire} = useNavigationEventBus();
+	const {fire: fireEdit} = useNavigationEditEventBus();
 	const forceUpdate = useForceUpdate();
 	const {ref, curve} = useCurve(rootId);
 
@@ -32,16 +35,19 @@ export const TimeRange = (props: { rootId: string; navigation: Navigation }) => 
 			navigation.timeRange = '1';
 		}
 		forceUpdate();
+		fireEdit(NavigationEditEventTypes.TIME_RANGE_CHANGED, navigation);
 		fire(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
 	};
 	const onTimeRangeChanged = (option: DropdownOption) => {
 		navigation.timeRange = option.value as string;
 		forceUpdate();
+		fireEdit(NavigationEditEventTypes.TIME_RANGE_CHANGED, navigation);
 		fire(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
 	};
 	const onCompareWithChanged = (value: boolean) => {
 		navigation.compareWithPreviousTimeRange = value;
 		forceUpdate();
+		fireEdit(NavigationEditEventTypes.TIME_RANGE_CHANGED, navigation);
 		fire(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
 	};
 
