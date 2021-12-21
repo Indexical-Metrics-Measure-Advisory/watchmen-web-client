@@ -49,7 +49,7 @@ export const IndicatorCalculationFormulaContainer = styled.div.attrs<{ expanded:
 		return {
 			'data-widget': 'indicator-calculation-formula',
 			style: {
-				clipPath: expanded ? 'polygon(0 0, 0 calc(100% + 250px), 100% calc(100% + 250px), 100% 0)' : (void 0)
+				clipPath: expanded ? 'polygon(-1px 0, -1px calc(100% + 250px), 100% calc(100% + 250px), 100% 0)' : (void 0)
 			}
 		};
 	})<{ expanded: boolean }>`
