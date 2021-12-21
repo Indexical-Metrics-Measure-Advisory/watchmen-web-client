@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import {NavigationBlock} from '../widgets';
 
+export const IndicatorCriteriaNodeContainer = styled.div.attrs({'data-widget': 'indicator-criteria-node-container'})`
+	display  : block;
+	position : relative;
+`;
 export const IndicatorCriteriaNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-criteria-node'})`
 	border-color : var(--navigation-indicator-color);
 	color        : var(--navigation-indicator-color);
@@ -24,8 +28,8 @@ export const IndicatorCriteriaEditContentContainer = styled.div.attrs<{ expanded
 	grid-row-gap          : calc(var(--border-width) * 2);
 	align-items           : center;
 	min-height            : var(--header-height);
-	top                   : calc(var(--border-width) * -2);
-	left                  : calc(var(--border-width) * -2);
+	top                   : 0;
+	left                  : 0;
 	padding               : 0 var(--margin);
 	border                : var(--border);
 	border-width          : calc(var(--border-width) * 2);
@@ -33,6 +37,7 @@ export const IndicatorCriteriaEditContentContainer = styled.div.attrs<{ expanded
 	border-color          : var(--navigation-indicator-color);
 	color                 : var(--navigation-indicator-color);
 	background-color      : var(--bg-color);
+	font-size             : 1.2em;
 	white-space           : nowrap;
 	text-overflow         : ellipsis;
 	overflow              : hidden;
@@ -49,6 +54,17 @@ export const IndicatorCriteriaEditContentContainer = styled.div.attrs<{ expanded
 		height           : 100%;
 		background-color : var(--navigation-indicator-bg-color);
 		z-index          : -1;
+	}
+`;
+export const IndicatorName = styled.div.attrs({'data-widget': 'indicator-name'})`
+	display               : grid;
+	position              : relative;
+	grid-template-columns : auto 1fr;
+	grid-column-gap       : calc(var(--margin) / 2);
+	align-items           : center;
+	> input {
+		font-size : 1em;
+		color     : var(--navigation-indicator-color);
 	}
 `;
 export const IndicatorCriteriaRow = styled.div.attrs({'data-widget': 'indicator-criteria-row'})`

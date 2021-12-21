@@ -11,6 +11,7 @@ import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
 import {IndicatorCriteriaDefData} from '../types';
 import {Expandable, useIndicatorPartExpandable} from '../use-indicator-part-expandable';
 import {IndicatorCriteriaEditor} from './indicator-criteria-editor';
+import {IndicatorNameEditor} from './indicator-name-editor';
 import {IndicatorCriteriaEditContentContainer} from './widgets';
 
 export const IndicatorCriteriaEditContent = (props: {
@@ -79,6 +80,7 @@ export const IndicatorCriteriaEditContent = (props: {
 	});
 
 	return <IndicatorCriteriaEditContentContainer expanded={expanded} ref={containerRef}>
+		<IndicatorNameEditor navigation={navigation} navigationIndicator={navigationIndicator}/>
 		{displayCriteria.map(criteria => {
 			return <IndicatorCriteriaEditor navigation={navigation} navigationIndicator={navigationIndicator}
 			                                criteria={criteria}

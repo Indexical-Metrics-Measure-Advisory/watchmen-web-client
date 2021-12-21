@@ -36,7 +36,10 @@ export const Zh = {
 		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: '根据分桶名称查找.',
 		DROPDOWN_PLACEHOLDER: '请选择...',
 		FIND_NAVIGATION_PLACEHOLDER: '根据名称查找.',
-		NEW_NAVIGATION_NAME: '指标领航'
+		NEW_NAVIGATION_NAME: '指标领航',
+		NAVIGATION_CRITERIA_TIME_RANGE_YEAR_MONTH: '填写"year", "month" or "ym"来引用统一定义的时间窗口.',
+		NAVIGATION_CRITERIA_TIME_RANGE_YEAR: '填写"year"来引用统一定义的年份.',
+		NAVIGATION_CRITERIA_TIME_RANGE_MONTH: '填写"month"来引用统一定义的月份.'
 	},
 	STANDARD: {
 		YES: '是',
@@ -461,6 +464,7 @@ export const Zh = {
 			MISSED_INDICATOR_TOPIC: '未找到指标对应的主题定义',
 			NO_INDICATOR_CRITERIA_DEFINED: '尚未定义过滤条件',
 			INDICATOR_CRITERIA_DEFINED: '个条件已定义',
+			INDICATOR_NAME: '指标描述:',
 			PLEASE_SELECT_CRITERIA_FACTOR: '请选择数据因子',
 			PLEASE_SELECT_CRITERIA_OPERATOR: '运算符',
 			NO_INDICATOR_CANDIDATE: '没有更多可以选择的指标.',

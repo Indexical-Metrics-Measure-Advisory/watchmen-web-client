@@ -22,6 +22,7 @@ export const createNavigation = (name?: string): Navigation => {
 export const createNavigationIndicator = (navigation: Navigation, indicator: Indicator): NavigationIndicator => {
 	const navigationIndicator: NavigationIndicator = {
 		indicatorId: indicator.indicatorId,
+		name: '',
 		criteria: [],
 		aggregateArithmetics: IndicatorAggregateArithmetic.SUM
 	};

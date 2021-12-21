@@ -44,9 +44,9 @@ const InputEditor = (props: {
 	const onInputValueChanged = (event: ChangeEvent<HTMLInputElement>) => {
 		const {value} = event.target;
 		(criteria as NavigationIndicatorCriteriaOnExpression).value = value;
+		forceUpdate();
 		fireEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_CHANGED, navigation, navigationIndicator);
 		fire(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
-		forceUpdate();
 	};
 
 	return <Input value={(criteria as NavigationIndicatorCriteriaOnExpression).value || ''}

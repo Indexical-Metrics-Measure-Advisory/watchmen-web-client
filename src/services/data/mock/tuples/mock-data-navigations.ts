@@ -9,6 +9,7 @@ export const NavPremium: Navigation = {
 	navigationId: NAVIGATION_PREMIUM_ID,
 	name: 'Premium',
 	indicators: [{
+		name: '',
 		indicatorId: INDICATOR_ORDER_PREMIUM_ID,
 		criteria: [],
 		aggregateArithmetics: IndicatorAggregateArithmetic.SUM

@@ -36,7 +36,10 @@ export const Jp = {
 		FIND_INDICATOR_VALUE_BUCKETS_PLACEHOLDER: 'バケット名に基づいて検索します。',
 		DROPDOWN_PLACEHOLDER: '選択してください...',
 		FIND_NAVIGATION_PLACEHOLDER: '名前に基づいて検索します。',
-		NEW_NAVIGATION_NAME: '指標航法'
+		NEW_NAVIGATION_NAME: '指標航法',
+		NAVIGATION_CRITERIA_TIME_RANGE_YEAR_MONTH: '"year", "month" or "ym" と入力して、統一定義された時間枠を参照します。',
+		NAVIGATION_CRITERIA_TIME_RANGE_YEAR: '統一された年を参照するには、"year" を入力します。',
+		NAVIGATION_CRITERIA_TIME_RANGE_MONTH: '統一された月を参照するには、"month" を入力します。'
 	},
 	STANDARD: {
 		YES: 'はい',
@@ -461,6 +464,7 @@ export const Jp = {
 			MISSED_INDICATOR_TOPIC: '指標に対応するトピック定義が見つかりませんで',
 			NO_INDICATOR_CRITERIA_DEFINED: 'フィルタが定義されていません',
 			INDICATOR_CRITERIA_DEFINED: '個の条件が定義されて',
+			INDICATOR_NAME: '指標の説明:',
 			PLEASE_SELECT_CRITERIA_FACTOR: 'ファクターを選択してください',
 			PLEASE_SELECT_CRITERIA_OPERATOR: '演算子',
 			NO_INDICATOR_CANDIDATE: 'これ以上の指標を選択することができます。',

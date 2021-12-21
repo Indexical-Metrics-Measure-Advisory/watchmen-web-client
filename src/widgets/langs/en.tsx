@@ -464,6 +464,7 @@ export const En = {
 			MISSED_INDICATOR_TOPIC: 'Missed Indicator Topic',
 			NO_INDICATOR_CRITERIA_DEFINED: 'No Criteria Defined Yet',
 			INDICATOR_CRITERIA_DEFINED: 'Criteria Applied',
+			INDICATOR_NAME: 'Describe This Indicator:',
 			PLEASE_SELECT_CRITERIA_FACTOR: 'Please pick a factor',
 			PLEASE_SELECT_CRITERIA_OPERATOR: 'Operator',
 			NO_INDICATOR_CANDIDATE: 'No more available indicator.',

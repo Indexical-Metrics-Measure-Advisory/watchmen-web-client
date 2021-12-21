@@ -11,6 +11,7 @@ export enum NavigationEditEventTypes {
 
 	TIME_RANGE_CHANGED = 'time-range-changed',
 	INDICATOR_ADDED = 'indicator-added',
+	INDICATOR_NAME_CHANGED = 'indicator-name-changed',
 	INDICATOR_CRITERIA_ADDED = 'indicator-criteria-added',
 	INDICATOR_CRITERIA_CHANGED = 'indicator-criteria-changed',
 	INDICATOR_CRITERIA_FACTOR_CHANGED = 'indicator-criteria-factor-changed',
@@ -50,6 +51,10 @@ export interface NavigationEditEventBus {
 	fire(type: NavigationEditEventTypes.INDICATOR_ADDED, navigation: Navigation, navigationIndicator: NavigationIndicator, indicator: Indicator): this;
 	on(type: NavigationEditEventTypes.INDICATOR_ADDED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, indicator: Indicator) => void): this;
 	off(type: NavigationEditEventTypes.INDICATOR_ADDED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, indicator: Indicator) => void): this;
+
+	fire(type: NavigationEditEventTypes.INDICATOR_NAME_CHANGED, navigation: Navigation, navigationIndicator: NavigationIndicator): this;
+	on(type: NavigationEditEventTypes.INDICATOR_NAME_CHANGED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
+	off(type: NavigationEditEventTypes.INDICATOR_NAME_CHANGED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
 
 	fire(type: NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, navigation: Navigation, navigationIndicator: NavigationIndicator): this;
 	on(type: NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
