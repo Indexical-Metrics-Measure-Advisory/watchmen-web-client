@@ -84,6 +84,7 @@ const replace = (options: {
 		...navigationIndicator,
 		criteria: (navigationIndicator.criteria || []).map(criteria => {
 			if (isNavigationIndicatorCriteriaOnExpression(criteria)) {
+				// eslint-disable-next-line
 				const factor = (defData.topic?.factors || []).find(factor => factor.factorId == criteria.factorId);
 				if (factor == null) {
 					return {...criteria};
