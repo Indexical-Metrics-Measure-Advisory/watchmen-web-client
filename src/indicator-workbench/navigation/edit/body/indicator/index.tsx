@@ -1,10 +1,21 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
+import {ICON_DELETE} from '@/widgets/basic/constants';
 import {Lang} from '@/widgets/langs';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IndicatorContent} from '../indicator-content';
+import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
+import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
 import {useCurve} from '../use-curve';
 import {computeCurvePath} from '../utils';
-import {IndicatorCurve, IndicatorNode, IndicatorNodeContainer} from './widgets';
+import {
+	IndicatorCurve,
+	IndicatorNode,
+	IndicatorNodeContainer,
+	IndicatorNodeIndex,
+	IndicatorNodeName,
+	IndicatorNodeRemover
+} from './widgets';
 
 const InternalPickedIndicator = (props: {
 	parentId: string;
@@ -15,14 +26,28 @@ const InternalPickedIndicator = (props: {
 }) => {
 	const {parentId, id, navigation, navigationIndicator, indicator} = props;
 
+	const {fire} = useNavigationEditEventBus();
 	const {ref, curve} = useCurve(parentId);
+
+	const onRemoveClicked = () => {
+		const index = (navigation.indicators || []).indexOf(navigationIndicator);
+		if (index !== -1) {
+			(navigation.indicators || []).splice(index, 1);
+			fire(NavigationEditEventTypes.INDICATOR_REMOVED, navigation, navigationIndicator);
+		}
+	};
 
 	const index = navigation.indicators.indexOf(navigationIndicator) + 1;
 
 	return <>
 		<IndicatorNode id={id} error={indicator == null} ref={ref}>
-			<span>{index}.</span>
-			<span>{indicator == null ? Lang.INDICATOR_WORKBENCH.NAVIGATION.MISSED_INDICATOR : (indicator.name || 'Noname Indicator')}</span>
+			<IndicatorNodeIndex>{index}.</IndicatorNodeIndex>
+			<IndicatorNodeName>
+				{indicator == null ? Lang.INDICATOR_WORKBENCH.NAVIGATION.MISSED_INDICATOR : (indicator.name || 'Noname Indicator')}
+			</IndicatorNodeName>
+			<IndicatorNodeRemover>
+				<span onClick={onRemoveClicked}><FontAwesomeIcon icon={ICON_DELETE}/></span>
+			</IndicatorNodeRemover>
 		</IndicatorNode>
 		{curve == null
 			? null

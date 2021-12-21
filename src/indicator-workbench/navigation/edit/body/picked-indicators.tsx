@@ -66,6 +66,25 @@ export const PickedIndicators = (props: {
 			off(NavigationEditEventTypes.INDICATOR_ADDED, onIndicatorAdded);
 		};
 	}, [on, off, fireNavigation, navigation, state.trigger]);
+	useEffect(() => {
+		const onIndicatorRemoved = (aNavigation: Navigation, navigationIndicator: NavigationIndicator) => {
+			if (aNavigation !== navigation) {
+				return;
+			}
+			fireNavigation(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
+			setState(state => {
+				return {
+					initialized: true,
+					trigger: NodesChangeTrigger.ADD,
+					data: state.data.filter(inc => inc.nav !== navigationIndicator)
+				};
+			});
+		};
+		on(NavigationEditEventTypes.INDICATOR_REMOVED, onIndicatorRemoved);
+		return () => {
+			off(NavigationEditEventTypes.INDICATOR_REMOVED, onIndicatorRemoved);
+		};
+	}, [on, off, fireNavigation, navigation]);
 	useLayoutEffect(() => {
 		if (state.trigger === NodesChangeTrigger.ADD) {
 			// show last node
@@ -87,7 +106,7 @@ export const PickedIndicators = (props: {
 	}
 
 	return <>
-		{state.data.map((picked, index) => {
+		{state.data.map(picked => {
 			return <PickedIndicator paletteId={paletteId} parentId={rootId}
 			                        navigation={navigation} navigationIndicator={picked.nav}
 			                        indicator={picked.indicator}

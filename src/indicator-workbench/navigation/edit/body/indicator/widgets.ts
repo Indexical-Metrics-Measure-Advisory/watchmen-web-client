@@ -21,13 +21,77 @@ export const IndicatorNodeContainer = styled.div.attrs({'data-widget': 'indicato
 export const IndicatorNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-root-node'})`
 	border-color : var(--navigation-indicator-color);
 	color        : var(--navigation-indicator-color);
+	overflow     : visible;
+	transition   : border-radius 300ms ease-in-out;
 	&:before {
 		background-color : var(--navigation-indicator-color);
 	}
-	> span:not(:last-child) {
-		margin-right : calc(var(--margin) / 4);
+	&:hover {
+		border-top-right-radius    : 0;
+		border-bottom-right-radius : 0;
+		> span[data-widget=indicator-remover] {
+			clip-path : polygon(0 0, 0 100%, calc(100% + 1px) 100%, calc(100% + 1px) 0);
+		}
 	}
-	> svg:not(:last-child) {
-		margin-right : calc(var(--margin) / 4);
+`;
+export const IndicatorNodeIndex = styled.span`
+	margin-right : calc(var(--margin) / 4);
+`;
+export const IndicatorNodeName = styled.span`
+`;
+export const IndicatorNodeRemover = styled.span.attrs({'data-widget': 'indicator-remover'})`
+	display           : flex;
+	position          : absolute;
+	align-items       : center;
+	justify-content   : start;
+	left              : calc(100% - var(--border-radius) * 2);
+	height            : var(--header-height);
+	width             : var(--header-height);
+	border            : var(--border);
+	border-width      : calc(var(--border-width) * 2);
+	border-radius     : 0 calc(var(--border-radius) * 2) calc(var(--border-radius) * 2) 0;
+	border-color      : var(--primary-color);
+	border-left-color : transparent;
+	color             : var(--danger-color);
+	clip-path         : polygon(0 0, 0 100%, 0 100%, 0 0);
+	transition        : clip-path 300ms ease-in-out;
+	z-index           : 1;
+	overflow          : hidden;
+	&:before,
+	&:after {
+		content          : '';
+		display          : block;
+		position         : absolute;
+		top              : 0;
+		left             : 0;
+		width            : 100%;
+		height           : 100%;
+		background-color : var(--primary-color);
+		opacity          : 0.1;
+		z-index          : -1;
+	}
+	&:after {
+		background-color : var(--bg-color);
+		z-index          : -2;
+		opacity          : 1;
+	}
+	> span {
+		display          : flex;
+		position         : relative;
+		align-items      : center;
+		justify-content  : center;
+		height           : var(--height);
+		width            : var(--height);
+		border-radius    : calc(var(--border-radius) * 2);
+		border           : var(--border);
+		border-width     : calc(var(--border-width) * 2);
+		border-color     : var(--danger-color);
+		background-color : var(--bg-color);
+		cursor           : pointer;
+		transition       : color 300ms ease-in-out, background-color 300ms ease-in-out;
+		&:hover {
+			color            : var(--invert-color);
+			background-color : var(--danger-color);
+		}
 	}
 `;
