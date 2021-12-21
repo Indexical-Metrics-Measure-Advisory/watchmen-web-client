@@ -15,12 +15,13 @@ export const IndicatorCriteriaEditor = (props: {
 	indicator: Indicator;
 	factorCandidates: Array<DropdownOption>;
 	defData: IndicatorCriteriaDefData;
-	index: number;
 }) => {
-	const {navigation, navigationIndicator, criteria, indicator, factorCandidates, defData, index} = props;
+	const {navigation, navigationIndicator, criteria, indicator, factorCandidates, defData} = props;
+
+	const index = (navigationIndicator.criteria || []).indexOf(criteria) + 1;
 
 	return <IndicatorCriteriaRow>
-		<IndicatorCriteriaIndex>{index + 1}</IndicatorCriteriaIndex>
+		<IndicatorCriteriaIndex>{index === 0 ? (navigationIndicator.criteria || []).length + 1 : index}</IndicatorCriteriaIndex>
 		<IndicatorCriteriaFactorEditor navigation={navigation} navigationIndicator={navigationIndicator}
 		                               criteria={criteria} defData={defData}
 		                               factorCandidates={factorCandidates} indicator={indicator}/>

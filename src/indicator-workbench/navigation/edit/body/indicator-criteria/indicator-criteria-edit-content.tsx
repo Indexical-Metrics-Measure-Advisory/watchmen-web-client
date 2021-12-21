@@ -79,12 +79,11 @@ export const IndicatorCriteriaEditContent = (props: {
 	});
 
 	return <IndicatorCriteriaEditContentContainer expanded={expanded} ref={containerRef}>
-		{displayCriteria.map((criteria, index) => {
+		{displayCriteria.map(criteria => {
 			return <IndicatorCriteriaEditor navigation={navigation} navigationIndicator={navigationIndicator}
 			                                criteria={criteria}
 			                                indicator={indicator} factorCandidates={criteriaFactorOptions}
-			                                defData={defData}
-			                                index={index} key={v4()}/>;
+			                                defData={defData} key={v4()}/>;
 		})}
 	</IndicatorCriteriaEditContentContainer>;
 };

@@ -8,9 +8,10 @@ import {
 import {noop} from '@/services/utils';
 import {Dropdown} from '@/widgets/basic/dropdown';
 import {Input} from '@/widgets/basic/input';
-import {DropdownOption} from '@/widgets/basic/types';
+import {useTooltip} from '@/widgets/basic/tooltip';
+import {DropdownOption, TooltipAlignment} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
-import {ChangeEvent, useEffect} from 'react';
+import {ChangeEvent, useEffect, useRef} from 'react';
 import {useNavigationEventBus} from '../../../navigation-event-bus';
 import {NavigationEventTypes} from '../../../navigation-event-bus-types';
 import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
@@ -18,6 +19,39 @@ import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
 import {IndicatorCriteriaDefData} from '../types';
 import {getAvailableTimeRange, getTimeRangePlaceholder, isCriteriaValueVisible, showInputForValue} from './utils';
 import {IndicatorCriteriaValue} from './widgets';
+
+const InputEditor = (props: {
+	navigation: Navigation;
+	navigationIndicator: NavigationIndicator;
+	criteria: NavigationIndicatorCriteria;
+	defData: IndicatorCriteriaDefData;
+}) => {
+	const {navigation, navigationIndicator, criteria, defData} = props;
+
+	const inputRef = useRef<HTMLInputElement>(null);
+	const {fire} = useNavigationEventBus();
+	const {fire: fireEdit} = useNavigationEditEventBus();
+	const forceUpdate = useForceUpdate();
+	// eslint-disable-next-line
+	const factor = (defData.topic?.factors || []).find(factor => factor.factorId == criteria.factorId);
+	const {year, month} = getAvailableTimeRange(factor);
+	const tooltipTrigger = useTooltip<HTMLInputElement>({
+		tooltip: getTimeRangePlaceholder(year, month),
+		target: inputRef,
+		alignment: TooltipAlignment.RIGHT
+	});
+
+	const onInputValueChanged = (event: ChangeEvent<HTMLInputElement>) => {
+		const {value} = event.target;
+		(criteria as NavigationIndicatorCriteriaOnExpression).value = value;
+		fireEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_CHANGED, navigation, navigationIndicator);
+		fire(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
+		forceUpdate();
+	};
+
+	return <Input value={(criteria as NavigationIndicatorCriteriaOnExpression).value || ''}
+	              onChange={onInputValueChanged} {...tooltipTrigger} ref={inputRef}/>;
+};
 
 export const IndicatorCriteriaValueEditor = (props: {
 	navigation: Navigation;
@@ -49,13 +83,6 @@ export const IndicatorCriteriaValueEditor = (props: {
 		return null;
 	}
 
-	const onInputValueChanged = (event: ChangeEvent<HTMLInputElement>) => {
-		const {value} = event.target;
-		(criteria as NavigationIndicatorCriteriaOnExpression).value = value;
-		fireEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_CHANGED, navigation, navigationIndicator);
-		fire(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
-		forceUpdate();
-	};
 	const onBucketSegmentChanged = (option: DropdownOption) => {
 		(criteria as NavigationIndicatorCriteriaOnBucket).bucketSegmentName = option.value as string;
 		fireEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_CHANGED, navigation, navigationIndicator);
@@ -63,9 +90,6 @@ export const IndicatorCriteriaValueEditor = (props: {
 		forceUpdate();
 	};
 
-	// eslint-disable-next-line
-	const factor = (defData.topic?.factors || []).find(factor => factor.factorId == criteria.factorId);
-	const {year, month} = getAvailableTimeRange(factor);
 	const isInputShown = showInputForValue(criteria);
 	const getBucketSegmentOptions: Array<DropdownOption> = isInputShown
 		? []
@@ -84,9 +108,8 @@ export const IndicatorCriteriaValueEditor = (props: {
 
 	return <IndicatorCriteriaValue>
 		{isInputShown
-			? <Input value={(criteria as NavigationIndicatorCriteriaOnExpression).value || ''}
-			         onChange={onInputValueChanged}
-			         placeholder={getTimeRangePlaceholder(year, month)}/>
+			? <InputEditor navigation={navigation} navigationIndicator={navigationIndicator}
+			               criteria={criteria} defData={defData}/>
 			: <Dropdown value={(criteria as NavigationIndicatorCriteriaOnBucket).bucketSegmentName}
 			            options={getBucketSegmentOptions}
 			            onChange={onBucketSegmentChanged}/>}

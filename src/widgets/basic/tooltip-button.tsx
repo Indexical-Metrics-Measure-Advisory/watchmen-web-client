@@ -8,7 +8,6 @@ export const TooltipButton = (props: ButtonProps & {
 }) => {
 	const {tooltip: {label, ...rect}, ...rest} = props;
 
-	// noinspection TypeScriptValidateTypes
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const tooltipTrigger = useTooltip<HTMLButtonElement>({
 		tooltip: label,
