@@ -30,6 +30,23 @@ export const computeRatio = (currentValue: any, previousValue: any): number => {
 };
 
 export type ComputedScore = { ratio: number, ratioStr: string, score?: number, scoreStr?: string, useScore: boolean };
+// interpolation(r, 0.1, 10, 0.5, 100)
+const interpolation = (value: any, min: number, minScore: number, max: number, maxScore: number) => {
+	const v = toNumber(value);
+	if (v === '') {
+		// not a number, score 0
+		return minScore ?? 0;
+	}
+
+	if (v <= min) {
+		return minScore ?? 0;
+	} else if (v >= max) {
+		return maxScore;
+	} else {
+		return (minScore ?? 0) + Number(((maxScore - minScore) * (v - min) / (max - min)).toFixed(1));
+	}
+};
+
 export const computeScore = (options: {
 	script?: string;
 	current?: number;
@@ -48,11 +65,15 @@ export const computeScore = (options: {
 					.map((line, index, lines) => {
 						return lines.length === index + 1 ? `return ${line}` : line;
 					}).join('\n');
-				const args = ['c', 'p', 'r', ...mathFunctionNames, runScript];
+				const args = ['c', 'p', 'r', ...mathFunctionNames, 'interpolation', runScript];
 				// eslint-disable-next-line
 				const func = new Function(...args);
-				// @ts-ignore
-				const params = [current, previous, ratio, ...mathFunctionNames.map(name => Math[name])];
+				const params = [
+					current, previous, ratio / 100,
+					// @ts-ignore
+					...mathFunctionNames.map(name => Math[name]),
+					interpolation
+				];
 				return func(...params);
 			} catch (e) {
 				console.groupCollapsed('Navigation Indicator Formula Script Error');

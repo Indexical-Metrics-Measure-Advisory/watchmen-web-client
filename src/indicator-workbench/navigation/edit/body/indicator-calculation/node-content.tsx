@@ -67,6 +67,7 @@ export const IndicatorCalculationNodeContent = (props: {
 			: null}
 		{useScore
 			? <>
+				<IndicatorCalculationVariableName compact={true}>,</IndicatorCalculationVariableName>
 				<IndicatorCalculationVariableName>{Lang.INDICATOR_WORKBENCH.NAVIGATION.COMPUTED_SCORE}=</IndicatorCalculationVariableName>
 				<IndicatorCalculationValue>{score}</IndicatorCalculationValue>
 			</>
