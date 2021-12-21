@@ -49,6 +49,11 @@ export const IndicatorCalculationFormula = (props: {
 		{value: IndicatorAggregateArithmetic.AVG, label: Lang.INDICATOR_WORKBENCH.INSPECTION.VALUE_TRANSFORM_AVG},
 		{value: IndicatorAggregateArithmetic.COUNT, label: Lang.INDICATOR_WORKBENCH.INSPECTION.VALUE_TRANSFORM_COUNT}
 	];
+	const placeholder = `c: value of current period,
+p: value of previous period,
+r: value of increment.
+eg 1: c - p;
+eg 2: interpolation(r, -0.2, 5, 0.2, 20)`;
 
 	return <IndicatorCalculationFormulaContainer expanded={expanded}>
 		<IndicatorCalculationFormulaLabel>
@@ -60,6 +65,7 @@ export const IndicatorCalculationFormula = (props: {
 		<IndicatorCalculationFormulaLabel>
 			{Lang.INDICATOR_WORKBENCH.NAVIGATION.INDICATOR_FORMULA_LABEL}
 		</IndicatorCalculationFormulaLabel>
-		<InputLines value={navigationIndicator.formula ?? ''} onChange={onFormulaChanged}/>
+		<InputLines value={navigationIndicator.formula ?? ''} onChange={onFormulaChanged}
+		            placeholder={placeholder}/>
 	</IndicatorCalculationFormulaContainer>;
 };

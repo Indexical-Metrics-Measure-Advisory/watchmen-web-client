@@ -90,6 +90,9 @@ export const IndicatorCalculationFormulaContainer = styled.div.attrs<{ expanded:
 		font-size : 1em;
 		height    : calc(var(--height) * 5);
 		color     : var(--navigation-indicator-color);
+		&::placeholder {
+			opacity : 0.5;
+		}
 	}
 `;
 export const IndicatorCalculationFormulaLabel = styled.span.attrs({'data-widget': 'indicator-calculation-aggregation-label'})`
