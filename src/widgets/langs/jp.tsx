@@ -477,6 +477,7 @@ export const Jp = {
 			CURRENT_VALUE: 'この',
 			PREVIOUS_VALUE: '前の',
 			INCREMENT_RATIO: '成長率',
+			COMPUTED_SCORE: 'スコア',
 			VALUE_TRANSFORM_COUNT: '個数の合計',
 			VALUE_TRANSFORM_SUM: '合計値',
 			VALUE_TRANSFORM_AVG: '平均',

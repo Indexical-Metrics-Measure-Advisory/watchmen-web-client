@@ -477,6 +477,7 @@ export const Zh = {
 			CURRENT_VALUE: '本周期',
 			PREVIOUS_VALUE: '上周期',
 			INCREMENT_RATIO: '增长率',
+			COMPUTED_SCORE: '得分',
 			VALUE_TRANSFORM_COUNT: '个数合计',
 			VALUE_TRANSFORM_SUM: '合计值',
 			VALUE_TRANSFORM_AVG: '平均值',

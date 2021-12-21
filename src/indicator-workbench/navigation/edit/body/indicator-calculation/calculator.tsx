@@ -200,14 +200,12 @@ export const Calculator = (props: {
 		onEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_CHANGED, onIndicatorCriteriaChanged);
 		onEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_REMOVED, onIndicatorCriteriaChanged);
 		onEdit(NavigationEditEventTypes.INDICATOR_AGGREGATION_CHANGED, onIndicatorCriteriaChanged);
-		onEdit(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onIndicatorCriteriaChanged);
 		onEdit(NavigationEditEventTypes.TIME_RANGE_CHANGED, onTimeRangeChanged);
 		return () => {
 			offEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_ADDED, onIndicatorCriteriaChanged);
 			offEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_CHANGED, onIndicatorCriteriaChanged);
 			offEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_REMOVED, onIndicatorCriteriaChanged);
 			offEdit(NavigationEditEventTypes.INDICATOR_AGGREGATION_CHANGED, onIndicatorCriteriaChanged);
-			offEdit(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onIndicatorCriteriaChanged);
 			offEdit(NavigationEditEventTypes.TIME_RANGE_CHANGED, onTimeRangeChanged);
 		};
 	}, [fireGlobal, onEdit, offEdit, fireEdit, navigation, navigationIndicator, defData, saveQueue]);

@@ -477,6 +477,7 @@ export const En = {
 			CURRENT_VALUE: 'Current',
 			PREVIOUS_VALUE: 'Previous',
 			INCREMENT_RATIO: 'Increment',
+			COMPUTED_SCORE: 'Score',
 			VALUE_TRANSFORM_COUNT: 'Count',
 			VALUE_TRANSFORM_SUM: 'Sum',
 			VALUE_TRANSFORM_AVG: 'Avg',
