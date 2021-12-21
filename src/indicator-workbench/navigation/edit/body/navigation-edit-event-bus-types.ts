@@ -1,5 +1,5 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
-import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
+import {Navigation, NavigationIndicator, NavigationIndicatorCriteria} from '@/services/data/tuples/navigation-types';
 import {IndicatorValues} from './types';
 
 export enum NavigationEditEventTypes {
@@ -13,6 +13,8 @@ export enum NavigationEditEventTypes {
 	INDICATOR_ADDED = 'indicator-added',
 	INDICATOR_CRITERIA_ADDED = 'indicator-criteria-added',
 	INDICATOR_CRITERIA_CHANGED = 'indicator-criteria-changed',
+	INDICATOR_CRITERIA_FACTOR_CHANGED = 'indicator-criteria-factor-changed',
+	INDICATOR_CRITERIA_ARITHMETIC_CHANGED = 'indicator-criteria-arithmetic-changed',
 	INDICATOR_CRITERIA_REMOVED = 'indicator-criteria-removed',
 	INDICATOR_AGGREGATION_CHANGED = 'indicator-aggregation-changed',
 	INDICATOR_FORMULA_CHANGED = 'indicator-formula-changed',
@@ -56,6 +58,14 @@ export interface NavigationEditEventBus {
 	fire(type: NavigationEditEventTypes.INDICATOR_CRITERIA_CHANGED, navigation: Navigation, navigationIndicator: NavigationIndicator): this;
 	on(type: NavigationEditEventTypes.INDICATOR_CRITERIA_CHANGED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
 	off(type: NavigationEditEventTypes.INDICATOR_CRITERIA_CHANGED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
+
+	fire(type: NavigationEditEventTypes.INDICATOR_CRITERIA_FACTOR_CHANGED, navigation: Navigation, navigationIndicator: NavigationIndicator, criteria: NavigationIndicatorCriteria): this;
+	on(type: NavigationEditEventTypes.INDICATOR_CRITERIA_FACTOR_CHANGED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, criteria: NavigationIndicatorCriteria) => void): this;
+	off(type: NavigationEditEventTypes.INDICATOR_CRITERIA_FACTOR_CHANGED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, criteria: NavigationIndicatorCriteria) => void): this;
+
+	fire(type: NavigationEditEventTypes.INDICATOR_CRITERIA_ARITHMETIC_CHANGED, navigation: Navigation, navigationIndicator: NavigationIndicator, criteria: NavigationIndicatorCriteria): this;
+	on(type: NavigationEditEventTypes.INDICATOR_CRITERIA_ARITHMETIC_CHANGED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, criteria: NavigationIndicatorCriteria) => void): this;
+	off(type: NavigationEditEventTypes.INDICATOR_CRITERIA_ARITHMETIC_CHANGED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, criteria: NavigationIndicatorCriteria) => void): this;
 
 	fire(type: NavigationEditEventTypes.INDICATOR_CRITERIA_REMOVED, navigation: Navigation, navigationIndicator: NavigationIndicator): this;
 	on(type: NavigationEditEventTypes.INDICATOR_CRITERIA_REMOVED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;

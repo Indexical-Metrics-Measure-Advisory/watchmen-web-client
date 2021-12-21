@@ -12,7 +12,7 @@ export const createNavigation = (name?: string): Navigation => {
 		name: name || `${getCurrentLanguage().PLAIN.NEW_NAVIGATION_NAME} ${base64Encode(navigationId).substr(0, 12)}`,
 		indicators: [],
 		timeRangeType: NavigationTimeRangeType.YEAR,
-		timeRange: `${new Date().getFullYear() - 1}`,
+		timeRangeYear: `${new Date().getFullYear() - 1}`,
 		compareWithPreviousTimeRange: false,
 		createTime: getCurrentTime(),
 		lastModified: getCurrentTime()

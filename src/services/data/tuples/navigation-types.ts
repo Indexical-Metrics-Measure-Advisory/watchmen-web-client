@@ -48,7 +48,8 @@ export interface Navigation extends Tuple {
 	name: string;
 	description?: string;
 	timeRangeType: NavigationTimeRangeType;
-	timeRange?: string;
+	timeRangeYear: string;
+	timeRangeMonth?: string;
 	compareWithPreviousTimeRange: boolean;
 	indicators: Array<NavigationIndicator>;
 	tenantId?: TenantId;

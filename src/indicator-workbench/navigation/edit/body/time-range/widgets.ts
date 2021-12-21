@@ -12,7 +12,7 @@ export const TimeRangeNodeContainer = styled.div.attrs({'data-widget': 'time-ran
 `;
 export const TimeRangeNode = styled(NavigationBlock).attrs({'data-widget': 'time-range-node'})`
 	display               : grid;
-	grid-template-columns : repeat(5, auto);
+	grid-template-columns : repeat(6, auto);
 	grid-column-gap       : calc(var(--margin) / 4);
 	border-color          : var(--navigation-time-range-color);
 	color                 : var(--navigation-time-range-color);

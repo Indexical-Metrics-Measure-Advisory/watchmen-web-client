@@ -14,7 +14,7 @@ export const NavPremium: Navigation = {
 		aggregateArithmetics: IndicatorAggregateArithmetic.SUM
 	}],
 	timeRangeType: NavigationTimeRangeType.YEAR,
-	timeRange: `${new Date().getFullYear() - 1}`,
+	timeRangeYear: `${new Date().getFullYear() - 1}`,
 	compareWithPreviousTimeRange: true,
 	description: 'Premium Navigation',
 	createTime: getCurrentTime(),

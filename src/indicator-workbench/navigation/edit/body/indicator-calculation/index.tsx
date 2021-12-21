@@ -78,7 +78,7 @@ export const IndicatorCalculation = (props: {
 			offEdit(NavigationEditEventTypes.INDICATOR_CRITERIA_REMOVED, onIndicatorCriteriaChanged);
 			offEdit(NavigationEditEventTypes.TIME_RANGE_CHANGED, onTimeRangeChanged);
 		};
-	}, [onEdit, offEdit, navigation, navigationIndicator, ready]);
+	}, [onEdit, offEdit, navigation, navigationIndicator, defData, ready]);
 
 	if (!ready) {
 		return null;
