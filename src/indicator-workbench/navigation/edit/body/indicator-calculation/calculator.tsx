@@ -29,7 +29,11 @@ const askData = (options: {
 		}
 		fire(EventTypes.INVOKE_REMOTE_REQUEST,
 			async () => {
-				return await fetchNavigationIndicatorData(navigationIndicator, navigationIndicator);
+				if (navigation.compareWithPreviousTimeRange) {
+					return await fetchNavigationIndicatorData(navigationIndicator, navigationIndicator);
+				} else {
+					return await fetchNavigationIndicatorData(navigationIndicator);
+				}
 			},
 			({current, previous}) => {
 				onData({loaded: true, failed: false, current, previous});
