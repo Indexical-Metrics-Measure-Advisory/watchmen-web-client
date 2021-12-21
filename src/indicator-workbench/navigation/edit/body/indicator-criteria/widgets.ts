@@ -62,6 +62,9 @@ export const IndicatorName = styled.div.attrs({'data-widget': 'indicator-name'})
 	grid-template-columns : auto 1fr;
 	grid-column-gap       : calc(var(--margin) / 2);
 	align-items           : center;
+	> span {
+		font-variant : petite-caps;
+	}
 	> input {
 		font-size : 1em;
 		color     : var(--navigation-indicator-color);
