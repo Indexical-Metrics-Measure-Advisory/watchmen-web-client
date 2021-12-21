@@ -1,12 +1,13 @@
+import {NavigationEditEventTypes} from '@/indicator-workbench/navigation/edit/body/navigation-edit-event-bus-types';
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation} from '@/services/data/tuples/navigation-types';
+import {SaveTime, useSavingQueue} from '@/widgets/saving-queue';
 import {useEffect, useRef, useState} from 'react';
 import {v4} from 'uuid';
 import {useNavigationEventBus} from '../../navigation-event-bus';
 import {NavigationEventTypes} from '../../navigation-event-bus-types';
 import {IndicatorCandidates} from './indicator-candidates';
 import {NavigationEditEventBusProvider, useNavigationEditEventBus} from './navigation-edit-event-bus';
-import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {NavigationRoot} from './navigation-root';
 import {PickedIndicators} from './picked-indicators';
 import {TimeRange} from './time-range';
@@ -26,6 +27,7 @@ const Palette = (props: { navigation: Navigation }) => {
 	const [paletteId] = useState(v4());
 	const [rootId] = useState(v4());
 	const [indicators, setIndicators] = useState<Indicators>({loaded: false, data: []});
+	const resizeQueue = useSavingQueue();
 	useEffect(() => {
 		fire(NavigationEventTypes.ASK_INDICATORS, (indicators: Array<Indicator>) => {
 			setIndicators({loaded: true, data: indicators});
@@ -35,18 +37,19 @@ const Palette = (props: { navigation: Navigation }) => {
 		if (ref.current) {
 			// @ts-ignore
 			const resizeObserver = new ResizeObserver(() => {
-				// must do await, or will not trigger repaint
-				// seems layout didn't finish yet
-				setTimeout(() => {
+				resizeQueue.replace((saveTime) => {
+					if (saveTime === SaveTime.UNMOUNT) {
+						return;
+					}
 					fireEdit(NavigationEditEventTypes.REPAINT);
-					// defending
-					setTimeout(() => fireEdit(NavigationEditEventTypes.REPAINT), 1000);
 				}, 100);
 			});
 			resizeObserver.observe(ref.current);
-			return () => resizeObserver.disconnect();
+			return () => {
+				resizeObserver.disconnect();
+			};
 		}
-	}, [fireEdit]);
+	}, [fireEdit, resizeQueue, indicators.loaded]);
 
 	if (!indicators.loaded) {
 		return null;
