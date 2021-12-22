@@ -82,7 +82,7 @@ export const computeScore = (options: {
 				return (void 0);
 			}
 		})();
-		const scoreStr = formatToNumber(score);
+		const scoreStr = formatToNumber(score, 1);
 		return {ratio, ratioStr: ratio.toFixed(2), useScore: true, score, scoreStr};
 	} else {
 		return {ratio, ratioStr: ratio.toFixed(2), useScore: false};

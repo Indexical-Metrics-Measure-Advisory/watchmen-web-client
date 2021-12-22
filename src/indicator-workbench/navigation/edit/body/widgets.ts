@@ -121,10 +121,20 @@ export const NavigationBlockPairLine = styled.span.attrs<{ error?: boolean; warn
 `;
 
 export const NavigationRootNode = styled(NavigationBlock).attrs({'data-widget': 'navigation-root-node'})`
-	border-color : var(--navigation-root-color);
-	color        : var(--navigation-root-color);
+	flex-direction : column;
+	border-color   : var(--navigation-root-color);
+	color          : var(--navigation-root-color);
 	&:before {
 		background-color : var(--navigation-root-color);
+	}
+	> div {
+		display         : flex;
+		position        : relative;
+		align-items     : center;
+		justify-content : center;
+		min-height      : var(--height);
+		width           : 100%;
+		font-weight     : var(--font-bold);
 	}
 `;
 export const IndicatorPartRelationLine = styled(NavigationBlockPairLine).attrs({'data-widget': 'indicator-part-relation-line'})`

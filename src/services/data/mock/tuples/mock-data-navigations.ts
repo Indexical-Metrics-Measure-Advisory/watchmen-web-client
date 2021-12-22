@@ -1,6 +1,7 @@
 import {IndicatorAggregateArithmetic} from '../../tuples/indicator-types';
-import {Navigation, NavigationTimeRangeType} from '../../tuples/navigation-types';
+import {Navigation, NavigationIndicatorCriteriaOnBucket, NavigationTimeRangeType} from '../../tuples/navigation-types';
 import {getCurrentTime} from '../../utils';
+import {BUCKET_CITIES_ID} from './mock-data-buckets';
 import {INDICATOR_ORDER_PREMIUM_ID} from './mock-data-indicators';
 
 export const NAVIGATION_PREMIUM_ID = '1';
@@ -11,7 +12,14 @@ export const NavPremium: Navigation = {
 	indicators: [{
 		name: '',
 		indicatorId: INDICATOR_ORDER_PREMIUM_ID,
-		criteria: [],
+		criteria: [
+			{
+				factorId: '209',
+				bucketId: BUCKET_CITIES_ID,
+				bucketSegmentName: 'NY'
+			} as NavigationIndicatorCriteriaOnBucket
+		],
+		formula: 'interpolation(r, 0.1, 10, 0.8, 20)',
 		aggregateArithmetics: IndicatorAggregateArithmetic.SUM
 	}],
 	timeRangeType: NavigationTimeRangeType.YEAR,

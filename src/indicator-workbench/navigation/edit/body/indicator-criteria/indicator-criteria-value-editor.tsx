@@ -1,3 +1,5 @@
+import {MeasureMethod} from '@/services/data/tuples/indicator-types';
+import {tryToTransformToMeasures} from '@/services/data/tuples/indicator-utils';
 import {
 	Navigation,
 	NavigationIndicator,
@@ -36,6 +38,21 @@ const InputEditor = (props: {
 	const factor = (defData.topic?.factors || []).find(factor => factor.factorId == criteria.factorId);
 	const {year, month} = getAvailableTimeRange(factor);
 	const tooltipTrigger = useTooltip<HTMLInputElement>({
+		use: (() => {
+			if (defData.topic == null) {
+				return (void 0);
+			}
+			const factor = (defData.topic.factors || []).find(({factorId}) => factorId == criteria.factorId);
+			if (factor == null) {
+				return (void 0);
+			}
+			const measures = tryToTransformToMeasures(factor);
+			if (measures.includes(MeasureMethod.YEAR) || measures.includes(MeasureMethod.MONTH)) {
+				return getTimeRangePlaceholder(year, month) != null;
+			} else {
+				return false;
+			}
+		})(),
 		tooltip: getTimeRangePlaceholder(year, month),
 		target: inputRef,
 		alignment: TooltipAlignment.RIGHT
