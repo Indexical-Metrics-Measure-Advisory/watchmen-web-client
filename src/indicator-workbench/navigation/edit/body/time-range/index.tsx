@@ -95,7 +95,7 @@ export const TimeRange = (props: { rootId: string; navigation: Navigation }) => 
 				? <Dropdown value={navigation.timeRangeMonth} options={timeRangeMonthOptions}
 				            onChange={onTimeRangeMonthChanged}/>
 				: null}
-			<span>, {Lang.INDICATOR_WORKBENCH.NAVIGATION.TIME_RANGE_COMPARE_WITH_PREVIOUS}</span>
+			<span>{Lang.INDICATOR_WORKBENCH.NAVIGATION.TIME_RANGE_COMPARE_WITH_PREVIOUS}</span>
 			<CheckBox value={navigation.compareWithPreviousTimeRange} onChange={onCompareWithChanged}/>
 		</TimeRangeNode>
 		{curve == null
