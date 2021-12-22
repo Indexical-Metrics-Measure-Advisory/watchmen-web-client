@@ -484,7 +484,8 @@ export const Jp = {
 			VALUE_TRANSFORM_SUM: '合計値',
 			VALUE_TRANSFORM_AVG: '平均',
 			INDICATOR_AGGREGATE_ARITHMETIC_LABEL: '集計方法:',
-			INDICATOR_FORMULA_LABEL: '数式を計算:'
+			INDICATOR_FORMULA_LABEL: '数式を計算:',
+			SCORE_SUM_LABEL: '最終的なスコア:'
 		}
 	},
 	SETTINGS: {

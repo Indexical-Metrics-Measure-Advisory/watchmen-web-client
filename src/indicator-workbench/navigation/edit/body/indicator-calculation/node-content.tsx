@@ -12,8 +12,9 @@ export const IndicatorCalculationNodeContent = (props: {
 	navigation: Navigation;
 	navigationIndicator: NavigationIndicator;
 	expanded: boolean;
+	id: string;
 }) => {
-	const {navigation, navigationIndicator, expanded} = props;
+	const {navigation, navigationIndicator, expanded, id} = props;
 
 	const {on, off, fire} = useNavigationEditEventBus();
 	const {values} = useIndicatorValues(navigation, navigationIndicator);
@@ -47,7 +48,7 @@ export const IndicatorCalculationNodeContent = (props: {
 		previous: values.previous
 	});
 
-	return <IndicatorCalculationNode error={values.failed} warn={!values.loaded}
+	return <IndicatorCalculationNode id={`calc-${id}`} error={values.failed} warn={!values.loaded}
 	                                 onMouseEnter={onMouseEnter} onClick={onClicked}
 	                                 expanded={expanded}>
 		<IndicatorCalculationVariableName compact={true}>v{index}:</IndicatorCalculationVariableName>

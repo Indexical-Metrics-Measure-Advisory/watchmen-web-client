@@ -17,7 +17,7 @@ export const BodyContainer = styled.div.attrs({
 export const BodyPalette = styled.div.attrs({'data-widget': 'navigation-edit-palette'})`
 	display               : grid;
 	position              : relative;
-	grid-template-columns : auto auto;
+	grid-template-columns : auto auto auto;
 `;
 
 export const PaletteColumn = styled.div.attrs({'data-widget': 'navigation-palette-column'})`

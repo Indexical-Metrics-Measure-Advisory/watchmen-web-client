@@ -37,10 +37,10 @@ export const IndicatorCandidates = (props: {
 		return () => {
 			off(NavigationEventTypes.SWITCH_INDICATOR_CANDIDATES, onSwitchIndicatorCandidates);
 		};
-	}, [on, off]);
+	}, [on, off, navigation]);
 	useEffect(() => {
 		fireEdit(NavigationEditEventTypes.REPAINT);
-	}, [visible]);
+	}, [fireEdit, visible, navigation]);
 	useEffect(() => {
 		setState({initialized: true, data: buildCategoryNodes(indicators)});
 	}, [indicators]);

@@ -17,7 +17,7 @@ export const IndicatorCriteriaEditContentContainer = styled.div.attrs<{ expanded
 	return {
 		'data-widget': 'indicator-criteria-content',
 		style: {
-			clipPath: expanded ? 'polygon(0 -250px, 0 calc(100% + 250px), calc(100% + 200px) calc(100% + 250px), calc(100% + 200px) -250px)' : (void 0)
+			clipPath: expanded ? 'polygon(0 -300px, 0 calc(100% + 300px), 150% calc(100% + 300px), 150% -300px)' : (void 0)
 		}
 	};
 })<{ expanded: boolean }>`

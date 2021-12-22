@@ -16,8 +16,9 @@ const InternalIndicatorCalculation = (props: {
 	navigation: Navigation;
 	navigationIndicator: NavigationIndicator;
 	defData: IndicatorCriteriaDefData;
+	id: string;
 }) => {
-	const {navigation, navigationIndicator, defData} = props;
+	const {navigation, navigationIndicator, defData, id} = props;
 
 	const {containerRef, expanded} = useIndicatorPartExpandable({
 		navigation,
@@ -28,7 +29,7 @@ const InternalIndicatorCalculation = (props: {
 	return <>
 		<LineToParent navigation={navigation} navigationIndicator={navigationIndicator}/>
 		<IndicatorCalculationNodeContainer ref={containerRef}>
-			<IndicatorCalculationNodeContent navigation={navigation} navigationIndicator={navigationIndicator}
+			<IndicatorCalculationNodeContent id={id} navigation={navigation} navigationIndicator={navigationIndicator}
 			                                 expanded={expanded}/>
 			<IndicatorCalculationFormula navigation={navigation} navigationIndicator={navigationIndicator}
 			                             expanded={expanded}/>
@@ -42,8 +43,9 @@ export const IndicatorCalculation = (props: {
 	navigationIndicator: NavigationIndicator;
 	indicator: Indicator;
 	defData: IndicatorCriteriaDefData;
+	id: string;
 }) => {
-	const {navigation, navigationIndicator, defData} = props;
+	const {navigation, navigationIndicator, defData, id} = props;
 
 	const {on: onEdit, off: offEdit} = useNavigationEditEventBus();
 	const [ready, setReady] = useState(isReadyToCalculation(navigation, navigationIndicator, defData));
@@ -84,6 +86,6 @@ export const IndicatorCalculation = (props: {
 		return null;
 	}
 
-	return <InternalIndicatorCalculation navigation={navigation} navigationIndicator={navigationIndicator}
+	return <InternalIndicatorCalculation id={id} navigation={navigation} navigationIndicator={navigationIndicator}
 	                                     defData={defData}/>;
 };

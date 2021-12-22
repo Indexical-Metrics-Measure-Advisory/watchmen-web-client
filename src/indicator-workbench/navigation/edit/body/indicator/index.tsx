@@ -75,7 +75,7 @@ export const PickedIndicator = (props: {
 		                         indicator={indicator}/>
 		{indicator == null
 			? null
-			: <IndicatorContent navigation={navigation} navigationIndicator={navigationIndicator}
+			: <IndicatorContent id={id} navigation={navigation} navigationIndicator={navigationIndicator}
 			                    indicator={indicator}/>}
 	</IndicatorNodeContainer>;
 };

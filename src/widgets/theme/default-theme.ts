@@ -163,9 +163,10 @@ const DefaultTheme = {
 	navigationTimeRangeColor: 'rgba(174,113,109)',
 	navigationIndicatorColor: 'var(--primary-color)',
 	navigationIndicatorBgColor: color('rgb(94,119,171)').alpha(0.1).toString(),
-	navigationIndicatorValueColor: 'rgb(60,178,50)',
+	navigationIndicatorValueColor: 'var(--success-color)',
 	navigationCategoryColor: 'var(--info-color)',
-	navigationCandidateColor: 'var(--success-color)'
+	navigationCandidateColor: 'var(--success-color)',
+	navigationScoreSumColor: 'rgb(69,146,70)'
 };
 
 export default DefaultTheme;

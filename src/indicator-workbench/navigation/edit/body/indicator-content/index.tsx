@@ -15,8 +15,9 @@ export const IndicatorContent = (props: {
 	navigation: Navigation;
 	navigationIndicator: NavigationIndicator;
 	indicator: Indicator;
+	id: string;
 }) => {
-	const {navigation, navigationIndicator, indicator} = props;
+	const {navigation, navigationIndicator, indicator, id} = props;
 
 	const {fire} = useNavigationEventBus();
 	const [defData, setDefData] = useState<IndicatorCriteriaDefData>({
@@ -62,7 +63,7 @@ export const IndicatorContent = (props: {
 		                   indicator={indicator}
 		                   defData={defData}/>
 		{defData.loaded
-			? <IndicatorCalculation navigation={navigation} navigationIndicator={navigationIndicator}
+			? <IndicatorCalculation id={id} navigation={navigation} navigationIndicator={navigationIndicator}
 			                        indicator={indicator}
 			                        defData={defData}/>
 			: null}
