@@ -89,18 +89,25 @@ export const NavigationRoot = (props: { id: string; navigation: Navigation }) =>
 				calculate(scoreState.data);
 			});
 		};
+		const onIndicatorFormulaChanged = (aNavigation: Navigation) => {
+			defendNavigation(aNavigation, () => {
+				calculate(scoreState.data);
+			});
+		};
 		onEdit(NavigationEditEventTypes.INDICATOR_REMOVED, onIndicatorRemoved);
 		onEdit(NavigationEditEventTypes.VALUES_CHANGED, onValuesChanged);
+		onEdit(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onIndicatorFormulaChanged);
 		return () => {
 			offEdit(NavigationEditEventTypes.INDICATOR_REMOVED, onIndicatorRemoved);
 			offEdit(NavigationEditEventTypes.VALUES_CHANGED, onValuesChanged);
+			offEdit(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onIndicatorFormulaChanged);
 		};
 	}, [onEdit, offEdit, forceUpdate, navigation, scoreState]);
 
 	return <NavigationRootNode id={id} ref={ref}>
 		<div>{navigation.name || Lang.INDICATOR_WORKBENCH.NAVIGATION.ROOT}</div>
 		{scoreState.visible
-			? <div>{Lang.INDICATOR_WORKBENCH.NAVIGATION.SCORE_SUM_LABEL} {scoreState.sum}</div>
+			? <div>{Lang.INDICATOR_WORKBENCH.NAVIGATION.SCORE_SUM_LABEL} {(scoreState.sum ?? 0).toFixed(1)}</div>
 			: null}
 	</NavigationRootNode>;
 };
