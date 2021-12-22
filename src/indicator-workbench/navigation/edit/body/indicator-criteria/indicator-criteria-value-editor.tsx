@@ -42,6 +42,7 @@ const InputEditor = (props: {
 			if (defData.topic == null) {
 				return (void 0);
 			}
+			// eslint-disable-next-line
 			const factor = (defData.topic.factors || []).find(({factorId}) => factorId == criteria.factorId);
 			if (factor == null) {
 				return (void 0);

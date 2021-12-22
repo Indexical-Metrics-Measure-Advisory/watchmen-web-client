@@ -62,19 +62,19 @@ export const NavigationRoot = (props: { id: string; navigation: Navigation }) =>
 				return sum;
 			}, {visible: false, sum: 0} as Pick<ScoreState, 'visible' | 'sum'>);
 		};
-		const calculate = () => {
-			const {visible, sum} = doCalculate(scoreState.data);
+		const calculate = (data: Array<IndicatorValuesPair>) => {
+			const {visible, sum} = doCalculate(data);
 			scoreState.visible = visible;
 			scoreState.sum = sum;
 			forceUpdate();
 		};
 		const onIndicatorRemoved = (aNavigation: Navigation, navigationIndicator: NavigationIndicator) => {
 			defendNavigation(aNavigation, () => {
-				const index = scoreState.data.findIndex(({indicator}) => indicator !== navigationIndicator);
+				const index = scoreState.data.findIndex(({indicator}) => indicator === navigationIndicator);
 				if (index !== -1) {
 					scoreState.data.splice(index, 1);
 				}
-				calculate();
+				calculate(scoreState.data);
 			});
 		};
 		const onValuesChanged = (aNavigation: Navigation, navigationIndicator: NavigationIndicator, values: IndicatorValues) => {
@@ -86,7 +86,7 @@ export const NavigationRoot = (props: { id: string; navigation: Navigation }) =>
 					pair.values = values;
 					delete pair.score;
 				}
-				calculate();
+				calculate(scoreState.data);
 			});
 		};
 		onEdit(NavigationEditEventTypes.INDICATOR_REMOVED, onIndicatorRemoved);
@@ -95,7 +95,7 @@ export const NavigationRoot = (props: { id: string; navigation: Navigation }) =>
 			offEdit(NavigationEditEventTypes.INDICATOR_REMOVED, onIndicatorRemoved);
 			offEdit(NavigationEditEventTypes.VALUES_CHANGED, onValuesChanged);
 		};
-	}, [onEdit, offEdit, navigation, scoreState]);
+	}, [onEdit, offEdit, forceUpdate, navigation, scoreState]);
 
 	return <NavigationRootNode id={id} ref={ref}>
 		<div>{navigation.name || Lang.INDICATOR_WORKBENCH.NAVIGATION.ROOT}</div>
