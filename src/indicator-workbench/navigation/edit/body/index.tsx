@@ -10,7 +10,6 @@ import {NavigationEditEventBusProvider, useNavigationEditEventBus} from './navig
 import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {NavigationRoot} from './navigation-root';
 import {PickedIndicators} from './picked-indicators';
-import {ScoreSum} from './score-sum';
 import {TimeRange} from './time-range';
 import {BodyContainer, BodyPalette, PaletteColumn} from './widgets';
 
@@ -66,9 +65,6 @@ const Palette = (props: { navigation: Navigation }) => {
 			                  navigation={navigation} indicators={indicators.data}/>
 			<IndicatorCandidates paletteId={paletteId} rootId={rootId}
 			                     navigation={navigation} indicators={indicators.data}/>
-		</PaletteColumn>
-		<PaletteColumn>
-			<ScoreSum navigation={navigation}/>
 		</PaletteColumn>
 	</BodyPalette>;
 };
