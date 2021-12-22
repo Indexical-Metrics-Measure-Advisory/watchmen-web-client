@@ -7,7 +7,7 @@ import {
 	FactorType
 } from '@/services/data/tuples/factor-types';
 import {Topic} from '@/services/data/tuples/topic-types';
-import parseCSV from 'csv-parse';
+import {parse as parseCSV} from 'csv-parse/dist/esm';
 import {createFactor, createTopic, isFactorCanBeFlatten} from '../utils';
 
 const ValidIndexGroups = [
@@ -71,8 +71,8 @@ export const parseFromCsv = async (topic: Topic, content: string): Promise<Array
 			columns: true,
 			comment: '#',
 			skipEmptyLines: true,
-			skipLinesWithError: true,
-			skipLinesWithEmptyValues: true,
+			skipRecordsWithError: true,
+			skipRecordsWithEmptyValues: true,
 			trim: true,
 			autoParse: true,
 			autoParseDate: true

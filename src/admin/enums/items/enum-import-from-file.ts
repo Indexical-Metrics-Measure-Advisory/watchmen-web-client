@@ -1,5 +1,5 @@
 import {EnumItem} from '@/services/data/tuples/enum-types';
-import parseCSV from 'csv-parse';
+import {parse as parseCSV} from 'csv-parse/dist/esm';
 import JSON5 from 'json5';
 
 const asEnumItems = async (data: any): Promise<Array<EnumItem>> => {
@@ -17,8 +17,8 @@ export const parseFromCsv = async (content: string): Promise<Array<EnumItem>> =>
 			columns: true,
 			comment: '#',
 			skipEmptyLines: true,
-			skipLinesWithError: true,
-			skipLinesWithEmptyValues: true,
+			skipRecordsWithError: true,
+			skipRecordsWithEmptyValues: true,
 			trim: true,
 			autoParse: true,
 			autoParseDate: true

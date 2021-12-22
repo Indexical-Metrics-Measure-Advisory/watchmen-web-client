@@ -1,4 +1,4 @@
-import parseCSV from 'csv-parse';
+import {parse as parseCSV} from 'csv-parse/dist/esm';
 import {ColumnDefs, DataPage} from '../types';
 
 const verify = (data: any, columnDefs: ColumnDefs): DataPage => {
@@ -27,8 +27,8 @@ export const parseFromCsv = async (content: string, columnDefs: ColumnDefs): Pro
 			columns: true,
 			comment: '#',
 			skipEmptyLines: true,
-			skipLinesWithError: true,
-			skipLinesWithEmptyValues: true,
+			skipRecordsWithError: true,
+			skipRecordsWithEmptyValues: true,
 			trim: true,
 			autoParse: true,
 			autoParseDate: true
