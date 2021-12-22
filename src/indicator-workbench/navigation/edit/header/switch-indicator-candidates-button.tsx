@@ -1,5 +1,5 @@
 import {Navigation} from '@/services/data/tuples/navigation-types';
-import {ICON_EDIT} from '@/widgets/basic/constants';
+import {ICON_INDICATOR_INDICATOR} from '@/widgets/basic/constants';
 import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
 import {ButtonInk} from '@/widgets/basic/types';
 import {Lang} from '@/widgets/langs';
@@ -20,12 +20,12 @@ export const SwitchIndicatorCandidatesButton = (props: { navigation: Navigation 
 	};
 
 	const tooltip = visible
-		? Lang.INDICATOR_WORKBENCH.NAVIGATION.SWITCH_TO_EDIT_MODE
-		: Lang.INDICATOR_WORKBENCH.NAVIGATION.SWITCH_TO_VIEW_MODE;
+		? Lang.INDICATOR_WORKBENCH.NAVIGATION.HIDE_INDICATOR_CANDIDATES
+		: Lang.INDICATOR_WORKBENCH.NAVIGATION.SHOW_INDICATOR_CANDIDATES;
 
 	return <PageHeaderButton tooltip={tooltip}
-	                         ink={visible ? undefined : ButtonInk.PRIMARY}
+	                         ink={visible ? ButtonInk.PRIMARY : undefined}
 	                         onClick={onViewModeClicked}>
-		<FontAwesomeIcon icon={ICON_EDIT}/>
+		<FontAwesomeIcon icon={ICON_INDICATOR_INDICATOR}/>
 	</PageHeaderButton>;
 };
