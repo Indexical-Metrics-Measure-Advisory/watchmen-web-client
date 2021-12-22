@@ -11,7 +11,7 @@ import {DialogBody, DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
-import {useSavingQueue} from '@/widgets/saving-queue';
+import {useThrottler} from '@/widgets/throttler';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
@@ -65,7 +65,7 @@ export const HeaderDeleteSubjectButton = (props: { connectedSpace: ConnectedSpac
 	const {fire: fireGlobal} = useEventBus();
 	const {fire: fireSpace} = useConnectedSpaceEventBus();
 	const {on, off} = useSubjectEventBus();
-	const saveQueue = useSavingQueue();
+	const saveQueue = useThrottler();
 	useEffect(() => saveQueue.clear(true), [subject, saveQueue]);
 	useEffect(() => {
 		const onSubjectDefChanged = (subject: Subject) => {

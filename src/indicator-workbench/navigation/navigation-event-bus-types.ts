@@ -13,6 +13,7 @@ export enum NavigationEventTypes {
 	ASK_NAVIGATION_QUERY_PAGE_DATA = 'ask-navigation-query-page-data',
 
 	TO_EDIT_NAVIGATION = 'to-edit-navigation',
+	SWITCH_INDICATOR_CANDIDATES = 'switch-indicator_candidates',
 	BACK_TO_QUERY = 'back-to-query',
 
 	NAME_CHANGED = 'name-changed',
@@ -46,6 +47,10 @@ export interface NavigationEventBus {
 	fire(type: NavigationEventTypes.TO_EDIT_NAVIGATION, navigation: Navigation): this;
 	on(type: NavigationEventTypes.TO_EDIT_NAVIGATION, listener: (navigation: Navigation) => void): this;
 	off(type: NavigationEventTypes.TO_EDIT_NAVIGATION, listener: (navigation: Navigation) => void): this;
+
+	fire(type: NavigationEventTypes.SWITCH_INDICATOR_CANDIDATES, navigation: Navigation, view: boolean): this;
+	on(type: NavigationEventTypes.SWITCH_INDICATOR_CANDIDATES, listener: (navigation: Navigation, view: boolean) => void): this;
+	off(type: NavigationEventTypes.SWITCH_INDICATOR_CANDIDATES, listener: (navigation: Navigation, view: boolean) => void): this;
 
 	fire(type: NavigationEventTypes.BACK_TO_QUERY): this;
 	on(type: NavigationEventTypes.BACK_TO_QUERY, listener: () => void): this;

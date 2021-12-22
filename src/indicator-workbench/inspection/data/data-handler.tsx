@@ -1,7 +1,7 @@
 import {fetchInspectionData} from '@/services/data/tuples/inspection';
 import {Inspection} from '@/services/data/tuples/inspection-types';
 import {noop} from '@/services/utils';
-import {useSavingQueue} from '@/widgets/saving-queue';
+import {useThrottler} from '@/widgets/throttler';
 import {Fragment, useEffect, useState} from 'react';
 import {useInspectionEventBus} from '../inspection-event-bus';
 import {InspectionEventTypes} from '../inspection-event-bus-types';
@@ -11,7 +11,7 @@ export const DataHandler = (props: { inspection: Inspection }) => {
 	const {inspection} = props;
 
 	const {on, off, fire} = useInspectionEventBus();
-	const saveQueue = useSavingQueue();
+	const saveQueue = useThrottler();
 	const [askData] = useState(() => {
 		return (inspection: Inspection) => {
 			validateInspection({

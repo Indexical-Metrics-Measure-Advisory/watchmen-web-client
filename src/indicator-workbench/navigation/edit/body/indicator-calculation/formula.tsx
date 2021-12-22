@@ -6,7 +6,7 @@ import {InputLines} from '@/widgets/basic/input-lines';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
-import {useSavingQueue} from '@/widgets/saving-queue';
+import {useThrottler} from '@/widgets/throttler';
 import {ChangeEvent} from 'react';
 import {useNavigationEventBus} from '../../../navigation-event-bus';
 import {NavigationEventTypes} from '../../../navigation-event-bus-types';
@@ -23,7 +23,7 @@ export const IndicatorCalculationFormula = (props: {
 
 	const {fire} = useNavigationEventBus();
 	const {fire: fireEdit} = useNavigationEditEventBus();
-	const saveQueue = useSavingQueue();
+	const saveQueue = useThrottler();
 	const forceUpdate = useForceUpdate();
 
 	const onArithmeticChanged = (option: DropdownOption) => {

@@ -86,6 +86,9 @@ export const IndicatorCriteriaIndex = styled.span.attrs({'data-widget': 'indicat
 	font-size : 0.8em;
 `;
 export const IndicatorCriteriaFactor = styled.div.attrs({'data-widget': 'indicator-criteria-factor'})`
+	> span {
+		font-variant : petite-caps;
+	}
 	> div[data-widget=dropdown] {
 		width : 100%;
 		//border-color : var(--navigation-indicator-color);

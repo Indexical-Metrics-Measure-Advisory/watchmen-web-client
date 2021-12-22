@@ -85,7 +85,8 @@ export const IndicatorCriteriaEditContent = (props: {
 			return <IndicatorCriteriaEditor navigation={navigation} navigationIndicator={navigationIndicator}
 			                                criteria={criteria}
 			                                indicator={indicator} factorCandidates={criteriaFactorOptions}
-			                                defData={defData} key={v4()}/>;
+			                                defData={defData}
+			                                key={v4()}/>;
 		})}
 	</IndicatorCriteriaEditContentContainer>;
 };

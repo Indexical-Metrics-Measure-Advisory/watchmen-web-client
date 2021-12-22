@@ -9,7 +9,7 @@ import {DialogBody, DialogFooter, DialogLabel} from '@/widgets/dialog/widgets';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
-import {useSavingQueue} from '@/widgets/saving-queue';
+import {useThrottler} from '@/widgets/throttler';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect} from 'react';
 import styled from 'styled-components';
@@ -58,7 +58,7 @@ export const HeaderDeleteConnectedSpaceButton = (props: { connectedSpace: Connec
 
 	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useConsoleEventBus();
-	const saveQueue = useSavingQueue();
+	const saveQueue = useThrottler();
 	useEffect(() => saveQueue.clear(true), [connectedSpace, saveQueue]);
 	useEffect(() => {
 		const onSpaceGraphicsChanged = (graphics: ConnectedSpaceGraphics) => {

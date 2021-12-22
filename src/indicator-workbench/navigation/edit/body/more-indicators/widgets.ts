@@ -5,7 +5,6 @@ import {NavigationBlock, NavigationBlockPairCurve, PaletteColumn} from '../widge
 export const MoreIndicatorsContainer = styled.div.attrs({'data-widget': 'more-indicators-container'})`
 	display   : flex;
 	position  : relative;
-	flex-grow : 1;
 	flex-wrap : nowrap;
 	&:not(:first-child) {
 		margin-top : calc(var(--margin) / 2);

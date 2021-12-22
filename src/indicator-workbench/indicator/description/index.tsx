@@ -1,7 +1,7 @@
 import {noop} from '@/services/utils';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
-import {useSavingQueue} from '@/widgets/saving-queue';
+import {useThrottler} from '@/widgets/throttler';
 import {ChangeEvent, useRef} from 'react';
 import {EmphaticSinkingLabel, Step, StepBody, StepTitle} from '../../step-widgets';
 import {useIndicatorsEventBus} from '../indicators-event-bus';
@@ -14,7 +14,7 @@ import {DescriptionText} from './widgets';
 export const Description = () => {
 	const ref = useRef<HTMLDivElement>(null);
 	const {fire} = useIndicatorsEventBus();
-	const saveQueue = useSavingQueue();
+	const saveQueue = useThrottler();
 	const {constructed, setConstructed, visible, setVisible} = useConstructed(ref);
 	const {data} = useStep({
 		step: IndicatorDeclarationStep.DESCRIPTION,

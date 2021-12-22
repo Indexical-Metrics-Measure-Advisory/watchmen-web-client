@@ -5,7 +5,7 @@ import {Navigation, NavigationIndicator, NavigationTimeRangeType} from '@/servic
 import {isNavigationIndicatorCriteriaOnExpression} from '@/services/data/tuples/navigation-utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
-import {SaveTime, useSavingQueue} from '@/widgets/saving-queue';
+import {FireTiming, useThrottler} from '@/widgets/throttler';
 import {Fragment, useEffect} from 'react';
 import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
 import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
@@ -124,8 +124,8 @@ const askData = (options: {
 		return () => onData({loaded: false, failed: false});
 	}
 
-	return (saveTime: SaveTime) => {
-		if (saveTime === SaveTime.UNMOUNT) {
+	return (saveTime: FireTiming) => {
+		if (saveTime === FireTiming.UNMOUNT) {
 			return;
 		}
 		fire(EventTypes.INVOKE_REMOTE_REQUEST,
@@ -159,7 +159,7 @@ export const Calculator = (props: {
 
 	const {fire: fireGlobal} = useEventBus();
 	const {on: onEdit, off: offEdit, fire: fireEdit} = useNavigationEditEventBus();
-	const saveQueue = useSavingQueue();
+	const saveQueue = useThrottler();
 	useEffect(() => {
 		saveQueue.replace(askData({
 			fire: fireGlobal,

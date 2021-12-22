@@ -2,7 +2,7 @@ import {SAVE_TIMEOUT} from '@/services/constants';
 import {savePipelinesGraphics} from '@/services/data/tuples/pipeline';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
-import {useSavingQueue} from '@/widgets/saving-queue';
+import {useThrottler} from '@/widgets/throttler';
 import React, {Fragment, useEffect} from 'react';
 import {useAdminCacheEventBus} from '../../cache/cache-event-bus';
 import {AdminCacheEventTypes} from '../../cache/cache-event-bus-types';
@@ -20,7 +20,7 @@ export const GraphicsSave = (props: { graphics?: AssembledPipelinesGraphics }) =
 	const {fire: fireCache} = useAdminCacheEventBus();
 	const {fire: firePipelines} = usePipelinesEventBus();
 	const {on, off} = useCatalogEventBus();
-	const saveQueue = useSavingQueue();
+	const saveQueue = useThrottler();
 	useEffect(() => {
 		const onGraphicsChange = () => {
 			if (assembledGraphics) {

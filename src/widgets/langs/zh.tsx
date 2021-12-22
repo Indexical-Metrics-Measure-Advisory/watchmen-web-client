@@ -459,6 +459,8 @@ export const Zh = {
 			LAST_MODIFIED_AT: '最后更新于',
 			NAVIGATION_NOT_FOUND: '需要的指标领航定义没有找到, 请联系您的系统管理员以获取更多信息.',
 			BACK_TO_QUERY: '回查询页',
+			SWITCH_TO_EDIT_MODE: '切换至编辑模式',
+			SWITCH_TO_VIEW_MODE: '切换至只读模式',
 			ROOT: '根',
 			MISSED_INDICATOR: '未找到指标定义',
 			MISSED_INDICATOR_TOPIC: '未找到指标对应的主题定义',

@@ -14,7 +14,7 @@ import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
 import {useReportEventBus} from '@/widgets/report/report-event-bus';
 import {ReportEventTypes} from '@/widgets/report/report-event-bus-types';
-import {SaveTime, useSavingQueue} from '@/widgets/saving-queue';
+import {FireTiming, useThrottler} from '@/widgets/throttler';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
@@ -74,7 +74,7 @@ export const HeaderDeleteReportButton = (props: { connectedSpace: ConnectedSpace
 		structureChanged: false,
 		thumbnailChanged: false
 	});
-	const saveQueue = useSavingQueue();
+	const saveQueue = useThrottler();
 	useEffect(() => saveQueue.clear(true), [report, saveQueue]);
 	useEffect(() => {
 		const onStyleChanged = (aReport: Report) => {
@@ -134,13 +134,13 @@ export const HeaderDeleteReportButton = (props: { connectedSpace: ConnectedSpace
 			return;
 		}
 
-		saveQueue.replace((time: SaveTime) => {
+		saveQueue.replace((time: FireTiming) => {
 			// console.log(time);
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await saveReport(report),
 				() => {
 					fire(ReportEventTypes.DATA_SAVED, report);
-					if (time !== SaveTime.UNMOUNT) {
+					if (time !== FireTiming.UNMOUNT) {
 						setChanged({styleChanged: false, structureChanged: false, thumbnailChanged: false});
 					}
 				});

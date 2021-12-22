@@ -17,6 +17,9 @@ const CheckBoxContainer = styled.div.attrs<{ 'data-widget'?: string }>(({'data-w
 	border          : var(--border);
 	border-radius   : calc(var(--border-radius) * 2);
 	cursor          : pointer;
+	&[data-disabled=true] {
+		cursor : default;
+	}
 	> svg {
 		font-size : 0.8em;
 	}

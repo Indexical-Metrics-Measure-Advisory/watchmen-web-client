@@ -1,13 +1,13 @@
-import {NavigationEditEventTypes} from '@/indicator-workbench/navigation/edit/body/navigation-edit-event-bus-types';
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation} from '@/services/data/tuples/navigation-types';
-import {SaveTime, useSavingQueue} from '@/widgets/saving-queue';
+import {FireTiming, useThrottler} from '@/widgets/throttler';
 import {useEffect, useRef, useState} from 'react';
 import {v4} from 'uuid';
 import {useNavigationEventBus} from '../../navigation-event-bus';
 import {NavigationEventTypes} from '../../navigation-event-bus-types';
 import {IndicatorCandidates} from './indicator-candidates';
 import {NavigationEditEventBusProvider, useNavigationEditEventBus} from './navigation-edit-event-bus';
+import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {NavigationRoot} from './navigation-root';
 import {PickedIndicators} from './picked-indicators';
 import {TimeRange} from './time-range';
@@ -27,7 +27,7 @@ const Palette = (props: { navigation: Navigation }) => {
 	const [paletteId] = useState(v4());
 	const [rootId] = useState(v4());
 	const [indicators, setIndicators] = useState<Indicators>({loaded: false, data: []});
-	const resizeQueue = useSavingQueue();
+	const resizeQueue = useThrottler();
 	useEffect(() => {
 		fire(NavigationEventTypes.ASK_INDICATORS, (indicators: Array<Indicator>) => {
 			setIndicators({loaded: true, data: indicators});
@@ -38,7 +38,7 @@ const Palette = (props: { navigation: Navigation }) => {
 			// @ts-ignore
 			const resizeObserver = new ResizeObserver(() => {
 				resizeQueue.replace((saveTime) => {
-					if (saveTime === SaveTime.UNMOUNT) {
+					if (saveTime === FireTiming.UNMOUNT) {
 						return;
 					}
 					fireEdit(NavigationEditEventTypes.REPAINT);

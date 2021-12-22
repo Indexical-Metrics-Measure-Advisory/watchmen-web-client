@@ -1,7 +1,7 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {QueryIndicatorCategoryParams} from '@/services/data/tuples/query-indicator-types';
 import {noop} from '@/services/utils';
-import {useSavingQueue} from '@/widgets/saving-queue';
+import {useThrottler} from '@/widgets/throttler';
 import {SearchItem, SearchItems, SearchText} from '../../search-text';
 import {useSearchTextEventBus} from '../../search-text/search-text-event-bus';
 import {SearchTextEventTypes} from '../../search-text/search-text-event-bus-types';
@@ -18,7 +18,7 @@ export const CategoryInput = (props: {
 
 	const {fire} = useIndicatorsEventBus();
 	const {fire: fireSearch} = useSearchTextEventBus();
-	const saveQueue = useSavingQueue();
+	const saveQueue = useThrottler();
 	const save = () => saveQueue.replace(() => {
 		fire(IndicatorsEventTypes.SAVE_INDICATOR, indicator, noop);
 	}, 500);

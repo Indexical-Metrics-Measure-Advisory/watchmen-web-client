@@ -3,7 +3,7 @@ import {saveNavigation} from '@/services/data/tuples/navigation';
 import {Navigation} from '@/services/data/tuples/navigation-types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
-import {useSavingQueue} from '@/widgets/saving-queue';
+import {useThrottler} from '@/widgets/throttler';
 import {Fragment, useEffect} from 'react';
 import {useNavigationEventBus} from '../navigation-event-bus';
 import {NavigationEventTypes} from '../navigation-event-bus-types';
@@ -13,7 +13,7 @@ export const NavigationSaver = (props: { navigation: Navigation }) => {
 
 	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useNavigationEventBus();
-	const saveQueue = useSavingQueue();
+	const saveQueue = useThrottler();
 	useEffect(() => saveQueue.clear(true), [navigation, saveQueue]);
 	useEffect(() => {
 		const onSaveNavigation = (aNavigation: Navigation, onSaved: (navigation: Navigation, saved: boolean) => void) => {

@@ -459,6 +459,8 @@ export const En = {
 			LAST_MODIFIED_AT: 'Last Modified At',
 			NAVIGATION_NOT_FOUND: 'Failed to load navigation, contact your administrator for more information.',
 			BACK_TO_QUERY: 'Back to Query',
+			SWITCH_TO_EDIT_MODE: 'Switch to Edit Mode',
+			SWITCH_TO_VIEW_MODE: 'Switch to View Mode',
 			ROOT: 'Root',
 			MISSED_INDICATOR: 'Missed Indicator',
 			MISSED_INDICATOR_TOPIC: 'Missed Indicator Topic',
