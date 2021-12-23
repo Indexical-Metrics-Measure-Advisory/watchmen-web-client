@@ -1,8 +1,9 @@
+import {ReportIndicatorArithmetic} from '@/services/data/tuples/report-types';
 import {AdminDashboard} from '../../admin/home';
 import {ChartType} from '../../tuples/chart-types';
 import {ConnectedSpace} from '../../tuples/connected-space-types';
 import {Dashboard} from '../../tuples/dashboard-types';
-import {ParameterJointType} from '../../tuples/factor-calculator-types';
+import {ConstantParameter, ParameterJointType, ParameterKind} from '../../tuples/factor-calculator-types';
 import {getCurrentTime} from '../../utils';
 
 export const fetchMockAdminDashboard = async (): Promise<AdminDashboard> => {
@@ -34,7 +35,11 @@ export const fetchMockAdminDashboard = async (): Promise<AdminDashboard> => {
 								{
 									reportId: '1',
 									name: '',
-									indicators: [],
+									indicators: [{
+										columnId: '1',
+										name: 'Column 1',
+										arithmetic: ReportIndicatorArithmetic.COUNT
+									}],
 									dimensions: [],
 									funnels: [],
 									rect: {x: 320, y: 320, width: 480, height: 300},
@@ -48,7 +53,11 @@ export const fetchMockAdminDashboard = async (): Promise<AdminDashboard> => {
 							],
 							dataset: {
 								filters: {jointType: ParameterJointType.AND, filters: []},
-								columns: [],
+								columns: [{
+									columnId: '1',
+									parameter: {kind: ParameterKind.CONSTANT, value: '1'} as ConstantParameter,
+									alias: 'Column 1'
+								}],
 								joins: []
 							},
 							lastVisitTime: getCurrentTime(),

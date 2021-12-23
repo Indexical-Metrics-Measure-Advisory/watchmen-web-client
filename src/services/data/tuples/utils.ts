@@ -82,7 +82,9 @@ export const isFakedUuidForGraphics = (graphics: PipelinesGraphics): boolean => 
 	return graphics.pipelineGraphId.startsWith(FAKE_ID_PREFIX);
 };
 export const isFakedUuid = (tuple: Tuple): boolean => {
-	if (isInspection(tuple)) {
+	if (isNavigation(tuple)) {
+		return tuple.navigationId.startsWith(FAKE_ID_PREFIX);
+	} else if (isInspection(tuple)) {
 		// inspection check must before indicator check
 		// since "indicatorId" also exists in inspection object
 		return tuple.inspectionId.startsWith(FAKE_ID_PREFIX);
@@ -117,13 +119,12 @@ export const isFakedUuid = (tuple: Tuple): boolean => {
 	} else if (isEnum(tuple)) {
 		return tuple.enumId.startsWith(FAKE_ID_PREFIX);
 	} else if (isTenant(tuple)) {
+		// tenant base tuples always have tenantId
 		return tuple.tenantId.startsWith(FAKE_ID_PREFIX);
 	} else if (isDataSource(tuple)) {
 		return tuple.dataSourceId.startsWith(FAKE_ID_PREFIX);
 	} else if (isExternalWriter(tuple)) {
 		return tuple.writerId.startsWith(FAKE_ID_PREFIX);
-	} else if (isNavigation(tuple)) {
-		return tuple.navigationId.startsWith(FAKE_ID_PREFIX);
 	}
 
 	console.groupCollapsed('Unsupported tuple type');
