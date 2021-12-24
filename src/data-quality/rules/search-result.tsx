@@ -9,7 +9,7 @@ import {ButtonInk, DropdownOption} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {getTopicName} from '../utils';
 import {GlobalRules} from './global-rules';
 import {useRulesEventBus} from './rules-event-bus';
@@ -126,6 +126,9 @@ export const TopicResultHeader = (props: { topic: Topic; rules: MonitorRules }) 
 	</SearchResultTargetLabel>;
 };
 
+/**
+ * FEAT global rules is disabled now
+ */
 const GlobalResultHeader = (props: { rules: MonitorRules }) => {
 	const {rules} = props;
 
@@ -157,10 +160,16 @@ const GlobalResultHeader = (props: { rules: MonitorRules }) => {
 	</SearchResultTargetLabel>;
 };
 
+const EmptyResult = () => {
+	useRuleChanged();
+
+	return <Fragment/>;
+};
+
 export const SearchResult = () => {
 	const {fire: fireGlobal} = useEventBus();
 	const {fire, on, off} = useRulesEventBus();
-	const [state, setState] = useState<State>({grade: MonitorRuleGrade.GLOBAL, rules: []});
+	const [state, setState] = useState<State>({grade: MonitorRuleGrade.TOPIC, rules: []});
 	useEffect(() => {
 		const onSearch = async (criteria: MonitorRulesCriteria, topic?: Topic) => {
 			fire(RulesEventTypes.ASK_RULE_CHANGED, (changed) => {
@@ -199,6 +208,11 @@ export const SearchResult = () => {
 	}, [on, off]);
 
 	const onTopic = state.grade === MonitorRuleGrade.TOPIC;
+	if (onTopic && state.topic == null) {
+		return <SearchResultContainer>
+			<EmptyResult/>
+		</SearchResultContainer>;
+	}
 
 	return <SearchResultContainer>
 		{onTopic

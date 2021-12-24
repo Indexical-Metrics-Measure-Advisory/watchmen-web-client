@@ -3,6 +3,7 @@ import {TopicId} from '../tuples/topic-types';
 import {DateTime} from '../types';
 
 export enum MonitorRuleGrade {
+	/** FEAT global rule is disabled now */
 	GLOBAL = 'global',
 	TOPIC = 'topic',
 	FACTOR = 'factor',
