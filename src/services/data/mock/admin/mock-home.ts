@@ -1,9 +1,9 @@
-import {ReportIndicatorArithmetic} from '@/services/data/tuples/report-types';
 import {AdminDashboard} from '../../admin/home';
 import {ChartType} from '../../tuples/chart-types';
 import {ConnectedSpace} from '../../tuples/connected-space-types';
 import {Dashboard} from '../../tuples/dashboard-types';
 import {ConstantParameter, ParameterJointType, ParameterKind} from '../../tuples/factor-calculator-types';
+import {ReportIndicatorArithmetic} from '../../tuples/report-types';
 import {getCurrentTime} from '../../utils';
 
 export const fetchMockAdminDashboard = async (): Promise<AdminDashboard> => {
