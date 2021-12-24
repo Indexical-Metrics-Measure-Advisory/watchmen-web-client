@@ -8,7 +8,7 @@ export const CATALOG_TIME_TOPICS = '2';
 export const CatalogRawTopics: Catalog = {
 	catalogId: CATALOG_RAW_TOPICS_ID,
 	name: 'Raw Topics',
-	topics: [RawQuotation.topicId, RawEndorsement.topicId],
+	topicIds: [RawQuotation.topicId, RawEndorsement.topicId],
 	techOwnerId: '1',
 	bizOwnerId: '2',
 	tags: ['raw'],

@@ -103,7 +103,7 @@ export const SearchCriteria = () => {
 	];
 
 	return <SearchCriteriaContainer>
-		<SearchLabel>Name</SearchLabel>
+		<SearchLabel>Name or Tag</SearchLabel>
 		<Input value={criteria.name ?? ''} onChange={onNameChanged}/>
 		<SearchLabel>Topic</SearchLabel>
 		<Dropdown options={topicOptions} value={criteria.topicId ?? ''} onChange={onTopicChanged}/>

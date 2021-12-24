@@ -8,7 +8,7 @@ export type CatalogId = string;
 export interface Catalog extends Tuple {
 	catalogId: CatalogId;
 	name: string;
-	topics?: Array<TopicId>;
+	topicIds?: Array<TopicId>;
 	techOwnerId?: UserId;
 	bizOwnerId?: UserId;
 	tags?: Array<string>;

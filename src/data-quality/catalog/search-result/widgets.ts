@@ -76,6 +76,7 @@ export const CatalogRowContainer = styled.div`
 	grid-template-columns : 40px 350px 120px 200px 200px;
 	min-height            : calc(var(--height) + 1px);
 	border-bottom         : var(--border);
+	cursor                : pointer;
 	&[data-changed=true] {
 		&:before {
 			content          : '';
@@ -90,7 +91,11 @@ export const CatalogRowContainer = styled.div`
 			z-index          : -2;
 		}
 	}
-	:hover {
+	&[data-expanded=true]:hover {
+		background-color : unset;
+		cursor           : default;
+	}
+	&:hover {
 		background-color : var(--hover-color);
 	}
 `;
@@ -103,6 +108,12 @@ export const CatalogCell = styled.div`
 	white-space   : nowrap;
 	overflow      : hidden;
 	text-overflow : ellipsis;
+	> input {
+		border  : 0;
+		margin  : calc(var(--margin) / -2);
+		padding : 0 calc(var(--margin) / 2);
+		width   : calc(100% + var(--margin));
+	}
 	> div[data-widget=checkbox] {
 		border : 0;
 	}
@@ -118,4 +129,35 @@ export const CatalogCell = styled.div`
 `;
 export const CatalogSeqCell = styled(CatalogCell)`
 	padding : 0 calc(var(--margin) / 4);
+`;
+export const CatalogEditCell = styled.div`
+	display               : grid;
+	position              : relative;
+	grid-column           : 1 / span 6;
+	align-items           : center;
+	grid-template-columns : auto 1fr;
+	grid-column-gap       : calc(var(--margin) / 2);
+	grid-row-gap          : calc(var(--margin) / 4);
+	height                : 0;
+	overflow              : hidden;
+	&[data-expanded=true] {
+		border-top : var(--border);
+		height     : auto;
+		padding    : calc(var(--margin) / 4) var(--margin) calc(var(--margin) / 4) calc(var(--margin) / 4 + 40px);
+	}
+	> div[data-widget=tuple-property-item-picker] {
+		grid-template-rows : var(--height) 1fr;
+		> div[data-widget=tuple-property-item-picker-picked-items] {
+			margin-top     : 0;
+			padding-bottom : 0;
+		}
+	}
+`;
+export const CatalogEditLabel = styled.div`
+	display      : flex;
+	align-items  : center;
+	align-self   : start;
+	font-variant : petite-caps;
+	font-weight  : var(--font-demi-bold);
+	height       : var(--height);
 `;
