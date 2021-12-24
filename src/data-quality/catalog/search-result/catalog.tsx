@@ -135,6 +135,7 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 		const index = (editingCatalog.topicIds || []).findIndex(id => id == topicId);
 		if (index !== -1) {
 			(editingCatalog.topicIds || []).splice(index, 1);
+			changeAndForceUpdate();
 		}
 	};
 	const addTopic = (topic: QueryTopicForHolder) => {
@@ -146,6 +147,7 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 				editingCatalog.topicIds = [];
 			}
 			editingCatalog.topicIds.push(topicId);
+			changeAndForceUpdate();
 		}
 	};
 
