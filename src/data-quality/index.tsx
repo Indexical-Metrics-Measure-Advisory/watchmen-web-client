@@ -5,6 +5,7 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
 import {DataQualityCache} from './cache';
 import {DataQualityCacheEventBusProvider} from './cache/cache-event-bus';
+import DataQualityCatalog from './catalog';
 import DataQualityConsanguinity from './consanguinity';
 import {DataQualityMenu} from './menu';
 import DataQualityMonitorRules from './rules';
@@ -53,6 +54,11 @@ const DataQualityIndex = () => {
 				<Route path={Router.DATA_QUALITY_CONSANGUINITY}>
 					<DataQualityMain scrollable={false}>
 						<DataQualityConsanguinity/>
+					</DataQualityMain>
+				</Route>
+				<Route path={Router.DATA_QUALITY_CATALOG}>
+					<DataQualityMain scrollable={false}>
+						<DataQualityCatalog/>
 					</DataQualityMain>
 				</Route>
 				<Route path={Router.DATA_QUALITY_RULES}>

@@ -19,7 +19,7 @@ export const SearchCriteria = () => {
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useRulesEventBus();
 	const [topics, setTopics] = useState<Array<Topic>>([]);
-	const [criteria, setCriteria] = useState<MonitorRulesCriteria>({grade: MonitorRuleGrade.GLOBAL});
+	const [criteria, setCriteria] = useState<MonitorRulesCriteria>({grade: MonitorRuleGrade.TOPIC});
 	useDataQualityCacheData({
 		onDataRetrieved: (data?: DQCCacheData) => {
 			if (data) {
@@ -64,11 +64,11 @@ export const SearchCriteria = () => {
 	return <SearchCriteriaContainer>
 		<SearchLabel>Grade</SearchLabel>
 		<GradePickerContainer>
-			<Button ink={criteria.grade === MonitorRuleGrade.GLOBAL ? ButtonInk.PRIMARY : ButtonInk.WAIVE}
-			        onClick={onGradeClicked(MonitorRuleGrade.GLOBAL)}>
-				<span>Global</span>
-				{criteria.grade === MonitorRuleGrade.GLOBAL ? <FontAwesomeIcon icon={ICON_SELECTED}/> : null}
-			</Button>
+			{/*<Button ink={criteria.grade === MonitorRuleGrade.GLOBAL ? ButtonInk.PRIMARY : ButtonInk.WAIVE}*/}
+			{/*        onClick={onGradeClicked(MonitorRuleGrade.GLOBAL)}>*/}
+			{/*	<span>Global</span>*/}
+			{/*	{criteria.grade === MonitorRuleGrade.GLOBAL ? <FontAwesomeIcon icon={ICON_SELECTED}/> : null}*/}
+			{/*</Button>*/}
 			<Button ink={criteria.grade === MonitorRuleGrade.TOPIC ? ButtonInk.PRIMARY : ButtonInk.WAIVE}
 			        onClick={onGradeClicked(MonitorRuleGrade.TOPIC)}>
 				<span>On Topic</span>

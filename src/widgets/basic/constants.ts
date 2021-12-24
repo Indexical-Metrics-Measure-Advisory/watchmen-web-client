@@ -114,7 +114,7 @@ import {
 	faUndoAlt,
 	faUpload,
 	faUser,
-	faUsers,
+	faUsers, faWarehouse,
 	faWaveSquare,
 	faWind,
 	faWindowMaximize,
@@ -212,6 +212,7 @@ export const ICON_MONITOR_LOGS = faEthernet;
 export const ICON_PIPELINE_DEBUG = faDraftingCompass;
 
 export const ICON_CONSANGUINITY = faDna;
+export const ICON_CATALOG = faWarehouse;
 export const ICON_RULE_DEFINE = faRobot;
 export const ICON_STATISTICS = faCompass;
 export const ICON_END_USER = faChalkboardTeacher;

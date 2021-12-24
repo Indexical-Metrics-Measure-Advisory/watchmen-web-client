@@ -20,14 +20,14 @@ export const GradePickerContainer = styled.div.attrs({'data-widget': 'rules-sear
 	align-items : center;
 	> button {
 		border-radius : calc(var(--height) / 2);
-		&:first-child {
-			border-top-right-radius    : 0;
-			border-bottom-right-radius : 0;
-		}
-		&:last-child {
-			border-top-left-radius    : 0;
-			border-bottom-left-radius : 0;
-		}
+		//&:first-child {
+		//	border-top-right-radius    : 0;
+		//	border-bottom-right-radius : 0;
+		//}
+		//&:last-child {
+		//	border-top-left-radius    : 0;
+		//	border-bottom-left-radius : 0;
+		//}
 		> svg {
 			margin-left : calc(var(--margin) / 4);
 		}

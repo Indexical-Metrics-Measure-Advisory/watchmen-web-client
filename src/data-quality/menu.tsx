@@ -2,6 +2,7 @@ import {Router} from '@/routes/types';
 import {findAccount, quit} from '@/services/data/account';
 import {
 	ICON_ADMIN,
+	ICON_CATALOG,
 	ICON_CONSANGUINITY,
 	ICON_CONSOLE,
 	ICON_END_USER,
@@ -125,6 +126,9 @@ export const DataQualityMenu = () => {
 		<SideMenuItem icon={ICON_CONSANGUINITY} label="Consanguinity" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_CONSANGUINITY)}
 		              onClick={onMenuClicked(Router.DATA_QUALITY_CONSANGUINITY)}/>
+		<SideMenuItem icon={ICON_CATALOG} label="Catalog" showTooltip={showTooltip}
+		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_CATALOG)}
+		              onClick={onMenuClicked(Router.DATA_QUALITY_CATALOG)}/>
 		<SideMenuItem icon={ICON_RULE_DEFINE} label="Monitor Rules" showTooltip={showTooltip}
 		              active={!!matchPath(location.pathname, Router.DATA_QUALITY_RULES)}
 		              onClick={onMenuClicked(Router.DATA_QUALITY_RULES)}/>
