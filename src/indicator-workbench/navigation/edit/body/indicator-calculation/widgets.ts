@@ -49,7 +49,7 @@ export const IndicatorCalculationFormulaContainer = styled.div.attrs<{ expanded:
 		return {
 			'data-widget': 'indicator-calculation-formula',
 			style: {
-				clipPath: expanded ? 'polygon(-1px 0, -1px calc(100% + 250px), 100% calc(100% + 250px), 100% 0)' : (void 0)
+				clipPath: expanded ? 'polygon(-1px 0, -1px calc(100% + 250px), calc(100% + 1px) calc(100% + 250px), calc(100% + 1px) 0)' : (void 0)
 			}
 		};
 	})<{ expanded: boolean }>`
@@ -64,6 +64,7 @@ export const IndicatorCalculationFormulaContainer = styled.div.attrs<{ expanded:
 	top                   : calc(100% - var(--border-width) * 2);
 	left                  : 0;
 	width                 : 100%;
+	min-width             : 600px;
 	padding               : calc(var(--margin) / 4) var(--margin);
 	border                : var(--border);
 	border-width          : calc(var(--border-width) * 2);
