@@ -1,4 +1,4 @@
-import {CatalogCriteria} from '@/services/data/data-quality/catalog-types';
+import {CatalogCriteria} from '@/services/data/tuples/query-catalog-types';
 import {QueryUserForHolder} from '@/services/data/tuples/query-user-types';
 import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 import {UserId} from '@/services/data/tuples/user-types';

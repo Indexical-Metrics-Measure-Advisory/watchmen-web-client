@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import {v4} from 'uuid';
 import {Bucket} from './bucket-types';
+import {Catalog} from './catalog-types';
 import {ConnectedSpace} from './connected-space-types';
 import {Dashboard} from './dashboard-types';
 import {DataSource} from './data-source-types';
@@ -76,13 +77,17 @@ export const isInspection = (tuple: Tuple): tuple is Inspection => {
 export const isNavigation = (tuple: Tuple): tuple is Navigation => {
 	return !!(tuple as any).navigationId;
 };
+export const isCatalog = (tuple: Tuple): tuple is Catalog => {
+	return !!(tuple as any).catalogId;
+};
 
 export const generateUuid = (): string => `${FAKE_ID_PREFIX}${v4().replace(/-/g, '')}`;
 export const isFakedUuidForGraphics = (graphics: PipelinesGraphics): boolean => {
 	return graphics.pipelineGraphId.startsWith(FAKE_ID_PREFIX);
 };
 export const isFakedUuid = (tuple: Tuple): boolean => {
-	if (isNavigation(tuple)) {
+	if (isCatalog(tuple)) {
+	} else if (isNavigation(tuple)) {
 		return tuple.navigationId.startsWith(FAKE_ID_PREFIX);
 	} else if (isInspection(tuple)) {
 		// inspection check must before indicator check
