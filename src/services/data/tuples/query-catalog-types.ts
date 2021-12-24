@@ -1,5 +1,5 @@
-import {TopicId} from '@/services/data/tuples/topic-types';
-import {UserId} from '@/services/data/tuples/user-types';
+import {TopicId} from './topic-types';
+import {UserId} from './user-types';
 
 export interface CatalogCriteria {
 	name?: string;

@@ -31,7 +31,7 @@ export const SearchResultTargetLabel = styled.div.attrs({'data-widget': 'catalog
 `;
 export const SearchResultHeader = styled.div.attrs({'data-widget': 'catalog-result-header'})`
 	display               : grid;
-	grid-template-columns : 40px 350px 85px 150px 150px;
+	grid-template-columns : 40px 350px 120px 200px 200px;
 	grid-auto-rows        : var(--height);
 	border-bottom         : var(--border);
 	border-bottom-width   : 2px;
@@ -59,4 +59,63 @@ export const SearchResultBody = styled.div.attrs({
 	height         : calc(100vh - var(--page-header-height) - 45px - 40px - var(--height) - 2px);
 	overflow-y     : auto;
 	overflow-x     : hidden;
+`;
+export const NoData = styled.div`
+	display       : flex;
+	position      : absolute;
+	grid-column   : 1 / span 5;
+	align-items   : center;
+	height        : var(--height);
+	width         : 100%;
+	padding       : 0 calc(var(--margin) / 2);
+	border-bottom : var(--border);
+`;
+export const CatalogRowContainer = styled.div`
+	display               : grid;
+	position              : relative;
+	grid-template-columns : 40px 350px 120px 200px 200px;
+	min-height            : calc(var(--height) + 1px);
+	border-bottom         : var(--border);
+	&[data-changed=true] {
+		&:before {
+			content          : '';
+			display          : block;
+			position         : absolute;
+			top              : 0;
+			left             : 0;
+			width            : 100%;
+			height           : 100%;
+			background-color : var(--danger-color);
+			opacity          : 0.1;
+			z-index          : -2;
+		}
+	}
+	:hover {
+		background-color : var(--hover-color);
+	}
+`;
+export const CatalogCell = styled.div`
+	display       : flex;
+	align-items   : center;
+	height        : var(--height);
+	padding       : 0 calc(var(--margin) / 2);
+	border-right  : var(--border);
+	white-space   : nowrap;
+	overflow      : hidden;
+	text-overflow : ellipsis;
+	> div[data-widget=checkbox] {
+		border : 0;
+	}
+	> div[data-widget=dropdown] {
+		border  : 0;
+		margin  : calc(var(--margin) / -2);
+		padding : 0 calc(var(--margin) / 2);
+		width   : calc(100% + var(--margin));
+		span[data-widget="dropdown-option"] {
+			padding : 0 calc(var(--margin) / 2);
+		}
+	}
+`;
+export const CatalogSeqCell = styled(CatalogCell)`
+	padding : 0 calc(var(--margin) / 4);
 `;

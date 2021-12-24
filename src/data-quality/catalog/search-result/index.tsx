@@ -6,7 +6,9 @@ import {EventTypes} from '@/widgets/events/types';
 import React, {useEffect, useState} from 'react';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
+import {CatalogRow} from './catalog';
 import {
+	NoData,
 	SearchResultBody,
 	SearchResultContainer,
 	SearchResultHeader,
@@ -18,32 +20,38 @@ import {
 export const SearchResult = () => {
 	const {fire: fireGlobal} = useEventBus();
 	const {fire, on, off} = useCatalogEventBus();
-	const [state, setState] = useState<Array<Catalog>>([]);
+	const [catalogs, setCatalogs] = useState<Array<Catalog>>([]);
 	useEffect(() => {
 		const onSearch = async (criteria: CatalogCriteria) => {
-			fire(CatalogEventTypes.ASK_CATALOG_CHANGED, (changed) => {
-				if (changed) {
+			const shouldAsk = await new Promise<boolean>(resolve => {
+				if (catalogs.length === 0) {
+					resolve(true);
+				} else {
 					fireGlobal(EventTypes.SHOW_YES_NO_DIALOG,
 						'Data is changed, are you sure to discard them and load another?',
 						() => {
-							fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-								async () => await fetchCatalogs(criteria),
-								(data: Array<Catalog>) => setState(data));
 							fireGlobal(EventTypes.HIDE_DIALOG);
+							resolve(true);
 						},
-						() => fireGlobal(EventTypes.HIDE_DIALOG));
-				} else {
-					fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
-						async () => await fetchCatalogs(criteria),
-						(data: Array<Catalog>) => setState(data));
+						() => {
+							fireGlobal(EventTypes.HIDE_DIALOG);
+							resolve(false);
+						});
 				}
 			});
+			if (!shouldAsk) {
+				return;
+			}
+
+			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+				async () => await fetchCatalogs(criteria),
+				(data: Array<Catalog>) => setCatalogs(data));
 		};
 		on(CatalogEventTypes.DO_SEARCH, onSearch);
 		return () => {
 			off(CatalogEventTypes.DO_SEARCH, onSearch);
 		};
-	}, [fire, on, off, fireGlobal]);
+	}, [fire, on, off, fireGlobal, catalogs.length]);
 
 	return <SearchResultContainer>
 		<SearchResultTargetLabel>
@@ -57,7 +65,11 @@ export const SearchResult = () => {
 			<SearchResultHeaderCell>Business Owner</SearchResultHeaderCell>
 		</SearchResultHeader>
 		<SearchResultBody>
-			{/*<TopicRules topic={state.topic!} rules={state.rules}/>*/}
+			{catalogs.length === 0
+				? <NoData>No catalogs found.</NoData>
+				: catalogs.map((catalog, index) => {
+					return <CatalogRow catalog={catalog} index={index + 1} key={catalog.catalogId}/>;
+				})}
 		</SearchResultBody>
 	</SearchResultContainer>;
 };
