@@ -37,11 +37,12 @@ const ParametersLabel = (props: {
 	const {def, params, topic} = props;
 
 	const [topics, setTopics] = useState<Array<Topic>>([]);
-	useDataQualityCacheData({
-		onDataRetrieved: (data?: DQCCacheData) => {
+	const [onDataRetrieved] = useState(() => {
+		return (data?: DQCCacheData) => {
 			setTopics(data?.topics || []);
-		}
+		};
 	});
+	useDataQualityCacheData({onDataRetrieved});
 	if (!def.parameters || def.parameters.length === 0) {
 		return null;
 	}

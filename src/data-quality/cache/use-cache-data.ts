@@ -6,9 +6,7 @@ import {DQCCacheData} from './types';
 /**
  * make sure options will not change, this must be executed only once
  */
-export const useDataQualityCacheData = (options: {
-	onDataRetrieved: (data?: DQCCacheData) => void;
-}) => {
+export const useDataQualityCacheData = (options: { onDataRetrieved: (data?: DQCCacheData) => void; }) => {
 	const {onDataRetrieved} = options;
 
 	const {fire} = useDataQualityCacheEventBus();

@@ -1,4 +1,5 @@
 import {CatalogCriteria} from '@/services/data/data-quality/catalog-types';
+import {QueryUserForHolder} from '@/services/data/tuples/query-user-types';
 import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 import {UserId} from '@/services/data/tuples/user-types';
 import {Button} from '@/widgets/basic/button';
@@ -12,19 +13,31 @@ import {DQCCacheData} from '../../cache/types';
 import {useDataQualityCacheData} from '../../cache/use-cache-data';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
+import {useUserData} from '../user-cache/useUserData';
 import {SearchCriteriaContainer, SearchLabel} from './widgets';
+
+interface StateDataHolder {
+	onTopicData: (data?: DQCCacheData) => void;
+	onUserData: (users: Array<QueryUserForHolder>) => void;
+}
 
 export const SearchCriteria = () => {
 	const {fire} = useCatalogEventBus();
 	const [topics, setTopics] = useState<Array<Topic>>([]);
+	const [users, setUsers] = useState<Array<QueryUserForHolder>>([]);
 	const [criteria, setCriteria] = useState<CatalogCriteria>({});
-	useDataQualityCacheData({
-		onDataRetrieved: (data?: DQCCacheData) => {
-			if (data) {
-				setTopics(data.topics);
-			}
-		}
+	const [dataHolder] = useState<StateDataHolder>(() => {
+		return {
+			onTopicData: (data?: DQCCacheData) => {
+				if (data) {
+					setTopics(data.topics);
+				}
+			},
+			onUserData: (users: Array<QueryUserForHolder>) => setUsers(users)
+		};
 	});
+	useDataQualityCacheData({onDataRetrieved: dataHolder.onTopicData});
+	useUserData(dataHolder.onUserData);
 
 	const onNameChanged = (event: ChangeEvent<HTMLInputElement>) => {
 		setCriteria({...criteria, name: event.target.value});
@@ -73,10 +86,20 @@ export const SearchCriteria = () => {
 				value: topic.topicId,
 				label: topic.name
 			};
-		}).sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()))
+		}).sort((a, b) => {
+			return (a.label || '').localeCompare(b.label || '', void 0, {sensitivity: 'base', caseFirst: 'upper'});
+		})
 	];
 	const ownerOptions: Array<DropdownOption> = [
-		{value: '', label: 'Anyone'}
+		{value: '', label: 'Anyone'},
+		...users.map(user => {
+			return {
+				value: user.userId,
+				label: user.name
+			};
+		}).sort((a, b) => {
+			return (a.label || '').localeCompare(b.label || '', void 0, {sensitivity: 'base', caseFirst: 'upper'});
+		})
 	];
 
 	return <SearchCriteriaContainer>

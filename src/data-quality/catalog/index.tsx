@@ -3,6 +3,7 @@ import {FullWidthPageHeaderContainer, PageTitle} from '@/widgets/basic/page-head
 import React from 'react';
 import {CatalogEventBusProvider} from './catalog-event-bus';
 import {SearchCriteria} from './search-criteria';
+import {UserCache} from './user-cache';
 import {Body} from './widgets';
 
 const DataQualityCatalogIndex = () => {
@@ -12,6 +13,7 @@ const DataQualityCatalogIndex = () => {
 		</FullWidthPageHeaderContainer>
 		<Body>
 			<CatalogEventBusProvider>
+				<UserCache/>
 				<SearchCriteria/>
 				{/*<SearchResult/>*/}
 			</CatalogEventBusProvider>

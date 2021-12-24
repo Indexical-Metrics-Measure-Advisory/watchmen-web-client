@@ -20,13 +20,14 @@ export const SearchCriteria = () => {
 	const {fire} = useRulesEventBus();
 	const [topics, setTopics] = useState<Array<Topic>>([]);
 	const [criteria, setCriteria] = useState<MonitorRulesCriteria>({grade: MonitorRuleGrade.TOPIC});
-	useDataQualityCacheData({
-		onDataRetrieved: (data?: DQCCacheData) => {
+	const [onDataRetrieved] = useState(() => {
+		return (data?: DQCCacheData) => {
 			if (data) {
 				setTopics(data.topics);
 			}
-		}
+		};
 	});
+	useDataQualityCacheData({onDataRetrieved});
 
 	const onGradeClicked = (grade: MonitorRuleGrade.GLOBAL | MonitorRuleGrade.TOPIC) => () => {
 		if (grade === MonitorRuleGrade.GLOBAL) {
