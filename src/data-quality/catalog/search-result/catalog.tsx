@@ -9,6 +9,7 @@ import {Input} from '@/widgets/basic/input';
 import {InputLines} from '@/widgets/basic/input-lines';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
+import {TupleEventBusProvider} from '@/widgets/tuple-workbench/tuple-event-bus';
 import {TupleItemPicker} from '@/widgets/tuple-workbench/tuple-item-picker';
 import React, {ChangeEvent, useState} from 'react';
 import {DQCCacheData} from '../../cache/types';
@@ -117,7 +118,7 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 	};
 	const listTopics = async (search: string): Promise<Array<QueryTopicForHolder>> => {
 		return new Promise<Array<QueryTopicForHolder>>(resolve => {
-			resolve(topics.filter(topic => (topic.name || '').toLowerCase().indexOf((search || '').toLowerCase())));
+			resolve(topics.filter(topic => (topic.name || '').toLowerCase().indexOf((search || '').toLowerCase()) !== -1));
 		});
 	};
 	const getTopicId = (topic: QueryTopicForHolder) => topic.topicId;
@@ -173,11 +174,14 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 		</CatalogCell>
 		<CatalogEditCell data-expanded={expanded}>
 			<CatalogEditLabel>Topics</CatalogEditLabel>
-			<TupleItemPicker actionLabel="Pick topics"
-			                 holder={editingCatalog} codes={topics}
-			                 isHolding={isHolding} getHoldIds={getHoldIds} getNameOfHold={getNameOfHold}
-			                 listCandidates={listTopics} getIdOfCandidate={getTopicId} getNameOfCandidate={getTopicName}
-			                 isCandidateHold={isTopicHold} removeHold={removeTopic} addHold={addTopic}/>
+			<TupleEventBusProvider>
+				<TupleItemPicker actionLabel="Pick topics"
+				                 holder={editingCatalog} codes={topics}
+				                 isHolding={isHolding} getHoldIds={getHoldIds} getNameOfHold={getNameOfHold}
+				                 listCandidates={listTopics} getIdOfCandidate={getTopicId}
+				                 getNameOfCandidate={getTopicName}
+				                 isCandidateHold={isTopicHold} removeHold={removeTopic} addHold={addTopic}/>
+			</TupleEventBusProvider>
 			<CatalogEditLabel>Tags</CatalogEditLabel>
 			<Input value={editingCatalog.flatTags} onChange={onTagsChanged}
 			       placeholder="Tags splitted by whitespace..."/>
