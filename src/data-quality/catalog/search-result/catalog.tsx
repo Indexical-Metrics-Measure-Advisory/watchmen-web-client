@@ -23,7 +23,7 @@ import {DQCCacheData} from '../../cache/types';
 import {useDataQualityCacheData} from '../../cache/use-cache-data';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
-import {useUserData} from '../user-cache/useUserData';
+import {useUserData} from '../user-cache/use-user-data';
 import {
 	CatalogCell,
 	CatalogEditButtons,
