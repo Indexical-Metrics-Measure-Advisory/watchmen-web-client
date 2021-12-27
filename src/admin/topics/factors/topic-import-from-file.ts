@@ -17,10 +17,12 @@ const ValidIndexGroups = [
 const isIndexGroupValid = (indexGroup?: string): boolean => {
 	return !indexGroup || ValidIndexGroups.includes(indexGroup);
 };
-const asFactors = async (topic: Topic, data: any): Promise<Array<Factor>> => {
+
+type ShouldBeFactorsStructure = any;
+const asFactors = async (topic: Topic, data: ShouldBeFactorsStructure): Promise<Array<Factor>> => {
 	if (data == null || !Array.isArray(data) || data.length === 0) {
 		console.error('Cannot parse data to factors.', data);
-		throw new Error('Parsed data is not an array.');
+		throw new Error('Parsed data is not an array or no element in factors array.');
 	}
 
 	const mockTopic = createTopic();
@@ -65,7 +67,7 @@ const asFactors = async (topic: Topic, data: any): Promise<Array<Factor>> => {
 	}, []);
 };
 
-export const parseFromCsv = async (topic: Topic, content: string): Promise<Array<Factor>> => {
+export const parseFromStructureCsv = async (topic: Topic, content: string): Promise<Array<Factor>> => {
 	return new Promise((resolve, reject) => {
 		parseCSV(content, {
 			columns: true,
@@ -91,7 +93,7 @@ export const parseFromCsv = async (topic: Topic, content: string): Promise<Array
 	});
 };
 
-export const parseFromJson = async (topic: Topic, content: string): Promise<Array<Factor>> => {
+export const parseFromStructureJson = async (topic: Topic, content: string): Promise<Array<Factor>> => {
 	return new Promise((resolve, reject) => {
 		try {
 			const data = JSON.parse(content);

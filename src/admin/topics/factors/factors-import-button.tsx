@@ -3,14 +3,14 @@ import {AlertLabel} from '@/widgets/alert/widgets';
 import {DwarfButton} from '@/widgets/basic/button';
 import {ICON_UPLOAD} from '@/widgets/basic/constants';
 import {ButtonInk} from '@/widgets/basic/types';
-import {uploadFile, UploadFileAcceptsTxtCsvJson} from '@/widgets/basic/utils';
+import {uploadFile, UploadFileAcceptsJson, UploadFileAcceptsTxtCsvJson} from '@/widgets/basic/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';
-import {parseFromCsv, parseFromJson} from './topic-import-from-file';
+import {parseFromStructureCsv, parseFromStructureJson} from './topic-import-from-file';
 
 export const FactorsImportButton = (props: { topic: Topic }) => {
 	const {topic} = props;
@@ -18,20 +18,14 @@ export const FactorsImportButton = (props: { topic: Topic }) => {
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useTopicEventBus();
 
-	const onFileSelected = async (file: File) => {
+	const onInstanceFileSelected = async (file: File) => {
 		const name = file.name;
 		try {
 			switch (true) {
-				case name.endsWith('.txt'):
-				case name.endsWith('.csv'): {
-					const content = await file.text();
-					topic.factors = await parseFromCsv(topic, content);
-					fire(TopicEventTypes.FACTORS_IMPORTED, topic.factors);
-					break;
-				}
 				case name.endsWith('.json'): {
 					const content = await file.text();
-					topic.factors = await parseFromJson(topic, content);
+					// TODO
+					// topic.factors = await parseFromJson(topic, content);
 					fire(TopicEventTypes.FACTORS_IMPORTED, topic.factors);
 					break;
 				}
@@ -44,12 +38,47 @@ export const FactorsImportButton = (props: { topic: Topic }) => {
 			</AlertLabel>);
 		}
 	};
-	const onImportClicked = () => {
-		uploadFile(UploadFileAcceptsTxtCsvJson, onFileSelected);
+	const onImportByInstanceClicked = () => {
+		uploadFile(UploadFileAcceptsJson, onInstanceFileSelected);
+	};
+	const onStructureFileSelected = async (file: File) => {
+		const name = file.name;
+		try {
+			switch (true) {
+				case name.endsWith('.txt'):
+				case name.endsWith('.csv'): {
+					const content = await file.text();
+					topic.factors = await parseFromStructureCsv(topic, content);
+					fire(TopicEventTypes.FACTORS_IMPORTED, topic.factors);
+					break;
+				}
+				case name.endsWith('.json'): {
+					const content = await file.text();
+					topic.factors = await parseFromStructureJson(topic, content);
+					fire(TopicEventTypes.FACTORS_IMPORTED, topic.factors);
+					break;
+				}
+				default:
+					fireGlobal(EventTypes.SHOW_NOT_IMPLEMENT);
+			}
+		} catch {
+			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
+				Failed to import factors, check file format please.
+			</AlertLabel>);
+		}
+	};
+	const onImportByStructureClicked = () => {
+		uploadFile(UploadFileAcceptsTxtCsvJson, onStructureFileSelected);
 	};
 
-	return <DwarfButton ink={ButtonInk.INFO} onClick={onImportClicked}>
-		<FontAwesomeIcon icon={ICON_UPLOAD}/>
-		<span>Import from File</span>
-	</DwarfButton>;
+	return <>
+		<DwarfButton ink={ButtonInk.INFO} onClick={onImportByInstanceClicked}>
+			<FontAwesomeIcon icon={ICON_UPLOAD}/>
+			<span>Import by Instance</span>
+		</DwarfButton>
+		<DwarfButton ink={ButtonInk.INFO} onClick={onImportByStructureClicked}>
+			<FontAwesomeIcon icon={ICON_UPLOAD}/>
+			<span>Import by Structure</span>
+		</DwarfButton>
+	</>;
 };

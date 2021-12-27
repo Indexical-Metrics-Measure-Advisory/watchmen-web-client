@@ -16,6 +16,6 @@ export const FactorsDownloadTemplateButton = () => {
 
 	return <DwarfButton ink={ButtonInk.INFO} onClick={onDownloadClicked}>
 		<FontAwesomeIcon icon={ICON_DOWNLOAD}/>
-		<span>Download Factors Template</span>
+		<span>Download Structure Template</span>
 	</DwarfButton>;
 };
