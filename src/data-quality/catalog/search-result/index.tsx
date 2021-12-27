@@ -69,6 +69,15 @@ export const SearchResult = () => {
 			off(CatalogEventTypes.DO_SEARCH, onSearch);
 		};
 	}, [fire, on, off, fireGlobal, catalogs.length]);
+	useEffect(() => {
+		const onDoCreateCatalog = (catalog: Catalog) => {
+			setCatalogs([catalog, ...catalogs]);
+		};
+		on(CatalogEventTypes.DO_CREATE_CATALOG, onDoCreateCatalog);
+		return () => {
+			off(CatalogEventTypes.DO_CREATE_CATALOG, onDoCreateCatalog);
+		};
+	}, [on, off, catalogs]);
 
 	return <SearchResultContainer>
 		<CatalogState/>

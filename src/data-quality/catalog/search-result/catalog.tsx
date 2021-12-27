@@ -5,6 +5,7 @@ import {QueryUserForHolder} from '@/services/data/tuples/query-user-types';
 import {TopicId} from '@/services/data/tuples/topic-types';
 import {TupleHolder} from '@/services/data/tuples/tuple-types';
 import {UserId} from '@/services/data/tuples/user-types';
+import {isFakedUuid} from '@/services/data/tuples/utils';
 import {Button} from '@/widgets/basic/button';
 import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL, ICON_LOADING} from '@/widgets/basic/constants';
 import {Dropdown} from '@/widgets/basic/dropdown';
@@ -48,8 +49,8 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useCatalogEventBus();
-	const [changed, setChanged] = useState(false);
-	const [expanded, setExpanded] = useState(false);
+	const [changed, setChanged] = useState(isFakedUuid(catalog));
+	const [expanded, setExpanded] = useState(isFakedUuid(catalog));
 	const [saving, setSaving] = useState(false);
 	const [editingCatalog] = useState<EditCatalog>(asEditingCatalog(catalog));
 	const [topics, setTopics] = useState<Array<QueryTopicForHolder>>([]);
