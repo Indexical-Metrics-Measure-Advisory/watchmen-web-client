@@ -4,7 +4,6 @@ import {CatalogCriteria} from '@/services/data/tuples/query-catalog-types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import React, {useEffect, useState} from 'react';
-import {v4} from 'uuid';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {CatalogRow} from './catalog';
@@ -81,7 +80,7 @@ export const SearchResult = () => {
 			{catalogs.length === 0
 				? <NoData>No catalogs found.</NoData>
 				: catalogs.map((catalog, index) => {
-					return <CatalogRow catalog={catalog} index={index + 1} key={v4()}/>;
+					return <CatalogRow catalog={catalog} index={index + 1} key={catalog.catalogId}/>;
 				})}
 		</SearchResultBody>
 	</SearchResultContainer>;

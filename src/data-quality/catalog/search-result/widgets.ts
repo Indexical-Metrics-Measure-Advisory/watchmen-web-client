@@ -59,7 +59,7 @@ export const SearchResultBody = styled.div.attrs({
 	display        : flex;
 	flex-direction : column;
 	flex-grow      : 1;
-	height         : calc(100vh - var(--page-header-height) - 45px - 40px - var(--height) - 2px);
+	height         : calc(100vh - var(--page-header-height) - 81px - 40px - var(--height) - 2px);
 	overflow-y     : auto;
 	overflow-x     : hidden;
 `;
@@ -79,24 +79,9 @@ export const CatalogRowContainer = styled.div`
 	grid-template-columns : 40px 350px 120px 200px 200px 1fr;
 	min-height            : calc(var(--height) + 1px);
 	border-bottom         : var(--border);
-	//cursor                : pointer;
-	//&[data-changed=true] {
-	//	&:before {
-	//		content          : '';
-	//		display          : block;
-	//		position         : absolute;
-	//		top              : 0;
-	//		left             : 0;
-	//		width            : 100%;
-	//		height           : 100%;
-	//		background-color : var(--warn-color);
-	//		opacity          : 0.05;
-	//		z-index          : -2;
-	//	}
-	//}
 	&[data-expanded=true]:hover {
+		min-height       : unset;
 		background-color : unset;
-		cursor           : default;
 	}
 	&:hover {
 		background-color : var(--hover-color);

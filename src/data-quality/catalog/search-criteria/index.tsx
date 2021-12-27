@@ -1,7 +1,11 @@
+import {Catalog} from '@/services/data/tuples/catalog-types';
 import {CatalogCriteria} from '@/services/data/tuples/query-catalog-types';
 import {QueryUserForHolder} from '@/services/data/tuples/query-user-types';
 import {Topic, TopicId} from '@/services/data/tuples/topic-types';
 import {UserId} from '@/services/data/tuples/user-types';
+import {generateUuid} from '@/services/data/tuples/utils';
+import {getCurrentTime} from '@/services/data/utils';
+import {base64Encode} from '@/services/utils';
 import {Button} from '@/widgets/basic/button';
 import {ICON_SEARCH} from '@/widgets/basic/constants';
 import {Dropdown} from '@/widgets/basic/dropdown';
@@ -14,12 +18,22 @@ import {useDataQualityCacheData} from '../../cache/use-cache-data';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {useUserData} from '../user-cache/useUserData';
-import {SearchCriteriaContainer, SearchLabel} from './widgets';
+import {SearchCriteriaButtons, SearchCriteriaContainer, SearchLabel} from './widgets';
 
 interface StateDataHolder {
 	onTopicData: (data?: DQCCacheData) => void;
 	onUserData: (users: Array<QueryUserForHolder>) => void;
 }
+
+const createCatalog = (): Catalog => {
+	const catalogId = generateUuid();
+	return {
+		catalogId,
+		name: `Catalog ${base64Encode(catalogId).substr(0, 12)}`,
+		createTime: getCurrentTime(),
+		lastModified: getCurrentTime()
+	};
+};
 
 export const SearchCriteria = () => {
 	const {fire} = useCatalogEventBus();
@@ -78,6 +92,10 @@ export const SearchCriteria = () => {
 	const onSearchClicked = () => {
 		fire(CatalogEventTypes.DO_SEARCH, criteria);
 	};
+	const onCreateClicked = () => {
+		const catalog = createCatalog();
+		fire(CatalogEventTypes.DO_CREATE_CATALOG, catalog);
+	};
 
 	const topicOptions: Array<DropdownOption> = [
 		{value: '', label: 'Any Topic'},
@@ -111,9 +129,14 @@ export const SearchCriteria = () => {
 		<Dropdown options={ownerOptions} value={criteria.techOwnerId ?? ''} onChange={onTechOwnerChanged}/>
 		<SearchLabel>Business Owner</SearchLabel>
 		<Dropdown options={ownerOptions} value={criteria.bizOwnerId ?? ''} onChange={onBizOwnerChanged}/>
-		<Button ink={ButtonInk.PRIMARY} onClick={onSearchClicked}>
-			<FontAwesomeIcon icon={ICON_SEARCH}/>
-			<span>Find</span>
-		</Button>
+		<SearchCriteriaButtons>
+			<Button ink={ButtonInk.PRIMARY} onClick={onSearchClicked}>
+				<FontAwesomeIcon icon={ICON_SEARCH}/>
+				<span>Find</span>
+			</Button>
+			<Button ink={ButtonInk.PRIMARY} onClick={onCreateClicked}>
+				<span>Create New Catalog</span>
+			</Button>
+		</SearchCriteriaButtons>
 	</SearchCriteriaContainer>;
 };
