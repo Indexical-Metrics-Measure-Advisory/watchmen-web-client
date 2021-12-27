@@ -1,14 +1,18 @@
+import {saveCatalog} from '@/services/data/tuples/catalog';
 import {Catalog} from '@/services/data/tuples/catalog-types';
 import {QueryTopicForHolder} from '@/services/data/tuples/query-topic-types';
 import {QueryUserForHolder} from '@/services/data/tuples/query-user-types';
 import {TopicId} from '@/services/data/tuples/topic-types';
 import {TupleHolder} from '@/services/data/tuples/tuple-types';
 import {UserId} from '@/services/data/tuples/user-types';
+import {Button} from '@/widgets/basic/button';
 import {Dropdown} from '@/widgets/basic/dropdown';
 import {Input} from '@/widgets/basic/input';
 import {InputLines} from '@/widgets/basic/input-lines';
-import {DropdownOption} from '@/widgets/basic/types';
+import {ButtonInk, DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
+import {useEventBus} from '@/widgets/events/event-bus';
+import {EventTypes} from '@/widgets/events/types';
 import {TupleEventBusProvider} from '@/widgets/tuple-workbench/tuple-event-bus';
 import {TupleItemPicker} from '@/widgets/tuple-workbench/tuple-item-picker';
 import React, {ChangeEvent, useState} from 'react';
@@ -32,6 +36,7 @@ const getUserName = (users: Array<QueryUserForHolder>, userId?: UserId): string 
 export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 	const {catalog, index} = props;
 
+	const {fire: fireGlobal} = useEventBus();
 	const [changed, setChanged] = useState(false);
 	const [expanded, setExpanded] = useState(false);
 	const [editingCatalog] = useState<EditCatalog>({
@@ -97,6 +102,27 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 		editingCatalog.description = event.target.value;
 		changeAndForceUpdate();
 	};
+	const onSaveClicked = () => {
+		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+			async () => {
+				const catalogToSave: Catalog = {
+					...editingCatalog,
+					tags: (editingCatalog.flatTags || '').split(' ').map(tag => tag.trim()).filter(tag => tag !== '').map(tag => tag.toLowerCase())
+				};
+				// @ts-ignore
+				delete catalogToSave.flatTags;
+				await saveCatalog(catalogToSave);
+				return catalogToSave;
+			}, (catalogToSave: Catalog) => {
+				// sync data to model
+				Object.keys(catalogToSave).forEach(prop => {
+					// @ts-ignore
+					catalog[prop as keyof Catalog] = catalogToSave[prop as keyof Catalog];
+				});
+				setChanged(false);
+			});
+	};
+	const onCollapseClicked = () => setExpanded(false);
 
 	const ownerOptions: Array<DropdownOption> = [
 		{value: '', label: 'Not Designated'},
@@ -172,6 +198,10 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 				<Dropdown value={editingCatalog.bizOwnerId ?? ''} options={ownerOptions} onChange={onBizOwnerChanged}/>
 				: getUserName(users, editingCatalog.bizOwnerId)}
 		</CatalogCell>
+		<CatalogCell>
+			{changed ? <Button ink={ButtonInk.PRIMARY} onClick={onSaveClicked}>Save</Button> : null}
+			{expanded ? <Button ink={ButtonInk.PRIMARY} onClick={onCollapseClicked}>Collapse</Button> : null}
+		</CatalogCell>
 		<CatalogEditCell data-expanded={expanded}>
 			<CatalogEditLabel>Topics</CatalogEditLabel>
 			<TupleEventBusProvider>
@@ -184,7 +214,7 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 			</TupleEventBusProvider>
 			<CatalogEditLabel>Tags</CatalogEditLabel>
 			<Input value={editingCatalog.flatTags} onChange={onTagsChanged}
-			       placeholder="Tags splitted by whitespace..."/>
+			       placeholder="Tags splitted by space character."/>
 			<CatalogEditLabel>Description</CatalogEditLabel>
 			<InputLines value={editingCatalog.description ?? ''} onChange={onDescChanged}/>
 		</CatalogEditCell>

@@ -31,7 +31,7 @@ export const SearchResultTargetLabel = styled.div.attrs({'data-widget': 'catalog
 `;
 export const SearchResultHeader = styled.div.attrs({'data-widget': 'catalog-result-header'})`
 	display               : grid;
-	grid-template-columns : 40px 350px 120px 200px 200px;
+	grid-template-columns : 40px 350px 120px 200px 200px 1fr;
 	grid-auto-rows        : var(--height);
 	border-bottom         : var(--border);
 	border-bottom-width   : 2px;
@@ -45,6 +45,9 @@ export const SearchResultHeaderCell = styled.div.attrs({'data-widget': 'catalog-
 	height       : var(--height);
 	padding      : 0 calc(var(--margin) / 2);
 	border-right : var(--border);
+	&:last-child {
+		border-right : 0;
+	}
 `;
 export const SearchResultHeaderSeqCell = styled(SearchResultHeaderCell)`
 	padding : 0 calc(var(--margin) / 4);
@@ -73,24 +76,24 @@ export const NoData = styled.div`
 export const CatalogRowContainer = styled.div`
 	display               : grid;
 	position              : relative;
-	grid-template-columns : 40px 350px 120px 200px 200px;
+	grid-template-columns : 40px 350px 120px 200px 200px 1fr;
 	min-height            : calc(var(--height) + 1px);
 	border-bottom         : var(--border);
 	cursor                : pointer;
-	&[data-changed=true] {
-		&:before {
-			content          : '';
-			display          : block;
-			position         : absolute;
-			top              : 0;
-			left             : 0;
-			width            : 100%;
-			height           : 100%;
-			background-color : var(--danger-color);
-			opacity          : 0.1;
-			z-index          : -2;
-		}
-	}
+	//&[data-changed=true] {
+	//	&:before {
+	//		content          : '';
+	//		display          : block;
+	//		position         : absolute;
+	//		top              : 0;
+	//		left             : 0;
+	//		width            : 100%;
+	//		height           : 100%;
+	//		background-color : var(--warn-color);
+	//		opacity          : 0.05;
+	//		z-index          : -2;
+	//	}
+	//}
 	&[data-expanded=true]:hover {
 		background-color : unset;
 		cursor           : default;
@@ -124,6 +127,12 @@ export const CatalogCell = styled.div`
 		width   : calc(100% + var(--margin));
 		span[data-widget="dropdown-option"] {
 			padding : 0 calc(var(--margin) / 2);
+		}
+	}
+	> button {
+		height : calc(var(--height) * 0.8);
+		&:not(:first-child) {
+			margin-left : calc(var(--margin) / 4);
 		}
 	}
 `;

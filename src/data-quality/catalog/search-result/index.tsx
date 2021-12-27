@@ -63,6 +63,7 @@ export const SearchResult = () => {
 			<SearchResultHeaderCell>Topic Count</SearchResultHeaderCell>
 			<SearchResultHeaderCell>Technical Owner</SearchResultHeaderCell>
 			<SearchResultHeaderCell>Business Owner</SearchResultHeaderCell>
+			<SearchResultHeaderCell/>
 		</SearchResultHeader>
 		<SearchResultBody>
 			{catalogs.length === 0
