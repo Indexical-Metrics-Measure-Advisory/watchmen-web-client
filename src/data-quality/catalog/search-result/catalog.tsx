@@ -29,6 +29,12 @@ interface EditCatalog extends Omit<Catalog, 'tags'>, TupleHolder {
 	flatTags: string;
 }
 
+const asEditingCatalog = (catalog: Catalog): EditCatalog => {
+	return {
+		...catalog,
+		flatTags: (catalog.tags || []).join(' ')
+	};
+};
 const getUserName = (users: Array<QueryUserForHolder>, userId?: UserId): string => {
 	if (userId == null || userId.trim().length === 0) {
 		return 'Not Designated';
@@ -45,10 +51,7 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 	const [changed, setChanged] = useState(false);
 	const [expanded, setExpanded] = useState(false);
 	const [saving, setSaving] = useState(false);
-	const [editingCatalog] = useState<EditCatalog>({
-		...catalog,
-		flatTags: (catalog.tags || []).join(' ')
-	});
+	const [editingCatalog] = useState<EditCatalog>(asEditingCatalog(catalog));
 	const [topics, setTopics] = useState<Array<QueryTopicForHolder>>([]);
 	const [users, setUsers] = useState<Array<QueryUserForHolder>>([]);
 	const forceUpdate = useForceUpdate();

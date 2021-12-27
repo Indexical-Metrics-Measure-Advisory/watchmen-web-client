@@ -72,6 +72,9 @@ export const NoData = styled.div`
 	width         : 100%;
 	padding       : 0 calc(var(--margin) / 2);
 	border-bottom : var(--border);
+	> svg {
+		margin-right : calc(var(--margin) / 4);
+	}
 `;
 export const CatalogRowContainer = styled.div`
 	display               : grid;

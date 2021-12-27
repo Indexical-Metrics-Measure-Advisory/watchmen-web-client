@@ -1,8 +1,10 @@
 import {fetchCatalogs} from '@/services/data/tuples/catalog';
 import {Catalog} from '@/services/data/tuples/catalog-types';
 import {CatalogCriteria} from '@/services/data/tuples/query-catalog-types';
+import {ICON_LOADING} from '@/widgets/basic/constants';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
@@ -21,6 +23,7 @@ import {
 export const SearchResult = () => {
 	const {fire: fireGlobal} = useEventBus();
 	const {fire, on, off} = useCatalogEventBus();
+	const [loading, setLoading] = useState(false);
 	const [catalogs, setCatalogs] = useState<Array<Catalog>>([]);
 	useEffect(() => {
 		const onSearch = async (criteria: CatalogCriteria) => {
@@ -53,9 +56,13 @@ export const SearchResult = () => {
 				return;
 			}
 
+			setLoading(true);
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await fetchCatalogs(criteria),
-				(data: Array<Catalog>) => setCatalogs(data));
+				(data: Array<Catalog>) => {
+					setLoading(false);
+					setCatalogs(data);
+				}, () => setLoading(false));
 		};
 		on(CatalogEventTypes.DO_SEARCH, onSearch);
 		return () => {
@@ -77,11 +84,16 @@ export const SearchResult = () => {
 			<SearchResultHeaderCell/>
 		</SearchResultHeader>
 		<SearchResultBody>
-			{catalogs.length === 0
-				? <NoData>No catalogs found.</NoData>
-				: catalogs.map((catalog, index) => {
-					return <CatalogRow catalog={catalog} index={index + 1} key={catalog.catalogId}/>;
-				})}
+			{loading
+				? <NoData>
+					<FontAwesomeIcon icon={ICON_LOADING} spin={true}/>
+					<span>Loading...</span>
+				</NoData>
+				: (catalogs.length === 0
+					? <NoData>No catalogs found.</NoData>
+					: catalogs.map((catalog, index) => {
+						return <CatalogRow catalog={catalog} index={index + 1} key={catalog.catalogId}/>;
+					}))}
 		</SearchResultBody>
 	</SearchResultContainer>;
 };
