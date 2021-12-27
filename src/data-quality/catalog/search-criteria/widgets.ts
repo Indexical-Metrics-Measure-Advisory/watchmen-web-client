@@ -20,5 +20,4 @@ export const SearchCriteriaContainer = styled.div.attrs({'data-widget': 'catalog
 `;
 export const SearchLabel = styled.div.attrs({'data-widget': 'catalog-search-label'})`
 	font-variant : petite-caps;
-	font-size    : 1.2em;
 `;

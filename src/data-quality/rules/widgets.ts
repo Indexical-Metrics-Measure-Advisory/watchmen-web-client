@@ -35,7 +35,6 @@ export const GradePickerContainer = styled.div.attrs({'data-widget': 'rules-sear
 `;
 export const SearchLabel = styled.div.attrs({'data-widget': 'rules-search-label'})`
 	font-variant : petite-caps;
-	font-size    : 1.2em;
 `;
 export const SearchResultContainer = styled.div.attrs({'data-widget': 'rules-result'})`
 	display        : flex;
