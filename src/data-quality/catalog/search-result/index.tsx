@@ -73,9 +73,14 @@ export const SearchResult = () => {
 		const onDoCreateCatalog = (catalog: Catalog) => {
 			setCatalogs([catalog, ...catalogs]);
 		};
+		const onCatalogDeleted = (catalog: Catalog) => {
+			setCatalogs(catalogs => catalogs.filter(existing => existing !== catalog));
+		};
 		on(CatalogEventTypes.DO_CREATE_CATALOG, onDoCreateCatalog);
+		on(CatalogEventTypes.CATALOG_DELETED, onCatalogDeleted);
 		return () => {
 			off(CatalogEventTypes.DO_CREATE_CATALOG, onDoCreateCatalog);
+			off(CatalogEventTypes.CATALOG_DELETED, onCatalogDeleted);
 		};
 	}, [on, off, catalogs]);
 

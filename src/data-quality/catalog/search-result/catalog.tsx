@@ -1,4 +1,4 @@
-import {saveCatalog} from '@/services/data/tuples/catalog';
+import {deleteCatalog, saveCatalog} from '@/services/data/tuples/catalog';
 import {Catalog} from '@/services/data/tuples/catalog-types';
 import {QueryTopicForHolder} from '@/services/data/tuples/query-topic-types';
 import {QueryUserForHolder} from '@/services/data/tuples/query-user-types';
@@ -7,7 +7,7 @@ import {TupleHolder} from '@/services/data/tuples/tuple-types';
 import {UserId} from '@/services/data/tuples/user-types';
 import {isFakedUuid} from '@/services/data/tuples/utils';
 import {Button} from '@/widgets/basic/button';
-import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL, ICON_LOADING} from '@/widgets/basic/constants';
+import {ICON_LOADING} from '@/widgets/basic/constants';
 import {Dropdown} from '@/widgets/basic/dropdown';
 import {Input} from '@/widgets/basic/input';
 import {InputLines} from '@/widgets/basic/input-lines';
@@ -24,7 +24,14 @@ import {useDataQualityCacheData} from '../../cache/use-cache-data';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {useUserData} from '../user-cache/useUserData';
-import {CatalogCell, CatalogEditCell, CatalogEditLabel, CatalogRowContainer, CatalogSeqCell} from './widgets';
+import {
+	CatalogCell,
+	CatalogEditButtons,
+	CatalogEditCell,
+	CatalogEditLabel,
+	CatalogRowContainer,
+	CatalogSeqCell
+} from './widgets';
 
 interface EditCatalog extends Omit<Catalog, 'tags'>, TupleHolder {
 	flatTags: string;
@@ -52,7 +59,7 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 	const [changed, setChanged] = useState(isFakedUuid(catalog));
 	const [expanded, setExpanded] = useState(isFakedUuid(catalog));
 	const [saving, setSaving] = useState(false);
-	const [editingCatalog] = useState<EditCatalog>(asEditingCatalog(catalog));
+	const [editingCatalog, setEditingCatalog] = useState<EditCatalog>(asEditingCatalog(catalog));
 	const [topics, setTopics] = useState<Array<QueryTopicForHolder>>([]);
 	const [users, setUsers] = useState<Array<QueryUserForHolder>>([]);
 	const forceUpdate = useForceUpdate();
@@ -131,6 +138,26 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 				fire(CatalogEventTypes.CATALOG_SAVED, catalog);
 			}, () => setSaving(false));
 	};
+	const onDiscardClicked = () => {
+		setEditingCatalog(asEditingCatalog(catalog));
+		setChanged(false);
+	};
+	const onDeleteClicked = () => {
+		fireGlobal(EventTypes.SHOW_YES_NO_DIALOG,
+			'Are you sure to delete selected catalog? Please note that deletion cannot be recovered.',
+			() => {
+				fireGlobal(EventTypes.HIDE_DIALOG);
+				setSaving(true);
+				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
+					async () => await deleteCatalog(catalog),
+					() => {
+						setSaving(false);
+						fire(CatalogEventTypes.CATALOG_DELETED, catalog);
+					},
+					() => setSaving(false));
+			},
+			() => fireGlobal(EventTypes.HIDE_DIALOG));
+	};
 	const onCollapseClicked = () => {
 		setExpanded(false);
 	};
@@ -192,7 +219,8 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 		}
 	};
 
-	return <CatalogRowContainer data-changed={changed} data-expanded={expanded}>
+	return <CatalogRowContainer data-changed={changed} data-expanded={expanded}
+	                            onClick={expanded ? (void 0) : onExpandClicked}>
 		<CatalogSeqCell>{index}</CatalogSeqCell>
 		<CatalogCell>
 			{expanded
@@ -213,21 +241,6 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 				: getUserName(users, editingCatalog.bizOwnerId)}
 		</CatalogCell>
 		<CatalogCell>
-			{changed
-				? <Button ink={ButtonInk.PRIMARY} onClick={onSaveClicked}>
-					{saving ? <FontAwesomeIcon icon={ICON_LOADING} spin={true}/> : null}
-					<span>Save</span>
-				</Button>
-				: null}
-			{expanded
-				? <Button ink={ButtonInk.PRIMARY} onClick={onCollapseClicked}>
-					<FontAwesomeIcon icon={ICON_COLLAPSE_PANEL}/>
-					<span>Collapse</span>
-				</Button>
-				: <Button ink={ButtonInk.PRIMARY} onClick={onExpandClicked}>
-					<FontAwesomeIcon icon={ICON_EXPAND_PANEL}/>
-					<span>Expand</span>
-				</Button>}
 		</CatalogCell>
 		<CatalogEditCell data-expanded={expanded}>
 			<CatalogEditLabel>Topics</CatalogEditLabel>
@@ -241,9 +254,30 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 			</TupleEventBusProvider>
 			<CatalogEditLabel>Tags</CatalogEditLabel>
 			<Input value={editingCatalog.flatTags} onChange={onTagsChanged}
-			       placeholder="Tags splitted by space character."/>
+			       placeholder="Tags split by space character."/>
 			<CatalogEditLabel>Description</CatalogEditLabel>
 			<InputLines value={editingCatalog.description ?? ''} onChange={onDescChanged}/>
+			<CatalogEditLabel/>
+			<CatalogEditButtons>
+				<Button ink={ButtonInk.PRIMARY} onClick={onCollapseClicked}>
+					<span>Collapse</span>
+				</Button>
+				{changed
+					? <>
+						<Button ink={ButtonInk.PRIMARY} onClick={onSaveClicked}>
+							{saving ? <FontAwesomeIcon icon={ICON_LOADING} spin={true}/> : null}
+							<span>Save</span>
+						</Button>
+						<Button ink={ButtonInk.PRIMARY} onClick={onDiscardClicked}>
+							<span>Discard</span>
+						</Button>
+					</>
+					: null}
+				<Button ink={ButtonInk.DANGER} onClick={onDeleteClicked}>
+					{saving ? <FontAwesomeIcon icon={ICON_LOADING} spin={true}/> : null}
+					<span>Delete</span>
+				</Button>
+			</CatalogEditButtons>
 		</CatalogEditCell>
 	</CatalogRowContainer>;
 };

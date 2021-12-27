@@ -138,6 +138,7 @@ export const Apis = {
 	QUERY_CATALOG: 'dqc/catalog/query',
 	CATALOG_CREATE: 'dqc/catalog',
 	CATALOG_SAVE: 'dqc/update/catalog?catalog_id=:catalogId',
+	CATALOG_DELETE: 'dqc/catalog/delete?catalog_id=:catalogId',
 
 	INDICATORS_LIST_FOR_SELECTION: 'indicator/indicator/list/selection?query_name=:search',
 	TOPIC_LIST_FOR_INDICATOR_SELECTION: 'query/topic/factor/index?query_name=:search',

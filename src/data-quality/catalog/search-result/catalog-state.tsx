@@ -13,8 +13,10 @@ export const CatalogState = () => {
 			}
 		};
 		on(CatalogEventTypes.CATALOG_CHANGED, onCatalogChanged);
+		on(CatalogEventTypes.DO_CREATE_CATALOG, onCatalogChanged);
 		return () => {
 			off(CatalogEventTypes.CATALOG_CHANGED, onCatalogChanged);
+			off(CatalogEventTypes.DO_CREATE_CATALOG, onCatalogChanged);
 		};
 	}, [on, off, catalogs]);
 	useEffect(() => {
@@ -25,8 +27,10 @@ export const CatalogState = () => {
 			}
 		};
 		on(CatalogEventTypes.CATALOG_SAVED, onCatalogSaved);
+		on(CatalogEventTypes.CATALOG_DELETED, onCatalogSaved);
 		return () => {
 			off(CatalogEventTypes.CATALOG_SAVED, onCatalogSaved);
+			off(CatalogEventTypes.CATALOG_DELETED, onCatalogSaved);
 		};
 	}, [on, off, catalogs]);
 	useEffect(() => {

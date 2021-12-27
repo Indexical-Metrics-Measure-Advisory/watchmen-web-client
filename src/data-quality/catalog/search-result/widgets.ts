@@ -82,9 +82,11 @@ export const CatalogRowContainer = styled.div`
 	grid-template-columns : 40px 350px 120px 200px 200px 1fr;
 	min-height            : calc(var(--height) + 1px);
 	border-bottom         : var(--border);
+	cursor                : pointer;
 	&[data-expanded=true]:hover {
 		min-height       : unset;
 		background-color : unset;
+		cursor           : default;
 	}
 	&:hover {
 		background-color : var(--hover-color);
@@ -117,12 +119,6 @@ export const CatalogCell = styled.div`
 			padding : 0 calc(var(--margin) / 2);
 		}
 	}
-	> button {
-		height : calc(var(--height) * 0.8);
-		&:not(:first-child) {
-			margin-left : calc(var(--margin) / 4);
-		}
-	}
 `;
 export const CatalogSeqCell = styled(CatalogCell)`
 	padding : 0 calc(var(--margin) / 4);
@@ -152,9 +148,43 @@ export const CatalogEditCell = styled.div`
 `;
 export const CatalogEditLabel = styled.div`
 	display      : flex;
+	position     : relative;
 	align-items  : center;
 	align-self   : start;
 	font-variant : petite-caps;
 	font-weight  : var(--font-demi-bold);
 	height       : var(--height);
+`;
+export const CatalogEditButtons = styled.div`
+	display               : grid;
+	position              : relative;
+	grid-template-columns : auto auto auto auto 1fr;
+	align-items           : center;
+	height                : var(--height);
+	> button:first-child,
+	> button:nth-child(3) {
+		margin-right : calc(var(--margin) / 4);
+		&:hover {
+			z-index : 1;
+		}
+	}
+	> button:nth-child(2):not(:last-child) {
+		border-top-right-radius    : 0;
+		border-bottom-right-radius : 0;
+	}
+	> button:nth-child(3) {
+		border-top-left-radius    : 0;
+		border-bottom-left-radius : 0;
+		&:after {
+			content          : '';
+			display          : block;
+			position         : absolute;
+			left             : 0;
+			top              : 30%;
+			width            : 1px;
+			height           : 40%;
+			background-color : var(--invert-color);
+			opacity          : 0.7;
+		}
+	}
 `;
