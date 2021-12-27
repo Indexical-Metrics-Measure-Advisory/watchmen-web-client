@@ -79,7 +79,7 @@ export const CatalogRowContainer = styled.div`
 	grid-template-columns : 40px 350px 120px 200px 200px 1fr;
 	min-height            : calc(var(--height) + 1px);
 	border-bottom         : var(--border);
-	cursor                : pointer;
+	//cursor                : pointer;
 	//&[data-changed=true] {
 	//	&:before {
 	//		content          : '';

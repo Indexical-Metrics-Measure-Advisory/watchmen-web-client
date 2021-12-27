@@ -4,9 +4,11 @@ import {CatalogCriteria} from '@/services/data/tuples/query-catalog-types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import React, {useEffect, useState} from 'react';
+import {v4} from 'uuid';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {CatalogRow} from './catalog';
+import {CatalogState} from './catalog-state';
 import {
 	NoData,
 	SearchResultBody,
@@ -27,16 +29,25 @@ export const SearchResult = () => {
 				if (catalogs.length === 0) {
 					resolve(true);
 				} else {
-					fireGlobal(EventTypes.SHOW_YES_NO_DIALOG,
-						'Data is changed, are you sure to discard them and load another?',
-						() => {
-							fireGlobal(EventTypes.HIDE_DIALOG);
+					fire(CatalogEventTypes.ASK_CATALOG_CHANGED, (changed: boolean) => {
+						if (changed) {
+							// some catalogs are changed
+							fireGlobal(EventTypes.SHOW_YES_NO_DIALOG,
+								'Data is changed, are you sure to discard them and load another?',
+								() => {
+									fireGlobal(EventTypes.HIDE_DIALOG);
+									fire(CatalogEventTypes.CLEAR_CATALOG_STATE);
+									resolve(true);
+								},
+								() => {
+									fireGlobal(EventTypes.HIDE_DIALOG);
+									resolve(false);
+								});
+						} else {
+							// no changed catalog
 							resolve(true);
-						},
-						() => {
-							fireGlobal(EventTypes.HIDE_DIALOG);
-							resolve(false);
-						});
+						}
+					});
 				}
 			});
 			if (!shouldAsk) {
@@ -54,6 +65,7 @@ export const SearchResult = () => {
 	}, [fire, on, off, fireGlobal, catalogs.length]);
 
 	return <SearchResultContainer>
+		<CatalogState/>
 		<SearchResultTargetLabel>
 			<span>Catalogs</span>
 		</SearchResultTargetLabel>
@@ -69,7 +81,7 @@ export const SearchResult = () => {
 			{catalogs.length === 0
 				? <NoData>No catalogs found.</NoData>
 				: catalogs.map((catalog, index) => {
-					return <CatalogRow catalog={catalog} index={index + 1} key={catalog.catalogId}/>;
+					return <CatalogRow catalog={catalog} index={index + 1} key={v4()}/>;
 				})}
 		</SearchResultBody>
 	</SearchResultContainer>;

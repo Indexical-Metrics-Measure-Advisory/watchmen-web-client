@@ -1,3 +1,4 @@
+import {Catalog} from '@/services/data/tuples/catalog-types';
 import {CatalogCriteria} from '@/services/data/tuples/query-catalog-types';
 import {QueryUserForHolder} from '@/services/data/tuples/query-user-types';
 
@@ -6,7 +7,11 @@ export enum CatalogEventTypes {
 
 	DO_SEARCH = 'do-search',
 
-	ASK_CATALOG_CHANGED = 'ask-catalog-changed'
+	ASK_CATALOG_CHANGED = 'ask-catalog-changed',
+
+	CATALOG_CHANGED = 'catalog-changed',
+	CATALOG_SAVED = 'catalog-saved',
+	CLEAR_CATALOG_STATE = 'clear-catalog-state'
 }
 
 export interface CatalogEventBus {
@@ -21,4 +26,16 @@ export interface CatalogEventBus {
 	fire(type: CatalogEventTypes.ASK_CATALOG_CHANGED, onData: (changed: boolean) => void): this;
 	on(type: CatalogEventTypes.ASK_CATALOG_CHANGED, listener: (onData: (changed: boolean) => void) => void): this;
 	off(type: CatalogEventTypes.ASK_CATALOG_CHANGED, listener: (onData: (changed: boolean) => void) => void): this;
+
+	fire(type: CatalogEventTypes.CATALOG_CHANGED, catalog: Catalog): this;
+	on(type: CatalogEventTypes.CATALOG_CHANGED, listener: (catalog: Catalog) => void): this;
+	off(type: CatalogEventTypes.CATALOG_CHANGED, listener: (catalog: Catalog) => void): this;
+
+	fire(type: CatalogEventTypes.CATALOG_SAVED, catalog: Catalog): this;
+	on(type: CatalogEventTypes.CATALOG_SAVED, listener: (catalog: Catalog) => void): this;
+	off(type: CatalogEventTypes.CATALOG_SAVED, listener: (catalog: Catalog) => void): this;
+
+	fire(type: CatalogEventTypes.CLEAR_CATALOG_STATE): this;
+	on(type: CatalogEventTypes.CLEAR_CATALOG_STATE, listener: () => void): this;
+	off(type: CatalogEventTypes.CLEAR_CATALOG_STATE, listener: () => void): this;
 }

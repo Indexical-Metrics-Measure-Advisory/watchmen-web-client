@@ -20,6 +20,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {ChangeEvent, useState} from 'react';
 import {DQCCacheData} from '../../cache/types';
 import {useDataQualityCacheData} from '../../cache/use-cache-data';
+import {useCatalogEventBus} from '../catalog-event-bus';
+import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {useUserData} from '../user-cache/useUserData';
 import {CatalogCell, CatalogEditCell, CatalogEditLabel, CatalogRowContainer, CatalogSeqCell} from './widgets';
 
@@ -39,6 +41,7 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 	const {catalog, index} = props;
 
 	const {fire: fireGlobal} = useEventBus();
+	const {fire} = useCatalogEventBus();
 	const [changed, setChanged] = useState(false);
 	const [expanded, setExpanded] = useState(false);
 	const [saving, setSaving] = useState(false);
@@ -70,6 +73,7 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 	const changeAndForceUpdate = () => {
 		if (!changed) {
 			setChanged(true);
+			fire(CatalogEventTypes.CATALOG_CHANGED, catalog);
 		} else {
 			forceUpdate();
 		}
@@ -120,6 +124,7 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 				});
 				setChanged(false);
 				setSaving(false);
+				fire(CatalogEventTypes.CATALOG_SAVED, catalog);
 			}, () => setSaving(false));
 	};
 	const onCollapseClicked = () => {
