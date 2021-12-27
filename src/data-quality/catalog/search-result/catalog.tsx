@@ -6,6 +6,7 @@ import {TopicId} from '@/services/data/tuples/topic-types';
 import {TupleHolder} from '@/services/data/tuples/tuple-types';
 import {UserId} from '@/services/data/tuples/user-types';
 import {Button} from '@/widgets/basic/button';
+import {ICON_COLLAPSE_PANEL, ICON_EXPAND_PANEL, ICON_LOADING} from '@/widgets/basic/constants';
 import {Dropdown} from '@/widgets/basic/dropdown';
 import {Input} from '@/widgets/basic/input';
 import {InputLines} from '@/widgets/basic/input-lines';
@@ -15,6 +16,7 @@ import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {TupleEventBusProvider} from '@/widgets/tuple-workbench/tuple-event-bus';
 import {TupleItemPicker} from '@/widgets/tuple-workbench/tuple-item-picker';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {ChangeEvent, useState} from 'react';
 import {DQCCacheData} from '../../cache/types';
 import {useDataQualityCacheData} from '../../cache/use-cache-data';
@@ -39,6 +41,7 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 	const {fire: fireGlobal} = useEventBus();
 	const [changed, setChanged] = useState(false);
 	const [expanded, setExpanded] = useState(false);
+	const [saving, setSaving] = useState(false);
 	const [editingCatalog] = useState<EditCatalog>({
 		...catalog,
 		flatTags: (catalog.tags || []).join(' ')
@@ -64,11 +67,6 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 	useDataQualityCacheData({onDataRetrieved: dataHolder.onTopicData});
 	useUserData(dataHolder.onUserData);
 
-	const onRowClicked = () => {
-		if (!expanded) {
-			setExpanded(true);
-		}
-	};
 	const changeAndForceUpdate = () => {
 		if (!changed) {
 			setChanged(true);
@@ -103,6 +101,7 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 		changeAndForceUpdate();
 	};
 	const onSaveClicked = () => {
+		setSaving(true);
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 			async () => {
 				const catalogToSave: Catalog = {
@@ -120,9 +119,15 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 					catalog[prop as keyof Catalog] = catalogToSave[prop as keyof Catalog];
 				});
 				setChanged(false);
-			});
+				setSaving(false);
+			}, () => setSaving(false));
 	};
-	const onCollapseClicked = () => setExpanded(false);
+	const onCollapseClicked = () => {
+		setExpanded(false);
+	};
+	const onExpandClicked = () => {
+		setExpanded(true);
+	};
 
 	const ownerOptions: Array<DropdownOption> = [
 		{value: '', label: 'Not Designated'},
@@ -178,7 +183,7 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 		}
 	};
 
-	return <CatalogRowContainer data-changed={changed} data-expanded={expanded} onClick={onRowClicked}>
+	return <CatalogRowContainer data-changed={changed} data-expanded={expanded}>
 		<CatalogSeqCell>{index}</CatalogSeqCell>
 		<CatalogCell>
 			{expanded
@@ -199,8 +204,21 @@ export const CatalogRow = (props: { catalog: Catalog; index: number }) => {
 				: getUserName(users, editingCatalog.bizOwnerId)}
 		</CatalogCell>
 		<CatalogCell>
-			{changed ? <Button ink={ButtonInk.PRIMARY} onClick={onSaveClicked}>Save</Button> : null}
-			{expanded ? <Button ink={ButtonInk.PRIMARY} onClick={onCollapseClicked}>Collapse</Button> : null}
+			{changed
+				? <Button ink={ButtonInk.PRIMARY} onClick={onSaveClicked}>
+					{saving ? <FontAwesomeIcon icon={ICON_LOADING} spin={true}/> : null}
+					<span>Save</span>
+				</Button>
+				: null}
+			{expanded
+				? <Button ink={ButtonInk.PRIMARY} onClick={onCollapseClicked}>
+					<FontAwesomeIcon icon={ICON_COLLAPSE_PANEL}/>
+					<span>Collapse</span>
+				</Button>
+				: <Button ink={ButtonInk.PRIMARY} onClick={onExpandClicked}>
+					<FontAwesomeIcon icon={ICON_EXPAND_PANEL}/>
+					<span>Expand</span>
+				</Button>}
 		</CatalogCell>
 		<CatalogEditCell data-expanded={expanded}>
 			<CatalogEditLabel>Topics</CatalogEditLabel>

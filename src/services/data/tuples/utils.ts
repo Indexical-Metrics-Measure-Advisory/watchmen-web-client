@@ -87,6 +87,7 @@ export const isFakedUuidForGraphics = (graphics: PipelinesGraphics): boolean => 
 };
 export const isFakedUuid = (tuple: Tuple): boolean => {
 	if (isCatalog(tuple)) {
+		return tuple.catalogId.startsWith(FAKE_ID_PREFIX);
 	} else if (isNavigation(tuple)) {
 		return tuple.navigationId.startsWith(FAKE_ID_PREFIX);
 	} else if (isInspection(tuple)) {
