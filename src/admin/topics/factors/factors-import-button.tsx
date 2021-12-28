@@ -32,9 +32,12 @@ export const FactorsImportButton = (props: { topic: Topic }) => {
 				default:
 					fireGlobal(EventTypes.SHOW_NOT_IMPLEMENT);
 			}
-		} catch {
+		} catch (e: any) {
+			console.groupCollapsed('Failed to import factors from instance json file.');
+			console.error(e);
+			console.groupEnd();
 			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
-				Failed to import factors, check file format please.
+				{e.message ?? 'Failed to import factors, check file format please.'}
 			</AlertLabel>);
 		}
 	};
@@ -61,9 +64,12 @@ export const FactorsImportButton = (props: { topic: Topic }) => {
 				default:
 					fireGlobal(EventTypes.SHOW_NOT_IMPLEMENT);
 			}
-		} catch {
+		} catch (e: any) {
+			console.groupCollapsed('Failed to import factors from structure file.');
+			console.error(e);
+			console.groupEnd();
 			fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
-				Failed to import factors, check file format please.
+				{e.message ?? 'Failed to import factors, check file format please.'}
 			</AlertLabel>);
 		}
 	};

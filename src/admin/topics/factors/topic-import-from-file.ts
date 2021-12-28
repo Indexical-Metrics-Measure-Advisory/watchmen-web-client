@@ -113,7 +113,7 @@ export const parseFromStructureJson = async (topic: Topic, content: string): Pro
 };
 
 type ShouldBeFactorsInstance = any;
-const toFactorsFromInstanceData = async (topic: Topic, data: ShouldBeFactorsInstance, prefix?: string): Promise<Array<Factor>> => {
+const toFactorsFromInstanceData = (topic: Topic, data: ShouldBeFactorsInstance, prefix?: string): Array<Factor> => {
 	if (data == null || !Array.isArray(data) || data.length === 0) {
 		console.error('Cannot parse data to factors.', data);
 		throw new Error('Parsed data is not an array or no element in factors array.');
@@ -130,7 +130,7 @@ const toFactorsFromInstanceData = async (topic: Topic, data: ShouldBeFactorsInst
 			const factorName = prefix ? `${prefix}.${name}` : name;
 			const value = row[factorName];
 
-			const factor = map[factorName] ?? createFactor(mockTopic);
+			const factor = map[factorName] ?? createFactor(mockTopic, true);
 
 			factor.name = factorName;
 			factor.label = '';
@@ -142,7 +142,7 @@ const toFactorsFromInstanceData = async (topic: Topic, data: ShouldBeFactorsInst
 				} else if (factor.type === FactorType.TEXT || factor.type === FactorType.NUMBER) {
 					// already read a value of text/number, ignore this number value
 				} else {
-					throw new Error(`Conflict type[${FactorType.NUMBER}, ${factor.type}] detected on factor[${name}].`);
+					throw new Error(`Conflict type[${FactorType.NUMBER}, ${factor.type}] detected on factor[${factorName}].`);
 				}
 			} else if (typeof value === 'boolean') {
 				if (factor.type == null) {
@@ -150,7 +150,7 @@ const toFactorsFromInstanceData = async (topic: Topic, data: ShouldBeFactorsInst
 				} else if (factor.type === FactorType.BOOLEAN) {
 					// already read a value of boolean, ignore this boolean value
 				} else {
-					throw new Error(`Conflict type[${FactorType.BOOLEAN}, ${factor.type}] detected on factor[${name}].`);
+					throw new Error(`Conflict type[${FactorType.BOOLEAN}, ${factor.type}] detected on factor[${factorName}].`);
 				}
 			} else if (typeof value === 'string') {
 				if (value.trim().length === 23) {
@@ -193,35 +193,40 @@ const toFactorsFromInstanceData = async (topic: Topic, data: ShouldBeFactorsInst
 					// any type, should be as a text
 					factor.type = FactorType.TEXT;
 				} else {
-					throw new Error(`Conflict type[${FactorType.TEXT}, ${factor.type}] detected on factor[${name}].`);
+					throw new Error(`Conflict type[${FactorType.TEXT}, ${factor.type}] detected on factor[${factorName}].`);
 				}
 			} else if (Array.isArray(value)) {
 				if (topic.type !== TopicType.RAW) {
-					throw new Error(`Type[${FactorType.ARRAY}] detected on factor[${name}], is not allowed in a non-raw topic.`);
+					throw new Error(`Type[${FactorType.ARRAY}] detected on factor[${factorName}], is not allowed in a non-raw topic.`);
 				} else if (factor.type == null) {
 					factor.type = FactorType.ARRAY;
 				} else if (factor.type === FactorType.ARRAY) {
 					// already read a value of array, ignore this value
 				} else {
-					throw new Error(`Conflict type[${FactorType.ARRAY}, ${factor.type}] detected on factor[${name}].`);
+					console.log(value, factor.type);
+					throw new Error(`Conflict type[${FactorType.ARRAY}, ${factor.type}] detected on factor[${factorName}].`);
 				}
 				if (value.length !== 0) {
-					toFactorsFromInstanceData(topic, value, factorName);
+					toFactorsFromInstanceData(topic, value, factorName).forEach(factor => {
+						map[factor.name] = factor;
+					});
 				}
 			} else if (typeof value === 'object') {
 				if (topic.type !== TopicType.RAW) {
-					throw new Error(`Type[${FactorType.OBJECT}] detected on factor[${name}], is not allowed in a non-raw topic.`);
+					throw new Error(`Type[${FactorType.OBJECT}] detected on factor[${factorName}], is not allowed in a non-raw topic.`);
 				} else if (factor.type == null) {
 					factor.type = FactorType.OBJECT;
 				} else if (factor.type === FactorType.OBJECT) {
 					// already read a value of object, ignore this value
 				} else {
-					throw new Error(`Conflict type[${FactorType.OBJECT}, ${factor.type}] detected on factor[${name}].`);
+					throw new Error(`Conflict type[${FactorType.OBJECT}, ${factor.type}] detected on factor[${factorName}].`);
 				}
-				toFactorsFromInstanceData(topic, [value], factorName);
+				toFactorsFromInstanceData(topic, [value], factorName).forEach(factor => {
+					map[factor.name] = factor;
+				});
 			}
 
-			map[name] = factor;
+			map[factorName] = factor;
 		});
 
 		return map;
@@ -229,6 +234,9 @@ const toFactorsFromInstanceData = async (topic: Topic, data: ShouldBeFactorsInst
 
 	return Object.values(factorsMap).sort((f1, f2) => {
 		return f1.name.localeCompare(f2.name, void 0, {sensitivity: 'base', caseFirst: 'upper'});
+	}).map(factor => {
+		factor.type = factor.type ?? FactorType.TEXT;
+		return factor;
 	});
 };
 
