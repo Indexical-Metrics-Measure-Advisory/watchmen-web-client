@@ -10,7 +10,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {useTopicEventBus} from '../topic-event-bus';
 import {TopicEventTypes} from '../topic-event-bus-types';
-import {parseFromStructureCsv, parseFromStructureJson} from './topic-import-from-file';
+import {parseFromInstanceJson, parseFromStructureCsv, parseFromStructureJson} from './topic-import-from-file';
 
 export const FactorsImportButton = (props: { topic: Topic }) => {
 	const {topic} = props;
@@ -25,7 +25,7 @@ export const FactorsImportButton = (props: { topic: Topic }) => {
 				case name.endsWith('.json'): {
 					const content = await file.text();
 					// TODO
-					// topic.factors = await parseFromJson(topic, content);
+					topic.factors = await parseFromInstanceJson(topic, content);
 					fire(TopicEventTypes.FACTORS_IMPORTED, topic.factors);
 					break;
 				}
