@@ -70,6 +70,7 @@ export const AvailableEnumItem = styled.span.attrs<{ selected: boolean }>(({sele
 	> svg {
 		font-size  : 0.8em;
 		margin-top : 2px;
+		opacity    : ${({selected}) => selected ? 1 : 0};
 	}
 `;
 export const AvailableItemOperator = styled.div`
