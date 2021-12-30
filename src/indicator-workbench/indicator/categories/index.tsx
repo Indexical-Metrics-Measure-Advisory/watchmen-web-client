@@ -18,7 +18,7 @@ export const Categories = () => {
 		dropped: () => setVisible(false)
 	});
 
-	if (!constructed) {
+	if (!constructed || data?.indicator == null) {
 		return null;
 	}
 

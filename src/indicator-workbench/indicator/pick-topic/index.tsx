@@ -2,7 +2,6 @@ import {isIndicatorFactor} from '@/services/data/tuples/factor-calculator-utils'
 import {Factor} from '@/services/data/tuples/factor-types';
 import {fetchEnumsForTopic, fetchTopicsForIndicatorSelection} from '@/services/data/tuples/indicator';
 import {TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
-import {FactorTypeLabel} from '@/widgets/basic/factor-type-label';
 import {ButtonInk} from '@/widgets/basic/types';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
@@ -17,7 +16,7 @@ import {IndicatorsData, IndicatorsEventTypes} from '../indicators-event-bus-type
 import {IndicatorDeclarationStep} from '../types';
 import {useConstructed} from '../use-constructed';
 import {useStep} from '../use-step';
-import {TopicOrFactorCandidateName, TopicOrFactorCandidateUsage} from './widgets';
+import {TopicOrFactorCandidateName} from './widgets';
 
 interface TopicOrFactorCandidate extends SearchItem {
 	topic: TopicForIndicator;
@@ -30,16 +29,16 @@ const TopicOrFactorCandidateItem = (props: { topic: TopicForIndicator; factor?: 
 	if (factor == null) {
 		return <>
 			<TopicOrFactorCandidateName>{topic.name}</TopicOrFactorCandidateName>
-			<TopicOrFactorCandidateUsage>
-				{Lang.INDICATOR_WORKBENCH.INDICATOR.INDICATOR_ON_TOPIC}
-			</TopicOrFactorCandidateUsage>
+			{/*<TopicOrFactorCandidateUsage>*/}
+			{/*	{Lang.INDICATOR_WORKBENCH.INDICATOR.INDICATOR_ON_TOPIC}*/}
+			{/*</TopicOrFactorCandidateUsage>*/}
 		</>;
 	} else {
 		return <>
 			<TopicOrFactorCandidateName>{topic.name}.{factor.name}</TopicOrFactorCandidateName>
-			<TopicOrFactorCandidateUsage>
-				<FactorTypeLabel factor={factor}/>
-			</TopicOrFactorCandidateUsage>
+			{/*<TopicOrFactorCandidateUsage>*/}
+			{/*	<FactorTypeLabel factor={factor}/>*/}
+			{/*</TopicOrFactorCandidateUsage>*/}
 		</>;
 	}
 };
@@ -61,11 +60,11 @@ const ActivePart = (props: { data?: IndicatorsData; visible: boolean }) => {
 				(candidates: Array<TopicForIndicator>) => {
 					resolve(candidates.map(candidate => {
 						return [
-							{
-								topic: candidate,
-								key: `topic-${candidate.topicId}`,
-								text: <TopicOrFactorCandidateItem topic={candidate}/>
-							},
+							// {
+							// 	topic: candidate,
+							// 	key: `topic-${candidate.topicId}`,
+							// 	text: <TopicOrFactorCandidateItem topic={candidate}/>
+							// },
 							...(candidate.factors || []).filter(factor => {
 								return isIndicatorFactor(factor.type);
 							}).map(factor => {
