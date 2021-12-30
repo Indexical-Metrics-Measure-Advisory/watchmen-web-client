@@ -20,10 +20,16 @@ export const ComputeIndicatorCalculationNode = styled(IndicatorCalculationNode).
 				borderBottomRightRadius: expanded ? 0 : (void 0)
 			}
 		};
-	})<{ expanded: boolean }>``;
+	})<{ expanded: boolean }>`
+	border-color : var(--navigation-compute-indicator-color);
+	color        : var(--navigation-compute-indicator-color);
+`;
 export const ComputeIndicatorCalculationVariableName = styled(IndicatorCalculationVariableName)
 	.attrs({'data-widget': 'compute-indicator-calculation-variable-name'})``;
-export const ComputeIndicatorCalculationValue = styled(IndicatorCalculationValue).attrs({'data-widget': 'compute-indicator-calculation-value'})``;
+export const ComputeIndicatorCalculationValue = styled(IndicatorCalculationValue)
+	.attrs({'data-widget': 'compute-indicator-calculation-value'})`
+	color : var(--navigation-compute-indicator-value-color);
+`;
 export const ComputeIndicatorCalculationFormulaContainer = styled(IndicatorCalculationFormulaContainer).attrs<{ expanded: boolean }>(
 	({expanded}) => {
 		return {
@@ -33,8 +39,14 @@ export const ComputeIndicatorCalculationFormulaContainer = styled(IndicatorCalcu
 			}
 		};
 	})<{ expanded: boolean }>`
+	border-color : var(--navigation-compute-indicator-color);
+	color        : var(--navigation-compute-indicator-color);
+	&:before {
+		background-color : var(--navigation-compute-indicator-bg-color);
+	}
 	> textarea {
 		height : calc(var(--height) * 7);
+		color  : var(--navigation-compute-indicator-color);
 	}
 `;
 export const ComputeIndicatorCalculationFormulaLabel = styled(IndicatorCalculationFormulaLabel).attrs({'data-widget': 'compute-indicator-calculation-aggregation-label'})``;

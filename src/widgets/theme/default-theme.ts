@@ -164,6 +164,9 @@ const DefaultTheme = {
 	navigationIndicatorColor: 'var(--primary-color)',
 	navigationIndicatorBgColor: color('rgb(94,119,171)').alpha(0.1).toString(),
 	navigationIndicatorValueColor: 'var(--success-color)',
+	navigationComputeIndicatorColor: 'rgb(96,148,164)',
+	navigationComputeIndicatorBgColor: color('rgb(96,148,164)').alpha(0.1).toString(),
+	navigationComputeIndicatorValueColor: 'var(--success-color)',
 	navigationCategoryColor: 'var(--info-color)',
 	navigationCandidateColor: 'var(--success-color)',
 	navigationScoreSumColor: 'rgb(69,146,70)'

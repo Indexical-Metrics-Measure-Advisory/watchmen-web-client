@@ -81,7 +81,7 @@ export const IndicatorNodeRemover = styled.span.attrs({'data-widget': 'indicator
 	border            : var(--border);
 	border-width      : calc(var(--border-width) * 2);
 	border-radius     : 0 calc(var(--border-radius) * 2) calc(var(--border-radius) * 2) 0;
-	border-color      : var(--primary-color);
+	border-color      : var(--navigation-indicator-color);
 	border-left-color : transparent;
 	clip-path         : polygon(0 0, 0 100%, 0 100%, 0 0);
 	transition        : clip-path 300ms ease-in-out;
@@ -96,7 +96,7 @@ export const IndicatorNodeRemover = styled.span.attrs({'data-widget': 'indicator
 		left             : 0;
 		width            : 100%;
 		height           : 100%;
-		background-color : var(--primary-color);
+		background-color : var(--navigation-indicator-color);
 		opacity          : 0.1;
 		z-index          : -1;
 	}
@@ -115,8 +115,8 @@ export const IndicatorNodeRemover = styled.span.attrs({'data-widget': 'indicator
 		border-radius    : calc(var(--border-radius) * 2);
 		border           : var(--border);
 		border-width     : calc(var(--border-width) * 2);
-		color            : var(--primary-color);
-		border-color     : var(--primary-color);
+		color            : var(--navigation-indicator-color);
+		border-color     : var(--navigation-indicator-color);
 		background-color : var(--bg-color);
 		cursor           : pointer;
 		transition       : color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
