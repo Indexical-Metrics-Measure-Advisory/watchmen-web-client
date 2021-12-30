@@ -65,7 +65,7 @@ export const MySQLFactorTypeMap: Record<FactorType, string> = {
 	[FactorType.BIZ_TRADE]: 'VARCHAR(10)',
 	[FactorType.BIZ_SCALE]: 'INT',
 
-	[FactorType.BOOLEAN]: 'VARCHAR(5)',
+	[FactorType.BOOLEAN]: 'TINYINT',
 
 	[FactorType.ENUM]: 'VARCHAR(20)',
 

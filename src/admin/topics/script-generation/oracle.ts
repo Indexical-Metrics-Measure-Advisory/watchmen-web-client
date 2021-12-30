@@ -65,7 +65,7 @@ export const OracleFactorTypeMap: Record<FactorType, string> = {
 	[FactorType.BIZ_TRADE]: 'VARCHAR2(10)',
 	[FactorType.BIZ_SCALE]: 'NUMBER(9)',
 
-	[FactorType.BOOLEAN]: 'VARCHAR2(5)',
+	[FactorType.BOOLEAN]: 'NUMBER(1)',
 
 	[FactorType.ENUM]: 'VARCHAR2(20)',
 
