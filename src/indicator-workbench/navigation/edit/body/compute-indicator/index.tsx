@@ -4,6 +4,7 @@ import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useEffect} from 'react';
+import {ComputeIndicatorCalculation} from '../compute-indicator-calculation';
 import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
 import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
 import {useCurve} from '../use-curve';
@@ -25,12 +26,16 @@ const InternalComputeIndicator = (props: {
 	id: string;
 	navigation: Navigation;
 	navigationIndicator: NavigationIndicator;
-	expanded: boolean;
 }) => {
-	const {parentId, id, navigation, navigationIndicator, expanded} = props;
+	const {parentId, id, navigation, navigationIndicator} = props;
 
 	const {on, off, fire} = useNavigationEditEventBus();
 	const {ref, curve} = useCurve(parentId);
+	const {containerRef, expanded} = useIndicatorPartExpandable({
+		navigation,
+		navigationIndicator,
+		expandable: Expandable.NAME
+	});
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const onNameChanged = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
@@ -45,6 +50,12 @@ const InternalComputeIndicator = (props: {
 		};
 	}, [on, off, forceUpdate, navigation, navigationIndicator]);
 
+	const onMouseEnter = () => {
+		fire(NavigationEditEventTypes.EXPAND_NAME, navigation, navigationIndicator);
+	};
+	const onClicked = () => {
+		fire(NavigationEditEventTypes.EXPAND_NAME, navigation, navigationIndicator);
+	};
 	const onRemoveClicked = () => {
 		const index = (navigation.indicators || []).indexOf(navigationIndicator);
 		if (index !== -1) {
@@ -59,7 +70,8 @@ const InternalComputeIndicator = (props: {
 		: (navigationIndicator.name || '').trim();
 
 	return <>
-		<ComputeIndicatorNode id={id} expanded={expanded} ref={ref}>
+		<ComputeIndicatorNode id={id} expanded={expanded}
+		                      onMouseEnter={onMouseEnter} onClick={onClicked} ref={ref}>
 			<ComputeIndicatorNodeIndex>{index}.</ComputeIndicatorNodeIndex>
 			<ComputeIndicatorNodeName>
 				{name}
@@ -75,6 +87,9 @@ const InternalComputeIndicator = (props: {
 					<path d={computeCurvePath(curve)}/>
 				</g>
 			</ComputeIndicatorCurve>}
+		<ComputeIndicatorNameEditContentContainer expanded={expanded} ref={containerRef}>
+			<ComputeIndicatorNameEditor navigation={navigation} navigationIndicator={navigationIndicator}/>
+		</ComputeIndicatorNameEditContentContainer>
 	</>;
 };
 
@@ -86,26 +101,9 @@ export const ComputeIndicator = (props: {
 }) => {
 	const {parentId, navigation, navigationIndicator, id} = props;
 
-	const {fire} = useNavigationEditEventBus();
-	const {containerRef, expanded} = useIndicatorPartExpandable({
-		navigation,
-		navigationIndicator,
-		expandable: Expandable.NAME
-	});
-
-	const onMouseEnter = () => {
-		fire(NavigationEditEventTypes.EXPAND_NAME, navigation, navigationIndicator);
-	};
-	const onClicked = () => {
-		fire(NavigationEditEventTypes.EXPAND_NAME, navigation, navigationIndicator);
-	};
-
-	return <ComputeIndicatorNodeContainer onMouseEnter={onMouseEnter} onClick={onClicked}>
+	return <ComputeIndicatorNodeContainer>
 		<InternalComputeIndicator parentId={parentId} id={id}
-		                          navigation={navigation} navigationIndicator={navigationIndicator}
-		                          expanded={expanded}/>
-		<ComputeIndicatorNameEditContentContainer expanded={expanded} ref={containerRef}>
-			<ComputeIndicatorNameEditor navigation={navigation} navigationIndicator={navigationIndicator}/>
-		</ComputeIndicatorNameEditContentContainer>
+		                          navigation={navigation} navigationIndicator={navigationIndicator}/>
+		<ComputeIndicatorCalculation id={id} navigation={navigation} navigationIndicator={navigationIndicator}/>
 	</ComputeIndicatorNodeContainer>;
 };

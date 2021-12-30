@@ -1,7 +1,5 @@
-import {
-	IndicatorCriteriaEditContentContainer
-} from '@/indicator-workbench/navigation/edit/body/indicator-criteria/widgets';
 import styled from 'styled-components';
+import {IndicatorCriteriaEditContentContainer} from '../indicator-criteria/widgets';
 import {IndicatorNode, IndicatorNodeIndex, IndicatorNodeName, IndicatorNodeRemover} from '../indicator/widgets';
 import {CurveRect} from '../types';
 import {NavigationBlockPairCurve} from '../widgets';
