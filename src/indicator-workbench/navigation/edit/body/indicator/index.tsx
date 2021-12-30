@@ -1,8 +1,10 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
+import {isManualComputeNavigationIndicator} from '@/services/data/tuples/navigation-utils';
 import {ICON_DELETE} from '@/widgets/basic/constants';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {ComputeIndicator} from '../compute-indicator';
 import {IndicatorContent} from '../indicator-content';
 import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
 import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
@@ -43,7 +45,9 @@ const InternalPickedIndicator = (props: {
 		<IndicatorNode id={id} error={indicator == null} ref={ref}>
 			<IndicatorNodeIndex>{index}.</IndicatorNodeIndex>
 			<IndicatorNodeName>
-				{indicator == null ? Lang.INDICATOR_WORKBENCH.NAVIGATION.MISSED_INDICATOR : (indicator.name || 'Noname Indicator')}
+				{indicator == null
+					? Lang.INDICATOR_WORKBENCH.NAVIGATION.MISSED_INDICATOR
+					: (indicator.name || 'Noname Indicator')}
 			</IndicatorNodeName>
 			<IndicatorNodeRemover>
 				<span onClick={onRemoveClicked}><FontAwesomeIcon icon={ICON_DELETE}/></span>
@@ -69,13 +73,20 @@ export const PickedIndicator = (props: {
 }) => {
 	const {parentId, navigation, id, navigationIndicator, indicator} = props;
 
-	return <IndicatorNodeContainer>
-		<InternalPickedIndicator parentId={parentId} id={id}
-		                         navigation={navigation} navigationIndicator={navigationIndicator}
-		                         indicator={indicator}/>
-		{indicator == null
-			? null
-			: <IndicatorContent id={id} navigation={navigation} navigationIndicator={navigationIndicator}
-			                    indicator={indicator}/>}
-	</IndicatorNodeContainer>;
+	const isManualCompute = isManualComputeNavigationIndicator(navigationIndicator);
+
+	if (isManualCompute) {
+		return <ComputeIndicator parentId={parentId} id={id}
+		                         navigation={navigation} navigationIndicator={navigationIndicator}/>;
+	} else {
+		return <IndicatorNodeContainer>
+			<InternalPickedIndicator parentId={parentId} id={id}
+			                         navigation={navigation} navigationIndicator={navigationIndicator}
+			                         indicator={indicator}/>
+			{indicator == null
+				? null
+				: <IndicatorContent id={id} navigation={navigation} navigationIndicator={navigationIndicator}
+				                    indicator={indicator}/>}
+		</IndicatorNodeContainer>;
+	}
 };

@@ -485,7 +485,9 @@ export const En = {
 			VALUE_TRANSFORM_AVG: 'Avg',
 			INDICATOR_AGGREGATE_ARITHMETIC_LABEL: 'Aggregation:',
 			INDICATOR_FORMULA_LABEL: 'Formula:',
-			SCORE_SUM_LABEL: 'Final Score:'
+			SCORE_SUM_LABEL: 'Final Score:',
+			ADD_COMPUTE_INDICATOR: 'Add Manual Compute Indicator',
+			COMPUTE_INDICATOR_NODE_LABEL: 'Compute Indicator'
 		}
 	},
 	SETTINGS: {

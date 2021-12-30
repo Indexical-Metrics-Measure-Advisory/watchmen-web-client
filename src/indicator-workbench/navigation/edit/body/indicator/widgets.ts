@@ -9,7 +9,7 @@ export const IndicatorCurve = styled(NavigationBlockPairCurve).attrs<{ rect: Cur
 		stroke : var(--navigation-indicator-color);
 	}
 `;
-export const IndicatorNodeContainer = styled.div.attrs({'data-widget': 'indicator-root-node-container'})`
+export const IndicatorNodeContainer = styled.div.attrs({'data-widget': 'indicator-node-container'})`
 	display               : grid;
 	position              : relative;
 	grid-template-columns : repeat(7, auto);
@@ -18,7 +18,7 @@ export const IndicatorNodeContainer = styled.div.attrs({'data-widget': 'indicato
 		margin-bottom : calc(var(--margin) / 2);
 	}
 `;
-export const IndicatorNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-root-node'})`
+export const IndicatorNode = styled(NavigationBlock).attrs({'data-widget': 'indicator-node'})`
 	border-color : var(--navigation-indicator-color);
 	color        : var(--navigation-indicator-color);
 	overflow     : visible;
@@ -31,6 +31,37 @@ export const IndicatorNode = styled(NavigationBlock).attrs({'data-widget': 'indi
 		border-bottom-right-radius : 0;
 		> span[data-widget=indicator-remover] {
 			clip-path : polygon(0 0, 0 100%, calc(100% + 1px) 100%, calc(100% + 1px) 0);
+		}
+	}
+	&[data-warn=true] > span[data-widget=indicator-remover] {
+		border-color      : var(--warn-color);
+		border-left-color : transparent;
+		color             : var(--warn-color);
+		&:before {
+			background-color : var(--warn-color);
+		}
+		> span {
+			color        : var(--warn-color);
+			border-color : var(--warn-color);
+			&:hover {
+				border-color : var(--danger-color);
+				color        : var(--invert-color);
+			}
+		}
+	}
+	&[data-error=true] > span[data-widget=indicator-remover] {
+		border-color      : var(--danger-color);
+		border-left-color : transparent;
+		color             : var(--danger-color);
+		&:before {
+			background-color : var(--danger-color);
+		}
+		> span {
+			color        : var(--danger-color);
+			border-color : var(--danger-color);
+			&:hover {
+				color : var(--invert-color);
+			}
 		}
 	}
 `;

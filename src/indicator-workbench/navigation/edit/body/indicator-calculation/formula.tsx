@@ -27,10 +27,10 @@ export const IndicatorCalculationFormula = (props: {
 	const forceUpdate = useForceUpdate();
 
 	const onArithmeticChanged = (option: DropdownOption) => {
-		const oldValue = navigationIndicator.aggregateArithmetics;
+		const oldValue = navigationIndicator.aggregateArithmetic;
 		const newValue = option.value as IndicatorAggregateArithmetic;
 		if (oldValue !== newValue) {
-			navigationIndicator.aggregateArithmetics = newValue;
+			navigationIndicator.aggregateArithmetic = newValue;
 			fireEdit(NavigationEditEventTypes.INDICATOR_AGGREGATION_CHANGED, navigation, navigationIndicator);
 			fire(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
 		}
@@ -59,7 +59,7 @@ eg 2: interpolation(r, -0.2, 5, 0.2, 20)`;
 		<IndicatorCalculationFormulaLabel>
 			{Lang.INDICATOR_WORKBENCH.NAVIGATION.INDICATOR_AGGREGATE_ARITHMETIC_LABEL}
 		</IndicatorCalculationFormulaLabel>
-		<Dropdown value={navigationIndicator.aggregateArithmetics ?? IndicatorAggregateArithmetic.SUM}
+		<Dropdown value={navigationIndicator.aggregateArithmetic ?? IndicatorAggregateArithmetic.SUM}
 		          options={aggregateArithmeticsOptions}
 		          onChange={onArithmeticChanged}/>
 		<IndicatorCalculationFormulaLabel>

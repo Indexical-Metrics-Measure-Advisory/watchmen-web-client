@@ -6,6 +6,7 @@ import {v4} from 'uuid';
 import {useNavigationEventBus} from '../../navigation-event-bus';
 import {NavigationEventTypes} from '../../navigation-event-bus-types';
 import {IndicatorCandidates} from './indicator-candidates';
+import {MoreComputeIndicators} from './more-compute-indicators';
 import {NavigationEditEventBusProvider, useNavigationEditEventBus} from './navigation-edit-event-bus';
 import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 import {NavigationRoot} from './navigation-root';
@@ -63,6 +64,8 @@ const Palette = (props: { navigation: Navigation }) => {
 			<TimeRange rootId={rootId} navigation={navigation}/>
 			<PickedIndicators rootId={rootId} paletteId={paletteId}
 			                  navigation={navigation} indicators={indicators.data}/>
+			<MoreComputeIndicators paletteId={paletteId} parentId={rootId}
+			                       navigation={navigation}/>
 			<IndicatorCandidates paletteId={paletteId} rootId={rootId}
 			                     navigation={navigation} indicators={indicators.data}/>
 		</PaletteColumn>

@@ -34,9 +34,23 @@ export interface NavigationIndicator {
 	indicatorId: IndicatorId;
 	name: string;
 	/** use sum when no aggregation arithmetic applied */
-	aggregateArithmetics: IndicatorAggregateArithmetic;
+	aggregateArithmetic: IndicatorAggregateArithmetic;
 	formula?: string;
 	criteria: Array<NavigationIndicatorCriteria>;
+}
+
+export const MANUAL_COMPUTE_NAVIGATION_INDICATOR_ID = '-1';
+
+/**
+ * for manual compute indicator,
+ * 1. indicatorId fixed as {@link MANUAL_COMPUTE_NAVIGATION_INDICATOR_ID},
+ * 2. aggregateArithmetics fixed as {@link IndicatorAggregateArithmetic#MAX}, will be ignored anyway in runtime
+ * 3. criteria fixed as zero length array, will be ignored anyway in runtime
+ */
+export interface ManualComputeNavigationIndicator extends NavigationIndicator {
+	indicatorId: typeof MANUAL_COMPUTE_NAVIGATION_INDICATOR_ID;
+	aggregateArithmetic: IndicatorAggregateArithmetic.MAX;
+	criteria: [];
 }
 
 export enum NavigationTimeRangeType {

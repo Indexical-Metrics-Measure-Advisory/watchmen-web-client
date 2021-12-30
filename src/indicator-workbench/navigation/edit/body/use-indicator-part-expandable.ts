@@ -5,6 +5,7 @@ import {useNavigationEditEventBus} from './navigation-edit-event-bus';
 import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
 
 export enum Expandable {
+	NAME = 'name',
 	CRITERIA = 'criteria',
 	CALCULATION = 'calculation'
 }
@@ -21,30 +22,36 @@ export const useIndicatorPartExpandable = (options: {
 	const [expanded, setExpanded] = useState(false);
 	useCollapseFixedThing({containerRef, visible: expanded, hide: () => setExpanded(false)});
 	useEffect(() => {
-		const onSomethingExpanded = (avoid: Expandable) => (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
+		const onSomethingExpanded = (accepted: Expandable) => (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
 			if (aNavigation !== navigation) {
 				return;
 			}
-			if (aNavigationIndicator !== navigationIndicator || expandable === avoid) {
+			if (aNavigationIndicator !== navigationIndicator || expandable !== accepted) {
 				setExpanded(false);
 			}
 		};
-		const onCriteriaExpanded = onSomethingExpanded(Expandable.CALCULATION);
-		const onCalculationExpanded = onSomethingExpanded(Expandable.CRITERIA);
+		const onNameExpanded = onSomethingExpanded(Expandable.NAME);
+		const onCriteriaExpanded = onSomethingExpanded(Expandable.CRITERIA);
+		const onCalculationExpanded = onSomethingExpanded(Expandable.CALCULATION);
+		on(NavigationEditEventTypes.NAME_EXPANDED, onNameExpanded);
 		on(NavigationEditEventTypes.CRITERIA_EXPANDED, onCriteriaExpanded);
 		on(NavigationEditEventTypes.CALCULATION_EXPANDED, onCalculationExpanded);
 		return () => {
+			off(NavigationEditEventTypes.NAME_EXPANDED, onNameExpanded);
 			off(NavigationEditEventTypes.CRITERIA_EXPANDED, onCriteriaExpanded);
 			off(NavigationEditEventTypes.CALCULATION_EXPANDED, onCalculationExpanded);
 		};
 	}, [on, off, navigation, navigationIndicator, expandable]);
 	useEffect(() => {
-		const onExpandCriteria = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
+		const onExpand = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
 			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
 				return;
 			}
 			setExpanded(true);
 			switch (expandable) {
+				case Expandable.NAME:
+					fire(NavigationEditEventTypes.NAME_EXPANDED, navigation, navigationIndicator);
+					break;
 				case Expandable.CRITERIA:
 					fire(NavigationEditEventTypes.CRITERIA_EXPANDED, navigation, navigationIndicator);
 					break;
@@ -54,20 +61,26 @@ export const useIndicatorPartExpandable = (options: {
 			}
 		};
 		switch (expandable) {
+			case Expandable.NAME:
+				on(NavigationEditEventTypes.EXPAND_NAME, onExpand);
+				break;
 			case Expandable.CRITERIA:
-				on(NavigationEditEventTypes.EXPAND_CRITERIA, onExpandCriteria);
+				on(NavigationEditEventTypes.EXPAND_CRITERIA, onExpand);
 				break;
 			case Expandable.CALCULATION:
-				on(NavigationEditEventTypes.EXPAND_CALCULATION, onExpandCriteria);
+				on(NavigationEditEventTypes.EXPAND_CALCULATION, onExpand);
 				break;
 		}
 		return () => {
 			switch (expandable) {
+				case Expandable.NAME:
+					off(NavigationEditEventTypes.EXPAND_NAME, onExpand);
+					break;
 				case Expandable.CRITERIA:
-					off(NavigationEditEventTypes.EXPAND_CRITERIA, onExpandCriteria);
+					off(NavigationEditEventTypes.EXPAND_CRITERIA, onExpand);
 					break;
 				case Expandable.CALCULATION:
-					off(NavigationEditEventTypes.EXPAND_CALCULATION, onExpandCriteria);
+					off(NavigationEditEventTypes.EXPAND_CALCULATION, onExpand);
 					break;
 			}
 		};

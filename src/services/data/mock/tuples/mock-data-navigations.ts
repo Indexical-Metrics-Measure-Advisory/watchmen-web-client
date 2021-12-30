@@ -20,7 +20,7 @@ export const NavPremium: Navigation = {
 			} as NavigationIndicatorCriteriaOnBucket
 		],
 		formula: 'interpolation(r, 0.1, 10, 0.8, 20)',
-		aggregateArithmetics: IndicatorAggregateArithmetic.SUM
+		aggregateArithmetic: IndicatorAggregateArithmetic.SUM
 	}],
 	timeRangeType: NavigationTimeRangeType.YEAR,
 	timeRangeYear: `${new Date().getFullYear() - 1}`,

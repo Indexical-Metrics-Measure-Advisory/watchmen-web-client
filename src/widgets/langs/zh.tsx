@@ -485,7 +485,9 @@ export const Zh = {
 			VALUE_TRANSFORM_AVG: '平均值',
 			INDICATOR_AGGREGATE_ARITHMETIC_LABEL: '聚合方式:',
 			INDICATOR_FORMULA_LABEL: '计算公式:',
-			SCORE_SUM_LABEL: '最终得分:'
+			SCORE_SUM_LABEL: '最终得分:',
+			ADD_COMPUTE_INDICATOR: '增加计算指标',
+			COMPUTE_INDICATOR_NODE_LABEL: '计算指标'
 		}
 	},
 	SETTINGS: {

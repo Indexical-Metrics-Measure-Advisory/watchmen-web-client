@@ -1,5 +1,6 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
+import {isManualComputeNavigationIndicator} from '@/services/data/tuples/navigation-utils';
 import {noop} from '@/services/utils';
 import {useEffect, useLayoutEffect, useState} from 'react';
 import {v4} from 'uuid';
@@ -22,12 +23,16 @@ interface Nodes {
 }
 
 const buildNodes = (navigation: Navigation, indicators: Array<Indicator>) => {
-	return (navigation.indicators || []).map(picked => {
+	return (navigation.indicators || []).map((picked: NavigationIndicator) => {
 		return {
 			id: v4(),
 			nav: picked,
+			// when indicator is a manual compute, ignore indicator finding
 			// eslint-disable-next-line
-			indicator: indicators.find(indicator => indicator.indicatorId == picked.indicatorId)
+			indicator: isManualComputeNavigationIndicator(picked)
+				? (void 0)
+				// eslint-disable-next-line
+				: indicators.find(indicator => indicator.indicatorId == picked.indicatorId)
 		};
 	});
 };
@@ -61,9 +66,25 @@ export const PickedIndicators = (props: {
 				};
 			});
 		};
+		const onComputeIndicatorAdded = (aNavigation: Navigation, navigationIndicator: NavigationIndicator) => {
+			if (aNavigation !== navigation) {
+				return;
+			}
+
+			fireNavigation(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
+			setState(state => {
+				return {
+					initialized: true,
+					trigger: NodesChangeTrigger.ADD,
+					data: [...state.data, {id: v4(), nav: navigationIndicator}]
+				};
+			});
+		};
 		on(NavigationEditEventTypes.INDICATOR_ADDED, onIndicatorAdded);
+		on(NavigationEditEventTypes.COMPUTE_INDICATOR_ADDED, onComputeIndicatorAdded);
 		return () => {
 			off(NavigationEditEventTypes.INDICATOR_ADDED, onIndicatorAdded);
+			off(NavigationEditEventTypes.COMPUTE_INDICATOR_ADDED, onComputeIndicatorAdded);
 		};
 	}, [on, off, fireNavigation, navigation, state.trigger]);
 	useEffect(() => {

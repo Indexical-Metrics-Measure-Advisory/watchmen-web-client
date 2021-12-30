@@ -1,5 +1,11 @@
 import {Indicator, IndicatorAggregateArithmetic} from '@/services/data/tuples/indicator-types';
-import {Navigation, NavigationIndicator, NavigationTimeRangeType} from '@/services/data/tuples/navigation-types';
+import {
+	MANUAL_COMPUTE_NAVIGATION_INDICATOR_ID,
+	ManualComputeNavigationIndicator,
+	Navigation,
+	NavigationIndicator,
+	NavigationTimeRangeType
+} from '@/services/data/tuples/navigation-types';
 import {generateUuid} from '@/services/data/tuples/utils';
 import {getCurrentTime} from '@/services/data/utils';
 import {base64Encode} from '@/services/utils';
@@ -24,7 +30,21 @@ export const createNavigationIndicator = (navigation: Navigation, indicator: Ind
 		indicatorId: indicator.indicatorId,
 		name: '',
 		criteria: [],
-		aggregateArithmetics: IndicatorAggregateArithmetic.SUM
+		aggregateArithmetic: IndicatorAggregateArithmetic.SUM
+	};
+	if (navigation.indicators == null) {
+		navigation.indicators = [];
+	}
+	navigation.indicators.push(navigationIndicator);
+	return navigationIndicator;
+};
+
+export const createNavigationManualComputeIndicator = (navigation: Navigation): ManualComputeNavigationIndicator => {
+	const navigationIndicator: ManualComputeNavigationIndicator = {
+		indicatorId: MANUAL_COMPUTE_NAVIGATION_INDICATOR_ID,
+		name: '',
+		criteria: [],
+		aggregateArithmetic: IndicatorAggregateArithmetic.MAX
 	};
 	if (navigation.indicators == null) {
 		navigation.indicators = [];

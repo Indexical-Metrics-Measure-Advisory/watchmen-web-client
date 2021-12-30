@@ -4,6 +4,8 @@ import {IndicatorValues} from './types';
 
 export enum NavigationEditEventTypes {
 	REPAINT = 'repaint',
+	EXPAND_NAME = 'expand-name',
+	NAME_EXPANDED = 'name-expanded',
 	EXPAND_CRITERIA = 'expand-criteria',
 	CRITERIA_EXPANDED = 'criteria-expanded',
 	EXPAND_CALCULATION = 'expand-calculation',
@@ -12,6 +14,7 @@ export enum NavigationEditEventTypes {
 	TIME_RANGE_CHANGED = 'time-range-changed',
 
 	INDICATOR_ADDED = 'indicator-added',
+	COMPUTE_INDICATOR_ADDED = 'compute-indicator-added',
 	INDICATOR_REMOVED = 'indicator-removed',
 	INDICATOR_NAME_CHANGED = 'indicator-name-changed',
 
@@ -30,6 +33,14 @@ export interface NavigationEditEventBus {
 	fire(type: NavigationEditEventTypes.REPAINT): this;
 	on(type: NavigationEditEventTypes.REPAINT, listener: () => void): this;
 	off(type: NavigationEditEventTypes.REPAINT, listener: () => void): this;
+
+	fire(type: NavigationEditEventTypes.EXPAND_NAME, navigation: Navigation, navigationIndicator: NavigationIndicator): this;
+	on(type: NavigationEditEventTypes.EXPAND_NAME, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
+	off(type: NavigationEditEventTypes.EXPAND_NAME, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
+
+	fire(type: NavigationEditEventTypes.NAME_EXPANDED, navigation: Navigation, navigationIndicator: NavigationIndicator): this;
+	on(type: NavigationEditEventTypes.NAME_EXPANDED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
+	off(type: NavigationEditEventTypes.NAME_EXPANDED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
 
 	fire(type: NavigationEditEventTypes.EXPAND_CRITERIA, navigation: Navigation, navigationIndicator: NavigationIndicator): this;
 	on(type: NavigationEditEventTypes.EXPAND_CRITERIA, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
@@ -54,6 +65,10 @@ export interface NavigationEditEventBus {
 	fire(type: NavigationEditEventTypes.INDICATOR_ADDED, navigation: Navigation, navigationIndicator: NavigationIndicator, indicator: Indicator): this;
 	on(type: NavigationEditEventTypes.INDICATOR_ADDED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, indicator: Indicator) => void): this;
 	off(type: NavigationEditEventTypes.INDICATOR_ADDED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, indicator: Indicator) => void): this;
+
+	fire(type: NavigationEditEventTypes.COMPUTE_INDICATOR_ADDED, navigation: Navigation, navigationIndicator: NavigationIndicator): this;
+	on(type: NavigationEditEventTypes.COMPUTE_INDICATOR_ADDED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
+	off(type: NavigationEditEventTypes.COMPUTE_INDICATOR_ADDED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
 
 	fire(type: NavigationEditEventTypes.INDICATOR_REMOVED, navigation: Navigation, navigationIndicator: NavigationIndicator): this;
 	on(type: NavigationEditEventTypes.INDICATOR_REMOVED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
