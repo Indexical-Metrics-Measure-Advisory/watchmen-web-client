@@ -83,4 +83,8 @@ export interface NavigationIndicatorCalculatedValues {
 
 export interface AllCalculatedIndicatorValues {
 	data: Array<NavigationIndicatorCalculatedValues>;
+	calculated: boolean;
+	failed: boolean;
+	score?: { value: number, formatted: string };
+	shouldComputeScore: boolean;
 }
