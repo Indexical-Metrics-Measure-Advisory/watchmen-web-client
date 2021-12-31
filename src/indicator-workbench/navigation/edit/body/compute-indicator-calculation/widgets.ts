@@ -23,6 +23,9 @@ export const ComputeIndicatorCalculationNode = styled(IndicatorCalculationNode).
 	})<{ expanded: boolean }>`
 	border-color : var(--navigation-compute-indicator-color);
 	color        : var(--navigation-compute-indicator-color);
+	&:before {
+		background-color : var(--navigation-compute-indicator-color);
+	}
 `;
 export const ComputeIndicatorCalculationVariableName = styled(IndicatorCalculationVariableName)
 	.attrs({'data-widget': 'compute-indicator-calculation-variable-name'})``;
