@@ -488,7 +488,7 @@ export const Jp = {
 			SCORE_SUM_LABEL: '最終的なスコア:',
 			ADD_COMPUTE_INDICATOR: '計算指標を増や',
 			COMPUTE_INDICATOR_NODE_LABEL: '計算指標',
-			SCORE_INCLUDE_IN_FINAL: '最終スコアに含める'
+			SCORE_INCLUDE_IN_FINAL: '最終スコアに含める:'
 		}
 	},
 	SETTINGS: {

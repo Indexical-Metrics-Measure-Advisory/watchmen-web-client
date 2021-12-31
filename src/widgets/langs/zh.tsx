@@ -488,7 +488,7 @@ export const Zh = {
 			SCORE_SUM_LABEL: '最终得分:',
 			ADD_COMPUTE_INDICATOR: '增加计算指标',
 			COMPUTE_INDICATOR_NODE_LABEL: '计算指标',
-			SCORE_INCLUDE_IN_FINAL: '计算入最终得分?'
+			SCORE_INCLUDE_IN_FINAL: '计算入最终得分?:'
 		}
 	},
 	SETTINGS: {

@@ -488,7 +488,7 @@ export const En = {
 			SCORE_SUM_LABEL: 'Final Score:',
 			ADD_COMPUTE_INDICATOR: 'Add Manual Compute Indicator',
 			COMPUTE_INDICATOR_NODE_LABEL: 'Compute Indicator',
-			SCORE_INCLUDE_IN_FINAL: 'Include in Final Score?'
+			SCORE_INCLUDE_IN_FINAL: 'Include in Final Score?:'
 		}
 	},
 	SETTINGS: {
