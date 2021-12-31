@@ -8,6 +8,7 @@ import {createNavigationManualComputeIndicator} from '../../../utils';
 import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
 import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
 import {useCurve} from '../use-curve';
+import {useShowAddIndicator} from '../use-show-add-indicator';
 import {computeCurvePath} from '../utils';
 import {
 	MoreIndicatorsColumn,
@@ -27,9 +28,14 @@ export const MoreComputeIndicators = (props: {
 	const {fire} = useNavigationEditEventBus();
 	const {ref, curve} = useCurve(parentId);
 	const [id] = useState(v4());
+	const visible = useShowAddIndicator(navigation);
 	useEffect(() => {
 		fire(NavigationEditEventTypes.REPAINT);
 	}, [fire]);
+
+	if (!visible) {
+		return null;
+	}
 
 	const onMoreClicked = () => {
 		const navigationIndicator = createNavigationManualComputeIndicator(navigation);
