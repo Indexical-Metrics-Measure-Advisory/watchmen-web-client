@@ -1,6 +1,6 @@
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
+import {useIndicatorValuesCalculator} from '../indicator-values-calculator';
 import {IndicatorPartRelationLine} from '../widgets';
-import {useOtherIndicatorValues} from './use-other-indicator-values';
 
 export const LineToParent = (props: {
 	navigation: Navigation;
@@ -8,7 +8,7 @@ export const LineToParent = (props: {
 }) => {
 	const {navigation, navigationIndicator} = props;
 
-	const calculatedValues = useOtherIndicatorValues(navigation, navigationIndicator);
+	const calculatedValues = useIndicatorValuesCalculator(navigation, navigationIndicator);
 
 	return <IndicatorPartRelationLine error={calculatedValues.failed}
 	                                  warn={calculatedValues.shouldComputeScore && !calculatedValues.calculated}/>;

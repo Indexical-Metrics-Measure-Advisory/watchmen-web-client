@@ -81,11 +81,15 @@ export interface NavigationIndicatorCalculatedValues {
 	values: CalculatedIndicatorValues;
 }
 
+export type AllCalculatedIndicatorValuesData = Array<NavigationIndicatorCalculatedValues>;
+
 export interface AllCalculatedIndicatorValues {
-	data: Array<NavigationIndicatorCalculatedValues>;
+	data: AllCalculatedIndicatorValuesData;
 	calculated: boolean;
 	failed: boolean;
 	failureReason?: string;
 	score?: { value: number, formatted: string };
 	shouldComputeScore: boolean;
 }
+
+export type AllIndicatedValuesCalculationResult = Pick<AllCalculatedIndicatorValues, 'failed' | 'failureReason' | 'shouldComputeScore' | 'score'>;

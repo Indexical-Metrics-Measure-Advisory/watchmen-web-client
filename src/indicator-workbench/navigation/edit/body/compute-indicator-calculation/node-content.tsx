@@ -1,10 +1,8 @@
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
-import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
-import {useEffect} from 'react';
+import {useIndicatorValuesCalculator} from '../indicator-values-calculator';
 import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
 import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
-import {useOtherIndicatorValues} from './use-other-indicator-values';
 import {
 	ComputeIndicatorCalculationNode,
 	ComputeIndicatorCalculationValue,
@@ -19,21 +17,8 @@ export const ComputeIndicatorCalculationNodeContent = (props: {
 }) => {
 	const {navigation, navigationIndicator, expanded, id} = props;
 
-	const {on, off, fire} = useNavigationEditEventBus();
-	const calculatedValues = useOtherIndicatorValues(navigation, navigationIndicator);
-	const forceUpdate = useForceUpdate();
-	useEffect(() => {
-		const onFormulaChanged = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
-			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
-				return;
-			}
-			forceUpdate();
-		};
-		on(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onFormulaChanged);
-		return () => {
-			off(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onFormulaChanged);
-		};
-	}, [on, off, forceUpdate, navigation, navigationIndicator]);
+	const {fire} = useNavigationEditEventBus();
+	const calculatedValues = useIndicatorValuesCalculator(navigation, navigationIndicator);
 
 	const onMouseEnter = () => {
 		fire(NavigationEditEventTypes.EXPAND_CALCULATION, navigation, navigationIndicator);

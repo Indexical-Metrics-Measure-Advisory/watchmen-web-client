@@ -3,6 +3,7 @@ import {Expandable, useIndicatorPartExpandable} from '../use-indicator-part-expa
 import {ComputeIndicatorCalculationFormula} from './formula';
 import {LineToParent} from './line-to-parent';
 import {ComputeIndicatorCalculationNodeContent} from './node-content';
+import {OtherIndicatorValuesCalculator} from './other-indicator-values-calulator';
 import {ComputeIndicatorCalculationNodeContainer} from './widgets';
 
 export const ComputeIndicatorCalculation = (props: {
@@ -27,5 +28,6 @@ export const ComputeIndicatorCalculation = (props: {
 			<ComputeIndicatorCalculationFormula navigation={navigation} navigationIndicator={navigationIndicator}
 			                                    expanded={expanded}/>
 		</ComputeIndicatorCalculationNodeContainer>
+		<OtherIndicatorValuesCalculator navigation={navigation} navigationIndicator={navigationIndicator}/>
 	</>;
 };

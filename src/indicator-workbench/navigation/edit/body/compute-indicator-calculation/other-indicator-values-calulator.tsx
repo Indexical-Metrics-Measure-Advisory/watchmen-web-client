@@ -1,12 +1,14 @@
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
 import {isNotNull} from '@/services/data/utils';
-import {PropOf} from '@/services/types';
-import {useEffect, useState} from 'react';
-import {interpolation, toNumber, useIndicatorValuesAggregator} from '../indicator-values-calculator';
-import {AllCalculatedIndicatorValues} from '../types';
+import {Fragment, useEffect, useState} from 'react';
+import {interpolation, toNumber} from '../indicator-values-calculator';
+import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
+import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
+import {AllCalculatedIndicatorValuesData, AllIndicatedValuesCalculationResult} from '../types';
+import {useIndicatorValuesAggregator} from '../use-indicator-values-aggregator';
 
 const buildScoreComputer = (navigationIndicator: NavigationIndicator) => {
-	return (data: PropOf<AllCalculatedIndicatorValues, 'data'>): Pick<AllCalculatedIndicatorValues, 'failed' | 'failureReason' | 'shouldComputeScore' | 'score'> => {
+	return (data: AllCalculatedIndicatorValuesData): AllIndicatedValuesCalculationResult => {
 		const script = navigationIndicator.formula;
 		if (script == null || script.trim().length === 0) {
 			return {
@@ -67,19 +69,38 @@ const buildScoreComputer = (navigationIndicator: NavigationIndicator) => {
 	};
 };
 
-export const useOtherIndicatorValues = (navigation: Navigation, navigationIndicator: NavigationIndicator) => {
+export const OtherIndicatorValuesCalculator = (props: {
+	navigation: Navigation;
+	navigationIndicator: NavigationIndicator
+}) => {
+	const {navigation, navigationIndicator} = props;
+
+	const {fire} = useNavigationEditEventBus();
 	const [functions, setFunctions] = useState(() => {
 		return {
 			avoidValuesEvent: (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
 				return aNavigation !== navigation && navigationIndicator === aNavigationIndicator;
 			},
-			computeScore: buildScoreComputer(navigationIndicator)
+			computeScore: buildScoreComputer(navigationIndicator),
+			onComputed: (result: AllIndicatedValuesCalculationResult) => {
+				// fire
+				fire(NavigationEditEventTypes.VALUES_CALCULATED, navigation, navigationIndicator, {
+					loaded: true,
+					loadFailed: false,
+					calculated: true,
+					calculateFailed: result.failed,
+					calculateFailureReason: result.failureReason,
+					score: result.score,
+					shouldComputeScore: result.shouldComputeScore
+				});
+			}
 		};
 	});
-	const calculatedValues = useIndicatorValuesAggregator({
+	useIndicatorValuesAggregator({
 		navigation,
 		shouldAvoidEvent: functions.avoidValuesEvent,
-		compute: functions.computeScore
+		compute: functions.computeScore,
+		onComputed: functions.onComputed
 	});
 	useEffect(() => {
 		setFunctions(() => {
@@ -91,6 +112,19 @@ export const useOtherIndicatorValues = (navigation: Navigation, navigationIndica
 			};
 		});
 	}, [navigation, navigationIndicator]);
+	useEffect(() => {
+		const onFormulaChanged = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
+			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
+				return;
+			}
 
-	return calculatedValues;
+			//
+		};
+		on(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onFormulaChanged);
+		return () => {
+			off(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onFormulaChanged);
+		};
+	}, [on, off, forceUpdate, navigation, navigationIndicator]);
+
+	return <Fragment/>;
 };

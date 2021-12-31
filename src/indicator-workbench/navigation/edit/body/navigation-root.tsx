@@ -1,15 +1,15 @@
 import {Navigation} from '@/services/data/tuples/navigation-types';
-import {PropOf} from '@/services/types';
+import {noop} from '@/services/utils';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
 import {useEffect, useRef, useState} from 'react';
 import {useNavigationEventBus} from '../../navigation-event-bus';
 import {NavigationEventTypes} from '../../navigation-event-bus-types';
-import {useIndicatorValuesAggregator} from './indicator-values-calculator';
-import {AllCalculatedIndicatorValues} from './types';
+import {AllCalculatedIndicatorValuesData, AllIndicatedValuesCalculationResult} from './types';
+import {useIndicatorValuesAggregator} from './use-indicator-values-aggregator';
 import {NavigationRootNode} from './widgets';
 
-const computeScore = (data: PropOf<AllCalculatedIndicatorValues, 'data'>): Pick<AllCalculatedIndicatorValues, 'failed' | 'failureReason' | 'shouldComputeScore' | 'score'> => {
+const computeScore = (data: AllCalculatedIndicatorValuesData): AllIndicatedValuesCalculationResult => {
 	const score = data.reduce((sum, pair) => {
 		const {values: {shouldComputeScore, score: {value: score = 0} = {}}} = pair;
 		if (shouldComputeScore) {
@@ -39,7 +39,8 @@ export const NavigationRoot = (props: { id: string; navigation: Navigation }) =>
 	const {score: {formatted: score} = {}, shouldComputeScore} = useIndicatorValuesAggregator({
 		navigation,
 		shouldAvoidEvent: avoidValuesEvent,
-		compute: computeScore
+		compute: computeScore,
+		onComputed: noop
 	});
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
