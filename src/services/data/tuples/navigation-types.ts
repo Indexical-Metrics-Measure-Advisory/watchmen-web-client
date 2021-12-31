@@ -35,7 +35,13 @@ export interface NavigationIndicator {
 	name: string;
 	/** use sum when no aggregation arithmetic applied */
 	aggregateArithmetic: IndicatorAggregateArithmetic;
+	/** to compute score */
 	formula?: string;
+	/**
+	 * if there is a score computed, should be included in final score or not.
+	 * default true
+	 */
+	includeInFinalScore?: boolean;
 	criteria: Array<NavigationIndicatorCriteria>;
 	/**
 	 * used to call by other indicators,

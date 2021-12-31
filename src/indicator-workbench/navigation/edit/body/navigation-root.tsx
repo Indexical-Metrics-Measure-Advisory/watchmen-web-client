@@ -11,8 +11,11 @@ import {NavigationRootNode} from './widgets';
 
 const computeScore = (data: AllCalculatedIndicatorValuesData): AllIndicatedValuesCalculationResult => {
 	const score = data.reduce((sum, pair) => {
-		const {values: {shouldComputeScore, score: {value: score = 0} = {}}} = pair;
-		if (shouldComputeScore) {
+		const {
+			indicator: {includeInFinalScore = true},
+			values: {shouldComputeScore, score: {value: score = 0} = {}}
+		} = pair;
+		if (shouldComputeScore && includeInFinalScore) {
 			sum = sum + Number(score.toFixed(1));
 		}
 
@@ -42,6 +45,7 @@ export const NavigationRoot = (props: { id: string; navigation: Navigation }) =>
 		navigation,
 		shouldAvoidIndicatorRemovedAndValuesCalculated: avoidValuesEvent,
 		shouldAvoidFormulaChanged: alwaysAvoidFormulaChanged,
+		shouldAvoidScoreIncludeChanged: avoidValuesEvent,
 		compute: computeScore,
 		onComputed: noop
 	});

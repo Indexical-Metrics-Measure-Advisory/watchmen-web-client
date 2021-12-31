@@ -79,6 +79,7 @@ const buildIndicatorRemovedAndValuesCalculatedAvoidHandler = (nav1: Navigation, 
 const buildFormulaChangedAvoidHandler = (nav1: Navigation, ni1: NavigationIndicator) => {
 	return (nav2: Navigation, ni2: NavigationIndicator) => nav1 !== nav2 || ni1 !== ni2;
 };
+const alwaysAvoidScoreIncludeChanged = () => true;
 
 const buildCalculatedIndicatorValues = (result: AllIndicatedValuesCalculationResult): CalculatedIndicatorValues => {
 	return {
@@ -113,6 +114,7 @@ export const OtherIndicatorValuesCalculator = (props: {
 		navigation,
 		shouldAvoidIndicatorRemovedAndValuesCalculated: functions.shouldAvoidIndicatorRemovedAndValuesCalculated,
 		shouldAvoidFormulaChanged: functions.shouldAvoidFormulaChanged,
+		shouldAvoidScoreIncludeChanged: alwaysAvoidScoreIncludeChanged,
 		compute: functions.computeScore,
 		onComputed: functions.onComputed
 	});

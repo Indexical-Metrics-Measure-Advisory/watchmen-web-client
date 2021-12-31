@@ -25,12 +25,16 @@ export const useIndicatorValuesAggregator = (options: {
 	 * {@link NavigationEditEventTypes#INDICATOR_FORMULA_CHANGED}
 	 */
 	shouldAvoidFormulaChanged: (navigation: Navigation, navigationIndicator: NavigationIndicator) => boolean;
+	/**
+	 * {@link NavigationEditEventTypes#INDICATOR_SCORE_INCLUDE_CHANGED}
+	 */
+	shouldAvoidScoreIncludeChanged: (navigation: Navigation, navigationIndicator: NavigationIndicator) => boolean;
 	compute: (data: AllCalculatedIndicatorValuesData) => AllIndicatedValuesCalculationResult;
 	onComputed: (result: AllIndicatedValuesCalculationResult) => void;
 }) => {
 	const {
 		navigation,
-		shouldAvoidIndicatorRemovedAndValuesCalculated, shouldAvoidFormulaChanged,
+		shouldAvoidIndicatorRemovedAndValuesCalculated, shouldAvoidFormulaChanged, shouldAvoidScoreIncludeChanged,
 		compute, onComputed
 	} = options;
 
@@ -88,17 +92,25 @@ export const useIndicatorValuesAggregator = (options: {
 			}
 			calculate();
 		};
+		const onScoreIncludeChanged = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
+			if (shouldAvoidScoreIncludeChanged(aNavigation, aNavigationIndicator)) {
+				return;
+			}
+			calculate();
+		};
 		onEdit(NavigationEditEventTypes.INDICATOR_REMOVED, onIndicatorRemoved);
 		onEdit(NavigationEditEventTypes.VALUES_CALCULATED, onValuesCalculated);
 		onEdit(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onFormulaChanged);
+		onEdit(NavigationEditEventTypes.INDICATOR_SCORE_INCLUDE_CHANGED, onScoreIncludeChanged);
 		return () => {
 			offEdit(NavigationEditEventTypes.INDICATOR_REMOVED, onIndicatorRemoved);
 			offEdit(NavigationEditEventTypes.VALUES_CALCULATED, onValuesCalculated);
 			offEdit(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onFormulaChanged);
+			offEdit(NavigationEditEventTypes.INDICATOR_SCORE_INCLUDE_CHANGED, onScoreIncludeChanged);
 		};
 	}, [onEdit, offEdit,
 		navigation, allValues,
-		shouldAvoidIndicatorRemovedAndValuesCalculated, shouldAvoidFormulaChanged,
+		shouldAvoidIndicatorRemovedAndValuesCalculated, shouldAvoidFormulaChanged, shouldAvoidScoreIncludeChanged,
 		compute, onComputed
 	]);
 

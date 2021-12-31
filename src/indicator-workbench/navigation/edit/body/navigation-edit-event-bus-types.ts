@@ -25,6 +25,7 @@ export enum NavigationEditEventTypes {
 	INDICATOR_CRITERIA_REMOVED = 'indicator-criteria-removed',
 	INDICATOR_AGGREGATION_CHANGED = 'indicator-aggregation-changed',
 	INDICATOR_FORMULA_CHANGED = 'indicator-formula-changed',
+	INDICATOR_SCORE_INCLUDE_CHANGED = 'indicator-score-included-changed',
 
 	VALUES_CHANGED = 'values-changed',
 	VALUES_CALCULATED = 'values-calculated'
@@ -106,6 +107,10 @@ export interface NavigationEditEventBus {
 	fire(type: NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, navigation: Navigation, navigationIndicator: NavigationIndicator): this;
 	on(type: NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
 	off(type: NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
+
+	fire(type: NavigationEditEventTypes.INDICATOR_SCORE_INCLUDE_CHANGED, navigation: Navigation, navigationIndicator: NavigationIndicator): this;
+	on(type: NavigationEditEventTypes.INDICATOR_SCORE_INCLUDE_CHANGED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
+	off(type: NavigationEditEventTypes.INDICATOR_SCORE_INCLUDE_CHANGED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator) => void): this;
 
 	fire(type: NavigationEditEventTypes.VALUES_CHANGED, navigation: Navigation, navigationIndicator: NavigationIndicator, values: IndicatorValues): this;
 	on(type: NavigationEditEventTypes.VALUES_CHANGED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, values: IndicatorValues) => void): this;

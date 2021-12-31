@@ -1,6 +1,7 @@
 import {IndicatorAggregateArithmetic} from '@/services/data/tuples/indicator-types';
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
 import {noop} from '@/services/utils';
+import {CheckBox} from '@/widgets/basic/checkbox';
 import {Dropdown} from '@/widgets/basic/dropdown';
 import {InputLines} from '@/widgets/basic/input-lines';
 import {DropdownOption} from '@/widgets/basic/types';
@@ -43,6 +44,12 @@ export const IndicatorCalculationFormula = (props: {
 		}, 300);
 		forceUpdate();
 	};
+	const onIncludeInFinalScoreChanged = (value: boolean) => {
+		navigationIndicator.includeInFinalScore = value;
+		fireEdit(NavigationEditEventTypes.INDICATOR_SCORE_INCLUDE_CHANGED, navigation, navigationIndicator);
+		fire(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
+		forceUpdate();
+	};
 
 	const aggregateArithmeticsOptions = [
 		{value: IndicatorAggregateArithmetic.SUM, label: Lang.INDICATOR_WORKBENCH.INSPECTION.VALUE_TRANSFORM_SUM},
@@ -67,5 +74,9 @@ eg 2: interpolation(r, -0.2, 5, 0.2, 20)`;
 		</IndicatorCalculationFormulaLabel>
 		<InputLines value={navigationIndicator.formula ?? ''} onChange={onFormulaChanged}
 		            placeholder={placeholder}/>
+		<IndicatorCalculationFormulaLabel>
+			{Lang.INDICATOR_WORKBENCH.NAVIGATION.SCORE_INCLUDE_IN_FINAL}
+		</IndicatorCalculationFormulaLabel>
+		<CheckBox value={navigationIndicator.includeInFinalScore ?? true} onChange={onIncludeInFinalScoreChanged}/>
 	</IndicatorCalculationFormulaContainer>;
 };
