@@ -37,6 +37,7 @@ export const runReadRow = async (options: {
 	if (found) {
 		await logWrite(`Row[value=${JSON.stringify(row)}] found.`);
 	} else {
-		await logWrite('Row not found by given condition.');
+		throw new Error('Row not found by given condition.');
+		// await logWrite('Row not found by given condition.');
 	}
 };

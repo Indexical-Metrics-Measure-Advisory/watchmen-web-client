@@ -81,6 +81,7 @@ export const runReadFactor = async (options: {
 	if (found) {
 		await logWrite(`Factor[value=${value}] found.`);
 	} else {
-		await logWrite('Factor not found by given condition.');
+		throw new Error('Factor not found by given condition.');
+		// await logWrite('Factor not found by given condition.');
 	}
 };
