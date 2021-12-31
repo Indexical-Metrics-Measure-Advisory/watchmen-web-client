@@ -21,13 +21,22 @@ export const RestrictionsTableBodyContainer = styled.div.attrs({'data-widget': '
 `;
 export const RestrictionRowContainer = styled.div`
 	display               : grid;
+	position              : relative;
 	grid-template-columns : 40px 1fr auto;
 	grid-column-gap       : calc(var(--margin) / 2);
 	align-items           : center;
 	padding               : calc(var(--margin) / 4) 0;
 	border-radius         : var(--border-radius);
-	&:nth-child(2n + 1) {
+	&:nth-child(2n + 1):after {
+		content          : '';
+		display          : block;
+		position         : absolute;
+		top              : 0;
+		left             : 0;
+		width            : 100%;
+		height           : 100%;
 		background-color : var(--grid-rib-bg-color);
+		z-index          : -3;
 	}
 `;
 export const RestrictionIndexLabel = styled.span`

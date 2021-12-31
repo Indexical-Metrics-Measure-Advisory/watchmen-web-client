@@ -118,7 +118,7 @@ export const NonTopJointFilterContainer = styled.div.attrs({'data-widget': 'non-
 		right                     : 100%;
 		width                     : calc(var(--margin) / 4);
 		height                    : calc(var(--margin) / 4 + var(--param-height) + 3px);
-		z-index                   : 0;
+		z-index                   : -1;
 		border-bottom-left-radius : 2px;
 		box-shadow                : var(--param-left-border), var(--param-bottom-border);
 	}
@@ -130,7 +130,7 @@ export const NonTopJointFilterContainer = styled.div.attrs({'data-widget': 'non-
 		right      : 100%;
 		width      : calc(var(--margin) / 4);
 		height     : calc(100% - var(--param-height) / 2 - 3px);
-		z-index    : 0;
+		z-index    : -1;
 		box-shadow : var(--param-left-border);
 	}
 `;
