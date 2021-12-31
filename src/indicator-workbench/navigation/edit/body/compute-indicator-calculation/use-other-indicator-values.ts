@@ -1,37 +1,26 @@
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
 import {useEffect, useState} from 'react';
-import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
-import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
-import {AllCalculatedIndicatorValues, CalculatedIndicatorValues} from '../types';
-
-interface OtherIndicatorValues extends AllCalculatedIndicatorValues {
-	calculated: boolean;
-	failed: boolean;
-	score?: { value: number, formatted: string };
-	shouldComputeScore: boolean;
-}
+import {useIndicatorValuesAggregator} from '../indicator-values-calculator';
+import {computeScore} from './utils';
 
 export const useOtherIndicatorValues = (navigation: Navigation, navigationIndicator: NavigationIndicator) => {
-	const {on, off} = useNavigationEditEventBus();
-	const [values, setValues] = useState<OtherIndicatorValues>({
-		calculated: false,
-		failed: false,
-		data: [],
-		shouldComputeScore: false
+	const [avoidValuesEvent, setAvoidValuesEvent] = useState(() => {
+		return (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
+			return aNavigation !== navigation && navigationIndicator === aNavigationIndicator;
+		};
+	});
+	const calculatedValues = useIndicatorValuesAggregator({
+		navigation,
+		shouldAvoidEvent: avoidValuesEvent,
+		compute: computeScore
 	});
 	useEffect(() => {
-		const onValuesCalculated = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator, values: CalculatedIndicatorValues) => {
-			if (aNavigation !== navigation || aNavigationIndicator === navigationIndicator) {
-				return;
-			}
+		setAvoidValuesEvent(() => {
+			return (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
+				return aNavigation !== navigation && navigationIndicator === aNavigationIndicator;
+			};
+		});
+	}, [navigation, navigationIndicator]);
 
-			// TODO do calculation
-		};
-		on(NavigationEditEventTypes.VALUES_CALCULATED, onValuesCalculated);
-		return () => {
-			off(NavigationEditEventTypes.VALUES_CALCULATED, onValuesCalculated);
-		};
-	}, [on, off, navigation, navigationIndicator]);
-
-	return values;
+	return calculatedValues;
 };
