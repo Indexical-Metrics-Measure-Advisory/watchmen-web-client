@@ -4,16 +4,14 @@ import {Lang} from '@/widgets/langs';
 import {useEffect, useRef, useState} from 'react';
 import {useNavigationEventBus} from '../../navigation-event-bus';
 import {NavigationEventTypes} from '../../navigation-event-bus-types';
-import {computeScore} from './indicator-calculation/utils';
 import {useNavigationEditEventBus} from './navigation-edit-event-bus';
 import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
-import {IndicatorValues} from './types';
+import {CalculatedIndicatorValues} from './types';
 import {NavigationRootNode} from './widgets';
 
 interface IndicatorValuesPair {
 	indicator: NavigationIndicator;
-	values: IndicatorValues;
-	score?: number;
+	values: CalculatedIndicatorValues;
 }
 
 interface ScoreState {
@@ -48,15 +46,10 @@ export const NavigationRoot = (props: { id: string; navigation: Navigation }) =>
 		};
 		const doCalculate = (pairs: Array<IndicatorValuesPair>): Pick<ScoreState, 'visible' | 'sum'> => {
 			return pairs.reduce((sum, pair) => {
-				const {useScore, score} = computeScore({
-					script: pair.indicator.formula,
-					current: pair.values.current,
-					previous: pair.values.previous
-				});
-				if (useScore) {
+				const {values: {shouldComputeScore, score: {value: score = 0} = {}}} = pair;
+				if (shouldComputeScore) {
 					sum.visible = true;
-					pair.score = Number((score ?? 0).toFixed(1));
-					sum.sum = (sum.sum ?? 0) + pair.score;
+					sum.sum = (sum.sum ?? 0) + Number(score.toFixed(1));
 				}
 
 				return sum;
@@ -77,30 +70,22 @@ export const NavigationRoot = (props: { id: string; navigation: Navigation }) =>
 				calculate(scoreState.data);
 			});
 		};
-		const onValuesChanged = (aNavigation: Navigation, navigationIndicator: NavigationIndicator, values: IndicatorValues) => {
+		const onValuesCalculated = (aNavigation: Navigation, navigationIndicator: NavigationIndicator, values: CalculatedIndicatorValues) => {
 			defendNavigation(aNavigation, () => {
 				const pair = scoreState.data.find(({indicator}) => indicator === navigationIndicator);
 				if (pair == null) {
 					scoreState.data.push({indicator: navigationIndicator, values});
 				} else {
 					pair.values = values;
-					delete pair.score;
 				}
 				calculate(scoreState.data);
 			});
 		};
-		const onIndicatorFormulaChanged = (aNavigation: Navigation) => {
-			defendNavigation(aNavigation, () => {
-				calculate(scoreState.data);
-			});
-		};
 		onEdit(NavigationEditEventTypes.INDICATOR_REMOVED, onIndicatorRemoved);
-		onEdit(NavigationEditEventTypes.VALUES_CHANGED, onValuesChanged);
-		onEdit(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onIndicatorFormulaChanged);
+		onEdit(NavigationEditEventTypes.VALUES_CALCULATED, onValuesCalculated);
 		return () => {
 			offEdit(NavigationEditEventTypes.INDICATOR_REMOVED, onIndicatorRemoved);
-			offEdit(NavigationEditEventTypes.VALUES_CHANGED, onValuesChanged);
-			offEdit(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onIndicatorFormulaChanged);
+			offEdit(NavigationEditEventTypes.VALUES_CALCULATED, onValuesCalculated);
 		};
 	}, [onEdit, offEdit, forceUpdate, navigation, scoreState]);
 

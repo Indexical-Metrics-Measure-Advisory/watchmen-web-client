@@ -1,6 +1,6 @@
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation, NavigationIndicator, NavigationIndicatorCriteria} from '@/services/data/tuples/navigation-types';
-import {IndicatorValues} from './types';
+import {CalculatedIndicatorValues, IndicatorValues} from './types';
 
 export enum NavigationEditEventTypes {
 	REPAINT = 'repaint',
@@ -26,7 +26,8 @@ export enum NavigationEditEventTypes {
 	INDICATOR_AGGREGATION_CHANGED = 'indicator-aggregation-changed',
 	INDICATOR_FORMULA_CHANGED = 'indicator-formula-changed',
 
-	VALUES_CHANGED = 'values-changed'
+	VALUES_CHANGED = 'values-changed',
+	VALUES_CALCULATED = 'values-calculated'
 }
 
 export interface NavigationEditEventBus {
@@ -109,4 +110,8 @@ export interface NavigationEditEventBus {
 	fire(type: NavigationEditEventTypes.VALUES_CHANGED, navigation: Navigation, navigationIndicator: NavigationIndicator, values: IndicatorValues): this;
 	on(type: NavigationEditEventTypes.VALUES_CHANGED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, values: IndicatorValues) => void): this;
 	off(type: NavigationEditEventTypes.VALUES_CHANGED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, values: IndicatorValues) => void): this;
+
+	fire(type: NavigationEditEventTypes.VALUES_CALCULATED, navigation: Navigation, navigationIndicator: NavigationIndicator, values: CalculatedIndicatorValues): this;
+	on(type: NavigationEditEventTypes.VALUES_CALCULATED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, values: CalculatedIndicatorValues) => void): this;
+	off(type: NavigationEditEventTypes.VALUES_CALCULATED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, values: CalculatedIndicatorValues) => void): this;
 }

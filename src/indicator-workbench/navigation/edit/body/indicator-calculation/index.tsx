@@ -1,3 +1,4 @@
+import {IndicatorValuesCalculator} from '@/indicator-workbench/navigation/edit/body/indicator-values-calculator';
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
 import {useEffect, useState} from 'react';
@@ -34,6 +35,7 @@ const InternalIndicatorCalculation = (props: {
 			<IndicatorCalculationFormula navigation={navigation} navigationIndicator={navigationIndicator}
 			                             expanded={expanded}/>
 		</IndicatorCalculationNodeContainer>
+		<IndicatorValuesCalculator navigation={navigation} navigationIndicator={navigationIndicator}/>
 		<Calculator navigation={navigation} navigationIndicator={navigationIndicator} defData={defData}/>
 	</>;
 };

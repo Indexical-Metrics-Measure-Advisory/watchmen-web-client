@@ -57,3 +57,21 @@ export interface IndicatorValues {
 	current?: number;
 	previous?: number;
 }
+
+export interface CalculatedIndicatorValues {
+	/** loaded or not */
+	loaded: boolean;
+	/** failed on load or not */
+	loadFailed: boolean;
+	/** calculated or not */
+	calculated: boolean;
+	/** failed on calculation or not */
+	calculateFailed: boolean;
+	/** failure reason on calculation */
+	calculateFailureReason?: string;
+	current?: { value: number, formatted: string };
+	previous?: { value: number, formatted: string };
+	ratio?: { value: number, formatted: string };
+	score?: { value: number, formatted: string };
+	shouldComputeScore: boolean;
+}

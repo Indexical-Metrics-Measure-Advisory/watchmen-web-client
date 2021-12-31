@@ -1,11 +1,8 @@
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
-import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
-import {useEffect} from 'react';
+import {useIndicatorValuesCalculator} from '../indicator-values-calculator';
 import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
 import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
-import {useIndicatorValues} from './use-indicator-values';
-import {computeScore, formatToNumber} from './utils';
 import {IndicatorCalculationNode, IndicatorCalculationValue, IndicatorCalculationVariableName} from './widgets';
 
 export const IndicatorCalculationNodeContent = (props: {
@@ -16,21 +13,8 @@ export const IndicatorCalculationNodeContent = (props: {
 }) => {
 	const {navigation, navigationIndicator, expanded, id} = props;
 
-	const {on, off, fire} = useNavigationEditEventBus();
-	const {values} = useIndicatorValues(navigation, navigationIndicator);
-	const forceUpdate = useForceUpdate();
-	useEffect(() => {
-		const onFormulaChanged = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
-			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
-				return;
-			}
-			forceUpdate();
-		};
-		on(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onFormulaChanged);
-		return () => {
-			off(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onFormulaChanged);
-		};
-	}, [on, off, forceUpdate, navigation, navigationIndicator]);
+	const {fire} = useNavigationEditEventBus();
+	const calculatedValues = useIndicatorValuesCalculator(navigation, navigationIndicator);
 
 	const onMouseEnter = () => {
 		fire(NavigationEditEventTypes.EXPAND_CALCULATION, navigation, navigationIndicator);
@@ -40,37 +24,31 @@ export const IndicatorCalculationNodeContent = (props: {
 	};
 
 	const index = (navigation.indicators || []).indexOf(navigationIndicator) + 1;
-	const currentValue = formatToNumber(values.current);
-	const previousValue = formatToNumber(values.previous);
-	const {useScore, scoreStr: score, ratioStr: ratio} = computeScore({
-		script: navigationIndicator.formula,
-		current: values.current,
-		previous: values.previous
-	});
 
-	return <IndicatorCalculationNode id={`calc-${id}`} error={values.failed} warn={!values.loaded}
+	return <IndicatorCalculationNode id={`calc-${id}`} error={calculatedValues.loadFailed}
+	                                 warn={!calculatedValues.calculated}
 	                                 onMouseEnter={onMouseEnter} onClick={onClicked}
 	                                 expanded={expanded}>
 		<IndicatorCalculationVariableName compact={true}>v{index}:</IndicatorCalculationVariableName>
 		<IndicatorCalculationVariableName>[</IndicatorCalculationVariableName>
 		<IndicatorCalculationVariableName>{Lang.INDICATOR_WORKBENCH.NAVIGATION.CURRENT_VALUE}=</IndicatorCalculationVariableName>
-		<IndicatorCalculationValue>{currentValue}</IndicatorCalculationValue>
+		<IndicatorCalculationValue>{calculatedValues.current?.formatted}</IndicatorCalculationValue>
 		{navigation.compareWithPreviousTimeRange
 			? <>
 				<IndicatorCalculationVariableName compact={true}>,</IndicatorCalculationVariableName>
 				<IndicatorCalculationVariableName>{Lang.INDICATOR_WORKBENCH.NAVIGATION.PREVIOUS_VALUE}=</IndicatorCalculationVariableName>
-				<IndicatorCalculationValue>{previousValue}</IndicatorCalculationValue>
+				<IndicatorCalculationValue>{calculatedValues.previous?.formatted}</IndicatorCalculationValue>
 				<IndicatorCalculationVariableName compact={true}>,</IndicatorCalculationVariableName>
 				<IndicatorCalculationVariableName>{Lang.INDICATOR_WORKBENCH.NAVIGATION.INCREMENT_RATIO}=</IndicatorCalculationVariableName>
-				<IndicatorCalculationValue>{ratio}</IndicatorCalculationValue>
+				<IndicatorCalculationValue>{calculatedValues.ratio?.formatted}</IndicatorCalculationValue>
 				<IndicatorCalculationValue>%</IndicatorCalculationValue>
 			</>
 			: null}
-		{useScore
+		{calculatedValues.shouldComputeScore
 			? <>
 				<IndicatorCalculationVariableName compact={true}>,</IndicatorCalculationVariableName>
 				<IndicatorCalculationVariableName>{Lang.INDICATOR_WORKBENCH.NAVIGATION.COMPUTED_SCORE}=</IndicatorCalculationVariableName>
-				<IndicatorCalculationValue>{score}</IndicatorCalculationValue>
+				<IndicatorCalculationValue>{calculatedValues.score?.formatted}</IndicatorCalculationValue>
 			</>
 			: null}
 		<IndicatorCalculationVariableName>]</IndicatorCalculationVariableName>
