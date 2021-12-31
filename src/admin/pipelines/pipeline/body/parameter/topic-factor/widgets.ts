@@ -30,9 +30,11 @@ export const TFDropdown = styled(Dropdown).attrs<{ valid: boolean }>({})<{ valid
 	&:focus {
 		z-index    : 1;
 		box-shadow : ${({valid}) => valid ? 'var(--primary-hover-shadow)' : 'var(--danger-hover-shadow)'};
-		> div {
-			border     : 0;
-			box-shadow : ${({valid}) => valid ? 'var(--param-border)' : 'var(--danger-hover-shadow)'};
+		> div[data-widget="dropdown-options-container"] {
+			border      : 0;
+			margin-top  : 0;
+			margin-left : 0;
+			box-shadow  : ${({valid}) => valid ? 'var(--param-border)' : 'var(--danger-hover-shadow)'};
 		}
 	}
 	> span[data-widget="dropdown-label"] {
@@ -41,8 +43,12 @@ export const TFDropdown = styled(Dropdown).attrs<{ valid: boolean }>({})<{ valid
 	> svg {
 		color : ${({valid}) => valid ? (void 0) : 'var(--danger-color)'};
 	}
-	> div[data-widget="dropdown-options-container"] > span {
-		padding : 0 calc(var(--margin) / 2);
+	> div[data-widget="dropdown-options-container"] {
+		margin-top  : -1px;
+		margin-left : -1px;
+		> span {
+			padding : 0 calc(var(--margin) / 2);
+		}
 	}
 `;
 export const TopicDropdown = styled(TFDropdown)`
