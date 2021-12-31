@@ -35,27 +35,27 @@ const filterFactors = (topic: Topic, search: string): Array<Factor> => {
 			break;
 		case text.startsWith('n:') :
 			// in name
-			factors = filterBy(factors, text.substr(2).trim(), (factor: Factor) => factor.name);
+			factors = filterBy(factors, text.substring(2).trim(), (factor: Factor) => factor.name);
 			break;
 		case text.startsWith('l:') :
 			// in label
-			factors = filterBy(factors, text.substr(2).trim(), (factor: Factor) => factor.label);
+			factors = filterBy(factors, text.substring(2).trim(), (factor: Factor) => factor.label);
 			break;
 		case text.startsWith('t:'):
 			// in type
-			factors = filterBy(factors, text.substr(2).trim(), (factor: Factor) => factor.type);
+			factors = filterBy(factors, text.substring(2).trim(), (factor: Factor) => factor.type);
 			break;
 		case text.startsWith('i:'):
 			// in index
-			factors = filterBy(factors, `i-${text.substr(2).trim()}`, (factor: Factor) => factor.indexGroup || '');
+			factors = filterBy(factors, `i-${text.substring(2).trim()}`, (factor: Factor) => factor.indexGroup || '');
 			break;
 		case text.startsWith('u:'):
 			// in unique index
-			factors = filterBy(factors, `u-${text.substr(2).trim()}`, (factor: Factor) => factor.indexGroup || '');
+			factors = filterBy(factors, `u-${text.substring(2).trim()}`, (factor: Factor) => factor.indexGroup || '');
 			break;
 		case text.startsWith('v:'):
 			// in default value
-			const has = text.substr(2).trim() === 'true';
+			const has = text.substring(2).trim() === 'true';
 			factors = factors.filter(factor => {
 				if (has) {
 					return factor.defaultValue != null && factor.defaultValue.length !== 0;

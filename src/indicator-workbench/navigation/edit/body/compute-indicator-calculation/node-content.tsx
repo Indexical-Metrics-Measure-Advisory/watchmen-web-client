@@ -42,19 +42,17 @@ export const ComputeIndicatorCalculationNodeContent = (props: {
 		fire(NavigationEditEventTypes.EXPAND_CALCULATION, navigation, navigationIndicator);
 	};
 
-	const index = (navigation.indicators || []).indexOf(navigationIndicator) + 1;
-	// TODO
-	const score = 0;
-
 	return <ComputeIndicatorCalculationNode id={`calc-${id}`}
 	                                        error={calculatedValues.failed}
 	                                        warn={calculatedValues.shouldComputeScore && !calculatedValues.calculated}
 	                                        onMouseEnter={onMouseEnter} onClick={onClicked}
 	                                        expanded={expanded}>
-		<ComputeIndicatorCalculationVariableName compact={true}>v{index}:</ComputeIndicatorCalculationVariableName>
+		<ComputeIndicatorCalculationVariableName compact={true}>
+			{navigationIndicator.variableName}:
+		</ComputeIndicatorCalculationVariableName>
 		<ComputeIndicatorCalculationVariableName>[</ComputeIndicatorCalculationVariableName>
 		<ComputeIndicatorCalculationVariableName>{Lang.INDICATOR_WORKBENCH.NAVIGATION.COMPUTED_SCORE}=</ComputeIndicatorCalculationVariableName>
-		<ComputeIndicatorCalculationValue>{score}</ComputeIndicatorCalculationValue>
+		<ComputeIndicatorCalculationValue>{calculatedValues.score?.formatted}</ComputeIndicatorCalculationValue>
 		<ComputeIndicatorCalculationVariableName>]</ComputeIndicatorCalculationVariableName>
 	</ComputeIndicatorCalculationNode>;
 };

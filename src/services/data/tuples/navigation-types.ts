@@ -37,6 +37,12 @@ export interface NavigationIndicator {
 	aggregateArithmetic: IndicatorAggregateArithmetic;
 	formula?: string;
 	criteria: Array<NavigationIndicatorCriteria>;
+	/**
+	 * used to call by other indicators,
+	 * create variable name when it is added into navigation,
+	 * and will not be changed in anytime
+	 */
+	variableName?: string;
 }
 
 export const MANUAL_COMPUTE_NAVIGATION_INDICATOR_ID = '-1';

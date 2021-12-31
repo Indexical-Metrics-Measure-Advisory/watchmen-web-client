@@ -9,7 +9,7 @@ import {useIndicatorValuesAggregator} from './indicator-values-calculator';
 import {AllCalculatedIndicatorValues} from './types';
 import {NavigationRootNode} from './widgets';
 
-const computeScore = (data: PropOf<AllCalculatedIndicatorValues, 'data'>): Pick<AllCalculatedIndicatorValues, 'failed' | 'shouldComputeScore' | 'score'> => {
+const computeScore = (data: PropOf<AllCalculatedIndicatorValues, 'data'>): Pick<AllCalculatedIndicatorValues, 'failed' | 'failureReason' | 'shouldComputeScore' | 'score'> => {
 	const score = data.reduce((sum, pair) => {
 		const {values: {shouldComputeScore, score: {value: score = 0} = {}}} = pair;
 		if (shouldComputeScore) {

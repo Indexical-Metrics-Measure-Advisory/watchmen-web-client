@@ -48,19 +48,19 @@ const filterItems = (items: Array<EnumItemDelegate>, search: string): Array<Enum
 			break;
 		case text.startsWith('c:') :
 			// in name
-			items = filterBy(items, text.substr(2).trim(), (item: EnumItem) => item.code);
+			items = filterBy(items, text.substring(2).trim(), (item: EnumItem) => item.code);
 			break;
 		case text.startsWith('l:') :
 			// in label
-			items = filterBy(items, text.substr(2).trim(), (item: EnumItem) => item.label);
+			items = filterBy(items, text.substring(2).trim(), (item: EnumItem) => item.label);
 			break;
 		case text.startsWith('n:'):
 			// in type
-			items = filterBy(items, text.substr(2).trim(), (item: EnumItem) => item.replaceCode || '');
+			items = filterBy(items, text.substring(2).trim(), (item: EnumItem) => item.replaceCode || '');
 			break;
 		case text.startsWith('p:'):
 			// in index
-			items = filterBy(items, text.substr(2).trim(), ({parentLabel}) => parentLabel || '');
+			items = filterBy(items, text.substring(2).trim(), ({parentLabel}) => parentLabel || '');
 			break;
 		default:
 			items = filterBy(items, text, (item: EnumItem) => `${item.code}\t${item.label}`);

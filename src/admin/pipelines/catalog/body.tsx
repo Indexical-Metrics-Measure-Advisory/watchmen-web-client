@@ -66,7 +66,7 @@ const getStyleRuleValue = (selector: string) => {
 const strictStyles = (styles: string) => {
 	styles = styles.trim();
 	if (styles.startsWith(';')) {
-		styles = styles.substr(1);
+		styles = styles.substring(1);
 	}
 	styles = styles.trim();
 	styles = styles.replace(/\..+ {/, '');

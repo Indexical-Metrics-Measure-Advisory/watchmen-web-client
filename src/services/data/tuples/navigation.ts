@@ -31,6 +31,20 @@ export const fetchNavigation = async (navigationId: NavigationId): Promise<{ nav
 		return fetchMockNavigation(navigationId);
 	} else {
 		const navigation = await get({api: Apis.NAVIGATION_GET, search: {navigationId}});
+		(navigation.indicators || []).forEach((indicator: NavigationIndicator, index: number, array: Array<NavigationIndicator>) => {
+			if (indicator.variableName == null || indicator.variableName.trim().length === 0) {
+				let startIndex = index + 1;
+				while (true) {
+					const variableName = `v${startIndex}`;
+					if (array.every(({variableName: vn}) => vn !== variableName)) {
+						indicator.variableName = variableName;
+						break;
+					} else {
+						startIndex += 1;
+					}
+				}
+			}
+		});
 		return {navigation};
 	}
 };

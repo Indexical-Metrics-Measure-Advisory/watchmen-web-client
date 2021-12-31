@@ -38,7 +38,7 @@ export const computeRatio = (currentValue: any, previousValue: any): number => {
 
 export type ComputedScore = { ratio: number, score?: number, useScore: boolean, error?: string };
 // interpolation(r, 0.1, 10, 0.5, 100)
-const interpolation = (value: any, min: number, minScore: number, max: number, maxScore: number) => {
+export const interpolation = (value: any, min: number, minScore: number, max: number, maxScore: number) => {
 	const v = toNumber(value);
 	if (v === '') {
 		// not a number, score 0
@@ -234,7 +234,7 @@ export const useIndicatorValuesCalculator = (navigation: Navigation, navigationI
 export const useIndicatorValuesAggregator = (options: {
 	navigation: Navigation;
 	shouldAvoidEvent: (navigation: Navigation, navigationIndicator: NavigationIndicator) => boolean;
-	compute: (data: PropOf<AllCalculatedIndicatorValues, 'data'>) => Pick<AllCalculatedIndicatorValues, 'failed' | 'shouldComputeScore' | 'score'>
+	compute: (data: PropOf<AllCalculatedIndicatorValues, 'data'>) => Pick<AllCalculatedIndicatorValues, 'failed' | 'failureReason' | 'shouldComputeScore' | 'score'>
 }) => {
 	const {navigation, shouldAvoidEvent, compute} = options;
 

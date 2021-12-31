@@ -1,5 +1,10 @@
 import {IndicatorAggregateArithmetic} from '../../tuples/indicator-types';
-import {Navigation, NavigationIndicatorCriteriaOnBucket, NavigationTimeRangeType} from '../../tuples/navigation-types';
+import {
+	MANUAL_COMPUTE_NAVIGATION_INDICATOR_ID,
+	Navigation,
+	NavigationIndicatorCriteriaOnBucket,
+	NavigationTimeRangeType
+} from '../../tuples/navigation-types';
 import {getCurrentTime} from '../../utils';
 import {BUCKET_CITIES_ID} from './mock-data-buckets';
 import {INDICATOR_ORDER_PREMIUM_ID} from './mock-data-indicators';
@@ -20,7 +25,15 @@ export const NavPremium: Navigation = {
 			} as NavigationIndicatorCriteriaOnBucket
 		],
 		formula: 'interpolation(r, 0.1, 10, 0.8, 20)',
-		aggregateArithmetic: IndicatorAggregateArithmetic.SUM
+		aggregateArithmetic: IndicatorAggregateArithmetic.SUM,
+		variableName: 'v1'
+	}, {
+		name: '',
+		indicatorId: MANUAL_COMPUTE_NAVIGATION_INDICATOR_ID,
+		criteria: [],
+		formula: 'v1.s * 10',
+		aggregateArithmetic: IndicatorAggregateArithmetic.MAX,
+		variableName: 'v2'
 	}],
 	timeRangeType: NavigationTimeRangeType.YEAR,
 	timeRangeYear: `${new Date().getFullYear() - 1}`,

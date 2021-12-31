@@ -23,7 +23,7 @@ import {User} from './user-types';
 const FAKE_ID_PREFIX = 'f-';
 
 export const removeFakeIdPrefix = (id: string) => {
-	return id.startsWith(FAKE_ID_PREFIX) ? id.substr(2) : id;
+	return id.startsWith(FAKE_ID_PREFIX) ? id.substring(2) : id;
 };
 
 export const isTopic = (tuple: Tuple): tuple is Topic => {

@@ -5,7 +5,7 @@ const findNextQuote = (text: string, quote: string, startPosition: number): numb
 	const index = text.indexOf(quote, startPosition);
 	if (index === -1) {
 		return index;
-	} else if (text.substr(index - 1, 1) === '\\') {
+	} else if (text.substring(index - 1, 1) === '\\') {
 		return findNextQuote(text, quote, index + 1);
 	} else {
 		return index;

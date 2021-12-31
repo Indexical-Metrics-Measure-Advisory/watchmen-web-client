@@ -23,13 +23,13 @@ export const IndicatorCalculationNodeContent = (props: {
 		fire(NavigationEditEventTypes.EXPAND_CALCULATION, navigation, navigationIndicator);
 	};
 
-	const index = (navigation.indicators || []).indexOf(navigationIndicator) + 1;
-
 	return <IndicatorCalculationNode id={`calc-${id}`} error={calculatedValues.loadFailed}
 	                                 warn={!calculatedValues.calculated}
 	                                 onMouseEnter={onMouseEnter} onClick={onClicked}
 	                                 expanded={expanded}>
-		<IndicatorCalculationVariableName compact={true}>v{index}:</IndicatorCalculationVariableName>
+		<IndicatorCalculationVariableName compact={true}>
+			{navigationIndicator.variableName}:
+		</IndicatorCalculationVariableName>
 		<IndicatorCalculationVariableName>[</IndicatorCalculationVariableName>
 		<IndicatorCalculationVariableName>{Lang.INDICATOR_WORKBENCH.NAVIGATION.CURRENT_VALUE}=</IndicatorCalculationVariableName>
 		<IndicatorCalculationValue>{calculatedValues.current?.formatted}</IndicatorCalculationValue>

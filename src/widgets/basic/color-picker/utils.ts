@@ -70,7 +70,7 @@ export const rgb2hex = (red: number, green: number, blue: number) => {
 };
 export const hex2rgb = (hex: string) => {
 	if (hex.startsWith('#')) {
-		hex = hex.substr(1);
+		hex = hex.substring(1);
 	}
 	const [d1, d2, d3, d4, d5, d6] = hex.split('');
 	return {red: parseInt(`${d1}${d2}`, 16), green: parseInt(`${d3}${d4}`, 16), blue: parseInt(`${d5}${d6}`, 16)};

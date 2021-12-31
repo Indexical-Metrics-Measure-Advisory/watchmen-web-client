@@ -12,7 +12,7 @@ import {AliasEdit, AliasEditInput, AliasLabel} from './widgets';
 
 const rebuildName = (name: string) => {
 	return name.split(/\s|-/g).filter(x => !!x).reduce((name, part) => {
-		return name + part.substr(0, 1).toUpperCase() + part.substr(1);
+		return name + part.substring(0, 1).toUpperCase() + part.substring(1);
 	}, '');
 };
 

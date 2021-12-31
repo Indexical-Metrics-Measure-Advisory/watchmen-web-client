@@ -23,8 +23,8 @@ export const createFontFamilyOptions = (theme: Theme) => {
 		.filter(x => !!x)
 		.map(font => ({name: font, label: font.trim()}))
 		.map(({name, label}) => {
-			label = label.startsWith('\'') ? label.substr(1) : label;
-			label = label.endsWith('\'') ? label.substr(0, label.length - 1) : label;
+			label = label.startsWith('\'') ? label.substring(1) : label;
+			label = label.endsWith('\'') ? label.substring(0, label.length - 1) : label;
 			label = label.replace(/-/g, ' ').trim();
 			return {name, label};
 		})

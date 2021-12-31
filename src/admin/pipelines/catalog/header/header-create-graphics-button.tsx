@@ -24,7 +24,7 @@ export const HeaderCreateGraphicsButton = () => {
 	const onCreatePipelineGraphicsClicked = async () => {
 		const graphics: PipelinesGraphics = {
 			pipelineGraphId: generateUuid(),
-			name: `Pipelines Group ${base64Encode(generateUuid()).substr(0, 12)}`,
+			name: `Pipelines Group ${base64Encode(generateUuid()).substring(0, 12)}`,
 			topics: [],
 			createTime: getCurrentTime(),
 			lastModified: getCurrentTime()
