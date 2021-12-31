@@ -17,7 +17,7 @@ export const ExpressionFilterContainer = styled.div.attrs({'data-widget': 'filte
 		right                     : 100%;
 		width                     : calc(var(--margin) / 4);
 		height                    : calc(var(--margin) / 4 + var(--param-height) + 3px);
-		z-index                   : -1;
+		z-index                   : 0;
 		border-bottom-left-radius : 2px;
 		box-shadow                : var(--param-left-border), var(--param-bottom-border);
 	}
@@ -29,7 +29,7 @@ export const ExpressionFilterContainer = styled.div.attrs({'data-widget': 'filte
 		right      : 100%;
 		width      : calc(var(--margin) / 4);
 		height     : calc(100% - var(--param-height) / 2 - 3px);
-		z-index    : -1;
+		z-index    : 0;
 		box-shadow : var(--param-left-border);
 	}
 `;
@@ -74,7 +74,7 @@ export const ExpressionSide = styled.div.attrs<{ shorten: boolean, visible: bool
 		right                     : 100%;
 		width                     : calc(var(--margin) / 4);
 		height                    : calc(var(--margin) / 4 + var(--param-height) + 3px);
-		z-index                   : -1;
+		z-index                   : 0;
 		border-bottom-left-radius : 2px;
 		box-shadow                : var(--param-left-border), var(--param-bottom-border);
 	}
@@ -86,7 +86,7 @@ export const ExpressionSide = styled.div.attrs<{ shorten: boolean, visible: bool
 		right      : 100%;
 		width      : calc(var(--margin) / 4);
 		height     : calc(100% - var(--param-height) / 2 - 3px);
-		z-index    : -1;
+		z-index    : 0;
 		box-shadow : var(--param-left-border);
 	}
 	> div[data-widget="parameter-from-edit"] {
@@ -124,7 +124,7 @@ export const ExpressionOperatorContainer = styled.div.attrs({'data-widget': 'exp
 		right                     : 100%;
 		width                     : calc(var(--margin) / 4);
 		height                    : calc(var(--margin) / 4 + var(--param-height) + 3px);
-		z-index                   : -1;
+		z-index                   : 0;
 		border-bottom-left-radius : 2px;
 		box-shadow                : var(--param-left-border), var(--param-bottom-border);
 	}
@@ -136,7 +136,7 @@ export const ExpressionOperatorContainer = styled.div.attrs({'data-widget': 'exp
 		right      : 100%;
 		width      : calc(var(--margin) / 4);
 		height     : calc(100% - var(--param-height) / 2 - 3px);
-		z-index    : -1;
+		z-index    : 0;
 		box-shadow : var(--param-left-border);
 	}
 `;
