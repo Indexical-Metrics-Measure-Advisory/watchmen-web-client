@@ -2,24 +2,36 @@ import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation
 import {useEffect, useState} from 'react';
 import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
 import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
-import {IndicatorValues} from '../types';
+import {AllCalculatedIndicatorValues, CalculatedIndicatorValues} from '../types';
+
+interface OtherIndicatorValues extends AllCalculatedIndicatorValues {
+	calculated: boolean;
+	failed: boolean;
+	score?: { value: number, formatted: string };
+	shouldComputeScore: boolean;
+}
 
 export const useOtherIndicatorValues = (navigation: Navigation, navigationIndicator: NavigationIndicator) => {
 	const {on, off} = useNavigationEditEventBus();
-	const [values, setValues] = useState<IndicatorValues>({loaded: false, failed: false});
+	const [values, setValues] = useState<OtherIndicatorValues>({
+		calculated: false,
+		failed: false,
+		data: [],
+		shouldComputeScore: false
+	});
 	useEffect(() => {
-		const onValuesChanged = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator, values: IndicatorValues) => {
+		const onValuesCalculated = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator, values: CalculatedIndicatorValues) => {
 			if (aNavigation !== navigation || aNavigationIndicator === navigationIndicator) {
 				return;
 			}
 
-			setValues(values);
+			// TODO do calculation
 		};
-		on(NavigationEditEventTypes.VALUES_CHANGED, onValuesChanged);
+		on(NavigationEditEventTypes.VALUES_CALCULATED, onValuesCalculated);
 		return () => {
-			off(NavigationEditEventTypes.VALUES_CHANGED, onValuesChanged);
+			off(NavigationEditEventTypes.VALUES_CALCULATED, onValuesCalculated);
 		};
 	}, [on, off, navigation, navigationIndicator]);
 
-	return {values};
+	return values;
 };

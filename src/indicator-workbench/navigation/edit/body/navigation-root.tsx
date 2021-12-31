@@ -6,17 +6,11 @@ import {useNavigationEventBus} from '../../navigation-event-bus';
 import {NavigationEventTypes} from '../../navigation-event-bus-types';
 import {useNavigationEditEventBus} from './navigation-edit-event-bus';
 import {NavigationEditEventTypes} from './navigation-edit-event-bus-types';
-import {CalculatedIndicatorValues} from './types';
+import {AllCalculatedIndicatorValues, CalculatedIndicatorValues, NavigationIndicatorCalculatedValues} from './types';
 import {NavigationRootNode} from './widgets';
 
-interface IndicatorValuesPair {
-	indicator: NavigationIndicator;
-	values: CalculatedIndicatorValues;
-}
-
-interface ScoreState {
+interface ScoreState extends AllCalculatedIndicatorValues {
 	visible: boolean;
-	data: Array<IndicatorValuesPair>;
 	sum?: number;
 }
 
@@ -44,7 +38,7 @@ export const NavigationRoot = (props: { id: string; navigation: Navigation }) =>
 		const defendNavigation = (aNavigation: Navigation, func: () => void) => {
 			aNavigation === navigation && func();
 		};
-		const doCalculate = (pairs: Array<IndicatorValuesPair>): Pick<ScoreState, 'visible' | 'sum'> => {
+		const doCalculate = (pairs: Array<NavigationIndicatorCalculatedValues>): Pick<ScoreState, 'visible' | 'sum'> => {
 			return pairs.reduce((sum, pair) => {
 				const {values: {shouldComputeScore, score: {value: score = 0} = {}}} = pair;
 				if (shouldComputeScore) {
@@ -55,7 +49,7 @@ export const NavigationRoot = (props: { id: string; navigation: Navigation }) =>
 				return sum;
 			}, {visible: false, sum: 0} as Pick<ScoreState, 'visible' | 'sum'>);
 		};
-		const calculate = (data: Array<IndicatorValuesPair>) => {
+		const calculate = (data: Array<NavigationIndicatorCalculatedValues>) => {
 			const {visible, sum} = doCalculate(data);
 			scoreState.visible = visible;
 			scoreState.sum = sum;

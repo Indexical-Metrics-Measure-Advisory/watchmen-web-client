@@ -75,3 +75,12 @@ export interface CalculatedIndicatorValues {
 	score?: { value: number, formatted: string };
 	shouldComputeScore: boolean;
 }
+
+export interface NavigationIndicatorCalculatedValues {
+	indicator: NavigationIndicator;
+	values: CalculatedIndicatorValues;
+}
+
+export interface AllCalculatedIndicatorValues {
+	data: Array<NavigationIndicatorCalculatedValues>;
+}

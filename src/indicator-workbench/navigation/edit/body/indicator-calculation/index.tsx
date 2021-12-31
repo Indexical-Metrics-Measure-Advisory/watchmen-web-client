@@ -1,7 +1,7 @@
-import {IndicatorValuesCalculator} from '@/indicator-workbench/navigation/edit/body/indicator-values-calculator';
 import {Indicator} from '@/services/data/tuples/indicator-types';
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
 import {useEffect, useState} from 'react';
+import {IndicatorValuesCalculator} from '../indicator-values-calculator';
 import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
 import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
 import {IndicatorCriteriaDefData} from '../types';

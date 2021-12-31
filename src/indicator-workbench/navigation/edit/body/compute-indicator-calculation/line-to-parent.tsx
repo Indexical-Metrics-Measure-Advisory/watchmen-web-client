@@ -8,7 +8,8 @@ export const LineToParent = (props: {
 }) => {
 	const {navigation, navigationIndicator} = props;
 
-	const {values} = useOtherIndicatorValues(navigation, navigationIndicator);
+	const calculatedValues = useOtherIndicatorValues(navigation, navigationIndicator);
 
-	return <IndicatorPartRelationLine error={values.failed} warn={!values.loaded}/>;
+	return <IndicatorPartRelationLine error={calculatedValues.failed}
+	                                  warn={calculatedValues.shouldComputeScore && !calculatedValues.calculated}/>;
 };

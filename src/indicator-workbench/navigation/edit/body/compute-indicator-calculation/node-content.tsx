@@ -20,7 +20,7 @@ export const ComputeIndicatorCalculationNodeContent = (props: {
 	const {navigation, navigationIndicator, expanded, id} = props;
 
 	const {on, off, fire} = useNavigationEditEventBus();
-	const {values} = useOtherIndicatorValues(navigation, navigationIndicator);
+	const calculatedValues = useOtherIndicatorValues(navigation, navigationIndicator);
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const onFormulaChanged = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
@@ -46,7 +46,9 @@ export const ComputeIndicatorCalculationNodeContent = (props: {
 	// TODO
 	const score = 0;
 
-	return <ComputeIndicatorCalculationNode id={`calc-${id}`} error={values.failed} warn={!values.loaded}
+	return <ComputeIndicatorCalculationNode id={`calc-${id}`}
+	                                        error={calculatedValues.failed}
+	                                        warn={calculatedValues.shouldComputeScore && !calculatedValues.calculated}
 	                                        onMouseEnter={onMouseEnter} onClick={onClicked}
 	                                        expanded={expanded}>
 		<ComputeIndicatorCalculationVariableName compact={true}>v{index}:</ComputeIndicatorCalculationVariableName>
