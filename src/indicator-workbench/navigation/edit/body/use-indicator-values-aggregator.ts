@@ -108,7 +108,8 @@ export const useIndicatorValuesAggregator = (options: {
 			offEdit(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onFormulaChanged);
 			offEdit(NavigationEditEventTypes.INDICATOR_SCORE_INCLUDE_CHANGED, onScoreIncludeChanged);
 		};
-	}, [onEdit, offEdit,
+	}, [
+		onEdit, offEdit,
 		navigation, allValues,
 		shouldAvoidIndicatorRemovedAndValuesCalculated, shouldAvoidFormulaChanged, shouldAvoidScoreIncludeChanged,
 		compute, onComputed

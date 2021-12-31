@@ -43,7 +43,7 @@ const buildScoreComputer = (navigationIndicator: NavigationIndicator) => {
 					return {
 						c: values.current?.value,
 						p: values.previous?.value,
-						r: values.ratio?.value,
+						r: values.ratio?.value != null ? (values.ratio.value / 100) : (void 0),
 						s: values.score?.value
 					};
 				}),
