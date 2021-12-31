@@ -4,7 +4,11 @@ import {Fragment, useEffect, useState} from 'react';
 import {interpolation, toNumber} from '../indicator-values-calculator';
 import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
 import {NavigationEditEventTypes} from '../navigation-edit-event-bus-types';
-import {AllCalculatedIndicatorValuesData, AllIndicatedValuesCalculationResult} from '../types';
+import {
+	AllCalculatedIndicatorValuesData,
+	AllIndicatedValuesCalculationResult,
+	CalculatedIndicatorValues
+} from '../types';
 import {useIndicatorValuesAggregator} from '../use-indicator-values-aggregator';
 
 const buildScoreComputer = (navigationIndicator: NavigationIndicator) => {
@@ -69,6 +73,25 @@ const buildScoreComputer = (navigationIndicator: NavigationIndicator) => {
 	};
 };
 
+const buildIndicatorRemovedAndValuesCalculatedAvoidHandler = (nav1: Navigation, ni1: NavigationIndicator) => {
+	return (nav2: Navigation, ni2: NavigationIndicator) => nav1 !== nav2 || ni1 === ni2;
+};
+const buildFormulaChangedAvoidHandler = (nav1: Navigation, ni1: NavigationIndicator) => {
+	return (nav2: Navigation, ni2: NavigationIndicator) => nav1 !== nav2 || ni1 !== ni2;
+};
+
+const buildCalculatedIndicatorValues = (result: AllIndicatedValuesCalculationResult): CalculatedIndicatorValues => {
+	return {
+		loaded: true,
+		loadFailed: false,
+		calculated: true,
+		calculateFailed: result.failed,
+		calculateFailureReason: result.failureReason,
+		score: result.score,
+		shouldComputeScore: result.shouldComputeScore
+	};
+};
+
 export const OtherIndicatorValuesCalculator = (props: {
 	navigation: Navigation;
 	navigationIndicator: NavigationIndicator
@@ -78,53 +101,33 @@ export const OtherIndicatorValuesCalculator = (props: {
 	const {fire} = useNavigationEditEventBus();
 	const [functions, setFunctions] = useState(() => {
 		return {
-			avoidValuesEvent: (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
-				return aNavigation !== navigation && navigationIndicator === aNavigationIndicator;
-			},
+			shouldAvoidIndicatorRemovedAndValuesCalculated: buildIndicatorRemovedAndValuesCalculatedAvoidHandler(navigation, navigationIndicator),
+			shouldAvoidFormulaChanged: buildFormulaChangedAvoidHandler(navigation, navigationIndicator),
 			computeScore: buildScoreComputer(navigationIndicator),
 			onComputed: (result: AllIndicatedValuesCalculationResult) => {
-				// fire
-				fire(NavigationEditEventTypes.VALUES_CALCULATED, navigation, navigationIndicator, {
-					loaded: true,
-					loadFailed: false,
-					calculated: true,
-					calculateFailed: result.failed,
-					calculateFailureReason: result.failureReason,
-					score: result.score,
-					shouldComputeScore: result.shouldComputeScore
-				});
+				fire(NavigationEditEventTypes.VALUES_CALCULATED, navigation, navigationIndicator, buildCalculatedIndicatorValues(result));
 			}
 		};
 	});
 	useIndicatorValuesAggregator({
 		navigation,
-		shouldAvoidEvent: functions.avoidValuesEvent,
+		shouldAvoidIndicatorRemovedAndValuesCalculated: functions.shouldAvoidIndicatorRemovedAndValuesCalculated,
+		shouldAvoidFormulaChanged: functions.shouldAvoidFormulaChanged,
 		compute: functions.computeScore,
 		onComputed: functions.onComputed
 	});
 	useEffect(() => {
 		setFunctions(() => {
 			return {
-				avoidValuesEvent: (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
-					return aNavigation !== navigation && navigationIndicator === aNavigationIndicator;
-				},
-				computeScore: buildScoreComputer(navigationIndicator)
+				shouldAvoidIndicatorRemovedAndValuesCalculated: buildIndicatorRemovedAndValuesCalculatedAvoidHandler(navigation, navigationIndicator),
+				shouldAvoidFormulaChanged: buildFormulaChangedAvoidHandler(navigation, navigationIndicator),
+				computeScore: buildScoreComputer(navigationIndicator),
+				onComputed: (result: AllIndicatedValuesCalculationResult) => {
+					fire(NavigationEditEventTypes.VALUES_CALCULATED, navigation, navigationIndicator, buildCalculatedIndicatorValues(result));
+				}
 			};
 		});
-	}, [navigation, navigationIndicator]);
-	useEffect(() => {
-		const onFormulaChanged = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
-			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
-				return;
-			}
-
-			//
-		};
-		on(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onFormulaChanged);
-		return () => {
-			off(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onFormulaChanged);
-		};
-	}, [on, off, forceUpdate, navigation, navigationIndicator]);
+	}, [fire, navigation, navigationIndicator]);
 
 	return <Fragment/>;
 };

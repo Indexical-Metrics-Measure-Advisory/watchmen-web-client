@@ -10,6 +10,6 @@ export const LineToParent = (props: {
 
 	const calculatedValues = useIndicatorValuesCalculator(navigation, navigationIndicator);
 
-	return <IndicatorPartRelationLine error={calculatedValues.failed}
+	return <IndicatorPartRelationLine error={calculatedValues.calculateFailed}
 	                                  warn={calculatedValues.shouldComputeScore && !calculatedValues.calculated}/>;
 };

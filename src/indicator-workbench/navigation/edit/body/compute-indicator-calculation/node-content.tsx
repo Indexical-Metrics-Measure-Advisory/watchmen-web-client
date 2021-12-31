@@ -28,7 +28,7 @@ export const ComputeIndicatorCalculationNodeContent = (props: {
 	};
 
 	return <ComputeIndicatorCalculationNode id={`calc-${id}`}
-	                                        error={calculatedValues.failed}
+	                                        error={calculatedValues.calculateFailed}
 	                                        warn={calculatedValues.shouldComputeScore && !calculatedValues.calculated}
 	                                        onMouseEnter={onMouseEnter} onClick={onClicked}
 	                                        expanded={expanded}>

@@ -16,11 +16,23 @@ import {
  */
 export const useIndicatorValuesAggregator = (options: {
 	navigation: Navigation;
-	shouldAvoidEvent: (navigation: Navigation, navigationIndicator: NavigationIndicator) => boolean;
+	/**
+	 * {@link NavigationEditEventTypes#INDICATOR_REMOVED},
+	 * {@link NavigationEditEventTypes#VALUES_CALCULATED}
+	 */
+	shouldAvoidIndicatorRemovedAndValuesCalculated: (navigation: Navigation, navigationIndicator: NavigationIndicator) => boolean;
+	/**
+	 * {@link NavigationEditEventTypes#INDICATOR_FORMULA_CHANGED}
+	 */
+	shouldAvoidFormulaChanged: (navigation: Navigation, navigationIndicator: NavigationIndicator) => boolean;
 	compute: (data: AllCalculatedIndicatorValuesData) => AllIndicatedValuesCalculationResult;
 	onComputed: (result: AllIndicatedValuesCalculationResult) => void;
 }) => {
-	const {navigation, shouldAvoidEvent, compute, onComputed} = options;
+	const {
+		navigation,
+		shouldAvoidIndicatorRemovedAndValuesCalculated, shouldAvoidFormulaChanged,
+		compute, onComputed
+	} = options;
 
 	const {on: onEdit, off: offEdit} = useNavigationEditEventBus();
 	const [allValues, setAllValues] = useState<AllCalculatedIndicatorValues>({
@@ -31,7 +43,10 @@ export const useIndicatorValuesAggregator = (options: {
 	});
 	useEffect(() => {
 		const defendNavigation = (navigation: Navigation, navigationIndicator: NavigationIndicator, func: () => void) => {
-			!shouldAvoidEvent(navigation, navigationIndicator) && func();
+			if (shouldAvoidIndicatorRemovedAndValuesCalculated(navigation, navigationIndicator)) {
+				return;
+			}
+			func();
 		};
 		const calculate = () => {
 			const {failed, failureReason, shouldComputeScore, score} = compute(allValues.data);
@@ -67,13 +82,25 @@ export const useIndicatorValuesAggregator = (options: {
 				calculate();
 			});
 		};
+		const onFormulaChanged = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
+			if (shouldAvoidFormulaChanged(aNavigation, aNavigationIndicator)) {
+				return;
+			}
+			calculate();
+		};
 		onEdit(NavigationEditEventTypes.INDICATOR_REMOVED, onIndicatorRemoved);
 		onEdit(NavigationEditEventTypes.VALUES_CALCULATED, onValuesCalculated);
+		onEdit(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onFormulaChanged);
 		return () => {
 			offEdit(NavigationEditEventTypes.INDICATOR_REMOVED, onIndicatorRemoved);
 			offEdit(NavigationEditEventTypes.VALUES_CALCULATED, onValuesCalculated);
+			offEdit(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onFormulaChanged);
 		};
-	}, [onEdit, offEdit, navigation, allValues, shouldAvoidEvent, compute, onComputed]);
+	}, [onEdit, offEdit,
+		navigation, allValues,
+		shouldAvoidIndicatorRemovedAndValuesCalculated, shouldAvoidFormulaChanged,
+		compute, onComputed
+	]);
 
 	return allValues;
 };

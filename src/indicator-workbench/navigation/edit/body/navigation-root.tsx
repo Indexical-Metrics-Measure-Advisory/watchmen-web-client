@@ -28,6 +28,8 @@ const computeScore = (data: AllCalculatedIndicatorValuesData): AllIndicatedValue
 	};
 };
 
+const alwaysAvoidFormulaChanged = () => true;
+
 export const NavigationRoot = (props: { id: string; navigation: Navigation }) => {
 	const {id, navigation} = props;
 
@@ -38,7 +40,8 @@ export const NavigationRoot = (props: { id: string; navigation: Navigation }) =>
 	});
 	const {score: {formatted: score} = {}, shouldComputeScore} = useIndicatorValuesAggregator({
 		navigation,
-		shouldAvoidEvent: avoidValuesEvent,
+		shouldAvoidIndicatorRemovedAndValuesCalculated: avoidValuesEvent,
+		shouldAvoidFormulaChanged: alwaysAvoidFormulaChanged,
 		compute: computeScore,
 		onComputed: noop
 	});
