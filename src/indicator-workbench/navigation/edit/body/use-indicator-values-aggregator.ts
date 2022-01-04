@@ -9,6 +9,23 @@ import {
 	CalculatedIndicatorValues
 } from './types';
 
+const needApplyComputed = (computed: AllIndicatedValuesCalculationResult, current: AllCalculatedIndicatorValues) => {
+	if (!current.calculated) {
+		return true;
+	}
+
+	const {failed, failureReason, shouldComputeScore, score} = computed;
+
+	// eslint-disable-next-line
+	return current.failed != failed
+		// eslint-disable-next-line
+		|| current.failureReason != failureReason
+		// eslint-disable-next-line
+		|| current.shouldComputeScore != shouldComputeScore
+		// eslint-disable-next-line
+		|| current.score?.value != score?.value;
+};
+
 /**
  * for handle changes of indicators values,
  * 1. root node
@@ -53,23 +70,27 @@ export const useIndicatorValuesAggregator = (options: {
 			func();
 		};
 		const calculate = () => {
-			const {failed, failureReason, shouldComputeScore, score} = compute(allValues.data);
-			// setAllValues(values => {
-			// 	return {
-			// 		data: values.data,
-			// 		calculated: true,
-			// 		failed,
-			// 		failureReason,
-			// 		shouldComputeScore,
-			// 		score
-			// 	};
-			// });
-			allValues.calculated = true;
-			allValues.failed = failed;
-			allValues.failureReason = failureReason;
-			allValues.shouldComputeScore = shouldComputeScore;
-			allValues.score = score;
-			onComputed({failed, failureReason, shouldComputeScore, score});
+			const computed = compute(allValues.data);
+			if (needApplyComputed(computed, allValues)) {
+				// only applied when need to
+				// value change guard is obligatory, since in following scenario will cause an infinite recursion.
+				// e.g. there are 2 aggregators, typically 2 compute indicators
+				// 1. when aggregator A is computed, fires a {@link NavigationEditEventTypes.VALUES_CALCULATED} event,
+				// 2. aggregator B will capture the event, and do calculation,
+				//    and fire a {@link NavigationEditEventTypes.VALUES_CALCULATED} event,
+				// 3. aggregator A will capture the event from step #1 and #2, event from #1 is ignored,
+				//    but event from #2 is consumed (which is already done in step 1).
+				//    therefore, a {@link NavigationEditEventTypes.VALUES_CALCULATED} event will be fired again,
+				//    and step 2 will be triggerred again ,
+				// so stack overflows.
+				const {failed, failureReason, shouldComputeScore, score} = computed;
+				allValues.calculated = true;
+				allValues.failed = failed;
+				allValues.failureReason = failureReason;
+				allValues.shouldComputeScore = shouldComputeScore;
+				allValues.score = score;
+				onComputed({failed, failureReason, shouldComputeScore, score});
+			}
 		};
 		const onIndicatorRemoved = (aNavigation: Navigation, navigationIndicator: NavigationIndicator) => {
 			defendNavigation(aNavigation, navigationIndicator, () => {
