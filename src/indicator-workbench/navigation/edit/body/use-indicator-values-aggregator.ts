@@ -39,7 +39,7 @@ export const useIndicatorValuesAggregator = (options: {
 	} = options;
 
 	const {on: onEdit, off: offEdit} = useNavigationEditEventBus();
-	const [allValues, setAllValues] = useState<AllCalculatedIndicatorValues>({
+	const [allValues] = useState<AllCalculatedIndicatorValues>({
 		data: [],
 		calculated: false,
 		failed: false,
@@ -54,16 +54,21 @@ export const useIndicatorValuesAggregator = (options: {
 		};
 		const calculate = () => {
 			const {failed, failureReason, shouldComputeScore, score} = compute(allValues.data);
-			setAllValues(values => {
-				return {
-					data: values.data,
-					calculated: true,
-					failed,
-					failureReason,
-					shouldComputeScore,
-					score
-				};
-			});
+			// setAllValues(values => {
+			// 	return {
+			// 		data: values.data,
+			// 		calculated: true,
+			// 		failed,
+			// 		failureReason,
+			// 		shouldComputeScore,
+			// 		score
+			// 	};
+			// });
+			allValues.calculated = true;
+			allValues.failed = failed;
+			allValues.failureReason = failureReason;
+			allValues.shouldComputeScore = shouldComputeScore;
+			allValues.score = score;
 			onComputed({failed, failureReason, shouldComputeScore, score});
 		};
 		const onIndicatorRemoved = (aNavigation: Navigation, navigationIndicator: NavigationIndicator) => {

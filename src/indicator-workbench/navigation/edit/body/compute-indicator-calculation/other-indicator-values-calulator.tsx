@@ -1,5 +1,6 @@
 import {Navigation, NavigationIndicator} from '@/services/data/tuples/navigation-types';
 import {isNotNull} from '@/services/data/utils';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import {Fragment, useEffect, useState} from 'react';
 import {interpolation, toNumber} from '../indicator-values-calculator';
 import {useNavigationEditEventBus} from '../navigation-edit-event-bus';
@@ -100,6 +101,7 @@ export const OtherIndicatorValuesCalculator = (props: {
 	const {navigation, navigationIndicator} = props;
 
 	const {fire} = useNavigationEditEventBus();
+	const forceUpdate = useForceUpdate();
 	const [functions, setFunctions] = useState(() => {
 		return {
 			shouldAvoidIndicatorRemovedAndValuesCalculated: buildIndicatorRemovedAndValuesCalculatedAvoidHandler(navigation, navigationIndicator),
@@ -107,6 +109,7 @@ export const OtherIndicatorValuesCalculator = (props: {
 			computeScore: buildScoreComputer(navigationIndicator),
 			onComputed: (result: AllIndicatedValuesCalculationResult) => {
 				fire(NavigationEditEventTypes.VALUES_CALCULATED, navigation, navigationIndicator, buildCalculatedIndicatorValues(result));
+				forceUpdate();
 			}
 		};
 	});
@@ -126,10 +129,11 @@ export const OtherIndicatorValuesCalculator = (props: {
 				computeScore: buildScoreComputer(navigationIndicator),
 				onComputed: (result: AllIndicatedValuesCalculationResult) => {
 					fire(NavigationEditEventTypes.VALUES_CALCULATED, navigation, navigationIndicator, buildCalculatedIndicatorValues(result));
+					forceUpdate();
 				}
 			};
 		});
-	}, [fire, navigation, navigationIndicator]);
+	}, [fire, forceUpdate, navigation, navigationIndicator]);
 
 	return <Fragment/>;
 };

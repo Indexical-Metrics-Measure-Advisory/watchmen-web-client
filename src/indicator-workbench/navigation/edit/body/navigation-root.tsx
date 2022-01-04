@@ -1,5 +1,4 @@
 import {Navigation} from '@/services/data/tuples/navigation-types';
-import {noop} from '@/services/utils';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
 import {useEffect, useRef, useState} from 'react';
@@ -41,15 +40,15 @@ export const NavigationRoot = (props: { id: string; navigation: Navigation }) =>
 	const [avoidValuesEvent, setAvoidValuesEvent] = useState(() => {
 		return (aNavigation: Navigation) => aNavigation !== navigation;
 	});
+	const forceUpdate = useForceUpdate();
 	const {score: {formatted: score} = {}, shouldComputeScore} = useIndicatorValuesAggregator({
 		navigation,
 		shouldAvoidIndicatorRemovedAndValuesCalculated: avoidValuesEvent,
 		shouldAvoidFormulaChanged: alwaysAvoidFormulaChanged,
 		shouldAvoidScoreIncludeChanged: avoidValuesEvent,
 		compute: computeScore,
-		onComputed: noop
+		onComputed: forceUpdate
 	});
-	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		setAvoidValuesEvent(() => (aNavigation: Navigation) => aNavigation !== navigation);
 	}, [navigation]);
