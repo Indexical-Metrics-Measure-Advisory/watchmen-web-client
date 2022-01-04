@@ -12,9 +12,9 @@ export const AdminSettings = () => {
 		<PageHeader title="Settings"/>
 		<VerticalMarginOneUnit/>
 		<ThemeSettings/>
+		<PersonalAccessToken/>
 		<CacheSettings/>
 		<SimulatorLogsSettings/>
-		<PersonalAccessToken/>
 		<VerticalMarginOneUnit/>
 	</SettingsPage>;
 };

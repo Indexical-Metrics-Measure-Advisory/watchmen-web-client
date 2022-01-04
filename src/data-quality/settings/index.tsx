@@ -11,8 +11,8 @@ export const DataQualitySettings = () => {
 		<PageHeader title="Settings"/>
 		<VerticalMarginOneUnit/>
 		<ThemeSettings/>
-		<CacheSettings/>
 		<PersonalAccessToken/>
+		<CacheSettings/>
 		<VerticalMarginOneUnit/>
 	</SettingsPage>;
 };
