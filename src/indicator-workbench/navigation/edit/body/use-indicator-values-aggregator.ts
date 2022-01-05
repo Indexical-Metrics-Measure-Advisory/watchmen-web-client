@@ -6,7 +6,8 @@ import {
 	AllCalculatedIndicatorValues,
 	AllCalculatedIndicatorValuesData,
 	AllIndicatedValuesCalculationResult,
-	CalculatedIndicatorValues
+	CalculatedIndicatorValues,
+	NavigationIndicatorCalculatedValues
 } from './types';
 
 const needApplyComputed = (computed: AllIndicatedValuesCalculationResult, current: AllCalculatedIndicatorValues) => {
@@ -55,7 +56,7 @@ export const useIndicatorValuesAggregator = (options: {
 		compute, onComputed
 	} = options;
 
-	const {on: onEdit, off: offEdit} = useNavigationEditEventBus();
+	const {on, off, fire} = useNavigationEditEventBus();
 	const [allValues] = useState<AllCalculatedIndicatorValues>({
 		data: [],
 		calculated: false,
@@ -69,7 +70,7 @@ export const useIndicatorValuesAggregator = (options: {
 			}
 			func();
 		};
-		const calculate = () => {
+		const doCalculate = () => {
 			const computed = compute(allValues.data);
 			if (needApplyComputed(computed, allValues)) {
 				// only applied when need to
@@ -90,6 +91,26 @@ export const useIndicatorValuesAggregator = (options: {
 				allValues.shouldComputeScore = shouldComputeScore;
 				allValues.score = score;
 				onComputed({failed, failureReason, shouldComputeScore, score});
+			}
+		};
+		const calculate = () => {
+			if (allValues.data.length === 0 && (navigation.indicators || []).length > 1) {
+				(async () => {
+					allValues.data = await Promise.all(
+						(navigation.indicators || [])
+							.filter(indicator => !shouldAvoidIndicatorRemovedAndValuesCalculated(navigation, indicator))
+							.map(indicator => {
+								return new Promise<NavigationIndicatorCalculatedValues>(resolve => {
+									fire(NavigationEditEventTypes.ASK_CALCULATED_VALUES, navigation, indicator, (values: CalculatedIndicatorValues) => {
+										resolve({indicator, values});
+									});
+								});
+							})
+					);
+					doCalculate();
+				})();
+			} else {
+				doCalculate();
 			}
 		};
 		const onIndicatorRemoved = (aNavigation: Navigation, navigationIndicator: NavigationIndicator) => {
@@ -124,18 +145,18 @@ export const useIndicatorValuesAggregator = (options: {
 			}
 			calculate();
 		};
-		onEdit(NavigationEditEventTypes.INDICATOR_REMOVED, onIndicatorRemoved);
-		onEdit(NavigationEditEventTypes.VALUES_CALCULATED, onValuesCalculated);
-		onEdit(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onFormulaChanged);
-		onEdit(NavigationEditEventTypes.INDICATOR_SCORE_INCLUDE_CHANGED, onScoreIncludeChanged);
+		on(NavigationEditEventTypes.INDICATOR_REMOVED, onIndicatorRemoved);
+		on(NavigationEditEventTypes.VALUES_CALCULATED, onValuesCalculated);
+		on(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onFormulaChanged);
+		on(NavigationEditEventTypes.INDICATOR_SCORE_INCLUDE_CHANGED, onScoreIncludeChanged);
 		return () => {
-			offEdit(NavigationEditEventTypes.INDICATOR_REMOVED, onIndicatorRemoved);
-			offEdit(NavigationEditEventTypes.VALUES_CALCULATED, onValuesCalculated);
-			offEdit(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onFormulaChanged);
-			offEdit(NavigationEditEventTypes.INDICATOR_SCORE_INCLUDE_CHANGED, onScoreIncludeChanged);
+			off(NavigationEditEventTypes.INDICATOR_REMOVED, onIndicatorRemoved);
+			off(NavigationEditEventTypes.VALUES_CALCULATED, onValuesCalculated);
+			off(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onFormulaChanged);
+			off(NavigationEditEventTypes.INDICATOR_SCORE_INCLUDE_CHANGED, onScoreIncludeChanged);
 		};
 	}, [
-		onEdit, offEdit,
+		on, off, fire,
 		navigation, allValues,
 		shouldAvoidIndicatorRemovedAndValuesCalculated, shouldAvoidFormulaChanged, shouldAvoidScoreIncludeChanged,
 		compute, onComputed

@@ -205,7 +205,7 @@ export const IndicatorValuesCalculator = (props: { navigation: Navigation, navig
 	}, [on, off, forceUpdate, navigation, navigationIndicator, calculatedValues]);
 	useEffect(() => {
 		const onAskCalculatedValues = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator, onData: (values: CalculatedIndicatorValues) => void) => {
-			if (aNavigation !== navigation || aNavigationIndicator !== aNavigationIndicator) {
+			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
 				return;
 			}
 			onData(calculatedValues);

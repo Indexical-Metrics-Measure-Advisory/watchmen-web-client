@@ -100,7 +100,7 @@ export const OtherIndicatorValuesCalculator = (props: {
 }) => {
 	const {navigation, navigationIndicator} = props;
 
-	const {fire} = useNavigationEditEventBus();
+	const {on, off, fire} = useNavigationEditEventBus();
 	const forceUpdate = useForceUpdate();
 	const [functions, setFunctions] = useState(() => {
 		return {
@@ -136,7 +136,7 @@ export const OtherIndicatorValuesCalculator = (props: {
 	}, [fire, forceUpdate, navigation, navigationIndicator]);
 	useEffect(() => {
 		const onAskCalculatedValues = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator, onData: (values: CalculatedIndicatorValues) => void) => {
-			if (aNavigation !== navigation || aNavigationIndicator !== aNavigationIndicator) {
+			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
 				return;
 			}
 			onData(buildCalculatedIndicatorValues(allValues));
@@ -145,7 +145,7 @@ export const OtherIndicatorValuesCalculator = (props: {
 		return () => {
 			off(NavigationEditEventTypes.ASK_CALCULATED_VALUES, onAskCalculatedValues);
 		};
-	}, [on, off, navigation, navigationIndicator, calculatedValues]);
+	}, [on, off, navigation, navigationIndicator, allValues]);
 
 	return <Fragment/>;
 };
