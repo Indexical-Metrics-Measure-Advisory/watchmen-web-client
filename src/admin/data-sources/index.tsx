@@ -74,8 +74,8 @@ const AdminDataSources = () => {
 				});
 				return;
 			}
-			const hasIncorrectParam = (dataSource.params || []).some(({name}) => {
-				return (name || '').trim().length === 0;
+			const hasIncorrectParam = (dataSource.params || []).some(({name, value}) => {
+				return (name || '').trim().length === 0 && (value || '').trim().length !== 0;
 			});
 			if (hasIncorrectParam) {
 				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>Extra parameter name is required.</AlertLabel>, () => {

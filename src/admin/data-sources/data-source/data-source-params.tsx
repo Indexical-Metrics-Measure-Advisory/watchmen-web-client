@@ -49,7 +49,6 @@ export const DataSourceParams = (props: { dataSource: DataSource }) => {
 					                    placeholder={'Parameter value'}/>
 				</>;
 			})}
-
 		</ExtraParams>
 	</>;
 };
