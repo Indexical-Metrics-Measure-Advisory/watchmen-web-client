@@ -34,6 +34,7 @@ export const IndicatorCalculationFormula = (props: {
 			navigationIndicator.aggregateArithmetic = newValue;
 			fireEdit(NavigationEditEventTypes.INDICATOR_AGGREGATION_CHANGED, navigation, navigationIndicator);
 			fire(NavigationEventTypes.SAVE_NAVIGATION, navigation, noop);
+			forceUpdate();
 		}
 	};
 	const onFormulaChanged = (event: ChangeEvent<HTMLTextAreaElement>) => {
