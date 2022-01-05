@@ -28,7 +28,7 @@ export const computeRatio = (currentValue: any, previousValue: any): number => {
 	const previous = toNumber(previousValue);
 	if (current === '') {
 		return 0;
-	} else if (previous === '') {
+	} else if (previous === '' || previous === 0) {
 		return 100;
 	} else {
 		return (current - previous) / previous * 100;
@@ -150,7 +150,8 @@ const doCompute = (navigationIndicator: NavigationIndicator, values: IndicatorVa
 /**
  * calculate {@link CalculatedIndicatorValues} on
  * 1. {@link NavigationEditEventTypes#VALUES_CHANGED},
- * 2. {@link NavigationEditEventTypes#INDICATOR_FORMULA_CHANGED}
+ * 2. {@link NavigationEditEventTypes#INDICATOR_FORMULA_CHANGED}.
+ * only used on non-compute indicator
  */
 export const IndicatorValuesCalculator = (props: { navigation: Navigation, navigationIndicator: NavigationIndicator }) => {
 	const {navigation, navigationIndicator} = props;
@@ -163,6 +164,7 @@ export const IndicatorValuesCalculator = (props: { navigation: Navigation, navig
 		calculateFailed: false,
 		shouldComputeScore: shouldComputeScore(navigationIndicator.formula)
 	});
+	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		fire(NavigationEditEventTypes.VALUES_CALCULATED, navigation, navigationIndicator, calculatedValues);
 	}, [fire, navigation, navigationIndicator, calculatedValues]);
@@ -180,7 +182,6 @@ export const IndicatorValuesCalculator = (props: { navigation: Navigation, navig
 			off(NavigationEditEventTypes.VALUES_CHANGED, onValuesChanged);
 		};
 	}, [on, off, navigation, navigationIndicator]);
-	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		const onFormulaChanged = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator) => {
 			if (aNavigation !== navigation || aNavigationIndicator !== navigationIndicator) {
@@ -202,6 +203,18 @@ export const IndicatorValuesCalculator = (props: { navigation: Navigation, navig
 			off(NavigationEditEventTypes.INDICATOR_FORMULA_CHANGED, onFormulaChanged);
 		};
 	}, [on, off, forceUpdate, navigation, navigationIndicator, calculatedValues]);
+	useEffect(() => {
+		const onAskCalculatedValues = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator, onData: (values: CalculatedIndicatorValues) => void) => {
+			if (aNavigation !== navigation || aNavigationIndicator !== aNavigationIndicator) {
+				return;
+			}
+			onData(calculatedValues);
+		};
+		on(NavigationEditEventTypes.ASK_CALCULATED_VALUES, onAskCalculatedValues);
+		return () => {
+			off(NavigationEditEventTypes.ASK_CALCULATED_VALUES, onAskCalculatedValues);
+		};
+	}, [on, off, navigation, navigationIndicator, calculatedValues]);
 
 	return <Fragment/>;
 };

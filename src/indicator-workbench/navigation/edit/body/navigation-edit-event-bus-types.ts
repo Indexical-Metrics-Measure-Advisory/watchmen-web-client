@@ -28,7 +28,8 @@ export enum NavigationEditEventTypes {
 	INDICATOR_SCORE_INCLUDE_CHANGED = 'indicator-score-included-changed',
 
 	VALUES_CHANGED = 'values-changed',
-	VALUES_CALCULATED = 'values-calculated'
+	VALUES_CALCULATED = 'values-calculated',
+	ASK_CALCULATED_VALUES = 'ask-calculated-values'
 }
 
 export interface NavigationEditEventBus {
@@ -119,4 +120,8 @@ export interface NavigationEditEventBus {
 	fire(type: NavigationEditEventTypes.VALUES_CALCULATED, navigation: Navigation, navigationIndicator: NavigationIndicator, values: CalculatedIndicatorValues): this;
 	on(type: NavigationEditEventTypes.VALUES_CALCULATED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, values: CalculatedIndicatorValues) => void): this;
 	off(type: NavigationEditEventTypes.VALUES_CALCULATED, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, values: CalculatedIndicatorValues) => void): this;
+
+	fire(type: NavigationEditEventTypes.ASK_CALCULATED_VALUES, navigation: Navigation, navigationIndicator: NavigationIndicator, onData: (values: CalculatedIndicatorValues) => void): this;
+	on(type: NavigationEditEventTypes.ASK_CALCULATED_VALUES, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, onData: (values: CalculatedIndicatorValues) => void) => void): this;
+	off(type: NavigationEditEventTypes.ASK_CALCULATED_VALUES, listener: (navigation: Navigation, navigationIndicator: NavigationIndicator, onData: (values: CalculatedIndicatorValues) => void) => void): this;
 }

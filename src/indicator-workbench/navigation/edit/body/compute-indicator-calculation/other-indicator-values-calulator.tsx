@@ -113,7 +113,7 @@ export const OtherIndicatorValuesCalculator = (props: {
 			}
 		};
 	});
-	useIndicatorValuesAggregator({
+	const allValues = useIndicatorValuesAggregator({
 		navigation,
 		shouldAvoidIndicatorRemovedAndValuesCalculated: functions.shouldAvoidIndicatorRemovedAndValuesCalculated,
 		shouldAvoidFormulaChanged: functions.shouldAvoidFormulaChanged,
@@ -134,6 +134,18 @@ export const OtherIndicatorValuesCalculator = (props: {
 			};
 		});
 	}, [fire, forceUpdate, navigation, navigationIndicator]);
+	useEffect(() => {
+		const onAskCalculatedValues = (aNavigation: Navigation, aNavigationIndicator: NavigationIndicator, onData: (values: CalculatedIndicatorValues) => void) => {
+			if (aNavigation !== navigation || aNavigationIndicator !== aNavigationIndicator) {
+				return;
+			}
+			onData(buildCalculatedIndicatorValues(allValues));
+		};
+		on(NavigationEditEventTypes.ASK_CALCULATED_VALUES, onAskCalculatedValues);
+		return () => {
+			off(NavigationEditEventTypes.ASK_CALCULATED_VALUES, onAskCalculatedValues);
+		};
+	}, [on, off, navigation, navigationIndicator, calculatedValues]);
 
 	return <Fragment/>;
 };
