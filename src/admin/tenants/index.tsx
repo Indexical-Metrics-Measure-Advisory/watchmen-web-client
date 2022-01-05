@@ -53,7 +53,7 @@ const AdminTenants = () => {
 		};
 		const onSaveTenant = async (tenant: Tenant, onSaved: (tenant: Tenant, saved: boolean) => void) => {
 			if (!tenant.name || !tenant.name.trim()) {
-				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>Tenant name is required.</AlertLabel>, () => {
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>Zone name is required.</AlertLabel>, () => {
 					onSaved(tenant, false);
 				});
 			} else {
