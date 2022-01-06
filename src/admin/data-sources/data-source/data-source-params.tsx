@@ -1,8 +1,9 @@
 import {DataSource, DataSourceParam} from '@/services/data/tuples/data-source-types';
 import {useForceUpdate} from '@/widgets/basic/utils';
 import {TuplePropertyInput, TuplePropertyLabel} from '@/widgets/tuple-workbench/tuple-editor';
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, Fragment} from 'react';
 import styled from 'styled-components';
+import {v4} from 'uuid';
 import {useDataSourceEventBus} from '../data-source-event-bus';
 import {DataSourceEventTypes} from '../data-source-event-bus-types';
 
@@ -41,13 +42,13 @@ export const DataSourceParams = (props: { dataSource: DataSource }) => {
 		<TuplePropertyLabel>Extra Parameters:</TuplePropertyLabel>
 		<ExtraParams>
 			{params.map(param => {
-				return <>
+				return <Fragment key={v4()}>
 					<TuplePropertyInput value={param.name || ''} onChange={onParamNameChange(param, 'name')}
 					                    placeholder={'Parameter name'}/>
 					<span>=</span>
 					<TuplePropertyInput value={param.value || ''} onChange={onParamNameChange(param, 'value')}
 					                    placeholder={'Parameter value'}/>
-				</>;
+				</Fragment>;
 			})}
 		</ExtraParams>
 	</>;

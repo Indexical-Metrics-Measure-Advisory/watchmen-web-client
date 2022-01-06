@@ -31,7 +31,7 @@ const createUser = (): User => {
 
 const fetchUserAndCodes = async (queryUser: QueryUser) => {
 	const {user, groups, tenants} = await fetchUser(queryUser.userId);
-	console.log(tenants);
+	// console.log(tenants);
 	return {tuple: user, groups, tenants};
 };
 
