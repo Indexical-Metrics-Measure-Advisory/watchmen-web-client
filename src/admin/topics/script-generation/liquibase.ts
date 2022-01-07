@@ -34,7 +34,7 @@ const buildFactorsOnCreate = (topic: Topic) => {
 	if (isRawTopic(topic)) {
 		return [
 			...topic.factors.filter(factor => {
-				return factor.name.indexOf('.') === -1 && factor.flatten === true;
+				return factor.name.indexOf('.') !== -1 && factor.flatten === true;
 			}).map(factor => {
 				return buildColumnOnCreate({
 					topic,
@@ -121,7 +121,7 @@ const buildFactorsOnModify = (topic: Topic) => {
 	if (isRawTopic(topic)) {
 		return [
 			...topic.factors.filter(factor => {
-				return factor.name.indexOf('.') === -1 && factor.flatten === true;
+				return factor.name.indexOf('.') !== -1 && factor.flatten === true;
 			}).map(factor => {
 				return buildColumnOnModify({
 					topic,

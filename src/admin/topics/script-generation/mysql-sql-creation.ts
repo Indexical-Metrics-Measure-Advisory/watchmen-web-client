@@ -21,7 +21,7 @@ const buildFactors = (topic: Topic) => {
 	if (isRawTopic(topic)) {
 		return [
 			...topic.factors.filter(factor => {
-				return factor.name.indexOf('.') === -1 && factor.flatten === true;
+				return factor.name.indexOf('.') !== -1 && factor.flatten === true;
 			}).map(factor => {
 				return `\t${asFactorName(factor)} ${MySQLFactorTypeMap[factor.type]},`;
 			}),

@@ -30,7 +30,10 @@ export const asFullTopicName = (topic: Topic) => {
 	return `topic_${asTopicName(topic)}`;
 };
 export const asFactorName = (factor: Factor) => {
-	return factor.name.toLowerCase().replaceAll('-', '_').replaceAll(' ', '_');
+	return factor.name.toLowerCase()
+		.replaceAll('.', '_')
+		.replaceAll('-', '_')
+		.replaceAll(' ', '_');
 };
 export const getIdColumnName = () => 'id_';
 export const getRawTopicDataColumnName = () => 'data_';
