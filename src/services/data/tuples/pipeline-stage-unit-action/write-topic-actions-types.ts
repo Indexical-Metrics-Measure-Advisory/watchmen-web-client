@@ -1,6 +1,6 @@
 import {Parameter} from '../factor-calculator-types';
 import {FactorId} from '../factor-types';
-import {AggregateArithmetic} from './aggregate-arithmetic-types';
+import {AggregateArithmeticHolder} from './aggregate-arithmetic-types';
 import {
 	FindBy,
 	PipelineStageUnitAction,
@@ -8,10 +8,6 @@ import {
 	ToTopic,
 	WriteTopicActionType
 } from './pipeline-stage-unit-action-types';
-
-export interface AggregateArithmeticHolder {
-	arithmetic: AggregateArithmetic;
-}
 
 export interface MappingFactor extends AggregateArithmeticHolder {
 	source: Parameter;

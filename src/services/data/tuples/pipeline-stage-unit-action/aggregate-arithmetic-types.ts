@@ -4,3 +4,7 @@ export enum AggregateArithmetic {
 	SUM = 'sum',
 	AVG = 'avg'
 }
+
+export interface AggregateArithmeticHolder {
+	arithmetic: AggregateArithmetic;
+}

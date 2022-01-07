@@ -1,5 +1,7 @@
-import {AggregateArithmetic} from '@/services/data/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
-import {AggregateArithmeticHolder} from '@/services/data/tuples/pipeline-stage-unit-action/write-topic-actions-types';
+import {
+	AggregateArithmetic,
+	AggregateArithmeticHolder
+} from '@/services/data/tuples/pipeline-stage-unit-action/aggregate-arithmetic-types';
 import {ICON_COLLAPSE_CONTENT, ICON_EDIT} from '@/widgets/basic/constants';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {MouseEvent, useState} from 'react';

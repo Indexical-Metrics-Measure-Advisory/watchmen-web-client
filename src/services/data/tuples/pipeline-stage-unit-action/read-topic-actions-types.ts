@@ -1,3 +1,4 @@
+import {AggregateArithmeticHolder} from './aggregate-arithmetic-types';
 import {
 	FindBy,
 	FromFactor,
@@ -6,7 +7,6 @@ import {
 	PipelineStageUnitAction,
 	ReadTopicActionType
 } from './pipeline-stage-unit-action-types';
-import {AggregateArithmeticHolder} from './write-topic-actions-types';
 
 export interface ReadTopicAction extends FromTopic, MemoryWriter, FindBy, PipelineStageUnitAction {
 	type: ReadTopicActionType;
