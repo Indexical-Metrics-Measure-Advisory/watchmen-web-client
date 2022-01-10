@@ -1,6 +1,6 @@
-import {Factor, FactorEncryptMethod} from '@/services/data/tuples/factor-types';
+import {Factor, FactorEncryptMethod, FactorType} from '@/services/data/tuples/factor-types';
 import {QueryEnumForHolder} from '@/services/data/tuples/query-enum-types';
-import {Topic} from '@/services/data/tuples/topic-types';
+import {Topic, TopicType} from '@/services/data/tuples/topic-types';
 import {Dropdown} from '@/widgets/basic/dropdown';
 import {DropdownOption} from '@/widgets/basic/types';
 import {useForceUpdate} from '@/widgets/basic/utils';
@@ -70,14 +70,14 @@ const filterFactors = (topic: Topic, search: string): Array<Factor> => {
 			const has = text.substring(2).trim() === 'true';
 			factors = factors.filter(factor => {
 				if (has) {
-					return factor.enumId != null && factor.enumId.length !== 0;
+					return factor.type === FactorType.ENUM && factor.enumId != null && factor.enumId.length !== 0;
 				} else {
-					return factor.enumId == null || factor.enumId.length === 0;
+					return factor.type === FactorType.ENUM && (factor.enumId == null || factor.enumId.length === 0);
 				}
 			});
 			break;
 		}
-		case text.startsWith('f:'): {
+		case text.startsWith('f:') && topic.type === TopicType.RAW: {
 			const has = text.substring(2).trim() === 'true';
 			factors = factors.filter(factor => {
 				if (has) {
