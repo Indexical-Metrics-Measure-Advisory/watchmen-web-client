@@ -1,4 +1,4 @@
-import {Factor} from '@/services/data/tuples/factor-types';
+import {Factor, FactorEncryptMethod} from '@/services/data/tuples/factor-types';
 import {QueryEnumForHolder} from '@/services/data/tuples/query-enum-types';
 import {Topic} from '@/services/data/tuples/topic-types';
 import {Dropdown} from '@/widgets/basic/dropdown';
@@ -53,7 +53,7 @@ const filterFactors = (topic: Topic, search: string): Array<Factor> => {
 			// in unique index
 			factors = filterBy(factors, `u-${text.substring(2).trim()}`, (factor: Factor) => factor.indexGroup || '');
 			break;
-		case text.startsWith('v:'):
+		case text.startsWith('v:'): {
 			// in default value
 			const has = text.substring(2).trim() === 'true';
 			factors = factors.filter(factor => {
@@ -64,6 +64,41 @@ const filterFactors = (topic: Topic, search: string): Array<Factor> => {
 				}
 			});
 			break;
+		}
+		case text.startsWith('e:'): {
+			// has enumeration
+			const has = text.substring(2).trim() === 'true';
+			factors = factors.filter(factor => {
+				if (has) {
+					return factor.enumId != null && factor.enumId.length !== 0;
+				} else {
+					return factor.enumId == null || factor.enumId.length === 0;
+				}
+			});
+			break;
+		}
+		case text.startsWith('f:'): {
+			const has = text.substring(2).trim() === 'true';
+			factors = factors.filter(factor => {
+				if (has) {
+					return factor.flatten != null && factor.flatten;
+				} else {
+					return factor.flatten == null || !factor.flatten;
+				}
+			});
+			break;
+		}
+		case text.startsWith('c:'): {
+			const has = text.substring(2).trim() === 'true';
+			factors = factors.filter(factor => {
+				if (has) {
+					return factor.encrypt != null && factor.encrypt !== FactorEncryptMethod.NONE;
+				} else {
+					return factor.encrypt == null || factor.encrypt === FactorEncryptMethod.NONE;
+				}
+			});
+			break;
+		}
 		default:
 			factors = filterBy(factors, text, (factor: Factor) => `${factor.name}\t${factor.label}`);
 			break;
