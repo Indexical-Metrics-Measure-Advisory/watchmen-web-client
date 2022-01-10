@@ -140,11 +140,11 @@ export const TopicProfile = () => {
 						<BlockItemValue>{formatter.format((data.data?.table.p_cells_missing || 0) * 100)}%</BlockItemValue>
 					</BlockItem>
 					<BlockItem>
-						<BlockItemLabel>Total size in memory</BlockItemLabel>
+						<BlockItemLabel>Total size</BlockItemLabel>
 						<BlockItemValue>{formatter.format((data.data?.table.memory_size || 0) / 1024)} KiB</BlockItemValue>
 					</BlockItem>
 					<BlockItem>
-						<BlockItemLabel>Average record size in memory</BlockItemLabel>
+						<BlockItemLabel>Average record size</BlockItemLabel>
 						<BlockItemValue>{formatter.format((data.data?.table.record_size || 0))} B</BlockItemValue>
 					</BlockItem>
 				</Block>
