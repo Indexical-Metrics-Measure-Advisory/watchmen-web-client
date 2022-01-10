@@ -122,13 +122,19 @@ export const FactorsTableBody = (props: { topic: Topic, enums: Array<QueryEnumFo
 			setSearchText(searchText);
 		};
 		on(TopicEventTypes.FACTOR_SEARCH_TEXT_CHANGED, onSearchTextChanged);
-		const onFactorAdded = () => {
-			const count = filterFactors(topic, searchText).length;
-			const pages = Math.ceil(count / PAGE_SIZE);
-			if (pageNumber === pages) {
+		const onFactorAdded = (factor: Factor) => {
+			const filteredFactors = filterFactors(topic, searchText);
+			const count = filteredFactors.length;
+			if (factor !== filteredFactors[filteredFactors.length - 1]) {
+				// prepend a factor
 				forceUpdate();
 			} else {
-				setPageNumber(pages);
+				const pages = Math.ceil(count / PAGE_SIZE);
+				if (pageNumber === pages) {
+					forceUpdate();
+				} else {
+					setPageNumber(pages);
+				}
 			}
 		};
 		const onFactorRemoved = () => {
