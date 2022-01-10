@@ -121,7 +121,7 @@ const toFactorsFromInstanceData = (topic: Topic, data: ShouldBeFactorsInstance, 
 
 	const mockTopic = createTopic();
 	const factorsMap = data.reduce<Record<string, Factor>>((map, row) => {
-		if (typeof row !== 'object') {
+		if (typeof row !== 'object' || row == null) {
 			// ignore row which is not an object
 			return map;
 		}
