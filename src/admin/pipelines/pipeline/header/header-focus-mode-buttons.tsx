@@ -70,12 +70,10 @@ export const HeaderFocusModeButtons = (props: { pipeline: Pipeline }) => {
 		</PageHeaderButton>
 		{focusMode === PipelineFocusMode.FREE_WALK
 			? <>
-				<PageHeaderButton tooltip="Expand All"
-				                  onClick={onExpandAllClicked}>
+				<PageHeaderButton tooltip="Expand All" onClick={onExpandAllClicked}>
 					<FontAwesomeIcon icon={ICON_EXPAND_PANEL}/>
 				</PageHeaderButton>
-				<PageHeaderButton tooltip="Collapse All to Units"
-				                  onClick={onCollapseAllClicked}>
+				<PageHeaderButton tooltip="Collapse All" onClick={onCollapseAllClicked}>
 					<FontAwesomeIcon icon={ICON_COLLAPSE_PANEL}/>
 				</PageHeaderButton>
 			</>
