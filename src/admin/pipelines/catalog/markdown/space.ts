@@ -141,7 +141,7 @@ const generateSubject = (options: {
 
 	const topics = findTopicsOnSubject(subject, topicsMap);
 	const thumbnails = (subject.reports || []).filter(report => report.simulateThumbnail).map(report => report.simulateThumbnail);
-	console.log(thumbnails);
+	// console.log(thumbnails);
 
 	return `##### ${sectionIndex}.${spaceIndex + 1}.2.${connectedSpaceIndex + 1}.${index + 1}. ${subject.name || 'Noname Subject'}
 ###### ${sectionIndex}.${spaceIndex + 1}.2.${connectedSpaceIndex + 1}.${index + 1}.1. Related Topics
