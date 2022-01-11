@@ -1,5 +1,6 @@
 import {Pipeline} from '@/services/data/tuples/pipeline-types';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {noop} from '@/services/utils';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {Button} from '@/widgets/basic/button';
 import {ICON_SAVE} from '@/widgets/basic/constants';
@@ -82,9 +83,11 @@ export const HeaderSaveButton = (props: { pipeline: Pipeline }) => {
 			if (!result.pass) {
 				fireGlobal(EventTypes.SHOW_DIALOG,
 					<StillSaveDialog message={result.message || ''}
-					                 onSave={() => fire(PipelineEventTypes.SAVE_PIPELINE, pipeline)}/>);
+					                 onSave={() => {
+						                 fire(PipelineEventTypes.SAVE_PIPELINE, pipeline, noop);
+					                 }}/>);
 			} else {
-				fire(PipelineEventTypes.SAVE_PIPELINE, pipeline);
+				fire(PipelineEventTypes.SAVE_PIPELINE, pipeline, noop);
 				if (result.message) {
 					// warning message
 					fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{result.message}</AlertLabel>);

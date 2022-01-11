@@ -15,20 +15,23 @@ export const PipelineDataSaver = () => {
 	const {fire: fireCache} = useAdminCacheEventBus();
 	const {on, off, fire} = usePipelineEventBus();
 	useEffect(() => {
-		const onSavePipeline = async (pipeline: Pipeline) => {
+		const onSavePipeline = async (pipeline: Pipeline, onSaved: (saved: boolean) => void) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await savePipeline(pipeline),
 				() => {
+					onSaved(true);
 					fire(PipelineEventTypes.PIPELINE_SAVED, pipeline, true);
 					fireCache(AdminCacheEventTypes.SAVE_PIPELINE, pipeline);
 				},
-				() => fire(PipelineEventTypes.PIPELINE_SAVED, pipeline, false)
+				() => onSaved(false)
 			);
 		};
 		const onRenamePipeline = async (pipeline: Pipeline) => {
 			fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 				async () => await renamePipeline(pipeline.pipelineId, pipeline.name),
-				() => fireCache(AdminCacheEventTypes.SAVE_PIPELINE, pipeline)
+				() => {
+					fireCache(AdminCacheEventTypes.SAVE_PIPELINE, pipeline);
+				}
 			);
 		};
 		const onTogglePipelineEnabled = async (pipeline: Pipeline) => {
@@ -36,17 +39,16 @@ export const PipelineDataSaver = () => {
 				async () => await savePipeline(pipeline),
 				() => {
 					fire(PipelineEventTypes.PIPELINE_SAVED, pipeline, true);
-					fire(PipelineEventTypes.PIPELINE_ENABLED_TOGGLED, pipeline);
 					fireCache(AdminCacheEventTypes.SAVE_PIPELINE, pipeline);
 				});
 		};
 		on(PipelineEventTypes.SAVE_PIPELINE, onSavePipeline);
 		on(PipelineEventTypes.RENAME_PIPELINE, onRenamePipeline);
-		on(PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, onTogglePipelineEnabled);
+		on(PipelineEventTypes.TOGGLE_PIPELINE_ENABLEMENT, onTogglePipelineEnabled);
 		return () => {
 			off(PipelineEventTypes.SAVE_PIPELINE, onSavePipeline);
 			off(PipelineEventTypes.RENAME_PIPELINE, onRenamePipeline);
-			off(PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, onTogglePipelineEnabled);
+			off(PipelineEventTypes.TOGGLE_PIPELINE_ENABLEMENT, onTogglePipelineEnabled);
 		};
 	}, [on, off, fire, fireGlobal, fireCache]);
 

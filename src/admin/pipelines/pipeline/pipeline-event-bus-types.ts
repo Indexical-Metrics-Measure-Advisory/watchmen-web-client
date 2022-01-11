@@ -14,9 +14,8 @@ export enum PipelineFocusMode {
 export enum PipelineEventTypes {
 	RENAME_PIPELINE = 'rename-pipeline',
 	SAVE_PIPELINE = 'save-pipeline',
-	TOGGLE_PIPELINE_ENABLED = 'toggle-pipeline-enabled',
+	TOGGLE_PIPELINE_ENABLEMENT = 'toggle-pipeline-enablement',
 
-	PIPELINE_ENABLED_TOGGLED = 'pipeline-enabled-toggled',
 	PIPELINE_SAVED = 'pipeline-saved',
 
 	TRIGGER_TYPE_CHANGED = 'trigger-type-changed',
@@ -46,17 +45,13 @@ export interface PipelineEventBus {
 	on(type: PipelineEventTypes.RENAME_PIPELINE, listener: (pipeline: Pipeline) => void): this;
 	off(type: PipelineEventTypes.RENAME_PIPELINE, listener: (pipeline: Pipeline) => void): this;
 
-	fire(type: PipelineEventTypes.SAVE_PIPELINE, pipeline: Pipeline): this;
-	on(type: PipelineEventTypes.SAVE_PIPELINE, listener: (pipeline: Pipeline) => void): this;
-	off(type: PipelineEventTypes.SAVE_PIPELINE, listener: (pipeline: Pipeline) => void): this;
+	fire(type: PipelineEventTypes.SAVE_PIPELINE, pipeline: Pipeline, onSaved: (saved: boolean) => void): this;
+	on(type: PipelineEventTypes.SAVE_PIPELINE, listener: (pipeline: Pipeline, onSaved: (saved: boolean) => void) => void): this;
+	off(type: PipelineEventTypes.SAVE_PIPELINE, listener: (pipeline: Pipeline, onSaved: (saved: boolean) => void) => void): this;
 
-	fire(type: PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, pipeline: Pipeline): this;
-	on(type: PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, listener: (pipeline: Pipeline) => void): this;
-	off(type: PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, listener: (pipeline: Pipeline) => void): this;
-
-	fire(type: PipelineEventTypes.PIPELINE_ENABLED_TOGGLED, pipeline: Pipeline): this;
-	on(type: PipelineEventTypes.PIPELINE_ENABLED_TOGGLED, listener: (pipeline: Pipeline) => void): this;
-	off(type: PipelineEventTypes.PIPELINE_ENABLED_TOGGLED, listener: (pipeline: Pipeline) => void): this;
+	fire(type: PipelineEventTypes.TOGGLE_PIPELINE_ENABLEMENT, pipeline: Pipeline): this;
+	on(type: PipelineEventTypes.TOGGLE_PIPELINE_ENABLEMENT, listener: (pipeline: Pipeline) => void): this;
+	off(type: PipelineEventTypes.TOGGLE_PIPELINE_ENABLEMENT, listener: (pipeline: Pipeline) => void): this;
 
 	fire(type: PipelineEventTypes.PIPELINE_SAVED, pipeline: Pipeline, saved: boolean): this;
 	on(type: PipelineEventTypes.PIPELINE_SAVED, listener: (pipeline: Pipeline, saved: boolean) => void): this;

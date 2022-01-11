@@ -3,10 +3,11 @@ import {Topic} from '@/services/data/tuples/topic-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {ICON_ENABLE} from '@/widgets/basic/constants';
 import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {usePipelinesEventBus} from '../../pipelines-event-bus';
 import {PipelinesEventTypes} from '../../pipelines-event-bus-types';
 import {usePipelineEventBus} from '../pipeline-event-bus';
@@ -18,12 +19,24 @@ export const HeaderEnableButton = (props: { pipeline: Pipeline }) => {
 
 	const {fire: fireGlobal} = useEventBus();
 	const {fire: firePipelines} = usePipelinesEventBus();
-	const {fire} = usePipelineEventBus();
+	const {on, off, fire} = usePipelineEventBus();
 	const validate = useValidate();
+	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		const onTogglePipelineEnablement = () => forceUpdate();
+		on(PipelineEventTypes.TOGGLE_PIPELINE_ENABLEMENT, onTogglePipelineEnablement);
+		return () => {
+			off(PipelineEventTypes.TOGGLE_PIPELINE_ENABLEMENT, onTogglePipelineEnablement);
+		};
+	}, [on, off, forceUpdate]);
+
+	if (pipeline.enabled) {
+		return null;
+	}
 
 	const onClicked = () => {
 		if (pipeline.enabled) {
-			fire(PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, pipeline);
+			fire(PipelineEventTypes.TOGGLE_PIPELINE_ENABLEMENT, pipeline);
 		} else {
 			firePipelines(PipelinesEventTypes.ASK_TOPICS, async (topics: Array<Topic>) => {
 				const result = await validate(pipeline, topics);
@@ -32,7 +45,7 @@ export const HeaderEnableButton = (props: { pipeline: Pipeline }) => {
 					fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{result.message}</AlertLabel>);
 				} else {
 					pipeline.enabled = true;
-					fire(PipelineEventTypes.TOGGLE_PIPELINE_ENABLED, pipeline);
+					fire(PipelineEventTypes.TOGGLE_PIPELINE_ENABLEMENT, pipeline);
 					if (result.message) {
 						// warning message
 						fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>{result.message}</AlertLabel>);
