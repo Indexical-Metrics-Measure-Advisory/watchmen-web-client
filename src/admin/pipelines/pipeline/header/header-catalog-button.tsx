@@ -28,9 +28,9 @@ export const HeaderCatalogButton = (props: { pipeline: Pipeline }) => {
 		firePipelines(PipelinesEventTypes.ASK_TOPICS, async (topics: Array<Topic>) => {
 			const result = await validate(pipeline, topics);
 			if (!result.pass) {
-				fireGlobal(EventTypes.SHOW_DIALOG, <AlertLabel>
+				fireGlobal(EventTypes.SHOW_ALERT, <AlertLabel>
 					{result.message || ''}
-				</AlertLabel>);
+				</AlertLabel>, () => history.push(Router.ADMIN_PIPELINES));
 			} else {
 				fire(PipelineEventTypes.SAVE_PIPELINE, pipeline, (saved: boolean) => {
 					if (saved) {
