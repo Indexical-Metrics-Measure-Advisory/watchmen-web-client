@@ -1,19 +1,51 @@
 import {
 	MonitorRuleCode,
+	MonitorRuleGrade,
 	MonitorRuleLogCriteria,
 	MonitorRuleLogs,
+	MonitorRuleOnFactor,
+	MonitorRuleOnTopic,
 	MonitorRules,
-	MonitorRulesCriteria
+	MonitorRulesCriteria,
+	MonitorRuleSeverity,
+	MonitorRuleStatisticalInterval
 } from '../../data-quality/rule-types';
 import {getCurrentTime} from '../../utils';
 import {DemoTopics} from '../tuples/mock-data-topics';
 
 export const fetchMockRules = async (options: { criteria: MonitorRulesCriteria }): Promise<MonitorRules> => {
-	return new Promise(resolve => {
-		setTimeout(() => {
-			resolve([] as MonitorRules);
-		}, 500);
-	});
+	const {criteria} = options;
+	if (criteria.topicId === '2') {
+		return new Promise(resolve => {
+			setTimeout(() => {
+				resolve([
+					{
+						code: MonitorRuleCode.ROWS_COUNT_MISMATCH_AND_ANOTHER,
+						grade: MonitorRuleGrade.TOPIC,
+						topicId: '2',
+						severity: MonitorRuleSeverity.WARN,
+						enabled: true,
+						params: {statisticalInterval: MonitorRuleStatisticalInterval.DAILY, topicId: '1'}
+					} as MonitorRuleOnTopic,
+					{
+						code: MonitorRuleCode.FACTOR_NOT_IN_RANGE,
+						grade: MonitorRuleGrade.FACTOR,
+						topicId: '2',
+						factorId: '207',
+						severity: MonitorRuleSeverity.FATAL,
+						enabled: true,
+						params: {min: 100, max: 99999999}
+					} as MonitorRuleOnFactor
+				] as MonitorRules);
+			}, 500);
+		});
+	} else {
+		return new Promise(resolve => {
+			setTimeout(() => {
+				resolve([] as MonitorRules);
+			}, 500);
+		});
+	}
 };
 
 export const fetchMockMonitorRuleLogs = async (options: { criteria: MonitorRuleLogCriteria }): Promise<MonitorRuleLogs> => {

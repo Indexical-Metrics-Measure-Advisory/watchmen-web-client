@@ -12,17 +12,17 @@ import {generateGraphics} from './graphics';
 import {generatePipelines} from './pipeline';
 import {generateSpaces} from './space';
 import {generateTopics} from './topic';
-import {DataSourcesMap, EnumsMap, ExternalWritersMap} from './types';
+import {DataSourcesMap, EnumsMap, ExternalWritersMap, MonitorRulesMap} from './types';
 
 export const generateMarkdown = async (options: {
 	topicsMap: TopicsMap; pipelinesMap: PipelinesMap;
-	dataSourcesMap: DataSourcesMap; externalWritersMap: ExternalWritersMap;
+	dataSourcesMap: DataSourcesMap; externalWritersMap: ExternalWritersMap; monitorRulesMap: MonitorRulesMap;
 	topicRelations: TopicRelationMap; pipelineRelations: PipelineRelationMap;
 	spaces: Array<Space>; connectedSpaces: Array<ConnectedSpace>;
 	selectedSvg: string; allSvg: string;
 }): Promise<string> => {
 	const {
-		topicsMap, pipelinesMap, dataSourcesMap, externalWritersMap,
+		topicsMap, pipelinesMap, dataSourcesMap, externalWritersMap, monitorRulesMap,
 		topicRelations, pipelineRelations,
 		spaces, connectedSpaces,
 		selectedSvg, allSvg
@@ -41,7 +41,7 @@ ${generateGraphics(selectedSvg, allSvg, 1)}
 
 # 2. Topics
 ${generateTopics({
-		topicsMap, pipelinesMap, dataSourcesMap, enumsMap,
+		topicsMap, pipelinesMap, dataSourcesMap, enumsMap, monitorRulesMap,
 		topicRelations, pipelineRelations,
 		sectionIndex: 2
 	})}

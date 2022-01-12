@@ -1,3 +1,6 @@
+import {isDataQualityCenterEnabled} from '@/feature-switch';
+import {MonitorRuleGrade} from '@/services/data/data-quality/rule-types';
+import {fetchMonitorRules} from '@/services/data/data-quality/rules';
 import {
 	buildPipelinesRelation,
 	buildTopicsMap,
@@ -34,7 +37,7 @@ import {AdminCacheEventTypes} from '../../../cache/cache-event-bus-types';
 import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {generateMarkdown} from '../markdown';
-import {DataSourcesMap, ExternalWritersMap} from '../markdown/types';
+import {DataSourcesMap, ExternalWritersMap, MonitorRulesMap} from '../markdown/types';
 import {AssembledPipelinesGraphics} from '../types';
 import {TopicPickerTable} from './topic-picker-table';
 import {SpaceCandidate, TopicCandidate} from './types';
@@ -139,6 +142,13 @@ const PipelinesDownload = (props: {
 		const allTopics = Object.values(finalTopicMap);
 		const allSvg = allTopics.length === selectedTopics.length ? '' : await askSvg(Object.values(finalTopicMap));
 
+		const monitorRules = isDataQualityCenterEnabled() ? await Promise.all(selectedTopics.map(async topic => {
+			return {
+				topicId: topic.topicId,
+				rules: await fetchMonitorRules({criteria: {grade: MonitorRuleGrade.TOPIC, topicId: topic.topicId}})
+			};
+		})) : [];
+
 		const markdown = await generateMarkdown({
 			topicsMap: finalTopicMap,
 			pipelinesMap: finalPipelineMap,
@@ -150,6 +160,10 @@ const PipelinesDownload = (props: {
 				map[writer.writerId] = writer;
 				return map;
 			}, {} as ExternalWritersMap),
+			monitorRulesMap: monitorRules.reduce((map, rules) => {
+				map[rules.topicId] = rules.rules;
+				return map;
+			}, {} as MonitorRulesMap),
 			topicRelations, pipelineRelations,
 			spaces: selectedSpaces, connectedSpaces: selectedConnectedSpaces,
 			selectedSvg, allSvg
