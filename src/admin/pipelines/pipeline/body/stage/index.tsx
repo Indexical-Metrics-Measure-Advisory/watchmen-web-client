@@ -23,7 +23,7 @@ export const StageEditor = (props: {
 		<StageHeader pipeline={pipeline} stage={stage}/>
 		<StageBody pipeline={pipeline} stage={stage}>
 			<VariablesEventBusProvider>
-				<VariablesHelper pipeline={pipeline} stage={stage} topics={[triggerTopic]}/>
+				<VariablesHelper pipeline={pipeline} stage={stage} topics={topics}/>
 				<StagePrerequisite stage={stage} triggerTopic={triggerTopic}/>
 				<Units pipeline={pipeline} stage={stage} topics={topics} triggerTopic={triggerTopic}/>
 				<StageFooter pipeline={pipeline} stage={stage}/>

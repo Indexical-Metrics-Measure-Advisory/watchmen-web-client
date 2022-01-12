@@ -26,7 +26,7 @@ export const UnitEditor = (props: {
 		<UnitHeader pipeline={pipeline} stage={stage} unit={unit}/>
 		<UnitBody pipeline={pipeline} stage={stage} unit={unit}>
 			<VariablesEventBusProvider>
-				<VariablesHelper pipeline={pipeline} stage={stage} unit={unit} topics={[triggerTopic]}/>
+				<VariablesHelper pipeline={pipeline} stage={stage} unit={unit} topics={topics}/>
 				<UnitLoopVariableName unit={unit} triggerTopic={triggerTopic}/>
 				<UnitPrerequisite unit={unit} triggerTopic={triggerTopic}/>
 				<Actions pipeline={pipeline} stage={stage} unit={unit} topics={topics} triggerTopic={triggerTopic}/>

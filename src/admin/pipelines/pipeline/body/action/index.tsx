@@ -29,7 +29,7 @@ export const ActionEditor = (props: {
 
 	return <ActionContainer>
 		<VariablesEventBusProvider>
-			<VariablesHelper pipeline={pipeline} stage={stage} unit={unit} action={action} topics={[triggerTopic]}/>
+			<VariablesHelper pipeline={pipeline} stage={stage} unit={unit} action={action} topics={topics}/>
 			<Operators action={action} unit={unit}/>
 			<ActionLeadLabel>Action #{stageIndex}.{unitIndex}.{actionIndex}:</ActionLeadLabel>
 			<ActionTypeEditor action={action}/>
