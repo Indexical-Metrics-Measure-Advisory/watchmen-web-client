@@ -160,8 +160,20 @@ const PipelinesDownload = (props: {
 				map[writer.writerId] = writer;
 				return map;
 			}, {} as ExternalWritersMap),
-			monitorRulesMap: monitorRules.reduce((map, rules) => {
-				map[rules.topicId] = rules.rules;
+			monitorRulesMap: monitorRules.map(({topicId, rules}) => {
+				return {
+					topicId, rules: rules.filter(rule => {
+						if (rule.params?.topicId == null) {
+							// this rule is not about another topic
+							return true;
+						} else {
+							// or another topic of this rule is also selected
+							return selectedTopics.some(topic => topic.topicId == rule.params?.topicId);
+						}
+					})
+				};
+			}).reduce((map, {topicId, rules}) => {
+				map[topicId] = rules;
 				return map;
 			}, {} as MonitorRulesMap),
 			topicRelations, pipelineRelations,
