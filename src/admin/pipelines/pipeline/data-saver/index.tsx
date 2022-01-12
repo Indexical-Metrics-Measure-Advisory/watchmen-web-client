@@ -23,7 +23,10 @@ export const PipelineDataSaver = () => {
 					fire(PipelineEventTypes.PIPELINE_SAVED, pipeline, true);
 					fireCache(AdminCacheEventTypes.SAVE_PIPELINE, pipeline);
 				},
-				() => onSaved(false)
+				() => {
+					onSaved(false);
+					fireCache(AdminCacheEventTypes.SAVE_PIPELINE, pipeline);
+				}
 			);
 		};
 		const onRenamePipeline = async (pipeline: Pipeline) => {

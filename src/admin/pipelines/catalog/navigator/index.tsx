@@ -89,6 +89,8 @@ export const Navigator = (props: {
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 			async () => await savePipeline(pipeline),
 			() => {
+				// will not trigger add into cache
+				// see SettingsHolder of pipelines for more detail
 				firePipelines(PipelinesEventTypes.PIPELINE_ADDED, pipeline);
 				history.push(toPipeline(pipeline.pipelineId));
 			});

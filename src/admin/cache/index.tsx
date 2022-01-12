@@ -21,6 +21,20 @@ export interface CacheState {
 	data?: AdminCacheData;
 }
 
+type X = Pipeline | Topic | DataSource | ExternalWriter | PipelinesGraphics;
+
+const replaceOrAppend = <T extends X>(element: T, elementToBeRemoved: (e: T) => boolean, array?: Array<T>): Array<T> => {
+	array = array || [];
+	const existingIndex = array.findIndex(elementToBeRemoved);
+	if (existingIndex !== -1) {
+		array.splice(existingIndex, 1, element);
+	} else {
+		array.push(element);
+	}
+
+	return array;
+};
+
 export const AdminCache = () => {
 	const {fire: fireGlobal} = useEventBus();
 	const {on, off, fire} = useAdminCacheEventBus();
@@ -31,6 +45,7 @@ export const AdminCache = () => {
 		};
 		// noinspection TypeScriptValidateTypes
 		const onAskData = (onData: (data?: AdminCacheData) => void) => {
+			// share memories
 			onData(data.data);
 		};
 		on(AdminCacheEventTypes.ASK_DATA_LOADED, onAskDataLoaded);
@@ -73,11 +88,8 @@ export const AdminCache = () => {
 					initialized: data.initialized,
 					data: {
 						topics: data.data?.topics || [],
-						pipelines: [
-							pipeline,
-							// eslint-disable-next-line
-							...(data.data?.pipelines || []).filter(p => p.pipelineId != pipeline.pipelineId)
-						],
+						// eslint-disable-next-line
+						pipelines: replaceOrAppend<Pipeline>(pipeline, p => p.pipelineId == pipeline.pipelineId, data.data?.pipelines),
 						graphics: data.data?.graphics || [],
 						dataSources: data.data?.dataSources || [],
 						externalWriters: data.data?.externalWriters || []
@@ -91,11 +103,8 @@ export const AdminCache = () => {
 				return {
 					initialized: data.initialized,
 					data: {
-						topics: [
-							topic,
-							// eslint-disable-next-line
-							...(data.data?.topics || []).filter(t => t.topicId != topic.topicId)
-						],
+						// eslint-disable-next-line
+						topics: replaceOrAppend<Topic>(topic, t => t.topicId == topic.topicId, data.data?.topics),
 						pipelines: data.data?.pipelines || [],
 						graphics: data.data?.graphics || [],
 						dataSources: data.data?.dataSources || [],
@@ -112,11 +121,8 @@ export const AdminCache = () => {
 					data: {
 						topics: data.data?.topics || [],
 						pipelines: data.data?.pipelines || [],
-						graphics: [
-							graphics,
-							// eslint-disable-next-line
-							...(data.data?.graphics || []).filter(g => g.pipelineGraphId != graphics.pipelineGraphId)
-						],
+						// eslint-disable-next-line
+						graphics: replaceOrAppend<PipelinesGraphics>(graphics, g => g.pipelineGraphId == graphics.pipelineGraphId, data.data?.graphics),
 						dataSources: data.data?.dataSources || [],
 						externalWriters: data.data?.externalWriters || []
 					}
@@ -132,7 +138,15 @@ export const AdminCache = () => {
 						topics: data.data?.topics || [],
 						pipelines: data.data?.pipelines || [],
 						// eslint-disable-next-line
-						graphics: (data.data?.graphics || []).filter(g => g.pipelineGraphId != pipelineGraphId),
+						graphics: (() => {
+							const array = data.data?.graphics || [];
+							// eslint-disable-next-line
+							const index = array.findIndex(g => g.pipelineGraphId == pipelineGraphId);
+							if (index !== -1) {
+								array.splice(index, 1);
+							}
+							return array;
+						})(),
 						dataSources: data.data?.dataSources || [],
 						externalWriters: data.data?.externalWriters || []
 					}
@@ -147,11 +161,8 @@ export const AdminCache = () => {
 						topics: data.data?.topics || [],
 						pipelines: data.data?.pipelines || [],
 						graphics: data.data?.graphics || [],
-						dataSources: [
-							dataSource,
-							// eslint-disable-next-line
-							...(data.data?.dataSources || []).filter(w => w.dataSourceId != dataSource.dataSourceId)
-						],
+						// eslint-disable-next-line
+						dataSources: replaceOrAppend<DataSource>(dataSource, ds => ds.dataSourceId == dataSource.dataSourceId, data.data?.dataSources),
 						externalWriters: data.data?.externalWriters || []
 					}
 				};
@@ -166,11 +177,8 @@ export const AdminCache = () => {
 						pipelines: data.data?.pipelines || [],
 						graphics: data.data?.graphics || [],
 						dataSources: data.data?.dataSources || [],
-						externalWriters: [
-							writer,
-							// eslint-disable-next-line
-							...(data.data?.externalWriters || []).filter(w => w.writerId != writer.writerId)
-						]
+						// eslint-disable-next-line
+						externalWriters: replaceOrAppend<ExternalWriter>(writer, w => w.writerId == writer.writerId, data.data?.externalWriters)
 					}
 				};
 			});

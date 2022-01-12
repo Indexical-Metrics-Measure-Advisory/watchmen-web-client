@@ -54,6 +54,8 @@ export const SettingsHolder = () => {
 		};
 	}, [fire, on, off, holdSettings.initialized]);
 	useEffect(() => {
+		// handle pipeline added event, add into hold settings
+		// since hold settings also is state in AdminCache, which means memory of AdminCache is updated at the same time
 		const onPipelineAdded = (pipeline: Pipeline) => {
 			holdSettings.pipelines.push(pipeline);
 		};
