@@ -168,6 +168,7 @@ const PipelinesDownload = (props: {
 							return true;
 						} else {
 							// or another topic of this rule is also selected
+							// eslint-disable-next-line
 							return selectedTopics.some(topic => topic.topicId == rule.params?.topicId);
 						}
 					})

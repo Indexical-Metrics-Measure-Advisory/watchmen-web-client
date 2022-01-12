@@ -192,7 +192,7 @@ ${topic.factors.sort((f1, f2) => {
 
 ${generateTopicPipelinesMarkdown({topic, pipelineRelations, sectionIndex, index})}
 ${generateTopicMonitorRulesMarkdown({
-		topic, monitorRules: monitorRulesMap[topic.topicId], topicsMap,
+		topic, monitorRules: monitorRulesMap[topic.topicId] || [], topicsMap,
 		sectionIndex, index
 	})}
 `;
