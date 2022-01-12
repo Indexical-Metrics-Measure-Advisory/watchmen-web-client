@@ -1,168 +1,168 @@
 {
-  "conditionResult": null,
-  "last_modified": "2021-03-26T08:27:22.588445",
-  "createTime": null,
-  "status": "DONE",
-  "pipelineId": "5608275072217293868",
-  "uid": "5620740224018440980",
-  "start_time": "2021-03-26T16:27:28.854085",
-  "completeTime": 0.0039560794830322266,
-  "stages": [
-    {
-      "conditionResult": null,
-      "name": "Noname Stage",
-      "units": [
-        {
-          "conditionResult": null,
-          "actions": [
-            {
-              "type": "write-factor",
-              "completeTime": 0.001977205276489258,
-              "status": null,
-              "error": null,
-              "uid": "5620740224018440981",
-              "insertCount": 0,
-              "updateCount": 0,
-              "value": null,
-              "writeFunction": null
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "conditionResult": null,
-      "name": "Noname Stage",
-      "units": [
-        {
-          "conditionResult": null,
-          "actions": [
-            {
-              "type": "write-factor",
-              "completeTime": 0.001725912094116211,
-              "status": null,
-              "error": null,
-              "uid": "5620740224018440982",
-              "insertCount": 0,
-              "updateCount": 0,
-              "value": null,
-              "writeFunction": null
-            },
-            {
-              "type": "write-factor",
-              "completeTime": 0.001725912094116211,
-              "status": "error",
-              "error": "could not extract ResultSet org.hibernate.exception.SQLGrammarException: could not extract ResultSet\n\tat org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:80)\n\tat org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:49)\n\tat org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:126)\n\tat org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:112)\n\tat org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.extract(ResultSetReturnImpl.java:91)\n\tat org.hibernate.loader.Loader.getResultSet(Loader.java:2066)\n\tat org.hibernate.loader.Loader.executeQueryStatement(Loader.java:1863)\n\tat org.hibernate.loader.Loader.executeQueryStatement(Loader.java:1839)\n\tat org.hibernate.loader.Loader.doQuery(Loader.java:910)\n\tat org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:355)\n\tat org.hibernate.loader.Loader.doList(Loader.java:2554)\n\tat org.hibernate.loader.Loader.doList(Loader.java:2540)\n\tat org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2370)\n\tat org.hibernate.loader.Loader.list(Loader.java:2365)\n\tat org.hibernate.loader.criteria.CriteriaLoader.list(CriteriaLoader.java:126)\n\tat org.hibernate.internal.SessionImpl.list(SessionImpl.java:1682)\n\tat org.hibernate.internal.CriteriaImpl.list(CriteriaImpl.java:380)\n\tat com.ebao.ls.foundation.dao.support.GenericDaoSupport.findByCriteria(GenericDaoSupport.java:113)\n\tat com.ebao.ls.foundation.dao.support.GenericDaoSupport.findByCriteria(GenericDaoSupport.java:89)\n\tat com.ebao.ls.dt.proposal.service.domain.impl.SalesJobCategoryRepositoryImpl.findByCompanyIdAndJobIds(SalesJobCategoryRepositoryImpl.java:67)\n\tat com.ebao.ls.dt.proposal.service.app.impl.SalesJobCategoryServiceImpl.findByCompanyIdAndJobIds(SalesJobCategoryServiceImpl.java:278)\n\tat com.ebao.ls.dt.proposal.rest.service.impl.ProposalRestServiceImpl.initialProposalData(ProposalRestServiceImpl.java:628)\n\tat sun.reflect.GeneratedMethodAccessor3723.invoke(Unknown Source)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:168)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)\n\tat org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)\n\tat org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:282)\n\tat org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)\n\tat org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:213)\n\tat com.sun.proxy.$Proxy227.initialProposalData(Unknown Source)\n\tat sun.reflect.GeneratedMethodAccessor3723.invoke(Unknown Source)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.apache.cxf.service.invoker.AbstractInvoker.performInvocation(AbstractInvoker.java:188)\n\tat org.apache.cxf.service.invoker.AbstractInvoker.invoke(AbstractInvoker.java:104)\n\tat org.apache.cxf.jaxrs.JAXRSInvoker.invoke(JAXRSInvoker.java:204)\n\tat org.apache.cxf.jaxrs.JAXRSInvoker.invoke(JAXRSInvoker.java:101)\n\tat org.apache.cxf.interceptor.ServiceInvokerInterceptor$1.run(ServiceInvokerInterceptor.java:58)\n\tat org.apache.cxf.interceptor.ServiceInvokerInterceptor.handleMessage(ServiceInvokerInterceptor.java:94)\n\tat org.apache.cxf.phase.PhaseInterceptorChain.doIntercept(PhaseInterceptorChain.java:272)\n\tat org.apache.cxf.transport.ChainInitiationObserver.onMessage(ChainInitiationObserver.java:121)\n\tat org.apache.cxf.transport.http.AbstractHTTPDestination.invoke(AbstractHTTPDestination.java:249)\n\tat org.apache.cxf.transport.servlet.ServletController.invokeDestination(ServletController.java:248)\n\tat org.apache.cxf.transport.servlet.ServletController.invoke(ServletController.java:222)\n\tat org.apache.cxf.transport.servlet.ServletController.invoke(ServletController.java:153)\n\tat org.apache.cxf.transport.servlet.CXFNonSpringServlet.invoke(CXFNonSpringServlet.java:181)\n\tat org.apache.cxf.transport.servlet.AbstractHTTPServlet.handleRequest(AbstractHTTPServlet.java:289)\n\tat org.apache.cxf.transport.servlet.AbstractHTTPServlet.doPost(AbstractHTTPServlet.java:209)\n\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:707)\n\tat org.apache.cxf.transport.servlet.AbstractHTTPServlet.service(AbstractHTTPServlet.java:265)\n\tat org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:841)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1650)\n\tat org.eclipse.jetty.websocket.server.WebSocketUpgradeFilter.doFilter(WebSocketUpgradeFilter.java:206)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat com.ebao.foundation.module.security.filters.EBaoInternalLoginFilter.executeFilter(EBaoInternalLoginFilter.java:169)\n\tat com.ebao.foundation.module.web.filter.GenericFilter.doFilter(GenericFilter.java:93)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat com.ebao.foundation.module.security.spring.SetAppUserFilter.executeFilter(SetAppUserFilter.java:65)\n\tat com.ebao.foundation.module.web.filter.GenericFilter.doFilter(GenericFilter.java:93)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:199)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:108)\n\tat org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:84)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:330)\n\tat com.ebao.foundation.module.security.spring.SetAppUserFilter.executeFilter(SetAppUserFilter.java:65)\n\tat com.ebao.foundation.module.web.filter.GenericFilter.doFilter(GenericFilter.java:93)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:108)\n\tat org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:84)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:113)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:64)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:113)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:154)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:45)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.authentication.www.BasicAuthenticationFilter.doFilter(BasicAuthenticationFilter.java:150)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:199)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:65)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:192)\n\tat org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:166)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat com.ebao.foundation.module.security.filters.S2SAuthenticationFilter.executeFilter(S2SAuthenticationFilter.java:34)\n\tat com.ebao.foundation.module.web.filter.GenericFilter.doFilter(GenericFilter.java:93)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat com.thetransactioncompany.cors.CORSFilter.doFilter(CORSFilter.java:197)\n\tat com.thetransactioncompany.cors.CORSFilter.doFilter(CORSFilter.java:274)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat com.ebao.foundation.module.web.filter.SetCharacterEncodingFilter.executeFilter(SetCharacterEncodingFilter.java:39)\n\tat com.ebao.foundation.module.web.filter.GenericFilter.doFilter(GenericFilter.java:93)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat com.ebao.ls.dt.filter.DtFilter.doFilter(DtFilter.java:41)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:330)\n\tat com.ebao.foundation.module.security.spring.SetAppUserFilter.executeFilter(SetAppUserFilter.java:65)\n\tat com.ebao.foundation.module.web.filter.GenericFilter.doFilter(GenericFilter.java:93)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:118)\n\tat org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:84)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:113)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:103)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:113)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:154)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:45)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.authentication.www.BasicAuthenticationFilter.doFilter(BasicAuthenticationFilter.java:150)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:199)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:50)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:87)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat com.ebao.ls.clpcp.filter.DirectAccessAuthenticationRestFilter.doFilterInternal(DirectAccessAuthenticationRestFilter.java:79)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:192)\n\tat org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:160)\n\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:346)\n\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:262)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:105)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:81)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:197)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.boot.web.support.ErrorPageFilter.doFilter(ErrorPageFilter.java:115)\n\tat org.springframework.boot.web.support.ErrorPageFilter.access$000(ErrorPageFilter.java:59)\n\tat org.springframework.boot.web.support.ErrorPageFilter$1.doFilterInternal(ErrorPageFilter.java:90)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\n\tat org.springframework.boot.web.support.ErrorPageFilter.doFilter(ErrorPageFilter.java:108)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:533)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:143)\n\tat org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:548)\n\tat org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:132)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:190)\n\tat org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:1595)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:188)\n\tat org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1253)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:168)\n\tat org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:473)\n\tat org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:1564)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:166)\n\tat org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1155)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)\n\tat org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:132)\n\tat org.eclipse.jetty.server.Server.handle(Server.java:561)\n\tat org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:334)\n\tat org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:251)\n\tat org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:279)\n\tat org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:104)\n\tat org.eclipse.jetty.io.ChannelEndPoint$2.run(ChannelEndPoint.java:124)\n\tat org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.doProduce(EatWhatYouKill.java:247)\n\tat org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.produce(EatWhatYouKill.java:140)\n\tat org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.run(EatWhatYouKill.java:131)\n\tat org.eclipse.jetty.util.thread.ReservedThreadExecutor$ReservedThread.run(ReservedThreadExecutor.java:243)\n\tat org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:679)\n\tat org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:597)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')'\n\tat line 1\n\tat sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)\n\tat sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)\n\tat sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)\n\tat java.lang.reflect.Constructor.newInstance(Constructor.java:423)\n\tat com.mysql.jdbc.Util.handleNewInstance(Util.java:377)\n\tat com.mysql.jdbc.Util.getInstance(Util.java:360)\n\tat com.mysql.jdbc.SQLError.createSQLException(SQLError.java:978)\n\tat com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3887)\n\tat com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3823)\n\tat com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2435)\n\tat com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2582)\n\tat com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2530)\n\tat com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1907)\n\tat com.mysql.jdbc.PreparedStatement.executeQuery(PreparedStatement.java:2030)\n\tat org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.extract(ResultSetReturnImpl.java:82) ... 191 common frames omitted",
-              "uid": "5620740224018440982"
-            },
-            {
-              "type": "alarm",
-              "completeTime": 0.001725912094116211,
-              "status": "done",
-              "value": "hello world",
-              "uid": "5620740224018440983"
-            },
-            {
-              "type": "copy-to-memory",
-              "completeTime": 0.001725912094116211,
-              "status": "done",
-              "value": "hello world",
-              "uid": "5620740224018440984"
-            },
-            {
-              "type": "exists",
-              "completeTime": 0.001725912094116211,
-              "status": "done",
-              "value": true,
-              "uid": "5620740224018440985"
-            },
-            {
-              "type": "read-factor",
-              "completeTime": 0.001725912094116211,
-              "status": "done",
-              "value": 123,
-              "uid": "5620740224018440986"
-            },
-            {
-              "type": "read-row",
-              "completeTime": 0.001725912094116211,
-              "status": "done",
-              "value": {
-                "a": 1,
-                "b": true,
-                "c": "hello world",
-                "number_factor": 200.0,
-                "date_factor": "2011-12-14",
-                "address_factor": "shanghai",
-                "date_factor_year": 2011,
-                "date_factor_month": 12,
-                "date_factor_workday": 31,
-                "text_factor": "text3",
-                "number_factor_add_constants": 250.0,
-                "two_number_factor": 400.0
-              },
-              "uid": "5620740224018440987"
-            },
-            {
-              "type": "insert-or-merge-row",
-              "completeTime": 0.001725912094116211,
-              "status": "done",
-              "insertCount": 1,
-              "updateCount": 0,
-              "value": {
-                "a": 1,
-                "b": true,
-                "c": "hello world",
-                "number_factor": 200.0,
-                "date_factor": "2011-12-14",
-                "address_factor": "shanghai",
-                "date_factor_year": 2011,
-                "date_factor_month": 12,
-                "date_factor_workday": 31,
-                "text_factor": "text3",
-                "number_factor_add_constants": 250.0,
-                "two_number_factor": 400.0
-              },
-              "uid": "5620740224018440988"
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "error": null,
-  "oldValue": {
-    "_id": "605d9938650465711e6bbe25",
-    "pk_id": 5,
-    "number_factor": 200.0,
-    "date_factor": "2011-12-14",
-    "address_factor": "shanghai",
-    "date_factor_year": 2011,
-    "date_factor_month": 12,
-    "date_factor_workday": 31,
-    "text_factor": "text3",
-    "number_factor_add_constants": 250.0,
-    "two_number_factor": 400.0,
-    "insert_time": "2021-03-26T08:20:08.974000",
-    "insert_row": "5620736534016489665",
-    "update_row": "5620737580033525276",
-    "update_time": "2021-03-26T08:22:13.669000"
-  },
-  "newValue": {
-    "data_id": 5,
-    "number_factor": 200,
-    "date_factor": "2011-12-14",
-    "address_factor": "shanghai",
-    "text_factor": "text3",
-    "array_factor": [
-      {
-        "pk_id": 2
-      },
-      {
-        "pk_id": 3
-      }
-    ],
-    "insert_time": "2021-03-26T08:20:08.971730",
-    "_id": "605d9938650465711e6bbe25"
-  }
+	"conditionResult": null,
+	"last_modified": "2021-03-26T08:27:22.588445",
+	"createTime": null,
+	"status": "DONE",
+	"pipelineId": "5608275072217293868",
+	"uid": "5620740224018440980",
+	"start_time": "2021-03-26T16:27:28.854085",
+	"completeTime": 0.0039560794830322266,
+	"stages": [
+		{
+			"conditionResult": null,
+			"name": "Noname Stage",
+			"units": [
+				{
+					"conditionResult": null,
+					"actions": [
+						{
+							"type": "write-factor",
+							"completeTime": 0.001977205276489258,
+							"status": null,
+							"error": null,
+							"uid": "5620740224018440981",
+							"insertCount": 0,
+							"updateCount": 0,
+							"value": null,
+							"writeFunction": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"conditionResult": null,
+			"name": "Noname Stage",
+			"units": [
+				{
+					"conditionResult": null,
+					"actions": [
+						{
+							"type": "write-factor",
+							"completeTime": 0.001725912094116211,
+							"status": null,
+							"error": null,
+							"uid": "5620740224018440982",
+							"insertCount": 0,
+							"updateCount": 0,
+							"value": null,
+							"writeFunction": null
+						},
+						{
+							"type": "write-factor",
+							"completeTime": 0.001725912094116211,
+							"status": "error",
+							"error": "could not extract ResultSet org.hibernate.exception.SQLGrammarException: could not extract ResultSet\n\tat org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:80)\n\tat org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:49)\n\tat org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:126)\n\tat org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:112)\n\tat org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.extract(ResultSetReturnImpl.java:91)\n\tat org.hibernate.loader.Loader.getResultSet(Loader.java:2066)\n\tat org.hibernate.loader.Loader.executeQueryStatement(Loader.java:1863)\n\tat org.hibernate.loader.Loader.executeQueryStatement(Loader.java:1839)\n\tat org.hibernate.loader.Loader.doQuery(Loader.java:910)\n\tat org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:355)\n\tat org.hibernate.loader.Loader.doList(Loader.java:2554)\n\tat org.hibernate.loader.Loader.doList(Loader.java:2540)\n\tat org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2370)\n\tat org.hibernate.loader.Loader.list(Loader.java:2365)\n\tat org.hibernate.loader.criteria.CriteriaLoader.list(CriteriaLoader.java:126)\n\tat org.hibernate.internal.SessionImpl.list(SessionImpl.java:1682)\n\tat org.hibernate.internal.CriteriaImpl.list(CriteriaImpl.java:380)\n\tat com.ebao.ls.foundation.dao.support.GenericDaoSupport.findByCriteria(GenericDaoSupport.java:113)\n\tat com.ebao.ls.foundation.dao.support.GenericDaoSupport.findByCriteria(GenericDaoSupport.java:89)\n\tat com.ebao.ls.dt.proposal.service.domain.impl.SalesJobCategoryRepositoryImpl.findByCompanyIdAndJobIds(SalesJobCategoryRepositoryImpl.java:67)\n\tat com.ebao.ls.dt.proposal.service.app.impl.SalesJobCategoryServiceImpl.findByCompanyIdAndJobIds(SalesJobCategoryServiceImpl.java:278)\n\tat com.ebao.ls.dt.proposal.rest.service.impl.ProposalRestServiceImpl.initialProposalData(ProposalRestServiceImpl.java:628)\n\tat sun.reflect.GeneratedMethodAccessor3723.invoke(Unknown Source)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:168)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)\n\tat org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)\n\tat org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:282)\n\tat org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)\n\tat org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:213)\n\tat com.sun.proxy.$Proxy227.initialProposalData(Unknown Source)\n\tat sun.reflect.GeneratedMethodAccessor3723.invoke(Unknown Source)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.apache.cxf.service.invoker.AbstractInvoker.performInvocation(AbstractInvoker.java:188)\n\tat org.apache.cxf.service.invoker.AbstractInvoker.invoke(AbstractInvoker.java:104)\n\tat org.apache.cxf.jaxrs.JAXRSInvoker.invoke(JAXRSInvoker.java:204)\n\tat org.apache.cxf.jaxrs.JAXRSInvoker.invoke(JAXRSInvoker.java:101)\n\tat org.apache.cxf.interceptor.ServiceInvokerInterceptor$1.run(ServiceInvokerInterceptor.java:58)\n\tat org.apache.cxf.interceptor.ServiceInvokerInterceptor.handleMessage(ServiceInvokerInterceptor.java:94)\n\tat org.apache.cxf.phase.PhaseInterceptorChain.doIntercept(PhaseInterceptorChain.java:272)\n\tat org.apache.cxf.transport.ChainInitiationObserver.onMessage(ChainInitiationObserver.java:121)\n\tat org.apache.cxf.transport.http.AbstractHTTPDestination.invoke(AbstractHTTPDestination.java:249)\n\tat org.apache.cxf.transport.servlet.ServletController.invokeDestination(ServletController.java:248)\n\tat org.apache.cxf.transport.servlet.ServletController.invoke(ServletController.java:222)\n\tat org.apache.cxf.transport.servlet.ServletController.invoke(ServletController.java:153)\n\tat org.apache.cxf.transport.servlet.CXFNonSpringServlet.invoke(CXFNonSpringServlet.java:181)\n\tat org.apache.cxf.transport.servlet.AbstractHTTPServlet.handleRequest(AbstractHTTPServlet.java:289)\n\tat org.apache.cxf.transport.servlet.AbstractHTTPServlet.doPost(AbstractHTTPServlet.java:209)\n\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:707)\n\tat org.apache.cxf.transport.servlet.AbstractHTTPServlet.service(AbstractHTTPServlet.java:265)\n\tat org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:841)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1650)\n\tat org.eclipse.jetty.websocket.server.WebSocketUpgradeFilter.doFilter(WebSocketUpgradeFilter.java:206)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat com.ebao.foundation.module.security.filters.EBaoInternalLoginFilter.executeFilter(EBaoInternalLoginFilter.java:169)\n\tat com.ebao.foundation.module.web.filter.GenericFilter.doFilter(GenericFilter.java:93)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat com.ebao.foundation.module.security.spring.SetAppUserFilter.executeFilter(SetAppUserFilter.java:65)\n\tat com.ebao.foundation.module.web.filter.GenericFilter.doFilter(GenericFilter.java:93)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:199)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:108)\n\tat org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:84)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:330)\n\tat com.ebao.foundation.module.security.spring.SetAppUserFilter.executeFilter(SetAppUserFilter.java:65)\n\tat com.ebao.foundation.module.web.filter.GenericFilter.doFilter(GenericFilter.java:93)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:108)\n\tat org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:84)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:113)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:64)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:113)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:154)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:45)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.authentication.www.BasicAuthenticationFilter.doFilter(BasicAuthenticationFilter.java:150)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:199)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:65)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:192)\n\tat org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:166)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat com.ebao.foundation.module.security.filters.S2SAuthenticationFilter.executeFilter(S2SAuthenticationFilter.java:34)\n\tat com.ebao.foundation.module.web.filter.GenericFilter.doFilter(GenericFilter.java:93)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat com.thetransactioncompany.cors.CORSFilter.doFilter(CORSFilter.java:197)\n\tat com.thetransactioncompany.cors.CORSFilter.doFilter(CORSFilter.java:274)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat com.ebao.foundation.module.web.filter.SetCharacterEncodingFilter.executeFilter(SetCharacterEncodingFilter.java:39)\n\tat com.ebao.foundation.module.web.filter.GenericFilter.doFilter(GenericFilter.java:93)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat com.ebao.ls.dt.filter.DtFilter.doFilter(DtFilter.java:41)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:330)\n\tat com.ebao.foundation.module.security.spring.SetAppUserFilter.executeFilter(SetAppUserFilter.java:65)\n\tat com.ebao.foundation.module.web.filter.GenericFilter.doFilter(GenericFilter.java:93)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:118)\n\tat org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:84)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:113)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:103)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:113)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:154)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:45)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.authentication.www.BasicAuthenticationFilter.doFilter(BasicAuthenticationFilter.java:150)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:199)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:50)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:87)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat com.ebao.ls.clpcp.filter.DirectAccessAuthenticationRestFilter.doFilterInternal(DirectAccessAuthenticationRestFilter.java:79)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\n\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\n\tat org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:192)\n\tat org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:160)\n\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:346)\n\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:262)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:105)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:81)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:197)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.springframework.boot.web.support.ErrorPageFilter.doFilter(ErrorPageFilter.java:115)\n\tat org.springframework.boot.web.support.ErrorPageFilter.access$000(ErrorPageFilter.java:59)\n\tat org.springframework.boot.web.support.ErrorPageFilter$1.doFilterInternal(ErrorPageFilter.java:90)\n\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\n\tat org.springframework.boot.web.support.ErrorPageFilter.doFilter(ErrorPageFilter.java:108)\n\tat org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1637)\n\tat org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:533)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:143)\n\tat org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:548)\n\tat org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:132)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:190)\n\tat org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:1595)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:188)\n\tat org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1253)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:168)\n\tat org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:473)\n\tat org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:1564)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:166)\n\tat org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1155)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)\n\tat org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:132)\n\tat org.eclipse.jetty.server.Server.handle(Server.java:561)\n\tat org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:334)\n\tat org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:251)\n\tat org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:279)\n\tat org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:104)\n\tat org.eclipse.jetty.io.ChannelEndPoint$2.run(ChannelEndPoint.java:124)\n\tat org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.doProduce(EatWhatYouKill.java:247)\n\tat org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.produce(EatWhatYouKill.java:140)\n\tat org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.run(EatWhatYouKill.java:131)\n\tat org.eclipse.jetty.util.thread.ReservedThreadExecutor$ReservedThread.run(ReservedThreadExecutor.java:243)\n\tat org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:679)\n\tat org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:597)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')'\n\tat line 1\n\tat sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)\n\tat sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)\n\tat sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)\n\tat java.lang.reflect.Constructor.newInstance(Constructor.java:423)\n\tat com.mysql.jdbc.Util.handleNewInstance(Util.java:377)\n\tat com.mysql.jdbc.Util.getInstance(Util.java:360)\n\tat com.mysql.jdbc.SQLError.createSQLException(SQLError.java:978)\n\tat com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3887)\n\tat com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3823)\n\tat com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2435)\n\tat com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2582)\n\tat com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2530)\n\tat com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1907)\n\tat com.mysql.jdbc.PreparedStatement.executeQuery(PreparedStatement.java:2030)\n\tat org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.extract(ResultSetReturnImpl.java:82) ... 191 common frames omitted",
+							"uid": "5620740224018440982"
+						},
+						{
+							"type": "alarm",
+							"completeTime": 0.001725912094116211,
+							"status": "done",
+							"value": "hello world",
+							"uid": "5620740224018440983"
+						},
+						{
+							"type": "copy-to-memory",
+							"completeTime": 0.001725912094116211,
+							"status": "done",
+							"value": "hello world",
+							"uid": "5620740224018440984"
+						},
+						{
+							"type": "exists",
+							"completeTime": 0.001725912094116211,
+							"status": "done",
+							"value": true,
+							"uid": "5620740224018440985"
+						},
+						{
+							"type": "read-factor",
+							"completeTime": 0.001725912094116211,
+							"status": "done",
+							"value": 123,
+							"uid": "5620740224018440986"
+						},
+						{
+							"type": "read-row",
+							"completeTime": 0.001725912094116211,
+							"status": "done",
+							"value": {
+								"a": 1,
+								"b": true,
+								"c": "hello world",
+								"number_factor": 200.0,
+								"date_factor": "2011-12-14",
+								"address_factor": "shanghai",
+								"date_factor_year": 2011,
+								"date_factor_month": 12,
+								"date_factor_workday": 31,
+								"text_factor": "text3",
+								"number_factor_add_constants": 250.0,
+								"two_number_factor": 400.0
+							},
+							"uid": "5620740224018440987"
+						},
+						{
+							"type": "insert-or-merge-row",
+							"completeTime": 0.001725912094116211,
+							"status": "done",
+							"insertCount": 1,
+							"updateCount": 0,
+							"value": {
+								"a": 1,
+								"b": true,
+								"c": "hello world",
+								"number_factor": 200.0,
+								"date_factor": "2011-12-14",
+								"address_factor": "shanghai",
+								"date_factor_year": 2011,
+								"date_factor_month": 12,
+								"date_factor_workday": 31,
+								"text_factor": "text3",
+								"number_factor_add_constants": 250.0,
+								"two_number_factor": 400.0
+							},
+							"uid": "5620740224018440988"
+						}
+					]
+				}
+			]
+		}
+	],
+	"error": null,
+	"oldValue": {
+		"_id": "605d9938650465711e6bbe25",
+		"pk_id": 5,
+		"number_factor": 200.0,
+		"date_factor": "2011-12-14",
+		"address_factor": "shanghai",
+		"date_factor_year": 2011,
+		"date_factor_month": 12,
+		"date_factor_workday": 31,
+		"text_factor": "text3",
+		"number_factor_add_constants": 250.0,
+		"two_number_factor": 400.0,
+		"insert_time": "2021-03-26T08:20:08.974000",
+		"insert_row": "5620736534016489665",
+		"update_row": "5620737580033525276",
+		"update_time": "2021-03-26T08:22:13.669000"
+	},
+	"newValue": {
+		"data_id": 5,
+		"number_factor": 200,
+		"date_factor": "2011-12-14",
+		"address_factor": "shanghai",
+		"text_factor": "text3",
+		"array_factor": [
+			{
+				"pk_id": 2
+			},
+			{
+				"pk_id": 3
+			}
+		],
+		"insert_time": "2021-03-26T08:20:08.971730",
+		"_id": "605d9938650465711e6bbe25"
+	}
 }

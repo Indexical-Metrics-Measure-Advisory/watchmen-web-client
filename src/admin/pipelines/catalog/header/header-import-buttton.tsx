@@ -1,5 +1,7 @@
 import {ImportTPSCSType, tryToImportTopicsAndPipelines} from '@/services/data/data-import/import-data';
 import {ImportDataResponse} from '@/services/data/data-import/import-data-types';
+import {MonitorRules} from '@/services/data/data-quality/rule-types';
+import {isRuleOnFactor, isRuleOnTopic} from '@/services/data/data-quality/rules';
 import {listConnectedSpacesForExport} from '@/services/data/tuples/connected-space';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {savePipelinesGraphics} from '@/services/data/tuples/pipeline';
@@ -38,6 +40,7 @@ const PipelinesImport = (props: {
 	pipelines: Array<Pipeline>; cachedPipelines: Array<Pipeline>;
 	spaces: Array<Space>; cachedSpaces: Array<Space>;
 	connectedSpaces: Array<ConnectedSpace>; cachedConnectedSpaces: Array<ConnectedSpace>;
+	monitorRules: MonitorRules;
 	onSuccess: (options: { topics: Array<Topic>, pipelines: Array<Pipeline> }) => void
 }) => {
 	const {
@@ -45,6 +48,7 @@ const PipelinesImport = (props: {
 		pipelines, cachedPipelines,
 		spaces, cachedSpaces,
 		connectedSpaces, cachedConnectedSpaces,
+		monitorRules,
 		onSuccess
 	} = props;
 
@@ -79,6 +83,7 @@ const PipelinesImport = (props: {
 		const selectedSubjects = candidates.subjects.filter(x => x.picked).map(x => x.subject);
 
 		fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST, async () => {
+
 			return await tryToImportTopicsAndPipelines({
 				topics: selectedTopics,
 				pipelines: selectedPipelines,
@@ -93,6 +98,28 @@ const PipelinesImport = (props: {
 						}
 						return connectedSpace;
 					}).filter(x => !!x) as Array<ConnectedSpace>,
+				monitorRules: monitorRules.filter(rule => {
+					if (isRuleOnTopic(rule) || isRuleOnFactor(rule)) {
+						// eslint-disable-next-line
+						if (selectedTopics.some(topic => topic.topicId == rule.topicId)) {
+							// rule is for selected topics
+							if (rule.params?.topicId == null) {
+								// rule is not about another topic, should be imported
+								return true;
+							} else {
+								// another topic is also in selected topics, should be imported
+								// otherwise rule is ignored
+								// eslint-disable-next-line
+								return selectedTopics.some(topic => topic.topicId == rule.params?.topicId);
+							}
+						} else {
+							return false;
+						}
+					} else {
+						// global rule
+						return true;
+					}
+				}),
 				importType
 			});
 		}, (response: ImportDataResponse) => {
@@ -172,7 +199,7 @@ export const HeaderImportButton = () => {
 	};
 	const onFileSelected = async (file: File) => {
 		const content = await file.text();
-		const {topics, pipelines, spaces, connectedSpaces} = content.split('\n')
+		const {topics, pipelines, spaces, connectedSpaces, monitorRules} = content.split('\n')
 			.map(x => x.trim())
 			.filter(x => x.startsWith('<a href="data:application/json;base64,'))
 			.map(x => x.replace('<a href="data:application/json;base64,', ''))
@@ -187,13 +214,17 @@ export const HeaderImportButton = () => {
 					all.connectedSpaces.push(item as ConnectedSpace);
 				} else if (item.spaceId) {
 					all.spaces.push(item as Space);
+				} else {
+					// monitor rules, each one is an array
+					all.monitorRules.push(...item);
 				}
 				return all;
 			}, {
 				topics: [] as Array<Topic>,
 				pipelines: [] as Array<Pipeline>,
 				spaces: [] as Array<Space>,
-				connectedSpaces: [] as Array<ConnectedSpace>
+				connectedSpaces: [] as Array<ConnectedSpace>,
+				monitorRules: [] as MonitorRules
 			});
 		fireCache(AdminCacheEventTypes.ASK_DATA, async (data?: AdminCacheData) => {
 			const {topics: cachedTopics, pipelines: cachedPipelines} = data || {};
@@ -203,6 +234,7 @@ export const HeaderImportButton = () => {
 				                 pipelines={pipelines} cachedPipelines={cachedPipelines || []}
 				                 spaces={spaces} cachedSpaces={cachedSpaces}
 				                 connectedSpaces={connectedSpaces} cachedConnectedSpaces={cachedConnectedSpaces}
+				                 monitorRules={monitorRules}
 				                 onSuccess={onImportSuccess}/>, {
 					marginTop: '10vh',
 					marginLeft: '20%',

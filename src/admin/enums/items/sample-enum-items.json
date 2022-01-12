@@ -1,37 +1,37 @@
 [
-  {
-    "code": "001",
-    "label": "New York",
-    "parentCode": "001"
-  },
-  {
-    "code": "002",
-    "label": "Maine",
-    "parentCode": "001"
-  },
-  {
-    "code": "003",
-    "label": "New Hampshire",
-    "parentCode": "001"
-  },
-  {
-    "code": "004",
-    "label": "Vermont",
-    "parentCode": "001"
-  },
-  {
-    "code": "005",
-    "label": "Rhode Island",
-    "parentCode": "001"
-  },
-  {
-    "code": "006",
-    "label": "Connecticut",
-    "parentCode": "001"
-  },
-  {
-    "code": "007",
-    "label": "Massachusetts",
-    "parentCode": "001"
-  }
+	{
+		"code": "001",
+		"label": "New York",
+		"parentCode": "001"
+	},
+	{
+		"code": "002",
+		"label": "Maine",
+		"parentCode": "001"
+	},
+	{
+		"code": "003",
+		"label": "New Hampshire",
+		"parentCode": "001"
+	},
+	{
+		"code": "004",
+		"label": "Vermont",
+		"parentCode": "001"
+	},
+	{
+		"code": "005",
+		"label": "Rhode Island",
+		"parentCode": "001"
+	},
+	{
+		"code": "006",
+		"label": "Connecticut",
+		"parentCode": "001"
+	},
+	{
+		"code": "007",
+		"label": "Massachusetts",
+		"parentCode": "001"
+	}
 ]
