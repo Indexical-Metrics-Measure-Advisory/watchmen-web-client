@@ -128,7 +128,7 @@ const toFactorsFromInstanceData = (topic: Topic, data: ShouldBeFactorsInstance, 
 
 		Object.keys(row).forEach(name => {
 			const factorName = prefix ? `${prefix}.${name}` : name;
-			const value = row[factorName];
+			const value = row[name];
 
 			const factor = map[factorName] ?? createFactor(mockTopic, true);
 
