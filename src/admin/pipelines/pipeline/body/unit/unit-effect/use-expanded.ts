@@ -63,7 +63,7 @@ export const useExpanded = (pipeline: Pipeline, stage: PipelineStage, unit: Pipe
 				fire(UnitEventTypes.EXPAND_CONTENT);
 			}
 		});
-	}, [firePipeline, pipeline]);
+	}, [firePipeline, fire, pipeline]);
 
 	return expanded;
 };

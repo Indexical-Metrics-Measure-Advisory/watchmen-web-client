@@ -59,7 +59,7 @@ export const useExpanded = (pipeline: Pipeline, stage: PipelineStage) => {
 				fire(StageEventTypes.EXPAND_CONTENT);
 			}
 		});
-	}, [firePipeline, pipeline]);
+	}, [firePipeline, fire, pipeline]);
 
 	return expanded;
 };
