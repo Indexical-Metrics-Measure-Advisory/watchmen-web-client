@@ -11,7 +11,7 @@ export const HeaderFocusModeButtons = (props: { pipeline: Pipeline }) => {
 	const {pipeline} = props;
 
 	const {fire} = usePipelineEventBus();
-	const [focusMode, setFocusMode] = useState<PipelineFocusMode>(PipelineFocusMode.UNIT);
+	const [focusMode, setFocusMode] = useState<PipelineFocusMode>(PipelineFocusMode.FREE_WALK);
 	// play this effect only on pipeline changed
 	useEffect(() => {
 		fire(PipelineEventTypes.ASK_FOCUS_MODE, pipeline, (mode) => {

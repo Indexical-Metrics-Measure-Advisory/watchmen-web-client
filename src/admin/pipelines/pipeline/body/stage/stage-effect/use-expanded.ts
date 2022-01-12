@@ -8,7 +8,7 @@ import {StageEventTypes} from '../stage-event-bus-types';
 
 export const useExpanded = (pipeline: Pipeline, stage: PipelineStage) => {
 	const {fire: firePipeline, on: onPipeline, off: offPipeline} = usePipelineEventBus();
-	const {on, off} = useStageEventBus();
+	const {on, off, fire} = useStageEventBus();
 	const [expanded, setExpanded] = useState(false);
 	useEffect(() => {
 		const onExpandContent = () => {
@@ -51,6 +51,15 @@ export const useExpanded = (pipeline: Pipeline, stage: PipelineStage) => {
 			offPipeline(PipelineEventTypes.STAGE_EXPANDED, onStageExpanded);
 		};
 	}, [firePipeline, onPipeline, offPipeline, pipeline, stage]);
+	useEffect(() => {
+		firePipeline(PipelineEventTypes.ASK_FOCUS_MODE, pipeline, (mode: PipelineFocusMode) => {
+			if (mode === PipelineFocusMode.FREE_WALK) {
+				setExpanded(true);
+			} else {
+				fire(StageEventTypes.EXPAND_CONTENT);
+			}
+		});
+	}, [firePipeline, pipeline]);
 
 	return expanded;
 };

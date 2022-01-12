@@ -9,7 +9,7 @@ import {UnitEventTypes} from '../unit-event-bus-types';
 
 export const useExpanded = (pipeline: Pipeline, stage: PipelineStage, unit: PipelineStageUnit) => {
 	const {on: onPipeline, off: offPipeline, fire: firePipeline} = usePipelineEventBus();
-	const {on, off} = useUnitEventBus();
+	const {on, off, fire} = useUnitEventBus();
 	const [expanded, setExpanded] = useState(false);
 	useEffect(() => {
 		const onExpandContent = () => {
@@ -55,6 +55,15 @@ export const useExpanded = (pipeline: Pipeline, stage: PipelineStage, unit: Pipe
 			offPipeline(PipelineEventTypes.UNIT_EXPANDED, onUnitExpanded);
 		};
 	}, [firePipeline, onPipeline, offPipeline, pipeline, stage, unit]);
+	useEffect(() => {
+		firePipeline(PipelineEventTypes.ASK_FOCUS_MODE, pipeline, (mode: PipelineFocusMode) => {
+			if (mode === PipelineFocusMode.FREE_WALK) {
+				setExpanded(true);
+			} else {
+				fire(UnitEventTypes.EXPAND_CONTENT);
+			}
+		});
+	}, [firePipeline, pipeline]);
 
 	return expanded;
 };
