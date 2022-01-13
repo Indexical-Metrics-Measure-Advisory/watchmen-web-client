@@ -126,6 +126,35 @@ const toFactorsFromInstanceData = (topic: Topic, data: ShouldBeFactorsInstance, 
 			return map;
 		}
 
+		if (prefix != null) {
+			// if there is prefix, create auto-generated id for referring to ancestors
+			const ancestors = prefix.split('.');
+			if (ancestors.length === 1) {
+				// first level sub object/array, do nothing
+			} else {
+				const ancestorsCount = ancestors.length;
+				ancestors.forEach((ancestor, index) => {
+					if (index === ancestorsCount - 1) {
+						// this is me, ignored.
+						return;
+					}
+					let factorName = `${prefix}.aid_${ancestor}`;
+					const tails = ancestors.filter((_, i) => i > index).map(x => x.toUpperCase());
+					if (tails.includes(ancestor.toUpperCase())) {
+						// there is duplication, eg. a.b.c.b.e, now we are in first "b", and there is another "b" following.
+						// use distance as suffix
+						factorName = `${factorName}_${ancestorsCount - 1 - index}`;
+					}
+					const factor = map[factorName] ?? createFactor(mockTopic, true);
+					factor.name = factorName;
+					factor.type = FactorType.NUMBER;
+					const ancestorName = ancestors.filter((_, i) => i <= index).join('.');
+					factor.description = `Auto generated id refers to ${ancestorName}.aid_me`;
+					map[factorName] = factor;
+				});
+			}
+		}
+
 		Object.keys(row).forEach(name => {
 			const factorName = prefix ? `${prefix}.${name}` : name;
 			const value = row[name];
@@ -207,6 +236,15 @@ const toFactorsFromInstanceData = (topic: Topic, data: ShouldBeFactorsInstance, 
 					throw new Error(`Conflict type[${FactorType.ARRAY}, ${factor.type}] detected on factor[${factorName}].`);
 				}
 				if (value.length !== 0) {
+					{
+						// create aid_me factor to identify myself
+						const factorName = `${prefix}.aid_me`;
+						const factor = map[factorName] ?? createFactor(mockTopic, true);
+						factor.name = factorName;
+						factor.type = FactorType.NUMBER;
+						factor.description = 'Auto generated id for sub object referring.';
+						map[factorName] = factor;
+					}
 					toFactorsFromInstanceData(topic, value, factorName).forEach(factor => {
 						map[factor.name] = factor;
 					});
@@ -220,6 +258,15 @@ const toFactorsFromInstanceData = (topic: Topic, data: ShouldBeFactorsInstance, 
 					// already read a value of object, ignore this value
 				} else {
 					throw new Error(`Conflict type[${FactorType.OBJECT}, ${factor.type}] detected on factor[${factorName}].`);
+				}
+				{
+					// create aid_me factor to identify myself
+					const factorName = `${prefix}.aid_me`;
+					const factor = map[factorName] ?? createFactor(mockTopic, true);
+					factor.name = factorName;
+					factor.type = FactorType.NUMBER;
+					factor.description = 'Auto generated id for sub object.';
+					map[factorName] = factor;
 				}
 				toFactorsFromInstanceData(topic, [value], factorName).forEach(factor => {
 					map[factor.name] = factor;

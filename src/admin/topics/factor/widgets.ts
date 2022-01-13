@@ -39,7 +39,9 @@ export const FactorSerialCellContainer = styled(FactorCell).attrs({'data-widget'
 	}
 `;
 
-export const FactorNameCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-name-cell'})``;
+export const FactorNameCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-name-cell'})`
+	grid-column : span 3;
+`;
 export const FactorLabelCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-label-cell'})`
 	grid-column : span 3;
 `;

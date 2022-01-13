@@ -24,17 +24,17 @@ export const FactorRow = (props: {
 		{/*<FactorSerialCell topic={topic} factor={factor}/>*/}
 		<FactorPropLabel><span>#{topic.factors.indexOf(factor) + 1}</span> Name</FactorPropLabel>
 		<FactorNameCell topic={topic} factor={factor}/>
-		<FactorPropLabel>Label</FactorPropLabel>
-		<FactorLabelCell factor={factor}/>
 		<FactorPropLabel>Type</FactorPropLabel>
 		<FactorTypeCell topic={topic} factor={factor}/>
-		<FactorEnumCell factor={factor} enums={enums}/>
+		<FactorPropLabel>Label</FactorPropLabel>
+		<FactorLabelCell factor={factor}/>
 		<FactorPropLabel>Default Value</FactorPropLabel>
 		<FactorDefaultValueCell factor={factor}/>
+		<FactorEnumCell factor={factor} enums={enums}/>
 		<FactorPropLabel>Index Group</FactorPropLabel>
 		<FactorIndexGroupCell factor={factor}/>
-		<FactorFlattenCell topic={topic} factor={factor}/>
 		<FactorEncryptCell topic={topic} factor={factor}/>
+		<FactorFlattenCell topic={topic} factor={factor}/>
 		<FactorButtons topic={topic} factor={factor}/>
 	</FactorRowContainer>;
 };
