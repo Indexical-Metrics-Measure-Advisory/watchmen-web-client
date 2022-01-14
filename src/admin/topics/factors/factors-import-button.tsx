@@ -26,7 +26,6 @@ export const FactorsImportButton = (props: { topic: Topic }) => {
 					const content = await file.text();
 					// TODO
 					topic.factors = await parseFromInstanceJson(topic, content);
-					console.log(topic.factors)
 					fire(TopicEventTypes.FACTORS_IMPORTED, topic.factors);
 					break;
 				}
