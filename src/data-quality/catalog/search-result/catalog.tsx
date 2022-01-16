@@ -40,6 +40,7 @@ interface EditCatalog extends Omit<Catalog, 'tags'>, TupleHolder {
 const asEditingCatalog = (catalog: Catalog): EditCatalog => {
 	return {
 		...catalog,
+		topicIds: [...(catalog.topicIds || [])],
 		flatTags: (catalog.tags || []).join(' ')
 	};
 };
