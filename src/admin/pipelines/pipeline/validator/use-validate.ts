@@ -21,7 +21,7 @@ export const useValidate = () => {
 				pipeline.validated = true;
 				resolve({
 					pass: true,
-					message: `Action[${result.missIndexed.join(',')}] might not be indexed, try to use index when read or write data from storage.`
+					message: `Action[${result.missIndexed.join(',')}] might not be indexed, try to use index when read from or write into storage.`
 				});
 			} else {
 				pipeline.validated = true;
