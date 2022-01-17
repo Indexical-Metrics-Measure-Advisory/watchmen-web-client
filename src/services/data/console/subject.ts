@@ -1,3 +1,4 @@
+import {fetchDemoSubjectData} from '@/services/data/console/temp-demo';
 import {Apis, post} from '../apis';
 import {fetchMockSubjectData} from '../mock/console/mock-subject';
 import {SubjectId} from '../tuples/subject-types';
@@ -11,7 +12,11 @@ export const fetchSubjectData = async (options: {
 }): Promise<DataSetPage> => {
 	const {subjectId, pageNumber = 1, pageSize = 100} = options;
 	if (isMockService()) {
-		return fetchMockSubjectData({subjectId, pageNumber, pageSize});
+		if (subjectId === '100') {
+			return fetchDemoSubjectData({subjectId, pageNumber, pageSize});
+		} else {
+			return fetchMockSubjectData({subjectId, pageNumber, pageSize});
+		}
 	} else {
 		return await post({api: Apis.SUBJECT_DATA, search: {subjectId}, data: {pageNumber, pageSize}});
 	}

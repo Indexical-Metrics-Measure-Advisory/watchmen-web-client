@@ -1,3 +1,4 @@
+import {fetchDemoChartData} from '@/services/data/console/temp-demo';
 import {Apis, get, post} from '../apis';
 import {
 	fetchMockBarChartData,
@@ -27,6 +28,9 @@ export const fetchChartDataTemporary = async (report: Report): Promise<ChartData
 };
 export const fetchChartData = async (reportId: ReportId, type: ChartType): Promise<ChartDataSet> => {
 	if (isMockService()) {
+		if (Number(reportId) >= 100 && Number(reportId) < 200) {
+			return fetchDemoChartData(reportId);
+		}
 		if (type === ChartType.COUNT) {
 			return fetchMockCountChartData(reportId);
 		} else if (type === ChartType.PIE) {

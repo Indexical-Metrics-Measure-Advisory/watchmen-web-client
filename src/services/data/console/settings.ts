@@ -1,3 +1,4 @@
+import {DEMO_CONNECTED_SPACE, DEMO_SPACE, DEMO_TOPIC} from '@/services/data/console/temp-demo';
 import {fetchLastSnapshot} from '../account/last-snapshot';
 import {fetchConnectedSpaceGraphics, fetchConnectedSpaces} from '../tuples/connected-space';
 import {fetchDashboards} from '../tuples/dashboard';
@@ -26,8 +27,10 @@ export const fetchConsoleSettingsData = async (): Promise<ConsoleSettings> => {
 
 	// @ts-ignore
 	return {
-		connectedSpaces, connectedSpaceGraphics, dashboards,
-		availableSpaces, availableTopics,
+		connectedSpaces: [...connectedSpaces, DEMO_CONNECTED_SPACE],
+		connectedSpaceGraphics, dashboards,
+		availableSpaces: [...availableSpaces, DEMO_SPACE],
+		availableTopics: [...availableTopics, DEMO_TOPIC],
 		favorite, lastSnapshot
 	};
 };

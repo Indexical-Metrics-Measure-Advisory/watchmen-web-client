@@ -1,3 +1,4 @@
+import {DEMO_CONNECTED_SPACE} from '@/services/data/console/temp-demo';
 import {Apis, get, post} from '../apis';
 import {
 	deleteMockConnectedSpace,
@@ -28,7 +29,7 @@ export const fetchConnectedSpaces = async (): Promise<Array<ConnectedSpace>> => 
 
 export const listConnectedSpacesForExport = async (): Promise<Array<ConnectedSpace>> => {
 	if (isMockService()) {
-		return listMockConnectedSpacesForExport();
+		return [...await listMockConnectedSpacesForExport(), DEMO_CONNECTED_SPACE];
 	} else {
 		return await get({api: Apis.CONNECTED_SPACES_EXPORT});
 	}

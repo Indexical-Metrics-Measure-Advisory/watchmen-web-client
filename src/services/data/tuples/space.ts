@@ -1,5 +1,6 @@
 import {findAccount} from '../account';
 import {Apis, get, page, post} from '../apis';
+import {DEMO_SPACE} from '../console/temp-demo';
 import {
 	fetchMockSpace,
 	listMockSpaces,
@@ -56,7 +57,7 @@ export const listSpacesForExport = async (): Promise<Array<Space>> => {
 		let spaces: Array<Space> = [];
 		try {
 			if (isMockService()) {
-				spaces = await listMockSpacesForExport();
+				spaces = [...await listMockSpacesForExport(), DEMO_SPACE];
 			} else {
 				spaces = (await get({api: Apis.SPACES_EXPORT}) || []).map((space: SpaceOnServer) => transformFromServer(space));
 			}
