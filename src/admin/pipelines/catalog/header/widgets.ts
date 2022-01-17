@@ -138,3 +138,12 @@ export const ImportType = styled.div`
 		white-space : nowrap;
 	}
 `;
+export const ExportOptionBar = styled.div`
+	display     : flex;
+	position    : relative;
+	flex-grow   : 1;
+	align-items : center;
+`;
+export const ExportOptionLabel = styled.span`
+	margin-right : calc(var(--margin) / 2);
+`;

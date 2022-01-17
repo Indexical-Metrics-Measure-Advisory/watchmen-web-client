@@ -18,8 +18,10 @@ import {Pipeline} from '@/services/data/tuples/pipeline-types';
 import {listSpacesForExport} from '@/services/data/tuples/space';
 import {Space} from '@/services/data/tuples/space-types';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {isNotNull} from '@/services/data/utils';
 import {AdminCacheData} from '@/services/local-persist/types';
 import {Button} from '@/widgets/basic/button';
+import {CheckBox} from '@/widgets/basic/checkbox';
 import {ICON_EXPORT} from '@/widgets/basic/constants';
 import {PageHeaderButton} from '@/widgets/basic/page-header-buttons';
 import {ButtonInk} from '@/widgets/basic/types';
@@ -42,7 +44,7 @@ import {AssembledPipelinesGraphics} from '../types';
 import {TopicPickerTable} from './topic-picker-table';
 import {SpaceCandidate, TopicCandidate} from './types';
 import {isSpaceCandidate, isTopicCandidate} from './utils';
-import {PICKER_DIALOG_HEIGHT, PickerDialogBody} from './widgets';
+import {ExportOptionBar, ExportOptionLabel, PICKER_DIALOG_HEIGHT, PickerDialogBody} from './widgets';
 
 const findPipelinesWriteMe = (topics: Array<Topic>, topicRelations: TopicRelationMap): Array<Pipeline> => {
 	return topics.reduce((found, topic) => {
@@ -66,9 +68,10 @@ const findByTopics = (options: {
 	finalTopicMap: TopicsMap;
 	finalPipelineMap: PipelinesMap
 	topicRelations: TopicRelationMap;
-	pipelineRelations: PipelineRelationMap
+	pipelineRelations: PipelineRelationMap;
+	selectionOnly: boolean;
 }) => {
-	const {topics, finalTopicMap, finalPipelineMap, topicRelations, pipelineRelations} = options;
+	const {topics, finalTopicMap, finalPipelineMap, topicRelations, pipelineRelations, selectionOnly} = options;
 
 	topics.forEach(topic => {
 		if (!finalTopicMap[topic.topicId]) {
@@ -77,19 +80,38 @@ const findByTopics = (options: {
 	});
 	const writeMe = findPipelinesWriteMe(topics, topicRelations);
 	if (writeMe.length !== 0) {
-		const relatedPipelines = writeMe.filter(pipeline => {
-			if (!finalPipelineMap[pipeline.pipelineId]) {
+		if (selectionOnly) {
+			// pipelines write topic which not in given topics collection will be excluded
+			writeMe.map(pipeline => {
+				// find topics related with given pipeline, and not included by given topics
+				const relatedTopics = findTopicsOnMe([pipeline], pipelineRelations).filter(topic => {
+					return !finalTopicMap[topic.topicId];
+				});
+				return relatedTopics.length !== 0 ? null : pipeline;
+			}).filter(isNotNull).forEach(pipeline => {
 				finalPipelineMap[pipeline.pipelineId] = pipeline;
-				return true;
-			} else {
-				return false;
+			});
+		} else {
+			// find topics which also written by the pipelines which wrote me
+			const relatedPipelines = writeMe.filter(pipeline => {
+				if (!finalPipelineMap[pipeline.pipelineId]) {
+					finalPipelineMap[pipeline.pipelineId] = pipeline;
+					return true;
+				} else {
+					return false;
+				}
+			});
+			const relatedTopics = findTopicsOnMe(relatedPipelines, pipelineRelations).filter(topic => {
+				return !finalTopicMap[topic.topicId];
+			});
+			if (relatedTopics.length !== 0) {
+				findByTopics({
+					topics: relatedTopics,
+					finalTopicMap, finalPipelineMap,
+					topicRelations, pipelineRelations,
+					selectionOnly
+				});
 			}
-		});
-		const relatedTopics = findTopicsOnMe(relatedPipelines, pipelineRelations).filter(topic => {
-			return !finalTopicMap[topic.topicId];
-		});
-		if (relatedTopics.length !== 0) {
-			findByTopics({topics: relatedTopics, finalTopicMap, finalPipelineMap, topicRelations, pipelineRelations});
 		}
 	}
 };
@@ -107,6 +129,7 @@ const PipelinesDownload = (props: {
 	const {pipelines, topics, graphics, dataSources, externalWriters, spaces, connectedSpaces, askSvg} = props;
 
 	const {fire} = useEventBus();
+	const [selectionOnly, setSelectionOnly] = useState(true);
 	const [candidates] = useState(() => {
 		const inGraphicsTopics = graphics.topics.map(t => t.topic);
 		const selectedTopics = topics.map(topic => ({topic, picked: inGraphicsTopics.includes(topic)}));
@@ -120,6 +143,9 @@ const PipelinesDownload = (props: {
 		return [...selectedTopics, ...selectedSpaces];
 	});
 
+	const onSelectionOnlyChanged = (value: boolean) => {
+		setSelectionOnly(value);
+	};
 	const onDownloadClicked = async () => {
 		const selectedTopics = candidates.filter<TopicCandidate>(isTopicCandidate).filter(c => c.picked).map(({topic}) => topic);
 		const selectedSpaces = candidates.filter<SpaceCandidate>(isSpaceCandidate).filter(c => c.picked).map(({space}) => space);
@@ -136,7 +162,12 @@ const PipelinesDownload = (props: {
 			return map;
 		}, {} as TopicsMap);
 		const finalPipelineMap: PipelinesMap = {};
-		findByTopics({topics: selectedTopics, finalTopicMap, finalPipelineMap, topicRelations, pipelineRelations});
+		findByTopics({
+			topics: selectedTopics,
+			finalTopicMap, finalPipelineMap,
+			topicRelations, pipelineRelations,
+			selectionOnly
+		});
 
 		const selectedSvg = await askSvg(selectedTopics);
 		const allTopics = Object.values(finalTopicMap);
@@ -198,6 +229,10 @@ const PipelinesDownload = (props: {
 			<TopicPickerTable candidates={candidates}/>
 		</PickerDialogBody>
 		<DialogFooter>
+			<ExportOptionBar>
+				<ExportOptionLabel>Export Selection Only</ExportOptionLabel>
+				<CheckBox value={selectionOnly} onChange={onSelectionOnlyChanged}/>
+			</ExportOptionBar>
 			<Button ink={ButtonInk.PRIMARY} onClick={onDownloadClicked}>Export</Button>
 			<Button ink={ButtonInk.WAIVE} onClick={onCancelClicked}>Cancel</Button>
 		</DialogFooter>
