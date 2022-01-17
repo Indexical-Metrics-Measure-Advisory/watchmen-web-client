@@ -119,6 +119,9 @@ export const Container = (props: {
 		};
 	}, [fireGlobal, on, off, fire, forceUpdate, report, diagramState.loadState, editing]);
 	useEffect(() => {
+		setDiagramState({loadState: DiagramLoadState.FALSE});
+	}, [report.reportId]);
+	useEffect(() => {
 		const onAskData = (aReport: Report, onLoaded: (dataset: ChartDataSet) => void) => {
 			if (report !== aReport) {
 				return;
