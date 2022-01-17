@@ -22,7 +22,11 @@ export class ChartCountUtils extends DefaultChartUtils {
 
 	defendIndicatorMinCount(report: Report) {
 		super.defendIndicatorMinCount(report);
-		(report.indicators || []).forEach(indicator => indicator.arithmetic = ReportIndicatorArithmetic.COUNT);
+		(report.indicators || []).forEach(indicator => {
+			if (indicator.arithmetic == null || indicator.arithmetic.trim().length === 0) {
+				indicator.arithmetic = ReportIndicatorArithmetic.COUNT;
+			}
+		});
 	}
 
 	async buildOptions(report: Report, dataset: ChartDataSet): Promise<ChartOptions> {
