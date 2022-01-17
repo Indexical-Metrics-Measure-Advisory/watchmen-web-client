@@ -21,13 +21,11 @@ export const FontWeightOptions: Array<DropdownOption> = [
 export const createFontFamilyOptions = (theme: Theme) => {
 	return theme.fontFamily.split(',')
 		.filter(x => !!x)
-		.map(font => ({name: font, label: font.trim()}))
-		.map(({name, label}) => {
-			label = label.startsWith('\'') ? label.substring(1) : label;
-			label = label.endsWith('\'') ? label.substring(0, label.length - 1) : label;
-			label = label.replace(/-/g, ' ').trim();
-			return {name, label};
-		})
+		.map(font => font.trim())
+		.map(font => font.startsWith('\'') ? font.substring(1) : font)
+		.map(font => font.endsWith('\'') ? font.substring(0, font.length - 1) : font)
+		.map(font => font.replace(/-/g, ' ').trim())
+		.map(font => ({name: font, label: font}))
 		.map(({name, label}) => {
 			return {
 				value: name,
