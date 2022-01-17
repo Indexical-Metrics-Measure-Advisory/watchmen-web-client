@@ -69,7 +69,6 @@ export const listSpacesForExport = async (): Promise<Array<Space>> => {
 			return space;
 		}));
 	});
-
 };
 
 export const fetchSpace = async (
