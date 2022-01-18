@@ -5,12 +5,19 @@ import {Report} from '@/services/data/tuples/report-types';
 import {EChartOption} from 'echarts';
 import {BASE_COLORS_24, BASE_COLORS_6} from '../../basic/colors';
 import {DefaultChartUtils} from './default-chart-utils';
+import {ChinaCoordinatesL1} from './map-geo-data/china-l1';
 import {JapanCoordinatesL1} from './map-geo-data/japan-l1';
 import {MapCoordinate} from './map-geo-data/types';
 import {USACoordinatesL1} from './map-geo-data/usa-l1';
 import {buildEChartsTitle} from './title-utils';
 import {buildToolbox} from './toolbox-utils';
 import {ChartOptions} from './types';
+
+(() => {
+	console.groupCollapsed('Map loaded.');
+	console.log(`Map[${ChinaCoordinatesL1.name}] is preloaded.`);
+	console.groupEnd();
+})();
 
 export class ChartMapUtils extends DefaultChartUtils {
 	constructor() {
