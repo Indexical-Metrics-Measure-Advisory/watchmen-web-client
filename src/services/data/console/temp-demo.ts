@@ -726,6 +726,23 @@ const generate = () => {
 };
 
 const DemoData = generate();
+// console.log(JSON.stringify(DemoData.map(row => {
+// 	return {
+// 		policyNo: row[0],
+// 		lineOfBusiness: row[1],
+// 		sumInsured: row[2],
+// 		premium: row[3],
+// 		mainCoverageLimit: row[4],
+// 		mainCoveragePremium: row[5],
+// 		effectiveDate: row[6],
+// 		expiryDate: row[8],
+// 		issueDate: row[10],
+// 		endorsementNo: row[12],
+// 		customerNo: row[13],
+// 		customerGender: row[14],
+// 		agencyCode: row[15]
+// 	};
+// })));
 export const fetchDemoSubjectData = async (options: {
 	subjectId: SubjectId;
 	pageNumber: number;
