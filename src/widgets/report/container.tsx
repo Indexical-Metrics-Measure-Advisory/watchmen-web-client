@@ -32,7 +32,7 @@ interface DiagramState {
 }
 
 const shouldLoadData = (state: DiagramLoadState): boolean => {
-	return [DiagramLoadState.FALSE, DiagramLoadState.RELOAD].includes(state);
+	return [DiagramLoadState.FALSE, DiagramLoadState.RELOAD, DiagramLoadState.DEF_BROKEN].includes(state);
 };
 
 export const Container = (props: {
@@ -57,6 +57,7 @@ export const Container = (props: {
 				setDiagramState({loadState: DiagramLoadState.DEF_BROKEN, dataset: {data: []}});
 				return;
 			}
+
 			if (report.simulating) {
 				window.setTimeout(() => {
 					const dataset = {data: report.simulateData ?? []};

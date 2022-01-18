@@ -1,5 +1,5 @@
 import {Report} from '@/services/data/tuples/report-types';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {echarts, EChartsType} from '../../basic/echarts';
 import {ChartOptions} from '../chart-utils/types';
 import {useReportEventBus} from '../report-event-bus';
@@ -14,7 +14,7 @@ export const EChartDiagram = (props: { report: Report; thumbnail: boolean }) => 
 	// noinspection TypeScriptValidateTypes
 	const rootRef = useRef<HTMLDivElement>(null);
 	const [chartInstance, setChartInstance] = useState<EChartsType | null>(null);
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const onChartOptionsReady = (aReport: Report, options: ChartOptions) => {
 			if (aReport !== report) {
 				return;
@@ -50,6 +50,7 @@ export const EChartDiagram = (props: { report: Report; thumbnail: boolean }) => 
 				}
 			};
 			instance.on('finished', onFinished);
+			instance.clear();
 			instance.setOption(options, {notMerge: true});
 			setChartInstance(instance);
 		};
