@@ -57,13 +57,14 @@ export const getValueFromSourceData = (factor: Factor, sourceData: DataRow): any
 			if (obj == null) {
 				return null;
 			} else if (Array.isArray(obj)) {
+				// the next level might be an array, flatten it.
 				return obj.map(item => {
 					if (typeof item === 'object') {
 						return item[part];
 					} else {
 						throw new Error(`Cannot retrieve data from ${source} by [${part}].`);
 					}
-				});
+				}).flat();
 			} else if (typeof obj === 'object') {
 				return obj[part];
 			} else {
