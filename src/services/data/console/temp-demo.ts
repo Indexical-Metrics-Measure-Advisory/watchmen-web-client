@@ -1,38 +1,38 @@
+import {registerChinaMap} from '@/widgets/report/chart-utils/map-geo-data/china-l1';
+import dayjs, {Dayjs} from 'dayjs';
 import {
 	BarChartSettings,
 	BarChartSettingsLabel,
 	BarChartSettingsSeries,
 	BarLabelPosition
-} from '@/services/data/tuples/chart-def/chart-bar';
-import {CustomizedChartSettings} from '@/services/data/tuples/chart-def/chart-customized';
-import {LineChartSettings} from '@/services/data/tuples/chart-def/chart-line';
-import {PieLabelPosition} from '@/services/data/tuples/chart-def/chart-pie';
-import {SunburstChartSettings} from '@/services/data/tuples/chart-def/chart-sunburst';
-import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
-import {
-	EChartsHorizontalAlignment,
-	EChartsVerticalAlignment
-} from '@/services/data/tuples/echarts/echarts-alignment-types';
-import {EchartsScriptHolder} from '@/services/data/tuples/echarts/echarts-script-types';
-import {EChartsTitle} from '@/services/data/tuples/echarts/echarts-title-types';
-import {EChartsXAxis} from '@/services/data/tuples/echarts/echarts-xaxis-types';
+} from '../tuples/chart-def/chart-bar';
+import {CountChartSettings} from '../tuples/chart-def/chart-count';
+import {CustomizedChartSettings} from '../tuples/chart-def/chart-customized';
+import {LineChartSettings} from '../tuples/chart-def/chart-line';
+import {PieLabelPosition} from '../tuples/chart-def/chart-pie';
+import {SunburstChartSettings} from '../tuples/chart-def/chart-sunburst';
+import {ChartDataSet, ChartFontStyle, ChartFontWeight, ChartType} from '../tuples/chart-types';
+import {ConnectedSpace} from '../tuples/connected-space-types';
+import {EChartsHorizontalAlignment, EChartsVerticalAlignment} from '../tuples/echarts/echarts-alignment-types';
+import {EchartsScriptHolder} from '../tuples/echarts/echarts-script-types';
+import {EChartsTitle} from '../tuples/echarts/echarts-title-types';
+import {EChartsXAxis} from '../tuples/echarts/echarts-xaxis-types';
 import {
 	ComputedParameter,
 	ParameterComputeType,
 	ParameterJointType,
 	ParameterKind,
 	TopicFactorParameter
-} from '@/services/data/tuples/factor-calculator-types';
-import {FactorType} from '@/services/data/tuples/factor-types';
-import {ReportId, ReportIndicatorArithmetic} from '@/services/data/tuples/report-types';
-import {Space} from '@/services/data/tuples/space-types';
-import {SubjectDataSetFilter, SubjectId} from '@/services/data/tuples/subject-types';
-import {Topic, TopicKind, TopicType} from '@/services/data/tuples/topic-types';
-import {formatTime, getCurrentTime} from '@/services/data/utils';
-import dayjs, {Dayjs} from 'dayjs';
-import {CountChartSettings} from '../tuples/chart-def/chart-count';
-import {ChartDataSet, ChartFontStyle, ChartFontWeight, ChartType} from '../tuples/chart-types';
+} from '../tuples/factor-calculator-types';
+import {FactorType} from '../tuples/factor-types';
+import {ReportId, ReportIndicatorArithmetic} from '../tuples/report-types';
+import {Space} from '../tuples/space-types';
+import {SubjectDataSetFilter, SubjectId} from '../tuples/subject-types';
+import {Topic, TopicKind, TopicType} from '../tuples/topic-types';
+import {formatTime, getCurrentTime} from '../utils';
 import {DataSetPage} from './dataset';
+
+registerChinaMap();
 
 const TOPIC_ID = '930571578272587776';
 const FACTOR_ID_POLICY_NO = '93973a5464c2464b8731c71f23073d46';
@@ -433,6 +433,18 @@ export const DEMO_CONNECTED_SPACE: ConnectedSpace = {
 				chart: {
 					type: ChartType.CUSTOMIZED,
 					settings: {
+						title: {
+							text: {
+								text: 'LOB Distribution',
+								font: {
+									family: 'Verdana', size: 24, color: '#666',
+									weight: ChartFontWeight.W700, style: ChartFontStyle.ITALIC
+								}
+							},
+							position: {top: 5, left: 50},
+							verticalAlign: EChartsVerticalAlignment.MIDDLE,
+							horizontalAlign: EChartsHorizontalAlignment.CENTER
+						} as EChartsTitle,
 						script: `(() => {
 	const agencies = (options.data || []).reduce((agencies, row) => {
 		const agency = row[2];
@@ -451,9 +463,9 @@ export const DEMO_CONNECTED_SPACE: ConnectedSpace = {
 	const data = (options.data || []).map(row => {
 		return [row[2], row[1], row[0]];
 	});
-	console.log(agencies, lobs, data);
 	return {
 		tooltip: {},
+		title: options.title,
 		visualMap: {
 			max: data.reduce((max, row) => Math.max(max, row[2]), 0) * 1.1,
 			inRange: {
@@ -481,6 +493,114 @@ export const DEMO_CONNECTED_SPACE: ConnectedSpace = {
 				}
 			}
 		]
+	};
+})();
+`
+					} as CustomizedChartSettings & EchartsScriptHolder
+				},
+				rect: {x: 0, y: 0, width: 800, height: 640},
+				lastVisitTime: getCurrentTime(), createTime: getCurrentTime(), lastModified: getCurrentTime()
+			}, {
+				reportId: '106',
+				name: 'Premium Scale',
+				indicators: [{
+					columnId: FACTOR_ID_SI,
+					name: 'Sum_Insured',
+					arithmetic: ReportIndicatorArithmetic.SUMMARY
+				}, {
+					columnId: FACTOR_ID_PREMIUM,
+					name: 'Premium',
+					arithmetic: ReportIndicatorArithmetic.SUMMARY
+				}],
+				dimensions: [
+					{columnId: FACTOR_ID_AGENCY_CODE, name: 'Agency_Code'}
+				],
+				chart: {
+					type: ChartType.CUSTOMIZED,
+					settings: {
+						title: {
+							text: {
+								text: 'Premium Scale',
+								font: {
+									family: 'Verdana', size: 24, color: '#666',
+									weight: ChartFontWeight.W700, style: ChartFontStyle.ITALIC
+								}
+							},
+							position: {top: 5, left: 50},
+							verticalAlign: EChartsVerticalAlignment.MIDDLE,
+							horizontalAlign: EChartsHorizontalAlignment.CENTER
+						} as EChartsTitle,
+						script: `(() => {
+	const data = options.data.map(row => {
+		return { name: row[2], value: row[1] };
+	});
+	const geoCoordinateMap = {
+	    AC_SH: [121.472644, 31.231706],
+	    AC_GZ: [113.280637, 23.125178],
+	    AC_SZ: [114.085947, 22.547],
+	    AC_BJ: [116.405285, 39.904989],
+	};
+	const convert = (data) => {
+		return data.map(row => {
+			const coordinate = geoCoordinateMap[row.name];
+			return {
+				name: row.name,
+				value: [coordinate[0], coordinate[1], row.value]
+			}
+		})
+	};
+	const convertedData = convert(data);
+	// to compute the max value to 50
+	const max = convertedData.reduce((max, row) => Math.max(max, row.value[2]), 0);
+	const symbolScale = max / 50;
+	const computeSymbolSize = (value) => {
+		return value = symbolScale === 0 ? 1 : value[2] / symbolScale;
+	}
+	
+	return {
+		tooltip: {
+			trigger: 'item',
+			formatter: (params) => {
+				const param = params;
+				let value = new Intl.NumberFormat(undefined, {
+					maximumFractionDigits: 2,
+					useGrouping: true
+				}).format((param.value)[2]);
+				return param.name + ': ' + value;
+			}
+		},
+	    // visualMap: {
+		// 	left: 'right',
+		// 	min: 0,
+		// 	max: max * 1.1,
+		// 	calculable: true
+		// },
+	    geo: {map: 'China-L1', roam: true, zoom: 1, regions: []},
+	    series: [
+	        {
+	            name: 'Premium',
+	            type: 'scatter',
+	            coordinateSystem: 'geo',
+	            data: convertedData,
+	            symbolSize: computeSymbolSize,
+	            encode: { value: 2 },
+	            label: { formatter: '{b}', position: 'right', show: false },
+	            emphasis: { label: { show: true } }
+	        },
+	        {
+	            name: 'Top 1',
+	            type: 'effectScatter',
+	            coordinateSystem: 'geo',
+	            data: convertedData.length > 0 ? [convertedData[0]] : [],
+	            symbolSize: computeSymbolSize,
+	            encode: { value: 2 },
+	            showEffectOn: 'render',
+	            rippleEffect: { brushType: 'stroke' },
+	            itemStyle: { shadowBlur: 10, shadowColor: '#333' },
+	            emphasis: { scale: true },
+	            zlevel: 1
+	        }
+	    ]
 	};
 })();
 `
@@ -626,6 +746,7 @@ export const fetchDemoSubjectData = async (options: {
 };
 
 const LOB_INDEX = 1;
+const SI_INDEX = 2;
 const PREMIUM_INDEX = 3;
 const ISSUE_MONTH_INDEX = 11;
 const AGENCY_INDEX = 15;
@@ -671,7 +792,7 @@ const DEMO_CHART_DATA: Record<ReportId, () => Promise<ChartDataSet>> = {
 			if (existing == null) {
 				data[key] = [lob, agency, row[PREMIUM_INDEX] as number];
 			} else {
-				data[key] = [lob, agency, data[key][2] + (row[PREMIUM_INDEX] as number)];
+				data[key] = [lob, agency, existing[2] + (row[PREMIUM_INDEX] as number)];
 			}
 			return data;
 		}, {} as Record<string, [string, string, number]>);
@@ -693,7 +814,7 @@ const DEMO_CHART_DATA: Record<ReportId, () => Promise<ChartDataSet>> = {
 			if (existing == null) {
 				data[key] = [lob, agency, row[PREMIUM_INDEX] as number];
 			} else {
-				data[key] = [lob, agency, data[key][2] + (row[PREMIUM_INDEX] as number)];
+				data[key] = [lob, agency, existing[2] + (row[PREMIUM_INDEX] as number)];
 			}
 			return data;
 		}, {} as Record<string, [string, string, number]>);
@@ -703,6 +824,30 @@ const DEMO_CHART_DATA: Record<ReportId, () => Promise<ChartDataSet>> = {
 				.map(key => {
 					const row = data[key];
 					return [Number(row[2].toFixed(0)), row[1], row[0]];
+				})
+		};
+	},
+	'106': async (): Promise<ChartDataSet> => {
+		const data = DemoData.reduce((data, row) => {
+			const agency = row[AGENCY_INDEX] as string;
+			const existing = data[agency];
+			if (existing == null) {
+				data[agency] = [row[SI_INDEX] as number, row[PREMIUM_INDEX] as number];
+			} else {
+				data[agency] = [existing[0] + (row[SI_INDEX] as number), existing[1] + (row[PREMIUM_INDEX] as number)];
+			}
+			return data;
+		}, {} as Record<string, [number, number]>);
+		return {
+			data: Object.keys(data)
+				.sort((a, b) => a.localeCompare(b, void 0, {sensitivity: 'base', caseFirst: 'upper'}))
+				.map(key => {
+					const row = data[key];
+					return [
+						Number(row[0].toFixed(0)),
+						Number(row[1].toFixed(0)),
+						key
+					];
 				})
 		};
 	}
