@@ -4,6 +4,7 @@ import {
 	BarChartSettingsSeries,
 	BarLabelPosition
 } from '@/services/data/tuples/chart-def/chart-bar';
+import {CustomizedChartSettings} from '@/services/data/tuples/chart-def/chart-customized';
 import {LineChartSettings} from '@/services/data/tuples/chart-def/chart-line';
 import {PieLabelPosition} from '@/services/data/tuples/chart-def/chart-pie';
 import {SunburstChartSettings} from '@/services/data/tuples/chart-def/chart-sunburst';
@@ -12,6 +13,7 @@ import {
 	EChartsHorizontalAlignment,
 	EChartsVerticalAlignment
 } from '@/services/data/tuples/echarts/echarts-alignment-types';
+import {EchartsScriptHolder} from '@/services/data/tuples/echarts/echarts-script-types';
 import {EChartsTitle} from '@/services/data/tuples/echarts/echarts-title-types';
 import {EChartsXAxis} from '@/services/data/tuples/echarts/echarts-xaxis-types';
 import {
@@ -415,6 +417,75 @@ export const DEMO_CONNECTED_SPACE: ConnectedSpace = {
 				},
 				rect: {x: 0, y: 0, width: 800, height: 640},
 				lastVisitTime: getCurrentTime(), createTime: getCurrentTime(), lastModified: getCurrentTime()
+			},
+			{
+				reportId: '105',
+				name: 'LOB Distribution',
+				indicators: [{
+					columnId: FACTOR_ID_PREMIUM,
+					name: 'Premium',
+					arithmetic: ReportIndicatorArithmetic.SUMMARY
+				}],
+				dimensions: [
+					{columnId: FACTOR_ID_AGENCY_CODE, name: 'Agency_Code'},
+					{columnId: FACTOR_ID_LOB, name: 'Line_of_Business'}
+				],
+				chart: {
+					type: ChartType.CUSTOMIZED,
+					settings: {
+						script: `(() => {
+	const agencies = (options.data || []).reduce((agencies, row) => {
+		const agency = row[2];
+		if (agencies.indexOf(agency) === -1) {
+			agencies.push(agency)
+		}
+		return agencies;
+	}, []).sort((agency1, agency2) => agency1.localeCompare(agency2, void 0, {sensitivity: 'base', caseFirst: 'upper'}));
+	const lobs = (options.data || []).reduce((lobs, row) => {
+		const lob = row[1];
+		if (lobs.indexOf(lob) === -1) {
+			lobs.push(lob)
+		}
+		return lobs;
+	}, []).sort((lob1, lob2) => lob1.localeCompare(lob2, void 0, {sensitivity: 'base', caseFirst: 'upper'}));
+	const data = (options.data || []).map(row => {
+		return [row[2], row[1], row[0]];
+	});
+	console.log(agencies, lobs, data);
+	return {
+		tooltip: {},
+		visualMap: {
+			max: data.reduce((max, row) => Math.max(max, row[2]), 0) * 1.1,
+			inRange: {
+				color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+			}
+		},
+		xAxis3D: { type: 'category', data: agencies },
+		yAxis3D: { type: 'category', data: lobs },
+		zAxis3D: { type: 'value' },
+		grid3D: {},
+		series: [
+			{
+				type: 'bar3D',
+				data: data.map(function (item) {
+					return {
+						value: [item[0], item[1], item[2]]
+					};
+				}),
+				shading: 'realistic',
+				label: { fontSize: 48, borderWidth: 10 },
+				emphasis: {
+					label: { textStyle: { fontSize: 24, color: '#666', fontFamily: 'Verdana' } }
+				}
+			}
+		]
+	};
+})();
+`
+					} as CustomizedChartSettings & EchartsScriptHolder
+				},
+				rect: {x: 0, y: 0, width: 800, height: 640},
+				lastVisitTime: getCurrentTime(), createTime: getCurrentTime(), lastModified: getCurrentTime()
 			}
 		],
 		lastVisitTime: getCurrentTime(),
@@ -590,6 +661,28 @@ const DEMO_CHART_DATA: Record<ReportId, () => Promise<ChartDataSet>> = {
 		};
 	},
 	'104': async (): Promise<ChartDataSet> => {
+		const data = DemoData.reduce((data, row) => {
+			const lob = row[LOB_INDEX] as string;
+			const agency = row[AGENCY_INDEX] as string;
+			const key = `${lob}-${agency}`;
+			const existing = data[key];
+			if (existing == null) {
+				data[key] = [lob, agency, row[PREMIUM_INDEX] as number];
+			} else {
+				data[key] = [lob, agency, data[key][2] + (row[PREMIUM_INDEX] as number)];
+			}
+			return data;
+		}, {} as Record<string, [string, string, number]>);
+		return {
+			data: Object.keys(data)
+				.sort((a, b) => a.localeCompare(b, void 0, {sensitivity: 'base', caseFirst: 'upper'}))
+				.map(key => {
+					const row = data[key];
+					return [Number(row[2].toFixed(0)), row[1], row[0]];
+				})
+		};
+	},
+	'105': async (): Promise<ChartDataSet> => {
 		const data = DemoData.reduce((data, row) => {
 			const lob = row[LOB_INDEX] as string;
 			const agency = row[AGENCY_INDEX] as string;
