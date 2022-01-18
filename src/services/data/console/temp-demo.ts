@@ -1,4 +1,3 @@
-import {registerChinaMap} from '@/widgets/report/chart-utils/map-geo-data/china-l1';
 import dayjs, {Dayjs} from 'dayjs';
 import {
 	BarChartSettings,
@@ -31,8 +30,6 @@ import {SubjectDataSetFilter, SubjectId} from '../tuples/subject-types';
 import {Topic, TopicKind, TopicType} from '../tuples/topic-types';
 import {formatTime, getCurrentTime} from '../utils';
 import {DataSetPage} from './dataset';
-
-registerChinaMap();
 
 const TOPIC_ID = '930571578272587776';
 const FACTOR_ID_POLICY_NO = '93973a5464c2464b8731c71f23073d46';
