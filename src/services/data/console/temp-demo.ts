@@ -467,6 +467,8 @@ export const DEMO_CONNECTED_SPACE: ConnectedSpace = {
 		series: [
 			{
 				type: 'bar3D',
+				bevelSize: 1,
+				bevelSmoothness: 10,
 				data: data.map(function (item) {
 					return {
 						value: [item[0], item[1], item[2]]
