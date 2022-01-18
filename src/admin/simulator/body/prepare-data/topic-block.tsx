@@ -6,7 +6,7 @@ import {Button} from '@/widgets/basic/button';
 import {ICON_COLLAPSE_CONTENT, ICON_DELETE, ICON_EXPAND_CONTENT, ICON_LOOP, ICON_PLAY} from '@/widgets/basic/constants';
 import {Input} from '@/widgets/basic/input';
 import {ButtonInk, TooltipAlignment} from '@/widgets/basic/types';
-import {uploadFile, UploadFileAcceptsJson, useForceUpdate} from '@/widgets/basic/utils';
+import {uploadFile, UploadFileAcceptsJson} from '@/widgets/basic/utils';
 import {DialogBody, DialogFooter} from '@/widgets/dialog/widgets';
 import {useEventBus} from '@/widgets/events/event-bus';
 import {EventTypes} from '@/widgets/events/types';
@@ -42,28 +42,36 @@ import {
 const DataCell = (props: { row: DataRow, factor: Factor }) => {
 	const {row, factor} = props;
 
-	const forceUpdate = useForceUpdate();
+	const [value, setValue] = useState(() => {
+		const value = row[factor.name];
+		if (value == null || value === '') {
+			return '';
+		} else {
+			return JSON5.stringify(value);
+		}
+	});
+	// const forceUpdate = useForceUpdate();
 	const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const {value} = event.target;
 		const v = value.trim();
 		try {
 			if (v.startsWith('{') && v.endsWith('}')) {
-				row[factor.name] = JSON.parse(v);
+				row[factor.name] = JSON5.parse(v);
 			} else if (v.startsWith('[') && v.endsWith(']')) {
-				row[factor.name] = JSON.parse(v);
+				row[factor.name] = JSON5.parse(v);
 			} else {
 				row[factor.name] = value;
 			}
 		} catch {
 			row[factor.name] = value;
 		}
-		forceUpdate();
+		setValue(value);
 	};
 
-	let value = row[factor.name] ?? '';
-	if (typeof value === 'object') {
-		value = JSON.stringify(value);
-	}
+	// let value = row[factor.name] ?? '';
+	// if (typeof value === 'object') {
+	// 	value = JSON5.stringify(value);
+	// }
 
 	return <DataTableBodyCell key={factor.factorId}>
 		<Input value={value} onChange={onInputChange}/>
