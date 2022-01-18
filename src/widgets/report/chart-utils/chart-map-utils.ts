@@ -77,7 +77,7 @@ export class ChartMapUtils extends DefaultChartUtils {
 				map: map.name,
 				roam: true,
 				zoom: 1,
-				regions: [{name: 'Tokyo', itemStyle: {areaColor: 'red'}}]
+				regions: []
 			},
 			series: [
 				{
