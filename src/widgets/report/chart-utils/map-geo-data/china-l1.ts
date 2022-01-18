@@ -16,8 +16,4 @@ export const ChinaCoordinatesL1 = {
 	}, new Map<string, MapCoordinate>())
 };
 
-export const registerChinaMap = () => {
-	echarts.registerMap(ChinaCoordinatesL1.name, chinaJson as any, {});
-}
-
-registerChinaMap();
+echarts.registerMap(ChinaCoordinatesL1.name, chinaJson as any, {});
