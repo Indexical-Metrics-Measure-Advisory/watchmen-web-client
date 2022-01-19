@@ -87,7 +87,14 @@ export const buildBucketOptions = (inspection: Inspection, topic: TopicForIndica
 
 		const availableBuckets = [
 			...new Set(measures.map(measure => buckets.filter(bucket => {
-				return isMeasureBucket(bucket) && bucket.measure === measure;
+				if (!isMeasureBucket(bucket)) {
+					return false;
+				}
+				if (bucket.measure !== measure) {
+					return false;
+				}
+
+				return !isEnumMeasureBucket(bucket) || bucket.enumId == factor.enumId;
 			})).flat())
 		];
 		const hasCategoryBucket = availableBuckets.some(bucket => isCategoryMeasureBucket(bucket) || isEnumMeasureBucket(bucket));
