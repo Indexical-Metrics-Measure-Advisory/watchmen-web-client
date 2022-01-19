@@ -5,7 +5,7 @@ import {QueryByBucketMethod, QueryByEnumMethod, QueryByMeasureMethod} from '@/se
 import {isQueryByEnum, isQueryByMeasure} from '@/services/data/tuples/query-bucket-utils';
 import {TopicForIndicator} from '@/services/data/tuples/query-indicator-types';
 import {generateUuid} from '@/services/data/tuples/utils';
-import {getCurrentTime} from '@/services/data/utils';
+import {getCurrentTime, isNotNull} from '@/services/data/utils';
 import {Lang} from '@/widgets/langs';
 
 export const createInspection = (): Inspection => {
@@ -83,15 +83,18 @@ export const buildBucketsAskingParams = (indicator: Indicator, topic: TopicForIn
 		measureMethods: detectMeasures(topic, (measure: MeasureMethod) => !isTimePeriodMeasure(measure))
 			.map(({factorId, method}) => {
 				if (method === MeasureMethod.ENUM) {
-					return {
-						method: MeasureMethod.ENUM,
-						// eslint-disable-next-line
-						enumId: topic.factors.find(factor => factor.factorId == factorId)?.enumId
-					} as QueryByEnumMethod;
+					const enumId = topic.factors.find(factor => factor.factorId == factorId)?.enumId;
+					if (enumId == null || enumId.trim().length === 0) {
+						return null;
+					} else {
+						return {method: MeasureMethod.ENUM, enumId} as QueryByEnumMethod;
+					}
 				} else {
 					return {method} as QueryByMeasureMethod;
 				}
-			}).reduce((all, method) => {
+			})
+			.filter(isNotNull)
+			.reduce((all, method) => {
 				if (isQueryByEnum(method)) {
 					// eslint-disable-next-line
 					if (all.every(existing => !isQueryByEnum(existing) || existing.enumId != method.enumId)) {
