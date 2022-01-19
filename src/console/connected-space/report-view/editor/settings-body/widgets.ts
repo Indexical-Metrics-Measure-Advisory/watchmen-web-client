@@ -5,7 +5,7 @@ export const SettingsBodyContainer = styled.div.attrs<{ favoritePin: boolean }>(
 		'data-widget': 'report-editor-settings-body',
 		'data-v-scroll': '',
 		style: {
-			height: favoritePin ? `calc(100vh - var(--page-header-height) - var(--header-height) - var(--pin-favorite-height)` : (void 0)
+			height: favoritePin ? `calc(100vh - var(--page-header-height) - var(--height) * 2 - var(--pin-favorite-height)` : (void 0)
 		}
 	};
 })<{ favoritePin: boolean }>`
