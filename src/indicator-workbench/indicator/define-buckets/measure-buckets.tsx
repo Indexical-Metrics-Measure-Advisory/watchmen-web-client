@@ -34,9 +34,14 @@ const FactorMeasureBuckets = (props: { methods: Array<MeasureMethod>; factor: Fa
 	const {methods, factor, buckets, enum: enumeration} = props;
 
 	const matchedBuckets: Array<QueryBucket> = [...new Set(methods)].map(method => {
-		if (method === MeasureMethod.ENUM && factor.enumId != null) {
-			// eslint-disable-next-line
-			return buckets.filter(bucket => isEnumMeasureBucket(bucket) && bucket.enumId == factor.enumId);
+		if (method === MeasureMethod.ENUM) {
+			if (factor.enumId != null) {
+				// eslint-disable-next-line
+				return buckets.filter(bucket => isEnumMeasureBucket(bucket) && bucket.enumId == factor.enumId);
+			} else {
+				// no enumId assigned, then no bucket can be applied
+				return [];
+			}
 		} else {
 			return buckets.filter(bucket => isMeasureBucket(bucket) && bucket.measure === method);
 		}
