@@ -55,10 +55,7 @@ export const Container = (props: {
 		if (shouldLoadData(diagramState.loadState)) {
 			if (!isReportDefValid(report, ChartHelper[report.chart.type]?.getDef(), report.simulating)) {
 				setDiagramState({loadState: DiagramLoadState.DEF_BROKEN, dataset: {data: []}});
-				return;
-			}
-
-			if (report.simulating) {
+			} else if (report.simulating) {
 				window.setTimeout(() => {
 					const dataset = {data: report.simulateData ?? []};
 					fire(ReportEventTypes.DATA_LOADED, report, dataset);

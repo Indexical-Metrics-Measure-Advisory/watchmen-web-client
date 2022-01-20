@@ -94,6 +94,7 @@ export const buildBucketOptions = (inspection: Inspection, topic: TopicForIndica
 					return false;
 				}
 
+				// eslint-disable-next-line
 				return !isEnumMeasureBucket(bucket) || bucket.enumId == factor.enumId;
 			})).flat())
 		];
