@@ -1,3 +1,5 @@
+import {isChartScriptInConsoleEnabled} from '@/feature-switch';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Report, ReportDimension} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
@@ -11,6 +13,7 @@ import {ChartHelper} from '@/widgets/report/chart-utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {v4} from 'uuid';
+import {isTemplateConnectedSpace} from '../../../utils';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {useChartType} from '../settings-effect/use-chart-type';
@@ -18,8 +21,8 @@ import {Section} from '../settings-widgets/section';
 import {DimensionEditor} from './dimension';
 import {AddDimensionButton, AddDimensionContainer} from './widgets';
 
-export const DimensionsSection = (props: { subject: Subject, report: Report }) => {
-	const {subject, report} = props;
+export const DimensionsSection = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
+	const {connectedSpace, subject, report} = props;
 	const {chart: {type}} = report;
 
 	const {fire: fireGlobal} = useEventBus();
@@ -64,7 +67,8 @@ export const DimensionsSection = (props: { subject: Subject, report: Report }) =
 	}
 
 	chartUtils.defend(report);
-	const canAddDimension = chartUtils.canAppendDimensions(report);
+	const canAddDimension = chartUtils.canAppendDimensions(report)
+		&& (isChartScriptInConsoleEnabled() || isTemplateConnectedSpace(connectedSpace));
 
 	return <Section title={Lang.CHART.SECTION_TITLE_DIMENSIONS} defaultExpanded={true}>
 		{report.dimensions.map((dimension, dimensionIndex) => {
@@ -72,7 +76,8 @@ export const DimensionsSection = (props: { subject: Subject, report: Report }) =
 			if (dimensionIndex >= chartUtils.getMaxDimensionCount()) {
 				return null;
 			}
-			return <DimensionEditor subject={subject} report={report} dimension={dimension}
+			return <DimensionEditor connectedSpace={connectedSpace} subject={subject} report={report}
+			                        dimension={dimension}
 			                        onDelete={onDelete}
 			                        key={v4()}/>;
 		})}

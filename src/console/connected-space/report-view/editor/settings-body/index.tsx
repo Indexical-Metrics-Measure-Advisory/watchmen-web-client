@@ -36,8 +36,8 @@ export const SettingsBody = (props: { connectedSpace: ConnectedSpace; subject: S
 
 	return <SettingsBodyContainer favoritePin={favoritePin}>
 		<ChartTypeEditor connectedSpace={connectedSpace} report={report}/>
-		<IndicatorsSection subject={subject} report={report}/>
-		<DimensionsSection subject={subject} report={report}/>
+		<IndicatorsSection connectedSpace={connectedSpace} subject={subject} report={report}/>
+		<DimensionsSection connectedSpace={connectedSpace} subject={subject} report={report}/>
 		<ChartTruncationSettings report={report}/>
 		<FunnelDef subject={subject} report={report}/>
 		{/*<ToolboxSection report={report}/>*/}

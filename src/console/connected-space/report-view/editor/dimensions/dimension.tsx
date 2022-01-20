@@ -1,3 +1,5 @@
+import {isChartScriptInConsoleEnabled} from '@/feature-switch';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Report, ReportDimension} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
@@ -10,6 +12,7 @@ import {Lang} from '@/widgets/langs';
 import {ChartHelper} from '@/widgets/report/chart-utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
+import {isTemplateConnectedSpace} from '../../../utils';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {PropValue, PropValueDropdown} from '../settings-widgets/widgets';
@@ -22,12 +25,13 @@ import {
 } from './widgets';
 
 export const DimensionEditor = (props: {
+	connectedSpace: ConnectedSpace;
 	subject: Subject;
 	report: Report;
 	dimension: ReportDimension;
 	onDelete: (dimension: ReportDimension) => void;
 }) => {
-	const {subject, report, dimension, onDelete} = props;
+	const {connectedSpace, subject, report, dimension, onDelete} = props;
 	const {chart: {type: chartType}} = report;
 
 	const {fire: fireGlobal} = useEventBus();
@@ -81,17 +85,27 @@ export const DimensionEditor = (props: {
 		});
 	}
 
-	return <DimensionContainer>
+	const canDelete = isChartScriptInConsoleEnabled() || isTemplateConnectedSpace(connectedSpace);
+	const buildLabel = () => {
+		// eslint-disable-next-line
+		return dimensionOptions.find(option => option.value == columnId)?.label ?? '?';
+	};
+
+	return <DimensionContainer removable={canDelete}>
 		<DimensionIndexLabel>{index}</DimensionIndexLabel>
-		<PropValue>
-			<PropValueDropdown value={columnId} options={dimensionOptions}
-			                   placeholder={Lang.CHART.PLEASE_SELECT_DIMENSION}
-			                   onValueChange={onColumnChange}/>
-		</PropValue>
-		<DeleteMeContainer>
-			<DeleteMeButton onClick={onDeleteClicked}>
-				<FontAwesomeIcon icon={ICON_DELETE}/>
-			</DeleteMeButton>
-		</DeleteMeContainer>
+		{canDelete
+			? <>
+				<PropValue>
+					<PropValueDropdown value={columnId} options={dimensionOptions}
+					                   placeholder={Lang.CHART.PLEASE_SELECT_DIMENSION}
+					                   onValueChange={onColumnChange}/>
+				</PropValue>
+				<DeleteMeContainer>
+					<DeleteMeButton onClick={onDeleteClicked}>
+						<FontAwesomeIcon icon={ICON_DELETE}/>
+					</DeleteMeButton>
+				</DeleteMeContainer>
+			</>
+			: <PropValue>{buildLabel()}</PropValue>}
 	</DimensionContainer>;
 };

@@ -27,6 +27,7 @@ import {ICON_CLOSE} from '@/widgets/basic/constants';
 import {Lang} from '@/widgets/langs';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useState} from 'react';
+import {isTemplateConnectedSpace} from '../../../utils';
 import {useReportViewEventBus} from '../../report-view-event-bus';
 import {ReportViewEventTypes} from '../../report-view-event-bus-types';
 import {BasicStyleSection} from '../basic-style';
@@ -144,10 +145,11 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 	const holdTitle = canHoldTitle(chart);
 	const holdLegend = canHoldLegend(chart);
 	const useGrid = canUseGrid(chart);
+	const isTemplate = isTemplateConnectedSpace(connectedSpace);
 	// script is opened when connected is template or declared opened for all console
-	const useScript = (connectedSpace.isTemplate || isChartScriptInConsoleEnabled()) && echart && canUseScript(chart);
+	const useScript = (isTemplate || isChartScriptInConsoleEnabled()) && echart && canUseScript(chart);
 	// variables defs always unopened for non-template connected space
-	const useScriptVarsDefs = connectedSpace.isTemplate && echart && canUseScript(chart);
+	const useScriptVarsDefs = isTemplate && echart && canUseScript(chart);
 	// variables always opened when script is supported by chart
 	const useScriptVars = echart && canUseScript(chart);
 

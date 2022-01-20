@@ -6,6 +6,7 @@ import {DropdownOption} from '@/widgets/basic/types';
 import {Lang} from '@/widgets/langs';
 import {ChartHelper} from '@/widgets/report/chart-utils';
 import React from 'react';
+import {isTemplateConnectedSpace} from '../../../utils';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {DropdownValue} from '../settings-widgets/dropdown-value';
@@ -39,7 +40,7 @@ export const ChartTypeEditor = (props: { connectedSpace: ConnectedSpace; report:
 	};
 
 	let options = ChartTypeOptions;
-	if (!isChartScriptInConsoleEnabled() && !connectedSpace.isTemplate) {
+	if (!isChartScriptInConsoleEnabled() && !isTemplateConnectedSpace(connectedSpace)) {
 		if (report.chart.type === ChartType.CUSTOMIZED) {
 			// when chart type is given and it is customized, can not be changed
 			options = [{value: ChartType.CUSTOMIZED, label: Lang.CHART.TYPES.CUSTOMIZED}];

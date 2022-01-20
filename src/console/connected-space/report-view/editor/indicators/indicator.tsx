@@ -1,4 +1,6 @@
+import {isChartScriptInConsoleEnabled} from '@/feature-switch';
 import {ChartType} from '@/services/data/tuples/chart-types';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Report, ReportIndicator, ReportIndicatorArithmetic} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
@@ -11,6 +13,7 @@ import {Lang} from '@/widgets/langs';
 import {ChartHelper} from '@/widgets/report/chart-utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
+import {isTemplateConnectedSpace} from '../../../utils';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {PropValueDropdown} from '../settings-widgets/widgets';
@@ -24,12 +27,13 @@ import {
 } from './widgets';
 
 export const IndicatorEditor = (props: {
+	connectedSpace: ConnectedSpace;
 	subject: Subject;
 	report: Report;
 	indicator: ReportIndicator;
 	onDelete: (indicator: ReportIndicator) => void;
 }) => {
-	const {subject, report, indicator, onDelete} = props;
+	const {connectedSpace, subject, report, indicator, onDelete} = props;
 	const {chart: {type: chartType}} = report;
 
 	const {fire: fireGlobal} = useEventBus();
@@ -100,19 +104,37 @@ export const IndicatorEditor = (props: {
 		{value: ReportIndicatorArithmetic.MINIMUM, label: Lang.CHART.ARITHMETIC_MIN}
 	].filter(x => x) as Array<DropdownOption>;
 
-	return <IndicatorContainer>
+	const canDelete = isChartScriptInConsoleEnabled() || isTemplateConnectedSpace(connectedSpace);
+	const buildLabel = () => {
+		// eslint-disable-next-line
+		const columnLabel = indicatorOptions.find(option => option.value == columnId)?.label ?? '?';
+		if (arithmetic == null || arithmetic === ReportIndicatorArithmetic.NONE) {
+			return columnLabel;
+		} else {
+			const arithmeticLabel = arithmeticOptions.find(a => a.value === arithmetic)?.label;
+			return <>{arithmeticLabel}({columnLabel})</>;
+		}
+	};
+
+	return <IndicatorContainer removable={canDelete}>
 		<IndicatorIndexLabel>{index}</IndicatorIndexLabel>
-		<IndicatorPropValue>
-			<PropValueDropdown value={columnId} options={indicatorOptions}
-			                   placeholder={Lang.CHART.PLEASE_SELECT_INDICATOR}
-			                   onValueChange={onColumnChange}/>
-			<PropValueDropdown value={arithmetic || ReportIndicatorArithmetic.NONE} options={arithmeticOptions}
-			                   onValueChange={onArithmeticChange}/>
-		</IndicatorPropValue>
-		<DeleteMeContainer>
-			<DeleteMeButton onClick={onDeleteClicked}>
-				<FontAwesomeIcon icon={ICON_DELETE}/>
-			</DeleteMeButton>
-		</DeleteMeContainer>
+		{canDelete
+			? <>
+				<IndicatorPropValue>
+					<PropValueDropdown value={columnId} options={indicatorOptions}
+					                   placeholder={Lang.CHART.PLEASE_SELECT_INDICATOR}
+					                   onValueChange={onColumnChange}/>
+					<PropValueDropdown value={arithmetic || ReportIndicatorArithmetic.NONE} options={arithmeticOptions}
+					                   onValueChange={onArithmeticChange}/>
+				</IndicatorPropValue>
+				<DeleteMeContainer>
+					<DeleteMeButton onClick={onDeleteClicked}>
+						<FontAwesomeIcon icon={ICON_DELETE}/>
+					</DeleteMeButton>
+				</DeleteMeContainer>
+			</>
+			: <IndicatorPropValue>
+				{buildLabel()}
+			</IndicatorPropValue>}
 	</IndicatorContainer>;
 };

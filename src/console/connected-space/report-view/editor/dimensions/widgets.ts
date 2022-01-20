@@ -2,7 +2,14 @@ import {Button, DwarfButton} from '@/widgets/basic/button';
 import styled from 'styled-components';
 import {PropValue} from '../settings-widgets/widgets';
 
-export const DimensionContainer = styled.div.attrs({'data-widget': 'report-dimension'})`
+export const DimensionContainer = styled.div.attrs<{ removable: boolean }>(({removable}) => {
+	return {
+		'data-widget': 'report-dimension',
+		style: {
+			gridTemplateColumns: removable ? (void 0) : '32px 1fr'
+		}
+	};
+})<{ removable: boolean }>`
 	display               : grid;
 	grid-template-columns : 32px 1fr calc((var(--height) * 1.8 + 1px) * 0.6);
 	position              : relative;

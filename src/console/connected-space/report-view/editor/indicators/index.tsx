@@ -1,3 +1,5 @@
+import {isChartScriptInConsoleEnabled} from '@/feature-switch';
+import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Report, ReportIndicator, ReportIndicatorArithmetic} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
@@ -11,6 +13,7 @@ import {ChartHelper} from '@/widgets/report/chart-utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {v4} from 'uuid';
+import {isTemplateConnectedSpace} from '../../../utils';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {useChartType} from '../settings-effect/use-chart-type';
@@ -18,8 +21,8 @@ import {Section} from '../settings-widgets/section';
 import {IndicatorEditor} from './indicator';
 import {AddIndicatorButton, AddIndicatorContainer} from './widgets';
 
-export const IndicatorsSection = (props: { subject: Subject, report: Report }) => {
-	const {subject, report} = props;
+export const IndicatorsSection = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
+	const {connectedSpace, subject, report} = props;
 	const {chart: {type}} = report;
 
 	const {fire: fireGlobal} = useEventBus();
@@ -64,7 +67,8 @@ export const IndicatorsSection = (props: { subject: Subject, report: Report }) =
 	}
 
 	chartUtils.defend(report);
-	const canAddIndicator = chartUtils.canAppendIndicators(report);
+	const canAddIndicator = chartUtils.canAppendIndicators(report)
+		&& (isChartScriptInConsoleEnabled() || isTemplateConnectedSpace(connectedSpace));
 
 	return <Section title={Lang.CHART.SECTION_TITLE_INDICATORS} defaultExpanded={true}>
 		{report.indicators.map((indicator, indicatorIndex) => {
@@ -72,7 +76,8 @@ export const IndicatorsSection = (props: { subject: Subject, report: Report }) =
 			if (indicatorIndex >= chartUtils.getMaxIndicatorCount()) {
 				return null;
 			}
-			return <IndicatorEditor subject={subject} report={report} indicator={indicator}
+			return <IndicatorEditor connectedSpace={connectedSpace} subject={subject} report={report}
+			                        indicator={indicator}
 			                        onDelete={onDelete}
 			                        key={v4()}/>;
 		})}
