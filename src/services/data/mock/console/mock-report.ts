@@ -199,7 +199,12 @@ export const fetchMockMapChartData = async (reportId: ReportId): Promise<ChartDa
 					[Math.random() * 1000, 'Yamagata', '山形県'],
 					[Math.random() * 1000, 'Yamaguchi', '山口県'],
 					[Math.random() * 1000, 'Yamanashi', '山梨県'],
-					[Math.random() * 1000, 'HI', 'Hawaii']
+					[Math.random() * 1000, 'HI', 'Hawaii'],
+					[Math.random() * 1000, 'SW', 'South West Community Development Council'],
+					[Math.random() * 1000, 'SE', 'South East Community Development Council'],
+					[Math.random() * 1000, 'NW', 'North West Community Development Council'],
+					[Math.random() * 1000, 'NE', 'North East Community Development Council'],
+					[Math.random() * 1000, 'CS', 'Central Singapore Community Development Council']
 				]
 			} as ChartDataSet),
 			500
