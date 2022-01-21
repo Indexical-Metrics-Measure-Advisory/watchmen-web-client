@@ -59,7 +59,7 @@ export const JapanCoordinatesL1 = {
 		// console.log(feature.properties.NAME_1, feature.properties.NL_NAME_1);
 		const code = feature.properties.name;
 
-		all.set(feature.properties.name as string, {
+		all.set(code as string, {
 			longitude: NAMES[code].longitude,
 			latitude: NAMES[code].latitude,
 			name: NAMES[code].name,

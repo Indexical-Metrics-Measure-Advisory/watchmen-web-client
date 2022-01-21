@@ -199,7 +199,7 @@ export const fetchMockMapChartData = async (reportId: ReportId): Promise<ChartDa
 					[Math.random() * 1000, 'Yamagata', '山形県'],
 					[Math.random() * 1000, 'Yamaguchi', '山口県'],
 					[Math.random() * 1000, 'Yamanashi', '山梨県'],
-					[Math.random() * 1000, 'Hawaii', 'Hawaii']
+					[Math.random() * 1000, 'HI', 'Hawaii']
 				]
 			} as ChartDataSet),
 			500

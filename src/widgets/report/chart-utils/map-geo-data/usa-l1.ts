@@ -62,11 +62,12 @@ export const USACoordinatesL1 = {
 	map: usaJSON.features.filter(feature => !!feature.properties.name).reduce((all, feature) => {
 		// console.log(feature.properties.NAME_1, feature.properties.NL_NAME_1);
 		const name = feature.properties.name;
-		all.set(feature.properties.name as string, {
+		const code = NAMES[name].code;
+		all.set(code, {
 			longitude: NAMES[name].longitude,
 			latitude: NAMES[name].latitude,
-			name: feature.properties.name,
-			code: NAMES[name].code
+			name,
+			code
 		});
 		return all;
 	}, new Map<string, MapCoordinate>())
