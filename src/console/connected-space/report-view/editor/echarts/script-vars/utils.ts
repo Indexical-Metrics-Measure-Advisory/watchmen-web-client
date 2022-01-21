@@ -8,7 +8,7 @@ import {
 	PercentageItem,
 	SectionItem,
 	TextItem
-} from './types';
+} from '@/services/data/tuples/echarts/echarts-script-types';
 
 export const isSectionItem = (item: DefItem): item is SectionItem => {
 	return item.type === ItemType.SECTION;

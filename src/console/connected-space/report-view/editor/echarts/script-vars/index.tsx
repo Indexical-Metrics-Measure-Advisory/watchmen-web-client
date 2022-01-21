@@ -1,3 +1,4 @@
+import {DefItem, InputItem, ItemType} from '@/services/data/tuples/echarts/echarts-script-types';
 import {ECharts} from '@/services/data/tuples/echarts/echarts-types';
 import {canUseScript, isEChart} from '@/services/data/tuples/echarts/echarts-utils';
 import {Report} from '@/services/data/tuples/report-types';
@@ -24,7 +25,6 @@ import {DropdownValue} from '../../settings-widgets/dropdown-value';
 import {NumberValue} from '../../settings-widgets/number-value';
 import {PercentageValue} from '../../settings-widgets/pecentage-value';
 import {TextValue} from '../../settings-widgets/text-value';
-import {DefItem, InputItem, ItemType} from './types';
 import {
 	isBooleanItem,
 	isColorItem,

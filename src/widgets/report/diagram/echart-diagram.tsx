@@ -49,7 +49,7 @@ export const EChartDiagram = (props: { report: Report; thumbnail: boolean }) => 
 						};
 						image.src = instance.getDataURL({type: 'png', pixelRatio: window.devicePixelRatio});
 					}
-				}, 1000)
+				}, 1000);
 			};
 			instance.on('finished', onFinished);
 			instance.clear();
