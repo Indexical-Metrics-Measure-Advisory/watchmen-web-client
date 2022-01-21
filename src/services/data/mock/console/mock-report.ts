@@ -164,7 +164,7 @@ export const fetchMockMapChartData = async (reportId: ReportId): Promise<ChartDa
 					[Math.random() * 1000, 'Gunma', '群馬県'],
 					[Math.random() * 1000, 'Hiroshima', '広島県'],
 					[Math.random() * 1000, 'Hokkaido', '北海道'],
-					[Math.random() * 1000, 'Hyōgo', '兵庫県'],
+					[Math.random() * 1000, 'Hyogo', '兵庫県'],
 					[Math.random() * 1000, 'Ibaraki', '茨城県'],
 					[Math.random() * 1000, 'Ishikawa', '石川県'],
 					[Math.random() * 1000, 'Iwate', '岩手県'],
@@ -198,7 +198,8 @@ export const fetchMockMapChartData = async (reportId: ReportId): Promise<ChartDa
 					[Math.random() * 1000, 'Wakayama', '和歌山県'],
 					[Math.random() * 1000, 'Yamagata', '山形県'],
 					[Math.random() * 1000, 'Yamaguchi', '山口県'],
-					[Math.random() * 1000, 'Yamanashi', '山梨県']
+					[Math.random() * 1000, 'Yamanashi', '山梨県'],
+					[Math.random() * 1000, 'Hawaii', 'Hawaii']
 				]
 			} as ChartDataSet),
 			500

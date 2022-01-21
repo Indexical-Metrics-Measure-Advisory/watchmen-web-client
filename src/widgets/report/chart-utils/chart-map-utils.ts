@@ -7,6 +7,7 @@ import {BASE_COLORS_24, BASE_COLORS_6} from '../../basic/colors';
 import {DefaultChartUtils} from './default-chart-utils';
 import {ChinaCoordinatesL1} from './map-geo-data/china-l1';
 import {JapanCoordinatesL1} from './map-geo-data/japan-l1';
+import {SingaporeCoordinatesL1} from './map-geo-data/singapore-l1';
 import {MapCoordinate} from './map-geo-data/types';
 import {USACoordinatesL1} from './map-geo-data/usa-l1';
 import {buildEChartsTitle} from './title-utils';
@@ -32,6 +33,12 @@ export class ChartMapUtils extends DefaultChartUtils {
 
 		let map: { name: string; map: Map<string, MapCoordinate> };
 		switch (region) {
+			case MapChartRegion.CHINA_L1:
+				map = ChinaCoordinatesL1;
+				break;
+			case MapChartRegion.SINGAPORE_L1:
+				map = SingaporeCoordinatesL1;
+				break;
 			case MapChartRegion.USA_L1:
 				map = USACoordinatesL1;
 				break;
