@@ -782,6 +782,7 @@ export const En = {
 		PIE_LABEL_ALIGN_TO_EDGE: 'Edge',
 		MAP_REGION: 'Region',
 		MAP_REGION_CHINA_L1: 'China (Province)',
+		MAP_REGION_CYPRUS_L1: 'Cyprus',
 		MAP_REGION_JAPAN_L1: 'Japan (Prefecture)',
 		MAP_REGION_SINGAPORE_L1: 'Singapore',
 		MAP_REGION_USA_L1: 'United States (State)',

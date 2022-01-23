@@ -6,6 +6,7 @@ import {EChartOption} from 'echarts';
 import {BASE_COLORS_24, BASE_COLORS_6} from '../../basic/colors';
 import {DefaultChartUtils} from './default-chart-utils';
 import {ChinaCoordinatesL1} from './map-geo-data/china-l1';
+import {CyprusCoordinatesL1} from './map-geo-data/cyprus-l1';
 import {JapanCoordinatesL1} from './map-geo-data/japan-l1';
 import {SingaporeCoordinatesL1} from './map-geo-data/singapore-l1';
 import {MapCoordinate} from './map-geo-data/types';
@@ -13,12 +14,6 @@ import {USACoordinatesL1} from './map-geo-data/usa-l1';
 import {buildEChartsTitle} from './title-utils';
 import {buildToolbox} from './toolbox-utils';
 import {ChartOptions} from './types';
-
-(() => {
-	console.groupCollapsed('Map loaded.');
-	console.log(`Map[${ChinaCoordinatesL1.name}] is preloaded.`);
-	console.groupEnd();
-})();
 
 export class ChartMapUtils extends DefaultChartUtils {
 	constructor() {
@@ -35,6 +30,9 @@ export class ChartMapUtils extends DefaultChartUtils {
 		switch (region) {
 			case MapChartRegion.CHINA_L1:
 				map = ChinaCoordinatesL1;
+				break;
+			case MapChartRegion.CYPRUS_L1:
+				map = CyprusCoordinatesL1;
 				break;
 			case MapChartRegion.SINGAPORE_L1:
 				map = SingaporeCoordinatesL1;

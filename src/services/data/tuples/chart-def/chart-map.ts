@@ -22,6 +22,7 @@ export const MAP: ChartDef = {
 
 export enum MapChartRegion {
 	CHINA_L1 = 'china-l1',
+	CYPRUS_L1 = 'cyprus-l1',
 	JAPAN_L1 = 'japan-l1',
 	SINGAPORE_L1 = 'singapore-l1',
 	USA_L1 = 'usa-l1'

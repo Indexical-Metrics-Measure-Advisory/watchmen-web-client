@@ -782,6 +782,7 @@ export const Jp = {
 		PIE_LABEL_ALIGN_TO_EDGE: '縁',
 		MAP_REGION: '地域',
 		MAP_REGION_CHINA_L1: '中国 (省)',
+		MAP_REGION_CYPRUS_L1: 'キプロス',
 		MAP_REGION_JAPAN_L1: '日本 (県/都/府)',
 		MAP_REGION_SINGAPORE_L1: 'シンガポール',
 		MAP_REGION_USA_L1: '米国 (州)',
