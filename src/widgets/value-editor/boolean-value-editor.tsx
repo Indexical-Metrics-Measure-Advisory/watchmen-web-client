@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {CheckBox} from '../basic/checkbox';
 
 export const BooleanValueEditor = (props: {
@@ -9,6 +9,12 @@ export const BooleanValueEditor = (props: {
 	const {value, defaultValue, onValueChange, ...rest} = props;
 
 	const [delegate, setDelegate] = useState<{ value: boolean }>({value: value || defaultValue || false});
+	useEffect(() => {
+		// any other changed, means whole editor should be force update
+		// value must be reset
+		setDelegate({value: value || defaultValue || false});
+	}, [onValueChange, value, defaultValue]);
+
 	const onPropChange = (value: boolean) => {
 		onValueChange(value);
 		setDelegate({value});

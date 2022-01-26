@@ -26,7 +26,7 @@ export const useHandleInput = <V extends string | number>(options: {
 	});
 	useEffect(() => {
 		setDelegate({value: asString(value, defaultValue), previousValidValue: asString(value, defaultValue)});
-	}, [value, defaultValue]);
+	}, [value, defaultValue, validate, onValueChange]);
 
 	const onPropChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const {value} = event.target;
