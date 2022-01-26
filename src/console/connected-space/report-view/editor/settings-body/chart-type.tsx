@@ -41,10 +41,13 @@ export const ChartTypeEditor = (props: { connectedSpace: ConnectedSpace; report:
 
 	let options = ChartTypeOptions;
 	if (!isChartScriptInConsoleEnabled() && !isTemplateConnectedSpace(connectedSpace)) {
+		// script not opened to console,
+		// and it is not a template connected space
 		if (report.chart.type === ChartType.CUSTOMIZED) {
-			// when chart type is given and it is customized, can not be changed
+			// when chart type is given, and it is customized, can not be changed
 			options = [{value: ChartType.CUSTOMIZED, label: Lang.CHART.TYPES.CUSTOMIZED}];
 		} else {
+			// type is not customized, then customized is not an option to change
 			options = options.filter(option => option.value !== ChartType.CUSTOMIZED);
 		}
 	}

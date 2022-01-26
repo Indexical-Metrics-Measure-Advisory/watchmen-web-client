@@ -1,4 +1,3 @@
-import {isChartScriptInConsoleEnabled} from '@/feature-switch';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Report, ReportDimension} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
@@ -13,11 +12,11 @@ import {ChartHelper} from '@/widgets/report/chart-utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {v4} from 'uuid';
-import {isTemplateConnectedSpace} from '../../../utils';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {useChartType} from '../settings-effect/use-chart-type';
 import {Section} from '../settings-widgets/section';
+import {isScriptOpened} from '../utils';
 import {DimensionEditor} from './dimension';
 import {AddDimensionButton, AddDimensionContainer} from './widgets';
 
@@ -67,8 +66,7 @@ export const DimensionsSection = (props: { connectedSpace: ConnectedSpace, subje
 	}
 
 	chartUtils.defend(report);
-	const canAddDimension = chartUtils.canAppendDimensions(report)
-		&& (isChartScriptInConsoleEnabled() || isTemplateConnectedSpace(connectedSpace));
+	const canAddDimension = chartUtils.canAppendDimensions(report) && isScriptOpened(connectedSpace, type);
 
 	return <Section title={Lang.CHART.SECTION_TITLE_DIMENSIONS} defaultExpanded={true}>
 		{report.dimensions.map((dimension, dimensionIndex) => {

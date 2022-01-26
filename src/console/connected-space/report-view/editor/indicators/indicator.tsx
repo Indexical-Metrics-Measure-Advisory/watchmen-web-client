@@ -1,4 +1,3 @@
-import {isChartScriptInConsoleEnabled} from '@/feature-switch';
 import {ChartType} from '@/services/data/tuples/chart-types';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Report, ReportIndicator, ReportIndicatorArithmetic} from '@/services/data/tuples/report-types';
@@ -13,10 +12,10 @@ import {Lang} from '@/widgets/langs';
 import {ChartHelper} from '@/widgets/report/chart-utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {isTemplateConnectedSpace} from '../../../utils';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {PropValueDropdown} from '../settings-widgets/widgets';
+import {isScriptOpened} from '../utils';
 import {
 	DeleteMeButton,
 	DeleteMeContainer,
@@ -104,7 +103,7 @@ export const IndicatorEditor = (props: {
 		{value: ReportIndicatorArithmetic.MINIMUM, label: Lang.CHART.ARITHMETIC_MIN}
 	].filter(x => x) as Array<DropdownOption>;
 
-	const canDelete = isChartScriptInConsoleEnabled() || isTemplateConnectedSpace(connectedSpace);
+	const scriptOpened = isScriptOpened(connectedSpace, chartType);
 	const buildLabel = () => {
 		// eslint-disable-next-line
 		const columnLabel = indicatorOptions.find(option => option.value == columnId)?.label ?? '?';
@@ -116,9 +115,9 @@ export const IndicatorEditor = (props: {
 		}
 	};
 
-	return <IndicatorContainer removable={canDelete}>
+	return <IndicatorContainer removable={scriptOpened}>
 		<IndicatorIndexLabel>{index}</IndicatorIndexLabel>
-		{canDelete
+		{scriptOpened
 			? <>
 				<IndicatorPropValue>
 					<PropValueDropdown value={columnId} options={indicatorOptions}

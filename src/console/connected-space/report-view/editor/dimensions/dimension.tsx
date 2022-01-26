@@ -1,4 +1,3 @@
-import {isChartScriptInConsoleEnabled} from '@/feature-switch';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Report, ReportDimension} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
@@ -12,10 +11,10 @@ import {Lang} from '@/widgets/langs';
 import {ChartHelper} from '@/widgets/report/chart-utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React from 'react';
-import {isTemplateConnectedSpace} from '../../../utils';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {PropValue, PropValueDropdown} from '../settings-widgets/widgets';
+import {isScriptOpened} from '../utils';
 import {
 	DeleteMeButton,
 	DeleteMeContainer,
@@ -85,15 +84,15 @@ export const DimensionEditor = (props: {
 		});
 	}
 
-	const canDelete = isChartScriptInConsoleEnabled() || isTemplateConnectedSpace(connectedSpace);
+	const scriptOpened = isScriptOpened(connectedSpace, chartType);
 	const buildLabel = () => {
 		// eslint-disable-next-line
 		return dimensionOptions.find(option => option.value == columnId)?.label ?? '?';
 	};
 
-	return <DimensionContainer removable={canDelete}>
+	return <DimensionContainer removable={scriptOpened}>
 		<DimensionIndexLabel>{index}</DimensionIndexLabel>
-		{canDelete
+		{scriptOpened
 			? <>
 				<PropValue>
 					<PropValueDropdown value={columnId} options={dimensionOptions}
