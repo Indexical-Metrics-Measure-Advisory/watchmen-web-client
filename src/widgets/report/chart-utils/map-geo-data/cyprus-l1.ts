@@ -1,7 +1,6 @@
 import {echarts} from '../../../basic/echarts';
 import cyprusJson from './echarts-cyprus.json';
 import {MapCoordinate} from './types';
-import {computeMiddlePoint, decode} from './utils';
 
 const NAMES: { [key in string]: { code: string, latitude: number, longitude: number } } = {
 	'Famagusta': {code: 'Famagusta', latitude: 35.14562030167009 + 0.05, longitude: 33.87354002188078 - 0.13},
@@ -28,32 +27,32 @@ export const CyprusCoordinatesL1 = {
 	}, new Map<string, MapCoordinate>())
 };
 
-decode(cyprusJson).features.forEach((x: any) => {
-	const {properties: {name}, geometry: {type, coordinates}} = x;
-	const code = name;
-	if (NAMES[code] == null) {
-		console.log(code);
-	}
-
-	// console.groupCollapsed(code)
-	switch (type) {
-		case 'MultiPolygon':
-			const computed: Array<{ latitude: number, longitude: number }> = coordinates.map((coordinate: any) => {
-				return computeMiddlePoint(coordinate[0]);
-			});
-			const x = computeMiddlePoint(computed.map(({latitude, longitude}) => {
-				return [longitude, latitude];
-			}));
-			// console.log(code, x)
-			console.log(`"${code}": {code: "${NAMES[code].code}", latitude: ${x.latitude}, longitude: ${x.longitude}},`);
-			break;
-		case 'Polygon':
-		default:
-			const {longitude, latitude} = computeMiddlePoint(coordinates[0]);
-			console.log(`"${code}": {code: "${NAMES[code].code}", latitude: ${latitude}, longitude: ${longitude}},`);
-			break;
-	}
-	// console.groupEnd();
-});
+// decode(cyprusJson).features.forEach((x: any) => {
+// 	const {properties: {name}, geometry: {type, coordinates}} = x;
+// 	const code = name;
+// 	if (NAMES[code] == null) {
+// 		console.log(code);
+// 	}
+//
+// 	// console.groupCollapsed(code)
+// 	switch (type) {
+// 		case 'MultiPolygon':
+// 			const computed: Array<{ latitude: number, longitude: number }> = coordinates.map((coordinate: any) => {
+// 				return computeMiddlePoint(coordinate[0]);
+// 			});
+// 			const x = computeMiddlePoint(computed.map(({latitude, longitude}) => {
+// 				return [longitude, latitude];
+// 			}));
+// 			// console.log(code, x)
+// 			console.log(`"${code}": {code: "${NAMES[code].code}", latitude: ${x.latitude}, longitude: ${x.longitude}},`);
+// 			break;
+// 		case 'Polygon':
+// 		default:
+// 			const {longitude, latitude} = computeMiddlePoint(coordinates[0]);
+// 			console.log(`"${code}": {code: "${NAMES[code].code}", latitude: ${latitude}, longitude: ${longitude}},`);
+// 			break;
+// 	}
+// 	// console.groupEnd();
+// });
 
 echarts.registerMap(CyprusCoordinatesL1.name, cyprusJson as any, {});

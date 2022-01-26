@@ -2,6 +2,7 @@ import {Report, ReportFunnel} from '@/services/data/tuples/report-types';
 import {detectFunnels} from '@/services/data/tuples/report-utils';
 import {Subject} from '@/services/data/tuples/subject-types';
 import {Topic} from '@/services/data/tuples/topic-types';
+import {useForceUpdate} from '@/widgets/basic/utils';
 import {Lang} from '@/widgets/langs';
 import React, {useEffect} from 'react';
 // noinspection ES6PreferShortImport
@@ -31,13 +32,15 @@ export const FunnelDef = (props: { subject: Subject, report: Report }) => {
 	const {subject, report} = props;
 
 	const {fire: fireConsole} = useConsoleEventBus();
+	const forceUpdate = useForceUpdate();
 	useEffect(() => {
 		fireConsole(ConsoleEventTypes.ASK_AVAILABLE_TOPICS, (availableTopics: Array<Topic>) => {
 			const existedFunnels = report.funnels || [];
 			const detectedFunnels = detectFunnels(subject, availableTopics);
 			report.funnels = merge(existedFunnels, detectedFunnels);
+			forceUpdate();
 		});
-	}, [fireConsole, subject, report]);
+	}, [fireConsole, forceUpdate, subject, report]);
 
 	const funnels = report.funnels || [];
 
