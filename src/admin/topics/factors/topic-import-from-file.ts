@@ -182,7 +182,7 @@ const toFactorsFromInstanceData = (topic: Topic, data: ShouldBeFactorsInstance, 
 					throw new Error(`Conflict type[${FactorType.BOOLEAN}, ${factor.type}] detected on factor[${factorName}].`);
 				}
 			} else if (typeof value === 'string') {
-				if (value.trim().length === 23) {
+				if (value.trim().length === 23 && isNaN(Number(value.trim()))) {
 					const isValidDate = dayjs(value).isValid();
 					if (factor.type == null && isValidDate) {
 						factor.type = FactorType.FULL_DATETIME;
@@ -191,7 +191,7 @@ const toFactorsFromInstanceData = (topic: Topic, data: ShouldBeFactorsInstance, 
 					} else {
 						factor.type = FactorType.TEXT;
 					}
-				} else if (value.trim().length === 19) {
+				} else if (value.trim().length === 19 && isNaN(Number(value.trim()))) {
 					const isValidDate = dayjs(value).isValid();
 					if (factor.type == null && isValidDate) {
 						factor.type = FactorType.DATETIME;
@@ -200,7 +200,7 @@ const toFactorsFromInstanceData = (topic: Topic, data: ShouldBeFactorsInstance, 
 					} else {
 						factor.type = FactorType.TEXT;
 					}
-				} else if (value.trim().length === 10) {
+				} else if (value.trim().length === 10 && isNaN(Number(value.trim()))) {
 					const isValidDate = dayjs(value).isValid();
 					if (factor.type == null && isValidDate) {
 						factor.type = FactorType.DATE;
@@ -209,7 +209,7 @@ const toFactorsFromInstanceData = (topic: Topic, data: ShouldBeFactorsInstance, 
 					} else {
 						factor.type = FactorType.TEXT;
 					}
-				} else if (value.trim().length === 8) {
+				} else if (value.trim().length === 8 && !isNaN(Number(value.trim()))) {
 					const isValidDate = dayjs(value).isValid();
 					if (factor.type == null && isValidDate) {
 						factor.type = FactorType.TIME;
