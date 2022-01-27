@@ -14,7 +14,7 @@ import React from 'react';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {PropValue, PropValueDropdown} from '../settings-widgets/widgets';
-import {isScriptOpened} from '../utils';
+import {isScriptOpenedInChartOrIrrelevant} from '../utils';
 import {
 	DeleteMeButton,
 	DeleteMeContainer,
@@ -31,7 +31,8 @@ export const DimensionEditor = (props: {
 	onDelete: (dimension: ReportDimension) => void;
 }) => {
 	const {connectedSpace, subject, report, dimension, onDelete} = props;
-	const {chart: {type: chartType}} = report;
+	const {chart} = report;
+	const {type: chartType} = chart;
 
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useReportEditEventBus();
@@ -84,7 +85,7 @@ export const DimensionEditor = (props: {
 		});
 	}
 
-	const scriptOpened = isScriptOpened(connectedSpace, chartType);
+	const scriptOpened = isScriptOpenedInChartOrIrrelevant(connectedSpace, chart);
 	const buildLabel = () => {
 		// eslint-disable-next-line
 		return dimensionOptions.find(option => option.value == columnId)?.label ?? '?';

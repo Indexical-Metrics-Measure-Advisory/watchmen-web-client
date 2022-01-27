@@ -50,7 +50,7 @@ import {EChartsYAxisSettings} from '../echarts/yaxis';
 import {FilterTab} from '../filter-tab';
 import {FunnelTab} from '../funnel-tab';
 import {useChartType} from '../settings-effect/use-chart-type';
-import {isScriptOpened} from '../utils';
+import {isScriptOpenedInChartOrIrrelevant} from '../utils';
 import {TabBody} from './tab-body';
 import {ReportDataSetAndPaletteContainer, TabHeader, TabHeaders} from './widget';
 
@@ -148,7 +148,7 @@ export const ReportDataSetAndPalette = (props: { connectedSpace: ConnectedSpace,
 	const useGrid = canUseGrid(chart);
 	const isTemplate = isTemplateConnectedSpace(connectedSpace);
 	// script is opened when connected is template or declared opened for all console
-	const useScript = echart && canUseScript(chart) && isScriptOpened(connectedSpace, chart.type);
+	const useScript = echart && canUseScript(chart) && isScriptOpenedInChartOrIrrelevant(connectedSpace, chart);
 	// variables defs always unopened for non-template connected space
 	const useScriptVarsDefs = isTemplate && echart && canUseScript(chart);
 	// variables always opened when script is supported by chart

@@ -1,4 +1,3 @@
-import {isScriptOpened} from '../utils';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Report, ReportIndicator, ReportIndicatorArithmetic} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
@@ -17,12 +16,14 @@ import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {useChartType} from '../settings-effect/use-chart-type';
 import {Section} from '../settings-widgets/section';
+import {isScriptOpenedInChartOrIrrelevant} from '../utils';
 import {IndicatorEditor} from './indicator';
 import {AddIndicatorButton, AddIndicatorContainer} from './widgets';
 
 export const IndicatorsSection = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
 	const {connectedSpace, subject, report} = props;
-	const {chart: {type}} = report;
+	const {chart} = report;
+	const {type} = chart;
 
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useReportEditEventBus();
@@ -66,7 +67,7 @@ export const IndicatorsSection = (props: { connectedSpace: ConnectedSpace, subje
 	}
 
 	chartUtils.defend(report);
-	const canAddIndicator = chartUtils.canAppendIndicators(report) && isScriptOpened(connectedSpace, type);
+	const canAddIndicator = chartUtils.canAppendIndicators(report) && isScriptOpenedInChartOrIrrelevant(connectedSpace, chart);
 
 	return <Section title={Lang.CHART.SECTION_TITLE_INDICATORS} defaultExpanded={true}>
 		{report.indicators.map((indicator, indicatorIndex) => {

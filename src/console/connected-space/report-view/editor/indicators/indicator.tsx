@@ -15,7 +15,7 @@ import React from 'react';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {PropValueDropdown} from '../settings-widgets/widgets';
-import {isScriptOpened} from '../utils';
+import {isScriptOpenedInChartOrIrrelevant} from '../utils';
 import {
 	DeleteMeButton,
 	DeleteMeContainer,
@@ -33,7 +33,8 @@ export const IndicatorEditor = (props: {
 	onDelete: (indicator: ReportIndicator) => void;
 }) => {
 	const {connectedSpace, subject, report, indicator, onDelete} = props;
-	const {chart: {type: chartType}} = report;
+	const {chart} = report;
+	const {type: chartType} = chart;
 
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useReportEditEventBus();
@@ -103,7 +104,7 @@ export const IndicatorEditor = (props: {
 		{value: ReportIndicatorArithmetic.MINIMUM, label: Lang.CHART.ARITHMETIC_MIN}
 	].filter(x => x) as Array<DropdownOption>;
 
-	const scriptOpened = isScriptOpened(connectedSpace, chartType);
+	const scriptOpened = isScriptOpenedInChartOrIrrelevant(connectedSpace, chart);
 	const buildLabel = () => {
 		// eslint-disable-next-line
 		const columnLabel = indicatorOptions.find(option => option.value == columnId)?.label ?? '?';

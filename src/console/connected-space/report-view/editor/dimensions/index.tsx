@@ -16,13 +16,14 @@ import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {useChartType} from '../settings-effect/use-chart-type';
 import {Section} from '../settings-widgets/section';
-import {isScriptOpened} from '../utils';
+import {isScriptOpenedInChartOrIrrelevant} from '../utils';
 import {DimensionEditor} from './dimension';
 import {AddDimensionButton, AddDimensionContainer} from './widgets';
 
 export const DimensionsSection = (props: { connectedSpace: ConnectedSpace, subject: Subject, report: Report }) => {
 	const {connectedSpace, subject, report} = props;
-	const {chart: {type}} = report;
+	const {chart} = report;
+	const {type} = chart;
 
 	const {fire: fireGlobal} = useEventBus();
 	const {fire} = useReportEditEventBus();
@@ -66,7 +67,7 @@ export const DimensionsSection = (props: { connectedSpace: ConnectedSpace, subje
 	}
 
 	chartUtils.defend(report);
-	const canAddDimension = chartUtils.canAppendDimensions(report) && isScriptOpened(connectedSpace, type);
+	const canAddDimension = chartUtils.canAppendDimensions(report) && isScriptOpenedInChartOrIrrelevant(connectedSpace, chart);
 
 	return <Section title={Lang.CHART.SECTION_TITLE_DIMENSIONS} defaultExpanded={true}>
 		{report.dimensions.map((dimension, dimensionIndex) => {

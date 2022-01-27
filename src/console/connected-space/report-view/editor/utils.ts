@@ -1,11 +1,19 @@
 import {isChartScriptInConsoleEnabled} from '@/feature-switch';
 import {isAdmin} from '@/services/data/account';
-import {ChartType} from '@/services/data/tuples/chart-types';
+import {Chart} from '@/services/data/tuples/chart-types';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {canUseScript} from '@/services/data/tuples/echarts/echarts-utils';
 import {isTemplateConnectedSpace} from '../../utils';
 
-export const isScriptOpened = (connectedSpace: ConnectedSpace, chartType: ChartType): boolean => {
-	if (chartType !== ChartType.CUSTOMIZED) {
+/**
+ * returns true when
+ * 1. chart cannot use script,
+ * 2. current user is admin,
+ * 3. script open to console,
+ * 4. is template connected space
+ */
+export const isScriptOpenedInChartOrIrrelevant = (connectedSpace: ConnectedSpace, chart: Chart): boolean => {
+	if (canUseScript(chart)) {
 		// not a customized chart, treat it as opened anyway
 		return true;
 	}
