@@ -1,6 +1,6 @@
 import {fetchChartData, fetchChartDataTemporary} from '@/services/data/console/report';
 import {ChartDataSet} from '@/services/data/tuples/chart-types';
-import {Report, ReportRect} from '@/services/data/tuples/report-types';
+import {Report, ReportId, ReportRect} from '@/services/data/tuples/report-types';
 import {isReportDefValid} from '@/services/data/tuples/report-utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useRef, useState} from 'react';
@@ -27,6 +27,7 @@ enum DiagramLoadState {
 }
 
 interface DiagramState {
+	reportId: ReportId;
 	loadState: DiagramLoadState;
 	dataset?: ChartDataSet;
 }
@@ -49,17 +50,31 @@ export const Container = (props: {
 	const dndRef = useRef<HTMLDivElement>(null);
 	const {fire: fireGlobal} = useEventBus();
 	const {fire, on, off} = useReportEventBus();
-	const [diagramState, setDiagramState] = useState<DiagramState>({loadState: DiagramLoadState.FALSE});
+	const [diagramState, setDiagramState] = useState<DiagramState>({
+		reportId: report.reportId,
+		loadState: DiagramLoadState.FALSE
+	});
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
+		if (report.reportId !== diagramState.reportId) {
+			// reset state and drop data when report switched
+			setDiagramState({reportId: report.reportId, loadState: DiagramLoadState.FALSE});
+			return;
+		}
+
+		// deal with load state change
 		if (shouldLoadData(diagramState.loadState)) {
 			if (!isReportDefValid(report, ChartHelper[report.chart.type]?.getDef(), report.simulating)) {
-				setDiagramState({loadState: DiagramLoadState.DEF_BROKEN, dataset: {data: []}});
+				setDiagramState({
+					reportId: report.reportId,
+					loadState: DiagramLoadState.DEF_BROKEN,
+					dataset: {data: []}
+				});
 			} else if (report.simulating) {
 				window.setTimeout(() => {
 					const dataset = {data: report.simulateData ?? []};
 					fire(ReportEventTypes.DATA_LOADED, report, dataset);
-					setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
+					setDiagramState({reportId: report.reportId, loadState: DiagramLoadState.TRUE, dataset});
 					// delay 500 milliseconds
 				}, 500);
 			} else if (diagramState.loadState === DiagramLoadState.FALSE) {
@@ -67,22 +82,22 @@ export const Container = (props: {
 					async () => await fetchChartData(report.reportId, report.chart.type),
 					(dataset: ChartDataSet) => {
 						fire(ReportEventTypes.DATA_LOADED, report, dataset);
-						setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
+						setDiagramState({reportId: report.reportId, loadState: DiagramLoadState.TRUE, dataset});
 					}, () => {
 						const dataset = {data: []};
 						fire(ReportEventTypes.DATA_LOADED, report, dataset);
-						setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
+						setDiagramState({reportId: report.reportId, loadState: DiagramLoadState.TRUE, dataset});
 					});
 			} else if (diagramState.loadState === DiagramLoadState.RELOAD) {
 				fireGlobal(EventTypes.INVOKE_REMOTE_REQUEST,
 					async () => await fetchChartDataTemporary(report),
 					(dataset: ChartDataSet) => {
 						fire(ReportEventTypes.DATA_LOADED, report, dataset);
-						setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
+						setDiagramState({reportId: report.reportId, loadState: DiagramLoadState.TRUE, dataset});
 					}, () => {
 						const dataset = {data: []};
 						fire(ReportEventTypes.DATA_LOADED, report, dataset);
-						setDiagramState({loadState: DiagramLoadState.TRUE, dataset});
+						setDiagramState({reportId: report.reportId, loadState: DiagramLoadState.TRUE, dataset});
 					});
 			}
 		}
@@ -91,13 +106,13 @@ export const Container = (props: {
 			if (report !== editReport) {
 				return;
 			}
-			setDiagramState({loadState: DiagramLoadState.RELOAD});
+			setDiagramState({reportId: report.reportId, loadState: DiagramLoadState.RELOAD});
 		};
 		const onDoReloadDataOnEditing = (editReport: Report) => {
 			if (report !== editReport || !editing) {
 				return;
 			}
-			setDiagramState({loadState: DiagramLoadState.RELOAD});
+			setDiagramState({reportId: report.reportId, loadState: DiagramLoadState.RELOAD});
 		};
 		const onDoRefresh = (refreshReport: Report) => {
 			// eslint-disable-next-line
@@ -105,7 +120,7 @@ export const Container = (props: {
 				return;
 			}
 			// force reload data
-			setDiagramState({loadState: DiagramLoadState.FALSE});
+			setDiagramState({reportId: report.reportId, loadState: DiagramLoadState.FALSE});
 		};
 		on(ReportEventTypes.DO_RELOAD_DATA_BY_CLIENT, onDoReloadDataByClient);
 		on(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onDoReloadDataOnEditing);
@@ -115,10 +130,7 @@ export const Container = (props: {
 			off(ReportEventTypes.DO_RELOAD_DATA_ON_EDITING, onDoReloadDataOnEditing);
 			off(ReportEventTypes.DO_REFRESH, onDoRefresh);
 		};
-	}, [fireGlobal, on, off, fire, forceUpdate, report, diagramState.loadState, editing]);
-	useEffect(() => {
-		setDiagramState({loadState: DiagramLoadState.FALSE});
-	}, [report.reportId]);
+	}, [fireGlobal, on, off, fire, forceUpdate, report, diagramState.reportId, diagramState.loadState, editing]);
 	useEffect(() => {
 		const onAskData = (aReport: Report, onLoaded: (dataset: ChartDataSet) => void) => {
 			if (report !== aReport) {
