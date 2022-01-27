@@ -252,7 +252,7 @@ export const ReportsFunnels = (props: {
 					return report;
 				});
 			fire(DashboardEventTypes.REPAINT_REPORTS, dashboard, reports);
-			console.log(JSON.stringify(reports.map(report => report.funnels).flat()));
+			// console.log(JSON.stringify(reports.map(report => report.funnels).flat()));
 		} else {
 			// original is not effective, now copy values to report funnels, and repaint reports
 			const reports = state.groups
@@ -275,7 +275,7 @@ export const ReportsFunnels = (props: {
 					return reports;
 				}, [] as Array<Report>);
 			fire(DashboardEventTypes.REPAINT_REPORTS, dashboard, reports);
-			console.log(JSON.stringify(reports.map(report => report.funnels).flat()));
+			// console.log(JSON.stringify(reports.map(report => report.funnels).flat()));
 		}
 		// console.log(JSON.stringify(state.groups.map(group => group.funnel).flat()));
 	};

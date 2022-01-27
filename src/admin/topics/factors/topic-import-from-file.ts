@@ -232,7 +232,7 @@ const toFactorsFromInstanceData = (topic: Topic, data: ShouldBeFactorsInstance, 
 				} else if (factor.type === FactorType.ARRAY) {
 					// already read a value of array, ignore this value
 				} else {
-					console.log(value, factor.type);
+					// console.log(value, factor.type);
 					throw new Error(`Conflict type[${FactorType.ARRAY}, ${factor.type}] detected on factor[${factorName}].`);
 				}
 				if (value.length !== 0) {

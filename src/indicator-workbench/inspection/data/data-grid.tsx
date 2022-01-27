@@ -78,16 +78,20 @@ export const DataGrid = (props: { inspection: Inspection; indicator: IndicatorFo
 				});
 			};
 
-			const [buckets, enumeration] = await Promise.all([await askBuckets(indicator), await askEnum(indicator)]);
+			const [buckets, enumeration] = await Promise.all([
+				askBuckets(indicator),
+				askEnum(indicator)
+			]);
 			if (enumeration != null) {
 				// replace enumeration value of data
+				// noinspection TypeScriptUnresolvedVariable
 				const enumItemMap = (enumeration.items || []).reduce((map, item) => {
 					map[item.code] = item.label;
 					return map;
 				}, {} as Record<string, string>);
-				console.log(JSON.stringify(data));
+				// console.log(JSON.stringify(data));
 				data.map(row => row[0] = row[0] != null ? (enumItemMap[`${row[0]}`] ?? row[0]) : row[0]);
-				console.log(JSON.stringify(data));
+				// console.log(JSON.stringify(data));
 			}
 			const columns = buildColumnDefs({inspection, indicator, buckets});
 			setState({initialized: true, columns, data, buckets, selection: []});
