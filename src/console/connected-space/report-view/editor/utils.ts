@@ -1,4 +1,5 @@
 import {isChartScriptInConsoleEnabled} from '@/feature-switch';
+import {isAdmin} from '@/services/data/account';
 import {ChartType} from '@/services/data/tuples/chart-types';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {isTemplateConnectedSpace} from '../../utils';
@@ -17,5 +18,5 @@ export const isScriptOpened = (connectedSpace: ConnectedSpace, chartType: ChartT
 		// is template connected space
 		return true;
 	}
-	return false;
+	return isAdmin();
 };
