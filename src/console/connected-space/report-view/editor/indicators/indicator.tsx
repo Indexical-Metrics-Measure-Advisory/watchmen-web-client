@@ -1,7 +1,10 @@
 import {ChartType} from '@/services/data/tuples/chart-types';
 import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
+import {MathFactorTypes} from '@/services/data/tuples/factor-types';
+import {isTopicFactorParameter} from '@/services/data/tuples/parameter-utils';
 import {Report, ReportIndicator, ReportIndicatorArithmetic} from '@/services/data/tuples/report-types';
 import {Subject} from '@/services/data/tuples/subject-types';
+import {Topic} from '@/services/data/tuples/topic-types';
 import {AlertLabel} from '@/widgets/alert/widgets';
 import {ICON_DELETE} from '@/widgets/basic/constants';
 import {DropdownOption} from '@/widgets/basic/types';
@@ -11,7 +14,11 @@ import {EventTypes} from '@/widgets/events/types';
 import {Lang} from '@/widgets/langs';
 import {ChartHelper} from '@/widgets/report/chart-utils';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+// noinspection ES6PreferShortImport
+import {useConsoleEventBus} from '../../../../console-event-bus';
+// noinspection ES6PreferShortImport
+import {ConsoleEventTypes} from '../../../../console-event-bus-types';
 import {useReportEditEventBus} from '../report-edit-event-bus';
 import {ReportEditEventTypes} from '../report-edit-event-bus-types';
 import {PropValueDropdown} from '../settings-widgets/widgets';
@@ -37,8 +44,16 @@ export const IndicatorEditor = (props: {
 	const {type: chartType} = chart;
 
 	const {fire: fireGlobal} = useEventBus();
+	const {fire: fireConsole} = useConsoleEventBus();
 	const {fire} = useReportEditEventBus();
+	const [availableTopics, setAvailableTopic] = useState<Array<Topic>>([]);
 	const forceUpdate = useForceUpdate();
+	useEffect(() => {
+		fireConsole(ConsoleEventTypes.ASK_AVAILABLE_TOPICS, (availableTopics: Array<Topic>) => {
+			setAvailableTopic(availableTopics);
+			forceUpdate();
+		});
+	}, [fireConsole, forceUpdate, subject, report]);
 
 	const onColumnChange = (option: DropdownOption) => {
 		const {value} = option;
@@ -66,7 +81,26 @@ export const IndicatorEditor = (props: {
 
 	const index = report.indicators.indexOf(indicator) + 1;
 	const {columnId, arithmetic} = indicator;
-	const indicatorOptions: Array<DropdownOption> = subject.dataset.columns.map((column, columnIndex) => {
+	const availableColumns = subject.dataset.columns.filter(column => {
+		if (column.parameter == null) {
+			return false;
+		} else if (isTopicFactorParameter((column.parameter))) {
+			const {topicId, factorId} = column.parameter;
+			// eslint-disable-next-line
+			const topic = availableTopics.find(topic => topic.topicId == topicId);
+			// eslint-disable-next-line
+			const factor = topic?.factors.find(factor => factor.factorId == factorId);
+			if (factor == null) {
+				return false;
+			} else {
+				return MathFactorTypes.includes(factor.type);
+			}
+		} else {
+			// any parameter constant or computed is available
+			return true;
+		}
+	});
+	const indicatorOptions: Array<DropdownOption> = availableColumns.map((column, columnIndex) => {
 		return {
 			value: column.columnId,
 			label: () => {
@@ -80,7 +114,7 @@ export const IndicatorEditor = (props: {
 	});
 	// not selected or exists
 	// eslint-disable-next-line
-	const selectionExists = !columnId || subject.dataset.columns.some(column => column.columnId == columnId);
+	const selectionExists = !columnId || availableColumns.some(column => column.columnId == columnId);
 	if (!selectionExists) {
 		indicatorOptions.push({
 			value: columnId,

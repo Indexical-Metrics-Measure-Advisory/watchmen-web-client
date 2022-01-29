@@ -280,6 +280,11 @@ export const CompatibleEncryptMethods: Record<FactorType, Array<FactorEncryptMet
 	[FactorType.ARRAY]: []
 };
 
+export const MathFactorTypes = [
+	FactorType.NUMBER, FactorType.UNSIGNED,
+	FactorType.AGE, FactorType.RESIDENTIAL_AREA, FactorType.BIZ_SCALE
+];
+
 export const FactorEncryptMethodLabels = {
 	[FactorEncryptMethod.NONE]: 'None',
 	[FactorEncryptMethod.AES256_PKCS5_PADDING]: 'AES256 PKCS5 Padding',
