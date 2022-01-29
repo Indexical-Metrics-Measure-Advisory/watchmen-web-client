@@ -35,7 +35,7 @@ export const ChartTruncationSettings = (props: { report: Report }) => {
 	};
 
 	const onValueChange = () => {
-		fire(ReportEditEventTypes.CHART_PIE_STYLE_CHANGED, report);
+		fire(ReportEditEventTypes.TRUNCATE_CHANGED, report);
 	};
 
 	return <Section title={Lang.CHART.SECTION_TITLE_TRUNCATION} defaultExpanded={true}>

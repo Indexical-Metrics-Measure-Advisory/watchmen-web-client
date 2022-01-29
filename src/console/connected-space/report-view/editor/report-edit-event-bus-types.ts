@@ -47,6 +47,7 @@ export enum ReportEditEventTypes {
 	FUNNEL_REMOVED = 'funnel-removed',
 	FUNNEL_RANGE_CHANGED = 'funnel-range-changed',
 	FUNNEL_VALUE_CHANGED = 'funnel-value-changed',
+	TRUNCATE_CHANGED = 'truncate-changed',
 
 	EXPAND_ALL_SECTIONS = 'expand-all-sections',
 	COLLAPSE_ALL_SECTIONS = 'collapse-all-sections',
@@ -195,6 +196,10 @@ export interface ReportEditEventBus {
 	fire(type: ReportEditEventTypes.FUNNEL_REMOVED, report: Report, funnel: ReportFunnel): this;
 	on(type: ReportEditEventTypes.FUNNEL_REMOVED, listener: (report: Report, funnel: ReportFunnel) => void): this;
 	off(type: ReportEditEventTypes.FUNNEL_REMOVED, listener: (report: Report, funnel: ReportFunnel) => void): this;
+
+	fire(type: ReportEditEventTypes.TRUNCATE_CHANGED, report: Report): this;
+	on(type: ReportEditEventTypes.TRUNCATE_CHANGED, listener: (report: Report) => void): this;
+	off(type: ReportEditEventTypes.TRUNCATE_CHANGED, listener: (report: Report) => void): this;
 
 	fire(type: ReportEditEventTypes.EXPAND_ALL_SECTIONS, report: Report): this;
 	on(type: ReportEditEventTypes.EXPAND_ALL_SECTIONS, listener: (report: Report) => void): this;
