@@ -5,7 +5,7 @@ export const TopicFactorEditContainer = styled.div.attrs({'data-widget': 'parame
 	display               : grid;
 	grid-template-columns : 50% 50%;
 	position              : relative;
-	align-self            : stretch;
+	//align-self            : stretch;
 	align-items           : center;
 	height                : var(--param-height);
 `;

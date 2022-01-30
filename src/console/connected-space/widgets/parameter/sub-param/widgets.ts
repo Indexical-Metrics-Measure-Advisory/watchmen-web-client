@@ -106,3 +106,7 @@ export const SubParameterEditContainer = styled.div.attrs<{ shorten: boolean }>(
 		border-bottom-right-radius : 0;
 	}
 `;
+export const SubParameterConditionContainer = styled.div.attrs({'data-widget': 'parameter-condition'})`
+	position    : relative;
+	grid-column : 1 / span 4;
+`;

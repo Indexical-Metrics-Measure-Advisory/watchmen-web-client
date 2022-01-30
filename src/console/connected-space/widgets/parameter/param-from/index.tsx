@@ -7,7 +7,10 @@ import React from 'react';
 import styled from 'styled-components';
 import {ParameterFromEditContainer, ParameterFromIcon, ParameterFromLabel, ParameterTypeButton} from './widgets';
 
-const ParameterFromEdit = (props: { parameter: Parameter; availableKinds?: Array<ParameterKind> }) => {
+const ParameterFromEdit = (props: {
+	parameter: Parameter;
+	availableKinds?: Array<ParameterKind>;
+}) => {
 	const {
 		parameter,
 		availableKinds = [ParameterKind.TOPIC, ParameterKind.CONSTANT, ParameterKind.COMPUTED],

@@ -1,0 +1,1 @@
+export const GRID_ROW_GAP = 'calc(var(--margin) / 4)';

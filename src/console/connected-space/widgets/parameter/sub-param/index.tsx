@@ -5,6 +5,7 @@ import {useParameterEventBus} from '@/widgets/parameter/parameter-event-bus';
 import {ParameterEventTypes} from '@/widgets/parameter/parameter-event-bus-types';
 import React, {useEffect} from 'react';
 import {ParameterFromEditor} from '../param-from';
+import {SubParameterCondition} from './sub-parameter-condition';
 import {SubParameterEditBody} from './sub-parameter-edit-body';
 import {SubParameterEditContainer} from './widgets';
 
@@ -31,6 +32,8 @@ export const SubParameterEdit = (props: {
 	}, [on, off, forceUpdate]);
 
 	return <SubParameterEditContainer shorten={parameter.kind === ParameterKind.COMPUTED}>
+		<SubParameterCondition parentParameter={parentParameter} parameter={parameter}
+		                       availableTopics={availableTopics} pickedTopics={pickedTopics}/>
 		<ParameterFromEditor shorten={parameter.kind === ParameterKind.COMPUTED}
 		                     parameter={parameter}/>
 		<SubParameterEditBody parameter={parameter} parentParameter={parentParameter}
