@@ -47,10 +47,10 @@ export const ExpressionSide = (props: {
 		return () => {
 			off(ParameterEventTypes.FROM_CHANGED, onFromChanged);
 		};
-	}, [on, off]);
+	}, [on, off, forceUpdate]);
 
 	return <ExpressionSideContainer visible={visible}>
-		<ParameterFromEditor parameter={parameter} shorten={parameter.kind == ParameterKind.COMPUTED}/>
+		<ParameterFromEditor parameter={parameter} shorten={parameter.kind === ParameterKind.COMPUTED}/>
 		<TopicFactorEditor parameter={parameter} availableTopics={availableTopics} pickedTopics={pickedTopics}/>
 		<ConstantValueEditor parameter={parameter}/>
 		<ComputedEditor parameter={parameter} availableTopics={availableTopics} pickedTopics={pickedTopics}/>

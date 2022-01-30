@@ -2,6 +2,7 @@ import {ConnectedSpace} from '@/services/data/tuples/connected-space-types';
 import {Dashboard} from '@/services/data/tuples/dashboard-types';
 import {Report} from '@/services/data/tuples/report-types';
 import React, {useEffect, useState} from 'react';
+import {cloneReport} from '../utils';
 import {Controllers} from './controllers';
 import {Funnels} from './funnels';
 import {Palette} from './palette';
@@ -26,7 +27,7 @@ export const Reports = (props: {
 			if (report != null) {
 				return {
 					// serialize & deserialize for void change the stored funnels data in report definition
-					...(JSON.parse(JSON.stringify(report))),
+					...cloneReport(report),
 					rect: dashboardReport.rect
 				};
 			} else {

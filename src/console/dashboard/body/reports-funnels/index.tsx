@@ -17,6 +17,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {v4} from 'uuid';
 import {useDashboardEventBus} from '../../dashboard-event-bus';
 import {DashboardEventTypes} from '../../dashboard-event-bus-types';
+import {cloneReport} from '../utils';
 import {FunnelEditorWrapper} from './funnel-editor';
 import {FunnelDefs, FunnelsState, GroupedFunnel} from './types';
 import {
@@ -95,10 +96,7 @@ export const ReportsFunnels = (props: {
 			}
 
 			// construct cloned report, add into reports
-			const displayReport = {
-				...(JSON.parse(JSON.stringify(report))),
-				rect: dashboardReport.rect
-			};
+			const displayReport = {...cloneReport(report), rect: dashboardReport.rect};
 			reports.push(displayReport);
 
 			save(() => {
