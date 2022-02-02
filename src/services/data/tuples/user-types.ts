@@ -16,7 +16,7 @@ export interface User extends Tuple, UserGroupHolder {
 	role: UserRole;
 	nickName: string;
 	password: string;
-	// only works on super admin login. otherwise it is undefined
+	// only works on super admin login. otherwise, it is undefined
 	tenantId?: TenantId;
 }
 
