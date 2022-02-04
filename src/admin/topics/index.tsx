@@ -182,7 +182,7 @@ const AdminTopics = () => {
 		                       icon: ICON_DOWNLOAD,
 		                       action: onDownloadScriptsClicked
 	                       }]}
-	                       searchPlaceholder="Search by topic name, factor name, description, etc."
+	                       searchPlaceholder="Search by topic name, description, etc."
 	                       tupleLabel="Topic" tupleImage={TopicBackground} tupleImagePosition="left 120px"
 	                       renderEditor={renderEditor}
 	                       renderCard={renderCard} getKeyOfTuple={getKeyOfTopic}
