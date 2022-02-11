@@ -306,7 +306,7 @@ const toFactorsFromInstanceData = (topic: Topic, data: ShouldBeFactorsInstance, 
 };
 
 const createAidRootFactor = (): Factor => {
-	const factorName = `aid_root`;
+	const factorName = `aid_me`;
 	const factor = createFactor(createTopic(), true);
 	factor.name = factorName;
 	factor.type = FactorType.NUMBER;
