@@ -13,10 +13,10 @@ export const FactorDescriptionCell = (props: { factor: Factor }) => {
 
 	const onDescriptionChanged = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		const {value} = event.target;
-		if (value === factor.label) {
+		if (value === factor.description) {
 			return;
 		}
-		factor.label = value;
+		factor.description = value;
 
 		forceUpdate();
 		fire(TopicEventTypes.FACTOR_DESCRIPTION_CHANGED, factor);
