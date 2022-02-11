@@ -11,7 +11,7 @@ export const FactorDescriptionCell = (props: { factor: Factor }) => {
 	const {fire} = useTopicEventBus();
 	const forceUpdate = useForceUpdate();
 
-	const onDescriptionChanged = (event: ChangeEvent<HTMLInputElement>) => {
+	const onDescriptionChanged = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		const {value} = event.target;
 		if (value === factor.label) {
 			return;

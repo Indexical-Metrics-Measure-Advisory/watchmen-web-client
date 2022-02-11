@@ -26,6 +26,9 @@ export const FactorPropLabel = styled.span`
 		font-weight : var(--font-bold);
 	}
 `;
+export const FactorDescriptionLabel = styled(FactorPropLabel)`
+	grid-column : 1;
+`;
 export const FactorCell = styled.div`
 	display     : flex;
 	position    : relative;
@@ -61,7 +64,8 @@ export const FactorIndexGroupCellContainer = styled(FactorCell).attrs({'data-wid
 export const FactorFlattenCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-flatten-cell'})``;
 export const FactorEncryptCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-encrypt-cell'})``;
 export const FactorDescriptionCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-description-cell'})`
-	grid-column : 1 / span 5;
+	grid-column : 2 / span 5;
+	height      : auto;
 `;
 export const FactorPropInput = styled(TuplePropertyInput)`
 	width : 100%;

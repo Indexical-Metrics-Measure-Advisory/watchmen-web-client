@@ -12,7 +12,7 @@ import {FactorIndexGroupCell} from './factor-index-group-cell';
 import {FactorLabelCell} from './factor-label-cell';
 import {FactorNameCell} from './factor-name-cell';
 import {FactorTypeCell} from './factor-type-cell';
-import {FactorPropLabel, FactorRowContainer} from './widgets';
+import {FactorDescriptionLabel, FactorPropLabel, FactorRowContainer} from './widgets';
 
 export const FactorRow = (props: {
 	topic: Topic;
@@ -36,7 +36,8 @@ export const FactorRow = (props: {
 		<FactorIndexGroupCell factor={factor}/>
 		<FactorEncryptCell topic={topic} factor={factor}/>
 		<FactorFlattenCell topic={topic} factor={factor}/>
-		<FactorDescriptionCell topic={topic} factor={factor}/>
+		<FactorDescriptionLabel>Description</FactorDescriptionLabel>
+		<FactorDescriptionCell factor={factor}/>
 		<FactorButtons topic={topic} factor={factor}/>
 	</FactorRowContainer>;
 };
