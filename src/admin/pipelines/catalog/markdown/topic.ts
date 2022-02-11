@@ -163,7 +163,7 @@ const generateTopicMarkdown = (options: {
 	} = options;
 
 	return `## ${sectionIndex}.${index + 1}. ${topic.name || 'Noname Topic'} #${topic.topicId}<span id="topic-${topic.topicId}"/>
-${topic.description || ''}
+${(topic.description || '').replace(/\n/g, '  ')}
 
 <a href="data:application/json;base64,${base64Encode(JSON.stringify(topic))}" target="_blank" download="${topic.name || 'Noname Topic'}-${topic.topicId}.json">Download Meta File</a>
 
@@ -186,7 +186,7 @@ ${topic.factors.sort((f1, f2) => {
 			factor.defaultValue || '',
 			canBeFlatten(topic, factor) ? (factor.flatten ? 'Y' : 'N') : null,
 			FactorEncryptMethodLabels[factor.encrypt || FactorEncryptMethod.NONE] || FactorEncryptMethodLabels[FactorEncryptMethod.NONE],
-			factor.description || ''
+			(factor.description || '').replace(/\n/g, '<br/>')
 		].filter(x => x != null).join(' | ');
 	}).join('\n')}
 
