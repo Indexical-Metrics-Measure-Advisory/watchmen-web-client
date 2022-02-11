@@ -4,6 +4,7 @@ import {Topic} from '@/services/data/tuples/topic-types';
 import React from 'react';
 import {FactorButtons} from './factor-buttons';
 import {FactorDefaultValueCell} from './factor-default-value-cell';
+import {FactorDescriptionCell} from './factor-description-cell';
 import {FactorEncryptCell} from './factor-encrypt-cell';
 import {FactorEnumCell} from './factor-enum-cell';
 import {FactorFlattenCell} from './factor-flatten-cell';
@@ -35,6 +36,7 @@ export const FactorRow = (props: {
 		<FactorIndexGroupCell factor={factor}/>
 		<FactorEncryptCell topic={topic} factor={factor}/>
 		<FactorFlattenCell topic={topic} factor={factor}/>
+		<FactorDescriptionCell topic={topic} factor={factor}/>
 		<FactorButtons topic={topic} factor={factor}/>
 	</FactorRowContainer>;
 };

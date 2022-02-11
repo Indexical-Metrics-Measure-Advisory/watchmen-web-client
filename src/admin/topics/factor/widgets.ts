@@ -1,6 +1,11 @@
 import {GRID_ROW_HEIGHT} from '@/widgets/basic/constants';
 import {TooltipButton} from '@/widgets/basic/tooltip-button';
-import {TuplePropertyCheckBox, TuplePropertyDropdown, TuplePropertyInput} from '@/widgets/tuple-workbench/tuple-editor';
+import {
+	TuplePropertyCheckBox,
+	TuplePropertyDropdown,
+	TuplePropertyInput,
+	TuplePropertyInputLines
+} from '@/widgets/tuple-workbench/tuple-editor';
 import styled from 'styled-components';
 
 export const FactorRowContainer = styled.div`
@@ -33,7 +38,7 @@ export const FactorSerialCellContainer = styled(FactorCell).attrs({'data-widget'
 	font-variant : petite-caps;
 	font-weight  : var(--fond-bold);
 	padding      : 0 2px;
-	&:hover + div + div + div + div + div[data-widget="factor-buttons"] > button {
+	&:hover ~ div[data-widget="factor-buttons"] > button {
 		opacity        : 1;
 		pointer-events : auto;
 	}
@@ -55,8 +60,13 @@ export const FactorDefaultValueCellContainer = styled(FactorCell).attrs({'data-w
 export const FactorIndexGroupCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-index-group-cell'})``;
 export const FactorFlattenCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-flatten-cell'})``;
 export const FactorEncryptCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-encrypt-cell'})``;
-
+export const FactorDescriptionCellContainer = styled(FactorCell).attrs({'data-widget': 'factor-description-cell'})`
+	grid-column : 1 / span 5;
+`;
 export const FactorPropInput = styled(TuplePropertyInput)`
+	width : 100%;
+`;
+export const FactorPropInputLines = styled(TuplePropertyInputLines)`
 	width : 100%;
 `;
 export const FactorPropDropdown = styled(TuplePropertyDropdown)`

@@ -20,7 +20,7 @@ export enum TopicEventTypes {
 	FACTOR_DEFAULT_VALUE_CHANGED = 'factor-default-value-changed',
 	FACTOR_FLATTEN_CHANGED = 'factor-flatten-changed',
 	FACTOR_ENCRYPT_CHANGED = 'factor-encrypt-changed',
-	FACTOR_DESCRIPTION_CHANGE = 'factor-description-changed',
+	FACTOR_DESCRIPTION_CHANGED = 'factor-description-changed',
 	FACTOR_VALUE_RULE_CHANGED = 'factor-value-rule-changed',
 
 	FACTOR_SEARCH_TEXT_CHANGED = 'factor-search-text-changed'
@@ -91,9 +91,9 @@ export interface TopicEventBus {
 	on(type: TopicEventTypes.FACTOR_ENCRYPT_CHANGED, listener: (factor: Factor) => void): this;
 	off(type: TopicEventTypes.FACTOR_ENCRYPT_CHANGED, listener: (factor: Factor) => void): this;
 
-	fire(type: TopicEventTypes.FACTOR_DESCRIPTION_CHANGE, factor: Factor): this;
-	on(type: TopicEventTypes.FACTOR_DESCRIPTION_CHANGE, listener: (factor: Factor) => void): this;
-	off(type: TopicEventTypes.FACTOR_DESCRIPTION_CHANGE, listener: (factor: Factor) => void): this;
+	fire(type: TopicEventTypes.FACTOR_DESCRIPTION_CHANGED, factor: Factor): this;
+	on(type: TopicEventTypes.FACTOR_DESCRIPTION_CHANGED, listener: (factor: Factor) => void): this;
+	off(type: TopicEventTypes.FACTOR_DESCRIPTION_CHANGED, listener: (factor: Factor) => void): this;
 
 	fire(type: TopicEventTypes.FACTOR_VALUE_RULE_CHANGED, factor: Factor): this;
 	on(type: TopicEventTypes.FACTOR_VALUE_RULE_CHANGED, listener: (factor: Factor) => void): this;
