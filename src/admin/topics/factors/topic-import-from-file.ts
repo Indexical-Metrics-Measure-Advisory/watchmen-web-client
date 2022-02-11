@@ -245,6 +245,15 @@ const toFactorsFromInstanceData = (topic: Topic, data: ShouldBeFactorsInstance, 
 						factor.description = 'Auto generated id for sub object referring.';
 						map[factorName] = factor;
 					}
+					{
+						// create aid_root factor to reference to root
+						const factorName = `${prefix}.aid_root`;
+						const factor = map[factorName] ?? createFactor(mockTopic, true);
+						factor.name = factorName;
+						factor.type = FactorType.NUMBER;
+						factor.description = 'Auto generated id for reference to root.';
+						map[factorName] = factor;
+					}
 					toFactorsFromInstanceData(topic, value, factorName).forEach(factor => {
 						map[factor.name] = factor;
 					});
@@ -268,6 +277,15 @@ const toFactorsFromInstanceData = (topic: Topic, data: ShouldBeFactorsInstance, 
 					factor.description = 'Auto generated id for sub object.';
 					map[factorName] = factor;
 				}
+				{
+					// create aid_root factor to reference to root
+					const factorName = `${prefix}.aid_root`;
+					const factor = map[factorName] ?? createFactor(mockTopic, true);
+					factor.name = factorName;
+					factor.type = FactorType.NUMBER;
+					factor.description = 'Auto generated id for reference to root.';
+					map[factorName] = factor;
+				}
 				toFactorsFromInstanceData(topic, [value], factorName).forEach(factor => {
 					map[factor.name] = factor;
 				});
@@ -287,12 +305,26 @@ const toFactorsFromInstanceData = (topic: Topic, data: ShouldBeFactorsInstance, 
 	});
 };
 
+const createAidRootFactor = (): Factor => {
+	const factorName = `aid_root`;
+	const factor = createFactor(createTopic(), true);
+	factor.name = factorName;
+	factor.type = FactorType.NUMBER;
+	factor.description = 'Auto generated id for root.';
+	return factor;
+};
+
 export const parseFromInstanceJson = async (topic: Topic, content: string): Promise<Array<Factor>> => {
 	return new Promise((resolve, reject) => {
 		try {
 			const data = JSON.parse(content);
 			try {
-				resolve(toFactorsFromInstanceData(topic, data));
+				const factors = toFactorsFromInstanceData(topic, data);
+				if (topic.type === TopicType.RAW) {
+					resolve([...factors, createAidRootFactor()]);
+				} else {
+					resolve(factors);
+				}
 			} catch (e: any) {
 				reject(e);
 			}
