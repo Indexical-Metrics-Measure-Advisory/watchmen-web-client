@@ -20,7 +20,7 @@ const isIndexGroupValid = (indexGroup?: string): boolean => {
 };
 
 type ShouldBeFactorsStructure = any;
-const toFactorsFromStructureData = async (topic: Topic, data: ShouldBeFactorsStructure): Promise<Array<Factor>> => {
+const toFactorsFromStructureData = (topic: Topic, data: ShouldBeFactorsStructure): Array<Factor> => {
 	if (data == null || !Array.isArray(data) || data.length === 0) {
 		console.error('Cannot parse data to factors.', data);
 		throw new Error('Parsed data is not an array or no element in factors array.');
@@ -86,7 +86,7 @@ export const parseFromStructureCsv = async (topic: Topic, content: string): Prom
 			}
 
 			try {
-				resolve(toFactorsFromStructureData(topic, data));
+				resolve(retrieveOriginalFactorIds(topic.factors, toFactorsFromStructureData(topic, data)));
 			} catch (e: any) {
 				reject(e);
 			}
@@ -99,7 +99,7 @@ export const parseFromStructureJson = async (topic: Topic, content: string): Pro
 		try {
 			const data = JSON.parse(content);
 			try {
-				resolve(toFactorsFromStructureData(topic, data));
+				resolve(retrieveOriginalFactorIds(topic.factors, toFactorsFromStructureData(topic, data)));
 			} catch (e: any) {
 				reject(e);
 			}
@@ -321,9 +321,9 @@ export const parseFromInstanceJson = async (topic: Topic, content: string): Prom
 			try {
 				const factors = toFactorsFromInstanceData(topic, data);
 				if (topic.type === TopicType.RAW) {
-					resolve([...factors, createAidRootFactor()]);
+					resolve(retrieveOriginalFactorIds(topic.factors, [...factors, createAidRootFactor()]));
 				} else {
-					resolve(factors);
+					resolve(retrieveOriginalFactorIds(topic.factors, factors));
 				}
 			} catch (e: any) {
 				reject(e);
@@ -335,4 +335,18 @@ export const parseFromInstanceJson = async (topic: Topic, content: string): Prom
 			reject(e);
 		}
 	});
+};
+
+const retrieveOriginalFactorIds = (originalFactors: Array<Factor>, createdFactors: Array<Factor>): Array<Factor> => {
+	const originalMap: { [key in string]: Factor } = originalFactors.reduce((map, factor) => {
+		map[(factor.name || '').trim()] = factor;
+		return map;
+	}, {});
+	createdFactors.forEach(factor => {
+		const originalFactor = originalMap[(factor.name || '').trim()];
+		if (originalFactor != null) {
+			factor.factorId = originalFactor;
+		}
+	});
+	return createdFactors;
 };
