@@ -178,7 +178,7 @@ const createXML = (topic: Topic) => {
 	<property dbms="oracle" name="json-column.type" value="CLOB"/>
 	<property dbms="oracle" name="aggregate-assist-column.type" value="VARCHAR2(1024)"/>
 	<property dbms="oracle" name="version-column.type" value="NUMBER(8)"/>
-	<property dbms="oracle" name="tenant-column.type" value="VARCHAR2(32)"/>
+	<property dbms="oracle" name="tenant-column.type" value="VARCHAR2(50)"/>
 	<property dbms="oracle" name="audit-column.type" value="DATE"/>
 ${Object.keys(OracleFactorTypeMap).map(factorType => {
 		return `\t<property dbms="oracle" name="${factorType}.type" value="${OracleFactorTypeMap[factorType as FactorType]}"/>`;
@@ -187,7 +187,7 @@ ${Object.keys(OracleFactorTypeMap).map(factorType => {
 	<property dbms="mysql" name="json-column.type" value="JSON"/>
 	<property dbms="mysql" name="aggregate-assist-column.type" value="JSON"/>
 	<property dbms="mysql" name="version-column.type" value="INT"/>
-	<property dbms="mysql" name="tenant-column.type" value="VARCHAR(32)"/>
+	<property dbms="mysql" name="tenant-column.type" value="VARCHAR(50)"/>
 	<property dbms="mysql" name="audit-column.type" value="DATETIME"/>
 ${Object.keys(MySQLFactorTypeMap).map(factorType => {
 		return `\t<property dbms="mysql" name="${factorType}.type" value="${MySQLFactorTypeMap[factorType as FactorType]}"/>`;

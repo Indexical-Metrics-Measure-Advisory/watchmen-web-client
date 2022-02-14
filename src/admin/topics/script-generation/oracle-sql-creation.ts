@@ -60,7 +60,7 @@ CREATE TABLE ${tableName}(
 ${buildFactors(topic)}
 ${buildAggregateAssist(topic)}
 ${buildVersion(topic)}
-	${getTenantIdColumnName()} VARCHAR2(32),
+	${getTenantIdColumnName()} VARCHAR2(50),
 	${getInsertTimeColumnName()} DATE,
 	${getUpdateTimeColumnName()} DATE,
 

@@ -60,7 +60,7 @@ const buildVersionAssist = (topic: Topic) => {
 	return buildColumn(topic, getVersionColumnName(), 'INT');
 };
 const buildTenantIdColumn = (topic: Topic) => {
-	return buildColumn(topic, getTenantIdColumnName(), 'VARCHAR(32)');
+	return buildColumn(topic, getTenantIdColumnName(), 'VARCHAR(50)');
 };
 const buildAuditTimeColumn = (topic: Topic, columnName: string) => {
 	return buildColumn(topic, columnName, 'DATETIME');
