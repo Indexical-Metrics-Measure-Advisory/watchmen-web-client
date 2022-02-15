@@ -3,10 +3,12 @@ import {
 	CompatibleEncryptMethods,
 	Factor,
 	FactorEncryptMethod,
+	FactorId,
 	FactorIndexGroup,
 	FactorType
 } from '@/services/data/tuples/factor-types';
 import {Topic, TopicType} from '@/services/data/tuples/topic-types';
+import {generateUuid, removeFakeIdPrefix} from '@/services/data/tuples/utils';
 import {parse as parseCSV} from 'csv-parse/dist/esm';
 import dayjs from 'dayjs';
 import {createFactor, createTopic, isFactorCanBeFlatten} from '../utils';
@@ -338,14 +340,26 @@ export const parseFromInstanceJson = async (topic: Topic, content: string): Prom
 };
 
 const retrieveOriginalFactorIds = (originalFactors: Array<Factor>, createdFactors: Array<Factor>): Array<Factor> => {
-	const originalMap: { [key in string]: Factor } = originalFactors.reduce((map, factor) => {
+	const originalMapByName: { [key in string]: Factor } = originalFactors.reduce((map, factor) => {
 		map[(factor.name || '').trim()] = factor;
 		return map;
-	}, {});
-	createdFactors.forEach(factor => {
-		const originalFactor = originalMap[(factor.name || '').trim()];
+	}, {} as { [key in string]: Factor });
+	const originalMapById: { [key in FactorId]: Factor } = originalFactors.reduce((map, factor) => {
+		map[`${factor.factorId}`] = factor;
+		return map;
+	}, {} as { [key in FactorId]: Factor });
+	createdFactors.forEach(createdFactor => {
+		const originalFactor = originalMapByName[(createdFactor.name || '').trim()];
 		if (originalFactor != null) {
-			factor.factorId = originalFactor;
+			// name is duplicated
+			createdFactor.factorId = originalFactor.factorId;
+		} else if (originalMapById[`${createdFactor.factorId}`] != null) {
+			// id is duplicated
+			let newFactorId = removeFakeIdPrefix(generateUuid());
+			while (originalMapById[`${newFactorId}`] != null) {
+				newFactorId = removeFakeIdPrefix(generateUuid());
+			}
+			createdFactor.factorId = newFactorId;
 		}
 	});
 	return createdFactors;
