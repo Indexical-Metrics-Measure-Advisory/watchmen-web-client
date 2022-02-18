@@ -11,7 +11,7 @@ export const BlockRelations = (props: {
 	topics: Array<Topic>;
 	graphics: AssembledPipelinesGraphics;
 }) => {
-	const {pipelines, topics, graphics} = props;
+	const {pipelines, graphics} = props;
 
 	const topicsMap = asTopicGraphicsMap(graphics);
 

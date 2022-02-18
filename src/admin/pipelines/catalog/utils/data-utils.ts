@@ -103,6 +103,8 @@ export const computeReadFlowTopicIds = (pipelines: Array<Pipeline>): Array<{ sou
 					} else if (isReadTopicAction(action) && !isExistsAction(action)) {
 						variables[action.variableName] = action.topicId;
 						return null;
+					} else {
+						return null;
 					}
 				}).filter(x => !!x).flat() as Array<{ source: TopicId, target: TopicId }>;
 			}).flat();
