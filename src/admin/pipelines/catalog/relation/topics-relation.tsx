@@ -7,8 +7,10 @@ import {useCatalogEventBus} from '../catalog-event-bus';
 import {CatalogEventTypes} from '../catalog-event-bus-types';
 import {AssembledPipelinesGraphics, GraphicsRole} from '../types';
 
-export const TopicsRelation = (props: { graphics: AssembledPipelinesGraphics, source: Topic, target: Topic }) => {
-	const {graphics, source, target} = props;
+export const TopicsRelation = (props: {
+	graphics: AssembledPipelinesGraphics, source: Topic, target: Topic, read?: boolean
+}) => {
+	const {graphics, source, target, read = false} = props;
 
 	const {on, off} = useCatalogEventBus();
 	const containerRef = useRef<SVGGElement>(null);
@@ -36,6 +38,6 @@ export const TopicsRelation = (props: { graphics: AssembledPipelinesGraphics, so
 	const curvePoints = computeRelationPoints({source: sourceGraphics, target: targetGraphics});
 
 	return <g data-role={GraphicsRole.TOPICS_RELATION} ref={containerRef}>
-		<Curve lattice={curvePoints} data-role={GraphicsRole.TOPICS_RELATION_LINK}/>
+		<Curve lattice={curvePoints} data-role={GraphicsRole.TOPICS_RELATION_LINK} fadeOut={read ? 0.5 : 1}/>
 	</g>;
 };

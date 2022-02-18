@@ -65,7 +65,7 @@ export const Thumbnail = (props: {
 	return <BodyThumbnail onClick={onThumbnailClicked} minimize={min}
 	                      ref={thumbnailRef}>
 		{min ? null : <ThumbnailBodySvg {...svgSize} ratio={ratio}>
-			<BlockRelations graphics={graphics} pipelines={pipelines}/>
+			<BlockRelations graphics={graphics} pipelines={pipelines} topics={topics}/>
 			{topics.map(topic => {
 				const topicGraphics = topicGraphicsMap.get(topic.topicId);
 				if (!topicGraphics) {

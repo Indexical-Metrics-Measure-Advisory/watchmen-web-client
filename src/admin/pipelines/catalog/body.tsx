@@ -149,7 +149,7 @@ const MarkdownSvgPalette = (props: { pipelines: Array<Pipeline> }) => {
 	return <MarkdownBodySvgContainer ref={ref}>
 		<BodySvg {...state.svgSize} viewBox={`0 0 ${state.svgSize.width || 0} ${state.svgSize.height || 0}`}
 		         ref={svgRef}>
-			<BlockRelations graphics={state.assembled} pipelines={pipelines}/>
+			<BlockRelations graphics={state.assembled} pipelines={pipelines} topics={state.topics}/>
 			{state.topics.map(topic => {
 				const topicGraphics = topicGraphicsMap.get(topic.topicId);
 				if (!topicGraphics) {
@@ -269,7 +269,7 @@ export const CatalogBody = (props: {
 	return <BodyContainer>
 		<BodySvgContainer ref={svgContainerRef} onScroll={onBodyScroll}>
 			<BodySvg onMouseDown={onSvgMouseDown} {...svgSize} ref={svgRef}>
-				<BlockRelations graphics={graphics} pipelines={pipelines}/>
+				<BlockRelations graphics={graphics} pipelines={pipelines} topics={topics}/>
 				{topics.map(topic => {
 					const topicGraphics = topicGraphicsMap.get(topic.topicId);
 					if (!topicGraphics) {

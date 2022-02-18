@@ -2,7 +2,7 @@ import {Pipeline} from '@/services/data/tuples/pipeline-types';
 import {v4} from 'uuid';
 import {asTopicGraphicsMap} from '../graphics-utils';
 import {AssembledPipelinesGraphics} from '../types';
-import {computeRelatedTopicIds} from '../utils/data-utils';
+import {computeWriteFlowTopicIds} from '../utils/data-utils';
 import {TopicsRelationAnimation} from './topics-relation-animation';
 
 export const BlockRelationsAnimation = (props: {
@@ -15,7 +15,7 @@ export const BlockRelationsAnimation = (props: {
 
 	return <>
 		{pipelines.map(pipeline => {
-			return computeRelatedTopicIds(pipeline).map(({source: sourceTopicId, target: targetTopicId}) => {
+			return computeWriteFlowTopicIds(pipeline).map(({source: sourceTopicId, target: targetTopicId}) => {
 				const {topic: source} = topicsMap.get(sourceTopicId) || {};
 				const {topic: target} = topicsMap.get(targetTopicId) || {};
 				if (!source || !target) {

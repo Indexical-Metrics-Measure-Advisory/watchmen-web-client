@@ -1,9 +1,15 @@
 import styled, {keyframes} from 'styled-components';
 import {RelationCurvePoints} from './types';
 
-export const Curve = styled.path.attrs<{ lattice: RelationCurvePoints }>(({lattice: {drawn}}) => {
-	return {d: drawn};
-})<{ lattice: RelationCurvePoints }>`
+export const Curve = styled.path.attrs<{ lattice: RelationCurvePoints, fadeOut?: number }>(
+	({lattice: {drawn}, fadeOut = 1}) => {
+		return {
+			d: drawn,
+			style: {
+				opacity: fadeOut
+			}
+		};
+	})<{ lattice: RelationCurvePoints, fadeOut?: number }>`
 	stroke       : var(--waive-color);
 	stroke-width : 2px;
 	fill         : transparent;
