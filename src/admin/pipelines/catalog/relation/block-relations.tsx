@@ -28,18 +28,16 @@ export const BlockRelations = (props: {
 				                       key={v4()}/>;
 			});
 		}).flat().filter(x => !!x)}
-		{topics.map(topic => {
-			return computeReadFlowTopicIds(pipelines, topic.topicId).map(({source: sourceTopicId, target: targetTopicId}) => {
-				const {topic: source} = topicsMap.get(sourceTopicId) || {};
-				const {topic: target} = topicsMap.get(targetTopicId) || {};
-				if (!source || !target) {
-					return null;
-				}
-				return <TopicsRelation graphics={graphics}
-				                       source={source} target={target}
-				                       read={true}
-				                       key={v4()}/>;
-			})
+		{computeReadFlowTopicIds(pipelines).map(({source: sourceTopicId, target: targetTopicId}) => {
+			const {topic: source} = topicsMap.get(sourceTopicId) || {};
+			const {topic: target} = topicsMap.get(targetTopicId) || {};
+			if (!source || !target) {
+				return null;
+			}
+			return <TopicsRelation graphics={graphics}
+			                       source={source} target={target}
+			                       read={true}
+			                       key={v4()}/>;
 		})}
 	</>;
 };

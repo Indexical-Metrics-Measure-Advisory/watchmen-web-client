@@ -38,6 +38,6 @@ export const TopicsRelation = (props: {
 	const curvePoints = computeRelationPoints({source: sourceGraphics, target: targetGraphics});
 
 	return <g data-role={GraphicsRole.TOPICS_RELATION} ref={containerRef}>
-		<Curve lattice={curvePoints} data-role={GraphicsRole.TOPICS_RELATION_LINK} fadeOut={read ? 0.5 : 1}/>
+		<Curve lattice={curvePoints} data-role={GraphicsRole.TOPICS_RELATION_LINK} dash={read}/>
 	</g>;
 };
