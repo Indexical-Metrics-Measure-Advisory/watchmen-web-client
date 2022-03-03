@@ -32,7 +32,7 @@ const buildFactors = (topic: Topic) => {
 	if (isRawTopic(topic)) {
 		return [
 			...topic.factors.filter(factor => {
-				return factor.name.indexOf('.') !== -1 && factor.flatten === true;
+				return factor.flatten === true;
 			}).map(factor => {
 				return buildColumn(topic, asFactorName(factor), MySQLFactorTypeMap[factor.type]);
 			}),
