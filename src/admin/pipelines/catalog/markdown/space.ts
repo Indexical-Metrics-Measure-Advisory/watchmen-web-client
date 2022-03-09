@@ -195,7 +195,7 @@ const generateSpaceMarkdown = (options: {
 	const {space, connectedSpaces, index, topicsMap, sectionIndex} = options;
 
 	return `## ${sectionIndex}.${index + 1}. ${space.name || 'Noname Space'} #${space.spaceId}<span id="space-${space.spaceId}"/>
-${(space.description || '').replace(/\n/g, '  ')}
+${(space.description || '').replace(/\n/g, '  ').replace(/</g, '&lt;')}
 
 <a href="data:application/json;base64,${base64Encode(JSON.stringify(space))}" target="_blank" download="${space.name || 'Noname Space'}-${space.spaceId}.json">Download Meta File</a>
 
