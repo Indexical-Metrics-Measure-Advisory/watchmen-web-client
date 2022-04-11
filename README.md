@@ -1,10 +1,10 @@
+# 🏂🏼 **Web client moved to [watchmen/packages/watchmen-web-client](https://github.com/Indexical-Metrics-Measure-Advisory/watchmen/tree/main/packages/watchmen-web-client) from v16.**
+
 # watchmen-web-client
 
 watchman-web-client is the front-end server for the watchmen data platform. Working with watchmen server side.  
 See the <a href="https://github.com/Indexical-Metrics-Measure-Advisory/watchmen-matryoshka-doll/">watchmen-matryoshka-doll</a> for
 deployment instructions and end user documentation.
-
-> Web client moved to [watchmen/packages/watchmen-web-client](https://github.com/Indexical-Metrics-Measure-Advisory/watchmen/tree/main/packages/watchmen-web-client) from v16.
 
 # An event based frontend
 
